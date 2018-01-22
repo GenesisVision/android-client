@@ -1,0 +1,89 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "vision.genesis.clientapp"
+        minSdkVersion 16
+        targetSdkVersion 27
+        multiDexEnabled true
+
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        renderscriptTargetApi 27
+        renderscriptSupportModeEnabled true
+
+        buildConfigField "boolean", "PROD", "false"
+    }
+    buildTypes {
+        debug {
+            resValue "string", "app_name", "Genesis Vision DEV"
+
+            versionNameSuffix ' Dev'
+            applicationIdSuffix '.dev'
+        }
+        release {
+            resValue "string", "app_name", "Genesis Vision"
+
+            buildConfigField "boolean", "PROD", "true"
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+    compile 'com.android.support:design:27.0.2'
+    compile 'com.android.support:recyclerview-v7:27.0.2'
+    compile 'com.android.support:support-v4:27.0.2'
+    compile 'com.android.support:multidex:1.0.2'
+
+    compile 'com.aurelhubert:ahbottomnavigation:2.1.0'
+
+    compile 'ru.terrakok.cicerone:cicerone:2.0.0'
+
+    compile 'com.arello-mobile:moxy:1.5.3'
+    compile 'com.arello-mobile:moxy-android:1.5.3'
+    compile 'com.arello-mobile:moxy-app-compat:1.5.3'
+
+    compile 'com.jakewharton:butterknife:8.4.0'
+    compile 'com.jakewharton.timber:timber:4.1.0'
+    compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.3.0'
+
+    compile 'com.google.dagger:dagger:2.11'
+
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
+
+    compile 'org.greenrobot:eventbus:3.0.0'
+
+    compile 'com.facebook.fresco:fresco:1.0.0'
+
+    compile 'com.wonderkiln:blurkit:1.0.0'
+
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.0.5'
+    annotationProcessor 'com.arello-mobile:moxy-compiler:1.5.3'
+
+    provided 'com.arello-mobile:moxy-compiler:1.5.3'
+}

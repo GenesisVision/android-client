@@ -1,0 +1,15 @@
+package vision.genesis.clientapp.feature.main;
+
+import com.arellomobile.mvp.MvpView;
+
+/**
+ * GenesisVision
+ * Created by Vitaly on 1/19/18.
+ */
+
+public interface MainView extends MvpView
+{
+	void initBottomNavigation();
+
+	void setNavigationItemSelected(int position);
+}

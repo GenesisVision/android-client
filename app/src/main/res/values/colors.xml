@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#03bdaf</color>
+    <color name="colorPrimaryDark">#2a748c</color>
+    <color name="colorAccent">#aab8c0</color>
+
+    <color name="colorFontDark">#45495f</color>
+    <color name="colorFontMedium">#aab8c0</color>
+    <color name="colorFontLight">#cfd5da</color>
+
+    <color name="colorGrayBackground">#fafafa</color>
+    <color name="colorGrayDivider">#d8e0e5</color>
+    <color name="colorAzure">#22cec0</color>
+    <color name="colorAzureLight">#e5eeed</color>
+
+    <color name="whiteTransparent50">#ccfafafa</color>
+    <color name="grey700">#616161</color>
+
+    <color name="white">#fff</color>
+    <color name="black">#000</color>
+    <color name="bottomNavigationBackground">#e0e0e0</color>
+</resources>

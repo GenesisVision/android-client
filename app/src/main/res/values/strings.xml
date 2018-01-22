@@ -1,0 +1,10 @@
+<resources>
+    <string name="dashboard">Dashboard</string>
+    <string name="invest">Invest</string>
+    <string name="wallet">Wallet</string>
+    <string name="profile">Profile</string>
+    <string name="invest_to_program">+ Invest to program</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+</resources>
