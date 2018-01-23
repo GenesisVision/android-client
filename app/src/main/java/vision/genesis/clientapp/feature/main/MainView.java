@@ -12,4 +12,10 @@ public interface MainView extends MvpView
 	void initBottomNavigation();
 
 	void setNavigationItemSelected(int position);
+
+	void showSignInButton();
+
+	void hideSignInButton();
+
+	void showAuthActivity();
 }

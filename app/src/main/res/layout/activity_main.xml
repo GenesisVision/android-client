@@ -7,14 +7,40 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_navigation"/>
+        android:layout_above="@+id/group_buttons"/>
 
-    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
-        android:id="@+id/bottom_navigation"
+    <FrameLayout
+        android:id="@+id/group_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/bottomNavigationBackground"
-        android:visibility="gone"/>
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:id="@+id/button_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/main_sign_in_button_height"
+            android:background="@color/colorPrimary"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/sign_in"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="18sp"/>
+
+        </RelativeLayout>
+
+        <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bottomNavigationBackground"
+            android:visibility="gone"/>
+
+    </FrameLayout>
+
 
 </RelativeLayout>

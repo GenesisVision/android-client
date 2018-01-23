@@ -7,4 +7,9 @@
     <string name="login">Login</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="registration">Registration</string>
+    <string name="create_new_account">Create new account</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="sign_up">Sign up</string>
 </resources>

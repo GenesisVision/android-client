@@ -62,18 +62,6 @@ public class MainPresenter extends MvpPresenter<MainView>
 		EventBus.getDefault().unregister(this);
 	}
 
-	private void subscribeToUser() {
-		userSubscription = authManager.userSubject
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.newThread())
-				.subscribe(this::userUpdated, throwable -> {
-				});
-	}
-
-	private void userUpdated(User user) {
-
-	}
-
 	void onBottomMenuSelectionChanged(int position) {
 		switch (position) {
 			case 0:
@@ -90,6 +78,39 @@ public class MainPresenter extends MvpPresenter<MainView>
 				break;
 		}
 	}
+
+	void onSignInButtonClicked() {
+		getViewState().showAuthActivity();
+	}
+
+	private void subscribeToUser() {
+		userSubscription = authManager.userSubject
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.newThread())
+				.subscribe(this::userUpdated, this::handleUserError);
+	}
+
+	private void userUpdated(User user) {
+		if (user == null)
+			userLoggedOff();
+		else
+			userLoggedOn();
+	}
+
+	private void userLoggedOn() {
+		getViewState().initBottomNavigation();
+		getViewState().hideSignInButton();
+	}
+
+	private void userLoggedOff() {
+		getViewState().setNavigationItemSelected(1);
+		getViewState().showSignInButton();
+	}
+
+	private void handleUserError(Throwable throwable) {
+		userLoggedOff();
+	}
+
 
 	@Subscribe
 	public void onEventMainThread(OnInvestButtonClickedEvent event) {

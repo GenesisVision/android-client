@@ -17,6 +17,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.NavigatorHolder;
 import ru.terrakok.cicerone.android.SupportAppNavigator;
@@ -25,6 +26,7 @@ import ru.terrakok.cicerone.commands.Replace;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.Screens;
+import vision.genesis.clientapp.feature.auth.AuthActivity;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardFragment;
 import vision.genesis.clientapp.feature.main.invest.InvestFragment;
 import vision.genesis.clientapp.feature.main.profile.ProfileFragment;
@@ -43,6 +45,9 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 		mainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startActivity(mainActivityIntent);
 	}
+
+	@BindView(R.id.button_sign_in)
+	public View signInButton;
 
 	@BindView(R.id.bottom_navigation)
 	public AHBottomNavigation bottomNavigationView;
@@ -85,6 +90,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 			//setup animation
 		}
 	};
+
+	@OnClick(R.id.button_sign_in)
+	public void onSignInButtonClicked() {
+		mainPresenter.onSignInButtonClicked();
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -140,5 +150,20 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	@Override
 	public void setNavigationItemSelected(int position) {
 		bottomNavigationView.setCurrentItem(position);
+	}
+
+	@Override
+	public void showSignInButton() {
+		signInButton.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void hideSignInButton() {
+		signInButton.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void showAuthActivity() {
+		AuthActivity.startFrom(this);
 	}
 }

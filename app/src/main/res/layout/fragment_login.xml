@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -9,23 +10,92 @@
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="@dimen/login_logo_height"
+            android:layout_height="@dimen/login_logo_width"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo"/>
+
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:ems="10"
             android:hint="@string/email"
             android:inputType="textEmailAddress"/>
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword"/>
 
+        <LinearLayout
+            android:id="@+id/group_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_buttons_group_height"
+            android:orientation="vertical"
+            tools:visibility="gone">
+
+            <RelativeLayout
+                android:id="@+id/button_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_button_height"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/button_primary">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/sign_in"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/create_account"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_button_height"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="@string/create_new_account"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/group_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_buttons_group_height"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
     </LinearLayout>
+
+    <vision.genesis.clientapp.ui.ToolbarView
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

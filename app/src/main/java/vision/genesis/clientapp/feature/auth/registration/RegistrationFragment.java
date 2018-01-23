@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.login;
+package vision.genesis.clientapp.feature.auth.registration;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,18 +19,18 @@ import vision.genesis.clientapp.ui.ToolbarView;
  * Created by Vitaly on 1/19/18.
  */
 
-public class LoginFragment extends BaseFragment implements LoginView
+public class RegistrationFragment extends BaseFragment implements RegistrationView
 {
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
 
 	@InjectPresenter
-	LoginPresenter loginPresenter;
+	RegistrationPresenter registrationPresenter;
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_login, container, false);
+		return inflater.inflate(R.layout.fragment_registration, container, false);
 	}
 
 	@Override
@@ -43,6 +43,7 @@ public class LoginFragment extends BaseFragment implements LoginView
 	}
 
 	private void initToolbar() {
-		toolbar.setTitle(getString(R.string.login));
+		toolbar.setTitle(getString(R.string.registration));
+		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> registrationPresenter.onBackClicked());
 	}
 }

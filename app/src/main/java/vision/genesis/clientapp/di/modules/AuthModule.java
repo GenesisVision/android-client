@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.swagger.client.api.AccountApi;
 import vision.genesis.clientapp.managers.AuthManager;
 
 /**
@@ -16,7 +17,7 @@ public class AuthModule
 {
 	@Provides
 	@Singleton
-	public AuthManager provideAuthManager() {
-		return new AuthManager();
+	public AuthManager provideAuthManager(AccountApi api) {
+		return new AuthManager(api);
 	}
 }

@@ -14,4 +14,8 @@ public class Screens
 	public static final String WALLET = "wallet";
 
 	public static final String PROFILE = "profile";
+
+	public static final String LOGIN = "login";
+
+	public static final String REGISTRATION = "registration";
 }

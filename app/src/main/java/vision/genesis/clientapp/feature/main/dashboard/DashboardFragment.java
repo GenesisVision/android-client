@@ -53,6 +53,5 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.dashboard));
-		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> EventBus.getDefault().post(new OnInvestButtonClickedEvent()));
 	}
 }
