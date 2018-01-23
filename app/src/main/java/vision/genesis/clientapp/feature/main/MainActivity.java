@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -147,6 +150,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 		bottomNavigationView.setVisibility(View.VISIBLE);
 	}
 
+	private void showSignInButtonWithAnimation() {
+		Animation signInAnimation = AnimationUtils.loadAnimation(this, R.anim.sign_in_button_slide);
+		signInAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+		signInButton.startAnimation(signInAnimation);
+		signInButton.setVisibility(View.VISIBLE);
+	}
+
 	@Override
 	public void setNavigationItemSelected(int position) {
 		bottomNavigationView.setCurrentItem(position);
@@ -154,7 +164,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 
 	@Override
 	public void showSignInButton() {
-		signInButton.setVisibility(View.VISIBLE);
+		showSignInButtonWithAnimation();
 	}
 
 	@Override
