@@ -10,6 +10,7 @@ import io.swagger.client.api.AccountApi;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
+import vision.genesis.clientapp.BuildConfig;
 
 /**
  * GenesisVision
@@ -24,7 +25,7 @@ public class ApiModule
 	Retrofit.Builder provideAdapterBuilder() {
 		return new Retrofit
 				.Builder()
-				.baseUrl("http://tost.genesis.vision")
+				.baseUrl(BuildConfig.API_ADDRESS)
 				.addCallAdapterFactory(RxJavaCallAdapterFactory.create())
 				.addConverterFactory(ScalarsConverterFactory.create())
 				.addConverterFactory(vision.genesis.clientapp.net.GsonCustomConverterFactory.create(new JSON().getGson()));

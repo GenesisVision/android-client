@@ -16,6 +16,13 @@ android {
         renderscriptSupportModeEnabled true
 
         buildConfigField "boolean", "PROD", "false"
+
+        File propertiesFile = new File(project.property("genesisvision.properties") as String)
+        Properties appProperties = new Properties()
+        if (propertiesFile.exists()) {
+            appProperties.load(new FileInputStream(propertiesFile))
+            buildConfigField "String", "API_ADDRESS", appProperties.getProperty("apiAddress")
+        }
     }
     buildTypes {
         debug {
