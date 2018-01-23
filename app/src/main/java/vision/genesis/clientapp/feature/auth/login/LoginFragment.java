@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -12,6 +13,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnEditorAction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.ui.ToolbarView;
@@ -40,6 +42,14 @@ public class LoginFragment extends BaseFragment implements LoginView
 
 	@InjectPresenter
 	LoginPresenter loginPresenter;
+
+	@OnEditorAction(R.id.password)
+	protected boolean onConfirmPasswordEditorAction(int actionId) {
+		if (actionId == EditorInfo.IME_ACTION_DONE) {
+			loginPresenter.onSignInClicked(email.getText().toString(), password.getText().toString());
+		}
+		return false;
+	}
 
 	@OnClick(R.id.create_account)
 	public void onCreateAccountClicked() {

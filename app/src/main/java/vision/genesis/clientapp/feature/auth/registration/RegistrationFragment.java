@@ -5,11 +5,13 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.ui.ToolbarView;
@@ -24,8 +26,28 @@ public class RegistrationFragment extends BaseFragment implements RegistrationVi
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
 
+	@BindView(R.id.email)
+	public EditText email;
+
+	@BindView(R.id.password)
+	public EditText password;
+
+	@BindView(R.id.confirm_password)
+	public EditText confirmPassword;
+
+	@BindView(R.id.button_sign_up)
+	public View signUpButton;
+
+	@BindView(R.id.progress_bar)
+	public View progressBar;
+
 	@InjectPresenter
 	RegistrationPresenter registrationPresenter;
+
+	@OnClick(R.id.button_sign_up)
+	public void onSignUpClicked() {
+		registrationPresenter.onSignUpClicked(email.getText().toString(), password.getText().toString(), confirmPassword.getText().toString());
+	}
 
 	@Nullable
 	@Override
@@ -45,5 +67,44 @@ public class RegistrationFragment extends BaseFragment implements RegistrationVi
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.registration));
 		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> registrationPresenter.onBackClicked());
+	}
+
+	@Override
+	public void setEmailError(String message) {
+		email.setError(message);
+	}
+
+	@Override
+	public void setPasswordError(String message) {
+		password.setError(message);
+	}
+
+	@Override
+	public void setConfirmPasswordError(String message) {
+		confirmPassword.setError(message);
+	}
+
+	@Override
+	public void clearErrors() {
+		email.setError(null);
+		password.setError(null);
+		confirmPassword.setError(null);
+	}
+
+	@Override
+	public void showProgress() {
+		signUpButton.setVisibility(View.GONE);
+		progressBar.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void hideProgress() {
+		progressBar.setVisibility(View.GONE);
+		signUpButton.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void showSnackbarMessage(String message) {
+		showSnackbar(message, toolbar);
 	}
 }

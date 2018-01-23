@@ -35,6 +35,7 @@
             android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="@string/password"
+            android:imeOptions="actionDone"
             android:inputType="textPassword"/>
 
         <LinearLayout
@@ -89,6 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"/>
+
         </FrameLayout>
 
     </LinearLayout>

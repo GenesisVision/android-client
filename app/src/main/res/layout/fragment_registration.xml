@@ -45,23 +45,39 @@
             android:hint="@string/confirm_password"
             android:inputType="textPassword"/>
 
-        <RelativeLayout
-            android:id="@+id/button_sign_in"
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/login_button_height"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/button_primary">
+            android:layout_marginTop="32dp">
 
-            <TextView
+            <RelativeLayout
+                android:id="@+id/button_sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_primary">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/sign_up"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"/>
+
+            </RelativeLayout>
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="?android:attr/progressBarStyleLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/sign_up"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="16sp"/>
+                android:layout_gravity="center"
+                android:visibility="gone"/>
 
-        </RelativeLayout>
+        </FrameLayout>
+
 
     </LinearLayout>
 

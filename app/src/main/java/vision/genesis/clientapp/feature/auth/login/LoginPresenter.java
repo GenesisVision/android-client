@@ -66,7 +66,7 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 	void onSignInClicked(String email, String password) {
 		getViewState().clearErrors();
 		getViewState().showProgress();
-		loginSubscription = authManager.login(email, password)
+		loginSubscription = authManager.loginInvestor(email, password)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::onLoginResponse,
@@ -76,7 +76,7 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 	private void onLoginResponse(String response) {
 		loginSubscription.unsubscribe();
 
-
+		onBackClicked();
 	}
 
 	private void onLoginError(Throwable throwable) {
@@ -96,6 +96,9 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 							break;
 						case "password":
 							getViewState().setPasswordError(error.message);
+							break;
+						default:
+							getViewState().showSnackbarMessage(error.message);
 							break;
 					}
 				}
