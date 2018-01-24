@@ -19,7 +19,7 @@
             android:id="@+id/button_sign_in"
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_sign_in_button_height"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/button_sign_in"
             android:visibility="gone">
 
             <TextView

@@ -147,8 +147,17 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 			return true;
 		});
 
+		bottomNavigationView.setCurrentItem(0);
+		showBottomNavigationWithAnimation();
+	}
+
+	private void showBottomNavigationWithAnimation() {
+		Animation signInAnimation = AnimationUtils.loadAnimation(this, R.anim.sign_in_button_slide);
+		signInAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+		bottomNavigationView.startAnimation(signInAnimation);
 		bottomNavigationView.setVisibility(View.VISIBLE);
 	}
+
 
 	private void showSignInButtonWithAnimation() {
 		Animation signInAnimation = AnimationUtils.loadAnimation(this, R.anim.sign_in_button_slide);
