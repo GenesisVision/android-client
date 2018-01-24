@@ -314,9 +314,9 @@ public class MetaTraderOrder
 	@JsonAdapter(DirectionEnum.Adapter.class)
 	public enum DirectionEnum
 	{
-		NUMBER_0(0),
+		BUY("Buy"),
 
-		NUMBER_1(1);
+		SELL("Sell");
 
 		public static DirectionEnum fromValue(String text) {
 			for (DirectionEnum b : DirectionEnum.values()) {
@@ -327,13 +327,13 @@ public class MetaTraderOrder
 			return null;
 		}
 
-		private Integer value;
+		private String value;
 
-		DirectionEnum(Integer value) {
+		DirectionEnum(String value) {
 			this.value = value;
 		}
 
-		public Integer getValue() {
+		public String getValue() {
 			return value;
 		}
 
@@ -351,7 +351,7 @@ public class MetaTraderOrder
 
 			@Override
 			public DirectionEnum read(final JsonReader jsonReader) throws IOException {
-				Integer value = jsonReader.nextInt();
+				String value = jsonReader.nextString();
 				return DirectionEnum.fromValue(String.valueOf(value));
 			}
 		}

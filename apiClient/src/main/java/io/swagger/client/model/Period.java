@@ -253,11 +253,11 @@ public class Period
 	@JsonAdapter(StatusEnum.Adapter.class)
 	public enum StatusEnum
 	{
-		NUMBER_0(0),
+		PLANNED("Planned"),
 
-		NUMBER_1(1),
+		INPROCCESS("InProccess"),
 
-		NUMBER_2(2);
+		CLOSED("Closed");
 
 		public static StatusEnum fromValue(String text) {
 			for (StatusEnum b : StatusEnum.values()) {
@@ -268,13 +268,13 @@ public class Period
 			return null;
 		}
 
-		private Integer value;
+		private String value;
 
-		StatusEnum(Integer value) {
+		StatusEnum(String value) {
 			this.value = value;
 		}
 
-		public Integer getValue() {
+		public String getValue() {
 			return value;
 		}
 
@@ -292,7 +292,7 @@ public class Period
 
 			@Override
 			public StatusEnum read(final JsonReader jsonReader) throws IOException {
-				Integer value = jsonReader.nextInt();
+				String value = jsonReader.nextString();
 				return StatusEnum.fromValue(String.valueOf(value));
 			}
 		}

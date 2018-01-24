@@ -20,8 +20,8 @@ Name | Type | Description | Notes
 ## Enum: DirectionEnum
 Name | Value
 ---- | -----
-NUMBER_0 | 0
-NUMBER_1 | 1
+BUY | &quot;Buy&quot;
+SELL | &quot;Sell&quot;
 
 
 

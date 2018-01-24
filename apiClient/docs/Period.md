@@ -17,9 +17,9 @@ Name | Type | Description | Notes
 ## Enum: StatusEnum
 Name | Value
 ---- | -----
-NUMBER_0 | 0
-NUMBER_1 | 1
-NUMBER_2 | 2
+PLANNED | &quot;Planned&quot;
+INPROCCESS | &quot;InProccess&quot;
+CLOSED | &quot;Closed&quot;
 
 
 

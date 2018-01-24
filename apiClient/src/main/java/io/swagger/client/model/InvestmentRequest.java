@@ -196,9 +196,9 @@ public class InvestmentRequest
 	@JsonAdapter(TypeEnum.Adapter.class)
 	public enum TypeEnum
 	{
-		NUMBER_0(0),
+		INVEST("Invest"),
 
-		NUMBER_1(1);
+		WITHDRAWAL("Withdrawal");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {
@@ -209,13 +209,13 @@ public class InvestmentRequest
 			return null;
 		}
 
-		private Integer value;
+		private String value;
 
-		TypeEnum(Integer value) {
+		TypeEnum(String value) {
 			this.value = value;
 		}
 
-		public Integer getValue() {
+		public String getValue() {
 			return value;
 		}
 
@@ -233,7 +233,7 @@ public class InvestmentRequest
 
 			@Override
 			public TypeEnum read(final JsonReader jsonReader) throws IOException {
-				Integer value = jsonReader.nextInt();
+				String value = jsonReader.nextString();
 				return TypeEnum.fromValue(String.valueOf(value));
 			}
 		}
@@ -245,9 +245,9 @@ public class InvestmentRequest
 	@JsonAdapter(StatusEnum.Adapter.class)
 	public enum StatusEnum
 	{
-		NUMBER_0(0),
+		NEW("New"),
 
-		NUMBER_1(1);
+		EXECUTED("Executed");
 
 		public static StatusEnum fromValue(String text) {
 			for (StatusEnum b : StatusEnum.values()) {
@@ -258,13 +258,13 @@ public class InvestmentRequest
 			return null;
 		}
 
-		private Integer value;
+		private String value;
 
-		StatusEnum(Integer value) {
+		StatusEnum(String value) {
 			this.value = value;
 		}
 
-		public Integer getValue() {
+		public String getValue() {
 			return value;
 		}
 
@@ -282,7 +282,7 @@ public class InvestmentRequest
 
 			@Override
 			public StatusEnum read(final JsonReader jsonReader) throws IOException {
-				Integer value = jsonReader.nextInt();
+				String value = jsonReader.nextString();
 				return StatusEnum.fromValue(String.valueOf(value));
 			}
 		}

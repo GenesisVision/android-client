@@ -4,12 +4,56 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**apiBrokerAccountCreatePost**](BrokerApi.md#apiBrokerAccountCreatePost) | **POST** api/broker/account/create | 
 [**apiBrokerInitDataGet**](BrokerApi.md#apiBrokerInitDataGet) | **GET** api/broker/initData | 
 [**apiBrokerPeriodCloseGet**](BrokerApi.md#apiBrokerPeriodCloseGet) | **GET** api/broker/period/close | 
 [**apiBrokerPeriodSetStartBalanceGet**](BrokerApi.md#apiBrokerPeriodSetStartBalanceGet) | **GET** api/broker/period/setStartBalance | 
 [**apiBrokerPeriodlosingDataGet**](BrokerApi.md#apiBrokerPeriodlosingDataGet) | **GET** api/broker/period/сlosingData | 
 [**apiManagerBrokersPost**](BrokerApi.md#apiManagerBrokersPost) | **POST** api/manager/brokers | 
 
+
+<a name="apiBrokerAccountCreatePost"></a>
+# **apiBrokerAccountCreatePost**
+> UUID apiBrokerAccountCreatePost(request)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.BrokerApi;
+
+
+BrokerApi apiInstance = new BrokerApi();
+NewManager request = new NewManager(); // NewManager | 
+try {
+    UUID result = apiInstance.apiBrokerAccountCreatePost(request);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling BrokerApi#apiBrokerAccountCreatePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **request** | [**NewManager**](NewManager.md)|  | [optional]
+
+### Return type
+
+[**UUID**](UUID.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
 
 <a name="apiBrokerInitDataGet"></a>
 # **apiBrokerInitDataGet**

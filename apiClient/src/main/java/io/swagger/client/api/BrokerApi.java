@@ -6,6 +6,7 @@ import io.swagger.client.model.BrokerInitData;
 import io.swagger.client.model.BrokersFilter;
 import io.swagger.client.model.BrokersViewModel;
 import io.swagger.client.model.ClosePeriodData;
+import io.swagger.client.model.NewManager;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -13,6 +14,18 @@ import rx.Observable;
 
 public interface BrokerApi
 {
+	/**
+	 * @param request (optional)
+	 * @return Call&lt;UUID&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/broker/account/create")
+	Observable<UUID> apiBrokerAccountCreatePost(
+			@retrofit2.http.Body NewManager request
+	);
+
 	/**
 	 * @param brokerTradeServerId (required)
 	 * @return Call&lt;BrokerInitData&gt;

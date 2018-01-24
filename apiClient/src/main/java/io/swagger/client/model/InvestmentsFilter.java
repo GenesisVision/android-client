@@ -265,17 +265,17 @@ public class InvestmentsFilter
 	@JsonAdapter(SortingEnum.Adapter.class)
 	public enum SortingEnum
 	{
-		NUMBER_0(0),
+		BYRATINGASC("ByRatingAsc"),
 
-		NUMBER_1(1),
+		BYRATINGDESC("ByRatingDesc"),
 
-		NUMBER_2(2),
+		BYPROFITASC("ByProfitAsc"),
 
-		NUMBER_3(3),
+		BYPROFITDESC("ByProfitDesc"),
 
-		NUMBER_4(4),
+		BYORDERSASC("ByOrdersAsc"),
 
-		NUMBER_5(5);
+		BYORDERSDESC("ByOrdersDesc");
 
 		public static SortingEnum fromValue(String text) {
 			for (SortingEnum b : SortingEnum.values()) {
@@ -286,13 +286,13 @@ public class InvestmentsFilter
 			return null;
 		}
 
-		private Integer value;
+		private String value;
 
-		SortingEnum(Integer value) {
+		SortingEnum(String value) {
 			this.value = value;
 		}
 
-		public Integer getValue() {
+		public String getValue() {
 			return value;
 		}
 
@@ -310,7 +310,7 @@ public class InvestmentsFilter
 
 			@Override
 			public SortingEnum read(final JsonReader jsonReader) throws IOException {
-				Integer value = jsonReader.nextInt();
+				String value = jsonReader.nextString();
 				return SortingEnum.fromValue(String.valueOf(value));
 			}
 		}

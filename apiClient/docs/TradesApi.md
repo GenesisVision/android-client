@@ -4,12 +4,12 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiTradesIpfsGetGet**](TradesApi.md#apiTradesIpfsGetGet) | **GET** api/trades/ipfsGet | 
+[**apiTradesIpfsHistoryGet**](TradesApi.md#apiTradesIpfsHistoryGet) | **GET** api/trades/ipfsHistory | 
 
 
-<a name="apiTradesIpfsGetGet"></a>
-# **apiTradesIpfsGetGet**
-> TradesViewModel apiTradesIpfsGetGet(ipfsHashId)
+<a name="apiTradesIpfsHistoryGet"></a>
+# **apiTradesIpfsHistoryGet**
+> TradesViewModel apiTradesIpfsHistoryGet(ipfsHashId)
 
 
 
@@ -23,10 +23,10 @@ Method | HTTP request | Description
 TradesApi apiInstance = new TradesApi();
 String ipfsHashId = "ipfsHashId_example"; // String | 
 try {
-    TradesViewModel result = apiInstance.apiTradesIpfsGetGet(ipfsHashId);
+    TradesViewModel result = apiInstance.apiTradesIpfsHistoryGet(ipfsHashId);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling TradesApi#apiTradesIpfsGetGet");
+    System.err.println("Exception when calling TradesApi#apiTradesIpfsHistoryGet");
     e.printStackTrace();
 }
 ```

@@ -18,12 +18,12 @@ Name | Type | Description | Notes
 ## Enum: SortingEnum
 Name | Value
 ---- | -----
-NUMBER_0 | 0
-NUMBER_1 | 1
-NUMBER_2 | 2
-NUMBER_3 | 3
-NUMBER_4 | 4
-NUMBER_5 | 5
+BYRATINGASC | &quot;ByRatingAsc&quot;
+BYRATINGDESC | &quot;ByRatingDesc&quot;
+BYPROFITASC | &quot;ByProfitAsc&quot;
+BYPROFITDESC | &quot;ByProfitDesc&quot;
+BYORDERSASC | &quot;ByOrdersAsc&quot;
+BYORDERSDESC | &quot;ByOrdersDesc&quot;
 
 
 

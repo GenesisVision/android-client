@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **birthday** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
 **gender** | **Boolean** |  |  [optional]
 **avatar** | **String** |  |  [optional]
+**id** | [**UUID**](UUID.md) |  |  [optional]
 **email** | **String** |  |  [optional]
 **balance** | **Double** |  |  [optional]
 

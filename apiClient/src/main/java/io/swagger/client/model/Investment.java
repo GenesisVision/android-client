@@ -28,29 +28,14 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class Investment
 {
-	@SerializedName("id")
-	private UUID id = null;
-
-	@SerializedName("managerAccountId")
-	private UUID managerAccountId = null;
-
-	@SerializedName("managerTokensId")
-	private UUID managerTokensId = null;
-
-	@SerializedName("logo")
-	private String logo = null;
-
 	@SerializedName("dateFrom")
 	private OffsetDateTime dateFrom = null;
 
 	@SerializedName("dateTo")
 	private OffsetDateTime dateTo = null;
 
-	@SerializedName("description")
-	private String description = null;
-
-	@SerializedName("isEnabled")
-	private Boolean isEnabled = null;
+	@SerializedName("lastPeriod")
+	private Period lastPeriod = null;
 
 	@SerializedName("period")
 	private Integer period = null;
@@ -70,8 +55,23 @@ public class Investment
 	@SerializedName("investMaxAmount")
 	private Double investMaxAmount = null;
 
-	@SerializedName("lastPeriod")
-	private Period lastPeriod = null;
+	@SerializedName("id")
+	private UUID id = null;
+
+	@SerializedName("managerAccountId")
+	private UUID managerAccountId = null;
+
+	@SerializedName("managerTokensId")
+	private UUID managerTokensId = null;
+
+	@SerializedName("logo")
+	private String logo = null;
+
+	@SerializedName("description")
+	private String description = null;
+
+	@SerializedName("isEnabled")
+	private Boolean isEnabled = null;
 
 	@SerializedName("rating")
 	private Double rating = null;
@@ -81,82 +81,6 @@ public class Investment
 
 	@SerializedName("totalProfit")
 	private Double totalProfit = null;
-
-	public Investment id(UUID id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@ApiModelProperty(value = "")
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public Investment managerAccountId(UUID managerAccountId) {
-		this.managerAccountId = managerAccountId;
-		return this;
-	}
-
-	/**
-	 * Get managerAccountId
-	 *
-	 * @return managerAccountId
-	 **/
-	@ApiModelProperty(value = "")
-	public UUID getManagerAccountId() {
-		return managerAccountId;
-	}
-
-	public void setManagerAccountId(UUID managerAccountId) {
-		this.managerAccountId = managerAccountId;
-	}
-
-	public Investment managerTokensId(UUID managerTokensId) {
-		this.managerTokensId = managerTokensId;
-		return this;
-	}
-
-	/**
-	 * Get managerTokensId
-	 *
-	 * @return managerTokensId
-	 **/
-	@ApiModelProperty(value = "")
-	public UUID getManagerTokensId() {
-		return managerTokensId;
-	}
-
-	public void setManagerTokensId(UUID managerTokensId) {
-		this.managerTokensId = managerTokensId;
-	}
-
-	public Investment logo(String logo) {
-		this.logo = logo;
-		return this;
-	}
-
-	/**
-	 * Get logo
-	 *
-	 * @return logo
-	 **/
-	@ApiModelProperty(value = "")
-	public String getLogo() {
-		return logo;
-	}
-
-	public void setLogo(String logo) {
-		this.logo = logo;
-	}
 
 	public Investment dateFrom(OffsetDateTime dateFrom) {
 		this.dateFrom = dateFrom;
@@ -196,42 +120,23 @@ public class Investment
 		this.dateTo = dateTo;
 	}
 
-	public Investment description(String description) {
-		this.description = description;
+	public Investment lastPeriod(Period lastPeriod) {
+		this.lastPeriod = lastPeriod;
 		return this;
 	}
 
 	/**
-	 * Get description
+	 * Get lastPeriod
 	 *
-	 * @return description
+	 * @return lastPeriod
 	 **/
 	@ApiModelProperty(value = "")
-	public String getDescription() {
-		return description;
+	public Period getLastPeriod() {
+		return lastPeriod;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Investment isEnabled(Boolean isEnabled) {
-		this.isEnabled = isEnabled;
-		return this;
-	}
-
-	/**
-	 * Get isEnabled
-	 *
-	 * @return isEnabled
-	 **/
-	@ApiModelProperty(value = "")
-	public Boolean isIsEnabled() {
-		return isEnabled;
-	}
-
-	public void setIsEnabled(Boolean isEnabled) {
-		this.isEnabled = isEnabled;
+	public void setLastPeriod(Period lastPeriod) {
+		this.lastPeriod = lastPeriod;
 	}
 
 	public Investment period(Integer period) {
@@ -348,23 +253,118 @@ public class Investment
 		this.investMaxAmount = investMaxAmount;
 	}
 
-	public Investment lastPeriod(Period lastPeriod) {
-		this.lastPeriod = lastPeriod;
+	public Investment id(UUID id) {
+		this.id = id;
 		return this;
 	}
 
 	/**
-	 * Get lastPeriod
+	 * Get id
 	 *
-	 * @return lastPeriod
+	 * @return id
 	 **/
 	@ApiModelProperty(value = "")
-	public Period getLastPeriod() {
-		return lastPeriod;
+	public UUID getId() {
+		return id;
 	}
 
-	public void setLastPeriod(Period lastPeriod) {
-		this.lastPeriod = lastPeriod;
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public Investment managerAccountId(UUID managerAccountId) {
+		this.managerAccountId = managerAccountId;
+		return this;
+	}
+
+	/**
+	 * Get managerAccountId
+	 *
+	 * @return managerAccountId
+	 **/
+	@ApiModelProperty(value = "")
+	public UUID getManagerAccountId() {
+		return managerAccountId;
+	}
+
+	public void setManagerAccountId(UUID managerAccountId) {
+		this.managerAccountId = managerAccountId;
+	}
+
+	public Investment managerTokensId(UUID managerTokensId) {
+		this.managerTokensId = managerTokensId;
+		return this;
+	}
+
+	/**
+	 * Get managerTokensId
+	 *
+	 * @return managerTokensId
+	 **/
+	@ApiModelProperty(value = "")
+	public UUID getManagerTokensId() {
+		return managerTokensId;
+	}
+
+	public void setManagerTokensId(UUID managerTokensId) {
+		this.managerTokensId = managerTokensId;
+	}
+
+	public Investment logo(String logo) {
+		this.logo = logo;
+		return this;
+	}
+
+	/**
+	 * Get logo
+	 *
+	 * @return logo
+	 **/
+	@ApiModelProperty(value = "")
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public Investment description(String description) {
+		this.description = description;
+		return this;
+	}
+
+	/**
+	 * Get description
+	 *
+	 * @return description
+	 **/
+	@ApiModelProperty(value = "")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Investment isEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
+		return this;
+	}
+
+	/**
+	 * Get isEnabled
+	 *
+	 * @return isEnabled
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsEnabled() {
+		return isEnabled;
+	}
+
+	public void setIsEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
 	}
 
 	public Investment rating(Double rating) {
@@ -434,21 +434,21 @@ public class Investment
 			return false;
 		}
 		Investment investment = (Investment) o;
-		return Objects.equals(this.id, investment.id) &&
-				Objects.equals(this.managerAccountId, investment.managerAccountId) &&
-				Objects.equals(this.managerTokensId, investment.managerTokensId) &&
-				Objects.equals(this.logo, investment.logo) &&
-				Objects.equals(this.dateFrom, investment.dateFrom) &&
+		return Objects.equals(this.dateFrom, investment.dateFrom) &&
 				Objects.equals(this.dateTo, investment.dateTo) &&
-				Objects.equals(this.description, investment.description) &&
-				Objects.equals(this.isEnabled, investment.isEnabled) &&
+				Objects.equals(this.lastPeriod, investment.lastPeriod) &&
 				Objects.equals(this.period, investment.period) &&
 				Objects.equals(this.feeSuccess, investment.feeSuccess) &&
 				Objects.equals(this.feeManagement, investment.feeManagement) &&
 				Objects.equals(this.feeEntrance, investment.feeEntrance) &&
 				Objects.equals(this.investMinAmount, investment.investMinAmount) &&
 				Objects.equals(this.investMaxAmount, investment.investMaxAmount) &&
-				Objects.equals(this.lastPeriod, investment.lastPeriod) &&
+				Objects.equals(this.id, investment.id) &&
+				Objects.equals(this.managerAccountId, investment.managerAccountId) &&
+				Objects.equals(this.managerTokensId, investment.managerTokensId) &&
+				Objects.equals(this.logo, investment.logo) &&
+				Objects.equals(this.description, investment.description) &&
+				Objects.equals(this.isEnabled, investment.isEnabled) &&
 				Objects.equals(this.rating, investment.rating) &&
 				Objects.equals(this.ordersCount, investment.ordersCount) &&
 				Objects.equals(this.totalProfit, investment.totalProfit);
@@ -456,7 +456,7 @@ public class Investment
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, managerAccountId, managerTokensId, logo, dateFrom, dateTo, description, isEnabled, period, feeSuccess, feeManagement, feeEntrance, investMinAmount, investMaxAmount, lastPeriod, rating, ordersCount, totalProfit);
+		return Objects.hash(dateFrom, dateTo, lastPeriod, period, feeSuccess, feeManagement, feeEntrance, investMinAmount, investMaxAmount, id, managerAccountId, managerTokensId, logo, description, isEnabled, rating, ordersCount, totalProfit);
 	}
 
 
@@ -465,21 +465,21 @@ public class Investment
 		StringBuilder sb = new StringBuilder();
 		sb.append("class Investment {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    managerAccountId: ").append(toIndentedString(managerAccountId)).append("\n");
-		sb.append("    managerTokensId: ").append(toIndentedString(managerTokensId)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    dateFrom: ").append(toIndentedString(dateFrom)).append("\n");
 		sb.append("    dateTo: ").append(toIndentedString(dateTo)).append("\n");
-		sb.append("    description: ").append(toIndentedString(description)).append("\n");
-		sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
+		sb.append("    lastPeriod: ").append(toIndentedString(lastPeriod)).append("\n");
 		sb.append("    period: ").append(toIndentedString(period)).append("\n");
 		sb.append("    feeSuccess: ").append(toIndentedString(feeSuccess)).append("\n");
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
 		sb.append("    feeEntrance: ").append(toIndentedString(feeEntrance)).append("\n");
 		sb.append("    investMinAmount: ").append(toIndentedString(investMinAmount)).append("\n");
 		sb.append("    investMaxAmount: ").append(toIndentedString(investMaxAmount)).append("\n");
-		sb.append("    lastPeriod: ").append(toIndentedString(lastPeriod)).append("\n");
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    managerAccountId: ").append(toIndentedString(managerAccountId)).append("\n");
+		sb.append("    managerTokensId: ").append(toIndentedString(managerTokensId)).append("\n");
+		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
 		sb.append("    rating: ").append(toIndentedString(rating)).append("\n");
 		sb.append("    ordersCount: ").append(toIndentedString(ordersCount)).append("\n");
 		sb.append("    totalProfit: ").append(toIndentedString(totalProfit)).append("\n");

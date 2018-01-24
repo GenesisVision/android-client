@@ -243,19 +243,19 @@ public class BrokerTradeServer
 	@JsonAdapter(TypeEnum.Adapter.class)
 	public enum TypeEnum
 	{
-		NUMBER_0(0),
+		UNDEFINED("Undefined"),
 
-		NUMBER_1(1),
+		METATRADER4("MetaTrader4"),
 
-		NUMBER_2(2),
+		METATRADER5("MetaTrader5"),
 
-		NUMBER_3(3),
+		NINJATRADER("NinjaTrader"),
 
-		NUMBER_4(4),
+		CTRADER("cTrader"),
 
-		NUMBER_5(5),
+		RUMUS("Rumus"),
 
-		NUMBER_6(6);
+		METASTOCK("Metastock");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {
@@ -266,13 +266,13 @@ public class BrokerTradeServer
 			return null;
 		}
 
-		private Integer value;
+		private String value;
 
-		TypeEnum(Integer value) {
+		TypeEnum(String value) {
 			this.value = value;
 		}
 
-		public Integer getValue() {
+		public String getValue() {
 			return value;
 		}
 
@@ -290,7 +290,7 @@ public class BrokerTradeServer
 
 			@Override
 			public TypeEnum read(final JsonReader jsonReader) throws IOException {
-				Integer value = jsonReader.nextInt();
+				String value = jsonReader.nextString();
 				return TypeEnum.fromValue(String.valueOf(value));
 			}
 		}

@@ -15,13 +15,13 @@ Name | Type | Description | Notes
 ## Enum: TradeServerTypeEnum
 Name | Value
 ---- | -----
-NUMBER_0 | 0
-NUMBER_1 | 1
-NUMBER_2 | 2
-NUMBER_3 | 3
-NUMBER_4 | 4
-NUMBER_5 | 5
-NUMBER_6 | 6
+UNDEFINED | &quot;Undefined&quot;
+METATRADER4 | &quot;MetaTrader4&quot;
+METATRADER5 | &quot;MetaTrader5&quot;
+NINJATRADER | &quot;NinjaTrader&quot;
+CTRADER | &quot;cTrader&quot;
+RUMUS | &quot;Rumus&quot;
+METASTOCK | &quot;Metastock&quot;
 
 
 

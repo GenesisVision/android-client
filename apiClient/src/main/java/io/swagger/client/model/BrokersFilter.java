@@ -192,19 +192,19 @@ public class BrokersFilter
 	@JsonAdapter(TradeServerTypeEnum.Adapter.class)
 	public enum TradeServerTypeEnum
 	{
-		NUMBER_0(0),
+		UNDEFINED("Undefined"),
 
-		NUMBER_1(1),
+		METATRADER4("MetaTrader4"),
 
-		NUMBER_2(2),
+		METATRADER5("MetaTrader5"),
 
-		NUMBER_3(3),
+		NINJATRADER("NinjaTrader"),
 
-		NUMBER_4(4),
+		CTRADER("cTrader"),
 
-		NUMBER_5(5),
+		RUMUS("Rumus"),
 
-		NUMBER_6(6);
+		METASTOCK("Metastock");
 
 		public static TradeServerTypeEnum fromValue(String text) {
 			for (TradeServerTypeEnum b : TradeServerTypeEnum.values()) {
@@ -215,13 +215,13 @@ public class BrokersFilter
 			return null;
 		}
 
-		private Integer value;
+		private String value;
 
-		TradeServerTypeEnum(Integer value) {
+		TradeServerTypeEnum(String value) {
 			this.value = value;
 		}
 
-		public Integer getValue() {
+		public String getValue() {
 			return value;
 		}
 
@@ -239,7 +239,7 @@ public class BrokersFilter
 
 			@Override
 			public TradeServerTypeEnum read(final JsonReader jsonReader) throws IOException {
-				Integer value = jsonReader.nextInt();
+				String value = jsonReader.nextString();
 				return TradeServerTypeEnum.fromValue(String.valueOf(value));
 			}
 		}

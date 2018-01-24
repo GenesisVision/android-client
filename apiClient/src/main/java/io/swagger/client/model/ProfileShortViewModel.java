@@ -16,6 +16,7 @@ package io.swagger.client.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -25,11 +26,33 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ProfileShortViewModel
 {
+	@SerializedName("id")
+	private UUID id = null;
+
 	@SerializedName("email")
 	private String email = null;
 
 	@SerializedName("balance")
 	private Double balance = null;
+
+	public ProfileShortViewModel id(UUID id) {
+		this.id = id;
+		return this;
+	}
+
+	/**
+	 * Get id
+	 *
+	 * @return id
+	 **/
+	@ApiModelProperty(value = "")
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
 	public ProfileShortViewModel email(String email) {
 		this.email = email;
@@ -79,13 +102,14 @@ public class ProfileShortViewModel
 			return false;
 		}
 		ProfileShortViewModel profileShortViewModel = (ProfileShortViewModel) o;
-		return Objects.equals(this.email, profileShortViewModel.email) &&
+		return Objects.equals(this.id, profileShortViewModel.id) &&
+				Objects.equals(this.email, profileShortViewModel.email) &&
 				Objects.equals(this.balance, profileShortViewModel.balance);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, balance);
+		return Objects.hash(id, email, balance);
 	}
 
 
@@ -94,6 +118,7 @@ public class ProfileShortViewModel
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ProfileShortViewModel {\n");
 
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    email: ").append(toIndentedString(email)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("}");

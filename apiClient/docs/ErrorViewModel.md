@@ -12,8 +12,8 @@ Name | Type | Description | Notes
 ## Enum: CodeEnum
 Name | Value
 ---- | -----
-NUMBER_0 | 0
-NUMBER_1 | 1
+INTERNALSERVERERROR | &quot;InternalServerError&quot;
+VALIDATIONERROR | &quot;ValidationError&quot;
 
 
 

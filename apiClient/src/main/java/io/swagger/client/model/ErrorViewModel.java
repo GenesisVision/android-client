@@ -130,9 +130,9 @@ public class ErrorViewModel
 	@JsonAdapter(CodeEnum.Adapter.class)
 	public enum CodeEnum
 	{
-		NUMBER_0(0),
+		INTERNALSERVERERROR("InternalServerError"),
 
-		NUMBER_1(1);
+		VALIDATIONERROR("ValidationError");
 
 		public static CodeEnum fromValue(String text) {
 			for (CodeEnum b : CodeEnum.values()) {
@@ -143,13 +143,13 @@ public class ErrorViewModel
 			return null;
 		}
 
-		private Integer value;
+		private String value;
 
-		CodeEnum(Integer value) {
+		CodeEnum(String value) {
 			this.value = value;
 		}
 
-		public Integer getValue() {
+		public String getValue() {
 			return value;
 		}
 
@@ -167,7 +167,7 @@ public class ErrorViewModel
 
 			@Override
 			public CodeEnum read(final JsonReader jsonReader) throws IOException {
-				Integer value = jsonReader.nextInt();
+				String value = jsonReader.nextString();
 				return CodeEnum.fromValue(String.valueOf(value));
 			}
 		}

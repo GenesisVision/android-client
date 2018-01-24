@@ -4,13 +4,15 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**apiInvestorDashboardGet**](InvestorApi.md#apiInvestorDashboardGet) | **GET** api/investor/dashboard | 
 [**apiInvestorInvestmentsInvestPost**](InvestorApi.md#apiInvestorInvestmentsInvestPost) | **POST** api/investor/investments/invest | 
 [**apiInvestorInvestmentsPost**](InvestorApi.md#apiInvestorInvestmentsPost) | **POST** api/investor/investments | 
+[**apiInvestorInvestmentsWithdrawPost**](InvestorApi.md#apiInvestorInvestmentsWithdrawPost) | **POST** api/investor/investments/withdraw | 
 
 
-<a name="apiInvestorInvestmentsInvestPost"></a>
-# **apiInvestorInvestmentsInvestPost**
-> Void apiInvestorInvestmentsInvestPost(model)
+<a name="apiInvestorDashboardGet"></a>
+# **apiInvestorDashboardGet**
+> InvestorDashboard apiInvestorDashboardGet()
 
 
 
@@ -22,9 +24,48 @@ Method | HTTP request | Description
 
 
 InvestorApi apiInstance = new InvestorApi();
-Invest model = new Invest(); // Invest | 
 try {
-    Void result = apiInstance.apiInvestorInvestmentsInvestPost(model);
+    InvestorDashboard result = apiInstance.apiInvestorDashboardGet();
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorDashboardGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**InvestorDashboard**](InvestorDashboard.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorInvestmentsInvestPost"></a>
+# **apiInvestorInvestmentsInvestPost**
+> ProfileShortViewModel apiInvestorInvestmentsInvestPost(model)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+InvestViewModel model = new InvestViewModel(); // InvestViewModel | 
+try {
+    ProfileShortViewModel result = apiInstance.apiInvestorInvestmentsInvestPost(model);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentsInvestPost");
@@ -36,11 +77,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **model** | [**Invest**](Invest.md)|  | [optional]
+ **model** | [**InvestViewModel**](InvestViewModel.md)|  | [optional]
 
 ### Return type
 
-[**Void**](.md)
+[**ProfileShortViewModel**](ProfileShortViewModel.md)
 
 ### Authorization
 
@@ -84,6 +125,49 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**InvestmentProgramsViewModel**](InvestmentProgramsViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorInvestmentsWithdrawPost"></a>
+# **apiInvestorInvestmentsWithdrawPost**
+> Void apiInvestorInvestmentsWithdrawPost(model)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+InvestViewModel model = new InvestViewModel(); // InvestViewModel | 
+try {
+    Void result = apiInstance.apiInvestorInvestmentsWithdrawPost(model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentsWithdrawPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **model** | [**InvestViewModel**](InvestViewModel.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
 
 ### Authorization
 

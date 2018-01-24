@@ -15,16 +15,16 @@ Name | Type | Description | Notes
 ## Enum: TypeEnum
 Name | Value
 ---- | -----
-NUMBER_0 | 0
-NUMBER_1 | 1
+INVEST | &quot;Invest&quot;
+WITHDRAWAL | &quot;Withdrawal&quot;
 
 
 <a name="StatusEnum"></a>
 ## Enum: StatusEnum
 Name | Value
 ---- | -----
-NUMBER_0 | 0
-NUMBER_1 | 1
+NEW | &quot;New&quot;
+EXECUTED | &quot;Executed&quot;
 
 
 

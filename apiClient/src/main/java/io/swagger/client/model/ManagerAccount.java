@@ -15,6 +15,8 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.threeten.bp.OffsetDateTime;
+
 import java.util.Objects;
 import java.util.UUID;
 
@@ -40,6 +42,9 @@ public class ManagerAccount
 
 	@SerializedName("isConfirmed")
 	private Boolean isConfirmed = null;
+
+	@SerializedName("registrationDate")
+	private OffsetDateTime registrationDate = null;
 
 	@SerializedName("brokerTradeServer")
 	private BrokerTradeServer brokerTradeServer = null;
@@ -139,6 +144,25 @@ public class ManagerAccount
 		this.isConfirmed = isConfirmed;
 	}
 
+	public ManagerAccount registrationDate(OffsetDateTime registrationDate) {
+		this.registrationDate = registrationDate;
+		return this;
+	}
+
+	/**
+	 * Get registrationDate
+	 *
+	 * @return registrationDate
+	 **/
+	@ApiModelProperty(value = "")
+	public OffsetDateTime getRegistrationDate() {
+		return registrationDate;
+	}
+
+	public void setRegistrationDate(OffsetDateTime registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
 	public ManagerAccount brokerTradeServer(BrokerTradeServer brokerTradeServer) {
 		this.brokerTradeServer = brokerTradeServer;
 		return this;
@@ -173,12 +197,13 @@ public class ManagerAccount
 				Objects.equals(this.currency, managerAccount.currency) &&
 				Objects.equals(this.ipfsHash, managerAccount.ipfsHash) &&
 				Objects.equals(this.isConfirmed, managerAccount.isConfirmed) &&
+				Objects.equals(this.registrationDate, managerAccount.registrationDate) &&
 				Objects.equals(this.brokerTradeServer, managerAccount.brokerTradeServer);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, login, currency, ipfsHash, isConfirmed, brokerTradeServer);
+		return Objects.hash(id, login, currency, ipfsHash, isConfirmed, registrationDate, brokerTradeServer);
 	}
 
 
@@ -192,6 +217,7 @@ public class ManagerAccount
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    ipfsHash: ").append(toIndentedString(ipfsHash)).append("\n");
 		sb.append("    isConfirmed: ").append(toIndentedString(isConfirmed)).append("\n");
+		sb.append("    registrationDate: ").append(toIndentedString(registrationDate)).append("\n");
 		sb.append("    brokerTradeServer: ").append(toIndentedString(brokerTradeServer)).append("\n");
 		sb.append("}");
 		return sb.toString();

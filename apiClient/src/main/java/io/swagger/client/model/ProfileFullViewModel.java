@@ -18,6 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import org.threeten.bp.OffsetDateTime;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -62,6 +63,9 @@ public class ProfileFullViewModel
 
 	@SerializedName("avatar")
 	private String avatar = null;
+
+	@SerializedName("id")
+	private UUID id = null;
 
 	@SerializedName("email")
 	private String email = null;
@@ -297,6 +301,25 @@ public class ProfileFullViewModel
 		this.avatar = avatar;
 	}
 
+	public ProfileFullViewModel id(UUID id) {
+		this.id = id;
+		return this;
+	}
+
+	/**
+	 * Get id
+	 *
+	 * @return id
+	 **/
+	@ApiModelProperty(value = "")
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
 	public ProfileFullViewModel email(String email) {
 		this.email = email;
 		return this;
@@ -357,13 +380,14 @@ public class ProfileFullViewModel
 				Objects.equals(this.birthday, profileFullViewModel.birthday) &&
 				Objects.equals(this.gender, profileFullViewModel.gender) &&
 				Objects.equals(this.avatar, profileFullViewModel.avatar) &&
+				Objects.equals(this.id, profileFullViewModel.id) &&
 				Objects.equals(this.email, profileFullViewModel.email) &&
 				Objects.equals(this.balance, profileFullViewModel.balance);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(firstName, middleName, lastName, documentType, documentNumber, country, city, address, phone, birthday, gender, avatar, email, balance);
+		return Objects.hash(firstName, middleName, lastName, documentType, documentNumber, country, city, address, phone, birthday, gender, avatar, id, email, balance);
 	}
 
 
@@ -384,6 +408,7 @@ public class ProfileFullViewModel
 		sb.append("    birthday: ").append(toIndentedString(birthday)).append("\n");
 		sb.append("    gender: ").append(toIndentedString(gender)).append("\n");
 		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    email: ").append(toIndentedString(email)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("}");
