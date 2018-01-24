@@ -77,7 +77,7 @@ public class LoginFragment extends BaseFragment implements LoginView
 	}
 
 	private void initToolbar() {
-		toolbar.setTitle(getString(R.string.login));
+		toolbar.setTitle(getString(R.string.sign_in));
 		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> loginPresenter.onBackClicked());
 	}
 

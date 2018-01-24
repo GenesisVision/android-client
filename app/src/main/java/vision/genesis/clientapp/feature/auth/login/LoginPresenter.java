@@ -66,7 +66,7 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 	void onSignInClicked(String email, String password) {
 		getViewState().clearErrors();
 		getViewState().showProgress();
-		loginSubscription = authManager.loginInvestor(email, password)
+		loginSubscription = authManager.login(email, password)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::onLoginResponse,

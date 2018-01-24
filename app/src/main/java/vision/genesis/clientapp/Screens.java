@@ -18,4 +18,6 @@ public class Screens
 	public static final String LOGIN = "login";
 
 	public static final String REGISTRATION = "registration";
+
+	public static final String EMAIL_VERIFICATION = "email_verification";
 }
