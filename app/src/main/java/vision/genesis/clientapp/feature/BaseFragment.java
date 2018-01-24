@@ -7,13 +7,16 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 
+import vision.genesis.clientapp.ui.common.BackButtonListener;
+
 /**
  * GenesisVision
  * Created by Vitaly on 1/19/18.
  */
 
-public class BaseFragment extends MvpAppCompatFragment
+public class BaseFragment extends MvpAppCompatFragment implements BackButtonListener
 {
+	@Override
 	public boolean onBackPressed() {
 		return false;
 	}

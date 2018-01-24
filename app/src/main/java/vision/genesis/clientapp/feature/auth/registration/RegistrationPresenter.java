@@ -53,7 +53,7 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 	}
 
 	void onBackClicked() {
-		router.backTo(Screens.LOGIN);
+		router.exit();
 	}
 
 	void onSignUpClicked(String email, String password, String confirmPassword) {

@@ -12,4 +12,6 @@
     <string name="create_new_account">Create new account</string>
     <string name="confirm_password">Confirm password</string>
     <string name="sign_up">Sign up</string>
+    <string name="email_verification_text">We sent a verification link to the email you specified.\n\nPlease follow this link to complete the registration.</string>
+    <string name="ok">OK</string>
 </resources>

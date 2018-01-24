@@ -20,9 +20,11 @@ import ru.terrakok.cicerone.commands.Replace;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.Screens;
+import vision.genesis.clientapp.feature.auth.email_verification.EmailVerificationFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginFragment;
 import vision.genesis.clientapp.feature.auth.registration.RegistrationFragment;
 import vision.genesis.clientapp.feature.main.MainActivity;
+import vision.genesis.clientapp.ui.common.BackButtonListener;
 
 /**
  * GenesisVision
@@ -59,6 +61,8 @@ public class AuthActivity extends MvpAppCompatActivity implements AuthView
 					return new LoginFragment();
 				case Screens.REGISTRATION:
 					return new RegistrationFragment();
+				case Screens.EMAIL_VERIFICATION:
+					return new EmailVerificationFragment();
 			}
 			return null;
 		}
@@ -70,6 +74,8 @@ public class AuthActivity extends MvpAppCompatActivity implements AuthView
 				Fragment nextFragment,
 				FragmentTransaction fragmentTransaction) {
 			//setup animation
+
+			fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left);
 		}
 	};
 
@@ -96,6 +102,19 @@ public class AuthActivity extends MvpAppCompatActivity implements AuthView
 	public void onPause() {
 		navigatorHolder.removeNavigator();
 		super.onPause();
+	}
+
+	@Override
+	public void onBackPressed() {
+		Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content);
+		if (fragment != null
+				&& fragment instanceof BackButtonListener
+				&& ((BackButtonListener) fragment).onBackPressed()) {
+			return;
+		}
+		else {
+			super.onBackPressed();
+		}
 	}
 
 	@Override

@@ -19,4 +19,5 @@
     <color name="white">#fff</color>
     <color name="black">#000</color>
     <color name="bottomNavigationBackground">#e0e0e0</color>
+    <color name="grey200">#eeeeee</color>
 </resources>
