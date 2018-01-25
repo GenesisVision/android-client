@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**UUID**](UUID.md) |  |  [optional]
-**date** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
+**date** | [**DateTime**](DateTime.md) |  |  [optional]
 **amount** | **Double** |  |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]

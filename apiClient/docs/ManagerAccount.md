@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **currency** | **String** |  |  [optional]
 **ipfsHash** | **String** |  |  [optional]
 **isConfirmed** | **Boolean** |  |  [optional]
-**registrationDate** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
+**registrationDate** | [**DateTime**](DateTime.md) |  |  [optional]
 **brokerTradeServer** | [**BrokerTradeServer**](BrokerTradeServer.md) |  |  [optional]
 
 

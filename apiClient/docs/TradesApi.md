@@ -4,14 +4,14 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiTradesIpfsHistoryGet**](TradesApi.md#apiTradesIpfsHistoryGet) | **GET** api/trades/ipfsHistory | 
+[**apiTradesIpfsHistoryGet**](TradesApi.md#apiTradesIpfsHistoryGet) | **GET** api/trades/ipfsHistory | Get trades by IPFS hash id
 
 
 <a name="apiTradesIpfsHistoryGet"></a>
 # **apiTradesIpfsHistoryGet**
 > TradesViewModel apiTradesIpfsHistoryGet(ipfsHashId)
 
-
+Get trades by IPFS hash id
 
 ### Example
 ```java

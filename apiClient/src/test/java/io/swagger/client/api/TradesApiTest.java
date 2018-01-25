@@ -19,14 +19,12 @@ public class TradesApiTest
 	}
 
 	/**
-	 *
-	 *
-	 *
+	 * Get trades by IPFS hash id
 	 */
 	@Test
-	public void apiTradesIpfsGetGetTest() {
+	public void apiTradesIpfsHistoryGetTest() {
 		String ipfsHashId = null;
-		// TradesViewModel response = api.apiTradesIpfsGetGet(ipfsHashId);
+		// TradesViewModel response = api.apiTradesIpfsHistoryGet(ipfsHashId);
 
 		// TODO: test validations
 	}

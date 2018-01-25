@@ -7,6 +7,8 @@ import rx.Observable;
 public interface TradesApi
 {
 	/**
+	 * Get trades by IPFS hash id
+	 *
 	 * @param ipfsHashId (optional)
 	 * @return Call&lt;TradesViewModel&gt;
 	 */

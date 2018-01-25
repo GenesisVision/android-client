@@ -4,8 +4,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**dateFrom** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
-**dateTo** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
+**dateFrom** | [**DateTime**](DateTime.md) |  |  [optional]
+**dateTo** | [**DateTime**](DateTime.md) |  |  [optional]
 **lastPeriod** | [**Period**](Period.md) |  |  [optional]
 **period** | **Integer** |  |  [optional]
 **feeSuccess** | **Double** |  |  [optional]

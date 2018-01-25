@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **host** | **String** |  |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
 **broker** | [**Broker**](Broker.md) |  |  [optional]
-**registrationDate** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
+**registrationDate** | [**DateTime**](DateTime.md) |  |  [optional]
 
 
 <a name="TypeEnum"></a>

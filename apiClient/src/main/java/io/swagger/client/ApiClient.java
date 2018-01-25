@@ -5,7 +5,7 @@ import com.google.gson.JsonParseException;
 
 import org.apache.oltu.oauth2.client.request.OAuthClientRequest.AuthenticationRequestBuilder;
 import org.apache.oltu.oauth2.client.request.OAuthClientRequest.TokenRequestBuilder;
-import org.threeten.bp.format.DateTimeFormatter;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -47,15 +47,7 @@ public class ApiClient
 	public ApiClient(String[] authNames) {
 		this();
 		for (String authName : authNames) {
-			Interceptor auth;
-			if ("Bearer".equals(authName)) {
-				auth = new ApiKeyAuth("header", "Authorization");
-			}
-			else {
-				throw new RuntimeException("auth name \"" + authName + "\" not found in available auth names");
-			}
-
-			addAuthorization(authName, auth);
+			throw new RuntimeException("auth name \"" + authName + "\" not found in available auth names");
 		}
 	}
 
@@ -142,8 +134,8 @@ public class ApiClient
 		return this;
 	}
 
-	public ApiClient setOffsetDateTimeFormat(DateTimeFormatter dateFormat) {
-		this.json.setOffsetDateTimeFormat(dateFormat);
+	public ApiClient setDateTimeFormat(DateTimeFormatter dateFormat) {
+		this.json.setDateTimeFormat(dateFormat);
 		return this;
 	}
 

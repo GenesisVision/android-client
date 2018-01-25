@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **name** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
 **logo** | **String** |  |  [optional]
-**registrationDate** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
+**registrationDate** | [**DateTime**](DateTime.md) |  |  [optional]
 
 
 

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
 **amount** | **Double** |  |  [optional]
-**date** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
+**date** | [**DateTime**](DateTime.md) |  |  [optional]
 
 
 <a name="TypeEnum"></a>

@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**date** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
+**date** | [**DateTime**](DateTime.md) |  |  [optional]
 **currentBalance** | **Double** |  |  [optional]
 **profit** | **Double** |  |  [optional]
 

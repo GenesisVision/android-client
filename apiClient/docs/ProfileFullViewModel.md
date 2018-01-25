@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **city** | **String** |  |  [optional]
 **address** | **String** |  |  [optional]
 **phone** | **String** |  |  [optional]
-**birthday** | [**OffsetDateTime**](OffsetDateTime.md) |  |  [optional]
+**birthday** | [**DateTime**](DateTime.md) |  |  [optional]
 **gender** | **Boolean** |  |  [optional]
 **avatar** | **String** |  |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]

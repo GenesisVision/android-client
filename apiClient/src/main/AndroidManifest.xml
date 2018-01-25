@@ -1,4 +1,5 @@
-<manifest package="io.swagger.client">
+<manifest package="io.swagger.client"
+    >
 
     <application/>
 </manifest>
