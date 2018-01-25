@@ -6,6 +6,7 @@ import dagger.Component;
 import vision.genesis.clientapp.di.modules.ApiModule;
 import vision.genesis.clientapp.di.modules.AppModule;
 import vision.genesis.clientapp.di.modules.AuthModule;
+import vision.genesis.clientapp.di.modules.InvestModule;
 import vision.genesis.clientapp.di.modules.NavigationModule;
 import vision.genesis.clientapp.feature.auth.AuthActivity;
 import vision.genesis.clientapp.feature.auth.AuthPresenter;
@@ -14,8 +15,8 @@ import vision.genesis.clientapp.feature.auth.registration.RegistrationPresenter;
 import vision.genesis.clientapp.feature.main.MainActivity;
 import vision.genesis.clientapp.feature.main.MainPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardPresenter;
-import vision.genesis.clientapp.feature.main.invest.InvestPresenter;
 import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
+import vision.genesis.clientapp.feature.main.traders.TradersPresenter;
 import vision.genesis.clientapp.feature.main.wallet.WalletPresenter;
 import vision.genesis.clientapp.feature.splashscreen.SplashScreenPresenter;
 
@@ -24,7 +25,7 @@ import vision.genesis.clientapp.feature.splashscreen.SplashScreenPresenter;
  * Created by Vitaly on 1/18/18.
  */
 
-@Component(modules = {AppModule.class, NavigationModule.class, ApiModule.class, AuthModule.class})
+@Component(modules = {AppModule.class, NavigationModule.class, ApiModule.class, AuthModule.class, InvestModule.class})
 @Singleton
 public interface AppComponent
 {
@@ -44,7 +45,7 @@ public interface AppComponent
 
 	void inject(DashboardPresenter dashboardPresenter);
 
-	void inject(InvestPresenter investPresenter);
+	void inject(TradersPresenter tradersPresenter);
 
 	void inject(WalletPresenter walletPresenter);
 

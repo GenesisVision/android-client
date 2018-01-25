@@ -68,7 +68,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 				router.navigateTo(Screens.DASHBOARD);
 				break;
 			case 1:
-				router.navigateTo(Screens.INVEST);
+				router.navigateTo(Screens.TRADERS);
 				break;
 			case 2:
 				router.navigateTo(Screens.WALLET);

@@ -6,19 +6,19 @@ import dagger.Module;
 import dagger.Provides;
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
-import vision.genesis.clientapp.managers.AuthManager;
+import vision.genesis.clientapp.managers.InvestManager;
 
 /**
  * GenesisVision
- * Created by Vitaly on 1/22/18.
+ * Created by Vitaly on 1/24/18.
  */
 
 @Module
-public class AuthModule
+public class InvestModule
 {
 	@Provides
 	@Singleton
-	public AuthManager provideAuthManager(InvestorApi investorApi, ManagerApi managerApi) {
-		return new AuthManager(investorApi, managerApi);
+	public InvestManager provideInvestManager(InvestorApi investorApi, ManagerApi managerApi) {
+		return new InvestManager(investorApi, managerApi);
 	}
 }

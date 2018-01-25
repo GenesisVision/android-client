@@ -6,7 +6,8 @@ import dagger.Module;
 import dagger.Provides;
 import io.swagger.client.ApiClient;
 import io.swagger.client.JSON;
-import io.swagger.client.api.AccountApi;
+import io.swagger.client.api.InvestorApi;
+import io.swagger.client.api.ManagerApi;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -52,7 +53,13 @@ public class ApiModule
 
 	@Provides
 	@Singleton
-	public AccountApi provideAccountApi(ApiClient apiClient) {
-		return apiClient.createService(AccountApi.class);
+	public InvestorApi provideInvestorApi(ApiClient apiClient) {
+		return apiClient.createService(InvestorApi.class);
+	}
+
+	@Provides
+	@Singleton
+	public ManagerApi provideManagerApi(ApiClient apiClient) {
+		return apiClient.createService(ManagerApi.class);
 	}
 }

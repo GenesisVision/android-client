@@ -1,6 +1,7 @@
 package vision.genesis.clientapp.managers;
 
-import io.swagger.client.api.AccountApi;
+import io.swagger.client.api.InvestorApi;
+import io.swagger.client.api.ManagerApi;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.RegisterInvestorViewModel;
 import io.swagger.client.model.RegisterManagerViewModel;
@@ -24,10 +25,13 @@ public class AuthManager
 
 	private Subscription loginSubscription;
 
-	private AccountApi api;
+	private InvestorApi investorApi;
 
-	public AuthManager(AccountApi api) {
-		this.api = api;
+	private ManagerApi managerApi;
+
+	public AuthManager(InvestorApi investorApi, ManagerApi managerApi) {
+		this.investorApi = investorApi;
+		this.managerApi = managerApi;
 		userSubject.onNext(null);
 	}
 
@@ -66,7 +70,7 @@ public class AuthManager
 		model.setEmail(email);
 		model.setPassword(password);
 		model.setConfirmPassword(confirmPassword);
-		return api.apiInvestorAuthSignUpPost(model);
+		return investorApi.apiInvestorAuthSignUpPost(model);
 	}
 
 	private Observable<Void> registerManager(String email, String password, String confirmPassword) {
@@ -74,12 +78,12 @@ public class AuthManager
 		model.setEmail(email);
 		model.setPassword(password);
 		model.setConfirmPassword(confirmPassword);
-		return api.apiManagerAuthSignUpPost(model);
+		return managerApi.apiManagerAuthSignUpPost(model);
 	}
 
 	private Observable<String> getLoginApiObservable(LoginViewModel model) {
 		return BuildConfig.FLAVOR.equals("investor")
-				? api.apiInvestorAuthSignInPost(model)
-				: api.apiManagerAuthSignInPost(model);
+				? investorApi.apiInvestorAuthSignInPost(model)
+				: managerApi.apiManagerAuthSignInPost(model);
 	}
 }

@@ -9,7 +9,7 @@ public class Screens
 {
 	public static final String DASHBOARD = "dashboard";
 
-	public static final String INVEST = "invest";
+	public static final String TRADERS = "traders";
 
 	public static final String WALLET = "wallet";
 

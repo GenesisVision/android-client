@@ -31,8 +31,8 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.Screens;
 import vision.genesis.clientapp.feature.auth.AuthActivity;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardFragment;
-import vision.genesis.clientapp.feature.main.invest.InvestFragment;
 import vision.genesis.clientapp.feature.main.profile.ProfileFragment;
+import vision.genesis.clientapp.feature.main.traders.TradersFragment;
 import vision.genesis.clientapp.feature.main.wallet.WalletFragment;
 
 /**
@@ -74,8 +74,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 			switch (screenKey) {
 				case Screens.DASHBOARD:
 					return new DashboardFragment();
-				case Screens.INVEST:
-					return new InvestFragment();
+				case Screens.TRADERS:
+					return new TradersFragment();
 				case Screens.WALLET:
 					return new WalletFragment();
 				case Screens.PROFILE:
@@ -109,7 +109,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 		ButterKnife.bind(this);
 
 		if (savedInstanceState == null) {
-			navigator.applyCommand(new Replace(Screens.INVEST, 1));
+			navigator.applyCommand(new Replace(Screens.TRADERS, 1));
 		}
 	}
 

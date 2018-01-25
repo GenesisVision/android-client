@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_investment_program_height">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_investment_program_header_height"
+            android:paddingEnd="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingStart="16dp">
+
+
+            <TextView
+                android:id="@+id/manager_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="@color/colorFontDark"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="SuperManager"
+                />
+
+            <TextView
+                android:id="@+id/currency"
+                style="@style/item_investment_program_currency"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                tools:text="BTC"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_investment_program_graph_height"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_investment_program_footer_height"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                style="@style/item_investment_program_footer_group">
+
+                <TextView
+                    android:id="@+id/text_deposit_text"
+                    style="@style/item_investment_program_footer_text"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    tools:text="1.25030569"/>
+
+                <TextView
+                    android:id="@+id/text_deposit_title"
+                    style="@style/item_investment_program_footer_title"
+                    android:text="@string/deposit"/>
+
+            </LinearLayout>
+
+            <View style="@style/item_investment_program_footer_divider"/>
+
+            <LinearLayout
+                style="@style/item_investment_program_footer_group">
+
+                <TextView
+                    android:id="@+id/text_trades_text"
+                    style="@style/item_investment_program_footer_text"
+                    tools:text="12"/>
+
+                <TextView
+                    android:id="@+id/text_trades_title"
+                    style="@style/item_investment_program_footer_title"
+                    android:text="@string/trades"/>
+
+            </LinearLayout>
+
+            <View style="@style/item_investment_program_footer_divider"/>
+
+            <LinearLayout
+                style="@style/item_investment_program_footer_group">
+
+                <TextView
+                    android:id="@+id/text_period_text"
+                    style="@style/item_investment_program_footer_text"
+                    tools:text="2"/>
+
+                <TextView
+                    android:id="@+id/text_period_title"
+                    style="@style/item_investment_program_footer_title"
+                    android:text="@string/weeks"/>
+
+            </LinearLayout>
+
+            <View style="@style/item_investment_program_footer_divider"/>
+
+            <LinearLayout
+                style="@style/item_investment_program_footer_group">
+
+                <TextView
+                    android:id="@+id/text_profit_text"
+                    style="@style/item_investment_program_footer_text"
+                    android:textColor="@color/colorPrimary"
+                    tools:text="22%"/>
+
+                <TextView
+                    android:id="@+id/text_profit_title"
+                    style="@style/item_investment_program_footer_title"
+                    android:text="@string/profit"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
