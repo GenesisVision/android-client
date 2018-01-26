@@ -8,8 +8,12 @@ import com.arellomobile.mvp.MvpPresenter;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
+import io.swagger.client.model.InvestmentProgram;
 import io.swagger.client.model.InvestmentProgramsViewModel;
 import io.swagger.client.model.InvestmentsFilter;
 import ru.terrakok.cicerone.Router;
@@ -41,6 +45,8 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 	public InvestManager investManager;
 
 	private Subscription getTradersSubscription;
+
+	private List<InvestmentProgram> investmentProgramsList = new ArrayList<>();
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -84,12 +90,19 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 
 	private void handleGetTradersList(InvestmentProgramsViewModel model) {
 		getViewState().setRefreshing(false);
+		getViewState().showProgressBar(false);
+		getViewState().showNoInternet(false);
+
+		investmentProgramsList = model.getInvestments();
 		getViewState().setInvestmentPrograms(model.getInvestments());
 	}
 
 	private void handleGetTradersListError(Throwable error) {
 		getViewState().setRefreshing(false);
+		getViewState().showProgressBar(false);
 		if (ApiErrorResolver.isNetworkError(error)) {
+			if (investmentProgramsList.size() == 0)
+				getViewState().showNoInternet(true);
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}
 	}
@@ -97,5 +110,10 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 	@Subscribe
 	public void onEventMainThread(OnTraderItemListClicked event) {
 		router.navigateTo(Screens.TRADER_DETAILS, event.investmentProgram);
+	}
+
+	void onTryAgainClicked() {
+		getViewState().showProgressBar(true);
+		getTradersList(true);
 	}
 }

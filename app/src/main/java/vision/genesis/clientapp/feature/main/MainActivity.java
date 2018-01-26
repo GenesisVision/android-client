@@ -98,7 +98,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 				Fragment nextFragment,
 				FragmentTransaction fragmentTransaction) {
 //			if (command.getClass().getName().equals())
-			fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left);
+//			fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left);
 		}
 	};
 
@@ -149,7 +149,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	@Override
 	public void initBottomNavigation() {
 		AHBottomNavigationItem dashboardItem = new AHBottomNavigationItem(getString(R.string.dashboard), R.drawable.ic_dashboard_black_24dp);
-		AHBottomNavigationItem investItem = new AHBottomNavigationItem(getString(R.string.invest), R.drawable.ic_attach_money_black_24dp);
+		AHBottomNavigationItem investItem = new AHBottomNavigationItem(getString(R.string.traders), R.drawable.ic_attach_money_black_24dp);
 		AHBottomNavigationItem walletItem = new AHBottomNavigationItem(getString(R.string.wallet), R.drawable.ic_account_balance_wallet_black_24dp);
 		AHBottomNavigationItem profileItem = new AHBottomNavigationItem(getString(R.string.profile), R.drawable.ic_person_black_24dp);
 

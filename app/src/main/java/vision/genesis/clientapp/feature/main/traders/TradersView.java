@@ -23,4 +23,8 @@ interface TradersView extends MvpView
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showSnackbarMessage(String message);
+
+	void showNoInternet(boolean show);
+
+	void showProgressBar(boolean show);
 }

@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -17,6 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.swagger.client.model.InvestmentProgram;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -38,15 +40,29 @@ public class TradersFragment extends BaseFragment implements TradersView
 	@BindView(R.id.recycler_view)
 	public RecyclerView recyclerView;
 
+	@BindView(R.id.group_no_internet)
+	public ViewGroup noInternetGroup;
+
+	@BindView(R.id.button_try_again)
+	public View tryAgainButton;
+
+	@BindView(R.id.progress_bar)
+	public ProgressBar progressBar;
+
 	@InjectPresenter
 	TradersPresenter tradersPresenter;
 
 	private InvestmentProgramsListAdapter investmentProgramsListAdapter;
 
+	@OnClick(R.id.button_try_again)
+	public void onTryAgainClicked() {
+		tradersPresenter.onTryAgainClicked();
+	}
+
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_invest, container, false);
+		return inflater.inflate(R.layout.fragment_traders, container, false);
 	}
 
 	@Override
@@ -97,5 +113,17 @@ public class TradersFragment extends BaseFragment implements TradersView
 	@Override
 	public void showSnackbarMessage(String message) {
 		showSnackbar(message, toolbar);
+	}
+
+	@Override
+	public void showNoInternet(boolean show) {
+		noInternetGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+		refreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
+	}
+
+	@Override
+	public void showProgressBar(boolean show) {
+		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+		tryAgainButton.setVisibility(show ? View.GONE : View.VISIBLE);
 	}
 }
