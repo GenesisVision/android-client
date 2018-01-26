@@ -19,6 +19,8 @@ import vision.genesis.clientapp.model.User;
 
 public class AuthManager
 {
+	public static BehaviorSubject<String> token = BehaviorSubject.create();
+
 	public BehaviorSubject<User> userSubject = BehaviorSubject.create();
 
 	private BehaviorSubject<String> loginResponseSubject = BehaviorSubject.create();
@@ -53,7 +55,8 @@ public class AuthManager
 		return loginResponseSubject;
 	}
 
-	private void handleLoginResponse(String response) {
+	private void handleLoginResponse(String token) {
+		AuthManager.token.onNext("Bearer " + token);
 		User user = new User();
 		userSubject.onNext(user);
 		loginResponseSubject.onNext("success");

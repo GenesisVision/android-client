@@ -20,4 +20,7 @@
     <string name="deposit">DEPOSIT</string>
     <string name="traders">Traders</string>
     <string name="filters">Filters</string>
+    <string name="you_have">You have</string>
+    <string name="gvt">GVT</string>
+    <string name="network_error">Internet connection problems. Please try again later.</string>
 </resources>

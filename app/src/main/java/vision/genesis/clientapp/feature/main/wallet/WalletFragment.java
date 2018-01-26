@@ -5,8 +5,13 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +28,15 @@ public class WalletFragment extends BaseFragment implements WalletView
 {
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
+
+	@BindView(R.id.group_balance)
+	public ViewGroup balanceGroup;
+
+	@BindView(R.id.balance)
+	public TextView balance;
+
+	@BindView(R.id.balance_progress)
+	public ProgressBar balanceProgress;
 
 	@InjectPresenter
 	WalletPresenter walletPresenter;
@@ -42,7 +56,33 @@ public class WalletFragment extends BaseFragment implements WalletView
 		initToolbar();
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		walletPresenter.onResume();
+	}
+
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.wallet));
+	}
+
+	@Override
+	public void setBalance(double balance) {
+		DecimalFormat df = new DecimalFormat("0.####");
+		df.setRoundingMode(RoundingMode.DOWN);
+		this.balance.setText(df.format(balance));
+	}
+
+	@Override
+	public void showBalanceProgress() {
+		balanceProgress.setVisibility(View.VISIBLE);
+		balanceGroup.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void hideBalanceProgress() {
+		balanceProgress.setVisibility(View.GONE);
+		balanceGroup.setVisibility(View.VISIBLE);
 	}
 }

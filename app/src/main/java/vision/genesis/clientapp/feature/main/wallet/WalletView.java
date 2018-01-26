@@ -9,4 +9,9 @@ import com.arellomobile.mvp.MvpView;
 
 interface WalletView extends MvpView
 {
+	void setBalance(double balance);
+
+	void showBalanceProgress();
+
+	void hideBalanceProgress();
 }
