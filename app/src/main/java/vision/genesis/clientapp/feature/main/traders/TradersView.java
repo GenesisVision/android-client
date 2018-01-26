@@ -1,6 +1,8 @@
 package vision.genesis.clientapp.feature.main.traders;
 
 import com.arellomobile.mvp.MvpView;
+import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
+import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
@@ -18,4 +20,7 @@ interface TradersView extends MvpView
 	void addInvestmentPrograms(List<InvestmentProgram> programs);
 
 	void setRefreshing(boolean refreshing);
+
+	@StateStrategyType(OneExecutionStateStrategy.class)
+	void showSnackbarMessage(String message);
 }

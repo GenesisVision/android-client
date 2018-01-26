@@ -93,4 +93,9 @@ public class TradersFragment extends BaseFragment implements TradersView
 	public void setRefreshing(boolean refreshing) {
 		refreshLayout.setRefreshing(refreshing);
 	}
+
+	@Override
+	public void showSnackbarMessage(String message) {
+		showSnackbar(message, toolbar);
+	}
 }

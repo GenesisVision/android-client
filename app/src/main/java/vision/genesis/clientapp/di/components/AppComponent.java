@@ -17,6 +17,7 @@ import vision.genesis.clientapp.feature.main.MainPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardPresenter;
 import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
 import vision.genesis.clientapp.feature.main.traders.TradersPresenter;
+import vision.genesis.clientapp.feature.main.traders.details.TraderDetailsPresenter;
 import vision.genesis.clientapp.feature.main.traders.filter.TradersFiltersPresenter;
 import vision.genesis.clientapp.feature.main.wallet.WalletPresenter;
 import vision.genesis.clientapp.feature.splashscreen.SplashScreenPresenter;
@@ -53,4 +54,6 @@ public interface AppComponent
 	void inject(ProfilePresenter profilePresenter);
 
 	void inject(TradersFiltersPresenter tradersFiltersPresenter);
+
+	void inject(TraderDetailsPresenter traderDetailsPresenter);
 }

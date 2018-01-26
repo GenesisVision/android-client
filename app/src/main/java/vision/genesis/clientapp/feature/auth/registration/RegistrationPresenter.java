@@ -12,10 +12,12 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.Screens;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.model.api.Error;
 import vision.genesis.clientapp.model.api.ErrorResponse;
+import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
 
 /**
@@ -76,26 +78,31 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 		registrationSubscription.unsubscribe();
 		getViewState().hideProgress();
 
-		ErrorResponse response = ErrorResponseConverter.createFromThrowable(throwable);
-		if (response != null) {
-			for (Error error : response.errors) {
-				if (error.property == null) {
-					getViewState().showSnackbarMessage(error.message);
-				}
-				else {
-					switch (error.property.toLowerCase()) {
-						case "email":
-							getViewState().setEmailError(error.message);
-							break;
-						case "password":
-							getViewState().setPasswordError(error.message);
-							break;
-						case "confirmpassword":
-							getViewState().setConfirmPasswordError(error.message);
-							break;
-						default:
-							getViewState().showSnackbarMessage(error.message);
-							break;
+		if (ApiErrorResolver.isNetworkError(throwable)) {
+			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
+		}
+		else {
+			ErrorResponse response = ErrorResponseConverter.createFromThrowable(throwable);
+			if (response != null) {
+				for (Error error : response.errors) {
+					if (error.property == null) {
+						getViewState().showSnackbarMessage(error.message);
+					}
+					else {
+						switch (error.property.toLowerCase()) {
+							case "email":
+								getViewState().setEmailError(error.message);
+								break;
+							case "password":
+								getViewState().setPasswordError(error.message);
+								break;
+							case "confirmpassword":
+								getViewState().setConfirmPasswordError(error.message);
+								break;
+							default:
+								getViewState().showSnackbarMessage(error.message);
+								break;
+						}
 					}
 				}
 			}
