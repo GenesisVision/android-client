@@ -5,6 +5,9 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import javax.inject.Inject;
 
 import io.swagger.client.model.InvestmentProgramsViewModel;
@@ -14,8 +17,11 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.Screens;
 import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.model.events.OnTraderItemListClicked;
+import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
  * GenesisVision
@@ -42,6 +48,8 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		EventBus.getDefault().register(this);
+
 		getViewState().setRefreshing(true);
 		getTradersList(false);
 	}
@@ -52,6 +60,8 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 
 		if (getTradersSubscription != null)
 			getTradersSubscription.unsubscribe();
+
+		EventBus.getDefault().unregister(this);
 	}
 
 	void onFilterClicked() {
@@ -79,7 +89,13 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 
 	private void handleGetTradersListError(Throwable error) {
 		getViewState().setRefreshing(false);
+		if (ApiErrorResolver.isNetworkError(error)) {
+			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
+		}
 	}
 
-
+	@Subscribe
+	public void onEventMainThread(OnTraderItemListClicked event) {
+		router.navigateTo(Screens.TRADER_DETAILS, event.investmentProgram);
+	}
 }

@@ -33,6 +33,7 @@ import vision.genesis.clientapp.feature.auth.AuthActivity;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardFragment;
 import vision.genesis.clientapp.feature.main.profile.ProfileFragment;
 import vision.genesis.clientapp.feature.main.traders.TradersFragment;
+import vision.genesis.clientapp.feature.main.traders.details.TraderDetailsFragment;
 import vision.genesis.clientapp.feature.main.traders.filter.TradersFiltersFragment;
 import vision.genesis.clientapp.feature.main.wallet.WalletFragment;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
@@ -84,6 +85,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 					return new ProfileFragment();
 				case Screens.TRADERS_FILTERS:
 					return new TradersFiltersFragment();
+				case Screens.TRADER_DETAILS:
+					return TraderDetailsFragment.with(data);
 			}
 			return null;
 		}
@@ -94,7 +97,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 				Fragment currentFragment,
 				Fragment nextFragment,
 				FragmentTransaction fragmentTransaction) {
-			//setup animation
+//			if (command.getClass().getName().equals())
+			fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left);
 		}
 	};
 

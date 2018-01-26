@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.traders.filter;
+package vision.genesis.clientapp.feature.main.traders.details;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,18 +19,28 @@ import vision.genesis.clientapp.ui.ToolbarView;
  * Created by Vitaly on 1/26/18.
  */
 
-public class TradersFiltersFragment extends BaseFragment implements TradersFiltersView
+public class TraderDetailsFragment extends BaseFragment implements TraderDetailsView
 {
+	private static String EXTRA_PROGRAM = "extra_program";
+
+	public static TraderDetailsFragment with(Object data) {
+		TraderDetailsFragment traderDetailsFragment = new TraderDetailsFragment();
+		Bundle arguments = new Bundle(1);
+//		arguments.putParcelable(EXTRA_PROGRAM, data);
+		traderDetailsFragment.setArguments(arguments);
+		return traderDetailsFragment;
+	}
+
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
 
 	@InjectPresenter
-	TradersFiltersPresenter tradersFiltersPresenter;
+	TraderDetailsPresenter traderDetailsPresenter;
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_traders_filters, container, false);
+		return inflater.inflate(R.layout.fragment_trader_details, container, false);
 	}
 
 	@Override
@@ -43,7 +53,7 @@ public class TradersFiltersFragment extends BaseFragment implements TradersFilte
 	}
 
 	private void initToolbar() {
-		toolbar.setTitle(getString(R.string.filters));
-		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> tradersFiltersPresenter.onBackClicked());
+		toolbar.setTitle(getString(R.string.trader_details));
+		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> traderDetailsPresenter.onBackClicked());
 	}
 }

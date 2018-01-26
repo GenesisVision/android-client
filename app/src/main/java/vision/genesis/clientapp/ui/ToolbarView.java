@@ -1,6 +1,7 @@
 package vision.genesis.clientapp.ui;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
@@ -56,14 +57,14 @@ public class ToolbarView extends RelativeLayout
 	@OnClick(R.id.button_left)
 	public void onLeftButtonClicked() {
 		if (leftButtonClickListener != null) {
-			leftButtonClickListener.onClicked();
+			new Handler().postDelayed(() -> leftButtonClickListener.onClicked(), 300);
 		}
 	}
 
 	@OnClick(R.id.button_right)
 	public void onRightButtonClicked() {
 		if (rightButtonClickListener != null) {
-			rightButtonClickListener.onClicked();
+			new Handler().postDelayed(() -> rightButtonClickListener.onClicked(), 300);
 		}
 	}
 

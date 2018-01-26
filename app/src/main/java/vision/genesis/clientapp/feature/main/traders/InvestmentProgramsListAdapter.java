@@ -1,5 +1,6 @@
 package vision.genesis.clientapp.feature.main.traders;
 
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.InvestmentProgram;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.events.OnTraderItemListClicked;
 
 /**
  * GenesisVision
@@ -85,6 +89,8 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 			super(itemView);
 
 			ButterKnife.bind(this, itemView);
+
+			itemView.setOnClickListener(v -> new Handler().postDelayed(() -> EventBus.getDefault().post(new OnTraderItemListClicked(investmentProgram)), 300));
 		}
 
 		void setInvestmentProgram(InvestmentProgram investmentProgram) {

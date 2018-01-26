@@ -23,4 +23,5 @@
     <string name="you_have">You have</string>
     <string name="gvt">GVT</string>
     <string name="network_error">Internet connection problems. Please try again later.</string>
+    <string name="trader_details">Trader details</string>
 </resources>
