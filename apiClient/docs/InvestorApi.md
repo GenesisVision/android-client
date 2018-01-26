@@ -9,9 +9,9 @@ Method | HTTP request | Description
 [**apiInvestorAuthSignUpPost**](InvestorApi.md#apiInvestorAuthSignUpPost) | **POST** api/investor/auth/signUp | Register new investor
 [**apiInvestorAuthUpdateTokenGet**](InvestorApi.md#apiInvestorAuthUpdateTokenGet) | **GET** api/investor/auth/updateToken | Update auth token
 [**apiInvestorDashboardGet**](InvestorApi.md#apiInvestorDashboardGet) | **GET** api/investor/dashboard | Get investor dashboard
-[**apiInvestorInvestmentsInvestPost**](InvestorApi.md#apiInvestorInvestmentsInvestPost) | **POST** api/investor/investments/invest | Invest in manager
+[**apiInvestorInvestmentsInvestPost**](InvestorApi.md#apiInvestorInvestmentsInvestPost) | **POST** api/investor/investments/invest | 
 [**apiInvestorInvestmentsPost**](InvestorApi.md#apiInvestorInvestmentsPost) | **POST** api/investor/investments | Get investments by filter
-[**apiInvestorInvestmentsWithdrawPost**](InvestorApi.md#apiInvestorInvestmentsWithdrawPost) | **POST** api/investor/investments/withdraw | Withdraw from investment program
+[**apiInvestorInvestmentsWithdrawPost**](InvestorApi.md#apiInvestorInvestmentsWithdrawPost) | **POST** api/investor/investments/withdraw | 
 [**apiInvestorProfileFullGet**](InvestorApi.md#apiInvestorProfileFullGet) | **GET** api/investor/profile/full | Get full profile
 [**apiInvestorProfileGet**](InvestorApi.md#apiInvestorProfileGet) | **GET** api/investor/profile | Get short profile
 [**apiInvestorProfileUpdatePost**](InvestorApi.md#apiInvestorProfileUpdatePost) | **POST** api/investor/profile/update | Update profile
@@ -241,7 +241,7 @@ No authorization required
 # **apiInvestorInvestmentsInvestPost**
 > ProfileShortViewModel apiInvestorInvestmentsInvestPost(authorization, model)
 
-Invest in manager
+
 
 ### Example
 ```java
@@ -252,7 +252,7 @@ Invest in manager
 
 InvestorApi apiInstance = new InvestorApi();
 String authorization = "authorization_example"; // String | JWT access token
-InvestViewModel model = new InvestViewModel(); // InvestViewModel | 
+Invest model = new Invest(); // Invest | 
 try {
     ProfileShortViewModel result = apiInstance.apiInvestorInvestmentsInvestPost(authorization, model);
     System.out.println(result);
@@ -267,7 +267,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **model** | [**InvestViewModel**](InvestViewModel.md)|  | [optional]
+ **model** | [**Invest**](Invest.md)|  | [optional]
 
 ### Return type
 
@@ -329,7 +329,7 @@ No authorization required
 # **apiInvestorInvestmentsWithdrawPost**
 > Void apiInvestorInvestmentsWithdrawPost(authorization, model)
 
-Withdraw from investment program
+
 
 ### Example
 ```java
@@ -340,7 +340,7 @@ Withdraw from investment program
 
 InvestorApi apiInstance = new InvestorApi();
 String authorization = "authorization_example"; // String | JWT access token
-InvestViewModel model = new InvestViewModel(); // InvestViewModel | 
+Invest model = new Invest(); // Invest | 
 try {
     Void result = apiInstance.apiInvestorInvestmentsWithdrawPost(authorization, model);
     System.out.println(result);
@@ -355,7 +355,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **model** | [**InvestViewModel**](InvestViewModel.md)|  | [optional]
+ **model** | [**Invest**](Invest.md)|  | [optional]
 
 ### Return type
 
@@ -542,7 +542,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 <a name="apiInvestorWalletTransactionsPost"></a>
 # **apiInvestorWalletTransactionsPost**
@@ -630,5 +630,5 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 

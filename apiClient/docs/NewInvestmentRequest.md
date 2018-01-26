@@ -4,7 +4,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**userId** | [**UUID**](UUID.md) |  |  [optional]
 **brokerTradeServerId** | [**UUID**](UUID.md) |  |  [optional]
 **tradePlatformPassword** | **String** |  |  [optional]
 **depositAmount** | **Double** |  |  [optional]

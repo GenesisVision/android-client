@@ -16,57 +16,58 @@ package io.swagger.client.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * TransactionsFilter
+ * Invest
  */
 
-public class TransactionsFilter
+public class Invest
 {
-	@SerializedName("skip")
-	private Integer skip = null;
+	@SerializedName("investmentProgramId")
+	private UUID investmentProgramId = null;
 
-	@SerializedName("take")
-	private Integer take = null;
+	@SerializedName("amount")
+	private Double amount = null;
 
-	public TransactionsFilter skip(Integer skip) {
-		this.skip = skip;
+	public Invest investmentProgramId(UUID investmentProgramId) {
+		this.investmentProgramId = investmentProgramId;
 		return this;
 	}
 
 	/**
-	 * Get skip
+	 * Get investmentProgramId
 	 *
-	 * @return skip
+	 * @return investmentProgramId
 	 **/
 	@ApiModelProperty(value = "")
-	public Integer getSkip() {
-		return skip;
+	public UUID getInvestmentProgramId() {
+		return investmentProgramId;
 	}
 
-	public void setSkip(Integer skip) {
-		this.skip = skip;
+	public void setInvestmentProgramId(UUID investmentProgramId) {
+		this.investmentProgramId = investmentProgramId;
 	}
 
-	public TransactionsFilter take(Integer take) {
-		this.take = take;
+	public Invest amount(Double amount) {
+		this.amount = amount;
 		return this;
 	}
 
 	/**
-	 * Get take
+	 * Get amount
 	 *
-	 * @return take
+	 * @return amount
 	 **/
 	@ApiModelProperty(value = "")
-	public Integer getTake() {
-		return take;
+	public Double getAmount() {
+		return amount;
 	}
 
-	public void setTake(Integer take) {
-		this.take = take;
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
 
 
@@ -78,24 +79,24 @@ public class TransactionsFilter
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		TransactionsFilter transactionsFilter = (TransactionsFilter) o;
-		return Objects.equals(this.skip, transactionsFilter.skip) &&
-				Objects.equals(this.take, transactionsFilter.take);
+		Invest invest = (Invest) o;
+		return Objects.equals(this.investmentProgramId, invest.investmentProgramId) &&
+				Objects.equals(this.amount, invest.amount);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(skip, take);
+		return Objects.hash(investmentProgramId, amount);
 	}
 
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class TransactionsFilter {\n");
+		sb.append("class Invest {\n");
 
-		sb.append("    skip: ").append(toIndentedString(skip)).append("\n");
-		sb.append("    take: ").append(toIndentedString(take)).append("\n");
+		sb.append("    investmentProgramId: ").append(toIndentedString(investmentProgramId)).append("\n");
+		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

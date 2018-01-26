@@ -1,6 +1,6 @@
 package io.swagger.client.api;
 
-import io.swagger.client.model.InvestViewModel;
+import io.swagger.client.model.Invest;
 import io.swagger.client.model.InvestmentProgramsViewModel;
 import io.swagger.client.model.InvestmentsFilter;
 import io.swagger.client.model.InvestorDashboard;
@@ -80,8 +80,6 @@ public interface InvestorApi
 	);
 
 	/**
-	 * Invest in manager
-	 *
 	 * @param authorization JWT access token (required)
 	 * @param model         (optional)
 	 * @return Call&lt;ProfileShortViewModel&gt;
@@ -91,7 +89,7 @@ public interface InvestorApi
 	})
 	@POST("api/investor/investments/invest")
 	Observable<ProfileShortViewModel> apiInvestorInvestmentsInvestPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body InvestViewModel model
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body Invest model
 	);
 
 	/**
@@ -109,8 +107,6 @@ public interface InvestorApi
 	);
 
 	/**
-	 * Withdraw from investment program
-	 *
 	 * @param authorization JWT access token (required)
 	 * @param model         (optional)
 	 * @return Call&lt;Void&gt;
@@ -120,7 +116,7 @@ public interface InvestorApi
 	})
 	@POST("api/investor/investments/withdraw")
 	Observable<Void> apiInvestorInvestmentsWithdrawPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body InvestViewModel model
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body Invest model
 	);
 
 	/**
