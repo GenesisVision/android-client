@@ -18,6 +18,6 @@ public class ErrorResponse
 
 	@SerializedName("code")
 	@Expose
-	public long code;
+	public String code;
 
 }

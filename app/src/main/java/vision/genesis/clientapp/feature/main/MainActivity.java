@@ -33,7 +33,9 @@ import vision.genesis.clientapp.feature.auth.AuthActivity;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardFragment;
 import vision.genesis.clientapp.feature.main.profile.ProfileFragment;
 import vision.genesis.clientapp.feature.main.traders.TradersFragment;
+import vision.genesis.clientapp.feature.main.traders.filter.TradersFiltersFragment;
 import vision.genesis.clientapp.feature.main.wallet.WalletFragment;
+import vision.genesis.clientapp.ui.common.BackButtonListener;
 
 /**
  * GenesisVision
@@ -80,6 +82,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 					return new WalletFragment();
 				case Screens.PROFILE:
 					return new ProfileFragment();
+				case Screens.TRADERS_FILTERS:
+					return new TradersFiltersFragment();
 			}
 			return null;
 		}
@@ -119,9 +123,23 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 		navigatorHolder.setNavigator(navigator);
 	}
 
+	@Override
 	public void onPause() {
 		navigatorHolder.removeNavigator();
 		super.onPause();
+	}
+
+	@Override
+	public void onBackPressed() {
+		Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content);
+		if (fragment != null
+				&& fragment instanceof BackButtonListener
+				&& ((BackButtonListener) fragment).onBackPressed()) {
+			return;
+		}
+		else {
+			super.onBackPressed();
+		}
 	}
 
 	@Override

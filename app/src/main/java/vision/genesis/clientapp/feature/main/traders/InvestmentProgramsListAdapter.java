@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -53,6 +55,12 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 
 	static class InvestmentProgramViewHolder extends RecyclerView.ViewHolder
 	{
+		@BindView(R.id.avatar)
+		public SimpleDraweeView avatar;
+
+		@BindView(R.id.level)
+		public TextView level;
+
 		@BindView(R.id.manager_name)
 		public TextView managerName;
 
@@ -85,6 +93,8 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 		}
 
 		private void updateData() {
+			avatar.setImageURI(investmentProgram.getInvestment().getLogo());
+			level.setText(String.format(Locale.getDefault(), "%.0f", investmentProgram.getInvestment().getRating()));
 			managerName.setText(investmentProgram.getAccount().getLogin());
 			currency.setText(investmentProgram.getAccount().getCurrency());
 

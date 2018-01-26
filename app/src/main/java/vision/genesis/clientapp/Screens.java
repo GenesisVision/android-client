@@ -20,4 +20,6 @@ public class Screens
 	public static final String REGISTRATION = "registration";
 
 	public static final String EMAIL_VERIFICATION = "email_verification";
+
+	public static final String TRADERS_FILTERS = "traders_filters";
 }

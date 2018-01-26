@@ -9,10 +9,12 @@ import javax.inject.Inject;
 
 import io.swagger.client.model.InvestmentProgramsViewModel;
 import io.swagger.client.model.InvestmentsFilter;
+import ru.terrakok.cicerone.Router;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.Screens;
 import vision.genesis.clientapp.managers.InvestManager;
 
 /**
@@ -27,6 +29,9 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 	public Context context;
 
 	@Inject
+	public Router router;
+
+	@Inject
 	public InvestManager investManager;
 
 	private Subscription getTradersSubscription;
@@ -37,6 +42,7 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		getViewState().setRefreshing(true);
 		getTradersList(false);
 	}
 
@@ -46,6 +52,10 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 
 		if (getTradersSubscription != null)
 			getTradersSubscription.unsubscribe();
+	}
+
+	void onFilterClicked() {
+		router.navigateTo(Screens.TRADERS_FILTERS);
 	}
 
 	void onSwipeRefresh() {

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/item_investment_program_height">
+                android:layout_height="@dimen/item_investment_program_height"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,12 +22,56 @@
             android:paddingRight="16dp"
             android:paddingStart="16dp">
 
+            <RelativeLayout
+                android:id="@+id/group_avatar"
+                android:layout_width="50dp"
+                android:layout_height="50dp">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="3dp"
+                    app:placeholderImage="@drawable/logo"
+                    app:roundAsCircle="true"/>
+
+                <FrameLayout
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:placeholderImage="@color/colorPrimaryDark"
+                        app:roundAsCircle="true"
+                        app:roundingBorderColor="@color/colorGrayBackground"
+                        app:roundingBorderWidth="2dp"/>
+
+                    <TextView
+                        android:id="@+id/level"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        tools:text="3"/>
+
+                </FrameLayout>
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/manager_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/group_avatar"
+                android:layout_toRightOf="@+id/group_avatar"
                 android:textColor="@color/colorFontDark"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -36,6 +84,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:textStyle="bold"
                 tools:text="BTC"/>
 
         </RelativeLayout>

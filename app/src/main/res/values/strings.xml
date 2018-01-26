@@ -18,4 +18,6 @@
     <string name="weeks">WEEKS</string>
     <string name="trades">TRADES</string>
     <string name="deposit">DEPOSIT</string>
+    <string name="traders">Traders</string>
+    <string name="filters">Filters</string>
 </resources>

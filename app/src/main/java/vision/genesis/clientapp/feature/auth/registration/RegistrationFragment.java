@@ -64,6 +64,7 @@ public class RegistrationFragment extends BaseFragment implements RegistrationVi
 		initToolbar();
 	}
 
+
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.registration));
 		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> registrationPresenter.onBackClicked());
@@ -106,5 +107,11 @@ public class RegistrationFragment extends BaseFragment implements RegistrationVi
 	@Override
 	public void showSnackbarMessage(String message) {
 		showSnackbar(message, toolbar);
+	}
+
+	@Override
+	public boolean onBackPressed() {
+		registrationPresenter.onBackClicked();
+		return true;
 	}
 }

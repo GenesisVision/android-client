@@ -2,7 +2,9 @@ package vision.genesis.clientapp.feature.main.traders;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -55,18 +57,25 @@ public class TradersFragment extends BaseFragment implements TradersView
 
 		initToolbar();
 
+		refreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary),
+				ContextCompat.getColor(getContext(), R.color.colorAccent),
+				ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
 		refreshLayout.setOnRefreshListener(() -> tradersPresenter.onSwipeRefresh());
 		initRecyclerView();
 	}
 
 	private void initToolbar() {
-		toolbar.setTitle(getString(R.string.invest));
+		toolbar.setTitle(getString(R.string.traders));
+		toolbar.addRightButton(R.drawable.ic_filter, () -> tradersPresenter.onFilterClicked());
 	}
 
 	private void initRecyclerView() {
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
 		investmentProgramsListAdapter = new InvestmentProgramsListAdapter();
+		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
+		dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider));
+		recyclerView.addItemDecoration(dividerItemDecoration);
 		recyclerView.setAdapter(investmentProgramsListAdapter);
 	}
 

@@ -4,12 +4,12 @@
     <color name="colorPrimaryDark">#2a748c</color>
     <color name="colorAccent">#aab8c0</color>
 
-    <color name="colorFontDark">#45495f</color>
+    <color name="colorFontDark">#546e7a</color>
     <color name="colorFontMedium">#aab8c0</color>
     <color name="colorFontLight">#cfd5da</color>
 
     <color name="colorGrayBackground">#fafafa</color>
-    <color name="colorGrayDivider">#d8e0e5</color>
+    <color name="colorGrayDivider">#80cfd8dc</color>
     <color name="colorAzure">#22cec0</color>
     <color name="colorAzureLight">#e5eeed</color>
 
