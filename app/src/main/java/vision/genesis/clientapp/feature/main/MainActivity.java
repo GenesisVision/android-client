@@ -44,6 +44,7 @@ import vision.genesis.clientapp.ui.common.BackButtonListener;
  */
 
 public class MainActivity extends MvpAppCompatActivity implements MainView
+
 {
 	public static void startFrom(Context context) {
 		Intent mainActivityIntent = new Intent(context, MainActivity.class);
@@ -119,6 +120,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 		if (savedInstanceState == null) {
 			navigator.applyCommand(new Replace(Screens.TRADERS, 1));
 		}
+
+		initBottomNavigation();
 	}
 
 	@Override
@@ -146,7 +149,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 		}
 	}
 
-	@Override
 	public void initBottomNavigation() {
 		AHBottomNavigationItem dashboardItem = new AHBottomNavigationItem(getString(R.string.dashboard), R.drawable.ic_dashboard_black_24dp);
 		AHBottomNavigationItem investItem = new AHBottomNavigationItem(getString(R.string.traders), R.drawable.ic_attach_money_black_24dp);
@@ -168,9 +170,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 			mainPresenter.onBottomMenuSelectionChanged(position);
 			return true;
 		});
-
-		bottomNavigationView.setCurrentItem(0);
-		showBottomNavigationWithAnimation();
 	}
 
 	private void showBottomNavigationWithAnimation() {
@@ -191,6 +190,17 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	@Override
 	public void setNavigationItemSelected(int position) {
 		bottomNavigationView.setCurrentItem(position);
+	}
+
+	@Override
+	public void showBottomNavigation() {
+		bottomNavigationView.setCurrentItem(0);
+		showBottomNavigationWithAnimation();
+	}
+
+	@Override
+	public void hideBottomNavigation() {
+		bottomNavigationView.setVisibility(View.GONE);
 	}
 
 	@Override

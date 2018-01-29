@@ -8,6 +8,7 @@ import vision.genesis.clientapp.di.modules.AppModule;
 import vision.genesis.clientapp.di.modules.AuthModule;
 import vision.genesis.clientapp.di.modules.InvestModule;
 import vision.genesis.clientapp.di.modules.NavigationModule;
+import vision.genesis.clientapp.di.modules.UtilsModule;
 import vision.genesis.clientapp.feature.auth.AuthActivity;
 import vision.genesis.clientapp.feature.auth.AuthPresenter;
 import vision.genesis.clientapp.feature.auth.login.LoginPresenter;
@@ -27,7 +28,7 @@ import vision.genesis.clientapp.feature.splashscreen.SplashScreenPresenter;
  * Created by Vitaly on 1/18/18.
  */
 
-@Component(modules = {AppModule.class, NavigationModule.class, ApiModule.class, AuthModule.class, InvestModule.class})
+@Component(modules = {AppModule.class, NavigationModule.class, ApiModule.class, AuthModule.class, InvestModule.class, UtilsModule.class})
 @Singleton
 public interface AppComponent
 {

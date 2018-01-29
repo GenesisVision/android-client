@@ -44,5 +44,6 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.profile));
+		toolbar.addRightButton(R.drawable.ic_exit_to_app_black_24dp, () -> profilePresenter.onLogoutClicked());
 	}
 }

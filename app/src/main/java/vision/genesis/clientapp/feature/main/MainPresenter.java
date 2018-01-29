@@ -98,13 +98,14 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	private void userLoggedOn() {
-		getViewState().initBottomNavigation();
+		getViewState().showBottomNavigation();
 		getViewState().hideSignInButton();
 	}
 
 	private void userLoggedOff() {
 		getViewState().setNavigationItemSelected(1);
 		getViewState().showSignInButton();
+		getViewState().hideBottomNavigation();
 	}
 
 	private void handleUserError(Throwable throwable) {

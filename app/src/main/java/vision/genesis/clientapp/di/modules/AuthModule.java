@@ -8,6 +8,7 @@ import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProfileManager;
+import vision.genesis.clientapp.utils.SharedPreferencesUtil;
 
 /**
  * GenesisVision
@@ -19,8 +20,8 @@ public class AuthModule
 {
 	@Provides
 	@Singleton
-	public AuthManager provideAuthManager(InvestorApi investorApi, ManagerApi managerApi) {
-		return new AuthManager(investorApi, managerApi);
+	public AuthManager provideAuthManager(InvestorApi investorApi, ManagerApi managerApi, SharedPreferencesUtil sharedPreferencesUtil) {
+		return new AuthManager(investorApi, managerApi, sharedPreferencesUtil);
 	}
 
 	@Provides

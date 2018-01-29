@@ -11,6 +11,7 @@ import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.model.User;
+import vision.genesis.clientapp.utils.SharedPreferencesUtil;
 
 /**
  * GenesisVision
@@ -31,10 +32,22 @@ public class AuthManager
 
 	private ManagerApi managerApi;
 
-	public AuthManager(InvestorApi investorApi, ManagerApi managerApi) {
+	private SharedPreferencesUtil sharedPreferencesUtil;
+
+	public AuthManager(InvestorApi investorApi, ManagerApi managerApi, SharedPreferencesUtil sharedPreferencesUtil) {
 		this.investorApi = investorApi;
 		this.managerApi = managerApi;
+		this.sharedPreferencesUtil = sharedPreferencesUtil;
 		userSubject.onNext(null);
+		tryGetSavedToken();
+	}
+
+	private void tryGetSavedToken() {
+		String token = sharedPreferencesUtil.getToken();
+		if (token != null) {
+			AuthManager.token.onNext(token);
+			createUser();
+		}
 	}
 
 	public Observable<String> login(String email, String password) {
@@ -56,10 +69,16 @@ public class AuthManager
 	}
 
 	private void handleLoginResponse(String token) {
-		AuthManager.token.onNext("Bearer " + token);
+		String newToken = "Bearer " + token;
+		sharedPreferencesUtil.saveToken(newToken);
+		createUser();
+		AuthManager.token.onNext(newToken);
+		loginResponseSubject.onNext("success");
+	}
+
+	private void createUser() {
 		User user = new User();
 		userSubject.onNext(user);
-		loginResponseSubject.onNext("success");
 	}
 
 	public Observable<Void> register(String email, String password, String confirmPassword) {
@@ -88,5 +107,11 @@ public class AuthManager
 		return BuildConfig.FLAVOR.equals("investor")
 				? investorApi.apiInvestorAuthSignInPost(model)
 				: managerApi.apiManagerAuthSignInPost(model);
+	}
+
+	public void logout() {
+		sharedPreferencesUtil.saveToken(null);
+		AuthManager.token.onNext(null);
+		userSubject.onNext(null);
 	}
 }

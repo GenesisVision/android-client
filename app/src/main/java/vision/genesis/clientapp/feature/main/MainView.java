@@ -9,7 +9,9 @@ import com.arellomobile.mvp.MvpView;
 
 public interface MainView extends MvpView
 {
-	void initBottomNavigation();
+	void showBottomNavigation();
+
+	void hideBottomNavigation();
 
 	void setNavigationItemSelected(int position);
 

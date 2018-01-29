@@ -8,6 +8,7 @@ import com.arellomobile.mvp.MvpPresenter;
 import javax.inject.Inject;
 
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.managers.AuthManager;
 
 /**
  * GenesisVision
@@ -19,6 +20,13 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 {
 	@Inject
 	public Context context;
+
+	@Inject
+	public AuthManager authManager;
+
+	void onLogoutClicked() {
+		authManager.logout();
+	}
 
 	@Override
 	protected void onFirstViewAttach() {
