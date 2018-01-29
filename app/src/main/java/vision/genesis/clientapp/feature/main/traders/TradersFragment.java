@@ -93,6 +93,20 @@ public class TradersFragment extends BaseFragment implements TradersView
 		dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider));
 		recyclerView.addItemDecoration(dividerItemDecoration);
 		recyclerView.setAdapter(investmentProgramsListAdapter);
+		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
+		{
+			@Override
+			public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+				LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+				int totalItemCount = layoutManager.getItemCount();
+				int lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
+
+				boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
+				if (totalItemCount > 0 && endHasBeenReached) {
+					tradersPresenter.onLastListItemVisible();
+				}
+			}
+		});
 	}
 
 	@Override
@@ -125,5 +139,10 @@ public class TradersFragment extends BaseFragment implements TradersView
 	public void showProgressBar(boolean show) {
 		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
 		tryAgainButton.setVisibility(show ? View.GONE : View.VISIBLE);
+	}
+
+	@Override
+	public void showEmptyList() {
+
 	}
 }

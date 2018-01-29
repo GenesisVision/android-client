@@ -5,9 +5,6 @@ import io.swagger.client.api.ManagerApi;
 import io.swagger.client.model.InvestmentProgramsViewModel;
 import io.swagger.client.model.InvestmentsFilter;
 import rx.Observable;
-import rx.Subscription;
-import rx.schedulers.Schedulers;
-import rx.subjects.BehaviorSubject;
 
 /**
  * GenesisVision
@@ -20,33 +17,12 @@ public class InvestManager
 
 	private ManagerApi managerApi;
 
-	private Subscription getInvestmentProgramsSubscription;
-
-	private BehaviorSubject<InvestmentProgramsViewModel> investmentProgramsBehaviorSubject = BehaviorSubject.create();
-
 	public InvestManager(InvestorApi investorApi, ManagerApi managerApi) {
 		this.investorApi = investorApi;
 		this.managerApi = managerApi;
 	}
 
-	public Observable<InvestmentProgramsViewModel> getTradersList(InvestmentsFilter filter, boolean forceUpdate) {
-		if (getInvestmentProgramsSubscription != null)
-			getInvestmentProgramsSubscription.unsubscribe();
-		if (forceUpdate)
-			investmentProgramsBehaviorSubject = BehaviorSubject.create();
-		getInvestmentProgramsSubscription = investorApi.apiInvestorInvestmentsPost(filter)
-				.observeOn(Schedulers.io())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleInvestmentProgramsListUpdate,
-						this::handleInvestmentProgramsListUpdateError);
-		return investmentProgramsBehaviorSubject;
-	}
-
-	private void handleInvestmentProgramsListUpdate(InvestmentProgramsViewModel investmentPrograms) {
-		investmentProgramsBehaviorSubject.onNext(investmentPrograms);
-	}
-
-	private void handleInvestmentProgramsListUpdateError(Throwable error) {
-		investmentProgramsBehaviorSubject.onError(error);
+	public Observable<InvestmentProgramsViewModel> getTradersList(InvestmentsFilter filter) {
+		return investorApi.apiInvestorInvestmentsPost(filter);
 	}
 }

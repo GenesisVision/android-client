@@ -27,4 +27,6 @@ interface TradersView extends MvpView
 	void showNoInternet(boolean show);
 
 	void showProgressBar(boolean show);
+
+	void showEmptyList();
 }

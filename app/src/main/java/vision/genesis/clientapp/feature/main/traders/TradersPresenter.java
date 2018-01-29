@@ -35,6 +35,8 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 @InjectViewState
 public class TradersPresenter extends MvpPresenter<TradersView>
 {
+	private static int TAKE = 2;
+
 	@Inject
 	public Context context;
 
@@ -48,6 +50,10 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 
 	private List<InvestmentProgram> investmentProgramsList = new ArrayList<>();
 
+	private int skip = 0;
+
+	private InvestmentsFilter filter;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -56,8 +62,12 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 
 		EventBus.getDefault().register(this);
 
+		filter = new InvestmentsFilter();
+		filter.setSkip(0);
+		filter.setTake(TAKE);
+
 		getViewState().setRefreshing(true);
-		getTradersList(false);
+		getTradersList(true);
 	}
 
 	@Override
@@ -79,9 +89,17 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 		getTradersList(true);
 	}
 
+	void onLastListItemVisible() {
+		getTradersList(false);
+	}
+
 	private void getTradersList(boolean forceUpdate) {
-		InvestmentsFilter filter = new InvestmentsFilter();
-		getTradersSubscription = investManager.getTradersList(filter, forceUpdate)
+		if (forceUpdate) {
+			skip = 0;
+			filter.setSkip(skip);
+		}
+
+		getTradersSubscription = investManager.getTradersList(filter)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleGetTradersList,
@@ -93,11 +111,32 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);
 
-		investmentProgramsList = model.getInvestments();
-		getViewState().setInvestmentPrograms(model.getInvestments());
+		getTradersSubscription.unsubscribe();
+
+		List<InvestmentProgram> programs = model.getInvestments();
+
+		if (programs.size() == 0) {
+			if (skip == 0)
+				getViewState().showEmptyList();
+			return;
+		}
+
+		if (skip == 0) {
+			investmentProgramsList.clear();
+			getViewState().setInvestmentPrograms(programs);
+		}
+		else {
+			getViewState().addInvestmentPrograms(programs);
+		}
+		investmentProgramsList.addAll(programs);
+		skip += TAKE;
+		filter.setTake(TAKE);
+		filter.setSkip(skip);
 	}
 
 	private void handleGetTradersListError(Throwable error) {
+		getTradersSubscription.unsubscribe();
+
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		if (ApiErrorResolver.isNetworkError(error)) {

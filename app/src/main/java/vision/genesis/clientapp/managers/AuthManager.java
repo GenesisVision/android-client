@@ -1,5 +1,8 @@
 package vision.genesis.clientapp.managers;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
 import io.swagger.client.model.LoginViewModel;
@@ -11,6 +14,7 @@ import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.model.User;
+import vision.genesis.clientapp.model.events.OnUnauthorizedResponseGetEvent;
 import vision.genesis.clientapp.utils.SharedPreferencesUtil;
 
 /**
@@ -38,6 +42,9 @@ public class AuthManager
 		this.investorApi = investorApi;
 		this.managerApi = managerApi;
 		this.sharedPreferencesUtil = sharedPreferencesUtil;
+
+		EventBus.getDefault().register(this);
+
 		userSubject.onNext(null);
 		tryGetSavedToken();
 	}
@@ -113,5 +120,10 @@ public class AuthManager
 		sharedPreferencesUtil.saveToken(null);
 		AuthManager.token.onNext(null);
 		userSubject.onNext(null);
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnUnauthorizedResponseGetEvent event) {
+		logout();
 	}
 }

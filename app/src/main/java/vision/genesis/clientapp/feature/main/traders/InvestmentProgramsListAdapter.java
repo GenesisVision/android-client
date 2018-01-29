@@ -54,7 +54,7 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 
 	void addInvestmentPrograms(List<InvestmentProgram> investmentPrograms) {
 		this.investmentPrograms.addAll(investmentPrograms);
-//		notifyDataSetChanged();
+		notifyDataSetChanged();
 	}
 
 	static class InvestmentProgramViewHolder extends RecyclerView.ViewHolder

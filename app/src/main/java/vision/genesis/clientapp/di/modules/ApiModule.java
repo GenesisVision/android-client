@@ -14,6 +14,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.net.LogJsonInterceptor;
+import vision.genesis.clientapp.net.UnauthorizedInterceptor;
 
 /**
  * GenesisVision
@@ -27,7 +28,8 @@ public class ApiModule
 	@Singleton
 	OkHttpClient provideHttpClient() {
 		OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder()
-				.addInterceptor(new LogJsonInterceptor());
+				.addInterceptor(new LogJsonInterceptor())
+				.addInterceptor(new UnauthorizedInterceptor());
 		return httpClientBuilder.build();
 	}
 
