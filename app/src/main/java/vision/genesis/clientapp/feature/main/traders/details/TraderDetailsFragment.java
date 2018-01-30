@@ -8,12 +8,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.bottom_navigation.RouterProvider;
 import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.ui.ManagerAvatarView;
 import vision.genesis.clientapp.ui.ToolbarView;
@@ -52,6 +54,11 @@ public class TraderDetailsFragment extends BaseFragment implements TraderDetails
 
 	private InvestmentProgram program;
 
+	@ProvidePresenter
+	public TraderDetailsPresenter provideTraderDetailsPresenter() {
+		return new TraderDetailsPresenter(((RouterProvider) getParentFragment()).getRouter());
+	}
+
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -88,5 +95,11 @@ public class TraderDetailsFragment extends BaseFragment implements TraderDetails
 
 		managerName.setText(program.managerName);
 		description.setText(program.description);
+	}
+
+	@Override
+	public boolean onBackPressed() {
+		traderDetailsPresenter.onBackClicked();
+		return true;
 	}
 }

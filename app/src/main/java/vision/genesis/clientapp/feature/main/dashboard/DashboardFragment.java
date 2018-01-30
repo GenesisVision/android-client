@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -15,6 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.bottom_navigation.RouterProvider;
 import vision.genesis.clientapp.model.events.OnInvestButtonClickedEvent;
 import vision.genesis.clientapp.ui.ToolbarView;
 
@@ -30,6 +32,11 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 
 	@InjectPresenter
 	DashboardPresenter dashboardPresenter;
+
+	@ProvidePresenter
+	public DashboardPresenter provideDashboardPresenter() {
+		return new DashboardPresenter(((RouterProvider) getParentFragment()).getRouter());
+	}
 
 	@OnClick(R.id.button_invest)
 	public void onInvestButtonClicked() {

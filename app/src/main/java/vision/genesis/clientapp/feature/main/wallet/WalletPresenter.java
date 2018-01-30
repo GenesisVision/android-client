@@ -7,6 +7,7 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
+import ru.terrakok.cicerone.Router;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -27,7 +28,13 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 	@Inject
 	public ProfileManager profileManager;
 
+	private Router localRouter;
+
 	private Subscription balanceSubscription;
+
+	public WalletPresenter(Router router) {
+		this.localRouter = router;
+	}
 
 	@Override
 	protected void onFirstViewAttach() {

@@ -7,6 +7,7 @@ import dagger.Provides;
 import ru.terrakok.cicerone.Cicerone;
 import ru.terrakok.cicerone.NavigatorHolder;
 import ru.terrakok.cicerone.Router;
+import vision.genesis.clientapp.navigation.LocalCiceroneHolder;
 
 /**
  * GenesisVision
@@ -32,5 +33,11 @@ public class NavigationModule
 	@Singleton
 	public NavigatorHolder provideNavigatorHolder(Cicerone<Router> cicerone) {
 		return cicerone.getNavigatorHolder();
+	}
+
+	@Provides
+	@Singleton
+	public LocalCiceroneHolder provideLocalCiceroneHolder() {
+		return new LocalCiceroneHolder();
 	}
 }

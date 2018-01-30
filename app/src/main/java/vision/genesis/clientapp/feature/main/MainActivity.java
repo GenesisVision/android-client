@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.NavigatorHolder;
+import ru.terrakok.cicerone.Router;
 import ru.terrakok.cicerone.android.SupportAppNavigator;
 import ru.terrakok.cicerone.commands.Command;
 import ru.terrakok.cicerone.commands.Replace;
@@ -30,13 +31,11 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.Screens;
 import vision.genesis.clientapp.feature.auth.AuthActivity;
-import vision.genesis.clientapp.feature.main.dashboard.DashboardFragment;
-import vision.genesis.clientapp.feature.main.profile.ProfileFragment;
-import vision.genesis.clientapp.feature.main.traders.TradersFragment;
-import vision.genesis.clientapp.feature.main.traders.details.TraderDetailsFragment;
-import vision.genesis.clientapp.feature.main.traders.filter.TradersFiltersFragment;
-import vision.genesis.clientapp.feature.main.wallet.WalletFragment;
-import vision.genesis.clientapp.model.InvestmentProgram;
+import vision.genesis.clientapp.feature.main.bottom_navigation.DashboardMainFragment;
+import vision.genesis.clientapp.feature.main.bottom_navigation.ProfileMainFragment;
+import vision.genesis.clientapp.feature.main.bottom_navigation.RouterProvider;
+import vision.genesis.clientapp.feature.main.bottom_navigation.TradersMainFragment;
+import vision.genesis.clientapp.feature.main.bottom_navigation.WalletMainFragment;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
 
 /**
@@ -44,7 +43,7 @@ import vision.genesis.clientapp.ui.common.BackButtonListener;
  * Created by Vitaly on 1/18/18.
  */
 
-public class MainActivity extends MvpAppCompatActivity implements MainView
+public class MainActivity extends MvpAppCompatActivity implements MainView, RouterProvider
 
 {
 	public static void startFrom(Context context) {
@@ -63,12 +62,22 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	@Inject
 	public NavigatorHolder navigatorHolder;
 
+	@Inject
+	Router router;
+
 	@InjectPresenter
 	MainPresenter mainPresenter;
 
+	private DashboardMainFragment dashboardMainFragment;
+
+	private TradersMainFragment tradersMainFragment;
+
+	private WalletMainFragment walletMainFragment;
+
+	private ProfileMainFragment profileMainFragment;
+
 	private Navigator navigator = new SupportAppNavigator(this, R.id.content)
 	{
-
 		@Override
 		protected Intent createActivityIntent(String screenKey, Object data) {
 			return null;
@@ -77,18 +86,22 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 		@Override
 		protected Fragment createFragment(String screenKey, Object data) {
 			switch (screenKey) {
-				case Screens.DASHBOARD:
-					return new DashboardFragment();
-				case Screens.TRADERS:
-					return new TradersFragment();
-				case Screens.WALLET:
-					return new WalletFragment();
-				case Screens.PROFILE:
-					return new ProfileFragment();
-				case Screens.TRADERS_FILTERS:
-					return new TradersFiltersFragment();
-				case Screens.TRADER_DETAILS:
-					return TraderDetailsFragment.with((InvestmentProgram) data);
+				case Screens.DASHBOARD_MAIN:
+					if (dashboardMainFragment == null)
+						dashboardMainFragment = new DashboardMainFragment();
+					return dashboardMainFragment;
+				case Screens.TRADERS_MAIN:
+					if (tradersMainFragment == null)
+						tradersMainFragment = new TradersMainFragment();
+					return tradersMainFragment;
+				case Screens.WALLET_MAIN:
+					if (walletMainFragment == null)
+						walletMainFragment = new WalletMainFragment();
+					return walletMainFragment;
+				case Screens.PROFILE_MAIN:
+					if (profileMainFragment == null)
+						profileMainFragment = new ProfileMainFragment();
+					return profileMainFragment;
 			}
 			return null;
 		}
@@ -99,8 +112,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 				Fragment currentFragment,
 				Fragment nextFragment,
 				FragmentTransaction fragmentTransaction) {
-//			if (command.getClass().getName().equals())
-//			fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left);
+			fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
 		}
 	};
 
@@ -119,7 +131,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 		ButterKnife.bind(this);
 
 		if (savedInstanceState == null) {
-			navigator.applyCommand(new Replace(Screens.TRADERS, 1));
+			navigator.applyCommand(new Replace(Screens.TRADERS_MAIN, 1));
 		}
 
 		initBottomNavigation();
@@ -217,5 +229,10 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	@Override
 	public void showAuthActivity() {
 		AuthActivity.startFrom(this);
+	}
+
+	@Override
+	public Router getRouter() {
+		return router;
 	}
 }

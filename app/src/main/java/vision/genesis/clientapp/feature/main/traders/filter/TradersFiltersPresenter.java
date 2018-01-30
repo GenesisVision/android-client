@@ -22,8 +22,11 @@ public class TradersFiltersPresenter extends MvpPresenter<TradersFiltersView>
 	@Inject
 	public Context context;
 
-	@Inject
-	public Router router;
+	private Router localRouter;
+
+	public TradersFiltersPresenter(Router router) {
+		this.localRouter = router;
+	}
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -33,6 +36,6 @@ public class TradersFiltersPresenter extends MvpPresenter<TradersFiltersView>
 	}
 
 	void onBackClicked() {
-		router.backTo(Screens.TRADERS);
+		localRouter.backTo(Screens.TRADERS);
 	}
 }

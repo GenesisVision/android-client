@@ -65,16 +65,16 @@ public class MainPresenter extends MvpPresenter<MainView>
 	void onBottomMenuSelectionChanged(int position) {
 		switch (position) {
 			case 0:
-				router.navigateTo(Screens.DASHBOARD);
+				router.navigateTo(Screens.DASHBOARD_MAIN);
 				break;
 			case 1:
-				router.navigateTo(Screens.TRADERS);
+				router.navigateTo(Screens.TRADERS_MAIN);
 				break;
 			case 2:
-				router.navigateTo(Screens.WALLET);
+				router.navigateTo(Screens.WALLET_MAIN);
 				break;
 			case 3:
-				router.navigateTo(Screens.PROFILE);
+				router.navigateTo(Screens.PROFILE_MAIN);
 				break;
 		}
 	}

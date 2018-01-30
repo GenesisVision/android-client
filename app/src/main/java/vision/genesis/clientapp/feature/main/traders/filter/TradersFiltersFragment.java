@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.bottom_navigation.RouterProvider;
 import vision.genesis.clientapp.ui.ToolbarView;
 
 /**
@@ -26,6 +28,11 @@ public class TradersFiltersFragment extends BaseFragment implements TradersFilte
 
 	@InjectPresenter
 	TradersFiltersPresenter tradersFiltersPresenter;
+
+	@ProvidePresenter
+	public TradersFiltersPresenter provideTraderFiltersPresenter() {
+		return new TradersFiltersPresenter(((RouterProvider) getParentFragment()).getRouter());
+	}
 
 	@Nullable
 	@Override
@@ -45,5 +52,11 @@ public class TradersFiltersFragment extends BaseFragment implements TradersFilte
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.filters));
 		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> tradersFiltersPresenter.onBackClicked());
+	}
+
+	@Override
+	public boolean onBackPressed() {
+		tradersFiltersPresenter.onBackClicked();
+		return true;
 	}
 }

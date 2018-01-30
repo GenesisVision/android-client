@@ -41,10 +41,9 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 	public Context context;
 
 	@Inject
-	public Router router;
-
-	@Inject
 	public InvestManager investManager;
+
+	private Router localRouter;
 
 	private Subscription getTradersSubscription;
 
@@ -53,6 +52,10 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 	private int skip = 0;
 
 	private InvestmentsFilter filter;
+
+	public TradersPresenter(Router router) {
+		this.localRouter = router;
+	}
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -81,7 +84,7 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 	}
 
 	void onFilterClicked() {
-		router.navigateTo(Screens.TRADERS_FILTERS);
+		localRouter.navigateTo(Screens.TRADERS_FILTERS);
 	}
 
 	void onSwipeRefresh() {
@@ -148,7 +151,7 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 
 	@Subscribe
 	public void onEventMainThread(OnTraderItemListClicked event) {
-		router.navigateTo(Screens.TRADER_DETAILS, event.investmentProgram);
+		localRouter.navigateTo(Screens.TRADER_DETAILS, event.investmentProgram);
 	}
 
 	void onTryAgainClicked() {

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.bottom_navigation.RouterProvider;
 import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.ui.ToolbarView;
 
@@ -53,6 +55,11 @@ public class TradersFragment extends BaseFragment implements TradersView
 	TradersPresenter tradersPresenter;
 
 	private InvestmentProgramsListAdapter investmentProgramsListAdapter;
+
+	@ProvidePresenter
+	public TradersPresenter provideTradersPresenter() {
+		return new TradersPresenter(((RouterProvider) getParentFragment()).getRouter());
+	}
 
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
@@ -144,5 +151,16 @@ public class TradersFragment extends BaseFragment implements TradersView
 	@Override
 	public void showEmptyList() {
 
+	}
+
+	@Override
+	public boolean onBackPressed() {
+		LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+		if (layoutManager.findFirstCompletelyVisibleItemPosition() != 0) {
+			recyclerView.smoothScrollToPosition(0);
+			return true;
+		}
+		else
+			return false;
 	}
 }

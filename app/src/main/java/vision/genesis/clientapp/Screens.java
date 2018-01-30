@@ -7,6 +7,14 @@ package vision.genesis.clientapp;
 
 public class Screens
 {
+	public static final String DASHBOARD_MAIN = "dashboard_main";
+
+	public static final String TRADERS_MAIN = "traders_main";
+
+	public static final String WALLET_MAIN = "wallet_main";
+
+	public static final String PROFILE_MAIN = "profile_main";
+
 	public static final String DASHBOARD = "dashboard";
 
 	public static final String TRADERS = "traders";

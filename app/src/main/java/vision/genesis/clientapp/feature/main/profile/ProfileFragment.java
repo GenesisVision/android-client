@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.bottom_navigation.RouterProvider;
 import vision.genesis.clientapp.ui.ToolbarView;
 
 /**
@@ -26,6 +28,11 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 
 	@InjectPresenter
 	ProfilePresenter profilePresenter;
+
+	@ProvidePresenter
+	public ProfilePresenter provideProfilePresenter() {
+		return new ProfilePresenter(((RouterProvider) getParentFragment()).getRouter());
+	}
 
 	@Nullable
 	@Override

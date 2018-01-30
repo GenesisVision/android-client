@@ -7,6 +7,7 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
+import ru.terrakok.cicerone.Router;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
 
@@ -23,6 +24,12 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 
 	@Inject
 	public AuthManager authManager;
+
+	private Router localRouter;
+
+	public ProfilePresenter(Router router) {
+		this.localRouter = router;
+	}
 
 	void onLogoutClicked() {
 		authManager.logout();
