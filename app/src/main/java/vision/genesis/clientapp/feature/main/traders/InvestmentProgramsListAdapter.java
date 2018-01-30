@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
@@ -17,9 +15,10 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.swagger.client.model.InvestmentProgram;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.model.events.OnTraderItemListClicked;
+import vision.genesis.clientapp.ui.ManagerAvatarView;
 
 /**
  * GenesisVision
@@ -60,10 +59,7 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 	static class InvestmentProgramViewHolder extends RecyclerView.ViewHolder
 	{
 		@BindView(R.id.avatar)
-		public SimpleDraweeView avatar;
-
-		@BindView(R.id.level)
-		public TextView level;
+		public ManagerAvatarView avatar;
 
 		@BindView(R.id.manager_name)
 		public TextView managerName;
@@ -99,15 +95,15 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 		}
 
 		private void updateData() {
-			avatar.setImageURI(investmentProgram.getInvestment().getLogo());
-			level.setText(String.format(Locale.getDefault(), "%.0f", investmentProgram.getInvestment().getRating()));
-			managerName.setText(investmentProgram.getAccount().getLogin());
-			currency.setText(investmentProgram.getAccount().getCurrency());
+			avatar.setImageUrl(investmentProgram.logo);
+			avatar.setLevel(investmentProgram.getRating());
+			managerName.setText(investmentProgram.managerName);
+			currency.setText(investmentProgram.currency);
 
 //			depositText.setText(investmentProgram.getInvestment().);
-			tradesText.setText(String.valueOf(investmentProgram.getInvestment().getOrdersCount()));
-			periodText.setText(String.valueOf(investmentProgram.getInvestment().getPeriod()));
-			profitText.setText(String.format(Locale.getDefault(), "%.2f%%", investmentProgram.getInvestment().getTotalProfit()));
+			tradesText.setText(String.valueOf(investmentProgram.ordersCount));
+			periodText.setText(String.valueOf(investmentProgram.period));
+			profitText.setText(String.format(Locale.getDefault(), "%.2f%%", investmentProgram.totalProfit));
 		}
 	}
 }

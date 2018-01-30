@@ -80,6 +80,8 @@ public interface InvestorApi
 	);
 
 	/**
+	 * Invest in manager
+	 *
 	 * @param authorization JWT access token (required)
 	 * @param model         (optional)
 	 * @return Call&lt;ProfileShortViewModel&gt;
@@ -107,6 +109,8 @@ public interface InvestorApi
 	);
 
 	/**
+	 * Withdraw from investment program
+	 *
 	 * @param authorization JWT access token (required)
 	 * @param model         (optional)
 	 * @return Call&lt;Void&gt;

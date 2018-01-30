@@ -36,6 +36,7 @@ import vision.genesis.clientapp.feature.main.traders.TradersFragment;
 import vision.genesis.clientapp.feature.main.traders.details.TraderDetailsFragment;
 import vision.genesis.clientapp.feature.main.traders.filter.TradersFiltersFragment;
 import vision.genesis.clientapp.feature.main.wallet.WalletFragment;
+import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
 
 /**
@@ -87,7 +88,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 				case Screens.TRADERS_FILTERS:
 					return new TradersFiltersFragment();
 				case Screens.TRADER_DETAILS:
-					return TraderDetailsFragment.with(data);
+					return TraderDetailsFragment.with((InvestmentProgram) data);
 			}
 			return null;
 		}

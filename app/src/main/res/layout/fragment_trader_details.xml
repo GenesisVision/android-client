@@ -1,7 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+    <vision.genesis.clientapp.ui.ManagerAvatarView
+        android:id="@+id/avatar"
+        android:layout_width="@dimen/trader_details_avatar_width"
+        android:layout_height="@dimen/trader_details_avatar_height"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/manager_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/avatar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/colorFontDark"
+        android:textSize="20sp"
+        tools:text="Warren Buffett"/>
+
+    <TextView
+        android:id="@+id/text_description"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/trader_details_description_height"
+        android:layout_below="@+id/manager_name"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dp"
+        android:ellipsize="end"
+        android:textColor="@color/colorFontMedium"
+        android:textSize="14sp"
+        tools:text="@string/lorem_ipsum"/>
+
 
     <vision.genesis.clientapp.ui.ToolbarView
         android:id="@+id/toolbar"

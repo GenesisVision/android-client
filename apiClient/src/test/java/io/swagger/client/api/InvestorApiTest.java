@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import io.swagger.client.ApiClient;
-import io.swagger.client.model.InvestViewModel;
+import io.swagger.client.model.Invest;
 import io.swagger.client.model.InvestmentsFilter;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.ProfileFullViewModel;
@@ -86,7 +86,7 @@ public class InvestorApiTest
 	@Test
 	public void apiInvestorInvestmentsInvestPostTest() {
 		String authorization = null;
-		InvestViewModel model = null;
+		Invest model = null;
 		// ProfileShortViewModel response = api.apiInvestorInvestmentsInvestPost(authorization, model);
 
 		// TODO: test validations
@@ -109,7 +109,7 @@ public class InvestorApiTest
 	@Test
 	public void apiInvestorInvestmentsWithdrawPostTest() {
 		String authorization = null;
-		InvestViewModel model = null;
+		Invest model = null;
 		// Void response = api.apiInvestorInvestmentsWithdrawPost(authorization, model);
 
 		// TODO: test validations

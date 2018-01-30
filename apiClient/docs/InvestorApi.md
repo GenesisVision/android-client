@@ -9,9 +9,9 @@ Method | HTTP request | Description
 [**apiInvestorAuthSignUpPost**](InvestorApi.md#apiInvestorAuthSignUpPost) | **POST** api/investor/auth/signUp | Register new investor
 [**apiInvestorAuthUpdateTokenGet**](InvestorApi.md#apiInvestorAuthUpdateTokenGet) | **GET** api/investor/auth/updateToken | Update auth token
 [**apiInvestorDashboardGet**](InvestorApi.md#apiInvestorDashboardGet) | **GET** api/investor/dashboard | Get investor dashboard
-[**apiInvestorInvestmentsInvestPost**](InvestorApi.md#apiInvestorInvestmentsInvestPost) | **POST** api/investor/investments/invest | 
+[**apiInvestorInvestmentsInvestPost**](InvestorApi.md#apiInvestorInvestmentsInvestPost) | **POST** api/investor/investments/invest | Invest in manager
 [**apiInvestorInvestmentsPost**](InvestorApi.md#apiInvestorInvestmentsPost) | **POST** api/investor/investments | Get investments by filter
-[**apiInvestorInvestmentsWithdrawPost**](InvestorApi.md#apiInvestorInvestmentsWithdrawPost) | **POST** api/investor/investments/withdraw | 
+[**apiInvestorInvestmentsWithdrawPost**](InvestorApi.md#apiInvestorInvestmentsWithdrawPost) | **POST** api/investor/investments/withdraw | Withdraw from investment program
 [**apiInvestorProfileFullGet**](InvestorApi.md#apiInvestorProfileFullGet) | **GET** api/investor/profile/full | Get full profile
 [**apiInvestorProfileGet**](InvestorApi.md#apiInvestorProfileGet) | **GET** api/investor/profile | Get short profile
 [**apiInvestorProfileUpdatePost**](InvestorApi.md#apiInvestorProfileUpdatePost) | **POST** api/investor/profile/update | Update profile
@@ -241,7 +241,7 @@ No authorization required
 # **apiInvestorInvestmentsInvestPost**
 > ProfileShortViewModel apiInvestorInvestmentsInvestPost(authorization, model)
 
-
+Invest in manager
 
 ### Example
 ```java
@@ -329,7 +329,7 @@ No authorization required
 # **apiInvestorInvestmentsWithdrawPost**
 > Void apiInvestorInvestmentsWithdrawPost(authorization, model)
 
-
+Withdraw from investment program
 
 ### Example
 ```java

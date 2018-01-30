@@ -13,7 +13,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.InvestmentProgram;
 import io.swagger.client.model.InvestmentProgramsViewModel;
 import io.swagger.client.model.InvestmentsFilter;
 import ru.terrakok.cicerone.Router;
@@ -24,6 +23,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.Screens;
 import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.model.events.OnTraderItemListClicked;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -113,7 +113,7 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 
 		getTradersSubscription.unsubscribe();
 
-		List<InvestmentProgram> programs = model.getInvestments();
+		List<InvestmentProgram> programs = investManager.parseInvestmentProgramsModel(model);
 
 		if (programs.size() == 0) {
 			if (skip == 0)
