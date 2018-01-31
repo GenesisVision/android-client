@@ -1,7 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:id="@+id/group_filters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_margin="16dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/filters_item_label"
+                android:text="@string/sorting"/>
+
+            <TextView
+                style="@style/filters_item_label"
+                android:text="@string/max_amount_from"/>
+
+            <TextView
+                style="@style/filters_item_label"
+                android:text="@string/max_amount_to"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/spinner_sorting"
+                style="@style/filters_item_value"/>
+
+            <EditText
+                android:id="@+id/edittext_max_from"
+                style="@style/filters_item_value"
+                android:hint="@string/no_limits"/>
+
+            <EditText
+                android:id="@+id/edittext_max_to"
+                style="@style/filters_item_value"
+                android:hint="@string/no_limits"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/button_apply"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/group_filters"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/button_primary">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/apply_filters"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/button_clear"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/button_apply"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/button_primary">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/clear_filters"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
 
     <vision.genesis.clientapp.ui.ToolbarView
         android:id="@+id/toolbar"

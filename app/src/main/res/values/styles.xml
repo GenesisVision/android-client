@@ -57,9 +57,21 @@
         <item name="android:paddingLeft">4dp</item>
         <item name="android:paddingRight">4dp</item>
         <item name="android:paddingTop">2dp</item>
-        <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="filters_item_label">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/filters_item_height</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/colorFontMedium</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="filters_item_value">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/filters_item_height</item>
+    </style>
 
 </resources>

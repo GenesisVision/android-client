@@ -33,9 +33,18 @@ public class TradersFiltersPresenter extends MvpPresenter<TradersFiltersView>
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
+
 	}
 
 	void onBackClicked() {
 		localRouter.backTo(Screens.TRADERS);
+	}
+
+	void onApplyClicked() {
+
+	}
+
+	void onClearClicked() {
+
 	}
 }
