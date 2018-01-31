@@ -32,4 +32,15 @@
     <string name="no_limits">no limits</string>
     <string name="apply_filters">Apply filters</string>
     <string name="clear_filters">Clear filters</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="middle_name">Middle name</string>
+    <string name="gender">Gender</string>
+    <string name="birthday">Birthday</string>
+    <string name="country">Country</string>
+    <string name="city">City</string>
+    <string name="address">Address</string>
+    <string name="phone">Phone</string>
+    <string name="document_type">Document type</string>
+    <string name="document_number">Document number</string>
 </resources>

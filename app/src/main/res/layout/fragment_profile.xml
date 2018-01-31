@@ -1,7 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/avatar"
+                android:layout_width="@dimen/profile_avatar_width"
+                android:layout_height="@dimen/profile_avatar_height"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/avatar"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/profile_item_label"
+                    android:text="@string/first_name"/>
+
+                <TextView
+                    android:id="@+id/first_name"
+                    style="@style/profile_item_value"
+                    tools:text="Warren"/>
+
+                <TextView
+                    style="@style/profile_item_label"
+                    android:text="@string/middle_name"/>
+
+                <TextView
+                    android:id="@+id/middle_name"
+                    style="@style/profile_item_value"
+                    tools:text="-"/>
+
+                <TextView
+                    style="@style/profile_item_label"
+                    android:text="@string/last_name"/>
+
+                <TextView
+                    android:id="@+id/last_name"
+                    style="@style/profile_item_value"
+                    tools:text="Buffett"/>
+
+                <TextView
+                    style="@style/profile_item_label"
+                    android:text="@string/email"/>
+
+                <TextView
+                    android:id="@+id/email"
+                    style="@style/profile_item_value"
+                    tools:text="warren@buffett.com"/>
+
+                <TextView
+                    style="@style/profile_item_label"
+                    android:text="@string/gender"/>
+
+                <TextView
+                    android:id="@+id/gender"
+                    style="@style/profile_item_value"
+                    tools:text="M"/>
+
+                <TextView
+                    style="@style/profile_item_label"
+                    android:text="@string/birthday"/>
+
+                <TextView
+                    android:id="@+id/birthday"
+                    style="@style/profile_item_value"
+                    tools:text="30.08.1930"/>
+
+                <TextView
+                    style="@style/profile_item_label"
+                    android:text="@string/country"/>
+
+                <TextView
+                    android:id="@+id/country"
+                    style="@style/profile_item_value"
+                    tools:text="United States"/>
+
+                <TextView
+                    style="@style/profile_item_label"
+                    android:text="@string/city"/>
+
+                <TextView
+                    android:id="@+id/city"
+                    style="@style/profile_item_value"
+                    tools:text="Omaha"/>
+
+                <TextView
+                    style="@style/profile_item_label"
+                    android:text="@string/address"/>
+
+                <TextView
+                    android:id="@+id/address"
+                    style="@style/profile_item_value"
+                    tools:text="-"/>
+
+                <TextView
+                    style="@style/profile_item_label"
+                    android:text="@string/phone"/>
+
+                <TextView
+                    android:id="@+id/phone"
+                    style="@style/profile_item_value"
+                    tools:text="-"/>
+
+                <TextView
+                    style="@style/profile_item_label"
+                    android:text="@string/document_type"/>
+
+                <TextView
+                    android:id="@+id/document_type"
+                    style="@style/profile_item_value"
+                    tools:text="-"/>
+
+                <TextView
+                    style="@style/profile_item_label"
+                    android:text="@string/document_number"/>
+
+                <TextView
+                    android:id="@+id/document_number"
+                    style="@style/profile_item_value"
+                    tools:text="-"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
 
     <vision.genesis.clientapp.ui.ToolbarView
         android:id="@+id/toolbar"
