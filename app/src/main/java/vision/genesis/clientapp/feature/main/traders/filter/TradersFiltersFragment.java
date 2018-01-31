@@ -5,12 +5,16 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.bottom_navigation.RouterProvider;
@@ -26,8 +30,33 @@ public class TradersFiltersFragment extends BaseFragment implements TradersFilte
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
 
+	@BindView(R.id.spinner_sorting)
+	public Spinner sorting;
+
+	@BindView(R.id.edittext_max_from)
+	public EditText maxFrom;
+
+	@BindView(R.id.edittext_max_to)
+	public EditText maxTo;
+
+	@BindView(R.id.button_apply)
+	public Button applyButton;
+
+	@BindView(R.id.button_clear)
+	public Button clearButton;
+
 	@InjectPresenter
 	TradersFiltersPresenter tradersFiltersPresenter;
+
+	@OnClick(R.id.button_apply)
+	public void onApplyClicked() {
+		tradersFiltersPresenter.onApplyClicked();
+	}
+
+	@OnClick(R.id.button_clear)
+	public void onClearClicked() {
+		tradersFiltersPresenter.onClearClicked();
+	}
 
 	@ProvidePresenter
 	public TradersFiltersPresenter provideTraderFiltersPresenter() {

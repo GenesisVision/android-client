@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
@@ -25,6 +26,42 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 {
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
+
+	@BindView(R.id.first_name)
+	public TextView firstName;
+
+	@BindView(R.id.middle_name)
+	public TextView middleName;
+
+	@BindView(R.id.last_name)
+	public TextView lastName;
+
+	@BindView(R.id.email)
+	public TextView email;
+
+	@BindView(R.id.gender)
+	public TextView gender;
+
+	@BindView(R.id.birthday)
+	public TextView birthday;
+
+	@BindView(R.id.country)
+	public TextView country;
+
+	@BindView(R.id.city)
+	public TextView city;
+
+	@BindView(R.id.address)
+	public TextView address;
+
+	@BindView(R.id.phone)
+	public TextView phone;
+
+	@BindView(R.id.document_type)
+	public TextView documentType;
+
+	@BindView(R.id.document_number)
+	public TextView documentNumber;
 
 	@InjectPresenter
 	ProfilePresenter profilePresenter;
