@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import ru.terrakok.cicerone.Cicerone;
 import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.Router;
 import ru.terrakok.cicerone.android.SupportAppNavigator;
+import ru.terrakok.cicerone.commands.Command;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -69,7 +71,6 @@ public abstract class TabContainerFragment extends BaseFragment implements Route
 		if (navigator == null) {
 			navigator = new SupportAppNavigator(getActivity(), getChildFragmentManager(), R.id.container)
 			{
-
 				@Override
 				protected Intent createActivityIntent(String screenKey, Object data) {
 					return null;
@@ -78,6 +79,11 @@ public abstract class TabContainerFragment extends BaseFragment implements Route
 				@Override
 				protected Fragment createFragment(String screenKey, Object data) {
 					return getScreenResolver().getFragment(screenKey, data);
+				}
+
+				@Override
+				protected void setupFragmentTransactionAnimation(Command command, Fragment currentFragment, Fragment nextFragment, FragmentTransaction fragmentTransaction) {
+//					fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left);
 				}
 
 				@Override

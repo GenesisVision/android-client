@@ -2,8 +2,10 @@ package vision.genesis.clientapp.managers;
 
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
-import io.swagger.client.model.ProfileShortViewModel;
+import io.swagger.client.model.ProfileFullViewModel;
 import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.BuildConfig;
@@ -19,37 +21,36 @@ public class ProfileManager
 
 	private ManagerApi managerApi;
 
-	private BehaviorSubject<Double> balanceBehaviorSubject = BehaviorSubject.create();
+	private BehaviorSubject<ProfileFullViewModel> profileBehaviorSubject = BehaviorSubject.create();
+
+	private Subscription getProfileSubscription;
 
 	public ProfileManager(InvestorApi investorApi, ManagerApi managerApi) {
 		this.investorApi = investorApi;
 		this.managerApi = managerApi;
 	}
 
-	public BehaviorSubject<Double> getBalance() {
-		updateBalance();
-		return balanceBehaviorSubject;
-	}
-
-	private void updateBalance() {
-		getProfileShortApiObservable()
-				.observeOn(Schedulers.io())
+	public BehaviorSubject<ProfileFullViewModel> getProfileFull() {
+		getProfileSubscription = getProfileFullApiObservable()
+				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleGetProfileShortResponse,
-						this::handleGetProfileShortError);
+				.subscribe(this::handleGetProfileSuccess,
+						this::handleGetProfileError);
+		return profileBehaviorSubject;
 	}
 
-	private void handleGetProfileShortResponse(ProfileShortViewModel model) {
-		balanceBehaviorSubject.onNext(model.getBalance());
+	private void handleGetProfileSuccess(ProfileFullViewModel model) {
+		getProfileSubscription.unsubscribe();
+		profileBehaviorSubject.onNext(model);
 	}
 
-	private void handleGetProfileShortError(Throwable error) {
-//		balanceBehaviorSubject.onError(error);
+	private void handleGetProfileError(Throwable error) {
+		getProfileSubscription.unsubscribe();
 	}
 
-	private Observable<ProfileShortViewModel> getProfileShortApiObservable() {
+	private Observable<ProfileFullViewModel> getProfileFullApiObservable() {
 		return BuildConfig.FLAVOR.equals("investor")
-				? investorApi.apiInvestorProfileGet(AuthManager.token.getValue())
-				: managerApi.apiManagerProfileGet(AuthManager.token.getValue());
+				? investorApi.apiInvestorProfileFullGet(AuthManager.token.getValue())
+				: managerApi.apiManagerProfileFullGet(AuthManager.token.getValue());
 	}
 }
