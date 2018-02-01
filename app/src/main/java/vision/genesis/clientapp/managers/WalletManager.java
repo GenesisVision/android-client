@@ -3,6 +3,8 @@ package vision.genesis.clientapp.managers;
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
 import io.swagger.client.model.ProfileShortViewModel;
+import io.swagger.client.model.TransactionsFilter;
+import io.swagger.client.model.WalletTransactionsViewModel;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
@@ -51,5 +53,11 @@ public class WalletManager
 		return BuildConfig.FLAVOR.equals("investor")
 				? investorApi.apiInvestorProfileGet(AuthManager.token.getValue())
 				: managerApi.apiManagerProfileGet(AuthManager.token.getValue());
+	}
+
+	public Observable<WalletTransactionsViewModel> getTransactions(TransactionsFilter filter) {
+		return BuildConfig.FLAVOR.equals("investor")
+				? investorApi.apiInvestorWalletTransactionsPost(AuthManager.token.getValue(), filter)
+				: managerApi.apiManagerWalletTransactionsPost(AuthManager.token.getValue(), filter);
 	}
 }

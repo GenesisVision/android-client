@@ -18,9 +18,11 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.bottom_navigation.RouterProvider;
@@ -140,12 +142,26 @@ public class WalletFragment extends BaseFragment implements WalletView
 	}
 
 	@Override
-	public void showTransactionsProgress() {
-
+	public void setRefreshing(boolean refreshing) {
+		refreshLayout.setRefreshing(refreshing);
 	}
 
 	@Override
-	public void hideTransactionsProgress() {
+	public void setTransactions(List<WalletTransaction> transactions) {
+		transactionsListAdapter.setTransactions(transactions);
 
+		groupNoTransactions.setVisibility(transactions.size() == 0
+				? View.VISIBLE
+				: View.GONE);
+	}
+
+	@Override
+	public void addTransactions(List<WalletTransaction> transactions) {
+		transactionsListAdapter.addTransactions(transactions);
+	}
+
+	@Override
+	public void showSnackbarMessage(String message) {
+		showSnackbar(message, toolbar);
 	}
 }

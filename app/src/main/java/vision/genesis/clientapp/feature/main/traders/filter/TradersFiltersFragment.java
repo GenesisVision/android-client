@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -40,10 +39,10 @@ public class TradersFiltersFragment extends BaseFragment implements TradersFilte
 	public EditText maxTo;
 
 	@BindView(R.id.button_apply)
-	public Button applyButton;
+	public View applyButton;
 
 	@BindView(R.id.button_clear)
-	public Button clearButton;
+	public View clearButton;
 
 	@InjectPresenter
 	TradersFiltersPresenter tradersFiltersPresenter;

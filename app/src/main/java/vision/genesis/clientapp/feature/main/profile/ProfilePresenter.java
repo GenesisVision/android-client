@@ -71,7 +71,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 	}
 
 	private void handleGetProfileSuccess(ProfileFullViewModel profileModel) {
-//		getViewState().updateProfile(profileModel);
+		getViewState().updateProfile(profileModel);
 	}
 
 	private void handleGetProfileError(Throwable error) {

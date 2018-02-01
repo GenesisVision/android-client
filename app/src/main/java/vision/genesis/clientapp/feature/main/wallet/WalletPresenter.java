@@ -5,14 +5,21 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
+import io.swagger.client.model.TransactionsFilter;
+import io.swagger.client.model.WalletTransaction;
+import io.swagger.client.model.WalletTransactionsViewModel;
 import ru.terrakok.cicerone.Router;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.WalletManager;
+import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
  * GenesisVision
@@ -22,6 +29,8 @@ import vision.genesis.clientapp.managers.WalletManager;
 @InjectViewState
 public class WalletPresenter extends MvpPresenter<WalletView>
 {
+	private static int TAKE = 2;
+
 	@Inject
 	public Context context;
 
@@ -32,6 +41,10 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 
 	private Subscription balanceSubscription;
 
+	private int skip = 0;
+
+	private TransactionsFilter filter;
+
 	public WalletPresenter(Router router) {
 		this.localRouter = router;
 	}
@@ -41,6 +54,10 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
+
+		filter = new TransactionsFilter();
+		filter.setSkip(0);
+		filter.setTake(TAKE);
 	}
 
 	@Override
@@ -53,15 +70,16 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 
 	void onResume() {
 		updateBalance();
-		getTransactions();
+		getTransactions(true);
 	}
 
 	void onSwipeRefresh() {
-		getTransactions();
+		getViewState().setRefreshing(true);
+		getTransactions(true);
 	}
 
 	void onLastListItemVisible() {
-//		getTransactions(false);
+		getTransactions(false);
 	}
 
 	private void updateBalance() {
@@ -82,21 +100,43 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 		getViewState().hideBalanceProgress();
 	}
 
-	private void getTransactions() {
-		getViewState().showBalanceProgress();
-		balanceSubscription = walletManager.getBalance()
+	private void getTransactions(boolean forceUpdate) {
+		if (forceUpdate) {
+			skip = 0;
+			filter.setSkip(skip);
+		}
+
+		balanceSubscription = walletManager.getTransactions(filter)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleGetTransactionsResponse,
 						this::handleGetTransactionsError);
 	}
 
-	private void handleGetTransactionsResponse(Double balance) {
-		getViewState().hideTransactionsProgress();
-		getViewState().setBalance(balance);
+	private void handleGetTransactionsResponse(WalletTransactionsViewModel model) {
+		balanceSubscription.unsubscribe();
+
+		getViewState().setRefreshing(false);
+
+		List<WalletTransaction> transactions = model.getTransactions();
+
+		if (skip == 0)
+			getViewState().setTransactions(transactions);
+		else
+			getViewState().addTransactions(transactions);
+
+		skip += TAKE;
+		filter.setTake(TAKE);
+		filter.setSkip(skip);
 	}
 
 	private void handleGetTransactionsError(Throwable error) {
-		getViewState().hideTransactionsProgress();
+		balanceSubscription.unsubscribe();
+
+		getViewState().setRefreshing(false);
+
+		if (ApiErrorResolver.isNetworkError(error)) {
+			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
+		}
 	}
 }

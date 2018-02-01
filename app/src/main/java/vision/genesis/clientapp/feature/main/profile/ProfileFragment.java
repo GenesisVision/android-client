@@ -12,10 +12,12 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.swagger.client.model.ProfileFullViewModel;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.bottom_navigation.RouterProvider;
 import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.utils.DateTimeUtil;
 
 /**
  * GenesisVision
@@ -89,5 +91,21 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.profile));
 		toolbar.addRightButton(R.drawable.ic_exit_to_app_black_24dp, () -> profilePresenter.onLogoutClicked());
+	}
+
+	@Override
+	public void updateProfile(ProfileFullViewModel profile) {
+		firstName.setText(profile.getFirstName());
+		middleName.setText(profile.getMiddleName());
+		lastName.setText(profile.getLastName());
+		email.setText(profile.getEmail());
+		gender.setText(profile.isGender() ? "M" : "F");
+		birthday.setText((DateTimeUtil.formatDate(profile.getBirthday())));
+		country.setText(profile.getCountry());
+		city.setText(profile.getCity());
+		address.setText(profile.getAddress());
+		phone.setText(profile.getPhone());
+		documentType.setText(profile.getDocumentType());
+		documentNumber.setText(profile.getDocumentNumber());
 	}
 }
