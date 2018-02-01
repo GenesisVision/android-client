@@ -14,4 +14,8 @@ interface WalletView extends MvpView
 	void showBalanceProgress();
 
 	void hideBalanceProgress();
+
+	void showTransactionsProgress();
+
+	void hideTransactionsProgress();
 }

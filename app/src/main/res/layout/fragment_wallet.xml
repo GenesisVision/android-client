@@ -87,6 +87,64 @@
         android:layout_marginTop="16dp"
         android:background="@color/colorGrayDivider"/>
 
+    <TextView
+        android:id="@+id/transactions_label"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/divider"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorGrayDivider"
+        android:gravity="center"
+        android:text="@string/transactions"
+        android:textColor="@color/colorFontDark"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/transactions_label">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <LinearLayout
+            android:id="@+id/group_no_transactions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_money_off_black_24dp"
+                android:tint="@color/colorFontMedium"/>
+
+            <TextView
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="16dp"
+                android:gravity="center"
+                android:text="@string/you_have_no_transactions_yet"
+                android:textColor="@color/colorFontMedium"
+                android:textSize="18sp"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
     <vision.genesis.clientapp.ui.ToolbarView
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
