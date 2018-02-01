@@ -12,7 +12,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.managers.ProfileManager;
+import vision.genesis.clientapp.managers.WalletManager;
 
 /**
  * GenesisVision
@@ -26,7 +26,7 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 	public Context context;
 
 	@Inject
-	public ProfileManager profileManager;
+	public WalletManager walletManager;
 
 	private Router localRouter;
 
@@ -41,8 +41,6 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
-
-		updateBalance();
 	}
 
 	@Override
@@ -55,13 +53,22 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 
 	void onResume() {
 		updateBalance();
+		getTransactions();
+	}
+
+	void onSwipeRefresh() {
+		getTransactions();
+	}
+
+	void onLastListItemVisible() {
+//		getTransactions(false);
 	}
 
 	private void updateBalance() {
 		getViewState().showBalanceProgress();
-		balanceSubscription = profileManager.getBalance()
+		balanceSubscription = walletManager.getBalance()
 				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.newThread())
+				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleBalanceUpdateResponse,
 						this::handleBalanceUpdateError);
 	}
@@ -73,5 +80,23 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 
 	private void handleBalanceUpdateError(Throwable error) {
 		getViewState().hideBalanceProgress();
+	}
+
+	private void getTransactions() {
+		getViewState().showBalanceProgress();
+		balanceSubscription = walletManager.getBalance()
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.io())
+				.subscribe(this::handleGetTransactionsResponse,
+						this::handleGetTransactionsError);
+	}
+
+	private void handleGetTransactionsResponse(Double balance) {
+		getViewState().hideTransactionsProgress();
+		getViewState().setBalance(balance);
+	}
+
+	private void handleGetTransactionsError(Throwable error) {
+		getViewState().hideTransactionsProgress();
 	}
 }

@@ -2,6 +2,11 @@ package vision.genesis.clientapp.feature.main.wallet;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,11 +42,22 @@ public class WalletFragment extends BaseFragment implements WalletView
 	@BindView(R.id.balance)
 	public TextView balance;
 
+	@BindView(R.id.group_no_transactions)
+	public View groupNoTransactions;
+
+	@BindView(R.id.refresh_layout)
+	public SwipeRefreshLayout refreshLayout;
+
+	@BindView(R.id.recycler_view)
+	public RecyclerView recyclerView;
+
 	@BindView(R.id.balance_progress)
 	public ProgressBar balanceProgress;
 
 	@InjectPresenter
 	WalletPresenter walletPresenter;
+
+	private TransactionsListAdapter transactionsListAdapter;
 
 	@ProvidePresenter
 	public WalletPresenter provideWalletPresenter() {
@@ -61,6 +77,12 @@ public class WalletFragment extends BaseFragment implements WalletView
 		ButterKnife.bind(this, view);
 
 		initToolbar();
+
+		refreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary),
+				ContextCompat.getColor(getContext(), R.color.colorAccent),
+				ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+		refreshLayout.setOnRefreshListener(() -> walletPresenter.onSwipeRefresh());
+		initRecyclerView();
 	}
 
 	@Override
@@ -72,6 +94,30 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.wallet));
+	}
+
+	private void initRecyclerView() {
+		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+		recyclerView.setLayoutManager(layoutManager);
+		transactionsListAdapter = new TransactionsListAdapter();
+		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
+		dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider));
+		recyclerView.addItemDecoration(dividerItemDecoration);
+		recyclerView.setAdapter(transactionsListAdapter);
+		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
+		{
+			@Override
+			public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+				LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+				int totalItemCount = layoutManager.getItemCount();
+				int lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
+
+				boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
+				if (totalItemCount > 0 && endHasBeenReached) {
+					walletPresenter.onLastListItemVisible();
+				}
+			}
+		});
 	}
 
 	@Override
@@ -91,5 +137,15 @@ public class WalletFragment extends BaseFragment implements WalletView
 	public void hideBalanceProgress() {
 		balanceProgress.setVisibility(View.GONE);
 		balanceGroup.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void showTransactionsProgress() {
+
+	}
+
+	@Override
+	public void hideTransactionsProgress() {
+
 	}
 }

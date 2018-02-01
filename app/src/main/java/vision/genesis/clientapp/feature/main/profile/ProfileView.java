@@ -9,4 +9,5 @@ import com.arellomobile.mvp.MvpView;
 
 interface ProfileView extends MvpView
 {
+//	void updateProfile(ProfileFullViewModel profileModel);
 }

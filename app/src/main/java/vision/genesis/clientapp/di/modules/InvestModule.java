@@ -7,6 +7,7 @@ import dagger.Provides;
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
 import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.managers.WalletManager;
 
 /**
  * GenesisVision
@@ -20,5 +21,11 @@ public class InvestModule
 	@Singleton
 	public InvestManager provideInvestManager(InvestorApi investorApi, ManagerApi managerApi) {
 		return new InvestManager(investorApi, managerApi);
+	}
+
+	@Provides
+	@Singleton
+	public WalletManager provideWalletManager(InvestorApi investorApi, ManagerApi managerApi) {
+		return new WalletManager(investorApi, managerApi);
 	}
 }

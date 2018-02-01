@@ -43,4 +43,6 @@
     <string name="phone">Phone</string>
     <string name="document_type">Document type</string>
     <string name="document_number">Document number</string>
+    <string name="transactions">Transactions</string>
+    <string name="you_have_no_transactions_yet">You have no transactions yet</string>
 </resources>
