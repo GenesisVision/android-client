@@ -45,4 +45,10 @@
     <string name="document_number">Document number</string>
     <string name="transactions">Transactions</string>
     <string name="you_have_no_transactions_yet">You have no transactions yet</string>
+
+    <string name="transaction_type_deposit">Deposit</string>
+    <string name="transaction_type_withdraw">Withdraw</string>
+    <string name="transaction_type_open_program">Open program</string>
+    <string name="transaction_type_invest_to_program">Invest to program</string>
+    <string name="transaction_type_withdraw_from_program">Withdraw from program</string>
 </resources>

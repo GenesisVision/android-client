@@ -11,9 +11,15 @@ import org.joda.time.format.DateTimeFormatter;
 
 public class DateTimeUtil
 {
-	private static DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+	private static DateTimeFormatter dateFormatter = DateTimeFormat.shortDate();
+
+	private static DateTimeFormatter dateTimeFormatter = DateTimeFormat.shortDateTime();
 
 	public static String formatDate(DateTime dateTime) {
 		return dateFormatter.print(dateTime);
+	}
+
+	public static String formatDateTime(DateTime dateTime) {
+		return dateTimeFormatter.print(dateTime);
 	}
 }

@@ -12,7 +12,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
         android:background="@drawable/circle_primary"
-        android:padding="32dp"
+        android:padding="24dp"
         android:src="@drawable/wallet"
         android:tint="@color/white"/>
 
@@ -93,7 +93,7 @@
         android:layout_height="50dp"
         android:layout_below="@+id/divider"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorGrayDivider"
+        android:background="@color/grey200"
         android:gravity="center"
         android:text="@string/transactions"
         android:textColor="@color/colorFontDark"

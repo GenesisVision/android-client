@@ -1,5 +1,7 @@
 package vision.genesis.clientapp.managers;
 
+import java.util.concurrent.TimeUnit;
+
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
 import io.swagger.client.model.ProfileShortViewModel;
@@ -9,6 +11,7 @@ import rx.Observable;
 import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.BuildConfig;
+import vision.genesis.clientapp.utils.MockWalletTransactionUtil;
 
 /**
  * GenesisVision
@@ -59,5 +62,9 @@ public class WalletManager
 		return BuildConfig.FLAVOR.equals("investor")
 				? investorApi.apiInvestorWalletTransactionsPost(AuthManager.token.getValue(), filter)
 				: managerApi.apiManagerWalletTransactionsPost(AuthManager.token.getValue(), filter);
+	}
+
+	public Observable<WalletTransactionsViewModel> getMockTransactions(TransactionsFilter filter) {
+		return Observable.just(MockWalletTransactionUtil.getTransactionsModel(filter)).delay(500, TimeUnit.MILLISECONDS);
 	}
 }

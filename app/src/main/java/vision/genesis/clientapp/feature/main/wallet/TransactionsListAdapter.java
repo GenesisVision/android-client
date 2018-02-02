@@ -1,11 +1,15 @@
 package vision.genesis.clientapp.feature.main.wallet;
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.ui.ManagerAvatarView;
+import vision.genesis.clientapp.utils.DateTimeUtil;
 
 /**
  * GenesisVision
@@ -53,33 +57,25 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 
 	static class TransactionViewHolder extends RecyclerView.ViewHolder
 	{
-		@BindView(R.id.avatar)
-		public ManagerAvatarView avatar;
+		@BindView(R.id.type)
+		public TextView type;
 
-		@BindView(R.id.manager_name)
-		public TextView managerName;
+		@BindView(R.id.date)
+		public TextView date;
 
-		@BindView(R.id.currency)
-		public TextView currency;
-
-		@BindView(R.id.text_deposit_text)
-		public TextView depositText;
-
-		@BindView(R.id.text_trades_text)
-		public TextView tradesText;
-
-		@BindView(R.id.text_period_text)
-		public TextView periodText;
-
-		@BindView(R.id.text_profit_text)
-		public TextView profitText;
+		@BindView(R.id.amount)
+		public TextView amount;
 
 		private WalletTransaction transaction;
+
+		private Context context;
 
 		TransactionViewHolder(View itemView) {
 			super(itemView);
 
 			ButterKnife.bind(this, itemView);
+
+			context = itemView.getContext();
 		}
 
 		void setTransaction(WalletTransaction transaction) {
@@ -88,7 +84,46 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 		}
 
 		private void updateData() {
+			setType();
+			date.setText(DateTimeUtil.formatDateTime(transaction.getDate()));
+			setAmount();
+		}
 
+		private void setType() {
+			switch (transaction.getType()) {
+				case DEPOSIT:
+					type.setText(context.getResources().getString(R.string.transaction_type_deposit));
+					break;
+				case WITHDRAW:
+					type.setText(context.getResources().getString(R.string.transaction_type_withdraw));
+					break;
+				case OPENPROGRAM:
+					type.setText(context.getResources().getString(R.string.transaction_type_open_program));
+					break;
+				case INVESTTOPROGRAM:
+					type.setText(context.getResources().getString(R.string.transaction_type_invest_to_program));
+					break;
+				case WITHDRAWFROMPROGRAM:
+					type.setText(context.getResources().getString(R.string.transaction_type_withdraw_from_program));
+					break;
+			}
+		}
+
+		private void setAmount() {
+			double amountValue = transaction.getAmount();
+			DecimalFormat df = new DecimalFormat("0.########");
+			df.setRoundingMode(RoundingMode.DOWN);
+			String amountString = df.format(amountValue);
+
+			if (amountValue >= 0) {
+				amountString = "+" + amountString;
+				amount.setText(amountString);
+				amount.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));
+			}
+			else {
+				amount.setText(amountString);
+				amount.setTextColor(ContextCompat.getColor(context, R.color.transactionRed));
+			}
 		}
 	}
 }

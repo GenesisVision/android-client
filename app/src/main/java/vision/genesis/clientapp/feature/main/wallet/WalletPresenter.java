@@ -58,6 +58,9 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 		filter = new TransactionsFilter();
 		filter.setSkip(0);
 		filter.setTake(TAKE);
+
+		getTransactions(true);
+		getViewState().setRefreshing(true);
 	}
 
 	@Override
@@ -70,7 +73,6 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 
 	void onResume() {
 		updateBalance();
-		getTransactions(true);
 	}
 
 	void onSwipeRefresh() {
@@ -106,7 +108,7 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 			filter.setSkip(skip);
 		}
 
-		balanceSubscription = walletManager.getTransactions(filter)
+		balanceSubscription = walletManager.getMockTransactions(filter)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleGetTransactionsResponse,
