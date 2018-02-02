@@ -7,7 +7,11 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.managers.AuthManager;
 
 /**
  * GenesisVision
@@ -20,17 +24,43 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 	@Inject
 	public Context context;
 
+	@Inject
+	public AuthManager authManager;
+
+	private Subscription updateTokenSubscription;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		getViewState().showMainActivity();
+		updateToken();
 	}
 
 	@Override
 	public void onDestroy() {
+		if (updateTokenSubscription != null)
+			updateTokenSubscription.unsubscribe();
+
 		super.onDestroy();
+	}
+
+	private void updateToken() {
+		updateTokenSubscription = authManager.updateToken()
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.io())
+				.subscribe(this::onUpdateTokenSuccess,
+						this::onUpdateTokenError);
+	}
+
+	private void onUpdateTokenSuccess(String response) {
+		updateTokenSubscription.unsubscribe();
+		getViewState().showMainActivity();
+	}
+
+	private void onUpdateTokenError(Throwable error) {
+		updateTokenSubscription.unsubscribe();
+		getViewState().showMainActivity();
 	}
 }

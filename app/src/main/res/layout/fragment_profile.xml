@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -18,7 +19,9 @@
                 android:layout_width="@dimen/profile_avatar_width"
                 android:layout_height="@dimen/profile_avatar_height"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp"
+                app:placeholderImage="@drawable/logo"
+                app:roundAsCircle="true"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

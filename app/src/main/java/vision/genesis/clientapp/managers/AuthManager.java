@@ -28,9 +28,9 @@ public class AuthManager
 
 	public BehaviorSubject<User> userSubject = BehaviorSubject.create();
 
-	private BehaviorSubject<String> loginResponseSubject = BehaviorSubject.create();
+	private BehaviorSubject<String> getTokenResponseSubject = BehaviorSubject.create();
 
-	private Subscription loginSubscription;
+	private Subscription getTokenSubscription;
 
 	private InvestorApi investorApi;
 
@@ -57,30 +57,41 @@ public class AuthManager
 		}
 	}
 
+	public Observable<String> updateToken() {
+		if (AuthManager.token.getValue() == null)
+			return Observable.error(new Throwable("Token doesn't exist"));
+		getToken(getUpdateTokenObservable());
+		return getTokenResponseSubject;
+	}
+
 	public Observable<String> login(String email, String password) {
-		loginResponseSubject = BehaviorSubject.create();
 		LoginViewModel model = new LoginViewModel();
 		model.setEmail(email);
 		model.setPassword(password);
-		Observable<String> loginApiObservable = getLoginApiObservable(model);
-		loginSubscription = loginApiObservable
-				.subscribeOn(Schedulers.io())
-				.observeOn(Schedulers.io())
-				.subscribe(this::handleLoginResponse,
-						error -> {
-							loginSubscription.unsubscribe();
-							loginResponseSubject.onError(error);
-						});
 
-		return loginResponseSubject;
+		getToken(getLoginApiObservable(model));
+		return getTokenResponseSubject;
 	}
 
-	private void handleLoginResponse(String token) {
+	private void getToken(Observable<String> apiMethodObservable) {
+		getTokenResponseSubject = BehaviorSubject.create();
+		getTokenSubscription = apiMethodObservable
+				.subscribeOn(Schedulers.io())
+				.observeOn(Schedulers.io())
+				.subscribe(this::handleGetTokenResponse,
+						error -> {
+							getTokenSubscription.unsubscribe();
+							logout();
+							getTokenResponseSubject.onError(error);
+						});
+	}
+
+	private void handleGetTokenResponse(String token) {
 		String newToken = "Bearer " + token;
 		sharedPreferencesUtil.saveToken(newToken);
 		createUser();
 		AuthManager.token.onNext(newToken);
-		loginResponseSubject.onNext("success");
+		getTokenResponseSubject.onNext(newToken);
 	}
 
 	private void createUser() {
@@ -108,6 +119,12 @@ public class AuthManager
 		model.setPassword(password);
 		model.setConfirmPassword(confirmPassword);
 		return managerApi.apiManagerAuthSignUpPost(model);
+	}
+
+	private Observable<String> getUpdateTokenObservable() {
+		return BuildConfig.FLAVOR.equals("investor")
+				? investorApi.apiInvestorAuthUpdateTokenGet(AuthManager.token.getValue())
+				: managerApi.apiManagerAuthUpdateTokenGet(AuthManager.token.getValue());
 	}
 
 	private Observable<String> getLoginApiObservable(LoginViewModel model) {
