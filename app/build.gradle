@@ -101,7 +101,7 @@ dependencies {
 
     implementation 'joda-time:joda-time:2.9.9'
 
-    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

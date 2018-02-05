@@ -19,6 +19,8 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.model.events.OnTraderItemListClicked;
 import vision.genesis.clientapp.ui.ManagerAvatarView;
+import vision.genesis.clientapp.ui.ProfitChartView;
+import vision.genesis.clientapp.utils.MockProfitChartDataUtil;
 
 /**
  * GenesisVision
@@ -79,6 +81,9 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 		@BindView(R.id.text_profit_text)
 		public TextView profitText;
 
+		@BindView(R.id.chart)
+		public ProfitChartView chart;
+
 		private InvestmentProgram investmentProgram;
 
 		InvestmentProgramViewHolder(View itemView) {
@@ -104,6 +109,8 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 			tradesText.setText(String.valueOf(investmentProgram.ordersCount));
 			periodText.setText(String.valueOf(investmentProgram.period));
 			profitText.setText(String.format(Locale.getDefault(), "%.2f%%", investmentProgram.totalProfit));
+
+			chart.setData(MockProfitChartDataUtil.getEntries());
 		}
 	}
 }

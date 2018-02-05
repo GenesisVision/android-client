@@ -51,9 +51,14 @@
 
         </RelativeLayout>
 
-        <View
+        <vision.genesis.clientapp.ui.ProfitChartView
+            android:id="@+id/chart"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/item_investment_program_graph_height"/>
+            android:layout_height="@dimen/item_investment_program_graph_height"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
