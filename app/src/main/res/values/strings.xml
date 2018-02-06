@@ -51,4 +51,7 @@
     <string name="transaction_type_open_program">Open program</string>
     <string name="transaction_type_invest_to_program">Invest to program</string>
     <string name="transaction_type_withdraw_from_program">Withdraw from program</string>
+    <string name="by_rating">By rating</string>
+    <string name="by_orders">By orders</string>
+    <string name="by_profit">By profit</string>
 </resources>

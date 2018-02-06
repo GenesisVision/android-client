@@ -74,7 +74,7 @@ public class ProfitChartView extends RelativeLayout
 
 		chart.setData(lineData);
 		chart.invalidate();
-		chart.animateX(1200, input -> (1 - (1 - input) * (1 - input)));
+//		chart.animateX(1200, input -> (1 - (1 - input) * (1 - input)));
 	}
 
 	private LineDataSet createDataSet(List<Entry> data) {

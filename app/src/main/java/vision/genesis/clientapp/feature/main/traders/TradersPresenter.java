@@ -45,6 +45,8 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 
 	private Router localRouter;
 
+	private Subscription filterSubscription;
+
 	private Subscription getTradersSubscription;
 
 	private List<InvestmentProgram> investmentProgramsList = new ArrayList<>();
@@ -65,17 +67,15 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 
 		EventBus.getDefault().register(this);
 
-		filter = new InvestmentsFilter();
-		filter.setSkip(0);
-		filter.setTake(TAKE);
-
-		getViewState().setRefreshing(true);
-		getTradersList(true);
+		subscribeToFilter();
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+
+		if (filterSubscription != null)
+			filterSubscription.unsubscribe();
 
 		if (getTradersSubscription != null)
 			getTradersSubscription.unsubscribe();
@@ -94,6 +94,23 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 
 	void onLastListItemVisible() {
 		getTradersList(false);
+	}
+
+	private void subscribeToFilter() {
+		filterSubscription = investManager.filterSubject
+				.observeOn(Schedulers.newThread())
+				.subscribeOn(Schedulers.newThread())
+				.subscribe(this::filterUpdatedHandler,
+						error -> {
+						});
+	}
+
+	private void filterUpdatedHandler(InvestmentsFilter investmentsFilter) {
+		filter = investmentsFilter;
+		filter.setSkip(0);
+		filter.setTake(TAKE);
+		getViewState().setRefreshing(true);
+		getTradersList(true);
 	}
 
 	private void getTradersList(boolean forceUpdate) {

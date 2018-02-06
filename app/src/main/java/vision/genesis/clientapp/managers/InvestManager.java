@@ -8,6 +8,7 @@ import io.swagger.client.api.ManagerApi;
 import io.swagger.client.model.InvestmentProgramsViewModel;
 import io.swagger.client.model.InvestmentsFilter;
 import rx.Observable;
+import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.utils.MockProfitChartDataUtil;
 
@@ -18,6 +19,8 @@ import vision.genesis.clientapp.utils.MockProfitChartDataUtil;
 
 public class InvestManager
 {
+	public BehaviorSubject<InvestmentsFilter> filterSubject = BehaviorSubject.create();
+
 	private InvestorApi investorApi;
 
 	private ManagerApi managerApi;
@@ -25,6 +28,16 @@ public class InvestManager
 	public InvestManager(InvestorApi investorApi, ManagerApi managerApi) {
 		this.investorApi = investorApi;
 		this.managerApi = managerApi;
+
+		filterSubject.onNext(new InvestmentsFilter());
+	}
+
+	public InvestmentsFilter getFilter() {
+		return filterSubject.getValue();
+	}
+
+	public void setFilter(InvestmentsFilter filter) {
+		filterSubject.onNext(filter);
 	}
 
 	public Observable<InvestmentProgramsViewModel> getTradersList(InvestmentsFilter filter) {

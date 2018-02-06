@@ -7,9 +7,12 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.InvestmentsFilter;
 import ru.terrakok.cicerone.Router;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.Screens;
+import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.model.FilterSortingOption;
 
 /**
  * GenesisVision
@@ -22,9 +25,14 @@ public class TradersFiltersPresenter extends MvpPresenter<TradersFiltersView>
 	@Inject
 	public Context context;
 
+	@Inject
+	public InvestManager investManager;
+
 	private Router localRouter;
 
-	public TradersFiltersPresenter(Router router) {
+	private InvestmentsFilter filter;
+
+	TradersFiltersPresenter(Router router) {
 		this.localRouter = router;
 	}
 
@@ -34,17 +42,26 @@ public class TradersFiltersPresenter extends MvpPresenter<TradersFiltersView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		filter = investManager.getFilter();
+		getViewState().setFilterData(filter);
 	}
 
 	void onBackClicked() {
 		localRouter.backTo(Screens.TRADERS);
 	}
 
-	void onApplyClicked() {
+	void onSortingSelected(FilterSortingOption selectedOption) {
+		filter.setSorting(selectedOption.option);
+	}
 
+	void onApplyClicked() {
+		investManager.setFilter(filter);
+		onBackClicked();
 	}
 
 	void onClearClicked() {
-
+		filter = new InvestmentsFilter();
+		investManager.setFilter(filter);
+		onBackClicked();
 	}
 }

@@ -5,18 +5,24 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.InvestmentsFilter;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.bottom_navigation.RouterProvider;
+import vision.genesis.clientapp.model.FilterSortingOption;
 import vision.genesis.clientapp.ui.ToolbarView;
 
 /**
@@ -30,7 +36,7 @@ public class TradersFiltersFragment extends BaseFragment implements TradersFilte
 	public ToolbarView toolbar;
 
 	@BindView(R.id.spinner_sorting)
-	public Spinner sorting;
+	public Spinner sortingSpinner;
 
 	@BindView(R.id.edittext_max_from)
 	public EditText maxFrom;
@@ -46,6 +52,8 @@ public class TradersFiltersFragment extends BaseFragment implements TradersFilte
 
 	@InjectPresenter
 	TradersFiltersPresenter tradersFiltersPresenter;
+
+	private ArrayList<FilterSortingOption> sortingOptions;
 
 	@OnClick(R.id.button_apply)
 	public void onApplyClicked() {
@@ -75,6 +83,28 @@ public class TradersFiltersFragment extends BaseFragment implements TradersFilte
 		ButterKnife.bind(this, view);
 
 		initToolbar();
+
+		initSpinner();
+	}
+
+	private void initSpinner() {
+		sortingOptions = FilterSortingOption.getOptions(getContext());
+		ArrayAdapter<FilterSortingOption> sortingAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, sortingOptions);
+		sortingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		sortingSpinner.setAdapter(sortingAdapter);
+
+		sortingSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+		{
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				tradersFiltersPresenter.onSortingSelected(sortingOptions.get(position));
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+
+			}
+		});
 	}
 
 	private void initToolbar() {
@@ -86,5 +116,16 @@ public class TradersFiltersFragment extends BaseFragment implements TradersFilte
 	public boolean onBackPressed() {
 		tradersFiltersPresenter.onBackClicked();
 		return true;
+	}
+
+	@Override
+	public void setFilterData(InvestmentsFilter filter) {
+		int index = 0;
+		for (FilterSortingOption sortingOption : sortingOptions) {
+			if (sortingOption.option.equals(filter.getSorting())) {
+				sortingSpinner.setSelection(index);
+			}
+			index++;
+		}
 	}
 }
