@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -67,6 +69,12 @@ public class TraderDetailsFragment extends BaseFragment implements TraderDetails
 	@BindView(R.id.text_profit_text)
 	public TextView profitText;
 
+	@BindView(R.id.text_min_amount)
+	public TextView minAmountText;
+
+	@BindView(R.id.text_max_amount)
+	public TextView maxAmountText;
+
 	@InjectPresenter
 	TraderDetailsPresenter traderDetailsPresenter;
 
@@ -119,6 +127,12 @@ public class TraderDetailsFragment extends BaseFragment implements TraderDetails
 		tradesText.setText(String.valueOf(program.ordersCount));
 		periodText.setText(String.valueOf(program.period));
 		profitText.setText(String.format(Locale.getDefault(), "%.2f%%", program.totalProfit));
+
+
+		DecimalFormat df = new DecimalFormat("0.####");
+		df.setRoundingMode(RoundingMode.DOWN);
+		minAmountText.setText(df.format(program.investMinAmount));
+		maxAmountText.setText(df.format(program.investMaxAmount));
 	}
 
 	@Override

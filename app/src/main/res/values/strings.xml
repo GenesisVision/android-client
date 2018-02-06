@@ -54,4 +54,9 @@
     <string name="by_rating">By rating</string>
     <string name="by_orders">By orders</string>
     <string name="by_profit">By profit</string>
+    <string name="min_amount_to_invest">Min amount to invest</string>
+    <string name="max_amount_to_invest">Max amount to invest</string>
+    <string name="min">Min</string>
+    <string name="amount_to_invest">Amount to invest</string>
+    <string name="max">Max</string>
 </resources>
