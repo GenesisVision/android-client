@@ -3,10 +3,13 @@ package vision.genesis.clientapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.github.mikephil.charting.data.Entry;
 import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -83,6 +86,9 @@ public class InvestmentProgram implements Parcelable
 	@SerializedName("isEnabled")
 	public Boolean isEnabled = null;
 
+	@SerializedName("chartData")
+	public List<Entry> chartData = null;
+
 	public InvestmentProgram(io.swagger.client.model.InvestmentProgram program) {
 		this.id = program.getInvestment().getId();
 		this.logo = program.getInvestment().getLogo();
@@ -101,6 +107,9 @@ public class InvestmentProgram implements Parcelable
 		this.investMinAmount = program.getInvestment().getInvestMinAmount();
 		this.investMaxAmount = program.getInvestment().getInvestMaxAmount();
 		this.isEnabled = program.getInvestment().isIsEnabled();
+
+		//TODO: parse from api model
+		this.chartData = new ArrayList<>();
 	}
 
 	protected InvestmentProgram(Parcel in) {
@@ -121,6 +130,7 @@ public class InvestmentProgram implements Parcelable
 		this.investMinAmount = (Double) in.readValue(Double.class.getClassLoader());
 		this.investMaxAmount = (Double) in.readValue(Double.class.getClassLoader());
 		this.isEnabled = (Boolean) in.readValue(Boolean.class.getClassLoader());
+		this.chartData = (ArrayList) in.readValue(ArrayList.class.getClassLoader());
 	}
 
 	@Override
@@ -147,6 +157,7 @@ public class InvestmentProgram implements Parcelable
 		dest.writeValue(investMinAmount);
 		dest.writeValue(investMaxAmount);
 		dest.writeValue(isEnabled);
+		dest.writeValue(chartData);
 	}
 
 	public String getRating() {

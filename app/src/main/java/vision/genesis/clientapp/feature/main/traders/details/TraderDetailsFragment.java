@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
@@ -18,6 +20,7 @@ import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.bottom_navigation.RouterProvider;
 import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.ui.ManagerAvatarView;
+import vision.genesis.clientapp.ui.ProfitChartView;
 import vision.genesis.clientapp.ui.ToolbarView;
 
 /**
@@ -48,6 +51,21 @@ public class TraderDetailsFragment extends BaseFragment implements TraderDetails
 
 	@BindView(R.id.text_description)
 	public TextView description;
+
+	@BindView(R.id.chart)
+	public ProfitChartView chart;
+
+	@BindView(R.id.text_deposit_text)
+	public TextView depositText;
+
+	@BindView(R.id.text_trades_text)
+	public TextView tradesText;
+
+	@BindView(R.id.text_period_text)
+	public TextView periodText;
+
+	@BindView(R.id.text_profit_text)
+	public TextView profitText;
 
 	@InjectPresenter
 	TraderDetailsPresenter traderDetailsPresenter;
@@ -95,6 +113,12 @@ public class TraderDetailsFragment extends BaseFragment implements TraderDetails
 
 		managerName.setText(program.managerName);
 		description.setText(program.description);
+
+		chart.setData(program.chartData);
+
+		tradesText.setText(String.valueOf(program.ordersCount));
+		periodText.setText(String.valueOf(program.period));
+		profitText.setText(String.format(Locale.getDefault(), "%.2f%%", program.totalProfit));
 	}
 
 	@Override

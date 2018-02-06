@@ -87,7 +87,7 @@ public class ProfitChartView extends RelativeLayout
 		dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
 		dataSet.setLineWidth(1f);
 
-		dataSet.setFillColor(ContextCompat.getColor(getContext(), R.color.grey400));
+		dataSet.setFillColor(ContextCompat.getColor(getContext(), R.color.grey300));
 		dataSet.setDrawFilled(true);
 
 		return dataSet;

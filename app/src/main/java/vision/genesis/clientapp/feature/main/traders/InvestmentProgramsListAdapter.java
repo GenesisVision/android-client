@@ -20,7 +20,6 @@ import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.model.events.OnTraderItemListClicked;
 import vision.genesis.clientapp.ui.ManagerAvatarView;
 import vision.genesis.clientapp.ui.ProfitChartView;
-import vision.genesis.clientapp.utils.MockProfitChartDataUtil;
 
 /**
  * GenesisVision
@@ -110,7 +109,7 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 			periodText.setText(String.valueOf(investmentProgram.period));
 			profitText.setText(String.format(Locale.getDefault(), "%.2f%%", investmentProgram.totalProfit));
 
-			chart.setData(MockProfitChartDataUtil.getEntries());
+			chart.setData(investmentProgram.chartData);
 		}
 	}
 }

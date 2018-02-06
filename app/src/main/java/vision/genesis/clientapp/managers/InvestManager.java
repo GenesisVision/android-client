@@ -9,6 +9,7 @@ import io.swagger.client.model.InvestmentProgramsViewModel;
 import io.swagger.client.model.InvestmentsFilter;
 import rx.Observable;
 import vision.genesis.clientapp.model.InvestmentProgram;
+import vision.genesis.clientapp.utils.MockProfitChartDataUtil;
 
 /**
  * GenesisVision
@@ -33,7 +34,9 @@ public class InvestManager
 	public List<InvestmentProgram> parseInvestmentProgramsModel(InvestmentProgramsViewModel model) {
 		List<InvestmentProgram> investmentPrograms = new ArrayList<>();
 		for (io.swagger.client.model.InvestmentProgram program : model.getInvestments()) {
-			investmentPrograms.add(new InvestmentProgram(program));
+			InvestmentProgram investmentProgram = new InvestmentProgram(program);
+			investmentProgram.chartData = MockProfitChartDataUtil.getEntries();
+			investmentPrograms.add(investmentProgram);
 		}
 		return investmentPrograms;
 	}
