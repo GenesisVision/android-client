@@ -131,8 +131,12 @@ public class TraderDetailsFragment extends BaseFragment implements TraderDetails
 
 		DecimalFormat df = new DecimalFormat("0.####");
 		df.setRoundingMode(RoundingMode.DOWN);
-		minAmountText.setText(df.format(program.investMinAmount));
-		maxAmountText.setText(df.format(program.investMaxAmount));
+		minAmountText.setText(program.investMinAmount != null
+				? df.format(program.investMinAmount)
+				: "-");
+		maxAmountText.setText(program.investMaxAmount != null
+				? df.format(program.investMaxAmount)
+				: "-");
 	}
 
 	@Override
