@@ -87,8 +87,8 @@ public class ParticipantsPresenter extends MvpPresenter<ParticipantsView>
 		EventBus.getDefault().unregister(this);
 	}
 
-	void onFilterClicked() {
-		router.navigateTo(Screens.TOUR_PARTICIPANTS_FILTERS);
+	void onLeaderboardClicked() {
+		router.navigateTo(Screens.TOUR_LEADERBOARD);
 	}
 
 	void onSwipeRefresh() {

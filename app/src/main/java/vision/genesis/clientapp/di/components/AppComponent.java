@@ -27,6 +27,7 @@ import vision.genesis.clientapp.feature.splashscreen.SplashScreenPresenter;
 import vision.genesis.clientapp.feature.tournament.TournamentActivity;
 import vision.genesis.clientapp.feature.tournament.TournamentPresenter;
 import vision.genesis.clientapp.feature.tournament.participants.ParticipantsPresenter;
+import vision.genesis.clientapp.feature.tournament.participants.details.ParticipantDetailsPresenter;
 
 /**
  * GenesisVision
@@ -70,4 +71,6 @@ public interface AppComponent
 	void inject(TournamentPresenter tournamentPresenter);
 
 	void inject(ParticipantsPresenter participantsPresenter);
+
+	void inject(ParticipantDetailsPresenter participantDetailsPresenter);
 }

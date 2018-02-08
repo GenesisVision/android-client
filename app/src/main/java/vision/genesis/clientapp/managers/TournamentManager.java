@@ -1,6 +1,9 @@
 package vision.genesis.clientapp.managers;
 
+import java.util.UUID;
+
 import io.swagger.client.api.TournamentApi;
+import io.swagger.client.model.ParticipantViewModel;
 import io.swagger.client.model.ParticipantsFilter;
 import io.swagger.client.model.ParticipantsSummaryViewModel;
 import io.swagger.client.model.ParticipantsViewModel;
@@ -34,6 +37,10 @@ public class TournamentManager
 
 	public Observable<ParticipantsViewModel> getParticipantsList(ParticipantsFilter filter) {
 		return tournamentApi.apiTournamentParticipantsPost(filter);
+	}
+
+	public Observable<ParticipantViewModel> getParticipantDetails(UUID participantId) {
+		return tournamentApi.apiTournamentParticipantGet(participantId);
 	}
 
 	public Observable<ParticipantsSummaryViewModel> getParticipantsCount() {

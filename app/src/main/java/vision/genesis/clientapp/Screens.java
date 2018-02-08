@@ -37,5 +37,5 @@ public class Screens
 
 	public static final String TOUR_PARTICIPANT_DETAILS = "tour_participant_details";
 
-	public static final String TOUR_PARTICIPANTS_FILTERS = "tour_participants_filter";
+	public static final String TOUR_LEADERBOARD = "tour_leaderboard";
 }

@@ -12,6 +12,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
+import io.swagger.client.model.ParticipantViewModel;
 import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.NavigatorHolder;
 import ru.terrakok.cicerone.Router;
@@ -22,6 +23,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.Screens;
 import vision.genesis.clientapp.feature.tournament.participants.ParticipantsFragment;
+import vision.genesis.clientapp.feature.tournament.participants.details.ParticipantDetailsFragment;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
 
 /**
@@ -50,6 +52,7 @@ public class TournamentActivity extends MvpAppCompatActivity implements Tourname
 
 	private ParticipantsFragment participantsFragment;
 
+	private ParticipantDetailsFragment participantDetailsFragment;
 
 	private Navigator navigator = new SupportAppNavigator(this, R.id.content)
 	{
@@ -65,6 +68,9 @@ public class TournamentActivity extends MvpAppCompatActivity implements Tourname
 					if (participantsFragment == null)
 						participantsFragment = new ParticipantsFragment();
 					return participantsFragment;
+				case Screens.TOUR_PARTICIPANT_DETAILS:
+					participantDetailsFragment = ParticipantDetailsFragment.with(((ParticipantViewModel) data).getId());
+					return participantDetailsFragment;
 			}
 			return null;
 		}
@@ -75,7 +81,7 @@ public class TournamentActivity extends MvpAppCompatActivity implements Tourname
 				Fragment currentFragment,
 				Fragment nextFragment,
 				FragmentTransaction fragmentTransaction) {
-			fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+			fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left);
 		}
 	};
 

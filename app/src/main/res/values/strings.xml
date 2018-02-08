@@ -63,4 +63,6 @@
     <string name="profit_percent">PROFIT %</string>
     <string name="participants">participants</string>
     <string name="tournament">Tournament</string>
+    <string name="participant_details">Participant details</string>
+    <string name="cannot_load_data">Cannot load data.\nPlease try again later</string>
 </resources>

@@ -1,6 +1,5 @@
 package vision.genesis.clientapp.feature.tournament.participants;
 
-import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,7 +86,7 @@ public class ParticipantsListAdapter extends RecyclerView.Adapter<ParticipantsLi
 
 			ButterKnife.bind(this, itemView);
 
-			itemView.setOnClickListener(v -> new Handler().postDelayed(() -> EventBus.getDefault().post(new OnParticipantItemListClicked(participant)), 300));
+			itemView.setOnClickListener(v -> EventBus.getDefault().post(new OnParticipantItemListClicked(participant)));
 		}
 
 		void setParticipant(ParticipantViewModel participant) {

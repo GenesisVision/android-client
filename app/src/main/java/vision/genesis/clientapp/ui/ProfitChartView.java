@@ -78,6 +78,10 @@ public class ProfitChartView extends RelativeLayout
 	}
 
 	public void setData(List<Entry> data) {
+		if (data.size() == 0) {
+			chart.clear();
+			return;
+		}
 		Collections.sort(data, new EntryXComparator());
 		LineData lineData = new LineData();
 
