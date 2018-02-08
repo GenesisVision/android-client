@@ -23,6 +23,7 @@ android {
         if (propertiesFile.exists()) {
             appProperties.load(new FileInputStream(propertiesFile))
             buildConfigField "String", "API_ADDRESS", appProperties.getProperty("apiAddress")
+            buildConfigField "String", "TOURNAMENT_API_ADDRESS", appProperties.getProperty("tournamentApiAddress")
         }
     }
 
@@ -53,6 +54,12 @@ android {
 
             resValue "string", "app_name", "Genesis Vision Manager App"
             applicationIdSuffix '.manager'
+        }
+        tournament {
+            dimension "appType"
+
+            resValue "string", "app_name", "Genesis Vision Client App"
+            applicationIdSuffix '.investor'
         }
     }
 
@@ -114,4 +121,5 @@ dependencies {
 
     provided 'com.arello-mobile:moxy-compiler:1.5.3'
     compile project(path: ':apiClient')
+    compile project(path: ':tournamentApiClient')
 }

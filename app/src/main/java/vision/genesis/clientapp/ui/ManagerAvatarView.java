@@ -2,6 +2,8 @@ package vision.genesis.clientapp.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,6 +25,9 @@ public class ManagerAvatarView extends RelativeLayout
 
 	@BindView(R.id.level)
 	public TextView level;
+
+	@BindView(R.id.group_level)
+	public ViewGroup groupLevel;
 
 	public ManagerAvatarView(Context context) {
 		super(context);
@@ -51,5 +56,9 @@ public class ManagerAvatarView extends RelativeLayout
 
 	public void setLevel(String level) {
 		this.level.setText(level);
+	}
+
+	public void hideLevel() {
+		groupLevel.setVisibility(View.GONE);
 	}
 }

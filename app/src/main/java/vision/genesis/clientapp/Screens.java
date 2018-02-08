@@ -32,4 +32,10 @@ public class Screens
 	public static final String TRADERS_FILTERS = "traders_filters";
 
 	public static final String TRADER_DETAILS = "trader_details";
+
+	public static final String TOUR_PARTICIPANTS = "tour_participants";
+
+	public static final String TOUR_PARTICIPANT_DETAILS = "tour_participant_details";
+
+	public static final String TOUR_PARTICIPANTS_FILTERS = "tour_participants_filter";
 }

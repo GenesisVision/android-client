@@ -7,6 +7,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.MainActivity;
+import vision.genesis.clientapp.feature.tournament.TournamentActivity;
 
 /**
  * GenesisVision
@@ -27,6 +28,12 @@ public class SplashScreenActivity extends MvpAppCompatActivity implements Splash
 	@Override
 	public void showMainActivity() {
 		MainActivity.startFrom(this);
+		finish();
+	}
+
+	@Override
+	public void showTournamentActivity() {
+		TournamentActivity.startFrom(this);
 		finish();
 	}
 }

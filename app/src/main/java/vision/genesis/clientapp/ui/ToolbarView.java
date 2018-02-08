@@ -29,6 +29,9 @@ public class ToolbarView extends RelativeLayout
 	@BindView(R.id.title)
 	public TextView title;
 
+	@BindView(R.id.subtitle)
+	public TextView subtitle;
+
 	@BindView(R.id.button_left)
 	public ImageView leftButton;
 
@@ -76,6 +79,11 @@ public class ToolbarView extends RelativeLayout
 
 	public void setTitle(String text) {
 		title.setText(text);
+	}
+
+	public void setSubtitle(String text) {
+		subtitle.setText(text);
+		subtitle.setVisibility(View.VISIBLE);
 	}
 
 	public void addLeftButton(int buttonImageResId, ButtonClickListener clickListener) {

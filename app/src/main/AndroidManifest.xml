@@ -42,6 +42,14 @@
 
         </activity>
 
+        <activity
+            android:name=".feature.tournament.TournamentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
+
     </application>
 
 </manifest>

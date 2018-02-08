@@ -15,6 +15,7 @@
         app:roundAsCircle="true"/>
 
     <FrameLayout
+        android:id="@+id/group_level"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_alignParentBottom="true"

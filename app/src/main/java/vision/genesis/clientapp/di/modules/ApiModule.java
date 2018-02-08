@@ -8,6 +8,7 @@ import io.swagger.client.ApiClient;
 import io.swagger.client.JSON;
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
+import io.swagger.client.api.TournamentApi;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -41,7 +42,6 @@ public class ApiModule
 				.addConverterFactory(vision.genesis.clientapp.net.GsonCustomConverterFactory.create(new JSON().getGson()))
 				.addCallAdapterFactory(RxJavaCallAdapterFactory.create())
 				.baseUrl(BuildConfig.API_ADDRESS);
-
 	}
 
 	@Provides
@@ -63,5 +63,11 @@ public class ApiModule
 	@Singleton
 	public ManagerApi provideManagerApi(ApiClient apiClient) {
 		return apiClient.createService(ManagerApi.class);
+	}
+
+	@Provides
+	@Singleton
+	public TournamentApi provideTournamentApi(ApiClient apiClient) {
+		return apiClient.setAdapterBuilder(apiClient.getAdapterBuilder().baseUrl(BuildConfig.TOURNAMENT_API_ADDRESS)).createService(TournamentApi.class);
 	}
 }

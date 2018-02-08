@@ -12,6 +12,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.EntryXComparator;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -64,6 +65,16 @@ public class ProfitChartView extends RelativeLayout
 		yAxis.setDrawLabels(false);
 		yAxis.setDrawAxisLine(false);
 		yAxis.setDrawGridLines(false);
+	}
+
+	public void setDataDouble(List<Double> data) {
+		List<Entry> entries = new ArrayList<>();
+		float index = 0;
+		for (Double value : data) {
+			entries.add(new Entry(index, value.floatValue()));
+			index++;
+		}
+		setData(entries);
 	}
 
 	public void setData(List<Entry> data) {

@@ -59,4 +59,8 @@
     <string name="min">Min</string>
     <string name="amount_to_invest">Amount to invest</string>
     <string name="max">Max</string>
+    <string name="place">Place</string>
+    <string name="profit_percent">PROFIT %</string>
+    <string name="participants">participants</string>
+    <string name="tournament">Tournament</string>
 </resources>

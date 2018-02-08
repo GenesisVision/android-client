@@ -8,6 +8,7 @@ import vision.genesis.clientapp.di.modules.AppModule;
 import vision.genesis.clientapp.di.modules.AuthModule;
 import vision.genesis.clientapp.di.modules.InvestModule;
 import vision.genesis.clientapp.di.modules.NavigationModule;
+import vision.genesis.clientapp.di.modules.TournamentModule;
 import vision.genesis.clientapp.di.modules.UtilsModule;
 import vision.genesis.clientapp.feature.auth.AuthActivity;
 import vision.genesis.clientapp.feature.auth.AuthPresenter;
@@ -23,13 +24,16 @@ import vision.genesis.clientapp.feature.main.traders.details.TraderDetailsPresen
 import vision.genesis.clientapp.feature.main.traders.filter.TradersFiltersPresenter;
 import vision.genesis.clientapp.feature.main.wallet.WalletPresenter;
 import vision.genesis.clientapp.feature.splashscreen.SplashScreenPresenter;
+import vision.genesis.clientapp.feature.tournament.TournamentActivity;
+import vision.genesis.clientapp.feature.tournament.TournamentPresenter;
+import vision.genesis.clientapp.feature.tournament.participants.ParticipantsPresenter;
 
 /**
  * GenesisVision
  * Created by Vitaly on 1/18/18.
  */
 
-@Component(modules = {AppModule.class, NavigationModule.class, ApiModule.class, AuthModule.class, InvestModule.class, UtilsModule.class})
+@Component(modules = {AppModule.class, NavigationModule.class, ApiModule.class, AuthModule.class, InvestModule.class, UtilsModule.class, TournamentModule.class})
 @Singleton
 public interface AppComponent
 {
@@ -60,4 +64,10 @@ public interface AppComponent
 	void inject(TraderDetailsPresenter traderDetailsPresenter);
 
 	void inject(TabContainerFragment tabContainerFragment);
+
+	void inject(TournamentActivity tournamentActivity);
+
+	void inject(TournamentPresenter tournamentPresenter);
+
+	void inject(ParticipantsPresenter participantsPresenter);
 }
