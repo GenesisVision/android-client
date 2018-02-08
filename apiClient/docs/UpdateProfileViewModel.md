@@ -1,9 +1,10 @@
 
-# ProfileFullViewModel
+# UpdateProfileViewModel
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**userName** | **String** |  |  [optional]
 **firstName** | **String** |  |  [optional]
 **middleName** | **String** |  |  [optional]
 **lastName** | **String** |  |  [optional]
@@ -16,10 +17,6 @@ Name | Type | Description | Notes
 **birthday** | [**DateTime**](DateTime.md) |  |  [optional]
 **gender** | **Boolean** |  |  [optional]
 **avatar** | **String** |  |  [optional]
-**userName** | **String** |  |  [optional]
-**id** | [**UUID**](UUID.md) |  |  [optional]
-**email** | **String** |  |  [optional]
-**balance** | **Double** |  |  [optional]
 
 
 

@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**apiManagerInvestmentGet**](ManagerApi.md#apiManagerInvestmentGet) | **GET** api/manager/investment | Get investment program with statistic by id
 [**apiManagerProfileFullGet**](ManagerApi.md#apiManagerProfileFullGet) | **GET** api/manager/profile/full | Get full profile
 [**apiManagerProfileGet**](ManagerApi.md#apiManagerProfileGet) | **GET** api/manager/profile | Get short profile
+[**apiManagerProfilePublicGet**](ManagerApi.md#apiManagerProfilePublicGet) | **GET** api/manager/profile/public | Get public profile
 [**apiManagerProfileUpdatePost**](ManagerApi.md#apiManagerProfileUpdatePost) | **POST** api/manager/profile/update | Update profile
 [**apiManagerWalletDepositPost**](ManagerApi.md#apiManagerWalletDepositPost) | **POST** api/manager/wallet/deposit | Deposit
 [**apiManagerWalletTransactionsPost**](ManagerApi.md#apiManagerWalletTransactionsPost) | **POST** api/manager/wallet/transactions | Get user wallet transactions
@@ -456,6 +457,49 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="apiManagerProfilePublicGet"></a>
+# **apiManagerProfilePublicGet**
+> ProfilePublicViewModel apiManagerProfilePublicGet(userId)
+
+Get public profile
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+UUID userId = new UUID(); // UUID | 
+try {
+    ProfilePublicViewModel result = apiInstance.apiManagerProfilePublicGet(userId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerProfilePublicGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userId** | [**UUID**](.md)|  |
+
+### Return type
+
+[**ProfilePublicViewModel**](ProfilePublicViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="apiManagerProfileUpdatePost"></a>
 # **apiManagerProfileUpdatePost**
 > Void apiManagerProfileUpdatePost(authorization, model)
@@ -471,7 +515,7 @@ Update profile
 
 ManagerApi apiInstance = new ManagerApi();
 String authorization = "authorization_example"; // String | JWT access token
-ProfileFullViewModel model = new ProfileFullViewModel(); // ProfileFullViewModel | 
+UpdateProfileViewModel model = new UpdateProfileViewModel(); // UpdateProfileViewModel | 
 try {
     Void result = apiInstance.apiManagerProfileUpdatePost(authorization, model);
     System.out.println(result);
@@ -486,7 +530,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **model** | [**ProfileFullViewModel**](ProfileFullViewModel.md)|  | [optional]
+ **model** | [**UpdateProfileViewModel**](UpdateProfileViewModel.md)|  | [optional]
 
 ### Return type
 

@@ -25,6 +25,9 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class InvestmentProgram
 {
+	@SerializedName("manager")
+	private ProfilePublicViewModel manager = null;
+
 	@SerializedName("investment")
 	private Investment investment = null;
 
@@ -33,6 +36,25 @@ public class InvestmentProgram
 
 	@SerializedName("token")
 	private ManagerToken token = null;
+
+	public InvestmentProgram manager(ProfilePublicViewModel manager) {
+		this.manager = manager;
+		return this;
+	}
+
+	/**
+	 * Get manager
+	 *
+	 * @return manager
+	 **/
+	@ApiModelProperty(value = "")
+	public ProfilePublicViewModel getManager() {
+		return manager;
+	}
+
+	public void setManager(ProfilePublicViewModel manager) {
+		this.manager = manager;
+	}
 
 	public InvestmentProgram investment(Investment investment) {
 		this.investment = investment;
@@ -101,14 +123,15 @@ public class InvestmentProgram
 			return false;
 		}
 		InvestmentProgram investmentProgram = (InvestmentProgram) o;
-		return Objects.equals(this.investment, investmentProgram.investment) &&
+		return Objects.equals(this.manager, investmentProgram.manager) &&
+				Objects.equals(this.investment, investmentProgram.investment) &&
 				Objects.equals(this.account, investmentProgram.account) &&
 				Objects.equals(this.token, investmentProgram.token);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(investment, account, token);
+		return Objects.hash(manager, investment, account, token);
 	}
 
 
@@ -117,6 +140,7 @@ public class InvestmentProgram
 		StringBuilder sb = new StringBuilder();
 		sb.append("class InvestmentProgram {\n");
 
+		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    investment: ").append(toIndentedString(investment)).append("\n");
 		sb.append("    account: ").append(toIndentedString(account)).append("\n");
 		sb.append("    token: ").append(toIndentedString(token)).append("\n");

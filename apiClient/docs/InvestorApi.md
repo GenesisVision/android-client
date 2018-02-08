@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**apiInvestorInvestmentsWithdrawPost**](InvestorApi.md#apiInvestorInvestmentsWithdrawPost) | **POST** api/investor/investments/withdraw | Withdraw from investment program
 [**apiInvestorProfileFullGet**](InvestorApi.md#apiInvestorProfileFullGet) | **GET** api/investor/profile/full | Get full profile
 [**apiInvestorProfileGet**](InvestorApi.md#apiInvestorProfileGet) | **GET** api/investor/profile | Get short profile
+[**apiInvestorProfilePublicGet**](InvestorApi.md#apiInvestorProfilePublicGet) | **GET** api/investor/profile/public | Get public profile
 [**apiInvestorProfileUpdatePost**](InvestorApi.md#apiInvestorProfileUpdatePost) | **POST** api/investor/profile/update | Update profile
 [**apiInvestorWalletDepositPost**](InvestorApi.md#apiInvestorWalletDepositPost) | **POST** api/investor/wallet/deposit | Deposit
 [**apiInvestorWalletTransactionsPost**](InvestorApi.md#apiInvestorWalletTransactionsPost) | **POST** api/investor/wallet/transactions | Get user wallet transactions
@@ -456,6 +457,49 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="apiInvestorProfilePublicGet"></a>
+# **apiInvestorProfilePublicGet**
+> ProfilePublicViewModel apiInvestorProfilePublicGet(userId)
+
+Get public profile
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+UUID userId = new UUID(); // UUID | 
+try {
+    ProfilePublicViewModel result = apiInstance.apiInvestorProfilePublicGet(userId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorProfilePublicGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userId** | [**UUID**](.md)|  |
+
+### Return type
+
+[**ProfilePublicViewModel**](ProfilePublicViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="apiInvestorProfileUpdatePost"></a>
 # **apiInvestorProfileUpdatePost**
 > Void apiInvestorProfileUpdatePost(authorization, model)
@@ -471,7 +515,7 @@ Update profile
 
 InvestorApi apiInstance = new InvestorApi();
 String authorization = "authorization_example"; // String | JWT access token
-ProfileFullViewModel model = new ProfileFullViewModel(); // ProfileFullViewModel | 
+UpdateProfileViewModel model = new UpdateProfileViewModel(); // UpdateProfileViewModel | 
 try {
     Void result = apiInstance.apiInvestorProfileUpdatePost(authorization, model);
     System.out.println(result);
@@ -486,7 +530,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **model** | [**ProfileFullViewModel**](ProfileFullViewModel.md)|  | [optional]
+ **model** | [**UpdateProfileViewModel**](UpdateProfileViewModel.md)|  | [optional]
 
 ### Return type
 

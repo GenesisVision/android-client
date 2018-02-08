@@ -8,9 +8,11 @@ import io.swagger.client.model.InvestmentProgramViewModel;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.NewInvestmentRequest;
 import io.swagger.client.model.ProfileFullViewModel;
+import io.swagger.client.model.ProfilePublicViewModel;
 import io.swagger.client.model.ProfileShortViewModel;
 import io.swagger.client.model.RegisterManagerViewModel;
 import io.swagger.client.model.TransactionsFilter;
+import io.swagger.client.model.UpdateProfileViewModel;
 import io.swagger.client.model.WalletTransactionsViewModel;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -145,6 +147,17 @@ public interface ManagerApi
 	);
 
 	/**
+	 * Get public profile
+	 *
+	 * @param userId (required)
+	 * @return Call&lt;ProfilePublicViewModel&gt;
+	 */
+	@GET("api/manager/profile/public")
+	Observable<ProfilePublicViewModel> apiManagerProfilePublicGet(
+			@retrofit2.http.Query("userId") UUID userId
+	);
+
+	/**
 	 * Update profile
 	 *
 	 * @param authorization JWT access token (required)
@@ -156,7 +169,7 @@ public interface ManagerApi
 	})
 	@POST("api/manager/profile/update")
 	Observable<Void> apiManagerProfileUpdatePost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ProfileFullViewModel model
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body UpdateProfileViewModel model
 	);
 
 	/**

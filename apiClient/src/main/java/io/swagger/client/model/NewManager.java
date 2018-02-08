@@ -42,7 +42,7 @@ public class NewManager
 	 *
 	 * @return requestId
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(required = true, value = "")
 	public UUID getRequestId() {
 		return requestId;
 	}
@@ -61,7 +61,7 @@ public class NewManager
 	 *
 	 * @return login
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(required = true, value = "")
 	public String getLogin() {
 		return login;
 	}

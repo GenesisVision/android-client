@@ -70,6 +70,9 @@ public class Investment
 	@SerializedName("description")
 	private String description = null;
 
+	@SerializedName("title")
+	private String title = null;
+
 	@SerializedName("isEnabled")
 	private Boolean isEnabled = null;
 
@@ -348,6 +351,25 @@ public class Investment
 		this.description = description;
 	}
 
+	public Investment title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@ApiModelProperty(value = "")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public Investment isEnabled(Boolean isEnabled) {
 		this.isEnabled = isEnabled;
 		return this;
@@ -448,6 +470,7 @@ public class Investment
 				Objects.equals(this.managerTokensId, investment.managerTokensId) &&
 				Objects.equals(this.logo, investment.logo) &&
 				Objects.equals(this.description, investment.description) &&
+				Objects.equals(this.title, investment.title) &&
 				Objects.equals(this.isEnabled, investment.isEnabled) &&
 				Objects.equals(this.rating, investment.rating) &&
 				Objects.equals(this.ordersCount, investment.ordersCount) &&
@@ -456,7 +479,7 @@ public class Investment
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(dateFrom, dateTo, lastPeriod, period, feeSuccess, feeManagement, feeEntrance, investMinAmount, investMaxAmount, id, managerAccountId, managerTokensId, logo, description, isEnabled, rating, ordersCount, totalProfit);
+		return Objects.hash(dateFrom, dateTo, lastPeriod, period, feeSuccess, feeManagement, feeEntrance, investMinAmount, investMaxAmount, id, managerAccountId, managerTokensId, logo, description, title, isEnabled, rating, ordersCount, totalProfit);
 	}
 
 
@@ -479,6 +502,7 @@ public class Investment
 		sb.append("    managerTokensId: ").append(toIndentedString(managerTokensId)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
 		sb.append("    rating: ").append(toIndentedString(rating)).append("\n");
 		sb.append("    ordersCount: ").append(toIndentedString(ordersCount)).append("\n");

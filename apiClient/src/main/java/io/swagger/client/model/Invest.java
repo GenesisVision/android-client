@@ -42,7 +42,7 @@ public class Invest
 	 *
 	 * @return investmentProgramId
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(required = true, value = "")
 	public UUID getInvestmentProgramId() {
 		return investmentProgramId;
 	}
@@ -61,7 +61,7 @@ public class Invest
 	 *
 	 * @return amount
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(required = true, value = "")
 	public Double getAmount() {
 		return amount;
 	}

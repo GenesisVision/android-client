@@ -1,14 +1,18 @@
 package io.swagger.client.api;
 
+import java.util.UUID;
+
 import io.swagger.client.model.Invest;
 import io.swagger.client.model.InvestmentProgramsViewModel;
 import io.swagger.client.model.InvestmentsFilter;
 import io.swagger.client.model.InvestorDashboard;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.ProfileFullViewModel;
+import io.swagger.client.model.ProfilePublicViewModel;
 import io.swagger.client.model.ProfileShortViewModel;
 import io.swagger.client.model.RegisterInvestorViewModel;
 import io.swagger.client.model.TransactionsFilter;
+import io.swagger.client.model.UpdateProfileViewModel;
 import io.swagger.client.model.WalletTransactionsViewModel;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -146,6 +150,17 @@ public interface InvestorApi
 	);
 
 	/**
+	 * Get public profile
+	 *
+	 * @param userId (required)
+	 * @return Call&lt;ProfilePublicViewModel&gt;
+	 */
+	@GET("api/investor/profile/public")
+	Observable<ProfilePublicViewModel> apiInvestorProfilePublicGet(
+			@retrofit2.http.Query("userId") UUID userId
+	);
+
+	/**
 	 * Update profile
 	 *
 	 * @param authorization JWT access token (required)
@@ -157,7 +172,7 @@ public interface InvestorApi
 	})
 	@POST("api/investor/profile/update")
 	Observable<Void> apiInvestorProfileUpdatePost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ProfileFullViewModel model
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body UpdateProfileViewModel model
 	);
 
 	/**

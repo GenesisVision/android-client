@@ -52,6 +52,9 @@ public class NewInvestmentRequest
 	@SerializedName("logo")
 	private String logo = null;
 
+	@SerializedName("title")
+	private String title = null;
+
 	@SerializedName("description")
 	private String description = null;
 
@@ -83,7 +86,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return brokerTradeServerId
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(required = true, value = "")
 	public UUID getBrokerTradeServerId() {
 		return brokerTradeServerId;
 	}
@@ -102,7 +105,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return tradePlatformPassword
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(required = true, value = "")
 	public String getTradePlatformPassword() {
 		return tradePlatformPassword;
 	}
@@ -121,7 +124,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return depositAmount
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(required = true, value = "")
 	public Double getDepositAmount() {
 		return depositAmount;
 	}
@@ -140,7 +143,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return tokenName
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(required = true, value = "")
 	public String getTokenName() {
 		return tokenName;
 	}
@@ -159,7 +162,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return tokenSymbol
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(required = true, value = "")
 	public String getTokenSymbol() {
 		return tokenSymbol;
 	}
@@ -178,7 +181,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return dateFrom
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(required = true, value = "")
 	public DateTime getDateFrom() {
 		return dateFrom;
 	}
@@ -197,7 +200,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return dateTo
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(required = true, value = "")
 	public DateTime getDateTo() {
 		return dateTo;
 	}
@@ -223,6 +226,25 @@ public class NewInvestmentRequest
 
 	public void setLogo(String logo) {
 		this.logo = logo;
+	}
+
+	public NewInvestmentRequest title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@ApiModelProperty(required = true, value = "")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public NewInvestmentRequest description(String description) {
@@ -254,7 +276,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return feeEntrance
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(required = true, value = "")
 	public Double getFeeEntrance() {
 		return feeEntrance;
 	}
@@ -273,7 +295,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return feeManagement
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(required = true, value = "")
 	public Double getFeeManagement() {
 		return feeManagement;
 	}
@@ -292,7 +314,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return feeSuccess
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(required = true, value = "")
 	public Double getFeeSuccess() {
 		return feeSuccess;
 	}
@@ -311,7 +333,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return investMinAmount
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(required = true, value = "")
 	public Double getInvestMinAmount() {
 		return investMinAmount;
 	}
@@ -330,7 +352,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return investMaxAmount
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(required = true, value = "")
 	public Double getInvestMaxAmount() {
 		return investMaxAmount;
 	}
@@ -349,7 +371,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return period
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(required = true, value = "")
 	public Integer getPeriod() {
 		return period;
 	}
@@ -376,6 +398,7 @@ public class NewInvestmentRequest
 				Objects.equals(this.dateFrom, newInvestmentRequest.dateFrom) &&
 				Objects.equals(this.dateTo, newInvestmentRequest.dateTo) &&
 				Objects.equals(this.logo, newInvestmentRequest.logo) &&
+				Objects.equals(this.title, newInvestmentRequest.title) &&
 				Objects.equals(this.description, newInvestmentRequest.description) &&
 				Objects.equals(this.feeEntrance, newInvestmentRequest.feeEntrance) &&
 				Objects.equals(this.feeManagement, newInvestmentRequest.feeManagement) &&
@@ -387,7 +410,7 @@ public class NewInvestmentRequest
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(brokerTradeServerId, tradePlatformPassword, depositAmount, tokenName, tokenSymbol, dateFrom, dateTo, logo, description, feeEntrance, feeManagement, feeSuccess, investMinAmount, investMaxAmount, period);
+		return Objects.hash(brokerTradeServerId, tradePlatformPassword, depositAmount, tokenName, tokenSymbol, dateFrom, dateTo, logo, title, description, feeEntrance, feeManagement, feeSuccess, investMinAmount, investMaxAmount, period);
 	}
 
 
@@ -404,6 +427,7 @@ public class NewInvestmentRequest
 		sb.append("    dateFrom: ").append(toIndentedString(dateFrom)).append("\n");
 		sb.append("    dateTo: ").append(toIndentedString(dateTo)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    feeEntrance: ").append(toIndentedString(feeEntrance)).append("\n");
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");

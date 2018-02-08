@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **managerTokensId** | [**UUID**](UUID.md) |  |  [optional]
 **logo** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
+**title** | **String** |  |  [optional]
 **isEnabled** | **Boolean** |  |  [optional]
 **rating** | **Double** |  |  [optional]
 **ordersCount** | **Integer** |  |  [optional]

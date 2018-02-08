@@ -41,6 +41,9 @@ public class InvestmentShort
 	@SerializedName("description")
 	private String description = null;
 
+	@SerializedName("title")
+	private String title = null;
+
 	@SerializedName("isEnabled")
 	private Boolean isEnabled = null;
 
@@ -148,6 +151,25 @@ public class InvestmentShort
 		this.description = description;
 	}
 
+	public InvestmentShort title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@ApiModelProperty(value = "")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public InvestmentShort isEnabled(Boolean isEnabled) {
 		this.isEnabled = isEnabled;
 		return this;
@@ -239,6 +261,7 @@ public class InvestmentShort
 				Objects.equals(this.managerTokensId, investmentShort.managerTokensId) &&
 				Objects.equals(this.logo, investmentShort.logo) &&
 				Objects.equals(this.description, investmentShort.description) &&
+				Objects.equals(this.title, investmentShort.title) &&
 				Objects.equals(this.isEnabled, investmentShort.isEnabled) &&
 				Objects.equals(this.rating, investmentShort.rating) &&
 				Objects.equals(this.ordersCount, investmentShort.ordersCount) &&
@@ -247,7 +270,7 @@ public class InvestmentShort
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, managerAccountId, managerTokensId, logo, description, isEnabled, rating, ordersCount, totalProfit);
+		return Objects.hash(id, managerAccountId, managerTokensId, logo, description, title, isEnabled, rating, ordersCount, totalProfit);
 	}
 
 
@@ -261,6 +284,7 @@ public class InvestmentShort
 		sb.append("    managerTokensId: ").append(toIndentedString(managerTokensId)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
 		sb.append("    rating: ").append(toIndentedString(rating)).append("\n");
 		sb.append("    ordersCount: ").append(toIndentedString(ordersCount)).append("\n");

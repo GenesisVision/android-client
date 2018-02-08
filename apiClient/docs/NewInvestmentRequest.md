@@ -4,21 +4,22 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**brokerTradeServerId** | [**UUID**](UUID.md) |  |  [optional]
-**tradePlatformPassword** | **String** |  |  [optional]
-**depositAmount** | **Double** |  |  [optional]
-**tokenName** | **String** |  |  [optional]
-**tokenSymbol** | **String** |  |  [optional]
-**dateFrom** | [**DateTime**](DateTime.md) |  |  [optional]
-**dateTo** | [**DateTime**](DateTime.md) |  |  [optional]
+**brokerTradeServerId** | [**UUID**](UUID.md) |  | 
+**tradePlatformPassword** | **String** |  | 
+**depositAmount** | **Double** |  | 
+**tokenName** | **String** |  | 
+**tokenSymbol** | **String** |  | 
+**dateFrom** | [**DateTime**](DateTime.md) |  | 
+**dateTo** | [**DateTime**](DateTime.md) |  | 
 **logo** | **String** |  |  [optional]
+**title** | **String** |  | 
 **description** | **String** |  |  [optional]
-**feeEntrance** | **Double** |  |  [optional]
-**feeManagement** | **Double** |  |  [optional]
-**feeSuccess** | **Double** |  |  [optional]
-**investMinAmount** | **Double** |  |  [optional]
-**investMaxAmount** | **Double** |  |  [optional]
-**period** | **Integer** |  |  [optional]
+**feeEntrance** | **Double** |  | 
+**feeManagement** | **Double** |  | 
+**feeSuccess** | **Double** |  | 
+**investMinAmount** | **Double** |  | 
+**investMaxAmount** | **Double** |  | 
+**period** | **Integer** |  | 
 
 
 
