@@ -26,7 +26,7 @@ import vision.genesis.clientapp.ui.common.BackButtonListener;
 
 /**
  * GenesisVision
- * Created by Vitaly on 1/18/18.
+ * Created by Vitaly on 2/8/18.
  */
 
 public class TournamentActivity extends MvpAppCompatActivity implements TournamentView

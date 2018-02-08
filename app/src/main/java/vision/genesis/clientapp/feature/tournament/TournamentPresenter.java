@@ -10,7 +10,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 
 /**
  * GenesisVision
- * Created by Vitaly on 1/19/18.
+ * Created by Vitaly on 2/8/18.
  */
 
 @InjectViewState

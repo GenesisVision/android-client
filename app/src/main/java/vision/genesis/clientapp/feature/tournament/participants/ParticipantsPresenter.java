@@ -30,7 +30,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
  * GenesisVision
- * Created by Vitaly on 1/19/18.
+ * Created by Vitaly on 2/8/18.
  */
 
 @InjectViewState

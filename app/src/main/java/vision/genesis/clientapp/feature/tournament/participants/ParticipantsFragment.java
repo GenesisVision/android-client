@@ -27,7 +27,7 @@ import vision.genesis.clientapp.ui.ToolbarView;
 
 /**
  * GenesisVision
- * Created by Vitaly on 1/19/18.
+ * Created by Vitaly on 2/8/18.
  */
 
 public class ParticipantsFragment extends BaseFragment implements ParticipantsView

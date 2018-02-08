@@ -11,7 +11,7 @@ import io.swagger.client.model.ParticipantViewModel;
 
 /**
  * GenesisVision
- * Created by Vitaly on 1/19/18.
+ * Created by Vitaly on 2/8/18.
  */
 
 interface ParticipantsView extends MvpView

@@ -23,7 +23,7 @@ import vision.genesis.clientapp.ui.ProfitChartView;
 
 /**
  * GenesisVision
- * Created by Vitaly on 1/25/18.
+ * Created by Vitaly on 2/8/18.
  */
 
 public class ParticipantsListAdapter extends RecyclerView.Adapter<ParticipantsListAdapter.ParticipantViewHolder>

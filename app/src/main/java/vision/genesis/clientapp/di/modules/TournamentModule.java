@@ -9,7 +9,7 @@ import vision.genesis.clientapp.managers.TournamentManager;
 
 /**
  * GenesisVision
- * Created by Vitaly on 1/24/18.
+ * Created by Vitaly on 2/8/18.
  */
 
 @Module
