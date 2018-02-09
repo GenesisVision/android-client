@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **login** | **Long** |  |  [optional]
 **ipfsHash** | **String** |  |  [optional]
 **ordersCount** | **Integer** |  |  [optional]
+**startBalance** | **Double** |  |  [optional]
 **totalProfit** | **Double** |  |  [optional]
 **totalProfitInPercent** | **Double** |  |  [optional]
 **chart** | **List&lt;Double&gt;** |  |  [optional]

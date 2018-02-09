@@ -1,1 +1,1 @@
-include ':app',':apiClient', ':tournamentApiClient'
+include ':app',':apiClient'

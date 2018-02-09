@@ -121,5 +121,4 @@ dependencies {
 
     provided 'com.arello-mobile:moxy-compiler:1.5.3'
     compile project(path: ':apiClient')
-    compile project(path: ':tournamentApiClient')
 }

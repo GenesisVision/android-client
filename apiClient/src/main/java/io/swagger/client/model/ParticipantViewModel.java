@@ -51,6 +51,9 @@ public class ParticipantViewModel
 	@SerializedName("ordersCount")
 	private Integer ordersCount = null;
 
+	@SerializedName("startBalance")
+	private Double startBalance = null;
+
 	@SerializedName("totalProfit")
 	private Double totalProfit = null;
 
@@ -196,6 +199,25 @@ public class ParticipantViewModel
 		this.ordersCount = ordersCount;
 	}
 
+	public ParticipantViewModel startBalance(Double startBalance) {
+		this.startBalance = startBalance;
+		return this;
+	}
+
+	/**
+	 * Get startBalance
+	 *
+	 * @return startBalance
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getStartBalance() {
+		return startBalance;
+	}
+
+	public void setStartBalance(Double startBalance) {
+		this.startBalance = startBalance;
+	}
+
 	public ParticipantViewModel totalProfit(Double totalProfit) {
 		this.totalProfit = totalProfit;
 		return this;
@@ -297,6 +319,7 @@ public class ParticipantViewModel
 				Objects.equals(this.login, participantViewModel.login) &&
 				Objects.equals(this.ipfsHash, participantViewModel.ipfsHash) &&
 				Objects.equals(this.ordersCount, participantViewModel.ordersCount) &&
+				Objects.equals(this.startBalance, participantViewModel.startBalance) &&
 				Objects.equals(this.totalProfit, participantViewModel.totalProfit) &&
 				Objects.equals(this.totalProfitInPercent, participantViewModel.totalProfitInPercent) &&
 				Objects.equals(this.chart, participantViewModel.chart) &&
@@ -305,7 +328,7 @@ public class ParticipantViewModel
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, avatar, regDate, login, ipfsHash, ordersCount, totalProfit, totalProfitInPercent, chart, place);
+		return Objects.hash(id, name, avatar, regDate, login, ipfsHash, ordersCount, startBalance, totalProfit, totalProfitInPercent, chart, place);
 	}
 
 
@@ -321,6 +344,7 @@ public class ParticipantViewModel
 		sb.append("    login: ").append(toIndentedString(login)).append("\n");
 		sb.append("    ipfsHash: ").append(toIndentedString(ipfsHash)).append("\n");
 		sb.append("    ordersCount: ").append(toIndentedString(ordersCount)).append("\n");
+		sb.append("    startBalance: ").append(toIndentedString(startBalance)).append("\n");
 		sb.append("    totalProfit: ").append(toIndentedString(totalProfit)).append("\n");
 		sb.append("    totalProfitInPercent: ").append(toIndentedString(totalProfitInPercent)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
