@@ -2,6 +2,7 @@ package vision.genesis.clientapp.feature.main.traders;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
@@ -10,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -51,8 +54,14 @@ public class TradersFragment extends BaseFragment implements TradersView
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
+	@BindView(R.id.fab)
+	public FloatingActionButton fab;
+
+
 	@InjectPresenter
 	TradersPresenter tradersPresenter;
+
+	private boolean fabInAnim = false;
 
 	private InvestmentProgramsListAdapter investmentProgramsListAdapter;
 
@@ -64,6 +73,11 @@ public class TradersFragment extends BaseFragment implements TradersView
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
 		tradersPresenter.onTryAgainClicked();
+	}
+
+	@OnClick(R.id.fab)
+	public void onFabClicked() {
+		recyclerView.scrollToPosition(0);
 	}
 
 	@Nullable
@@ -112,8 +126,61 @@ public class TradersFragment extends BaseFragment implements TradersView
 				if (totalItemCount > 0 && endHasBeenReached) {
 					tradersPresenter.onLastListItemVisible();
 				}
+				if (dy != 0) {
+					if (!fabInAnim && fab.getVisibility() != View.VISIBLE && lastVisible > 2)
+						showFab();
+					else if (!fabInAnim && fab.getVisibility() == View.VISIBLE && lastVisible < 2)
+						hideFab();
+				}
 			}
 		});
+	}
+
+	private void showFab() {
+		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_from_bottom);
+		animation.setAnimationListener(new Animation.AnimationListener()
+		{
+			@Override
+			public void onAnimationStart(Animation animation) {
+				fabInAnim = true;
+				fab.setVisibility(View.VISIBLE);
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				fabInAnim = false;
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+
+			}
+		});
+		fab.startAnimation(animation);
+	}
+
+	private void hideFab() {
+		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_to_bottom);
+		animation.setAnimationListener(new Animation.AnimationListener()
+		{
+			@Override
+			public void onAnimationStart(Animation animation) {
+				fabInAnim = true;
+				fab.setVisibility(View.VISIBLE);
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				fabInAnim = false;
+				fab.setVisibility(View.GONE);
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+
+			}
+		});
+		fab.startAnimation(animation);
 	}
 
 	@Override
