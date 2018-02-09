@@ -1,5 +1,7 @@
 package vision.genesis.clientapp.feature.tournament.participants;
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,10 +83,14 @@ public class ParticipantsListAdapter extends RecyclerView.Adapter<ParticipantsLi
 
 		private ParticipantViewModel participant;
 
+		private Context context;
+
 		ParticipantViewHolder(View itemView) {
 			super(itemView);
 
 			ButterKnife.bind(this, itemView);
+
+			context = itemView.getContext();
 
 			itemView.setOnClickListener(v -> EventBus.getDefault().post(new OnParticipantItemListClicked(participant)));
 		}
@@ -102,7 +108,15 @@ public class ParticipantsListAdapter extends RecyclerView.Adapter<ParticipantsLi
 			placeText.setText(String.valueOf(participant.getPlace()));
 			tradesText.setText(String.valueOf(participant.getOrdersCount()));
 			profitText.setText(String.valueOf(participant.getTotalProfit()));
-			profitPercentText.setText(String.format(Locale.getDefault(), "%.2f%%", participant.getTotalProfitInPercent()));
+
+			double profitPercent = participant.getTotalProfitInPercent();
+			profitPercentText.setText(String.format(Locale.getDefault(), "%.2f%%", profitPercent));
+			if (profitPercent > 0)
+				profitPercentText.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));
+			else if (profitPercent < 0)
+				profitPercentText.setTextColor(ContextCompat.getColor(context, R.color.transactionRed));
+			else
+				profitPercentText.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
 
 			chart.setDataDouble(participant.getChart());
 		}

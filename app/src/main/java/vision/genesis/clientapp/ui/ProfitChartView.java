@@ -30,6 +30,10 @@ public class ProfitChartView extends RelativeLayout
 	@BindView(R.id.line_chart)
 	public LineChart chart;
 
+	private int fillColor = R.color.grey300;
+
+	private int lineColor = R.color.grey400;
+
 	public ProfitChartView(Context context) {
 		super(context);
 		initView();
@@ -67,6 +71,15 @@ public class ProfitChartView extends RelativeLayout
 		yAxis.setDrawGridLines(false);
 	}
 
+	public void showDetails() {
+		chart.getAxisRight().setEnabled(true);
+		chart.setDragEnabled(true);
+		chart.setTouchEnabled(true);
+
+		fillColor = R.color.colorPrimary;
+		lineColor = R.color.colorPrimary;
+	}
+
 	public void setDataDouble(List<Double> data) {
 		List<Entry> entries = new ArrayList<>();
 		float index = 0;
@@ -98,11 +111,11 @@ public class ProfitChartView extends RelativeLayout
 		dataSet.setLabel("");
 		dataSet.setDrawValues(false);
 		dataSet.setDrawCircles(false);
-		dataSet.setColor(ContextCompat.getColor(getContext(), R.color.grey400));
+		dataSet.setColor(ContextCompat.getColor(getContext(), lineColor));
 		dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
 		dataSet.setLineWidth(1f);
 
-		dataSet.setFillColor(ContextCompat.getColor(getContext(), R.color.grey300));
+		dataSet.setFillColor(ContextCompat.getColor(getContext(), fillColor));
 		dataSet.setDrawFilled(true);
 
 		return dataSet;

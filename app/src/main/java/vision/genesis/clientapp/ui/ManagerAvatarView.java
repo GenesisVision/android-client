@@ -11,6 +11,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 
 /**
@@ -51,7 +52,10 @@ public class ManagerAvatarView extends RelativeLayout
 	}
 
 	public void setImageUrl(String url) {
-		image.setImageURI(url);
+		String baseUrl = BuildConfig.FLAVOR.equals("tournament")
+				? BuildConfig.TOURNAMENT_API_ADDRESS
+				: BuildConfig.API_ADDRESS;
+		image.setImageURI(baseUrl + "/api/files/get?filename=" + url);
 	}
 
 	public void setLevel(String level) {

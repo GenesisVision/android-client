@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="toolbar_height">50dp</dimen>
+    <dimen name="toolbar_height">60dp</dimen>
     <dimen name="toolbar_button_width">40dp</dimen>
     <dimen name="toolbar_button_height">40dp</dimen>
 
@@ -36,8 +36,8 @@
     <dimen name="trader_details_avatar_height">50dp</dimen>
     <dimen name="trader_details_description_height">100dp</dimen>
 
-    <dimen name="manager_avatar_width">50dp</dimen>
-    <dimen name="manager_avatar_height">50dp</dimen>
+    <dimen name="manager_avatar_width">60dp</dimen>
+    <dimen name="manager_avatar_height">60dp</dimen>
 
     <dimen name="filters_item_height">50dp</dimen>
 

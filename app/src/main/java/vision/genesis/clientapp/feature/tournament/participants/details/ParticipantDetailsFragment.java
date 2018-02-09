@@ -115,6 +115,7 @@ public class ParticipantDetailsFragment extends BaseFragment implements Particip
 		profitText.setText(String.valueOf(participant.getTotalProfit()));
 		profitPercentText.setText(String.format(Locale.getDefault(), "%.2f%%", participant.getTotalProfitInPercent()));
 
+		chart.showDetails();
 		chart.setDataDouble(participant.getChart());
 	}
 
