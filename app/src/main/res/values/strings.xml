@@ -65,4 +65,5 @@
     <string name="tournament">Tournament</string>
     <string name="participant_details">Participant details</string>
     <string name="cannot_load_data">Cannot load data.\nPlease try again later</string>
+    <string name="leaderboard">Leaderboard</string>
 </resources>

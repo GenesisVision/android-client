@@ -96,7 +96,7 @@ public class ParticipantsFragment extends BaseFragment implements ParticipantsVi
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.tournament));
-//		toolbar.addLeftButton(R.drawable.trophy, () -> participantsPresenter.onLeaderboardClicked());
+		toolbar.addLeftButton(R.drawable.trophy, () -> participantsPresenter.onLeaderboardClicked());
 	}
 
 	private void initRecyclerView() {

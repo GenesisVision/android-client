@@ -26,6 +26,7 @@ import vision.genesis.clientapp.feature.main.wallet.WalletPresenter;
 import vision.genesis.clientapp.feature.splashscreen.SplashScreenPresenter;
 import vision.genesis.clientapp.feature.tournament.TournamentActivity;
 import vision.genesis.clientapp.feature.tournament.TournamentPresenter;
+import vision.genesis.clientapp.feature.tournament.leaderboard.LeaderboardPresenter;
 import vision.genesis.clientapp.feature.tournament.participants.ParticipantsPresenter;
 import vision.genesis.clientapp.feature.tournament.participants.details.ParticipantDetailsPresenter;
 
@@ -73,4 +74,6 @@ public interface AppComponent
 	void inject(ParticipantsPresenter participantsPresenter);
 
 	void inject(ParticipantDetailsPresenter participantDetailsPresenter);
+
+	void inject(LeaderboardPresenter leaderboardPresenter);
 }

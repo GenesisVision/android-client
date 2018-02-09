@@ -22,6 +22,7 @@ import ru.terrakok.cicerone.commands.Replace;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.Screens;
+import vision.genesis.clientapp.feature.tournament.leaderboard.LeaderboardFragment;
 import vision.genesis.clientapp.feature.tournament.participants.ParticipantsFragment;
 import vision.genesis.clientapp.feature.tournament.participants.details.ParticipantDetailsFragment;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
@@ -54,6 +55,8 @@ public class TournamentActivity extends MvpAppCompatActivity implements Tourname
 
 	private ParticipantDetailsFragment participantDetailsFragment;
 
+	private LeaderboardFragment leaderboardFragment;
+
 	private Navigator navigator = new SupportAppNavigator(this, R.id.content)
 	{
 		@Override
@@ -71,6 +74,10 @@ public class TournamentActivity extends MvpAppCompatActivity implements Tourname
 				case Screens.TOUR_PARTICIPANT_DETAILS:
 					participantDetailsFragment = ParticipantDetailsFragment.with(((ParticipantViewModel) data).getId());
 					return participantDetailsFragment;
+				case Screens.TOUR_LEADERBOARD:
+					if (leaderboardFragment == null)
+						leaderboardFragment = new LeaderboardFragment();
+					return leaderboardFragment;
 			}
 			return null;
 		}
