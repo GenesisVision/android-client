@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:drawable="@color/colorGrayBackground"/>
+        android:drawable="@color/colorPrimary"/>
 
     <item
         android:left="100dp"
@@ -10,7 +10,7 @@
         <bitmap
 
             android:gravity="center"
-            android:src="@drawable/logo_full"/>
+            android:src="@drawable/logo_trans"/>
     </item>
 
 </layer-list>
