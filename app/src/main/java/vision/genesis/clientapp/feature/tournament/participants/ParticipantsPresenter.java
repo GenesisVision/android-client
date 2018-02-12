@@ -36,7 +36,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 @InjectViewState
 public class ParticipantsPresenter extends MvpPresenter<ParticipantsView>
 {
-	private static int TAKE = 5;
+	private static int TAKE = 10;
 
 	@Inject
 	public Context context;
@@ -148,11 +148,11 @@ public class ParticipantsPresenter extends MvpPresenter<ParticipantsView>
 	}
 
 	private void handleGetParticipantsListResponse(ParticipantsViewModel model) {
+		getParticipantsSubscription.unsubscribe();
+
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);
-
-		getParticipantsSubscription.unsubscribe();
 
 		List<ParticipantViewModel> participants = model.getParticipants();
 
@@ -180,6 +180,7 @@ public class ParticipantsPresenter extends MvpPresenter<ParticipantsView>
 
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
+
 		if (ApiErrorResolver.isNetworkError(error)) {
 			if (this.participants.size() == 0)
 				getViewState().showNoInternet(true);

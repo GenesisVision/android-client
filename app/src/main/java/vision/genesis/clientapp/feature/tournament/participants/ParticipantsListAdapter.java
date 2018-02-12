@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -27,19 +28,37 @@ import vision.genesis.clientapp.ui.ProfitChartView;
  * Created by Vitaly on 2/8/18.
  */
 
-public class ParticipantsListAdapter extends RecyclerView.Adapter<ParticipantsListAdapter.ParticipantViewHolder>
+public class ParticipantsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+	private final int VIEW_ITEM = 1;
+
+	private final int VIEW_PROG = 0;
+
 	public List<ParticipantViewModel> participants = new ArrayList<>();
 
 	@Override
-	public ParticipantViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_participant, parent, false);
-		return new ParticipantViewHolder(itemView);
+	public int getItemViewType(int position) {
+		return participants.get(position) != null ? VIEW_ITEM : VIEW_PROG;
 	}
 
 	@Override
-	public void onBindViewHolder(ParticipantViewHolder holder, int position) {
-		holder.setParticipant(participants.get(position));
+	public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+		RecyclerView.ViewHolder vh;
+		if (viewType == VIEW_ITEM) {
+			View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_participant, parent, false);
+			vh = new ParticipantViewHolder(itemView);
+		}
+		else {
+			View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_progress, parent, false);
+			vh = new ProgressViewHolder(itemView);
+		}
+		return vh;
+	}
+
+	@Override
+	public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+		if (holder instanceof ParticipantViewHolder)
+			((ParticipantViewHolder) holder).setParticipant(participants.get(position));
 	}
 
 	@Override
@@ -50,11 +69,15 @@ public class ParticipantsListAdapter extends RecyclerView.Adapter<ParticipantsLi
 	void setParticipants(List<ParticipantViewModel> participants) {
 		this.participants.clear();
 		this.participants.addAll(participants);
+		this.participants.add(null);
 		notifyDataSetChanged();
 	}
 
 	void addParticipants(List<ParticipantViewModel> participants) {
+		if (this.participants.get(this.participants.size() - 1) == null)
+			this.participants.remove(this.participants.size() - 1);
 		this.participants.addAll(participants);
+		this.participants.add(null);
 		notifyDataSetChanged();
 	}
 
@@ -119,6 +142,18 @@ public class ParticipantsListAdapter extends RecyclerView.Adapter<ParticipantsLi
 				profitPercentText.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
 
 			chart.setDataDouble(participant.getChart());
+		}
+	}
+
+	static class ProgressViewHolder extends RecyclerView.ViewHolder
+	{
+		@BindView(R.id.progress_bar)
+		public ProgressBar progressBar;
+
+		ProgressViewHolder(View v) {
+			super(v);
+
+			ButterKnife.bind(this, itemView);
 		}
 	}
 }
