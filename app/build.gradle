@@ -3,6 +3,21 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
 
+    signingConfigs {
+        release {
+            File propertiesFile = new File(project.property("genesisvision.properties") as String)
+            Properties signProperties = new Properties()
+            if (propertiesFile.exists()) {
+                signProperties.load(new FileInputStream(propertiesFile))
+
+                storeFile file(signProperties.getProperty("keystore"))
+                storePassword signProperties.getProperty("keystore.password")
+                keyAlias signProperties.getProperty("keyAlias")
+                keyPassword signProperties.getProperty("keyPassword")
+            }
+        }
+    }
+
     defaultConfig {
         applicationId "vision.genesis.clientapp"
         minSdkVersion 16
@@ -35,6 +50,8 @@ android {
         release {
             buildConfigField "boolean", "PROD", "true"
 
+            signingConfig signingConfigs.release
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -57,6 +74,8 @@ android {
         }
         tournament {
             dimension "appType"
+            versionCode 18021201
+            versionName "0.0.1"
 
             resValue "string", "app_name", "Genesis Vision Client App"
             applicationIdSuffix '.investor'
