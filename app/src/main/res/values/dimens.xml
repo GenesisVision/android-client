@@ -47,5 +47,9 @@
 
     <dimen name="participant_details_avatar_width">150dp</dimen>
     <dimen name="participant_details_avatar_height">150dp</dimen>
+
     <dimen name="item_progress_height">100dp</dimen>
+
+    <dimen name="participants_empty_list_image_width">150dp</dimen>
+    <dimen name="participants_empty_list_image_height">150dp</dimen>
 </resources>

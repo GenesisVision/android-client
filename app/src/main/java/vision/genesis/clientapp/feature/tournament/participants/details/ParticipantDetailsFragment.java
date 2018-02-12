@@ -2,6 +2,7 @@ package vision.genesis.clientapp.feature.tournament.participants.details;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,7 +114,15 @@ public class ParticipantDetailsFragment extends BaseFragment implements Particip
 		placeText.setText(String.valueOf(participant.getPlace()));
 		tradesText.setText(String.valueOf(participant.getOrdersCount()));
 		profitText.setText(String.valueOf(participant.getTotalProfit()));
-		profitPercentText.setText(String.format(Locale.getDefault(), "%.2f%%", participant.getTotalProfitInPercent()));
+
+		double profitPercent = participant.getTotalProfitInPercent();
+		profitPercentText.setText(String.format(Locale.getDefault(), "%.2f%%", profitPercent));
+		if (profitPercent > 0)
+			profitPercentText.setTextColor(ContextCompat.getColor(getContext(), R.color.transactionGreen));
+		else if (profitPercent < 0)
+			profitPercentText.setTextColor(ContextCompat.getColor(getContext(), R.color.transactionRed));
+		else
+			profitPercentText.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
 
 		chart.showDetails();
 		chart.setDataDouble(participant.getChart());

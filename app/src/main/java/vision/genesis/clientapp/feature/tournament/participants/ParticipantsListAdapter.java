@@ -76,8 +76,11 @@ public class ParticipantsListAdapter extends RecyclerView.Adapter<RecyclerView.V
 	void addParticipants(List<ParticipantViewModel> participants) {
 		if (this.participants.get(this.participants.size() - 1) == null)
 			this.participants.remove(this.participants.size() - 1);
-		this.participants.addAll(participants);
-		this.participants.add(null);
+
+		if (participants.size() > 0) {
+			this.participants.addAll(participants);
+			this.participants.add(null);
+		}
 		notifyDataSetChanged();
 	}
 

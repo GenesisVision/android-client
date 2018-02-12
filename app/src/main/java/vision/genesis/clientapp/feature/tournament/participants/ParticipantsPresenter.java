@@ -153,26 +153,31 @@ public class ParticipantsPresenter extends MvpPresenter<ParticipantsView>
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);
+		getViewState().showEmptyList(false);
 
 		List<ParticipantViewModel> participants = model.getParticipants();
 
-		if (participants.size() == 0) {
-			if (skip == 0)
-				getViewState().showEmptyList();
-			return;
-		}
-
 		if (skip == 0) {
-			this.participants.clear();
-			getViewState().setParticipants(participants);
+			if (participants.size() == 0) {
+				getViewState().showEmptyList(true);
+				return;
+			}
+			else {
+				this.participants.clear();
+				getViewState().setParticipants(participants);
+			}
 		}
 		else {
 			getViewState().addParticipants(participants);
 		}
+
 		this.participants.addAll(participants);
-		skip += TAKE;
-		filter.setTake(TAKE);
-		filter.setSkip(skip);
+
+		if (participants.size() != 0) {
+			skip += TAKE;
+			filter.setTake(TAKE);
+			filter.setSkip(skip);
+		}
 	}
 
 	private void handleGetParticipantsListError(Throwable error) {

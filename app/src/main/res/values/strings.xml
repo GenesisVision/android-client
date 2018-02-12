@@ -66,4 +66,7 @@
     <string name="participant_details">Participant details</string>
     <string name="cannot_load_data">Cannot load data.\nPlease try again later</string>
     <string name="leaderboard">Leaderboard</string>
+    <string name="not_enough_data">Not enough data</string>
+    <string name="total_funds_history">Total funds history</string>
+    <string name="this_list_is_empty">This list is empty yet.\nPlease try again later</string>
 </resources>

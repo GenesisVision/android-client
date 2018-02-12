@@ -47,6 +47,9 @@ public class ParticipantsFragment extends BaseFragment implements ParticipantsVi
 	@BindView(R.id.group_no_internet)
 	public ViewGroup noInternetGroup;
 
+	@BindView(R.id.group_empty)
+	public ViewGroup emptyGroup;
+
 	@BindView(R.id.button_try_again)
 	public View tryAgainButton;
 
@@ -96,7 +99,7 @@ public class ParticipantsFragment extends BaseFragment implements ParticipantsVi
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.tournament));
-		toolbar.addLeftButton(R.drawable.trophy, () -> participantsPresenter.onLeaderboardClicked());
+//		toolbar.addLeftButton(R.drawable.trophy, () -> participantsPresenter.onLeaderboardClicked());
 	}
 
 	private void initRecyclerView() {
@@ -212,8 +215,9 @@ public class ParticipantsFragment extends BaseFragment implements ParticipantsVi
 	}
 
 	@Override
-	public void showEmptyList() {
-
+	public void showEmptyList(boolean show) {
+		emptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+		recyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
 	}
 
 	@Override

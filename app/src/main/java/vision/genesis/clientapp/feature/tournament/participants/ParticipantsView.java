@@ -31,5 +31,5 @@ interface ParticipantsView extends MvpView
 
 	void showProgressBar(boolean show);
 
-	void showEmptyList();
+	void showEmptyList(boolean show);
 }

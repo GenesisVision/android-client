@@ -35,7 +35,7 @@
             android:id="@+id/group_data"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_investment_program_footer_height"
-            android:layout_above="@+id/group_chart"
+            android:layout_below="@+id/name"
             android:layout_margin="8dp"
             android:orientation="horizontal">
 
@@ -116,9 +116,19 @@
         <FrameLayout
             android:id="@+id/group_chart"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
+            android:layout_below="@+id/group_data"
             android:background="@color/grey200">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:text="@string/total_funds_history"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"/>
 
             <vision.genesis.clientapp.ui.ProfitChartView
                 android:id="@+id/chart"

@@ -64,6 +64,8 @@ public class ProfitChartView extends RelativeLayout
 		chart.getAxisRight().setEnabled(false);
 		chart.setDrawBorders(false);
 		chart.setAutoScaleMinMaxEnabled(true);
+		chart.setNoDataText(getContext().getResources().getString(R.string.not_enough_data));
+		chart.setNoDataTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
 
 		YAxis yAxis = chart.getAxisLeft();
 		yAxis.setDrawLabels(false);
@@ -75,6 +77,11 @@ public class ProfitChartView extends RelativeLayout
 		chart.getAxisRight().setEnabled(true);
 		chart.setDragEnabled(true);
 		chart.setTouchEnabled(true);
+		chart.setHighlightPerTapEnabled(false);
+		chart.setHighlightPerDragEnabled(false);
+		chart.setPinchZoom(true);
+		chart.setViewPortOffsets(0f, 0f, 100f, 0f);
+		chart.invalidate();
 
 		fillColor = R.color.colorPrimary;
 		lineColor = R.color.colorPrimary;

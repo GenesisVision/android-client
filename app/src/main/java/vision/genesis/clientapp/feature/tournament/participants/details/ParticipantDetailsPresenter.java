@@ -47,8 +47,10 @@ public class ParticipantDetailsPresenter extends MvpPresenter<ParticipantDetails
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		if (participantId != null)
+		if (participantId != null) {
+			getViewState().showLoading(true);
 			getParticipantDetails(participantId);
+		}
 	}
 
 	@Override
@@ -68,7 +70,6 @@ public class ParticipantDetailsPresenter extends MvpPresenter<ParticipantDetails
 	}
 
 	private void getParticipantDetails(UUID participantId) {
-		getViewState().showLoading(true);
 		getParticipantDetailsSubscription = tournamentManager.getParticipantDetails(participantId)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
