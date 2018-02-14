@@ -32,16 +32,48 @@
                 <ImageView
                     android:layout_width="@dimen/participants_empty_list_image_width"
                     android:layout_height="@dimen/participants_empty_list_image_height"
-                    android:src="@drawable/ic_hourglass_empty_black_24dp"
-                    android:tint="@color/colorFontLight"/>
+                    android:layout_margin="12dp"
+                    android:src="@drawable/traders"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:text="@string/this_list_is_empty"
+                    android:gravity="center"
+                    android:lineSpacingMultiplier="1.4"
+                    android:text="@string/tournament_hasnt_started_yet"
                     android:textColor="@color/colorFontMedium"
                     android:textSize="18sp"/>
+
+                <LinearLayout
+                    android:id="@+id/button_visit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_language_black_24dp"
+                        android:tint="@color/colorPrimary"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginStart="4dp"
+                        android:text="genesis.vision"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 

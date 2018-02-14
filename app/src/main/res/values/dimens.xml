@@ -50,6 +50,6 @@
 
     <dimen name="item_progress_height">100dp</dimen>
 
-    <dimen name="participants_empty_list_image_width">150dp</dimen>
-    <dimen name="participants_empty_list_image_height">150dp</dimen>
+    <dimen name="participants_empty_list_image_width">250dp</dimen>
+    <dimen name="participants_empty_list_image_height">170dp</dimen>
 </resources>

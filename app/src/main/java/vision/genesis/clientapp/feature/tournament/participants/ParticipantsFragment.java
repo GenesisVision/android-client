@@ -1,5 +1,7 @@
 package vision.genesis.clientapp.feature.tournament.participants;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -69,6 +71,12 @@ public class ParticipantsFragment extends BaseFragment implements ParticipantsVi
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
 		participantsPresenter.onTryAgainClicked();
+	}
+
+	@OnClick(R.id.button_visit)
+	public void onVisitClicked() {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.genesis.vision"));
+		startActivity(browserIntent);
 	}
 
 	@OnClick(R.id.fab)

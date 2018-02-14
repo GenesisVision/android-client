@@ -68,5 +68,5 @@
     <string name="leaderboard">Leaderboard</string>
     <string name="not_enough_data">Not enough data</string>
     <string name="total_funds_history">Total funds history</string>
-    <string name="this_list_is_empty">This list is empty yet.\nPlease try again later</string>
+    <string name="tournament_hasnt_started_yet">The tournament hasn\'t started yet.\nFor more info please visit</string>
 </resources>
