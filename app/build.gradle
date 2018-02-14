@@ -74,7 +74,7 @@ android {
         }
         tournament {
             dimension "appType"
-            versionCode 18021401
+            versionCode 18021402
             versionName "0.0.1"
 
             resValue "string", "app_name", "Genesis Vision Tournament"

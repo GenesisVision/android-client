@@ -231,7 +231,7 @@ public class ParticipantsFragment extends BaseFragment implements ParticipantsVi
 	@Override
 	public boolean onBackPressed() {
 		LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
-		if (layoutManager.findFirstCompletelyVisibleItemPosition() != 0) {
+		if (layoutManager.findFirstCompletelyVisibleItemPosition() > 0) {
 			recyclerView.smoothScrollToPosition(0);
 			return true;
 		}
