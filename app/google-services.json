@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "1050047192021",
+    "firebase_url": "https://genesis-vision-client-app.firebaseio.com",
+    "project_id": "genesis-vision-client-app",
+    "storage_bucket": "genesis-vision-client-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050047192021:android:c2e96e6cdc193e65",
+        "android_client_info": {
+          "package_name": "vision.genesis.clientapp.investor.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1050047192021-l1jhrcrnvfjg0mmffjhs4oj6lnr4m8pg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vision.genesis.clientapp.investor.dev",
+            "certificate_hash": "e667f4d481be72277fcb108c212bd0a235539e09"
+          }
+        },
+        {
+          "client_id": "1050047192021-h92k1lv71jcqd825bjgbp5aqbcbscgqp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtUepgdx2m_fi6ppiBht85T9oXaZmMwh0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1050047192021-h92k1lv71jcqd825bjgbp5aqbcbscgqp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050047192021:android:2317b1aaf1acb983",
+        "android_client_info": {
+          "package_name": "vision.genesis.clientapp.investor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1050047192021-j8pfltoa6mbdfeu67gej57qkbus0dkl1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vision.genesis.clientapp.investor",
+            "certificate_hash": "7c5bdfd86883a8602c29ca7874529773a6436423"
+          }
+        },
+        {
+          "client_id": "1050047192021-h92k1lv71jcqd825bjgbp5aqbcbscgqp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtUepgdx2m_fi6ppiBht85T9oXaZmMwh0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1050047192021-h92k1lv71jcqd825bjgbp5aqbcbscgqp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
