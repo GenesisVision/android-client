@@ -84,6 +84,8 @@ public class ParticipantsFragment extends BaseFragment implements ParticipantsVi
 
 	private boolean fabInAnim = false;
 
+	private int lastVisible = 0;
+
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
 		participantsPresenter.onTryAgainClicked();
@@ -102,7 +104,10 @@ public class ParticipantsFragment extends BaseFragment implements ParticipantsVi
 
 	@OnClick(R.id.fab)
 	public void onFabClicked() {
-		recyclerView.scrollToPosition(0);
+		if (lastVisible < 20)
+			recyclerView.smoothScrollToPosition(0);
+		else
+			recyclerView.scrollToPosition(0);
 	}
 
 	@Nullable
@@ -137,6 +142,7 @@ public class ParticipantsFragment extends BaseFragment implements ParticipantsVi
 		super.onStop();
 		if (textChangeSubscription != null)
 			textChangeSubscription.unsubscribe();
+		hideSoftKeyboard();
 	}
 
 	private void initToolbar() {
@@ -164,7 +170,7 @@ public class ParticipantsFragment extends BaseFragment implements ParticipantsVi
 	private void checkIfLastItemVisible() {
 		LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
 		int totalItemCount = layoutManager.getItemCount();
-		int lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
+		lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
 
 		boolean endHasBeenReached = lastVisible + 2 >= totalItemCount;
 		if (totalItemCount > 0 && endHasBeenReached) {
@@ -228,6 +234,18 @@ public class ParticipantsFragment extends BaseFragment implements ParticipantsVi
 		fab.startAnimation(animation);
 	}
 
+	private void showSoftKeyboard() {
+		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		searchEditText.requestFocus();
+		imm.showSoftInput(searchEditText, 0);
+	}
+
+	private void hideSoftKeyboard() {
+		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		searchEditText.clearFocus();
+		imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
+	}
+
 	@Override
 	public void setParticipantsCount(int count) {
 		toolbar.setSubtitle(String.format(Locale.getDefault(), "%d %s", count, getResources().getString(R.string.participants)));
@@ -280,15 +298,12 @@ public class ParticipantsFragment extends BaseFragment implements ParticipantsVi
 	public void showSearch(boolean show) {
 		searchGroup.setVisibility(show ? View.VISIBLE : View.GONE);
 
-		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 		if (show) {
-			searchEditText.requestFocus();
-			imm.showSoftInput(searchEditText, 0);
+			showSoftKeyboard();
 		}
 		else {
-			searchEditText.clearFocus();
+			hideSoftKeyboard();
 			searchEditText.setText("");
-			imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
 		}
 	}
 

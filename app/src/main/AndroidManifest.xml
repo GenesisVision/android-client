@@ -46,7 +46,7 @@
             android:name=".feature.tournament.TournamentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateVisible|adjustResize">
+            android:windowSoftInputMode="adjustResize">
 
         </activity>
 

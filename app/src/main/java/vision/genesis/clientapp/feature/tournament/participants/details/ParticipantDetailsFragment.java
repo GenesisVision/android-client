@@ -84,6 +84,8 @@ public class ParticipantDetailsFragment extends BaseFragment implements Particip
 
 	@OnClick(R.id.button_ipfs)
 	public void onIpfsClicked() {
+		if (participant.getOrdersCount() == 0)
+			return;
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://gateway.ipfs.io/ipfs/" + participant.getIpfsHash()));
 		startActivity(browserIntent);
 	}
