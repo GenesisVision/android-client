@@ -48,7 +48,6 @@ public class ParticipantDetailsPresenter extends MvpPresenter<ParticipantDetails
 		GenesisVisionApplication.getComponent().inject(this);
 
 		if (participantId != null) {
-			getViewState().showLoading(true);
 			getParticipantDetails(participantId);
 		}
 	}
@@ -69,7 +68,13 @@ public class ParticipantDetailsPresenter extends MvpPresenter<ParticipantDetails
 		this.participantId = participantId;
 	}
 
+	void onTryAgainClicked() {
+		getParticipantDetails(participantId);
+	}
+
 	private void getParticipantDetails(UUID participantId) {
+		getViewState().showCannotLoad(false);
+		getViewState().showLoading(true);
 		getParticipantDetailsSubscription = tournamentManager.getParticipantDetails(participantId)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())

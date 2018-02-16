@@ -80,7 +80,7 @@ public class ProfitChartView extends RelativeLayout
 		chart.setHighlightPerTapEnabled(false);
 		chart.setHighlightPerDragEnabled(false);
 		chart.setPinchZoom(true);
-		chart.setViewPortOffsets(0f, 0f, 100f, 0f);
+		chart.setViewPortOffsets(0f, 0f, 140f, 0f);
 		chart.invalidate();
 
 		fillColor = R.color.colorPrimary;

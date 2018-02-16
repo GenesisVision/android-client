@@ -1,5 +1,7 @@
 package vision.genesis.clientapp.feature.tournament.participants.details;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -16,6 +18,7 @@ import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.swagger.client.model.ParticipantViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
@@ -77,6 +80,19 @@ public class ParticipantDetailsFragment extends BaseFragment implements Particip
 	@InjectPresenter
 	ParticipantDetailsPresenter participantDetailsPresenter;
 
+	private ParticipantViewModel participant;
+
+	@OnClick(R.id.button_ipfs)
+	public void onIpfsClicked() {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://gateway.ipfs.io/ipfs/" + participant.getIpfsHash()));
+		startActivity(browserIntent);
+	}
+
+	@OnClick(R.id.button_try_again)
+	public void onTryAgainClicked() {
+		participantDetailsPresenter.onTryAgainClicked();
+	}
+
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -107,6 +123,7 @@ public class ParticipantDetailsFragment extends BaseFragment implements Particip
 
 	@Override
 	public void setParticipant(ParticipantViewModel participant) {
+		this.participant = participant;
 		avatar.setImageUrl(participant.getAvatar());
 		avatar.hideLevel();
 		name.setText(participant.getName());
