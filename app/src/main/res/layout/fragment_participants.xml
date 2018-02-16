@@ -21,17 +21,17 @@
                 android:layout_height="match_parent"/>
 
             <LinearLayout
-                android:id="@+id/group_empty"
+                android:id="@+id/group_tournament_not_started"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:visibility="gone"
-                tools:visibility="visible">
+                tools:visibility="gone">
 
                 <ImageView
-                    android:layout_width="@dimen/participants_empty_list_image_width"
-                    android:layout_height="@dimen/participants_empty_list_image_height"
+                    android:layout_width="@dimen/participants_tournament_not_started_image_width"
+                    android:layout_height="@dimen/participants_tournament_not_started_image_height"
                     android:layout_margin="12dp"
                     android:src="@drawable/traders"/>
 
@@ -74,6 +74,35 @@
                         android:textSize="18sp"/>
 
                 </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/group_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="@dimen/participants_empty_list_image_width"
+                    android:layout_height="@dimen/participants_empty_list_image_height"
+                    android:layout_margin="12dp"
+                    android:src="@drawable/ic_sentiment_dissatisfied_black_24dp"
+                    android:tint="@color/colorFontLight"/>
+
+                <TextView
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:lineSpacingMultiplier="1.4"
+                    android:text="@string/nothing_found"
+                    android:textColor="@color/colorFontMedium"
+                    android:textSize="18sp"/>
 
             </LinearLayout>
 
@@ -162,5 +191,49 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/group_search"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="@color/colorGrayBackground"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/edittext_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_toLeftOf="@+id/button_search_close"
+            android:layout_toStartOf="@+id/button_search_close"
+            android:background="@color/transparent"
+            android:hint="@string/search"
+            android:inputType="textNoSuggestions"
+            android:lines="1"
+            android:textColor="@color/colorFontMedium"/>
+
+        <ImageView
+            android:id="@+id/button_search_close"
+            android:layout_width="@dimen/toolbar_height"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="16dp"
+            android:src="@drawable/ic_close_black_24dp"
+            android:tint="@color/colorFontLight"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorGrayDivider"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

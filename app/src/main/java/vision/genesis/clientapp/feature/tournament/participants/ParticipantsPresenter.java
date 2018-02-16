@@ -96,6 +96,27 @@ public class ParticipantsPresenter extends MvpPresenter<ParticipantsView>
 		getParticipantsList(true);
 	}
 
+	void onSearchClicked() {
+		getViewState().showSearch(true);
+	}
+
+	void onSearchCloseClicked() {
+		getViewState().showSearch(false);
+	}
+
+	void onSearchTextChanged(String text) {
+		if (text.isEmpty())
+			text = null;
+		if (filter == null
+				|| (filter.getName() != null && filter.getName().equals(text))
+				|| ((filter.getName() == null) && (text == null))
+				)
+			return;
+		ParticipantsFilter filter = new ParticipantsFilter();
+		filter.setName(text);
+		tournamentManager.setFilter(filter);
+	}
+
 	void onLastListItemVisible() {
 		getParticipantsList(false);
 	}
@@ -119,15 +140,15 @@ public class ParticipantsPresenter extends MvpPresenter<ParticipantsView>
 
 	private void subscribeToFilter() {
 		filterSubscription = tournamentManager.filterSubject
-				.observeOn(Schedulers.newThread())
+				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.newThread())
 				.subscribe(this::filterUpdatedHandler,
 						error -> {
 						});
 	}
 
-	private void filterUpdatedHandler(ParticipantsFilter partici) {
-		filter = partici;
+	private void filterUpdatedHandler(ParticipantsFilter participantsFilter) {
+		filter = participantsFilter;
 		filter.setSkip(0);
 		filter.setTake(TAKE);
 		getViewState().setRefreshing(true);
@@ -140,6 +161,8 @@ public class ParticipantsPresenter extends MvpPresenter<ParticipantsView>
 			filter.setSkip(skip);
 		}
 
+		if (getParticipantsSubscription != null)
+			getParticipantsSubscription.unsubscribe();
 		getParticipantsSubscription = tournamentManager.getParticipantsList(filter)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
@@ -153,18 +176,23 @@ public class ParticipantsPresenter extends MvpPresenter<ParticipantsView>
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);
-		getViewState().showEmptyList(false);
+		getViewState().showTournamentNotStarted(false);
+		getViewState().showEmptyResults(false);
 
 		List<ParticipantViewModel> participants = model.getParticipants();
 
 		if (skip == 0) {
 			if (participants.size() == 0) {
-				getViewState().showEmptyList(true);
+				if (filter.getName().isEmpty())
+					getViewState().showTournamentNotStarted(true);
+				else
+					getViewState().showEmptyResults(true);
 				return;
 			}
 			else {
 				this.participants.clear();
 				getViewState().setParticipants(participants);
+				getViewState().scrollListTo(0);
 			}
 		}
 		else {

@@ -31,6 +31,9 @@ public class ParticipantsFilter
 	@SerializedName("take")
 	private Integer take = null;
 
+	@SerializedName("name")
+	private String name = null;
+
 	public ParticipantsFilter skip(Integer skip) {
 		this.skip = skip;
 		return this;
@@ -69,6 +72,25 @@ public class ParticipantsFilter
 		this.take = take;
 	}
 
+	public ParticipantsFilter name(String name) {
+		this.name = name;
+		return this;
+	}
+
+	/**
+	 * Get name
+	 *
+	 * @return name
+	 **/
+	@ApiModelProperty(value = "")
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -80,12 +102,13 @@ public class ParticipantsFilter
 		}
 		ParticipantsFilter participantsFilter = (ParticipantsFilter) o;
 		return Objects.equals(this.skip, participantsFilter.skip) &&
-				Objects.equals(this.take, participantsFilter.take);
+				Objects.equals(this.take, participantsFilter.take) &&
+				Objects.equals(this.name, participantsFilter.name);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(skip, take);
+		return Objects.hash(skip, take, name);
 	}
 
 
@@ -96,6 +119,7 @@ public class ParticipantsFilter
 
 		sb.append("    skip: ").append(toIndentedString(skip)).append("\n");
 		sb.append("    take: ").append(toIndentedString(take)).append("\n");
+		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

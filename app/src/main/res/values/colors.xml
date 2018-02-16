@@ -27,4 +27,5 @@
 
     <color name="transactionGreen">#4caf50</color>
     <color name="transactionRed">#f44336</color>
+    <color name="transparent">#00000000</color>
 </resources>

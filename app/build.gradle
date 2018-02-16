@@ -63,19 +63,19 @@ android {
         investor {
             dimension "appType"
 
-            resValue "string", "app_name", "Genesis Vision Investor App"
+            resValue "string", "app_name", "Genesis Vision Investor"
             applicationIdSuffix '.investor'
         }
         manager {
             dimension "appType"
 
-            resValue "string", "app_name", "Genesis Vision Manager App"
+            resValue "string", "app_name", "Genesis Vision Manager"
             applicationIdSuffix '.manager'
         }
         tournament {
             dimension "appType"
-            versionCode 18021402
-            versionName "0.0.1"
+            versionCode 18021601
+            versionName "0.0.2"
 
             resValue "string", "app_name", "Genesis Vision Tournament"
             applicationIdSuffix '.investor'

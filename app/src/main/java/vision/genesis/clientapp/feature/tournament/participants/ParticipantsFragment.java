@@ -1,5 +1,6 @@
 package vision.genesis.clientapp.feature.tournament.participants;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,9 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.List;
 import java.util.Locale;
@@ -26,6 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.ParticipantViewModel;
+import rx.Subscription;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.ui.ToolbarView;
@@ -49,6 +54,9 @@ public class ParticipantsFragment extends BaseFragment implements ParticipantsVi
 	@BindView(R.id.group_no_internet)
 	public ViewGroup noInternetGroup;
 
+	@BindView(R.id.group_tournament_not_started)
+	public ViewGroup tournamentNotStartedGroup;
+
 	@BindView(R.id.group_empty)
 	public ViewGroup emptyGroup;
 
@@ -61,10 +69,18 @@ public class ParticipantsFragment extends BaseFragment implements ParticipantsVi
 	@BindView(R.id.fab)
 	public FloatingActionButton fab;
 
+	@BindView(R.id.group_search)
+	public ViewGroup searchGroup;
+
+	@BindView(R.id.edittext_search)
+	public EditText searchEditText;
+
 	@InjectPresenter
 	ParticipantsPresenter participantsPresenter;
 
 	private ParticipantsListAdapter participantsListAdapter;
+
+	private Subscription textChangeSubscription;
 
 	private boolean fabInAnim = false;
 
@@ -77,6 +93,11 @@ public class ParticipantsFragment extends BaseFragment implements ParticipantsVi
 	public void onVisitClicked() {
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.genesis.vision"));
 		startActivity(browserIntent);
+	}
+
+	@OnClick(R.id.button_search_close)
+	public void onSearchCloseClicked() {
+		participantsPresenter.onSearchCloseClicked();
 	}
 
 	@OnClick(R.id.fab)
@@ -105,9 +126,22 @@ public class ParticipantsFragment extends BaseFragment implements ParticipantsVi
 		initRecyclerView();
 	}
 
+	@Override
+	public void onStart() {
+		super.onStart();
+		setSearchTextListener();
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		if (textChangeSubscription != null)
+			textChangeSubscription.unsubscribe();
+	}
+
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.tournament));
-//		toolbar.addLeftButton(R.drawable.trophy, () -> participantsPresenter.onLeaderboardClicked());
+		toolbar.addRightButton(R.drawable.ic_search_black_24dp, () -> participantsPresenter.onSearchClicked());
 	}
 
 	private void initRecyclerView() {
@@ -122,20 +156,29 @@ public class ParticipantsFragment extends BaseFragment implements ParticipantsVi
 		{
 			@Override
 			public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-				LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
-				int totalItemCount = layoutManager.getItemCount();
-				int lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
-
-				boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
-				if (totalItemCount > 0 && endHasBeenReached) {
-					participantsPresenter.onLastListItemVisible();
-				}
-				if (!fabInAnim && fab.getVisibility() != View.VISIBLE && lastVisible > 3)
-					showFab();
-				else if (!fabInAnim && fab.getVisibility() == View.VISIBLE && lastVisible < 3)
-					hideFab();
+				checkIfLastItemVisible();
 			}
 		});
+	}
+
+	private void checkIfLastItemVisible() {
+		LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+		int totalItemCount = layoutManager.getItemCount();
+		int lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
+
+		boolean endHasBeenReached = lastVisible + 2 >= totalItemCount;
+		if (totalItemCount > 0 && endHasBeenReached) {
+			participantsPresenter.onLastListItemVisible();
+		}
+		if (!fabInAnim && fab.getVisibility() != View.VISIBLE && lastVisible > 3)
+			showFab();
+		else if (!fabInAnim && fab.getVisibility() == View.VISIBLE && lastVisible < 3)
+			hideFab();
+	}
+
+	private void setSearchTextListener() {
+		textChangeSubscription = RxTextView.textChanges(searchEditText)
+				.subscribe(text -> participantsPresenter.onSearchTextChanged(text.toString()));
 	}
 
 	private void showFab() {
@@ -201,6 +244,11 @@ public class ParticipantsFragment extends BaseFragment implements ParticipantsVi
 	}
 
 	@Override
+	public void scrollListTo(int position) {
+		recyclerView.scrollToPosition(position);
+	}
+
+	@Override
 	public void setRefreshing(boolean refreshing) {
 		refreshLayout.setRefreshing(refreshing);
 	}
@@ -223,19 +271,41 @@ public class ParticipantsFragment extends BaseFragment implements ParticipantsVi
 	}
 
 	@Override
-	public void showEmptyList(boolean show) {
+	public void showTournamentNotStarted(boolean show) {
+		tournamentNotStartedGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+		recyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+	}
+
+	@Override
+	public void showSearch(boolean show) {
+		searchGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+
+		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		if (show) {
+			searchEditText.requestFocus();
+			imm.showSoftInput(searchEditText, 0);
+		}
+		else {
+			searchEditText.clearFocus();
+			searchEditText.setText("");
+			imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
+		}
+	}
+
+	@Override
+	public void showEmptyResults(boolean show) {
 		emptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);
 		recyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
 	}
 
 	@Override
 	public boolean onBackPressed() {
-		LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
-		if (layoutManager.findFirstCompletelyVisibleItemPosition() > 0) {
-			recyclerView.smoothScrollToPosition(0);
-			return true;
-		}
-		else
-			return false;
+//		LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+//		if (layoutManager.findFirstCompletelyVisibleItemPosition() > 0) {
+//			recyclerView.smoothScrollToPosition(0);
+//			return true;
+//		}
+//		else
+		return false;
 	}
 }

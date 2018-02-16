@@ -2,6 +2,8 @@ package vision.genesis.clientapp.feature.tournament.participants;
 
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
+import com.arellomobile.mvp.viewstate.strategy.SingleStateStrategy;
+import com.arellomobile.mvp.viewstate.strategy.SkipStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
@@ -22,6 +24,9 @@ interface ParticipantsView extends MvpView
 
 	void addParticipants(List<ParticipantViewModel> programs);
 
+	@StateStrategyType(SkipStrategy.class)
+	void scrollListTo(int position);
+
 	void setRefreshing(boolean refreshing);
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
@@ -31,5 +36,10 @@ interface ParticipantsView extends MvpView
 
 	void showProgressBar(boolean show);
 
-	void showEmptyList(boolean show);
+	void showTournamentNotStarted(boolean show);
+
+	@StateStrategyType(SingleStateStrategy.class)
+	void showSearch(boolean show);
+
+	void showEmptyResults(boolean show);
 }

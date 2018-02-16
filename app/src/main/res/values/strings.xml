@@ -69,4 +69,7 @@
     <string name="not_enough_data">Not enough data</string>
     <string name="total_funds_history">Total funds history</string>
     <string name="tournament_hasnt_started_yet">The tournament hasn\'t started yet.\nFor more info please visit</string>
+    <string name="search">Search</string>
+    <string name="nothing_found">Nothing was found by your request</string>
+    <string name="ipfs">ipfs</string>
 </resources>
