@@ -14,7 +14,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.arellomobile.mvp.presenter.ProvidePresenter;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -25,7 +24,6 @@ import butterknife.ButterKnife;
 import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.main.bottom_navigation.RouterProvider;
 import vision.genesis.clientapp.ui.ToolbarView;
 
 /**
@@ -60,11 +58,6 @@ public class WalletFragment extends BaseFragment implements WalletView
 	WalletPresenter walletPresenter;
 
 	private TransactionsListAdapter transactionsListAdapter;
-
-	@ProvidePresenter
-	public WalletPresenter provideWalletPresenter() {
-		return new WalletPresenter(((RouterProvider) getParentFragment()).getRouter());
-	}
 
 	@Nullable
 	@Override

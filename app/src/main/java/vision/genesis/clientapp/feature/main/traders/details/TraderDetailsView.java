@@ -9,4 +9,5 @@ import com.arellomobile.mvp.MvpView;
 
 interface TraderDetailsView extends MvpView
 {
+	void finishActivity();
 }

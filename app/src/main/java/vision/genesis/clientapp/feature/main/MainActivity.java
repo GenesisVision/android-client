@@ -34,8 +34,11 @@ import vision.genesis.clientapp.feature.auth.AuthActivity;
 import vision.genesis.clientapp.feature.main.bottom_navigation.DashboardMainFragment;
 import vision.genesis.clientapp.feature.main.bottom_navigation.ProfileMainFragment;
 import vision.genesis.clientapp.feature.main.bottom_navigation.RouterProvider;
-import vision.genesis.clientapp.feature.main.bottom_navigation.TradersMainFragment;
-import vision.genesis.clientapp.feature.main.bottom_navigation.WalletMainFragment;
+import vision.genesis.clientapp.feature.main.traders.TradersFragment;
+import vision.genesis.clientapp.feature.main.traders.details.TraderDetailsActivity;
+import vision.genesis.clientapp.feature.main.traders.filter.TradersFiltersActivity;
+import vision.genesis.clientapp.feature.main.wallet.WalletFragment;
+import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
 
 /**
@@ -70,9 +73,9 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Rout
 
 	private DashboardMainFragment dashboardMainFragment;
 
-	private TradersMainFragment tradersMainFragment;
+	private TradersFragment tradersFragment;
 
-	private WalletMainFragment walletMainFragment;
+	private WalletFragment walletFragment;
 
 	private ProfileMainFragment profileMainFragment;
 
@@ -90,14 +93,14 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Rout
 					if (dashboardMainFragment == null)
 						dashboardMainFragment = new DashboardMainFragment();
 					return dashboardMainFragment;
-				case Screens.TRADERS_MAIN:
-					if (tradersMainFragment == null)
-						tradersMainFragment = new TradersMainFragment();
-					return tradersMainFragment;
-				case Screens.WALLET_MAIN:
-					if (walletMainFragment == null)
-						walletMainFragment = new WalletMainFragment();
-					return walletMainFragment;
+				case Screens.TRADERS:
+					if (tradersFragment == null)
+						tradersFragment = new TradersFragment();
+					return tradersFragment;
+				case Screens.WALLET:
+					if (walletFragment == null)
+						walletFragment = new WalletFragment();
+					return walletFragment;
 				case Screens.PROFILE_MAIN:
 					if (profileMainFragment == null)
 						profileMainFragment = new ProfileMainFragment();
@@ -131,7 +134,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Rout
 		ButterKnife.bind(this);
 
 		if (savedInstanceState == null) {
-			navigator.applyCommand(new Replace(Screens.TRADERS_MAIN, 1));
+			navigator.applyCommand(new Replace(Screens.TRADERS, 1));
 		}
 
 		initBottomNavigation();
@@ -229,6 +232,16 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Rout
 	@Override
 	public void showAuthActivity() {
 		AuthActivity.startFrom(this);
+	}
+
+	@Override
+	public void showTradersFilters() {
+		TradersFiltersActivity.startFrom(this);
+	}
+
+	@Override
+	public void showInvestmentProgramDetails(InvestmentProgram program) {
+		TraderDetailsActivity.startWith(this, program);
 	}
 
 	@Override

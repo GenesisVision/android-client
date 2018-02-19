@@ -12,7 +12,6 @@ import javax.inject.Inject;
 import io.swagger.client.model.TransactionsFilter;
 import io.swagger.client.model.WalletTransaction;
 import io.swagger.client.model.WalletTransactionsViewModel;
-import ru.terrakok.cicerone.Router;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -37,17 +36,11 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 	@Inject
 	public WalletManager walletManager;
 
-	private Router localRouter;
-
 	private Subscription balanceSubscription;
 
 	private int skip = 0;
 
 	private TransactionsFilter filter;
-
-	public WalletPresenter(Router router) {
-		this.localRouter = router;
-	}
 
 	@Override
 	protected void onFirstViewAttach() {

@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import io.swagger.client.model.Period;
-
 /**
  * GenesisVision
  * Created by Vitaly on 1/30/18.
@@ -74,8 +72,8 @@ public class InvestmentProgram implements Parcelable
 	@SerializedName("dateTo")
 	public DateTime dateTo = null;
 
-	@SerializedName("lastPeriod")
-	public Period lastPeriod = null;
+//	@SerializedName("lastPeriod")
+//	public Period lastPeriod = null;
 
 	@SerializedName("investMinAmount")
 	public Double investMinAmount = null;
@@ -87,7 +85,7 @@ public class InvestmentProgram implements Parcelable
 	public Boolean isEnabled = null;
 
 	@SerializedName("chartData")
-	public List<Entry> chartData = null;
+	public List<Entry> chartData = new ArrayList<>();
 
 	public InvestmentProgram(io.swagger.client.model.InvestmentProgram program) {
 		this.id = program.getInvestment().getId();
@@ -103,7 +101,7 @@ public class InvestmentProgram implements Parcelable
 		this.totalProfit = program.getInvestment().getTotalProfit();
 		this.dateFrom = program.getInvestment().getDateFrom();
 		this.dateTo = program.getInvestment().getDateTo();
-		this.lastPeriod = program.getInvestment().getLastPeriod();
+//		this.lastPeriod = program.getInvestment().getLastPeriod();
 		this.investMinAmount = program.getInvestment().getInvestMinAmount();
 		this.investMaxAmount = program.getInvestment().getInvestMaxAmount();
 		this.isEnabled = program.getInvestment().isIsEnabled();
@@ -126,11 +124,11 @@ public class InvestmentProgram implements Parcelable
 		this.totalProfit = (Double) in.readValue(Double.class.getClassLoader());
 		this.dateFrom = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		this.dateTo = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		this.lastPeriod = (Period) in.readValue(Period.class.getClassLoader());
+//		this.lastPeriod = (Period) in.readValue(Period.class.getClassLoader());
 		this.investMinAmount = (Double) in.readValue(Double.class.getClassLoader());
 		this.investMaxAmount = (Double) in.readValue(Double.class.getClassLoader());
 		this.isEnabled = (Boolean) in.readValue(Boolean.class.getClassLoader());
-		this.chartData = (ArrayList) in.readValue(ArrayList.class.getClassLoader());
+		in.readTypedList(this.chartData, Entry.CREATOR);
 	}
 
 	@Override
@@ -153,11 +151,11 @@ public class InvestmentProgram implements Parcelable
 		dest.writeValue(totalProfit);
 		dest.writeValue(dateFrom);
 		dest.writeValue(dateTo);
-		dest.writeValue(lastPeriod);
+//		dest.writeValue(lastPeriod);
 		dest.writeValue(investMinAmount);
 		dest.writeValue(investMaxAmount);
 		dest.writeValue(isEnabled);
-		dest.writeValue(chartData);
+		dest.writeTypedList(chartData);
 	}
 
 	public String getRating() {

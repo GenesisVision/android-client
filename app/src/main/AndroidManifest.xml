@@ -50,6 +50,20 @@
 
         </activity>
 
+        <activity
+            android:name=".feature.main.traders.details.TraderDetailsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity
+            android:name=".feature.main.traders.filter.TradersFiltersActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+
     </application>
 
 </manifest>

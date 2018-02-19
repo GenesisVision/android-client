@@ -60,14 +60,14 @@ public class ToolbarView extends RelativeLayout
 	@OnClick(R.id.button_left)
 	public void onLeftButtonClicked() {
 		if (leftButtonClickListener != null) {
-			new Handler().postDelayed(() -> leftButtonClickListener.onClicked(), 300);
+			new Handler().postDelayed(() -> leftButtonClickListener.onClicked(), 0);
 		}
 	}
 
 	@OnClick(R.id.button_right)
 	public void onRightButtonClicked() {
 		if (rightButtonClickListener != null) {
-			new Handler().postDelayed(() -> rightButtonClickListener.onClicked(), 300);
+			new Handler().postDelayed(() -> rightButtonClickListener.onClicked(), 0);
 		}
 	}
 

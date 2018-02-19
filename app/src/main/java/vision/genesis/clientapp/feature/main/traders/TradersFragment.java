@@ -16,7 +16,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.arellomobile.mvp.presenter.ProvidePresenter;
 
 import java.util.List;
 
@@ -25,7 +24,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.main.bottom_navigation.RouterProvider;
 import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.ui.ToolbarView;
 
@@ -57,18 +55,12 @@ public class TradersFragment extends BaseFragment implements TradersView
 	@BindView(R.id.fab)
 	public FloatingActionButton fab;
 
-
 	@InjectPresenter
 	TradersPresenter tradersPresenter;
 
 	private boolean fabInAnim = false;
 
 	private InvestmentProgramsListAdapter investmentProgramsListAdapter;
-
-	@ProvidePresenter
-	public TradersPresenter provideTradersPresenter() {
-		return new TradersPresenter(((RouterProvider) getParentFragment()).getRouter());
-	}
 
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {

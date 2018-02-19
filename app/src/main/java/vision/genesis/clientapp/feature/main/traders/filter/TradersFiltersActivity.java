@@ -1,17 +1,15 @@
 package vision.genesis.clientapp.feature.main.traders.filter;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.arellomobile.mvp.presenter.ProvidePresenter;
 
 import java.util.ArrayList;
 
@@ -20,8 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.InvestmentsFilter;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.main.bottom_navigation.RouterProvider;
+import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.model.FilterSortingOption;
 import vision.genesis.clientapp.ui.ToolbarView;
 
@@ -30,8 +27,13 @@ import vision.genesis.clientapp.ui.ToolbarView;
  * Created by Vitaly on 1/26/18.
  */
 
-public class TradersFiltersFragment extends BaseFragment implements TradersFiltersView
+public class TradersFiltersActivity extends BaseSwipeBackActivity implements TradersFiltersView
 {
+	public static void startFrom(Activity activity) {
+		activity.startActivity(new Intent(activity, TradersFiltersActivity.class));
+		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
+	}
+
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
 
@@ -65,22 +67,13 @@ public class TradersFiltersFragment extends BaseFragment implements TradersFilte
 		tradersFiltersPresenter.onClearClicked();
 	}
 
-	@ProvidePresenter
-	public TradersFiltersPresenter provideTraderFiltersPresenter() {
-		return new TradersFiltersPresenter(((RouterProvider) getParentFragment()).getRouter());
-	}
-
-	@Nullable
 	@Override
-	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_traders_filters, container, false);
-	}
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-	@Override
-	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
+		setContentView(R.layout.fragment_traders_filters);
 
-		ButterKnife.bind(this, view);
+		ButterKnife.bind(this);
 
 		initToolbar();
 
@@ -88,8 +81,8 @@ public class TradersFiltersFragment extends BaseFragment implements TradersFilte
 	}
 
 	private void initSpinner() {
-		sortingOptions = FilterSortingOption.getOptions(getContext());
-		ArrayAdapter<FilterSortingOption> sortingAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, sortingOptions);
+		sortingOptions = FilterSortingOption.getOptions(this);
+		ArrayAdapter<FilterSortingOption> sortingAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sortingOptions);
 		sortingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		sortingSpinner.setAdapter(sortingAdapter);
 
@@ -113,9 +106,8 @@ public class TradersFiltersFragment extends BaseFragment implements TradersFilte
 	}
 
 	@Override
-	public boolean onBackPressed() {
-		tradersFiltersPresenter.onBackClicked();
-		return true;
+	public void onBackPressed() {
+		finishActivity();
 	}
 
 	@Override
@@ -127,5 +119,11 @@ public class TradersFiltersFragment extends BaseFragment implements TradersFilte
 			}
 			index++;
 		}
+	}
+
+	@Override
+	public void finishActivity() {
+		finish();
+		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
 	}
 }

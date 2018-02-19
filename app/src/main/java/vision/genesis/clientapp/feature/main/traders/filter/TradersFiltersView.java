@@ -12,4 +12,6 @@ import io.swagger.client.model.InvestmentsFilter;
 interface TradersFiltersView extends MvpView
 {
 	void setFilterData(InvestmentsFilter filter);
+
+	void finishActivity();
 }

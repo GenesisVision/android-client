@@ -24,8 +24,8 @@ android {
         targetSdkVersion 27
         multiDexEnabled true
 
-        versionCode 1
-        versionName "1.0"
+        versionCode 18021601
+        versionName "0.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         renderscriptTargetApi 27
@@ -74,8 +74,6 @@ android {
         }
         tournament {
             dimension "appType"
-            versionCode 18021601
-            versionName "0.0.2"
 
             resValue "string", "app_name", "Genesis Vision Tournament"
             applicationIdSuffix '.investor'
@@ -131,6 +129,8 @@ dependencies {
     implementation 'joda-time:joda-time:2.9.9'
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+
+    implementation 'me.imid.swipebacklayout.lib:library:1.1.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

@@ -6,7 +6,6 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,16 +14,14 @@ import javax.inject.Inject;
 
 import io.swagger.client.model.InvestmentProgramsViewModel;
 import io.swagger.client.model.InvestmentsFilter;
-import ru.terrakok.cicerone.Router;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.Screens;
 import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.model.InvestmentProgram;
-import vision.genesis.clientapp.model.events.OnTraderItemListClicked;
+import vision.genesis.clientapp.model.events.ShowFiltersEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -43,8 +40,6 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 	@Inject
 	public InvestManager investManager;
 
-	private Router localRouter;
-
 	private Subscription filterSubscription;
 
 	private Subscription getTradersSubscription;
@@ -55,17 +50,13 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 
 	private InvestmentsFilter filter;
 
-	public TradersPresenter(Router router) {
-		this.localRouter = router;
-	}
-
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		EventBus.getDefault().register(this);
+//		EventBus.getDefault().register(this);
 
 		subscribeToFilter();
 	}
@@ -80,11 +71,11 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 		if (getTradersSubscription != null)
 			getTradersSubscription.unsubscribe();
 
-		EventBus.getDefault().unregister(this);
+//		EventBus.getDefault().unregister(this);
 	}
 
 	void onFilterClicked() {
-		localRouter.navigateTo(Screens.TRADERS_FILTERS);
+		EventBus.getDefault().post(new ShowFiltersEvent());
 	}
 
 	void onSwipeRefresh() {
@@ -98,7 +89,7 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 
 	private void subscribeToFilter() {
 		filterSubscription = investManager.filterSubject
-				.observeOn(Schedulers.newThread())
+				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.newThread())
 				.subscribe(this::filterUpdatedHandler,
 						error -> {
@@ -164,11 +155,6 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 				getViewState().showNoInternet(true);
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}
-	}
-
-	@Subscribe
-	public void onEventMainThread(OnTraderItemListClicked event) {
-		localRouter.navigateTo(Screens.TRADER_DETAILS, event.investmentProgram);
 	}
 
 	void onTryAgainClicked() {

@@ -1,14 +1,11 @@
 package vision.genesis.clientapp.feature.main.traders.details;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.arellomobile.mvp.presenter.ProvidePresenter;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -18,8 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.main.bottom_navigation.RouterProvider;
+import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.ui.ManagerAvatarView;
 import vision.genesis.clientapp.ui.ProfitChartView;
@@ -30,16 +26,15 @@ import vision.genesis.clientapp.ui.ToolbarView;
  * Created by Vitaly on 1/26/18.
  */
 
-public class TraderDetailsFragment extends BaseFragment implements TraderDetailsView
+public class TraderDetailsActivity extends BaseSwipeBackActivity implements TraderDetailsView
 {
 	private static String EXTRA_PROGRAM = "extra_program";
 
-	public static TraderDetailsFragment with(InvestmentProgram program) {
-		TraderDetailsFragment traderDetailsFragment = new TraderDetailsFragment();
-		Bundle arguments = new Bundle(1);
-		arguments.putParcelable(EXTRA_PROGRAM, program);
-		traderDetailsFragment.setArguments(arguments);
-		return traderDetailsFragment;
+	public static void startWith(Activity activity, InvestmentProgram program) {
+		Intent intent = new Intent(activity, TraderDetailsActivity.class);
+		intent.putExtra(EXTRA_PROGRAM, program);
+		activity.startActivity(intent);
+		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
 
 	@BindView(R.id.toolbar)
@@ -80,39 +75,29 @@ public class TraderDetailsFragment extends BaseFragment implements TraderDetails
 
 	private InvestmentProgram program;
 
-	@ProvidePresenter
-	public TraderDetailsPresenter provideTraderDetailsPresenter() {
-		return new TraderDetailsPresenter(((RouterProvider) getParentFragment()).getRouter());
-	}
-
-	@Nullable
 	@Override
-	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_trader_details, container, false);
-	}
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-	@Override
-	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
+		setContentView(R.layout.fragment_trader_details);
 
-
-		ButterKnife.bind(this, view);
+		ButterKnife.bind(this);
 
 		initToolbar();
 
-		if (getArguments() != null && !getArguments().isEmpty()) {
-			program = getArguments().getParcelable(EXTRA_PROGRAM);
+		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
+			program = getIntent().getExtras().getParcelable(EXTRA_PROGRAM);
 			setData();
 		}
 		else {
 			Timber.e("Passed empty program to TraderDetailsFragment");
-			traderDetailsPresenter.onBackClicked();
+			onBackPressed();
 		}
 	}
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.trader_details));
-		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> traderDetailsPresenter.onBackClicked());
+		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, this::onBackPressed);
 	}
 
 	private void setData() {
@@ -140,8 +125,13 @@ public class TraderDetailsFragment extends BaseFragment implements TraderDetails
 	}
 
 	@Override
-	public boolean onBackPressed() {
-		traderDetailsPresenter.onBackClicked();
-		return true;
+	public void onBackPressed() {
+		finishActivity();
+	}
+
+	@Override
+	public void finishActivity() {
+		finish();
+		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
 	}
 }

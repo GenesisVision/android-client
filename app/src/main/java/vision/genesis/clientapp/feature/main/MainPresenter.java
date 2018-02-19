@@ -19,6 +19,8 @@ import vision.genesis.clientapp.Screens;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.OnInvestButtonClickedEvent;
+import vision.genesis.clientapp.model.events.ShowFiltersEvent;
+import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 
 /**
  * GenesisVision
@@ -68,10 +70,10 @@ public class MainPresenter extends MvpPresenter<MainView>
 				router.navigateTo(Screens.DASHBOARD_MAIN);
 				break;
 			case 1:
-				router.navigateTo(Screens.TRADERS_MAIN);
+				router.navigateTo(Screens.TRADERS);
 				break;
 			case 2:
-				router.navigateTo(Screens.WALLET_MAIN);
+				router.navigateTo(Screens.WALLET);
 				break;
 			case 3:
 				router.navigateTo(Screens.PROFILE_MAIN);
@@ -112,9 +114,18 @@ public class MainPresenter extends MvpPresenter<MainView>
 		userLoggedOff();
 	}
 
-
 	@Subscribe
 	public void onEventMainThread(OnInvestButtonClickedEvent event) {
 		getViewState().setNavigationItemSelected(1);
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowFiltersEvent event) {
+		getViewState().showTradersFilters();
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowInvestmentProgramDetailsEvent event) {
+		getViewState().showInvestmentProgramDetails(event.investmentProgram);
 	}
 }

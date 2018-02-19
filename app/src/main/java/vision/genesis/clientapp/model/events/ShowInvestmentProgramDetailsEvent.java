@@ -8,11 +8,11 @@ import vision.genesis.clientapp.model.InvestmentProgram;
  * Created by Vitaly on 1/26/18.
  */
 
-public class OnTraderItemListClicked
+public class ShowInvestmentProgramDetailsEvent
 {
 	public InvestmentProgram investmentProgram;
 
-	public OnTraderItemListClicked(InvestmentProgram investmentProgram) {
+	public ShowInvestmentProgramDetailsEvent(InvestmentProgram investmentProgram) {
 		this.investmentProgram = investmentProgram;
 	}
 }
