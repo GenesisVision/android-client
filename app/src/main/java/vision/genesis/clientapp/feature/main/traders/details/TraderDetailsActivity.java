@@ -13,9 +13,11 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.invest.InvestDialog;
 import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.ui.ManagerAvatarView;
 import vision.genesis.clientapp.ui.ProfitChartView;
@@ -75,11 +77,18 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 
 	private InvestmentProgram program;
 
+	private InvestDialog investDialog;
+
+	@OnClick(R.id.button_invest)
+	public void onInvestClicked() {
+		traderDetailsPresenter.onInvestClicked();
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.fragment_trader_details);
+		setContentView(R.layout.activity_trader_details);
 
 		ButterKnife.bind(this);
 
@@ -127,6 +136,15 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 	@Override
 	public void onBackPressed() {
 		finishActivity();
+	}
+
+	@Override
+	public void showInvestDialog() {
+		if (investDialog != null)
+			investDialog.cancel();
+		investDialog = new InvestDialog(this, true, null);
+		investDialog.setProgram(program);
+		investDialog.show();
 	}
 
 	@Override

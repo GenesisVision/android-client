@@ -5,9 +5,13 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import javax.inject.Inject;
 
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 
 /**
  * GenesisVision
@@ -25,5 +29,16 @@ public class TraderDetailsPresenter extends MvpPresenter<TraderDetailsView>
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
+
+		EventBus.getDefault().register(this);
+	}
+
+	void onInvestClicked() {
+		getViewState().showInvestDialog();
+	}
+
+	@Subscribe
+	public void onEventmainThread(NewInvestmentSuccessEvent event) {
+		getViewState().finishActivity();
 	}
 }

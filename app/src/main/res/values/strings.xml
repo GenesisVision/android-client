@@ -72,4 +72,8 @@
     <string name="search">Search</string>
     <string name="nothing_found">Nothing was found by your request</string>
     <string name="ipfs">ipfs</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="how_much_invest">How much would you like to invest?</string>
+    <string name="cancel">Cancel</string>
+    <string name="balance">Balance</string>
 </resources>

@@ -1,6 +1,12 @@
 package vision.genesis.clientapp.feature.main.dashboard;
 
 import com.arellomobile.mvp.MvpView;
+import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
+import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
+
+import java.util.List;
+
+import io.swagger.client.model.InvestorProgram;
 
 /**
  * GenesisVision
@@ -9,4 +15,16 @@ import com.arellomobile.mvp.MvpView;
 
 interface DashboardView extends MvpView
 {
+	void setInvestorPrograms(List<InvestorProgram> programs);
+
+	void setRefreshing(boolean refreshing);
+
+	@StateStrategyType(OneExecutionStateStrategy.class)
+	void showSnackbarMessage(String message);
+
+	void showNoInternet(boolean show);
+
+	void showProgressBar(boolean show);
+
+	void showEmptyList();
 }

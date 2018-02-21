@@ -2,11 +2,15 @@ package vision.genesis.clientapp.managers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
+import io.swagger.client.model.Invest;
 import io.swagger.client.model.InvestmentProgramsViewModel;
 import io.swagger.client.model.InvestmentsFilter;
+import io.swagger.client.model.InvestorDashboard;
+import io.swagger.client.model.ProfileShortViewModel;
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.model.InvestmentProgram;
@@ -52,5 +56,16 @@ public class InvestManager
 			investmentPrograms.add(investmentProgram);
 		}
 		return investmentPrograms;
+	}
+
+	public Observable<ProfileShortViewModel> invest(UUID programId, double amount) {
+		Invest model = new Invest();
+		model.setInvestmentProgramId(programId);
+		model.setAmount(amount);
+		return investorApi.apiInvestorInvestmentsInvestPost(AuthManager.token.getValue(), model);
+	}
+
+	public Observable<InvestorDashboard> getInvestments() {
+		return investorApi.apiInvestorDashboardGet(AuthManager.token.getValue());
 	}
 }

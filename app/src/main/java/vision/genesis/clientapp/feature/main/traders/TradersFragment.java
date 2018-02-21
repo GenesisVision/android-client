@@ -85,17 +85,20 @@ public class TradersFragment extends BaseFragment implements TradersView
 		ButterKnife.bind(this, view);
 
 		initToolbar();
-
-		refreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary),
-				ContextCompat.getColor(getContext(), R.color.colorAccent),
-				ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
-		refreshLayout.setOnRefreshListener(() -> tradersPresenter.onSwipeRefresh());
+		initRefreshLayout();
 		initRecyclerView();
 	}
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.traders));
 		toolbar.addRightButton(R.drawable.ic_filter, () -> tradersPresenter.onFilterClicked());
+	}
+
+	private void initRefreshLayout() {
+		refreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary),
+				ContextCompat.getColor(getContext(), R.color.colorAccent),
+				ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+		refreshLayout.setOnRefreshListener(() -> tradersPresenter.onSwipeRefresh());
 	}
 
 	private void initRecyclerView() {

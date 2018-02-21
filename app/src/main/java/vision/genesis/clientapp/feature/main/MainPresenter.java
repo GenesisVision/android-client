@@ -18,6 +18,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.Screens;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.model.User;
+import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 import vision.genesis.clientapp.model.events.OnInvestButtonClickedEvent;
 import vision.genesis.clientapp.model.events.ShowFiltersEvent;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
@@ -67,18 +68,34 @@ public class MainPresenter extends MvpPresenter<MainView>
 	void onBottomMenuSelectionChanged(int position) {
 		switch (position) {
 			case 0:
-				router.navigateTo(Screens.DASHBOARD_MAIN);
+				showDashboard();
 				break;
 			case 1:
-				router.navigateTo(Screens.TRADERS);
+				showTraders();
 				break;
 			case 2:
-				router.navigateTo(Screens.WALLET);
+				showWallet();
 				break;
 			case 3:
-				router.navigateTo(Screens.PROFILE_MAIN);
+				showProfile();
 				break;
 		}
+	}
+
+	private void showDashboard() {
+		router.navigateTo(Screens.DASHBOARD_MAIN);
+	}
+
+	private void showTraders() {
+		router.navigateTo(Screens.TRADERS);
+	}
+
+	private void showWallet() {
+		router.navigateTo(Screens.WALLET);
+	}
+
+	private void showProfile() {
+		router.navigateTo(Screens.PROFILE_MAIN);
 	}
 
 	void onSignInButtonClicked() {
@@ -127,5 +144,10 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowInvestmentProgramDetailsEvent event) {
 		getViewState().showInvestmentProgramDetails(event.investmentProgram);
+	}
+
+	@Subscribe
+	public void onEventMainThread(NewInvestmentSuccessEvent event) {
+		showDashboard();
 	}
 }

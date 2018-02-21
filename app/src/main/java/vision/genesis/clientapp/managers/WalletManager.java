@@ -1,5 +1,8 @@
 package vision.genesis.clientapp.managers;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.concurrent.TimeUnit;
 
 import io.swagger.client.api.InvestorApi;
@@ -11,6 +14,7 @@ import rx.Observable;
 import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.BuildConfig;
+import vision.genesis.clientapp.model.events.OnUnauthorizedResponseGetEvent;
 import vision.genesis.clientapp.utils.MockWalletTransactionUtil;
 
 /**
@@ -20,6 +24,8 @@ import vision.genesis.clientapp.utils.MockWalletTransactionUtil;
 
 public class WalletManager
 {
+	public static final int MAX_DECIMAL_POINT_DIGITS = 8;
+
 	private InvestorApi investorApi;
 
 	private ManagerApi managerApi;
@@ -29,6 +35,8 @@ public class WalletManager
 	public WalletManager(InvestorApi investorApi, ManagerApi managerApi) {
 		this.investorApi = investorApi;
 		this.managerApi = managerApi;
+
+		EventBus.getDefault().register(this);
 	}
 
 	public BehaviorSubject<Double> getBalance() {
@@ -66,5 +74,10 @@ public class WalletManager
 
 	public Observable<WalletTransactionsViewModel> getMockTransactions(TransactionsFilter filter) {
 		return Observable.just(MockWalletTransactionUtil.getTransactionsModel(filter)).delay(500, TimeUnit.MILLISECONDS);
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnUnauthorizedResponseGetEvent event) {
+		balanceBehaviorSubject = BehaviorSubject.create();
 	}
 }

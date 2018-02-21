@@ -71,7 +71,7 @@ public class TradersFiltersActivity extends BaseSwipeBackActivity implements Tra
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.fragment_traders_filters);
+		setContentView(R.layout.activity_traders_filters);
 
 		ButterKnife.bind(this);
 
