@@ -76,4 +76,5 @@
     <string name="how_much_invest">How much would you like to invest?</string>
     <string name="cancel">Cancel</string>
     <string name="balance">Balance</string>
+    <string name="days">days</string>
 </resources>

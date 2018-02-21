@@ -4,13 +4,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.InvestorProgram;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.ui.ManagerAvatarView;
 
 /**
  * GenesisVision
@@ -45,29 +50,29 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Inve
 
 	static class InvestorProgramViewHolder extends RecyclerView.ViewHolder
 	{
-//		@BindView(R.id.avatar)
-//		public ManagerAvatarView avatar;
-//
-//		@BindView(R.id.manager_name)
-//		public TextView managerName;
-//
-//		@BindView(R.id.currency)
-//		public TextView currency;
-//
-//		@BindView(R.id.text_deposit_text)
-//		public TextView depositText;
-//
-//		@BindView(R.id.text_trades_text)
-//		public TextView tradesText;
-//
-//		@BindView(R.id.text_period_text)
-//		public TextView periodText;
-//
-//		@BindView(R.id.text_profit_text)
-//		public TextView profitText;
-//
-//		@BindView(R.id.chart)
-//		public ProfitChartView chart;
+		@BindView(R.id.program_logo)
+		public ManagerAvatarView programLogo;
+
+		@BindView(R.id.manager_avatar)
+		public SimpleDraweeView managerAvatar;
+
+		@BindView(R.id.program_name)
+		public TextView programName;
+
+		@BindView(R.id.tokens)
+		public TextView tokens;
+
+		@BindView(R.id.account_currency_tokens_worth)
+		public TextView accountCurrencyTokensWorth;
+
+		@BindView(R.id.profit_percent)
+		public TextView profitPercent;
+
+		@BindView(R.id.profit_currency)
+		public TextView profitCurrency;
+
+		@BindView(R.id.period)
+		public TextView period;
 
 		private InvestorProgram investorProgram;
 

@@ -1,7 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_dashboard_program_height"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical"
+                android:paddingEnd="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingStart="16dp">
 
-</LinearLayout>
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/manager_avatar"
+        android:layout_width="@dimen/dashboard_program_logo_width"
+        android:layout_height="@dimen/dashboard_program_logo_height"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        app:backgroundImage="@color/grey200"
+        app:placeholderImage="@drawable/logo"
+        app:roundAsCircle="true"/>
+
+    <vision.genesis.clientapp.ui.ManagerAvatarView
+        android:id="@+id/program_logo"
+        android:layout_width="@dimen/dashboard_program_logo_width"
+        android:layout_height="@dimen/dashboard_program_logo_height"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="30dp"/>
+
+    <TextView
+        android:id="@+id/program_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/program_logo"
+        android:layout_toEndOf="@+id/program_logo"
+        android:layout_toLeftOf="@+id/group_profit"
+        android:layout_toRightOf="@+id/program_logo"
+        android:layout_toStartOf="@+id/group_profit"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/colorFontDark"
+        android:textSize="16sp"
+        tools:text="My awesome moneymaking machine"/>
+
+    <TextView
+        android:id="@+id/tokens"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/program_name"
+        android:layout_toEndOf="@+id/program_logo"
+        android:layout_toRightOf="@+id/program_logo"
+        android:textColor="@color/colorFontMedium"
+        android:textSize="14sp"
+        tools:text="1000 Tokens"/>
+
+    <TextView
+        android:id="@+id/account_currency_tokens_worth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tokens"
+        android:layout_below="@+id/program_name"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@+id/tokens"
+        android:layout_toRightOf="@+id/tokens"
+        android:textColor="@color/colorFontLight"
+        android:textSize="14sp"
+        tools:text="$1000"/>
+
+    <LinearLayout
+        android:id="@+id/group_profit"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_toLeftOf="@+id/group_period"
+        android:layout_toStartOf="@+id/group_period"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/profit_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/transactionGreen"
+            android:textSize="18sp"
+            tools:text="+20%"/>
+
+        <TextView
+            android:id="@+id/profit_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.6"
+            android:textColor="@color/transactionGreen"
+            android:textSize="14sp"
+            tools:text="+$240"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/group_period"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/period"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorFontDark"
+            android:textSize="28sp"
+            tools:text="6"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-8dp"
+            android:textColor="@color/colorFontDark"
+            android:textSize="14sp"
+            tools:text="@string/days"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
