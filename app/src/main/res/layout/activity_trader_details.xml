@@ -213,6 +213,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/group_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/program_buttons_height"
                 android:layout_below="@+id/group_amount"
@@ -247,8 +248,7 @@
                     android:layout_margin="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/button_primary"
-                    android:maxWidth="200dp"
-                    android:visibility="gone">
+                    android:maxWidth="200dp">
 
                     <TextView
                         android:layout_width="wrap_content"

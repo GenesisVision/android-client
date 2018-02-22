@@ -18,8 +18,9 @@ import vision.genesis.clientapp.feature.main.MainActivity;
 import vision.genesis.clientapp.feature.main.MainPresenter;
 import vision.genesis.clientapp.feature.main.bottom_navigation.TabContainerFragment;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardPresenter;
-import vision.genesis.clientapp.feature.main.invest.InvestDialog;
 import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
+import vision.genesis.clientapp.feature.main.program_invest.InvestDialog;
+import vision.genesis.clientapp.feature.main.program_withdraw.WithdrawProgramPresenter;
 import vision.genesis.clientapp.feature.main.traders.TradersPresenter;
 import vision.genesis.clientapp.feature.main.traders.details.TraderDetailsPresenter;
 import vision.genesis.clientapp.feature.main.traders.filter.TradersFiltersPresenter;
@@ -79,4 +80,6 @@ public interface AppComponent
 	void inject(LeaderboardPresenter leaderboardPresenter);
 
 	void inject(InvestDialog investDialog);
+
+	void inject(WithdrawProgramPresenter withdrawProgramPresenter);
 }

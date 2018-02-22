@@ -39,6 +39,9 @@ public class InvestmentProgram implements Parcelable
 	@SerializedName("logo")
 	public String logo = null;
 
+	@SerializedName("title")
+	public String title = null;
+
 	@SerializedName("description")
 	public String description = null;
 
@@ -90,6 +93,7 @@ public class InvestmentProgram implements Parcelable
 	public InvestmentProgram(io.swagger.client.model.InvestmentProgram program) {
 		this.id = program.getInvestment().getId();
 		this.logo = program.getInvestment().getLogo();
+		this.title = program.getInvestment().getTitle();
 		this.description = program.getInvestment().getDescription();
 		this.managerAccountId = program.getInvestment().getManagerAccountId();
 		this.managerName = program.getAccount().getLogin();
@@ -113,6 +117,7 @@ public class InvestmentProgram implements Parcelable
 	protected InvestmentProgram(Parcel in) {
 		this.id = (UUID) in.readValue(UUID.class.getClassLoader());
 		this.logo = (String) in.readValue(String.class.getClassLoader());
+		this.title = (String) in.readValue(String.class.getClassLoader());
 		this.description = (String) in.readValue(String.class.getClassLoader());
 		this.managerAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
 		this.managerName = (String) in.readValue(String.class.getClassLoader());
@@ -140,6 +145,7 @@ public class InvestmentProgram implements Parcelable
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeValue(id);
 		dest.writeValue(logo);
+		dest.writeValue(title);
 		dest.writeValue(description);
 		dest.writeValue(managerAccountId);
 		dest.writeValue(managerName);

@@ -1,21 +1,17 @@
-package vision.genesis.clientapp.feature.main.invest;
+package vision.genesis.clientapp.feature.main.program_invest;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatDialog;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.jakewharton.rxbinding.widget.RxTextView;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Locale;
-import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
@@ -36,6 +32,7 @@ import vision.genesis.clientapp.model.api.ErrorResponse;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
+import vision.genesis.clientapp.ui.AmountEditText;
 
 /**
  * GenesisVision
@@ -54,12 +51,10 @@ public class InvestDialog extends AppCompatDialog
 	public TextView balanceText;
 
 	@BindView(R.id.edittext_amount)
-	public EditText amountEditText;
+	public AmountEditText amountEditText;
 
 	@BindView(R.id.button_invest)
 	public Button investButton;
-
-	private Subscription textChangeSubscription;
 
 	private Subscription balanceSubscription;
 
@@ -68,8 +63,6 @@ public class InvestDialog extends AppCompatDialog
 	private double balance = 0;
 
 	private double amount = 0;
-
-	private String previousAmountText = "";
 
 	private InvestmentProgram program;
 
@@ -102,50 +95,15 @@ public class InvestDialog extends AppCompatDialog
 		balanceText.setText(String.format(Locale.getDefault(), "%s:", getContext().getResources().getString(R.string.balance)));
 		getBalance();
 		setInvestButtonEnabled();
+
 		setAmountTextListener();
 	}
 
 	private void setAmountTextListener() {
-		textChangeSubscription = RxTextView.textChanges(amountEditText)
-				.subscribe(charSequence -> {
-					onAmountChanged(charSequence.toString());
-					previousAmountText = amountEditText.getText().toString();
-				});
-	}
-
-	private void onAmountChanged(String amountText) {
-		if (amountText.equals(previousAmountText)) {
-			return;
-		}
-		if (amountText.contains(".")) {
-			String[] parts = amountText.split(Pattern.quote("."));
-			if (parts.length > 1) {
-				String decimalPart = parts[1];
-				if (decimalPart != null && decimalPart.length() > WalletManager.MAX_DECIMAL_POINT_DIGITS) {
-					amountEditText.setText(amountText.substring(0, amountText.length() - 1));
-					amountEditText.setSelection(amountEditText.getText().length());
-					return;
-				}
-			}
-		}
-		if ((amountText.equals("0") && !previousAmountText.equals("0."))
-				|| amountText.equals(".")) {
-			amountEditText.setText("0.");
-			amountEditText.setSelection(2);
-			return;
-		}
-		else if ((amountText.equals("0") && previousAmountText.equals("0."))) {
-			amountEditText.setText("");
-			return;
-		}
-
-		try {
-			amount = Double.parseDouble(amountText);
-		} catch (NumberFormatException e) {
-			amount = 0;
-		}
-
-		setInvestButtonEnabled();
+		amountEditText.setListener(newAmount -> {
+			amount = newAmount;
+			setInvestButtonEnabled();
+		});
 	}
 
 	private void setInvestButtonEnabled() {
@@ -224,8 +182,6 @@ public class InvestDialog extends AppCompatDialog
 	}
 
 	private void closeDialog() {
-		if (textChangeSubscription != null)
-			textChangeSubscription.unsubscribe();
 		if (balanceSubscription != null)
 			balanceSubscription.unsubscribe();
 		if (investSubscription != null)

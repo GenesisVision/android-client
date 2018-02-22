@@ -64,6 +64,13 @@
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
 
+        <activity
+            android:name=".feature.main.program_withdraw.WithdrawProgramActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateVisible|adjustPan"/>
+
     </application>
 
 </manifest>

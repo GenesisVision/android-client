@@ -3,6 +3,8 @@ package vision.genesis.clientapp.feature.main.traders.details;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -17,8 +19,10 @@ import butterknife.OnClick;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.feature.main.invest.InvestDialog;
+import vision.genesis.clientapp.feature.main.program_invest.InvestDialog;
+import vision.genesis.clientapp.feature.main.program_withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.model.InvestmentProgram;
+import vision.genesis.clientapp.model.ProgramWithdrawalRequest;
 import vision.genesis.clientapp.ui.ManagerAvatarView;
 import vision.genesis.clientapp.ui.ProfitChartView;
 import vision.genesis.clientapp.ui.ToolbarView;
@@ -72,6 +76,9 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 	@BindView(R.id.text_max_amount)
 	public TextView maxAmountText;
 
+	@BindView(R.id.group_buttons)
+	public ViewGroup buttonsGroup;
+
 	@InjectPresenter
 	TraderDetailsPresenter traderDetailsPresenter;
 
@@ -82,6 +89,14 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 	@OnClick(R.id.button_invest)
 	public void onInvestClicked() {
 		traderDetailsPresenter.onInvestClicked();
+	}
+
+	@OnClick(R.id.button_withdraw)
+	public void onWithdrawClicked() {
+		ProgramWithdrawalRequest withdrawalRequest = new ProgramWithdrawalRequest();
+		withdrawalRequest.programId = program.id;
+		withdrawalRequest.programName = program.title;
+		WithdrawProgramActivity.startWith(this, withdrawalRequest);
 	}
 
 	@Override
@@ -99,7 +114,7 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 			setData();
 		}
 		else {
-			Timber.e("Passed empty program to TraderDetailsFragment");
+			Timber.e("Passed empty program to TraderDetailsActivity");
 			onBackPressed();
 		}
 	}
@@ -145,6 +160,11 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 		investDialog = new InvestDialog(this, true, null);
 		investDialog.setProgram(program);
 		investDialog.show();
+	}
+
+	@Override
+	public void showInvestWithdrawButtons(boolean show) {
+		buttonsGroup.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 
 	@Override

@@ -44,14 +44,12 @@
         android:layout_margin="16dp"
         android:orientation="horizontal">
 
-        <EditText
+        <vision.genesis.clientapp.ui.AmountEditText
             android:id="@+id/edittext_amount"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toLeftOf="@+id/label_gvt"
             android:layout_toStartOf="@+id/label_gvt"
-            android:inputType="numberDecimal"
-            android:textAlignment="center"
             android:textColor="@color/colorPrimary"
             android:textSize="26sp"
             />
