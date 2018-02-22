@@ -1,9 +1,19 @@
 package vision.genesis.clientapp.ui;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
@@ -26,6 +36,51 @@ public class NumericKeyboardView extends RelativeLayout
 
 		void onLongBackspace();
 	}
+
+	private static final float ANIM_SCALE_FROM = 1f;
+
+	private static final float ANIM_SCALE_TO = 1.2f;
+
+	private static final int ANIM_DURATION = 300;
+
+	@BindView(R.id.button_one)
+	public View buttonOne;
+
+	@BindView(R.id.button_two)
+	public View buttonTwo;
+
+	@BindView(R.id.button_three)
+	public View buttonThree;
+
+	@BindView(R.id.button_four)
+	public View buttonFour;
+
+	@BindView(R.id.button_five)
+	public View buttonFive;
+
+	@BindView(R.id.button_six)
+	public View buttonSix;
+
+	@BindView(R.id.button_seven)
+	public View buttonSeven;
+
+	@BindView(R.id.button_eight)
+	public View buttonEight;
+
+	@BindView(R.id.button_nine)
+	public View buttonNine;
+
+	@BindView(R.id.button_zero)
+	public View buttonZero;
+
+	@BindView(R.id.button_decimal)
+	public View buttonDecimal;
+
+	@BindView(R.id.button_backspace)
+	public View buttonBackspace;
+
+	@BindView(R.id.image_backspace)
+	public ImageView backspaceImage;
 
 	private InputListener listener;
 
@@ -121,6 +176,118 @@ public class NumericKeyboardView extends RelativeLayout
 		inflate(getContext(), R.layout.view_numeric_keyboard, this);
 
 		ButterKnife.bind(this);
+
+		setAnimations();
+	}
+
+	private void setAnimations() {
+		OnTouchListener onTouchListener = (view, event) -> {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				playDownAnimation(view);
+				return true;
+			}
+			else if (event.getAction() == MotionEvent.ACTION_UP) {
+				playUpAnimation(view);
+				view.performClick();
+				return true;
+			}
+			return false;
+		};
+
+		buttonOne.setOnTouchListener(onTouchListener);
+		buttonTwo.setOnTouchListener(onTouchListener);
+		buttonThree.setOnTouchListener(onTouchListener);
+		buttonFour.setOnTouchListener(onTouchListener);
+		buttonFive.setOnTouchListener(onTouchListener);
+		buttonSix.setOnTouchListener(onTouchListener);
+		buttonSeven.setOnTouchListener(onTouchListener);
+		buttonEight.setOnTouchListener(onTouchListener);
+		buttonNine.setOnTouchListener(onTouchListener);
+		buttonZero.setOnTouchListener(onTouchListener);
+		buttonDecimal.setOnTouchListener(onTouchListener);
+		buttonBackspace.setOnTouchListener(onTouchListener);
+	}
+
+	private void playDownAnimation(View view) {
+		ScaleAnimation scaleAnimation = new ScaleAnimation(
+				ANIM_SCALE_FROM, ANIM_SCALE_TO,
+				ANIM_SCALE_FROM, ANIM_SCALE_TO,
+				Animation.RELATIVE_TO_SELF, 0.5f,
+				Animation.RELATIVE_TO_SELF, 0.5f);
+		scaleAnimation.setDuration(ANIM_DURATION);
+		scaleAnimation.setAnimationListener(new Animation.AnimationListener()
+		{
+			@Override
+			public void onAnimationStart(Animation animation) {
+				view.setScaleX(ANIM_SCALE_FROM);
+				view.setScaleY(ANIM_SCALE_FROM);
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				view.setScaleX(ANIM_SCALE_TO);
+				view.setScaleY(ANIM_SCALE_TO);
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+			}
+		});
+
+		ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(),
+				ContextCompat.getColor(getContext(), R.color.colorFontMedium),
+				ContextCompat.getColor(getContext(), R.color.colorPrimary));
+		colorAnimation.setDuration(ANIM_DURATION);
+		colorAnimation.addUpdateListener(animator -> {
+			if (view instanceof TextView)
+				((TextView) view).setTextColor((int) animator.getAnimatedValue());
+			else
+				backspaceImage.setColorFilter((int) animator.getAnimatedValue());
+		});
+
+		view.startAnimation(scaleAnimation);
+		colorAnimation.start();
+	}
+
+	private void playUpAnimation(View view) {
+		ScaleAnimation scaleAnimation = new ScaleAnimation(
+				ANIM_SCALE_TO, ANIM_SCALE_FROM,
+				ANIM_SCALE_TO, ANIM_SCALE_FROM,
+				Animation.RELATIVE_TO_SELF, 0.5f,
+				Animation.RELATIVE_TO_SELF, 0.5f);
+		scaleAnimation.setDuration(ANIM_DURATION);
+		scaleAnimation.setAnimationListener(new Animation.AnimationListener()
+		{
+			@Override
+			public void onAnimationStart(Animation animation) {
+				view.setScaleX(ANIM_SCALE_TO);
+				view.setScaleY(ANIM_SCALE_TO);
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				view.setScaleX(ANIM_SCALE_FROM);
+				view.setScaleY(ANIM_SCALE_FROM);
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+			}
+		});
+
+		ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(),
+				ContextCompat.getColor(getContext(), R.color.colorPrimary),
+				ContextCompat.getColor(getContext(), R.color.colorFontMedium));
+		colorAnimation.setDuration(ANIM_DURATION);
+		colorAnimation.addUpdateListener(animator -> {
+			if (view instanceof TextView)
+				((TextView) view).setTextColor((int) animator.getAnimatedValue());
+			else
+				backspaceImage.setColorFilter((int) animator.getAnimatedValue());
+		});
+
+		view.startAnimation(scaleAnimation);
+		colorAnimation.start();
 	}
 
 	private void numberClicked(String number) {

@@ -88,6 +88,7 @@
             style="@style/AppTheme.KeyboardButton.Backspace">
 
             <ImageView
+                android:id="@+id/image_backspace"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_centerInParent="true"

@@ -50,7 +50,6 @@
 
         </LinearLayout>
 
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -67,8 +66,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_margin="8dp"
+                android:hint="@string/zero"
                 android:textColor="@color/colorPrimary"
-                android:textSize="40sp"
+                android:textColorHint="@color/colorFontMedium"
+                android:textSize="52sp"
                 android:textStyle="bold"
                 tools:text="0"/>
 
