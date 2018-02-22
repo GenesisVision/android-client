@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/numberLayout"
+    android:layout_gravity="center"
+    android:background="@color/colorGrayBackground"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_one"
+            style="@style/AppTheme.KeyboardButton.Number"
+            android:text="@string/one"/>
+
+        <Button
+            android:id="@+id/button_two"
+            style="@style/AppTheme.KeyboardButton.Number"
+            android:text="@string/two"/>
+
+        <Button
+            android:id="@+id/button_three"
+            style="@style/AppTheme.KeyboardButton.Number"
+            android:text="@string/three"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_four"
+            style="@style/AppTheme.KeyboardButton.Number"
+            android:text="@string/four"/>
+
+        <Button
+            android:id="@+id/button_five"
+            style="@style/AppTheme.KeyboardButton.Number"
+            android:text="@string/five"/>
+
+        <Button
+            android:id="@+id/button_six"
+            style="@style/AppTheme.KeyboardButton.Number"
+            android:text="@string/six"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_seven"
+            style="@style/AppTheme.KeyboardButton.Number"
+            android:text="@string/seven"/>
+
+        <Button
+            android:id="@+id/button_eight"
+            style="@style/AppTheme.KeyboardButton.Number"
+            android:text="@string/eight"/>
+
+        <Button
+            android:id="@+id/button_nine"
+            style="@style/AppTheme.KeyboardButton.Number"
+            android:text="@string/nine"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/button_backspace"
+            style="@style/AppTheme.KeyboardButton.Backspace">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_backspace_black_24dp"
+                android:tint="@color/colorFontMedium"/>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/button_zero"
+            style="@style/AppTheme.KeyboardButton.Number"
+            android:text="@string/zero"/>
+
+        <Button
+            android:id="@+id/button_decimal"
+            style="@style/AppTheme.KeyboardButton.Number"
+            android:text="@string/decimal"/>
+
+    </LinearLayout>
+
+</LinearLayout>

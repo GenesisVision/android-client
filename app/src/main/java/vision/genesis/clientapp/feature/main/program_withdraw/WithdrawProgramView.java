@@ -9,5 +9,11 @@ import com.arellomobile.mvp.MvpView;
 
 interface WithdrawProgramView extends MvpView
 {
+	void setWithdrawButtonEnabled(boolean enabled);
+
+	void setAmount(double amount);
+
+	void setAvailable(double availableFunds);
+
 	void finishActivity();
 }

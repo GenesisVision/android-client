@@ -24,7 +24,9 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 	@Inject
 	public InvestManager investManager;
 
-	private double availableFunds = 0;
+	private double availableFunds = 1000.01234567;
+
+	private double amount = 0;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -32,17 +34,23 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		getViewState().setAvailable(availableFunds);
 	}
 
 	void onBackClicked() {
 		getViewState().finishActivity();
 	}
 
-	void onWithdrawClicked() {
-
+	void onAmountChanged(double newAmount) {
+		amount = newAmount;
+		getViewState().setWithdrawButtonEnabled(amount > 0 && amount <= availableFunds);
 	}
 
-	void onWithdrawAllClicked() {
+	void onAvailableClicked() {
+		getViewState().setAmount(availableFunds);
+	}
+
+	void onWithdrawClicked() {
 
 	}
 }

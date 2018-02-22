@@ -93,4 +93,20 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="AppTheme.KeyboardButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/colorFontMedium</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="AppTheme.KeyboardButton.Number" parent="AppTheme.KeyboardButton">
+        <item name="android:textSize">32sp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="AppTheme.KeyboardButton.Backspace" parent="AppTheme.KeyboardButton">
+    </style>
+
 </resources>

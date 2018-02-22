@@ -69,7 +69,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackActivityTheme"
-            android:windowSoftInputMode="stateVisible|adjustPan"/>
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
     </application>
 

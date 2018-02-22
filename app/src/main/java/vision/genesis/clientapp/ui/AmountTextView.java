@@ -16,7 +16,7 @@ import vision.genesis.clientapp.managers.WalletManager;
  * Created by Vitaly on 2/22/18.
  */
 
-public class AmountEditText extends android.support.v7.widget.AppCompatEditText
+public class AmountTextView extends android.support.v7.widget.AppCompatTextView
 {
 	public interface AmountChangeListener
 	{
@@ -29,22 +29,49 @@ public class AmountEditText extends android.support.v7.widget.AppCompatEditText
 
 	private String previousAmountText = "";
 
-	public AmountEditText(Context context) {
+	public AmountTextView(Context context) {
 		super(context);
 		initView();
 	}
 
-	public AmountEditText(Context context, AttributeSet attrs) {
+	public AmountTextView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		initView();
 	}
 
-	public AmountEditText(Context context, AttributeSet attrs, int defStyleAttr) {
+	public AmountTextView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		initView();
 	}
 
-	public void setListener(AmountChangeListener listener) {
+	public void setKeyboard(NumericKeyboardView keyboard) {
+		keyboard.setListener(new NumericKeyboardView.InputListener()
+		{
+			@Override
+			public void onNumber(String number) {
+				append(number);
+			}
+
+			@Override
+			public void onDecimal() {
+				append(".");
+			}
+
+			@Override
+			public void onBackspace() {
+				String text = getText().toString();
+				if (text.length() > 0)
+					setText(text.subSequence(0, text.length() - 1));
+			}
+
+			@Override
+			public void onLongBackspace() {
+				setText("");
+			}
+		});
+	}
+
+	public void setAmountChangeListener(AmountChangeListener listener) {
 		this.listener = listener;
 		this.listener.onAmountChanged(amount);
 	}
@@ -76,7 +103,6 @@ public class AmountEditText extends android.support.v7.widget.AppCompatEditText
 				String decimalPart = parts[1];
 				if (decimalPart != null && decimalPart.length() > WalletManager.MAX_DECIMAL_POINT_DIGITS) {
 					this.setText(amountText.substring(0, amountText.length() - 1));
-					this.setSelection(this.getText().length());
 					return;
 				}
 			}
@@ -84,7 +110,6 @@ public class AmountEditText extends android.support.v7.widget.AppCompatEditText
 		if ((amountText.equals("0") && !previousAmountText.equals("0."))
 				|| amountText.equals(".")) {
 			this.setText("0.");
-			this.setSelection(2);
 			return;
 		}
 		else if ((amountText.equals("0") && previousAmountText.equals("0."))) {

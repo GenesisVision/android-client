@@ -4,10 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,6 +17,8 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.model.ProgramWithdrawalRequest;
+import vision.genesis.clientapp.ui.AmountTextView;
+import vision.genesis.clientapp.ui.NumericKeyboardView;
 import vision.genesis.clientapp.ui.ToolbarView;
 
 /**
@@ -40,25 +43,30 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	@BindView(R.id.text_available_funds)
 	public TextView availableFundsText;
 
-	@BindView(R.id.edittext_amount)
-	public EditText amountEdittext;
+	@BindView(R.id.textview_amount)
+	public AmountTextView amountTextView;
 
 	@BindView(R.id.button_withdraw)
 	public View withdrawButton;
+
+	@BindView(R.id.keyboard)
+	public NumericKeyboardView keyboard;
 
 	@InjectPresenter
 	WithdrawProgramPresenter withdrawProgramPresenter;
 
 	private ProgramWithdrawalRequest withdrawalRequest;
 
+	private double amount = 0;
+
 	@OnClick(R.id.button_withdraw)
-	public void onApplyClicked() {
+	public void onWithdrawClicked() {
 		withdrawProgramPresenter.onWithdrawClicked();
 	}
 
-	@OnClick(R.id.button_withdraw_all)
-	public void onClearClicked() {
-		withdrawProgramPresenter.onWithdrawAllClicked();
+	@OnClick(R.id.group_available)
+	public void onAvailableCLicked() {
+		withdrawProgramPresenter.onAvailableClicked();
 	}
 
 	@Override
@@ -73,18 +81,38 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 			withdrawalRequest = getIntent().getExtras().getParcelable(EXTRA_REQUEST);
 
 			initToolbar();
+			initListeners();
 		}
 		else {
 			Timber.e("Passed empty request to WithdrawProgramActivity");
 			onBackPressed();
 		}
-
 	}
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.withdraw_from_program));
 		toolbar.setSubtitle(withdrawalRequest.programName);
 		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> withdrawProgramPresenter.onBackClicked());
+	}
+
+	private void initListeners() {
+		amountTextView.setKeyboard(keyboard);
+		amountTextView.setAmountChangeListener(newAmount -> withdrawProgramPresenter.onAmountChanged(newAmount));
+	}
+
+	@Override
+	public void setWithdrawButtonEnabled(boolean enabled) {
+		withdrawButton.setEnabled(enabled);
+	}
+
+	@Override
+	public void setAmount(double amount) {
+		amountTextView.setText(String.valueOf(amount));
+	}
+
+	@Override
+	public void setAvailable(double availableFunds) {
+		availableFundsText.setText(String.format(Locale.getDefault(), "$%s", String.valueOf(availableFunds)));
 	}
 
 	@Override
