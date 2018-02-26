@@ -15,46 +15,59 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * TradesViewModel
+ * Accrual
  */
 
-public class TradesViewModel
+public class Accrual
 {
-	@SerializedName("trades")
-	private List<OrderModel> trades = null;
+	@SerializedName("investorId")
+	private UUID investorId = null;
 
-	public TradesViewModel trades(List<OrderModel> trades) {
-		this.trades = trades;
-		return this;
-	}
+	@SerializedName("amount")
+	private Double amount = null;
 
-	public TradesViewModel addTradesItem(OrderModel tradesItem) {
-		if (this.trades == null) {
-			this.trades = new ArrayList<OrderModel>();
-		}
-		this.trades.add(tradesItem);
+	public Accrual investorId(UUID investorId) {
+		this.investorId = investorId;
 		return this;
 	}
 
 	/**
-	 * Get trades
+	 * Get investorId
 	 *
-	 * @return trades
+	 * @return investorId
 	 **/
 	@ApiModelProperty(value = "")
-	public List<OrderModel> getTrades() {
-		return trades;
+	public UUID getInvestorId() {
+		return investorId;
 	}
 
-	public void setTrades(List<OrderModel> trades) {
-		this.trades = trades;
+	public void setInvestorId(UUID investorId) {
+		this.investorId = investorId;
+	}
+
+	public Accrual amount(Double amount) {
+		this.amount = amount;
+		return this;
+	}
+
+	/**
+	 * Get amount
+	 *
+	 * @return amount
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
 
 
@@ -66,22 +79,24 @@ public class TradesViewModel
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		TradesViewModel tradesViewModel = (TradesViewModel) o;
-		return Objects.equals(this.trades, tradesViewModel.trades);
+		Accrual accrual = (Accrual) o;
+		return Objects.equals(this.investorId, accrual.investorId) &&
+				Objects.equals(this.amount, accrual.amount);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(trades);
+		return Objects.hash(investorId, amount);
 	}
 
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class TradesViewModel {\n");
+		sb.append("class Accrual {\n");
 
-		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
+		sb.append("    investorId: ").append(toIndentedString(investorId)).append("\n");
+		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

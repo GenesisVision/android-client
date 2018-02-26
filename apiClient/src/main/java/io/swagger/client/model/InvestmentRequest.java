@@ -247,7 +247,9 @@ public class InvestmentRequest
 	{
 		NEW("New"),
 
-		EXECUTED("Executed");
+		EXECUTED("Executed"),
+
+		CANCELLED("Cancelled");
 
 		public static StatusEnum fromValue(String text) {
 			for (StatusEnum b : StatusEnum.values()) {

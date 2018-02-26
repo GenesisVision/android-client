@@ -18,27 +18,47 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * TradesViewModel
+ * NewTradeEvent
  */
 
-public class TradesViewModel
+public class NewTradeEvent
 {
-	@SerializedName("trades")
-	private List<OrderModel> trades = null;
+	@SerializedName("managerAccountId")
+	private UUID managerAccountId = null;
 
-	public TradesViewModel trades(List<OrderModel> trades) {
+	@SerializedName("trades")
+	private List<OrderModel> trades = new ArrayList<OrderModel>();
+
+	public NewTradeEvent managerAccountId(UUID managerAccountId) {
+		this.managerAccountId = managerAccountId;
+		return this;
+	}
+
+	/**
+	 * Get managerAccountId
+	 *
+	 * @return managerAccountId
+	 **/
+	@ApiModelProperty(required = true, value = "")
+	public UUID getManagerAccountId() {
+		return managerAccountId;
+	}
+
+	public void setManagerAccountId(UUID managerAccountId) {
+		this.managerAccountId = managerAccountId;
+	}
+
+	public NewTradeEvent trades(List<OrderModel> trades) {
 		this.trades = trades;
 		return this;
 	}
 
-	public TradesViewModel addTradesItem(OrderModel tradesItem) {
-		if (this.trades == null) {
-			this.trades = new ArrayList<OrderModel>();
-		}
+	public NewTradeEvent addTradesItem(OrderModel tradesItem) {
 		this.trades.add(tradesItem);
 		return this;
 	}
@@ -48,7 +68,7 @@ public class TradesViewModel
 	 *
 	 * @return trades
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(required = true, value = "")
 	public List<OrderModel> getTrades() {
 		return trades;
 	}
@@ -66,21 +86,23 @@ public class TradesViewModel
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		TradesViewModel tradesViewModel = (TradesViewModel) o;
-		return Objects.equals(this.trades, tradesViewModel.trades);
+		NewTradeEvent newTradeEvent = (NewTradeEvent) o;
+		return Objects.equals(this.managerAccountId, newTradeEvent.managerAccountId) &&
+				Objects.equals(this.trades, newTradeEvent.trades);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(trades);
+		return Objects.hash(managerAccountId, trades);
 	}
 
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class TradesViewModel {\n");
+		sb.append("class NewTradeEvent {\n");
 
+		sb.append("    managerAccountId: ").append(toIndentedString(managerAccountId)).append("\n");
 		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
 		sb.append("}");
 		return sb.toString();

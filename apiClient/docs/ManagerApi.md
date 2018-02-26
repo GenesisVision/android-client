@@ -10,15 +10,17 @@ Method | HTTP request | Description
 [**apiManagerAuthSignUpPost**](ManagerApi.md#apiManagerAuthSignUpPost) | **POST** api/manager/auth/signUp | Register new manager
 [**apiManagerAuthUpdateTokenGet**](ManagerApi.md#apiManagerAuthUpdateTokenGet) | **GET** api/manager/auth/updateToken | Update auth token
 [**apiManagerBrokersPost**](ManagerApi.md#apiManagerBrokersPost) | **POST** api/manager/brokers | Get all enabled trade servers
+[**apiManagerInvestmentCancelInvestmentRequestPost**](ManagerApi.md#apiManagerInvestmentCancelInvestmentRequestPost) | **POST** api/manager/investment/cancelInvestmentRequest | Cancel investment request
 [**apiManagerInvestmentCloseGet**](ManagerApi.md#apiManagerInvestmentCloseGet) | **GET** api/manager/investment/close | Close existing investment program
 [**apiManagerInvestmentGet**](ManagerApi.md#apiManagerInvestmentGet) | **GET** api/manager/investment | Get investment program with statistic by id
+[**apiManagerInvestmentInvestPost**](ManagerApi.md#apiManagerInvestmentInvestPost) | **POST** api/manager/investment/invest | Manager deposit in his own investment program
+[**apiManagerInvestmentWithdrawPost**](ManagerApi.md#apiManagerInvestmentWithdrawPost) | **POST** api/manager/investment/withdraw | Manager withdrawal from his own investment program
 [**apiManagerProfileFullGet**](ManagerApi.md#apiManagerProfileFullGet) | **GET** api/manager/profile/full | Get full profile
 [**apiManagerProfileGet**](ManagerApi.md#apiManagerProfileGet) | **GET** api/manager/profile | Get short profile
 [**apiManagerProfilePublicGet**](ManagerApi.md#apiManagerProfilePublicGet) | **GET** api/manager/profile/public | Get public profile
 [**apiManagerProfileUpdatePost**](ManagerApi.md#apiManagerProfileUpdatePost) | **POST** api/manager/profile/update | Update profile
-[**apiManagerWalletDepositPost**](ManagerApi.md#apiManagerWalletDepositPost) | **POST** api/manager/wallet/deposit | Deposit
+[**apiManagerWalletAddressGet**](ManagerApi.md#apiManagerWalletAddressGet) | **GET** api/manager/wallet/address | Get eth address for GVT depositing
 [**apiManagerWalletTransactionsPost**](ManagerApi.md#apiManagerWalletTransactionsPost) | **POST** api/manager/wallet/transactions | Get user wallet transactions
-[**apiManagerWalletWithdrawPost**](ManagerApi.md#apiManagerWalletWithdrawPost) | **POST** api/manager/wallet/withdraw | Withdraw
 
 
 <a name="apiManagerAccountNewInvestmentRequestPost"></a>
@@ -283,6 +285,51 @@ No authorization required
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
+<a name="apiManagerInvestmentCancelInvestmentRequestPost"></a>
+# **apiManagerInvestmentCancelInvestmentRequestPost**
+> Void apiManagerInvestmentCancelInvestmentRequestPost(requestId, authorization)
+
+Cancel investment request
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+UUID requestId = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.apiManagerInvestmentCancelInvestmentRequestPost(requestId, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerInvestmentCancelInvestmentRequestPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **requestId** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="apiManagerInvestmentCloseGet"></a>
 # **apiManagerInvestmentCloseGet**
 > Void apiManagerInvestmentCloseGet(investmentProgramId, authorization)
@@ -369,6 +416,96 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerInvestmentInvestPost"></a>
+# **apiManagerInvestmentInvestPost**
+> Void apiManagerInvestmentInvestPost(authorization, model)
+
+Manager deposit in his own investment program
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+String authorization = "authorization_example"; // String | JWT access token
+Invest model = new Invest(); // Invest | 
+try {
+    Void result = apiInstance.apiManagerInvestmentInvestPost(authorization, model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerInvestmentInvestPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **model** | [**Invest**](Invest.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerInvestmentWithdrawPost"></a>
+# **apiManagerInvestmentWithdrawPost**
+> Void apiManagerInvestmentWithdrawPost(authorization, model)
+
+Manager withdrawal from his own investment program
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+String authorization = "authorization_example"; // String | JWT access token
+Invest model = new Invest(); // Invest | 
+try {
+    Void result = apiInstance.apiManagerInvestmentWithdrawPost(authorization, model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerInvestmentWithdrawPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **model** | [**Invest**](Invest.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="apiManagerProfileFullGet"></a>
@@ -545,11 +682,11 @@ No authorization required
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
-<a name="apiManagerWalletDepositPost"></a>
-# **apiManagerWalletDepositPost**
-> Void apiManagerWalletDepositPost(authorization)
+<a name="apiManagerWalletAddressGet"></a>
+# **apiManagerWalletAddressGet**
+> WalletAddressViewModel apiManagerWalletAddressGet(authorization)
 
-Deposit
+Get eth address for GVT depositing
 
 ### Example
 ```java
@@ -561,10 +698,10 @@ Deposit
 ManagerApi apiInstance = new ManagerApi();
 String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.apiManagerWalletDepositPost(authorization);
+    WalletAddressViewModel result = apiInstance.apiManagerWalletAddressGet(authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling ManagerApi#apiManagerWalletDepositPost");
+    System.err.println("Exception when calling ManagerApi#apiManagerWalletAddressGet");
     e.printStackTrace();
 }
 ```
@@ -577,7 +714,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Void**](.md)
+[**WalletAddressViewModel**](WalletAddressViewModel.md)
 
 ### Authorization
 
@@ -631,48 +768,5 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="apiManagerWalletWithdrawPost"></a>
-# **apiManagerWalletWithdrawPost**
-> Void apiManagerWalletWithdrawPost(authorization)
-
-Withdraw
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.ManagerApi;
-
-
-ManagerApi apiInstance = new ManagerApi();
-String authorization = "authorization_example"; // String | JWT access token
-try {
-    Void result = apiInstance.apiManagerWalletWithdrawPost(authorization);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling ManagerApi#apiManagerWalletWithdrawPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 

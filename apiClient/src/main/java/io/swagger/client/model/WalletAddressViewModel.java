@@ -15,46 +15,36 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * TradesViewModel
+ * WalletAddressViewModel
  */
 
-public class TradesViewModel
+public class WalletAddressViewModel
 {
-	@SerializedName("trades")
-	private List<OrderModel> trades = null;
+	@SerializedName("address")
+	private String address = null;
 
-	public TradesViewModel trades(List<OrderModel> trades) {
-		this.trades = trades;
-		return this;
-	}
-
-	public TradesViewModel addTradesItem(OrderModel tradesItem) {
-		if (this.trades == null) {
-			this.trades = new ArrayList<OrderModel>();
-		}
-		this.trades.add(tradesItem);
+	public WalletAddressViewModel address(String address) {
+		this.address = address;
 		return this;
 	}
 
 	/**
-	 * Get trades
+	 * Get address
 	 *
-	 * @return trades
+	 * @return address
 	 **/
 	@ApiModelProperty(value = "")
-	public List<OrderModel> getTrades() {
-		return trades;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setTrades(List<OrderModel> trades) {
-		this.trades = trades;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 
@@ -66,22 +56,22 @@ public class TradesViewModel
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		TradesViewModel tradesViewModel = (TradesViewModel) o;
-		return Objects.equals(this.trades, tradesViewModel.trades);
+		WalletAddressViewModel walletAddressViewModel = (WalletAddressViewModel) o;
+		return Objects.equals(this.address, walletAddressViewModel.address);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(trades);
+		return Objects.hash(address);
 	}
 
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class TradesViewModel {\n");
+		sb.append("class WalletAddressViewModel {\n");
 
-		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
+		sb.append("    address: ").append(toIndentedString(address)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

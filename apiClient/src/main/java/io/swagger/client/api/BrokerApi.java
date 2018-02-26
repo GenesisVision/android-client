@@ -4,8 +4,10 @@ import java.util.UUID;
 
 import io.swagger.client.model.BrokerInitData;
 import io.swagger.client.model.ClosePeriodData;
+import io.swagger.client.model.InvestmentProgramAccrual;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.NewManager;
+import io.swagger.client.model.NewTradeEvent;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -66,6 +68,21 @@ public interface BrokerApi
 	);
 
 	/**
+	 * Accrue investors&#39; profits
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param accrual       (optional)
+	 * @return Call&lt;UUID&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/broker/period/accrueProfits")
+	Observable<UUID> apiBrokerPeriodAccrueProfitsPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body InvestmentProgramAccrual accrual
+	);
+
+	/**
 	 * Close investment period
 	 *
 	 * @param investmentProgramId (required)
@@ -74,6 +91,18 @@ public interface BrokerApi
 	 */
 	@GET("api/broker/period/close")
 	Observable<Void> apiBrokerPeriodCloseGet(
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Process investment requests
+	 *
+	 * @param investmentProgramId (required)
+	 * @param authorization       JWT access token (required)
+	 * @return Call&lt;UUID&gt;
+	 */
+	@POST("api/broker/period/processInvestmentRequests")
+	Observable<UUID> apiBrokerPeriodProcessInvestmentRequestsPost(
 			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
 	);
 
@@ -100,6 +129,21 @@ public interface BrokerApi
 	@GET("api/broker/period/сlosingData")
 	Observable<ClosePeriodData> apiBrokerPeriodlosingDataGet(
 			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * New trade event
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param tradeEvent    (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/broker/trades/new")
+	Observable<Void> apiBrokerTradesNewPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body NewTradeEvent tradeEvent
 	);
 
 }

@@ -1,10 +1,11 @@
 
-# TradesViewModel
+# Accrual
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**trades** | [**List&lt;OrderModel&gt;**](OrderModel.md) |  |  [optional]
+**investorId** | [**UUID**](UUID.md) |  |  [optional]
+**amount** | **Double** |  |  [optional]
 
 
 

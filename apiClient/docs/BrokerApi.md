@@ -8,9 +8,12 @@ Method | HTTP request | Description
 [**apiBrokerAuthSignInPost**](BrokerApi.md#apiBrokerAuthSignInPost) | **POST** api/broker/auth/signIn | Authorize
 [**apiBrokerAuthUpdateTokenGet**](BrokerApi.md#apiBrokerAuthUpdateTokenGet) | **GET** api/broker/auth/updateToken | Update auth token
 [**apiBrokerInitDataGet**](BrokerApi.md#apiBrokerInitDataGet) | **GET** api/broker/initData | Get broker initial data
+[**apiBrokerPeriodAccrueProfitsPost**](BrokerApi.md#apiBrokerPeriodAccrueProfitsPost) | **POST** api/broker/period/accrueProfits | Accrue investors&#39; profits
 [**apiBrokerPeriodCloseGet**](BrokerApi.md#apiBrokerPeriodCloseGet) | **GET** api/broker/period/close | Close investment period
+[**apiBrokerPeriodProcessInvestmentRequestsPost**](BrokerApi.md#apiBrokerPeriodProcessInvestmentRequestsPost) | **POST** api/broker/period/processInvestmentRequests | Process investment requests
 [**apiBrokerPeriodSetStartBalanceGet**](BrokerApi.md#apiBrokerPeriodSetStartBalanceGet) | **GET** api/broker/period/setStartBalance | Set investment period start balance
 [**apiBrokerPeriodlosingDataGet**](BrokerApi.md#apiBrokerPeriodlosingDataGet) | **GET** api/broker/period/сlosingData | Get data for closing investment period
+[**apiBrokerTradesNewPost**](BrokerApi.md#apiBrokerTradesNewPost) | **POST** api/broker/trades/new | New trade event
 
 
 <a name="apiBrokerAccountCreatePost"></a>
@@ -189,6 +192,51 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="apiBrokerPeriodAccrueProfitsPost"></a>
+# **apiBrokerPeriodAccrueProfitsPost**
+> UUID apiBrokerPeriodAccrueProfitsPost(authorization, accrual)
+
+Accrue investors&#39; profits
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.BrokerApi;
+
+
+BrokerApi apiInstance = new BrokerApi();
+String authorization = "authorization_example"; // String | JWT access token
+InvestmentProgramAccrual accrual = new InvestmentProgramAccrual(); // InvestmentProgramAccrual | 
+try {
+    UUID result = apiInstance.apiBrokerPeriodAccrueProfitsPost(authorization, accrual);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling BrokerApi#apiBrokerPeriodAccrueProfitsPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **accrual** | [**InvestmentProgramAccrual**](InvestmentProgramAccrual.md)|  | [optional]
+
+### Return type
+
+[**UUID**](UUID.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="apiBrokerPeriodCloseGet"></a>
 # **apiBrokerPeriodCloseGet**
 > Void apiBrokerPeriodCloseGet(investmentProgramId, authorization)
@@ -224,6 +272,51 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiBrokerPeriodProcessInvestmentRequestsPost"></a>
+# **apiBrokerPeriodProcessInvestmentRequestsPost**
+> UUID apiBrokerPeriodProcessInvestmentRequestsPost(investmentProgramId, authorization)
+
+Process investment requests
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.BrokerApi;
+
+
+BrokerApi apiInstance = new BrokerApi();
+UUID investmentProgramId = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    UUID result = apiInstance.apiBrokerPeriodProcessInvestmentRequestsPost(investmentProgramId, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling BrokerApi#apiBrokerPeriodProcessInvestmentRequestsPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **investmentProgramId** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**UUID**](UUID.md)
 
 ### Authorization
 
@@ -324,5 +417,50 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiBrokerTradesNewPost"></a>
+# **apiBrokerTradesNewPost**
+> Void apiBrokerTradesNewPost(authorization, tradeEvent)
+
+New trade event
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.BrokerApi;
+
+
+BrokerApi apiInstance = new BrokerApi();
+String authorization = "authorization_example"; // String | JWT access token
+NewTradeEvent tradeEvent = new NewTradeEvent(); // NewTradeEvent | 
+try {
+    Void result = apiInstance.apiBrokerTradesNewPost(authorization, tradeEvent);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling BrokerApi#apiBrokerTradesNewPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **tradeEvent** | [**NewTradeEvent**](NewTradeEvent.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 

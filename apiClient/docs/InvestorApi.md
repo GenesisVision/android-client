@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**apiInvestorAuthSignUpPost**](InvestorApi.md#apiInvestorAuthSignUpPost) | **POST** api/investor/auth/signUp | Register new investor
 [**apiInvestorAuthUpdateTokenGet**](InvestorApi.md#apiInvestorAuthUpdateTokenGet) | **GET** api/investor/auth/updateToken | Update auth token
 [**apiInvestorDashboardGet**](InvestorApi.md#apiInvestorDashboardGet) | **GET** api/investor/dashboard | Get investor dashboard
+[**apiInvestorInvestmentsCancelInvestmentRequestPost**](InvestorApi.md#apiInvestorInvestmentsCancelInvestmentRequestPost) | **POST** api/investor/investments/cancelInvestmentRequest | Cancel investment request
 [**apiInvestorInvestmentsInvestPost**](InvestorApi.md#apiInvestorInvestmentsInvestPost) | **POST** api/investor/investments/invest | Invest in manager
 [**apiInvestorInvestmentsPost**](InvestorApi.md#apiInvestorInvestmentsPost) | **POST** api/investor/investments | Get investments by filter
 [**apiInvestorInvestmentsWithdrawPost**](InvestorApi.md#apiInvestorInvestmentsWithdrawPost) | **POST** api/investor/investments/withdraw | Withdraw from investment program
@@ -16,9 +17,8 @@ Method | HTTP request | Description
 [**apiInvestorProfileGet**](InvestorApi.md#apiInvestorProfileGet) | **GET** api/investor/profile | Get short profile
 [**apiInvestorProfilePublicGet**](InvestorApi.md#apiInvestorProfilePublicGet) | **GET** api/investor/profile/public | Get public profile
 [**apiInvestorProfileUpdatePost**](InvestorApi.md#apiInvestorProfileUpdatePost) | **POST** api/investor/profile/update | Update profile
-[**apiInvestorWalletDepositPost**](InvestorApi.md#apiInvestorWalletDepositPost) | **POST** api/investor/wallet/deposit | Deposit
+[**apiInvestorWalletAddressGet**](InvestorApi.md#apiInvestorWalletAddressGet) | **GET** api/investor/wallet/address | Get eth address for GVT depositing
 [**apiInvestorWalletTransactionsPost**](InvestorApi.md#apiInvestorWalletTransactionsPost) | **POST** api/investor/wallet/transactions | Get user wallet transactions
-[**apiInvestorWalletWithdrawPost**](InvestorApi.md#apiInvestorWalletWithdrawPost) | **POST** api/investor/wallet/withdraw | Withdraw
 
 
 <a name="apiInvestorAuthConfirmEmailGet"></a>
@@ -228,6 +228,51 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**InvestorDashboard**](InvestorDashboard.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorInvestmentsCancelInvestmentRequestPost"></a>
+# **apiInvestorInvestmentsCancelInvestmentRequestPost**
+> Void apiInvestorInvestmentsCancelInvestmentRequestPost(requestId, authorization)
+
+Cancel investment request
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+UUID requestId = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.apiInvestorInvestmentsCancelInvestmentRequestPost(requestId, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentsCancelInvestmentRequestPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **requestId** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
 
 ### Authorization
 
@@ -545,11 +590,11 @@ No authorization required
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
-<a name="apiInvestorWalletDepositPost"></a>
-# **apiInvestorWalletDepositPost**
-> Void apiInvestorWalletDepositPost(authorization)
+<a name="apiInvestorWalletAddressGet"></a>
+# **apiInvestorWalletAddressGet**
+> WalletAddressViewModel apiInvestorWalletAddressGet(authorization)
 
-Deposit
+Get eth address for GVT depositing
 
 ### Example
 ```java
@@ -561,10 +606,10 @@ Deposit
 InvestorApi apiInstance = new InvestorApi();
 String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.apiInvestorWalletDepositPost(authorization);
+    WalletAddressViewModel result = apiInstance.apiInvestorWalletAddressGet(authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling InvestorApi#apiInvestorWalletDepositPost");
+    System.err.println("Exception when calling InvestorApi#apiInvestorWalletAddressGet");
     e.printStackTrace();
 }
 ```
@@ -577,7 +622,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Void**](.md)
+[**WalletAddressViewModel**](WalletAddressViewModel.md)
 
 ### Authorization
 
@@ -631,48 +676,5 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="apiInvestorWalletWithdrawPost"></a>
-# **apiInvestorWalletWithdrawPost**
-> Void apiInvestorWalletWithdrawPost(authorization)
-
-Withdraw
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.InvestorApi;
-
-
-InvestorApi apiInstance = new InvestorApi();
-String authorization = "authorization_example"; // String | JWT access token
-try {
-    Void result = apiInstance.apiInvestorWalletWithdrawPost(authorization);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling InvestorApi#apiInvestorWalletWithdrawPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 

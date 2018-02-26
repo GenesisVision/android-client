@@ -13,6 +13,7 @@ import io.swagger.client.model.ProfileShortViewModel;
 import io.swagger.client.model.RegisterInvestorViewModel;
 import io.swagger.client.model.TransactionsFilter;
 import io.swagger.client.model.UpdateProfileViewModel;
+import io.swagger.client.model.WalletAddressViewModel;
 import io.swagger.client.model.WalletTransactionsViewModel;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -81,6 +82,18 @@ public interface InvestorApi
 	@GET("api/investor/dashboard")
 	Observable<InvestorDashboard> apiInvestorDashboardGet(
 			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Cancel investment request
+	 *
+	 * @param requestId     (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("api/investor/investments/cancelInvestmentRequest")
+	Observable<Void> apiInvestorInvestmentsCancelInvestmentRequestPost(
+			@retrofit2.http.Query("requestId") UUID requestId, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
@@ -176,13 +189,13 @@ public interface InvestorApi
 	);
 
 	/**
-	 * Deposit
+	 * Get eth address for GVT depositing
 	 *
 	 * @param authorization JWT access token (required)
-	 * @return Call&lt;Void&gt;
+	 * @return Call&lt;WalletAddressViewModel&gt;
 	 */
-	@POST("api/investor/wallet/deposit")
-	Observable<Void> apiInvestorWalletDepositPost(
+	@GET("api/investor/wallet/address")
+	Observable<WalletAddressViewModel> apiInvestorWalletAddressGet(
 			@retrofit2.http.Header("Authorization") String authorization
 	);
 
@@ -199,17 +212,6 @@ public interface InvestorApi
 	@POST("api/investor/wallet/transactions")
 	Observable<WalletTransactionsViewModel> apiInvestorWalletTransactionsPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body TransactionsFilter filter
-	);
-
-	/**
-	 * Withdraw
-	 *
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;Void&gt;
-	 */
-	@POST("api/investor/wallet/withdraw")
-	Observable<Void> apiInvestorWalletWithdrawPost(
-			@retrofit2.http.Header("Authorization") String authorization
 	);
 
 }

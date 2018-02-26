@@ -179,7 +179,11 @@ public class WalletTransaction
 
 		INVESTTOPROGRAM("InvestToProgram"),
 
-		WITHDRAWFROMPROGRAM("WithdrawFromProgram");
+		WITHDRAWFROMPROGRAM("WithdrawFromProgram"),
+
+		PROFITFROMPROGRAM("ProfitFromProgram"),
+
+		CANCELINVESTMENTREQUEST("CancelInvestmentRequest");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {

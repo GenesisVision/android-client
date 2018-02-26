@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import io.swagger.client.model.BrokersFilter;
 import io.swagger.client.model.BrokersViewModel;
+import io.swagger.client.model.Invest;
 import io.swagger.client.model.InvestmentProgramViewModel;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.NewInvestmentRequest;
@@ -13,6 +14,7 @@ import io.swagger.client.model.ProfileShortViewModel;
 import io.swagger.client.model.RegisterManagerViewModel;
 import io.swagger.client.model.TransactionsFilter;
 import io.swagger.client.model.UpdateProfileViewModel;
+import io.swagger.client.model.WalletAddressViewModel;
 import io.swagger.client.model.WalletTransactionsViewModel;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -102,6 +104,18 @@ public interface ManagerApi
 	);
 
 	/**
+	 * Cancel investment request
+	 *
+	 * @param requestId     (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("api/manager/investment/cancelInvestmentRequest")
+	Observable<Void> apiManagerInvestmentCancelInvestmentRequestPost(
+			@retrofit2.http.Query("requestId") UUID requestId, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
 	 * Close existing investment program
 	 *
 	 * @param investmentProgramId (required)
@@ -122,6 +136,36 @@ public interface ManagerApi
 	@GET("api/manager/investment")
 	Observable<InvestmentProgramViewModel> apiManagerInvestmentGet(
 			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId
+	);
+
+	/**
+	 * Manager deposit in his own investment program
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/manager/investment/invest")
+	Observable<Void> apiManagerInvestmentInvestPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body Invest model
+	);
+
+	/**
+	 * Manager withdrawal from his own investment program
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/manager/investment/withdraw")
+	Observable<Void> apiManagerInvestmentWithdrawPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body Invest model
 	);
 
 	/**
@@ -173,13 +217,13 @@ public interface ManagerApi
 	);
 
 	/**
-	 * Deposit
+	 * Get eth address for GVT depositing
 	 *
 	 * @param authorization JWT access token (required)
-	 * @return Call&lt;Void&gt;
+	 * @return Call&lt;WalletAddressViewModel&gt;
 	 */
-	@POST("api/manager/wallet/deposit")
-	Observable<Void> apiManagerWalletDepositPost(
+	@GET("api/manager/wallet/address")
+	Observable<WalletAddressViewModel> apiManagerWalletAddressGet(
 			@retrofit2.http.Header("Authorization") String authorization
 	);
 
@@ -196,17 +240,6 @@ public interface ManagerApi
 	@POST("api/manager/wallet/transactions")
 	Observable<WalletTransactionsViewModel> apiManagerWalletTransactionsPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body TransactionsFilter filter
-	);
-
-	/**
-	 * Withdraw
-	 *
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;Void&gt;
-	 */
-	@POST("api/manager/wallet/withdraw")
-	Observable<Void> apiManagerWalletWithdrawPost(
-			@retrofit2.http.Header("Authorization") String authorization
 	);
 
 }

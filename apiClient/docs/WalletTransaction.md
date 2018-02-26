@@ -19,6 +19,8 @@ WITHDRAW | &quot;Withdraw&quot;
 OPENPROGRAM | &quot;OpenProgram&quot;
 INVESTTOPROGRAM | &quot;InvestToProgram&quot;
 WITHDRAWFROMPROGRAM | &quot;WithdrawFromProgram&quot;
+PROFITFROMPROGRAM | &quot;ProfitFromProgram&quot;
+CANCELINVESTMENTREQUEST | &quot;CancelInvestmentRequest&quot;
 
 
 

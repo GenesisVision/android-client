@@ -25,6 +25,7 @@ Name | Value
 ---- | -----
 NEW | &quot;New&quot;
 EXECUTED | &quot;Executed&quot;
+CANCELLED | &quot;Cancelled&quot;
 
 
 
