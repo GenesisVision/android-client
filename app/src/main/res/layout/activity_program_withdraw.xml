@@ -67,11 +67,13 @@
                 android:layout_centerInParent="true"
                 android:layout_margin="8dp"
                 android:hint="@string/zero"
+                android:lines="1"
+                android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/colorFontMedium"
                 android:textSize="52sp"
                 android:textStyle="bold"
-                tools:text="0"/>
+                tools:text="12345678"/>
 
             <View
                 android:layout_width="match_parent"
@@ -99,32 +101,6 @@
                 android:textSize="18sp"/>
 
         </RelativeLayout>
-
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_margin="8dp"-->
-        <!--android:text="@string/or"-->
-        <!--android:textSize="16sp"/>-->
-
-        <!--<RelativeLayout-->
-        <!--android:id="@+id/button_withdraw_all"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="@dimen/button_height"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_margin="8dp"-->
-        <!--android:background="@drawable/button_primary"-->
-        <!--android:padding="8dp">-->
-
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:text="@string/withdraw_all"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:textSize="16sp"/>-->
-
-        <!--</RelativeLayout>-->
 
     </LinearLayout>
 

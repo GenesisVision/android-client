@@ -3,6 +3,7 @@ package vision.genesis.clientapp.ui;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -16,7 +17,6 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnLongClick;
 import vision.genesis.clientapp.R;
 
 /**
@@ -42,6 +42,8 @@ public class NumericKeyboardView extends RelativeLayout
 	private static final float ANIM_SCALE_TO = 1.2f;
 
 	private static final int ANIM_DURATION = 300;
+
+	private static final int LONG_CLICK_DURATION = 400;
 
 	@BindView(R.id.button_one)
 	public View buttonOne;
@@ -83,6 +85,10 @@ public class NumericKeyboardView extends RelativeLayout
 	public ImageView backspaceImage;
 
 	private InputListener listener;
+
+	private Handler longClickHandler = new Handler();
+
+	private Runnable longClickRunnable = this::onLongBackspaceButton;
 
 	public NumericKeyboardView(Context context) {
 		super(context);
@@ -161,8 +167,7 @@ public class NumericKeyboardView extends RelativeLayout
 			listener.onBackspace();
 	}
 
-	@OnLongClick(R.id.button_backspace)
-	public boolean onLongBackspaceButton() {
+	private boolean onLongBackspaceButton() {
 		if (listener != null)
 			listener.onLongBackspace();
 		return false;
@@ -177,10 +182,11 @@ public class NumericKeyboardView extends RelativeLayout
 
 		ButterKnife.bind(this);
 
-		setAnimations();
+		setNumbersAnimations();
+		setBackspaceAnimations();
 	}
 
-	private void setAnimations() {
+	private void setNumbersAnimations() {
 		OnTouchListener onTouchListener = (view, event) -> {
 			if (event.getAction() == MotionEvent.ACTION_DOWN) {
 				playDownAnimation(view);
@@ -205,7 +211,25 @@ public class NumericKeyboardView extends RelativeLayout
 		buttonNine.setOnTouchListener(onTouchListener);
 		buttonZero.setOnTouchListener(onTouchListener);
 		buttonDecimal.setOnTouchListener(onTouchListener);
-		buttonBackspace.setOnTouchListener(onTouchListener);
+	}
+
+	private void setBackspaceAnimations() {
+		OnTouchListener onBackspaceTouchListener = (view, event) -> {
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+				longClickHandler.postDelayed(longClickRunnable, LONG_CLICK_DURATION);
+				playDownAnimation(view);
+				return true;
+			}
+			else if (event.getAction() == MotionEvent.ACTION_UP) {
+				longClickHandler.removeCallbacks(longClickRunnable);
+				playUpAnimation(view);
+				view.performClick();
+				return true;
+			}
+			return false;
+		};
+
+		buttonBackspace.setOnTouchListener(onBackspaceTouchListener);
 	}
 
 	private void playDownAnimation(View view) {
