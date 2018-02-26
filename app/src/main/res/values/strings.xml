@@ -14,10 +14,10 @@
     <string name="sign_up">Sign up</string>
     <string name="email_verification_text">We sent a verification link to the email you specified.\n\nPlease follow this link to complete the registration.</string>
     <string name="ok">OK</string>
-    <string name="profit">PROFIT</string>
-    <string name="weeks">WEEKS</string>
-    <string name="trades">TRADES</string>
-    <string name="deposit">DEPOSIT</string>
+    <string name="profit">Profit</string>
+    <string name="period">Period</string>
+    <string name="trades">Trades</string>
+    <string name="deposit">Deposit</string>
     <string name="traders">Traders</string>
     <string name="filters">Filters</string>
     <string name="you_have">You have</string>
@@ -94,4 +94,9 @@
     <string name="zero">0</string>
     <string name="decimal">.</string>
     <string name="available">Available</string>
+    <string name="this_is_your_gvt_address">This is your GVT wallet address:</string>
+    <string name="copy">Copy</string>
+    <string name="for_depositing_just_send">For depositing just send the desired amount of GVT to this address. Or use the QR code below:</string>
+    <string name="address_copied">Copied to the clipboard</string>
+    <string name="cannot_copy">Cannot copy</string>
 </resources>

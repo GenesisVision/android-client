@@ -116,7 +116,7 @@
                 <TextView
                     android:id="@+id/text_period_title"
                     style="@style/item_investment_program_footer_title"
-                    android:text="@string/weeks"/>
+                    android:text="@string/period"/>
 
             </LinearLayout>
 

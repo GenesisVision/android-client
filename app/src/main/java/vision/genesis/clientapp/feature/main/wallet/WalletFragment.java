@@ -21,6 +21,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -58,6 +59,11 @@ public class WalletFragment extends BaseFragment implements WalletView
 	WalletPresenter walletPresenter;
 
 	private TransactionsListAdapter transactionsListAdapter;
+
+	@OnClick(R.id.button_deposit)
+	public void onDepositButtonClicked() {
+		walletPresenter.onDepositButtonClicked();
+	}
 
 	@Nullable
 	@Override

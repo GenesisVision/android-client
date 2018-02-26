@@ -26,4 +26,6 @@ public interface MainView extends MvpView
 	void showTradersFilters();
 
 	void showInvestmentProgramDetails(InvestmentProgram program);
+
+	void showDepositWallet();
 }

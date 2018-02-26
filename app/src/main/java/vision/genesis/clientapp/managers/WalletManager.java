@@ -9,6 +9,7 @@ import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
 import io.swagger.client.model.ProfileShortViewModel;
 import io.swagger.client.model.TransactionsFilter;
+import io.swagger.client.model.WalletAddressViewModel;
 import io.swagger.client.model.WalletTransactionsViewModel;
 import rx.Observable;
 import rx.schedulers.Schedulers;
@@ -74,6 +75,12 @@ public class WalletManager
 
 	public Observable<WalletTransactionsViewModel> getMockTransactions(TransactionsFilter filter) {
 		return Observable.just(MockWalletTransactionUtil.getTransactionsModel(filter)).delay(500, TimeUnit.MILLISECONDS);
+	}
+
+	public Observable<WalletAddressViewModel> getWalletAddress() {
+		return BuildConfig.FLAVOR.equals("investor")
+				? investorApi.apiInvestorWalletAddressGet(AuthManager.token.getValue())
+				: managerApi.apiManagerWalletAddressGet(AuthManager.token.getValue());
 	}
 
 	@Subscribe

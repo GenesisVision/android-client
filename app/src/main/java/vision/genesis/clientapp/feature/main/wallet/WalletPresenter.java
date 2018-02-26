@@ -5,6 +5,8 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,6 +20,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.WalletManager;
+import vision.genesis.clientapp.model.events.ShowDepositWalletActivityEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -66,6 +69,10 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 
 	void onResume() {
 		updateBalance();
+	}
+
+	void onDepositButtonClicked() {
+		EventBus.getDefault().post(new ShowDepositWalletActivityEvent());
 	}
 
 	void onSwipeRefresh() {
