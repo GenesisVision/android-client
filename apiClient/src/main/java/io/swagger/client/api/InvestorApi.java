@@ -11,7 +11,6 @@ import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.OpenTradesViewModel;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.ProfilePublicViewModel;
-import io.swagger.client.model.ProfileShortViewModel;
 import io.swagger.client.model.RegisterInvestorViewModel;
 import io.swagger.client.model.TradesFilter;
 import io.swagger.client.model.TradesViewModel;
@@ -20,6 +19,7 @@ import io.swagger.client.model.UpdateProfileViewModel;
 import io.swagger.client.model.WalletAddressViewModel;
 import io.swagger.client.model.WalletTransactionsViewModel;
 import io.swagger.client.model.WalletWithdrawRequestModel;
+import io.swagger.client.model.WalletsViewModel;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -147,13 +147,13 @@ public interface InvestorApi
 	 *
 	 * @param authorization JWT access token (required)
 	 * @param model         (optional)
-	 * @return Call&lt;ProfileShortViewModel&gt;
+	 * @return Call&lt;WalletsViewModel&gt;
 	 */
 	@Headers({
 			"Content-Type:application/json"
 	})
 	@POST("api/investor/investmentPrograms/invest")
-	Observable<ProfileShortViewModel> apiInvestorInvestmentProgramsInvestPost(
+	Observable<WalletsViewModel> apiInvestorInvestmentProgramsInvestPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body Invest model
 	);
 
@@ -198,17 +198,6 @@ public interface InvestorApi
 	);
 
 	/**
-	 * Get short profile
-	 *
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;ProfileShortViewModel&gt;
-	 */
-	@GET("api/investor/profile")
-	Observable<ProfileShortViewModel> apiInvestorProfileGet(
-			@retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
 	 * Get public profile
 	 *
 	 * @param userId (required)
@@ -246,6 +235,17 @@ public interface InvestorApi
 	);
 
 	/**
+	 * Get user wallets
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;WalletsViewModel&gt;
+	 */
+	@GET("api/investor/wallet")
+	Observable<WalletsViewModel> apiInvestorWalletGet(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
 	 * Get user wallet transactions
 	 *
 	 * @param authorization JWT access token (required)
@@ -270,8 +270,8 @@ public interface InvestorApi
 	@Headers({
 			"Content-Type:application/json"
 	})
-	@POST("api/investor/wallet/withdrawrequest")
-	Observable<Void> apiInvestorWalletWithdrawrequestPost(
+	@POST("api/investor/wallet/withdrawRequest")
+	Observable<Void> apiInvestorWalletWithdrawRequestPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body WalletWithdrawRequestModel request
 	);
 

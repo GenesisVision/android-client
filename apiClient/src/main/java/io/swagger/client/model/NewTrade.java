@@ -42,6 +42,9 @@ public class NewTrade
 	@SerializedName("direction")
 	private DirectionEnum direction = null;
 
+	@SerializedName("entry")
+	private EntryEnum entry = null;
+
 	@SerializedName("symbol")
 	private String symbol = null;
 
@@ -112,6 +115,25 @@ public class NewTrade
 
 	public void setDirection(DirectionEnum direction) {
 		this.direction = direction;
+	}
+
+	public NewTrade entry(EntryEnum entry) {
+		this.entry = entry;
+		return this;
+	}
+
+	/**
+	 * Get entry
+	 *
+	 * @return entry
+	 **/
+	@ApiModelProperty(value = "")
+	public EntryEnum getEntry() {
+		return entry;
+	}
+
+	public void setEntry(EntryEnum entry) {
+		this.entry = entry;
 	}
 
 	public NewTrade symbol(String symbol) {
@@ -221,6 +243,7 @@ public class NewTrade
 		return Objects.equals(this.tradeAccountId, newTrade.tradeAccountId) &&
 				Objects.equals(this.ticket, newTrade.ticket) &&
 				Objects.equals(this.direction, newTrade.direction) &&
+				Objects.equals(this.entry, newTrade.entry) &&
 				Objects.equals(this.symbol, newTrade.symbol) &&
 				Objects.equals(this.price, newTrade.price) &&
 				Objects.equals(this.profit, newTrade.profit) &&
@@ -230,7 +253,7 @@ public class NewTrade
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(tradeAccountId, ticket, direction, symbol, price, profit, volume, date);
+		return Objects.hash(tradeAccountId, ticket, direction, entry, symbol, price, profit, volume, date);
 	}
 
 	@Override
@@ -241,6 +264,7 @@ public class NewTrade
 		sb.append("    tradeAccountId: ").append(toIndentedString(tradeAccountId)).append("\n");
 		sb.append("    ticket: ").append(toIndentedString(ticket)).append("\n");
 		sb.append("    direction: ").append(toIndentedString(direction)).append("\n");
+		sb.append("    entry: ").append(toIndentedString(entry)).append("\n");
 		sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
 		sb.append("    price: ").append(toIndentedString(price)).append("\n");
 		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
@@ -260,6 +284,7 @@ public class NewTrade
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
+
 
 	/**
 	 * Gets or Sets direction
@@ -306,6 +331,59 @@ public class NewTrade
 			public DirectionEnum read(final JsonReader jsonReader) throws IOException {
 				String value = jsonReader.nextString();
 				return DirectionEnum.fromValue(String.valueOf(value));
+			}
+		}
+	}
+
+	/**
+	 * Gets or Sets entry
+	 */
+	@JsonAdapter(EntryEnum.Adapter.class)
+	public enum EntryEnum
+	{
+		IN("In"),
+
+		OUT("Out"),
+
+		INOUT("InOut"),
+
+		OUTBY("OutBy");
+
+		public static EntryEnum fromValue(String text) {
+			for (EntryEnum b : EntryEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		EntryEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<EntryEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final EntryEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public EntryEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return EntryEnum.fromValue(String.valueOf(value));
 			}
 		}
 	}

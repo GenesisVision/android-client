@@ -2,7 +2,7 @@ package vision.genesis.clientapp.feature.main;
 
 import com.arellomobile.mvp.MvpView;
 
-import vision.genesis.clientapp.model.InvestmentProgram;
+import io.swagger.client.model.InvestmentProgram;
 
 /**
  * GenesisVision

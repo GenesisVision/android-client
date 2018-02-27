@@ -1,20 +1,17 @@
 package vision.genesis.clientapp.managers;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
 import io.swagger.client.model.Invest;
+import io.swagger.client.model.InvestmentProgramViewModel;
+import io.swagger.client.model.InvestmentProgramsFilter;
 import io.swagger.client.model.InvestmentProgramsViewModel;
-import io.swagger.client.model.InvestmentsFilter;
 import io.swagger.client.model.InvestorDashboard;
-import io.swagger.client.model.ProfileShortViewModel;
+import io.swagger.client.model.WalletsViewModel;
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
-import vision.genesis.clientapp.model.InvestmentProgram;
-import vision.genesis.clientapp.utils.MockProfitChartDataUtil;
 
 /**
  * GenesisVision
@@ -23,7 +20,7 @@ import vision.genesis.clientapp.utils.MockProfitChartDataUtil;
 
 public class InvestManager
 {
-	public BehaviorSubject<InvestmentsFilter> filterSubject = BehaviorSubject.create();
+	public BehaviorSubject<InvestmentProgramsFilter> filterSubject = BehaviorSubject.create();
 
 	private InvestorApi investorApi;
 
@@ -33,39 +30,43 @@ public class InvestManager
 		this.investorApi = investorApi;
 		this.managerApi = managerApi;
 
-		filterSubject.onNext(new InvestmentsFilter());
+		filterSubject.onNext(new InvestmentProgramsFilter());
 	}
 
-	public InvestmentsFilter getFilter() {
+	public InvestmentProgramsFilter getFilter() {
 		return filterSubject.getValue();
 	}
 
-	public void setFilter(InvestmentsFilter filter) {
+	public void setFilter(InvestmentProgramsFilter filter) {
 		filterSubject.onNext(filter);
 	}
 
-	public Observable<InvestmentProgramsViewModel> getTradersList(InvestmentsFilter filter) {
-		return investorApi.apiInvestorInvestmentsPost(filter);
+	public Observable<InvestmentProgramsViewModel> getTradersList(InvestmentProgramsFilter filter) {
+		return investorApi.apiInvestorInvestmentProgramsPost(filter);
 	}
 
-	public List<InvestmentProgram> parseInvestmentProgramsModel(InvestmentProgramsViewModel model) {
-		List<InvestmentProgram> investmentPrograms = new ArrayList<>();
-		for (io.swagger.client.model.InvestmentProgram program : model.getInvestments()) {
-			InvestmentProgram investmentProgram = new InvestmentProgram(program);
-			investmentProgram.chartData = MockProfitChartDataUtil.getEntries();
-			investmentPrograms.add(investmentProgram);
-		}
-		return investmentPrograms;
-	}
+//	public List<InvestmentProgram> parseInvestmentProgramsModel(InvestmentProgramsViewModel model) {
+//		List<InvestmentProgram> investmentPrograms = new ArrayList<>();
+//		for (io.swagger.client.model.InvestmentProgram program : model.getInvestments()) {
+//			InvestmentProgram investmentProgram = new InvestmentProgram(program);
+//			investmentProgram.chartData = MockProfitChartDataUtil.getEntries();
+//			investmentPrograms.add(investmentProgram);
+//		}
+//		return investmentPrograms;
+//	}
 
-	public Observable<ProfileShortViewModel> invest(UUID programId, double amount) {
+	public Observable<WalletsViewModel> invest(UUID programId, double amount) {
 		Invest model = new Invest();
 		model.setInvestmentProgramId(programId);
 		model.setAmount(amount);
-		return investorApi.apiInvestorInvestmentsInvestPost(AuthManager.token.getValue(), model);
+		return investorApi.apiInvestorInvestmentProgramsInvestPost(AuthManager.token.getValue(), model);
 	}
 
 	public Observable<InvestorDashboard> getInvestments() {
 		return investorApi.apiInvestorDashboardGet(AuthManager.token.getValue());
+	}
+
+	public Observable<InvestmentProgramViewModel> getInvestmentProgramDetails(UUID programId) {
+		return investorApi.apiInvestorInvestmentProgramGet(programId);
 	}
 }

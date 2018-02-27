@@ -6,7 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
-import vision.genesis.clientapp.model.InvestmentProgram;
+import io.swagger.client.model.InvestmentProgram;
 
 
 /**

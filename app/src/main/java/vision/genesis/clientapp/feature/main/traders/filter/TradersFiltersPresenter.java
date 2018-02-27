@@ -7,7 +7,7 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.InvestmentsFilter;
+import io.swagger.client.model.InvestmentProgramsFilter;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.model.FilterSortingOption;
@@ -26,7 +26,7 @@ public class TradersFiltersPresenter extends MvpPresenter<TradersFiltersView>
 	@Inject
 	public InvestManager investManager;
 
-	private InvestmentsFilter filter;
+	private InvestmentProgramsFilter filter;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -52,7 +52,7 @@ public class TradersFiltersPresenter extends MvpPresenter<TradersFiltersView>
 	}
 
 	void onClearClicked() {
-		filter = new InvestmentsFilter();
+		filter = new InvestmentProgramsFilter();
 		investManager.setFilter(filter);
 		onBackClicked();
 	}

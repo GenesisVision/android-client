@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.InvestmentsFilter;
+import io.swagger.client.model.InvestmentProgramsFilter;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.model.FilterSortingOption;
@@ -111,7 +111,7 @@ public class TradersFiltersActivity extends BaseSwipeBackActivity implements Tra
 	}
 
 	@Override
-	public void setFilterData(InvestmentsFilter filter) {
+	public void setFilterData(InvestmentProgramsFilter filter) {
 		int index = 0;
 		for (FilterSortingOption sortingOption : sortingOptions) {
 			if (sortingOption.option.equals(filter.getSorting())) {

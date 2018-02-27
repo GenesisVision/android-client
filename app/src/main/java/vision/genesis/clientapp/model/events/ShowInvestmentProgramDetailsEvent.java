@@ -1,7 +1,6 @@
 package vision.genesis.clientapp.model.events;
 
-
-import vision.genesis.clientapp.model.InvestmentProgram;
+import io.swagger.client.model.InvestmentProgram;
 
 /**
  * GenesisVision

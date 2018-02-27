@@ -12,15 +12,15 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.InvestmentProgram;
+import io.swagger.client.model.InvestmentProgramsFilter;
 import io.swagger.client.model.InvestmentProgramsViewModel;
-import io.swagger.client.model.InvestmentsFilter;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.InvestManager;
-import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.model.events.ShowFiltersEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -48,7 +48,7 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 
 	private int skip = 0;
 
-	private InvestmentsFilter filter;
+	private InvestmentProgramsFilter filter;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -96,7 +96,7 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 						});
 	}
 
-	private void filterUpdatedHandler(InvestmentsFilter investmentsFilter) {
+	private void filterUpdatedHandler(InvestmentProgramsFilter investmentsFilter) {
 		filter = investmentsFilter;
 		filter.setSkip(0);
 		filter.setTake(TAKE);
@@ -124,7 +124,8 @@ public class TradersPresenter extends MvpPresenter<TradersView>
 
 		getTradersSubscription.unsubscribe();
 
-		List<InvestmentProgram> programs = investManager.parseInvestmentProgramsModel(model);
+//		List<InvestmentProgram> programs = investManager.parseInvestmentProgramsModel(model);
+		List<InvestmentProgram> programs = model.getInvestmentPrograms();
 
 		if (programs.size() == 0) {
 			if (skip == 0)

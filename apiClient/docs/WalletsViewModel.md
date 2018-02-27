@@ -1,10 +1,10 @@
 
-# UploadResult
+# WalletsViewModel
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | [**UUID**](UUID.md) |  |  [optional]
+**wallets** | [**List&lt;WalletViewModel&gt;**](WalletViewModel.md) |  |  [optional]
 
 
 

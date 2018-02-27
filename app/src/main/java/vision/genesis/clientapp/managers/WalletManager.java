@@ -7,10 +7,10 @@ import java.util.concurrent.TimeUnit;
 
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
-import io.swagger.client.model.ProfileShortViewModel;
 import io.swagger.client.model.TransactionsFilter;
 import io.swagger.client.model.WalletAddressViewModel;
 import io.swagger.client.model.WalletTransactionsViewModel;
+import io.swagger.client.model.WalletsViewModel;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
@@ -46,25 +46,25 @@ public class WalletManager
 	}
 
 	private void updateBalance() {
-		getProfileShortApiObservable()
+		getWalletsApiObservable()
 				.observeOn(Schedulers.io())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleGetProfileShortResponse,
 						this::handleGetProfileShortError);
 	}
 
-	private void handleGetProfileShortResponse(ProfileShortViewModel model) {
-		balanceBehaviorSubject.onNext(model.getBalance());
+	private void handleGetProfileShortResponse(WalletsViewModel model) {
+		balanceBehaviorSubject.onNext(model.getWallets().get(0).getAmount());
 	}
 
 	private void handleGetProfileShortError(Throwable error) {
 //		balanceBehaviorSubject.onError(error);
 	}
 
-	private Observable<ProfileShortViewModel> getProfileShortApiObservable() {
+	private Observable<WalletsViewModel> getWalletsApiObservable() {
 		return BuildConfig.FLAVOR.equals("investor")
-				? investorApi.apiInvestorProfileGet(AuthManager.token.getValue())
-				: managerApi.apiManagerProfileGet(AuthManager.token.getValue());
+				? investorApi.apiInvestorWalletGet(AuthManager.token.getValue())
+				: managerApi.apiManagerWalletGet(AuthManager.token.getValue());
 	}
 
 	public Observable<WalletTransactionsViewModel> getTransactions(TransactionsFilter filter) {

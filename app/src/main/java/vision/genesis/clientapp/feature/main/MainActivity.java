@@ -21,6 +21,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.InvestmentProgram;
 import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.NavigatorHolder;
 import ru.terrakok.cicerone.Router;
@@ -40,7 +41,6 @@ import vision.genesis.clientapp.feature.main.traders.filter.TradersFiltersActivi
 import vision.genesis.clientapp.feature.main.wallet.WalletFragment;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
-import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
 
 /**

@@ -15,8 +15,6 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -29,9 +27,6 @@ public class InvestmentProgramViewModel
 {
 	@SerializedName("investmentProgram")
 	private InvestmentProgramDetails investmentProgram = null;
-
-	@SerializedName("statistic")
-	private List<InvestmentProgramStatistic> statistic = null;
 
 	public InvestmentProgramViewModel investmentProgram(InvestmentProgramDetails investmentProgram) {
 		this.investmentProgram = investmentProgram;
@@ -52,33 +47,6 @@ public class InvestmentProgramViewModel
 		this.investmentProgram = investmentProgram;
 	}
 
-	public InvestmentProgramViewModel statistic(List<InvestmentProgramStatistic> statistic) {
-		this.statistic = statistic;
-		return this;
-	}
-
-	public InvestmentProgramViewModel addStatisticItem(InvestmentProgramStatistic statisticItem) {
-		if (this.statistic == null) {
-			this.statistic = new ArrayList<InvestmentProgramStatistic>();
-		}
-		this.statistic.add(statisticItem);
-		return this;
-	}
-
-	/**
-	 * Get statistic
-	 *
-	 * @return statistic
-	 **/
-	@ApiModelProperty(value = "")
-	public List<InvestmentProgramStatistic> getStatistic() {
-		return statistic;
-	}
-
-	public void setStatistic(List<InvestmentProgramStatistic> statistic) {
-		this.statistic = statistic;
-	}
-
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -89,13 +57,12 @@ public class InvestmentProgramViewModel
 			return false;
 		}
 		InvestmentProgramViewModel investmentProgramViewModel = (InvestmentProgramViewModel) o;
-		return Objects.equals(this.investmentProgram, investmentProgramViewModel.investmentProgram) &&
-				Objects.equals(this.statistic, investmentProgramViewModel.statistic);
+		return Objects.equals(this.investmentProgram, investmentProgramViewModel.investmentProgram);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(investmentProgram, statistic);
+		return Objects.hash(investmentProgram);
 	}
 
 
@@ -105,7 +72,6 @@ public class InvestmentProgramViewModel
 		sb.append("class InvestmentProgramViewModel {\n");
 
 		sb.append("    investmentProgram: ").append(toIndentedString(investmentProgram)).append("\n");
-		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

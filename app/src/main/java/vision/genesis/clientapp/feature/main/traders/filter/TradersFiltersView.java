@@ -2,7 +2,7 @@ package vision.genesis.clientapp.feature.main.traders.filter;
 
 import com.arellomobile.mvp.MvpView;
 
-import io.swagger.client.model.InvestmentsFilter;
+import io.swagger.client.model.InvestmentProgramsFilter;
 
 /**
  * GenesisVision
@@ -11,7 +11,7 @@ import io.swagger.client.model.InvestmentsFilter;
 
 interface TradersFiltersView extends MvpView
 {
-	void setFilterData(InvestmentsFilter filter);
+	void setFilterData(InvestmentProgramsFilter filter);
 
 	void finishActivity();
 }

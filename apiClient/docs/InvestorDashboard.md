@@ -4,7 +4,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**programs** | [**List&lt;InvestorProgram&gt;**](InvestorProgram.md) |  |  [optional]
+**investmentPrograms** | [**List&lt;InvestmentProgramDashboard&gt;**](InvestmentProgramDashboard.md) |  |  [optional]
+**total** | **Integer** |  |  [optional]
 
 
 

@@ -27,37 +27,37 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class InvestmentProgramsViewModel
 {
-	@SerializedName("investments")
-	private List<InvestmentProgram> investments = null;
+	@SerializedName("investmentPrograms")
+	private List<InvestmentProgram> investmentPrograms = null;
 
 	@SerializedName("total")
 	private Integer total = null;
 
-	public InvestmentProgramsViewModel investments(List<InvestmentProgram> investments) {
-		this.investments = investments;
+	public InvestmentProgramsViewModel investmentPrograms(List<InvestmentProgram> investmentPrograms) {
+		this.investmentPrograms = investmentPrograms;
 		return this;
 	}
 
-	public InvestmentProgramsViewModel addInvestmentsItem(InvestmentProgram investmentsItem) {
-		if (this.investments == null) {
-			this.investments = new ArrayList<InvestmentProgram>();
+	public InvestmentProgramsViewModel addInvestmentProgramsItem(InvestmentProgram investmentProgramsItem) {
+		if (this.investmentPrograms == null) {
+			this.investmentPrograms = new ArrayList<InvestmentProgram>();
 		}
-		this.investments.add(investmentsItem);
+		this.investmentPrograms.add(investmentProgramsItem);
 		return this;
 	}
 
 	/**
-	 * Get investments
+	 * Get investmentPrograms
 	 *
-	 * @return investments
+	 * @return investmentPrograms
 	 **/
 	@ApiModelProperty(value = "")
-	public List<InvestmentProgram> getInvestments() {
-		return investments;
+	public List<InvestmentProgram> getInvestmentPrograms() {
+		return investmentPrograms;
 	}
 
-	public void setInvestments(List<InvestmentProgram> investments) {
-		this.investments = investments;
+	public void setInvestmentPrograms(List<InvestmentProgram> investmentPrograms) {
+		this.investmentPrograms = investmentPrograms;
 	}
 
 	public InvestmentProgramsViewModel total(Integer total) {
@@ -89,13 +89,13 @@ public class InvestmentProgramsViewModel
 			return false;
 		}
 		InvestmentProgramsViewModel investmentProgramsViewModel = (InvestmentProgramsViewModel) o;
-		return Objects.equals(this.investments, investmentProgramsViewModel.investments) &&
+		return Objects.equals(this.investmentPrograms, investmentProgramsViewModel.investmentPrograms) &&
 				Objects.equals(this.total, investmentProgramsViewModel.total);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(investments, total);
+		return Objects.hash(investmentPrograms, total);
 	}
 
 
@@ -104,7 +104,7 @@ public class InvestmentProgramsViewModel
 		StringBuilder sb = new StringBuilder();
 		sb.append("class InvestmentProgramsViewModel {\n");
 
-		sb.append("    investments: ").append(toIndentedString(investments)).append("\n");
+		sb.append("    investmentPrograms: ").append(toIndentedString(investmentPrograms)).append("\n");
 		sb.append("    total: ").append(toIndentedString(total)).append("\n");
 		sb.append("}");
 		return sb.toString();

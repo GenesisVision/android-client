@@ -15,59 +15,46 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * Accrual
+ * WalletsViewModel
  */
 
-public class Accrual
+public class WalletsViewModel
 {
-	@SerializedName("investorId")
-	private UUID investorId = null;
+	@SerializedName("wallets")
+	private List<WalletViewModel> wallets = null;
 
-	@SerializedName("amount")
-	private Double amount = null;
+	public WalletsViewModel wallets(List<WalletViewModel> wallets) {
+		this.wallets = wallets;
+		return this;
+	}
 
-	public Accrual investorId(UUID investorId) {
-		this.investorId = investorId;
+	public WalletsViewModel addWalletsItem(WalletViewModel walletsItem) {
+		if (this.wallets == null) {
+			this.wallets = new ArrayList<WalletViewModel>();
+		}
+		this.wallets.add(walletsItem);
 		return this;
 	}
 
 	/**
-	 * Get investorId
+	 * Get wallets
 	 *
-	 * @return investorId
+	 * @return wallets
 	 **/
 	@ApiModelProperty(value = "")
-	public UUID getInvestorId() {
-		return investorId;
+	public List<WalletViewModel> getWallets() {
+		return wallets;
 	}
 
-	public void setInvestorId(UUID investorId) {
-		this.investorId = investorId;
-	}
-
-	public Accrual amount(Double amount) {
-		this.amount = amount;
-		return this;
-	}
-
-	/**
-	 * Get amount
-	 *
-	 * @return amount
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Double amount) {
-		this.amount = amount;
+	public void setWallets(List<WalletViewModel> wallets) {
+		this.wallets = wallets;
 	}
 
 
@@ -79,24 +66,22 @@ public class Accrual
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		Accrual accrual = (Accrual) o;
-		return Objects.equals(this.investorId, accrual.investorId) &&
-				Objects.equals(this.amount, accrual.amount);
+		WalletsViewModel walletsViewModel = (WalletsViewModel) o;
+		return Objects.equals(this.wallets, walletsViewModel.wallets);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(investorId, amount);
+		return Objects.hash(wallets);
 	}
 
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class Accrual {\n");
+		sb.append("class WalletsViewModel {\n");
 
-		sb.append("    investorId: ").append(toIndentedString(investorId)).append("\n");
-		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+		sb.append("    wallets: ").append(toIndentedString(wallets)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

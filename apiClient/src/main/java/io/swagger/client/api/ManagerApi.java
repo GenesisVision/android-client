@@ -9,13 +9,13 @@ import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.NewInvestmentRequest;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.ProfilePublicViewModel;
-import io.swagger.client.model.ProfileShortViewModel;
 import io.swagger.client.model.RegisterManagerViewModel;
 import io.swagger.client.model.TransactionsFilter;
 import io.swagger.client.model.UpdateProfileViewModel;
 import io.swagger.client.model.WalletAddressViewModel;
 import io.swagger.client.model.WalletTransactionsViewModel;
 import io.swagger.client.model.WalletWithdrawRequestModel;
+import io.swagger.client.model.WalletsViewModel;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -169,17 +169,6 @@ public interface ManagerApi
 	);
 
 	/**
-	 * Get short profile
-	 *
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;ProfileShortViewModel&gt;
-	 */
-	@GET("api/manager/profile")
-	Observable<ProfileShortViewModel> apiManagerProfileGet(
-			@retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
 	 * Get public profile
 	 *
 	 * @param userId (required)
@@ -217,6 +206,17 @@ public interface ManagerApi
 	);
 
 	/**
+	 * Get user wallets
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;WalletsViewModel&gt;
+	 */
+	@GET("api/manager/wallet")
+	Observable<WalletsViewModel> apiManagerWalletGet(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
 	 * Get user wallet transactions
 	 *
 	 * @param authorization JWT access token (required)
@@ -241,8 +241,8 @@ public interface ManagerApi
 	@Headers({
 			"Content-Type:application/json"
 	})
-	@POST("api/manager/wallet/withdrawrequest")
-	Observable<Void> apiManagerWalletWithdrawrequestPost(
+	@POST("api/manager/wallet/withdrawRequest")
+	Observable<Void> apiManagerWalletWithdrawRequestPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body WalletWithdrawRequestModel request
 	);
 

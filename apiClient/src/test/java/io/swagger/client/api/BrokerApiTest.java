@@ -6,8 +6,11 @@ import org.junit.Test;
 import java.util.UUID;
 
 import io.swagger.client.ApiClient;
+import io.swagger.client.model.InvestmentProgramAccrual;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.NewManager;
+import io.swagger.client.model.NewOpenTradesEvent;
+import io.swagger.client.model.NewTradeEvent;
 
 /**
  * API tests for BrokerApi
@@ -31,7 +34,7 @@ public class BrokerApiTest
 		NewManager request = null;
 		// UUID response = api.apiBrokerAccountCreatePost(authorization, request);
 
-		// TODO: test validations
+        // TODO: test validations
 	}
 
 	/**
@@ -55,52 +58,126 @@ public class BrokerApiTest
 
 		// TODO: test validations
 	}
+    /**
+     * Get broker initial data
+     *
+     *
+     */
+    @Test
+    public void apiBrokerInitDataGetTest() {
+	    UUID brokerTradeServerId = null;
+	    String authorization = null;
+	    // BrokerInitData response = api.apiBrokerInitDataGet(brokerTradeServerId, authorization);
+
+	    // TODO: test validations
+    }
 
 	/**
-	 * Get broker initial data
+	 * Accrue investors&#39; profits
+	 *
+	 *
 	 */
 	@Test
-	public void apiBrokerInitDataGetTest() {
-		UUID brokerTradeServerId = null;
+	public void apiBrokerPeriodAccrueProfitsPostTest() {
 		String authorization = null;
-		// BrokerInitData response = api.apiBrokerInitDataGet(brokerTradeServerId, authorization);
+		InvestmentProgramAccrual accrual = null;
+		// UUID response = api.apiBrokerPeriodAccrueProfitsPost(authorization, accrual);
 
 		// TODO: test validations
 	}
 
 	/**
 	 * Close investment period
+	 *
+	 *
 	 */
 	@Test
-	public void apiBrokerPeriodCloseGetTest() {
+	public void apiBrokerPeriodClosePostTest() {
 		UUID investmentProgramId = null;
 		String authorization = null;
-		// Void response = api.apiBrokerPeriodCloseGet(investmentProgramId, authorization);
+		// Void response = api.apiBrokerPeriodClosePost(investmentProgramId, authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Process investment requests
+	 *
+	 *
+	 */
+	@Test
+	public void apiBrokerPeriodProcessInvestmentRequestsPostTest() {
+		UUID investmentProgramId = null;
+		String authorization = null;
+		// UUID response = api.apiBrokerPeriodProcessInvestmentRequestsPost(investmentProgramId, authorization);
 
 		// TODO: test validations
 	}
 
 	/**
 	 * Set investment period start balance
+	 *
+	 *
 	 */
 	@Test
-	public void apiBrokerPeriodSetStartBalanceGetTest() {
+	public void apiBrokerPeriodSetStartBalancePostTest() {
 		UUID periodId = null;
 		Double balance = null;
 		String authorization = null;
-		// Void response = api.apiBrokerPeriodSetStartBalanceGet(periodId, balance, authorization);
+		// Void response = api.apiBrokerPeriodSetStartBalancePost(periodId, balance, authorization);
 
 		// TODO: test validations
 	}
 
 	/**
 	 * Get data for closing investment period
+	 *
+	 *
 	 */
 	@Test
 	public void apiBrokerPeriodlosingDataGetTest() {
 		UUID investmentProgramId = null;
 		String authorization = null;
 		// ClosePeriodData response = api.apiBrokerPeriodlosingDataGet(investmentProgramId, authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * New trade event
+	 *
+	 *
+	 */
+	@Test
+	public void apiBrokerTradesNewPostTest() {
+		String authorization = null;
+		NewTradeEvent tradeEvent = null;
+		// Void response = api.apiBrokerTradesNewPost(authorization, tradeEvent);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * New open trades event
+	 */
+	@Test
+	public void apiBrokerTradesOpenTradesNewPostTest() {
+		String authorization = null;
+		NewOpenTradesEvent trades = null;
+		// Void response = api.apiBrokerTradesOpenTradesNewPost(authorization, trades);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Update manager token initial price/total supply after loss
+	 */
+	@Test
+	public void apiBrokerTradesReevaluateManagerTokenPostTest() {
+		UUID investmentProgramId = null;
+		Double investorLossShare = null;
+		String authorization = null;
+		// Void response = api.apiBrokerTradesReevaluateManagerTokenPost(investmentProgramId, investorLossShare, authorization);
 
 		// TODO: test validations
 	}

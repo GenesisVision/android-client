@@ -19,7 +19,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.InvestorProgram;
+import io.swagger.client.model.InvestmentProgramDashboard;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.ui.ToolbarView;
@@ -104,7 +104,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	}
 
 	@Override
-	public void setInvestorPrograms(List<InvestorProgram> programs) {
+	public void setInvestorPrograms(List<InvestmentProgramDashboard> programs) {
 		dashboardAdapter.setInvestorPrograms(programs);
 	}
 

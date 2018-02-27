@@ -6,7 +6,8 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
-import io.swagger.client.model.InvestorProgram;
+import io.swagger.client.model.InvestmentProgramDashboard;
+
 
 /**
  * GenesisVision
@@ -15,7 +16,7 @@ import io.swagger.client.model.InvestorProgram;
 
 interface DashboardView extends MvpView
 {
-	void setInvestorPrograms(List<InvestorProgram> programs);
+	void setInvestorPrograms(List<InvestmentProgramDashboard> programs);
 
 	void setRefreshing(boolean refreshing);
 

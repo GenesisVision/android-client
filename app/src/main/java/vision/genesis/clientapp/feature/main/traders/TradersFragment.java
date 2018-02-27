@@ -22,9 +22,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.InvestmentProgram;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.ui.ToolbarView;
 
 /**

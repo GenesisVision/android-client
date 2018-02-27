@@ -27,34 +27,56 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class InvestorDashboard
 {
-	@SerializedName("programs")
-	private List<InvestorProgram> programs = null;
+	@SerializedName("investmentPrograms")
+	private List<InvestmentProgramDashboard> investmentPrograms = null;
 
-	public InvestorDashboard programs(List<InvestorProgram> programs) {
-		this.programs = programs;
+	@SerializedName("total")
+	private Integer total = null;
+
+	public InvestorDashboard investmentPrograms(List<InvestmentProgramDashboard> investmentPrograms) {
+		this.investmentPrograms = investmentPrograms;
 		return this;
 	}
 
-	public InvestorDashboard addProgramsItem(InvestorProgram programsItem) {
-		if (this.programs == null) {
-			this.programs = new ArrayList<InvestorProgram>();
+	public InvestorDashboard addInvestmentProgramsItem(InvestmentProgramDashboard investmentProgramsItem) {
+		if (this.investmentPrograms == null) {
+			this.investmentPrograms = new ArrayList<InvestmentProgramDashboard>();
 		}
-		this.programs.add(programsItem);
+		this.investmentPrograms.add(investmentProgramsItem);
 		return this;
 	}
 
 	/**
-	 * Get programs
+	 * Get investmentPrograms
 	 *
-	 * @return programs
+	 * @return investmentPrograms
 	 **/
 	@ApiModelProperty(value = "")
-	public List<InvestorProgram> getPrograms() {
-		return programs;
+	public List<InvestmentProgramDashboard> getInvestmentPrograms() {
+		return investmentPrograms;
 	}
 
-	public void setPrograms(List<InvestorProgram> programs) {
-		this.programs = programs;
+	public void setInvestmentPrograms(List<InvestmentProgramDashboard> investmentPrograms) {
+		this.investmentPrograms = investmentPrograms;
+	}
+
+	public InvestorDashboard total(Integer total) {
+		this.total = total;
+		return this;
+	}
+
+	/**
+	 * Get total
+	 *
+	 * @return total
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getTotal() {
+		return total;
+	}
+
+	public void setTotal(Integer total) {
+		this.total = total;
 	}
 
 
@@ -67,12 +89,13 @@ public class InvestorDashboard
 			return false;
 		}
 		InvestorDashboard investorDashboard = (InvestorDashboard) o;
-		return Objects.equals(this.programs, investorDashboard.programs);
+		return Objects.equals(this.investmentPrograms, investorDashboard.investmentPrograms) &&
+				Objects.equals(this.total, investorDashboard.total);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(programs);
+		return Objects.hash(investmentPrograms, total);
 	}
 
 
@@ -81,7 +104,8 @@ public class InvestorDashboard
 		StringBuilder sb = new StringBuilder();
 		sb.append("class InvestorDashboard {\n");
 
-		sb.append("    programs: ").append(toIndentedString(programs)).append("\n");
+		sb.append("    investmentPrograms: ").append(toIndentedString(investmentPrograms)).append("\n");
+		sb.append("    total: ").append(toIndentedString(total)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

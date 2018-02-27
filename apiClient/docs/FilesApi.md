@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 <a name="apiFilesGetGet"></a>
 # **apiFilesGetGet**
-> Void apiFilesGetGet(fileName)
+> Void apiFilesGetGet(id)
 
 Download file
 
@@ -22,9 +22,9 @@ Download file
 
 
 FilesApi apiInstance = new FilesApi();
-String fileName = "fileName_example"; // String | 
+String id = "id_example"; // String | 
 try {
-    Void result = apiInstance.apiFilesGetGet(fileName);
+    Void result = apiInstance.apiFilesGetGet(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FilesApi#apiFilesGetGet");
@@ -36,7 +36,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **fileName** | **String**|  | [optional]
+ **id** | **String**|  | [optional]
 
 ### Return type
 
@@ -65,7 +65,7 @@ Upload file
 
 
 FilesApi apiInstance = new FilesApi();
-File uploadedFile = new File("/path/to/file.txt"); // File | Upload File
+String uploadedFile = "uploadedFile_example"; // String | 
 try {
     UploadResult result = apiInstance.apiFilesUploadPost(uploadedFile);
     System.out.println(result);
@@ -79,7 +79,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **uploadedFile** | **File**| Upload File |
+ **uploadedFile** | **String**|  | [optional]
 
 ### Return type
 
@@ -91,6 +91,6 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 

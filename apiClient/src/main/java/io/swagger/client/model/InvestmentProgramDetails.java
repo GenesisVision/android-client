@@ -13,10 +13,15 @@
 
 package io.swagger.client.model;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
 import org.joda.time.DateTime;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -34,6 +39,9 @@ public class InvestmentProgramDetails
 	@SerializedName("title")
 	private String title = null;
 
+	@SerializedName("description")
+	private String description = null;
+
 	@SerializedName("level")
 	private Integer level = null;
 
@@ -42,6 +50,9 @@ public class InvestmentProgramDetails
 
 	@SerializedName("balance")
 	private Double balance = null;
+
+	@SerializedName("currency")
+	private CurrencyEnum currency = null;
 
 	@SerializedName("investedTokens")
 	private Integer investedTokens = null;
@@ -72,6 +83,9 @@ public class InvestmentProgramDetails
 
 	@SerializedName("feeManagement")
 	private Double feeManagement = null;
+
+	@SerializedName("manager")
+	private ProfilePublicViewModel manager = null;
 
 	@SerializedName("isPending")
 	private Boolean isPending = null;
@@ -121,6 +135,25 @@ public class InvestmentProgramDetails
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public InvestmentProgramDetails description(String description) {
+		this.description = description;
+		return this;
+	}
+
+	/**
+	 * Get description
+	 *
+	 * @return description
+	 **/
+	@ApiModelProperty(value = "")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public InvestmentProgramDetails level(Integer level) {
@@ -178,6 +211,25 @@ public class InvestmentProgramDetails
 
 	public void setBalance(Double balance) {
 		this.balance = balance;
+	}
+
+	public InvestmentProgramDetails currency(CurrencyEnum currency) {
+		this.currency = currency;
+		return this;
+	}
+
+	/**
+	 * Get currency
+	 *
+	 * @return currency
+	 **/
+	@ApiModelProperty(value = "")
+	public CurrencyEnum getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(CurrencyEnum currency) {
+		this.currency = currency;
 	}
 
 	public InvestmentProgramDetails investedTokens(Integer investedTokens) {
@@ -370,6 +422,25 @@ public class InvestmentProgramDetails
 		this.feeManagement = feeManagement;
 	}
 
+	public InvestmentProgramDetails manager(ProfilePublicViewModel manager) {
+		this.manager = manager;
+		return this;
+	}
+
+	/**
+	 * Get manager
+	 *
+	 * @return manager
+	 **/
+	@ApiModelProperty(value = "")
+	public ProfilePublicViewModel getManager() {
+		return manager;
+	}
+
+	public void setManager(ProfilePublicViewModel manager) {
+		this.manager = manager;
+	}
+
 	public InvestmentProgramDetails isPending(Boolean isPending) {
 		this.isPending = isPending;
 		return this;
@@ -446,7 +517,6 @@ public class InvestmentProgramDetails
 		this.isWithdrawEnable = isWithdrawEnable;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -458,9 +528,11 @@ public class InvestmentProgramDetails
 		InvestmentProgramDetails investmentProgramDetails = (InvestmentProgramDetails) o;
 		return Objects.equals(this.id, investmentProgramDetails.id) &&
 				Objects.equals(this.title, investmentProgramDetails.title) &&
+				Objects.equals(this.description, investmentProgramDetails.description) &&
 				Objects.equals(this.level, investmentProgramDetails.level) &&
 				Objects.equals(this.logo, investmentProgramDetails.logo) &&
 				Objects.equals(this.balance, investmentProgramDetails.balance) &&
+				Objects.equals(this.currency, investmentProgramDetails.currency) &&
 				Objects.equals(this.investedTokens, investmentProgramDetails.investedTokens) &&
 				Objects.equals(this.tradesCount, investmentProgramDetails.tradesCount) &&
 				Objects.equals(this.investorsCount, investmentProgramDetails.investorsCount) &&
@@ -471,6 +543,7 @@ public class InvestmentProgramDetails
 				Objects.equals(this.availableInvestment, investmentProgramDetails.availableInvestment) &&
 				Objects.equals(this.feeSuccess, investmentProgramDetails.feeSuccess) &&
 				Objects.equals(this.feeManagement, investmentProgramDetails.feeManagement) &&
+				Objects.equals(this.manager, investmentProgramDetails.manager) &&
 				Objects.equals(this.isPending, investmentProgramDetails.isPending) &&
 				Objects.equals(this.isHistoryEnable, investmentProgramDetails.isHistoryEnable) &&
 				Objects.equals(this.isInvestEnable, investmentProgramDetails.isInvestEnable) &&
@@ -479,9 +552,8 @@ public class InvestmentProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, level, logo, balance, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, isPending, isHistoryEnable, isInvestEnable, isWithdrawEnable);
+		return Objects.hash(id, title, description, level, logo, balance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, manager, isPending, isHistoryEnable, isInvestEnable, isWithdrawEnable);
 	}
-
 
 	@Override
 	public String toString() {
@@ -490,9 +562,11 @@ public class InvestmentProgramDetails
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    investedTokens: ").append(toIndentedString(investedTokens)).append("\n");
 		sb.append("    tradesCount: ").append(toIndentedString(tradesCount)).append("\n");
 		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
@@ -503,6 +577,7 @@ public class InvestmentProgramDetails
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
 		sb.append("    feeSuccess: ").append(toIndentedString(feeSuccess)).append("\n");
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
+		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    isPending: ").append(toIndentedString(isPending)).append("\n");
 		sb.append("    isHistoryEnable: ").append(toIndentedString(isHistoryEnable)).append("\n");
 		sb.append("    isInvestEnable: ").append(toIndentedString(isInvestEnable)).append("\n");
@@ -520,6 +595,63 @@ public class InvestmentProgramDetails
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	/**
+	 * Gets or Sets currency
+	 */
+	@JsonAdapter(CurrencyEnum.Adapter.class)
+	public enum CurrencyEnum
+	{
+		UNDEFINED("Undefined"),
+
+		GVT("GVT"),
+
+		ETH("ETH"),
+
+		BTC("BTC"),
+
+		USD("USD"),
+
+		EUR("EUR");
+
+		public static CurrencyEnum fromValue(String text) {
+			for (CurrencyEnum b : CurrencyEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		CurrencyEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<CurrencyEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return CurrencyEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 }

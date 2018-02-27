@@ -4,6 +4,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | [**UUID**](UUID.md) |  |  [optional]
+**email** | **String** |  |  [optional]
 **firstName** | **String** |  |  [optional]
 **middleName** | **String** |  |  [optional]
 **lastName** | **String** |  |  [optional]
@@ -17,9 +19,6 @@ Name | Type | Description | Notes
 **gender** | **Boolean** |  |  [optional]
 **avatar** | **String** |  |  [optional]
 **userName** | **String** |  |  [optional]
-**id** | [**UUID**](UUID.md) |  |  [optional]
-**email** | **String** |  |  [optional]
-**wallets** | [**List&lt;WalletViewModel&gt;**](WalletViewModel.md) |  |  [optional]
 
 
 

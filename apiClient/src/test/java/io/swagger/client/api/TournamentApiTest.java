@@ -31,7 +31,7 @@ public class TournamentApiTest
 		UUID participantId = null;
 		// ParticipantViewModel response = api.apiTournamentParticipantGet(participantId);
 
-		// TODO: test validations
+        // TODO: test validations
 	}
 
 	/**
@@ -54,20 +54,23 @@ public class TournamentApiTest
 
 		// TODO: test validations
 	}
+    /**
+     * Participants list
+     *
+     *
+     */
+    @Test
+    public void apiTournamentParticipantsPostTest() {
+	    ParticipantsFilter filter = null;
+	    // ParticipantsViewModel response = api.apiTournamentParticipantsPost(filter);
 
-	/**
-	 * Participants list
-	 */
-	@Test
-	public void apiTournamentParticipantsPostTest() {
-		ParticipantsFilter filter = null;
-		// ParticipantsViewModel response = api.apiTournamentParticipantsPost(filter);
-
-		// TODO: test validations
-	}
+	    // TODO: test validations
+    }
 
 	/**
 	 * Registration for the tournament
+	 *
+	 *
 	 */
 	@Test
 	public void apiTournamentRegisterPostTest() {

@@ -8,13 +8,18 @@ import com.arellomobile.mvp.MvpPresenter;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.UUID;
+
 import javax.inject.Inject;
 
+import io.swagger.client.model.InvestmentProgramDetails;
+import io.swagger.client.model.InvestmentProgramViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
+import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 
@@ -32,7 +37,16 @@ public class TraderDetailsPresenter extends MvpPresenter<TraderDetailsView>
 	@Inject
 	public AuthManager authManager;
 
+	@Inject
+	public InvestManager investManager;
+
 	private Subscription userSubscription;
+
+	private Subscription programDetailsSubscription;
+
+	private UUID programId;
+
+	private InvestmentProgramDetails programDetails;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -45,8 +59,49 @@ public class TraderDetailsPresenter extends MvpPresenter<TraderDetailsView>
 		subscribeToUser();
 	}
 
+	@Override
+	public void attachView(TraderDetailsView view) {
+		super.attachView(view);
+
+		if (programId != null)
+			getProgramDetails();
+	}
+
+	@Override
+	public void onDestroy() {
+		if (userSubscription != null)
+			userSubscription.unsubscribe();
+		if (programDetailsSubscription != null)
+			programDetailsSubscription.unsubscribe();
+		super.onDestroy();
+	}
+
+	void setProgramId(UUID programId) {
+		this.programId = programId;
+//		getProgramDetails();
+	}
+
 	void onInvestClicked() {
 		getViewState().showInvestDialog();
+	}
+
+	private void getProgramDetails() {
+		programDetailsSubscription = investManager.getInvestmentProgramDetails(programId)
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.io())
+				.subscribe(this::handleInvestmentProgramDetailsSuccess,
+						this::handleInvestmentProgramDetailsError);
+	}
+
+	private void handleInvestmentProgramDetailsSuccess(InvestmentProgramViewModel model) {
+		programDetailsSubscription.unsubscribe();
+		programDetails = model.getInvestmentProgram();
+		getViewState().setProgram(programDetails);
+	}
+
+	private void handleInvestmentProgramDetailsError(Throwable throwable) {
+		programDetailsSubscription.unsubscribe();
+
 	}
 
 	private void subscribeToUser() {

@@ -13,7 +13,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.swagger.client.model.InvestorProgram;
+import io.swagger.client.model.InvestmentProgramDashboard;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.ui.ManagerAvatarView;
 
@@ -24,7 +24,7 @@ import vision.genesis.clientapp.ui.ManagerAvatarView;
 
 public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.InvestorProgramViewHolder>
 {
-	public List<InvestorProgram> investorPrograms = new ArrayList<>();
+	public List<InvestmentProgramDashboard> investorPrograms = new ArrayList<>();
 
 	@Override
 	public InvestorProgramViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -34,7 +34,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Inve
 
 	@Override
 	public void onBindViewHolder(InvestorProgramViewHolder holder, int position) {
-		holder.setInvestorProgram(investorPrograms.get(position));
+		holder.setInvestmentProgram(investorPrograms.get(position));
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Inve
 		return investorPrograms.size();
 	}
 
-	void setInvestorPrograms(List<InvestorProgram> investorPrograms) {
+	void setInvestorPrograms(List<InvestmentProgramDashboard> investorPrograms) {
 		this.investorPrograms.clear();
 		this.investorPrograms.addAll(investorPrograms);
 		notifyDataSetChanged();
@@ -74,7 +74,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Inve
 		@BindView(R.id.period)
 		public TextView period;
 
-		private InvestorProgram investorProgram;
+		private InvestmentProgramDashboard investmentProgram;
 
 		InvestorProgramViewHolder(View itemView) {
 			super(itemView);
@@ -84,8 +84,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Inve
 //			itemView.setOnClickListener(v -> EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(investmentProgram)));
 		}
 
-		void setInvestorProgram(InvestorProgram investorProgram) {
-			this.investorProgram = investorProgram;
+		void setInvestmentProgram(InvestmentProgramDashboard investmentProgram) {
+			this.investmentProgram = investmentProgram;
 			updateData();
 		}
 

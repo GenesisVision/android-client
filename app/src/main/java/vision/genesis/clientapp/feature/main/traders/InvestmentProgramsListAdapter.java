@@ -14,8 +14,8 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.swagger.client.model.InvestmentProgram;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.ManagerAvatarView;
 import vision.genesis.clientapp.ui.ProfitChartView;
@@ -98,17 +98,17 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 		}
 
 		private void updateData() {
-			avatar.setImageUrl(investmentProgram.logo);
-			avatar.setLevel(investmentProgram.getRating());
-			managerName.setText(investmentProgram.managerName);
-			currency.setText(investmentProgram.currency);
+			avatar.setImageUrl(investmentProgram.getLogo());
+			avatar.setLevel(String.valueOf(investmentProgram.getLevel()));
+//			managerName.setText(investmentProgram.managerName);
+//			currency.setText(investmentProgram.currency);
 
 //			depositText.setText(investmentProgram.getInvestment().);
-			tradesText.setText(String.valueOf(investmentProgram.ordersCount));
-			periodText.setText(String.valueOf(investmentProgram.period));
-			profitText.setText(String.format(Locale.getDefault(), "%.2f%%", investmentProgram.totalProfit));
+			tradesText.setText(String.valueOf(investmentProgram.getTradesCount()));
+			periodText.setText(String.valueOf(investmentProgram.getPeriodDuration()));
+			profitText.setText(String.format(Locale.getDefault(), "%.2f%%", investmentProgram.getProfitAvg()));
 
-			chart.setData(investmentProgram.chartData);
+//			chart.setData(investmentProgram.chartData);
 		}
 	}
 }

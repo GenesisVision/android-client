@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import io.swagger.client.model.InvestmentsFilter;
+import io.swagger.client.model.InvestmentProgramsFilter;
 import vision.genesis.clientapp.R;
 
 /**
@@ -17,27 +17,27 @@ public class FilterSortingOption
 {
 	public static ArrayList<FilterSortingOption> getOptions(Context context) {
 		ArrayList<FilterSortingOption> options = new ArrayList<>();
-		options.add(new FilterSortingOption(context, InvestmentsFilter.SortingEnum.BYPROFITDESC));
-		options.add(new FilterSortingOption(context, InvestmentsFilter.SortingEnum.BYPROFITASC));
-		options.add(new FilterSortingOption(context, InvestmentsFilter.SortingEnum.BYORDERSDESC));
-		options.add(new FilterSortingOption(context, InvestmentsFilter.SortingEnum.BYORDERSASC));
-		options.add(new FilterSortingOption(context, InvestmentsFilter.SortingEnum.BYRATINGDESC));
-		options.add(new FilterSortingOption(context, InvestmentsFilter.SortingEnum.BYRATINGASC));
+		options.add(new FilterSortingOption(context, InvestmentProgramsFilter.SortingEnum.BYPROFITDESC));
+		options.add(new FilterSortingOption(context, InvestmentProgramsFilter.SortingEnum.BYPROFITASC));
+		options.add(new FilterSortingOption(context, InvestmentProgramsFilter.SortingEnum.BYORDERSDESC));
+		options.add(new FilterSortingOption(context, InvestmentProgramsFilter.SortingEnum.BYORDERSASC));
+		options.add(new FilterSortingOption(context, InvestmentProgramsFilter.SortingEnum.BYRATINGDESC));
+		options.add(new FilterSortingOption(context, InvestmentProgramsFilter.SortingEnum.BYRATINGASC));
 		return options;
 	}
 
-	public InvestmentsFilter.SortingEnum option;
+	public InvestmentProgramsFilter.SortingEnum option;
 
 	private Context context;
 
-	private FilterSortingOption(Context context, InvestmentsFilter.SortingEnum option) {
+	private FilterSortingOption(Context context, InvestmentProgramsFilter.SortingEnum option) {
 		this.context = context;
 		this.option = option;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		return obj instanceof InvestmentsFilter.SortingEnum && obj.equals(this.option);
+		return obj instanceof InvestmentProgramsFilter.SortingEnum && obj.equals(this.option);
 	}
 
 	@Override

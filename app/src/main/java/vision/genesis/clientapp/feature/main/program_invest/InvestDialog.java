@@ -18,7 +18,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.ProfileShortViewModel;
+import io.swagger.client.model.InvestmentProgramDetails;
+import io.swagger.client.model.WalletsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -26,7 +27,6 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.managers.WalletManager;
-import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.model.api.Error;
 import vision.genesis.clientapp.model.api.ErrorResponse;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
@@ -64,7 +64,7 @@ public class InvestDialog extends AppCompatDialog
 
 	private double amount = 0;
 
-	private InvestmentProgram program;
+	private InvestmentProgramDetails program;
 
 	public InvestDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
 		super(context, cancelable, cancelListener);
@@ -72,7 +72,7 @@ public class InvestDialog extends AppCompatDialog
 		createDialog();
 	}
 
-	public void setProgram(InvestmentProgram program) {
+	public void setProgram(InvestmentProgramDetails program) {
 		this.program = program;
 	}
 
@@ -113,14 +113,14 @@ public class InvestDialog extends AppCompatDialog
 	}
 
 	private void sendInvestRequest() {
-		investSubscription = investManager.invest(program.id, amount)
+		investSubscription = investManager.invest(program.getId(), amount)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleInvestSuccess,
 						this::handleInvestError);
 	}
 
-	private void handleInvestSuccess(ProfileShortViewModel model) {
+	private void handleInvestSuccess(WalletsViewModel model) {
 		investSubscription.unsubscribe();
 		walletManager.getBalance();
 

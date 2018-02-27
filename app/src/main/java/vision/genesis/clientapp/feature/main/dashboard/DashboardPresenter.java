@@ -10,8 +10,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.InvestmentProgramDashboard;
 import io.swagger.client.model.InvestorDashboard;
-import io.swagger.client.model.InvestorProgram;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -36,7 +36,7 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 
 	private Subscription getInvestmentsSubscription;
 
-	private List<InvestorProgram> investorPrograms = new ArrayList<>();
+	private List<InvestmentProgramDashboard> investmentPrograms = new ArrayList<>();
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -73,13 +73,13 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);
 
-		List<InvestorProgram> programs = dashboard.getPrograms();
+		List<InvestmentProgramDashboard> programs = dashboard.getInvestmentPrograms();
 
 		if (programs.size() == 0) {
 			getViewState().showEmptyList();
 		}
 		else {
-			investorPrograms = programs;
+			investmentPrograms = programs;
 			getViewState().setInvestorPrograms(programs);
 		}
 	}
@@ -90,7 +90,7 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		if (ApiErrorResolver.isNetworkError(throwable)) {
-			if (investorPrograms.size() == 0)
+			if (investmentPrograms.size() == 0)
 				getViewState().showNoInternet(true);
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}

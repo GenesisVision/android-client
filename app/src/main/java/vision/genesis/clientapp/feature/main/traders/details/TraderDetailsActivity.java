@@ -12,16 +12,18 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Locale;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.InvestmentProgram;
+import io.swagger.client.model.InvestmentProgramDetails;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.program_invest.InvestDialog;
 import vision.genesis.clientapp.feature.main.program_withdraw.WithdrawProgramActivity;
-import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.model.ProgramWithdrawalRequest;
 import vision.genesis.clientapp.ui.ManagerAvatarView;
 import vision.genesis.clientapp.ui.ProfitChartView;
@@ -38,7 +40,7 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 
 	public static void startWith(Activity activity, InvestmentProgram program) {
 		Intent intent = new Intent(activity, TraderDetailsActivity.class);
-		intent.putExtra(EXTRA_PROGRAM, program);
+		intent.putExtra(EXTRA_PROGRAM, program.getId());
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
@@ -82,7 +84,7 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 	@InjectPresenter
 	TraderDetailsPresenter traderDetailsPresenter;
 
-	private InvestmentProgram program;
+	private InvestmentProgramDetails programDetails;
 
 	private InvestDialog investDialog;
 
@@ -94,8 +96,8 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 	@OnClick(R.id.button_withdraw)
 	public void onWithdrawClicked() {
 		ProgramWithdrawalRequest withdrawalRequest = new ProgramWithdrawalRequest();
-		withdrawalRequest.programId = program.id;
-		withdrawalRequest.programName = program.title;
+		withdrawalRequest.programId = programDetails.getId();
+		withdrawalRequest.programName = programDetails.getTitle();
 		WithdrawProgramActivity.startWith(this, withdrawalRequest);
 	}
 
@@ -110,8 +112,8 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 		initToolbar();
 
 		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
-			program = getIntent().getExtras().getParcelable(EXTRA_PROGRAM);
-			setData();
+			UUID programId = (UUID) getIntent().getExtras().getSerializable(EXTRA_PROGRAM);
+			traderDetailsPresenter.setProgramId(programId);
 		}
 		else {
 			Timber.e("Passed empty program to TraderDetailsActivity");
@@ -124,33 +126,28 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, this::onBackPressed);
 	}
 
-	private void setData() {
-		avatar.setImageUrl(program.logo);
-		avatar.setLevel(program.getRating());
+	@Override
+	public void onBackPressed() {
+		finishActivity();
+	}
 
-		managerName.setText(program.managerName);
-		description.setText(program.description);
+	@Override
+	public void setProgram(InvestmentProgramDetails programDetails) {
+		avatar.setImageUrl(programDetails.getLogo());
+		avatar.setLevel(String.valueOf(programDetails.getLevel()));
 
-		chart.setData(program.chartData);
+		managerName.setText(programDetails.getManager().getUsername());
+		description.setText(programDetails.getDescription());
 
-		tradesText.setText(String.valueOf(program.ordersCount));
-		periodText.setText(String.valueOf(program.period));
-		profitText.setText(String.format(Locale.getDefault(), "%.2f%%", program.totalProfit));
+//		chart.setData(program.chartData);
+
+		tradesText.setText(String.valueOf(programDetails.getTradesCount()));
+		periodText.setText(String.valueOf(programDetails.getPeriodDuration()));
+		profitText.setText(String.format(Locale.getDefault(), "%.2f%%", programDetails.getProfitAvg()));
 
 
 		DecimalFormat df = new DecimalFormat("0.####");
 		df.setRoundingMode(RoundingMode.DOWN);
-		minAmountText.setText(program.investMinAmount != null
-				? df.format(program.investMinAmount)
-				: "-");
-		maxAmountText.setText(program.investMaxAmount != null
-				? df.format(program.investMaxAmount)
-				: "-");
-	}
-
-	@Override
-	public void onBackPressed() {
-		finishActivity();
 	}
 
 	@Override
@@ -158,7 +155,7 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 		if (investDialog != null)
 			investDialog.cancel();
 		investDialog = new InvestDialog(this, true, null);
-		investDialog.setProgram(program);
+		investDialog.setProgram(programDetails);
 		investDialog.show();
 	}
 

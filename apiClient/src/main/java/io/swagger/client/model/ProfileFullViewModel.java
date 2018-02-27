@@ -17,8 +17,6 @@ import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -30,6 +28,12 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ProfileFullViewModel
 {
+	@SerializedName("id")
+	private UUID id = null;
+
+	@SerializedName("email")
+	private String email = null;
+
 	@SerializedName("firstName")
 	private String firstName = null;
 
@@ -69,14 +73,43 @@ public class ProfileFullViewModel
 	@SerializedName("userName")
 	private String userName = null;
 
-	@SerializedName("id")
-	private UUID id = null;
+	public ProfileFullViewModel id(UUID id) {
+		this.id = id;
+		return this;
+	}
 
-	@SerializedName("email")
-	private String email = null;
+	/**
+	 * Get id
+	 *
+	 * @return id
+	 **/
+	@ApiModelProperty(value = "")
+	public UUID getId() {
+		return id;
+	}
 
-	@SerializedName("wallets")
-	private List<WalletViewModel> wallets = null;
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public ProfileFullViewModel email(String email) {
+		this.email = email;
+		return this;
+	}
+
+	/**
+	 * Get email
+	 *
+	 * @return email
+	 **/
+	@ApiModelProperty(value = "")
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public ProfileFullViewModel firstName(String firstName) {
 		this.firstName = firstName;
@@ -325,71 +358,6 @@ public class ProfileFullViewModel
 		this.userName = userName;
 	}
 
-	public ProfileFullViewModel id(UUID id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@ApiModelProperty(value = "")
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public ProfileFullViewModel email(String email) {
-		this.email = email;
-		return this;
-	}
-
-	/**
-	 * Get email
-	 *
-	 * @return email
-	 **/
-	@ApiModelProperty(value = "")
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public ProfileFullViewModel wallets(List<WalletViewModel> wallets) {
-		this.wallets = wallets;
-		return this;
-	}
-
-	public ProfileFullViewModel addWalletsItem(WalletViewModel walletsItem) {
-		if (this.wallets == null) {
-			this.wallets = new ArrayList<WalletViewModel>();
-		}
-		this.wallets.add(walletsItem);
-		return this;
-	}
-
-	/**
-	 * Get wallets
-	 *
-	 * @return wallets
-	 **/
-	@ApiModelProperty(value = "")
-	public List<WalletViewModel> getWallets() {
-		return wallets;
-	}
-
-	public void setWallets(List<WalletViewModel> wallets) {
-		this.wallets = wallets;
-	}
-
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -400,7 +368,9 @@ public class ProfileFullViewModel
 			return false;
 		}
 		ProfileFullViewModel profileFullViewModel = (ProfileFullViewModel) o;
-		return Objects.equals(this.firstName, profileFullViewModel.firstName) &&
+		return Objects.equals(this.id, profileFullViewModel.id) &&
+				Objects.equals(this.email, profileFullViewModel.email) &&
+				Objects.equals(this.firstName, profileFullViewModel.firstName) &&
 				Objects.equals(this.middleName, profileFullViewModel.middleName) &&
 				Objects.equals(this.lastName, profileFullViewModel.lastName) &&
 				Objects.equals(this.documentType, profileFullViewModel.documentType) &&
@@ -412,15 +382,12 @@ public class ProfileFullViewModel
 				Objects.equals(this.birthday, profileFullViewModel.birthday) &&
 				Objects.equals(this.gender, profileFullViewModel.gender) &&
 				Objects.equals(this.avatar, profileFullViewModel.avatar) &&
-				Objects.equals(this.userName, profileFullViewModel.userName) &&
-				Objects.equals(this.id, profileFullViewModel.id) &&
-				Objects.equals(this.email, profileFullViewModel.email) &&
-				Objects.equals(this.wallets, profileFullViewModel.wallets);
+				Objects.equals(this.userName, profileFullViewModel.userName);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(firstName, middleName, lastName, documentType, documentNumber, country, city, address, phone, birthday, gender, avatar, userName, id, email, wallets);
+		return Objects.hash(id, email, firstName, middleName, lastName, documentType, documentNumber, country, city, address, phone, birthday, gender, avatar, userName);
 	}
 
 
@@ -429,6 +396,8 @@ public class ProfileFullViewModel
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ProfileFullViewModel {\n");
 
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    email: ").append(toIndentedString(email)).append("\n");
 		sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
 		sb.append("    middleName: ").append(toIndentedString(middleName)).append("\n");
 		sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
@@ -442,9 +411,6 @@ public class ProfileFullViewModel
 		sb.append("    gender: ").append(toIndentedString(gender)).append("\n");
 		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
 		sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    email: ").append(toIndentedString(email)).append("\n");
-		sb.append("    wallets: ").append(toIndentedString(wallets)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

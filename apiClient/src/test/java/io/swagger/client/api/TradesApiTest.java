@@ -26,6 +26,6 @@ public class TradesApiTest
 		String ipfsHashId = null;
 		// TradesViewModel response = api.apiTradesIpfsHistoryGet(ipfsHashId);
 
-		// TODO: test validations
+        // TODO: test validations
 	}
 }

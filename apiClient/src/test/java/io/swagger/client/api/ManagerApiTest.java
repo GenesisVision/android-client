@@ -7,11 +7,13 @@ import java.util.UUID;
 
 import io.swagger.client.ApiClient;
 import io.swagger.client.model.BrokersFilter;
+import io.swagger.client.model.Invest;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.NewInvestmentRequest;
-import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.RegisterManagerViewModel;
 import io.swagger.client.model.TransactionsFilter;
+import io.swagger.client.model.UpdateProfileViewModel;
+import io.swagger.client.model.WalletWithdrawRequestModel;
 
 /**
  * API tests for ManagerApi
@@ -35,7 +37,7 @@ public class ManagerApiTest
 		NewInvestmentRequest request = null;
 		// UUID response = api.apiManagerAccountNewInvestmentRequestPost(authorization, request);
 
-		// TODO: test validations
+        // TODO: test validations
 	}
 
 	/**
@@ -60,20 +62,23 @@ public class ManagerApiTest
 
 		// TODO: test validations
 	}
+    /**
+     * Register new manager
+     *
+     *
+     */
+    @Test
+    public void apiManagerAuthSignUpPostTest() {
+	    RegisterManagerViewModel model = null;
+	    // Void response = api.apiManagerAuthSignUpPost(model);
 
-	/**
-	 * Register new manager
-	 */
-	@Test
-	public void apiManagerAuthSignUpPostTest() {
-		RegisterManagerViewModel model = null;
-		// Void response = api.apiManagerAuthSignUpPost(model);
-
-		// TODO: test validations
-	}
+	    // TODO: test validations
+    }
 
 	/**
 	 * Update auth token
+	 *
+	 *
 	 */
 	@Test
 	public void apiManagerAuthUpdateTokenGetTest() {
@@ -85,6 +90,8 @@ public class ManagerApiTest
 
 	/**
 	 * Get all enabled trade servers
+	 *
+	 *
 	 */
 	@Test
 	public void apiManagerBrokersPostTest() {
@@ -95,30 +102,65 @@ public class ManagerApiTest
 	}
 
 	/**
-	 * Close existing investment program
+	 * Cancel investment request
+	 *
+	 *
 	 */
 	@Test
-	public void apiManagerInvestmentCloseGetTest() {
-		UUID investmentProgramId = null;
+	public void apiManagerInvestmentCancelInvestmentRequestPostTest() {
+		UUID requestId = null;
 		String authorization = null;
-		// Void response = api.apiManagerInvestmentCloseGet(investmentProgramId, authorization);
+		// Void response = api.apiManagerInvestmentCancelInvestmentRequestPost(requestId, authorization);
 
 		// TODO: test validations
 	}
 
 	/**
-	 * Get investment program with statistic by id
+	 * Close existing investment program
+	 *
+	 *
 	 */
 	@Test
-	public void apiManagerInvestmentGetTest() {
+	public void apiManagerInvestmentClosePostTest() {
 		UUID investmentProgramId = null;
-		// InvestmentProgramViewModel response = api.apiManagerInvestmentGet(investmentProgramId);
+		String authorization = null;
+		// Void response = api.apiManagerInvestmentClosePost(investmentProgramId, authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Manager deposit in his own investment program
+	 *
+	 *
+	 */
+	@Test
+	public void apiManagerInvestmentInvestPostTest() {
+		String authorization = null;
+		Invest model = null;
+		// Void response = api.apiManagerInvestmentInvestPost(authorization, model);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Manager withdrawal from his own investment program
+	 *
+	 *
+	 */
+	@Test
+	public void apiManagerInvestmentWithdrawPostTest() {
+		String authorization = null;
+		Invest model = null;
+		// Void response = api.apiManagerInvestmentWithdrawPost(authorization, model);
 
 		// TODO: test validations
 	}
 
 	/**
 	 * Get full profile
+	 *
+	 *
 	 */
 	@Test
 	public void apiManagerProfileFullGetTest() {
@@ -129,41 +171,62 @@ public class ManagerApiTest
 	}
 
 	/**
-	 * Get short profile
+	 * Get public profile
+	 *
+	 *
 	 */
 	@Test
-	public void apiManagerProfileGetTest() {
-		String authorization = null;
-		// ProfileShortViewModel response = api.apiManagerProfileGet(authorization);
+	public void apiManagerProfilePublicGetTest() {
+		UUID userId = null;
+		// ProfilePublicViewModel response = api.apiManagerProfilePublicGet(userId);
 
 		// TODO: test validations
 	}
 
 	/**
 	 * Update profile
+	 *
+	 *
 	 */
 	@Test
 	public void apiManagerProfileUpdatePostTest() {
 		String authorization = null;
-		ProfileFullViewModel model = null;
+		UpdateProfileViewModel model = null;
 		// Void response = api.apiManagerProfileUpdatePost(authorization, model);
 
 		// TODO: test validations
 	}
 
 	/**
-	 * Deposit
+	 * Get eth address for GVT depositing
+	 *
+	 *
 	 */
 	@Test
-	public void apiManagerWalletDepositPostTest() {
+	public void apiManagerWalletAddressGetTest() {
 		String authorization = null;
-		// Void response = api.apiManagerWalletDepositPost(authorization);
+		// WalletAddressViewModel response = api.apiManagerWalletAddressGet(authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Get user wallets
+	 *
+	 *
+	 */
+	@Test
+	public void apiManagerWalletGetTest() {
+		String authorization = null;
+		// WalletsViewModel response = api.apiManagerWalletGet(authorization);
 
 		// TODO: test validations
 	}
 
 	/**
 	 * Get user wallet transactions
+	 *
+	 *
 	 */
 	@Test
 	public void apiManagerWalletTransactionsPostTest() {
@@ -175,12 +238,15 @@ public class ManagerApiTest
 	}
 
 	/**
-	 * Withdraw
+	 * Withdraw request
+	 *
+	 *
 	 */
 	@Test
-	public void apiManagerWalletWithdrawPostTest() {
+	public void apiManagerWalletWithdrawRequestPostTest() {
 		String authorization = null;
-		// Void response = api.apiManagerWalletWithdrawPost(authorization);
+		WalletWithdrawRequestModel request = null;
+		// Void response = api.apiManagerWalletWithdrawRequestPost(authorization, request);
 
 		// TODO: test validations
 	}
