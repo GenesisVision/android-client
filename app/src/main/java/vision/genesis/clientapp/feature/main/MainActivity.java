@@ -39,6 +39,7 @@ import vision.genesis.clientapp.feature.main.traders.details.TraderDetailsActivi
 import vision.genesis.clientapp.feature.main.traders.filter.TradersFiltersActivity;
 import vision.genesis.clientapp.feature.main.wallet.WalletFragment;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
+import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
 import vision.genesis.clientapp.model.InvestmentProgram;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
 
@@ -243,6 +244,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Rout
 	@Override
 	public void showInvestmentProgramDetails(InvestmentProgram program) {
 		TraderDetailsActivity.startWith(this, program);
+	}
+
+	@Override
+	public void showWithdrawWallet() {
+		WithdrawWalletActivity.startWith(this);
 	}
 
 	@Override

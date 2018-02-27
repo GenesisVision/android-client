@@ -21,6 +21,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.events.ShowDepositWalletActivityEvent;
+import vision.genesis.clientapp.model.events.ShowWithdrawWalletActivityEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -69,6 +70,10 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 
 	void onResume() {
 		updateBalance();
+	}
+
+	void onWithdrawButtonClicked() {
+		EventBus.getDefault().post(new ShowWithdrawWalletActivityEvent());
 	}
 
 	void onDepositButtonClicked() {

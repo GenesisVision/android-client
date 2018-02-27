@@ -5,6 +5,25 @@
                 android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/button_withdraw"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_margin="8dp"
+        android:background="@drawable/button_primary"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/withdraw"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/button_deposit"
         android:layout_width="wrap_content"
         android:layout_height="40dp"

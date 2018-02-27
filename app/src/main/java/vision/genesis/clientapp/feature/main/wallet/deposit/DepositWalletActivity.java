@@ -72,7 +72,7 @@ public class DepositWalletActivity extends BaseSwipeBackActivity implements Depo
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_deposit_program);
+		setContentView(R.layout.activity_deposit_wallet);
 
 		ButterKnife.bind(this);
 

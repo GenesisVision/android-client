@@ -60,6 +60,11 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 	private TransactionsListAdapter transactionsListAdapter;
 
+	@OnClick(R.id.button_withdraw)
+	public void onWithdrawButtonClicked() {
+		walletPresenter.onWithdrawButtonClicked();
+	}
+
 	@OnClick(R.id.button_deposit)
 	public void onDepositButtonClicked() {
 		walletPresenter.onDepositButtonClicked();

@@ -99,4 +99,11 @@
     <string name="for_depositing_just_send">For depositing just send the desired amount of GVT to this address. Or use the QR code below:</string>
     <string name="address_copied">Copied to the clipboard</string>
     <string name="cannot_copy">Cannot copy</string>
+
+    <string name="enter_desired_amount_withdraw">Enter the desired amount of GVT you would like to withdraw:</string>
+    <string name="enter_wallet_address_withdraw">Enter the wallet address you would like to withdraw to:</string>
+    <string name="or_use_camera_qr_code">Or use your camera to read a QR code:</string>
+    <string name="wallet_address">Wallet address</string>
+    <string name="amount">Amount</string>
+    <string name="double_check_address">Double check the wallet address you entered!\nThis operation cannot be undone!</string>
 </resources>

@@ -23,6 +23,7 @@ import vision.genesis.clientapp.model.events.OnInvestButtonClickedEvent;
 import vision.genesis.clientapp.model.events.ShowDepositWalletActivityEvent;
 import vision.genesis.clientapp.model.events.ShowFiltersEvent;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowWithdrawWalletActivityEvent;
 
 /**
  * GenesisVision
@@ -150,6 +151,11 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(NewInvestmentSuccessEvent event) {
 		showDashboard();
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowWithdrawWalletActivityEvent event) {
+		getViewState().showWithdrawWallet();
 	}
 
 	@Subscribe
