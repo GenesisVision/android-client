@@ -13,8 +13,13 @@
 
 package io.swagger.client.model;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -39,7 +44,7 @@ public class ManagerRequest
 	private String email = null;
 
 	@SerializedName("currency")
-	private String currency = null;
+	private CurrencyEnum currency = null;
 
 	@SerializedName("password")
 	private String password = null;
@@ -120,7 +125,7 @@ public class ManagerRequest
 		this.email = email;
 	}
 
-	public ManagerRequest currency(String currency) {
+	public ManagerRequest currency(CurrencyEnum currency) {
 		this.currency = currency;
 		return this;
 	}
@@ -131,11 +136,11 @@ public class ManagerRequest
 	 * @return currency
 	 **/
 	@ApiModelProperty(value = "")
-	public String getCurrency() {
+	public CurrencyEnum getCurrency() {
 		return currency;
 	}
 
-	public void setCurrency(String currency) {
+	public void setCurrency(CurrencyEnum currency) {
 		this.currency = currency;
 	}
 
@@ -158,7 +163,6 @@ public class ManagerRequest
 		this.password = password;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -180,7 +184,6 @@ public class ManagerRequest
 	public int hashCode() {
 		return Objects.hash(userId, requestId, name, email, currency, password);
 	}
-
 
 	@Override
 	public String toString() {
@@ -206,6 +209,63 @@ public class ManagerRequest
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	/**
+	 * Gets or Sets currency
+	 */
+	@JsonAdapter(CurrencyEnum.Adapter.class)
+	public enum CurrencyEnum
+	{
+		UNDEFINED("Undefined"),
+
+		GVT("GVT"),
+
+		ETH("ETH"),
+
+		BTC("BTC"),
+
+		USD("USD"),
+
+		EUR("EUR");
+
+		public static CurrencyEnum fromValue(String text) {
+			for (CurrencyEnum b : CurrencyEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		CurrencyEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<CurrencyEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return CurrencyEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 }

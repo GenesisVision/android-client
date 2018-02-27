@@ -3,18 +3,23 @@ package io.swagger.client.api;
 import java.util.UUID;
 
 import io.swagger.client.model.Invest;
+import io.swagger.client.model.InvestmentProgramViewModel;
+import io.swagger.client.model.InvestmentProgramsFilter;
 import io.swagger.client.model.InvestmentProgramsViewModel;
-import io.swagger.client.model.InvestmentsFilter;
 import io.swagger.client.model.InvestorDashboard;
 import io.swagger.client.model.LoginViewModel;
+import io.swagger.client.model.OpenTradesViewModel;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.ProfilePublicViewModel;
 import io.swagger.client.model.ProfileShortViewModel;
 import io.swagger.client.model.RegisterInvestorViewModel;
+import io.swagger.client.model.TradesFilter;
+import io.swagger.client.model.TradesViewModel;
 import io.swagger.client.model.TransactionsFilter;
 import io.swagger.client.model.UpdateProfileViewModel;
 import io.swagger.client.model.WalletAddressViewModel;
 import io.swagger.client.model.WalletTransactionsViewModel;
+import io.swagger.client.model.WalletWithdrawRequestModel;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -85,14 +90,55 @@ public interface InvestorApi
 	);
 
 	/**
+	 * Get investment program details by id
+	 *
+	 * @param investmentProgramId (required)
+	 * @return Call&lt;InvestmentProgramViewModel&gt;
+	 */
+	@GET("api/investor/investmentProgram")
+	Observable<InvestmentProgramViewModel> apiInvestorInvestmentProgramGet(
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId
+	);
+
+	/**
+	 * Get manager open trades
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param filter        (optional)
+	 * @return Call&lt;OpenTradesViewModel&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/investor/investmentProgram/openTrades")
+	Observable<OpenTradesViewModel> apiInvestorInvestmentProgramOpenTradesPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body TradesFilter filter
+	);
+
+	/**
+	 * Get manager trade history
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param filter        (optional)
+	 * @return Call&lt;TradesViewModel&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/investor/investmentProgram/trades")
+	Observable<TradesViewModel> apiInvestorInvestmentProgramTradesPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body TradesFilter filter
+	);
+
+	/**
 	 * Cancel investment request
 	 *
 	 * @param requestId     (required)
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;Void&gt;
 	 */
-	@POST("api/investor/investments/cancelInvestmentRequest")
-	Observable<Void> apiInvestorInvestmentsCancelInvestmentRequestPost(
+	@POST("api/investor/investmentPrograms/cancelInvestmentRequest")
+	Observable<Void> apiInvestorInvestmentProgramsCancelInvestmentRequestPost(
 			@retrofit2.http.Query("requestId") UUID requestId, @retrofit2.http.Header("Authorization") String authorization
 	);
 
@@ -106,13 +152,13 @@ public interface InvestorApi
 	@Headers({
 			"Content-Type:application/json"
 	})
-	@POST("api/investor/investments/invest")
-	Observable<ProfileShortViewModel> apiInvestorInvestmentsInvestPost(
+	@POST("api/investor/investmentPrograms/invest")
+	Observable<ProfileShortViewModel> apiInvestorInvestmentProgramsInvestPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body Invest model
 	);
 
 	/**
-	 * Get investments by filter
+	 * Get public investment program&#39;s list
 	 *
 	 * @param filter (optional)
 	 * @return Call&lt;InvestmentProgramsViewModel&gt;
@@ -120,9 +166,9 @@ public interface InvestorApi
 	@Headers({
 			"Content-Type:application/json"
 	})
-	@POST("api/investor/investments")
-	Observable<InvestmentProgramsViewModel> apiInvestorInvestmentsPost(
-			@retrofit2.http.Body InvestmentsFilter filter
+	@POST("api/investor/investmentPrograms")
+	Observable<InvestmentProgramsViewModel> apiInvestorInvestmentProgramsPost(
+			@retrofit2.http.Body InvestmentProgramsFilter filter
 	);
 
 	/**
@@ -135,8 +181,8 @@ public interface InvestorApi
 	@Headers({
 			"Content-Type:application/json"
 	})
-	@POST("api/investor/investments/withdraw")
-	Observable<Void> apiInvestorInvestmentsWithdrawPost(
+	@POST("api/investor/investmentPrograms/withdraw")
+	Observable<Void> apiInvestorInvestmentProgramsWithdrawPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body Invest model
 	);
 
@@ -212,6 +258,21 @@ public interface InvestorApi
 	@POST("api/investor/wallet/transactions")
 	Observable<WalletTransactionsViewModel> apiInvestorWalletTransactionsPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body TransactionsFilter filter
+	);
+
+	/**
+	 * Withdraw request
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param request       (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/investor/wallet/withdrawrequest")
+	Observable<Void> apiInvestorWalletWithdrawrequestPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body WalletWithdrawRequestModel request
 	);
 
 }

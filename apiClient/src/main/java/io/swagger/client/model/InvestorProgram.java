@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class InvestorProgram
 {
 	@SerializedName("investmentProgram")
-	private InvestmentShort investmentProgram = null;
+	private InvestmentProgramDetails investmentProgram = null;
 
 	@SerializedName("requests")
 	private List<InvestmentRequest> requests = null;
@@ -39,7 +39,7 @@ public class InvestorProgram
 	@SerializedName("totalOut")
 	private Double totalOut = null;
 
-	public InvestorProgram investmentProgram(InvestmentShort investmentProgram) {
+	public InvestorProgram investmentProgram(InvestmentProgramDetails investmentProgram) {
 		this.investmentProgram = investmentProgram;
 		return this;
 	}
@@ -50,11 +50,11 @@ public class InvestorProgram
 	 * @return investmentProgram
 	 **/
 	@ApiModelProperty(value = "")
-	public InvestmentShort getInvestmentProgram() {
+	public InvestmentProgramDetails getInvestmentProgram() {
 		return investmentProgram;
 	}
 
-	public void setInvestmentProgram(InvestmentShort investmentProgram) {
+	public void setInvestmentProgram(InvestmentProgramDetails investmentProgram) {
 		this.investmentProgram = investmentProgram;
 	}
 

@@ -7,6 +7,7 @@ import io.swagger.client.model.ClosePeriodData;
 import io.swagger.client.model.InvestmentProgramAccrual;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.NewManager;
+import io.swagger.client.model.NewOpenTradesEvent;
 import io.swagger.client.model.NewTradeEvent;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -89,8 +90,8 @@ public interface BrokerApi
 	 * @param authorization       JWT access token (required)
 	 * @return Call&lt;Void&gt;
 	 */
-	@GET("api/broker/period/close")
-	Observable<Void> apiBrokerPeriodCloseGet(
+	@POST("api/broker/period/close")
+	Observable<Void> apiBrokerPeriodClosePost(
 			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
 	);
 
@@ -114,8 +115,8 @@ public interface BrokerApi
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;Void&gt;
 	 */
-	@GET("api/broker/period/setStartBalance")
-	Observable<Void> apiBrokerPeriodSetStartBalanceGet(
+	@POST("api/broker/period/setStartBalance")
+	Observable<Void> apiBrokerPeriodSetStartBalancePost(
 			@retrofit2.http.Query("periodId") UUID periodId, @retrofit2.http.Query("balance") Double balance, @retrofit2.http.Header("Authorization") String authorization
 	);
 
@@ -144,6 +145,34 @@ public interface BrokerApi
 	@POST("api/broker/trades/new")
 	Observable<Void> apiBrokerTradesNewPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body NewTradeEvent tradeEvent
+	);
+
+	/**
+	 * New open trades event
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param trades        (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/broker/trades/openTrades/new")
+	Observable<Void> apiBrokerTradesOpenTradesNewPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body NewOpenTradesEvent trades
+	);
+
+	/**
+	 * Update manager token initial price/total supply after loss
+	 *
+	 * @param investmentProgramId (required)
+	 * @param investorLossShare   (required)
+	 * @param authorization       JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("api/broker/trades/reevaluateManagerToken")
+	Observable<Void> apiBrokerTradesReevaluateManagerTokenPost(
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Query("investorLossShare") Double investorLossShare, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 }

@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **dateTo** | [**DateTime**](DateTime.md) |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
 **startBalance** | **Double** |  |  [optional]
+**managerStartBalance** | **Double** |  |  [optional]
+**managerStartShare** | **Double** |  |  [optional]
 **investmentRequest** | [**List&lt;InvestmentRequest&gt;**](InvestmentRequest.md) |  |  [optional]
 
 

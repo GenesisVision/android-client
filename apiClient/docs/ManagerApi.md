@@ -11,8 +11,7 @@ Method | HTTP request | Description
 [**apiManagerAuthUpdateTokenGet**](ManagerApi.md#apiManagerAuthUpdateTokenGet) | **GET** api/manager/auth/updateToken | Update auth token
 [**apiManagerBrokersPost**](ManagerApi.md#apiManagerBrokersPost) | **POST** api/manager/brokers | Get all enabled trade servers
 [**apiManagerInvestmentCancelInvestmentRequestPost**](ManagerApi.md#apiManagerInvestmentCancelInvestmentRequestPost) | **POST** api/manager/investment/cancelInvestmentRequest | Cancel investment request
-[**apiManagerInvestmentCloseGet**](ManagerApi.md#apiManagerInvestmentCloseGet) | **GET** api/manager/investment/close | Close existing investment program
-[**apiManagerInvestmentGet**](ManagerApi.md#apiManagerInvestmentGet) | **GET** api/manager/investment | Get investment program with statistic by id
+[**apiManagerInvestmentClosePost**](ManagerApi.md#apiManagerInvestmentClosePost) | **POST** api/manager/investment/close | Close existing investment program
 [**apiManagerInvestmentInvestPost**](ManagerApi.md#apiManagerInvestmentInvestPost) | **POST** api/manager/investment/invest | Manager deposit in his own investment program
 [**apiManagerInvestmentWithdrawPost**](ManagerApi.md#apiManagerInvestmentWithdrawPost) | **POST** api/manager/investment/withdraw | Manager withdrawal from his own investment program
 [**apiManagerProfileFullGet**](ManagerApi.md#apiManagerProfileFullGet) | **GET** api/manager/profile/full | Get full profile
@@ -21,6 +20,7 @@ Method | HTTP request | Description
 [**apiManagerProfileUpdatePost**](ManagerApi.md#apiManagerProfileUpdatePost) | **POST** api/manager/profile/update | Update profile
 [**apiManagerWalletAddressGet**](ManagerApi.md#apiManagerWalletAddressGet) | **GET** api/manager/wallet/address | Get eth address for GVT depositing
 [**apiManagerWalletTransactionsPost**](ManagerApi.md#apiManagerWalletTransactionsPost) | **POST** api/manager/wallet/transactions | Get user wallet transactions
+[**apiManagerWalletWithdrawrequestPost**](ManagerApi.md#apiManagerWalletWithdrawrequestPost) | **POST** api/manager/wallet/withdrawrequest | Withdraw request
 
 
 <a name="apiManagerAccountNewInvestmentRequestPost"></a>
@@ -330,9 +330,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="apiManagerInvestmentCloseGet"></a>
-# **apiManagerInvestmentCloseGet**
-> Void apiManagerInvestmentCloseGet(investmentProgramId, authorization)
+<a name="apiManagerInvestmentClosePost"></a>
+# **apiManagerInvestmentClosePost**
+> Void apiManagerInvestmentClosePost(investmentProgramId, authorization)
 
 Close existing investment program
 
@@ -347,10 +347,10 @@ ManagerApi apiInstance = new ManagerApi();
 UUID investmentProgramId = new UUID(); // UUID | 
 String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.apiManagerInvestmentCloseGet(investmentProgramId, authorization);
+    Void result = apiInstance.apiManagerInvestmentClosePost(investmentProgramId, authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling ManagerApi#apiManagerInvestmentCloseGet");
+    System.err.println("Exception when calling ManagerApi#apiManagerInvestmentClosePost");
     e.printStackTrace();
 }
 ```
@@ -365,49 +365,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="apiManagerInvestmentGet"></a>
-# **apiManagerInvestmentGet**
-> InvestmentProgramViewModel apiManagerInvestmentGet(investmentProgramId)
-
-Get investment program with statistic by id
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.ManagerApi;
-
-
-ManagerApi apiInstance = new ManagerApi();
-UUID investmentProgramId = new UUID(); // UUID | 
-try {
-    InvestmentProgramViewModel result = apiInstance.apiManagerInvestmentGet(investmentProgramId);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling ManagerApi#apiManagerInvestmentGet");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **investmentProgramId** | [**UUID**](.md)|  |
-
-### Return type
-
-[**InvestmentProgramViewModel**](InvestmentProgramViewModel.md)
 
 ### Authorization
 
@@ -760,6 +717,51 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**WalletTransactionsViewModel**](WalletTransactionsViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerWalletWithdrawrequestPost"></a>
+# **apiManagerWalletWithdrawrequestPost**
+> Void apiManagerWalletWithdrawrequestPost(authorization, request)
+
+Withdraw request
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+String authorization = "authorization_example"; // String | JWT access token
+WalletWithdrawRequestModel request = new WalletWithdrawRequestModel(); // WalletWithdrawRequestModel | 
+try {
+    Void result = apiInstance.apiManagerWalletWithdrawrequestPost(authorization, request);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerWalletWithdrawrequestPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **request** | [**WalletWithdrawRequestModel**](WalletWithdrawRequestModel.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
 
 ### Authorization
 

@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**investmentProgram** | [**InvestmentShort**](InvestmentShort.md) |  |  [optional]
+**investmentProgram** | [**InvestmentProgramDetails**](InvestmentProgramDetails.md) |  |  [optional]
 **requests** | [**List&lt;InvestmentRequest&gt;**](InvestmentRequest.md) |  |  [optional]
 **totalIn** | **Double** |  |  [optional]
 **totalOut** | **Double** |  |  [optional]

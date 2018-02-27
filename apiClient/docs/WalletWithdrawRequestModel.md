@@ -1,15 +1,12 @@
 
-# ManagerRequest
+# WalletWithdrawRequestModel
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**userId** | [**UUID**](UUID.md) |  |  [optional]
-**requestId** | [**UUID**](UUID.md) |  |  [optional]
-**name** | **String** |  |  [optional]
-**email** | **String** |  |  [optional]
-**currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
-**password** | **String** |  |  [optional]
+**currency** | [**CurrencyEnum**](#CurrencyEnum) |  | 
+**amount** | **Double** |  | 
+**blockchainAddress** | **String** |  | 
 
 
 <a name="CurrencyEnum"></a>

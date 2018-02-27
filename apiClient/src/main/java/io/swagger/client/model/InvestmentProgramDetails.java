@@ -23,10 +23,10 @@ import java.util.UUID;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * InvestmentProgram
+ * InvestmentProgramDetails
  */
 
-public class InvestmentProgram
+public class InvestmentProgramDetails
 {
 	@SerializedName("id")
 	private UUID id = null;
@@ -43,6 +43,9 @@ public class InvestmentProgram
 	@SerializedName("balance")
 	private Double balance = null;
 
+	@SerializedName("investedTokens")
+	private Integer investedTokens = null;
+
 	@SerializedName("tradesCount")
 	private Integer tradesCount = null;
 
@@ -58,6 +61,9 @@ public class InvestmentProgram
 	@SerializedName("profitAvg")
 	private Double profitAvg = null;
 
+	@SerializedName("profitTotal")
+	private Double profitTotal = null;
+
 	@SerializedName("availableInvestment")
 	private Double availableInvestment = null;
 
@@ -70,7 +76,16 @@ public class InvestmentProgram
 	@SerializedName("isPending")
 	private Boolean isPending = null;
 
-	public InvestmentProgram id(UUID id) {
+	@SerializedName("isHistoryEnable")
+	private Boolean isHistoryEnable = null;
+
+	@SerializedName("isInvestEnable")
+	private Boolean isInvestEnable = null;
+
+	@SerializedName("isWithdrawEnable")
+	private Boolean isWithdrawEnable = null;
+
+	public InvestmentProgramDetails id(UUID id) {
 		this.id = id;
 		return this;
 	}
@@ -89,7 +104,7 @@ public class InvestmentProgram
 		this.id = id;
 	}
 
-	public InvestmentProgram title(String title) {
+	public InvestmentProgramDetails title(String title) {
 		this.title = title;
 		return this;
 	}
@@ -108,7 +123,7 @@ public class InvestmentProgram
 		this.title = title;
 	}
 
-	public InvestmentProgram level(Integer level) {
+	public InvestmentProgramDetails level(Integer level) {
 		this.level = level;
 		return this;
 	}
@@ -127,7 +142,7 @@ public class InvestmentProgram
 		this.level = level;
 	}
 
-	public InvestmentProgram logo(String logo) {
+	public InvestmentProgramDetails logo(String logo) {
 		this.logo = logo;
 		return this;
 	}
@@ -146,7 +161,7 @@ public class InvestmentProgram
 		this.logo = logo;
 	}
 
-	public InvestmentProgram balance(Double balance) {
+	public InvestmentProgramDetails balance(Double balance) {
 		this.balance = balance;
 		return this;
 	}
@@ -165,7 +180,26 @@ public class InvestmentProgram
 		this.balance = balance;
 	}
 
-	public InvestmentProgram tradesCount(Integer tradesCount) {
+	public InvestmentProgramDetails investedTokens(Integer investedTokens) {
+		this.investedTokens = investedTokens;
+		return this;
+	}
+
+	/**
+	 * Get investedTokens
+	 *
+	 * @return investedTokens
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getInvestedTokens() {
+		return investedTokens;
+	}
+
+	public void setInvestedTokens(Integer investedTokens) {
+		this.investedTokens = investedTokens;
+	}
+
+	public InvestmentProgramDetails tradesCount(Integer tradesCount) {
 		this.tradesCount = tradesCount;
 		return this;
 	}
@@ -184,7 +218,7 @@ public class InvestmentProgram
 		this.tradesCount = tradesCount;
 	}
 
-	public InvestmentProgram investorsCount(Integer investorsCount) {
+	public InvestmentProgramDetails investorsCount(Integer investorsCount) {
 		this.investorsCount = investorsCount;
 		return this;
 	}
@@ -203,7 +237,7 @@ public class InvestmentProgram
 		this.investorsCount = investorsCount;
 	}
 
-	public InvestmentProgram periodDuration(Integer periodDuration) {
+	public InvestmentProgramDetails periodDuration(Integer periodDuration) {
 		this.periodDuration = periodDuration;
 		return this;
 	}
@@ -222,7 +256,7 @@ public class InvestmentProgram
 		this.periodDuration = periodDuration;
 	}
 
-	public InvestmentProgram endOfPeriod(DateTime endOfPeriod) {
+	public InvestmentProgramDetails endOfPeriod(DateTime endOfPeriod) {
 		this.endOfPeriod = endOfPeriod;
 		return this;
 	}
@@ -241,7 +275,7 @@ public class InvestmentProgram
 		this.endOfPeriod = endOfPeriod;
 	}
 
-	public InvestmentProgram profitAvg(Double profitAvg) {
+	public InvestmentProgramDetails profitAvg(Double profitAvg) {
 		this.profitAvg = profitAvg;
 		return this;
 	}
@@ -260,7 +294,26 @@ public class InvestmentProgram
 		this.profitAvg = profitAvg;
 	}
 
-	public InvestmentProgram availableInvestment(Double availableInvestment) {
+	public InvestmentProgramDetails profitTotal(Double profitTotal) {
+		this.profitTotal = profitTotal;
+		return this;
+	}
+
+	/**
+	 * Get profitTotal
+	 *
+	 * @return profitTotal
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProfitTotal() {
+		return profitTotal;
+	}
+
+	public void setProfitTotal(Double profitTotal) {
+		this.profitTotal = profitTotal;
+	}
+
+	public InvestmentProgramDetails availableInvestment(Double availableInvestment) {
 		this.availableInvestment = availableInvestment;
 		return this;
 	}
@@ -279,7 +332,7 @@ public class InvestmentProgram
 		this.availableInvestment = availableInvestment;
 	}
 
-	public InvestmentProgram feeSuccess(Double feeSuccess) {
+	public InvestmentProgramDetails feeSuccess(Double feeSuccess) {
 		this.feeSuccess = feeSuccess;
 		return this;
 	}
@@ -298,7 +351,7 @@ public class InvestmentProgram
 		this.feeSuccess = feeSuccess;
 	}
 
-	public InvestmentProgram feeManagement(Double feeManagement) {
+	public InvestmentProgramDetails feeManagement(Double feeManagement) {
 		this.feeManagement = feeManagement;
 		return this;
 	}
@@ -317,7 +370,7 @@ public class InvestmentProgram
 		this.feeManagement = feeManagement;
 	}
 
-	public InvestmentProgram isPending(Boolean isPending) {
+	public InvestmentProgramDetails isPending(Boolean isPending) {
 		this.isPending = isPending;
 		return this;
 	}
@@ -336,6 +389,63 @@ public class InvestmentProgram
 		this.isPending = isPending;
 	}
 
+	public InvestmentProgramDetails isHistoryEnable(Boolean isHistoryEnable) {
+		this.isHistoryEnable = isHistoryEnable;
+		return this;
+	}
+
+	/**
+	 * Get isHistoryEnable
+	 *
+	 * @return isHistoryEnable
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsHistoryEnable() {
+		return isHistoryEnable;
+	}
+
+	public void setIsHistoryEnable(Boolean isHistoryEnable) {
+		this.isHistoryEnable = isHistoryEnable;
+	}
+
+	public InvestmentProgramDetails isInvestEnable(Boolean isInvestEnable) {
+		this.isInvestEnable = isInvestEnable;
+		return this;
+	}
+
+	/**
+	 * Get isInvestEnable
+	 *
+	 * @return isInvestEnable
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsInvestEnable() {
+		return isInvestEnable;
+	}
+
+	public void setIsInvestEnable(Boolean isInvestEnable) {
+		this.isInvestEnable = isInvestEnable;
+	}
+
+	public InvestmentProgramDetails isWithdrawEnable(Boolean isWithdrawEnable) {
+		this.isWithdrawEnable = isWithdrawEnable;
+		return this;
+	}
+
+	/**
+	 * Get isWithdrawEnable
+	 *
+	 * @return isWithdrawEnable
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsWithdrawEnable() {
+		return isWithdrawEnable;
+	}
+
+	public void setIsWithdrawEnable(Boolean isWithdrawEnable) {
+		this.isWithdrawEnable = isWithdrawEnable;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -345,48 +455,58 @@ public class InvestmentProgram
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		InvestmentProgram investmentProgram = (InvestmentProgram) o;
-		return Objects.equals(this.id, investmentProgram.id) &&
-				Objects.equals(this.title, investmentProgram.title) &&
-				Objects.equals(this.level, investmentProgram.level) &&
-				Objects.equals(this.logo, investmentProgram.logo) &&
-				Objects.equals(this.balance, investmentProgram.balance) &&
-				Objects.equals(this.tradesCount, investmentProgram.tradesCount) &&
-				Objects.equals(this.investorsCount, investmentProgram.investorsCount) &&
-				Objects.equals(this.periodDuration, investmentProgram.periodDuration) &&
-				Objects.equals(this.endOfPeriod, investmentProgram.endOfPeriod) &&
-				Objects.equals(this.profitAvg, investmentProgram.profitAvg) &&
-				Objects.equals(this.availableInvestment, investmentProgram.availableInvestment) &&
-				Objects.equals(this.feeSuccess, investmentProgram.feeSuccess) &&
-				Objects.equals(this.feeManagement, investmentProgram.feeManagement) &&
-				Objects.equals(this.isPending, investmentProgram.isPending);
+		InvestmentProgramDetails investmentProgramDetails = (InvestmentProgramDetails) o;
+		return Objects.equals(this.id, investmentProgramDetails.id) &&
+				Objects.equals(this.title, investmentProgramDetails.title) &&
+				Objects.equals(this.level, investmentProgramDetails.level) &&
+				Objects.equals(this.logo, investmentProgramDetails.logo) &&
+				Objects.equals(this.balance, investmentProgramDetails.balance) &&
+				Objects.equals(this.investedTokens, investmentProgramDetails.investedTokens) &&
+				Objects.equals(this.tradesCount, investmentProgramDetails.tradesCount) &&
+				Objects.equals(this.investorsCount, investmentProgramDetails.investorsCount) &&
+				Objects.equals(this.periodDuration, investmentProgramDetails.periodDuration) &&
+				Objects.equals(this.endOfPeriod, investmentProgramDetails.endOfPeriod) &&
+				Objects.equals(this.profitAvg, investmentProgramDetails.profitAvg) &&
+				Objects.equals(this.profitTotal, investmentProgramDetails.profitTotal) &&
+				Objects.equals(this.availableInvestment, investmentProgramDetails.availableInvestment) &&
+				Objects.equals(this.feeSuccess, investmentProgramDetails.feeSuccess) &&
+				Objects.equals(this.feeManagement, investmentProgramDetails.feeManagement) &&
+				Objects.equals(this.isPending, investmentProgramDetails.isPending) &&
+				Objects.equals(this.isHistoryEnable, investmentProgramDetails.isHistoryEnable) &&
+				Objects.equals(this.isInvestEnable, investmentProgramDetails.isInvestEnable) &&
+				Objects.equals(this.isWithdrawEnable, investmentProgramDetails.isWithdrawEnable);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, level, logo, balance, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, availableInvestment, feeSuccess, feeManagement, isPending);
+		return Objects.hash(id, title, level, logo, balance, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, isPending, isHistoryEnable, isInvestEnable, isWithdrawEnable);
 	}
 
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class InvestmentProgram {\n");
+		sb.append("class InvestmentProgramDetails {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+		sb.append("    investedTokens: ").append(toIndentedString(investedTokens)).append("\n");
 		sb.append("    tradesCount: ").append(toIndentedString(tradesCount)).append("\n");
 		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
 		sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
 		sb.append("    endOfPeriod: ").append(toIndentedString(endOfPeriod)).append("\n");
 		sb.append("    profitAvg: ").append(toIndentedString(profitAvg)).append("\n");
+		sb.append("    profitTotal: ").append(toIndentedString(profitTotal)).append("\n");
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
 		sb.append("    feeSuccess: ").append(toIndentedString(feeSuccess)).append("\n");
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
 		sb.append("    isPending: ").append(toIndentedString(isPending)).append("\n");
+		sb.append("    isHistoryEnable: ").append(toIndentedString(isHistoryEnable)).append("\n");
+		sb.append("    isInvestEnable: ").append(toIndentedString(isInvestEnable)).append("\n");
+		sb.append("    isWithdrawEnable: ").append(toIndentedString(isWithdrawEnable)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

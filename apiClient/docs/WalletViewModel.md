@@ -1,15 +1,12 @@
 
-# ManagerRequest
+# WalletViewModel
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**userId** | [**UUID**](UUID.md) |  |  [optional]
-**requestId** | [**UUID**](UUID.md) |  |  [optional]
-**name** | **String** |  |  [optional]
-**email** | **String** |  |  [optional]
+**id** | [**UUID**](UUID.md) |  |  [optional]
+**amount** | **Double** |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
-**password** | **String** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

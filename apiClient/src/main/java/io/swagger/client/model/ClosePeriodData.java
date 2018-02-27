@@ -15,6 +15,8 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -28,8 +30,8 @@ public class ClosePeriodData
 	@SerializedName("currentPeriod")
 	private Period currentPeriod = null;
 
-	@SerializedName("nextPeriod")
-	private Period nextPeriod = null;
+	@SerializedName("tokenHolders")
+	private List<InvestorAmount> tokenHolders = null;
 
 	@SerializedName("canCloseCurrentPeriod")
 	private Boolean canCloseCurrentPeriod = null;
@@ -53,23 +55,31 @@ public class ClosePeriodData
 		this.currentPeriod = currentPeriod;
 	}
 
-	public ClosePeriodData nextPeriod(Period nextPeriod) {
-		this.nextPeriod = nextPeriod;
+	public ClosePeriodData tokenHolders(List<InvestorAmount> tokenHolders) {
+		this.tokenHolders = tokenHolders;
+		return this;
+	}
+
+	public ClosePeriodData addTokenHoldersItem(InvestorAmount tokenHoldersItem) {
+		if (this.tokenHolders == null) {
+			this.tokenHolders = new ArrayList<InvestorAmount>();
+		}
+		this.tokenHolders.add(tokenHoldersItem);
 		return this;
 	}
 
 	/**
-	 * Get nextPeriod
+	 * Get tokenHolders
 	 *
-	 * @return nextPeriod
+	 * @return tokenHolders
 	 **/
 	@ApiModelProperty(value = "")
-	public Period getNextPeriod() {
-		return nextPeriod;
+	public List<InvestorAmount> getTokenHolders() {
+		return tokenHolders;
 	}
 
-	public void setNextPeriod(Period nextPeriod) {
-		this.nextPeriod = nextPeriod;
+	public void setTokenHolders(List<InvestorAmount> tokenHolders) {
+		this.tokenHolders = tokenHolders;
 	}
 
 	public ClosePeriodData canCloseCurrentPeriod(Boolean canCloseCurrentPeriod) {
@@ -102,13 +112,13 @@ public class ClosePeriodData
 		}
 		ClosePeriodData closePeriodData = (ClosePeriodData) o;
 		return Objects.equals(this.currentPeriod, closePeriodData.currentPeriod) &&
-				Objects.equals(this.nextPeriod, closePeriodData.nextPeriod) &&
+				Objects.equals(this.tokenHolders, closePeriodData.tokenHolders) &&
 				Objects.equals(this.canCloseCurrentPeriod, closePeriodData.canCloseCurrentPeriod);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currentPeriod, nextPeriod, canCloseCurrentPeriod);
+		return Objects.hash(currentPeriod, tokenHolders, canCloseCurrentPeriod);
 	}
 
 
@@ -118,7 +128,7 @@ public class ClosePeriodData
 		sb.append("class ClosePeriodData {\n");
 
 		sb.append("    currentPeriod: ").append(toIndentedString(currentPeriod)).append("\n");
-		sb.append("    nextPeriod: ").append(toIndentedString(nextPeriod)).append("\n");
+		sb.append("    tokenHolders: ").append(toIndentedString(tokenHolders)).append("\n");
 		sb.append("    canCloseCurrentPeriod: ").append(toIndentedString(canCloseCurrentPeriod)).append("\n");
 		sb.append("}");
 		return sb.toString();

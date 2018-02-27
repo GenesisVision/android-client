@@ -53,6 +53,12 @@ public class Period
 	@SerializedName("startBalance")
 	private Double startBalance = null;
 
+	@SerializedName("managerStartBalance")
+	private Double managerStartBalance = null;
+
+	@SerializedName("managerStartShare")
+	private Double managerStartShare = null;
+
 	@SerializedName("investmentRequest")
 	private List<InvestmentRequest> investmentRequest = null;
 
@@ -170,6 +176,44 @@ public class Period
 		this.startBalance = startBalance;
 	}
 
+	public Period managerStartBalance(Double managerStartBalance) {
+		this.managerStartBalance = managerStartBalance;
+		return this;
+	}
+
+	/**
+	 * Get managerStartBalance
+	 *
+	 * @return managerStartBalance
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getManagerStartBalance() {
+		return managerStartBalance;
+	}
+
+	public void setManagerStartBalance(Double managerStartBalance) {
+		this.managerStartBalance = managerStartBalance;
+	}
+
+	public Period managerStartShare(Double managerStartShare) {
+		this.managerStartShare = managerStartShare;
+		return this;
+	}
+
+	/**
+	 * Get managerStartShare
+	 *
+	 * @return managerStartShare
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getManagerStartShare() {
+		return managerStartShare;
+	}
+
+	public void setManagerStartShare(Double managerStartShare) {
+		this.managerStartShare = managerStartShare;
+	}
+
 	public Period investmentRequest(List<InvestmentRequest> investmentRequest) {
 		this.investmentRequest = investmentRequest;
 		return this;
@@ -212,12 +256,14 @@ public class Period
 				Objects.equals(this.dateTo, period.dateTo) &&
 				Objects.equals(this.status, period.status) &&
 				Objects.equals(this.startBalance, period.startBalance) &&
+				Objects.equals(this.managerStartBalance, period.managerStartBalance) &&
+				Objects.equals(this.managerStartShare, period.managerStartShare) &&
 				Objects.equals(this.investmentRequest, period.investmentRequest);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, number, dateFrom, dateTo, status, startBalance, investmentRequest);
+		return Objects.hash(id, number, dateFrom, dateTo, status, startBalance, managerStartBalance, managerStartShare, investmentRequest);
 	}
 
 	@Override
@@ -231,6 +277,8 @@ public class Period
 		sb.append("    dateTo: ").append(toIndentedString(dateTo)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    startBalance: ").append(toIndentedString(startBalance)).append("\n");
+		sb.append("    managerStartBalance: ").append(toIndentedString(managerStartBalance)).append("\n");
+		sb.append("    managerStartShare: ").append(toIndentedString(managerStartShare)).append("\n");
 		sb.append("    investmentRequest: ").append(toIndentedString(investmentRequest)).append("\n");
 		sb.append("}");
 		return sb.toString();

@@ -5,7 +5,6 @@ import java.util.UUID;
 import io.swagger.client.model.BrokersFilter;
 import io.swagger.client.model.BrokersViewModel;
 import io.swagger.client.model.Invest;
-import io.swagger.client.model.InvestmentProgramViewModel;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.NewInvestmentRequest;
 import io.swagger.client.model.ProfileFullViewModel;
@@ -16,6 +15,7 @@ import io.swagger.client.model.TransactionsFilter;
 import io.swagger.client.model.UpdateProfileViewModel;
 import io.swagger.client.model.WalletAddressViewModel;
 import io.swagger.client.model.WalletTransactionsViewModel;
+import io.swagger.client.model.WalletWithdrawRequestModel;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -122,20 +122,9 @@ public interface ManagerApi
 	 * @param authorization       JWT access token (required)
 	 * @return Call&lt;Void&gt;
 	 */
-	@GET("api/manager/investment/close")
-	Observable<Void> apiManagerInvestmentCloseGet(
+	@POST("api/manager/investment/close")
+	Observable<Void> apiManagerInvestmentClosePost(
 			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
-	 * Get investment program with statistic by id
-	 *
-	 * @param investmentProgramId (required)
-	 * @return Call&lt;InvestmentProgramViewModel&gt;
-	 */
-	@GET("api/manager/investment")
-	Observable<InvestmentProgramViewModel> apiManagerInvestmentGet(
-			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId
 	);
 
 	/**
@@ -240,6 +229,21 @@ public interface ManagerApi
 	@POST("api/manager/wallet/transactions")
 	Observable<WalletTransactionsViewModel> apiManagerWalletTransactionsPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body TransactionsFilter filter
+	);
+
+	/**
+	 * Withdraw request
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param request       (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/manager/wallet/withdrawrequest")
+	Observable<Void> apiManagerWalletWithdrawrequestPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body WalletWithdrawRequestModel request
 	);
 
 }

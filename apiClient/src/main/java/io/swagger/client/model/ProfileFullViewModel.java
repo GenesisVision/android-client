@@ -17,6 +17,8 @@ import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -73,8 +75,8 @@ public class ProfileFullViewModel
 	@SerializedName("email")
 	private String email = null;
 
-	@SerializedName("balance")
-	private Double balance = null;
+	@SerializedName("wallets")
+	private List<WalletViewModel> wallets = null;
 
 	public ProfileFullViewModel firstName(String firstName) {
 		this.firstName = firstName;
@@ -361,23 +363,31 @@ public class ProfileFullViewModel
 		this.email = email;
 	}
 
-	public ProfileFullViewModel balance(Double balance) {
-		this.balance = balance;
+	public ProfileFullViewModel wallets(List<WalletViewModel> wallets) {
+		this.wallets = wallets;
+		return this;
+	}
+
+	public ProfileFullViewModel addWalletsItem(WalletViewModel walletsItem) {
+		if (this.wallets == null) {
+			this.wallets = new ArrayList<WalletViewModel>();
+		}
+		this.wallets.add(walletsItem);
 		return this;
 	}
 
 	/**
-	 * Get balance
+	 * Get wallets
 	 *
-	 * @return balance
+	 * @return wallets
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getBalance() {
-		return balance;
+	public List<WalletViewModel> getWallets() {
+		return wallets;
 	}
 
-	public void setBalance(Double balance) {
-		this.balance = balance;
+	public void setWallets(List<WalletViewModel> wallets) {
+		this.wallets = wallets;
 	}
 
 
@@ -405,12 +415,12 @@ public class ProfileFullViewModel
 				Objects.equals(this.userName, profileFullViewModel.userName) &&
 				Objects.equals(this.id, profileFullViewModel.id) &&
 				Objects.equals(this.email, profileFullViewModel.email) &&
-				Objects.equals(this.balance, profileFullViewModel.balance);
+				Objects.equals(this.wallets, profileFullViewModel.wallets);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(firstName, middleName, lastName, documentType, documentNumber, country, city, address, phone, birthday, gender, avatar, userName, id, email, balance);
+		return Objects.hash(firstName, middleName, lastName, documentType, documentNumber, country, city, address, phone, birthday, gender, avatar, userName, id, email, wallets);
 	}
 
 
@@ -434,7 +444,7 @@ public class ProfileFullViewModel
 		sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    email: ").append(toIndentedString(email)).append("\n");
-		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+		sb.append("    wallets: ").append(toIndentedString(wallets)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

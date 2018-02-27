@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
 **amount** | **Double** |  |  [optional]
 **date** | [**DateTime**](DateTime.md) |  |  [optional]
+**walletId** | [**UUID**](UUID.md) |  |  [optional]
+**currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 
 
 <a name="TypeEnum"></a>
@@ -21,6 +23,18 @@ INVESTTOPROGRAM | &quot;InvestToProgram&quot;
 WITHDRAWFROMPROGRAM | &quot;WithdrawFromProgram&quot;
 PROFITFROMPROGRAM | &quot;ProfitFromProgram&quot;
 CANCELINVESTMENTREQUEST | &quot;CancelInvestmentRequest&quot;
+
+
+<a name="CurrencyEnum"></a>
+## Enum: CurrencyEnum
+Name | Value
+---- | -----
+UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
+USD | &quot;USD&quot;
+EUR | &quot;EUR&quot;
 
 
 

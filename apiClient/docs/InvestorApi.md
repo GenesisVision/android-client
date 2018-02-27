@@ -9,16 +9,20 @@ Method | HTTP request | Description
 [**apiInvestorAuthSignUpPost**](InvestorApi.md#apiInvestorAuthSignUpPost) | **POST** api/investor/auth/signUp | Register new investor
 [**apiInvestorAuthUpdateTokenGet**](InvestorApi.md#apiInvestorAuthUpdateTokenGet) | **GET** api/investor/auth/updateToken | Update auth token
 [**apiInvestorDashboardGet**](InvestorApi.md#apiInvestorDashboardGet) | **GET** api/investor/dashboard | Get investor dashboard
-[**apiInvestorInvestmentsCancelInvestmentRequestPost**](InvestorApi.md#apiInvestorInvestmentsCancelInvestmentRequestPost) | **POST** api/investor/investments/cancelInvestmentRequest | Cancel investment request
-[**apiInvestorInvestmentsInvestPost**](InvestorApi.md#apiInvestorInvestmentsInvestPost) | **POST** api/investor/investments/invest | Invest in manager
-[**apiInvestorInvestmentsPost**](InvestorApi.md#apiInvestorInvestmentsPost) | **POST** api/investor/investments | Get investments by filter
-[**apiInvestorInvestmentsWithdrawPost**](InvestorApi.md#apiInvestorInvestmentsWithdrawPost) | **POST** api/investor/investments/withdraw | Withdraw from investment program
+[**apiInvestorInvestmentProgramGet**](InvestorApi.md#apiInvestorInvestmentProgramGet) | **GET** api/investor/investmentProgram | Get investment program details by id
+[**apiInvestorInvestmentProgramOpenTradesPost**](InvestorApi.md#apiInvestorInvestmentProgramOpenTradesPost) | **POST** api/investor/investmentProgram/openTrades | Get manager open trades
+[**apiInvestorInvestmentProgramTradesPost**](InvestorApi.md#apiInvestorInvestmentProgramTradesPost) | **POST** api/investor/investmentProgram/trades | Get manager trade history
+[**apiInvestorInvestmentProgramsCancelInvestmentRequestPost**](InvestorApi.md#apiInvestorInvestmentProgramsCancelInvestmentRequestPost) | **POST** api/investor/investmentPrograms/cancelInvestmentRequest | Cancel investment request
+[**apiInvestorInvestmentProgramsInvestPost**](InvestorApi.md#apiInvestorInvestmentProgramsInvestPost) | **POST** api/investor/investmentPrograms/invest | Invest in manager
+[**apiInvestorInvestmentProgramsPost**](InvestorApi.md#apiInvestorInvestmentProgramsPost) | **POST** api/investor/investmentPrograms | Get public investment program&#39;s list
+[**apiInvestorInvestmentProgramsWithdrawPost**](InvestorApi.md#apiInvestorInvestmentProgramsWithdrawPost) | **POST** api/investor/investmentPrograms/withdraw | Withdraw from investment program
 [**apiInvestorProfileFullGet**](InvestorApi.md#apiInvestorProfileFullGet) | **GET** api/investor/profile/full | Get full profile
 [**apiInvestorProfileGet**](InvestorApi.md#apiInvestorProfileGet) | **GET** api/investor/profile | Get short profile
 [**apiInvestorProfilePublicGet**](InvestorApi.md#apiInvestorProfilePublicGet) | **GET** api/investor/profile/public | Get public profile
 [**apiInvestorProfileUpdatePost**](InvestorApi.md#apiInvestorProfileUpdatePost) | **POST** api/investor/profile/update | Update profile
 [**apiInvestorWalletAddressGet**](InvestorApi.md#apiInvestorWalletAddressGet) | **GET** api/investor/wallet/address | Get eth address for GVT depositing
 [**apiInvestorWalletTransactionsPost**](InvestorApi.md#apiInvestorWalletTransactionsPost) | **POST** api/investor/wallet/transactions | Get user wallet transactions
+[**apiInvestorWalletWithdrawrequestPost**](InvestorApi.md#apiInvestorWalletWithdrawrequestPost) | **POST** api/investor/wallet/withdrawrequest | Withdraw request
 
 
 <a name="apiInvestorAuthConfirmEmailGet"></a>
@@ -238,9 +242,142 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="apiInvestorInvestmentsCancelInvestmentRequestPost"></a>
-# **apiInvestorInvestmentsCancelInvestmentRequestPost**
-> Void apiInvestorInvestmentsCancelInvestmentRequestPost(requestId, authorization)
+<a name="apiInvestorInvestmentProgramGet"></a>
+# **apiInvestorInvestmentProgramGet**
+> InvestmentProgramViewModel apiInvestorInvestmentProgramGet(investmentProgramId)
+
+Get investment program details by id
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+UUID investmentProgramId = new UUID(); // UUID | 
+try {
+    InvestmentProgramViewModel result = apiInstance.apiInvestorInvestmentProgramGet(investmentProgramId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentProgramGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **investmentProgramId** | [**UUID**](.md)|  |
+
+### Return type
+
+[**InvestmentProgramViewModel**](InvestmentProgramViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorInvestmentProgramOpenTradesPost"></a>
+# **apiInvestorInvestmentProgramOpenTradesPost**
+> OpenTradesViewModel apiInvestorInvestmentProgramOpenTradesPost(authorization, filter)
+
+Get manager open trades
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+String authorization = "authorization_example"; // String | JWT access token
+TradesFilter filter = new TradesFilter(); // TradesFilter | 
+try {
+    OpenTradesViewModel result = apiInstance.apiInvestorInvestmentProgramOpenTradesPost(authorization, filter);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentProgramOpenTradesPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **filter** | [**TradesFilter**](TradesFilter.md)|  | [optional]
+
+### Return type
+
+[**OpenTradesViewModel**](OpenTradesViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorInvestmentProgramTradesPost"></a>
+# **apiInvestorInvestmentProgramTradesPost**
+> TradesViewModel apiInvestorInvestmentProgramTradesPost(authorization, filter)
+
+Get manager trade history
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+String authorization = "authorization_example"; // String | JWT access token
+TradesFilter filter = new TradesFilter(); // TradesFilter | 
+try {
+    TradesViewModel result = apiInstance.apiInvestorInvestmentProgramTradesPost(authorization, filter);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentProgramTradesPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **filter** | [**TradesFilter**](TradesFilter.md)|  | [optional]
+
+### Return type
+
+[**TradesViewModel**](TradesViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorInvestmentProgramsCancelInvestmentRequestPost"></a>
+# **apiInvestorInvestmentProgramsCancelInvestmentRequestPost**
+> Void apiInvestorInvestmentProgramsCancelInvestmentRequestPost(requestId, authorization)
 
 Cancel investment request
 
@@ -255,10 +392,10 @@ InvestorApi apiInstance = new InvestorApi();
 UUID requestId = new UUID(); // UUID | 
 String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.apiInvestorInvestmentsCancelInvestmentRequestPost(requestId, authorization);
+    Void result = apiInstance.apiInvestorInvestmentProgramsCancelInvestmentRequestPost(requestId, authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentsCancelInvestmentRequestPost");
+    System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentProgramsCancelInvestmentRequestPost");
     e.printStackTrace();
 }
 ```
@@ -283,9 +420,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="apiInvestorInvestmentsInvestPost"></a>
-# **apiInvestorInvestmentsInvestPost**
-> ProfileShortViewModel apiInvestorInvestmentsInvestPost(authorization, model)
+<a name="apiInvestorInvestmentProgramsInvestPost"></a>
+# **apiInvestorInvestmentProgramsInvestPost**
+> ProfileShortViewModel apiInvestorInvestmentProgramsInvestPost(authorization, model)
 
 Invest in manager
 
@@ -300,10 +437,10 @@ InvestorApi apiInstance = new InvestorApi();
 String authorization = "authorization_example"; // String | JWT access token
 Invest model = new Invest(); // Invest | 
 try {
-    ProfileShortViewModel result = apiInstance.apiInvestorInvestmentsInvestPost(authorization, model);
+    ProfileShortViewModel result = apiInstance.apiInvestorInvestmentProgramsInvestPost(authorization, model);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentsInvestPost");
+    System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentProgramsInvestPost");
     e.printStackTrace();
 }
 ```
@@ -328,11 +465,11 @@ No authorization required
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
-<a name="apiInvestorInvestmentsPost"></a>
-# **apiInvestorInvestmentsPost**
-> InvestmentProgramsViewModel apiInvestorInvestmentsPost(filter)
+<a name="apiInvestorInvestmentProgramsPost"></a>
+# **apiInvestorInvestmentProgramsPost**
+> InvestmentProgramsViewModel apiInvestorInvestmentProgramsPost(filter)
 
-Get investments by filter
+Get public investment program&#39;s list
 
 ### Example
 ```java
@@ -342,12 +479,12 @@ Get investments by filter
 
 
 InvestorApi apiInstance = new InvestorApi();
-InvestmentsFilter filter = new InvestmentsFilter(); // InvestmentsFilter | 
+InvestmentProgramsFilter filter = new InvestmentProgramsFilter(); // InvestmentProgramsFilter | 
 try {
-    InvestmentProgramsViewModel result = apiInstance.apiInvestorInvestmentsPost(filter);
+    InvestmentProgramsViewModel result = apiInstance.apiInvestorInvestmentProgramsPost(filter);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentsPost");
+    System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentProgramsPost");
     e.printStackTrace();
 }
 ```
@@ -356,7 +493,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | [**InvestmentsFilter**](InvestmentsFilter.md)|  | [optional]
+ **filter** | [**InvestmentProgramsFilter**](InvestmentProgramsFilter.md)|  | [optional]
 
 ### Return type
 
@@ -371,9 +508,9 @@ No authorization required
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
-<a name="apiInvestorInvestmentsWithdrawPost"></a>
-# **apiInvestorInvestmentsWithdrawPost**
-> Void apiInvestorInvestmentsWithdrawPost(authorization, model)
+<a name="apiInvestorInvestmentProgramsWithdrawPost"></a>
+# **apiInvestorInvestmentProgramsWithdrawPost**
+> Void apiInvestorInvestmentProgramsWithdrawPost(authorization, model)
 
 Withdraw from investment program
 
@@ -388,10 +525,10 @@ InvestorApi apiInstance = new InvestorApi();
 String authorization = "authorization_example"; // String | JWT access token
 Invest model = new Invest(); // Invest | 
 try {
-    Void result = apiInstance.apiInvestorInvestmentsWithdrawPost(authorization, model);
+    Void result = apiInstance.apiInvestorInvestmentProgramsWithdrawPost(authorization, model);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentsWithdrawPost");
+    System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentProgramsWithdrawPost");
     e.printStackTrace();
 }
 ```
@@ -668,6 +805,51 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**WalletTransactionsViewModel**](WalletTransactionsViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorWalletWithdrawrequestPost"></a>
+# **apiInvestorWalletWithdrawrequestPost**
+> Void apiInvestorWalletWithdrawrequestPost(authorization, request)
+
+Withdraw request
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+String authorization = "authorization_example"; // String | JWT access token
+WalletWithdrawRequestModel request = new WalletWithdrawRequestModel(); // WalletWithdrawRequestModel | 
+try {
+    Void result = apiInstance.apiInvestorWalletWithdrawrequestPost(authorization, request);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorWalletWithdrawrequestPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **request** | [**WalletWithdrawRequestModel**](WalletWithdrawRequestModel.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
 
 ### Authorization
 

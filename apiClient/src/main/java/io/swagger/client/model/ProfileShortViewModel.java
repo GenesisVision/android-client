@@ -15,6 +15,8 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -32,8 +34,8 @@ public class ProfileShortViewModel
 	@SerializedName("email")
 	private String email = null;
 
-	@SerializedName("balance")
-	private Double balance = null;
+	@SerializedName("wallets")
+	private List<WalletViewModel> wallets = null;
 
 	public ProfileShortViewModel id(UUID id) {
 		this.id = id;
@@ -73,23 +75,31 @@ public class ProfileShortViewModel
 		this.email = email;
 	}
 
-	public ProfileShortViewModel balance(Double balance) {
-		this.balance = balance;
+	public ProfileShortViewModel wallets(List<WalletViewModel> wallets) {
+		this.wallets = wallets;
+		return this;
+	}
+
+	public ProfileShortViewModel addWalletsItem(WalletViewModel walletsItem) {
+		if (this.wallets == null) {
+			this.wallets = new ArrayList<WalletViewModel>();
+		}
+		this.wallets.add(walletsItem);
 		return this;
 	}
 
 	/**
-	 * Get balance
+	 * Get wallets
 	 *
-	 * @return balance
+	 * @return wallets
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getBalance() {
-		return balance;
+	public List<WalletViewModel> getWallets() {
+		return wallets;
 	}
 
-	public void setBalance(Double balance) {
-		this.balance = balance;
+	public void setWallets(List<WalletViewModel> wallets) {
+		this.wallets = wallets;
 	}
 
 
@@ -104,12 +114,12 @@ public class ProfileShortViewModel
 		ProfileShortViewModel profileShortViewModel = (ProfileShortViewModel) o;
 		return Objects.equals(this.id, profileShortViewModel.id) &&
 				Objects.equals(this.email, profileShortViewModel.email) &&
-				Objects.equals(this.balance, profileShortViewModel.balance);
+				Objects.equals(this.wallets, profileShortViewModel.wallets);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, email, balance);
+		return Objects.hash(id, email, wallets);
 	}
 
 
@@ -120,7 +130,7 @@ public class ProfileShortViewModel
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    email: ").append(toIndentedString(email)).append("\n");
-		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+		sb.append("    wallets: ").append(toIndentedString(wallets)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

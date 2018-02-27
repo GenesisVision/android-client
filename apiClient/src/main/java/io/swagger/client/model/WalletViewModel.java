@@ -19,8 +19,6 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
-import org.joda.time.DateTime;
-
 import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
@@ -28,30 +26,21 @@ import java.util.UUID;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * WalletTransaction
+ * WalletViewModel
  */
 
-public class WalletTransaction
+public class WalletViewModel
 {
 	@SerializedName("id")
 	private UUID id = null;
 
-	@SerializedName("type")
-	private TypeEnum type = null;
-
 	@SerializedName("amount")
 	private Double amount = null;
-
-	@SerializedName("date")
-	private DateTime date = null;
-
-	@SerializedName("walletId")
-	private UUID walletId = null;
 
 	@SerializedName("currency")
 	private CurrencyEnum currency = null;
 
-	public WalletTransaction id(UUID id) {
+	public WalletViewModel id(UUID id) {
 		this.id = id;
 		return this;
 	}
@@ -70,26 +59,7 @@ public class WalletTransaction
 		this.id = id;
 	}
 
-	public WalletTransaction type(TypeEnum type) {
-		this.type = type;
-		return this;
-	}
-
-	/**
-	 * Get type
-	 *
-	 * @return type
-	 **/
-	@ApiModelProperty(value = "")
-	public TypeEnum getType() {
-		return type;
-	}
-
-	public void setType(TypeEnum type) {
-		this.type = type;
-	}
-
-	public WalletTransaction amount(Double amount) {
+	public WalletViewModel amount(Double amount) {
 		this.amount = amount;
 		return this;
 	}
@@ -108,45 +78,7 @@ public class WalletTransaction
 		this.amount = amount;
 	}
 
-	public WalletTransaction date(DateTime date) {
-		this.date = date;
-		return this;
-	}
-
-	/**
-	 * Get date
-	 *
-	 * @return date
-	 **/
-	@ApiModelProperty(value = "")
-	public DateTime getDate() {
-		return date;
-	}
-
-	public void setDate(DateTime date) {
-		this.date = date;
-	}
-
-	public WalletTransaction walletId(UUID walletId) {
-		this.walletId = walletId;
-		return this;
-	}
-
-	/**
-	 * Get walletId
-	 *
-	 * @return walletId
-	 **/
-	@ApiModelProperty(value = "")
-	public UUID getWalletId() {
-		return walletId;
-	}
-
-	public void setWalletId(UUID walletId) {
-		this.walletId = walletId;
-	}
-
-	public WalletTransaction currency(CurrencyEnum currency) {
+	public WalletViewModel currency(CurrencyEnum currency) {
 		this.currency = currency;
 		return this;
 	}
@@ -173,30 +105,24 @@ public class WalletTransaction
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		WalletTransaction walletTransaction = (WalletTransaction) o;
-		return Objects.equals(this.id, walletTransaction.id) &&
-				Objects.equals(this.type, walletTransaction.type) &&
-				Objects.equals(this.amount, walletTransaction.amount) &&
-				Objects.equals(this.date, walletTransaction.date) &&
-				Objects.equals(this.walletId, walletTransaction.walletId) &&
-				Objects.equals(this.currency, walletTransaction.currency);
+		WalletViewModel walletViewModel = (WalletViewModel) o;
+		return Objects.equals(this.id, walletViewModel.id) &&
+				Objects.equals(this.amount, walletViewModel.amount) &&
+				Objects.equals(this.currency, walletViewModel.currency);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, type, amount, date, walletId, currency);
+		return Objects.hash(id, amount, currency);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class WalletTransaction {\n");
+		sb.append("class WalletViewModel {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-		sb.append("    date: ").append(toIndentedString(date)).append("\n");
-		sb.append("    walletId: ").append(toIndentedString(walletId)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -211,66 +137,6 @@ public class WalletTransaction
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
-	}
-
-
-	/**
-	 * Gets or Sets type
-	 */
-	@JsonAdapter(TypeEnum.Adapter.class)
-	public enum TypeEnum
-	{
-		DEPOSIT("Deposit"),
-
-		WITHDRAW("Withdraw"),
-
-		OPENPROGRAM("OpenProgram"),
-
-		INVESTTOPROGRAM("InvestToProgram"),
-
-		WITHDRAWFROMPROGRAM("WithdrawFromProgram"),
-
-		PROFITFROMPROGRAM("ProfitFromProgram"),
-
-		CANCELINVESTMENTREQUEST("CancelInvestmentRequest");
-
-		public static TypeEnum fromValue(String text) {
-			for (TypeEnum b : TypeEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		TypeEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<TypeEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public TypeEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return TypeEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 
 	/**

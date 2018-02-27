@@ -4,19 +4,12 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**participantId** | [**UUID**](UUID.md) |  | 
+**managerId** | [**UUID**](UUID.md) |  |  [optional]
+**dateFrom** | [**DateTime**](DateTime.md) |  |  [optional]
+**dateTo** | [**DateTime**](DateTime.md) |  |  [optional]
 **symbol** | **String** |  |  [optional]
-**direction** | [**DirectionEnum**](#DirectionEnum) |  |  [optional]
 **skip** | **Integer** |  |  [optional]
 **take** | **Integer** |  |  [optional]
-
-
-<a name="DirectionEnum"></a>
-## Enum: DirectionEnum
-Name | Value
----- | -----
-BUY | &quot;Buy&quot;
-SELL | &quot;Sell&quot;
 
 
 

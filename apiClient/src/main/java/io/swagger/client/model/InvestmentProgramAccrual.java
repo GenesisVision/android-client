@@ -32,7 +32,7 @@ public class InvestmentProgramAccrual
 	private UUID investmentProgramId = null;
 
 	@SerializedName("accruals")
-	private List<Accrual> accruals = null;
+	private List<InvestorAmount> accruals = null;
 
 	public InvestmentProgramAccrual investmentProgramId(UUID investmentProgramId) {
 		this.investmentProgramId = investmentProgramId;
@@ -53,14 +53,14 @@ public class InvestmentProgramAccrual
 		this.investmentProgramId = investmentProgramId;
 	}
 
-	public InvestmentProgramAccrual accruals(List<Accrual> accruals) {
+	public InvestmentProgramAccrual accruals(List<InvestorAmount> accruals) {
 		this.accruals = accruals;
 		return this;
 	}
 
-	public InvestmentProgramAccrual addAccrualsItem(Accrual accrualsItem) {
+	public InvestmentProgramAccrual addAccrualsItem(InvestorAmount accrualsItem) {
 		if (this.accruals == null) {
-			this.accruals = new ArrayList<Accrual>();
+			this.accruals = new ArrayList<InvestorAmount>();
 		}
 		this.accruals.add(accrualsItem);
 		return this;
@@ -72,11 +72,11 @@ public class InvestmentProgramAccrual
 	 * @return accruals
 	 **/
 	@ApiModelProperty(value = "")
-	public List<Accrual> getAccruals() {
+	public List<InvestorAmount> getAccruals() {
 		return accruals;
 	}
 
-	public void setAccruals(List<Accrual> accruals) {
+	public void setAccruals(List<InvestorAmount> accruals) {
 		this.accruals = accruals;
 	}
 

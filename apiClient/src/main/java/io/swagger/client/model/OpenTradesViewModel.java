@@ -22,25 +22,25 @@ import java.util.Objects;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * TradesViewModel
+ * OpenTradesViewModel
  */
 
-public class TradesViewModel
+public class OpenTradesViewModel
 {
 	@SerializedName("trades")
-	private List<OrderModel> trades = null;
+	private List<OpenOrderModel> trades = null;
 
 	@SerializedName("total")
 	private Integer total = null;
 
-	public TradesViewModel trades(List<OrderModel> trades) {
+	public OpenTradesViewModel trades(List<OpenOrderModel> trades) {
 		this.trades = trades;
 		return this;
 	}
 
-	public TradesViewModel addTradesItem(OrderModel tradesItem) {
+	public OpenTradesViewModel addTradesItem(OpenOrderModel tradesItem) {
 		if (this.trades == null) {
-			this.trades = new ArrayList<OrderModel>();
+			this.trades = new ArrayList<OpenOrderModel>();
 		}
 		this.trades.add(tradesItem);
 		return this;
@@ -52,15 +52,15 @@ public class TradesViewModel
 	 * @return trades
 	 **/
 	@ApiModelProperty(value = "")
-	public List<OrderModel> getTrades() {
+	public List<OpenOrderModel> getTrades() {
 		return trades;
 	}
 
-	public void setTrades(List<OrderModel> trades) {
+	public void setTrades(List<OpenOrderModel> trades) {
 		this.trades = trades;
 	}
 
-	public TradesViewModel total(Integer total) {
+	public OpenTradesViewModel total(Integer total) {
 		this.total = total;
 		return this;
 	}
@@ -88,9 +88,9 @@ public class TradesViewModel
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		TradesViewModel tradesViewModel = (TradesViewModel) o;
-		return Objects.equals(this.trades, tradesViewModel.trades) &&
-				Objects.equals(this.total, tradesViewModel.total);
+		OpenTradesViewModel openTradesViewModel = (OpenTradesViewModel) o;
+		return Objects.equals(this.trades, openTradesViewModel.trades) &&
+				Objects.equals(this.total, openTradesViewModel.total);
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public class TradesViewModel
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class TradesViewModel {\n");
+		sb.append("class OpenTradesViewModel {\n");
 
 		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
 		sb.append("    total: ").append(toIndentedString(total)).append("\n");

@@ -28,12 +28,12 @@ import io.swagger.annotations.ApiModelProperty;
 public class InvestmentProgramViewModel
 {
 	@SerializedName("investmentProgram")
-	private InvestmentProgram investmentProgram = null;
+	private InvestmentProgramDetails investmentProgram = null;
 
 	@SerializedName("statistic")
 	private List<InvestmentProgramStatistic> statistic = null;
 
-	public InvestmentProgramViewModel investmentProgram(InvestmentProgram investmentProgram) {
+	public InvestmentProgramViewModel investmentProgram(InvestmentProgramDetails investmentProgram) {
 		this.investmentProgram = investmentProgram;
 		return this;
 	}
@@ -44,11 +44,11 @@ public class InvestmentProgramViewModel
 	 * @return investmentProgram
 	 **/
 	@ApiModelProperty(value = "")
-	public InvestmentProgram getInvestmentProgram() {
+	public InvestmentProgramDetails getInvestmentProgram() {
 		return investmentProgram;
 	}
 
-	public void setInvestmentProgram(InvestmentProgram investmentProgram) {
+	public void setInvestmentProgram(InvestmentProgramDetails investmentProgram) {
 		this.investmentProgram = investmentProgram;
 	}
 

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **email** | **String** |  |  [optional]
-**balance** | **Double** |  |  [optional]
+**wallets** | [**List&lt;WalletViewModel&gt;**](WalletViewModel.md) |  |  [optional]
 
 
 
