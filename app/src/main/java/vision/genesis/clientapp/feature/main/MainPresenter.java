@@ -145,7 +145,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	@Subscribe
 	public void onEventMainThread(ShowInvestmentProgramDetailsEvent event) {
-		getViewState().showInvestmentProgramDetails(event.investmentProgram);
+		getViewState().showInvestmentProgramDetails(event.programId);
 	}
 
 	@Subscribe

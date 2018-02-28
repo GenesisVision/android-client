@@ -110,4 +110,15 @@
     <string name="management_fee">Management fee</string>
     <string name="investors">Investors</string>
     <string name="available_to_invest">Available to invest</string>
+
+    <plurals name="tokens">
+        <item quantity="one">%d token</item>
+        <item quantity="other">%d tokens</item>
+    </plurals>
+
+    <plurals name="days">
+        <item quantity="one">day</item>
+        <item quantity="two">days</item>
+        <item quantity="other">days</item>
+    </plurals>
 </resources>

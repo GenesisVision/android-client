@@ -1,6 +1,6 @@
 package vision.genesis.clientapp.model.events;
 
-import io.swagger.client.model.InvestmentProgram;
+import java.util.UUID;
 
 /**
  * GenesisVision
@@ -9,9 +9,9 @@ import io.swagger.client.model.InvestmentProgram;
 
 public class ShowInvestmentProgramDetailsEvent
 {
-	public InvestmentProgram investmentProgram;
+	public UUID programId;
 
-	public ShowInvestmentProgramDetailsEvent(InvestmentProgram investmentProgram) {
-		this.investmentProgram = investmentProgram;
+	public ShowInvestmentProgramDetailsEvent(UUID programId) {
+		this.programId = programId;
 	}
 }

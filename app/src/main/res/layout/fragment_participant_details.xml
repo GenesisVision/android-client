@@ -12,7 +12,7 @@
         android:visibility="gone"
         tools:visibility="visible">
 
-        <vision.genesis.clientapp.ui.ProgramLogoView
+        <vision.genesis.clientapp.ui.AvatarView
             android:id="@+id/avatar"
             android:layout_width="@dimen/participant_details_avatar_width"
             android:layout_height="@dimen/participant_details_avatar_height"

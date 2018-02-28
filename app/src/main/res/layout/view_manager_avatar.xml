@@ -12,7 +12,9 @@
         android:layout_height="match_parent"
         app:backgroundImage="@color/grey200"
         app:placeholderImage="@drawable/logo"
-        app:roundAsCircle="true"/>
+        app:roundAsCircle="true"
+        app:roundingBorderColor="@color/colorGrayBackground"
+        app:roundingBorderWidth="2dp"/>
 
     <FrameLayout
         android:id="@+id/group_level"

@@ -13,17 +13,17 @@
                 android:paddingRight="16dp"
                 android:paddingStart="16dp">
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <vision.genesis.clientapp.ui.AvatarView
         android:id="@+id/manager_avatar"
         android:layout_width="@dimen/dashboard_program_logo_width"
         android:layout_height="@dimen/dashboard_program_logo_height"
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
         app:backgroundImage="@color/grey200"
-        app:placeholderImage="@drawable/logo"
+        app:placeholderImage="@drawable/ic_person_black_24dp"
         app:roundAsCircle="true"/>
 
-    <vision.genesis.clientapp.ui.ProgramLogoView
+    <vision.genesis.clientapp.ui.AvatarView
         android:id="@+id/program_logo"
         android:layout_width="@dimen/dashboard_program_logo_width"
         android:layout_height="@dimen/dashboard_program_logo_height"
@@ -89,6 +89,7 @@
             android:id="@+id/profit_percent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
             android:textColor="@color/transactionGreen"
             android:textSize="18sp"
             tools:text="+20%"/>
@@ -97,6 +98,7 @@
             android:id="@+id/profit_currency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
             android:alpha="0.6"
             android:textColor="@color/transactionGreen"
             android:textSize="14sp"
@@ -104,15 +106,14 @@
 
     </LinearLayout>
 
-
     <LinearLayout
         android:id="@+id/group_period"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -125,6 +126,7 @@
             tools:text="6"/>
 
         <TextView
+            android:id="@+id/period_days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="-8dp"

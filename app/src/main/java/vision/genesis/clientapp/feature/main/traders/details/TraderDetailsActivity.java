@@ -18,7 +18,6 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.InvestmentProgram;
 import io.swagger.client.model.InvestmentProgramDetails;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
@@ -26,8 +25,8 @@ import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.program_invest.InvestDialog;
 import vision.genesis.clientapp.feature.main.program_withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.model.ProgramWithdrawalRequest;
+import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.ProfitChartView;
-import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.ui.ToolbarView;
 
 /**
@@ -39,9 +38,9 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 {
 	private static String EXTRA_PROGRAM = "extra_program";
 
-	public static void startWith(Activity activity, InvestmentProgram program) {
+	public static void startWith(Activity activity, UUID programId) {
 		Intent intent = new Intent(activity, TraderDetailsActivity.class);
-		intent.putExtra(EXTRA_PROGRAM, program.getId());
+		intent.putExtra(EXTRA_PROGRAM, programId);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
@@ -50,7 +49,7 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 	public ToolbarView toolbar;
 
 	@BindView(R.id.program_logo)
-	public ProgramLogoView programLogo;
+	public AvatarView programLogo;
 
 	@BindView(R.id.title)
 	public TextView title;
@@ -157,10 +156,10 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 	public void setProgram(InvestmentProgramDetails programDetails) {
 		this.programDetails = programDetails;
 
-		programLogo.setImageUrl(programDetails.getLogo());
-		programLogo.setLevel(String.valueOf(programDetails.getLevel()));
+		programLogo.setImage(programDetails.getLogo());
+		programLogo.setLevel(programDetails.getLevel());
 
-		title.setText(programDetails.getManager().getUsername());
+		title.setText(programDetails.getTitle());
 		description.setText(programDetails.getDescription());
 
 //		chart.setData(program.chartData);

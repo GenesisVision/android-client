@@ -16,12 +16,13 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
+import java.util.UUID;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.InvestmentProgram;
 import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.NavigatorHolder;
 import ru.terrakok.cicerone.Router;
@@ -242,8 +243,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Rout
 	}
 
 	@Override
-	public void showInvestmentProgramDetails(InvestmentProgram program) {
-		TraderDetailsActivity.startWith(this, program);
+	public void showInvestmentProgramDetails(UUID programId) {
+		TraderDetailsActivity.startWith(this, programId);
 	}
 
 	@Override

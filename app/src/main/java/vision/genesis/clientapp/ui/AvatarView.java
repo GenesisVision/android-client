@@ -19,7 +19,7 @@ import vision.genesis.clientapp.R;
  * Created by Vitaly on 1/29/18.
  */
 
-public class ProgramLogoView extends RelativeLayout
+public class AvatarView extends RelativeLayout
 {
 	@BindView(R.id.image)
 	public SimpleDraweeView image;
@@ -30,17 +30,17 @@ public class ProgramLogoView extends RelativeLayout
 	@BindView(R.id.group_level)
 	public ViewGroup groupLevel;
 
-	public ProgramLogoView(Context context) {
+	public AvatarView(Context context) {
 		super(context);
 		initView();
 	}
 
-	public ProgramLogoView(Context context, AttributeSet attrs) {
+	public AvatarView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		initView();
 	}
 
-	public ProgramLogoView(Context context, AttributeSet attrs, int defStyleAttr) {
+	public AvatarView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		initView();
 	}
@@ -51,15 +51,15 @@ public class ProgramLogoView extends RelativeLayout
 		ButterKnife.bind(this);
 	}
 
-	public void setImageUrl(String url) {
+	public void setImage(String imageId) {
 		String baseUrl = BuildConfig.FLAVOR.equals("tournament")
 				? BuildConfig.TOURNAMENT_API_ADDRESS
 				: BuildConfig.API_ADDRESS;
-		image.setImageURI(baseUrl + "/api/files/get?filename=" + url);
+		image.setImageURI(baseUrl + "/api/files/get/" + imageId);
 	}
 
-	public void setLevel(String level) {
-		this.level.setText(level);
+	public void setLevel(int level) {
+		this.level.setText(String.valueOf(level));
 	}
 
 	public void hideLevel() {

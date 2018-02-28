@@ -17,8 +17,8 @@ import butterknife.ButterKnife;
 import io.swagger.client.model.InvestmentProgram;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
+import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.ProfitChartView;
-import vision.genesis.clientapp.ui.ProgramLogoView;
 
 /**
  * GenesisVision
@@ -59,7 +59,7 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 	static class InvestmentProgramViewHolder extends RecyclerView.ViewHolder
 	{
 		@BindView(R.id.avatar)
-		public ProgramLogoView avatar;
+		public AvatarView avatar;
 
 		@BindView(R.id.title)
 		public TextView title;
@@ -89,7 +89,7 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 
 			ButterKnife.bind(this, itemView);
 
-			itemView.setOnClickListener(v -> EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(investmentProgram)));
+			itemView.setOnClickListener(v -> EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(investmentProgram.getId())));
 		}
 
 		void setInvestmentProgram(InvestmentProgram investmentProgram) {
@@ -98,8 +98,8 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 		}
 
 		private void updateData() {
-			avatar.setImageUrl(investmentProgram.getLogo());
-			avatar.setLevel(String.valueOf(investmentProgram.getLevel()));
+			avatar.setImage(investmentProgram.getLogo());
+			avatar.setLevel(investmentProgram.getLevel());
 			title.setText(investmentProgram.getTitle());
 			currency.setText(investmentProgram.getCurrency().toString());
 
