@@ -42,6 +42,8 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 
 	private Subscription balanceSubscription;
 
+	private Subscription transactionsSubscription;
+
 	private int skip = 0;
 
 	private TransactionsFilter filter;
@@ -62,10 +64,12 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 
 	@Override
 	public void onDestroy() {
-		super.onDestroy();
-
 		if (balanceSubscription != null)
 			balanceSubscription.unsubscribe();
+		if (transactionsSubscription != null)
+			transactionsSubscription.unsubscribe();
+
+		super.onDestroy();
 	}
 
 	void onResume() {
@@ -113,7 +117,7 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 			filter.setSkip(skip);
 		}
 
-		balanceSubscription = walletManager.getMockTransactions(filter)
+		transactionsSubscription = walletManager.getTransactions(filter)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleGetTransactionsResponse,
@@ -121,7 +125,7 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 	}
 
 	private void handleGetTransactionsResponse(WalletTransactionsViewModel model) {
-		balanceSubscription.unsubscribe();
+		transactionsSubscription.unsubscribe();
 
 		getViewState().setRefreshing(false);
 
@@ -138,7 +142,7 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 	}
 
 	private void handleGetTransactionsError(Throwable error) {
-		balanceSubscription.unsubscribe();
+		transactionsSubscription.unsubscribe();
 
 		getViewState().setRefreshing(false);
 
