@@ -106,4 +106,8 @@
     <string name="wallet_address">Wallet address</string>
     <string name="amount">Amount</string>
     <string name="double_check_address">Double check the wallet address you entered!\nThis operation cannot be undone!</string>
+    <string name="success_fee">Success fee</string>
+    <string name="management_fee">Management fee</string>
+    <string name="investors">Investors</string>
+    <string name="available_to_invest">Available to invest</string>
 </resources>

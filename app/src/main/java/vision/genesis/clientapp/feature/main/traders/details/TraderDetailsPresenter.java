@@ -86,6 +86,7 @@ public class TraderDetailsPresenter extends MvpPresenter<TraderDetailsView>
 	}
 
 	private void getProgramDetails() {
+		getViewState().showProgress(true);
 		programDetailsSubscription = investManager.getInvestmentProgramDetails(programId)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
@@ -95,12 +96,15 @@ public class TraderDetailsPresenter extends MvpPresenter<TraderDetailsView>
 
 	private void handleInvestmentProgramDetailsSuccess(InvestmentProgramViewModel model) {
 		programDetailsSubscription.unsubscribe();
+		getViewState().showProgress(false);
+
 		programDetails = model.getInvestmentProgram();
 		getViewState().setProgram(programDetails);
 	}
 
 	private void handleInvestmentProgramDetailsError(Throwable throwable) {
 		programDetailsSubscription.unsubscribe();
+		getViewState().showProgress(false);
 
 	}
 

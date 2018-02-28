@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -25,8 +26,8 @@ import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.program_invest.InvestDialog;
 import vision.genesis.clientapp.feature.main.program_withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.model.ProgramWithdrawalRequest;
-import vision.genesis.clientapp.ui.ManagerAvatarView;
 import vision.genesis.clientapp.ui.ProfitChartView;
+import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.ui.ToolbarView;
 
 /**
@@ -48,11 +49,11 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
 
-	@BindView(R.id.avatar)
-	public ManagerAvatarView avatar;
+	@BindView(R.id.program_logo)
+	public ProgramLogoView programLogo;
 
-	@BindView(R.id.manager_name)
-	public TextView managerName;
+	@BindView(R.id.title)
+	public TextView title;
 
 	@BindView(R.id.text_description)
 	public TextView description;
@@ -72,14 +73,35 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 	@BindView(R.id.text_profit_text)
 	public TextView profitText;
 
-	@BindView(R.id.text_min_amount)
-	public TextView minAmountText;
+	@BindView(R.id.text_success_fee)
+	public TextView successFeeText;
 
-	@BindView(R.id.text_max_amount)
-	public TextView maxAmountText;
+	@BindView(R.id.text_management_fee)
+	public TextView managementFeeText;
+
+	@BindView(R.id.text_investors_count)
+	public TextView investorsCountText;
+
+	@BindView(R.id.text_available_to_invest)
+	public TextView availableToInvestText;
+
+	@BindView(R.id.text_available_currency)
+	public TextView availableToInvestCurrencyText;
 
 	@BindView(R.id.group_buttons)
 	public ViewGroup buttonsGroup;
+
+	@BindView(R.id.button_invest)
+	public View investButton;
+
+	@BindView(R.id.button_withdraw)
+	public View withdrawButton;
+
+	@BindView(R.id.scrollview)
+	public View scrollView;
+
+	@BindView(R.id.progress_bar)
+	public ProgressBar progressBar;
 
 	@InjectPresenter
 	TraderDetailsPresenter traderDetailsPresenter;
@@ -133,21 +155,32 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 
 	@Override
 	public void setProgram(InvestmentProgramDetails programDetails) {
-		avatar.setImageUrl(programDetails.getLogo());
-		avatar.setLevel(String.valueOf(programDetails.getLevel()));
+		this.programDetails = programDetails;
 
-		managerName.setText(programDetails.getManager().getUsername());
+		programLogo.setImageUrl(programDetails.getLogo());
+		programLogo.setLevel(String.valueOf(programDetails.getLevel()));
+
+		title.setText(programDetails.getManager().getUsername());
 		description.setText(programDetails.getDescription());
 
 //		chart.setData(program.chartData);
 
+		depositText.setText(String.valueOf(programDetails.getBalance()));
 		tradesText.setText(String.valueOf(programDetails.getTradesCount()));
 		periodText.setText(String.valueOf(programDetails.getPeriodDuration()));
 		profitText.setText(String.format(Locale.getDefault(), "%.2f%%", programDetails.getProfitAvg()));
 
-
 		DecimalFormat df = new DecimalFormat("0.####");
 		df.setRoundingMode(RoundingMode.DOWN);
+
+		successFeeText.setText(df.format(programDetails.getFeeSuccess()));
+		managementFeeText.setText(df.format((programDetails.getFeeManagement())));
+		investorsCountText.setText(String.valueOf(programDetails.getInvestorsCount()));
+		availableToInvestText.setText(df.format(programDetails.getAvailableInvestment()));
+		availableToInvestCurrencyText.setText(programDetails.getCurrency().toString());
+
+		investButton.setVisibility(programDetails.isIsInvestEnable() ? View.VISIBLE : View.GONE);
+		withdrawButton.setVisibility(programDetails.isIsWithdrawEnable() ? View.VISIBLE : View.GONE);
 	}
 
 	@Override
@@ -162,6 +195,12 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 	@Override
 	public void showInvestWithdrawButtons(boolean show) {
 		buttonsGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
+
+	@Override
+	public void showProgress(boolean show) {
+		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+		scrollView.setVisibility(!show ? View.VISIBLE : View.GONE);
 	}
 
 	@Override

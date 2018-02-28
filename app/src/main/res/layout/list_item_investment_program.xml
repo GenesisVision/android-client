@@ -21,13 +21,13 @@
             android:paddingRight="16dp"
             android:paddingStart="16dp">
 
-            <vision.genesis.clientapp.ui.ManagerAvatarView
+            <vision.genesis.clientapp.ui.ProgramLogoView
                 android:id="@+id/avatar"
                 android:layout_width="@dimen/manager_avatar_width"
                 android:layout_height="@dimen/manager_avatar_height"/>
 
             <TextView
-                android:id="@+id/manager_name"
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -38,7 +38,7 @@
                 android:textColor="@color/colorFontDark"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                tools:text="Warren Buffett"/>
+                tools:text="Super program"/>
 
             <TextView
                 android:id="@+id/currency"

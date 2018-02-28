@@ -23,7 +23,7 @@
         app:placeholderImage="@drawable/logo"
         app:roundAsCircle="true"/>
 
-    <vision.genesis.clientapp.ui.ManagerAvatarView
+    <vision.genesis.clientapp.ui.ProgramLogoView
         android:id="@+id/program_logo"
         android:layout_width="@dimen/dashboard_program_logo_width"
         android:layout_height="@dimen/dashboard_program_logo_height"

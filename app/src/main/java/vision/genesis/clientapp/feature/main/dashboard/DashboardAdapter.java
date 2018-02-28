@@ -15,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.InvestmentProgramDashboard;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.ui.ManagerAvatarView;
+import vision.genesis.clientapp.ui.ProgramLogoView;
 
 /**
  * GenesisVision
@@ -51,7 +51,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Inve
 	static class InvestorProgramViewHolder extends RecyclerView.ViewHolder
 	{
 		@BindView(R.id.program_logo)
-		public ManagerAvatarView programLogo;
+		public ProgramLogoView programLogo;
 
 		@BindView(R.id.manager_avatar)
 		public SimpleDraweeView managerAvatar;

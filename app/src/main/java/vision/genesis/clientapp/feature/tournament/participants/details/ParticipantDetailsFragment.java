@@ -23,8 +23,8 @@ import io.swagger.client.model.ParticipantViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.ui.ManagerAvatarView;
 import vision.genesis.clientapp.ui.ProfitChartView;
+import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.ui.ToolbarView;
 
 /**
@@ -48,7 +48,7 @@ public class ParticipantDetailsFragment extends BaseFragment implements Particip
 	public ToolbarView toolbar;
 
 	@BindView(R.id.avatar)
-	public ManagerAvatarView avatar;
+	public ProgramLogoView avatar;
 
 	@BindView(R.id.name)
 	public TextView name;

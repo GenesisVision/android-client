@@ -19,7 +19,7 @@ import vision.genesis.clientapp.R;
  * Created by Vitaly on 1/29/18.
  */
 
-public class ManagerAvatarView extends RelativeLayout
+public class ProgramLogoView extends RelativeLayout
 {
 	@BindView(R.id.image)
 	public SimpleDraweeView image;
@@ -30,17 +30,17 @@ public class ManagerAvatarView extends RelativeLayout
 	@BindView(R.id.group_level)
 	public ViewGroup groupLevel;
 
-	public ManagerAvatarView(Context context) {
+	public ProgramLogoView(Context context) {
 		super(context);
 		initView();
 	}
 
-	public ManagerAvatarView(Context context, AttributeSet attrs) {
+	public ProgramLogoView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		initView();
 	}
 
-	public ManagerAvatarView(Context context, AttributeSet attrs, int defStyleAttr) {
+	public ProgramLogoView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		initView();
 	}

@@ -17,5 +17,7 @@ interface TraderDetailsView extends MvpView
 
 	void showInvestWithdrawButtons(boolean show);
 
+	void showProgress(boolean show);
+
 	void finishActivity();
 }

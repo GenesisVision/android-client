@@ -20,8 +20,8 @@ import butterknife.ButterKnife;
 import io.swagger.client.model.ParticipantViewModel;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.OnParticipantItemListClicked;
-import vision.genesis.clientapp.ui.ManagerAvatarView;
 import vision.genesis.clientapp.ui.ProfitChartView;
+import vision.genesis.clientapp.ui.ProgramLogoView;
 
 /**
  * GenesisVision
@@ -87,7 +87,7 @@ public class ParticipantsListAdapter extends RecyclerView.Adapter<RecyclerView.V
 	static class ParticipantViewHolder extends RecyclerView.ViewHolder
 	{
 		@BindView(R.id.avatar)
-		public ManagerAvatarView avatar;
+		public ProgramLogoView avatar;
 
 		@BindView(R.id.name)
 		public TextView name;

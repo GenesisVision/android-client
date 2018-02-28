@@ -17,8 +17,8 @@ import butterknife.ButterKnife;
 import io.swagger.client.model.InvestmentProgram;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
-import vision.genesis.clientapp.ui.ManagerAvatarView;
 import vision.genesis.clientapp.ui.ProfitChartView;
+import vision.genesis.clientapp.ui.ProgramLogoView;
 
 /**
  * GenesisVision
@@ -59,10 +59,10 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 	static class InvestmentProgramViewHolder extends RecyclerView.ViewHolder
 	{
 		@BindView(R.id.avatar)
-		public ManagerAvatarView avatar;
+		public ProgramLogoView avatar;
 
-		@BindView(R.id.manager_name)
-		public TextView managerName;
+		@BindView(R.id.title)
+		public TextView title;
 
 		@BindView(R.id.currency)
 		public TextView currency;
@@ -100,10 +100,10 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 		private void updateData() {
 			avatar.setImageUrl(investmentProgram.getLogo());
 			avatar.setLevel(String.valueOf(investmentProgram.getLevel()));
-//			managerName.setText(investmentProgram.managerName);
-//			currency.setText(investmentProgram.currency);
+			title.setText(investmentProgram.getTitle());
+			currency.setText(investmentProgram.getCurrency().toString());
 
-//			depositText.setText(investmentProgram.getInvestment().);
+			depositText.setText(String.valueOf(investmentProgram.getBalance()));
 			tradesText.setText(String.valueOf(investmentProgram.getTradesCount()));
 			periodText.setText(String.valueOf(investmentProgram.getPeriodDuration()));
 			profitText.setText(String.format(Locale.getDefault(), "%.2f%%", investmentProgram.getProfitAvg()));
