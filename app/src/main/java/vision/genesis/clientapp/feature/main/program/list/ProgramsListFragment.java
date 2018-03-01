@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.traders;
+package vision.genesis.clientapp.feature.main.program.list;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,7 +32,7 @@ import vision.genesis.clientapp.ui.ToolbarView;
  * Created by Vitaly on 1/19/18.
  */
 
-public class TradersFragment extends BaseFragment implements TradersView
+public class ProgramsListFragment extends BaseFragment implements ProgramsListView
 {
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
@@ -56,7 +56,7 @@ public class TradersFragment extends BaseFragment implements TradersView
 	public FloatingActionButton fab;
 
 	@InjectPresenter
-	TradersPresenter tradersPresenter;
+	ProgramsListPresenter programsListPresenter;
 
 	private boolean fabInAnim = false;
 
@@ -64,7 +64,7 @@ public class TradersFragment extends BaseFragment implements TradersView
 
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
-		tradersPresenter.onTryAgainClicked();
+		programsListPresenter.onTryAgainClicked();
 	}
 
 	@OnClick(R.id.fab)
@@ -91,14 +91,14 @@ public class TradersFragment extends BaseFragment implements TradersView
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.traders));
-		toolbar.addRightButton(R.drawable.ic_filter, () -> tradersPresenter.onFilterClicked());
+		toolbar.addRightButton(R.drawable.ic_filter, () -> programsListPresenter.onFilterClicked());
 	}
 
 	private void initRefreshLayout() {
 		refreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary),
 				ContextCompat.getColor(getContext(), R.color.colorAccent),
 				ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
-		refreshLayout.setOnRefreshListener(() -> tradersPresenter.onSwipeRefresh());
+		refreshLayout.setOnRefreshListener(() -> programsListPresenter.onSwipeRefresh());
 	}
 
 	private void initRecyclerView() {
@@ -119,7 +119,7 @@ public class TradersFragment extends BaseFragment implements TradersView
 
 				boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
 				if (totalItemCount > 0 && endHasBeenReached) {
-					tradersPresenter.onLastListItemVisible();
+					programsListPresenter.onLastListItemVisible();
 				}
 				if (dy != 0) {
 					if (!fabInAnim && fab.getVisibility() != View.VISIBLE && lastVisible > 2)

@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.traders;
+package vision.genesis.clientapp.feature.main.program.list;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

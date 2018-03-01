@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.traders.filter;
+package vision.genesis.clientapp.feature.main.program.filter;
 
 import android.content.Context;
 
@@ -18,7 +18,7 @@ import vision.genesis.clientapp.model.FilterSortingOption;
  */
 
 @InjectViewState
-public class TradersFiltersPresenter extends MvpPresenter<TradersFiltersView>
+public class ProgramsFiltersPresenter extends MvpPresenter<ProgramsFiltersView>
 {
 	@Inject
 	public Context context;

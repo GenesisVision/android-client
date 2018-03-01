@@ -36,9 +36,9 @@ import vision.genesis.clientapp.feature.auth.AuthActivity;
 import vision.genesis.clientapp.feature.main.bottom_navigation.DashboardMainFragment;
 import vision.genesis.clientapp.feature.main.bottom_navigation.ProfileMainFragment;
 import vision.genesis.clientapp.feature.main.bottom_navigation.RouterProvider;
-import vision.genesis.clientapp.feature.main.traders.TradersFragment;
-import vision.genesis.clientapp.feature.main.traders.details.TraderDetailsActivity;
-import vision.genesis.clientapp.feature.main.traders.filter.TradersFiltersActivity;
+import vision.genesis.clientapp.feature.main.program.details.ProgramDetailsActivity;
+import vision.genesis.clientapp.feature.main.program.filter.ProgramsFiltersActivity;
+import vision.genesis.clientapp.feature.main.program.list.ProgramsListFragment;
 import vision.genesis.clientapp.feature.main.wallet.WalletFragment;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
@@ -76,7 +76,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Rout
 
 	private DashboardMainFragment dashboardMainFragment;
 
-	private TradersFragment tradersFragment;
+	private ProgramsListFragment programsListFragment;
 
 	private WalletFragment walletFragment;
 
@@ -97,9 +97,9 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Rout
 						dashboardMainFragment = new DashboardMainFragment();
 					return dashboardMainFragment;
 				case Screens.TRADERS:
-					if (tradersFragment == null)
-						tradersFragment = new TradersFragment();
-					return tradersFragment;
+					if (programsListFragment == null)
+						programsListFragment = new ProgramsListFragment();
+					return programsListFragment;
 				case Screens.WALLET:
 					if (walletFragment == null)
 						walletFragment = new WalletFragment();
@@ -239,12 +239,12 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Rout
 
 	@Override
 	public void showTradersFilters() {
-		TradersFiltersActivity.startFrom(this);
+		ProgramsFiltersActivity.startFrom(this);
 	}
 
 	@Override
 	public void showInvestmentProgramDetails(UUID programId) {
-		TraderDetailsActivity.startWith(this, programId);
+		ProgramDetailsActivity.startWith(this, programId);
 	}
 
 	@Override

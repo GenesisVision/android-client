@@ -51,21 +51,21 @@
         </activity>
 
         <activity
-            android:name=".feature.main.traders.details.TraderDetailsActivity"
+            android:name=".feature.main.program.details.ProgramDetailsActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="adjustResize"/>
 
         <activity
-            android:name=".feature.main.traders.filter.TradersFiltersActivity"
+            android:name=".feature.main.program.filter.ProgramsFiltersActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
 
         <activity
-            android:name=".feature.main.program_withdraw.WithdrawProgramActivity"
+            android:name=".feature.main.program.withdraw.WithdrawProgramActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackActivityTheme"

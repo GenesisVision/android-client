@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.traders;
+package vision.genesis.clientapp.feature.main.program.list;
 
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
@@ -14,7 +14,7 @@ import io.swagger.client.model.InvestmentProgram;
  * Created by Vitaly on 1/19/18.
  */
 
-interface TradersView extends MvpView
+interface ProgramsListView extends MvpView
 {
 	void setInvestmentPrograms(List<InvestmentProgram> programs);
 

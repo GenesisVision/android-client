@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.traders.filter;
+package vision.genesis.clientapp.feature.main.program.filter;
 
 import com.arellomobile.mvp.MvpView;
 
@@ -9,7 +9,7 @@ import io.swagger.client.model.InvestmentProgramsFilter;
  * Created by Vitaly on 1/26/18.
  */
 
-interface TradersFiltersView extends MvpView
+interface ProgramsFiltersView extends MvpView
 {
 	void setFilterData(InvestmentProgramsFilter filter);
 

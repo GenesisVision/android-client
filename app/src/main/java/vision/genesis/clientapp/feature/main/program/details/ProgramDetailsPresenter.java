@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.traders.details;
+package vision.genesis.clientapp.feature.main.program.details;
 
 import android.content.Context;
 
@@ -29,7 +29,7 @@ import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
  */
 
 @InjectViewState
-public class TraderDetailsPresenter extends MvpPresenter<TraderDetailsView>
+public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 {
 	@Inject
 	public Context context;
@@ -60,7 +60,7 @@ public class TraderDetailsPresenter extends MvpPresenter<TraderDetailsView>
 	}
 
 	@Override
-	public void attachView(TraderDetailsView view) {
+	public void attachView(ProgramDetailsView view) {
 		super.attachView(view);
 
 		if (programId != null)

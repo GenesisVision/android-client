@@ -19,11 +19,11 @@ import vision.genesis.clientapp.feature.main.MainPresenter;
 import vision.genesis.clientapp.feature.main.bottom_navigation.TabContainerFragment;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardPresenter;
 import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
-import vision.genesis.clientapp.feature.main.program_invest.InvestDialog;
-import vision.genesis.clientapp.feature.main.program_withdraw.WithdrawProgramPresenter;
-import vision.genesis.clientapp.feature.main.traders.TradersPresenter;
-import vision.genesis.clientapp.feature.main.traders.details.TraderDetailsPresenter;
-import vision.genesis.clientapp.feature.main.traders.filter.TradersFiltersPresenter;
+import vision.genesis.clientapp.feature.main.program.details.ProgramDetailsPresenter;
+import vision.genesis.clientapp.feature.main.program.filter.ProgramsFiltersPresenter;
+import vision.genesis.clientapp.feature.main.program.invest.InvestDialog;
+import vision.genesis.clientapp.feature.main.program.list.ProgramsListPresenter;
+import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramPresenter;
 import vision.genesis.clientapp.feature.main.wallet.WalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletPresenter;
@@ -59,15 +59,15 @@ public interface AppComponent
 
 	void inject(DashboardPresenter dashboardPresenter);
 
-	void inject(TradersPresenter tradersPresenter);
+	void inject(ProgramsListPresenter programsListPresenter);
 
 	void inject(WalletPresenter walletPresenter);
 
 	void inject(ProfilePresenter profilePresenter);
 
-	void inject(TradersFiltersPresenter tradersFiltersPresenter);
+	void inject(ProgramsFiltersPresenter programsFiltersPresenter);
 
-	void inject(TraderDetailsPresenter traderDetailsPresenter);
+	void inject(ProgramDetailsPresenter programDetailsPresenter);
 
 	void inject(TabContainerFragment tabContainerFragment);
 

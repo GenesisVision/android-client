@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program_withdraw;
+package vision.genesis.clientapp.feature.main.program.withdraw;
 
 import com.arellomobile.mvp.MvpView;
 

@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.traders.details;
+package vision.genesis.clientapp.feature.main.program.details;
 
 import com.arellomobile.mvp.MvpView;
 
@@ -9,7 +9,7 @@ import io.swagger.client.model.InvestmentProgramDetails;
  * Created by Vitaly on 1/26/18.
  */
 
-interface TraderDetailsView extends MvpView
+interface ProgramDetailsView extends MvpView
 {
 	void setProgram(InvestmentProgramDetails programDetails);
 

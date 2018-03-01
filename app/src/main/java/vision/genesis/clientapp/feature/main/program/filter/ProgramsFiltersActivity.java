@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.traders.filter;
+package vision.genesis.clientapp.feature.main.program.filter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,10 +27,10 @@ import vision.genesis.clientapp.ui.ToolbarView;
  * Created by Vitaly on 1/26/18.
  */
 
-public class TradersFiltersActivity extends BaseSwipeBackActivity implements TradersFiltersView
+public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements ProgramsFiltersView
 {
 	public static void startFrom(Activity activity) {
-		activity.startActivity(new Intent(activity, TradersFiltersActivity.class));
+		activity.startActivity(new Intent(activity, ProgramsFiltersActivity.class));
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
 
@@ -53,18 +53,18 @@ public class TradersFiltersActivity extends BaseSwipeBackActivity implements Tra
 	public View clearButton;
 
 	@InjectPresenter
-	TradersFiltersPresenter tradersFiltersPresenter;
+	ProgramsFiltersPresenter programsFiltersPresenter;
 
 	private ArrayList<FilterSortingOption> sortingOptions;
 
 	@OnClick(R.id.button_apply)
 	public void onApplyClicked() {
-		tradersFiltersPresenter.onApplyClicked();
+		programsFiltersPresenter.onApplyClicked();
 	}
 
 	@OnClick(R.id.button_clear)
 	public void onClearClicked() {
-		tradersFiltersPresenter.onClearClicked();
+		programsFiltersPresenter.onClearClicked();
 	}
 
 	@Override
@@ -90,7 +90,7 @@ public class TradersFiltersActivity extends BaseSwipeBackActivity implements Tra
 		{
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				tradersFiltersPresenter.onSortingSelected(sortingOptions.get(position));
+				programsFiltersPresenter.onSortingSelected(sortingOptions.get(position));
 			}
 
 			@Override
@@ -102,7 +102,7 @@ public class TradersFiltersActivity extends BaseSwipeBackActivity implements Tra
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.filters));
-		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> tradersFiltersPresenter.onBackClicked());
+		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> programsFiltersPresenter.onBackClicked());
 	}
 
 	@Override

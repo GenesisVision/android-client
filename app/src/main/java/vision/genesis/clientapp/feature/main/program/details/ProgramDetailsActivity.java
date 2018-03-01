@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.traders.details;
+package vision.genesis.clientapp.feature.main.program.details;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,8 +22,8 @@ import io.swagger.client.model.InvestmentProgramDetails;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.feature.main.program_invest.InvestDialog;
-import vision.genesis.clientapp.feature.main.program_withdraw.WithdrawProgramActivity;
+import vision.genesis.clientapp.feature.main.program.invest.InvestDialog;
+import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.model.ProgramWithdrawalRequest;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.ProfitChartView;
@@ -35,12 +35,12 @@ import vision.genesis.clientapp.utils.DateTimeUtil;
  * Created by Vitaly on 1/26/18.
  */
 
-public class TraderDetailsActivity extends BaseSwipeBackActivity implements TraderDetailsView
+public class ProgramDetailsActivity extends BaseSwipeBackActivity implements ProgramDetailsView
 {
 	private static String EXTRA_PROGRAM = "extra_program";
 
 	public static void startWith(Activity activity, UUID programId) {
-		Intent intent = new Intent(activity, TraderDetailsActivity.class);
+		Intent intent = new Intent(activity, ProgramDetailsActivity.class);
 		intent.putExtra(EXTRA_PROGRAM, programId);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
@@ -113,7 +113,7 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 	public ProgressBar progressBar;
 
 	@InjectPresenter
-	TraderDetailsPresenter traderDetailsPresenter;
+	ProgramDetailsPresenter programDetailsPresenter;
 
 	private InvestmentProgramDetails programDetails;
 
@@ -121,7 +121,7 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 
 	@OnClick(R.id.button_invest)
 	public void onInvestClicked() {
-		traderDetailsPresenter.onInvestClicked();
+		programDetailsPresenter.onInvestClicked();
 	}
 
 	@OnClick(R.id.button_withdraw)
@@ -144,7 +144,7 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 
 		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
 			UUID programId = (UUID) getIntent().getExtras().getSerializable(EXTRA_PROGRAM);
-			traderDetailsPresenter.setProgramId(programId);
+			programDetailsPresenter.setProgramId(programId);
 		}
 		else {
 			Timber.e("Passed empty program to TraderDetailsActivity");

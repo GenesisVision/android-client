@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.traders;
+package vision.genesis.clientapp.feature.main.program.list;
 
 import android.content.Context;
 
@@ -30,7 +30,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class TradersPresenter extends MvpPresenter<TradersView>
+public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 {
 	private static int TAKE = 5;
 
