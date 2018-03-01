@@ -110,6 +110,7 @@
     <string name="management_fee">Management fee</string>
     <string name="investors">Investors</string>
     <string name="available_to_invest">Available to invest</string>
+    <string name="period_ends_at">The period ends at</string>
 
     <plurals name="tokens">
         <item quantity="one">%d token</item>

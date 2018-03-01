@@ -28,6 +28,7 @@ import vision.genesis.clientapp.model.ProgramWithdrawalRequest;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.ProfitChartView;
 import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.utils.DateTimeUtil;
 
 /**
  * GenesisVision
@@ -71,6 +72,15 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 
 	@BindView(R.id.text_profit_text)
 	public TextView profitText;
+
+	@BindView(R.id.text_end_of_period)
+	public TextView endOfPeriodText;
+
+	@BindView(R.id.text_period_left)
+	public TextView periodLeftText;
+
+	@BindView(R.id.text_period_days)
+	public TextView periodDaysText;
 
 	@BindView(R.id.text_success_fee)
 	public TextView successFeeText;
@@ -171,6 +181,12 @@ public class TraderDetailsActivity extends BaseSwipeBackActivity implements Trad
 
 		DecimalFormat df = new DecimalFormat("0.####");
 		df.setRoundingMode(RoundingMode.DOWN);
+
+		endOfPeriodText.setText(DateTimeUtil.formatDateTime(programDetails.getEndOfPeriod()));
+
+		int daysToPeriodEnd = DateTimeUtil.getDaysToDate(programDetails.getEndOfPeriod());
+		periodLeftText.setText(String.valueOf(daysToPeriodEnd));
+		periodDaysText.setText(getResources().getQuantityString(R.plurals.days, daysToPeriodEnd, daysToPeriodEnd, daysToPeriodEnd));
 
 		successFeeText.setText(df.format(programDetails.getFeeSuccess()));
 		managementFeeText.setText(df.format((programDetails.getFeeManagement())));
