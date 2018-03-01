@@ -71,7 +71,7 @@ public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements Pr
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_traders_filters);
+		setContentView(R.layout.activity_programs_filters);
 
 		ButterKnife.bind(this);
 

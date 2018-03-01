@@ -3,6 +3,8 @@ package io.swagger.client.api;
 import java.util.UUID;
 
 import io.swagger.client.model.Invest;
+import io.swagger.client.model.InvestmentProgramRequests;
+import io.swagger.client.model.InvestmentProgramRequestsFilter;
 import io.swagger.client.model.InvestmentProgramViewModel;
 import io.swagger.client.model.InvestmentProgramsFilter;
 import io.swagger.client.model.InvestmentProgramsViewModel;
@@ -93,11 +95,12 @@ public interface InvestorApi
 	 * Get investment program details by id
 	 *
 	 * @param investmentProgramId (required)
+	 * @param authorization       (optional)
 	 * @return Call&lt;InvestmentProgramViewModel&gt;
 	 */
 	@GET("api/investor/investmentProgram")
 	Observable<InvestmentProgramViewModel> apiInvestorInvestmentProgramGet(
-			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
@@ -113,6 +116,21 @@ public interface InvestorApi
 	@POST("api/investor/investmentProgram/openTrades")
 	Observable<OpenTradesViewModel> apiInvestorInvestmentProgramOpenTradesPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body TradesFilter filter
+	);
+
+	/**
+	 * Get investment program&#39;s requests
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param filter        (optional)
+	 * @return Call&lt;InvestmentProgramRequests&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/investor/investmentProgram/requests")
+	Observable<InvestmentProgramRequests> apiInvestorInvestmentProgramRequestsPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body InvestmentProgramRequestsFilter filter
 	);
 
 	/**
@@ -160,7 +178,8 @@ public interface InvestorApi
 	/**
 	 * Get public investment program&#39;s list
 	 *
-	 * @param filter (optional)
+	 * @param authorization (optional)
+	 * @param filter        (optional)
 	 * @return Call&lt;InvestmentProgramsViewModel&gt;
 	 */
 	@Headers({
@@ -168,7 +187,7 @@ public interface InvestorApi
 	})
 	@POST("api/investor/investmentPrograms")
 	Observable<InvestmentProgramsViewModel> apiInvestorInvestmentProgramsPost(
-			@retrofit2.http.Body InvestmentProgramsFilter filter
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body InvestmentProgramsFilter filter
 	);
 
 	/**

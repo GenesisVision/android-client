@@ -75,7 +75,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_traders, container, false);
+		return inflater.inflate(R.layout.fragment_programs_list, container, false);
 	}
 
 	@Override

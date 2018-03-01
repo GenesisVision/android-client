@@ -11,7 +11,7 @@ Method | HTTP request | Description
 [**apiBrokerPeriodAccrueProfitsPost**](BrokerApi.md#apiBrokerPeriodAccrueProfitsPost) | **POST** api/broker/period/accrueProfits | Accrue investors&#39; profits
 [**apiBrokerPeriodClosePost**](BrokerApi.md#apiBrokerPeriodClosePost) | **POST** api/broker/period/close | Close investment period
 [**apiBrokerPeriodProcessInvestmentRequestsPost**](BrokerApi.md#apiBrokerPeriodProcessInvestmentRequestsPost) | **POST** api/broker/period/processInvestmentRequests | Process investment requests
-[**apiBrokerPeriodSetStartBalancePost**](BrokerApi.md#apiBrokerPeriodSetStartBalancePost) | **POST** api/broker/period/setStartBalance | Set investment period start balance
+[**apiBrokerPeriodSetStartValuesPost**](BrokerApi.md#apiBrokerPeriodSetStartValuesPost) | **POST** api/broker/period/setStartValues | Set investment period start balance, manager share, manager balance
 [**apiBrokerPeriodlosingDataGet**](BrokerApi.md#apiBrokerPeriodlosingDataGet) | **GET** api/broker/period/сlosingData | Get data for closing investment period
 [**apiBrokerTradesNewPost**](BrokerApi.md#apiBrokerTradesNewPost) | **POST** api/broker/trades/new | New trade event
 [**apiBrokerTradesOpenTradesNewPost**](BrokerApi.md#apiBrokerTradesOpenTradesNewPost) | **POST** api/broker/trades/openTrades/new | New open trades event
@@ -329,11 +329,11 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="apiBrokerPeriodSetStartBalancePost"></a>
-# **apiBrokerPeriodSetStartBalancePost**
-> Void apiBrokerPeriodSetStartBalancePost(periodId, balance, authorization)
+<a name="apiBrokerPeriodSetStartValuesPost"></a>
+# **apiBrokerPeriodSetStartValuesPost**
+> Void apiBrokerPeriodSetStartValuesPost(investmentProgramId, balance, managerBalance, managerShare, authorization)
 
-Set investment period start balance
+Set investment period start balance, manager share, manager balance
 
 ### Example
 ```java
@@ -343,14 +343,16 @@ Set investment period start balance
 
 
 BrokerApi apiInstance = new BrokerApi();
-UUID periodId = new UUID(); // UUID | 
+UUID investmentProgramId = new UUID(); // UUID | 
 Double balance = 3.4D; // Double | 
+Double managerBalance = 3.4D; // Double | 
+Double managerShare = 3.4D; // Double | 
 String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.apiBrokerPeriodSetStartBalancePost(periodId, balance, authorization);
+    Void result = apiInstance.apiBrokerPeriodSetStartValuesPost(investmentProgramId, balance, managerBalance, managerShare, authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling BrokerApi#apiBrokerPeriodSetStartBalancePost");
+    System.err.println("Exception when calling BrokerApi#apiBrokerPeriodSetStartValuesPost");
     e.printStackTrace();
 }
 ```
@@ -359,8 +361,10 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **periodId** | [**UUID**](.md)|  |
+ **investmentProgramId** | [**UUID**](.md)|  |
  **balance** | **Double**|  |
+ **managerBalance** | **Double**|  |
+ **managerShare** | **Double**|  |
  **authorization** | **String**| JWT access token |
 
 ### Return type

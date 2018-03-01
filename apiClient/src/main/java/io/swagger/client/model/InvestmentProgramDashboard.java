@@ -84,8 +84,8 @@ public class InvestmentProgramDashboard
 	@SerializedName("manager")
 	private ProfilePublicViewModel manager = null;
 
-	@SerializedName("isPending")
-	private Boolean isPending = null;
+	@SerializedName("hasNewRequests")
+	private Boolean hasNewRequests = null;
 
 	@SerializedName("isHistoryEnable")
 	private Boolean isHistoryEnable = null;
@@ -419,23 +419,23 @@ public class InvestmentProgramDashboard
 		this.manager = manager;
 	}
 
-	public InvestmentProgramDashboard isPending(Boolean isPending) {
-		this.isPending = isPending;
+	public InvestmentProgramDashboard hasNewRequests(Boolean hasNewRequests) {
+		this.hasNewRequests = hasNewRequests;
 		return this;
 	}
 
 	/**
-	 * Get isPending
+	 * Get hasNewRequests
 	 *
-	 * @return isPending
+	 * @return hasNewRequests
 	 **/
 	@ApiModelProperty(value = "")
-	public Boolean isIsPending() {
-		return isPending;
+	public Boolean isHasNewRequests() {
+		return hasNewRequests;
 	}
 
-	public void setIsPending(Boolean isPending) {
-		this.isPending = isPending;
+	public void setHasNewRequests(Boolean hasNewRequests) {
+		this.hasNewRequests = hasNewRequests;
 	}
 
 	public InvestmentProgramDashboard isHistoryEnable(Boolean isHistoryEnable) {
@@ -521,7 +521,7 @@ public class InvestmentProgramDashboard
 				Objects.equals(this.feeSuccess, investmentProgramDashboard.feeSuccess) &&
 				Objects.equals(this.feeManagement, investmentProgramDashboard.feeManagement) &&
 				Objects.equals(this.manager, investmentProgramDashboard.manager) &&
-				Objects.equals(this.isPending, investmentProgramDashboard.isPending) &&
+				Objects.equals(this.hasNewRequests, investmentProgramDashboard.hasNewRequests) &&
 				Objects.equals(this.isHistoryEnable, investmentProgramDashboard.isHistoryEnable) &&
 				Objects.equals(this.isInvestEnable, investmentProgramDashboard.isInvestEnable) &&
 				Objects.equals(this.isWithdrawEnable, investmentProgramDashboard.isWithdrawEnable);
@@ -529,7 +529,7 @@ public class InvestmentProgramDashboard
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, level, logo, balance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, manager, isPending, isHistoryEnable, isInvestEnable, isWithdrawEnable);
+		return Objects.hash(id, title, level, logo, balance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable);
 	}
 
 	@Override
@@ -554,7 +554,7 @@ public class InvestmentProgramDashboard
 		sb.append("    feeSuccess: ").append(toIndentedString(feeSuccess)).append("\n");
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
-		sb.append("    isPending: ").append(toIndentedString(isPending)).append("\n");
+		sb.append("    hasNewRequests: ").append(toIndentedString(hasNewRequests)).append("\n");
 		sb.append("    isHistoryEnable: ").append(toIndentedString(isHistoryEnable)).append("\n");
 		sb.append("    isInvestEnable: ").append(toIndentedString(isInvestEnable)).append("\n");
 		sb.append("    isWithdrawEnable: ").append(toIndentedString(isWithdrawEnable)).append("\n");

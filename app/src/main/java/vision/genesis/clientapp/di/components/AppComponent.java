@@ -23,6 +23,7 @@ import vision.genesis.clientapp.feature.main.program.details.ProgramDetailsPrese
 import vision.genesis.clientapp.feature.main.program.filter.ProgramsFiltersPresenter;
 import vision.genesis.clientapp.feature.main.program.invest.InvestDialog;
 import vision.genesis.clientapp.feature.main.program.list.ProgramsListPresenter;
+import vision.genesis.clientapp.feature.main.program.requests.RequestsPresenter;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramPresenter;
 import vision.genesis.clientapp.feature.main.wallet.WalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletPresenter;
@@ -88,4 +89,6 @@ public interface AppComponent
 	void inject(DepositWalletPresenter depositWalletPresenter);
 
 	void inject(WithdrawWalletPresenter withdrawWalletPresenter);
+
+	void inject(RequestsPresenter requestsPresenter);
 }

@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **feeSuccess** | **Double** |  |  [optional]
 **feeManagement** | **Double** |  |  [optional]
 **manager** | [**ProfilePublicViewModel**](ProfilePublicViewModel.md) |  |  [optional]
-**isPending** | **Boolean** |  |  [optional]
+**hasNewRequests** | **Boolean** |  |  [optional]
 **isHistoryEnable** | **Boolean** |  |  [optional]
 **isInvestEnable** | **Boolean** |  |  [optional]
 **isWithdrawEnable** | **Boolean** |  |  [optional]

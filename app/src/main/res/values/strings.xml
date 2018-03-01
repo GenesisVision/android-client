@@ -50,6 +50,7 @@
     <string name="transaction_type_withdraw">Withdraw</string>
     <string name="transaction_type_open_program">Open program</string>
     <string name="transaction_type_invest_to_program">Invest to program</string>
+    <string name="transaction_type_cancel_investment_request">Cancel investment request</string>
     <string name="transaction_type_withdraw_from_program">Withdraw from program</string>
     <string name="by_rating">By rating</string>
     <string name="by_orders">By orders</string>
@@ -111,6 +112,8 @@
     <string name="investors">Investors</string>
     <string name="available_to_invest">Available to invest</string>
     <string name="period_ends_at">The period ends at</string>
+    <string name="program_requests">Program requests</string>
+    <string name="requests">Requests</string>
 
     <plurals name="tokens">
         <item quantity="one">%d token</item>

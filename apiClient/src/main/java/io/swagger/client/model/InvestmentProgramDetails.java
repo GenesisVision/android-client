@@ -51,6 +51,9 @@ public class InvestmentProgramDetails
 	@SerializedName("balance")
 	private Double balance = null;
 
+	@SerializedName("ownBalance")
+	private Double ownBalance = null;
+
 	@SerializedName("currency")
 	private CurrencyEnum currency = null;
 
@@ -87,8 +90,8 @@ public class InvestmentProgramDetails
 	@SerializedName("manager")
 	private ProfilePublicViewModel manager = null;
 
-	@SerializedName("isPending")
-	private Boolean isPending = null;
+	@SerializedName("hasNewRequests")
+	private Boolean hasNewRequests = null;
 
 	@SerializedName("isHistoryEnable")
 	private Boolean isHistoryEnable = null;
@@ -211,6 +214,25 @@ public class InvestmentProgramDetails
 
 	public void setBalance(Double balance) {
 		this.balance = balance;
+	}
+
+	public InvestmentProgramDetails ownBalance(Double ownBalance) {
+		this.ownBalance = ownBalance;
+		return this;
+	}
+
+	/**
+	 * Get ownBalance
+	 *
+	 * @return ownBalance
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getOwnBalance() {
+		return ownBalance;
+	}
+
+	public void setOwnBalance(Double ownBalance) {
+		this.ownBalance = ownBalance;
 	}
 
 	public InvestmentProgramDetails currency(CurrencyEnum currency) {
@@ -441,23 +463,23 @@ public class InvestmentProgramDetails
 		this.manager = manager;
 	}
 
-	public InvestmentProgramDetails isPending(Boolean isPending) {
-		this.isPending = isPending;
+	public InvestmentProgramDetails hasNewRequests(Boolean hasNewRequests) {
+		this.hasNewRequests = hasNewRequests;
 		return this;
 	}
 
 	/**
-	 * Get isPending
+	 * Get hasNewRequests
 	 *
-	 * @return isPending
+	 * @return hasNewRequests
 	 **/
 	@ApiModelProperty(value = "")
-	public Boolean isIsPending() {
-		return isPending;
+	public Boolean isHasNewRequests() {
+		return hasNewRequests;
 	}
 
-	public void setIsPending(Boolean isPending) {
-		this.isPending = isPending;
+	public void setHasNewRequests(Boolean hasNewRequests) {
+		this.hasNewRequests = hasNewRequests;
 	}
 
 	public InvestmentProgramDetails isHistoryEnable(Boolean isHistoryEnable) {
@@ -532,6 +554,7 @@ public class InvestmentProgramDetails
 				Objects.equals(this.level, investmentProgramDetails.level) &&
 				Objects.equals(this.logo, investmentProgramDetails.logo) &&
 				Objects.equals(this.balance, investmentProgramDetails.balance) &&
+				Objects.equals(this.ownBalance, investmentProgramDetails.ownBalance) &&
 				Objects.equals(this.currency, investmentProgramDetails.currency) &&
 				Objects.equals(this.investedTokens, investmentProgramDetails.investedTokens) &&
 				Objects.equals(this.tradesCount, investmentProgramDetails.tradesCount) &&
@@ -544,7 +567,7 @@ public class InvestmentProgramDetails
 				Objects.equals(this.feeSuccess, investmentProgramDetails.feeSuccess) &&
 				Objects.equals(this.feeManagement, investmentProgramDetails.feeManagement) &&
 				Objects.equals(this.manager, investmentProgramDetails.manager) &&
-				Objects.equals(this.isPending, investmentProgramDetails.isPending) &&
+				Objects.equals(this.hasNewRequests, investmentProgramDetails.hasNewRequests) &&
 				Objects.equals(this.isHistoryEnable, investmentProgramDetails.isHistoryEnable) &&
 				Objects.equals(this.isInvestEnable, investmentProgramDetails.isInvestEnable) &&
 				Objects.equals(this.isWithdrawEnable, investmentProgramDetails.isWithdrawEnable);
@@ -552,7 +575,7 @@ public class InvestmentProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, logo, balance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, manager, isPending, isHistoryEnable, isInvestEnable, isWithdrawEnable);
+		return Objects.hash(id, title, description, level, logo, balance, ownBalance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable);
 	}
 
 	@Override
@@ -566,6 +589,7 @@ public class InvestmentProgramDetails
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+		sb.append("    ownBalance: ").append(toIndentedString(ownBalance)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    investedTokens: ").append(toIndentedString(investedTokens)).append("\n");
 		sb.append("    tradesCount: ").append(toIndentedString(tradesCount)).append("\n");
@@ -578,7 +602,7 @@ public class InvestmentProgramDetails
 		sb.append("    feeSuccess: ").append(toIndentedString(feeSuccess)).append("\n");
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
-		sb.append("    isPending: ").append(toIndentedString(isPending)).append("\n");
+		sb.append("    hasNewRequests: ").append(toIndentedString(hasNewRequests)).append("\n");
 		sb.append("    isHistoryEnable: ").append(toIndentedString(isHistoryEnable)).append("\n");
 		sb.append("    isInvestEnable: ").append(toIndentedString(isInvestEnable)).append("\n");
 		sb.append("    isWithdrawEnable: ").append(toIndentedString(isWithdrawEnable)).append("\n");

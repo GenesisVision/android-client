@@ -60,14 +60,6 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	}
 
 	@Override
-	public void attachView(ProgramDetailsView view) {
-		super.attachView(view);
-
-		if (programId != null)
-			getProgramDetails();
-	}
-
-	@Override
 	public void onDestroy() {
 		if (userSubscription != null)
 			userSubscription.unsubscribe();
@@ -83,6 +75,11 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 
 	void onInvestClicked() {
 		getViewState().showInvestDialog();
+	}
+
+	void onResume() {
+		if (programId != null)
+			getProgramDetails();
 	}
 
 	private void getProgramDetails() {

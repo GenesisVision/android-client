@@ -32,7 +32,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 @InjectViewState
 public class WalletPresenter extends MvpPresenter<WalletView>
 {
-	private static int TAKE = 2;
+	private static int TAKE = 10;
 
 	@Inject
 	public Context context;

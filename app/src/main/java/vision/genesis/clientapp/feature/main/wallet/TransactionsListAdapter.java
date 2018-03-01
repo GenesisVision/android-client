@@ -103,6 +103,9 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 				case INVESTTOPROGRAM:
 					type.setText(context.getResources().getString(R.string.transaction_type_invest_to_program));
 					break;
+				case CANCELINVESTMENTREQUEST:
+					type.setText(context.getResources().getString(R.string.transaction_type_cancel_investment_request));
+					break;
 				case WITHDRAWFROMPROGRAM:
 					type.setText(context.getResources().getString(R.string.transaction_type_withdraw_from_program));
 					break;

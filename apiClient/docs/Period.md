@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **startBalance** | **Double** |  |  [optional]
 **managerStartBalance** | **Double** |  |  [optional]
 **managerStartShare** | **Double** |  |  [optional]
-**investmentRequest** | [**List&lt;InvestmentRequest&gt;**](InvestmentRequest.md) |  |  [optional]
+**investmentRequest** | [**List&lt;InvestmentProgramRequest&gt;**](InvestmentProgramRequest.md) |  |  [optional]
 
 
 <a name="StatusEnum"></a>

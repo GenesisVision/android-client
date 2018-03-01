@@ -31,7 +31,7 @@ public class BrokerInitData
 	private List<ManagerRequest> newManagerRequest = null;
 
 	@SerializedName("investments")
-	private List<InvestmentProgram> investments = null;
+	private List<BrokerInvestmentProgram> investments = null;
 
 	public BrokerInitData newManagerRequest(List<ManagerRequest> newManagerRequest) {
 		this.newManagerRequest = newManagerRequest;
@@ -60,14 +60,14 @@ public class BrokerInitData
 		this.newManagerRequest = newManagerRequest;
 	}
 
-	public BrokerInitData investments(List<InvestmentProgram> investments) {
+	public BrokerInitData investments(List<BrokerInvestmentProgram> investments) {
 		this.investments = investments;
 		return this;
 	}
 
-	public BrokerInitData addInvestmentsItem(InvestmentProgram investmentsItem) {
+	public BrokerInitData addInvestmentsItem(BrokerInvestmentProgram investmentsItem) {
 		if (this.investments == null) {
-			this.investments = new ArrayList<InvestmentProgram>();
+			this.investments = new ArrayList<BrokerInvestmentProgram>();
 		}
 		this.investments.add(investmentsItem);
 		return this;
@@ -79,11 +79,11 @@ public class BrokerInitData
 	 * @return investments
 	 **/
 	@ApiModelProperty(value = "")
-	public List<InvestmentProgram> getInvestments() {
+	public List<BrokerInvestmentProgram> getInvestments() {
 		return investments;
 	}
 
-	public void setInvestments(List<InvestmentProgram> investments) {
+	public void setInvestments(List<BrokerInvestmentProgram> investments) {
 		this.investments = investments;
 	}
 

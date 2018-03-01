@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **availableInvestment** | **Double** |  |  [optional]
 **feeSuccess** | **Double** |  |  [optional]
 **feeManagement** | **Double** |  |  [optional]
-**isPending** | **Boolean** |  |  [optional]
+**hasNewRequests** | **Boolean** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

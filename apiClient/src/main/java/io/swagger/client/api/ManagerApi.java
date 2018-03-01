@@ -5,6 +5,9 @@ import java.util.UUID;
 import io.swagger.client.model.BrokersFilter;
 import io.swagger.client.model.BrokersViewModel;
 import io.swagger.client.model.Invest;
+import io.swagger.client.model.InvestmentProgramViewModel;
+import io.swagger.client.model.InvestmentProgramsFilter;
+import io.swagger.client.model.InvestmentProgramsViewModel;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.NewInvestmentRequest;
 import io.swagger.client.model.ProfileFullViewModel;
@@ -140,6 +143,33 @@ public interface ManagerApi
 	@POST("api/manager/investment/invest")
 	Observable<Void> apiManagerInvestmentInvestPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body Invest model
+	);
+
+	/**
+	 * Get investment program details by id
+	 *
+	 * @param investmentProgramId (required)
+	 * @param authorization       (optional)
+	 * @return Call&lt;InvestmentProgramViewModel&gt;
+	 */
+	@GET("api/manager/investmentProgram")
+	Observable<InvestmentProgramViewModel> apiManagerInvestmentProgramGet(
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Get public investment program&#39;s list
+	 *
+	 * @param authorization (optional)
+	 * @param filter        (optional)
+	 * @return Call&lt;InvestmentProgramsViewModel&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/manager/investmentPrograms")
+	Observable<InvestmentProgramsViewModel> apiManagerInvestmentProgramsPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body InvestmentProgramsFilter filter
 	);
 
 	/**

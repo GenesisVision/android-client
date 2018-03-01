@@ -23,6 +23,7 @@ INVESTTOPROGRAM | &quot;InvestToProgram&quot;
 WITHDRAWFROMPROGRAM | &quot;WithdrawFromProgram&quot;
 PROFITFROMPROGRAM | &quot;ProfitFromProgram&quot;
 CANCELINVESTMENTREQUEST | &quot;CancelInvestmentRequest&quot;
+PARTIALINVESTMENTEXECUTIONREFUND | &quot;PartialInvestmentExecutionRefund&quot;
 
 
 <a name="CurrencyEnum"></a>

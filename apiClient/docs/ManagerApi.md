@@ -13,6 +13,8 @@ Method | HTTP request | Description
 [**apiManagerInvestmentCancelInvestmentRequestPost**](ManagerApi.md#apiManagerInvestmentCancelInvestmentRequestPost) | **POST** api/manager/investment/cancelInvestmentRequest | Cancel investment request
 [**apiManagerInvestmentClosePost**](ManagerApi.md#apiManagerInvestmentClosePost) | **POST** api/manager/investment/close | Close existing investment program
 [**apiManagerInvestmentInvestPost**](ManagerApi.md#apiManagerInvestmentInvestPost) | **POST** api/manager/investment/invest | Manager deposit in his own investment program
+[**apiManagerInvestmentProgramGet**](ManagerApi.md#apiManagerInvestmentProgramGet) | **GET** api/manager/investmentProgram | Get investment program details by id
+[**apiManagerInvestmentProgramsPost**](ManagerApi.md#apiManagerInvestmentProgramsPost) | **POST** api/manager/investmentPrograms | Get public investment program&#39;s list
 [**apiManagerInvestmentWithdrawPost**](ManagerApi.md#apiManagerInvestmentWithdrawPost) | **POST** api/manager/investment/withdraw | Manager withdrawal from his own investment program
 [**apiManagerProfileFullGet**](ManagerApi.md#apiManagerProfileFullGet) | **GET** api/manager/profile/full | Get full profile
 [**apiManagerProfilePublicGet**](ManagerApi.md#apiManagerProfilePublicGet) | **GET** api/manager/profile/public | Get public profile
@@ -410,6 +412,96 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerInvestmentProgramGet"></a>
+# **apiManagerInvestmentProgramGet**
+> InvestmentProgramViewModel apiManagerInvestmentProgramGet(investmentProgramId, authorization)
+
+Get investment program details by id
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+UUID investmentProgramId = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | 
+try {
+    InvestmentProgramViewModel result = apiInstance.apiManagerInvestmentProgramGet(investmentProgramId, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerInvestmentProgramGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **investmentProgramId** | [**UUID**](.md)|  |
+ **authorization** | **String**|  | [optional]
+
+### Return type
+
+[**InvestmentProgramViewModel**](InvestmentProgramViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerInvestmentProgramsPost"></a>
+# **apiManagerInvestmentProgramsPost**
+> InvestmentProgramsViewModel apiManagerInvestmentProgramsPost(authorization, filter)
+
+Get public investment program&#39;s list
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+String authorization = "authorization_example"; // String | 
+InvestmentProgramsFilter filter = new InvestmentProgramsFilter(); // InvestmentProgramsFilter | 
+try {
+    InvestmentProgramsViewModel result = apiInstance.apiManagerInvestmentProgramsPost(authorization, filter);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerInvestmentProgramsPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**|  | [optional]
+ **filter** | [**InvestmentProgramsFilter**](InvestmentProgramsFilter.md)|  | [optional]
+
+### Return type
+
+[**InvestmentProgramsViewModel**](InvestmentProgramsViewModel.md)
 
 ### Authorization
 

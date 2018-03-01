@@ -5,6 +5,8 @@ import java.util.UUID;
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
 import io.swagger.client.model.Invest;
+import io.swagger.client.model.InvestmentProgramRequests;
+import io.swagger.client.model.InvestmentProgramRequestsFilter;
 import io.swagger.client.model.InvestmentProgramViewModel;
 import io.swagger.client.model.InvestmentProgramsFilter;
 import io.swagger.client.model.InvestmentProgramsViewModel;
@@ -42,7 +44,7 @@ public class InvestManager
 	}
 
 	public Observable<InvestmentProgramsViewModel> getTradersList(InvestmentProgramsFilter filter) {
-		return investorApi.apiInvestorInvestmentProgramsPost(filter);
+		return investorApi.apiInvestorInvestmentProgramsPost(AuthManager.token.getValue(), filter);
 	}
 
 //	public List<InvestmentProgram> parseInvestmentProgramsModel(InvestmentProgramsViewModel model) {
@@ -67,6 +69,14 @@ public class InvestManager
 	}
 
 	public Observable<InvestmentProgramViewModel> getInvestmentProgramDetails(UUID programId) {
-		return investorApi.apiInvestorInvestmentProgramGet(programId);
+		return investorApi.apiInvestorInvestmentProgramGet(programId, AuthManager.token.getValue());
+	}
+
+	public Observable<InvestmentProgramRequests> getInvestmentProgramRequests(InvestmentProgramRequestsFilter filter) {
+		return investorApi.apiInvestorInvestmentProgramRequestsPost(AuthManager.token.getValue(), filter);
+	}
+
+	public Observable<Void> cancelRequest(UUID requestId) {
+		return investorApi.apiInvestorInvestmentProgramsCancelInvestmentRequestPost(requestId, AuthManager.token.getValue());
 	}
 }

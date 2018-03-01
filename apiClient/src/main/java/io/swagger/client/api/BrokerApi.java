@@ -108,16 +108,18 @@ public interface BrokerApi
 	);
 
 	/**
-	 * Set investment period start balance
+	 * Set investment period start balance, manager share, manager balance
 	 *
-	 * @param periodId      (required)
-	 * @param balance       (required)
-	 * @param authorization JWT access token (required)
+	 * @param investmentProgramId (required)
+	 * @param balance             (required)
+	 * @param managerBalance      (required)
+	 * @param managerShare        (required)
+	 * @param authorization       JWT access token (required)
 	 * @return Call&lt;Void&gt;
 	 */
-	@POST("api/broker/period/setStartBalance")
-	Observable<Void> apiBrokerPeriodSetStartBalancePost(
-			@retrofit2.http.Query("periodId") UUID periodId, @retrofit2.http.Query("balance") Double balance, @retrofit2.http.Header("Authorization") String authorization
+	@POST("api/broker/period/setStartValues")
+	Observable<Void> apiBrokerPeriodSetStartValuesPost(
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Query("balance") Double balance, @retrofit2.http.Query("managerBalance") Double managerBalance, @retrofit2.http.Query("managerShare") Double managerShare, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**

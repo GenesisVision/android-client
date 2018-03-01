@@ -28,30 +28,27 @@ import java.util.UUID;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * WalletTransaction
+ * InvestmentProgramRequest
  */
 
-public class WalletTransaction
+public class InvestmentProgramRequest
 {
 	@SerializedName("id")
 	private UUID id = null;
 
-	@SerializedName("type")
-	private TypeEnum type = null;
+	@SerializedName("date")
+	private DateTime date = null;
 
 	@SerializedName("amount")
 	private Double amount = null;
 
-	@SerializedName("date")
-	private DateTime date = null;
+	@SerializedName("type")
+	private TypeEnum type = null;
 
-	@SerializedName("walletId")
-	private UUID walletId = null;
+	@SerializedName("status")
+	private StatusEnum status = null;
 
-	@SerializedName("currency")
-	private CurrencyEnum currency = null;
-
-	public WalletTransaction id(UUID id) {
+	public InvestmentProgramRequest id(UUID id) {
 		this.id = id;
 		return this;
 	}
@@ -70,45 +67,7 @@ public class WalletTransaction
 		this.id = id;
 	}
 
-	public WalletTransaction type(TypeEnum type) {
-		this.type = type;
-		return this;
-	}
-
-	/**
-	 * Get type
-	 *
-	 * @return type
-	 **/
-	@ApiModelProperty(value = "")
-	public TypeEnum getType() {
-		return type;
-	}
-
-	public void setType(TypeEnum type) {
-		this.type = type;
-	}
-
-	public WalletTransaction amount(Double amount) {
-		this.amount = amount;
-		return this;
-	}
-
-	/**
-	 * Get amount
-	 *
-	 * @return amount
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Double amount) {
-		this.amount = amount;
-	}
-
-	public WalletTransaction date(DateTime date) {
+	public InvestmentProgramRequest date(DateTime date) {
 		this.date = date;
 		return this;
 	}
@@ -127,42 +86,61 @@ public class WalletTransaction
 		this.date = date;
 	}
 
-	public WalletTransaction walletId(UUID walletId) {
-		this.walletId = walletId;
+	public InvestmentProgramRequest amount(Double amount) {
+		this.amount = amount;
 		return this;
 	}
 
 	/**
-	 * Get walletId
+	 * Get amount
 	 *
-	 * @return walletId
+	 * @return amount
 	 **/
 	@ApiModelProperty(value = "")
-	public UUID getWalletId() {
-		return walletId;
+	public Double getAmount() {
+		return amount;
 	}
 
-	public void setWalletId(UUID walletId) {
-		this.walletId = walletId;
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
 
-	public WalletTransaction currency(CurrencyEnum currency) {
-		this.currency = currency;
+	public InvestmentProgramRequest type(TypeEnum type) {
+		this.type = type;
 		return this;
 	}
 
 	/**
-	 * Get currency
+	 * Get type
 	 *
-	 * @return currency
+	 * @return type
 	 **/
 	@ApiModelProperty(value = "")
-	public CurrencyEnum getCurrency() {
-		return currency;
+	public TypeEnum getType() {
+		return type;
 	}
 
-	public void setCurrency(CurrencyEnum currency) {
-		this.currency = currency;
+	public void setType(TypeEnum type) {
+		this.type = type;
+	}
+
+	public InvestmentProgramRequest status(StatusEnum status) {
+		this.status = status;
+		return this;
+	}
+
+	/**
+	 * Get status
+	 *
+	 * @return status
+	 **/
+	@ApiModelProperty(value = "")
+	public StatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusEnum status) {
+		this.status = status;
 	}
 
 	@Override
@@ -173,31 +151,29 @@ public class WalletTransaction
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		WalletTransaction walletTransaction = (WalletTransaction) o;
-		return Objects.equals(this.id, walletTransaction.id) &&
-				Objects.equals(this.type, walletTransaction.type) &&
-				Objects.equals(this.amount, walletTransaction.amount) &&
-				Objects.equals(this.date, walletTransaction.date) &&
-				Objects.equals(this.walletId, walletTransaction.walletId) &&
-				Objects.equals(this.currency, walletTransaction.currency);
+		InvestmentProgramRequest investmentProgramRequest = (InvestmentProgramRequest) o;
+		return Objects.equals(this.id, investmentProgramRequest.id) &&
+				Objects.equals(this.date, investmentProgramRequest.date) &&
+				Objects.equals(this.amount, investmentProgramRequest.amount) &&
+				Objects.equals(this.type, investmentProgramRequest.type) &&
+				Objects.equals(this.status, investmentProgramRequest.status);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, type, amount, date, walletId, currency);
+		return Objects.hash(id, date, amount, type, status);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class WalletTransaction {\n");
+		sb.append("class InvestmentProgramRequest {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    type: ").append(toIndentedString(type)).append("\n");
-		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
-		sb.append("    walletId: ").append(toIndentedString(walletId)).append("\n");
-		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
+		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -220,21 +196,9 @@ public class WalletTransaction
 	@JsonAdapter(TypeEnum.Adapter.class)
 	public enum TypeEnum
 	{
-		DEPOSIT("Deposit"),
+		INVEST("Invest"),
 
-		WITHDRAW("Withdraw"),
-
-		OPENPROGRAM("OpenProgram"),
-
-		INVESTTOPROGRAM("InvestToProgram"),
-
-		WITHDRAWFROMPROGRAM("WithdrawFromProgram"),
-
-		PROFITFROMPROGRAM("ProfitFromProgram"),
-
-		CANCELINVESTMENTREQUEST("CancelInvestmentRequest"),
-
-		PARTIALINVESTMENTEXECUTIONREFUND("PartialInvestmentExecutionRefund");
+		WITHDRAWAL("Withdrawal");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {
@@ -276,25 +240,19 @@ public class WalletTransaction
 	}
 
 	/**
-	 * Gets or Sets currency
+	 * Gets or Sets status
 	 */
-	@JsonAdapter(CurrencyEnum.Adapter.class)
-	public enum CurrencyEnum
+	@JsonAdapter(StatusEnum.Adapter.class)
+	public enum StatusEnum
 	{
-		UNDEFINED("Undefined"),
+		NEW("New"),
 
-		GVT("GVT"),
+		EXECUTED("Executed"),
 
-		ETH("ETH"),
+		CANCELLED("Cancelled");
 
-		BTC("BTC"),
-
-		USD("USD"),
-
-		EUR("EUR");
-
-		public static CurrencyEnum fromValue(String text) {
-			for (CurrencyEnum b : CurrencyEnum.values()) {
+		public static StatusEnum fromValue(String text) {
+			for (StatusEnum b : StatusEnum.values()) {
 				if (String.valueOf(b.value).equals(text)) {
 					return b;
 				}
@@ -304,7 +262,7 @@ public class WalletTransaction
 
 		private String value;
 
-		CurrencyEnum(String value) {
+		StatusEnum(String value) {
 			this.value = value;
 		}
 
@@ -317,17 +275,17 @@ public class WalletTransaction
 			return String.valueOf(value);
 		}
 
-		public static class Adapter extends TypeAdapter<CurrencyEnum>
+		public static class Adapter extends TypeAdapter<StatusEnum>
 		{
 			@Override
-			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
+			public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
 				jsonWriter.value(enumeration.getValue());
 			}
 
 			@Override
-			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
+			public StatusEnum read(final JsonReader jsonReader) throws IOException {
 				String value = jsonReader.nextString();
-				return CurrencyEnum.fromValue(String.valueOf(value));
+				return StatusEnum.fromValue(String.valueOf(value));
 			}
 		}
 	}

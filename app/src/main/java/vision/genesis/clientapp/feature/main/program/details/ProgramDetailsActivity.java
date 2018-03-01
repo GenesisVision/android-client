@@ -23,6 +23,7 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.program.invest.InvestDialog;
+import vision.genesis.clientapp.feature.main.program.requests.RequestsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.model.ProgramWithdrawalRequest;
 import vision.genesis.clientapp.ui.AvatarView;
@@ -37,11 +38,11 @@ import vision.genesis.clientapp.utils.DateTimeUtil;
 
 public class ProgramDetailsActivity extends BaseSwipeBackActivity implements ProgramDetailsView
 {
-	private static String EXTRA_PROGRAM = "extra_program";
+	private static String EXTRA_PROGRAM_ID = "extra_program_id";
 
 	public static void startWith(Activity activity, UUID programId) {
 		Intent intent = new Intent(activity, ProgramDetailsActivity.class);
-		intent.putExtra(EXTRA_PROGRAM, programId);
+		intent.putExtra(EXTRA_PROGRAM_ID, programId);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
@@ -106,6 +107,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@BindView(R.id.button_withdraw)
 	public View withdrawButton;
 
+	@BindView(R.id.button_requests)
+	public View requestsButton;
+
 	@BindView(R.id.scrollview)
 	public View scrollView;
 
@@ -132,18 +136,23 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		WithdrawProgramActivity.startWith(this, withdrawalRequest);
 	}
 
+	@OnClick(R.id.button_requests)
+	public void onRequestsClicked() {
+		RequestsActivity.startWith(this, programDetails.getId());
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_trader_details);
+		setContentView(R.layout.activity_program_details);
 
 		ButterKnife.bind(this);
 
 		initToolbar();
 
 		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
-			UUID programId = (UUID) getIntent().getExtras().getSerializable(EXTRA_PROGRAM);
+			UUID programId = (UUID) getIntent().getExtras().getSerializable(EXTRA_PROGRAM_ID);
 			programDetailsPresenter.setProgramId(programId);
 		}
 		else {
@@ -155,6 +164,12 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.trader_details));
 		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, this::onBackPressed);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		programDetailsPresenter.onResume();
 	}
 
 	@Override
@@ -196,6 +211,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 		investButton.setVisibility(programDetails.isIsInvestEnable() ? View.VISIBLE : View.GONE);
 		withdrawButton.setVisibility(programDetails.isIsWithdrawEnable() ? View.VISIBLE : View.GONE);
+		requestsButton.setVisibility(programDetails.isHasNewRequests() ? View.VISIBLE : View.GONE);
 	}
 
 	@Override

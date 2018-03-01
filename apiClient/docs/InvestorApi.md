@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**apiInvestorDashboardGet**](InvestorApi.md#apiInvestorDashboardGet) | **GET** api/investor/dashboard | Get investor dashboard
 [**apiInvestorInvestmentProgramGet**](InvestorApi.md#apiInvestorInvestmentProgramGet) | **GET** api/investor/investmentProgram | Get investment program details by id
 [**apiInvestorInvestmentProgramOpenTradesPost**](InvestorApi.md#apiInvestorInvestmentProgramOpenTradesPost) | **POST** api/investor/investmentProgram/openTrades | Get manager open trades
+[**apiInvestorInvestmentProgramRequestsPost**](InvestorApi.md#apiInvestorInvestmentProgramRequestsPost) | **POST** api/investor/investmentProgram/requests | Get investment program&#39;s requests
 [**apiInvestorInvestmentProgramTradesPost**](InvestorApi.md#apiInvestorInvestmentProgramTradesPost) | **POST** api/investor/investmentProgram/trades | Get manager trade history
 [**apiInvestorInvestmentProgramsCancelInvestmentRequestPost**](InvestorApi.md#apiInvestorInvestmentProgramsCancelInvestmentRequestPost) | **POST** api/investor/investmentPrograms/cancelInvestmentRequest | Cancel investment request
 [**apiInvestorInvestmentProgramsInvestPost**](InvestorApi.md#apiInvestorInvestmentProgramsInvestPost) | **POST** api/investor/investmentPrograms/invest | Invest in manager
@@ -244,7 +245,7 @@ No authorization required
 
 <a name="apiInvestorInvestmentProgramGet"></a>
 # **apiInvestorInvestmentProgramGet**
-> InvestmentProgramViewModel apiInvestorInvestmentProgramGet(investmentProgramId)
+> InvestmentProgramViewModel apiInvestorInvestmentProgramGet(investmentProgramId, authorization)
 
 Get investment program details by id
 
@@ -257,8 +258,9 @@ Get investment program details by id
 
 InvestorApi apiInstance = new InvestorApi();
 UUID investmentProgramId = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | 
 try {
-    InvestmentProgramViewModel result = apiInstance.apiInvestorInvestmentProgramGet(investmentProgramId);
+    InvestmentProgramViewModel result = apiInstance.apiInvestorInvestmentProgramGet(investmentProgramId, authorization);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentProgramGet");
@@ -271,6 +273,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **investmentProgramId** | [**UUID**](.md)|  |
+ **authorization** | **String**|  | [optional]
 
 ### Return type
 
@@ -320,6 +323,51 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**OpenTradesViewModel**](OpenTradesViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorInvestmentProgramRequestsPost"></a>
+# **apiInvestorInvestmentProgramRequestsPost**
+> InvestmentProgramRequests apiInvestorInvestmentProgramRequestsPost(authorization, filter)
+
+Get investment program&#39;s requests
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+String authorization = "authorization_example"; // String | JWT access token
+InvestmentProgramRequestsFilter filter = new InvestmentProgramRequestsFilter(); // InvestmentProgramRequestsFilter | 
+try {
+    InvestmentProgramRequests result = apiInstance.apiInvestorInvestmentProgramRequestsPost(authorization, filter);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentProgramRequestsPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **filter** | [**InvestmentProgramRequestsFilter**](InvestmentProgramRequestsFilter.md)|  | [optional]
+
+### Return type
+
+[**InvestmentProgramRequests**](InvestmentProgramRequests.md)
 
 ### Authorization
 
@@ -467,7 +515,7 @@ No authorization required
 
 <a name="apiInvestorInvestmentProgramsPost"></a>
 # **apiInvestorInvestmentProgramsPost**
-> InvestmentProgramsViewModel apiInvestorInvestmentProgramsPost(filter)
+> InvestmentProgramsViewModel apiInvestorInvestmentProgramsPost(authorization, filter)
 
 Get public investment program&#39;s list
 
@@ -479,9 +527,10 @@ Get public investment program&#39;s list
 
 
 InvestorApi apiInstance = new InvestorApi();
+String authorization = "authorization_example"; // String | 
 InvestmentProgramsFilter filter = new InvestmentProgramsFilter(); // InvestmentProgramsFilter | 
 try {
-    InvestmentProgramsViewModel result = apiInstance.apiInvestorInvestmentProgramsPost(filter);
+    InvestmentProgramsViewModel result = apiInstance.apiInvestorInvestmentProgramsPost(authorization, filter);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentProgramsPost");
@@ -493,6 +542,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **authorization** | **String**|  | [optional]
  **filter** | [**InvestmentProgramsFilter**](InvestmentProgramsFilter.md)|  | [optional]
 
 ### Return type

@@ -85,6 +85,13 @@
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
+        <activity
+            android:name=".feature.main.program.requests.RequestsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+
     </application>
 
 </manifest>

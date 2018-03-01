@@ -60,7 +60,7 @@ public class Period
 	private Double managerStartShare = null;
 
 	@SerializedName("investmentRequest")
-	private List<InvestmentRequest> investmentRequest = null;
+	private List<InvestmentProgramRequest> investmentRequest = null;
 
 	public Period id(UUID id) {
 		this.id = id;
@@ -214,14 +214,14 @@ public class Period
 		this.managerStartShare = managerStartShare;
 	}
 
-	public Period investmentRequest(List<InvestmentRequest> investmentRequest) {
+	public Period investmentRequest(List<InvestmentProgramRequest> investmentRequest) {
 		this.investmentRequest = investmentRequest;
 		return this;
 	}
 
-	public Period addInvestmentRequestItem(InvestmentRequest investmentRequestItem) {
+	public Period addInvestmentRequestItem(InvestmentProgramRequest investmentRequestItem) {
 		if (this.investmentRequest == null) {
-			this.investmentRequest = new ArrayList<InvestmentRequest>();
+			this.investmentRequest = new ArrayList<InvestmentProgramRequest>();
 		}
 		this.investmentRequest.add(investmentRequestItem);
 		return this;
@@ -233,11 +233,11 @@ public class Period
 	 * @return investmentRequest
 	 **/
 	@ApiModelProperty(value = "")
-	public List<InvestmentRequest> getInvestmentRequest() {
+	public List<InvestmentProgramRequest> getInvestmentRequest() {
 		return investmentRequest;
 	}
 
-	public void setInvestmentRequest(List<InvestmentRequest> investmentRequest) {
+	public void setInvestmentRequest(List<InvestmentProgramRequest> investmentRequest) {
 		this.investmentRequest = investmentRequest;
 	}
 
