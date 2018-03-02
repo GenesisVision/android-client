@@ -115,37 +115,46 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 		private void setAmount() {
 			double amountValue = transaction.getAmount();
 			DecimalFormat df = new DecimalFormat("0.########");
+			df.setMinimumFractionDigits(2);
 			df.setRoundingMode(RoundingMode.DOWN);
 			String amountString = df.format(amountValue);
 
-			amount.setText(amountString);
-
 			switch (transaction.getType()) {
 				case DEPOSIT:
-					amount.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));
+					setPositiveAmount(amountString);
 					break;
 				case WITHDRAW:
-					amount.setTextColor(ContextCompat.getColor(context, R.color.transactionRed));
+					setNegativeAmount(amountString);
 					break;
 				case OPENPROGRAM:
-					amount.setTextColor(ContextCompat.getColor(context, R.color.transactionRed));
+					setNegativeAmount(amountString);
 					break;
 				case INVESTTOPROGRAM:
-					amount.setTextColor(ContextCompat.getColor(context, R.color.transactionRed));
+					setNegativeAmount(amountString);
 					break;
 				case WITHDRAWFROMPROGRAM:
-					amount.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));
+					setPositiveAmount(amountString);
 					break;
 				case PROFITFROMPROGRAM:
-					amount.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));
+					setPositiveAmount(amountString);
 					break;
 				case CANCELINVESTMENTREQUEST:
-					amount.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));
+					setPositiveAmount(amountString);
 					break;
 				case PARTIALINVESTMENTEXECUTIONREFUND:
-					amount.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));
+					setPositiveAmount(amountString);
 					break;
 			}
+		}
+
+		private void setPositiveAmount(String amountString) {
+			amount.setText(String.format("+%s", amountString));
+			amount.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));
+		}
+
+		private void setNegativeAmount(String amountString) {
+			amount.setText(String.format("-%s", amountString));
+			amount.setTextColor(ContextCompat.getColor(context, R.color.transactionRed));
 		}
 	}
 }
