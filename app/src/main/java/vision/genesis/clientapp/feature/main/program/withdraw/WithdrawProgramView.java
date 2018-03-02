@@ -15,5 +15,7 @@ interface WithdrawProgramView extends MvpView
 
 	void setAvailable(double availableFunds);
 
+	void showToastMessage(String message);
+
 	void finishActivity();
 }

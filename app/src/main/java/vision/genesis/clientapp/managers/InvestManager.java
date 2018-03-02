@@ -14,6 +14,7 @@ import io.swagger.client.model.InvestorDashboard;
 import io.swagger.client.model.WalletsViewModel;
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
+import vision.genesis.clientapp.model.ProgramWithdrawalRequest;
 
 /**
  * GenesisVision
@@ -62,6 +63,13 @@ public class InvestManager
 		model.setInvestmentProgramId(programId);
 		model.setAmount(amount);
 		return investorApi.apiInvestorInvestmentProgramsInvestPost(AuthManager.token.getValue(), model);
+	}
+
+	public Observable<Void> withdraw(ProgramWithdrawalRequest withdrawalRequest) {
+		Invest model = new Invest();
+		model.setInvestmentProgramId(withdrawalRequest.programId);
+		model.setAmount(withdrawalRequest.amount);
+		return investorApi.apiInvestorInvestmentProgramsWithdrawPost(AuthManager.token.getValue(), model);
 	}
 
 	public Observable<InvestorDashboard> getInvestments() {

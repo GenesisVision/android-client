@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -57,8 +58,6 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 
 	private ProgramWithdrawalRequest withdrawalRequest;
 
-	private double amount = 0;
-
 	@OnClick(R.id.button_withdraw)
 	public void onWithdrawClicked() {
 		withdrawProgramPresenter.onWithdrawClicked();
@@ -79,6 +78,7 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 
 		if (getIntent().getExtras() != null) {
 			withdrawalRequest = getIntent().getExtras().getParcelable(EXTRA_REQUEST);
+			withdrawProgramPresenter.setWithdrawalRequest(withdrawalRequest);
 
 			initToolbar();
 			initListeners();
@@ -113,6 +113,11 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	@Override
 	public void setAvailable(double availableFunds) {
 		availableFundsText.setText(String.format(Locale.getDefault(), "$%s", String.valueOf(availableFunds)));
+	}
+
+	@Override
+	public void showToastMessage(String message) {
+		Toast.makeText(this, message, Toast.LENGTH_LONG).show();
 	}
 
 	@Override

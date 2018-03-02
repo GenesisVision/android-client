@@ -7,8 +7,17 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.model.ProgramWithdrawalRequest;
+import vision.genesis.clientapp.model.api.Error;
+import vision.genesis.clientapp.model.api.ErrorResponse;
+import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.net.ErrorResponseConverter;
 
 /**
  * GenesisVision
@@ -26,7 +35,9 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 
 	private double availableFunds = 1000.01234567;
 
-	private double amount = 0;
+	private ProgramWithdrawalRequest withdrawalRequest;
+
+	private Subscription withdrawSubscription;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -37,13 +48,25 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 		getViewState().setAvailable(availableFunds);
 	}
 
+	@Override
+	public void onDestroy() {
+		if (withdrawSubscription != null)
+			withdrawSubscription.unsubscribe();
+
+		super.onDestroy();
+	}
+
+	void setWithdrawalRequest(ProgramWithdrawalRequest request) {
+		withdrawalRequest = request;
+	}
+
 	void onBackClicked() {
 		getViewState().finishActivity();
 	}
 
 	void onAmountChanged(double newAmount) {
-		amount = newAmount;
-		getViewState().setWithdrawButtonEnabled(amount > 0 && amount <= availableFunds);
+		withdrawalRequest.amount = newAmount;
+		getViewState().setWithdrawButtonEnabled(withdrawalRequest.amount > 0 && withdrawalRequest.amount <= availableFunds);
 	}
 
 	void onAvailableClicked() {
@@ -51,6 +74,40 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 	}
 
 	void onWithdrawClicked() {
+		sendWithdrawRequest();
+	}
 
+	private void sendWithdrawRequest() {
+		withdrawSubscription = investManager.withdraw(withdrawalRequest)
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.io())
+				.subscribe(this::handleWithdrawSuccess,
+						this::handleWithdrawError);
+	}
+
+	private void handleWithdrawSuccess(Void response) {
+		withdrawSubscription.unsubscribe();
+
+//		EventBus.getDefault().post(new NewWithdrawalRequestSuccessEvent());
+		getViewState().finishActivity();
+	}
+
+	private void handleWithdrawError(Throwable throwable) {
+		withdrawSubscription.unsubscribe();
+
+		if (ApiErrorResolver.isNetworkError(throwable)) {
+			getViewState().showToastMessage(context.getResources().getString(R.string.network_error));
+		}
+		else {
+			ErrorResponse response = ErrorResponseConverter.createFromThrowable(throwable);
+			if (response != null) {
+				for (Error error : response.errors) {
+					if (error.message != null) {
+						getViewState().showToastMessage(error.message);
+						break;
+					}
+				}
+			}
+		}
 	}
 }
