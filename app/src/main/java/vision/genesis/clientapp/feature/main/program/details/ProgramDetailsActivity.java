@@ -156,13 +156,13 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			programDetailsPresenter.setProgramId(programId);
 		}
 		else {
-			Timber.e("Passed empty program to TraderDetailsActivity");
+			Timber.e("Passed empty program to ProgramDetailsActivity");
 			onBackPressed();
 		}
 	}
 
 	private void initToolbar() {
-		toolbar.setTitle(getString(R.string.trader_details));
+		toolbar.setTitle(getString(R.string.program_details));
 		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, this::onBackPressed);
 	}
 

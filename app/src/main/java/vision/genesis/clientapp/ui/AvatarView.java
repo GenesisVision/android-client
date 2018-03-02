@@ -55,7 +55,7 @@ public class AvatarView extends RelativeLayout
 		String baseUrl = BuildConfig.FLAVOR.equals("tournament")
 				? BuildConfig.TOURNAMENT_API_ADDRESS
 				: BuildConfig.API_ADDRESS;
-		image.setImageURI(baseUrl + "/api/files/get/" + imageId);
+		image.setImageURI(baseUrl + "/api/files/" + imageId);
 	}
 
 	public void setLevel(int level) {

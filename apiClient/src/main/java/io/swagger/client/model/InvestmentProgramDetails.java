@@ -45,6 +45,9 @@ public class InvestmentProgramDetails
 	@SerializedName("level")
 	private Integer level = null;
 
+	@SerializedName("login")
+	private String login = null;
+
 	@SerializedName("logo")
 	private String logo = null;
 
@@ -86,6 +89,12 @@ public class InvestmentProgramDetails
 
 	@SerializedName("feeManagement")
 	private Double feeManagement = null;
+
+	@SerializedName("ipfsHash")
+	private String ipfsHash = null;
+
+	@SerializedName("tradeIpfsHash")
+	private String tradeIpfsHash = null;
 
 	@SerializedName("manager")
 	private ProfilePublicViewModel manager = null;
@@ -176,6 +185,25 @@ public class InvestmentProgramDetails
 
 	public void setLevel(Integer level) {
 		this.level = level;
+	}
+
+	public InvestmentProgramDetails login(String login) {
+		this.login = login;
+		return this;
+	}
+
+	/**
+	 * Get login
+	 *
+	 * @return login
+	 **/
+	@ApiModelProperty(value = "")
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 	public InvestmentProgramDetails logo(String logo) {
@@ -444,6 +472,44 @@ public class InvestmentProgramDetails
 		this.feeManagement = feeManagement;
 	}
 
+	public InvestmentProgramDetails ipfsHash(String ipfsHash) {
+		this.ipfsHash = ipfsHash;
+		return this;
+	}
+
+	/**
+	 * Get ipfsHash
+	 *
+	 * @return ipfsHash
+	 **/
+	@ApiModelProperty(value = "")
+	public String getIpfsHash() {
+		return ipfsHash;
+	}
+
+	public void setIpfsHash(String ipfsHash) {
+		this.ipfsHash = ipfsHash;
+	}
+
+	public InvestmentProgramDetails tradeIpfsHash(String tradeIpfsHash) {
+		this.tradeIpfsHash = tradeIpfsHash;
+		return this;
+	}
+
+	/**
+	 * Get tradeIpfsHash
+	 *
+	 * @return tradeIpfsHash
+	 **/
+	@ApiModelProperty(value = "")
+	public String getTradeIpfsHash() {
+		return tradeIpfsHash;
+	}
+
+	public void setTradeIpfsHash(String tradeIpfsHash) {
+		this.tradeIpfsHash = tradeIpfsHash;
+	}
+
 	public InvestmentProgramDetails manager(ProfilePublicViewModel manager) {
 		this.manager = manager;
 		return this;
@@ -552,6 +618,7 @@ public class InvestmentProgramDetails
 				Objects.equals(this.title, investmentProgramDetails.title) &&
 				Objects.equals(this.description, investmentProgramDetails.description) &&
 				Objects.equals(this.level, investmentProgramDetails.level) &&
+				Objects.equals(this.login, investmentProgramDetails.login) &&
 				Objects.equals(this.logo, investmentProgramDetails.logo) &&
 				Objects.equals(this.balance, investmentProgramDetails.balance) &&
 				Objects.equals(this.ownBalance, investmentProgramDetails.ownBalance) &&
@@ -566,6 +633,8 @@ public class InvestmentProgramDetails
 				Objects.equals(this.availableInvestment, investmentProgramDetails.availableInvestment) &&
 				Objects.equals(this.feeSuccess, investmentProgramDetails.feeSuccess) &&
 				Objects.equals(this.feeManagement, investmentProgramDetails.feeManagement) &&
+				Objects.equals(this.ipfsHash, investmentProgramDetails.ipfsHash) &&
+				Objects.equals(this.tradeIpfsHash, investmentProgramDetails.tradeIpfsHash) &&
 				Objects.equals(this.manager, investmentProgramDetails.manager) &&
 				Objects.equals(this.hasNewRequests, investmentProgramDetails.hasNewRequests) &&
 				Objects.equals(this.isHistoryEnable, investmentProgramDetails.isHistoryEnable) &&
@@ -575,7 +644,7 @@ public class InvestmentProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, logo, balance, ownBalance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable);
+		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable);
 	}
 
 	@Override
@@ -587,6 +656,7 @@ public class InvestmentProgramDetails
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
+		sb.append("    login: ").append(toIndentedString(login)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("    ownBalance: ").append(toIndentedString(ownBalance)).append("\n");
@@ -601,6 +671,8 @@ public class InvestmentProgramDetails
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
 		sb.append("    feeSuccess: ").append(toIndentedString(feeSuccess)).append("\n");
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
+		sb.append("    ipfsHash: ").append(toIndentedString(ipfsHash)).append("\n");
+		sb.append("    tradeIpfsHash: ").append(toIndentedString(tradeIpfsHash)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    hasNewRequests: ").append(toIndentedString(hasNewRequests)).append("\n");
 		sb.append("    isHistoryEnable: ").append(toIndentedString(isHistoryEnable)).append("\n");

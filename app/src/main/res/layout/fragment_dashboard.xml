@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -27,8 +28,8 @@
 
         <ImageView
             android:id="@+id/no_internet_image"
-            android:layout_width="@dimen/traders_no_internet_image_width"
-            android:layout_height="@dimen/traders_no_internet_image_height"
+            android:layout_width="@dimen/programs_no_internet_image_width"
+            android:layout_height="@dimen/programs_no_internet_image_height"
             android:src="@drawable/no_internet"
             android:tint="@color/colorFontLight"/>
 
@@ -76,6 +77,52 @@
         </FrameLayout>
 
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/group_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey200"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/empty_text"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="@string/dashboard_empty"
+                android:textColor="@color/colorFontMedium"
+                android:textSize="18sp"/>
+
+            <RelativeLayout
+                android:id="@+id/button_start_investing"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/button_primary"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/start_investing"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
 
     <vision.genesis.clientapp.ui.ToolbarView
         android:id="@+id/toolbar"

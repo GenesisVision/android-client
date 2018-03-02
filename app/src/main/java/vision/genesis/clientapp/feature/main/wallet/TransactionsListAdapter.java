@@ -118,14 +118,33 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 			df.setRoundingMode(RoundingMode.DOWN);
 			String amountString = df.format(amountValue);
 
-			if (amountValue >= 0) {
-				amountString = "+" + amountString;
-				amount.setText(amountString);
-				amount.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));
-			}
-			else {
-				amount.setText(amountString);
-				amount.setTextColor(ContextCompat.getColor(context, R.color.transactionRed));
+			amount.setText(amountString);
+
+			switch (transaction.getType()) {
+				case DEPOSIT:
+					amount.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));
+					break;
+				case WITHDRAW:
+					amount.setTextColor(ContextCompat.getColor(context, R.color.transactionRed));
+					break;
+				case OPENPROGRAM:
+					amount.setTextColor(ContextCompat.getColor(context, R.color.transactionRed));
+					break;
+				case INVESTTOPROGRAM:
+					amount.setTextColor(ContextCompat.getColor(context, R.color.transactionRed));
+					break;
+				case WITHDRAWFROMPROGRAM:
+					amount.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));
+					break;
+				case PROFITFROMPROGRAM:
+					amount.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));
+					break;
+				case CANCELINVESTMENTREQUEST:
+					amount.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));
+					break;
+				case PARTIALINVESTMENTEXECUTIONREFUND:
+					amount.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));
+					break;
 			}
 		}
 	}

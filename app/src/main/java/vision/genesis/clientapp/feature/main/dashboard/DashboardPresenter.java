@@ -5,6 +5,8 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.model.events.OnInvestButtonClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -49,8 +52,13 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 		getInvestments();
 	}
 
-	void onTryAgainClicked() {
+	void onStartInvestingClicked() {
+		EventBus.getDefault().post(new OnInvestButtonClickedEvent());
+	}
 
+	void onTryAgainClicked() {
+		getViewState().showProgressBar(true);
+		getInvestments();
 	}
 
 	void onSwipeRefresh() {
@@ -73,15 +81,16 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);
 
-		List<InvestmentProgramDashboard> programs = dashboard.getInvestmentPrograms();
+		investmentPrograms = new ArrayList<>();
 
-		if (programs.size() == 0) {
-			getViewState().showEmptyList();
+		List<InvestmentProgramDashboard> programs = dashboard.getInvestmentPrograms();
+		for (InvestmentProgramDashboard program : programs) {
+			if (program.getInvestedTokens() > 0 || program.isHasNewRequests())
+				investmentPrograms.add(program);
 		}
-		else {
-			investmentPrograms = programs;
-			getViewState().setInvestorPrograms(programs);
-		}
+
+		getViewState().setInvestorPrograms(investmentPrograms);
+		getViewState().showEmpty(investmentPrograms.size() == 0);
 	}
 
 	private void handleGetInvestmentsError(Throwable throwable) {
@@ -89,6 +98,8 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
+		getViewState().showEmpty(false);
+
 		if (ApiErrorResolver.isNetworkError(throwable)) {
 			if (investmentPrograms.size() == 0)
 				getViewState().showNoInternet(true);

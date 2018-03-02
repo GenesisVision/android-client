@@ -73,6 +73,9 @@ public class BrokerInvestmentProgram
 	@SerializedName("ipfsHash")
 	private String ipfsHash = null;
 
+	@SerializedName("tradeIpfsHash")
+	private String tradeIpfsHash = null;
+
 	public BrokerInvestmentProgram id(UUID id) {
 		this.id = id;
 		return this;
@@ -358,6 +361,25 @@ public class BrokerInvestmentProgram
 		this.ipfsHash = ipfsHash;
 	}
 
+	public BrokerInvestmentProgram tradeIpfsHash(String tradeIpfsHash) {
+		this.tradeIpfsHash = tradeIpfsHash;
+		return this;
+	}
+
+	/**
+	 * Get tradeIpfsHash
+	 *
+	 * @return tradeIpfsHash
+	 **/
+	@ApiModelProperty(value = "")
+	public String getTradeIpfsHash() {
+		return tradeIpfsHash;
+	}
+
+	public void setTradeIpfsHash(String tradeIpfsHash) {
+		this.tradeIpfsHash = tradeIpfsHash;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -382,12 +404,13 @@ public class BrokerInvestmentProgram
 				Objects.equals(this.investMaxAmount, brokerInvestmentProgram.investMaxAmount) &&
 				Objects.equals(this.lastPeriod, brokerInvestmentProgram.lastPeriod) &&
 				Objects.equals(this.login, brokerInvestmentProgram.login) &&
-				Objects.equals(this.ipfsHash, brokerInvestmentProgram.ipfsHash);
+				Objects.equals(this.ipfsHash, brokerInvestmentProgram.ipfsHash) &&
+				Objects.equals(this.tradeIpfsHash, brokerInvestmentProgram.tradeIpfsHash);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, managerAccountId, dateFrom, dateTo, description, isEnabled, period, feeSuccess, feeManagement, feeEntrance, investMinAmount, investMaxAmount, lastPeriod, login, ipfsHash);
+		return Objects.hash(id, managerAccountId, dateFrom, dateTo, description, isEnabled, period, feeSuccess, feeManagement, feeEntrance, investMinAmount, investMaxAmount, lastPeriod, login, ipfsHash, tradeIpfsHash);
 	}
 
 
@@ -411,6 +434,7 @@ public class BrokerInvestmentProgram
 		sb.append("    lastPeriod: ").append(toIndentedString(lastPeriod)).append("\n");
 		sb.append("    login: ").append(toIndentedString(login)).append("\n");
 		sb.append("    ipfsHash: ").append(toIndentedString(ipfsHash)).append("\n");
+		sb.append("    tradeIpfsHash: ").append(toIndentedString(tradeIpfsHash)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

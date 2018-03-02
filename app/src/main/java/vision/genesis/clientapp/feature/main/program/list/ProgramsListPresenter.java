@@ -42,7 +42,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 
 	private Subscription filterSubscription;
 
-	private Subscription getTradersSubscription;
+	private Subscription getProgramsSubscription;
 
 	private List<InvestmentProgram> investmentProgramsList = new ArrayList<>();
 
@@ -68,8 +68,8 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		if (filterSubscription != null)
 			filterSubscription.unsubscribe();
 
-		if (getTradersSubscription != null)
-			getTradersSubscription.unsubscribe();
+		if (getProgramsSubscription != null)
+			getProgramsSubscription.unsubscribe();
 
 //		EventBus.getDefault().unregister(this);
 	}
@@ -80,11 +80,11 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
-		getTradersList(true);
+		getProgramsList(true);
 	}
 
 	void onLastListItemVisible() {
-		getTradersList(false);
+		getProgramsList(false);
 	}
 
 	private void subscribeToFilter() {
@@ -101,28 +101,28 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		filter.setSkip(0);
 		filter.setTake(TAKE);
 		getViewState().setRefreshing(true);
-		getTradersList(true);
+		getProgramsList(true);
 	}
 
-	private void getTradersList(boolean forceUpdate) {
+	private void getProgramsList(boolean forceUpdate) {
 		if (forceUpdate) {
 			skip = 0;
 			filter.setSkip(skip);
 		}
 
-		getTradersSubscription = investManager.getTradersList(filter)
+		getProgramsSubscription = investManager.getProgramsList(filter)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleGetTradersList,
-						this::handleGetTradersListError);
+				.subscribe(this::handleGetProgramsList,
+						this::handleGetProgramsListError);
 	}
 
-	private void handleGetTradersList(InvestmentProgramsViewModel model) {
+	private void handleGetProgramsList(InvestmentProgramsViewModel model) {
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);
 
-		getTradersSubscription.unsubscribe();
+		getProgramsSubscription.unsubscribe();
 
 //		List<InvestmentProgram> programs = investManager.parseInvestmentProgramsModel(model);
 		List<InvestmentProgram> programs = model.getInvestmentPrograms();
@@ -146,8 +146,8 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		filter.setSkip(skip);
 	}
 
-	private void handleGetTradersListError(Throwable error) {
-		getTradersSubscription.unsubscribe();
+	private void handleGetProgramsListError(Throwable error) {
+		getProgramsSubscription.unsubscribe();
 
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
@@ -160,6 +160,6 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 
 	void onTryAgainClicked() {
 		getViewState().showProgressBar(true);
-		getTradersList(true);
+		getProgramsList(true);
 	}
 }

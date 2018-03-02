@@ -16,8 +16,8 @@
 
             <vision.genesis.clientapp.ui.AvatarView
                 android:id="@+id/program_logo"
-                android:layout_width="@dimen/trader_details_avatar_width"
-                android:layout_height="@dimen/trader_details_avatar_height"
+                android:layout_width="@dimen/program_details_avatar_width"
+                android:layout_height="@dimen/program_details_avatar_height"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="16dp"/>
 
@@ -40,7 +40,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_margin="16dp"
                 android:ellipsize="end"
-                android:maxHeight="@dimen/trader_details_description_height"
+                android:maxHeight="@dimen/program_details_description_height"
                 android:textColor="@color/colorFontMedium"
                 android:textSize="14sp"
                 tools:text="@string/lorem_ipsum"/>

@@ -90,7 +90,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	}
 
 	private void initToolbar() {
-		toolbar.setTitle(getString(R.string.traders));
+		toolbar.setTitle(getString(R.string.programs));
 		toolbar.addRightButton(R.drawable.ic_filter, () -> programsListPresenter.onFilterClicked());
 	}
 

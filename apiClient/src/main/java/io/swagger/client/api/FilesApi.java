@@ -16,8 +16,8 @@ public interface FilesApi
 	 * @param id (required)
 	 * @return Call&lt;Void&gt;
 	 */
-	@GET("api/files/get/{id}")
-	Observable<Void> apiFilesGetByIdGet(
+	@GET("api/files/{id}")
+	Observable<Void> apiFilesByIdGet(
 			@retrofit2.http.Path("id") UUID id
 	);
 
@@ -27,8 +27,8 @@ public interface FilesApi
 	 * @param id (required)
 	 * @return Call&lt;Void&gt;
 	 */
-	@GET("api/files/get")
-	Observable<Void> apiFilesGetGet(
+	@GET("api/files")
+	Observable<Void> apiFilesGet(
 			@retrofit2.http.Query("id") UUID id
 	);
 

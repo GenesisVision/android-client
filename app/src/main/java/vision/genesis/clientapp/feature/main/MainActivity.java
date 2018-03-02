@@ -96,7 +96,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Rout
 					if (dashboardMainFragment == null)
 						dashboardMainFragment = new DashboardMainFragment();
 					return dashboardMainFragment;
-				case Screens.TRADERS:
+				case Screens.PROGRAMS:
 					if (programsListFragment == null)
 						programsListFragment = new ProgramsListFragment();
 					return programsListFragment;
@@ -137,7 +137,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Rout
 		ButterKnife.bind(this);
 
 		if (savedInstanceState == null) {
-			navigator.applyCommand(new Replace(Screens.TRADERS, 1));
+			navigator.applyCommand(new Replace(Screens.PROGRAMS, 1));
 		}
 
 		initBottomNavigation();
@@ -170,7 +170,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Rout
 
 	public void initBottomNavigation() {
 		AHBottomNavigationItem dashboardItem = new AHBottomNavigationItem(getString(R.string.dashboard), R.drawable.ic_dashboard_black_24dp);
-		AHBottomNavigationItem investItem = new AHBottomNavigationItem(getString(R.string.traders), R.drawable.ic_attach_money_black_24dp);
+		AHBottomNavigationItem investItem = new AHBottomNavigationItem(getString(R.string.programs), R.drawable.ic_attach_money_black_24dp);
 		AHBottomNavigationItem walletItem = new AHBottomNavigationItem(getString(R.string.wallet), R.drawable.ic_account_balance_wallet_black_24dp);
 		AHBottomNavigationItem profileItem = new AHBottomNavigationItem(getString(R.string.profile), R.drawable.ic_person_black_24dp);
 
@@ -238,7 +238,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Rout
 	}
 
 	@Override
-	public void showTradersFilters() {
+	public void showProgramFilters() {
 		ProgramsFiltersActivity.startFrom(this);
 	}
 

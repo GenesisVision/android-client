@@ -73,7 +73,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 				showDashboard();
 				break;
 			case 1:
-				showTraders();
+				showPrograms();
 				break;
 			case 2:
 				showWallet();
@@ -88,8 +88,8 @@ public class MainPresenter extends MvpPresenter<MainView>
 		router.navigateTo(Screens.DASHBOARD_MAIN);
 	}
 
-	private void showTraders() {
-		router.navigateTo(Screens.TRADERS);
+	private void showPrograms() {
+		router.navigateTo(Screens.PROGRAMS);
 	}
 
 	private void showWallet() {
@@ -140,7 +140,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	@Subscribe
 	public void onEventMainThread(ShowFiltersEvent event) {
-		getViewState().showTradersFilters();
+		getViewState().showProgramFilters();
 	}
 
 	@Subscribe

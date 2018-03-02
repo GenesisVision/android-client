@@ -9,16 +9,16 @@ Name | Type | Description | Notes
 **depositAmount** | **Double** |  | 
 **tokenName** | **String** |  | 
 **tokenSymbol** | **String** |  | 
-**dateFrom** | [**DateTime**](DateTime.md) |  | 
-**dateTo** | [**DateTime**](DateTime.md) |  | 
+**dateFrom** | [**DateTime**](DateTime.md) |  |  [optional]
+**dateTo** | [**DateTime**](DateTime.md) |  |  [optional]
 **logo** | **String** |  |  [optional]
 **title** | **String** |  | 
 **description** | **String** |  |  [optional]
-**feeEntrance** | **Double** |  | 
-**feeManagement** | **Double** |  | 
-**feeSuccess** | **Double** |  | 
+**feeEntrance** | **Double** |  |  [optional]
+**feeManagement** | **Double** |  |  [optional]
+**feeSuccess** | **Double** |  |  [optional]
 **investMinAmount** | **Double** |  | 
-**investMaxAmount** | **Double** |  | 
+**investMaxAmount** | **Double** |  |  [optional]
 **period** | **Integer** |  | 
 
 

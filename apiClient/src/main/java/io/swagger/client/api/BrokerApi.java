@@ -6,6 +6,7 @@ import io.swagger.client.model.BrokerInitData;
 import io.swagger.client.model.ClosePeriodData;
 import io.swagger.client.model.InvestmentProgramAccrual;
 import io.swagger.client.model.LoginViewModel;
+import io.swagger.client.model.ManagerHistoryIpfsHash;
 import io.swagger.client.model.NewManager;
 import io.swagger.client.model.NewOpenTradesEvent;
 import io.swagger.client.model.NewTradeEvent;
@@ -73,13 +74,13 @@ public interface BrokerApi
 	 *
 	 * @param authorization JWT access token (required)
 	 * @param accrual       (optional)
-	 * @return Call&lt;UUID&gt;
+	 * @return Call&lt;Void&gt;
 	 */
 	@Headers({
 			"Content-Type:application/json"
 	})
 	@POST("api/broker/period/accrueProfits")
-	Observable<UUID> apiBrokerPeriodAccrueProfitsPost(
+	Observable<Void> apiBrokerPeriodAccrueProfitsPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body InvestmentProgramAccrual accrual
 	);
 
@@ -132,6 +133,21 @@ public interface BrokerApi
 	@GET("api/broker/period/сlosingData")
 	Observable<ClosePeriodData> apiBrokerPeriodlosingDataGet(
 			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Update manager history ipfs hash
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param data          (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/broker/trades/ipfsHash/update")
+	Observable<Void> apiBrokerTradesIpfsHashUpdatePost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ManagerHistoryIpfsHash data
 	);
 
 	/**

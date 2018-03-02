@@ -58,6 +58,7 @@
             android:id="@+id/amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
             android:fontFamily="sans-serif-medium"
             android:textColor="@color/transactionGreen"
             android:textSize="18sp"

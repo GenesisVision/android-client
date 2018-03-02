@@ -43,7 +43,7 @@ public class InvestManager
 		filterSubject.onNext(filter);
 	}
 
-	public Observable<InvestmentProgramsViewModel> getTradersList(InvestmentProgramsFilter filter) {
+	public Observable<InvestmentProgramsViewModel> getProgramsList(InvestmentProgramsFilter filter) {
 		return investorApi.apiInvestorInvestmentProgramsPost(AuthManager.token.getValue(), filter);
 	}
 

@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**apiBrokerPeriodProcessInvestmentRequestsPost**](BrokerApi.md#apiBrokerPeriodProcessInvestmentRequestsPost) | **POST** api/broker/period/processInvestmentRequests | Process investment requests
 [**apiBrokerPeriodSetStartValuesPost**](BrokerApi.md#apiBrokerPeriodSetStartValuesPost) | **POST** api/broker/period/setStartValues | Set investment period start balance, manager share, manager balance
 [**apiBrokerPeriodlosingDataGet**](BrokerApi.md#apiBrokerPeriodlosingDataGet) | **GET** api/broker/period/сlosingData | Get data for closing investment period
+[**apiBrokerTradesIpfsHashUpdatePost**](BrokerApi.md#apiBrokerTradesIpfsHashUpdatePost) | **POST** api/broker/trades/ipfsHash/update | Update manager history ipfs hash
 [**apiBrokerTradesNewPost**](BrokerApi.md#apiBrokerTradesNewPost) | **POST** api/broker/trades/new | New trade event
 [**apiBrokerTradesOpenTradesNewPost**](BrokerApi.md#apiBrokerTradesOpenTradesNewPost) | **POST** api/broker/trades/openTrades/new | New open trades event
 [**apiBrokerTradesReevaluateManagerTokenPost**](BrokerApi.md#apiBrokerTradesReevaluateManagerTokenPost) | **POST** api/broker/trades/reevaluateManagerToken | Update manager token initial price/total supply after loss
@@ -196,7 +197,7 @@ No authorization required
 
 <a name="apiBrokerPeriodAccrueProfitsPost"></a>
 # **apiBrokerPeriodAccrueProfitsPost**
-> UUID apiBrokerPeriodAccrueProfitsPost(authorization, accrual)
+> Void apiBrokerPeriodAccrueProfitsPost(authorization, accrual)
 
 Accrue investors&#39; profits
 
@@ -211,7 +212,7 @@ BrokerApi apiInstance = new BrokerApi();
 String authorization = "authorization_example"; // String | JWT access token
 InvestmentProgramAccrual accrual = new InvestmentProgramAccrual(); // InvestmentProgramAccrual | 
 try {
-    UUID result = apiInstance.apiBrokerPeriodAccrueProfitsPost(authorization, accrual);
+    Void result = apiInstance.apiBrokerPeriodAccrueProfitsPost(authorization, accrual);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling BrokerApi#apiBrokerPeriodAccrueProfitsPost");
@@ -228,7 +229,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UUID**](UUID.md)
+[**Void**](.md)
 
 ### Authorization
 
@@ -423,6 +424,51 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiBrokerTradesIpfsHashUpdatePost"></a>
+# **apiBrokerTradesIpfsHashUpdatePost**
+> Void apiBrokerTradesIpfsHashUpdatePost(authorization, data)
+
+Update manager history ipfs hash
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.BrokerApi;
+
+
+BrokerApi apiInstance = new BrokerApi();
+String authorization = "authorization_example"; // String | JWT access token
+ManagerHistoryIpfsHash data = new ManagerHistoryIpfsHash(); // ManagerHistoryIpfsHash | 
+try {
+    Void result = apiInstance.apiBrokerTradesIpfsHashUpdatePost(authorization, data);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling BrokerApi#apiBrokerTradesIpfsHashUpdatePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **data** | [**ManagerHistoryIpfsHash**](ManagerHistoryIpfsHash.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="apiBrokerTradesNewPost"></a>

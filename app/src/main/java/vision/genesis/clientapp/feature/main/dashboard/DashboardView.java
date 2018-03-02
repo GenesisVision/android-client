@@ -25,6 +25,8 @@ interface DashboardView extends MvpView
 
 	void showNoInternet(boolean show);
 
+	void showEmpty(boolean show);
+
 	void showProgressBar(boolean show);
 
 	void showEmptyList();

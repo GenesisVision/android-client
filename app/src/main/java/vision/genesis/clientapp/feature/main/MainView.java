@@ -23,7 +23,7 @@ public interface MainView extends MvpView
 
 	void showAuthActivity();
 
-	void showTradersFilters();
+	void showProgramFilters();
 
 	void showInvestmentProgramDetails(UUID programId);
 

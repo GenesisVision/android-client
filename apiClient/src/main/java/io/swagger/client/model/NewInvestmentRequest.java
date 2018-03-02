@@ -181,7 +181,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return dateFrom
 	 **/
-	@ApiModelProperty(required = true, value = "")
+	@ApiModelProperty(value = "")
 	public DateTime getDateFrom() {
 		return dateFrom;
 	}
@@ -200,7 +200,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return dateTo
 	 **/
-	@ApiModelProperty(required = true, value = "")
+	@ApiModelProperty(value = "")
 	public DateTime getDateTo() {
 		return dateTo;
 	}
@@ -276,7 +276,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return feeEntrance
 	 **/
-	@ApiModelProperty(required = true, value = "")
+	@ApiModelProperty(value = "")
 	public Double getFeeEntrance() {
 		return feeEntrance;
 	}
@@ -295,7 +295,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return feeManagement
 	 **/
-	@ApiModelProperty(required = true, value = "")
+	@ApiModelProperty(value = "")
 	public Double getFeeManagement() {
 		return feeManagement;
 	}
@@ -314,7 +314,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return feeSuccess
 	 **/
-	@ApiModelProperty(required = true, value = "")
+	@ApiModelProperty(value = "")
 	public Double getFeeSuccess() {
 		return feeSuccess;
 	}
@@ -352,7 +352,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return investMaxAmount
 	 **/
-	@ApiModelProperty(required = true, value = "")
+	@ApiModelProperty(value = "")
 	public Double getInvestMaxAmount() {
 		return investMaxAmount;
 	}

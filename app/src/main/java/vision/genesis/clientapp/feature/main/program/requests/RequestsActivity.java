@@ -69,7 +69,7 @@ public class RequestsActivity extends BaseSwipeBackActivity implements RequestsV
 			requestsPresenter.setProgramId(programId);
 		}
 		else {
-			Timber.e("Passed empty program to TraderDetailsActivity");
+			Timber.e("Passed empty program to ProgramDetailsActivity");
 			onBackPressed();
 		}
 	}

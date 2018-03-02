@@ -4,14 +4,14 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiFilesGetByIdGet**](FilesApi.md#apiFilesGetByIdGet) | **GET** api/files/get/{id} | Download file
-[**apiFilesGetGet**](FilesApi.md#apiFilesGetGet) | **GET** api/files/get | Download file
+[**apiFilesByIdGet**](FilesApi.md#apiFilesByIdGet) | **GET** api/files/{id} | Download file
+[**apiFilesGet**](FilesApi.md#apiFilesGet) | **GET** api/files | Download file
 [**apiFilesUploadPost**](FilesApi.md#apiFilesUploadPost) | **POST** api/files/upload | Upload file
 
 
-<a name="apiFilesGetByIdGet"></a>
-# **apiFilesGetByIdGet**
-> Void apiFilesGetByIdGet(id)
+<a name="apiFilesByIdGet"></a>
+# **apiFilesByIdGet**
+> Void apiFilesByIdGet(id)
 
 Download file
 
@@ -25,10 +25,10 @@ Download file
 FilesApi apiInstance = new FilesApi();
 UUID id = new UUID(); // UUID | 
 try {
-    Void result = apiInstance.apiFilesGetByIdGet(id);
+    Void result = apiInstance.apiFilesByIdGet(id);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling FilesApi#apiFilesGetByIdGet");
+    System.err.println("Exception when calling FilesApi#apiFilesByIdGet");
     e.printStackTrace();
 }
 ```
@@ -52,9 +52,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a name="apiFilesGetGet"></a>
-# **apiFilesGetGet**
-> Void apiFilesGetGet(id)
+<a name="apiFilesGet"></a>
+# **apiFilesGet**
+> Void apiFilesGet(id)
 
 Download file
 
@@ -68,10 +68,10 @@ Download file
 FilesApi apiInstance = new FilesApi();
 UUID id = new UUID(); // UUID | 
 try {
-    Void result = apiInstance.apiFilesGetGet(id);
+    Void result = apiInstance.apiFilesGet(id);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling FilesApi#apiFilesGetGet");
+    System.err.println("Exception when calling FilesApi#apiFilesGet");
     e.printStackTrace();
 }
 ```

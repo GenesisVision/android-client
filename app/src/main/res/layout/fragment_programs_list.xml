@@ -29,8 +29,8 @@
 
         <ImageView
             android:id="@+id/no_internet_image"
-            android:layout_width="@dimen/traders_no_internet_image_width"
-            android:layout_height="@dimen/traders_no_internet_image_height"
+            android:layout_width="@dimen/programs_no_internet_image_width"
+            android:layout_height="@dimen/programs_no_internet_image_height"
             android:src="@drawable/no_internet"
             android:tint="@color/colorFontLight"/>
 

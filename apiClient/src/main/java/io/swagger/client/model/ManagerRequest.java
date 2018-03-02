@@ -49,6 +49,9 @@ public class ManagerRequest
 	@SerializedName("password")
 	private String password = null;
 
+	@SerializedName("depositInUsd")
+	private Double depositInUsd = null;
+
 	public ManagerRequest userId(UUID userId) {
 		this.userId = userId;
 		return this;
@@ -163,6 +166,25 @@ public class ManagerRequest
 		this.password = password;
 	}
 
+	public ManagerRequest depositInUsd(Double depositInUsd) {
+		this.depositInUsd = depositInUsd;
+		return this;
+	}
+
+	/**
+	 * Get depositInUsd
+	 *
+	 * @return depositInUsd
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getDepositInUsd() {
+		return depositInUsd;
+	}
+
+	public void setDepositInUsd(Double depositInUsd) {
+		this.depositInUsd = depositInUsd;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -177,12 +199,13 @@ public class ManagerRequest
 				Objects.equals(this.name, managerRequest.name) &&
 				Objects.equals(this.email, managerRequest.email) &&
 				Objects.equals(this.currency, managerRequest.currency) &&
-				Objects.equals(this.password, managerRequest.password);
+				Objects.equals(this.password, managerRequest.password) &&
+				Objects.equals(this.depositInUsd, managerRequest.depositInUsd);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userId, requestId, name, email, currency, password);
+		return Objects.hash(userId, requestId, name, email, currency, password, depositInUsd);
 	}
 
 	@Override
@@ -196,6 +219,7 @@ public class ManagerRequest
 		sb.append("    email: ").append(toIndentedString(email)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    password: ").append(toIndentedString(password)).append("\n");
+		sb.append("    depositInUsd: ").append(toIndentedString(depositInUsd)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

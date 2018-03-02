@@ -49,6 +49,9 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	@BindView(R.id.group_no_internet)
 	public ViewGroup noInternetGroup;
 
+	@BindView(R.id.group_empty)
+	public ViewGroup emptyGroup;
+
 	@InjectPresenter
 	DashboardPresenter dashboardPresenter;
 
@@ -57,6 +60,11 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
 		dashboardPresenter.onTryAgainClicked();
+	}
+
+	@OnClick(R.id.button_start_investing)
+	public void onStartInvestingClicked() {
+		dashboardPresenter.onStartInvestingClicked();
 	}
 
 	@Nullable
@@ -121,6 +129,12 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	@Override
 	public void showNoInternet(boolean show) {
 		noInternetGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+		refreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
+	}
+
+	@Override
+	public void showEmpty(boolean show) {
+		emptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);
 		refreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
 	}
 

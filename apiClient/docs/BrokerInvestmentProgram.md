@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **lastPeriod** | [**Period**](Period.md) |  |  [optional]
 **login** | **String** |  |  [optional]
 **ipfsHash** | **String** |  |  [optional]
+**tradeIpfsHash** | **String** |  |  [optional]
 
 
 
