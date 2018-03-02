@@ -19,7 +19,7 @@ import io.swagger.client.model.InvestmentProgramDashboard;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.AvatarView;
-import vision.genesis.clientapp.utils.DateTimeUtil;
+import vision.genesis.clientapp.ui.PeriodLeftView;
 
 /**
  * GenesisVision
@@ -75,11 +75,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Inve
 		@BindView(R.id.profit_currency)
 		public TextView profitCurrencyText;
 
-		@BindView(R.id.period)
-		public TextView period;
-
-		@BindView(R.id.period_days)
-		public TextView periodDays;
+		@BindView(R.id.view_period_left)
+		public PeriodLeftView periodLeftView;
 
 		private InvestmentProgramDashboard investmentProgram;
 
@@ -131,9 +128,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Inve
 				profitCurrencyText.setText("$0.00");
 			}
 
-			int daysToPeriodEnd = DateTimeUtil.getDaysToDate(investmentProgram.getEndOfPeriod());
-			period.setText(String.valueOf(daysToPeriodEnd));
-			periodDays.setText(itemView.getContext().getResources().getQuantityString(R.plurals.days, daysToPeriodEnd, daysToPeriodEnd, daysToPeriodEnd));
+			periodLeftView.setDateTo(investmentProgram.getEndOfPeriod());
 		}
 	}
 }

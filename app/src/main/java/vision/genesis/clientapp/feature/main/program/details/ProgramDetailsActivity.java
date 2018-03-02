@@ -27,6 +27,7 @@ import vision.genesis.clientapp.feature.main.program.requests.RequestsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.model.ProgramWithdrawalRequest;
 import vision.genesis.clientapp.ui.AvatarView;
+import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProfitChartView;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.DateTimeUtil;
@@ -77,11 +78,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@BindView(R.id.text_end_of_period)
 	public TextView endOfPeriodText;
 
-	@BindView(R.id.text_period_left)
-	public TextView periodLeftText;
-
-	@BindView(R.id.text_period_days)
-	public TextView periodDaysText;
+	@BindView(R.id.view_period_left)
+	public PeriodLeftView periodLeftView;
 
 	@BindView(R.id.text_success_fee)
 	public TextView successFeeText;
@@ -198,10 +196,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		df.setRoundingMode(RoundingMode.DOWN);
 
 		endOfPeriodText.setText(DateTimeUtil.formatDateTime(programDetails.getEndOfPeriod()));
-
-		int daysToPeriodEnd = DateTimeUtil.getDaysToDate(programDetails.getEndOfPeriod());
-		periodLeftText.setText(String.valueOf(daysToPeriodEnd));
-		periodDaysText.setText(getResources().getQuantityString(R.plurals.days, daysToPeriodEnd, daysToPeriodEnd, daysToPeriodEnd));
+		periodLeftView.setDateTo(programDetails.getEndOfPeriod());
 
 		successFeeText.setText(df.format(programDetails.getFeeSuccess()));
 		managementFeeText.setText(df.format((programDetails.getFeeManagement())));

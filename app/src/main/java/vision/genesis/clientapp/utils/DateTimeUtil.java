@@ -2,6 +2,9 @@ package vision.genesis.clientapp.utils;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.joda.time.Hours;
+import org.joda.time.Minutes;
+import org.joda.time.Seconds;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -26,5 +29,17 @@ public class DateTimeUtil
 
 	public static int getDaysToDate(DateTime date) {
 		return Days.daysBetween(DateTime.now(), date).getDays();
+	}
+
+	public static int getHoursToDate(DateTime date) {
+		return Hours.hoursBetween(DateTime.now(), date).getHours();
+	}
+
+	public static int getMinutesToDate(DateTime date) {
+		return Minutes.minutesBetween(DateTime.now(), date).getMinutes();
+	}
+
+	public static int getSecondsToDate(DateTime date) {
+		return Seconds.secondsBetween(DateTime.now(), date).getSeconds();
 	}
 }

@@ -157,8 +157,8 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/group_period_ends"
-                        android:layout_toStartOf="@+id/group_period_ends"
+                        android:layout_toLeftOf="@+id/view_period_left"
+                        android:layout_toStartOf="@+id/view_period_left"
                         android:orientation="vertical">
 
                         <TextView
@@ -180,37 +180,15 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/group_period_ends"
+                    <vision.genesis.clientapp.ui.PeriodLeftView
+                        android:id="@+id/view_period_left"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginStart="16dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/text_period_left"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/colorFontDark"
-                            android:textSize="28sp"
-                            tools:text="6"/>
-
-                        <TextView
-                            android:id="@+id/text_period_days"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="-8dp"
-                            android:textAlignment="center"
-                            android:textColor="@color/colorFontDark"
-                            android:textSize="12sp"
-                            tools:text="days left"/>
-
-                    </LinearLayout>
+                        android:layout_marginStart="16dp"/>
 
                 </RelativeLayout>
 

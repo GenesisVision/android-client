@@ -117,6 +117,7 @@
 
     <string name="dashboard_empty">You have no investments yet.</string>
     <string name="start_investing">Start investing</string>
+    <string name="left">left</string>
 
     <plurals name="tokens">
         <item quantity="one">%d token</item>
@@ -127,5 +128,23 @@
         <item quantity="one">day</item>
         <item quantity="two">days</item>
         <item quantity="other">days</item>
+    </plurals>
+
+    <plurals name="hours">
+        <item quantity="one">hour</item>
+        <item quantity="two">hours</item>
+        <item quantity="other">hours</item>
+    </plurals>
+
+    <plurals name="minutes">
+        <item quantity="one">minute</item>
+        <item quantity="two">minutes</item>
+        <item quantity="other">minutes</item>
+    </plurals>
+
+    <plurals name="seconds">
+        <item quantity="one">second</item>
+        <item quantity="two">seconds</item>
+        <item quantity="other">seconds</item>
     </plurals>
 </resources>
