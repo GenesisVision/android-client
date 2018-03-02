@@ -118,6 +118,7 @@
     <string name="dashboard_empty">You have no investments yet.</string>
     <string name="start_investing">Start investing</string>
     <string name="left">left</string>
+    <string name="manager">Manager</string>
 
     <plurals name="tokens">
         <item quantity="one">%d token</item>

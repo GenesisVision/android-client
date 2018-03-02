@@ -32,8 +32,8 @@
     <dimen name="programs_no_internet_image_width">150dp</dimen>
     <dimen name="programs_no_internet_image_height">150dp</dimen>
 
-    <dimen name="program_details_avatar_width">50dp</dimen>
-    <dimen name="program_details_avatar_height">50dp</dimen>
+    <dimen name="program_details_avatar_width">100dp</dimen>
+    <dimen name="program_details_avatar_height">100dp</dimen>
     <dimen name="program_details_description_height">100dp</dimen>
 
     <dimen name="manager_avatar_width">60dp</dimen>

@@ -51,6 +51,12 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
 
+	@BindView(R.id.manager_avatar)
+	public AvatarView managerAvatar;
+
+	@BindView(R.id.manager_name)
+	public TextView managerName;
+
 	@BindView(R.id.program_logo)
 	public AvatarView programLogo;
 
@@ -178,6 +184,10 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@Override
 	public void setProgram(InvestmentProgramDetails programDetails) {
 		this.programDetails = programDetails;
+
+		managerAvatar.setImage(programDetails.getManager().getAvatar());
+		managerAvatar.hideLevel();
+		managerName.setText(programDetails.getManager().getUsername());
 
 		programLogo.setImage(programDetails.getLogo());
 		programLogo.setLevel(programDetails.getLevel());
