@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **date** | [**DateTime**](DateTime.md) |  |  [optional]
 **walletId** | [**UUID**](UUID.md) |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
+**investmentProgramRequest** | [**InvestmentProgramRequestTxInfo**](InvestmentProgramRequestTxInfo.md) |  |  [optional]
+**paymentTx** | [**PaymentTxInfo**](PaymentTxInfo.md) |  |  [optional]
 
 
 <a name="TypeEnum"></a>
@@ -24,6 +26,7 @@ WITHDRAWFROMPROGRAM | &quot;WithdrawFromProgram&quot;
 PROFITFROMPROGRAM | &quot;ProfitFromProgram&quot;
 CANCELINVESTMENTREQUEST | &quot;CancelInvestmentRequest&quot;
 PARTIALINVESTMENTEXECUTIONREFUND | &quot;PartialInvestmentExecutionRefund&quot;
+CLOSINGPROGRAMREFUND | &quot;ClosingProgramRefund&quot;
 
 
 <a name="CurrencyEnum"></a>

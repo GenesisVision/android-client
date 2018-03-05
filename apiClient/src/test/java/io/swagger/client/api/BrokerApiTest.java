@@ -34,7 +34,7 @@ public class BrokerApiTest
 		NewManager request = null;
 		// UUID response = api.apiBrokerAccountCreatePost(authorization, request);
 
-        // TODO: test validations
+		// TODO: test validations
 	}
 
 	/**
@@ -58,24 +58,21 @@ public class BrokerApiTest
 
 		// TODO: test validations
 	}
-    /**
-     * Get broker initial data
-     *
-     *
-     */
-    @Test
-    public void apiBrokerInitDataGetTest() {
-	    UUID brokerTradeServerId = null;
-	    String authorization = null;
-	    // BrokerInitData response = api.apiBrokerInitDataGet(brokerTradeServerId, authorization);
 
-	    // TODO: test validations
-    }
+	/**
+	 * Get broker initial data
+	 */
+	@Test
+	public void apiBrokerInitDataGetTest() {
+		UUID brokerTradeServerId = null;
+		String authorization = null;
+		// BrokerInitData response = api.apiBrokerInitDataGet(brokerTradeServerId, authorization);
+
+		// TODO: test validations
+	}
 
 	/**
 	 * Accrue investors&#39; profits
-	 *
-	 *
 	 */
 	@Test
 	public void apiBrokerPeriodAccrueProfitsPostTest() {
@@ -88,8 +85,6 @@ public class BrokerApiTest
 
 	/**
 	 * Close investment period
-	 *
-	 *
 	 */
 	@Test
 	public void apiBrokerPeriodClosePostTest() {
@@ -102,8 +97,6 @@ public class BrokerApiTest
 
 	/**
 	 * Process investment requests
-	 *
-	 *
 	 */
 	@Test
 	public void apiBrokerPeriodProcessInvestmentRequestsPostTest() {
@@ -116,8 +109,6 @@ public class BrokerApiTest
 
 	/**
 	 * Set investment period start balance
-	 *
-	 *
 	 */
 	@Test
 	public void apiBrokerPeriodSetStartBalancePostTest() {
@@ -131,8 +122,6 @@ public class BrokerApiTest
 
 	/**
 	 * Get data for closing investment period
-	 *
-	 *
 	 */
 	@Test
 	public void apiBrokerPeriodlosingDataGetTest() {
@@ -145,8 +134,6 @@ public class BrokerApiTest
 
 	/**
 	 * New trade event
-	 *
-	 *
 	 */
 	@Test
 	public void apiBrokerTradesNewPostTest() {

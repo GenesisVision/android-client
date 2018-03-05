@@ -22,6 +22,7 @@ Method | HTTP request | Description
 [**apiInvestorProfileUpdatePost**](InvestorApi.md#apiInvestorProfileUpdatePost) | **POST** api/investor/profile/update | Update profile
 [**apiInvestorWalletAddressGet**](InvestorApi.md#apiInvestorWalletAddressGet) | **GET** api/investor/wallet/address | Get eth address for GVT depositing
 [**apiInvestorWalletGet**](InvestorApi.md#apiInvestorWalletGet) | **GET** api/investor/wallet | Get user wallets
+[**apiInvestorWalletTransactionsInvestmentProgramsListGet**](InvestorApi.md#apiInvestorWalletTransactionsInvestmentProgramsListGet) | **GET** api/investor/wallet/transactions/investmentProgramsList | Get user investment programs with tx
 [**apiInvestorWalletTransactionsPost**](InvestorApi.md#apiInvestorWalletTransactionsPost) | **POST** api/investor/wallet/transactions | Get user wallet transactions
 [**apiInvestorWalletWithdrawRequestPost**](InvestorApi.md#apiInvestorWalletWithdrawRequestPost) | **POST** api/investor/wallet/withdrawRequest | Withdraw request
 
@@ -810,6 +811,51 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**WalletsViewModel**](WalletsViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorWalletTransactionsInvestmentProgramsListGet"></a>
+# **apiInvestorWalletTransactionsInvestmentProgramsListGet**
+> WalletInvestmentPrograms apiInvestorWalletTransactionsInvestmentProgramsListGet(authorization, mask)
+
+Get user investment programs with tx
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+String authorization = "authorization_example"; // String | JWT access token
+String mask = "mask_example"; // String | 
+try {
+    WalletInvestmentPrograms result = apiInstance.apiInvestorWalletTransactionsInvestmentProgramsListGet(authorization, mask);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorWalletTransactionsInvestmentProgramsListGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **mask** | **String**|  | [optional]
+
+### Return type
+
+[**WalletInvestmentPrograms**](WalletInvestmentPrograms.md)
 
 ### Authorization
 

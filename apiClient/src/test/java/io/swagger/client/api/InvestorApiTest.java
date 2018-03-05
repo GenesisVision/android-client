@@ -37,7 +37,7 @@ public class InvestorApiTest
 		String code = null;
 		// Void response = api.apiInvestorAuthConfirmEmailGet(userId, code);
 
-        // TODO: test validations
+		// TODO: test validations
 	}
 
 	/**
@@ -61,23 +61,20 @@ public class InvestorApiTest
 
 		// TODO: test validations
 	}
-    /**
-     * Update auth token
-     *
-     *
-     */
-    @Test
-    public void apiInvestorAuthUpdateTokenGetTest() {
-	    String authorization = null;
-	    // String response = api.apiInvestorAuthUpdateTokenGet(authorization);
 
-	    // TODO: test validations
-    }
+	/**
+	 * Update auth token
+	 */
+	@Test
+	public void apiInvestorAuthUpdateTokenGetTest() {
+		String authorization = null;
+		// String response = api.apiInvestorAuthUpdateTokenGet(authorization);
+
+		// TODO: test validations
+	}
 
 	/**
 	 * Get investor dashboard
-	 *
-	 *
 	 */
 	@Test
 	public void apiInvestorDashboardGetTest() {
@@ -89,8 +86,6 @@ public class InvestorApiTest
 
 	/**
 	 * Get investment program details by id
-	 *
-	 *
 	 */
 	@Test
 	public void apiInvestorInvestmentProgramGetTest() {
@@ -102,8 +97,6 @@ public class InvestorApiTest
 
 	/**
 	 * Get manager open trades
-	 *
-	 *
 	 */
 	@Test
 	public void apiInvestorInvestmentProgramOpenTradesPostTest() {
@@ -152,8 +145,6 @@ public class InvestorApiTest
 
 	/**
 	 * Get public investment program&#39;s list
-	 *
-	 *
 	 */
 	@Test
 	public void apiInvestorInvestmentProgramsPostTest() {
@@ -165,8 +156,6 @@ public class InvestorApiTest
 
 	/**
 	 * Withdraw from investment program
-	 *
-	 *
 	 */
 	@Test
 	public void apiInvestorInvestmentProgramsWithdrawPostTest() {
@@ -179,8 +168,6 @@ public class InvestorApiTest
 
 	/**
 	 * Get full profile
-	 *
-	 *
 	 */
 	@Test
 	public void apiInvestorProfileFullGetTest() {
@@ -192,8 +179,6 @@ public class InvestorApiTest
 
 	/**
 	 * Get public profile
-	 *
-	 *
 	 */
 	@Test
 	public void apiInvestorProfilePublicGetTest() {
@@ -205,8 +190,6 @@ public class InvestorApiTest
 
 	/**
 	 * Update profile
-	 *
-	 *
 	 */
 	@Test
 	public void apiInvestorProfileUpdatePostTest() {
@@ -219,8 +202,6 @@ public class InvestorApiTest
 
 	/**
 	 * Get eth address for GVT depositing
-	 *
-	 *
 	 */
 	@Test
 	public void apiInvestorWalletAddressGetTest() {
@@ -232,8 +213,6 @@ public class InvestorApiTest
 
 	/**
 	 * Get user wallets
-	 *
-	 *
 	 */
 	@Test
 	public void apiInvestorWalletGetTest() {
@@ -245,8 +224,6 @@ public class InvestorApiTest
 
 	/**
 	 * Get user wallet transactions
-	 *
-	 *
 	 */
 	@Test
 	public void apiInvestorWalletTransactionsPostTest() {
@@ -259,8 +236,6 @@ public class InvestorApiTest
 
 	/**
 	 * Withdraw request
-	 *
-	 *
 	 */
 	@Test
 	public void apiInvestorWalletWithdrawRequestPostTest() {

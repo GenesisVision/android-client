@@ -19,93 +19,27 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
-import org.joda.time.DateTime;
-
 import java.io.IOException;
 import java.util.Objects;
-import java.util.UUID;
 
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * InvestmentRequest
+ * InvestmentProgramRequestTxInfo
  */
 
-public class InvestmentRequest
+public class InvestmentProgramRequestTxInfo
 {
-	@SerializedName("id")
-	private UUID id = null;
-
-	@SerializedName("date")
-	private DateTime date = null;
-
-	@SerializedName("amount")
-	private Double amount = null;
-
 	@SerializedName("type")
 	private TypeEnum type = null;
 
 	@SerializedName("status")
 	private StatusEnum status = null;
 
-	public InvestmentRequest id(UUID id) {
-		this.id = id;
-		return this;
-	}
+	@SerializedName("investmentProgram")
+	private InvestmentProgramTxInfo investmentProgram = null;
 
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@ApiModelProperty(value = "")
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public InvestmentRequest date(DateTime date) {
-		this.date = date;
-		return this;
-	}
-
-	/**
-	 * Get date
-	 *
-	 * @return date
-	 **/
-	@ApiModelProperty(value = "")
-	public DateTime getDate() {
-		return date;
-	}
-
-	public void setDate(DateTime date) {
-		this.date = date;
-	}
-
-	public InvestmentRequest amount(Double amount) {
-		this.amount = amount;
-		return this;
-	}
-
-	/**
-	 * Get amount
-	 *
-	 * @return amount
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Double amount) {
-		this.amount = amount;
-	}
-
-	public InvestmentRequest type(TypeEnum type) {
+	public InvestmentProgramRequestTxInfo type(TypeEnum type) {
 		this.type = type;
 		return this;
 	}
@@ -124,7 +58,7 @@ public class InvestmentRequest
 		this.type = type;
 	}
 
-	public InvestmentRequest status(StatusEnum status) {
+	public InvestmentProgramRequestTxInfo status(StatusEnum status) {
 		this.status = status;
 		return this;
 	}
@@ -143,6 +77,25 @@ public class InvestmentRequest
 		this.status = status;
 	}
 
+	public InvestmentProgramRequestTxInfo investmentProgram(InvestmentProgramTxInfo investmentProgram) {
+		this.investmentProgram = investmentProgram;
+		return this;
+	}
+
+	/**
+	 * Get investmentProgram
+	 *
+	 * @return investmentProgram
+	 **/
+	@ApiModelProperty(value = "")
+	public InvestmentProgramTxInfo getInvestmentProgram() {
+		return investmentProgram;
+	}
+
+	public void setInvestmentProgram(InvestmentProgramTxInfo investmentProgram) {
+		this.investmentProgram = investmentProgram;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -151,29 +104,25 @@ public class InvestmentRequest
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		InvestmentRequest investmentRequest = (InvestmentRequest) o;
-		return Objects.equals(this.id, investmentRequest.id) &&
-				Objects.equals(this.date, investmentRequest.date) &&
-				Objects.equals(this.amount, investmentRequest.amount) &&
-				Objects.equals(this.type, investmentRequest.type) &&
-				Objects.equals(this.status, investmentRequest.status);
+		InvestmentProgramRequestTxInfo investmentProgramRequestTxInfo = (InvestmentProgramRequestTxInfo) o;
+		return Objects.equals(this.type, investmentProgramRequestTxInfo.type) &&
+				Objects.equals(this.status, investmentProgramRequestTxInfo.status) &&
+				Objects.equals(this.investmentProgram, investmentProgramRequestTxInfo.investmentProgram);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, date, amount, type, status);
+		return Objects.hash(type, status, investmentProgram);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class InvestmentRequest {\n");
+		sb.append("class InvestmentProgramRequestTxInfo {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    date: ").append(toIndentedString(date)).append("\n");
-		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
+		sb.append("    investmentProgram: ").append(toIndentedString(investmentProgram)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -37,7 +37,7 @@ public class ManagerApiTest
 		NewInvestmentRequest request = null;
 		// UUID response = api.apiManagerAccountNewInvestmentRequestPost(authorization, request);
 
-        // TODO: test validations
+		// TODO: test validations
 	}
 
 	/**
@@ -62,23 +62,20 @@ public class ManagerApiTest
 
 		// TODO: test validations
 	}
-    /**
-     * Register new manager
-     *
-     *
-     */
-    @Test
-    public void apiManagerAuthSignUpPostTest() {
-	    RegisterManagerViewModel model = null;
-	    // Void response = api.apiManagerAuthSignUpPost(model);
 
-	    // TODO: test validations
-    }
+	/**
+	 * Register new manager
+	 */
+	@Test
+	public void apiManagerAuthSignUpPostTest() {
+		RegisterManagerViewModel model = null;
+		// Void response = api.apiManagerAuthSignUpPost(model);
+
+		// TODO: test validations
+	}
 
 	/**
 	 * Update auth token
-	 *
-	 *
 	 */
 	@Test
 	public void apiManagerAuthUpdateTokenGetTest() {
@@ -90,8 +87,6 @@ public class ManagerApiTest
 
 	/**
 	 * Get all enabled trade servers
-	 *
-	 *
 	 */
 	@Test
 	public void apiManagerBrokersPostTest() {
@@ -103,8 +98,6 @@ public class ManagerApiTest
 
 	/**
 	 * Cancel investment request
-	 *
-	 *
 	 */
 	@Test
 	public void apiManagerInvestmentCancelInvestmentRequestPostTest() {
@@ -117,8 +110,6 @@ public class ManagerApiTest
 
 	/**
 	 * Close existing investment program
-	 *
-	 *
 	 */
 	@Test
 	public void apiManagerInvestmentClosePostTest() {
@@ -131,8 +122,6 @@ public class ManagerApiTest
 
 	/**
 	 * Manager deposit in his own investment program
-	 *
-	 *
 	 */
 	@Test
 	public void apiManagerInvestmentInvestPostTest() {
@@ -145,8 +134,6 @@ public class ManagerApiTest
 
 	/**
 	 * Manager withdrawal from his own investment program
-	 *
-	 *
 	 */
 	@Test
 	public void apiManagerInvestmentWithdrawPostTest() {
@@ -159,8 +146,6 @@ public class ManagerApiTest
 
 	/**
 	 * Get full profile
-	 *
-	 *
 	 */
 	@Test
 	public void apiManagerProfileFullGetTest() {
@@ -172,8 +157,6 @@ public class ManagerApiTest
 
 	/**
 	 * Get public profile
-	 *
-	 *
 	 */
 	@Test
 	public void apiManagerProfilePublicGetTest() {
@@ -185,8 +168,6 @@ public class ManagerApiTest
 
 	/**
 	 * Update profile
-	 *
-	 *
 	 */
 	@Test
 	public void apiManagerProfileUpdatePostTest() {
@@ -199,8 +180,6 @@ public class ManagerApiTest
 
 	/**
 	 * Get eth address for GVT depositing
-	 *
-	 *
 	 */
 	@Test
 	public void apiManagerWalletAddressGetTest() {
@@ -212,8 +191,6 @@ public class ManagerApiTest
 
 	/**
 	 * Get user wallets
-	 *
-	 *
 	 */
 	@Test
 	public void apiManagerWalletGetTest() {
@@ -225,8 +202,6 @@ public class ManagerApiTest
 
 	/**
 	 * Get user wallet transactions
-	 *
-	 *
 	 */
 	@Test
 	public void apiManagerWalletTransactionsPostTest() {
@@ -239,8 +214,6 @@ public class ManagerApiTest
 
 	/**
 	 * Withdraw request
-	 *
-	 *
 	 */
 	@Test
 	public void apiManagerWalletWithdrawRequestPostTest() {

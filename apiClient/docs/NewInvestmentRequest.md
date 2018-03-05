@@ -14,10 +14,9 @@ Name | Type | Description | Notes
 **logo** | **String** |  |  [optional]
 **title** | **String** |  | 
 **description** | **String** |  |  [optional]
-**feeEntrance** | **Double** |  |  [optional]
 **feeManagement** | **Double** |  |  [optional]
 **feeSuccess** | **Double** |  |  [optional]
-**investMinAmount** | **Double** |  | 
+**investMinAmount** | **Double** |  |  [optional]
 **investMaxAmount** | **Double** |  |  [optional]
 **period** | **Integer** |  | 
 

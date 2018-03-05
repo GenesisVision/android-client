@@ -10,6 +10,7 @@ import io.swagger.client.model.ManagerHistoryIpfsHash;
 import io.swagger.client.model.NewManager;
 import io.swagger.client.model.NewOpenTradesEvent;
 import io.swagger.client.model.NewTradeEvent;
+import io.swagger.client.model.StartValues;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -97,6 +98,19 @@ public interface BrokerApi
 	);
 
 	/**
+	 * Close investment program
+	 *
+	 * @param investmentProgramId (required)
+	 * @param managerBalance      (required)
+	 * @param authorization       JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("api/broker/period/processClosingProgram")
+	Observable<Void> apiBrokerPeriodProcessClosingProgramPost(
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Query("managerBalance") Double managerBalance, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
 	 * Process investment requests
 	 *
 	 * @param investmentProgramId (required)
@@ -111,16 +125,16 @@ public interface BrokerApi
 	/**
 	 * Set investment period start balance, manager share, manager balance
 	 *
-	 * @param investmentProgramId (required)
-	 * @param balance             (required)
-	 * @param managerBalance      (required)
-	 * @param managerShare        (required)
-	 * @param authorization       JWT access token (required)
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
 	 * @return Call&lt;Void&gt;
 	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
 	@POST("api/broker/period/setStartValues")
 	Observable<Void> apiBrokerPeriodSetStartValuesPost(
-			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Query("balance") Double balance, @retrofit2.http.Query("managerBalance") Double managerBalance, @retrofit2.http.Query("managerShare") Double managerShare, @retrofit2.http.Header("Authorization") String authorization
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body StartValues model
 	);
 
 	/**

@@ -19,6 +19,7 @@ import io.swagger.client.model.TradesViewModel;
 import io.swagger.client.model.TransactionsFilter;
 import io.swagger.client.model.UpdateProfileViewModel;
 import io.swagger.client.model.WalletAddressViewModel;
+import io.swagger.client.model.WalletInvestmentPrograms;
 import io.swagger.client.model.WalletTransactionsViewModel;
 import io.swagger.client.model.WalletWithdrawRequestModel;
 import io.swagger.client.model.WalletsViewModel;
@@ -262,6 +263,18 @@ public interface InvestorApi
 	@GET("api/investor/wallet")
 	Observable<WalletsViewModel> apiInvestorWalletGet(
 			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Get user investment programs with tx
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param mask          (optional)
+	 * @return Call&lt;WalletInvestmentPrograms&gt;
+	 */
+	@GET("api/investor/wallet/transactions/investmentProgramsList")
+	Observable<WalletInvestmentPrograms> apiInvestorWalletTransactionsInvestmentProgramsListGet(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("mask") String mask
 	);
 
 	/**

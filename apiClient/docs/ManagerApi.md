@@ -21,6 +21,7 @@ Method | HTTP request | Description
 [**apiManagerProfileUpdatePost**](ManagerApi.md#apiManagerProfileUpdatePost) | **POST** api/manager/profile/update | Update profile
 [**apiManagerWalletAddressGet**](ManagerApi.md#apiManagerWalletAddressGet) | **GET** api/manager/wallet/address | Get eth address for GVT depositing
 [**apiManagerWalletGet**](ManagerApi.md#apiManagerWalletGet) | **GET** api/manager/wallet | Get user wallets
+[**apiManagerWalletTransactionsInvestmentProgramsListGet**](ManagerApi.md#apiManagerWalletTransactionsInvestmentProgramsListGet) | **GET** api/manager/wallet/transactions/investmentProgramsList | Get user investment programs with tx
 [**apiManagerWalletTransactionsPost**](ManagerApi.md#apiManagerWalletTransactionsPost) | **POST** api/manager/wallet/transactions | Get user wallet transactions
 [**apiManagerWalletWithdrawRequestPost**](ManagerApi.md#apiManagerWalletWithdrawRequestPost) | **POST** api/manager/wallet/withdrawRequest | Withdraw request
 
@@ -764,6 +765,51 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**WalletsViewModel**](WalletsViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerWalletTransactionsInvestmentProgramsListGet"></a>
+# **apiManagerWalletTransactionsInvestmentProgramsListGet**
+> WalletInvestmentPrograms apiManagerWalletTransactionsInvestmentProgramsListGet(authorization, mask)
+
+Get user investment programs with tx
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+String authorization = "authorization_example"; // String | JWT access token
+String mask = "mask_example"; // String | 
+try {
+    WalletInvestmentPrograms result = apiInstance.apiManagerWalletTransactionsInvestmentProgramsListGet(authorization, mask);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerWalletTransactionsInvestmentProgramsListGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **mask** | **String**|  | [optional]
+
+### Return type
+
+[**WalletInvestmentPrograms**](WalletInvestmentPrograms.md)
 
 ### Authorization
 

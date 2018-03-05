@@ -96,6 +96,9 @@ public class InvestmentProgramDashboard
 	@SerializedName("isWithdrawEnable")
 	private Boolean isWithdrawEnable = null;
 
+	@SerializedName("canCloseProgram")
+	private Boolean canCloseProgram = null;
+
 	public InvestmentProgramDashboard id(UUID id) {
 		this.id = id;
 		return this;
@@ -495,6 +498,25 @@ public class InvestmentProgramDashboard
 		this.isWithdrawEnable = isWithdrawEnable;
 	}
 
+	public InvestmentProgramDashboard canCloseProgram(Boolean canCloseProgram) {
+		this.canCloseProgram = canCloseProgram;
+		return this;
+	}
+
+	/**
+	 * Get canCloseProgram
+	 *
+	 * @return canCloseProgram
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isCanCloseProgram() {
+		return canCloseProgram;
+	}
+
+	public void setCanCloseProgram(Boolean canCloseProgram) {
+		this.canCloseProgram = canCloseProgram;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -524,12 +546,13 @@ public class InvestmentProgramDashboard
 				Objects.equals(this.hasNewRequests, investmentProgramDashboard.hasNewRequests) &&
 				Objects.equals(this.isHistoryEnable, investmentProgramDashboard.isHistoryEnable) &&
 				Objects.equals(this.isInvestEnable, investmentProgramDashboard.isInvestEnable) &&
-				Objects.equals(this.isWithdrawEnable, investmentProgramDashboard.isWithdrawEnable);
+				Objects.equals(this.isWithdrawEnable, investmentProgramDashboard.isWithdrawEnable) &&
+				Objects.equals(this.canCloseProgram, investmentProgramDashboard.canCloseProgram);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, level, logo, balance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable);
+		return Objects.hash(id, title, level, logo, balance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, canCloseProgram);
 	}
 
 	@Override
@@ -558,6 +581,7 @@ public class InvestmentProgramDashboard
 		sb.append("    isHistoryEnable: ").append(toIndentedString(isHistoryEnable)).append("\n");
 		sb.append("    isInvestEnable: ").append(toIndentedString(isInvestEnable)).append("\n");
 		sb.append("    isWithdrawEnable: ").append(toIndentedString(isWithdrawEnable)).append("\n");
+		sb.append("    canCloseProgram: ").append(toIndentedString(canCloseProgram)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **isHistoryEnable** | **Boolean** |  |  [optional]
 **isInvestEnable** | **Boolean** |  |  [optional]
 **isWithdrawEnable** | **Boolean** |  |  [optional]
+**canCloseProgram** | **Boolean** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

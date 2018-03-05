@@ -13,9 +13,15 @@
 
 package io.swagger.client.model;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
+import java.io.IOException;
 import java.util.Objects;
+import java.util.UUID;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -25,11 +31,55 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class TransactionsFilter
 {
+	@SerializedName("investmentProgramId")
+	private UUID investmentProgramId = null;
+
+	@SerializedName("type")
+	private TypeEnum type = null;
+
 	@SerializedName("skip")
 	private Integer skip = null;
 
 	@SerializedName("take")
 	private Integer take = null;
+
+	public TransactionsFilter investmentProgramId(UUID investmentProgramId) {
+		this.investmentProgramId = investmentProgramId;
+		return this;
+	}
+
+	/**
+	 * Get investmentProgramId
+	 *
+	 * @return investmentProgramId
+	 **/
+	@ApiModelProperty(value = "")
+	public UUID getInvestmentProgramId() {
+		return investmentProgramId;
+	}
+
+	public void setInvestmentProgramId(UUID investmentProgramId) {
+		this.investmentProgramId = investmentProgramId;
+	}
+
+	public TransactionsFilter type(TypeEnum type) {
+		this.type = type;
+		return this;
+	}
+
+	/**
+	 * Get type
+	 *
+	 * @return type
+	 **/
+	@ApiModelProperty(value = "")
+	public TypeEnum getType() {
+		return type;
+	}
+
+	public void setType(TypeEnum type) {
+		this.type = type;
+	}
 
 	public TransactionsFilter skip(Integer skip) {
 		this.skip = skip;
@@ -69,7 +119,6 @@ public class TransactionsFilter
 		this.take = take;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -79,21 +128,24 @@ public class TransactionsFilter
 			return false;
 		}
 		TransactionsFilter transactionsFilter = (TransactionsFilter) o;
-		return Objects.equals(this.skip, transactionsFilter.skip) &&
+		return Objects.equals(this.investmentProgramId, transactionsFilter.investmentProgramId) &&
+				Objects.equals(this.type, transactionsFilter.type) &&
+				Objects.equals(this.skip, transactionsFilter.skip) &&
 				Objects.equals(this.take, transactionsFilter.take);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(skip, take);
+		return Objects.hash(investmentProgramId, type, skip, take);
 	}
-
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("class TransactionsFilter {\n");
 
+		sb.append("    investmentProgramId: ").append(toIndentedString(investmentProgramId)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    skip: ").append(toIndentedString(skip)).append("\n");
 		sb.append("    take: ").append(toIndentedString(take)).append("\n");
 		sb.append("}");
@@ -109,6 +161,57 @@ public class TransactionsFilter
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	/**
+	 * Gets or Sets type
+	 */
+	@JsonAdapter(TypeEnum.Adapter.class)
+	public enum TypeEnum
+	{
+		ALL("All"),
+
+		INTERNAL("Internal"),
+
+		EXTERNAL("External");
+
+		public static TypeEnum fromValue(String text) {
+			for (TypeEnum b : TypeEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		TypeEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<TypeEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public TypeEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return TypeEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 }

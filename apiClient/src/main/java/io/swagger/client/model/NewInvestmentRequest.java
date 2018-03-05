@@ -58,9 +58,6 @@ public class NewInvestmentRequest
 	@SerializedName("description")
 	private String description = null;
 
-	@SerializedName("feeEntrance")
-	private Double feeEntrance = null;
-
 	@SerializedName("feeManagement")
 	private Double feeManagement = null;
 
@@ -266,25 +263,6 @@ public class NewInvestmentRequest
 		this.description = description;
 	}
 
-	public NewInvestmentRequest feeEntrance(Double feeEntrance) {
-		this.feeEntrance = feeEntrance;
-		return this;
-	}
-
-	/**
-	 * Get feeEntrance
-	 *
-	 * @return feeEntrance
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getFeeEntrance() {
-		return feeEntrance;
-	}
-
-	public void setFeeEntrance(Double feeEntrance) {
-		this.feeEntrance = feeEntrance;
-	}
-
 	public NewInvestmentRequest feeManagement(Double feeManagement) {
 		this.feeManagement = feeManagement;
 		return this;
@@ -333,7 +311,7 @@ public class NewInvestmentRequest
 	 *
 	 * @return investMinAmount
 	 **/
-	@ApiModelProperty(required = true, value = "")
+	@ApiModelProperty(value = "")
 	public Double getInvestMinAmount() {
 		return investMinAmount;
 	}
@@ -400,7 +378,6 @@ public class NewInvestmentRequest
 				Objects.equals(this.logo, newInvestmentRequest.logo) &&
 				Objects.equals(this.title, newInvestmentRequest.title) &&
 				Objects.equals(this.description, newInvestmentRequest.description) &&
-				Objects.equals(this.feeEntrance, newInvestmentRequest.feeEntrance) &&
 				Objects.equals(this.feeManagement, newInvestmentRequest.feeManagement) &&
 				Objects.equals(this.feeSuccess, newInvestmentRequest.feeSuccess) &&
 				Objects.equals(this.investMinAmount, newInvestmentRequest.investMinAmount) &&
@@ -410,7 +387,7 @@ public class NewInvestmentRequest
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(brokerTradeServerId, tradePlatformPassword, depositAmount, tokenName, tokenSymbol, dateFrom, dateTo, logo, title, description, feeEntrance, feeManagement, feeSuccess, investMinAmount, investMaxAmount, period);
+		return Objects.hash(brokerTradeServerId, tradePlatformPassword, depositAmount, tokenName, tokenSymbol, dateFrom, dateTo, logo, title, description, feeManagement, feeSuccess, investMinAmount, investMaxAmount, period);
 	}
 
 
@@ -429,7 +406,6 @@ public class NewInvestmentRequest
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
-		sb.append("    feeEntrance: ").append(toIndentedString(feeEntrance)).append("\n");
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
 		sb.append("    feeSuccess: ").append(toIndentedString(feeSuccess)).append("\n");
 		sb.append("    investMinAmount: ").append(toIndentedString(investMinAmount)).append("\n");

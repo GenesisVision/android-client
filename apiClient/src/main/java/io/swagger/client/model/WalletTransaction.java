@@ -51,6 +51,12 @@ public class WalletTransaction
 	@SerializedName("currency")
 	private CurrencyEnum currency = null;
 
+	@SerializedName("investmentProgramRequest")
+	private InvestmentProgramRequestTxInfo investmentProgramRequest = null;
+
+	@SerializedName("paymentTx")
+	private PaymentTxInfo paymentTx = null;
+
 	public WalletTransaction id(UUID id) {
 		this.id = id;
 		return this;
@@ -165,6 +171,44 @@ public class WalletTransaction
 		this.currency = currency;
 	}
 
+	public WalletTransaction investmentProgramRequest(InvestmentProgramRequestTxInfo investmentProgramRequest) {
+		this.investmentProgramRequest = investmentProgramRequest;
+		return this;
+	}
+
+	/**
+	 * Get investmentProgramRequest
+	 *
+	 * @return investmentProgramRequest
+	 **/
+	@ApiModelProperty(value = "")
+	public InvestmentProgramRequestTxInfo getInvestmentProgramRequest() {
+		return investmentProgramRequest;
+	}
+
+	public void setInvestmentProgramRequest(InvestmentProgramRequestTxInfo investmentProgramRequest) {
+		this.investmentProgramRequest = investmentProgramRequest;
+	}
+
+	public WalletTransaction paymentTx(PaymentTxInfo paymentTx) {
+		this.paymentTx = paymentTx;
+		return this;
+	}
+
+	/**
+	 * Get paymentTx
+	 *
+	 * @return paymentTx
+	 **/
+	@ApiModelProperty(value = "")
+	public PaymentTxInfo getPaymentTx() {
+		return paymentTx;
+	}
+
+	public void setPaymentTx(PaymentTxInfo paymentTx) {
+		this.paymentTx = paymentTx;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -179,12 +223,14 @@ public class WalletTransaction
 				Objects.equals(this.amount, walletTransaction.amount) &&
 				Objects.equals(this.date, walletTransaction.date) &&
 				Objects.equals(this.walletId, walletTransaction.walletId) &&
-				Objects.equals(this.currency, walletTransaction.currency);
+				Objects.equals(this.currency, walletTransaction.currency) &&
+				Objects.equals(this.investmentProgramRequest, walletTransaction.investmentProgramRequest) &&
+				Objects.equals(this.paymentTx, walletTransaction.paymentTx);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, type, amount, date, walletId, currency);
+		return Objects.hash(id, type, amount, date, walletId, currency, investmentProgramRequest, paymentTx);
 	}
 
 	@Override
@@ -198,6 +244,8 @@ public class WalletTransaction
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    walletId: ").append(toIndentedString(walletId)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+		sb.append("    investmentProgramRequest: ").append(toIndentedString(investmentProgramRequest)).append("\n");
+		sb.append("    paymentTx: ").append(toIndentedString(paymentTx)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -234,7 +282,9 @@ public class WalletTransaction
 
 		CANCELINVESTMENTREQUEST("CancelInvestmentRequest"),
 
-		PARTIALINVESTMENTEXECUTIONREFUND("PartialInvestmentExecutionRefund");
+		PARTIALINVESTMENTEXECUTIONREFUND("PartialInvestmentExecutionRefund"),
+
+		CLOSINGPROGRAMREFUND("ClosingProgramRefund");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {
