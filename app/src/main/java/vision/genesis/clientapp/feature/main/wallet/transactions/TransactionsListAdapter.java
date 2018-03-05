@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.wallet;
+package vision.genesis.clientapp.feature.main.wallet.transactions;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;

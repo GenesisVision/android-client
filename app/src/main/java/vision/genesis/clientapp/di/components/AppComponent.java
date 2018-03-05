@@ -27,6 +27,7 @@ import vision.genesis.clientapp.feature.main.program.requests.RequestsPresenter;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramPresenter;
 import vision.genesis.clientapp.feature.main.wallet.WalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletPresenter;
+import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPresenter;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletPresenter;
 import vision.genesis.clientapp.feature.splashscreen.SplashScreenPresenter;
 import vision.genesis.clientapp.feature.tournament.TournamentActivity;
@@ -91,4 +92,6 @@ public interface AppComponent
 	void inject(WithdrawWalletPresenter withdrawWalletPresenter);
 
 	void inject(RequestsPresenter requestsPresenter);
+
+	void inject(TransactionsPresenter transactionsPresenter);
 }

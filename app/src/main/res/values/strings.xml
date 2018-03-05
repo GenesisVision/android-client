@@ -120,6 +120,9 @@
     <string name="left">left</string>
     <string name="manager">Manager</string>
     <string name="dollar_symbol">$</string>
+    <string name="all">All</string>
+    <string name="internal">Internal</string>
+    <string name="external">External</string>
 
     <plurals name="tokens">
         <item quantity="one">%d token</item>

@@ -2,11 +2,10 @@ package vision.genesis.clientapp.feature.main.wallet;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +14,14 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
-import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPagerAdapter;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -32,10 +30,13 @@ import vision.genesis.clientapp.utils.StringFormatUtil;
  * Created by Vitaly on 1/19/18.
  */
 
-public class WalletFragment extends BaseFragment implements WalletView
+public class WalletFragment extends BaseFragment implements WalletView, ViewPager.OnPageChangeListener
 {
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
+
+	@BindView(R.id.appBarLayout)
+	public AppBarLayout appBarLayout;
 
 	@BindView(R.id.group_balance)
 	public ViewGroup balanceGroup;
@@ -46,22 +47,31 @@ public class WalletFragment extends BaseFragment implements WalletView
 	@BindView(R.id.balance_fiat)
 	public TextView balanceFiat;
 
-	@BindView(R.id.group_no_transactions)
-	public View groupNoTransactions;
-
-	@BindView(R.id.refresh_layout)
-	public SwipeRefreshLayout refreshLayout;
-
-	@BindView(R.id.recycler_view)
-	public RecyclerView recyclerView;
-
 	@BindView(R.id.balance_progress)
 	public ProgressBar balanceProgress;
+
+	@BindView(R.id.view_pager)
+	public ViewPager viewPager;
+
+	@BindView(R.id.tab_layout)
+	public TabLayout tabLayout;
 
 	@InjectPresenter
 	WalletPresenter walletPresenter;
 
-	private TransactionsListAdapter transactionsListAdapter;
+	private TabLayout.OnTabSelectedListener tabSelectedListener;
+
+	private TabLayout.TabLayoutOnPageChangeListener tabLayoutOnPageChangeListener;
+
+	private TabLayout.Tab allTab;
+
+	private TabLayout.Tab internalTab;
+
+	private TabLayout.Tab externalTab;
+
+	private TransactionsPagerAdapter pagerAdapter;
+
+	private Fragment currentFragment;
 
 	@OnClick(R.id.button_withdraw)
 	public void onWithdrawButtonClicked() {
@@ -86,12 +96,8 @@ public class WalletFragment extends BaseFragment implements WalletView
 		ButterKnife.bind(this, view);
 
 		initToolbar();
-
-		refreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary),
-				ContextCompat.getColor(getContext(), R.color.colorAccent),
-				ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
-		refreshLayout.setOnRefreshListener(() -> walletPresenter.onSwipeRefresh());
-		initRecyclerView();
+		initTabs();
+		initViewPager();
 	}
 
 	@Override
@@ -101,32 +107,61 @@ public class WalletFragment extends BaseFragment implements WalletView
 		walletPresenter.onResume();
 	}
 
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+
+		if (pagerAdapter != null)
+			pagerAdapter.destroy();
+
+		if (tabSelectedListener != null)
+			tabLayout.removeOnTabSelectedListener(tabSelectedListener);
+
+		if (tabLayoutOnPageChangeListener != null)
+			viewPager.removeOnPageChangeListener(tabLayoutOnPageChangeListener);
+	}
+
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.wallet));
 	}
 
-	private void initRecyclerView() {
-		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-		recyclerView.setLayoutManager(layoutManager);
-		transactionsListAdapter = new TransactionsListAdapter();
-		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
-		dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider));
-		recyclerView.addItemDecoration(dividerItemDecoration);
-		recyclerView.setAdapter(transactionsListAdapter);
-		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
+	private void initTabs() {
+		allTab = tabLayout.newTab().setText(getContext().getResources().getString(R.string.all));
+		internalTab = tabLayout.newTab().setText(getContext().getResources().getString(R.string.internal));
+		externalTab = tabLayout.newTab().setText(getContext().getResources().getString(R.string.external));
+		tabLayout.addTab(allTab, true);
+		tabLayout.addTab(internalTab);
+		tabLayout.addTab(externalTab);
+		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+		tabSelectedListener = new TabLayout.OnTabSelectedListener()
 		{
 			@Override
-			public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-				LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
-				int totalItemCount = layoutManager.getItemCount();
-				int lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
-
-				boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
-				if (totalItemCount > 0 && endHasBeenReached) {
-					walletPresenter.onLastListItemVisible();
-				}
+			public void onTabSelected(TabLayout.Tab tab) {
+				viewPager.setCurrentItem(tab.getPosition());
 			}
-		});
+
+			@Override
+			public void onTabUnselected(TabLayout.Tab tab) {
+
+			}
+
+			@Override
+			public void onTabReselected(TabLayout.Tab tab) {
+
+			}
+		};
+
+		tabLayout.addOnTabSelectedListener(tabSelectedListener);
+	}
+
+	private void initViewPager() {
+		pagerAdapter = new TransactionsPagerAdapter(getActivity().getSupportFragmentManager());
+		viewPager.setAdapter(pagerAdapter);
+
+		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
+		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
+		viewPager.addOnPageChangeListener(this);
 	}
 
 	@Override
@@ -152,26 +187,27 @@ public class WalletFragment extends BaseFragment implements WalletView
 	}
 
 	@Override
-	public void setRefreshing(boolean refreshing) {
-		refreshLayout.setRefreshing(refreshing);
-	}
-
-	@Override
-	public void setTransactions(List<WalletTransaction> transactions) {
-		transactionsListAdapter.setTransactions(transactions);
-
-		groupNoTransactions.setVisibility(transactions.size() == 0
-				? View.VISIBLE
-				: View.GONE);
-	}
-
-	@Override
-	public void addTransactions(List<WalletTransaction> transactions) {
-		transactionsListAdapter.addTransactions(transactions);
-	}
-
-	@Override
 	public void showSnackbarMessage(String message) {
 		showSnackbar(message, toolbar);
+	}
+
+	@Override
+	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+		if (currentFragment != null && currentFragment instanceof TransactionsPagerAdapter.OnPageVisibilityChanged)
+			((TransactionsPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerHide();
+		currentFragment = pagerAdapter.getItem(position);
+		if (pagerAdapter.getItem(position) instanceof TransactionsPagerAdapter.OnPageVisibilityChanged) {
+			((TransactionsPagerAdapter.OnPageVisibilityChanged) pagerAdapter.getItem(position)).pagerShow();
+		}
+	}
+
+	@Override
+	public void onPageSelected(int position) {
+
+	}
+
+	@Override
+	public void onPageScrollStateChanged(int state) {
+
 	}
 }
