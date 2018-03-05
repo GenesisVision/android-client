@@ -25,9 +25,9 @@
     <dimen name="item_investment_program_graph_height">100dp</dimen>
     <dimen name="item_investment_program_footer_height">50dp</dimen>
 
-    <dimen name="wallet_image_width">100dp</dimen>
-    <dimen name="wallet_image_height">100dp</dimen>
-    <dimen name="wallet_balance_group_height">50dp</dimen>
+    <dimen name="wallet_image_width">50dp</dimen>
+    <dimen name="wallet_image_height">50dp</dimen>
+    <dimen name="wallet_balance_group_height">100dp</dimen>
 
     <dimen name="programs_no_internet_image_width">150dp</dimen>
     <dimen name="programs_no_internet_image_height">150dp</dimen>

@@ -15,9 +15,8 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +25,7 @@ import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVision
@@ -42,6 +42,9 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 	@BindView(R.id.balance)
 	public TextView balance;
+
+	@BindView(R.id.balance_fiat)
+	public TextView balanceFiat;
 
 	@BindView(R.id.group_no_transactions)
 	public View groupNoTransactions;
@@ -128,9 +131,12 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 	@Override
 	public void setBalance(double balance) {
-		DecimalFormat df = new DecimalFormat("0.####");
-		df.setRoundingMode(RoundingMode.DOWN);
-		this.balance.setText(df.format(balance));
+		this.balance.setText(StringFormatUtil.formatAmount(balance));
+	}
+
+	@Override
+	public void setFiatBalance(double balance) {
+		balanceFiat.setText(String.format(Locale.getDefault(), "$%s", StringFormatUtil.formatAmount(balance)));
 	}
 
 	@Override

@@ -119,6 +119,7 @@
     <string name="start_investing">Start investing</string>
     <string name="left">left</string>
     <string name="manager">Manager</string>
+    <string name="dollar_symbol">$</string>
 
     <plurals name="tokens">
         <item quantity="one">%d token</item>

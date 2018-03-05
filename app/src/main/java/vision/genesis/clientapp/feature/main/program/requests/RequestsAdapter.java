@@ -91,6 +91,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Invest
 
 		private void setAmount() {
 			DecimalFormat df = new DecimalFormat("0.########");
+			df.setMinimumFractionDigits(2);
 			df.setRoundingMode(RoundingMode.DOWN);
 			String amountString = df.format(request.getAmount());
 

@@ -8,6 +8,7 @@ import io.swagger.client.ApiClient;
 import io.swagger.client.JSON;
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
+import io.swagger.client.api.RateApi;
 import io.swagger.client.api.TournamentApi;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -63,6 +64,12 @@ public class ApiModule
 	@Singleton
 	public ManagerApi provideManagerApi(ApiClient apiClient) {
 		return apiClient.createService(ManagerApi.class);
+	}
+
+	@Provides
+	@Singleton
+	public RateApi provideRateApi(ApiClient apiClient) {
+		return apiClient.createService(RateApi.class);
 	}
 
 	@Provides

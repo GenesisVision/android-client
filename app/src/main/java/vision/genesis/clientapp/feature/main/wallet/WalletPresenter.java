@@ -19,6 +19,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.managers.RateManager;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.events.ShowDepositWalletActivityEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawWalletActivityEvent;
@@ -32,7 +33,9 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 @InjectViewState
 public class WalletPresenter extends MvpPresenter<WalletView>
 {
-	private static int TAKE = 10;
+	private static final int TAKE = 10;
+
+	private static final String FIAT_CURRENCY = WalletTransaction.CurrencyEnum.USD.toString();
 
 	@Inject
 	public Context context;
@@ -40,13 +43,22 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 	@Inject
 	public WalletManager walletManager;
 
+	@Inject
+	public RateManager rateManager;
+
 	private Subscription balanceSubscription;
 
 	private Subscription transactionsSubscription;
 
+	private Subscription rateSubscription;
+
 	private int skip = 0;
 
 	private TransactionsFilter filter;
+
+	private double gvtBalance = 0;
+
+	private double rate = 0;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -68,6 +80,8 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 			balanceSubscription.unsubscribe();
 		if (transactionsSubscription != null)
 			transactionsSubscription.unsubscribe();
+		if (rateSubscription != null)
+			rateSubscription.unsubscribe();
 
 		super.onDestroy();
 	}
@@ -100,14 +114,42 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleBalanceUpdateResponse,
 						this::handleBalanceUpdateError);
+
+		updateRate();
 	}
 
 	private void handleBalanceUpdateResponse(Double balance) {
-		getViewState().hideBalanceProgress();
+		gvtBalance = balance;
 		getViewState().setBalance(balance);
+		updateFiatBalance();
 	}
 
 	private void handleBalanceUpdateError(Throwable error) {
+		getViewState().hideBalanceProgress();
+	}
+
+	private void updateRate() {
+		rateSubscription = rateManager.getRate(WalletTransaction.CurrencyEnum.GVT.toString(), FIAT_CURRENCY)
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.io())
+				.subscribe(this::getRateSuccessHandler,
+						this::getRateErrorHandler);
+	}
+
+	private void getRateSuccessHandler(Double rate) {
+		rateSubscription.unsubscribe();
+		getViewState().hideBalanceProgress();
+
+		this.rate = rate;
+		updateFiatBalance();
+	}
+
+	private void updateFiatBalance() {
+		getViewState().setFiatBalance(rate * gvtBalance);
+	}
+
+	private void getRateErrorHandler(Throwable error) {
+		rateSubscription.unsubscribe();
 		getViewState().hideBalanceProgress();
 	}
 

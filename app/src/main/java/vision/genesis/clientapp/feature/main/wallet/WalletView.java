@@ -15,6 +15,8 @@ interface WalletView extends MvpView
 {
 	void setBalance(double balance);
 
+	void setFiatBalance(double balance);
+
 	void showBalanceProgress();
 
 	void hideBalanceProgress();
