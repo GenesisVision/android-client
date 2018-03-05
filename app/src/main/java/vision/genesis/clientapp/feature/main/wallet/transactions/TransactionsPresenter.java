@@ -40,7 +40,7 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 
 	private int skip = 0;
 
-	private TransactionsFilter filter;
+	private TransactionsFilter filter = new TransactionsFilter();
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -48,7 +48,6 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		filter = new TransactionsFilter();
 		filter.setSkip(0);
 		filter.setTake(TAKE);
 
@@ -62,6 +61,10 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 			transactionsSubscription.unsubscribe();
 
 		super.onDestroy();
+	}
+
+	void setType(String type) {
+		filter.setType(TransactionsFilter.TypeEnum.fromValue(type));
 	}
 
 	void onSwipeRefresh() {

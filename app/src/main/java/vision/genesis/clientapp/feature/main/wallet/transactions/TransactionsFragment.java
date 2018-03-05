@@ -17,6 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.swagger.client.model.TransactionsFilter;
 import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -26,8 +27,18 @@ import vision.genesis.clientapp.feature.BaseFragment;
  * Created by Vitaly on 3/5/18.
  */
 
-public class TransactionsFragment extends BaseFragment implements TransactionsView
+public class TransactionsFragment extends BaseFragment implements TransactionsView, TransactionsPagerAdapter.OnPageVisibilityChanged
 {
+	private static final String EXTRA_TYPE = "extra_type";
+
+	public static TransactionsFragment with(TransactionsFilter.TypeEnum type) {
+		TransactionsFragment transactionsFragment = new TransactionsFragment();
+		Bundle arguments = new Bundle(1);
+		arguments.putString(EXTRA_TYPE, type.toString());
+		transactionsFragment.setArguments(arguments);
+		return transactionsFragment;
+	}
+
 	@BindView(R.id.group_no_transactions)
 	public View groupNoTransactions;
 
@@ -53,6 +64,8 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 		super.onViewCreated(view, savedInstanceState);
 
 		ButterKnife.bind(this, view);
+
+		transactionsPresenter.setType(getArguments().getString(EXTRA_TYPE));
 
 		refreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary),
 				ContextCompat.getColor(getContext(), R.color.colorAccent),
@@ -107,5 +120,15 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 	@Override
 	public void showSnackbarMessage(String message) {
 		showSnackbar(message, recyclerView);
+	}
+
+	@Override
+	public void pagerShow() {
+
+	}
+
+	@Override
+	public void pagerHide() {
+
 	}
 }

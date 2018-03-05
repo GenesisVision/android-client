@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import io.swagger.client.model.TransactionsFilter;
+
 /**
  * GenesisVision
  * Created by Vitaly on 3/5/18.
@@ -33,15 +35,15 @@ public class TransactionsPagerAdapter extends FragmentStatePagerAdapter
 		switch (position) {
 			case 0:
 				if (transactionsAllFragment == null)
-					transactionsAllFragment = new TransactionsFragment();
+					transactionsAllFragment = TransactionsFragment.with(TransactionsFilter.TypeEnum.ALL);
 				return transactionsAllFragment;
 			case 1:
 				if (transactionsInternalFragment == null)
-					transactionsInternalFragment = new TransactionsFragment();
+					transactionsInternalFragment = TransactionsFragment.with(TransactionsFilter.TypeEnum.INTERNAL);
 				return transactionsInternalFragment;
 			case 2:
 				if (transactionsExternalFragment == null)
-					transactionsExternalFragment = new TransactionsFragment();
+					transactionsExternalFragment = TransactionsFragment.with(TransactionsFilter.TypeEnum.EXTERNAL);
 				return transactionsExternalFragment;
 			default:
 				return transactionsAllFragment;
@@ -54,13 +56,13 @@ public class TransactionsPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	public void destroy() {
-		if (transactionsAllFragment != null)
-			transactionsAllFragment.onDestroyView();
-
-		if (transactionsInternalFragment != null)
-			transactionsInternalFragment.onDestroyView();
-
-		if (transactionsExternalFragment != null)
-			transactionsExternalFragment.onDestroyView();
+//		if (transactionsAllFragment != null)
+//			transactionsAllFragment.onDestroyView();
+//
+//		if (transactionsInternalFragment != null)
+//			transactionsInternalFragment.onDestroyView();
+//
+//		if (transactionsExternalFragment != null)
+//			transactionsExternalFragment.onDestroyView();
 	}
 }
