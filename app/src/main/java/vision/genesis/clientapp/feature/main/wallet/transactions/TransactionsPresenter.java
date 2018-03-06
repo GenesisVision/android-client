@@ -63,8 +63,14 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 		super.onDestroy();
 	}
 
+	void onShow() {
+		getTransactions(true);
+	}
+
 	void setType(String type) {
 		filter.setType(TransactionsFilter.TypeEnum.fromValue(type));
+		if (walletManager != null)
+			getTransactions(true);
 	}
 
 	void onSwipeRefresh() {

@@ -26,4 +26,12 @@ public class BaseFragment extends MvpAppCompatFragment implements BackButtonList
 		((TextView) snack.getView().findViewById(android.support.design.R.id.snackbar_text)).setTextColor(Color.WHITE);
 		snack.show();
 	}
+
+	public void onShow() {
+
+	}
+
+	public void onHide() {
+
+	}
 }

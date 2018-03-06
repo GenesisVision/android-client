@@ -123,6 +123,19 @@ public interface BrokerApi
 	);
 
 	/**
+	 * Update manager token initial price/total supply after loss
+	 *
+	 * @param investmentProgramId (required)
+	 * @param investorLossShare   (required)
+	 * @param authorization       JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("api/broker/period/reevaluateManagerToken")
+	Observable<Void> apiBrokerPeriodReevaluateManagerTokenPost(
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Query("investorLossShare") Double investorLossShare, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
 	 * Set investment period start balance, manager share, manager balance
 	 *
 	 * @param authorization JWT access token (required)
@@ -192,19 +205,6 @@ public interface BrokerApi
 	@POST("api/broker/trades/openTrades/new")
 	Observable<Void> apiBrokerTradesOpenTradesNewPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body NewOpenTradesEvent trades
-	);
-
-	/**
-	 * Update manager token initial price/total supply after loss
-	 *
-	 * @param investmentProgramId (required)
-	 * @param investorLossShare   (required)
-	 * @param authorization       JWT access token (required)
-	 * @return Call&lt;Void&gt;
-	 */
-	@POST("api/broker/trades/reevaluateManagerToken")
-	Observable<Void> apiBrokerTradesReevaluateManagerTokenPost(
-			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Query("investorLossShare") Double investorLossShare, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 }

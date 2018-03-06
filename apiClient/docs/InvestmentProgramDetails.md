@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **balance** | **Double** |  |  [optional]
 **ownBalance** | **Double** |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
-**investedTokens** | **Integer** |  |  [optional]
+**investedTokens** | **Double** |  |  [optional]
 **tradesCount** | **Integer** |  |  [optional]
 **investorsCount** | **Integer** |  |  [optional]
 **periodDuration** | **Integer** |  |  [optional]

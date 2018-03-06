@@ -12,12 +12,12 @@ Method | HTTP request | Description
 [**apiBrokerPeriodClosePost**](BrokerApi.md#apiBrokerPeriodClosePost) | **POST** api/broker/period/close | Close investment period
 [**apiBrokerPeriodProcessClosingProgramPost**](BrokerApi.md#apiBrokerPeriodProcessClosingProgramPost) | **POST** api/broker/period/processClosingProgram | Close investment program
 [**apiBrokerPeriodProcessInvestmentRequestsPost**](BrokerApi.md#apiBrokerPeriodProcessInvestmentRequestsPost) | **POST** api/broker/period/processInvestmentRequests | Process investment requests
+[**apiBrokerPeriodReevaluateManagerTokenPost**](BrokerApi.md#apiBrokerPeriodReevaluateManagerTokenPost) | **POST** api/broker/period/reevaluateManagerToken | Update manager token initial price/total supply after loss
 [**apiBrokerPeriodSetStartValuesPost**](BrokerApi.md#apiBrokerPeriodSetStartValuesPost) | **POST** api/broker/period/setStartValues | Set investment period start balance, manager share, manager balance
 [**apiBrokerPeriodlosingDataGet**](BrokerApi.md#apiBrokerPeriodlosingDataGet) | **GET** api/broker/period/сlosingData | Get data for closing investment period
 [**apiBrokerTradesIpfsHashUpdatePost**](BrokerApi.md#apiBrokerTradesIpfsHashUpdatePost) | **POST** api/broker/trades/ipfsHash/update | Update manager history ipfs hash
 [**apiBrokerTradesNewPost**](BrokerApi.md#apiBrokerTradesNewPost) | **POST** api/broker/trades/new | New trade event
 [**apiBrokerTradesOpenTradesNewPost**](BrokerApi.md#apiBrokerTradesOpenTradesNewPost) | **POST** api/broker/trades/openTrades/new | New open trades event
-[**apiBrokerTradesReevaluateManagerTokenPost**](BrokerApi.md#apiBrokerTradesReevaluateManagerTokenPost) | **POST** api/broker/trades/reevaluateManagerToken | Update manager token initial price/total supply after loss
 
 
 <a name="apiBrokerAccountCreatePost"></a>
@@ -378,6 +378,53 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="apiBrokerPeriodReevaluateManagerTokenPost"></a>
+# **apiBrokerPeriodReevaluateManagerTokenPost**
+> Void apiBrokerPeriodReevaluateManagerTokenPost(investmentProgramId, investorLossShare, authorization)
+
+Update manager token initial price/total supply after loss
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.BrokerApi;
+
+
+BrokerApi apiInstance = new BrokerApi();
+UUID investmentProgramId = new UUID(); // UUID | 
+Double investorLossShare = 3.4D; // Double | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.apiBrokerPeriodReevaluateManagerTokenPost(investmentProgramId, investorLossShare, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling BrokerApi#apiBrokerPeriodReevaluateManagerTokenPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **investmentProgramId** | [**UUID**](.md)|  |
+ **investorLossShare** | **Double**|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="apiBrokerPeriodSetStartValuesPost"></a>
 # **apiBrokerPeriodSetStartValuesPost**
 > Void apiBrokerPeriodSetStartValuesPost(authorization, model)
@@ -601,52 +648,5 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="apiBrokerTradesReevaluateManagerTokenPost"></a>
-# **apiBrokerTradesReevaluateManagerTokenPost**
-> Void apiBrokerTradesReevaluateManagerTokenPost(investmentProgramId, investorLossShare, authorization)
-
-Update manager token initial price/total supply after loss
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.BrokerApi;
-
-
-BrokerApi apiInstance = new BrokerApi();
-UUID investmentProgramId = new UUID(); // UUID | 
-Double investorLossShare = 3.4D; // Double | 
-String authorization = "authorization_example"; // String | JWT access token
-try {
-    Void result = apiInstance.apiBrokerTradesReevaluateManagerTokenPost(investmentProgramId, investorLossShare, authorization);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling BrokerApi#apiBrokerTradesReevaluateManagerTokenPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **investmentProgramId** | [**UUID**](.md)|  |
- **investorLossShare** | **Double**|  |
- **authorization** | **String**| JWT access token |
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 

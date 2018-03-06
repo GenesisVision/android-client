@@ -3,8 +3,8 @@ package vision.genesis.clientapp.feature.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -18,28 +18,15 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import java.util.UUID;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import ru.terrakok.cicerone.Navigator;
-import ru.terrakok.cicerone.NavigatorHolder;
-import ru.terrakok.cicerone.Router;
-import ru.terrakok.cicerone.android.SupportAppNavigator;
-import ru.terrakok.cicerone.commands.Command;
-import ru.terrakok.cicerone.commands.Replace;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.Screens;
+import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.AuthActivity;
-import vision.genesis.clientapp.feature.main.bottom_navigation.DashboardMainFragment;
-import vision.genesis.clientapp.feature.main.bottom_navigation.ProfileMainFragment;
-import vision.genesis.clientapp.feature.main.bottom_navigation.RouterProvider;
 import vision.genesis.clientapp.feature.main.program.details.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.filter.ProgramsFiltersActivity;
-import vision.genesis.clientapp.feature.main.program.list.ProgramsListFragment;
-import vision.genesis.clientapp.feature.main.wallet.WalletFragment;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
@@ -49,8 +36,7 @@ import vision.genesis.clientapp.ui.common.BackButtonListener;
  * Created by Vitaly on 1/18/18.
  */
 
-public class MainActivity extends MvpAppCompatActivity implements MainView, RouterProvider
-
+public class MainActivity extends MvpAppCompatActivity implements MainView
 {
 	public static void startFrom(Context context) {
 		Intent mainActivityIntent = new Intent(context, MainActivity.class);
@@ -65,62 +51,10 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Rout
 	@BindView(R.id.bottom_navigation)
 	public AHBottomNavigation bottomNavigationView;
 
-	@Inject
-	public NavigatorHolder navigatorHolder;
-
-	@Inject
-	Router router;
-
 	@InjectPresenter
 	MainPresenter mainPresenter;
 
-	private DashboardMainFragment dashboardMainFragment;
-
-	private ProgramsListFragment programsListFragment;
-
-	private WalletFragment walletFragment;
-
-	private ProfileMainFragment profileMainFragment;
-
-	private Navigator navigator = new SupportAppNavigator(this, R.id.content)
-	{
-		@Override
-		protected Intent createActivityIntent(String screenKey, Object data) {
-			return null;
-		}
-
-		@Override
-		protected Fragment createFragment(String screenKey, Object data) {
-			switch (screenKey) {
-				case Screens.DASHBOARD_MAIN:
-					if (dashboardMainFragment == null)
-						dashboardMainFragment = new DashboardMainFragment();
-					return dashboardMainFragment;
-				case Screens.PROGRAMS:
-					if (programsListFragment == null)
-						programsListFragment = new ProgramsListFragment();
-					return programsListFragment;
-				case Screens.WALLET:
-					if (walletFragment == null)
-						walletFragment = new WalletFragment();
-					return walletFragment;
-				case Screens.PROFILE_MAIN:
-					if (profileMainFragment == null)
-						profileMainFragment = new ProfileMainFragment();
-					return profileMainFragment;
-			}
-			return null;
-		}
-
-		@Override
-		protected void setupFragmentTransactionAnimation(
-				Command command,
-				Fragment currentFragment,
-				Fragment nextFragment,
-				FragmentTransaction fragmentTransaction) {
-			fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-		}
-	};
+	private BaseFragment currentFragment;
 
 	@OnClick(R.id.button_sign_in)
 	public void onSignInButtonClicked() {
@@ -136,36 +70,91 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Rout
 
 		ButterKnife.bind(this);
 
-		if (savedInstanceState == null) {
-			navigator.applyCommand(new Replace(Screens.PROGRAMS, 1));
-		}
-
 		initBottomNavigation();
-	}
-
-	@Override
-	public void onResumeFragments() {
-		super.onResumeFragments();
-		navigatorHolder.setNavigator(navigator);
-	}
-
-	@Override
-	public void onPause() {
-		navigatorHolder.removeNavigator();
-		super.onPause();
 	}
 
 	@Override
 	public void onBackPressed() {
 		Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content);
-		if (fragment != null
-				&& fragment instanceof BackButtonListener
-				&& ((BackButtonListener) fragment).onBackPressed()) {
-			return;
-		}
-		else {
+		if (fragment == null
+				|| !(fragment instanceof BackButtonListener)
+				|| !((BackButtonListener) fragment).onBackPressed()) {
 			super.onBackPressed();
 		}
+	}
+
+	@Override
+	public void addFragmentToBackstack(BaseFragment fragment) {
+		if (fragmentIsAlreadyRoot(fragment))
+			return;
+		if (currentFragment != null)
+			hideFragment(currentFragment);
+		currentFragment = fragment;
+		getSupportFragmentManager()
+				.beginTransaction()
+				.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+				.add(R.id.content, currentFragment, Integer.toString(getFragmentCount()))
+				.commit();
+	}
+
+	@Override
+	public void showFragment(BaseFragment fragment) {
+		if (currentFragment != null)
+			hideFragment(currentFragment);
+		getSupportFragmentManager()
+				.beginTransaction()
+				.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+				.show(fragment)
+				.commit();
+		currentFragment = fragment;
+		currentFragment.onShow();
+	}
+
+	@Override
+	public void hideFragment(BaseFragment fragment) {
+		BaseFragment previousFragment = getPreviousFragment();
+		if (previousFragment != null)
+			currentFragment = previousFragment;
+		getSupportFragmentManager()
+				.beginTransaction()
+				.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+				.hide(fragment)
+				.commit();
+		fragment.onHide();
+	}
+
+	@Override
+	public void removeFragmentFromBackstack() {
+		currentFragment.onHide();
+		BaseFragment previousFragment = getPreviousFragment();
+		if (previousFragment != null)
+			currentFragment = previousFragment;
+		getSupportFragmentManager().popBackStack();
+	}
+
+	private boolean fragmentIsAlreadyRoot(Fragment fragment) {
+		return (currentFragment != null
+				&& currentFragment.getClass().getSimpleName().equals(fragment.getClass().getSimpleName()));
+	}
+
+	private int getFragmentCount() {
+		return getSupportFragmentManager().getBackStackEntryCount();
+	}
+
+	@Nullable
+	private BaseFragment getFragmentAt(int index) {
+		try {
+			return getFragmentCount() > 0 ? (BaseFragment) getSupportFragmentManager().findFragmentByTag(Integer.toString(index)) : null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private
+	@Nullable
+	BaseFragment getPreviousFragment() {
+		return getFragmentAt(getFragmentCount() - 2);
 	}
 
 	public void initBottomNavigation() {
@@ -255,10 +244,5 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Rout
 	@Override
 	public void showDepositWallet() {
 		DepositWalletActivity.startWith(this);
-	}
-
-	@Override
-	public Router getRouter() {
-		return router;
 	}
 }

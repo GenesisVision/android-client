@@ -124,11 +124,11 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 
 	@Override
 	public void pagerShow() {
-
+		if (transactionsPresenter != null)
+			transactionsPresenter.onShow();
 	}
 
 	@Override
 	public void pagerHide() {
-
 	}
 }

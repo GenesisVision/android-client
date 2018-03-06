@@ -10,12 +10,14 @@ import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
 
-import ru.terrakok.cicerone.Router;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.Screens;
+import vision.genesis.clientapp.feature.main.dashboard.DashboardFragment;
+import vision.genesis.clientapp.feature.main.profile.ProfileFragment;
+import vision.genesis.clientapp.feature.main.program.list.ProgramsListFragment;
+import vision.genesis.clientapp.feature.main.wallet.WalletFragment;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
@@ -39,10 +41,15 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Inject
 	public AuthManager authManager;
 
-	@Inject
-	public Router router;
-
 	private Subscription userSubscription;
+
+	private DashboardFragment dashboardFragment;
+
+	private ProgramsListFragment programsListFragment;
+
+	private WalletFragment walletFragment;
+
+	private ProfileFragment profileFragment;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -85,19 +92,43 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	private void showDashboard() {
-		router.navigateTo(Screens.DASHBOARD_MAIN);
+		if (dashboardFragment == null) {
+			dashboardFragment = new DashboardFragment();
+			getViewState().addFragmentToBackstack(dashboardFragment);
+		}
+		else {
+			getViewState().showFragment(dashboardFragment);
+		}
 	}
 
 	private void showPrograms() {
-		router.navigateTo(Screens.PROGRAMS);
+		if (programsListFragment == null) {
+			programsListFragment = new ProgramsListFragment();
+			getViewState().addFragmentToBackstack(programsListFragment);
+		}
+		else {
+			getViewState().showFragment(programsListFragment);
+		}
 	}
 
 	private void showWallet() {
-		router.navigateTo(Screens.WALLET);
+		if (walletFragment == null) {
+			walletFragment = new WalletFragment();
+			getViewState().addFragmentToBackstack(walletFragment);
+		}
+		else {
+			getViewState().showFragment(walletFragment);
+		}
 	}
 
 	private void showProfile() {
-		router.navigateTo(Screens.PROFILE_MAIN);
+		if (profileFragment == null) {
+			profileFragment = new ProfileFragment();
+			getViewState().addFragmentToBackstack(profileFragment);
+		}
+		else {
+			getViewState().showFragment(profileFragment);
+		}
 	}
 
 	void onSignInButtonClicked() {

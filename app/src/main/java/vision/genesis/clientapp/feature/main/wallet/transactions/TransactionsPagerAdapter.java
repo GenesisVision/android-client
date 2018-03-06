@@ -46,7 +46,7 @@ public class TransactionsPagerAdapter extends FragmentStatePagerAdapter
 					transactionsExternalFragment = TransactionsFragment.with(TransactionsFilter.TypeEnum.EXTERNAL);
 				return transactionsExternalFragment;
 			default:
-				return transactionsAllFragment;
+				return null;
 		}
 	}
 

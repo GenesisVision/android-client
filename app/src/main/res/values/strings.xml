@@ -124,10 +124,9 @@
     <string name="internal">Internal</string>
     <string name="external">External</string>
 
-    <plurals name="tokens">
-        <item quantity="one">%d token</item>
-        <item quantity="other">%d tokens</item>
-    </plurals>
+    <string name="tokens">tokens</string>
+    <string name="profit_from_program">Profit from program</string>
+    <string name="partial_investment_execution_refund">Partial investment execution refund</string>
 
     <plurals name="days">
         <item quantity="one">day</item>

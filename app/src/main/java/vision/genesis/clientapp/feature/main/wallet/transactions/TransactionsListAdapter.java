@@ -103,12 +103,19 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 				case INVESTTOPROGRAM:
 					type.setText(context.getResources().getString(R.string.transaction_type_invest_to_program));
 					break;
-				case CANCELINVESTMENTREQUEST:
-					type.setText(context.getResources().getString(R.string.transaction_type_cancel_investment_request));
-					break;
 				case WITHDRAWFROMPROGRAM:
 					type.setText(context.getResources().getString(R.string.transaction_type_withdraw_from_program));
 					break;
+				case PROFITFROMPROGRAM:
+					type.setText(context.getResources().getString(R.string.profit_from_program));
+					break;
+				case CANCELINVESTMENTREQUEST:
+					type.setText(context.getResources().getString(R.string.transaction_type_cancel_investment_request));
+					break;
+				case PARTIALINVESTMENTEXECUTIONREFUND:
+					type.setText(context.getResources().getString(R.string.partial_investment_execution_refund));
+					break;
+
 			}
 		}
 
@@ -117,7 +124,7 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 			DecimalFormat df = new DecimalFormat("0.########");
 			df.setMinimumFractionDigits(2);
 			df.setRoundingMode(RoundingMode.DOWN);
-			String amountString = df.format(amountValue);
+			String amountString = df.format(Math.abs(amountValue));
 
 			switch (transaction.getType()) {
 				case DEPOSIT:
@@ -136,13 +143,19 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 					setPositiveAmount(amountString);
 					break;
 				case PROFITFROMPROGRAM:
-					setPositiveAmount(amountString);
+					if (amountValue >= 0)
+						setPositiveAmount(amountString);
+					else
+						setNegativeAmount(amountString);
 					break;
 				case CANCELINVESTMENTREQUEST:
 					setPositiveAmount(amountString);
 					break;
 				case PARTIALINVESTMENTEXECUTIONREFUND:
-					setPositiveAmount(amountString);
+					if (amountValue >= 0)
+						setPositiveAmount(amountString);
+					else
+						setNegativeAmount(amountString);
 					break;
 			}
 		}

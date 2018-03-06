@@ -4,6 +4,8 @@ import com.arellomobile.mvp.MvpView;
 
 import java.util.UUID;
 
+import vision.genesis.clientapp.feature.BaseFragment;
+
 /**
  * GenesisVision
  * Created by Vitaly on 1/19/18.
@@ -11,6 +13,14 @@ import java.util.UUID;
 
 public interface MainView extends MvpView
 {
+	void addFragmentToBackstack(BaseFragment fragment);
+
+	void showFragment(BaseFragment fragment);
+
+	void hideFragment(BaseFragment fragment);
+
+	void removeFragmentFromBackstack();
+
 	void showBottomNavigation();
 
 	void hideBottomNavigation();

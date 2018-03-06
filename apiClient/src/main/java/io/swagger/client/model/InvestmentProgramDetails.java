@@ -61,7 +61,7 @@ public class InvestmentProgramDetails
 	private CurrencyEnum currency = null;
 
 	@SerializedName("investedTokens")
-	private Integer investedTokens = null;
+	private Double investedTokens = null;
 
 	@SerializedName("tradesCount")
 	private Integer tradesCount = null;
@@ -285,7 +285,7 @@ public class InvestmentProgramDetails
 		this.currency = currency;
 	}
 
-	public InvestmentProgramDetails investedTokens(Integer investedTokens) {
+	public InvestmentProgramDetails investedTokens(Double investedTokens) {
 		this.investedTokens = investedTokens;
 		return this;
 	}
@@ -296,11 +296,11 @@ public class InvestmentProgramDetails
 	 * @return investedTokens
 	 **/
 	@ApiModelProperty(value = "")
-	public Integer getInvestedTokens() {
+	public Double getInvestedTokens() {
 		return investedTokens;
 	}
 
-	public void setInvestedTokens(Integer investedTokens) {
+	public void setInvestedTokens(Double investedTokens) {
 		this.investedTokens = investedTokens;
 	}
 

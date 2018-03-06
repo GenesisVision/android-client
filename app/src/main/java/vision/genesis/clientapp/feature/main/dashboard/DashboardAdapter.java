@@ -102,7 +102,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Inve
 
 			programName.setText(investmentProgram.getTitle());
 
-			tokens.setText(itemView.getContext().getResources().getQuantityString(R.plurals.tokens, investmentProgram.getInvestedTokens(), investmentProgram.getInvestedTokens()));
+			tokens.setText(String.format(Locale.getDefault(), "%f %s", investmentProgram.getInvestedTokens(), itemView.getContext().getResources().getString(R.string.tokens)));
 			accountCurrencyTokensWorth.setText("$0");
 
 			double profitPercent = investmentProgram.getProfitAvg();

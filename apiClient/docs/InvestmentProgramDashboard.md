@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **logo** | **String** |  |  [optional]
 **balance** | **Double** |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
-**investedTokens** | **Integer** |  |  [optional]
+**investedTokens** | **Double** |  |  [optional]
 **tradesCount** | **Integer** |  |  [optional]
 **investorsCount** | **Integer** |  |  [optional]
 **periodDuration** | **Integer** |  |  [optional]

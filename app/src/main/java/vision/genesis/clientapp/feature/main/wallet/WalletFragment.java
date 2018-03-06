@@ -63,12 +63,6 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 
 	private TabLayout.TabLayoutOnPageChangeListener tabLayoutOnPageChangeListener;
 
-	private TabLayout.Tab allTab;
-
-	private TabLayout.Tab internalTab;
-
-	private TabLayout.Tab externalTab;
-
 	private TransactionsPagerAdapter pagerAdapter;
 
 	private Fragment currentFragment;
@@ -109,8 +103,6 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 
 	@Override
 	public void onDestroyView() {
-		super.onDestroyView();
-
 		if (pagerAdapter != null)
 			pagerAdapter.destroy();
 
@@ -119,6 +111,10 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 
 		if (tabLayoutOnPageChangeListener != null)
 			viewPager.removeOnPageChangeListener(tabLayoutOnPageChangeListener);
+
+		viewPager.addOnPageChangeListener(this);
+
+		super.onDestroyView();
 	}
 
 	private void initToolbar() {
@@ -126,12 +122,9 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 	}
 
 	private void initTabs() {
-		allTab = tabLayout.newTab().setText(getContext().getResources().getString(R.string.all));
-		internalTab = tabLayout.newTab().setText(getContext().getResources().getString(R.string.internal));
-		externalTab = tabLayout.newTab().setText(getContext().getResources().getString(R.string.external));
-		tabLayout.addTab(allTab, true);
-		tabLayout.addTab(internalTab);
-		tabLayout.addTab(externalTab);
+		tabLayout.addTab(tabLayout.newTab().setText(getContext().getResources().getString(R.string.all)), true);
+		tabLayout.addTab(tabLayout.newTab().setText(getContext().getResources().getString(R.string.internal)));
+		tabLayout.addTab(tabLayout.newTab().setText(getContext().getResources().getString(R.string.external)));
 		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
 		tabSelectedListener = new TabLayout.OnTabSelectedListener()
@@ -193,17 +186,17 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 
 	@Override
 	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+	}
+
+	@Override
+	public void onPageSelected(int position) {
 		if (currentFragment != null && currentFragment instanceof TransactionsPagerAdapter.OnPageVisibilityChanged)
 			((TransactionsPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerHide();
 		currentFragment = pagerAdapter.getItem(position);
 		if (pagerAdapter.getItem(position) instanceof TransactionsPagerAdapter.OnPageVisibilityChanged) {
 			((TransactionsPagerAdapter.OnPageVisibilityChanged) pagerAdapter.getItem(position)).pagerShow();
 		}
-	}
-
-	@Override
-	public void onPageSelected(int position) {
-
 	}
 
 	@Override

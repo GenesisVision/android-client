@@ -8,7 +8,6 @@ import com.arellomobile.mvp.MvpPresenter;
 import javax.inject.Inject;
 
 import io.swagger.client.model.ProfileFullViewModel;
-import ru.terrakok.cicerone.Router;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -33,13 +32,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 	@Inject
 	public ProfileManager profileManager;
 
-	private Router localRouter;
-
 	private Subscription profileSubscription;
-
-	public ProfilePresenter(Router router) {
-		this.localRouter = router;
-	}
 
 	void onLogoutClicked() {
 		authManager.logout();
