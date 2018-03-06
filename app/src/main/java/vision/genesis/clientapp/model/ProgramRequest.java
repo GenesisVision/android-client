@@ -12,18 +12,18 @@ import java.util.UUID;
  * Created by Vitaly on 2/22/18.
  */
 
-public class ProgramWithdrawalRequest implements Parcelable
+public class ProgramRequest implements Parcelable
 {
-	public static final Creator<ProgramWithdrawalRequest> CREATOR = new Creator<ProgramWithdrawalRequest>()
+	public static final Creator<ProgramRequest> CREATOR = new Creator<ProgramRequest>()
 	{
 		@Override
-		public ProgramWithdrawalRequest createFromParcel(Parcel in) {
-			return new ProgramWithdrawalRequest(in);
+		public ProgramRequest createFromParcel(Parcel in) {
+			return new ProgramRequest(in);
 		}
 
 		@Override
-		public ProgramWithdrawalRequest[] newArray(int size) {
-			return new ProgramWithdrawalRequest[size];
+		public ProgramRequest[] newArray(int size) {
+			return new ProgramRequest[size];
 		}
 	};
 
@@ -36,11 +36,11 @@ public class ProgramWithdrawalRequest implements Parcelable
 	@SerializedName("amount")
 	public double amount;
 
-	public ProgramWithdrawalRequest() {
+	public ProgramRequest() {
 
 	}
 
-	protected ProgramWithdrawalRequest(Parcel in) {
+	protected ProgramRequest(Parcel in) {
 		programId = (UUID) in.readValue(UUID.class.getClassLoader());
 		programName = in.readString();
 		amount = in.readDouble();

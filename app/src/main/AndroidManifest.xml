@@ -65,6 +65,13 @@
             android:windowSoftInputMode="stateHidden|adjustResize"/>
 
         <activity
+            android:name=".feature.main.program.invest.InvestProgramActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+
+        <activity
             android:name=".feature.main.program.withdraw.WithdrawProgramActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"

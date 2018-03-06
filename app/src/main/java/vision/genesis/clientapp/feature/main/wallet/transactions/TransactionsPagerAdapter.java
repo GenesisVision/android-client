@@ -56,13 +56,13 @@ public class TransactionsPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	public void destroy() {
-//		if (transactionsAllFragment != null)
-//			transactionsAllFragment.onDestroyView();
-//
-//		if (transactionsInternalFragment != null)
-//			transactionsInternalFragment.onDestroyView();
-//
-//		if (transactionsExternalFragment != null)
-//			transactionsExternalFragment.onDestroyView();
+		if (transactionsAllFragment != null)
+			transactionsAllFragment.onDestroyView();
+
+		if (transactionsInternalFragment != null)
+			transactionsInternalFragment.onDestroyView();
+
+		if (transactionsExternalFragment != null)
+			transactionsExternalFragment.onDestroyView();
 	}
 }

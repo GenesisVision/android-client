@@ -12,7 +12,6 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.InvestmentProgramDetails;
 import io.swagger.client.model.InvestmentProgramViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -46,8 +45,6 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 
 	private UUID programId;
 
-	private InvestmentProgramDetails programDetails;
-
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -70,11 +67,6 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 
 	void setProgramId(UUID programId) {
 		this.programId = programId;
-//		getProgramDetails();
-	}
-
-	void onInvestClicked() {
-		getViewState().showInvestDialog();
 	}
 
 	void onResume() {
@@ -95,8 +87,7 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 		programDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
-		programDetails = model.getInvestmentProgram();
-		getViewState().setProgram(programDetails);
+		getViewState().setProgram(model.getInvestmentProgram());
 	}
 
 	private void handleInvestmentProgramDetailsError(Throwable throwable) {

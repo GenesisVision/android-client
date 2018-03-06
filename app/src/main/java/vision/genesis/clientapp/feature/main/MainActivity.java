@@ -27,8 +27,11 @@ import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.AuthActivity;
 import vision.genesis.clientapp.feature.main.program.details.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.filter.ProgramsFiltersActivity;
+import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
+import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
+import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
 
 /**
@@ -234,6 +237,22 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	@Override
 	public void showInvestmentProgramDetails(UUID programId) {
 		ProgramDetailsActivity.startWith(this, programId);
+	}
+
+	@Override
+	public void showInvestProgram(UUID programId, String programName) {
+		ProgramRequest investRequest = new ProgramRequest();
+		investRequest.programId = programId;
+		investRequest.programName = programName;
+		InvestProgramActivity.startWith(this, investRequest);
+	}
+
+	@Override
+	public void showWithdrawProgram(UUID programId, String programName) {
+		ProgramRequest withdrawalRequest = new ProgramRequest();
+		withdrawalRequest.programId = programId;
+		withdrawalRequest.programName = programName;
+		WithdrawProgramActivity.startWith(this, withdrawalRequest);
 	}
 
 	@Override

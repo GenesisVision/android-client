@@ -13,8 +13,6 @@ interface ProgramDetailsView extends MvpView
 {
 	void setProgram(InvestmentProgramDetails programDetails);
 
-	void showInvestDialog();
-
 	void showInvestWithdrawButtons(boolean show);
 
 	void showProgress(boolean show);

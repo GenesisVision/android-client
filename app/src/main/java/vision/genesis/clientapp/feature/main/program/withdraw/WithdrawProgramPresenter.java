@@ -13,7 +13,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.InvestManager;
-import vision.genesis.clientapp.model.ProgramWithdrawalRequest;
+import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.api.Error;
 import vision.genesis.clientapp.model.api.ErrorResponse;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -35,7 +35,7 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 
 	private double availableFunds = 1000.01234567;
 
-	private ProgramWithdrawalRequest withdrawalRequest;
+	private ProgramRequest withdrawalRequest;
 
 	private Subscription withdrawSubscription;
 
@@ -56,7 +56,7 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 		super.onDestroy();
 	}
 
-	void setWithdrawalRequest(ProgramWithdrawalRequest request) {
+	void setWithdrawalRequest(ProgramRequest request) {
 		withdrawalRequest = request;
 	}
 

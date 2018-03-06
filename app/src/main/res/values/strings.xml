@@ -3,7 +3,6 @@
     <string name="invest">Invest</string>
     <string name="wallet">Wallet</string>
     <string name="profile">Profile</string>
-    <string name="invest_to_program">+ Invest to program</string>
     <string name="login">Log in</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -82,6 +81,7 @@
     <string name="withdraw_all">Withdraw all available funds</string>
     <string name="or">or</string>
     <string name="withdraw_from_program">Withdraw from program</string>
+    <string name="invest_to_program">Invest to program</string>
 
     <string name="one">1</string>
     <string name="two">2</string>

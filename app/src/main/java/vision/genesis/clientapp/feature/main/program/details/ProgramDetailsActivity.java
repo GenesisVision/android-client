@@ -22,10 +22,10 @@ import io.swagger.client.model.InvestmentProgramDetails;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.feature.main.program.invest.InvestDialog;
+import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
 import vision.genesis.clientapp.feature.main.program.requests.RequestsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
-import vision.genesis.clientapp.model.ProgramWithdrawalRequest;
+import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProfitChartView;
@@ -125,19 +125,20 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	private InvestmentProgramDetails programDetails;
 
-	private InvestDialog investDialog;
-
 	@OnClick(R.id.button_invest)
 	public void onInvestClicked() {
-		programDetailsPresenter.onInvestClicked();
+		ProgramRequest request = new ProgramRequest();
+		request.programId = programDetails.getId();
+		request.programName = programDetails.getTitle();
+		InvestProgramActivity.startWith(this, request);
 	}
 
 	@OnClick(R.id.button_withdraw)
 	public void onWithdrawClicked() {
-		ProgramWithdrawalRequest withdrawalRequest = new ProgramWithdrawalRequest();
-		withdrawalRequest.programId = programDetails.getId();
-		withdrawalRequest.programName = programDetails.getTitle();
-		WithdrawProgramActivity.startWith(this, withdrawalRequest);
+		ProgramRequest request = new ProgramRequest();
+		request.programId = programDetails.getId();
+		request.programName = programDetails.getTitle();
+		WithdrawProgramActivity.startWith(this, request);
 	}
 
 	@OnClick(R.id.button_requests)
@@ -217,15 +218,6 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		investButton.setVisibility(programDetails.isIsInvestEnable() ? View.VISIBLE : View.GONE);
 		withdrawButton.setVisibility(programDetails.isIsWithdrawEnable() ? View.VISIBLE : View.GONE);
 		requestsButton.setVisibility(programDetails.isHasNewRequests() ? View.VISIBLE : View.GONE);
-	}
-
-	@Override
-	public void showInvestDialog() {
-		if (investDialog != null)
-			investDialog.cancel();
-		investDialog = new InvestDialog(this, true, null);
-		investDialog.setProgram(programDetails);
-		investDialog.show();
 	}
 
 	@Override

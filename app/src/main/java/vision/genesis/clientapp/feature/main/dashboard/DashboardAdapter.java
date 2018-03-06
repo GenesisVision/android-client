@@ -15,9 +15,12 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.swagger.client.model.InvestmentProgramDashboard;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.events.ShowInvestProgramEvent;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowWithdrawProgramEvent;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 
@@ -78,6 +81,12 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Inve
 		@BindView(R.id.view_period_left)
 		public PeriodLeftView periodLeftView;
 
+		@BindView(R.id.button_invest)
+		public View investButton;
+
+		@BindView(R.id.button_withdraw)
+		public View withdrawButton;
+
 		private InvestmentProgramDashboard investmentProgram;
 
 		InvestorProgramViewHolder(View itemView) {
@@ -87,6 +96,16 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Inve
 
 			itemView.setOnClickListener(v -> EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(investmentProgram.getId())));
 			managerAvatar.hideLevel();
+		}
+
+		@OnClick(R.id.button_invest)
+		public void onInvestClicked() {
+			EventBus.getDefault().post(new ShowInvestProgramEvent(investmentProgram.getId(), investmentProgram.getTitle()));
+		}
+
+		@OnClick(R.id.button_withdraw)
+		public void onWithdrawClicked() {
+			EventBus.getDefault().post(new ShowWithdrawProgramEvent(investmentProgram.getId(), investmentProgram.getTitle()));
 		}
 
 		void setInvestmentProgram(InvestmentProgramDashboard investmentProgram) {
@@ -118,8 +137,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Inve
 			else if (profitPercent < 0) {
 				profitPercentText.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.transactionRed));
 				profitCurrencyText.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.transactionRed));
-				profitPercentText.setText(String.format(Locale.getDefault(), "-%.2f%%", profitPercent));
-				profitCurrencyText.setText(String.format(Locale.getDefault(), "-$%.2f", profitCurrency));
+				profitPercentText.setText(String.format(Locale.getDefault(), "%.2f%%", profitPercent));
+				profitCurrencyText.setText(String.format(Locale.getDefault(), "$%.2f", profitCurrency));
 			}
 			else {
 				profitPercentText.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.colorFontDark));
@@ -129,6 +148,9 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Inve
 			}
 
 			periodLeftView.setDateTo(investmentProgram.getEndOfPeriod());
+
+			investButton.setVisibility(investmentProgram.isIsInvestEnable() ? View.VISIBLE : View.GONE);
+			withdrawButton.setVisibility(investmentProgram.isIsWithdrawEnable() ? View.VISIBLE : View.GONE);
 		}
 	}
 }

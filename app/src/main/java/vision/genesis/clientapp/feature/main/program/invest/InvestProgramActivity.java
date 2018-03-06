@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.withdraw;
+package vision.genesis.clientapp.feature.main.program.invest;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -26,12 +26,12 @@ import vision.genesis.clientapp.utils.StringFormatUtil;
  * Created by Vitaly on 2/21/18.
  */
 
-public class WithdrawProgramActivity extends BaseSwipeBackActivity implements WithdrawProgramView
+public class InvestProgramActivity extends BaseSwipeBackActivity implements InvestProgramView
 {
 	private static final String EXTRA_REQUEST = "extra_request";
 
 	public static void startWith(Activity activity, ProgramRequest request) {
-		Intent intent = new Intent(activity, WithdrawProgramActivity.class);
+		Intent intent = new Intent(activity, InvestProgramActivity.class);
 		intent.putExtra(EXTRA_REQUEST, request);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
@@ -46,62 +46,62 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	@BindView(R.id.textview_amount)
 	public AmountTextView amountTextView;
 
-	@BindView(R.id.button_withdraw)
-	public View withdrawButton;
+	@BindView(R.id.button_invest)
+	public View investButton;
 
 	@BindView(R.id.keyboard)
 	public NumericKeyboardView keyboard;
 
 	@InjectPresenter
-	WithdrawProgramPresenter withdrawProgramPresenter;
+	InvestProgramPresenter investProgramPresenter;
 
-	private ProgramRequest withdrawalRequest;
+	private ProgramRequest investRequest;
 
-	@OnClick(R.id.button_withdraw)
-	public void onWithdrawClicked() {
-		withdrawProgramPresenter.onWithdrawClicked();
+	@OnClick(R.id.button_invest)
+	public void onInvestClicked() {
+		investProgramPresenter.onInvestClicked();
 	}
 
 	@OnClick(R.id.group_available)
 	public void onAvailableCLicked() {
-		withdrawProgramPresenter.onAvailableClicked();
+		investProgramPresenter.onAvailableClicked();
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_program_withdraw);
+		setContentView(R.layout.activity_program_invest);
 
 		ButterKnife.bind(this);
 
 		if (getIntent().getExtras() != null) {
-			withdrawalRequest = getIntent().getExtras().getParcelable(EXTRA_REQUEST);
-			withdrawProgramPresenter.setWithdrawalRequest(withdrawalRequest);
+			investRequest = getIntent().getExtras().getParcelable(EXTRA_REQUEST);
+			investProgramPresenter.setInvestRequest(investRequest);
 
 			initToolbar();
 			initListeners();
 		}
 		else {
-			Timber.e("Passed empty request to WithdrawProgramActivity");
+			Timber.e("Passed empty request to InvestProgramActivity");
 			onBackPressed();
 		}
 	}
 
 	private void initToolbar() {
-		toolbar.setTitle(getString(R.string.withdraw_from_program));
-		toolbar.setSubtitle(withdrawalRequest.programName);
-		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> withdrawProgramPresenter.onBackClicked());
+		toolbar.setTitle(getString(R.string.invest_to_program));
+		toolbar.setSubtitle(investRequest.programName);
+		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> investProgramPresenter.onBackClicked());
 	}
 
 	private void initListeners() {
 		amountTextView.setKeyboard(keyboard);
-		amountTextView.setAmountChangeListener(newAmount -> withdrawProgramPresenter.onAmountChanged(newAmount));
+		amountTextView.setAmountChangeListener(newAmount -> investProgramPresenter.onAmountChanged(newAmount));
 	}
 
 	@Override
-	public void setWithdrawButtonEnabled(boolean enabled) {
-		withdrawButton.setEnabled(enabled);
+	public void setInvestButtonEnabled(boolean enabled) {
+		investButton.setEnabled(enabled);
 	}
 
 	@Override
@@ -112,6 +112,11 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	@Override
 	public void setAvailable(double availableFunds) {
 		availableFundsText.setText(StringFormatUtil.formatAmount((availableFunds)));
+	}
+
+	@Override
+	public void showAvailableProgress(boolean show) {
+
 	}
 
 	@Override

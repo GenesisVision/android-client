@@ -37,6 +37,10 @@ public interface MainView extends MvpView
 
 	void showInvestmentProgramDetails(UUID programId);
 
+	void showInvestProgram(UUID programId, String programName);
+
+	void showWithdrawProgram(UUID programId, String programName);
+
 	void showWithdrawWallet();
 
 	void showDepositWallet();
