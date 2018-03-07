@@ -51,6 +51,9 @@ public class WalletTransaction
 	@SerializedName("currency")
 	private CurrencyEnum currency = null;
 
+	@SerializedName("investmentProgram")
+	private InvestmentProgramTxInfo investmentProgram = null;
+
 	@SerializedName("investmentProgramRequest")
 	private InvestmentProgramRequestTxInfo investmentProgramRequest = null;
 
@@ -171,6 +174,25 @@ public class WalletTransaction
 		this.currency = currency;
 	}
 
+	public WalletTransaction investmentProgram(InvestmentProgramTxInfo investmentProgram) {
+		this.investmentProgram = investmentProgram;
+		return this;
+	}
+
+	/**
+	 * Get investmentProgram
+	 *
+	 * @return investmentProgram
+	 **/
+	@ApiModelProperty(value = "")
+	public InvestmentProgramTxInfo getInvestmentProgram() {
+		return investmentProgram;
+	}
+
+	public void setInvestmentProgram(InvestmentProgramTxInfo investmentProgram) {
+		this.investmentProgram = investmentProgram;
+	}
+
 	public WalletTransaction investmentProgramRequest(InvestmentProgramRequestTxInfo investmentProgramRequest) {
 		this.investmentProgramRequest = investmentProgramRequest;
 		return this;
@@ -224,13 +246,14 @@ public class WalletTransaction
 				Objects.equals(this.date, walletTransaction.date) &&
 				Objects.equals(this.walletId, walletTransaction.walletId) &&
 				Objects.equals(this.currency, walletTransaction.currency) &&
+				Objects.equals(this.investmentProgram, walletTransaction.investmentProgram) &&
 				Objects.equals(this.investmentProgramRequest, walletTransaction.investmentProgramRequest) &&
 				Objects.equals(this.paymentTx, walletTransaction.paymentTx);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, type, amount, date, walletId, currency, investmentProgramRequest, paymentTx);
+		return Objects.hash(id, type, amount, date, walletId, currency, investmentProgram, investmentProgramRequest, paymentTx);
 	}
 
 	@Override
@@ -244,6 +267,7 @@ public class WalletTransaction
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    walletId: ").append(toIndentedString(walletId)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+		sb.append("    investmentProgram: ").append(toIndentedString(investmentProgram)).append("\n");
 		sb.append("    investmentProgramRequest: ").append(toIndentedString(investmentProgramRequest)).append("\n");
 		sb.append("    paymentTx: ").append(toIndentedString(paymentTx)).append("\n");
 		sb.append("}");

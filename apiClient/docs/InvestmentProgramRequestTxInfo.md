@@ -6,7 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
-**investmentProgram** | [**InvestmentProgramTxInfo**](InvestmentProgramTxInfo.md) |  |  [optional]
 
 
 <a name="TypeEnum"></a>

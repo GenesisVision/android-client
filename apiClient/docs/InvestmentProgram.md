@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **availableInvestment** | **Double** |  |  [optional]
 **feeSuccess** | **Double** |  |  [optional]
 **feeManagement** | **Double** |  |  [optional]
+**chart** | [**List&lt;Chart&gt;**](Chart.md) |  |  [optional]
 **hasNewRequests** | **Boolean** |  |  [optional]
 
 

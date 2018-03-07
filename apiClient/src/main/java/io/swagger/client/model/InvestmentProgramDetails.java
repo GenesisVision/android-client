@@ -22,6 +22,8 @@ import com.google.gson.stream.JsonWriter;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -95,6 +97,9 @@ public class InvestmentProgramDetails
 
 	@SerializedName("tradeIpfsHash")
 	private String tradeIpfsHash = null;
+
+	@SerializedName("chart")
+	private List<Chart> chart = null;
 
 	@SerializedName("manager")
 	private ProfilePublicViewModel manager = null;
@@ -513,6 +518,33 @@ public class InvestmentProgramDetails
 		this.tradeIpfsHash = tradeIpfsHash;
 	}
 
+	public InvestmentProgramDetails chart(List<Chart> chart) {
+		this.chart = chart;
+		return this;
+	}
+
+	public InvestmentProgramDetails addChartItem(Chart chartItem) {
+		if (this.chart == null) {
+			this.chart = new ArrayList<Chart>();
+		}
+		this.chart.add(chartItem);
+		return this;
+	}
+
+	/**
+	 * Get chart
+	 *
+	 * @return chart
+	 **/
+	@ApiModelProperty(value = "")
+	public List<Chart> getChart() {
+		return chart;
+	}
+
+	public void setChart(List<Chart> chart) {
+		this.chart = chart;
+	}
+
 	public InvestmentProgramDetails manager(ProfilePublicViewModel manager) {
 		this.manager = manager;
 		return this;
@@ -657,6 +689,7 @@ public class InvestmentProgramDetails
 				Objects.equals(this.feeManagement, investmentProgramDetails.feeManagement) &&
 				Objects.equals(this.ipfsHash, investmentProgramDetails.ipfsHash) &&
 				Objects.equals(this.tradeIpfsHash, investmentProgramDetails.tradeIpfsHash) &&
+				Objects.equals(this.chart, investmentProgramDetails.chart) &&
 				Objects.equals(this.manager, investmentProgramDetails.manager) &&
 				Objects.equals(this.hasNewRequests, investmentProgramDetails.hasNewRequests) &&
 				Objects.equals(this.isHistoryEnable, investmentProgramDetails.isHistoryEnable) &&
@@ -667,7 +700,7 @@ public class InvestmentProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, canCloseProgram);
+		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, chart, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, canCloseProgram);
 	}
 
 	@Override
@@ -696,6 +729,7 @@ public class InvestmentProgramDetails
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
 		sb.append("    ipfsHash: ").append(toIndentedString(ipfsHash)).append("\n");
 		sb.append("    tradeIpfsHash: ").append(toIndentedString(tradeIpfsHash)).append("\n");
+		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    hasNewRequests: ").append(toIndentedString(hasNewRequests)).append("\n");
 		sb.append("    isHistoryEnable: ").append(toIndentedString(isHistoryEnable)).append("\n");

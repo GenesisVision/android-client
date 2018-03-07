@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **date** | [**DateTime**](DateTime.md) |  |  [optional]
 **walletId** | [**UUID**](UUID.md) |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
+**investmentProgram** | [**InvestmentProgramTxInfo**](InvestmentProgramTxInfo.md) |  |  [optional]
 **investmentProgramRequest** | [**InvestmentProgramRequestTxInfo**](InvestmentProgramRequestTxInfo.md) |  |  [optional]
 **paymentTx** | [**PaymentTxInfo**](PaymentTxInfo.md) |  |  [optional]
 

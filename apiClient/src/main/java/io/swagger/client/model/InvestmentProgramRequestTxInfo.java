@@ -36,9 +36,6 @@ public class InvestmentProgramRequestTxInfo
 	@SerializedName("status")
 	private StatusEnum status = null;
 
-	@SerializedName("investmentProgram")
-	private InvestmentProgramTxInfo investmentProgram = null;
-
 	public InvestmentProgramRequestTxInfo type(TypeEnum type) {
 		this.type = type;
 		return this;
@@ -77,25 +74,6 @@ public class InvestmentProgramRequestTxInfo
 		this.status = status;
 	}
 
-	public InvestmentProgramRequestTxInfo investmentProgram(InvestmentProgramTxInfo investmentProgram) {
-		this.investmentProgram = investmentProgram;
-		return this;
-	}
-
-	/**
-	 * Get investmentProgram
-	 *
-	 * @return investmentProgram
-	 **/
-	@ApiModelProperty(value = "")
-	public InvestmentProgramTxInfo getInvestmentProgram() {
-		return investmentProgram;
-	}
-
-	public void setInvestmentProgram(InvestmentProgramTxInfo investmentProgram) {
-		this.investmentProgram = investmentProgram;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -106,13 +84,12 @@ public class InvestmentProgramRequestTxInfo
 		}
 		InvestmentProgramRequestTxInfo investmentProgramRequestTxInfo = (InvestmentProgramRequestTxInfo) o;
 		return Objects.equals(this.type, investmentProgramRequestTxInfo.type) &&
-				Objects.equals(this.status, investmentProgramRequestTxInfo.status) &&
-				Objects.equals(this.investmentProgram, investmentProgramRequestTxInfo.investmentProgram);
+				Objects.equals(this.status, investmentProgramRequestTxInfo.status);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(type, status, investmentProgram);
+		return Objects.hash(type, status);
 	}
 
 	@Override
@@ -122,7 +99,6 @@ public class InvestmentProgramRequestTxInfo
 
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
-		sb.append("    investmentProgram: ").append(toIndentedString(investmentProgram)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

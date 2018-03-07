@@ -22,6 +22,8 @@ import com.google.gson.stream.JsonWriter;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -77,6 +79,9 @@ public class InvestmentProgram
 
 	@SerializedName("feeManagement")
 	private Double feeManagement = null;
+
+	@SerializedName("chart")
+	private List<Chart> chart = null;
 
 	@SerializedName("hasNewRequests")
 	private Boolean hasNewRequests = null;
@@ -366,6 +371,33 @@ public class InvestmentProgram
 		this.feeManagement = feeManagement;
 	}
 
+	public InvestmentProgram chart(List<Chart> chart) {
+		this.chart = chart;
+		return this;
+	}
+
+	public InvestmentProgram addChartItem(Chart chartItem) {
+		if (this.chart == null) {
+			this.chart = new ArrayList<Chart>();
+		}
+		this.chart.add(chartItem);
+		return this;
+	}
+
+	/**
+	 * Get chart
+	 *
+	 * @return chart
+	 **/
+	@ApiModelProperty(value = "")
+	public List<Chart> getChart() {
+		return chart;
+	}
+
+	public void setChart(List<Chart> chart) {
+		this.chart = chart;
+	}
+
 	public InvestmentProgram hasNewRequests(Boolean hasNewRequests) {
 		this.hasNewRequests = hasNewRequests;
 		return this;
@@ -409,12 +441,13 @@ public class InvestmentProgram
 				Objects.equals(this.availableInvestment, investmentProgram.availableInvestment) &&
 				Objects.equals(this.feeSuccess, investmentProgram.feeSuccess) &&
 				Objects.equals(this.feeManagement, investmentProgram.feeManagement) &&
+				Objects.equals(this.chart, investmentProgram.chart) &&
 				Objects.equals(this.hasNewRequests, investmentProgram.hasNewRequests);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, level, logo, balance, currency, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, hasNewRequests);
+		return Objects.hash(id, title, level, logo, balance, currency, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, chart, hasNewRequests);
 	}
 
 	@Override
@@ -437,6 +470,7 @@ public class InvestmentProgram
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
 		sb.append("    feeSuccess: ").append(toIndentedString(feeSuccess)).append("\n");
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
+		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("    hasNewRequests: ").append(toIndentedString(hasNewRequests)).append("\n");
 		sb.append("}");
 		return sb.toString();

@@ -22,6 +22,8 @@ import com.google.gson.stream.JsonWriter;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -80,6 +82,9 @@ public class InvestmentProgramDashboard
 
 	@SerializedName("feeManagement")
 	private Double feeManagement = null;
+
+	@SerializedName("chart")
+	private List<Chart> chart = null;
 
 	@SerializedName("manager")
 	private ProfilePublicViewModel manager = null;
@@ -403,6 +408,33 @@ public class InvestmentProgramDashboard
 		this.feeManagement = feeManagement;
 	}
 
+	public InvestmentProgramDashboard chart(List<Chart> chart) {
+		this.chart = chart;
+		return this;
+	}
+
+	public InvestmentProgramDashboard addChartItem(Chart chartItem) {
+		if (this.chart == null) {
+			this.chart = new ArrayList<Chart>();
+		}
+		this.chart.add(chartItem);
+		return this;
+	}
+
+	/**
+	 * Get chart
+	 *
+	 * @return chart
+	 **/
+	@ApiModelProperty(value = "")
+	public List<Chart> getChart() {
+		return chart;
+	}
+
+	public void setChart(List<Chart> chart) {
+		this.chart = chart;
+	}
+
 	public InvestmentProgramDashboard manager(ProfilePublicViewModel manager) {
 		this.manager = manager;
 		return this;
@@ -542,6 +574,7 @@ public class InvestmentProgramDashboard
 				Objects.equals(this.availableInvestment, investmentProgramDashboard.availableInvestment) &&
 				Objects.equals(this.feeSuccess, investmentProgramDashboard.feeSuccess) &&
 				Objects.equals(this.feeManagement, investmentProgramDashboard.feeManagement) &&
+				Objects.equals(this.chart, investmentProgramDashboard.chart) &&
 				Objects.equals(this.manager, investmentProgramDashboard.manager) &&
 				Objects.equals(this.hasNewRequests, investmentProgramDashboard.hasNewRequests) &&
 				Objects.equals(this.isHistoryEnable, investmentProgramDashboard.isHistoryEnable) &&
@@ -552,7 +585,7 @@ public class InvestmentProgramDashboard
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, level, logo, balance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, canCloseProgram);
+		return Objects.hash(id, title, level, logo, balance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, chart, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, canCloseProgram);
 	}
 
 	@Override
@@ -576,6 +609,7 @@ public class InvestmentProgramDashboard
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
 		sb.append("    feeSuccess: ").append(toIndentedString(feeSuccess)).append("\n");
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
+		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    hasNewRequests: ").append(toIndentedString(hasNewRequests)).append("\n");
 		sb.append("    isHistoryEnable: ").append(toIndentedString(isHistoryEnable)).append("\n");
