@@ -3,14 +3,22 @@ package vision.genesis.clientapp.ui;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
 import org.joda.time.DateTime;
+
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.events.OnPeriodLeftEvent;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 
 /**
@@ -20,6 +28,9 @@ import vision.genesis.clientapp.utils.DateTimeUtil;
 
 public class PeriodLeftView extends RelativeLayout
 {
+	@BindView(R.id.group_period)
+	public ViewGroup periodGroup;
+
 	@BindView(R.id.text_number)
 	public TextView numberText;
 
@@ -29,7 +40,14 @@ public class PeriodLeftView extends RelativeLayout
 	@BindView(R.id.text_left)
 	public TextView leftText;
 
+	@BindView(R.id.text_program_closed)
+	public TextView programClosedText;
+
 	private DateTime dateTo;
+
+	private Subscription timeSubscription;
+
+	private boolean programClosed = false;
 
 	public PeriodLeftView(Context context) {
 		super(context);
@@ -54,35 +72,65 @@ public class PeriodLeftView extends RelativeLayout
 
 	public void setDateTo(DateTime date) {
 		dateTo = date;
+		updatePeriodLeft();
+		startTimer();
+	}
 
+	private void startTimer() {
+		timeSubscription = Observable.interval(1, TimeUnit.SECONDS)
+				.onBackpressureDrop()
+				.retry()
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(time -> updatePeriodLeft(),
+						Throwable::printStackTrace, System.out::println);
+	}
+
+	private void updatePeriodLeft() {
 		int daysLeft = DateTimeUtil.getDaysToDate(dateTo);
-		int hoursLeft = DateTimeUtil.getHoursToDate(dateTo);
-		int minutesLeft = DateTimeUtil.getMinutesToDate(dateTo);
-		int secondsLeft = DateTimeUtil.getSecondsToDate(dateTo);
-
 		if (daysLeft > 0) {
 			numberText.setText(String.valueOf(daysLeft));
 			periodText.setText(getResources().getQuantityString(R.plurals.days, daysLeft, daysLeft, daysLeft));
+			return;
 		}
-		else if (hoursLeft > 0) {
+
+		int hoursLeft = DateTimeUtil.getHoursToDate(dateTo);
+		if (hoursLeft > 0) {
 			numberText.setText(String.valueOf(hoursLeft));
 			periodText.setText(getResources().getQuantityString(R.plurals.hours, hoursLeft, hoursLeft, hoursLeft));
+			return;
 		}
-		else if (minutesLeft > 0) {
+
+		int minutesLeft = DateTimeUtil.getMinutesToDate(dateTo);
+		if (minutesLeft > 0) {
 			numberText.setText(String.valueOf(minutesLeft));
 			periodText.setText(getResources().getQuantityString(R.plurals.minutes, minutesLeft, minutesLeft, minutesLeft));
+			return;
 		}
-		else if (secondsLeft > 0) {
+
+		int secondsLeft = DateTimeUtil.getSecondsToDate(dateTo);
+		if (secondsLeft > 0) {
 			numberText.setText(String.valueOf(secondsLeft));
 			periodText.setText(getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft));
 		}
 		else {
 			numberText.setText("0");
 			periodText.setText(getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft));
+
+			if (timeSubscription != null)
+				timeSubscription.unsubscribe();
+
+			if (!programClosed)
+				EventBus.getDefault().post(new OnPeriodLeftEvent());
 		}
 	}
 
 	public void showLeft(boolean show) {
 		leftText.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
+
+	public void setProgramClosed(boolean closed) {
+		this.programClosed = closed;
+		programClosedText.setVisibility(closed ? View.VISIBLE : View.GONE);
+		periodGroup.setVisibility(!closed ? View.VISIBLE : View.GONE);
 	}
 }

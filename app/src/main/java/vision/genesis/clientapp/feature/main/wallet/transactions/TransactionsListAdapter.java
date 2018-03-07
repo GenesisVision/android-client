@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -15,8 +17,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.swagger.client.model.InvestmentProgramTxInfo;
 import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 
 /**
@@ -60,6 +64,9 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 		@BindView(R.id.type)
 		public TextView type;
 
+		@BindView(R.id.program_name)
+		public TextView programName;
+
 		@BindView(R.id.date)
 		public TextView date;
 
@@ -84,8 +91,17 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 		}
 
 		private void updateData() {
+			InvestmentProgramTxInfo program = transaction.getInvestmentProgram();
 			setType();
 			date.setText(DateTimeUtil.formatDateTime(transaction.getDate()));
+			if (program != null) {
+				itemView.setOnClickListener(v -> EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(program.getId())));
+				programName.setText(program.getTitle());
+			}
+			else {
+				itemView.setOnClickListener(null);
+				programName.setText("");
+			}
 			setAmount();
 		}
 
@@ -114,6 +130,9 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 					break;
 				case PARTIALINVESTMENTEXECUTIONREFUND:
 					type.setText(context.getResources().getString(R.string.partial_investment_execution_refund));
+					break;
+				case CLOSINGPROGRAMREFUND:
+					type.setText(context.getResources().getString(R.string.closing_program_refund));
 					break;
 
 			}
@@ -156,6 +175,9 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 						setPositiveAmount(amountString);
 					else
 						setNegativeAmount(amountString);
+					break;
+				case CLOSINGPROGRAMREFUND:
+					setPositiveAmount(amountString);
 					break;
 			}
 		}

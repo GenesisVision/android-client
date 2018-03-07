@@ -147,7 +147,9 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Inve
 				profitCurrencyText.setText("$0.00");
 			}
 
-			periodLeftView.setDateTo(investmentProgram.getEndOfPeriod());
+			if (investmentProgram.isIsEnabled())
+				periodLeftView.setDateTo(investmentProgram.getEndOfPeriod());
+			periodLeftView.setProgramClosed(!investmentProgram.isIsEnabled());
 
 			investButton.setVisibility(investmentProgram.isIsInvestEnable() ? View.VISIBLE : View.GONE);
 			withdrawButton.setVisibility(investmentProgram.isIsWithdrawEnable() ? View.VISIBLE : View.GONE);

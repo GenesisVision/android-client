@@ -6,6 +6,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.model.events.OnInvestButtonClickedEvent;
+import vision.genesis.clientapp.model.events.OnPeriodLeftEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -46,6 +48,18 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
+
+		EventBus.getDefault().register(this);
+	}
+
+	@Override
+	public void onDestroy() {
+		if (getInvestmentsSubscription != null)
+			getInvestmentsSubscription.unsubscribe();
+
+		EventBus.getDefault().unregister(this);
+
+		super.onDestroy();
 	}
 
 	void onResume() {
@@ -105,5 +119,10 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 				getViewState().showNoInternet(true);
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnPeriodLeftEvent event) {
+		getInvestments();
 	}
 }

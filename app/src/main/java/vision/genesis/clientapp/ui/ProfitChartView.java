@@ -18,6 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.swagger.client.model.Chart;
 import vision.genesis.clientapp.R;
 
 /**
@@ -92,6 +93,16 @@ public class ProfitChartView extends RelativeLayout
 		float index = 0;
 		for (Double value : data) {
 			entries.add(new Entry(index, value.floatValue()));
+			index++;
+		}
+		setData(entries);
+	}
+
+	public void setChart(List<Chart> charts) {
+		List<Entry> entries = new ArrayList<>();
+		float index = 0;
+		for (Chart chart : charts) {
+			entries.add(new Entry(index, chart.getTotalProfit().floatValue()));
 			index++;
 		}
 		setData(entries);

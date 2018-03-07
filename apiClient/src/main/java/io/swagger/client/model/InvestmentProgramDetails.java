@@ -98,6 +98,9 @@ public class InvestmentProgramDetails
 	@SerializedName("tradeIpfsHash")
 	private String tradeIpfsHash = null;
 
+	@SerializedName("isEnabled")
+	private Boolean isEnabled = null;
+
 	@SerializedName("chart")
 	private List<Chart> chart = null;
 
@@ -116,8 +119,8 @@ public class InvestmentProgramDetails
 	@SerializedName("isWithdrawEnable")
 	private Boolean isWithdrawEnable = null;
 
-	@SerializedName("canCloseProgram")
-	private Boolean canCloseProgram = null;
+	@SerializedName("isOwnProgram")
+	private Boolean isOwnProgram = null;
 
 	public InvestmentProgramDetails id(UUID id) {
 		this.id = id;
@@ -518,6 +521,25 @@ public class InvestmentProgramDetails
 		this.tradeIpfsHash = tradeIpfsHash;
 	}
 
+	public InvestmentProgramDetails isEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
+		return this;
+	}
+
+	/**
+	 * Get isEnabled
+	 *
+	 * @return isEnabled
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsEnabled() {
+		return isEnabled;
+	}
+
+	public void setIsEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
+
 	public InvestmentProgramDetails chart(List<Chart> chart) {
 		this.chart = chart;
 		return this;
@@ -640,23 +662,23 @@ public class InvestmentProgramDetails
 		this.isWithdrawEnable = isWithdrawEnable;
 	}
 
-	public InvestmentProgramDetails canCloseProgram(Boolean canCloseProgram) {
-		this.canCloseProgram = canCloseProgram;
+	public InvestmentProgramDetails isOwnProgram(Boolean isOwnProgram) {
+		this.isOwnProgram = isOwnProgram;
 		return this;
 	}
 
 	/**
-	 * Get canCloseProgram
+	 * Get isOwnProgram
 	 *
-	 * @return canCloseProgram
+	 * @return isOwnProgram
 	 **/
 	@ApiModelProperty(value = "")
-	public Boolean isCanCloseProgram() {
-		return canCloseProgram;
+	public Boolean isIsOwnProgram() {
+		return isOwnProgram;
 	}
 
-	public void setCanCloseProgram(Boolean canCloseProgram) {
-		this.canCloseProgram = canCloseProgram;
+	public void setIsOwnProgram(Boolean isOwnProgram) {
+		this.isOwnProgram = isOwnProgram;
 	}
 
 	@Override
@@ -689,18 +711,19 @@ public class InvestmentProgramDetails
 				Objects.equals(this.feeManagement, investmentProgramDetails.feeManagement) &&
 				Objects.equals(this.ipfsHash, investmentProgramDetails.ipfsHash) &&
 				Objects.equals(this.tradeIpfsHash, investmentProgramDetails.tradeIpfsHash) &&
+				Objects.equals(this.isEnabled, investmentProgramDetails.isEnabled) &&
 				Objects.equals(this.chart, investmentProgramDetails.chart) &&
 				Objects.equals(this.manager, investmentProgramDetails.manager) &&
 				Objects.equals(this.hasNewRequests, investmentProgramDetails.hasNewRequests) &&
 				Objects.equals(this.isHistoryEnable, investmentProgramDetails.isHistoryEnable) &&
 				Objects.equals(this.isInvestEnable, investmentProgramDetails.isInvestEnable) &&
 				Objects.equals(this.isWithdrawEnable, investmentProgramDetails.isWithdrawEnable) &&
-				Objects.equals(this.canCloseProgram, investmentProgramDetails.canCloseProgram);
+				Objects.equals(this.isOwnProgram, investmentProgramDetails.isOwnProgram);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, chart, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, canCloseProgram);
+		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, isEnabled, chart, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
 	}
 
 	@Override
@@ -729,13 +752,14 @@ public class InvestmentProgramDetails
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
 		sb.append("    ipfsHash: ").append(toIndentedString(ipfsHash)).append("\n");
 		sb.append("    tradeIpfsHash: ").append(toIndentedString(tradeIpfsHash)).append("\n");
+		sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    hasNewRequests: ").append(toIndentedString(hasNewRequests)).append("\n");
 		sb.append("    isHistoryEnable: ").append(toIndentedString(isHistoryEnable)).append("\n");
 		sb.append("    isInvestEnable: ").append(toIndentedString(isInvestEnable)).append("\n");
 		sb.append("    isWithdrawEnable: ").append(toIndentedString(isWithdrawEnable)).append("\n");
-		sb.append("    canCloseProgram: ").append(toIndentedString(canCloseProgram)).append("\n");
+		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

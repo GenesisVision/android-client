@@ -145,7 +145,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	}
 
 	@Override
-	public void showEmptyList() {
-
+	public void onShow() {
+		dashboardPresenter.onResume();
 	}
 }

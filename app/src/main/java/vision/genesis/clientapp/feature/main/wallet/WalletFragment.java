@@ -164,7 +164,7 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 
 	@Override
 	public void setFiatBalance(double balance) {
-		balanceFiat.setText(String.format(Locale.getDefault(), "$%s", StringFormatUtil.formatAmount(balance)));
+		balanceFiat.setText(String.format(Locale.getDefault(), "$%s", StringFormatUtil.formatAmount(balance, 2, 2)));
 	}
 
 	@Override
@@ -202,5 +202,11 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 	@Override
 	public void onPageScrollStateChanged(int state) {
 
+	}
+
+	@Override
+	public void onShow() {
+		if (currentFragment != null && currentFragment instanceof TransactionsPagerAdapter.OnPageVisibilityChanged)
+			((TransactionsPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerShow();
 	}
 }

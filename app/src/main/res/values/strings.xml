@@ -127,6 +127,8 @@
     <string name="tokens">tokens</string>
     <string name="profit_from_program">Profit from program</string>
     <string name="partial_investment_execution_refund">Partial investment execution refund</string>
+    <string name="program_closed">program closed</string>
+    <string name="closing_program_refund">Closing program refund</string>
 
     <plurals name="days">
         <item quantity="one">day</item>

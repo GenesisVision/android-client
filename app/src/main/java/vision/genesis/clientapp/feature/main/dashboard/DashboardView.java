@@ -28,6 +28,4 @@ interface DashboardView extends MvpView
 	void showEmpty(boolean show);
 
 	void showProgressBar(boolean show);
-
-	void showEmptyList();
 }

@@ -108,7 +108,7 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 			periodText.setText(String.valueOf(investmentProgram.getPeriodDuration()));
 			profitText.setText(String.format(Locale.getDefault(), "%.2f%%", investmentProgram.getProfitAvg()));
 
-//			chart.setData(investmentProgram.chartData);
+			chart.setChart(investmentProgram.getChart());
 		}
 	}
 }

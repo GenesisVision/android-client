@@ -25,13 +25,14 @@ Name | Type | Description | Notes
 **feeManagement** | **Double** |  |  [optional]
 **ipfsHash** | **String** |  |  [optional]
 **tradeIpfsHash** | **String** |  |  [optional]
+**isEnabled** | **Boolean** |  |  [optional]
 **chart** | [**List&lt;Chart&gt;**](Chart.md) |  |  [optional]
 **manager** | [**ProfilePublicViewModel**](ProfilePublicViewModel.md) |  |  [optional]
 **hasNewRequests** | **Boolean** |  |  [optional]
 **isHistoryEnable** | **Boolean** |  |  [optional]
 **isInvestEnable** | **Boolean** |  |  [optional]
 **isWithdrawEnable** | **Boolean** |  |  [optional]
-**canCloseProgram** | **Boolean** |  |  [optional]
+**isOwnProgram** | **Boolean** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

@@ -95,7 +95,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 		currentFragment = fragment;
 		getSupportFragmentManager()
 				.beginTransaction()
-				.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+				.setCustomAnimations(R.anim.fragment_fade_in, R.anim.fragment_fade_out)
 				.add(R.id.content, currentFragment, Integer.toString(getFragmentCount()))
 				.commit();
 	}
@@ -106,7 +106,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 			hideFragment(currentFragment);
 		getSupportFragmentManager()
 				.beginTransaction()
-				.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+				.setCustomAnimations(R.anim.fragment_fade_in, R.anim.fragment_fade_out)
 				.show(fragment)
 				.commit();
 		currentFragment = fragment;
@@ -120,7 +120,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 			currentFragment = previousFragment;
 		getSupportFragmentManager()
 				.beginTransaction()
-				.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+				.setCustomAnimations(R.anim.fragment_fade_in, R.anim.fragment_fade_out)
 				.hide(fragment)
 				.commit();
 		fragment.onHide();

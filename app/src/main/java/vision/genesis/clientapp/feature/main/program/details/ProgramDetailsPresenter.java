@@ -21,6 +21,7 @@ import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
+import vision.genesis.clientapp.model.events.OnPeriodLeftEvent;
 
 /**
  * GenesisVision
@@ -54,6 +55,7 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 		EventBus.getDefault().register(this);
 
 		subscribeToUser();
+		getViewState().showProgress(true);
 	}
 
 	@Override
@@ -75,7 +77,6 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	}
 
 	private void getProgramDetails() {
-		getViewState().showProgress(true);
 		programDetailsSubscription = investManager.getInvestmentProgramDetails(programId)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
@@ -125,5 +126,10 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	@Subscribe
 	public void onEventMainThread(NewInvestmentSuccessEvent event) {
 		getViewState().finishActivity();
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnPeriodLeftEvent event) {
+		getProgramDetails();
 	}
 }

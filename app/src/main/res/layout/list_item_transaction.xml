@@ -3,6 +3,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_transaction_height"
+                android:background="?attr/selectableItemBackground"
                 android:orientation="vertical">
 
     <LinearLayout
@@ -20,7 +21,6 @@
         android:layout_toStartOf="@+id/group_amount"
         android:orientation="vertical">
 
-
         <TextView
             android:id="@+id/type"
             android:layout_width="wrap_content"
@@ -30,6 +30,17 @@
             android:textColor="@color/colorFontDark"
             android:textSize="18sp"
             tools:text="Withdraw from program"/>
+
+        <TextView
+            android:id="@+id/program_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-4dp"
+            android:layout_marginTop="-4dp"
+            android:lineSpacingMultiplier="0.7"
+            android:textColor="@color/colorFontMedium"
+            android:textSize="16sp"
+            tools:text="Super program"/>
 
         <TextView
             android:id="@+id/date"

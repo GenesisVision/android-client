@@ -31,6 +31,7 @@ import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProfitChartView;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.DateTimeUtil;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVision
@@ -196,9 +197,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		title.setText(programDetails.getTitle());
 		description.setText(programDetails.getDescription());
 
-//		chart.setData(program.chartData);
+		chart.setChart(programDetails.getChart());
 
-		depositText.setText(String.valueOf(programDetails.getBalance()));
+		depositText.setText(StringFormatUtil.formatAmount(programDetails.getOwnBalance(), 2, 4));
 		tradesText.setText(String.valueOf(programDetails.getTradesCount()));
 		periodText.setText(String.valueOf(programDetails.getPeriodDuration()));
 		profitText.setText(String.format(Locale.getDefault(), "%.2f%%", programDetails.getProfitAvg()));
@@ -207,7 +208,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		df.setRoundingMode(RoundingMode.DOWN);
 
 		endOfPeriodText.setText(DateTimeUtil.formatDateTime(programDetails.getEndOfPeriod()));
-		periodLeftView.setDateTo(programDetails.getEndOfPeriod());
+		if (programDetails.isIsEnabled())
+			periodLeftView.setDateTo(programDetails.getEndOfPeriod());
+		periodLeftView.setProgramClosed(!programDetails.isIsEnabled());
 
 		successFeeText.setText(df.format(programDetails.getFeeSuccess()));
 		managementFeeText.setText(df.format((programDetails.getFeeManagement())));

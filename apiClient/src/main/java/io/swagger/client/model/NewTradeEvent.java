@@ -34,6 +34,9 @@ public class NewTradeEvent
 	@SerializedName("trades")
 	private List<OrderModel> trades = new ArrayList<OrderModel>();
 
+	@SerializedName("balance")
+	private Double balance = null;
+
 	public NewTradeEvent managerAccountId(UUID managerAccountId) {
 		this.managerAccountId = managerAccountId;
 		return this;
@@ -77,6 +80,25 @@ public class NewTradeEvent
 		this.trades = trades;
 	}
 
+	public NewTradeEvent balance(Double balance) {
+		this.balance = balance;
+		return this;
+	}
+
+	/**
+	 * Get balance
+	 *
+	 * @return balance
+	 **/
+	@ApiModelProperty(required = true, value = "")
+	public Double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Double balance) {
+		this.balance = balance;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -88,12 +110,13 @@ public class NewTradeEvent
 		}
 		NewTradeEvent newTradeEvent = (NewTradeEvent) o;
 		return Objects.equals(this.managerAccountId, newTradeEvent.managerAccountId) &&
-				Objects.equals(this.trades, newTradeEvent.trades);
+				Objects.equals(this.trades, newTradeEvent.trades) &&
+				Objects.equals(this.balance, newTradeEvent.balance);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(managerAccountId, trades);
+		return Objects.hash(managerAccountId, trades, balance);
 	}
 
 
@@ -104,6 +127,7 @@ public class NewTradeEvent
 
 		sb.append("    managerAccountId: ").append(toIndentedString(managerAccountId)).append("\n");
 		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
+		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

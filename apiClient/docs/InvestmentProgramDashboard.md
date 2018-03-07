@@ -20,13 +20,14 @@ Name | Type | Description | Notes
 **availableInvestment** | **Double** |  |  [optional]
 **feeSuccess** | **Double** |  |  [optional]
 **feeManagement** | **Double** |  |  [optional]
+**isEnabled** | **Boolean** |  |  [optional]
 **chart** | [**List&lt;Chart&gt;**](Chart.md) |  |  [optional]
 **manager** | [**ProfilePublicViewModel**](ProfilePublicViewModel.md) |  |  [optional]
 **hasNewRequests** | **Boolean** |  |  [optional]
 **isHistoryEnable** | **Boolean** |  |  [optional]
 **isInvestEnable** | **Boolean** |  |  [optional]
 **isWithdrawEnable** | **Boolean** |  |  [optional]
-**canCloseProgram** | **Boolean** |  |  [optional]
+**isOwnProgram** | **Boolean** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

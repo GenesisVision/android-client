@@ -83,6 +83,9 @@ public class InvestmentProgramDashboard
 	@SerializedName("feeManagement")
 	private Double feeManagement = null;
 
+	@SerializedName("isEnabled")
+	private Boolean isEnabled = null;
+
 	@SerializedName("chart")
 	private List<Chart> chart = null;
 
@@ -101,8 +104,8 @@ public class InvestmentProgramDashboard
 	@SerializedName("isWithdrawEnable")
 	private Boolean isWithdrawEnable = null;
 
-	@SerializedName("canCloseProgram")
-	private Boolean canCloseProgram = null;
+	@SerializedName("isOwnProgram")
+	private Boolean isOwnProgram = null;
 
 	public InvestmentProgramDashboard id(UUID id) {
 		this.id = id;
@@ -408,6 +411,25 @@ public class InvestmentProgramDashboard
 		this.feeManagement = feeManagement;
 	}
 
+	public InvestmentProgramDashboard isEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
+		return this;
+	}
+
+	/**
+	 * Get isEnabled
+	 *
+	 * @return isEnabled
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsEnabled() {
+		return isEnabled;
+	}
+
+	public void setIsEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
+
 	public InvestmentProgramDashboard chart(List<Chart> chart) {
 		this.chart = chart;
 		return this;
@@ -530,23 +552,23 @@ public class InvestmentProgramDashboard
 		this.isWithdrawEnable = isWithdrawEnable;
 	}
 
-	public InvestmentProgramDashboard canCloseProgram(Boolean canCloseProgram) {
-		this.canCloseProgram = canCloseProgram;
+	public InvestmentProgramDashboard isOwnProgram(Boolean isOwnProgram) {
+		this.isOwnProgram = isOwnProgram;
 		return this;
 	}
 
 	/**
-	 * Get canCloseProgram
+	 * Get isOwnProgram
 	 *
-	 * @return canCloseProgram
+	 * @return isOwnProgram
 	 **/
 	@ApiModelProperty(value = "")
-	public Boolean isCanCloseProgram() {
-		return canCloseProgram;
+	public Boolean isIsOwnProgram() {
+		return isOwnProgram;
 	}
 
-	public void setCanCloseProgram(Boolean canCloseProgram) {
-		this.canCloseProgram = canCloseProgram;
+	public void setIsOwnProgram(Boolean isOwnProgram) {
+		this.isOwnProgram = isOwnProgram;
 	}
 
 	@Override
@@ -574,18 +596,19 @@ public class InvestmentProgramDashboard
 				Objects.equals(this.availableInvestment, investmentProgramDashboard.availableInvestment) &&
 				Objects.equals(this.feeSuccess, investmentProgramDashboard.feeSuccess) &&
 				Objects.equals(this.feeManagement, investmentProgramDashboard.feeManagement) &&
+				Objects.equals(this.isEnabled, investmentProgramDashboard.isEnabled) &&
 				Objects.equals(this.chart, investmentProgramDashboard.chart) &&
 				Objects.equals(this.manager, investmentProgramDashboard.manager) &&
 				Objects.equals(this.hasNewRequests, investmentProgramDashboard.hasNewRequests) &&
 				Objects.equals(this.isHistoryEnable, investmentProgramDashboard.isHistoryEnable) &&
 				Objects.equals(this.isInvestEnable, investmentProgramDashboard.isInvestEnable) &&
 				Objects.equals(this.isWithdrawEnable, investmentProgramDashboard.isWithdrawEnable) &&
-				Objects.equals(this.canCloseProgram, investmentProgramDashboard.canCloseProgram);
+				Objects.equals(this.isOwnProgram, investmentProgramDashboard.isOwnProgram);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, level, logo, balance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, chart, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, canCloseProgram);
+		return Objects.hash(id, title, level, logo, balance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, isEnabled, chart, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
 	}
 
 	@Override
@@ -609,13 +632,14 @@ public class InvestmentProgramDashboard
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
 		sb.append("    feeSuccess: ").append(toIndentedString(feeSuccess)).append("\n");
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
+		sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    hasNewRequests: ").append(toIndentedString(hasNewRequests)).append("\n");
 		sb.append("    isHistoryEnable: ").append(toIndentedString(isHistoryEnable)).append("\n");
 		sb.append("    isInvestEnable: ").append(toIndentedString(isInvestEnable)).append("\n");
 		sb.append("    isWithdrawEnable: ").append(toIndentedString(isWithdrawEnable)).append("\n");
-		sb.append("    canCloseProgram: ").append(toIndentedString(canCloseProgram)).append("\n");
+		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

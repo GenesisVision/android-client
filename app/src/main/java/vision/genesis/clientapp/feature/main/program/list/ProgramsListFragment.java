@@ -60,6 +60,8 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	private boolean fabInAnim = false;
 
+	private int lastVisible = 0;
+
 	private InvestmentProgramsListAdapter investmentProgramsListAdapter;
 
 	@OnClick(R.id.button_try_again)
@@ -69,7 +71,10 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	@OnClick(R.id.fab)
 	public void onFabClicked() {
-		recyclerView.scrollToPosition(0);
+		if (lastVisible < 20)
+			recyclerView.smoothScrollToPosition(0);
+		else
+			recyclerView.scrollToPosition(0);
 	}
 
 	@Nullable
@@ -113,22 +118,24 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		{
 			@Override
 			public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-				LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
-				int totalItemCount = layoutManager.getItemCount();
-				int lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
-
-				boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
-				if (totalItemCount > 0 && endHasBeenReached) {
-					programsListPresenter.onLastListItemVisible();
-				}
-				if (dy != 0) {
-					if (!fabInAnim && fab.getVisibility() != View.VISIBLE && lastVisible > 2)
-						showFab();
-					else if (!fabInAnim && fab.getVisibility() == View.VISIBLE && lastVisible < 2)
-						hideFab();
-				}
+				checkIfLastItemVisible();
 			}
 		});
+	}
+
+	private void checkIfLastItemVisible() {
+		LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+		int totalItemCount = layoutManager.getItemCount();
+		lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
+
+		boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
+		if (totalItemCount > 0 && endHasBeenReached) {
+			programsListPresenter.onLastListItemVisible();
+		}
+		if (!fabInAnim && fab.getVisibility() != View.VISIBLE && lastVisible > 3)
+			showFab();
+		else if (!fabInAnim && fab.getVisibility() == View.VISIBLE && lastVisible < 3)
+			hideFab();
 	}
 
 	private void showFab() {
