@@ -139,6 +139,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		ProgramRequest request = new ProgramRequest();
 		request.programId = programDetails.getId();
 		request.programName = programDetails.getTitle();
+		request.available = programDetails.getInvestedTokens();
 		WithdrawProgramActivity.startWith(this, request);
 	}
 

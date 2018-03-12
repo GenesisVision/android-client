@@ -19,6 +19,7 @@ import vision.genesis.clientapp.feature.main.profile.ProfileFragment;
 import vision.genesis.clientapp.feature.main.program.list.ProgramsListFragment;
 import vision.genesis.clientapp.feature.main.wallet.WalletFragment;
 import vision.genesis.clientapp.managers.AuthManager;
+import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 import vision.genesis.clientapp.model.events.OnInvestButtonClickedEvent;
@@ -188,7 +189,11 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	@Subscribe
 	public void onEventMainThread(ShowWithdrawProgramEvent event) {
-		getViewState().showWithdrawProgram(event.programId, event.programName);
+		ProgramRequest withdrawalRequest = new ProgramRequest();
+		withdrawalRequest.programId = event.programId;
+		withdrawalRequest.programName = event.programName;
+		withdrawalRequest.available = event.investedTokens;
+		getViewState().showWithdrawProgram(withdrawalRequest);
 	}
 
 	@Subscribe

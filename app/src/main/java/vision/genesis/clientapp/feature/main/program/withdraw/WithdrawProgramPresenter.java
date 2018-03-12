@@ -33,8 +33,6 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 	@Inject
 	public InvestManager investManager;
 
-	private double availableFunds = 1000.01234567;
-
 	private ProgramRequest withdrawalRequest;
 
 	private Subscription withdrawSubscription;
@@ -44,8 +42,6 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
-
-		getViewState().setAvailable(availableFunds);
 	}
 
 	@Override
@@ -58,6 +54,7 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 
 	void setWithdrawalRequest(ProgramRequest request) {
 		withdrawalRequest = request;
+		getViewState().setAvailable(withdrawalRequest.available);
 	}
 
 	void onBackClicked() {
@@ -66,11 +63,11 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 
 	void onAmountChanged(double newAmount) {
 		withdrawalRequest.amount = newAmount;
-		getViewState().setWithdrawButtonEnabled(withdrawalRequest.amount > 0 && withdrawalRequest.amount <= availableFunds);
+		getViewState().setWithdrawButtonEnabled(withdrawalRequest.amount > 0 && withdrawalRequest.amount <= withdrawalRequest.available);
 	}
 
 	void onAvailableClicked() {
-		getViewState().setAmount(availableFunds);
+		getViewState().setAmount(withdrawalRequest.available);
 	}
 
 	void onWithdrawClicked() {

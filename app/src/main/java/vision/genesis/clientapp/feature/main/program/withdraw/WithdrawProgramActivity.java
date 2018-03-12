@@ -63,7 +63,7 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	}
 
 	@OnClick(R.id.group_available)
-	public void onAvailableCLicked() {
+	public void onAvailableClicked() {
 		withdrawProgramPresenter.onAvailableClicked();
 	}
 

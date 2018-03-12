@@ -119,8 +119,8 @@ public class PeriodLeftView extends RelativeLayout
 			if (timeSubscription != null)
 				timeSubscription.unsubscribe();
 
-			if (!programClosed)
-				EventBus.getDefault().post(new OnPeriodLeftEvent());
+//			if (!programClosed)
+//				EventBus.getDefault().post(new OnPeriodLeftEvent());
 		}
 	}
 

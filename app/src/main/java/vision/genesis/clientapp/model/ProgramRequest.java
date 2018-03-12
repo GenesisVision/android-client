@@ -33,6 +33,9 @@ public class ProgramRequest implements Parcelable
 	@SerializedName("program_name")
 	public String programName;
 
+	@SerializedName("available")
+	public double available;
+
 	@SerializedName("amount")
 	public double amount;
 
@@ -43,6 +46,7 @@ public class ProgramRequest implements Parcelable
 	protected ProgramRequest(Parcel in) {
 		programId = (UUID) in.readValue(UUID.class.getClassLoader());
 		programName = in.readString();
+		available = in.readDouble();
 		amount = in.readDouble();
 	}
 
@@ -55,6 +59,7 @@ public class ProgramRequest implements Parcelable
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeValue(programId);
 		dest.writeString(programName);
+		dest.writeDouble(available);
 		dest.writeDouble(amount);
 	}
 }

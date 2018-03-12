@@ -5,6 +5,7 @@ import com.arellomobile.mvp.MvpView;
 import java.util.UUID;
 
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.model.ProgramRequest;
 
 /**
  * GenesisVision
@@ -39,7 +40,7 @@ public interface MainView extends MvpView
 
 	void showInvestProgram(UUID programId, String programName);
 
-	void showWithdrawProgram(UUID programId, String programName);
+	void showWithdrawProgram(ProgramRequest request);
 
 	void showWithdrawWallet();
 

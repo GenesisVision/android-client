@@ -210,7 +210,6 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		noInternetGroup.setVisibility(show ? View.VISIBLE : View.GONE);
 		refreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
 	}
-
 	@Override
 	public void showProgressBar(boolean show) {
 		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
@@ -225,7 +224,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	@Override
 	public boolean onBackPressed() {
 		LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
-		if (layoutManager.findFirstCompletelyVisibleItemPosition() != 0) {
+		if (layoutManager.findFirstCompletelyVisibleItemPosition() > 0) {
 			recyclerView.smoothScrollToPosition(0);
 			return true;
 		}

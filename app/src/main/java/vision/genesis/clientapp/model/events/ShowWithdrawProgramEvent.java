@@ -13,8 +13,11 @@ public class ShowWithdrawProgramEvent
 
 	public String programName;
 
-	public ShowWithdrawProgramEvent(UUID programId, String programName) {
+	public Double investedTokens;
+
+	public ShowWithdrawProgramEvent(UUID programId, String programName, Double investedTokens) {
 		this.programId = programId;
 		this.programName = programName;
+		this.investedTokens = investedTokens;
 	}
 }

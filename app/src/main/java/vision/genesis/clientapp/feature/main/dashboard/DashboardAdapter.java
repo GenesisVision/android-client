@@ -23,6 +23,7 @@ import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawProgramEvent;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVision
@@ -105,7 +106,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Inve
 
 		@OnClick(R.id.button_withdraw)
 		public void onWithdrawClicked() {
-			EventBus.getDefault().post(new ShowWithdrawProgramEvent(investmentProgram.getId(), investmentProgram.getTitle()));
+			EventBus.getDefault().post(new ShowWithdrawProgramEvent(investmentProgram.getId(), investmentProgram.getTitle(), investmentProgram.getInvestedTokens()));
 		}
 
 		void setInvestmentProgram(InvestmentProgramDashboard investmentProgram) {
@@ -121,7 +122,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Inve
 
 			programName.setText(investmentProgram.getTitle());
 
-			tokens.setText(String.format(Locale.getDefault(), "%f %s", investmentProgram.getInvestedTokens(), itemView.getContext().getResources().getString(R.string.tokens)));
+			tokens.setText(String.format(Locale.getDefault(), "%s %s", StringFormatUtil.formatAmount(investmentProgram.getInvestedTokens()), itemView.getContext().getResources().getString(R.string.tokens)));
 			accountCurrencyTokensWorth.setText("$0");
 
 			double profitPercent = investmentProgram.getProfitAvg();

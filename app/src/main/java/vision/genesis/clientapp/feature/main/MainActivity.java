@@ -248,11 +248,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	}
 
 	@Override
-	public void showWithdrawProgram(UUID programId, String programName) {
-		ProgramRequest withdrawalRequest = new ProgramRequest();
-		withdrawalRequest.programId = programId;
-		withdrawalRequest.programName = programName;
-		WithdrawProgramActivity.startWith(this, withdrawalRequest);
+	public void showWithdrawProgram(ProgramRequest request) {
+		WithdrawProgramActivity.startWith(this, request);
 	}
 
 	@Override
