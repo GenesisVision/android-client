@@ -74,6 +74,12 @@ public class InvestmentProgramDashboard
 	@SerializedName("profitTotal")
 	private Double profitTotal = null;
 
+	@SerializedName("profitAvgPercent")
+	private Double profitAvgPercent = null;
+
+	@SerializedName("profitTotalPercent")
+	private Double profitTotalPercent = null;
+
 	@SerializedName("availableInvestment")
 	private Double availableInvestment = null;
 
@@ -354,6 +360,44 @@ public class InvestmentProgramDashboard
 		this.profitTotal = profitTotal;
 	}
 
+	public InvestmentProgramDashboard profitAvgPercent(Double profitAvgPercent) {
+		this.profitAvgPercent = profitAvgPercent;
+		return this;
+	}
+
+	/**
+	 * Get profitAvgPercent
+	 *
+	 * @return profitAvgPercent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProfitAvgPercent() {
+		return profitAvgPercent;
+	}
+
+	public void setProfitAvgPercent(Double profitAvgPercent) {
+		this.profitAvgPercent = profitAvgPercent;
+	}
+
+	public InvestmentProgramDashboard profitTotalPercent(Double profitTotalPercent) {
+		this.profitTotalPercent = profitTotalPercent;
+		return this;
+	}
+
+	/**
+	 * Get profitTotalPercent
+	 *
+	 * @return profitTotalPercent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProfitTotalPercent() {
+		return profitTotalPercent;
+	}
+
+	public void setProfitTotalPercent(Double profitTotalPercent) {
+		this.profitTotalPercent = profitTotalPercent;
+	}
+
 	public InvestmentProgramDashboard availableInvestment(Double availableInvestment) {
 		this.availableInvestment = availableInvestment;
 		return this;
@@ -593,6 +637,8 @@ public class InvestmentProgramDashboard
 				Objects.equals(this.endOfPeriod, investmentProgramDashboard.endOfPeriod) &&
 				Objects.equals(this.profitAvg, investmentProgramDashboard.profitAvg) &&
 				Objects.equals(this.profitTotal, investmentProgramDashboard.profitTotal) &&
+				Objects.equals(this.profitAvgPercent, investmentProgramDashboard.profitAvgPercent) &&
+				Objects.equals(this.profitTotalPercent, investmentProgramDashboard.profitTotalPercent) &&
 				Objects.equals(this.availableInvestment, investmentProgramDashboard.availableInvestment) &&
 				Objects.equals(this.feeSuccess, investmentProgramDashboard.feeSuccess) &&
 				Objects.equals(this.feeManagement, investmentProgramDashboard.feeManagement) &&
@@ -608,7 +654,7 @@ public class InvestmentProgramDashboard
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, level, logo, balance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, isEnabled, chart, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
+		return Objects.hash(id, title, level, logo, balance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, availableInvestment, feeSuccess, feeManagement, isEnabled, chart, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
 	}
 
 	@Override
@@ -629,6 +675,8 @@ public class InvestmentProgramDashboard
 		sb.append("    endOfPeriod: ").append(toIndentedString(endOfPeriod)).append("\n");
 		sb.append("    profitAvg: ").append(toIndentedString(profitAvg)).append("\n");
 		sb.append("    profitTotal: ").append(toIndentedString(profitTotal)).append("\n");
+		sb.append("    profitAvgPercent: ").append(toIndentedString(profitAvgPercent)).append("\n");
+		sb.append("    profitTotalPercent: ").append(toIndentedString(profitTotalPercent)).append("\n");
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
 		sb.append("    feeSuccess: ").append(toIndentedString(feeSuccess)).append("\n");
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");

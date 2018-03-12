@@ -83,6 +83,12 @@ public class InvestmentProgramDetails
 	@SerializedName("profitTotal")
 	private Double profitTotal = null;
 
+	@SerializedName("profitAvgPercent")
+	private Double profitAvgPercent = null;
+
+	@SerializedName("profitTotalPercent")
+	private Double profitTotalPercent = null;
+
 	@SerializedName("availableInvestment")
 	private Double availableInvestment = null;
 
@@ -426,6 +432,44 @@ public class InvestmentProgramDetails
 		this.profitTotal = profitTotal;
 	}
 
+	public InvestmentProgramDetails profitAvgPercent(Double profitAvgPercent) {
+		this.profitAvgPercent = profitAvgPercent;
+		return this;
+	}
+
+	/**
+	 * Get profitAvgPercent
+	 *
+	 * @return profitAvgPercent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProfitAvgPercent() {
+		return profitAvgPercent;
+	}
+
+	public void setProfitAvgPercent(Double profitAvgPercent) {
+		this.profitAvgPercent = profitAvgPercent;
+	}
+
+	public InvestmentProgramDetails profitTotalPercent(Double profitTotalPercent) {
+		this.profitTotalPercent = profitTotalPercent;
+		return this;
+	}
+
+	/**
+	 * Get profitTotalPercent
+	 *
+	 * @return profitTotalPercent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProfitTotalPercent() {
+		return profitTotalPercent;
+	}
+
+	public void setProfitTotalPercent(Double profitTotalPercent) {
+		this.profitTotalPercent = profitTotalPercent;
+	}
+
 	public InvestmentProgramDetails availableInvestment(Double availableInvestment) {
 		this.availableInvestment = availableInvestment;
 		return this;
@@ -706,6 +750,8 @@ public class InvestmentProgramDetails
 				Objects.equals(this.endOfPeriod, investmentProgramDetails.endOfPeriod) &&
 				Objects.equals(this.profitAvg, investmentProgramDetails.profitAvg) &&
 				Objects.equals(this.profitTotal, investmentProgramDetails.profitTotal) &&
+				Objects.equals(this.profitAvgPercent, investmentProgramDetails.profitAvgPercent) &&
+				Objects.equals(this.profitTotalPercent, investmentProgramDetails.profitTotalPercent) &&
 				Objects.equals(this.availableInvestment, investmentProgramDetails.availableInvestment) &&
 				Objects.equals(this.feeSuccess, investmentProgramDetails.feeSuccess) &&
 				Objects.equals(this.feeManagement, investmentProgramDetails.feeManagement) &&
@@ -723,7 +769,7 @@ public class InvestmentProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, isEnabled, chart, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
+		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, isEnabled, chart, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
 	}
 
 	@Override
@@ -747,6 +793,8 @@ public class InvestmentProgramDetails
 		sb.append("    endOfPeriod: ").append(toIndentedString(endOfPeriod)).append("\n");
 		sb.append("    profitAvg: ").append(toIndentedString(profitAvg)).append("\n");
 		sb.append("    profitTotal: ").append(toIndentedString(profitTotal)).append("\n");
+		sb.append("    profitAvgPercent: ").append(toIndentedString(profitAvgPercent)).append("\n");
+		sb.append("    profitTotalPercent: ").append(toIndentedString(profitTotalPercent)).append("\n");
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
 		sb.append("    feeSuccess: ").append(toIndentedString(feeSuccess)).append("\n");
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");

@@ -97,11 +97,11 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@BindView(R.id.text_investors_count)
 	public TextView investorsCountText;
 
-	@BindView(R.id.text_available_to_invest)
-	public TextView availableToInvestText;
+	@BindView(R.id.group_you_have)
+	public ViewGroup youHaveGroup;
 
-	@BindView(R.id.text_available_currency)
-	public TextView availableToInvestCurrencyText;
+	@BindView(R.id.text_you_have)
+	public TextView youHaveText;
 
 	@BindView(R.id.group_buttons)
 	public ViewGroup buttonsGroup;
@@ -215,8 +215,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		successFeeText.setText(df.format(programDetails.getFeeSuccess()));
 		managementFeeText.setText(df.format((programDetails.getFeeManagement())));
 		investorsCountText.setText(String.valueOf(programDetails.getInvestorsCount()));
-		availableToInvestText.setText(df.format(programDetails.getAvailableInvestment()));
-		availableToInvestCurrencyText.setText(programDetails.getCurrency().toString());
+		youHaveText.setText(df.format(programDetails.getInvestedTokens()));
 
 		investButton.setVisibility(programDetails.isIsInvestEnable() ? View.VISIBLE : View.GONE);
 		withdrawButton.setVisibility(programDetails.isIsWithdrawEnable() ? View.VISIBLE : View.GONE);

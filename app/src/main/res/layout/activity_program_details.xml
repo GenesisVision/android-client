@@ -365,6 +365,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/group_you_have"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -374,25 +375,25 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/text_available_to_invest"
-                        android:layout_toStartOf="@+id/text_available_to_invest"
-                        android:text="@string/available_to_invest"
+                        android:layout_toLeftOf="@+id/text_you_have"
+                        android:layout_toStartOf="@+id/text_you_have"
+                        android:text="@string/you_have"
                         android:textColor="@color/colorFontMedium"
                         android:textSize="14sp"/>
 
                     <TextView
-                        android:id="@+id/text_available_to_invest"
+                        android:id="@+id/text_you_have"
                         style="@style/item_investment_program_footer_text"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/text_available_currency"
-                        android:layout_toStartOf="@+id/text_available_currency"
+                        android:layout_toLeftOf="@+id/text_you_have_tokens"
+                        android:layout_toStartOf="@+id/text_you_have_tokens"
                         android:gravity="center"
                         android:textColor="@color/colorPrimary"
                         android:textSize="16sp"
                         tools:text="532.24"/>
 
                     <TextView
-                        android:id="@+id/text_available_currency"
+                        android:id="@+id/text_you_have_tokens"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -400,11 +401,11 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="4dp"
                         android:layout_marginStart="4dp"
+                        android:text="@string/tokens"
                         android:textAlignment="center"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:text="USD"/>
+                        android:textStyle="bold"/>
 
                 </RelativeLayout>
 

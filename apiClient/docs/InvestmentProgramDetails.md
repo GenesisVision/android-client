@@ -20,6 +20,8 @@ Name | Type | Description | Notes
 **endOfPeriod** | [**DateTime**](DateTime.md) |  |  [optional]
 **profitAvg** | **Double** |  |  [optional]
 **profitTotal** | **Double** |  |  [optional]
+**profitAvgPercent** | **Double** |  |  [optional]
+**profitTotalPercent** | **Double** |  |  [optional]
 **availableInvestment** | **Double** |  |  [optional]
 **feeSuccess** | **Double** |  |  [optional]
 **feeManagement** | **Double** |  |  [optional]
