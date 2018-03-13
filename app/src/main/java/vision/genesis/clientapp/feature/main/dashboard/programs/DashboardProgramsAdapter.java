@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.dashboard;
+package vision.genesis.clientapp.feature.main.dashboard.programs;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -30,7 +30,7 @@ import vision.genesis.clientapp.utils.StringFormatUtil;
  * Created by Vitaly on 1/25/18.
  */
 
-public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.InvestorProgramViewHolder>
+public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProgramsAdapter.InvestorProgramViewHolder>
 {
 	public List<InvestmentProgramDashboard> investorPrograms = new ArrayList<>();
 

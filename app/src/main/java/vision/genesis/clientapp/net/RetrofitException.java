@@ -25,7 +25,6 @@ public class RetrofitException extends RuntimeException
 		}
 
 		// We don't know what happened. We need to simply convert to an unknown error
-
 		return RetrofitException.unexpectedError(throwable);
 	}
 

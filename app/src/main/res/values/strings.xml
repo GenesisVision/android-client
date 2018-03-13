@@ -129,6 +129,8 @@
     <string name="partial_investment_execution_refund">Partial investment execution refund</string>
     <string name="program_closed">program closed</string>
     <string name="closing_program_refund">Closing program refund</string>
+    <string name="active">Active</string>
+    <string name="archived">Archived</string>
 
     <plurals name="days">
         <item quantity="one">day</item>

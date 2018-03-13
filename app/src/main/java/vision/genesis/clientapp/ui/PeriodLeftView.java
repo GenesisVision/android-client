@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.greenrobot.eventbus.EventBus;
 import org.joda.time.DateTime;
 
 import java.util.concurrent.TimeUnit;
@@ -18,7 +17,6 @@ import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.events.OnPeriodLeftEvent;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 
 /**

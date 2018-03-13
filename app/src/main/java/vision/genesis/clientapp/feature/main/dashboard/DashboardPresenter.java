@@ -21,7 +21,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.InvestManager;
-import vision.genesis.clientapp.model.events.OnInvestButtonClickedEvent;
+import vision.genesis.clientapp.model.events.OnDashboardProgramsUpdateEvent;
 import vision.genesis.clientapp.model.events.OnPeriodLeftEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -41,7 +41,9 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 
 	private Subscription getInvestmentsSubscription;
 
-	private List<InvestmentProgramDashboard> investmentPrograms = new ArrayList<>();
+	private List<InvestmentProgramDashboard> activePrograms = new ArrayList<>();
+
+	private List<InvestmentProgramDashboard> archivedPrograms = new ArrayList<>();
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -66,20 +68,6 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 		getInvestments();
 	}
 
-	void onStartInvestingClicked() {
-		EventBus.getDefault().post(new OnInvestButtonClickedEvent());
-	}
-
-	void onTryAgainClicked() {
-		getViewState().showProgressBar(true);
-		getInvestments();
-	}
-
-	void onSwipeRefresh() {
-		getViewState().setRefreshing(true);
-		getInvestments();
-	}
-
 	private void getInvestments() {
 		getInvestmentsSubscription = investManager.getInvestments()
 				.observeOn(AndroidSchedulers.mainThread())
@@ -95,16 +83,18 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);
 
-		investmentPrograms = new ArrayList<>();
+		activePrograms = new ArrayList<>();
 
 		List<InvestmentProgramDashboard> programs = dashboard.getInvestmentPrograms();
 		for (InvestmentProgramDashboard program : programs) {
-			if (program.getInvestedTokens() > 0 || program.isHasNewRequests())
-				investmentPrograms.add(program);
+			if (program.isIsEnabled())
+				activePrograms.add(program);
+			else
+				archivedPrograms.add(program);
 		}
 
-		getViewState().setInvestorPrograms(investmentPrograms);
-		getViewState().showEmpty(investmentPrograms.size() == 0);
+		getViewState().setActivePrograms(activePrograms);
+		getViewState().setArchivedPrograms(archivedPrograms);
 	}
 
 	private void handleGetInvestmentsError(Throwable throwable) {
@@ -115,7 +105,7 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 		getViewState().showEmpty(false);
 
 		if (ApiErrorResolver.isNetworkError(throwable)) {
-			if (investmentPrograms.size() == 0)
+			if (activePrograms.size() == 0 && archivedPrograms.size() == 0)
 				getViewState().showNoInternet(true);
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}
@@ -123,6 +113,11 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 
 	@Subscribe
 	public void onEventMainThread(OnPeriodLeftEvent event) {
+		getInvestments();
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnDashboardProgramsUpdateEvent event) {
 		getInvestments();
 	}
 }

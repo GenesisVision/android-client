@@ -67,11 +67,15 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 
 		transactionsPresenter.setType(getArguments().getString(EXTRA_TYPE));
 
+		initRefreshLayout();
+		initRecyclerView();
+	}
+
+	private void initRefreshLayout() {
 		refreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary),
 				ContextCompat.getColor(getContext(), R.color.colorAccent),
 				ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
 		refreshLayout.setOnRefreshListener(() -> transactionsPresenter.onSwipeRefresh());
-		initRecyclerView();
 	}
 
 	private void initRecyclerView() {

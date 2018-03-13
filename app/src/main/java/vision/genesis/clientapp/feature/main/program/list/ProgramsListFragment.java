@@ -210,6 +210,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		noInternetGroup.setVisibility(show ? View.VISIBLE : View.GONE);
 		refreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
 	}
+
 	@Override
 	public void showProgressBar(boolean show) {
 		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);

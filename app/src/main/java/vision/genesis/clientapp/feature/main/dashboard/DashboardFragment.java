@@ -2,15 +2,12 @@ package vision.genesis.clientapp.feature.main.dashboard;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -18,10 +15,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.swagger.client.model.InvestmentProgramDashboard;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.dashboard.programs.DashboardPagerAdapter;
+import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPagerAdapter;
 import vision.genesis.clientapp.ui.ToolbarView;
 
 /**
@@ -29,43 +27,28 @@ import vision.genesis.clientapp.ui.ToolbarView;
  * Created by Vitaly on 1/19/18.
  */
 
-public class DashboardFragment extends BaseFragment implements DashboardView
+public class DashboardFragment extends BaseFragment implements DashboardView, ViewPager.OnPageChangeListener
+
 {
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
 
-	@BindView(R.id.refresh_layout)
-	public SwipeRefreshLayout refreshLayout;
+	@BindView(R.id.view_pager)
+	public ViewPager viewPager;
 
-	@BindView(R.id.recycler_view)
-	public RecyclerView recyclerView;
-
-	@BindView(R.id.progress_bar)
-	public ProgressBar progressBar;
-
-	@BindView(R.id.button_try_again)
-	public View tryAgainButton;
-
-	@BindView(R.id.group_no_internet)
-	public ViewGroup noInternetGroup;
-
-	@BindView(R.id.group_empty)
-	public ViewGroup emptyGroup;
+	@BindView(R.id.tab_layout)
+	public TabLayout tabLayout;
 
 	@InjectPresenter
 	DashboardPresenter dashboardPresenter;
 
-	private DashboardAdapter dashboardAdapter;
+	private TabLayout.OnTabSelectedListener tabSelectedListener;
 
-	@OnClick(R.id.button_try_again)
-	public void onTryAgainClicked() {
-		dashboardPresenter.onTryAgainClicked();
-	}
+	private TabLayout.TabLayoutOnPageChangeListener tabLayoutOnPageChangeListener;
 
-	@OnClick(R.id.button_start_investing)
-	public void onStartInvestingClicked() {
-		dashboardPresenter.onStartInvestingClicked();
-	}
+	private DashboardPagerAdapter pagerAdapter;
+
+	private Fragment currentFragment;
 
 	@Nullable
 	@Override
@@ -80,8 +63,8 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 		ButterKnife.bind(this, view);
 
 		initToolbar();
-		initRefreshLayout();
-		initRecyclerView();
+		initTabs();
+		initViewPager();
 	}
 
 	@Override
@@ -90,35 +73,89 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 		dashboardPresenter.onResume();
 	}
 
+	@Override
+	public void onDestroyView() {
+		if (pagerAdapter != null)
+			pagerAdapter.destroy();
+
+		if (tabSelectedListener != null)
+			tabLayout.removeOnTabSelectedListener(tabSelectedListener);
+
+		if (tabLayoutOnPageChangeListener != null)
+			viewPager.removeOnPageChangeListener(tabLayoutOnPageChangeListener);
+
+		viewPager.addOnPageChangeListener(this);
+
+		super.onDestroyView();
+	}
+
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.dashboard));
 	}
 
-	private void initRefreshLayout() {
-		refreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary),
-				ContextCompat.getColor(getContext(), R.color.colorAccent),
-				ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
-		refreshLayout.setOnRefreshListener(() -> dashboardPresenter.onSwipeRefresh());
+	private void initTabs() {
+		tabLayout.addTab(tabLayout.newTab().setText(getContext().getResources().getString(R.string.active)), true);
+		tabLayout.addTab(tabLayout.newTab().setText(getContext().getResources().getString(R.string.archived)));
+		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+		tabSelectedListener = new TabLayout.OnTabSelectedListener()
+		{
+			@Override
+			public void onTabSelected(TabLayout.Tab tab) {
+				viewPager.setCurrentItem(tab.getPosition());
+			}
+
+			@Override
+			public void onTabUnselected(TabLayout.Tab tab) {
+
+			}
+
+			@Override
+			public void onTabReselected(TabLayout.Tab tab) {
+
+			}
+		};
+
+		tabLayout.addOnTabSelectedListener(tabSelectedListener);
 	}
 
-	private void initRecyclerView() {
-		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-		recyclerView.setLayoutManager(layoutManager);
-		dashboardAdapter = new DashboardAdapter();
-		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
-		dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider));
-		recyclerView.addItemDecoration(dividerItemDecoration);
-		recyclerView.setAdapter(dashboardAdapter);
+	private void initViewPager() {
+		pagerAdapter = new DashboardPagerAdapter(getActivity().getSupportFragmentManager());
+		viewPager.setAdapter(pagerAdapter);
+
+		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
+		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
+		viewPager.addOnPageChangeListener(this);
 	}
 
 	@Override
-	public void setInvestorPrograms(List<InvestmentProgramDashboard> programs) {
-		dashboardAdapter.setInvestorPrograms(programs);
+	public void setActivePrograms(List<InvestmentProgramDashboard> programs) {
+		pagerAdapter.setActivePrograms(programs);
 	}
 
 	@Override
-	public void setRefreshing(boolean refreshing) {
-		refreshLayout.setRefreshing(refreshing);
+	public void setArchivedPrograms(List<InvestmentProgramDashboard> programs) {
+		pagerAdapter.setArchivedPrograms(programs);
+	}
+
+	@Override
+	public void showNoInternet(boolean show) {
+		pagerAdapter.showNoInternet(show);
+	}
+
+	@Override
+	public void showProgressBar(boolean show) {
+		pagerAdapter.showProgressBar(show);
+	}
+
+	@Override
+	public void showEmpty(boolean show) {
+		pagerAdapter.showEmpty(show);
+	}
+
+	@Override
+	public void setRefreshing(boolean show) {
+		pagerAdapter.setRefreshing(show);
 	}
 
 	@Override
@@ -127,25 +164,27 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	}
 
 	@Override
-	public void showNoInternet(boolean show) {
-		noInternetGroup.setVisibility(show ? View.VISIBLE : View.GONE);
-		refreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
-	}
-
-	@Override
-	public void showEmpty(boolean show) {
-		emptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);
-		refreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
-	}
-
-	@Override
-	public void showProgressBar(boolean show) {
-		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-		tryAgainButton.setVisibility(show ? View.GONE : View.VISIBLE);
-	}
-
-	@Override
 	public void onShow() {
 		dashboardPresenter.onResume();
+	}
+
+	@Override
+	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+	}
+
+	@Override
+	public void onPageSelected(int position) {
+		if (currentFragment != null && currentFragment instanceof TransactionsPagerAdapter.OnPageVisibilityChanged)
+			((TransactionsPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerHide();
+		currentFragment = pagerAdapter.getItem(position);
+		if (pagerAdapter.getItem(position) instanceof TransactionsPagerAdapter.OnPageVisibilityChanged) {
+			((TransactionsPagerAdapter.OnPageVisibilityChanged) pagerAdapter.getItem(position)).pagerShow();
+		}
+	}
+
+	@Override
+	public void onPageScrollStateChanged(int state) {
+
 	}
 }
