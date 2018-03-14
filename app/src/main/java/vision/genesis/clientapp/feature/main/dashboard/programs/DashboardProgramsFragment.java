@@ -22,14 +22,13 @@ import butterknife.OnClick;
 import io.swagger.client.model.InvestmentProgramDashboard;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPagerAdapter;
 
 /**
  * GenesisVision
  * Created by Vitaly on 3/13/18.
  */
 
-public class DashboardProgramsFragment extends BaseFragment implements DashboardProgramsView, TransactionsPagerAdapter.OnPageVisibilityChanged
+public class DashboardProgramsFragment extends BaseFragment implements DashboardProgramsView, DashboardPagerAdapter.OnPageVisibilityChanged
 {
 	public static DashboardProgramsFragment with() {
 		DashboardProgramsFragment dashboardProgramsFragment = new DashboardProgramsFragment();

@@ -19,7 +19,6 @@ import io.swagger.client.model.InvestmentProgramDashboard;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.programs.DashboardPagerAdapter;
-import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPagerAdapter;
 import vision.genesis.clientapp.ui.ToolbarView;
 
 /**
@@ -33,7 +32,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
 
-	@BindView(R.id.view_pager)
+	@BindView(R.id.view_pager_dashboard)
 	public ViewPager viewPager;
 
 	@BindView(R.id.tab_layout)
@@ -175,11 +174,11 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 
 	@Override
 	public void onPageSelected(int position) {
-		if (currentFragment != null && currentFragment instanceof TransactionsPagerAdapter.OnPageVisibilityChanged)
-			((TransactionsPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerHide();
+		if (currentFragment != null && currentFragment instanceof DashboardPagerAdapter.OnPageVisibilityChanged)
+			((DashboardPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerHide();
 		currentFragment = pagerAdapter.getItem(position);
-		if (pagerAdapter.getItem(position) instanceof TransactionsPagerAdapter.OnPageVisibilityChanged) {
-			((TransactionsPagerAdapter.OnPageVisibilityChanged) pagerAdapter.getItem(position)).pagerShow();
+		if (pagerAdapter.getItem(position) instanceof DashboardPagerAdapter.OnPageVisibilityChanged) {
+			((DashboardPagerAdapter.OnPageVisibilityChanged) pagerAdapter.getItem(position)).pagerShow();
 		}
 	}
 

@@ -50,7 +50,7 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 	@BindView(R.id.balance_progress)
 	public ProgressBar balanceProgress;
 
-	@BindView(R.id.view_pager)
+	@BindView(R.id.view_pager_wallet)
 	public ViewPager viewPager;
 
 	@BindView(R.id.tab_layout)
