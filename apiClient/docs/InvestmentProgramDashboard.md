@@ -14,11 +14,13 @@ Name | Type | Description | Notes
 **tradesCount** | **Integer** |  |  [optional]
 **investorsCount** | **Integer** |  |  [optional]
 **periodDuration** | **Integer** |  |  [optional]
+**startOfPeriod** | [**DateTime**](DateTime.md) |  |  [optional]
 **endOfPeriod** | [**DateTime**](DateTime.md) |  |  [optional]
 **profitAvg** | **Double** |  |  [optional]
 **profitTotal** | **Double** |  |  [optional]
 **profitAvgPercent** | **Double** |  |  [optional]
 **profitTotalPercent** | **Double** |  |  [optional]
+**profitTotalChange** | [**ProfitTotalChangeEnum**](#ProfitTotalChangeEnum) |  |  [optional]
 **availableInvestment** | **Double** |  |  [optional]
 **feeSuccess** | **Double** |  |  [optional]
 **feeManagement** | **Double** |  |  [optional]
@@ -42,6 +44,15 @@ ETH | &quot;ETH&quot;
 BTC | &quot;BTC&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
+
+
+<a name="ProfitTotalChangeEnum"></a>
+## Enum: ProfitTotalChangeEnum
+Name | Value
+---- | -----
+UNCHANGED | &quot;Unchanged&quot;
+UP | &quot;Up&quot;
+DOWN | &quot;Down&quot;
 
 
 

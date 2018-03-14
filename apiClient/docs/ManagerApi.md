@@ -21,6 +21,7 @@ Method | HTTP request | Description
 [**apiManagerProfileUpdatePost**](ManagerApi.md#apiManagerProfileUpdatePost) | **POST** api/manager/profile/update | Update profile
 [**apiManagerWalletAddressGet**](ManagerApi.md#apiManagerWalletAddressGet) | **GET** api/manager/wallet/address | Get eth address for GVT depositing
 [**apiManagerWalletGet**](ManagerApi.md#apiManagerWalletGet) | **GET** api/manager/wallet | Get user wallets
+[**apiManagerWalletStatisticPost**](ManagerApi.md#apiManagerWalletStatisticPost) | **POST** api/manager/wallet/statistic | Get user wallet statistic
 [**apiManagerWalletTransactionsInvestmentProgramsListGet**](ManagerApi.md#apiManagerWalletTransactionsInvestmentProgramsListGet) | **GET** api/manager/wallet/transactions/investmentProgramsList | Get user investment programs with tx
 [**apiManagerWalletTransactionsPost**](ManagerApi.md#apiManagerWalletTransactionsPost) | **POST** api/manager/wallet/transactions | Get user wallet transactions
 [**apiManagerWalletWithdrawRequestPost**](ManagerApi.md#apiManagerWalletWithdrawRequestPost) | **POST** api/manager/wallet/withdrawRequest | Withdraw request
@@ -773,6 +774,51 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerWalletStatisticPost"></a>
+# **apiManagerWalletStatisticPost**
+> WalletStatistic apiManagerWalletStatisticPost(authorization, filter)
+
+Get user wallet statistic
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+String authorization = "authorization_example"; // String | JWT access token
+WalletStatisticFilter filter = new WalletStatisticFilter(); // WalletStatisticFilter | 
+try {
+    WalletStatistic result = apiInstance.apiManagerWalletStatisticPost(authorization, filter);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerWalletStatisticPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **filter** | [**WalletStatisticFilter**](WalletStatisticFilter.md)|  | [optional]
+
+### Return type
+
+[**WalletStatistic**](WalletStatistic.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="apiManagerWalletTransactionsInvestmentProgramsListGet"></a>

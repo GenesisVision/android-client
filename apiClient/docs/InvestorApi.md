@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**apiInvestorAuthSignUpPost**](InvestorApi.md#apiInvestorAuthSignUpPost) | **POST** api/investor/auth/signUp | Register new investor
 [**apiInvestorAuthUpdateTokenGet**](InvestorApi.md#apiInvestorAuthUpdateTokenGet) | **GET** api/investor/auth/updateToken | Update auth token
 [**apiInvestorDashboardGet**](InvestorApi.md#apiInvestorDashboardGet) | **GET** api/investor/dashboard | Get investor dashboard
+[**apiInvestorInvestmentProgramBuyTokensGet**](InvestorApi.md#apiInvestorInvestmentProgramBuyTokensGet) | **GET** api/investor/investmentProgram/buyTokens | Get investment program buy token model
 [**apiInvestorInvestmentProgramGet**](InvestorApi.md#apiInvestorInvestmentProgramGet) | **GET** api/investor/investmentProgram | Get investment program details by id
 [**apiInvestorInvestmentProgramOpenTradesPost**](InvestorApi.md#apiInvestorInvestmentProgramOpenTradesPost) | **POST** api/investor/investmentProgram/openTrades | Get manager open trades
 [**apiInvestorInvestmentProgramRequestsPost**](InvestorApi.md#apiInvestorInvestmentProgramRequestsPost) | **POST** api/investor/investmentProgram/requests | Get investment program&#39;s requests
@@ -22,6 +23,7 @@ Method | HTTP request | Description
 [**apiInvestorProfileUpdatePost**](InvestorApi.md#apiInvestorProfileUpdatePost) | **POST** api/investor/profile/update | Update profile
 [**apiInvestorWalletAddressGet**](InvestorApi.md#apiInvestorWalletAddressGet) | **GET** api/investor/wallet/address | Get eth address for GVT depositing
 [**apiInvestorWalletGet**](InvestorApi.md#apiInvestorWalletGet) | **GET** api/investor/wallet | Get user wallets
+[**apiInvestorWalletStatisticPost**](InvestorApi.md#apiInvestorWalletStatisticPost) | **POST** api/investor/wallet/statistic | Get user wallet statistic
 [**apiInvestorWalletTransactionsInvestmentProgramsListGet**](InvestorApi.md#apiInvestorWalletTransactionsInvestmentProgramsListGet) | **GET** api/investor/wallet/transactions/investmentProgramsList | Get user investment programs with tx
 [**apiInvestorWalletTransactionsPost**](InvestorApi.md#apiInvestorWalletTransactionsPost) | **POST** api/investor/wallet/transactions | Get user wallet transactions
 [**apiInvestorWalletWithdrawRequestPost**](InvestorApi.md#apiInvestorWalletWithdrawRequestPost) | **POST** api/investor/wallet/withdrawRequest | Withdraw request
@@ -234,6 +236,51 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**InvestorDashboard**](InvestorDashboard.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorInvestmentProgramBuyTokensGet"></a>
+# **apiInvestorInvestmentProgramBuyTokensGet**
+> InvestmentProgramBuyToken apiInvestorInvestmentProgramBuyTokensGet(investmentProgramId, authorization)
+
+Get investment program buy token model
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+UUID investmentProgramId = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    InvestmentProgramBuyToken result = apiInstance.apiInvestorInvestmentProgramBuyTokensGet(investmentProgramId, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentProgramBuyTokensGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **investmentProgramId** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**InvestmentProgramBuyToken**](InvestmentProgramBuyToken.md)
 
 ### Authorization
 
@@ -819,6 +866,51 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorWalletStatisticPost"></a>
+# **apiInvestorWalletStatisticPost**
+> WalletStatistic apiInvestorWalletStatisticPost(authorization, filter)
+
+Get user wallet statistic
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+String authorization = "authorization_example"; // String | JWT access token
+WalletStatisticFilter filter = new WalletStatisticFilter(); // WalletStatisticFilter | 
+try {
+    WalletStatistic result = apiInstance.apiInvestorWalletStatisticPost(authorization, filter);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorWalletStatisticPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **filter** | [**WalletStatisticFilter**](WalletStatisticFilter.md)|  | [optional]
+
+### Return type
+
+[**WalletStatistic**](WalletStatistic.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="apiInvestorWalletTransactionsInvestmentProgramsListGet"></a>

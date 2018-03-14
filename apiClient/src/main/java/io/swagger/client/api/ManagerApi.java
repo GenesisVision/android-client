@@ -17,6 +17,8 @@ import io.swagger.client.model.TransactionsFilter;
 import io.swagger.client.model.UpdateProfileViewModel;
 import io.swagger.client.model.WalletAddressViewModel;
 import io.swagger.client.model.WalletInvestmentPrograms;
+import io.swagger.client.model.WalletStatistic;
+import io.swagger.client.model.WalletStatisticFilter;
 import io.swagger.client.model.WalletTransactionsViewModel;
 import io.swagger.client.model.WalletWithdrawRequestModel;
 import io.swagger.client.model.WalletsViewModel;
@@ -245,6 +247,21 @@ public interface ManagerApi
 	@GET("api/manager/wallet")
 	Observable<WalletsViewModel> apiManagerWalletGet(
 			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Get user wallet statistic
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param filter        (optional)
+	 * @return Call&lt;WalletStatistic&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/manager/wallet/statistic")
+	Observable<WalletStatistic> apiManagerWalletStatisticPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body WalletStatisticFilter filter
 	);
 
 	/**

@@ -62,6 +62,9 @@ public class InvestmentProgram
 	@SerializedName("periodDuration")
 	private Integer periodDuration = null;
 
+	@SerializedName("startOfPeriod")
+	private DateTime startOfPeriod = null;
+
 	@SerializedName("endOfPeriod")
 	private DateTime endOfPeriod = null;
 
@@ -76,6 +79,9 @@ public class InvestmentProgram
 
 	@SerializedName("profitTotalPercent")
 	private Double profitTotalPercent = null;
+
+	@SerializedName("profitTotalChange")
+	private ProfitTotalChangeEnum profitTotalChange = null;
 
 	@SerializedName("availableInvestment")
 	private Double availableInvestment = null;
@@ -263,6 +269,25 @@ public class InvestmentProgram
 		this.periodDuration = periodDuration;
 	}
 
+	public InvestmentProgram startOfPeriod(DateTime startOfPeriod) {
+		this.startOfPeriod = startOfPeriod;
+		return this;
+	}
+
+	/**
+	 * Get startOfPeriod
+	 *
+	 * @return startOfPeriod
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getStartOfPeriod() {
+		return startOfPeriod;
+	}
+
+	public void setStartOfPeriod(DateTime startOfPeriod) {
+		this.startOfPeriod = startOfPeriod;
+	}
+
 	public InvestmentProgram endOfPeriod(DateTime endOfPeriod) {
 		this.endOfPeriod = endOfPeriod;
 		return this;
@@ -356,6 +381,25 @@ public class InvestmentProgram
 
 	public void setProfitTotalPercent(Double profitTotalPercent) {
 		this.profitTotalPercent = profitTotalPercent;
+	}
+
+	public InvestmentProgram profitTotalChange(ProfitTotalChangeEnum profitTotalChange) {
+		this.profitTotalChange = profitTotalChange;
+		return this;
+	}
+
+	/**
+	 * Get profitTotalChange
+	 *
+	 * @return profitTotalChange
+	 **/
+	@ApiModelProperty(value = "")
+	public ProfitTotalChangeEnum getProfitTotalChange() {
+		return profitTotalChange;
+	}
+
+	public void setProfitTotalChange(ProfitTotalChangeEnum profitTotalChange) {
+		this.profitTotalChange = profitTotalChange;
 	}
 
 	public InvestmentProgram availableInvestment(Double availableInvestment) {
@@ -479,11 +523,13 @@ public class InvestmentProgram
 				Objects.equals(this.tradesCount, investmentProgram.tradesCount) &&
 				Objects.equals(this.investorsCount, investmentProgram.investorsCount) &&
 				Objects.equals(this.periodDuration, investmentProgram.periodDuration) &&
+				Objects.equals(this.startOfPeriod, investmentProgram.startOfPeriod) &&
 				Objects.equals(this.endOfPeriod, investmentProgram.endOfPeriod) &&
 				Objects.equals(this.profitAvg, investmentProgram.profitAvg) &&
 				Objects.equals(this.profitTotal, investmentProgram.profitTotal) &&
 				Objects.equals(this.profitAvgPercent, investmentProgram.profitAvgPercent) &&
 				Objects.equals(this.profitTotalPercent, investmentProgram.profitTotalPercent) &&
+				Objects.equals(this.profitTotalChange, investmentProgram.profitTotalChange) &&
 				Objects.equals(this.availableInvestment, investmentProgram.availableInvestment) &&
 				Objects.equals(this.feeSuccess, investmentProgram.feeSuccess) &&
 				Objects.equals(this.feeManagement, investmentProgram.feeManagement) &&
@@ -493,7 +539,7 @@ public class InvestmentProgram
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, level, logo, balance, currency, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, availableInvestment, feeSuccess, feeManagement, chart, hasNewRequests);
+		return Objects.hash(id, title, level, logo, balance, currency, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, chart, hasNewRequests);
 	}
 
 	@Override
@@ -510,11 +556,13 @@ public class InvestmentProgram
 		sb.append("    tradesCount: ").append(toIndentedString(tradesCount)).append("\n");
 		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
 		sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
+		sb.append("    startOfPeriod: ").append(toIndentedString(startOfPeriod)).append("\n");
 		sb.append("    endOfPeriod: ").append(toIndentedString(endOfPeriod)).append("\n");
 		sb.append("    profitAvg: ").append(toIndentedString(profitAvg)).append("\n");
 		sb.append("    profitTotal: ").append(toIndentedString(profitTotal)).append("\n");
 		sb.append("    profitAvgPercent: ").append(toIndentedString(profitAvgPercent)).append("\n");
 		sb.append("    profitTotalPercent: ").append(toIndentedString(profitTotalPercent)).append("\n");
+		sb.append("    profitTotalChange: ").append(toIndentedString(profitTotalChange)).append("\n");
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
 		sb.append("    feeSuccess: ").append(toIndentedString(feeSuccess)).append("\n");
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
@@ -534,6 +582,7 @@ public class InvestmentProgram
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
+
 
 	/**
 	 * Gets or Sets currency
@@ -588,6 +637,57 @@ public class InvestmentProgram
 			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
 				String value = jsonReader.nextString();
 				return CurrencyEnum.fromValue(String.valueOf(value));
+			}
+		}
+	}
+
+	/**
+	 * Gets or Sets profitTotalChange
+	 */
+	@JsonAdapter(ProfitTotalChangeEnum.Adapter.class)
+	public enum ProfitTotalChangeEnum
+	{
+		UNCHANGED("Unchanged"),
+
+		UP("Up"),
+
+		DOWN("Down");
+
+		public static ProfitTotalChangeEnum fromValue(String text) {
+			for (ProfitTotalChangeEnum b : ProfitTotalChangeEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		ProfitTotalChangeEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<ProfitTotalChangeEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final ProfitTotalChangeEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public ProfitTotalChangeEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return ProfitTotalChangeEnum.fromValue(String.valueOf(value));
 			}
 		}
 	}

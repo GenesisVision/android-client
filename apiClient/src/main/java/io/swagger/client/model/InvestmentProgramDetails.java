@@ -74,6 +74,9 @@ public class InvestmentProgramDetails
 	@SerializedName("periodDuration")
 	private Integer periodDuration = null;
 
+	@SerializedName("startOfPeriod")
+	private DateTime startOfPeriod = null;
+
 	@SerializedName("endOfPeriod")
 	private DateTime endOfPeriod = null;
 
@@ -88,6 +91,18 @@ public class InvestmentProgramDetails
 
 	@SerializedName("profitTotalPercent")
 	private Double profitTotalPercent = null;
+
+	@SerializedName("profitTotalChange")
+	private ProfitTotalChangeEnum profitTotalChange = null;
+
+	@SerializedName("volumeTotal")
+	private Double volumeTotal = null;
+
+	@SerializedName("volumeAvg")
+	private Double volumeAvg = null;
+
+	@SerializedName("volumeTotalChange")
+	private VolumeTotalChangeEnum volumeTotalChange = null;
 
 	@SerializedName("availableInvestment")
 	private Double availableInvestment = null;
@@ -375,6 +390,25 @@ public class InvestmentProgramDetails
 		this.periodDuration = periodDuration;
 	}
 
+	public InvestmentProgramDetails startOfPeriod(DateTime startOfPeriod) {
+		this.startOfPeriod = startOfPeriod;
+		return this;
+	}
+
+	/**
+	 * Get startOfPeriod
+	 *
+	 * @return startOfPeriod
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getStartOfPeriod() {
+		return startOfPeriod;
+	}
+
+	public void setStartOfPeriod(DateTime startOfPeriod) {
+		this.startOfPeriod = startOfPeriod;
+	}
+
 	public InvestmentProgramDetails endOfPeriod(DateTime endOfPeriod) {
 		this.endOfPeriod = endOfPeriod;
 		return this;
@@ -468,6 +502,82 @@ public class InvestmentProgramDetails
 
 	public void setProfitTotalPercent(Double profitTotalPercent) {
 		this.profitTotalPercent = profitTotalPercent;
+	}
+
+	public InvestmentProgramDetails profitTotalChange(ProfitTotalChangeEnum profitTotalChange) {
+		this.profitTotalChange = profitTotalChange;
+		return this;
+	}
+
+	/**
+	 * Get profitTotalChange
+	 *
+	 * @return profitTotalChange
+	 **/
+	@ApiModelProperty(value = "")
+	public ProfitTotalChangeEnum getProfitTotalChange() {
+		return profitTotalChange;
+	}
+
+	public void setProfitTotalChange(ProfitTotalChangeEnum profitTotalChange) {
+		this.profitTotalChange = profitTotalChange;
+	}
+
+	public InvestmentProgramDetails volumeTotal(Double volumeTotal) {
+		this.volumeTotal = volumeTotal;
+		return this;
+	}
+
+	/**
+	 * Get volumeTotal
+	 *
+	 * @return volumeTotal
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getVolumeTotal() {
+		return volumeTotal;
+	}
+
+	public void setVolumeTotal(Double volumeTotal) {
+		this.volumeTotal = volumeTotal;
+	}
+
+	public InvestmentProgramDetails volumeAvg(Double volumeAvg) {
+		this.volumeAvg = volumeAvg;
+		return this;
+	}
+
+	/**
+	 * Get volumeAvg
+	 *
+	 * @return volumeAvg
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getVolumeAvg() {
+		return volumeAvg;
+	}
+
+	public void setVolumeAvg(Double volumeAvg) {
+		this.volumeAvg = volumeAvg;
+	}
+
+	public InvestmentProgramDetails volumeTotalChange(VolumeTotalChangeEnum volumeTotalChange) {
+		this.volumeTotalChange = volumeTotalChange;
+		return this;
+	}
+
+	/**
+	 * Get volumeTotalChange
+	 *
+	 * @return volumeTotalChange
+	 **/
+	@ApiModelProperty(value = "")
+	public VolumeTotalChangeEnum getVolumeTotalChange() {
+		return volumeTotalChange;
+	}
+
+	public void setVolumeTotalChange(VolumeTotalChangeEnum volumeTotalChange) {
+		this.volumeTotalChange = volumeTotalChange;
 	}
 
 	public InvestmentProgramDetails availableInvestment(Double availableInvestment) {
@@ -747,11 +857,16 @@ public class InvestmentProgramDetails
 				Objects.equals(this.tradesCount, investmentProgramDetails.tradesCount) &&
 				Objects.equals(this.investorsCount, investmentProgramDetails.investorsCount) &&
 				Objects.equals(this.periodDuration, investmentProgramDetails.periodDuration) &&
+				Objects.equals(this.startOfPeriod, investmentProgramDetails.startOfPeriod) &&
 				Objects.equals(this.endOfPeriod, investmentProgramDetails.endOfPeriod) &&
 				Objects.equals(this.profitAvg, investmentProgramDetails.profitAvg) &&
 				Objects.equals(this.profitTotal, investmentProgramDetails.profitTotal) &&
 				Objects.equals(this.profitAvgPercent, investmentProgramDetails.profitAvgPercent) &&
 				Objects.equals(this.profitTotalPercent, investmentProgramDetails.profitTotalPercent) &&
+				Objects.equals(this.profitTotalChange, investmentProgramDetails.profitTotalChange) &&
+				Objects.equals(this.volumeTotal, investmentProgramDetails.volumeTotal) &&
+				Objects.equals(this.volumeAvg, investmentProgramDetails.volumeAvg) &&
+				Objects.equals(this.volumeTotalChange, investmentProgramDetails.volumeTotalChange) &&
 				Objects.equals(this.availableInvestment, investmentProgramDetails.availableInvestment) &&
 				Objects.equals(this.feeSuccess, investmentProgramDetails.feeSuccess) &&
 				Objects.equals(this.feeManagement, investmentProgramDetails.feeManagement) &&
@@ -769,7 +884,7 @@ public class InvestmentProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, tradesCount, investorsCount, periodDuration, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, isEnabled, chart, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
+		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, volumeTotal, volumeAvg, volumeTotalChange, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, isEnabled, chart, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
 	}
 
 	@Override
@@ -790,11 +905,16 @@ public class InvestmentProgramDetails
 		sb.append("    tradesCount: ").append(toIndentedString(tradesCount)).append("\n");
 		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
 		sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
+		sb.append("    startOfPeriod: ").append(toIndentedString(startOfPeriod)).append("\n");
 		sb.append("    endOfPeriod: ").append(toIndentedString(endOfPeriod)).append("\n");
 		sb.append("    profitAvg: ").append(toIndentedString(profitAvg)).append("\n");
 		sb.append("    profitTotal: ").append(toIndentedString(profitTotal)).append("\n");
 		sb.append("    profitAvgPercent: ").append(toIndentedString(profitAvgPercent)).append("\n");
 		sb.append("    profitTotalPercent: ").append(toIndentedString(profitTotalPercent)).append("\n");
+		sb.append("    profitTotalChange: ").append(toIndentedString(profitTotalChange)).append("\n");
+		sb.append("    volumeTotal: ").append(toIndentedString(volumeTotal)).append("\n");
+		sb.append("    volumeAvg: ").append(toIndentedString(volumeAvg)).append("\n");
+		sb.append("    volumeTotalChange: ").append(toIndentedString(volumeTotalChange)).append("\n");
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
 		sb.append("    feeSuccess: ").append(toIndentedString(feeSuccess)).append("\n");
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
@@ -876,6 +996,109 @@ public class InvestmentProgramDetails
 			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
 				String value = jsonReader.nextString();
 				return CurrencyEnum.fromValue(String.valueOf(value));
+			}
+		}
+	}
+
+
+	/**
+	 * Gets or Sets profitTotalChange
+	 */
+	@JsonAdapter(ProfitTotalChangeEnum.Adapter.class)
+	public enum ProfitTotalChangeEnum
+	{
+		UNCHANGED("Unchanged"),
+
+		UP("Up"),
+
+		DOWN("Down");
+
+		public static ProfitTotalChangeEnum fromValue(String text) {
+			for (ProfitTotalChangeEnum b : ProfitTotalChangeEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		ProfitTotalChangeEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<ProfitTotalChangeEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final ProfitTotalChangeEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public ProfitTotalChangeEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return ProfitTotalChangeEnum.fromValue(String.valueOf(value));
+			}
+		}
+	}
+
+	/**
+	 * Gets or Sets volumeTotalChange
+	 */
+	@JsonAdapter(VolumeTotalChangeEnum.Adapter.class)
+	public enum VolumeTotalChangeEnum
+	{
+		UNCHANGED("Unchanged"),
+
+		UP("Up"),
+
+		DOWN("Down");
+
+		public static VolumeTotalChangeEnum fromValue(String text) {
+			for (VolumeTotalChangeEnum b : VolumeTotalChangeEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		VolumeTotalChangeEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<VolumeTotalChangeEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final VolumeTotalChangeEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public VolumeTotalChangeEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return VolumeTotalChangeEnum.fromValue(String.valueOf(value));
 			}
 		}
 	}

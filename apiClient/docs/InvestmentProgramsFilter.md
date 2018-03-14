@@ -10,6 +10,20 @@ Name | Type | Description | Notes
 **investMaxAmountFrom** | **Double** |  |  [optional]
 **investMaxAmountTo** | **Double** |  |  [optional]
 **sorting** | [**SortingEnum**](#SortingEnum) |  |  [optional]
+**name** | **String** |  |  [optional]
+**levelMin** | **Integer** |  |  [optional]
+**levelMax** | **Integer** |  |  [optional]
+**profitAvgMin** | **Integer** |  |  [optional]
+**profitAvgMax** | **Integer** |  |  [optional]
+**profitTotalMin** | **Integer** |  |  [optional]
+**profitTotalMax** | **Integer** |  |  [optional]
+**profitTotalPercentMin** | **Integer** |  |  [optional]
+**profitTotalPercentMax** | **Integer** |  |  [optional]
+**profitAvgPercentMin** | **Integer** |  |  [optional]
+**profitAvgPercentMax** | **Integer** |  |  [optional]
+**profitTotalChange** | [**ProfitTotalChangeEnum**](#ProfitTotalChangeEnum) |  |  [optional]
+**periodMin** | **Integer** |  |  [optional]
+**periodMax** | **Integer** |  |  [optional]
 **skip** | **Integer** |  |  [optional]
 **take** | **Integer** |  |  [optional]
 
@@ -18,12 +32,23 @@ Name | Type | Description | Notes
 ## Enum: SortingEnum
 Name | Value
 ---- | -----
-BYRATINGASC | &quot;ByRatingAsc&quot;
-BYRATINGDESC | &quot;ByRatingDesc&quot;
+BYLEVELASC | &quot;ByLevelAsc&quot;
+BYLEVELDESC | &quot;ByLevelDesc&quot;
 BYPROFITASC | &quot;ByProfitAsc&quot;
 BYPROFITDESC | &quot;ByProfitDesc&quot;
 BYORDERSASC | &quot;ByOrdersAsc&quot;
 BYORDERSDESC | &quot;ByOrdersDesc&quot;
+BYENDOFPERIODASK | &quot;ByEndOfPeriodAsk&quot;
+BYENDOFPERIODDESC | &quot;ByEndOfPeriodDesc&quot;
+
+
+<a name="ProfitTotalChangeEnum"></a>
+## Enum: ProfitTotalChangeEnum
+Name | Value
+---- | -----
+UNCHANGED | &quot;Unchanged&quot;
+UP | &quot;Up&quot;
+DOWN | &quot;Down&quot;
 
 
 

@@ -28,8 +28,8 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class TradesFilter
 {
-	@SerializedName("managerId")
-	private UUID managerId = null;
+	@SerializedName("investmentProgramId")
+	private UUID investmentProgramId = null;
 
 	@SerializedName("dateFrom")
 	private DateTime dateFrom = null;
@@ -46,23 +46,23 @@ public class TradesFilter
 	@SerializedName("take")
 	private Integer take = null;
 
-	public TradesFilter managerId(UUID managerId) {
-		this.managerId = managerId;
+	public TradesFilter investmentProgramId(UUID investmentProgramId) {
+		this.investmentProgramId = investmentProgramId;
 		return this;
 	}
 
 	/**
-	 * Get managerId
+	 * Get investmentProgramId
 	 *
-	 * @return managerId
+	 * @return investmentProgramId
 	 **/
 	@ApiModelProperty(value = "")
-	public UUID getManagerId() {
-		return managerId;
+	public UUID getInvestmentProgramId() {
+		return investmentProgramId;
 	}
 
-	public void setManagerId(UUID managerId) {
-		this.managerId = managerId;
+	public void setInvestmentProgramId(UUID investmentProgramId) {
+		this.investmentProgramId = investmentProgramId;
 	}
 
 	public TradesFilter dateFrom(DateTime dateFrom) {
@@ -170,7 +170,7 @@ public class TradesFilter
 			return false;
 		}
 		TradesFilter tradesFilter = (TradesFilter) o;
-		return Objects.equals(this.managerId, tradesFilter.managerId) &&
+		return Objects.equals(this.investmentProgramId, tradesFilter.investmentProgramId) &&
 				Objects.equals(this.dateFrom, tradesFilter.dateFrom) &&
 				Objects.equals(this.dateTo, tradesFilter.dateTo) &&
 				Objects.equals(this.symbol, tradesFilter.symbol) &&
@@ -180,7 +180,7 @@ public class TradesFilter
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(managerId, dateFrom, dateTo, symbol, skip, take);
+		return Objects.hash(investmentProgramId, dateFrom, dateTo, symbol, skip, take);
 	}
 
 
@@ -189,7 +189,7 @@ public class TradesFilter
 		StringBuilder sb = new StringBuilder();
 		sb.append("class TradesFilter {\n");
 
-		sb.append("    managerId: ").append(toIndentedString(managerId)).append("\n");
+		sb.append("    investmentProgramId: ").append(toIndentedString(investmentProgramId)).append("\n");
 		sb.append("    dateFrom: ").append(toIndentedString(dateFrom)).append("\n");
 		sb.append("    dateTo: ").append(toIndentedString(dateTo)).append("\n");
 		sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");

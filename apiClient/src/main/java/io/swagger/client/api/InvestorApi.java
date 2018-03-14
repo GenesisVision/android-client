@@ -3,6 +3,7 @@ package io.swagger.client.api;
 import java.util.UUID;
 
 import io.swagger.client.model.Invest;
+import io.swagger.client.model.InvestmentProgramBuyToken;
 import io.swagger.client.model.InvestmentProgramRequests;
 import io.swagger.client.model.InvestmentProgramRequestsFilter;
 import io.swagger.client.model.InvestmentProgramViewModel;
@@ -20,6 +21,8 @@ import io.swagger.client.model.TransactionsFilter;
 import io.swagger.client.model.UpdateProfileViewModel;
 import io.swagger.client.model.WalletAddressViewModel;
 import io.swagger.client.model.WalletInvestmentPrograms;
+import io.swagger.client.model.WalletStatistic;
+import io.swagger.client.model.WalletStatisticFilter;
 import io.swagger.client.model.WalletTransactionsViewModel;
 import io.swagger.client.model.WalletWithdrawRequestModel;
 import io.swagger.client.model.WalletsViewModel;
@@ -90,6 +93,18 @@ public interface InvestorApi
 	@GET("api/investor/dashboard")
 	Observable<InvestorDashboard> apiInvestorDashboardGet(
 			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Get investment program buy token model
+	 *
+	 * @param investmentProgramId (required)
+	 * @param authorization       JWT access token (required)
+	 * @return Call&lt;InvestmentProgramBuyToken&gt;
+	 */
+	@GET("api/investor/investmentProgram/buyTokens")
+	Observable<InvestmentProgramBuyToken> apiInvestorInvestmentProgramBuyTokensGet(
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
@@ -263,6 +278,21 @@ public interface InvestorApi
 	@GET("api/investor/wallet")
 	Observable<WalletsViewModel> apiInvestorWalletGet(
 			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Get user wallet statistic
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param filter        (optional)
+	 * @return Call&lt;WalletStatistic&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/investor/wallet/statistic")
+	Observable<WalletStatistic> apiInvestorWalletStatisticPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body WalletStatisticFilter filter
 	);
 
 	/**

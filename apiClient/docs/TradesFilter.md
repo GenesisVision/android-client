@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**managerId** | [**UUID**](UUID.md) |  |  [optional]
+**investmentProgramId** | [**UUID**](UUID.md) |  |  [optional]
 **dateFrom** | [**DateTime**](DateTime.md) |  |  [optional]
 **dateTo** | [**DateTime**](DateTime.md) |  |  [optional]
 **symbol** | **String** |  |  [optional]
