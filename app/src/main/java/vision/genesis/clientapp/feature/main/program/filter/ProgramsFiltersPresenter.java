@@ -42,6 +42,16 @@ public class ProgramsFiltersPresenter extends MvpPresenter<ProgramsFiltersView>
 		getViewState().finishActivity();
 	}
 
+	void setLevel(String minLevel, String maxLevel) {
+		filter.setLevelMin(Integer.parseInt(minLevel));
+		filter.setLevelMax(Integer.parseInt(maxLevel));
+	}
+
+	void setAvgProfit(String minLevel, String maxLevel) {
+		filter.setProfitAvgMin(Integer.parseInt(minLevel));
+		filter.setProfitAvgMax(Integer.parseInt(maxLevel));
+	}
+
 	void onSortingSelected(FilterSortingOption selectedOption) {
 		filter.setSorting(selectedOption.option);
 	}

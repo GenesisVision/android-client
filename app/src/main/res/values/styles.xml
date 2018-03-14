@@ -78,6 +78,22 @@
         <item name="android:layout_height">@dimen/filters_item_height</item>
     </style>
 
+    <style name="filters_range_bar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="mrb_barWeight">6dp</item>
+        <item name="mrb_connectingLineColor">@color/colorPrimary</item>
+        <item name="mrb_connectingLineWeight">6dp</item>
+        <item name="mrb_pinColor">@color/colorPrimary</item>
+        <item name="mrb_pinMaxFont">14sp</item>
+        <item name="mrb_pinPadding">6dp</item>
+        <item name="mrb_rangeBarColor">@color/grey300</item>
+        <item name="mrb_selectorColor">@color/colorPrimary</item>
+        <item name="mrb_selectorSize">6dp</item>
+        <item name="mrb_temporaryPins">false</item>
+        <item name="mrb_tickColor">@color/colorPrimary</item>
+    </style>
+
     <style name="profile_item_label">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

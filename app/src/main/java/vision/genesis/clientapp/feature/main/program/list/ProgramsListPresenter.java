@@ -121,6 +121,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);
+		getViewState().showEmptyList(false);
 
 		getProgramsSubscription.unsubscribe();
 
@@ -129,7 +130,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 
 		if (programs.size() == 0) {
 			if (skip == 0)
-				getViewState().showEmptyList();
+				getViewState().showEmptyList(true);
 			return;
 		}
 
@@ -152,8 +153,10 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		if (ApiErrorResolver.isNetworkError(error)) {
-			if (investmentProgramsList.size() == 0)
+			if (investmentProgramsList.size() == 0) {
+				getViewState().showEmptyList(false);
 				getViewState().showNoInternet(true);
+			}
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}
 	}

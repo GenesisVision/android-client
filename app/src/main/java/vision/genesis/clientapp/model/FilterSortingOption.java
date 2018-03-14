@@ -21,8 +21,8 @@ public class FilterSortingOption
 		options.add(new FilterSortingOption(context, InvestmentProgramsFilter.SortingEnum.BYPROFITASC));
 		options.add(new FilterSortingOption(context, InvestmentProgramsFilter.SortingEnum.BYORDERSDESC));
 		options.add(new FilterSortingOption(context, InvestmentProgramsFilter.SortingEnum.BYORDERSASC));
-		options.add(new FilterSortingOption(context, InvestmentProgramsFilter.SortingEnum.BYRATINGDESC));
-		options.add(new FilterSortingOption(context, InvestmentProgramsFilter.SortingEnum.BYRATINGASC));
+		options.add(new FilterSortingOption(context, InvestmentProgramsFilter.SortingEnum.BYLEVELDESC));
+		options.add(new FilterSortingOption(context, InvestmentProgramsFilter.SortingEnum.BYLEVELASC));
 		return options;
 	}
 
@@ -47,10 +47,10 @@ public class FilterSortingOption
 				return String.format(Locale.getDefault(), "%s \u2193", context.getResources().getString(R.string.by_profit));
 			case BYPROFITASC:
 				return String.format(Locale.getDefault(), "%s \u2191", context.getResources().getString(R.string.by_profit));
-			case BYRATINGDESC:
-				return String.format(Locale.getDefault(), "%s \u2193", context.getResources().getString(R.string.by_rating));
-			case BYRATINGASC:
-				return String.format(Locale.getDefault(), "%s \u2191", context.getResources().getString(R.string.by_rating));
+			case BYLEVELDESC:
+				return String.format(Locale.getDefault(), "%s \u2193", context.getResources().getString(R.string.by_level));
+			case BYLEVELASC:
+				return String.format(Locale.getDefault(), "%s \u2191", context.getResources().getString(R.string.by_level));
 			case BYORDERSDESC:
 				return String.format(Locale.getDefault(), "%s \u2193", context.getResources().getString(R.string.by_orders));
 			case BYORDERSASC:

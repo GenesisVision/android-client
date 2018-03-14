@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="anim_activitySlideTime">200</integer>
+    <integer name="level_min">1</integer>
+    <integer name="level_max">7</integer>
+    <integer name="avg_profit_min">1</integer>
+    <integer name="avg_profit_max">100</integer>
 </resources>

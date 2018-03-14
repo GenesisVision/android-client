@@ -51,7 +51,7 @@
     <string name="transaction_type_invest_to_program">Invest to program</string>
     <string name="transaction_type_cancel_investment_request">Cancel investment request</string>
     <string name="transaction_type_withdraw_from_program">Withdraw from program</string>
-    <string name="by_rating">By rating</string>
+    <string name="by_level">By level</string>
     <string name="by_orders">By orders</string>
     <string name="by_profit">By profit</string>
     <string name="min_amount_to_invest">Min amount to invest</string>
@@ -131,6 +131,9 @@
     <string name="closing_program_refund">Closing program refund</string>
     <string name="active">Active</string>
     <string name="archived">Archived</string>
+    <string name="level">Level</string>
+    <string name="cannot_find_programs">Cannot find investment programs with your request</string>
+    <string name="average_profit">Average profit</string>
 
     <plurals name="days">
         <item quantity="one">day</item>

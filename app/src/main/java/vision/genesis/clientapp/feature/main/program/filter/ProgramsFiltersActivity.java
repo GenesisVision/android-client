@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.appyvet.materialrangebar.RangeBar;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.ArrayList;
@@ -37,14 +37,14 @@ public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements Pr
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
 
+	@BindView(R.id.level_range_bar)
+	public RangeBar levelRangeBar;
+
+	@BindView(R.id.avg_profit_range_bar)
+	public RangeBar avgProfitRangeBar;
+
 	@BindView(R.id.spinner_sorting)
 	public Spinner sortingSpinner;
-
-	@BindView(R.id.edittext_max_from)
-	public EditText maxFrom;
-
-	@BindView(R.id.edittext_max_to)
-	public EditText maxTo;
 
 	@BindView(R.id.button_apply)
 	public View applyButton;
@@ -76,8 +76,18 @@ public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements Pr
 		ButterKnife.bind(this);
 
 		initToolbar();
-
+		initRangeBars();
 		initSpinner();
+	}
+
+	private void initRangeBars() {
+		levelRangeBar.setOnRangeBarChangeListener((rangeBar, leftPinIndex, rightPinIndex, leftPinValue, rightPinValue) -> {
+			programsFiltersPresenter.setLevel(leftPinValue, rightPinValue);
+		});
+
+		avgProfitRangeBar.setOnRangeBarChangeListener((rangeBar, leftPinIndex, rightPinIndex, leftPinValue, rightPinValue) -> {
+			programsFiltersPresenter.setAvgProfit(leftPinValue, rightPinValue);
+		});
 	}
 
 	private void initSpinner() {
@@ -118,6 +128,12 @@ public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements Pr
 				sortingSpinner.setSelection(index);
 			}
 			index++;
+		}
+		if (filter.getLevelMin() != null && filter.getLevelMax() != null) {
+			levelRangeBar.setRangePinsByValue(filter.getLevelMin(), filter.getLevelMax());
+		}
+		if (filter.getProfitAvgMin() != null && filter.getProfitAvgMax() != null) {
+			avgProfitRangeBar.setRangePinsByValue(filter.getProfitAvgMin(), filter.getProfitAvgMax());
 		}
 	}
 

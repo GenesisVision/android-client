@@ -46,6 +46,9 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	@BindView(R.id.group_no_internet)
 	public ViewGroup noInternetGroup;
 
+	@BindView(R.id.group_empty)
+	public ViewGroup emptyGroup;
+
 	@BindView(R.id.button_try_again)
 	public View tryAgainButton;
 
@@ -218,8 +221,9 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	}
 
 	@Override
-	public void showEmptyList() {
-
+	public void showEmptyList(boolean show) {
+		emptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+		refreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
 	}
 
 	@Override
