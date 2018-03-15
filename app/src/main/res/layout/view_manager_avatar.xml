@@ -10,16 +10,14 @@
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scaleType="centerCrop"
         app:backgroundImage="@color/grey200"
-        app:placeholderImage="@drawable/logo"
-        app:roundAsCircle="true"
-        app:roundingBorderColor="@color/colorGrayBackground"
-        app:roundingBorderWidth="2dp"/>
+        app:placeholderImage="@drawable/logo"/>
 
     <FrameLayout
         android:id="@+id/group_level"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true">
@@ -27,10 +25,7 @@
         <com.facebook.drawee.view.SimpleDraweeView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:placeholderImage="@color/colorPrimaryDark"
-            app:roundAsCircle="true"
-            app:roundingBorderColor="@color/colorGrayBackground"
-            app:roundingBorderWidth="2dp"/>
+            app:placeholderImage="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/level"
@@ -38,7 +33,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="10sp"
+            android:textSize="16sp"
             tools:text="3"/>
 
     </FrameLayout>

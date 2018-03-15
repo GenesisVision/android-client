@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00bdaf</color>
-    <color name="colorPrimaryDark">#2a748c</color>
+    <color name="colorPrimary">#00bcb0</color>
+    <color name="colorPrimaryDark">#1b4f64</color>
     <color name="colorAccent">#aab8c0</color>
 
-    <color name="colorFontDark">#546e7a</color>
+    <color name="colorFontDark">#28768d</color>
     <color name="colorFontMedium">#829097</color>
     <color name="colorFontLight">#cfd5da</color>
 
-    <color name="colorGrayBackground">#fafafa</color>
-    <color name="colorGrayDivider">#80cfd8dc</color>
+    <color name="colorGrayBackground">#f8f8f8</color>
+    <color name="colorGrayDivider">#f2f6f7</color>
     <color name="colorAzure">#22cec0</color>
     <color name="colorAzureLight">#e5eeed</color>
+
+    <color name="bottomInactive">#B2EAE7</color>
 
     <color name="whiteTransparent50">#ccfafafa</color>
     <color name="colorPrimaryTransparent25">#1003bdaf</color>
@@ -25,7 +27,7 @@
     <color name="grey500">#9e9e9e</color>
     <color name="grey700">#616161</color>
 
-    <color name="transactionGreen">#4caf50</color>
-    <color name="transactionRed">#f44336</color>
+    <color name="transactionGreen">#15bbaf</color>
+    <color name="transactionRed">#e00463</color>
     <color name="transparent">#00000000</color>
 </resources>

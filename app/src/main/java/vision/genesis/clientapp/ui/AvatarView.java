@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -49,6 +50,8 @@ public class AvatarView extends RelativeLayout
 		inflate(getContext(), R.layout.view_manager_avatar, this);
 
 		ButterKnife.bind(this);
+
+		level.setTypeface(TypefaceUtil.bold(getContext()));
 	}
 
 	public void setImage(String imageId) {

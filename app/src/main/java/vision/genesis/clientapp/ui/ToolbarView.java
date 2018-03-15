@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -75,6 +76,13 @@ public class ToolbarView extends RelativeLayout
 		inflate(getContext(), R.layout.view_toolbar, this);
 
 		ButterKnife.bind(this);
+
+		setFonts();
+	}
+
+	private void setFonts() {
+		title.setTypeface(TypefaceUtil.bold(getContext()));
+		subtitle.setTypeface(TypefaceUtil.regular(getContext()));
 	}
 
 	public void setTitle(String text) {

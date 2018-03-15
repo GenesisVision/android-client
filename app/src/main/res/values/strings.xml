@@ -159,4 +159,11 @@
         <item quantity="two">seconds</item>
         <item quantity="other">seconds</item>
     </plurals>
+
+    <string name="font_neuzeitgro_light">fonts/NeuzeitGro-Lig.ttf"</string>
+    <string name="font_neuzeitgro_regular">fonts/NeuzeitGro-Reg.ttf"</string>
+    <string name="font_neuzeitgro_bold">fonts/NeuzeitGro-Bol.ttf"</string>
+    <string name="font_neuzeitgro_black">fonts/NeuzeitGro-Bla.ttf"</string>
+    <string name="avg_profit">avg. profit</string>
+    <string name="total_profit">Total profit</string>
 </resources>

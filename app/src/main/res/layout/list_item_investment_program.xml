@@ -5,7 +5,9 @@
                 android:layout_height="@dimen/item_investment_program_height"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
-                android:focusable="true">
+                android:focusable="true"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,26 +18,29 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_investment_program_header_height"
-            android:paddingEnd="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingStart="16dp">
+            android:paddingEnd="28dp"
+            android:paddingLeft="28dp"
+            android:paddingRight="28dp"
+            android:paddingStart="28dp">
 
             <vision.genesis.clientapp.ui.AvatarView
                 android:id="@+id/avatar"
                 android:layout_width="@dimen/manager_avatar_width"
-                android:layout_height="@dimen/manager_avatar_height"/>
+                android:layout_height="@dimen/manager_avatar_height"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"/>
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_toEndOf="@+id/avatar"
                 android:layout_toRightOf="@+id/avatar"
-                android:textColor="@color/colorFontDark"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:text="Super program"/>
@@ -46,7 +51,6 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:textStyle="bold"
                 tools:text="BTC"/>
 
         </RelativeLayout>
@@ -63,47 +67,104 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_investment_program_footer_height"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
             android:orientation="horizontal">
 
             <LinearLayout
                 style="@style/item_investment_program_footer_group">
 
-                <TextView
-                    android:id="@+id/text_deposit_text"
-                    style="@style/item_investment_program_footer_text"
-                    android:ellipsize="end"
-                    android:lines="1"
-                    tools:text="1.25030569"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/text_total_profit_text"
+                        style="@style/item_investment_program_footer_text"
+                        tools:text="$78.3"/>
+
+                    <TextView
+                        android:id="@+id/text_total_profit_text_mod"
+                        style="@style/item_investment_program_footer_text"
+                        android:layout_gravity="bottom"
+                        android:paddingBottom="3dp"
+                        android:textSize="12sp"
+                        tools:text="K"/>
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/text_deposit_title"
+                    android:id="@+id/text_total_profit_title"
                     style="@style/item_investment_program_footer_title"
-                    android:text="@string/deposit"/>
+                    android:text="@string/total_profit"/>
 
             </LinearLayout>
-
-            <View style="@style/item_investment_program_footer_divider"/>
 
             <LinearLayout
                 style="@style/item_investment_program_footer_group">
 
-                <TextView
-                    android:id="@+id/text_trades_text"
-                    style="@style/item_investment_program_footer_text"
-                    tools:text="12"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/text_avg_profit_text"
+                        style="@style/item_investment_program_footer_text"
+                        tools:text="50"/>
+
+                    <TextView
+                        android:id="@+id/text_avg_profit_text_percent"
+                        style="@style/item_investment_program_footer_text"
+                        android:layout_gravity="bottom"
+                        android:paddingBottom="2dp"
+                        android:text="%"
+                        android:textSize="12sp"/>
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/text_trades_title"
+                    android:id="@+id/text_avg_profit_title"
                     style="@style/item_investment_program_footer_title"
-                    android:text="@string/trades"/>
+                    android:text="@string/avg_profit"/>
 
             </LinearLayout>
 
-            <View style="@style/item_investment_program_footer_divider"/>
+            <LinearLayout
+                style="@style/item_investment_program_footer_group">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/text_balance_text"
+                        style="@style/item_investment_program_footer_text"
+                        tools:text="$23.1"/>
+
+                    <TextView
+                        android:id="@+id/text_balance_text_mod"
+                        style="@style/item_investment_program_footer_text"
+                        android:layout_gravity="bottom"
+                        android:paddingBottom="3dp"
+                        android:textSize="12sp"
+                        tools:text="K"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text_balance_title"
+                    style="@style/item_investment_program_footer_title"
+                    android:text="@string/balance"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 style="@style/item_investment_program_footer_group">
@@ -117,25 +178,6 @@
                     android:id="@+id/text_period_title"
                     style="@style/item_investment_program_footer_title"
                     android:text="@string/period"/>
-
-            </LinearLayout>
-
-            <View style="@style/item_investment_program_footer_divider"/>
-
-            <LinearLayout
-                style="@style/item_investment_program_footer_group">
-
-                <TextView
-                    android:id="@+id/text_profit_text"
-                    style="@style/item_investment_program_footer_text"
-                    android:textColor="@color/colorPrimary"
-                    tools:text="22%"/>
-
-                <TextView
-                    android:id="@+id/text_profit_title"
-                    style="@style/item_investment_program_footer_title"
-                    android:text="@string/profit"
-                    android:textColor="@color/colorPrimaryDark"/>
 
             </LinearLayout>
 

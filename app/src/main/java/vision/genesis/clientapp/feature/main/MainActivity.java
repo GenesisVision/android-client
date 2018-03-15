@@ -33,6 +33,7 @@ import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivit
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -161,19 +162,22 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	}
 
 	public void initBottomNavigation() {
-		AHBottomNavigationItem dashboardItem = new AHBottomNavigationItem(getString(R.string.dashboard), R.drawable.ic_dashboard_black_24dp);
-		AHBottomNavigationItem investItem = new AHBottomNavigationItem(getString(R.string.programs), R.drawable.ic_attach_money_black_24dp);
-		AHBottomNavigationItem walletItem = new AHBottomNavigationItem(getString(R.string.wallet), R.drawable.ic_account_balance_wallet_black_24dp);
-		AHBottomNavigationItem profileItem = new AHBottomNavigationItem(getString(R.string.profile), R.drawable.ic_person_black_24dp);
+		AHBottomNavigationItem dashboardItem = new AHBottomNavigationItem(getString(R.string.dashboard).toUpperCase(), R.drawable.dashboard_icon);
+		AHBottomNavigationItem investItem = new AHBottomNavigationItem(getString(R.string.programs).toUpperCase(), R.drawable.traders_icon);
+		AHBottomNavigationItem walletItem = new AHBottomNavigationItem(getString(R.string.wallet).toUpperCase(), R.drawable.wallet_icon);
+		AHBottomNavigationItem profileItem = new AHBottomNavigationItem(getString(R.string.profile).toUpperCase(), R.drawable.profile_icon);
+
+		bottomNavigationView.setTitleTypeface(TypefaceUtil.bold(this));
+		bottomNavigationView.setTitleTextSizeInSp(10, 10);
 
 		bottomNavigationView.addItem(dashboardItem);
 		bottomNavigationView.addItem(investItem);
 		bottomNavigationView.addItem(walletItem);
 		bottomNavigationView.addItem(profileItem);
 
-		bottomNavigationView.setAccentColor(ContextCompat.getColor(this, R.color.colorPrimary));
-		bottomNavigationView.setInactiveColor(ContextCompat.getColor(this, R.color.colorAccent));
-		bottomNavigationView.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.white));
+		bottomNavigationView.setAccentColor(ContextCompat.getColor(this, R.color.white));
+		bottomNavigationView.setInactiveColor(ContextCompat.getColor(this, R.color.bottomInactive));
+		bottomNavigationView.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
 
 		bottomNavigationView.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
 

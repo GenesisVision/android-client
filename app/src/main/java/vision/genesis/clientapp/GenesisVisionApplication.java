@@ -13,6 +13,7 @@ import timber.log.Timber;
 import vision.genesis.clientapp.di.components.AppComponent;
 import vision.genesis.clientapp.di.components.DaggerAppComponent;
 import vision.genesis.clientapp.di.modules.AppModule;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -46,6 +47,8 @@ public class GenesisVisionApplication extends Application
 		component = buildComponent();
 
 		Fresco.initialize(this);
+
+		overrideFonts();
 	}
 
 	@Override
@@ -70,5 +73,9 @@ public class GenesisVisionApplication extends Application
 
 	private void initCicerone() {
 		cicerone = Cicerone.create();
+	}
+
+	private void overrideFonts() {
+		TypefaceUtil.overrideFont(getApplicationContext(), "SERIF", "fonts/NeuzeitGro-Reg.ttf");
 	}
 }
