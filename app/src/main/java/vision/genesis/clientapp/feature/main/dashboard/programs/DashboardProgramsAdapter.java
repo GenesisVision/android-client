@@ -73,6 +73,9 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		@BindView(R.id.account_currency_tokens_worth)
 		public TextView accountCurrencyTokensWorth;
 
+		@BindView(R.id.pending_requests)
+		public TextView pendingRequestsText;
+
 		@BindView(R.id.profit_percent)
 		public TextView profitPercentText;
 
@@ -124,6 +127,8 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 			tokens.setText(String.format(Locale.getDefault(), "%s %s", StringFormatUtil.formatAmount(investmentProgram.getInvestedTokens()), itemView.getContext().getResources().getString(R.string.tokens)));
 			accountCurrencyTokensWorth.setText("$0");
+
+			pendingRequestsText.setVisibility(investmentProgram.isHasNewRequests() ? View.VISIBLE : View.GONE);
 
 			double profitPercent = investmentProgram.getProfitAvg();
 			double profitCurrency = 0.00;

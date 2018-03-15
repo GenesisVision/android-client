@@ -134,6 +134,7 @@
     <string name="level">Level</string>
     <string name="cannot_find_programs">Cannot find investment programs with your request</string>
     <string name="average_profit">Average profit</string>
+    <string name="pending_requests">Pending requests</string>
 
     <plurals name="days">
         <item quantity="one">day</item>

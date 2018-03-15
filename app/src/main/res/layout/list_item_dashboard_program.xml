@@ -80,6 +80,18 @@
             android:textSize="14sp"
             tools:text="$1000"/>
 
+        <TextView
+            android:id="@+id/pending_requests"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tokens"
+            android:layout_alignStart="@+id/tokens"
+            android:layout_below="@+id/tokens"
+            android:text="@string/pending_requests"
+            android:textColor="@color/transactionRed"
+            android:textSize="14sp"
+            android:visibility="gone"/>
+
         <LinearLayout
             android:id="@+id/group_profit"
             android:layout_width="wrap_content"
