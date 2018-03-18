@@ -1,7 +1,10 @@
 package vision.genesis.clientapp.feature;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 
@@ -54,5 +57,11 @@ public class BaseSwipeBackActivity extends MvpAppCompatActivity implements Swipe
 	public void scrollToFinishActivity() {
 		Utils.convertActivityToTranslucent(this);
 		getSwipeBackLayout().scrollToFinishActivity();
+	}
+
+	protected void showSnackbar(String message, View view) {
+		Snackbar snack = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+		((TextView) snack.getView().findViewById(android.support.design.R.id.snackbar_text)).setTextColor(Color.WHITE);
+		snack.show();
 	}
 }

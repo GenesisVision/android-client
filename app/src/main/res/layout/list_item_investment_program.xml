@@ -5,15 +5,16 @@
                 android:layout_height="@dimen/item_investment_program_height"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
-                android:focusable="true"
-                android:paddingBottom="16dp"
-                android:paddingTop="16dp">
+                android:focusable="true">
 
     <LinearLayout
+        android:id="@+id/group_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp">
 
         <RelativeLayout
             android:layout_width="match_parent"

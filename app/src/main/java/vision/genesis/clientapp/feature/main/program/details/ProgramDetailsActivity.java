@@ -170,7 +170,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.program_details));
-		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, this::onBackPressed);
+		toolbar.addLeftButton(R.drawable.back_arrow, this::onBackPressed);
 	}
 
 	@Override

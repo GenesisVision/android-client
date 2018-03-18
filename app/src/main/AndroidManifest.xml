@@ -35,14 +35,6 @@
         </activity>
 
         <activity
-            android:name=".feature.auth.AuthActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan">
-
-        </activity>
-
-        <activity
             android:name=".feature.tournament.TournamentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
@@ -98,6 +90,21 @@
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
+
+        <activity
+            android:name=".feature.auth.login.LoginActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+
+        <activity
+            android:name=".feature.auth.registration.RegistrationActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".feature.auth.email_verification.EmailVerificationActivity"/>
 
     </application>
 

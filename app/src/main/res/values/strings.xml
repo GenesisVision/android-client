@@ -6,11 +6,11 @@
     <string name="login">Log in</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="sign_in">Sign in</string>
+    <string name="sign_in">Sign In</string>
     <string name="registration">Registration</string>
     <string name="create_new_account">Create new account</string>
     <string name="confirm_password">Confirm password</string>
-    <string name="sign_up">Sign up</string>
+    <string name="sign_up">Sign Up</string>
     <string name="email_verification_text">We sent a verification link to the email you specified.\n\nPlease follow this link to complete the registration.</string>
     <string name="ok">OK</string>
     <string name="profit">Profit</string>
@@ -166,4 +166,7 @@
     <string name="font_neuzeitgro_black">fonts/NeuzeitGro-Bla.ttf"</string>
     <string name="avg_profit">avg. profit</string>
     <string name="total_profit">Total profit</string>
+    <string name="genesis_vision">Genesis Vision</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="already_have_account">Already have an account?</string>
 </resources>

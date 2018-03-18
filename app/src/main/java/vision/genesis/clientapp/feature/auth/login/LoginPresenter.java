@@ -5,21 +5,16 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import org.greenrobot.eventbus.EventBus;
-
 import javax.inject.Inject;
 
-import ru.terrakok.cicerone.Router;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.Screens;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.model.api.Error;
 import vision.genesis.clientapp.model.api.ErrorResponse;
-import vision.genesis.clientapp.model.events.ShowMainActivityEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
 
@@ -33,9 +28,6 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 {
 	@Inject
 	public Context context;
-
-	@Inject
-	public Router router;
 
 	@Inject
 	public AuthManager authManager;
@@ -57,12 +49,8 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 			loginSubscription.unsubscribe();
 	}
 
-	void onBackClicked() {
-		EventBus.getDefault().post(new ShowMainActivityEvent());
-	}
-
-	void onCreateAccountClicked() {
-		router.navigateTo(Screens.REGISTRATION);
+	void onSignUpClicked() {
+		getViewState().showRegistrationActivity();
 	}
 
 	void onSignInClicked(String email, String password) {
@@ -78,7 +66,7 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 	private void onLoginResponse(String response) {
 		loginSubscription.unsubscribe();
 
-		onBackClicked();
+		getViewState().finishActivity();
 	}
 
 	private void onLoginError(Throwable throwable) {

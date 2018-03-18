@@ -18,6 +18,8 @@
     <color name="whiteTransparent50">#ccfafafa</color>
     <color name="colorPrimaryTransparent25">#1003bdaf</color>
 
+    <color name="listItemBackgroundGray">#4cf2f6f7</color>
+
     <color name="white">#fff</color>
     <color name="black">#000</color>
     <color name="bottomNavigationBackground">#e0e0e0</color>

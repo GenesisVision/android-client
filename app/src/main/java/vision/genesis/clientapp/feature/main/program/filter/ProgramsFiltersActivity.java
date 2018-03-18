@@ -112,7 +112,7 @@ public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements Pr
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.filters));
-		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> programsFiltersPresenter.onBackClicked());
+		toolbar.addLeftButton(R.drawable.back_arrow, () -> programsFiltersPresenter.onBackClicked());
 	}
 
 	@Override

@@ -7,13 +7,11 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
-import ru.terrakok.cicerone.Router;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.Screens;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.model.api.Error;
 import vision.genesis.clientapp.model.api.ErrorResponse;
@@ -30,9 +28,6 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 {
 	@Inject
 	public Context context;
-
-	@Inject
-	public Router router;
 
 	@Inject
 	public AuthManager authManager;
@@ -54,8 +49,8 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 			registrationSubscription.unsubscribe();
 	}
 
-	void onBackClicked() {
-		router.exit();
+	void onSignInClicked() {
+		getViewState().showLoginActivity();
 	}
 
 	void onSignUpClicked(String email, String password, String confirmPassword) {
@@ -71,7 +66,7 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 	private void onRegisterResponse(Void response) {
 		registrationSubscription.unsubscribe();
 
-		router.newRootScreen(Screens.EMAIL_VERIFICATION);
+		getViewState().showEmailVerificationActivity();
 	}
 
 	private void onRegisterError(Throwable throwable) {

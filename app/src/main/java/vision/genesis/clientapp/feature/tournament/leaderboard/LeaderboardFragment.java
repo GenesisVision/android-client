@@ -51,7 +51,7 @@ public class LeaderboardFragment extends BaseFragment implements LeaderboardView
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.leaderboard));
-		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> leaderboardPresenter.onBackClicked());
+		toolbar.addLeftButton(R.drawable.back_arrow, () -> leaderboardPresenter.onBackClicked());
 	}
 
 	@Override

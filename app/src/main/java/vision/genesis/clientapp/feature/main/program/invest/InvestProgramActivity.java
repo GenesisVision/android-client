@@ -91,7 +91,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.invest_to_program));
 		toolbar.setSubtitle(investRequest.programName);
-		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> investProgramPresenter.onBackClicked());
+		toolbar.addLeftButton(R.drawable.back_arrow, () -> investProgramPresenter.onBackClicked());
 	}
 
 	private void initListeners() {

@@ -135,7 +135,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	void onSignInButtonClicked() {
-		getViewState().showAuthActivity();
+		getViewState().showLoginActivity();
 	}
 
 	private void subscribeToUser() {

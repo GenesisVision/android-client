@@ -9,4 +9,5 @@ import com.arellomobile.mvp.MvpView;
 
 interface EmailVerificationView extends MvpView
 {
+	void finishActivity();
 }

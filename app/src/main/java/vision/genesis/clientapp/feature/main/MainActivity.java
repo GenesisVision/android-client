@@ -24,7 +24,7 @@ import butterknife.OnClick;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.auth.AuthActivity;
+import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.main.program.details.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.filter.ProgramsFiltersActivity;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
@@ -49,8 +49,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 		context.startActivity(mainActivityIntent);
 	}
 
-	@BindView(R.id.button_sign_in)
-	public View signInButton;
+	@BindView(R.id.group_sign_in)
+	public View signInGroup;
 
 	@BindView(R.id.bottom_navigation)
 	public AHBottomNavigation bottomNavigationView;
@@ -198,8 +198,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	private void showSignInButtonWithAnimation() {
 		Animation signInAnimation = AnimationUtils.loadAnimation(this, R.anim.sign_in_button_slide);
 		signInAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-		signInButton.startAnimation(signInAnimation);
-		signInButton.setVisibility(View.VISIBLE);
+		signInGroup.startAnimation(signInAnimation);
+		signInGroup.setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -225,12 +225,12 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 
 	@Override
 	public void hideSignInButton() {
-		signInButton.setVisibility(View.GONE);
+		signInGroup.setVisibility(View.GONE);
 	}
 
 	@Override
-	public void showAuthActivity() {
-		AuthActivity.startFrom(this);
+	public void showLoginActivity() {
+		LoginActivity.startFrom(this);
 	}
 
 	@Override

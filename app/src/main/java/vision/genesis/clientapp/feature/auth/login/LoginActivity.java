@@ -1,12 +1,12 @@
 package vision.genesis.clientapp.feature.auth.login;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -15,16 +15,25 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.auth.registration.RegistrationActivity;
 import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
  * Created by Vitaly on 1/19/18.
  */
 
-public class LoginFragment extends BaseFragment implements LoginView
+public class LoginActivity extends BaseSwipeBackActivity implements LoginView
 {
+	public static void startFrom(Activity activity) {
+		Intent intent = new Intent(activity, LoginActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		activity.startActivity(intent);
+		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
+	}
+
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
 
@@ -40,6 +49,12 @@ public class LoginFragment extends BaseFragment implements LoginView
 	@BindView(R.id.group_progressbar)
 	public View progressbarGroup;
 
+	@BindView(R.id.sign_up_label)
+	public TextView signUpLabel;
+
+	@BindView(R.id.text_sign_up)
+	public TextView signUpText;
+
 	@InjectPresenter
 	LoginPresenter loginPresenter;
 
@@ -51,9 +66,9 @@ public class LoginFragment extends BaseFragment implements LoginView
 		return false;
 	}
 
-	@OnClick(R.id.create_account)
-	public void onCreateAccountClicked() {
-		loginPresenter.onCreateAccountClicked();
+	@OnClick(R.id.button_sign_up)
+	public void onSignUpClicked() {
+		loginPresenter.onSignUpClicked();
 	}
 
 	@OnClick(R.id.button_sign_in)
@@ -61,24 +76,32 @@ public class LoginFragment extends BaseFragment implements LoginView
 		loginPresenter.onSignInClicked(email.getText().toString(), password.getText().toString());
 	}
 
-	@Nullable
 	@Override
-	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_login, container, false);
-	}
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-	@Override
-	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
+		setContentView(R.layout.activity_login);
 
-		ButterKnife.bind(this, view);
+		ButterKnife.bind(this);
 
 		initToolbar();
+
+		setFonts();
+	}
+
+	private void setFonts() {
+		signUpLabel.setTypeface(TypefaceUtil.regular(this));
+		signUpText.setTypeface(TypefaceUtil.bold(this));
 	}
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.sign_in));
-		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> loginPresenter.onBackClicked());
+		toolbar.addLeftButton(R.drawable.back_arrow, this::finishActivity);
+	}
+
+	@Override
+	public void onBackPressed() {
+		finishActivity();
 	}
 
 	@Override
@@ -112,5 +135,16 @@ public class LoginFragment extends BaseFragment implements LoginView
 	@Override
 	public void showSnackbarMessage(String message) {
 		showSnackbar(message, toolbar);
+	}
+
+	@Override
+	public void showRegistrationActivity() {
+		RegistrationActivity.startFrom(this);
+	}
+
+	@Override
+	public void finishActivity() {
+		finish();
+		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
 	}
 }

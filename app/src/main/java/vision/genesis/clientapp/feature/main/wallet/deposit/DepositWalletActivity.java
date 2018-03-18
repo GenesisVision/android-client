@@ -81,7 +81,7 @@ public class DepositWalletActivity extends BaseSwipeBackActivity implements Depo
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.deposit));
-		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> depositWalletPresenter.onBackClicked());
+		toolbar.addLeftButton(R.drawable.back_arrow, () -> depositWalletPresenter.onBackClicked());
 	}
 
 	@Override

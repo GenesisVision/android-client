@@ -77,7 +77,7 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.withdraw));
-		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> withdrawWalletPresenter.onBackClicked());
+		toolbar.addLeftButton(R.drawable.back_arrow, () -> withdrawWalletPresenter.onBackClicked());
 	}
 
 	private void setListeners() {

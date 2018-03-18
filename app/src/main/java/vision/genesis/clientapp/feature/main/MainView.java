@@ -32,7 +32,7 @@ public interface MainView extends MvpView
 
 	void hideSignInButton();
 
-	void showAuthActivity();
+	void showLoginActivity();
 
 	void showProgramFilters();
 

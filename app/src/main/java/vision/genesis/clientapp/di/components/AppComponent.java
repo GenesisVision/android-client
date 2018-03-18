@@ -10,8 +10,6 @@ import vision.genesis.clientapp.di.modules.InvestModule;
 import vision.genesis.clientapp.di.modules.NavigationModule;
 import vision.genesis.clientapp.di.modules.TournamentModule;
 import vision.genesis.clientapp.di.modules.UtilsModule;
-import vision.genesis.clientapp.feature.auth.AuthActivity;
-import vision.genesis.clientapp.feature.auth.AuthPresenter;
 import vision.genesis.clientapp.feature.auth.login.LoginPresenter;
 import vision.genesis.clientapp.feature.auth.registration.RegistrationPresenter;
 import vision.genesis.clientapp.feature.main.MainActivity;
@@ -50,10 +48,6 @@ public interface AppComponent
 	void inject(MainActivity mainActivity);
 
 	void inject(MainPresenter mainPresenter);
-
-	void inject(AuthActivity authActivity);
-
-	void inject(AuthPresenter authPresenter);
 
 	void inject(LoginPresenter loginPresenter);
 

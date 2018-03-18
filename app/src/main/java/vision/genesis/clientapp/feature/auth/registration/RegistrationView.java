@@ -25,4 +25,10 @@ interface RegistrationView extends MvpView
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showSnackbarMessage(String message);
+
+	void showEmailVerificationActivity();
+
+	void showLoginActivity();
+
+	void finishActivity();
 }

@@ -1,11 +1,11 @@
 package vision.genesis.clientapp.feature.auth.registration;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -13,16 +13,24 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.auth.email_verification.EmailVerificationActivity;
+import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
  * Created by Vitaly on 1/19/18.
  */
 
-public class RegistrationFragment extends BaseFragment implements RegistrationView
+public class RegistrationActivity extends BaseSwipeBackActivity implements RegistrationView
 {
+	public static void startFrom(Activity activity) {
+		activity.startActivity(new Intent(activity, RegistrationActivity.class));
+		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
+	}
+
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
 
@@ -41,6 +49,9 @@ public class RegistrationFragment extends BaseFragment implements RegistrationVi
 	@BindView(R.id.progress_bar)
 	public View progressBar;
 
+	@BindView(R.id.text_sign_in)
+	public TextView signInText;
+
 	@InjectPresenter
 	RegistrationPresenter registrationPresenter;
 
@@ -49,25 +60,31 @@ public class RegistrationFragment extends BaseFragment implements RegistrationVi
 		registrationPresenter.onSignUpClicked(email.getText().toString(), password.getText().toString(), confirmPassword.getText().toString());
 	}
 
-	@Nullable
-	@Override
-	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_registration, container, false);
+	@OnClick(R.id.button_sign_in)
+	public void onSignInClicked() {
+		registrationPresenter.onSignInClicked();
 	}
 
 	@Override
-	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-		ButterKnife.bind(this, view);
+		setContentView(R.layout.activity_registration);
+
+		ButterKnife.bind(this);
 
 		initToolbar();
+
+		setFonts();
 	}
 
+	private void setFonts() {
+		signInText.setTypeface(TypefaceUtil.bold(this));
+	}
 
 	private void initToolbar() {
-		toolbar.setTitle(getString(R.string.registration));
-		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, () -> registrationPresenter.onBackClicked());
+		toolbar.setTitle(getString(R.string.sign_up));
+		toolbar.addLeftButton(R.drawable.back_arrow, this::finishActivity);
 	}
 
 	@Override
@@ -110,8 +127,24 @@ public class RegistrationFragment extends BaseFragment implements RegistrationVi
 	}
 
 	@Override
-	public boolean onBackPressed() {
-		registrationPresenter.onBackClicked();
-		return true;
+	public void showLoginActivity() {
+		LoginActivity.startFrom(this);
+	}
+
+	@Override
+	public void showEmailVerificationActivity() {
+		EmailVerificationActivity.startFrom(this);
+		finishActivity();
+	}
+
+	@Override
+	public void onBackPressed() {
+		finishActivity();
+	}
+
+	@Override
+	public void finishActivity() {
+		finish();
+		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
 	}
 }

@@ -23,4 +23,8 @@ interface LoginView extends MvpView
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showSnackbarMessage(String message);
+
+	void showRegistrationActivity();
+
+	void finishActivity();
 }

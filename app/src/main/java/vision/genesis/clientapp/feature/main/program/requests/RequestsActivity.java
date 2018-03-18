@@ -76,7 +76,7 @@ public class RequestsActivity extends BaseSwipeBackActivity implements RequestsV
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.program_requests));
-		toolbar.addLeftButton(R.drawable.ic_chevron_left_black_24dp, this::onBackPressed);
+		toolbar.addLeftButton(R.drawable.back_arrow, this::onBackPressed);
 	}
 
 	private void initRefreshLayout() {

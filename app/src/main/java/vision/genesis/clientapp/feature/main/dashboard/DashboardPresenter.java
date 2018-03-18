@@ -84,6 +84,7 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 		getViewState().showNoInternet(false);
 
 		activePrograms = new ArrayList<>();
+		archivedPrograms = new ArrayList<>();
 
 		List<InvestmentProgramDashboard> programs = dashboard.getInvestmentPrograms();
 		for (InvestmentProgramDashboard program : programs) {
