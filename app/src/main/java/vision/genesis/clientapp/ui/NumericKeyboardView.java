@@ -39,7 +39,7 @@ public class NumericKeyboardView extends RelativeLayout
 
 	private static final float ANIM_SCALE_FROM = 1f;
 
-	private static final float ANIM_SCALE_TO = 1.2f;
+	private static final float ANIM_SCALE_TO = 0.95f;
 
 	private static final int ANIM_DURATION = 300;
 
@@ -259,7 +259,7 @@ public class NumericKeyboardView extends RelativeLayout
 		});
 
 		ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(),
-				ContextCompat.getColor(getContext(), R.color.colorFontMedium),
+				ContextCompat.getColor(getContext(), R.color.colorFontDark),
 				ContextCompat.getColor(getContext(), R.color.colorPrimary));
 		colorAnimation.setDuration(ANIM_DURATION);
 		colorAnimation.addUpdateListener(animator -> {
@@ -301,7 +301,7 @@ public class NumericKeyboardView extends RelativeLayout
 
 		ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(),
 				ContextCompat.getColor(getContext(), R.color.colorPrimary),
-				ContextCompat.getColor(getContext(), R.color.colorFontMedium));
+				ContextCompat.getColor(getContext(), R.color.colorFontDark));
 		colorAnimation.setDuration(ANIM_DURATION);
 		colorAnimation.addUpdateListener(animator -> {
 			if (view instanceof TextView)

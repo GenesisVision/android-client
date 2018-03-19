@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp"
+            android:textSize="19sp"
             tools:text="Tournament"/>
 
         <TextView

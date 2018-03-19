@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,6 +22,7 @@ import vision.genesis.clientapp.ui.AmountTextView;
 import vision.genesis.clientapp.ui.NumericKeyboardView;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -40,11 +43,29 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
 
-	@BindView(R.id.text_available_funds)
-	public TextView availableFundsText;
+	@BindView(R.id.balance)
+	public TextView balance;
+
+	@BindView(R.id.balance_fiat)
+	public TextView balanceFiat;
+
+	@BindView(R.id.balance_currency)
+	public TextView balanceCurrency;
+
+	@BindView(R.id.label_my_balance)
+	public TextView myBalanceLabel;
 
 	@BindView(R.id.textview_amount)
 	public AmountTextView amountTextView;
+
+	@BindView(R.id.amount_currency)
+	public TextView amountCurrency;
+
+	@BindView(R.id.amount_fiat)
+	public TextView amountFiat;
+
+	@BindView(R.id.label_enter_amount)
+	public TextView enterAmountLabel;
 
 	@BindView(R.id.button_invest)
 	public View investButton;
@@ -62,8 +83,8 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 		investProgramPresenter.onInvestClicked();
 	}
 
-	@OnClick(R.id.group_available)
-	public void onAvailableCLicked() {
+	@OnClick(R.id.balance)
+	public void onBalanceClicked() {
 		investProgramPresenter.onAvailableClicked();
 	}
 
@@ -81,6 +102,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 
 			initToolbar();
 			initListeners();
+			setFonts();
 		}
 		else {
 			Timber.e("Passed empty request to InvestProgramActivity");
@@ -89,6 +111,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	}
 
 	private void initToolbar() {
+		toolbar.setWhite();
 		toolbar.setTitle(getString(R.string.invest_to_program));
 		toolbar.setSubtitle(investRequest.programName);
 		toolbar.addLeftButton(R.drawable.back_arrow, () -> investProgramPresenter.onBackClicked());
@@ -97,6 +120,15 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	private void initListeners() {
 		amountTextView.setKeyboard(keyboard);
 		amountTextView.setAmountChangeListener(newAmount -> investProgramPresenter.onAmountChanged(newAmount));
+	}
+
+	private void setFonts() {
+		balance.setTypeface(TypefaceUtil.light(this));
+		balanceCurrency.setTypeface(TypefaceUtil.bold(this));
+		myBalanceLabel.setTypeface(TypefaceUtil.bold(this));
+		enterAmountLabel.setTypeface(TypefaceUtil.bold(this));
+		amountCurrency.setTypeface(TypefaceUtil.bold(this));
+		amountFiat.setTypeface(TypefaceUtil.light(this));
 	}
 
 	@Override
@@ -111,12 +143,22 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 
 	@Override
 	public void setAvailable(double availableFunds) {
-		availableFundsText.setText(StringFormatUtil.formatAmount((availableFunds)));
+		balance.setText(StringFormatUtil.formatAmount(availableFunds, 0, 8));
 	}
 
 	@Override
 	public void showAvailableProgress(boolean show) {
 
+	}
+
+	@Override
+	public void setFiatBalance(Double fiatBalance) {
+		balanceFiat.setText(String.format(Locale.getDefault(), "$%s", StringFormatUtil.formatAmount(fiatBalance, 2, 4)));
+	}
+
+	@Override
+	public void setFiatAmount(Double fiatAmount) {
+		amountFiat.setText(String.format(Locale.getDefault(), "$%s", StringFormatUtil.formatAmount(fiatAmount, 2, 4)));
 	}
 
 	@Override

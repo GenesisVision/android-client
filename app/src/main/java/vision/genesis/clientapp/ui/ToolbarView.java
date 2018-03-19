@@ -85,6 +85,14 @@ public class ToolbarView extends RelativeLayout
 		subtitle.setTypeface(TypefaceUtil.regular(getContext()));
 	}
 
+	public void setWhite() {
+		int whiteColor = ContextCompat.getColor(getContext(), R.color.white);
+		title.setTextColor(whiteColor);
+		subtitle.setTextColor(whiteColor);
+		leftButton.setColorFilter(whiteColor);
+		rightButton.setColorFilter(whiteColor);
+	}
+
 	public void setTitle(String text) {
 		title.setText(text);
 	}

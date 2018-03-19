@@ -9,6 +9,8 @@ import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.WalletTransaction;
+import io.swagger.client.model.WalletViewModel;
 import io.swagger.client.model.WalletsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -16,6 +18,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.managers.RateManager;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.api.Error;
@@ -32,6 +35,8 @@ import vision.genesis.clientapp.net.ErrorResponseConverter;
 @InjectViewState
 public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 {
+	private static final String FIAT_CURRENCY = WalletTransaction.CurrencyEnum.USD.toString();
+
 	@Inject
 	public Context context;
 
@@ -41,13 +46,20 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 	@Inject
 	public WalletManager walletManager;
 
+	@Inject
+	public RateManager rateManager;
+
 	private ProgramRequest investRequest;
 
 	private Subscription investSubscription;
 
 	private Subscription balanceSubscription;
 
+	private Subscription rateSubscription;
+
 	private double balance = 0;
+
+	private double rate = 0;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -79,6 +91,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 
 	void onAmountChanged(double newAmount) {
 		investRequest.amount = newAmount;
+		getViewState().setFiatAmount(rate * newAmount);
 		getViewState().setInvestButtonEnabled(investRequest.amount > 0 && investRequest.amount <= balance);
 	}
 
@@ -97,6 +110,8 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleBalanceUpdateResponse,
 						this::handleBalanceUpdateError);
+
+		updateRate();
 	}
 
 	private void handleBalanceUpdateResponse(Double balance) {
@@ -111,6 +126,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 	private void setBalance(Double balance) {
 		this.balance = balance;
 		getViewState().setAvailable(balance);
+		getViewState().setFiatBalance(rate * balance);
 	}
 
 	private void sendInvestRequest() {
@@ -147,5 +163,29 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 				}
 			}
 		}
+	}
+
+	private void updateRate() {
+		rateSubscription = rateManager.getRate(WalletViewModel.CurrencyEnum.GVT.toString(), FIAT_CURRENCY)
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.io())
+				.subscribe(this::getRateSuccessHandler,
+						this::getRateErrorHandler);
+	}
+
+	private void getRateSuccessHandler(Double rate) {
+		rateSubscription.unsubscribe();
+
+		this.rate = rate;
+		updateFiatBalance();
+	}
+
+	private void updateFiatBalance() {
+		getViewState().setFiatBalance(rate * balance);
+		getViewState().setFiatAmount(rate * investRequest.amount);
+	}
+
+	private void getRateErrorHandler(Throwable error) {
+		rateSubscription.unsubscribe();
 	}
 }

@@ -10,6 +10,7 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 import java.util.regex.Pattern;
 
 import vision.genesis.clientapp.managers.WalletManager;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -83,6 +84,11 @@ public class AmountTextView extends android.support.v7.widget.AppCompatTextView
 		}
 
 		setAmountTextListener();
+		setFonts();
+	}
+
+	private void setFonts() {
+		this.setTypeface(TypefaceUtil.light(getContext()));
 	}
 
 	private void setAmountTextListener() {

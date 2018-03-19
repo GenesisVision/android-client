@@ -170,4 +170,6 @@
     <string name="dont_have_account">Don\'t have an account?</string>
     <string name="already_have_account">Already have an account?</string>
     <string name="by">by</string>
+    <string name="my_balance">My balance</string>
+    <string name="enter_investment_amount">Enter investment amount</string>
 </resources>
