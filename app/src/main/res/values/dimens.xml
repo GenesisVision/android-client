@@ -35,8 +35,8 @@
     <dimen name="programs_no_internet_image_width">150dp</dimen>
     <dimen name="programs_no_internet_image_height">150dp</dimen>
 
-    <dimen name="program_details_avatar_width">100dp</dimen>
-    <dimen name="program_details_avatar_height">100dp</dimen>
+    <dimen name="program_details_avatar_width">90dp</dimen>
+    <dimen name="program_details_avatar_height">90dp</dimen>
     <dimen name="program_details_description_height">100dp</dimen>
 
     <dimen name="manager_avatar_width">50dp</dimen>
@@ -58,7 +58,7 @@
 
     <dimen name="participants_tournament_not_started_image_width">250dp</dimen>
     <dimen name="participants_tournament_not_started_image_height">170dp</dimen>
-    <dimen name="program_buttons_height">60dp</dimen>
+    <dimen name="program_buttons_height">70dp</dimen>
 
     <dimen name="item_dashboard_program_height">132dp</dimen>
 

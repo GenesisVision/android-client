@@ -29,9 +29,10 @@ import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProfitChartView;
+import vision.genesis.clientapp.ui.ProgramDataView;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.DateTimeUtil;
-import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -52,9 +53,6 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
 
-	@BindView(R.id.manager_avatar)
-	public AvatarView managerAvatar;
-
 	@BindView(R.id.manager_name)
 	public TextView managerName;
 
@@ -64,23 +62,11 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@BindView(R.id.title)
 	public TextView title;
 
-	@BindView(R.id.text_description)
-	public TextView description;
-
 	@BindView(R.id.chart)
 	public ProfitChartView chart;
 
-	@BindView(R.id.text_deposit_text)
-	public TextView depositText;
-
-	@BindView(R.id.text_trades_text)
-	public TextView tradesText;
-
-	@BindView(R.id.text_period_text)
-	public TextView periodText;
-
-	@BindView(R.id.text_profit_text)
-	public TextView profitText;
+	@BindView(R.id.view_program_data)
+	public ProgramDataView programDataView;
 
 	@BindView(R.id.text_end_of_period)
 	public TextView endOfPeriodText;
@@ -158,6 +144,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 		initToolbar();
 
+		setFonts();
+
 		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
 			UUID programId = (UUID) getIntent().getExtras().getSerializable(EXTRA_PROGRAM_ID);
 			programDetailsPresenter.setProgramId(programId);
@@ -171,6 +159,10 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.program_details));
 		toolbar.addLeftButton(R.drawable.back_arrow, this::onBackPressed);
+	}
+
+	private void setFonts() {
+		title.setTypeface(TypefaceUtil.bold(this));
 	}
 
 	@Override
@@ -188,22 +180,18 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	public void setProgram(InvestmentProgramDetails programDetails) {
 		this.programDetails = programDetails;
 
-		managerAvatar.setImage(programDetails.getManager().getAvatar());
-		managerAvatar.hideLevel();
-		managerName.setText(programDetails.getManager().getUsername());
-
 		programLogo.setImage(programDetails.getLogo());
 		programLogo.setLevel(programDetails.getLevel());
 
 		title.setText(programDetails.getTitle());
-		description.setText(programDetails.getDescription());
+		managerName.setText(String.format(Locale.getDefault(), "%s %s", getResources().getString(R.string.by), programDetails.getManager().getUsername()));
 
 		chart.setChart(programDetails.getChart());
 
-		depositText.setText(StringFormatUtil.formatAmount(programDetails.getOwnBalance(), 2, 4));
-		tradesText.setText(String.valueOf(programDetails.getTradesCount()));
-		periodText.setText(String.valueOf(programDetails.getPeriodDuration()));
-		profitText.setText(String.format(Locale.getDefault(), "%.2f%%", programDetails.getProfitAvg()));
+		programDataView.setData(programDetails.getProfitTotal(),
+				programDetails.getProfitAvg(),
+				programDetails.getBalance(),
+				programDetails.getPeriodDuration());
 
 		DecimalFormat df = new DecimalFormat("0.####");
 		df.setRoundingMode(RoundingMode.DOWN);

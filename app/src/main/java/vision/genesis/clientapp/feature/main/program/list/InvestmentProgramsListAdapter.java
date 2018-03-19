@@ -11,17 +11,15 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.InvestmentProgram;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.ShortenedAmount;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.ProfitChartView;
-import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.ui.ProgramDataView;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -72,44 +70,14 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 		@BindView(R.id.title)
 		public TextView title;
 
+		@BindView(R.id.manager_name)
+		public TextView managerName;
+
 		@BindView(R.id.currency)
 		public TextView currency;
 
-		@BindView(R.id.text_total_profit_text)
-		public TextView totalProfitText;
-
-		@BindView(R.id.text_total_profit_text_mod)
-		public TextView totalProfitTextMod;
-
-		@BindView(R.id.text_total_profit_title)
-		public TextView totalProfitTitle;
-
-
-		@BindView(R.id.text_avg_profit_text)
-		public TextView avgProfitText;
-
-		@BindView(R.id.text_avg_profit_text_percent)
-		public TextView avgProfitTextPercent;
-
-		@BindView(R.id.text_avg_profit_title)
-		public TextView avgProfitTitle;
-
-
-		@BindView(R.id.text_balance_text)
-		public TextView balanceText;
-
-		@BindView(R.id.text_balance_text_mod)
-		public TextView balanceTextMod;
-
-		@BindView(R.id.text_balance_title)
-		public TextView balanceTitle;
-
-
-		@BindView(R.id.text_period_text)
-		public TextView periodText;
-
-		@BindView(R.id.text_period_title)
-		public TextView periodTitle;
+		@BindView(R.id.view_program_data)
+		public ProgramDataView programDataView;
 
 		@BindView(R.id.chart)
 		public ProfitChartView chart;
@@ -130,20 +98,6 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 			title.setTypeface(TypefaceUtil.bold(itemView.getContext()));
 
 			currency.setTypeface(TypefaceUtil.bold(itemView.getContext()));
-
-			totalProfitText.setTypeface(TypefaceUtil.light(itemView.getContext()));
-			avgProfitText.setTypeface(TypefaceUtil.light(itemView.getContext()));
-			balanceText.setTypeface(TypefaceUtil.light(itemView.getContext()));
-			periodText.setTypeface(TypefaceUtil.light(itemView.getContext()));
-
-			totalProfitTextMod.setTypeface(TypefaceUtil.bold(itemView.getContext()));
-			avgProfitTextPercent.setTypeface(TypefaceUtil.bold(itemView.getContext()));
-			balanceTextMod.setTypeface(TypefaceUtil.bold(itemView.getContext()));
-
-			totalProfitTitle.setTypeface(TypefaceUtil.bold(itemView.getContext()));
-			avgProfitTitle.setTypeface(TypefaceUtil.bold(itemView.getContext()));
-			balanceTitle.setTypeface(TypefaceUtil.bold(itemView.getContext()));
-			periodTitle.setTypeface(TypefaceUtil.bold(itemView.getContext()));
 		}
 
 		void setBackground(int position) {
@@ -162,20 +116,13 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 			avatar.setImage(investmentProgram.getLogo());
 			avatar.setLevel(investmentProgram.getLevel());
 			title.setText(investmentProgram.getTitle());
+//			managerName.setText(investmentProgram.);
 			currency.setText(investmentProgram.getCurrency().toString());
 
-
-			ShortenedAmount totalProfitShortenedAmount = StringFormatUtil.getShortenedAmount(investmentProgram.getProfitTotal());
-			totalProfitText.setText(String.format("$%s", totalProfitShortenedAmount.amount));
-			totalProfitTextMod.setText(totalProfitShortenedAmount.modifier);
-
-			avgProfitText.setText(String.format(Locale.getDefault(), "%.0f", investmentProgram.getProfitAvg()));
-
-			ShortenedAmount balanceShortenedAmount = StringFormatUtil.getShortenedAmount(investmentProgram.getBalance());
-			balanceText.setText(String.format("$%s", balanceShortenedAmount.amount));
-			balanceTextMod.setText(balanceShortenedAmount.modifier);
-
-			periodText.setText(String.valueOf(investmentProgram.getPeriodDuration()));
+			programDataView.setData(investmentProgram.getProfitTotal(),
+					investmentProgram.getProfitAvg(),
+					investmentProgram.getBalance(),
+					investmentProgram.getPeriodDuration());
 
 			chart.setChart(investmentProgram.getChart());
 		}
