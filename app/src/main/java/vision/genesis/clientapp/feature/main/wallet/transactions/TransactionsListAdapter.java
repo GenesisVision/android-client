@@ -22,6 +22,7 @@ import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.utils.DateTimeUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -73,6 +74,9 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 		@BindView(R.id.amount)
 		public TextView amount;
 
+		@BindView(R.id.status)
+		public TextView status;
+
 		private WalletTransaction transaction;
 
 		private Context context;
@@ -83,6 +87,13 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 			ButterKnife.bind(this, itemView);
 
 			context = itemView.getContext();
+
+			setFonts();
+		}
+
+		private void setFonts() {
+			type.setTypeface(TypefaceUtil.bold(context));
+			amount.setTypeface(TypefaceUtil.bold(context));
 		}
 
 		void setTransaction(WalletTransaction transaction) {
@@ -103,6 +114,10 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 				programName.setText("");
 			}
 			setAmount();
+
+			status.setText(transaction.getInvestmentProgramRequest() != null
+					? transaction.getInvestmentProgramRequest().getStatus().toString().toLowerCase()
+					: "");
 		}
 
 		private void setType() {

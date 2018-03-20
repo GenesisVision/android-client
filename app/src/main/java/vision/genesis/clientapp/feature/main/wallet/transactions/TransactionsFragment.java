@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,6 +20,7 @@ import io.swagger.client.model.TransactionsFilter;
 import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.ui.DividerItemDecoration;
 
 /**
  * GenesisVision
@@ -82,8 +82,9 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
 		transactionsListAdapter = new TransactionsListAdapter();
-		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
-		dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider));
+		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
+				ContextCompat.getDrawable(getContext(), R.drawable.divider_dot_horizontal),
+				20, 20);
 		recyclerView.addItemDecoration(dividerItemDecoration);
 		recyclerView.setAdapter(transactionsListAdapter);
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()

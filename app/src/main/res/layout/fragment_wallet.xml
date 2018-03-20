@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/toolbar"
-            android:background="@color/colorGrayBackground">
+            android:background="@color/white">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -28,29 +28,15 @@
                     android:layout_width="@dimen/wallet_image_width"
                     android:layout_height="@dimen/wallet_image_height"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/circle_primary"
-                    android:padding="12dp"
-                    android:src="@drawable/wallet"
-                    android:tint="@color/white"/>
-
-                <TextView
-                    android:id="@+id/text_you_have"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/wallet_image"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/you_have"
-                    android:textColor="@color/colorFontMedium"
-                    android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/wallet_fill_icon"/>
 
                 <RelativeLayout
                     android:id="@+id/group_balance_progress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/text_you_have"
+                    android:layout_below="@+id/wallet_image"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
@@ -66,61 +52,81 @@
 
                     <LinearLayout
                         android:id="@+id/group_balance"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
+                        <RelativeLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_margin="8dp">
 
                             <TextView
                                 android:id="@+id/balance"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:lines="1"
                                 android:text="0"
-                                android:textColor="@color/colorFontDark"
-                                android:textSize="36sp"
-                                android:textStyle="bold"
-                                tools:text="19,970.77552255"/>
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="56sp"
+                                tools:text="19,970.755"/>
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginStart="8dp"
-                                android:lines="1"
+                                android:id="@+id/balance_currency"
+                                style="@style/item_investment_program_currency"
+                                android:layout_toEndOf="@+id/balance"
+                                android:layout_toRightOf="@+id/balance"
                                 android:text="@string/gvt"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="36sp"
-                                android:textStyle="bold"/>
+                                android:textSize="10sp"/>
 
-                        </LinearLayout>
+                        </RelativeLayout>
 
-                        <LinearLayout
+                        <TextView
+                            android:id="@+id/balance_fiat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginTop="-8dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/balance_fiat"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="0"
-                                android:textColor="@color/colorFontDark"
-                                android:textSize="20sp"
-                                tools:text="$20.000"/>
-
-                        </LinearLayout>
+                            android:layout_marginTop="-4dp"
+                            android:text="0"
+                            android:textColor="@color/colorFontLight"
+                            android:textSize="42sp"
+                            tools:text="$20.000"/>
 
                     </LinearLayout>
 
                 </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/group_buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_below="@+id/group_balance_progress"
+                    android:layout_margin="24dp"
+                    android:orientation="horizontal">
+
+                    <vision.genesis.clientapp.ui.PrimaryButton
+                        android:id="@+id/button_deposit"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:maxWidth="200dp"
+                        android:text="@string/deposit"/>
+
+                    <vision.genesis.clientapp.ui.PrimaryButton
+                        android:id="@+id/button_withdraw"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="1"
+                        android:maxWidth="200dp"
+                        android:text="@string/withdraw"/>
+
+                </LinearLayout>
 
             </RelativeLayout>
 
@@ -150,43 +156,5 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
-    <RelativeLayout
-        android:id="@+id/button_withdraw"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/button_primary"
-        android:padding="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/withdraw"
-            android:textColor="@color/white"
-            android:textSize="16sp"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/button_deposit"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="10dp"
-        android:background="@drawable/button_primary"
-        android:padding="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/deposit"
-            android:textColor="@color/white"
-            android:textSize="16sp"/>
-
-    </RelativeLayout>
 
 </RelativeLayout>

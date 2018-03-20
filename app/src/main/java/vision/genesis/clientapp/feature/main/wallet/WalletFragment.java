@@ -24,6 +24,7 @@ import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPagerAdapter;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -43,6 +44,9 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 
 	@BindView(R.id.balance)
 	public TextView balance;
+
+	@BindView(R.id.balance_currency)
+	public TextView balanceCurrency;
 
 	@BindView(R.id.balance_fiat)
 	public TextView balanceFiat;
@@ -92,6 +96,7 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 		initToolbar();
 		initTabs();
 		initViewPager();
+		setFonts();
 	}
 
 	@Override
@@ -115,6 +120,12 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 		viewPager.addOnPageChangeListener(this);
 
 		super.onDestroyView();
+	}
+
+	private void setFonts() {
+		balance.setTypeface(TypefaceUtil.light(getContext()));
+		balanceCurrency.setTypeface(TypefaceUtil.bold(getContext()));
+		balanceFiat.setTypeface(TypefaceUtil.light(getContext()));
 	}
 
 	private void initToolbar() {
