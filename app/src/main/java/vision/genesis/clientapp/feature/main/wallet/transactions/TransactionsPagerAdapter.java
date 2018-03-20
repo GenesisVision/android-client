@@ -20,11 +20,7 @@ public class TransactionsPagerAdapter extends FragmentStatePagerAdapter
 		void pagerHide();
 	}
 
-	private TransactionsFragment transactionsAllFragment;
-
-	private TransactionsFragment transactionsInternalFragment;
-
-	private TransactionsFragment transactionsExternalFragment;
+	private TransactionsFragment transactionsFragment;
 
 	public TransactionsPagerAdapter(FragmentManager fm) {
 		super(fm);
@@ -34,35 +30,25 @@ public class TransactionsPagerAdapter extends FragmentStatePagerAdapter
 	public Fragment getItem(int position) {
 		switch (position) {
 			case 0:
-				if (transactionsAllFragment == null)
-					transactionsAllFragment = TransactionsFragment.with(TransactionsFilter.TypeEnum.ALL);
-				return transactionsAllFragment;
-			case 1:
-				if (transactionsInternalFragment == null)
-					transactionsInternalFragment = TransactionsFragment.with(TransactionsFilter.TypeEnum.INTERNAL);
-				return transactionsInternalFragment;
-			case 2:
-				if (transactionsExternalFragment == null)
-					transactionsExternalFragment = TransactionsFragment.with(TransactionsFilter.TypeEnum.EXTERNAL);
-				return transactionsExternalFragment;
+				if (transactionsFragment == null)
+					transactionsFragment = TransactionsFragment.with(TransactionsFilter.TypeEnum.ALL);
+				return transactionsFragment;
 			default:
 				return null;
 		}
 	}
 
+	public void setTransactionsFilterType(TransactionsFilter.TypeEnum type) {
+		transactionsFragment.setTransactionsFilterType(type);
+	}
+
 	@Override
 	public int getCount() {
-		return 3;
+		return 1;
 	}
 
 	public void destroy() {
-		if (transactionsAllFragment != null)
-			transactionsAllFragment.onDestroyView();
-
-		if (transactionsInternalFragment != null)
-			transactionsInternalFragment.onDestroyView();
-
-		if (transactionsExternalFragment != null)
-			transactionsExternalFragment.onDestroyView();
+		if (transactionsFragment != null)
+			transactionsFragment.onDestroyView();
 	}
 }

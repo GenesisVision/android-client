@@ -3,12 +3,12 @@ package vision.genesis.clientapp.feature.main.wallet;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -19,9 +19,11 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.TransactionsFilter;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPagerAdapter;
+import vision.genesis.clientapp.ui.SpinnerView;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -54,18 +56,14 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 	@BindView(R.id.balance_progress)
 	public ProgressBar balanceProgress;
 
+	@BindView(R.id.spinner_view)
+	public SpinnerView spinner;
+
 	@BindView(R.id.view_pager_wallet)
 	public ViewPager viewPager;
 
-	@BindView(R.id.tab_layout)
-	public TabLayout tabLayout;
-
 	@InjectPresenter
 	WalletPresenter walletPresenter;
-
-	private TabLayout.OnTabSelectedListener tabSelectedListener;
-
-	private TabLayout.TabLayoutOnPageChangeListener tabLayoutOnPageChangeListener;
 
 	private TransactionsPagerAdapter pagerAdapter;
 
@@ -94,7 +92,7 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 		ButterKnife.bind(this, view);
 
 		initToolbar();
-		initTabs();
+		initSpinner();
 		initViewPager();
 		setFonts();
 	}
@@ -111,12 +109,6 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 		if (pagerAdapter != null)
 			pagerAdapter.destroy();
 
-		if (tabSelectedListener != null)
-			tabLayout.removeOnTabSelectedListener(tabSelectedListener);
-
-		if (tabLayoutOnPageChangeListener != null)
-			viewPager.removeOnPageChangeListener(tabLayoutOnPageChangeListener);
-
 		viewPager.addOnPageChangeListener(this);
 
 		super.onDestroyView();
@@ -132,40 +124,28 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 		toolbar.setTitle(getString(R.string.wallet));
 	}
 
-	private void initTabs() {
-		tabLayout.addTab(tabLayout.newTab().setText(getContext().getResources().getString(R.string.all)), true);
-		tabLayout.addTab(tabLayout.newTab().setText(getContext().getResources().getString(R.string.internal)));
-		tabLayout.addTab(tabLayout.newTab().setText(getContext().getResources().getString(R.string.external)));
-		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-		tabSelectedListener = new TabLayout.OnTabSelectedListener()
+	private void initSpinner() {
+		spinner.setData(getResources().getStringArray(R.array.transactions_filter));
+		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
 		{
 			@Override
-			public void onTabSelected(TabLayout.Tab tab) {
-				viewPager.setCurrentItem(tab.getPosition());
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				walletPresenter.onTransactionsFilterSelected(position);
 			}
 
 			@Override
-			public void onTabUnselected(TabLayout.Tab tab) {
+			public void onNothingSelected(AdapterView<?> parent) {
 
 			}
-
-			@Override
-			public void onTabReselected(TabLayout.Tab tab) {
-
-			}
-		};
-
-		tabLayout.addOnTabSelectedListener(tabSelectedListener);
+		});
 	}
 
 	private void initViewPager() {
 		pagerAdapter = new TransactionsPagerAdapter(getActivity().getSupportFragmentManager());
 		viewPager.setAdapter(pagerAdapter);
 
-		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
-		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
 		viewPager.addOnPageChangeListener(this);
+		viewPager.setCurrentItem(0);
 	}
 
 	@Override
@@ -176,6 +156,11 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 	@Override
 	public void setFiatBalance(double balance) {
 		balanceFiat.setText(String.format(Locale.getDefault(), "$%s", StringFormatUtil.formatAmount(balance, 2, 2)));
+	}
+
+	@Override
+	public void setTransactionsFilterType(TransactionsFilter.TypeEnum type) {
+		pagerAdapter.setTransactionsFilterType(type);
 	}
 
 	@Override

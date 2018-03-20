@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -21,6 +22,7 @@ import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.ui.DividerItemDecoration;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -41,6 +43,10 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 
 	@BindView(R.id.group_no_transactions)
 	public View groupNoTransactions;
+
+
+	@BindView(R.id.label_whoops)
+	public TextView whoopsLabel;
 
 	@BindView(R.id.refresh_layout)
 	public SwipeRefreshLayout refreshLayout;
@@ -65,10 +71,17 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 
 		ButterKnife.bind(this, view);
 
+		setFonts();
+
 		transactionsPresenter.setType(getArguments().getString(EXTRA_TYPE));
 
 		initRefreshLayout();
 		initRecyclerView();
+
+	}
+
+	private void setFonts() {
+		whoopsLabel.setTypeface(TypefaceUtil.bold(getContext()));
 	}
 
 	private void initRefreshLayout() {
@@ -101,6 +114,10 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 				}
 			}
 		});
+	}
+
+	public void setTransactionsFilterType(TransactionsFilter.TypeEnum type) {
+		transactionsPresenter.setType(type.toString());
 	}
 
 	@Override

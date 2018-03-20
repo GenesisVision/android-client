@@ -15,132 +15,142 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/toolbar"
-            android:background="@color/white">
+            android:background="@color/white"
+            app:elevation="0dp">
 
-            <RelativeLayout
+            <android.support.design.widget.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/wallet_appbar_background_height"
-                app:layout_collapseMode="pin"
-                app:layout_scrollFlags="scroll|enterAlways">
-
-                <ImageView
-                    android:id="@+id/wallet_image"
-                    android:layout_width="@dimen/wallet_image_width"
-                    android:layout_height="@dimen/wallet_image_height"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="12dp"
-                    android:src="@drawable/wallet_fill_icon"/>
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed|exitUntilCollapsed">
 
                 <RelativeLayout
-                    android:id="@+id/group_balance_progress"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/wallet_image"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginStart="16dp">
+                    android:layout_height="@dimen/wallet_appbar_background_height"
+                    app:layout_collapseMode="pin">
 
-                    <ProgressBar
-                        android:id="@+id/balance_progress"
-                        style="?android:attr/progressBarStyleLarge"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:visibility="gone"/>
+                    <ImageView
+                        android:id="@+id/wallet_image"
+                        android:layout_width="@dimen/wallet_image_width"
+                        android:layout_height="@dimen/wallet_image_height"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="16dp"
+                        android:src="@drawable/wallet_fill_icon"/>
 
-                    <LinearLayout
-                        android:id="@+id/group_balance"
+                    <RelativeLayout
+                        android:id="@+id/group_balance_progress"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:orientation="vertical">
+                        android:layout_height="120dp"
+                        android:layout_below="@+id/wallet_image"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="16dp">
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp">
-
-                            <TextView
-                                android:id="@+id/balance"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:lines="1"
-                                android:text="0"
-                                android:textColor="@color/colorPrimaryDark"
-                                android:textSize="56sp"
-                                tools:text="19,970.755"/>
-
-                            <TextView
-                                android:id="@+id/balance_currency"
-                                style="@style/item_investment_program_currency"
-                                android:layout_toEndOf="@+id/balance"
-                                android:layout_toRightOf="@+id/balance"
-                                android:text="@string/gvt"
-                                android:textSize="10sp"/>
-
-                        </RelativeLayout>
-
-                        <TextView
-                            android:id="@+id/balance_fiat"
+                        <ProgressBar
+                            android:id="@+id/balance_progress"
+                            style="?android:attr/progressBarStyleLarge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:visibility="gone"/>
+
+                        <LinearLayout
+                            android:id="@+id/group_balance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp">
+
+                                <TextView
+                                    android:id="@+id/balance"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:lines="1"
+                                    android:text="0"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="56sp"
+                                    tools:text="19,970.755"/>
+
+                                <TextView
+                                    android:id="@+id/balance_currency"
+                                    style="@style/item_investment_program_currency"
+                                    android:layout_toEndOf="@+id/balance"
+                                    android:layout_toRightOf="@+id/balance"
+                                    android:text="@string/gvt"
+                                    android:textSize="10sp"/>
+
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/balance_fiat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="-4dp"
+                                android:text="0"
+                                android:textColor="@color/colorFontLight"
+                                android:textSize="48sp"
+                                tools:text="$20.000"/>
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/group_buttons"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_below="@+id/group_balance_progress"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginRight="24dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="32dp"
+                        android:orientation="horizontal">
+
+                        <vision.genesis.clientapp.ui.PrimaryButton
+                            android:id="@+id/button_deposit"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            android:layout_marginTop="-4dp"
-                            android:text="0"
-                            android:textColor="@color/colorFontLight"
-                            android:textSize="42sp"
-                            tools:text="$20.000"/>
+                            android:layout_weight="1"
+                            android:maxWidth="200dp"
+                            android:text="@string/deposit"/>
+
+                        <vision.genesis.clientapp.ui.PrimaryButton
+                            android:id="@+id/button_withdraw"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginStart="24dp"
+                            android:layout_weight="1"
+                            android:maxWidth="200dp"
+                            android:text="@string/withdraw"/>
 
                     </LinearLayout>
 
                 </RelativeLayout>
 
-                <LinearLayout
-                    android:id="@+id/group_buttons"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_below="@+id/group_balance_progress"
-                    android:layout_margin="24dp"
-                    android:orientation="horizontal">
+            </android.support.design.widget.CollapsingToolbarLayout>
 
-                    <vision.genesis.clientapp.ui.PrimaryButton
-                        android:id="@+id/button_deposit"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:maxWidth="200dp"
-                        android:text="@string/deposit"/>
-
-                    <vision.genesis.clientapp.ui.PrimaryButton
-                        android:id="@+id/button_withdraw"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginStart="24dp"
-                        android:layout_weight="1"
-                        android:maxWidth="200dp"
-                        android:text="@string/withdraw"/>
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/wallet_tabs_height"
+            <vision.genesis.clientapp.ui.SpinnerView
+                android:id="@+id/spinner_view"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
                 android:layout_alignParentBottom="true"
-                android:background="@color/colorPrimaryDark"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:layout_collapseMode="pin"
-                app:tabGravity="fill"
-                app:tabMode="fixed"/>
+                android:layout_below="@+id/group_buttons"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp"
+                app:layout_collapseMode="pin"/>
 
         </android.support.design.widget.AppBarLayout>
 

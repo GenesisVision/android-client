@@ -43,7 +43,8 @@
     <string name="document_type">Document type</string>
     <string name="document_number">Document number</string>
     <string name="transactions">Transactions</string>
-    <string name="you_have_no_transactions_yet">You have no transactions yet</string>
+    <string name="you_dont_have_transactions">you don\'t have any transactions</string>
+    <string name="whoops">Whoops</string>
 
     <string name="transaction_type_deposit">Deposit</string>
     <string name="transaction_type_withdraw">Withdraw</string>
@@ -172,4 +173,10 @@
     <string name="by">by</string>
     <string name="my_balance">My balance</string>
     <string name="enter_investment_amount">Enter investment amount</string>
+
+    <string-array name="transactions_filter">
+        <item>All Transactions</item>
+        <item>Internal Transactions</item>
+        <item>External Transactions</item>
+    </string-array>
 </resources>

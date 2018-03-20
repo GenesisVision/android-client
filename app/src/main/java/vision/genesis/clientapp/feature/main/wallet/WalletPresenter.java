@@ -9,6 +9,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.TransactionsFilter;
 import io.swagger.client.model.WalletTransaction;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -73,6 +74,20 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 
 	void onDepositButtonClicked() {
 		EventBus.getDefault().post(new ShowDepositWalletActivityEvent());
+	}
+
+	void onTransactionsFilterSelected(int position) {
+		switch (position) {
+			case 0:
+				getViewState().setTransactionsFilterType(TransactionsFilter.TypeEnum.ALL);
+				break;
+			case 1:
+				getViewState().setTransactionsFilterType(TransactionsFilter.TypeEnum.INTERNAL);
+				break;
+			case 2:
+				getViewState().setTransactionsFilterType(TransactionsFilter.TypeEnum.EXTERNAL);
+				break;
+		}
 	}
 
 	private void updateBalance() {

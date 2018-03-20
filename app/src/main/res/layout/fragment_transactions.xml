@@ -12,24 +12,32 @@
         android:layout_marginTop="32dp"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_money_off_black_24dp"
-            android:tint="@color/colorFontMedium"/>
-
         <TextView
+            android:id="@+id/label_whoops"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="16dp"
             android:gravity="center"
-            android:text="@string/you_have_no_transactions_yet"
-            android:textColor="@color/colorFontMedium"
-            android:textSize="18sp"/>
+            android:text="@string/whoops"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:text="@string/you_dont_have_transactions"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"/>
 
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@drawable/transactions_shadow"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
@@ -43,5 +51,6 @@
             android:layerType="software"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
 
 </RelativeLayout>
