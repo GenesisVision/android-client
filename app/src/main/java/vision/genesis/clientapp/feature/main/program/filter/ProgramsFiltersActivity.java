@@ -4,14 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import com.appyvet.materialrangebar.RangeBar;
 import com.arellomobile.mvp.presenter.InjectPresenter;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,7 +14,6 @@ import butterknife.OnClick;
 import io.swagger.client.model.InvestmentProgramsFilter;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.model.FilterSortingOption;
 import vision.genesis.clientapp.ui.ToolbarView;
 
 /**
@@ -43,9 +37,6 @@ public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements Pr
 	@BindView(R.id.avg_profit_range_bar)
 	public RangeBar avgProfitRangeBar;
 
-	@BindView(R.id.spinner_sorting)
-	public Spinner sortingSpinner;
-
 	@BindView(R.id.button_apply)
 	public View applyButton;
 
@@ -54,8 +45,6 @@ public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements Pr
 
 	@InjectPresenter
 	ProgramsFiltersPresenter programsFiltersPresenter;
-
-	private ArrayList<FilterSortingOption> sortingOptions;
 
 	@OnClick(R.id.button_apply)
 	public void onApplyClicked() {
@@ -77,7 +66,6 @@ public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements Pr
 
 		initToolbar();
 		initRangeBars();
-		initSpinner();
 	}
 
 	private void initRangeBars() {
@@ -87,26 +75,6 @@ public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements Pr
 
 		avgProfitRangeBar.setOnRangeBarChangeListener((rangeBar, leftPinIndex, rightPinIndex, leftPinValue, rightPinValue) -> {
 			programsFiltersPresenter.setAvgProfit(leftPinValue, rightPinValue);
-		});
-	}
-
-	private void initSpinner() {
-		sortingOptions = FilterSortingOption.getOptions(this);
-		ArrayAdapter<FilterSortingOption> sortingAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sortingOptions);
-		sortingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		sortingSpinner.setAdapter(sortingAdapter);
-
-		sortingSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-		{
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				programsFiltersPresenter.onSortingSelected(sortingOptions.get(position));
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-
-			}
 		});
 	}
 
@@ -122,13 +90,6 @@ public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements Pr
 
 	@Override
 	public void setFilterData(InvestmentProgramsFilter filter) {
-		int index = 0;
-		for (FilterSortingOption sortingOption : sortingOptions) {
-			if (sortingOption.option.equals(filter.getSorting())) {
-				sortingSpinner.setSelection(index);
-			}
-			index++;
-		}
 		if (filter.getLevelMin() != null && filter.getLevelMax() != null) {
 			levelRangeBar.setRangePinsByValue(filter.getLevelMin(), filter.getLevelMax());
 		}

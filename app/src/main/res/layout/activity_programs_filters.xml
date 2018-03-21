@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-    >
+                android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/group_filters"
@@ -32,14 +31,6 @@
             style="@style/filters_range_bar"
             app:mrb_tickEnd="@integer/avg_profit_max"
             app:mrb_tickStart="@integer/avg_profit_min"/>
-
-        <TextView
-            style="@style/filters_item_label"
-            android:text="@string/sorting"/>
-
-        <Spinner
-            android:id="@+id/spinner_sorting"
-            style="@style/filters_item_value"/>
 
     </LinearLayout>
 

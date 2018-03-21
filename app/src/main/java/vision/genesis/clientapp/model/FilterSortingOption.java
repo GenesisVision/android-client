@@ -44,17 +44,17 @@ public class FilterSortingOption
 	public String toString() {
 		switch (option) {
 			case BYPROFITDESC:
-				return String.format(Locale.getDefault(), "%s \u2193", context.getResources().getString(R.string.by_profit));
+				return String.format(Locale.getDefault(), "%s \u2193", context.getResources().getString(R.string.sort_by_profit));
 			case BYPROFITASC:
-				return String.format(Locale.getDefault(), "%s \u2191", context.getResources().getString(R.string.by_profit));
+				return String.format(Locale.getDefault(), "%s \u2191", context.getResources().getString(R.string.sort_by_profit));
 			case BYLEVELDESC:
-				return String.format(Locale.getDefault(), "%s \u2193", context.getResources().getString(R.string.by_level));
+				return String.format(Locale.getDefault(), "%s \u2193", context.getResources().getString(R.string.sort_by_level));
 			case BYLEVELASC:
-				return String.format(Locale.getDefault(), "%s \u2191", context.getResources().getString(R.string.by_level));
+				return String.format(Locale.getDefault(), "%s \u2191", context.getResources().getString(R.string.sort_by_level));
 			case BYORDERSDESC:
-				return String.format(Locale.getDefault(), "%s \u2193", context.getResources().getString(R.string.by_orders));
+				return String.format(Locale.getDefault(), "%s \u2193", context.getResources().getString(R.string.sort_by_orders));
 			case BYORDERSASC:
-				return String.format(Locale.getDefault(), "%s \u2191", context.getResources().getString(R.string.by_orders));
+				return String.format(Locale.getDefault(), "%s \u2191", context.getResources().getString(R.string.sort_by_orders));
 			default:
 				return "";
 		}

@@ -7,6 +7,8 @@ import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import vision.genesis.clientapp.R;
@@ -46,9 +48,18 @@ public class SpinnerView extends RelativeLayout
 		spinner.setOnItemSelectedListener(listener);
 	}
 
+	public void setData(List data) {
+		ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.item_spinner_dropdown, data);
+		setAdapter(adapter);
+	}
+
 	public void setData(String[] data) {
-		ArrayAdapter<CharSequence> langAdapter = new ArrayAdapter<CharSequence>(getContext(), R.layout.item_spinner_dropdown, data);
-		langAdapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-		spinner.setAdapter(langAdapter);
+		ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.item_spinner_dropdown, data);
+		setAdapter(adapter);
+	}
+
+	private void setAdapter(ArrayAdapter adapter) {
+		adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+		spinner.setAdapter(adapter);
 	}
 }

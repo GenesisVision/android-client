@@ -13,10 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,7 +28,11 @@ import butterknife.OnClick;
 import io.swagger.client.model.InvestmentProgram;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.model.FilterSortingOption;
+import vision.genesis.clientapp.ui.SpinnerView;
 import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -36,6 +43,18 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 {
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
+
+	@BindView(R.id.programs_count)
+	public TextView programsCount;
+
+	@BindView(R.id.programs_count_progress)
+	public ProgressBar programsCountProgressBar;
+
+	@BindView(R.id.label_programs_count)
+	public TextView programsCountLabel;
+
+	@BindView(R.id.spinner_view)
+	public SpinnerView spinner;
 
 	@BindView(R.id.refresh_layout)
 	public SwipeRefreshLayout refreshLayout;
@@ -92,14 +111,40 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 		ButterKnife.bind(this, view);
 
+		setFonts();
+
 		initToolbar();
+		initSpinner();
 		initRefreshLayout();
 		initRecyclerView();
+	}
+
+	private void setFonts() {
+		programsCount.setTypeface(TypefaceUtil.light(getContext()));
+		programsCountLabel.setTypeface(TypefaceUtil.bold(getContext()));
 	}
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.programs));
 		toolbar.addRightButton(R.drawable.filters_icon, () -> programsListPresenter.onFilterClicked());
+	}
+
+	private void initSpinner() {
+		ArrayList<FilterSortingOption> sortingOptions = FilterSortingOption.getOptions(getContext());
+		spinner.setData(sortingOptions);
+
+		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+		{
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				programsListPresenter.onSortingSelected(sortingOptions.get(position));
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+
+			}
+		});
 	}
 
 	private void initRefreshLayout() {
@@ -130,6 +175,8 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
 		int totalItemCount = layoutManager.getItemCount();
 		lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
+		if (lastVisible < 0)
+			return;
 
 		boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
 		if (totalItemCount > 0 && endHasBeenReached) {
@@ -218,12 +265,25 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	public void showProgressBar(boolean show) {
 		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
 		tryAgainButton.setVisibility(show ? View.GONE : View.VISIBLE);
+
+		programsCountProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+		programsCount.setVisibility(show ? View.GONE : View.VISIBLE);
 	}
 
 	@Override
 	public void showEmptyList(boolean show) {
 		emptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);
 		refreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
+	}
+
+	@Override
+	public void setProgramsCount(Integer count) {
+		programsCount.setText(StringFormatUtil.formatAmount((double) count, 0, 0));
+	}
+
+	@Override
+	public void showFiltersActive(boolean show) {
+		toolbar.showRightButtonDot(show);
 	}
 
 	@Override

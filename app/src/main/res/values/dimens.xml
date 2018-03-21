@@ -3,6 +3,8 @@
     <dimen name="toolbar_height">60dp</dimen>
     <dimen name="toolbar_button_width">40dp</dimen>
     <dimen name="toolbar_button_height">40dp</dimen>
+    <dimen name="toolbar_dot_width">8dp</dimen>
+    <dimen name="toolbar_dot_height">8dp</dimen>
 
     <dimen name="bottom_navigation_height">64dp</dimen>
 
@@ -73,4 +75,8 @@
 
     <dimen name="portfolio_image_width">60dp</dimen>
     <dimen name="portfolio_image_height">50dp</dimen>
+
+    <dimen name="programs_image_width">60dp</dimen>
+    <dimen name="programs_image_height">60dp</dimen>
+    <dimen name="programs_appbar_background_height">200dp</dimen>
 </resources>

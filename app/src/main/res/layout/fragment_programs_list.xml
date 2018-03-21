@@ -5,128 +5,241 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/refresh_layout"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:background="@color/white"
+            app:elevation="0dp">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed|exitUntilCollapsed">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/programs_appbar_background_height"
+                    app:layout_collapseMode="pin">
+
+                    <ImageView
+                        android:id="@+id/programs_image"
+                        android:layout_width="@dimen/programs_image_width"
+                        android:layout_height="@dimen/programs_image_height"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="16dp"
+                        android:src="@drawable/traders_icon_big"/>
+
+                    <RelativeLayout
+                        android:id="@+id/group_programs_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/programs_image"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="16dp">
+
+                        <FrameLayout
+                            android:id="@+id/group_programs_count_progress"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp">
+
+                            <ProgressBar
+                                android:id="@+id/programs_count_progress"
+                                style="?android:attr/progressBarStyleLarge"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:visibility="gone"/>
+
+                            <TextView
+                                android:id="@+id/programs_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:lines="1"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="56sp"
+                                tools:text="7,800"/>
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/label_programs_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/group_programs_count_progress"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="4dp"
+                            android:lines="1"
+                            android:text="@string/programs_to_invest_in"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="16sp"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+            <vision.genesis.clientapp.ui.SpinnerView
+                android:id="@+id/spinner_view"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/group_programs_count"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp"
+                app:layout_collapseMode="pin"/>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:clipToPadding="false"
-            android:paddingBottom="70dp"/>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-    <LinearLayout
-        android:id="@+id/group_empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="32dp"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_money_off_black_24dp"
-            android:tint="@color/colorFontMedium"/>
-
-        <TextView
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="16dp"
-            android:gravity="center"
-            android:text="@string/cannot_find_programs"
-            android:textColor="@color/colorFontMedium"
-            android:textSize="18sp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/group_no_internet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/no_internet_image"
-            android:layout_width="@dimen/programs_no_internet_image_width"
-            android:layout_height="@dimen/programs_no_internet_image_height"
-            android:src="@drawable/no_internet"
-            android:tint="@color/colorFontLight"/>
-
-        <TextView
-            android:id="@+id/no_internet_text"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="@string/network_error"
-            android:textColor="@color/colorFontMedium"
-            android:textSize="18sp"/>
-
-
-        <FrameLayout
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="32dp">
-
-            <RelativeLayout
-                android:id="@+id/button_try_again"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/button_primary">
+                android:layout_height="64dp"
+                android:background="@drawable/transactions_shadow"/>
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/refresh_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    android:clipToPadding="false"
+                    android:paddingBottom="70dp"/>
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <LinearLayout
+                android:id="@+id/group_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="32dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_money_off_black_24dp"
+                    android:tint="@color/colorFontMedium"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/try_again"
-                    android:textColor="@color/white"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="16dp"
+                    android:gravity="center"
+                    android:text="@string/cannot_find_programs"
+                    android:textColor="@color/colorFontMedium"
                     android:textSize="18sp"/>
 
-            </RelativeLayout>
+            </LinearLayout>
 
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:visibility="gone"/>
+            <LinearLayout
+                android:id="@+id/group_no_internet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-        </FrameLayout>
+                <ImageView
+                    android:id="@+id/no_internet_image"
+                    android:layout_width="@dimen/programs_no_internet_image_width"
+                    android:layout_height="@dimen/programs_no_internet_image_height"
+                    android:src="@drawable/no_internet"
+                    android:tint="@color/colorFontLight"/>
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/no_internet_text"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:text="@string/network_error"
+                    android:textColor="@color/colorFontMedium"
+                    android:textSize="18sp"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="12dp"
-        android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
-        android:tint="@color/colorFontDark"
-        android:visibility="gone"
-        app:backgroundTint="@color/colorGrayBackground"
-        app:fabSize="mini"
-        app:rippleColor="@color/colorPrimary"
-        tools:visibility="visible"/>
+
+                <FrameLayout
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="32dp">
+
+                    <RelativeLayout
+                        android:id="@+id/button_try_again"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/button_primary">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="@string/try_again"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"/>
+
+                    </RelativeLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar"
+                        style="?android:attr/progressBarStyleLarge"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:visibility="gone"/>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="12dp"
+                android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
+                android:tint="@color/colorFontDark"
+                android:visibility="gone"
+                app:backgroundTint="@color/colorGrayBackground"
+                app:fabSize="mini"
+                app:rippleColor="@color/colorPrimary"
+                tools:visibility="visible"/>
+
+        </RelativeLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
 
     <vision.genesis.clientapp.ui.ToolbarView
         android:id="@+id/toolbar"

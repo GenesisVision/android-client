@@ -6,6 +6,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,9 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.model.FilterSortingOption;
+import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
+import vision.genesis.clientapp.model.events.ProgramsListFiltersClearedEvent;
 import vision.genesis.clientapp.model.events.ShowFiltersEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -56,7 +60,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-//		EventBus.getDefault().register(this);
+		EventBus.getDefault().register(this);
 
 		subscribeToFilter();
 	}
@@ -71,11 +75,16 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		if (getProgramsSubscription != null)
 			getProgramsSubscription.unsubscribe();
 
-//		EventBus.getDefault().unregister(this);
+		EventBus.getDefault().unregister(this);
 	}
 
 	void onFilterClicked() {
 		EventBus.getDefault().post(new ShowFiltersEvent());
+	}
+
+	void onSortingSelected(FilterSortingOption selectedOption) {
+		filter.setSorting(selectedOption.option);
+		investManager.setFilter(filter);
 	}
 
 	void onSwipeRefresh() {
@@ -128,6 +137,8 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 //		List<InvestmentProgram> programs = investManager.parseInvestmentProgramsModel(model);
 		List<InvestmentProgram> programs = model.getInvestmentPrograms();
 
+		getViewState().setProgramsCount(model.getTotal());
+
 		if (programs.size() == 0) {
 			if (skip == 0)
 				getViewState().showEmptyList(true);
@@ -164,5 +175,15 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 	void onTryAgainClicked() {
 		getViewState().showProgressBar(true);
 		getProgramsList(true);
+	}
+
+	@Subscribe
+	public void onEventMainThread(ProgramsListFiltersAppliedEvent event) {
+		getViewState().showFiltersActive(true);
+	}
+
+	@Subscribe
+	public void onEventMainThread(ProgramsListFiltersClearedEvent event) {
+		getViewState().showFiltersActive(false);
 	}
 }

@@ -39,6 +39,9 @@ public class ToolbarView extends RelativeLayout
 	@BindView(R.id.button_right)
 	public ImageView rightButton;
 
+	@BindView(R.id.button_right_dot)
+	public View rightButtonDot;
+
 	private ButtonClickListener leftButtonClickListener;
 
 	private ButtonClickListener rightButtonClickListener;
@@ -112,5 +115,9 @@ public class ToolbarView extends RelativeLayout
 		rightButton.setImageDrawable(ContextCompat.getDrawable(getContext(), buttonImageResId));
 		rightButtonClickListener = clickListener;
 		rightButton.setVisibility(View.VISIBLE);
+	}
+
+	public void showRightButtonDot(boolean show) {
+		rightButtonDot.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 }

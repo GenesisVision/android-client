@@ -52,9 +52,9 @@
     <string name="transaction_type_invest_to_program">Invest to program</string>
     <string name="transaction_type_cancel_investment_request">Cancel investment request</string>
     <string name="transaction_type_withdraw_from_program">Withdraw from program</string>
-    <string name="by_level">By level</string>
-    <string name="by_orders">By orders</string>
-    <string name="by_profit">By profit</string>
+    <string name="sort_by_level">Sort by level</string>
+    <string name="sort_by_orders">Sort by orders</string>
+    <string name="sort_by_profit">Sort by profit</string>
     <string name="min_amount_to_invest">Min amount to invest</string>
     <string name="max_amount_to_invest">Max amount to invest</string>
     <string name="min">Min</string>
@@ -175,6 +175,7 @@
     <string name="enter_investment_amount">Enter investment amount</string>
     <string name="my_tokens">My tokens</string>
     <string name="total_portfolio_value">Total portfolio value</string>
+    <string name="programs_to_invest_in">Programs to invest in</string>
 
     <string-array name="transactions_filter">
         <item>All Transactions</item>

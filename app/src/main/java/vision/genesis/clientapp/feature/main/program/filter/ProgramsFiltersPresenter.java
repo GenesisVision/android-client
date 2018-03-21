@@ -5,12 +5,15 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Inject;
 
 import io.swagger.client.model.InvestmentProgramsFilter;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.InvestManager;
-import vision.genesis.clientapp.model.FilterSortingOption;
+import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
+import vision.genesis.clientapp.model.events.ProgramsListFiltersClearedEvent;
 
 /**
  * GenesisVision
@@ -52,18 +55,16 @@ public class ProgramsFiltersPresenter extends MvpPresenter<ProgramsFiltersView>
 		filter.setProfitAvgMax(Integer.parseInt(maxLevel));
 	}
 
-	void onSortingSelected(FilterSortingOption selectedOption) {
-		filter.setSorting(selectedOption.option);
-	}
-
 	void onApplyClicked() {
 		investManager.setFilter(filter);
+		EventBus.getDefault().post(new ProgramsListFiltersAppliedEvent());
 		onBackClicked();
 	}
 
 	void onClearClicked() {
 		filter = new InvestmentProgramsFilter();
 		investManager.setFilter(filter);
+		EventBus.getDefault().post(new ProgramsListFiltersClearedEvent());
 		onBackClicked();
 	}
 }

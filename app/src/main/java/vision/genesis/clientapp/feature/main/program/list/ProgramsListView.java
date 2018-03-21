@@ -30,4 +30,8 @@ interface ProgramsListView extends MvpView
 	void showProgressBar(boolean show);
 
 	void showEmptyList(boolean show);
+
+	void setProgramsCount(Integer count);
+
+	void showFiltersActive(boolean show);
 }
