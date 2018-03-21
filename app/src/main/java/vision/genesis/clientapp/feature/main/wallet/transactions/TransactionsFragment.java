@@ -44,7 +44,6 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 	@BindView(R.id.group_no_transactions)
 	public View groupNoTransactions;
 
-
 	@BindView(R.id.label_whoops)
 	public TextView whoopsLabel;
 

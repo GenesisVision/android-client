@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,6 +21,7 @@ import butterknife.OnClick;
 import io.swagger.client.model.InvestmentProgramDashboard;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.ui.DividerItemDecoration;
 
 /**
  * GenesisVision
@@ -65,7 +65,7 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 		dashboardProgramsPresenter.onTryAgainClicked();
 	}
 
-	@OnClick(R.id.button_start_investing)
+	@OnClick(R.id.button_browse_programs)
 	public void onStartInvestingClicked() {
 		dashboardProgramsPresenter.onStartInvestingClicked();
 	}
@@ -97,8 +97,9 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
 		dashboardProgramsAdapter = new DashboardProgramsAdapter();
-		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
-		dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider));
+		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
+				ContextCompat.getDrawable(getContext(), R.drawable.divider_dot_horizontal),
+				20, 20);
 		recyclerView.addItemDecoration(dividerItemDecoration);
 		recyclerView.setAdapter(dashboardProgramsAdapter);
 	}

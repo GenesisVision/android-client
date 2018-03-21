@@ -198,7 +198,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 		endOfPeriodText.setText(DateTimeUtil.formatDateTime(programDetails.getEndOfPeriod()));
 		if (programDetails.isIsEnabled())
-			periodLeftView.setDateTo(programDetails.getEndOfPeriod());
+			periodLeftView.setDateTo(programDetails.getStartOfPeriod(), programDetails.getEndOfPeriod());
 		periodLeftView.setProgramClosed(!programDetails.isIsEnabled());
 
 		successFeeText.setText(df.format(programDetails.getFeeSuccess()));

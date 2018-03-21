@@ -4,10 +4,12 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.joda.time.DateTime;
+import org.joda.time.Seconds;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +20,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.DateTimeUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -32,14 +35,16 @@ public class PeriodLeftView extends RelativeLayout
 	@BindView(R.id.text_number)
 	public TextView numberText;
 
+	@BindView(R.id.period_progress_bar)
+	public ProgressBar progressBar;
+
 	@BindView(R.id.text_period)
 	public TextView periodText;
 
-	@BindView(R.id.text_left)
-	public TextView leftText;
-
 	@BindView(R.id.text_program_closed)
 	public TextView programClosedText;
+
+	private DateTime dateFrom;
 
 	private DateTime dateTo;
 
@@ -66,12 +71,29 @@ public class PeriodLeftView extends RelativeLayout
 		inflate(getContext(), R.layout.view_period_left, this);
 
 		ButterKnife.bind(this);
+
+		setFonts();
 	}
 
-	public void setDateTo(DateTime date) {
-		dateTo = date;
+	private void setFonts() {
+		periodText.setTypeface(TypefaceUtil.bold(getContext()));
+		programClosedText.setTypeface(TypefaceUtil.bold(getContext()));
+	}
+
+	public void setDateTo(DateTime dateFrom, DateTime dateTo) {
+		this.dateFrom = dateFrom;
+		this.dateTo = dateTo;
+		initProgressBar();
 		updatePeriodLeft();
 		startTimer();
+	}
+
+	private void initProgressBar() {
+		progressBar.setMax(Seconds.secondsBetween(dateFrom, dateTo).getSeconds());
+	}
+
+	private void updateProgressBar() {
+		progressBar.setProgress(Seconds.secondsBetween(dateFrom, DateTime.now()).getSeconds());
 	}
 
 	private void startTimer() {
@@ -84,35 +106,47 @@ public class PeriodLeftView extends RelativeLayout
 	}
 
 	private void updatePeriodLeft() {
+		updateProgressBar();
+
 		int daysLeft = DateTimeUtil.getDaysToDate(dateTo);
 		if (daysLeft > 0) {
 			numberText.setText(String.valueOf(daysLeft));
-			periodText.setText(getResources().getQuantityString(R.plurals.days, daysLeft, daysLeft, daysLeft));
+			periodText.setText(String.format("%s %s",
+					getResources().getQuantityString(R.plurals.days, daysLeft, daysLeft, daysLeft),
+					getResources().getString(R.string.left)));
 			return;
 		}
 
 		int hoursLeft = DateTimeUtil.getHoursToDate(dateTo);
 		if (hoursLeft > 0) {
 			numberText.setText(String.valueOf(hoursLeft));
-			periodText.setText(getResources().getQuantityString(R.plurals.hours, hoursLeft, hoursLeft, hoursLeft));
+			periodText.setText(String.format("%s %s",
+					getResources().getQuantityString(R.plurals.hours, hoursLeft, hoursLeft, hoursLeft),
+					getResources().getString(R.string.left)));
 			return;
 		}
 
 		int minutesLeft = DateTimeUtil.getMinutesToDate(dateTo);
 		if (minutesLeft > 0) {
 			numberText.setText(String.valueOf(minutesLeft));
-			periodText.setText(getResources().getQuantityString(R.plurals.minutes, minutesLeft, minutesLeft, minutesLeft));
+			periodText.setText(String.format("%s %s",
+					getResources().getQuantityString(R.plurals.minutes, minutesLeft, minutesLeft, minutesLeft),
+					getResources().getString(R.string.left)));
 			return;
 		}
 
 		int secondsLeft = DateTimeUtil.getSecondsToDate(dateTo);
 		if (secondsLeft > 0) {
 			numberText.setText(String.valueOf(secondsLeft));
-			periodText.setText(getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft));
+			periodText.setText(String.format("%s %s",
+					getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft),
+					getResources().getString(R.string.left)));
 		}
 		else {
 			numberText.setText("0");
-			periodText.setText(getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft));
+			periodText.setText(String.format("%s %s",
+					getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft),
+					getResources().getString(R.string.left)));
 
 			if (timeSubscription != null)
 				timeSubscription.unsubscribe();
@@ -120,10 +154,6 @@ public class PeriodLeftView extends RelativeLayout
 //			if (!programClosed)
 //				EventBus.getDefault().post(new OnPeriodLeftEvent());
 		}
-	}
-
-	public void showLeft(boolean show) {
-		leftText.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 
 	public void setProgramClosed(boolean closed) {

@@ -182,8 +182,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 		bottomNavigationView.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
 
 		bottomNavigationView.setOnTabSelectedListener((position, wasSelected) -> {
-			mainPresenter.onBottomMenuSelectionChanged(position);
-			return true;
+			if (!wasSelected) {
+				mainPresenter.onBottomMenuSelectionChanged(position);
+				return true;
+			}
+			else {
+				return false;
+			}
 		});
 	}
 

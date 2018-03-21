@@ -8,6 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -20,6 +22,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.programs.DashboardPagerAdapter;
 import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -27,8 +30,16 @@ import vision.genesis.clientapp.ui.ToolbarView;
  */
 
 public class DashboardFragment extends BaseFragment implements DashboardView, ViewPager.OnPageChangeListener
-
 {
+	@BindView(R.id.portfolio_value)
+	public TextView portfolioValue;
+
+	@BindView(R.id.portfolio_value_progress)
+	public ProgressBar portfolioValueProgressBar;
+
+	@BindView(R.id.label_total_portfolio_value)
+	public TextView totalPortfolioValueLabel;
+
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
 
@@ -61,6 +72,8 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 
 		ButterKnife.bind(this, view);
 
+		setFonts();
+
 		initToolbar();
 		initTabs();
 		initViewPager();
@@ -86,6 +99,11 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 		viewPager.addOnPageChangeListener(this);
 
 		super.onDestroyView();
+	}
+
+	private void setFonts() {
+		portfolioValue.setTypeface(TypefaceUtil.light(getContext()));
+		totalPortfolioValueLabel.setTypeface(TypefaceUtil.bold(getContext()));
 	}
 
 	private void initToolbar() {

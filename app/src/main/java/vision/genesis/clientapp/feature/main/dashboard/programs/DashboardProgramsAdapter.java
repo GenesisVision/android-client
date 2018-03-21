@@ -1,6 +1,6 @@
 package vision.genesis.clientapp.feature.main.dashboard.programs;
 
-import android.support.v4.content.ContextCompat;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +15,12 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.swagger.client.model.InvestmentProgramDashboard;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.events.ShowInvestProgramEvent;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
-import vision.genesis.clientapp.model.events.ShowWithdrawProgramEvent;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
-import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -58,8 +55,6 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 	static class InvestorProgramViewHolder extends RecyclerView.ViewHolder
 	{
-		@BindView(R.id.manager_avatar)
-		public AvatarView managerAvatar;
 
 		@BindView(R.id.program_logo)
 		public AvatarView programLogo;
@@ -67,49 +62,51 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		@BindView(R.id.program_name)
 		public TextView programName;
 
+		@BindView(R.id.manager_name)
+		public TextView managerName;
+
 		@BindView(R.id.tokens)
 		public TextView tokens;
 
-		@BindView(R.id.account_currency_tokens_worth)
-		public TextView accountCurrencyTokensWorth;
+		@BindView(R.id.tokens_fiat)
+		public TextView tokensFiat;
 
-		@BindView(R.id.pending_requests)
-		public TextView pendingRequestsText;
+		@BindView(R.id.label_my_tokens)
+		public TextView myTokensLabel;
 
-		@BindView(R.id.profit_percent)
-		public TextView profitPercentText;
+		@BindView(R.id.profit)
+		public TextView profit;
 
-		@BindView(R.id.profit_currency)
-		public TextView profitCurrencyText;
+		@BindView(R.id.profit_fiat)
+		public TextView profitFiat;
+
+		@BindView(R.id.label_profit)
+		public TextView profitLabel;
 
 		@BindView(R.id.view_period_left)
 		public PeriodLeftView periodLeftView;
 
-		@BindView(R.id.button_invest)
-		public View investButton;
-
-		@BindView(R.id.button_withdraw)
-		public View withdrawButton;
+		private Context context;
 
 		private InvestmentProgramDashboard investmentProgram;
 
 		InvestorProgramViewHolder(View itemView) {
 			super(itemView);
 
+			context = itemView.getContext();
+
 			ButterKnife.bind(this, itemView);
 
+			setFonts();
+
 			itemView.setOnClickListener(v -> EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(investmentProgram.getId())));
-			managerAvatar.hideLevel();
 		}
 
-		@OnClick(R.id.button_invest)
-		public void onInvestClicked() {
-			EventBus.getDefault().post(new ShowInvestProgramEvent(investmentProgram.getId(), investmentProgram.getTitle()));
-		}
-
-		@OnClick(R.id.button_withdraw)
-		public void onWithdrawClicked() {
-			EventBus.getDefault().post(new ShowWithdrawProgramEvent(investmentProgram.getId(), investmentProgram.getTitle(), investmentProgram.getInvestedTokens()));
+		private void setFonts() {
+			tokensFiat.setTypeface(TypefaceUtil.bold(context));
+			myTokensLabel.setTypeface(TypefaceUtil.bold(context));
+			profitFiat.setTypeface(TypefaceUtil.bold(context));
+			profitLabel.setTypeface(TypefaceUtil.bold(context));
 		}
 
 		void setInvestmentProgram(InvestmentProgramDashboard investmentProgram) {
@@ -118,47 +115,42 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		}
 
 		private void updateData() {
-			managerAvatar.setImage(investmentProgram.getManager().getAvatar());
-
 			programLogo.setImage(investmentProgram.getLogo());
 			programLogo.setLevel(investmentProgram.getLevel());
 
 			programName.setText(investmentProgram.getTitle());
+			managerName.setText(String.format(Locale.getDefault(), "%s %s",
+					context.getResources().getString(R.string.by),
+					investmentProgram.getManager().getUsername()));
 
-			tokens.setText(String.format(Locale.getDefault(), "%s %s", StringFormatUtil.formatAmount(investmentProgram.getInvestedTokens()), itemView.getContext().getResources().getString(R.string.tokens)));
-			accountCurrencyTokensWorth.setText("$0");
-
-			pendingRequestsText.setVisibility(investmentProgram.isHasNewRequests() ? View.VISIBLE : View.GONE);
+			tokens.setText(String.valueOf(investmentProgram.getInvestedTokens()));
 
 			double profitPercent = investmentProgram.getProfitAvg();
-			double profitCurrency = 0.00;
-			profitPercentText.setText(String.format(Locale.getDefault(), "%.2f%%", profitPercent));
-			profitCurrencyText.setText(String.format(Locale.getDefault(), "$%.2f", profitCurrency));
-			if (profitPercent > 0) {
-				profitPercentText.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.transactionGreen));
-				profitCurrencyText.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.transactionGreen));
-				profitPercentText.setText(String.format(Locale.getDefault(), "+%.2f%%", profitPercent));
-				profitCurrencyText.setText(String.format(Locale.getDefault(), "+$%.2f", profitCurrency));
-			}
-			else if (profitPercent < 0) {
-				profitPercentText.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.transactionRed));
-				profitCurrencyText.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.transactionRed));
-				profitPercentText.setText(String.format(Locale.getDefault(), "%.2f%%", profitPercent));
-				profitCurrencyText.setText(String.format(Locale.getDefault(), "$%.2f", profitCurrency));
-			}
-			else {
-				profitPercentText.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.colorFontDark));
-				profitCurrencyText.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.colorFontDark));
-				profitPercentText.setText("0.00%");
-				profitCurrencyText.setText("$0.00");
-			}
+//			double profitCurrency = 0.00;
+			profit.setText(String.format(Locale.getDefault(), "%.2f%%", profitPercent));
+//			profitFiat.setText(String.format(Locale.getDefault(), "$%.2f", profitCurrency));
+//			if (profitPercent > 0) {
+//				profit.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));
+//				profitFiat.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));
+//				profit.setText(String.format(Locale.getDefault(), "+%.2f%%", profitPercent));
+//				profitFiat.setText(String.format(Locale.getDefault(), "+$%.2f", profitCurrency));
+//			}
+//			else if (profitPercent < 0) {
+//				profit.setTextColor(ContextCompat.getColor(context, R.color.transactionRed));
+//				profitFiat.setTextColor(ContextCompat.getColor(context, R.color.transactionRed));
+//				profit.setText(String.format(Locale.getDefault(), "%.2f%%", profitPercent));
+//				profitFiat.setText(String.format(Locale.getDefault(), "$%.2f", profitCurrency));
+//			}
+//			else {
+//				profit.setTextColor(ContextCompat.getColor(context, R.color.colorFontDark));
+//				profitFiat.setTextColor(ContextCompat.getColor(context, R.color.colorFontDark));
+//				profit.setText("0.00%");
+//				profitFiat.setText("$0.00");
+//			}
 
 			if (investmentProgram.isIsEnabled())
-				periodLeftView.setDateTo(investmentProgram.getEndOfPeriod());
+				periodLeftView.setDateTo(investmentProgram.getStartOfPeriod(), investmentProgram.getEndOfPeriod());
 			periodLeftView.setProgramClosed(!investmentProgram.isIsEnabled());
-
-			investButton.setVisibility(investmentProgram.isIsInvestEnable() ? View.VISIBLE : View.GONE);
-			withdrawButton.setVisibility(investmentProgram.isIsWithdrawEnable() ? View.VISIBLE : View.GONE);
 		}
 	}
 }

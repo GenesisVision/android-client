@@ -116,8 +116,8 @@
     <string name="program_requests">Program requests</string>
     <string name="requests">Requests</string>
 
-    <string name="dashboard_empty">You have no investments yet.</string>
-    <string name="start_investing">Start investing</string>
+    <string name="dashboard_empty">you don\'t have\nany programs yet…</string>
+    <string name="browse_programs">Browse programs</string>
     <string name="left">left</string>
     <string name="manager">Manager</string>
     <string name="dollar_symbol">$</string>
@@ -173,6 +173,8 @@
     <string name="by">by</string>
     <string name="my_balance">My balance</string>
     <string name="enter_investment_amount">Enter investment amount</string>
+    <string name="my_tokens">My tokens</string>
+    <string name="total_portfolio_value">Total portfolio value</string>
 
     <string-array name="transactions_filter">
         <item>All Transactions</item>
