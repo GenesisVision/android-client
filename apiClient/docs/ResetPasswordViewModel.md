@@ -1,10 +1,12 @@
 
-# WalletStatistic
+# ResetPasswordViewModel
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**chart** | [**List&lt;DateChart&gt;**](DateChart.md) |  |  [optional]
+**id** | **String** |  | 
+**code** | **String** |  | 
+**password** | **String** |  | 
 
 
 

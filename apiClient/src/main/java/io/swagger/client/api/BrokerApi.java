@@ -3,13 +3,16 @@ package io.swagger.client.api;
 import java.util.UUID;
 
 import io.swagger.client.model.BrokerInitData;
+import io.swagger.client.model.ChangePasswordViewModel;
 import io.swagger.client.model.ClosePeriodData;
+import io.swagger.client.model.ForgotPasswordViewModel;
 import io.swagger.client.model.InvestmentProgramAccrual;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.ManagerHistoryIpfsHash;
 import io.swagger.client.model.NewManager;
 import io.swagger.client.model.NewOpenTradesEvent;
 import io.swagger.client.model.NewTradeEvent;
+import io.swagger.client.model.ResetPasswordViewModel;
 import io.swagger.client.model.StartValues;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -31,6 +34,46 @@ public interface BrokerApi
 	@POST("api/broker/account/create")
 	Observable<UUID> apiBrokerAccountCreatePost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body NewManager request
+	);
+
+	/**
+	 * Confirm email after registration
+	 *
+	 * @param userId (optional)
+	 * @param code   (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@GET("api/broker/auth/confirmEmail")
+	Observable<Void> apiBrokerAuthConfirmEmailGet(
+			@retrofit2.http.Query("userId") String userId, @retrofit2.http.Query("code") String code
+	);
+
+	/**
+	 * Forgot password
+	 *
+	 * @param model (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/broker/auth/forgotPassword")
+	Observable<Void> apiBrokerAuthForgotPasswordPost(
+			@retrofit2.http.Body ForgotPasswordViewModel model
+	);
+
+	/**
+	 * Reset password
+	 *
+	 * @param model (optional)
+	 * @return Call&lt;String&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/broker/auth/resetPassword")
+	Observable<String> apiBrokerAuthResetPasswordPost(
+			@retrofit2.http.Body ResetPasswordViewModel model
 	);
 
 	/**
@@ -56,6 +99,21 @@ public interface BrokerApi
 	@GET("api/broker/auth/updateToken")
 	Observable<String> apiBrokerAuthUpdateTokenGet(
 			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Change password
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/broker/auth/сhangePassword")
+	Observable<Void> apiBrokerAuthhangePasswordPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ChangePasswordViewModel model
 	);
 
 	/**
@@ -89,12 +147,13 @@ public interface BrokerApi
 	 * Close investment period
 	 *
 	 * @param investmentProgramId (required)
+	 * @param currentBalance      (required)
 	 * @param authorization       JWT access token (required)
 	 * @return Call&lt;Void&gt;
 	 */
 	@POST("api/broker/period/close")
 	Observable<Void> apiBrokerPeriodClosePost(
-			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Query("currentBalance") Double currentBalance, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**

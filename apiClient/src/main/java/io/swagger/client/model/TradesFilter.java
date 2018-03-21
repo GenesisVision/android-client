@@ -13,10 +13,15 @@
 
 package io.swagger.client.model;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
 import org.joda.time.DateTime;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -39,6 +44,9 @@ public class TradesFilter
 
 	@SerializedName("symbol")
 	private String symbol = null;
+
+	@SerializedName("sorting")
+	private SortingEnum sorting = null;
 
 	@SerializedName("skip")
 	private Integer skip = null;
@@ -122,6 +130,25 @@ public class TradesFilter
 		this.symbol = symbol;
 	}
 
+	public TradesFilter sorting(SortingEnum sorting) {
+		this.sorting = sorting;
+		return this;
+	}
+
+	/**
+	 * Get sorting
+	 *
+	 * @return sorting
+	 **/
+	@ApiModelProperty(value = "")
+	public SortingEnum getSorting() {
+		return sorting;
+	}
+
+	public void setSorting(SortingEnum sorting) {
+		this.sorting = sorting;
+	}
+
 	public TradesFilter skip(Integer skip) {
 		this.skip = skip;
 		return this;
@@ -160,7 +187,6 @@ public class TradesFilter
 		this.take = take;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -174,15 +200,15 @@ public class TradesFilter
 				Objects.equals(this.dateFrom, tradesFilter.dateFrom) &&
 				Objects.equals(this.dateTo, tradesFilter.dateTo) &&
 				Objects.equals(this.symbol, tradesFilter.symbol) &&
+				Objects.equals(this.sorting, tradesFilter.sorting) &&
 				Objects.equals(this.skip, tradesFilter.skip) &&
 				Objects.equals(this.take, tradesFilter.take);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(investmentProgramId, dateFrom, dateTo, symbol, skip, take);
+		return Objects.hash(investmentProgramId, dateFrom, dateTo, symbol, sorting, skip, take);
 	}
-
 
 	@Override
 	public String toString() {
@@ -193,6 +219,7 @@ public class TradesFilter
 		sb.append("    dateFrom: ").append(toIndentedString(dateFrom)).append("\n");
 		sb.append("    dateTo: ").append(toIndentedString(dateTo)).append("\n");
 		sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
+		sb.append("    sorting: ").append(toIndentedString(sorting)).append("\n");
 		sb.append("    skip: ").append(toIndentedString(skip)).append("\n");
 		sb.append("    take: ").append(toIndentedString(take)).append("\n");
 		sb.append("}");
@@ -208,6 +235,67 @@ public class TradesFilter
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	/**
+	 * Gets or Sets sorting
+	 */
+	@JsonAdapter(SortingEnum.Adapter.class)
+	public enum SortingEnum
+	{
+		BYDATEASK("ByDateAsk"),
+
+		BYDATEDESC("ByDateDesc"),
+
+		BYTICKETASK("ByTicketAsk"),
+
+		BYTICKETDESC("ByTicketDesc"),
+
+		BYSYMBOLASK("BySymbolAsk"),
+
+		BYSYMBOLDESC("BySymbolDesc"),
+
+		BYDIRECTIONASK("ByDirectionAsk"),
+
+		BYDIRECTIONDESC("ByDirectionDesc");
+
+		public static SortingEnum fromValue(String text) {
+			for (SortingEnum b : SortingEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		SortingEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<SortingEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final SortingEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public SortingEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return SortingEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 }

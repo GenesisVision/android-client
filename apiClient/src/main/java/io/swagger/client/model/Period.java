@@ -59,6 +59,9 @@ public class Period
 	@SerializedName("managerStartShare")
 	private Double managerStartShare = null;
 
+	@SerializedName("processStatus")
+	private ProcessStatusEnum processStatus = null;
+
 	@SerializedName("investmentRequest")
 	private List<InvestmentProgramRequest> investmentRequest = null;
 
@@ -214,6 +217,25 @@ public class Period
 		this.managerStartShare = managerStartShare;
 	}
 
+	public Period processStatus(ProcessStatusEnum processStatus) {
+		this.processStatus = processStatus;
+		return this;
+	}
+
+	/**
+	 * Get processStatus
+	 *
+	 * @return processStatus
+	 **/
+	@ApiModelProperty(value = "")
+	public ProcessStatusEnum getProcessStatus() {
+		return processStatus;
+	}
+
+	public void setProcessStatus(ProcessStatusEnum processStatus) {
+		this.processStatus = processStatus;
+	}
+
 	public Period investmentRequest(List<InvestmentProgramRequest> investmentRequest) {
 		this.investmentRequest = investmentRequest;
 		return this;
@@ -258,12 +280,13 @@ public class Period
 				Objects.equals(this.startBalance, period.startBalance) &&
 				Objects.equals(this.managerStartBalance, period.managerStartBalance) &&
 				Objects.equals(this.managerStartShare, period.managerStartShare) &&
+				Objects.equals(this.processStatus, period.processStatus) &&
 				Objects.equals(this.investmentRequest, period.investmentRequest);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, number, dateFrom, dateTo, status, startBalance, managerStartBalance, managerStartShare, investmentRequest);
+		return Objects.hash(id, number, dateFrom, dateTo, status, startBalance, managerStartBalance, managerStartShare, processStatus, investmentRequest);
 	}
 
 	@Override
@@ -279,6 +302,7 @@ public class Period
 		sb.append("    startBalance: ").append(toIndentedString(startBalance)).append("\n");
 		sb.append("    managerStartBalance: ").append(toIndentedString(managerStartBalance)).append("\n");
 		sb.append("    managerStartShare: ").append(toIndentedString(managerStartShare)).append("\n");
+		sb.append("    processStatus: ").append(toIndentedString(processStatus)).append("\n");
 		sb.append("    investmentRequest: ").append(toIndentedString(investmentRequest)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -294,6 +318,7 @@ public class Period
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
+
 
 	/**
 	 * Gets or Sets status
@@ -342,6 +367,61 @@ public class Period
 			public StatusEnum read(final JsonReader jsonReader) throws IOException {
 				String value = jsonReader.nextString();
 				return StatusEnum.fromValue(String.valueOf(value));
+			}
+		}
+	}
+
+	/**
+	 * Gets or Sets processStatus
+	 */
+	@JsonAdapter(ProcessStatusEnum.Adapter.class)
+	public enum ProcessStatusEnum
+	{
+		NONE("None"),
+
+		ACCRUEPROFITSDONE("AccrueProfitsDone"),
+
+		REEVALUATEMANAGERTOKENDONE("ReevaluateManagerTokenDone"),
+
+		PROCESSINVESTMENTREQUESTSDONE("ProcessInvestmentRequestsDone"),
+
+		CLOSEPERIODDONE("ClosePeriodDone");
+
+		public static ProcessStatusEnum fromValue(String text) {
+			for (ProcessStatusEnum b : ProcessStatusEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		ProcessStatusEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<ProcessStatusEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final ProcessStatusEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public ProcessStatusEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return ProcessStatusEnum.fromValue(String.valueOf(value));
 			}
 		}
 	}

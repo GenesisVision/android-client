@@ -5,8 +5,12 @@ All URIs are relative to *https://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiBrokerAccountCreatePost**](BrokerApi.md#apiBrokerAccountCreatePost) | **POST** api/broker/account/create | Create manager
+[**apiBrokerAuthConfirmEmailGet**](BrokerApi.md#apiBrokerAuthConfirmEmailGet) | **GET** api/broker/auth/confirmEmail | Confirm email after registration
+[**apiBrokerAuthForgotPasswordPost**](BrokerApi.md#apiBrokerAuthForgotPasswordPost) | **POST** api/broker/auth/forgotPassword | Forgot password
+[**apiBrokerAuthResetPasswordPost**](BrokerApi.md#apiBrokerAuthResetPasswordPost) | **POST** api/broker/auth/resetPassword | Reset password
 [**apiBrokerAuthSignInPost**](BrokerApi.md#apiBrokerAuthSignInPost) | **POST** api/broker/auth/signIn | Authorize
 [**apiBrokerAuthUpdateTokenGet**](BrokerApi.md#apiBrokerAuthUpdateTokenGet) | **GET** api/broker/auth/updateToken | Update auth token
+[**apiBrokerAuthhangePasswordPost**](BrokerApi.md#apiBrokerAuthhangePasswordPost) | **POST** api/broker/auth/сhangePassword | Change password
 [**apiBrokerInitDataGet**](BrokerApi.md#apiBrokerInitDataGet) | **GET** api/broker/initData | Get broker initial data
 [**apiBrokerPeriodAccrueProfitsPost**](BrokerApi.md#apiBrokerPeriodAccrueProfitsPost) | **POST** api/broker/period/accrueProfits | Accrue investors&#39; profits
 [**apiBrokerPeriodClosePost**](BrokerApi.md#apiBrokerPeriodClosePost) | **POST** api/broker/period/close | Close investment period
@@ -55,6 +59,137 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UUID**](UUID.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiBrokerAuthConfirmEmailGet"></a>
+# **apiBrokerAuthConfirmEmailGet**
+> Void apiBrokerAuthConfirmEmailGet(userId, code)
+
+Confirm email after registration
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.BrokerApi;
+
+
+BrokerApi apiInstance = new BrokerApi();
+String userId = "userId_example"; // String | 
+String code = "code_example"; // String | 
+try {
+    Void result = apiInstance.apiBrokerAuthConfirmEmailGet(userId, code);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling BrokerApi#apiBrokerAuthConfirmEmailGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userId** | **String**|  | [optional]
+ **code** | **String**|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiBrokerAuthForgotPasswordPost"></a>
+# **apiBrokerAuthForgotPasswordPost**
+> Void apiBrokerAuthForgotPasswordPost(model)
+
+Forgot password
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.BrokerApi;
+
+
+BrokerApi apiInstance = new BrokerApi();
+ForgotPasswordViewModel model = new ForgotPasswordViewModel(); // ForgotPasswordViewModel | 
+try {
+    Void result = apiInstance.apiBrokerAuthForgotPasswordPost(model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling BrokerApi#apiBrokerAuthForgotPasswordPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **model** | [**ForgotPasswordViewModel**](ForgotPasswordViewModel.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiBrokerAuthResetPasswordPost"></a>
+# **apiBrokerAuthResetPasswordPost**
+> String apiBrokerAuthResetPasswordPost(model)
+
+Reset password
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.BrokerApi;
+
+
+BrokerApi apiInstance = new BrokerApi();
+ResetPasswordViewModel model = new ResetPasswordViewModel(); // ResetPasswordViewModel | 
+try {
+    String result = apiInstance.apiBrokerAuthResetPasswordPost(model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling BrokerApi#apiBrokerAuthResetPasswordPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **model** | [**ResetPasswordViewModel**](ResetPasswordViewModel.md)|  | [optional]
+
+### Return type
+
+**String**
 
 ### Authorization
 
@@ -151,6 +286,51 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="apiBrokerAuthhangePasswordPost"></a>
+# **apiBrokerAuthhangePasswordPost**
+> Void apiBrokerAuthhangePasswordPost(authorization, model)
+
+Change password
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.BrokerApi;
+
+
+BrokerApi apiInstance = new BrokerApi();
+String authorization = "authorization_example"; // String | JWT access token
+ChangePasswordViewModel model = new ChangePasswordViewModel(); // ChangePasswordViewModel | 
+try {
+    Void result = apiInstance.apiBrokerAuthhangePasswordPost(authorization, model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling BrokerApi#apiBrokerAuthhangePasswordPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **model** | [**ChangePasswordViewModel**](ChangePasswordViewModel.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="apiBrokerInitDataGet"></a>
 # **apiBrokerInitDataGet**
 > BrokerInitData apiBrokerInitDataGet(brokerTradeServerId, authorization)
@@ -243,7 +423,7 @@ No authorization required
 
 <a name="apiBrokerPeriodClosePost"></a>
 # **apiBrokerPeriodClosePost**
-> Void apiBrokerPeriodClosePost(investmentProgramId, authorization)
+> Void apiBrokerPeriodClosePost(investmentProgramId, currentBalance, authorization)
 
 Close investment period
 
@@ -256,9 +436,10 @@ Close investment period
 
 BrokerApi apiInstance = new BrokerApi();
 UUID investmentProgramId = new UUID(); // UUID | 
+Double currentBalance = 3.4D; // Double | 
 String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.apiBrokerPeriodClosePost(investmentProgramId, authorization);
+    Void result = apiInstance.apiBrokerPeriodClosePost(investmentProgramId, currentBalance, authorization);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling BrokerApi#apiBrokerPeriodClosePost");
@@ -271,6 +452,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **investmentProgramId** | [**UUID**](.md)|  |
+ **currentBalance** | **Double**|  |
  **authorization** | **String**| JWT access token |
 
 ### Return type

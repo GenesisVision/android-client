@@ -58,6 +58,9 @@ public class InvestmentProgramBuyToken
 	@SerializedName("gvtWalletAmount")
 	private Double gvtWalletAmount = null;
 
+	@SerializedName("periodDuration")
+	private Integer periodDuration = null;
+
 	public InvestmentProgramBuyToken id(UUID id) {
 		this.id = id;
 		return this;
@@ -248,6 +251,25 @@ public class InvestmentProgramBuyToken
 		this.gvtWalletAmount = gvtWalletAmount;
 	}
 
+	public InvestmentProgramBuyToken periodDuration(Integer periodDuration) {
+		this.periodDuration = periodDuration;
+		return this;
+	}
+
+	/**
+	 * Get periodDuration
+	 *
+	 * @return periodDuration
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getPeriodDuration() {
+		return periodDuration;
+	}
+
+	public void setPeriodDuration(Integer periodDuration) {
+		this.periodDuration = periodDuration;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -267,12 +289,13 @@ public class InvestmentProgramBuyToken
 				Objects.equals(this.startOfPeriod, investmentProgramBuyToken.startOfPeriod) &&
 				Objects.equals(this.endOfPeriod, investmentProgramBuyToken.endOfPeriod) &&
 				Objects.equals(this.gvtUsdRate, investmentProgramBuyToken.gvtUsdRate) &&
-				Objects.equals(this.gvtWalletAmount, investmentProgramBuyToken.gvtWalletAmount);
+				Objects.equals(this.gvtWalletAmount, investmentProgramBuyToken.gvtWalletAmount) &&
+				Objects.equals(this.periodDuration, investmentProgramBuyToken.periodDuration);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, description, manager, level, title, startOfPeriod, endOfPeriod, gvtUsdRate, gvtWalletAmount);
+		return Objects.hash(id, logo, description, manager, level, title, startOfPeriod, endOfPeriod, gvtUsdRate, gvtWalletAmount, periodDuration);
 	}
 
 
@@ -291,6 +314,7 @@ public class InvestmentProgramBuyToken
 		sb.append("    endOfPeriod: ").append(toIndentedString(endOfPeriod)).append("\n");
 		sb.append("    gvtUsdRate: ").append(toIndentedString(gvtUsdRate)).append("\n");
 		sb.append("    gvtWalletAmount: ").append(toIndentedString(gvtWalletAmount)).append("\n");
+		sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

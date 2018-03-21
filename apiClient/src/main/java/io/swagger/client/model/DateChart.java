@@ -15,46 +15,60 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.joda.time.DateTime;
+
 import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * WalletStatistic
+ * DateChart
  */
 
-public class WalletStatistic
+public class DateChart
 {
-	@SerializedName("chart")
-	private List<DateChart> chart = null;
+	@SerializedName("amount")
+	private Double amount = null;
 
-	public WalletStatistic chart(List<DateChart> chart) {
-		this.chart = chart;
-		return this;
-	}
+	@SerializedName("date")
+	private DateTime date = null;
 
-	public WalletStatistic addChartItem(DateChart chartItem) {
-		if (this.chart == null) {
-			this.chart = new ArrayList<DateChart>();
-		}
-		this.chart.add(chartItem);
+	public DateChart amount(Double amount) {
+		this.amount = amount;
 		return this;
 	}
 
 	/**
-	 * Get chart
+	 * Get amount
 	 *
-	 * @return chart
+	 * @return amount
 	 **/
 	@ApiModelProperty(value = "")
-	public List<DateChart> getChart() {
-		return chart;
+	public Double getAmount() {
+		return amount;
 	}
 
-	public void setChart(List<DateChart> chart) {
-		this.chart = chart;
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+
+	public DateChart date(DateTime date) {
+		this.date = date;
+		return this;
+	}
+
+	/**
+	 * Get date
+	 *
+	 * @return date
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getDate() {
+		return date;
+	}
+
+	public void setDate(DateTime date) {
+		this.date = date;
 	}
 
 
@@ -66,22 +80,24 @@ public class WalletStatistic
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		WalletStatistic walletStatistic = (WalletStatistic) o;
-		return Objects.equals(this.chart, walletStatistic.chart);
+		DateChart dateChart = (DateChart) o;
+		return Objects.equals(this.amount, dateChart.amount) &&
+				Objects.equals(this.date, dateChart.date);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(chart);
+		return Objects.hash(amount, date);
 	}
 
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class WalletStatistic {\n");
+		sb.append("class DateChart {\n");
 
-		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

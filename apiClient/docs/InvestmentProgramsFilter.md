@@ -40,6 +40,8 @@ BYORDERSASC | &quot;ByOrdersAsc&quot;
 BYORDERSDESC | &quot;ByOrdersDesc&quot;
 BYENDOFPERIODASK | &quot;ByEndOfPeriodAsk&quot;
 BYENDOFPERIODDESC | &quot;ByEndOfPeriodDesc&quot;
+BYTITLEASK | &quot;ByTitleAsk&quot;
+BYTITLEDESC | &quot;ByTitleDesc&quot;
 
 
 <a name="ProfitTotalChangeEnum"></a>

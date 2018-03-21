@@ -13,8 +13,13 @@
 
 package io.swagger.client.model;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -32,6 +37,9 @@ public class TradesViewModel
 
 	@SerializedName("total")
 	private Integer total = null;
+
+	@SerializedName("tradeServerType")
+	private TradeServerTypeEnum tradeServerType = null;
 
 	public TradesViewModel trades(List<OrderModel> trades) {
 		this.trades = trades;
@@ -79,6 +87,24 @@ public class TradesViewModel
 		this.total = total;
 	}
 
+	public TradesViewModel tradeServerType(TradeServerTypeEnum tradeServerType) {
+		this.tradeServerType = tradeServerType;
+		return this;
+	}
+
+	/**
+	 * Get tradeServerType
+	 *
+	 * @return tradeServerType
+	 **/
+	@ApiModelProperty(value = "")
+	public TradeServerTypeEnum getTradeServerType() {
+		return tradeServerType;
+	}
+
+	public void setTradeServerType(TradeServerTypeEnum tradeServerType) {
+		this.tradeServerType = tradeServerType;
+	}
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -90,14 +116,14 @@ public class TradesViewModel
 		}
 		TradesViewModel tradesViewModel = (TradesViewModel) o;
 		return Objects.equals(this.trades, tradesViewModel.trades) &&
-				Objects.equals(this.total, tradesViewModel.total);
+				Objects.equals(this.total, tradesViewModel.total) &&
+				Objects.equals(this.tradeServerType, tradesViewModel.tradeServerType);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(trades, total);
+		return Objects.hash(trades, total, tradeServerType);
 	}
-
 
 	@Override
 	public String toString() {
@@ -106,6 +132,7 @@ public class TradesViewModel
 
 		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
 		sb.append("    total: ").append(toIndentedString(total)).append("\n");
+		sb.append("    tradeServerType: ").append(toIndentedString(tradeServerType)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -119,6 +146,65 @@ public class TradesViewModel
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	/**
+	 * Gets or Sets tradeServerType
+	 */
+	@JsonAdapter(TradeServerTypeEnum.Adapter.class)
+	public enum TradeServerTypeEnum
+	{
+		UNDEFINED("Undefined"),
+
+		METATRADER4("MetaTrader4"),
+
+		METATRADER5("MetaTrader5"),
+
+		NINJATRADER("NinjaTrader"),
+
+		CTRADER("cTrader"),
+
+		RUMUS("Rumus"),
+
+		METASTOCK("Metastock");
+
+		public static TradeServerTypeEnum fromValue(String text) {
+			for (TradeServerTypeEnum b : TradeServerTypeEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		TradeServerTypeEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<TradeServerTypeEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final TradeServerTypeEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public TradeServerTypeEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return TradeServerTypeEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 }

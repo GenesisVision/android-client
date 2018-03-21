@@ -5,9 +5,12 @@ All URIs are relative to *https://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiInvestorAuthConfirmEmailGet**](InvestorApi.md#apiInvestorAuthConfirmEmailGet) | **GET** api/investor/auth/confirmEmail | Confirm email after registration
+[**apiInvestorAuthForgotPasswordPost**](InvestorApi.md#apiInvestorAuthForgotPasswordPost) | **POST** api/investor/auth/forgotPassword | Forgot password
+[**apiInvestorAuthResetPasswordPost**](InvestorApi.md#apiInvestorAuthResetPasswordPost) | **POST** api/investor/auth/resetPassword | Reset password
 [**apiInvestorAuthSignInPost**](InvestorApi.md#apiInvestorAuthSignInPost) | **POST** api/investor/auth/signIn | Authorize
 [**apiInvestorAuthSignUpPost**](InvestorApi.md#apiInvestorAuthSignUpPost) | **POST** api/investor/auth/signUp | Register new investor
 [**apiInvestorAuthUpdateTokenGet**](InvestorApi.md#apiInvestorAuthUpdateTokenGet) | **GET** api/investor/auth/updateToken | Update auth token
+[**apiInvestorAuthhangePasswordPost**](InvestorApi.md#apiInvestorAuthhangePasswordPost) | **POST** api/investor/auth/сhangePassword | Change password
 [**apiInvestorDashboardGet**](InvestorApi.md#apiInvestorDashboardGet) | **GET** api/investor/dashboard | Get investor dashboard
 [**apiInvestorInvestmentProgramBuyTokensGet**](InvestorApi.md#apiInvestorInvestmentProgramBuyTokensGet) | **GET** api/investor/investmentProgram/buyTokens | Get investment program buy token model
 [**apiInvestorInvestmentProgramGet**](InvestorApi.md#apiInvestorInvestmentProgramGet) | **GET** api/investor/investmentProgram | Get investment program details by id
@@ -72,6 +75,92 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorAuthForgotPasswordPost"></a>
+# **apiInvestorAuthForgotPasswordPost**
+> Void apiInvestorAuthForgotPasswordPost(model)
+
+Forgot password
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+ForgotPasswordViewModel model = new ForgotPasswordViewModel(); // ForgotPasswordViewModel | 
+try {
+    Void result = apiInstance.apiInvestorAuthForgotPasswordPost(model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorAuthForgotPasswordPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **model** | [**ForgotPasswordViewModel**](ForgotPasswordViewModel.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorAuthResetPasswordPost"></a>
+# **apiInvestorAuthResetPasswordPost**
+> String apiInvestorAuthResetPasswordPost(model)
+
+Reset password
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+ResetPasswordViewModel model = new ResetPasswordViewModel(); // ResetPasswordViewModel | 
+try {
+    String result = apiInstance.apiInvestorAuthResetPasswordPost(model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorAuthResetPasswordPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **model** | [**ResetPasswordViewModel**](ResetPasswordViewModel.md)|  | [optional]
+
+### Return type
+
+**String**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="apiInvestorAuthSignInPost"></a>
@@ -203,9 +292,54 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="apiInvestorAuthhangePasswordPost"></a>
+# **apiInvestorAuthhangePasswordPost**
+> Void apiInvestorAuthhangePasswordPost(authorization, model)
+
+Change password
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+String authorization = "authorization_example"; // String | JWT access token
+ChangePasswordViewModel model = new ChangePasswordViewModel(); // ChangePasswordViewModel | 
+try {
+    Void result = apiInstance.apiInvestorAuthhangePasswordPost(authorization, model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorAuthhangePasswordPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **model** | [**ChangePasswordViewModel**](ChangePasswordViewModel.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="apiInvestorDashboardGet"></a>
 # **apiInvestorDashboardGet**
-> InvestorDashboard apiInvestorDashboardGet(authorization)
+> InvestorDashboard apiInvestorDashboardGet(authorization, sorting)
 
 Get investor dashboard
 
@@ -218,8 +352,9 @@ Get investor dashboard
 
 InvestorApi apiInstance = new InvestorApi();
 String authorization = "authorization_example"; // String | JWT access token
+String sorting = "sorting_example"; // String | 
 try {
-    InvestorDashboard result = apiInstance.apiInvestorDashboardGet(authorization);
+    InvestorDashboard result = apiInstance.apiInvestorDashboardGet(authorization, sorting);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestorApi#apiInvestorDashboardGet");
@@ -232,6 +367,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
+ **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByOrdersAsc, ByOrdersDesc, ByEndOfPeriodAsk, ByEndOfPeriodDesc, ByTitleAsk, ByTitleDesc]
 
 ### Return type
 
@@ -428,7 +564,7 @@ No authorization required
 
 <a name="apiInvestorInvestmentProgramTradesPost"></a>
 # **apiInvestorInvestmentProgramTradesPost**
-> TradesViewModel apiInvestorInvestmentProgramTradesPost(authorization, filter)
+> TradesViewModel apiInvestorInvestmentProgramTradesPost(filter)
 
 Get manager trade history
 
@@ -440,10 +576,9 @@ Get manager trade history
 
 
 InvestorApi apiInstance = new InvestorApi();
-String authorization = "authorization_example"; // String | JWT access token
 TradesFilter filter = new TradesFilter(); // TradesFilter | 
 try {
-    TradesViewModel result = apiInstance.apiInvestorInvestmentProgramTradesPost(authorization, filter);
+    TradesViewModel result = apiInstance.apiInvestorInvestmentProgramTradesPost(filter);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentProgramTradesPost");
@@ -455,7 +590,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **filter** | [**TradesFilter**](TradesFilter.md)|  | [optional]
 
 ### Return type

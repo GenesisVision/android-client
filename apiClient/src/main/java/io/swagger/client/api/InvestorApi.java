@@ -2,6 +2,8 @@ package io.swagger.client.api;
 
 import java.util.UUID;
 
+import io.swagger.client.model.ChangePasswordViewModel;
+import io.swagger.client.model.ForgotPasswordViewModel;
 import io.swagger.client.model.Invest;
 import io.swagger.client.model.InvestmentProgramBuyToken;
 import io.swagger.client.model.InvestmentProgramRequests;
@@ -15,6 +17,7 @@ import io.swagger.client.model.OpenTradesViewModel;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.ProfilePublicViewModel;
 import io.swagger.client.model.RegisterInvestorViewModel;
+import io.swagger.client.model.ResetPasswordViewModel;
 import io.swagger.client.model.TradesFilter;
 import io.swagger.client.model.TradesViewModel;
 import io.swagger.client.model.TransactionsFilter;
@@ -43,6 +46,34 @@ public interface InvestorApi
 	@GET("api/investor/auth/confirmEmail")
 	Observable<Void> apiInvestorAuthConfirmEmailGet(
 			@retrofit2.http.Query("userId") String userId, @retrofit2.http.Query("code") String code
+	);
+
+	/**
+	 * Forgot password
+	 *
+	 * @param model (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/investor/auth/forgotPassword")
+	Observable<Void> apiInvestorAuthForgotPasswordPost(
+			@retrofit2.http.Body ForgotPasswordViewModel model
+	);
+
+	/**
+	 * Reset password
+	 *
+	 * @param model (optional)
+	 * @return Call&lt;String&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/investor/auth/resetPassword")
+	Observable<String> apiInvestorAuthResetPasswordPost(
+			@retrofit2.http.Body ResetPasswordViewModel model
 	);
 
 	/**
@@ -85,14 +116,30 @@ public interface InvestorApi
 	);
 
 	/**
+	 * Change password
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/investor/auth/сhangePassword")
+	Observable<Void> apiInvestorAuthhangePasswordPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ChangePasswordViewModel model
+	);
+
+	/**
 	 * Get investor dashboard
 	 *
 	 * @param authorization JWT access token (required)
+	 * @param sorting       (optional)
 	 * @return Call&lt;InvestorDashboard&gt;
 	 */
 	@GET("api/investor/dashboard")
 	Observable<InvestorDashboard> apiInvestorDashboardGet(
-			@retrofit2.http.Header("Authorization") String authorization
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting
 	);
 
 	/**
@@ -152,8 +199,7 @@ public interface InvestorApi
 	/**
 	 * Get manager trade history
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param filter        (optional)
+	 * @param filter (optional)
 	 * @return Call&lt;TradesViewModel&gt;
 	 */
 	@Headers({
@@ -161,7 +207,7 @@ public interface InvestorApi
 	})
 	@POST("api/investor/investmentProgram/trades")
 	Observable<TradesViewModel> apiInvestorInvestmentProgramTradesPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body TradesFilter filter
+			@retrofit2.http.Body TradesFilter filter
 	);
 
 	/**

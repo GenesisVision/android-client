@@ -6,9 +6,12 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiManagerAccountNewInvestmentRequestPost**](ManagerApi.md#apiManagerAccountNewInvestmentRequestPost) | **POST** api/manager/account/newInvestmentRequest | Create new investment request
 [**apiManagerAuthConfirmEmailGet**](ManagerApi.md#apiManagerAuthConfirmEmailGet) | **GET** api/manager/auth/confirmEmail | Confirm email after registration
+[**apiManagerAuthForgotPasswordPost**](ManagerApi.md#apiManagerAuthForgotPasswordPost) | **POST** api/manager/auth/forgotPassword | Forgot password
+[**apiManagerAuthResetPasswordPost**](ManagerApi.md#apiManagerAuthResetPasswordPost) | **POST** api/manager/auth/resetPassword | Reset password
 [**apiManagerAuthSignInPost**](ManagerApi.md#apiManagerAuthSignInPost) | **POST** api/manager/auth/signIn | Authorize
 [**apiManagerAuthSignUpPost**](ManagerApi.md#apiManagerAuthSignUpPost) | **POST** api/manager/auth/signUp | Register new manager
 [**apiManagerAuthUpdateTokenGet**](ManagerApi.md#apiManagerAuthUpdateTokenGet) | **GET** api/manager/auth/updateToken | Update auth token
+[**apiManagerAuthhangePasswordPost**](ManagerApi.md#apiManagerAuthhangePasswordPost) | **POST** api/manager/auth/сhangePassword | Change password
 [**apiManagerBrokersPost**](ManagerApi.md#apiManagerBrokersPost) | **POST** api/manager/brokers | Get all enabled trade servers
 [**apiManagerInvestmentCancelInvestmentRequestPost**](ManagerApi.md#apiManagerInvestmentCancelInvestmentRequestPost) | **POST** api/manager/investment/cancelInvestmentRequest | Cancel investment request
 [**apiManagerInvestmentClosePost**](ManagerApi.md#apiManagerInvestmentClosePost) | **POST** api/manager/investment/close | Close existing investment program
@@ -115,6 +118,92 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerAuthForgotPasswordPost"></a>
+# **apiManagerAuthForgotPasswordPost**
+> Void apiManagerAuthForgotPasswordPost(model)
+
+Forgot password
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+ForgotPasswordViewModel model = new ForgotPasswordViewModel(); // ForgotPasswordViewModel | 
+try {
+    Void result = apiInstance.apiManagerAuthForgotPasswordPost(model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerAuthForgotPasswordPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **model** | [**ForgotPasswordViewModel**](ForgotPasswordViewModel.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerAuthResetPasswordPost"></a>
+# **apiManagerAuthResetPasswordPost**
+> String apiManagerAuthResetPasswordPost(model)
+
+Reset password
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+ResetPasswordViewModel model = new ResetPasswordViewModel(); // ResetPasswordViewModel | 
+try {
+    String result = apiInstance.apiManagerAuthResetPasswordPost(model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerAuthResetPasswordPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **model** | [**ResetPasswordViewModel**](ResetPasswordViewModel.md)|  | [optional]
+
+### Return type
+
+**String**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="apiManagerAuthSignInPost"></a>
@@ -244,6 +333,51 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerAuthhangePasswordPost"></a>
+# **apiManagerAuthhangePasswordPost**
+> Void apiManagerAuthhangePasswordPost(authorization, model)
+
+Change password
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+String authorization = "authorization_example"; // String | JWT access token
+ChangePasswordViewModel model = new ChangePasswordViewModel(); // ChangePasswordViewModel | 
+try {
+    Void result = apiInstance.apiManagerAuthhangePasswordPost(authorization, model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerAuthhangePasswordPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **model** | [**ChangePasswordViewModel**](ChangePasswordViewModel.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="apiManagerBrokersPost"></a>

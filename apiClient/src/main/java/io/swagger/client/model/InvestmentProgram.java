@@ -41,11 +41,17 @@ public class InvestmentProgram
 	@SerializedName("title")
 	private String title = null;
 
+	@SerializedName("description")
+	private String description = null;
+
 	@SerializedName("level")
 	private Integer level = null;
 
 	@SerializedName("logo")
 	private String logo = null;
+
+	@SerializedName("isEnabled")
+	private Boolean isEnabled = null;
 
 	@SerializedName("balance")
 	private Double balance = null;
@@ -98,6 +104,9 @@ public class InvestmentProgram
 	@SerializedName("hasNewRequests")
 	private Boolean hasNewRequests = null;
 
+	@SerializedName("isInvestEnable")
+	private Boolean isInvestEnable = null;
+
 	public InvestmentProgram id(UUID id) {
 		this.id = id;
 		return this;
@@ -136,6 +145,25 @@ public class InvestmentProgram
 		this.title = title;
 	}
 
+	public InvestmentProgram description(String description) {
+		this.description = description;
+		return this;
+	}
+
+	/**
+	 * Get description
+	 *
+	 * @return description
+	 **/
+	@ApiModelProperty(value = "")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public InvestmentProgram level(Integer level) {
 		this.level = level;
 		return this;
@@ -172,6 +200,25 @@ public class InvestmentProgram
 
 	public void setLogo(String logo) {
 		this.logo = logo;
+	}
+
+	public InvestmentProgram isEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
+		return this;
+	}
+
+	/**
+	 * Get isEnabled
+	 *
+	 * @return isEnabled
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsEnabled() {
+		return isEnabled;
+	}
+
+	public void setIsEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
 	}
 
 	public InvestmentProgram balance(Double balance) {
@@ -505,6 +552,25 @@ public class InvestmentProgram
 		this.hasNewRequests = hasNewRequests;
 	}
 
+	public InvestmentProgram isInvestEnable(Boolean isInvestEnable) {
+		this.isInvestEnable = isInvestEnable;
+		return this;
+	}
+
+	/**
+	 * Get isInvestEnable
+	 *
+	 * @return isInvestEnable
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsInvestEnable() {
+		return isInvestEnable;
+	}
+
+	public void setIsInvestEnable(Boolean isInvestEnable) {
+		this.isInvestEnable = isInvestEnable;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -516,8 +582,10 @@ public class InvestmentProgram
 		InvestmentProgram investmentProgram = (InvestmentProgram) o;
 		return Objects.equals(this.id, investmentProgram.id) &&
 				Objects.equals(this.title, investmentProgram.title) &&
+				Objects.equals(this.description, investmentProgram.description) &&
 				Objects.equals(this.level, investmentProgram.level) &&
 				Objects.equals(this.logo, investmentProgram.logo) &&
+				Objects.equals(this.isEnabled, investmentProgram.isEnabled) &&
 				Objects.equals(this.balance, investmentProgram.balance) &&
 				Objects.equals(this.currency, investmentProgram.currency) &&
 				Objects.equals(this.tradesCount, investmentProgram.tradesCount) &&
@@ -534,12 +602,13 @@ public class InvestmentProgram
 				Objects.equals(this.feeSuccess, investmentProgram.feeSuccess) &&
 				Objects.equals(this.feeManagement, investmentProgram.feeManagement) &&
 				Objects.equals(this.chart, investmentProgram.chart) &&
-				Objects.equals(this.hasNewRequests, investmentProgram.hasNewRequests);
+				Objects.equals(this.hasNewRequests, investmentProgram.hasNewRequests) &&
+				Objects.equals(this.isInvestEnable, investmentProgram.isInvestEnable);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, level, logo, balance, currency, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, chart, hasNewRequests);
+		return Objects.hash(id, title, description, level, logo, isEnabled, balance, currency, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, chart, hasNewRequests, isInvestEnable);
 	}
 
 	@Override
@@ -549,8 +618,10 @@ public class InvestmentProgram
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    tradesCount: ").append(toIndentedString(tradesCount)).append("\n");
@@ -568,6 +639,7 @@ public class InvestmentProgram
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("    hasNewRequests: ").append(toIndentedString(hasNewRequests)).append("\n");
+		sb.append("    isInvestEnable: ").append(toIndentedString(isInvestEnable)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

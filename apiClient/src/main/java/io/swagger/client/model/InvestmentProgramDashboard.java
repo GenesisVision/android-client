@@ -41,6 +41,9 @@ public class InvestmentProgramDashboard
 	@SerializedName("title")
 	private String title = null;
 
+	@SerializedName("description")
+	private String description = null;
+
 	@SerializedName("level")
 	private Integer level = null;
 
@@ -52,6 +55,12 @@ public class InvestmentProgramDashboard
 
 	@SerializedName("currency")
 	private CurrencyEnum currency = null;
+
+	@SerializedName("investedAmount")
+	private Double investedAmount = null;
+
+	@SerializedName("profitFromProgram")
+	private Double profitFromProgram = null;
 
 	@SerializedName("investedTokens")
 	private Double investedTokens = null;
@@ -104,6 +113,9 @@ public class InvestmentProgramDashboard
 	@SerializedName("manager")
 	private ProfilePublicViewModel manager = null;
 
+	@SerializedName("token")
+	private Token token = null;
+
 	@SerializedName("hasNewRequests")
 	private Boolean hasNewRequests = null;
 
@@ -155,6 +167,25 @@ public class InvestmentProgramDashboard
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public InvestmentProgramDashboard description(String description) {
+		this.description = description;
+		return this;
+	}
+
+	/**
+	 * Get description
+	 *
+	 * @return description
+	 **/
+	@ApiModelProperty(value = "")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public InvestmentProgramDashboard level(Integer level) {
@@ -231,6 +262,44 @@ public class InvestmentProgramDashboard
 
 	public void setCurrency(CurrencyEnum currency) {
 		this.currency = currency;
+	}
+
+	public InvestmentProgramDashboard investedAmount(Double investedAmount) {
+		this.investedAmount = investedAmount;
+		return this;
+	}
+
+	/**
+	 * Get investedAmount
+	 *
+	 * @return investedAmount
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getInvestedAmount() {
+		return investedAmount;
+	}
+
+	public void setInvestedAmount(Double investedAmount) {
+		this.investedAmount = investedAmount;
+	}
+
+	public InvestmentProgramDashboard profitFromProgram(Double profitFromProgram) {
+		this.profitFromProgram = profitFromProgram;
+		return this;
+	}
+
+	/**
+	 * Get profitFromProgram
+	 *
+	 * @return profitFromProgram
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProfitFromProgram() {
+		return profitFromProgram;
+	}
+
+	public void setProfitFromProgram(Double profitFromProgram) {
+		this.profitFromProgram = profitFromProgram;
 	}
 
 	public InvestmentProgramDashboard investedTokens(Double investedTokens) {
@@ -564,6 +633,25 @@ public class InvestmentProgramDashboard
 		this.manager = manager;
 	}
 
+	public InvestmentProgramDashboard token(Token token) {
+		this.token = token;
+		return this;
+	}
+
+	/**
+	 * Get token
+	 *
+	 * @return token
+	 **/
+	@ApiModelProperty(value = "")
+	public Token getToken() {
+		return token;
+	}
+
+	public void setToken(Token token) {
+		this.token = token;
+	}
+
 	public InvestmentProgramDashboard hasNewRequests(Boolean hasNewRequests) {
 		this.hasNewRequests = hasNewRequests;
 		return this;
@@ -670,10 +758,13 @@ public class InvestmentProgramDashboard
 		InvestmentProgramDashboard investmentProgramDashboard = (InvestmentProgramDashboard) o;
 		return Objects.equals(this.id, investmentProgramDashboard.id) &&
 				Objects.equals(this.title, investmentProgramDashboard.title) &&
+				Objects.equals(this.description, investmentProgramDashboard.description) &&
 				Objects.equals(this.level, investmentProgramDashboard.level) &&
 				Objects.equals(this.logo, investmentProgramDashboard.logo) &&
 				Objects.equals(this.balance, investmentProgramDashboard.balance) &&
 				Objects.equals(this.currency, investmentProgramDashboard.currency) &&
+				Objects.equals(this.investedAmount, investmentProgramDashboard.investedAmount) &&
+				Objects.equals(this.profitFromProgram, investmentProgramDashboard.profitFromProgram) &&
 				Objects.equals(this.investedTokens, investmentProgramDashboard.investedTokens) &&
 				Objects.equals(this.tradesCount, investmentProgramDashboard.tradesCount) &&
 				Objects.equals(this.investorsCount, investmentProgramDashboard.investorsCount) &&
@@ -691,6 +782,7 @@ public class InvestmentProgramDashboard
 				Objects.equals(this.isEnabled, investmentProgramDashboard.isEnabled) &&
 				Objects.equals(this.chart, investmentProgramDashboard.chart) &&
 				Objects.equals(this.manager, investmentProgramDashboard.manager) &&
+				Objects.equals(this.token, investmentProgramDashboard.token) &&
 				Objects.equals(this.hasNewRequests, investmentProgramDashboard.hasNewRequests) &&
 				Objects.equals(this.isHistoryEnable, investmentProgramDashboard.isHistoryEnable) &&
 				Objects.equals(this.isInvestEnable, investmentProgramDashboard.isInvestEnable) &&
@@ -700,7 +792,7 @@ public class InvestmentProgramDashboard
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, level, logo, balance, currency, investedTokens, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, isEnabled, chart, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
+		return Objects.hash(id, title, description, level, logo, balance, currency, investedAmount, profitFromProgram, investedTokens, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, isEnabled, chart, manager, token, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
 	}
 
 	@Override
@@ -710,10 +802,13 @@ public class InvestmentProgramDashboard
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+		sb.append("    investedAmount: ").append(toIndentedString(investedAmount)).append("\n");
+		sb.append("    profitFromProgram: ").append(toIndentedString(profitFromProgram)).append("\n");
 		sb.append("    investedTokens: ").append(toIndentedString(investedTokens)).append("\n");
 		sb.append("    tradesCount: ").append(toIndentedString(tradesCount)).append("\n");
 		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
@@ -731,6 +826,7 @@ public class InvestmentProgramDashboard
 		sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
+		sb.append("    token: ").append(toIndentedString(token)).append("\n");
 		sb.append("    hasNewRequests: ").append(toIndentedString(hasNewRequests)).append("\n");
 		sb.append("    isHistoryEnable: ").append(toIndentedString(isHistoryEnable)).append("\n");
 		sb.append("    isInvestEnable: ").append(toIndentedString(isInvestEnable)).append("\n");

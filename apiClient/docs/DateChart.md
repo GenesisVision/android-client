@@ -1,10 +1,11 @@
 
-# WalletStatistic
+# DateChart
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**chart** | [**List&lt;DateChart&gt;**](DateChart.md) |  |  [optional]
+**amount** | **Double** |  |  [optional]
+**date** | [**DateTime**](DateTime.md) |  |  [optional]
 
 
 

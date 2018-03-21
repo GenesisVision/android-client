@@ -15,46 +15,36 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * WalletStatistic
+ * ForgotPasswordViewModel
  */
 
-public class WalletStatistic
+public class ForgotPasswordViewModel
 {
-	@SerializedName("chart")
-	private List<DateChart> chart = null;
+	@SerializedName("email")
+	private String email = null;
 
-	public WalletStatistic chart(List<DateChart> chart) {
-		this.chart = chart;
-		return this;
-	}
-
-	public WalletStatistic addChartItem(DateChart chartItem) {
-		if (this.chart == null) {
-			this.chart = new ArrayList<DateChart>();
-		}
-		this.chart.add(chartItem);
+	public ForgotPasswordViewModel email(String email) {
+		this.email = email;
 		return this;
 	}
 
 	/**
-	 * Get chart
+	 * Get email
 	 *
-	 * @return chart
+	 * @return email
 	 **/
-	@ApiModelProperty(value = "")
-	public List<DateChart> getChart() {
-		return chart;
+	@ApiModelProperty(required = true, value = "")
+	public String getEmail() {
+		return email;
 	}
 
-	public void setChart(List<DateChart> chart) {
-		this.chart = chart;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 
@@ -66,22 +56,22 @@ public class WalletStatistic
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		WalletStatistic walletStatistic = (WalletStatistic) o;
-		return Objects.equals(this.chart, walletStatistic.chart);
+		ForgotPasswordViewModel forgotPasswordViewModel = (ForgotPasswordViewModel) o;
+		return Objects.equals(this.email, forgotPasswordViewModel.email);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(chart);
+		return Objects.hash(email);
 	}
 
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class WalletStatistic {\n");
+		sb.append("class ForgotPasswordViewModel {\n");
 
-		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+		sb.append("    email: ").append(toIndentedString(email)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

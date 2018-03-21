@@ -5,7 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **investmentPrograms** | [**List&lt;InvestmentProgramDashboard&gt;**](InvestmentProgramDashboard.md) |  |  [optional]
-**total** | **Integer** |  |  [optional]
+**profitFromPrograms** | **Double** |  |  [optional]
+**investedAmount** | **Double** |  |  [optional]
 
 
 

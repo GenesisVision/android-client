@@ -30,8 +30,11 @@ public class InvestorDashboard
 	@SerializedName("investmentPrograms")
 	private List<InvestmentProgramDashboard> investmentPrograms = null;
 
-	@SerializedName("total")
-	private Integer total = null;
+	@SerializedName("profitFromPrograms")
+	private Double profitFromPrograms = null;
+
+	@SerializedName("investedAmount")
+	private Double investedAmount = null;
 
 	public InvestorDashboard investmentPrograms(List<InvestmentProgramDashboard> investmentPrograms) {
 		this.investmentPrograms = investmentPrograms;
@@ -60,23 +63,42 @@ public class InvestorDashboard
 		this.investmentPrograms = investmentPrograms;
 	}
 
-	public InvestorDashboard total(Integer total) {
-		this.total = total;
+	public InvestorDashboard profitFromPrograms(Double profitFromPrograms) {
+		this.profitFromPrograms = profitFromPrograms;
 		return this;
 	}
 
 	/**
-	 * Get total
+	 * Get profitFromPrograms
 	 *
-	 * @return total
+	 * @return profitFromPrograms
 	 **/
 	@ApiModelProperty(value = "")
-	public Integer getTotal() {
-		return total;
+	public Double getProfitFromPrograms() {
+		return profitFromPrograms;
 	}
 
-	public void setTotal(Integer total) {
-		this.total = total;
+	public void setProfitFromPrograms(Double profitFromPrograms) {
+		this.profitFromPrograms = profitFromPrograms;
+	}
+
+	public InvestorDashboard investedAmount(Double investedAmount) {
+		this.investedAmount = investedAmount;
+		return this;
+	}
+
+	/**
+	 * Get investedAmount
+	 *
+	 * @return investedAmount
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getInvestedAmount() {
+		return investedAmount;
+	}
+
+	public void setInvestedAmount(Double investedAmount) {
+		this.investedAmount = investedAmount;
 	}
 
 
@@ -90,12 +112,13 @@ public class InvestorDashboard
 		}
 		InvestorDashboard investorDashboard = (InvestorDashboard) o;
 		return Objects.equals(this.investmentPrograms, investorDashboard.investmentPrograms) &&
-				Objects.equals(this.total, investorDashboard.total);
+				Objects.equals(this.profitFromPrograms, investorDashboard.profitFromPrograms) &&
+				Objects.equals(this.investedAmount, investorDashboard.investedAmount);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(investmentPrograms, total);
+		return Objects.hash(investmentPrograms, profitFromPrograms, investedAmount);
 	}
 
 
@@ -105,7 +128,8 @@ public class InvestorDashboard
 		sb.append("class InvestorDashboard {\n");
 
 		sb.append("    investmentPrograms: ").append(toIndentedString(investmentPrograms)).append("\n");
-		sb.append("    total: ").append(toIndentedString(total)).append("\n");
+		sb.append("    profitFromPrograms: ").append(toIndentedString(profitFromPrograms)).append("\n");
+		sb.append("    investedAmount: ").append(toIndentedString(investedAmount)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

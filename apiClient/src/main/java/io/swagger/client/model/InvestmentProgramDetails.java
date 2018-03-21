@@ -65,6 +65,12 @@ public class InvestmentProgramDetails
 	@SerializedName("investedTokens")
 	private Double investedTokens = null;
 
+	@SerializedName("investedAmount")
+	private Double investedAmount = null;
+
+	@SerializedName("profitFromProgram")
+	private Double profitFromProgram = null;
+
 	@SerializedName("tradesCount")
 	private Integer tradesCount = null;
 
@@ -73,6 +79,9 @@ public class InvestmentProgramDetails
 
 	@SerializedName("periodDuration")
 	private Integer periodDuration = null;
+
+	@SerializedName("programStartDate")
+	private DateTime programStartDate = null;
 
 	@SerializedName("startOfPeriod")
 	private DateTime startOfPeriod = null;
@@ -127,6 +136,9 @@ public class InvestmentProgramDetails
 
 	@SerializedName("manager")
 	private ProfilePublicViewModel manager = null;
+
+	@SerializedName("profitDiagram")
+	private PeriodProfitDiagram profitDiagram = null;
 
 	@SerializedName("hasNewRequests")
 	private Boolean hasNewRequests = null;
@@ -333,6 +345,44 @@ public class InvestmentProgramDetails
 		this.investedTokens = investedTokens;
 	}
 
+	public InvestmentProgramDetails investedAmount(Double investedAmount) {
+		this.investedAmount = investedAmount;
+		return this;
+	}
+
+	/**
+	 * Get investedAmount
+	 *
+	 * @return investedAmount
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getInvestedAmount() {
+		return investedAmount;
+	}
+
+	public void setInvestedAmount(Double investedAmount) {
+		this.investedAmount = investedAmount;
+	}
+
+	public InvestmentProgramDetails profitFromProgram(Double profitFromProgram) {
+		this.profitFromProgram = profitFromProgram;
+		return this;
+	}
+
+	/**
+	 * Get profitFromProgram
+	 *
+	 * @return profitFromProgram
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProfitFromProgram() {
+		return profitFromProgram;
+	}
+
+	public void setProfitFromProgram(Double profitFromProgram) {
+		this.profitFromProgram = profitFromProgram;
+	}
+
 	public InvestmentProgramDetails tradesCount(Integer tradesCount) {
 		this.tradesCount = tradesCount;
 		return this;
@@ -388,6 +438,25 @@ public class InvestmentProgramDetails
 
 	public void setPeriodDuration(Integer periodDuration) {
 		this.periodDuration = periodDuration;
+	}
+
+	public InvestmentProgramDetails programStartDate(DateTime programStartDate) {
+		this.programStartDate = programStartDate;
+		return this;
+	}
+
+	/**
+	 * Get programStartDate
+	 *
+	 * @return programStartDate
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getProgramStartDate() {
+		return programStartDate;
+	}
+
+	public void setProgramStartDate(DateTime programStartDate) {
+		this.programStartDate = programStartDate;
 	}
 
 	public InvestmentProgramDetails startOfPeriod(DateTime startOfPeriod) {
@@ -740,6 +809,25 @@ public class InvestmentProgramDetails
 		this.manager = manager;
 	}
 
+	public InvestmentProgramDetails profitDiagram(PeriodProfitDiagram profitDiagram) {
+		this.profitDiagram = profitDiagram;
+		return this;
+	}
+
+	/**
+	 * Get profitDiagram
+	 *
+	 * @return profitDiagram
+	 **/
+	@ApiModelProperty(value = "")
+	public PeriodProfitDiagram getProfitDiagram() {
+		return profitDiagram;
+	}
+
+	public void setProfitDiagram(PeriodProfitDiagram profitDiagram) {
+		this.profitDiagram = profitDiagram;
+	}
+
 	public InvestmentProgramDetails hasNewRequests(Boolean hasNewRequests) {
 		this.hasNewRequests = hasNewRequests;
 		return this;
@@ -854,9 +942,12 @@ public class InvestmentProgramDetails
 				Objects.equals(this.ownBalance, investmentProgramDetails.ownBalance) &&
 				Objects.equals(this.currency, investmentProgramDetails.currency) &&
 				Objects.equals(this.investedTokens, investmentProgramDetails.investedTokens) &&
+				Objects.equals(this.investedAmount, investmentProgramDetails.investedAmount) &&
+				Objects.equals(this.profitFromProgram, investmentProgramDetails.profitFromProgram) &&
 				Objects.equals(this.tradesCount, investmentProgramDetails.tradesCount) &&
 				Objects.equals(this.investorsCount, investmentProgramDetails.investorsCount) &&
 				Objects.equals(this.periodDuration, investmentProgramDetails.periodDuration) &&
+				Objects.equals(this.programStartDate, investmentProgramDetails.programStartDate) &&
 				Objects.equals(this.startOfPeriod, investmentProgramDetails.startOfPeriod) &&
 				Objects.equals(this.endOfPeriod, investmentProgramDetails.endOfPeriod) &&
 				Objects.equals(this.profitAvg, investmentProgramDetails.profitAvg) &&
@@ -875,6 +966,7 @@ public class InvestmentProgramDetails
 				Objects.equals(this.isEnabled, investmentProgramDetails.isEnabled) &&
 				Objects.equals(this.chart, investmentProgramDetails.chart) &&
 				Objects.equals(this.manager, investmentProgramDetails.manager) &&
+				Objects.equals(this.profitDiagram, investmentProgramDetails.profitDiagram) &&
 				Objects.equals(this.hasNewRequests, investmentProgramDetails.hasNewRequests) &&
 				Objects.equals(this.isHistoryEnable, investmentProgramDetails.isHistoryEnable) &&
 				Objects.equals(this.isInvestEnable, investmentProgramDetails.isInvestEnable) &&
@@ -884,7 +976,7 @@ public class InvestmentProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, volumeTotal, volumeAvg, volumeTotalChange, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, isEnabled, chart, manager, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
+		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, investedAmount, profitFromProgram, tradesCount, investorsCount, periodDuration, programStartDate, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, volumeTotal, volumeAvg, volumeTotalChange, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, isEnabled, chart, manager, profitDiagram, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
 	}
 
 	@Override
@@ -902,9 +994,12 @@ public class InvestmentProgramDetails
 		sb.append("    ownBalance: ").append(toIndentedString(ownBalance)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    investedTokens: ").append(toIndentedString(investedTokens)).append("\n");
+		sb.append("    investedAmount: ").append(toIndentedString(investedAmount)).append("\n");
+		sb.append("    profitFromProgram: ").append(toIndentedString(profitFromProgram)).append("\n");
 		sb.append("    tradesCount: ").append(toIndentedString(tradesCount)).append("\n");
 		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
 		sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
+		sb.append("    programStartDate: ").append(toIndentedString(programStartDate)).append("\n");
 		sb.append("    startOfPeriod: ").append(toIndentedString(startOfPeriod)).append("\n");
 		sb.append("    endOfPeriod: ").append(toIndentedString(endOfPeriod)).append("\n");
 		sb.append("    profitAvg: ").append(toIndentedString(profitAvg)).append("\n");
@@ -923,6 +1018,7 @@ public class InvestmentProgramDetails
 		sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
+		sb.append("    profitDiagram: ").append(toIndentedString(profitDiagram)).append("\n");
 		sb.append("    hasNewRequests: ").append(toIndentedString(hasNewRequests)).append("\n");
 		sb.append("    isHistoryEnable: ").append(toIndentedString(isHistoryEnable)).append("\n");
 		sb.append("    isInvestEnable: ").append(toIndentedString(isInvestEnable)).append("\n");

@@ -4,6 +4,8 @@ import java.util.UUID;
 
 import io.swagger.client.model.BrokersFilter;
 import io.swagger.client.model.BrokersViewModel;
+import io.swagger.client.model.ChangePasswordViewModel;
+import io.swagger.client.model.ForgotPasswordViewModel;
 import io.swagger.client.model.Invest;
 import io.swagger.client.model.InvestmentProgramViewModel;
 import io.swagger.client.model.InvestmentProgramsFilter;
@@ -13,6 +15,7 @@ import io.swagger.client.model.NewInvestmentRequest;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.ProfilePublicViewModel;
 import io.swagger.client.model.RegisterManagerViewModel;
+import io.swagger.client.model.ResetPasswordViewModel;
 import io.swagger.client.model.TransactionsFilter;
 import io.swagger.client.model.UpdateProfileViewModel;
 import io.swagger.client.model.WalletAddressViewModel;
@@ -57,6 +60,34 @@ public interface ManagerApi
 	);
 
 	/**
+	 * Forgot password
+	 *
+	 * @param model (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/manager/auth/forgotPassword")
+	Observable<Void> apiManagerAuthForgotPasswordPost(
+			@retrofit2.http.Body ForgotPasswordViewModel model
+	);
+
+	/**
+	 * Reset password
+	 *
+	 * @param model (optional)
+	 * @return Call&lt;String&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/manager/auth/resetPassword")
+	Observable<String> apiManagerAuthResetPasswordPost(
+			@retrofit2.http.Body ResetPasswordViewModel model
+	);
+
+	/**
 	 * Authorize
 	 *
 	 * @param model (optional)
@@ -93,6 +124,21 @@ public interface ManagerApi
 	@GET("api/manager/auth/updateToken")
 	Observable<String> apiManagerAuthUpdateTokenGet(
 			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Change password
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/manager/auth/сhangePassword")
+	Observable<Void> apiManagerAuthhangePasswordPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ChangePasswordViewModel model
 	);
 
 	/**

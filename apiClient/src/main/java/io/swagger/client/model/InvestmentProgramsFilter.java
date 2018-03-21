@@ -616,7 +616,11 @@ public class InvestmentProgramsFilter
 
 		BYENDOFPERIODASK("ByEndOfPeriodAsk"),
 
-		BYENDOFPERIODDESC("ByEndOfPeriodDesc");
+		BYENDOFPERIODDESC("ByEndOfPeriodDesc"),
+
+		BYTITLEASK("ByTitleAsk"),
+
+		BYTITLEDESC("ByTitleDesc");
 
 		public static SortingEnum fromValue(String text) {
 			for (SortingEnum b : SortingEnum.values()) {

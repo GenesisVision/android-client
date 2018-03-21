@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **endOfPeriod** | [**DateTime**](DateTime.md) |  |  [optional]
 **gvtUsdRate** | **Double** |  |  [optional]
 **gvtWalletAmount** | **Double** |  |  [optional]
+**periodDuration** | **Integer** |  |  [optional]
 
 
 

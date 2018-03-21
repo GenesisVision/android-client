@@ -6,8 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **title** | **String** |  |  [optional]
+**description** | **String** |  |  [optional]
 **level** | **Integer** |  |  [optional]
 **logo** | **String** |  |  [optional]
+**isEnabled** | **Boolean** |  |  [optional]
 **balance** | **Double** |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **tradesCount** | **Integer** |  |  [optional]
@@ -25,6 +27,7 @@ Name | Type | Description | Notes
 **feeManagement** | **Double** |  |  [optional]
 **chart** | [**List&lt;Chart&gt;**](Chart.md) |  |  [optional]
 **hasNewRequests** | **Boolean** |  |  [optional]
+**isInvestEnable** | **Boolean** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>
