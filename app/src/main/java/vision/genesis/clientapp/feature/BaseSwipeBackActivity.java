@@ -59,6 +59,10 @@ public class BaseSwipeBackActivity extends MvpAppCompatActivity implements Swipe
 		getSwipeBackLayout().scrollToFinishActivity();
 	}
 
+	public void setEdgeTrackingMode(int trackingMode) {
+		getSwipeBackLayout().setEdgeTrackingEnabled(trackingMode);
+	}
+
 	protected void showSnackbar(String message, View view) {
 		Snackbar snack = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
 		((TextView) snack.getView().findViewById(android.support.design.R.id.snackbar_text)).setTextColor(Color.WHITE);

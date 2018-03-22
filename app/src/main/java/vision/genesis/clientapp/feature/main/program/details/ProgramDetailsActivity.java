@@ -20,9 +20,11 @@ import io.swagger.client.model.InvestmentProgramDetails;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.program.details.description.ProgramDescriptionActivity;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
 import vision.genesis.clientapp.feature.main.program.requests.RequestsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
+import vision.genesis.clientapp.model.ProgramDescriptionModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
@@ -130,6 +132,11 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	ProgramDetailsPresenter programDetailsPresenter;
 
 	private InvestmentProgramDetails programDetails;
+
+	@OnClick(R.id.group_program_logo)
+	public void onProgramLogoClicked() {
+		ProgramDescriptionActivity.startWith(this, ProgramDescriptionModel.fromProgram(programDetails));
+	}
 
 	@OnClick(R.id.button_invest)
 	public void onInvestClicked() {

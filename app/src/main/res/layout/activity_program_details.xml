@@ -20,56 +20,61 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorGrayBackground">
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/group_program_logo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="16dp">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                    <vision.genesis.clientapp.ui.AvatarView
-                        android:id="@+id/program_logo"
-                        android:layout_width="@dimen/program_details_avatar_width"
-                        android:layout_height="@dimen/program_details_avatar_height"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"/>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp">
 
-                    <ImageView
-                        android:id="@+id/image_read_more"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/read_more"/>
+                        <vision.genesis.clientapp.ui.AvatarView
+                            android:id="@+id/program_logo"
+                            android:layout_width="@dimen/program_details_avatar_width"
+                            android:layout_height="@dimen/program_details_avatar_height"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"/>
 
-                </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/image_read_more"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/read_more"/>
 
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/group_program_logo"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="8dp"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20sp"
-                    tools:text="Super program"/>
+                    </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/manager_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/title"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"
-                    tools:text="by Warren Buffett"/>
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp"
+                        tools:text="Super program"/>
+
+                    <TextView
+                        android:id="@+id/manager_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp"
+                        tools:text="by Warren Buffett"/>
+
+                </LinearLayout>
 
                 <vision.genesis.clientapp.ui.ProfitChartView
                     android:id="@+id/chart"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/profit_chart_height"
-                    android:layout_below="@+id/manager_name"
+                    android:layout_below="@+id/group_program_logo"
                     android:layout_marginEnd="16dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
@@ -165,7 +170,7 @@
                 </LinearLayout>
 
                 <View
-                    style="@style/program_details_data_delimeter"/>
+                    style="@style/program_details_data_delimiter"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -206,7 +211,7 @@
                 </LinearLayout>
 
                 <View
-                    style="@style/program_details_data_delimeter"/>
+                    style="@style/program_details_data_delimiter"/>
 
 
                 <LinearLayout

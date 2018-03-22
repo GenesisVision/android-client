@@ -80,4 +80,7 @@
     <dimen name="programs_image_height">60dp</dimen>
     <dimen name="programs_appbar_background_height">200dp</dimen>
     <dimen name="profit_chart_height">150dp</dimen>
+
+    <dimen name="program_description_avatar_width">250dp</dimen>
+    <dimen name="program_description_avatar_height">250dp</dimen>
 </resources>
