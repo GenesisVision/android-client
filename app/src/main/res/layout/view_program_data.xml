@@ -103,14 +103,14 @@
         style="@style/item_investment_program_footer_group">
 
         <TextView
-            android:id="@+id/text_period_text"
+            android:id="@+id/text_investors_text"
             style="@style/item_investment_program_footer_text"
             tools:text="2"/>
 
         <TextView
-            android:id="@+id/text_period_title"
+            android:id="@+id/text_investors_title"
             style="@style/item_investment_program_footer_title"
-            android:text="@string/period"/>
+            android:text="@string/investors"/>
 
     </LinearLayout>
 

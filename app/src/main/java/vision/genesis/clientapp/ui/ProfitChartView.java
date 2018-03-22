@@ -3,9 +3,11 @@ package vision.genesis.clientapp.ui;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.widget.RelativeLayout;
 
 import com.github.mikephil.charting.charts.CombinedChart;
+import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -37,7 +39,7 @@ public class ProfitChartView extends RelativeLayout
 
 	private int fillColor = R.color.grey300;
 
-	private int lineColor = R.color.colorPrimaryDark;
+	private int lineColor = R.color.colorPrimary;
 
 	public ProfitChartView(Context context) {
 		super(context);
@@ -65,7 +67,7 @@ public class ProfitChartView extends RelativeLayout
 		chart.setTouchEnabled(false);
 		chart.getXAxis().setEnabled(false);
 		chart.getLegend().setEnabled(false);
-		chart.getAxisLeft().setEnabled(false);
+		chart.getAxisLeft().setEnabled(true);
 		chart.getAxisRight().setEnabled(false);
 		chart.setDrawBorders(false);
 		chart.setAutoScaleMinMaxEnabled(true);
@@ -76,6 +78,18 @@ public class ProfitChartView extends RelativeLayout
 		yAxis.setDrawLabels(false);
 		yAxis.setDrawAxisLine(false);
 		yAxis.setDrawGridLines(false);
+
+		LimitLine ll = new LimitLine(0f, "");
+		ll.setLineColor(ContextCompat.getColor(getContext(), R.color.grey400));
+		ll.setLineWidth(1f);
+		int lineLength = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getContext().getResources().getDisplayMetrics());
+		int spaceLength = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 7, getContext().getResources().getDisplayMetrics());
+		ll.enableDashedLine(lineLength, spaceLength, 0);
+
+		yAxis.setDrawLimitLinesBehindData(true);
+		yAxis.addLimitLine(ll);
+
+		chart.setHardwareAccelerationEnabled(false);
 	}
 
 	public void showDetails() {
@@ -121,7 +135,7 @@ public class ProfitChartView extends RelativeLayout
 
 		CombinedData data = new CombinedData();
 		data.setData(getLineData(lineEntries));
-		data.setData(getBarData(barEntries));
+//		data.setData(getBarData(barEntries));
 
 		chart.setData(data);
 	}
@@ -143,7 +157,7 @@ public class ProfitChartView extends RelativeLayout
 		dataSet.setDrawCircles(false);
 		dataSet.setColor(ContextCompat.getColor(getContext(), lineColor));
 		dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-		dataSet.setLineWidth(2f);
+		dataSet.setLineWidth(3f);
 
 		return dataSet;
 	}

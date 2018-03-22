@@ -8,11 +8,15 @@
               android:focusable="true"
               android:gravity="center"
               android:orientation="vertical"
-              android:padding="32dp">
+              android:padding="24dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingEnd="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingStart="8dp">
 
         <vision.genesis.clientapp.ui.AvatarView
             android:id="@+id/program_logo"
@@ -55,7 +59,7 @@
     <vision.genesis.clientapp.ui.ProfitChartView
         android:id="@+id/view_profit_chart"
         android:layout_width="match_parent"
-        android:layout_height="120dp"/>
+        android:layout_height="@dimen/profit_chart_height"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -163,7 +167,7 @@
 
             <vision.genesis.clientapp.ui.PeriodLeftView
                 android:id="@+id/view_period_left"
-                android:layout_width="60dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:gravity="center"/>

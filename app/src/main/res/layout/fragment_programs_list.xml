@@ -246,4 +246,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:layout_below="@+id/toolbar"
+        android:background="@drawable/shadow_down_white"/>
+
 </RelativeLayout>

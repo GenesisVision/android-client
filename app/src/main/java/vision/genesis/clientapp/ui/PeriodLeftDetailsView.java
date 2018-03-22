@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.joda.time.DateTime;
@@ -27,7 +26,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 3/2/18.
  */
 
-public class PeriodLeftView extends RelativeLayout
+public class PeriodLeftDetailsView extends PeriodLeftView
 {
 	@BindView(R.id.group_period)
 	public ViewGroup periodGroup;
@@ -52,23 +51,23 @@ public class PeriodLeftView extends RelativeLayout
 
 	protected boolean programClosed = false;
 
-	public PeriodLeftView(Context context) {
+	public PeriodLeftDetailsView(Context context) {
 		super(context);
 		initView();
 	}
 
-	public PeriodLeftView(Context context, AttributeSet attrs) {
+	public PeriodLeftDetailsView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		initView();
 	}
 
-	public PeriodLeftView(Context context, AttributeSet attrs, int defStyleAttr) {
+	public PeriodLeftDetailsView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		initView();
 	}
 
 	protected void initView() {
-		inflate(getContext(), R.layout.view_period_left, this);
+		inflate(getContext(), R.layout.view_period_left_details, this);
 
 		ButterKnife.bind(this);
 

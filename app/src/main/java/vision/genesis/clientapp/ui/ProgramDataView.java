@@ -51,11 +51,11 @@ public class ProgramDataView extends RelativeLayout
 	public TextView balanceTitle;
 
 
-	@BindView(R.id.text_period_text)
-	public TextView periodText;
+	@BindView(R.id.text_investors_text)
+	public TextView investorsText;
 
-	@BindView(R.id.text_period_title)
-	public TextView periodTitle;
+	@BindView(R.id.text_investors_title)
+	public TextView invetorsTitle;
 
 	public ProgramDataView(Context context) {
 		super(context);
@@ -84,7 +84,7 @@ public class ProgramDataView extends RelativeLayout
 		totalProfitText.setTypeface(TypefaceUtil.light(getContext()));
 		avgProfitText.setTypeface(TypefaceUtil.light(getContext()));
 		balanceText.setTypeface(TypefaceUtil.light(getContext()));
-		periodText.setTypeface(TypefaceUtil.light(getContext()));
+		investorsText.setTypeface(TypefaceUtil.light(getContext()));
 
 		totalProfitTextMod.setTypeface(TypefaceUtil.bold(getContext()));
 		avgProfitTextPercent.setTypeface(TypefaceUtil.bold(getContext()));
@@ -93,10 +93,10 @@ public class ProgramDataView extends RelativeLayout
 		totalProfitTitle.setTypeface(TypefaceUtil.bold(getContext()));
 		avgProfitTitle.setTypeface(TypefaceUtil.bold(getContext()));
 		balanceTitle.setTypeface(TypefaceUtil.bold(getContext()));
-		periodTitle.setTypeface(TypefaceUtil.bold(getContext()));
+		invetorsTitle.setTypeface(TypefaceUtil.bold(getContext()));
 	}
 
-	public void setData(Double profitTotal, Double profitAvg, Double balance, Integer periodDuration) {
+	public void setData(Double profitTotal, Double profitAvg, Double balance, Integer invesotrsCount) {
 		ShortenedAmount totalProfitShortenedAmount = StringFormatUtil.getShortenedAmount(profitTotal);
 		totalProfitText.setText(String.format("$%s", totalProfitShortenedAmount.amount));
 		totalProfitTextMod.setText(totalProfitShortenedAmount.modifier);
@@ -107,6 +107,6 @@ public class ProgramDataView extends RelativeLayout
 		balanceText.setText(String.format("$%s", balanceShortenedAmount.amount));
 		balanceTextMod.setText(balanceShortenedAmount.modifier);
 
-		periodText.setText(String.valueOf(periodDuration));
+		investorsText.setText(String.valueOf(invesotrsCount));
 	}
 }

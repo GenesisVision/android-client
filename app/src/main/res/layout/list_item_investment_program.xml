@@ -77,11 +77,11 @@
         <vision.genesis.clientapp.ui.ProfitChartView
             android:id="@+id/chart"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/item_investment_program_graph_height"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"/>
+            android:layout_height="@dimen/profit_chart_height"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"/>
 
         <vision.genesis.clientapp.ui.ProgramDataView
             android:id="@+id/view_program_data"

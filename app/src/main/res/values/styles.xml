@@ -41,7 +41,7 @@
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="android:textSize">9sp</item>
+        <item name="android:textSize">10sp</item>
     </style>
 
     <style name="item_investment_program_footer_group">
@@ -106,6 +106,43 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorFontDark</item>
         <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="program_details_data_group">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="program_details_data_value">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <style name="program_details_data_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="program_details_data_delimeter">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_marginBottom">24dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:background">@drawable/divider_dot_horizontal</item>
+        <item name="android:layerType">software</item>
     </style>
 
     <style name="AppTheme.KeyboardButton" parent="Widget.AppCompat.Button.Borderless">

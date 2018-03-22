@@ -14,6 +14,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.swagger.client.model.InvestmentProgramDashboard;
+import io.swagger.client.model.InvestmentProgramsFilter;
 import io.swagger.client.model.InvestorDashboard;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -69,7 +70,7 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 	}
 
 	private void getInvestments() {
-		getInvestmentsSubscription = investManager.getInvestments()
+		getInvestmentsSubscription = investManager.getInvestments(InvestmentProgramsFilter.SortingEnum.BYPROFITDESC.toString())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleGetInvestmentsSuccess,

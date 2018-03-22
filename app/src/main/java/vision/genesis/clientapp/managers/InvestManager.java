@@ -72,8 +72,8 @@ public class InvestManager
 		return investorApi.apiInvestorInvestmentProgramsWithdrawPost(AuthManager.token.getValue(), model);
 	}
 
-	public Observable<InvestorDashboard> getInvestments() {
-		return investorApi.apiInvestorDashboardGet(AuthManager.token.getValue());
+	public Observable<InvestorDashboard> getInvestments(String sorting) {
+		return investorApi.apiInvestorDashboardGet(AuthManager.token.getValue(), sorting);
 	}
 
 	public Observable<InvestmentProgramViewModel> getInvestmentProgramDetails(UUID programId) {

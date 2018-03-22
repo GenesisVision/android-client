@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -31,7 +29,7 @@ import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProfitChartView;
 import vision.genesis.clientapp.ui.ProgramDataView;
 import vision.genesis.clientapp.ui.ToolbarView;
-import vision.genesis.clientapp.utils.DateTimeUtil;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -68,26 +66,47 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@BindView(R.id.view_program_data)
 	public ProgramDataView programDataView;
 
-	@BindView(R.id.text_end_of_period)
-	public TextView endOfPeriodText;
+	@BindView(R.id.period_duration)
+	public TextView periodDuration;
+
+	@BindView(R.id.period_duration_days)
+	public TextView periodDurationDays;
+
+	@BindView(R.id.period_duration_label)
+	public TextView periodDurationLabel;
 
 	@BindView(R.id.view_period_left)
 	public PeriodLeftView periodLeftView;
 
-	@BindView(R.id.text_success_fee)
-	public TextView successFeeText;
+	@BindView(R.id.tokens)
+	public TextView tokens;
 
-	@BindView(R.id.text_management_fee)
-	public TextView managementFeeText;
+	@BindView(R.id.tokens_label)
+	public TextView tokensLabel;
 
-	@BindView(R.id.text_investors_count)
-	public TextView investorsCountText;
+	@BindView(R.id.trades)
+	public TextView trades;
 
-	@BindView(R.id.group_you_have)
-	public ViewGroup youHaveGroup;
+	@BindView(R.id.trades_label)
+	public TextView tradesLabel;
 
-	@BindView(R.id.text_you_have)
-	public TextView youHaveText;
+	@BindView(R.id.success_fee)
+	public TextView successFee;
+
+	@BindView(R.id.success_fee_percent)
+	public TextView successFeePercent;
+
+	@BindView(R.id.success_fee_label)
+	public TextView successFeeLabel;
+
+	@BindView(R.id.management_fee)
+	public TextView managementFee;
+
+	@BindView(R.id.management_fee_percent)
+	public TextView managementFeePercent;
+
+	@BindView(R.id.management_fee_label)
+	public TextView managementFeeLabel;
 
 	@BindView(R.id.group_buttons)
 	public ViewGroup buttonsGroup;
@@ -163,6 +182,24 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	private void setFonts() {
 		title.setTypeface(TypefaceUtil.bold(this));
+
+		periodDuration.setTypeface(TypefaceUtil.bold(this));
+		periodDurationDays.setTypeface(TypefaceUtil.bold(this));
+		periodDurationLabel.setTypeface(TypefaceUtil.bold(this));
+
+		tokens.setTypeface(TypefaceUtil.light(this));
+		tokensLabel.setTypeface(TypefaceUtil.bold(this));
+
+		trades.setTypeface(TypefaceUtil.light(this));
+		tradesLabel.setTypeface(TypefaceUtil.bold(this));
+
+		successFee.setTypeface(TypefaceUtil.light(this));
+		successFeePercent.setTypeface(TypefaceUtil.light(this));
+		successFeeLabel.setTypeface(TypefaceUtil.bold(this));
+
+		managementFee.setTypeface(TypefaceUtil.light(this));
+		managementFeePercent.setTypeface(TypefaceUtil.light(this));
+		managementFeeLabel.setTypeface(TypefaceUtil.bold(this));
 	}
 
 	@Override
@@ -191,20 +228,20 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		programDataView.setData(programDetails.getProfitTotal(),
 				programDetails.getProfitAvg(),
 				programDetails.getBalance(),
-				programDetails.getPeriodDuration());
+				programDetails.getInvestorsCount());
 
-		DecimalFormat df = new DecimalFormat("0.####");
-		df.setRoundingMode(RoundingMode.DOWN);
+		periodDuration.setText(String.valueOf(programDetails.getPeriodDuration()));
+		periodDurationDays.setText(getResources().getQuantityString(R.plurals.days, programDetails.getPeriodDuration()));
 
-		endOfPeriodText.setText(DateTimeUtil.formatDateTime(programDetails.getEndOfPeriod()));
 		if (programDetails.isIsEnabled())
 			periodLeftView.setDateTo(programDetails.getStartOfPeriod(), programDetails.getEndOfPeriod());
 		periodLeftView.setProgramClosed(!programDetails.isIsEnabled());
 
-		successFeeText.setText(df.format(programDetails.getFeeSuccess()));
-		managementFeeText.setText(df.format((programDetails.getFeeManagement())));
-		investorsCountText.setText(String.valueOf(programDetails.getInvestorsCount()));
-		youHaveText.setText(df.format(programDetails.getInvestedTokens()));
+		tokens.setText(StringFormatUtil.formatAmount(programDetails.getInvestedTokens(), 0, 2));
+		trades.setText(StringFormatUtil.formatAmount(programDetails.getTradesCount(), 0, 0));
+
+		successFee.setText(StringFormatUtil.formatAmount(programDetails.getFeeSuccess(), 0, 4));
+		managementFee.setText(StringFormatUtil.formatAmount(programDetails.getFeeManagement(), 0, 4));
 
 		investButton.setVisibility(programDetails.isIsInvestEnable() ? View.VISIBLE : View.GONE);
 		withdrawButton.setVisibility(programDetails.isIsWithdrawEnable() ? View.VISIBLE : View.GONE);
