@@ -36,9 +36,6 @@ public class ProgramDescriptionActivity extends BaseSwipeBackActivity implements
 		activity.overridePendingTransition(R.anim.activity_slide_from_top, R.anim.hold);
 	}
 
-//	@BindView(R.id.toolbar)
-//	public ToolbarView toolbar;
-
 	@BindView(R.id.program_logo)
 	public AvatarView programLogo;
 
@@ -73,8 +70,6 @@ public class ProgramDescriptionActivity extends BaseSwipeBackActivity implements
 
 		ButterKnife.bind(this);
 
-		initToolbar();
-
 		setFonts();
 
 		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
@@ -86,12 +81,6 @@ public class ProgramDescriptionActivity extends BaseSwipeBackActivity implements
 			onBackPressed();
 		}
 	}
-
-	private void initToolbar() {
-//		toolbar.setTitle(getString(R.string.program_details));
-//		toolbar.addLeftButton(R.drawable.back_arrow, this::onBackPressed);
-	}
-
 	private void setFonts() {
 		programName.setTypeface(TypefaceUtil.bold(this));
 		programDetailsLabel.setTypeface(TypefaceUtil.bold(this));
@@ -110,14 +99,11 @@ public class ProgramDescriptionActivity extends BaseSwipeBackActivity implements
 		programName.setText(model.programName);
 		managerName.setText(String.format(Locale.getDefault(), "%s %s", getResources().getString(R.string.by), model.managerName));
 
-//		description.setText(model.programDescription);
-		description.setText(getString(R.string.lorem_ipsum));
+		description.setText(model.programDescription);
 	}
 
 	@Override
 	public void finishActivity() {
-//		finish();
-//		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_top);
 		scrollToFinishActivity();
 	}
 }

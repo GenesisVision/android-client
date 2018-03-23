@@ -40,8 +40,8 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
 
-	@BindView(R.id.text_available_funds)
-	public TextView availableFundsText;
+	@BindView(R.id.available_tokens)
+	public TextView availableTokens;
 
 	@BindView(R.id.textview_amount)
 	public AmountTextView amountTextView;
@@ -89,6 +89,7 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	}
 
 	private void initToolbar() {
+		toolbar.setWhite();
 		toolbar.setTitle(getString(R.string.withdraw_from_program));
 		toolbar.setSubtitle(withdrawalRequest.programName);
 		toolbar.addLeftButton(R.drawable.back_arrow, () -> withdrawProgramPresenter.onBackClicked());
@@ -111,7 +112,7 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 
 	@Override
 	public void setAvailable(double availableFunds) {
-		availableFundsText.setText(StringFormatUtil.formatAmount((availableFunds)));
+		availableTokens.setText(StringFormatUtil.formatAmount((availableFunds)));
 	}
 
 	@Override

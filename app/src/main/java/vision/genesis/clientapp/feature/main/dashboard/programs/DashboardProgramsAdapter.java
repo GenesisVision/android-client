@@ -20,6 +20,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
+import vision.genesis.clientapp.ui.ProfitChartView;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -64,6 +65,9 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 		@BindView(R.id.manager_name)
 		public TextView managerName;
+
+		@BindView(R.id.chart)
+		public ProfitChartView chart;
 
 		@BindView(R.id.tokens)
 		public TextView tokens;
@@ -122,6 +126,8 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			managerName.setText(String.format(Locale.getDefault(), "%s %s",
 					context.getResources().getString(R.string.by),
 					investmentProgram.getManager().getUsername()));
+
+			chart.setChart(investmentProgram.getChart());
 
 			tokens.setText(String.valueOf(investmentProgram.getInvestedTokens()));
 
