@@ -136,6 +136,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 		getSupportFragmentManager().popBackStack();
 	}
 
+	@Override
+	public void setBottomNavigationVisibility(boolean visible) {
+		bottomNavigationView.setVisibility(visible ? View.VISIBLE : View.GONE);
+	}
+
 	private boolean fragmentIsAlreadyRoot(Fragment fragment) {
 		return (currentFragment != null
 				&& currentFragment.getClass().getSimpleName().equals(fragment.getClass().getSimpleName()));

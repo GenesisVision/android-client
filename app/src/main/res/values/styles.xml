@@ -8,6 +8,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/grey300</item>
     </style>
 
     <style name="SplashTheme" parent="AppTheme">
@@ -101,11 +102,32 @@
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="profile_item_value">
-        <item name="android:layout_width">wrap_content</item>
+    <style name="profile_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/profile_item_height</item>
+        <item name="android:gravity">bottom</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+    </style>
+
+    <style name="profile_edittext">
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/colorFontDark</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="profile_delimiter">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:background">@drawable/divider_dot_horizontal</item>
+        <item name="android:layerType">software</item>
     </style>
 
     <style name="program_details_data_group">
@@ -171,4 +193,7 @@
         <item name="android:background">@color/transparent</item>
     </style>
 
+    <style name="ProfileHintText" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">11sp</item>
+    </style>
 </resources>

@@ -22,6 +22,8 @@ public interface MainView extends MvpView
 
 	void removeFragmentFromBackstack();
 
+	void setBottomNavigationVisibility(boolean visible);
+
 	void showBottomNavigation();
 
 	void hideBottomNavigation();

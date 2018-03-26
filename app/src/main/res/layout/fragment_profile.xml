@@ -8,145 +8,183 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/group_toolbar">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/avatar"
+            <RelativeLayout
                 android:layout_width="@dimen/profile_avatar_width"
                 android:layout_height="@dimen/profile_avatar_height"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="16dp"
-                app:placeholderImage="@drawable/logo"
-                app:roundAsCircle="true"/>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/avatar"
-                android:layout_margin="16dp"
-                android:orientation="vertical">
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorGrayBackground"
+                    app:placeholderImage="@drawable/profile_placeholder"
+                    app:placeholderImageScaleType="centerCrop"/>
 
-                <TextView
-                    style="@style/profile_item_label"
-                    android:text="@string/first_name"/>
+                <ImageView
+                    android:id="@+id/button_change_avatar"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/colorPrimary"
+                    android:padding="8dp"
+                    android:src="@drawable/edit_icon"
+                    android:tint="@color/white"/>
 
-                <TextView
-                    android:id="@+id/first_name"
-                    style="@style/profile_item_value"
-                    tools:text="Warren"/>
+                <ProgressBar
+                    android:id="@+id/avatar_progress_bar"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="128dp"
+                    android:layout_height="128dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
 
-                <TextView
-                    style="@style/profile_item_label"
-                    android:text="@string/middle_name"/>
+            </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/middle_name"
-                    style="@style/profile_item_value"
-                    tools:text="-"/>
+            <View
+                style="@style/profile_delimiter"
+                android:layout_marginTop="64dp"/>
 
-                <TextView
-                    style="@style/profile_item_label"
-                    android:text="@string/last_name"/>
+            <vision.genesis.clientapp.ui.ProfileDataView
+                android:id="@+id/first_name"
+                style="@style/profile_item"/>
 
-                <TextView
-                    android:id="@+id/last_name"
-                    style="@style/profile_item_value"
-                    tools:text="Buffett"/>
+            <View
+                style="@style/profile_delimiter"/>
 
-                <TextView
-                    style="@style/profile_item_label"
-                    android:text="@string/email"/>
+            <vision.genesis.clientapp.ui.ProfileDataView
+                android:id="@+id/middle_name"
+                style="@style/profile_item"/>
 
-                <TextView
-                    android:id="@+id/email"
-                    style="@style/profile_item_value"
-                    tools:text="warren@buffett.com"/>
+            <View
+                style="@style/profile_delimiter"/>
 
-                <TextView
-                    style="@style/profile_item_label"
-                    android:text="@string/gender"/>
+            <vision.genesis.clientapp.ui.ProfileDataView
+                android:id="@+id/last_name"
+                style="@style/profile_item"/>
 
-                <TextView
-                    android:id="@+id/gender"
-                    style="@style/profile_item_value"
-                    tools:text="M"/>
+            <View
+                style="@style/profile_delimiter"/>
 
-                <TextView
-                    style="@style/profile_item_label"
-                    android:text="@string/birthday"/>
+            <vision.genesis.clientapp.ui.ProfileDataView
+                android:id="@+id/email"
+                style="@style/profile_item"/>
 
-                <TextView
-                    android:id="@+id/birthday"
-                    style="@style/profile_item_value"
-                    tools:text="30.08.1930"/>
+            <View
+                style="@style/profile_delimiter"/>
 
-                <TextView
-                    style="@style/profile_item_label"
-                    android:text="@string/country"/>
+            <vision.genesis.clientapp.ui.ProfileDataView
+                android:id="@+id/gender"
+                style="@style/profile_item"/>
 
-                <TextView
-                    android:id="@+id/country"
-                    style="@style/profile_item_value"
-                    tools:text="United States"/>
+            <View
+                style="@style/profile_delimiter"/>
 
-                <TextView
-                    style="@style/profile_item_label"
-                    android:text="@string/city"/>
+            <vision.genesis.clientapp.ui.ProfileDataView
+                android:id="@+id/birthday"
+                style="@style/profile_item"/>
 
-                <TextView
-                    android:id="@+id/city"
-                    style="@style/profile_item_value"
-                    tools:text="Omaha"/>
+            <View
+                style="@style/profile_delimiter"/>
 
-                <TextView
-                    style="@style/profile_item_label"
-                    android:text="@string/address"/>
+            <vision.genesis.clientapp.ui.ProfileDataView
+                android:id="@+id/country"
+                style="@style/profile_item"/>
 
-                <TextView
-                    android:id="@+id/address"
-                    style="@style/profile_item_value"
-                    tools:text="-"/>
+            <View
+                style="@style/profile_delimiter"/>
 
-                <TextView
-                    style="@style/profile_item_label"
-                    android:text="@string/phone"/>
+            <vision.genesis.clientapp.ui.ProfileDataView
+                android:id="@+id/city"
+                style="@style/profile_item"/>
 
-                <TextView
-                    android:id="@+id/phone"
-                    style="@style/profile_item_value"
-                    tools:text="-"/>
+            <View
+                style="@style/profile_delimiter"/>
 
-                <TextView
-                    style="@style/profile_item_label"
-                    android:text="@string/document_type"/>
+            <vision.genesis.clientapp.ui.ProfileDataView
+                android:id="@+id/address"
+                style="@style/profile_item"/>
 
-                <TextView
-                    android:id="@+id/document_type"
-                    style="@style/profile_item_value"
-                    tools:text="-"/>
+            <View
+                style="@style/profile_delimiter"/>
 
-                <TextView
-                    style="@style/profile_item_label"
-                    android:text="@string/document_number"/>
+            <vision.genesis.clientapp.ui.ProfileDataView
+                android:id="@+id/phone"
+                style="@style/profile_item"/>
 
-                <TextView
-                    android:id="@+id/document_number"
-                    style="@style/profile_item_value"
-                    tools:text="-"/>
+            <View
+                style="@style/profile_delimiter"/>
 
-            </LinearLayout>
+            <vision.genesis.clientapp.ui.ProfileDataView
+                android:id="@+id/document_type"
+                style="@style/profile_item"/>
 
-        </RelativeLayout>
+            <View
+                style="@style/profile_delimiter"/>
+
+            <vision.genesis.clientapp.ui.ProfileDataView
+                android:id="@+id/document_number"
+                style="@style/profile_item"/>
+
+
+        </LinearLayout>
 
     </ScrollView>
 
-    <vision.genesis.clientapp.ui.ToolbarView
-        android:id="@+id/toolbar"
+    <FrameLayout
+        android:id="@+id/group_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+        <vision.genesis.clientapp.ui.ToolbarView
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <vision.genesis.clientapp.ui.ToolbarView
+            android:id="@+id/edit_mode_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:visibility="gone"/>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/group_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.7"
+            android:background="@color/colorPrimary"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.SharedPreferencesUtil;
 
 /**
@@ -20,5 +21,11 @@ public class UtilsModule
 	@Singleton
 	public SharedPreferencesUtil provideSharedPreferencesUtil(Context context) {
 		return new SharedPreferencesUtil(context);
+	}
+
+	@Provides
+	@Singleton
+	public ImageUtils provideImageUtils() {
+		return new ImageUtils();
 	}
 }

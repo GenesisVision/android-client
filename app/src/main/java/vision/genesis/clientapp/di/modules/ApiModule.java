@@ -6,6 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import io.swagger.client.ApiClient;
 import io.swagger.client.JSON;
+import io.swagger.client.api.FilesApi;
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
 import io.swagger.client.api.RateApi;
@@ -64,6 +65,12 @@ public class ApiModule
 	@Singleton
 	public ManagerApi provideManagerApi(ApiClient apiClient) {
 		return apiClient.createService(ManagerApi.class);
+	}
+
+	@Provides
+	@Singleton
+	public FilesApi provideFilesApi(ApiClient apiClient) {
+		return apiClient.createService(FilesApi.class);
 	}
 
 	@Provides

@@ -23,6 +23,7 @@ import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 import vision.genesis.clientapp.model.events.OnInvestButtonClickedEvent;
+import vision.genesis.clientapp.model.events.SetBottomMenuVisibilityEvent;
 import vision.genesis.clientapp.model.events.ShowDepositWalletActivityEvent;
 import vision.genesis.clientapp.model.events.ShowFiltersEvent;
 import vision.genesis.clientapp.model.events.ShowInvestProgramEvent;
@@ -198,7 +199,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	@Subscribe
 	public void onEventMainThread(NewInvestmentSuccessEvent event) {
-		showDashboard();
+		getViewState().setNavigationItemSelected(0);
 	}
 
 	@Subscribe
@@ -209,5 +210,10 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowDepositWalletActivityEvent event) {
 		getViewState().showDepositWallet();
+	}
+
+	@Subscribe
+	public void onEventMainThread(SetBottomMenuVisibilityEvent event) {
+		getViewState().setBottomNavigationVisibility(event.visible);
 	}
 }

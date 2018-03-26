@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         app:backgroundImage="@color/grey200"
-        app:placeholderImage="@drawable/logo"/>
+        app:placeholderImage="@drawable/profile_placeholder"/>
 
     <FrameLayout
         android:id="@+id/group_level"

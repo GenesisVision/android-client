@@ -117,6 +117,14 @@ public class ToolbarView extends RelativeLayout
 		rightButton.setVisibility(View.VISIBLE);
 	}
 
+	public void setLeftButtonPadding(int padding) {
+		leftButton.setPadding(padding, padding, padding, padding);
+	}
+
+	public void setRightButtonPadding(int padding) {
+		rightButton.setPadding(padding, padding, padding, padding);
+	}
+
 	public void showRightButtonDot(boolean show) {
 		rightButtonDot.setVisibility(show ? View.VISIBLE : View.GONE);
 	}

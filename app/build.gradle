@@ -94,14 +94,14 @@ android {
 dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:27.0.2'
-    implementation 'com.android.support:design:27.0.2'
-    implementation 'com.android.support:recyclerview-v7:27.0.2'
-    implementation 'com.android.support:support-v4:27.0.2'
-    implementation 'com.android.support:multidex:1.0.2'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.android.support:recyclerview-v7:27.1.0'
+    implementation 'com.android.support:support-v4:27.1.0'
+    implementation 'com.android.support:multidex:1.0.3'
 
-    implementation 'com.google.firebase:firebase-core:11.8.0'
-    implementation 'com.google.firebase:firebase-crash:11.8.0'
+    implementation 'com.google.firebase:firebase-core:12.0.0'
+    implementation 'com.google.firebase:firebase-crash:12.0.0'
 
     implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
 
@@ -134,7 +134,9 @@ dependencies {
 
     implementation 'com.github.kenglxn.QRGen:android:2.4.0'
 
-    implementation ('com.appyvet:materialrangebar:1.4.1') {
+    implementation 'com.github.hotchemi:permissionsdispatcher:2.0.5'
+
+    implementation('com.appyvet:materialrangebar:1.4.1') {
         exclude module: 'support-compat'
     }
 

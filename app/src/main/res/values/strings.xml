@@ -178,6 +178,17 @@
     <string name="programs_to_invest_in">Programs to invest in</string>
     <string name="trading_period_duration">Trading period duration</string>
     <string name="your_tokens">your tokens</string>
+    <string name="change_avatar">Change avatar</string>
+
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
+
+    <string name="permission_avatar_rationale">Please grant the Storage permission in order to be able to change your avatar</string>
+    <string name="permission_avatar_denied">The app is not able to change your avatar until you grant the Storage permission</string>
+    <string name="permission_avatar_never_ask_again"><![CDATA[The app is not able to change your avatar until you grant the Storage permission in Settings -> Apps]]></string>
+    <string name="select_photo">Select a photo</string>
+    <string name="take_photo">Take a photo</string>
+    <string name="successfully_updated">Successfully updated</string>
 
     <string-array name="transactions_filter">
         <item>All Transactions</item>
