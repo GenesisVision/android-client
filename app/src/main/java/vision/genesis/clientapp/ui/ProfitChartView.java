@@ -122,14 +122,14 @@ public class ProfitChartView extends RelativeLayout
 			return;
 		}
 		List<Entry> lineEntries = new ArrayList<>();
-		List<BarEntry> barEntries = new ArrayList<>();
+//		List<BarEntry> barEntries = new ArrayList<>();
 		float index = 0;
 		for (Chart chart : charts) {
 			lineEntries.add(new Entry(index, chart.getTotalProfit().floatValue()));
-			barEntries.add(new BarEntry(index, new float[]{
-					chart.getFund().floatValue(),
-					chart.getLoss().floatValue(),
-					chart.getProfit().floatValue()}));
+//			barEntries.add(new BarEntry(index, new float[]{
+//					chart.getManagerFund().floatValue() + chart.getInvestorFund().floatValue(),
+//					chart.getLoss().floatValue(),
+//					chart.getProfit().floatValue()}));
 			index++;
 		}
 

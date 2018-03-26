@@ -13,10 +13,15 @@
 
 package io.swagger.client.model;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
 import org.joda.time.DateTime;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -52,14 +57,17 @@ public class InvestmentProgramBuyToken
 	@SerializedName("endOfPeriod")
 	private DateTime endOfPeriod = null;
 
-	@SerializedName("gvtUsdRate")
-	private Double gvtUsdRate = null;
+	@SerializedName("gvtRate")
+	private Double gvtRate = null;
 
 	@SerializedName("gvtWalletAmount")
 	private Double gvtWalletAmount = null;
 
 	@SerializedName("periodDuration")
 	private Integer periodDuration = null;
+
+	@SerializedName("currency")
+	private CurrencyEnum currency = null;
 
 	public InvestmentProgramBuyToken id(UUID id) {
 		this.id = id;
@@ -213,23 +221,23 @@ public class InvestmentProgramBuyToken
 		this.endOfPeriod = endOfPeriod;
 	}
 
-	public InvestmentProgramBuyToken gvtUsdRate(Double gvtUsdRate) {
-		this.gvtUsdRate = gvtUsdRate;
+	public InvestmentProgramBuyToken gvtRate(Double gvtRate) {
+		this.gvtRate = gvtRate;
 		return this;
 	}
 
 	/**
-	 * Get gvtUsdRate
+	 * Get gvtRate
 	 *
-	 * @return gvtUsdRate
+	 * @return gvtRate
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getGvtUsdRate() {
-		return gvtUsdRate;
+	public Double getGvtRate() {
+		return gvtRate;
 	}
 
-	public void setGvtUsdRate(Double gvtUsdRate) {
-		this.gvtUsdRate = gvtUsdRate;
+	public void setGvtRate(Double gvtRate) {
+		this.gvtRate = gvtRate;
 	}
 
 	public InvestmentProgramBuyToken gvtWalletAmount(Double gvtWalletAmount) {
@@ -270,6 +278,24 @@ public class InvestmentProgramBuyToken
 		this.periodDuration = periodDuration;
 	}
 
+	public InvestmentProgramBuyToken currency(CurrencyEnum currency) {
+		this.currency = currency;
+		return this;
+	}
+
+	/**
+	 * Get currency
+	 *
+	 * @return currency
+	 **/
+	@ApiModelProperty(value = "")
+	public CurrencyEnum getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(CurrencyEnum currency) {
+		this.currency = currency;
+	}
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -288,16 +314,16 @@ public class InvestmentProgramBuyToken
 				Objects.equals(this.title, investmentProgramBuyToken.title) &&
 				Objects.equals(this.startOfPeriod, investmentProgramBuyToken.startOfPeriod) &&
 				Objects.equals(this.endOfPeriod, investmentProgramBuyToken.endOfPeriod) &&
-				Objects.equals(this.gvtUsdRate, investmentProgramBuyToken.gvtUsdRate) &&
+				Objects.equals(this.gvtRate, investmentProgramBuyToken.gvtRate) &&
 				Objects.equals(this.gvtWalletAmount, investmentProgramBuyToken.gvtWalletAmount) &&
-				Objects.equals(this.periodDuration, investmentProgramBuyToken.periodDuration);
+				Objects.equals(this.periodDuration, investmentProgramBuyToken.periodDuration) &&
+				Objects.equals(this.currency, investmentProgramBuyToken.currency);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, description, manager, level, title, startOfPeriod, endOfPeriod, gvtUsdRate, gvtWalletAmount, periodDuration);
+		return Objects.hash(id, logo, description, manager, level, title, startOfPeriod, endOfPeriod, gvtRate, gvtWalletAmount, periodDuration, currency);
 	}
-
 
 	@Override
 	public String toString() {
@@ -312,9 +338,10 @@ public class InvestmentProgramBuyToken
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    startOfPeriod: ").append(toIndentedString(startOfPeriod)).append("\n");
 		sb.append("    endOfPeriod: ").append(toIndentedString(endOfPeriod)).append("\n");
-		sb.append("    gvtUsdRate: ").append(toIndentedString(gvtUsdRate)).append("\n");
+		sb.append("    gvtRate: ").append(toIndentedString(gvtRate)).append("\n");
 		sb.append("    gvtWalletAmount: ").append(toIndentedString(gvtWalletAmount)).append("\n");
 		sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
+		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -328,6 +355,63 @@ public class InvestmentProgramBuyToken
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	/**
+	 * Gets or Sets currency
+	 */
+	@JsonAdapter(CurrencyEnum.Adapter.class)
+	public enum CurrencyEnum
+	{
+		UNDEFINED("Undefined"),
+
+		GVT("GVT"),
+
+		ETH("ETH"),
+
+		BTC("BTC"),
+
+		USD("USD"),
+
+		EUR("EUR");
+
+		public static CurrencyEnum fromValue(String text) {
+			for (CurrencyEnum b : CurrencyEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		CurrencyEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<CurrencyEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return CurrencyEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 }

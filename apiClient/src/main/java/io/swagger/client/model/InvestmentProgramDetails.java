@@ -134,6 +134,9 @@ public class InvestmentProgramDetails
 	@SerializedName("chart")
 	private List<Chart> chart = null;
 
+	@SerializedName("token")
+	private Token token = null;
+
 	@SerializedName("manager")
 	private ProfilePublicViewModel manager = null;
 
@@ -790,6 +793,25 @@ public class InvestmentProgramDetails
 		this.chart = chart;
 	}
 
+	public InvestmentProgramDetails token(Token token) {
+		this.token = token;
+		return this;
+	}
+
+	/**
+	 * Get token
+	 *
+	 * @return token
+	 **/
+	@ApiModelProperty(value = "")
+	public Token getToken() {
+		return token;
+	}
+
+	public void setToken(Token token) {
+		this.token = token;
+	}
+
 	public InvestmentProgramDetails manager(ProfilePublicViewModel manager) {
 		this.manager = manager;
 		return this;
@@ -965,6 +987,7 @@ public class InvestmentProgramDetails
 				Objects.equals(this.tradeIpfsHash, investmentProgramDetails.tradeIpfsHash) &&
 				Objects.equals(this.isEnabled, investmentProgramDetails.isEnabled) &&
 				Objects.equals(this.chart, investmentProgramDetails.chart) &&
+				Objects.equals(this.token, investmentProgramDetails.token) &&
 				Objects.equals(this.manager, investmentProgramDetails.manager) &&
 				Objects.equals(this.profitDiagram, investmentProgramDetails.profitDiagram) &&
 				Objects.equals(this.hasNewRequests, investmentProgramDetails.hasNewRequests) &&
@@ -976,7 +999,7 @@ public class InvestmentProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, investedAmount, profitFromProgram, tradesCount, investorsCount, periodDuration, programStartDate, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, volumeTotal, volumeAvg, volumeTotalChange, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, isEnabled, chart, manager, profitDiagram, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
+		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, investedAmount, profitFromProgram, tradesCount, investorsCount, periodDuration, programStartDate, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, volumeTotal, volumeAvg, volumeTotalChange, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, isEnabled, chart, token, manager, profitDiagram, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
 	}
 
 	@Override
@@ -1017,6 +1040,7 @@ public class InvestmentProgramDetails
 		sb.append("    tradeIpfsHash: ").append(toIndentedString(tradeIpfsHash)).append("\n");
 		sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+		sb.append("    token: ").append(toIndentedString(token)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    profitDiagram: ").append(toIndentedString(profitDiagram)).append("\n");
 		sb.append("    hasNewRequests: ").append(toIndentedString(hasNewRequests)).append("\n");

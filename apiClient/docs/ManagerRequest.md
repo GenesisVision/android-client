@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **email** | **String** |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **password** | **String** |  |  [optional]
-**depositInUsd** | **Double** |  |  [optional]
+**depositAmount** | **Double** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

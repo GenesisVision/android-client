@@ -30,8 +30,11 @@ public class Chart
 	@SerializedName("date")
 	private DateTime date = null;
 
-	@SerializedName("fund")
-	private Double fund = null;
+	@SerializedName("managerFund")
+	private Double managerFund = null;
+
+	@SerializedName("investorFund")
+	private Double investorFund = null;
 
 	@SerializedName("profit")
 	private Double profit = null;
@@ -61,23 +64,42 @@ public class Chart
 		this.date = date;
 	}
 
-	public Chart fund(Double fund) {
-		this.fund = fund;
+	public Chart managerFund(Double managerFund) {
+		this.managerFund = managerFund;
 		return this;
 	}
 
 	/**
-	 * Get fund
+	 * Get managerFund
 	 *
-	 * @return fund
+	 * @return managerFund
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getFund() {
-		return fund;
+	public Double getManagerFund() {
+		return managerFund;
 	}
 
-	public void setFund(Double fund) {
-		this.fund = fund;
+	public void setManagerFund(Double managerFund) {
+		this.managerFund = managerFund;
+	}
+
+	public Chart investorFund(Double investorFund) {
+		this.investorFund = investorFund;
+		return this;
+	}
+
+	/**
+	 * Get investorFund
+	 *
+	 * @return investorFund
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getInvestorFund() {
+		return investorFund;
+	}
+
+	public void setInvestorFund(Double investorFund) {
+		this.investorFund = investorFund;
 	}
 
 	public Chart profit(Double profit) {
@@ -148,7 +170,8 @@ public class Chart
 		}
 		Chart chart = (Chart) o;
 		return Objects.equals(this.date, chart.date) &&
-				Objects.equals(this.fund, chart.fund) &&
+				Objects.equals(this.managerFund, chart.managerFund) &&
+				Objects.equals(this.investorFund, chart.investorFund) &&
 				Objects.equals(this.profit, chart.profit) &&
 				Objects.equals(this.loss, chart.loss) &&
 				Objects.equals(this.totalProfit, chart.totalProfit);
@@ -156,7 +179,7 @@ public class Chart
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(date, fund, profit, loss, totalProfit);
+		return Objects.hash(date, managerFund, investorFund, profit, loss, totalProfit);
 	}
 
 
@@ -166,7 +189,8 @@ public class Chart
 		sb.append("class Chart {\n");
 
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
-		sb.append("    fund: ").append(toIndentedString(fund)).append("\n");
+		sb.append("    managerFund: ").append(toIndentedString(managerFund)).append("\n");
+		sb.append("    investorFund: ").append(toIndentedString(investorFund)).append("\n");
 		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
 		sb.append("    loss: ").append(toIndentedString(loss)).append("\n");
 		sb.append("    totalProfit: ").append(toIndentedString(totalProfit)).append("\n");

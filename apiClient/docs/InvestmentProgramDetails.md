@@ -37,6 +37,7 @@ Name | Type | Description | Notes
 **tradeIpfsHash** | **String** |  |  [optional]
 **isEnabled** | **Boolean** |  |  [optional]
 **chart** | [**List&lt;Chart&gt;**](Chart.md) |  |  [optional]
+**token** | [**Token**](Token.md) |  |  [optional]
 **manager** | [**ProfilePublicViewModel**](ProfilePublicViewModel.md) |  |  [optional]
 **profitDiagram** | [**PeriodProfitDiagram**](PeriodProfitDiagram.md) |  |  [optional]
 **hasNewRequests** | **Boolean** |  |  [optional]

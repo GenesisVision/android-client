@@ -49,8 +49,8 @@ public class ManagerRequest
 	@SerializedName("password")
 	private String password = null;
 
-	@SerializedName("depositInUsd")
-	private Double depositInUsd = null;
+	@SerializedName("depositAmount")
+	private Double depositAmount = null;
 
 	public ManagerRequest userId(UUID userId) {
 		this.userId = userId;
@@ -166,23 +166,23 @@ public class ManagerRequest
 		this.password = password;
 	}
 
-	public ManagerRequest depositInUsd(Double depositInUsd) {
-		this.depositInUsd = depositInUsd;
+	public ManagerRequest depositAmount(Double depositAmount) {
+		this.depositAmount = depositAmount;
 		return this;
 	}
 
 	/**
-	 * Get depositInUsd
+	 * Get depositAmount
 	 *
-	 * @return depositInUsd
+	 * @return depositAmount
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getDepositInUsd() {
-		return depositInUsd;
+	public Double getDepositAmount() {
+		return depositAmount;
 	}
 
-	public void setDepositInUsd(Double depositInUsd) {
-		this.depositInUsd = depositInUsd;
+	public void setDepositAmount(Double depositAmount) {
+		this.depositAmount = depositAmount;
 	}
 
 	@Override
@@ -200,12 +200,12 @@ public class ManagerRequest
 				Objects.equals(this.email, managerRequest.email) &&
 				Objects.equals(this.currency, managerRequest.currency) &&
 				Objects.equals(this.password, managerRequest.password) &&
-				Objects.equals(this.depositInUsd, managerRequest.depositInUsd);
+				Objects.equals(this.depositAmount, managerRequest.depositAmount);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userId, requestId, name, email, currency, password, depositInUsd);
+		return Objects.hash(userId, requestId, name, email, currency, password, depositAmount);
 	}
 
 	@Override
@@ -219,7 +219,7 @@ public class ManagerRequest
 		sb.append("    email: ").append(toIndentedString(email)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    password: ").append(toIndentedString(password)).append("\n");
-		sb.append("    depositInUsd: ").append(toIndentedString(depositInUsd)).append("\n");
+		sb.append("    depositAmount: ").append(toIndentedString(depositAmount)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
