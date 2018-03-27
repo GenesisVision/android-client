@@ -113,7 +113,8 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 
 	@Override
 	public void setRefreshing(boolean refreshing) {
-		refreshLayout.setRefreshing(refreshing);
+		if (refreshLayout != null)
+			refreshLayout.setRefreshing(refreshing);
 	}
 
 	@Override

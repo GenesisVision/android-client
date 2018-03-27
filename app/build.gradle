@@ -134,7 +134,9 @@ dependencies {
 
     implementation 'com.github.kenglxn.QRGen:android:2.4.0'
 
-    implementation 'com.github.hotchemi:permissionsdispatcher:2.0.5'
+    implementation 'com.github.hotchemi:permissionsdispatcher:3.1.0'
+
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.6.0'
 
     implementation('com.appyvet:materialrangebar:1.4.1') {
         exclude module: 'support-compat'
@@ -146,11 +148,11 @@ dependencies {
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
-    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.0.5'
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
     annotationProcessor 'com.arello-mobile:moxy-compiler:1.5.3'
 
-    provided 'com.arello-mobile:moxy-compiler:1.5.3'
-    compile project(path: ':apiClient')
+    compileOnly 'com.arello-mobile:moxy-compiler:1.5.3'
+    implementation project(path: ':apiClient')
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -40,7 +40,8 @@
                     android:background="@color/colorPrimary"
                     android:padding="8dp"
                     android:src="@drawable/edit_icon"
-                    android:tint="@color/white"/>
+                    android:tint="@color/white"
+                    android:visibility="gone"/>
 
                 <ProgressBar
                     android:id="@+id/avatar_progress_bar"

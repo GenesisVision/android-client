@@ -29,4 +29,6 @@ interface ProfileView extends MvpView
 	void showUpdateProgress(boolean show);
 
 	void showSnackbarMessage(String message);
+
+	void startImageCropActivity(String imageUri);
 }

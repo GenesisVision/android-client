@@ -119,12 +119,32 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 	}
 
 	void handleCameraResult() {
-		uploadAvatar();
+		getViewState().startImageCropActivity(newAvatarFile.toURI().toString());
 	}
 
 	void handleGalleryResult(Uri pictureUri) {
-		newAvatarFile = new File(imageUtils.getImagePath(context, pictureUri));
+		try {
+			ImageUtils.copyFiles(new File(imageUtils.getImagePath(context, pictureUri)), newAvatarFile);
+			getViewState().startImageCropActivity(newAvatarFile.toURI().toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	void handleImageCropResult() {
 		uploadAvatar();
+	}
+
+	void handleCameraFail() {
+		ImageUtils.deleteTempFile(newAvatarFile);
+	}
+
+	void handleGalleryFail() {
+		ImageUtils.deleteTempFile(newAvatarFile);
+	}
+
+	void handleImageCropFail() {
+		ImageUtils.deleteTempFile(newAvatarFile);
 	}
 
 	private void setEditMode(boolean editMode) {
@@ -181,7 +201,6 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 						getViewState().showSnackbarMessage(error.message);
 						break;
 					}
-
 				}
 			}
 		}
@@ -200,11 +219,15 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 		avatarUploadSubscription.unsubscribe();
 		getViewState().showAvatarProgress(false);
 		getViewState().updateAvatar(response.getId().toString());
+
+		ImageUtils.deleteTempFile(newAvatarFile);
 	}
 
 	private void handleUploadAvatarError(Throwable throwable) {
 		avatarUploadSubscription.unsubscribe();
 		getViewState().showAvatarProgress(false);
+
+		ImageUtils.deleteTempFile(newAvatarFile);
 
 		if (ApiErrorResolver.isNetworkError(throwable)) {
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
@@ -217,7 +240,6 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 						getViewState().showSnackbarMessage(error.message);
 						break;
 					}
-
 				}
 			}
 		}
@@ -227,15 +249,21 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 	public void onEventMainThread(OnPictureChooserCameraClickedEvent event) {
 		try {
 			newAvatarFile = imageUtils.createImageFile();
+			getViewState().openCamera(imageUtils, newAvatarFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 			getViewState().showSnackbarMessage(e.getMessage());
 		}
-		getViewState().openCamera(imageUtils, newAvatarFile);
 	}
 
 	@Subscribe
 	public void onEventMainThread(OnPictureChooserGalleryClickedEvent event) {
-		getViewState().openGallery(imageUtils);
+		try {
+			newAvatarFile = imageUtils.createImageFile();
+			getViewState().openGallery(imageUtils);
+		} catch (IOException e) {
+			e.printStackTrace();
+			getViewState().showSnackbarMessage(e.getMessage());
+		}
 	}
 }

@@ -55,6 +55,9 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 	@BindView(R.id.avatar_progress_bar)
 	public ProgressBar avatarProgressBar;
 
+	@BindView(R.id.button_change_avatar)
+	public View changeAvatarButton;
+
 	@BindView(R.id.first_name)
 	public ProfileDataView firstName;
 
@@ -99,9 +102,12 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 
 	private ProfileFullViewModel profileModel;
 
-	@OnClick(R.id.button_change_avatar)
+	private boolean editMode;
+
+	@OnClick(R.id.avatar)
 	public void onChangeAvatarClicked() {
-		ProfileFragmentPermissionsDispatcher.showPictureChooserWithCheck(this);
+		if (editMode)
+			ProfileFragmentPermissionsDispatcher.showPictureChooserWithPermissionCheck(this);
 	}
 
 	@Nullable
@@ -157,8 +163,10 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 
 	@Override
 	public void setEditMode(boolean editMode) {
+		this.editMode = editMode;
 		toolbar.setVisibility(editMode ? View.GONE : View.VISIBLE);
 		editModeToolbar.setVisibility(editMode ? View.VISIBLE : View.GONE);
+		changeAvatarButton.setVisibility(editMode ? View.VISIBLE : View.GONE);
 
 		setAllFieldsEditMode(editMode);
 	}
@@ -198,6 +206,7 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 
 	@Override
 	public void updateAvatar(String imageId) {
+		profileModel.setAvatar(imageId);
 		this.avatar.setImageURI(ImageUtils.getImageUri(imageId));
 	}
 
@@ -227,6 +236,11 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 	}
 
 	@Override
+	public void startImageCropActivity(String imageUri) {
+		ImageCropActivity.startForResult(this, imageUri);
+	}
+
+	@Override
 	public boolean onBackPressed() {
 		return profilePresenter.onBackPressed();
 	}
@@ -239,10 +253,24 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 				if (resultCode == Activity.RESULT_OK) {
 					profilePresenter.handleCameraResult();
 				}
+				else {
+					profilePresenter.handleCameraFail();
+				}
 				break;
 			case ImageUtils.GALLERY_REQUEST_CODE:
 				if (resultCode == Activity.RESULT_OK) {
 					profilePresenter.handleGalleryResult(data.getData());
+				}
+				else {
+					profilePresenter.handleGalleryFail();
+				}
+				break;
+			case ImageUtils.CROP_REQUEST_CODE:
+				if (resultCode == Activity.RESULT_OK) {
+					profilePresenter.handleImageCropResult();
+				}
+				else {
+					profilePresenter.handleImageCropFail();
 				}
 				break;
 			default:

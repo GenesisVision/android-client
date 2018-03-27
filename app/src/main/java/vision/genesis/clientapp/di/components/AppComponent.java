@@ -16,6 +16,7 @@ import vision.genesis.clientapp.feature.main.MainActivity;
 import vision.genesis.clientapp.feature.main.MainPresenter;
 import vision.genesis.clientapp.feature.main.bottom_navigation.TabContainerFragment;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardPresenter;
+import vision.genesis.clientapp.feature.main.profile.ImageCropActivity;
 import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
 import vision.genesis.clientapp.feature.main.program.details.ProgramDetailsPresenter;
 import vision.genesis.clientapp.feature.main.program.filter.ProgramsFiltersPresenter;
@@ -88,4 +89,6 @@ public interface AppComponent
 	void inject(RequestsPresenter requestsPresenter);
 
 	void inject(TransactionsPresenter transactionsPresenter);
+
+	void inject(ImageCropActivity imageCropActivity);
 }

@@ -32,7 +32,7 @@
             android:name=".feature.main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
 
         </activity>
 
@@ -107,13 +107,25 @@
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
-        <activity android:name=".feature.auth.email_verification.EmailVerificationActivity"/>
+        <activity
+            android:name=".feature.auth.email_verification.EmailVerificationActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
             android:name=".feature.main.program.details.description.ProgramDescriptionActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+
+        <activity
+            android:name=".feature.main.profile.ImageCropActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <provider

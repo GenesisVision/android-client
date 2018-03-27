@@ -77,7 +77,7 @@ public class ProgramDescriptionActivity extends BaseSwipeBackActivity implements
 			setData(model);
 		}
 		else {
-			Timber.e("Passed empty program to ProgramDetailsActivity");
+			Timber.e("Passed empty ProgramDescriptionModel to ProgramDescriptionActivity");
 			onBackPressed();
 		}
 	}

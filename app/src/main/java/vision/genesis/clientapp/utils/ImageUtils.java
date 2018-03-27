@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -14,17 +13,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 import timber.log.Timber;
 import vision.genesis.clientapp.BuildConfig;
-import vision.genesis.clientapp.R;
 
 /**
  * GenesisVisionAndroid
@@ -37,13 +36,57 @@ public class ImageUtils
 
 	public static final int GALLERY_REQUEST_CODE = 25;
 
-	private static final String TAG = ImageUtils.class + "";
+	public static final int CROP_REQUEST_CODE = 128;
+
+	public static final int AVATAR_WIDTH = 500;
 
 	public static String getImageUri(String imageId) {
 		String baseUrl = BuildConfig.FLAVOR.equals("tournament")
 				? BuildConfig.TOURNAMENT_API_ADDRESS
 				: BuildConfig.API_ADDRESS;
 		return (baseUrl + "/api/files/" + imageId);
+	}
+
+	public static boolean saveImageToFile(Context context, Bitmap image, String imageUri) {
+		FileOutputStream out = null;
+		try {
+			File outFile = new File(Uri.parse(imageUri).getPath());
+
+			out = new FileOutputStream(outFile);
+			Bitmap scaledImage = Bitmap.createScaledBitmap(image, AVATAR_WIDTH, AVATAR_WIDTH, false);
+			scaledImage.compress(Bitmap.CompressFormat.JPEG, 85, out);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			try {
+				if (out != null) {
+					out.close();
+					return true;
+				}
+				else {
+					return false;
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+	}
+
+	public static void copyFiles(File src, File dst) throws IOException {
+		try (InputStream in = new FileInputStream(src)) {
+			try (OutputStream out = new FileOutputStream(dst)) {
+				// Transfer bytes from in to out
+				byte[] buf = new byte[1024];
+				int len;
+				while ((len = in.read(buf)) > 0) {
+					out.write(buf, 0, len);
+				}
+				in.close();
+				out.close();
+			}
+		}
 	}
 
 	public void openCameraFrom(Activity activity) {
@@ -86,14 +129,12 @@ public class ImageUtils
 		fragment.startActivityForResult(openGalleryIntent, GALLERY_REQUEST_CODE);
 	}
 
-	public void addImageToGallery(Uri contentUri, Context context) {
-		Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-		mediaScanIntent.setData(contentUri);
-		context.sendBroadcast(mediaScanIntent);
+	public static boolean deleteTempFile(File tempFile) {
+		return tempFile.delete();
 	}
 
 	public String getImagePath(Context context, Uri data) {
-		Timber.d(TAG, "Getting image path from %s", data);
+		Timber.d("Getting image path from %s", data);
 		String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
 		Cursor cursor = context.getContentResolver().query(data,
@@ -108,14 +149,8 @@ public class ImageUtils
 			return picturePath;
 		}
 		else {
-			throw new RuntimeException("Could not find specified specified uri: " + data);
+			throw new RuntimeException("Could not find specified uri: " + data);
 		}
-	}
-
-	public File createImageFile() throws IOException {
-		String timestamp = new SimpleDateFormat("ddMMyyyy_HHmmss", Locale.getDefault()).format(new Date());
-		String imageFileName = "GV_" + timestamp;
-		return createImageFile(imageFileName);
 	}
 
 	public File createImageFile(String name) throws IOException {
@@ -123,18 +158,9 @@ public class ImageUtils
 		return File.createTempFile(name, ".jpg", storageDir);
 	}
 
-	public Bitmap getBitmapFromURL(Context context, String bitmapAddress) {
-		try {
-			URL url = new URL(bitmapAddress);
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			connection.setDoInput(true);
-			connection.connect();
-			InputStream input = connection.getInputStream();
-			Bitmap bitmap = BitmapFactory.decodeStream(input);
-			return bitmap == null ? BitmapFactory.decodeResource(context.getResources(), R.drawable.profile_placeholder) : bitmap;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return BitmapFactory.decodeResource(context.getResources(), R.drawable.profile_placeholder);
-		}
+	public File createImageFile() throws IOException {
+		String timestamp = new SimpleDateFormat("ddMMyyyy_HHmmss", Locale.getDefault()).format(new Date());
+		String imageFileName = "gv_" + timestamp;
+		return createImageFile(imageFileName);
 	}
 }
