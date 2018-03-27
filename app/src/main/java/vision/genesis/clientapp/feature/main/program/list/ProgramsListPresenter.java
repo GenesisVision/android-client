@@ -119,6 +119,8 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 			filter.setSkip(skip);
 		}
 
+		if (getProgramsSubscription != null)
+			getProgramsSubscription.unsubscribe();
 		getProgramsSubscription = investManager.getProgramsList(filter)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())

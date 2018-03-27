@@ -33,7 +33,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 1/19/18.
  */
 
-public class WalletFragment extends BaseFragment implements WalletView, ViewPager.OnPageChangeListener
+public class WalletFragment extends BaseFragment implements WalletView
 {
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
@@ -109,7 +109,7 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 		if (pagerAdapter != null)
 			pagerAdapter.destroy();
 
-		viewPager.addOnPageChangeListener(this);
+		viewPager.addOnPageChangeListener(walletPresenter);
 
 		super.onDestroyView();
 	}
@@ -144,7 +144,7 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 		pagerAdapter = new TransactionsPagerAdapter(getActivity().getSupportFragmentManager());
 		viewPager.setAdapter(pagerAdapter);
 
-		viewPager.addOnPageChangeListener(this);
+		viewPager.addOnPageChangeListener(walletPresenter);
 		viewPager.setCurrentItem(0);
 	}
 
@@ -181,23 +181,13 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 	}
 
 	@Override
-	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-	}
-
-	@Override
-	public void onPageSelected(int position) {
+	public void showPage(int position) {
 		if (currentFragment != null && currentFragment instanceof TransactionsPagerAdapter.OnPageVisibilityChanged)
 			((TransactionsPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerHide();
 		currentFragment = pagerAdapter.getItem(position);
 		if (pagerAdapter.getItem(position) instanceof TransactionsPagerAdapter.OnPageVisibilityChanged) {
 			((TransactionsPagerAdapter.OnPageVisibilityChanged) pagerAdapter.getItem(position)).pagerShow();
 		}
-	}
-
-	@Override
-	public void onPageScrollStateChanged(int state) {
-
 	}
 
 	@Override

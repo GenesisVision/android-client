@@ -87,10 +87,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tokens"
                 android:layout_centerHorizontal="true"
-                android:text="($8,700)"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                tools:text="($8,700)"/>
 
             <TextView
                 android:id="@+id/label_my_tokens"
@@ -126,26 +126,25 @@
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="32sp"
-                tools:text="+25%"/>
+                tools:text="12.543"/>
 
             <TextView
-                android:id="@+id/profit_fiat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/profit_currency"
+                style="@style/item_investment_program_currency"
                 android:layout_below="@+id/profit"
                 android:layout_centerHorizontal="true"
-                android:text="($12,500)"
+                android:layout_marginTop="-4dp"
+                android:text="@string/gvt"
                 android:textAllCaps="true"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"/>
+                android:textSize="10sp"/>
 
             <TextView
                 android:id="@+id/label_profit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/profit_fiat"
+                android:layout_below="@id/profit_currency"
                 android:layout_centerHorizontal="true"
-                android:text="@string/profit"
+                android:text="@string/my_profit"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="12sp"/>

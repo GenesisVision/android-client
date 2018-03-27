@@ -22,4 +22,6 @@ interface WalletView extends MvpView
 	void hideBalanceProgress();
 
 	void showSnackbarMessage(String message);
+
+	void showPage(int position);
 }

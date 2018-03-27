@@ -79,6 +79,13 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		transactionsPresenter.onShow();
+	}
+
 	private void setFonts() {
 		whoopsLabel.setTypeface(TypefaceUtil.bold(getContext()));
 	}

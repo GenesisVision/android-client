@@ -81,8 +81,8 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		@BindView(R.id.profit)
 		public TextView profit;
 
-		@BindView(R.id.profit_fiat)
-		public TextView profitFiat;
+		@BindView(R.id.profit_currency)
+		public TextView profitCurrency;
 
 		@BindView(R.id.label_profit)
 		public TextView profitLabel;
@@ -109,7 +109,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		private void setFonts() {
 			tokensFiat.setTypeface(TypefaceUtil.bold(context));
 			myTokensLabel.setTypeface(TypefaceUtil.bold(context));
-			profitFiat.setTypeface(TypefaceUtil.bold(context));
+			profitCurrency.setTypeface(TypefaceUtil.bold(context));
 			profitLabel.setTypeface(TypefaceUtil.bold(context));
 		}
 
@@ -130,10 +130,10 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			chart.setChart(investmentProgram.getChart());
 
 			tokens.setText(String.valueOf(investmentProgram.getInvestedTokens()));
+			double tokensFiatValue = investmentProgram.getInvestedTokens() * investmentProgram.getToken().getInitialPrice();
+			tokensFiat.setText(String.format(Locale.getDefault(), "($%.2f)", tokensFiatValue));
 
-			double profitPercent = investmentProgram.getProfitAvg();
-//			double profitCurrency = 0.00;
-			profit.setText(String.format(Locale.getDefault(), "%.2f%%", profitPercent));
+			profit.setText(String.format(Locale.getDefault(), "%.2f", investmentProgram.getProfitFromProgram()));
 //			profitFiat.setText(String.format(Locale.getDefault(), "$%.2f", profitCurrency));
 //			if (profitPercent > 0) {
 //				profit.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));

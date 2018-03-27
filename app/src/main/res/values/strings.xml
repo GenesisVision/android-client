@@ -189,6 +189,7 @@
     <string name="select_photo">Select a photo</string>
     <string name="take_photo">Take a photo</string>
     <string name="successfully_updated">Successfully updated</string>
+    <string name="my_profit">My profit</string>
 
     <string-array name="transactions_filter">
         <item>All Transactions</item>

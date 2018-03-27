@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnEditorAction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.auth.email_verification.EmailVerificationActivity;
@@ -54,6 +56,14 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 
 	@InjectPresenter
 	RegistrationPresenter registrationPresenter;
+
+	@OnEditorAction(R.id.confirm_password)
+	protected boolean onConfirmPasswordEditorAction(int actionId) {
+		if (actionId == EditorInfo.IME_ACTION_DONE) {
+			registrationPresenter.onSignUpClicked(email.getText().toString(), password.getText().toString(), confirmPassword.getText().toString());
+		}
+		return false;
+	}
 
 	@OnClick(R.id.button_sign_up)
 	public void onSignUpClicked() {

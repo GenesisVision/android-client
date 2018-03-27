@@ -67,6 +67,7 @@
             android:layout_marginTop="-8dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/gvt"
+            android:visibility="gone"
             android:textColor="@color/colorFontLight"
             android:textSize="18sp"/>
 

@@ -53,7 +53,6 @@
             android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="@string/password"
-            android:imeOptions="actionDone"
             android:inputType="textPassword"/>
 
         <EditText
@@ -63,7 +62,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginTop="16dp"
             android:ems="10"
-            android:hint="@string/password"
+            android:hint="@string/confirm_password"
             android:imeOptions="actionDone"
             android:inputType="textPassword"/>
 

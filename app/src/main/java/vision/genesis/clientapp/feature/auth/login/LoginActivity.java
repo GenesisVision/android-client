@@ -59,7 +59,7 @@ public class LoginActivity extends BaseSwipeBackActivity implements LoginView
 	LoginPresenter loginPresenter;
 
 	@OnEditorAction(R.id.password)
-	protected boolean onConfirmPasswordEditorAction(int actionId) {
+	protected boolean onPasswordEditorAction(int actionId) {
 		if (actionId == EditorInfo.IME_ACTION_DONE) {
 			loginPresenter.onSignInClicked(email.getText().toString(), password.getText().toString());
 		}

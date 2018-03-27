@@ -88,6 +88,8 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 			filter.setSkip(skip);
 		}
 
+		if (transactionsSubscription != null)
+			transactionsSubscription.unsubscribe();
 		transactionsSubscription = walletManager.getTransactions(filter)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())

@@ -98,13 +98,13 @@ public class ProgramDataView extends RelativeLayout
 
 	public void setData(Double profitTotal, Double profitAvg, Double balance, Integer invesotrsCount) {
 		ShortenedAmount totalProfitShortenedAmount = StringFormatUtil.getShortenedAmount(profitTotal);
-		totalProfitText.setText(String.format("$%s", totalProfitShortenedAmount.amount));
+		totalProfitText.setText(String.format("%s", totalProfitShortenedAmount.amount));
 		totalProfitTextMod.setText(totalProfitShortenedAmount.modifier);
 
 		avgProfitText.setText(String.format(Locale.getDefault(), "%.0f", profitAvg));
 
 		ShortenedAmount balanceShortenedAmount = StringFormatUtil.getShortenedAmount(balance);
-		balanceText.setText(String.format("$%s", balanceShortenedAmount.amount));
+		balanceText.setText(String.format("%s", balanceShortenedAmount.amount));
 		balanceTextMod.setText(balanceShortenedAmount.modifier);
 
 		investorsText.setText(String.valueOf(invesotrsCount));

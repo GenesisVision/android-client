@@ -1,6 +1,7 @@
 package vision.genesis.clientapp.feature.main.wallet;
 
 import android.content.Context;
+import android.support.v4.view.ViewPager;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -26,7 +27,7 @@ import vision.genesis.clientapp.model.events.ShowWithdrawWalletActivityEvent;
  */
 
 @InjectViewState
-public class WalletPresenter extends MvpPresenter<WalletView>
+public class WalletPresenter extends MvpPresenter<WalletView> implements ViewPager.OnPageChangeListener
 {
 	private static final String FIAT_CURRENCY = WalletTransaction.CurrencyEnum.USD.toString();
 
@@ -134,5 +135,20 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 	private void getRateErrorHandler(Throwable error) {
 		rateSubscription.unsubscribe();
 		getViewState().hideBalanceProgress();
+	}
+
+	@Override
+	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+	}
+
+	@Override
+	public void onPageSelected(int position) {
+		getViewState().showPage(position);
+	}
+
+	@Override
+	public void onPageScrollStateChanged(int state) {
+
 	}
 }
