@@ -17,7 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.swagger.client.model.InvestmentProgramDashboard;
+import io.swagger.client.model.InvestmentProgramDashboardInvestor;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.programs.DashboardPagerAdapter;
@@ -146,12 +146,12 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 	}
 
 	@Override
-	public void setActivePrograms(List<InvestmentProgramDashboard> programs) {
+	public void setActivePrograms(List<InvestmentProgramDashboardInvestor> programs) {
 		pagerAdapter.setActivePrograms(programs);
 	}
 
 	@Override
-	public void setArchivedPrograms(List<InvestmentProgramDashboard> programs) {
+	public void setArchivedPrograms(List<InvestmentProgramDashboardInvestor> programs) {
 		pagerAdapter.setArchivedPrograms(programs);
 	}
 

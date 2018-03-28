@@ -41,10 +41,10 @@ public interface InvestorApi
 	 *
 	 * @param userId (optional)
 	 * @param code   (optional)
-	 * @return Call&lt;Void&gt;
+	 * @return Call&lt;String&gt;
 	 */
-	@GET("api/investor/auth/confirmEmail")
-	Observable<Void> apiInvestorAuthConfirmEmailGet(
+	@POST("api/investor/auth/confirmEmail")
+	Observable<String> apiInvestorAuthConfirmEmailPost(
 			@retrofit2.http.Query("userId") String userId, @retrofit2.http.Query("code") String code
 	);
 

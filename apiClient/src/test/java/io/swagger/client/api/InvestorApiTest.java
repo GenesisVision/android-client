@@ -6,13 +6,18 @@ import org.junit.Test;
 import java.util.UUID;
 
 import io.swagger.client.ApiClient;
+import io.swagger.client.model.ChangePasswordViewModel;
+import io.swagger.client.model.ForgotPasswordViewModel;
 import io.swagger.client.model.Invest;
+import io.swagger.client.model.InvestmentProgramRequestsFilter;
 import io.swagger.client.model.InvestmentProgramsFilter;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.RegisterInvestorViewModel;
+import io.swagger.client.model.ResetPasswordViewModel;
 import io.swagger.client.model.TradesFilter;
 import io.swagger.client.model.TransactionsFilter;
 import io.swagger.client.model.UpdateProfileViewModel;
+import io.swagger.client.model.WalletStatisticFilter;
 import io.swagger.client.model.WalletWithdrawRequestModel;
 
 /**
@@ -32,10 +37,32 @@ public class InvestorApiTest
 	 * Confirm email after registration
 	 */
 	@Test
-	public void apiInvestorAuthConfirmEmailGetTest() {
+	public void apiInvestorAuthConfirmEmailPostTest() {
 		String userId = null;
 		String code = null;
-		// Void response = api.apiInvestorAuthConfirmEmailGet(userId, code);
+		// String response = api.apiInvestorAuthConfirmEmailPost(userId, code);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Forgot password
+	 */
+	@Test
+	public void apiInvestorAuthForgotPasswordPostTest() {
+		ForgotPasswordViewModel model = null;
+		// Void response = api.apiInvestorAuthForgotPasswordPost(model);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Reset password
+	 */
+	@Test
+	public void apiInvestorAuthResetPasswordPostTest() {
+		ResetPasswordViewModel model = null;
+		// String response = api.apiInvestorAuthResetPasswordPost(model);
 
 		// TODO: test validations
 	}
@@ -74,12 +101,37 @@ public class InvestorApiTest
 	}
 
 	/**
+	 * Change password
+	 */
+	@Test
+	public void apiInvestorAuthhangePasswordPostTest() {
+		String authorization = null;
+		ChangePasswordViewModel model = null;
+		// Void response = api.apiInvestorAuthhangePasswordPost(authorization, model);
+
+		// TODO: test validations
+	}
+
+	/**
 	 * Get investor dashboard
 	 */
 	@Test
 	public void apiInvestorDashboardGetTest() {
 		String authorization = null;
-		// InvestorDashboard response = api.apiInvestorDashboardGet(authorization);
+		String sorting = null;
+		// InvestorDashboard response = api.apiInvestorDashboardGet(authorization, sorting);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Get investment program buy token model
+	 */
+	@Test
+	public void apiInvestorInvestmentProgramBuyTokensGetTest() {
+		UUID investmentProgramId = null;
+		String authorization = null;
+		// InvestmentProgramBuyToken response = api.apiInvestorInvestmentProgramBuyTokensGet(investmentProgramId, authorization);
 
 		// TODO: test validations
 	}
@@ -90,7 +142,8 @@ public class InvestorApiTest
 	@Test
 	public void apiInvestorInvestmentProgramGetTest() {
 		UUID investmentProgramId = null;
-		// InvestmentProgramViewModel response = api.apiInvestorInvestmentProgramGet(investmentProgramId);
+		String authorization = null;
+		// InvestmentProgramViewModel response = api.apiInvestorInvestmentProgramGet(investmentProgramId, authorization);
 
 		// TODO: test validations
 	}
@@ -108,13 +161,24 @@ public class InvestorApiTest
 	}
 
 	/**
+	 * Get investment program&#39;s requests
+	 */
+	@Test
+	public void apiInvestorInvestmentProgramRequestsPostTest() {
+		String authorization = null;
+		InvestmentProgramRequestsFilter filter = null;
+		// InvestmentProgramRequests response = api.apiInvestorInvestmentProgramRequestsPost(authorization, filter);
+
+		// TODO: test validations
+	}
+
+	/**
 	 * Get manager trade history
 	 */
 	@Test
 	public void apiInvestorInvestmentProgramTradesPostTest() {
-		String authorization = null;
 		TradesFilter filter = null;
-		// TradesViewModel response = api.apiInvestorInvestmentProgramTradesPost(authorization, filter);
+		// TradesViewModel response = api.apiInvestorInvestmentProgramTradesPost(filter);
 
 		// TODO: test validations
 	}
@@ -148,8 +212,9 @@ public class InvestorApiTest
 	 */
 	@Test
 	public void apiInvestorInvestmentProgramsPostTest() {
+		String authorization = null;
 		InvestmentProgramsFilter filter = null;
-		// InvestmentProgramsViewModel response = api.apiInvestorInvestmentProgramsPost(filter);
+		// InvestmentProgramsViewModel response = api.apiInvestorInvestmentProgramsPost(authorization, filter);
 
 		// TODO: test validations
 	}
@@ -218,6 +283,30 @@ public class InvestorApiTest
 	public void apiInvestorWalletGetTest() {
 		String authorization = null;
 		// WalletsViewModel response = api.apiInvestorWalletGet(authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Get user wallet statistic
+	 */
+	@Test
+	public void apiInvestorWalletStatisticPostTest() {
+		String authorization = null;
+		WalletStatisticFilter filter = null;
+		// WalletStatistic response = api.apiInvestorWalletStatisticPost(authorization, filter);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Get user investment programs with tx
+	 */
+	@Test
+	public void apiInvestorWalletTransactionsInvestmentProgramsListGetTest() {
+		String authorization = null;
+		String mask = null;
+		// WalletInvestmentPrograms response = api.apiInvestorWalletTransactionsInvestmentProgramsListGet(authorization, mask);
 
 		// TODO: test validations
 	}

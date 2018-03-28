@@ -13,7 +13,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.InvestmentProgramDashboard;
+import io.swagger.client.model.InvestmentProgramDashboardInvestor;
 import io.swagger.client.model.InvestmentProgramsFilter;
 import io.swagger.client.model.InvestorDashboard;
 import rx.Subscription;
@@ -42,9 +42,9 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 
 	private Subscription getInvestmentsSubscription;
 
-	private List<InvestmentProgramDashboard> activePrograms = new ArrayList<>();
+	private List<InvestmentProgramDashboardInvestor> activePrograms = new ArrayList<>();
 
-	private List<InvestmentProgramDashboard> archivedPrograms = new ArrayList<>();
+	private List<InvestmentProgramDashboardInvestor> archivedPrograms = new ArrayList<>();
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -87,8 +87,8 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 		activePrograms = new ArrayList<>();
 		archivedPrograms = new ArrayList<>();
 
-		List<InvestmentProgramDashboard> programs = dashboard.getInvestmentPrograms();
-		for (InvestmentProgramDashboard program : programs) {
+		List<InvestmentProgramDashboardInvestor> programs = dashboard.getInvestmentPrograms();
+		for (InvestmentProgramDashboardInvestor program : programs) {
 			if (program.isIsEnabled())
 				activePrograms.add(program);
 			else

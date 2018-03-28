@@ -5,7 +5,6 @@ import java.util.UUID;
 import io.swagger.client.model.BrokerInitData;
 import io.swagger.client.model.ChangePasswordViewModel;
 import io.swagger.client.model.ClosePeriodData;
-import io.swagger.client.model.ForgotPasswordViewModel;
 import io.swagger.client.model.InvestmentProgramAccrual;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.ManagerHistoryIpfsHash;
@@ -41,25 +40,11 @@ public interface BrokerApi
 	 *
 	 * @param userId (optional)
 	 * @param code   (optional)
-	 * @return Call&lt;Void&gt;
+	 * @return Call&lt;String&gt;
 	 */
-	@GET("api/broker/auth/confirmEmail")
-	Observable<Void> apiBrokerAuthConfirmEmailGet(
+	@POST("api/broker/auth/confirmEmail")
+	Observable<String> apiBrokerAuthConfirmEmailPost(
 			@retrofit2.http.Query("userId") String userId, @retrofit2.http.Query("code") String code
-	);
-
-	/**
-	 * Forgot password
-	 *
-	 * @param model (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("api/broker/auth/forgotPassword")
-	Observable<Void> apiBrokerAuthForgotPasswordPost(
-			@retrofit2.http.Body ForgotPasswordViewModel model
 	);
 
 	/**

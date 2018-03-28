@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-import io.swagger.client.model.InvestmentProgramDashboard;
+import io.swagger.client.model.InvestmentProgramDashboardInvestor;
 
 /**
  * GenesisVision
@@ -53,11 +53,11 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 		return 2;
 	}
 
-	public void setActivePrograms(List<InvestmentProgramDashboard> programs) {
+	public void setActivePrograms(List<InvestmentProgramDashboardInvestor> programs) {
 		activeProgramsFragment.setPrograms(programs);
 	}
 
-	public void setArchivedPrograms(List<InvestmentProgramDashboard> programs) {
+	public void setArchivedPrograms(List<InvestmentProgramDashboardInvestor> programs) {
 		archivedProgramsFragment.setPrograms(programs);
 	}
 

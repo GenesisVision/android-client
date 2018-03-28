@@ -6,7 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
-import io.swagger.client.model.InvestmentProgramDashboard;
+import io.swagger.client.model.InvestmentProgramDashboardInvestor;
 
 
 /**
@@ -16,9 +16,9 @@ import io.swagger.client.model.InvestmentProgramDashboard;
 
 interface DashboardView extends MvpView
 {
-	void setActivePrograms(List<InvestmentProgramDashboard> programs);
+	void setActivePrograms(List<InvestmentProgramDashboardInvestor> programs);
 
-	void setArchivedPrograms(List<InvestmentProgramDashboard> programs);
+	void setArchivedPrograms(List<InvestmentProgramDashboardInvestor> programs);
 
 	void showNoInternet(boolean show);
 

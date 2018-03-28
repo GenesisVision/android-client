@@ -15,7 +15,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.swagger.client.model.InvestmentProgramDashboard;
+import io.swagger.client.model.InvestmentProgramDashboardInvestor;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.AvatarView;
@@ -30,7 +30,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProgramsAdapter.InvestorProgramViewHolder>
 {
-	public List<InvestmentProgramDashboard> investorPrograms = new ArrayList<>();
+	public List<InvestmentProgramDashboardInvestor> investorPrograms = new ArrayList<>();
 
 	@Override
 	public InvestorProgramViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -48,7 +48,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		return investorPrograms.size();
 	}
 
-	void setInvestorPrograms(List<InvestmentProgramDashboard> investorPrograms) {
+	void setInvestorPrograms(List<InvestmentProgramDashboardInvestor> investorPrograms) {
 		this.investorPrograms.clear();
 		this.investorPrograms.addAll(investorPrograms);
 		notifyDataSetChanged();
@@ -92,7 +92,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 		private Context context;
 
-		private InvestmentProgramDashboard investmentProgram;
+		private InvestmentProgramDashboardInvestor investmentProgram;
 
 		InvestorProgramViewHolder(View itemView) {
 			super(itemView);
@@ -113,7 +113,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			profitLabel.setTypeface(TypefaceUtil.bold(context));
 		}
 
-		void setInvestmentProgram(InvestmentProgramDashboard investmentProgram) {
+		void setInvestmentProgram(InvestmentProgramDashboardInvestor investmentProgram) {
 			this.investmentProgram = investmentProgram;
 			updateData();
 		}

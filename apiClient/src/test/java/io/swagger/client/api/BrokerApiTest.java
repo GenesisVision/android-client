@@ -6,11 +6,15 @@ import org.junit.Test;
 import java.util.UUID;
 
 import io.swagger.client.ApiClient;
+import io.swagger.client.model.ChangePasswordViewModel;
 import io.swagger.client.model.InvestmentProgramAccrual;
 import io.swagger.client.model.LoginViewModel;
+import io.swagger.client.model.ManagerHistoryIpfsHash;
 import io.swagger.client.model.NewManager;
 import io.swagger.client.model.NewOpenTradesEvent;
 import io.swagger.client.model.NewTradeEvent;
+import io.swagger.client.model.ResetPasswordViewModel;
+import io.swagger.client.model.StartValues;
 
 /**
  * API tests for BrokerApi
@@ -38,6 +42,29 @@ public class BrokerApiTest
 	}
 
 	/**
+	 * Confirm email after registration
+	 */
+	@Test
+	public void apiBrokerAuthConfirmEmailPostTest() {
+		String userId = null;
+		String code = null;
+		// String response = api.apiBrokerAuthConfirmEmailPost(userId, code);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Reset password
+	 */
+	@Test
+	public void apiBrokerAuthResetPasswordPostTest() {
+		ResetPasswordViewModel model = null;
+		// String response = api.apiBrokerAuthResetPasswordPost(model);
+
+		// TODO: test validations
+	}
+
+	/**
 	 * Authorize
 	 */
 	@Test
@@ -55,6 +82,18 @@ public class BrokerApiTest
 	public void apiBrokerAuthUpdateTokenGetTest() {
 		String authorization = null;
 		// String response = api.apiBrokerAuthUpdateTokenGet(authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Change password
+	 */
+	@Test
+	public void apiBrokerAuthhangePasswordPostTest() {
+		String authorization = null;
+		ChangePasswordViewModel model = null;
+		// Void response = api.apiBrokerAuthhangePasswordPost(authorization, model);
 
 		// TODO: test validations
 	}
@@ -78,7 +117,7 @@ public class BrokerApiTest
 	public void apiBrokerPeriodAccrueProfitsPostTest() {
 		String authorization = null;
 		InvestmentProgramAccrual accrual = null;
-		// UUID response = api.apiBrokerPeriodAccrueProfitsPost(authorization, accrual);
+		// Void response = api.apiBrokerPeriodAccrueProfitsPost(authorization, accrual);
 
 		// TODO: test validations
 	}
@@ -89,8 +128,22 @@ public class BrokerApiTest
 	@Test
 	public void apiBrokerPeriodClosePostTest() {
 		UUID investmentProgramId = null;
+		Double currentBalance = null;
 		String authorization = null;
-		// Void response = api.apiBrokerPeriodClosePost(investmentProgramId, authorization);
+		// Void response = api.apiBrokerPeriodClosePost(investmentProgramId, currentBalance, authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Close investment program
+	 */
+	@Test
+	public void apiBrokerPeriodProcessClosingProgramPostTest() {
+		UUID investmentProgramId = null;
+		Double managerBalance = null;
+		String authorization = null;
+		// Void response = api.apiBrokerPeriodProcessClosingProgramPost(investmentProgramId, managerBalance, authorization);
 
 		// TODO: test validations
 	}
@@ -108,14 +161,26 @@ public class BrokerApiTest
 	}
 
 	/**
-	 * Set investment period start balance
+	 * Update manager token initial price/total supply after loss
 	 */
 	@Test
-	public void apiBrokerPeriodSetStartBalancePostTest() {
-		UUID periodId = null;
-		Double balance = null;
+	public void apiBrokerPeriodReevaluateManagerTokenPostTest() {
+		UUID investmentProgramId = null;
+		Double investorLossShare = null;
 		String authorization = null;
-		// Void response = api.apiBrokerPeriodSetStartBalancePost(periodId, balance, authorization);
+		// Void response = api.apiBrokerPeriodReevaluateManagerTokenPost(investmentProgramId, investorLossShare, authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Set investment period start balance, manager share, manager balance
+	 */
+	@Test
+	public void apiBrokerPeriodSetStartValuesPostTest() {
+		String authorization = null;
+		StartValues model = null;
+		// Void response = api.apiBrokerPeriodSetStartValuesPost(authorization, model);
 
 		// TODO: test validations
 	}
@@ -128,6 +193,18 @@ public class BrokerApiTest
 		UUID investmentProgramId = null;
 		String authorization = null;
 		// ClosePeriodData response = api.apiBrokerPeriodlosingDataGet(investmentProgramId, authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Update manager history ipfs hash
+	 */
+	@Test
+	public void apiBrokerTradesIpfsHashUpdatePostTest() {
+		String authorization = null;
+		ManagerHistoryIpfsHash data = null;
+		// Void response = api.apiBrokerTradesIpfsHashUpdatePost(authorization, data);
 
 		// TODO: test validations
 	}
@@ -152,19 +229,6 @@ public class BrokerApiTest
 		String authorization = null;
 		NewOpenTradesEvent trades = null;
 		// Void response = api.apiBrokerTradesOpenTradesNewPost(authorization, trades);
-
-		// TODO: test validations
-	}
-
-	/**
-	 * Update manager token initial price/total supply after loss
-	 */
-	@Test
-	public void apiBrokerTradesReevaluateManagerTokenPostTest() {
-		UUID investmentProgramId = null;
-		Double investorLossShare = null;
-		String authorization = null;
-		// Void response = api.apiBrokerTradesReevaluateManagerTokenPost(investmentProgramId, investorLossShare, authorization);
 
 		// TODO: test validations
 	}

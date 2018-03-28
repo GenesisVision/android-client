@@ -7,15 +7,23 @@ import io.swagger.client.model.BrokersViewModel;
 import io.swagger.client.model.ChangePasswordViewModel;
 import io.swagger.client.model.ForgotPasswordViewModel;
 import io.swagger.client.model.Invest;
+import io.swagger.client.model.InvestmentProgramBuyToken;
+import io.swagger.client.model.InvestmentProgramRequests;
+import io.swagger.client.model.InvestmentProgramRequestsFilter;
 import io.swagger.client.model.InvestmentProgramViewModel;
 import io.swagger.client.model.InvestmentProgramsFilter;
 import io.swagger.client.model.InvestmentProgramsViewModel;
 import io.swagger.client.model.LoginViewModel;
+import io.swagger.client.model.ManagerDashboardProgramsFilter;
+import io.swagger.client.model.ManagerDashboardStatistic;
+import io.swagger.client.model.ManagerInvestmentPrograms;
 import io.swagger.client.model.NewInvestmentRequest;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.ProfilePublicViewModel;
 import io.swagger.client.model.RegisterManagerViewModel;
 import io.swagger.client.model.ResetPasswordViewModel;
+import io.swagger.client.model.TradesFilter;
+import io.swagger.client.model.TradesViewModel;
 import io.swagger.client.model.TransactionsFilter;
 import io.swagger.client.model.UpdateProfileViewModel;
 import io.swagger.client.model.WalletAddressViewModel;
@@ -52,10 +60,10 @@ public interface ManagerApi
 	 *
 	 * @param userId (optional)
 	 * @param code   (optional)
-	 * @return Call&lt;Void&gt;
+	 * @return Call&lt;String&gt;
 	 */
-	@GET("api/manager/auth/confirmEmail")
-	Observable<Void> apiManagerAuthConfirmEmailGet(
+	@POST("api/manager/auth/confirmEmail")
+	Observable<String> apiManagerAuthConfirmEmailPost(
 			@retrofit2.http.Query("userId") String userId, @retrofit2.http.Query("code") String code
 	);
 
@@ -156,6 +164,32 @@ public interface ManagerApi
 	);
 
 	/**
+	 * Dashboard programs
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param filter        (optional)
+	 * @return Call&lt;ManagerInvestmentPrograms&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@GET("api/manager/dashboard/programs")
+	Observable<ManagerInvestmentPrograms> apiManagerDashboardProgramsGet(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ManagerDashboardProgramsFilter filter
+	);
+
+	/**
+	 * Dashboard statistic
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;ManagerDashboardStatistic&gt;
+	 */
+	@GET("api/manager/dashboard/statistic")
+	Observable<ManagerDashboardStatistic> apiManagerDashboardStatisticGet(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
 	 * Cancel investment request
 	 *
 	 * @param requestId     (required)
@@ -195,6 +229,18 @@ public interface ManagerApi
 	);
 
 	/**
+	 * Get investment program buy token model
+	 *
+	 * @param investmentProgramId (required)
+	 * @param authorization       JWT access token (required)
+	 * @return Call&lt;InvestmentProgramBuyToken&gt;
+	 */
+	@GET("api/manager/investmentProgram/buyTokens")
+	Observable<InvestmentProgramBuyToken> apiManagerInvestmentProgramBuyTokensGet(
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
 	 * Get investment program details by id
 	 *
 	 * @param investmentProgramId (required)
@@ -204,6 +250,62 @@ public interface ManagerApi
 	@GET("api/manager/investmentProgram")
 	Observable<InvestmentProgramViewModel> apiManagerInvestmentProgramGet(
 			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Get investment program&#39;s requests
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param filter        (optional)
+	 * @return Call&lt;InvestmentProgramRequests&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/manager/investmentProgram/requests")
+	Observable<InvestmentProgramRequests> apiManagerInvestmentProgramRequestsPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body InvestmentProgramRequestsFilter filter
+	);
+
+	/**
+	 * Get manager trade history
+	 *
+	 * @param filter (optional)
+	 * @return Call&lt;TradesViewModel&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/manager/investmentProgram/trades")
+	Observable<TradesViewModel> apiManagerInvestmentProgramTradesPost(
+			@retrofit2.http.Body TradesFilter filter
+	);
+
+	/**
+	 * Cancel investment request
+	 *
+	 * @param requestId     (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("api/manager/investmentPrograms/cancelInvestmentRequest")
+	Observable<Void> apiManagerInvestmentProgramsCancelInvestmentRequestPost(
+			@retrofit2.http.Query("requestId") UUID requestId, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Invest in manager
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;WalletsViewModel&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/manager/investmentPrograms/invest")
+	Observable<WalletsViewModel> apiManagerInvestmentProgramsInvestPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body Invest model
 	);
 
 	/**
@@ -219,6 +321,21 @@ public interface ManagerApi
 	@POST("api/manager/investmentPrograms")
 	Observable<InvestmentProgramsViewModel> apiManagerInvestmentProgramsPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body InvestmentProgramsFilter filter
+	);
+
+	/**
+	 * Withdraw from investment program
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/manager/investmentPrograms/withdraw")
+	Observable<Void> apiManagerInvestmentProgramsWithdrawPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body Invest model
 	);
 
 	/**

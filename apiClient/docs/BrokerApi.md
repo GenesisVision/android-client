@@ -5,8 +5,7 @@ All URIs are relative to *https://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiBrokerAccountCreatePost**](BrokerApi.md#apiBrokerAccountCreatePost) | **POST** api/broker/account/create | Create manager
-[**apiBrokerAuthConfirmEmailGet**](BrokerApi.md#apiBrokerAuthConfirmEmailGet) | **GET** api/broker/auth/confirmEmail | Confirm email after registration
-[**apiBrokerAuthForgotPasswordPost**](BrokerApi.md#apiBrokerAuthForgotPasswordPost) | **POST** api/broker/auth/forgotPassword | Forgot password
+[**apiBrokerAuthConfirmEmailPost**](BrokerApi.md#apiBrokerAuthConfirmEmailPost) | **POST** api/broker/auth/confirmEmail | Confirm email after registration
 [**apiBrokerAuthResetPasswordPost**](BrokerApi.md#apiBrokerAuthResetPasswordPost) | **POST** api/broker/auth/resetPassword | Reset password
 [**apiBrokerAuthSignInPost**](BrokerApi.md#apiBrokerAuthSignInPost) | **POST** api/broker/auth/signIn | Authorize
 [**apiBrokerAuthUpdateTokenGet**](BrokerApi.md#apiBrokerAuthUpdateTokenGet) | **GET** api/broker/auth/updateToken | Update auth token
@@ -69,9 +68,9 @@ No authorization required
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
-<a name="apiBrokerAuthConfirmEmailGet"></a>
-# **apiBrokerAuthConfirmEmailGet**
-> Void apiBrokerAuthConfirmEmailGet(userId, code)
+<a name="apiBrokerAuthConfirmEmailPost"></a>
+# **apiBrokerAuthConfirmEmailPost**
+> String apiBrokerAuthConfirmEmailPost(userId, code)
 
 Confirm email after registration
 
@@ -86,10 +85,10 @@ BrokerApi apiInstance = new BrokerApi();
 String userId = "userId_example"; // String | 
 String code = "code_example"; // String | 
 try {
-    Void result = apiInstance.apiBrokerAuthConfirmEmailGet(userId, code);
+    String result = apiInstance.apiBrokerAuthConfirmEmailPost(userId, code);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling BrokerApi#apiBrokerAuthConfirmEmailGet");
+    System.err.println("Exception when calling BrokerApi#apiBrokerAuthConfirmEmailPost");
     e.printStackTrace();
 }
 ```
@@ -103,7 +102,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Void**](.md)
+**String**
 
 ### Authorization
 
@@ -112,49 +111,6 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="apiBrokerAuthForgotPasswordPost"></a>
-# **apiBrokerAuthForgotPasswordPost**
-> Void apiBrokerAuthForgotPasswordPost(model)
-
-Forgot password
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.BrokerApi;
-
-
-BrokerApi apiInstance = new BrokerApi();
-ForgotPasswordViewModel model = new ForgotPasswordViewModel(); // ForgotPasswordViewModel | 
-try {
-    Void result = apiInstance.apiBrokerAuthForgotPasswordPost(model);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling BrokerApi#apiBrokerAuthForgotPasswordPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **model** | [**ForgotPasswordViewModel**](ForgotPasswordViewModel.md)|  | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="apiBrokerAuthResetPasswordPost"></a>

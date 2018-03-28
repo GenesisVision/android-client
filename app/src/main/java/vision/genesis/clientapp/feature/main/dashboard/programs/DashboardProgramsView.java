@@ -4,7 +4,7 @@ import com.arellomobile.mvp.MvpView;
 
 import java.util.List;
 
-import io.swagger.client.model.InvestmentProgramDashboard;
+import io.swagger.client.model.InvestmentProgramDashboardInvestor;
 
 /**
  * GenesisVision
@@ -21,5 +21,5 @@ interface DashboardProgramsView extends MvpView
 
 	void showNoInternet(boolean show);
 
-	void setPrograms(List<InvestmentProgramDashboard> transactions);
+	void setPrograms(List<InvestmentProgramDashboardInvestor> transactions);
 }

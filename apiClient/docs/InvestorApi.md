@@ -4,7 +4,7 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiInvestorAuthConfirmEmailGet**](InvestorApi.md#apiInvestorAuthConfirmEmailGet) | **GET** api/investor/auth/confirmEmail | Confirm email after registration
+[**apiInvestorAuthConfirmEmailPost**](InvestorApi.md#apiInvestorAuthConfirmEmailPost) | **POST** api/investor/auth/confirmEmail | Confirm email after registration
 [**apiInvestorAuthForgotPasswordPost**](InvestorApi.md#apiInvestorAuthForgotPasswordPost) | **POST** api/investor/auth/forgotPassword | Forgot password
 [**apiInvestorAuthResetPasswordPost**](InvestorApi.md#apiInvestorAuthResetPasswordPost) | **POST** api/investor/auth/resetPassword | Reset password
 [**apiInvestorAuthSignInPost**](InvestorApi.md#apiInvestorAuthSignInPost) | **POST** api/investor/auth/signIn | Authorize
@@ -32,9 +32,9 @@ Method | HTTP request | Description
 [**apiInvestorWalletWithdrawRequestPost**](InvestorApi.md#apiInvestorWalletWithdrawRequestPost) | **POST** api/investor/wallet/withdrawRequest | Withdraw request
 
 
-<a name="apiInvestorAuthConfirmEmailGet"></a>
-# **apiInvestorAuthConfirmEmailGet**
-> Void apiInvestorAuthConfirmEmailGet(userId, code)
+<a name="apiInvestorAuthConfirmEmailPost"></a>
+# **apiInvestorAuthConfirmEmailPost**
+> String apiInvestorAuthConfirmEmailPost(userId, code)
 
 Confirm email after registration
 
@@ -49,10 +49,10 @@ InvestorApi apiInstance = new InvestorApi();
 String userId = "userId_example"; // String | 
 String code = "code_example"; // String | 
 try {
-    Void result = apiInstance.apiInvestorAuthConfirmEmailGet(userId, code);
+    String result = apiInstance.apiInvestorAuthConfirmEmailPost(userId, code);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling InvestorApi#apiInvestorAuthConfirmEmailGet");
+    System.err.println("Exception when calling InvestorApi#apiInvestorAuthConfirmEmailPost");
     e.printStackTrace();
 }
 ```
@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Void**](.md)
+**String**
 
 ### Authorization
 

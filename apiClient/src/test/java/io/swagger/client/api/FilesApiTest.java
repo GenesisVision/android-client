@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.UUID;
 
 import io.swagger.client.ApiClient;
 
@@ -24,9 +25,20 @@ public class FilesApiTest
 	 * Download file
 	 */
 	@Test
-	public void apiFilesGetGetTest() {
-		String fileName = null;
-		// Void response = api.apiFilesGetGet(fileName);
+	public void apiFilesByIdGetTest() {
+		UUID id = null;
+		// Void response = api.apiFilesByIdGet(id);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Download file
+	 */
+	@Test
+	public void apiFilesGetTest() {
+		UUID id = null;
+		// Void response = api.apiFilesGet(id);
 
 		// TODO: test validations
 	}
