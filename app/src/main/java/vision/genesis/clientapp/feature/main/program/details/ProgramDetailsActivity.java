@@ -3,6 +3,8 @@ package vision.genesis.clientapp.feature.main.program.details;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -52,6 +54,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
+
+	@BindView(R.id.swipe_refresh)
+	public SwipeRefreshLayout refreshLayout;
 
 	@BindView(R.id.manager_name)
 	public TextView managerName;
@@ -143,6 +148,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		ProgramRequest request = new ProgramRequest();
 		request.programId = programDetails.getId();
 		request.programName = programDetails.getTitle();
+		request.programCurrency = programDetails.getCurrency().toString();
 		InvestProgramActivity.startWith(this, request);
 	}
 
@@ -152,6 +158,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		request.programId = programDetails.getId();
 		request.programName = programDetails.getTitle();
 		request.available = programDetails.getInvestedTokens();
+		request.tokenPrice = programDetails.getToken().getInitialPrice();
 		WithdrawProgramActivity.startWith(this, request);
 	}
 
@@ -169,6 +176,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		ButterKnife.bind(this);
 
 		initToolbar();
+		initRefreshLayout();
 
 		setFonts();
 
@@ -185,6 +193,13 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.program_details));
 		toolbar.addLeftButton(R.drawable.back_arrow, this::onBackPressed);
+	}
+
+	private void initRefreshLayout() {
+		refreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimary),
+				ContextCompat.getColor(this, R.color.colorAccent),
+				ContextCompat.getColor(this, R.color.colorPrimaryDark));
+		refreshLayout.setOnRefreshListener(() -> programDetailsPresenter.onSwipeRefresh());
 	}
 
 	private void setFonts() {
@@ -235,7 +250,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		programDataView.setData(programDetails.getProfitTotal(),
 				programDetails.getProfitAvg(),
 				programDetails.getBalance(),
-				programDetails.getInvestorsCount());
+				programDetails.getInvestorsCount(),
+				programDetails.getCurrency().toString());
 
 		periodDuration.setText(String.valueOf(programDetails.getPeriodDuration()));
 		periodDurationDays.setText(getResources().getQuantityString(R.plurals.days, programDetails.getPeriodDuration()));
@@ -270,5 +286,10 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	public void finishActivity() {
 		finish();
 		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
+	}
+
+	@Override
+	public void setRefreshing(boolean show) {
+		refreshLayout.setRefreshing(show);
 	}
 }

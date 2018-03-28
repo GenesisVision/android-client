@@ -17,5 +17,13 @@ interface WithdrawProgramView extends MvpView
 
 	void showToastMessage(String message);
 
+	void setFiatBalance(Double fiatBalance);
+
+	void setFiatAmount(Double fiatAmount);
+
+	void showAmountHint(boolean show);
+
+	void setKeyboardKeysEnabled(boolean enabled);
+
 	void finishActivity();
 }

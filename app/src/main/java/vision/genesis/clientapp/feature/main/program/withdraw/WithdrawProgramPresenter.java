@@ -55,6 +55,7 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 	void setWithdrawalRequest(ProgramRequest request) {
 		withdrawalRequest = request;
 		getViewState().setAvailable(withdrawalRequest.available);
+		getViewState().setFiatBalance(withdrawalRequest.available * withdrawalRequest.tokenPrice);
 	}
 
 	void onBackClicked() {
@@ -63,7 +64,15 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 
 	void onAmountChanged(double newAmount) {
 		withdrawalRequest.amount = newAmount;
+		getViewState().setFiatAmount(newAmount * withdrawalRequest.tokenPrice);
 		getViewState().setWithdrawButtonEnabled(withdrawalRequest.amount > 0 && withdrawalRequest.amount <= withdrawalRequest.available);
+		if (withdrawalRequest.available != 0)
+			getViewState().setKeyboardKeysEnabled(withdrawalRequest.amount < withdrawalRequest.available);
+		getViewState().showAmountHint(false);
+	}
+
+	void onAmountCleared() {
+		getViewState().showAmountHint(true);
 	}
 
 	void onAvailableClicked() {

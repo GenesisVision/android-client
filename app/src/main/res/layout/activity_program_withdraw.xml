@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -19,15 +20,20 @@
         android:background="@color/colorPrimary"
         android:gravity="center_vertical">
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/available_tokens"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="90dp"
             android:layout_centerHorizontal="true"
             android:background="?attr/selectableItemBackground"
+            android:gravity="center"
             android:lines="1"
+            android:maxWidth="250dp"
             android:textColor="@color/white"
             android:textSize="64sp"
+            app:autoSizeMaxTextSize="64sp"
+            app:autoSizeMinTextSize="32sp"
+            app:autoSizeTextType="uniform"
             tools:text="340"/>
 
         <TextView
@@ -59,18 +65,29 @@
             android:textColor="@color/white"
             android:textSize="14sp"/>
 
-        <TextView
-            android:id="@+id/balance_fiat"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/label_my_balance"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="4dp"
-            android:text="$0,00"
-            android:textAllCaps="true"
-            android:textColor="@color/colorPrimaryLight"
-            android:textSize="26sp"
-            android:visibility="gone"/>
+            android:layout_marginBottom="4dp">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/balance_fiat"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:lines="1"
+                android:maxWidth="250dp"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="26sp"
+                app:autoSizeMaxTextSize="26sp"
+                app:autoSizeMinTextSize="14sp"
+                app:autoSizeTextType="uniform"
+                tools:text="01234567"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
@@ -90,22 +107,40 @@
             android:paddingTop="4dp">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/textview_amount_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:maxWidth="250dp"
+                    android:minWidth="40dp"
+                    android:text="@string/zero"
+                    android:textColor="@color/colorFontLight"
+                    android:textSize="72sp"
+                    app:autoSizeMaxTextSize="72sp"
+                    app:autoSizeMinTextSize="24sp"
+                    app:autoSizeTextType="uniform"/>
 
                 <vision.genesis.clientapp.ui.AmountTextView
                     android:id="@+id/textview_amount"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="36dp"
-                    android:layout_marginStart="36dp"
-                    android:hint="@string/zero"
+                    android:layout_height="70dp"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
                     android:lines="1"
-                    android:textAlignment="center"
+                    android:maxWidth="250dp"
+                    android:minWidth="40dp"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textColorHint="@color/colorFontLight"
-                    android:textSize="72sp"
-                    tools:text="000"/>
+                    android:visibility="invisible"
+                    app:autoSizeMaxTextSize="72sp"
+                    app:autoSizeMinTextSize="24sp"
+                    app:autoSizeTextType="uniform"
+                    tools:text="0"/>
 
                 <TextView
                     android:id="@+id/amount_currency"
@@ -130,17 +165,28 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp"/>
 
-            <TextView
-                android:id="@+id/amount_fiat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-4dp"
-                android:lines="1"
-                android:text="$0,00"
-                android:textAllCaps="true"
-                android:textColor="@color/colorFontLight"
-                android:textSize="48sp"
-                android:visibility="gone"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/amount_fiat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="-4dp"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:maxWidth="250dp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorFontLight"
+                    android:textSize="48sp"
+                    app:autoSizeMaxTextSize="48sp"
+                    app:autoSizeMinTextSize="24sp"
+                    app:autoSizeTextType="uniform"
+                    tools:text="0,00"/>
+
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -167,6 +213,6 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginStart="4dp"
-        android:layout_weight="5"/>
+        android:layout_weight="6"/>
 
 </LinearLayout>

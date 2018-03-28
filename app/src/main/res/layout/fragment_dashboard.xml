@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -57,18 +58,21 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:visibility="gone"/>
+                                android:visibility="visible"/>
 
-                            <TextView
+                            <android.support.v7.widget.AppCompatTextView
                                 android:id="@+id/portfolio_value"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:lines="1"
-                                android:text="$56,470"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorPrimaryDark"
-                                android:textSize="56sp"/>
+                                android:textSize="56sp"
+                                app:autoSizeMaxTextSize="56sp"
+                                app:autoSizeMinTextSize="32sp"
+                                app:autoSizeTextType="uniform"
+                                tools:text="$56,470"/>
 
                         </FrameLayout>
 
@@ -102,20 +106,36 @@
             <!--android:layout_marginBottom="16dp"-->
             <!--app:layout_collapseMode="pin"/>-->
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tab_layout"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/wallet_tabs_height"
                 android:layout_below="@+id/toolbar"
-                android:background="@color/white"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:layout_collapseMode="pin"
-                app:tabGravity="fill"
-                app:tabIndicatorColor="@color/colorPrimaryLight"
-                app:tabMode="fixed"
-                app:tabSelectedTextColor="@color/colorPrimary"
-                app:tabTextColor="@color/colorFontMedium"/>
+                app:layout_collapseMode="pin">
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/wallet_tabs_height"
+                    android:background="@color/white"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                    app:tabGravity="fill"
+                    app:tabIndicatorColor="@color/colorPrimaryLight"
+                    app:tabMode="fixed"
+                    app:tabSelectedTextColor="@color/colorPrimary"
+                    app:tabTextColor="@color/colorFontMedium"/>
+
+                <!--<ProgressBar-->
+                <!--android:id="@+id/progress_bar"-->
+                <!--style="?android:attr/progressBarStyleHorizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="2dp"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--android:indeterminate="true"-->
+                <!--android:scaleY="4"-->
+                <!--android:visibility="visible"/>-->
+
+            </RelativeLayout>
 
         </android.support.design.widget.AppBarLayout>
 
@@ -124,7 +144,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
     </android.support.design.widget.CoordinatorLayout>
 
     <vision.genesis.clientapp.ui.ToolbarView

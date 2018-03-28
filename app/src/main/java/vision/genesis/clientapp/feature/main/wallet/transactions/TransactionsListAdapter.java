@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +20,7 @@ import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.utils.DateTimeUtil;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -155,10 +154,12 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 
 		private void setAmount() {
 			double amountValue = transaction.getAmount();
-			DecimalFormat df = new DecimalFormat("0.########");
-			df.setMinimumFractionDigits(2);
-			df.setRoundingMode(RoundingMode.DOWN);
-			String amountString = df.format(Math.abs(amountValue));
+//			DecimalFormat df = new DecimalFormat("0.########");
+//			df.setMinimumFractionDigits(2);
+//			df.setRoundingMode(RoundingMode.DOWN);
+//			String amountString = df.format(Math.abs(amountValue));
+
+			String amountString = StringFormatUtil.formatAmount(amountValue);
 
 			switch (transaction.getType()) {
 				case DEPOSIT:

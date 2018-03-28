@@ -30,4 +30,6 @@ interface DashboardView extends MvpView
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showSnackbarMessage(String message);
+
+	void setTotalPortfolioValue(Double totalPortfolioAmount);
 }

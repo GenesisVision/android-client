@@ -18,4 +18,6 @@ interface ProgramDetailsView extends MvpView
 	void showProgress(boolean show);
 
 	void finishActivity();
+
+	void setRefreshing(boolean show);
 }

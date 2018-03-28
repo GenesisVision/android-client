@@ -9,8 +9,6 @@ import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
-import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -46,8 +44,11 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	@BindView(R.id.balance)
 	public TextView balance;
 
-	@BindView(R.id.balance_fiat)
-	public TextView balanceFiat;
+	@BindView(R.id.balance_program_currency)
+	public TextView balanceProgramCurrency;
+
+	@BindView(R.id.balance_program_currency_currency)
+	public TextView balanceProgramCurrencyCurrency;
 
 	@BindView(R.id.balance_currency)
 	public TextView balanceCurrency;
@@ -55,14 +56,20 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	@BindView(R.id.label_my_balance)
 	public TextView myBalanceLabel;
 
+	@BindView(R.id.textview_amount_hint)
+	public TextView amountHintTextView;
+
 	@BindView(R.id.textview_amount)
 	public AmountTextView amountTextView;
 
 	@BindView(R.id.amount_currency)
 	public TextView amountCurrency;
 
-	@BindView(R.id.amount_fiat)
-	public TextView amountFiat;
+	@BindView(R.id.amount_program_currency)
+	public TextView amountProgramCurrency;
+
+	@BindView(R.id.amount_program_currency_currency)
+	public TextView amountProgramCurrencyCurrency;
 
 	@BindView(R.id.label_enter_amount)
 	public TextView enterAmountLabel;
@@ -103,6 +110,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 			initToolbar();
 			initListeners();
 			setFonts();
+			setProgramCurrency();
 		}
 		else {
 			Timber.e("Passed empty request to InvestProgramActivity");
@@ -119,16 +127,37 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 
 	private void initListeners() {
 		amountTextView.setKeyboard(keyboard);
-		amountTextView.setAmountChangeListener(newAmount -> investProgramPresenter.onAmountChanged(newAmount));
+		amountTextView.setAmountChangeListener(new AmountTextView.AmountChangeListener()
+		{
+			@Override
+			public void onAmountChanged(double newAmount) {
+				investProgramPresenter.onAmountChanged(newAmount);
+			}
+
+			@Override
+			public void onAmountCleared() {
+				investProgramPresenter.onAmountCleared();
+			}
+		});
 	}
 
 	private void setFonts() {
 		balance.setTypeface(TypefaceUtil.light(this));
+		balanceProgramCurrency.setTypeface(TypefaceUtil.light(this));
 		balanceCurrency.setTypeface(TypefaceUtil.bold(this));
 		myBalanceLabel.setTypeface(TypefaceUtil.bold(this));
 		enterAmountLabel.setTypeface(TypefaceUtil.bold(this));
+		amountHintTextView.setTypeface(TypefaceUtil.light(this));
 		amountCurrency.setTypeface(TypefaceUtil.bold(this));
-		amountFiat.setTypeface(TypefaceUtil.light(this));
+		amountProgramCurrency.setTypeface(TypefaceUtil.light(this));
+
+		balanceProgramCurrencyCurrency.setTypeface(TypefaceUtil.bold(this));
+		amountProgramCurrencyCurrency.setTypeface(TypefaceUtil.bold(this));
+	}
+
+	private void setProgramCurrency() {
+		balanceProgramCurrencyCurrency.setText(investRequest.programCurrency);
+		amountProgramCurrencyCurrency.setText(investRequest.programCurrency);
 	}
 
 	@Override
@@ -152,13 +181,24 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	}
 
 	@Override
-	public void setFiatBalance(Double fiatBalance) {
-		balanceFiat.setText(String.format(Locale.getDefault(), "$%s", StringFormatUtil.formatAmount(fiatBalance, 2, 4)));
+	public void setProgramCurrencyBalance(Double fiatBalance) {
+		balanceProgramCurrency.setText(StringFormatUtil.formatAmount(fiatBalance, 2, 8));
 	}
 
 	@Override
-	public void setFiatAmount(Double fiatAmount) {
-		amountFiat.setText(String.format(Locale.getDefault(), "$%s", StringFormatUtil.formatAmount(fiatAmount, 2, 4)));
+	public void setProgramCurrencyAmount(Double fiatAmount) {
+		amountProgramCurrency.setText(StringFormatUtil.formatAmount(fiatAmount, 2, 8));
+	}
+
+	@Override
+	public void showAmountHint(boolean show) {
+		amountHintTextView.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+		amountTextView.setVisibility(!show ? View.VISIBLE : View.INVISIBLE);
+	}
+
+	@Override
+	public void setKeyboardKeysEnabled(boolean enabled) {
+		keyboard.disableAllKeysExceptBackspace(!enabled);
 	}
 
 	@Override

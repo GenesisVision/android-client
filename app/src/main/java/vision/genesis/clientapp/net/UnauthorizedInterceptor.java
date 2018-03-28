@@ -18,8 +18,6 @@ import vision.genesis.clientapp.model.events.OnUnauthorizedResponseGetEvent;
 
 public class UnauthorizedInterceptor implements Interceptor
 {
-	private static final int HTTP_CODE_UNAUTHORIZED = 401;
-
 	@Override
 	public Response intercept(Chain chain) throws IOException {
 		Request request = chain.request();

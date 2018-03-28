@@ -39,6 +39,12 @@ public class ProgramRequest implements Parcelable
 	@SerializedName("amount")
 	public double amount;
 
+	@SerializedName("token_price")
+	public double tokenPrice;
+
+	@SerializedName("program_currency")
+	public String programCurrency;
+
 	public ProgramRequest() {
 
 	}
@@ -48,6 +54,8 @@ public class ProgramRequest implements Parcelable
 		programName = in.readString();
 		available = in.readDouble();
 		amount = in.readDouble();
+		tokenPrice = in.readDouble();
+		programCurrency = in.readString();
 	}
 
 	@Override
@@ -61,5 +69,7 @@ public class ProgramRequest implements Parcelable
 		dest.writeString(programName);
 		dest.writeDouble(available);
 		dest.writeDouble(amount);
+		dest.writeDouble(tokenPrice);
+		dest.writeString(programCurrency);
 	}
 }

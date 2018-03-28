@@ -70,6 +70,7 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 	}
 
 	private void getInvestments() {
+		getViewState().showProgressBar(true);
 		getInvestmentsSubscription = investManager.getInvestments(InvestmentProgramsFilter.SortingEnum.BYPROFITDESC.toString())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
@@ -97,6 +98,7 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 
 		getViewState().setActivePrograms(activePrograms);
 		getViewState().setArchivedPrograms(archivedPrograms);
+		getViewState().setTotalPortfolioValue(dashboard.getTotalPortfolioAmount());
 	}
 
 	private void handleGetInvestmentsError(Throwable throwable) {

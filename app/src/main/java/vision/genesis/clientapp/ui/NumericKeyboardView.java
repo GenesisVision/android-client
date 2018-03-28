@@ -1,7 +1,5 @@
 package vision.genesis.clientapp.ui;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
@@ -10,9 +8,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,37 +44,37 @@ public class NumericKeyboardView extends RelativeLayout
 	private static final int LONG_CLICK_DURATION = 400;
 
 	@BindView(R.id.button_one)
-	public View buttonOne;
+	public Button buttonOne;
 
 	@BindView(R.id.button_two)
-	public View buttonTwo;
+	public Button buttonTwo;
 
 	@BindView(R.id.button_three)
-	public View buttonThree;
+	public Button buttonThree;
 
 	@BindView(R.id.button_four)
-	public View buttonFour;
+	public Button buttonFour;
 
 	@BindView(R.id.button_five)
-	public View buttonFive;
+	public Button buttonFive;
 
 	@BindView(R.id.button_six)
-	public View buttonSix;
+	public Button buttonSix;
 
 	@BindView(R.id.button_seven)
-	public View buttonSeven;
+	public Button buttonSeven;
 
 	@BindView(R.id.button_eight)
-	public View buttonEight;
+	public Button buttonEight;
 
 	@BindView(R.id.button_nine)
-	public View buttonNine;
+	public Button buttonNine;
 
 	@BindView(R.id.button_zero)
-	public View buttonZero;
+	public Button buttonZero;
 
 	@BindView(R.id.button_decimal)
-	public View buttonDecimal;
+	public Button buttonDecimal;
 
 	@BindView(R.id.button_backspace)
 	public View buttonBackspace;
@@ -177,6 +175,35 @@ public class NumericKeyboardView extends RelativeLayout
 		this.listener = listener;
 	}
 
+	public void disableAllKeysExceptBackspace(boolean disable) {
+		buttonOne.setEnabled(!disable);
+		buttonTwo.setEnabled(!disable);
+		buttonThree.setEnabled(!disable);
+		buttonFour.setEnabled(!disable);
+		buttonFive.setEnabled(!disable);
+		buttonSix.setEnabled(!disable);
+		buttonSeven.setEnabled(!disable);
+		buttonEight.setEnabled(!disable);
+		buttonNine.setEnabled(!disable);
+		buttonZero.setEnabled(!disable);
+		buttonDecimal.setEnabled(!disable);
+
+		int enabledColor = ContextCompat.getColor(getContext(), R.color.colorFontDark);
+		int disabledColor = ContextCompat.getColor(getContext(), R.color.colorFontLight);
+
+		buttonOne.setTextColor(disable ? disabledColor : enabledColor);
+		buttonTwo.setTextColor(disable ? disabledColor : enabledColor);
+		buttonThree.setTextColor(disable ? disabledColor : enabledColor);
+		buttonFour.setTextColor(disable ? disabledColor : enabledColor);
+		buttonFive.setTextColor(disable ? disabledColor : enabledColor);
+		buttonSix.setTextColor(disable ? disabledColor : enabledColor);
+		buttonSeven.setTextColor(disable ? disabledColor : enabledColor);
+		buttonEight.setTextColor(disable ? disabledColor : enabledColor);
+		buttonNine.setTextColor(disable ? disabledColor : enabledColor);
+		buttonZero.setTextColor(disable ? disabledColor : enabledColor);
+		buttonDecimal.setTextColor(disable ? disabledColor : enabledColor);
+	}
+
 	private void initView() {
 		inflate(getContext(), R.layout.view_numeric_keyboard, this);
 
@@ -258,19 +285,19 @@ public class NumericKeyboardView extends RelativeLayout
 			}
 		});
 
-		ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(),
-				ContextCompat.getColor(getContext(), R.color.colorFontDark),
-				ContextCompat.getColor(getContext(), R.color.colorPrimary));
-		colorAnimation.setDuration(ANIM_DURATION);
-		colorAnimation.addUpdateListener(animator -> {
-			if (view instanceof TextView)
-				((TextView) view).setTextColor((int) animator.getAnimatedValue());
-			else
-				backspaceImage.setColorFilter((int) animator.getAnimatedValue());
-		});
+//		ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(),
+//				ContextCompat.getColor(getContext(), R.color.colorFontDark),
+//				ContextCompat.getColor(getContext(), R.color.colorPrimary));
+//		colorAnimation.setDuration(ANIM_DURATION);
+//		colorAnimation.addUpdateListener(animator -> {
+//			if (view instanceof TextView)
+//				((TextView) view).setTextColor((int) animator.getAnimatedValue());
+//			else
+//				backspaceImage.setColorFilter((int) animator.getAnimatedValue());
+//		});
 
 		view.startAnimation(scaleAnimation);
-		colorAnimation.start();
+//		colorAnimation.start();
 	}
 
 	private void playUpAnimation(View view) {
@@ -299,19 +326,19 @@ public class NumericKeyboardView extends RelativeLayout
 			}
 		});
 
-		ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(),
-				ContextCompat.getColor(getContext(), R.color.colorPrimary),
-				ContextCompat.getColor(getContext(), R.color.colorFontDark));
-		colorAnimation.setDuration(ANIM_DURATION);
-		colorAnimation.addUpdateListener(animator -> {
-			if (view instanceof TextView)
-				((TextView) view).setTextColor((int) animator.getAnimatedValue());
-			else
-				backspaceImage.setColorFilter((int) animator.getAnimatedValue());
-		});
+//		ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(),
+//				ContextCompat.getColor(getContext(), R.color.colorPrimary),
+//				ContextCompat.getColor(getContext(), R.color.colorFontDark));
+//		colorAnimation.setDuration(ANIM_DURATION);
+//		colorAnimation.addUpdateListener(animator -> {
+//			if (view instanceof TextView)
+//				((TextView) view).setTextColor((int) animator.getAnimatedValue());
+//			else
+//				backspaceImage.setColorFilter((int) animator.getAnimatedValue());
+//		});
 
 		view.startAnimation(scaleAnimation);
-		colorAnimation.start();
+//		colorAnimation.start();
 	}
 
 	private void numberClicked(String number) {

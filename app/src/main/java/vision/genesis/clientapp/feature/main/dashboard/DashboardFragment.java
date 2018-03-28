@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +23,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.programs.DashboardPagerAdapter;
 import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -48,6 +50,9 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 
 	@BindView(R.id.tab_layout)
 	public TabLayout tabLayout;
+
+//	@BindView(R.id.progress_bar)
+//	public ProgressBar progressBar;
 
 	@InjectPresenter
 	DashboardPresenter dashboardPresenter;
@@ -162,7 +167,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 
 	@Override
 	public void showProgressBar(boolean show) {
-		pagerAdapter.showProgressBar(show);
+//		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 
 	@Override
@@ -178,6 +183,12 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 	@Override
 	public void showSnackbarMessage(String message) {
 		showSnackbar(message, toolbar);
+	}
+
+	@Override
+	public void setTotalPortfolioValue(Double totalPortfolioAmount) {
+		portfolioValueProgressBar.setVisibility(View.GONE);
+		portfolioValue.setText(String.format(Locale.getDefault(), "$%s", StringFormatUtil.formatAmount(totalPortfolioAmount)));
 	}
 
 	@Override

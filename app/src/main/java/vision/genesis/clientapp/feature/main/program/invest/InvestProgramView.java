@@ -17,9 +17,13 @@ interface InvestProgramView extends MvpView
 
 	void showAvailableProgress(boolean show);
 
-	void setFiatBalance(Double fiatBalance);
+	void setProgramCurrencyBalance(Double fiatBalance);
 
-	void setFiatAmount(Double fiatAmount);
+	void setProgramCurrencyAmount(Double fiatAmount);
+
+	void showAmountHint(boolean show);
+
+	void setKeyboardKeysEnabled(boolean enabled);
 
 	void showToastMessage(String message);
 

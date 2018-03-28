@@ -9,7 +9,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.WalletTransaction;
 import io.swagger.client.model.WalletViewModel;
 import io.swagger.client.model.WalletsViewModel;
 import rx.Subscription;
@@ -35,8 +34,6 @@ import vision.genesis.clientapp.net.ErrorResponseConverter;
 @InjectViewState
 public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 {
-	private static final String FIAT_CURRENCY = WalletTransaction.CurrencyEnum.USD.toString();
-
 	@Inject
 	public Context context;
 
@@ -91,8 +88,15 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 
 	void onAmountChanged(double newAmount) {
 		investRequest.amount = newAmount;
-		getViewState().setFiatAmount(rate * newAmount);
+		getViewState().setProgramCurrencyAmount(rate * newAmount);
 		getViewState().setInvestButtonEnabled(investRequest.amount > 0 && investRequest.amount <= balance);
+		if (balance != 0)
+			getViewState().setKeyboardKeysEnabled(investRequest.amount < balance);
+		getViewState().showAmountHint(false);
+	}
+
+	void onAmountCleared() {
+		getViewState().showAmountHint(true);
 	}
 
 	void onAvailableClicked() {
@@ -126,7 +130,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 	private void setBalance(Double balance) {
 		this.balance = balance;
 		getViewState().setAvailable(balance);
-		getViewState().setFiatBalance(rate * balance);
+		getViewState().setProgramCurrencyBalance(rate * balance);
 	}
 
 	private void sendInvestRequest() {
@@ -166,7 +170,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 	}
 
 	private void updateRate() {
-		rateSubscription = rateManager.getRate(WalletViewModel.CurrencyEnum.GVT.toString(), FIAT_CURRENCY)
+		rateSubscription = rateManager.getRate(WalletViewModel.CurrencyEnum.GVT.toString(), investRequest.programCurrency)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::getRateSuccessHandler,
@@ -181,8 +185,8 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 	}
 
 	private void updateFiatBalance() {
-		getViewState().setFiatBalance(rate * balance);
-		getViewState().setFiatAmount(rate * investRequest.amount);
+		getViewState().setProgramCurrencyBalance(rate * balance);
+		getViewState().setProgramCurrencyAmount(rate * investRequest.amount);
 	}
 
 	private void getRateErrorHandler(Throwable error) {

@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingBottom="16dp"
+        android:paddingBottom="4dp"
         android:paddingTop="16dp">
 
         <RelativeLayout

@@ -1,8 +1,6 @@
 package vision.genesis.clientapp.ui;
 
 import android.content.Context;
-import android.os.Build;
-import android.text.InputType;
 import android.util.AttributeSet;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
@@ -22,6 +20,8 @@ public class AmountTextView extends android.support.v7.widget.AppCompatTextView
 	public interface AmountChangeListener
 	{
 		void onAmountChanged(double amount);
+
+		void onAmountCleared();
 	}
 
 	private AmountChangeListener listener;
@@ -75,14 +75,11 @@ public class AmountTextView extends android.support.v7.widget.AppCompatTextView
 	public void setAmountChangeListener(AmountChangeListener listener) {
 		this.listener = listener;
 		this.listener.onAmountChanged(amount);
+		if (getText().toString().isEmpty())
+			this.listener.onAmountCleared();
 	}
 
 	private void initView() {
-		this.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-			this.setTextAlignment(TEXT_ALIGNMENT_CENTER);
-		}
-
 		setAmountTextListener();
 		setFonts();
 	}
@@ -103,6 +100,12 @@ public class AmountTextView extends android.support.v7.widget.AppCompatTextView
 		if (amountText.equals(previousAmountText)) {
 			return;
 		}
+
+		if (amountText.endsWith(".") && amountText.substring(0, amountText.length() - 1).contains(".")) {
+			this.setText(amountText.substring(0, amountText.length() - 1));
+			return;
+		}
+
 		if (amountText.contains(".")) {
 			String[] parts = amountText.split(Pattern.quote("."));
 			if (parts.length > 1) {
@@ -131,5 +134,10 @@ public class AmountTextView extends android.support.v7.widget.AppCompatTextView
 
 		if (listener != null)
 			listener.onAmountChanged(amount);
+
+		if (getText().toString().isEmpty()) {
+			if (listener != null)
+				listener.onAmountCleared();
+		}
 	}
 }

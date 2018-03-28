@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,6 +22,7 @@ import vision.genesis.clientapp.ui.AmountTextView;
 import vision.genesis.clientapp.ui.NumericKeyboardView;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -43,8 +46,29 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	@BindView(R.id.available_tokens)
 	public TextView availableTokens;
 
+	@BindView(R.id.balance_currency)
+	public TextView balanceCurrency;
+
+	@BindView(R.id.label_my_balance)
+	public TextView myBalanceLabel;
+
+	@BindView(R.id.balance_fiat)
+	public TextView balanceFiat;
+
+	@BindView(R.id.textview_amount_hint)
+	public TextView amountHintTextView;
+
 	@BindView(R.id.textview_amount)
 	public AmountTextView amountTextView;
+
+	@BindView(R.id.amount_currency)
+	public TextView amountCurrency;
+
+	@BindView(R.id.label_enter_amount)
+	public TextView enterAmountLabel;
+
+	@BindView(R.id.amount_fiat)
+	public TextView amountFiat;
 
 	@BindView(R.id.button_withdraw)
 	public View withdrawButton;
@@ -81,6 +105,7 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 
 			initToolbar();
 			initListeners();
+			setFonts();
 		}
 		else {
 			Timber.e("Passed empty request to WithdrawProgramActivity");
@@ -97,7 +122,30 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 
 	private void initListeners() {
 		amountTextView.setKeyboard(keyboard);
-		amountTextView.setAmountChangeListener(newAmount -> withdrawProgramPresenter.onAmountChanged(newAmount));
+		amountTextView.setAmountChangeListener(new AmountTextView.AmountChangeListener()
+		{
+			@Override
+			public void onAmountChanged(double newAmount) {
+				withdrawProgramPresenter.onAmountChanged(newAmount);
+			}
+
+			@Override
+			public void onAmountCleared() {
+				withdrawProgramPresenter.onAmountCleared();
+			}
+		});
+	}
+
+	private void setFonts() {
+		availableTokens.setTypeface(TypefaceUtil.light(this));
+		balanceFiat.setTypeface(TypefaceUtil.light(this));
+		myBalanceLabel.setTypeface(TypefaceUtil.bold(this));
+		enterAmountLabel.setTypeface(TypefaceUtil.bold(this));
+		amountHintTextView.setTypeface(TypefaceUtil.light(this));
+		amountFiat.setTypeface(TypefaceUtil.light(this));
+
+		balanceCurrency.setTypeface(TypefaceUtil.bold(this));
+		amountCurrency.setTypeface(TypefaceUtil.bold(this));
 	}
 
 	@Override
@@ -118,6 +166,27 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	@Override
 	public void showToastMessage(String message) {
 		Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+	}
+
+	@Override
+	public void setFiatBalance(Double fiatBalance) {
+		balanceFiat.setText(String.format(Locale.getDefault(), "$%s", StringFormatUtil.formatAmount(fiatBalance, 2, 2)));
+	}
+
+	@Override
+	public void setFiatAmount(Double fiatAmount) {
+		amountFiat.setText(String.format(Locale.getDefault(), "$%s", StringFormatUtil.formatAmount(fiatAmount, 2, 2)));
+	}
+
+	@Override
+	public void showAmountHint(boolean show) {
+		amountHintTextView.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+		amountTextView.setVisibility(!show ? View.VISIBLE : View.INVISIBLE);
+	}
+
+	@Override
+	public void setKeyboardKeysEnabled(boolean enabled) {
+		keyboard.disableAllKeysExceptBackspace(!enabled);
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package vision.genesis.clientapp.feature.main.program.list;
 
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,10 +100,9 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 		}
 
 		void setBackground(int position) {
-			mainGroup.setBackground(position % 2 == 0
-					? ContextCompat.getDrawable(itemView.getContext(), R.color.transparent)
-					: ContextCompat.getDrawable(itemView.getContext(), R.color.listItemBackgroundGray));
-
+//			mainGroup.setBackground(position % 2 == 0
+//					? ContextCompat.getDrawable(itemView.getContext(), R.color.transparent)
+//					: ContextCompat.getDrawable(itemView.getContext(), R.color.listItemBackgroundGray));
 		}
 
 		void setInvestmentProgram(InvestmentProgram investmentProgram) {
@@ -122,7 +120,8 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 			programDataView.setData(investmentProgram.getProfitTotal(),
 					investmentProgram.getProfitAvg(),
 					investmentProgram.getBalance(),
-					investmentProgram.getInvestorsCount());
+					investmentProgram.getInvestorsCount(),
+					investmentProgram.getCurrency().toString());
 
 			chart.setChart(investmentProgram.getChart());
 		}

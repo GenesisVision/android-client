@@ -76,6 +76,12 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 			getProgramDetails();
 	}
 
+	void onSwipeRefresh() {
+		getViewState().setRefreshing(true);
+		if (programId != null)
+			getProgramDetails();
+	}
+
 	private void getProgramDetails() {
 		programDetailsSubscription = investManager.getInvestmentProgramDetails(programId)
 				.observeOn(AndroidSchedulers.mainThread())
@@ -87,6 +93,7 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	private void handleInvestmentProgramDetailsSuccess(InvestmentProgramViewModel model) {
 		programDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
+		getViewState().setRefreshing(false);
 
 		getViewState().setProgram(model.getInvestmentProgram());
 	}
@@ -94,7 +101,7 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	private void handleInvestmentProgramDetailsError(Throwable throwable) {
 		programDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
-
+		getViewState().setRefreshing(false);
 	}
 
 	private void subscribeToUser() {
