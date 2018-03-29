@@ -26,8 +26,10 @@ Name | Type | Description | Notes
 **feeSuccess** | **Double** |  |  [optional]
 **feeManagement** | **Double** |  |  [optional]
 **chart** | [**List&lt;Chart&gt;**](Chart.md) |  |  [optional]
+**manager** | [**ProfilePublicViewModel**](ProfilePublicViewModel.md) |  |  [optional]
 **hasNewRequests** | **Boolean** |  |  [optional]
 **isInvestEnable** | **Boolean** |  |  [optional]
+**isOwnProgram** | **Boolean** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

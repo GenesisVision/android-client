@@ -22,6 +22,7 @@ import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.ProfilePublicViewModel;
 import io.swagger.client.model.RegisterManagerViewModel;
 import io.swagger.client.model.ResetPasswordViewModel;
+import io.swagger.client.model.TradesChartViewModel;
 import io.swagger.client.model.TradesFilter;
 import io.swagger.client.model.TradesViewModel;
 import io.swagger.client.model.TransactionsFilter;
@@ -265,6 +266,17 @@ public interface ManagerApi
 	@POST("api/manager/investmentProgram/requests")
 	Observable<InvestmentProgramRequests> apiManagerInvestmentProgramRequestsPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body InvestmentProgramRequestsFilter filter
+	);
+
+	/**
+	 * Get manager trades chart
+	 *
+	 * @param investmentProgramId (required)
+	 * @return Call&lt;TradesChartViewModel&gt;
+	 */
+	@GET("api/manager/investmentProgram/trades/chart")
+	Observable<TradesChartViewModel> apiManagerInvestmentProgramTradesChartGet(
+			@retrofit2.http.Query("InvestmentProgramId") UUID investmentProgramId
 	);
 
 	/**

@@ -16,6 +16,7 @@ Method | HTTP request | Description
 [**apiInvestorInvestmentProgramGet**](InvestorApi.md#apiInvestorInvestmentProgramGet) | **GET** api/investor/investmentProgram | Get investment program details by id
 [**apiInvestorInvestmentProgramOpenTradesPost**](InvestorApi.md#apiInvestorInvestmentProgramOpenTradesPost) | **POST** api/investor/investmentProgram/openTrades | Get manager open trades
 [**apiInvestorInvestmentProgramRequestsPost**](InvestorApi.md#apiInvestorInvestmentProgramRequestsPost) | **POST** api/investor/investmentProgram/requests | Get investment program&#39;s requests
+[**apiInvestorInvestmentProgramTradesChartGet**](InvestorApi.md#apiInvestorInvestmentProgramTradesChartGet) | **GET** api/investor/investmentProgram/trades/chart | Get manager trades chart
 [**apiInvestorInvestmentProgramTradesPost**](InvestorApi.md#apiInvestorInvestmentProgramTradesPost) | **POST** api/investor/investmentProgram/trades | Get manager trade history
 [**apiInvestorInvestmentProgramsCancelInvestmentRequestPost**](InvestorApi.md#apiInvestorInvestmentProgramsCancelInvestmentRequestPost) | **POST** api/investor/investmentPrograms/cancelInvestmentRequest | Cancel investment request
 [**apiInvestorInvestmentProgramsInvestPost**](InvestorApi.md#apiInvestorInvestmentProgramsInvestPost) | **POST** api/investor/investmentPrograms/invest | Invest in manager
@@ -560,6 +561,49 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorInvestmentProgramTradesChartGet"></a>
+# **apiInvestorInvestmentProgramTradesChartGet**
+> TradesChartViewModel apiInvestorInvestmentProgramTradesChartGet(investmentProgramId)
+
+Get manager trades chart
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+UUID investmentProgramId = new UUID(); // UUID | 
+try {
+    TradesChartViewModel result = apiInstance.apiInvestorInvestmentProgramTradesChartGet(investmentProgramId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentProgramTradesChartGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **investmentProgramId** | [**UUID**](.md)|  |
+
+### Return type
+
+[**TradesChartViewModel**](TradesChartViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 <a name="apiInvestorInvestmentProgramTradesPost"></a>

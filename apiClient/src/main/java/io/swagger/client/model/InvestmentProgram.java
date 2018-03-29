@@ -101,11 +101,17 @@ public class InvestmentProgram
 	@SerializedName("chart")
 	private List<Chart> chart = null;
 
+	@SerializedName("manager")
+	private ProfilePublicViewModel manager = null;
+
 	@SerializedName("hasNewRequests")
 	private Boolean hasNewRequests = null;
 
 	@SerializedName("isInvestEnable")
 	private Boolean isInvestEnable = null;
+
+	@SerializedName("isOwnProgram")
+	private Boolean isOwnProgram = null;
 
 	public InvestmentProgram id(UUID id) {
 		this.id = id;
@@ -533,6 +539,25 @@ public class InvestmentProgram
 		this.chart = chart;
 	}
 
+	public InvestmentProgram manager(ProfilePublicViewModel manager) {
+		this.manager = manager;
+		return this;
+	}
+
+	/**
+	 * Get manager
+	 *
+	 * @return manager
+	 **/
+	@ApiModelProperty(value = "")
+	public ProfilePublicViewModel getManager() {
+		return manager;
+	}
+
+	public void setManager(ProfilePublicViewModel manager) {
+		this.manager = manager;
+	}
+
 	public InvestmentProgram hasNewRequests(Boolean hasNewRequests) {
 		this.hasNewRequests = hasNewRequests;
 		return this;
@@ -571,6 +596,25 @@ public class InvestmentProgram
 		this.isInvestEnable = isInvestEnable;
 	}
 
+	public InvestmentProgram isOwnProgram(Boolean isOwnProgram) {
+		this.isOwnProgram = isOwnProgram;
+		return this;
+	}
+
+	/**
+	 * Get isOwnProgram
+	 *
+	 * @return isOwnProgram
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsOwnProgram() {
+		return isOwnProgram;
+	}
+
+	public void setIsOwnProgram(Boolean isOwnProgram) {
+		this.isOwnProgram = isOwnProgram;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -602,13 +646,15 @@ public class InvestmentProgram
 				Objects.equals(this.feeSuccess, investmentProgram.feeSuccess) &&
 				Objects.equals(this.feeManagement, investmentProgram.feeManagement) &&
 				Objects.equals(this.chart, investmentProgram.chart) &&
+				Objects.equals(this.manager, investmentProgram.manager) &&
 				Objects.equals(this.hasNewRequests, investmentProgram.hasNewRequests) &&
-				Objects.equals(this.isInvestEnable, investmentProgram.isInvestEnable);
+				Objects.equals(this.isInvestEnable, investmentProgram.isInvestEnable) &&
+				Objects.equals(this.isOwnProgram, investmentProgram.isOwnProgram);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, logo, isEnabled, balance, currency, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, chart, hasNewRequests, isInvestEnable);
+		return Objects.hash(id, title, description, level, logo, isEnabled, balance, currency, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, chart, manager, hasNewRequests, isInvestEnable, isOwnProgram);
 	}
 
 	@Override
@@ -638,8 +684,10 @@ public class InvestmentProgram
 		sb.append("    feeSuccess: ").append(toIndentedString(feeSuccess)).append("\n");
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    hasNewRequests: ").append(toIndentedString(hasNewRequests)).append("\n");
 		sb.append("    isInvestEnable: ").append(toIndentedString(isInvestEnable)).append("\n");
+		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

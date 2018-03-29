@@ -25,6 +25,9 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class RegisterManagerViewModel
 {
+	@SerializedName("userName")
+	private String userName = null;
+
 	@SerializedName("email")
 	private String email = null;
 
@@ -33,6 +36,25 @@ public class RegisterManagerViewModel
 
 	@SerializedName("confirmPassword")
 	private String confirmPassword = null;
+
+	public RegisterManagerViewModel userName(String userName) {
+		this.userName = userName;
+		return this;
+	}
+
+	/**
+	 * Get userName
+	 *
+	 * @return userName
+	 **/
+	@ApiModelProperty(required = true, value = "")
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
 	public RegisterManagerViewModel email(String email) {
 		this.email = email;
@@ -101,14 +123,15 @@ public class RegisterManagerViewModel
 			return false;
 		}
 		RegisterManagerViewModel registerManagerViewModel = (RegisterManagerViewModel) o;
-		return Objects.equals(this.email, registerManagerViewModel.email) &&
+		return Objects.equals(this.userName, registerManagerViewModel.userName) &&
+				Objects.equals(this.email, registerManagerViewModel.email) &&
 				Objects.equals(this.password, registerManagerViewModel.password) &&
 				Objects.equals(this.confirmPassword, registerManagerViewModel.confirmPassword);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, password, confirmPassword);
+		return Objects.hash(userName, email, password, confirmPassword);
 	}
 
 
@@ -117,6 +140,7 @@ public class RegisterManagerViewModel
 		StringBuilder sb = new StringBuilder();
 		sb.append("class RegisterManagerViewModel {\n");
 
+		sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
 		sb.append("    email: ").append(toIndentedString(email)).append("\n");
 		sb.append("    password: ").append(toIndentedString(password)).append("\n");
 		sb.append("    confirmPassword: ").append(toIndentedString(confirmPassword)).append("\n");
