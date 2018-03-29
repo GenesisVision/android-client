@@ -47,63 +47,54 @@
         <activity
             android:name=".feature.main.program.details.ProgramDetailsActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="adjustResize"/>
 
         <activity
             android:name=".feature.main.program.filter.ProgramsFiltersActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
 
         <activity
             android:name=".feature.main.program.invest.InvestProgramActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
             android:name=".feature.main.program.withdraw.WithdrawProgramActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
             android:name=".feature.main.wallet.deposit.DepositWalletActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
             android:name=".feature.main.wallet.withdraw.WithdrawWalletActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
             android:name=".feature.main.program.requests.RequestsActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
             android:name=".feature.auth.login.LoginActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
             android:name=".feature.auth.registration.RegistrationActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
@@ -117,7 +108,6 @@
         <activity
             android:name=".feature.main.program.details.description.ProgramDescriptionActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
