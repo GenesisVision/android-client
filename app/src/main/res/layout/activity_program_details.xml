@@ -185,15 +185,28 @@
                         <LinearLayout
                             style="@style/program_details_data_group">
 
-                            <TextView
-                                android:id="@+id/tokens"
-                                style="@style/program_details_data_value"
-                                tools:text="3000,98"/>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/manager_share"
+                                    style="@style/program_details_data_value"
+                                    tools:text="99.99"/>
+
+                                <TextView
+                                    android:id="@+id/manager_share_percent"
+                                    style="@style/program_details_data_value"
+                                    android:text="%"
+                                    android:textSize="20sp"/>
+
+                            </LinearLayout>
 
                             <TextView
-                                android:id="@+id/tokens_label"
+                                android:id="@+id/manager_share_label"
                                 style="@style/program_details_data_title"
-                                android:text="@string/your_tokens"/>
+                                android:text="@string/manager_share"/>
 
                         </LinearLayout>
 

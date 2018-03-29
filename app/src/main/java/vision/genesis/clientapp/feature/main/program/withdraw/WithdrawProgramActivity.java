@@ -17,6 +17,7 @@ import butterknife.OnClick;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.AmountTextView;
 import vision.genesis.clientapp.ui.NumericKeyboardView;
@@ -104,7 +105,7 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 			withdrawProgramPresenter.setWithdrawalRequest(withdrawalRequest);
 
 			initToolbar();
-			initListeners();
+			initAmountTextView();
 			setFonts();
 		}
 		else {
@@ -120,8 +121,9 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 		toolbar.addLeftButton(R.drawable.back_arrow, () -> withdrawProgramPresenter.onBackClicked());
 	}
 
-	private void initListeners() {
+	private void initAmountTextView() {
 		amountTextView.setKeyboard(keyboard);
+		amountTextView.setMaxDecimalDigits(WalletManager.TOKENS_MAX_DECIMAL_POINT_DIGITS);
 		amountTextView.setAmountChangeListener(new AmountTextView.AmountChangeListener()
 		{
 			@Override
@@ -160,7 +162,7 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 
 	@Override
 	public void setAvailable(double availableFunds) {
-		availableTokens.setText(StringFormatUtil.formatAmount((availableFunds)));
+		availableTokens.setText(StringFormatUtil.formatAmount(availableFunds, 0, WalletManager.TOKENS_MAX_DECIMAL_POINT_DIGITS));
 	}
 
 	@Override

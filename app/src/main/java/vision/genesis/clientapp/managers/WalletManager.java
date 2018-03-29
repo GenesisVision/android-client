@@ -25,7 +25,9 @@ import vision.genesis.clientapp.utils.MockWalletTransactionUtil;
 
 public class WalletManager
 {
-	public static final int MAX_DECIMAL_POINT_DIGITS = 8;
+	public static final int GVT_MAX_DECIMAL_POINT_DIGITS = 4;
+
+	public static final int TOKENS_MAX_DECIMAL_POINT_DIGITS = 2;
 
 	private InvestorApi investorApi;
 

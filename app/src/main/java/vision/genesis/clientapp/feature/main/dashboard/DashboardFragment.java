@@ -188,7 +188,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 	@Override
 	public void setTotalPortfolioValue(Double totalPortfolioAmount) {
 		portfolioValueProgressBar.setVisibility(View.GONE);
-		portfolioValue.setText(String.format(Locale.getDefault(), "$%s", StringFormatUtil.formatAmount(totalPortfolioAmount)));
+		portfolioValue.setText(String.format(Locale.getDefault(), "$%s", StringFormatUtil.formatAmount(totalPortfolioAmount, 2, 2)));
 	}
 
 	@Override

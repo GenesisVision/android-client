@@ -7,7 +7,6 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.regex.Pattern;
 
-import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -29,6 +28,8 @@ public class AmountTextView extends android.support.v7.widget.AppCompatTextView
 	private double amount = 0;
 
 	private String previousAmountText = "";
+
+	private int maxDecimalDigits = 0;
 
 	public AmountTextView(Context context) {
 		super(context);
@@ -79,6 +80,10 @@ public class AmountTextView extends android.support.v7.widget.AppCompatTextView
 			this.listener.onAmountCleared();
 	}
 
+	public void setMaxDecimalDigits(int maxDigits) {
+		maxDecimalDigits = maxDigits;
+	}
+
 	private void initView() {
 		setAmountTextListener();
 		setFonts();
@@ -110,7 +115,7 @@ public class AmountTextView extends android.support.v7.widget.AppCompatTextView
 			String[] parts = amountText.split(Pattern.quote("."));
 			if (parts.length > 1) {
 				String decimalPart = parts[1];
-				if (decimalPart != null && decimalPart.length() > WalletManager.MAX_DECIMAL_POINT_DIGITS) {
+				if (decimalPart != null && decimalPart.length() > maxDecimalDigits) {
 					this.setText(amountText.substring(0, amountText.length() - 1));
 					return;
 				}

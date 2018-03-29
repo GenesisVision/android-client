@@ -55,7 +55,8 @@ public class AvatarView extends RelativeLayout
 	}
 
 	public void setImage(String imageId) {
-		image.setImageURI(ImageUtils.getImageUri(imageId));
+		if (imageId != null && !imageId.isEmpty())
+			image.setImageURI(ImageUtils.getImageUri(imageId));
 	}
 
 	public void setLevel(int level) {

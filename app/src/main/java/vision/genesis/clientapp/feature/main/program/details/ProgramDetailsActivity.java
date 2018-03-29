@@ -85,11 +85,14 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@BindView(R.id.view_period_left)
 	public PeriodLeftView periodLeftView;
 
-	@BindView(R.id.tokens)
-	public TextView tokens;
+	@BindView(R.id.manager_share)
+	public TextView managerShare;
 
-	@BindView(R.id.tokens_label)
-	public TextView tokensLabel;
+	@BindView(R.id.manager_share_percent)
+	public TextView managerSharePercent;
+
+	@BindView(R.id.manager_share_label)
+	public TextView managerShareLabel;
 
 	@BindView(R.id.trades)
 	public TextView trades;
@@ -209,8 +212,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		periodDurationDays.setTypeface(TypefaceUtil.bold(this));
 		periodDurationLabel.setTypeface(TypefaceUtil.bold(this));
 
-		tokens.setTypeface(TypefaceUtil.light(this));
-		tokensLabel.setTypeface(TypefaceUtil.bold(this));
+		managerShare.setTypeface(TypefaceUtil.light(this));
+		managerSharePercent.setTypeface(TypefaceUtil.light(this));
+		managerShareLabel.setTypeface(TypefaceUtil.bold(this));
 
 		trades.setTypeface(TypefaceUtil.light(this));
 		tradesLabel.setTypeface(TypefaceUtil.bold(this));
@@ -260,11 +264,14 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			periodLeftView.setDateTo(programDetails.getStartOfPeriod(), programDetails.getEndOfPeriod());
 		periodLeftView.setProgramClosed(!programDetails.isIsEnabled());
 
-		tokens.setText(StringFormatUtil.formatAmount(programDetails.getInvestedTokens(), 0, 2));
+		double managerShareValue = 0;
+		if (programDetails.getBalance() != 0)
+			managerShareValue = programDetails.getOwnBalance() / programDetails.getBalance() * 100;
+		managerShare.setText(StringFormatUtil.formatAmount(managerShareValue, 0, 2));
 		trades.setText(StringFormatUtil.formatAmount(programDetails.getTradesCount(), 0, 0));
 
-		successFee.setText(StringFormatUtil.formatAmount(programDetails.getFeeSuccess(), 0, 4));
-		managementFee.setText(StringFormatUtil.formatAmount(programDetails.getFeeManagement(), 0, 4));
+		successFee.setText(StringFormatUtil.formatAmount(programDetails.getFeeSuccess(), 0, 2));
+		managementFee.setText(StringFormatUtil.formatAmount(programDetails.getFeeManagement(), 0, 2));
 
 		investButton.setVisibility(programDetails.isIsInvestEnable() ? View.VISIBLE : View.GONE);
 		withdrawButton.setVisibility(programDetails.isIsWithdrawEnable() ? View.VISIBLE : View.GONE);

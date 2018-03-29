@@ -194,8 +194,13 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 		middleName.setText(profileModel.getMiddleName());
 		lastName.setText(profileModel.getLastName());
 		email.setText(profileModel.getEmail());
-		gender.setText(profileModel.isGender() ? "M" : "F");
-		birthday.setText((DateTimeUtil.formatDate(profileModel.getBirthday())));
+		if (profileModel.isGender() == null)
+			gender.setText("");
+		else
+			gender.setText(profileModel.isGender() ? "M" : "F");
+		birthday.setText(profileModel.getBirthday() == null
+				? ""
+				: (DateTimeUtil.formatDate(profileModel.getBirthday())));
 		country.setText(profileModel.getCountry());
 		city.setText(profileModel.getCity());
 		address.setText(profileModel.getAddress());
@@ -207,7 +212,8 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 	@Override
 	public void updateAvatar(String imageId) {
 		profileModel.setAvatar(imageId);
-		this.avatar.setImageURI(ImageUtils.getImageUri(imageId));
+		if (imageId != null && !imageId.isEmpty())
+			this.avatar.setImageURI(ImageUtils.getImageUri(imageId));
 	}
 
 	@Override

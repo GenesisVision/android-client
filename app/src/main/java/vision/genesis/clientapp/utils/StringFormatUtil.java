@@ -1,5 +1,6 @@
 package vision.genesis.clientapp.utils;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
@@ -17,13 +18,14 @@ public class StringFormatUtil
 	}
 
 	public static String formatAmount(double amountValue, int minFraction, int maxFraction) {
+		BigDecimal decimal = BigDecimal.valueOf(amountValue);
 		DecimalFormat df = new DecimalFormat("0.########");
 		df.setMinimumFractionDigits(minFraction);
 		df.setMaximumFractionDigits(maxFraction);
 		df.setGroupingUsed(true);
 		df.setGroupingSize(3);
 		df.setRoundingMode(RoundingMode.DOWN);
-		return df.format(amountValue);
+		return df.format(decimal);
 	}
 
 	public static ShortenedAmount getShortenedAmount(double amountValue) {
@@ -35,6 +37,9 @@ public class StringFormatUtil
 		else if (amountValue > 10000) {
 			shortenedAmount.amount = formatAmount(amountValue / 1000, 0, 1);
 			shortenedAmount.modifier = "K";
+		}
+		else if (amountValue < 1) {
+			shortenedAmount.amount = formatAmount(amountValue, 0, 2);
 		}
 		else {
 			shortenedAmount.amount = formatAmount(amountValue, 0, 0);

@@ -36,8 +36,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_toEndOf="@+id/avatar"
                 android:layout_toLeftOf="@+id/currency"
                 android:layout_toRightOf="@+id/avatar"
@@ -58,9 +58,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    tools:text="by Warren Buffet"/>
+                    android:textSize="16sp"
+                    tools:text="by Warren Buffett"/>
 
             </LinearLayout>
 

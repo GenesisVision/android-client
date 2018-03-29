@@ -15,12 +15,15 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.swagger.client.model.InvestmentProgramDashboardInvestor;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProfitChartView;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -56,7 +59,6 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 	static class InvestorProgramViewHolder extends RecyclerView.ViewHolder
 	{
-
 		@BindView(R.id.program_logo)
 		public AvatarView programLogo;
 
@@ -78,8 +80,14 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		@BindView(R.id.label_my_tokens)
 		public TextView myTokensLabel;
 
-		@BindView(R.id.profit)
-		public TextView profit;
+		@BindView(R.id.group_profit_short)
+		public ViewGroup profitShortGroup;
+
+		@BindView(R.id.profit_short)
+		public TextView profitShort;
+
+		@BindView(R.id.profit_full)
+		public TextView profitFull;
 
 		@BindView(R.id.profit_currency)
 		public TextView profitCurrency;
@@ -89,6 +97,8 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 		@BindView(R.id.view_period_left)
 		public PeriodLeftView periodLeftView;
+
+		private boolean isProfitFull = false;
 
 		private Context context;
 
@@ -106,7 +116,14 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			itemView.setOnClickListener(v -> EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(investmentProgram.getId())));
 		}
 
+		@OnClick(R.id.group_profit)
+		public void onProfitClicked() {
+			isProfitFull = !isProfitFull;
+			setProfitVisibility();
+		}
+
 		private void setFonts() {
+			programName.setTypeface(TypefaceUtil.bold(itemView.getContext()));
 			tokensFiat.setTypeface(TypefaceUtil.bold(context));
 			myTokensLabel.setTypeface(TypefaceUtil.bold(context));
 			profitCurrency.setTypeface(TypefaceUtil.bold(context));
@@ -133,30 +150,17 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			double tokensFiatValue = investmentProgram.getInvestedTokens() * investmentProgram.getToken().getInitialPrice();
 			tokensFiat.setText(String.format(Locale.getDefault(), "($%.2f)", tokensFiatValue));
 
-			profit.setText(String.format(Locale.getDefault(), "%.2f", investmentProgram.getProfitFromProgram()));
-//			profitFiat.setText(String.format(Locale.getDefault(), "$%.2f", profitCurrency));
-//			if (profitPercent > 0) {
-//				profit.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));
-//				profitFiat.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));
-//				profit.setText(String.format(Locale.getDefault(), "+%.2f%%", profitPercent));
-//				profitFiat.setText(String.format(Locale.getDefault(), "+$%.2f", profitCurrency));
-//			}
-//			else if (profitPercent < 0) {
-//				profit.setTextColor(ContextCompat.getColor(context, R.color.transactionRed));
-//				profitFiat.setTextColor(ContextCompat.getColor(context, R.color.transactionRed));
-//				profit.setText(String.format(Locale.getDefault(), "%.2f%%", profitPercent));
-//				profitFiat.setText(String.format(Locale.getDefault(), "$%.2f", profitCurrency));
-//			}
-//			else {
-//				profit.setTextColor(ContextCompat.getColor(context, R.color.colorFontDark));
-//				profitFiat.setTextColor(ContextCompat.getColor(context, R.color.colorFontDark));
-//				profit.setText("0.00%");
-//				profitFiat.setText("$0.00");
-//			}
+			profitShort.setText(StringFormatUtil.formatAmount(investmentProgram.getProfitFromProgram(), 0, 2));
+			profitFull.setText(StringFormatUtil.formatAmount(investmentProgram.getProfitFromProgram(), 2, WalletManager.GVT_MAX_DECIMAL_POINT_DIGITS));
 
 			if (investmentProgram.isIsEnabled())
 				periodLeftView.setDateTo(investmentProgram.getStartOfPeriod(), investmentProgram.getEndOfPeriod());
 			periodLeftView.setProgramClosed(!investmentProgram.isIsEnabled());
+		}
+
+		private void setProfitVisibility() {
+			profitShortGroup.setVisibility(!isProfitFull ? View.VISIBLE : View.GONE);
+			profitFull.setVisibility(isProfitFull ? View.VISIBLE : View.GONE);
 		}
 	}
 }

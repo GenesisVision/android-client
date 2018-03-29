@@ -15,6 +15,7 @@ import butterknife.OnClick;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.AmountTextView;
 import vision.genesis.clientapp.ui.NumericKeyboardView;
@@ -108,7 +109,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 			investProgramPresenter.setInvestRequest(investRequest);
 
 			initToolbar();
-			initListeners();
+			initAmountTextView();
 			setFonts();
 			setProgramCurrency();
 		}
@@ -125,8 +126,9 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 		toolbar.addLeftButton(R.drawable.back_arrow, () -> investProgramPresenter.onBackClicked());
 	}
 
-	private void initListeners() {
+	private void initAmountTextView() {
 		amountTextView.setKeyboard(keyboard);
+		amountTextView.setMaxDecimalDigits(WalletManager.GVT_MAX_DECIMAL_POINT_DIGITS);
 		amountTextView.setAmountChangeListener(new AmountTextView.AmountChangeListener()
 		{
 			@Override
@@ -172,7 +174,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 
 	@Override
 	public void setAvailable(double availableFunds) {
-		balance.setText(StringFormatUtil.formatAmount(availableFunds, 0, 8));
+		balance.setText(StringFormatUtil.formatAmount(availableFunds, 0, 4));
 	}
 
 	@Override

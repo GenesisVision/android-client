@@ -74,7 +74,7 @@ public class AmountEditText extends android.support.v7.widget.AppCompatEditText
 			String[] parts = amountText.split(Pattern.quote("."));
 			if (parts.length > 1) {
 				String decimalPart = parts[1];
-				if (decimalPart != null && decimalPart.length() > WalletManager.MAX_DECIMAL_POINT_DIGITS) {
+				if (decimalPart != null && decimalPart.length() > WalletManager.GVT_MAX_DECIMAL_POINT_DIGITS) {
 					this.setText(amountText.substring(0, amountText.length() - 1));
 					this.setSelection(this.getText().length());
 					return;

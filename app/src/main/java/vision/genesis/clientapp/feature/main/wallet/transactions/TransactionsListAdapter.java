@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import io.swagger.client.model.InvestmentProgramTxInfo;
 import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -159,7 +160,7 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 //			df.setRoundingMode(RoundingMode.DOWN);
 //			String amountString = df.format(Math.abs(amountValue));
 
-			String amountString = StringFormatUtil.formatAmount(amountValue);
+			String amountString = StringFormatUtil.formatAmount(amountValue, 2, WalletManager.GVT_MAX_DECIMAL_POINT_DIGITS);
 
 			switch (transaction.getType()) {
 				case DEPOSIT:
