@@ -58,7 +58,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 
 	private Subscription updateProfileSubscription;
 
-	private ProfileFullViewModel profileModel;
+	private ProfileFullViewModel profileModelOriginal;
 
 	private File newAvatarFile;
 
@@ -104,7 +104,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 	}
 
 	void cancelChanges() {
-		getViewState().updateProfile(profileModel);
+		getViewState().updateProfile(profileModelOriginal);
 		setEditMode(false);
 	}
 
@@ -116,6 +116,15 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 		else {
 			return false;
 		}
+	}
+
+	void onResume() {
+		if (!isEditMode)
+			getProfile();
+	}
+
+	void onBirthdyCalendarButtonClicked() {
+		getViewState().showDatePicker();
 	}
 
 	void handleCameraResult() {
@@ -162,7 +171,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 	}
 
 	private void handleGetProfileSuccess(ProfileFullViewModel profileModel) {
-		this.profileModel = profileModel;
+		this.profileModelOriginal = copyProfileModel(profileModel);
 		getViewState().updateProfile(profileModel);
 	}
 
@@ -180,10 +189,11 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 	}
 
 	private void handleUpdateProfileSuccess(Void response, ProfileFullViewModel newProfileModel) {
-		this.profileModel = newProfileModel;
-		getViewState().updateProfile(profileModel);
+		this.profileModelOriginal = copyProfileModel(newProfileModel);
+		getViewState().updateProfile(newProfileModel);
 		getViewState().showSnackbarMessage(context.getResources().getString(R.string.successfully_updated));
 		setEditMode(false);
+		getViewState().showUpdateProgress(false);
 	}
 
 	private void handleUpdateProfileError(Throwable throwable) {
@@ -243,6 +253,28 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 				}
 			}
 		}
+	}
+
+	private ProfileFullViewModel copyProfileModel(ProfileFullViewModel profile) {
+		ProfileFullViewModel newProfile = new ProfileFullViewModel();
+
+		newProfile.setId(profile.getId());
+		newProfile.setAddress(profile.getAddress());
+		newProfile.setAvatar(profile.getAvatar());
+		newProfile.setBirthday(profile.getBirthday());
+		newProfile.setCity(profile.getCity());
+		newProfile.setCountry(profile.getCountry());
+		newProfile.setCity(profile.getCity());
+		newProfile.setDocumentNumber(profile.getDocumentNumber());
+		newProfile.setDocumentType(profile.getDocumentType());
+		newProfile.setEmail(profile.getEmail());
+		newProfile.setFirstName(profile.getFirstName());
+		newProfile.setMiddleName(profile.getMiddleName());
+		newProfile.setLastName(profile.getLastName());
+		newProfile.setGender(profile.isGender());
+		newProfile.setUserName(profile.getUserName());
+
+		return newProfile;
 	}
 
 	@Subscribe

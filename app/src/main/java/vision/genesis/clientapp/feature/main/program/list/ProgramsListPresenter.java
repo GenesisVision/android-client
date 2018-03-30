@@ -36,7 +36,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 @InjectViewState
 public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 {
-	private static int TAKE = 5;
+	private static int TAKE = 20;
 
 	@Inject
 	public Context context;

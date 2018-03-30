@@ -2,6 +2,7 @@ package vision.genesis.clientapp.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
@@ -22,6 +23,9 @@ public class SpinnerView extends RelativeLayout
 {
 	@BindView(R.id.spinner)
 	public Spinner spinner;
+
+	@BindView(R.id.spinner_arrow)
+	public View spinnerArrow;
 
 	public SpinnerView(Context context) {
 		super(context);
@@ -56,6 +60,24 @@ public class SpinnerView extends RelativeLayout
 	public void setData(String[] data) {
 		ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.item_spinner_dropdown, data);
 		setAdapter(adapter);
+	}
+
+	public void setData(String[] data, int itemLayoutId) {
+		ArrayAdapter adapter = new ArrayAdapter<>(getContext(), itemLayoutId, data);
+		setAdapter(adapter);
+	}
+
+	public void setSelection(int position) {
+		spinner.setSelection(position);
+	}
+
+	public void setPrompt(String prompt) {
+		spinner.setPrompt(prompt);
+	}
+
+	public void setEditMode(boolean editMode) {
+		spinner.setEnabled(editMode);
+		spinnerArrow.setVisibility(editMode ? View.VISIBLE : View.GONE);
 	}
 
 	private void setAdapter(ArrayAdapter adapter) {

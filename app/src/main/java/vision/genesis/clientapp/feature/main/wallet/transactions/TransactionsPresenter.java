@@ -28,7 +28,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 @InjectViewState
 public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 {
-	private static final int TAKE = 10;
+	private static final int TAKE = 20;
 
 	@Inject
 	public Context context;

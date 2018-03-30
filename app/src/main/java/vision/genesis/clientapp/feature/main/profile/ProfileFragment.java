@@ -10,12 +10,17 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ProgressBar;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
+import org.joda.time.DateTime;
 
 import java.io.File;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +36,7 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.ui.ProfileDataView;
+import vision.genesis.clientapp.ui.SpinnerView;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -70,11 +76,14 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 	@BindView(R.id.email)
 	public ProfileDataView email;
 
-	@BindView(R.id.gender)
-	public ProfileDataView gender;
+	@BindView(R.id.gender_spinner)
+	public SpinnerView genderSpinner;
 
 	@BindView(R.id.birthday)
 	public ProfileDataView birthday;
+
+	@BindView(R.id.button_birthday_calendar)
+	public View birthdayCalendarButton;
 
 	@BindView(R.id.country)
 	public ProfileDataView country;
@@ -108,6 +117,12 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 	public void onChangeAvatarClicked() {
 		if (editMode)
 			ProfileFragmentPermissionsDispatcher.showPictureChooserWithPermissionCheck(this);
+	}
+
+	@OnClick(R.id.button_birthday_calendar)
+	public void onBirthdyCalendarButtonClicked() {
+		if (editMode)
+			profilePresenter.onBirthdyCalendarButtonClicked();
 	}
 
 	@Nullable
@@ -145,15 +160,71 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 		middleName.setHint(getString(R.string.middle_name));
 		lastName.setHint(getString(R.string.last_name));
 		email.setHint(getString(R.string.email));
+		birthday.setHint(getString(R.string.birthday));
 		country.setHint(getString(R.string.country));
 		city.setHint(getString(R.string.city));
 		address.setHint(getString(R.string.address));
 		phone.setHint(getString(R.string.phone));
 		documentType.setHint(getString(R.string.document_type));
 		documentNumber.setHint(getString(R.string.document_number));
+
+		initSpinner();
+	}
+
+	private void initSpinner() {
+		String[] genderArray = getResources().getStringArray(R.array.gender_list);
+		genderSpinner.setData(genderArray, R.layout.item_profile_spinner_dropdown);
+		genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+		{
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				if (profileModel != null)
+					profileModel.setGender(position > 0);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+
+			}
+		});
+		genderSpinner.setPrompt(getString(R.string.none));
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		profilePresenter.onResume();
 	}
 
 	private void saveChanges() {
+		String firstNameText = firstName.getText().trim();
+		profileModel.setFirstName(firstNameText);
+
+		String middleNameText = middleName.getText().trim();
+		profileModel.setMiddleName(middleNameText);
+
+		String lastNameText = lastName.getText().trim();
+		profileModel.setLastName(lastNameText);
+
+		String countryText = country.getText().trim();
+		profileModel.setCountry(countryText);
+
+		String cityText = city.getText().trim();
+		profileModel.setCity(cityText);
+
+		String addressText = address.getText().trim();
+		profileModel.setAddress(addressText);
+
+		String phoneText = phone.getText().trim();
+		profileModel.setPhone(phoneText);
+
+		String documentTypeText = documentType.getText().trim();
+		profileModel.setDocumentType(documentTypeText);
+
+		String documentNumberText = documentNumber.getText().trim();
+		profileModel.setDocumentNumber(documentNumberText);
+
 		profilePresenter.saveChanges(profileModel);
 	}
 
@@ -167,6 +238,7 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 		toolbar.setVisibility(editMode ? View.GONE : View.VISIBLE);
 		editModeToolbar.setVisibility(editMode ? View.VISIBLE : View.GONE);
 		changeAvatarButton.setVisibility(editMode ? View.VISIBLE : View.GONE);
+		birthdayCalendarButton.setVisibility(editMode ? View.VISIBLE : View.GONE);
 
 		setAllFieldsEditMode(editMode);
 	}
@@ -175,13 +247,14 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 		firstName.setEditMode(editMode);
 		middleName.setEditMode(editMode);
 		lastName.setEditMode(editMode);
-		email.setEditMode(editMode);
 		country.setEditMode(editMode);
 		city.setEditMode(editMode);
 		address.setEditMode(editMode);
 		phone.setEditMode(editMode);
 		documentType.setEditMode(editMode);
 		documentNumber.setEditMode(editMode);
+
+		genderSpinner.setEditMode(editMode);
 	}
 
 	@Override
@@ -194,13 +267,9 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 		middleName.setText(profileModel.getMiddleName());
 		lastName.setText(profileModel.getLastName());
 		email.setText(profileModel.getEmail());
-		if (profileModel.isGender() == null)
-			gender.setText("");
-		else
-			gender.setText(profileModel.isGender() ? "M" : "F");
-		birthday.setText(profileModel.getBirthday() == null
-				? ""
-				: (DateTimeUtil.formatDate(profileModel.getBirthday())));
+		if (profileModel.isGender() != null)
+			genderSpinner.setSelection(profileModel.isGender() ? 1 : 0);
+		setBirthday();
 		country.setText(profileModel.getCountry());
 		city.setText(profileModel.getCity());
 		address.setText(profileModel.getAddress());
@@ -209,11 +278,19 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 		documentNumber.setText(profileModel.getDocumentNumber());
 	}
 
+	private void setBirthday() {
+		birthday.setText(profileModel.getBirthday() == null
+				? ""
+				: (DateTimeUtil.formatDate(profileModel.getBirthday())));
+	}
+
 	@Override
 	public void updateAvatar(String imageId) {
 		profileModel.setAvatar(imageId);
 		if (imageId != null && !imageId.isEmpty())
 			this.avatar.setImageURI(ImageUtils.getImageUri(imageId));
+		else
+			this.avatar.setImageURI("");
 	}
 
 	@Override
@@ -224,6 +301,20 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 	@Override
 	public void openGallery(ImageUtils imageUtils) {
 		imageUtils.openGalleryFrom(ProfileFragment.this);
+	}
+
+	@Override
+	public void showDatePicker() {
+		DateTime calendarDate = profileModel.getBirthday();
+		if (calendarDate == null)
+			calendarDate = DateTime.now();
+		DatePickerDialog dpd = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth) -> {
+			DateTime newBirthday = new DateTime(year, monthOfYear + 1, dayOfMonth, 0, 0);
+			profileModel.setBirthday(newBirthday);
+			setBirthday();
+		}, calendarDate.getYear(), calendarDate.getMonthOfYear() - 1, calendarDate.getDayOfMonth());
+		dpd.setMaxDate(DateTime.now().toCalendar(Locale.getDefault()));
+		dpd.show(getActivity().getFragmentManager(), "DatePickerDialog");
 	}
 
 	@Override

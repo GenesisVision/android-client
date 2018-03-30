@@ -69,6 +69,10 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements ViewPag
 		updateBalance();
 	}
 
+	void onBalanceGroupClicked() {
+		updateBalance();
+	}
+
 	void onWithdrawButtonClicked() {
 		EventBus.getDefault().post(new ShowWithdrawWalletActivityEvent());
 	}

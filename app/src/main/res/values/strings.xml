@@ -134,7 +134,7 @@
     <string name="archived">Archived</string>
     <string name="level">Level</string>
     <string name="cannot_find_programs">Cannot find investment programs with your request</string>
-    <string name="average_profit">Average profit</string>
+    <string name="average_profit">Average profit (%)</string>
     <string name="pending_requests">Pending requests</string>
 
     <plurals name="days">
@@ -191,10 +191,16 @@
     <string name="successfully_updated">Successfully updated</string>
     <string name="my_profit">My profit</string>
     <string name="manager_share">manager\'s funds share</string>
+    <string name="none">None</string>
 
     <string-array name="transactions_filter">
         <item>All Transactions</item>
         <item>Internal Transactions</item>
         <item>External Transactions</item>
+    </string-array>
+
+    <string-array name="gender_list">
+        <item>Female</item>
+        <item>Male</item>
     </string-array>
 </resources>

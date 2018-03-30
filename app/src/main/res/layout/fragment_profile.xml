@@ -86,16 +86,58 @@
             <View
                 style="@style/profile_delimiter"/>
 
-            <vision.genesis.clientapp.ui.ProfileDataView
-                android:id="@+id/gender"
-                style="@style/profile_item"/>
+
+            <RelativeLayout
+                style="@style/profile_item">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/gender"
+                    android:textAllCaps="true"
+                    android:textColor="@color/grey400"
+                    android:textSize="10sp"/>
+
+                <vision.genesis.clientapp.ui.SpinnerView
+                    android:id="@+id/gender_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingEnd="8dp"
+                    android:paddingRight="8dp"/>
+
+            </RelativeLayout>
 
             <View
                 style="@style/profile_delimiter"/>
 
-            <vision.genesis.clientapp.ui.ProfileDataView
-                android:id="@+id/birthday"
-                style="@style/profile_item"/>
+            <RelativeLayout
+                style="@style/profile_item">
+
+                <vision.genesis.clientapp.ui.ProfileDataView
+                    android:id="@+id/birthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/button_birthday_calendar"
+                    android:layout_toStartOf="@+id/button_birthday_calendar"
+                    android:gravity="bottom"/>
+
+                <ImageView
+                    android:id="@+id/button_birthday_calendar"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="6dp"
+                    android:src="@drawable/calendar"
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
+
+            </RelativeLayout>
 
             <View
                 style="@style/profile_delimiter"/>
@@ -170,7 +212,7 @@
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <FrameLayout
             android:layout_width="match_parent"

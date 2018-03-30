@@ -41,7 +41,6 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 	@Override
 	public void onBindViewHolder(InvestmentProgramViewHolder holder, int position) {
 		holder.setInvestmentProgram(investmentPrograms.get(position));
-		holder.setBackground(position);
 	}
 
 	@Override
@@ -62,9 +61,6 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 
 	static class InvestmentProgramViewHolder extends RecyclerView.ViewHolder
 	{
-		@BindView(R.id.group_main)
-		public ViewGroup mainGroup;
-
 		@BindView(R.id.avatar)
 		public AvatarView avatar;
 
@@ -103,12 +99,6 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 			title.setTypeface(TypefaceUtil.bold(itemView.getContext()));
 
 			currency.setTypeface(TypefaceUtil.bold(itemView.getContext()));
-		}
-
-		void setBackground(int position) {
-//			mainGroup.setBackground(position % 2 == 0
-//					? ContextCompat.getDrawable(itemView.getContext(), R.color.transparent)
-//					: ContextCompat.getDrawable(itemView.getContext(), R.color.listItemBackgroundGray));
 		}
 
 		void setInvestmentProgram(InvestmentProgram investmentProgram) {

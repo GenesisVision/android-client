@@ -3,6 +3,6 @@
     <integer name="anim_activitySlideTime">200</integer>
     <integer name="level_min">1</integer>
     <integer name="level_max">7</integer>
-    <integer name="avg_profit_min">1</integer>
-    <integer name="avg_profit_max">100</integer>
+    <integer name="avg_profit_min">-100</integer>
+    <integer name="avg_profit_max">200</integer>
 </resources>

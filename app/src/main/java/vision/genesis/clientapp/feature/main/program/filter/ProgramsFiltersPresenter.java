@@ -51,8 +51,8 @@ public class ProgramsFiltersPresenter extends MvpPresenter<ProgramsFiltersView>
 	}
 
 	void setAvgProfit(String minLevel, String maxLevel) {
-		filter.setProfitAvgMin(Integer.parseInt(minLevel));
-		filter.setProfitAvgMax(Integer.parseInt(maxLevel));
+		filter.setProfitAvgPercentMin(Integer.parseInt(minLevel));
+		filter.setProfitAvgPercentMax(Integer.parseInt(maxLevel));
 	}
 
 	void onApplyClicked() {

@@ -6,10 +6,13 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import vision.genesis.clientapp.R;
 
 /**
@@ -24,6 +27,9 @@ public class ProfileDataView extends RelativeLayout
 
 	@BindView(R.id.edit_text)
 	public TextInputEditText editText;
+
+	@BindView(R.id.edit_icon)
+	public View editIcon;
 
 	public ProfileDataView(Context context) {
 		super(context);
@@ -40,6 +46,13 @@ public class ProfileDataView extends RelativeLayout
 		initView();
 	}
 
+	@OnClick(R.id.edit_icon)
+	public void onEditIconClicked() {
+		editText.requestFocus();
+		InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+	}
+
 	private void initView() {
 		inflate(getContext(), R.layout.view_profile_data, this);
 
@@ -50,15 +63,22 @@ public class ProfileDataView extends RelativeLayout
 
 	public void setEditMode(boolean editMode) {
 		textInputLayout.setEnabled(editMode);
-		if (editMode)
+		if (editMode) {
 			editText.getBackground().setColorFilter(ContextCompat.getColor(getContext(), R.color.grey300), PorterDuff.Mode.SRC_IN);
-		else
+			editIcon.setVisibility(View.VISIBLE);
+		}
+		else {
 			editText.getBackground().setColorFilter(ContextCompat.getColor(getContext(), R.color.transparent), PorterDuff.Mode.SRC_IN);
-
+			editIcon.setVisibility(View.GONE);
+		}
 	}
 
 	public void setHint(String hint) {
 		textInputLayout.setHint(hint.toUpperCase());
+	}
+
+	public String getText() {
+		return editText.getText().toString();
 	}
 
 	public void setText(String text) {

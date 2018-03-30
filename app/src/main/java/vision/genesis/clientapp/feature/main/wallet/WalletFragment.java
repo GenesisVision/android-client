@@ -70,6 +70,11 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 	private Fragment currentFragment;
 
+	@OnClick(R.id.group_balance)
+	public void onBalanceGroupClicked() {
+		walletPresenter.onBalanceGroupClicked();
+	}
+
 	@OnClick(R.id.button_withdraw)
 	public void onWithdrawButtonClicked() {
 		walletPresenter.onWithdrawButtonClicked();
@@ -193,6 +198,7 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 	@Override
 	public void onShow() {
+		walletPresenter.onResume();
 		if (currentFragment != null && currentFragment instanceof TransactionsPagerAdapter.OnPageVisibilityChanged)
 			((TransactionsPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerShow();
 	}

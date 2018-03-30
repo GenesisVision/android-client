@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:layout_margin="16dp"
+        android:layout_margin="32dp"
         android:orientation="vertical">
 
         <TextView
@@ -29,50 +29,29 @@
         <com.appyvet.materialrangebar.RangeBar
             android:id="@+id/avg_profit_range_bar"
             style="@style/filters_range_bar"
+            app:mrb_tickColor="@color/transparent"
             app:mrb_tickEnd="@integer/avg_profit_max"
             app:mrb_tickStart="@integer/avg_profit_min"/>
 
     </LinearLayout>
 
-    <RelativeLayout
+    <vision.genesis.clientapp.ui.PrimaryButton
         android:id="@+id/button_apply"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_below="@+id/group_filters"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"
-        android:background="@drawable/button_primary">
+        android:text="@string/apply_filters"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/apply_filters"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="16sp"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
+    <vision.genesis.clientapp.ui.PrimaryButton
         android:id="@+id/button_clear"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_below="@+id/button_apply"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/button_primary">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/clear_filters"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="16sp"/>
-
-    </RelativeLayout>
+        android:layout_marginTop="48dp"
+        android:text="@string/clear_filters"/>
 
     <vision.genesis.clientapp.ui.ToolbarView
         android:id="@+id/toolbar"

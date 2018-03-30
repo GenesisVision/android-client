@@ -24,6 +24,8 @@ interface ProfileView extends MvpView
 
 	void openGallery(ImageUtils imageUtils);
 
+	void showDatePicker();
+
 	void showAvatarProgress(boolean show);
 
 	void showUpdateProgress(boolean show);

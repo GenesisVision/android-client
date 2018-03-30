@@ -93,8 +93,8 @@ public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements Pr
 		if (filter.getLevelMin() != null && filter.getLevelMax() != null) {
 			levelRangeBar.setRangePinsByValue(filter.getLevelMin(), filter.getLevelMax());
 		}
-		if (filter.getProfitAvgMin() != null && filter.getProfitAvgMax() != null) {
-			avgProfitRangeBar.setRangePinsByValue(filter.getProfitAvgMin(), filter.getProfitAvgMax());
+		if (filter.getProfitAvgPercentMin() != null && filter.getProfitAvgPercentMax() != null) {
+			avgProfitRangeBar.setRangePinsByValue(filter.getProfitAvgPercentMin(), filter.getProfitAvgPercentMax());
 		}
 	}
 

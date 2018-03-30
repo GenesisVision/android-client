@@ -1,20 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.TextInputLayout android:id="@+id/text_input_layout"
-                                               xmlns:android="http://schemas.android.com/apk/res/android"
-                                               xmlns:app="http://schemas.android.com/apk/res-auto"
-                                               xmlns:tools="http://schemas.android.com/tools"
-                                               android:layout_width="match_parent"
-                                               android:layout_height="wrap_content"
-                                               android:layout_marginBottom="16dp"
-                                               android:gravity="bottom"
-                                               android:textColorHint="@color/grey400"
-                                               app:hintTextAppearance="@style/ProfileHintText">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <android.support.design.widget.TextInputEditText
-        android:id="@+id/edit_text"
-        style="@style/profile_edittext"
-        android:lines="1"
-        tools:hint="FULL NAME"
-        tools:text="Marian Garrett"/>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="16dp"
+        android:layout_toLeftOf="@+id/edit_icon"
+        android:layout_toStartOf="@+id/edit_icon"
+        android:gravity="bottom"
+        android:textColorHint="@color/grey400"
+        app:hintTextAppearance="@style/ProfileHintText">
 
-</android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/edit_text"
+            style="@style/profile_edittext"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:maxLines="1"
+            tools:hint="FULL NAME"
+            tools:text="Marian Garrett"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/edit_icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:padding="6dp"
+        android:src="@drawable/edit_icon"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+</RelativeLayout>

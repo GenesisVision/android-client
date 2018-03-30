@@ -8,6 +8,8 @@ import org.joda.time.Seconds;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.util.Locale;
+
 /**
  * GenesisVision
  * Created by Vitaly on 2/1/18.
@@ -15,16 +17,16 @@ import org.joda.time.format.DateTimeFormatter;
 
 public class DateTimeUtil
 {
-	private static DateTimeFormatter dateFormatter = DateTimeFormat.shortDate();
+	private static DateTimeFormatter dateFormatter = DateTimeFormat.longDate();
 
 	private static DateTimeFormatter dateTimeFormatter = DateTimeFormat.shortDateTime();
 
 	public static String formatDate(DateTime dateTime) {
-		return dateFormatter.print(dateTime);
+		return dateFormatter.withLocale(Locale.US).print(dateTime);
 	}
 
 	public static String formatDateTime(DateTime dateTime) {
-		return dateTimeFormatter.print(dateTime);
+		return dateTimeFormatter.withLocale(Locale.US).print(dateTime);
 	}
 
 	public static int getDaysToDate(DateTime date) {

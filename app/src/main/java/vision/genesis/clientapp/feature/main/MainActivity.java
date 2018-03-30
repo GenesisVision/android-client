@@ -102,6 +102,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	}
 
 	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		//No call for super(). Bug on API Level > 11.
+	}
+
+	@Override
 	public void showFragment(BaseFragment fragment) {
 		if (currentFragment != null)
 			hideFragment(currentFragment);
