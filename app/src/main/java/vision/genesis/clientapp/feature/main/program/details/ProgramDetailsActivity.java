@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -23,6 +24,7 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.program.details.description.ProgramDescriptionActivity;
+import vision.genesis.clientapp.feature.main.program.history.ProgramHistoryActivity;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
 import vision.genesis.clientapp.feature.main.program.requests.RequestsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
@@ -198,6 +200,11 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		toolbar.addLeftButton(R.drawable.back_arrow, this::onBackPressed);
 	}
 
+	private void showHistoryButton() {
+		toolbar.addRightButton(R.drawable.ic_history_icon, () -> ProgramHistoryActivity.startWith(this, programDetails.getId()));
+		toolbar.setRightButtonPadding((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 18, getResources().getDisplayMetrics()));
+	}
+
 	private void initRefreshLayout() {
 		refreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimary),
 				ContextCompat.getColor(this, R.color.colorAccent),
@@ -242,6 +249,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@Override
 	public void setProgram(InvestmentProgramDetails programDetails) {
 		this.programDetails = programDetails;
+
+		if (programDetails.isIsHistoryEnable())
+			showHistoryButton();
 
 		programLogo.setImage(programDetails.getLogo());
 		programLogo.setLevel(programDetails.getLevel());

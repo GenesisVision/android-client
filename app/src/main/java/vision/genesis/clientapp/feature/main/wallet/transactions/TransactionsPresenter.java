@@ -6,6 +6,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -67,8 +68,10 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 		getTransactions(true);
 	}
 
-	void setType(String type) {
+	void setFilter(String type, UUID programId) {
 		filter.setType(TransactionsFilter.TypeEnum.fromValue(type));
+		if (programId != null)
+			filter.setInvestmentProgramId(programId);
 		if (walletManager != null)
 			getTransactions(true);
 	}

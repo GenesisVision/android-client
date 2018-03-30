@@ -21,6 +21,7 @@ import vision.genesis.clientapp.feature.main.profile.ImageCropActivity;
 import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
 import vision.genesis.clientapp.feature.main.program.details.ProgramDetailsPresenter;
 import vision.genesis.clientapp.feature.main.program.filter.ProgramsFiltersPresenter;
+import vision.genesis.clientapp.feature.main.program.history.ProgramHistoryPresenter;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramPresenter;
 import vision.genesis.clientapp.feature.main.program.list.ProgramsListPresenter;
 import vision.genesis.clientapp.feature.main.program.requests.RequestsPresenter;
@@ -94,4 +95,6 @@ public interface AppComponent
 	void inject(ImageCropActivity imageCropActivity);
 
 	void inject(MessageActivity messageActivity);
+
+	void inject(ProgramHistoryPresenter programHistoryPresenter);
 }

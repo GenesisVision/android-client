@@ -31,7 +31,7 @@ public class TransactionsPagerAdapter extends FragmentStatePagerAdapter
 		switch (position) {
 			case 0:
 				if (transactionsFragment == null)
-					transactionsFragment = TransactionsFragment.with(TransactionsFilter.TypeEnum.ALL);
+					transactionsFragment = TransactionsFragment.with(TransactionsFilter.TypeEnum.ALL, null);
 				return transactionsFragment;
 			default:
 				return null;

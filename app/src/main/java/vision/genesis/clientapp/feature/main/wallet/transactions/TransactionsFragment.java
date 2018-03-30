@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,10 +34,13 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 {
 	private static final String EXTRA_TYPE = "extra_type";
 
-	public static TransactionsFragment with(TransactionsFilter.TypeEnum type) {
+	private static final String EXTRA_PROGRAM_ID = "extra_program_id";
+
+	public static TransactionsFragment with(TransactionsFilter.TypeEnum type, @Nullable UUID programId) {
 		TransactionsFragment transactionsFragment = new TransactionsFragment();
-		Bundle arguments = new Bundle(1);
+		Bundle arguments = new Bundle(2);
 		arguments.putString(EXTRA_TYPE, type.toString());
+		arguments.putSerializable(EXTRA_PROGRAM_ID, programId);
 		transactionsFragment.setArguments(arguments);
 		return transactionsFragment;
 	}
@@ -58,6 +62,8 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 
 	private TransactionsListAdapter transactionsListAdapter;
 
+	private UUID programId;
+
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,7 +78,8 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 
 		setFonts();
 
-		transactionsPresenter.setType(getArguments().getString(EXTRA_TYPE));
+		programId = (UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID);
+		transactionsPresenter.setFilter(getArguments().getString(EXTRA_TYPE), programId);
 
 		initRefreshLayout();
 		initRecyclerView();
@@ -100,7 +107,7 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 	private void initRecyclerView() {
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
-		transactionsListAdapter = new TransactionsListAdapter();
+		transactionsListAdapter = new TransactionsListAdapter(programId != null);
 		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
 				ContextCompat.getDrawable(getContext(), R.drawable.divider_dot_horizontal),
 				20, 20);
@@ -123,7 +130,7 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 	}
 
 	public void setTransactionsFilterType(TransactionsFilter.TypeEnum type) {
-		transactionsPresenter.setType(type.toString());
+		transactionsPresenter.setFilter(type.toString(), null);
 	}
 
 	@Override

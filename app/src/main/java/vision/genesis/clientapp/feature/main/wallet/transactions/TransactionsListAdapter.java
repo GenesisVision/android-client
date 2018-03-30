@@ -33,10 +33,16 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 {
 	public List<WalletTransaction> transactions = new ArrayList<>();
 
+	private boolean clickDisabled;
+
+	TransactionsListAdapter(boolean clickDisabled) {
+		this.clickDisabled = clickDisabled;
+	}
+
 	@Override
 	public TransactionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_transaction, parent, false);
-		return new TransactionViewHolder(itemView);
+		return new TransactionViewHolder(itemView, clickDisabled);
 	}
 
 	@Override
@@ -81,8 +87,12 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 
 		private Context context;
 
-		TransactionViewHolder(View itemView) {
+		private boolean clickDisabled = false;
+
+		TransactionViewHolder(View itemView, boolean clickDisabled) {
 			super(itemView);
+
+			this.clickDisabled = clickDisabled;
 
 			ButterKnife.bind(this, itemView);
 
@@ -106,7 +116,8 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 			setType();
 			date.setText(DateTimeUtil.formatDateTime(transaction.getDate()));
 			if (program != null) {
-				itemView.setOnClickListener(v -> EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(program.getId())));
+				if (!clickDisabled)
+					itemView.setOnClickListener(v -> EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(program.getId())));
 				programName.setText(program.getTitle());
 			}
 			else {
