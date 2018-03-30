@@ -64,6 +64,9 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Invest
 		@BindView(R.id.amount)
 		public TextView amount;
 
+		@BindView(R.id.currency)
+		public TextView currency;
+
 		private InvestmentProgramRequest request;
 
 		InvestorProgramViewHolder(View itemView) {
@@ -85,6 +88,9 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Invest
 		private void updateData() {
 			type.setText(request.getType().toString());
 			date.setText(DateTimeUtil.formatDateTime(request.getDate()));
+			currency.setText(request.getType().getValue().equals(InvestmentProgramRequest.TypeEnum.INVEST.getValue())
+					? itemView.getContext().getString(R.string.gvt)
+					: itemView.getContext().getString(R.string.tokens));
 
 			setAmount();
 		}

@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
-            android:textColor="@color/colorFontDark"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
             tools:text="Invest"/>
 
@@ -33,8 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:fontFamily="sans-serif-light"
-            android:textColor="@color/colorFontMedium"
-            android:textSize="14sp"
+            android:textColor="@color/grey400"
+            android:textSize="12sp"
             tools:text="01/02/2018 18:46"/>
 
     </LinearLayout>
@@ -59,39 +59,27 @@
             tools:text="+1240.2584272"/>
 
         <TextView
-            android:id="@+id/text_gvt"
+            android:id="@+id/currency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginTop="-8dp"
             android:fontFamily="sans-serif-medium"
-            android:text="@string/gvt"
-            android:visibility="gone"
+            android:textAllCaps="true"
             android:textColor="@color/colorFontLight"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            tools:text="@string/gvt"/>
 
     </LinearLayout>
 
-    <RelativeLayout
+    <vision.genesis.clientapp.ui.PrimaryButton
         android:id="@+id/button_cancel"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_gravity="center"
         android:layout_margin="8dp"
-        android:background="@drawable/button_primary"
-        android:padding="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/cancel"
-            android:textColor="@color/white"
-            android:textSize="16sp"/>
-
-    </RelativeLayout>
+        android:text="@string/cancel"/>
 
 </RelativeLayout>
