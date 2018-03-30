@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,9 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
+
+	@BindView(R.id.group_progress_bar)
+	public ViewGroup progressBarGroup;
 
 	@BindView(R.id.available_tokens)
 	public TextView availableTokens;
@@ -189,6 +193,11 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	@Override
 	public void setKeyboardKeysEnabled(boolean enabled) {
 		keyboard.disableAllKeysExceptBackspace(!enabled);
+	}
+
+	@Override
+	public void showProgress(boolean show) {
+		progressBarGroup.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 
 	@Override

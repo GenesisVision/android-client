@@ -25,5 +25,7 @@ interface WithdrawProgramView extends MvpView
 
 	void setKeyboardKeysEnabled(boolean enabled);
 
+	void showProgress(boolean show);
+
 	void finishActivity();
 }

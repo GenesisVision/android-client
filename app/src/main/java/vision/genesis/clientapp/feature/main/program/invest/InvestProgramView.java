@@ -25,6 +25,8 @@ interface InvestProgramView extends MvpView
 
 	void setKeyboardKeysEnabled(boolean enabled);
 
+	void showProgress(boolean show);
+
 	void showToastMessage(String message);
 
 	void finishActivity();

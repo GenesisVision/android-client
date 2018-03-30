@@ -5,6 +5,8 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Inject;
 
 import rx.Subscription;
@@ -16,6 +18,7 @@ import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.api.Error;
 import vision.genesis.clientapp.model.api.ErrorResponse;
+import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
 
@@ -84,6 +87,7 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 	}
 
 	private void sendWithdrawRequest() {
+		getViewState().showProgress(true);
 		withdrawSubscription = investManager.withdraw(withdrawalRequest)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
@@ -94,12 +98,13 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 	private void handleWithdrawSuccess(Void response) {
 		withdrawSubscription.unsubscribe();
 
-//		EventBus.getDefault().post(new NewWithdrawalRequestSuccessEvent());
+		EventBus.getDefault().post(new ShowMessageActivityEvent(context.getString(R.string.message_program_withdraw_success), R.drawable.ic_email_confirmed_icon));
 		getViewState().finishActivity();
 	}
 
 	private void handleWithdrawError(Throwable throwable) {
 		withdrawSubscription.unsubscribe();
+		getViewState().showProgress(false);
 
 		if (ApiErrorResolver.isNetworkError(throwable)) {
 			getViewState().showToastMessage(context.getResources().getString(R.string.network_error));

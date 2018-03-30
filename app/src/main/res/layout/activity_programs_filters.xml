@@ -24,6 +24,7 @@
 
         <TextView
             style="@style/filters_item_label"
+            android:layout_marginTop="16dp"
             android:text="@string/average_profit"/>
 
         <com.appyvet.materialrangebar.RangeBar
@@ -38,16 +39,16 @@
     <vision.genesis.clientapp.ui.PrimaryButton
         android:id="@+id/button_apply"
         android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_below="@+id/group_filters"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="32dp"
         android:text="@string/apply_filters"/>
 
     <vision.genesis.clientapp.ui.PrimaryButton
         android:id="@+id/button_clear"
         android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_below="@+id/button_apply"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"

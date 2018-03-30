@@ -375,6 +375,11 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 		}
 	}
 
+	@Override
+	public void onShow() {
+		profilePresenter.onResume();
+	}
+
 	@NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
 	void showPictureChooser() {
 		PictureChooserBottomSheetFragment bottomSheetDialog = new PictureChooserBottomSheetFragment();

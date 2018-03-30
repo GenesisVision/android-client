@@ -44,6 +44,8 @@ public interface MainView extends MvpView
 
 	void showWithdrawProgram(ProgramRequest request);
 
+	void showMessageActivity(String message, int imageResourceId);
+
 	void showWithdrawWallet();
 
 	void showDepositWallet();

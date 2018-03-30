@@ -13,7 +13,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_investment_program_header_height"
+        android:layout_height="wrap_content"
         android:paddingEnd="28dp"
         android:paddingLeft="28dp"
         android:paddingRight="28dp"
@@ -25,7 +25,7 @@
             android:layout_height="@dimen/manager_avatar_height"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"/>
+            android:layout_centerVertical="true"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -34,18 +34,17 @@
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_toEndOf="@+id/avatar"
-            android:layout_toLeftOf="@+id/currency"
             android:layout_toRightOf="@+id/avatar"
-            android:layout_toStartOf="@+id/currency"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp"
-                android:textStyle="bold"
                 tools:text="Super program"/>
 
             <TextView
@@ -57,14 +56,6 @@
                 tools:text="by Warren Buffett"/>
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/currency"
-            style="@style/item_investment_program_currency"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            tools:text="BTC"/>
 
     </RelativeLayout>
 

@@ -70,9 +70,6 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 		@BindView(R.id.manager_name)
 		public TextView managerName;
 
-		@BindView(R.id.currency)
-		public TextView currency;
-
 		@BindView(R.id.view_program_data)
 		public ProgramDataView programDataView;
 
@@ -97,8 +94,6 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 
 		private void setFonts() {
 			title.setTypeface(TypefaceUtil.bold(itemView.getContext()));
-
-			currency.setTypeface(TypefaceUtil.bold(itemView.getContext()));
 		}
 
 		void setInvestmentProgram(InvestmentProgram investmentProgram) {
@@ -113,7 +108,6 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 			managerName.setText(String.format(Locale.getDefault(), "%s %s",
 					context.getResources().getString(R.string.by),
 					investmentProgram.getManager().getUsername()));
-			currency.setText(investmentProgram.getCurrency().toString());
 
 			programDataView.setData(investmentProgram.getProfitTotal(),
 					investmentProgram.getProfitAvg(),

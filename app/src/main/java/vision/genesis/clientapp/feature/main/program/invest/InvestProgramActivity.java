@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,9 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
+
+	@BindView(R.id.group_progress_bar)
+	public ViewGroup progressBarGroup;
 
 	@BindView(R.id.balance)
 	public TextView balance;
@@ -201,6 +205,11 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	@Override
 	public void setKeyboardKeysEnabled(boolean enabled) {
 		keyboard.disableAllKeysExceptBackspace(!enabled);
+	}
+
+	@Override
+	public void showProgress(boolean show) {
+		progressBarGroup.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 
 	@Override

@@ -30,6 +30,12 @@ public class PrimaryButton extends android.support.v7.widget.AppCompatButton
 		initView();
 	}
 
+	public void setWhite() {
+
+		setBackground(ContextCompat.getDrawable(getContext(), R.drawable.button_primary_white));
+		setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+	}
+
 	private void initView() {
 		setBackground(ContextCompat.getDrawable(getContext(), R.drawable.button_primary));
 		setTextColor(ContextCompat.getColor(getContext(), R.color.white));

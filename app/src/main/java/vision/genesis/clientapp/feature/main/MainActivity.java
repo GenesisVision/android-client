@@ -25,6 +25,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
+import vision.genesis.clientapp.feature.main.message.MessageActivity;
 import vision.genesis.clientapp.feature.main.program.details.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.filter.ProgramsFiltersActivity;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
@@ -269,6 +270,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	@Override
 	public void showWithdrawProgram(ProgramRequest request) {
 		WithdrawProgramActivity.startWith(this, request);
+	}
+
+	@Override
+	public void showMessageActivity(String message, int imageResourceId) {
+		MessageActivity.startWith(this, message, imageResourceId);
 	}
 
 	@Override

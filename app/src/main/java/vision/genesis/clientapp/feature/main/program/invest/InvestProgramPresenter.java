@@ -22,7 +22,7 @@ import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.api.Error;
 import vision.genesis.clientapp.model.api.ErrorResponse;
-import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
+import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
 
@@ -134,6 +134,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 	}
 
 	private void sendInvestRequest() {
+		getViewState().showProgress(true);
 		investSubscription = investManager.invest(investRequest)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
@@ -145,13 +146,14 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 		investSubscription.unsubscribe();
 		walletManager.getBalance();
 
-		EventBus.getDefault().post(new NewInvestmentSuccessEvent());
+		EventBus.getDefault().post(new ShowMessageActivityEvent(context.getString(R.string.message_program_invest_success), R.drawable.ic_email_confirmed_icon));
+//		EventBus.getDefault().post(new NewInvestmentSuccessEvent());
 		getViewState().finishActivity();
-
 	}
 
 	private void handleInvestError(Throwable throwable) {
 		investSubscription.unsubscribe();
+		getViewState().showProgress(false);
 
 		if (ApiErrorResolver.isNetworkError(throwable)) {
 			getViewState().showToastMessage(context.getResources().getString(R.string.network_error));

@@ -118,13 +118,14 @@
             android:src="@drawable/dotted_vertical_line"/>
 
         <RelativeLayout
+            android:id="@+id/group_profit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center">
 
             <FrameLayout
-                android:id="@+id/group_profit"
+                android:id="@+id/group_profit_value"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_centerHorizontal="true">
@@ -173,7 +174,7 @@
             <TextView
                 android:id="@+id/profit_currency"
                 style="@style/item_investment_program_currency"
-                android:layout_below="@+id/group_profit"
+                android:layout_below="@+id/group_profit_value"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="-4dp"
                 android:text="@string/gvt"

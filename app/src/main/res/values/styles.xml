@@ -172,8 +172,6 @@
     <style name="program_description_delimiter">
         <item name="android:layout_width">250dp</item>
         <item name="android:layout_height">2dp</item>
-        <item name="android:layout_marginBottom">24dp</item>
-        <item name="android:layout_marginTop">16dp</item>
         <item name="android:background">@drawable/divider_dot_horizontal</item>
         <item name="android:layerType">software</item>
     </style>

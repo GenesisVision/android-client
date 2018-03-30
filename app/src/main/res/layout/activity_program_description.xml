@@ -82,12 +82,13 @@
 
     <LinearLayout
         android:id="@+id/group_program_details"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="32dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
+        android:background="?attr/selectableItemBackground"
+        android:paddingBottom="32dp"
+        android:paddingTop="16dp"
         android:gravity="center"
         android:orientation="vertical">
 
