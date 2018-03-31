@@ -98,7 +98,7 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 	private void handleWithdrawSuccess(Void response) {
 		withdrawSubscription.unsubscribe();
 
-		EventBus.getDefault().post(new ShowMessageActivityEvent(context.getString(R.string.message_program_withdraw_success), R.drawable.ic_email_confirmed_icon));
+		EventBus.getDefault().post(new ShowMessageActivityEvent(context.getString(R.string.message_program_withdraw_success), R.drawable.ic_email_confirmed_icon, false));
 		getViewState().finishActivity();
 	}
 

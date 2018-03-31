@@ -273,8 +273,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	}
 
 	@Override
-	public void showMessageActivity(String message, int imageResourceId) {
-		MessageActivity.startWith(this, message, imageResourceId);
+	public void showMessageActivity(String message, int imageResourceId, boolean mustRead) {
+		MessageActivity.startWith(this, message, imageResourceId, mustRead);
 	}
 
 	@Override

@@ -5,6 +5,8 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Inject;
 
 import rx.Subscription;
@@ -15,6 +17,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.model.api.Error;
 import vision.genesis.clientapp.model.api.ErrorResponse;
+import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
 
@@ -66,7 +69,8 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 	private void onRegisterResponse(Void response) {
 		registrationSubscription.unsubscribe();
 
-		getViewState().showEmailVerificationActivity();
+		EventBus.getDefault().post(new ShowMessageActivityEvent(context.getString(R.string.email_verification_text), R.drawable.ic_email_white_64dp, true));
+		getViewState().finishActivity();
 	}
 
 	private void onRegisterError(Throwable throwable) {

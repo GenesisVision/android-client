@@ -10,8 +10,11 @@ public class ShowMessageActivityEvent
 
 	public int imageResourceId;
 
-	public ShowMessageActivityEvent(String message, int imageResourceId) {
+	public boolean mustRead;
+
+	public ShowMessageActivityEvent(String message, int imageResourceId, boolean mustRead) {
 		this.message = message;
 		this.imageResourceId = imageResourceId;
+		this.mustRead = mustRead;
 	}
 }

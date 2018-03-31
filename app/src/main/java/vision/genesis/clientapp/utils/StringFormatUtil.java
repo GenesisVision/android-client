@@ -30,15 +30,15 @@ public class StringFormatUtil
 
 	public static ShortenedAmount getShortenedAmount(double amountValue) {
 		ShortenedAmount shortenedAmount = new ShortenedAmount();
-		if (amountValue > 1000000) {
+		if (Math.abs(amountValue) > 1000000) {
 			shortenedAmount.amount = formatAmount(amountValue / 1000000, 0, 1);
 			shortenedAmount.modifier = "M";
 		}
-		else if (amountValue > 10000) {
+		else if (Math.abs(amountValue) > 10000) {
 			shortenedAmount.amount = formatAmount(amountValue / 1000, 0, 1);
 			shortenedAmount.modifier = "K";
 		}
-		else if (amountValue < 1) {
+		else if (Math.abs(amountValue) < 1) {
 			shortenedAmount.amount = formatAmount(amountValue, 0, 2);
 		}
 		else {

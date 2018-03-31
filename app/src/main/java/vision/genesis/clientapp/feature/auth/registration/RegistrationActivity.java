@@ -16,7 +16,6 @@ import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.feature.auth.email_verification.EmailVerificationActivity;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -139,12 +138,6 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 	@Override
 	public void showLoginActivity() {
 		LoginActivity.startFrom(this);
-	}
-
-	@Override
-	public void showEmailVerificationActivity() {
-		EmailVerificationActivity.startFrom(this);
-		finishActivity();
 	}
 
 	@Override

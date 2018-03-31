@@ -23,9 +23,12 @@
                 android:layout_centerInParent="true"
                 android:orientation="horizontal">
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/text_total_profit_text"
                     style="@style/item_investment_program_footer_text"
+                    app:autoSizeMaxTextSize="26sp"
+                    app:autoSizeMinTextSize="14sp"
+                    app:autoSizeTextType="uniform"
                     tools:text="78.3"/>
 
                 <TextView
@@ -159,10 +162,13 @@
                 android:layout_centerInParent="true"
                 android:orientation="horizontal">
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/text_balance_text"
                     style="@style/item_investment_program_footer_text"
-                    tools:text="23.1"/>
+                    app:autoSizeMaxTextSize="26sp"
+                    app:autoSizeMinTextSize="14sp"
+                    app:autoSizeTextType="uniform"
+                    tools:text="-223"/>
 
                 <TextView
                     android:id="@+id/text_balance_text_mod"

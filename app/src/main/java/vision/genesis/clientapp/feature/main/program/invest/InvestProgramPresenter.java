@@ -146,8 +146,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 		investSubscription.unsubscribe();
 		walletManager.getBalance();
 
-		EventBus.getDefault().post(new ShowMessageActivityEvent(context.getString(R.string.message_program_invest_success), R.drawable.ic_email_confirmed_icon));
-//		EventBus.getDefault().post(new NewInvestmentSuccessEvent());
+		EventBus.getDefault().post(new ShowMessageActivityEvent(context.getString(R.string.message_program_invest_success), R.drawable.ic_email_confirmed_icon, false));
 		getViewState().finishActivity();
 	}
 

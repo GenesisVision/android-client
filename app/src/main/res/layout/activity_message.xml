@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="-16dp"
         android:scaleType="centerInside"
-        tools:src="@drawable/ic_email_confirmed_icon"/>
+        tools:src="@drawable/ic_email_white_64dp"/>
 
     <TextView
         android:id="@+id/message"
@@ -25,7 +25,7 @@
         android:lineSpacingMultiplier="1.2"
         android:textColor="@color/white"
         android:textSize="24sp"
-        tools:text="@string/message_program_invest_success"/>
+        tools:text="@string/email_verification_text"/>
 
     <vision.genesis.clientapp.ui.PrimaryButton
         android:id="@+id/button"
