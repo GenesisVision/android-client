@@ -42,6 +42,12 @@ public class ProgramDataView extends RelativeLayout
 	@BindView(R.id.total_profit_currency)
 	public TextView totalProfitCurrency;
 
+	@BindView(R.id.group_avg_profit_short)
+	public ViewGroup avgProfitShortGroup;
+
+	@BindView(R.id.text_avg_profit_full)
+	public TextView avgProfitTextFull;
+
 	@BindView(R.id.text_avg_profit_text)
 	public TextView avgProfitText;
 
@@ -77,6 +83,8 @@ public class ProgramDataView extends RelativeLayout
 
 	private boolean isTotalProfitFull = false;
 
+	private boolean isAvgProfitFull = false;
+
 	private boolean isBalanceFull = false;
 
 	public ProgramDataView(Context context) {
@@ -100,6 +108,12 @@ public class ProgramDataView extends RelativeLayout
 		setTotalProfitVisibility();
 	}
 
+	@OnClick(R.id.group_avg_profit)
+	public void onAvgProfitClicked() {
+		isAvgProfitFull = !isAvgProfitFull;
+		setAvgProfitVisibility();
+	}
+
 	@OnClick(R.id.group_balance)
 	public void onBalanceClicked() {
 		isBalanceFull = !isBalanceFull;
@@ -121,6 +135,7 @@ public class ProgramDataView extends RelativeLayout
 		investorsText.setTypeface(TypefaceUtil.light(getContext()));
 
 		totalProfitTextFull.setTypeface(TypefaceUtil.light(getContext()));
+		avgProfitTextFull.setTypeface(TypefaceUtil.light(getContext()));
 		balanceTextFull.setTypeface(TypefaceUtil.light(getContext()));
 
 		totalProfitTextMod.setTypeface(TypefaceUtil.bold(getContext()));
@@ -143,6 +158,7 @@ public class ProgramDataView extends RelativeLayout
 		totalProfitText.setText(String.format("%s", totalProfitShortenedAmount.amount));
 		totalProfitTextMod.setText(totalProfitShortenedAmount.modifier);
 
+		avgProfitTextFull.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(profitAvg)));
 		avgProfitText.setText(String.format(Locale.getDefault(), "%.0f", profitAvg));
 
 		balanceTextFull.setText(StringFormatUtil.formatAmount(balance, 0, 18));
@@ -159,6 +175,11 @@ public class ProgramDataView extends RelativeLayout
 	private void setTotalProfitVisibility() {
 		totalProfitShortGroup.setVisibility(!isTotalProfitFull ? View.VISIBLE : View.GONE);
 		totalProfitTextFull.setVisibility(isTotalProfitFull ? View.VISIBLE : View.GONE);
+	}
+
+	private void setAvgProfitVisibility() {
+		avgProfitShortGroup.setVisibility(!isAvgProfitFull ? View.VISIBLE : View.GONE);
+		avgProfitTextFull.setVisibility(isAvgProfitFull ? View.VISIBLE : View.GONE);
 	}
 
 	private void setBalanceVisibility() {

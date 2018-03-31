@@ -80,28 +80,59 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/group_avg_profit"
         style="@style/item_investment_program_footer_group">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/group_avg_profit_short"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/text_avg_profit_text"
-                style="@style/item_investment_program_footer_text"
-                tools:text="50"/>
+            <LinearLayout
+                android:id="@+id/group_ll_avg_profit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/text_avg_profit_text_percent"
-                style="@style/item_investment_program_footer_text"
-                android:layout_gravity="bottom"
-                android:paddingBottom="2dp"
-                android:text="%"
-                android:textSize="12sp"/>
+                <TextView
+                    android:id="@+id/text_avg_profit_text"
+                    style="@style/item_investment_program_footer_text"
+                    tools:text="50"/>
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/text_avg_profit_text_percent"
+                    style="@style/item_investment_program_footer_text"
+                    android:layout_gravity="bottom"
+                    android:paddingBottom="2dp"
+                    android:text="%"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_toEndOf="@+id/group_ll_avg_profit"
+                android:layout_toRightOf="@+id/group_ll_avg_profit"
+                android:background="@drawable/circle_primary"/>
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text_avg_profit_full"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:gravity="center_horizontal|bottom"
+            android:textColor="@color/colorPrimaryDark"
+            android:visibility="gone"
+            app:autoSizeMaxTextSize="26sp"
+            app:autoSizeMinTextSize="14sp"
+            app:autoSizeTextType="uniform"
+            tools:text="12.25%"/>
 
         <TextView
             android:id="@+id/text_avg_profit_title"
