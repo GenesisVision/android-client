@@ -26,7 +26,7 @@ public class DateTimeUtil
 	}
 
 	public static String formatDateTime(DateTime dateTime) {
-		return dateTimeFormatter.withLocale(Locale.US).print(dateTime);
+		return dateTimeFormatter.withLocale(Locale.UK).print(dateTime);
 	}
 
 	public static int getDaysToDate(DateTime date) {

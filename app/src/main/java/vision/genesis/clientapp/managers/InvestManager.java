@@ -11,6 +11,8 @@ import io.swagger.client.model.InvestmentProgramViewModel;
 import io.swagger.client.model.InvestmentProgramsFilter;
 import io.swagger.client.model.InvestmentProgramsViewModel;
 import io.swagger.client.model.InvestorDashboard;
+import io.swagger.client.model.TradesFilter;
+import io.swagger.client.model.TradesViewModel;
 import io.swagger.client.model.WalletsViewModel;
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
@@ -82,6 +84,10 @@ public class InvestManager
 
 	public Observable<InvestmentProgramRequests> getInvestmentProgramRequests(InvestmentProgramRequestsFilter filter) {
 		return investorApi.apiInvestorInvestmentProgramRequestsPost(AuthManager.token.getValue(), filter);
+	}
+
+	public Observable<TradesViewModel> getProgramTrades(TradesFilter filter) {
+		return investorApi.apiInvestorInvestmentProgramTradesPost(filter);
 	}
 
 	public Observable<Void> cancelRequest(UUID requestId) {

@@ -25,6 +25,7 @@ import vision.genesis.clientapp.feature.main.program.history.ProgramHistoryPrese
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramPresenter;
 import vision.genesis.clientapp.feature.main.program.list.ProgramsListPresenter;
 import vision.genesis.clientapp.feature.main.program.requests.RequestsPresenter;
+import vision.genesis.clientapp.feature.main.program.trades.TradesPresenter;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramPresenter;
 import vision.genesis.clientapp.feature.main.wallet.WalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletPresenter;
@@ -97,4 +98,6 @@ public interface AppComponent
 	void inject(MessageActivity messageActivity);
 
 	void inject(ProgramHistoryPresenter programHistoryPresenter);
+
+	void inject(TradesPresenter tradesPresenter);
 }

@@ -109,7 +109,7 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 	@InjectPresenter
 	ProfilePresenter profilePresenter;
 
-	private ProfileFullViewModel profileModel;
+	private ProfileFullViewModel profileModel = new ProfileFullViewModel();
 
 	private boolean editMode;
 

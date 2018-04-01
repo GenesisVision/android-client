@@ -27,6 +27,7 @@ import vision.genesis.clientapp.feature.main.program.details.description.Program
 import vision.genesis.clientapp.feature.main.program.history.ProgramHistoryActivity;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
 import vision.genesis.clientapp.feature.main.program.requests.RequestsActivity;
+import vision.genesis.clientapp.feature.main.program.trades.TradesActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.model.ProgramDescriptionModel;
 import vision.genesis.clientapp.model.ProgramRequest;
@@ -142,6 +143,12 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	ProgramDetailsPresenter programDetailsPresenter;
 
 	private InvestmentProgramDetails programDetails;
+
+	@OnClick(R.id.group_trades)
+	public void onTradesClicked() {
+		if (programDetails != null && programDetails.getTradesCount() > 0)
+			TradesActivity.startWith(this, programDetails.getId());
+	}
 
 	@OnClick(R.id.group_program_logo)
 	public void onProgramLogoClicked() {

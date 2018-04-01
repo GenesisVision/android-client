@@ -248,7 +248,7 @@
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <FrameLayout
             android:layout_width="match_parent"

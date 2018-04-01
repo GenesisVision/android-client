@@ -73,37 +73,43 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
         android:id="@+id/group_empty"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginEnd="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:gravity="center"
-        android:orientation="vertical"
         android:visibility="gone"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
-        <TextView
-            android:id="@+id/empty_text"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/dashboard_empty"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="36sp"/>
-
-        <vision.genesis.clientapp.ui.PrimaryButton
-            android:id="@+id/button_browse_programs"
-            android:layout_width="220dp"
-            android:layout_height="@dimen/button_height"
+            android:layout_marginEnd="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
-            android:text="@string/browse_programs"/>
+            android:gravity="center"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/empty_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/dashboard_empty"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="36sp"/>
+
+            <vision.genesis.clientapp.ui.PrimaryButton
+                android:id="@+id/button_browse_programs"
+                android:layout_width="220dp"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginTop="32dp"
+                android:text="@string/browse_programs"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

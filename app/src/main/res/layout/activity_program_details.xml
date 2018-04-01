@@ -211,6 +211,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/group_trades"
                             style="@style/program_details_data_group">
 
                             <TextView

@@ -195,6 +195,12 @@
     <string name="message_program_withdraw_success">At the end of the current trading period the tokens will be returned to the manager and your funds are return to you.</string>
     <string name="message_program_invest_success">At the end of the current trading period your GVT will be exchanged to the manager\'s tokens. In case there won\'t be enough tokens for you, your extra GVT will be cashed back.</string>
     <string name="history">History</string>
+    <string name="program_has_no_trades_yet">This program has no trades yet.</string>
+    <string name="date">Date</string>
+    <string name="symbol">Symbol</string>
+    <string name="price">Price</string>
+    <string name="volume">Volume</string>
+    <string name="direction">Direction</string>
 
     <string-array name="transactions_filter">
         <item>All Transactions</item>

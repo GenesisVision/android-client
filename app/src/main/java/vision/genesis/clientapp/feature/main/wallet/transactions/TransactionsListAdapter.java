@@ -1,6 +1,7 @@
 package vision.genesis.clientapp.feature.main.wallet.transactions;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -39,14 +40,15 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 		this.clickDisabled = clickDisabled;
 	}
 
+	@NonNull
 	@Override
-	public TransactionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+	public TransactionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_transaction, parent, false);
 		return new TransactionViewHolder(itemView, clickDisabled);
 	}
 
 	@Override
-	public void onBindViewHolder(TransactionViewHolder holder, int position) {
+	public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
 		holder.setTransaction(transactions.get(position));
 	}
 
@@ -61,8 +63,8 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 		notifyDataSetChanged();
 	}
 
-	void addTransactions(List<WalletTransaction> investmentPrograms) {
-		this.transactions.addAll(investmentPrograms);
+	void addTransactions(List<WalletTransaction> transactions) {
+		this.transactions.addAll(transactions);
 		notifyDataSetChanged();
 	}
 
@@ -87,7 +89,7 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 
 		private Context context;
 
-		private boolean clickDisabled = false;
+		private boolean clickDisabled;
 
 		TransactionViewHolder(View itemView, boolean clickDisabled) {
 			super(itemView);
@@ -166,11 +168,6 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 
 		private void setAmount() {
 			double amountValue = transaction.getAmount();
-//			DecimalFormat df = new DecimalFormat("0.########");
-//			df.setMinimumFractionDigits(2);
-//			df.setRoundingMode(RoundingMode.DOWN);
-//			String amountString = df.format(Math.abs(amountValue));
-
 			String amountString = StringFormatUtil.formatAmount(amountValue, 2, WalletManager.GVT_MAX_DECIMAL_POINT_DIGITS);
 
 			switch (transaction.getType()) {
