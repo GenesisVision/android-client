@@ -78,6 +78,27 @@ public class InvestmentProgramDashboardManager
 	@SerializedName("profitCurrent")
 	private Double profitCurrent = null;
 
+	@SerializedName("isInvestEnable")
+	private Boolean isInvestEnable = null;
+
+	@SerializedName("isWithdrawEnable")
+	private Boolean isWithdrawEnable = null;
+
+	@SerializedName("token")
+	private Token token = null;
+
+	@SerializedName("ownBalance")
+	private Double ownBalance = null;
+
+	@SerializedName("minAccountBalanceUsd")
+	private Double minAccountBalanceUsd = null;
+
+	@SerializedName("minAccountBalance")
+	private Double minAccountBalance = null;
+
+	@SerializedName("login")
+	private String login = null;
+
 	public InvestmentProgramDashboardManager id(UUID id) {
 		this.id = id;
 		return this;
@@ -363,6 +384,139 @@ public class InvestmentProgramDashboardManager
 		this.profitCurrent = profitCurrent;
 	}
 
+	public InvestmentProgramDashboardManager isInvestEnable(Boolean isInvestEnable) {
+		this.isInvestEnable = isInvestEnable;
+		return this;
+	}
+
+	/**
+	 * Get isInvestEnable
+	 *
+	 * @return isInvestEnable
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsInvestEnable() {
+		return isInvestEnable;
+	}
+
+	public void setIsInvestEnable(Boolean isInvestEnable) {
+		this.isInvestEnable = isInvestEnable;
+	}
+
+	public InvestmentProgramDashboardManager isWithdrawEnable(Boolean isWithdrawEnable) {
+		this.isWithdrawEnable = isWithdrawEnable;
+		return this;
+	}
+
+	/**
+	 * Get isWithdrawEnable
+	 *
+	 * @return isWithdrawEnable
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsWithdrawEnable() {
+		return isWithdrawEnable;
+	}
+
+	public void setIsWithdrawEnable(Boolean isWithdrawEnable) {
+		this.isWithdrawEnable = isWithdrawEnable;
+	}
+
+	public InvestmentProgramDashboardManager token(Token token) {
+		this.token = token;
+		return this;
+	}
+
+	/**
+	 * Get token
+	 *
+	 * @return token
+	 **/
+	@ApiModelProperty(value = "")
+	public Token getToken() {
+		return token;
+	}
+
+	public void setToken(Token token) {
+		this.token = token;
+	}
+
+	public InvestmentProgramDashboardManager ownBalance(Double ownBalance) {
+		this.ownBalance = ownBalance;
+		return this;
+	}
+
+	/**
+	 * Get ownBalance
+	 *
+	 * @return ownBalance
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getOwnBalance() {
+		return ownBalance;
+	}
+
+	public void setOwnBalance(Double ownBalance) {
+		this.ownBalance = ownBalance;
+	}
+
+	public InvestmentProgramDashboardManager minAccountBalanceUsd(Double minAccountBalanceUsd) {
+		this.minAccountBalanceUsd = minAccountBalanceUsd;
+		return this;
+	}
+
+	/**
+	 * Get minAccountBalanceUsd
+	 *
+	 * @return minAccountBalanceUsd
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getMinAccountBalanceUsd() {
+		return minAccountBalanceUsd;
+	}
+
+	public void setMinAccountBalanceUsd(Double minAccountBalanceUsd) {
+		this.minAccountBalanceUsd = minAccountBalanceUsd;
+	}
+
+	public InvestmentProgramDashboardManager minAccountBalance(Double minAccountBalance) {
+		this.minAccountBalance = minAccountBalance;
+		return this;
+	}
+
+	/**
+	 * Get minAccountBalance
+	 *
+	 * @return minAccountBalance
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getMinAccountBalance() {
+		return minAccountBalance;
+	}
+
+	public void setMinAccountBalance(Double minAccountBalance) {
+		this.minAccountBalance = minAccountBalance;
+	}
+
+	public InvestmentProgramDashboardManager login(String login) {
+		this.login = login;
+		return this;
+	}
+
+	/**
+	 * Get login
+	 *
+	 * @return login
+	 **/
+	@ApiModelProperty(value = "")
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -386,12 +540,19 @@ public class InvestmentProgramDashboardManager
 				Objects.equals(this.startOfPeriod, investmentProgramDashboardManager.startOfPeriod) &&
 				Objects.equals(this.profitTotal, investmentProgramDashboardManager.profitTotal) &&
 				Objects.equals(this.profitTotalGvt, investmentProgramDashboardManager.profitTotalGvt) &&
-				Objects.equals(this.profitCurrent, investmentProgramDashboardManager.profitCurrent);
+				Objects.equals(this.profitCurrent, investmentProgramDashboardManager.profitCurrent) &&
+				Objects.equals(this.isInvestEnable, investmentProgramDashboardManager.isInvestEnable) &&
+				Objects.equals(this.isWithdrawEnable, investmentProgramDashboardManager.isWithdrawEnable) &&
+				Objects.equals(this.token, investmentProgramDashboardManager.token) &&
+				Objects.equals(this.ownBalance, investmentProgramDashboardManager.ownBalance) &&
+				Objects.equals(this.minAccountBalanceUsd, investmentProgramDashboardManager.minAccountBalanceUsd) &&
+				Objects.equals(this.minAccountBalance, investmentProgramDashboardManager.minAccountBalance) &&
+				Objects.equals(this.login, investmentProgramDashboardManager.login);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, logo, balance, currency, tradesCount, periodDuration, investorsCount, isEnabled, startOfPeriod, profitTotal, profitTotalGvt, profitCurrent);
+		return Objects.hash(id, title, description, level, logo, balance, currency, tradesCount, periodDuration, investorsCount, isEnabled, startOfPeriod, profitTotal, profitTotalGvt, profitCurrent, isInvestEnable, isWithdrawEnable, token, ownBalance, minAccountBalanceUsd, minAccountBalance, login);
 	}
 
 	@Override
@@ -414,6 +575,13 @@ public class InvestmentProgramDashboardManager
 		sb.append("    profitTotal: ").append(toIndentedString(profitTotal)).append("\n");
 		sb.append("    profitTotalGvt: ").append(toIndentedString(profitTotalGvt)).append("\n");
 		sb.append("    profitCurrent: ").append(toIndentedString(profitCurrent)).append("\n");
+		sb.append("    isInvestEnable: ").append(toIndentedString(isInvestEnable)).append("\n");
+		sb.append("    isWithdrawEnable: ").append(toIndentedString(isWithdrawEnable)).append("\n");
+		sb.append("    token: ").append(toIndentedString(token)).append("\n");
+		sb.append("    ownBalance: ").append(toIndentedString(ownBalance)).append("\n");
+		sb.append("    minAccountBalanceUsd: ").append(toIndentedString(minAccountBalanceUsd)).append("\n");
+		sb.append("    minAccountBalance: ").append(toIndentedString(minAccountBalance)).append("\n");
+		sb.append("    login: ").append(toIndentedString(login)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

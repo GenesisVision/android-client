@@ -10,6 +10,7 @@ import io.swagger.client.model.Invest;
 import io.swagger.client.model.InvestmentProgramBuyToken;
 import io.swagger.client.model.InvestmentProgramRequests;
 import io.swagger.client.model.InvestmentProgramRequestsFilter;
+import io.swagger.client.model.InvestmentProgramUpdate;
 import io.swagger.client.model.InvestmentProgramViewModel;
 import io.swagger.client.model.InvestmentProgramsFilter;
 import io.swagger.client.model.InvestmentProgramsViewModel;
@@ -165,6 +166,17 @@ public interface ManagerApi
 	);
 
 	/**
+	 * Dashboard pending programs
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;ManagerInvestmentPrograms&gt;
+	 */
+	@GET("api/manager/dashboard/pendingPrograms")
+	Observable<ManagerInvestmentPrograms> apiManagerDashboardPendingProgramsGet(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
 	 * Dashboard programs
 	 *
 	 * @param authorization JWT access token (required)
@@ -174,8 +186,8 @@ public interface ManagerApi
 	@Headers({
 			"Content-Type:application/json"
 	})
-	@GET("api/manager/dashboard/programs")
-	Observable<ManagerInvestmentPrograms> apiManagerDashboardProgramsGet(
+	@POST("api/manager/dashboard/programs")
+	Observable<ManagerInvestmentPrograms> apiManagerDashboardProgramsPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ManagerDashboardProgramsFilter filter
 	);
 
@@ -294,30 +306,18 @@ public interface ManagerApi
 	);
 
 	/**
-	 * Cancel investment request
-	 *
-	 * @param requestId     (required)
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;Void&gt;
-	 */
-	@POST("api/manager/investmentPrograms/cancelInvestmentRequest")
-	Observable<Void> apiManagerInvestmentProgramsCancelInvestmentRequestPost(
-			@retrofit2.http.Query("requestId") UUID requestId, @retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
-	 * Invest in manager
+	 * Update investment program details
 	 *
 	 * @param authorization JWT access token (required)
 	 * @param model         (optional)
-	 * @return Call&lt;WalletsViewModel&gt;
+	 * @return Call&lt;Void&gt;
 	 */
 	@Headers({
 			"Content-Type:application/json"
 	})
-	@POST("api/manager/investmentPrograms/invest")
-	Observable<WalletsViewModel> apiManagerInvestmentProgramsInvestPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body Invest model
+	@POST("api/manager/investmentProgram/update")
+	Observable<Void> apiManagerInvestmentProgramUpdatePost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body InvestmentProgramUpdate model
 	);
 
 	/**
@@ -333,21 +333,6 @@ public interface ManagerApi
 	@POST("api/manager/investmentPrograms")
 	Observable<InvestmentProgramsViewModel> apiManagerInvestmentProgramsPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body InvestmentProgramsFilter filter
-	);
-
-	/**
-	 * Withdraw from investment program
-	 *
-	 * @param authorization JWT access token (required)
-	 * @param model         (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("api/manager/investmentPrograms/withdraw")
-	Observable<Void> apiManagerInvestmentProgramsWithdrawPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body Invest model
 	);
 
 	/**

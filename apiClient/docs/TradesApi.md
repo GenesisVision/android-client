@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 <a name="apiTradesIpfsHistoryGet"></a>
 # **apiTradesIpfsHistoryGet**
-> TradesViewModel apiTradesIpfsHistoryGet(ipfsHashId)
+> TradesViewModel apiTradesIpfsHistoryGet(type, ipfsHashId)
 
 Get trades by IPFS hash id
 
@@ -21,9 +21,10 @@ Get trades by IPFS hash id
 
 
 TradesApi apiInstance = new TradesApi();
+String type = "type_example"; // String | 
 String ipfsHashId = "ipfsHashId_example"; // String | 
 try {
-    TradesViewModel result = apiInstance.apiTradesIpfsHistoryGet(ipfsHashId);
+    TradesViewModel result = apiInstance.apiTradesIpfsHistoryGet(type, ipfsHashId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradesApi#apiTradesIpfsHistoryGet");
@@ -35,6 +36,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **type** | **String**|  | [enum: Undefined, MetaTrader4, MetaTrader5, NinjaTrader, cTrader, Rumus, Metastock]
  **ipfsHashId** | **String**|  | [optional]
 
 ### Return type

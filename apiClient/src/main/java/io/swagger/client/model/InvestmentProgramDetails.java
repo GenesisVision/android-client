@@ -131,6 +131,12 @@ public class InvestmentProgramDetails
 	@SerializedName("isEnabled")
 	private Boolean isEnabled = null;
 
+	@SerializedName("minAccountBalanceUsd")
+	private Double minAccountBalanceUsd = null;
+
+	@SerializedName("minAccountBalance")
+	private Double minAccountBalance = null;
+
 	@SerializedName("chart")
 	private List<Chart> chart = null;
 
@@ -766,6 +772,44 @@ public class InvestmentProgramDetails
 		this.isEnabled = isEnabled;
 	}
 
+	public InvestmentProgramDetails minAccountBalanceUsd(Double minAccountBalanceUsd) {
+		this.minAccountBalanceUsd = minAccountBalanceUsd;
+		return this;
+	}
+
+	/**
+	 * Get minAccountBalanceUsd
+	 *
+	 * @return minAccountBalanceUsd
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getMinAccountBalanceUsd() {
+		return minAccountBalanceUsd;
+	}
+
+	public void setMinAccountBalanceUsd(Double minAccountBalanceUsd) {
+		this.minAccountBalanceUsd = minAccountBalanceUsd;
+	}
+
+	public InvestmentProgramDetails minAccountBalance(Double minAccountBalance) {
+		this.minAccountBalance = minAccountBalance;
+		return this;
+	}
+
+	/**
+	 * Get minAccountBalance
+	 *
+	 * @return minAccountBalance
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getMinAccountBalance() {
+		return minAccountBalance;
+	}
+
+	public void setMinAccountBalance(Double minAccountBalance) {
+		this.minAccountBalance = minAccountBalance;
+	}
+
 	public InvestmentProgramDetails chart(List<Chart> chart) {
 		this.chart = chart;
 		return this;
@@ -986,6 +1030,8 @@ public class InvestmentProgramDetails
 				Objects.equals(this.ipfsHash, investmentProgramDetails.ipfsHash) &&
 				Objects.equals(this.tradeIpfsHash, investmentProgramDetails.tradeIpfsHash) &&
 				Objects.equals(this.isEnabled, investmentProgramDetails.isEnabled) &&
+				Objects.equals(this.minAccountBalanceUsd, investmentProgramDetails.minAccountBalanceUsd) &&
+				Objects.equals(this.minAccountBalance, investmentProgramDetails.minAccountBalance) &&
 				Objects.equals(this.chart, investmentProgramDetails.chart) &&
 				Objects.equals(this.token, investmentProgramDetails.token) &&
 				Objects.equals(this.manager, investmentProgramDetails.manager) &&
@@ -999,7 +1045,7 @@ public class InvestmentProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, investedAmount, profitFromProgram, tradesCount, investorsCount, periodDuration, programStartDate, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, volumeTotal, volumeAvg, volumeTotalChange, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, isEnabled, chart, token, manager, profitDiagram, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
+		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, investedAmount, profitFromProgram, tradesCount, investorsCount, periodDuration, programStartDate, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, volumeTotal, volumeAvg, volumeTotalChange, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, isEnabled, minAccountBalanceUsd, minAccountBalance, chart, token, manager, profitDiagram, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
 	}
 
 	@Override
@@ -1039,6 +1085,8 @@ public class InvestmentProgramDetails
 		sb.append("    ipfsHash: ").append(toIndentedString(ipfsHash)).append("\n");
 		sb.append("    tradeIpfsHash: ").append(toIndentedString(tradeIpfsHash)).append("\n");
 		sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
+		sb.append("    minAccountBalanceUsd: ").append(toIndentedString(minAccountBalanceUsd)).append("\n");
+		sb.append("    minAccountBalance: ").append(toIndentedString(minAccountBalance)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("    token: ").append(toIndentedString(token)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");

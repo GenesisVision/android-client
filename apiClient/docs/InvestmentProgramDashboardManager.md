@@ -19,6 +19,13 @@ Name | Type | Description | Notes
 **profitTotal** | **Double** |  |  [optional]
 **profitTotalGvt** | **Double** |  |  [optional]
 **profitCurrent** | **Double** |  |  [optional]
+**isInvestEnable** | **Boolean** |  |  [optional]
+**isWithdrawEnable** | **Boolean** |  |  [optional]
+**token** | [**Token**](Token.md) |  |  [optional]
+**ownBalance** | **Double** |  |  [optional]
+**minAccountBalanceUsd** | **Double** |  |  [optional]
+**minAccountBalance** | **Double** |  |  [optional]
+**login** | **String** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

@@ -48,6 +48,9 @@ public class InvestmentProgramRequest
 	@SerializedName("status")
 	private StatusEnum status = null;
 
+	@SerializedName("canCancelRequest")
+	private Boolean canCancelRequest = null;
+
 	public InvestmentProgramRequest id(UUID id) {
 		this.id = id;
 		return this;
@@ -143,6 +146,25 @@ public class InvestmentProgramRequest
 		this.status = status;
 	}
 
+	public InvestmentProgramRequest canCancelRequest(Boolean canCancelRequest) {
+		this.canCancelRequest = canCancelRequest;
+		return this;
+	}
+
+	/**
+	 * Get canCancelRequest
+	 *
+	 * @return canCancelRequest
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isCanCancelRequest() {
+		return canCancelRequest;
+	}
+
+	public void setCanCancelRequest(Boolean canCancelRequest) {
+		this.canCancelRequest = canCancelRequest;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -156,12 +178,13 @@ public class InvestmentProgramRequest
 				Objects.equals(this.date, investmentProgramRequest.date) &&
 				Objects.equals(this.amount, investmentProgramRequest.amount) &&
 				Objects.equals(this.type, investmentProgramRequest.type) &&
-				Objects.equals(this.status, investmentProgramRequest.status);
+				Objects.equals(this.status, investmentProgramRequest.status) &&
+				Objects.equals(this.canCancelRequest, investmentProgramRequest.canCancelRequest);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, date, amount, type, status);
+		return Objects.hash(id, date, amount, type, status, canCancelRequest);
 	}
 
 	@Override
@@ -174,6 +197,7 @@ public class InvestmentProgramRequest
 		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
+		sb.append("    canCancelRequest: ").append(toIndentedString(canCancelRequest)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

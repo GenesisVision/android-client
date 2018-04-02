@@ -36,6 +36,9 @@ public class ProgramBalances
 	@SerializedName("balance")
 	private Double balance = null;
 
+	@SerializedName("balanceUsd")
+	private Double balanceUsd = null;
+
 	@SerializedName("currency")
 	private CurrencyEnum currency = null;
 
@@ -77,6 +80,25 @@ public class ProgramBalances
 		this.balance = balance;
 	}
 
+	public ProgramBalances balanceUsd(Double balanceUsd) {
+		this.balanceUsd = balanceUsd;
+		return this;
+	}
+
+	/**
+	 * Get balanceUsd
+	 *
+	 * @return balanceUsd
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getBalanceUsd() {
+		return balanceUsd;
+	}
+
+	public void setBalanceUsd(Double balanceUsd) {
+		this.balanceUsd = balanceUsd;
+	}
+
 	public ProgramBalances currency(CurrencyEnum currency) {
 		this.currency = currency;
 		return this;
@@ -107,12 +129,13 @@ public class ProgramBalances
 		ProgramBalances programBalances = (ProgramBalances) o;
 		return Objects.equals(this.title, programBalances.title) &&
 				Objects.equals(this.balance, programBalances.balance) &&
+				Objects.equals(this.balanceUsd, programBalances.balanceUsd) &&
 				Objects.equals(this.currency, programBalances.currency);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, balance, currency);
+		return Objects.hash(title, balance, balanceUsd, currency);
 	}
 
 	@Override
@@ -122,6 +145,7 @@ public class ProgramBalances
 
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+		sb.append("    balanceUsd: ").append(toIndentedString(balanceUsd)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("}");
 		return sb.toString();

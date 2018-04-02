@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**apiBrokerPeriodProcessInvestmentRequestsPost**](BrokerApi.md#apiBrokerPeriodProcessInvestmentRequestsPost) | **POST** api/broker/period/processInvestmentRequests | Process investment requests
 [**apiBrokerPeriodReevaluateManagerTokenPost**](BrokerApi.md#apiBrokerPeriodReevaluateManagerTokenPost) | **POST** api/broker/period/reevaluateManagerToken | Update manager token initial price/total supply after loss
 [**apiBrokerPeriodSetStartValuesPost**](BrokerApi.md#apiBrokerPeriodSetStartValuesPost) | **POST** api/broker/period/setStartValues | Set investment period start balance, manager share, manager balance
+[**apiBrokerPeriodTerminatePost**](BrokerApi.md#apiBrokerPeriodTerminatePost) | **POST** api/broker/period/terminate | Terminate program
 [**apiBrokerPeriodlosingDataGet**](BrokerApi.md#apiBrokerPeriodlosingDataGet) | **GET** api/broker/period/сlosingData | Get data for closing investment period
 [**apiBrokerTradesIpfsHashUpdatePost**](BrokerApi.md#apiBrokerTradesIpfsHashUpdatePost) | **POST** api/broker/trades/ipfsHash/update | Update manager history ipfs hash
 [**apiBrokerTradesNewPost**](BrokerApi.md#apiBrokerTradesNewPost) | **POST** api/broker/trades/new | New trade event
@@ -606,6 +607,51 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiBrokerPeriodTerminatePost"></a>
+# **apiBrokerPeriodTerminatePost**
+> Void apiBrokerPeriodTerminatePost(investmentProgramId, authorization)
+
+Terminate program
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.BrokerApi;
+
+
+BrokerApi apiInstance = new BrokerApi();
+UUID investmentProgramId = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.apiBrokerPeriodTerminatePost(investmentProgramId, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling BrokerApi#apiBrokerPeriodTerminatePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **investmentProgramId** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 <a name="apiBrokerPeriodlosingDataGet"></a>

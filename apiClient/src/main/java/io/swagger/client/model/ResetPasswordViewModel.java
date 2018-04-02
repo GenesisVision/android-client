@@ -34,6 +34,9 @@ public class ResetPasswordViewModel
 	@SerializedName("password")
 	private String password = null;
 
+	@SerializedName("confirmPassword")
+	private String confirmPassword = null;
+
 	public ResetPasswordViewModel userId(String userId) {
 		this.userId = userId;
 		return this;
@@ -91,6 +94,25 @@ public class ResetPasswordViewModel
 		this.password = password;
 	}
 
+	public ResetPasswordViewModel confirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+		return this;
+	}
+
+	/**
+	 * Get confirmPassword
+	 *
+	 * @return confirmPassword
+	 **/
+	@ApiModelProperty(value = "")
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -103,12 +125,13 @@ public class ResetPasswordViewModel
 		ResetPasswordViewModel resetPasswordViewModel = (ResetPasswordViewModel) o;
 		return Objects.equals(this.userId, resetPasswordViewModel.userId) &&
 				Objects.equals(this.code, resetPasswordViewModel.code) &&
-				Objects.equals(this.password, resetPasswordViewModel.password);
+				Objects.equals(this.password, resetPasswordViewModel.password) &&
+				Objects.equals(this.confirmPassword, resetPasswordViewModel.confirmPassword);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userId, code, password);
+		return Objects.hash(userId, code, password, confirmPassword);
 	}
 
 
@@ -120,6 +143,7 @@ public class ResetPasswordViewModel
 		sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
 		sb.append("    code: ").append(toIndentedString(code)).append("\n");
 		sb.append("    password: ").append(toIndentedString(password)).append("\n");
+		sb.append("    confirmPassword: ").append(toIndentedString(confirmPassword)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

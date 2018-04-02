@@ -9,12 +9,13 @@ public interface TradesApi
 	/**
 	 * Get trades by IPFS hash id
 	 *
+	 * @param type       (required)
 	 * @param ipfsHashId (optional)
 	 * @return Call&lt;TradesViewModel&gt;
 	 */
 	@GET("api/trades/ipfsHistory")
 	Observable<TradesViewModel> apiTradesIpfsHistoryGet(
-			@retrofit2.http.Query("ipfsHashId") String ipfsHashId
+			@retrofit2.http.Query("type") String type, @retrofit2.http.Query("ipfsHashId") String ipfsHashId
 	);
 
 }

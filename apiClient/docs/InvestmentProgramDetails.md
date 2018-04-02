@@ -36,6 +36,8 @@ Name | Type | Description | Notes
 **ipfsHash** | **String** |  |  [optional]
 **tradeIpfsHash** | **String** |  |  [optional]
 **isEnabled** | **Boolean** |  |  [optional]
+**minAccountBalanceUsd** | **Double** |  |  [optional]
+**minAccountBalance** | **Double** |  |  [optional]
 **chart** | [**List&lt;Chart&gt;**](Chart.md) |  |  [optional]
 **token** | [**Token**](Token.md) |  |  [optional]
 **manager** | [**ProfilePublicViewModel**](ProfilePublicViewModel.md) |  |  [optional]

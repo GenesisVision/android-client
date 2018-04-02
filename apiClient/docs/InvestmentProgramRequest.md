@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **amount** | **Double** |  |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
+**canCancelRequest** | **Boolean** |  |  [optional]
 
 
 <a name="TypeEnum"></a>

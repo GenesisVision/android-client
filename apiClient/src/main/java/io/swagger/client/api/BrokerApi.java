@@ -195,6 +195,18 @@ public interface BrokerApi
 	);
 
 	/**
+	 * Terminate program
+	 *
+	 * @param investmentProgramId (required)
+	 * @param authorization       JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("api/broker/period/terminate")
+	Observable<Void> apiBrokerPeriodTerminatePost(
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
 	 * Get data for closing investment period
 	 *
 	 * @param investmentProgramId (required)
