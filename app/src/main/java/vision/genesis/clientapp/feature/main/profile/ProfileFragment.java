@@ -35,6 +35,7 @@ import permissions.dispatcher.RuntimePermissions;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.profile.change_password.ChangePasswordActivity;
 import vision.genesis.clientapp.ui.ProfileDataView;
 import vision.genesis.clientapp.ui.SpinnerView;
 import vision.genesis.clientapp.ui.ToolbarView;
@@ -49,6 +50,8 @@ import vision.genesis.clientapp.utils.ImageUtils;
 @RuntimePermissions
 public class ProfileFragment extends BaseFragment implements ProfileView
 {
+	private static final int CHANGE_PASSWORD_REQUEST_CODE = 401;
+
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
 
@@ -117,6 +120,11 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 	public void onChangeAvatarClicked() {
 		if (editMode)
 			ProfileFragmentPermissionsDispatcher.showPictureChooserWithPermissionCheck(this);
+	}
+
+	@OnClick(R.id.change_password)
+	public void onChangePasswordClicked() {
+		ChangePasswordActivity.startWith(this, CHANGE_PASSWORD_REQUEST_CODE);
 	}
 
 	@OnClick(R.id.button_birthday_calendar)
@@ -368,6 +376,11 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 				}
 				else {
 					profilePresenter.handleImageCropFail();
+				}
+				break;
+			case CHANGE_PASSWORD_REQUEST_CODE:
+				if (resultCode == Activity.RESULT_OK) {
+					showSnackbarMessage(getString(R.string.password_changed));
 				}
 				break;
 			default:

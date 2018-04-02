@@ -36,7 +36,7 @@ public class ForgotPasswordPresenter extends MvpPresenter<ForgotPasswordView>
 	@Inject
 	public AuthManager authManager;
 
-	private Subscription sendCodeSubscription;
+	private Subscription forgotPasswordSubscription;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -47,8 +47,8 @@ public class ForgotPasswordPresenter extends MvpPresenter<ForgotPasswordView>
 
 	@Override
 	public void onDestroy() {
-		if (sendCodeSubscription != null)
-			sendCodeSubscription.unsubscribe();
+		if (forgotPasswordSubscription != null)
+			forgotPasswordSubscription.unsubscribe();
 
 		super.onDestroy();
 	}
@@ -63,7 +63,7 @@ public class ForgotPasswordPresenter extends MvpPresenter<ForgotPasswordView>
 
 	private void sendForgotPassword(String email) {
 		getViewState().showProgressBar(true);
-		sendCodeSubscription = authManager.sendForgotPassword(email)
+		forgotPasswordSubscription = authManager.sendForgotPassword(email)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleForgotPasswordResponse,
@@ -71,14 +71,14 @@ public class ForgotPasswordPresenter extends MvpPresenter<ForgotPasswordView>
 	}
 
 	private void handleForgotPasswordResponse(Void response) {
-		sendCodeSubscription.unsubscribe();
+		forgotPasswordSubscription.unsubscribe();
 		EventBus.getDefault().post(new ShowMessageActivityEvent(context.getString(R.string.forgot_password_we_sent_email), R.drawable.ic_email_white_64dp, true));
 		getViewState().finishActivity();
 
 	}
 
 	private void handleForgotPasswordError(Throwable throwable) {
-		sendCodeSubscription.unsubscribe();
+		forgotPasswordSubscription.unsubscribe();
 		getViewState().showProgressBar(false);
 
 		if (ApiErrorResolver.isNetworkError(throwable)) {

@@ -54,9 +54,25 @@
 
             </RelativeLayout>
 
+            <TextView
+                android:id="@+id/change_password"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingEnd="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingStart="16dp"
+                android:text="@string/change_password"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"/>
+
             <View
                 style="@style/profile_delimiter"
-                android:layout_marginTop="64dp"/>
+                android:layout_marginTop="16dp"/>
 
             <vision.genesis.clientapp.ui.ProfileDataView
                 android:id="@+id/first_name"

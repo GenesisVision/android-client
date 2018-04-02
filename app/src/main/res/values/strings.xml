@@ -207,6 +207,13 @@
     <string name="change_password">Change password</string>
     <string name="enter_valid_email">Enter valid email</string>
     <string name="forgot_password_we_sent_email">We sent a password reset link to the email you specified.\n\nPlease follow this link to reset your password.</string>
+    <string name="enter_your_current_password">Enter your current password</string>
+    <string name="enter_your_new_password">Enter your new password</string>
+    <string name="confirm_your_new_password">Confirm your new password</string>
+    <string name="passwords_should_match">Passwords should match</string>
+    <string name="current_password">Current password</string>
+    <string name="new_password">New password</string>
+    <string name="password_changed">Password has been successfully changed</string>
 
     <string-array name="transactions_filter">
         <item>All Transactions</item>
