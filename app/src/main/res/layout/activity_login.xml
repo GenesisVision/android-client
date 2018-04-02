@@ -63,6 +63,15 @@
                         android:maxWidth="300dp"
                         android:minWidth="300dp"/>
 
+                    <TextView
+                        android:id="@+id/forgot_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/login_field_height"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:text="@string/forgot_password"
+                        android:textColor="@color/colorPrimary"/>
+
                 </LinearLayout>
 
                 <RelativeLayout

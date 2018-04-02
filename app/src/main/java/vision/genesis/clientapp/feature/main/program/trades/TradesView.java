@@ -8,7 +8,7 @@ import io.swagger.client.model.OrderModel;
 
 /**
  * GenesisVision
- * Created by Vitaly on 3/5/18.
+ * Created by Vitaly on 4/1/18.
  */
 
 interface TradesView extends MvpView

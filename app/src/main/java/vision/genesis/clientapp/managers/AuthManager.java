@@ -5,6 +5,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
+import io.swagger.client.model.ForgotPasswordViewModel;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.RegisterInvestorViewModel;
 import io.swagger.client.model.RegisterManagerViewModel;
@@ -119,6 +120,12 @@ public class AuthManager
 		model.setPassword(password);
 		model.setConfirmPassword(confirmPassword);
 		return managerApi.apiManagerAuthSignUpPost(model);
+	}
+
+	public Observable<Void> sendForgotPassword(String email) {
+		ForgotPasswordViewModel model = new ForgotPasswordViewModel();
+		model.setEmail(email);
+		return investorApi.apiInvestorAuthForgotPasswordPost(model);
 	}
 
 	private Observable<String> getUpdateTokenObservable() {

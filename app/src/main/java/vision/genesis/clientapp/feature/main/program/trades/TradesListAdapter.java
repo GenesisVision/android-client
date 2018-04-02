@@ -21,7 +21,7 @@ import vision.genesis.clientapp.utils.DateTimeUtil;
 
 /**
  * GenesisVision
- * Created by Vitaly on 1/25/18.
+ * Created by Vitaly on 4/1/18.
  */
 
 public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.TradeViewHolder>

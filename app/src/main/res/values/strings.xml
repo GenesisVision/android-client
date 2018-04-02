@@ -201,6 +201,12 @@
     <string name="price">Price</string>
     <string name="volume">Volume</string>
     <string name="direction">Direction</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="reset_password">Reset password</string>
+    <string name="enter_your_account_email">Enter your account email</string>
+    <string name="change_password">Change password</string>
+    <string name="enter_valid_email">Enter valid email</string>
+    <string name="forgot_password_we_sent_email">We sent a password reset link to the email you specified.\n\nPlease follow this link to reset your password.</string>
 
     <string-array name="transactions_filter">
         <item>All Transactions</item>

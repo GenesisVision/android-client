@@ -27,7 +27,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
- * Created by Vitaly on 3/5/18.
+ * Created by Vitaly on 4/1/18.
  */
 
 public class TradesActivity extends BaseSwipeBackActivity implements TradesView

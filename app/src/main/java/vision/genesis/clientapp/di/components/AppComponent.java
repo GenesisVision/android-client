@@ -10,6 +10,7 @@ import vision.genesis.clientapp.di.modules.InvestModule;
 import vision.genesis.clientapp.di.modules.NavigationModule;
 import vision.genesis.clientapp.di.modules.TournamentModule;
 import vision.genesis.clientapp.di.modules.UtilsModule;
+import vision.genesis.clientapp.feature.auth.forgot_password.ForgotPasswordPresenter;
 import vision.genesis.clientapp.feature.auth.login.LoginPresenter;
 import vision.genesis.clientapp.feature.auth.registration.RegistrationPresenter;
 import vision.genesis.clientapp.feature.main.MainActivity;
@@ -100,4 +101,6 @@ public interface AppComponent
 	void inject(ProgramHistoryPresenter programHistoryPresenter);
 
 	void inject(TradesPresenter tradesPresenter);
+
+	void inject(ForgotPasswordPresenter forgotPasswordPresenter);
 }

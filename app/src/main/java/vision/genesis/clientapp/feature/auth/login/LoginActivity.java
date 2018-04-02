@@ -16,6 +16,7 @@ import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.auth.forgot_password.ForgotPasswordActivity;
 import vision.genesis.clientapp.feature.auth.registration.RegistrationActivity;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -64,6 +65,11 @@ public class LoginActivity extends BaseSwipeBackActivity implements LoginView
 			loginPresenter.onSignInClicked(email.getText().toString(), password.getText().toString());
 		}
 		return false;
+	}
+
+	@OnClick(R.id.forgot_password)
+	public void onForgotPasswordClicked() {
+		ForgotPasswordActivity.startWith(this);
 	}
 
 	@OnClick(R.id.button_sign_up)
