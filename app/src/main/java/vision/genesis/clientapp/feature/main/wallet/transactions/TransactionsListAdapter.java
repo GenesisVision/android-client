@@ -1,6 +1,5 @@
 package vision.genesis.clientapp.feature.main.wallet.transactions;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -87,8 +86,6 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 
 		private WalletTransaction transaction;
 
-		private Context context;
-
 		private boolean clickDisabled;
 
 		TransactionViewHolder(View itemView, boolean clickDisabled) {
@@ -98,14 +95,12 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 
 			ButterKnife.bind(this, itemView);
 
-			context = itemView.getContext();
-
 			setFonts();
 		}
 
 		private void setFonts() {
-			type.setTypeface(TypefaceUtil.bold(context));
-			amount.setTypeface(TypefaceUtil.bold(context));
+			type.setTypeface(TypefaceUtil.bold());
+			amount.setTypeface(TypefaceUtil.bold());
 		}
 
 		void setTransaction(WalletTransaction transaction) {
@@ -136,31 +131,31 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 		private void setType() {
 			switch (transaction.getType()) {
 				case DEPOSIT:
-					type.setText(context.getResources().getString(R.string.transaction_type_deposit));
+					type.setText(itemView.getContext().getResources().getString(R.string.transaction_type_deposit));
 					break;
 				case WITHDRAW:
-					type.setText(context.getResources().getString(R.string.transaction_type_withdraw));
+					type.setText(itemView.getContext().getResources().getString(R.string.transaction_type_withdraw));
 					break;
 				case OPENPROGRAM:
-					type.setText(context.getResources().getString(R.string.transaction_type_open_program));
+					type.setText(itemView.getContext().getResources().getString(R.string.transaction_type_open_program));
 					break;
 				case INVESTTOPROGRAM:
-					type.setText(context.getResources().getString(R.string.transaction_type_invest_to_program));
+					type.setText(itemView.getContext().getResources().getString(R.string.transaction_type_invest_to_program));
 					break;
 				case WITHDRAWFROMPROGRAM:
-					type.setText(context.getResources().getString(R.string.transaction_type_withdraw_from_program));
+					type.setText(itemView.getContext().getResources().getString(R.string.transaction_type_withdraw_from_program));
 					break;
 				case PROFITFROMPROGRAM:
-					type.setText(context.getResources().getString(R.string.profit_from_program));
+					type.setText(itemView.getContext().getResources().getString(R.string.profit_from_program));
 					break;
 				case CANCELINVESTMENTREQUEST:
-					type.setText(context.getResources().getString(R.string.transaction_type_cancel_investment_request));
+					type.setText(itemView.getContext().getResources().getString(R.string.transaction_type_cancel_investment_request));
 					break;
 				case PARTIALINVESTMENTEXECUTIONREFUND:
-					type.setText(context.getResources().getString(R.string.partial_investment_execution_refund));
+					type.setText(itemView.getContext().getResources().getString(R.string.partial_investment_execution_refund));
 					break;
 				case CLOSINGPROGRAMREFUND:
-					type.setText(context.getResources().getString(R.string.closing_program_refund));
+					type.setText(itemView.getContext().getResources().getString(R.string.closing_program_refund));
 					break;
 
 			}
@@ -209,12 +204,12 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 
 		private void setPositiveAmount(String amountString) {
 			amount.setText(String.format("+%s", amountString));
-			amount.setTextColor(ContextCompat.getColor(context, R.color.transactionGreen));
+			amount.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.transactionGreen));
 		}
 
 		private void setNegativeAmount(String amountString) {
 			amount.setText(String.format("-%s", amountString));
-			amount.setTextColor(ContextCompat.getColor(context, R.color.transactionRed));
+			amount.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.transactionRed));
 		}
 	}
 }

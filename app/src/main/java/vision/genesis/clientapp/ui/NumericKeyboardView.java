@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import vision.genesis.clientapp.R;
 
 /**
@@ -81,6 +82,8 @@ public class NumericKeyboardView extends RelativeLayout
 
 	@BindView(R.id.image_backspace)
 	public ImageView backspaceImage;
+
+	private Unbinder unbinder;
 
 	private InputListener listener;
 
@@ -207,7 +210,7 @@ public class NumericKeyboardView extends RelativeLayout
 	private void initView() {
 		inflate(getContext(), R.layout.view_numeric_keyboard, this);
 
-		ButterKnife.bind(this);
+		unbinder = ButterKnife.bind(this);
 
 		setNumbersAnimations();
 		setBackspaceAnimations();
@@ -344,5 +347,12 @@ public class NumericKeyboardView extends RelativeLayout
 	private void numberClicked(String number) {
 		if (listener != null)
 			listener.onNumber(number);
+	}
+
+	public void onDestroy() {
+		if (unbinder != null)
+			unbinder.unbind();
+
+		listener = null;
 	}
 }

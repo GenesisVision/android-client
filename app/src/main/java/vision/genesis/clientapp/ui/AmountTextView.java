@@ -90,7 +90,7 @@ public class AmountTextView extends android.support.v7.widget.AppCompatTextView
 	}
 
 	private void setFonts() {
-		this.setTypeface(TypefaceUtil.light(getContext()));
+		this.setTypeface(TypefaceUtil.light());
 	}
 
 	private void setAmountTextListener() {
@@ -144,5 +144,9 @@ public class AmountTextView extends android.support.v7.widget.AppCompatTextView
 			if (listener != null)
 				listener.onAmountCleared();
 		}
+	}
+
+	public void onDestroy() {
+		listener = null;
 	}
 }

@@ -34,7 +34,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	private static final String EXTRA_REQUEST = "extra_request";
 
 	public static void startWith(Activity activity, ProgramRequest request) {
-		Intent intent = new Intent(activity, InvestProgramActivity.class);
+		Intent intent = new Intent(activity.getApplicationContext(), InvestProgramActivity.class);
 		intent.putExtra(EXTRA_REQUEST, request);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
@@ -123,6 +123,15 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 		}
 	}
 
+	@Override
+	protected void onDestroy() {
+		toolbar.onDestroy();
+		amountTextView.onDestroy();
+		keyboard.onDestroy();
+
+		super.onDestroy();
+	}
+
 	private void initToolbar() {
 		toolbar.setWhite();
 		toolbar.setTitle(getString(R.string.invest_to_program));
@@ -148,17 +157,17 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	}
 
 	private void setFonts() {
-		balance.setTypeface(TypefaceUtil.light(this));
-		balanceProgramCurrency.setTypeface(TypefaceUtil.light(this));
-		balanceCurrency.setTypeface(TypefaceUtil.bold(this));
-		myBalanceLabel.setTypeface(TypefaceUtil.bold(this));
-		enterAmountLabel.setTypeface(TypefaceUtil.bold(this));
-		amountHintTextView.setTypeface(TypefaceUtil.light(this));
-		amountCurrency.setTypeface(TypefaceUtil.bold(this));
-		amountProgramCurrency.setTypeface(TypefaceUtil.light(this));
+		balance.setTypeface(TypefaceUtil.light());
+		balanceProgramCurrency.setTypeface(TypefaceUtil.light());
+		balanceCurrency.setTypeface(TypefaceUtil.bold());
+		myBalanceLabel.setTypeface(TypefaceUtil.bold());
+		enterAmountLabel.setTypeface(TypefaceUtil.bold());
+		amountHintTextView.setTypeface(TypefaceUtil.light());
+		amountCurrency.setTypeface(TypefaceUtil.bold());
+		amountProgramCurrency.setTypeface(TypefaceUtil.light());
 
-		balanceProgramCurrencyCurrency.setTypeface(TypefaceUtil.bold(this));
-		amountProgramCurrencyCurrency.setTypeface(TypefaceUtil.bold(this));
+		balanceProgramCurrencyCurrency.setTypeface(TypefaceUtil.bold());
+		amountProgramCurrencyCurrency.setTypeface(TypefaceUtil.bold());
 	}
 
 	private void setProgramCurrency() {

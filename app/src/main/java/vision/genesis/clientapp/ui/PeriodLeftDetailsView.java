@@ -75,8 +75,8 @@ public class PeriodLeftDetailsView extends PeriodLeftView
 	}
 
 	protected void setFonts() {
-		periodText.setTypeface(TypefaceUtil.bold(getContext()));
-		programClosedText.setTypeface(TypefaceUtil.bold(getContext()));
+		periodText.setTypeface(TypefaceUtil.bold());
+		programClosedText.setTypeface(TypefaceUtil.bold());
 	}
 
 	public void setDateTo(DateTime dateFrom, DateTime dateTo) {

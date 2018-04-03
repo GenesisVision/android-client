@@ -126,7 +126,7 @@ public class ParticipantDetailsFragment extends BaseFragment implements Particip
 	@Override
 	public void setParticipant(ParticipantViewModel participant) {
 		this.participant = participant;
-		avatar.setImage(participant.getAvatar());
+//		avatar.setImage(participant.getAvatar());
 		avatar.hideLevel();
 		name.setText(participant.getName());
 

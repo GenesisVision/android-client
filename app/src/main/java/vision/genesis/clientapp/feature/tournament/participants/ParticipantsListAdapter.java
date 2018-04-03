@@ -127,7 +127,7 @@ public class ParticipantsListAdapter extends RecyclerView.Adapter<RecyclerView.V
 		}
 
 		private void updateData() {
-			avatar.setImage(participant.getAvatar());
+//			avatar.setImage(participant.getAvatar());
 			avatar.hideLevel();
 			name.setText(participant.getName());
 

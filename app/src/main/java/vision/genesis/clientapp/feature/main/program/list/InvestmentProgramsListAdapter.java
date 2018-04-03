@@ -1,6 +1,6 @@
 package vision.genesis.clientapp.feature.main.program.list;
 
-import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +16,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.InvestmentProgram;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.AvatarView;
@@ -41,6 +42,18 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 	@Override
 	public void onBindViewHolder(InvestmentProgramViewHolder holder, int position) {
 		holder.setInvestmentProgram(investmentPrograms.get(position));
+	}
+
+	@Override
+	public void onViewRecycled(@NonNull InvestmentProgramViewHolder holder) {
+		holder.onRecycle();
+
+		super.onViewRecycled(holder);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return investmentPrograms.get(position).hashCode();
 	}
 
 	@Override
@@ -78,12 +91,8 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 
 		private InvestmentProgram investmentProgram;
 
-		private Context context;
-
 		InvestmentProgramViewHolder(View itemView) {
 			super(itemView);
-
-			context = itemView.getContext();
 
 			ButterKnife.bind(this, itemView);
 
@@ -93,7 +102,11 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 		}
 
 		private void setFonts() {
-			title.setTypeface(TypefaceUtil.bold(itemView.getContext()));
+			title.setTypeface(TypefaceUtil.bold());
+		}
+
+		void onRecycle() {
+//			chart.onDestroy();
 		}
 
 		void setInvestmentProgram(InvestmentProgram investmentProgram) {
@@ -102,11 +115,11 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 		}
 
 		private void updateData() {
-			avatar.setImage(investmentProgram.getLogo());
+			avatar.setImage(investmentProgram.getLogo(), 100, 100);
 			avatar.setLevel(investmentProgram.getLevel());
 			title.setText(investmentProgram.getTitle());
 			managerName.setText(String.format(Locale.getDefault(), "%s %s",
-					context.getResources().getString(R.string.by),
+					GenesisVisionApplication.INSTANCE.getResources().getString(R.string.by),
 					investmentProgram.getManager().getUsername()));
 
 			programDataView.setData(investmentProgram.getProfitTotal(),

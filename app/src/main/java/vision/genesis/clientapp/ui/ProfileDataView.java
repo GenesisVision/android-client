@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import vision.genesis.clientapp.R;
 
 /**
@@ -30,6 +31,8 @@ public class ProfileDataView extends RelativeLayout
 
 	@BindView(R.id.edit_icon)
 	public View editIcon;
+
+	private Unbinder unbinder;
 
 	public ProfileDataView(Context context) {
 		super(context);
@@ -53,10 +56,15 @@ public class ProfileDataView extends RelativeLayout
 		imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
 	}
 
+	public void onDestroy() {
+		if (unbinder != null)
+			unbinder.unbind();
+	}
+
 	private void initView() {
 		inflate(getContext(), R.layout.view_profile_data, this);
 
-		ButterKnife.bind(this);
+		unbinder = ButterKnife.bind(this);
 
 		setEditMode(false);
 	}

@@ -28,7 +28,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 public class RegistrationActivity extends BaseSwipeBackActivity implements RegistrationView
 {
 	public static void startFrom(Activity activity) {
-		activity.startActivity(new Intent(activity, RegistrationActivity.class));
+		activity.startActivity(new Intent(activity.getApplicationContext(), RegistrationActivity.class));
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
 
@@ -88,7 +88,7 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 	}
 
 	private void setFonts() {
-		signInText.setTypeface(TypefaceUtil.bold(this));
+		signInText.setTypeface(TypefaceUtil.bold());
 	}
 
 	private void initToolbar() {

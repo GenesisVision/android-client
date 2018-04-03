@@ -1,6 +1,8 @@
 package vision.genesis.clientapp.feature.main.wallet;
 
 import com.arellomobile.mvp.MvpView;
+import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
+import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import io.swagger.client.model.TransactionsFilter;
 
@@ -11,17 +13,23 @@ import io.swagger.client.model.TransactionsFilter;
 
 interface WalletView extends MvpView
 {
+	@StateStrategyType(AddToEndSingleStrategy.class)
 	void setBalance(double balance);
 
+	@StateStrategyType(AddToEndSingleStrategy.class)
 	void setFiatBalance(double balance);
 
+	@StateStrategyType(AddToEndSingleStrategy.class)
 	void setTransactionsFilterType(TransactionsFilter.TypeEnum type);
 
+	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showBalanceProgress();
 
+	@StateStrategyType(AddToEndSingleStrategy.class)
 	void hideBalanceProgress();
 
 	void showSnackbarMessage(String message);
 
+	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showPage(int position);
 }

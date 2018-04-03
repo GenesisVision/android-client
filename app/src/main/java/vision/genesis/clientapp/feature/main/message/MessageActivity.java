@@ -34,7 +34,7 @@ public class MessageActivity extends MvpAppCompatActivity
 	private static String EXTRA_MUST_READ = "extra_must_read";
 
 	public static void startWith(Activity activity, String message, int imageResourceId, boolean mustRead) {
-		Intent intent = new Intent(activity, MessageActivity.class);
+		Intent intent = new Intent(activity.getApplicationContext(), MessageActivity.class);
 		intent.putExtra(EXTRA_MESSAGE, message);
 		intent.putExtra(EXTRA_IMAGE_RESOURCE_ID, imageResourceId);
 		intent.putExtra(EXTRA_MUST_READ, mustRead);

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -46,6 +47,8 @@ public class ToolbarView extends RelativeLayout
 
 	private ButtonClickListener rightButtonClickListener;
 
+	private Unbinder unbinder;
+
 	public ToolbarView(Context context) {
 		super(context);
 		initView();
@@ -78,14 +81,13 @@ public class ToolbarView extends RelativeLayout
 	private void initView() {
 		inflate(getContext(), R.layout.view_toolbar, this);
 
-		ButterKnife.bind(this);
+		unbinder = ButterKnife.bind(this);
 
 		setFonts();
 	}
 
 	private void setFonts() {
-		title.setTypeface(TypefaceUtil.bold(getContext()));
-		subtitle.setTypeface(TypefaceUtil.regular(getContext()));
+		title.setTypeface(TypefaceUtil.bold());
 	}
 
 	public void setWhite() {
@@ -127,5 +129,13 @@ public class ToolbarView extends RelativeLayout
 
 	public void showRightButtonDot(boolean show) {
 		rightButtonDot.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
+
+	public void onDestroy() {
+		leftButtonClickListener = null;
+		rightButtonClickListener = null;
+
+		if (unbinder != null)
+			unbinder.unbind();
 	}
 }

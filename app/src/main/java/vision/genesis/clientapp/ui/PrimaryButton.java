@@ -39,7 +39,7 @@ public class PrimaryButton extends android.support.v7.widget.AppCompatButton
 	private void initView() {
 		setBackground(ContextCompat.getDrawable(getContext(), R.drawable.button_primary));
 		setTextColor(ContextCompat.getColor(getContext(), R.color.white));
-		setTypeface(TypefaceUtil.bold(getContext()));
+		setTypeface(TypefaceUtil.bold());
 		setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 		setAllCaps(true);
 	}

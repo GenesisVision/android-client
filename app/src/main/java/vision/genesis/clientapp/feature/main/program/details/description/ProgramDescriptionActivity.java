@@ -30,7 +30,7 @@ public class ProgramDescriptionActivity extends BaseSwipeBackActivity implements
 	private static String EXTRA_MODEL = "extra_model";
 
 	public static void startWith(Activity activity, ProgramDescriptionModel model) {
-		Intent intent = new Intent(activity, ProgramDescriptionActivity.class);
+		Intent intent = new Intent(activity.getApplicationContext(), ProgramDescriptionActivity.class);
 		intent.putExtra(EXTRA_MODEL, model);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_top, R.anim.hold);
@@ -82,8 +82,8 @@ public class ProgramDescriptionActivity extends BaseSwipeBackActivity implements
 		}
 	}
 	private void setFonts() {
-		programName.setTypeface(TypefaceUtil.bold(this));
-		programDetailsLabel.setTypeface(TypefaceUtil.bold(this));
+		programName.setTypeface(TypefaceUtil.bold());
+		programDetailsLabel.setTypeface(TypefaceUtil.bold());
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class ProgramDescriptionActivity extends BaseSwipeBackActivity implements
 
 
 	public void setData(ProgramDescriptionModel model) {
-		programLogo.setImage(model.programLogo);
+		programLogo.setImage(model.programLogo, 500, 500);
 		programLogo.setLevel(model.programLevel);
 
 		programName.setText(model.programName);

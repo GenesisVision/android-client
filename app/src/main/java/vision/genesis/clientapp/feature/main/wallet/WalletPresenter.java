@@ -107,12 +107,14 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements ViewPag
 	}
 
 	private void handleBalanceUpdateResponse(Double balance) {
+		balanceSubscription.unsubscribe();
 		gvtBalance = balance;
 		getViewState().setBalance(balance);
 		updateFiatBalance();
 	}
 
 	private void handleBalanceUpdateError(Throwable error) {
+		balanceSubscription.unsubscribe();
 		getViewState().hideBalanceProgress();
 	}
 

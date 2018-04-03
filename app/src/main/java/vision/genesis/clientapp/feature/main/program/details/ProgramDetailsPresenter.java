@@ -64,6 +64,8 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 			userSubscription.unsubscribe();
 		if (programDetailsSubscription != null)
 			programDetailsSubscription.unsubscribe();
+
+		EventBus.getDefault().unregister(this);
 		super.onDestroy();
 	}
 

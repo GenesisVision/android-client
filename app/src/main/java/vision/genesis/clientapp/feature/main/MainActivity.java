@@ -178,7 +178,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 		AHBottomNavigationItem walletItem = new AHBottomNavigationItem(getString(R.string.wallet).toUpperCase(), R.drawable.wallet_icon);
 		AHBottomNavigationItem profileItem = new AHBottomNavigationItem(getString(R.string.profile).toUpperCase(), R.drawable.profile_icon);
 
-		bottomNavigationView.setTitleTypeface(TypefaceUtil.bold(this));
+		bottomNavigationView.setTitleTypeface(TypefaceUtil.bold());
 		bottomNavigationView.setTitleTextSizeInSp(10, 10);
 
 		bottomNavigationView.addItem(dashboardItem);

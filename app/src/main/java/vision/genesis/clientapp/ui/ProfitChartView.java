@@ -4,15 +4,9 @@ import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.widget.RelativeLayout;
 
-import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -22,9 +16,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.swagger.client.model.Chart;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 
 /**
@@ -32,13 +25,8 @@ import vision.genesis.clientapp.R;
  * Created by Vitaly on 2/2/18.
  */
 
-public class ProfitChartView extends RelativeLayout
+public class ProfitChartView extends com.github.mikephil.charting.charts.LineChart
 {
-	@BindView(R.id.combined_chart)
-	public CombinedChart chart;
-
-	private int fillColor = R.color.grey300;
-
 	private int lineColor = R.color.colorPrimary;
 
 	public ProfitChartView(Context context) {
@@ -57,52 +45,47 @@ public class ProfitChartView extends RelativeLayout
 	}
 
 	private void initView() {
-		inflate(getContext(), R.layout.view_profit_chart, this);
+		this.getDescription().setEnabled(false);
+		this.setDrawGridBackground(false);
+		this.setDragEnabled(false);
+		this.setTouchEnabled(false);
+		this.getXAxis().setEnabled(false);
+		this.getLegend().setEnabled(false);
+		this.getAxisLeft().setEnabled(true);
+		this.getAxisRight().setEnabled(false);
+		this.setDrawBorders(false);
+		this.setAutoScaleMinMaxEnabled(true);
+		this.setNoDataText(GenesisVisionApplication.INSTANCE.getResources().getString(R.string.not_enough_data));
+		this.setNoDataTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimaryDark));
 
-		ButterKnife.bind(this);
-
-		chart.getDescription().setEnabled(false);
-		chart.setDrawGridBackground(false);
-		chart.setDragEnabled(false);
-		chart.setTouchEnabled(false);
-		chart.getXAxis().setEnabled(false);
-		chart.getLegend().setEnabled(false);
-		chart.getAxisLeft().setEnabled(true);
-		chart.getAxisRight().setEnabled(false);
-		chart.setDrawBorders(false);
-		chart.setAutoScaleMinMaxEnabled(true);
-		chart.setNoDataText(getContext().getResources().getString(R.string.not_enough_data));
-		chart.setNoDataTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
-
-		YAxis yAxis = chart.getAxisLeft();
+		YAxis yAxis = this.getAxisLeft();
 		yAxis.setDrawLabels(false);
 		yAxis.setDrawAxisLine(false);
 		yAxis.setDrawGridLines(false);
 
 		LimitLine ll = new LimitLine(0f, "");
-		ll.setLineColor(ContextCompat.getColor(getContext(), R.color.grey400));
+		ll.setLineColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.grey400));
 		ll.setLineWidth(1f);
-		int lineLength = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getContext().getResources().getDisplayMetrics());
-		int spaceLength = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 7, getContext().getResources().getDisplayMetrics());
+		int lineLength = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics());
+		int spaceLength = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 7, GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics());
 		ll.enableDashedLine(lineLength, spaceLength, 0);
 
 		yAxis.setDrawLimitLinesBehindData(true);
 		yAxis.addLimitLine(ll);
 
-		chart.setHardwareAccelerationEnabled(false);
+		this.setHardwareAccelerationEnabled(false);
 	}
 
 	public void showDetails() {
-		chart.getAxisRight().setEnabled(true);
-		chart.setDragEnabled(true);
-		chart.setTouchEnabled(true);
-		chart.setHighlightPerTapEnabled(false);
-		chart.setHighlightPerDragEnabled(false);
-		chart.setPinchZoom(true);
-		chart.setViewPortOffsets(0f, 0f, 140f, 0f);
-		chart.invalidate();
+		this.getAxisRight().setEnabled(true);
+		this.setDragEnabled(true);
+		this.setTouchEnabled(true);
+		this.setHighlightPerTapEnabled(false);
+		this.setHighlightPerDragEnabled(false);
+		this.setPinchZoom(true);
+		this.setViewPortOffsets(0f, 0f, 140f, 0f);
+		this.invalidate();
 
-		fillColor = R.color.colorPrimary;
 		lineColor = R.color.colorPrimary;
 	}
 
@@ -118,26 +101,17 @@ public class ProfitChartView extends RelativeLayout
 
 	public void setChart(List<Chart> charts) {
 		if (charts.isEmpty()) {
-			chart.clear();
+			this.clear();
 			return;
 		}
 		List<Entry> lineEntries = new ArrayList<>();
-//		List<BarEntry> barEntries = new ArrayList<>();
 		float index = 0;
 		for (Chart chart : charts) {
 			lineEntries.add(new Entry(index, chart.getTotalProfit().floatValue()));
-//			barEntries.add(new BarEntry(index, new float[]{
-//					chart.getManagerFund().floatValue() + chart.getInvestorFund().floatValue(),
-//					chart.getLoss().floatValue(),
-//					chart.getProfit().floatValue()}));
 			index++;
 		}
 
-		CombinedData data = new CombinedData();
-		data.setData(getLineData(lineEntries));
-//		data.setData(getBarData(barEntries));
-
-		chart.setData(data);
+		this.setData(getLineData(lineEntries));
 	}
 
 	private LineData getLineData(List<Entry> data) {
@@ -155,33 +129,14 @@ public class ProfitChartView extends RelativeLayout
 		dataSet.setLabel("");
 		dataSet.setDrawValues(false);
 		dataSet.setDrawCircles(false);
-		dataSet.setColor(ContextCompat.getColor(getContext(), lineColor));
+		dataSet.setColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, lineColor));
 		dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
 		dataSet.setLineWidth(3f);
 
 		return dataSet;
 	}
 
-	private BarData getBarData(List<BarEntry> data) {
-		Collections.sort(data, new EntryXComparator());
-		BarData barData = new BarData();
-
-		barData.addDataSet(createBarDataSet(data));
-
-		return barData;
-	}
-
-	private BarDataSet createBarDataSet(List<BarEntry> data) {
-		BarDataSet dataSet = new BarDataSet(data, "");
-
-		dataSet.setLabel("");
-		dataSet.setDrawValues(false);
-		dataSet.setColor(ContextCompat.getColor(getContext(), lineColor));
-
-		dataSet.setColors(ContextCompat.getColor(getContext(), R.color.colorPrimary),
-				ContextCompat.getColor(getContext(), R.color.transactionRed),
-				ContextCompat.getColor(getContext(), R.color.transactionGreen));
-
-		return dataSet;
+	public void onDestroy() {
+		this.invalidate();
 	}
 }

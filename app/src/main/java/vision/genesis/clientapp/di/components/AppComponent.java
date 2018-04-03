@@ -39,6 +39,7 @@ import vision.genesis.clientapp.feature.tournament.TournamentPresenter;
 import vision.genesis.clientapp.feature.tournament.leaderboard.LeaderboardPresenter;
 import vision.genesis.clientapp.feature.tournament.participants.ParticipantsPresenter;
 import vision.genesis.clientapp.feature.tournament.participants.details.ParticipantDetailsPresenter;
+import vision.genesis.clientapp.ui.ProgramDataView;
 
 /**
  * GenesisVision
@@ -106,4 +107,6 @@ public interface AppComponent
 	void inject(ForgotPasswordPresenter forgotPasswordPresenter);
 
 	void inject(ChangePasswordPresenter changePasswordPresenter);
+
+	void inject(ProgramDataView programDataView);
 }

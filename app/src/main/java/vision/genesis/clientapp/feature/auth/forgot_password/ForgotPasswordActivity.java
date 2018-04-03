@@ -25,7 +25,7 @@ import vision.genesis.clientapp.ui.ToolbarView;
 public class ForgotPasswordActivity extends BaseSwipeBackActivity implements ForgotPasswordView
 {
 	public static void startWith(Activity activity) {
-		Intent intent = new Intent(activity, ForgotPasswordActivity.class);
+		Intent intent = new Intent(activity.getApplicationContext(), ForgotPasswordActivity.class);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}

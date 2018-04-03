@@ -18,7 +18,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import io.swagger.client.model.InvestmentProgramDashboardInvestor;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.ui.DividerItemDecoration;
@@ -60,6 +62,8 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 
 	private DashboardProgramsAdapter dashboardProgramsAdapter;
 
+	private Unbinder unbinder;
+
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
 		dashboardProgramsPresenter.onTryAgainClicked();
@@ -80,25 +84,37 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
-		ButterKnife.bind(this, view);
+		unbinder = ButterKnife.bind(this, view);
 
 		initRefreshLayout();
 		initRecyclerView();
 	}
 
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+
+		recyclerView.setAdapter(null);
+
+		if (unbinder != null)
+			unbinder.unbind();
+	}
+
 	private void initRefreshLayout() {
-		refreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary),
-				ContextCompat.getColor(getContext(), R.color.colorAccent),
-				ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+		refreshLayout.setColorSchemeColors(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimary),
+				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent),
+				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimaryDark));
 		refreshLayout.setOnRefreshListener(() -> dashboardProgramsPresenter.onSwipeRefresh());
 	}
 
 	private void initRecyclerView() {
+		recyclerView.setHasFixedSize(true);
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
 		dashboardProgramsAdapter = new DashboardProgramsAdapter();
+		dashboardProgramsAdapter.setHasStableIds(true);
 		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-				ContextCompat.getDrawable(getContext(), R.drawable.divider_dot_horizontal),
+				ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.list_item_divider),
 				20, 20);
 		recyclerView.addItemDecoration(dividerItemDecoration);
 		recyclerView.setAdapter(dashboardProgramsAdapter);

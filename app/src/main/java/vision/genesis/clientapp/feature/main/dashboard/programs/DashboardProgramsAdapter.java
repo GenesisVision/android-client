@@ -1,6 +1,5 @@
 package vision.genesis.clientapp.feature.main.dashboard.programs;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +48,11 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 	@Override
 	public int getItemCount() {
 		return investorPrograms.size();
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return investorPrograms.get(position).hashCode();
 	}
 
 	void setInvestorPrograms(List<InvestmentProgramDashboardInvestor> investorPrograms) {
@@ -100,14 +104,10 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 		private boolean isProfitFull = false;
 
-		private Context context;
-
 		private InvestmentProgramDashboardInvestor investmentProgram;
 
 		InvestorProgramViewHolder(View itemView) {
 			super(itemView);
-
-			context = itemView.getContext();
 
 			ButterKnife.bind(this, itemView);
 
@@ -123,11 +123,11 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		}
 
 		private void setFonts() {
-			programName.setTypeface(TypefaceUtil.bold(itemView.getContext()));
-			tokensFiat.setTypeface(TypefaceUtil.bold(context));
-			myTokensLabel.setTypeface(TypefaceUtil.bold(context));
-			profitCurrency.setTypeface(TypefaceUtil.bold(context));
-			profitLabel.setTypeface(TypefaceUtil.bold(context));
+			programName.setTypeface(TypefaceUtil.bold());
+			tokensFiat.setTypeface(TypefaceUtil.bold());
+			myTokensLabel.setTypeface(TypefaceUtil.bold());
+			profitCurrency.setTypeface(TypefaceUtil.bold());
+			profitLabel.setTypeface(TypefaceUtil.bold());
 		}
 
 		void setInvestmentProgram(InvestmentProgramDashboardInvestor investmentProgram) {
@@ -136,12 +136,12 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		}
 
 		private void updateData() {
-			programLogo.setImage(investmentProgram.getLogo());
+			programLogo.setImage(investmentProgram.getLogo(), 100, 100);
 			programLogo.setLevel(investmentProgram.getLevel());
 
 			programName.setText(investmentProgram.getTitle());
 			managerName.setText(String.format(Locale.getDefault(), "%s %s",
-					context.getResources().getString(R.string.by),
+					itemView.getContext().getResources().getString(R.string.by),
 					investmentProgram.getManager().getUsername()));
 
 			chart.setChart(investmentProgram.getChart());

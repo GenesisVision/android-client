@@ -12,6 +12,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ShortenedAmount;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -87,6 +88,8 @@ public class ProgramDataView extends RelativeLayout
 
 	private boolean isBalanceFull = false;
 
+	private Unbinder unbinder;
+
 	public ProgramDataView(Context context) {
 		super(context);
 		initView();
@@ -123,32 +126,37 @@ public class ProgramDataView extends RelativeLayout
 	private void initView() {
 		inflate(getContext(), R.layout.view_program_data, this);
 
-		ButterKnife.bind(this);
+		unbinder = ButterKnife.bind(this);
 
 		setFonts();
 	}
 
+	public void onDestroy() {
+		if (unbinder != null)
+			unbinder.unbind();
+	}
+
 	private void setFonts() {
-		totalProfitText.setTypeface(TypefaceUtil.light(getContext()));
-		avgProfitText.setTypeface(TypefaceUtil.light(getContext()));
-		balanceText.setTypeface(TypefaceUtil.light(getContext()));
-		investorsText.setTypeface(TypefaceUtil.light(getContext()));
+		totalProfitText.setTypeface(TypefaceUtil.light());
+		avgProfitText.setTypeface(TypefaceUtil.light());
+		balanceText.setTypeface(TypefaceUtil.light());
+		investorsText.setTypeface(TypefaceUtil.light());
 
-		totalProfitTextFull.setTypeface(TypefaceUtil.light(getContext()));
-		avgProfitTextFull.setTypeface(TypefaceUtil.light(getContext()));
-		balanceTextFull.setTypeface(TypefaceUtil.light(getContext()));
+		totalProfitTextFull.setTypeface(TypefaceUtil.light());
+		avgProfitTextFull.setTypeface(TypefaceUtil.light());
+		balanceTextFull.setTypeface(TypefaceUtil.light());
 
-		totalProfitTextMod.setTypeface(TypefaceUtil.bold(getContext()));
-		avgProfitTextPercent.setTypeface(TypefaceUtil.bold(getContext()));
-		balanceTextMod.setTypeface(TypefaceUtil.bold(getContext()));
+		totalProfitTextMod.setTypeface(TypefaceUtil.bold());
+		avgProfitTextPercent.setTypeface(TypefaceUtil.bold());
+		balanceTextMod.setTypeface(TypefaceUtil.bold());
 
-		totalProfitTitle.setTypeface(TypefaceUtil.bold(getContext()));
-		avgProfitTitle.setTypeface(TypefaceUtil.bold(getContext()));
-		balanceTitle.setTypeface(TypefaceUtil.bold(getContext()));
-		investorsTitle.setTypeface(TypefaceUtil.bold(getContext()));
+		totalProfitTitle.setTypeface(TypefaceUtil.bold());
+		avgProfitTitle.setTypeface(TypefaceUtil.bold());
+		balanceTitle.setTypeface(TypefaceUtil.bold());
+		investorsTitle.setTypeface(TypefaceUtil.bold());
 
-		totalProfitCurrency.setTypeface(TypefaceUtil.bold(getContext()));
-		balanceCurrency.setTypeface(TypefaceUtil.bold(getContext()));
+		totalProfitCurrency.setTypeface(TypefaceUtil.bold());
+		balanceCurrency.setTypeface(TypefaceUtil.bold());
 	}
 
 	public void setData(Double profitTotal, Double profitAvg, Double balance, Integer investorsCount, String balanceCurrency) {

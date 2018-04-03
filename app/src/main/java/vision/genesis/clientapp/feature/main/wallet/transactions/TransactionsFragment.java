@@ -18,6 +18,7 @@ import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import io.swagger.client.model.TransactionsFilter;
 import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
@@ -64,6 +65,8 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 
 	private UUID programId;
 
+	private Unbinder unbinder;
+
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,7 +77,7 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
-		ButterKnife.bind(this, view);
+		unbinder = ButterKnife.bind(this, view);
 
 		setFonts();
 
@@ -93,8 +96,19 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 		transactionsPresenter.onShow();
 	}
 
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+
+		recyclerView.setAdapter(null);
+
+		if (unbinder != null) {
+			unbinder.unbind();
+		}
+	}
+
 	private void setFonts() {
-		whoopsLabel.setTypeface(TypefaceUtil.bold(getContext()));
+		whoopsLabel.setTypeface(TypefaceUtil.bold());
 	}
 
 	private void initRefreshLayout() {
@@ -105,11 +119,12 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 	}
 
 	private void initRecyclerView() {
+		recyclerView.setHasFixedSize(true);
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
 		transactionsListAdapter = new TransactionsListAdapter(programId != null);
 		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-				ContextCompat.getDrawable(getContext(), R.drawable.divider_dot_horizontal),
+				ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider),
 				20, 20);
 		recyclerView.addItemDecoration(dividerItemDecoration);
 		recyclerView.setAdapter(transactionsListAdapter);

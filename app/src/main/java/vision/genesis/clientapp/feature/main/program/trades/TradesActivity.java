@@ -35,7 +35,7 @@ public class TradesActivity extends BaseSwipeBackActivity implements TradesView
 	private static final String EXTRA_PROGRAM_ID = "extra_program_id";
 
 	public static void startWith(Activity activity, UUID programId) {
-		Intent intent = new Intent(activity, TradesActivity.class);
+		Intent intent = new Intent(activity.getApplicationContext(), TradesActivity.class);
 		intent.putExtra(EXTRA_PROGRAM_ID, programId);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
@@ -102,19 +102,26 @@ public class TradesActivity extends BaseSwipeBackActivity implements TradesView
 		}
 	}
 
+	@Override
+	protected void onDestroy() {
+		recyclerView.setAdapter(null);
+
+		super.onDestroy();
+	}
+
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.trades));
 		toolbar.addLeftButton(R.drawable.back_arrow, this::onBackPressed);
 	}
 
 	private void setFonts() {
-		whoopsLabel.setTypeface(TypefaceUtil.bold(this));
-		date.setTypeface(TypefaceUtil.bold(this));
-		symbol.setTypeface(TypefaceUtil.bold(this));
-		price.setTypeface(TypefaceUtil.bold(this));
-		volume.setTypeface(TypefaceUtil.bold(this));
-		profit.setTypeface(TypefaceUtil.bold(this));
-		direction.setTypeface(TypefaceUtil.bold(this));
+		whoopsLabel.setTypeface(TypefaceUtil.bold());
+		date.setTypeface(TypefaceUtil.bold());
+		symbol.setTypeface(TypefaceUtil.bold());
+		price.setTypeface(TypefaceUtil.bold());
+		volume.setTypeface(TypefaceUtil.bold());
+		profit.setTypeface(TypefaceUtil.bold());
+		direction.setTypeface(TypefaceUtil.bold());
 	}
 
 	private void initRefreshLayout() {

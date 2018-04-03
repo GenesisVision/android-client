@@ -29,7 +29,7 @@ import vision.genesis.clientapp.ui.ToolbarView;
 public class DepositWalletActivity extends BaseSwipeBackActivity implements DepositWalletView
 {
 	public static void startWith(Activity activity) {
-		Intent intent = new Intent(activity, DepositWalletActivity.class);
+		Intent intent = new Intent(activity.getApplicationContext(), DepositWalletActivity.class);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}

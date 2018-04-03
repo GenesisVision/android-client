@@ -25,7 +25,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import io.swagger.client.model.InvestmentProgram;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.model.FilterSortingOption;
@@ -86,6 +88,8 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	private InvestmentProgramsListAdapter investmentProgramsListAdapter;
 
+	private Unbinder unbinder;
+
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
 		programsListPresenter.onTryAgainClicked();
@@ -109,7 +113,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
-		ButterKnife.bind(this, view);
+		unbinder = ButterKnife.bind(this, view);
 
 		setFonts();
 
@@ -119,9 +123,20 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		initRecyclerView();
 	}
 
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+
+		recyclerView.setAdapter(null);
+
+		if (unbinder != null)
+			unbinder.unbind();
+	}
+
 	private void setFonts() {
-		programsCount.setTypeface(TypefaceUtil.light(getContext()));
-		programsCountLabel.setTypeface(TypefaceUtil.bold(getContext()));
+		programsCount.setTypeface(TypefaceUtil.light());
+		programsCountLabel.setTypeface(TypefaceUtil.bold());
 	}
 
 	private void initToolbar() {
@@ -130,7 +145,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	}
 
 	private void initSpinner() {
-		ArrayList<FilterSortingOption> sortingOptions = FilterSortingOption.getOptions(getContext());
+		ArrayList<FilterSortingOption> sortingOptions = FilterSortingOption.getOptions(GenesisVisionApplication.INSTANCE);
 		spinner.setData(sortingOptions);
 
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
@@ -148,18 +163,19 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	}
 
 	private void initRefreshLayout() {
-		refreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary),
-				ContextCompat.getColor(getContext(), R.color.colorAccent),
-				ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+		refreshLayout.setColorSchemeColors(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimary),
+				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent),
+				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimaryDark));
 		refreshLayout.setOnRefreshListener(() -> programsListPresenter.onSwipeRefresh());
 	}
 
 	private void initRecyclerView() {
+		recyclerView.setHasFixedSize(true);
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
 		investmentProgramsListAdapter = new InvestmentProgramsListAdapter();
 		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
-		dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider));
+		dividerItemDecoration.setDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.list_item_divider));
 		recyclerView.addItemDecoration(dividerItemDecoration);
 		recyclerView.setAdapter(investmentProgramsListAdapter);
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()

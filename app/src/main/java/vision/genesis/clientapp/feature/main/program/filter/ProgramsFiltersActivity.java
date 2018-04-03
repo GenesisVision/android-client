@@ -24,7 +24,7 @@ import vision.genesis.clientapp.ui.ToolbarView;
 public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements ProgramsFiltersView
 {
 	public static void startFrom(Activity activity) {
-		activity.startActivity(new Intent(activity, ProgramsFiltersActivity.class));
+		activity.startActivity(new Intent(activity.getApplicationContext(), ProgramsFiltersActivity.class));
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
 

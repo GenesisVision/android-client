@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.squareup.leakcanary.LeakCanary;
 
 import ru.terrakok.cicerone.Cicerone;
 import ru.terrakok.cicerone.NavigatorHolder;
@@ -35,6 +36,15 @@ public class GenesisVisionApplication extends Application
 	@Override
 	public void onCreate() {
 		super.onCreate();
+
+		if (BuildConfig.DEBUG) {
+			if (LeakCanary.isInAnalyzerProcess(this)) {
+				// This process is dedicated to LeakCanary for heap analysis.
+				// You should not init your app in this process.
+				return;
+			}
+			LeakCanary.install(this);
+		}
 
 		INSTANCE = this;
 

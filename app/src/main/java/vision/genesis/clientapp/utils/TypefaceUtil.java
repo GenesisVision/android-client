@@ -7,6 +7,7 @@ import java.lang.reflect.Field;
 import java.util.Hashtable;
 
 import timber.log.Timber;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 
 /**
@@ -38,11 +39,11 @@ public class TypefaceUtil
 		}
 	}
 
-	public static Typeface get(String name, Context context) {
+	public static Typeface get(String name) {
 		Typeface tf = fontCache.get(name);
 		if (tf == null) {
 			try {
-				tf = Typeface.createFromAsset(context.getAssets(), name);
+				tf = Typeface.createFromAsset(GenesisVisionApplication.INSTANCE.getAssets(), name);
 			} catch (Exception e) {
 				return null;
 			}
@@ -51,19 +52,19 @@ public class TypefaceUtil
 		return tf;
 	}
 
-	public static Typeface light(Context context) {
-		return get(context.getString(R.string.font_neuzeitgro_light), context);
+	public static Typeface light() {
+		return get(GenesisVisionApplication.INSTANCE.getString(R.string.font_neuzeitgro_light));
 	}
 
-	public static Typeface regular(Context context) {
-		return get(context.getString(R.string.font_neuzeitgro_regular), context);
+	public static Typeface regular() {
+		return get(GenesisVisionApplication.INSTANCE.getString(R.string.font_neuzeitgro_regular));
 	}
 
-	public static Typeface bold(Context context) {
-		return get(context.getString(R.string.font_neuzeitgro_bold), context);
+	public static Typeface bold() {
+		return get(GenesisVisionApplication.INSTANCE.getString(R.string.font_neuzeitgro_bold));
 	}
 
-	public static Typeface black(Context context) {
-		return get(context.getString(R.string.font_neuzeitgro_black), context);
+	public static Typeface black() {
+		return get(GenesisVisionApplication.INSTANCE.getString(R.string.font_neuzeitgro_black));
 	}
 }

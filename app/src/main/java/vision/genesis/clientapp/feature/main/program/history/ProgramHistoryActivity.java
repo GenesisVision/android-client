@@ -27,7 +27,7 @@ public class ProgramHistoryActivity extends BaseSwipeBackActivity implements Pro
 	private static final String EXTRA_PROGRAM_ID = "extra_program_id";
 
 	public static void startWith(Activity activity, UUID programId) {
-		Intent intent = new Intent(activity, ProgramHistoryActivity.class);
+		Intent intent = new Intent(activity.getApplicationContext(), ProgramHistoryActivity.class);
 		intent.putExtra(EXTRA_PROGRAM_ID, programId);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);

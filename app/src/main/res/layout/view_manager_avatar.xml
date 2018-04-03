@@ -13,7 +13,9 @@
         android:scaleType="centerCrop"
         app:backgroundImage="@color/grey200"
         app:failureImage="@drawable/profile_placeholder"
-        app:placeholderImage="@drawable/profile_placeholder"/>
+        app:failureImageScaleType="centerCrop"
+        app:placeholderImage="@drawable/profile_placeholder"
+        app:placeholderImageScaleType="centerCrop"/>
 
     <FrameLayout
         android:id="@+id/group_level"
@@ -23,10 +25,10 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true">
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:placeholderImage="@color/colorPrimary"/>
+            android:background="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/level"

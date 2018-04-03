@@ -121,9 +121,9 @@ public class WalletFragment extends BaseFragment implements WalletView
 	}
 
 	private void setFonts() {
-		balance.setTypeface(TypefaceUtil.light(getContext()));
-		balanceCurrency.setTypeface(TypefaceUtil.bold(getContext()));
-		balanceFiat.setTypeface(TypefaceUtil.light(getContext()));
+		balance.setTypeface(TypefaceUtil.light());
+		balanceCurrency.setTypeface(TypefaceUtil.bold());
+		balanceFiat.setTypeface(TypefaceUtil.light());
 	}
 
 	private void initToolbar() {

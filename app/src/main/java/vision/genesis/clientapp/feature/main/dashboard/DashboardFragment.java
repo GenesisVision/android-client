@@ -18,6 +18,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import io.swagger.client.model.InvestmentProgramDashboardInvestor;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -65,6 +66,8 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 
 	private Fragment currentFragment;
 
+	private Unbinder unbinder;
+
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -75,7 +78,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
-		ButterKnife.bind(this, view);
+		unbinder = ButterKnife.bind(this, view);
 
 		setFonts();
 
@@ -101,14 +104,17 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 		if (tabLayoutOnPageChangeListener != null)
 			viewPager.removeOnPageChangeListener(tabLayoutOnPageChangeListener);
 
-		viewPager.addOnPageChangeListener(this);
+		viewPager.clearOnPageChangeListeners();
+
+		if (unbinder != null)
+			unbinder.unbind();
 
 		super.onDestroyView();
 	}
 
 	private void setFonts() {
-		portfolioValue.setTypeface(TypefaceUtil.light(getContext()));
-		totalPortfolioValueLabel.setTypeface(TypefaceUtil.bold(getContext()));
+		portfolioValue.setTypeface(TypefaceUtil.light());
+		totalPortfolioValueLabel.setTypeface(TypefaceUtil.bold());
 	}
 
 	private void initToolbar() {

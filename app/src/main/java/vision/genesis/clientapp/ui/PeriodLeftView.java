@@ -15,9 +15,11 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -52,6 +54,8 @@ public class PeriodLeftView extends RelativeLayout
 
 	protected boolean programClosed = false;
 
+	private Unbinder unbinder;
+
 	public PeriodLeftView(Context context) {
 		super(context);
 		initView();
@@ -70,14 +74,22 @@ public class PeriodLeftView extends RelativeLayout
 	protected void initView() {
 		inflate(getContext(), R.layout.view_period_left, this);
 
-		ButterKnife.bind(this);
+		unbinder = ButterKnife.bind(this);
 
 		setFonts();
 	}
 
+	public void onDestroy() {
+		if (timeSubscription != null)
+			timeSubscription.unsubscribe();
+
+		if (unbinder != null)
+			unbinder.unbind();
+	}
+
 	protected void setFonts() {
-		periodText.setTypeface(TypefaceUtil.bold(getContext()));
-		programClosedText.setTypeface(TypefaceUtil.bold(getContext()));
+		periodText.setTypeface(TypefaceUtil.bold());
+		programClosedText.setTypeface(TypefaceUtil.bold());
 	}
 
 	public void setDateTo(DateTime dateFrom, DateTime dateTo) {
@@ -85,7 +97,7 @@ public class PeriodLeftView extends RelativeLayout
 		this.dateTo = dateTo;
 		initProgressBar();
 		updatePeriodLeft();
-		startTimer();
+//		startTimer();
 	}
 
 	protected void initProgressBar() {
@@ -112,8 +124,8 @@ public class PeriodLeftView extends RelativeLayout
 		if (daysLeft > 0) {
 			numberText.setText(String.valueOf(daysLeft));
 			periodText.setText(String.format("%s %s",
-					getResources().getQuantityString(R.plurals.days, daysLeft, daysLeft, daysLeft),
-					getResources().getString(R.string.left)));
+					GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.days, daysLeft, daysLeft, daysLeft),
+					GenesisVisionApplication.INSTANCE.getResources().getString(R.string.left)));
 			return;
 		}
 
@@ -121,8 +133,8 @@ public class PeriodLeftView extends RelativeLayout
 		if (hoursLeft > 0) {
 			numberText.setText(String.valueOf(hoursLeft));
 			periodText.setText(String.format("%s %s",
-					getResources().getQuantityString(R.plurals.hours, hoursLeft, hoursLeft, hoursLeft),
-					getResources().getString(R.string.left)));
+					GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.hours, hoursLeft, hoursLeft, hoursLeft),
+					GenesisVisionApplication.INSTANCE.getResources().getString(R.string.left)));
 			return;
 		}
 
@@ -130,8 +142,8 @@ public class PeriodLeftView extends RelativeLayout
 		if (minutesLeft > 0) {
 			numberText.setText(String.valueOf(minutesLeft));
 			periodText.setText(String.format("%s %s",
-					getResources().getQuantityString(R.plurals.minutes, minutesLeft, minutesLeft, minutesLeft),
-					getResources().getString(R.string.left)));
+					GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.minutes, minutesLeft, minutesLeft, minutesLeft),
+					GenesisVisionApplication.INSTANCE.getResources().getString(R.string.left)));
 			return;
 		}
 
@@ -139,14 +151,14 @@ public class PeriodLeftView extends RelativeLayout
 		if (secondsLeft > 0) {
 			numberText.setText(String.valueOf(secondsLeft));
 			periodText.setText(String.format("%s %s",
-					getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft),
-					getResources().getString(R.string.left)));
+					GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft),
+					GenesisVisionApplication.INSTANCE.getResources().getString(R.string.left)));
 		}
 		else {
 			numberText.setText("0");
 			periodText.setText(String.format("%s %s",
-					getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft),
-					getResources().getString(R.string.left)));
+					GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft),
+					GenesisVisionApplication.INSTANCE.getResources().getString(R.string.left)));
 
 			if (timeSubscription != null)
 				timeSubscription.unsubscribe();

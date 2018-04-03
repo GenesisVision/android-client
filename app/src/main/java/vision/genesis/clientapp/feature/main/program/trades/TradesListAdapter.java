@@ -1,6 +1,5 @@
 package vision.genesis.clientapp.feature.main.program.trades;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -78,14 +77,10 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 
 		private OrderModel trade;
 
-		private Context context;
-
 		TradeViewHolder(View itemView) {
 			super(itemView);
 
 			ButterKnife.bind(this, itemView);
-
-			context = itemView.getContext();
 
 			setFonts();
 		}
@@ -113,8 +108,8 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 			double profit = trade.getProfit();
 			this.profit.setText(String.valueOf(profit));
 			this.profit.setTextColor(profit >= 0
-					? ContextCompat.getColor(context, R.color.transactionGreen)
-					: ContextCompat.getColor(context, R.color.transactionRed));
+					? ContextCompat.getColor(itemView.getContext(), R.color.transactionGreen)
+					: ContextCompat.getColor(itemView.getContext(), R.color.transactionRed));
 		}
 
 		private void setDirection() {

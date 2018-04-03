@@ -15,6 +15,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
@@ -36,7 +37,7 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	private static final String EXTRA_REQUEST = "extra_request";
 
 	public static void startWith(Activity activity, ProgramRequest request) {
-		Intent intent = new Intent(activity, WithdrawProgramActivity.class);
+		Intent intent = new Intent(activity.getApplicationContext(), WithdrawProgramActivity.class);
 		intent.putExtra(EXTRA_REQUEST, request);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
@@ -86,6 +87,8 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 
 	private ProgramRequest withdrawalRequest;
 
+	private Unbinder unbinder;
+
 	@OnClick(R.id.button_withdraw)
 	public void onWithdrawClicked() {
 		withdrawProgramPresenter.onWithdrawClicked();
@@ -102,7 +105,7 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 
 		setContentView(R.layout.activity_program_withdraw);
 
-		ButterKnife.bind(this);
+		unbinder = ButterKnife.bind(this);
 
 		if (getIntent().getExtras() != null) {
 			withdrawalRequest = getIntent().getExtras().getParcelable(EXTRA_REQUEST);
@@ -116,6 +119,19 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 			Timber.e("Passed empty request to WithdrawProgramActivity");
 			onBackPressed();
 		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		toolbar.onDestroy();
+		amountTextView.onDestroy();
+		keyboard.onDestroy();
+
+		if (unbinder != null) {
+			unbinder.unbind();
+		}
+
+		super.onDestroy();
 	}
 
 	private void initToolbar() {
@@ -143,15 +159,15 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	}
 
 	private void setFonts() {
-		availableTokens.setTypeface(TypefaceUtil.light(this));
-		balanceFiat.setTypeface(TypefaceUtil.light(this));
-		myBalanceLabel.setTypeface(TypefaceUtil.bold(this));
-		enterAmountLabel.setTypeface(TypefaceUtil.bold(this));
-		amountHintTextView.setTypeface(TypefaceUtil.light(this));
-		amountFiat.setTypeface(TypefaceUtil.light(this));
+		availableTokens.setTypeface(TypefaceUtil.light());
+		balanceFiat.setTypeface(TypefaceUtil.light());
+		myBalanceLabel.setTypeface(TypefaceUtil.bold());
+		enterAmountLabel.setTypeface(TypefaceUtil.bold());
+		amountHintTextView.setTypeface(TypefaceUtil.light());
+		amountFiat.setTypeface(TypefaceUtil.light());
 
-		balanceCurrency.setTypeface(TypefaceUtil.bold(this));
-		amountCurrency.setTypeface(TypefaceUtil.bold(this));
+		balanceCurrency.setTypeface(TypefaceUtil.bold());
+		amountCurrency.setTypeface(TypefaceUtil.bold());
 	}
 
 	@Override

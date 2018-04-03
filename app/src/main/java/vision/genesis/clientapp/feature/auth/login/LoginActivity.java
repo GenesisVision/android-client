@@ -29,7 +29,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 public class LoginActivity extends BaseSwipeBackActivity implements LoginView
 {
 	public static void startFrom(Activity activity) {
-		Intent intent = new Intent(activity, LoginActivity.class);
+		Intent intent = new Intent(activity.getApplicationContext(), LoginActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
@@ -96,8 +96,7 @@ public class LoginActivity extends BaseSwipeBackActivity implements LoginView
 	}
 
 	private void setFonts() {
-		signUpLabel.setTypeface(TypefaceUtil.regular(this));
-		signUpText.setTypeface(TypefaceUtil.bold(this));
+		signUpText.setTypeface(TypefaceUtil.bold());
 	}
 
 	private void initToolbar() {

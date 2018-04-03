@@ -25,6 +25,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import io.swagger.client.model.ProfileFullViewModel;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
@@ -116,6 +117,8 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 
 	private boolean editMode;
 
+	private Unbinder unbinder;
+
 	@OnClick(R.id.avatar)
 	public void onChangeAvatarClicked() {
 		if (editMode)
@@ -143,11 +146,19 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
-		ButterKnife.bind(this, view);
+		unbinder = ButterKnife.bind(this, view);
 
 		initToolbars();
 		initViews();
 		setEditMode(false);
+	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+
+		if (unbinder != null)
+			unbinder.unbind();
 	}
 
 	private void initToolbars() {

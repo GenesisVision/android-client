@@ -49,7 +49,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	private static String EXTRA_PROGRAM_ID = "extra_program_id";
 
 	public static void startWith(Activity activity, UUID programId) {
-		Intent intent = new Intent(activity, ProgramDetailsActivity.class);
+		Intent intent = new Intent(activity.getApplicationContext(), ProgramDetailsActivity.class);
 		intent.putExtra(EXTRA_PROGRAM_ID, programId);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
@@ -202,6 +202,16 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		}
 	}
 
+	@Override
+	protected void onDestroy() {
+		toolbar.onDestroy();
+		chart.onDestroy();
+		programDataView.onDestroy();
+		periodLeftView.onDestroy();
+
+		super.onDestroy();
+	}
+
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.program_details));
 		toolbar.addLeftButton(R.drawable.back_arrow, this::onBackPressed);
@@ -213,33 +223,33 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	private void initRefreshLayout() {
-		refreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimary),
-				ContextCompat.getColor(this, R.color.colorAccent),
-				ContextCompat.getColor(this, R.color.colorPrimaryDark));
+		refreshLayout.setColorSchemeColors(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary),
+				ContextCompat.getColor(getApplicationContext(), R.color.colorAccent),
+				ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
 		refreshLayout.setOnRefreshListener(() -> programDetailsPresenter.onSwipeRefresh());
 	}
 
 	private void setFonts() {
-		title.setTypeface(TypefaceUtil.bold(this));
+		title.setTypeface(TypefaceUtil.bold());
 
-		periodDuration.setTypeface(TypefaceUtil.bold(this));
-		periodDurationDays.setTypeface(TypefaceUtil.bold(this));
-		periodDurationLabel.setTypeface(TypefaceUtil.bold(this));
+		periodDuration.setTypeface(TypefaceUtil.bold());
+		periodDurationDays.setTypeface(TypefaceUtil.bold());
+		periodDurationLabel.setTypeface(TypefaceUtil.bold());
 
-		managerShare.setTypeface(TypefaceUtil.light(this));
-		managerSharePercent.setTypeface(TypefaceUtil.light(this));
-		managerShareLabel.setTypeface(TypefaceUtil.bold(this));
+		managerShare.setTypeface(TypefaceUtil.light());
+		managerSharePercent.setTypeface(TypefaceUtil.light());
+		managerShareLabel.setTypeface(TypefaceUtil.bold());
 
-		trades.setTypeface(TypefaceUtil.light(this));
-		tradesLabel.setTypeface(TypefaceUtil.bold(this));
+		trades.setTypeface(TypefaceUtil.light());
+		tradesLabel.setTypeface(TypefaceUtil.bold());
 
-		successFee.setTypeface(TypefaceUtil.light(this));
-		successFeePercent.setTypeface(TypefaceUtil.light(this));
-		successFeeLabel.setTypeface(TypefaceUtil.bold(this));
+		successFee.setTypeface(TypefaceUtil.light());
+		successFeePercent.setTypeface(TypefaceUtil.light());
+		successFeeLabel.setTypeface(TypefaceUtil.bold());
 
-		managementFee.setTypeface(TypefaceUtil.light(this));
-		managementFeePercent.setTypeface(TypefaceUtil.light(this));
-		managementFeeLabel.setTypeface(TypefaceUtil.bold(this));
+		managementFee.setTypeface(TypefaceUtil.light());
+		managementFeePercent.setTypeface(TypefaceUtil.light());
+		managementFeeLabel.setTypeface(TypefaceUtil.bold());
 	}
 
 	@Override
@@ -260,7 +270,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		if (programDetails.isIsHistoryEnable())
 			showHistoryButton();
 
-		programLogo.setImage(programDetails.getLogo());
+		programLogo.setImage(programDetails.getLogo(), 200, 200);
 		programLogo.setLevel(programDetails.getLevel());
 
 		title.setText(programDetails.getTitle());

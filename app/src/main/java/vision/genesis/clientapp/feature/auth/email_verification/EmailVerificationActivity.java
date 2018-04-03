@@ -19,7 +19,7 @@ import vision.genesis.clientapp.R;
 public class EmailVerificationActivity extends MvpAppCompatActivity implements EmailVerificationView
 {
 	public static void startFrom(Activity activity) {
-		activity.startActivity(new Intent(activity, EmailVerificationActivity.class));
+		activity.startActivity(new Intent(activity.getApplicationContext(), EmailVerificationActivity.class));
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
 

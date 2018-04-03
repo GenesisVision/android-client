@@ -24,8 +24,8 @@ android {
         targetSdkVersion 27
         multiDexEnabled true
 
-        versionCode 18033101
-        versionName "0.0.1-alpha"
+        versionCode 18040301
+        versionName "0.0.2-alpha"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         renderscriptTargetApi 27
@@ -124,8 +124,6 @@ dependencies {
 
     implementation 'com.facebook.fresco:fresco:1.0.0'
 
-    implementation 'com.wonderkiln:blurkit:1.0.0'
-
     implementation 'joda-time:joda-time:2.9.9'
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
@@ -145,6 +143,9 @@ dependencies {
     implementation('com.appyvet:materialrangebar:1.4.1') {
         exclude module: 'support-compat'
     }
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

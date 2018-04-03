@@ -15,23 +15,23 @@ import vision.genesis.clientapp.R;
 
 public class FilterSortingOption
 {
-	public static ArrayList<FilterSortingOption> getOptions(Context context) {
+	public static ArrayList<FilterSortingOption> getOptions(Context appContext) {
 		ArrayList<FilterSortingOption> options = new ArrayList<>();
-		options.add(new FilterSortingOption(context, InvestmentProgramsFilter.SortingEnum.BYPROFITDESC));
-		options.add(new FilterSortingOption(context, InvestmentProgramsFilter.SortingEnum.BYPROFITASC));
-		options.add(new FilterSortingOption(context, InvestmentProgramsFilter.SortingEnum.BYORDERSDESC));
-		options.add(new FilterSortingOption(context, InvestmentProgramsFilter.SortingEnum.BYORDERSASC));
-		options.add(new FilterSortingOption(context, InvestmentProgramsFilter.SortingEnum.BYLEVELDESC));
-		options.add(new FilterSortingOption(context, InvestmentProgramsFilter.SortingEnum.BYLEVELASC));
+		options.add(new FilterSortingOption(appContext, InvestmentProgramsFilter.SortingEnum.BYPROFITDESC));
+		options.add(new FilterSortingOption(appContext, InvestmentProgramsFilter.SortingEnum.BYPROFITASC));
+		options.add(new FilterSortingOption(appContext, InvestmentProgramsFilter.SortingEnum.BYORDERSDESC));
+		options.add(new FilterSortingOption(appContext, InvestmentProgramsFilter.SortingEnum.BYORDERSASC));
+		options.add(new FilterSortingOption(appContext, InvestmentProgramsFilter.SortingEnum.BYLEVELDESC));
+		options.add(new FilterSortingOption(appContext, InvestmentProgramsFilter.SortingEnum.BYLEVELASC));
 		return options;
 	}
 
 	public InvestmentProgramsFilter.SortingEnum option;
 
-	private Context context;
+	private Context appContext;
 
-	private FilterSortingOption(Context context, InvestmentProgramsFilter.SortingEnum option) {
-		this.context = context;
+	private FilterSortingOption(Context appContext, InvestmentProgramsFilter.SortingEnum option) {
+		this.appContext = appContext;
 		this.option = option;
 	}
 
@@ -44,17 +44,17 @@ public class FilterSortingOption
 	public String toString() {
 		switch (option) {
 			case BYPROFITDESC:
-				return String.format(Locale.getDefault(), "%s \u2193", context.getResources().getString(R.string.sort_by_profit));
+				return String.format(Locale.getDefault(), "%s \u2193", appContext.getResources().getString(R.string.sort_by_profit));
 			case BYPROFITASC:
-				return String.format(Locale.getDefault(), "%s \u2191", context.getResources().getString(R.string.sort_by_profit));
+				return String.format(Locale.getDefault(), "%s \u2191", appContext.getResources().getString(R.string.sort_by_profit));
 			case BYLEVELDESC:
-				return String.format(Locale.getDefault(), "%s \u2193", context.getResources().getString(R.string.sort_by_level));
+				return String.format(Locale.getDefault(), "%s \u2193", appContext.getResources().getString(R.string.sort_by_level));
 			case BYLEVELASC:
-				return String.format(Locale.getDefault(), "%s \u2191", context.getResources().getString(R.string.sort_by_level));
+				return String.format(Locale.getDefault(), "%s \u2191", appContext.getResources().getString(R.string.sort_by_level));
 			case BYORDERSDESC:
-				return String.format(Locale.getDefault(), "%s \u2193", context.getResources().getString(R.string.sort_by_orders));
+				return String.format(Locale.getDefault(), "%s \u2193", appContext.getResources().getString(R.string.sort_by_orders));
 			case BYORDERSASC:
-				return String.format(Locale.getDefault(), "%s \u2191", context.getResources().getString(R.string.sort_by_orders));
+				return String.format(Locale.getDefault(), "%s \u2191", appContext.getResources().getString(R.string.sort_by_orders));
 			default:
 				return "";
 		}

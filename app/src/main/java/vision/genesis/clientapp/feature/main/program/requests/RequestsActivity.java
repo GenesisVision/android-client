@@ -32,7 +32,7 @@ public class RequestsActivity extends BaseSwipeBackActivity implements RequestsV
 	private static String EXTRA_PROGRAM_ID = "extra_program_id";
 
 	public static void startWith(Activity activity, UUID programId) {
-		Intent intent = new Intent(activity, RequestsActivity.class);
+		Intent intent = new Intent(activity.getApplicationContext(), RequestsActivity.class);
 		intent.putExtra(EXTRA_PROGRAM_ID, programId);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
@@ -72,6 +72,13 @@ public class RequestsActivity extends BaseSwipeBackActivity implements RequestsV
 			Timber.e("Passed empty program to ProgramDetailsActivity");
 			onBackPressed();
 		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		recyclerView.setAdapter(null);
+
+		super.onDestroy();
 	}
 
 	private void initToolbar() {
