@@ -47,6 +47,7 @@ Name | Type | Description | Notes
 **isInvestEnable** | **Boolean** |  |  [optional]
 **isWithdrawEnable** | **Boolean** |  |  [optional]
 **isOwnProgram** | **Boolean** |  |  [optional]
+**canCloseProgram** | **Boolean** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

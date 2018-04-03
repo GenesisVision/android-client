@@ -614,11 +614,11 @@ public class InvestmentProgramsFilter
 
 		BYORDERSDESC("ByOrdersDesc"),
 
-		BYENDOFPERIODASK("ByEndOfPeriodAsk"),
+		BYENDOFPERIODASC("ByEndOfPeriodAsc"),
 
 		BYENDOFPERIODDESC("ByEndOfPeriodDesc"),
 
-		BYTITLEASK("ByTitleAsk"),
+		BYTITLEASC("ByTitleAsc"),
 
 		BYTITLEDESC("ByTitleDesc");
 

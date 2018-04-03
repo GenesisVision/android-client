@@ -38,9 +38,9 @@ BYPROFITASC | &quot;ByProfitAsc&quot;
 BYPROFITDESC | &quot;ByProfitDesc&quot;
 BYORDERSASC | &quot;ByOrdersAsc&quot;
 BYORDERSDESC | &quot;ByOrdersDesc&quot;
-BYENDOFPERIODASK | &quot;ByEndOfPeriodAsk&quot;
+BYENDOFPERIODASC | &quot;ByEndOfPeriodAsc&quot;
 BYENDOFPERIODDESC | &quot;ByEndOfPeriodDesc&quot;
-BYTITLEASK | &quot;ByTitleAsk&quot;
+BYTITLEASC | &quot;ByTitleAsc&quot;
 BYTITLEDESC | &quot;ByTitleDesc&quot;
 
 

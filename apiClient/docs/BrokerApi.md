@@ -5,11 +5,10 @@ All URIs are relative to *https://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiBrokerAccountCreatePost**](BrokerApi.md#apiBrokerAccountCreatePost) | **POST** api/broker/account/create | Create manager
+[**apiBrokerAuthChangePasswordPost**](BrokerApi.md#apiBrokerAuthChangePasswordPost) | **POST** api/broker/auth/changePassword | Change password
 [**apiBrokerAuthConfirmEmailPost**](BrokerApi.md#apiBrokerAuthConfirmEmailPost) | **POST** api/broker/auth/confirmEmail | Confirm email after registration
-[**apiBrokerAuthResetPasswordPost**](BrokerApi.md#apiBrokerAuthResetPasswordPost) | **POST** api/broker/auth/resetPassword | Reset password
 [**apiBrokerAuthSignInPost**](BrokerApi.md#apiBrokerAuthSignInPost) | **POST** api/broker/auth/signIn | Authorize
 [**apiBrokerAuthUpdateTokenGet**](BrokerApi.md#apiBrokerAuthUpdateTokenGet) | **GET** api/broker/auth/updateToken | Update auth token
-[**apiBrokerAuthhangePasswordPost**](BrokerApi.md#apiBrokerAuthhangePasswordPost) | **POST** api/broker/auth/сhangePassword | Change password
 [**apiBrokerInitDataGet**](BrokerApi.md#apiBrokerInitDataGet) | **GET** api/broker/initData | Get broker initial data
 [**apiBrokerPeriodAccrueProfitsPost**](BrokerApi.md#apiBrokerPeriodAccrueProfitsPost) | **POST** api/broker/period/accrueProfits | Accrue investors&#39; profits
 [**apiBrokerPeriodClosePost**](BrokerApi.md#apiBrokerPeriodClosePost) | **POST** api/broker/period/close | Close investment period
@@ -69,6 +68,51 @@ No authorization required
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
+<a name="apiBrokerAuthChangePasswordPost"></a>
+# **apiBrokerAuthChangePasswordPost**
+> Void apiBrokerAuthChangePasswordPost(authorization, model)
+
+Change password
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.BrokerApi;
+
+
+BrokerApi apiInstance = new BrokerApi();
+String authorization = "authorization_example"; // String | JWT access token
+ChangePasswordViewModel model = new ChangePasswordViewModel(); // ChangePasswordViewModel | 
+try {
+    Void result = apiInstance.apiBrokerAuthChangePasswordPost(authorization, model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling BrokerApi#apiBrokerAuthChangePasswordPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **model** | [**ChangePasswordViewModel**](ChangePasswordViewModel.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="apiBrokerAuthConfirmEmailPost"></a>
 # **apiBrokerAuthConfirmEmailPost**
 > String apiBrokerAuthConfirmEmailPost(userId, code)
@@ -112,49 +156,6 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="apiBrokerAuthResetPasswordPost"></a>
-# **apiBrokerAuthResetPasswordPost**
-> String apiBrokerAuthResetPasswordPost(model)
-
-Reset password
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.BrokerApi;
-
-
-BrokerApi apiInstance = new BrokerApi();
-ResetPasswordViewModel model = new ResetPasswordViewModel(); // ResetPasswordViewModel | 
-try {
-    String result = apiInstance.apiBrokerAuthResetPasswordPost(model);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling BrokerApi#apiBrokerAuthResetPasswordPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **model** | [**ResetPasswordViewModel**](ResetPasswordViewModel.md)|  | [optional]
-
-### Return type
-
-**String**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="apiBrokerAuthSignInPost"></a>
@@ -241,51 +242,6 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="apiBrokerAuthhangePasswordPost"></a>
-# **apiBrokerAuthhangePasswordPost**
-> Void apiBrokerAuthhangePasswordPost(authorization, model)
-
-Change password
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.BrokerApi;
-
-
-BrokerApi apiInstance = new BrokerApi();
-String authorization = "authorization_example"; // String | JWT access token
-ChangePasswordViewModel model = new ChangePasswordViewModel(); // ChangePasswordViewModel | 
-try {
-    Void result = apiInstance.apiBrokerAuthhangePasswordPost(authorization, model);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling BrokerApi#apiBrokerAuthhangePasswordPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **model** | [**ChangePasswordViewModel**](ChangePasswordViewModel.md)|  | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="apiBrokerInitDataGet"></a>

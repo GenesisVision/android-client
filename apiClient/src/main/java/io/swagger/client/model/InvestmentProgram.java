@@ -113,6 +113,9 @@ public class InvestmentProgram
 	@SerializedName("isOwnProgram")
 	private Boolean isOwnProgram = null;
 
+	@SerializedName("canCloseProgram")
+	private Boolean canCloseProgram = null;
+
 	public InvestmentProgram id(UUID id) {
 		this.id = id;
 		return this;
@@ -615,6 +618,25 @@ public class InvestmentProgram
 		this.isOwnProgram = isOwnProgram;
 	}
 
+	public InvestmentProgram canCloseProgram(Boolean canCloseProgram) {
+		this.canCloseProgram = canCloseProgram;
+		return this;
+	}
+
+	/**
+	 * Get canCloseProgram
+	 *
+	 * @return canCloseProgram
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isCanCloseProgram() {
+		return canCloseProgram;
+	}
+
+	public void setCanCloseProgram(Boolean canCloseProgram) {
+		this.canCloseProgram = canCloseProgram;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -649,12 +671,13 @@ public class InvestmentProgram
 				Objects.equals(this.manager, investmentProgram.manager) &&
 				Objects.equals(this.hasNewRequests, investmentProgram.hasNewRequests) &&
 				Objects.equals(this.isInvestEnable, investmentProgram.isInvestEnable) &&
-				Objects.equals(this.isOwnProgram, investmentProgram.isOwnProgram);
+				Objects.equals(this.isOwnProgram, investmentProgram.isOwnProgram) &&
+				Objects.equals(this.canCloseProgram, investmentProgram.canCloseProgram);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, logo, isEnabled, balance, currency, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, chart, manager, hasNewRequests, isInvestEnable, isOwnProgram);
+		return Objects.hash(id, title, description, level, logo, isEnabled, balance, currency, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, chart, manager, hasNewRequests, isInvestEnable, isOwnProgram, canCloseProgram);
 	}
 
 	@Override
@@ -688,6 +711,7 @@ public class InvestmentProgram
 		sb.append("    hasNewRequests: ").append(toIndentedString(hasNewRequests)).append("\n");
 		sb.append("    isInvestEnable: ").append(toIndentedString(isInvestEnable)).append("\n");
 		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
+		sb.append("    canCloseProgram: ").append(toIndentedString(canCloseProgram)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

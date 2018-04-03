@@ -136,16 +136,13 @@ dependencies {
 
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.6.0'
 
-    implementation ('com.wdullaer:materialdatetimepicker:3.5.1') {
+    implementation('com.wdullaer:materialdatetimepicker:3.5.1') {
         exclude group: 'com.android.support'
     }
 
     implementation('com.appyvet:materialrangebar:1.4.1') {
         exclude module: 'support-compat'
     }
-
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

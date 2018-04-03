@@ -30,6 +30,7 @@ Name | Type | Description | Notes
 **hasNewRequests** | **Boolean** |  |  [optional]
 **isInvestEnable** | **Boolean** |  |  [optional]
 **isOwnProgram** | **Boolean** |  |  [optional]
+**canCloseProgram** | **Boolean** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

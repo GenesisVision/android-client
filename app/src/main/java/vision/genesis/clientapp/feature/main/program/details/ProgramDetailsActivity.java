@@ -279,7 +279,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		chart.setChart(programDetails.getChart());
 
 		programDataView.setData(programDetails.getProfitTotal(),
-				programDetails.getProfitAvg(),
+				programDetails.getProfitAvgPercent(),
 				programDetails.getBalance(),
 				programDetails.getInvestorsCount(),
 				programDetails.getCurrency().toString());

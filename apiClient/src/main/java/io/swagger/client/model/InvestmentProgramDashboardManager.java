@@ -99,6 +99,9 @@ public class InvestmentProgramDashboardManager
 	@SerializedName("login")
 	private String login = null;
 
+	@SerializedName("canCloseProgram")
+	private Boolean canCloseProgram = null;
+
 	public InvestmentProgramDashboardManager id(UUID id) {
 		this.id = id;
 		return this;
@@ -517,6 +520,25 @@ public class InvestmentProgramDashboardManager
 		this.login = login;
 	}
 
+	public InvestmentProgramDashboardManager canCloseProgram(Boolean canCloseProgram) {
+		this.canCloseProgram = canCloseProgram;
+		return this;
+	}
+
+	/**
+	 * Get canCloseProgram
+	 *
+	 * @return canCloseProgram
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isCanCloseProgram() {
+		return canCloseProgram;
+	}
+
+	public void setCanCloseProgram(Boolean canCloseProgram) {
+		this.canCloseProgram = canCloseProgram;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -547,12 +569,13 @@ public class InvestmentProgramDashboardManager
 				Objects.equals(this.ownBalance, investmentProgramDashboardManager.ownBalance) &&
 				Objects.equals(this.minAccountBalanceUsd, investmentProgramDashboardManager.minAccountBalanceUsd) &&
 				Objects.equals(this.minAccountBalance, investmentProgramDashboardManager.minAccountBalance) &&
-				Objects.equals(this.login, investmentProgramDashboardManager.login);
+				Objects.equals(this.login, investmentProgramDashboardManager.login) &&
+				Objects.equals(this.canCloseProgram, investmentProgramDashboardManager.canCloseProgram);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, logo, balance, currency, tradesCount, periodDuration, investorsCount, isEnabled, startOfPeriod, profitTotal, profitTotalGvt, profitCurrent, isInvestEnable, isWithdrawEnable, token, ownBalance, minAccountBalanceUsd, minAccountBalance, login);
+		return Objects.hash(id, title, description, level, logo, balance, currency, tradesCount, periodDuration, investorsCount, isEnabled, startOfPeriod, profitTotal, profitTotalGvt, profitCurrent, isInvestEnable, isWithdrawEnable, token, ownBalance, minAccountBalanceUsd, minAccountBalance, login, canCloseProgram);
 	}
 
 	@Override
@@ -582,6 +605,7 @@ public class InvestmentProgramDashboardManager
 		sb.append("    minAccountBalanceUsd: ").append(toIndentedString(minAccountBalanceUsd)).append("\n");
 		sb.append("    minAccountBalance: ").append(toIndentedString(minAccountBalance)).append("\n");
 		sb.append("    login: ").append(toIndentedString(login)).append("\n");
+		sb.append("    canCloseProgram: ").append(toIndentedString(canCloseProgram)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

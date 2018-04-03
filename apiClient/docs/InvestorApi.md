@@ -4,13 +4,13 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**apiInvestorAuthChangePasswordPost**](InvestorApi.md#apiInvestorAuthChangePasswordPost) | **POST** api/investor/auth/changePassword | Change password
 [**apiInvestorAuthConfirmEmailPost**](InvestorApi.md#apiInvestorAuthConfirmEmailPost) | **POST** api/investor/auth/confirmEmail | Confirm email after registration
-[**apiInvestorAuthForgotPasswordPost**](InvestorApi.md#apiInvestorAuthForgotPasswordPost) | **POST** api/investor/auth/forgotPassword | Forgot password
+[**apiInvestorAuthForgotPasswordPost**](InvestorApi.md#apiInvestorAuthForgotPasswordPost) | **POST** api/investor/auth/forgotPassword | Forgot password investor
 [**apiInvestorAuthResetPasswordPost**](InvestorApi.md#apiInvestorAuthResetPasswordPost) | **POST** api/investor/auth/resetPassword | Reset password
 [**apiInvestorAuthSignInPost**](InvestorApi.md#apiInvestorAuthSignInPost) | **POST** api/investor/auth/signIn | Authorize
 [**apiInvestorAuthSignUpPost**](InvestorApi.md#apiInvestorAuthSignUpPost) | **POST** api/investor/auth/signUp | Register new investor
 [**apiInvestorAuthUpdateTokenGet**](InvestorApi.md#apiInvestorAuthUpdateTokenGet) | **GET** api/investor/auth/updateToken | Update auth token
-[**apiInvestorAuthhangePasswordPost**](InvestorApi.md#apiInvestorAuthhangePasswordPost) | **POST** api/investor/auth/сhangePassword | Change password
 [**apiInvestorDashboardGet**](InvestorApi.md#apiInvestorDashboardGet) | **GET** api/investor/dashboard | Get investor dashboard
 [**apiInvestorInvestmentProgramBuyTokensGet**](InvestorApi.md#apiInvestorInvestmentProgramBuyTokensGet) | **GET** api/investor/investmentProgram/buyTokens | Get investment program buy token model
 [**apiInvestorInvestmentProgramGet**](InvestorApi.md#apiInvestorInvestmentProgramGet) | **GET** api/investor/investmentProgram | Get investment program details by id
@@ -32,6 +32,51 @@ Method | HTTP request | Description
 [**apiInvestorWalletTransactionsPost**](InvestorApi.md#apiInvestorWalletTransactionsPost) | **POST** api/investor/wallet/transactions | Get user wallet transactions
 [**apiInvestorWalletWithdrawRequestPost**](InvestorApi.md#apiInvestorWalletWithdrawRequestPost) | **POST** api/investor/wallet/withdrawRequest | Withdraw request
 
+
+<a name="apiInvestorAuthChangePasswordPost"></a>
+# **apiInvestorAuthChangePasswordPost**
+> Void apiInvestorAuthChangePasswordPost(authorization, model)
+
+Change password
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+String authorization = "authorization_example"; // String | JWT access token
+ChangePasswordViewModel model = new ChangePasswordViewModel(); // ChangePasswordViewModel | 
+try {
+    Void result = apiInstance.apiInvestorAuthChangePasswordPost(authorization, model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorAuthChangePasswordPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **model** | [**ChangePasswordViewModel**](ChangePasswordViewModel.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
 
 <a name="apiInvestorAuthConfirmEmailPost"></a>
 # **apiInvestorAuthConfirmEmailPost**
@@ -82,7 +127,7 @@ No authorization required
 # **apiInvestorAuthForgotPasswordPost**
 > Void apiInvestorAuthForgotPasswordPost(model)
 
-Forgot password
+Forgot password investor
 
 ### Example
 ```java
@@ -293,51 +338,6 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="apiInvestorAuthhangePasswordPost"></a>
-# **apiInvestorAuthhangePasswordPost**
-> Void apiInvestorAuthhangePasswordPost(authorization, model)
-
-Change password
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.InvestorApi;
-
-
-InvestorApi apiInstance = new InvestorApi();
-String authorization = "authorization_example"; // String | JWT access token
-ChangePasswordViewModel model = new ChangePasswordViewModel(); // ChangePasswordViewModel | 
-try {
-    Void result = apiInstance.apiInvestorAuthhangePasswordPost(authorization, model);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling InvestorApi#apiInvestorAuthhangePasswordPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **model** | [**ChangePasswordViewModel**](ChangePasswordViewModel.md)|  | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
 <a name="apiInvestorDashboardGet"></a>
 # **apiInvestorDashboardGet**
 > InvestorDashboard apiInvestorDashboardGet(authorization, sorting)
@@ -368,7 +368,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByOrdersAsc, ByOrdersDesc, ByEndOfPeriodAsk, ByEndOfPeriodDesc, ByTitleAsk, ByTitleDesc]
+ **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByOrdersAsc, ByOrdersDesc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc]
 
 ### Return type
 

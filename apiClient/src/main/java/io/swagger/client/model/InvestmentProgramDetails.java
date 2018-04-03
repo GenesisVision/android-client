@@ -164,6 +164,9 @@ public class InvestmentProgramDetails
 	@SerializedName("isOwnProgram")
 	private Boolean isOwnProgram = null;
 
+	@SerializedName("canCloseProgram")
+	private Boolean canCloseProgram = null;
+
 	public InvestmentProgramDetails id(UUID id) {
 		this.id = id;
 		return this;
@@ -989,6 +992,25 @@ public class InvestmentProgramDetails
 		this.isOwnProgram = isOwnProgram;
 	}
 
+	public InvestmentProgramDetails canCloseProgram(Boolean canCloseProgram) {
+		this.canCloseProgram = canCloseProgram;
+		return this;
+	}
+
+	/**
+	 * Get canCloseProgram
+	 *
+	 * @return canCloseProgram
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isCanCloseProgram() {
+		return canCloseProgram;
+	}
+
+	public void setCanCloseProgram(Boolean canCloseProgram) {
+		this.canCloseProgram = canCloseProgram;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -1040,12 +1062,13 @@ public class InvestmentProgramDetails
 				Objects.equals(this.isHistoryEnable, investmentProgramDetails.isHistoryEnable) &&
 				Objects.equals(this.isInvestEnable, investmentProgramDetails.isInvestEnable) &&
 				Objects.equals(this.isWithdrawEnable, investmentProgramDetails.isWithdrawEnable) &&
-				Objects.equals(this.isOwnProgram, investmentProgramDetails.isOwnProgram);
+				Objects.equals(this.isOwnProgram, investmentProgramDetails.isOwnProgram) &&
+				Objects.equals(this.canCloseProgram, investmentProgramDetails.canCloseProgram);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, investedAmount, profitFromProgram, tradesCount, investorsCount, periodDuration, programStartDate, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, volumeTotal, volumeAvg, volumeTotalChange, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, isEnabled, minAccountBalanceUsd, minAccountBalance, chart, token, manager, profitDiagram, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
+		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, investedAmount, profitFromProgram, tradesCount, investorsCount, periodDuration, programStartDate, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, volumeTotal, volumeAvg, volumeTotalChange, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, isEnabled, minAccountBalanceUsd, minAccountBalance, chart, token, manager, profitDiagram, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram, canCloseProgram);
 	}
 
 	@Override
@@ -1096,6 +1119,7 @@ public class InvestmentProgramDetails
 		sb.append("    isInvestEnable: ").append(toIndentedString(isInvestEnable)).append("\n");
 		sb.append("    isWithdrawEnable: ").append(toIndentedString(isWithdrawEnable)).append("\n");
 		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
+		sb.append("    canCloseProgram: ").append(toIndentedString(canCloseProgram)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

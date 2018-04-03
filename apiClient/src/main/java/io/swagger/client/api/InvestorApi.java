@@ -38,6 +38,21 @@ import rx.Observable;
 public interface InvestorApi
 {
 	/**
+	 * Change password
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/investor/auth/changePassword")
+	Observable<Void> apiInvestorAuthChangePasswordPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ChangePasswordViewModel model
+	);
+
+	/**
 	 * Confirm email after registration
 	 *
 	 * @param userId (optional)
@@ -50,7 +65,7 @@ public interface InvestorApi
 	);
 
 	/**
-	 * Forgot password
+	 * Forgot password investor
 	 *
 	 * @param model (optional)
 	 * @return Call&lt;Void&gt;
@@ -114,21 +129,6 @@ public interface InvestorApi
 	@GET("api/investor/auth/updateToken")
 	Observable<String> apiInvestorAuthUpdateTokenGet(
 			@retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
-	 * Change password
-	 *
-	 * @param authorization JWT access token (required)
-	 * @param model         (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("api/investor/auth/сhangePassword")
-	Observable<Void> apiInvestorAuthhangePasswordPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ChangePasswordViewModel model
 	);
 
 	/**

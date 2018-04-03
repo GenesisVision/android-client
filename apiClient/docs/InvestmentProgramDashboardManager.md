@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **minAccountBalanceUsd** | **Double** |  |  [optional]
 **minAccountBalance** | **Double** |  |  [optional]
 **login** | **String** |  |  [optional]
+**canCloseProgram** | **Boolean** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

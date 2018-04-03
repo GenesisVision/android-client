@@ -58,6 +58,21 @@ public interface ManagerApi
 	);
 
 	/**
+	 * Change password
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/manager/auth/changePassword")
+	Observable<Void> apiManagerAuthChangePasswordPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ChangePasswordViewModel model
+	);
+
+	/**
 	 * Confirm email after registration
 	 *
 	 * @param userId (optional)
@@ -70,7 +85,7 @@ public interface ManagerApi
 	);
 
 	/**
-	 * Forgot password
+	 * Forgot password manager
 	 *
 	 * @param model (optional)
 	 * @return Call&lt;Void&gt;
@@ -134,21 +149,6 @@ public interface ManagerApi
 	@GET("api/manager/auth/updateToken")
 	Observable<String> apiManagerAuthUpdateTokenGet(
 			@retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
-	 * Change password
-	 *
-	 * @param authorization JWT access token (required)
-	 * @param model         (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("api/manager/auth/сhangePassword")
-	Observable<Void> apiManagerAuthhangePasswordPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ChangePasswordViewModel model
 	);
 
 	/**

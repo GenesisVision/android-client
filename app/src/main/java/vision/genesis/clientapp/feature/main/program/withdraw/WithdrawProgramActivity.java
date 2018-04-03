@@ -15,7 +15,6 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
@@ -87,8 +86,6 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 
 	private ProgramRequest withdrawalRequest;
 
-	private Unbinder unbinder;
-
 	@OnClick(R.id.button_withdraw)
 	public void onWithdrawClicked() {
 		withdrawProgramPresenter.onWithdrawClicked();
@@ -105,7 +102,7 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 
 		setContentView(R.layout.activity_program_withdraw);
 
-		unbinder = ButterKnife.bind(this);
+		ButterKnife.bind(this);
 
 		if (getIntent().getExtras() != null) {
 			withdrawalRequest = getIntent().getExtras().getParcelable(EXTRA_REQUEST);
@@ -126,10 +123,6 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 		toolbar.onDestroy();
 		amountTextView.onDestroy();
 		keyboard.onDestroy();
-
-		if (unbinder != null) {
-			unbinder.unbind();
-		}
 
 		super.onDestroy();
 	}

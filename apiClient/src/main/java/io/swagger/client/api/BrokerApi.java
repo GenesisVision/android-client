@@ -11,7 +11,6 @@ import io.swagger.client.model.ManagerHistoryIpfsHash;
 import io.swagger.client.model.NewManager;
 import io.swagger.client.model.NewOpenTradesEvent;
 import io.swagger.client.model.NewTradeEvent;
-import io.swagger.client.model.ResetPasswordViewModel;
 import io.swagger.client.model.StartValues;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -36,6 +35,21 @@ public interface BrokerApi
 	);
 
 	/**
+	 * Change password
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/broker/auth/changePassword")
+	Observable<Void> apiBrokerAuthChangePasswordPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ChangePasswordViewModel model
+	);
+
+	/**
 	 * Confirm email after registration
 	 *
 	 * @param userId (optional)
@@ -45,20 +59,6 @@ public interface BrokerApi
 	@POST("api/broker/auth/confirmEmail")
 	Observable<String> apiBrokerAuthConfirmEmailPost(
 			@retrofit2.http.Query("userId") String userId, @retrofit2.http.Query("code") String code
-	);
-
-	/**
-	 * Reset password
-	 *
-	 * @param model (optional)
-	 * @return Call&lt;String&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("api/broker/auth/resetPassword")
-	Observable<String> apiBrokerAuthResetPasswordPost(
-			@retrofit2.http.Body ResetPasswordViewModel model
 	);
 
 	/**
@@ -84,21 +84,6 @@ public interface BrokerApi
 	@GET("api/broker/auth/updateToken")
 	Observable<String> apiBrokerAuthUpdateTokenGet(
 			@retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
-	 * Change password
-	 *
-	 * @param authorization JWT access token (required)
-	 * @param model         (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("api/broker/auth/сhangePassword")
-	Observable<Void> apiBrokerAuthhangePasswordPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ChangePasswordViewModel model
 	);
 
 	/**

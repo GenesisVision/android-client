@@ -123,7 +123,7 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 					investmentProgram.getManager().getUsername()));
 
 			programDataView.setData(investmentProgram.getProfitTotal(),
-					investmentProgram.getProfitAvg(),
+					investmentProgram.getProfitAvgPercent(),
 					investmentProgram.getBalance(),
 					investmentProgram.getInvestorsCount(),
 					investmentProgram.getCurrency().toString());

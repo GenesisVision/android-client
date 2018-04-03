@@ -134,7 +134,7 @@ public class AuthManager
 		model.setOldPassword(oldPassword);
 		model.setPassword(newPassword);
 		model.setConfirmPassword(confirmPassword);
-		return investorApi.apiInvestorAuthhangePasswordPost(AuthManager.token.getValue(), model);
+		return investorApi.apiInvestorAuthChangePasswordPost(AuthManager.token.getValue(), model);
 	}
 
 	private Observable<String> getUpdateTokenObservable() {
