@@ -83,8 +83,10 @@ public class PeriodLeftView extends RelativeLayout
 		if (timeSubscription != null)
 			timeSubscription.unsubscribe();
 
-		if (unbinder != null)
+		if (unbinder != null) {
 			unbinder.unbind();
+			unbinder = null;
+		}
 	}
 
 	protected void setFonts() {

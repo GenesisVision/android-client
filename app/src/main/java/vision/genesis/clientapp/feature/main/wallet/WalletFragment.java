@@ -19,6 +19,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import io.swagger.client.model.TransactionsFilter;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -70,6 +71,8 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 	private Fragment currentFragment;
 
+	private Unbinder unbinder;
+
 	@OnClick(R.id.group_balance)
 	public void onBalanceGroupClicked() {
 		walletPresenter.onBalanceGroupClicked();
@@ -95,7 +98,7 @@ public class WalletFragment extends BaseFragment implements WalletView
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
-		ButterKnife.bind(this, view);
+		unbinder = ButterKnife.bind(this, view);
 
 		initToolbar();
 		initSpinner();
@@ -115,7 +118,13 @@ public class WalletFragment extends BaseFragment implements WalletView
 		if (pagerAdapter != null)
 			pagerAdapter.destroy();
 
-		viewPager.addOnPageChangeListener(walletPresenter);
+		if (viewPager != null)
+			viewPager.addOnPageChangeListener(walletPresenter);
+
+		if (unbinder != null) {
+			unbinder.unbind();
+			unbinder = null;
+		}
 
 		super.onDestroyView();
 	}

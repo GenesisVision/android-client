@@ -57,8 +57,10 @@ public class ProfileDataView extends RelativeLayout
 	}
 
 	public void onDestroy() {
-		if (unbinder != null)
+		if (unbinder != null) {
 			unbinder.unbind();
+			unbinder = null;
+		}
 	}
 
 	private void initView() {

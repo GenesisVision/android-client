@@ -98,13 +98,15 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 
 	@Override
 	public void onDestroyView() {
-		super.onDestroyView();
-
-		recyclerView.setAdapter(null);
+		if (recyclerView != null)
+			recyclerView.setAdapter(null);
 
 		if (unbinder != null) {
 			unbinder.unbind();
+			unbinder = null;
 		}
+
+		super.onDestroyView();
 	}
 
 	private void setFonts() {

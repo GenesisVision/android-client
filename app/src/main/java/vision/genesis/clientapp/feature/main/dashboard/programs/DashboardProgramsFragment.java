@@ -92,12 +92,15 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 
 	@Override
 	public void onDestroyView() {
-		super.onDestroyView();
+		if (recyclerView != null)
+			recyclerView.setAdapter(null);
 
-		recyclerView.setAdapter(null);
-
-		if (unbinder != null)
+		if (unbinder != null) {
 			unbinder.unbind();
+			unbinder = null;
+		}
+
+		super.onDestroyView();
 	}
 
 	private void initRefreshLayout() {

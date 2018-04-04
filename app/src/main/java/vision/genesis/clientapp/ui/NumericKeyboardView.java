@@ -350,8 +350,10 @@ public class NumericKeyboardView extends RelativeLayout
 	}
 
 	public void onDestroy() {
-		if (unbinder != null)
+		if (unbinder != null) {
 			unbinder.unbind();
+			unbinder = null;
+		}
 
 		listener = null;
 	}

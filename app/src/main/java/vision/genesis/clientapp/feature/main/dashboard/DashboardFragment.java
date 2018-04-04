@@ -104,10 +104,13 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 		if (tabLayoutOnPageChangeListener != null)
 			viewPager.removeOnPageChangeListener(tabLayoutOnPageChangeListener);
 
-		viewPager.clearOnPageChangeListeners();
+		if (viewPager != null)
+			viewPager.clearOnPageChangeListeners();
 
-		if (unbinder != null)
+		if (unbinder != null) {
 			unbinder.unbind();
+			unbinder = null;
+		}
 
 		super.onDestroyView();
 	}

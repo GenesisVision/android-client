@@ -155,10 +155,12 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 
 	@Override
 	public void onDestroyView() {
-		super.onDestroyView();
-
-		if (unbinder != null)
+		if (unbinder != null) {
 			unbinder.unbind();
+			unbinder = null;
+		}
+
+		super.onDestroyView();
 	}
 
 	private void initToolbars() {

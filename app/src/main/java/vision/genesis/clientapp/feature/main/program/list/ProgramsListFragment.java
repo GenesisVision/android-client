@@ -126,12 +126,15 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	@Override
 	public void onDestroyView() {
-		super.onDestroyView();
+		if (recyclerView != null)
+			recyclerView.setAdapter(null);
 
-		recyclerView.setAdapter(null);
-
-		if (unbinder != null)
+		if (unbinder != null) {
 			unbinder.unbind();
+			unbinder = null;
+		}
+
+		super.onDestroyView();
 	}
 
 	private void setFonts() {

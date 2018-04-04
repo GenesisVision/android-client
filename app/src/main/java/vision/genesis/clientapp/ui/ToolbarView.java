@@ -135,7 +135,9 @@ public class ToolbarView extends RelativeLayout
 		leftButtonClickListener = null;
 		rightButtonClickListener = null;
 
-		if (unbinder != null)
+		if (unbinder != null) {
 			unbinder.unbind();
+			unbinder = null;
+		}
 	}
 }
