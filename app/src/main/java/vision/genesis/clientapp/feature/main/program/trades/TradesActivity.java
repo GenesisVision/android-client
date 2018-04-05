@@ -8,16 +8,19 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.OrderModel;
+import io.swagger.client.model.TradesViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
@@ -44,6 +47,9 @@ public class TradesActivity extends BaseSwipeBackActivity implements TradesView
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
 
+	@BindView(R.id.header)
+	public ViewGroup header;
+
 	@BindView(R.id.group_no_trades)
 	public View groupNoTransactions;
 
@@ -56,14 +62,20 @@ public class TradesActivity extends BaseSwipeBackActivity implements TradesView
 	@BindView(R.id.recycler_view)
 	public RecyclerView recyclerView;
 
-	@BindView(R.id.header_date)
-	public TextView date;
+	@BindView(R.id.header_date_open)
+	public TextView dateOpen;
+
+	@BindView(R.id.header_date_close)
+	public TextView dateClose;
 
 	@BindView(R.id.header_symbol)
 	public TextView symbol;
 
-	@BindView(R.id.header_price)
-	public TextView price;
+	@BindView(R.id.header_price_open)
+	public TextView priceOpen;
+
+	@BindView(R.id.header_price_close)
+	public TextView priceClose;
 
 	@BindView(R.id.header_volume)
 	public TextView volume;
@@ -116,9 +128,11 @@ public class TradesActivity extends BaseSwipeBackActivity implements TradesView
 
 	private void setFonts() {
 		whoopsLabel.setTypeface(TypefaceUtil.bold());
-		date.setTypeface(TypefaceUtil.bold());
+		dateOpen.setTypeface(TypefaceUtil.bold());
+		dateClose.setTypeface(TypefaceUtil.bold());
 		symbol.setTypeface(TypefaceUtil.bold());
-		price.setTypeface(TypefaceUtil.bold());
+		priceOpen.setTypeface(TypefaceUtil.bold());
+		priceClose.setTypeface(TypefaceUtil.bold());
 		volume.setTypeface(TypefaceUtil.bold());
 		profit.setTypeface(TypefaceUtil.bold());
 		direction.setTypeface(TypefaceUtil.bold());
@@ -136,7 +150,7 @@ public class TradesActivity extends BaseSwipeBackActivity implements TradesView
 		recyclerView.setLayoutManager(layoutManager);
 		tradesListAdapter = new TradesListAdapter();
 		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,
-				ContextCompat.getDrawable(this, R.drawable.divider_dot_horizontal),
+				ContextCompat.getDrawable(this, R.drawable.list_item_divider),
 				20, 20);
 		recyclerView.addItemDecoration(dividerItemDecoration);
 		recyclerView.setAdapter(tradesListAdapter);
@@ -162,12 +176,14 @@ public class TradesActivity extends BaseSwipeBackActivity implements TradesView
 	}
 
 	@Override
-	public void setTrades(List<OrderModel> trades) {
-		tradesListAdapter.setTrades(trades);
+	public void setTrades(List<OrderModel> trades, TradesViewModel.TradeServerTypeEnum tradeServerType) {
+		if (trades.isEmpty()) {
+			groupNoTransactions.setVisibility(View.VISIBLE);
+			return;
+		}
 
-		groupNoTransactions.setVisibility(trades.size() == 0
-				? View.VISIBLE
-				: View.GONE);
+		tradesListAdapter.setTrades(trades, tradeServerType);
+		header.setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -178,5 +194,25 @@ public class TradesActivity extends BaseSwipeBackActivity implements TradesView
 	@Override
 	public void showSnackbarMessage(String message) {
 		showSnackbar(message, recyclerView);
+	}
+
+	@Override
+	public void setTradeServerType(TradesViewModel.TradeServerTypeEnum tradeServerType) {
+		switch (tradeServerType) {
+			case METATRADER4:
+				dateClose.setVisibility(View.VISIBLE);
+				priceClose.setVisibility(View.VISIBLE);
+
+				dateOpen.setText(String.format(Locale.getDefault(), "%s %s", getString(R.string.date), getString(R.string.open)));
+				priceOpen.setText(String.format(Locale.getDefault(), "%s %s", getString(R.string.price), getString(R.string.open)));
+				break;
+			default:
+				dateClose.setVisibility(View.GONE);
+				priceClose.setVisibility(View.GONE);
+
+				dateOpen.setText(getString(R.string.date));
+				priceOpen.setText(getString(R.string.price));
+				break;
+		}
 	}
 }

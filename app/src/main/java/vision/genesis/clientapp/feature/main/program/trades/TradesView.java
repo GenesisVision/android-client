@@ -5,6 +5,7 @@ import com.arellomobile.mvp.MvpView;
 import java.util.List;
 
 import io.swagger.client.model.OrderModel;
+import io.swagger.client.model.TradesViewModel;
 
 /**
  * GenesisVision
@@ -15,9 +16,11 @@ interface TradesView extends MvpView
 {
 	void setRefreshing(boolean refreshing);
 
-	void setTrades(List<OrderModel> trades);
+	void setTrades(List<OrderModel> trades, TradesViewModel.TradeServerTypeEnum tradeServerType);
 
 	void addTrades(List<OrderModel> trades);
 
 	void showSnackbarMessage(String message);
+
+	void setTradeServerType(TradesViewModel.TradeServerTypeEnum tradeServerType);
 }

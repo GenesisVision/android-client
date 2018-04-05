@@ -17,21 +17,11 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/activity_trades_header_height"
+                android:visibility="invisible"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/header_date"
-                    style="@style/trades_header_text"
-                    android:layout_weight="1"
-                    android:text="@string/date"/>
-
-                <TextView
-                    android:id="@+id/header_symbol"
-                    style="@style/trades_header_text"
-                    android:layout_weight="1"
-                    android:text="@string/symbol"/>
 
                 <LinearLayout
                     style="@style/trades_header_text"
@@ -41,14 +31,54 @@
                     android:paddingStart="8dp">
 
                     <TextView
-                        android:id="@+id/header_price"
+                        android:id="@+id/header_date_open"
                         style="@style/trades_header_text_stacked"
-                        android:text="@string/price"/>
+                        android:text="@string/date"/>
+
+                    <TextView
+                        android:id="@+id/header_date_close"
+                        style="@style/trades_header_text_stacked"
+                        android:text="@string/date_close"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/trades_header_text"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingLeft="8dp"
+                    android:paddingStart="8dp">
+
+                    <TextView
+                        android:id="@+id/header_symbol"
+                        style="@style/trades_header_text_stacked"
+                        android:gravity="center"
+                        android:text="@string/symbol"/>
 
                     <TextView
                         android:id="@+id/header_volume"
                         style="@style/trades_header_text_stacked"
+                        android:gravity="center"
                         android:text="@string/volume"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/trades_header_text"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingLeft="8dp"
+                    android:paddingStart="8dp">
+
+                    <TextView
+                        android:id="@+id/header_price_open"
+                        style="@style/trades_header_text_stacked"
+                        android:text="@string/price"/>
+
+                    <TextView
+                        android:id="@+id/header_price_close"
+                        style="@style/trades_header_text_stacked"
+                        android:text="@string/price_close"/>
 
                 </LinearLayout>
 
@@ -77,8 +107,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layerType="software"/>
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
 

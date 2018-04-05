@@ -214,6 +214,10 @@
     <string name="current_password">Current password</string>
     <string name="new_password">New password</string>
     <string name="password_changed">Password has been successfully changed</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
+    <string name="date_close">Date close</string>
+    <string name="price_close">Price close</string>
 
     <string-array name="transactions_filter">
         <item>All Transactions</item>

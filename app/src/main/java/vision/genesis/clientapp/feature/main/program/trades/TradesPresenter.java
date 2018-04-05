@@ -103,10 +103,11 @@ public class TradesPresenter extends MvpPresenter<TradesView>
 
 		getViewState().setRefreshing(false);
 
+		getViewState().setTradeServerType(model.getTradeServerType());
 		List<OrderModel> trades = model.getTrades();
 
 		if (skip == 0)
-			getViewState().setTrades(trades);
+			getViewState().setTrades(trades, model.getTradeServerType());
 		else
 			getViewState().addTrades(trades);
 
