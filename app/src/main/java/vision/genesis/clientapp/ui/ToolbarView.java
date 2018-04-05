@@ -9,10 +9,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -27,6 +30,10 @@ public class ToolbarView extends RelativeLayout
 	{
 		void onClicked();
 	}
+
+	@BindView(R.id.version)
+	public TextView version;
+
 
 	@BindView(R.id.title)
 	public TextView title;
@@ -84,6 +91,8 @@ public class ToolbarView extends RelativeLayout
 		unbinder = ButterKnife.bind(this);
 
 		setFonts();
+
+		version.setText(String.format(Locale.getDefault(), "%s (%d)", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
 	}
 
 	private void setFonts() {
@@ -92,6 +101,7 @@ public class ToolbarView extends RelativeLayout
 
 	public void setWhite() {
 		int whiteColor = ContextCompat.getColor(getContext(), R.color.white);
+		version.setTextColor(whiteColor);
 		title.setTextColor(whiteColor);
 		subtitle.setTextColor(whiteColor);
 		leftButton.setColorFilter(whiteColor);
