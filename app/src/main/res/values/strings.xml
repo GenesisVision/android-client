@@ -218,6 +218,9 @@
     <string name="close">close</string>
     <string name="date_close">Date close</string>
     <string name="price_close">Price close</string>
+    <string name="send_feedback">Send feedback</string>
+    <string name="visit_feedback_website">Visit feedback website</string>
+    <string name="send_email">Send email</string>
 
     <string-array name="transactions_filter">
         <item>All Transactions</item>
@@ -229,4 +232,8 @@
         <item>Female</item>
         <item>Male</item>
     </string-array>
+
+    <string name="feedback_web_address">https://feedback.genesis.vision</string>
+    <string name="feedback_email_address">support@genesis.vision</string>
+    <string name="feedback_dialog_title">You can send your feedback to us with the following options:</string>
 </resources>

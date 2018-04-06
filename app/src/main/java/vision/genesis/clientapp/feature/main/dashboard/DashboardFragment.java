@@ -1,10 +1,13 @@
 package vision.genesis.clientapp.feature.main.dashboard;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.InvestmentProgramDashboardInvestor;
 import vision.genesis.clientapp.R;
@@ -52,9 +56,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 	@BindView(R.id.tab_layout)
 	public TabLayout tabLayout;
 
-//	@BindView(R.id.progress_bar)
-//	public ProgressBar progressBar;
-
 	@InjectPresenter
 	DashboardPresenter dashboardPresenter;
 
@@ -67,6 +68,11 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 	private Fragment currentFragment;
 
 	private Unbinder unbinder;
+
+	@OnClick(R.id.send_feedback)
+	public void onSendFeedbackClicked() {
+		showFeedbackDialog();
+	}
 
 	@Nullable
 	@Override
@@ -159,6 +165,36 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 		viewPager.addOnPageChangeListener(this);
 	}
 
+	private void showFeedbackDialog() {
+		CharSequence options[] = new CharSequence[]{getString(R.string.visit_feedback_website), getString(R.string.send_email)};
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+		builder.setCancelable(true);
+		builder.setTitle(getString(R.string.feedback_dialog_title));
+		builder.setItems(options, (dialog, optionId) -> {
+			if (optionId == 0)
+				openFeedbackSite();
+			else
+				sendFeedbackEmail();
+		});
+		builder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
+		builder.show();
+	}
+
+	private void openFeedbackSite() {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.feedback_web_address)));
+		startActivity(browserIntent);
+	}
+
+	private void sendFeedbackEmail() {
+		Intent emailIntent = new Intent(Intent.ACTION_SEND);
+		emailIntent.setType("message/rfc822");  //set the email recipient
+		String recipient = getString(R.string.feedback_email_address);
+		emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
+		emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Android feedback");
+		startActivity(Intent.createChooser(emailIntent, "Send email using..."));
+	}
+
 	@Override
 	public void setActivePrograms(List<InvestmentProgramDashboardInvestor> programs) {
 		pagerAdapter.setActivePrograms(programs);
@@ -176,7 +212,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 
 	@Override
 	public void showProgressBar(boolean show) {
-//		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 
 	@Override
