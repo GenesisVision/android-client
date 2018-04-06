@@ -44,6 +44,9 @@ public class ToolbarView extends RelativeLayout
 	@BindView(R.id.button_left)
 	public ImageView leftButton;
 
+	@BindView(R.id.button_right_second)
+	public ImageView rightSecondButton;
+
 	@BindView(R.id.button_right)
 	public ImageView rightButton;
 
@@ -51,6 +54,8 @@ public class ToolbarView extends RelativeLayout
 	public View rightButtonDot;
 
 	private ButtonClickListener leftButtonClickListener;
+
+	private ButtonClickListener rightSecondButtonClickListener;
 
 	private ButtonClickListener rightButtonClickListener;
 
@@ -75,6 +80,13 @@ public class ToolbarView extends RelativeLayout
 	public void onLeftButtonClicked() {
 		if (leftButtonClickListener != null) {
 			new Handler().postDelayed(() -> leftButtonClickListener.onClicked(), 0);
+		}
+	}
+
+	@OnClick(R.id.button_right_second)
+	public void onRightSecondButtonClicked() {
+		if (rightSecondButtonClickListener != null) {
+			new Handler().postDelayed(() -> rightSecondButtonClickListener.onClicked(), 0);
 		}
 	}
 
@@ -123,6 +135,12 @@ public class ToolbarView extends RelativeLayout
 		leftButton.setVisibility(View.VISIBLE);
 	}
 
+	public void addRightSecondButton(int buttonImageResId, ButtonClickListener clickListener) {
+		rightSecondButton.setImageDrawable(ContextCompat.getDrawable(getContext(), buttonImageResId));
+		rightSecondButtonClickListener = clickListener;
+		rightSecondButton.setVisibility(View.VISIBLE);
+	}
+
 	public void addRightButton(int buttonImageResId, ButtonClickListener clickListener) {
 		rightButton.setImageDrawable(ContextCompat.getDrawable(getContext(), buttonImageResId));
 		rightButtonClickListener = clickListener;
@@ -143,6 +161,7 @@ public class ToolbarView extends RelativeLayout
 
 	public void onDestroy() {
 		leftButtonClickListener = null;
+		rightSecondButtonClickListener = null;
 		rightButtonClickListener = null;
 
 		if (unbinder != null) {

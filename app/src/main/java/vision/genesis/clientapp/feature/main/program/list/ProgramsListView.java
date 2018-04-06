@@ -34,4 +34,6 @@ interface ProgramsListView extends MvpView
 	void setProgramsCount(Integer count);
 
 	void showFiltersActive(boolean show);
+
+	void showSearch(boolean show);
 }

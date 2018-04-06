@@ -1,5 +1,6 @@
 package vision.genesis.clientapp.feature.main.program.list;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -13,11 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +31,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.InvestmentProgram;
+import rx.Subscription;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -45,6 +50,12 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 {
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
+
+	@BindView(R.id.group_search)
+	public ViewGroup searchGroup;
+
+	@BindView(R.id.edittext_search)
+	public EditText searchEditText;
 
 	@BindView(R.id.programs_count)
 	public TextView programsCount;
@@ -88,7 +99,15 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	private InvestmentProgramsListAdapter investmentProgramsListAdapter;
 
+	private Subscription textChangeSubscription;
+
 	private Unbinder unbinder;
+
+	@OnClick(R.id.button_search_close)
+	public void onSearchCloseClicked() {
+		programsListPresenter.onSearchCloseClicked();
+	}
+
 
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
@@ -123,6 +142,19 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		initRecyclerView();
 	}
 
+	@Override
+	public void onStart() {
+		super.onStart();
+		setSearchTextListener();
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		if (textChangeSubscription != null)
+			textChangeSubscription.unsubscribe();
+		hideSoftKeyboard();
+	}
 
 	@Override
 	public void onDestroyView() {
@@ -144,6 +176,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.programs));
+		toolbar.addRightSecondButton(R.drawable.ic_search_black_24dp, () -> programsListPresenter.onSearchClicked());
 		toolbar.addRightButton(R.drawable.filters_icon, () -> programsListPresenter.onFilterClicked());
 	}
 
@@ -205,6 +238,11 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 			showFab();
 		else if (!fabInAnim && fab.getVisibility() == View.VISIBLE && lastVisible < 3)
 			hideFab();
+	}
+
+	private void setSearchTextListener() {
+		textChangeSubscription = RxTextView.textChanges(searchEditText)
+				.subscribe(text -> programsListPresenter.onSearchTextChanged(text.toString()));
 	}
 
 	private void showFab() {
@@ -306,7 +344,36 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	}
 
 	@Override
+	public void showSearch(boolean show) {
+		searchGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+
+		if (show) {
+			showSoftKeyboard();
+		}
+		else {
+			hideSoftKeyboard();
+			searchEditText.setText("");
+		}
+	}
+
+	@Override
 	public boolean onBackPressed() {
 		return false;
+	}
+
+	private void showSoftKeyboard() {
+		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		searchEditText.requestFocus();
+		if (imm != null) {
+			imm.showSoftInput(searchEditText, 0);
+		}
+	}
+
+	private void hideSoftKeyboard() {
+		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		searchEditText.clearFocus();
+		if (imm != null) {
+			imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
+		}
 	}
 }

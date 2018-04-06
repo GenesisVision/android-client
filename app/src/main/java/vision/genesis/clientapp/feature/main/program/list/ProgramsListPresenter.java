@@ -78,6 +78,14 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		EventBus.getDefault().unregister(this);
 	}
 
+	void onSearchClicked() {
+		getViewState().showSearch(true);
+	}
+
+	void onSearchCloseClicked() {
+		getViewState().showSearch(false);
+	}
+
 	void onFilterClicked() {
 		EventBus.getDefault().post(new ShowFiltersEvent());
 	}
@@ -94,6 +102,18 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 
 	void onLastListItemVisible() {
 		getProgramsList(false);
+	}
+
+	void onSearchTextChanged(String text) {
+		if (text.isEmpty())
+			text = null;
+		if (filter == null
+				|| (filter.getName() != null && filter.getName().equals(text))
+				|| ((filter.getName() == null) && (text == null))
+				)
+			return;
+		filter.setName(text);
+		investManager.setFilter(filter);
 	}
 
 	private void subscribeToFilter() {

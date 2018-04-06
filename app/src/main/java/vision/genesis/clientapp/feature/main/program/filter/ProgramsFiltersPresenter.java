@@ -62,7 +62,9 @@ public class ProgramsFiltersPresenter extends MvpPresenter<ProgramsFiltersView>
 	}
 
 	void onClearClicked() {
+		String name = filter.getName();
 		filter = new InvestmentProgramsFilter();
+		filter.setName(name);
 		investManager.setFilter(filter);
 		EventBus.getDefault().post(new ProgramsListFiltersClearedEvent());
 		onBackClicked();

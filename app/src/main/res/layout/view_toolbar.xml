@@ -47,6 +47,20 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/button_right_second"
+        android:layout_width="@dimen/toolbar_height"
+        android:layout_height="@dimen/toolbar_height"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/button_right"
+        android:layout_toStartOf="@+id/button_right"
+        android:background="?attr/selectableItemBackground"
+        android:padding="18dp"
+        android:tint="@color/colorPrimary"
+        android:visibility="gone"
+        tools:src="@drawable/ic_search_black_24dp"
+        tools:visibility="visible"/>
+
+    <ImageView
         android:id="@+id/button_right"
         android:layout_width="@dimen/toolbar_height"
         android:layout_height="@dimen/toolbar_height"
