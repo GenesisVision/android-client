@@ -27,6 +27,7 @@ Name | Type | Description | Notes
 **feeManagement** | **Double** |  |  [optional]
 **chart** | [**List&lt;Chart&gt;**](Chart.md) |  |  [optional]
 **manager** | [**ProfilePublicViewModel**](ProfilePublicViewModel.md) |  |  [optional]
+**freeTokens** | [**FreeTokens**](FreeTokens.md) |  |  [optional]
 **hasNewRequests** | **Boolean** |  |  [optional]
 **isInvestEnable** | **Boolean** |  |  [optional]
 **isOwnProgram** | **Boolean** |  |  [optional]

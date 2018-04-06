@@ -22,6 +22,8 @@ import com.google.gson.stream.JsonWriter;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -53,6 +55,9 @@ public class BrokerTradeServer
 
 	@SerializedName("registrationDate")
 	private DateTime registrationDate = null;
+
+	@SerializedName("leverages")
+	private List<Integer> leverages = null;
 
 	public BrokerTradeServer id(UUID id) {
 		this.id = id;
@@ -187,6 +192,33 @@ public class BrokerTradeServer
 		this.registrationDate = registrationDate;
 	}
 
+	public BrokerTradeServer leverages(List<Integer> leverages) {
+		this.leverages = leverages;
+		return this;
+	}
+
+	public BrokerTradeServer addLeveragesItem(Integer leveragesItem) {
+		if (this.leverages == null) {
+			this.leverages = new ArrayList<Integer>();
+		}
+		this.leverages.add(leveragesItem);
+		return this;
+	}
+
+	/**
+	 * Get leverages
+	 *
+	 * @return leverages
+	 **/
+	@ApiModelProperty(value = "")
+	public List<Integer> getLeverages() {
+		return leverages;
+	}
+
+	public void setLeverages(List<Integer> leverages) {
+		this.leverages = leverages;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -202,12 +234,13 @@ public class BrokerTradeServer
 				Objects.equals(this.host, brokerTradeServer.host) &&
 				Objects.equals(this.type, brokerTradeServer.type) &&
 				Objects.equals(this.broker, brokerTradeServer.broker) &&
-				Objects.equals(this.registrationDate, brokerTradeServer.registrationDate);
+				Objects.equals(this.registrationDate, brokerTradeServer.registrationDate) &&
+				Objects.equals(this.leverages, brokerTradeServer.leverages);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, brokerId, name, host, type, broker, registrationDate);
+		return Objects.hash(id, brokerId, name, host, type, broker, registrationDate, leverages);
 	}
 
 	@Override
@@ -222,6 +255,7 @@ public class BrokerTradeServer
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    broker: ").append(toIndentedString(broker)).append("\n");
 		sb.append("    registrationDate: ").append(toIndentedString(registrationDate)).append("\n");
+		sb.append("    leverages: ").append(toIndentedString(leverages)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **password** | **String** |  |  [optional]
 **depositAmount** | **Double** |  |  [optional]
+**leverage** | **Integer** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

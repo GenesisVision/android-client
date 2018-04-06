@@ -104,6 +104,9 @@ public class InvestmentProgram
 	@SerializedName("manager")
 	private ProfilePublicViewModel manager = null;
 
+	@SerializedName("freeTokens")
+	private FreeTokens freeTokens = null;
+
 	@SerializedName("hasNewRequests")
 	private Boolean hasNewRequests = null;
 
@@ -561,6 +564,25 @@ public class InvestmentProgram
 		this.manager = manager;
 	}
 
+	public InvestmentProgram freeTokens(FreeTokens freeTokens) {
+		this.freeTokens = freeTokens;
+		return this;
+	}
+
+	/**
+	 * Get freeTokens
+	 *
+	 * @return freeTokens
+	 **/
+	@ApiModelProperty(value = "")
+	public FreeTokens getFreeTokens() {
+		return freeTokens;
+	}
+
+	public void setFreeTokens(FreeTokens freeTokens) {
+		this.freeTokens = freeTokens;
+	}
+
 	public InvestmentProgram hasNewRequests(Boolean hasNewRequests) {
 		this.hasNewRequests = hasNewRequests;
 		return this;
@@ -669,6 +691,7 @@ public class InvestmentProgram
 				Objects.equals(this.feeManagement, investmentProgram.feeManagement) &&
 				Objects.equals(this.chart, investmentProgram.chart) &&
 				Objects.equals(this.manager, investmentProgram.manager) &&
+				Objects.equals(this.freeTokens, investmentProgram.freeTokens) &&
 				Objects.equals(this.hasNewRequests, investmentProgram.hasNewRequests) &&
 				Objects.equals(this.isInvestEnable, investmentProgram.isInvestEnable) &&
 				Objects.equals(this.isOwnProgram, investmentProgram.isOwnProgram) &&
@@ -677,7 +700,7 @@ public class InvestmentProgram
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, logo, isEnabled, balance, currency, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, chart, manager, hasNewRequests, isInvestEnable, isOwnProgram, canCloseProgram);
+		return Objects.hash(id, title, description, level, logo, isEnabled, balance, currency, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, chart, manager, freeTokens, hasNewRequests, isInvestEnable, isOwnProgram, canCloseProgram);
 	}
 
 	@Override
@@ -708,6 +731,7 @@ public class InvestmentProgram
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
+		sb.append("    freeTokens: ").append(toIndentedString(freeTokens)).append("\n");
 		sb.append("    hasNewRequests: ").append(toIndentedString(hasNewRequests)).append("\n");
 		sb.append("    isInvestEnable: ").append(toIndentedString(isInvestEnable)).append("\n");
 		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");

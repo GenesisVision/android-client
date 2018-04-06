@@ -14,6 +14,7 @@ Name | Value
 ---- | -----
 INTERNALSERVERERROR | &quot;InternalServerError&quot;
 VALIDATIONERROR | &quot;ValidationError&quot;
+REQUIRESTWOFACTOR | &quot;RequiresTwoFactor&quot;
 
 
 

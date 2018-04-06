@@ -37,6 +37,9 @@ public class NewInvestmentRequest
 	@SerializedName("depositAmount")
 	private Double depositAmount = null;
 
+	@SerializedName("leverage")
+	private Integer leverage = null;
+
 	@SerializedName("tokenName")
 	private String tokenName = null;
 
@@ -128,6 +131,25 @@ public class NewInvestmentRequest
 
 	public void setDepositAmount(Double depositAmount) {
 		this.depositAmount = depositAmount;
+	}
+
+	public NewInvestmentRequest leverage(Integer leverage) {
+		this.leverage = leverage;
+		return this;
+	}
+
+	/**
+	 * Get leverage
+	 *
+	 * @return leverage
+	 **/
+	@ApiModelProperty(required = true, value = "")
+	public Integer getLeverage() {
+		return leverage;
+	}
+
+	public void setLeverage(Integer leverage) {
+		this.leverage = leverage;
 	}
 
 	public NewInvestmentRequest tokenName(String tokenName) {
@@ -371,6 +393,7 @@ public class NewInvestmentRequest
 		return Objects.equals(this.brokerTradeServerId, newInvestmentRequest.brokerTradeServerId) &&
 				Objects.equals(this.tradePlatformPassword, newInvestmentRequest.tradePlatformPassword) &&
 				Objects.equals(this.depositAmount, newInvestmentRequest.depositAmount) &&
+				Objects.equals(this.leverage, newInvestmentRequest.leverage) &&
 				Objects.equals(this.tokenName, newInvestmentRequest.tokenName) &&
 				Objects.equals(this.tokenSymbol, newInvestmentRequest.tokenSymbol) &&
 				Objects.equals(this.dateFrom, newInvestmentRequest.dateFrom) &&
@@ -387,7 +410,7 @@ public class NewInvestmentRequest
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(brokerTradeServerId, tradePlatformPassword, depositAmount, tokenName, tokenSymbol, dateFrom, dateTo, logo, title, description, feeManagement, feeSuccess, investMinAmount, investMaxAmount, period);
+		return Objects.hash(brokerTradeServerId, tradePlatformPassword, depositAmount, leverage, tokenName, tokenSymbol, dateFrom, dateTo, logo, title, description, feeManagement, feeSuccess, investMinAmount, investMaxAmount, period);
 	}
 
 
@@ -399,6 +422,7 @@ public class NewInvestmentRequest
 		sb.append("    brokerTradeServerId: ").append(toIndentedString(brokerTradeServerId)).append("\n");
 		sb.append("    tradePlatformPassword: ").append(toIndentedString(tradePlatformPassword)).append("\n");
 		sb.append("    depositAmount: ").append(toIndentedString(depositAmount)).append("\n");
+		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
 		sb.append("    tokenName: ").append(toIndentedString(tokenName)).append("\n");
 		sb.append("    tokenSymbol: ").append(toIndentedString(tokenSymbol)).append("\n");
 		sb.append("    dateFrom: ").append(toIndentedString(dateFrom)).append("\n");

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
 **broker** | [**Broker**](Broker.md) |  |  [optional]
 **registrationDate** | [**DateTime**](DateTime.md) |  |  [optional]
+**leverages** | **List&lt;Integer&gt;** |  |  [optional]
 
 
 <a name="TypeEnum"></a>

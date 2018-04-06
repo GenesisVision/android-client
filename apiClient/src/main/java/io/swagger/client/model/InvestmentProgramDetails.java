@@ -140,6 +140,12 @@ public class InvestmentProgramDetails
 	@SerializedName("chart")
 	private List<Chart> chart = null;
 
+	@SerializedName("brokerTitle")
+	private String brokerTitle = null;
+
+	@SerializedName("brokerTradeServerTitle")
+	private String brokerTradeServerTitle = null;
+
 	@SerializedName("token")
 	private Token token = null;
 
@@ -148,6 +154,9 @@ public class InvestmentProgramDetails
 
 	@SerializedName("profitDiagram")
 	private PeriodProfitDiagram profitDiagram = null;
+
+	@SerializedName("freeTokens")
+	private FreeTokens freeTokens = null;
 
 	@SerializedName("hasNewRequests")
 	private Boolean hasNewRequests = null;
@@ -840,6 +849,44 @@ public class InvestmentProgramDetails
 		this.chart = chart;
 	}
 
+	public InvestmentProgramDetails brokerTitle(String brokerTitle) {
+		this.brokerTitle = brokerTitle;
+		return this;
+	}
+
+	/**
+	 * Get brokerTitle
+	 *
+	 * @return brokerTitle
+	 **/
+	@ApiModelProperty(value = "")
+	public String getBrokerTitle() {
+		return brokerTitle;
+	}
+
+	public void setBrokerTitle(String brokerTitle) {
+		this.brokerTitle = brokerTitle;
+	}
+
+	public InvestmentProgramDetails brokerTradeServerTitle(String brokerTradeServerTitle) {
+		this.brokerTradeServerTitle = brokerTradeServerTitle;
+		return this;
+	}
+
+	/**
+	 * Get brokerTradeServerTitle
+	 *
+	 * @return brokerTradeServerTitle
+	 **/
+	@ApiModelProperty(value = "")
+	public String getBrokerTradeServerTitle() {
+		return brokerTradeServerTitle;
+	}
+
+	public void setBrokerTradeServerTitle(String brokerTradeServerTitle) {
+		this.brokerTradeServerTitle = brokerTradeServerTitle;
+	}
+
 	public InvestmentProgramDetails token(Token token) {
 		this.token = token;
 		return this;
@@ -895,6 +942,25 @@ public class InvestmentProgramDetails
 
 	public void setProfitDiagram(PeriodProfitDiagram profitDiagram) {
 		this.profitDiagram = profitDiagram;
+	}
+
+	public InvestmentProgramDetails freeTokens(FreeTokens freeTokens) {
+		this.freeTokens = freeTokens;
+		return this;
+	}
+
+	/**
+	 * Get freeTokens
+	 *
+	 * @return freeTokens
+	 **/
+	@ApiModelProperty(value = "")
+	public FreeTokens getFreeTokens() {
+		return freeTokens;
+	}
+
+	public void setFreeTokens(FreeTokens freeTokens) {
+		this.freeTokens = freeTokens;
 	}
 
 	public InvestmentProgramDetails hasNewRequests(Boolean hasNewRequests) {
@@ -1055,9 +1121,12 @@ public class InvestmentProgramDetails
 				Objects.equals(this.minAccountBalanceUsd, investmentProgramDetails.minAccountBalanceUsd) &&
 				Objects.equals(this.minAccountBalance, investmentProgramDetails.minAccountBalance) &&
 				Objects.equals(this.chart, investmentProgramDetails.chart) &&
+				Objects.equals(this.brokerTitle, investmentProgramDetails.brokerTitle) &&
+				Objects.equals(this.brokerTradeServerTitle, investmentProgramDetails.brokerTradeServerTitle) &&
 				Objects.equals(this.token, investmentProgramDetails.token) &&
 				Objects.equals(this.manager, investmentProgramDetails.manager) &&
 				Objects.equals(this.profitDiagram, investmentProgramDetails.profitDiagram) &&
+				Objects.equals(this.freeTokens, investmentProgramDetails.freeTokens) &&
 				Objects.equals(this.hasNewRequests, investmentProgramDetails.hasNewRequests) &&
 				Objects.equals(this.isHistoryEnable, investmentProgramDetails.isHistoryEnable) &&
 				Objects.equals(this.isInvestEnable, investmentProgramDetails.isInvestEnable) &&
@@ -1068,7 +1137,7 @@ public class InvestmentProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, investedAmount, profitFromProgram, tradesCount, investorsCount, periodDuration, programStartDate, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, volumeTotal, volumeAvg, volumeTotalChange, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, isEnabled, minAccountBalanceUsd, minAccountBalance, chart, token, manager, profitDiagram, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram, canCloseProgram);
+		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, investedAmount, profitFromProgram, tradesCount, investorsCount, periodDuration, programStartDate, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, volumeTotal, volumeAvg, volumeTotalChange, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, isEnabled, minAccountBalanceUsd, minAccountBalance, chart, brokerTitle, brokerTradeServerTitle, token, manager, profitDiagram, freeTokens, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram, canCloseProgram);
 	}
 
 	@Override
@@ -1111,9 +1180,12 @@ public class InvestmentProgramDetails
 		sb.append("    minAccountBalanceUsd: ").append(toIndentedString(minAccountBalanceUsd)).append("\n");
 		sb.append("    minAccountBalance: ").append(toIndentedString(minAccountBalance)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+		sb.append("    brokerTitle: ").append(toIndentedString(brokerTitle)).append("\n");
+		sb.append("    brokerTradeServerTitle: ").append(toIndentedString(brokerTradeServerTitle)).append("\n");
 		sb.append("    token: ").append(toIndentedString(token)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    profitDiagram: ").append(toIndentedString(profitDiagram)).append("\n");
+		sb.append("    freeTokens: ").append(toIndentedString(freeTokens)).append("\n");
 		sb.append("    hasNewRequests: ").append(toIndentedString(hasNewRequests)).append("\n");
 		sb.append("    isHistoryEnable: ").append(toIndentedString(isHistoryEnable)).append("\n");
 		sb.append("    isInvestEnable: ").append(toIndentedString(isInvestEnable)).append("\n");

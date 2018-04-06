@@ -19,14 +19,19 @@ import io.swagger.client.model.ManagerDashboardProgramsFilter;
 import io.swagger.client.model.ManagerDashboardStatistic;
 import io.swagger.client.model.ManagerInvestmentPrograms;
 import io.swagger.client.model.NewInvestmentRequest;
+import io.swagger.client.model.PasswordModel;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.ProfilePublicViewModel;
+import io.swagger.client.model.RecoveryCodesViewModel;
 import io.swagger.client.model.RegisterManagerViewModel;
 import io.swagger.client.model.ResetPasswordViewModel;
 import io.swagger.client.model.TradesChartViewModel;
 import io.swagger.client.model.TradesFilter;
 import io.swagger.client.model.TradesViewModel;
 import io.swagger.client.model.TransactionsFilter;
+import io.swagger.client.model.TwoFactorAuthenticator;
+import io.swagger.client.model.TwoFactorAuthenticatorConfirm;
+import io.swagger.client.model.TwoFactorStatus;
 import io.swagger.client.model.UpdateProfileViewModel;
 import io.swagger.client.model.WalletAddressViewModel;
 import io.swagger.client.model.WalletInvestmentPrograms;
@@ -55,6 +60,92 @@ public interface ManagerApi
 	@POST("api/manager/account/newInvestmentRequest")
 	Observable<UUID> apiManagerAccountNewInvestmentRequestPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body NewInvestmentRequest request
+	);
+
+	/**
+	 * 2FA confirm
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;RecoveryCodesViewModel&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/manager/auth/2fa/confirm")
+	Observable<RecoveryCodesViewModel> apiManagerAuth2faConfirmPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body TwoFactorAuthenticatorConfirm model
+	);
+
+	/**
+	 * 2FA create
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;TwoFactorAuthenticator&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/manager/auth/2fa/create")
+	Observable<TwoFactorAuthenticator> apiManagerAuth2faCreatePost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body PasswordModel model
+	);
+
+	/**
+	 * 2FA disable
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/manager/auth/2fa/disable")
+	Observable<Void> apiManagerAuth2faDisablePost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body PasswordModel model
+	);
+
+	/**
+	 * 2FA status
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;TwoFactorStatus&gt;
+	 */
+	@GET("api/manager/auth/2fa")
+	Observable<TwoFactorStatus> apiManagerAuth2faGet(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * 2FA generate new recovery codes
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;RecoveryCodesViewModel&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/manager/auth/2fa/recoveryCodes/new")
+	Observable<RecoveryCodesViewModel> apiManagerAuth2faRecoveryCodesNewPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body PasswordModel model
+	);
+
+	/**
+	 * 2FA recovery codes
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;RecoveryCodesViewModel&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/manager/auth/2fa/recoveryCodes")
+	Observable<RecoveryCodesViewModel> apiManagerAuth2faRecoveryCodesPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body PasswordModel model
 	);
 
 	/**

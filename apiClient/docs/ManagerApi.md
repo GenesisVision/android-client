@@ -5,6 +5,12 @@ All URIs are relative to *https://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiManagerAccountNewInvestmentRequestPost**](ManagerApi.md#apiManagerAccountNewInvestmentRequestPost) | **POST** api/manager/account/newInvestmentRequest | Create new investment request
+[**apiManagerAuth2faConfirmPost**](ManagerApi.md#apiManagerAuth2faConfirmPost) | **POST** api/manager/auth/2fa/confirm | 2FA confirm
+[**apiManagerAuth2faCreatePost**](ManagerApi.md#apiManagerAuth2faCreatePost) | **POST** api/manager/auth/2fa/create | 2FA create
+[**apiManagerAuth2faDisablePost**](ManagerApi.md#apiManagerAuth2faDisablePost) | **POST** api/manager/auth/2fa/disable | 2FA disable
+[**apiManagerAuth2faGet**](ManagerApi.md#apiManagerAuth2faGet) | **GET** api/manager/auth/2fa | 2FA status
+[**apiManagerAuth2faRecoveryCodesNewPost**](ManagerApi.md#apiManagerAuth2faRecoveryCodesNewPost) | **POST** api/manager/auth/2fa/recoveryCodes/new | 2FA generate new recovery codes
+[**apiManagerAuth2faRecoveryCodesPost**](ManagerApi.md#apiManagerAuth2faRecoveryCodesPost) | **POST** api/manager/auth/2fa/recoveryCodes | 2FA recovery codes
 [**apiManagerAuthChangePasswordPost**](ManagerApi.md#apiManagerAuthChangePasswordPost) | **POST** api/manager/auth/changePassword | Change password
 [**apiManagerAuthConfirmEmailPost**](ManagerApi.md#apiManagerAuthConfirmEmailPost) | **POST** api/manager/auth/confirmEmail | Confirm email after registration
 [**apiManagerAuthForgotPasswordPost**](ManagerApi.md#apiManagerAuthForgotPasswordPost) | **POST** api/manager/auth/forgotPassword | Forgot password manager
@@ -73,6 +79,274 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UUID**](UUID.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerAuth2faConfirmPost"></a>
+# **apiManagerAuth2faConfirmPost**
+> RecoveryCodesViewModel apiManagerAuth2faConfirmPost(authorization, model)
+
+2FA confirm
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+String authorization = "authorization_example"; // String | JWT access token
+TwoFactorAuthenticatorConfirm model = new TwoFactorAuthenticatorConfirm(); // TwoFactorAuthenticatorConfirm | 
+try {
+    RecoveryCodesViewModel result = apiInstance.apiManagerAuth2faConfirmPost(authorization, model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerAuth2faConfirmPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **model** | [**TwoFactorAuthenticatorConfirm**](TwoFactorAuthenticatorConfirm.md)|  | [optional]
+
+### Return type
+
+[**RecoveryCodesViewModel**](RecoveryCodesViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerAuth2faCreatePost"></a>
+# **apiManagerAuth2faCreatePost**
+> TwoFactorAuthenticator apiManagerAuth2faCreatePost(authorization, model)
+
+2FA create
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+String authorization = "authorization_example"; // String | JWT access token
+PasswordModel model = new PasswordModel(); // PasswordModel | 
+try {
+    TwoFactorAuthenticator result = apiInstance.apiManagerAuth2faCreatePost(authorization, model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerAuth2faCreatePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **model** | [**PasswordModel**](PasswordModel.md)|  | [optional]
+
+### Return type
+
+[**TwoFactorAuthenticator**](TwoFactorAuthenticator.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerAuth2faDisablePost"></a>
+# **apiManagerAuth2faDisablePost**
+> Void apiManagerAuth2faDisablePost(authorization, model)
+
+2FA disable
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+String authorization = "authorization_example"; // String | JWT access token
+PasswordModel model = new PasswordModel(); // PasswordModel | 
+try {
+    Void result = apiInstance.apiManagerAuth2faDisablePost(authorization, model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerAuth2faDisablePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **model** | [**PasswordModel**](PasswordModel.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerAuth2faGet"></a>
+# **apiManagerAuth2faGet**
+> TwoFactorStatus apiManagerAuth2faGet(authorization)
+
+2FA status
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    TwoFactorStatus result = apiInstance.apiManagerAuth2faGet(authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerAuth2faGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**TwoFactorStatus**](TwoFactorStatus.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerAuth2faRecoveryCodesNewPost"></a>
+# **apiManagerAuth2faRecoveryCodesNewPost**
+> RecoveryCodesViewModel apiManagerAuth2faRecoveryCodesNewPost(authorization, model)
+
+2FA generate new recovery codes
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+String authorization = "authorization_example"; // String | JWT access token
+PasswordModel model = new PasswordModel(); // PasswordModel | 
+try {
+    RecoveryCodesViewModel result = apiInstance.apiManagerAuth2faRecoveryCodesNewPost(authorization, model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerAuth2faRecoveryCodesNewPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **model** | [**PasswordModel**](PasswordModel.md)|  | [optional]
+
+### Return type
+
+[**RecoveryCodesViewModel**](RecoveryCodesViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerAuth2faRecoveryCodesPost"></a>
+# **apiManagerAuth2faRecoveryCodesPost**
+> RecoveryCodesViewModel apiManagerAuth2faRecoveryCodesPost(authorization, model)
+
+2FA recovery codes
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+String authorization = "authorization_example"; // String | JWT access token
+PasswordModel model = new PasswordModel(); // PasswordModel | 
+try {
+    RecoveryCodesViewModel result = apiInstance.apiManagerAuth2faRecoveryCodesPost(authorization, model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerAuth2faRecoveryCodesPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **model** | [**PasswordModel**](PasswordModel.md)|  | [optional]
+
+### Return type
+
+[**RecoveryCodesViewModel**](RecoveryCodesViewModel.md)
 
 ### Authorization
 

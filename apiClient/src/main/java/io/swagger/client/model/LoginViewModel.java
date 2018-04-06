@@ -31,8 +31,14 @@ public class LoginViewModel
 	@SerializedName("password")
 	private String password = null;
 
+	@SerializedName("rememberMe")
+	private Boolean rememberMe = null;
+
 	@SerializedName("twoFactorCode")
 	private String twoFactorCode = null;
+
+	@SerializedName("recoveryCode")
+	private String recoveryCode = null;
 
 	public LoginViewModel email(String email) {
 		this.email = email;
@@ -72,6 +78,25 @@ public class LoginViewModel
 		this.password = password;
 	}
 
+	public LoginViewModel rememberMe(Boolean rememberMe) {
+		this.rememberMe = rememberMe;
+		return this;
+	}
+
+	/**
+	 * Get rememberMe
+	 *
+	 * @return rememberMe
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isRememberMe() {
+		return rememberMe;
+	}
+
+	public void setRememberMe(Boolean rememberMe) {
+		this.rememberMe = rememberMe;
+	}
+
 	public LoginViewModel twoFactorCode(String twoFactorCode) {
 		this.twoFactorCode = twoFactorCode;
 		return this;
@@ -91,6 +116,25 @@ public class LoginViewModel
 		this.twoFactorCode = twoFactorCode;
 	}
 
+	public LoginViewModel recoveryCode(String recoveryCode) {
+		this.recoveryCode = recoveryCode;
+		return this;
+	}
+
+	/**
+	 * Get recoveryCode
+	 *
+	 * @return recoveryCode
+	 **/
+	@ApiModelProperty(value = "")
+	public String getRecoveryCode() {
+		return recoveryCode;
+	}
+
+	public void setRecoveryCode(String recoveryCode) {
+		this.recoveryCode = recoveryCode;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -103,12 +147,14 @@ public class LoginViewModel
 		LoginViewModel loginViewModel = (LoginViewModel) o;
 		return Objects.equals(this.email, loginViewModel.email) &&
 				Objects.equals(this.password, loginViewModel.password) &&
-				Objects.equals(this.twoFactorCode, loginViewModel.twoFactorCode);
+				Objects.equals(this.rememberMe, loginViewModel.rememberMe) &&
+				Objects.equals(this.twoFactorCode, loginViewModel.twoFactorCode) &&
+				Objects.equals(this.recoveryCode, loginViewModel.recoveryCode);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, password, twoFactorCode);
+		return Objects.hash(email, password, rememberMe, twoFactorCode, recoveryCode);
 	}
 
 
@@ -119,7 +165,9 @@ public class LoginViewModel
 
 		sb.append("    email: ").append(toIndentedString(email)).append("\n");
 		sb.append("    password: ").append(toIndentedString(password)).append("\n");
+		sb.append("    rememberMe: ").append(toIndentedString(rememberMe)).append("\n");
 		sb.append("    twoFactorCode: ").append(toIndentedString(twoFactorCode)).append("\n");
+		sb.append("    recoveryCode: ").append(toIndentedString(recoveryCode)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

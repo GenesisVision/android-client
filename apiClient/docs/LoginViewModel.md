@@ -6,7 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **email** | **String** |  | 
 **password** | **String** |  | 
+**rememberMe** | **Boolean** |  |  [optional]
 **twoFactorCode** | **String** |  |  [optional]
+**recoveryCode** | **String** |  |  [optional]
 
 
 

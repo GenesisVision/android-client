@@ -4,6 +4,12 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**apiInvestorAuth2faConfirmPost**](InvestorApi.md#apiInvestorAuth2faConfirmPost) | **POST** api/investor/auth/2fa/confirm | 2FA confirm
+[**apiInvestorAuth2faCreatePost**](InvestorApi.md#apiInvestorAuth2faCreatePost) | **POST** api/investor/auth/2fa/create | 2FA create
+[**apiInvestorAuth2faDisablePost**](InvestorApi.md#apiInvestorAuth2faDisablePost) | **POST** api/investor/auth/2fa/disable | 2FA disable
+[**apiInvestorAuth2faGet**](InvestorApi.md#apiInvestorAuth2faGet) | **GET** api/investor/auth/2fa | 2FA status
+[**apiInvestorAuth2faRecoveryCodesNewPost**](InvestorApi.md#apiInvestorAuth2faRecoveryCodesNewPost) | **POST** api/investor/auth/2fa/recoveryCodes/new | 2FA generate new recovery codes
+[**apiInvestorAuth2faRecoveryCodesPost**](InvestorApi.md#apiInvestorAuth2faRecoveryCodesPost) | **POST** api/investor/auth/2fa/recoveryCodes | 2FA recovery codes
 [**apiInvestorAuthChangePasswordPost**](InvestorApi.md#apiInvestorAuthChangePasswordPost) | **POST** api/investor/auth/changePassword | Change password
 [**apiInvestorAuthConfirmEmailPost**](InvestorApi.md#apiInvestorAuthConfirmEmailPost) | **POST** api/investor/auth/confirmEmail | Confirm email after registration
 [**apiInvestorAuthForgotPasswordPost**](InvestorApi.md#apiInvestorAuthForgotPasswordPost) | **POST** api/investor/auth/forgotPassword | Forgot password investor
@@ -32,6 +38,274 @@ Method | HTTP request | Description
 [**apiInvestorWalletTransactionsPost**](InvestorApi.md#apiInvestorWalletTransactionsPost) | **POST** api/investor/wallet/transactions | Get user wallet transactions
 [**apiInvestorWalletWithdrawRequestPost**](InvestorApi.md#apiInvestorWalletWithdrawRequestPost) | **POST** api/investor/wallet/withdrawRequest | Withdraw request
 
+
+<a name="apiInvestorAuth2faConfirmPost"></a>
+# **apiInvestorAuth2faConfirmPost**
+> RecoveryCodesViewModel apiInvestorAuth2faConfirmPost(authorization, model)
+
+2FA confirm
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+String authorization = "authorization_example"; // String | JWT access token
+TwoFactorAuthenticatorConfirm model = new TwoFactorAuthenticatorConfirm(); // TwoFactorAuthenticatorConfirm | 
+try {
+    RecoveryCodesViewModel result = apiInstance.apiInvestorAuth2faConfirmPost(authorization, model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorAuth2faConfirmPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **model** | [**TwoFactorAuthenticatorConfirm**](TwoFactorAuthenticatorConfirm.md)|  | [optional]
+
+### Return type
+
+[**RecoveryCodesViewModel**](RecoveryCodesViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorAuth2faCreatePost"></a>
+# **apiInvestorAuth2faCreatePost**
+> TwoFactorAuthenticator apiInvestorAuth2faCreatePost(authorization, model)
+
+2FA create
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+String authorization = "authorization_example"; // String | JWT access token
+PasswordModel model = new PasswordModel(); // PasswordModel | 
+try {
+    TwoFactorAuthenticator result = apiInstance.apiInvestorAuth2faCreatePost(authorization, model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorAuth2faCreatePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **model** | [**PasswordModel**](PasswordModel.md)|  | [optional]
+
+### Return type
+
+[**TwoFactorAuthenticator**](TwoFactorAuthenticator.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorAuth2faDisablePost"></a>
+# **apiInvestorAuth2faDisablePost**
+> Void apiInvestorAuth2faDisablePost(authorization, model)
+
+2FA disable
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+String authorization = "authorization_example"; // String | JWT access token
+PasswordModel model = new PasswordModel(); // PasswordModel | 
+try {
+    Void result = apiInstance.apiInvestorAuth2faDisablePost(authorization, model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorAuth2faDisablePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **model** | [**PasswordModel**](PasswordModel.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorAuth2faGet"></a>
+# **apiInvestorAuth2faGet**
+> TwoFactorStatus apiInvestorAuth2faGet(authorization)
+
+2FA status
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    TwoFactorStatus result = apiInstance.apiInvestorAuth2faGet(authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorAuth2faGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**TwoFactorStatus**](TwoFactorStatus.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorAuth2faRecoveryCodesNewPost"></a>
+# **apiInvestorAuth2faRecoveryCodesNewPost**
+> RecoveryCodesViewModel apiInvestorAuth2faRecoveryCodesNewPost(authorization, model)
+
+2FA generate new recovery codes
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+String authorization = "authorization_example"; // String | JWT access token
+PasswordModel model = new PasswordModel(); // PasswordModel | 
+try {
+    RecoveryCodesViewModel result = apiInstance.apiInvestorAuth2faRecoveryCodesNewPost(authorization, model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorAuth2faRecoveryCodesNewPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **model** | [**PasswordModel**](PasswordModel.md)|  | [optional]
+
+### Return type
+
+[**RecoveryCodesViewModel**](RecoveryCodesViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorAuth2faRecoveryCodesPost"></a>
+# **apiInvestorAuth2faRecoveryCodesPost**
+> RecoveryCodesViewModel apiInvestorAuth2faRecoveryCodesPost(authorization, model)
+
+2FA recovery codes
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+String authorization = "authorization_example"; // String | JWT access token
+PasswordModel model = new PasswordModel(); // PasswordModel | 
+try {
+    RecoveryCodesViewModel result = apiInstance.apiInvestorAuth2faRecoveryCodesPost(authorization, model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorAuth2faRecoveryCodesPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **model** | [**PasswordModel**](PasswordModel.md)|  | [optional]
+
+### Return type
+
+[**RecoveryCodesViewModel**](RecoveryCodesViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
 
 <a name="apiInvestorAuthChangePasswordPost"></a>
 # **apiInvestorAuthChangePasswordPost**

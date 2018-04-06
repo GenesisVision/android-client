@@ -132,7 +132,9 @@ public class ErrorViewModel
 	{
 		INTERNALSERVERERROR("InternalServerError"),
 
-		VALIDATIONERROR("ValidationError");
+		VALIDATIONERROR("ValidationError"),
+
+		REQUIRESTWOFACTOR("RequiresTwoFactor");
 
 		public static CodeEnum fromValue(String text) {
 			for (CodeEnum b : CodeEnum.values()) {
