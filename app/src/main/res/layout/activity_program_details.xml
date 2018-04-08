@@ -296,6 +296,20 @@
 
                     </LinearLayout>
 
+                    <vision.genesis.clientapp.ui.AvailableTokensView
+                        android:id="@+id/view_available_tokens"
+                        android:layout_width="@dimen/available_tokens_view_width"
+                        android:layout_height="@dimen/available_tokens_view_height"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="32dp"/>
+
+                    <TextView
+                        android:id="@+id/tokens_availability_label"
+                        style="@style/program_details_data_title"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/tokens_availability"/>
+
                 </LinearLayout>
 
                 <LinearLayout

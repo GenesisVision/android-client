@@ -2,6 +2,7 @@ package vision.genesis.clientapp.feature.main.dashboard;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -24,6 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.InvestmentProgramDashboardInvestor;
+import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.programs.DashboardPagerAdapter;
@@ -192,6 +194,14 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 		String recipient = getString(R.string.feedback_email_address);
 		emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
 		emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Android feedback");
+		try {
+			emailIntent.putExtra(Intent.EXTRA_TEXT, String.format(Locale.getDefault(), "\n\nversion %s (%d)\n%s %s\n%s %s",
+					BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE,
+					Build.MANUFACTURER, Build.MODEL,
+					Build.VERSION.RELEASE, Build.VERSION_CODES.class.getFields()[android.os.Build.VERSION.SDK_INT].getName()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		startActivity(Intent.createChooser(emailIntent, "Send email using..."));
 	}
 

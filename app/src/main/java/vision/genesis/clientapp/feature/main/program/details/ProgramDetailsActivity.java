@@ -31,6 +31,7 @@ import vision.genesis.clientapp.feature.main.program.trades.TradesActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.model.ProgramDescriptionModel;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.ui.AvailableTokensView;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProfitChartView;
@@ -120,6 +121,12 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	@BindView(R.id.management_fee_label)
 	public TextView managementFeeLabel;
+
+	@BindView(R.id.tokens_availability_label)
+	public TextView tokensAvailabilityLabel;
+
+	@BindView(R.id.view_available_tokens)
+	public AvailableTokensView availableTokensView;
 
 	@BindView(R.id.group_buttons)
 	public ViewGroup buttonsGroup;
@@ -250,6 +257,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		managementFee.setTypeface(TypefaceUtil.light());
 		managementFeePercent.setTypeface(TypefaceUtil.light());
 		managementFeeLabel.setTypeface(TypefaceUtil.bold());
+
+		tokensAvailabilityLabel.setTypeface(TypefaceUtil.bold());
 	}
 
 	@Override
@@ -299,6 +308,16 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 		successFee.setText(StringFormatUtil.formatAmount(programDetails.getFeeSuccess(), 0, 2));
 		managementFee.setText(StringFormatUtil.formatAmount(programDetails.getFeeManagement(), 0, 2));
+
+		if (programDetails.getFreeTokens() == null) {
+			availableTokensView.setVisibility(View.GONE);
+		}
+		else {
+			availableTokensView.setVisibility(View.VISIBLE);
+			availableTokensView.setData(programDetails.getFreeTokens().getTotal(),
+					programDetails.getFreeTokens().getInvestorsTokens(),
+					programDetails.getFreeTokens().getRequestsTokens());
+		}
 
 		investButton.setVisibility(programDetails.isIsInvestEnable() ? View.VISIBLE : View.GONE);
 		withdrawButton.setVisibility(programDetails.isIsWithdrawEnable() ? View.VISIBLE : View.GONE);

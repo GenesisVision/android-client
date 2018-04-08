@@ -77,4 +77,11 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"/>
 
+    <vision.genesis.clientapp.ui.AvailableTokensView
+        android:id="@+id/view_available_tokens"
+        android:layout_width="@dimen/available_tokens_view_width"
+        android:layout_height="@dimen/available_tokens_view_height"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"/>
+
 </LinearLayout>

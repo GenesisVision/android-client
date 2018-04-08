@@ -192,7 +192,7 @@
     <string name="my_profit">My profit</string>
     <string name="manager_share">manager\'s funds share</string>
     <string name="none">None</string>
-    <string name="message_program_withdraw_success">At the end of the current trading period the tokens will be returned to the manager and your funds are return to you.</string>
+    <string name="message_program_withdraw_success">At the end of the current trading period the tokens will be returned to the manager, and your funds will be returned to you.</string>
     <string name="message_program_invest_success">At the end of the current trading period your GVT will be exchanged to the manager\'s tokens. In case there won\'t be enough tokens for you, your extra GVT will be cashed back.</string>
     <string name="history">History</string>
     <string name="program_has_no_trades_yet">This program has no trades yet.</string>
@@ -235,5 +235,6 @@
 
     <string name="feedback_web_address">https://feedback.genesis.vision</string>
     <string name="feedback_email_address">support@genesis.vision</string>
-    <string name="feedback_dialog_title">You can send your feedback to us with the following options:</string>
+    <string name="feedback_dialog_title">You can send us your feedback in the following ways:</string>
+    <string name="tokens_availability">Tokens availability</string>
 </resources>

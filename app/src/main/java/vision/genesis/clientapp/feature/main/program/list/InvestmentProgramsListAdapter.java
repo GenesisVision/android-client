@@ -19,6 +19,7 @@ import io.swagger.client.model.InvestmentProgram;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
+import vision.genesis.clientapp.ui.AvailableTokensView;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.ProfitChartView;
 import vision.genesis.clientapp.ui.ProgramDataView;
@@ -83,11 +84,14 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 		@BindView(R.id.manager_name)
 		public TextView managerName;
 
+		@BindView(R.id.chart)
+		public ProfitChartView chart;
+
 		@BindView(R.id.view_program_data)
 		public ProgramDataView programDataView;
 
-		@BindView(R.id.chart)
-		public ProfitChartView chart;
+		@BindView(R.id.view_available_tokens)
+		public AvailableTokensView availableTokensView;
 
 		private InvestmentProgram investmentProgram;
 
@@ -129,6 +133,16 @@ public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<Investme
 					investmentProgram.getCurrency().toString());
 
 			chart.setChart(investmentProgram.getChart());
+
+			if (investmentProgram.getFreeTokens() == null) {
+				availableTokensView.setVisibility(View.GONE);
+			}
+			else {
+				availableTokensView.setVisibility(View.VISIBLE);
+				availableTokensView.setData(investmentProgram.getFreeTokens().getTotal(),
+						investmentProgram.getFreeTokens().getInvestorsTokens(),
+						investmentProgram.getFreeTokens().getRequestsTokens());
+			}
 		}
 	}
 }
