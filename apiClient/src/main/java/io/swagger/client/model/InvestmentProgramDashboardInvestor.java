@@ -110,6 +110,9 @@ public class InvestmentProgramDashboardInvestor
 	@SerializedName("chart")
 	private List<Chart> chart = null;
 
+	@SerializedName("freeTokens")
+	private FreeTokens freeTokens = null;
+
 	@SerializedName("manager")
 	private ProfilePublicViewModel manager = null;
 
@@ -614,6 +617,25 @@ public class InvestmentProgramDashboardInvestor
 		this.chart = chart;
 	}
 
+	public InvestmentProgramDashboardInvestor freeTokens(FreeTokens freeTokens) {
+		this.freeTokens = freeTokens;
+		return this;
+	}
+
+	/**
+	 * Get freeTokens
+	 *
+	 * @return freeTokens
+	 **/
+	@ApiModelProperty(value = "")
+	public FreeTokens getFreeTokens() {
+		return freeTokens;
+	}
+
+	public void setFreeTokens(FreeTokens freeTokens) {
+		this.freeTokens = freeTokens;
+	}
+
 	public InvestmentProgramDashboardInvestor manager(ProfilePublicViewModel manager) {
 		this.manager = manager;
 		return this;
@@ -781,6 +803,7 @@ public class InvestmentProgramDashboardInvestor
 				Objects.equals(this.feeManagement, investmentProgramDashboardInvestor.feeManagement) &&
 				Objects.equals(this.isEnabled, investmentProgramDashboardInvestor.isEnabled) &&
 				Objects.equals(this.chart, investmentProgramDashboardInvestor.chart) &&
+				Objects.equals(this.freeTokens, investmentProgramDashboardInvestor.freeTokens) &&
 				Objects.equals(this.manager, investmentProgramDashboardInvestor.manager) &&
 				Objects.equals(this.token, investmentProgramDashboardInvestor.token) &&
 				Objects.equals(this.hasNewRequests, investmentProgramDashboardInvestor.hasNewRequests) &&
@@ -792,7 +815,7 @@ public class InvestmentProgramDashboardInvestor
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, logo, balance, currency, investedAmount, profitFromProgram, investedTokens, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, isEnabled, chart, manager, token, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
+		return Objects.hash(id, title, description, level, logo, balance, currency, investedAmount, profitFromProgram, investedTokens, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, isEnabled, chart, freeTokens, manager, token, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
 	}
 
 	@Override
@@ -825,6 +848,7 @@ public class InvestmentProgramDashboardInvestor
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
 		sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+		sb.append("    freeTokens: ").append(toIndentedString(freeTokens)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    token: ").append(toIndentedString(token)).append("\n");
 		sb.append("    hasNewRequests: ").append(toIndentedString(hasNewRequests)).append("\n");

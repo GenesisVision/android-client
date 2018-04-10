@@ -34,6 +34,12 @@
             app:mrb_tickEnd="@integer/avg_profit_max"
             app:mrb_tickStart="@integer/avg_profit_min"/>
 
+        <CheckBox
+            android:id="@+id/active_programs_only"
+            style="@style/filters_item_label"
+            android:layout_marginTop="16dp"
+            android:text="@string/active_programs_only"/>
+
     </LinearLayout>
 
     <vision.genesis.clientapp.ui.PrimaryButton
@@ -51,7 +57,7 @@
         android:layout_height="60dp"
         android:layout_below="@+id/button_apply"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="32dp"
         android:text="@string/clear_filters"/>
 
     <vision.genesis.clientapp.ui.ToolbarView

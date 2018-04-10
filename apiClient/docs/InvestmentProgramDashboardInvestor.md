@@ -29,6 +29,7 @@ Name | Type | Description | Notes
 **feeManagement** | **Double** |  |  [optional]
 **isEnabled** | **Boolean** |  |  [optional]
 **chart** | [**List&lt;Chart&gt;**](Chart.md) |  |  [optional]
+**freeTokens** | [**FreeTokens**](FreeTokens.md) |  |  [optional]
 **manager** | [**ProfilePublicViewModel**](ProfilePublicViewModel.md) |  |  [optional]
 **token** | [**Token**](Token.md) |  |  [optional]
 **hasNewRequests** | **Boolean** |  |  [optional]

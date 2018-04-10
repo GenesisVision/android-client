@@ -83,6 +83,9 @@ public class InvestmentProgramDetails
 	@SerializedName("programStartDate")
 	private DateTime programStartDate = null;
 
+	@SerializedName("programEndDate")
+	private DateTime programEndDate = null;
+
 	@SerializedName("startOfPeriod")
 	private DateTime startOfPeriod = null;
 
@@ -478,6 +481,25 @@ public class InvestmentProgramDetails
 
 	public void setProgramStartDate(DateTime programStartDate) {
 		this.programStartDate = programStartDate;
+	}
+
+	public InvestmentProgramDetails programEndDate(DateTime programEndDate) {
+		this.programEndDate = programEndDate;
+		return this;
+	}
+
+	/**
+	 * Get programEndDate
+	 *
+	 * @return programEndDate
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getProgramEndDate() {
+		return programEndDate;
+	}
+
+	public void setProgramEndDate(DateTime programEndDate) {
+		this.programEndDate = programEndDate;
 	}
 
 	public InvestmentProgramDetails startOfPeriod(DateTime startOfPeriod) {
@@ -1102,6 +1124,7 @@ public class InvestmentProgramDetails
 				Objects.equals(this.investorsCount, investmentProgramDetails.investorsCount) &&
 				Objects.equals(this.periodDuration, investmentProgramDetails.periodDuration) &&
 				Objects.equals(this.programStartDate, investmentProgramDetails.programStartDate) &&
+				Objects.equals(this.programEndDate, investmentProgramDetails.programEndDate) &&
 				Objects.equals(this.startOfPeriod, investmentProgramDetails.startOfPeriod) &&
 				Objects.equals(this.endOfPeriod, investmentProgramDetails.endOfPeriod) &&
 				Objects.equals(this.profitAvg, investmentProgramDetails.profitAvg) &&
@@ -1137,7 +1160,7 @@ public class InvestmentProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, investedAmount, profitFromProgram, tradesCount, investorsCount, periodDuration, programStartDate, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, volumeTotal, volumeAvg, volumeTotalChange, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, isEnabled, minAccountBalanceUsd, minAccountBalance, chart, brokerTitle, brokerTradeServerTitle, token, manager, profitDiagram, freeTokens, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram, canCloseProgram);
+		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, investedAmount, profitFromProgram, tradesCount, investorsCount, periodDuration, programStartDate, programEndDate, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, volumeTotal, volumeAvg, volumeTotalChange, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, isEnabled, minAccountBalanceUsd, minAccountBalance, chart, brokerTitle, brokerTradeServerTitle, token, manager, profitDiagram, freeTokens, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram, canCloseProgram);
 	}
 
 	@Override
@@ -1161,6 +1184,7 @@ public class InvestmentProgramDetails
 		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
 		sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
 		sb.append("    programStartDate: ").append(toIndentedString(programStartDate)).append("\n");
+		sb.append("    programEndDate: ").append(toIndentedString(programEndDate)).append("\n");
 		sb.append("    startOfPeriod: ").append(toIndentedString(startOfPeriod)).append("\n");
 		sb.append("    endOfPeriod: ").append(toIndentedString(endOfPeriod)).append("\n");
 		sb.append("    profitAvg: ").append(toIndentedString(profitAvg)).append("\n");

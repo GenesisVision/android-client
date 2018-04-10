@@ -55,6 +55,10 @@ public class ProgramsFiltersPresenter extends MvpPresenter<ProgramsFiltersView>
 		filter.setProfitAvgPercentMax(Integer.parseInt(maxLevel));
 	}
 
+	void onActiveProgramsOnlyChanged(boolean checked) {
+		filter.setShowActivePrograms(checked);
+	}
+
 	void onApplyClicked() {
 		investManager.setFilter(filter);
 		EventBus.getDefault().post(new ProgramsListFiltersAppliedEvent());

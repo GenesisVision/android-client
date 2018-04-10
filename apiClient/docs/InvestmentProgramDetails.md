@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **investorsCount** | **Integer** |  |  [optional]
 **periodDuration** | **Integer** |  |  [optional]
 **programStartDate** | [**DateTime**](DateTime.md) |  |  [optional]
+**programEndDate** | [**DateTime**](DateTime.md) |  |  [optional]
 **startOfPeriod** | [**DateTime**](DateTime.md) |  |  [optional]
 **endOfPeriod** | [**DateTime**](DateTime.md) |  |  [optional]
 **profitAvg** | **Double** |  |  [optional]

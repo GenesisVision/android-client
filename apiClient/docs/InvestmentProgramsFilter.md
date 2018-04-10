@@ -24,6 +24,7 @@ Name | Type | Description | Notes
 **profitTotalChange** | [**ProfitTotalChangeEnum**](#ProfitTotalChangeEnum) |  |  [optional]
 **periodMin** | **Integer** |  |  [optional]
 **periodMax** | **Integer** |  |  [optional]
+**showActivePrograms** | **Boolean** |  |  [optional]
 **skip** | **Integer** |  |  [optional]
 **take** | **Integer** |  |  [optional]
 

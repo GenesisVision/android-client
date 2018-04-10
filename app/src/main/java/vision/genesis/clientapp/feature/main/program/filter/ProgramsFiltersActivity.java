@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.appyvet.materialrangebar.RangeBar;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import io.swagger.client.model.InvestmentProgramsFilter;
 import vision.genesis.clientapp.R;
@@ -37,6 +40,9 @@ public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements Pr
 	@BindView(R.id.avg_profit_range_bar)
 	public RangeBar avgProfitRangeBar;
 
+	@BindView(R.id.active_programs_only)
+	public CheckBox activeProgramsOnly;
+
 	@BindView(R.id.button_apply)
 	public View applyButton;
 
@@ -45,6 +51,11 @@ public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements Pr
 
 	@InjectPresenter
 	ProgramsFiltersPresenter programsFiltersPresenter;
+
+	@OnCheckedChanged(R.id.active_programs_only)
+	public void onActiveProgramsOnlyChanged(CompoundButton button, boolean checked) {
+		programsFiltersPresenter.onActiveProgramsOnlyChanged(checked);
+	}
 
 	@OnClick(R.id.button_apply)
 	public void onApplyClicked() {
@@ -96,6 +107,9 @@ public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements Pr
 		if (filter.getProfitAvgPercentMin() != null && filter.getProfitAvgPercentMax() != null) {
 			avgProfitRangeBar.setRangePinsByValue(filter.getProfitAvgPercentMin(), filter.getProfitAvgPercentMax());
 		}
+
+		if (filter.isShowActivePrograms() != null)
+			activeProgramsOnly.setChecked(filter.isShowActivePrograms());
 	}
 
 	@Override
