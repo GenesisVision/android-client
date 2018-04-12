@@ -100,7 +100,7 @@ public class ProfitChartView extends com.github.mikephil.charting.charts.LineCha
 	}
 
 	public void setChart(List<Chart> charts) {
-		if (charts.isEmpty()) {
+		if (charts.size() <= 1) {
 			this.clear();
 			return;
 		}

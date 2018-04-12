@@ -103,11 +103,13 @@ public class PeriodLeftView extends RelativeLayout
 	}
 
 	protected void initProgressBar() {
-		progressBar.setMax(Seconds.secondsBetween(dateFrom, dateTo).getSeconds());
+		if (dateFrom != null && dateFrom.getYear() > 0 && dateFrom.isBefore(DateTime.now()))
+			progressBar.setMax(Seconds.secondsBetween(dateFrom, dateTo).getSeconds());
 	}
 
 	protected void updateProgressBar() {
-		progressBar.setProgress(Seconds.secondsBetween(dateFrom, DateTime.now()).getSeconds());
+		if (dateFrom != null && dateFrom.getYear() > 0 && dateFrom.isBefore(DateTime.now()))
+			progressBar.setProgress(Seconds.secondsBetween(dateFrom, DateTime.now()).getSeconds());
 	}
 
 	protected void startTimer() {

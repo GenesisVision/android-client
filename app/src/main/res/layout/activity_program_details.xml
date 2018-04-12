@@ -303,12 +303,29 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="32dp"/>
 
-                    <TextView
-                        android:id="@+id/tokens_availability_label"
-                        style="@style/program_details_data_title"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/tokens_availability"/>
+                        android:layout_marginTop="4dp">
+
+                        <TextView
+                            android:id="@+id/tokens_availability_label"
+                            style="@style/program_details_data_title"
+                            android:text="@string/tokens_availability"/>
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_toEndOf="@+id/tokens_availability_label"
+                            android:layout_toRightOf="@+id/tokens_availability_label"
+                            android:src="@drawable/ic_help_black_24dp"
+                            android:tint="@color/colorPrimary"
+                            android:visibility="gone"/>
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 
@@ -332,7 +349,8 @@
                         android:layout_margin="8dp"
                         android:layout_weight="1"
                         android:maxWidth="200dp"
-                        android:text="@string/invest"/>
+                        android:text="@string/invest"
+                        android:visibility="gone"/>
 
                     <vision.genesis.clientapp.ui.PrimaryButton
                         android:id="@+id/button_withdraw"
@@ -342,7 +360,8 @@
                         android:layout_margin="8dp"
                         android:layout_weight="1"
                         android:maxWidth="200dp"
-                        android:text="@string/withdraw"/>
+                        android:text="@string/withdraw"
+                        android:visibility="gone"/>
 
                     <vision.genesis.clientapp.ui.PrimaryButton
                         android:id="@+id/button_requests"
@@ -352,7 +371,8 @@
                         android:layout_margin="8dp"
                         android:layout_weight="1"
                         android:maxWidth="200dp"
-                        android:text="@string/requests"/>
+                        android:text="@string/requests"
+                        android:visibility="gone"/>
 
                 </LinearLayout>
 

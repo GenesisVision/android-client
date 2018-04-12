@@ -164,6 +164,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	@OnClick(R.id.button_invest)
 	public void onInvestClicked() {
+		if (programDetails == null)
+			return;
 		ProgramRequest request = new ProgramRequest();
 		request.programId = programDetails.getId();
 		request.programName = programDetails.getTitle();
@@ -173,6 +175,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	@OnClick(R.id.button_withdraw)
 	public void onWithdrawClicked() {
+		if (programDetails == null)
+			return;
 		ProgramRequest request = new ProgramRequest();
 		request.programId = programDetails.getId();
 		request.programName = programDetails.getTitle();
@@ -183,6 +187,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	@OnClick(R.id.button_requests)
 	public void onRequestsClicked() {
+		if (programDetails == null)
+			return;
 		RequestsActivity.startWith(this, programDetails.getId());
 	}
 
