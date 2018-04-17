@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**apiBrokerAuthSignInPost**](BrokerApi.md#apiBrokerAuthSignInPost) | **POST** api/broker/auth/signIn | Authorize
 [**apiBrokerAuthUpdateTokenGet**](BrokerApi.md#apiBrokerAuthUpdateTokenGet) | **GET** api/broker/auth/updateToken | Update auth token
 [**apiBrokerInitDataGet**](BrokerApi.md#apiBrokerInitDataGet) | **GET** api/broker/initData | Get broker initial data
+[**apiBrokerManagersAccountsOnlineInfoUpdatePost**](BrokerApi.md#apiBrokerManagersAccountsOnlineInfoUpdatePost) | **POST** api/broker/managersAccounts/onlineInfo/update | Upload accounts online info
 [**apiBrokerPeriodAccrueProfitsPost**](BrokerApi.md#apiBrokerPeriodAccrueProfitsPost) | **POST** api/broker/period/accrueProfits | Accrue investors&#39; profits
 [**apiBrokerPeriodClosePost**](BrokerApi.md#apiBrokerPeriodClosePost) | **POST** api/broker/period/close | Close investment period
 [**apiBrokerPeriodProcessClosingProgramPost**](BrokerApi.md#apiBrokerPeriodProcessClosingProgramPost) | **POST** api/broker/period/processClosingProgram | Close investment program
@@ -287,6 +288,51 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiBrokerManagersAccountsOnlineInfoUpdatePost"></a>
+# **apiBrokerManagersAccountsOnlineInfoUpdatePost**
+> Void apiBrokerManagersAccountsOnlineInfoUpdatePost(authorization, accounts)
+
+Upload accounts online info
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.BrokerApi;
+
+
+BrokerApi apiInstance = new BrokerApi();
+String authorization = "authorization_example"; // String | JWT access token
+List<ManagerAccountOnlineInfo> accounts = Arrays.asList(new ManagerAccountOnlineInfo()); // List<ManagerAccountOnlineInfo> | 
+try {
+    Void result = apiInstance.apiBrokerManagersAccountsOnlineInfoUpdatePost(authorization, accounts);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling BrokerApi#apiBrokerManagersAccountsOnlineInfoUpdatePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **accounts** | [**List&lt;ManagerAccountOnlineInfo&gt;**](ManagerAccountOnlineInfo.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="apiBrokerPeriodAccrueProfitsPost"></a>

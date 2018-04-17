@@ -11,6 +11,7 @@ import io.swagger.client.model.InvestmentProgramViewModel;
 import io.swagger.client.model.InvestmentProgramsFilter;
 import io.swagger.client.model.InvestmentProgramsViewModel;
 import io.swagger.client.model.InvestorDashboard;
+import io.swagger.client.model.TradesChartViewModel;
 import io.swagger.client.model.TradesFilter;
 import io.swagger.client.model.TradesViewModel;
 import io.swagger.client.model.WalletsViewModel;
@@ -50,16 +51,6 @@ public class InvestManager
 		return investorApi.apiInvestorInvestmentProgramsPost(AuthManager.token.getValue(), filter);
 	}
 
-//	public List<InvestmentProgram> parseInvestmentProgramsModel(InvestmentProgramsViewModel model) {
-//		List<InvestmentProgram> investmentPrograms = new ArrayList<>();
-//		for (io.swagger.client.model.InvestmentProgram program : model.getInvestments()) {
-//			InvestmentProgram investmentProgram = new InvestmentProgram(program);
-//			investmentProgram.chartData = MockProfitChartDataUtil.getEntries();
-//			investmentPrograms.add(investmentProgram);
-//		}
-//		return investmentPrograms;
-//	}
-
 	public Observable<WalletsViewModel> invest(ProgramRequest investRequest) {
 		Invest model = new Invest();
 		model.setInvestmentProgramId(investRequest.programId);
@@ -88,6 +79,10 @@ public class InvestManager
 
 	public Observable<TradesViewModel> getProgramTrades(TradesFilter filter) {
 		return investorApi.apiInvestorInvestmentProgramTradesPost(filter);
+	}
+
+	public Observable<TradesChartViewModel> getEquityChart(UUID programId) {
+		return investorApi.apiInvestorInvestmentProgramEquityChartGet(programId, null);
 	}
 
 	public Observable<Void> cancelRequest(UUID requestId) {

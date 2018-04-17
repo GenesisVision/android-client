@@ -1,5 +1,6 @@
 package io.swagger.client.api;
 
+import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.model.BrokerInitData;
@@ -7,6 +8,7 @@ import io.swagger.client.model.ChangePasswordViewModel;
 import io.swagger.client.model.ClosePeriodData;
 import io.swagger.client.model.InvestmentProgramAccrual;
 import io.swagger.client.model.LoginViewModel;
+import io.swagger.client.model.ManagerAccountOnlineInfo;
 import io.swagger.client.model.ManagerHistoryIpfsHash;
 import io.swagger.client.model.NewManager;
 import io.swagger.client.model.NewOpenTradesEvent;
@@ -96,6 +98,21 @@ public interface BrokerApi
 	@GET("api/broker/initData")
 	Observable<BrokerInitData> apiBrokerInitDataGet(
 			@retrofit2.http.Query("brokerTradeServerId") UUID brokerTradeServerId, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Upload accounts online info
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param accounts      (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/broker/managersAccounts/onlineInfo/update")
+	Observable<Void> apiBrokerManagersAccountsOnlineInfoUpdatePost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body List<ManagerAccountOnlineInfo> accounts
 	);
 
 	/**

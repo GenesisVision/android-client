@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **feeSuccess** | **Double** |  |  [optional]
 **feeManagement** | **Double** |  |  [optional]
 **chart** | [**List&lt;Chart&gt;**](Chart.md) |  |  [optional]
+**equityChart** | [**List&lt;ChartByDate&gt;**](ChartByDate.md) |  |  [optional]
 **manager** | [**ProfilePublicViewModel**](ProfilePublicViewModel.md) |  |  [optional]
 **freeTokens** | [**FreeTokens**](FreeTokens.md) |  |  [optional]
 **hasNewRequests** | **Boolean** |  |  [optional]
@@ -42,6 +43,7 @@ UNDEFINED | &quot;Undefined&quot;
 GVT | &quot;GVT&quot;
 ETH | &quot;ETH&quot;
 BTC | &quot;BTC&quot;
+ADA | &quot;ADA&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
 

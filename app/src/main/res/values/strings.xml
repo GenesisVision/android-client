@@ -238,4 +238,8 @@
     <string name="feedback_dialog_title">You can send us your feedback in the following ways:</string>
     <string name="tokens_availability">Tokens availability</string>
     <string name="active_programs_only">Active programs only</string>
+    <string name="zoom_one_day">1d</string>
+    <string name="zoom_five_min">5min</string>
+    <string name="zoom_one_hour">1h</string>
+    <string name="zoom_one_week">1w</string>
 </resources>

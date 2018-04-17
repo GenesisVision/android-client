@@ -153,6 +153,8 @@ public class RateViewModel
 
 		BTC("BTC"),
 
+		ADA("ADA"),
+
 		USD("USD"),
 
 		EUR("EUR");
@@ -209,6 +211,8 @@ public class RateViewModel
 		ETH("ETH"),
 
 		BTC("BTC"),
+
+		ADA("ADA"),
 
 		USD("USD"),
 

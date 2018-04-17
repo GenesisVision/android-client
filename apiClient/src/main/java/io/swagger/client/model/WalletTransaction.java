@@ -363,6 +363,8 @@ public class WalletTransaction
 
 		BTC("BTC"),
 
+		ADA("ADA"),
+
 		USD("USD"),
 
 		EUR("EUR");

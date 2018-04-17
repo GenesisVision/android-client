@@ -247,6 +247,18 @@ public interface InvestorApi
 	);
 
 	/**
+	 * Get manager equity chart
+	 *
+	 * @param investmentProgramId (required)
+	 * @param pointsCount         (optional)
+	 * @return Call&lt;TradesChartViewModel&gt;
+	 */
+	@GET("api/investor/investmentProgram/equity/chart")
+	Observable<TradesChartViewModel> apiInvestorInvestmentProgramEquityChartGet(
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Query("pointsCount") Integer pointsCount
+	);
+
+	/**
 	 * Get investment program details by id
 	 *
 	 * @param investmentProgramId (required)

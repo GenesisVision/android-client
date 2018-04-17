@@ -886,6 +886,8 @@ public class InvestmentProgramDashboardInvestor
 
 		BTC("BTC"),
 
+		ADA("ADA"),
+
 		USD("USD"),
 
 		EUR("EUR");

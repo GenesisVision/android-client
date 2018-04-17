@@ -149,6 +149,13 @@
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateVisible"/>
 
+        <activity
+            android:name=".feature.main.program.chart.ChartActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"

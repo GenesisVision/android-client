@@ -19,6 +19,7 @@ Method | HTTP request | Description
 [**apiInvestorAuthUpdateTokenGet**](InvestorApi.md#apiInvestorAuthUpdateTokenGet) | **GET** api/investor/auth/updateToken | Update auth token
 [**apiInvestorDashboardGet**](InvestorApi.md#apiInvestorDashboardGet) | **GET** api/investor/dashboard | Get investor dashboard
 [**apiInvestorInvestmentProgramBuyTokensGet**](InvestorApi.md#apiInvestorInvestmentProgramBuyTokensGet) | **GET** api/investor/investmentProgram/buyTokens | Get investment program buy token model
+[**apiInvestorInvestmentProgramEquityChartGet**](InvestorApi.md#apiInvestorInvestmentProgramEquityChartGet) | **GET** api/investor/investmentProgram/equity/chart | Get manager equity chart
 [**apiInvestorInvestmentProgramGet**](InvestorApi.md#apiInvestorInvestmentProgramGet) | **GET** api/investor/investmentProgram | Get investment program details by id
 [**apiInvestorInvestmentProgramOpenTradesPost**](InvestorApi.md#apiInvestorInvestmentProgramOpenTradesPost) | **POST** api/investor/investmentProgram/openTrades | Get manager open trades
 [**apiInvestorInvestmentProgramRequestsPost**](InvestorApi.md#apiInvestorInvestmentProgramRequestsPost) | **POST** api/investor/investmentProgram/requests | Get investment program&#39;s requests
@@ -692,6 +693,51 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**InvestmentProgramBuyToken**](InvestmentProgramBuyToken.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorInvestmentProgramEquityChartGet"></a>
+# **apiInvestorInvestmentProgramEquityChartGet**
+> TradesChartViewModel apiInvestorInvestmentProgramEquityChartGet(investmentProgramId, pointsCount)
+
+Get manager equity chart
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+UUID investmentProgramId = new UUID(); // UUID | 
+Integer pointsCount = 56; // Integer | 
+try {
+    TradesChartViewModel result = apiInstance.apiInvestorInvestmentProgramEquityChartGet(investmentProgramId, pointsCount);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentProgramEquityChartGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **investmentProgramId** | [**UUID**](.md)|  |
+ **pointsCount** | **Integer**|  | [optional]
+
+### Return type
+
+[**TradesChartViewModel**](TradesChartViewModel.md)
 
 ### Authorization
 

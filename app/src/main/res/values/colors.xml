@@ -18,6 +18,8 @@
     <color name="bottomInactive">#B2EAE7</color>
 
     <color name="whiteTransparent50">#ccfafafa</color>
+    <color name="blackTransparent25">#40000000</color>
+    <color name="blackTransparent50">#80000000</color>
     <color name="colorPrimaryTransparent25">#1003bdaf</color>
 
     <color name="listItemBackgroundGray">#4cf2f6f7</color>
@@ -25,6 +27,7 @@
     <color name="white">#fff</color>
     <color name="black">#000</color>
     <color name="bottomNavigationBackground">#e0e0e0</color>
+    <color name="grey100">#f5f5f5</color>
     <color name="grey200">#eeeeee</color>
     <color name="grey300">#e0e0e0</color>
     <color name="grey400">#bdbdbd</color>

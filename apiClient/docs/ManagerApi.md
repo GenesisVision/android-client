@@ -26,7 +26,9 @@ Method | HTTP request | Description
 [**apiManagerInvestmentClosePost**](ManagerApi.md#apiManagerInvestmentClosePost) | **POST** api/manager/investment/close | Close existing investment program
 [**apiManagerInvestmentInvestPost**](ManagerApi.md#apiManagerInvestmentInvestPost) | **POST** api/manager/investment/invest | Manager deposit in his own investment program
 [**apiManagerInvestmentProgramBuyTokensGet**](ManagerApi.md#apiManagerInvestmentProgramBuyTokensGet) | **GET** api/manager/investmentProgram/buyTokens | Get investment program buy token model
+[**apiManagerInvestmentProgramEquityChartGet**](ManagerApi.md#apiManagerInvestmentProgramEquityChartGet) | **GET** api/manager/investmentProgram/equity/chart | Get manager equity chart
 [**apiManagerInvestmentProgramGet**](ManagerApi.md#apiManagerInvestmentProgramGet) | **GET** api/manager/investmentProgram | Get investment program details by id
+[**apiManagerInvestmentProgramPeriodClosePost**](ManagerApi.md#apiManagerInvestmentProgramPeriodClosePost) | **POST** api/manager/investmentProgram/period/close | Close current period
 [**apiManagerInvestmentProgramRequestsPost**](ManagerApi.md#apiManagerInvestmentProgramRequestsPost) | **POST** api/manager/investmentProgram/requests | Get investment program&#39;s requests
 [**apiManagerInvestmentProgramTradesChartGet**](ManagerApi.md#apiManagerInvestmentProgramTradesChartGet) | **GET** api/manager/investmentProgram/trades/chart | Get manager trades chart
 [**apiManagerInvestmentProgramTradesPost**](ManagerApi.md#apiManagerInvestmentProgramTradesPost) | **POST** api/manager/investmentProgram/trades | Get manager trade history
@@ -1016,6 +1018,51 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="apiManagerInvestmentProgramEquityChartGet"></a>
+# **apiManagerInvestmentProgramEquityChartGet**
+> TradesChartViewModel apiManagerInvestmentProgramEquityChartGet(investmentProgramId, pointsCount)
+
+Get manager equity chart
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+UUID investmentProgramId = new UUID(); // UUID | 
+Integer pointsCount = 56; // Integer | 
+try {
+    TradesChartViewModel result = apiInstance.apiManagerInvestmentProgramEquityChartGet(investmentProgramId, pointsCount);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerInvestmentProgramEquityChartGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **investmentProgramId** | [**UUID**](.md)|  |
+ **pointsCount** | **Integer**|  | [optional]
+
+### Return type
+
+[**TradesChartViewModel**](TradesChartViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="apiManagerInvestmentProgramGet"></a>
 # **apiManagerInvestmentProgramGet**
 > InvestmentProgramViewModel apiManagerInvestmentProgramGet(investmentProgramId, authorization)
@@ -1051,6 +1098,51 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**InvestmentProgramViewModel**](InvestmentProgramViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerInvestmentProgramPeriodClosePost"></a>
+# **apiManagerInvestmentProgramPeriodClosePost**
+> Void apiManagerInvestmentProgramPeriodClosePost(investmentProgramId, authorization)
+
+Close current period
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+UUID investmentProgramId = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.apiManagerInvestmentProgramPeriodClosePost(investmentProgramId, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerInvestmentProgramPeriodClosePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **investmentProgramId** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
 
 ### Authorization
 

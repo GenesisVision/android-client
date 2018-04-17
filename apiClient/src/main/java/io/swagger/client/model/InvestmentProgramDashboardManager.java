@@ -22,6 +22,8 @@ import com.google.gson.stream.JsonWriter;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -101,6 +103,12 @@ public class InvestmentProgramDashboardManager
 
 	@SerializedName("canCloseProgram")
 	private Boolean canCloseProgram = null;
+
+	@SerializedName("canClosePeriod")
+	private Boolean canClosePeriod = null;
+
+	@SerializedName("equityChart")
+	private List<ChartByDate> equityChart = null;
 
 	public InvestmentProgramDashboardManager id(UUID id) {
 		this.id = id;
@@ -539,6 +547,52 @@ public class InvestmentProgramDashboardManager
 		this.canCloseProgram = canCloseProgram;
 	}
 
+	public InvestmentProgramDashboardManager canClosePeriod(Boolean canClosePeriod) {
+		this.canClosePeriod = canClosePeriod;
+		return this;
+	}
+
+	/**
+	 * Get canClosePeriod
+	 *
+	 * @return canClosePeriod
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isCanClosePeriod() {
+		return canClosePeriod;
+	}
+
+	public void setCanClosePeriod(Boolean canClosePeriod) {
+		this.canClosePeriod = canClosePeriod;
+	}
+
+	public InvestmentProgramDashboardManager equityChart(List<ChartByDate> equityChart) {
+		this.equityChart = equityChart;
+		return this;
+	}
+
+	public InvestmentProgramDashboardManager addEquityChartItem(ChartByDate equityChartItem) {
+		if (this.equityChart == null) {
+			this.equityChart = new ArrayList<ChartByDate>();
+		}
+		this.equityChart.add(equityChartItem);
+		return this;
+	}
+
+	/**
+	 * Get equityChart
+	 *
+	 * @return equityChart
+	 **/
+	@ApiModelProperty(value = "")
+	public List<ChartByDate> getEquityChart() {
+		return equityChart;
+	}
+
+	public void setEquityChart(List<ChartByDate> equityChart) {
+		this.equityChart = equityChart;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -570,12 +624,14 @@ public class InvestmentProgramDashboardManager
 				Objects.equals(this.minAccountBalanceUsd, investmentProgramDashboardManager.minAccountBalanceUsd) &&
 				Objects.equals(this.minAccountBalance, investmentProgramDashboardManager.minAccountBalance) &&
 				Objects.equals(this.login, investmentProgramDashboardManager.login) &&
-				Objects.equals(this.canCloseProgram, investmentProgramDashboardManager.canCloseProgram);
+				Objects.equals(this.canCloseProgram, investmentProgramDashboardManager.canCloseProgram) &&
+				Objects.equals(this.canClosePeriod, investmentProgramDashboardManager.canClosePeriod) &&
+				Objects.equals(this.equityChart, investmentProgramDashboardManager.equityChart);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, logo, balance, currency, tradesCount, periodDuration, investorsCount, isEnabled, startOfPeriod, profitTotal, profitTotalGvt, profitCurrent, isInvestEnable, isWithdrawEnable, token, ownBalance, minAccountBalanceUsd, minAccountBalance, login, canCloseProgram);
+		return Objects.hash(id, title, description, level, logo, balance, currency, tradesCount, periodDuration, investorsCount, isEnabled, startOfPeriod, profitTotal, profitTotalGvt, profitCurrent, isInvestEnable, isWithdrawEnable, token, ownBalance, minAccountBalanceUsd, minAccountBalance, login, canCloseProgram, canClosePeriod, equityChart);
 	}
 
 	@Override
@@ -606,6 +662,8 @@ public class InvestmentProgramDashboardManager
 		sb.append("    minAccountBalance: ").append(toIndentedString(minAccountBalance)).append("\n");
 		sb.append("    login: ").append(toIndentedString(login)).append("\n");
 		sb.append("    canCloseProgram: ").append(toIndentedString(canCloseProgram)).append("\n");
+		sb.append("    canClosePeriod: ").append(toIndentedString(canClosePeriod)).append("\n");
+		sb.append("    equityChart: ").append(toIndentedString(equityChart)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -634,6 +692,8 @@ public class InvestmentProgramDashboardManager
 		ETH("ETH"),
 
 		BTC("BTC"),
+
+		ADA("ADA"),
 
 		USD("USD"),
 

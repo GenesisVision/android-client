@@ -176,6 +176,8 @@ public class ProgramBalances
 
 		BTC("BTC"),
 
+		ADA("ADA"),
+
 		USD("USD"),
 
 		EUR("EUR");

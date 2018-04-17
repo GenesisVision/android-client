@@ -152,6 +152,8 @@ public class WalletWithdrawRequestModel
 
 		BTC("BTC"),
 
+		ADA("ADA"),
+
 		USD("USD"),
 
 		EUR("EUR");

@@ -84,6 +84,16 @@
                         android:layout_marginRight="16dp"
                         android:layout_marginStart="16dp"/>
 
+                    <ImageView
+                        android:id="@+id/button_chart_full"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignRight="@+id/chart"
+                        android:layout_alignTop="@+id/chart"
+                        android:src="@drawable/ic_fullscreen_black_24dp"
+                        android:tint="@color/colorPrimaryDark"
+                        android:visibility="gone"/>
+
                     <vision.genesis.clientapp.ui.ProgramDataView
                         android:id="@+id/view_program_data"
                         android:layout_width="match_parent"

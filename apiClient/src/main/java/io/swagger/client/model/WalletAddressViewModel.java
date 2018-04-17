@@ -128,6 +128,8 @@ public class WalletAddressViewModel
 
 		BTC("BTC"),
 
+		ADA("ADA"),
+
 		USD("USD"),
 
 		EUR("EUR");

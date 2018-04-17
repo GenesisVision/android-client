@@ -153,6 +153,8 @@ public class WalletViewModel
 
 		BTC("BTC"),
 
+		ADA("ADA"),
+
 		USD("USD"),
 
 		EUR("EUR");

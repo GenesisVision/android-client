@@ -94,6 +94,9 @@ public class InvestmentProgramsFilter
 	@SerializedName("showActivePrograms")
 	private Boolean showActivePrograms = null;
 
+	@SerializedName("equityChartLength")
+	private Integer equityChartLength = null;
+
 	@SerializedName("skip")
 	private Integer skip = null;
 
@@ -499,6 +502,25 @@ public class InvestmentProgramsFilter
 		this.showActivePrograms = showActivePrograms;
 	}
 
+	public InvestmentProgramsFilter equityChartLength(Integer equityChartLength) {
+		this.equityChartLength = equityChartLength;
+		return this;
+	}
+
+	/**
+	 * Get equityChartLength
+	 *
+	 * @return equityChartLength
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getEquityChartLength() {
+		return equityChartLength;
+	}
+
+	public void setEquityChartLength(Integer equityChartLength) {
+		this.equityChartLength = equityChartLength;
+	}
+
 	public InvestmentProgramsFilter skip(Integer skip) {
 		this.skip = skip;
 		return this;
@@ -567,13 +589,14 @@ public class InvestmentProgramsFilter
 				Objects.equals(this.periodMin, investmentProgramsFilter.periodMin) &&
 				Objects.equals(this.periodMax, investmentProgramsFilter.periodMax) &&
 				Objects.equals(this.showActivePrograms, investmentProgramsFilter.showActivePrograms) &&
+				Objects.equals(this.equityChartLength, investmentProgramsFilter.equityChartLength) &&
 				Objects.equals(this.skip, investmentProgramsFilter.skip) &&
 				Objects.equals(this.take, investmentProgramsFilter.take);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(managerId, brokerId, brokerTradeServerId, investMaxAmountFrom, investMaxAmountTo, sorting, name, levelMin, levelMax, profitAvgMin, profitAvgMax, profitTotalMin, profitTotalMax, profitTotalPercentMin, profitTotalPercentMax, profitAvgPercentMin, profitAvgPercentMax, profitTotalChange, periodMin, periodMax, showActivePrograms, skip, take);
+		return Objects.hash(managerId, brokerId, brokerTradeServerId, investMaxAmountFrom, investMaxAmountTo, sorting, name, levelMin, levelMax, profitAvgMin, profitAvgMax, profitTotalMin, profitTotalMax, profitTotalPercentMin, profitTotalPercentMax, profitAvgPercentMin, profitAvgPercentMax, profitTotalChange, periodMin, periodMax, showActivePrograms, equityChartLength, skip, take);
 	}
 
 	@Override
@@ -602,6 +625,7 @@ public class InvestmentProgramsFilter
 		sb.append("    periodMin: ").append(toIndentedString(periodMin)).append("\n");
 		sb.append("    periodMax: ").append(toIndentedString(periodMax)).append("\n");
 		sb.append("    showActivePrograms: ").append(toIndentedString(showActivePrograms)).append("\n");
+		sb.append("    equityChartLength: ").append(toIndentedString(equityChartLength)).append("\n");
 		sb.append("    skip: ").append(toIndentedString(skip)).append("\n");
 		sb.append("    take: ").append(toIndentedString(take)).append("\n");
 		sb.append("}");

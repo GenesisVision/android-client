@@ -273,6 +273,8 @@ public class ManagerRequest
 
 		BTC("BTC"),
 
+		ADA("ADA"),
+
 		USD("USD"),
 
 		EUR("EUR");

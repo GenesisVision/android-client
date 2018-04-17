@@ -23,6 +23,7 @@ import io.swagger.client.model.InvestmentProgramDetails;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.program.chart.ChartActivity;
 import vision.genesis.clientapp.feature.main.program.details.description.ProgramDescriptionActivity;
 import vision.genesis.clientapp.feature.main.program.history.ProgramHistoryActivity;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
@@ -150,6 +151,12 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	ProgramDetailsPresenter programDetailsPresenter;
 
 	private InvestmentProgramDetails programDetails;
+
+	@OnClick(R.id.button_chart_full)
+	public void onChartFullClicked() {
+		if (programDetails != null)
+			ChartActivity.startWith(this, programDetails.getId(), programDetails.getTitle(), programDetails.getManager().getUsername());
+	}
 
 	@OnClick(R.id.group_trades)
 	public void onTradesClicked() {

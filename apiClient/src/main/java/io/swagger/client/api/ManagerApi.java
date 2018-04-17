@@ -345,6 +345,18 @@ public interface ManagerApi
 	);
 
 	/**
+	 * Get manager equity chart
+	 *
+	 * @param investmentProgramId (required)
+	 * @param pointsCount         (optional)
+	 * @return Call&lt;TradesChartViewModel&gt;
+	 */
+	@GET("api/manager/investmentProgram/equity/chart")
+	Observable<TradesChartViewModel> apiManagerInvestmentProgramEquityChartGet(
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Query("pointsCount") Integer pointsCount
+	);
+
+	/**
 	 * Get investment program details by id
 	 *
 	 * @param investmentProgramId (required)
@@ -353,6 +365,18 @@ public interface ManagerApi
 	 */
 	@GET("api/manager/investmentProgram")
 	Observable<InvestmentProgramViewModel> apiManagerInvestmentProgramGet(
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Close current period
+	 *
+	 * @param investmentProgramId (required)
+	 * @param authorization       JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("api/manager/investmentProgram/period/close")
+	Observable<Void> apiManagerInvestmentProgramPeriodClosePost(
 			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
 	);
 

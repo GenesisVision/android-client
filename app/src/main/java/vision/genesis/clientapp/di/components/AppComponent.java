@@ -21,6 +21,7 @@ import vision.genesis.clientapp.feature.main.message.MessageActivity;
 import vision.genesis.clientapp.feature.main.profile.ImageCropActivity;
 import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
 import vision.genesis.clientapp.feature.main.profile.change_password.ChangePasswordPresenter;
+import vision.genesis.clientapp.feature.main.program.chart.ChartPresenter;
 import vision.genesis.clientapp.feature.main.program.details.ProgramDetailsPresenter;
 import vision.genesis.clientapp.feature.main.program.filter.ProgramsFiltersPresenter;
 import vision.genesis.clientapp.feature.main.program.history.ProgramHistoryPresenter;
@@ -109,4 +110,6 @@ public interface AppComponent
 	void inject(ChangePasswordPresenter changePasswordPresenter);
 
 	void inject(ProgramDataView programDataView);
+
+	void inject(ChartPresenter chartPresenter);
 }

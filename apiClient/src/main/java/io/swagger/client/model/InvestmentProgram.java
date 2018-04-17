@@ -101,6 +101,9 @@ public class InvestmentProgram
 	@SerializedName("chart")
 	private List<Chart> chart = null;
 
+	@SerializedName("equityChart")
+	private List<ChartByDate> equityChart = null;
+
 	@SerializedName("manager")
 	private ProfilePublicViewModel manager = null;
 
@@ -545,6 +548,33 @@ public class InvestmentProgram
 		this.chart = chart;
 	}
 
+	public InvestmentProgram equityChart(List<ChartByDate> equityChart) {
+		this.equityChart = equityChart;
+		return this;
+	}
+
+	public InvestmentProgram addEquityChartItem(ChartByDate equityChartItem) {
+		if (this.equityChart == null) {
+			this.equityChart = new ArrayList<ChartByDate>();
+		}
+		this.equityChart.add(equityChartItem);
+		return this;
+	}
+
+	/**
+	 * Get equityChart
+	 *
+	 * @return equityChart
+	 **/
+	@ApiModelProperty(value = "")
+	public List<ChartByDate> getEquityChart() {
+		return equityChart;
+	}
+
+	public void setEquityChart(List<ChartByDate> equityChart) {
+		this.equityChart = equityChart;
+	}
+
 	public InvestmentProgram manager(ProfilePublicViewModel manager) {
 		this.manager = manager;
 		return this;
@@ -690,6 +720,7 @@ public class InvestmentProgram
 				Objects.equals(this.feeSuccess, investmentProgram.feeSuccess) &&
 				Objects.equals(this.feeManagement, investmentProgram.feeManagement) &&
 				Objects.equals(this.chart, investmentProgram.chart) &&
+				Objects.equals(this.equityChart, investmentProgram.equityChart) &&
 				Objects.equals(this.manager, investmentProgram.manager) &&
 				Objects.equals(this.freeTokens, investmentProgram.freeTokens) &&
 				Objects.equals(this.hasNewRequests, investmentProgram.hasNewRequests) &&
@@ -700,7 +731,7 @@ public class InvestmentProgram
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, logo, isEnabled, balance, currency, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, chart, manager, freeTokens, hasNewRequests, isInvestEnable, isOwnProgram, canCloseProgram);
+		return Objects.hash(id, title, description, level, logo, isEnabled, balance, currency, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, chart, equityChart, manager, freeTokens, hasNewRequests, isInvestEnable, isOwnProgram, canCloseProgram);
 	}
 
 	@Override
@@ -730,6 +761,7 @@ public class InvestmentProgram
 		sb.append("    feeSuccess: ").append(toIndentedString(feeSuccess)).append("\n");
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+		sb.append("    equityChart: ").append(toIndentedString(equityChart)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    freeTokens: ").append(toIndentedString(freeTokens)).append("\n");
 		sb.append("    hasNewRequests: ").append(toIndentedString(hasNewRequests)).append("\n");
@@ -765,6 +797,8 @@ public class InvestmentProgram
 		ETH("ETH"),
 
 		BTC("BTC"),
+
+		ADA("ADA"),
 
 		USD("USD"),
 

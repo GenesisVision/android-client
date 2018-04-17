@@ -129,6 +129,8 @@ public class RequestRate
 
 		BTC("BTC"),
 
+		ADA("ADA"),
+
 		USD("USD"),
 
 		EUR("EUR");
@@ -185,6 +187,8 @@ public class RequestRate
 		ETH("ETH"),
 
 		BTC("BTC"),
+
+		ADA("ADA"),
 
 		USD("USD"),
 
