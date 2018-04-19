@@ -3,8 +3,6 @@ package vision.genesis.clientapp.managers;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.concurrent.TimeUnit;
-
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
 import io.swagger.client.model.TransactionsFilter;
@@ -16,7 +14,6 @@ import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.model.events.OnUnauthorizedResponseGetEvent;
-import vision.genesis.clientapp.utils.MockWalletTransactionUtil;
 
 /**
  * GenesisVision
@@ -73,10 +70,6 @@ public class WalletManager
 		return BuildConfig.FLAVOR.equals("investor")
 				? investorApi.apiInvestorWalletTransactionsPost(AuthManager.token.getValue(), filter)
 				: managerApi.apiManagerWalletTransactionsPost(AuthManager.token.getValue(), filter);
-	}
-
-	public Observable<WalletTransactionsViewModel> getMockTransactions(TransactionsFilter filter) {
-		return Observable.just(MockWalletTransactionUtil.getTransactionsModel(filter)).delay(500, TimeUnit.MILLISECONDS);
 	}
 
 	public Observable<WalletAddressViewModel> getWalletAddress() {

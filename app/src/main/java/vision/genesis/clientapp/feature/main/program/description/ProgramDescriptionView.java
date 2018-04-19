@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.details.description;
+package vision.genesis.clientapp.feature.main.program.description;
 
 import com.arellomobile.mvp.MvpView;
 
@@ -9,5 +9,4 @@ import com.arellomobile.mvp.MvpView;
 
 interface ProgramDescriptionView extends MvpView
 {
-	void finishActivity();
 }

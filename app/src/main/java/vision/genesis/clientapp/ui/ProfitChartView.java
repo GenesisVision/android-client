@@ -112,6 +112,7 @@ public class ProfitChartView extends com.github.mikephil.charting.charts.LineCha
 		}
 
 		this.setData(getLineData(lineEntries));
+		this.invalidate();
 	}
 
 	private LineData getLineData(List<Entry> data) {

@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.filter;
+package vision.genesis.clientapp.feature.main.programs_list.filter;
 
 import android.content.Context;
 

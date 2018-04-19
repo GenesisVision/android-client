@@ -108,14 +108,14 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/wallet_tabs_height"
+                android:layout_height="@dimen/tabs_height"
                 android:layout_below="@+id/toolbar"
                 app:layout_collapseMode="pin">
 
                 <android.support.design.widget.TabLayout
                     android:id="@+id/tab_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/wallet_tabs_height"
+                    android:layout_height="@dimen/tabs_height"
                     android:background="@color/white"
                     android:minHeight="?attr/actionBarSize"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -124,16 +124,6 @@
                     app:tabMode="fixed"
                     app:tabSelectedTextColor="@color/colorPrimary"
                     app:tabTextColor="@color/colorFontMedium"/>
-
-                <!--<ProgressBar-->
-                <!--android:id="@+id/progress_bar"-->
-                <!--style="?android:attr/progressBarStyleHorizontal"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="2dp"-->
-                <!--android:layout_alignParentBottom="true"-->
-                <!--android:indeterminate="true"-->
-                <!--android:scaleY="4"-->
-                <!--android:visibility="visible"/>-->
 
             </RelativeLayout>
 

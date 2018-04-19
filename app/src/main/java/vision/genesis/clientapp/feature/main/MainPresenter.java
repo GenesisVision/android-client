@@ -16,7 +16,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardFragment;
 import vision.genesis.clientapp.feature.main.profile.ProfileFragment;
-import vision.genesis.clientapp.feature.main.program.list.ProgramsListFragment;
+import vision.genesis.clientapp.feature.main.programs_list.ProgramsListFragment;
 import vision.genesis.clientapp.feature.main.wallet.WalletFragment;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.model.ProgramRequest;

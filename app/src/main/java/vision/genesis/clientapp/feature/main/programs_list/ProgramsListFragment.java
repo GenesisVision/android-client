@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.list;
+package vision.genesis.clientapp.feature.main.programs_list;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -97,7 +97,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	private int lastVisible = 0;
 
-	private InvestmentProgramsListAdapter investmentProgramsListAdapter;
+	private ProgramsListAdapter programsListAdapter;
 
 	private Subscription textChangeSubscription;
 
@@ -209,11 +209,11 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		recyclerView.setHasFixedSize(true);
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
-		investmentProgramsListAdapter = new InvestmentProgramsListAdapter();
+		programsListAdapter = new ProgramsListAdapter();
 		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
 		dividerItemDecoration.setDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.list_item_divider));
 		recyclerView.addItemDecoration(dividerItemDecoration);
-		recyclerView.setAdapter(investmentProgramsListAdapter);
+		recyclerView.setAdapter(programsListAdapter);
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
 		{
 			@Override
@@ -294,12 +294,12 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	@Override
 	public void setInvestmentPrograms(List<InvestmentProgram> programs) {
-		investmentProgramsListAdapter.setInvestmentPrograms(programs);
+		programsListAdapter.setInvestmentPrograms(programs);
 	}
 
 	@Override
 	public void addInvestmentPrograms(List<InvestmentProgram> programs) {
-		investmentProgramsListAdapter.addInvestmentPrograms(programs);
+		programsListAdapter.addInvestmentPrograms(programs);
 	}
 
 	@Override

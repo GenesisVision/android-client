@@ -1,9 +1,12 @@
-package vision.genesis.clientapp.feature.main.program.details;
+package vision.genesis.clientapp.feature.main.program;
 
 import android.content.Context;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.UUID;
 
@@ -17,14 +20,16 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.model.User;
+import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
+import vision.genesis.clientapp.model.events.OnPeriodLeftEvent;
 
 /**
- * GenesisVisionAndroid
- * Created by Vitaly on 17/04/2018.
+ * GenesisVision
+ * Created by Vitaly on 1/26/18.
  */
 
 @InjectViewState
-public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
+public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 {
 	@Inject
 	public Context context;
@@ -47,9 +52,9 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		EventBus.getDefault().register(this);
+
 		subscribeToUser();
-		getViewState().showProgress(true);
-		getProgramDetails();
 	}
 
 	@Override
@@ -59,44 +64,35 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 		if (programDetailsSubscription != null)
 			programDetailsSubscription.unsubscribe();
 
+		EventBus.getDefault().unregister(this);
 		super.onDestroy();
 	}
 
 	void setProgramId(UUID programId) {
 		this.programId = programId;
-		getProgramDetails();
 	}
 
-	void onShow() {
-		getProgramDetails();
-	}
-
-	void onSwipeRefresh() {
-		getViewState().setRefreshing(true);
-		getProgramDetails();
+	void onResume() {
+		if (programId != null)
+			getProgramDetails();
 	}
 
 	private void getProgramDetails() {
-		if (programId != null && investManager != null)
-			programDetailsSubscription = investManager.getInvestmentProgramDetails(programId)
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleInvestmentProgramDetailsSuccess,
-							this::handleInvestmentProgramDetailsError);
+		programDetailsSubscription = investManager.getInvestmentProgramDetails(programId)
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.io())
+				.subscribe(this::handleInvestmentProgramDetailsSuccess,
+						this::handleInvestmentProgramDetailsError);
 	}
 
 	private void handleInvestmentProgramDetailsSuccess(InvestmentProgramViewModel model) {
 		programDetailsSubscription.unsubscribe();
-		getViewState().showProgress(false);
-		getViewState().setRefreshing(false);
 
-		getViewState().setProgramDetails(model.getInvestmentProgram());
+		getViewState().setProgram(model.getInvestmentProgram());
 	}
 
 	private void handleInvestmentProgramDetailsError(Throwable throwable) {
 		programDetailsSubscription.unsubscribe();
-		getViewState().showProgress(false);
-		getViewState().setRefreshing(false);
 	}
 
 	private void subscribeToUser() {
@@ -114,14 +110,22 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	}
 
 	private void userLoggedOn() {
-		getViewState().showInvestWithdrawButtons(true);
 	}
 
 	private void userLoggedOff() {
-		getViewState().showInvestWithdrawButtons(false);
 	}
 
 	private void handleUserError(Throwable throwable) {
 		userLoggedOff();
+	}
+
+	@Subscribe
+	public void onEventMainThread(NewInvestmentSuccessEvent event) {
+		getViewState().finishActivity();
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnPeriodLeftEvent event) {
+		getProgramDetails();
 	}
 }

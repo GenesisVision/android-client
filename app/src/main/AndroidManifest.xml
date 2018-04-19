@@ -45,13 +45,13 @@
         </activity>
 
         <activity
-            android:name=".feature.main.program.details.ProgramDetailsActivity"
+            android:name=".feature.main.program.ProgramInfoActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="adjustResize"/>
 
         <activity
-            android:name=".feature.main.program.filter.ProgramsFiltersActivity"
+            android:name=".feature.main.programs_list.filter.ProgramsFiltersActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
@@ -106,12 +106,6 @@
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
-            android:name=".feature.main.program.details.description.ProgramDescriptionActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/SwipeBackActivityTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
-
-        <activity
             android:name=".feature.main.profile.ImageCropActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
@@ -126,13 +120,7 @@
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
-            android:name=".feature.main.program.history.ProgramHistoryActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/SwipeBackActivityTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
-
-        <activity
-            android:name=".feature.main.program.trades.TradesActivity"
+            android:name=".feature.main.program.trades.TradesFragment"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>

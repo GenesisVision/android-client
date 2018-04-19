@@ -21,15 +21,15 @@ import vision.genesis.clientapp.feature.main.message.MessageActivity;
 import vision.genesis.clientapp.feature.main.profile.ImageCropActivity;
 import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
 import vision.genesis.clientapp.feature.main.profile.change_password.ChangePasswordPresenter;
+import vision.genesis.clientapp.feature.main.program.ProgramInfoPresenter;
 import vision.genesis.clientapp.feature.main.program.chart.ChartPresenter;
 import vision.genesis.clientapp.feature.main.program.details.ProgramDetailsPresenter;
-import vision.genesis.clientapp.feature.main.program.filter.ProgramsFiltersPresenter;
-import vision.genesis.clientapp.feature.main.program.history.ProgramHistoryPresenter;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramPresenter;
-import vision.genesis.clientapp.feature.main.program.list.ProgramsListPresenter;
 import vision.genesis.clientapp.feature.main.program.requests.RequestsPresenter;
 import vision.genesis.clientapp.feature.main.program.trades.TradesPresenter;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramPresenter;
+import vision.genesis.clientapp.feature.main.programs_list.ProgramsListPresenter;
+import vision.genesis.clientapp.feature.main.programs_list.filter.ProgramsFiltersPresenter;
 import vision.genesis.clientapp.feature.main.wallet.WalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPresenter;
@@ -71,7 +71,7 @@ public interface AppComponent
 
 	void inject(ProgramsFiltersPresenter programsFiltersPresenter);
 
-	void inject(ProgramDetailsPresenter programDetailsPresenter);
+	void inject(ProgramInfoPresenter programInfoPresenter);
 
 	void inject(TabContainerFragment tabContainerFragment);
 
@@ -101,8 +101,6 @@ public interface AppComponent
 
 	void inject(MessageActivity messageActivity);
 
-	void inject(ProgramHistoryPresenter programHistoryPresenter);
-
 	void inject(TradesPresenter tradesPresenter);
 
 	void inject(ForgotPasswordPresenter forgotPasswordPresenter);
@@ -112,4 +110,6 @@ public interface AppComponent
 	void inject(ProgramDataView programDataView);
 
 	void inject(ChartPresenter chartPresenter);
+
+	void inject(ProgramDetailsPresenter programDetailsPresenter);
 }

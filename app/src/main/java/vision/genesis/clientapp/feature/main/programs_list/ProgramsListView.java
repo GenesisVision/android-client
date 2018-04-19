@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.list;
+package vision.genesis.clientapp.feature.main.programs_list;
 
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;

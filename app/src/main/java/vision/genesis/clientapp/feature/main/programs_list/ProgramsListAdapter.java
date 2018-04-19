@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.list;
+package vision.genesis.clientapp.feature.main.programs_list;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -30,7 +30,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 1/25/18.
  */
 
-public class InvestmentProgramsListAdapter extends RecyclerView.Adapter<InvestmentProgramsListAdapter.InvestmentProgramViewHolder>
+public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapter.InvestmentProgramViewHolder>
 {
 	public List<InvestmentProgram> investmentPrograms = new ArrayList<>();
 

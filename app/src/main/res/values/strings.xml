@@ -242,4 +242,6 @@
     <string name="zoom_five_min">5min</string>
     <string name="zoom_one_hour">1h</string>
     <string name="zoom_one_week">1w</string>
+    <string name="details">Details</string>
+    <string name="description">Description</string>
 </resources>

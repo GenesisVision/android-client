@@ -1,12 +1,12 @@
 package vision.genesis.clientapp.feature.main.program.trades;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -19,13 +19,14 @@ import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import io.swagger.client.model.OrderModel;
 import io.swagger.client.model.TradesViewModel;
 import timber.log.Timber;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.ui.DividerItemDecoration;
-import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -33,19 +34,17 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 4/1/18.
  */
 
-public class TradesActivity extends BaseSwipeBackActivity implements TradesView
+public class TradesFragment extends BaseFragment implements TradesView
 {
 	private static final String EXTRA_PROGRAM_ID = "extra_program_id";
 
-	public static void startWith(Activity activity, UUID programId) {
-		Intent intent = new Intent(activity.getApplicationContext(), TradesActivity.class);
-		intent.putExtra(EXTRA_PROGRAM_ID, programId);
-		activity.startActivity(intent);
-		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
+	public static TradesFragment with(UUID programId) {
+		TradesFragment tradesFragment = new TradesFragment();
+		Bundle arguments = new Bundle(1);
+		arguments.putSerializable(EXTRA_PROGRAM_ID, programId);
+		tradesFragment.setArguments(arguments);
+		return tradesFragment;
 	}
-
-	@BindView(R.id.toolbar)
-	public ToolbarView toolbar;
 
 	@BindView(R.id.header)
 	public ViewGroup header;
@@ -91,39 +90,46 @@ public class TradesActivity extends BaseSwipeBackActivity implements TradesView
 
 	private TradesListAdapter tradesListAdapter;
 
+	private Unbinder unbinder;
+
+	@Nullable
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.fragment_trades, container, false);
+	}
 
-		setContentView(R.layout.activity_trades);
+	@Override
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 
-		ButterKnife.bind(this);
+		unbinder = ButterKnife.bind(this, view);
 
-		initToolbar();
 		initRefreshLayout();
 		initRecyclerView();
 		setFonts();
 
-		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
-			UUID programId = (UUID) getIntent().getExtras().getSerializable(EXTRA_PROGRAM_ID);
+		if (getArguments() != null) {
+			UUID programId = (UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID);
 			tradesPresenter.setProgramId(programId);
+
+			setFonts();
+
+			initRefreshLayout();
 		}
 		else {
-			Timber.e("Passed empty programId to TradesActivity");
+			Timber.e("Passed empty programId to TradesFragment");
 			onBackPressed();
 		}
 	}
 
 	@Override
-	protected void onDestroy() {
-		recyclerView.setAdapter(null);
+	public void onDestroyView() {
+		if (unbinder != null) {
+			unbinder.unbind();
+			unbinder = null;
+		}
 
-		super.onDestroy();
-	}
-
-	private void initToolbar() {
-		toolbar.setTitle(getString(R.string.trades));
-		toolbar.addLeftButton(R.drawable.back_arrow, this::onBackPressed);
+		super.onDestroyView();
 	}
 
 	private void setFonts() {
@@ -139,18 +145,18 @@ public class TradesActivity extends BaseSwipeBackActivity implements TradesView
 	}
 
 	private void initRefreshLayout() {
-		refreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimary),
-				ContextCompat.getColor(this, R.color.colorAccent),
-				ContextCompat.getColor(this, R.color.colorPrimaryDark));
+		refreshLayout.setColorSchemeColors(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimary),
+				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent),
+				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimaryDark));
 		refreshLayout.setOnRefreshListener(() -> tradesPresenter.onSwipeRefresh());
 	}
 
 	private void initRecyclerView() {
-		LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
 		tradesListAdapter = new TradesListAdapter();
-		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,
-				ContextCompat.getDrawable(this, R.drawable.list_item_divider),
+		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
+				ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider),
 				20, 20);
 		recyclerView.addItemDecoration(dividerItemDecoration);
 		recyclerView.setAdapter(tradesListAdapter);
