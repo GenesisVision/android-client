@@ -66,7 +66,7 @@ public class InvestManager
 	}
 
 	public Observable<InvestorDashboard> getInvestments(String sorting) {
-		return investorApi.apiInvestorDashboardGet(AuthManager.token.getValue(), sorting);
+		return investorApi.apiInvestorDashboardGet(AuthManager.token.getValue(), sorting, 36);
 	}
 
 	public Observable<InvestmentProgramViewModel> getInvestmentProgramDetails(UUID programId) {
@@ -81,8 +81,8 @@ public class InvestManager
 		return investorApi.apiInvestorInvestmentProgramTradesPost(filter);
 	}
 
-	public Observable<TradesChartViewModel> getEquityChart(UUID programId) {
-		return investorApi.apiInvestorInvestmentProgramEquityChartGet(programId, null);
+	public Observable<TradesChartViewModel> getEquityChart(UUID programId, String timeFrame) {
+		return investorApi.apiInvestorInvestmentProgramEquityChartGet(programId, timeFrame);
 	}
 
 	public Observable<Void> cancelRequest(UUID requestId) {

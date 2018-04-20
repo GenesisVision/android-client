@@ -42,7 +42,7 @@
 
         </RelativeLayout>
 
-        <vision.genesis.clientapp.ui.ProfitChartView
+        <vision.genesis.clientapp.ui.chart.ProfitSmallChartView
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_investment_program_graph_height"

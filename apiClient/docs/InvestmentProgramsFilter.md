@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **periodMax** | **Integer** |  |  [optional]
 **showActivePrograms** | **Boolean** |  |  [optional]
 **equityChartLength** | **Integer** |  |  [optional]
+**showMyFavorites** | **Boolean** |  |  [optional]
 **skip** | **Integer** |  |  [optional]
 **take** | **Integer** |  |  [optional]
 

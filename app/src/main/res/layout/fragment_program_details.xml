@@ -34,7 +34,7 @@
                     app:cardPreventCornerOverlap="true"
                     app:cardUseCompatPadding="true">
 
-                    <vision.genesis.clientapp.ui.ProfitChartView
+                    <vision.genesis.clientapp.ui.chart.ProfitDetailsChartView
                         android:id="@+id/chart"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/program_info_chart_height"/>

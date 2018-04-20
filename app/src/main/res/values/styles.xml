@@ -213,11 +213,18 @@
 
     </style>
 
+    <style name="chart_zoom_button_group">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+
     <style name="chart_zoom_button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerInParent">true</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/grey400</item>
     </style>
 
     <style name="chart_zoom_button_underline">

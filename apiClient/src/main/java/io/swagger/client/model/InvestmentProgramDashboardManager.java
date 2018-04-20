@@ -22,8 +22,6 @@ import com.google.gson.stream.JsonWriter;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -107,8 +105,8 @@ public class InvestmentProgramDashboardManager
 	@SerializedName("canClosePeriod")
 	private Boolean canClosePeriod = null;
 
-	@SerializedName("equityChart")
-	private List<ChartByDate> equityChart = null;
+	@SerializedName("isFavorite")
+	private Boolean isFavorite = null;
 
 	public InvestmentProgramDashboardManager id(UUID id) {
 		this.id = id;
@@ -566,31 +564,23 @@ public class InvestmentProgramDashboardManager
 		this.canClosePeriod = canClosePeriod;
 	}
 
-	public InvestmentProgramDashboardManager equityChart(List<ChartByDate> equityChart) {
-		this.equityChart = equityChart;
-		return this;
-	}
-
-	public InvestmentProgramDashboardManager addEquityChartItem(ChartByDate equityChartItem) {
-		if (this.equityChart == null) {
-			this.equityChart = new ArrayList<ChartByDate>();
-		}
-		this.equityChart.add(equityChartItem);
+	public InvestmentProgramDashboardManager isFavorite(Boolean isFavorite) {
+		this.isFavorite = isFavorite;
 		return this;
 	}
 
 	/**
-	 * Get equityChart
+	 * Get isFavorite
 	 *
-	 * @return equityChart
+	 * @return isFavorite
 	 **/
 	@ApiModelProperty(value = "")
-	public List<ChartByDate> getEquityChart() {
-		return equityChart;
+	public Boolean isIsFavorite() {
+		return isFavorite;
 	}
 
-	public void setEquityChart(List<ChartByDate> equityChart) {
-		this.equityChart = equityChart;
+	public void setIsFavorite(Boolean isFavorite) {
+		this.isFavorite = isFavorite;
 	}
 
 	@Override
@@ -626,12 +616,12 @@ public class InvestmentProgramDashboardManager
 				Objects.equals(this.login, investmentProgramDashboardManager.login) &&
 				Objects.equals(this.canCloseProgram, investmentProgramDashboardManager.canCloseProgram) &&
 				Objects.equals(this.canClosePeriod, investmentProgramDashboardManager.canClosePeriod) &&
-				Objects.equals(this.equityChart, investmentProgramDashboardManager.equityChart);
+				Objects.equals(this.isFavorite, investmentProgramDashboardManager.isFavorite);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, logo, balance, currency, tradesCount, periodDuration, investorsCount, isEnabled, startOfPeriod, profitTotal, profitTotalGvt, profitCurrent, isInvestEnable, isWithdrawEnable, token, ownBalance, minAccountBalanceUsd, minAccountBalance, login, canCloseProgram, canClosePeriod, equityChart);
+		return Objects.hash(id, title, description, level, logo, balance, currency, tradesCount, periodDuration, investorsCount, isEnabled, startOfPeriod, profitTotal, profitTotalGvt, profitCurrent, isInvestEnable, isWithdrawEnable, token, ownBalance, minAccountBalanceUsd, minAccountBalance, login, canCloseProgram, canClosePeriod, isFavorite);
 	}
 
 	@Override
@@ -663,7 +653,7 @@ public class InvestmentProgramDashboardManager
 		sb.append("    login: ").append(toIndentedString(login)).append("\n");
 		sb.append("    canCloseProgram: ").append(toIndentedString(canCloseProgram)).append("\n");
 		sb.append("    canClosePeriod: ").append(toIndentedString(canClosePeriod)).append("\n");
-		sb.append("    equityChart: ").append(toIndentedString(equityChart)).append("\n");
+		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

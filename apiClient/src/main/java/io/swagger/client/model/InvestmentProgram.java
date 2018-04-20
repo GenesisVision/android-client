@@ -122,6 +122,9 @@ public class InvestmentProgram
 	@SerializedName("canCloseProgram")
 	private Boolean canCloseProgram = null;
 
+	@SerializedName("isFavorite")
+	private Boolean isFavorite = null;
+
 	public InvestmentProgram id(UUID id) {
 		this.id = id;
 		return this;
@@ -689,6 +692,25 @@ public class InvestmentProgram
 		this.canCloseProgram = canCloseProgram;
 	}
 
+	public InvestmentProgram isFavorite(Boolean isFavorite) {
+		this.isFavorite = isFavorite;
+		return this;
+	}
+
+	/**
+	 * Get isFavorite
+	 *
+	 * @return isFavorite
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsFavorite() {
+		return isFavorite;
+	}
+
+	public void setIsFavorite(Boolean isFavorite) {
+		this.isFavorite = isFavorite;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -726,12 +748,13 @@ public class InvestmentProgram
 				Objects.equals(this.hasNewRequests, investmentProgram.hasNewRequests) &&
 				Objects.equals(this.isInvestEnable, investmentProgram.isInvestEnable) &&
 				Objects.equals(this.isOwnProgram, investmentProgram.isOwnProgram) &&
-				Objects.equals(this.canCloseProgram, investmentProgram.canCloseProgram);
+				Objects.equals(this.canCloseProgram, investmentProgram.canCloseProgram) &&
+				Objects.equals(this.isFavorite, investmentProgram.isFavorite);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, logo, isEnabled, balance, currency, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, chart, equityChart, manager, freeTokens, hasNewRequests, isInvestEnable, isOwnProgram, canCloseProgram);
+		return Objects.hash(id, title, description, level, logo, isEnabled, balance, currency, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, chart, equityChart, manager, freeTokens, hasNewRequests, isInvestEnable, isOwnProgram, canCloseProgram, isFavorite);
 	}
 
 	@Override
@@ -768,6 +791,7 @@ public class InvestmentProgram
 		sb.append("    isInvestEnable: ").append(toIndentedString(isInvestEnable)).append("\n");
 		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
 		sb.append("    canCloseProgram: ").append(toIndentedString(canCloseProgram)).append("\n");
+		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

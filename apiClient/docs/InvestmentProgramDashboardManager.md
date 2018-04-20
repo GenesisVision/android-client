@@ -28,7 +28,7 @@ Name | Type | Description | Notes
 **login** | **String** |  |  [optional]
 **canCloseProgram** | **Boolean** |  |  [optional]
 **canClosePeriod** | **Boolean** |  |  [optional]
-**equityChart** | [**List&lt;ChartByDate&gt;**](ChartByDate.md) |  |  [optional]
+**isFavorite** | **Boolean** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

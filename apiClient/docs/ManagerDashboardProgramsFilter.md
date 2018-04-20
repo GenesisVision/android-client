@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
-**equityChartLength** | **Integer** |  |  [optional]
 
 
 <a name="TypeEnum"></a>

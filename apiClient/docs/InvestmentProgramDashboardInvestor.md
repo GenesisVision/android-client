@@ -28,7 +28,9 @@ Name | Type | Description | Notes
 **feeSuccess** | **Double** |  |  [optional]
 **feeManagement** | **Double** |  |  [optional]
 **isEnabled** | **Boolean** |  |  [optional]
+**isArchived** | **Boolean** |  |  [optional]
 **chart** | [**List&lt;Chart&gt;**](Chart.md) |  |  [optional]
+**equityChart** | [**List&lt;ChartByDate&gt;**](ChartByDate.md) |  |  [optional]
 **freeTokens** | [**FreeTokens**](FreeTokens.md) |  |  [optional]
 **manager** | [**ProfilePublicViewModel**](ProfilePublicViewModel.md) |  |  [optional]
 **token** | [**Token**](Token.md) |  |  [optional]
@@ -37,6 +39,7 @@ Name | Type | Description | Notes
 **isInvestEnable** | **Boolean** |  |  [optional]
 **isWithdrawEnable** | **Boolean** |  |  [optional]
 **isOwnProgram** | **Boolean** |  |  [optional]
+**isFavorite** | **Boolean** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

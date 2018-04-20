@@ -21,7 +21,7 @@ import io.swagger.client.model.ParticipantViewModel;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.OnParticipantItemListClicked;
 import vision.genesis.clientapp.ui.AvatarView;
-import vision.genesis.clientapp.ui.ProfitChartView;
+import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
 
 /**
  * GenesisVision
@@ -105,7 +105,7 @@ public class ParticipantsListAdapter extends RecyclerView.Adapter<RecyclerView.V
 		public TextView profitPercentText;
 
 		@BindView(R.id.chart)
-		public ProfitChartView chart;
+		public ProfitSmallChartView chart;
 
 		private ParticipantViewModel participant;
 
@@ -144,7 +144,7 @@ public class ParticipantsListAdapter extends RecyclerView.Adapter<RecyclerView.V
 			else
 				profitPercentText.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
 
-			chart.setDataDouble(participant.getChart());
+//			chart.setDataDouble(participant.getChart());
 		}
 	}
 

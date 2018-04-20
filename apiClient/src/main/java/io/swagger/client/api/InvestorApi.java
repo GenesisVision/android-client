@@ -225,13 +225,14 @@ public interface InvestorApi
 	/**
 	 * Get investor dashboard
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param sorting       (optional)
+	 * @param authorization     JWT access token (required)
+	 * @param sorting           (optional)
+	 * @param equityChartLength (optional)
 	 * @return Call&lt;InvestorDashboard&gt;
 	 */
 	@GET("api/investor/dashboard")
 	Observable<InvestorDashboard> apiInvestorDashboardGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("EquityChartLength") Integer equityChartLength
 	);
 
 	/**
@@ -250,12 +251,12 @@ public interface InvestorApi
 	 * Get manager equity chart
 	 *
 	 * @param investmentProgramId (required)
-	 * @param pointsCount         (optional)
+	 * @param timeFrame           (required)
 	 * @return Call&lt;TradesChartViewModel&gt;
 	 */
 	@GET("api/investor/investmentProgram/equity/chart")
 	Observable<TradesChartViewModel> apiInvestorInvestmentProgramEquityChartGet(
-			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Query("pointsCount") Integer pointsCount
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Query("timeFrame") String timeFrame
 	);
 
 	/**
@@ -335,6 +336,30 @@ public interface InvestorApi
 	@POST("api/investor/investmentPrograms/cancelInvestmentRequest")
 	Observable<Void> apiInvestorInvestmentProgramsCancelInvestmentRequestPost(
 			@retrofit2.http.Query("requestId") UUID requestId, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Add to favorites
+	 *
+	 * @param investmentProgramId (required)
+	 * @param authorization       JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("api/investor/investmentPrograms/favorites/add")
+	Observable<Void> apiInvestorInvestmentProgramsFavoritesAddPost(
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Remove from favorites
+	 *
+	 * @param investmentProgramId (required)
+	 * @param authorization       JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("api/investor/investmentPrograms/favorites/remove")
+	Observable<Void> apiInvestorInvestmentProgramsFavoritesRemovePost(
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**

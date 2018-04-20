@@ -152,7 +152,7 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp"/>
 
-            <vision.genesis.clientapp.ui.ProfitChartView
+            <vision.genesis.clientapp.ui.chart.ProfitSmallChartView
                 android:id="@+id/chart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>

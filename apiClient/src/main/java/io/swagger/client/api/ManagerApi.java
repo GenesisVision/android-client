@@ -348,12 +348,12 @@ public interface ManagerApi
 	 * Get manager equity chart
 	 *
 	 * @param investmentProgramId (required)
-	 * @param pointsCount         (optional)
+	 * @param timeFrame           (required)
 	 * @return Call&lt;TradesChartViewModel&gt;
 	 */
 	@GET("api/manager/investmentProgram/equity/chart")
 	Observable<TradesChartViewModel> apiManagerInvestmentProgramEquityChartGet(
-			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Query("pointsCount") Integer pointsCount
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Query("timeFrame") String timeFrame
 	);
 
 	/**
@@ -433,6 +433,30 @@ public interface ManagerApi
 	@POST("api/manager/investmentProgram/update")
 	Observable<Void> apiManagerInvestmentProgramUpdatePost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body InvestmentProgramUpdate model
+	);
+
+	/**
+	 * Add to favorites
+	 *
+	 * @param investmentProgramId (required)
+	 * @param authorization       JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("api/manager/investmentPrograms/favorites/add")
+	Observable<Void> apiManagerInvestmentProgramsFavoritesAddPost(
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Remove from favorites
+	 *
+	 * @param investmentProgramId (required)
+	 * @param authorization       JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("api/manager/investmentPrograms/favorites/remove")
+	Observable<Void> apiManagerInvestmentProgramsFavoritesRemovePost(
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**

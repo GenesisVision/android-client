@@ -68,6 +68,7 @@
     <string name="cannot_load_data">Cannot load data.\nPlease try again later</string>
     <string name="leaderboard">Leaderboard</string>
     <string name="not_enough_data">Not enough data to draw a chart</string>
+    <string name="no_chart">no chart</string>
     <string name="total_funds_history">Total funds history</string>
     <string name="tournament_hasnt_started_yet">The tournament hasn\'t started yet.\nFor more info please visit</string>
     <string name="search">Search</string>
@@ -238,10 +239,15 @@
     <string name="feedback_dialog_title">You can send us your feedback in the following ways:</string>
     <string name="tokens_availability">Tokens availability</string>
     <string name="active_programs_only">Active programs only</string>
-    <string name="zoom_one_day">1d</string>
-    <string name="zoom_five_min">5min</string>
-    <string name="zoom_one_hour">1h</string>
-    <string name="zoom_one_week">1w</string>
     <string name="details">Details</string>
     <string name="description">Description</string>
+    <string name="zoom_five_min">5MIN</string>
+    <string name="zoom_one_hour">1H</string>
+    <string name="zoom_one_day">1D</string>
+    <string name="zoom_one_week">1W</string>
+    <string name="zoom_one_month">1M</string>
+    <string name="zoom_three_months">3M</string>
+    <string name="zoom_six_months">6M</string>
+    <string name="zoom_all">ALL</string>
+    <string name="zoom_one_year">1Y</string>
 </resources>

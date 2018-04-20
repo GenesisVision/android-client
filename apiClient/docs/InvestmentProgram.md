@@ -33,6 +33,7 @@ Name | Type | Description | Notes
 **isInvestEnable** | **Boolean** |  |  [optional]
 **isOwnProgram** | **Boolean** |  |  [optional]
 **canCloseProgram** | **Boolean** |  |  [optional]
+**isFavorite** | **Boolean** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

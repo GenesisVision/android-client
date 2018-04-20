@@ -226,6 +226,15 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 
 	}
 
+	public void onChartTouch() {
+		viewPager.requestDisallowInterceptTouchEvent(true);
+	}
+
+	public void onChartTouchEnd() {
+		viewPager.requestDisallowInterceptTouchEvent(false);
+
+	}
+
 	@Override
 	public void finishActivity() {
 		finish();

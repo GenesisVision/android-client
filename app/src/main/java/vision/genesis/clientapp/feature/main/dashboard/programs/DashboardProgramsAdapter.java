@@ -21,7 +21,7 @@ import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
-import vision.genesis.clientapp.ui.ProfitChartView;
+import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -73,7 +73,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		public TextView managerName;
 
 		@BindView(R.id.chart)
-		public ProfitChartView chart;
+		public ProfitSmallChartView chart;
 
 		@BindView(R.id.tokens)
 		public TextView tokens;

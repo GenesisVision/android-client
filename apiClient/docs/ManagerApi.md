@@ -33,6 +33,8 @@ Method | HTTP request | Description
 [**apiManagerInvestmentProgramTradesChartGet**](ManagerApi.md#apiManagerInvestmentProgramTradesChartGet) | **GET** api/manager/investmentProgram/trades/chart | Get manager trades chart
 [**apiManagerInvestmentProgramTradesPost**](ManagerApi.md#apiManagerInvestmentProgramTradesPost) | **POST** api/manager/investmentProgram/trades | Get manager trade history
 [**apiManagerInvestmentProgramUpdatePost**](ManagerApi.md#apiManagerInvestmentProgramUpdatePost) | **POST** api/manager/investmentProgram/update | Update investment program details
+[**apiManagerInvestmentProgramsFavoritesAddPost**](ManagerApi.md#apiManagerInvestmentProgramsFavoritesAddPost) | **POST** api/manager/investmentPrograms/favorites/add | Add to favorites
+[**apiManagerInvestmentProgramsFavoritesRemovePost**](ManagerApi.md#apiManagerInvestmentProgramsFavoritesRemovePost) | **POST** api/manager/investmentPrograms/favorites/remove | Remove from favorites
 [**apiManagerInvestmentProgramsPost**](ManagerApi.md#apiManagerInvestmentProgramsPost) | **POST** api/manager/investmentPrograms | Get public investment program&#39;s list
 [**apiManagerInvestmentWithdrawPost**](ManagerApi.md#apiManagerInvestmentWithdrawPost) | **POST** api/manager/investment/withdraw | Manager withdrawal from his own investment program
 [**apiManagerProfileFullGet**](ManagerApi.md#apiManagerProfileFullGet) | **GET** api/manager/profile/full | Get full profile
@@ -1020,7 +1022,7 @@ No authorization required
 
 <a name="apiManagerInvestmentProgramEquityChartGet"></a>
 # **apiManagerInvestmentProgramEquityChartGet**
-> TradesChartViewModel apiManagerInvestmentProgramEquityChartGet(investmentProgramId, pointsCount)
+> TradesChartViewModel apiManagerInvestmentProgramEquityChartGet(investmentProgramId, timeFrame)
 
 Get manager equity chart
 
@@ -1033,9 +1035,9 @@ Get manager equity chart
 
 ManagerApi apiInstance = new ManagerApi();
 UUID investmentProgramId = new UUID(); // UUID | 
-Integer pointsCount = 56; // Integer | 
+String timeFrame = "timeFrame_example"; // String | 
 try {
-    TradesChartViewModel result = apiInstance.apiManagerInvestmentProgramEquityChartGet(investmentProgramId, pointsCount);
+    TradesChartViewModel result = apiInstance.apiManagerInvestmentProgramEquityChartGet(investmentProgramId, timeFrame);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ManagerApi#apiManagerInvestmentProgramEquityChartGet");
@@ -1048,7 +1050,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **investmentProgramId** | [**UUID**](.md)|  |
- **pointsCount** | **Integer**|  | [optional]
+ **timeFrame** | **String**|  | [enum: Day1, Week1, Month1, Month3, Month6, Year1, All]
 
 ### Return type
 
@@ -1327,6 +1329,96 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerInvestmentProgramsFavoritesAddPost"></a>
+# **apiManagerInvestmentProgramsFavoritesAddPost**
+> Void apiManagerInvestmentProgramsFavoritesAddPost(investmentProgramId, authorization)
+
+Add to favorites
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+UUID investmentProgramId = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.apiManagerInvestmentProgramsFavoritesAddPost(investmentProgramId, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerInvestmentProgramsFavoritesAddPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **investmentProgramId** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerInvestmentProgramsFavoritesRemovePost"></a>
+# **apiManagerInvestmentProgramsFavoritesRemovePost**
+> Void apiManagerInvestmentProgramsFavoritesRemovePost(investmentProgramId, authorization)
+
+Remove from favorites
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+UUID investmentProgramId = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.apiManagerInvestmentProgramsFavoritesRemovePost(investmentProgramId, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerInvestmentProgramsFavoritesRemovePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **investmentProgramId** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 <a name="apiManagerInvestmentProgramsPost"></a>

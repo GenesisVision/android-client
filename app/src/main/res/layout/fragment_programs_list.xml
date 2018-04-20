@@ -110,10 +110,6 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:background="@drawable/transactions_shadow"/>
 
             <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/refresh_layout"
@@ -126,9 +122,10 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="15dp"
+                    android:background="@color/colorGrayBackground"
                     android:clipToPadding="false"
-                    android:paddingBottom="70dp"/>
+                    android:paddingBottom="70dp"
+                    android:paddingTop="16dp"/>
 
             </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -219,6 +216,12 @@
                 app:fabSize="mini"
                 app:rippleColor="@color/colorPrimary"
                 tools:visibility="visible"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/shadow_down_black"/>
 
         </RelativeLayout>
 

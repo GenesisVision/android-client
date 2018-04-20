@@ -19,8 +19,6 @@ import javax.inject.Inject;
 import io.swagger.client.model.TradeChart;
 import io.swagger.client.model.TradesChartViewModel;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.InvestManager;
@@ -85,11 +83,11 @@ public class ChartPresenter extends MvpPresenter<ChartView>
 		if (investManager == null || programId == null)
 			return;
 		getViewState().showProgress(true);
-		getChartSubscription = investManager.getEquityChart(programId)//currentZoom
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleGetChartResponse,
-						this::handleGetChartError);
+//		getChartSubscription = investManager.getEquityChart(programId)//currentZoom
+//				.observeOn(AndroidSchedulers.mainThread())
+//				.subscribeOn(Schedulers.io())
+//				.subscribe(this::handleGetChartResponse,
+//						this::handleGetChartError);
 	}
 
 	private void handleGetChartResponse(TradesChartViewModel response) {

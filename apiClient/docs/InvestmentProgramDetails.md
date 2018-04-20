@@ -53,6 +53,7 @@ Name | Type | Description | Notes
 **isOwnProgram** | **Boolean** |  |  [optional]
 **canCloseProgram** | **Boolean** |  |  [optional]
 **canClosePeriod** | **Boolean** |  |  [optional]
+**isFavorite** | **Boolean** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

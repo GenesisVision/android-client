@@ -26,6 +26,8 @@ Method | HTTP request | Description
 [**apiInvestorInvestmentProgramTradesChartGet**](InvestorApi.md#apiInvestorInvestmentProgramTradesChartGet) | **GET** api/investor/investmentProgram/trades/chart | Get manager trades chart
 [**apiInvestorInvestmentProgramTradesPost**](InvestorApi.md#apiInvestorInvestmentProgramTradesPost) | **POST** api/investor/investmentProgram/trades | Get manager trade history
 [**apiInvestorInvestmentProgramsCancelInvestmentRequestPost**](InvestorApi.md#apiInvestorInvestmentProgramsCancelInvestmentRequestPost) | **POST** api/investor/investmentPrograms/cancelInvestmentRequest | Cancel investment request
+[**apiInvestorInvestmentProgramsFavoritesAddPost**](InvestorApi.md#apiInvestorInvestmentProgramsFavoritesAddPost) | **POST** api/investor/investmentPrograms/favorites/add | Add to favorites
+[**apiInvestorInvestmentProgramsFavoritesRemovePost**](InvestorApi.md#apiInvestorInvestmentProgramsFavoritesRemovePost) | **POST** api/investor/investmentPrograms/favorites/remove | Remove from favorites
 [**apiInvestorInvestmentProgramsInvestPost**](InvestorApi.md#apiInvestorInvestmentProgramsInvestPost) | **POST** api/investor/investmentPrograms/invest | Invest in manager
 [**apiInvestorInvestmentProgramsPost**](InvestorApi.md#apiInvestorInvestmentProgramsPost) | **POST** api/investor/investmentPrograms | Get public investment program&#39;s list
 [**apiInvestorInvestmentProgramsWithdrawPost**](InvestorApi.md#apiInvestorInvestmentProgramsWithdrawPost) | **POST** api/investor/investmentPrograms/withdraw | Withdraw from investment program
@@ -615,7 +617,7 @@ No authorization required
 
 <a name="apiInvestorDashboardGet"></a>
 # **apiInvestorDashboardGet**
-> InvestorDashboard apiInvestorDashboardGet(authorization, sorting)
+> InvestorDashboard apiInvestorDashboardGet(authorization, sorting, equityChartLength)
 
 Get investor dashboard
 
@@ -629,8 +631,9 @@ Get investor dashboard
 InvestorApi apiInstance = new InvestorApi();
 String authorization = "authorization_example"; // String | JWT access token
 String sorting = "sorting_example"; // String | 
+Integer equityChartLength = 56; // Integer | 
 try {
-    InvestorDashboard result = apiInstance.apiInvestorDashboardGet(authorization, sorting);
+    InvestorDashboard result = apiInstance.apiInvestorDashboardGet(authorization, sorting, equityChartLength);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestorApi#apiInvestorDashboardGet");
@@ -644,6 +647,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
  **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByOrdersAsc, ByOrdersDesc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc]
+ **equityChartLength** | **Integer**|  | [optional]
 
 ### Return type
 
@@ -705,7 +709,7 @@ No authorization required
 
 <a name="apiInvestorInvestmentProgramEquityChartGet"></a>
 # **apiInvestorInvestmentProgramEquityChartGet**
-> TradesChartViewModel apiInvestorInvestmentProgramEquityChartGet(investmentProgramId, pointsCount)
+> TradesChartViewModel apiInvestorInvestmentProgramEquityChartGet(investmentProgramId, timeFrame)
 
 Get manager equity chart
 
@@ -718,9 +722,9 @@ Get manager equity chart
 
 InvestorApi apiInstance = new InvestorApi();
 UUID investmentProgramId = new UUID(); // UUID | 
-Integer pointsCount = 56; // Integer | 
+String timeFrame = "timeFrame_example"; // String | 
 try {
-    TradesChartViewModel result = apiInstance.apiInvestorInvestmentProgramEquityChartGet(investmentProgramId, pointsCount);
+    TradesChartViewModel result = apiInstance.apiInvestorInvestmentProgramEquityChartGet(investmentProgramId, timeFrame);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentProgramEquityChartGet");
@@ -733,7 +737,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **investmentProgramId** | [**UUID**](.md)|  |
- **pointsCount** | **Integer**|  | [optional]
+ **timeFrame** | **String**|  | [enum: Day1, Week1, Month1, Month3, Month6, Year1, All]
 
 ### Return type
 
@@ -999,6 +1003,96 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **requestId** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorInvestmentProgramsFavoritesAddPost"></a>
+# **apiInvestorInvestmentProgramsFavoritesAddPost**
+> Void apiInvestorInvestmentProgramsFavoritesAddPost(investmentProgramId, authorization)
+
+Add to favorites
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+UUID investmentProgramId = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.apiInvestorInvestmentProgramsFavoritesAddPost(investmentProgramId, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentProgramsFavoritesAddPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **investmentProgramId** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiInvestorInvestmentProgramsFavoritesRemovePost"></a>
+# **apiInvestorInvestmentProgramsFavoritesRemovePost**
+> Void apiInvestorInvestmentProgramsFavoritesRemovePost(investmentProgramId, authorization)
+
+Remove from favorites
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+UUID investmentProgramId = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.apiInvestorInvestmentProgramsFavoritesRemovePost(investmentProgramId, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#apiInvestorInvestmentProgramsFavoritesRemovePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **investmentProgramId** | [**UUID**](.md)|  |
  **authorization** | **String**| JWT access token |
 
 ### Return type

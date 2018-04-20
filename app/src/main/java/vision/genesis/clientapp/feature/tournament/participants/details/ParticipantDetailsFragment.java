@@ -24,8 +24,8 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.ui.AvatarView;
-import vision.genesis.clientapp.ui.ProfitChartView;
 import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
 
 /**
  * GenesisVision
@@ -54,7 +54,7 @@ public class ParticipantDetailsFragment extends BaseFragment implements Particip
 	public TextView name;
 
 	@BindView(R.id.chart)
-	public ProfitChartView chart;
+	public ProfitSmallChartView chart;
 
 	@BindView(R.id.text_place_text)
 	public TextView placeText;
@@ -143,8 +143,8 @@ public class ParticipantDetailsFragment extends BaseFragment implements Particip
 		else
 			profitPercentText.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
 
-		chart.showDetails();
-		chart.setDataDouble(participant.getChart());
+//		chart.showDetails();
+//		chart.setDataDouble(participant.getChart());
 	}
 
 	@Override

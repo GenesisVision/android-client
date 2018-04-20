@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.List;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -19,9 +21,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.InvestmentProgramDetails;
+import io.swagger.client.model.TradeChart;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.program.ProgramInfoActivity;
 import vision.genesis.clientapp.feature.main.program.ProgramInfoPagerAdapter;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
 import vision.genesis.clientapp.feature.main.program.requests.RequestsActivity;
@@ -29,8 +33,8 @@ import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramAct
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.AvailableTokensView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
-import vision.genesis.clientapp.ui.ProfitChartView;
 import vision.genesis.clientapp.ui.ProgramDataView;
+import vision.genesis.clientapp.ui.chart.ProfitDetailsChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -55,7 +59,7 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 	public SwipeRefreshLayout refreshLayout;
 
 	@BindView(R.id.chart)
-	public ProfitChartView chart;
+	public ProfitDetailsChartView chart;
 
 	@BindView(R.id.view_program_data)
 	public ProgramDataView programDataView;
@@ -124,7 +128,7 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 	public View requestsButton;
 
 	@BindView(R.id.scrollview)
-	public View scrollView;
+	public ScrollView scrollView;
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
@@ -192,6 +196,23 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 		setFonts();
 
 		initRefreshLayout();
+
+		chart.setTouchListener(new ProfitDetailsChartView.TouchListener()
+		{
+			@Override
+			public void onTouch() {
+				((ProgramInfoActivity) getActivity()).onChartTouch();
+				refreshLayout.setEnabled(false);
+			}
+
+			@Override
+			public void onStop() {
+				((ProgramInfoActivity) getActivity()).onChartTouchEnd();
+				refreshLayout.setEnabled(true);
+			}
+		});
+
+		chart.setTimeFrameChangeListener(programDetailsPresenter::onChartTimeFrameChanged);
 	}
 
 	@Override
@@ -245,8 +266,6 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 	public void setProgramDetails(InvestmentProgramDetails programDetails) {
 		this.programDetails = programDetails;
 
-		chart.setChart(programDetails.getChart());
-
 		programDataView.setData(programDetails.getProfitTotal(),
 				programDetails.getProfitAvgPercent(),
 				programDetails.getBalance(),
@@ -288,6 +307,11 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 	public void setRefreshing(boolean refreshing) {
 		if (refreshLayout != null)
 			refreshLayout.setRefreshing(refreshing);
+	}
+
+	@Override
+	public void setChartData(List<TradeChart> chart) {
+		this.chart.setChart(chart);
 	}
 
 

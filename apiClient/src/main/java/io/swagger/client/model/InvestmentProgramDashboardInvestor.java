@@ -107,8 +107,14 @@ public class InvestmentProgramDashboardInvestor
 	@SerializedName("isEnabled")
 	private Boolean isEnabled = null;
 
+	@SerializedName("isArchived")
+	private Boolean isArchived = null;
+
 	@SerializedName("chart")
 	private List<Chart> chart = null;
+
+	@SerializedName("equityChart")
+	private List<ChartByDate> equityChart = null;
 
 	@SerializedName("freeTokens")
 	private FreeTokens freeTokens = null;
@@ -133,6 +139,9 @@ public class InvestmentProgramDashboardInvestor
 
 	@SerializedName("isOwnProgram")
 	private Boolean isOwnProgram = null;
+
+	@SerializedName("isFavorite")
+	private Boolean isFavorite = null;
 
 	public InvestmentProgramDashboardInvestor id(UUID id) {
 		this.id = id;
@@ -590,6 +599,25 @@ public class InvestmentProgramDashboardInvestor
 		this.isEnabled = isEnabled;
 	}
 
+	public InvestmentProgramDashboardInvestor isArchived(Boolean isArchived) {
+		this.isArchived = isArchived;
+		return this;
+	}
+
+	/**
+	 * Get isArchived
+	 *
+	 * @return isArchived
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsArchived() {
+		return isArchived;
+	}
+
+	public void setIsArchived(Boolean isArchived) {
+		this.isArchived = isArchived;
+	}
+
 	public InvestmentProgramDashboardInvestor chart(List<Chart> chart) {
 		this.chart = chart;
 		return this;
@@ -615,6 +643,33 @@ public class InvestmentProgramDashboardInvestor
 
 	public void setChart(List<Chart> chart) {
 		this.chart = chart;
+	}
+
+	public InvestmentProgramDashboardInvestor equityChart(List<ChartByDate> equityChart) {
+		this.equityChart = equityChart;
+		return this;
+	}
+
+	public InvestmentProgramDashboardInvestor addEquityChartItem(ChartByDate equityChartItem) {
+		if (this.equityChart == null) {
+			this.equityChart = new ArrayList<ChartByDate>();
+		}
+		this.equityChart.add(equityChartItem);
+		return this;
+	}
+
+	/**
+	 * Get equityChart
+	 *
+	 * @return equityChart
+	 **/
+	@ApiModelProperty(value = "")
+	public List<ChartByDate> getEquityChart() {
+		return equityChart;
+	}
+
+	public void setEquityChart(List<ChartByDate> equityChart) {
+		this.equityChart = equityChart;
 	}
 
 	public InvestmentProgramDashboardInvestor freeTokens(FreeTokens freeTokens) {
@@ -769,6 +824,25 @@ public class InvestmentProgramDashboardInvestor
 		this.isOwnProgram = isOwnProgram;
 	}
 
+	public InvestmentProgramDashboardInvestor isFavorite(Boolean isFavorite) {
+		this.isFavorite = isFavorite;
+		return this;
+	}
+
+	/**
+	 * Get isFavorite
+	 *
+	 * @return isFavorite
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsFavorite() {
+		return isFavorite;
+	}
+
+	public void setIsFavorite(Boolean isFavorite) {
+		this.isFavorite = isFavorite;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -802,7 +876,9 @@ public class InvestmentProgramDashboardInvestor
 				Objects.equals(this.feeSuccess, investmentProgramDashboardInvestor.feeSuccess) &&
 				Objects.equals(this.feeManagement, investmentProgramDashboardInvestor.feeManagement) &&
 				Objects.equals(this.isEnabled, investmentProgramDashboardInvestor.isEnabled) &&
+				Objects.equals(this.isArchived, investmentProgramDashboardInvestor.isArchived) &&
 				Objects.equals(this.chart, investmentProgramDashboardInvestor.chart) &&
+				Objects.equals(this.equityChart, investmentProgramDashboardInvestor.equityChart) &&
 				Objects.equals(this.freeTokens, investmentProgramDashboardInvestor.freeTokens) &&
 				Objects.equals(this.manager, investmentProgramDashboardInvestor.manager) &&
 				Objects.equals(this.token, investmentProgramDashboardInvestor.token) &&
@@ -810,12 +886,13 @@ public class InvestmentProgramDashboardInvestor
 				Objects.equals(this.isHistoryEnable, investmentProgramDashboardInvestor.isHistoryEnable) &&
 				Objects.equals(this.isInvestEnable, investmentProgramDashboardInvestor.isInvestEnable) &&
 				Objects.equals(this.isWithdrawEnable, investmentProgramDashboardInvestor.isWithdrawEnable) &&
-				Objects.equals(this.isOwnProgram, investmentProgramDashboardInvestor.isOwnProgram);
+				Objects.equals(this.isOwnProgram, investmentProgramDashboardInvestor.isOwnProgram) &&
+				Objects.equals(this.isFavorite, investmentProgramDashboardInvestor.isFavorite);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, logo, balance, currency, investedAmount, profitFromProgram, investedTokens, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, isEnabled, chart, freeTokens, manager, token, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram);
+		return Objects.hash(id, title, description, level, logo, balance, currency, investedAmount, profitFromProgram, investedTokens, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, isEnabled, isArchived, chart, equityChart, freeTokens, manager, token, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram, isFavorite);
 	}
 
 	@Override
@@ -847,7 +924,9 @@ public class InvestmentProgramDashboardInvestor
 		sb.append("    feeSuccess: ").append(toIndentedString(feeSuccess)).append("\n");
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");
 		sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
+		sb.append("    isArchived: ").append(toIndentedString(isArchived)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+		sb.append("    equityChart: ").append(toIndentedString(equityChart)).append("\n");
 		sb.append("    freeTokens: ").append(toIndentedString(freeTokens)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    token: ").append(toIndentedString(token)).append("\n");
@@ -856,6 +935,7 @@ public class InvestmentProgramDashboardInvestor
 		sb.append("    isInvestEnable: ").append(toIndentedString(isInvestEnable)).append("\n");
 		sb.append("    isWithdrawEnable: ").append(toIndentedString(isWithdrawEnable)).append("\n");
 		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
+		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

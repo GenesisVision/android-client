@@ -21,8 +21,8 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.AvailableTokensView;
 import vision.genesis.clientapp.ui.AvatarView;
-import vision.genesis.clientapp.ui.ProfitChartView;
 import vision.genesis.clientapp.ui.ProgramDataView;
+import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -85,7 +85,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 		public TextView managerName;
 
 		@BindView(R.id.chart)
-		public ProfitChartView chart;
+		public ProfitSmallChartView chart;
 
 		@BindView(R.id.view_program_data)
 		public ProgramDataView programDataView;

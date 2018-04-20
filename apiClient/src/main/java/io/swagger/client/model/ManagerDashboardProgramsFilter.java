@@ -33,9 +33,6 @@ public class ManagerDashboardProgramsFilter
 	@SerializedName("type")
 	private TypeEnum type = null;
 
-	@SerializedName("equityChartLength")
-	private Integer equityChartLength = null;
-
 	public ManagerDashboardProgramsFilter type(TypeEnum type) {
 		this.type = type;
 		return this;
@@ -55,25 +52,6 @@ public class ManagerDashboardProgramsFilter
 		this.type = type;
 	}
 
-	public ManagerDashboardProgramsFilter equityChartLength(Integer equityChartLength) {
-		this.equityChartLength = equityChartLength;
-		return this;
-	}
-
-	/**
-	 * Get equityChartLength
-	 *
-	 * @return equityChartLength
-	 **/
-	@ApiModelProperty(value = "")
-	public Integer getEquityChartLength() {
-		return equityChartLength;
-	}
-
-	public void setEquityChartLength(Integer equityChartLength) {
-		this.equityChartLength = equityChartLength;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -83,13 +61,12 @@ public class ManagerDashboardProgramsFilter
 			return false;
 		}
 		ManagerDashboardProgramsFilter managerDashboardProgramsFilter = (ManagerDashboardProgramsFilter) o;
-		return Objects.equals(this.type, managerDashboardProgramsFilter.type) &&
-				Objects.equals(this.equityChartLength, managerDashboardProgramsFilter.equityChartLength);
+		return Objects.equals(this.type, managerDashboardProgramsFilter.type);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(type, equityChartLength);
+		return Objects.hash(type);
 	}
 
 	@Override
@@ -98,7 +75,6 @@ public class ManagerDashboardProgramsFilter
 		sb.append("class ManagerDashboardProgramsFilter {\n");
 
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
-		sb.append("    equityChartLength: ").append(toIndentedString(equityChartLength)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

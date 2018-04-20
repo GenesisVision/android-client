@@ -10,6 +10,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.InvestmentProgramViewModel;
+import io.swagger.client.model.TradesChartViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -39,7 +40,11 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 
 	private Subscription programDetailsSubscription;
 
+	private Subscription chartDataSubscription;
+
 	private UUID programId;
+
+	private String chartTimeFrame = "All";
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -50,14 +55,19 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 		subscribeToUser();
 		getViewState().showProgress(true);
 		getProgramDetails();
+		getChartData();
 	}
 
 	@Override
 	public void onDestroy() {
 		if (userSubscription != null)
 			userSubscription.unsubscribe();
+
 		if (programDetailsSubscription != null)
 			programDetailsSubscription.unsubscribe();
+
+		if (chartDataSubscription != null)
+			chartDataSubscription.unsubscribe();
 
 		super.onDestroy();
 	}
@@ -65,6 +75,7 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	void setProgramId(UUID programId) {
 		this.programId = programId;
 		getProgramDetails();
+		getChartData();
 	}
 
 	void onShow() {
@@ -74,6 +85,12 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
 		getProgramDetails();
+		getChartData();
+	}
+
+	void onChartTimeFrameChanged(String newTimeFrame) {
+		chartTimeFrame = newTimeFrame;
+		getChartData();
 	}
 
 	private void getProgramDetails() {
@@ -95,6 +112,29 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 
 	private void handleInvestmentProgramDetailsError(Throwable throwable) {
 		programDetailsSubscription.unsubscribe();
+		getViewState().showProgress(false);
+		getViewState().setRefreshing(false);
+	}
+
+	private void getChartData() {
+		if (programId != null && investManager != null)
+			chartDataSubscription = investManager.getEquityChart(programId, chartTimeFrame)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetChartDataSuccess,
+							this::handleGetChartDataError);
+	}
+
+	private void handleGetChartDataSuccess(TradesChartViewModel model) {
+		chartDataSubscription.unsubscribe();
+		getViewState().showProgress(false);
+		getViewState().setRefreshing(false);
+
+		getViewState().setChartData(model.getChart());
+	}
+
+	private void handleGetChartDataError(Throwable throwable) {
+		chartDataSubscription.unsubscribe();
 		getViewState().showProgress(false);
 		getViewState().setRefreshing(false);
 	}

@@ -21,9 +21,11 @@ public class DateTimeUtil
 
 	private static DateTimeFormatter dateTimeFormatter = DateTimeFormat.shortDateTime();
 
-	private static DateTimeFormatter dateShortFormatter = DateTimeFormat.forPattern("MM-dd");
+	private static DateTimeFormatter dateShortFormatter = DateTimeFormat.forPattern("dd.MM.YY");
 
 	private static DateTimeFormatter timeShortFormatter = DateTimeFormat.forPattern("HH:mm");
+
+	private static DateTimeFormatter dateTimeShortFormatter = DateTimeFormat.forPattern("dd.MM.YY HH:mm");
 
 	public static String formatDate(DateTime dateTime) {
 		return dateFormatter.withLocale(Locale.US).print(dateTime);
@@ -35,6 +37,10 @@ public class DateTimeUtil
 
 	public static String formatShortTime(DateTime dateTime) {
 		return timeShortFormatter.withLocale(Locale.US).print(dateTime);
+	}
+
+	public static String formatShortDateTime(DateTime dateTime) {
+		return dateTimeShortFormatter.withLocale(Locale.US).print(dateTime);
 	}
 
 	public static String formatDateTime(DateTime dateTime) {
