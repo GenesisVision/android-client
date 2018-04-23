@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:id="@+id/card_program_data"
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="4dp"
-    android:background="?attr/selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/group_data"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_investment_program_height"
         android:layout_gravity="center"
-        android:background="@color/white"
+        android:background="@drawable/program_list_item_background"
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:padding="8dp">
@@ -99,6 +96,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="4dp"
+        android:layout_below="@+id/group_data"
         android:background="@drawable/shadow_down_black"/>
 
-</LinearLayout>
+</RelativeLayout>

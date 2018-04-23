@@ -37,7 +37,17 @@
     <color name="keyboardButtonBackground">#40e3ebed</color>
     <color name="colorPrimary30">#4c00bcb0</color>
 
-    <color name="transactionGreen">#15bbaf</color>
+    <color name="transactionGreen">#15bb7b</color>
     <color name="transactionRed">#e00463</color>
     <color name="transparent">#00000000</color>
+
+    <color name="black12">#1f000000</color>
+    <color name="black38">#61000000</color>
+    <color name="black54">#8b000000</color>
+    <color name="black87">#de000000</color>
+
+    <color name="white12">#1fffffff</color>
+    <color name="white38">#61ffffff</color>
+    <color name="white54">#8bffffff</color>
+    <color name="white87">#deffffff</color>
 </resources>

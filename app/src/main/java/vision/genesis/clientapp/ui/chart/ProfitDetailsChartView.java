@@ -24,6 +24,7 @@ import com.github.mikephil.charting.utils.EntryXComparator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,6 +55,15 @@ public class ProfitDetailsChartView extends RelativeLayout
 	{
 		void onChange(String newTimeFrame);
 	}
+
+	@BindView(R.id.group_change)
+	public ViewGroup changeGroup;
+
+	@BindView(R.id.text_change)
+	public TextView changeText;
+
+	@BindView(R.id.text_change_time_frame)
+	public TextView changeTimeFrameText;
 
 	@BindView(R.id.line_chart)
 	public CustomLineChart chart;
@@ -111,10 +121,10 @@ public class ProfitDetailsChartView extends RelativeLayout
 		initChart();
 
 		chartTimeFrameSelectorView.setTimeFrameChangeListener(newTimeFrame -> {
+			onTimeFrameChanged(newTimeFrame);
 			if (timeFrameChangeListener != null) {
 				showProgress(true);
-				onTimeFrameChanged(newTimeFrame);
-				timeFrameChangeListener.onChange(newTimeFrame);
+				timeFrameChangeListener.onChange(newTimeFrame.toString());
 			}
 		});
 
@@ -185,6 +195,11 @@ public class ProfitDetailsChartView extends RelativeLayout
 			chart.clear();
 			return;
 		}
+
+		//TODO: temp - remove after backend fix
+		if (charts.get(0).getProfit() == 0)
+			charts = charts.subList(1, charts.size() - 1);
+
 		List<Entry> lineEntries = new ArrayList<>();
 		for (TradeChart chart : charts) {
 			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getProfit().floatValue()));
@@ -192,6 +207,8 @@ public class ProfitDetailsChartView extends RelativeLayout
 
 		chart.setData(getLineData(lineEntries));
 		chart.invalidate();
+
+		updateChangeText(charts);
 	}
 
 	private LineData getLineData(List<Entry> data) {
@@ -210,7 +227,8 @@ public class ProfitDetailsChartView extends RelativeLayout
 		dataSet.setDrawValues(false);
 		dataSet.setDrawCircles(false);
 		dataSet.setColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, lineColor));
-		dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+		//TODO: temp - uncomment after backend fix
+//		dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
 		dataSet.setLineWidth(1.5f);
 		dataSet.setDrawHorizontalHighlightIndicator(false);
 		dataSet.setHighLightColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, highlightColor));
@@ -220,6 +238,25 @@ public class ProfitDetailsChartView extends RelativeLayout
 		dataSet.setDrawFilled(true);
 
 		return dataSet;
+	}
+
+	private void updateChangeText(List<TradeChart> charts) {
+		double first = charts.get(0).getProfit();
+		double last = charts.get(charts.size() - 1).getProfit();
+
+		double changeValue = last - first;
+		String changeValueString = String.format(Locale.getDefault(),
+				"%s%s", changeValue >= 0 ? "\u2191" : "\u2193", StringFormatUtil.formatAmount(Math.abs(changeValue), 0, 2));
+
+		String changePercentString = "";
+		if (first != 0) {
+			changePercentString = String.format(Locale.getDefault(), " (%s%%)",
+					StringFormatUtil.formatAmount(Math.abs(100 / first * (first - last)), 0, 2));
+		}
+
+		changeText.setText(changeValueString.concat(changePercentString));
+		changeText.setTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE,
+				changeValue >= 0 ? R.color.transactionGreen : R.color.transactionRed));
 	}
 
 	public void onDestroy() {
@@ -235,7 +272,7 @@ public class ProfitDetailsChartView extends RelativeLayout
 		highlightBox.setVisibility(View.VISIBLE);
 		highlightCircle.setVisibility(View.VISIBLE);
 		chart.highlightValue(highlight, false);
-		valueText.setText(StringFormatUtil.formatAmount(highlight.getY(), 0, 8));
+		valueText.setText(StringFormatUtil.formatAmount(highlight.getY(), 0, 2));
 		dateText.setText(xAxisValueFormatter.getFormattedValue(highlight.getX(), null));
 		moveHighlightBox(highlight);
 		moveHighlightCircle(highlight);
@@ -265,14 +302,49 @@ public class ProfitDetailsChartView extends RelativeLayout
 		chart.highlightValue(null, false);
 	}
 
-	private void onTimeFrameChanged(String newTimeFrame) {
-		if (newTimeFrame.equals(ChartZoomEnum.ZOOM_1D.toString()))
+	private void onTimeFrameChanged(ChartZoomEnum newTimeFrame) {
+		if (newTimeFrame.equals(ChartZoomEnum.ZOOM_1D))
 			xAxisValueFormatter = new DateTimeValueFormatter();
 		else
 			xAxisValueFormatter = new DateValueFormatter();
+
+		updateChangeTimeFrameText(newTimeFrame);
+	}
+
+	private void updateChangeTimeFrameText(ChartZoomEnum newTimeFrame) {
+		int stringResource;
+		switch (newTimeFrame) {
+			case ZOOM_1D:
+				stringResource = R.string.one_day;
+				break;
+			case ZOOM_1W:
+				stringResource = R.string.one_week;
+				break;
+			case ZOOM_1M:
+				stringResource = R.string.one_month;
+				break;
+			case ZOOM_3M:
+				stringResource = R.string.three_months;
+				break;
+			case ZOOM_6M:
+				stringResource = R.string.six_months;
+				break;
+			case ZOOM_1Y:
+				stringResource = R.string.one_year;
+				break;
+			case ZOOM_ALL:
+				stringResource = R.string.all_time;
+				break;
+			default:
+				stringResource = R.string.all_time;
+				break;
+		}
+		changeTimeFrameText.setText(getResources().getString(stringResource).toUpperCase());
 	}
 
 	private void showProgress(boolean show) {
 		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+		chart.setVisibility(!show ? View.VISIBLE : View.GONE);
+		changeGroup.setVisibility(!show ? View.VISIBLE : View.GONE);
 	}
 }

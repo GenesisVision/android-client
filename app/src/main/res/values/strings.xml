@@ -250,4 +250,13 @@
     <string name="zoom_six_months">6M</string>
     <string name="zoom_all">ALL</string>
     <string name="zoom_one_year">1Y</string>
+    <string name="five_minutes">5 MINUTES</string>
+    <string name="one_hour">1 HOUR</string>
+    <string name="one_day">1 DAY</string>
+    <string name="one_week">1 WEEK</string>
+    <string name="one_month">1 MONTH</string>
+    <string name="three_months">3 MONTHS</string>
+    <string name="six_months">6 MONTHS</string>
+    <string name="one_year">1 YEAR</string>
+    <string name="all_time">ALL TIME</string>
 </resources>

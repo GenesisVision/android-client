@@ -94,12 +94,15 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	}
 
 	private void getProgramDetails() {
-		if (programId != null && investManager != null)
+		if (programId != null && investManager != null) {
+			if (programDetailsSubscription != null)
+				programDetailsSubscription.unsubscribe();
 			programDetailsSubscription = investManager.getInvestmentProgramDetails(programId)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleInvestmentProgramDetailsSuccess,
 							this::handleInvestmentProgramDetailsError);
+		}
 	}
 
 	private void handleInvestmentProgramDetailsSuccess(InvestmentProgramViewModel model) {
@@ -117,12 +120,15 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	}
 
 	private void getChartData() {
-		if (programId != null && investManager != null)
+		if (programId != null && investManager != null) {
+			if (chartDataSubscription != null)
+				chartDataSubscription.unsubscribe();
 			chartDataSubscription = investManager.getEquityChart(programId, chartTimeFrame)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetChartDataSuccess,
 							this::handleGetChartDataError);
+		}
 	}
 
 	private void handleGetChartDataSuccess(TradesChartViewModel model) {

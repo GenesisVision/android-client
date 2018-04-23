@@ -7,14 +7,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_trades_header_height"
-            android:background="@color/grey100"
+            android:background="@color/white"
             android:orientation="horizontal"
             android:visibility="invisible">
 
@@ -22,8 +21,8 @@
                 style="@style/trades_header_text"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:paddingLeft="8dp"
-                android:paddingStart="8dp">
+                android:paddingLeft="16dp"
+                android:paddingStart="16dp">
 
                 <TextView
                     android:id="@+id/header_date_open"
@@ -99,11 +98,17 @@
 
         </LinearLayout>
 
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="4dp"-->
+        <!--android:layout_below="@+id/header"-->
+        <!--android:background="@drawable/shadow_down_black"/>-->
+
         <View
             android:layout_width="match_parent"
-            android:layout_height="4dp"
+            android:layout_height="1dp"
             android:layout_below="@+id/header"
-            android:background="@drawable/shadow_down_black"/>
+            android:background="@color/black12"/>
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/refresh_layout"

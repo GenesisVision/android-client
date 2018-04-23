@@ -24,7 +24,7 @@ public class ChartTimeFrameSelectorView extends RelativeLayout
 {
 	public interface TimeFrameChangeListener
 	{
-		void onChange(String newTimeFrame);
+		void onChange(ChartZoomEnum newTimeFrame);
 	}
 
 	@BindView(R.id.zoom_one_day)
@@ -137,7 +137,7 @@ public class ChartTimeFrameSelectorView extends RelativeLayout
 	public void selectZoom(ChartZoomEnum zoomClicked) {
 		setCurrentZoomButtonSelection(zoomClicked);
 		if (timeFrameChangeListener != null)
-			timeFrameChangeListener.onChange(zoomClicked.toString());
+			timeFrameChangeListener.onChange(zoomClicked);
 	}
 
 	private void setCurrentZoomButtonSelection(ChartZoomEnum currentZoom) {
