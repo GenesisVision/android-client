@@ -2,11 +2,15 @@ package vision.genesis.clientapp.feature.main.program;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -49,6 +53,9 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 	@BindView(R.id.manager_name)
 	public TextView managerName;
 
+	@BindView(R.id.button_favorite)
+	public ImageView favoriteButton;
+
 	@BindView(R.id.tab_layout)
 	public TabLayout tabLayout;
 
@@ -79,6 +86,15 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
+	}
+
+	@OnClick(R.id.button_favorite)
+	public void onFavoriteClicked() {
+		if (programDetails != null) {
+			programDetails.isFavorite(!programDetails.isIsFavorite());
+			setFavoriteButtonImage(programDetails.isIsFavorite());
+			programInfoPresenter.onFavoriteButtonClicked(programDetails.isIsFavorite());
+		}
 	}
 
 	@Override
@@ -204,6 +220,19 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 
 		programName.setText(programDetails.getTitle());
 		managerName.setText(String.format(Locale.getDefault(), "%s %s", getResources().getString(R.string.by), programDetails.getManager().getUsername()));
+
+		setFavoriteButtonImage(programDetails.isIsFavorite());
+	}
+
+	private void setFavoriteButtonImage(boolean isFavorite) {
+		favoriteButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), isFavorite
+				? R.drawable.ic_star_black_24dp
+				: R.drawable.ic_star_border_black_24dp));
+
+		favoriteButton.setColorFilter(ContextCompat.getColor(getApplicationContext(), isFavorite
+						? R.color.gold
+						: R.color.grey400),
+				PorterDuff.Mode.SRC_IN);
 	}
 
 	@Override
@@ -239,5 +268,10 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 	public void finishActivity() {
 		finish();
 		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
+	}
+
+	@Override
+	public void showToast(String message) {
+		Toast.makeText(this, message, Toast.LENGTH_LONG).show();
 	}
 }

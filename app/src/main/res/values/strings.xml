@@ -259,4 +259,6 @@
     <string name="six_months">6 MONTHS</string>
     <string name="one_year">1 YEAR</string>
     <string name="all_time">ALL TIME</string>
+    <string name="error_occurred_performing_operation">An error occurred while performing this operation</string>
+    <string name="favorite_programs_only">Favorite programs only</string>
 </resources>

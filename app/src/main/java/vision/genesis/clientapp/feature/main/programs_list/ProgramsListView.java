@@ -5,6 +5,7 @@ import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
+import java.util.UUID;
 
 import io.swagger.client.model.InvestmentProgram;
 
@@ -36,4 +37,6 @@ interface ProgramsListView extends MvpView
 	void showFiltersActive(boolean show);
 
 	void showSearch(boolean show);
+
+	void changeProgramIsFavorite(UUID programId, boolean isFavorite);
 }

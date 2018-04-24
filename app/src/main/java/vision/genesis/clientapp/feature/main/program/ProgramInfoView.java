@@ -19,4 +19,6 @@ interface ProgramInfoView extends MvpView
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void finishActivity();
+
+	void showToast(String message);
 }

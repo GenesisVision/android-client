@@ -43,6 +43,9 @@ public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements Pr
 	@BindView(R.id.active_programs_only)
 	public CheckBox activeProgramsOnly;
 
+	@BindView(R.id.favorite_programs_only)
+	public CheckBox favoriteProgramsOnly;
+
 	@BindView(R.id.button_apply)
 	public View applyButton;
 
@@ -55,6 +58,11 @@ public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements Pr
 	@OnCheckedChanged(R.id.active_programs_only)
 	public void onActiveProgramsOnlyChanged(CompoundButton button, boolean checked) {
 		programsFiltersPresenter.onActiveProgramsOnlyChanged(checked);
+	}
+
+	@OnCheckedChanged(R.id.favorite_programs_only)
+	public void onFavoriteProgramsOnlyChanged(CompoundButton button, boolean checked) {
+		programsFiltersPresenter.onFavoriteProgramsOnlyChanged(checked);
 	}
 
 	@OnClick(R.id.button_apply)
@@ -110,6 +118,9 @@ public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements Pr
 
 		if (filter.isShowActivePrograms() != null)
 			activeProgramsOnly.setChecked(filter.isShowActivePrograms());
+
+		if (filter.isShowMyFavorites() != null)
+			favoriteProgramsOnly.setChecked(filter.isShowMyFavorites());
 	}
 
 	@Override

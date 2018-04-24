@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,6 +24,7 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -210,9 +210,6 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
 		programsListAdapter = new ProgramsListAdapter();
-		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
-		dividerItemDecoration.setDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.list_item_divider));
-		recyclerView.addItemDecoration(dividerItemDecoration);
 		recyclerView.setAdapter(programsListAdapter);
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
 		{
@@ -354,6 +351,11 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 			hideSoftKeyboard();
 			searchEditText.setText("");
 		}
+	}
+
+	@Override
+	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
+		programsListAdapter.changeProgramIsFavorite(programId, isFavorite);
 	}
 
 	@Override

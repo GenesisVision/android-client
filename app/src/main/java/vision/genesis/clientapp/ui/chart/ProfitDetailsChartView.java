@@ -196,10 +196,6 @@ public class ProfitDetailsChartView extends RelativeLayout
 			return;
 		}
 
-		//TODO: temp - remove after backend fix
-		if (charts.get(0).getProfit() == 0)
-			charts = charts.subList(1, charts.size() - 1);
-
 		List<Entry> lineEntries = new ArrayList<>();
 		for (TradeChart chart : charts) {
 			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getProfit().floatValue()));
@@ -227,7 +223,6 @@ public class ProfitDetailsChartView extends RelativeLayout
 		dataSet.setDrawValues(false);
 		dataSet.setDrawCircles(false);
 		dataSet.setColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, lineColor));
-		//TODO: temp - uncomment after backend fix
 //		dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
 		dataSet.setLineWidth(1.5f);
 		dataSet.setDrawHorizontalHighlightIndicator(false);

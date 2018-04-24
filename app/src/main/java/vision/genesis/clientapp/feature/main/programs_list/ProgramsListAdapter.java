@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -12,6 +13,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,10 +75,23 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 		notifyDataSetChanged();
 	}
 
+	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
+		for (InvestmentProgram program : investmentPrograms) {
+			if (program.getId().equals(programId)) {
+				program.isFavorite(isFavorite);
+				notifyDataSetChanged();
+				break;
+			}
+		}
+	}
+
 	static class InvestmentProgramViewHolder extends RecyclerView.ViewHolder
 	{
 		@BindView(R.id.avatar)
 		public AvatarView avatar;
+
+		@BindView(R.id.icon_favorite)
+		public ImageView favoriteIcon;
 
 		@BindView(R.id.title)
 		public TextView title;
@@ -121,6 +136,9 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 		private void updateData() {
 			avatar.setImage(investmentProgram.getLogo(), 100, 100);
 			avatar.setLevel(investmentProgram.getLevel());
+
+			favoriteIcon.setVisibility(investmentProgram.isIsFavorite() ? View.VISIBLE : View.GONE);
+
 			title.setText(investmentProgram.getTitle());
 			managerName.setText(String.format(Locale.getDefault(), "%s %s",
 					GenesisVisionApplication.INSTANCE.getResources().getString(R.string.by),

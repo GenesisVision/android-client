@@ -50,4 +50,6 @@
     <color name="white38">#61ffffff</color>
     <color name="white54">#8bffffff</color>
     <color name="white87">#deffffff</color>
+
+    <color name="gold">#ffd600</color>
 </resources>

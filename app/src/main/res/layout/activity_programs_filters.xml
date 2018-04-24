@@ -4,61 +4,80 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/group_filters"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:layout_margin="32dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
 
-        <TextView
-            style="@style/filters_item_label"
-            android:text="@string/level"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <com.appyvet.materialrangebar.RangeBar
-            android:id="@+id/level_range_bar"
-            style="@style/filters_range_bar"
-            app:mrb_tickEnd="@integer/level_max"
-            app:mrb_tickStart="@integer/level_min"/>
+            <LinearLayout
+                android:id="@+id/group_filters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="32dp"
+                android:orientation="vertical">
 
-        <TextView
-            style="@style/filters_item_label"
-            android:layout_marginTop="16dp"
-            android:text="@string/average_profit"/>
+                <TextView
+                    style="@style/filters_item_label"
+                    android:text="@string/level"/>
 
-        <com.appyvet.materialrangebar.RangeBar
-            android:id="@+id/avg_profit_range_bar"
-            style="@style/filters_range_bar"
-            app:mrb_tickColor="@color/transparent"
-            app:mrb_tickEnd="@integer/avg_profit_max"
-            app:mrb_tickStart="@integer/avg_profit_min"/>
+                <com.appyvet.materialrangebar.RangeBar
+                    android:id="@+id/level_range_bar"
+                    style="@style/filters_range_bar"
+                    app:mrb_tickEnd="@integer/level_max"
+                    app:mrb_tickStart="@integer/level_min"/>
 
-        <CheckBox
-            android:id="@+id/active_programs_only"
-            style="@style/filters_item_label"
-            android:layout_marginTop="16dp"
-            android:text="@string/active_programs_only"/>
+                <TextView
+                    style="@style/filters_item_label"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/average_profit"/>
 
-    </LinearLayout>
+                <com.appyvet.materialrangebar.RangeBar
+                    android:id="@+id/avg_profit_range_bar"
+                    style="@style/filters_range_bar"
+                    app:mrb_tickColor="@color/transparent"
+                    app:mrb_tickEnd="@integer/avg_profit_max"
+                    app:mrb_tickStart="@integer/avg_profit_min"/>
 
-    <vision.genesis.clientapp.ui.PrimaryButton
-        android:id="@+id/button_apply"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_below="@+id/group_filters"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:text="@string/apply_filters"/>
+                <CheckBox
+                    android:id="@+id/active_programs_only"
+                    style="@style/filters_item_label"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/active_programs_only"/>
 
-    <vision.genesis.clientapp.ui.PrimaryButton
-        android:id="@+id/button_clear"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_below="@+id/button_apply"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:text="@string/clear_filters"/>
+                <CheckBox
+                    android:id="@+id/favorite_programs_only"
+                    style="@style/filters_item_label"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/favorite_programs_only"/>
+
+            </LinearLayout>
+
+            <vision.genesis.clientapp.ui.PrimaryButton
+                android:id="@+id/button_apply"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/group_filters"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="32dp"
+                android:text="@string/apply_filters"/>
+
+            <vision.genesis.clientapp.ui.PrimaryButton
+                android:id="@+id/button_clear"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/button_apply"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="32dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/clear_filters"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
 
     <vision.genesis.clientapp.ui.ToolbarView
         android:id="@+id/toolbar"

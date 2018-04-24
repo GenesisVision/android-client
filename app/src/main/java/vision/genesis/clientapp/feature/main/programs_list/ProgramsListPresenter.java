@@ -23,6 +23,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.model.FilterSortingOption;
+import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersClearedEvent;
 import vision.genesis.clientapp.model.events.ShowFiltersEvent;
@@ -207,5 +208,10 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 	@Subscribe
 	public void onEventMainThread(ProgramsListFiltersClearedEvent event) {
 		getViewState().showFiltersActive(false);
+	}
+
+	@Subscribe
+	public void onEventMainThread(ProgramIsFavoriteChangedEvent event) {
+		getViewState().changeProgramIsFavorite(event.programId, event.isFavorite);
 	}
 }

@@ -12,16 +12,19 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.InvestmentProgramDetails;
 import io.swagger.client.model.InvestmentProgramViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 import vision.genesis.clientapp.model.events.OnPeriodLeftEvent;
+import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
 
 /**
  * GenesisVision
@@ -44,7 +47,11 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 	private Subscription programDetailsSubscription;
 
+	private Subscription setProgramFavoriteSubscription;
+
 	private UUID programId;
+
+	private InvestmentProgramDetails programDetails;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -61,8 +68,12 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	public void onDestroy() {
 		if (userSubscription != null)
 			userSubscription.unsubscribe();
+
 		if (programDetailsSubscription != null)
 			programDetailsSubscription.unsubscribe();
+
+		if (setProgramFavoriteSubscription != null)
+			setProgramFavoriteSubscription.unsubscribe();
 
 		EventBus.getDefault().unregister(this);
 		super.onDestroy();
@@ -70,6 +81,10 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 	void setProgramId(UUID programId) {
 		this.programId = programId;
+	}
+
+	void onFavoriteButtonClicked(boolean isFavorite) {
+		setProgramFavorite(isFavorite);
 	}
 
 	void onResume() {
@@ -88,11 +103,33 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	private void handleInvestmentProgramDetailsSuccess(InvestmentProgramViewModel model) {
 		programDetailsSubscription.unsubscribe();
 
-		getViewState().setProgram(model.getInvestmentProgram());
+		programDetails = model.getInvestmentProgram();
+		getViewState().setProgram(programDetails);
 	}
 
 	private void handleInvestmentProgramDetailsError(Throwable throwable) {
 		programDetailsSubscription.unsubscribe();
+	}
+
+	private void setProgramFavorite(boolean isFavorite) {
+		setProgramFavoriteSubscription = investManager.setProgramFavorite(programId, isFavorite)
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.io())
+				.subscribe(response -> handleSetProgramFavoriteSuccess(response, programId, isFavorite),
+						this::handleSetProgramFavoriteError);
+	}
+
+	private void handleSetProgramFavoriteSuccess(Void response, UUID programId, boolean isFavorite) {
+		setProgramFavoriteSubscription.unsubscribe();
+
+		EventBus.getDefault().post(new ProgramIsFavoriteChangedEvent(programId, isFavorite));
+	}
+
+	private void handleSetProgramFavoriteError(Throwable throwable) {
+		setProgramFavoriteSubscription.unsubscribe();
+
+		getViewState().setProgram(programDetails);
+		getViewState().showToast(context.getString(R.string.error_occurred_performing_operation));
 	}
 
 	private void subscribeToUser() {

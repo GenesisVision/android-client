@@ -88,4 +88,14 @@ public class InvestManager
 	public Observable<Void> cancelRequest(UUID requestId) {
 		return investorApi.apiInvestorInvestmentProgramsCancelInvestmentRequestPost(requestId, AuthManager.token.getValue());
 	}
+
+	public Observable<Void> setProgramFavorite(UUID programId, boolean isFavorite) {
+		return getSetProgramFavoriteApiObservable(programId, isFavorite);
+	}
+
+	private Observable<Void> getSetProgramFavoriteApiObservable(UUID programId, boolean isFavorite) {
+		return isFavorite
+				? investorApi.apiInvestorInvestmentProgramsFavoritesAddPost(programId, AuthManager.token.getValue())
+				: investorApi.apiInvestorInvestmentProgramsFavoritesRemovePost(programId, AuthManager.token.getValue());
+	}
 }

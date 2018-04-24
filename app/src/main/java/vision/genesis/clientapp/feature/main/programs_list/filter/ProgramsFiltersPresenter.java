@@ -59,6 +59,10 @@ public class ProgramsFiltersPresenter extends MvpPresenter<ProgramsFiltersView>
 		filter.setShowActivePrograms(checked);
 	}
 
+	void onFavoriteProgramsOnlyChanged(boolean checked) {
+		filter.setShowMyFavorites(checked);
+	}
+
 	void onApplyClicked() {
 		investManager.setFilter(filter);
 		EventBus.getDefault().post(new ProgramsListFiltersAppliedEvent());

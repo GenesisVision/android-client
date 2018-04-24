@@ -21,9 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingEnd="8dp"
-            android:paddingLeft="16dp"
+            android:paddingLeft="6dp"
             android:paddingRight="8dp"
-            android:paddingStart="16dp">
+            android:paddingStart="6dp">
 
             <vision.genesis.clientapp.ui.AvatarView
                 android:id="@+id/avatar"
@@ -31,11 +31,27 @@
                 android:layout_height="@dimen/manager_avatar_height"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"/>
+
+            <ImageView
+                android:id="@+id/icon_favorite"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="@dimen/manager_avatar_width"
+                android:layout_marginStart="@dimen/manager_avatar_width"
+                android:background="@drawable/circle_white"
+                android:padding="1dp"
+                android:src="@drawable/ic_star_black_24dp"
+                android:tint="@color/gold"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/avatar"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
