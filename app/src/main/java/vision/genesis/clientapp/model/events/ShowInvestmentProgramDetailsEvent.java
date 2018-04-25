@@ -1,6 +1,6 @@
 package vision.genesis.clientapp.model.events;
 
-import java.util.UUID;
+import vision.genesis.clientapp.model.ProgramInfoModel;
 
 /**
  * GenesisVision
@@ -9,9 +9,9 @@ import java.util.UUID;
 
 public class ShowInvestmentProgramDetailsEvent
 {
-	public UUID programId;
+	public ProgramInfoModel programInfoModel;
 
-	public ShowInvestmentProgramDetailsEvent(UUID programId) {
-		this.programId = programId;
+	public ShowInvestmentProgramDetailsEvent(ProgramInfoModel programInfoModel) {
+		this.programInfoModel = programInfoModel;
 	}
 }

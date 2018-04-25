@@ -29,6 +29,8 @@ import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.programs.DashboardPagerAdapter;
+import vision.genesis.clientapp.feature.main.tooltip.TooltipActivity;
+import vision.genesis.clientapp.model.TooltipModel;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -48,6 +50,9 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 
 	@BindView(R.id.label_total_portfolio_value)
 	public TextView totalPortfolioValueLabel;
+
+	@BindView(R.id.group_portfolio_value)
+	public ViewGroup portfolioValueGroup;
 
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
@@ -74,6 +79,11 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 	@OnClick(R.id.send_feedback)
 	public void onSendFeedbackClicked() {
 		showFeedbackDialog();
+	}
+
+	@OnClick(R.id.tooltip_total_portfolio_value)
+	public void onTooltipTotalPortfolioClicked() {
+		showTooltip(portfolioValueGroup, R.string.tooltip_total_portfolio_value);
 	}
 
 	@Nullable
@@ -121,6 +131,23 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 		}
 
 		super.onDestroyView();
+	}
+
+	private void showTooltip(View view, int tooltipTextResId) {
+		int[] viewLocation = new int[2];
+		view.getLocationInWindow(viewLocation);
+		float viewX = viewLocation[0];
+		float viewY = viewLocation[1];
+
+		TooltipModel tooltipModel = new TooltipModel(
+				viewX + view.getWidth() / 2,
+				viewY,
+				viewY + view.getHeight(),
+				getString(tooltipTextResId));
+
+//		EventBus.getDefault().post(new ShowTooltipEvent(tooltipModel));
+		if (getActivity() != null)
+			TooltipActivity.startWith(getActivity(), tooltipModel);
 	}
 
 	private void setFonts() {

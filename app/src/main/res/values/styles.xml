@@ -19,6 +19,11 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <style name="TooltipActivityTheme" parent="AppTheme">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
     <style name="item_investment_program_footer_divider">
         <item name="android:layout_width">1dp</item>
         <item name="android:layout_height">match_parent</item>
@@ -159,12 +164,12 @@
     <style name="program_details_data_delimiter">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">2dp</item>
-        <item name="android:layout_marginBottom">24dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
         <item name="android:layout_marginEnd">16dp</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginRight">16dp</item>
         <item name="android:layout_marginStart">16dp</item>
-        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginTop">16dp</item>
         <item name="android:background">@drawable/divider_dot_horizontal</item>
         <item name="android:layerType">software</item>
     </style>
@@ -202,7 +207,7 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">center</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/black54</item>
+        <item name="android:textColor">@color/black87</item>
         <item name="android:textSize">12sp</item>
     </style>
 
@@ -233,6 +238,14 @@
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="tooltip_icon">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:padding">2dp</item>
+        <item name="android:src">@drawable/ic_help_black_24dp</item>
+        <item name="android:tint">@color/grey300</item>
     </style>
 
     <dimen name="chart_zoom_buttons_width">70dp</dimen>

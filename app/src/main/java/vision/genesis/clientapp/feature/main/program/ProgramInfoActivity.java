@@ -8,7 +8,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +27,9 @@ import io.swagger.client.model.InvestmentProgramDetails;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.model.ProgramDescriptionModel;
+import vision.genesis.clientapp.feature.main.tooltip.TooltipActivity;
+import vision.genesis.clientapp.model.ProgramInfoModel;
+import vision.genesis.clientapp.model.TooltipModel;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -35,11 +40,11 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class ProgramInfoActivity extends BaseSwipeBackActivity implements ProgramInfoView, ViewPager.OnPageChangeListener
 {
-	private static String EXTRA_PROGRAM_ID = "extra_program_id";
+	private static String EXTRA_MODEL = "extra_model";
 
-	public static void startWith(Activity activity, UUID programId) {
+	public static void startWith(Activity activity, ProgramInfoModel model) {
 		Intent intent = new Intent(activity.getApplicationContext(), ProgramInfoActivity.class);
-		intent.putExtra(EXTRA_PROGRAM_ID, programId);
+		intent.putExtra(EXTRA_MODEL, model);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
@@ -62,6 +67,18 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 	@BindView(R.id.view_pager_program_info)
 	public ViewPager viewPager;
 
+	@BindView(R.id.progress_bar)
+	public ProgressBar progressBar;
+
+	@BindView(R.id.group_no_internet)
+	public ViewGroup noInternetGroup;
+
+	@BindView(R.id.progress_bar_no_internet)
+	public ProgressBar noInternetProgressBar;
+
+	@BindView(R.id.button_try_again)
+	public View tryAgainButton;
+
 	@InjectPresenter
 	ProgramInfoPresenter programInfoPresenter;
 
@@ -83,9 +100,16 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 
 	private Fragment currentFragment;
 
+	private ProgramInfoModel model;
+
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
+	}
+
+	@OnClick(R.id.button_try_again)
+	public void onTryAgainClicked() {
+		programInfoPresenter.onTryAgainClicked();
 	}
 
 	@OnClick(R.id.button_favorite)
@@ -106,14 +130,15 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 		ButterKnife.bind(this);
 
 		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
-			UUID programId = (UUID) getIntent().getExtras().getSerializable(EXTRA_PROGRAM_ID);
+			model = getIntent().getExtras().getParcelable(EXTRA_MODEL);
 			initTabs();
-			initViewPager(programId);
+			initViewPager(model.getProgramId());
 			setFonts();
 
 			avatar.hideLevel();
+			updateHeader();
 
-			programInfoPresenter.setProgramId(programId);
+			programInfoPresenter.setProgramId(model.getProgramId());
 		}
 		else {
 			Timber.e("Passed empty program to ProgramDetailsActivity");
@@ -142,9 +167,18 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 		programName.setTypeface(TypefaceUtil.bold());
 	}
 
+	private void updateHeader() {
+		avatar.setImage(model.getAvatar(), 50, 50);
+
+		programName.setText(model.getProgramName());
+		managerName.setText(String.format(Locale.getDefault(), "%s %s", getResources().getString(R.string.by), model.getManagerName()));
+
+		setFavoriteButtonImage(model.isFavorite());
+	}
+
 	private void initTabs() {
 		detailsTab = tabLayout.newTab().setText(getString(R.string.details)).setTag("details");
-		descriptionTab = tabLayout.newTab().setText(getString(R.string.description)).setTag("description");
+		descriptionTab = tabLayout.newTab().setText(getString(R.string.strategy)).setTag("description");
 		tradesTab = tabLayout.newTab().setText(getString(R.string.trades)).setTag("trades");
 		historyTab = tabLayout.newTab().setText(getString(R.string.history)).setTag("history");
 
@@ -207,21 +241,19 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 	public void setProgram(InvestmentProgramDetails programDetails) {
 		this.programDetails = programDetails;
 
-		pagerAdapter.setProgramDescriptionData(ProgramDescriptionModel.fromProgram(programDetails));
-
 		if (programDetails.getTradesCount() > 0)
 			addPage(tradesTab, false);
 
 		if (programDetails.isIsHistoryEnable())
 			addPage(historyTab, false);
 
-		avatar.setImage(programDetails.getLogo(), 50, 50);
-		avatar.setLevel(programDetails.getLevel());
+		model.update(programDetails);
+		updateHeader();
 
-		programName.setText(programDetails.getTitle());
-		managerName.setText(String.format(Locale.getDefault(), "%s %s", getResources().getString(R.string.by), programDetails.getManager().getUsername()));
+		tabLayout.setVisibility(View.VISIBLE);
+		viewPager.setVisibility(View.VISIBLE);
 
-		setFavoriteButtonImage(programDetails.isIsFavorite());
+		pagerAdapter.sendUpdate();
 	}
 
 	private void setFavoriteButtonImage(boolean isFavorite) {
@@ -273,5 +305,41 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 	@Override
 	public void showToast(String message) {
 		Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+	}
+
+	@Override
+	public void showTooltipActivity(TooltipModel tooltipModel) {
+		TooltipActivity.startWith(this, tooltipModel);
+	}
+
+	@Override
+	public void showFavoriteButton(boolean show) {
+		favoriteButton.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+	}
+
+	@Override
+	public void showNoInternet(boolean show) {
+		noInternetGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
+
+	@Override
+	public void showSnackbarMessage(String message) {
+		showSnackbar(message, avatar);
+	}
+
+	@Override
+	public void showNoInternetProgress(boolean show) {
+		noInternetProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+		tryAgainButton.setVisibility(!show ? View.VISIBLE : View.GONE);
+	}
+
+	@Override
+	public void showProgress(boolean show) {
+		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
+
+	@Override
+	public void showTrades() {
+		tradesTab.select();
 	}
 }

@@ -2,42 +2,61 @@ package vision.genesis.clientapp.feature.main.program.description;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
-import java.util.Locale;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.swagger.client.model.InvestmentProgramDetails;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.model.ProgramDescriptionModel;
+import vision.genesis.clientapp.feature.main.program.ProgramInfoPagerAdapter;
 import vision.genesis.clientapp.ui.AvatarView;
-import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 22/03/2018.
  */
 
-public class ProgramDescriptionFragment extends BaseFragment implements ProgramDescriptionView
+public class ProgramDescriptionFragment extends BaseFragment implements ProgramDescriptionView, ProgramInfoPagerAdapter.OnPageVisibilityChanged
 {
+	private static String EXTRA_PROGRAM_ID = "extra_program_id";
+
+	public static ProgramDescriptionFragment with(UUID programId) {
+		ProgramDescriptionFragment programDescriptionFragment = new ProgramDescriptionFragment();
+		Bundle arguments = new Bundle(1);
+		arguments.putSerializable(EXTRA_PROGRAM_ID, programId);
+		programDescriptionFragment.setArguments(arguments);
+		return programDescriptionFragment;
+	}
+
+	@BindView(R.id.swipe_refresh)
+	public SwipeRefreshLayout refreshLayout;
+
+	@BindView(R.id.scrollview)
+	public ScrollView scrollView;
+
 	@BindView(R.id.program_logo)
 	public AvatarView programLogo;
 
-	@BindView(R.id.program_name)
-	public TextView programName;
-
-	@BindView(R.id.manager_name)
-	public TextView managerName;
-
 	@BindView(R.id.description)
 	public TextView description;
+
+
+	@BindView(R.id.progress_bar)
+	public ProgressBar progressBar;
 
 	@InjectPresenter
 	ProgramDescriptionPresenter programDescriptionPresenter;
@@ -56,7 +75,11 @@ public class ProgramDescriptionFragment extends BaseFragment implements ProgramD
 
 		unbinder = ButterKnife.bind(this, view);
 
+		programDescriptionPresenter.setProgramId((UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID));
+
 		setFonts();
+
+		initRefreshLayout();
 	}
 
 	@Override
@@ -70,16 +93,47 @@ public class ProgramDescriptionFragment extends BaseFragment implements ProgramD
 	}
 
 	private void setFonts() {
-		programName.setTypeface(TypefaceUtil.bold());
 	}
 
-	public void setData(ProgramDescriptionModel model) {
-		programLogo.setImage(model.programLogo, 500, 500);
-		programLogo.setLevel(model.programLevel);
+	private void initRefreshLayout() {
+		refreshLayout.setColorSchemeColors(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimary),
+				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent),
+				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimaryDark));
+		refreshLayout.setOnRefreshListener(() -> programDescriptionPresenter.onSwipeRefresh());
+	}
 
-		programName.setText(model.programName);
-		managerName.setText(String.format(Locale.getDefault(), "%s %s", getResources().getString(R.string.by), model.managerName));
+	@Override
+	public void setProgramDescription(InvestmentProgramDetails programDetails) {
+		programLogo.setImage(programDetails.getLogo(), 500, 500);
+		programLogo.setLevel(programDetails.getLevel());
 
-		description.setText(model.programDescription);
+		String programDescription = !programDetails.getDescription().isEmpty()
+				? programDetails.getDescription()
+				: getString(R.string.no_description);
+		description.setText(programDescription);
+
+		scrollView.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void showProgress(boolean show) {
+		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
+
+	@Override
+	public void setRefreshing(boolean refreshing) {
+		if (refreshLayout != null)
+			refreshLayout.setRefreshing(refreshing);
+	}
+
+	@Override
+	public void pagerShow() {
+		if (programDescriptionPresenter != null)
+			programDescriptionPresenter.onShow();
+	}
+
+	@Override
+	public void pagerHide() {
+
 	}
 }

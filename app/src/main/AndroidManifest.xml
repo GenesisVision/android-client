@@ -120,12 +120,6 @@
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
-            android:name=".feature.main.program.trades.TradesFragment"
-            android:launchMode="singleTop"
-            android:theme="@style/SwipeBackActivityTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
-
-        <activity
             android:name=".feature.auth.forgot_password.ForgotPasswordActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
@@ -142,6 +136,12 @@
             android:launchMode="singleTop"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+
+        <activity
+            android:name=".feature.main.tooltip.TooltipActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/TooltipActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <provider

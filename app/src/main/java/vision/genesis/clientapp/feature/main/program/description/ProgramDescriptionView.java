@@ -1,6 +1,10 @@
 package vision.genesis.clientapp.feature.main.program.description;
 
 import com.arellomobile.mvp.MvpView;
+import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
+import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
+
+import io.swagger.client.model.InvestmentProgramDetails;
 
 /**
  * GenesisVisionAndroid
@@ -9,4 +13,13 @@ import com.arellomobile.mvp.MvpView;
 
 interface ProgramDescriptionView extends MvpView
 {
+	@StateStrategyType(AddToEndSingleStrategy.class)
+	void setProgramDescription(InvestmentProgramDetails programDetails);
+
+	@StateStrategyType(AddToEndSingleStrategy.class)
+	void showProgress(boolean show);
+
+	@StateStrategyType(AddToEndSingleStrategy.class)
+	void setRefreshing(boolean refreshing);
+
 }

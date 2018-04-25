@@ -37,7 +37,7 @@
                         android:src="@drawable/portfolio_icon"/>
 
                     <RelativeLayout
-                        android:id="@+id/group_balance"
+                        android:id="@+id/group_portfolio_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/portfolio_image"
@@ -88,6 +88,18 @@
                             android:textAllCaps="true"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="16sp"/>
+
+                        <ImageView
+                            android:id="@+id/tooltip_total_portfolio_value"
+                            style="@style/tooltip_icon"
+                            android:layout_width="20dp"
+                            android:layout_below="@+id/group_balance_progress"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_toEndOf="@id/label_total_portfolio_value"
+                            android:layout_toRightOf="@id/label_total_portfolio_value"/>
 
                     </RelativeLayout>
 

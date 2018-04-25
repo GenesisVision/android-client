@@ -261,4 +261,21 @@
     <string name="all_time">ALL TIME</string>
     <string name="error_occurred_performing_operation">An error occurred while performing this operation</string>
     <string name="favorite_programs_only">Favorite programs only</string>
+
+    <string name="tooltip_total_portfolio_value">Total portfolio value is the value of all your tokens from all investment programs.</string>
+
+    <string name="tooltip_program_data">
+        Total profit is the total all-time manager’s profit.\n\nAvg. profit is the average profit for the period in relation to the starting balance.\n\nBalance is the amount of funds on a trading account.\n\nInvestors is a number of investors who already invested in the manager.
+    </string>
+
+    <string name="tooltip_period_duration">Period duration is a period that is defined by a manager at the end of which all trading positions are closed, with a subsequent profit distribution. Also during this period investors can join or leave the investment program, additional investment amounts are made and the commission is paid to a manager.</string>
+    <string name="tooltip_managers_funds_share">Manager\’s funds share is a percentage showing the proportion of funds belonging to the manager.</string>
+    <string name="tooltip_trades">Trades is a history of financial operations conducted by the manager.</string>
+    <string name="tooltip_success_fee">Success fee is a payment to the manager for successful trading, set as a percentage of your profit.</string>
+    <string name="tooltip_management_fee">Management fee is an annual obligatory commission, regardless of the outcome (profit or loss).</string>
+    <string name="tooltip_available_tokens">Available tokens represents a number of tokens which can be bought or requested by investors.\n\nDark color represents purchased tokens (NOT AVAILABLE)\n\nLight color represents \"booked\" tokens via investment requests (NOT AVAILABLE)\n\nGreen color represents free tokens (AVAILABLE to purchase)</string>
+
+    <string name="program_description">Program description</string>
+    <string name="no_description">no description</string>
+    <string name="strategy">Strategy</string>
 </resources>

@@ -32,7 +32,9 @@ import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramAct
 import vision.genesis.clientapp.feature.main.programs_list.filter.ProgramsFiltersActivity;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
+import vision.genesis.clientapp.model.ProgramInfoModel;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.model.TooltipModel;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -255,8 +257,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	}
 
 	@Override
-	public void showInvestmentProgramDetails(UUID programId) {
-		ProgramInfoActivity.startWith(this, programId);
+	public void showInvestmentProgramDetails(ProgramInfoModel programInfoModel) {
+		ProgramInfoActivity.startWith(this, programInfoModel);
 	}
 
 	@Override
@@ -285,5 +287,10 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	@Override
 	public void showDepositWallet() {
 		DepositWalletActivity.startWith(this);
+	}
+
+	@Override
+	public void showTooltipActivity(TooltipModel tooltipModel) {
+		;
 	}
 }

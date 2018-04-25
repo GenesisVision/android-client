@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import io.swagger.client.model.InvestmentProgram;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.ProgramInfoModel;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.AvailableTokensView;
 import vision.genesis.clientapp.ui.AvatarView;
@@ -116,8 +117,16 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 			ButterKnife.bind(this, itemView);
 
 			setFonts();
-
-			itemView.setOnClickListener(v -> EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(investmentProgram.getId())));
+			itemView.setOnClickListener(v -> {
+				if (investmentProgram != null) {
+					ProgramInfoModel programInfoModel = new ProgramInfoModel(investmentProgram.getId(),
+							investmentProgram.getLogo(),
+							investmentProgram.getTitle(),
+							investmentProgram.getManager().getUsername(),
+							investmentProgram.isIsFavorite());
+					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programInfoModel));
+				}
+			});
 		}
 
 		private void setFonts() {

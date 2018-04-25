@@ -12,7 +12,6 @@ import vision.genesis.clientapp.feature.main.program.description.ProgramDescript
 import vision.genesis.clientapp.feature.main.program.details.ProgramDetailsFragment;
 import vision.genesis.clientapp.feature.main.program.trades.TradesFragment;
 import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsFragment;
-import vision.genesis.clientapp.model.ProgramDescriptionModel;
 
 /**
  * GenesisVisionAndroid
@@ -42,7 +41,7 @@ public class ProgramInfoPagerAdapter extends FragmentStatePagerAdapter
 		super(fm);
 		this.tabLayout = tabLayout;
 		programDetailsFragment = ProgramDetailsFragment.with(programId);
-		programDescriptionFragment = new ProgramDescriptionFragment();
+		programDescriptionFragment = ProgramDescriptionFragment.with(programId);
 		historyFragment = TransactionsFragment.with(TransactionsFilter.TypeEnum.ALL, programId);
 		tradesFragment = TradesFragment.with(programId);
 	}
@@ -68,10 +67,6 @@ public class ProgramInfoPagerAdapter extends FragmentStatePagerAdapter
 		return tabLayout.getTabCount();
 	}
 
-	public void setProgramDescriptionData(ProgramDescriptionModel model) {
-		programDescriptionFragment.setData(model);
-	}
-
 	public void destroy() {
 //		if (programDetailsFragment != null)
 //			programDetailsFragment.onDestroyView();
@@ -81,5 +76,10 @@ public class ProgramInfoPagerAdapter extends FragmentStatePagerAdapter
 //
 //		if (historyFragment != null)
 //			historyFragment.onDestroyView();
+	}
+
+	public void sendUpdate() {
+		programDetailsFragment.pagerShow();
+		programDescriptionFragment.pagerShow();
 	}
 }

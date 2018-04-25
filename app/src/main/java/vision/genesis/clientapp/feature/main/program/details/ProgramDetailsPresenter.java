@@ -80,6 +80,7 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 
 	void onShow() {
 		getProgramDetails();
+		getChartData();
 	}
 
 	void onSwipeRefresh() {

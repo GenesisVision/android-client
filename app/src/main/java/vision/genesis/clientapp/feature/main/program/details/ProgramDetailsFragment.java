@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -31,6 +33,9 @@ import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivit
 import vision.genesis.clientapp.feature.main.program.requests.RequestsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.model.TooltipModel;
+import vision.genesis.clientapp.model.events.ShowTooltipEvent;
+import vision.genesis.clientapp.model.events.ShowTradesEvent;
 import vision.genesis.clientapp.ui.AvailableTokensView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProgramDataView;
@@ -67,6 +72,9 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 	@BindView(R.id.period_duration)
 	public TextView periodDuration;
 
+	@BindView(R.id.group_period_duration)
+	public ViewGroup periodDurationGroup;
+
 	@BindView(R.id.period_duration_days)
 	public TextView periodDurationDays;
 
@@ -75,6 +83,9 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 
 	@BindView(R.id.view_period_left)
 	public PeriodLeftView periodLeftView;
+
+	@BindView(R.id.group_manager_share)
+	public ViewGroup managerShareGroup;
 
 	@BindView(R.id.manager_share)
 	public TextView managerShare;
@@ -85,11 +96,17 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 	@BindView(R.id.manager_share_label)
 	public TextView managerShareLabel;
 
+	@BindView(R.id.group_trades)
+	public ViewGroup tradesGroup;
+
 	@BindView(R.id.trades)
 	public TextView trades;
 
 	@BindView(R.id.trades_label)
 	public TextView tradesLabel;
+
+	@BindView(R.id.group_success_fee)
+	public ViewGroup successFeeGroup;
 
 	@BindView(R.id.success_fee)
 	public TextView successFee;
@@ -100,6 +117,9 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 	@BindView(R.id.success_fee_label)
 	public TextView successFeeLabel;
 
+	@BindView(R.id.group_management_fee)
+	public ViewGroup managementFeeGroup;
+
 	@BindView(R.id.management_fee)
 	public TextView managementFee;
 
@@ -109,11 +129,14 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 	@BindView(R.id.management_fee_label)
 	public TextView managementFeeLabel;
 
-	@BindView(R.id.tokens_availability_label)
-	public TextView tokensAvailabilityLabel;
+	@BindView(R.id.group_available_tokens)
+	public ViewGroup availableTokensGroup;
 
 	@BindView(R.id.view_available_tokens)
 	public AvailableTokensView availableTokensView;
+
+	@BindView(R.id.tokens_availability_label)
+	public TextView tokensAvailabilityLabel;
 
 	@BindView(R.id.group_buttons)
 	public ViewGroup buttonsGroup;
@@ -142,10 +165,59 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 
 	private Unbinder unbinder;
 
-	@OnClick(R.id.group_trades)
+	@OnClick(R.id.trades)
 	public void onTradesClicked() {
-//		if (programDetails != null && programDetails.getTradesCount() > 0)
-//			TradesActivity.startWith(this, programDetails.getId());
+		EventBus.getDefault().post(new ShowTradesEvent());
+	}
+
+	@OnClick(R.id.tooltip_program_data)
+	public void onTooltipProgramDataClicked() {
+		showTooltip(programDataView, R.string.tooltip_program_data);
+	}
+
+	@OnClick(R.id.tooltip_period_duration)
+	public void onTooltipPeriodDurationClicked() {
+		showTooltip(periodDurationGroup, R.string.tooltip_period_duration);
+	}
+
+	@OnClick(R.id.tooltip_manager_share)
+	public void onTooltipManagerShareClicked() {
+		showTooltip(managerShareGroup, R.string.tooltip_managers_funds_share);
+	}
+
+	@OnClick(R.id.tooltip_trades)
+	public void onTooltipTradesClicked() {
+		showTooltip(tradesGroup, R.string.tooltip_trades);
+	}
+
+	@OnClick(R.id.tooltip_success_fee)
+	public void onTooltipSuccessFeeClicked() {
+		showTooltip(successFeeGroup, R.string.tooltip_success_fee);
+	}
+
+	@OnClick(R.id.tooltip_management_fee)
+	public void onTooltipManagementFeeClicked() {
+		showTooltip(managementFeeGroup, R.string.tooltip_management_fee);
+	}
+
+	@OnClick(R.id.tooltip_available_tokens)
+	public void onTooltipAvailableTokensClicked() {
+		showTooltip(availableTokensGroup, R.string.tooltip_available_tokens);
+	}
+
+	private void showTooltip(View view, int tooltipTextResId) {
+		int[] viewLocation = new int[2];
+		view.getLocationInWindow(viewLocation);
+		float viewX = viewLocation[0];
+		float viewY = viewLocation[1];
+
+		TooltipModel tooltipModel = new TooltipModel(
+				viewX + view.getWidth() / 2,
+				viewY,
+				viewY + view.getHeight(),
+				getString(tooltipTextResId));
+
+		EventBus.getDefault().post(new ShowTooltipEvent(tooltipModel));
 	}
 
 	@OnClick(R.id.button_invest)
@@ -301,6 +373,8 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 		investButton.setVisibility(programDetails.isIsInvestEnable() ? View.VISIBLE : View.GONE);
 		withdrawButton.setVisibility(programDetails.isIsWithdrawEnable() ? View.VISIBLE : View.GONE);
 		requestsButton.setVisibility(programDetails.isHasNewRequests() ? View.VISIBLE : View.GONE);
+
+		scrollView.setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -323,7 +397,6 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 	@Override
 	public void showProgress(boolean show) {
 		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-		refreshLayout.setVisibility(!show ? View.VISIBLE : View.GONE);
 	}
 
 	@Override

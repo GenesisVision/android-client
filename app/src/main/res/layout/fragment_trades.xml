@@ -15,7 +15,7 @@
             android:layout_height="@dimen/activity_trades_header_height"
             android:background="@color/white"
             android:orientation="horizontal"
-            android:visibility="invisible">
+            android:visibility="gone">
 
             <LinearLayout
                 style="@style/trades_header_text"

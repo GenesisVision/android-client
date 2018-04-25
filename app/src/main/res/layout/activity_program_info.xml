@@ -70,7 +70,9 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="18dp"
             android:src="@drawable/ic_star_border_black_24dp"
-            android:tint="@color/grey400"/>
+            android:tint="@color/grey400"
+            android:visibility="invisible"
+            tools:visibility="visible"/>
 
     </RelativeLayout>
 
@@ -82,6 +84,7 @@
         android:background="@color/white"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:visibility="gone"
         app:tabGravity="center"
         app:tabIndicatorColor="@color/colorPrimaryLight"
         app:tabMode="fixed"
@@ -92,12 +95,73 @@
         android:id="@+id/view_pager_program_info"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tab_layout"/>
+        android:layout_below="@+id/tab_layout"
+        android:visibility="invisible"/>
+
+    <LinearLayout
+        android:id="@+id/group_no_internet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/no_internet_image"
+            android:layout_width="@dimen/programs_no_internet_image_width"
+            android:layout_height="@dimen/programs_no_internet_image_height"
+            android:src="@drawable/no_internet"
+            android:tint="@color/colorFontLight"/>
+
+        <TextView
+            android:id="@+id/no_internet_text"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/network_error"
+            android:textColor="@color/black12"
+            android:textSize="18sp"/>
+
+        <FrameLayout
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp">
+
+            <vision.genesis.clientapp.ui.PrimaryButton
+                android:id="@+id/button_try_again"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/try_again"/>
+
+            <ProgressBar
+                android:id="@+id/progress_bar_no_internet"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="4dp"
         android:layout_below="@+id/tab_layout"
         android:background="@drawable/shadow_down_black"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/tab_layout"
+        android:indeterminate="true"
+        android:scaleY="4"
+        android:visibility="visible"/>
 
 </RelativeLayout>

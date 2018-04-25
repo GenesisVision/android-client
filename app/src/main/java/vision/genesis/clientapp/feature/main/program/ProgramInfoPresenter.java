@@ -25,6 +25,9 @@ import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 import vision.genesis.clientapp.model.events.OnPeriodLeftEvent;
 import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
+import vision.genesis.clientapp.model.events.ShowTooltipEvent;
+import vision.genesis.clientapp.model.events.ShowTradesEvent;
+import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
  * GenesisVision
@@ -88,20 +91,28 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	}
 
 	void onResume() {
-		if (programId != null)
-			getProgramDetails();
+		getProgramDetails();
+	}
+
+	void onTryAgainClicked() {
+		getViewState().showNoInternetProgress(true);
+		getProgramDetails();
 	}
 
 	private void getProgramDetails() {
-		programDetailsSubscription = investManager.getInvestmentProgramDetails(programId)
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleInvestmentProgramDetailsSuccess,
-						this::handleInvestmentProgramDetailsError);
+		if (programId != null && investManager != null)
+			programDetailsSubscription = investManager.getInvestmentProgramDetails(programId)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleInvestmentProgramDetailsSuccess,
+							this::handleInvestmentProgramDetailsError);
 	}
 
 	private void handleInvestmentProgramDetailsSuccess(InvestmentProgramViewModel model) {
 		programDetailsSubscription.unsubscribe();
+		getViewState().showNoInternet(false);
+		getViewState().showNoInternetProgress(false);
+		getViewState().showProgress(false);
 
 		programDetails = model.getInvestmentProgram();
 		getViewState().setProgram(programDetails);
@@ -109,6 +120,17 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 	private void handleInvestmentProgramDetailsError(Throwable throwable) {
 		programDetailsSubscription.unsubscribe();
+		getViewState().showProgress(false);
+
+		if (ApiErrorResolver.isNetworkError(throwable)) {
+			if (programDetails == null) {
+				getViewState().showNoInternet(true);
+				getViewState().showNoInternetProgress(false);
+			}
+			else {
+				getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
+			}
+		}
 	}
 
 	private void setProgramFavorite(boolean isFavorite) {
@@ -128,7 +150,8 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	private void handleSetProgramFavoriteError(Throwable throwable) {
 		setProgramFavoriteSubscription.unsubscribe();
 
-		getViewState().setProgram(programDetails);
+		if (programDetails == null)
+			getViewState().setProgram(programDetails);
 		getViewState().showToast(context.getString(R.string.error_occurred_performing_operation));
 	}
 
@@ -147,9 +170,11 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	}
 
 	private void userLoggedOn() {
+		getViewState().showFavoriteButton(true);
 	}
 
 	private void userLoggedOff() {
+		getViewState().showFavoriteButton(false);
 	}
 
 	private void handleUserError(Throwable throwable) {
@@ -164,5 +189,15 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	@Subscribe
 	public void onEventMainThread(OnPeriodLeftEvent event) {
 		getProgramDetails();
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowTooltipEvent event) {
+		getViewState().showTooltipActivity(event.tooltipModel);
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowTradesEvent event) {
+		getViewState().showTrades();
 	}
 }

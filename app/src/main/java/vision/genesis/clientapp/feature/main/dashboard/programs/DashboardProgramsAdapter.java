@@ -18,6 +18,7 @@ import butterknife.OnClick;
 import io.swagger.client.model.InvestmentProgramDashboardInvestor;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.WalletManager;
+import vision.genesis.clientapp.model.ProgramInfoModel;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
@@ -112,8 +113,16 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			ButterKnife.bind(this, itemView);
 
 			setFonts();
-
-			itemView.setOnClickListener(v -> EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(investmentProgram.getId())));
+			itemView.setOnClickListener(v -> {
+				if (investmentProgram != null) {
+					ProgramInfoModel programInfoModel = new ProgramInfoModel(investmentProgram.getId(),
+							investmentProgram.getLogo(),
+							investmentProgram.getTitle(),
+							investmentProgram.getManager().getUsername(),
+							investmentProgram.isIsFavorite());
+					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programInfoModel));
+				}
+			});
 		}
 
 		@OnClick(R.id.group_profit)

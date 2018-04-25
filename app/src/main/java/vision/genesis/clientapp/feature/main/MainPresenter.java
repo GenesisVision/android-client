@@ -29,6 +29,7 @@ import vision.genesis.clientapp.model.events.ShowFiltersEvent;
 import vision.genesis.clientapp.model.events.ShowInvestProgramEvent;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
+import vision.genesis.clientapp.model.events.ShowTooltipEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawProgramEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawWalletActivityEvent;
 
@@ -181,7 +182,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	@Subscribe
 	public void onEventMainThread(ShowInvestmentProgramDetailsEvent event) {
-		getViewState().showInvestmentProgramDetails(event.programId);
+		getViewState().showInvestmentProgramDetails(event.programInfoModel);
 	}
 
 	@Subscribe
@@ -221,5 +222,10 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowMessageActivityEvent event) {
 		getViewState().showMessageActivity(event.message, event.imageResourceId, event.mustRead);
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowTooltipEvent event) {
+		getViewState().showTooltipActivity(event.tooltipModel);
 	}
 }

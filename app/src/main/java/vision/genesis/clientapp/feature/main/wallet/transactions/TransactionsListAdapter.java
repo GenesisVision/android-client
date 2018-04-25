@@ -19,6 +19,7 @@ import io.swagger.client.model.InvestmentProgramTxInfo;
 import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.WalletManager;
+import vision.genesis.clientapp.model.ProgramInfoModel;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -113,8 +114,14 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 			setType();
 			date.setText(DateTimeUtil.formatDateTime(transaction.getDate()));
 			if (program != null) {
-				if (!clickDisabled)
-					itemView.setOnClickListener(v -> EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(program.getId())));
+				if (!clickDisabled) {
+					ProgramInfoModel programInfoModel = new ProgramInfoModel(program.getId(),
+							"",
+							program.getTitle(),
+							"",
+							false);
+					itemView.setOnClickListener(v -> EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programInfoModel)));
+				}
 				programName.setText(program.getTitle());
 			}
 			else {

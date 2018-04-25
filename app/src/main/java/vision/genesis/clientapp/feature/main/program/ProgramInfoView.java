@@ -6,6 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import io.swagger.client.model.InvestmentProgramDetails;
+import vision.genesis.clientapp.model.TooltipModel;
 
 /**
  * GenesisVision
@@ -21,4 +22,18 @@ interface ProgramInfoView extends MvpView
 	void finishActivity();
 
 	void showToast(String message);
+
+	void showTooltipActivity(TooltipModel tooltipModel);
+
+	void showFavoriteButton(boolean show);
+
+	void showNoInternet(boolean show);
+
+	void showSnackbarMessage(String message);
+
+	void showNoInternetProgress(boolean show);
+
+	void showProgress(boolean show);
+
+	void showTrades();
 }
