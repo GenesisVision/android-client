@@ -15,9 +15,4 @@ public class EmailVerificationPresenter extends MvpPresenter<EmailVerificationVi
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 	}
-
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-	}
 }

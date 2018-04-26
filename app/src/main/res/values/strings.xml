@@ -278,4 +278,6 @@
     <string name="program_description">Program description</string>
     <string name="no_description">no description</string>
     <string name="strategy">Strategy</string>
+    <string name="equity_chart">Equity chart</string>
+    <string name="tooltip_equity_chart">Equity chart displays the manager\'s balance\' changes during his trading activity</string>
 </resources>

@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -11,6 +12,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,10 +64,23 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		notifyDataSetChanged();
 	}
 
+	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
+		for (InvestmentProgramDashboardInvestor program : investorPrograms) {
+			if (program.getId().equals(programId)) {
+				program.isFavorite(isFavorite);
+				notifyDataSetChanged();
+				break;
+			}
+		}
+	}
+
 	static class InvestorProgramViewHolder extends RecyclerView.ViewHolder
 	{
 		@BindView(R.id.program_logo)
 		public AvatarView programLogo;
+
+		@BindView(R.id.icon_favorite)
+		public ImageView favoriteIcon;
 
 		@BindView(R.id.program_name)
 		public TextView programName;
@@ -147,6 +162,8 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		private void updateData() {
 			programLogo.setImage(investmentProgram.getLogo(), 100, 100);
 			programLogo.setLevel(investmentProgram.getLevel());
+
+			favoriteIcon.setVisibility(investmentProgram.isIsFavorite() ? View.VISIBLE : View.GONE);
 
 			programName.setText(investmentProgram.getTitle());
 			managerName.setText(String.format(Locale.getDefault(), "%s %s",

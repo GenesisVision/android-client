@@ -43,10 +43,10 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 
 	@Override
 	public void onDestroy() {
-		super.onDestroy();
-
 		if (loginSubscription != null)
 			loginSubscription.unsubscribe();
+
+		super.onDestroy();
 	}
 
 	void onSignUpClicked() {

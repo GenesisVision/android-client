@@ -46,10 +46,10 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 
 	@Override
 	public void onDestroy() {
-		super.onDestroy();
-
 		if (registrationSubscription != null)
 			registrationSubscription.unsubscribe();
+
+		super.onDestroy();
 	}
 
 	void onSignInClicked() {

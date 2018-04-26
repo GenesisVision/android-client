@@ -3,6 +3,7 @@ package vision.genesis.clientapp.feature.main.dashboard.programs;
 import com.arellomobile.mvp.MvpView;
 
 import java.util.List;
+import java.util.UUID;
 
 import io.swagger.client.model.InvestmentProgramDashboardInvestor;
 
@@ -22,4 +23,6 @@ interface DashboardProgramsView extends MvpView
 	void showNoInternet(boolean show);
 
 	void setPrograms(List<InvestmentProgramDashboardInvestor> transactions);
+
+	void changeProgramIsFavorite(UUID programId, boolean isFavorite);
 }

@@ -7,7 +7,6 @@ import java.util.UUID;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.model.ProgramInfoModel;
 import vision.genesis.clientapp.model.ProgramRequest;
-import vision.genesis.clientapp.model.TooltipModel;
 
 /**
  * GenesisVision
@@ -51,6 +50,4 @@ public interface MainView extends MvpView
 	void showWithdrawWallet();
 
 	void showDepositWallet();
-
-	void showTooltipActivity(TooltipModel tooltipModel);
 }

@@ -210,6 +210,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
 		programsListAdapter = new ProgramsListAdapter();
+		programsListAdapter.setHasStableIds(true);
 		recyclerView.setAdapter(programsListAdapter);
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
 		{

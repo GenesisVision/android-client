@@ -2,6 +2,9 @@ package vision.genesis.clientapp.ui.chart;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -34,7 +37,6 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ChartZoomEnum;
 import vision.genesis.clientapp.utils.DateTimeValueFormatter;
-import vision.genesis.clientapp.utils.DateValueFormatter;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
@@ -98,6 +100,8 @@ public class ProfitDetailsChartView extends RelativeLayout
 
 	private IAxisValueFormatter xAxisValueFormatter = new DateTimeValueFormatter();
 
+	private ChartZoomEnum currentZoom = ChartZoomEnum.ZOOM_ALL;
+
 	public ProfitDetailsChartView(Context context) {
 		super(context);
 		initView();
@@ -128,7 +132,28 @@ public class ProfitDetailsChartView extends RelativeLayout
 			}
 		});
 
-		chartTimeFrameSelectorView.selectZoom(ChartZoomEnum.ZOOM_ALL);
+		chartTimeFrameSelectorView.selectZoom(currentZoom);
+	}
+
+	@Nullable
+	@Override
+	protected Parcelable onSaveInstanceState() {
+		Bundle bundle = new Bundle();
+		bundle.putParcelable("superState", super.onSaveInstanceState());
+		bundle.putSerializable("selectedZoom", currentZoom);
+		return bundle;
+	}
+
+	@Override
+	public void onRestoreInstanceState(Parcelable state) {
+		if (state instanceof Bundle) // implicit null check
+		{
+			Bundle bundle = (Bundle) state;
+			currentZoom = (ChartZoomEnum) bundle.getSerializable("selectedZoom");
+			chartTimeFrameSelectorView.selectZoom(currentZoom);
+			state = bundle.getParcelable("superState");
+		}
+		super.onRestoreInstanceState(state);
 	}
 
 	public void setTouchListener(TouchListener touchListener) {
@@ -240,18 +265,33 @@ public class ProfitDetailsChartView extends RelativeLayout
 		double last = charts.get(charts.size() - 1).getProfit();
 
 		double changeValue = last - first;
+		String directionSymbol = "";
+		String percentSign = "";
+		int textColorResId;
+		if (changeValue > 0) {
+			directionSymbol = "\u2191";
+			percentSign = "+";
+			textColorResId = R.color.transactionGreen;
+		}
+		else if (changeValue < 0) {
+			directionSymbol = "\u2193";
+			percentSign = "-";
+			textColorResId = R.color.transactionRed;
+		}
+		else {
+			textColorResId = R.color.colorPrimaryDark;
+		}
 		String changeValueString = String.format(Locale.getDefault(),
-				"%s%s", changeValue >= 0 ? "\u2191" : "\u2193", StringFormatUtil.formatAmount(Math.abs(changeValue), 0, 2));
+				"%s%s%%", directionSymbol, StringFormatUtil.formatAmount(Math.abs(changeValue), 0, 2));
 
 		String changePercentString = "";
 		if (first != 0) {
-			changePercentString = String.format(Locale.getDefault(), " (%s%%)",
+			changePercentString = String.format(Locale.getDefault(), " (%s%s%%)", percentSign,
 					StringFormatUtil.formatAmount(Math.abs(100 / first * (first - last)), 0, 2));
 		}
 
 		changeText.setText(changeValueString.concat(changePercentString));
-		changeText.setTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE,
-				changeValue >= 0 ? R.color.transactionGreen : R.color.transactionRed));
+		changeText.setTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, textColorResId));
 	}
 
 	public void onDestroy() {
@@ -267,7 +307,7 @@ public class ProfitDetailsChartView extends RelativeLayout
 		highlightBox.setVisibility(View.VISIBLE);
 		highlightCircle.setVisibility(View.VISIBLE);
 		chart.highlightValue(highlight, false);
-		valueText.setText(StringFormatUtil.formatAmount(highlight.getY(), 0, 2));
+		valueText.setText(String.format(Locale.getDefault(), "%s %%", StringFormatUtil.formatAmount(highlight.getY(), 0, 2)));
 		dateText.setText(xAxisValueFormatter.getFormattedValue(highlight.getX(), null));
 		moveHighlightBox(highlight);
 		moveHighlightCircle(highlight);
@@ -298,11 +338,12 @@ public class ProfitDetailsChartView extends RelativeLayout
 	}
 
 	private void onTimeFrameChanged(ChartZoomEnum newTimeFrame) {
-		if (newTimeFrame.equals(ChartZoomEnum.ZOOM_1D))
-			xAxisValueFormatter = new DateTimeValueFormatter();
-		else
-			xAxisValueFormatter = new DateValueFormatter();
+//		if (newTimeFrame.equals(ChartZoomEnum.ZOOM_1D))
+//			xAxisValueFormatter = new DateTimeValueFormatter();
+//		else
+//			xAxisValueFormatter = new DateValueFormatter();
 
+		currentZoom = newTimeFrame;
 		updateChangeTimeFrameText(newTimeFrame);
 	}
 

@@ -145,7 +145,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 				viewY + view.getHeight(),
 				getString(tooltipTextResId));
 
-//		EventBus.getDefault().post(new ShowTooltipEvent(tooltipModel));
 		if (getActivity() != null)
 			TooltipActivity.startWith(getActivity(), tooltipModel);
 	}

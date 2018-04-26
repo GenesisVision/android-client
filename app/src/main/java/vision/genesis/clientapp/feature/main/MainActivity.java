@@ -34,7 +34,6 @@ import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivit
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
 import vision.genesis.clientapp.model.ProgramInfoModel;
 import vision.genesis.clientapp.model.ProgramRequest;
-import vision.genesis.clientapp.model.TooltipModel;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -287,10 +286,5 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	@Override
 	public void showDepositWallet() {
 		DepositWalletActivity.startWith(this);
-	}
-
-	@Override
-	public void showTooltipActivity(TooltipModel tooltipModel) {
-		;
 	}
 }

@@ -32,9 +32,9 @@ import vision.genesis.clientapp.feature.main.program.ProgramInfoPagerAdapter;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
 import vision.genesis.clientapp.feature.main.program.requests.RequestsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
+import vision.genesis.clientapp.feature.main.tooltip.TooltipActivity;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.TooltipModel;
-import vision.genesis.clientapp.model.events.ShowTooltipEvent;
 import vision.genesis.clientapp.model.events.ShowTradesEvent;
 import vision.genesis.clientapp.ui.AvailableTokensView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
@@ -170,6 +170,10 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 		EventBus.getDefault().post(new ShowTradesEvent());
 	}
 
+	@OnClick(R.id.tooltip_equity_chart)
+	public void onTooltipEquityChartClicked() {
+		showTooltip(chart, R.string.tooltip_equity_chart);
+	}
 	@OnClick(R.id.tooltip_program_data)
 	public void onTooltipProgramDataClicked() {
 		showTooltip(programDataView, R.string.tooltip_program_data);
@@ -217,7 +221,8 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 				viewY + view.getHeight(),
 				getString(tooltipTextResId));
 
-		EventBus.getDefault().post(new ShowTooltipEvent(tooltipModel));
+		if (getActivity() != null)
+			TooltipActivity.startWith(getActivity(), tooltipModel);
 	}
 
 	@OnClick(R.id.button_invest)

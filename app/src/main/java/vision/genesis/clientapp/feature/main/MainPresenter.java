@@ -29,7 +29,6 @@ import vision.genesis.clientapp.model.events.ShowFiltersEvent;
 import vision.genesis.clientapp.model.events.ShowInvestProgramEvent;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
-import vision.genesis.clientapp.model.events.ShowTooltipEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawProgramEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawWalletActivityEvent;
 
@@ -72,12 +71,12 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	@Override
 	public void onDestroy() {
-		super.onDestroy();
-
 		if (userSubscription != null)
 			userSubscription.unsubscribe();
 
 		EventBus.getDefault().unregister(this);
+
+		super.onDestroy();
 	}
 
 	void onBottomMenuSelectionChanged(int position) {
@@ -222,10 +221,5 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowMessageActivityEvent event) {
 		getViewState().showMessageActivity(event.message, event.imageResourceId, event.mustRead);
-	}
-
-	@Subscribe
-	public void onEventMainThread(ShowTooltipEvent event) {
-		getViewState().showTooltipActivity(event.tooltipModel);
 	}
 }

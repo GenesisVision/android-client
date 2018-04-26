@@ -25,7 +25,6 @@ import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 import vision.genesis.clientapp.model.events.OnPeriodLeftEvent;
 import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
-import vision.genesis.clientapp.model.events.ShowTooltipEvent;
 import vision.genesis.clientapp.model.events.ShowTradesEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -189,11 +188,6 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	@Subscribe
 	public void onEventMainThread(OnPeriodLeftEvent event) {
 		getProgramDetails();
-	}
-
-	@Subscribe
-	public void onEventMainThread(ShowTooltipEvent event) {
-		getViewState().showTooltipActivity(event.tooltipModel);
 	}
 
 	@Subscribe

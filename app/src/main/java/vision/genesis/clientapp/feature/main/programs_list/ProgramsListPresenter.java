@@ -68,8 +68,6 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 
 	@Override
 	public void onDestroy() {
-		super.onDestroy();
-
 		if (filterSubscription != null)
 			filterSubscription.unsubscribe();
 
@@ -77,6 +75,8 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 			getProgramsSubscription.unsubscribe();
 
 		EventBus.getDefault().unregister(this);
+
+		super.onDestroy();
 	}
 
 	void onSearchClicked() {

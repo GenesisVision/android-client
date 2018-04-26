@@ -27,9 +27,7 @@ import io.swagger.client.model.InvestmentProgramDetails;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.feature.main.tooltip.TooltipActivity;
 import vision.genesis.clientapp.model.ProgramInfoModel;
-import vision.genesis.clientapp.model.TooltipModel;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -305,11 +303,6 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 	@Override
 	public void showToast(String message) {
 		Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-	}
-
-	@Override
-	public void showTooltipActivity(TooltipModel tooltipModel) {
-		TooltipActivity.startWith(this, tooltipModel);
 	}
 
 	@Override

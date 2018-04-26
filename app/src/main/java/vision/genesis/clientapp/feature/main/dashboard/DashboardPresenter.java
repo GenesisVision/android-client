@@ -90,7 +90,7 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 
 		List<InvestmentProgramDashboardInvestor> programs = dashboard.getInvestmentPrograms();
 		for (InvestmentProgramDashboardInvestor program : programs) {
-			if (program.isIsEnabled() && (program.getInvestedTokens() > 0 || program.isHasNewRequests()))
+			if (!program.isIsArchived())
 				activePrograms.add(program);
 			else
 				archivedPrograms.add(program);

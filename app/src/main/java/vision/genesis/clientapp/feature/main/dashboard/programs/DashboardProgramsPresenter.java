@@ -4,9 +4,11 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import vision.genesis.clientapp.model.events.OnDashboardProgramsUpdateEvent;
 import vision.genesis.clientapp.model.events.OnInvestButtonClickedEvent;
+import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
 
 /**
  * GenesisVision
@@ -19,6 +21,15 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
+
+		EventBus.getDefault().register(this);
+	}
+
+	@Override
+	public void onDestroy() {
+		EventBus.getDefault().unregister(this);
+
+		super.onDestroy();
 	}
 
 	void onShow() {
@@ -36,5 +47,10 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 	void onTryAgainClicked() {
 		getViewState().showProgressBar(true);
 		EventBus.getDefault().post(new OnDashboardProgramsUpdateEvent());
+	}
+
+	@Subscribe
+	public void onEventMainThread(ProgramIsFavoriteChangedEvent event) {
+		getViewState().changeProgramIsFavorite(event.programId, event.isFavorite);
 	}
 }

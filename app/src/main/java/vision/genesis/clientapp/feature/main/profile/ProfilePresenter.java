@@ -77,8 +77,6 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 
 	@Override
 	public void onDestroy() {
-		super.onDestroy();
-
 		EventBus.getDefault().unregister(this);
 
 		if (profileSubscription != null)
@@ -89,6 +87,8 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 
 		if (updateProfileSubscription != null)
 			updateProfileSubscription.unsubscribe();
+
+		super.onDestroy();
 	}
 
 	void onEditModeClicked() {

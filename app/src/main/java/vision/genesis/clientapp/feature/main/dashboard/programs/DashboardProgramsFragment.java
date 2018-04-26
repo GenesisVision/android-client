@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +24,6 @@ import io.swagger.client.model.InvestmentProgramDashboardInvestor;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.ui.DividerItemDecoration;
 
 /**
  * GenesisVision
@@ -116,10 +116,6 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 		recyclerView.setLayoutManager(layoutManager);
 		dashboardProgramsAdapter = new DashboardProgramsAdapter();
 		dashboardProgramsAdapter.setHasStableIds(true);
-		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-				ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.list_item_divider),
-				20, 20);
-		recyclerView.addItemDecoration(dividerItemDecoration);
 		recyclerView.setAdapter(dashboardProgramsAdapter);
 	}
 
@@ -128,6 +124,11 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 		dashboardProgramsAdapter.setInvestorPrograms(programs);
 
 		showEmpty(programs.size() == 0);
+	}
+
+	@Override
+	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
+		dashboardProgramsAdapter.changeProgramIsFavorite(programId, isFavorite);
 	}
 
 	@Override
