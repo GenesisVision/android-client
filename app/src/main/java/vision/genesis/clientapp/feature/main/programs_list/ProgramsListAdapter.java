@@ -22,7 +22,6 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ProgramInfoModel;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
-import vision.genesis.clientapp.ui.AvailableTokensView;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.ProgramDataView;
 import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
@@ -106,8 +105,8 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 		@BindView(R.id.view_program_data)
 		public ProgramDataView programDataView;
 
-		@BindView(R.id.view_available_tokens)
-		public AvailableTokensView availableTokensView;
+		@BindView(R.id.text_no_available_tokens)
+		public TextView noAvailableTokensText;
 
 		private InvestmentProgram investmentProgram;
 
@@ -131,6 +130,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 
 		private void setFonts() {
 			title.setTypeface(TypefaceUtil.bold());
+			noAvailableTokensText.setTypeface(TypefaceUtil.bold());
 		}
 
 		void onRecycle() {
@@ -159,17 +159,11 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 					investmentProgram.getInvestorsCount(),
 					investmentProgram.getCurrency().toString());
 
-			chart.setChart(investmentProgram.getChart());
+			chart.setEquityChart(investmentProgram.getEquityChart());
 
-			if (investmentProgram.getFreeTokens() == null) {
-				availableTokensView.setVisibility(View.GONE);
-			}
-			else {
-				availableTokensView.setVisibility(View.VISIBLE);
-				availableTokensView.setData(investmentProgram.getFreeTokens().getTotal(),
-						investmentProgram.getFreeTokens().getInvestorsTokens(),
-						investmentProgram.getFreeTokens().getRequestsTokens());
-			}
+			noAvailableTokensText.setVisibility(investmentProgram.getAvailableInvestment() > 0
+					? View.GONE
+					: View.VISIBLE);
 		}
 	}
 }

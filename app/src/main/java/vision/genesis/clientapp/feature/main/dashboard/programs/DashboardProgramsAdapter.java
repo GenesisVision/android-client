@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.InvestmentProgramDashboardInvestor;
+import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.ProgramInfoModel;
@@ -170,14 +171,16 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 					itemView.getContext().getResources().getString(R.string.by),
 					investmentProgram.getManager().getUsername()));
 
-			chart.setChart(investmentProgram.getChart());
+			chart.setEquityChart(investmentProgram.getEquityChart());
 
-			tokens.setText(String.valueOf(investmentProgram.getInvestedTokens()));
+			tokens.setText(StringFormatUtil.formatAmount(investmentProgram.getInvestedTokens(), 0,
+					WalletManager.TOKENS_MAX_DECIMAL_POINT_DIGITS));
 			double tokensFiatValue = investmentProgram.getInvestedTokens() * investmentProgram.getToken().getInitialPrice();
 			tokensFiat.setText(String.format(Locale.getDefault(), "($%.2f)", tokensFiatValue));
 
 			profitShort.setText(StringFormatUtil.formatAmount(investmentProgram.getProfitFromProgram(), 0, 2));
-			profitFull.setText(StringFormatUtil.formatAmount(investmentProgram.getProfitFromProgram(), 2, WalletManager.GVT_MAX_DECIMAL_POINT_DIGITS));
+			profitFull.setText(StringFormatUtil.formatAmount(investmentProgram.getProfitFromProgram(), 2,
+					StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.GVT.toString())));
 
 			if (investmentProgram.isIsEnabled())
 				periodLeftView.setDateTo(investmentProgram.getStartOfPeriod(), investmentProgram.getEndOfPeriod());

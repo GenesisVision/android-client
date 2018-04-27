@@ -9,7 +9,8 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.regex.Pattern;
 
-import vision.genesis.clientapp.managers.WalletManager;
+import io.swagger.client.model.WalletTransaction;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVision
@@ -22,6 +23,8 @@ public class AmountEditText extends android.support.v7.widget.AppCompatEditText
 	{
 		void onAmountChanged(double amount);
 	}
+
+	private static final int GVT_MAX_FRACTION = StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.GVT.toString());
 
 	private AmountChangeListener listener;
 
@@ -74,7 +77,7 @@ public class AmountEditText extends android.support.v7.widget.AppCompatEditText
 			String[] parts = amountText.split(Pattern.quote("."));
 			if (parts.length > 1) {
 				String decimalPart = parts[1];
-				if (decimalPart != null && decimalPart.length() > WalletManager.GVT_MAX_DECIMAL_POINT_DIGITS) {
+				if (decimalPart != null && decimalPart.length() > GVT_MAX_FRACTION) {
 					this.setText(amountText.substring(0, amountText.length() - 1));
 					this.setSelection(this.getText().length());
 					return;

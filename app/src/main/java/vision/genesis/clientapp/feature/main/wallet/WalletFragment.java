@@ -21,10 +21,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.TransactionsFilter;
+import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPagerAdapter;
-import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.ui.SpinnerView;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -165,12 +165,15 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 	@Override
 	public void setBalance(double balance) {
-		this.balance.setText(StringFormatUtil.formatAmount(balance, 2, WalletManager.GVT_MAX_DECIMAL_POINT_DIGITS));
+		this.balance.setText(StringFormatUtil.formatAmount(balance, 2,
+				StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.GVT.toString())));
 	}
 
 	@Override
 	public void setFiatBalance(double balance) {
-		balanceFiat.setText(String.format(Locale.getDefault(), "$%s", StringFormatUtil.formatAmount(balance, 2, 2)));
+		balanceFiat.setText(String.format(Locale.getDefault(), "$%s",
+				StringFormatUtil.formatAmount(balance, 2,
+						StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.USD.toString()))));
 	}
 
 	@Override

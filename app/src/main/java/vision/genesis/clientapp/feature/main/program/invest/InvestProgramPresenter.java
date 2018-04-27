@@ -7,9 +7,11 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 
-import io.swagger.client.model.WalletViewModel;
+import io.swagger.client.model.InvestmentProgramBuyToken;
 import io.swagger.client.model.WalletsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -50,7 +52,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 
 	private Subscription investSubscription;
 
-	private Subscription balanceSubscription;
+	private Subscription buyTokensModelSubscription;
 
 	private Subscription rateSubscription;
 
@@ -64,7 +66,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		getBalance();
+		getBuyTokensModel();
 	}
 
 	@Override
@@ -72,14 +74,15 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 		if (investSubscription != null)
 			investSubscription.unsubscribe();
 
-		if (balanceSubscription != null)
-			balanceSubscription.unsubscribe();
+		if (buyTokensModelSubscription != null)
+			buyTokensModelSubscription.unsubscribe();
 
 		super.onDestroy();
 	}
 
 	void setInvestRequest(ProgramRequest request) {
 		investRequest = request;
+		getBuyTokensModel();
 	}
 
 	void onBackClicked() {
@@ -107,23 +110,28 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 		sendInvestRequest();
 	}
 
-	private void getBalance() {
-		getViewState().showAvailableProgress(true);
-		balanceSubscription = walletManager.getBalance()
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleBalanceUpdateResponse,
-						this::handleBalanceUpdateError);
-
-		updateRate();
+	private void getBuyTokensModel() {
+		if (investManager != null && investRequest != null) {
+			getViewState().showAvailableProgress(true);
+			buyTokensModelSubscription = investManager.getBuyTokensModel(investRequest.programId)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleBuyTokensModelResponse,
+							this::handleBuyTokensModelError);
+		}
 	}
 
-	private void handleBalanceUpdateResponse(Double balance) {
+	private void handleBuyTokensModelResponse(InvestmentProgramBuyToken response) {
 		getViewState().showAvailableProgress(false);
-		setBalance(balance);
+		rate = response.getGvtRate();
+		double availableToInvest = investRequest.available;
+		if (response.getGvtWalletAmount() < availableToInvest)
+			availableToInvest = response.getGvtWalletAmount();
+		setBalance(availableToInvest);
+		updateFiatBalance();
 	}
 
-	private void handleBalanceUpdateError(Throwable error) {
+	private void handleBuyTokensModelError(Throwable error) {
 		getViewState().showAvailableProgress(false);
 	}
 
@@ -146,7 +154,10 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 		investSubscription.unsubscribe();
 		walletManager.getBalance();
 
-		EventBus.getDefault().post(new ShowMessageActivityEvent(context.getString(R.string.message_program_invest_success), R.drawable.ic_email_confirmed_icon, false));
+		EventBus.getDefault().post(new ShowMessageActivityEvent(
+				String.format(Locale.getDefault(), context.getString(R.string.message_program_invest_success), String.valueOf(investRequest.amount)),
+				R.drawable.ic_email_confirmed_icon,
+				false));
 		getViewState().finishActivity();
 	}
 
@@ -170,27 +181,8 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 		}
 	}
 
-	private void updateRate() {
-		rateSubscription = rateManager.getRate(WalletViewModel.CurrencyEnum.GVT.toString(), investRequest.programCurrency)
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::getRateSuccessHandler,
-						this::getRateErrorHandler);
-	}
-
-	private void getRateSuccessHandler(Double rate) {
-		rateSubscription.unsubscribe();
-
-		this.rate = rate;
-		updateFiatBalance();
-	}
-
 	private void updateFiatBalance() {
 		getViewState().setProgramCurrencyBalance(rate * balance);
 		getViewState().setProgramCurrencyAmount(rate * investRequest.amount);
-	}
-
-	private void getRateErrorHandler(Throwable error) {
-		rateSubscription.unsubscribe();
 	}
 }

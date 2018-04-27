@@ -13,10 +13,10 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.WalletTransaction;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.AmountTextView;
 import vision.genesis.clientapp.ui.NumericKeyboardView;
@@ -58,8 +58,8 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	@BindView(R.id.balance_currency)
 	public TextView balanceCurrency;
 
-	@BindView(R.id.label_my_balance)
-	public TextView myBalanceLabel;
+	@BindView(R.id.label_available_to_invest)
+	public TextView availableToInvestLabel;
 
 	@BindView(R.id.textview_amount_hint)
 	public TextView amountHintTextView;
@@ -141,7 +141,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 
 	private void initAmountTextView() {
 		amountTextView.setKeyboard(keyboard);
-		amountTextView.setMaxDecimalDigits(WalletManager.GVT_MAX_DECIMAL_POINT_DIGITS);
+		amountTextView.setMaxDecimalDigits(StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.GVT.toString()));
 		amountTextView.setAmountChangeListener(new AmountTextView.AmountChangeListener()
 		{
 			@Override
@@ -160,7 +160,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 		balance.setTypeface(TypefaceUtil.light());
 		balanceProgramCurrency.setTypeface(TypefaceUtil.light());
 		balanceCurrency.setTypeface(TypefaceUtil.bold());
-		myBalanceLabel.setTypeface(TypefaceUtil.bold());
+		availableToInvestLabel.setTypeface(TypefaceUtil.bold());
 		enterAmountLabel.setTypeface(TypefaceUtil.bold());
 		amountHintTextView.setTypeface(TypefaceUtil.light());
 		amountCurrency.setTypeface(TypefaceUtil.bold());
@@ -187,7 +187,8 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 
 	@Override
 	public void setAvailable(double availableFunds) {
-		balance.setText(StringFormatUtil.formatAmount(availableFunds, 0, 4));
+		balance.setText(StringFormatUtil.formatAmount(availableFunds, 0,
+				StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.GVT.toString())));
 	}
 
 	@Override
@@ -197,12 +198,14 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 
 	@Override
 	public void setProgramCurrencyBalance(Double fiatBalance) {
-		balanceProgramCurrency.setText(StringFormatUtil.formatAmount(fiatBalance, 2, 8));
+		balanceProgramCurrency.setText(StringFormatUtil.formatAmount(fiatBalance, 2,
+				StringFormatUtil.getCurrencyMaxFraction(investRequest.programCurrency)));
 	}
 
 	@Override
 	public void setProgramCurrencyAmount(Double fiatAmount) {
-		amountProgramCurrency.setText(StringFormatUtil.formatAmount(fiatAmount, 2, 8));
+		amountProgramCurrency.setText(StringFormatUtil.formatAmount(fiatAmount, 2,
+				StringFormatUtil.getCurrencyMaxFraction(investRequest.programCurrency)));
 	}
 
 	@Override

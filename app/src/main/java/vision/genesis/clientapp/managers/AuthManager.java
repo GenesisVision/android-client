@@ -70,6 +70,7 @@ public class AuthManager
 		LoginViewModel model = new LoginViewModel();
 		model.setEmail(email);
 		model.setPassword(password);
+		model.rememberMe(true);
 
 		getToken(getLoginApiObservable(model));
 		return getTokenResponseSubject;

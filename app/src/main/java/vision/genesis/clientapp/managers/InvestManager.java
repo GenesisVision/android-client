@@ -5,6 +5,7 @@ import java.util.UUID;
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
 import io.swagger.client.model.Invest;
+import io.swagger.client.model.InvestmentProgramBuyToken;
 import io.swagger.client.model.InvestmentProgramRequests;
 import io.swagger.client.model.InvestmentProgramRequestsFilter;
 import io.swagger.client.model.InvestmentProgramViewModel;
@@ -97,5 +98,9 @@ public class InvestManager
 		return isFavorite
 				? investorApi.apiInvestorInvestmentProgramsFavoritesAddPost(programId, AuthManager.token.getValue())
 				: investorApi.apiInvestorInvestmentProgramsFavoritesRemovePost(programId, AuthManager.token.getValue());
+	}
+
+	public Observable<InvestmentProgramBuyToken> getBuyTokensModel(UUID programId) {
+		return investorApi.apiInvestorInvestmentProgramBuyTokensGet(programId, AuthManager.token.getValue());
 	}
 }

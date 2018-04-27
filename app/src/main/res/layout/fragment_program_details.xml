@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="8dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -331,34 +331,190 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:id="@+id/group_available_tokens"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="32dp"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                    </LinearLayout>
 
-                            <vision.genesis.clientapp.ui.AvailableTokensView
-                                android:id="@+id/view_available_tokens"
-                                android:layout_width="@dimen/available_tokens_view_width"
-                                android:layout_height="@dimen/available_tokens_view_height"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_my_tokens"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="2dp"
+                    app:cardElevation="2dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center">
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/my_tokens"
+                                android:layout_width="match_parent"
+                                android:layout_height="32dp"
+                                android:gravity="center_horizontal|bottom"
+                                android:textColor="@color/colorPrimaryDark"
+                                app:autoSizeMaxTextSize="26sp"
+                                app:autoSizeMinTextSize="14sp"
+                                app:autoSizeTextType="uniform"
+                                tools:text="34,123.44"/>
 
                             <TextView
-                                android:id="@+id/tokens_availability_label"
+                                android:id="@+id/my_tokens_fiat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/my_tokens"
+                                android:layout_centerHorizontal="true"
+                                android:padding="1dp"
+                                android:textAlignment="center"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="14sp"
+                                tools:text="($8,700)"/>
+
+                            <TextView
+                                android:id="@+id/my_tokens_label"
                                 style="@style/program_details_data_title"
-                                android:layout_marginTop="4dp"
-                                android:text="@string/tokens_availability"/>
+                                android:layout_below="@id/my_tokens_fiat"
+                                android:layout_centerHorizontal="true"
+                                android:text="@string/my_tokens"/>
 
                             <ImageView
-                                android:id="@+id/tooltip_available_tokens"
+                                android:id="@+id/tooltip_my_tokens"
                                 style="@style/tooltip_icon"
-                                android:layout_gravity="center_horizontal"/>
+                                android:layout_below="@+id/my_tokens_label"
+                                android:layout_centerHorizontal="true"/>
 
-                        </LinearLayout>
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/left_divider"
+                            android:layout_width="4dp"
+                            android:layout_height="16dp"
+                            android:layout_gravity="center_vertical"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/dotted_vertical_line"/>
+
+                        <RelativeLayout
+                            android:id="@+id/group_profit"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center">
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/my_profit"
+                                android:layout_width="match_parent"
+                                android:layout_height="32dp"
+                                android:layout_centerHorizontal="true"
+                                android:gravity="center_horizontal|bottom"
+                                android:textColor="@color/colorPrimaryDark"
+                                app:autoSizeMaxTextSize="26sp"
+                                app:autoSizeMinTextSize="14sp"
+                                app:autoSizeTextType="uniform"
+                                tools:text="1,230.1234"/>
+
+                            <TextView
+                                android:id="@+id/profit_currency"
+                                style="@style/item_investment_program_currency"
+                                android:layout_below="@+id/my_profit"
+                                android:layout_centerHorizontal="true"
+                                android:text="@string/gvt"
+                                android:textAllCaps="true"
+                                android:textSize="10sp"/>
+
+                            <TextView
+                                android:id="@+id/my_profit_label"
+                                style="@style/program_details_data_title"
+                                android:layout_below="@id/profit_currency"
+                                android:layout_centerHorizontal="true"
+                                android:text="@string/my_profit"/>
+
+                            <ImageView
+                                android:id="@+id/tooltip_my_profit"
+                                style="@style/tooltip_icon"
+                                android:layout_below="@+id/my_profit_label"
+                                android:layout_centerHorizontal="true"/>
+
+                        </RelativeLayout>
 
                     </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_available"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="2dp"
+                    app:cardElevation="2dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="8dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:paddingEnd="16dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:paddingStart="16dp">
+
+                        <TextView
+                            android:id="@+id/label_available_to_invest"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/available_to_invest"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="12sp"/>
+
+                        <ImageView
+                            android:id="@+id/tooltip_available_tokens"
+                            style="@style/tooltip_icon"
+                            android:layout_width="30dp"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_toEndOf="@+id/label_available_to_invest"
+                            android:layout_toRightOf="@+id/label_available_to_invest"/>
+
+                        <TextView
+                            android:id="@+id/text_available_to_invest"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/available_currency"
+                            android:layout_toStartOf="@+id/available_currency"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="26sp"
+                            tools:text="2 225,4999"/>
+
+                        <TextView
+                            android:id="@+id/available_currency"
+                            style="@style/item_investment_program_currency"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignTop="@+id/text_available_to_invest"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="-4dp"
+                            android:text="@string/gvt"
+                            android:textAllCaps="true"
+                            android:textSize="10sp"/>
+
+                    </RelativeLayout>
 
                 </android.support.v7.widget.CardView>
 
@@ -375,17 +531,6 @@
                     android:orientation="horizontal">
 
                     <vision.genesis.clientapp.ui.PrimaryButton
-                        android:id="@+id/button_invest"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_margin="8dp"
-                        android:layout_weight="1"
-                        android:maxWidth="200dp"
-                        android:text="@string/invest"
-                        android:visibility="gone"/>
-
-                    <vision.genesis.clientapp.ui.PrimaryButton
                         android:id="@+id/button_withdraw"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -394,6 +539,17 @@
                         android:layout_weight="1"
                         android:maxWidth="200dp"
                         android:text="@string/withdraw"
+                        android:visibility="gone"/>
+
+                    <vision.genesis.clientapp.ui.PrimaryButton
+                        android:id="@+id/button_invest"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:maxWidth="200dp"
+                        android:text="@string/invest"
                         android:visibility="gone"/>
 
                     <vision.genesis.clientapp.ui.PrimaryButton

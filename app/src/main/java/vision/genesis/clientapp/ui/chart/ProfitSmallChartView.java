@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 import io.swagger.client.model.Chart;
+import io.swagger.client.model.ChartByDate;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 
@@ -79,6 +80,21 @@ public class ProfitSmallChartView extends com.github.mikephil.charting.charts.Li
 		this.setHardwareAccelerationEnabled(false);
 	}
 
+	public void setEquityChart(List<ChartByDate> charts) {
+		if (charts.size() <= 1) {
+			this.clear();
+			return;
+		}
+		List<Entry> lineEntries = new ArrayList<>();
+
+		for (ChartByDate chart : charts) {
+			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getValue().floatValue()));
+		}
+
+		this.setData(getLineData(lineEntries));
+		this.invalidate();
+	}
+
 	public void setChart(List<Chart> charts) {
 		if (charts.size() <= 1) {
 			this.clear();
@@ -112,7 +128,7 @@ public class ProfitSmallChartView extends com.github.mikephil.charting.charts.Li
 		dataSet.setDrawCircles(false);
 		boolean isProfitable = data.get(0).getY() <= data.get(data.size() - 1).getY();
 		dataSet.setColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, isProfitable ? lineGreenColor : lineRedColor));
-		dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+//		dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
 		dataSet.setLineWidth(1.5f);
 
 		return dataSet;

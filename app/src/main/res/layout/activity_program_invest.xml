@@ -58,14 +58,14 @@
                 android:textSize="10sp"/>
 
             <TextView
-                android:id="@+id/label_my_balance"
+                android:id="@+id/label_available_to_invest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/balance"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="-12dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="@string/my_balance"
+                android:text="@string/available_to_invest"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="14sp"/>
@@ -73,7 +73,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/label_my_balance"
+                android:layout_below="@+id/label_available_to_invest"
                 android:layout_marginBottom="4dp">
 
                 <android.support.v7.widget.AppCompatTextView

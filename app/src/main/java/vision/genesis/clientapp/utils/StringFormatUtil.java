@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
+import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.model.ShortenedAmount;
 
 /**
@@ -13,11 +14,11 @@ import vision.genesis.clientapp.model.ShortenedAmount;
 
 public class StringFormatUtil
 {
+	private static DecimalFormat df = new DecimalFormat("0.########");
+
 	public static String formatAmount(double amountValue) {
 		return formatAmount(amountValue, 2, 8);
 	}
-
-	private static DecimalFormat df = new DecimalFormat("0.########");
 
 	public static String formatAmount(double amountValue, int minFraction, int maxFraction) {
 		BigDecimal decimal = BigDecimal.valueOf(amountValue);
@@ -47,5 +48,18 @@ public class StringFormatUtil
 		}
 
 		return shortenedAmount;
+	}
+
+	public static int getCurrencyMaxFraction(String programCurrency) {
+		if (programCurrency.equals(WalletTransaction.CurrencyEnum.USD.toString()) ||
+				programCurrency.equals(WalletTransaction.CurrencyEnum.EUR.toString())) {
+			return 2;
+		}
+		if (programCurrency.equals(WalletTransaction.CurrencyEnum.GVT.toString())) {
+			return 4;
+		}
+		else {
+			return 8;
+		}
 	}
 }

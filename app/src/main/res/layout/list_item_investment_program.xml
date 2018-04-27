@@ -99,12 +99,18 @@
             android:layout_height="@dimen/item_investment_program_footer_height"
             android:layout_marginTop="16dp"/>
 
-        <vision.genesis.clientapp.ui.AvailableTokensView
-            android:id="@+id/view_available_tokens"
-            android:layout_width="@dimen/available_tokens_view_width"
-            android:layout_height="@dimen/available_tokens_view_height"
+        <TextView
+            android:id="@+id/text_no_available_tokens"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="8dp"
+            android:text="@string/no_available_tokens"
+            android:textAllCaps="true"
+            android:textColor="@color/transactionRed"
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
     </LinearLayout>
 

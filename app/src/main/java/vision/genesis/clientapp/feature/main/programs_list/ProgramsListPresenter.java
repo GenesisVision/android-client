@@ -130,6 +130,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		filter = investmentsFilter;
 		filter.setSkip(0);
 		filter.setTake(TAKE);
+		filter.setEquityChartLength(36);
 		getViewState().setRefreshing(true);
 		getProgramsList(true);
 	}

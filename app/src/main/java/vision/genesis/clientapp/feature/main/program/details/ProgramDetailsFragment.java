@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -24,6 +26,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.InvestmentProgramDetails;
 import io.swagger.client.model.TradeChart;
+import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -33,10 +36,10 @@ import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivit
 import vision.genesis.clientapp.feature.main.program.requests.RequestsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.tooltip.TooltipActivity;
+import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.TooltipModel;
 import vision.genesis.clientapp.model.events.ShowTradesEvent;
-import vision.genesis.clientapp.ui.AvailableTokensView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProgramDataView;
 import vision.genesis.clientapp.ui.chart.ProfitDetailsChartView;
@@ -129,14 +132,38 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 	@BindView(R.id.management_fee_label)
 	public TextView managementFeeLabel;
 
-	@BindView(R.id.group_available_tokens)
-	public ViewGroup availableTokensGroup;
+	@BindView(R.id.card_my_tokens)
+	public View myTokensCard;
 
-	@BindView(R.id.view_available_tokens)
-	public AvailableTokensView availableTokensView;
+	@BindView(R.id.my_tokens)
+	public TextView myTokens;
 
-	@BindView(R.id.tokens_availability_label)
-	public TextView tokensAvailabilityLabel;
+	@BindView(R.id.my_tokens_fiat)
+	public TextView myTokensFiat;
+
+	@BindView(R.id.my_tokens_label)
+	public TextView myTokensLabel;
+
+	@BindView(R.id.my_profit)
+	public TextView myProfit;
+
+	@BindView(R.id.profit_currency)
+	public TextView profitCurrency;
+
+	@BindView(R.id.my_profit_label)
+	public TextView myProfitLabel;
+
+	@BindView(R.id.card_available)
+	public CardView availableToInvestCard;
+
+	@BindView(R.id.text_available_to_invest)
+	public TextView availableToInvestText;
+
+	@BindView(R.id.available_currency)
+	public TextView availableCurrency;
+
+	@BindView(R.id.label_available_to_invest)
+	public TextView availableToInvestLabel;
 
 	@BindView(R.id.group_buttons)
 	public ViewGroup buttonsGroup;
@@ -174,6 +201,7 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 	public void onTooltipEquityChartClicked() {
 		showTooltip(chart, R.string.tooltip_equity_chart);
 	}
+
 	@OnClick(R.id.tooltip_program_data)
 	public void onTooltipProgramDataClicked() {
 		showTooltip(programDataView, R.string.tooltip_program_data);
@@ -204,9 +232,19 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 		showTooltip(managementFeeGroup, R.string.tooltip_management_fee);
 	}
 
+	@OnClick(R.id.tooltip_my_tokens)
+	public void onTooltipMyTokensClicked() {
+		showTooltip(myTokensCard, R.string.tooltip_my_tokens);
+	}
+
+	@OnClick(R.id.tooltip_my_profit)
+	public void onTooltipMyProfitClicked() {
+		showTooltip(myTokensCard, R.string.tooltip_my_profit);
+	}
+
 	@OnClick(R.id.tooltip_available_tokens)
 	public void onTooltipAvailableTokensClicked() {
-		showTooltip(availableTokensGroup, R.string.tooltip_available_tokens);
+		showTooltip(availableToInvestCard, R.string.tooltip_available_to_invest);
 	}
 
 	private void showTooltip(View view, int tooltipTextResId) {
@@ -227,18 +265,23 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 
 	@OnClick(R.id.button_invest)
 	public void onInvestClicked() {
-		if (programDetails == null)
+		if (programDetails == null || getActivity() == null)
 			return;
+		if (programDetails.getAvailableInvestment() == 0) {
+			showInvestmentNotAvailableDialog();
+			return;
+		}
 		ProgramRequest request = new ProgramRequest();
 		request.programId = programDetails.getId();
 		request.programName = programDetails.getTitle();
 		request.programCurrency = programDetails.getCurrency().toString();
+		request.available = programDetails.getAvailableInvestment();
 		InvestProgramActivity.startWith(getActivity(), request);
 	}
 
 	@OnClick(R.id.button_withdraw)
 	public void onWithdrawClicked() {
-		if (programDetails == null)
+		if (programDetails == null || getActivity() == null)
 			return;
 		ProgramRequest request = new ProgramRequest();
 		request.programId = programDetails.getId();
@@ -329,7 +372,17 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 		managementFeePercent.setTypeface(TypefaceUtil.light());
 		managementFeeLabel.setTypeface(TypefaceUtil.bold());
 
-		tokensAvailabilityLabel.setTypeface(TypefaceUtil.bold());
+		myTokens.setTypeface(TypefaceUtil.light());
+		myTokensFiat.setTypeface(TypefaceUtil.bold());
+		myTokensLabel.setTypeface(TypefaceUtil.bold());
+
+		myProfit.setTypeface(TypefaceUtil.light());
+		profitCurrency.setTypeface(TypefaceUtil.bold());
+		myProfitLabel.setTypeface(TypefaceUtil.bold());
+
+		availableToInvestLabel.setTypeface(TypefaceUtil.bold());
+		availableToInvestText.setTypeface(TypefaceUtil.light());
+		availableCurrency.setTypeface(TypefaceUtil.bold());
 	}
 
 	private void initRefreshLayout() {
@@ -365,15 +418,22 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 		successFee.setText(StringFormatUtil.formatAmount(programDetails.getFeeSuccess(), 0, 2));
 		managementFee.setText(StringFormatUtil.formatAmount(programDetails.getFeeManagement(), 0, 2));
 
-		if (programDetails.getFreeTokens() == null) {
-			availableTokensView.setVisibility(View.GONE);
+		if (programDetails.isIsHistoryEnable()) {
+			myTokensCard.setVisibility(View.VISIBLE);
+
+			myTokens.setText(StringFormatUtil.formatAmount(programDetails.getInvestedTokens(), 0, WalletManager.TOKENS_MAX_DECIMAL_POINT_DIGITS));
+			double tokensFiatValue = programDetails.getInvestedTokens() * programDetails.getToken().getInitialPrice();
+			myTokensFiat.setText(String.format(Locale.getDefault(), "($%.2f)", tokensFiatValue));
+
+			myProfit.setText(StringFormatUtil.formatAmount(programDetails.getProfitFromProgram(), 0,
+					StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.GVT.toString())));
 		}
 		else {
-			availableTokensView.setVisibility(View.VISIBLE);
-			availableTokensView.setData(programDetails.getFreeTokens().getTotal(),
-					programDetails.getFreeTokens().getInvestorsTokens(),
-					programDetails.getFreeTokens().getRequestsTokens());
+			myTokensCard.setVisibility(View.GONE);
 		}
+
+		availableToInvestText.setText(StringFormatUtil.formatAmount(programDetails.getAvailableInvestment(), 0,
+				StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.GVT.toString())));
 
 		investButton.setVisibility(programDetails.isIsInvestEnable() ? View.VISIBLE : View.GONE);
 		withdrawButton.setVisibility(programDetails.isIsWithdrawEnable() ? View.VISIBLE : View.GONE);
@@ -412,5 +472,9 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 
 	@Override
 	public void pagerHide() {
+	}
+
+	private void showInvestmentNotAvailableDialog() {
+		showMessageDialog(getString(R.string.no_available_tokens_to_purchase));
 	}
 }
