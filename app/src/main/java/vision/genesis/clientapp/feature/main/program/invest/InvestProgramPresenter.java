@@ -12,6 +12,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import io.swagger.client.model.InvestmentProgramBuyToken;
+import io.swagger.client.model.WalletTransaction;
 import io.swagger.client.model.WalletsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -27,6 +28,7 @@ import vision.genesis.clientapp.model.api.ErrorResponse;
 import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVision
@@ -53,8 +55,6 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 	private Subscription investSubscription;
 
 	private Subscription buyTokensModelSubscription;
-
-	private Subscription rateSubscription;
 
 	private double balance = 0;
 
@@ -155,7 +155,9 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 		walletManager.getBalance();
 
 		EventBus.getDefault().post(new ShowMessageActivityEvent(
-				String.format(Locale.getDefault(), context.getString(R.string.message_program_invest_success), String.valueOf(investRequest.amount)),
+				String.format(Locale.getDefault(), context.getString(R.string.message_program_invest_success),
+						StringFormatUtil.formatAmount(investRequest.amount, 0,
+								StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.GVT.toString()))),
 				R.drawable.ic_email_confirmed_icon,
 				false));
 		getViewState().finishActivity();
