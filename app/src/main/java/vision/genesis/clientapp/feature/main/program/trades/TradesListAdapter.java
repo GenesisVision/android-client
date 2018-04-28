@@ -94,8 +94,6 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 		}
 
 		private void setFonts() {
-//			type.setTypeface(TypefaceUtil.bold(context));
-//			amount.setTypeface(TypefaceUtil.bold(context));
 		}
 
 		void setTrade(OrderModel trade, TradesViewModel.TradeServerTypeEnum tradeServerType) {

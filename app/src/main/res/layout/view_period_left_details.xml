@@ -1,7 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/group_period"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="30dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/clocks"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="22sp"
+                tools:text="30"/>
+
+            <TextView
+                android:id="@+id/text_period"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginStart="6dp"
+                android:text="@string/days"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="22sp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_label"
+            style="@style/program_details_data_title"
+            android:layout_marginTop="4dp"
+            android:text="@string/until_end_of_period"/>
+
+        <ProgressBar
+            android:id="@+id/period_progress_bar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="64dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="4dp"
+            android:paddingTop="5dp"
+            android:progressDrawable="@drawable/progress_drawable"
+            tools:max="100"
+            tools:min="1"
+            tools:progress="25"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_program_closed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:lines="2"
+        android:text="@string/program_closed"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        android:visibility="gone"/>
+
+</RelativeLayout>

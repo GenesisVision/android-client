@@ -181,7 +181,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center">
 
-                                <vision.genesis.clientapp.ui.PeriodLeftView
+                                <vision.genesis.clientapp.ui.PeriodLeftDetailsView
                                     android:id="@+id/view_period_left"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>

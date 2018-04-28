@@ -251,7 +251,7 @@
             android:layout_marginStart="32dp"
             android:layout_toLeftOf="@+id/button_search_close"
             android:layout_toStartOf="@+id/button_search_close"
-            android:background="@color/transparent"
+            android:background="@android:color/transparent"
             android:hint="@string/search"
             android:imeOptions="actionDone"
             android:inputType="textNoSuggestions"

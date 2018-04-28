@@ -6,9 +6,6 @@ import android.support.multidex.MultiDex;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 
-import ru.terrakok.cicerone.Cicerone;
-import ru.terrakok.cicerone.NavigatorHolder;
-import ru.terrakok.cicerone.Router;
 import timber.log.Timber;
 import vision.genesis.clientapp.di.components.AppComponent;
 import vision.genesis.clientapp.di.components.DaggerAppComponent;
@@ -30,8 +27,6 @@ public class GenesisVisionApplication extends Application
 		return component;
 	}
 
-	private Cicerone<Router> cicerone;
-
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -41,8 +36,6 @@ public class GenesisVisionApplication extends Application
 		if (BuildConfig.DEBUG) {
 			Timber.plant(new Timber.DebugTree());
 		}
-
-		initCicerone();
 
 		component = buildComponent();
 
@@ -57,22 +50,10 @@ public class GenesisVisionApplication extends Application
 		MultiDex.install(this);
 	}
 
-	public NavigatorHolder getNavigatorHolder() {
-		return cicerone.getNavigatorHolder();
-	}
-
-	public Router getRouter() {
-		return cicerone.getRouter();
-	}
-
 	private AppComponent buildComponent() {
 		return DaggerAppComponent.builder()
 				.appModule(new AppModule(this))
 				.build();
-	}
-
-	private void initCicerone() {
-		cicerone = Cicerone.create();
 	}
 
 	private void overrideFonts() {

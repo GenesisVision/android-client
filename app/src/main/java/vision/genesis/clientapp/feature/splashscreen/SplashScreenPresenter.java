@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
 
@@ -36,10 +35,7 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		if (BuildConfig.FLAVOR.equals("tournament"))
-			getViewState().showTournamentActivity();
-		else
-			updateToken();
+		updateToken();
 	}
 
 	@Override

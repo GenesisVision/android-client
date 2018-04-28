@@ -23,7 +23,6 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.model.events.OnDashboardProgramsUpdateEvent;
-import vision.genesis.clientapp.model.events.OnPeriodLeftEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -113,11 +112,6 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 				getViewState().showNoInternet(true);
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}
-	}
-
-	@Subscribe
-	public void onEventMainThread(OnPeriodLeftEvent event) {
-		getInvestments();
 	}
 
 	@Subscribe

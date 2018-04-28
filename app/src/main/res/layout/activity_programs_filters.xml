@@ -41,7 +41,7 @@
                 <com.appyvet.materialrangebar.RangeBar
                     android:id="@+id/avg_profit_range_bar"
                     style="@style/filters_range_bar"
-                    app:mrb_tickColor="@color/transparent"
+                    app:mrb_tickColor="@android:color/transparent"
                     app:mrb_tickEnd="@integer/avg_profit_max"
                     app:mrb_tickStart="@integer/avg_profit_min"/>
 

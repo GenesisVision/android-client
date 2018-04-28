@@ -1,6 +1,5 @@
 package vision.genesis.clientapp.feature.main.programs_list;
 
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,13 +44,6 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 	@Override
 	public void onBindViewHolder(InvestmentProgramViewHolder holder, int position) {
 		holder.setInvestmentProgram(investmentPrograms.get(position));
-	}
-
-	@Override
-	public void onViewRecycled(@NonNull InvestmentProgramViewHolder holder) {
-		holder.onRecycle();
-
-		super.onViewRecycled(holder);
 	}
 
 	@Override
@@ -131,10 +123,6 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 		private void setFonts() {
 			title.setTypeface(TypefaceUtil.bold());
 			noAvailableTokensText.setTypeface(TypefaceUtil.bold());
-		}
-
-		void onRecycle() {
-//			chart.onDestroy();
 		}
 
 		void setInvestmentProgram(InvestmentProgram investmentProgram) {

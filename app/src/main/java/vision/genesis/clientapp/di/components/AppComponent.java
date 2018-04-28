@@ -7,15 +7,12 @@ import vision.genesis.clientapp.di.modules.ApiModule;
 import vision.genesis.clientapp.di.modules.AppModule;
 import vision.genesis.clientapp.di.modules.AuthModule;
 import vision.genesis.clientapp.di.modules.InvestModule;
-import vision.genesis.clientapp.di.modules.NavigationModule;
-import vision.genesis.clientapp.di.modules.TournamentModule;
 import vision.genesis.clientapp.di.modules.UtilsModule;
 import vision.genesis.clientapp.feature.auth.forgot_password.ForgotPasswordPresenter;
 import vision.genesis.clientapp.feature.auth.login.LoginPresenter;
 import vision.genesis.clientapp.feature.auth.registration.RegistrationPresenter;
 import vision.genesis.clientapp.feature.main.MainActivity;
 import vision.genesis.clientapp.feature.main.MainPresenter;
-import vision.genesis.clientapp.feature.main.bottom_navigation.TabContainerFragment;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardPresenter;
 import vision.genesis.clientapp.feature.main.message.MessageActivity;
 import vision.genesis.clientapp.feature.main.profile.ImageCropActivity;
@@ -36,11 +33,6 @@ import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletPresent
 import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPresenter;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletPresenter;
 import vision.genesis.clientapp.feature.splashscreen.SplashScreenPresenter;
-import vision.genesis.clientapp.feature.tournament.TournamentActivity;
-import vision.genesis.clientapp.feature.tournament.TournamentPresenter;
-import vision.genesis.clientapp.feature.tournament.leaderboard.LeaderboardPresenter;
-import vision.genesis.clientapp.feature.tournament.participants.ParticipantsPresenter;
-import vision.genesis.clientapp.feature.tournament.participants.details.ParticipantDetailsPresenter;
 import vision.genesis.clientapp.ui.ProgramDataView;
 
 /**
@@ -48,7 +40,7 @@ import vision.genesis.clientapp.ui.ProgramDataView;
  * Created by Vitaly on 1/18/18.
  */
 
-@Component(modules = {AppModule.class, NavigationModule.class, ApiModule.class, AuthModule.class, InvestModule.class, UtilsModule.class, TournamentModule.class})
+@Component(modules = {AppModule.class, ApiModule.class, AuthModule.class, InvestModule.class, UtilsModule.class})
 @Singleton
 public interface AppComponent
 {
@@ -73,18 +65,6 @@ public interface AppComponent
 	void inject(ProgramsFiltersPresenter programsFiltersPresenter);
 
 	void inject(ProgramInfoPresenter programInfoPresenter);
-
-	void inject(TabContainerFragment tabContainerFragment);
-
-	void inject(TournamentActivity tournamentActivity);
-
-	void inject(TournamentPresenter tournamentPresenter);
-
-	void inject(ParticipantsPresenter participantsPresenter);
-
-	void inject(ParticipantDetailsPresenter participantDetailsPresenter);
-
-	void inject(LeaderboardPresenter leaderboardPresenter);
 
 	void inject(InvestProgramPresenter investProgramPresenter);
 

@@ -23,7 +23,6 @@ import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
-import vision.genesis.clientapp.model.events.OnPeriodLeftEvent;
 import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.ShowTradesEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -183,11 +182,6 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	@Subscribe
 	public void onEventMainThread(NewInvestmentSuccessEvent event) {
 		getViewState().finishActivity();
-	}
-
-	@Subscribe
-	public void onEventMainThread(OnPeriodLeftEvent event) {
-		getProgramDetails();
 	}
 
 	@Subscribe

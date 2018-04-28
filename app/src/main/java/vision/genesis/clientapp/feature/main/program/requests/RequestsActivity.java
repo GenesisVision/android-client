@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.InvestmentProgramRequest;
 import timber.log.Timber;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.ui.ToolbarView;
@@ -98,7 +99,7 @@ public class RequestsActivity extends BaseSwipeBackActivity implements RequestsV
 		recyclerView.setLayoutManager(layoutManager);
 		requestsAdapter = new RequestsAdapter();
 		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
-		dividerItemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.list_item_divider));
+		dividerItemDecoration.setDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.list_item_divider));
 		recyclerView.addItemDecoration(dividerItemDecoration);
 		recyclerView.setAdapter(requestsAdapter);
 	}
@@ -122,5 +123,10 @@ public class RequestsActivity extends BaseSwipeBackActivity implements RequestsV
 	public void finishActivity() {
 		finish();
 		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
+	}
+
+	@Override
+	public void showSnackbarMessage(String message) {
+		showSnackbar(message, toolbar);
 	}
 }

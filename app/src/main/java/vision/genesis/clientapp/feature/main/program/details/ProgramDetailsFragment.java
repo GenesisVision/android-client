@@ -293,7 +293,7 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 
 	@OnClick(R.id.button_requests)
 	public void onRequestsClicked() {
-		if (programDetails == null)
+		if (programDetails == null || getActivity() == null)
 			return;
 		RequestsActivity.startWith(getActivity(), programDetails.getId());
 	}
@@ -321,13 +321,15 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 		{
 			@Override
 			public void onTouch() {
-				((ProgramInfoActivity) getActivity()).onChartTouch();
+				if (getActivity() != null)
+					((ProgramInfoActivity) getActivity()).onChartTouch();
 				refreshLayout.setEnabled(false);
 			}
 
 			@Override
 			public void onStop() {
-				((ProgramInfoActivity) getActivity()).onChartTouchEnd();
+				if (getActivity() != null)
+					((ProgramInfoActivity) getActivity()).onChartTouchEnd();
 				refreshLayout.setEnabled(true);
 			}
 		});

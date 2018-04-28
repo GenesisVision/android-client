@@ -68,14 +68,6 @@ public class ProgramInfoPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	public void destroy() {
-//		if (programDetailsFragment != null)
-//			programDetailsFragment.onDestroyView();
-//
-//		if (programDescriptionFragment != null)
-//			programDescriptionFragment.onDestroyView();
-//
-//		if (historyFragment != null)
-//			historyFragment.onDestroyView();
 	}
 
 	public void sendUpdate() {

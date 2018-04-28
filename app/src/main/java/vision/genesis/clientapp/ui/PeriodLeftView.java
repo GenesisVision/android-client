@@ -11,6 +11,7 @@ import android.widget.TextView;
 import org.joda.time.DateTime;
 import org.joda.time.Seconds;
 
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -54,7 +55,9 @@ public class PeriodLeftView extends RelativeLayout
 
 	protected boolean programClosed = false;
 
-	private Unbinder unbinder;
+	protected boolean writeLeft = true;
+
+	protected Unbinder unbinder;
 
 	public PeriodLeftView(Context context) {
 		super(context);
@@ -127,48 +130,48 @@ public class PeriodLeftView extends RelativeLayout
 		int daysLeft = DateTimeUtil.getDaysToDate(dateTo);
 		if (daysLeft > 0) {
 			numberText.setText(String.valueOf(daysLeft));
-			periodText.setText(String.format("%s %s",
-					GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.days, daysLeft, daysLeft, daysLeft),
-					GenesisVisionApplication.INSTANCE.getResources().getString(R.string.left)));
+			setPeriodText(GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.days, daysLeft, daysLeft, daysLeft));
 			return;
 		}
 
 		int hoursLeft = DateTimeUtil.getHoursToDate(dateTo);
 		if (hoursLeft > 0) {
 			numberText.setText(String.valueOf(hoursLeft));
-			periodText.setText(String.format("%s %s",
-					GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.hours, hoursLeft, hoursLeft, hoursLeft),
-					GenesisVisionApplication.INSTANCE.getResources().getString(R.string.left)));
+			setPeriodText(GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.hours, hoursLeft, hoursLeft, hoursLeft));
 			return;
 		}
 
 		int minutesLeft = DateTimeUtil.getMinutesToDate(dateTo);
 		if (minutesLeft > 0) {
 			numberText.setText(String.valueOf(minutesLeft));
-			periodText.setText(String.format("%s %s",
-					GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.minutes, minutesLeft, minutesLeft, minutesLeft),
-					GenesisVisionApplication.INSTANCE.getResources().getString(R.string.left)));
+			setPeriodText(GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.minutes, minutesLeft, minutesLeft, minutesLeft));
 			return;
 		}
 
 		int secondsLeft = DateTimeUtil.getSecondsToDate(dateTo);
 		if (secondsLeft > 0) {
 			numberText.setText(String.valueOf(secondsLeft));
-			periodText.setText(String.format("%s %s",
-					GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft),
-					GenesisVisionApplication.INSTANCE.getResources().getString(R.string.left)));
+			setPeriodText(GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft));
 		}
 		else {
 			numberText.setText("0");
-			periodText.setText(String.format("%s %s",
-					GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft),
-					GenesisVisionApplication.INSTANCE.getResources().getString(R.string.left)));
+			setPeriodText(GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft));
 
 			if (timeSubscription != null)
 				timeSubscription.unsubscribe();
 
 //			if (!programClosed)
 //				EventBus.getDefault().post(new OnPeriodLeftEvent());
+		}
+	}
+
+	private void setPeriodText(String text) {
+		if (writeLeft) {
+			periodText.setText(String.format(Locale.getDefault(), "%s %s", text,
+					GenesisVisionApplication.INSTANCE.getResources().getString(R.string.left)));
+		}
+		else {
+			periodText.setText(text);
 		}
 	}
 

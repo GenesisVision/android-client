@@ -16,8 +16,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
-import java.util.UUID;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -27,7 +25,6 @@ import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.main.message.MessageActivity;
 import vision.genesis.clientapp.feature.main.program.ProgramInfoActivity;
-import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.programs_list.filter.ProgramsFiltersActivity;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
@@ -258,14 +255,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	@Override
 	public void showInvestmentProgramDetails(ProgramInfoModel programInfoModel) {
 		ProgramInfoActivity.startWith(this, programInfoModel);
-	}
-
-	@Override
-	public void showInvestProgram(UUID programId, String programName) {
-		ProgramRequest investRequest = new ProgramRequest();
-		investRequest.programId = programId;
-		investRequest.programName = programName;
-		InvestProgramActivity.startWith(this, investRequest);
 	}
 
 	@Override

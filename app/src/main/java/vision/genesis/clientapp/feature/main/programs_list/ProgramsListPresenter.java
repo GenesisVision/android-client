@@ -158,7 +158,6 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 
 		getProgramsSubscription.unsubscribe();
 
-//		List<InvestmentProgram> programs = investManager.parseInvestmentProgramsModel(model);
 		List<InvestmentProgram> programs = model.getInvestmentPrograms();
 
 		getViewState().setProgramsCount(model.getTotal());

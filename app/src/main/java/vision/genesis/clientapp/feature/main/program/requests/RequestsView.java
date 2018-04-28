@@ -19,4 +19,6 @@ interface RequestsView extends MvpView
 	void setRefreshing(boolean refreshing);
 
 	void finishActivity();
+
+	void showSnackbarMessage(String message);
 }

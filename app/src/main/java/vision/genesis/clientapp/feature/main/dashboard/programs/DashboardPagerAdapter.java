@@ -36,12 +36,8 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 	public Fragment getItem(int position) {
 		switch (position) {
 			case 0:
-//				if (activeProgramsFragment == null)
-//					activeProgramsFragment = DashboardProgramsFragment.with();
 				return activeProgramsFragment;
 			case 1:
-//				if (archivedProgramsFragment == null)
-//					archivedProgramsFragment = DashboardProgramsFragment.with();
 				return archivedProgramsFragment;
 			default:
 				return null;

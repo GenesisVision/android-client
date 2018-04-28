@@ -26,7 +26,6 @@ import vision.genesis.clientapp.model.events.OnInvestButtonClickedEvent;
 import vision.genesis.clientapp.model.events.SetBottomMenuVisibilityEvent;
 import vision.genesis.clientapp.model.events.ShowDepositWalletActivityEvent;
 import vision.genesis.clientapp.model.events.ShowFiltersEvent;
-import vision.genesis.clientapp.model.events.ShowInvestProgramEvent;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawProgramEvent;
@@ -182,11 +181,6 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowInvestmentProgramDetailsEvent event) {
 		getViewState().showInvestmentProgramDetails(event.programInfoModel);
-	}
-
-	@Subscribe
-	public void onEventMainThread(ShowInvestProgramEvent event) {
-		getViewState().showInvestProgram(event.programId, event.programName);
 	}
 
 	@Subscribe

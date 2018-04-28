@@ -1,36 +1,77 @@
 <resources>
+    <string name="font_neuzeitgro_light">fonts/NeuzeitGro-Lig.ttf"</string>
+    <string name="font_neuzeitgro_regular">fonts/NeuzeitGro-Reg.ttf"</string>
+    <string name="font_neuzeitgro_bold">fonts/NeuzeitGro-Bol.ttf"</string>
+    <string name="font_neuzeitgro_black">fonts/NeuzeitGro-Bla.ttf"</string>
+
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="network_error">Internet connection problems. Please try again later.</string>
+    <string name="error_occurred_performing_operation">An error occurred while performing this operation</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="try_again">Try again</string>
+    <string name="gvt">GVT</string>
+
     <string name="dashboard">Dashboard</string>
-    <string name="invest">Invest</string>
+    <string name="programs">Programs</string>
     <string name="wallet">Wallet</string>
     <string name="profile">Profile</string>
+
     <string name="login">Log in</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
     <string name="sign_in">Sign In</string>
     <string name="registration">Registration</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="already_have_account">Already have an account?</string>
     <string name="create_new_account">Create new account</string>
-    <string name="confirm_password">Confirm password</string>
     <string name="sign_up">Sign Up</string>
     <string name="email_verification_text">We sent a verification link to the email you specified.\n\nPlease follow this link to complete the registration.</string>
-    <string name="ok">OK</string>
-    <string name="profit">Profit</string>
-    <string name="period">Period</string>
-    <string name="trades">Trades</string>
-    <string name="deposit">Deposit</string>
-    <string name="programs">Programs</string>
+
+    <string name="forgot_password">Forgot password?</string>
+    <string name="reset_password">Reset password</string>
+    <string name="enter_your_account_email">Enter your account email</string>
+
+    <string name="search">Search</string>
+    <string name="cannot_find_programs">Cannot find investment programs with your request</string>
+
     <string name="filters">Filters</string>
-    <string name="you_have">You have</string>
-    <string name="gvt">GVT</string>
-    <string name="network_error">Internet connection problems. Please try again later.</string>
-    <string name="program_details">Program Details</string>
-    <string name="try_again">Try again</string>
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-    <string name="sorting">Sorting</string>
-    <string name="max_amount_from">Max amount from</string>
-    <string name="max_amount_to">Max amount to</string>
-    <string name="no_limits">no limits</string>
+    <string name="level">Level</string>
+    <string name="average_profit">Average profit (%)</string>
+    <string name="active_programs_only">Active programs only</string>
+    <string name="favorite_programs_only">Favorite programs only</string>
     <string name="apply_filters">Apply filters</string>
     <string name="clear_filters">Clear filters</string>
+
+    <string name="deposit">Deposit</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="invest">Invest</string>
+
+    <string-array name="transactions_filter">
+        <item>All Transactions</item>
+        <item>Internal Transactions</item>
+        <item>External Transactions</item>
+    </string-array>
+
+    <string name="transactions">Transactions</string>
+    <string name="whoops">Whoops</string>
+    <string name="you_dont_have_transactions">you don\'t have any transactions</string>
+
+    <string name="transaction_type_deposit">Deposit</string>
+    <string name="transaction_type_withdraw">Withdraw</string>
+    <string name="transaction_type_open_program">Open program</string>
+    <string name="transaction_type_invest_to_program">Invest to program</string>
+    <string name="transaction_type_cancel_investment_request">Cancel investment request</string>
+    <string name="transaction_type_withdraw_from_program">Withdraw from program</string>
+    <string name="partial_investment_execution_refund">Partial investment execution refund</string>
+    <string name="profit_from_program">Profit from program</string>
+    <string name="closing_program_refund">Closing program refund</string>
+
+    <string name="sort_by_level">Sort by level</string>
+    <string name="sort_by_orders">Sort by orders</string>
+    <string name="sort_by_profit">Sort by profit</string>
+
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
     <string name="middle_name">Middle name</string>
@@ -42,48 +83,33 @@
     <string name="phone">Phone</string>
     <string name="document_type">Document type</string>
     <string name="document_number">Document number</string>
-    <string name="transactions">Transactions</string>
-    <string name="you_dont_have_transactions">you don\'t have any transactions</string>
-    <string name="whoops">Whoops</string>
+    <string name="none">None</string>
 
-    <string name="transaction_type_deposit">Deposit</string>
-    <string name="transaction_type_withdraw">Withdraw</string>
-    <string name="transaction_type_open_program">Open program</string>
-    <string name="transaction_type_invest_to_program">Invest to program</string>
-    <string name="transaction_type_cancel_investment_request">Cancel investment request</string>
-    <string name="transaction_type_withdraw_from_program">Withdraw from program</string>
-    <string name="sort_by_level">Sort by level</string>
-    <string name="sort_by_orders">Sort by orders</string>
-    <string name="sort_by_profit">Sort by profit</string>
-    <string name="min_amount_to_invest">Min amount to invest</string>
-    <string name="max_amount_to_invest">Max amount to invest</string>
-    <string name="min">Min</string>
-    <string name="amount_to_invest">Amount to invest</string>
-    <string name="max">Max</string>
-    <string name="place">Place</string>
-    <string name="profit_percent">PROFIT %</string>
-    <string name="participants">participants</string>
-    <string name="tournament">Tournament</string>
-    <string name="participant_details">Participant details</string>
-    <string name="cannot_load_data">Cannot load data.\nPlease try again later</string>
-    <string name="leaderboard">Leaderboard</string>
-    <string name="not_enough_data">Not enough data to draw a chart</string>
-    <string name="no_chart">no chart</string>
-    <string name="total_funds_history">Total funds history</string>
-    <string name="tournament_hasnt_started_yet">The tournament hasn\'t started yet.\nFor more info please visit</string>
-    <string name="search">Search</string>
-    <string name="nothing_found">Nothing was found by your request</string>
-    <string name="ipfs">ipfs</string>
-    <string name="withdraw">Withdraw</string>
-    <string name="how_much_invest">How much would you like to invest?</string>
-    <string name="cancel">Cancel</string>
-    <string name="balance">Balance</string>
-    <string name="days">days</string>
-    <string name="enter_withdrawal_amount">Enter withdrawal amount</string>
-    <string name="withdraw_all">Withdraw all available funds</string>
-    <string name="or">or</string>
-    <string name="withdraw_from_program">Withdraw from program</string>
-    <string name="invest_to_program">Invest to program</string>
+    <string-array name="gender_list">
+        <item>Female</item>
+        <item>Male</item>
+    </string-array>
+
+    <string name="change_avatar">Change avatar</string>
+    <string name="permission_avatar_rationale">Please grant the Storage permission in order to be able to change your avatar</string>
+    <string name="permission_avatar_denied">The app is not able to change your avatar until you grant the Storage permission</string>
+    <string name="permission_avatar_never_ask_again"><![CDATA[The app is not able to change your avatar until you grant the Storage permission in Settings -> Apps]]></string>
+    <string name="select_photo">Select a photo</string>
+    <string name="take_photo">Take a photo</string>
+    <string name="successfully_updated">Successfully updated</string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
+
+    <string name="change_password">Change password</string>
+    <string name="enter_valid_email">Enter valid email</string>
+    <string name="forgot_password_we_sent_email">We sent a password reset link to the email you specified.\n\nPlease follow this link to reset your password.</string>
+    <string name="enter_your_current_password">Enter your current password</string>
+    <string name="enter_your_new_password">Enter your new password</string>
+    <string name="confirm_your_new_password">Confirm your new password</string>
+    <string name="passwords_should_match">Passwords should match</string>
+    <string name="current_password">Current password</string>
+    <string name="new_password">New password</string>
+    <string name="password_changed">Password has been successfully changed</string>
 
     <string name="one">1</string>
     <string name="two">2</string>
@@ -96,7 +122,7 @@
     <string name="nine">9</string>
     <string name="zero">0</string>
     <string name="decimal">.</string>
-    <string name="available">Available</string>
+
     <string name="this_is_your_gvt_address">This is your GVT wallet address:</string>
     <string name="copy">Copy</string>
     <string name="for_depositing_just_send">For depositing just send the desired amount of GVT to this address. Or use the QR code below:</string>
@@ -109,34 +135,51 @@
     <string name="wallet_address">Wallet address</string>
     <string name="amount">Amount</string>
     <string name="double_check_address">Double check the wallet address you entered!\nThis operation cannot be undone!</string>
+
+    <string name="by">by</string>
+    <string name="no_available_tokens">No available tokens</string>
+
+    <string name="equity_chart">Equity chart</string>
+    <string name="total_profit">Total profit</string>
+    <string name="avg_profit">Avg. profit</string>
+    <string name="balance">Balance</string>
+    <string name="investors">Investors</string>
+    <string name="trading_period_duration">Trading period duration</string>
+    <string name="manager_share">Manager\'s funds share</string>
+    <string name="trades">Trades</string>
     <string name="success_fee">Success fee</string>
     <string name="management_fee">Management fee</string>
-    <string name="investors">Investors</string>
+    <string name="my_tokens">My tokens</string>
+    <string name="my_profit">My profit</string>
     <string name="available_to_invest">Available to invest</string>
-    <string name="period_ends_at">The period ends at</string>
-    <string name="program_requests">Program requests</string>
     <string name="requests">Requests</string>
+    <string name="program_requests">Program requests</string>
 
-    <string name="dashboard_empty">you don\'t have\nany programs yet…</string>
-    <string name="browse_programs">Browse programs</string>
-    <string name="left">left</string>
-    <string name="manager">Manager</string>
-    <string name="dollar_symbol">$</string>
+    <string name="not_enough_data">Not enough data to draw a chart</string>
+    <string name="no_chart">no chart</string>
+
+    <string name="enter_withdrawal_amount">Enter withdrawal amount</string>
+    <string name="or">or</string>
+    <string name="withdraw_from_program">Withdraw from program</string>
+    <string name="invest_to_program">Invest to program</string>
+
+    <string name="no_available_tokens_to_purchase">There are currently no tokens available. Please check this program later - someone can withdraw their funds from this program.</string>
+
     <string name="all">All</string>
     <string name="internal">Internal</string>
     <string name="external">External</string>
 
-    <string name="tokens">tokens</string>
-    <string name="profit_from_program">Profit from program</string>
-    <string name="partial_investment_execution_refund">Partial investment execution refund</string>
-    <string name="program_closed">program closed</string>
-    <string name="closing_program_refund">Closing program refund</string>
     <string name="active">Active</string>
     <string name="archived">Archived</string>
-    <string name="level">Level</string>
-    <string name="cannot_find_programs">Cannot find investment programs with your request</string>
-    <string name="average_profit">Average profit (%)</string>
-    <string name="pending_requests">Pending requests</string>
+    <string name="dashboard_empty">you don\'t have\nany programs yet…</string>
+    <string name="browse_programs">Browse programs</string>
+
+    <string name="tokens">tokens</string>
+
+    <string name="days">days</string>
+    <string name="left">left</string>
+    <string name="until_end_of_period">until end of period</string>
+    <string name="program_closed">program closed</string>
 
     <plurals name="days">
         <item quantity="one">day</item>
@@ -162,85 +205,39 @@
         <item quantity="other">seconds</item>
     </plurals>
 
-    <string name="font_neuzeitgro_light">fonts/NeuzeitGro-Lig.ttf"</string>
-    <string name="font_neuzeitgro_regular">fonts/NeuzeitGro-Reg.ttf"</string>
-    <string name="font_neuzeitgro_bold">fonts/NeuzeitGro-Bol.ttf"</string>
-    <string name="font_neuzeitgro_black">fonts/NeuzeitGro-Bla.ttf"</string>
-    <string name="avg_profit">avg. profit</string>
-    <string name="total_profit">Total profit</string>
-    <string name="genesis_vision">Genesis Vision</string>
-    <string name="dont_have_account">Don\'t have an account?</string>
-    <string name="already_have_account">Already have an account?</string>
-    <string name="by">by</string>
     <string name="my_balance">My balance</string>
     <string name="enter_investment_amount">Enter investment amount</string>
-    <string name="my_tokens">My tokens</string>
     <string name="total_portfolio_value">Total portfolio value</string>
     <string name="programs_to_invest_in">Programs to invest in</string>
-    <string name="trading_period_duration">Trading period duration</string>
-    <string name="your_tokens">your tokens</string>
-    <string name="change_avatar">Change avatar</string>
 
-    <string name="allow">Allow</string>
-    <string name="deny">Deny</string>
-
-    <string name="permission_avatar_rationale">Please grant the Storage permission in order to be able to change your avatar</string>
-    <string name="permission_avatar_denied">The app is not able to change your avatar until you grant the Storage permission</string>
-    <string name="permission_avatar_never_ask_again"><![CDATA[The app is not able to change your avatar until you grant the Storage permission in Settings -> Apps]]></string>
-    <string name="select_photo">Select a photo</string>
-    <string name="take_photo">Take a photo</string>
-    <string name="successfully_updated">Successfully updated</string>
-    <string name="my_profit">My profit</string>
-    <string name="manager_share">manager\'s funds share</string>
-    <string name="none">None</string>
     <string name="message_program_withdraw_success">At the end of the current trading period the tokens will be returned to the manager, and your funds will be returned to you.</string>
     <string name="message_program_invest_success">You have been successfully invested %s GVT in the investment program. Your tokens will be working for you only since the next reporting period.\n\nIn case you decide to cancel the investment before the start of the next reporting period, you will have to pay a commission, and you will get your GVT at the actual GVT exchange rate.</string>
+
     <string name="history">History</string>
     <string name="program_has_no_trades_yet">This program has no trades yet.</string>
     <string name="date">Date</string>
     <string name="symbol">Symbol</string>
     <string name="price">Price</string>
     <string name="volume">Volume</string>
+    <string name="profit">Profit</string>
     <string name="direction">Direction</string>
-    <string name="forgot_password">Forgot password?</string>
-    <string name="reset_password">Reset password</string>
-    <string name="enter_your_account_email">Enter your account email</string>
-    <string name="change_password">Change password</string>
-    <string name="enter_valid_email">Enter valid email</string>
-    <string name="forgot_password_we_sent_email">We sent a password reset link to the email you specified.\n\nPlease follow this link to reset your password.</string>
-    <string name="enter_your_current_password">Enter your current password</string>
-    <string name="enter_your_new_password">Enter your new password</string>
-    <string name="confirm_your_new_password">Confirm your new password</string>
-    <string name="passwords_should_match">Passwords should match</string>
-    <string name="current_password">Current password</string>
-    <string name="new_password">New password</string>
-    <string name="password_changed">Password has been successfully changed</string>
+
     <string name="open">open</string>
     <string name="close">close</string>
     <string name="date_close">Date close</string>
     <string name="price_close">Price close</string>
+
     <string name="send_feedback">Send feedback</string>
     <string name="visit_feedback_website">Visit feedback website</string>
     <string name="send_email">Send email</string>
-
-    <string-array name="transactions_filter">
-        <item>All Transactions</item>
-        <item>Internal Transactions</item>
-        <item>External Transactions</item>
-    </string-array>
-
-    <string-array name="gender_list">
-        <item>Female</item>
-        <item>Male</item>
-    </string-array>
-
     <string name="feedback_web_address">https://feedback.genesis.vision</string>
     <string name="feedback_email_address">support@genesis.vision</string>
     <string name="feedback_dialog_title">You can send us your feedback in the following ways:</string>
     <string name="tokens_availability">Tokens availability</string>
-    <string name="active_programs_only">Active programs only</string>
+
     <string name="details">Details</string>
     <string name="description">Description</string>
+
     <string name="zoom_five_min">5MIN</string>
     <string name="zoom_one_hour">1H</string>
     <string name="zoom_one_day">1D</string>
@@ -259,10 +256,10 @@
     <string name="six_months">6 MONTHS</string>
     <string name="one_year">1 YEAR</string>
     <string name="all_time">ALL TIME</string>
-    <string name="error_occurred_performing_operation">An error occurred while performing this operation</string>
-    <string name="favorite_programs_only">Favorite programs only</string>
 
     <string name="tooltip_total_portfolio_value">Total portfolio value is the value of all your tokens from all investment programs.</string>
+
+    <string name="tooltip_equity_chart">Equity is a current condition of a trading account. It is intended for maintaining manager\'s opened positions.</string>
 
     <string name="tooltip_program_data">
         Total profit is the total all-time manager’s profit.\n\nAvg. profit is the average profit for the period in relation to the starting balance.\n\nBalance is the amount of funds on a trading account.\n\nInvestors is a number of investors who already invested in the manager.
@@ -280,8 +277,4 @@
     <string name="program_description">Program description</string>
     <string name="no_description">no description</string>
     <string name="strategy">Strategy</string>
-    <string name="equity_chart">Equity chart</string>
-    <string name="tooltip_equity_chart">Equity is a current condition of a trading account. It is intended for maintaining manager\'s opened positions.</string>
-    <string name="no_available_tokens_to_purchase">There are currently no tokens available. Please check this program later - someone can withdraw their funds from this program.</string>
-    <string name="no_available_tokens">No available tokens</string>
 </resources>

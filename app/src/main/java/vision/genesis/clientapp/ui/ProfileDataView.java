@@ -78,7 +78,7 @@ public class ProfileDataView extends RelativeLayout
 			editIcon.setVisibility(View.VISIBLE);
 		}
 		else {
-			editText.getBackground().setColorFilter(ContextCompat.getColor(getContext(), R.color.transparent), PorterDuff.Mode.SRC_IN);
+			editText.getBackground().setColorFilter(ContextCompat.getColor(getContext(), android.R.color.transparent), PorterDuff.Mode.SRC_IN);
 			editIcon.setVisibility(View.GONE);
 		}
 	}

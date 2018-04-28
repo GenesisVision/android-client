@@ -21,8 +21,10 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.model.events.OnCancelRequestClickedEvent;
+import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
  * GenesisVision
@@ -119,12 +121,9 @@ public class RequestsPresenter extends MvpPresenter<RequestsView>
 		getRequestsSubscription.unsubscribe();
 
 		getViewState().setRefreshing(false);
-		getViewState().finishActivity();
-//		if (ApiErrorResolver.isNetworkError(throwable)) {
-//			if (requests.size() == 0)
-//				getViewState().showNoInternet(true);
-//			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
-//		}
+		if (ApiErrorResolver.isNetworkError(throwable)) {
+			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
+		}
 	}
 
 	private void cancelRequest(UUID requestId) {
@@ -147,12 +146,9 @@ public class RequestsPresenter extends MvpPresenter<RequestsView>
 		getRequestsSubscription.unsubscribe();
 
 		getViewState().setRefreshing(false);
-		getViewState().finishActivity();
-//		if (ApiErrorResolver.isNetworkError(throwable)) {
-//			if (requests.size() == 0)
-//				getViewState().showNoInternet(true);
-//			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
-//		}
+		if (ApiErrorResolver.isNetworkError(throwable)) {
+			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
+		}
 	}
 
 	@Subscribe

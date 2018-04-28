@@ -155,9 +155,6 @@ public class TradesFragment extends BaseFragment implements TradesView
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
 		tradesListAdapter = new TradesListAdapter();
-//		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-//				ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider),
-//				20, 20);
 		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
 				ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.list_item_divider));
 		recyclerView.addItemDecoration(dividerItemDecoration);

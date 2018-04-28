@@ -304,6 +304,8 @@ public class ProfitDetailsChartView extends RelativeLayout
 	}
 
 	private void showHighlight(Highlight highlight) {
+		if (highlight == null)
+			return;
 		highlightBox.setVisibility(View.VISIBLE);
 		highlightCircle.setVisibility(View.VISIBLE);
 		chart.highlightValue(highlight, false);
