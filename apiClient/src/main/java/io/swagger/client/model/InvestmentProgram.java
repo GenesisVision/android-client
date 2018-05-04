@@ -125,6 +125,15 @@ public class InvestmentProgram
 	@SerializedName("isFavorite")
 	private Boolean isFavorite = null;
 
+	@SerializedName("isTournament")
+	private Boolean isTournament = null;
+
+	@SerializedName("roundNumber")
+	private Integer roundNumber = null;
+
+	@SerializedName("place")
+	private Integer place = null;
+
 	public InvestmentProgram id(UUID id) {
 		this.id = id;
 		return this;
@@ -711,6 +720,63 @@ public class InvestmentProgram
 		this.isFavorite = isFavorite;
 	}
 
+	public InvestmentProgram isTournament(Boolean isTournament) {
+		this.isTournament = isTournament;
+		return this;
+	}
+
+	/**
+	 * Get isTournament
+	 *
+	 * @return isTournament
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsTournament() {
+		return isTournament;
+	}
+
+	public void setIsTournament(Boolean isTournament) {
+		this.isTournament = isTournament;
+	}
+
+	public InvestmentProgram roundNumber(Integer roundNumber) {
+		this.roundNumber = roundNumber;
+		return this;
+	}
+
+	/**
+	 * Get roundNumber
+	 *
+	 * @return roundNumber
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getRoundNumber() {
+		return roundNumber;
+	}
+
+	public void setRoundNumber(Integer roundNumber) {
+		this.roundNumber = roundNumber;
+	}
+
+	public InvestmentProgram place(Integer place) {
+		this.place = place;
+		return this;
+	}
+
+	/**
+	 * Get place
+	 *
+	 * @return place
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getPlace() {
+		return place;
+	}
+
+	public void setPlace(Integer place) {
+		this.place = place;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -749,12 +815,15 @@ public class InvestmentProgram
 				Objects.equals(this.isInvestEnable, investmentProgram.isInvestEnable) &&
 				Objects.equals(this.isOwnProgram, investmentProgram.isOwnProgram) &&
 				Objects.equals(this.canCloseProgram, investmentProgram.canCloseProgram) &&
-				Objects.equals(this.isFavorite, investmentProgram.isFavorite);
+				Objects.equals(this.isFavorite, investmentProgram.isFavorite) &&
+				Objects.equals(this.isTournament, investmentProgram.isTournament) &&
+				Objects.equals(this.roundNumber, investmentProgram.roundNumber) &&
+				Objects.equals(this.place, investmentProgram.place);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, logo, isEnabled, balance, currency, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, chart, equityChart, manager, freeTokens, hasNewRequests, isInvestEnable, isOwnProgram, canCloseProgram, isFavorite);
+		return Objects.hash(id, title, description, level, logo, isEnabled, balance, currency, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, chart, equityChart, manager, freeTokens, hasNewRequests, isInvestEnable, isOwnProgram, canCloseProgram, isFavorite, isTournament, roundNumber, place);
 	}
 
 	@Override
@@ -792,6 +861,9 @@ public class InvestmentProgram
 		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
 		sb.append("    canCloseProgram: ").append(toIndentedString(canCloseProgram)).append("\n");
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
+		sb.append("    isTournament: ").append(toIndentedString(isTournament)).append("\n");
+		sb.append("    roundNumber: ").append(toIndentedString(roundNumber)).append("\n");
+		sb.append("    place: ").append(toIndentedString(place)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

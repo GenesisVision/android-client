@@ -100,6 +100,9 @@ public class InvestmentProgramsFilter
 	@SerializedName("showMyFavorites")
 	private Boolean showMyFavorites = null;
 
+	@SerializedName("roundNumber")
+	private Integer roundNumber = null;
+
 	@SerializedName("skip")
 	private Integer skip = null;
 
@@ -543,6 +546,25 @@ public class InvestmentProgramsFilter
 		this.showMyFavorites = showMyFavorites;
 	}
 
+	public InvestmentProgramsFilter roundNumber(Integer roundNumber) {
+		this.roundNumber = roundNumber;
+		return this;
+	}
+
+	/**
+	 * Get roundNumber
+	 *
+	 * @return roundNumber
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getRoundNumber() {
+		return roundNumber;
+	}
+
+	public void setRoundNumber(Integer roundNumber) {
+		this.roundNumber = roundNumber;
+	}
+
 	public InvestmentProgramsFilter skip(Integer skip) {
 		this.skip = skip;
 		return this;
@@ -613,13 +635,14 @@ public class InvestmentProgramsFilter
 				Objects.equals(this.showActivePrograms, investmentProgramsFilter.showActivePrograms) &&
 				Objects.equals(this.equityChartLength, investmentProgramsFilter.equityChartLength) &&
 				Objects.equals(this.showMyFavorites, investmentProgramsFilter.showMyFavorites) &&
+				Objects.equals(this.roundNumber, investmentProgramsFilter.roundNumber) &&
 				Objects.equals(this.skip, investmentProgramsFilter.skip) &&
 				Objects.equals(this.take, investmentProgramsFilter.take);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(managerId, brokerId, brokerTradeServerId, investMaxAmountFrom, investMaxAmountTo, sorting, name, levelMin, levelMax, profitAvgMin, profitAvgMax, profitTotalMin, profitTotalMax, profitTotalPercentMin, profitTotalPercentMax, profitAvgPercentMin, profitAvgPercentMax, profitTotalChange, periodMin, periodMax, showActivePrograms, equityChartLength, showMyFavorites, skip, take);
+		return Objects.hash(managerId, brokerId, brokerTradeServerId, investMaxAmountFrom, investMaxAmountTo, sorting, name, levelMin, levelMax, profitAvgMin, profitAvgMax, profitTotalMin, profitTotalMax, profitTotalPercentMin, profitTotalPercentMax, profitAvgPercentMin, profitAvgPercentMax, profitTotalChange, periodMin, periodMax, showActivePrograms, equityChartLength, showMyFavorites, roundNumber, skip, take);
 	}
 
 	@Override
@@ -650,6 +673,7 @@ public class InvestmentProgramsFilter
 		sb.append("    showActivePrograms: ").append(toIndentedString(showActivePrograms)).append("\n");
 		sb.append("    equityChartLength: ").append(toIndentedString(equityChartLength)).append("\n");
 		sb.append("    showMyFavorites: ").append(toIndentedString(showMyFavorites)).append("\n");
+		sb.append("    roundNumber: ").append(toIndentedString(roundNumber)).append("\n");
 		sb.append("    skip: ").append(toIndentedString(skip)).append("\n");
 		sb.append("    take: ").append(toIndentedString(take)).append("\n");
 		sb.append("}");

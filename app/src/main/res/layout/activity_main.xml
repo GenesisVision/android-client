@@ -27,6 +27,14 @@
 
     </RelativeLayout>
 
+    <View
+        android:id="@+id/bottom_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_above="@+id/bottom_navigation"
+        android:background="@drawable/shadow_up_black"
+        android:visibility="gone"/>
+
     <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"

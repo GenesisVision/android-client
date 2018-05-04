@@ -6,7 +6,7 @@
     <dimen name="toolbar_dot_width">8dp</dimen>
     <dimen name="toolbar_dot_height">8dp</dimen>
 
-    <dimen name="bottom_navigation_height">64dp</dimen>
+    <dimen name="bottom_navigation_height">56dp</dimen>
 
     <dimen name="button_corner_radius">6dp</dimen>
 

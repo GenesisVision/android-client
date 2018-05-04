@@ -143,6 +143,15 @@ public class InvestmentProgramDashboardInvestor
 	@SerializedName("isFavorite")
 	private Boolean isFavorite = null;
 
+	@SerializedName("isTournament")
+	private Boolean isTournament = null;
+
+	@SerializedName("roundNumber")
+	private Integer roundNumber = null;
+
+	@SerializedName("place")
+	private Integer place = null;
+
 	public InvestmentProgramDashboardInvestor id(UUID id) {
 		this.id = id;
 		return this;
@@ -843,6 +852,63 @@ public class InvestmentProgramDashboardInvestor
 		this.isFavorite = isFavorite;
 	}
 
+	public InvestmentProgramDashboardInvestor isTournament(Boolean isTournament) {
+		this.isTournament = isTournament;
+		return this;
+	}
+
+	/**
+	 * Get isTournament
+	 *
+	 * @return isTournament
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsTournament() {
+		return isTournament;
+	}
+
+	public void setIsTournament(Boolean isTournament) {
+		this.isTournament = isTournament;
+	}
+
+	public InvestmentProgramDashboardInvestor roundNumber(Integer roundNumber) {
+		this.roundNumber = roundNumber;
+		return this;
+	}
+
+	/**
+	 * Get roundNumber
+	 *
+	 * @return roundNumber
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getRoundNumber() {
+		return roundNumber;
+	}
+
+	public void setRoundNumber(Integer roundNumber) {
+		this.roundNumber = roundNumber;
+	}
+
+	public InvestmentProgramDashboardInvestor place(Integer place) {
+		this.place = place;
+		return this;
+	}
+
+	/**
+	 * Get place
+	 *
+	 * @return place
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getPlace() {
+		return place;
+	}
+
+	public void setPlace(Integer place) {
+		this.place = place;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -887,12 +953,15 @@ public class InvestmentProgramDashboardInvestor
 				Objects.equals(this.isInvestEnable, investmentProgramDashboardInvestor.isInvestEnable) &&
 				Objects.equals(this.isWithdrawEnable, investmentProgramDashboardInvestor.isWithdrawEnable) &&
 				Objects.equals(this.isOwnProgram, investmentProgramDashboardInvestor.isOwnProgram) &&
-				Objects.equals(this.isFavorite, investmentProgramDashboardInvestor.isFavorite);
+				Objects.equals(this.isFavorite, investmentProgramDashboardInvestor.isFavorite) &&
+				Objects.equals(this.isTournament, investmentProgramDashboardInvestor.isTournament) &&
+				Objects.equals(this.roundNumber, investmentProgramDashboardInvestor.roundNumber) &&
+				Objects.equals(this.place, investmentProgramDashboardInvestor.place);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, logo, balance, currency, investedAmount, profitFromProgram, investedTokens, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, isEnabled, isArchived, chart, equityChart, freeTokens, manager, token, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram, isFavorite);
+		return Objects.hash(id, title, description, level, logo, balance, currency, investedAmount, profitFromProgram, investedTokens, tradesCount, investorsCount, periodDuration, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, availableInvestment, feeSuccess, feeManagement, isEnabled, isArchived, chart, equityChart, freeTokens, manager, token, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram, isFavorite, isTournament, roundNumber, place);
 	}
 
 	@Override
@@ -936,6 +1005,9 @@ public class InvestmentProgramDashboardInvestor
 		sb.append("    isWithdrawEnable: ").append(toIndentedString(isWithdrawEnable)).append("\n");
 		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
+		sb.append("    isTournament: ").append(toIndentedString(isTournament)).append("\n");
+		sb.append("    roundNumber: ").append(toIndentedString(roundNumber)).append("\n");
+		sb.append("    place: ").append(toIndentedString(place)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

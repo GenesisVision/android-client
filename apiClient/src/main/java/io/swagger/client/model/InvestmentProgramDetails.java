@@ -185,6 +185,15 @@ public class InvestmentProgramDetails
 	@SerializedName("isFavorite")
 	private Boolean isFavorite = null;
 
+	@SerializedName("isTournament")
+	private Boolean isTournament = null;
+
+	@SerializedName("roundNumber")
+	private Integer roundNumber = null;
+
+	@SerializedName("place")
+	private Integer place = null;
+
 	public InvestmentProgramDetails id(UUID id) {
 		this.id = id;
 		return this;
@@ -1143,6 +1152,63 @@ public class InvestmentProgramDetails
 		this.isFavorite = isFavorite;
 	}
 
+	public InvestmentProgramDetails isTournament(Boolean isTournament) {
+		this.isTournament = isTournament;
+		return this;
+	}
+
+	/**
+	 * Get isTournament
+	 *
+	 * @return isTournament
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsTournament() {
+		return isTournament;
+	}
+
+	public void setIsTournament(Boolean isTournament) {
+		this.isTournament = isTournament;
+	}
+
+	public InvestmentProgramDetails roundNumber(Integer roundNumber) {
+		this.roundNumber = roundNumber;
+		return this;
+	}
+
+	/**
+	 * Get roundNumber
+	 *
+	 * @return roundNumber
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getRoundNumber() {
+		return roundNumber;
+	}
+
+	public void setRoundNumber(Integer roundNumber) {
+		this.roundNumber = roundNumber;
+	}
+
+	public InvestmentProgramDetails place(Integer place) {
+		this.place = place;
+		return this;
+	}
+
+	/**
+	 * Get place
+	 *
+	 * @return place
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getPlace() {
+		return place;
+	}
+
+	public void setPlace(Integer place) {
+		this.place = place;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -1201,12 +1267,15 @@ public class InvestmentProgramDetails
 				Objects.equals(this.isOwnProgram, investmentProgramDetails.isOwnProgram) &&
 				Objects.equals(this.canCloseProgram, investmentProgramDetails.canCloseProgram) &&
 				Objects.equals(this.canClosePeriod, investmentProgramDetails.canClosePeriod) &&
-				Objects.equals(this.isFavorite, investmentProgramDetails.isFavorite);
+				Objects.equals(this.isFavorite, investmentProgramDetails.isFavorite) &&
+				Objects.equals(this.isTournament, investmentProgramDetails.isTournament) &&
+				Objects.equals(this.roundNumber, investmentProgramDetails.roundNumber) &&
+				Objects.equals(this.place, investmentProgramDetails.place);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, investedAmount, profitFromProgram, tradesCount, investorsCount, periodDuration, programStartDate, programEndDate, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, volumeTotal, volumeAvg, volumeTotalChange, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, isEnabled, minAccountBalanceUsd, minAccountBalance, chart, brokerTitle, brokerTradeServerTitle, token, manager, profitDiagram, freeTokens, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram, canCloseProgram, canClosePeriod, isFavorite);
+		return Objects.hash(id, title, description, level, login, logo, balance, ownBalance, currency, investedTokens, investedAmount, profitFromProgram, tradesCount, investorsCount, periodDuration, programStartDate, programEndDate, startOfPeriod, endOfPeriod, profitAvg, profitTotal, profitAvgPercent, profitTotalPercent, profitTotalChange, volumeTotal, volumeAvg, volumeTotalChange, availableInvestment, feeSuccess, feeManagement, ipfsHash, tradeIpfsHash, isEnabled, minAccountBalanceUsd, minAccountBalance, chart, brokerTitle, brokerTradeServerTitle, token, manager, profitDiagram, freeTokens, hasNewRequests, isHistoryEnable, isInvestEnable, isWithdrawEnable, isOwnProgram, canCloseProgram, canClosePeriod, isFavorite, isTournament, roundNumber, place);
 	}
 
 	@Override
@@ -1264,6 +1333,9 @@ public class InvestmentProgramDetails
 		sb.append("    canCloseProgram: ").append(toIndentedString(canCloseProgram)).append("\n");
 		sb.append("    canClosePeriod: ").append(toIndentedString(canClosePeriod)).append("\n");
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
+		sb.append("    isTournament: ").append(toIndentedString(isTournament)).append("\n");
+		sb.append("    roundNumber: ").append(toIndentedString(roundNumber)).append("\n");
+		sb.append("    place: ").append(toIndentedString(place)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

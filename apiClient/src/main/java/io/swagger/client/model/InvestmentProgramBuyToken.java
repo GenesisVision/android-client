@@ -69,6 +69,9 @@ public class InvestmentProgramBuyToken
 	@SerializedName("currency")
 	private CurrencyEnum currency = null;
 
+	@SerializedName("availableInvestments")
+	private Double availableInvestments = null;
+
 	public InvestmentProgramBuyToken id(UUID id) {
 		this.id = id;
 		return this;
@@ -297,6 +300,25 @@ public class InvestmentProgramBuyToken
 		this.currency = currency;
 	}
 
+	public InvestmentProgramBuyToken availableInvestments(Double availableInvestments) {
+		this.availableInvestments = availableInvestments;
+		return this;
+	}
+
+	/**
+	 * Get availableInvestments
+	 *
+	 * @return availableInvestments
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getAvailableInvestments() {
+		return availableInvestments;
+	}
+
+	public void setAvailableInvestments(Double availableInvestments) {
+		this.availableInvestments = availableInvestments;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -317,12 +339,13 @@ public class InvestmentProgramBuyToken
 				Objects.equals(this.gvtRate, investmentProgramBuyToken.gvtRate) &&
 				Objects.equals(this.gvtWalletAmount, investmentProgramBuyToken.gvtWalletAmount) &&
 				Objects.equals(this.periodDuration, investmentProgramBuyToken.periodDuration) &&
-				Objects.equals(this.currency, investmentProgramBuyToken.currency);
+				Objects.equals(this.currency, investmentProgramBuyToken.currency) &&
+				Objects.equals(this.availableInvestments, investmentProgramBuyToken.availableInvestments);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, description, manager, level, title, startOfPeriod, endOfPeriod, gvtRate, gvtWalletAmount, periodDuration, currency);
+		return Objects.hash(id, logo, description, manager, level, title, startOfPeriod, endOfPeriod, gvtRate, gvtWalletAmount, periodDuration, currency, availableInvestments);
 	}
 
 	@Override
@@ -342,6 +365,7 @@ public class InvestmentProgramBuyToken
 		sb.append("    gvtWalletAmount: ").append(toIndentedString(gvtWalletAmount)).append("\n");
 		sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+		sb.append("    availableInvestments: ").append(toIndentedString(availableInvestments)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

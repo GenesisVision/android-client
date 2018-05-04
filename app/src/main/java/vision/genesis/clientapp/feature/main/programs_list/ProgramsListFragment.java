@@ -103,11 +103,15 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	private Unbinder unbinder;
 
+	@OnClick(R.id.button_tournament)
+	public void onTournamentClicked() {
+		programsListPresenter.onTournamentClicked();
+	}
+
 	@OnClick(R.id.button_search_close)
 	public void onSearchCloseClicked() {
 		programsListPresenter.onSearchCloseClicked();
 	}
-
 
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {

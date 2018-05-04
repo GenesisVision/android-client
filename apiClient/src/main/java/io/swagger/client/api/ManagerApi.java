@@ -18,8 +18,11 @@ import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.ManagerDashboardProgramsFilter;
 import io.swagger.client.model.ManagerDashboardStatistic;
 import io.swagger.client.model.ManagerInvestmentPrograms;
+import io.swagger.client.model.ManagerLevelStatistic;
 import io.swagger.client.model.NewInvestmentRequest;
+import io.swagger.client.model.NewTournamentAccountRequest;
 import io.swagger.client.model.PasswordModel;
+import io.swagger.client.model.PlatformStatus;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.ProfilePublicViewModel;
 import io.swagger.client.model.RecoveryCodesViewModel;
@@ -48,7 +51,7 @@ import rx.Observable;
 public interface ManagerApi
 {
 	/**
-	 * Create new investment request
+	 * Create new investment program request
 	 *
 	 * @param authorization JWT access token (required)
 	 * @param request       (optional)
@@ -60,6 +63,21 @@ public interface ManagerApi
 	@POST("api/manager/account/newInvestmentRequest")
 	Observable<UUID> apiManagerAccountNewInvestmentRequestPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body NewInvestmentRequest request
+	);
+
+	/**
+	 * Create new tournament investment program request
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param request       (optional)
+	 * @return Call&lt;UUID&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("api/manager/account/tournament/newInvestmentRequest")
+	Observable<UUID> apiManagerAccountTournamentNewInvestmentRequestPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body NewTournamentAccountRequest request
 	);
 
 	/**
@@ -369,6 +387,16 @@ public interface ManagerApi
 	);
 
 	/**
+	 * @param investmentProgramId (required)
+	 * @param authorization       JWT access token (required)
+	 * @return Call&lt;ManagerLevelStatistic&gt;
+	 */
+	@GET("api/manager/investmentProgram/getlevelstatistic")
+	Observable<ManagerLevelStatistic> apiManagerInvestmentProgramGetlevelstatisticGet(
+			@retrofit2.http.Query("investmentProgramId") UUID investmentProgramId, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
 	 * Close current period
 	 *
 	 * @param investmentProgramId (required)
@@ -488,6 +516,13 @@ public interface ManagerApi
 	Observable<Void> apiManagerInvestmentWithdrawPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body Invest model
 	);
+
+	/**
+	 * @return Call&lt;PlatformStatus&gt;
+	 */
+	@GET("api/manager/platformStatus")
+	Observable<PlatformStatus> apiManagerPlatformStatusGet();
+
 
 	/**
 	 * Get full profile

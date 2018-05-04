@@ -225,15 +225,23 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
+    <vision.genesis.clientapp.ui.PrimaryButton
+        android:id="@+id/button_tournament"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:text="@string/tournament"/>
+
     <vision.genesis.clientapp.ui.ToolbarView
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_tournament"/>
 
     <RelativeLayout
         android:id="@+id/group_search"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
+        android:layout_below="@+id/button_tournament"
         android:layout_marginEnd="@dimen/toolbar_height"
         android:layout_marginRight="@dimen/toolbar_height"
         android:background="@color/white"

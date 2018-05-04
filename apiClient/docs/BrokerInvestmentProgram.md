@@ -20,6 +20,16 @@ Name | Type | Description | Notes
 **login** | **String** |  |  [optional]
 **ipfsHash** | **String** |  |  [optional]
 **tradeIpfsHash** | **String** |  |  [optional]
+**balance** | **Double** |  |  [optional]
+**status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
+
+
+<a name="StatusEnum"></a>
+## Enum: StatusEnum
+Name | Value
+---- | -----
+NONE | &quot;None&quot;
+FORCLOSINGDUETOINACTIVITY | &quot;ForClosingDueToInactivity&quot;
 
 
 

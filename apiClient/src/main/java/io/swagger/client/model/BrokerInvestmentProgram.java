@@ -13,10 +13,15 @@
 
 package io.swagger.client.model;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
 import org.joda.time.DateTime;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -75,6 +80,12 @@ public class BrokerInvestmentProgram
 
 	@SerializedName("tradeIpfsHash")
 	private String tradeIpfsHash = null;
+
+	@SerializedName("balance")
+	private Double balance = null;
+
+	@SerializedName("status")
+	private StatusEnum status = null;
 
 	public BrokerInvestmentProgram id(UUID id) {
 		this.id = id;
@@ -380,6 +391,43 @@ public class BrokerInvestmentProgram
 		this.tradeIpfsHash = tradeIpfsHash;
 	}
 
+	public BrokerInvestmentProgram balance(Double balance) {
+		this.balance = balance;
+		return this;
+	}
+
+	/**
+	 * Get balance
+	 *
+	 * @return balance
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Double balance) {
+		this.balance = balance;
+	}
+
+	public BrokerInvestmentProgram status(StatusEnum status) {
+		this.status = status;
+		return this;
+	}
+
+	/**
+	 * Get status
+	 *
+	 * @return status
+	 **/
+	@ApiModelProperty(value = "")
+	public StatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusEnum status) {
+		this.status = status;
+	}
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -405,14 +453,15 @@ public class BrokerInvestmentProgram
 				Objects.equals(this.lastPeriod, brokerInvestmentProgram.lastPeriod) &&
 				Objects.equals(this.login, brokerInvestmentProgram.login) &&
 				Objects.equals(this.ipfsHash, brokerInvestmentProgram.ipfsHash) &&
-				Objects.equals(this.tradeIpfsHash, brokerInvestmentProgram.tradeIpfsHash);
+				Objects.equals(this.tradeIpfsHash, brokerInvestmentProgram.tradeIpfsHash) &&
+				Objects.equals(this.balance, brokerInvestmentProgram.balance) &&
+				Objects.equals(this.status, brokerInvestmentProgram.status);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, managerAccountId, dateFrom, dateTo, description, isEnabled, period, feeSuccess, feeManagement, feeEntrance, investMinAmount, investMaxAmount, lastPeriod, login, ipfsHash, tradeIpfsHash);
+		return Objects.hash(id, managerAccountId, dateFrom, dateTo, description, isEnabled, period, feeSuccess, feeManagement, feeEntrance, investMinAmount, investMaxAmount, lastPeriod, login, ipfsHash, tradeIpfsHash, balance, status);
 	}
-
 
 	@Override
 	public String toString() {
@@ -435,6 +484,8 @@ public class BrokerInvestmentProgram
 		sb.append("    login: ").append(toIndentedString(login)).append("\n");
 		sb.append("    ipfsHash: ").append(toIndentedString(ipfsHash)).append("\n");
 		sb.append("    tradeIpfsHash: ").append(toIndentedString(tradeIpfsHash)).append("\n");
+		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -448,6 +499,55 @@ public class BrokerInvestmentProgram
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	/**
+	 * Gets or Sets status
+	 */
+	@JsonAdapter(StatusEnum.Adapter.class)
+	public enum StatusEnum
+	{
+		NONE("None"),
+
+		FORCLOSINGDUETOINACTIVITY("ForClosingDueToInactivity");
+
+		public static StatusEnum fromValue(String text) {
+			for (StatusEnum b : StatusEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		StatusEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<StatusEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public StatusEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return StatusEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 }

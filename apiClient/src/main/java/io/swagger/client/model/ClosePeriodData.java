@@ -13,8 +13,13 @@
 
 package io.swagger.client.model;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,6 +40,9 @@ public class ClosePeriodData
 
 	@SerializedName("canCloseCurrentPeriod")
 	private Boolean canCloseCurrentPeriod = null;
+
+	@SerializedName("investmentProgramStatus")
+	private InvestmentProgramStatusEnum investmentProgramStatus = null;
 
 	public ClosePeriodData currentPeriod(Period currentPeriod) {
 		this.currentPeriod = currentPeriod;
@@ -101,6 +109,24 @@ public class ClosePeriodData
 		this.canCloseCurrentPeriod = canCloseCurrentPeriod;
 	}
 
+	public ClosePeriodData investmentProgramStatus(InvestmentProgramStatusEnum investmentProgramStatus) {
+		this.investmentProgramStatus = investmentProgramStatus;
+		return this;
+	}
+
+	/**
+	 * Get investmentProgramStatus
+	 *
+	 * @return investmentProgramStatus
+	 **/
+	@ApiModelProperty(value = "")
+	public InvestmentProgramStatusEnum getInvestmentProgramStatus() {
+		return investmentProgramStatus;
+	}
+
+	public void setInvestmentProgramStatus(InvestmentProgramStatusEnum investmentProgramStatus) {
+		this.investmentProgramStatus = investmentProgramStatus;
+	}
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -113,14 +139,14 @@ public class ClosePeriodData
 		ClosePeriodData closePeriodData = (ClosePeriodData) o;
 		return Objects.equals(this.currentPeriod, closePeriodData.currentPeriod) &&
 				Objects.equals(this.tokenHolders, closePeriodData.tokenHolders) &&
-				Objects.equals(this.canCloseCurrentPeriod, closePeriodData.canCloseCurrentPeriod);
+				Objects.equals(this.canCloseCurrentPeriod, closePeriodData.canCloseCurrentPeriod) &&
+				Objects.equals(this.investmentProgramStatus, closePeriodData.investmentProgramStatus);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currentPeriod, tokenHolders, canCloseCurrentPeriod);
+		return Objects.hash(currentPeriod, tokenHolders, canCloseCurrentPeriod, investmentProgramStatus);
 	}
-
 
 	@Override
 	public String toString() {
@@ -130,6 +156,7 @@ public class ClosePeriodData
 		sb.append("    currentPeriod: ").append(toIndentedString(currentPeriod)).append("\n");
 		sb.append("    tokenHolders: ").append(toIndentedString(tokenHolders)).append("\n");
 		sb.append("    canCloseCurrentPeriod: ").append(toIndentedString(canCloseCurrentPeriod)).append("\n");
+		sb.append("    investmentProgramStatus: ").append(toIndentedString(investmentProgramStatus)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -143,6 +170,55 @@ public class ClosePeriodData
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	/**
+	 * Gets or Sets investmentProgramStatus
+	 */
+	@JsonAdapter(InvestmentProgramStatusEnum.Adapter.class)
+	public enum InvestmentProgramStatusEnum
+	{
+		NONE("None"),
+
+		FORCLOSINGDUETOINACTIVITY("ForClosingDueToInactivity");
+
+		public static InvestmentProgramStatusEnum fromValue(String text) {
+			for (InvestmentProgramStatusEnum b : InvestmentProgramStatusEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		InvestmentProgramStatusEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<InvestmentProgramStatusEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final InvestmentProgramStatusEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public InvestmentProgramStatusEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return InvestmentProgramStatusEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 }

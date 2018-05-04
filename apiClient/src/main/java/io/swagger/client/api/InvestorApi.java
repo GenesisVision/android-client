@@ -15,6 +15,7 @@ import io.swagger.client.model.InvestorDashboard;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.OpenTradesViewModel;
 import io.swagger.client.model.PasswordModel;
+import io.swagger.client.model.PlatformStatus;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.ProfilePublicViewModel;
 import io.swagger.client.model.RecoveryCodesViewModel;
@@ -406,6 +407,13 @@ public interface InvestorApi
 	Observable<Void> apiInvestorInvestmentProgramsWithdrawPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body Invest model
 	);
+
+	/**
+	 * @return Call&lt;PlatformStatus&gt;
+	 */
+	@GET("api/investor/platformStatus")
+	Observable<PlatformStatus> apiInvestorPlatformStatusGet();
+
 
 	/**
 	 * Get full profile

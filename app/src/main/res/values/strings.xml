@@ -277,4 +277,7 @@
     <string name="program_description">Program description</string>
     <string name="no_description">no description</string>
     <string name="strategy">Strategy</string>
+
+    <string name="round">Round</string>
+    <string name="tournament">Tournament</string>
 </resources>

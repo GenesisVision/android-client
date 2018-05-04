@@ -54,6 +54,9 @@ Name | Type | Description | Notes
 **canCloseProgram** | **Boolean** |  |  [optional]
 **canClosePeriod** | **Boolean** |  |  [optional]
 **isFavorite** | **Boolean** |  |  [optional]
+**isTournament** | **Boolean** |  |  [optional]
+**roundNumber** | **Integer** |  |  [optional]
+**place** | **Integer** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

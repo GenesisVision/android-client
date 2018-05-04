@@ -37,14 +37,6 @@
         </activity>
 
         <activity
-            android:name=".feature.tournament.TournamentActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustResize">
-
-        </activity>
-
-        <activity
             android:name=".feature.main.program.ProgramInfoActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
@@ -142,6 +134,12 @@
             android:name=".feature.main.tooltip.TooltipActivity"
             android:launchMode="singleTop"
             android:theme="@style/TooltipActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+
+        <activity
+            android:name=".feature.tournament.TournamentActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <provider

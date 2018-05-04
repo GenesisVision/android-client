@@ -27,6 +27,7 @@ import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersClearedEvent;
 import vision.genesis.clientapp.model.events.ShowFiltersEvent;
+import vision.genesis.clientapp.model.events.ShowTournamentActivityEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -198,6 +199,10 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 	void onTryAgainClicked() {
 		getViewState().showProgressBar(true);
 		getProgramsList(true);
+	}
+
+	void onTournamentClicked() {
+		EventBus.getDefault().post(new ShowTournamentActivityEvent());
 	}
 
 	@Subscribe

@@ -4,7 +4,8 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiManagerAccountNewInvestmentRequestPost**](ManagerApi.md#apiManagerAccountNewInvestmentRequestPost) | **POST** api/manager/account/newInvestmentRequest | Create new investment request
+[**apiManagerAccountNewInvestmentRequestPost**](ManagerApi.md#apiManagerAccountNewInvestmentRequestPost) | **POST** api/manager/account/newInvestmentRequest | Create new investment program request
+[**apiManagerAccountTournamentNewInvestmentRequestPost**](ManagerApi.md#apiManagerAccountTournamentNewInvestmentRequestPost) | **POST** api/manager/account/tournament/newInvestmentRequest | Create new tournament investment program request
 [**apiManagerAuth2faConfirmPost**](ManagerApi.md#apiManagerAuth2faConfirmPost) | **POST** api/manager/auth/2fa/confirm | 2FA confirm
 [**apiManagerAuth2faCreatePost**](ManagerApi.md#apiManagerAuth2faCreatePost) | **POST** api/manager/auth/2fa/create | 2FA create
 [**apiManagerAuth2faDisablePost**](ManagerApi.md#apiManagerAuth2faDisablePost) | **POST** api/manager/auth/2fa/disable | 2FA disable
@@ -28,6 +29,7 @@ Method | HTTP request | Description
 [**apiManagerInvestmentProgramBuyTokensGet**](ManagerApi.md#apiManagerInvestmentProgramBuyTokensGet) | **GET** api/manager/investmentProgram/buyTokens | Get investment program buy token model
 [**apiManagerInvestmentProgramEquityChartGet**](ManagerApi.md#apiManagerInvestmentProgramEquityChartGet) | **GET** api/manager/investmentProgram/equity/chart | Get manager equity chart
 [**apiManagerInvestmentProgramGet**](ManagerApi.md#apiManagerInvestmentProgramGet) | **GET** api/manager/investmentProgram | Get investment program details by id
+[**apiManagerInvestmentProgramGetlevelstatisticGet**](ManagerApi.md#apiManagerInvestmentProgramGetlevelstatisticGet) | **GET** api/manager/investmentProgram/getlevelstatistic | 
 [**apiManagerInvestmentProgramPeriodClosePost**](ManagerApi.md#apiManagerInvestmentProgramPeriodClosePost) | **POST** api/manager/investmentProgram/period/close | Close current period
 [**apiManagerInvestmentProgramRequestsPost**](ManagerApi.md#apiManagerInvestmentProgramRequestsPost) | **POST** api/manager/investmentProgram/requests | Get investment program&#39;s requests
 [**apiManagerInvestmentProgramTradesChartGet**](ManagerApi.md#apiManagerInvestmentProgramTradesChartGet) | **GET** api/manager/investmentProgram/trades/chart | Get manager trades chart
@@ -37,6 +39,7 @@ Method | HTTP request | Description
 [**apiManagerInvestmentProgramsFavoritesRemovePost**](ManagerApi.md#apiManagerInvestmentProgramsFavoritesRemovePost) | **POST** api/manager/investmentPrograms/favorites/remove | Remove from favorites
 [**apiManagerInvestmentProgramsPost**](ManagerApi.md#apiManagerInvestmentProgramsPost) | **POST** api/manager/investmentPrograms | Get public investment program&#39;s list
 [**apiManagerInvestmentWithdrawPost**](ManagerApi.md#apiManagerInvestmentWithdrawPost) | **POST** api/manager/investment/withdraw | Manager withdrawal from his own investment program
+[**apiManagerPlatformStatusGet**](ManagerApi.md#apiManagerPlatformStatusGet) | **GET** api/manager/platformStatus | 
 [**apiManagerProfileFullGet**](ManagerApi.md#apiManagerProfileFullGet) | **GET** api/manager/profile/full | Get full profile
 [**apiManagerProfilePublicGet**](ManagerApi.md#apiManagerProfilePublicGet) | **GET** api/manager/profile/public | Get public profile
 [**apiManagerProfileUpdatePost**](ManagerApi.md#apiManagerProfileUpdatePost) | **POST** api/manager/profile/update | Update profile
@@ -52,7 +55,7 @@ Method | HTTP request | Description
 # **apiManagerAccountNewInvestmentRequestPost**
 > UUID apiManagerAccountNewInvestmentRequestPost(authorization, request)
 
-Create new investment request
+Create new investment program request
 
 ### Example
 ```java
@@ -79,6 +82,51 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
  **request** | [**NewInvestmentRequest**](NewInvestmentRequest.md)|  | [optional]
+
+### Return type
+
+[**UUID**](UUID.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerAccountTournamentNewInvestmentRequestPost"></a>
+# **apiManagerAccountTournamentNewInvestmentRequestPost**
+> UUID apiManagerAccountTournamentNewInvestmentRequestPost(authorization, request)
+
+Create new tournament investment program request
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+String authorization = "authorization_example"; // String | JWT access token
+NewTournamentAccountRequest request = new NewTournamentAccountRequest(); // NewTournamentAccountRequest | 
+try {
+    UUID result = apiInstance.apiManagerAccountTournamentNewInvestmentRequestPost(authorization, request);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerAccountTournamentNewInvestmentRequestPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **request** | [**NewTournamentAccountRequest**](NewTournamentAccountRequest.md)|  | [optional]
 
 ### Return type
 
@@ -1110,6 +1158,51 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="apiManagerInvestmentProgramGetlevelstatisticGet"></a>
+# **apiManagerInvestmentProgramGetlevelstatisticGet**
+> ManagerLevelStatistic apiManagerInvestmentProgramGetlevelstatisticGet(investmentProgramId, authorization)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+UUID investmentProgramId = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    ManagerLevelStatistic result = apiInstance.apiManagerInvestmentProgramGetlevelstatisticGet(investmentProgramId, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerInvestmentProgramGetlevelstatisticGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **investmentProgramId** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**ManagerLevelStatistic**](ManagerLevelStatistic.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="apiManagerInvestmentProgramPeriodClosePost"></a>
 # **apiManagerInvestmentProgramPeriodClosePost**
 > Void apiManagerInvestmentProgramPeriodClosePost(investmentProgramId, authorization)
@@ -1509,6 +1602,45 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="apiManagerPlatformStatusGet"></a>
+# **apiManagerPlatformStatusGet**
+> PlatformStatus apiManagerPlatformStatusGet()
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+try {
+    PlatformStatus result = apiInstance.apiManagerPlatformStatusGet();
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#apiManagerPlatformStatusGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**PlatformStatus**](PlatformStatus.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 <a name="apiManagerProfileFullGet"></a>

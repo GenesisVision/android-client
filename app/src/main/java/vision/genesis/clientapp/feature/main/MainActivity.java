@@ -29,8 +29,10 @@ import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramAct
 import vision.genesis.clientapp.feature.main.programs_list.filter.ProgramsFiltersActivity;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
+import vision.genesis.clientapp.feature.tournament.TournamentActivity;
 import vision.genesis.clientapp.model.ProgramInfoModel;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.model.TournamentModel;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -50,6 +52,9 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 
 	@BindView(R.id.group_sign_in)
 	public View signInGroup;
+
+	@BindView(R.id.bottom_shadow)
+	public View bottomShadow;
 
 	@BindView(R.id.bottom_navigation)
 	public AHBottomNavigation bottomNavigationView;
@@ -205,7 +210,9 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 		Animation signInAnimation = AnimationUtils.loadAnimation(this, R.anim.sign_in_button_slide);
 		signInAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
 		bottomNavigationView.startAnimation(signInAnimation);
+		bottomShadow.startAnimation(signInAnimation);
 		bottomNavigationView.setVisibility(View.VISIBLE);
+		bottomShadow.setVisibility(View.VISIBLE);
 	}
 
 
@@ -230,6 +237,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	@Override
 	public void hideBottomNavigation() {
 		bottomNavigationView.setVisibility(View.GONE);
+		bottomShadow.setVisibility(View.GONE);
 	}
 
 	@Override
@@ -275,5 +283,10 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	@Override
 	public void showDepositWallet() {
 		DepositWalletActivity.startWith(this);
+	}
+
+	@Override
+	public void showTournamentActivity() {
+		TournamentActivity.startWith(this, new TournamentModel(4, 2));
 	}
 }

@@ -40,6 +40,9 @@ Name | Type | Description | Notes
 **isWithdrawEnable** | **Boolean** |  |  [optional]
 **isOwnProgram** | **Boolean** |  |  [optional]
 **isFavorite** | **Boolean** |  |  [optional]
+**isTournament** | **Boolean** |  |  [optional]
+**roundNumber** | **Integer** |  |  [optional]
+**place** | **Integer** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>
