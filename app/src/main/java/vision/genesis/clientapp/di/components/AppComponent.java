@@ -13,7 +13,9 @@ import vision.genesis.clientapp.feature.auth.login.LoginPresenter;
 import vision.genesis.clientapp.feature.auth.registration.RegistrationPresenter;
 import vision.genesis.clientapp.feature.main.MainActivity;
 import vision.genesis.clientapp.feature.main.MainPresenter;
+import vision.genesis.clientapp.feature.main.assets.AssetsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardPresenter;
+import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
 import vision.genesis.clientapp.feature.main.message.MessageActivity;
 import vision.genesis.clientapp.feature.main.profile.ImageCropActivity;
 import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
@@ -101,4 +103,8 @@ public interface AppComponent
 	void inject(TournamentPresenter tournamentPresenter);
 
 	void inject(TournamentProgramsPresenter tournamentProgramsPresenter);
+
+	void inject(AssetsPresenter assetsPresenter);
+
+	void inject(FavoritesPresenter favoritesPresenter);
 }

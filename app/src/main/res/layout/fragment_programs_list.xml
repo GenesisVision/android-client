@@ -5,286 +5,114 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <android.support.design.widget.CoordinatorLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBarLayout"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorGrayBackground"
+                android:clipToPadding="false"
+                android:paddingBottom="70dp"
+                android:paddingTop="16dp"/>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <LinearLayout
+            android:id="@+id/group_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="16dp"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/cannot_find_programs"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/group_no_internet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbar"
-            android:background="@color/white"
-            app:elevation="0dp">
+            android:layout_gravity="center"
+            android:layout_marginEnd="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="gone">
 
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/no_internet_text"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlwaysCollapsed|exitUntilCollapsed">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/programs_appbar_background_height"
-                    app:layout_collapseMode="pin">
-
-                    <ImageView
-                        android:id="@+id/programs_image"
-                        android:layout_width="@dimen/programs_image_width"
-                        android:layout_height="@dimen/programs_image_height"
-                        android:layout_centerHorizontal="true"
-                        android:layout_margin="16dp"
-                        android:src="@drawable/traders_icon_big"/>
-
-                    <RelativeLayout
-                        android:id="@+id/group_programs_count"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/programs_image"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginStart="16dp">
-
-                        <FrameLayout
-                            android:id="@+id/group_programs_count_progress"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp">
-
-                            <ProgressBar
-                                android:id="@+id/programs_count_progress"
-                                style="?android:attr/progressBarStyleLarge"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:visibility="gone"/>
-
-                            <TextView
-                                android:id="@+id/programs_count"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:lines="1"
-                                android:textAlignment="center"
-                                android:textColor="@color/colorPrimaryDark"
-                                android:textSize="56sp"
-                                tools:text="7,800"/>
-
-                        </FrameLayout>
-
-                        <TextView
-                            android:id="@+id/label_programs_count"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/group_programs_count_progress"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="4dp"
-                            android:lines="1"
-                            android:text="@string/programs_to_invest_in"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="16sp"/>
-
-                    </RelativeLayout>
-
-                </RelativeLayout>
-
-            </android.support.design.widget.CollapsingToolbarLayout>
-
-            <vision.genesis.clientapp.ui.SpinnerView
-                android:id="@+id/spinner_view"
-                android:layout_width="200dp"
-                android:layout_height="40dp"
-                android:layout_alignParentBottom="true"
-                android:layout_below="@+id/group_programs_count"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="16dp"
-                app:layout_collapseMode="pin"/>
-
-        </android.support.design.widget.AppBarLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/refresh_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorGrayBackground"
-                    android:clipToPadding="false"
-                    android:paddingBottom="70dp"
-                    android:paddingTop="16dp"/>
-
-            </android.support.v4.widget.SwipeRefreshLayout>
-
-            <LinearLayout
-                android:id="@+id/group_empty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="32dp"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="16dp"
-                    android:gravity="center"
-                    android:lineSpacingMultiplier="1.2"
-                    android:text="@string/cannot_find_programs"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="24sp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/group_no_internet"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginEnd="32dp"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
-                android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone"
-                tools:visibility="gone">
-
-                <TextView
-                    android:id="@+id/no_internet_text"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:text="@string/network_error"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="24sp"/>
+                android:text="@string/network_error"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24sp"/>
 
 
-                <FrameLayout
-                    android:layout_width="120dp"
-                    android:layout_height="50dp"
+            <FrameLayout
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="32dp">
+
+                <vision.genesis.clientapp.ui.PrimaryButton
+                    android:id="@+id/button_try_again"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/try_again"/>
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="32dp">
+                    android:visibility="gone"/>
 
-                    <vision.genesis.clientapp.ui.PrimaryButton
-                        android:id="@+id/button_try_again"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/try_again"/>
+            </FrameLayout>
 
-                    <ProgressBar
-                        android:id="@+id/progress_bar"
-                        style="?android:attr/progressBarStyleLarge"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_horizontal"
-                        android:visibility="gone"/>
+        </LinearLayout>
 
-                </FrameLayout>
-
-            </LinearLayout>
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_margin="12dp"
-                android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
-                android:tint="@color/colorFontDark"
-                android:visibility="gone"
-                app:backgroundTint="@color/colorGrayBackground"
-                app:fabSize="mini"
-                app:rippleColor="@color/colorPrimary"
-                tools:visibility="visible"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/shadow_down_black"/>
-
-        </RelativeLayout>
-
-    </android.support.design.widget.CoordinatorLayout>
-
-    <vision.genesis.clientapp.ui.PrimaryButton
-        android:id="@+id/button_tournament"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_height"
-        android:text="@string/tournament"/>
-
-    <vision.genesis.clientapp.ui.ToolbarView
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button_tournament"/>
-
-    <RelativeLayout
-        android:id="@+id/group_search"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:layout_below="@+id/button_tournament"
-        android:layout_marginEnd="@dimen/toolbar_height"
-        android:layout_marginRight="@dimen/toolbar_height"
-        android:background="@color/white"
-        android:visibility="gone"
-        tools:visibility="visible">
-
-        <EditText
-            android:id="@+id/edittext_search"
-            android:layout_width="match_parent"
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginStart="32dp"
-            android:layout_toLeftOf="@+id/button_search_close"
-            android:layout_toStartOf="@+id/button_search_close"
-            android:background="@android:color/transparent"
-            android:hint="@string/search"
-            android:imeOptions="actionDone"
-            android:inputType="textNoSuggestions"
-            android:lines="1"
-            android:textColor="@color/colorPrimaryDark"
-            android:textColorHint="@color/grey300"/>
-
-        <ImageView
-            android:id="@+id/button_search_close"
-            android:layout_width="@dimen/toolbar_height"
-            android:layout_height="@dimen/toolbar_height"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="?attr/selectableItemBackground"
-            android:padding="16dp"
-            android:src="@drawable/ic_close_black_24dp"
-            android:tint="@color/colorPrimary"/>
+            android:layout_margin="12dp"
+            android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
+            android:tint="@color/colorFontDark"
+            android:visibility="gone"
+            app:backgroundTint="@color/colorGrayBackground"
+            app:fabSize="mini"
+            app:rippleColor="@color/colorPrimary"
+            tools:visibility="visible"/>
 
     </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="16dp"
-        android:layout_below="@+id/toolbar"
-        android:background="@drawable/shadow_down_white"/>
 
 </RelativeLayout>

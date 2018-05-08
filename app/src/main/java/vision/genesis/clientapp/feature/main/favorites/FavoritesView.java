@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.programs_list;
+package vision.genesis.clientapp.feature.main.favorites;
 
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
@@ -10,15 +10,15 @@ import java.util.UUID;
 import io.swagger.client.model.InvestmentProgram;
 
 /**
- * GenesisVision
- * Created by Vitaly on 1/19/18.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 07/05/2018.
  */
 
-interface ProgramsListView extends MvpView
+interface FavoritesView extends MvpView
 {
 	void setInvestmentPrograms(List<InvestmentProgram> programs);
 
-	void addInvestmentPrograms(List<InvestmentProgram> programs);
+	void setTournamentPrograms(List<InvestmentProgram> programs);
 
 	void setRefreshing(boolean refreshing);
 
@@ -31,9 +31,5 @@ interface ProgramsListView extends MvpView
 
 	void showEmptyList(boolean show);
 
-	void setProgramsCount(Integer count);
-
-	void showFiltersActive(boolean show);
-
-	void changeProgramIsFavorite(UUID programId, boolean isFavorite);
+	void removeProgram(UUID programId);
 }

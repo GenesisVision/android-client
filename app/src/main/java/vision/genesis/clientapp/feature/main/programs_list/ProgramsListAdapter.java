@@ -56,7 +56,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 		return investmentPrograms.size();
 	}
 
-	void setInvestmentPrograms(List<InvestmentProgram> investmentPrograms) {
+	public void setInvestmentPrograms(List<InvestmentProgram> investmentPrograms) {
 		this.investmentPrograms.clear();
 		this.investmentPrograms.addAll(investmentPrograms);
 		notifyDataSetChanged();
@@ -72,6 +72,16 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 			if (program.getId().equals(programId)) {
 				program.isFavorite(isFavorite);
 				notifyDataSetChanged();
+				break;
+			}
+		}
+	}
+
+	public void removeProgram(UUID programId) {
+		for (int i = 0; i < investmentPrograms.size(); i++) {
+			if (investmentPrograms.get(i).getId().equals(programId)) {
+				investmentPrograms.remove(i);
+				notifyItemRemoved(i);
 				break;
 			}
 		}

@@ -26,8 +26,8 @@ import vision.genesis.clientapp.model.FilterSortingOption;
 import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersClearedEvent;
+import vision.genesis.clientapp.model.events.SetProgramsTabCountEvent;
 import vision.genesis.clientapp.model.events.ShowFiltersEvent;
-import vision.genesis.clientapp.model.events.ShowTournamentActivityEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -80,14 +80,6 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		super.onDestroy();
 	}
 
-	void onSearchClicked() {
-		getViewState().showSearch(true);
-	}
-
-	void onSearchCloseClicked() {
-		getViewState().showSearch(false);
-	}
-
 	void onFilterClicked() {
 		EventBus.getDefault().post(new ShowFiltersEvent());
 	}
@@ -104,18 +96,6 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 
 	void onLastListItemVisible() {
 		getProgramsList(false);
-	}
-
-	void onSearchTextChanged(String text) {
-		if (text.isEmpty())
-			text = null;
-		if (filter == null
-				|| (filter.getName() != null && filter.getName().equals(text))
-				|| ((filter.getName() == null) && (text == null))
-				)
-			return;
-		filter.setName(text);
-		investManager.setFilter(filter);
 	}
 
 	private void subscribeToFilter() {
@@ -161,7 +141,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 
 		List<InvestmentProgram> programs = model.getInvestmentPrograms();
 
-		getViewState().setProgramsCount(model.getTotal());
+		EventBus.getDefault().post(new SetProgramsTabCountEvent(model.getTotal()));
 
 		if (programs.size() == 0) {
 			if (skip == 0)
@@ -199,10 +179,6 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 	void onTryAgainClicked() {
 		getViewState().showProgressBar(true);
 		getProgramsList(true);
-	}
-
-	void onTournamentClicked() {
-		EventBus.getDefault().post(new ShowTournamentActivityEvent());
 	}
 
 	@Subscribe

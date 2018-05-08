@@ -14,9 +14,9 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.feature.main.assets.AssetsFragment;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardFragment;
 import vision.genesis.clientapp.feature.main.profile.ProfileFragment;
-import vision.genesis.clientapp.feature.main.programs_list.ProgramsListFragment;
 import vision.genesis.clientapp.feature.main.wallet.WalletFragment;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.model.ProgramRequest;
@@ -50,7 +50,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	private DashboardFragment dashboardFragment;
 
-	private ProgramsListFragment programsListFragment;
+	private AssetsFragment assetsFragment;
 
 	private WalletFragment walletFragment;
 
@@ -85,7 +85,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 				showDashboard();
 				break;
 			case 1:
-				showPrograms();
+				showAssets();
 				break;
 			case 2:
 				showWallet();
@@ -106,13 +106,13 @@ public class MainPresenter extends MvpPresenter<MainView>
 		}
 	}
 
-	private void showPrograms() {
-		if (programsListFragment == null) {
-			programsListFragment = new ProgramsListFragment();
-			getViewState().addFragmentToBackstack(programsListFragment);
+	private void showAssets() {
+		if (assetsFragment == null) {
+			assetsFragment = new AssetsFragment();
+			getViewState().addFragmentToBackstack(assetsFragment);
 		}
 		else {
-			getViewState().showFragment(programsListFragment);
+			getViewState().showFragment(assetsFragment);
 		}
 	}
 

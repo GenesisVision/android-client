@@ -1,6 +1,5 @@
 package vision.genesis.clientapp.feature.main.programs_list;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -13,16 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.jakewharton.rxbinding.widget.RxTextView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,15 +24,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.InvestmentProgram;
-import rx.Subscription;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.model.FilterSortingOption;
-import vision.genesis.clientapp.ui.SpinnerView;
-import vision.genesis.clientapp.ui.ToolbarView;
-import vision.genesis.clientapp.utils.StringFormatUtil;
-import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -48,27 +35,6 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class ProgramsListFragment extends BaseFragment implements ProgramsListView
 {
-	@BindView(R.id.toolbar)
-	public ToolbarView toolbar;
-
-	@BindView(R.id.group_search)
-	public ViewGroup searchGroup;
-
-	@BindView(R.id.edittext_search)
-	public EditText searchEditText;
-
-	@BindView(R.id.programs_count)
-	public TextView programsCount;
-
-	@BindView(R.id.programs_count_progress)
-	public ProgressBar programsCountProgressBar;
-
-	@BindView(R.id.label_programs_count)
-	public TextView programsCountLabel;
-
-	@BindView(R.id.spinner_view)
-	public SpinnerView spinner;
-
 	@BindView(R.id.refresh_layout)
 	public SwipeRefreshLayout refreshLayout;
 
@@ -99,19 +65,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	private ProgramsListAdapter programsListAdapter;
 
-	private Subscription textChangeSubscription;
-
 	private Unbinder unbinder;
-
-	@OnClick(R.id.button_tournament)
-	public void onTournamentClicked() {
-		programsListPresenter.onTournamentClicked();
-	}
-
-	@OnClick(R.id.button_search_close)
-	public void onSearchCloseClicked() {
-		programsListPresenter.onSearchCloseClicked();
-	}
 
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
@@ -138,26 +92,8 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 		unbinder = ButterKnife.bind(this, view);
 
-		setFonts();
-
-		initToolbar();
-		initSpinner();
 		initRefreshLayout();
 		initRecyclerView();
-	}
-
-	@Override
-	public void onStart() {
-		super.onStart();
-		setSearchTextListener();
-	}
-
-	@Override
-	public void onStop() {
-		super.onStop();
-		if (textChangeSubscription != null)
-			textChangeSubscription.unsubscribe();
-		hideSoftKeyboard();
 	}
 
 	@Override
@@ -171,35 +107,6 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		}
 
 		super.onDestroyView();
-	}
-
-	private void setFonts() {
-		programsCount.setTypeface(TypefaceUtil.light());
-		programsCountLabel.setTypeface(TypefaceUtil.bold());
-	}
-
-	private void initToolbar() {
-		toolbar.setTitle(getString(R.string.programs));
-		toolbar.addRightSecondButton(R.drawable.ic_search_black_24dp, () -> programsListPresenter.onSearchClicked());
-		toolbar.addRightButton(R.drawable.filters_icon, () -> programsListPresenter.onFilterClicked());
-	}
-
-	private void initSpinner() {
-		ArrayList<FilterSortingOption> sortingOptions = FilterSortingOption.getOptions(GenesisVisionApplication.INSTANCE);
-		spinner.setData(sortingOptions);
-
-		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-		{
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				programsListPresenter.onSortingSelected(sortingOptions.get(position));
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-
-			}
-		});
 	}
 
 	private void initRefreshLayout() {
@@ -240,11 +147,6 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 			showFab();
 		else if (!fabInAnim && fab.getVisibility() == View.VISIBLE && lastVisible < 3)
 			hideFab();
-	}
-
-	private void setSearchTextListener() {
-		textChangeSubscription = RxTextView.textChanges(searchEditText)
-				.subscribe(text -> programsListPresenter.onSearchTextChanged(text.toString()));
 	}
 
 	private void showFab() {
@@ -311,7 +213,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	@Override
 	public void showSnackbarMessage(String message) {
-		showSnackbar(message, toolbar);
+		showSnackbar(message, recyclerView);
 	}
 
 	@Override
@@ -324,9 +226,6 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	public void showProgressBar(boolean show) {
 		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
 		tryAgainButton.setVisibility(show ? View.GONE : View.VISIBLE);
-
-		programsCountProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-		programsCount.setVisibility(show ? View.GONE : View.VISIBLE);
 	}
 
 	@Override
@@ -337,25 +236,12 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	@Override
 	public void setProgramsCount(Integer count) {
-		programsCount.setText(StringFormatUtil.formatAmount((double) count, 0, 0));
+//		programsCount.setText(StringFormatUtil.formatAmount((double) count, 0, 0));
 	}
 
 	@Override
 	public void showFiltersActive(boolean show) {
-		toolbar.showRightButtonDot(show);
-	}
-
-	@Override
-	public void showSearch(boolean show) {
-		searchGroup.setVisibility(show ? View.VISIBLE : View.GONE);
-
-		if (show) {
-			showSoftKeyboard();
-		}
-		else {
-			hideSoftKeyboard();
-			searchEditText.setText("");
-		}
+//		toolbar.showRightButtonDot(show);
 	}
 
 	@Override
@@ -366,21 +252,5 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	@Override
 	public boolean onBackPressed() {
 		return false;
-	}
-
-	private void showSoftKeyboard() {
-		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-		searchEditText.requestFocus();
-		if (imm != null) {
-			imm.showSoftInput(searchEditText, 0);
-		}
-	}
-
-	private void hideSoftKeyboard() {
-		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-		searchEditText.clearFocus();
-		if (imm != null) {
-			imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
-		}
 	}
 }
