@@ -280,4 +280,5 @@
 
     <string name="round">Round</string>
     <string name="tournament">Tournament</string>
+    <string name="nothing_found">Nothing was found by your request.</string>
 </resources>

@@ -2,10 +2,10 @@ package vision.genesis.clientapp.feature.main.assets;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +15,11 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.search.SearchActivity;
 import vision.genesis.clientapp.ui.CustomTabView;
 
 /**
@@ -27,11 +29,11 @@ import vision.genesis.clientapp.ui.CustomTabView;
 
 public class AssetsFragment extends BaseFragment implements AssetsView, ViewPager.OnPageChangeListener
 {
+	@BindView(R.id.appBarLayout)
+	public AppBarLayout appBarLayout;
+
 	@BindView(R.id.group_search)
 	public ViewGroup searchGroup;
-
-	@BindView(R.id.searchview)
-	public SearchView searchView;
 
 	@BindView(R.id.tab_layout)
 	public TabLayout tabLayout;
@@ -39,11 +41,11 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 	@BindView(R.id.view_pager_assets)
 	public ViewPager viewPager;
 
-//	@BindView(R.id.progress_bar)
-//	public ProgressBar progressBar;
-
 	@InjectPresenter
 	AssetsPresenter assetsPresenter;
+
+//	@BindView(R.id.progress_bar)
+//	public ProgressBar progressBar;
 
 	private TabLayout.OnTabSelectedListener tabSelectedListener;
 
@@ -60,6 +62,14 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 	private Fragment currentFragment;
 
 	private Unbinder unbinder;
+
+	@OnClick(R.id.searchbar)
+	public void onSearchbarClicked() {
+		if (getActivity() != null) {
+			appBarLayout.setExpanded(true, true);
+			SearchActivity.startWith(getActivity());
+		}
+	}
 
 	@Nullable
 	@Override

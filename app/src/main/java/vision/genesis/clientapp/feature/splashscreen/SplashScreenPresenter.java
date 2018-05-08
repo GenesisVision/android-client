@@ -35,7 +35,8 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		updateToken();
+//		updateToken();
+		showMainActivity();
 	}
 
 	@Override

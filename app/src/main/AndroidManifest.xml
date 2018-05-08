@@ -32,7 +32,7 @@
             android:name=".feature.main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden">
 
         </activity>
 
@@ -133,7 +133,7 @@
         <activity
             android:name=".feature.main.tooltip.TooltipActivity"
             android:launchMode="singleTop"
-            android:theme="@style/TooltipActivityTheme"
+            android:theme="@style/TranslucentActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
@@ -141,6 +141,13 @@
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
+
+        <activity
+            android:name=".feature.main.search.SearchActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentActivityTheme"
+            android:windowSoftInputMode="stateVisible"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

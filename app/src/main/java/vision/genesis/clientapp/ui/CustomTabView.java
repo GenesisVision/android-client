@@ -59,9 +59,6 @@ public class CustomTabView extends RelativeLayout
 		inflate(getContext(), R.layout.view_custom_tab, this);
 
 		unbinder = ButterKnife.bind(this);
-
-//		text.setTypeface(TypefaceUtil.bold());
-//		count.setTypeface(TypefaceUtil.bold());
 	}
 
 	public void setData(int iconResId, int textResId) {

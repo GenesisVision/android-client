@@ -4,7 +4,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:minWidth="50dp">
 
     <LinearLayout
         android:id="@+id/group_name"
@@ -34,8 +34,7 @@
             android:textColor="@color/colorFontMedium"
             app:autoSizeMaxTextSize="14sp"
             app:autoSizeMinTextSize="10sp"
-            app:autoSizeTextType="uniform"
-            tools:text="FAVORITES"/>
+            app:autoSizeTextType="uniform"/>
 
     </LinearLayout>
 
@@ -43,12 +42,10 @@
         android:id="@+id/count"
         style="@style/item_investment_program_currency"
         android:layout_height="20sp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_centerHorizontal="true"
         android:textSize="12sp"
         android:visibility="gone"
         tools:text="1,000"
-        tools:visibility="visible"/>
+        tools:visibility="gone"/>
 
 </RelativeLayout>
