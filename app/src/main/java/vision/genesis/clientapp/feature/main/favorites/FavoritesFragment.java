@@ -48,6 +48,9 @@ public class FavoritesFragment extends BaseFragment implements FavoritesView
 	@BindView(R.id.group_empty)
 	public ViewGroup emptyGroup;
 
+	@BindView(R.id.group_should_sign_in)
+	public ViewGroup shouldSignInGroup;
+
 	@BindView(R.id.text_programs)
 	public TextView programsText;
 
@@ -168,6 +171,12 @@ public class FavoritesFragment extends BaseFragment implements FavoritesView
 	public void removeProgram(UUID programId) {
 		programsAdapter.removeProgram(programId);
 		tournamentAdapter.removeProgram(programId);
+	}
+
+	@Override
+	public void showUserLoggedOff(boolean show) {
+		shouldSignInGroup.setVisibility(!show ? View.GONE : View.VISIBLE);
+		refreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
 	}
 
 	@Override

@@ -21,8 +21,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView;
 import vision.genesis.clientapp.managers.InvestManager;
-import vision.genesis.clientapp.model.FilterSortingOption;
 import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersClearedEvent;
@@ -36,7 +36,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
+public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implements SortingFiltersButtonsView.OnFilterUpdatedListener
 {
 	private static int TAKE = 20;
 
@@ -64,7 +64,9 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 
 		EventBus.getDefault().register(this);
 
-		subscribeToFilter();
+		createFilter();
+		getViewState().setRefreshing(true);
+		getProgramsList(true);
 	}
 
 	@Override
@@ -84,11 +86,6 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		EventBus.getDefault().post(new ShowFiltersEvent());
 	}
 
-	void onSortingSelected(FilterSortingOption selectedOption) {
-		filter.setSorting(selectedOption.option);
-		investManager.setFilter(filter);
-	}
-
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
 		getProgramsList(true);
@@ -98,20 +95,17 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		getProgramsList(false);
 	}
 
-	private void subscribeToFilter() {
-		filterSubscription = investManager.filterSubject
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.newThread())
-				.subscribe(this::filterUpdatedHandler,
-						error -> {
-						});
-	}
-
-	private void filterUpdatedHandler(InvestmentProgramsFilter investmentsFilter) {
-		filter = investmentsFilter;
+	private void createFilter() {
+		filter = new InvestmentProgramsFilter();
 		filter.setSkip(0);
 		filter.setTake(TAKE);
 		filter.setEquityChartLength(36);
+
+		getViewState().updateFilter(filter);
+	}
+
+	public void onFilterUpdated(InvestmentProgramsFilter investmentsFilter) {
+		filter = investmentsFilter;
 		getViewState().setRefreshing(true);
 		getProgramsList(true);
 	}

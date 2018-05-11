@@ -22,8 +22,10 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.model.FilterSortingOption;
+import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.SetFavoritesTabCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -36,7 +38,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 @InjectViewState
 public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 {
-	private static int TAKE = 1000;
+	private static int TAKE = 100;
 
 	private static int FAVORITE_GROUPS_COUNT = 2;
 
@@ -44,7 +46,12 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 	public Context context;
 
 	@Inject
+	public AuthManager authManager;
+
+	@Inject
 	public InvestManager investManager;
+
+	private Subscription userSubscription;
 
 	private Subscription getProgramsSubscription;
 
@@ -65,11 +72,13 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 		EventBus.getDefault().register(this);
 
 		getViewState().setRefreshing(true);
-		getFavorites();
+		subscribeToUser();
 	}
 
 	@Override
 	public void onDestroy() {
+		if (userSubscription != null)
+			userSubscription.unsubscribe();
 		if (getProgramsSubscription != null)
 			getProgramsSubscription.unsubscribe();
 
@@ -93,6 +102,33 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
 		getFavorites();
+	}
+
+	private void subscribeToUser() {
+		userSubscription = authManager.userSubject
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.newThread())
+				.subscribe(this::userUpdated, this::handleUserError);
+	}
+
+	private void userUpdated(User user) {
+		if (user == null)
+			userLoggedOff();
+		else
+			userLoggedOn();
+	}
+
+	private void userLoggedOn() {
+		getFavorites();
+		getViewState().showUserLoggedOff(false);
+	}
+
+	private void userLoggedOff() {
+		getViewState().showUserLoggedOff(true);
+	}
+
+	private void handleUserError(Throwable throwable) {
+		userLoggedOff();
 	}
 
 	private InvestmentProgramsFilter createFilter() {
@@ -208,6 +244,9 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 				break;
 			}
 		}
+
+		if (investmentProgramsList.isEmpty() && tournamentProgramsList.isEmpty())
+			getViewState().showEmptyList(true);
 
 		setFavoritesCount();
 	}

@@ -164,4 +164,14 @@
         android:scaleY="4"
         android:visibility="visible"/>
 
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/grey300"
+        android:textSize="10sp"
+        tools:text="0.0.2-alpha (18040401)"/>
+
 </RelativeLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white">
@@ -15,14 +16,13 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/main_sign_in_button_height"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/shadow_up_white"
         android:visibility="gone">
 
         <vision.genesis.clientapp.ui.PrimaryButton
             android:id="@+id/button_sign_in"
             android:layout_width="200dp"
             android:layout_height="@dimen/button_height"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
             android:text="@string/sign_in"/>
 
     </RelativeLayout>
@@ -42,5 +42,15 @@
         android:layout_alignParentBottom="true"
         android:background="@color/bottomNavigationBackground"
         android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/grey300"
+        android:textSize="10sp"
+        tools:text="0.0.2-alpha (18040401)"/>
 
 </RelativeLayout>

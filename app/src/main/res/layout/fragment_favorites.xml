@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/colorGrayBackground">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
@@ -16,7 +17,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorGrayBackground"
                 android:descendantFocusability="blocksDescendants"
                 android:orientation="vertical">
 
@@ -72,21 +72,52 @@
         android:id="@+id/group_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
+        android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <TextView
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="16dp"
+            android:fontFamily="sans-serif"
             android:gravity="center"
             android:lineSpacingMultiplier="1.2"
-            android:text="@string/cannot_find_programs"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp"/>
+            android:text="@string/favorites_empty"
+            android:textColor="@color/grey300"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/group_should_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_star_black_24dp"
+            android:tint="@color/grey300"/>
+
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="16dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.2"
+            android:text="@string/favorites_should_sign_in"
+            android:textColor="@color/black12"
+            android:textSize="18sp"/>
 
     </LinearLayout>
 

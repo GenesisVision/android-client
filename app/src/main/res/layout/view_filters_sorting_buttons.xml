@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/filters_sorting_buttons_height"
+                android:background="@color/colorPrimaryDark">
+
+    <TextView
+        android:id="@+id/button_sorting"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/delimeter"
+        android:layout_toStartOf="@+id/delimeter"
+        android:background="?attr/selectableItemBackground"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="@string/sorting"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="14sp"/>
+
+    <View
+        android:id="@+id/delimeter"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/button_filters"
+        android:layout_toStartOf="@+id/button_filters"
+        android:background="@color/white12"/>
+
+    <ImageView
+        android:id="@+id/button_filters"
+        android:layout_width="70dp"
+        android:layout_height="@dimen/filters_sorting_buttons_height"
+        android:layout_toLeftOf="@+id/button_up"
+        android:layout_toStartOf="@+id/button_up"
+        android:background="?attr/selectableItemBackground"
+        android:padding="14dp"
+        android:src="@drawable/filters_icon"
+        android:tint="@color/white"/>
+
+    <View
+        android:id="@+id/delimeter_two"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/button_up"
+        android:layout_toStartOf="@+id/button_up"
+        android:background="@color/white12"/>
+
+    <ImageView
+        android:id="@+id/button_up"
+        android:layout_width="50dp"
+        android:layout_height="@dimen/filters_sorting_buttons_height"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@color/colorPrimary30"
+        android:padding="12dp"
+        android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
+        android:tint="@color/white"/>
+
+</RelativeLayout>

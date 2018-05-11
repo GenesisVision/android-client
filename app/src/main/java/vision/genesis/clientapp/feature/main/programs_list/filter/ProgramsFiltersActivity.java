@@ -1,6 +1,6 @@
 package vision.genesis.clientapp.feature.main.programs_list.filter;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -26,9 +26,9 @@ import vision.genesis.clientapp.ui.ToolbarView;
 
 public class ProgramsFiltersActivity extends BaseSwipeBackActivity implements ProgramsFiltersView
 {
-	public static void startFrom(Activity activity) {
-		activity.startActivity(new Intent(activity.getApplicationContext(), ProgramsFiltersActivity.class));
-		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
+	public static void start(Context context) {
+		context.startActivity(new Intent(context.getApplicationContext(), ProgramsFiltersActivity.class));
+//		context.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
 
 	@BindView(R.id.toolbar)

@@ -2,7 +2,6 @@ package vision.genesis.clientapp.feature.main.programs_list;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,9 +23,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.InvestmentProgram;
+import io.swagger.client.model.InvestmentProgramsFilter;
+import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView;
 
 /**
  * GenesisVision
@@ -44,6 +46,9 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	@BindView(R.id.group_no_internet)
 	public ViewGroup noInternetGroup;
 
+	@BindView(R.id.view_sorting_filters_buttons)
+	public SortingFiltersButtonsView sortingFiltersButtonsView;
+
 	@BindView(R.id.group_empty)
 	public ViewGroup emptyGroup;
 
@@ -53,13 +58,10 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
-	@BindView(R.id.fab)
-	public FloatingActionButton fab;
-
 	@InjectPresenter
 	ProgramsListPresenter programsListPresenter;
 
-	private boolean fabInAnim = false;
+	private boolean sortingFiltersInAnim = false;
 
 	private int lastVisible = 0;
 
@@ -94,6 +96,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 		initRefreshLayout();
 		initRecyclerView();
+		initSortingFiltersButtonsView();
 	}
 
 	@Override
@@ -128,7 +131,20 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 			@Override
 			public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 				checkIfLastItemVisible();
+				updateSortingFiltersVisibility(dy);
+				Timber.d("TEST dy: %d", dy);
 			}
+		});
+	}
+
+	private void initSortingFiltersButtonsView() {
+		sortingFiltersButtonsView.setActivity(getActivity());
+		sortingFiltersButtonsView.setFiltersUpdateListener(programsListPresenter);
+		sortingFiltersButtonsView.setButtonUpListener(() -> {
+			if (lastVisible < 20)
+				recyclerView.smoothScrollToPosition(0);
+			else
+				recyclerView.scrollToPosition(0);
 		});
 	}
 
@@ -143,25 +159,28 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		if (totalItemCount > 0 && endHasBeenReached) {
 			programsListPresenter.onLastListItemVisible();
 		}
-		if (!fabInAnim && fab.getVisibility() != View.VISIBLE && lastVisible > 3)
-			showFab();
-		else if (!fabInAnim && fab.getVisibility() == View.VISIBLE && lastVisible < 3)
-			hideFab();
 	}
 
-	private void showFab() {
+	private void updateSortingFiltersVisibility(int dy) {
+		if (!sortingFiltersInAnim && sortingFiltersButtonsView.getVisibility() != View.VISIBLE && dy > 50)
+			showSortingFilters();
+		else if (!sortingFiltersInAnim && sortingFiltersButtonsView.getVisibility() == View.VISIBLE && dy < -50)
+			hideSortingFilters();
+	}
+
+	private void showSortingFilters() {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_from_bottom);
 		animation.setAnimationListener(new Animation.AnimationListener()
 		{
 			@Override
 			public void onAnimationStart(Animation animation) {
-				fabInAnim = true;
-				fab.setVisibility(View.VISIBLE);
+				sortingFiltersInAnim = true;
+				sortingFiltersButtonsView.setVisibility(View.VISIBLE);
 			}
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				fabInAnim = false;
+				sortingFiltersInAnim = false;
 			}
 
 			@Override
@@ -169,23 +188,23 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 			}
 		});
-		fab.startAnimation(animation);
+		sortingFiltersButtonsView.startAnimation(animation);
 	}
 
-	private void hideFab() {
+	private void hideSortingFilters() {
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_to_bottom);
 		animation.setAnimationListener(new Animation.AnimationListener()
 		{
 			@Override
 			public void onAnimationStart(Animation animation) {
-				fabInAnim = true;
-				fab.setVisibility(View.VISIBLE);
+				sortingFiltersInAnim = true;
+				sortingFiltersButtonsView.setVisibility(View.VISIBLE);
 			}
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				fabInAnim = false;
-				fab.setVisibility(View.GONE);
+				sortingFiltersInAnim = false;
+				sortingFiltersButtonsView.setVisibility(View.GONE);
 			}
 
 			@Override
@@ -193,7 +212,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 			}
 		});
-		fab.startAnimation(animation);
+		sortingFiltersButtonsView.startAnimation(animation);
 	}
 
 	@Override
@@ -209,6 +228,8 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	@Override
 	public void setRefreshing(boolean refreshing) {
 		refreshLayout.setRefreshing(refreshing);
+		if (refreshing)
+			recyclerView.scrollToPosition(0);
 	}
 
 	@Override
@@ -247,6 +268,11 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	@Override
 	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
 		programsListAdapter.changeProgramIsFavorite(programId, isFavorite);
+	}
+
+	@Override
+	public void updateFilter(InvestmentProgramsFilter filter) {
+		sortingFiltersButtonsView.setFilter(filter);
 	}
 
 	@Override

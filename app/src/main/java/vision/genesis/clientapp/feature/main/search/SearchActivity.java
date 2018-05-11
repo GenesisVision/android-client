@@ -24,6 +24,7 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -32,6 +33,7 @@ import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.OnFocusChange;
 import io.swagger.client.model.InvestmentProgram;
+import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListAdapter;
 
@@ -47,6 +49,9 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.fragment_fade_in, R.anim.hold);
 	}
+
+	@BindView(R.id.version)
+	public TextView version;
 
 	@BindView(R.id.scrollview)
 	public NestedScrollView scrollView;
@@ -131,6 +136,8 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 		initRecyclerViews();
 
 		showSoftKeyboard();
+
+		version.setText(String.format(Locale.getDefault(), "%s (%d)", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.model.InvestmentProgram;
+import io.swagger.client.model.InvestmentProgramsFilter;
 
 /**
  * GenesisVision
@@ -36,4 +37,6 @@ interface ProgramsListView extends MvpView
 	void showFiltersActive(boolean show);
 
 	void changeProgramIsFavorite(UUID programId, boolean isFavorite);
+
+	void updateFilter(InvestmentProgramsFilter filter);
 }

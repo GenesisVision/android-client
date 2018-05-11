@@ -32,4 +32,6 @@ interface FavoritesView extends MvpView
 	void showEmptyList(boolean show);
 
 	void removeProgram(UUID programId);
+
+	void showUserLoggedOff(boolean show);
 }

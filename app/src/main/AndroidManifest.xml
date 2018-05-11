@@ -145,7 +145,6 @@
         <activity
             android:name=".feature.main.search.SearchActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
             android:theme="@style/TranslucentActivityTheme"
             android:windowSoftInputMode="stateVisible"/>
 

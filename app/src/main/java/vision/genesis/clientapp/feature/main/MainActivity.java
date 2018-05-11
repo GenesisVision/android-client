@@ -10,15 +10,19 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -26,7 +30,6 @@ import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.main.message.MessageActivity;
 import vision.genesis.clientapp.feature.main.program.ProgramInfoActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
-import vision.genesis.clientapp.feature.main.programs_list.filter.ProgramsFiltersActivity;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
 import vision.genesis.clientapp.feature.tournament.TournamentActivity;
@@ -49,6 +52,9 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 		mainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startActivity(mainActivityIntent);
 	}
+
+	@BindView(R.id.version)
+	public TextView version;
 
 	@BindView(R.id.group_sign_in)
 	public View signInGroup;
@@ -79,6 +85,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 		ButterKnife.bind(this);
 
 		initBottomNavigation();
+
+		version.setText(String.format(Locale.getDefault(), "%s (%d)", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
 	}
 
 	@Override
@@ -257,7 +265,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 
 	@Override
 	public void showProgramFilters() {
-		ProgramsFiltersActivity.startFrom(this);
+//		ProgramsFiltersActivity.startFrom(this);
 	}
 
 	@Override

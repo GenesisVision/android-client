@@ -25,6 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.InvestmentProgramDetails;
 import timber.log.Timber;
+import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.model.ProgramInfoModel;
@@ -46,6 +47,9 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
+
+	@BindView(R.id.version)
+	public TextView version;
 
 	@BindView(R.id.avatar)
 	public AvatarView avatar;
@@ -137,6 +141,8 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 			updateHeader();
 
 			programInfoPresenter.setProgramId(model.getProgramId());
+
+			version.setText(String.format(Locale.getDefault(), "%s (%d)", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
 		}
 		else {
 			Timber.e("Passed empty program to ProgramDetailsActivity");
