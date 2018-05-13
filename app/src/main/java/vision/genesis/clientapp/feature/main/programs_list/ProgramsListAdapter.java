@@ -62,7 +62,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 		notifyDataSetChanged();
 	}
 
-	void addInvestmentPrograms(List<InvestmentProgram> investmentPrograms) {
+	public void addInvestmentPrograms(List<InvestmentProgram> investmentPrograms) {
 		this.investmentPrograms.addAll(investmentPrograms);
 		notifyDataSetChanged();
 	}
@@ -103,6 +103,12 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 
 		@BindView(R.id.chart)
 		public ProfitSmallChartView chart;
+
+		@BindView(R.id.group_tournament)
+		public ViewGroup tournamentGroup;
+
+		@BindView(R.id.text_place)
+		public TextView place;
 
 		@BindView(R.id.view_program_data)
 		public ProgramDataView programDataView;
@@ -150,6 +156,17 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 			managerName.setText(String.format(Locale.getDefault(), "%s %s",
 					GenesisVisionApplication.INSTANCE.getResources().getString(R.string.by),
 					investmentProgram.getManager().getUsername()));
+
+			if (investmentProgram.isIsTournament()) {
+				tournamentGroup.setVisibility(View.VISIBLE);
+				if (investmentProgram.getPlace() != null)
+					place.setText(String.format(Locale.getDefault(), "#%d", investmentProgram.getPlace()));
+				else
+					place.setText("-");
+			}
+			else {
+				tournamentGroup.setVisibility(View.GONE);
+			}
 
 			programDataView.setData(investmentProgram.getProfitTotal(),
 					investmentProgram.getProfitAvgPercent(),

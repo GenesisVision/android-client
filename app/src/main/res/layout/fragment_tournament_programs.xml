@@ -5,15 +5,16 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-    <FrameLayout
+    <vision.genesis.clientapp.ui.TournamentRoundsButtonBar
+        android:id="@+id/rounds_button_bar"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:background="@drawable/transactions_shadow"/>
+        android:layout_height="@dimen/button_height"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rounds_button_bar">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -26,18 +27,12 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <TextView
-        android:id="@+id/text_round"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textColor="@color/colorFontMedium"
-        tools:text="Round 1"/>
-
     <LinearLayout
         android:id="@+id/group_no_internet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/rounds_button_bar"
+        android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:layout_marginEnd="32dp"
         android:layout_marginLeft="32dp"
@@ -49,16 +44,22 @@
         android:visibility="gone"
         tools:visibility="visible">
 
+        <ImageView
+            android:id="@+id/no_internet_image"
+            android:layout_width="@dimen/programs_no_internet_image_width"
+            android:layout_height="@dimen/programs_no_internet_image_height"
+            android:src="@drawable/no_internet"
+            android:tint="@color/colorFontLight"/>
+
         <TextView
             android:id="@+id/no_internet_text"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="@string/network_error"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp"/>
-
+            android:textColor="@color/black12"
+            android:textSize="18sp"/>
 
         <FrameLayout
             android:layout_width="120dp"
@@ -88,7 +89,8 @@
         android:id="@+id/group_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
+        android:layout_below="@+id/rounds_button_bar"
+        android:layout_gravity="center_horizontal"
         android:visibility="gone"
         tools:visibility="visible">
 
@@ -99,7 +101,7 @@
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="64dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -108,12 +110,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/dashboard_empty"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="36sp"/>
+                android:text="@string/no_programs_registered"
+                android:textColor="@color/black12"
+                android:textSize="18sp"/>
 
         </LinearLayout>
 
     </ScrollView>
+
+    <vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView
+        android:id="@+id/view_sorting_filters_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

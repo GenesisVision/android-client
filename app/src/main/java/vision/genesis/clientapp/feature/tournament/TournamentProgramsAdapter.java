@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.tournament.round;
+package vision.genesis.clientapp.feature.tournament;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

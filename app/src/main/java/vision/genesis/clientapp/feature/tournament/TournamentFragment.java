@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.programs_list;
+package vision.genesis.clientapp.feature.tournament;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,74 +28,79 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView;
+import vision.genesis.clientapp.feature.main.programs_list.ProgramsListAdapter;
+import vision.genesis.clientapp.ui.TournamentRoundsButtonBar;
 
 /**
- * GenesisVision
- * Created by Vitaly on 1/19/18.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 03/05/2018.
  */
 
-public class ProgramsListFragment extends BaseFragment implements ProgramsListView
+public class TournamentFragment extends BaseFragment implements TournamentView
 {
+	@BindView(R.id.rounds_button_bar)
+	public TournamentRoundsButtonBar roundsButtonBar;
+
 	@BindView(R.id.refresh_layout)
 	public SwipeRefreshLayout refreshLayout;
 
 	@BindView(R.id.recycler_view)
 	public RecyclerView recyclerView;
 
-	@BindView(R.id.group_no_internet)
-	public ViewGroup noInternetGroup;
-
 	@BindView(R.id.view_sorting_filters_buttons)
 	public SortingFiltersButtonsView sortingFiltersButtonsView;
-
-	@BindView(R.id.group_empty)
-	public ViewGroup emptyGroup;
-
-	@BindView(R.id.button_try_again)
-	public View tryAgainButton;
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
+	@BindView(R.id.button_try_again)
+	public View tryAgainButton;
+
+	@BindView(R.id.group_no_internet)
+	public ViewGroup noInternetGroup;
+
+	@BindView(R.id.group_empty)
+	public ViewGroup emptyGroup;
+
 	@InjectPresenter
-	ProgramsListPresenter programsListPresenter;
+	public TournamentPresenter tournamentPresenter;
+
+	private ProgramsListAdapter programsAdapter;
+
+	private Unbinder unbinder;
+
+	private Integer tournamentCurrentRound;
+
+	private Integer tournamentTotalRounds;
 
 	private boolean sortingFiltersInAnim = false;
 
 	private int lastVisible = 0;
 
-	private ProgramsListAdapter programsListAdapter;
-
-	private Unbinder unbinder;
-
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
-		programsListPresenter.onTryAgainClicked();
-	}
-
-	@OnClick(R.id.fab)
-	public void onFabClicked() {
-		if (lastVisible < 20)
-			recyclerView.smoothScrollToPosition(0);
-		else
-			recyclerView.scrollToPosition(0);
+		tournamentPresenter.onTryAgainClicked();
 	}
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_programs_list, container, false);
+		return inflater.inflate(R.layout.fragment_tournament_programs, container, false);
 	}
 
 	@Override
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-
 		unbinder = ButterKnife.bind(this, view);
 
 		initRefreshLayout();
 		initRecyclerView();
 		initSortingFiltersButtonsView();
+
+		roundsButtonBar.setOnRoundSelectedListener(roundNumber -> tournamentPresenter.setCurrentRound(roundNumber));
+
+		if (tournamentTotalRounds > 0)
+			roundsButtonBar.setRounds(tournamentCurrentRound, tournamentTotalRounds);
 	}
 
 	@Override
@@ -115,16 +120,16 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		refreshLayout.setColorSchemeColors(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimary),
 				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent),
 				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimaryDark));
-		refreshLayout.setOnRefreshListener(() -> programsListPresenter.onSwipeRefresh());
+		refreshLayout.setOnRefreshListener(() -> tournamentPresenter.onSwipeRefresh());
 	}
 
 	private void initRecyclerView() {
 		recyclerView.setHasFixedSize(true);
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
-		programsListAdapter = new ProgramsListAdapter();
-		programsListAdapter.setHasStableIds(true);
-		recyclerView.setAdapter(programsListAdapter);
+		programsAdapter = new ProgramsListAdapter();
+		programsAdapter.setHasStableIds(true);
+		recyclerView.setAdapter(programsAdapter);
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
 		{
 			@Override
@@ -137,26 +142,13 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	private void initSortingFiltersButtonsView() {
 		sortingFiltersButtonsView.setActivity(getActivity());
-		sortingFiltersButtonsView.setFiltersUpdateListener(programsListPresenter);
+		sortingFiltersButtonsView.setFiltersUpdateListener(tournamentPresenter);
 		sortingFiltersButtonsView.setButtonUpListener(() -> {
 			if (lastVisible < 20)
 				recyclerView.smoothScrollToPosition(0);
 			else
 				recyclerView.scrollToPosition(0);
 		});
-	}
-
-	private void checkIfLastItemVisible() {
-		LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
-		int totalItemCount = layoutManager.getItemCount();
-		lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
-		if (lastVisible < 0)
-			return;
-
-		boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
-		if (totalItemCount > 0 && endHasBeenReached) {
-			programsListPresenter.onLastListItemVisible();
-		}
 	}
 
 	private void updateSortingFiltersVisibility(int dy) {
@@ -213,32 +205,49 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		sortingFiltersButtonsView.startAnimation(animation);
 	}
 
-	@Override
-	public void setInvestmentPrograms(List<InvestmentProgram> programs) {
-		programsListAdapter.setInvestmentPrograms(programs);
+	private void checkIfLastItemVisible() {
+		LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+		int totalItemCount = layoutManager.getItemCount();
+		lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
+		if (lastVisible < 0)
+			return;
+
+		boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
+		if (totalItemCount > 0 && endHasBeenReached) {
+			tournamentPresenter.onLastListItemVisible();
+		}
 	}
 
 	@Override
-	public void addInvestmentPrograms(List<InvestmentProgram> programs) {
-		programsListAdapter.addInvestmentPrograms(programs);
+	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
+		programsAdapter.changeProgramIsFavorite(programId, isFavorite);
 	}
 
 	@Override
-	public void setRefreshing(boolean refreshing) {
-		refreshLayout.setRefreshing(refreshing);
-		if (refreshing)
-			recyclerView.scrollToPosition(0);
+	public void setTournamentPrograms(List<InvestmentProgram> programs) {
+		programsAdapter.setInvestmentPrograms(programs);
+	}
+
+	@Override
+	public void addTournamentPrograms(List<InvestmentProgram> programs) {
+		programsAdapter.addInvestmentPrograms(programs);
 	}
 
 	@Override
 	public void showSnackbarMessage(String message) {
-		showSnackbar(message, recyclerView);
+		showSnackbar(message, roundsButtonBar);
 	}
 
 	@Override
-	public void showNoInternet(boolean show) {
-		noInternetGroup.setVisibility(show ? View.VISIBLE : View.GONE);
-		refreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
+	public void setRefreshing(boolean refreshing) {
+		if (refreshLayout != null)
+			refreshLayout.setRefreshing(refreshing);
+	}
+
+	@Override
+	public void showEmptyList(boolean show) {
+		emptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+		recyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
 	}
 
 	@Override
@@ -248,24 +257,9 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	}
 
 	@Override
-	public void showEmptyList(boolean show) {
-		emptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);
-		refreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
-	}
-
-	@Override
-	public void setProgramsCount(Integer count) {
-//		programsCount.setText(StringFormatUtil.formatAmount((double) count, 0, 0));
-	}
-
-	@Override
-	public void showFiltersActive(boolean show) {
-//		toolbar.showRightButtonDot(show);
-	}
-
-	@Override
-	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
-		programsListAdapter.changeProgramIsFavorite(programId, isFavorite);
+	public void showNoInternet(boolean show) {
+		noInternetGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+		recyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
 	}
 
 	@Override
@@ -273,8 +267,10 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		sortingFiltersButtonsView.setFilter(filter);
 	}
 
-	@Override
-	public boolean onBackPressed() {
-		return false;
+	public void setTournamentData(Integer tournamentCurrentRound, Integer tournamentTotalRounds) {
+		this.tournamentCurrentRound = tournamentCurrentRound;
+		this.tournamentTotalRounds = tournamentTotalRounds;
+		if (roundsButtonBar != null)
+			roundsButtonBar.setRounds(tournamentCurrentRound, tournamentTotalRounds);
 	}
 }

@@ -1,8 +1,12 @@
 package vision.genesis.clientapp.feature.tournament;
 
 import com.arellomobile.mvp.MvpView;
-import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
-import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
+
+import java.util.List;
+import java.util.UUID;
+
+import io.swagger.client.model.InvestmentProgram;
+import io.swagger.client.model.InvestmentProgramsFilter;
 
 /**
  * GenesisVisionAndroid
@@ -11,12 +15,21 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 interface TournamentView extends MvpView
 {
-	@StateStrategyType(OneExecutionStateStrategy.class)
-	void finishActivity();
+	void setTournamentPrograms(List<InvestmentProgram> programs);
 
-	void showToast(String message);
+	void addTournamentPrograms(List<InvestmentProgram> programs);
+
+	void setRefreshing(boolean refreshing);
+
+	void showProgressBar(boolean show);
+
+	void showNoInternet(boolean show);
+
+	void changeProgramIsFavorite(UUID programId, boolean isFavorite);
+
+	void showEmptyList(boolean show);
 
 	void showSnackbarMessage(String message);
 
-	void showProgress(boolean show);
+	void updateFilter(InvestmentProgramsFilter filter);
 }

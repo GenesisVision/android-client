@@ -55,9 +55,9 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_toEndOf="@+id/avatar"
-                android:layout_toLeftOf="@+id/chart"
+                android:layout_toLeftOf="@+id/group_chart"
                 android:layout_toRightOf="@+id/avatar"
-                android:layout_toStartOf="@+id/chart"
+                android:layout_toStartOf="@+id/group_chart"
                 android:orientation="vertical">
 
                 <TextView
@@ -80,16 +80,52 @@
 
             </LinearLayout>
 
-            <vision.genesis.clientapp.ui.chart.ProfitSmallChartView
-                android:id="@+id/chart"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+            <LinearLayout
+                android:id="@+id/group_chart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <vision.genesis.clientapp.ui.chart.ProfitSmallChartView
+                    android:id="@+id/chart"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"/>
+
+                <RelativeLayout
+                    android:id="@+id/group_tournament"
+                    android:layout_width="50dp"
+                    android:layout_height="42dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/trophy"
+                        android:tint="@color/colorPrimaryDark"/>
+
+                    <TextView
+                        android:id="@+id/text_place"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14sp"
+                        tools:text="#12"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
 
         </RelativeLayout>
 

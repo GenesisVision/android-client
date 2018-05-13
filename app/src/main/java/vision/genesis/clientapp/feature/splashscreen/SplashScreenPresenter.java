@@ -7,11 +7,12 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.PlatformStatus;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.managers.AuthManager;
+import vision.genesis.clientapp.managers.InvestManager;
 
 /**
  * GenesisVision
@@ -25,9 +26,9 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 	public Context context;
 
 	@Inject
-	public AuthManager authManager;
+	public InvestManager investManager;
 
-	private Subscription updateTokenSubscription;
+	private Subscription platformStatusSubscription;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -36,36 +37,36 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 		GenesisVisionApplication.getComponent().inject(this);
 
 //		updateToken();
-		showMainActivity();
+		getPlatformStatus();
 	}
 
 	@Override
 	public void onDestroy() {
-		if (updateTokenSubscription != null)
-			updateTokenSubscription.unsubscribe();
+		if (platformStatusSubscription != null)
+			platformStatusSubscription.unsubscribe();
 
 		super.onDestroy();
 	}
 
-	private void updateToken() {
-		updateTokenSubscription = authManager.updateToken()
+	private void getPlatformStatus() {
+		platformStatusSubscription = investManager.getPlatformStatus()
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
-				.subscribe(this::onUpdateTokenSuccess,
-						this::onUpdateTokenError);
+				.subscribe(this::onPlatformStatusSuccess,
+						this::onPlatformStatusError);
 	}
 
-	private void onUpdateTokenSuccess(String response) {
+	private void onPlatformStatusSuccess(PlatformStatus response) {
 		showMainActivity();
 	}
 
-	private void onUpdateTokenError(Throwable error) {
+	private void onPlatformStatusError(Throwable error) {
 		showMainActivity();
 	}
 
 	private void showMainActivity() {
-		if (updateTokenSubscription != null)
-			updateTokenSubscription.unsubscribe();
+		if (platformStatusSubscription != null)
+			platformStatusSubscription.unsubscribe();
 		getViewState().showMainActivity();
 	}
 }

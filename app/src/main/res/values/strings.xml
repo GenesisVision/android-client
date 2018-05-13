@@ -289,4 +289,5 @@
     <string name="sort_by">Sort by:</string>
     <string name="end_of_period">End of period</string>
     <string name="title">Title</string>
+    <string name="no_programs_registered">There are no programs registered in this round, or the round has not been launched yet.</string>
 </resources>

@@ -32,10 +32,8 @@ import vision.genesis.clientapp.feature.main.program.ProgramInfoActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
-import vision.genesis.clientapp.feature.tournament.TournamentActivity;
 import vision.genesis.clientapp.model.ProgramInfoModel;
 import vision.genesis.clientapp.model.ProgramRequest;
-import vision.genesis.clientapp.model.TournamentModel;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -291,10 +289,5 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	@Override
 	public void showDepositWallet() {
 		DepositWalletActivity.startWith(this);
-	}
-
-	@Override
-	public void showTournamentActivity() {
-		TournamentActivity.startWith(this, new TournamentModel(4, 2));
 	}
 }

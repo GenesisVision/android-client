@@ -40,7 +40,7 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 {
 	private static int TAKE = 100;
 
-	private static int FAVORITE_GROUPS_COUNT = 2;
+	private static int FAVORITE_GROUPS_COUNT = 1;
 
 	@Inject
 	public Context context;
@@ -142,7 +142,7 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 	private void getFavorites() {
 		groupsLoaded = 0;
 		getPrograms();
-		getTournamentPrograms();
+//		getTournamentPrograms();
 	}
 
 	private void getPrograms() {

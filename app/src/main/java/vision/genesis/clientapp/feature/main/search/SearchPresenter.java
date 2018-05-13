@@ -36,7 +36,7 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 {
 	private static int TAKE = 30;
 
-	private static int GROUPS_COUNT = 2;
+	private static int GROUPS_COUNT = 1;
 
 	@Inject
 	public Context context;
@@ -63,7 +63,6 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 		GenesisVisionApplication.getComponent().inject(this);
 
 		EventBus.getDefault().register(this);
-
 	}
 
 	@Override
@@ -79,7 +78,6 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 		super.onDestroy();
 	}
 
-
 	private InvestmentProgramsFilter createFilter() {
 		InvestmentProgramsFilter filter = new InvestmentProgramsFilter();
 		filter.setSkip(0);
@@ -94,7 +92,7 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 		this.searchString = searchString;
 		getViewState().showProgressBar(true);
 		getPrograms();
-		getTournamentPrograms();
+//		getTournamentPrograms();
 	}
 
 	private void getPrograms() {

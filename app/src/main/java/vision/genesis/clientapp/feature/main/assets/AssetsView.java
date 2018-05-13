@@ -2,6 +2,8 @@ package vision.genesis.clientapp.feature.main.assets;
 
 import com.arellomobile.mvp.MvpView;
 
+import io.swagger.client.model.PlatformStatus;
+
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 04/05/2018.
@@ -9,8 +11,6 @@ import com.arellomobile.mvp.MvpView;
 
 interface AssetsView extends MvpView
 {
-	void showSearch(boolean show);
-
 	void showToast(String message);
 
 	void showSnackbarMessage(String message);
@@ -20,4 +20,6 @@ interface AssetsView extends MvpView
 	void setFavoritesTabCount(int count);
 
 	void setProgramsTabCount(int count);
+
+	void onPlatformStatusUpdated(PlatformStatus platformStatus);
 }

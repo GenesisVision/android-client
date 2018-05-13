@@ -28,7 +28,6 @@ import vision.genesis.clientapp.model.events.ShowDepositWalletActivityEvent;
 import vision.genesis.clientapp.model.events.ShowFiltersEvent;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
-import vision.genesis.clientapp.model.events.ShowTournamentActivityEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawProgramEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawWalletActivityEvent;
 
@@ -216,10 +215,5 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowMessageActivityEvent event) {
 		getViewState().showMessageActivity(event.message, event.imageResourceId, event.mustRead);
-	}
-
-	@Subscribe
-	public void onEventMainThread(ShowTournamentActivityEvent event) {
-		getViewState().showTournamentActivity();
 	}
 }

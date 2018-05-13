@@ -137,12 +137,6 @@
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
-            android:name=".feature.tournament.TournamentActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/SwipeBackActivityTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
-
-        <activity
             android:name=".feature.main.search.SearchActivity"
             android:launchMode="singleTop"
             android:theme="@style/TranslucentActivityTheme"

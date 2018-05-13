@@ -228,6 +228,8 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 	@Override
 	public void showProgressBar(boolean show) {
 		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+		if (show)
+			scrollView.scrollTo(0, 0);
 	}
 
 	@Override

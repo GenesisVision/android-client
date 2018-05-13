@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.PlatformStatus;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.search.SearchActivity;
@@ -43,9 +44,6 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 	@InjectPresenter
 	AssetsPresenter assetsPresenter;
-
-//	@BindView(R.id.progress_bar)
-//	public ProgressBar progressBar;
 
 	private TabLayout.OnTabSelectedListener tabSelectedListener;
 
@@ -169,7 +167,6 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 		addPage(favoritesTab, false);
 		addPage(programsTab, true);
-		addPage(tournamentTab, false);
 	}
 
 	private View getFavoritesTabView() {
@@ -230,19 +227,6 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 	}
 
 	@Override
-	public void showSearch(boolean show) {
-//		searchGroup.setVisibility(show ? View.VISIBLE : View.GONE);
-//
-//		if (show) {
-//			showSoftKeyboard();
-//		}
-//		else {
-//			hideSoftKeyboard();
-//			searchEditText.setText("");
-//		}
-	}
-
-	@Override
 	public void showToast(String message) {
 		Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
 	}
@@ -267,19 +251,11 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 //		((CustomTabView) programsTab.getCustomView()).setCount(count);
 	}
 
-	//	private void showSoftKeyboard() {
-//		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//		searchEditText.requestFocus();
-//		if (imm != null) {
-//			imm.showSoftInput(searchEditText, 0);
-//		}
-//	}
-//
-//	private void hideSoftKeyboard() {
-//		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//		searchView.clearFocus();
-//		if (imm != null) {
-//			imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
-//		}
-//	}
+	@Override
+	public void onPlatformStatusUpdated(PlatformStatus platformStatus) {
+		if (platformStatus.isIsTournamentActive()) {
+			addPage(tournamentTab, false);
+			pagerAdapter.setTournamentData(platformStatus.getTournamentCurrentRound(), platformStatus.getTournamentTotalRounds());
+		}
+	}
 }

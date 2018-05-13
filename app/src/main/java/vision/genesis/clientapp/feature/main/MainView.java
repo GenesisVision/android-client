@@ -46,6 +46,4 @@ public interface MainView extends MvpView
 	void showWithdrawWallet();
 
 	void showDepositWallet();
-
-	void showTournamentActivity();
 }
