@@ -110,8 +110,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:lineSpacingMultiplier="1.1"
                 android:text="@string/no_programs_registered"
-                android:textColor="@color/black12"
+                android:textColor="@color/black38"
                 android:textSize="18sp"/>
 
         </LinearLayout>

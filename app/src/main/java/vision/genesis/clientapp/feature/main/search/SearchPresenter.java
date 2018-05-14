@@ -10,7 +10,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -25,6 +24,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVisionAndroid
@@ -34,7 +34,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 @InjectViewState
 public class SearchPresenter extends MvpPresenter<SearchView>
 {
-	private static int TAKE = 30;
+	private static int TAKE = 20;
 
 	private static int GROUPS_COUNT = 1;
 
@@ -46,15 +46,15 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 
 	private Subscription getProgramsSubscription;
 
-	private Subscription getTournamentProgramsSubscription;
-
 	private List<InvestmentProgram> investmentProgramsList = new ArrayList<>();
 
 	private List<InvestmentProgram> tournamentProgramsList = new ArrayList<>();
 
-	private String searchString = "";
-
 	private int groupsLoaded = 0;
+
+	private int skip = 0;
+
+	private InvestmentProgramsFilter filter;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -63,6 +63,8 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 		GenesisVisionApplication.getComponent().inject(this);
 
 		EventBus.getDefault().register(this);
+
+		createFilter();
 	}
 
 	@Override
@@ -70,36 +72,41 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 		if (getProgramsSubscription != null)
 			getProgramsSubscription.unsubscribe();
 
-		if (getTournamentProgramsSubscription != null)
-			getTournamentProgramsSubscription.unsubscribe();
-
 		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
 
+	void onLastListItemVisible() {
+		getPrograms(false);
+	}
+
 	private InvestmentProgramsFilter createFilter() {
-		InvestmentProgramsFilter filter = new InvestmentProgramsFilter();
+		filter = new InvestmentProgramsFilter();
 		filter.setSkip(0);
 		filter.setTake(TAKE);
-		filter.setEquityChartLength(36);
-		filter.setName(searchString);
+		filter.setEquityChartLength(10);
 		return filter;
 	}
 
 	private void performSearch(String searchString) {
 		groupsLoaded = 0;
-		this.searchString = searchString;
+		filter.setName(searchString);
 		getViewState().showProgressBar(true);
-		getPrograms();
+		getPrograms(true);
 //		getTournamentPrograms();
 	}
 
-	private void getPrograms() {
+	private void getPrograms(boolean forceUpdate) {
+		if (forceUpdate) {
+			skip = 0;
+			filter.setSkip(skip);
+		}
+
 		if (getProgramsSubscription != null)
 			getProgramsSubscription.unsubscribe();
 
-		getProgramsSubscription = investManager.getProgramsList(createFilter())
+		getProgramsSubscription = investManager.getProgramsList(filter)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleGetProgramsList,
@@ -113,17 +120,33 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 		getViewState().showEmptyList(false);
 		groupsLoaded++;
 
-		investmentProgramsList = model.getInvestmentPrograms();
-		if (!investmentProgramsList.isEmpty())
-			getViewState().showEmptyList(false);
+		List<InvestmentProgram> programs = model.getInvestmentPrograms();
 
-		getViewState().setInvestmentPrograms(investmentProgramsList);
+		getViewState().setResultsCount(StringFormatUtil.formatAmount(model.getTotal(), 0, 0));
+
+		if (programs.size() == 0) {
+			if (skip == 0)
+				getViewState().showEmptyList(true);
+			return;
+		}
+
+		if (skip == 0) {
+			investmentProgramsList.clear();
+			getViewState().setInvestmentPrograms(programs);
+		}
+		else {
+			getViewState().addInvestmentPrograms(programs);
+		}
+		investmentProgramsList.addAll(programs);
+		skip += TAKE;
+		filter.setTake(TAKE);
+		filter.setSkip(skip);
+
 		onLoadingFinishedMaybe();
 	}
 
 	private void handleGetProgramsListError(Throwable error) {
 		getProgramsSubscription.unsubscribe();
-		getTournamentProgramsSubscription.unsubscribe();
 
 		if (ApiErrorResolver.isNetworkError(error)) {
 			getViewState().showEmptyList(false);
@@ -132,38 +155,35 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 		}
 	}
 
-	private void getTournamentPrograms() {
-		if (getTournamentProgramsSubscription != null)
-			getTournamentProgramsSubscription.unsubscribe();
-
-		InvestmentProgramsFilter filter = createFilter();
-//		filter.setRoundNumber(1);
-
-		getTournamentProgramsSubscription = investManager.getProgramsList(filter)
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleGetTournamentProgramsList,
-						this::handleGetProgramsListError);
-	}
-
-	private void handleGetTournamentProgramsList(InvestmentProgramsViewModel model) {
-		getTournamentProgramsSubscription.unsubscribe();
-
-		getViewState().showNoInternet(false);
-
-		groupsLoaded++;
-
-		tournamentProgramsList = model.getInvestmentPrograms();
-		if (!tournamentProgramsList.isEmpty())
-			getViewState().showEmptyList(false);
-
-		getViewState().setTournamentPrograms(tournamentProgramsList);
-		onLoadingFinishedMaybe();
-	}
-
-	private void setFavoritesCount() {
-//		EventBus.getDefault().post(new SetFavoritesTabCountEvent(investmentProgramsList.size() + tournamentProgramsList.size()));
-	}
+//	private void getTournamentPrograms() {
+//		if (getTournamentProgramsSubscription != null)
+//			getTournamentProgramsSubscription.unsubscribe();
+//
+//		InvestmentProgramsFilter filter = createFilter();
+////		filter.setRoundNumber(1);
+//
+//		getTournamentProgramsSubscription = investManager.getProgramsList(filter)
+//				.observeOn(AndroidSchedulers.mainThread())
+//				.subscribeOn(Schedulers.io())
+//				.subscribe(this::handleGetTournamentProgramsList,
+//						this::handleGetProgramsListError);
+//	}
+//
+//	private void handleGetTournamentProgramsList(InvestmentProgramsViewModel model) {
+//		getTournamentProgramsSubscription.unsubscribe();
+//
+//		getViewState().showNoInternet(false);
+//
+//		groupsLoaded++;
+//
+//		tournamentProgramsList = model.getInvestmentPrograms();
+//
+//		if (!tournamentProgramsList.isEmpty())
+//			getViewState().showEmptyList(false);
+//
+//		getViewState().setTournamentPrograms(tournamentProgramsList);
+//		onLoadingFinishedMaybe();
+//	}
 
 	private void onLoadingFinishedMaybe() {
 		if (groupsLoaded == GROUPS_COUNT) {
@@ -173,24 +193,6 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 				getViewState().showEmptyList(true);
 			}
 		}
-		setFavoritesCount();
-	}
-
-	private void removeProgram(UUID programId) {
-		for (int i = 0; i < investmentProgramsList.size(); i++) {
-			if (investmentProgramsList.get(i).getId().equals(programId)) {
-				investmentProgramsList.remove(i);
-				break;
-			}
-		}
-		for (int i = 0; i < tournamentProgramsList.size(); i++) {
-			if (tournamentProgramsList.get(i).getId().equals(programId)) {
-				tournamentProgramsList.remove(i);
-				break;
-			}
-		}
-
-		setFavoritesCount();
 	}
 
 	@Subscribe

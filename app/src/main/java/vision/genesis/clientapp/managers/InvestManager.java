@@ -97,7 +97,7 @@ public class InvestManager
 	}
 
 	public Observable<InvestorDashboard> getInvestments(String sorting) {
-		return investorApi.apiInvestorDashboardGet(AuthManager.token.getValue(), sorting, 36);
+		return investorApi.apiInvestorDashboardGet(AuthManager.token.getValue(), sorting, 10);
 	}
 
 	public Observable<InvestmentProgramViewModel> getInvestmentProgramDetails(UUID programId) {

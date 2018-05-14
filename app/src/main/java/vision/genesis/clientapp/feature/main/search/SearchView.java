@@ -18,6 +18,8 @@ interface SearchView extends MvpView
 {
 	void setInvestmentPrograms(List<InvestmentProgram> programs);
 
+	void addInvestmentPrograms(List<InvestmentProgram> programs);
+
 	void setTournamentPrograms(List<InvestmentProgram> programs);
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
@@ -32,4 +34,6 @@ interface SearchView extends MvpView
 	void finishActivity();
 
 	void changeProgramIsFavorite(UUID programId, boolean isFavorite);
+
+	void setResultsCount(String count);
 }

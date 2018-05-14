@@ -24,8 +24,8 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView;
 import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
-import vision.genesis.clientapp.model.events.SetProgramsTabCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVisionAndroid
@@ -92,7 +92,7 @@ public class TournamentPresenter extends MvpPresenter<TournamentView> implements
 		filter = new InvestmentProgramsFilter();
 		filter.setSkip(0);
 		filter.setTake(TAKE);
-		filter.setEquityChartLength(36);
+		filter.setEquityChartLength(10);
 
 		getViewState().updateFilter(filter);
 	}
@@ -132,7 +132,7 @@ public class TournamentPresenter extends MvpPresenter<TournamentView> implements
 
 		List<InvestmentProgram> programs = model.getInvestmentPrograms();
 
-		EventBus.getDefault().post(new SetProgramsTabCountEvent(model.getTotal()));
+		getViewState().setProgramsCount(StringFormatUtil.formatAmount(model.getTotal(), 0, 0));
 
 		if (programs.size() == 0) {
 			if (skip == 0)

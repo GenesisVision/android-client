@@ -66,6 +66,21 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 	@BindView(R.id.swipe_refresh)
 	public SwipeRefreshLayout refreshLayout;
 
+	@BindView(R.id.group_tournament)
+	public ViewGroup tournamentGroup;
+
+	@BindView(R.id.round)
+	public TextView round;
+
+	@BindView(R.id.round_label)
+	public TextView roundLabel;
+
+	@BindView(R.id.place)
+	public TextView place;
+
+	@BindView(R.id.place_label)
+	public TextView placeLabel;
+
 	@BindView(R.id.chart)
 	public ProfitDetailsChartView chart;
 
@@ -195,6 +210,11 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 	@OnClick(R.id.trades)
 	public void onTradesClicked() {
 		EventBus.getDefault().post(new ShowTradesEvent());
+	}
+
+	@OnClick(R.id.tooltip_tournament)
+	public void onTooltipTournamentClicked() {
+		showTooltip(tournamentGroup, R.string.tooltip_tournament);
 	}
 
 	@OnClick(R.id.tooltip_equity_chart)
@@ -355,6 +375,12 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 	}
 
 	private void setFonts() {
+		round.setTypeface(TypefaceUtil.light());
+		roundLabel.setTypeface(TypefaceUtil.bold());
+
+		place.setTypeface(TypefaceUtil.light());
+		placeLabel.setTypeface(TypefaceUtil.bold());
+
 		periodDuration.setTypeface(TypefaceUtil.bold());
 		periodDurationDays.setTypeface(TypefaceUtil.bold());
 		periodDurationLabel.setTypeface(TypefaceUtil.bold());
@@ -397,6 +423,15 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 	@Override
 	public void setProgramDetails(InvestmentProgramDetails programDetails) {
 		this.programDetails = programDetails;
+
+		if (programDetails.isIsTournament()) {
+			tournamentGroup.setVisibility(View.VISIBLE);
+			round.setText(String.valueOf(programDetails.getRoundNumber()));
+			place.setText(String.valueOf(programDetails.getPlace()));
+		}
+		else {
+			tournamentGroup.setVisibility(View.GONE);
+		}
 
 		programDataView.setData(programDetails.getProfitTotal(),
 				programDetails.getProfitAvgPercent(),

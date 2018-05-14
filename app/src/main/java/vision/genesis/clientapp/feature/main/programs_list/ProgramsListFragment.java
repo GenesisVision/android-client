@@ -160,9 +160,9 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	}
 
 	private void updateSortingFiltersVisibility(int dy) {
-		if (!sortingFiltersInAnim && sortingFiltersButtonsView.getVisibility() != View.VISIBLE && dy > 20)
+		if (!sortingFiltersInAnim && sortingFiltersButtonsView.getVisibility() != View.VISIBLE && dy > 10)
 			showSortingFilters();
-		else if (!sortingFiltersInAnim && sortingFiltersButtonsView.getVisibility() == View.VISIBLE && dy < -20)
+		else if (!sortingFiltersInAnim && sortingFiltersButtonsView.getVisibility() == View.VISIBLE && dy < -10)
 			hideSortingFilters();
 	}
 
@@ -216,6 +216,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	@Override
 	public void setInvestmentPrograms(List<InvestmentProgram> programs) {
 		programsListAdapter.setInvestmentPrograms(programs);
+		recyclerView.scrollToPosition(0);
 	}
 
 	@Override
@@ -226,8 +227,6 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	@Override
 	public void setRefreshing(boolean refreshing) {
 		refreshLayout.setRefreshing(refreshing);
-		if (refreshing)
-			recyclerView.scrollToPosition(0);
 	}
 
 	@Override
@@ -254,11 +253,6 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	}
 
 	@Override
-	public void setProgramsCount(Integer count) {
-//		programsCount.setText(StringFormatUtil.formatAmount((double) count, 0, 0));
-	}
-
-	@Override
 	public void showFiltersActive(boolean show) {
 //		toolbar.showRightButtonDot(show);
 	}
@@ -271,6 +265,11 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	@Override
 	public void updateFilter(InvestmentProgramsFilter filter) {
 		sortingFiltersButtonsView.setFilter(filter);
+	}
+
+	@Override
+	public void setProgramsCount(String count) {
+		sortingFiltersButtonsView.setCount(count);
 	}
 
 	@Override

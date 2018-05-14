@@ -159,10 +159,10 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 
 			if (investmentProgram.isIsTournament()) {
 				tournamentGroup.setVisibility(View.VISIBLE);
-				if (investmentProgram.getPlace() != null)
-					place.setText(String.format(Locale.getDefault(), "#%d", investmentProgram.getPlace()));
-				else
-					place.setText("-");
+				place.setText(String.format(Locale.getDefault(), "%s %d\n#%s",
+						GenesisVisionApplication.INSTANCE.getString(R.string.round).toUpperCase(),
+						investmentProgram.getRoundNumber(),
+						investmentProgram.getPlace() != null ? investmentProgram.getPlace() : "-"));
 			}
 			else {
 				tournamentGroup.setVisibility(View.GONE);

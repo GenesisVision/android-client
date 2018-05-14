@@ -74,10 +74,11 @@
 
     <style name="filters_item_label">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/filters_item_height</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">@color/colorFontMedium</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="filters_item_value">

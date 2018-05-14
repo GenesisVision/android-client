@@ -3,7 +3,8 @@ package vision.genesis.clientapp.feature.main.filters_sorting;
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
-import android.widget.ImageView;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -35,7 +36,13 @@ public class SortingFiltersButtonsView extends RelativeLayout
 	public TextView sortingButton;
 
 	@BindView(R.id.button_filters)
-	public ImageView filtersButton;
+	public ViewGroup filtersButton;
+
+	@BindView(R.id.filters_dot)
+	public View filtersDot;
+
+	@BindView(R.id.text_count)
+	public TextView count;
 
 	private FragmentActivity activity;
 
@@ -76,6 +83,30 @@ public class SortingFiltersButtonsView extends RelativeLayout
 
 	@OnClick(R.id.button_filters)
 	public void onFiltersClicked() {
+		if (activity != null) {
+			FiltersBottomSheetFragment bottomSheetDialog = new FiltersBottomSheetFragment();
+			bottomSheetDialog.show(activity.getSupportFragmentManager(), bottomSheetDialog.getTag());
+			bottomSheetDialog.setCurrentFilter(filter);
+			bottomSheetDialog.setListener(this::updateFilter);
+		}
+	}
+
+	private void updateFilter(InvestmentProgramsFilter updatedFilter) {
+		filter = updatedFilter;
+
+		filtersDot.setVisibility(isFilterReset(filter) ? View.GONE : VISIBLE);
+
+
+		if (filtersUpdateListener != null)
+			filtersUpdateListener.onFilterUpdated(filter);
+	}
+
+	private boolean isFilterReset(InvestmentProgramsFilter filter) {
+		return filter.getLevelMin() == null
+				&& filter.getLevelMax() == null
+				&& filter.getProfitAvgPercentMin() == null
+				&& filter.getProfitAvgPercentMax() == null
+				&& filter.isShowActivePrograms() == null;
 	}
 
 	@OnClick(R.id.button_up)
@@ -105,6 +136,15 @@ public class SortingFiltersButtonsView extends RelativeLayout
 	public void setFilter(InvestmentProgramsFilter filter) {
 		this.filter = filter;
 		extractSortingFromFilter(filter.getSorting());
+	}
+
+	public void setCount(String count) {
+		this.count.setText(count);
+	}
+
+	public void disableSorting(String sortingString) {
+		sortingButton.setEnabled(false);
+		sortingButton.setText(sortingString);
 	}
 
 	private void extractSortingFromFilter(InvestmentProgramsFilter.SortingEnum sortingEnum) {

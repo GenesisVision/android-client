@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="4dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/group_data"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_investment_program_height"
@@ -17,6 +17,36 @@
         android:padding="8dp">
 
         <RelativeLayout
+            android:id="@+id/group_tournament"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:src="@drawable/trophy"
+                android:tint="@color/grey100"/>
+
+            <TextView
+                android:id="@+id/text_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="44dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:textColor="@color/black38"
+                android:textSize="14sp"
+                tools:text="ROUND 1\n#12"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingEnd="8dp"
@@ -55,9 +85,9 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_toEndOf="@+id/avatar"
-                android:layout_toLeftOf="@+id/group_chart"
+                android:layout_toLeftOf="@+id/chart"
                 android:layout_toRightOf="@+id/avatar"
-                android:layout_toStartOf="@+id/group_chart"
+                android:layout_toStartOf="@+id/chart"
                 android:orientation="vertical">
 
                 <TextView
@@ -80,52 +110,17 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/group_chart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <vision.genesis.clientapp.ui.chart.ProfitSmallChartView
+                android:id="@+id/chart"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <vision.genesis.clientapp.ui.chart.ProfitSmallChartView
-                    android:id="@+id/chart"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"/>
-
-                <RelativeLayout
-                    android:id="@+id/group_tournament"
-                    android:layout_width="50dp"
-                    android:layout_height="42dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:visibility="gone"
-                    tools:visibility="visible">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/trophy"
-                        android:tint="@color/colorPrimaryDark"/>
-
-                    <TextView
-                        android:id="@+id/text_place"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:gravity="center"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="14sp"
-                        tools:text="#12"/>
-
-                </RelativeLayout>
-
-            </LinearLayout>
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="8dp"/>
 
         </RelativeLayout>
 
@@ -133,13 +128,15 @@
             android:id="@+id/view_program_data"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_investment_program_footer_height"
+            android:layout_below="@+id/header"
             android:layout_marginTop="16dp"/>
 
         <TextView
             android:id="@+id/text_no_available_tokens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/view_program_data"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:text="@string/no_available_tokens"
             android:textAllCaps="true"
@@ -148,7 +145,7 @@
             android:visibility="gone"
             tools:visibility="visible"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"

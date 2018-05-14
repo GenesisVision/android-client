@@ -13,9 +13,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:textColor="@color/grey700"
-        android:textSize="18sp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/grey500"
         tools:text="@string/title"
+        android:textSize="16sp"
         tools:textColor="@color/black"/>
 
     <ImageView

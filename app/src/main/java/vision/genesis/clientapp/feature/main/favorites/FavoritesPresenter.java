@@ -27,8 +27,8 @@ import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.model.FilterSortingOption;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
-import vision.genesis.clientapp.model.events.SetFavoritesTabCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVisionAndroid
@@ -104,6 +104,11 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 		getFavorites();
 	}
 
+	void onTryAgainClicked() {
+		getViewState().showProgressBar(true);
+		getFavorites();
+	}
+
 	private void subscribeToUser() {
 		userSubscription = authManager.userSubject
 				.observeOn(AndroidSchedulers.mainThread())
@@ -135,7 +140,7 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 		InvestmentProgramsFilter filter = new InvestmentProgramsFilter();
 		filter.setSkip(0);
 		filter.setTake(TAKE);
-		filter.setEquityChartLength(36);
+		filter.setEquityChartLength(10);
 		return filter;
 	}
 
@@ -176,7 +181,7 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 
 	private void handleGetProgramsListError(Throwable error) {
 		getProgramsSubscription.unsubscribe();
-		getTournamentProgramsSubscription.unsubscribe();
+//		getTournamentProgramsSubscription.unsubscribe();
 
 		if (ApiErrorResolver.isNetworkError(error)) {
 			getViewState().showEmptyList(false);
@@ -216,7 +221,8 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 	}
 
 	private void setFavoritesCount() {
-		EventBus.getDefault().post(new SetFavoritesTabCountEvent(investmentProgramsList.size() + tournamentProgramsList.size()));
+		getViewState().setFavoritesCount(StringFormatUtil.formatAmount(
+				investmentProgramsList.size() + tournamentProgramsList.size(), 0, 0));
 	}
 
 	private void onLoadingFinishedMaybe() {

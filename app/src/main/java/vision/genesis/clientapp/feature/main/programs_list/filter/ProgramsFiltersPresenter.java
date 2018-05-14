@@ -11,7 +11,6 @@ import javax.inject.Inject;
 
 import io.swagger.client.model.InvestmentProgramsFilter;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersClearedEvent;
 
@@ -26,8 +25,8 @@ public class ProgramsFiltersPresenter extends MvpPresenter<ProgramsFiltersView>
 	@Inject
 	public Context context;
 
-	@Inject
-	public InvestManager investManager;
+//	@Inject
+//	public InvestManager investManager;
 
 	private InvestmentProgramsFilter filter;
 
@@ -37,8 +36,8 @@ public class ProgramsFiltersPresenter extends MvpPresenter<ProgramsFiltersView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		filter = investManager.getFilter();
-		getViewState().setFilterData(filter);
+//		filter = investManager.getFilter();
+//		getViewState().setFilterData(filter);
 	}
 
 	void onBackClicked() {
@@ -64,7 +63,7 @@ public class ProgramsFiltersPresenter extends MvpPresenter<ProgramsFiltersView>
 	}
 
 	void onApplyClicked() {
-		investManager.setFilter(filter);
+//		investManager.setFilter(filter);
 		EventBus.getDefault().post(new ProgramsListFiltersAppliedEvent());
 		onBackClicked();
 	}
@@ -73,7 +72,7 @@ public class ProgramsFiltersPresenter extends MvpPresenter<ProgramsFiltersView>
 		String name = filter.getName();
 		filter = new InvestmentProgramsFilter();
 		filter.setName(name);
-		investManager.setFilter(filter);
+//		investManager.setFilter(filter);
 		EventBus.getDefault().post(new ProgramsListFiltersClearedEvent());
 		onBackClicked();
 	}

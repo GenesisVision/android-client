@@ -32,4 +32,6 @@ interface TournamentView extends MvpView
 	void showSnackbarMessage(String message);
 
 	void updateFilter(InvestmentProgramsFilter filter);
+
+	void setProgramsCount(String count);
 }

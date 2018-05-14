@@ -14,65 +14,73 @@
         android:background="@color/colorGrayBackground"
         android:visibility="gone"/>
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/scrollview"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/programs_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/group_search"
-        android:visibility="gone">
+        android:background="@color/colorGrayBackground"
+        android:clipToPadding="false"
+        android:paddingBottom="70dp"
+        android:paddingTop="16dp"
+        android:visibility="gone"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorGrayBackground"
-            android:descendantFocusability="blocksDescendants"
-            android:orientation="vertical">
+    <!--<android.support.v4.widget.NestedScrollView-->
+    <!--android:id="@+id/scrollview"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_below="@+id/group_search"-->
+    <!--android:visibility="gone">-->
 
-            <TextView
-                android:id="@+id/text_programs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="sans-serif"
-                android:text="@string/programs"
-                android:textAllCaps="true"
-                android:textColor="@color/grey400"
-                android:textSize="12sp"
-                android:visibility="gone"
-                tools:visibility="visible"/>
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/colorGrayBackground"-->
+    <!--android:descendantFocusability="blocksDescendants"-->
+    <!--android:orientation="vertical">-->
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/programs_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+    <!--<TextView-->
+    <!--android:id="@+id/text_programs"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginBottom="8dp"-->
+    <!--android:layout_marginLeft="16dp"-->
+    <!--android:layout_marginStart="16dp"-->
+    <!--android:layout_marginTop="16dp"-->
+    <!--android:fontFamily="sans-serif"-->
+    <!--android:text="@string/programs"-->
+    <!--android:textAllCaps="true"-->
+    <!--android:textColor="@color/grey400"-->
+    <!--android:textSize="12sp"-->
+    <!--android:visibility="gone"-->
+    <!--tools:visibility="visible"/>-->
 
-            <TextView
-                android:id="@+id/text_tournament"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif"
-                android:text="@string/tournament"
-                android:textAllCaps="true"
-                android:textColor="@color/grey400"
-                android:textSize="12sp"
-                android:visibility="gone"
-                tools:visibility="visible"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/tournament_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+    <!--<TextView-->
+    <!--android:id="@+id/text_tournament"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginBottom="8dp"-->
+    <!--android:layout_marginLeft="16dp"-->
+    <!--android:layout_marginStart="16dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:fontFamily="sans-serif"-->
+    <!--android:text="@string/tournament"-->
+    <!--android:textAllCaps="true"-->
+    <!--android:textColor="@color/grey400"-->
+    <!--android:textSize="12sp"-->
+    <!--android:visibility="gone"-->
+    <!--tools:visibility="visible"/>-->
 
-        </LinearLayout>
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/tournament_recycler_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"/>-->
 
-    </android.support.v4.widget.NestedScrollView>
+    <!--</LinearLayout>-->
+
+    <!--</android.support.v4.widget.NestedScrollView>-->
 
     <LinearLayout
         android:id="@+id/group_empty"
@@ -139,12 +147,26 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:gravity="center"
-        android:padding="6dp"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        android:paddingTop="6dp"
         android:visibility="visible">
 
         <include
             android:id="@+id/searchbar"
             layout="@layout/view_searchbar"/>
+
+        <TextView
+            android:id="@+id/text_results_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/searchbar"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/grey300"
+            android:textSize="12sp"
+            tools:text="Results: 8"/>
 
     </RelativeLayout>
 

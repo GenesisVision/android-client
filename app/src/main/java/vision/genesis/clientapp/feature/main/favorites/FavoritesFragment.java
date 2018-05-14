@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -19,6 +18,7 @@ import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.InvestmentProgram;
 import vision.genesis.clientapp.GenesisVisionApplication;
@@ -39,8 +39,8 @@ public class FavoritesFragment extends BaseFragment implements FavoritesView
 	@BindView(R.id.programs_recycler_view)
 	public RecyclerView programsRecyclerView;
 
-	@BindView(R.id.tournament_recycler_view)
-	public RecyclerView tournamentRecyclerView;
+//	@BindView(R.id.tournament_recycler_view)
+//	public RecyclerView tournamentRecyclerView;
 
 	@BindView(R.id.group_no_internet)
 	public ViewGroup noInternetGroup;
@@ -51,11 +51,11 @@ public class FavoritesFragment extends BaseFragment implements FavoritesView
 	@BindView(R.id.group_should_sign_in)
 	public ViewGroup shouldSignInGroup;
 
-	@BindView(R.id.text_programs)
-	public TextView programsText;
-
-	@BindView(R.id.text_tournament)
-	public TextView tournamentText;
+//	@BindView(R.id.text_programs)
+//	public TextView programsText;
+//
+//	@BindView(R.id.text_tournament)
+//	public TextView tournamentText;
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
@@ -65,9 +65,15 @@ public class FavoritesFragment extends BaseFragment implements FavoritesView
 
 	private ProgramsListAdapter programsAdapter;
 
-	private ProgramsListAdapter tournamentAdapter;
+//	private ProgramsListAdapter tournamentAdapter;
 
 	private Unbinder unbinder;
+
+	@OnClick(R.id.button_try_again)
+	public void onTryAgainClicked() {
+		favoritesPresenter.onTryAgainClicked();
+	}
+
 
 	@Nullable
 	@Override
@@ -90,8 +96,8 @@ public class FavoritesFragment extends BaseFragment implements FavoritesView
 		if (programsRecyclerView != null)
 			programsRecyclerView.setAdapter(null);
 
-		if (tournamentRecyclerView != null)
-			tournamentRecyclerView.setAdapter(null);
+//		if (tournamentRecyclerView != null)
+//			tournamentRecyclerView.setAdapter(null);
 
 		if (unbinder != null) {
 			unbinder.unbind();
@@ -116,28 +122,27 @@ public class FavoritesFragment extends BaseFragment implements FavoritesView
 		programsAdapter = new ProgramsListAdapter();
 		programsAdapter.setHasStableIds(true);
 		programsRecyclerView.setAdapter(programsAdapter);
-		programsRecyclerView.setNestedScrollingEnabled(false);
 //		programsRecyclerView.setHasFixedSize(true);
 
-		tournamentRecyclerView.setRecycledViewPool(viewPool);
-		tournamentRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-		tournamentAdapter = new ProgramsListAdapter();
-		tournamentAdapter.setHasStableIds(true);
-		tournamentRecyclerView.setAdapter(tournamentAdapter);
-		tournamentRecyclerView.setNestedScrollingEnabled(false);
+//		tournamentRecyclerView.setRecycledViewPool(viewPool);
+//		tournamentRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//		tournamentAdapter = new ProgramsListAdapter();
+//		tournamentAdapter.setHasStableIds(true);
+//		tournamentRecyclerView.setAdapter(tournamentAdapter);
+//		tournamentRecyclerView.setNestedScrollingEnabled(false);
 //		tournamentRecyclerView.setHasFixedSize(true);
 	}
 
 	@Override
 	public void setInvestmentPrograms(List<InvestmentProgram> programs) {
-		programsText.setVisibility(!programs.isEmpty() ? View.VISIBLE : View.GONE);
+//		programsText.setVisibility(!programs.isEmpty() ? View.VISIBLE : View.GONE);
 		programsAdapter.setInvestmentPrograms(programs);
 	}
 
 	@Override
 	public void setTournamentPrograms(List<InvestmentProgram> programs) {
-		tournamentText.setVisibility(!programs.isEmpty() ? View.VISIBLE : View.GONE);
-		tournamentAdapter.setInvestmentPrograms(programs);
+//		tournamentText.setVisibility(!programs.isEmpty() ? View.VISIBLE : View.GONE);
+//		tournamentAdapter.setInvestmentPrograms(programs);
 	}
 
 	@Override
@@ -170,13 +175,18 @@ public class FavoritesFragment extends BaseFragment implements FavoritesView
 	@Override
 	public void removeProgram(UUID programId) {
 		programsAdapter.removeProgram(programId);
-		tournamentAdapter.removeProgram(programId);
+//		tournamentAdapter.removeProgram(programId);
 	}
 
 	@Override
 	public void showUserLoggedOff(boolean show) {
 		shouldSignInGroup.setVisibility(!show ? View.GONE : View.VISIBLE);
 		refreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
+	}
+
+	@Override
+	public void setFavoritesCount(String count) {
+
 	}
 
 	@Override

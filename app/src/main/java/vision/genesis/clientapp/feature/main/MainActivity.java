@@ -262,11 +262,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	}
 
 	@Override
-	public void showProgramFilters() {
-//		ProgramsFiltersActivity.startFrom(this);
-	}
-
-	@Override
 	public void showInvestmentProgramDetails(ProgramInfoModel programInfoModel) {
 		ProgramInfoActivity.startWith(this, programInfoModel);
 	}

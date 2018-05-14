@@ -17,9 +17,5 @@ interface AssetsView extends MvpView
 
 	void showProgress(boolean show);
 
-	void setFavoritesTabCount(int count);
-
-	void setProgramsTabCount(int count);
-
 	void onPlatformStatusUpdated(PlatformStatus platformStatus);
 }

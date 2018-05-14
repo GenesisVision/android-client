@@ -149,12 +149,13 @@ public class TournamentFragment extends BaseFragment implements TournamentView
 			else
 				recyclerView.scrollToPosition(0);
 		});
+		sortingFiltersButtonsView.disableSorting(getString(R.string.sort_by_place));
 	}
 
 	private void updateSortingFiltersVisibility(int dy) {
-		if (!sortingFiltersInAnim && sortingFiltersButtonsView.getVisibility() != View.VISIBLE && dy > 20)
+		if (!sortingFiltersInAnim && sortingFiltersButtonsView.getVisibility() != View.VISIBLE && dy > 10)
 			showSortingFilters();
-		else if (!sortingFiltersInAnim && sortingFiltersButtonsView.getVisibility() == View.VISIBLE && dy < -20)
+		else if (!sortingFiltersInAnim && sortingFiltersButtonsView.getVisibility() == View.VISIBLE && dy < -10)
 			hideSortingFilters();
 	}
 
@@ -226,6 +227,7 @@ public class TournamentFragment extends BaseFragment implements TournamentView
 	@Override
 	public void setTournamentPrograms(List<InvestmentProgram> programs) {
 		programsAdapter.setInvestmentPrograms(programs);
+		recyclerView.scrollToPosition(0);
 	}
 
 	@Override
@@ -265,6 +267,11 @@ public class TournamentFragment extends BaseFragment implements TournamentView
 	@Override
 	public void updateFilter(InvestmentProgramsFilter filter) {
 		sortingFiltersButtonsView.setFilter(filter);
+	}
+
+	@Override
+	public void setProgramsCount(String count) {
+		sortingFiltersButtonsView.setCount(count);
 	}
 
 	public void setTournamentData(Integer tournamentCurrentRound, Integer tournamentTotalRounds) {

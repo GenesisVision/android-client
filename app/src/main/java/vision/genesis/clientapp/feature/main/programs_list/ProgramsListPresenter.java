@@ -26,9 +26,8 @@ import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersClearedEvent;
-import vision.genesis.clientapp.model.events.SetProgramsTabCountEvent;
-import vision.genesis.clientapp.model.events.ShowFiltersEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVision
@@ -45,8 +44,6 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 
 	@Inject
 	public InvestManager investManager;
-
-	private Subscription filterSubscription;
 
 	private Subscription getProgramsSubscription;
 
@@ -71,9 +68,6 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 
 	@Override
 	public void onDestroy() {
-		if (filterSubscription != null)
-			filterSubscription.unsubscribe();
-
 		if (getProgramsSubscription != null)
 			getProgramsSubscription.unsubscribe();
 
@@ -82,12 +76,13 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 		super.onDestroy();
 	}
 
-	void onFilterClicked() {
-		EventBus.getDefault().post(new ShowFiltersEvent());
-	}
-
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
+		getProgramsList(true);
+	}
+
+	void onTryAgainClicked() {
+		getViewState().showProgressBar(true);
 		getProgramsList(true);
 	}
 
@@ -99,7 +94,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 		filter = new InvestmentProgramsFilter();
 		filter.setSkip(0);
 		filter.setTake(TAKE);
-		filter.setEquityChartLength(36);
+		filter.setEquityChartLength(10);
 
 		getViewState().updateFilter(filter);
 	}
@@ -135,7 +130,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 
 		List<InvestmentProgram> programs = model.getInvestmentPrograms();
 
-		EventBus.getDefault().post(new SetProgramsTabCountEvent(model.getTotal()));
+		getViewState().setProgramsCount(StringFormatUtil.formatAmount(model.getTotal(), 0, 0));
 
 		if (programs.size() == 0) {
 			if (skip == 0)
@@ -168,11 +163,6 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 			}
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}
-	}
-
-	void onTryAgainClicked() {
-		getViewState().showProgressBar(true);
-		getProgramsList(true);
 	}
 
 	@Subscribe

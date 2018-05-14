@@ -166,6 +166,7 @@ public class ProgramDataView extends RelativeLayout
 
 		ShortenedAmount totalProfitShortenedAmount = StringFormatUtil.getShortenedAmount(profitTotal);
 		totalProfitText.setText(String.format("%s", totalProfitShortenedAmount.amount));
+//		totalProfitText.setText(String.format("%s", profitTotal));
 		totalProfitTextMod.setText(totalProfitShortenedAmount.modifier);
 
 		avgProfitTextFull.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(profitAvg)));
@@ -175,6 +176,7 @@ public class ProgramDataView extends RelativeLayout
 
 		ShortenedAmount balanceShortenedAmount = StringFormatUtil.getShortenedAmount(balance);
 		balanceText.setText(String.format("%s", balanceShortenedAmount.amount));
+//		balanceText.setText(String.format("%s", balance));
 		balanceTextMod.setText(balanceShortenedAmount.modifier);
 
 		this.balanceCurrency.setText(balanceCurrency);

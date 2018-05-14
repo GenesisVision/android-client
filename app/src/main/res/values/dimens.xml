@@ -97,5 +97,6 @@
 
     <dimen name="searchbar_height">52dp</dimen>
     <dimen name="filters_sorting_buttons_height">45dp</dimen>
-    <dimen name="fragment_bottomsheet_sorting_height">350dp</dimen>
+    <dimen name="fragment_bottomsheet_sorting_height">320dp</dimen>
+    <dimen name="fragment_bottomsheet_filters_height">400dp</dimen>
 </resources>

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -53,8 +52,8 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 	@BindView(R.id.version)
 	public TextView version;
 
-	@BindView(R.id.scrollview)
-	public NestedScrollView scrollView;
+//	@BindView(R.id.scrollview)
+//	public NestedScrollView scrollView;
 
 	@BindView(R.id.background_black)
 	public View backgroundBlack;
@@ -65,11 +64,14 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 	@BindView(R.id.edittext_search)
 	public EditText searchEditText;
 
+	@BindView(R.id.text_results_count)
+	public TextView resultsCount;
+
 	@BindView(R.id.programs_recycler_view)
 	public RecyclerView programsRecyclerView;
 
-	@BindView(R.id.tournament_recycler_view)
-	public RecyclerView tournamentRecyclerView;
+//	@BindView(R.id.tournament_recycler_view)
+//	public RecyclerView tournamentRecyclerView;
 
 	@BindView(R.id.group_no_internet)
 	public ViewGroup noInternetGroup;
@@ -77,11 +79,11 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 	@BindView(R.id.group_empty)
 	public ViewGroup emptyGroup;
 
-	@BindView(R.id.text_programs)
-	public TextView programsText;
-
-	@BindView(R.id.text_tournament)
-	public TextView tournamentText;
+//	@BindView(R.id.text_programs)
+//	public TextView programsText;
+//
+//	@BindView(R.id.text_tournament)
+//	public TextView tournamentText;
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
@@ -91,7 +93,9 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 
 	private ProgramsListAdapter programsAdapter;
 
-	private ProgramsListAdapter tournamentAdapter;
+	private int lastVisible = 0;
+
+//	private ProgramsListAdapter tournamentAdapter;
 
 	@OnClick(R.id.background_black)
 	public void onBackgroundBlackClicked() {
@@ -145,8 +149,8 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 		if (programsRecyclerView != null)
 			programsRecyclerView.setAdapter(null);
 
-		if (tournamentRecyclerView != null)
-			tournamentRecyclerView.setAdapter(null);
+//		if (tournamentRecyclerView != null)
+//			tournamentRecyclerView.setAdapter(null);
 
 		super.onDestroy();
 	}
@@ -160,15 +164,26 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 		programsAdapter.setHasStableIds(true);
 		programsRecyclerView.setAdapter(programsAdapter);
 		programsRecyclerView.setNestedScrollingEnabled(false);
-//		programsRecyclerView.setHasFixedSize(true);
+		programsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
+		{
+			@Override
+			public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+				checkIfLastItemVisible();
+			}
+		});
+	}
 
-		tournamentRecyclerView.setRecycledViewPool(viewPool);
-		tournamentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-		tournamentAdapter = new ProgramsListAdapter();
-		tournamentAdapter.setHasStableIds(true);
-		tournamentRecyclerView.setAdapter(tournamentAdapter);
-		tournamentRecyclerView.setNestedScrollingEnabled(false);
-//		tournamentRecyclerView.setHasFixedSize(true);
+	private void checkIfLastItemVisible() {
+		LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(programsRecyclerView.getLayoutManager());
+		int totalItemCount = layoutManager.getItemCount();
+		lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
+		if (lastVisible < 0)
+			return;
+
+		boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
+		if (totalItemCount > 0 && endHasBeenReached) {
+			searchPresenter.onLastListItemVisible();
+		}
 	}
 
 	private void showBackgroundBlack() {
@@ -202,19 +217,25 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 
 	@Override
 	public void setInvestmentPrograms(List<InvestmentProgram> programs) {
-		programsText.setVisibility(!programs.isEmpty() ? View.VISIBLE : View.GONE);
+//		programsText.setVisibility(!programs.isEmpty() ? View.VISIBLE : View.GONE);
 		programsAdapter.setInvestmentPrograms(programs);
+		programsRecyclerView.scrollToPosition(0);
+	}
+
+	@Override
+	public void addInvestmentPrograms(List<InvestmentProgram> programs) {
+		programsAdapter.addInvestmentPrograms(programs);
 	}
 
 	@Override
 	public void setTournamentPrograms(List<InvestmentProgram> programs) {
-		tournamentText.setVisibility(!programs.isEmpty() ? View.VISIBLE : View.GONE);
-		tournamentAdapter.setInvestmentPrograms(programs);
+//		tournamentText.setVisibility(!programs.isEmpty() ? View.VISIBLE : View.GONE);
+//		tournamentAdapter.setInvestmentPrograms(programs);
 	}
 
 	@Override
 	public void showSnackbarMessage(String message) {
-		Snackbar snack = Snackbar.make(scrollView, message, Snackbar.LENGTH_LONG);
+		Snackbar snack = Snackbar.make(background, message, Snackbar.LENGTH_LONG);
 		((TextView) snack.getView().findViewById(android.support.design.R.id.snackbar_text)).setTextColor(Color.WHITE);
 		snack.show();
 	}
@@ -222,20 +243,20 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 	@Override
 	public void showNoInternet(boolean show) {
 		noInternetGroup.setVisibility(show ? View.VISIBLE : View.GONE);
-		scrollView.setVisibility(show ? View.GONE : View.VISIBLE);
+		programsRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
 	}
 
 	@Override
 	public void showProgressBar(boolean show) {
 		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
 		if (show)
-			scrollView.scrollTo(0, 0);
+			programsRecyclerView.scrollToPosition(0);
 	}
 
 	@Override
 	public void showEmptyList(boolean show) {
 		emptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);
-		scrollView.setVisibility(show ? View.GONE : View.VISIBLE);
+		programsRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
 	}
 
 	@Override
@@ -247,7 +268,12 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 	@Override
 	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
 		programsAdapter.changeProgramIsFavorite(programId, isFavorite);
-		tournamentAdapter.changeProgramIsFavorite(programId, isFavorite);
+//		tournamentAdapter.changeProgramIsFavorite(programId, isFavorite);
+	}
+
+	@Override
+	public void setResultsCount(String count) {
+		resultsCount.setText(String.format(Locale.getDefault(), "%s: %s", getString(R.string.results), count));
 	}
 
 	@Override

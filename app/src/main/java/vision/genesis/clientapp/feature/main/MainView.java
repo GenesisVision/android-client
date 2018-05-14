@@ -35,8 +35,6 @@ public interface MainView extends MvpView
 
 	void showLoginActivity();
 
-	void showProgramFilters();
-
 	void showInvestmentProgramDetails(ProgramInfoModel programInfoModel);
 
 	void showWithdrawProgram(ProgramRequest request);

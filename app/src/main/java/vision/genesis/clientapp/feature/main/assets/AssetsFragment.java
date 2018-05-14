@@ -81,24 +81,8 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 		unbinder = ButterKnife.bind(this, view);
 
-		setFonts();
-
 		initViewPager();
 		initTabs();
-	}
-
-	@Override
-	public void onStart() {
-		super.onStart();
-		setSearchTextListener();
-	}
-
-	@Override
-	public void onStop() {
-		super.onStop();
-//		if (textChangeSubscription != null)
-//			textChangeSubscription.unsubscribe();
-//		hideSoftKeyboard();
 	}
 
 	@Override
@@ -121,14 +105,6 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 		}
 
 		super.onDestroyView();
-	}
-
-	private void setSearchTextListener() {
-//		textChangeSubscription = RxTextView.textChanges(searchEditText)
-//				.subscribe(text -> assetsPresenter.onSearchTextChanged(text.toString()));
-	}
-
-	private void setFonts() {
 	}
 
 	private void initTabs() {
@@ -201,12 +177,6 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 	}
 
 	@Override
-	public void onResume() {
-		super.onResume();
-		assetsPresenter.onResume();
-	}
-
-	@Override
 	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
 	}
@@ -239,16 +209,6 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 	@Override
 	public void showProgress(boolean show) {
 //		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-	}
-
-	@Override
-	public void setFavoritesTabCount(int count) {
-//		((CustomTabView) favoritesTab.getCustomView()).setCount(count);
-	}
-
-	@Override
-	public void setProgramsTabCount(int count) {
-//		((CustomTabView) programsTab.getCustomView()).setCount(count);
 	}
 
 	@Override
