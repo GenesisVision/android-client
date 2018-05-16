@@ -5,8 +5,8 @@ import com.arellomobile.mvp.MvpView;
 import java.util.List;
 import java.util.UUID;
 
-import io.swagger.client.model.InvestmentProgram;
 import io.swagger.client.model.InvestmentProgramsFilter;
+import vision.genesis.clientapp.model.InvestmentProgramExtended;
 
 /**
  * GenesisVisionAndroid
@@ -15,9 +15,9 @@ import io.swagger.client.model.InvestmentProgramsFilter;
 
 interface TournamentView extends MvpView
 {
-	void setTournamentPrograms(List<InvestmentProgram> programs);
+	void setTournamentPrograms(List<InvestmentProgramExtended> programs);
 
-	void addTournamentPrograms(List<InvestmentProgram> programs);
+	void addTournamentPrograms(List<InvestmentProgramExtended> programs);
 
 	void setRefreshing(boolean refreshing);
 

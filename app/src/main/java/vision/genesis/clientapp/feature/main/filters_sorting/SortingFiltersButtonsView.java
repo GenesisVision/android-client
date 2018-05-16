@@ -96,7 +96,6 @@ public class SortingFiltersButtonsView extends RelativeLayout
 
 		filtersDot.setVisibility(isFilterReset(filter) ? View.GONE : VISIBLE);
 
-
 		if (filtersUpdateListener != null)
 			filtersUpdateListener.onFilterUpdated(filter);
 	}

@@ -22,12 +22,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.InvestmentProgram;
 import io.swagger.client.model.InvestmentProgramsFilter;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView;
+import vision.genesis.clientapp.model.InvestmentProgramExtended;
 
 /**
  * GenesisVision
@@ -71,14 +71,6 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
 		programsListPresenter.onTryAgainClicked();
-	}
-
-	@OnClick(R.id.fab)
-	public void onFabClicked() {
-		if (lastVisible < 20)
-			recyclerView.smoothScrollToPosition(0);
-		else
-			recyclerView.scrollToPosition(0);
 	}
 
 	@Nullable
@@ -214,13 +206,13 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	}
 
 	@Override
-	public void setInvestmentPrograms(List<InvestmentProgram> programs) {
+	public void setInvestmentPrograms(List<InvestmentProgramExtended> programs) {
 		programsListAdapter.setInvestmentPrograms(programs);
 		recyclerView.scrollToPosition(0);
 	}
 
 	@Override
-	public void addInvestmentPrograms(List<InvestmentProgram> programs) {
+	public void addInvestmentPrograms(List<InvestmentProgramExtended> programs) {
 		programsListAdapter.addInvestmentPrograms(programs);
 	}
 
@@ -270,6 +262,11 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	@Override
 	public void setProgramsCount(String count) {
 		sortingFiltersButtonsView.setCount(count);
+	}
+
+	@Override
+	public void showBottomProgress(boolean show) {
+
 	}
 
 	@Override

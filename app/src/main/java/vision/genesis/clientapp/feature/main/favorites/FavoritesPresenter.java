@@ -14,7 +14,6 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.InvestmentProgram;
 import io.swagger.client.model.InvestmentProgramsFilter;
 import io.swagger.client.model.InvestmentProgramsViewModel;
 import rx.Subscription;
@@ -25,6 +24,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.InvestManager;
 import vision.genesis.clientapp.model.FilterSortingOption;
+import vision.genesis.clientapp.model.InvestmentProgramExtended;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -57,9 +57,11 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 
 	private Subscription getTournamentProgramsSubscription;
 
-	private List<InvestmentProgram> investmentProgramsList = new ArrayList<>();
+	private List<InvestmentProgramExtended> programsToAdd = new ArrayList<>();
 
-	private List<InvestmentProgram> tournamentProgramsList = new ArrayList<>();
+	private List<InvestmentProgramExtended> investmentProgramsList = new ArrayList<>();
+
+	private List<InvestmentProgramExtended> tournamentProgramsList = new ArrayList<>();
 
 	private int groupsLoaded = 0;
 
@@ -158,10 +160,16 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 		filter.setShowMyFavorites(true);
 
 		getProgramsSubscription = investManager.getProgramsList(filter)
+				.subscribeOn(Schedulers.computation())
+				.map(this::prepareData)
 				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleGetProgramsList,
 						this::handleGetProgramsListError);
+	}
+
+	private InvestmentProgramsViewModel prepareData(InvestmentProgramsViewModel model) {
+		investmentProgramsList = InvestmentProgramExtended.extendInvestmentPrograms(model.getInvestmentPrograms());
+		return model;
 	}
 
 	private void handleGetProgramsList(InvestmentProgramsViewModel model) {
@@ -171,7 +179,7 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 		getViewState().showEmptyList(false);
 		groupsLoaded++;
 
-		investmentProgramsList = model.getInvestmentPrograms();
+//		investmentProgramsList = programsToAdd;
 		if (!investmentProgramsList.isEmpty())
 			getViewState().showEmptyList(false);
 
@@ -190,35 +198,35 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 		}
 	}
 
-	private void getTournamentPrograms() {
-		if (getTournamentProgramsSubscription != null)
-			getTournamentProgramsSubscription.unsubscribe();
-
-		InvestmentProgramsFilter filter = createFilter();
-		filter.setShowMyFavorites(true);
-//		filter.setRoundNumber(1);
-
-		getTournamentProgramsSubscription = investManager.getProgramsList(filter)
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleGetTournamentProgramsList,
-						this::handleGetProgramsListError);
-	}
-
-	private void handleGetTournamentProgramsList(InvestmentProgramsViewModel model) {
-		getTournamentProgramsSubscription.unsubscribe();
-
-		getViewState().showNoInternet(false);
-
-		groupsLoaded++;
-
-		tournamentProgramsList = model.getInvestmentPrograms();
-		if (!tournamentProgramsList.isEmpty())
-			getViewState().showEmptyList(false);
-
-		getViewState().setTournamentPrograms(tournamentProgramsList);
-		onLoadingFinishedMaybe();
-	}
+//	private void getTournamentPrograms() {
+//		if (getTournamentProgramsSubscription != null)
+//			getTournamentProgramsSubscription.unsubscribe();
+//
+//		InvestmentProgramsFilter filter = createFilter();
+//		filter.setShowMyFavorites(true);
+////		filter.setRoundNumber(1);
+//
+//		getTournamentProgramsSubscription = investManager.getProgramsList(filter)
+//				.observeOn(AndroidSchedulers.mainThread())
+//				.subscribeOn(Schedulers.io())
+//				.subscribe(this::handleGetTournamentProgramsList,
+//						this::handleGetProgramsListError);
+//	}
+//
+//	private void handleGetTournamentProgramsList(InvestmentProgramsViewModel model) {
+//		getTournamentProgramsSubscription.unsubscribe();
+//
+//		getViewState().showNoInternet(false);
+//
+//		groupsLoaded++;
+//
+//		tournamentProgramsList = model.getInvestmentPrograms();
+//		if (!tournamentProgramsList.isEmpty())
+//			getViewState().showEmptyList(false);
+//
+//		getViewState().setTournamentPrograms(tournamentProgramsList);
+//		onLoadingFinishedMaybe();
+//	}
 
 	private void setFavoritesCount() {
 		getViewState().setFavoritesCount(StringFormatUtil.formatAmount(
@@ -239,13 +247,13 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 
 	private void removeProgram(UUID programId) {
 		for (int i = 0; i < investmentProgramsList.size(); i++) {
-			if (investmentProgramsList.get(i).getId().equals(programId)) {
+			if (investmentProgramsList.get(i).getData().getId().equals(programId)) {
 				investmentProgramsList.remove(i);
 				break;
 			}
 		}
 		for (int i = 0; i < tournamentProgramsList.size(); i++) {
-			if (tournamentProgramsList.get(i).getId().equals(programId)) {
+			if (tournamentProgramsList.get(i).getData().getId().equals(programId)) {
 				tournamentProgramsList.remove(i);
 				break;
 			}

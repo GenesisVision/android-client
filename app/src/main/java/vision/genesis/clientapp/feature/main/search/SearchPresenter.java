@@ -13,7 +13,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.InvestmentProgram;
 import io.swagger.client.model.InvestmentProgramsFilter;
 import io.swagger.client.model.InvestmentProgramsViewModel;
 import rx.Subscription;
@@ -22,6 +21,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.model.InvestmentProgramExtended;
 import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -46,9 +46,11 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 
 	private Subscription getProgramsSubscription;
 
-	private List<InvestmentProgram> investmentProgramsList = new ArrayList<>();
+	private List<InvestmentProgramExtended> programsToAdd = new ArrayList<>();
 
-	private List<InvestmentProgram> tournamentProgramsList = new ArrayList<>();
+	private List<InvestmentProgramExtended> investmentProgramsList = new ArrayList<>();
+
+	private List<InvestmentProgramExtended> tournamentProgramsList = new ArrayList<>();
 
 	private int groupsLoaded = 0;
 
@@ -107,10 +109,17 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 			getProgramsSubscription.unsubscribe();
 
 		getProgramsSubscription = investManager.getProgramsList(filter)
-				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
+				.observeOn(Schedulers.computation())
+				.map(this::prepareData)
+				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(this::handleGetProgramsList,
 						this::handleGetProgramsListError);
+	}
+
+	private InvestmentProgramsViewModel prepareData(InvestmentProgramsViewModel model) {
+		programsToAdd = InvestmentProgramExtended.extendInvestmentPrograms(model.getInvestmentPrograms());
+		return model;
 	}
 
 	private void handleGetProgramsList(InvestmentProgramsViewModel model) {
@@ -120,11 +129,9 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 		getViewState().showEmptyList(false);
 		groupsLoaded++;
 
-		List<InvestmentProgram> programs = model.getInvestmentPrograms();
-
 		getViewState().setResultsCount(StringFormatUtil.formatAmount(model.getTotal(), 0, 0));
 
-		if (programs.size() == 0) {
+		if (programsToAdd.size() == 0) {
 			if (skip == 0)
 				getViewState().showEmptyList(true);
 			return;
@@ -132,12 +139,12 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 
 		if (skip == 0) {
 			investmentProgramsList.clear();
-			getViewState().setInvestmentPrograms(programs);
+			getViewState().setInvestmentPrograms(programsToAdd);
 		}
 		else {
-			getViewState().addInvestmentPrograms(programs);
+			getViewState().addInvestmentPrograms(programsToAdd);
 		}
-		investmentProgramsList.addAll(programs);
+		investmentProgramsList.addAll(programsToAdd);
 		skip += TAKE;
 		filter.setTake(TAKE);
 		filter.setSkip(skip);

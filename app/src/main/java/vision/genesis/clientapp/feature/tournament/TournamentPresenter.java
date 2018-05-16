@@ -13,7 +13,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.InvestmentProgram;
 import io.swagger.client.model.InvestmentProgramsFilter;
 import io.swagger.client.model.InvestmentProgramsViewModel;
 import rx.Subscription;
@@ -23,6 +22,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView;
 import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.model.InvestmentProgramExtended;
 import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -45,7 +45,9 @@ public class TournamentPresenter extends MvpPresenter<TournamentView> implements
 
 	private Subscription getProgramsSubscription;
 
-	private List<InvestmentProgram> tournamentProgramsList = new ArrayList<>();
+	private List<InvestmentProgramExtended> programsToAdd = new ArrayList<>();
+
+	private List<InvestmentProgramExtended> tournamentProgramsList = new ArrayList<>();
 
 	private int skip = 0;
 
@@ -115,11 +117,17 @@ public class TournamentPresenter extends MvpPresenter<TournamentView> implements
 			if (getProgramsSubscription != null)
 				getProgramsSubscription.unsubscribe();
 			getProgramsSubscription = investManager.getProgramsList(filter)
+					.subscribeOn(Schedulers.computation())
+					.map(this::prepareData)
 					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetProgramsList,
 							this::handleGetProgramsListError);
 		}
+	}
+
+	private InvestmentProgramsViewModel prepareData(InvestmentProgramsViewModel model) {
+		programsToAdd = InvestmentProgramExtended.extendInvestmentPrograms(model.getInvestmentPrograms());
+		return model;
 	}
 
 	private void handleGetProgramsList(InvestmentProgramsViewModel model) {
@@ -130,11 +138,9 @@ public class TournamentPresenter extends MvpPresenter<TournamentView> implements
 
 		getProgramsSubscription.unsubscribe();
 
-		List<InvestmentProgram> programs = model.getInvestmentPrograms();
-
 		getViewState().setProgramsCount(StringFormatUtil.formatAmount(model.getTotal(), 0, 0));
 
-		if (programs.size() == 0) {
+		if (programsToAdd.size() == 0) {
 			if (skip == 0)
 				getViewState().showEmptyList(true);
 			return;
@@ -142,12 +148,12 @@ public class TournamentPresenter extends MvpPresenter<TournamentView> implements
 
 		if (skip == 0) {
 			tournamentProgramsList.clear();
-			getViewState().setTournamentPrograms(programs);
+			getViewState().setTournamentPrograms(programsToAdd);
 		}
 		else {
-			getViewState().addTournamentPrograms(programs);
+			getViewState().addTournamentPrograms(programsToAdd);
 		}
-		tournamentProgramsList.addAll(programs);
+		tournamentProgramsList.addAll(programsToAdd);
 		skip += TAKE;
 		filter.setTake(TAKE);
 		filter.setSkip(skip);

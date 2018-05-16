@@ -61,6 +61,8 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 	private Unbinder unbinder;
 
+	private boolean isTournamentAlreadyAdded = false;
+
 	@OnClick(R.id.searchbar)
 	public void onSearchbarClicked() {
 		if (getActivity() != null) {
@@ -213,9 +215,10 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 	@Override
 	public void onPlatformStatusUpdated(PlatformStatus platformStatus) {
-		if (platformStatus.isIsTournamentActive()) {
+		if (platformStatus.isIsTournamentActive() && !isTournamentAlreadyAdded) {
 			addPage(tournamentTab, false);
 			pagerAdapter.setTournamentData(platformStatus.getTournamentCurrentRound(), platformStatus.getTournamentTotalRounds());
+			isTournamentAlreadyAdded = true;
 		}
 	}
 }

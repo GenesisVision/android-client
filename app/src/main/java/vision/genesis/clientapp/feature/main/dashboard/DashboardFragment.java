@@ -24,12 +24,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.InvestmentProgramDashboardInvestor;
 import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.programs.DashboardPagerAdapter;
 import vision.genesis.clientapp.feature.main.tooltip.TooltipActivity;
+import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
 import vision.genesis.clientapp.model.TooltipModel;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -232,12 +232,12 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 	}
 
 	@Override
-	public void setActivePrograms(List<InvestmentProgramDashboardInvestor> programs) {
+	public void setActivePrograms(List<InvestmentProgramDashboardExtended> programs) {
 		pagerAdapter.setActivePrograms(programs);
 	}
 
 	@Override
-	public void setArchivedPrograms(List<InvestmentProgramDashboardInvestor> programs) {
+	public void setArchivedPrograms(List<InvestmentProgramDashboardExtended> programs) {
 		pagerAdapter.setArchivedPrograms(programs);
 	}
 

@@ -22,13 +22,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.InvestmentProgram;
 import io.swagger.client.model.InvestmentProgramsFilter;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListAdapter;
+import vision.genesis.clientapp.model.InvestmentProgramExtended;
 import vision.genesis.clientapp.ui.TournamentRoundsButtonBar;
 
 /**
@@ -69,9 +69,9 @@ public class TournamentFragment extends BaseFragment implements TournamentView
 
 	private Unbinder unbinder;
 
-	private Integer tournamentCurrentRound;
+	private int tournamentCurrentRound;
 
-	private Integer tournamentTotalRounds;
+	private int tournamentTotalRounds;
 
 	private boolean sortingFiltersInAnim = false;
 
@@ -225,13 +225,13 @@ public class TournamentFragment extends BaseFragment implements TournamentView
 	}
 
 	@Override
-	public void setTournamentPrograms(List<InvestmentProgram> programs) {
+	public void setTournamentPrograms(List<InvestmentProgramExtended> programs) {
 		programsAdapter.setInvestmentPrograms(programs);
 		recyclerView.scrollToPosition(0);
 	}
 
 	@Override
-	public void addTournamentPrograms(List<InvestmentProgram> programs) {
+	public void addTournamentPrograms(List<InvestmentProgramExtended> programs) {
 		programsAdapter.addInvestmentPrograms(programs);
 	}
 

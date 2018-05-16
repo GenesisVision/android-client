@@ -7,7 +7,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import java.util.List;
 import java.util.UUID;
 
-import io.swagger.client.model.InvestmentProgram;
+import vision.genesis.clientapp.model.InvestmentProgramExtended;
 
 /**
  * GenesisVisionAndroid
@@ -16,11 +16,11 @@ import io.swagger.client.model.InvestmentProgram;
 
 interface SearchView extends MvpView
 {
-	void setInvestmentPrograms(List<InvestmentProgram> programs);
+	void setInvestmentPrograms(List<InvestmentProgramExtended> programs);
 
-	void addInvestmentPrograms(List<InvestmentProgram> programs);
+	void addInvestmentPrograms(List<InvestmentProgramExtended> programs);
 
-	void setTournamentPrograms(List<InvestmentProgram> programs);
+	void setTournamentPrograms(List<InvestmentProgramExtended> programs);
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showSnackbarMessage(String message);

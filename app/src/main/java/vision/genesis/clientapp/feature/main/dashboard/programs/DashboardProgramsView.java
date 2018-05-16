@@ -5,7 +5,7 @@ import com.arellomobile.mvp.MvpView;
 import java.util.List;
 import java.util.UUID;
 
-import io.swagger.client.model.InvestmentProgramDashboardInvestor;
+import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
 
 /**
  * GenesisVision
@@ -22,7 +22,7 @@ interface DashboardProgramsView extends MvpView
 
 	void showNoInternet(boolean show);
 
-	void setPrograms(List<InvestmentProgramDashboardInvestor> transactions);
+	void setPrograms(List<InvestmentProgramDashboardExtended> transactions);
 
 	void changeProgramIsFavorite(UUID programId, boolean isFavorite);
 }

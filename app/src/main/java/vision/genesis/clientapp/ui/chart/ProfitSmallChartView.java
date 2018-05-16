@@ -11,6 +11,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.EntryXComparator;
+import com.github.mikephil.charting.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,9 +29,46 @@ import vision.genesis.clientapp.R;
 
 public class ProfitSmallChartView extends com.github.mikephil.charting.charts.LineChart
 {
-	private int lineGreenColor = R.color.transactionGreen;
+	static {
+		Utils.init(GenesisVisionApplication.INSTANCE);
+	}
 
-	private int lineRedColor = R.color.transactionRed;
+	private static int lineGreenColor = R.color.transactionGreen;
+
+	private static int lineRedColor = R.color.transactionRed;
+
+	public static LineData getPreparedEquityChart(List<ChartByDate> equityChart) {
+		List<Entry> lineEntries = new ArrayList<>();
+
+		for (ChartByDate chart : equityChart) {
+			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getValue().floatValue()));
+		}
+
+		return getLineData(lineEntries);
+	}
+
+	private static LineData getLineData(List<Entry> data) {
+		Collections.sort(data, new EntryXComparator());
+		LineData lineData = new LineData();
+
+		lineData.addDataSet(createLineDataSet(data));
+
+		return lineData;
+	}
+
+	private static LineDataSet createLineDataSet(List<Entry> data) {
+		LineDataSet dataSet = new LineDataSet(data, "");
+
+		dataSet.setLabel("");
+		dataSet.setDrawValues(false);
+		dataSet.setDrawCircles(false);
+		boolean isProfitable = data.get(0).getY() <= data.get(data.size() - 1).getY();
+		dataSet.setColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, isProfitable ? lineGreenColor : lineRedColor));
+//		dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+		dataSet.setLineWidth(1.5f);
+
+		return dataSet;
+	}
 
 	public ProfitSmallChartView(Context context) {
 		super(context);
@@ -80,6 +118,16 @@ public class ProfitSmallChartView extends com.github.mikephil.charting.charts.Li
 		this.setHardwareAccelerationEnabled(false);
 	}
 
+	public void setEquityChart(LineData data) {
+		if (data.getEntryCount() <= 1) {
+			this.clear();
+			return;
+		}
+
+		this.setData(data);
+		this.invalidate();
+	}
+
 	public void setEquityChart(List<ChartByDate> charts) {
 		if (charts.size() <= 1) {
 			this.clear();
@@ -109,29 +157,6 @@ public class ProfitSmallChartView extends com.github.mikephil.charting.charts.Li
 
 		this.setData(getLineData(lineEntries));
 		this.invalidate();
-	}
-
-	private LineData getLineData(List<Entry> data) {
-		Collections.sort(data, new EntryXComparator());
-		LineData lineData = new LineData();
-
-		lineData.addDataSet(createLineDataSet(data));
-
-		return lineData;
-	}
-
-	private LineDataSet createLineDataSet(List<Entry> data) {
-		LineDataSet dataSet = new LineDataSet(data, "");
-
-		dataSet.setLabel("");
-		dataSet.setDrawValues(false);
-		dataSet.setDrawCircles(false);
-		boolean isProfitable = data.get(0).getY() <= data.get(data.size() - 1).getY();
-		dataSet.setColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, isProfitable ? lineGreenColor : lineRedColor));
-//		dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-		dataSet.setLineWidth(1.5f);
-
-		return dataSet;
 	}
 
 	public void onDestroy() {

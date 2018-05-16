@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 import io.swagger.client.model.InvestmentProgram;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.InvestmentProgramExtended;
 import vision.genesis.clientapp.model.ProgramInfoModel;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.AvatarView;
@@ -33,7 +34,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapter.InvestmentProgramViewHolder>
 {
-	public List<InvestmentProgram> investmentPrograms = new ArrayList<>();
+	public List<InvestmentProgramExtended> investmentPrograms = new ArrayList<>();
 
 	@Override
 	public InvestmentProgramViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -56,21 +57,21 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 		return investmentPrograms.size();
 	}
 
-	public void setInvestmentPrograms(List<InvestmentProgram> investmentPrograms) {
+	public void setInvestmentPrograms(List<InvestmentProgramExtended> investmentPrograms) {
 		this.investmentPrograms.clear();
 		this.investmentPrograms.addAll(investmentPrograms);
 		notifyDataSetChanged();
 	}
 
-	public void addInvestmentPrograms(List<InvestmentProgram> investmentPrograms) {
+	public void addInvestmentPrograms(List<InvestmentProgramExtended> investmentPrograms) {
 		this.investmentPrograms.addAll(investmentPrograms);
 		notifyDataSetChanged();
 	}
 
 	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
-		for (InvestmentProgram program : investmentPrograms) {
-			if (program.getId().equals(programId)) {
-				program.isFavorite(isFavorite);
+		for (InvestmentProgramExtended program : investmentPrograms) {
+			if (program.getData().getId().equals(programId)) {
+				program.getData().isFavorite(isFavorite);
 				notifyDataSetChanged();
 				break;
 			}
@@ -79,7 +80,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 
 	public void removeProgram(UUID programId) {
 		for (int i = 0; i < investmentPrograms.size(); i++) {
-			if (investmentPrograms.get(i).getId().equals(programId)) {
+			if (investmentPrograms.get(i).getData().getId().equals(programId)) {
 				investmentPrograms.remove(i);
 				notifyItemRemoved(i);
 				break;
@@ -116,7 +117,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 		@BindView(R.id.text_no_available_tokens)
 		public TextView noAvailableTokensText;
 
-		private InvestmentProgram investmentProgram;
+		private InvestmentProgramExtended investmentProgram;
 
 		InvestmentProgramViewHolder(View itemView) {
 			super(itemView);
@@ -126,11 +127,12 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 			setFonts();
 			itemView.setOnClickListener(v -> {
 				if (investmentProgram != null) {
-					ProgramInfoModel programInfoModel = new ProgramInfoModel(investmentProgram.getId(),
-							investmentProgram.getLogo(),
-							investmentProgram.getTitle(),
-							investmentProgram.getManager().getUsername(),
-							investmentProgram.isIsFavorite());
+					InvestmentProgram data = investmentProgram.getData();
+					ProgramInfoModel programInfoModel = new ProgramInfoModel(data.getId(),
+							data.getLogo(),
+							data.getTitle(),
+							data.getManager().getUsername(),
+							data.isIsFavorite());
 					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programInfoModel));
 				}
 			});
@@ -141,42 +143,39 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 			noAvailableTokensText.setTypeface(TypefaceUtil.bold());
 		}
 
-		void setInvestmentProgram(InvestmentProgram investmentProgram) {
+		void setInvestmentProgram(InvestmentProgramExtended investmentProgram) {
 			this.investmentProgram = investmentProgram;
 			updateData();
 		}
 
 		private void updateData() {
-			avatar.setImage(investmentProgram.getLogo(), 100, 100);
-			avatar.setLevel(investmentProgram.getLevel());
+			InvestmentProgram data = investmentProgram.getData();
+			avatar.setImage(data.getLogo(), 100, 100);
+			avatar.setLevel(data.getLevel());
 
-			favoriteIcon.setVisibility(investmentProgram.isIsFavorite() ? View.VISIBLE : View.GONE);
+			favoriteIcon.setVisibility(data.isIsFavorite() ? View.VISIBLE : View.GONE);
 
-			title.setText(investmentProgram.getTitle());
+			title.setText(data.getTitle());
 			managerName.setText(String.format(Locale.getDefault(), "%s %s",
 					GenesisVisionApplication.INSTANCE.getResources().getString(R.string.by),
-					investmentProgram.getManager().getUsername()));
+					data.getManager().getUsername()));
 
-			if (investmentProgram.isIsTournament()) {
+			if (data.isIsTournament()) {
 				tournamentGroup.setVisibility(View.VISIBLE);
 				place.setText(String.format(Locale.getDefault(), "%s %d\n#%s",
 						GenesisVisionApplication.INSTANCE.getString(R.string.round).toUpperCase(),
-						investmentProgram.getRoundNumber(),
-						investmentProgram.getPlace() != null ? investmentProgram.getPlace() : "-"));
+						data.getRoundNumber(),
+						data.getPlace() != null ? data.getPlace() : "-"));
 			}
 			else {
 				tournamentGroup.setVisibility(View.GONE);
 			}
 
-			programDataView.setData(investmentProgram.getProfitTotal(),
-					investmentProgram.getProfitAvgPercent(),
-					investmentProgram.getBalance(),
-					investmentProgram.getInvestorsCount(),
-					investmentProgram.getCurrency().toString());
+			programDataView.setData(investmentProgram);
 
 			chart.setEquityChart(investmentProgram.getEquityChart());
 
-			noAvailableTokensText.setVisibility(investmentProgram.getAvailableInvestment() > 0
+			noAvailableTokensText.setVisibility(data.getAvailableInvestment() > 0
 					? View.GONE
 					: View.VISIBLE);
 		}

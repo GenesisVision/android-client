@@ -20,10 +20,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.InvestmentProgramDashboardInvestor;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
 
 /**
  * GenesisVision
@@ -120,7 +120,7 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 	}
 
 	@Override
-	public void setPrograms(List<InvestmentProgramDashboardInvestor> programs) {
+	public void setPrograms(List<InvestmentProgramDashboardExtended> programs) {
 		dashboardProgramsAdapter.setInvestorPrograms(programs);
 
 		showEmpty(programs.size() == 0);

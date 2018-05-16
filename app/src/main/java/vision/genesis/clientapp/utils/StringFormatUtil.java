@@ -14,14 +14,13 @@ import vision.genesis.clientapp.model.ShortenedAmount;
 
 public class StringFormatUtil
 {
-	private static DecimalFormat df = new DecimalFormat("0.########");
-
 	public static String formatAmount(double amountValue) {
 		return formatAmount(amountValue, 2, 8);
 	}
 
 	public static String formatAmount(double amountValue, int minFraction, int maxFraction) {
 		BigDecimal decimal = BigDecimal.valueOf(amountValue);
+		DecimalFormat df = new DecimalFormat("0.########");
 		df.setMinimumFractionDigits(minFraction);
 		df.setMaximumFractionDigits(maxFraction);
 		df.setGroupingUsed(true);

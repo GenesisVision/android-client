@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.InvestmentProgramExtended;
 import vision.genesis.clientapp.model.ShortenedAmount;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -159,6 +160,23 @@ public class ProgramDataView extends RelativeLayout
 
 		totalProfitCurrency.setTypeface(TypefaceUtil.bold());
 		balanceCurrency.setTypeface(TypefaceUtil.bold());
+	}
+
+	public void setData(InvestmentProgramExtended program) {
+		totalProfitTextFull.setText(program.getTotalProfitTextFull());
+		totalProfitText.setText(program.getTotalProfitText());
+		totalProfitTextMod.setText(program.getTotalProfitTextMod());
+
+		avgProfitTextFull.setText(program.getAvgProfitTextFull());
+		avgProfitText.setText(program.getAvgProfitText());
+
+		balanceTextFull.setText(program.getBalanceTextFull());
+		balanceText.setText(program.getBalanceText());
+		balanceTextMod.setText(program.getBalanceTextMod());
+
+		this.balanceCurrency.setText(program.getData().getCurrency().toString());
+
+		investorsText.setText(program.getInvestorsText());
 	}
 
 	public void setData(Double profitTotal, Double profitAvg, Double balance, Integer investorsCount, String balanceCurrency) {

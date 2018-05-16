@@ -18,15 +18,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.InvestmentProgramDashboardInvestor;
-import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.managers.WalletManager;
+import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
 import vision.genesis.clientapp.model.ProgramInfoModel;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
-import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -36,7 +34,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProgramsAdapter.InvestorProgramViewHolder>
 {
-	public List<InvestmentProgramDashboardInvestor> investorPrograms = new ArrayList<>();
+	public List<InvestmentProgramDashboardExtended> investorPrograms = new ArrayList<>();
 
 	@Override
 	public InvestorProgramViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -59,16 +57,16 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		return investorPrograms.get(position).hashCode();
 	}
 
-	void setInvestorPrograms(List<InvestmentProgramDashboardInvestor> investorPrograms) {
+	void setInvestorPrograms(List<InvestmentProgramDashboardExtended> investorPrograms) {
 		this.investorPrograms.clear();
 		this.investorPrograms.addAll(investorPrograms);
 		notifyDataSetChanged();
 	}
 
 	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
-		for (InvestmentProgramDashboardInvestor program : investorPrograms) {
-			if (program.getId().equals(programId)) {
-				program.isFavorite(isFavorite);
+		for (InvestmentProgramDashboardExtended program : investorPrograms) {
+			if (program.getData().getId().equals(programId)) {
+				program.getData().isFavorite(isFavorite);
 				notifyDataSetChanged();
 				break;
 			}
@@ -121,7 +119,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 		private boolean isProfitFull = false;
 
-		private InvestmentProgramDashboardInvestor investmentProgram;
+		private InvestmentProgramDashboardExtended investmentProgram;
 
 		InvestorProgramViewHolder(View itemView) {
 			super(itemView);
@@ -131,11 +129,13 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			setFonts();
 			itemView.setOnClickListener(v -> {
 				if (investmentProgram != null) {
-					ProgramInfoModel programInfoModel = new ProgramInfoModel(investmentProgram.getId(),
-							investmentProgram.getLogo(),
-							investmentProgram.getTitle(),
-							investmentProgram.getManager().getUsername(),
-							investmentProgram.isIsFavorite());
+					InvestmentProgramDashboardInvestor data = investmentProgram.getData();
+
+					ProgramInfoModel programInfoModel = new ProgramInfoModel(data.getId(),
+							data.getLogo(),
+							data.getTitle(),
+							data.getManager().getUsername(),
+							data.isIsFavorite());
 					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programInfoModel));
 				}
 			});
@@ -155,36 +155,35 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			profitLabel.setTypeface(TypefaceUtil.bold());
 		}
 
-		void setInvestmentProgram(InvestmentProgramDashboardInvestor investmentProgram) {
+		void setInvestmentProgram(InvestmentProgramDashboardExtended investmentProgram) {
 			this.investmentProgram = investmentProgram;
 			updateData();
 		}
 
 		private void updateData() {
-			programLogo.setImage(investmentProgram.getLogo(), 100, 100);
-			programLogo.setLevel(investmentProgram.getLevel());
+			InvestmentProgramDashboardInvestor data = investmentProgram.getData();
 
-			favoriteIcon.setVisibility(investmentProgram.isIsFavorite() ? View.VISIBLE : View.GONE);
+			programLogo.setImage(data.getLogo(), 100, 100);
+			programLogo.setLevel(data.getLevel());
 
-			programName.setText(investmentProgram.getTitle());
+			favoriteIcon.setVisibility(data.isIsFavorite() ? View.VISIBLE : View.GONE);
+
+			programName.setText(data.getTitle());
 			managerName.setText(String.format(Locale.getDefault(), "%s %s",
 					itemView.getContext().getResources().getString(R.string.by),
-					investmentProgram.getManager().getUsername()));
+					data.getManager().getUsername()));
 
 			chart.setEquityChart(investmentProgram.getEquityChart());
 
-			tokens.setText(StringFormatUtil.formatAmount(investmentProgram.getInvestedTokens(), 0,
-					WalletManager.TOKENS_MAX_DECIMAL_POINT_DIGITS));
-			double tokensFiatValue = investmentProgram.getInvestedTokens() * investmentProgram.getToken().getInitialPrice();
-			tokensFiat.setText(String.format(Locale.getDefault(), "($%.2f)", tokensFiatValue));
+			tokens.setText(investmentProgram.getTokens());
+			tokensFiat.setText(investmentProgram.getTokensFiat());
 
-			profitShort.setText(StringFormatUtil.formatAmount(investmentProgram.getProfitFromProgram(), 0, 2));
-			profitFull.setText(StringFormatUtil.formatAmount(investmentProgram.getProfitFromProgram(), 2,
-					StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.GVT.toString())));
+			profitShort.setText(investmentProgram.getProfitShort());
+			profitFull.setText(investmentProgram.getProfitFull());
 
-			if (investmentProgram.isIsEnabled())
-				periodLeftView.setDateTo(investmentProgram.getStartOfPeriod(), investmentProgram.getEndOfPeriod());
-			periodLeftView.setProgramClosed(!investmentProgram.isIsEnabled());
+			if (data.isIsEnabled())
+				periodLeftView.setDateTo(data.getStartOfPeriod(), data.getEndOfPeriod());
+			periodLeftView.setProgramClosed(!data.isIsEnabled());
 		}
 
 		private void setProfitVisibility() {
