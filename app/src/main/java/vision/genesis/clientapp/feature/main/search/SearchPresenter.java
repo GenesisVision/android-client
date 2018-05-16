@@ -132,8 +132,10 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 		getViewState().setResultsCount(StringFormatUtil.formatAmount(model.getTotal(), 0, 0));
 
 		if (programsToAdd.size() == 0) {
-			if (skip == 0)
+			if (skip == 0) {
 				getViewState().showEmptyList(true);
+				onLoadingFinishedMaybe();
+			}
 			return;
 		}
 
