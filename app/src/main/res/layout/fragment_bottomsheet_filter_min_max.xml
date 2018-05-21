@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragment_bottomsheet_filters_height"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_bottomsheet_filters_height">
+
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:id="@+id/filter_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:text="Level"/>
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/delimeter"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/header"
+            android:background="@color/grey300"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/buttons_group"
+            android:layout_below="@+id/delimeter">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:orientation="vertical"
+                android:paddingTop="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height">
+
+                    <TextView
+                        android:id="@+id/label_min_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/edittext_min_value"
+                        android:layout_toStartOf="@+id/edittext_min_value"
+                        android:fontFamily="sans-serif"
+                        android:textColor="@color/grey500"
+                        android:textSize="16sp"
+                        tools:text="Min level"/>
+
+                    <EditText
+                        android:id="@+id/edittext_min_value"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/button_clear_min_value"
+                        android:layout_toStartOf="@+id/button_clear_min_value"
+                        android:hint="@string/any"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:textSize="16sp"/>
+
+                    <ImageView
+                        android:id="@+id/button_clear_min_value"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_close_black_24dp"
+                        android:tint="@color/grey500"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height">
+
+                    <TextView
+                        android:id="@+id/label_max_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/edittext_max_value"
+                        android:layout_toStartOf="@+id/edittext_max_value"
+                        android:fontFamily="sans-serif"
+                        android:textColor="@color/grey500"
+                        android:textSize="16sp"
+                        tools:text="Max level"/>
+
+                    <EditText
+                        android:id="@+id/edittext_max_value"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/button_clear_max_value"
+                        android:layout_toStartOf="@+id/button_clear_max_value"
+                        android:hint="@string/any"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:textSize="16sp"/>
+
+                    <ImageView
+                        android:id="@+id/button_clear_max_value"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_close_black_24dp"
+                        android:tint="@color/grey500"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/errors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/buttons_group"
+            android:padding="16dp"
+            android:textColor="@color/transactionRed"
+            tools:text="Error"/>
+
+        <RelativeLayout
+            android:id="@+id/buttons_group"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_alignParentBottom="true">
+
+            <RelativeLayout
+                android:id="@+id/button_apply"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_square_primary">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/apply"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/button_close"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/grey200">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/close"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

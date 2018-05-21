@@ -295,4 +295,17 @@
     <string name="results">Results</string>
     <string name="sort_by_place">BY PLACE ↑</string>
     <string name="place">Place</string>
+    <string name="any">Any</string>
+    <string name="from">from</string>
+    <string name="to">to</string>
+    <string name="min_level">Min level</string>
+    <string name="max_level">Max level</string>
+    <string name="min_avg_profit">Min avg. profit (%)</string>
+    <string name="max_avg_profit">Max avg. profit (%)</string>
+    <string name="should_be_a_number">should be a number</string>
+    <string name="should_be_not_less">should be not less than</string>
+    <string name="should_be_not_greater">should be not greater than</string>
+    <string name="avaialble_to_invest_only">Available to invest in only</string>
+    <string name="min_balance">Min balance</string>
+    <string name="max_balance">Max balance</string>
 </resources>

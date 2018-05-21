@@ -82,6 +82,11 @@
                     android:layout_height="wrap_content"/>
 
                 <vision.genesis.clientapp.feature.main.filters_sorting.SortingOptionView
+                    android:id="@+id/balance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <vision.genesis.clientapp.feature.main.filters_sorting.SortingOptionView
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>

@@ -73,9 +73,11 @@ public class InvestManager
 	}
 
 	private void handleGetPlatformStatusError(Throwable error) {
-		getPlatformStatusSubscription.unsubscribe();
-		platformStatusBehaviorSubject.onError(error);
-		platformStatusBehaviorSubject = null;
+		if (platformStatusBehaviorSubject != null) {
+			getPlatformStatusSubscription.unsubscribe();
+			platformStatusBehaviorSubject.onError(error);
+			platformStatusBehaviorSubject = null;
+		}
 	}
 
 	public Observable<InvestmentProgramsViewModel> getProgramsList(InvestmentProgramsFilter filter) {

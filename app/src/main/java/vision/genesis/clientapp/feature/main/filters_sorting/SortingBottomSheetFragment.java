@@ -40,6 +40,9 @@ public class SortingBottomSheetFragment extends BottomSheetDialogFragment
 	@BindView(R.id.end_of_period)
 	public SortingOptionView endOfPeriod;
 
+	@BindView(R.id.balance)
+	public SortingOptionView balance;
+
 	@BindView(R.id.title)
 	public SortingOptionView title;
 
@@ -74,6 +77,11 @@ public class SortingBottomSheetFragment extends BottomSheetDialogFragment
 		selectOption(level);
 	}
 
+	@OnClick(R.id.balance)
+	public void onBalanceClicked() {
+		selectOption(balance);
+	}
+
 	@OnClick(R.id.end_of_period)
 	public void onEndOfPeriodClicked() {
 		selectOption(endOfPeriod);
@@ -86,7 +94,7 @@ public class SortingBottomSheetFragment extends BottomSheetDialogFragment
 
 	@OnClick(R.id.button_apply)
 	public void onApplyClicked() {
-		if (listener != null) {
+		if (listener != null && selectedOption != null) {
 			listener.onSortingChanged(selectedOption.getText().toLowerCase(), selectedDirection);
 			this.dismiss();
 		}
@@ -132,6 +140,7 @@ public class SortingBottomSheetFragment extends BottomSheetDialogFragment
 		profit.setText(getString(R.string.profit));
 		level.setText(getString(R.string.level));
 		endOfPeriod.setText(getString(R.string.end_of_period));
+		balance.setText(getString(R.string.balance));
 		title.setText(getString(R.string.title));
 	}
 
@@ -145,6 +154,9 @@ public class SortingBottomSheetFragment extends BottomSheetDialogFragment
 				break;
 			case "end of period":
 				selectOption(endOfPeriod);
+				break;
+			case "balance":
+				selectOption(balance);
 				break;
 			case "title":
 				selectOption(title);

@@ -88,6 +88,7 @@ public class SortingFiltersButtonsView extends RelativeLayout
 			bottomSheetDialog.show(activity.getSupportFragmentManager(), bottomSheetDialog.getTag());
 			bottomSheetDialog.setCurrentFilter(filter);
 			bottomSheetDialog.setListener(this::updateFilter);
+			bottomSheetDialog.setActivity(activity);
 		}
 	}
 
@@ -175,6 +176,14 @@ public class SortingFiltersButtonsView extends RelativeLayout
 				currentSortingName = "end of period";
 				currentSortingDirection = "desc";
 				break;
+//			case BYBALANCEASC:
+//				currentSortingName = "balance";
+//				currentSortingDirection = "asc";
+//				break;
+//			case BYBALANCEDESC:
+//				currentSortingName = "balance";
+//				currentSortingDirection = "desc";
+//				break;
 			case BYTITLEASC:
 				currentSortingName = "title";
 				currentSortingDirection = "asc";
@@ -211,6 +220,12 @@ public class SortingFiltersButtonsView extends RelativeLayout
 				else
 					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYENDOFPERIODDESC;
 				break;
+//			case "balance":
+//				if (direction.equals("asc"))
+//					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYBALANCEASC;
+//				else
+//					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYBALANCEDESC;
+//				break;
 			case "title":
 				if (direction.equals("asc"))
 					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYTITLEASC;
