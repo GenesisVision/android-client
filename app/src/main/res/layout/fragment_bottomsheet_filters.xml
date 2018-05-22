@@ -65,8 +65,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="16dp">
+                android:orientation="vertical">
 
                 <vision.genesis.clientapp.feature.main.filters_sorting.FilterOptionView
                     android:id="@+id/level"
@@ -91,7 +90,8 @@
                 <vision.genesis.clientapp.feature.main.filters_sorting.FilterSwitchView
                     android:id="@+id/available_to_invest_only"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/button_height"/>
+                    android:layout_height="@dimen/button_height"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 

@@ -220,12 +220,12 @@ public class SortingFiltersButtonsView extends RelativeLayout
 				else
 					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYENDOFPERIODDESC;
 				break;
-//			case "balance":
-//				if (direction.equals("asc"))
-//					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYBALANCEASC;
-//				else
-//					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYBALANCEDESC;
-//				break;
+			case "balance":
+				if (direction.equals("asc"))
+					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYBALANCEASK;
+				else
+					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYBALANCEDESC;
+				break;
 			case "title":
 				if (direction.equals("asc"))
 					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYTITLEASC;

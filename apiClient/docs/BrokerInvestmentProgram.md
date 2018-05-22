@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **dateTo** | [**DateTime**](DateTime.md) |  |  [optional]
 **description** | **String** |  |  [optional]
 **isEnabled** | **Boolean** |  |  [optional]
+**isTournamentAccount** | **Boolean** |  |  [optional]
 **period** | **Integer** |  |  [optional]
 **feeSuccess** | **Double** |  |  [optional]
 **feeManagement** | **Double** |  |  [optional]

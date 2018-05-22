@@ -28,11 +28,26 @@ public class PlatformStatus
 	@SerializedName("isTournamentActive")
 	private Boolean isTournamentActive = null;
 
+	@SerializedName("isTournamentRegistrationActive")
+	private Boolean isTournamentRegistrationActive = null;
+
 	@SerializedName("tournamentCurrentRound")
 	private Integer tournamentCurrentRound = null;
 
 	@SerializedName("tournamentTotalRounds")
 	private Integer tournamentTotalRounds = null;
+
+	@SerializedName("programsMinAvgProfit")
+	private Double programsMinAvgProfit = null;
+
+	@SerializedName("programsMaxAvgProfit")
+	private Double programsMaxAvgProfit = null;
+
+	@SerializedName("iOSVersion")
+	private IOsAppVersion iOSVersion = null;
+
+	@SerializedName("androidVersion")
+	private AndroidAppVersion androidVersion = null;
 
 	public PlatformStatus isTournamentActive(Boolean isTournamentActive) {
 		this.isTournamentActive = isTournamentActive;
@@ -51,6 +66,25 @@ public class PlatformStatus
 
 	public void setIsTournamentActive(Boolean isTournamentActive) {
 		this.isTournamentActive = isTournamentActive;
+	}
+
+	public PlatformStatus isTournamentRegistrationActive(Boolean isTournamentRegistrationActive) {
+		this.isTournamentRegistrationActive = isTournamentRegistrationActive;
+		return this;
+	}
+
+	/**
+	 * Get isTournamentRegistrationActive
+	 *
+	 * @return isTournamentRegistrationActive
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsTournamentRegistrationActive() {
+		return isTournamentRegistrationActive;
+	}
+
+	public void setIsTournamentRegistrationActive(Boolean isTournamentRegistrationActive) {
+		this.isTournamentRegistrationActive = isTournamentRegistrationActive;
 	}
 
 	public PlatformStatus tournamentCurrentRound(Integer tournamentCurrentRound) {
@@ -91,6 +125,82 @@ public class PlatformStatus
 		this.tournamentTotalRounds = tournamentTotalRounds;
 	}
 
+	public PlatformStatus programsMinAvgProfit(Double programsMinAvgProfit) {
+		this.programsMinAvgProfit = programsMinAvgProfit;
+		return this;
+	}
+
+	/**
+	 * Get programsMinAvgProfit
+	 *
+	 * @return programsMinAvgProfit
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProgramsMinAvgProfit() {
+		return programsMinAvgProfit;
+	}
+
+	public void setProgramsMinAvgProfit(Double programsMinAvgProfit) {
+		this.programsMinAvgProfit = programsMinAvgProfit;
+	}
+
+	public PlatformStatus programsMaxAvgProfit(Double programsMaxAvgProfit) {
+		this.programsMaxAvgProfit = programsMaxAvgProfit;
+		return this;
+	}
+
+	/**
+	 * Get programsMaxAvgProfit
+	 *
+	 * @return programsMaxAvgProfit
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProgramsMaxAvgProfit() {
+		return programsMaxAvgProfit;
+	}
+
+	public void setProgramsMaxAvgProfit(Double programsMaxAvgProfit) {
+		this.programsMaxAvgProfit = programsMaxAvgProfit;
+	}
+
+	public PlatformStatus iOSVersion(IOsAppVersion iOSVersion) {
+		this.iOSVersion = iOSVersion;
+		return this;
+	}
+
+	/**
+	 * Get iOSVersion
+	 *
+	 * @return iOSVersion
+	 **/
+	@ApiModelProperty(value = "")
+	public IOsAppVersion getIOSVersion() {
+		return iOSVersion;
+	}
+
+	public void setIOSVersion(IOsAppVersion iOSVersion) {
+		this.iOSVersion = iOSVersion;
+	}
+
+	public PlatformStatus androidVersion(AndroidAppVersion androidVersion) {
+		this.androidVersion = androidVersion;
+		return this;
+	}
+
+	/**
+	 * Get androidVersion
+	 *
+	 * @return androidVersion
+	 **/
+	@ApiModelProperty(value = "")
+	public AndroidAppVersion getAndroidVersion() {
+		return androidVersion;
+	}
+
+	public void setAndroidVersion(AndroidAppVersion androidVersion) {
+		this.androidVersion = androidVersion;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -102,13 +212,18 @@ public class PlatformStatus
 		}
 		PlatformStatus platformStatus = (PlatformStatus) o;
 		return Objects.equals(this.isTournamentActive, platformStatus.isTournamentActive) &&
+				Objects.equals(this.isTournamentRegistrationActive, platformStatus.isTournamentRegistrationActive) &&
 				Objects.equals(this.tournamentCurrentRound, platformStatus.tournamentCurrentRound) &&
-				Objects.equals(this.tournamentTotalRounds, platformStatus.tournamentTotalRounds);
+				Objects.equals(this.tournamentTotalRounds, platformStatus.tournamentTotalRounds) &&
+				Objects.equals(this.programsMinAvgProfit, platformStatus.programsMinAvgProfit) &&
+				Objects.equals(this.programsMaxAvgProfit, platformStatus.programsMaxAvgProfit) &&
+				Objects.equals(this.iOSVersion, platformStatus.iOSVersion) &&
+				Objects.equals(this.androidVersion, platformStatus.androidVersion);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isTournamentActive, tournamentCurrentRound, tournamentTotalRounds);
+		return Objects.hash(isTournamentActive, isTournamentRegistrationActive, tournamentCurrentRound, tournamentTotalRounds, programsMinAvgProfit, programsMaxAvgProfit, iOSVersion, androidVersion);
 	}
 
 
@@ -118,8 +233,13 @@ public class PlatformStatus
 		sb.append("class PlatformStatus {\n");
 
 		sb.append("    isTournamentActive: ").append(toIndentedString(isTournamentActive)).append("\n");
+		sb.append("    isTournamentRegistrationActive: ").append(toIndentedString(isTournamentRegistrationActive)).append("\n");
 		sb.append("    tournamentCurrentRound: ").append(toIndentedString(tournamentCurrentRound)).append("\n");
 		sb.append("    tournamentTotalRounds: ").append(toIndentedString(tournamentTotalRounds)).append("\n");
+		sb.append("    programsMinAvgProfit: ").append(toIndentedString(programsMinAvgProfit)).append("\n");
+		sb.append("    programsMaxAvgProfit: ").append(toIndentedString(programsMaxAvgProfit)).append("\n");
+		sb.append("    iOSVersion: ").append(toIndentedString(iOSVersion)).append("\n");
+		sb.append("    androidVersion: ").append(toIndentedString(androidVersion)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

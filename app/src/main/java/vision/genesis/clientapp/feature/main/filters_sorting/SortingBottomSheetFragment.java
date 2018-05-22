@@ -1,6 +1,7 @@
 package vision.genesis.clientapp.feature.main.filters_sorting;
 
 import android.app.Dialog;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.View;
@@ -118,6 +119,13 @@ public class SortingBottomSheetFragment extends BottomSheetDialogFragment
 
 		initSortingOptions();
 		updateSelections();
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		if (getDialog().getWindow() != null)
+			getDialog().getWindow().getAttributes().windowAnimations = R.style.dialog_slide_animation;
 	}
 
 	public void setCurrentSorting(@NonNull String oldOption, @NonNull String oldDirection) {

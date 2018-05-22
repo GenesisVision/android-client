@@ -51,6 +51,9 @@ public class BrokerInvestmentProgram
 	@SerializedName("isEnabled")
 	private Boolean isEnabled = null;
 
+	@SerializedName("isTournamentAccount")
+	private Boolean isTournamentAccount = null;
+
 	@SerializedName("period")
 	private Integer period = null;
 
@@ -199,6 +202,25 @@ public class BrokerInvestmentProgram
 
 	public void setIsEnabled(Boolean isEnabled) {
 		this.isEnabled = isEnabled;
+	}
+
+	public BrokerInvestmentProgram isTournamentAccount(Boolean isTournamentAccount) {
+		this.isTournamentAccount = isTournamentAccount;
+		return this;
+	}
+
+	/**
+	 * Get isTournamentAccount
+	 *
+	 * @return isTournamentAccount
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsTournamentAccount() {
+		return isTournamentAccount;
+	}
+
+	public void setIsTournamentAccount(Boolean isTournamentAccount) {
+		this.isTournamentAccount = isTournamentAccount;
 	}
 
 	public BrokerInvestmentProgram period(Integer period) {
@@ -444,6 +466,7 @@ public class BrokerInvestmentProgram
 				Objects.equals(this.dateTo, brokerInvestmentProgram.dateTo) &&
 				Objects.equals(this.description, brokerInvestmentProgram.description) &&
 				Objects.equals(this.isEnabled, brokerInvestmentProgram.isEnabled) &&
+				Objects.equals(this.isTournamentAccount, brokerInvestmentProgram.isTournamentAccount) &&
 				Objects.equals(this.period, brokerInvestmentProgram.period) &&
 				Objects.equals(this.feeSuccess, brokerInvestmentProgram.feeSuccess) &&
 				Objects.equals(this.feeManagement, brokerInvestmentProgram.feeManagement) &&
@@ -460,7 +483,7 @@ public class BrokerInvestmentProgram
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, managerAccountId, dateFrom, dateTo, description, isEnabled, period, feeSuccess, feeManagement, feeEntrance, investMinAmount, investMaxAmount, lastPeriod, login, ipfsHash, tradeIpfsHash, balance, status);
+		return Objects.hash(id, managerAccountId, dateFrom, dateTo, description, isEnabled, isTournamentAccount, period, feeSuccess, feeManagement, feeEntrance, investMinAmount, investMaxAmount, lastPeriod, login, ipfsHash, tradeIpfsHash, balance, status);
 	}
 
 	@Override
@@ -474,6 +497,7 @@ public class BrokerInvestmentProgram
 		sb.append("    dateTo: ").append(toIndentedString(dateTo)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
+		sb.append("    isTournamentAccount: ").append(toIndentedString(isTournamentAccount)).append("\n");
 		sb.append("    period: ").append(toIndentedString(period)).append("\n");
 		sb.append("    feeSuccess: ").append(toIndentedString(feeSuccess)).append("\n");
 		sb.append("    feeManagement: ").append(toIndentedString(feeManagement)).append("\n");

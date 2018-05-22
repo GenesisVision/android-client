@@ -2,6 +2,7 @@ package vision.genesis.clientapp.feature.main.filters_sorting;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,6 +112,13 @@ public class FilterMinMaxBottomSheetFragment extends BottomSheetDialogFragment
 
 		if (model != null)
 			setValues(model);
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		if (getDialog().getWindow() != null)
+			getDialog().getWindow().getAttributes().windowAnimations = R.style.dialog_slide_animation;
 	}
 
 	@Override

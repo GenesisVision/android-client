@@ -306,6 +306,6 @@
     <string name="should_be_not_less">should be not less than</string>
     <string name="should_be_not_greater">should be not greater than</string>
     <string name="avaialble_to_invest_only">Available to invest in only</string>
-    <string name="min_balance">Min balance</string>
-    <string name="max_balance">Max balance</string>
+    <string name="min_balance">Min balance ($)</string>
+    <string name="max_balance">Max balance ($)</string>
 </resources>

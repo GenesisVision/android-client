@@ -13,14 +13,16 @@ Name | Type | Description | Notes
 **name** | **String** |  |  [optional]
 **levelMin** | **Integer** |  |  [optional]
 **levelMax** | **Integer** |  |  [optional]
-**profitAvgMin** | **Integer** |  |  [optional]
-**profitAvgMax** | **Integer** |  |  [optional]
-**profitTotalMin** | **Integer** |  |  [optional]
-**profitTotalMax** | **Integer** |  |  [optional]
-**profitTotalPercentMin** | **Integer** |  |  [optional]
-**profitTotalPercentMax** | **Integer** |  |  [optional]
-**profitAvgPercentMin** | **Integer** |  |  [optional]
-**profitAvgPercentMax** | **Integer** |  |  [optional]
+**balanceUsdMin** | **Double** |  |  [optional]
+**balanceUsdMax** | **Double** |  |  [optional]
+**profitAvgMin** | **Double** |  |  [optional]
+**profitAvgMax** | **Double** |  |  [optional]
+**profitTotalMin** | **Double** |  |  [optional]
+**profitTotalMax** | **Double** |  |  [optional]
+**profitTotalPercentMin** | **Double** |  |  [optional]
+**profitTotalPercentMax** | **Double** |  |  [optional]
+**profitAvgPercentMin** | **Double** |  |  [optional]
+**profitAvgPercentMax** | **Double** |  |  [optional]
 **profitTotalChange** | [**ProfitTotalChangeEnum**](#ProfitTotalChangeEnum) |  |  [optional]
 **periodMin** | **Integer** |  |  [optional]
 **periodMax** | **Integer** |  |  [optional]
@@ -46,6 +48,8 @@ BYENDOFPERIODASC | &quot;ByEndOfPeriodAsc&quot;
 BYENDOFPERIODDESC | &quot;ByEndOfPeriodDesc&quot;
 BYTITLEASC | &quot;ByTitleAsc&quot;
 BYTITLEDESC | &quot;ByTitleDesc&quot;
+BYBALANCEASK | &quot;ByBalanceAsk&quot;
+BYBALANCEDESC | &quot;ByBalanceDesc&quot;
 
 
 <a name="ProfitTotalChangeEnum"></a>

@@ -20,7 +20,6 @@ Method | HTTP request | Description
 [**apiManagerAuthSignUpPost**](ManagerApi.md#apiManagerAuthSignUpPost) | **POST** api/manager/auth/signUp | Register new manager
 [**apiManagerAuthUpdateTokenGet**](ManagerApi.md#apiManagerAuthUpdateTokenGet) | **GET** api/manager/auth/updateToken | Update auth token
 [**apiManagerBrokersPost**](ManagerApi.md#apiManagerBrokersPost) | **POST** api/manager/brokers | Get all enabled trade servers
-[**apiManagerDashboardPendingProgramsGet**](ManagerApi.md#apiManagerDashboardPendingProgramsGet) | **GET** api/manager/dashboard/pendingPrograms | Dashboard pending programs
 [**apiManagerDashboardProgramsPost**](ManagerApi.md#apiManagerDashboardProgramsPost) | **POST** api/manager/dashboard/programs | Dashboard programs
 [**apiManagerDashboardStatisticGet**](ManagerApi.md#apiManagerDashboardStatisticGet) | **GET** api/manager/dashboard/statistic | Dashboard statistic
 [**apiManagerInvestmentCancelInvestmentRequestPost**](ManagerApi.md#apiManagerInvestmentCancelInvestmentRequestPost) | **POST** api/manager/investment/cancelInvestmentRequest | Cancel investment request
@@ -29,7 +28,7 @@ Method | HTTP request | Description
 [**apiManagerInvestmentProgramBuyTokensGet**](ManagerApi.md#apiManagerInvestmentProgramBuyTokensGet) | **GET** api/manager/investmentProgram/buyTokens | Get investment program buy token model
 [**apiManagerInvestmentProgramEquityChartGet**](ManagerApi.md#apiManagerInvestmentProgramEquityChartGet) | **GET** api/manager/investmentProgram/equity/chart | Get manager equity chart
 [**apiManagerInvestmentProgramGet**](ManagerApi.md#apiManagerInvestmentProgramGet) | **GET** api/manager/investmentProgram | Get investment program details by id
-[**apiManagerInvestmentProgramGetlevelstatisticGet**](ManagerApi.md#apiManagerInvestmentProgramGetlevelstatisticGet) | **GET** api/manager/investmentProgram/getlevelstatistic | 
+[**apiManagerInvestmentProgramGetlevelstatisticGet**](ManagerApi.md#apiManagerInvestmentProgramGetlevelstatisticGet) | **GET** api/manager/investmentProgram/getlevelstatistic | Level statistic
 [**apiManagerInvestmentProgramPeriodClosePost**](ManagerApi.md#apiManagerInvestmentProgramPeriodClosePost) | **POST** api/manager/investmentProgram/period/close | Close current period
 [**apiManagerInvestmentProgramRequestsPost**](ManagerApi.md#apiManagerInvestmentProgramRequestsPost) | **POST** api/manager/investmentProgram/requests | Get investment program&#39;s requests
 [**apiManagerInvestmentProgramTradesChartGet**](ManagerApi.md#apiManagerInvestmentProgramTradesChartGet) | **GET** api/manager/investmentProgram/trades/chart | Get manager trades chart
@@ -39,7 +38,7 @@ Method | HTTP request | Description
 [**apiManagerInvestmentProgramsFavoritesRemovePost**](ManagerApi.md#apiManagerInvestmentProgramsFavoritesRemovePost) | **POST** api/manager/investmentPrograms/favorites/remove | Remove from favorites
 [**apiManagerInvestmentProgramsPost**](ManagerApi.md#apiManagerInvestmentProgramsPost) | **POST** api/manager/investmentPrograms | Get public investment program&#39;s list
 [**apiManagerInvestmentWithdrawPost**](ManagerApi.md#apiManagerInvestmentWithdrawPost) | **POST** api/manager/investment/withdraw | Manager withdrawal from his own investment program
-[**apiManagerPlatformStatusGet**](ManagerApi.md#apiManagerPlatformStatusGet) | **GET** api/manager/platformStatus | 
+[**apiManagerPlatformStatusGet**](ManagerApi.md#apiManagerPlatformStatusGet) | **GET** api/manager/platformStatus | Platform status
 [**apiManagerProfileFullGet**](ManagerApi.md#apiManagerProfileFullGet) | **GET** api/manager/profile/full | Get full profile
 [**apiManagerProfilePublicGet**](ManagerApi.md#apiManagerProfilePublicGet) | **GET** api/manager/profile/public | Get public profile
 [**apiManagerProfileUpdatePost**](ManagerApi.md#apiManagerProfileUpdatePost) | **POST** api/manager/profile/update | Update profile
@@ -757,49 +756,6 @@ No authorization required
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
-<a name="apiManagerDashboardPendingProgramsGet"></a>
-# **apiManagerDashboardPendingProgramsGet**
-> ManagerInvestmentPrograms apiManagerDashboardPendingProgramsGet(authorization)
-
-Dashboard pending programs
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.ManagerApi;
-
-
-ManagerApi apiInstance = new ManagerApi();
-String authorization = "authorization_example"; // String | JWT access token
-try {
-    ManagerInvestmentPrograms result = apiInstance.apiManagerDashboardPendingProgramsGet(authorization);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling ManagerApi#apiManagerDashboardPendingProgramsGet");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
-
-### Return type
-
-[**ManagerInvestmentPrograms**](ManagerInvestmentPrograms.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
 <a name="apiManagerDashboardProgramsPost"></a>
 # **apiManagerDashboardProgramsPost**
 > ManagerInvestmentPrograms apiManagerDashboardProgramsPost(authorization, filter)
@@ -1162,7 +1118,7 @@ No authorization required
 # **apiManagerInvestmentProgramGetlevelstatisticGet**
 > ManagerLevelStatistic apiManagerInvestmentProgramGetlevelstatisticGet(investmentProgramId, authorization)
 
-
+Level statistic
 
 ### Example
 ```java
@@ -1608,7 +1564,7 @@ No authorization required
 # **apiManagerPlatformStatusGet**
 > PlatformStatus apiManagerPlatformStatusGet()
 
-
+Platform status
 
 ### Example
 ```java

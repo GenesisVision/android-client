@@ -33,6 +33,9 @@ public class BrokerInitData
 	@SerializedName("investments")
 	private List<BrokerInvestmentProgram> investments = null;
 
+	@SerializedName("hoursOffset")
+	private Integer hoursOffset = null;
+
 	public BrokerInitData newManagerRequest(List<ManagerRequest> newManagerRequest) {
 		this.newManagerRequest = newManagerRequest;
 		return this;
@@ -87,6 +90,25 @@ public class BrokerInitData
 		this.investments = investments;
 	}
 
+	public BrokerInitData hoursOffset(Integer hoursOffset) {
+		this.hoursOffset = hoursOffset;
+		return this;
+	}
+
+	/**
+	 * Get hoursOffset
+	 *
+	 * @return hoursOffset
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getHoursOffset() {
+		return hoursOffset;
+	}
+
+	public void setHoursOffset(Integer hoursOffset) {
+		this.hoursOffset = hoursOffset;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -98,12 +120,13 @@ public class BrokerInitData
 		}
 		BrokerInitData brokerInitData = (BrokerInitData) o;
 		return Objects.equals(this.newManagerRequest, brokerInitData.newManagerRequest) &&
-				Objects.equals(this.investments, brokerInitData.investments);
+				Objects.equals(this.investments, brokerInitData.investments) &&
+				Objects.equals(this.hoursOffset, brokerInitData.hoursOffset);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(newManagerRequest, investments);
+		return Objects.hash(newManagerRequest, investments, hoursOffset);
 	}
 
 
@@ -114,6 +137,7 @@ public class BrokerInitData
 
 		sb.append("    newManagerRequest: ").append(toIndentedString(newManagerRequest)).append("\n");
 		sb.append("    investments: ").append(toIndentedString(investments)).append("\n");
+		sb.append("    hoursOffset: ").append(toIndentedString(hoursOffset)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

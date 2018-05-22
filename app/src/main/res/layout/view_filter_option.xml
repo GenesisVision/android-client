@@ -25,10 +25,16 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@+id/name"
+        android:layout_toRightOf="@+id/name"
+        android:ellipsize="end"
         android:fontFamily="sans-serif"
-        android:textColor="@color/grey500"
+        android:gravity="center_vertical|end"
+        android:lines="2"
+        android:textColor="@color/grey700"
         android:textSize="16sp"
-        tools:text="from 1 to 5"
-        tools:textColor="@color/black"/>
+        tools:text="from 100 to 500"/>
 
 </RelativeLayout>

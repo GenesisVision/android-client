@@ -19,6 +19,8 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
+import org.joda.time.DateTime;
+
 import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
@@ -54,6 +56,9 @@ public class ManagerRequest
 
 	@SerializedName("leverage")
 	private Integer leverage = null;
+
+	@SerializedName("programDateFrom")
+	private DateTime programDateFrom = null;
 
 	public ManagerRequest userId(UUID userId) {
 		this.userId = userId;
@@ -207,6 +212,25 @@ public class ManagerRequest
 		this.leverage = leverage;
 	}
 
+	public ManagerRequest programDateFrom(DateTime programDateFrom) {
+		this.programDateFrom = programDateFrom;
+		return this;
+	}
+
+	/**
+	 * Get programDateFrom
+	 *
+	 * @return programDateFrom
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getProgramDateFrom() {
+		return programDateFrom;
+	}
+
+	public void setProgramDateFrom(DateTime programDateFrom) {
+		this.programDateFrom = programDateFrom;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -223,12 +247,13 @@ public class ManagerRequest
 				Objects.equals(this.currency, managerRequest.currency) &&
 				Objects.equals(this.password, managerRequest.password) &&
 				Objects.equals(this.depositAmount, managerRequest.depositAmount) &&
-				Objects.equals(this.leverage, managerRequest.leverage);
+				Objects.equals(this.leverage, managerRequest.leverage) &&
+				Objects.equals(this.programDateFrom, managerRequest.programDateFrom);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userId, requestId, name, email, currency, password, depositAmount, leverage);
+		return Objects.hash(userId, requestId, name, email, currency, password, depositAmount, leverage, programDateFrom);
 	}
 
 	@Override
@@ -244,6 +269,7 @@ public class ManagerRequest
 		sb.append("    password: ").append(toIndentedString(password)).append("\n");
 		sb.append("    depositAmount: ").append(toIndentedString(depositAmount)).append("\n");
 		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
+		sb.append("    programDateFrom: ").append(toIndentedString(programDateFrom)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

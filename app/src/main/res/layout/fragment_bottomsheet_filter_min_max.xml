@@ -78,7 +78,7 @@
                         android:hint="@string/any"
                         android:imeOptions="actionNext"
                         android:inputType="number"
-                        android:textSize="16sp"/>
+                        android:textSize="18sp"/>
 
                     <ImageView
                         android:id="@+id/button_clear_min_value"
@@ -119,7 +119,7 @@
                         android:hint="@string/any"
                         android:imeOptions="actionDone"
                         android:inputType="number"
-                        android:textSize="16sp"/>
+                        android:textSize="18sp"/>
 
                     <ImageView
                         android:id="@+id/button_clear_max_value"

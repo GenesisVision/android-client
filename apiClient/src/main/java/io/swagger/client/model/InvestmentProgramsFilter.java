@@ -58,29 +58,35 @@ public class InvestmentProgramsFilter
 	@SerializedName("levelMax")
 	private Integer levelMax = null;
 
+	@SerializedName("balanceUsdMin")
+	private Double balanceUsdMin = null;
+
+	@SerializedName("balanceUsdMax")
+	private Double balanceUsdMax = null;
+
 	@SerializedName("profitAvgMin")
-	private Integer profitAvgMin = null;
+	private Double profitAvgMin = null;
 
 	@SerializedName("profitAvgMax")
-	private Integer profitAvgMax = null;
+	private Double profitAvgMax = null;
 
 	@SerializedName("profitTotalMin")
-	private Integer profitTotalMin = null;
+	private Double profitTotalMin = null;
 
 	@SerializedName("profitTotalMax")
-	private Integer profitTotalMax = null;
+	private Double profitTotalMax = null;
 
 	@SerializedName("profitTotalPercentMin")
-	private Integer profitTotalPercentMin = null;
+	private Double profitTotalPercentMin = null;
 
 	@SerializedName("profitTotalPercentMax")
-	private Integer profitTotalPercentMax = null;
+	private Double profitTotalPercentMax = null;
 
 	@SerializedName("profitAvgPercentMin")
-	private Integer profitAvgPercentMin = null;
+	private Double profitAvgPercentMin = null;
 
 	@SerializedName("profitAvgPercentMax")
-	private Integer profitAvgPercentMax = null;
+	private Double profitAvgPercentMax = null;
 
 	@SerializedName("profitTotalChange")
 	private ProfitTotalChangeEnum profitTotalChange = null;
@@ -280,7 +286,45 @@ public class InvestmentProgramsFilter
 		this.levelMax = levelMax;
 	}
 
-	public InvestmentProgramsFilter profitAvgMin(Integer profitAvgMin) {
+	public InvestmentProgramsFilter balanceUsdMin(Double balanceUsdMin) {
+		this.balanceUsdMin = balanceUsdMin;
+		return this;
+	}
+
+	/**
+	 * Get balanceUsdMin
+	 *
+	 * @return balanceUsdMin
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getBalanceUsdMin() {
+		return balanceUsdMin;
+	}
+
+	public void setBalanceUsdMin(Double balanceUsdMin) {
+		this.balanceUsdMin = balanceUsdMin;
+	}
+
+	public InvestmentProgramsFilter balanceUsdMax(Double balanceUsdMax) {
+		this.balanceUsdMax = balanceUsdMax;
+		return this;
+	}
+
+	/**
+	 * Get balanceUsdMax
+	 *
+	 * @return balanceUsdMax
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getBalanceUsdMax() {
+		return balanceUsdMax;
+	}
+
+	public void setBalanceUsdMax(Double balanceUsdMax) {
+		this.balanceUsdMax = balanceUsdMax;
+	}
+
+	public InvestmentProgramsFilter profitAvgMin(Double profitAvgMin) {
 		this.profitAvgMin = profitAvgMin;
 		return this;
 	}
@@ -291,15 +335,15 @@ public class InvestmentProgramsFilter
 	 * @return profitAvgMin
 	 **/
 	@ApiModelProperty(value = "")
-	public Integer getProfitAvgMin() {
+	public Double getProfitAvgMin() {
 		return profitAvgMin;
 	}
 
-	public void setProfitAvgMin(Integer profitAvgMin) {
+	public void setProfitAvgMin(Double profitAvgMin) {
 		this.profitAvgMin = profitAvgMin;
 	}
 
-	public InvestmentProgramsFilter profitAvgMax(Integer profitAvgMax) {
+	public InvestmentProgramsFilter profitAvgMax(Double profitAvgMax) {
 		this.profitAvgMax = profitAvgMax;
 		return this;
 	}
@@ -310,15 +354,15 @@ public class InvestmentProgramsFilter
 	 * @return profitAvgMax
 	 **/
 	@ApiModelProperty(value = "")
-	public Integer getProfitAvgMax() {
+	public Double getProfitAvgMax() {
 		return profitAvgMax;
 	}
 
-	public void setProfitAvgMax(Integer profitAvgMax) {
+	public void setProfitAvgMax(Double profitAvgMax) {
 		this.profitAvgMax = profitAvgMax;
 	}
 
-	public InvestmentProgramsFilter profitTotalMin(Integer profitTotalMin) {
+	public InvestmentProgramsFilter profitTotalMin(Double profitTotalMin) {
 		this.profitTotalMin = profitTotalMin;
 		return this;
 	}
@@ -329,15 +373,15 @@ public class InvestmentProgramsFilter
 	 * @return profitTotalMin
 	 **/
 	@ApiModelProperty(value = "")
-	public Integer getProfitTotalMin() {
+	public Double getProfitTotalMin() {
 		return profitTotalMin;
 	}
 
-	public void setProfitTotalMin(Integer profitTotalMin) {
+	public void setProfitTotalMin(Double profitTotalMin) {
 		this.profitTotalMin = profitTotalMin;
 	}
 
-	public InvestmentProgramsFilter profitTotalMax(Integer profitTotalMax) {
+	public InvestmentProgramsFilter profitTotalMax(Double profitTotalMax) {
 		this.profitTotalMax = profitTotalMax;
 		return this;
 	}
@@ -348,15 +392,15 @@ public class InvestmentProgramsFilter
 	 * @return profitTotalMax
 	 **/
 	@ApiModelProperty(value = "")
-	public Integer getProfitTotalMax() {
+	public Double getProfitTotalMax() {
 		return profitTotalMax;
 	}
 
-	public void setProfitTotalMax(Integer profitTotalMax) {
+	public void setProfitTotalMax(Double profitTotalMax) {
 		this.profitTotalMax = profitTotalMax;
 	}
 
-	public InvestmentProgramsFilter profitTotalPercentMin(Integer profitTotalPercentMin) {
+	public InvestmentProgramsFilter profitTotalPercentMin(Double profitTotalPercentMin) {
 		this.profitTotalPercentMin = profitTotalPercentMin;
 		return this;
 	}
@@ -367,15 +411,15 @@ public class InvestmentProgramsFilter
 	 * @return profitTotalPercentMin
 	 **/
 	@ApiModelProperty(value = "")
-	public Integer getProfitTotalPercentMin() {
+	public Double getProfitTotalPercentMin() {
 		return profitTotalPercentMin;
 	}
 
-	public void setProfitTotalPercentMin(Integer profitTotalPercentMin) {
+	public void setProfitTotalPercentMin(Double profitTotalPercentMin) {
 		this.profitTotalPercentMin = profitTotalPercentMin;
 	}
 
-	public InvestmentProgramsFilter profitTotalPercentMax(Integer profitTotalPercentMax) {
+	public InvestmentProgramsFilter profitTotalPercentMax(Double profitTotalPercentMax) {
 		this.profitTotalPercentMax = profitTotalPercentMax;
 		return this;
 	}
@@ -386,15 +430,15 @@ public class InvestmentProgramsFilter
 	 * @return profitTotalPercentMax
 	 **/
 	@ApiModelProperty(value = "")
-	public Integer getProfitTotalPercentMax() {
+	public Double getProfitTotalPercentMax() {
 		return profitTotalPercentMax;
 	}
 
-	public void setProfitTotalPercentMax(Integer profitTotalPercentMax) {
+	public void setProfitTotalPercentMax(Double profitTotalPercentMax) {
 		this.profitTotalPercentMax = profitTotalPercentMax;
 	}
 
-	public InvestmentProgramsFilter profitAvgPercentMin(Integer profitAvgPercentMin) {
+	public InvestmentProgramsFilter profitAvgPercentMin(Double profitAvgPercentMin) {
 		this.profitAvgPercentMin = profitAvgPercentMin;
 		return this;
 	}
@@ -405,15 +449,15 @@ public class InvestmentProgramsFilter
 	 * @return profitAvgPercentMin
 	 **/
 	@ApiModelProperty(value = "")
-	public Integer getProfitAvgPercentMin() {
+	public Double getProfitAvgPercentMin() {
 		return profitAvgPercentMin;
 	}
 
-	public void setProfitAvgPercentMin(Integer profitAvgPercentMin) {
+	public void setProfitAvgPercentMin(Double profitAvgPercentMin) {
 		this.profitAvgPercentMin = profitAvgPercentMin;
 	}
 
-	public InvestmentProgramsFilter profitAvgPercentMax(Integer profitAvgPercentMax) {
+	public InvestmentProgramsFilter profitAvgPercentMax(Double profitAvgPercentMax) {
 		this.profitAvgPercentMax = profitAvgPercentMax;
 		return this;
 	}
@@ -424,11 +468,11 @@ public class InvestmentProgramsFilter
 	 * @return profitAvgPercentMax
 	 **/
 	@ApiModelProperty(value = "")
-	public Integer getProfitAvgPercentMax() {
+	public Double getProfitAvgPercentMax() {
 		return profitAvgPercentMax;
 	}
 
-	public void setProfitAvgPercentMax(Integer profitAvgPercentMax) {
+	public void setProfitAvgPercentMax(Double profitAvgPercentMax) {
 		this.profitAvgPercentMax = profitAvgPercentMax;
 	}
 
@@ -621,6 +665,8 @@ public class InvestmentProgramsFilter
 				Objects.equals(this.name, investmentProgramsFilter.name) &&
 				Objects.equals(this.levelMin, investmentProgramsFilter.levelMin) &&
 				Objects.equals(this.levelMax, investmentProgramsFilter.levelMax) &&
+				Objects.equals(this.balanceUsdMin, investmentProgramsFilter.balanceUsdMin) &&
+				Objects.equals(this.balanceUsdMax, investmentProgramsFilter.balanceUsdMax) &&
 				Objects.equals(this.profitAvgMin, investmentProgramsFilter.profitAvgMin) &&
 				Objects.equals(this.profitAvgMax, investmentProgramsFilter.profitAvgMax) &&
 				Objects.equals(this.profitTotalMin, investmentProgramsFilter.profitTotalMin) &&
@@ -642,7 +688,7 @@ public class InvestmentProgramsFilter
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(managerId, brokerId, brokerTradeServerId, investMaxAmountFrom, investMaxAmountTo, sorting, name, levelMin, levelMax, profitAvgMin, profitAvgMax, profitTotalMin, profitTotalMax, profitTotalPercentMin, profitTotalPercentMax, profitAvgPercentMin, profitAvgPercentMax, profitTotalChange, periodMin, periodMax, showActivePrograms, equityChartLength, showMyFavorites, roundNumber, skip, take);
+		return Objects.hash(managerId, brokerId, brokerTradeServerId, investMaxAmountFrom, investMaxAmountTo, sorting, name, levelMin, levelMax, balanceUsdMin, balanceUsdMax, profitAvgMin, profitAvgMax, profitTotalMin, profitTotalMax, profitTotalPercentMin, profitTotalPercentMax, profitAvgPercentMin, profitAvgPercentMax, profitTotalChange, periodMin, periodMax, showActivePrograms, equityChartLength, showMyFavorites, roundNumber, skip, take);
 	}
 
 	@Override
@@ -659,6 +705,8 @@ public class InvestmentProgramsFilter
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    levelMin: ").append(toIndentedString(levelMin)).append("\n");
 		sb.append("    levelMax: ").append(toIndentedString(levelMax)).append("\n");
+		sb.append("    balanceUsdMin: ").append(toIndentedString(balanceUsdMin)).append("\n");
+		sb.append("    balanceUsdMax: ").append(toIndentedString(balanceUsdMax)).append("\n");
 		sb.append("    profitAvgMin: ").append(toIndentedString(profitAvgMin)).append("\n");
 		sb.append("    profitAvgMax: ").append(toIndentedString(profitAvgMax)).append("\n");
 		sb.append("    profitTotalMin: ").append(toIndentedString(profitTotalMin)).append("\n");
@@ -716,7 +764,11 @@ public class InvestmentProgramsFilter
 
 		BYTITLEASC("ByTitleAsc"),
 
-		BYTITLEDESC("ByTitleDesc");
+		BYTITLEDESC("ByTitleDesc"),
+
+		BYBALANCEASK("ByBalanceAsk"),
+
+		BYBALANCEDESC("ByBalanceDesc");
 
 		public static SortingEnum fromValue(String text) {
 			for (SortingEnum b : SortingEnum.values()) {

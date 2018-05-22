@@ -249,5 +249,8 @@
         <item name="android:tint">@color/grey300</item>
     </style>
 
-    <dimen name="chart_zoom_buttons_width">70dp</dimen>
+    <style name="dialog_slide_animation">
+        <item name="android:windowEnterAnimation">@anim/slide_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_to_bottom</item>
+    </style>
 </resources>

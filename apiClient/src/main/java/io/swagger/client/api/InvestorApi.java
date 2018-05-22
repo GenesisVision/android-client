@@ -409,6 +409,8 @@ public interface InvestorApi
 	);
 
 	/**
+	 * Platform status
+	 *
 	 * @return Call&lt;PlatformStatus&gt;
 	 */
 	@GET("api/investor/platformStatus")

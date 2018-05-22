@@ -108,6 +108,9 @@ public class InvestmentProgramDashboardManager
 	@SerializedName("isFavorite")
 	private Boolean isFavorite = null;
 
+	@SerializedName("isPending")
+	private Boolean isPending = null;
+
 	@SerializedName("isTournament")
 	private Boolean isTournament = null;
 
@@ -592,6 +595,25 @@ public class InvestmentProgramDashboardManager
 		this.isFavorite = isFavorite;
 	}
 
+	public InvestmentProgramDashboardManager isPending(Boolean isPending) {
+		this.isPending = isPending;
+		return this;
+	}
+
+	/**
+	 * Get isPending
+	 *
+	 * @return isPending
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsPending() {
+		return isPending;
+	}
+
+	public void setIsPending(Boolean isPending) {
+		this.isPending = isPending;
+	}
+
 	public InvestmentProgramDashboardManager isTournament(Boolean isTournament) {
 		this.isTournament = isTournament;
 		return this;
@@ -683,6 +705,7 @@ public class InvestmentProgramDashboardManager
 				Objects.equals(this.canCloseProgram, investmentProgramDashboardManager.canCloseProgram) &&
 				Objects.equals(this.canClosePeriod, investmentProgramDashboardManager.canClosePeriod) &&
 				Objects.equals(this.isFavorite, investmentProgramDashboardManager.isFavorite) &&
+				Objects.equals(this.isPending, investmentProgramDashboardManager.isPending) &&
 				Objects.equals(this.isTournament, investmentProgramDashboardManager.isTournament) &&
 				Objects.equals(this.roundNumber, investmentProgramDashboardManager.roundNumber) &&
 				Objects.equals(this.place, investmentProgramDashboardManager.place);
@@ -690,7 +713,7 @@ public class InvestmentProgramDashboardManager
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, level, logo, balance, currency, tradesCount, periodDuration, investorsCount, isEnabled, startOfPeriod, profitTotal, profitTotalGvt, profitCurrent, isInvestEnable, isWithdrawEnable, token, ownBalance, minAccountBalanceUsd, minAccountBalance, login, canCloseProgram, canClosePeriod, isFavorite, isTournament, roundNumber, place);
+		return Objects.hash(id, title, description, level, logo, balance, currency, tradesCount, periodDuration, investorsCount, isEnabled, startOfPeriod, profitTotal, profitTotalGvt, profitCurrent, isInvestEnable, isWithdrawEnable, token, ownBalance, minAccountBalanceUsd, minAccountBalance, login, canCloseProgram, canClosePeriod, isFavorite, isPending, isTournament, roundNumber, place);
 	}
 
 	@Override
@@ -723,6 +746,7 @@ public class InvestmentProgramDashboardManager
 		sb.append("    canCloseProgram: ").append(toIndentedString(canCloseProgram)).append("\n");
 		sb.append("    canClosePeriod: ").append(toIndentedString(canClosePeriod)).append("\n");
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
+		sb.append("    isPending: ").append(toIndentedString(isPending)).append("\n");
 		sb.append("    isTournament: ").append(toIndentedString(isTournament)).append("\n");
 		sb.append("    roundNumber: ").append(toIndentedString(roundNumber)).append("\n");
 		sb.append("    place: ").append(toIndentedString(place)).append("\n");

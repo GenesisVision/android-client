@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **periodDuration** | **Integer** |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **availableInvestments** | **Double** |  |  [optional]
+**rateCacheId** | [**UUID**](UUID.md) |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

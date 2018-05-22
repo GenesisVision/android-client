@@ -31,7 +31,7 @@ Method | HTTP request | Description
 [**apiInvestorInvestmentProgramsInvestPost**](InvestorApi.md#apiInvestorInvestmentProgramsInvestPost) | **POST** api/investor/investmentPrograms/invest | Invest in manager
 [**apiInvestorInvestmentProgramsPost**](InvestorApi.md#apiInvestorInvestmentProgramsPost) | **POST** api/investor/investmentPrograms | Get public investment program&#39;s list
 [**apiInvestorInvestmentProgramsWithdrawPost**](InvestorApi.md#apiInvestorInvestmentProgramsWithdrawPost) | **POST** api/investor/investmentPrograms/withdraw | Withdraw from investment program
-[**apiInvestorPlatformStatusGet**](InvestorApi.md#apiInvestorPlatformStatusGet) | **GET** api/investor/platformStatus | 
+[**apiInvestorPlatformStatusGet**](InvestorApi.md#apiInvestorPlatformStatusGet) | **GET** api/investor/platformStatus | Platform status
 [**apiInvestorProfileFullGet**](InvestorApi.md#apiInvestorProfileFullGet) | **GET** api/investor/profile/full | Get full profile
 [**apiInvestorProfilePublicGet**](InvestorApi.md#apiInvestorProfilePublicGet) | **GET** api/investor/profile/public | Get public profile
 [**apiInvestorProfileUpdatePost**](InvestorApi.md#apiInvestorProfileUpdatePost) | **POST** api/investor/profile/update | Update profile
@@ -647,7 +647,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByOrdersAsc, ByOrdersDesc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc]
+ **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByOrdersAsc, ByOrdersDesc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsk, ByBalanceDesc]
  **equityChartLength** | **Integer**|  | [optional]
 
 ### Return type
@@ -1248,7 +1248,7 @@ No authorization required
 # **apiInvestorPlatformStatusGet**
 > PlatformStatus apiInvestorPlatformStatusGet()
 
-
+Platform status
 
 ### Example
 ```java

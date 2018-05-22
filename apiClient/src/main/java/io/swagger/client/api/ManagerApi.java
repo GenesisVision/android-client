@@ -275,17 +275,6 @@ public interface ManagerApi
 	);
 
 	/**
-	 * Dashboard pending programs
-	 *
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;ManagerInvestmentPrograms&gt;
-	 */
-	@GET("api/manager/dashboard/pendingPrograms")
-	Observable<ManagerInvestmentPrograms> apiManagerDashboardPendingProgramsGet(
-			@retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
 	 * Dashboard programs
 	 *
 	 * @param authorization JWT access token (required)
@@ -387,6 +376,8 @@ public interface ManagerApi
 	);
 
 	/**
+	 * Level statistic
+	 *
 	 * @param investmentProgramId (required)
 	 * @param authorization       JWT access token (required)
 	 * @return Call&lt;ManagerLevelStatistic&gt;
@@ -518,6 +509,8 @@ public interface ManagerApi
 	);
 
 	/**
+	 * Platform status
+	 *
 	 * @return Call&lt;PlatformStatus&gt;
 	 */
 	@GET("api/manager/platformStatus")
