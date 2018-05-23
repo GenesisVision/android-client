@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import vision.genesis.clientapp.net.NetworkManager;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.SharedPreferencesUtil;
 
@@ -27,5 +28,11 @@ public class UtilsModule
 	@Singleton
 	public ImageUtils provideImageUtils() {
 		return new ImageUtils();
+	}
+
+	@Provides
+	@Singleton
+	public NetworkManager provideNetworkManager(Context context) {
+		return new NetworkManager(context);
 	}
 }

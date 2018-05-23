@@ -25,8 +25,8 @@ android {
         targetSdkVersion 27
         multiDexEnabled true
 
-        versionCode 18051601
-        versionName "0.0.6-alpha"
+        versionCode 18052301
+        versionName "0.0.7-alpha"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         renderscriptTargetApi 27

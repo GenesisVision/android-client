@@ -10,6 +10,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.PlatformStatus;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -19,6 +20,8 @@ import vision.genesis.clientapp.feature.main.dashboard.DashboardFragment;
 import vision.genesis.clientapp.feature.main.profile.ProfileFragment;
 import vision.genesis.clientapp.feature.main.wallet.WalletFragment;
 import vision.genesis.clientapp.managers.AuthManager;
+import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
@@ -44,7 +47,12 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Inject
 	public AuthManager authManager;
 
+	@Inject
+	public InvestManager investManager;
+
 	private Subscription userSubscription;
+
+	private Subscription platformStatusSubscription;
 
 	private DashboardFragment dashboardFragment;
 
@@ -63,6 +71,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 		EventBus.getDefault().register(this);
 
 		subscribeToUser();
+		getPlatformStatus();
 
 		getViewState().setNavigationItemSelected(1);
 	}
@@ -71,6 +80,8 @@ public class MainPresenter extends MvpPresenter<MainView>
 	public void onDestroy() {
 		if (userSubscription != null)
 			userSubscription.unsubscribe();
+		if (platformStatusSubscription != null)
+			platformStatusSubscription.unsubscribe();
 
 		EventBus.getDefault().unregister(this);
 
@@ -136,6 +147,40 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	void onSignInButtonClicked() {
 		getViewState().showLoginActivity();
+	}
+
+	private void getPlatformStatus() {
+		platformStatusSubscription = investManager.getPlatformStatus()
+				.subscribeOn(Schedulers.io())
+				.observeOn(Schedulers.computation())
+				.map(this::checkIfNeedUpdate)
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(this::onPlatformStatusSuccess,
+						this::onPlatformStatusError);
+	}
+
+	private AppUpdateModel checkIfNeedUpdate(PlatformStatus response) {
+		AppUpdateModel model = new AppUpdateModel(response.getAndroidVersion().getLastVersion().getVersionName());
+		try {
+			int lastVersionCode = Integer.parseInt(response.getAndroidVersion().getLastVersion().getVersionCode());
+			model.setVersionCode(lastVersionCode);
+			if (authManager.haveUpdate(lastVersionCode)) {
+				model.needUpdate = true;
+			}
+		} catch (NumberFormatException ignored) {
+		}
+		return model;
+	}
+
+	private void onPlatformStatusSuccess(AppUpdateModel model) {
+		platformStatusSubscription.unsubscribe();
+
+		if (model.needUpdate)
+			getViewState().showAppUpdateDialog(model);
+	}
+
+	private void onPlatformStatusError(Throwable error) {
+		platformStatusSubscription.unsubscribe();
 	}
 
 	private void subscribeToUser() {

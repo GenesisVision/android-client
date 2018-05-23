@@ -27,11 +27,13 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
+import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
 import vision.genesis.clientapp.feature.main.message.MessageActivity;
 import vision.genesis.clientapp.feature.main.program.ProgramInfoActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
+import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.ProgramInfoModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
@@ -284,5 +286,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	@Override
 	public void showDepositWallet() {
 		DepositWalletActivity.startWith(this);
+	}
+
+	@Override
+	public void showAppUpdateDialog(AppUpdateModel model) {
+		AppUpdateDialog dialog = new AppUpdateDialog(this, model);
+		dialog.show();
 	}
 }

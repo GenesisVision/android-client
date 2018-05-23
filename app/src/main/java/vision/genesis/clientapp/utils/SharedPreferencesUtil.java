@@ -14,6 +14,8 @@ public class SharedPreferencesUtil
 
 	private static final String KEY_TOKEN = "keyToken";
 
+	private static final String KEY_IGNORED_VERSION_UPDATE = "keyIgnoredVersionUpdate";
+
 	private Context context;
 
 	public SharedPreferencesUtil(Context context) {
@@ -30,5 +32,17 @@ public class SharedPreferencesUtil
 	public String getToken() {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
 		return sharedPreferences.getString(KEY_TOKEN, null);
+	}
+
+	public void saveIgnoredVersionUpdate(int versionCode) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		sharedPreferences.edit()
+				.putInt(KEY_IGNORED_VERSION_UPDATE, versionCode)
+				.apply();
+	}
+
+	public int getIgnoredVersionUpdate() {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		return sharedPreferences.getInt(KEY_IGNORED_VERSION_UPDATE, 0);
 	}
 }

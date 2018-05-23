@@ -1,6 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/group_network_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorGrayBackground"
+        android:visibility="gone"
+        tools:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/programs_no_internet_image_width"
+                android:layout_height="@dimen/programs_no_internet_image_height"
+                android:src="@drawable/no_internet"
+                android:tint="@color/colorFontLight"/>
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="@string/app_requires_network"
+                android:textColor="@color/black38"
+                android:textSize="20sp"/>
+
+            <FrameLayout
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="32dp">
+
+                <vision.genesis.clientapp.ui.PrimaryButton
+                    android:id="@+id/button_try_again_network"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/try_again"/>
+
+                <ProgressBar
+                    android:id="@+id/progress_bar_network"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:visibility="gone"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/group_server_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorGrayBackground"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/programs_no_internet_image_width"
+                android:layout_height="@dimen/programs_no_internet_image_height"
+                android:src="@drawable/ic_report_problem_black_24dp"
+                android:tint="@color/colorFontLight"/>
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="@string/server_error"
+                android:textColor="@color/black38"
+                android:textSize="20sp"/>
+
+            <FrameLayout
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="32dp">
+
+                <vision.genesis.clientapp.ui.PrimaryButton
+                    android:id="@+id/button_try_again_server"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/try_again"/>
+
+                <ProgressBar
+                    android:id="@+id/progress_bar_server"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:visibility="gone"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

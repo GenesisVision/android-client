@@ -13,6 +13,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.net.NetworkManager;
 
 /**
  * GenesisVision
@@ -28,7 +30,14 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 	@Inject
 	public InvestManager investManager;
 
+	@Inject
+	public NetworkManager networkManager;
+
 	private Subscription platformStatusSubscription;
+
+	private Subscription networkAvailabilitySubscription;
+
+	private Subscription serverAvailabilitySubscription;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -44,14 +53,23 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 	public void onDestroy() {
 		if (platformStatusSubscription != null)
 			platformStatusSubscription.unsubscribe();
+		if (networkAvailabilitySubscription != null)
+			networkAvailabilitySubscription.unsubscribe();
+		if (serverAvailabilitySubscription != null)
+			serverAvailabilitySubscription.unsubscribe();
 
 		super.onDestroy();
 	}
 
+	void onTryAgainClicked() {
+		getViewState().showProgress(true);
+		getPlatformStatus();
+	}
+
 	private void getPlatformStatus() {
 		platformStatusSubscription = investManager.getPlatformStatus()
-				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(this::onPlatformStatusSuccess,
 						this::onPlatformStatusError);
 	}
@@ -61,7 +79,49 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 	}
 
 	private void onPlatformStatusError(Throwable error) {
-		showMainActivity();
+		getViewState().showProgress(false);
+		if (ApiErrorResolver.isNetworkError(error)) {
+			getViewState().showNetworkError();
+			subscribeToNetworkAvailability();
+		}
+		else {
+			getViewState().showServerError();
+			subscribeToServerAvailability();
+		}
+	}
+
+	private void subscribeToNetworkAvailability() {
+		if (networkAvailabilitySubscription != null)
+			networkAvailabilitySubscription.unsubscribe();
+		networkAvailabilitySubscription = networkManager.networkAvailabilitySubject
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.newThread())
+				.subscribe(this::networkAvailabilityHandler,
+						Throwable::printStackTrace);
+	}
+
+	private void networkAvailabilityHandler(Boolean available) {
+		if (available) {
+			networkAvailabilitySubscription.unsubscribe();
+			onTryAgainClicked();
+		}
+	}
+
+	private void subscribeToServerAvailability() {
+		if (serverAvailabilitySubscription != null)
+			serverAvailabilitySubscription.unsubscribe();
+		serverAvailabilitySubscription = NetworkManager.serverAvailabilitySubject
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.newThread())
+				.subscribe(this::serverAvailabilityHandler,
+						Throwable::printStackTrace);
+	}
+
+	private void serverAvailabilityHandler(Boolean available) {
+		if (available) {
+			serverAvailabilitySubscription.unsubscribe();
+			onTryAgainClicked();
+		}
 	}
 
 	private void showMainActivity() {

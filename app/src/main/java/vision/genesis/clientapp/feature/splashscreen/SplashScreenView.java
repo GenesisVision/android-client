@@ -10,4 +10,10 @@ import com.arellomobile.mvp.MvpView;
 public interface SplashScreenView extends MvpView
 {
 	void showMainActivity();
+
+	void showNetworkError();
+
+	void showServerError();
+
+	void showProgress(boolean show);
 }

@@ -22,6 +22,7 @@ public class LogJsonInterceptor implements Interceptor
 		Response response = chain.proceed(request);
 		String rawJson = response.body().string();
 
+		NetworkManager.serverAvailabilitySubject.onNext(response.code() < 500 && response.code() >= 200);
 		if (!BuildConfig.PROD) {
 			Timber.tag("REST");
 			Timber.d("REQUEST %s\nRESPONSE %s", request.url(), rawJson);

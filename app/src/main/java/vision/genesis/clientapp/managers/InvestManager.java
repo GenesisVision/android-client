@@ -39,7 +39,7 @@ public class InvestManager
 
 	private Subscription getPlatformStatusSubscription;
 
-	private BehaviorSubject<PlatformStatus> platformStatusBehaviorSubject = BehaviorSubject.create();
+	private BehaviorSubject<PlatformStatus> platformStatusBehaviorSubject;
 
 	public InvestManager(InvestorApi investorApi, ManagerApi managerApi) {
 		this.investorApi = investorApi;
@@ -57,13 +57,14 @@ public class InvestManager
 	}
 
 	public Observable<PlatformStatus> getPlatformStatus() {
-		if (platformStatusBehaviorSubject == null)
+		if (platformStatusBehaviorSubject == null) {
 			platformStatusBehaviorSubject = BehaviorSubject.create();
-		getPlatformStatusSubscription = investorApi.apiInvestorPlatformStatusGet()
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleGetPlatformStatusSuccess,
-						this::handleGetPlatformStatusError);
+			getPlatformStatusSubscription = investorApi.apiInvestorPlatformStatusGet()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetPlatformStatusSuccess,
+							this::handleGetPlatformStatusError);
+		}
 		return platformStatusBehaviorSubject;
 	}
 

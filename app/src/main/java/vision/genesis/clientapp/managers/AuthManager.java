@@ -160,4 +160,16 @@ public class AuthManager
 	public void onEventMainThread(OnUnauthorizedResponseGetEvent event) {
 		logout();
 	}
+
+	public boolean haveUpdate(int lastVersion) {
+		return (BuildConfig.VERSION_CODE < lastVersion && lastVersion != getIgnoredVersionUpdate());
+	}
+
+	private int getIgnoredVersionUpdate() {
+		return sharedPreferencesUtil.getIgnoredVersionUpdate();
+	}
+
+	public void setIgnoredVersionUpdate(int versionCode) {
+		sharedPreferencesUtil.saveIgnoredVersionUpdate(versionCode);
+	}
 }

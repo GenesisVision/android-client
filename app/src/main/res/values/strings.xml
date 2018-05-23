@@ -308,4 +308,11 @@
     <string name="avaialble_to_invest_only">Available to invest in only</string>
     <string name="min_balance">Min balance ($)</string>
     <string name="max_balance">Max balance ($)</string>
+    <string name="app_requires_network">The application requires an Internet connection, which is currently not available. Please check it, and then try again.</string>
+    <string name="server_error">It seems there is a server error occurred. We already know about the problem and are working on it. Please try again later.</string>
+    <string name="new_version_available">There is a new version available:</string>
+    <string name="would_update_app">Would you like to update the app?</string>
+    <string name="dont_remind_this_version">Don\'t remind me about this version again</string>
+    <string name="update">Update</string>
+    <string name="no_thanks">No, thanks</string>
 </resources>

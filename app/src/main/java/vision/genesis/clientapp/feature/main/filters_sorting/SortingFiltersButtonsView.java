@@ -176,14 +176,14 @@ public class SortingFiltersButtonsView extends RelativeLayout
 				currentSortingName = "end of period";
 				currentSortingDirection = "desc";
 				break;
-//			case BYBALANCEASC:
-//				currentSortingName = "balance";
-//				currentSortingDirection = "asc";
-//				break;
-//			case BYBALANCEDESC:
-//				currentSortingName = "balance";
-//				currentSortingDirection = "desc";
-//				break;
+			case BYBALANCEASK:
+				currentSortingName = "balance";
+				currentSortingDirection = "asc";
+				break;
+			case BYBALANCEDESC:
+				currentSortingName = "balance";
+				currentSortingDirection = "desc";
+				break;
 			case BYTITLEASC:
 				currentSortingName = "title";
 				currentSortingDirection = "asc";

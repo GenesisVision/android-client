@@ -3,6 +3,7 @@ package vision.genesis.clientapp.feature.main;
 import com.arellomobile.mvp.MvpView;
 
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.ProgramInfoModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 
@@ -44,4 +45,6 @@ public interface MainView extends MvpView
 	void showWithdrawWallet();
 
 	void showDepositWallet();
+
+	void showAppUpdateDialog(AppUpdateModel model);
 }
