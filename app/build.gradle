@@ -25,7 +25,7 @@ android {
         targetSdkVersion 27
         multiDexEnabled true
 
-        versionCode 18052301
+        versionCode 18052401
         versionName "0.0.7-alpha"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 

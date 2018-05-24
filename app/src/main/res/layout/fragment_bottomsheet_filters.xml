@@ -78,6 +78,11 @@
                     android:layout_height="@dimen/button_height"/>
 
                 <vision.genesis.clientapp.feature.main.filters_sorting.FilterOptionView
+                    android:id="@+id/total_profit"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"/>
+
+                <vision.genesis.clientapp.feature.main.filters_sorting.FilterOptionView
                     android:id="@+id/balance"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/button_height"/>

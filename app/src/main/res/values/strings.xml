@@ -302,6 +302,8 @@
     <string name="max_level">Max level</string>
     <string name="min_avg_profit">Min avg. profit (%)</string>
     <string name="max_avg_profit">Max avg. profit (%)</string>
+    <string name="min_total_profit">Min total profit (GVT)</string>
+    <string name="max_total_profit">Max total profit (GVT)</string>
     <string name="should_be_a_number">should be a number</string>
     <string name="should_be_not_less">should be not less than</string>
     <string name="should_be_not_greater">should be not greater than</string>

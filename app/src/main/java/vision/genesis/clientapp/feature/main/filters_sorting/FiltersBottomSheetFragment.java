@@ -42,6 +42,9 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 	@BindView(R.id.avg_profit)
 	public FilterOptionView avgProfit;
 
+	@BindView(R.id.total_profit)
+	public FilterOptionView totalProfit;
+
 	@BindView(R.id.balance)
 	public FilterOptionView balance;
 
@@ -77,6 +80,10 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 
 	private Integer maxAvgProfit;
 
+	private Integer minTotalProfit;
+
+	private Integer maxTotalProfit;
+
 	private Integer minBalance;
 
 	private Integer maxBalance;
@@ -95,6 +102,7 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 		resetControlsValues();
 		updateLevel(null, null);
 		updateAvgProfit(null, null);
+		updateTotalProfit(null, null);
 		updateBalance(null, null);
 		onActiveProgramsOnlyChanged(null);
 		onAvailableToInvestOnlyChanged(null);
@@ -145,6 +153,8 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 		maxLevel = filter.getLevelMax();
 		minAvgProfit = NumberFormatUtil.doubleToInteger(filter.getProfitAvgPercentMin());
 		maxAvgProfit = NumberFormatUtil.doubleToInteger(filter.getProfitAvgPercentMax());
+		minTotalProfit = NumberFormatUtil.doubleToInteger(filter.getProfitTotalMin());
+		maxTotalProfit = NumberFormatUtil.doubleToInteger(filter.getProfitTotalMax());
 		minBalance = NumberFormatUtil.doubleToInteger(filter.getBalanceUsdMin());
 		maxBalance = NumberFormatUtil.doubleToInteger(filter.getBalanceUsdMax());
 		activeOnly = filter.isShowActivePrograms();
@@ -168,6 +178,7 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 	private void initFilterOptions() {
 		level.setName(getString(R.string.level));
 		avgProfit.setName(getString(R.string.average_profit));
+		totalProfit.setName(getString(R.string.total_profit));
 		balance.setName(getString(R.string.balance));
 
 		level.setOnClickListener(v -> {
@@ -201,6 +212,23 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 				);
 				bottomSheetDialog.setData(model);
 				bottomSheetDialog.setListener(this::updateAvgProfit);
+			}
+		});
+
+		totalProfit.setOnClickListener(v -> {
+			if (activity != null) {
+				FilterMinMaxBottomSheetFragment bottomSheetDialog = new FilterMinMaxBottomSheetFragment();
+				bottomSheetDialog.show(activity.getSupportFragmentManager(), bottomSheetDialog.getTag());
+				MinMaxFilterModel model = new MinMaxFilterModel(getString(R.string.total_profit),
+						getString(R.string.min_total_profit),
+						getString(R.string.max_total_profit),
+						minTotalProfit,
+						maxTotalProfit,
+						null,
+						null
+				);
+				bottomSheetDialog.setData(model);
+				bottomSheetDialog.setListener(this::updateTotalProfit);
 			}
 		});
 
@@ -244,6 +272,14 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 		updateButtons();
 	}
 
+	private void updateTotalProfit(Integer minTotalProfit, Integer maxTotalProfit) {
+		this.minTotalProfit = minTotalProfit;
+		this.maxTotalProfit = maxTotalProfit;
+
+		setRangeFilterValue(totalProfit, minTotalProfit, maxTotalProfit);
+		updateButtons();
+	}
+
 	private void updateBalance(Integer minBalance, Integer maxBalance) {
 		this.minBalance = minBalance;
 		this.maxBalance = maxBalance;
@@ -280,6 +316,9 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 		setRangeFilterValue(avgProfit,
 				NumberFormatUtil.doubleToInteger(filter.getProfitAvgPercentMin()),
 				NumberFormatUtil.doubleToInteger(filter.getProfitAvgPercentMax()));
+		setRangeFilterValue(totalProfit,
+				NumberFormatUtil.doubleToInteger(filter.getProfitTotalMin()),
+				NumberFormatUtil.doubleToInteger(filter.getProfitTotalMax()));
 		setRangeFilterValue(balance,
 				NumberFormatUtil.doubleToInteger(filter.getBalanceUsdMin()),
 				NumberFormatUtil.doubleToInteger(filter.getBalanceUsdMax()));
@@ -294,6 +333,7 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 	private void resetControlsValues() {
 		resetRangeFilterValue(level);
 		resetRangeFilterValue(avgProfit);
+		resetRangeFilterValue(totalProfit);
 		resetRangeFilterValue(balance);
 		activeProgramsOnly.setChecked(false);
 		availableToInvestProgramsOnly.setChecked(false);
@@ -314,6 +354,8 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 		filter.setLevelMax(maxLevel);
 		filter.setProfitAvgPercentMin(NumberFormatUtil.integerToDouble(minAvgProfit));
 		filter.setProfitAvgPercentMax(NumberFormatUtil.integerToDouble(maxAvgProfit));
+		filter.setProfitTotalMin(NumberFormatUtil.integerToDouble(minTotalProfit));
+		filter.setProfitTotalMax(NumberFormatUtil.integerToDouble(maxTotalProfit));
 		filter.setBalanceUsdMin(NumberFormatUtil.integerToDouble(minBalance));
 		filter.setBalanceUsdMax(NumberFormatUtil.integerToDouble(maxBalance));
 		filter.setShowActivePrograms(activeOnly);
@@ -325,6 +367,8 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 				|| !valuesAreEqual(filter.getLevelMax(), maxLevel, 7)
 				|| !valuesAreEqual(NumberFormatUtil.doubleToInteger(filter.getProfitAvgPercentMin()), minAvgProfit, null)
 				|| !valuesAreEqual(NumberFormatUtil.doubleToInteger(filter.getProfitAvgPercentMax()), maxAvgProfit, null)
+				|| !valuesAreEqual(NumberFormatUtil.doubleToInteger(filter.getProfitTotalMin()), minTotalProfit, null)
+				|| !valuesAreEqual(NumberFormatUtil.doubleToInteger(filter.getProfitTotalMax()), maxTotalProfit, null)
 				|| !valuesAreEqual(NumberFormatUtil.doubleToInteger(filter.getBalanceUsdMin()), minBalance, null)
 				|| !valuesAreEqual(NumberFormatUtil.doubleToInteger(filter.getBalanceUsdMax()), maxBalance, null)
 				|| !valuesAreEqual(filter.isShowActivePrograms(), activeOnly, false);
