@@ -3,6 +3,8 @@ package vision.genesis.clientapp.utils;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.model.ShortenedAmount;
@@ -25,6 +27,18 @@ public class StringFormatUtil
 		df.setMaximumFractionDigits(maxFraction);
 		df.setGroupingUsed(true);
 		df.setGroupingSize(3);
+		df.setRoundingMode(RoundingMode.DOWN);
+		return df.format(decimal);
+	}
+
+	public static String formatAmountWithoutGrouping(double amountValue) {
+		BigDecimal decimal = BigDecimal.valueOf(amountValue);
+		DecimalFormatSymbols dfs = new DecimalFormatSymbols(Locale.US);
+		dfs.setGroupingSeparator('.');
+		DecimalFormat df = new DecimalFormat("0.########", dfs);
+		df.setMinimumFractionDigits(0);
+		df.setMaximumFractionDigits(8);
+		df.setGroupingUsed(false);
 		df.setRoundingMode(RoundingMode.DOWN);
 		return df.format(decimal);
 	}

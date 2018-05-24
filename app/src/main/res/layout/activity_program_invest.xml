@@ -83,13 +83,13 @@
                     android:layout_centerHorizontal="true"
                     android:lines="1"
                     android:maxWidth="250dp"
-                    android:text="01234567"
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimaryLight"
                     android:textSize="26sp"
                     app:autoSizeMaxTextSize="26sp"
                     app:autoSizeMinTextSize="14sp"
-                    app:autoSizeTextType="uniform"/>
+                    app:autoSizeTextType="uniform"
+                    tools:text="01234567"/>
 
                 <TextView
                     android:id="@+id/balance_program_currency_currency"

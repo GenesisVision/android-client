@@ -18,6 +18,7 @@ import io.swagger.client.model.OrderModel;
 import io.swagger.client.model.TradesViewModel;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.DateTimeUtil;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVision
@@ -105,8 +106,8 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 					dateOpen.setText(DateTimeUtil.formatDateTime(trade.getDateOpen()));
 					dateClose.setText(DateTimeUtil.formatDateTime(trade.getDateClose()));
 
-					priceOpen.setText(String.valueOf(trade.getPriceOpen()));
-					priceClose.setText(String.valueOf(trade.getPriceClose()));
+					priceOpen.setText(StringFormatUtil.formatAmountWithoutGrouping(trade.getPriceOpen()));
+					priceClose.setText(StringFormatUtil.formatAmountWithoutGrouping(trade.getPriceClose()));
 
 					direction.setText(trade.getDirection().toString());
 					break;
@@ -115,7 +116,7 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 					priceClose.setVisibility(View.GONE);
 
 					dateOpen.setText(DateTimeUtil.formatDateTime(trade.getDate()));
-					priceOpen.setText(String.valueOf(trade.getPrice()));
+					priceOpen.setText(StringFormatUtil.formatAmountWithoutGrouping(trade.getPrice()));
 
 					direction.setText(String.format(Locale.getDefault(), "%s %s", trade.getDirection(), trade.getEntry()));
 					break;
@@ -128,7 +129,7 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 
 		private void setProfit(OrderModel trade) {
 			double profit = trade.getProfit();
-			this.profit.setText(String.valueOf(profit));
+			this.profit.setText(StringFormatUtil.formatAmountWithoutGrouping(profit));
 			this.profit.setTextColor(profit >= 0
 					? ContextCompat.getColor(itemView.getContext(), R.color.transactionGreen)
 					: ContextCompat.getColor(itemView.getContext(), R.color.transactionRed));

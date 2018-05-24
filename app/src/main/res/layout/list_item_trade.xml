@@ -70,21 +70,29 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/price_open"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="24dp"
+            android:maxLines="1"
             android:textColor="@color/black87"
             android:textSize="18sp"
+            app:autoSizeMaxTextSize="18sp"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeTextType="uniform"
             tools:text="0.966"/>
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/price_close"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="24dp"
+            android:maxLines="1"
             android:textColor="@color/black87"
             android:textSize="18sp"
-            tools:text="0.966"/>
+            app:autoSizeMaxTextSize="18sp"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeTextType="uniform"
+            tools:text="0.966555555"/>
 
     </LinearLayout>
 
@@ -105,6 +113,7 @@
             android:textSize="18sp"
             app:autoSizeMaxTextSize="18sp"
             app:autoSizeMinTextSize="12sp"
+            app:autoSizeTextType="uniform"
             tools:text="0.000004"/>
 
         <TextView
