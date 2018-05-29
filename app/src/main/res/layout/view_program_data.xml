@@ -4,238 +4,226 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/group_total_profit"
-        style="@style/item_investment_program_footer_group">
+    <RelativeLayout
+        android:id="@+id/group_left"
+        style="@style/item_investment_program_footer_group"
+        android:layout_weight="5">
 
-        <RelativeLayout
-            android:id="@+id/group_total_profit_short"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:id="@+id/group_ll_total_profit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/text_total_profit_text"
-                    style="@style/item_investment_program_footer_text"
-                    app:autoSizeMaxTextSize="26sp"
-                    app:autoSizeMinTextSize="14sp"
-                    app:autoSizeTextType="uniform"
-                    tools:text="78.3"/>
-
-                <TextView
-                    android:id="@+id/text_total_profit_text_mod"
-                    style="@style/item_investment_program_footer_text"
-                    android:layout_gravity="bottom"
-                    android:paddingBottom="3dp"
-                    android:textSize="12sp"
-                    tools:text="K"/>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="4dp"
-                android:layout_height="4dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="4dp"
-                android:layout_marginStart="4dp"
-                android:layout_toEndOf="@+id/group_ll_total_profit"
-                android:layout_toRightOf="@+id/group_ll_total_profit"
-                android:background="@drawable/circle_primary"/>
-
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/text_balance_title"
+            style="@style/item_investment_program_footer_title"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:gravity="bottom"
+            android:text="@string/balance"
+            android:textColor="@color/black54"/>
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/text_total_profit_full"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:gravity="center_horizontal|bottom"
+            android:id="@+id/text_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_toEndOf="@+id/text_balance_title"
+            android:layout_toLeftOf="@+id/balance_currency"
+            android:layout_toRightOf="@+id/text_balance_title"
+            android:layout_toStartOf="@+id/balance_currency"
+            android:gravity="bottom|end"
             android:textColor="@color/colorPrimaryDark"
-            android:visibility="gone"
-            app:autoSizeMaxTextSize="26sp"
+            android:textSize="20sp"
+            app:autoSizeMaxTextSize="20sp"
             app:autoSizeMinTextSize="14sp"
             app:autoSizeTextType="uniform"
             tools:text="0.00000001"/>
 
+        <vision.genesis.clientapp.ui.CurrencyView
+            android:id="@+id/balance_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="bottom"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"/>
+
         <TextView
             android:id="@+id/text_total_profit_title"
             style="@style/item_investment_program_footer_title"
-            android:text="@string/total_profit"/>
-
-        <TextView
-            android:id="@+id/total_profit_currency"
-            style="@style/item_investment_program_currency"
+            android:layout_width="80dp"
             android:layout_height="20dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="2dp"
-            android:text="@string/gvt"
-            android:textAllCaps="true"
-            android:textSize="10sp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/group_avg_profit"
-        style="@style/item_investment_program_footer_group">
-
-        <RelativeLayout
-            android:id="@+id/group_avg_profit_short"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:id="@+id/group_ll_avg_profit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/text_avg_profit_text"
-                    style="@style/item_investment_program_footer_text"
-                    tools:text="50"/>
-
-                <TextView
-                    android:id="@+id/text_avg_profit_text_percent"
-                    style="@style/item_investment_program_footer_text"
-                    android:layout_gravity="bottom"
-                    android:paddingBottom="2dp"
-                    android:text="%"
-                    android:textSize="12sp"/>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="4dp"
-                android:layout_height="4dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="4dp"
-                android:layout_marginStart="4dp"
-                android:layout_toEndOf="@+id/group_ll_avg_profit"
-                android:layout_toRightOf="@+id/group_ll_avg_profit"
-                android:background="@drawable/circle_primary"/>
-
-        </RelativeLayout>
+            android:layout_below="@+id/text_balance"
+            android:gravity="bottom"
+            android:text="@string/total_profit"
+            android:textColor="@color/black54"/>
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/text_avg_profit_full"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:gravity="center_horizontal|bottom"
+            android:id="@+id/text_total_profit"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_below="@+id/text_balance"
+            android:layout_marginBottom="6dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_toEndOf="@+id/text_total_profit_title"
+            android:layout_toLeftOf="@+id/total_profit_currency"
+            android:layout_toRightOf="@+id/text_total_profit_title"
+            android:layout_toStartOf="@+id/total_profit_currency"
+            android:gravity="bottom|end"
             android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            app:autoSizeMaxTextSize="20sp"
+            app:autoSizeMinTextSize="14sp"
+            app:autoSizeTextType="uniform"
+            tools:text="0.00000001"/>
+
+        <vision.genesis.clientapp.ui.CurrencyView
+            android:id="@+id/total_profit_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/text_balance"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"/>
+
+        <TextView
+            android:id="@+id/text_my_profit_title"
+            style="@style/item_investment_program_footer_title"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/text_total_profit"
+            android:gravity="bottom"
+            android:text="@string/my_profit"
+            android:textColor="@color/black54"
+            android:visibility="gone"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text_my_profit"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_below="@+id/text_total_profit"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_toEndOf="@+id/text_total_profit_title"
+            android:layout_toLeftOf="@+id/total_profit_currency"
+            android:layout_toRightOf="@+id/text_total_profit_title"
+            android:layout_toStartOf="@+id/total_profit_currency"
+            android:gravity="bottom|end"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
             android:visibility="gone"
-            app:autoSizeMaxTextSize="26sp"
+            app:autoSizeMaxTextSize="20sp"
+            app:autoSizeMinTextSize="14sp"
+            app:autoSizeTextType="uniform"
+            tools:text="0.00000001"/>
+
+        <vision.genesis.clientapp.ui.CurrencyView
+            android:id="@+id/my_profit_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/text_total_profit"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/group_right"
+        style="@style/item_investment_program_footer_group"
+        android:layout_weight="3">
+
+        <TextView
+            android:id="@+id/text_avg_profit_title"
+            style="@style/item_investment_program_footer_title"
+            android:layout_width="70dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="6dp"
+            android:gravity="bottom"
+            android:text="@string/avg_profit"
+            android:textColor="@color/black54"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text_avg_profit"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_toEndOf="@+id/text_avg_profit_title"
+            android:layout_toRightOf="@+id/text_avg_profit_title"
+            android:gravity="bottom|end"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            app:autoSizeMaxTextSize="20sp"
             app:autoSizeMinTextSize="14sp"
             app:autoSizeTextType="uniform"
             tools:text="12.25%"/>
 
         <TextView
-            android:id="@+id/text_avg_profit_title"
+            android:id="@+id/text_investors_title"
             style="@style/item_investment_program_footer_title"
-            android:layout_marginBottom="22dp"
-            android:text="@string/avg_profit"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/group_balance"
-        style="@style/item_investment_program_footer_group">
-
-        <RelativeLayout
-            android:id="@+id/group_balance_short"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
-
-            <LinearLayout
-                android:id="@+id/group_ll_balance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/text_balance_text"
-                    style="@style/item_investment_program_footer_text"
-                    app:autoSizeMaxTextSize="26sp"
-                    app:autoSizeMinTextSize="14sp"
-                    app:autoSizeTextType="uniform"
-                    tools:text="-223"/>
-
-                <TextView
-                    android:id="@+id/text_balance_text_mod"
-                    style="@style/item_investment_program_footer_text"
-                    android:layout_gravity="bottom"
-                    android:paddingBottom="3dp"
-                    android:textSize="12sp"
-                    tools:text="K"/>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="4dp"
-                android:layout_height="4dp"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="4dp"
-                android:layout_marginStart="4dp"
-                android:layout_toEndOf="@+id/group_ll_balance"
-                android:layout_toRightOf="@+id/group_ll_balance"
-                android:background="@drawable/circle_primary"/>
-
-        </RelativeLayout>
+            android:layout_width="70dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/text_avg_profit_title"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="6dp"
+            android:gravity="bottom"
+            android:text="@string/investors"
+            android:textColor="@color/black54"/>
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/text_balance_full"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:gravity="center_horizontal|bottom"
+            android:id="@+id/text_investors"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/text_avg_profit_title"
+            android:layout_toEndOf="@+id/text_investors_title"
+            android:layout_toRightOf="@+id/text_investors_title"
+            android:gravity="bottom|end"
             android:textColor="@color/colorPrimaryDark"
-            android:visibility="gone"
-            app:autoSizeMaxTextSize="26sp"
+            android:textSize="20sp"
+            app:autoSizeMaxTextSize="20sp"
             app:autoSizeMinTextSize="14sp"
             app:autoSizeTextType="uniform"
-            tools:text="0.00000001"/>
-
-        <TextView
-            android:id="@+id/text_balance_title"
-            style="@style/item_investment_program_footer_title"
-            android:text="@string/balance"/>
-
-        <TextView
-            android:id="@+id/balance_currency"
-            style="@style/item_investment_program_currency"
-            android:layout_height="20dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="2dp"
-            android:textAllCaps="true"
-            android:textSize="10sp"
-            tools:text="USD"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/item_investment_program_footer_group">
-
-        <TextView
-            android:id="@+id/text_investors_text"
-            style="@style/item_investment_program_footer_text"
             tools:text="2"/>
 
         <TextView
-            android:id="@+id/text_investors_title"
+            android:id="@+id/text_my_tokens_title"
             style="@style/item_investment_program_footer_title"
-            android:layout_marginBottom="22dp"
-            android:text="@string/investors"/>
+            android:layout_width="70dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/text_investors_title"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:text="@string/my_tokens"
+            android:textColor="@color/black54"
+            android:visibility="gone"/>
 
-    </LinearLayout>
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text_my_tokens"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/text_investors_title"
+            android:layout_toEndOf="@+id/text_investors_title"
+            android:layout_toRightOf="@+id/text_investors_title"
+            android:gravity="bottom|end"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            android:visibility="gone"
+            app:autoSizeMaxTextSize="20sp"
+            app:autoSizeMinTextSize="14sp"
+            app:autoSizeTextType="uniform"
+            tools:text="2.346"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

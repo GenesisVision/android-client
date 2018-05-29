@@ -43,4 +43,9 @@
     <color name="transactionRed">#e00463</color>
 
     <color name="gold">#ffd600</color>
+
+    <color name="colorUsd">#85bb65</color>
+    <color name="colorEur">#003399</color>
+    <color name="colorBtc">#f7931a</color>
+    <color name="colorEth">#3C3C3D</color>
 </resources>

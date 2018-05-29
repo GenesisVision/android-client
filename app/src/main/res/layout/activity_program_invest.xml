@@ -91,17 +91,14 @@
                     app:autoSizeTextType="uniform"
                     tools:text="01234567"/>
 
-                <TextView
+                <vision.genesis.clientapp.ui.CurrencyView
                     android:id="@+id/balance_program_currency_currency"
-                    style="@style/item_investment_program_currency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:layout_marginStart="4dp"
                     android:layout_toEndOf="@+id/balance_program_currency"
-                    android:layout_toRightOf="@+id/balance_program_currency"
-                    android:background="@drawable/currency_background_white"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="10sp"
-                    tools:text="USD"/>
+                    android:layout_toRightOf="@+id/balance_program_currency"/>
 
             </RelativeLayout>
 
@@ -200,15 +197,14 @@
                         app:autoSizeMinTextSize="24sp"
                         app:autoSizeTextType="uniform"/>
 
-                    <TextView
+                    <vision.genesis.clientapp.ui.CurrencyView
                         android:id="@+id/amount_program_currency_currency"
-                        style="@style/item_investment_program_currency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
                         android:layout_marginStart="4dp"
                         android:layout_toEndOf="@+id/amount_program_currency"
-                        android:layout_toRightOf="@+id/amount_program_currency"
-                        android:textSize="10sp"
-                        tools:text="USD"/>
+                        android:layout_toRightOf="@+id/amount_program_currency"/>
 
                 </RelativeLayout>
 

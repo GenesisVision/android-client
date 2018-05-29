@@ -1,5 +1,11 @@
 package vision.genesis.clientapp.utils;
 
+import android.support.v4.content.ContextCompat;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -7,6 +13,8 @@ import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 import io.swagger.client.model.WalletTransaction;
+import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ShortenedAmount;
 
 /**
@@ -22,7 +30,8 @@ public class StringFormatUtil
 
 	public static String formatAmount(double amountValue, int minFraction, int maxFraction) {
 		BigDecimal decimal = BigDecimal.valueOf(amountValue);
-		DecimalFormat df = new DecimalFormat("0.########");
+		DecimalFormatSymbols dfs = new DecimalFormatSymbols(Locale.US);
+		DecimalFormat df = new DecimalFormat("0.########", dfs);
 		df.setMinimumFractionDigits(minFraction);
 		df.setMaximumFractionDigits(maxFraction);
 		df.setGroupingUsed(true);
@@ -74,5 +83,20 @@ public class StringFormatUtil
 		else {
 			return 8;
 		}
+	}
+
+	public static SpannableString getDecimalSpannable(String value) {
+		boolean isNegative = value.startsWith("-");
+		final SpannableString text = new SpannableString(value);
+		if (isNegative)
+			text.setSpan(new ForegroundColorSpan(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.transactionRed)),
+					0, value.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+		if (value.contains(".")) {
+			text.setSpan(new RelativeSizeSpan(0.7f), value.indexOf(".") + 1, value.length(),
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			text.setSpan(new ForegroundColorSpan(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.black38)),
+					value.indexOf("."), value.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+		}
+		return text;
 	}
 }

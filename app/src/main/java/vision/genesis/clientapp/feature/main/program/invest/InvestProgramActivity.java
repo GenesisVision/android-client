@@ -19,6 +19,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.AmountTextView;
+import vision.genesis.clientapp.ui.CurrencyView;
 import vision.genesis.clientapp.ui.NumericKeyboardView;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -53,7 +54,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	public TextView balanceProgramCurrency;
 
 	@BindView(R.id.balance_program_currency_currency)
-	public TextView balanceProgramCurrencyCurrency;
+	public CurrencyView balanceProgramCurrencyCurrency;
 
 	@BindView(R.id.balance_currency)
 	public TextView balanceCurrency;
@@ -74,7 +75,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	public TextView amountProgramCurrency;
 
 	@BindView(R.id.amount_program_currency_currency)
-	public TextView amountProgramCurrencyCurrency;
+	public CurrencyView amountProgramCurrencyCurrency;
 
 	@BindView(R.id.label_enter_amount)
 	public TextView enterAmountLabel;
@@ -165,14 +166,11 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 		amountHintTextView.setTypeface(TypefaceUtil.light());
 		amountCurrency.setTypeface(TypefaceUtil.bold());
 		amountProgramCurrency.setTypeface(TypefaceUtil.light());
-
-		balanceProgramCurrencyCurrency.setTypeface(TypefaceUtil.bold());
-		amountProgramCurrencyCurrency.setTypeface(TypefaceUtil.bold());
 	}
 
 	private void setProgramCurrency() {
-		balanceProgramCurrencyCurrency.setText(investRequest.programCurrency);
-		amountProgramCurrencyCurrency.setText(investRequest.programCurrency);
+		balanceProgramCurrencyCurrency.setCurrency(investRequest.programCurrency);
+		amountProgramCurrencyCurrency.setCurrency(investRequest.programCurrency);
 	}
 
 	@Override

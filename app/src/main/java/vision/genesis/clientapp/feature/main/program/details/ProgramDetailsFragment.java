@@ -37,6 +37,7 @@ import vision.genesis.clientapp.feature.main.program.requests.RequestsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.tooltip.TooltipActivity;
 import vision.genesis.clientapp.managers.WalletManager;
+import vision.genesis.clientapp.model.InvestmentProgramExtended;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.TooltipModel;
 import vision.genesis.clientapp.model.events.ShowTradesEvent;
@@ -433,11 +434,7 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 			tournamentGroup.setVisibility(View.GONE);
 		}
 
-		programDataView.setData(programDetails.getProfitTotal(),
-				programDetails.getProfitAvgPercent(),
-				programDetails.getBalance(),
-				programDetails.getInvestorsCount(),
-				programDetails.getCurrency().toString());
+		programDataView.setData(new InvestmentProgramExtended(programDetails));
 
 		periodDuration.setText(String.valueOf(programDetails.getPeriodDuration()));
 		periodDurationDays.setText(getResources().getQuantityString(R.plurals.days, programDetails.getPeriodDuration()));

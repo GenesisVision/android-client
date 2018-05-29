@@ -1,5 +1,6 @@
 package vision.genesis.clientapp.feature.main.programs_list;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,6 +91,9 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 
 	static class InvestmentProgramViewHolder extends RecyclerView.ViewHolder
 	{
+		@BindView(R.id.icon_trophy)
+		public ImageView trophyIcon;
+
 		@BindView(R.id.avatar)
 		public AvatarView avatar;
 
@@ -108,14 +112,17 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 		@BindView(R.id.group_tournament)
 		public ViewGroup tournamentGroup;
 
+		@BindView(R.id.text_round)
+		public TextView round;
+
 		@BindView(R.id.text_place)
 		public TextView place;
 
 		@BindView(R.id.view_program_data)
 		public ProgramDataView programDataView;
 
-		@BindView(R.id.text_no_available_tokens)
-		public TextView noAvailableTokensText;
+		@BindView(R.id.text_free_tokens)
+		public TextView freeTokensText;
 
 		private InvestmentProgramExtended investmentProgram;
 
@@ -140,7 +147,6 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 
 		private void setFonts() {
 			title.setTypeface(TypefaceUtil.bold());
-			noAvailableTokensText.setTypeface(TypefaceUtil.bold());
 		}
 
 		void setInvestmentProgram(InvestmentProgramExtended investmentProgram) {
@@ -162,22 +168,26 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 
 			if (data.isIsTournament()) {
 				tournamentGroup.setVisibility(View.VISIBLE);
-				place.setText(String.format(Locale.getDefault(), "%s %d\n#%s",
-						GenesisVisionApplication.INSTANCE.getString(R.string.round).toUpperCase(),
-						data.getRoundNumber(),
-						data.getPlace() != null ? data.getPlace() : "-"));
+				trophyIcon.setVisibility(View.VISIBLE);
+				round.setText(data.getRoundNumber() != null ? String.valueOf(data.getRoundNumber()) : "-");
+				place.setText(data.getPlace() != null ? String.valueOf(data.getPlace()) : "-");
 			}
 			else {
 				tournamentGroup.setVisibility(View.GONE);
+				trophyIcon.setVisibility(View.GONE);
 			}
 
 			programDataView.setData(investmentProgram);
 
 			chart.setEquityChart(investmentProgram.getEquityChart());
 
-			noAvailableTokensText.setVisibility(data.getAvailableInvestment() > 0
-					? View.GONE
-					: View.VISIBLE);
+			freeTokensText.setText(investmentProgram.isHasFreeTokens()
+					? investmentProgram.getAvailableTokensText()
+					: GenesisVisionApplication.INSTANCE.getString(R.string.no_available));
+			freeTokensText.setTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE,
+					investmentProgram.isHasFreeTokens()
+							? R.color.colorPrimaryDark
+							: R.color.transactionRed));
 		}
 	}
 }

@@ -39,7 +39,7 @@ public class InvestManager
 
 	private Subscription getPlatformStatusSubscription;
 
-	private BehaviorSubject<PlatformStatus> platformStatusBehaviorSubject;
+	private volatile BehaviorSubject<PlatformStatus> platformStatusBehaviorSubject;
 
 	public InvestManager(InvestorApi investorApi, ManagerApi managerApi) {
 		this.investorApi = investorApi;

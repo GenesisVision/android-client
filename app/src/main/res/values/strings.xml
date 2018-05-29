@@ -137,7 +137,7 @@
     <string name="double_check_address">Double check the wallet address you entered!\nThis operation cannot be undone!</string>
 
     <string name="by">by</string>
-    <string name="no_available_tokens">No available tokens</string>
+    <string name="no_available">no available</string>
 
     <string name="equity_chart">Equity chart</string>
     <string name="total_profit">Total profit</string>
@@ -317,4 +317,5 @@
     <string name="dont_remind_this_version">Don\'t remind me about this version again</string>
     <string name="update">Update</string>
     <string name="no_thanks">No, thanks</string>
+    <string name="free_tokens">Free tokens</string>
 </resources>

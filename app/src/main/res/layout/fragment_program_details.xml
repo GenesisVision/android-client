@@ -161,13 +161,19 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/item_investment_program_footer_height"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/chart">
 
                         <vision.genesis.clientapp.ui.ProgramDataView
                             android:id="@+id/view_program_data"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="16dp"/>
 
                         <ImageView
                             android:id="@+id/tooltip_program_data"

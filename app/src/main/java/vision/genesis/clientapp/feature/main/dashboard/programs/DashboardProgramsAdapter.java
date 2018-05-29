@@ -54,7 +54,9 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 	@Override
 	public long getItemId(int position) {
-		return investorPrograms.get(position).hashCode();
+		return investorPrograms.get(position) != null
+				? investorPrograms.get(position).hashCode()
+				: RecyclerView.NO_ID;
 	}
 
 	void setInvestorPrograms(List<InvestmentProgramDashboardExtended> investorPrograms) {

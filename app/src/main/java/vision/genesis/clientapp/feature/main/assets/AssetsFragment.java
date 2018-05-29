@@ -169,7 +169,7 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 	}
 
 	private void initViewPager() {
-		pagerAdapter = new AssetsPagerAdapter(getActivity().getSupportFragmentManager(), tabLayout);
+		pagerAdapter = new AssetsPagerAdapter(getChildFragmentManager(), tabLayout);
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOffscreenPageLimit(3);
 

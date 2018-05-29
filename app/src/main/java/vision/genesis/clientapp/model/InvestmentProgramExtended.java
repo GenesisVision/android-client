@@ -1,5 +1,7 @@
 package vision.genesis.clientapp.model;
 
+import android.text.SpannableString;
+
 import com.github.mikephil.charting.data.LineData;
 
 import java.util.ArrayList;
@@ -7,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 
 import io.swagger.client.model.InvestmentProgram;
+import io.swagger.client.model.InvestmentProgramDetails;
 import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -25,21 +28,23 @@ public class InvestmentProgramExtended
 		return extendedPrograms;
 	}
 
-	private final InvestmentProgram data;
+	private final boolean hasFreeTokens;
+
+	private InvestmentProgram data;
 
 	private LineData equityChart;
 
-	private String totalProfitTextFull;
+	private SpannableString totalProfitTextFull;
 
 	private String totalProfitText;
 
 	private String totalProfitTextMod;
 
-	private String avgProfitTextFull;
+	private SpannableString avgProfitTextFull;
 
 	private String avgProfitText;
 
-	private String balanceTextFull;
+	private SpannableString balanceTextFull;
 
 	private String balanceText;
 
@@ -47,27 +52,49 @@ public class InvestmentProgramExtended
 
 	private String investorsText;
 
+	private SpannableString availableTokensText;
+
+	private String balanceCurrency;
+
 	public InvestmentProgramExtended(InvestmentProgram program) {
 		this.data = program;
 
 		this.setEquityChart(ProfitSmallChartView.getPreparedEquityChart(program.getEquityChart()));
 
-		this.setTotalProfitTextFull(StringFormatUtil.formatAmount(program.getProfitTotal(), 0, 18));
+		this.setTotalProfitTextFull(
+				StringFormatUtil.getDecimalSpannable(StringFormatUtil.formatAmount(program.getProfitTotal(), 0, 8)));
 
-		ShortenedAmount totalProfitShortenedAmount = StringFormatUtil.getShortenedAmount(program.getProfitTotal());
-		this.setTotalProfitText(String.format("%s", totalProfitShortenedAmount.amount));
-		this.setTotalProfitTextMod(totalProfitShortenedAmount.modifier);
+		this.setAvgProfitTextFull(StringFormatUtil.getDecimalSpannable(
+				String.format(Locale.US, "%s%%", StringFormatUtil.formatAmount(program.getProfitAvgPercent()))));
 
-		this.setAvgProfitTextFull(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(program.getProfitAvgPercent())));
-		this.setAvgProfitText(String.format(Locale.getDefault(), "%.0f", program.getProfitAvgPercent()));
+		this.setBalanceTextFull(
+				StringFormatUtil.getDecimalSpannable(StringFormatUtil.formatAmount(program.getBalance(), 0, 8)));
 
-		this.setBalanceTextFull(StringFormatUtil.formatAmount(program.getBalance(), 0, 18));
-
-		ShortenedAmount balanceShortenedAmount = StringFormatUtil.getShortenedAmount(program.getBalance());
-		this.setBalanceText(String.format("%s", balanceShortenedAmount.amount));
-		this.setBalanceTextMod(balanceShortenedAmount.modifier);
+		this.setBalanceCurrency(program.getCurrency().toString());
 
 		this.setInvestorsText(String.valueOf(program.getInvestorsCount()));
+
+		this.setAvailableTokensText(StringFormatUtil.getDecimalSpannable(StringFormatUtil.formatAmount(program.getAvailableInvestment(), 0, 4)));
+		this.hasFreeTokens = program.getAvailableInvestment() > 0;
+	}
+
+	public InvestmentProgramExtended(InvestmentProgramDetails program) {
+
+		this.setTotalProfitTextFull(
+				StringFormatUtil.getDecimalSpannable(StringFormatUtil.formatAmount(program.getProfitTotal(), 0, 8)));
+
+		this.setAvgProfitTextFull(StringFormatUtil.getDecimalSpannable(
+				String.format(Locale.US, "%s%%", StringFormatUtil.formatAmount(program.getProfitAvgPercent()))));
+
+		this.setBalanceTextFull(
+				StringFormatUtil.getDecimalSpannable(StringFormatUtil.formatAmount(program.getBalance(), 0, 8)));
+
+		this.setBalanceCurrency(program.getCurrency().toString());
+
+		this.setInvestorsText(String.valueOf(program.getInvestorsCount()));
+
+		this.setAvailableTokensText(StringFormatUtil.getDecimalSpannable(StringFormatUtil.formatAmount(program.getAvailableInvestment(), 0, 4)));
+		this.hasFreeTokens = program.getAvailableInvestment() > 0;
 	}
 
 	public LineData getEquityChart() {
@@ -82,11 +109,11 @@ public class InvestmentProgramExtended
 		return data;
 	}
 
-	public String getTotalProfitTextFull() {
+	public SpannableString getTotalProfitTextFull() {
 		return totalProfitTextFull;
 	}
 
-	public void setTotalProfitTextFull(String totalProfitTextFull) {
+	public void setTotalProfitTextFull(SpannableString totalProfitTextFull) {
 		this.totalProfitTextFull = totalProfitTextFull;
 	}
 
@@ -106,11 +133,11 @@ public class InvestmentProgramExtended
 		this.totalProfitTextMod = totalProfitTextMod;
 	}
 
-	public String getAvgProfitTextFull() {
+	public SpannableString getAvgProfitTextFull() {
 		return avgProfitTextFull;
 	}
 
-	public void setAvgProfitTextFull(String avgProfitTextFull) {
+	public void setAvgProfitTextFull(SpannableString avgProfitTextFull) {
 		this.avgProfitTextFull = avgProfitTextFull;
 	}
 
@@ -122,11 +149,11 @@ public class InvestmentProgramExtended
 		this.avgProfitText = avgProfitText;
 	}
 
-	public String getBalanceTextFull() {
+	public SpannableString getBalanceTextFull() {
 		return balanceTextFull;
 	}
 
-	public void setBalanceTextFull(String balanceTextFull) {
+	public void setBalanceTextFull(SpannableString balanceTextFull) {
 		this.balanceTextFull = balanceTextFull;
 	}
 
@@ -152,5 +179,25 @@ public class InvestmentProgramExtended
 
 	public void setInvestorsText(String investorsText) {
 		this.investorsText = investorsText;
+	}
+
+	public SpannableString getAvailableTokensText() {
+		return availableTokensText;
+	}
+
+	public void setAvailableTokensText(SpannableString availableTokensText) {
+		this.availableTokensText = availableTokensText;
+	}
+
+	public boolean isHasFreeTokens() {
+		return hasFreeTokens;
+	}
+
+	public String getBalanceCurrency() {
+		return balanceCurrency;
+	}
+
+	public void setBalanceCurrency(String balanceCurrency) {
+		this.balanceCurrency = balanceCurrency;
 	}
 }
