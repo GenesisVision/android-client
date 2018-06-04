@@ -27,6 +27,7 @@ import io.swagger.client.model.TradesViewModel;
 import io.swagger.client.model.TransactionsFilter;
 import io.swagger.client.model.TwoFactorAuthenticator;
 import io.swagger.client.model.TwoFactorAuthenticatorConfirm;
+import io.swagger.client.model.TwoFactorCodeModel;
 import io.swagger.client.model.TwoFactorStatus;
 import io.swagger.client.model.UpdateProfileViewModel;
 import io.swagger.client.model.WalletAddressViewModel;
@@ -62,15 +63,11 @@ public interface InvestorApi
 	 * 2FA create
 	 *
 	 * @param authorization JWT access token (required)
-	 * @param model         (optional)
 	 * @return Call&lt;TwoFactorAuthenticator&gt;
 	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
 	@POST("api/investor/auth/2fa/create")
 	Observable<TwoFactorAuthenticator> apiInvestorAuth2faCreatePost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body PasswordModel model
+			@retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
@@ -85,7 +82,7 @@ public interface InvestorApi
 	})
 	@POST("api/investor/auth/2fa/disable")
 	Observable<Void> apiInvestorAuth2faDisablePost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body PasswordModel model
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body TwoFactorCodeModel model
 	);
 
 	/**

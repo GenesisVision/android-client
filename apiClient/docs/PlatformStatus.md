@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **tournamentTotalRounds** | **Integer** |  |  [optional]
 **programsMinAvgProfit** | **Double** |  |  [optional]
 **programsMaxAvgProfit** | **Double** |  |  [optional]
+**programsMinTotalProfit** | **Double** |  |  [optional]
+**programsMaxTotalProfit** | **Double** |  |  [optional]
 **iOSVersion** | [**IOsAppVersion**](IOsAppVersion.md) |  |  [optional]
 **androidVersion** | [**AndroidAppVersion**](AndroidAppVersion.md) |  |  [optional]
 

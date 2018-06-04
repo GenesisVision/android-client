@@ -8,7 +8,6 @@ import io.swagger.client.api.ManagerApi;
 import io.swagger.client.model.ChangePasswordViewModel;
 import io.swagger.client.model.ForgotPasswordViewModel;
 import io.swagger.client.model.LoginViewModel;
-import io.swagger.client.model.PasswordModel;
 import io.swagger.client.model.RecoveryCodesViewModel;
 import io.swagger.client.model.RegisterInvestorViewModel;
 import io.swagger.client.model.RegisterManagerViewModel;
@@ -127,12 +126,9 @@ public class AuthManager
 	}
 
 	public Observable<TwoFactorAuthenticator> createTfaKey() {
-		//TODO: remove model
-		PasswordModel model = new PasswordModel();
-		model.setPassword("qwerty");
 		return BuildConfig.FLAVOR.equals("investor")
-				? investorApi.apiInvestorAuth2faCreatePost(AuthManager.token.getValue(), model)
-				: managerApi.apiManagerAuth2faCreatePost(AuthManager.token.getValue(), model);
+				? investorApi.apiInvestorAuth2faCreatePost(AuthManager.token.getValue())
+				: managerApi.apiManagerAuth2faCreatePost(AuthManager.token.getValue());
 	}
 
 	public Observable<RecoveryCodesViewModel> confirmTfa(String sharedKey, String password, String code) {

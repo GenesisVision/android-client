@@ -43,6 +43,12 @@ public class PlatformStatus
 	@SerializedName("programsMaxAvgProfit")
 	private Double programsMaxAvgProfit = null;
 
+	@SerializedName("programsMinTotalProfit")
+	private Double programsMinTotalProfit = null;
+
+	@SerializedName("programsMaxTotalProfit")
+	private Double programsMaxTotalProfit = null;
+
 	@SerializedName("iOSVersion")
 	private IOsAppVersion iOSVersion = null;
 
@@ -163,6 +169,44 @@ public class PlatformStatus
 		this.programsMaxAvgProfit = programsMaxAvgProfit;
 	}
 
+	public PlatformStatus programsMinTotalProfit(Double programsMinTotalProfit) {
+		this.programsMinTotalProfit = programsMinTotalProfit;
+		return this;
+	}
+
+	/**
+	 * Get programsMinTotalProfit
+	 *
+	 * @return programsMinTotalProfit
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProgramsMinTotalProfit() {
+		return programsMinTotalProfit;
+	}
+
+	public void setProgramsMinTotalProfit(Double programsMinTotalProfit) {
+		this.programsMinTotalProfit = programsMinTotalProfit;
+	}
+
+	public PlatformStatus programsMaxTotalProfit(Double programsMaxTotalProfit) {
+		this.programsMaxTotalProfit = programsMaxTotalProfit;
+		return this;
+	}
+
+	/**
+	 * Get programsMaxTotalProfit
+	 *
+	 * @return programsMaxTotalProfit
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProgramsMaxTotalProfit() {
+		return programsMaxTotalProfit;
+	}
+
+	public void setProgramsMaxTotalProfit(Double programsMaxTotalProfit) {
+		this.programsMaxTotalProfit = programsMaxTotalProfit;
+	}
+
 	public PlatformStatus iOSVersion(IOsAppVersion iOSVersion) {
 		this.iOSVersion = iOSVersion;
 		return this;
@@ -217,13 +261,15 @@ public class PlatformStatus
 				Objects.equals(this.tournamentTotalRounds, platformStatus.tournamentTotalRounds) &&
 				Objects.equals(this.programsMinAvgProfit, platformStatus.programsMinAvgProfit) &&
 				Objects.equals(this.programsMaxAvgProfit, platformStatus.programsMaxAvgProfit) &&
+				Objects.equals(this.programsMinTotalProfit, platformStatus.programsMinTotalProfit) &&
+				Objects.equals(this.programsMaxTotalProfit, platformStatus.programsMaxTotalProfit) &&
 				Objects.equals(this.iOSVersion, platformStatus.iOSVersion) &&
 				Objects.equals(this.androidVersion, platformStatus.androidVersion);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isTournamentActive, isTournamentRegistrationActive, tournamentCurrentRound, tournamentTotalRounds, programsMinAvgProfit, programsMaxAvgProfit, iOSVersion, androidVersion);
+		return Objects.hash(isTournamentActive, isTournamentRegistrationActive, tournamentCurrentRound, tournamentTotalRounds, programsMinAvgProfit, programsMaxAvgProfit, programsMinTotalProfit, programsMaxTotalProfit, iOSVersion, androidVersion);
 	}
 
 
@@ -238,6 +284,8 @@ public class PlatformStatus
 		sb.append("    tournamentTotalRounds: ").append(toIndentedString(tournamentTotalRounds)).append("\n");
 		sb.append("    programsMinAvgProfit: ").append(toIndentedString(programsMinAvgProfit)).append("\n");
 		sb.append("    programsMaxAvgProfit: ").append(toIndentedString(programsMaxAvgProfit)).append("\n");
+		sb.append("    programsMinTotalProfit: ").append(toIndentedString(programsMinTotalProfit)).append("\n");
+		sb.append("    programsMaxTotalProfit: ").append(toIndentedString(programsMaxTotalProfit)).append("\n");
 		sb.append("    iOSVersion: ").append(toIndentedString(iOSVersion)).append("\n");
 		sb.append("    androidVersion: ").append(toIndentedString(androidVersion)).append("\n");
 		sb.append("}");

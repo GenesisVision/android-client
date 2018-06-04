@@ -75,6 +75,12 @@ public class InvestmentProgramBuyToken
 	@SerializedName("rateCacheId")
 	private UUID rateCacheId = null;
 
+	@SerializedName("managerFee")
+	private Double managerFee = null;
+
+	@SerializedName("gvFee")
+	private Double gvFee = null;
+
 	public InvestmentProgramBuyToken id(UUID id) {
 		this.id = id;
 		return this;
@@ -341,6 +347,44 @@ public class InvestmentProgramBuyToken
 		this.rateCacheId = rateCacheId;
 	}
 
+	public InvestmentProgramBuyToken managerFee(Double managerFee) {
+		this.managerFee = managerFee;
+		return this;
+	}
+
+	/**
+	 * Get managerFee
+	 *
+	 * @return managerFee
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getManagerFee() {
+		return managerFee;
+	}
+
+	public void setManagerFee(Double managerFee) {
+		this.managerFee = managerFee;
+	}
+
+	public InvestmentProgramBuyToken gvFee(Double gvFee) {
+		this.gvFee = gvFee;
+		return this;
+	}
+
+	/**
+	 * Get gvFee
+	 *
+	 * @return gvFee
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getGvFee() {
+		return gvFee;
+	}
+
+	public void setGvFee(Double gvFee) {
+		this.gvFee = gvFee;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -363,12 +407,14 @@ public class InvestmentProgramBuyToken
 				Objects.equals(this.periodDuration, investmentProgramBuyToken.periodDuration) &&
 				Objects.equals(this.currency, investmentProgramBuyToken.currency) &&
 				Objects.equals(this.availableInvestments, investmentProgramBuyToken.availableInvestments) &&
-				Objects.equals(this.rateCacheId, investmentProgramBuyToken.rateCacheId);
+				Objects.equals(this.rateCacheId, investmentProgramBuyToken.rateCacheId) &&
+				Objects.equals(this.managerFee, investmentProgramBuyToken.managerFee) &&
+				Objects.equals(this.gvFee, investmentProgramBuyToken.gvFee);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, description, manager, level, title, startOfPeriod, endOfPeriod, gvtRate, gvtWalletAmount, periodDuration, currency, availableInvestments, rateCacheId);
+		return Objects.hash(id, logo, description, manager, level, title, startOfPeriod, endOfPeriod, gvtRate, gvtWalletAmount, periodDuration, currency, availableInvestments, rateCacheId, managerFee, gvFee);
 	}
 
 	@Override
@@ -390,6 +436,8 @@ public class InvestmentProgramBuyToken
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    availableInvestments: ").append(toIndentedString(availableInvestments)).append("\n");
 		sb.append("    rateCacheId: ").append(toIndentedString(rateCacheId)).append("\n");
+		sb.append("    managerFee: ").append(toIndentedString(managerFee)).append("\n");
+		sb.append("    gvFee: ").append(toIndentedString(gvFee)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

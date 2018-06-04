@@ -766,7 +766,7 @@ public class InvestmentProgramsFilter
 
 		BYTITLEDESC("ByTitleDesc"),
 
-		BYBALANCEASK("ByBalanceAsk"),
+		BYBALANCEASC("ByBalanceAsc"),
 
 		BYBALANCEDESC("ByBalanceDesc");
 

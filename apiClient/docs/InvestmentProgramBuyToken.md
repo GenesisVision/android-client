@@ -18,6 +18,8 @@ Name | Type | Description | Notes
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **availableInvestments** | **Double** |  |  [optional]
 **rateCacheId** | [**UUID**](UUID.md) |  |  [optional]
+**managerFee** | **Double** |  |  [optional]
+**gvFee** | **Double** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

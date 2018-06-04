@@ -90,7 +90,7 @@ No authorization required
 
 <a name="apiInvestorAuth2faCreatePost"></a>
 # **apiInvestorAuth2faCreatePost**
-> TwoFactorAuthenticator apiInvestorAuth2faCreatePost(authorization, model)
+> TwoFactorAuthenticator apiInvestorAuth2faCreatePost(authorization)
 
 2FA create
 
@@ -103,9 +103,8 @@ No authorization required
 
 InvestorApi apiInstance = new InvestorApi();
 String authorization = "authorization_example"; // String | JWT access token
-PasswordModel model = new PasswordModel(); // PasswordModel | 
 try {
-    TwoFactorAuthenticator result = apiInstance.apiInvestorAuth2faCreatePost(authorization, model);
+    TwoFactorAuthenticator result = apiInstance.apiInvestorAuth2faCreatePost(authorization);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestorApi#apiInvestorAuth2faCreatePost");
@@ -118,7 +117,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **model** | [**PasswordModel**](PasswordModel.md)|  | [optional]
 
 ### Return type
 
@@ -130,7 +128,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 <a name="apiInvestorAuth2faDisablePost"></a>
@@ -148,7 +146,7 @@ No authorization required
 
 InvestorApi apiInstance = new InvestorApi();
 String authorization = "authorization_example"; // String | JWT access token
-PasswordModel model = new PasswordModel(); // PasswordModel | 
+TwoFactorCodeModel model = new TwoFactorCodeModel(); // TwoFactorCodeModel | 
 try {
     Void result = apiInstance.apiInvestorAuth2faDisablePost(authorization, model);
     System.out.println(result);
@@ -163,7 +161,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **model** | [**PasswordModel**](PasswordModel.md)|  | [optional]
+ **model** | [**TwoFactorCodeModel**](TwoFactorCodeModel.md)|  | [optional]
 
 ### Return type
 
@@ -647,7 +645,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByOrdersAsc, ByOrdersDesc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsk, ByBalanceDesc]
+ **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByOrdersAsc, ByOrdersDesc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc]
  **equityChartLength** | **Integer**|  | [optional]
 
 ### Return type

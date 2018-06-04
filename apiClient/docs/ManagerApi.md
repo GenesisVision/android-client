@@ -187,7 +187,7 @@ No authorization required
 
 <a name="apiManagerAuth2faCreatePost"></a>
 # **apiManagerAuth2faCreatePost**
-> TwoFactorAuthenticator apiManagerAuth2faCreatePost(authorization, model)
+> TwoFactorAuthenticator apiManagerAuth2faCreatePost(authorization)
 
 2FA create
 
@@ -200,9 +200,8 @@ No authorization required
 
 ManagerApi apiInstance = new ManagerApi();
 String authorization = "authorization_example"; // String | JWT access token
-PasswordModel model = new PasswordModel(); // PasswordModel | 
 try {
-    TwoFactorAuthenticator result = apiInstance.apiManagerAuth2faCreatePost(authorization, model);
+    TwoFactorAuthenticator result = apiInstance.apiManagerAuth2faCreatePost(authorization);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ManagerApi#apiManagerAuth2faCreatePost");
@@ -215,7 +214,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **model** | [**PasswordModel**](PasswordModel.md)|  | [optional]
 
 ### Return type
 
@@ -227,7 +225,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 <a name="apiManagerAuth2faDisablePost"></a>
@@ -245,7 +243,7 @@ No authorization required
 
 ManagerApi apiInstance = new ManagerApi();
 String authorization = "authorization_example"; // String | JWT access token
-PasswordModel model = new PasswordModel(); // PasswordModel | 
+TwoFactorCodeModel model = new TwoFactorCodeModel(); // TwoFactorCodeModel | 
 try {
     Void result = apiInstance.apiManagerAuth2faDisablePost(authorization, model);
     System.out.println(result);
@@ -260,7 +258,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **model** | [**PasswordModel**](PasswordModel.md)|  | [optional]
+ **model** | [**TwoFactorCodeModel**](TwoFactorCodeModel.md)|  | [optional]
 
 ### Return type
 

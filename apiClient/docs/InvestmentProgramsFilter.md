@@ -48,7 +48,7 @@ BYENDOFPERIODASC | &quot;ByEndOfPeriodAsc&quot;
 BYENDOFPERIODDESC | &quot;ByEndOfPeriodDesc&quot;
 BYTITLEASC | &quot;ByTitleAsc&quot;
 BYTITLEDESC | &quot;ByTitleDesc&quot;
-BYBALANCEASK | &quot;ByBalanceAsk&quot;
+BYBALANCEASC | &quot;ByBalanceAsc&quot;
 BYBALANCEDESC | &quot;ByBalanceDesc&quot;
 
 
