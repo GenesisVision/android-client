@@ -8,8 +8,13 @@ import io.swagger.client.api.ManagerApi;
 import io.swagger.client.model.ChangePasswordViewModel;
 import io.swagger.client.model.ForgotPasswordViewModel;
 import io.swagger.client.model.LoginViewModel;
+import io.swagger.client.model.PasswordModel;
+import io.swagger.client.model.RecoveryCodesViewModel;
 import io.swagger.client.model.RegisterInvestorViewModel;
 import io.swagger.client.model.RegisterManagerViewModel;
+import io.swagger.client.model.TwoFactorAuthenticator;
+import io.swagger.client.model.TwoFactorAuthenticatorConfirm;
+import io.swagger.client.model.TwoFactorStatus;
 import rx.Observable;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
@@ -40,6 +45,8 @@ public class AuthManager
 
 	private SharedPreferencesUtil sharedPreferencesUtil;
 
+	private Subscription getTwoFactorStatusSubscription;
+
 	public AuthManager(InvestorApi investorApi, ManagerApi managerApi, SharedPreferencesUtil sharedPreferencesUtil) {
 		this.investorApi = investorApi;
 		this.managerApi = managerApi;
@@ -55,7 +62,7 @@ public class AuthManager
 		String token = sharedPreferencesUtil.getToken();
 		if (token != null) {
 			AuthManager.token.onNext(token);
-			createUser();
+			getTwoFactorStatus();
 		}
 	}
 
@@ -92,14 +99,50 @@ public class AuthManager
 	private void handleGetTokenResponse(String token) {
 		String newToken = "Bearer " + token;
 		sharedPreferencesUtil.saveToken(newToken);
-		createUser();
 		AuthManager.token.onNext(newToken);
 		getTokenResponseSubject.onNext(newToken);
+		getTwoFactorStatus();
 	}
 
-	private void createUser() {
-		User user = new User();
-		userSubject.onNext(user);
+	private void getTwoFactorStatus() {
+		getTwoFactorStatusSubscription = twoFactorStatus()
+				.subscribeOn(Schedulers.io())
+				.observeOn(Schedulers.io())
+				.subscribe(response -> {
+							getTwoFactorStatusSubscription.unsubscribe();
+							User user = new User();
+							user.setTwoFactorStatus(response.isTwoFactorEnabled());
+							userSubject.onNext(user);
+						},
+						error -> {
+							getTwoFactorStatusSubscription.unsubscribe();
+							logout();
+						});
+	}
+
+	private Observable<TwoFactorStatus> twoFactorStatus() {
+		return BuildConfig.FLAVOR.equals("investor")
+				? investorApi.apiInvestorAuth2faGet(AuthManager.token.getValue())
+				: managerApi.apiManagerAuth2faGet(AuthManager.token.getValue());
+	}
+
+	public Observable<TwoFactorAuthenticator> createTfaKey() {
+		//TODO: remove model
+		PasswordModel model = new PasswordModel();
+		model.setPassword("qwerty");
+		return BuildConfig.FLAVOR.equals("investor")
+				? investorApi.apiInvestorAuth2faCreatePost(AuthManager.token.getValue(), model)
+				: managerApi.apiManagerAuth2faCreatePost(AuthManager.token.getValue(), model);
+	}
+
+	public Observable<RecoveryCodesViewModel> confirmTfa(String sharedKey, String password, String code) {
+		TwoFactorAuthenticatorConfirm model = new TwoFactorAuthenticatorConfirm();
+		model.setSharedKey(sharedKey);
+		model.setPassword(password);
+		model.setCode(code);
+		return BuildConfig.FLAVOR.equals("investor")
+				? investorApi.apiInvestorAuth2faConfirmPost(AuthManager.token.getValue(), model)
+				: managerApi.apiManagerAuth2faConfirmPost(AuthManager.token.getValue(), model);
 	}
 
 	public Observable<Void> register(String email, String password, String confirmPassword) {
@@ -171,5 +214,13 @@ public class AuthManager
 
 	public void setIgnoredVersionUpdate(int versionCode) {
 		sharedPreferencesUtil.saveIgnoredVersionUpdate(versionCode);
+	}
+
+	public boolean isNeedShowEnableTwoFactor() {
+		return !userSubject.getValue().getTwoFactorStatus() && !sharedPreferencesUtil.isEnableTwoFactorAlreadyShown();
+	}
+
+	public void setEnableTwoFactorAlreadyShown(boolean shown) {
+		sharedPreferencesUtil.setEnableTwoFactorAlreadyShown(shown);
 	}
 }

@@ -7,4 +7,13 @@ package vision.genesis.clientapp.model;
 
 public class User
 {
+	private Boolean twoFactorStatus;
+
+	public Boolean getTwoFactorStatus() {
+		return twoFactorStatus;
+	}
+
+	public void setTwoFactorStatus(Boolean twoFactorStatus) {
+		this.twoFactorStatus = twoFactorStatus;
+	}
 }

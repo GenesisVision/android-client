@@ -318,4 +318,19 @@
     <string name="update">Update</string>
     <string name="no_thanks">No, thanks</string>
     <string name="free_tokens">Free tokens</string>
+
+    <string name="enable_two_factor_rationale">To protect your funds, we strongly recommend you to enable two-factor authentication</string>
+    <string name="enable">Enable</string>
+    <string name="enable_two_factor">Enable two factor authentication</string>
+    <string name="disable_two_factor">Disable two factor authentication</string>
+    <string name="google_authenticator_app_rationale">Please make sure you have the Google Authenticator app installed on your phone.</string>
+    <string name="this_is_your_tfa_key">This is your Google 2FA Key. Please save it in a safe place. This key allows you to recover your two factor authentication in case of phone loss.</string>
+    <string name="next">Next</string>
+    <string name="confirm">Confirm</string>
+    <string name="confirm_tfa_enabling">Confirm enabling the two factor authentication:</string>
+    <string name="login_password">Login Password</string>
+    <string name="tfa_code">2FA Code</string>
+    <string name="successfully_set_up_tfa">You have just successfully configured two-factor authentication. We will ask you for the 2FA Code in any potentially dangerous situation, such as logging in or withdrawing funds.</string>
+    <string name="recovery_codes_below">You can find your recovery codes below. You can use them in case you lost your 2FA key or lost your phone with the 2FA application installed. Each recovery code can be used only once. Save these codes on paper and put it in a safe place. If you are not sure that you can provide a secure place for the recovery codes, it would be safier to just ignore these codes.</string>
+    <string name="tfa_warning">WARNING: We don\'t store your recovery codes. If you lost the access to your 2FA, it is most likely that we couldn\'t help you to return the access to your account.</string>
 </resources>

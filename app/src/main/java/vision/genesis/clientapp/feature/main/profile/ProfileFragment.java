@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -67,6 +68,9 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 
 	@BindView(R.id.button_change_avatar)
 	public View changeAvatarButton;
+
+	@BindView(R.id.two_factor_button)
+	public TextView twoFactorButton;
 
 	@BindView(R.id.first_name)
 	public ProfileDataView firstName;
@@ -128,6 +132,11 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 	@OnClick(R.id.change_password)
 	public void onChangePasswordClicked() {
 		ChangePasswordActivity.startWith(this, CHANGE_PASSWORD_REQUEST_CODE);
+	}
+
+	@OnClick(R.id.two_factor_button)
+	public void onTwoFactorButtonClicked() {
+		profilePresenter.onTwoFactorButtonClicked();
 	}
 
 	@OnClick(R.id.button_birthday_calendar)
@@ -356,6 +365,11 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 	@Override
 	public void startImageCropActivity(String imageUri) {
 		ImageCropActivity.startForResult(this, imageUri);
+	}
+
+	@Override
+	public void updateTwoFactorButtonText(String text) {
+		twoFactorButton.setText(text);
 	}
 
 	@Override

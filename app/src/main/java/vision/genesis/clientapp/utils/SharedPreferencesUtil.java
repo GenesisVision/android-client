@@ -16,6 +16,8 @@ public class SharedPreferencesUtil
 
 	private static final String KEY_IGNORED_VERSION_UPDATE = "keyIgnoredVersionUpdate";
 
+	private static final String KEY_ENABLE_TWO_FACTOR_ALREADY_SHOWN = "keyEnableTwoFactorAlreadyShown";
+
 	private Context context;
 
 	public SharedPreferencesUtil(Context context) {
@@ -44,5 +46,17 @@ public class SharedPreferencesUtil
 	public int getIgnoredVersionUpdate() {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
 		return sharedPreferences.getInt(KEY_IGNORED_VERSION_UPDATE, 0);
+	}
+
+	public boolean isEnableTwoFactorAlreadyShown() {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		return sharedPreferences.getBoolean(KEY_ENABLE_TWO_FACTOR_ALREADY_SHOWN, false);
+	}
+
+	public void setEnableTwoFactorAlreadyShown(boolean shown) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		sharedPreferences.edit()
+				.putBoolean(KEY_ENABLE_TWO_FACTOR_ALREADY_SHOWN, shown)
+				.apply();
 	}
 }

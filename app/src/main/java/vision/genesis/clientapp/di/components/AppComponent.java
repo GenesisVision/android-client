@@ -11,7 +11,6 @@ import vision.genesis.clientapp.di.modules.UtilsModule;
 import vision.genesis.clientapp.feature.auth.forgot_password.ForgotPasswordPresenter;
 import vision.genesis.clientapp.feature.auth.login.LoginPresenter;
 import vision.genesis.clientapp.feature.auth.registration.RegistrationPresenter;
-import vision.genesis.clientapp.feature.main.MainActivity;
 import vision.genesis.clientapp.feature.main.MainPresenter;
 import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
 import vision.genesis.clientapp.feature.main.assets.AssetsPresenter;
@@ -37,6 +36,7 @@ import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPre
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletPresenter;
 import vision.genesis.clientapp.feature.splashscreen.SplashScreenPresenter;
 import vision.genesis.clientapp.feature.tournament.TournamentPresenter;
+import vision.genesis.clientapp.feature.two_factor.setup.SetupTfaPresenter;
 import vision.genesis.clientapp.ui.ProgramDataView;
 
 /**
@@ -49,8 +49,6 @@ import vision.genesis.clientapp.ui.ProgramDataView;
 public interface AppComponent
 {
 	void inject(SplashScreenPresenter splashScreenPresenter);
-
-	void inject(MainActivity mainActivity);
 
 	void inject(MainPresenter mainPresenter);
 
@@ -107,4 +105,6 @@ public interface AppComponent
 	void inject(SearchPresenter searchPresenter);
 
 	void inject(AppUpdateDialog appUpdateDialog);
+
+	void inject(SetupTfaPresenter setupTfaPresenter);
 }

@@ -30,6 +30,7 @@ import vision.genesis.clientapp.model.events.SetBottomMenuVisibilityEvent;
 import vision.genesis.clientapp.model.events.ShowDepositWalletActivityEvent;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
+import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawProgramEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawWalletActivityEvent;
 
@@ -193,8 +194,13 @@ public class MainPresenter extends MvpPresenter<MainView>
 	private void userUpdated(User user) {
 		if (user == null)
 			userLoggedOff();
-		else
+		else {
 			userLoggedOn();
+			if (authManager.isNeedShowEnableTwoFactor()) {
+				getViewState().showEnableTwoFactor();
+				authManager.setEnableTwoFactorAlreadyShown(true);
+			}
+		}
 	}
 
 	private void userLoggedOn() {
@@ -254,5 +260,10 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowMessageActivityEvent event) {
 		getViewState().showMessageActivity(event.message, event.imageResourceId, event.mustRead);
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowSetupTfaActivityEvent event) {
+		getViewState().showSetupTwoFactorActivity();
 	}
 }

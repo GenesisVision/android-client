@@ -1,11 +1,13 @@
 package vision.genesis.clientapp.feature.main;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
@@ -17,13 +19,14 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vision.genesis.clientapp.BuildConfig;
-import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
@@ -33,9 +36,11 @@ import vision.genesis.clientapp.feature.main.program.ProgramInfoActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
+import vision.genesis.clientapp.feature.two_factor.setup.SetupTfaActivity;
 import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.ProgramInfoModel;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -79,8 +84,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		GenesisVisionApplication.getComponent().inject(this);
 
 		ButterKnife.bind(this);
 
@@ -292,5 +295,24 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	public void showAppUpdateDialog(AppUpdateModel model) {
 		AppUpdateDialog dialog = new AppUpdateDialog(this, model);
 		dialog.show();
+	}
+
+	@Override
+	public void showEnableTwoFactor() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(getString(R.string.enable_two_factor_rationale));
+		builder.setPositiveButton(getString(R.string.enable), (dialogInterface, i) -> EventBus.getDefault().post(new ShowSetupTfaActivityEvent()));
+		builder.setNegativeButton(getString(R.string.no_thanks), (dialogInterface, i) -> dialogInterface.cancel());
+
+		AlertDialog dialog = builder.create();
+		dialog.show();
+
+		dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+		dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+	}
+
+	@Override
+	public void showSetupTwoFactorActivity() {
+		SetupTfaActivity.startFrom(this);
 	}
 }

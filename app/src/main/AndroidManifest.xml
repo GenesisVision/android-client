@@ -32,9 +32,7 @@
             android:name=".feature.main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden">
-
-        </activity>
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
 
         <activity
             android:name=".feature.main.program.ProgramInfoActivity"
@@ -141,6 +139,12 @@
             android:launchMode="singleTop"
             android:theme="@style/TranslucentActivityTheme"
             android:windowSoftInputMode="stateVisible"/>
+
+        <activity
+            android:name=".feature.two_factor.setup.SetupTfaActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

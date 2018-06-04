@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="setup_tfa_steps">
+        <item>Start</item>
+        <item>Get code</item>
+        <item>Confirm</item>
+        <item>Success!</item>
+    </string-array>
+
+</resources>

@@ -268,9 +268,4 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	public void showBottomProgress(boolean show) {
 
 	}
-
-	@Override
-	public boolean onBackPressed() {
-		return false;
-	}
 }

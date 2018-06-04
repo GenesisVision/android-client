@@ -47,4 +47,8 @@ public interface MainView extends MvpView
 	void showDepositWallet();
 
 	void showAppUpdateDialog(AppUpdateModel model);
+
+	void showEnableTwoFactor();
+
+	void showSetupTwoFactorActivity();
 }

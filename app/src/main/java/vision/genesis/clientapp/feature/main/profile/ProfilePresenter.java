@@ -23,11 +23,14 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProfileManager;
+import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.api.Error;
 import vision.genesis.clientapp.model.api.ErrorResponse;
 import vision.genesis.clientapp.model.events.OnPictureChooserCameraClickedEvent;
 import vision.genesis.clientapp.model.events.OnPictureChooserGalleryClickedEvent;
 import vision.genesis.clientapp.model.events.SetBottomMenuVisibilityEvent;
+import vision.genesis.clientapp.model.events.ShowDisableTfaActivityEvent;
+import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -64,6 +67,10 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 
 	private boolean isEditMode = false;
 
+	private Subscription userSubscription;
+
+	private User user;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -72,12 +79,16 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 
 		EventBus.getDefault().register(this);
 
+		subscribeToUser();
 		getProfile();
 	}
 
 	@Override
 	public void onDestroy() {
 		EventBus.getDefault().unregister(this);
+
+		if (userSubscription != null)
+			userSubscription.unsubscribe();
 
 		if (profileSubscription != null)
 			profileSubscription.unsubscribe();
@@ -160,6 +171,23 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 		isEditMode = editMode;
 		getViewState().setEditMode(editMode);
 		EventBus.getDefault().post(new SetBottomMenuVisibilityEvent(!editMode));
+	}
+
+	private void subscribeToUser() {
+		userSubscription = authManager.userSubject
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.newThread())
+				.subscribe(this::userUpdated, error -> {
+				});
+	}
+
+	private void userUpdated(User user) {
+		if (user != null) {
+			this.user = user;
+			getViewState().updateTwoFactorButtonText(user.getTwoFactorStatus()
+					? context.getString(R.string.disable_two_factor)
+					: context.getString(R.string.enable_two_factor));
+		}
 	}
 
 	private void getProfile() {
@@ -296,6 +324,14 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 		} catch (IOException e) {
 			e.printStackTrace();
 			getViewState().showSnackbarMessage(e.getMessage());
+		}
+	}
+
+	public void onTwoFactorButtonClicked() {
+		if (user != null) {
+			EventBus.getDefault().post(user.getTwoFactorStatus()
+					? new ShowDisableTfaActivityEvent()
+					: new ShowSetupTfaActivityEvent());
 		}
 	}
 }

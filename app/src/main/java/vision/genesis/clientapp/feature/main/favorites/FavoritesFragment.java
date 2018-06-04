@@ -188,9 +188,4 @@ public class FavoritesFragment extends BaseFragment implements FavoritesView
 	public void setFavoritesCount(String count) {
 
 	}
-
-	@Override
-	public boolean onBackPressed() {
-		return false;
-	}
 }
