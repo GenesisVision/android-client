@@ -28,6 +28,7 @@ import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 import vision.genesis.clientapp.model.events.OnInvestButtonClickedEvent;
 import vision.genesis.clientapp.model.events.SetBottomMenuVisibilityEvent;
 import vision.genesis.clientapp.model.events.ShowDepositWalletActivityEvent;
+import vision.genesis.clientapp.model.events.ShowDisableTfaActivityEvent;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
@@ -265,5 +266,10 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowSetupTfaActivityEvent event) {
 		getViewState().showSetupTwoFactorActivity();
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowDisableTfaActivityEvent event) {
+		getViewState().showDisableTwoFactorActivity();
 	}
 }

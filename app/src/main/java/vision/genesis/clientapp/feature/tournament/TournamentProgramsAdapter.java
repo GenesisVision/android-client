@@ -20,12 +20,12 @@ import butterknife.OnClick;
 import io.swagger.client.model.InvestmentProgramDashboardInvestor;
 import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.ProgramInfoModel;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
+import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -174,7 +174,7 @@ public class TournamentProgramsAdapter extends RecyclerView.Adapter<TournamentPr
 			chart.setEquityChart(investmentProgram.getEquityChart());
 
 			tokens.setText(StringFormatUtil.formatAmount(investmentProgram.getInvestedTokens(), 0,
-					WalletManager.TOKENS_MAX_DECIMAL_POINT_DIGITS));
+					Constants.TOKENS_MAX_DECIMAL_POINT_DIGITS));
 			double tokensFiatValue = investmentProgram.getInvestedTokens() * investmentProgram.getToken().getInitialPrice();
 			tokensFiat.setText(String.format(Locale.getDefault(), "($%.2f)", tokensFiatValue));
 

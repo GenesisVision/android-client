@@ -252,7 +252,7 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 		activeProgramsOnly.setName(getString(R.string.active_programs_only));
 		activeProgramsOnly.setListener(this::onActiveProgramsOnlyChanged);
 
-		availableToInvestProgramsOnly.setName(getString(R.string.avaialble_to_invest_only));
+		availableToInvestProgramsOnly.setName(getString(R.string.available_to_invest_only));
 		availableToInvestProgramsOnly.setListener(this::onAvailableToInvestOnlyChanged);
 	}
 

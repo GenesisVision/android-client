@@ -24,11 +24,11 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.InvestManager;
-import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
 import vision.genesis.clientapp.model.events.OnDashboardProgramsUpdateEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
+import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
@@ -93,7 +93,7 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 			InvestmentProgramDashboardExtended programExtended = new InvestmentProgramDashboardExtended(program);
 
 			programExtended.setTokens(StringFormatUtil.formatAmount(program.getInvestedTokens(), 0,
-					WalletManager.TOKENS_MAX_DECIMAL_POINT_DIGITS));
+					Constants.TOKENS_MAX_DECIMAL_POINT_DIGITS));
 			double tokensFiatValue = program.getInvestedTokens() * program.getToken().getInitialPrice();
 			programExtended.setTokensFiat(String.format(Locale.getDefault(), "($%.2f)", tokensFiatValue));
 

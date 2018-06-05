@@ -18,11 +18,11 @@ import butterknife.OnClick;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.AmountTextView;
 import vision.genesis.clientapp.ui.NumericKeyboardView;
 import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -136,7 +136,7 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 
 	private void initAmountTextView() {
 		amountTextView.setKeyboard(keyboard);
-		amountTextView.setMaxDecimalDigits(WalletManager.TOKENS_MAX_DECIMAL_POINT_DIGITS);
+		amountTextView.setMaxDecimalDigits(Constants.TOKENS_MAX_DECIMAL_POINT_DIGITS);
 		amountTextView.setAmountChangeListener(new AmountTextView.AmountChangeListener()
 		{
 			@Override
@@ -175,7 +175,7 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 
 	@Override
 	public void setAvailable(double availableFunds) {
-		availableTokens.setText(StringFormatUtil.formatAmount(availableFunds, 0, WalletManager.TOKENS_MAX_DECIMAL_POINT_DIGITS));
+		availableTokens.setText(StringFormatUtil.formatAmount(availableFunds, 0, Constants.TOKENS_MAX_DECIMAL_POINT_DIGITS));
 	}
 
 	@Override

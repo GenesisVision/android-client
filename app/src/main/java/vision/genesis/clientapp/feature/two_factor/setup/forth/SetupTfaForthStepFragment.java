@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -16,6 +18,7 @@ import butterknife.Unbinder;
 import io.swagger.client.model.RecoveryCode;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.model.events.SetupTfaOkButtonClickedEvent;
 import vision.genesis.clientapp.ui.PrimaryButton;
 
 /**
@@ -38,7 +41,7 @@ public class SetupTfaForthStepFragment extends BaseFragment
 
 	@OnClick(R.id.button_ok)
 	public void onOkButtonClicked() {
-
+		EventBus.getDefault().post(new SetupTfaOkButtonClickedEvent());
 	}
 
 	@Nullable

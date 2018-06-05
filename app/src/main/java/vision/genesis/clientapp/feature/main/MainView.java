@@ -51,4 +51,6 @@ public interface MainView extends MvpView
 	void showEnableTwoFactor();
 
 	void showSetupTwoFactorActivity();
+
+	void showDisableTwoFactorActivity();
 }

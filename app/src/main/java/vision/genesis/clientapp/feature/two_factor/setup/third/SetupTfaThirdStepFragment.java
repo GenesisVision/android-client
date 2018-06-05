@@ -2,6 +2,7 @@ package vision.genesis.clientapp.feature.two_factor.setup.third;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import butterknife.Unbinder;
 import rx.Subscription;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.utils.Constants;
 
 /**
  * GenesisVisionAndroid
@@ -61,6 +63,11 @@ public class SetupTfaThirdStepFragment extends BaseFragment implements SetupTfaT
 		unbinder = ButterKnife.bind(this, view);
 
 		confirmButton.setEnabled(false);
+
+		InputFilter[] filters = new InputFilter[1];
+		filters[0] = new InputFilter.LengthFilter(Constants.TWO_FACTOR_CODE_LENGTH);
+		code.setFilters(filters);
+
 		setFonts();
 	}
 

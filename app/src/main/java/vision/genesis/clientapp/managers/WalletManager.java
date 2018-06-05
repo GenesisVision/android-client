@@ -22,8 +22,6 @@ import vision.genesis.clientapp.model.events.OnUnauthorizedResponseGetEvent;
 
 public class WalletManager
 {
-	public static final int TOKENS_MAX_DECIMAL_POINT_DIGITS = 2;
-
 	private InvestorApi investorApi;
 
 	private ManagerApi managerApi;

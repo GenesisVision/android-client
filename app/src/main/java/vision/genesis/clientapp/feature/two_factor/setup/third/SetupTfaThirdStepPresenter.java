@@ -6,6 +6,7 @@ import com.arellomobile.mvp.MvpPresenter;
 import org.greenrobot.eventbus.EventBus;
 
 import vision.genesis.clientapp.model.events.SetupTfaConfirmButtonClickedEvent;
+import vision.genesis.clientapp.utils.Constants;
 
 /**
  * GenesisVisionAndroid
@@ -30,7 +31,7 @@ public class SetupTfaThirdStepPresenter extends MvpPresenter<SetupTfaThirdStepVi
 	}
 
 	private void checkConfirmButtonAvailability() {
-		getViewState().setConfirmButtonAvailability(!password.isEmpty() && !code.isEmpty());
+		getViewState().setConfirmButtonAvailability(!password.isEmpty() && code.length() == Constants.TWO_FACTOR_CODE_LENGTH);
 	}
 
 	public void onConfirmClicked() {

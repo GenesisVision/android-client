@@ -144,7 +144,13 @@
             android:name=".feature.two_factor.setup.SetupTfaActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+
+        <activity
+            android:name=".feature.two_factor.disable.DisableTfaActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|stateVisible"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

@@ -13,11 +13,13 @@ import io.swagger.client.model.RegisterInvestorViewModel;
 import io.swagger.client.model.RegisterManagerViewModel;
 import io.swagger.client.model.TwoFactorAuthenticator;
 import io.swagger.client.model.TwoFactorAuthenticatorConfirm;
+import io.swagger.client.model.TwoFactorCodeModel;
 import io.swagger.client.model.TwoFactorStatus;
 import rx.Observable;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
+import timber.log.Timber;
 import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.OnUnauthorizedResponseGetEvent;
@@ -60,6 +62,7 @@ public class AuthManager
 	private void tryGetSavedToken() {
 		String token = sharedPreferencesUtil.getToken();
 		if (token != null) {
+			Timber.d("TOKEN: %s", token);
 			AuthManager.token.onNext(token);
 			getTwoFactorStatus();
 		}
@@ -99,6 +102,7 @@ public class AuthManager
 		String newToken = "Bearer " + token;
 		sharedPreferencesUtil.saveToken(newToken);
 		AuthManager.token.onNext(newToken);
+		Timber.d("TOKEN: %s", newToken);
 		getTokenResponseSubject.onNext(newToken);
 		getTwoFactorStatus();
 	}
@@ -117,6 +121,14 @@ public class AuthManager
 							getTwoFactorStatusSubscription.unsubscribe();
 							logout();
 						});
+	}
+
+	public void setTwoFactorStatus(boolean enabled) {
+		User user = userSubject.getValue();
+		if (user != null) {
+			user.setTwoFactorStatus(enabled);
+			userSubject.onNext(user);
+		}
 	}
 
 	private Observable<TwoFactorStatus> twoFactorStatus() {
@@ -139,6 +151,15 @@ public class AuthManager
 		return BuildConfig.FLAVOR.equals("investor")
 				? investorApi.apiInvestorAuth2faConfirmPost(AuthManager.token.getValue(), model)
 				: managerApi.apiManagerAuth2faConfirmPost(AuthManager.token.getValue(), model);
+	}
+
+	public Observable<Void> disableTfa(String password, String code) {
+		TwoFactorCodeModel model = new TwoFactorCodeModel();
+		model.setPassword(password);
+		model.setTwoFactorCode(code);
+		return BuildConfig.FLAVOR.equals("investor")
+				? investorApi.apiInvestorAuth2faDisablePost(AuthManager.token.getValue(), model)
+				: managerApi.apiManagerAuth2faDisablePost(AuthManager.token.getValue(), model);
 	}
 
 	public Observable<Void> register(String email, String password, String confirmPassword) {

@@ -5,21 +5,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+    <vision.genesis.clientapp.ui.ToolbarView
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"/>
+
     <LinearLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
         android:gravity="center"
         android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/confirm_tfa_enabling"
-            android:textColor="@color/grey700"
-            android:textSize="18sp"/>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/text_input_layout_password"
@@ -39,7 +37,7 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:textSize="18sp"
-                tools:text="Marian Garrett"/>
+                tools:text="qwerty"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -68,7 +66,7 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/button_confirm"
+        android:id="@+id/button_disable"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
@@ -78,10 +76,45 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/confirm"
+            android:text="@string/disable"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="16sp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/grey300"
+        android:textSize="10sp"
+        tools:text="0.0.2-alpha (18040401)"/>
+
+    <RelativeLayout
+        android:id="@+id/group_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        tools:visibility="gone">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.7"
+            android:background="@color/colorPrimary"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"/>
 
     </RelativeLayout>
 

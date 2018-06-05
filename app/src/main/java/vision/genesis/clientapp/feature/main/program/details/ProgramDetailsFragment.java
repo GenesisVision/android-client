@@ -36,7 +36,6 @@ import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivit
 import vision.genesis.clientapp.feature.main.program.requests.RequestsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.tooltip.TooltipActivity;
-import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.InvestmentProgramExtended;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.TooltipModel;
@@ -44,6 +43,7 @@ import vision.genesis.clientapp.model.events.ShowTradesEvent;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProgramDataView;
 import vision.genesis.clientapp.ui.chart.ProfitDetailsChartView;
+import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -455,7 +455,7 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 		if (programDetails.isIsHistoryEnable()) {
 			myTokensCard.setVisibility(View.VISIBLE);
 
-			myTokens.setText(StringFormatUtil.formatAmount(programDetails.getInvestedTokens(), 0, WalletManager.TOKENS_MAX_DECIMAL_POINT_DIGITS));
+			myTokens.setText(StringFormatUtil.formatAmount(programDetails.getInvestedTokens(), 0, Constants.TOKENS_MAX_DECIMAL_POINT_DIGITS));
 			double tokensFiatValue = programDetails.getInvestedTokens() * programDetails.getToken().getInitialPrice();
 			myTokensFiat.setText(String.format(Locale.getDefault(), "($%.2f)", tokensFiatValue));
 

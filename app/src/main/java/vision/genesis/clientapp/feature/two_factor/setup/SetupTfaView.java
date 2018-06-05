@@ -24,4 +24,8 @@ public interface SetupTfaView extends MvpView
 	void showSnackbar(String text);
 
 	void onConfirmSuccess(List<RecoveryCode> codes);
+
+	void finishActivity();
+
+	void hideKeyboard();
 }

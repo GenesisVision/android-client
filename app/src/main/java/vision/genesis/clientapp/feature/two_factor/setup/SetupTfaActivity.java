@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
@@ -92,6 +93,7 @@ public class SetupTfaActivity extends MvpAppCompatActivity implements SetupTfaVi
 		else {
 			setCurrentStep(currentStepNumber - 1);
 		}
+		hideKeyboard();
 	}
 
 	@Override
@@ -118,5 +120,19 @@ public class SetupTfaActivity extends MvpAppCompatActivity implements SetupTfaVi
 	public void onConfirmSuccess(List<RecoveryCode> codes) {
 		pagerAdapter.setRecoveryCodes(codes);
 		setCurrentStep(currentStepNumber + 1);
+	}
+
+	@Override
+	public void finishActivity() {
+		finish();
+	}
+
+	@Override
+	public void hideKeyboard() {
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		stepView.clearFocus();
+		if (imm != null) {
+			imm.hideSoftInputFromWindow(stepView.getWindowToken(), 0);
+		}
 	}
 }

@@ -36,6 +36,7 @@ import vision.genesis.clientapp.feature.main.program.ProgramInfoActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
+import vision.genesis.clientapp.feature.two_factor.disable.DisableTfaActivity;
 import vision.genesis.clientapp.feature.two_factor.setup.SetupTfaActivity;
 import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.ProgramInfoModel;
@@ -241,7 +242,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 
 	@Override
 	public void showBottomNavigation() {
-		bottomNavigationView.setCurrentItem(0);
 		showBottomNavigationWithAnimation();
 	}
 
@@ -314,5 +314,10 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	@Override
 	public void showSetupTwoFactorActivity() {
 		SetupTfaActivity.startFrom(this);
+	}
+
+	@Override
+	public void showDisableTwoFactorActivity() {
+		DisableTfaActivity.startFrom(this);
 	}
 }

@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:gravity="center"
+                android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
                 <TextView
@@ -51,17 +51,17 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center_horizontal"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    tools:text="098 654\n276 543"/>
+                    tools:text="098 654\n276 543\n276 543"/>
 
                 <TextView
                     android:id="@+id/text_right_column"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center_horizontal"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     tools:text="098 654\n276 543"/>
