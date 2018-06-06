@@ -75,10 +75,11 @@ public class AuthManager
 		return getTokenResponseSubject;
 	}
 
-	public Observable<String> login(String email, String password) {
+	public Observable<String> login(String email, String password, String tfaCode) {
 		LoginViewModel model = new LoginViewModel();
 		model.setEmail(email);
 		model.setPassword(password);
+		model.setTwoFactorCode(tfaCode);
 		model.rememberMe(true);
 
 		getToken(getLoginApiObservable(model));

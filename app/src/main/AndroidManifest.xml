@@ -152,6 +152,12 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize|stateVisible"/>
 
+        <activity
+            android:name=".feature.two_factor.check.CheckTfaActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"

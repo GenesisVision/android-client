@@ -18,6 +18,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.auth.forgot_password.ForgotPasswordActivity;
 import vision.genesis.clientapp.feature.auth.registration.RegistrationActivity;
+import vision.genesis.clientapp.feature.two_factor.check.CheckTfaActivity;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -101,12 +102,12 @@ public class LoginActivity extends BaseSwipeBackActivity implements LoginView
 
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.sign_in));
-		toolbar.addLeftButton(R.drawable.back_arrow, this::finishActivity);
+		toolbar.addLeftButton(R.drawable.back_arrow, () -> finishActivity(true));
 	}
 
 	@Override
 	public void onBackPressed() {
-		finishActivity();
+		finishActivity(true);
 	}
 
 	@Override
@@ -148,8 +149,16 @@ public class LoginActivity extends BaseSwipeBackActivity implements LoginView
 	}
 
 	@Override
-	public void finishActivity() {
+	public void finishActivity(boolean withAnimation) {
 		finish();
-		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
+		if (withAnimation)
+			overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
+		else
+			overridePendingTransition(R.anim.hold, R.anim.hold);
+	}
+
+	@Override
+	public void startCheckTfaActivity(String action) {
+		CheckTfaActivity.startWith(this, action);
 	}
 }

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <vision.genesis.clientapp.ui.ToolbarView
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/group_action"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:background="@color/colorPrimary">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp">
+
+                <TextView
+                    android:id="@+id/label_about_to_perform"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:text="@string/you_about_perform_action"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white87"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:paddingLeft="32dp"
+                    android:paddingRight="32dp"
+                    android:text="@string/you_about_perform_action"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    tools:text="Sign in as megatrader@trading.com megatrader@trading.com"/>
+
+                <TextView
+                    android:id="@+id/label_confirm_this_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:paddingLeft="32dp"
+                    android:paddingRight="32dp"
+                    android:text="@string/please_confirm_with_2fa"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white87"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/shadow_up_black"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/group_code"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/code_1"
+                    style="@style/check_tfa_code_number"
+                    tools:text="6"/>
+
+                <TextView
+                    android:id="@+id/code_2"
+                    style="@style/check_tfa_code_number"
+                    tools:text="9"/>
+
+                <TextView
+                    android:id="@+id/code_3"
+                    style="@style/check_tfa_code_number"
+                    tools:text="2"/>
+
+                <TextView
+                    android:id="@+id/code_4"
+                    style="@style/check_tfa_code_number"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginStart="32dp"
+                    tools:text="_"/>
+
+                <TextView
+                    android:id="@+id/code_5"
+                    style="@style/check_tfa_code_number"
+                    tools:text="_"/>
+
+                <TextView
+                    android:id="@+id/code_6"
+                    style="@style/check_tfa_code_number"
+                    tools:text="_"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1.4">
+
+            <vision.genesis.clientapp.ui.PrimaryButton
+                android:id="@+id/button_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/confirm"/>
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+        <vision.genesis.clientapp.ui.NumericKeyboardView
+            android:id="@+id/keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_weight="6"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

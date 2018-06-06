@@ -335,4 +335,8 @@
     <string name="tfa_warning">WARNING: We don\'t store your recovery codes. If you lost the access to your 2FA, it is most likely that we couldn\'t help you to return the access to your account.</string>
     <string name="disable">Disable</string>
     <string name="tfa_disable_success">You have successfully disabled the two factor authentication. However, we strongly recommend you keep it enabled. This can protect your funds from being stolen.</string>
+    <string name="you_about_perform_action">You are about to perform the following action:</string>
+    <string name="please_confirm_with_2fa">Please confirm this action with a 2FA Code</string>
+    <string name="sign_in_as">Sign in as</string>
+    <string name="two_factor_authentication">Two factor authentication</string>
 </resources>

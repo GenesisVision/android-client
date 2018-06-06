@@ -253,4 +253,12 @@
         <item name="android:windowEnterAnimation">@anim/slide_from_bottom</item>
         <item name="android:windowExitAnimation">@anim/slide_to_bottom</item>
     </style>
+
+    <style name="check_tfa_code_number">
+        <item name="android:layout_width">45dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">72sp</item>
+    </style>
 </resources>

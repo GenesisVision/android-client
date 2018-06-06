@@ -26,5 +26,7 @@ interface LoginView extends MvpView
 
 	void showRegistrationActivity();
 
-	void finishActivity();
+	void finishActivity(boolean withAnimation);
+
+	void startCheckTfaActivity(String action);
 }

@@ -25,7 +25,7 @@ import vision.genesis.clientapp.R;
 
 public class NumericKeyboardView extends RelativeLayout
 {
-	interface InputListener
+	public interface InputListener
 	{
 		void onNumber(String number);
 
@@ -178,6 +178,11 @@ public class NumericKeyboardView extends RelativeLayout
 		this.listener = listener;
 	}
 
+	public void disableKeyboard(boolean disable) {
+		disableAllKeysExceptBackspace(disable);
+		buttonBackspace.setEnabled(!disable);
+	}
+
 	public void disableAllKeysExceptBackspace(boolean disable) {
 		buttonOne.setEnabled(!disable);
 		buttonTwo.setEnabled(!disable);
@@ -190,6 +195,7 @@ public class NumericKeyboardView extends RelativeLayout
 		buttonNine.setEnabled(!disable);
 		buttonZero.setEnabled(!disable);
 		buttonDecimal.setEnabled(!disable);
+		buttonBackspace.setEnabled(true);
 
 		int enabledColor = ContextCompat.getColor(getContext(), R.color.colorFontDark);
 		int disabledColor = ContextCompat.getColor(getContext(), R.color.colorFontLight);
@@ -356,5 +362,9 @@ public class NumericKeyboardView extends RelativeLayout
 		}
 
 		listener = null;
+	}
+
+	public void disableDecimal() {
+		buttonDecimal.setVisibility(View.INVISIBLE);
 	}
 }
