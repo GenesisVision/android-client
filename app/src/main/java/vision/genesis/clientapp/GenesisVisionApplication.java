@@ -5,6 +5,13 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.security.ProviderInstaller;
+
+import java.security.NoSuchAlgorithmException;
+
+import javax.net.ssl.SSLContext;
 
 import timber.log.Timber;
 import vision.genesis.clientapp.di.components.AppComponent;
@@ -27,6 +34,21 @@ public class GenesisVisionApplication extends Application
 		return component;
 	}
 
+	public static void initializeSSLContext(Context mContext) {
+		try {
+			SSLContext.getInstance("TLSv1.2");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		try {
+			ProviderInstaller.installIfNeeded(mContext.getApplicationContext());
+		} catch (GooglePlayServicesRepairableException e) {
+			e.printStackTrace();
+		} catch (GooglePlayServicesNotAvailableException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -38,6 +60,8 @@ public class GenesisVisionApplication extends Application
 		}
 
 		component = buildComponent();
+
+		initializeSSLContext(this);
 
 		Fresco.initialize(this);
 
