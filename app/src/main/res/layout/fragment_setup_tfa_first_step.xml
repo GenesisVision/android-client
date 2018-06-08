@@ -1,71 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="300dp"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/tfa_tutorial_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/indicator"/>
+
+    <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
+        android:id="@+id/indicator"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/button_next"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="64dp"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:gravity="center"
-            android:lineSpacingMultiplier="1.1"
-            android:text="@string/google_authenticator_app_rationale"
-            android:textColor="@color/grey700"
-            android:textSize="16sp"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="64dp"
-            android:background="@color/colorPrimaryDark"
-            android:padding="8dp">
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/text_key"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:maxLines="1"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                app:autoSizeMaxTextSize="26sp"
-                app:autoSizeMinTextSize="14sp"
-                app:autoSizeTextType="uniform"
-                tools:text="QWERTYUIOPASDFGH"/>
-
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:visibility="visible"/>
-
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:gravity="center"
-            android:lineSpacingMultiplier="1.1"
-            android:text="@string/this_is_your_tfa_key"
-            android:textColor="@color/grey700"
-            android:textSize="16sp"/>
-
-    </LinearLayout>
+        android:layout_margin="24dp"
+        app:spi_dotColor="@color/grey200"
+        app:spi_dotSelectedColor="@color/grey300"/>
 
     <RelativeLayout
         android:id="@+id/button_next"
@@ -78,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/next"
+            android:text="@string/got_it"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="16sp"/>

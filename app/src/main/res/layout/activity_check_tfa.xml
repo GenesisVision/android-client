@@ -132,6 +132,17 @@
 
             </LinearLayout>
 
+            <CheckBox
+                android:id="@+id/checkbox_recovery_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="4dp"
+                android:padding="4dp"
+                android:text="@string/i_am_using_a_recovery_code"
+                android:textColor="@color/grey300"/>
+
         </RelativeLayout>
 
         <RelativeLayout

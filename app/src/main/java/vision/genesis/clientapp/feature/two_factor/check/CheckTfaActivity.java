@@ -3,7 +3,9 @@ package vision.genesis.clientapp.feature.two_factor.check;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,8 +14,10 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import timber.log.Timber;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.ui.NumericKeyboardView;
@@ -77,6 +81,14 @@ public class CheckTfaActivity extends BaseSwipeBackActivity implements CheckTfaV
 
 	@InjectPresenter
 	CheckTfaPresenter checkTfaPresenter;
+
+	@OnCheckedChanged(R.id.checkbox_recovery_code)
+	public void onRecoveryCodeCheckedChanged(CompoundButton button, boolean checked) {
+		checkTfaPresenter.setUseRecoveryCode(checked);
+		button.setTextColor(checked
+				? ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimaryDark)
+				: ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.grey300));
+	}
 
 	@OnClick(R.id.button_confirm)
 	public void onConfirmClicked() {

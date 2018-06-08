@@ -2,13 +2,10 @@ package vision.genesis.clientapp.feature.two_factor.setup.first;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -16,28 +13,26 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.model.events.SetupTfaNextButtonClickedEvent;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 30/05/2018.
+ * Created by Vitaly on 01/06/2018.
  */
 
-public class SetupTfaFirstStepFragment extends BaseFragment implements SetupTfaFirstStepView
+public class SetupTfaFirstStepFragment extends BaseFragment
 {
-	@BindView(R.id.text_key)
-	public TextView keyText;
+	@BindView(R.id.tfa_tutorial_view_pager)
+	public ViewPager viewPager;
 
-	@BindView(R.id.progress_bar)
-	public ProgressBar progressBar;
+	@BindView(R.id.indicator)
+	public ScrollingPagerIndicator indicator;
 
 	@BindView(R.id.button_next)
 	public View nextButton;
-
-	@InjectPresenter
-	SetupTfaFirstStepPresenter setupTfaFirstStepPresenter;
 
 	private Unbinder unbinder;
 
@@ -58,9 +53,13 @@ public class SetupTfaFirstStepFragment extends BaseFragment implements SetupTfaF
 
 		unbinder = ButterKnife.bind(this, view);
 
-		nextButton.setEnabled(false);
-
 		setFonts();
+		initViewPager();
+	}
+
+	private void initViewPager() {
+		viewPager.setAdapter(new TfaTutorialPagerAdapter(getChildFragmentManager()));
+		indicator.attachToPager(viewPager);
 	}
 
 	@Override
@@ -74,16 +73,5 @@ public class SetupTfaFirstStepFragment extends BaseFragment implements SetupTfaF
 	}
 
 	private void setFonts() {
-	}
-
-	public void onSetKey(String sharedKey) {
-		setupTfaFirstStepPresenter.onSetKey(sharedKey);
-	}
-
-	@Override
-	public void setKey(String key) {
-		keyText.setText(key);
-		progressBar.setVisibility(View.GONE);
-		nextButton.setEnabled(true);
 	}
 }

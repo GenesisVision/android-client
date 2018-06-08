@@ -21,6 +21,8 @@ public class CheckTfaPresenter extends MvpPresenter<CheckTfaView>
 {
 	private String code = "";
 
+	private boolean useRecoveryCode = false;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -41,7 +43,7 @@ public class CheckTfaPresenter extends MvpPresenter<CheckTfaView>
 
 	void onConfirmClicked() {
 		getViewState().showProgress(true);
-		EventBus.getDefault().post(new OnCheckTfaConfirmClickedEvent(code));
+		EventBus.getDefault().post(new OnCheckTfaConfirmClickedEvent(code, useRecoveryCode));
 	}
 
 	public void onNumber(String number) {
@@ -81,5 +83,9 @@ public class CheckTfaPresenter extends MvpPresenter<CheckTfaView>
 	public void onEventMainThread(OnCheckTfaErrorEvent event) {
 		getViewState().showProgress(false);
 		getViewState().showToastMessage(event.getError());
+	}
+
+	public void setUseRecoveryCode(boolean use) {
+		useRecoveryCode = use;
 	}
 }

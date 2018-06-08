@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.text.InputFilter;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnEditorAction;
 import rx.Subscription;
 import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
@@ -62,6 +64,14 @@ public class DisableTfaActivity extends MvpAppCompatActivity implements DisableT
 	private Subscription passwordTextChangeSubscription;
 
 	private Subscription codeTextChangeSubscription;
+
+	@OnEditorAction(R.id.edit_text_code)
+	protected boolean onCodeEditorAction(int actionId) {
+		if (actionId == EditorInfo.IME_ACTION_DONE) {
+			disableTfaPresenter.onDisableClicked();
+		}
+		return false;
+	}
 
 	@OnClick(R.id.button_disable)
 	public void onDisableButtonClicked() {

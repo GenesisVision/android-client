@@ -101,4 +101,7 @@
     <dimen name="fragment_bottomsheet_sorting_height">320dp</dimen>
     <dimen name="fragment_bottomsheet_filters_height">330dp</dimen>
     <dimen name="dialog_update_app_width">350dp</dimen>
+
+    <dimen name="tfa_tutorial_phone_width">200dp</dimen>
+    <dimen name="tfa_tutorial_phone_height">450dp</dimen>
 </resources>

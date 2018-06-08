@@ -2,9 +2,7 @@ package vision.genesis.clientapp.feature.two_factor.setup;
 
 import com.arellomobile.mvp.MvpView;
 
-import java.util.List;
-
-import io.swagger.client.model.RecoveryCode;
+import java.util.ArrayList;
 
 /**
  * GenesisVisionAndroid
@@ -15,7 +13,7 @@ public interface SetupTfaView extends MvpView
 {
 	void onBackPressed();
 
-	void setKey(String sharedKey);
+	void setKey(String sharedKey, String authenticatorUri);
 
 	void showNextStep();
 
@@ -23,7 +21,7 @@ public interface SetupTfaView extends MvpView
 
 	void showSnackbar(String text);
 
-	void onConfirmSuccess(List<RecoveryCode> codes);
+	void onConfirmSuccess(ArrayList<String> codes);
 
 	void finishActivity();
 

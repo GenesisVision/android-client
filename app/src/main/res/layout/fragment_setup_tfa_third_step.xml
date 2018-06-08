@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/confirm_tfa_enabling"
-            android:textColor="@color/grey700"
+            android:textColor="@color/black87"
             android:textSize="18sp"/>
 
         <android.support.design.widget.TextInputLayout
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:gravity="bottom"
             android:textColorHint="@color/grey400"
             app:hintTextAppearance="@style/ProfileHintText">

@@ -1,10 +1,16 @@
 package vision.genesis.clientapp.feature.two_factor.setup.second;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -18,13 +24,25 @@ import vision.genesis.clientapp.model.events.SetupTfaNextButtonClickedEvent;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 01/06/2018.
+ * Created by Vitaly on 30/05/2018.
  */
 
-public class SetupTfaSecondStepFragment extends BaseFragment
+public class SetupTfaSecondStepFragment extends BaseFragment implements SetupTfaSecondStepView
 {
+	@BindView(R.id.text_key)
+	public TextView keyText;
+
+	@BindView(R.id.image_qrcode)
+	public ImageView qrCodeImage;
+
+	@BindView(R.id.progress_bar)
+	public ProgressBar progressBar;
+
 	@BindView(R.id.button_next)
 	public View nextButton;
+
+	@InjectPresenter
+	SetupTfaSecondStepPresenter setupTfaSecondStepPresenter;
 
 	private Unbinder unbinder;
 
@@ -45,6 +63,8 @@ public class SetupTfaSecondStepFragment extends BaseFragment
 
 		unbinder = ButterKnife.bind(this, view);
 
+		nextButton.setEnabled(false);
+
 		setFonts();
 	}
 
@@ -59,5 +79,21 @@ public class SetupTfaSecondStepFragment extends BaseFragment
 	}
 
 	private void setFonts() {
+	}
+
+	public void onSetKey(String sharedKey, String authenticatorUri) {
+		setupTfaSecondStepPresenter.onSetKey(sharedKey, authenticatorUri);
+	}
+
+	@Override
+	public void setKey(String key) {
+		keyText.setText(key);
+		progressBar.setVisibility(View.GONE);
+		nextButton.setEnabled(true);
+	}
+
+	@Override
+	public void setQrCode(Bitmap bitmap) {
+		qrCodeImage.setImageBitmap(bitmap);
 	}
 }

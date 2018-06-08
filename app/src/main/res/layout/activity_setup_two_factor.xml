@@ -32,8 +32,8 @@
             app:sv_doneStepLineColor="@color/colorPrimaryDark"
             app:sv_doneStepMarkColor="@color/white"
             app:sv_doneTextColor="@color/colorPrimaryDark"
-            app:sv_nextStepLineColor="@color/grey500"
-            app:sv_nextTextColor="@color/grey500"
+            app:sv_nextStepLineColor="@color/colorPrimary"
+            app:sv_nextTextColor="@color/colorPrimary"
             app:sv_selectedCircleColor="@color/colorPrimary"
             app:sv_selectedStepNumberColor="@color/white"
             app:sv_selectedTextColor="@color/colorPrimary"
@@ -47,6 +47,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/header"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_below="@+id/header"
+        android:background="@drawable/shadow_down_white"/>
 
     <TextView
         android:id="@+id/version"

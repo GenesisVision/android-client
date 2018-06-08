@@ -2,9 +2,9 @@
 <resources>
 
     <string-array name="setup_tfa_steps">
-        <item>Start</item>
-        <item>Get code</item>
-        <item>Confirm</item>
+        <item>How to</item>
+        <item>Get key</item>
+        <item>Verify</item>
         <item>Success!</item>
     </string-array>
 

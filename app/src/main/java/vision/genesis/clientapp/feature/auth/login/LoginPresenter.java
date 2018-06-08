@@ -75,13 +75,13 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 	void onSignInClicked(String email, String password) {
 		this.email = email;
 		this.password = password;
-		login(null);
+		login(null, false);
 	}
 
-	private void login(String tfaCode) {
+	private void login(String tfaCode, boolean useRecoveryCode) {
 		getViewState().clearErrors();
 		getViewState().showProgress();
-		loginSubscription = authManager.login(email, password, tfaCode)
+		loginSubscription = authManager.login(email, password, tfaCode, useRecoveryCode)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::onLoginResponse,
@@ -145,6 +145,6 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 	@Subscribe
 	public void onEventMainThread(OnCheckTfaConfirmClickedEvent event) {
 		tfaEnabled = true;
-		login(event.getCode());
+		login(event.getCode(), event.isUseRecoveryCode());
 	}
 }

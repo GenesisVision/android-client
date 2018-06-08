@@ -4,11 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import java.util.List;
-
-import io.swagger.client.model.RecoveryCode;
 import vision.genesis.clientapp.feature.two_factor.setup.first.SetupTfaFirstStepFragment;
-import vision.genesis.clientapp.feature.two_factor.setup.forth.SetupTfaForthStepFragment;
 import vision.genesis.clientapp.feature.two_factor.setup.second.SetupTfaSecondStepFragment;
 import vision.genesis.clientapp.feature.two_factor.setup.third.SetupTfaThirdStepFragment;
 
@@ -31,8 +27,6 @@ public class SetupTfaPagerAdapter extends FragmentStatePagerAdapter
 
 	private SetupTfaThirdStepFragment thirdStepFragment;
 
-	private SetupTfaForthStepFragment forthStepFragment;
-
 	public SetupTfaPagerAdapter(FragmentManager fm) {
 		super(fm);
 
@@ -43,7 +37,6 @@ public class SetupTfaPagerAdapter extends FragmentStatePagerAdapter
 		firstStepFragment = new SetupTfaFirstStepFragment();
 		secondStepFragment = new SetupTfaSecondStepFragment();
 		thirdStepFragment = new SetupTfaThirdStepFragment();
-		forthStepFragment = new SetupTfaForthStepFragment();
 	}
 
 	@Override
@@ -55,8 +48,6 @@ public class SetupTfaPagerAdapter extends FragmentStatePagerAdapter
 				return secondStepFragment;
 			case 2:
 				return thirdStepFragment;
-			case 3:
-				return forthStepFragment;
 			default:
 				return firstStepFragment;
 		}
@@ -64,14 +55,10 @@ public class SetupTfaPagerAdapter extends FragmentStatePagerAdapter
 
 	@Override
 	public int getCount() {
-		return 4;
+		return 3;
 	}
 
-	public void setKey(String sharedKey) {
-		firstStepFragment.onSetKey(sharedKey);
-	}
-
-	public void setRecoveryCodes(List<RecoveryCode> codes) {
-		forthStepFragment.setRecoveryCodes(codes);
+	public void setKey(String sharedKey, String authenticatorUri) {
+		secondStepFragment.onSetKey(sharedKey, authenticatorUri);
 	}
 }

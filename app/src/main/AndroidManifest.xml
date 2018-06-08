@@ -147,6 +147,12 @@
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 
         <activity
+            android:name=".feature.two_factor.setup.forth.SetupTfaForthStepActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+
+        <activity
             android:name=".feature.two_factor.disable.DisableTfaActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"

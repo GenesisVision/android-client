@@ -13,15 +13,15 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.shuhart.stepview.StepView;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.RecoveryCode;
 import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.two_factor.setup.forth.SetupTfaForthStepActivity;
 import vision.genesis.clientapp.ui.NonSwipeableViewPager;
 
 /**
@@ -97,8 +97,8 @@ public class SetupTfaActivity extends MvpAppCompatActivity implements SetupTfaVi
 	}
 
 	@Override
-	public void setKey(String sharedKey) {
-		pagerAdapter.setKey(sharedKey);
+	public void setKey(String sharedKey, String authenticatorUri) {
+		pagerAdapter.setKey(sharedKey, authenticatorUri);
 	}
 
 	@Override
@@ -117,9 +117,9 @@ public class SetupTfaActivity extends MvpAppCompatActivity implements SetupTfaVi
 	}
 
 	@Override
-	public void onConfirmSuccess(List<RecoveryCode> codes) {
-		pagerAdapter.setRecoveryCodes(codes);
-		setCurrentStep(currentStepNumber + 1);
+	public void onConfirmSuccess(ArrayList<String> codes) {
+		SetupTfaForthStepActivity.startWith(this, codes);
+		finishActivity();
 	}
 
 	@Override

@@ -8,11 +8,18 @@ public class OnCheckTfaConfirmClickedEvent
 {
 	private String code;
 
-	public OnCheckTfaConfirmClickedEvent(String code) {
+	private boolean useRecoveryCode;
+
+	public OnCheckTfaConfirmClickedEvent(String code, boolean useRecoveryCode) {
 		this.code = code;
+		this.useRecoveryCode = useRecoveryCode;
 	}
 
 	public String getCode() {
 		return code;
+	}
+
+	public boolean isUseRecoveryCode() {
+		return useRecoveryCode;
 	}
 }
