@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -117,122 +116,64 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="16dp"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/view_program_data"
             android:layout_marginEnd="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginStart="16dp"
-            android:orientation="horizontal">
+            android:layout_marginStart="16dp">
 
             <RelativeLayout
-                style="@style/item_investment_program_footer_group"
-                android:layout_weight="5">
+                android:id="@+id/group_tournament"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <TextView
-                    android:id="@+id/text_free_tokens_title"
-                    style="@style/item_investment_program_footer_title"
-                    android:layout_width="70dp"
-                    android:layout_height="20dp"
-                    android:layout_marginBottom="6dp"
-                    android:gravity="bottom"
-                    android:text="@string/free_tokens"
-                    android:textColor="@color/black54"/>
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/text_free_tokens"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginRight="24dp"
-                    android:layout_toEndOf="@+id/text_free_tokens_title"
-                    android:layout_toRightOf="@+id/text_free_tokens_title"
-                    android:gravity="bottom|end"
+                    android:id="@+id/text_place"
+                    android:layout_width="400dp"
+                    android:layout_height="@dimen/item_program_data_height"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20sp"
-                    app:autoSizeMaxTextSize="20sp"
-                    app:autoSizeMinTextSize="14sp"
-                    app:autoSizeTextType="uniform"
-                    tools:text="174.3987"/>
+                    android:textSize="22sp"
+                    tools:text="1024"/>
+
+                <TextView
+                    android:id="@+id/text_place_title"
+                    style="@style/item_investment_program_footer_title"
+                    android:layout_below="@+id/text_place"
+                    android:layout_marginTop="@dimen/item_program_title_margin"
+                    android:text="@string/place"/>
 
             </RelativeLayout>
 
-            <RelativeLayout
-                style="@style/item_investment_program_footer_group"
-                android:layout_weight="3">
+            <TextView
+                android:id="@+id/text_free_tokens"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/item_program_data_height"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="4dp"
+                android:gravity="bottom"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp"
+                tools:text="174.3987"/>
 
-                <RelativeLayout
-                    android:id="@+id/group_tournament"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:visibility="gone"
-                    tools:visibility="visible">
+            <TextView
+                android:id="@+id/text_free_tokens_title"
+                style="@style/item_investment_program_footer_title"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/text_free_tokens"
+                android:layout_marginTop="@dimen/item_program_title_margin"
+                android:text="@string/free_tokens"/>
 
-                    <TextView
-                        android:id="@+id/text_round_title"
-                        style="@style/item_investment_program_footer_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginRight="4dp"
-                        android:gravity="bottom"
-                        android:text="@string/round"
-                        android:textColor="@color/black54"/>
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/text_round"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_marginEnd="24dp"
-                        android:layout_marginRight="24dp"
-                        android:layout_toEndOf="@+id/text_round_title"
-                        android:layout_toRightOf="@+id/text_round_title"
-                        android:gravity="bottom|end"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20sp"
-                        app:autoSizeMaxTextSize="20sp"
-                        app:autoSizeMinTextSize="14sp"
-                        app:autoSizeTextType="uniform"
-                        tools:text="3"/>
-
-                    <TextView
-                        android:id="@+id/text_place_title"
-                        style="@style/item_investment_program_footer_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginRight="4dp"
-                        android:layout_toLeftOf="@+id/text_place"
-                        android:layout_toStartOf="@+id/text_place"
-                        android:gravity="bottom"
-                        android:text="@string/place"
-                        android:textColor="@color/black54"/>
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/text_place"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:gravity="bottom|end"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20sp"
-                        app:autoSizeMaxTextSize="20sp"
-                        app:autoSizeMinTextSize="14sp"
-                        app:autoSizeTextType="uniform"
-                        tools:text="1024"/>
-
-                </RelativeLayout>
-
-            </RelativeLayout>
-
-        </LinearLayout>
+        </RelativeLayout>
 
     </RelativeLayout>
 

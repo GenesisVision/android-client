@@ -45,26 +45,11 @@ public class ProgramDataView extends RelativeLayout
 	@BindView(R.id.balance_currency)
 	public CurrencyView balanceCurrency;
 
-	@BindView(R.id.text_my_profit)
-	public TextView myProfitText;
-
-	@BindView(R.id.text_my_profit_title)
-	public TextView myProfiteTitle;
-
-	@BindView(R.id.my_profit_currency)
-	public CurrencyView myProfitCurrency;
-
 	@BindView(R.id.text_investors)
 	public TextView investorsText;
 
 	@BindView(R.id.text_investors_title)
 	public TextView investorsTitle;
-
-	@BindView(R.id.text_my_tokens)
-	public TextView myTokens;
-
-	@BindView(R.id.text_my_tokens_title)
-	public TextView myTokensTitle;
 
 	private Unbinder unbinder;
 

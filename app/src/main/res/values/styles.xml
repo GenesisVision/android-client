@@ -43,12 +43,11 @@
     </style>
 
     <style name="item_investment_program_footer_title">
-        <item name="android:layout_width">80dp</item>
-        <item name="android:layout_height">20dp</item>
-        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/black38</item>
+        <item name="android:textSize">7sp</item>
     </style>
 
     <style name="item_investment_program_footer_group">

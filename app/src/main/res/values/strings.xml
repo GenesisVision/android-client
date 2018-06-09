@@ -327,7 +327,7 @@
     <string name="next">Next</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_tfa_enabling">Confirm enabling the two factor authentication:</string>
-    <string name="login_password">Login Password</string>
+    <string name="your_password">Your Password</string>
     <string name="tfa_code">2FA Code</string>
     <string name="please_read_carefully">Please read carefully</string>
     <string name="successfully_set_up_tfa">You have just successfully configured the two factor authentication. We will ask you for the 2FA Code in any potentially dangerous situation, such as logging in or withdrawing funds.</string>

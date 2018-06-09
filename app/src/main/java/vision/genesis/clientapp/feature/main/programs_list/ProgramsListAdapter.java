@@ -112,9 +112,6 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 		@BindView(R.id.group_tournament)
 		public ViewGroup tournamentGroup;
 
-		@BindView(R.id.text_round)
-		public TextView round;
-
 		@BindView(R.id.text_place)
 		public TextView place;
 
@@ -169,7 +166,6 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 			if (data.isIsTournament()) {
 				tournamentGroup.setVisibility(View.VISIBLE);
 				trophyIcon.setVisibility(View.VISIBLE);
-				round.setText(data.getRoundNumber() != null ? String.valueOf(data.getRoundNumber()) : "-");
 				place.setText(data.getPlace() != null ? String.valueOf(data.getPlace()) : "-");
 			}
 			else {
