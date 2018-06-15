@@ -157,11 +157,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 		getSupportFragmentManager().popBackStack();
 	}
 
-	@Override
-	public void setBottomNavigationVisibility(boolean visible) {
-		bottomNavigationView.setVisibility(visible ? View.VISIBLE : View.GONE);
-	}
-
 	private boolean fragmentIsAlreadyRoot(Fragment fragment) {
 		return (currentFragment != null
 				&& currentFragment.getClass().getSimpleName().equals(fragment.getClass().getSimpleName()));
@@ -191,7 +186,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 		AHBottomNavigationItem dashboardItem = new AHBottomNavigationItem(getString(R.string.dashboard).toUpperCase(), R.drawable.dashboard_icon);
 		AHBottomNavigationItem investItem = new AHBottomNavigationItem(getString(R.string.programs).toUpperCase(), R.drawable.traders_icon);
 		AHBottomNavigationItem walletItem = new AHBottomNavigationItem(getString(R.string.wallet).toUpperCase(), R.drawable.wallet_icon);
-		AHBottomNavigationItem profileItem = new AHBottomNavigationItem(getString(R.string.profile).toUpperCase(), R.drawable.profile_icon);
+		AHBottomNavigationItem settingsItem = new AHBottomNavigationItem(getString(R.string.settings).toUpperCase(), R.drawable.ic_settings_black_24dp);
 
 		bottomNavigationView.setTitleTypeface(TypefaceUtil.bold());
 		bottomNavigationView.setTitleTextSizeInSp(10, 10);
@@ -199,7 +194,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 		bottomNavigationView.addItem(dashboardItem);
 		bottomNavigationView.addItem(investItem);
 		bottomNavigationView.addItem(walletItem);
-		bottomNavigationView.addItem(profileItem);
+		bottomNavigationView.addItem(settingsItem);
 
 		bottomNavigationView.setAccentColor(ContextCompat.getColor(this, R.color.white));
 		bottomNavigationView.setInactiveColor(ContextCompat.getColor(this, R.color.bottomInactive));

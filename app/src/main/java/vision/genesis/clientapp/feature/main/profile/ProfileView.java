@@ -33,6 +33,4 @@ interface ProfileView extends MvpView
 	void showSnackbarMessage(String message);
 
 	void startImageCropActivity(String imageUri);
-
-	void updateTwoFactorButtonText(String text);
 }

@@ -12,7 +12,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.managers.SettingsManager;
 
 /**
  * GenesisVisionAndroid
@@ -26,7 +26,7 @@ public class AssetsPresenter extends MvpPresenter<AssetsView>
 	public Context context;
 
 	@Inject
-	public InvestManager investManager;
+	public SettingsManager settingsManager;
 
 	private Subscription platformStatusSubscription;
 
@@ -48,7 +48,7 @@ public class AssetsPresenter extends MvpPresenter<AssetsView>
 	}
 
 	private void getPlatformStatus() {
-		platformStatusSubscription = investManager.getPlatformStatus()
+		platformStatusSubscription = settingsManager.getPlatformStatus()
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::onPlatformStatusSuccess,

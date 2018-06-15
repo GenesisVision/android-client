@@ -41,12 +41,6 @@
             android:windowSoftInputMode="adjustResize"/>
 
         <activity
-            android:name=".feature.main.programs_list.filter.ProgramsFiltersActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/SwipeBackActivityTheme"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
-
-        <activity
             android:name=".feature.main.program.invest.InvestProgramActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
@@ -154,13 +148,19 @@
 
         <activity
             android:name=".feature.two_factor.disable.DisableTfaActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="adjustResize|stateVisible"/>
 
         <activity
             android:name=".feature.two_factor.check.CheckTfaActivity"
-            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+
+        <activity
+            android:name=".feature.main.profile.ProfileActivity"
+            android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 

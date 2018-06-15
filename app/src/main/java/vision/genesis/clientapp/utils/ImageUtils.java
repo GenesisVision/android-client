@@ -89,6 +89,10 @@ public class ImageUtils
 		}
 	}
 
+	public static boolean deleteTempFile(File tempFile) {
+		return tempFile.delete();
+	}
+
 	public void openCameraFrom(Activity activity) {
 		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
@@ -111,13 +115,13 @@ public class ImageUtils
 		activity.startActivityForResult(openGalleryIntent, GALLERY_REQUEST_CODE);
 	}
 
-	public void openCameraFrom(Fragment fragment, @NonNull File imageFile) {
+	public void openCameraFrom(Activity activity, @NonNull File imageFile) {
 		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		if (takePictureIntent.resolveActivity(fragment.getActivity().getPackageManager()) != null) {
+		if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
 			takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-					FileProvider.getUriForFile(fragment.getContext(), BuildConfig.APPLICATION_ID + ".provider", imageFile));
+					FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID + ".provider", imageFile));
 			takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-			fragment.startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
+			activity.startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
 		}
 	}
 
@@ -127,10 +131,6 @@ public class ImageUtils
 				android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
 		fragment.startActivityForResult(openGalleryIntent, GALLERY_REQUEST_CODE);
-	}
-
-	public static boolean deleteTempFile(File tempFile) {
-		return tempFile.delete();
 	}
 
 	public String getImagePath(Context context, Uri data) {

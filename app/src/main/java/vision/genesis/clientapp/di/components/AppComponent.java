@@ -7,6 +7,7 @@ import vision.genesis.clientapp.di.modules.ApiModule;
 import vision.genesis.clientapp.di.modules.AppModule;
 import vision.genesis.clientapp.di.modules.AuthModule;
 import vision.genesis.clientapp.di.modules.InvestModule;
+import vision.genesis.clientapp.di.modules.SettingsModule;
 import vision.genesis.clientapp.di.modules.UtilsModule;
 import vision.genesis.clientapp.feature.auth.forgot_password.ForgotPasswordPresenter;
 import vision.genesis.clientapp.feature.auth.login.LoginPresenter;
@@ -30,6 +31,7 @@ import vision.genesis.clientapp.feature.main.program.trades.TradesPresenter;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramPresenter;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListPresenter;
 import vision.genesis.clientapp.feature.main.search.SearchPresenter;
+import vision.genesis.clientapp.feature.main.settings.SettingsPresenter;
 import vision.genesis.clientapp.feature.main.wallet.WalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPresenter;
@@ -45,7 +47,7 @@ import vision.genesis.clientapp.ui.ProgramDataView;
  * Created by Vitaly on 1/18/18.
  */
 
-@Component(modules = {AppModule.class, ApiModule.class, AuthModule.class, InvestModule.class, UtilsModule.class})
+@Component(modules = {ApiModule.class, AppModule.class, AuthModule.class, InvestModule.class, SettingsModule.class, UtilsModule.class})
 @Singleton
 public interface AppComponent
 {
@@ -110,4 +112,6 @@ public interface AppComponent
 	void inject(SetupTfaPresenter setupTfaPresenter);
 
 	void inject(DisableTfaPresenter disableTfaPresenter);
+
+	void inject(SettingsPresenter settingsPresenter);
 }

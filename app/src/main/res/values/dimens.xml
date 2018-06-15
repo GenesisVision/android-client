@@ -108,4 +108,5 @@
     <dimen name="item_program_data_height">26dp</dimen>
     <dimen name="item_program_margin_top">12dp</dimen>
     <dimen name="item_program_title_margin">-4dp</dimen>
+    <dimen name="settings_item_height">60dp</dimen>
 </resources>

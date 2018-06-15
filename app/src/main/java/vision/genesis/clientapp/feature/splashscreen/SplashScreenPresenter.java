@@ -12,7 +12,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.NetworkManager;
 
@@ -28,7 +28,7 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 	public Context context;
 
 	@Inject
-	public InvestManager investManager;
+	public SettingsManager settingsManager;
 
 	@Inject
 	public NetworkManager networkManager;
@@ -45,7 +45,6 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-//		updateToken();
 		getPlatformStatus();
 	}
 
@@ -67,7 +66,7 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 	}
 
 	private void getPlatformStatus() {
-		platformStatusSubscription = investManager.getPlatformStatus()
+		platformStatusSubscription = settingsManager.getPlatformStatus()
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(this::onPlatformStatusSuccess,

@@ -46,12 +46,15 @@ public class AuthManager
 
 	private SharedPreferencesUtil sharedPreferencesUtil;
 
+	private SettingsManager settingsManager;
+
 	private Subscription getTwoFactorStatusSubscription;
 
-	public AuthManager(InvestorApi investorApi, ManagerApi managerApi, SharedPreferencesUtil sharedPreferencesUtil) {
+	public AuthManager(InvestorApi investorApi, ManagerApi managerApi, SharedPreferencesUtil sharedPreferencesUtil, SettingsManager settingsManager) {
 		this.investorApi = investorApi;
 		this.managerApi = managerApi;
 		this.sharedPreferencesUtil = sharedPreferencesUtil;
+		this.settingsManager = settingsManager;
 
 		EventBus.getDefault().register(this);
 
@@ -66,13 +69,6 @@ public class AuthManager
 			AuthManager.token.onNext(token);
 			getTwoFactorStatus();
 		}
-	}
-
-	public Observable<String> updateToken() {
-		if (AuthManager.token.getValue() == null)
-			return Observable.error(new Throwable("Token doesn't exist"));
-		getToken(getUpdateTokenObservable());
-		return getTokenResponseSubject;
 	}
 
 	public Observable<String> login(String email, String password, String tfaCode, boolean useRecoveryCode) {
@@ -119,6 +115,7 @@ public class AuthManager
 							getTwoFactorStatusSubscription.unsubscribe();
 							User user = new User();
 							user.setTwoFactorStatus(response.isTwoFactorEnabled());
+							settingsManager.setTwoFactorEnabled(response.isTwoFactorEnabled());
 							userSubject.onNext(user);
 						},
 						error -> {
@@ -129,6 +126,7 @@ public class AuthManager
 
 	public void setTwoFactorStatus(boolean enabled) {
 		User user = userSubject.getValue();
+		settingsManager.setTwoFactorEnabled(enabled);
 		if (user != null) {
 			user.setTwoFactorStatus(enabled);
 			userSubject.onNext(user);
@@ -217,6 +215,7 @@ public class AuthManager
 	public void logout() {
 		sharedPreferencesUtil.saveToken(null);
 		AuthManager.token.onNext(null);
+		settingsManager.logout();
 		userSubject.onNext(null);
 	}
 

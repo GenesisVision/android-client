@@ -69,7 +69,14 @@ public class ProfileManager
 	}
 
 	public Observable<Void> updateProfile(ProfileFullViewModel newProfileModel) {
-		return getUpdateProfileApiObservable(newProfileModel);
+		return Observable.unsafeCreate(subscriber -> getUpdateProfileApiObservable(newProfileModel)
+				.observeOn(Schedulers.newThread())
+				.subscribeOn(Schedulers.io())
+				.subscribe(response -> {
+							profileBehaviorSubject.onNext(newProfileModel);
+							subscriber.onNext(response);
+						},
+						subscriber::onError));
 	}
 
 	private Observable<ProfileFullViewModel> getProfileFullApiObservable() {

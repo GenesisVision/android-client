@@ -12,15 +12,11 @@ import io.swagger.client.model.InvestmentProgramViewModel;
 import io.swagger.client.model.InvestmentProgramsFilter;
 import io.swagger.client.model.InvestmentProgramsViewModel;
 import io.swagger.client.model.InvestorDashboard;
-import io.swagger.client.model.PlatformStatus;
 import io.swagger.client.model.TradesChartViewModel;
 import io.swagger.client.model.TradesFilter;
 import io.swagger.client.model.TradesViewModel;
 import io.swagger.client.model.WalletsViewModel;
 import rx.Observable;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.model.ProgramRequest;
 
@@ -37,10 +33,6 @@ public class InvestManager
 
 	private ManagerApi managerApi;
 
-	private Subscription getPlatformStatusSubscription;
-
-	private volatile BehaviorSubject<PlatformStatus> platformStatusBehaviorSubject;
-
 	public InvestManager(InvestorApi investorApi, ManagerApi managerApi) {
 		this.investorApi = investorApi;
 		this.managerApi = managerApi;
@@ -54,31 +46,6 @@ public class InvestManager
 
 	public void setFilter(InvestmentProgramsFilter filter) {
 		filterSubject.onNext(filter);
-	}
-
-	public Observable<PlatformStatus> getPlatformStatus() {
-		if (platformStatusBehaviorSubject == null) {
-			platformStatusBehaviorSubject = BehaviorSubject.create();
-			getPlatformStatusSubscription = investorApi.apiInvestorPlatformStatusGet()
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleGetPlatformStatusSuccess,
-							this::handleGetPlatformStatusError);
-		}
-		return platformStatusBehaviorSubject;
-	}
-
-	private void handleGetPlatformStatusSuccess(PlatformStatus response) {
-		getPlatformStatusSubscription.unsubscribe();
-		platformStatusBehaviorSubject.onNext(response);
-	}
-
-	private void handleGetPlatformStatusError(Throwable error) {
-		if (platformStatusBehaviorSubject != null) {
-			getPlatformStatusSubscription.unsubscribe();
-			platformStatusBehaviorSubject.onError(error);
-			platformStatusBehaviorSubject = null;
-		}
 	}
 
 	public Observable<InvestmentProgramsViewModel> getProgramsList(InvestmentProgramsFilter filter) {

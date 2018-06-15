@@ -28,9 +28,6 @@ import vision.genesis.clientapp.model.api.Error;
 import vision.genesis.clientapp.model.api.ErrorResponse;
 import vision.genesis.clientapp.model.events.OnPictureChooserCameraClickedEvent;
 import vision.genesis.clientapp.model.events.OnPictureChooserGalleryClickedEvent;
-import vision.genesis.clientapp.model.events.SetBottomMenuVisibilityEvent;
-import vision.genesis.clientapp.model.events.ShowDisableTfaActivityEvent;
-import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -106,10 +103,6 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 		setEditMode(true);
 	}
 
-	void onLogoutClicked() {
-		authManager.logout();
-	}
-
 	void saveChanges(ProfileFullViewModel newProfileModel) {
 		updateProfile(newProfileModel);
 	}
@@ -170,7 +163,6 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 	private void setEditMode(boolean editMode) {
 		isEditMode = editMode;
 		getViewState().setEditMode(editMode);
-		EventBus.getDefault().post(new SetBottomMenuVisibilityEvent(!editMode));
 	}
 
 	private void subscribeToUser() {
@@ -184,9 +176,6 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 	private void userUpdated(User user) {
 		if (user != null) {
 			this.user = user;
-			getViewState().updateTwoFactorButtonText(user.getTwoFactorStatus()
-					? context.getString(R.string.disable_two_factor)
-					: context.getString(R.string.enable_two_factor));
 		}
 	}
 
@@ -212,13 +201,14 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 		updateProfileSubscription = profileManager.updateProfile(newProfileModel)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
-				.subscribe(response -> handleUpdateProfileSuccess(response, newProfileModel),
+				.subscribe(this::handleUpdateProfileSuccess,
 						this::handleUpdateProfileError);
 	}
 
-	private void handleUpdateProfileSuccess(Void response, ProfileFullViewModel newProfileModel) {
-		this.profileModelOriginal = copyProfileModel(newProfileModel);
-		getViewState().updateProfile(newProfileModel);
+	private void handleUpdateProfileSuccess(Void response) {
+		updateProfileSubscription.unsubscribe();
+//		this.profileModelOriginal = copyProfileModel(newProfileModel);
+//		getViewState().updateProfile(newProfileModel);
 		getViewState().showSnackbarMessage(context.getResources().getString(R.string.successfully_updated));
 		setEditMode(false);
 		getViewState().showUpdateProgress(false);
@@ -324,14 +314,6 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 		} catch (IOException e) {
 			e.printStackTrace();
 			getViewState().showSnackbarMessage(e.getMessage());
-		}
-	}
-
-	public void onTwoFactorButtonClicked() {
-		if (user != null) {
-			EventBus.getDefault().post(user.getTwoFactorStatus()
-					? new ShowDisableTfaActivityEvent()
-					: new ShowSetupTfaActivityEvent());
 		}
 	}
 }

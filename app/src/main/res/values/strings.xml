@@ -353,4 +353,13 @@
     <string name="tfa_tutorial_4_bottom">Use it when the Genesis Vision app requires a 2FA confirmation</string>
     <string name="ok_i_understand">OK, I understand</string>
     <string name="i_am_using_a_recovery_code">I\'m using a recovery code</string>
+    <string name="log_out">Log out</string>
+    <string name="pin_code">Pin code</string>
+    <string name="use_fingerprint">Use fingerprint</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_and_conditions">Terms and Conditions</string>
+    <string name="privacy_policy_address">https://genesis.vision/privacy-policy.html</string>
+    <string name="terms_and_conditions_address">https://genesis.vision/terms.html</string>
+    <string name="are_you_sure_logout">Are you sure you want to log out?</string>
+    <string name="settings">Settings</string>
 </resources>

@@ -5,14 +5,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -26,7 +24,6 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import io.swagger.client.model.ProfileFullViewModel;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
@@ -35,9 +32,9 @@ import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 import timber.log.Timber;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.main.profile.change_password.ChangePasswordActivity;
+import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.ui.ProfileDataView;
 import vision.genesis.clientapp.ui.SpinnerView;
 import vision.genesis.clientapp.ui.ToolbarView;
@@ -50,9 +47,14 @@ import vision.genesis.clientapp.utils.ImageUtils;
  */
 
 @RuntimePermissions
-public class ProfileFragment extends BaseFragment implements ProfileView
+public class ProfileActivity extends BaseSwipeBackActivity implements ProfileView
 {
-	private static final int CHANGE_PASSWORD_REQUEST_CODE = 401;
+	public static void startFrom(Fragment fragment) {
+		Intent intent = new Intent(fragment.getContext(), ProfileActivity.class);
+		fragment.startActivity(intent);
+		if (fragment.getActivity() != null)
+			fragment.getActivity().overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
+	}
 
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
@@ -68,9 +70,6 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 
 	@BindView(R.id.button_change_avatar)
 	public View changeAvatarButton;
-
-	@BindView(R.id.two_factor_button)
-	public TextView twoFactorButton;
 
 	@BindView(R.id.first_name)
 	public ProfileDataView firstName;
@@ -121,22 +120,10 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 
 	private boolean editMode;
 
-	private Unbinder unbinder;
-
 	@OnClick(R.id.avatar)
 	public void onChangeAvatarClicked() {
 		if (editMode)
-			ProfileFragmentPermissionsDispatcher.showPictureChooserWithPermissionCheck(this);
-	}
-
-	@OnClick(R.id.change_password)
-	public void onChangePasswordClicked() {
-		ChangePasswordActivity.startWith(this, CHANGE_PASSWORD_REQUEST_CODE);
-	}
-
-	@OnClick(R.id.two_factor_button)
-	public void onTwoFactorButtonClicked() {
-		profilePresenter.onTwoFactorButtonClicked();
+			ProfileActivityPermissionsDispatcher.showPictureChooserWithPermissionCheck(this);
 	}
 
 	@OnClick(R.id.button_birthday_calendar)
@@ -145,44 +132,30 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 			profilePresenter.onBirthdyCalendarButtonClicked();
 	}
 
-	@Nullable
 	@Override
-	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_profile, container, false);
-	}
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-	@Override
-	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
+		setContentView(R.layout.activity_profile);
 
-		unbinder = ButterKnife.bind(this, view);
+		ButterKnife.bind(this);
 
 		initToolbars();
 		initViews();
 		setEditMode(false);
 	}
 
-	@Override
-	public void onDestroyView() {
-		if (unbinder != null) {
-			unbinder.unbind();
-			unbinder = null;
-		}
-
-		super.onDestroyView();
-	}
-
 	private void initToolbars() {
 		toolbar.setTitle(getString(R.string.profile));
-		toolbar.addLeftButton(R.drawable.edit_icon, () -> profilePresenter.onEditModeClicked());
-		toolbar.addRightButton(R.drawable.logout, () -> profilePresenter.onLogoutClicked());
-		toolbar.setLeftButtonPadding((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getContext().getResources().getDisplayMetrics()));
-		toolbar.setRightButtonPadding((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 18, getContext().getResources().getDisplayMetrics()));
+		toolbar.addLeftButton(R.drawable.back_arrow, this::finishActivity);
+		toolbar.addRightButton(R.drawable.edit_icon, () -> profilePresenter.onEditModeClicked());
+		toolbar.setLeftButtonPadding((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics()));
+		toolbar.setRightButtonPadding((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 18, GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics()));
 
 		editModeToolbar.addLeftButton(R.drawable.ic_check_black_24dp, this::saveChanges);
 		editModeToolbar.addRightButton(R.drawable.ic_close_black_24dp, this::cancelChanges);
-		editModeToolbar.setLeftButtonPadding((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getContext().getResources().getDisplayMetrics()));
-		editModeToolbar.setRightButtonPadding((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getContext().getResources().getDisplayMetrics()));
+		editModeToolbar.setLeftButtonPadding((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics()));
+		editModeToolbar.setRightButtonPadding((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics()));
 	}
 
 	private void initViews() {
@@ -325,12 +298,12 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 
 	@Override
 	public void openCamera(ImageUtils imageUtils, File newAvatarFile) {
-		imageUtils.openCameraFrom(ProfileFragment.this, newAvatarFile);
+		imageUtils.openCameraFrom(ProfileActivity.this, newAvatarFile);
 	}
 
 	@Override
 	public void openGallery(ImageUtils imageUtils) {
-		imageUtils.openGalleryFrom(ProfileFragment.this);
+		imageUtils.openGalleryFrom(ProfileActivity.this);
 	}
 
 	@Override
@@ -344,7 +317,7 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 			setBirthday();
 		}, calendarDate.getYear(), calendarDate.getMonthOfYear() - 1, calendarDate.getDayOfMonth());
 		dpd.setMaxDate(DateTime.now().toCalendar(Locale.getDefault()));
-		dpd.show(getActivity().getFragmentManager(), "DatePickerDialog");
+		dpd.show(this.getFragmentManager(), "DatePickerDialog");
 	}
 
 	@Override
@@ -368,13 +341,9 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 	}
 
 	@Override
-	public void updateTwoFactorButtonText(String text) {
-		twoFactorButton.setText(text);
-	}
-
-	@Override
-	public boolean onBackPressed() {
-		return profilePresenter.onBackPressed();
+	public void onBackPressed() {
+		if (!profilePresenter.onBackPressed())
+			finishActivity();
 	}
 
 	@Override
@@ -405,25 +374,20 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 					profilePresenter.handleImageCropFail();
 				}
 				break;
-			case CHANGE_PASSWORD_REQUEST_CODE:
-				if (resultCode == Activity.RESULT_OK) {
-					showSnackbarMessage(getString(R.string.password_changed));
-				}
-				break;
 			default:
 				break;
 		}
 	}
 
-	@Override
-	public void onShow() {
-		profilePresenter.onResume();
+	private void finishActivity() {
+		finish();
+		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
 	}
 
 	@NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
 	void showPictureChooser() {
 		PictureChooserBottomSheetFragment bottomSheetDialog = new PictureChooserBottomSheetFragment();
-		bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
+		bottomSheetDialog.show(this.getSupportFragmentManager(), bottomSheetDialog.getTag());
 	}
 
 	@OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -444,6 +408,6 @@ public class ProfileFragment extends BaseFragment implements ProfileView
 	@Override
 	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-		ProfileFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+		ProfileActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
 	}
 }

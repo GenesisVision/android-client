@@ -1,14 +1,10 @@
 package vision.genesis.clientapp.feature.main.dashboard;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +20,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.programs.DashboardPagerAdapter;
@@ -75,11 +70,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 	private Fragment currentFragment;
 
 	private Unbinder unbinder;
-
-	@OnClick(R.id.send_feedback)
-	public void onSendFeedbackClicked() {
-		showFeedbackDialog();
-	}
 
 	@OnClick(R.id.tooltip_total_portfolio_value)
 	public void onTooltipTotalPortfolioClicked() {
@@ -191,44 +181,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
 		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
 		viewPager.addOnPageChangeListener(this);
-	}
-
-	private void showFeedbackDialog() {
-		CharSequence options[] = new CharSequence[]{getString(R.string.visit_feedback_website), getString(R.string.send_email)};
-
-		AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-		builder.setCancelable(true);
-		builder.setTitle(getString(R.string.feedback_dialog_title));
-		builder.setItems(options, (dialog, optionId) -> {
-			if (optionId == 0)
-				openFeedbackSite();
-			else
-				sendFeedbackEmail();
-		});
-		builder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
-		builder.show();
-	}
-
-	private void openFeedbackSite() {
-		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.feedback_web_address)));
-		startActivity(browserIntent);
-	}
-
-	private void sendFeedbackEmail() {
-		Intent emailIntent = new Intent(Intent.ACTION_SEND);
-		emailIntent.setType("message/rfc822");  //set the email recipient
-		String recipient = getString(R.string.feedback_email_address);
-		emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
-		emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Android feedback");
-		try {
-			emailIntent.putExtra(Intent.EXTRA_TEXT, String.format(Locale.getDefault(), "\n\nversion %s (%d)\n%s %s\n%s %s",
-					BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE,
-					Build.MANUFACTURER, Build.MODEL,
-					Build.VERSION.RELEASE, Build.VERSION_CODES.class.getFields()[android.os.Build.VERSION.SDK_INT].getName()));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		startActivity(Intent.createChooser(emailIntent, "Send email using..."));
 	}
 
 	@Override

@@ -17,16 +17,15 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.main.assets.AssetsFragment;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardFragment;
-import vision.genesis.clientapp.feature.main.profile.ProfileFragment;
+import vision.genesis.clientapp.feature.main.settings.SettingsFragment;
 import vision.genesis.clientapp.feature.main.wallet.WalletFragment;
 import vision.genesis.clientapp.managers.AuthManager;
-import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 import vision.genesis.clientapp.model.events.OnInvestButtonClickedEvent;
-import vision.genesis.clientapp.model.events.SetBottomMenuVisibilityEvent;
 import vision.genesis.clientapp.model.events.ShowDepositWalletActivityEvent;
 import vision.genesis.clientapp.model.events.ShowDisableTfaActivityEvent;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
@@ -50,7 +49,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 	public AuthManager authManager;
 
 	@Inject
-	public InvestManager investManager;
+	public SettingsManager settingsManager;
 
 	private Subscription userSubscription;
 
@@ -62,7 +61,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	private WalletFragment walletFragment;
 
-	private ProfileFragment profileFragment;
+	private SettingsFragment settingsFragment;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -102,7 +101,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 				showWallet();
 				break;
 			case 3:
-				showProfile();
+				showSettings();
 				break;
 		}
 	}
@@ -137,13 +136,13 @@ public class MainPresenter extends MvpPresenter<MainView>
 		}
 	}
 
-	private void showProfile() {
-		if (profileFragment == null) {
-			profileFragment = new ProfileFragment();
-			getViewState().addFragmentToBackstack(profileFragment);
+	private void showSettings() {
+		if (settingsFragment == null) {
+			settingsFragment = new SettingsFragment();
+			getViewState().addFragmentToBackstack(settingsFragment);
 		}
 		else {
-			getViewState().showFragment(profileFragment);
+			getViewState().showFragment(settingsFragment);
 		}
 	}
 
@@ -152,7 +151,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	private void getPlatformStatus() {
-		platformStatusSubscription = investManager.getPlatformStatus()
+		platformStatusSubscription = settingsManager.getPlatformStatus()
 				.subscribeOn(Schedulers.io())
 				.observeOn(Schedulers.computation())
 				.map(this::checkIfNeedUpdate)
@@ -251,11 +250,6 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowDepositWalletActivityEvent event) {
 		getViewState().showDepositWallet();
-	}
-
-	@Subscribe
-	public void onEventMainThread(SetBottomMenuVisibilityEvent event) {
-		getViewState().setBottomNavigationVisibility(event.visible);
 	}
 
 	@Subscribe

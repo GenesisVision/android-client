@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
@@ -32,10 +31,10 @@ public class ImageCropActivity extends MvpAppCompatActivity
 {
 	private static String EXTRA_IMAGE_URI = "extra_image_uri";
 
-	public static void startForResult(Fragment fragment, String imageUri) {
-		Intent intent = new Intent(fragment.getContext(), ImageCropActivity.class);
+	public static void startForResult(Activity activity, String imageUri) {
+		Intent intent = new Intent(activity, ImageCropActivity.class);
 		intent.putExtra(EXTRA_IMAGE_URI, imageUri);
-		fragment.startActivityForResult(intent, ImageUtils.CROP_REQUEST_CODE);
+		activity.startActivityForResult(intent, ImageUtils.CROP_REQUEST_CODE);
 	}
 
 	@Inject

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorGrayBackground">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingBottom="48dp">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_profile"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/white"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="2dp"
+                app:cardPreventCornerOverlap="true">
+
+                <RelativeLayout
+                    android:id="@+id/profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground">
+
+                    <vision.genesis.clientapp.ui.AvatarView
+                        android:id="@+id/avatar"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16sp"
+                        android:layout_marginStart="16sp"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16sp"
+                        android:layout_marginStart="16sp"
+                        android:layout_toEndOf="@+id/avatar"
+                        android:layout_toRightOf="@+id/avatar"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/profile_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="20sp"
+                            tools:text="Warren Buffett"/>
+
+                        <TextView
+                            android:id="@+id/profile_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16sp"
+                            tools:text="buffett@berkshirehathaway.com"/>
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:src="@drawable/ic_chevron_right_black_24dp"
+                        android:tint="@color/grey300"/>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_change_password"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_height"
+                android:layout_below="@+id/card_profile"
+                android:layout_marginTop="24dp"
+                android:background="@color/white"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="2dp"
+                app:cardPreventCornerOverlap="true">
+
+                <RelativeLayout
+                    android:id="@+id/change_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/icon_change_password"
+                        style="@style/settings_icon"
+                        android:src="@drawable/ic_lock_black_24dp"/>
+
+                    <TextView
+                        style="@style/settings_text"
+                        android:layout_toEndOf="@+id/icon_change_password"
+                        android:layout_toRightOf="@+id/icon_change_password"
+                        android:text="@string/change_password"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_chevron_right_black_24dp"
+                        android:tint="@color/grey300"/>
+
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_security"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_change_password"
+                android:layout_marginTop="24dp"
+                android:background="@color/white"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="2dp"
+                app:cardPreventCornerOverlap="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <vision.genesis.clientapp.ui.SettingsSwitchButton
+                        android:id="@+id/two_factor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/grey100"/>
+
+                    <vision.genesis.clientapp.ui.SettingsSwitchButton
+                        android:id="@+id/pin_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/grey100"/>
+
+                    <vision.genesis.clientapp.ui.SettingsSwitchButton
+                        android:id="@+id/fingerprint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_height"
+                android:layout_below="@+id/card_security"
+                android:layout_marginTop="24dp"
+                android:background="@color/white"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="2dp"
+                app:cardPreventCornerOverlap="true">
+
+                <RelativeLayout
+                    android:id="@+id/send_feedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:paddingEnd="16dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingStart="16dp">
+
+                    <ImageView
+                        android:id="@+id/icon_feedback"
+                        style="@style/settings_icon"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_feedback_black_24dp"/>
+
+                    <TextView
+                        style="@style/settings_text"
+                        android:layout_toEndOf="@+id/icon_feedback"
+                        android:layout_toRightOf="@+id/icon_feedback"
+                        android:text="@string/send_feedback"/>
+
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_logout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_height"
+                android:layout_below="@+id/card_feedback"
+                android:layout_marginTop="24dp"
+                android:background="@color/white"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="2dp"
+                app:cardPreventCornerOverlap="true">
+
+                <RelativeLayout
+                    android:id="@+id/logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:paddingEnd="16dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingStart="16dp">
+
+                    <ImageView
+                        android:id="@+id/icon_logout"
+                        style="@style/settings_icon"
+                        android:padding="8dp"
+                        android:src="@drawable/logout"/>
+
+                    <TextView
+                        style="@style/settings_text"
+                        android:layout_toEndOf="@+id/icon_logout"
+                        android:layout_toRightOf="@+id/icon_logout"
+                        android:text="@string/log_out"
+                        android:textColor="@color/transactionRed"/>
+
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_logout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="32dp"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/grey400"
+                    tools:text="Version 0.0.8-alpha (18060802)"/>
+
+                <TextView
+                    android:id="@+id/privacy_policy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/privacy_policy"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/terms_conditions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/terms_and_conditions"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

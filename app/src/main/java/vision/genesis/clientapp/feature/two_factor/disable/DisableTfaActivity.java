@@ -11,7 +11,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
@@ -24,6 +23,7 @@ import butterknife.OnEditorAction;
 import rx.Subscription;
 import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.message.MessageActivity;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.Constants;
@@ -33,7 +33,7 @@ import vision.genesis.clientapp.utils.Constants;
  * Created by Vitaly on 30/05/2018.
  */
 
-public class DisableTfaActivity extends MvpAppCompatActivity implements DisableTfaView
+public class DisableTfaActivity extends BaseSwipeBackActivity implements DisableTfaView
 {
 	public static void startFrom(Context context) {
 		Intent activityIntent = new Intent(context, DisableTfaActivity.class);
