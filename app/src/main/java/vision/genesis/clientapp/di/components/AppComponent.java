@@ -36,6 +36,8 @@ import vision.genesis.clientapp.feature.main.wallet.WalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPresenter;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletPresenter;
+import vision.genesis.clientapp.feature.pin.check.CheckPinPresenter;
+import vision.genesis.clientapp.feature.pin.set.SetPinPresenter;
 import vision.genesis.clientapp.feature.splashscreen.SplashScreenPresenter;
 import vision.genesis.clientapp.feature.tournament.TournamentPresenter;
 import vision.genesis.clientapp.feature.two_factor.disable.DisableTfaPresenter;
@@ -114,4 +116,8 @@ public interface AppComponent
 	void inject(DisableTfaPresenter disableTfaPresenter);
 
 	void inject(SettingsPresenter settingsPresenter);
+
+	void inject(SetPinPresenter setPinPresenter);
+
+	void inject(CheckPinPresenter checkPinPresenter);
 }

@@ -11,6 +11,8 @@ import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.model.SettingsModel;
 import vision.genesis.clientapp.utils.SharedPreferencesUtil;
+import vision.genesis.clientapp.utils.hash.HashGenerationException;
+import vision.genesis.clientapp.utils.hash.HashGeneratorUtil;
 
 /**
  * GenesisVisionAndroid
@@ -57,6 +59,28 @@ public class SettingsManager
 		SettingsModel settingsModel = settingsSubject.getValue();
 		settingsModel.setPinCodeEnabled(enabled);
 		settingsSubject.onNext(settingsModel);
+	}
+
+	public boolean setPin(String pin) {
+		try {
+			String hashedPin = HashGeneratorUtil.generateSHA256(pin);
+			sharedPreferencesUtil.setPinHash(hashedPin);
+			return true;
+		} catch (HashGenerationException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean checkPin(String pin) {
+		String savedPinHash = sharedPreferencesUtil.getPinHash();
+		try {
+			String hashedPin = HashGeneratorUtil.generateSHA256(pin);
+			return hashedPin.equals(savedPinHash);
+		} catch (HashGenerationException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	public BehaviorSubject<SettingsModel> getSettingsSubject() {

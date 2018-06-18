@@ -19,6 +19,7 @@ import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.SettingsModel;
 import vision.genesis.clientapp.model.events.ShowDisableTfaActivityEvent;
+import vision.genesis.clientapp.model.events.ShowSetPinActivityEvent;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 
 /**
@@ -76,6 +77,13 @@ public class SettingsPresenter extends MvpPresenter<SettingsView>
 				: new ShowSetupTfaActivityEvent());
 	}
 
+	public void onPinCodeClicked() {
+		if (!settingsModel.isPinCodeEnabled())
+			EventBus.getDefault().post(new ShowSetPinActivityEvent());
+		else
+			getViewState().showDisablePin();
+	}
+
 	private void getProfileInfo() {
 		profileSubscription = profileManager.getProfileFull()
 				.subscribeOn(Schedulers.io())
@@ -113,5 +121,9 @@ public class SettingsPresenter extends MvpPresenter<SettingsView>
 
 	public void onLogoutClicked() {
 		authManager.logout();
+	}
+
+	public void disablePin() {
+		settingsManager.setPinCodeEnabled(false);
 	}
 }

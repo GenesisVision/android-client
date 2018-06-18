@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/numberLayout"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    tools:background="@color/colorPrimary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_one"
+            style="@style/AppTheme.PinButton"
+            android:text="@string/one"/>
+
+        <Button
+            android:id="@+id/button_two"
+            style="@style/AppTheme.PinButton"
+            android:text="@string/two"/>
+
+        <Button
+            android:id="@+id/button_three"
+            style="@style/AppTheme.PinButton"
+            android:text="@string/three"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_four"
+            style="@style/AppTheme.PinButton"
+            android:text="@string/four"/>
+
+        <Button
+            android:id="@+id/button_five"
+            style="@style/AppTheme.PinButton"
+            android:text="@string/five"/>
+
+        <Button
+            android:id="@+id/button_six"
+            style="@style/AppTheme.PinButton"
+            android:text="@string/six"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_seven"
+            style="@style/AppTheme.PinButton"
+            android:text="@string/seven"/>
+
+        <Button
+            android:id="@+id/button_eight"
+            style="@style/AppTheme.PinButton"
+            android:text="@string/eight"/>
+
+        <Button
+            android:id="@+id/button_nine"
+            style="@style/AppTheme.PinButton"
+            android:text="@string/nine"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_decimal"
+            style="@style/AppTheme.PinButton"
+            android:text="@string/decimal"
+            android:visibility="invisible"/>
+
+        <Button
+            android:id="@+id/button_zero"
+            style="@style/AppTheme.PinButton"
+            android:text="@string/zero"/>
+
+        <RelativeLayout
+            android:id="@+id/button_backspace"
+            style="@style/AppTheme.PinButton">
+
+            <ImageView
+                android:id="@+id/image_backspace"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_backspace_black_24dp"
+                android:tint="@color/white"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

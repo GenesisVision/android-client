@@ -15,4 +15,6 @@ interface SettingsView extends MvpView
 	void updateProfile(ProfileFullViewModel profile);
 
 	void updateSettings(SettingsModel settingsModel);
+
+	void showDisablePin();
 }

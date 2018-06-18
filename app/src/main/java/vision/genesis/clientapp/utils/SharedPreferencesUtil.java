@@ -25,6 +25,8 @@ public class SharedPreferencesUtil
 
 	private static final String KEY_PIN_CODE_ENABLED = "keyPinCodeEnabled";
 
+	private static final String KEY_PIN_CODE_HASH = "keyPinCodeHash";
+
 	private Context context;
 
 	public SharedPreferencesUtil(Context context) {
@@ -88,6 +90,18 @@ public class SharedPreferencesUtil
 		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
 		sharedPreferences.edit()
 				.putBoolean(KEY_PIN_CODE_ENABLED, enabled)
+				.apply();
+	}
+
+	public String getPinHash() {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+		return sharedPreferences.getString(KEY_PIN_CODE_HASH, "");
+	}
+
+	public void setPinHash(String hashedPin) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+		sharedPreferences.edit()
+				.putString(KEY_PIN_CODE_HASH, hashedPin)
 				.apply();
 	}
 }

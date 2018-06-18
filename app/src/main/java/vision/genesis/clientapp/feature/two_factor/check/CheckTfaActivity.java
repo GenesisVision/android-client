@@ -25,8 +25,8 @@ import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
- * GenesisVision
- * Created by Vitaly on 2/21/18.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 30/05/2018.
  */
 
 public class CheckTfaActivity extends BaseSwipeBackActivity implements CheckTfaView

@@ -3,8 +3,8 @@ package vision.genesis.clientapp.feature.two_factor.check;
 import com.arellomobile.mvp.MvpView;
 
 /**
- * GenesisVision
- * Created by Vitaly on 2/21/18.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 30/05/2018.
  */
 
 interface CheckTfaView extends MvpView

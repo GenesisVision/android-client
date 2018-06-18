@@ -10,6 +10,8 @@ public class SettingsModel
 
 	private boolean twoFactorEnabled;
 
+	private boolean fingerprintEnabled;
+
 	public boolean isPinCodeEnabled() {
 		return pinCodeEnabled;
 	}
@@ -24,5 +26,13 @@ public class SettingsModel
 
 	public void setTwoFactorEnabled(boolean twoFactorEnabled) {
 		this.twoFactorEnabled = twoFactorEnabled;
+	}
+
+	public boolean isFingerprintEnabled() {
+		return fingerprintEnabled;
+	}
+
+	public void setFingerprintEnabled(boolean fingerprintEnabled) {
+		this.fingerprintEnabled = fingerprintEnabled;
 	}
 }

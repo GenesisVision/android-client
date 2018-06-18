@@ -12,8 +12,8 @@ import vision.genesis.clientapp.model.events.OnCheckTfaSuccessEvent;
 import vision.genesis.clientapp.utils.Constants;
 
 /**
- * GenesisVision
- * Created by Vitaly on 2/21/18.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 30/05/2018.
  */
 
 @InjectViewState

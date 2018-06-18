@@ -9,4 +9,8 @@ public class Constants
 	public static final int TOKENS_MAX_DECIMAL_POINT_DIGITS = 2;
 
 	public static final int TWO_FACTOR_CODE_LENGTH = 6;
+
+	public static final int PIN_CODE_LENGTH = 4;
+
+	public static final int PIN_MAX_WRONG_ATTEMPTS = 5;
 }

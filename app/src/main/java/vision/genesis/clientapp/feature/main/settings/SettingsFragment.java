@@ -27,6 +27,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.profile.ProfileActivity;
 import vision.genesis.clientapp.feature.main.profile.change_password.ChangePasswordActivity;
+import vision.genesis.clientapp.feature.pin.check.CheckPinActivity;
 import vision.genesis.clientapp.model.SettingsModel;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.SettingsSwitchButton;
@@ -39,6 +40,8 @@ import vision.genesis.clientapp.ui.SettingsSwitchButton;
 public class SettingsFragment extends BaseFragment implements SettingsView
 {
 	private static final int CHANGE_PASSWORD_REQUEST_CODE = 401;
+
+	private static final int DISABLE_PIN_REQUEST_CODE = 402;
 
 	@BindView(R.id.avatar)
 	public AvatarView avatar;
@@ -79,6 +82,11 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 	@OnClick(R.id.two_factor)
 	public void onTwoFactorClicked() {
 		settingsPresenter.onTwoFactorClicked();
+	}
+
+	@OnClick(R.id.pin_code)
+	public void onPinCodeClicked() {
+		settingsPresenter.onPinCodeClicked();
 	}
 
 	@OnClick(R.id.send_feedback)
@@ -226,6 +234,13 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 	@Override
 	public void updateSettings(SettingsModel settingsModel) {
 		twoFactor.setChecked(settingsModel.isTwoFactorEnabled());
+		pinCode.setChecked(settingsModel.isPinCodeEnabled());
+		fingerprint.setChecked(settingsModel.isFingerprintEnabled());
+	}
+
+	@Override
+	public void showDisablePin() {
+		CheckPinActivity.startForResult(this, DISABLE_PIN_REQUEST_CODE, true);
 	}
 
 	@Override
@@ -235,6 +250,11 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 			case CHANGE_PASSWORD_REQUEST_CODE:
 				if (resultCode == Activity.RESULT_OK) {
 					showSnackbar(getString(R.string.password_changed), avatar);
+				}
+				break;
+			case DISABLE_PIN_REQUEST_CODE:
+				if (resultCode == Activity.RESULT_OK) {
+					settingsPresenter.disablePin();
 				}
 				break;
 			default:

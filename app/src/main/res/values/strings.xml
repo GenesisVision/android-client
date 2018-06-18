@@ -362,4 +362,8 @@
     <string name="terms_and_conditions_address">https://genesis.vision/terms.html</string>
     <string name="are_you_sure_logout">Are you sure you want to log out?</string>
     <string name="settings">Settings</string>
+    <string name="enter_pin_code">Enter PIN code</string>
+    <string name="repeat_pin_code">Repeat PIN code</string>
+    <string name="error_set_pin">An error occurred while setting the PIN code. Please try again later</string>
+    <string name="error_pin_too_many_attempts">Too many attempts.\nPlease try again later</string>
 </resources>
