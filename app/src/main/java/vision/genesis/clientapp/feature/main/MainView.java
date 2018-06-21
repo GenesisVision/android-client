@@ -53,4 +53,8 @@ public interface MainView extends MvpView
 	void showDisableTwoFactorActivity();
 
 	void showSetPinActivity();
+
+	void showLockScreen();
+
+	void hideSplashScreen();
 }

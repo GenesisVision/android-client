@@ -27,6 +27,8 @@ import vision.genesis.clientapp.ui.PinKeyboardView;
 
 public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinView
 {
+	public static final int LOCK_SCREEN_REQUEST_CODE = 1234;
+
 	private static final String EXTRA_CAN_CLOSE = "extra_can_close";
 
 	public static void startForResult(Fragment fragment, int requestCode, boolean canClose) {
@@ -40,8 +42,9 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 	public static void startForResult(Activity activity, int requestCode, boolean canClose) {
 		Intent intent = new Intent(activity.getApplicationContext(), CheckPinActivity.class);
 		intent.putExtra(EXTRA_CAN_CLOSE, canClose);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		activity.startActivityForResult(intent, requestCode);
-		activity.overridePendingTransition(R.anim.hold, R.anim.hold);
+		activity.overridePendingTransition(R.anim.fragment_fade_in, R.anim.hold);
 	}
 
 	@BindView(R.id.view_pin_code)
@@ -149,6 +152,8 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 	public void onBackPressed() {
 		if (canClose)
 			finishActivity(RESULT_CANCELED);
+		else
+			moveTaskToBack(true);
 	}
 
 	@Override

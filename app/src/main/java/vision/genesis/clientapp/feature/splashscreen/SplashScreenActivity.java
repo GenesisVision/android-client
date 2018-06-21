@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.MainActivity;
+import vision.genesis.clientapp.feature.pin.check.CheckPinActivity;
 
 /**
  * GenesisVision
@@ -61,9 +62,14 @@ public class SplashScreenActivity extends MvpAppCompatActivity implements Splash
 	}
 
 	@Override
+	public void showLockScreen() {
+		CheckPinActivity.startForResult(this, CheckPinActivity.LOCK_SCREEN_REQUEST_CODE, false);
+	}
+
+	@Override
 	public void showMainActivity() {
 		MainActivity.startFrom(this);
-		finish();
+//		finish();
 	}
 
 	@Override

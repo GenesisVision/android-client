@@ -29,6 +29,7 @@ import vision.genesis.clientapp.model.events.OnInvestButtonClickedEvent;
 import vision.genesis.clientapp.model.events.ShowDepositWalletActivityEvent;
 import vision.genesis.clientapp.model.events.ShowDisableTfaActivityEvent;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowLockScreenEvent;
 import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
 import vision.genesis.clientapp.model.events.ShowSetPinActivityEvent;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
@@ -72,8 +73,12 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 		EventBus.getDefault().register(this);
 
-		subscribeToUser();
-		getPlatformStatus();
+		if (settingsManager.isScreenLockEnabled()) {
+			getViewState().showLockScreen();
+		}
+		else {
+			onCheckPinPassed();
+		}
 
 		getViewState().setNavigationItemSelected(1);
 	}
@@ -88,6 +93,11 @@ public class MainPresenter extends MvpPresenter<MainView>
 		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
+	}
+
+	void onCheckPinPassed() {
+		subscribeToUser();
+		getPlatformStatus();
 	}
 
 	void onBottomMenuSelectionChanged(int position) {
@@ -193,6 +203,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	private void userUpdated(User user) {
+		getViewState().hideSplashScreen();
 		if (user == null)
 			userLoggedOff();
 		else {
@@ -271,5 +282,10 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowSetPinActivityEvent event) {
 		getViewState().showSetPinActivity();
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowLockScreenEvent event) {
+		getViewState().showLockScreen();
 	}
 }

@@ -53,4 +53,14 @@
         android:textSize="10sp"
         tools:text="0.0.2-alpha (18040401)"/>
 
+    <View
+        android:id="@+id/splashscreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_splash"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        tools:visibility="gone"/>
+
 </RelativeLayout>

@@ -117,4 +117,8 @@ public class SettingsManager
 		sharedPreferencesUtil.setTwoFactorEnabled(false);
 		sharedPreferencesUtil.setPinCodeEnabled(false);
 	}
+
+	public boolean isScreenLockEnabled() {
+		return settingsSubject.getValue().isPinCodeEnabled();
+	}
 }

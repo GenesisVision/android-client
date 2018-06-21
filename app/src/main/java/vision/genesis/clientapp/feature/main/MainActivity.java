@@ -1,6 +1,6 @@
 package vision.genesis.clientapp.feature.main;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +26,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -36,6 +37,7 @@ import vision.genesis.clientapp.feature.main.program.ProgramInfoActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
+import vision.genesis.clientapp.feature.pin.check.CheckPinActivity;
 import vision.genesis.clientapp.feature.pin.set.SetPinActivity;
 import vision.genesis.clientapp.feature.two_factor.disable.DisableTfaActivity;
 import vision.genesis.clientapp.feature.two_factor.setup.SetupTfaActivity;
@@ -53,15 +55,19 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class MainActivity extends MvpAppCompatActivity implements MainView
 {
-	public static void startFrom(Context context) {
-		Intent mainActivityIntent = new Intent(context, MainActivity.class);
+	public static void startFrom(Activity activity) {
+		Intent mainActivityIntent = new Intent(activity, MainActivity.class);
 		mainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		mainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		context.startActivity(mainActivityIntent);
+		activity.startActivity(mainActivityIntent);
+		activity.overridePendingTransition(R.anim.hold, R.anim.hold);
 	}
 
 	@BindView(R.id.version)
 	public TextView version;
+
+	@BindView(R.id.splashscreen)
+	public View splashscreen;
 
 	@BindView(R.id.group_sign_in)
 	public View signInGroup;
@@ -320,5 +326,29 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	@Override
 	public void showSetPinActivity() {
 		SetPinActivity.startFrom(this);
+	}
+
+	@Override
+	public void showLockScreen() {
+		CheckPinActivity.startForResult(this, CheckPinActivity.LOCK_SCREEN_REQUEST_CODE, false);
+	}
+
+	@Override
+	public void hideSplashScreen() {
+		splashscreen.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Timber.d("Activity result: request code: %d result code:  %d", requestCode, resultCode);
+		switch (requestCode) {
+			case CheckPinActivity.LOCK_SCREEN_REQUEST_CODE:
+				if (resultCode == Activity.RESULT_OK) {
+					mainPresenter.onCheckPinPassed();
+				}
+				break;
+			default:
+				super.onActivityResult(requestCode, resultCode, data);
+		}
 	}
 }

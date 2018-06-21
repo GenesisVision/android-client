@@ -17,6 +17,7 @@ import timber.log.Timber;
 import vision.genesis.clientapp.di.components.AppComponent;
 import vision.genesis.clientapp.di.components.DaggerAppComponent;
 import vision.genesis.clientapp.di.modules.AppModule;
+import vision.genesis.clientapp.utils.AppLifecycleTracker;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -66,7 +67,10 @@ public class GenesisVisionApplication extends Application
 		Fresco.initialize(this);
 
 		overrideFonts();
+
+		registerActivityLifecycleCallbacks(new AppLifecycleTracker());
 	}
+
 
 	@Override
 	protected void attachBaseContext(Context base) {

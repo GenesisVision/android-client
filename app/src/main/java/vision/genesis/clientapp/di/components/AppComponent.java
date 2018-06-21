@@ -43,6 +43,7 @@ import vision.genesis.clientapp.feature.tournament.TournamentPresenter;
 import vision.genesis.clientapp.feature.two_factor.disable.DisableTfaPresenter;
 import vision.genesis.clientapp.feature.two_factor.setup.SetupTfaPresenter;
 import vision.genesis.clientapp.ui.ProgramDataView;
+import vision.genesis.clientapp.utils.AppLifecycleTracker;
 
 /**
  * GenesisVision
@@ -120,4 +121,6 @@ public interface AppComponent
 	void inject(SetPinPresenter setPinPresenter);
 
 	void inject(CheckPinPresenter checkPinPresenter);
+
+	void inject(AppLifecycleTracker appLifecycleTracker);
 }

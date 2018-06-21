@@ -171,13 +171,12 @@
 
         <activity
             android:name=".feature.pin.check.CheckPinActivity"
-            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/TranslucentActivityTheme"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 
         <activity
             android:name=".feature.pin.set.SetPinActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/TranslucentActivityTheme"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 

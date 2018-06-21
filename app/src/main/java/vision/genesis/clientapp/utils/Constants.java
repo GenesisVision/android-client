@@ -13,4 +13,7 @@ public class Constants
 	public static final int PIN_CODE_LENGTH = 4;
 
 	public static final int PIN_MAX_WRONG_ATTEMPTS = 5;
+
+	//TODO: change to 30
+	public static final long MILLISECONDS_IN_BACKGROUND_TO_LOCK = 30 * 1000;
 }

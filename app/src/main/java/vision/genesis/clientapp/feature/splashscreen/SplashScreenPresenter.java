@@ -74,7 +74,9 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 	}
 
 	private void onPlatformStatusSuccess(PlatformStatus response) {
-		showMainActivity();
+		if (platformStatusSubscription != null)
+			platformStatusSubscription.unsubscribe();
+		getViewState().showMainActivity();
 	}
 
 	private void onPlatformStatusError(Throwable error) {
@@ -121,11 +123,5 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 			serverAvailabilitySubscription.unsubscribe();
 			onTryAgainClicked();
 		}
-	}
-
-	private void showMainActivity() {
-		if (platformStatusSubscription != null)
-			platformStatusSubscription.unsubscribe();
-		getViewState().showMainActivity();
 	}
 }
