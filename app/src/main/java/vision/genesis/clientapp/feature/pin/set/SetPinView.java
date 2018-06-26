@@ -25,5 +25,7 @@ interface SetPinView extends MvpView
 
 	void showToastMessage(String message);
 
+	void finishAnimations();
+
 	void finishActivity();
 }

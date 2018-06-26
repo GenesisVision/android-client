@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +19,9 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.pin.fingerprint.VerifyFingerprintActivity;
 import vision.genesis.clientapp.ui.PinCodeView;
 import vision.genesis.clientapp.ui.PinKeyboardView;
 
@@ -31,17 +36,20 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 
 	private static final String EXTRA_CAN_CLOSE = "extra_can_close";
 
+	private static final String EXTRA_FINGERPRINT_ENABLED = "extra_fingerprint_enabled";
+
 	public static void startForResult(Fragment fragment, int requestCode, boolean canClose) {
 		Intent intent = new Intent(fragment.getContext(), CheckPinActivity.class);
 		intent.putExtra(EXTRA_CAN_CLOSE, canClose);
 		fragment.startActivityForResult(intent, requestCode);
 		if (fragment.getActivity() != null)
-			fragment.getActivity().overridePendingTransition(R.anim.slide_from_bottom, R.anim.hold);
+			fragment.getActivity().overridePendingTransition(R.anim.fragment_fade_in, R.anim.hold);
 	}
 
-	public static void startForResult(Activity activity, int requestCode, boolean canClose) {
+	public static void startForResult(Activity activity, int requestCode, boolean canClose, boolean allowFingerprint) {
 		Intent intent = new Intent(activity.getApplicationContext(), CheckPinActivity.class);
 		intent.putExtra(EXTRA_CAN_CLOSE, canClose);
+		intent.putExtra(EXTRA_FINGERPRINT_ENABLED, allowFingerprint);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		activity.startActivityForResult(intent, requestCode);
 		activity.overridePendingTransition(R.anim.fragment_fade_in, R.anim.hold);
@@ -59,10 +67,24 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 	@BindView(R.id.button_close)
 	public View closeButton;
 
+	@BindView(R.id.group_pin)
+	public ViewGroup pinGroup;
+
+	@BindView(R.id.group_fingerprint)
+	public ViewGroup fingerprintGroup;
+
+	@BindView(R.id.background)
+	public View background;
+
+	@BindView(R.id.image_fingerprint)
+	public ImageView fingerprintImage;
+
 	@InjectPresenter
 	CheckPinPresenter checkPinPresenter;
 
 	private boolean canClose = false;
+
+	private boolean firstStart = true;
 
 	@OnClick(R.id.button_close)
 	public void onCloseClicked() {
@@ -79,11 +101,33 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 
 		if (getIntent().getExtras() != null) {
 			canClose = getIntent().getExtras().getBoolean(EXTRA_CAN_CLOSE);
+			boolean fingerprintEnabled = getIntent().getExtras().getBoolean(EXTRA_FINGERPRINT_ENABLED);
 			closeButton.setVisibility(canClose ? View.VISIBLE : View.GONE);
+			fingerprintGroup.setVisibility(fingerprintEnabled ? View.VISIBLE : View.GONE);
+			checkPinPresenter.setFingerprintEnabled(fingerprintEnabled);
 		}
 
 		initKeyboardListener();
 		setFonts();
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		if (firstStart)
+			startAnimations();
+		firstStart = false;
+	}
+
+	private void startAnimations() {
+		Animation keyboardAnimation = AnimationUtils.loadAnimation(this, R.anim.keyboard_appear);
+		keyboard.startAnimation(keyboardAnimation);
+
+		Animation pinAnimation = AnimationUtils.loadAnimation(this, R.anim.pin_appear);
+		pinGroup.startAnimation(pinAnimation);
+
+		Animation fingerprintAnimation = AnimationUtils.loadAnimation(this, R.anim.fingerprint_appear);
+		fingerprintGroup.startAnimation(fingerprintAnimation);
 	}
 
 	@Override
@@ -149,6 +193,17 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 	}
 
 	@Override
+	public void showVerifyFingerprintActivity() {
+		VerifyFingerprintActivity.startWith(this, VerifyFingerprintActivity.ENABLE_FINGERPRINT_REQUEST_CODE);
+	}
+
+	@Override
+	public void shakeFingerprint() {
+		Animation animShake = AnimationUtils.loadAnimation(this, R.anim.shake_horizontal);
+		fingerprintGroup.startAnimation(animShake);
+	}
+
+	@Override
 	public void onBackPressed() {
 		if (canClose)
 			finishActivity(RESULT_CANCELED);
@@ -157,9 +212,34 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 	}
 
 	@Override
+	public void finishAnimations() {
+		Animation keyboardAnimation = AnimationUtils.loadAnimation(this, R.anim.keyboard_disappear);
+		keyboardAnimation.setFillAfter(true);
+		keyboard.startAnimation(keyboardAnimation);
+
+		Animation pinAnimation = AnimationUtils.loadAnimation(this, R.anim.pin_disappear);
+		pinAnimation.setFillAfter(true);
+		pinGroup.startAnimation(pinAnimation);
+
+		Animation fingerprintAnimation = AnimationUtils.loadAnimation(this, R.anim.fingerprint_disappear);
+		fingerprintAnimation.setFillAfter(true);
+		fingerprintGroup.startAnimation(fingerprintAnimation);
+
+		Animation backgroundAnimation = AnimationUtils.loadAnimation(this, R.anim.check_pin_disappear);
+		backgroundAnimation.setFillAfter(true);
+		background.startAnimation(backgroundAnimation);
+	}
+
+	@Override
 	public void finishActivity(int resultCode) {
 		setResult(resultCode);
 		finish();
-		overridePendingTransition(R.anim.hold, R.anim.slide_to_bottom);
+		overridePendingTransition(R.anim.hold, R.anim.fragment_fade_out);
+	}
+
+	@Override
+	public void disableFingerprint(String message) {
+		fingerprintImage.setColorFilter(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimary));
+		errorMessageText.setText(message);
 	}
 }

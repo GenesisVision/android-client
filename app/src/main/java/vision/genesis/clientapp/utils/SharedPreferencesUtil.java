@@ -25,6 +25,8 @@ public class SharedPreferencesUtil
 
 	private static final String KEY_PIN_CODE_ENABLED = "keyPinCodeEnabled";
 
+	private static final String KEY_FINGERPRINT_ENABLED = "keyFingerprintEnabled";
+
 	private static final String KEY_PIN_CODE_HASH = "keyPinCodeHash";
 
 	private Context context;
@@ -90,6 +92,18 @@ public class SharedPreferencesUtil
 		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
 		sharedPreferences.edit()
 				.putBoolean(KEY_PIN_CODE_ENABLED, enabled)
+				.apply();
+	}
+
+	public boolean getFingerprintEnabled() {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+		return sharedPreferences.getBoolean(KEY_FINGERPRINT_ENABLED, false);
+	}
+
+	public void setFingerprintEnabled(boolean enabled) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+		sharedPreferences.edit()
+				.putBoolean(KEY_FINGERPRINT_ENABLED, enabled)
 				.apply();
 	}
 

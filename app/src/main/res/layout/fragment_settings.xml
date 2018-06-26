@@ -156,14 +156,17 @@
                         android:layout_height="wrap_content"/>
 
                     <View
+                        android:id="@+id/fingerprint_delimiter"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/grey100"/>
+                        android:background="@color/grey100"
+                        android:visibility="gone"/>
 
                     <vision.genesis.clientapp.ui.SettingsSwitchButton
                         android:id="@+id/fingerprint"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
 
                 </LinearLayout>
 
@@ -231,7 +234,8 @@
                         android:id="@+id/icon_logout"
                         style="@style/settings_icon"
                         android:padding="8dp"
-                        android:src="@drawable/logout"/>
+                        android:src="@drawable/logout"
+                        android:tint="@color/transactionRed"/>
 
                     <TextView
                         style="@style/settings_text"

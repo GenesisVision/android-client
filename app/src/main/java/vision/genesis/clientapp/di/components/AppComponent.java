@@ -37,6 +37,7 @@ import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletPresent
 import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPresenter;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletPresenter;
 import vision.genesis.clientapp.feature.pin.check.CheckPinPresenter;
+import vision.genesis.clientapp.feature.pin.fingerprint.VerifyFingerprintPresenter;
 import vision.genesis.clientapp.feature.pin.set.SetPinPresenter;
 import vision.genesis.clientapp.feature.splashscreen.SplashScreenPresenter;
 import vision.genesis.clientapp.feature.tournament.TournamentPresenter;
@@ -123,4 +124,6 @@ public interface AppComponent
 	void inject(CheckPinPresenter checkPinPresenter);
 
 	void inject(AppLifecycleTracker appLifecycleTracker);
+
+	void inject(VerifyFingerprintPresenter verifyFingerprintPresenter);
 }

@@ -12,9 +12,17 @@ import vision.genesis.clientapp.model.SettingsModel;
 
 interface SettingsView extends MvpView
 {
+	void showFingerprintOption();
+
 	void updateProfile(ProfileFullViewModel profile);
 
 	void updateSettings(SettingsModel settingsModel);
 
 	void showDisablePin();
+
+	void showEnableFingerprint();
+
+	void showDisableFingerprint();
+
+	void showDialogMessage(String message);
 }

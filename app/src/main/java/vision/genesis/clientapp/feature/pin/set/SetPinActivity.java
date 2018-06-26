@@ -30,8 +30,17 @@ public class SetPinActivity extends MvpAppCompatActivity implements SetPinView
 	public static void startFrom(Activity activity) {
 		Intent intent = new Intent(activity.getApplicationContext(), SetPinActivity.class);
 		activity.startActivity(intent);
-		activity.overridePendingTransition(R.anim.slide_from_bottom, R.anim.hold);
+		activity.overridePendingTransition(R.anim.fragment_fade_in, R.anim.hold);
 	}
+
+	@BindView(R.id.background)
+	public View background;
+
+	@BindView(R.id.group_pins)
+	public ViewGroup pinsGroup;
+
+	@BindView(R.id.group_pin)
+	public ViewGroup pinGroup;
 
 	@BindView(R.id.view_pin_code)
 	public PinCodeView pinCodeView;
@@ -51,6 +60,8 @@ public class SetPinActivity extends MvpAppCompatActivity implements SetPinView
 	@InjectPresenter
 	SetPinPresenter setPinPresenter;
 
+	private boolean firstStart = true;
+
 	@OnClick(R.id.button_close)
 	public void onCloseClicked() {
 		finishActivity();
@@ -69,10 +80,26 @@ public class SetPinActivity extends MvpAppCompatActivity implements SetPinView
 	}
 
 	@Override
+	protected void onStart() {
+		super.onStart();
+		if (firstStart)
+			startAnimations();
+		firstStart = false;
+	}
+
+	@Override
 	protected void onDestroy() {
 		keyboard.onDestroy();
 
 		super.onDestroy();
+	}
+
+	private void startAnimations() {
+		Animation keyboardAnimation = AnimationUtils.loadAnimation(this, R.anim.keyboard_appear);
+		keyboard.startAnimation(keyboardAnimation);
+
+		Animation pinAnimation = AnimationUtils.loadAnimation(this, R.anim.pin_appear);
+		pinGroup.startAnimation(pinAnimation);
 	}
 
 	private void initKeyboardListener() {
@@ -152,8 +179,23 @@ public class SetPinActivity extends MvpAppCompatActivity implements SetPinView
 	}
 
 	@Override
+	public void finishAnimations() {
+		Animation keyboardAnimation = AnimationUtils.loadAnimation(this, R.anim.keyboard_disappear);
+		keyboardAnimation.setFillAfter(true);
+		keyboard.startAnimation(keyboardAnimation);
+
+		Animation pinsAnimation = AnimationUtils.loadAnimation(this, R.anim.pin_disappear);
+		pinsAnimation.setFillAfter(true);
+		pinsGroup.startAnimation(pinsAnimation);
+
+		Animation backgroundAnimation = AnimationUtils.loadAnimation(this, R.anim.check_pin_disappear);
+		backgroundAnimation.setFillAfter(true);
+		background.startAnimation(backgroundAnimation);
+	}
+
+	@Override
 	public void finishActivity() {
 		finish();
-		overridePendingTransition(R.anim.hold, R.anim.slide_to_bottom);
+		overridePendingTransition(R.anim.hold, R.anim.fragment_fade_out);
 	}
 }

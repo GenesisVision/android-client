@@ -19,5 +19,13 @@ interface CheckPinView extends MvpView
 
 	void showToastMessage(String message);
 
+	void showVerifyFingerprintActivity();
+
+	void shakeFingerprint();
+
+	void disableFingerprint(String message);
+
+	void finishAnimations();
+
 	void finishActivity(int resultCode);
 }

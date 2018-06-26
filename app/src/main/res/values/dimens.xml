@@ -110,4 +110,6 @@
     <dimen name="item_program_title_margin">-4dp</dimen>
     <dimen name="settings_item_height">60dp</dimen>
     <dimen name="pin_code_dot_size">12dp</dimen>
+    <dimen name="verify_fingerprint_image_size">100dp</dimen>
+    <dimen name="check_pin_fingerprint_image_size">70dp</dimen>
 </resources>

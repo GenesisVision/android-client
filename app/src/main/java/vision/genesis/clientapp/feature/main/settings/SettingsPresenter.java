@@ -1,6 +1,7 @@
 package vision.genesis.clientapp.feature.main.settings;
 
 import android.content.Context;
+import android.os.Build;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -14,6 +15,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.SettingsManager;
@@ -54,6 +56,10 @@ public class SettingsPresenter extends MvpPresenter<SettingsView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && authManager.hasFingerprintFeature()) {
+			getViewState().showFingerprintOption();
+		}
+
 		getProfileInfo();
 		subscribeToSettings();
 	}
@@ -82,6 +88,23 @@ public class SettingsPresenter extends MvpPresenter<SettingsView>
 			EventBus.getDefault().post(new ShowSetPinActivityEvent());
 		else
 			getViewState().showDisablePin();
+	}
+
+	public void onFingerprintClicked() {
+		if (!settingsModel.isPinCodeEnabled()) {
+			getViewState().showDialogMessage(context.getString(R.string.error_enable_pin_first));
+		}
+		else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+			if (authManager.hasEnrolledFingerprints()) {
+				if (!settingsModel.isFingerprintEnabled())
+					getViewState().showEnableFingerprint();
+				else
+					getViewState().showDisableFingerprint();
+			}
+			else {
+				getViewState().showDialogMessage(context.getString(R.string.error_no_fingerprints));
+			}
+		}
 	}
 
 	private void getProfileInfo() {
@@ -125,5 +148,13 @@ public class SettingsPresenter extends MvpPresenter<SettingsView>
 
 	public void disablePin() {
 		settingsManager.setPinCodeEnabled(false);
+	}
+
+	public void enableFingerprint() {
+		settingsManager.setFingerprintEnabled(true);
+	}
+
+	public void disableFingerprint() {
+		settingsManager.setFingerprintEnabled(false);
 	}
 }

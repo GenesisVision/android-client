@@ -28,6 +28,7 @@ import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.profile.ProfileActivity;
 import vision.genesis.clientapp.feature.main.profile.change_password.ChangePasswordActivity;
 import vision.genesis.clientapp.feature.pin.check.CheckPinActivity;
+import vision.genesis.clientapp.feature.pin.fingerprint.VerifyFingerprintActivity;
 import vision.genesis.clientapp.model.SettingsModel;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.SettingsSwitchButton;
@@ -61,6 +62,9 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 	@BindView(R.id.fingerprint)
 	public SettingsSwitchButton fingerprint;
 
+	@BindView(R.id.fingerprint_delimiter)
+	public View fingerprintDelimiter;
+
 	@BindView(R.id.version)
 	public TextView version;
 
@@ -87,6 +91,11 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 	@OnClick(R.id.pin_code)
 	public void onPinCodeClicked() {
 		settingsPresenter.onPinCodeClicked();
+	}
+
+	@OnClick(R.id.fingerprint)
+	public void onFingerprintClicked() {
+		settingsPresenter.onFingerprintClicked();
 	}
 
 	@OnClick(R.id.send_feedback)
@@ -213,6 +222,12 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 	}
 
 	@Override
+	public void showFingerprintOption() {
+		this.fingerprint.setVisibility(View.VISIBLE);
+		this.fingerprintDelimiter.setVisibility(View.VISIBLE);
+	}
+
+	@Override
 	public void updateProfile(ProfileFullViewModel profile) {
 		avatar.setImage(profile.getAvatar(), 50, 50);
 
@@ -244,6 +259,23 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 	}
 
 	@Override
+	public void showEnableFingerprint() {
+		if (getActivity() != null)
+			VerifyFingerprintActivity.startWith(getActivity(), VerifyFingerprintActivity.ENABLE_FINGERPRINT_REQUEST_CODE);
+	}
+
+	@Override
+	public void showDisableFingerprint() {
+		if (getActivity() != null)
+			VerifyFingerprintActivity.startWith(getActivity(), VerifyFingerprintActivity.DISABLE_FINGERPRINT_REQUEST_CODE);
+	}
+
+	@Override
+	public void showDialogMessage(String message) {
+		showMessageDialog(message);
+	}
+
+	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		Timber.d("Activity result: request code: %d result code:  %d", requestCode, resultCode);
 		switch (requestCode) {
@@ -255,6 +287,7 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 			case DISABLE_PIN_REQUEST_CODE:
 				if (resultCode == Activity.RESULT_OK) {
 					settingsPresenter.disablePin();
+					settingsPresenter.disableFingerprint();
 				}
 				break;
 			default:

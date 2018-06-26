@@ -54,7 +54,7 @@ public interface MainView extends MvpView
 
 	void showSetPinActivity();
 
-	void showLockScreen();
+	void showLockScreen(boolean allowFingerprint);
 
 	void hideSplashScreen();
 }

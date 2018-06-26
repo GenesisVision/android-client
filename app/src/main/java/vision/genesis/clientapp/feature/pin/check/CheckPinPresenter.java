@@ -2,6 +2,8 @@ package vision.genesis.clientapp.feature.pin.check;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
+import android.os.Handler;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -12,10 +14,12 @@ import javax.inject.Inject;
 
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.events.CheckPinSuccessEvent;
 import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.VibrationUtil;
+import vision.genesis.clientapp.utils.fingerprint.FingerprintHandler;
 
 /**
  * GenesisVisionAndroid
@@ -23,10 +27,13 @@ import vision.genesis.clientapp.utils.VibrationUtil;
  */
 
 @InjectViewState
-public class CheckPinPresenter extends MvpPresenter<CheckPinView>
+public class CheckPinPresenter extends MvpPresenter<CheckPinView> implements FingerprintHandler.FingerprintAuthListener
 {
 	@Inject
 	public Context context;
+
+	@Inject
+	public AuthManager authManager;
 
 	@Inject
 	public SettingsManager settingsManager;
@@ -35,14 +42,35 @@ public class CheckPinPresenter extends MvpPresenter<CheckPinView>
 
 	private int wrongAttempts = 0;
 
+	private boolean fingerprintEnabled;
+
+	private boolean fingerprintChanged;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
+
+		initFingerprintAuthMaybe();
 	}
 
-	public void onNumber(String number) {
+	void setFingerprintEnabled(boolean fingerprintEnabled) {
+		this.fingerprintEnabled = fingerprintEnabled;
+		initFingerprintAuthMaybe();
+	}
+
+	private void initFingerprintAuthMaybe() {
+		if (fingerprintEnabled && authManager != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+			if (!authManager.startFingerprintAuth(new FingerprintHandler(this))) {
+				fingerprintChanged = true;
+				getViewState().disableFingerprint(context.getString(R.string.error_fingerprint_changed));
+				settingsManager.setFingerprintEnabled(false);
+			}
+		}
+	}
+
+	void onNumber(String number) {
 		if (pin.length() < Constants.PIN_CODE_LENGTH) {
 			pin += number;
 			getViewState().setPin(pin.length());
@@ -53,7 +81,7 @@ public class CheckPinPresenter extends MvpPresenter<CheckPinView>
 		}
 	}
 
-	public void onBackspace() {
+	void onBackspace() {
 		if (pin.length() > 0) {
 			pin = pin.substring(0, pin.length() - 1);
 			getViewState().setPin(pin.length());
@@ -61,7 +89,7 @@ public class CheckPinPresenter extends MvpPresenter<CheckPinView>
 		}
 	}
 
-	public void onLongBackspace() {
+	void onLongBackspace() {
 		pin = "";
 		getViewState().setPin(0);
 		getViewState().setKeyboardKeysEnabled(true);
@@ -71,7 +99,7 @@ public class CheckPinPresenter extends MvpPresenter<CheckPinView>
 	private void checkPin() {
 		if (!settingsManager.checkPin(pin)) {
 			getViewState().setPinError(true);
-			getViewState().setKeyboardKeysEnabled(true);
+			getViewState().setKeyboardKeysEnabled(false);
 			pin = "";
 			wrongAttempts++;
 			if (wrongAttempts == Constants.PIN_MAX_WRONG_ATTEMPTS) {
@@ -81,12 +109,20 @@ public class CheckPinPresenter extends MvpPresenter<CheckPinView>
 			}
 			else {
 				VibrationUtil.vibrateWrongPin(context);
+				new Handler().postDelayed(() -> {
+					getViewState().setPinError(false);
+					getViewState().setKeyboardKeysEnabled(true);
+				}, 400);
 			}
 		}
 		else {
 			VibrationUtil.vibrateRightPin(context);
 			EventBus.getDefault().post(new CheckPinSuccessEvent());
-			getViewState().finishActivity(Activity.RESULT_OK);
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+				if (fingerprintChanged && authManager.hasEnrolledFingerprints())
+					getViewState().showVerifyFingerprintActivity();
+			}
+			finish();
 		}
 	}
 
@@ -98,5 +134,32 @@ public class CheckPinPresenter extends MvpPresenter<CheckPinView>
 		getViewState().setPinError(false);
 		getViewState().setKeyboardKeysEnabled(true);
 		VibrationUtil.vibrateResetPin(context);
+	}
+
+	private void finish() {
+		getViewState().finishAnimations();
+		new Handler().postDelayed(() -> getViewState().finishActivity(Activity.RESULT_OK), 200);
+	}
+
+	@Override
+	public void onAuthenticationSucceeded() {
+		EventBus.getDefault().post(new CheckPinSuccessEvent());
+		finish();
+	}
+
+	@Override
+	public void onAuthenticationHelp() {
+
+	}
+
+	@Override
+	public void onAuthenticationError(String message) {
+		getViewState().disableFingerprint(message);
+	}
+
+	@Override
+	public void onAuthenticationFailed() {
+		getViewState().showToastMessage(context.getString(R.string.fingerprint_not_recognized));
+		getViewState().shakeFingerprint();
 	}
 }

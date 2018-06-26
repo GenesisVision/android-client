@@ -1,5 +1,14 @@
 package vision.genesis.clientapp.managers;
 
+import android.Manifest;
+import android.app.KeyguardManager;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.hardware.fingerprint.FingerprintManager;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -21,9 +30,14 @@ import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
 import timber.log.Timber;
 import vision.genesis.clientapp.BuildConfig;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.OnUnauthorizedResponseGetEvent;
 import vision.genesis.clientapp.utils.SharedPreferencesUtil;
+import vision.genesis.clientapp.utils.fingerprint.FingerprintHandler;
+import vision.genesis.clientapp.utils.fingerprint.GenerateKeyCipher;
+
+import static android.content.Context.KEYGUARD_SERVICE;
 
 /**
  * GenesisVision
@@ -35,6 +49,10 @@ public class AuthManager
 	public static BehaviorSubject<String> token = BehaviorSubject.create();
 
 	public BehaviorSubject<User> userSubject = BehaviorSubject.create();
+
+	private FingerprintManager fingerprintManager;
+
+	private KeyguardManager keyguardManager;
 
 	private BehaviorSubject<String> getTokenResponseSubject = BehaviorSubject.create();
 
@@ -55,6 +73,11 @@ public class AuthManager
 		this.managerApi = managerApi;
 		this.sharedPreferencesUtil = sharedPreferencesUtil;
 		this.settingsManager = settingsManager;
+
+		keyguardManager = (KeyguardManager) GenesisVisionApplication.INSTANCE.getSystemService(KEYGUARD_SERVICE);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+			this.fingerprintManager = (FingerprintManager) GenesisVisionApplication.INSTANCE.getSystemService(Context.FINGERPRINT_SERVICE);
+		}
 
 		EventBus.getDefault().register(this);
 
@@ -242,5 +265,39 @@ public class AuthManager
 
 	public void setEnableTwoFactorAlreadyShown(boolean shown) {
 		sharedPreferencesUtil.setEnableTwoFactorAlreadyShown(shown);
+	}
+
+	@RequiresApi(api = Build.VERSION_CODES.M)
+	public boolean hasFingerprintFeature() {
+		return fingerprintManager != null && fingerprintManager.isHardwareDetected()
+				&& (ActivityCompat.checkSelfPermission(GenesisVisionApplication.INSTANCE, Manifest.permission.USE_FINGERPRINT) == PackageManager.PERMISSION_GRANTED);
+	}
+
+	@RequiresApi(api = Build.VERSION_CODES.M)
+	public boolean hasEnrolledFingerprints() {
+		return fingerprintManager.hasEnrolledFingerprints();
+	}
+
+	public boolean isKeyguardSecure() {
+		return keyguardManager.isKeyguardSecure();
+	}
+
+	@RequiresApi(api = Build.VERSION_CODES.M)
+	public boolean generateFingerprintKey() {
+		GenerateKeyCipher generateKeyCipher = new GenerateKeyCipher();
+		return generateKeyCipher.generateKey();
+	}
+
+	@RequiresApi(api = Build.VERSION_CODES.M)
+	public boolean startFingerprintAuth(FingerprintHandler fingerprintHandler) {
+		GenerateKeyCipher generateKeyCipher = new GenerateKeyCipher();
+		if (generateKeyCipher.cipherInit()) {
+			FingerprintManager.CryptoObject cryptoObject = new FingerprintManager.CryptoObject(generateKeyCipher.getCipher());
+			fingerprintHandler.startAuth(fingerprintManager, cryptoObject);
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }

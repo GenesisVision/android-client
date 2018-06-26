@@ -1,7 +1,9 @@
 package vision.genesis.clientapp.ui;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -171,6 +173,22 @@ public class PinKeyboardView extends RelativeLayout
 		buttonNine.setEnabled(!disable);
 		buttonZero.setEnabled(!disable);
 		buttonBackspace.setEnabled(!disable);
+
+		int enabledColor = ContextCompat.getColor(getContext(), R.color.white);
+		int disabledColor = ContextCompat.getColor(getContext(), R.color.white38);
+
+		buttonOne.setTextColor(disable ? disabledColor : enabledColor);
+		buttonTwo.setTextColor(disable ? disabledColor : enabledColor);
+		buttonThree.setTextColor(disable ? disabledColor : enabledColor);
+		buttonFour.setTextColor(disable ? disabledColor : enabledColor);
+		buttonFive.setTextColor(disable ? disabledColor : enabledColor);
+		buttonSix.setTextColor(disable ? disabledColor : enabledColor);
+		buttonSeven.setTextColor(disable ? disabledColor : enabledColor);
+		buttonEight.setTextColor(disable ? disabledColor : enabledColor);
+		buttonNine.setTextColor(disable ? disabledColor : enabledColor);
+		buttonZero.setTextColor(disable ? disabledColor : enabledColor);
+		backspaceImage.setColorFilter(disable ? disabledColor : enabledColor, PorterDuff.Mode.SRC_IN);
+
 	}
 
 	private void initView() {

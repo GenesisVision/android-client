@@ -53,11 +53,29 @@
         android:textSize="10sp"
         tools:text="0.0.2-alpha (18040401)"/>
 
-    <View
+    <RelativeLayout
         android:id="@+id/splashscreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_splash"
+        android:background="@color/colorPrimary"
+        android:clickable="true"
+        android:focusable="true"
+        tools:visibility="visible">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            tools:targetApi="lollipop"/>
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/block_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone"

@@ -1,6 +1,7 @@
 package vision.genesis.clientapp.feature.pin.set;
 
 import android.content.Context;
+import android.os.Handler;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -114,7 +115,7 @@ public class SetPinPresenter extends MvpPresenter<SetPinView>
 	private void checkPin() {
 		if (!pin.equals(repeatPin)) {
 			getViewState().setRepeatPinError(true);
-			getViewState().setKeyboardKeysEnabled(true);
+			getViewState().setKeyboardKeysEnabled(false);
 			repeatPin = "";
 			wrongAttempts++;
 			if (wrongAttempts == Constants.PIN_MAX_WRONG_ATTEMPTS) {
@@ -122,13 +123,17 @@ public class SetPinPresenter extends MvpPresenter<SetPinView>
 			}
 			else {
 				VibrationUtil.vibrateWrongPin(context);
+				new Handler().postDelayed(() -> {
+					getViewState().setRepeatPinError(false);
+					getViewState().setKeyboardKeysEnabled(true);
+				}, 400);
 			}
 		}
 		else {
 			VibrationUtil.vibrateRightPin(context);
 			settingsManager.setPinCodeEnabled(true);
 			if (settingsManager.setPin(pin)) {
-				getViewState().finishActivity();
+				finish();
 			}
 			else {
 				getViewState().showToastMessage(context.getString(R.string.error_set_pin));
@@ -147,5 +152,10 @@ public class SetPinPresenter extends MvpPresenter<SetPinView>
 		getViewState().showRepeatPin(false);
 		getViewState().setKeyboardKeysEnabled(true);
 		VibrationUtil.vibrateResetPin(context);
+	}
+
+	private void finish() {
+		getViewState().finishAnimations();
+		new Handler().postDelayed(() -> getViewState().finishActivity(), 200);
 	}
 }

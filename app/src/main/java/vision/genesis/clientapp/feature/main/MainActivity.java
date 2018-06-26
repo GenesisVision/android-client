@@ -46,6 +46,7 @@ import vision.genesis.clientapp.model.ProgramInfoModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
+import vision.genesis.clientapp.ui.common.BlockScreenHolder;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -53,7 +54,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 1/18/18.
  */
 
-public class MainActivity extends MvpAppCompatActivity implements MainView
+public class MainActivity extends MvpAppCompatActivity implements MainView, BlockScreenHolder
 {
 	public static void startFrom(Activity activity) {
 		Intent mainActivityIntent = new Intent(activity, MainActivity.class);
@@ -67,13 +68,16 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	public TextView version;
 
 	@BindView(R.id.splashscreen)
-	public View splashscreen;
+	public View splashScreen;
 
 	@BindView(R.id.group_sign_in)
 	public View signInGroup;
 
 	@BindView(R.id.bottom_shadow)
 	public View bottomShadow;
+
+	@BindView(R.id.block_screen)
+	public View blockScreen;
 
 	@BindView(R.id.bottom_navigation)
 	public AHBottomNavigation bottomNavigationView;
@@ -329,13 +333,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 	}
 
 	@Override
-	public void showLockScreen() {
-		CheckPinActivity.startForResult(this, CheckPinActivity.LOCK_SCREEN_REQUEST_CODE, false);
+	public void showLockScreen(boolean allowFingerprint) {
+		CheckPinActivity.startForResult(this, CheckPinActivity.LOCK_SCREEN_REQUEST_CODE, false, allowFingerprint);
 	}
 
 	@Override
 	public void hideSplashScreen() {
-		splashscreen.setVisibility(View.GONE);
+		splashScreen.setVisibility(View.GONE);
 	}
 
 	@Override
@@ -345,10 +349,21 @@ public class MainActivity extends MvpAppCompatActivity implements MainView
 			case CheckPinActivity.LOCK_SCREEN_REQUEST_CODE:
 				if (resultCode == Activity.RESULT_OK) {
 					mainPresenter.onCheckPinPassed();
+					hideBlock();
 				}
 				break;
 			default:
 				super.onActivityResult(requestCode, resultCode, data);
 		}
+	}
+
+	@Override
+	public void showBlock() {
+		blockScreen.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void hideBlock() {
+		blockScreen.setVisibility(View.GONE);
 	}
 }

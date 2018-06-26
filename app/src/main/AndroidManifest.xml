@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
 
     <uses-feature
         android:name="android.permission.VIBRATE"
@@ -177,6 +178,11 @@
 
         <activity
             android:name=".feature.pin.set.SetPinActivity"
+            android:theme="@style/TranslucentActivityTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+
+        <activity
+            android:name=".feature.pin.fingerprint.VerifyFingerprintActivity"
             android:theme="@style/TranslucentActivityTheme"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 

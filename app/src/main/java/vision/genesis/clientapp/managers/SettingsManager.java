@@ -44,6 +44,7 @@ public class SettingsManager
 	private void getSettings() {
 		SettingsModel settingsModel = settingsSubject.getValue();
 		settingsModel.setPinCodeEnabled(sharedPreferencesUtil.getPinCodeEnabled());
+		settingsModel.setFingerprintEnabled(sharedPreferencesUtil.getFingerprintEnabled());
 		settingsSubject.onNext(settingsModel);
 	}
 
@@ -58,6 +59,17 @@ public class SettingsManager
 		sharedPreferencesUtil.setPinCodeEnabled(enabled);
 		SettingsModel settingsModel = settingsSubject.getValue();
 		settingsModel.setPinCodeEnabled(enabled);
+		settingsSubject.onNext(settingsModel);
+	}
+
+	public boolean getFingerprintEnabled() {
+		return settingsSubject.getValue().isFingerprintEnabled();
+	}
+
+	public void setFingerprintEnabled(boolean enabled) {
+		sharedPreferencesUtil.setFingerprintEnabled(enabled);
+		SettingsModel settingsModel = settingsSubject.getValue();
+		settingsModel.setFingerprintEnabled(enabled);
 		settingsSubject.onNext(settingsModel);
 	}
 

@@ -74,7 +74,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 		EventBus.getDefault().register(this);
 
 		if (settingsManager.isScreenLockEnabled()) {
-			getViewState().showLockScreen();
+			getViewState().showLockScreen(settingsManager.getFingerprintEnabled());
 		}
 		else {
 			onCheckPinPassed();
@@ -286,6 +286,6 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	@Subscribe
 	public void onEventMainThread(ShowLockScreenEvent event) {
-		getViewState().showLockScreen();
+		getViewState().showLockScreen(settingsManager.getFingerprintEnabled());
 	}
 }

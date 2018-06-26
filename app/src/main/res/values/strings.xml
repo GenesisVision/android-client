@@ -366,4 +366,11 @@
     <string name="repeat_pin_code">Repeat PIN code</string>
     <string name="error_set_pin">An error occurred while setting the PIN code. Please try again later</string>
     <string name="error_pin_too_many_attempts">Too many attempts.\nPlease try again later</string>
+    <string name="verify_your_fingerprint">Verify your fingerprint</string>
+    <string name="error_fingerprint_changed">The lock screen has been disabled or a fingerprint has been added/removed.\nUse the PIN code instead</string>
+    <string name="touch_the_sensor_to_enable">Touch the sensor to enable fingerprint authentication</string>
+    <string name="touch_the_sensor_to_disable">Touch the sensor to disable fingerprint authentication</string>
+    <string name="error_no_fingerprints">Cannot find any fingerprints registered on the device. You should add a fingerprint on the device first.</string>
+    <string name="error_enable_pin_first">You should enable the PIN code first</string>
+    <string name="fingerprint_not_recognized">Fingerprint not recognized</string>
 </resources>
