@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.utils.StatusBarUtil;
 
 /**
  * GenesisVisionAndroid
@@ -64,11 +65,25 @@ public class VerifyFingerprintActivity extends MvpAppCompatActivity implements V
 
 		ButterKnife.bind(this);
 
+		StatusBarUtil.setColor(this, R.color.colorPrimary);
+
 		if (getIntent().getExtras() != null) {
 			int requestCode = getIntent().getExtras().getInt(EXTRA_REQUEST_CODE);
 			verifyFingerprintPresenter.setRequestCode(requestCode);
 			setHint(requestCode);
 		}
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		verifyFingerprintPresenter.onStart();
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		verifyFingerprintPresenter.onStop();
 	}
 
 	private void setHint(int requestCode) {

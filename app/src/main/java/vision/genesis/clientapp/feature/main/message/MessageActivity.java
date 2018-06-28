@@ -19,6 +19,7 @@ import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.utils.StatusBarUtil;
 
 /**
  * GenesisVisionAndroid
@@ -70,6 +71,8 @@ public class MessageActivity extends MvpAppCompatActivity
 		GenesisVisionApplication.getComponent().inject(this);
 
 		ButterKnife.bind(this);
+
+		StatusBarUtil.setColor(this, R.color.colorPrimary);
 
 		button.setWhite();
 

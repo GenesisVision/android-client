@@ -17,8 +17,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
  * Created by Vitaly on 21/06/2018.
  */
 
-@RequiresApi(Build.VERSION_CODES.M)
-public class FingerprintHandler extends FingerprintManager.AuthenticationCallback
+public class FingerprintHandler
 {
 	public interface FingerprintAuthListener
 	{
@@ -33,44 +32,51 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
 	private final FingerprintAuthListener listener;
 
+	private FingerprintManager.AuthenticationCallback authenticateListener = new FingerprintManager.AuthenticationCallback()
+	{
+		@Override
+		public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
+			update("Fingerprint Authentication succeeded.");
+			listener.onAuthenticationSucceeded();
+		}
+
+		@Override
+		public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
+			update("Fingerprint Authentication help\n" + helpString);
+			listener.onAuthenticationHelp();
+			Toast.makeText(GenesisVisionApplication.INSTANCE, helpString, Toast.LENGTH_LONG).show();
+		}
+
+		@Override
+		public void onAuthenticationError(int errMsgId, CharSequence errString) {
+			update("Fingerprint Authentication error\n" + errString);
+			if (errMsgId != FingerprintManager.FINGERPRINT_ERROR_CANCELED) {
+//			Toast.makeText(GenesisVisionApplication.INSTANCE, errString, Toast.LENGTH_LONG).show();
+				listener.onAuthenticationError(errString.toString());
+			}
+		}
+
+		@Override
+		public void onAuthenticationFailed() {
+			update("Fingerprint Authentication failed.");
+			listener.onAuthenticationFailed();
+		}
+	};
+
 	public FingerprintHandler(FingerprintAuthListener listener) {
 		this.listener = listener;
 	}
 
-	public void startAuth(FingerprintManager manager, FingerprintManager.CryptoObject cryptoObject) {
+	@RequiresApi(api = Build.VERSION_CODES.M)
+	public CancellationSignal startAuth(FingerprintManager manager, FingerprintManager.CryptoObject cryptoObject) {
 		if (ActivityCompat.checkSelfPermission(GenesisVisionApplication.INSTANCE, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
-			return;
+			return null;
 		}
-		manager.authenticate(cryptoObject, new CancellationSignal(), 0, this, null);
+		CancellationSignal cancellationSignal = new CancellationSignal();
+		manager.authenticate(cryptoObject, cancellationSignal, 0, authenticateListener, null);
+		return cancellationSignal;
 	}
 
-	@Override
-	public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
-		this.update("Fingerprint Authentication succeeded.");
-		listener.onAuthenticationSucceeded();
-	}
-
-	@Override
-	public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
-		this.update("Fingerprint Authentication help\n" + helpString);
-		listener.onAuthenticationHelp();
-		Toast.makeText(GenesisVisionApplication.INSTANCE, helpString, Toast.LENGTH_LONG).show();
-	}
-
-	@Override
-	public void onAuthenticationError(int errMsgId, CharSequence errString) {
-		this.update("Fingerprint Authentication error\n" + errString);
-		if (errMsgId != FingerprintManager.FINGERPRINT_ERROR_CANCELED) {
-//			Toast.makeText(GenesisVisionApplication.INSTANCE, errString, Toast.LENGTH_LONG).show();
-			listener.onAuthenticationError(errString.toString());
-		}
-	}
-
-	@Override
-	public void onAuthenticationFailed() {
-		this.update("Fingerprint Authentication failed.");
-		listener.onAuthenticationFailed();
-	}
 
 	public void update(String message) {
 		Timber.d(message);

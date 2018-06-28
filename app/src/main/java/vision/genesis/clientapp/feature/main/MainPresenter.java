@@ -65,6 +65,8 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	private SettingsFragment settingsFragment;
 
+	private boolean firstCheckPin = true;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -96,8 +98,11 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	void onCheckPinPassed() {
-		subscribeToUser();
-		getPlatformStatus();
+		if (firstCheckPin) {
+			firstCheckPin = false;
+			subscribeToUser();
+			getPlatformStatus();
+		}
 	}
 
 	void onBottomMenuSelectionChanged(int position) {

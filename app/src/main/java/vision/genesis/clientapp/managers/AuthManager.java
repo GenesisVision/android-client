@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
+import android.os.CancellationSignal;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 
@@ -289,15 +290,14 @@ public class AuthManager
 	}
 
 	@RequiresApi(api = Build.VERSION_CODES.M)
-	public boolean startFingerprintAuth(FingerprintHandler fingerprintHandler) {
+	public CancellationSignal startFingerprintAuth(FingerprintHandler fingerprintHandler) {
 		GenerateKeyCipher generateKeyCipher = new GenerateKeyCipher();
 		if (generateKeyCipher.cipherInit()) {
 			FingerprintManager.CryptoObject cryptoObject = new FingerprintManager.CryptoObject(generateKeyCipher.getCipher());
-			fingerprintHandler.startAuth(fingerprintManager, cryptoObject);
-			return true;
+			return fingerprintHandler.startAuth(fingerprintManager, cryptoObject);
 		}
 		else {
-			return false;
+			return null;
 		}
 	}
 }

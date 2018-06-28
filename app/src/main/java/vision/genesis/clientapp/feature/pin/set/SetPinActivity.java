@@ -19,6 +19,7 @@ import butterknife.OnClick;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.ui.PinCodeView;
 import vision.genesis.clientapp.ui.PinKeyboardView;
+import vision.genesis.clientapp.utils.StatusBarUtil;
 
 /**
  * GenesisVisionAndroid
@@ -74,6 +75,8 @@ public class SetPinActivity extends MvpAppCompatActivity implements SetPinView
 		setContentView(R.layout.activity_set_pin);
 
 		ButterKnife.bind(this);
+
+		StatusBarUtil.setColor(this, R.color.colorPrimary);
 
 		initKeyboardListener();
 		setFonts();

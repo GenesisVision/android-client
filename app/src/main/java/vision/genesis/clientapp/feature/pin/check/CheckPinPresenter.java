@@ -3,6 +3,7 @@ package vision.genesis.clientapp.feature.pin.check;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
+import android.os.CancellationSignal;
 import android.os.Handler;
 
 import com.arellomobile.mvp.InjectViewState;
@@ -46,13 +47,22 @@ public class CheckPinPresenter extends MvpPresenter<CheckPinView> implements Fin
 
 	private boolean fingerprintChanged;
 
+	private CancellationSignal cancellationSignal;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
+	}
 
+	void onStart() {
 		initFingerprintAuthMaybe();
+	}
+
+	void onStop() {
+		if (cancellationSignal != null)
+			cancellationSignal.cancel();
 	}
 
 	void setFingerprintEnabled(boolean fingerprintEnabled) {
@@ -62,7 +72,8 @@ public class CheckPinPresenter extends MvpPresenter<CheckPinView> implements Fin
 
 	private void initFingerprintAuthMaybe() {
 		if (fingerprintEnabled && authManager != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-			if (!authManager.startFingerprintAuth(new FingerprintHandler(this))) {
+			cancellationSignal = authManager.startFingerprintAuth(new FingerprintHandler(this));
+			if (cancellationSignal == null) {
 				fingerprintChanged = true;
 				getViewState().disableFingerprint(context.getString(R.string.error_fingerprint_changed));
 				settingsManager.setFingerprintEnabled(false);

@@ -2,6 +2,7 @@ package vision.genesis.clientapp.feature.pin.fingerprint;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.CancellationSignal;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -33,19 +34,34 @@ public class VerifyFingerprintPresenter extends MvpPresenter<VerifyFingerprintVi
 
 	private int requestCode;
 
+	private CancellationSignal cancellationSignal;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
+	}
 
+	void onStart() {
+		initFingerprintAuthMaybe();
+	}
+
+	private void initFingerprintAuthMaybe() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 			if (authManager.generateFingerprintKey())
-				authManager.startFingerprintAuth(new FingerprintHandler(this));
+				cancellationSignal = authManager.startFingerprintAuth(new FingerprintHandler(this));
+			if (cancellationSignal == null)
+				getViewState().finishActivity();
 		}
 		else {
 			getViewState().finishActivity();
 		}
+	}
+
+	void onStop() {
+		if (cancellationSignal != null)
+			cancellationSignal.cancel();
 	}
 
 	@Override

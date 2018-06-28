@@ -24,6 +24,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.pin.fingerprint.VerifyFingerprintActivity;
 import vision.genesis.clientapp.ui.PinCodeView;
 import vision.genesis.clientapp.ui.PinKeyboardView;
+import vision.genesis.clientapp.utils.StatusBarUtil;
 
 /**
  * GenesisVisionAndroid
@@ -99,6 +100,8 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 
 		ButterKnife.bind(this);
 
+		StatusBarUtil.setColor(this, R.color.colorPrimary);
+
 		if (getIntent().getExtras() != null) {
 			canClose = getIntent().getExtras().getBoolean(EXTRA_CAN_CLOSE);
 			boolean fingerprintEnabled = getIntent().getExtras().getBoolean(EXTRA_FINGERPRINT_ENABLED);
@@ -114,9 +117,11 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 	@Override
 	protected void onStart() {
 		super.onStart();
-		if (firstStart)
+		checkPinPresenter.onStart();
+		if (firstStart) {
 			startAnimations();
-		firstStart = false;
+			firstStart = false;
+		}
 	}
 
 	private void startAnimations() {
@@ -128,6 +133,13 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 
 		Animation fingerprintAnimation = AnimationUtils.loadAnimation(this, R.anim.fingerprint_appear);
 		fingerprintGroup.startAnimation(fingerprintAnimation);
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+
+		checkPinPresenter.onStop();
 	}
 
 	@Override
