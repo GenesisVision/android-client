@@ -23,8 +23,9 @@ public class TradesApiTest
 	 */
 	@Test
 	public void apiTradesIpfsHistoryGetTest() {
+		String type = null;
 		String ipfsHashId = null;
-		// TradesViewModel response = api.apiTradesIpfsHistoryGet(ipfsHashId);
+		// TradesViewModel response = api.apiTradesIpfsHistoryGet(type, ipfsHashId);
 
 		// TODO: test validations
 	}

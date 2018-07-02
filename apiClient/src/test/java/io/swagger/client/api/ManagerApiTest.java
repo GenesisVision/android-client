@@ -11,14 +11,19 @@ import io.swagger.client.model.ChangePasswordViewModel;
 import io.swagger.client.model.ForgotPasswordViewModel;
 import io.swagger.client.model.Invest;
 import io.swagger.client.model.InvestmentProgramRequestsFilter;
+import io.swagger.client.model.InvestmentProgramUpdate;
 import io.swagger.client.model.InvestmentProgramsFilter;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.ManagerDashboardProgramsFilter;
 import io.swagger.client.model.NewInvestmentRequest;
+import io.swagger.client.model.NewTournamentAccountRequest;
+import io.swagger.client.model.PasswordModel;
 import io.swagger.client.model.RegisterManagerViewModel;
 import io.swagger.client.model.ResetPasswordViewModel;
 import io.swagger.client.model.TradesFilter;
 import io.swagger.client.model.TransactionsFilter;
+import io.swagger.client.model.TwoFactorAuthenticatorConfirm;
+import io.swagger.client.model.TwoFactorCodeModel;
 import io.swagger.client.model.UpdateProfileViewModel;
 import io.swagger.client.model.WalletStatisticFilter;
 import io.swagger.client.model.WalletWithdrawRequestModel;
@@ -37,13 +42,107 @@ public class ManagerApiTest
 	}
 
 	/**
-	 * Create new investment request
+	 * Create new investment program request
 	 */
 	@Test
 	public void apiManagerAccountNewInvestmentRequestPostTest() {
 		String authorization = null;
 		NewInvestmentRequest request = null;
 		// UUID response = api.apiManagerAccountNewInvestmentRequestPost(authorization, request);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Create new tournament investment program request
+	 */
+	@Test
+	public void apiManagerAccountTournamentNewInvestmentRequestPostTest() {
+		String authorization = null;
+		NewTournamentAccountRequest request = null;
+		// UUID response = api.apiManagerAccountTournamentNewInvestmentRequestPost(authorization, request);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * 2FA confirm
+	 */
+	@Test
+	public void apiManagerAuth2faConfirmPostTest() {
+		String authorization = null;
+		TwoFactorAuthenticatorConfirm model = null;
+		// RecoveryCodesViewModel response = api.apiManagerAuth2faConfirmPost(authorization, model);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * 2FA create
+	 */
+	@Test
+	public void apiManagerAuth2faCreatePostTest() {
+		String authorization = null;
+		// TwoFactorAuthenticator response = api.apiManagerAuth2faCreatePost(authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * 2FA disable
+	 */
+	@Test
+	public void apiManagerAuth2faDisablePostTest() {
+		String authorization = null;
+		TwoFactorCodeModel model = null;
+		// Void response = api.apiManagerAuth2faDisablePost(authorization, model);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * 2FA status
+	 */
+	@Test
+	public void apiManagerAuth2faGetTest() {
+		String authorization = null;
+		// TwoFactorStatus response = api.apiManagerAuth2faGet(authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * 2FA generate new recovery codes
+	 */
+	@Test
+	public void apiManagerAuth2faRecoveryCodesNewPostTest() {
+		String authorization = null;
+		PasswordModel model = null;
+		// RecoveryCodesViewModel response = api.apiManagerAuth2faRecoveryCodesNewPost(authorization, model);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * 2FA recovery codes
+	 */
+	@Test
+	public void apiManagerAuth2faRecoveryCodesPostTest() {
+		String authorization = null;
+		PasswordModel model = null;
+		// RecoveryCodesViewModel response = api.apiManagerAuth2faRecoveryCodesPost(authorization, model);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Change password
+	 */
+	@Test
+	public void apiManagerAuthChangePasswordPostTest() {
+		String authorization = null;
+		ChangePasswordViewModel model = null;
+		// Void response = api.apiManagerAuthChangePasswordPost(authorization, model);
 
 		// TODO: test validations
 	}
@@ -61,7 +160,7 @@ public class ManagerApiTest
 	}
 
 	/**
-	 * Forgot password
+	 * Forgot password manager
 	 */
 	@Test
 	public void apiManagerAuthForgotPasswordPostTest() {
@@ -116,18 +215,6 @@ public class ManagerApiTest
 	}
 
 	/**
-	 * Change password
-	 */
-	@Test
-	public void apiManagerAuthhangePasswordPostTest() {
-		String authorization = null;
-		ChangePasswordViewModel model = null;
-		// Void response = api.apiManagerAuthhangePasswordPost(authorization, model);
-
-		// TODO: test validations
-	}
-
-	/**
 	 * Get all enabled trade servers
 	 */
 	@Test
@@ -142,10 +229,10 @@ public class ManagerApiTest
 	 * Dashboard programs
 	 */
 	@Test
-	public void apiManagerDashboardProgramsGetTest() {
+	public void apiManagerDashboardProgramsPostTest() {
 		String authorization = null;
 		ManagerDashboardProgramsFilter filter = null;
-		// ManagerInvestmentPrograms response = api.apiManagerDashboardProgramsGet(authorization, filter);
+		// ManagerInvestmentPrograms response = api.apiManagerDashboardProgramsPost(authorization, filter);
 
 		// TODO: test validations
 	}
@@ -210,6 +297,18 @@ public class ManagerApiTest
 	}
 
 	/**
+	 * Get manager equity chart
+	 */
+	@Test
+	public void apiManagerInvestmentProgramEquityChartGetTest() {
+		UUID investmentProgramId = null;
+		String timeFrame = null;
+		// TradesChartViewModel response = api.apiManagerInvestmentProgramEquityChartGet(investmentProgramId, timeFrame);
+
+		// TODO: test validations
+	}
+
+	/**
 	 * Get investment program details by id
 	 */
 	@Test
@@ -217,6 +316,30 @@ public class ManagerApiTest
 		UUID investmentProgramId = null;
 		String authorization = null;
 		// InvestmentProgramViewModel response = api.apiManagerInvestmentProgramGet(investmentProgramId, authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Level statistic
+	 */
+	@Test
+	public void apiManagerInvestmentProgramGetlevelstatisticGetTest() {
+		UUID investmentProgramId = null;
+		String authorization = null;
+		// ManagerLevelStatistic response = api.apiManagerInvestmentProgramGetlevelstatisticGet(investmentProgramId, authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Close current period
+	 */
+	@Test
+	public void apiManagerInvestmentProgramPeriodClosePostTest() {
+		UUID investmentProgramId = null;
+		String authorization = null;
+		// Void response = api.apiManagerInvestmentProgramPeriodClosePost(investmentProgramId, authorization);
 
 		// TODO: test validations
 	}
@@ -234,6 +357,17 @@ public class ManagerApiTest
 	}
 
 	/**
+	 * Get manager trades chart
+	 */
+	@Test
+	public void apiManagerInvestmentProgramTradesChartGetTest() {
+		UUID investmentProgramId = null;
+		// TradesChartViewModel response = api.apiManagerInvestmentProgramTradesChartGet(investmentProgramId);
+
+		// TODO: test validations
+	}
+
+	/**
 	 * Get manager trade history
 	 */
 	@Test
@@ -245,25 +379,37 @@ public class ManagerApiTest
 	}
 
 	/**
-	 * Cancel investment request
+	 * Update investment program details
 	 */
 	@Test
-	public void apiManagerInvestmentProgramsCancelInvestmentRequestPostTest() {
-		UUID requestId = null;
+	public void apiManagerInvestmentProgramUpdatePostTest() {
 		String authorization = null;
-		// Void response = api.apiManagerInvestmentProgramsCancelInvestmentRequestPost(requestId, authorization);
+		InvestmentProgramUpdate model = null;
+		// Void response = api.apiManagerInvestmentProgramUpdatePost(authorization, model);
 
 		// TODO: test validations
 	}
 
 	/**
-	 * Invest in manager
+	 * Add to favorites
 	 */
 	@Test
-	public void apiManagerInvestmentProgramsInvestPostTest() {
+	public void apiManagerInvestmentProgramsFavoritesAddPostTest() {
+		UUID investmentProgramId = null;
 		String authorization = null;
-		Invest model = null;
-		// WalletsViewModel response = api.apiManagerInvestmentProgramsInvestPost(authorization, model);
+		// Void response = api.apiManagerInvestmentProgramsFavoritesAddPost(investmentProgramId, authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Remove from favorites
+	 */
+	@Test
+	public void apiManagerInvestmentProgramsFavoritesRemovePostTest() {
+		UUID investmentProgramId = null;
+		String authorization = null;
+		// Void response = api.apiManagerInvestmentProgramsFavoritesRemovePost(investmentProgramId, authorization);
 
 		// TODO: test validations
 	}
@@ -281,18 +427,6 @@ public class ManagerApiTest
 	}
 
 	/**
-	 * Withdraw from investment program
-	 */
-	@Test
-	public void apiManagerInvestmentProgramsWithdrawPostTest() {
-		String authorization = null;
-		Invest model = null;
-		// Void response = api.apiManagerInvestmentProgramsWithdrawPost(authorization, model);
-
-		// TODO: test validations
-	}
-
-	/**
 	 * Manager withdrawal from his own investment program
 	 */
 	@Test
@@ -300,6 +434,16 @@ public class ManagerApiTest
 		String authorization = null;
 		Invest model = null;
 		// Void response = api.apiManagerInvestmentWithdrawPost(authorization, model);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Platform status
+	 */
+	@Test
+	public void apiManagerPlatformStatusGetTest() {
+		// PlatformStatus response = api.apiManagerPlatformStatusGet();
 
 		// TODO: test validations
 	}

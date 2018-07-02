@@ -17,15 +17,12 @@
     <string name="wallet">Wallet</string>
     <string name="profile">Profile</string>
 
-    <string name="login">Log in</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm password</string>
     <string name="sign_in">Sign In</string>
-    <string name="registration">Registration</string>
     <string name="dont_have_account">Don\'t have an account?</string>
     <string name="already_have_account">Already have an account?</string>
-    <string name="create_new_account">Create new account</string>
     <string name="sign_up">Sign Up</string>
     <string name="email_verification_text">We sent a verification link to the email you specified.\n\nPlease follow this link to complete the registration.</string>
 
@@ -40,9 +37,7 @@
     <string name="level">Level</string>
     <string name="average_profit">Average profit (%)</string>
     <string name="active_programs_only">Active programs only</string>
-    <string name="favorite_programs_only">Favorite programs only</string>
     <string name="apply">Apply</string>
-    <string name="clear_filters">Clear filters</string>
 
     <string name="deposit">Deposit</string>
     <string name="withdraw">Withdraw</string>
@@ -54,7 +49,6 @@
         <item>External Transactions</item>
     </string-array>
 
-    <string name="transactions">Transactions</string>
     <string name="whoops">Whoops</string>
     <string name="you_dont_have_transactions">you don\'t have any transactions</string>
 
@@ -159,15 +153,10 @@
     <string name="no_chart">no chart</string>
 
     <string name="enter_withdrawal_amount">Enter withdrawal amount</string>
-    <string name="or">or</string>
     <string name="withdraw_from_program">Withdraw from program</string>
     <string name="invest_to_program">Invest to program</string>
 
     <string name="no_available_tokens_to_purchase">There are currently no tokens available. Please check this program later - someone can withdraw their funds from this program.</string>
-
-    <string name="all">All</string>
-    <string name="internal">Internal</string>
-    <string name="external">External</string>
 
     <string name="active">Active</string>
     <string name="archived">Archived</string>
@@ -208,7 +197,6 @@
     <string name="my_balance">My balance</string>
     <string name="enter_investment_amount">Enter investment amount</string>
     <string name="total_portfolio_value">Total portfolio value</string>
-    <string name="programs_to_invest_in">Programs to invest in</string>
 
     <string name="message_program_withdraw_success">At the end of the current trading period the tokens will be returned to the manager, and your funds will be returned to you.</string>
     <string name="message_program_invest_success">You have been successfully invested %s GVT in the investment program. Your tokens will be working for you only since the next reporting period.\n\nIn case you decide to cancel the investment before the start of the next reporting period, you will have to pay a commission, and you will get your GVT at the actual GVT exchange rate.</string>
@@ -233,10 +221,8 @@
     <string name="feedback_web_address">https://feedback.genesis.vision</string>
     <string name="feedback_email_address">support@genesis.vision</string>
     <string name="feedback_dialog_title">You can send us your feedback in the following ways:</string>
-    <string name="tokens_availability">Tokens availability</string>
 
     <string name="details">Details</string>
-    <string name="description">Description</string>
 
     <string name="zoom_five_min">5MIN</string>
     <string name="zoom_one_hour">1H</string>
@@ -247,8 +233,6 @@
     <string name="zoom_six_months">6M</string>
     <string name="zoom_all">ALL</string>
     <string name="zoom_one_year">1Y</string>
-    <string name="five_minutes">5 MINUTES</string>
-    <string name="one_hour">1 HOUR</string>
     <string name="one_day">1 DAY</string>
     <string name="one_week">1 WEEK</string>
     <string name="one_month">1 MONTH</string>
@@ -321,7 +305,6 @@
 
     <string name="enable_two_factor_rationale">To protect your funds, we strongly recommend you to enable the two factor authentication.\n\nYou can do it at any time from the Profile screen.</string>
     <string name="enable">Enable</string>
-    <string name="enable_two_factor">Enable two factor authentication</string>
     <string name="disable_two_factor">Disable two factor authentication</string>
     <string name="this_is_your_tfa_key">This is your Google 2FA Key. Please save it in a safe place. This key allows you to recover your two factor authentication in case of phone loss.</string>
     <string name="next">Next</string>
@@ -366,7 +349,6 @@
     <string name="repeat_pin_code">Repeat PIN code</string>
     <string name="error_set_pin">An error occurred while setting the PIN code. Please try again later</string>
     <string name="error_pin_too_many_attempts">Too many attempts.\nPlease try again later</string>
-    <string name="verify_your_fingerprint">Verify your fingerprint</string>
     <string name="error_fingerprint_changed">The lock screen has been disabled or a fingerprint has been added/removed.\nUse the PIN code instead</string>
     <string name="touch_the_sensor_to_enable">Touch the sensor to enable fingerprint authentication</string>
     <string name="touch_the_sensor_to_disable">Touch the sensor to disable fingerprint authentication</string>

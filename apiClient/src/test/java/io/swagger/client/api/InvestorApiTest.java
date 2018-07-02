@@ -12,10 +12,13 @@ import io.swagger.client.model.Invest;
 import io.swagger.client.model.InvestmentProgramRequestsFilter;
 import io.swagger.client.model.InvestmentProgramsFilter;
 import io.swagger.client.model.LoginViewModel;
+import io.swagger.client.model.PasswordModel;
 import io.swagger.client.model.RegisterInvestorViewModel;
 import io.swagger.client.model.ResetPasswordViewModel;
 import io.swagger.client.model.TradesFilter;
 import io.swagger.client.model.TransactionsFilter;
+import io.swagger.client.model.TwoFactorAuthenticatorConfirm;
+import io.swagger.client.model.TwoFactorCodeModel;
 import io.swagger.client.model.UpdateProfileViewModel;
 import io.swagger.client.model.WalletStatisticFilter;
 import io.swagger.client.model.WalletWithdrawRequestModel;
@@ -34,6 +37,88 @@ public class InvestorApiTest
 	}
 
 	/**
+	 * 2FA confirm
+	 */
+	@Test
+	public void apiInvestorAuth2faConfirmPostTest() {
+		String authorization = null;
+		TwoFactorAuthenticatorConfirm model = null;
+		// RecoveryCodesViewModel response = api.apiInvestorAuth2faConfirmPost(authorization, model);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * 2FA create
+	 */
+	@Test
+	public void apiInvestorAuth2faCreatePostTest() {
+		String authorization = null;
+		// TwoFactorAuthenticator response = api.apiInvestorAuth2faCreatePost(authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * 2FA disable
+	 */
+	@Test
+	public void apiInvestorAuth2faDisablePostTest() {
+		String authorization = null;
+		TwoFactorCodeModel model = null;
+		// Void response = api.apiInvestorAuth2faDisablePost(authorization, model);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * 2FA status
+	 */
+	@Test
+	public void apiInvestorAuth2faGetTest() {
+		String authorization = null;
+		// TwoFactorStatus response = api.apiInvestorAuth2faGet(authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * 2FA generate new recovery codes
+	 */
+	@Test
+	public void apiInvestorAuth2faRecoveryCodesNewPostTest() {
+		String authorization = null;
+		PasswordModel model = null;
+		// RecoveryCodesViewModel response = api.apiInvestorAuth2faRecoveryCodesNewPost(authorization, model);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * 2FA recovery codes
+	 */
+	@Test
+	public void apiInvestorAuth2faRecoveryCodesPostTest() {
+		String authorization = null;
+		PasswordModel model = null;
+		// RecoveryCodesViewModel response = api.apiInvestorAuth2faRecoveryCodesPost(authorization, model);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Change password
+	 */
+	@Test
+	public void apiInvestorAuthChangePasswordPostTest() {
+		String authorization = null;
+		ChangePasswordViewModel model = null;
+		// Void response = api.apiInvestorAuthChangePasswordPost(authorization, model);
+
+		// TODO: test validations
+	}
+
+	/**
 	 * Confirm email after registration
 	 */
 	@Test
@@ -46,7 +131,7 @@ public class InvestorApiTest
 	}
 
 	/**
-	 * Forgot password
+	 * Forgot password investor
 	 */
 	@Test
 	public void apiInvestorAuthForgotPasswordPostTest() {
@@ -101,25 +186,14 @@ public class InvestorApiTest
 	}
 
 	/**
-	 * Change password
-	 */
-	@Test
-	public void apiInvestorAuthhangePasswordPostTest() {
-		String authorization = null;
-		ChangePasswordViewModel model = null;
-		// Void response = api.apiInvestorAuthhangePasswordPost(authorization, model);
-
-		// TODO: test validations
-	}
-
-	/**
 	 * Get investor dashboard
 	 */
 	@Test
 	public void apiInvestorDashboardGetTest() {
 		String authorization = null;
 		String sorting = null;
-		// InvestorDashboard response = api.apiInvestorDashboardGet(authorization, sorting);
+		Integer equityChartLength = null;
+		// InvestorDashboard response = api.apiInvestorDashboardGet(authorization, sorting, equityChartLength);
 
 		// TODO: test validations
 	}
@@ -132,6 +206,18 @@ public class InvestorApiTest
 		UUID investmentProgramId = null;
 		String authorization = null;
 		// InvestmentProgramBuyToken response = api.apiInvestorInvestmentProgramBuyTokensGet(investmentProgramId, authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Get manager equity chart
+	 */
+	@Test
+	public void apiInvestorInvestmentProgramEquityChartGetTest() {
+		UUID investmentProgramId = null;
+		String timeFrame = null;
+		// TradesChartViewModel response = api.apiInvestorInvestmentProgramEquityChartGet(investmentProgramId, timeFrame);
 
 		// TODO: test validations
 	}
@@ -173,6 +259,17 @@ public class InvestorApiTest
 	}
 
 	/**
+	 * Get manager trades chart
+	 */
+	@Test
+	public void apiInvestorInvestmentProgramTradesChartGetTest() {
+		UUID investmentProgramId = null;
+		// TradesChartViewModel response = api.apiInvestorInvestmentProgramTradesChartGet(investmentProgramId);
+
+		// TODO: test validations
+	}
+
+	/**
 	 * Get manager trade history
 	 */
 	@Test
@@ -191,6 +288,30 @@ public class InvestorApiTest
 		UUID requestId = null;
 		String authorization = null;
 		// Void response = api.apiInvestorInvestmentProgramsCancelInvestmentRequestPost(requestId, authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Add to favorites
+	 */
+	@Test
+	public void apiInvestorInvestmentProgramsFavoritesAddPostTest() {
+		UUID investmentProgramId = null;
+		String authorization = null;
+		// Void response = api.apiInvestorInvestmentProgramsFavoritesAddPost(investmentProgramId, authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Remove from favorites
+	 */
+	@Test
+	public void apiInvestorInvestmentProgramsFavoritesRemovePostTest() {
+		UUID investmentProgramId = null;
+		String authorization = null;
+		// Void response = api.apiInvestorInvestmentProgramsFavoritesRemovePost(investmentProgramId, authorization);
 
 		// TODO: test validations
 	}
@@ -227,6 +348,16 @@ public class InvestorApiTest
 		String authorization = null;
 		Invest model = null;
 		// Void response = api.apiInvestorInvestmentProgramsWithdrawPost(authorization, model);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Platform status
+	 */
+	@Test
+	public void apiInvestorPlatformStatusGetTest() {
+		// PlatformStatus response = api.apiInvestorPlatformStatusGet();
 
 		// TODO: test validations
 	}

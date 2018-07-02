@@ -10,7 +10,6 @@ import io.swagger.client.api.FilesApi;
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
 import io.swagger.client.api.RateApi;
-import io.swagger.client.api.TournamentApi;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -77,11 +76,5 @@ public class ApiModule
 	@Singleton
 	public RateApi provideRateApi(ApiClient apiClient) {
 		return apiClient.createService(RateApi.class);
-	}
-
-	@Provides
-	@Singleton
-	public TournamentApi provideTournamentApi(ApiClient apiClient) {
-		return apiClient.setAdapterBuilder(apiClient.getAdapterBuilder().baseUrl(BuildConfig.TOURNAMENT_API_ADDRESS)).createService(TournamentApi.class);
 	}
 }

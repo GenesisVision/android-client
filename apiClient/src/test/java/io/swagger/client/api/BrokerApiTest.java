@@ -3,17 +3,18 @@ package io.swagger.client.api;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.ApiClient;
 import io.swagger.client.model.ChangePasswordViewModel;
 import io.swagger.client.model.InvestmentProgramAccrual;
 import io.swagger.client.model.LoginViewModel;
+import io.swagger.client.model.ManagerAccountOnlineInfo;
 import io.swagger.client.model.ManagerHistoryIpfsHash;
 import io.swagger.client.model.NewManager;
 import io.swagger.client.model.NewOpenTradesEvent;
 import io.swagger.client.model.NewTradeEvent;
-import io.swagger.client.model.ResetPasswordViewModel;
 import io.swagger.client.model.StartValues;
 
 /**
@@ -42,6 +43,18 @@ public class BrokerApiTest
 	}
 
 	/**
+	 * Change password
+	 */
+	@Test
+	public void apiBrokerAuthChangePasswordPostTest() {
+		String authorization = null;
+		ChangePasswordViewModel model = null;
+		// Void response = api.apiBrokerAuthChangePasswordPost(authorization, model);
+
+		// TODO: test validations
+	}
+
+	/**
 	 * Confirm email after registration
 	 */
 	@Test
@@ -49,17 +62,6 @@ public class BrokerApiTest
 		String userId = null;
 		String code = null;
 		// String response = api.apiBrokerAuthConfirmEmailPost(userId, code);
-
-		// TODO: test validations
-	}
-
-	/**
-	 * Reset password
-	 */
-	@Test
-	public void apiBrokerAuthResetPasswordPostTest() {
-		ResetPasswordViewModel model = null;
-		// String response = api.apiBrokerAuthResetPasswordPost(model);
 
 		// TODO: test validations
 	}
@@ -87,18 +89,6 @@ public class BrokerApiTest
 	}
 
 	/**
-	 * Change password
-	 */
-	@Test
-	public void apiBrokerAuthhangePasswordPostTest() {
-		String authorization = null;
-		ChangePasswordViewModel model = null;
-		// Void response = api.apiBrokerAuthhangePasswordPost(authorization, model);
-
-		// TODO: test validations
-	}
-
-	/**
 	 * Get broker initial data
 	 */
 	@Test
@@ -106,6 +96,18 @@ public class BrokerApiTest
 		UUID brokerTradeServerId = null;
 		String authorization = null;
 		// BrokerInitData response = api.apiBrokerInitDataGet(brokerTradeServerId, authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Upload accounts online info
+	 */
+	@Test
+	public void apiBrokerManagersAccountsOnlineInfoUpdatePostTest() {
+		String authorization = null;
+		List<ManagerAccountOnlineInfo> accounts = null;
+		// Void response = api.apiBrokerManagersAccountsOnlineInfoUpdatePost(authorization, accounts);
 
 		// TODO: test validations
 	}
@@ -181,6 +183,18 @@ public class BrokerApiTest
 		String authorization = null;
 		StartValues model = null;
 		// Void response = api.apiBrokerPeriodSetStartValuesPost(authorization, model);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Terminate program
+	 */
+	@Test
+	public void apiBrokerPeriodTerminatePostTest() {
+		UUID investmentProgramId = null;
+		String authorization = null;
+		// Void response = api.apiBrokerPeriodTerminatePost(investmentProgramId, authorization);
 
 		// TODO: test validations
 	}

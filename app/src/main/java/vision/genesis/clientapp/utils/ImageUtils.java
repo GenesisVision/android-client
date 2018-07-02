@@ -41,10 +41,7 @@ public class ImageUtils
 	public static final int AVATAR_WIDTH = 500;
 
 	public static String getImageUri(String imageId) {
-		String baseUrl = BuildConfig.FLAVOR.equals("tournament")
-				? BuildConfig.TOURNAMENT_API_ADDRESS
-				: BuildConfig.API_ADDRESS;
-		return (baseUrl + "/api/files/" + imageId);
+		return (BuildConfig.API_ADDRESS + "/api/files/" + imageId);
 	}
 
 	public static boolean saveImageToFile(Context context, Bitmap image, String imageUri) {

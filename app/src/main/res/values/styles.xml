@@ -24,38 +24,12 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
-    <style name="item_investment_program_footer_divider">
-        <item name="android:layout_width">1dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_marginBottom">4dp</item>
-        <item name="android:layout_marginTop">4dp</item>
-        <item name="android:alpha">0.5</item>
-        <item name="android:background">@color/colorFontLight</item>
-    </style>
-
-    <style name="item_investment_program_footer_text">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">35dp</item>
-        <item name="android:layout_gravity">center_horizontal</item>
-        <item name="android:gravity">bottom</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="android:textSize">26sp</item>
-    </style>
-
     <style name="item_investment_program_footer_title">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/black38</item>
         <item name="android:textSize">7sp</item>
-    </style>
-
-    <style name="item_investment_program_footer_group">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:orientation">vertical</item>
     </style>
 
     <style name="item_investment_program_currency">
@@ -68,44 +42,6 @@
         <item name="android:paddingTop">4dp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">12sp</item>
-    </style>
-
-    <style name="filters_item_label">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:textColor">@color/colorFontMedium</item>
-        <item name="android:textSize">16sp</item>
-    </style>
-
-    <style name="filters_item_value">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/filters_item_height</item>
-    </style>
-
-    <style name="filters_range_bar">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">70dp</item>
-        <item name="mrb_barWeight">6dp</item>
-        <item name="mrb_connectingLineColor">@color/colorPrimary</item>
-        <item name="mrb_connectingLineWeight">6dp</item>
-        <item name="mrb_pinColor">@color/colorPrimary</item>
-        <item name="mrb_pinMaxFont">14sp</item>
-        <item name="mrb_pinPadding">6dp</item>
-        <item name="mrb_rangeBarColor">@color/grey300</item>
-        <item name="mrb_selectorColor">@color/colorPrimary</item>
-        <item name="mrb_selectorSize">6dp</item>
-        <item name="mrb_temporaryPins">false</item>
-        <item name="mrb_tickColor">@color/colorPrimary</item>
-    </style>
-
-    <style name="profile_item_label">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">12dp</item>
-        <item name="android:textColor">@color/colorFontMedium</item>
         <item name="android:textSize">12sp</item>
     </style>
 
@@ -170,13 +106,6 @@
         <item name="android:layout_marginRight">16dp</item>
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:layout_marginTop">16dp</item>
-        <item name="android:background">@drawable/divider_dot_horizontal</item>
-        <item name="android:layerType">software</item>
-    </style>
-
-    <style name="program_description_delimiter">
-        <item name="android:layout_width">250dp</item>
-        <item name="android:layout_height">2dp</item>
         <item name="android:background">@drawable/divider_dot_horizontal</item>
         <item name="android:layerType">software</item>
     </style>

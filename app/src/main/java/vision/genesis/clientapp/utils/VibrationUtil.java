@@ -9,13 +9,6 @@ import android.os.Vibrator;
  */
 public class VibrationUtil
 {
-	public static void vibrateOnce(Context context, int millis) {
-		Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-		if (vibrator != null && vibrator.hasVibrator()) {
-			vibrator.vibrate(millis);
-		}
-	}
-
 	public static void vibrateRightPin(Context context) {
 		vibrateOnce(context, 100);
 	}
@@ -28,11 +21,10 @@ public class VibrationUtil
 		vibrateOnce(context, 700);
 	}
 
-//	public static void vibrateResetPin(Context context) {
-//		Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-//		if (vibrator != null && vibrator.hasVibrator()) {
-//			long[] mVibratePattern = new long[]{0, 100, 50, 100};
-//			vibrator.vibrate(mVibratePattern, -1);
-//		}
-//	}
+	private static void vibrateOnce(Context context, int millis) {
+		Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+		if (vibrator != null && vibrator.hasVibrator()) {
+			vibrator.vibrate(millis);
+		}
+	}
 }
