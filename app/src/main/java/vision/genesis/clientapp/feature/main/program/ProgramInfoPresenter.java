@@ -20,7 +20,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
-import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
@@ -42,7 +42,7 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	public AuthManager authManager;
 
 	@Inject
-	public InvestManager investManager;
+	public ProgramsManager programsManager;
 
 	private Subscription userSubscription;
 
@@ -98,8 +98,8 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	}
 
 	private void getProgramDetails() {
-		if (programId != null && investManager != null)
-			programDetailsSubscription = investManager.getInvestmentProgramDetails(programId)
+		if (programId != null && programsManager != null)
+			programDetailsSubscription = programsManager.getInvestmentProgramDetails(programId)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleInvestmentProgramDetailsSuccess,
@@ -132,7 +132,7 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	}
 
 	private void setProgramFavorite(boolean isFavorite) {
-		setProgramFavoriteSubscription = investManager.setProgramFavorite(programId, isFavorite)
+		setProgramFavoriteSubscription = programsManager.setProgramFavorite(programId, isFavorite)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(response -> handleSetProgramFavoriteSuccess(response, programId, isFavorite),

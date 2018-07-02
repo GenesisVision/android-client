@@ -23,7 +23,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.managers.InvestorDashboardManager;
 import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
 import vision.genesis.clientapp.model.events.OnDashboardProgramsUpdateEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -43,7 +43,7 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 	public Context context;
 
 	@Inject
-	public InvestManager investManager;
+	public InvestorDashboardManager dashboardManager;
 
 	private Subscription getInvestmentsSubscription;
 
@@ -76,7 +76,7 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 
 	private void getInvestments() {
 		getViewState().showProgressBar(true);
-		getInvestmentsSubscription = investManager.getInvestments(InvestmentProgramsFilter.SortingEnum.BYPROFITDESC.toString())
+		getInvestmentsSubscription = dashboardManager.getInvestments(InvestmentProgramsFilter.SortingEnum.BYPROFITDESC.toString())
 				.subscribeOn(Schedulers.computation())
 				.map(this::prepareData)
 				.observeOn(AndroidSchedulers.mainThread())

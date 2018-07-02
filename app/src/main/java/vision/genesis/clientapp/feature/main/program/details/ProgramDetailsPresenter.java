@@ -16,7 +16,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
-import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.User;
 
 /**
@@ -34,7 +34,7 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	public AuthManager authManager;
 
 	@Inject
-	public InvestManager investManager;
+	public ProgramsManager programsManager;
 
 	private Subscription userSubscription;
 
@@ -95,10 +95,10 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	}
 
 	private void getProgramDetails() {
-		if (programId != null && investManager != null) {
+		if (programId != null && programsManager != null) {
 			if (programDetailsSubscription != null)
 				programDetailsSubscription.unsubscribe();
-			programDetailsSubscription = investManager.getInvestmentProgramDetails(programId)
+			programDetailsSubscription = programsManager.getInvestmentProgramDetails(programId)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleInvestmentProgramDetailsSuccess,
@@ -121,10 +121,10 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	}
 
 	private void getChartData() {
-		if (programId != null && investManager != null) {
+		if (programId != null && programsManager != null) {
 			if (chartDataSubscription != null)
 				chartDataSubscription.unsubscribe();
-			chartDataSubscription = investManager.getEquityChart(programId, chartTimeFrame)
+			chartDataSubscription = programsManager.getEquityChart(programId, chartTimeFrame)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetChartDataSuccess,

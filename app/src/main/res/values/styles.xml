@@ -12,7 +12,7 @@
     </style>
 
     <style name="SplashTheme" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/background_splash</item>
+        <item name="android:windowBackground">@string/drawable_background_splash</item>
     </style>
 
     <style name="SwipeBackActivityTheme" parent="AppTheme">

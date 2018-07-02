@@ -13,8 +13,8 @@
     </style>
 
     <style name="SplashTheme" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/background_splash</item>
-        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:windowBackground">@string/drawable_background_splash</item>
+        <item name="android:statusBarColor">@string/statusbar_color</item>
     </style>
 
 </resources>

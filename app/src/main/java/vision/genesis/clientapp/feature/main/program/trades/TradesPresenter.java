@@ -18,7 +18,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -35,7 +35,7 @@ public class TradesPresenter extends MvpPresenter<TradesView>
 	public Context context;
 
 	@Inject
-	public InvestManager investManager;
+	public ProgramsManager programsManager;
 
 	private Subscription tradesSubscription;
 
@@ -70,7 +70,7 @@ public class TradesPresenter extends MvpPresenter<TradesView>
 	void setProgramId(UUID programId) {
 		this.programId = programId;
 		filter.setInvestmentProgramId(programId);
-		if (investManager != null)
+		if (programsManager != null)
 			getTrades(true);
 	}
 
@@ -91,7 +91,7 @@ public class TradesPresenter extends MvpPresenter<TradesView>
 
 		if (tradesSubscription != null)
 			tradesSubscription.unsubscribe();
-		tradesSubscription = investManager.getProgramTrades(filter)
+		tradesSubscription = programsManager.getProgramTrades(filter)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleGetTradesResponse,

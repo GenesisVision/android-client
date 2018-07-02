@@ -5,8 +5,8 @@ import javax.inject.Singleton;
 import dagger.Component;
 import vision.genesis.clientapp.di.modules.ApiModule;
 import vision.genesis.clientapp.di.modules.AppModule;
+import vision.genesis.clientapp.di.modules.AssetsModule;
 import vision.genesis.clientapp.di.modules.AuthModule;
-import vision.genesis.clientapp.di.modules.InvestModule;
 import vision.genesis.clientapp.di.modules.SettingsModule;
 import vision.genesis.clientapp.di.modules.UtilsModule;
 import vision.genesis.clientapp.feature.auth.forgot_password.ForgotPasswordPresenter;
@@ -51,7 +51,7 @@ import vision.genesis.clientapp.utils.AppLifecycleTracker;
  * Created by Vitaly on 1/18/18.
  */
 
-@Component(modules = {ApiModule.class, AppModule.class, AuthModule.class, InvestModule.class, SettingsModule.class, UtilsModule.class})
+@Component(modules = {ApiModule.class, AppModule.class, AssetsModule.class, AuthModule.class, SettingsModule.class, UtilsModule.class})
 @Singleton
 public interface AppComponent
 {

@@ -22,7 +22,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
-import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.FilterSortingOption;
 import vision.genesis.clientapp.model.InvestmentProgramExtended;
 import vision.genesis.clientapp.model.User;
@@ -49,7 +49,7 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 	public AuthManager authManager;
 
 	@Inject
-	public InvestManager investManager;
+	public ProgramsManager programsManager;
 
 	private Subscription userSubscription;
 
@@ -159,7 +159,7 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 		InvestmentProgramsFilter filter = createFilter();
 		filter.setShowMyFavorites(true);
 
-		getProgramsSubscription = investManager.getProgramsList(filter)
+		getProgramsSubscription = programsManager.getProgramsList(filter)
 				.subscribeOn(Schedulers.computation())
 				.map(this::prepareData)
 				.observeOn(AndroidSchedulers.mainThread())

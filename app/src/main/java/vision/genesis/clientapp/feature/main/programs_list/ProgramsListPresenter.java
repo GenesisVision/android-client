@@ -21,7 +21,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView;
-import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.InvestmentProgramExtended;
 import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
@@ -43,7 +43,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 	public Context context;
 
 	@Inject
-	public InvestManager investManager;
+	public ProgramsManager programsManager;
 
 	private Subscription getProgramsSubscription;
 
@@ -116,7 +116,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 
 		if (getProgramsSubscription != null)
 			getProgramsSubscription.unsubscribe();
-		getProgramsSubscription = investManager.getProgramsList(filter)
+		getProgramsSubscription = programsManager.getProgramsList(filter)
 				.subscribeOn(Schedulers.computation())
 				.map(this::prepareData)
 				.observeOn(AndroidSchedulers.mainThread())

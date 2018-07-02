@@ -14,7 +14,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.api.Error;
 import vision.genesis.clientapp.model.api.ErrorResponse;
@@ -34,7 +34,7 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 	public Context context;
 
 	@Inject
-	public InvestManager investManager;
+	public ProgramsManager programsManager;
 
 	private ProgramRequest withdrawalRequest;
 
@@ -88,7 +88,7 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 
 	private void sendWithdrawRequest() {
 		getViewState().showProgress(true);
-		withdrawSubscription = investManager.withdraw(withdrawalRequest)
+		withdrawSubscription = programsManager.withdraw(withdrawalRequest)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleWithdrawSuccess,

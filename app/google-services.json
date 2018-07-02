@@ -8,50 +8,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1050047192021:android:c2e96e6cdc193e65",
-        "android_client_info": {
-          "package_name": "vision.genesis.clientapp.investor.dev"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1050047192021-l1jhrcrnvfjg0mmffjhs4oj6lnr4m8pg.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "vision.genesis.clientapp.investor.dev",
-            "certificate_hash": "e667f4d481be72277fcb108c212bd0a235539e09"
-          }
-        },
-        {
-          "client_id": "1050047192021-h92k1lv71jcqd825bjgbp5aqbcbscgqp.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAtUepgdx2m_fi6ppiBht85T9oXaZmMwh0"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1050047192021-h92k1lv71jcqd825bjgbp5aqbcbscgqp.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:1050047192021:android:2317b1aaf1acb983",
         "android_client_info": {
           "package_name": "vision.genesis.clientapp.investor"
@@ -86,8 +42,130 @@
             {
               "client_id": "1050047192021-h92k1lv71jcqd825bjgbp5aqbcbscgqp.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1050047192021-nc4404k6c0hhv5splhh3g28e5me0f071.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "vision.genesis.genesisvision-ios.investor",
+                "app_store_id": "1347764179"
+              }
             }
           ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050047192021:android:c2e96e6cdc193e65",
+        "android_client_info": {
+          "package_name": "vision.genesis.clientapp.investor.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1050047192021-l1jhrcrnvfjg0mmffjhs4oj6lnr4m8pg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vision.genesis.clientapp.investor.dev",
+            "certificate_hash": "e667f4d481be72277fcb108c212bd0a235539e09"
+          }
+        },
+        {
+          "client_id": "1050047192021-h92k1lv71jcqd825bjgbp5aqbcbscgqp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtUepgdx2m_fi6ppiBht85T9oXaZmMwh0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1050047192021-h92k1lv71jcqd825bjgbp5aqbcbscgqp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1050047192021-nc4404k6c0hhv5splhh3g28e5me0f071.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "vision.genesis.genesisvision-ios.investor",
+                "app_store_id": "1347764179"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050047192021:android:b04e83d41cadcb87",
+        "android_client_info": {
+          "package_name": "vision.genesis.clientapp.manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1050047192021-h92k1lv71jcqd825bjgbp5aqbcbscgqp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtUepgdx2m_fi6ppiBht85T9oXaZmMwh0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050047192021:android:13af79d5d10a7803",
+        "android_client_info": {
+          "package_name": "vision.genesis.clientapp.manager.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1050047192021-h92k1lv71jcqd825bjgbp5aqbcbscgqp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtUepgdx2m_fi6ppiBht85T9oXaZmMwh0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

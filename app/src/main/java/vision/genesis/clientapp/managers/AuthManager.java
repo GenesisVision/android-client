@@ -188,13 +188,7 @@ public class AuthManager
 				: managerApi.apiManagerAuth2faDisablePost(AuthManager.token.getValue(), model);
 	}
 
-	public Observable<Void> register(String email, String password, String confirmPassword) {
-		return BuildConfig.FLAVOR.equals("investor")
-				? registerInvestor(email, password, confirmPassword)
-				: registerManager(email, password, confirmPassword);
-	}
-
-	private Observable<Void> registerInvestor(String email, String password, String confirmPassword) {
+	public Observable<Void> registerInvestor(String email, String password, String confirmPassword) {
 		RegisterInvestorViewModel model = new RegisterInvestorViewModel();
 		model.setEmail(email);
 		model.setPassword(password);
@@ -202,8 +196,9 @@ public class AuthManager
 		return investorApi.apiInvestorAuthSignUpPost(model);
 	}
 
-	private Observable<Void> registerManager(String email, String password, String confirmPassword) {
+	public Observable<Void> registerManager(String userName, String email, String password, String confirmPassword) {
 		RegisterManagerViewModel model = new RegisterManagerViewModel();
+		model.setUserName(userName);
 		model.setEmail(email);
 		model.setPassword(password);
 		model.setConfirmPassword(confirmPassword);
@@ -213,7 +208,9 @@ public class AuthManager
 	public Observable<Void> sendForgotPassword(String email) {
 		ForgotPasswordViewModel model = new ForgotPasswordViewModel();
 		model.setEmail(email);
-		return investorApi.apiInvestorAuthForgotPasswordPost(model);
+		return BuildConfig.FLAVOR.equals("investor")
+				? investorApi.apiInvestorAuthForgotPasswordPost(model)
+				: managerApi.apiManagerAuthForgotPasswordPost(model);
 	}
 
 	public Observable<Void> sendChangePassword(String oldPassword, String newPassword, String confirmPassword) {
@@ -221,13 +218,9 @@ public class AuthManager
 		model.setOldPassword(oldPassword);
 		model.setPassword(newPassword);
 		model.setConfirmPassword(confirmPassword);
-		return investorApi.apiInvestorAuthChangePasswordPost(AuthManager.token.getValue(), model);
-	}
-
-	private Observable<String> getUpdateTokenObservable() {
 		return BuildConfig.FLAVOR.equals("investor")
-				? investorApi.apiInvestorAuthUpdateTokenGet(AuthManager.token.getValue())
-				: managerApi.apiManagerAuthUpdateTokenGet(AuthManager.token.getValue());
+				? investorApi.apiInvestorAuthChangePasswordPost(AuthManager.token.getValue(), model)
+				: managerApi.apiManagerAuthChangePasswordPost(AuthManager.token.getValue(), model);
 	}
 
 	private Observable<String> getLoginApiObservable(LoginViewModel model) {

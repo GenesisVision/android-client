@@ -19,7 +19,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.RateManager;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.ProgramRequest;
@@ -42,7 +42,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 	public Context context;
 
 	@Inject
-	public InvestManager investManager;
+	public ProgramsManager programsManager;
 
 	@Inject
 	public WalletManager walletManager;
@@ -111,9 +111,9 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 	}
 
 	private void getBuyTokensModel() {
-		if (investManager != null && investRequest != null) {
+		if (programsManager != null && investRequest != null) {
 			getViewState().showAvailableProgress(true);
-			buyTokensModelSubscription = investManager.getBuyTokensModel(investRequest.programId)
+			buyTokensModelSubscription = programsManager.getBuyTokensModel(investRequest.programId)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleBuyTokensModelResponse,
@@ -143,7 +143,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 
 	private void sendInvestRequest() {
 		getViewState().showProgress(true);
-		investSubscription = investManager.invest(investRequest)
+		investSubscription = programsManager.invest(investRequest)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleInvestSuccess,

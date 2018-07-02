@@ -12,7 +12,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.managers.ProgramsManager;
 
 /**
  * GenesisVisionAndroid
@@ -23,7 +23,7 @@ import vision.genesis.clientapp.managers.InvestManager;
 public class ProgramDescriptionPresenter extends MvpPresenter<ProgramDescriptionView>
 {
 	@Inject
-	public InvestManager investManager;
+	public ProgramsManager programsManager;
 
 	private Subscription programDetailsSubscription;
 
@@ -61,10 +61,10 @@ public class ProgramDescriptionPresenter extends MvpPresenter<ProgramDescription
 	}
 
 	private void getProgramDetails() {
-		if (programId != null && investManager != null) {
+		if (programId != null && programsManager != null) {
 			if (programDetailsSubscription != null)
 				programDetailsSubscription.unsubscribe();
-			programDetailsSubscription = investManager.getInvestmentProgramDetails(programId)
+			programDetailsSubscription = programsManager.getInvestmentProgramDetails(programId)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleInvestmentProgramDetailsSuccess,

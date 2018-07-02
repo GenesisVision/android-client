@@ -22,7 +22,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.events.OnCancelRequestClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -38,7 +38,7 @@ public class RequestsPresenter extends MvpPresenter<RequestsView>
 	public Context context;
 
 	@Inject
-	public InvestManager investManager;
+	public ProgramsManager programsManager;
 
 	private Subscription getRequestsSubscription;
 
@@ -89,7 +89,7 @@ public class RequestsPresenter extends MvpPresenter<RequestsView>
 		getViewState().setRefreshing(true);
 		InvestmentProgramRequestsFilter filter = new InvestmentProgramRequestsFilter();
 		filter.setInvestmentProgramId(programId);
-		getRequestsSubscription = investManager.getInvestmentProgramRequests(filter)
+		getRequestsSubscription = programsManager.getInvestmentProgramRequests(filter)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleGetRequestsSuccess,
@@ -127,7 +127,7 @@ public class RequestsPresenter extends MvpPresenter<RequestsView>
 	}
 
 	private void cancelRequest(UUID requestId) {
-		cancelRequestSubscription = investManager.cancelRequest(requestId)
+		cancelRequestSubscription = programsManager.cancelRequest(requestId)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleCancelRequestSuccess,

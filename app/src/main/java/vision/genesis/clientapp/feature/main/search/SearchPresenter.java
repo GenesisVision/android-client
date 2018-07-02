@@ -20,7 +20,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.InvestmentProgramExtended;
 import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -42,7 +42,7 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 	public Context context;
 
 	@Inject
-	public InvestManager investManager;
+	public ProgramsManager programsManager;
 
 	private Subscription getProgramsSubscription;
 
@@ -108,7 +108,7 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 		if (getProgramsSubscription != null)
 			getProgramsSubscription.unsubscribe();
 
-		getProgramsSubscription = investManager.getProgramsList(filter)
+		getProgramsSubscription = programsManager.getProgramsList(filter)
 				.subscribeOn(Schedulers.io())
 				.observeOn(Schedulers.computation())
 				.map(this::prepareData)

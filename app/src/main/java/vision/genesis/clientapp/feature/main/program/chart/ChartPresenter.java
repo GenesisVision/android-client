@@ -21,7 +21,7 @@ import io.swagger.client.model.TradesChartViewModel;
 import rx.Subscription;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.managers.InvestManager;
+import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.ChartZoomEnum;
 
 /**
@@ -33,7 +33,7 @@ import vision.genesis.clientapp.model.ChartZoomEnum;
 public class ChartPresenter extends MvpPresenter<ChartView>
 {
 	@Inject
-	public InvestManager investManager;
+	public ProgramsManager programsManager;
 
 	private UUID programId;
 
@@ -80,7 +80,7 @@ public class ChartPresenter extends MvpPresenter<ChartView>
 	}
 
 	private void getChartData() {
-		if (investManager == null || programId == null)
+		if (programsManager == null || programId == null)
 			return;
 		getViewState().showProgress(true);
 //		getChartSubscription = investManager.getEquityChart(programId)//currentZoom

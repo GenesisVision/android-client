@@ -64,12 +64,20 @@ android {
             dimension "appType"
 
             resValue "string", "app_name", "Genesis Vision Investor"
+            resValue "string", "icon", "@mipmap/icon_investor"
+            resValue "string", "icon_round", "@mipmap/icon_investor_round"
+            resValue "string", "drawable_background_splash", "@drawable/background_splash"
+            resValue "string", "statusbar_color", "@color/colorPrimary"
             applicationIdSuffix '.investor'
         }
         manager {
             dimension "appType"
 
             resValue "string", "app_name", "Genesis Vision Manager"
+            resValue "string", "icon", "@mipmap/icon_manager"
+            resValue "string", "icon_round", "@mipmap/icon_manager_round"
+            resValue "string", "drawable_background_splash", "@drawable/background_splash_dark"
+            resValue "string", "statusbar_color", "@color/colorPrimaryDark"
             applicationIdSuffix '.manager'
         }
     }

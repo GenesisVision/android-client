@@ -9,6 +9,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
+import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.model.SettingsModel;
 import vision.genesis.clientapp.utils.SharedPreferencesUtil;
 import vision.genesis.clientapp.utils.hash.HashGenerationException;
@@ -102,13 +103,19 @@ public class SettingsManager
 	public Observable<PlatformStatus> getPlatformStatus() {
 		if (platformStatusBehaviorSubject == null) {
 			platformStatusBehaviorSubject = BehaviorSubject.create();
-			getPlatformStatusSubscription = investorApi.apiInvestorPlatformStatusGet()
+			getPlatformStatusSubscription = platformStatus()
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetPlatformStatusSuccess,
 							this::handleGetPlatformStatusError);
 		}
 		return platformStatusBehaviorSubject;
+	}
+
+	private Observable<PlatformStatus> platformStatus() {
+		return BuildConfig.FLAVOR.equals("investor")
+				? investorApi.apiInvestorPlatformStatusGet()
+				: managerApi.apiManagerPlatformStatusGet();
 	}
 
 	private void handleGetPlatformStatusSuccess(PlatformStatus response) {

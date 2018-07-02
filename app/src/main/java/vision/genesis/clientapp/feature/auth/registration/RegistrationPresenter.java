@@ -59,7 +59,7 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 	void onSignUpClicked(String email, String password, String confirmPassword) {
 		getViewState().clearErrors();
 		getViewState().showProgress();
-		registrationSubscription = authManager.register(email, password, confirmPassword)
+		registrationSubscription = authManager.registerInvestor(email, password, confirmPassword)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::onRegisterResponse,
