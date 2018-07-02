@@ -7,7 +7,7 @@
     android:layout_below="@+id/numberLayout"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:background="@color/colorPrimary">
+    tools:background="@color/colorAccent">
 
     <LinearLayout
         android:layout_width="match_parent"

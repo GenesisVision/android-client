@@ -67,7 +67,7 @@
                                 android:layout_gravity="center"
                                 android:lines="1"
                                 android:textAlignment="center"
-                                android:textColor="@color/colorPrimaryDark"
+                                android:textColor="@color/colorMedium"
                                 android:textSize="56sp"
                                 app:autoSizeMaxTextSize="56sp"
                                 app:autoSizeMinTextSize="32sp"
@@ -86,7 +86,7 @@
                             android:lines="1"
                             android:text="@string/total_portfolio_value"
                             android:textAllCaps="true"
-                            android:textColor="@color/colorPrimaryDark"
+                            android:textColor="@color/colorMedium"
                             android:textSize="16sp"/>
 
                         <ImageView
@@ -132,9 +132,9 @@
                     android:minHeight="?attr/actionBarSize"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                     app:tabGravity="fill"
-                    app:tabIndicatorColor="@color/colorPrimaryLight"
+                    app:tabIndicatorColor="@color/colorAccentLight"
                     app:tabMode="fixed"
-                    app:tabSelectedTextColor="@color/colorPrimary"
+                    app:tabSelectedTextColor="@color/colorAccent"
                     app:tabTextColor="@color/colorFontMedium"/>
 
             </RelativeLayout>

@@ -97,7 +97,7 @@ public class ProfitSmallChartView extends com.github.mikephil.charting.charts.Li
 		this.setDrawBorders(false);
 		this.setAutoScaleMinMaxEnabled(true);
 		this.setNoDataText(GenesisVisionApplication.INSTANCE.getResources().getString(R.string.no_chart));
-		this.setNoDataTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimaryDark));
+		this.setNoDataTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorMedium));
 		this.setViewPortOffsets(0f, 0f, 0f, 0f);
 
 		YAxis yAxis = this.getAxisLeft();

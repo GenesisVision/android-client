@@ -86,7 +86,7 @@ public class CheckTfaActivity extends BaseSwipeBackActivity implements CheckTfaV
 	public void onRecoveryCodeCheckedChanged(CompoundButton button, boolean checked) {
 		checkTfaPresenter.setUseRecoveryCode(checked);
 		button.setTextColor(checked
-				? ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimaryDark)
+				? ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorMedium)
 				: ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.grey300));
 	}
 

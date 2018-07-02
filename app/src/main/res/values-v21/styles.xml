@@ -5,8 +5,8 @@
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/white</item>
         <item name="android:typeface">serif</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorMedium</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/grey300</item>
         <!--<item name="android:statusBarColor">@color/white</item>-->

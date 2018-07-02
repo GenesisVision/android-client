@@ -178,7 +178,7 @@ public class ChartTimeFrameSelectorView extends RelativeLayout
 	}
 
 	private void selectZoomButton(TextView zoomButton, View underline) {
-		zoomButton.setTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimary));
+		zoomButton.setTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent));
 		underline.setVisibility(View.VISIBLE);
 	}
 

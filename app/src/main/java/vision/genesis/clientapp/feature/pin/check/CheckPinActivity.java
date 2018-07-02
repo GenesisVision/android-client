@@ -100,7 +100,7 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 
 		ButterKnife.bind(this);
 
-		StatusBarUtil.setColor(this, R.color.colorPrimary);
+		StatusBarUtil.setColor(this, R.color.colorAccent);
 
 		if (getIntent().getExtras() != null) {
 			canClose = getIntent().getExtras().getBoolean(EXTRA_CAN_CLOSE);
@@ -251,7 +251,7 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 
 	@Override
 	public void disableFingerprint(String message) {
-		fingerprintImage.setColorFilter(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimary));
+		fingerprintImage.setColorFilter(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent));
 		errorMessageText.setText(message);
 	}
 }

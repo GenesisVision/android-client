@@ -182,7 +182,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 					: GenesisVisionApplication.INSTANCE.getString(R.string.no_available));
 			freeTokensText.setTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE,
 					investmentProgram.isHasFreeTokens()
-							? R.color.colorPrimaryDark
+							? R.color.colorMedium
 							: R.color.transactionRed));
 		}
 	}

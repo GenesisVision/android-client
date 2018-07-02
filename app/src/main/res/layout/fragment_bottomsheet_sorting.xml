@@ -41,7 +41,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:gravity="center"
                     android:text="@string/sorting_asc"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorAccent"
                     android:textSize="14sp"/>
 
             </RelativeLayout>

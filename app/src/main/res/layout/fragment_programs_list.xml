@@ -38,7 +38,7 @@
             android:gravity="center"
             android:lineSpacingMultiplier="1.2"
             android:text="@string/cannot_find_programs"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorMedium"
             android:textSize="24sp"/>
 
     </LinearLayout>

@@ -68,7 +68,7 @@ public class AppUpdateDialog extends AppCompatDialog
 		dontRemind = checked;
 		updateButton.setEnabled(!dontRemind);
 		updateButton.setTextColor(!dontRemind
-				? ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimary)
+				? ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent)
 				: ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.grey400));
 	}
 

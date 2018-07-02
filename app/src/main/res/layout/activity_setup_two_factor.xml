@@ -28,15 +28,15 @@
             android:paddingLeft="60dp"
             android:paddingRight="60dp"
             android:paddingStart="60dp"
-            app:sv_doneCircleColor="@color/colorPrimaryDark"
-            app:sv_doneStepLineColor="@color/colorPrimaryDark"
+            app:sv_doneCircleColor="@color/colorMedium"
+            app:sv_doneStepLineColor="@color/colorMedium"
             app:sv_doneStepMarkColor="@color/white"
-            app:sv_doneTextColor="@color/colorPrimaryDark"
-            app:sv_nextStepLineColor="@color/colorPrimary"
-            app:sv_nextTextColor="@color/colorPrimary"
-            app:sv_selectedCircleColor="@color/colorPrimary"
+            app:sv_doneTextColor="@color/colorMedium"
+            app:sv_nextStepLineColor="@color/colorAccent"
+            app:sv_nextTextColor="@color/colorAccent"
+            app:sv_selectedCircleColor="@color/colorAccent"
             app:sv_selectedStepNumberColor="@color/white"
-            app:sv_selectedTextColor="@color/colorPrimary"
+            app:sv_selectedTextColor="@color/colorAccent"
             app:sv_steps="@array/setup_tfa_steps"
             app:sv_stepsNumber="4"/>
 
@@ -77,7 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.7"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorAccent"/>
 
         <ProgressBar
             android:id="@+id/progress_bar"

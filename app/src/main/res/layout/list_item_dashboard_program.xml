@@ -66,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/colorMedium"
                     android:textSize="18sp"
                     tools:text="My awesome moneymaking machine"/>
 
@@ -74,7 +74,7 @@
                     android:id="@+id/manager_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorAccent"
                     android:textSize="16sp"
                     tools:text="by Warren Buffett"/>
 
@@ -109,7 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:gravity="center_horizontal|bottom"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/colorMedium"
                     android:textSize="32sp"
                     app:autoSizeMaxTextSize="32sp"
                     app:autoSizeMinTextSize="14sp"
@@ -123,7 +123,7 @@
                     android:layout_below="@+id/tokens"
                     android:layout_centerHorizontal="true"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorAccent"
                     android:textSize="14sp"
                     tools:text="($8,700)"/>
 
@@ -135,7 +135,7 @@
                     android:layout_centerHorizontal="true"
                     android:text="@string/my_tokens"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/colorMedium"
                     android:textSize="12sp"/>
 
             </RelativeLayout>
@@ -172,7 +172,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_centerInParent="true"
-                            android:textColor="@color/colorPrimaryDark"
+                            android:textColor="@color/colorMedium"
                             android:textSize="32sp"
                             tools:text="2"/>
 
@@ -193,7 +193,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal|bottom"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@color/colorMedium"
                         android:visibility="gone"
                         app:autoSizeMaxTextSize="32sp"
                         app:autoSizeMinTextSize="14sp"
@@ -220,7 +220,7 @@
                     android:layout_centerHorizontal="true"
                     android:text="@string/my_profit"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/colorMedium"
                     android:textSize="12sp"/>
 
             </RelativeLayout>

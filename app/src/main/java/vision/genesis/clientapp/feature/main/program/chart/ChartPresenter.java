@@ -39,7 +39,7 @@ public class ChartPresenter extends MvpPresenter<ChartView>
 
 	private Subscription getChartSubscription;
 
-	private int lineColor = R.color.colorPrimary;
+	private int lineColor = R.color.colorAccent;
 
 	private ChartZoomEnum currentZoom = ChartZoomEnum.ZOOM_5MIN;
 

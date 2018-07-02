@@ -61,7 +61,7 @@ public class BaseFragment extends MvpAppCompatFragment implements BackButtonList
 		AlertDialog dialog = builder.create();
 		dialog.show();
 
-		dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+		dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
 
 		return dialog;
 	}

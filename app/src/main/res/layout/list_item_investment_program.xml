@@ -79,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/colorMedium"
                     android:textSize="18sp"
                     tools:text="Super program"/>
 
@@ -87,7 +87,7 @@
                     android:id="@+id/manager_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorAccent"
                     android:textSize="16sp"
                     tools:text="by Warren Buffett"/>
 
@@ -139,7 +139,7 @@
                     android:id="@+id/text_place"
                     android:layout_width="400dp"
                     android:layout_height="@dimen/item_program_data_height"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/colorMedium"
                     android:textSize="22sp"
                     tools:text="1024"/>
 
@@ -160,7 +160,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="4dp"
                 android:gravity="bottom"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorMedium"
                 android:textSize="20sp"
                 tools:text="174.3987"/>
 

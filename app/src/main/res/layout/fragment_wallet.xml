@@ -75,7 +75,7 @@
                                     android:lines="1"
                                     android:maxWidth="250dp"
                                     android:text="0"
-                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textColor="@color/colorMedium"
                                     android:textSize="56sp"
                                     app:autoSizeMaxTextSize="56sp"
                                     app:autoSizeMinTextSize="32sp"

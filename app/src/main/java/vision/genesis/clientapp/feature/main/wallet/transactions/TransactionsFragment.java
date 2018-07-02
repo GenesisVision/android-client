@@ -114,9 +114,9 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 	}
 
 	private void initRefreshLayout() {
-		refreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary),
+		refreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorAccent),
 				ContextCompat.getColor(getContext(), R.color.colorAccent),
-				ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+				ContextCompat.getColor(getContext(), R.color.colorMedium));
 		refreshLayout.setOnRefreshListener(() -> transactionsPresenter.onSwipeRefresh());
 	}
 

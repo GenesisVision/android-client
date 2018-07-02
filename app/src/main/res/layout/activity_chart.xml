@@ -8,7 +8,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="@dimen/chart_header_height"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorMedium"
         android:paddingLeft="32dp">
 
         <LinearLayout
@@ -59,7 +59,7 @@
                 android:id="@+id/selected_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 android:textSize="14sp"
                 tools:text="218.43"/>
 
@@ -124,7 +124,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/chart_zoom_buttons_height"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorMedium"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -136,7 +136,7 @@
                 android:id="@+id/zoom_five_min"
                 style="@style/chart_zoom_button"
                 android:text="@string/zoom_five_min"
-                tools:textColor="@color/colorPrimary"/>
+                tools:textColor="@color/colorAccent"/>
 
             <View
                 android:id="@+id/zoom_five_min_underline"

@@ -236,7 +236,7 @@
                                         android:id="@+id/period_duration"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textColor="@color/colorPrimary"
+                                        android:textColor="@color/colorAccent"
                                         android:textSize="22sp"
                                         tools:text="30"/>
 
@@ -247,7 +247,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:layout_marginStart="6dp"
                                         android:text="@string/days"
-                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textColor="@color/colorMedium"
                                         android:textSize="22sp"/>
 
                                 </LinearLayout>
@@ -451,7 +451,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="32dp"
                                 android:gravity="center_horizontal|bottom"
-                                android:textColor="@color/colorPrimaryDark"
+                                android:textColor="@color/colorMedium"
                                 app:autoSizeMaxTextSize="26sp"
                                 app:autoSizeMinTextSize="14sp"
                                 app:autoSizeTextType="uniform"
@@ -466,7 +466,7 @@
                                 android:padding="1dp"
                                 android:textAlignment="center"
                                 android:textAllCaps="true"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/colorAccent"
                                 android:textSize="14sp"
                                 tools:text="($8,700)"/>
 
@@ -506,7 +506,7 @@
                                 android:layout_height="32dp"
                                 android:layout_centerHorizontal="true"
                                 android:gravity="center_horizontal|bottom"
-                                android:textColor="@color/colorPrimaryDark"
+                                android:textColor="@color/colorMedium"
                                 app:autoSizeMaxTextSize="26sp"
                                 app:autoSizeMinTextSize="14sp"
                                 app:autoSizeTextType="uniform"
@@ -567,7 +567,7 @@
                             android:layout_centerVertical="true"
                             android:text="@string/available_to_invest"
                             android:textAllCaps="true"
-                            android:textColor="@color/colorPrimaryDark"
+                            android:textColor="@color/colorMedium"
                             android:textSize="12sp"/>
 
                         <ImageView
@@ -586,7 +586,7 @@
                             android:layout_centerVertical="true"
                             android:layout_toLeftOf="@+id/available_currency"
                             android:layout_toStartOf="@+id/available_currency"
-                            android:textColor="@color/colorPrimaryDark"
+                            android:textColor="@color/colorMedium"
                             android:textSize="26sp"
                             tools:text="2 225,4999"/>
 

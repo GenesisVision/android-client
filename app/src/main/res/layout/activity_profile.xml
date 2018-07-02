@@ -37,7 +37,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/colorAccent"
                     android:padding="8dp"
                     android:src="@drawable/edit_icon"
                     android:tint="@color/white"
@@ -200,7 +200,7 @@
             android:id="@+id/edit_mode_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorMedium"
             android:visibility="gone"/>
 
     </FrameLayout>
@@ -218,7 +218,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.7"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorAccent"/>
 
         <ProgressBar
             android:id="@+id/progress_bar"

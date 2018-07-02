@@ -88,9 +88,9 @@ public class RequestsActivity extends BaseSwipeBackActivity implements RequestsV
 	}
 
 	private void initRefreshLayout() {
-		refreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimary),
+		refreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorAccent),
 				ContextCompat.getColor(this, R.color.colorAccent),
-				ContextCompat.getColor(this, R.color.colorPrimaryDark));
+				ContextCompat.getColor(this, R.color.colorMedium));
 		refreshLayout.setOnRefreshListener(() -> requestsPresenter.onSwipeRefresh());
 	}
 

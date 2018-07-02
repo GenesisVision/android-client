@@ -81,10 +81,10 @@ public class CustomTabView extends RelativeLayout
 
 	public void setSelectedState(boolean selected) {
 		icon.setColorFilter(selected
-				? ContextCompat.getColor(getContext(), R.color.colorPrimary)
+				? ContextCompat.getColor(getContext(), R.color.colorAccent)
 				: ContextCompat.getColor(getContext(), R.color.colorFontMedium));
 		text.setTextColor(selected
-				? ContextCompat.getColor(getContext(), R.color.colorPrimary)
+				? ContextCompat.getColor(getContext(), R.color.colorAccent)
 				: ContextCompat.getColor(getContext(), R.color.colorFontMedium));
 	}
 

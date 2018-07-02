@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:text="@string/no_thanks"
-            android:textColor="@color/colorPrimary"/>
+            android:textColor="@color/colorAccent"/>
 
         <Button
             android:id="@+id/button_update"
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:text="@string/update"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorAccent"
             tools:textColor="@color/grey400"/>
 
     </LinearLayout>

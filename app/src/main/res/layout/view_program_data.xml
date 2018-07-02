@@ -30,7 +30,7 @@
         android:layout_toEndOf="@+id/total_profit_currency"
         android:layout_toRightOf="@+id/total_profit_currency"
         android:gravity="center"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/colorMedium"
         android:textSize="22sp"
         tools:text="0.00001"/>
 
@@ -62,7 +62,7 @@
         android:layout_toEndOf="@+id/balance_currency"
         android:layout_toRightOf="@+id/balance_currency"
         android:gravity="center"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/colorMedium"
         android:textSize="22sp"
         tools:text="0.00000001"/>
 
@@ -73,7 +73,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:gravity="bottom"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/colorMedium"
         android:textSize="22sp"
         tools:text="12.25%"/>
 
@@ -95,7 +95,7 @@
         android:layout_below="@+id/text_avg_profit"
         android:layout_marginTop="@dimen/item_program_margin_top"
         android:gravity="bottom"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/colorMedium"
         android:textSize="22sp"
         tools:text="2"/>
 

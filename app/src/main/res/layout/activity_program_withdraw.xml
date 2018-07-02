@@ -9,7 +9,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/colorAccent"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="4"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorAccent"
             android:gravity="center_vertical">
 
             <android.support.v7.widget.AppCompatTextView
@@ -54,7 +54,7 @@
                 android:paddingTop="4dp"
                 android:text="@string/tokens"
                 android:textAllCaps="true"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 android:textSize="10sp"/>
 
             <TextView
@@ -85,7 +85,7 @@
                     android:lines="1"
                     android:maxWidth="250dp"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorPrimaryLight"
+                    android:textColor="@color/colorAccentLight"
                     android:textSize="26sp"
                     app:autoSizeMaxTextSize="26sp"
                     app:autoSizeMinTextSize="14sp"
@@ -140,7 +140,7 @@
                         android:lines="1"
                         android:maxWidth="250dp"
                         android:minWidth="40dp"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@color/colorMedium"
                         android:visibility="invisible"
                         app:autoSizeMaxTextSize="72sp"
                         app:autoSizeMinTextSize="24sp"
@@ -167,7 +167,7 @@
                     android:gravity="center"
                     android:text="@string/enter_withdrawal_amount"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/colorMedium"
                     android:textSize="16sp"/>
 
                 <RelativeLayout
@@ -235,7 +235,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.7"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorAccent"/>
 
         <ProgressBar
             android:id="@+id/progress_bar"

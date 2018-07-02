@@ -85,9 +85,9 @@
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:layout_collapseMode="pin"
                 app:tabGravity="center"
-                app:tabIndicatorColor="@color/colorPrimaryLight"
+                app:tabIndicatorColor="@color/colorAccentLight"
                 app:tabMode="fixed"
-                app:tabSelectedTextColor="@color/colorPrimary"
+                app:tabSelectedTextColor="@color/colorAccent"
                 app:tabTextColor="@color/colorFontMedium"/>
 
         </android.support.design.widget.AppBarLayout>

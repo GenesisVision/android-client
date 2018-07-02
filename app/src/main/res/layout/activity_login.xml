@@ -3,7 +3,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimaryDark">
+                android:background="@color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                         android:background="?attr/selectableItemBackground"
                         android:gravity="center"
                         android:text="@string/forgot_password"
-                        android:textColor="@color/colorPrimary"/>
+                        android:textColor="@color/colorAccent"/>
 
                 </LinearLayout>
 
@@ -122,7 +122,7 @@
                                 android:layout_marginTop="4dp"
                                 android:text="@string/sign_up"
                                 android:textAllCaps="true"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/colorAccent"
                                 android:textSize="16sp"/>
 
                         </LinearLayout>

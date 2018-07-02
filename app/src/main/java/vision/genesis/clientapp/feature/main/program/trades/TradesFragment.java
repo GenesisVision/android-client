@@ -145,9 +145,9 @@ public class TradesFragment extends BaseFragment implements TradesView
 	}
 
 	private void initRefreshLayout() {
-		refreshLayout.setColorSchemeColors(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimary),
+		refreshLayout.setColorSchemeColors(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent),
 				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent),
-				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimaryDark));
+				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorMedium));
 		refreshLayout.setOnRefreshListener(() -> tradesPresenter.onSwipeRefresh());
 	}
 

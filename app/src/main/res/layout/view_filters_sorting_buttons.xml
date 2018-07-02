@@ -4,7 +4,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/filters_sorting_buttons_height"
-                android:background="@color/colorPrimaryDark">
+                android:background="@color/colorMedium">
 
     <TextView
         android:id="@+id/button_sorting"
@@ -84,7 +84,7 @@
         android:layout_height="@dimen/filters_sorting_buttons_height"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:background="@color/colorPrimary30"
+        android:background="@color/colorAccent30"
         android:padding="12dp"
         android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
         android:tint="@color/white"/>

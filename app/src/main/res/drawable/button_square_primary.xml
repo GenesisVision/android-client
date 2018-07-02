@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:drawable="@color/colorPrimary30"
+        android:drawable="@color/colorAccent30"
         android:state_enabled="false"/>
     <item
-        android:drawable="@color/colorPrimaryDark"
+        android:drawable="@color/colorMedium"
         android:state_checked="true"/>
     <item
-        android:drawable="@color/colorPrimaryDark"
+        android:drawable="@color/colorMedium"
         android:state_pressed="true"/>
     <item
-        android:drawable="@color/colorPrimary"
+        android:drawable="@color/colorAccent"
         android:state_checked="false"/>
 </selector>

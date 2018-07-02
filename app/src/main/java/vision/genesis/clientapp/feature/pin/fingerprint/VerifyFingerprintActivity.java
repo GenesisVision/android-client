@@ -65,7 +65,7 @@ public class VerifyFingerprintActivity extends MvpAppCompatActivity implements V
 
 		ButterKnife.bind(this);
 
-		StatusBarUtil.setColor(this, R.color.colorPrimary);
+		StatusBarUtil.setColor(this, R.color.colorAccent);
 
 		if (getIntent().getExtras() != null) {
 			int requestCode = getIntent().getExtras().getInt(EXTRA_REQUEST_CODE);
@@ -105,7 +105,7 @@ public class VerifyFingerprintActivity extends MvpAppCompatActivity implements V
 
 	@Override
 	public void disableFingerprint(String message) {
-		fingerprintImage.setColorFilter(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimary));
+		fingerprintImage.setColorFilter(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent));
 		fingerprintError.setText(message);
 	}
 

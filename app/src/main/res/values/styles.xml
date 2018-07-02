@@ -5,8 +5,8 @@
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/white</item>
         <item name="android:typeface">serif</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorMedium</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/grey300</item>
     </style>
@@ -58,7 +58,7 @@
     <style name="profile_edittext">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorMedium</item>
         <item name="android:textSize">18sp</item>
     </style>
 
@@ -84,7 +84,7 @@
     <style name="program_details_data_value">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorMedium</item>
         <item name="android:textSize">40sp</item>
     </style>
 
@@ -93,7 +93,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorMedium</item>
         <item name="android:textSize">11sp</item>
     </style>
 
@@ -165,7 +165,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">2dp</item>
         <item name="android:layout_alignParentBottom">true</item>
-        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:background">@color/colorAccent</item>
         <item name="android:visibility">gone</item>
     </style>
 
@@ -186,7 +186,7 @@
         <item name="android:layout_width">45dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorMedium</item>
         <item name="android:textSize">72sp</item>
     </style>
 
@@ -196,14 +196,14 @@
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_marginEnd">16dp</item>
         <item name="android:layout_marginRight">16dp</item>
-        <item name="android:tint">@color/colorPrimaryDark</item>
+        <item name="android:tint">@color/colorMedium</item>
     </style>
 
     <style name="settings_text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerVertical">true</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorMedium</item>
         <item name="android:textSize">18sp</item>
     </style>
 

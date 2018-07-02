@@ -90,9 +90,9 @@ public class ProfitDetailsChartView extends RelativeLayout
 
 	private Unbinder unbinder;
 
-	private int lineColor = R.color.colorPrimary;
+	private int lineColor = R.color.colorAccent;
 
-	private int highlightColor = R.color.colorPrimaryDark;
+	private int highlightColor = R.color.colorMedium;
 
 	private TouchListener touchListener;
 
@@ -179,7 +179,7 @@ public class ProfitDetailsChartView extends RelativeLayout
 		chart.setDrawBorders(false);
 		chart.setAutoScaleMinMaxEnabled(true);
 		chart.setNoDataText(GenesisVisionApplication.INSTANCE.getResources().getString(R.string.not_enough_data));
-		chart.setNoDataTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimaryDark));
+		chart.setNoDataTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorMedium));
 		chart.setViewPortOffsets(0f, 0f, 0f, 0f);
 
 		YAxis yAxis = chart.getAxisLeft();
@@ -279,7 +279,7 @@ public class ProfitDetailsChartView extends RelativeLayout
 			textColorResId = R.color.transactionRed;
 		}
 		else {
-			textColorResId = R.color.colorPrimaryDark;
+			textColorResId = R.color.colorMedium;
 		}
 		String changeValueString = String.format(Locale.getDefault(),
 				"%s%s%%", directionSymbol, StringFormatUtil.formatAmount(Math.abs(changeValue), 0, 2));

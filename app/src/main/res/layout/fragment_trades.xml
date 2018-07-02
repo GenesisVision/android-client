@@ -143,7 +143,7 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:text="@string/whoops"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorAccent"
             android:textSize="20sp"/>
 
         <TextView
@@ -153,7 +153,7 @@
             android:layout_margin="8dp"
             android:gravity="center"
             android:text="@string/program_has_no_trades_yet"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorMedium"
             android:textSize="20sp"/>
 
     </LinearLayout>

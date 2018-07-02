@@ -311,7 +311,7 @@ public class ChartActivity extends MvpAppCompatActivity implements ChartView
 	}
 
 	private void selectZoomButton(TextView zoomButton, View underline) {
-		zoomButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+		zoomButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
 		underline.setVisibility(View.VISIBLE);
 	}
 

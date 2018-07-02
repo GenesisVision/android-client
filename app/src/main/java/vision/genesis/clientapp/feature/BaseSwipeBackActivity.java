@@ -104,7 +104,7 @@ public class BaseSwipeBackActivity extends MvpAppCompatActivity implements Swipe
 		AlertDialog dialog = builder.create();
 		dialog.show();
 
-		dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorPrimary));
+		dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent));
 
 		return dialog;
 	}

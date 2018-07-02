@@ -18,7 +18,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="22dp"
             android:src="@drawable/back_arrow"
-            android:tint="@color/colorPrimary"/>
+            android:tint="@color/colorAccent"/>
 
         <vision.genesis.clientapp.ui.AvatarView
             android:id="@+id/avatar"
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorMedium"
                 android:textSize="18sp"
                 tools:text="Super mega profit program"/>
 
@@ -55,7 +55,7 @@
                 android:id="@+id/manager_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 android:textSize="16sp"
                 tools:text="Warren Buffett"/>
 
@@ -86,9 +86,9 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:visibility="gone"
         app:tabGravity="center"
-        app:tabIndicatorColor="@color/colorPrimaryLight"
+        app:tabIndicatorColor="@color/colorAccentLight"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabSelectedTextColor="@color/colorAccent"
         app:tabTextColor="@color/colorFontMedium"/>
 
     <android.support.v4.view.ViewPager

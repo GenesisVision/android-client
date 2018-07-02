@@ -11,7 +11,7 @@
           android:orientation="vertical"
           android:textAllCaps="true"
           android:textColor="@color/white"
-          tools:background="@color/colorPrimaryDark"
+          tools:background="@color/colorMedium"
           tools:layout_height="50dp"
           tools:layout_width="100dp"
           tools:text="Round 1"/>

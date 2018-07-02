@@ -64,7 +64,7 @@ public class TournamentRoundButton extends RelativeLayout
 
 	public void setSelected(boolean selected) {
 		text.setBackgroundColor(selected
-				? ContextCompat.getColor(getContext(), R.color.colorPrimary)
+				? ContextCompat.getColor(getContext(), R.color.colorAccent)
 				: ContextCompat.getColor(getContext(), android.R.color.transparent));
 	}
 

@@ -48,7 +48,7 @@
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="@string/network_error"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorMedium"
             android:textSize="24sp"/>
 
 
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/dashboard_empty"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorMedium"
                 android:textSize="36sp"/>
 
             <vision.genesis.clientapp.ui.PrimaryButton

@@ -209,7 +209,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 
 		bottomNavigationView.setAccentColor(ContextCompat.getColor(this, R.color.white));
 		bottomNavigationView.setInactiveColor(ContextCompat.getColor(this, R.color.bottomInactive));
-		bottomNavigationView.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+		bottomNavigationView.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
 
 		bottomNavigationView.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
 
@@ -313,8 +313,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 		AlertDialog dialog = builder.create();
 		dialog.show();
 
-		dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
-		dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+		dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+		dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
 	}
 
 	@Override
