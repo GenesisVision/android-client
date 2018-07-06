@@ -7,6 +7,8 @@ import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.RequiresApi;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -16,6 +18,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.util.Locale;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -88,7 +91,10 @@ public class GenerateKeyCipher
 		try {
 			cipher = Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/" + KeyProperties.BLOCK_MODE_CBC + "/" + KeyProperties.ENCRYPTION_PADDING_PKCS7);
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
-			throw new RuntimeException("Failed to get Cipher", e);
+			Timber.e("Failed to get Cipher");
+			Crashlytics.log(String.format(Locale.getDefault(), "Failed to get Cipher\n%s", e.toString()));
+			e.printStackTrace();
+			return false;
 		}
 
 		try {
@@ -97,11 +103,14 @@ public class GenerateKeyCipher
 			cipher.init(Cipher.ENCRYPT_MODE, key);
 			return true;
 		} catch (KeyPermanentlyInvalidatedException e) {
-			Timber.e("TEST KeyPermanentlyInvalidatedException");
+			Timber.e("KeyPermanentlyInvalidatedException");
 			e.printStackTrace();
 			return false;
 		} catch (KeyStoreException | CertificateException | UnrecoverableKeyException | IOException | NoSuchAlgorithmException | InvalidKeyException e) {
-			throw new RuntimeException("Failed to init Cipher", e);
+			Timber.e("Failed to init Cipher");
+			Crashlytics.log(String.format(Locale.getDefault(), "Failed to init Cipher\n%s", e.toString()));
+			e.printStackTrace();
+			return false;
 		}
 	}
 
