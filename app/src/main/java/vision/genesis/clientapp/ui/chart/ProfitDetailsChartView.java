@@ -2,6 +2,7 @@ package vision.genesis.clientapp.ui.chart;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
@@ -254,8 +255,10 @@ public class ProfitDetailsChartView extends RelativeLayout
 		dataSet.setHighLightColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, highlightColor));
 		dataSet.setHighlightLineWidth(1.5f);
 
-		dataSet.setFillDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.chart_background_gradient));
-		dataSet.setDrawFilled(true);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+			dataSet.setFillDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.chart_background_gradient));
+			dataSet.setDrawFilled(true);
+		}
 
 		return dataSet;
 	}
