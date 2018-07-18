@@ -169,11 +169,11 @@ public class SortingFiltersButtonsView extends RelativeLayout
 				currentSortingDirection = "desc";
 				break;
 			case BYENDOFPERIODASC:
-				currentSortingName = "end of period";
+				currentSortingName = "end of periods";
 				currentSortingDirection = "asc";
 				break;
 			case BYENDOFPERIODDESC:
-				currentSortingName = "end of period";
+				currentSortingName = "end of periods";
 				currentSortingDirection = "desc";
 				break;
 			case BYBALANCEASC:
@@ -214,7 +214,7 @@ public class SortingFiltersButtonsView extends RelativeLayout
 				else
 					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYLEVELDESC;
 				break;
-			case "end of period":
+			case "end of periods":
 				if (direction.equals("asc"))
 					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYENDOFPERIODASC;
 				else

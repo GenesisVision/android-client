@@ -28,6 +28,7 @@
             android:paddingLeft="60dp"
             android:paddingRight="60dp"
             android:paddingStart="60dp"
+            app:sv_animationType="All"
             app:sv_doneCircleColor="@color/colorMedium"
             app:sv_doneStepLineColor="@color/colorMedium"
             app:sv_doneStepMarkColor="@color/white"

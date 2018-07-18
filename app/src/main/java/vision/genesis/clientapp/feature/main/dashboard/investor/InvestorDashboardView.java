@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.dashboard;
+package vision.genesis.clientapp.feature.main.dashboard.investor;
 
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
@@ -14,7 +14,7 @@ import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
  * Created by Vitaly on 1/19/18.
  */
 
-interface DashboardView extends MvpView
+interface InvestorDashboardView extends MvpView
 {
 	void setActivePrograms(List<InvestmentProgramDashboardExtended> programs);
 

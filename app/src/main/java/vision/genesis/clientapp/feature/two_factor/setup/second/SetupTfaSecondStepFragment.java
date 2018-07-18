@@ -82,7 +82,8 @@ public class SetupTfaSecondStepFragment extends BaseFragment implements SetupTfa
 	}
 
 	public void onSetKey(String sharedKey, String authenticatorUri) {
-		setupTfaSecondStepPresenter.onSetKey(sharedKey, authenticatorUri);
+		if (setupTfaSecondStepPresenter != null)
+			setupTfaSecondStepPresenter.onSetKey(sharedKey, authenticatorUri);
 	}
 
 	@Override

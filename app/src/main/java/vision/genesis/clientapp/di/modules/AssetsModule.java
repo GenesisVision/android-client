@@ -8,6 +8,7 @@ import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
 import io.swagger.client.api.RateApi;
 import vision.genesis.clientapp.managers.InvestorDashboardManager;
+import vision.genesis.clientapp.managers.ManagerDashboardManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.RateManager;
 import vision.genesis.clientapp.managers.WalletManager;
@@ -24,6 +25,12 @@ public class AssetsModule
 	@Singleton
 	public InvestorDashboardManager provideInvestorDashboardManager(InvestorApi investorApi) {
 		return new InvestorDashboardManager(investorApi);
+	}
+
+	@Provides
+	@Singleton
+	public ManagerDashboardManager provideManagerDashboardManager(ManagerApi managerApi) {
+		return new ManagerDashboardManager(managerApi);
 	}
 
 	@Provides

@@ -12,8 +12,8 @@ import io.swagger.client.model.WalletsViewModel;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
-import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.model.events.OnUnauthorizedResponseGetEvent;
+import vision.genesis.clientapp.utils.Constants;
 
 /**
  * GenesisVision
@@ -57,19 +57,19 @@ public class WalletManager
 	}
 
 	private Observable<WalletsViewModel> getWalletsApiObservable() {
-		return BuildConfig.FLAVOR.equals("investor")
+		return Constants.IS_INVESTOR
 				? investorApi.apiInvestorWalletGet(AuthManager.token.getValue())
 				: managerApi.apiManagerWalletGet(AuthManager.token.getValue());
 	}
 
 	public Observable<WalletTransactionsViewModel> getTransactions(TransactionsFilter filter) {
-		return BuildConfig.FLAVOR.equals("investor")
+		return Constants.IS_INVESTOR
 				? investorApi.apiInvestorWalletTransactionsPost(AuthManager.token.getValue(), filter)
 				: managerApi.apiManagerWalletTransactionsPost(AuthManager.token.getValue(), filter);
 	}
 
 	public Observable<WalletAddressViewModel> getWalletAddress() {
-		return BuildConfig.FLAVOR.equals("investor")
+		return Constants.IS_INVESTOR
 				? investorApi.apiInvestorWalletAddressGet(AuthManager.token.getValue())
 				: managerApi.apiManagerWalletAddressGet(AuthManager.token.getValue());
 	}

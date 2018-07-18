@@ -18,6 +18,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.User;
+import vision.genesis.clientapp.utils.Constants;
 
 /**
  * GenesisVisionAndroid
@@ -161,7 +162,7 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	}
 
 	private void userLoggedOn() {
-		getViewState().showInvestWithdrawButtons(true);
+		getViewState().showInvestWithdrawButtons(Constants.IS_INVESTOR);
 	}
 
 	private void userLoggedOff() {

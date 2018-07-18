@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.dashboard.programs;
+package vision.genesis.clientapp.feature.main.dashboard.investor.programs;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

@@ -9,8 +9,8 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
-import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.model.SettingsModel;
+import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.SharedPreferencesUtil;
 import vision.genesis.clientapp.utils.hash.HashGenerationException;
 import vision.genesis.clientapp.utils.hash.HashGeneratorUtil;
@@ -113,7 +113,7 @@ public class SettingsManager
 	}
 
 	private Observable<PlatformStatus> platformStatus() {
-		return BuildConfig.FLAVOR.equals("investor")
+		return Constants.IS_INVESTOR
 				? investorApi.apiInvestorPlatformStatusGet()
 				: managerApi.apiManagerPlatformStatusGet();
 	}

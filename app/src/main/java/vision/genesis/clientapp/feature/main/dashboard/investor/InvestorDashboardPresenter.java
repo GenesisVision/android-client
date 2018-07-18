@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.dashboard;
+package vision.genesis.clientapp.feature.main.dashboard.investor;
 
 import android.content.Context;
 
@@ -37,7 +37,7 @@ import vision.genesis.clientapp.utils.StringFormatUtil;
  */
 
 @InjectViewState
-public class DashboardPresenter extends MvpPresenter<DashboardView>
+public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardView>
 {
 	@Inject
 	public Context context;

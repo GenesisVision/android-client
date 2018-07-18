@@ -384,25 +384,25 @@ public class ProfileActivity extends BaseSwipeBackActivity implements ProfileVie
 		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
 	}
 
-	@NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+	@NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void showPictureChooser() {
 		PictureChooserBottomSheetFragment bottomSheetDialog = new PictureChooserBottomSheetFragment();
 		bottomSheetDialog.show(this.getSupportFragmentManager(), bottomSheetDialog.getTag());
 	}
 
-	@OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE)
+	@OnShowRationale({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void showRationaleForStorage(PermissionRequest request) {
-		showRationaleDialog(getString(R.string.permission_avatar_rationale), request);
+		showRationaleDialog(getString(R.string.permission_logo_rationale), request);
 	}
 
-	@OnPermissionDenied(Manifest.permission.READ_EXTERNAL_STORAGE)
+	@OnPermissionDenied({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void onStorageDenied() {
-		showMessageDialog(getString(R.string.permission_avatar_denied));
+		showMessageDialog(getString(R.string.permission_logo_denied));
 	}
 
-	@OnNeverAskAgain(Manifest.permission.READ_EXTERNAL_STORAGE)
+	@OnNeverAskAgain({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void onStorageNeverAskAgain() {
-		showMessageDialog(getString(R.string.permission_avatar_never_ask_again));
+		showMessageDialog(getString(R.string.permission_logo_never_ask_again));
 	}
 
 	@Override

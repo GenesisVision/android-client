@@ -4,6 +4,8 @@ import java.util.UUID;
 
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
+import io.swagger.client.model.BrokersFilter;
+import io.swagger.client.model.BrokersViewModel;
 import io.swagger.client.model.Invest;
 import io.swagger.client.model.InvestmentProgramBuyToken;
 import io.swagger.client.model.InvestmentProgramRequests;
@@ -11,13 +13,14 @@ import io.swagger.client.model.InvestmentProgramRequestsFilter;
 import io.swagger.client.model.InvestmentProgramViewModel;
 import io.swagger.client.model.InvestmentProgramsFilter;
 import io.swagger.client.model.InvestmentProgramsViewModel;
+import io.swagger.client.model.NewInvestmentRequest;
 import io.swagger.client.model.TradesChartViewModel;
 import io.swagger.client.model.TradesFilter;
 import io.swagger.client.model.TradesViewModel;
 import io.swagger.client.model.WalletsViewModel;
 import rx.Observable;
-import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.utils.Constants;
 
 /**
  * GenesisVision
@@ -36,7 +39,7 @@ public class ProgramsManager
 	}
 
 	public Observable<InvestmentProgramsViewModel> getProgramsList(InvestmentProgramsFilter filter) {
-		return BuildConfig.FLAVOR.equals("investor")
+		return Constants.IS_INVESTOR
 				? investorApi.apiInvestorInvestmentProgramsPost(AuthManager.token.getValue(), filter)
 				: managerApi.apiManagerInvestmentProgramsPost(AuthManager.token.getValue(), filter);
 	}
@@ -46,31 +49,31 @@ public class ProgramsManager
 	}
 
 	private Observable<Void> programFavoritesAdd(UUID programId) {
-		return BuildConfig.FLAVOR.equals("investor")
+		return Constants.IS_INVESTOR
 				? investorApi.apiInvestorInvestmentProgramsFavoritesAddPost(programId, AuthManager.token.getValue())
 				: managerApi.apiManagerInvestmentProgramsFavoritesAddPost(programId, AuthManager.token.getValue());
 	}
 
 	private Observable<Void> programFavoritesRemove(UUID programId) {
-		return BuildConfig.FLAVOR.equals("investor")
+		return Constants.IS_INVESTOR
 				? investorApi.apiInvestorInvestmentProgramsFavoritesRemovePost(programId, AuthManager.token.getValue())
 				: managerApi.apiManagerInvestmentProgramsFavoritesRemovePost(programId, AuthManager.token.getValue());
 	}
 
 	public Observable<InvestmentProgramViewModel> getInvestmentProgramDetails(UUID programId) {
-		return BuildConfig.FLAVOR.equals("investor")
+		return Constants.IS_INVESTOR
 				? investorApi.apiInvestorInvestmentProgramGet(programId, AuthManager.token.getValue())
 				: managerApi.apiManagerInvestmentProgramGet(programId, AuthManager.token.getValue());
 	}
 
 	public Observable<TradesViewModel> getProgramTrades(TradesFilter filter) {
-		return BuildConfig.FLAVOR.equals("investor")
+		return Constants.IS_INVESTOR
 				? investorApi.apiInvestorInvestmentProgramTradesPost(filter)
 				: managerApi.apiManagerInvestmentProgramTradesPost(filter);
 	}
 
 	public Observable<TradesChartViewModel> getEquityChart(UUID programId, String timeFrame) {
-		return BuildConfig.FLAVOR.equals("investor")
+		return Constants.IS_INVESTOR
 				? investorApi.apiInvestorInvestmentProgramEquityChartGet(programId, timeFrame)
 				: managerApi.apiManagerInvestmentProgramEquityChartGet(programId, timeFrame);
 	}
@@ -99,5 +102,13 @@ public class ProgramsManager
 
 	public Observable<InvestmentProgramRequests> getInvestmentProgramRequests(InvestmentProgramRequestsFilter filter) {
 		return investorApi.apiInvestorInvestmentProgramRequestsPost(AuthManager.token.getValue(), filter);
+	}
+
+	public Observable<BrokersViewModel> getDataToCreateProgram() {
+		return managerApi.apiManagerBrokersPost(new BrokersFilter());
+	}
+
+	public Observable<UUID> sendCreateProgramRequest(NewInvestmentRequest request) {
+		return managerApi.apiManagerAccountNewInvestmentRequestPost(AuthManager.token.getValue(), request);
 	}
 }

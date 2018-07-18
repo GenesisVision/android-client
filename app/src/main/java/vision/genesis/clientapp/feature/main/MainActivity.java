@@ -47,6 +47,7 @@ import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
 import vision.genesis.clientapp.ui.common.BlockScreenHolder;
+import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -208,8 +209,10 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 		bottomNavigationView.addItem(settingsItem);
 
 		bottomNavigationView.setAccentColor(ContextCompat.getColor(this, R.color.white));
-		bottomNavigationView.setInactiveColor(ContextCompat.getColor(this, R.color.bottomInactive));
-		bottomNavigationView.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+		bottomNavigationView.setInactiveColor(ContextCompat.getColor(this,
+				Constants.IS_INVESTOR ? R.color.bottomInactiveInvestor : R.color.bottomInactiveManager));
+		bottomNavigationView.setDefaultBackgroundColor(ContextCompat.getColor(this,
+				Constants.IS_INVESTOR ? R.color.colorAccent : R.color.colorMedium));
 
 		bottomNavigationView.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
 

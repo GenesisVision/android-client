@@ -186,6 +186,12 @@
             android:theme="@style/TranslucentActivityTheme"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 
+        <activity
+            android:name=".feature.main.program.create.CreateProgramActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"

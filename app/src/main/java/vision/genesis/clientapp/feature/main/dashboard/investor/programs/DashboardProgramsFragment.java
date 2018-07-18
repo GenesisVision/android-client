@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.dashboard.programs;
+package vision.genesis.clientapp.feature.main.dashboard.investor.programs;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -139,20 +139,26 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 
 	@Override
 	public void showEmpty(boolean show) {
-		emptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);
-		refreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
+		if (emptyGroup != null) {
+			emptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+			refreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
+		}
 	}
 
 	@Override
 	public void showProgressBar(boolean show) {
-		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-		tryAgainButton.setVisibility(show ? View.GONE : View.VISIBLE);
+		if (progressBar != null) {
+			progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+			tryAgainButton.setVisibility(show ? View.GONE : View.VISIBLE);
+		}
 	}
 
 	@Override
 	public void showNoInternet(boolean show) {
-		noInternetGroup.setVisibility(show ? View.VISIBLE : View.GONE);
-		refreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
+		if (noInternetGroup != null) {
+			noInternetGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+			refreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
+		}
 	}
 
 	@Override

@@ -16,7 +16,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.main.assets.AssetsFragment;
-import vision.genesis.clientapp.feature.main.dashboard.DashboardFragment;
+import vision.genesis.clientapp.feature.main.dashboard.investor.InvestorDashboardFragment;
+import vision.genesis.clientapp.feature.main.dashboard.manager.ManagerDashboardFragment;
 import vision.genesis.clientapp.feature.main.settings.SettingsFragment;
 import vision.genesis.clientapp.feature.main.wallet.WalletFragment;
 import vision.genesis.clientapp.managers.AuthManager;
@@ -35,6 +36,7 @@ import vision.genesis.clientapp.model.events.ShowSetPinActivityEvent;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawProgramEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawWalletActivityEvent;
+import vision.genesis.clientapp.utils.Constants;
 
 /**
  * GenesisVision
@@ -57,7 +59,9 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	private Subscription platformStatusSubscription;
 
-	private DashboardFragment dashboardFragment;
+	private InvestorDashboardFragment investorDashboardFragment;
+
+	private ManagerDashboardFragment managerDashboardFragment;
 
 	private AssetsFragment assetsFragment;
 
@@ -123,12 +127,29 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	private void showDashboard() {
-		if (dashboardFragment == null) {
-			dashboardFragment = new DashboardFragment();
-			getViewState().addFragmentToBackstack(dashboardFragment);
+		if (Constants.IS_INVESTOR)
+			showInvestorDashboard();
+		else
+			showManagerDashboard();
+	}
+
+	private void showInvestorDashboard() {
+		if (investorDashboardFragment == null) {
+			investorDashboardFragment = new InvestorDashboardFragment();
+			getViewState().addFragmentToBackstack(investorDashboardFragment);
 		}
 		else {
-			getViewState().showFragment(dashboardFragment);
+			getViewState().showFragment(investorDashboardFragment);
+		}
+	}
+
+	private void showManagerDashboard() {
+		if (managerDashboardFragment == null) {
+			managerDashboardFragment = new ManagerDashboardFragment();
+			getViewState().addFragmentToBackstack(managerDashboardFragment);
+		}
+		else {
+			getViewState().showFragment(managerDashboardFragment);
 		}
 	}
 

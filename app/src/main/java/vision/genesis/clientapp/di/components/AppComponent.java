@@ -7,6 +7,7 @@ import vision.genesis.clientapp.di.modules.ApiModule;
 import vision.genesis.clientapp.di.modules.AppModule;
 import vision.genesis.clientapp.di.modules.AssetsModule;
 import vision.genesis.clientapp.di.modules.AuthModule;
+import vision.genesis.clientapp.di.modules.FilesModule;
 import vision.genesis.clientapp.di.modules.SettingsModule;
 import vision.genesis.clientapp.di.modules.UtilsModule;
 import vision.genesis.clientapp.feature.auth.forgot_password.ForgotPasswordPresenter;
@@ -15,7 +16,8 @@ import vision.genesis.clientapp.feature.auth.registration.RegistrationPresenter;
 import vision.genesis.clientapp.feature.main.MainPresenter;
 import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
 import vision.genesis.clientapp.feature.main.assets.AssetsPresenter;
-import vision.genesis.clientapp.feature.main.dashboard.DashboardPresenter;
+import vision.genesis.clientapp.feature.main.dashboard.investor.InvestorDashboardPresenter;
+import vision.genesis.clientapp.feature.main.dashboard.manager.ManagerDashboardPresenter;
 import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
 import vision.genesis.clientapp.feature.main.message.MessageActivity;
 import vision.genesis.clientapp.feature.main.profile.ImageCropActivity;
@@ -23,6 +25,9 @@ import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
 import vision.genesis.clientapp.feature.main.profile.change_password.ChangePasswordPresenter;
 import vision.genesis.clientapp.feature.main.program.ProgramInfoPresenter;
 import vision.genesis.clientapp.feature.main.program.chart.ChartPresenter;
+import vision.genesis.clientapp.feature.main.program.create.CreateProgramPresenter;
+import vision.genesis.clientapp.feature.main.program.create.first.CreateProgramFirstStepPresenter;
+import vision.genesis.clientapp.feature.main.program.create.third.CreateProgramThirdStepPresenter;
 import vision.genesis.clientapp.feature.main.program.description.ProgramDescriptionPresenter;
 import vision.genesis.clientapp.feature.main.program.details.ProgramDetailsPresenter;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramPresenter;
@@ -51,7 +56,7 @@ import vision.genesis.clientapp.utils.AppLifecycleTracker;
  * Created by Vitaly on 1/18/18.
  */
 
-@Component(modules = {ApiModule.class, AppModule.class, AssetsModule.class, AuthModule.class, SettingsModule.class, UtilsModule.class})
+@Component(modules = {ApiModule.class, AppModule.class, AssetsModule.class, AuthModule.class, FilesModule.class, SettingsModule.class, UtilsModule.class})
 @Singleton
 public interface AppComponent
 {
@@ -63,7 +68,7 @@ public interface AppComponent
 
 	void inject(RegistrationPresenter registrationPresenter);
 
-	void inject(DashboardPresenter dashboardPresenter);
+	void inject(InvestorDashboardPresenter investorDashboardPresenter);
 
 	void inject(ProgramsListPresenter programsListPresenter);
 
@@ -126,4 +131,12 @@ public interface AppComponent
 	void inject(AppLifecycleTracker appLifecycleTracker);
 
 	void inject(VerifyFingerprintPresenter verifyFingerprintPresenter);
+
+	void inject(ManagerDashboardPresenter managerDashboardPresenter);
+
+	void inject(CreateProgramPresenter createProgramPresenter);
+
+	void inject(CreateProgramFirstStepPresenter createProgramFirstStepPresenter);
+
+	void inject(CreateProgramThirdStepPresenter createProgramThirdStepPresenter);
 }

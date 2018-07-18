@@ -42,10 +42,22 @@
                         android:src="@drawable/logo_full"/>
 
                     <EditText
-                        android:id="@+id/email"
+                        android:id="@+id/user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/login_field_height"
                         android:layout_marginTop="24dp"
+                        android:ems="10"
+                        android:hint="@string/choose_username"
+                        android:inputType="textEmailAddress"
+                        android:maxWidth="300dp"
+                        android:minWidth="300dp"
+                        android:visibility="gone"/>
+
+                    <EditText
+                        android:id="@+id/email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/login_field_height"
+                        android:layout_marginTop="16dp"
                         android:ems="10"
                         android:hint="@string/email"
                         android:inputType="textEmailAddress"

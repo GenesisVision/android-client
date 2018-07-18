@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.dashboard.programs;
+package vision.genesis.clientapp.feature.main.dashboard.investor.programs;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;

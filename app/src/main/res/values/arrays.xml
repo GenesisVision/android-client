@@ -8,4 +8,10 @@
         <item>Success!</item>
     </string-array>
 
+    <string-array name="create_program_steps">
+        <item>Name</item>
+        <item>Account</item>
+        <item>Details</item>
+    </string-array>
+
 </resources>

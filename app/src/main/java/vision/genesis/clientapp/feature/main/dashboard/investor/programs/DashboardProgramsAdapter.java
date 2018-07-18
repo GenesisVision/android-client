@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.dashboard.programs;
+package vision.genesis.clientapp.feature.main.dashboard.investor.programs;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,7 +34,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProgramsAdapter.InvestorProgramViewHolder>
 {
-	public List<InvestmentProgramDashboardExtended> investorPrograms = new ArrayList<>();
+	private List<InvestmentProgramDashboardExtended> investorPrograms = new ArrayList<>();
 
 	@Override
 	public InvestorProgramViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -44,7 +44,8 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 	@Override
 	public void onBindViewHolder(InvestorProgramViewHolder holder, int position) {
-		holder.setInvestmentProgram(investorPrograms.get(position));
+		if (investorPrograms.get(position) != null)
+			holder.setInvestmentProgram(investorPrograms.get(position));
 	}
 
 	@Override

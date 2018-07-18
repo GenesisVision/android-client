@@ -355,4 +355,26 @@
     <string name="error_no_fingerprints">Cannot find any fingerprints registered on the device. You should add a fingerprint on the device first.</string>
     <string name="error_enable_pin_first">You should enable the PIN code first</string>
     <string name="fingerprint_not_recognized">Fingerprint not recognized</string>
+    <string name="choose_username">Choose username</string>
+    <string name="program_title">Program Title</string>
+    <string name="add_program_logo">Add program logo</string>
+
+    <string name="permission_logo_rationale">Please grant the Storage permission in order to be able to choose the program logo</string>
+    <string name="permission_logo_denied">The app is not able to set the program\'s logo until you grant the Storage permission</string>
+    <string name="permission_logo_never_ask_again"><![CDATA[The app is not able to set the program\'s logo until you grant the Storage permission in Settings -> Apps]]></string>
+    <string name="broker_server">Broker Server</string>
+    <string name="trading_account_password">Trading Account Password</string>
+    <string name="confirm_trading_account_password">Confirm Trading Account Password</string>
+    <string name="leverages">Leverages</string>
+    <string name="leverage">Leverage</string>
+    <string name="create_program">Create Program</string>
+    <string name="start_date">Start Date</string>
+    <string name="period_length">Period Length</string>
+    <string name="deposit_amount">Deposit Amount</string>
+    <string name="success_fee_percent">Success Fee, %</string>
+    <string name="management_fee_percent">Management Fee, %</string>
+    <string name="token_name">Token Name</string>
+    <string name="token_symbol">Token Symbol</string>
+    <string name="you_have">You have</string>
+
 </resources>

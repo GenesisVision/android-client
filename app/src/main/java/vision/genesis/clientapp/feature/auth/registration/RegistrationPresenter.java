@@ -9,6 +9,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
+import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -20,6 +21,7 @@ import vision.genesis.clientapp.model.api.ErrorResponse;
 import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
+import vision.genesis.clientapp.utils.Constants;
 
 /**
  * GenesisVision
@@ -56,14 +58,21 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 		getViewState().showLoginActivity();
 	}
 
-	void onSignUpClicked(String email, String password, String confirmPassword) {
+	void onSignUpClicked(String userName, String email, String password, String confirmPassword) {
 		getViewState().clearErrors();
 		getViewState().showProgress();
-		registrationSubscription = authManager.registerInvestor(email, password, confirmPassword)
+
+		registrationSubscription = getRegisterObservable(userName, email, password, confirmPassword)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::onRegisterResponse,
 						this::onRegisterError);
+	}
+
+	private Observable<Void> getRegisterObservable(String userName, String email, String password, String confirmPassword) {
+		return (Constants.IS_INVESTOR)
+				? authManager.registerInvestor(email, password, confirmPassword)
+				: authManager.registerManager(userName, email, password, confirmPassword);
 	}
 
 	private void onRegisterResponse(Void response) {
@@ -89,6 +98,9 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 					}
 					else {
 						switch (error.property.toLowerCase()) {
+							case "username":
+								getViewState().setUserNameError(error.message);
+								break;
 							case "email":
 								getViewState().setEmailError(error.message);
 								break;

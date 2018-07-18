@@ -18,6 +18,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -34,6 +35,9 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 
 	@BindView(R.id.toolbar)
 	public ToolbarView toolbar;
+
+	@BindView(R.id.user_name)
+	public EditText userName;
 
 	@BindView(R.id.email)
 	public EditText email;
@@ -59,14 +63,14 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 	@OnEditorAction(R.id.confirm_password)
 	protected boolean onConfirmPasswordEditorAction(int actionId) {
 		if (actionId == EditorInfo.IME_ACTION_DONE) {
-			registrationPresenter.onSignUpClicked(email.getText().toString(), password.getText().toString(), confirmPassword.getText().toString());
+			signUp();
 		}
 		return false;
 	}
 
 	@OnClick(R.id.button_sign_up)
 	public void onSignUpClicked() {
-		registrationPresenter.onSignUpClicked(email.getText().toString(), password.getText().toString(), confirmPassword.getText().toString());
+		signUp();
 	}
 
 	@OnClick(R.id.button_sign_in)
@@ -84,6 +88,8 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 
 		initToolbar();
 
+		userName.setVisibility(Constants.IS_INVESTOR ? View.GONE : View.VISIBLE);
+
 		setFonts();
 	}
 
@@ -94,6 +100,19 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 	private void initToolbar() {
 		toolbar.setTitle(getString(R.string.sign_up));
 		toolbar.addLeftButton(R.drawable.back_arrow, this::finishActivity);
+	}
+
+	private void signUp() {
+		registrationPresenter.onSignUpClicked(
+				userName.getText().toString(),
+				email.getText().toString(),
+				password.getText().toString(),
+				confirmPassword.getText().toString());
+	}
+
+	@Override
+	public void setUserNameError(String message) {
+		userName.setError(message);
 	}
 
 	@Override
@@ -113,6 +132,7 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 
 	@Override
 	public void clearErrors() {
+		userName.setError(null);
 		email.setError(null);
 		password.setError(null);
 		confirmPassword.setError(null);

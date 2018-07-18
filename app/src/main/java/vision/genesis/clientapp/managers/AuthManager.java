@@ -34,6 +34,7 @@ import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.OnUnauthorizedResponseGetEvent;
+import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.SharedPreferencesUtil;
 import vision.genesis.clientapp.utils.fingerprint.FingerprintHandler;
 import vision.genesis.clientapp.utils.fingerprint.GenerateKeyCipher;
@@ -158,13 +159,13 @@ public class AuthManager
 	}
 
 	private Observable<TwoFactorStatus> twoFactorStatus() {
-		return BuildConfig.FLAVOR.equals("investor")
+		return Constants.IS_INVESTOR
 				? investorApi.apiInvestorAuth2faGet(AuthManager.token.getValue())
 				: managerApi.apiManagerAuth2faGet(AuthManager.token.getValue());
 	}
 
 	public Observable<TwoFactorAuthenticator> createTfaKey() {
-		return BuildConfig.FLAVOR.equals("investor")
+		return Constants.IS_INVESTOR
 				? investorApi.apiInvestorAuth2faCreatePost(AuthManager.token.getValue())
 				: managerApi.apiManagerAuth2faCreatePost(AuthManager.token.getValue());
 	}
@@ -174,7 +175,7 @@ public class AuthManager
 		model.setSharedKey(sharedKey);
 		model.setPassword(password);
 		model.setCode(code);
-		return BuildConfig.FLAVOR.equals("investor")
+		return Constants.IS_INVESTOR
 				? investorApi.apiInvestorAuth2faConfirmPost(AuthManager.token.getValue(), model)
 				: managerApi.apiManagerAuth2faConfirmPost(AuthManager.token.getValue(), model);
 	}
@@ -183,7 +184,7 @@ public class AuthManager
 		TwoFactorCodeModel model = new TwoFactorCodeModel();
 		model.setPassword(password);
 		model.setTwoFactorCode(code);
-		return BuildConfig.FLAVOR.equals("investor")
+		return Constants.IS_INVESTOR
 				? investorApi.apiInvestorAuth2faDisablePost(AuthManager.token.getValue(), model)
 				: managerApi.apiManagerAuth2faDisablePost(AuthManager.token.getValue(), model);
 	}
@@ -208,7 +209,7 @@ public class AuthManager
 	public Observable<Void> sendForgotPassword(String email) {
 		ForgotPasswordViewModel model = new ForgotPasswordViewModel();
 		model.setEmail(email);
-		return BuildConfig.FLAVOR.equals("investor")
+		return Constants.IS_INVESTOR
 				? investorApi.apiInvestorAuthForgotPasswordPost(model)
 				: managerApi.apiManagerAuthForgotPasswordPost(model);
 	}
@@ -218,13 +219,13 @@ public class AuthManager
 		model.setOldPassword(oldPassword);
 		model.setPassword(newPassword);
 		model.setConfirmPassword(confirmPassword);
-		return BuildConfig.FLAVOR.equals("investor")
+		return Constants.IS_INVESTOR
 				? investorApi.apiInvestorAuthChangePasswordPost(AuthManager.token.getValue(), model)
 				: managerApi.apiManagerAuthChangePasswordPost(AuthManager.token.getValue(), model);
 	}
 
 	private Observable<String> getLoginApiObservable(LoginViewModel model) {
-		return BuildConfig.FLAVOR.equals("investor")
+		return Constants.IS_INVESTOR
 				? investorApi.apiInvestorAuthSignInPost(model)
 				: managerApi.apiManagerAuthSignInPost(model);
 	}

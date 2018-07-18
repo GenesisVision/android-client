@@ -1,11 +1,15 @@
 package vision.genesis.clientapp.utils;
 
+import vision.genesis.clientapp.BuildConfig;
+
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 04/06/2018.
  */
 public class Constants
 {
+	public static final boolean IS_INVESTOR = BuildConfig.FLAVOR.equals("investor");
+
 	public static final int TOKENS_MAX_DECIMAL_POINT_DIGITS = 2;
 
 	public static final int TWO_FACTOR_CODE_LENGTH = 6;

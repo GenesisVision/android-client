@@ -11,6 +11,8 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 interface RegistrationView extends MvpView
 {
+	void setUserNameError(String message);
+
 	void setEmailError(String message);
 
 	void setPasswordError(String message);

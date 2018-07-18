@@ -160,7 +160,7 @@ public class SortingBottomSheetFragment extends BottomSheetDialogFragment
 			case "level":
 				selectOption(level);
 				break;
-			case "end of period":
+			case "end of periods":
 				selectOption(endOfPeriod);
 				break;
 			case "balance":

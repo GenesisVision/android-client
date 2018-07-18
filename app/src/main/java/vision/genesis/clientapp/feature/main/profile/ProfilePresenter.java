@@ -22,6 +22,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
+import vision.genesis.clientapp.managers.FilesManager;
 import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.api.Error;
@@ -48,6 +49,9 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 
 	@Inject
 	public ProfileManager profileManager;
+
+	@Inject
+	public FilesManager filesManager;
 
 	@Inject
 	public ImageUtils imageUtils;
@@ -236,7 +240,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 
 	private void uploadAvatar() {
 		getViewState().showAvatarProgress(true);
-		avatarUploadSubscription = profileManager.uploadAvatar(newAvatarFile)
+		avatarUploadSubscription = filesManager.uploadFile(newAvatarFile)
 				.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(this::handleUploadAvatarResponse,

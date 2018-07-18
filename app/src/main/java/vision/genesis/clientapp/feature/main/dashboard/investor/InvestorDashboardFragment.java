@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.dashboard;
+package vision.genesis.clientapp.feature.main.dashboard.investor;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,7 +22,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.main.dashboard.programs.DashboardPagerAdapter;
+import vision.genesis.clientapp.feature.main.dashboard.investor.programs.DashboardPagerAdapter;
 import vision.genesis.clientapp.feature.main.tooltip.TooltipActivity;
 import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
 import vision.genesis.clientapp.model.TooltipModel;
@@ -35,7 +35,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 1/19/18.
  */
 
-public class DashboardFragment extends BaseFragment implements DashboardView, ViewPager.OnPageChangeListener
+public class InvestorDashboardFragment extends BaseFragment implements InvestorDashboardView, ViewPager.OnPageChangeListener
 {
 	@BindView(R.id.portfolio_value)
 	public TextView portfolioValue;
@@ -59,7 +59,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 	public TabLayout tabLayout;
 
 	@InjectPresenter
-	DashboardPresenter dashboardPresenter;
+	InvestorDashboardPresenter investorDashboardPresenter;
 
 	private TabLayout.OnTabSelectedListener tabSelectedListener;
 
@@ -79,7 +79,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_dashboard, container, false);
+		return inflater.inflate(R.layout.fragment_investor_dashboard, container, false);
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 	@Override
 	public void onResume() {
 		super.onResume();
-		dashboardPresenter.onResume();
+		investorDashboardPresenter.onResume();
 	}
 
 	@Override
@@ -225,7 +225,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Vi
 
 	@Override
 	public void onShow() {
-		dashboardPresenter.onResume();
+		investorDashboardPresenter.onResume();
 	}
 
 	@Override

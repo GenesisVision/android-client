@@ -150,14 +150,14 @@ public class ImageUtils
 		}
 	}
 
-	public File createImageFile(String name) throws IOException {
-		File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-		return File.createTempFile(name, ".jpg", storageDir);
-	}
-
 	public File createImageFile() throws IOException {
 		String timestamp = new SimpleDateFormat("ddMMyyyy_HHmmss", Locale.getDefault()).format(new Date());
 		String imageFileName = "gv_" + timestamp;
 		return createImageFile(imageFileName);
+	}
+
+	private File createImageFile(String name) throws IOException {
+		File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		return File.createTempFile(name, ".jpg", storageDir);
 	}
 }
