@@ -25,4 +25,6 @@ interface SettingsView extends MvpView
 	void showDisableFingerprint();
 
 	void showDialogMessage(String message);
+
+	void changeThemeWithAnim(String newTheme);
 }

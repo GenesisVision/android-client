@@ -72,7 +72,7 @@ public class MessageActivity extends MvpAppCompatActivity
 
 		ButterKnife.bind(this);
 
-		StatusBarUtil.setColor(this, R.color.colorAccent);
+		StatusBarUtil.setColorResId(this, R.color.colorAccent);
 
 		button.setWhite();
 

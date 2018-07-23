@@ -73,6 +73,10 @@ public class SettingsSwitchButton extends RelativeLayout
 		switchView.setChecked(selected);
 	}
 
+	public boolean getChecked() {
+		return checked;
+	}
+
 	public void setChecked(boolean checked) {
 		this.checked = checked;
 		this.switchView.setChecked(checked);
@@ -83,5 +87,10 @@ public class SettingsSwitchButton extends RelativeLayout
 	public void setSwitchListener(OnCheckChangeListener listener) {
 		this.listener = listener;
 		listener.onChecked(checked);
+	}
+
+	public void setColor(int color) {
+		icon.setColorFilter(color);
+		text.setTextColor(color);
 	}
 }

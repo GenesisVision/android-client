@@ -1,15 +1,19 @@
 package vision.genesis.clientapp.feature.main.settings;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -32,6 +36,7 @@ import vision.genesis.clientapp.feature.pin.fingerprint.VerifyFingerprintActivit
 import vision.genesis.clientapp.model.SettingsModel;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.SettingsSwitchButton;
+import vision.genesis.clientapp.utils.ThemeUtil;
 
 /**
  * GenesisVisionAndroid
@@ -44,6 +49,39 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 
 	private static final int DISABLE_PIN_REQUEST_CODE = 402;
 
+	@BindView(R.id.root)
+	public ViewGroup root;
+
+	@BindView(R.id.card_profile)
+	public CardView profileCard;
+
+	@BindView(R.id.card_change_password)
+	public CardView changePasswordCard;
+
+	@BindView(R.id.card_security)
+	public CardView securityCard;
+
+	@BindView(R.id.card_dark_theme)
+	public CardView darkThemeCard;
+
+	@BindView(R.id.card_feedback)
+	public CardView feedbackCard;
+
+	@BindView(R.id.card_logout)
+	public CardView logoutCard;
+
+	@BindView(R.id.arrow_profile)
+	public ImageView profileArrow;
+
+	@BindView(R.id.arrow_change_password)
+	public ImageView changePasswordArrow;
+
+	@BindView(R.id.icon_change_password)
+	public ImageView changePasswordIcon;
+
+	@BindView(R.id.icon_feedback)
+	public ImageView feedbackIcon;
+
 	@BindView(R.id.avatar)
 	public AvatarView avatar;
 
@@ -52,6 +90,12 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 
 	@BindView(R.id.profile_email)
 	public TextView profileEmail;
+
+	@BindView(R.id.text_change_password)
+	public TextView changePasswordText;
+
+	@BindView(R.id.text_feedback)
+	public TextView feedbackText;
 
 	@BindView(R.id.two_factor)
 	public SettingsSwitchButton twoFactor;
@@ -62,8 +106,14 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 	@BindView(R.id.fingerprint)
 	public SettingsSwitchButton fingerprint;
 
+	@BindView(R.id.pin_code_delimiter)
+	public View pinCodeDelimiter;
+
 	@BindView(R.id.fingerprint_delimiter)
 	public View fingerprintDelimiter;
+
+	@BindView(R.id.dark_theme)
+	public SettingsSwitchButton darkTheme;
 
 	@BindView(R.id.version)
 	public TextView version;
@@ -96,6 +146,11 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 	@OnClick(R.id.fingerprint)
 	public void onFingerprintClicked() {
 		settingsPresenter.onFingerprintClicked();
+	}
+
+	@OnClick(R.id.dark_theme)
+	public void onDarkThemeClicked() {
+		settingsPresenter.onDarkThemeClicked(darkTheme.getChecked());
 	}
 
 	@OnClick(R.id.send_feedback)
@@ -143,10 +198,12 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 		twoFactor.setIcon(R.drawable.icon_tfa);
 		pinCode.setIcon(R.drawable.icon_pin);
 		fingerprint.setIcon(R.drawable.ic_fingerprint_black_24dp);
+		darkTheme.setIcon(R.drawable.ic_color_lens_black_24dp);
 
 		twoFactor.setText(getString(R.string.two_factor_authentication));
 		pinCode.setText(getString(R.string.pin_code));
 		fingerprint.setText(getString(R.string.use_fingerprint));
+		darkTheme.setText(getString(R.string.dark_theme));
 	}
 
 	@Override
@@ -251,6 +308,7 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 		twoFactor.setChecked(settingsModel.isTwoFactorEnabled());
 		pinCode.setChecked(settingsModel.isPinCodeEnabled());
 		fingerprint.setChecked(settingsModel.isFingerprintEnabled());
+		darkTheme.setChecked(settingsModel.getTheme().equals(ThemeUtil.THEME_DARK));
 	}
 
 	@Override
@@ -273,6 +331,54 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 	@Override
 	public void showDialogMessage(String message) {
 		showMessageDialog(message);
+	}
+
+	@Override
+	public void changeThemeWithAnim(String newTheme) {
+		ValueAnimator backgroundColorAnimation = ThemeUtil.getColorAnimator(getActivity(), ((ColorDrawable) root.getBackground()).getColor(), R.attr.colorBackground);
+		backgroundColorAnimation.addUpdateListener(animator -> root.setBackgroundColor((int) animator.getAnimatedValue()));
+		backgroundColorAnimation.start();
+
+		ValueAnimator cardColorAnimation = ThemeUtil.getColorAnimator(getActivity(), profileCard.getCardBackgroundColor().getDefaultColor(), R.attr.colorCard);
+		cardColorAnimation.addUpdateListener(animator -> {
+			profileCard.setCardBackgroundColor((int) animator.getAnimatedValue());
+			changePasswordCard.setCardBackgroundColor((int) animator.getAnimatedValue());
+			securityCard.setCardBackgroundColor((int) animator.getAnimatedValue());
+			darkThemeCard.setCardBackgroundColor((int) animator.getAnimatedValue());
+			feedbackCard.setCardBackgroundColor((int) animator.getAnimatedValue());
+			logoutCard.setCardBackgroundColor((int) animator.getAnimatedValue());
+		});
+		cardColorAnimation.start();
+
+		ValueAnimator primaryTextColorAnimation = ThemeUtil.getColorAnimator(getActivity(), profileName.getCurrentTextColor(), R.attr.colorTextPrimary);
+		primaryTextColorAnimation.addUpdateListener(animator -> {
+			profileName.setTextColor((int) animator.getAnimatedValue());
+			profileArrow.setColorFilter((int) animator.getAnimatedValue());
+
+			changePasswordIcon.setColorFilter((int) animator.getAnimatedValue());
+			changePasswordText.setTextColor((int) animator.getAnimatedValue());
+			changePasswordArrow.setColorFilter((int) animator.getAnimatedValue());
+
+			twoFactor.setColor((int) animator.getAnimatedValue());
+			pinCode.setColor((int) animator.getAnimatedValue());
+			fingerprint.setColor((int) animator.getAnimatedValue());
+			darkTheme.setColor((int) animator.getAnimatedValue());
+
+			feedbackIcon.setColorFilter((int) animator.getAnimatedValue());
+			feedbackText.setTextColor((int) animator.getAnimatedValue());
+		});
+		primaryTextColorAnimation.start();
+
+		ValueAnimator delimiterColorAnimation = ThemeUtil.getColorAnimator(getActivity(), ((ColorDrawable) fingerprintDelimiter.getBackground()).getColor(), R.attr.colorDelimiter);
+		delimiterColorAnimation.addUpdateListener(animator -> {
+			pinCodeDelimiter.setBackgroundColor((int) animator.getAnimatedValue());
+			fingerprintDelimiter.setBackgroundColor((int) animator.getAnimatedValue());
+		});
+		delimiterColorAnimation.start();
+
+		ValueAnimator secondaryTextColorAnimation = ThemeUtil.getColorAnimator(getActivity(), version.getCurrentTextColor(), R.attr.colorTextSecondary);
+		secondaryTextColorAnimation.addUpdateListener(animator -> version.setTextColor((int) animator.getAnimatedValue()));
+		secondaryTextColorAnimation.start();
 	}
 
 	@Override

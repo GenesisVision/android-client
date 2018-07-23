@@ -12,6 +12,8 @@ public class SettingsModel
 
 	private boolean fingerprintEnabled;
 
+	private String theme;
+
 	public boolean isPinCodeEnabled() {
 		return pinCodeEnabled;
 	}
@@ -34,5 +36,13 @@ public class SettingsModel
 
 	public void setFingerprintEnabled(boolean fingerprintEnabled) {
 		this.fingerprintEnabled = fingerprintEnabled;
+	}
+
+	public String getTheme() {
+		return theme;
+	}
+
+	public void setTheme(String theme) {
+		this.theme = theme;
 	}
 }

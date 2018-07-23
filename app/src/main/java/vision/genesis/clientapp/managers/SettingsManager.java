@@ -12,6 +12,7 @@ import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.model.SettingsModel;
 import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.SharedPreferencesUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.hash.HashGenerationException;
 import vision.genesis.clientapp.utils.hash.HashGeneratorUtil;
 
@@ -46,7 +47,9 @@ public class SettingsManager
 		SettingsModel settingsModel = settingsSubject.getValue();
 		settingsModel.setPinCodeEnabled(sharedPreferencesUtil.getPinCodeEnabled());
 		settingsModel.setFingerprintEnabled(sharedPreferencesUtil.getFingerprintEnabled());
+		settingsModel.setTheme(sharedPreferencesUtil.getTheme());
 		settingsSubject.onNext(settingsModel);
+		ThemeUtil.setTheme(settingsModel.getTheme());
 	}
 
 	public void setTwoFactorEnabled(boolean enabled) {
@@ -71,6 +74,14 @@ public class SettingsManager
 		sharedPreferencesUtil.setFingerprintEnabled(enabled);
 		SettingsModel settingsModel = settingsSubject.getValue();
 		settingsModel.setFingerprintEnabled(enabled);
+		settingsSubject.onNext(settingsModel);
+	}
+
+	public void setTheme(String newTheme) {
+		ThemeUtil.setTheme(newTheme);
+		sharedPreferencesUtil.setTheme(newTheme);
+		SettingsModel settingsModel = settingsSubject.getValue();
+		settingsModel.setTheme(newTheme);
 		settingsSubject.onNext(settingsModel);
 	}
 

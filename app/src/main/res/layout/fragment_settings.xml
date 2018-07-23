@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout android:id="@+id/root"
+                xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorGrayBackground">
+                android:background="?attr/colorBackground">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,7 +21,7 @@
                 android:id="@+id/card_profile"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:background="@color/white"
+                app:cardBackgroundColor="?attr/colorCard"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="2dp"
                 app:cardPreventCornerOverlap="true">
@@ -33,8 +34,8 @@
 
                     <vision.genesis.clientapp.ui.AvatarView
                         android:id="@+id/avatar"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="16sp"
                         android:layout_marginStart="16sp"/>
@@ -53,7 +54,7 @@
                             android:id="@+id/profile_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/colorMedium"
+                            android:textColor="?attr/colorTextPrimary"
                             android:textSize="20sp"
                             tools:text="Warren Buffett"/>
 
@@ -61,13 +62,14 @@
                             android:id="@+id/profile_email"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/colorAccent"
+                            android:textColor="?attr/colorAccent"
                             android:textSize="16sp"
                             tools:text="buffett@berkshirehathaway.com"/>
 
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/arrow_profile"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
@@ -76,7 +78,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
                         android:src="@drawable/ic_chevron_right_black_24dp"
-                        android:tint="@color/grey300"/>
+                        android:tint="?attr/colorTextPrimary"/>
 
                 </RelativeLayout>
 
@@ -88,7 +90,7 @@
                 android:layout_height="@dimen/settings_item_height"
                 android:layout_below="@+id/card_profile"
                 android:layout_marginTop="24dp"
-                android:background="@color/white"
+                app:cardBackgroundColor="?attr/colorCard"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="2dp"
                 app:cardPreventCornerOverlap="true">
@@ -106,19 +108,21 @@
                         android:src="@drawable/ic_lock_black_24dp"/>
 
                     <TextView
+                        android:id="@+id/text_change_password"
                         style="@style/settings_text"
                         android:layout_toEndOf="@+id/icon_change_password"
                         android:layout_toRightOf="@+id/icon_change_password"
                         android:text="@string/change_password"/>
 
                     <ImageView
+                        android:id="@+id/arrow_change_password"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:src="@drawable/ic_chevron_right_black_24dp"
-                        android:tint="@color/grey300"/>
+                        android:tint="?attr/colorTextPrimary"/>
 
                 </RelativeLayout>
 
@@ -130,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/card_change_password"
                 android:layout_marginTop="24dp"
-                android:background="@color/white"
+                app:cardBackgroundColor="?attr/colorCard"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="2dp"
                 app:cardPreventCornerOverlap="true">
@@ -146,9 +150,10 @@
                         android:layout_height="wrap_content"/>
 
                     <View
+                        android:id="@+id/pin_code_delimiter"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/grey100"/>
+                        android:background="?attr/colorDelimiter"/>
 
                     <vision.genesis.clientapp.ui.SettingsSwitchButton
                         android:id="@+id/pin_code"
@@ -159,7 +164,7 @@
                         android:id="@+id/fingerprint_delimiter"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/grey100"
+                        android:background="?attr/colorDelimiter"
                         android:visibility="gone"/>
 
                     <vision.genesis.clientapp.ui.SettingsSwitchButton
@@ -173,12 +178,30 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
+                android:id="@+id/card_dark_theme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_security"
+                android:layout_marginTop="24dp"
+                app:cardBackgroundColor="?attr/colorCard"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="2dp"
+                app:cardPreventCornerOverlap="true">
+
+                <vision.genesis.clientapp.ui.SettingsSwitchButton
+                    android:id="@+id/dark_theme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
                 android:id="@+id/card_feedback"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/settings_item_height"
-                android:layout_below="@+id/card_security"
+                android:layout_below="@+id/card_dark_theme"
                 android:layout_marginTop="24dp"
-                android:background="@color/white"
+                app:cardBackgroundColor="?attr/colorCard"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="2dp"
                 app:cardPreventCornerOverlap="true">
@@ -200,6 +223,7 @@
                         android:src="@drawable/ic_feedback_black_24dp"/>
 
                     <TextView
+                        android:id="@+id/text_feedback"
                         style="@style/settings_text"
                         android:layout_toEndOf="@+id/icon_feedback"
                         android:layout_toRightOf="@+id/icon_feedback"
@@ -215,7 +239,7 @@
                 android:layout_height="@dimen/settings_item_height"
                 android:layout_below="@+id/card_feedback"
                 android:layout_marginTop="24dp"
-                android:background="@color/white"
+                app:cardBackgroundColor="?attr/colorCard"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="2dp"
                 app:cardPreventCornerOverlap="true">
@@ -235,14 +259,14 @@
                         style="@style/settings_icon"
                         android:padding="8dp"
                         android:src="@drawable/logout"
-                        android:tint="@color/transactionRed"/>
+                        android:tint="?attr/colorRed"/>
 
                     <TextView
                         style="@style/settings_text"
                         android:layout_toEndOf="@+id/icon_logout"
                         android:layout_toRightOf="@+id/icon_logout"
                         android:text="@string/log_out"
-                        android:textColor="@color/transactionRed"/>
+                        android:textColor="?attr/colorRed"/>
 
                 </RelativeLayout>
 
@@ -262,7 +286,7 @@
                     android:id="@+id/version"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/grey400"
+                    android:textColor="?attr/colorTextSecondary"
                     tools:text="Version 0.0.8-alpha (18060802)"/>
 
                 <TextView
@@ -271,7 +295,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
                     android:text="@string/privacy_policy"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="?attr/colorAccent"
                     android:textSize="16sp"/>
 
                 <TextView
@@ -280,7 +304,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="@string/terms_and_conditions"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="?attr/colorAccent"
                     android:textSize="16sp"/>
 
             </LinearLayout>

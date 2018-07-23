@@ -76,7 +76,7 @@ public class SetPinActivity extends MvpAppCompatActivity implements SetPinView
 
 		ButterKnife.bind(this);
 
-		StatusBarUtil.setColor(this, R.color.colorAccent);
+		StatusBarUtil.setColorResId(this, R.color.colorAccent);
 
 		initKeyboardListener();
 		setFonts();

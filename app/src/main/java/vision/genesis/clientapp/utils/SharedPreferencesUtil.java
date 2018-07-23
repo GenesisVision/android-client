@@ -29,6 +29,8 @@ public class SharedPreferencesUtil
 
 	private static final String KEY_PIN_CODE_HASH = "keyPinCodeHash";
 
+	private static final String KEY_THEME = "keyTheme";
+
 	private Context context;
 
 	public SharedPreferencesUtil(Context context) {
@@ -116,6 +118,18 @@ public class SharedPreferencesUtil
 		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
 		sharedPreferences.edit()
 				.putString(KEY_PIN_CODE_HASH, hashedPin)
+				.apply();
+	}
+
+	public String getTheme() {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+		return sharedPreferences.getString(KEY_THEME, ThemeUtil.THEME_DARK);
+	}
+
+	public void setTheme(String newTheme) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+		sharedPreferences.edit()
+				.putString(KEY_THEME, newTheme)
 				.apply();
 	}
 }

@@ -1,6 +1,35 @@
 <resources>
 
     <!-- Base application theme. -->
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:typeface">serif</item>
+        <item name="colorPrimary">@color/accent</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="textColorError">@color/red</item>
+        <item name="colorGreen">@color/green</item>
+        <item name="colorRed">@color/red</item>
+    </style>
+
+    <style name="AppTheme.Base.Dark" parent="AppTheme.Base">
+        <item name="android:windowBackground">@color/darkBackground</item>
+        <item name="colorBackground">@color/darkBackground</item>
+        <item name="colorCard">@color/darkCard</item>
+        <item name="colorDelimiter">@color/darkDelimiter</item>
+        <item name="colorTextPrimary">@color/darkTextPrimary</item>
+        <item name="colorTextSecondary">@color/darkTextSecondary</item>
+    </style>
+
+    <style name="AppTheme.Base.Light" parent="AppTheme.Base">
+        <item name="android:windowBackground">@color/lightBackground</item>
+        <item name="colorBackground">@color/lightBackground</item>
+        <item name="colorCard">@color/lightCard</item>
+        <item name="colorDelimiter">@color/lightCard</item>
+        <item name="colorTextPrimary">@color/lightTextPrimary</item>
+        <item name="colorTextSecondary">@color/lightTextSecondary</item>
+    </style>
+
+    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/white</item>
@@ -192,20 +221,20 @@
     </style>
 
     <style name="settings_icon">
-        <item name="android:layout_width">40dp</item>
-        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_width">35dp</item>
+        <item name="android:layout_height">35dp</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_marginEnd">16dp</item>
         <item name="android:layout_marginRight">16dp</item>
-        <item name="android:tint">@color/colorMedium</item>
+        <item name="android:tint">?attr/colorTextPrimary</item>
     </style>
 
     <style name="settings_text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerVertical">true</item>
-        <item name="android:textColor">@color/colorMedium</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="AppTheme.PinButton" parent="Widget.AppCompat.Button.Borderless">

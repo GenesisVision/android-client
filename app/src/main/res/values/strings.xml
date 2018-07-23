@@ -376,5 +376,6 @@
     <string name="token_name">Token Name</string>
     <string name="token_symbol">Token Symbol</string>
     <string name="you_have">You have</string>
+    <string name="dark_theme">Dark theme</string>
 
 </resources>

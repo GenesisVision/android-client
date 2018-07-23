@@ -65,7 +65,7 @@ public class VerifyFingerprintActivity extends MvpAppCompatActivity implements V
 
 		ButterKnife.bind(this);
 
-		StatusBarUtil.setColor(this, R.color.colorAccent);
+		StatusBarUtil.setColorResId(this, R.color.colorAccent);
 
 		if (getIntent().getExtras() != null) {
 			int requestCode = getIntent().getExtras().getInt(EXTRA_REQUEST_CODE);

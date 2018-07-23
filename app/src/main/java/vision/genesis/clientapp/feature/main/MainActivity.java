@@ -1,8 +1,10 @@
 package vision.genesis.clientapp.feature.main;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -47,7 +49,8 @@ import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
 import vision.genesis.clientapp.ui.common.BlockScreenHolder;
-import vision.genesis.clientapp.utils.Constants;
+import vision.genesis.clientapp.utils.StatusBarUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -95,6 +98,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
@@ -208,11 +212,9 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 		bottomNavigationView.addItem(walletItem);
 		bottomNavigationView.addItem(settingsItem);
 
-		bottomNavigationView.setAccentColor(ContextCompat.getColor(this, R.color.white));
-		bottomNavigationView.setInactiveColor(ContextCompat.getColor(this,
-				Constants.IS_INVESTOR ? R.color.bottomInactiveInvestor : R.color.bottomInactiveManager));
-		bottomNavigationView.setDefaultBackgroundColor(ContextCompat.getColor(this,
-				Constants.IS_INVESTOR ? R.color.colorAccent : R.color.colorMedium));
+		bottomNavigationView.setAccentColor(ThemeUtil.getColorByAttrId(this, R.attr.colorAccent));
+		bottomNavigationView.setInactiveColor(ThemeUtil.getColorByAttrId(this, R.attr.colorTextSecondary));
+		bottomNavigationView.setDefaultBackgroundColor(ThemeUtil.getColorByAttrId(this, R.attr.colorCard));
 
 		bottomNavigationView.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
 
@@ -343,6 +345,24 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void hideSplashScreen() {
 		splashScreen.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void changeThemeWithAnim() {
+		ValueAnimator cardColorAnimation = ThemeUtil.getColorAnimator(this, bottomNavigationView.getDefaultBackgroundColor(), R.attr.colorCard);
+		cardColorAnimation.addUpdateListener(animator -> bottomNavigationView.setDefaultBackgroundColor((int) animator.getAnimatedValue()));
+		cardColorAnimation.start();
+
+		ValueAnimator inactiveColorAnimation = ThemeUtil.getColorAnimator(this, bottomNavigationView.getInactiveColor(), R.attr.colorTextSecondary);
+		inactiveColorAnimation.addUpdateListener(animator -> bottomNavigationView.setInactiveColor((int) animator.getAnimatedValue()));
+		inactiveColorAnimation.start();
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+			ValueAnimator statusBarColorAnimation = ThemeUtil.getColorAnimator(this, StatusBarUtil.getColor(this), android.R.attr.statusBarColor);
+			statusBarColorAnimation.addUpdateListener(animator ->
+					StatusBarUtil.setColor(this, (int) animator.getAnimatedValue()));
+			statusBarColorAnimation.start();
+		}
 	}
 
 	@Override

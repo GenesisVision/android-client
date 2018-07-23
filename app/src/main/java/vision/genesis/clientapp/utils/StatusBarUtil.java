@@ -10,9 +10,22 @@ import android.support.v4.content.ContextCompat;
  */
 public class StatusBarUtil
 {
-	public static void setColor(Activity activity, int color) {
+	public static void setColorResId(Activity activity, int color) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 			activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, color));
 		}
+	}
+
+	public static void setColor(Activity activity, int color) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+			activity.getWindow().setStatusBarColor(color);
+		}
+	}
+
+	public static int getColor(Activity activity) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+			return activity.getWindow().getStatusBarColor();
+		}
+		return 0;
 	}
 }

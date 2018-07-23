@@ -20,9 +20,11 @@ import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.SettingsModel;
+import vision.genesis.clientapp.model.events.OnThemeChangedEvent;
 import vision.genesis.clientapp.model.events.ShowDisableTfaActivityEvent;
 import vision.genesis.clientapp.model.events.ShowSetPinActivityEvent;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
+import vision.genesis.clientapp.utils.ThemeUtil;
 
 /**
  * GenesisVisionAndroid
@@ -150,11 +152,14 @@ public class SettingsPresenter extends MvpPresenter<SettingsView>
 		settingsManager.setPinCodeEnabled(false);
 	}
 
-	public void enableFingerprint() {
-		settingsManager.setFingerprintEnabled(true);
-	}
-
 	public void disableFingerprint() {
 		settingsManager.setFingerprintEnabled(false);
+	}
+
+	public void onDarkThemeClicked(boolean checked) {
+		String newTheme = checked ? ThemeUtil.THEME_LIGHT : ThemeUtil.THEME_DARK;
+		settingsManager.setTheme(newTheme);
+		EventBus.getDefault().post(new OnThemeChangedEvent());
+		getViewState().changeThemeWithAnim(newTheme);
 	}
 }

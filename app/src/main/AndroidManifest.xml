@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:roundIcon="@string/icon_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.Base.Light">
 
         <activity
             android:name=".feature.splashscreen.SplashScreenActivity"

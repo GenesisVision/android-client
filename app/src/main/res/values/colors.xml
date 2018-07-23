@@ -50,4 +50,26 @@
     <color name="colorEur">#003399</color>
     <color name="colorBtc">#f7931a</color>
     <color name="colorEth">#3C3C3D</color>
+
+
+    <color name="accent">#56b8af</color>
+    <color name="green">#64c896</color>
+    <color name="red">#d94b5d</color>
+    <color name="colorNotFound">#ff00ff</color>
+
+
+    <color name="darkBackground">#151e25</color>
+    <color name="darkCard">#1d252c</color>
+    <color name="darkDelimiter">#232b31</color>
+
+    <color name="darkTextPrimary">#ffffff</color>
+    <color name="darkTextSecondary">#787d82</color>
+
+
+    <color name="lightBackground">#f3f3f3</color>
+    <color name="lightCard">#ffffff</color>
+    <color name="lightDelimiter">#fafafa</color>
+
+    <color name="lightTextPrimary">#1c232a</color>
+    <color name="lightTextSecondary">#bbbdbf</color>
 </resources>

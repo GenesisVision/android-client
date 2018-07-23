@@ -1,10 +1,12 @@
 package vision.genesis.clientapp.feature.main.dashboard.investor;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,7 @@ import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
 import vision.genesis.clientapp.model.TooltipModel;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -79,7 +82,9 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_investor_dashboard, container, false);
+		final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), ThemeUtil.getCurrentThemeResource());
+		LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
+		return localInflater.inflate(R.layout.fragment_investor_dashboard, container, false);
 	}
 
 	@Override
