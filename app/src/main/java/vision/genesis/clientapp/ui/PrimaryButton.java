@@ -35,11 +35,15 @@ public class PrimaryButton extends android.support.v7.widget.AppCompatButton
 		setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
 	}
 
+	public void setEmpty() {
+		setBackground(ContextCompat.getDrawable(getContext(), R.drawable.button_primary_empty));
+	}
+
 	private void initView() {
+		setTransformationMethod(null);
 		setBackground(ContextCompat.getDrawable(getContext(), R.drawable.button_primary));
 		setTextColor(ContextCompat.getColor(getContext(), R.color.white));
-		setTypeface(TypefaceUtil.bold());
+		setTypeface(TypefaceUtil.semibold());
 		setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-		setAllCaps(true);
 	}
 }

@@ -85,6 +85,6 @@ public class GenesisVisionApplication extends Application
 	}
 
 	private void overrideFonts() {
-		TypefaceUtil.overrideFont(getApplicationContext(), "SERIF", "fonts/NeuzeitGro-Reg.ttf");
+		TypefaceUtil.overrideFont(getApplicationContext(), "SERIF", getString(R.string.font_montserrat_regular));
 	}
 }

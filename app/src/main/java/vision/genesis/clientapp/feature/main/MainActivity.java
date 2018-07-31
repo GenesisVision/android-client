@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -23,13 +22,10 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
-import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
@@ -68,17 +64,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 		activity.overridePendingTransition(R.anim.hold, R.anim.hold);
 	}
 
-	@BindView(R.id.version)
-	public TextView version;
-
 	@BindView(R.id.splashscreen)
 	public View splashScreen;
 
 	@BindView(R.id.group_sign_in)
 	public View signInGroup;
-
-	@BindView(R.id.bottom_shadow)
-	public View bottomShadow;
 
 	@BindView(R.id.block_screen)
 	public View blockScreen;
@@ -105,8 +95,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 		ButterKnife.bind(this);
 
 		initBottomNavigation();
-
-		version.setText(String.format(Locale.getDefault(), "%s (%d)", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
 	}
 
 	@Override
@@ -199,10 +187,10 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	}
 
 	public void initBottomNavigation() {
-		AHBottomNavigationItem dashboardItem = new AHBottomNavigationItem(getString(R.string.dashboard).toUpperCase(), R.drawable.dashboard_icon);
-		AHBottomNavigationItem investItem = new AHBottomNavigationItem(getString(R.string.programs).toUpperCase(), R.drawable.traders_icon);
-		AHBottomNavigationItem walletItem = new AHBottomNavigationItem(getString(R.string.wallet).toUpperCase(), R.drawable.wallet_icon);
-		AHBottomNavigationItem settingsItem = new AHBottomNavigationItem(getString(R.string.settings).toUpperCase(), R.drawable.ic_settings_black_24dp);
+		AHBottomNavigationItem dashboardItem = new AHBottomNavigationItem(null, R.drawable.dashboard_icon);
+		AHBottomNavigationItem investItem = new AHBottomNavigationItem(null, R.drawable.traders_icon);
+		AHBottomNavigationItem walletItem = new AHBottomNavigationItem(null, R.drawable.wallet_icon);
+		AHBottomNavigationItem settingsItem = new AHBottomNavigationItem(null, R.drawable.ic_settings_black_24dp);
 
 		bottomNavigationView.setTitleTypeface(TypefaceUtil.bold());
 		bottomNavigationView.setTitleTextSizeInSp(10, 10);
@@ -216,7 +204,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 		bottomNavigationView.setInactiveColor(ThemeUtil.getColorByAttrId(this, R.attr.colorTextSecondary));
 		bottomNavigationView.setDefaultBackgroundColor(ThemeUtil.getColorByAttrId(this, R.attr.colorCard));
 
-		bottomNavigationView.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+		bottomNavigationView.setTitleState(AHBottomNavigation.TitleState.ALWAYS_HIDE);
 
 		bottomNavigationView.setOnTabSelectedListener((position, wasSelected) -> {
 			if (!wasSelected) {
@@ -233,9 +221,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 		Animation signInAnimation = AnimationUtils.loadAnimation(this, R.anim.sign_in_button_slide);
 		signInAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
 		bottomNavigationView.startAnimation(signInAnimation);
-		bottomShadow.startAnimation(signInAnimation);
 		bottomNavigationView.setVisibility(View.VISIBLE);
-		bottomShadow.setVisibility(View.VISIBLE);
 	}
 
 
@@ -259,7 +245,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void hideBottomNavigation() {
 		bottomNavigationView.setVisibility(View.GONE);
-		bottomShadow.setVisibility(View.GONE);
 	}
 
 	@Override

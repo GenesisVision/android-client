@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -25,8 +24,7 @@ import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPagerAdapter;
-import vision.genesis.clientapp.ui.SpinnerView;
-import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -37,29 +35,47 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class WalletFragment extends BaseFragment implements WalletView
 {
-	@BindView(R.id.toolbar)
-	public ToolbarView toolbar;
-
 	@BindView(R.id.appBarLayout)
 	public AppBarLayout appBarLayout;
+
+	@BindView(R.id.title)
+	public TextView title;
 
 	@BindView(R.id.group_balance)
 	public ViewGroup balanceGroup;
 
+	@BindView(R.id.label_balance)
+	public TextView balanceLabel;
+
 	@BindView(R.id.balance)
 	public TextView balance;
 
-	@BindView(R.id.balance_currency)
-	public TextView balanceCurrency;
+	@BindView(R.id.balance_secondary)
+	public TextView balanceSecondary;
 
-	@BindView(R.id.balance_fiat)
-	public TextView balanceFiat;
+	@BindView(R.id.label_available)
+	public TextView availableLabel;
+
+	@BindView(R.id.available)
+	public TextView available;
+
+	@BindView(R.id.available_secondary)
+	public TextView availableSecondary;
+
+	@BindView(R.id.label_invested)
+	public TextView investedLabel;
+
+	@BindView(R.id.invested)
+	public TextView invested;
+
+	@BindView(R.id.invested_secondary)
+	public TextView investedSecondary;
+
+	@BindView(R.id.button_withdraw)
+	public PrimaryButton withdrawButton;
 
 	@BindView(R.id.balance_progress)
 	public ProgressBar balanceProgress;
-
-	@BindView(R.id.spinner_view)
-	public SpinnerView spinner;
 
 	@BindView(R.id.view_pager_wallet)
 	public ViewPager viewPager;
@@ -100,10 +116,10 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 		unbinder = ButterKnife.bind(this, view);
 
-		initToolbar();
-		initSpinner();
 		initViewPager();
 		setFonts();
+
+		withdrawButton.setEmpty();
 	}
 
 	@Override
@@ -130,29 +146,19 @@ public class WalletFragment extends BaseFragment implements WalletView
 	}
 
 	private void setFonts() {
+		title.setTypeface(TypefaceUtil.bold());
+
+		balanceLabel.setTypeface(TypefaceUtil.bold());
 		balance.setTypeface(TypefaceUtil.light());
-		balanceCurrency.setTypeface(TypefaceUtil.bold());
-		balanceFiat.setTypeface(TypefaceUtil.light());
-	}
+		balanceSecondary.setTypeface(TypefaceUtil.regular());
 
-	private void initToolbar() {
-		toolbar.setTitle(getString(R.string.wallet));
-	}
+		availableLabel.setTypeface(TypefaceUtil.bold());
+		available.setTypeface(TypefaceUtil.light());
+		availableSecondary.setTypeface(TypefaceUtil.regular());
 
-	private void initSpinner() {
-		spinner.setData(getResources().getStringArray(R.array.transactions_filter));
-		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-		{
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				walletPresenter.onTransactionsFilterSelected(position);
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-
-			}
-		});
+		investedLabel.setTypeface(TypefaceUtil.bold());
+		invested.setTypeface(TypefaceUtil.light());
+		investedSecondary.setTypeface(TypefaceUtil.regular());
 	}
 
 	private void initViewPager() {
@@ -165,13 +171,13 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 	@Override
 	public void setBalance(double balance) {
-		this.balance.setText(StringFormatUtil.formatAmount(balance, 2,
-				StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.GVT.toString())));
+		this.balance.setText(String.format(Locale.getDefault(), "%s %s", StringFormatUtil.formatAmount(balance, 2,
+				StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.GVT.toString())), getString(R.string.gvt)));
 	}
 
 	@Override
 	public void setFiatBalance(double balance) {
-		balanceFiat.setText(String.format(Locale.getDefault(), "$%s",
+		balanceSecondary.setText(String.format(Locale.getDefault(), "$ %s",
 				StringFormatUtil.formatAmount(balance, 2,
 						StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.USD.toString()))));
 	}
@@ -184,7 +190,7 @@ public class WalletFragment extends BaseFragment implements WalletView
 	@Override
 	public void showBalanceProgress() {
 		balanceProgress.setVisibility(View.VISIBLE);
-		balanceGroup.setVisibility(View.GONE);
+		balanceGroup.setVisibility(View.INVISIBLE);
 	}
 
 	@Override
@@ -195,7 +201,7 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 	@Override
 	public void showSnackbarMessage(String message) {
-		showSnackbar(message, toolbar);
+		showSnackbar(message, appBarLayout);
 	}
 
 	@Override

@@ -53,18 +53,22 @@ public class TypefaceUtil
 	}
 
 	public static Typeface light() {
-		return get(GenesisVisionApplication.INSTANCE.getString(R.string.font_neuzeitgro_light));
+		return get(GenesisVisionApplication.INSTANCE.getString(R.string.font_montserrat_light));
 	}
 
 	public static Typeface regular() {
-		return get(GenesisVisionApplication.INSTANCE.getString(R.string.font_neuzeitgro_regular));
+		return get(GenesisVisionApplication.INSTANCE.getString(R.string.font_montserrat_regular));
+	}
+
+	public static Typeface medium() {
+		return get(GenesisVisionApplication.INSTANCE.getString(R.string.font_montserrat_medium));
+	}
+
+	public static Typeface semibold() {
+		return get(GenesisVisionApplication.INSTANCE.getString(R.string.font_montserrat_semibold));
 	}
 
 	public static Typeface bold() {
-		return get(GenesisVisionApplication.INSTANCE.getString(R.string.font_neuzeitgro_bold));
-	}
-
-	public static Typeface black() {
-		return get(GenesisVisionApplication.INSTANCE.getString(R.string.font_neuzeitgro_black));
+		return get(GenesisVisionApplication.INSTANCE.getString(R.string.font_montserrat_bold));
 	}
 }
