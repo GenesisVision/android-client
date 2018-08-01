@@ -1,5 +1,6 @@
 package io.swagger.client.api;
 
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -7,15 +8,13 @@ import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.ApiClient;
-import io.swagger.client.model.ChangePasswordViewModel;
 import io.swagger.client.model.InvestmentProgramAccrual;
-import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.ManagerAccountOnlineInfo;
 import io.swagger.client.model.ManagerHistoryIpfsHash;
 import io.swagger.client.model.NewManager;
-import io.swagger.client.model.NewOpenTradesEvent;
 import io.swagger.client.model.NewTradeEvent;
 import io.swagger.client.model.StartValues;
+import io.swagger.client.model.UsersRealAssets;
 
 /**
  * API tests for BrokerApi
@@ -34,56 +33,35 @@ public class BrokerApiTest
 	 * Create manager
 	 */
 	@Test
-	public void apiBrokerAccountCreatePostTest() {
+	public void v10BrokerAccountCreatePostTest() {
 		String authorization = null;
 		NewManager request = null;
-		// UUID response = api.apiBrokerAccountCreatePost(authorization, request);
+		// UUID response = api.v10BrokerAccountCreatePost(authorization, request);
 
 		// TODO: test validations
 	}
 
 	/**
-	 * Change password
+	 * Create OEF manager
 	 */
 	@Test
-	public void apiBrokerAuthChangePasswordPostTest() {
+	public void v10BrokerAccountOefCreatePostTest() {
 		String authorization = null;
-		ChangePasswordViewModel model = null;
-		// Void response = api.apiBrokerAuthChangePasswordPost(authorization, model);
+		UUID requestId = null;
+		// UUID response = api.v10BrokerAccountOefCreatePost(authorization, requestId);
 
 		// TODO: test validations
 	}
 
 	/**
-	 * Confirm email after registration
+	 *
+	 *
+	 *
 	 */
 	@Test
-	public void apiBrokerAuthConfirmEmailPostTest() {
-		String userId = null;
-		String code = null;
-		// String response = api.apiBrokerAuthConfirmEmailPost(userId, code);
-
-		// TODO: test validations
-	}
-
-	/**
-	 * Authorize
-	 */
-	@Test
-	public void apiBrokerAuthSignInPostTest() {
-		LoginViewModel model = null;
-		// String response = api.apiBrokerAuthSignInPost(model);
-
-		// TODO: test validations
-	}
-
-	/**
-	 * Update auth token
-	 */
-	@Test
-	public void apiBrokerAuthUpdateTokenGetTest() {
+	public void v10BrokerFreeaddressesGetTest() {
 		String authorization = null;
-		// String response = api.apiBrokerAuthUpdateTokenGet(authorization);
+		// List<String> response = api.v10BrokerFreeaddressesGet(authorization);
 
 		// TODO: test validations
 	}
@@ -92,10 +70,10 @@ public class BrokerApiTest
 	 * Get broker initial data
 	 */
 	@Test
-	public void apiBrokerInitDataGetTest() {
-		UUID brokerTradeServerId = null;
+	public void v10BrokerInitDataGetTest() {
 		String authorization = null;
-		// BrokerInitData response = api.apiBrokerInitDataGet(brokerTradeServerId, authorization);
+		UUID brokerTradeServerId = null;
+		// BrokerInitData response = api.v10BrokerInitDataGet(authorization, brokerTradeServerId);
 
 		// TODO: test validations
 	}
@@ -104,10 +82,58 @@ public class BrokerApiTest
 	 * Upload accounts online info
 	 */
 	@Test
-	public void apiBrokerManagersAccountsOnlineInfoUpdatePostTest() {
+	public void v10BrokerManagersAccountsOnlineInfoUpdatePostTest() {
 		String authorization = null;
 		List<ManagerAccountOnlineInfo> accounts = null;
-		// Void response = api.apiBrokerManagersAccountsOnlineInfoUpdatePost(authorization, accounts);
+		// Void response = api.v10BrokerManagersAccountsOnlineInfoUpdatePost(authorization, accounts);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Get all supported assets for OEFs
+	 */
+	@Test
+	public void v10BrokerOefAssetAllGetTest() {
+		String authorization = null;
+		// PlatformAssets response = api.v10BrokerOefAssetAllGet(authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Get real assets distribution for broker&#39;s clients
+	 */
+	@Test
+	public void v10BrokerOefGetRealAssetsGetTest() {
+		String authorization = null;
+		UUID brokerTradeServerId = null;
+		// UsersRealAssets response = api.v10BrokerOefGetRealAssetsGet(authorization, brokerTradeServerId);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Get broker OEF initial data
+	 */
+	@Test
+	public void v10BrokerOefInitDataGetTest() {
+		String authorization = null;
+		UUID brokerTradeServerId = null;
+		// BrokerOefInitData response = api.v10BrokerOefInitDataGet(authorization, brokerTradeServerId);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Update real assets distribution
+	 */
+	@Test
+	public void v10BrokerOefSetRealAssetsPostTest() {
+		String authorization = null;
+		UUID brokerTradeServerId = null;
+		UsersRealAssets assets = null;
+		// Void response = api.v10BrokerOefSetRealAssetsPost(authorization, brokerTradeServerId, assets);
 
 		// TODO: test validations
 	}
@@ -116,10 +142,10 @@ public class BrokerApiTest
 	 * Accrue investors&#39; profits
 	 */
 	@Test
-	public void apiBrokerPeriodAccrueProfitsPostTest() {
+	public void v10BrokerPeriodAccrueProfitsPostTest() {
 		String authorization = null;
 		InvestmentProgramAccrual accrual = null;
-		// Void response = api.apiBrokerPeriodAccrueProfitsPost(authorization, accrual);
+		// Void response = api.v10BrokerPeriodAccrueProfitsPost(authorization, accrual);
 
 		// TODO: test validations
 	}
@@ -128,11 +154,49 @@ public class BrokerApiTest
 	 * Close investment period
 	 */
 	@Test
-	public void apiBrokerPeriodClosePostTest() {
+	public void v10BrokerPeriodClosePostTest() {
+		String authorization = null;
 		UUID investmentProgramId = null;
 		Double currentBalance = null;
+		// Void response = api.v10BrokerPeriodClosePost(authorization, investmentProgramId, currentBalance);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Apply new requested assets parts
+	 */
+	@Test
+	public void v10BrokerPeriodOefApplyAssetPartsPostTest() {
 		String authorization = null;
-		// Void response = api.apiBrokerPeriodClosePost(investmentProgramId, currentBalance, authorization);
+		UUID assetsRequestId = null;
+		// Void response = api.v10BrokerPeriodOefApplyAssetPartsPost(authorization, assetsRequestId);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Close OEF investment program
+	 */
+	@Test
+	public void v10BrokerPeriodOefProcessClosingProgramPostTest() {
+		String authorization = null;
+		UUID investmentProgramId = null;
+		Double managerBalance = null;
+		// Void response = api.v10BrokerPeriodOefProcessClosingProgramPost(authorization, investmentProgramId, managerBalance);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Force close OEF investment program
+	 */
+	@Test
+	public void v10BrokerPeriodOefProcessForceClosingProgramPostTest() {
+		String authorization = null;
+		UUID investmentProgramId = null;
+		Double managerBalance = null;
+		// Void response = api.v10BrokerPeriodOefProcessForceClosingProgramPost(authorization, investmentProgramId, managerBalance);
 
 		// TODO: test validations
 	}
@@ -141,11 +205,11 @@ public class BrokerApiTest
 	 * Close investment program
 	 */
 	@Test
-	public void apiBrokerPeriodProcessClosingProgramPostTest() {
+	public void v10BrokerPeriodProcessClosingProgramPostTest() {
+		String authorization = null;
 		UUID investmentProgramId = null;
 		Double managerBalance = null;
-		String authorization = null;
-		// Void response = api.apiBrokerPeriodProcessClosingProgramPost(investmentProgramId, managerBalance, authorization);
+		// Void response = api.v10BrokerPeriodProcessClosingProgramPost(authorization, investmentProgramId, managerBalance);
 
 		// TODO: test validations
 	}
@@ -154,10 +218,10 @@ public class BrokerApiTest
 	 * Process investment requests
 	 */
 	@Test
-	public void apiBrokerPeriodProcessInvestmentRequestsPostTest() {
-		UUID investmentProgramId = null;
+	public void v10BrokerPeriodProcessInvestmentRequestsPostTest() {
 		String authorization = null;
-		// UUID response = api.apiBrokerPeriodProcessInvestmentRequestsPost(investmentProgramId, authorization);
+		UUID investmentProgramId = null;
+		// UUID response = api.v10BrokerPeriodProcessInvestmentRequestsPost(authorization, investmentProgramId);
 
 		// TODO: test validations
 	}
@@ -166,11 +230,11 @@ public class BrokerApiTest
 	 * Update manager token initial price/total supply after loss
 	 */
 	@Test
-	public void apiBrokerPeriodReevaluateManagerTokenPostTest() {
+	public void v10BrokerPeriodReevaluateManagerTokenPostTest() {
+		String authorization = null;
 		UUID investmentProgramId = null;
 		Double investorLossShare = null;
-		String authorization = null;
-		// Void response = api.apiBrokerPeriodReevaluateManagerTokenPost(investmentProgramId, investorLossShare, authorization);
+		// Void response = api.v10BrokerPeriodReevaluateManagerTokenPost(authorization, investmentProgramId, investorLossShare);
 
 		// TODO: test validations
 	}
@@ -179,10 +243,10 @@ public class BrokerApiTest
 	 * Set investment period start balance, manager share, manager balance
 	 */
 	@Test
-	public void apiBrokerPeriodSetStartValuesPostTest() {
+	public void v10BrokerPeriodSetStartValuesPostTest() {
 		String authorization = null;
 		StartValues model = null;
-		// Void response = api.apiBrokerPeriodSetStartValuesPost(authorization, model);
+		// Void response = api.v10BrokerPeriodSetStartValuesPost(authorization, model);
 
 		// TODO: test validations
 	}
@@ -191,10 +255,10 @@ public class BrokerApiTest
 	 * Terminate program
 	 */
 	@Test
-	public void apiBrokerPeriodTerminatePostTest() {
-		UUID investmentProgramId = null;
+	public void v10BrokerPeriodTerminatePostTest() {
 		String authorization = null;
-		// Void response = api.apiBrokerPeriodTerminatePost(investmentProgramId, authorization);
+		UUID investmentProgramId = null;
+		// Void response = api.v10BrokerPeriodTerminatePost(authorization, investmentProgramId);
 
 		// TODO: test validations
 	}
@@ -203,10 +267,26 @@ public class BrokerApiTest
 	 * Get data for closing investment period
 	 */
 	@Test
-	public void apiBrokerPeriodlosingDataGetTest() {
-		UUID investmentProgramId = null;
+	public void v10BrokerPeriodlosingDataGetTest() {
 		String authorization = null;
-		// ClosePeriodData response = api.apiBrokerPeriodlosingDataGet(investmentProgramId, authorization);
+		UUID investmentProgramId = null;
+		// ClosePeriodData response = api.v10BrokerPeriodlosingDataGet(authorization, investmentProgramId);
+
+		// TODO: test validations
+	}
+
+	/**
+	 *
+	 *
+	 *
+	 */
+	@Test
+	public void v10BrokerTradehistoryGetTest() {
+		String authorization = null;
+		UUID investmentProgramId = null;
+		DateTime start = null;
+		DateTime end = null;
+		// List<String> response = api.v10BrokerTradehistoryGet(authorization, investmentProgramId, start, end);
 
 		// TODO: test validations
 	}
@@ -215,10 +295,10 @@ public class BrokerApiTest
 	 * Update manager history ipfs hash
 	 */
 	@Test
-	public void apiBrokerTradesIpfsHashUpdatePostTest() {
+	public void v10BrokerTradesIpfsHashUpdatePostTest() {
 		String authorization = null;
 		ManagerHistoryIpfsHash data = null;
-		// Void response = api.apiBrokerTradesIpfsHashUpdatePost(authorization, data);
+		// Void response = api.v10BrokerTradesIpfsHashUpdatePost(authorization, data);
 
 		// TODO: test validations
 	}
@@ -227,22 +307,10 @@ public class BrokerApiTest
 	 * New trade event
 	 */
 	@Test
-	public void apiBrokerTradesNewPostTest() {
+	public void v10BrokerTradesNewPostTest() {
 		String authorization = null;
 		NewTradeEvent tradeEvent = null;
-		// Void response = api.apiBrokerTradesNewPost(authorization, tradeEvent);
-
-		// TODO: test validations
-	}
-
-	/**
-	 * New open trades event
-	 */
-	@Test
-	public void apiBrokerTradesOpenTradesNewPostTest() {
-		String authorization = null;
-		NewOpenTradesEvent trades = null;
-		// Void response = api.apiBrokerTradesOpenTradesNewPost(authorization, trades);
+		// Void response = api.v10BrokerTradesNewPost(authorization, tradeEvent);
 
 		// TODO: test validations
 	}

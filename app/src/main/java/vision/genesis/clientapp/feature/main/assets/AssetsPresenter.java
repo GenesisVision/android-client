@@ -7,7 +7,7 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.PlatformStatus;
+import io.swagger.client.model.PlatformInfo;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -36,7 +36,7 @@ public class AssetsPresenter extends MvpPresenter<AssetsView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		getPlatformStatus();
+		getPlatformInfo();
 	}
 
 	@Override
@@ -47,17 +47,17 @@ public class AssetsPresenter extends MvpPresenter<AssetsView>
 		super.onDestroy();
 	}
 
-	private void getPlatformStatus() {
-		platformStatusSubscription = settingsManager.getPlatformStatus()
+	private void getPlatformInfo() {
+		platformStatusSubscription = settingsManager.getPlatformInfo()
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::onPlatformStatusSuccess,
 						this::onPlatformStatusError);
 	}
 
-	private void onPlatformStatusSuccess(PlatformStatus response) {
+	private void onPlatformStatusSuccess(PlatformInfo response) {
 		platformStatusSubscription.unsubscribe();
-		getViewState().onPlatformStatusUpdated(response);
+		getViewState().onPlatformInfoUpdated(response);
 	}
 
 	private void onPlatformStatusError(Throwable error) {

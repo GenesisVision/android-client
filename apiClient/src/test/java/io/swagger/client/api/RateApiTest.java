@@ -23,9 +23,9 @@ public class RateApiTest
 	 * Get rate
 	 */
 	@Test
-	public void apiRatePostTest() {
+	public void v10RatePostTest() {
 		RequestRate model = null;
-		// RateViewModel response = api.apiRatePost(model);
+		// RateViewModel response = api.v10RatePost(model);
 
 		// TODO: test validations
 	}

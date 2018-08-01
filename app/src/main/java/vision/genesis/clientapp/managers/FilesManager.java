@@ -2,10 +2,8 @@ package vision.genesis.clientapp.managers;
 
 import java.io.File;
 
-import io.swagger.client.api.FilesApi;
+import io.swagger.client.api.FileApi;
 import io.swagger.client.model.UploadResult;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import rx.Observable;
 
 /**
@@ -15,13 +13,15 @@ import rx.Observable;
 
 public class FilesManager
 {
-	private FilesApi filesApi;
+	private FileApi fileApi;
 
-	public FilesManager(FilesApi filesApi) {
-		this.filesApi = filesApi;
+	public FilesManager(FileApi fileApi) {
+		this.fileApi = fileApi;
 	}
 
 	public Observable<UploadResult> uploadFile(File file) {
-		return filesApi.apiFilesUploadPost(RequestBody.create(MediaType.parse("multipart/form-data"), file));
+		//TODO: fix
+//		return fileApi.v10FileUploadPost(RequestBody.create(MediaType.parse("multipart/form-data"), file));
+		return null;
 	}
 }

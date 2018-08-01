@@ -4,8 +4,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import io.swagger.client.api.InvestorApi;
-import io.swagger.client.api.ManagerApi;
+import io.swagger.client.api.AuthApi;
+import io.swagger.client.api.ProfileApi;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.SettingsManager;
@@ -21,13 +21,13 @@ public class AuthModule
 {
 	@Provides
 	@Singleton
-	public AuthManager provideAuthManager(InvestorApi investorApi, ManagerApi managerApi, SharedPreferencesUtil sharedPreferencesUtil, SettingsManager settingsManager) {
-		return new AuthManager(investorApi, managerApi, sharedPreferencesUtil, settingsManager);
+	public AuthManager provideAuthManager(AuthApi authApi, SharedPreferencesUtil sharedPreferencesUtil, SettingsManager settingsManager) {
+		return new AuthManager(authApi, sharedPreferencesUtil, settingsManager);
 	}
 
 	@Provides
 	@Singleton
-	public ProfileManager provideProfileManager(InvestorApi investorApi, ManagerApi managerApi) {
-		return new ProfileManager(investorApi, managerApi);
+	public ProfileManager provideProfileManager(ProfileApi profileApi) {
+		return new ProfileManager(profileApi);
 	}
 }

@@ -10,7 +10,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.PlatformStatus;
+import io.swagger.client.model.PlatformInfo;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -189,7 +189,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	private void getPlatformStatus() {
-		platformStatusSubscription = settingsManager.getPlatformStatus()
+		platformStatusSubscription = settingsManager.getPlatformInfo()
 				.subscribeOn(Schedulers.io())
 				.observeOn(Schedulers.computation())
 				.map(this::checkIfNeedUpdate)
@@ -198,7 +198,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 						this::onPlatformStatusError);
 	}
 
-	private AppUpdateModel checkIfNeedUpdate(PlatformStatus response) {
+	private AppUpdateModel checkIfNeedUpdate(PlatformInfo response) {
 		AppUpdateModel model = new AppUpdateModel(response.getAndroidVersion().getLastVersion().getVersionName());
 		try {
 			int lastVersionCode = Integer.parseInt(response.getAndroidVersion().getLastVersion().getVersionCode());

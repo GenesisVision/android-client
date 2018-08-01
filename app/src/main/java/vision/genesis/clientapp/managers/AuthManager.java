@@ -13,8 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import io.swagger.client.api.InvestorApi;
-import io.swagger.client.api.ManagerApi;
+import io.swagger.client.api.AuthApi;
 import io.swagger.client.model.ChangePasswordViewModel;
 import io.swagger.client.model.ForgotPasswordViewModel;
 import io.swagger.client.model.LoginViewModel;
@@ -60,9 +59,7 @@ public class AuthManager
 
 	private Subscription getTokenSubscription;
 
-	private InvestorApi investorApi;
-
-	private ManagerApi managerApi;
+	private AuthApi authApi;
 
 	private SharedPreferencesUtil sharedPreferencesUtil;
 
@@ -70,9 +67,8 @@ public class AuthManager
 
 	private Subscription getTwoFactorStatusSubscription;
 
-	public AuthManager(InvestorApi investorApi, ManagerApi managerApi, SharedPreferencesUtil sharedPreferencesUtil, SettingsManager settingsManager) {
-		this.investorApi = investorApi;
-		this.managerApi = managerApi;
+	public AuthManager(AuthApi authApi, SharedPreferencesUtil sharedPreferencesUtil, SettingsManager settingsManager) {
+		this.authApi = authApi;
 		this.sharedPreferencesUtil = sharedPreferencesUtil;
 		this.settingsManager = settingsManager;
 
@@ -159,15 +155,11 @@ public class AuthManager
 	}
 
 	private Observable<TwoFactorStatus> twoFactorStatus() {
-		return Constants.IS_INVESTOR
-				? investorApi.apiInvestorAuth2faGet(AuthManager.token.getValue())
-				: managerApi.apiManagerAuth2faGet(AuthManager.token.getValue());
+		return authApi.v10Auth2faGet(AuthManager.token.getValue());
 	}
 
 	public Observable<TwoFactorAuthenticator> createTfaKey() {
-		return Constants.IS_INVESTOR
-				? investorApi.apiInvestorAuth2faCreatePost(AuthManager.token.getValue())
-				: managerApi.apiManagerAuth2faCreatePost(AuthManager.token.getValue());
+		return authApi.v10Auth2faCreatePost(AuthManager.token.getValue());
 	}
 
 	public Observable<RecoveryCodesViewModel> confirmTfa(String sharedKey, String password, String code) {
@@ -175,18 +167,14 @@ public class AuthManager
 		model.setSharedKey(sharedKey);
 		model.setPassword(password);
 		model.setCode(code);
-		return Constants.IS_INVESTOR
-				? investorApi.apiInvestorAuth2faConfirmPost(AuthManager.token.getValue(), model)
-				: managerApi.apiManagerAuth2faConfirmPost(AuthManager.token.getValue(), model);
+		return authApi.v10Auth2faConfirmPost(AuthManager.token.getValue(), model);
 	}
 
 	public Observable<Void> disableTfa(String password, String code) {
 		TwoFactorCodeModel model = new TwoFactorCodeModel();
 		model.setPassword(password);
 		model.setTwoFactorCode(code);
-		return Constants.IS_INVESTOR
-				? investorApi.apiInvestorAuth2faDisablePost(AuthManager.token.getValue(), model)
-				: managerApi.apiManagerAuth2faDisablePost(AuthManager.token.getValue(), model);
+		return authApi.v10Auth2faDisablePost(AuthManager.token.getValue(), model);
 	}
 
 	public Observable<Void> registerInvestor(String email, String password, String confirmPassword) {
@@ -194,7 +182,7 @@ public class AuthManager
 		model.setEmail(email);
 		model.setPassword(password);
 		model.setConfirmPassword(confirmPassword);
-		return investorApi.apiInvestorAuthSignUpPost(model);
+		return authApi.v10AuthSignupInvestorPost(model);
 	}
 
 	public Observable<Void> registerManager(String userName, String email, String password, String confirmPassword) {
@@ -203,15 +191,15 @@ public class AuthManager
 		model.setEmail(email);
 		model.setPassword(password);
 		model.setConfirmPassword(confirmPassword);
-		return managerApi.apiManagerAuthSignUpPost(model);
+		return authApi.v10AuthSignupManagerPost(model);
 	}
 
 	public Observable<Void> sendForgotPassword(String email) {
 		ForgotPasswordViewModel model = new ForgotPasswordViewModel();
 		model.setEmail(email);
 		return Constants.IS_INVESTOR
-				? investorApi.apiInvestorAuthForgotPasswordPost(model)
-				: managerApi.apiManagerAuthForgotPasswordPost(model);
+				? authApi.v10AuthPasswordForgotInvestorPost(model)
+				: authApi.v10AuthPasswordForgotManagerPost(model);
 	}
 
 	public Observable<Void> sendChangePassword(String oldPassword, String newPassword, String confirmPassword) {
@@ -219,15 +207,13 @@ public class AuthManager
 		model.setOldPassword(oldPassword);
 		model.setPassword(newPassword);
 		model.setConfirmPassword(confirmPassword);
-		return Constants.IS_INVESTOR
-				? investorApi.apiInvestorAuthChangePasswordPost(AuthManager.token.getValue(), model)
-				: managerApi.apiManagerAuthChangePasswordPost(AuthManager.token.getValue(), model);
+		return authApi.v10AuthPasswordChangePost(AuthManager.token.getValue(), model);
 	}
 
 	private Observable<String> getLoginApiObservable(LoginViewModel model) {
 		return Constants.IS_INVESTOR
-				? investorApi.apiInvestorAuthSignInPost(model)
-				: managerApi.apiManagerAuthSignInPost(model);
+				? authApi.v10AuthSigninInvestorPost(model)
+				: authApi.v10AuthSigninManagerPost(model);
 	}
 
 	public void logout() {

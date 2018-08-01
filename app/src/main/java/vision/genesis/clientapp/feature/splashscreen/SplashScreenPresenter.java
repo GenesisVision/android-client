@@ -1,13 +1,14 @@
 package vision.genesis.clientapp.feature.splashscreen;
 
 import android.content.Context;
+import android.os.Handler;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.PlatformStatus;
+import io.swagger.client.model.PlatformInfo;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -66,14 +67,14 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 	}
 
 	private void getPlatformStatus() {
-		platformStatusSubscription = settingsManager.getPlatformStatus()
+		platformStatusSubscription = settingsManager.getPlatformInfo()
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(this::onPlatformStatusSuccess,
 						this::onPlatformStatusError);
 	}
 
-	private void onPlatformStatusSuccess(PlatformStatus response) {
+	private void onPlatformStatusSuccess(PlatformInfo response) {
 		if (platformStatusSubscription != null)
 			platformStatusSubscription.unsubscribe();
 		getViewState().showMainActivity();
@@ -104,7 +105,7 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 	private void networkAvailabilityHandler(Boolean available) {
 		if (available) {
 			networkAvailabilitySubscription.unsubscribe();
-			onTryAgainClicked();
+			new Handler().postDelayed(this::onTryAgainClicked, 500);
 		}
 	}
 
@@ -121,7 +122,7 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 	private void serverAvailabilityHandler(Boolean available) {
 		if (available) {
 			serverAvailabilitySubscription.unsubscribe();
-			onTryAgainClicked();
+			new Handler().postDelayed(this::onTryAgainClicked, 500);
 		}
 	}
 }

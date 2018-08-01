@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.PlatformStatus;
+import io.swagger.client.model.PlatformInfo;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.search.SearchActivity;
@@ -214,11 +214,11 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 	}
 
 	@Override
-	public void onPlatformStatusUpdated(PlatformStatus platformStatus) {
-		if (platformStatus.isIsTournamentActive() && !isTournamentAlreadyAdded) {
-			addPage(tournamentTab, false);
-			pagerAdapter.setTournamentData(platformStatus.getTournamentCurrentRound(), platformStatus.getTournamentTotalRounds());
-			isTournamentAlreadyAdded = true;
-		}
+	public void onPlatformInfoUpdated(PlatformInfo platformInfo) {
+//		if (platformInfo.isIsTournamentActive() && !isTournamentAlreadyAdded) {
+//			addPage(tournamentTab, false);
+//			pagerAdapter.setTournamentData(platformInfo.getTournamentCurrentRound(), platformInfo.getTournamentTotalRounds());
+//			isTournamentAlreadyAdded = true;
+//		}
 	}
 }

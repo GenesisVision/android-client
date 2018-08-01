@@ -3,8 +3,7 @@ package vision.genesis.clientapp.managers;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import io.swagger.client.api.InvestorApi;
-import io.swagger.client.api.ManagerApi;
+import io.swagger.client.api.ProfileApi;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.UpdateProfileViewModel;
 import rx.Observable;
@@ -13,7 +12,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.model.events.OnUnauthorizedResponseGetEvent;
-import vision.genesis.clientapp.utils.Constants;
 
 /**
  * GenesisVision
@@ -22,17 +20,14 @@ import vision.genesis.clientapp.utils.Constants;
 
 public class ProfileManager
 {
-	private InvestorApi investorApi;
-
-	private ManagerApi managerApi;
+	private ProfileApi profileApi;
 
 	private BehaviorSubject<ProfileFullViewModel> profileBehaviorSubject = BehaviorSubject.create();
 
 	private Subscription getProfileSubscription;
 
-	public ProfileManager(InvestorApi investorApi, ManagerApi managerApi) {
-		this.investorApi = investorApi;
-		this.managerApi = managerApi;
+	public ProfileManager(ProfileApi profileApi) {
+		this.profileApi = profileApi;
 
 		EventBus.getDefault().register(this);
 	}
@@ -67,15 +62,11 @@ public class ProfileManager
 	}
 
 	private Observable<ProfileFullViewModel> getProfileFullApiObservable() {
-		return Constants.IS_INVESTOR
-				? investorApi.apiInvestorProfileFullGet(AuthManager.token.getValue())
-				: managerApi.apiManagerProfileFullGet(AuthManager.token.getValue());
+		return profileApi.v10ProfileGet(AuthManager.token.getValue());
 	}
 
 	private Observable<Void> getUpdateProfileApiObservable(ProfileFullViewModel newProfileModel) {
-		return Constants.IS_INVESTOR
-				? investorApi.apiInvestorProfileUpdatePost(AuthManager.token.getValue(), getUpdateProfileViewModel(newProfileModel))
-				: managerApi.apiManagerProfileUpdatePost(AuthManager.token.getValue(), getUpdateProfileViewModel(newProfileModel));
+		return profileApi.v10ProfileUpdatePost(AuthManager.token.getValue(), getUpdateProfileViewModel(newProfileModel));
 	}
 
 	private UpdateProfileViewModel getUpdateProfileViewModel(ProfileFullViewModel newProfileModel) {

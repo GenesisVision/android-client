@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
+import io.swagger.client.api.ProgramApi;
 import io.swagger.client.model.BrokersFilter;
 import io.swagger.client.model.BrokersViewModel;
 import io.swagger.client.model.Invest;
@@ -33,9 +34,12 @@ public class ProgramsManager
 
 	private ManagerApi managerApi;
 
-	public ProgramsManager(InvestorApi investorApi, ManagerApi managerApi) {
+	private ProgramApi programApi;
+
+	public ProgramsManager(InvestorApi investorApi, ManagerApi managerApi, ProgramApi programApi) {
 		this.investorApi = investorApi;
 		this.managerApi = managerApi;
+		this.programApi = programApi;
 	}
 
 	public Observable<InvestmentProgramsViewModel> getProgramsList(InvestmentProgramsFilter filter) {

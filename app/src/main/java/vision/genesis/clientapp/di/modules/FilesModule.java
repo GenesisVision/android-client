@@ -4,7 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import io.swagger.client.api.FilesApi;
+import io.swagger.client.api.FileApi;
 import vision.genesis.clientapp.managers.FilesManager;
 
 /**
@@ -17,7 +17,7 @@ public class FilesModule
 {
 	@Provides
 	@Singleton
-	public FilesManager provideFilesManager(FilesApi filesApi) {
-		return new FilesManager(filesApi);
+	public FilesManager provideFilesManager(FileApi fileApi) {
+		return new FilesManager(fileApi);
 	}
 }

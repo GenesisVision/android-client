@@ -2,7 +2,7 @@ package vision.genesis.clientapp.feature.main.assets;
 
 import com.arellomobile.mvp.MvpView;
 
-import io.swagger.client.model.PlatformStatus;
+import io.swagger.client.model.PlatformInfo;
 
 /**
  * GenesisVisionAndroid
@@ -17,5 +17,5 @@ interface AssetsView extends MvpView
 
 	void showProgress(boolean show);
 
-	void onPlatformStatusUpdated(PlatformStatus platformStatus);
+	void onPlatformInfoUpdated(PlatformInfo platformInfo);
 }

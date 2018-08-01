@@ -1,16 +1,14 @@
 package vision.genesis.clientapp.managers;
 
 
-import io.swagger.client.api.InvestorApi;
-import io.swagger.client.api.ManagerApi;
-import io.swagger.client.model.PlatformStatus;
+import io.swagger.client.api.PlatformApi;
+import io.swagger.client.model.PlatformInfo;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.model.SettingsModel;
-import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.SharedPreferencesUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.hash.HashGenerationException;
@@ -23,21 +21,18 @@ import vision.genesis.clientapp.utils.hash.HashGeneratorUtil;
 
 public class SettingsManager
 {
-	private InvestorApi investorApi;
-
-	private ManagerApi managerApi;
+	private PlatformApi platformApi;
 
 	private BehaviorSubject<SettingsModel> settingsSubject = BehaviorSubject.create();
 
-	private volatile BehaviorSubject<PlatformStatus> platformStatusBehaviorSubject;
+	private volatile BehaviorSubject<PlatformInfo> platformInfoBehaviorSubject;
 
-	private Subscription getPlatformStatusSubscription;
+	private Subscription getPlatformInfoSubscription;
 
 	private SharedPreferencesUtil sharedPreferencesUtil;
 
-	public SettingsManager(InvestorApi investorApi, ManagerApi managerApi, SharedPreferencesUtil sharedPreferencesUtil) {
-		this.investorApi = investorApi;
-		this.managerApi = managerApi;
+	public SettingsManager(PlatformApi platformApi, SharedPreferencesUtil sharedPreferencesUtil) {
+		this.platformApi = platformApi;
 		this.sharedPreferencesUtil = sharedPreferencesUtil;
 		settingsSubject.onNext(new SettingsModel());
 		getSettings();
@@ -111,34 +106,32 @@ public class SettingsManager
 		return settingsSubject;
 	}
 
-	public Observable<PlatformStatus> getPlatformStatus() {
-		if (platformStatusBehaviorSubject == null) {
-			platformStatusBehaviorSubject = BehaviorSubject.create();
-			getPlatformStatusSubscription = platformStatus()
+	public Observable<PlatformInfo> getPlatformInfo() {
+		if (platformInfoBehaviorSubject == null) {
+			platformInfoBehaviorSubject = BehaviorSubject.create();
+			getPlatformInfoSubscription = platformStatus()
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleGetPlatformStatusSuccess,
-							this::handleGetPlatformStatusError);
+					.subscribe(this::handleGetPlatformInfoSuccess,
+							this::handleGetPlatformInfoError);
 		}
-		return platformStatusBehaviorSubject;
+		return platformInfoBehaviorSubject;
 	}
 
-	private Observable<PlatformStatus> platformStatus() {
-		return Constants.IS_INVESTOR
-				? investorApi.apiInvestorPlatformStatusGet()
-				: managerApi.apiManagerPlatformStatusGet();
+	private Observable<PlatformInfo> platformStatus() {
+		return platformApi.v10PlatformInfoGet();
 	}
 
-	private void handleGetPlatformStatusSuccess(PlatformStatus response) {
-		getPlatformStatusSubscription.unsubscribe();
-		platformStatusBehaviorSubject.onNext(response);
+	private void handleGetPlatformInfoSuccess(PlatformInfo response) {
+		getPlatformInfoSubscription.unsubscribe();
+		platformInfoBehaviorSubject.onNext(response);
 	}
 
-	private void handleGetPlatformStatusError(Throwable error) {
-		if (platformStatusBehaviorSubject != null) {
-			getPlatformStatusSubscription.unsubscribe();
-			platformStatusBehaviorSubject.onError(error);
-			platformStatusBehaviorSubject = null;
+	private void handleGetPlatformInfoError(Throwable error) {
+		if (platformInfoBehaviorSubject != null) {
+			getPlatformInfoSubscription.unsubscribe();
+			platformInfoBehaviorSubject.onError(error);
+			platformInfoBehaviorSubject = null;
 		}
 	}
 
