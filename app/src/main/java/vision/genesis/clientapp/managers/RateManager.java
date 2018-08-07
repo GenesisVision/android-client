@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 import io.swagger.client.api.RateApi;
 import io.swagger.client.model.RateViewModel;
-import io.swagger.client.model.RequestRate;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
@@ -31,11 +30,7 @@ public class RateManager
 	public BehaviorSubject<Double> getRate(String from, String to) {
 		BehaviorSubject<Double> rateSubject = getRateSubject(from, to);
 
-		RequestRate model = new RequestRate();
-		model.setFrom(RequestRate.FromEnum.fromValue(from));
-		model.setTo(RequestRate.ToEnum.fromValue(to));
-
-		rateSubscription = rateApi.apiRatePost(model)
+		rateSubscription = rateApi.v10RateByFromByToGet(from, to)
 				.observeOn(Schedulers.io())
 				.subscribeOn(Schedulers.io())
 				.subscribe(response -> handleGetRateResponse(response, rateSubject),

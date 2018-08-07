@@ -1,8 +1,9 @@
 package vision.genesis.clientapp.managers;
 
 import io.swagger.client.api.InvestorApi;
-import io.swagger.client.model.InvestorDashboard;
+import io.swagger.client.model.DashboardProgramsList;
 import rx.Observable;
+import vision.genesis.clientapp.model.DateRange;
 
 /**
  * GenesisVisionAndroid
@@ -17,7 +18,7 @@ public class InvestorDashboardManager
 		this.investorApi = investorApi;
 	}
 
-	public Observable<InvestorDashboard> getInvestments(String sorting) {
-		return investorApi.apiInvestorDashboardGet(AuthManager.token.getValue(), sorting, 10);
+	public Observable<DashboardProgramsList> getPrograms(String sorting, DateRange dateRange, Integer skip, Integer take) {
+		return investorApi.v10InvestorDashboardProgramListGet(AuthManager.token.getValue(), sorting, dateRange.getFrom(), dateRange.getTo(), skip, take);
 	}
 }

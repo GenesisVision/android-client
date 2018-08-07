@@ -13,8 +13,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.InvestmentProgramsFilter;
-import io.swagger.client.model.InvestmentProgramsViewModel;
+import io.swagger.client.model.ProgramDetails;
+import io.swagger.client.model.ProgramsList;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -22,7 +22,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView;
 import vision.genesis.clientapp.managers.ProgramsManager;
-import vision.genesis.clientapp.model.InvestmentProgramExtended;
+import vision.genesis.clientapp.model.ProgramsFilter;
 import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersClearedEvent;
@@ -47,13 +47,13 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 
 	private Subscription getProgramsSubscription;
 
-	private List<InvestmentProgramExtended> investmentProgramsList = new ArrayList<>();
+	private List<ProgramDetails> investmentProgramsList = new ArrayList<ProgramDetails>();
 
 	private int skip = 0;
 
-	private InvestmentProgramsFilter filter;
+	private ProgramsFilter filter;
 
-	private List<InvestmentProgramExtended> programsToAdd = new ArrayList<>();
+	private List<ProgramDetails> programsToAdd = new ArrayList<>();
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -94,16 +94,16 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 	}
 
 	private void createFilter() {
-		filter = new InvestmentProgramsFilter();
+		filter = new ProgramsFilter();
 		filter.setSkip(0);
 		filter.setTake(TAKE);
-		filter.setEquityChartLength(10);
+//		filter.setEquityChartLength(10);
 
 		getViewState().updateFilter(filter);
 	}
 
-	public void onFilterUpdated(InvestmentProgramsFilter investmentsFilter) {
-		filter = investmentsFilter;
+	public void onFilterUpdated(ProgramsFilter filter) {
+		this.filter = filter;
 		getViewState().setRefreshing(true);
 		getProgramsList(true);
 	}
@@ -118,18 +118,18 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 			getProgramsSubscription.unsubscribe();
 		getProgramsSubscription = programsManager.getProgramsList(filter)
 				.subscribeOn(Schedulers.computation())
-				.map(this::prepareData)
+//				.map(this::prepareData)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(this::handleGetProgramsList,
 						this::handleGetProgramsListError);
 	}
 
-	private InvestmentProgramsViewModel prepareData(InvestmentProgramsViewModel model) {
-		programsToAdd = InvestmentProgramExtended.extendInvestmentPrograms(model.getInvestmentPrograms());
-		return model;
-	}
+//	private InvestmentProgramsViewModel prepareData(InvestmentProgramsViewModel model) {
+//		programsToAdd = InvestmentProgramExtended.extendInvestmentPrograms(model.getInvestmentPrograms());
+//		return model;
+//	}
 
-	private void handleGetProgramsList(InvestmentProgramsViewModel model) {
+	private void handleGetProgramsList(ProgramsList response) {
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);
@@ -138,7 +138,9 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 
 		getProgramsSubscription.unsubscribe();
 
-		getViewState().setProgramsCount(StringFormatUtil.formatAmount(model.getTotal(), 0, 0));
+		programsToAdd = response.getPrograms();
+
+		getViewState().setProgramsCount(StringFormatUtil.formatAmount(response.getTotal(), 0, 0));
 
 		if (programsToAdd.size() == 0) {
 			if (skip == 0)

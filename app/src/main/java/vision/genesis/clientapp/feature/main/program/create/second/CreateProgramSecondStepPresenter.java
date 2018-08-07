@@ -6,11 +6,9 @@ import com.arellomobile.mvp.MvpPresenter;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import io.swagger.client.model.BrokerTradeServer;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.CreateProgramData;
-import vision.genesis.clientapp.model.events.OnCreateProgramSecondStepPassedEvent;
 import vision.genesis.clientapp.model.events.SetCreateProgramDataEvent;
 
 /**
@@ -27,7 +25,7 @@ public class CreateProgramSecondStepPresenter extends MvpPresenter<CreateProgram
 
 	private CreateProgramData createProgramData;
 
-	private BrokerTradeServer broker;
+//	private BrokerTradeServer broker;
 
 	private Integer leverage;
 
@@ -45,7 +43,7 @@ public class CreateProgramSecondStepPresenter extends MvpPresenter<CreateProgram
 			return;
 		boolean passwordOk = !password.isEmpty();
 		boolean confirmPasswordOk = !confirmPassword.isEmpty() && confirmPassword.equals(password);
-		getViewState().setNextButtonAvailability(broker != null && leverage != null && passwordOk && confirmPasswordOk);
+//		getViewState().setNextButtonAvailability(broker != null && leverage != null && passwordOk && confirmPasswordOk);
 	}
 
 	void onPasswordChanged(String password) {
@@ -70,23 +68,23 @@ public class CreateProgramSecondStepPresenter extends MvpPresenter<CreateProgram
 	}
 
 	void onNextButtonClicked() {
-		EventBus.getDefault().post(new OnCreateProgramSecondStepPassedEvent(broker, leverage, password));
+//		EventBus.getDefault().post(new OnCreateProgramSecondStepPassedEvent(broker, leverage, password));
 	}
 
 	public void onBrokerSelected(int position) {
-		broker = createProgramData.getBrokers().get(position);
-		getViewState().setLeverages(broker.getLeverages());
+//		broker = createProgramData.getBrokers().get(position);
+//		getViewState().setLeverages(broker.getLeverages());
 		checkNextButtonAvailability();
 	}
 
 	public void onLeverageSelected(int position) {
-		leverage = broker.getLeverages().get(position);
+//		leverage = broker.getLeverages().get(position);
 		checkNextButtonAvailability();
 	}
 
 	@Subscribe
 	public void onEventMainThread(SetCreateProgramDataEvent event) {
 		this.createProgramData = event.getCreateProgramData();
-		getViewState().setBrokers(createProgramData.getBrokers());
+//		getViewState().setBrokers(createProgramData.getBrokers());
 	}
 }

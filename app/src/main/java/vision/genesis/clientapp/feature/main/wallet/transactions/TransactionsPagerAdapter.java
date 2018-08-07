@@ -4,8 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import io.swagger.client.model.TransactionsFilter;
-
 /**
  * GenesisVision
  * Created by Vitaly on 3/5/18.
@@ -31,16 +29,17 @@ public class TransactionsPagerAdapter extends FragmentStatePagerAdapter
 		switch (position) {
 			case 0:
 				if (transactionsFragment == null)
-					transactionsFragment = TransactionsFragment.with(TransactionsFilter.TypeEnum.ALL, null);
+//					transactionsFragment = TransactionsFragment.with(TransactionsFilter.TypeEnum.ALL, null);
+					transactionsFragment = TransactionsFragment.with(null);
 				return transactionsFragment;
 			default:
 				return null;
 		}
 	}
 
-	public void setTransactionsFilterType(TransactionsFilter.TypeEnum type) {
-		transactionsFragment.setTransactionsFilterType(type);
-	}
+//	public void setTransactionsFilterType(TransactionsFilter.TypeEnum type) {
+//		transactionsFragment.setTransactionsFilterType(type);
+//	}
 
 	@Override
 	public int getCount() {

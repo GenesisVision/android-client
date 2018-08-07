@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 <a name="v10ProgramByIdChartGet"></a>
 # **v10ProgramByIdChartGet**
-> ProgramChart v10ProgramByIdChartGet(id, timeFrame)
+> ProgramChart v10ProgramByIdChartGet(id, chartDateFrom, chartDateTo)
 
 Get manager chart
 
@@ -27,9 +27,10 @@ Get manager chart
 
 ProgramApi apiInstance = new ProgramApi();
 UUID id = new UUID(); // UUID | 
-String timeFrame = "timeFrame_example"; // String | 
+DateTime chartDateFrom = new DateTime(); // DateTime | 
+DateTime chartDateTo = new DateTime(); // DateTime | 
 try {
-    ProgramChart result = apiInstance.v10ProgramByIdChartGet(id, timeFrame);
+    ProgramChart result = apiInstance.v10ProgramByIdChartGet(id, chartDateFrom, chartDateTo);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramApi#v10ProgramByIdChartGet");
@@ -42,7 +43,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **timeFrame** | **String**|  | [optional] [enum: Day, Week, Month1, Month3, Month6, Year, All]
+ **chartDateFrom** | **DateTime**|  | [optional]
+ **chartDateTo** | **DateTime**|  | [optional]
 
 ### Return type
 
@@ -249,7 +251,7 @@ No authorization required
 
 <a name="v10ProgramListGet"></a>
 # **v10ProgramListGet**
-> ProgramsList v10ProgramListGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, timeFrame, mask, facetId, isFavorite, currency, skip, take)
+> ProgramsList v10ProgramListGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, statisticDateFrom, statisticDateTo, sorting, mask, facetId, isFavorite, currency, ids, skip, take)
 
 Programs list
 
@@ -266,15 +268,18 @@ Integer levelMin = 56; // Integer |
 Integer levelMax = 56; // Integer | 
 Double profitAvgMin = 3.4D; // Double | 
 Double profitAvgMax = 3.4D; // Double | 
-String timeFrame = "timeFrame_example"; // String | 
+DateTime statisticDateFrom = new DateTime(); // DateTime | 
+DateTime statisticDateTo = new DateTime(); // DateTime | 
+String sorting = "sorting_example"; // String | 
 String mask = "mask_example"; // String | 
 UUID facetId = new UUID(); // UUID | 
 Boolean isFavorite = true; // Boolean | 
 String currency = "currency_example"; // String | 
+List<UUID> ids = Arrays.asList(new UUID()); // List<UUID> | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ProgramsList result = apiInstance.v10ProgramListGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, timeFrame, mask, facetId, isFavorite, currency, skip, take);
+    ProgramsList result = apiInstance.v10ProgramListGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, statisticDateFrom, statisticDateTo, sorting, mask, facetId, isFavorite, currency, ids, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramApi#v10ProgramListGet");
@@ -291,11 +296,14 @@ Name | Type | Description  | Notes
  **levelMax** | **Integer**|  | [optional]
  **profitAvgMin** | **Double**|  | [optional]
  **profitAvgMax** | **Double**|  | [optional]
- **timeFrame** | **String**|  | [optional] [enum: Day, Week, Month1, Month3, Month6, Year, All]
+ **statisticDateFrom** | **DateTime**|  | [optional]
+ **statisticDateTo** | **DateTime**|  | [optional]
+ **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByTradesAsc, ByTradesDesc, ByInvestorsAsc, ByInvestorsDesc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc]
  **mask** | **String**|  | [optional]
  **facetId** | [**UUID**](.md)|  | [optional]
  **isFavorite** | **Boolean**|  | [optional]
  **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **ids** | [**List&lt;UUID&gt;**](UUID.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

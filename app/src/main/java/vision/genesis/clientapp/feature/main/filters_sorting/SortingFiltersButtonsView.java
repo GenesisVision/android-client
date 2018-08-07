@@ -13,8 +13,9 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.InvestmentProgramsFilter;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.ProgramsFilter;
+import vision.genesis.clientapp.model.SortingEnum;
 
 /**
  * GenesisVisionAndroid
@@ -24,7 +25,7 @@ public class SortingFiltersButtonsView extends RelativeLayout
 {
 	public interface OnFilterUpdatedListener
 	{
-		void onFilterUpdated(InvestmentProgramsFilter filter);
+		void onFilterUpdated(ProgramsFilter filter);
 	}
 
 	public interface OnButtonUpListener
@@ -50,7 +51,7 @@ public class SortingFiltersButtonsView extends RelativeLayout
 
 	private String currentSortingDirection = "";
 
-	private InvestmentProgramsFilter filter;
+	private ProgramsFilter filter;
 
 	private OnFilterUpdatedListener filtersUpdateListener;
 
@@ -92,7 +93,7 @@ public class SortingFiltersButtonsView extends RelativeLayout
 		}
 	}
 
-	private void updateFilter(InvestmentProgramsFilter updatedFilter) {
+	private void updateFilter(ProgramsFilter updatedFilter) {
 		filter = updatedFilter;
 
 		filtersDot.setVisibility(isFilterReset(filter) ? View.GONE : VISIBLE);
@@ -101,12 +102,12 @@ public class SortingFiltersButtonsView extends RelativeLayout
 			filtersUpdateListener.onFilterUpdated(filter);
 	}
 
-	private boolean isFilterReset(InvestmentProgramsFilter filter) {
+	private boolean isFilterReset(ProgramsFilter filter) {
 		return filter.getLevelMin() == null
 				&& filter.getLevelMax() == null
-				&& filter.getProfitAvgPercentMin() == null
-				&& filter.getProfitAvgPercentMax() == null
-				&& filter.isShowActivePrograms() == null;
+				&& filter.getProfitAvgMin() == null
+				&& filter.getProfitAvgMax() == null;
+//				&& filter.isShowActivePrograms() == null;
 	}
 
 	@OnClick(R.id.button_up)
@@ -133,7 +134,7 @@ public class SortingFiltersButtonsView extends RelativeLayout
 		this.buttonUpListener = listener;
 	}
 
-	public void setFilter(InvestmentProgramsFilter filter) {
+	public void setFilter(ProgramsFilter filter) {
 		this.filter = filter;
 		extractSortingFromFilter(filter.getSorting());
 	}
@@ -147,7 +148,7 @@ public class SortingFiltersButtonsView extends RelativeLayout
 		sortingButton.setText(sortingString);
 	}
 
-	private void extractSortingFromFilter(InvestmentProgramsFilter.SortingEnum sortingEnum) {
+	private void extractSortingFromFilter(SortingEnum sortingEnum) {
 		if (sortingEnum == null)
 			return;
 
@@ -200,40 +201,40 @@ public class SortingFiltersButtonsView extends RelativeLayout
 	}
 
 	private void updateSorting(String option, String direction) {
-		InvestmentProgramsFilter.SortingEnum sortingEnum;
+		SortingEnum sortingEnum;
 		switch (option) {
 			case "profit":
 				if (direction.equals("asc"))
-					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYPROFITASC;
+					sortingEnum = SortingEnum.BYPROFITASC;
 				else
-					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYPROFITDESC;
+					sortingEnum = SortingEnum.BYPROFITDESC;
 				break;
 			case "level":
 				if (direction.equals("asc"))
-					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYLEVELASC;
+					sortingEnum = SortingEnum.BYLEVELASC;
 				else
-					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYLEVELDESC;
+					sortingEnum = SortingEnum.BYLEVELDESC;
 				break;
 			case "end of periods":
 				if (direction.equals("asc"))
-					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYENDOFPERIODASC;
+					sortingEnum = SortingEnum.BYENDOFPERIODASC;
 				else
-					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYENDOFPERIODDESC;
+					sortingEnum = SortingEnum.BYENDOFPERIODDESC;
 				break;
 			case "balance":
 				if (direction.equals("asc"))
-					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYBALANCEASC;
+					sortingEnum = SortingEnum.BYBALANCEASC;
 				else
-					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYBALANCEDESC;
+					sortingEnum = SortingEnum.BYBALANCEDESC;
 				break;
 			case "title":
 				if (direction.equals("asc"))
-					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYTITLEASC;
+					sortingEnum = SortingEnum.BYTITLEASC;
 				else
-					sortingEnum = InvestmentProgramsFilter.SortingEnum.BYTITLEDESC;
+					sortingEnum = SortingEnum.BYTITLEDESC;
 				break;
 			default:
-				sortingEnum = InvestmentProgramsFilter.SortingEnum.BYPROFITASC;
+				sortingEnum = SortingEnum.BYPROFITASC;
 				break;
 		}
 

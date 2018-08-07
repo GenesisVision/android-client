@@ -22,12 +22,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.InvestmentProgramsFilter;
+import io.swagger.client.model.ProgramDetails;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView;
-import vision.genesis.clientapp.model.InvestmentProgramExtended;
+import vision.genesis.clientapp.model.ProgramsFilter;
 
 /**
  * GenesisVision
@@ -206,13 +206,13 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	}
 
 	@Override
-	public void setInvestmentPrograms(List<InvestmentProgramExtended> programs) {
+	public void setInvestmentPrograms(List<ProgramDetails> programs) {
 		programsListAdapter.setInvestmentPrograms(programs);
 		recyclerView.scrollToPosition(0);
 	}
 
 	@Override
-	public void addInvestmentPrograms(List<InvestmentProgramExtended> programs) {
+	public void addInvestmentPrograms(List<ProgramDetails> programs) {
 		programsListAdapter.addInvestmentPrograms(programs);
 	}
 
@@ -255,7 +255,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	}
 
 	@Override
-	public void updateFilter(InvestmentProgramsFilter filter) {
+	public void updateFilter(ProgramsFilter filter) {
 		sortingFiltersButtonsView.setFilter(filter);
 	}
 

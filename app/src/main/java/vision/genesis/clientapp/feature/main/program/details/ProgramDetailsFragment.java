@@ -17,34 +17,25 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.InvestmentProgramDetails;
-import io.swagger.client.model.TradeChart;
-import io.swagger.client.model.WalletTransaction;
+import io.swagger.client.model.ChartProgramDetails;
+import io.swagger.client.model.ProgramDetailsFull;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramInfoActivity;
 import vision.genesis.clientapp.feature.main.program.ProgramInfoPagerAdapter;
-import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
-import vision.genesis.clientapp.feature.main.program.requests.RequestsActivity;
-import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.tooltip.TooltipActivity;
-import vision.genesis.clientapp.model.InvestmentProgramExtended;
-import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.TooltipModel;
 import vision.genesis.clientapp.model.events.ShowTradesEvent;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProgramDataView;
 import vision.genesis.clientapp.ui.chart.ProfitDetailsChartView;
-import vision.genesis.clientapp.utils.Constants;
-import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -204,7 +195,7 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 
 	private UUID programId;
 
-	private InvestmentProgramDetails programDetails;
+//	private InvestmentProgramDetails programDetails;
 
 	private Unbinder unbinder;
 
@@ -286,37 +277,37 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 
 	@OnClick(R.id.button_invest)
 	public void onInvestClicked() {
-		if (programDetails == null || getActivity() == null)
-			return;
-		if (programDetails.getAvailableInvestment() == 0) {
-			showInvestmentNotAvailableDialog();
-			return;
-		}
-		ProgramRequest request = new ProgramRequest();
-		request.programId = programDetails.getId();
-		request.programName = programDetails.getTitle();
-		request.programCurrency = programDetails.getCurrency().toString();
-		request.available = programDetails.getAvailableInvestment();
-		InvestProgramActivity.startWith(getActivity(), request);
+//		if (programDetails == null || getActivity() == null)
+//			return;
+//		if (programDetails.getAvailableInvestment() == 0) {
+//			showInvestmentNotAvailableDialog();
+//			return;
+//		}
+//		ProgramRequest request = new ProgramRequest();
+//		request.programId = programDetails.getId();
+//		request.programName = programDetails.getTitle();
+//		request.programCurrency = programDetails.getCurrency().toString();
+//		request.available = programDetails.getAvailableInvestment();
+//		InvestProgramActivity.startWith(getActivity(), request);
 	}
 
 	@OnClick(R.id.button_withdraw)
 	public void onWithdrawClicked() {
-		if (programDetails == null || getActivity() == null)
-			return;
-		ProgramRequest request = new ProgramRequest();
-		request.programId = programDetails.getId();
-		request.programName = programDetails.getTitle();
-		request.available = programDetails.getInvestedTokens();
-		request.tokenPrice = programDetails.getToken().getInitialPrice();
-		WithdrawProgramActivity.startWith(getActivity(), request);
+//		if (programDetails == null || getActivity() == null)
+//			return;
+//		ProgramRequest request = new ProgramRequest();
+//		request.programId = programDetails.getId();
+//		request.programName = programDetails.getTitle();
+//		request.available = programDetails.getInvestedTokens();
+//		request.tokenPrice = programDetails.getToken().getInitialPrice();
+//		WithdrawProgramActivity.startWith(getActivity(), request);
 	}
 
 	@OnClick(R.id.button_requests)
 	public void onRequestsClicked() {
-		if (programDetails == null || getActivity() == null)
-			return;
-		RequestsActivity.startWith(getActivity(), programDetails.getId());
+//		if (programDetails == null || getActivity() == null)
+//			return;
+//		RequestsActivity.startWith(getActivity(), programDetails.getId());
 	}
 
 	@Nullable
@@ -422,58 +413,58 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 	}
 
 	@Override
-	public void setProgramDetails(InvestmentProgramDetails programDetails) {
-		this.programDetails = programDetails;
-
-		if (programDetails.isIsTournament()) {
-			tournamentGroup.setVisibility(View.VISIBLE);
-			round.setText(String.valueOf(programDetails.getRoundNumber()));
-			place.setText(String.valueOf(programDetails.getPlace()));
-		}
-		else {
-			tournamentGroup.setVisibility(View.GONE);
-		}
-
-		programDataView.setData(new InvestmentProgramExtended(programDetails));
-
-		periodDuration.setText(String.valueOf(programDetails.getPeriodDuration()));
-		periodDurationDays.setText(getResources().getQuantityString(R.plurals.days, programDetails.getPeriodDuration()));
-
-		if (programDetails.isIsEnabled())
-			periodLeftView.setDateTo(programDetails.getStartOfPeriod(), programDetails.getEndOfPeriod());
-		periodLeftView.setProgramClosed(!programDetails.isIsEnabled());
-
-		double managerShareValue = 0;
-		if (programDetails.getBalance() != 0)
-			managerShareValue = programDetails.getOwnBalance() / programDetails.getBalance() * 100;
-		managerShare.setText(StringFormatUtil.formatAmount(managerShareValue, 0, 2));
-		trades.setText(StringFormatUtil.formatAmount(programDetails.getTradesCount(), 0, 0));
-
-		successFee.setText(StringFormatUtil.formatAmount(programDetails.getFeeSuccess(), 0, 2));
-		managementFee.setText(StringFormatUtil.formatAmount(programDetails.getFeeManagement(), 0, 2));
-
-		if (programDetails.isIsHistoryEnable()) {
-			myTokensCard.setVisibility(View.VISIBLE);
-
-			myTokens.setText(StringFormatUtil.formatAmount(programDetails.getInvestedTokens(), 0, Constants.TOKENS_MAX_DECIMAL_POINT_DIGITS));
-			double tokensFiatValue = programDetails.getInvestedTokens() * programDetails.getToken().getInitialPrice();
-			myTokensFiat.setText(String.format(Locale.getDefault(), "($%.2f)", tokensFiatValue));
-
-			myProfit.setText(StringFormatUtil.formatAmount(programDetails.getProfitFromProgram(), 0,
-					StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.GVT.toString())));
-		}
-		else {
-			myTokensCard.setVisibility(View.GONE);
-		}
-
-		availableToInvestText.setText(StringFormatUtil.formatAmount(programDetails.getAvailableInvestment(), 0,
-				StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.GVT.toString())));
-
-		investButton.setVisibility(programDetails.isIsInvestEnable() ? View.VISIBLE : View.GONE);
-		withdrawButton.setVisibility(programDetails.isIsWithdrawEnable() ? View.VISIBLE : View.GONE);
-		requestsButton.setVisibility(programDetails.isHasNewRequests() ? View.VISIBLE : View.GONE);
-
-		scrollView.setVisibility(View.VISIBLE);
+	public void setProgramDetails(ProgramDetailsFull programDetails) {
+//		this.programDetails = programDetails;
+//
+//		if (programDetails.isIsTournament()) {
+//			tournamentGroup.setVisibility(View.VISIBLE);
+//			round.setText(String.valueOf(programDetails.getRoundNumber()));
+//			place.setText(String.valueOf(programDetails.getPlace()));
+//		}
+//		else {
+//			tournamentGroup.setVisibility(View.GONE);
+//		}
+//
+//		programDataView.setData(new InvestmentProgramExtended(programDetails));
+//
+//		periodDuration.setText(String.valueOf(programDetails.getPeriodDuration()));
+//		periodDurationDays.setText(getResources().getQuantityString(R.plurals.days, programDetails.getPeriodDuration()));
+//
+//		if (programDetails.isIsEnabled())
+//			periodLeftView.setDateTo(programDetails.getStartOfPeriod(), programDetails.getEndOfPeriod());
+//		periodLeftView.setProgramClosed(!programDetails.isIsEnabled());
+//
+//		double managerShareValue = 0;
+//		if (programDetails.getBalance() != 0)
+//			managerShareValue = programDetails.getOwnBalance() / programDetails.getBalance() * 100;
+//		managerShare.setText(StringFormatUtil.formatAmount(managerShareValue, 0, 2));
+//		trades.setText(StringFormatUtil.formatAmount(programDetails.getTradesCount(), 0, 0));
+//
+//		successFee.setText(StringFormatUtil.formatAmount(programDetails.getFeeSuccess(), 0, 2));
+//		managementFee.setText(StringFormatUtil.formatAmount(programDetails.getFeeManagement(), 0, 2));
+//
+//		if (programDetails.isIsHistoryEnable()) {
+//			myTokensCard.setVisibility(View.VISIBLE);
+//
+//			myTokens.setText(StringFormatUtil.formatAmount(programDetails.getInvestedTokens(), 0, Constants.TOKENS_MAX_DECIMAL_POINT_DIGITS));
+//			double tokensFiatValue = programDetails.getInvestedTokens() * programDetails.getToken().getInitialPrice();
+//			myTokensFiat.setText(String.format(Locale.getDefault(), "($%.2f)", tokensFiatValue));
+//
+//			myProfit.setText(StringFormatUtil.formatAmount(programDetails.getProfitFromProgram(), 0,
+//					StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.toString())));
+//		}
+//		else {
+//			myTokensCard.setVisibility(View.GONE);
+//		}
+//
+//		availableToInvestText.setText(StringFormatUtil.formatAmount(programDetails.getAvailableInvestment(), 0,
+//				StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.toString())));
+//
+//		investButton.setVisibility(programDetails.isIsInvestEnable() ? View.VISIBLE : View.GONE);
+//		withdrawButton.setVisibility(programDetails.isIsWithdrawEnable() ? View.VISIBLE : View.GONE);
+//		requestsButton.setVisibility(programDetails.isHasNewRequests() ? View.VISIBLE : View.GONE);
+//
+//		scrollView.setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -483,7 +474,7 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 	}
 
 	@Override
-	public void setChartData(List<TradeChart> chart) {
+	public void setChartData(List<ChartProgramDetails> chart) {
 		this.chart.setChart(chart);
 	}
 

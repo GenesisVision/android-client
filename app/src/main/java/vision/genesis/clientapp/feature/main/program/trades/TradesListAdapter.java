@@ -10,14 +10,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.OrderModel;
-import io.swagger.client.model.TradesViewModel;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
@@ -29,7 +26,7 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 {
 	public List<OrderModel> trades = new ArrayList<>();
 
-	private TradesViewModel.TradeServerTypeEnum tradeServerType = TradesViewModel.TradeServerTypeEnum.METATRADER5;
+//	private TradesViewModel.TradeServerTypeEnum tradeServerType = TradesViewModel.TradeServerTypeEnum.METATRADER5;
 
 	@NonNull
 	@Override
@@ -40,7 +37,7 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 
 	@Override
 	public void onBindViewHolder(@NonNull TradeViewHolder holder, int position) {
-		holder.setTrade(trades.get(position), tradeServerType);
+//		holder.setTrade(trades.get(position), tradeServerType);
 	}
 
 	@Override
@@ -48,12 +45,12 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 		return trades.size();
 	}
 
-	void setTrades(List<OrderModel> trades, TradesViewModel.TradeServerTypeEnum tradeServerType) {
-		this.tradeServerType = tradeServerType;
-		this.trades.clear();
-		this.trades.addAll(trades);
-		notifyDataSetChanged();
-	}
+//	void setTrades(List<OrderModel> trades, TradesViewModel.TradeServerTypeEnum tradeServerType) {
+//		this.tradeServerType = tradeServerType;
+//		this.trades.clear();
+//		this.trades.addAll(trades);
+//		notifyDataSetChanged();
+//	}
 
 	void addTrades(List<OrderModel> trades) {
 		this.trades.addAll(trades);
@@ -97,35 +94,35 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 		private void setFonts() {
 		}
 
-		void setTrade(OrderModel trade, TradesViewModel.TradeServerTypeEnum tradeServerType) {
-			switch (tradeServerType) {
-				case METATRADER4:
-					dateClose.setVisibility(View.VISIBLE);
-					priceClose.setVisibility(View.VISIBLE);
-
-					dateOpen.setText(DateTimeUtil.formatDateTime(trade.getDateOpen()));
-					dateClose.setText(DateTimeUtil.formatDateTime(trade.getDateClose()));
-
-					priceOpen.setText(StringFormatUtil.formatAmountWithoutGrouping(trade.getPriceOpen()));
-					priceClose.setText(StringFormatUtil.formatAmountWithoutGrouping(trade.getPriceClose()));
-
-					direction.setText(trade.getDirection().toString());
-					break;
-				default:
-					dateClose.setVisibility(View.GONE);
-					priceClose.setVisibility(View.GONE);
-
-					dateOpen.setText(DateTimeUtil.formatDateTime(trade.getDate()));
-					priceOpen.setText(StringFormatUtil.formatAmountWithoutGrouping(trade.getPrice()));
-
-					direction.setText(String.format(Locale.getDefault(), "%s %s", trade.getDirection(), trade.getEntry()));
-					break;
-			}
-
-			symbol.setText(trade.getSymbol());
-			volume.setText(String.valueOf(trade.getVolume()));
-			setProfit(trade);
-		}
+//		void setTrade(OrderModel trade, TradesViewModel.TradeServerTypeEnum tradeServerType) {
+//			switch (tradeServerType) {
+//				case METATRADER4:
+//					dateClose.setVisibility(View.VISIBLE);
+//					priceClose.setVisibility(View.VISIBLE);
+//
+//					dateOpen.setText(DateTimeUtil.formatDateTime(trade.getDateOpen()));
+//					dateClose.setText(DateTimeUtil.formatDateTime(trade.getDateClose()));
+//
+//					priceOpen.setText(StringFormatUtil.formatAmountWithoutGrouping(trade.getPriceOpen()));
+//					priceClose.setText(StringFormatUtil.formatAmountWithoutGrouping(trade.getPriceClose()));
+//
+//					direction.setText(trade.getDirection().toString());
+//					break;
+//				default:
+//					dateClose.setVisibility(View.GONE);
+//					priceClose.setVisibility(View.GONE);
+//
+//					dateOpen.setText(DateTimeUtil.formatDateTime(trade.getDate()));
+//					priceOpen.setText(StringFormatUtil.formatAmountWithoutGrouping(trade.getPrice()));
+//
+//					direction.setText(String.format(Locale.getDefault(), "%s %s", trade.getDirection(), trade.getEntry()));
+//					break;
+//			}
+//
+//			symbol.setText(trade.getSymbol());
+//			volume.setText(String.valueOf(trade.getVolume()));
+//			setProfit(trade);
+//		}
 
 		private void setProfit(OrderModel trade) {
 			double profit = trade.getProfit();

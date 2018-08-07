@@ -9,14 +9,15 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.InvestmentProgramViewModel;
-import io.swagger.client.model.TradesChartViewModel;
+import io.swagger.client.model.ProgramChart;
+import io.swagger.client.model.ProgramDetailsFull;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
+import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.utils.Constants;
 
@@ -46,6 +47,8 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	private UUID programId;
 
 	private String chartTimeFrame = "All";
+
+	private DateRange chartDateRange = new DateRange();
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -99,7 +102,7 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 		if (programId != null && programsManager != null) {
 			if (programDetailsSubscription != null)
 				programDetailsSubscription.unsubscribe();
-			programDetailsSubscription = programsManager.getInvestmentProgramDetails(programId)
+			programDetailsSubscription = programsManager.getProgramDetails(programId)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleInvestmentProgramDetailsSuccess,
@@ -107,12 +110,12 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 		}
 	}
 
-	private void handleInvestmentProgramDetailsSuccess(InvestmentProgramViewModel model) {
+	private void handleInvestmentProgramDetailsSuccess(ProgramDetailsFull programDetails) {
 		programDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 		getViewState().setRefreshing(false);
 
-		getViewState().setProgramDetails(model.getInvestmentProgram());
+		getViewState().setProgramDetails(programDetails);
 	}
 
 	private void handleInvestmentProgramDetailsError(Throwable throwable) {
@@ -125,7 +128,7 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 		if (programId != null && programsManager != null) {
 			if (chartDataSubscription != null)
 				chartDataSubscription.unsubscribe();
-			chartDataSubscription = programsManager.getEquityChart(programId, chartTimeFrame)
+			chartDataSubscription = programsManager.getChart(programId, chartDateRange)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetChartDataSuccess,
@@ -133,12 +136,12 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 		}
 	}
 
-	private void handleGetChartDataSuccess(TradesChartViewModel model) {
+	private void handleGetChartDataSuccess(ProgramChart response) {
 		chartDataSubscription.unsubscribe();
 		getViewState().showProgress(false);
 		getViewState().setRefreshing(false);
 
-		getViewState().setChartData(model.getChart());
+		getViewState().setChartData(response.getChart());
 	}
 
 	private void handleGetChartDataError(Throwable throwable) {

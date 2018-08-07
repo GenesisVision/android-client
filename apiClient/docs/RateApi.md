@@ -4,12 +4,12 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiRatePost**](RateApi.md#apiRatePost) | **POST** api/rate | Get rate
+[**v10RateByFromByToGet**](RateApi.md#v10RateByFromByToGet) | **GET** v1.0/rate/{from}/{to} | Get rate
 
 
-<a name="apiRatePost"></a>
-# **apiRatePost**
-> RateViewModel apiRatePost(model)
+<a name="v10RateByFromByToGet"></a>
+# **v10RateByFromByToGet**
+> RateViewModel v10RateByFromByToGet(from, to)
 
 Get rate
 
@@ -21,12 +21,13 @@ Get rate
 
 
 RateApi apiInstance = new RateApi();
-RequestRate model = new RequestRate(); // RequestRate | 
+String from = "from_example"; // String | 
+String to = "to_example"; // String | 
 try {
-    RateViewModel result = apiInstance.apiRatePost(model);
+    RateViewModel result = apiInstance.v10RateByFromByToGet(from, to);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling RateApi#apiRatePost");
+    System.err.println("Exception when calling RateApi#v10RateByFromByToGet");
     e.printStackTrace();
 }
 ```
@@ -35,7 +36,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **model** | [**RequestRate**](RequestRate.md)|  | [optional]
+ **from** | **String**|  |
+ **to** | **String**|  |
 
 ### Return type
 
@@ -47,6 +49,6 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 

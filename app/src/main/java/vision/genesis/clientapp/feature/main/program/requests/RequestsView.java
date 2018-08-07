@@ -2,9 +2,6 @@ package vision.genesis.clientapp.feature.main.program.requests;
 
 import com.arellomobile.mvp.MvpView;
 
-import java.util.List;
-
-import io.swagger.client.model.InvestmentProgramRequest;
 
 
 /**
@@ -14,7 +11,7 @@ import io.swagger.client.model.InvestmentProgramRequest;
 
 interface RequestsView extends MvpView
 {
-	void setRequests(List<InvestmentProgramRequest> requests);
+//	void setRequests(List<InvestmentProgramRequest> requests);
 
 	void setRefreshing(boolean refreshing);
 

@@ -12,9 +12,9 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
-import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.ShortenedAmount;
 
 /**
@@ -73,11 +73,11 @@ public class StringFormatUtil
 	}
 
 	public static int getCurrencyMaxFraction(String programCurrency) {
-		if (programCurrency.equals(WalletTransaction.CurrencyEnum.USD.toString()) ||
-				programCurrency.equals(WalletTransaction.CurrencyEnum.EUR.toString())) {
+		if (programCurrency.equals(CurrencyEnum.USD.toString()) ||
+				programCurrency.equals(CurrencyEnum.EUR.toString())) {
 			return 2;
 		}
-		if (programCurrency.equals(WalletTransaction.CurrencyEnum.GVT.toString())) {
+		if (programCurrency.equals(CurrencyEnum.GVT.toString())) {
 			return 4;
 		}
 		else {

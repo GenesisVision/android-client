@@ -1,11 +1,13 @@
 package vision.genesis.clientapp.feature.main.assets;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.search.SearchActivity;
 import vision.genesis.clientapp.ui.CustomTabView;
+import vision.genesis.clientapp.utils.ThemeUtil;
 
 /**
  * GenesisVisionAndroid
@@ -53,7 +56,7 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 	private TabLayout.Tab programsTab;
 
-	private TabLayout.Tab tournamentTab;
+//	private TabLayout.Tab tournamentTab;
 
 	private AssetsPagerAdapter pagerAdapter;
 
@@ -61,7 +64,7 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 	private Unbinder unbinder;
 
-	private boolean isTournamentAlreadyAdded = false;
+//	private boolean isTournamentAlreadyAdded = false;
 
 	@OnClick(R.id.searchbar)
 	public void onSearchbarClicked() {
@@ -74,7 +77,9 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_assets, container, false);
+		final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), ThemeUtil.getCurrentThemeResource());
+		LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
+		return localInflater.inflate(R.layout.fragment_assets, container, false);
 	}
 
 	@Override
@@ -112,7 +117,7 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 	private void initTabs() {
 		favoritesTab = tabLayout.newTab().setCustomView(getFavoritesTabView()).setTag("favorites");
 		programsTab = tabLayout.newTab().setCustomView(getProgramsTabView()).setTag("programs");
-		tournamentTab = tabLayout.newTab().setText(getString(R.string.tournament)).setTag("tournament");
+//		tournamentTab = tabLayout.newTab().setText(getString(R.string.tournament)).setTag("tournament");
 
 		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 

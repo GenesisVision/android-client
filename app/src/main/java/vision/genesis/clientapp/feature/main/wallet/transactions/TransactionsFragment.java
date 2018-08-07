@@ -13,14 +13,11 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
-import java.util.List;
 import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.swagger.client.model.TransactionsFilter;
-import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.ui.DividerItemDecoration;
@@ -37,10 +34,10 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 
 	private static final String EXTRA_PROGRAM_ID = "extra_program_id";
 
-	public static TransactionsFragment with(TransactionsFilter.TypeEnum type, @Nullable UUID programId) {
+	public static TransactionsFragment with(@Nullable UUID programId) {
 		TransactionsFragment transactionsFragment = new TransactionsFragment();
 		Bundle arguments = new Bundle(2);
-		arguments.putString(EXTRA_TYPE, type.toString());
+//		arguments.putString(EXTRA_TYPE, type.toString());
 		arguments.putSerializable(EXTRA_PROGRAM_ID, programId);
 		transactionsFragment.setArguments(arguments);
 		return transactionsFragment;
@@ -82,7 +79,7 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 		setFonts();
 
 		programId = (UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID);
-		transactionsPresenter.setFilter(getArguments().getString(EXTRA_TYPE), programId);
+//		transactionsPresenter.setFilter(getArguments().getString(EXTRA_TYPE), programId);
 
 		initRefreshLayout();
 		initRecyclerView();
@@ -146,28 +143,28 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 		});
 	}
 
-	public void setTransactionsFilterType(TransactionsFilter.TypeEnum type) {
-		transactionsPresenter.setFilter(type.toString(), null);
-	}
+//	public void setTransactionsFilterType(TransactionsFilter.TypeEnum type) {
+//		transactionsPresenter.setFilter(type.toString(), null);
+//	}
 
 	@Override
 	public void setRefreshing(boolean refreshing) {
 		refreshLayout.setRefreshing(refreshing);
 	}
 
-	@Override
-	public void setTransactions(List<WalletTransaction> transactions) {
-		transactionsListAdapter.setTransactions(transactions);
-
-		groupNoTransactions.setVisibility(transactions.size() == 0
-				? View.VISIBLE
-				: View.GONE);
-	}
-
-	@Override
-	public void addTransactions(List<WalletTransaction> transactions) {
-		transactionsListAdapter.addTransactions(transactions);
-	}
+//	@Override
+//	public void setTransactions(List<WalletTransaction> transactions) {
+//		transactionsListAdapter.setTransactions(transactions);
+//
+//		groupNoTransactions.setVisibility(transactions.size() == 0
+//				? View.VISIBLE
+//				: View.GONE);
+//	}
+//
+//	@Override
+//	public void addTransactions(List<WalletTransaction> transactions) {
+//		transactionsListAdapter.addTransactions(transactions);
+//	}
 
 	@Override
 	public void showSnackbarMessage(String message) {

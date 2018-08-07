@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import io.swagger.client.ApiClient;
-import io.swagger.client.model.RequestRate;
 
 /**
  * API tests for RateApi
@@ -23,9 +22,10 @@ public class RateApiTest
 	 * Get rate
 	 */
 	@Test
-	public void v10RatePostTest() {
-		RequestRate model = null;
-		// RateViewModel response = api.v10RatePost(model);
+	public void v10RateByFromByToGetTest() {
+		String from = null;
+		String to = null;
+		// RateViewModel response = api.v10RateByFromByToGet(from, to);
 
 		// TODO: test validations
 	}

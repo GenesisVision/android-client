@@ -5,7 +5,7 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
-import io.swagger.client.model.InvestmentProgramDetails;
+import io.swagger.client.model.ProgramDetailsFull;
 
 /**
  * GenesisVision
@@ -15,7 +15,7 @@ import io.swagger.client.model.InvestmentProgramDetails;
 interface ProgramInfoView extends MvpView
 {
 	@StateStrategyType(AddToEndSingleStrategy.class)
-	void setProgram(InvestmentProgramDetails programDetails);
+	void setProgram(ProgramDetailsFull programDetails);
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void finishActivity();

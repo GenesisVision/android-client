@@ -2,6 +2,7 @@ package io.swagger.client.api;
 
 import org.joda.time.DateTime;
 
+import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.model.ProgramChart;
@@ -17,13 +18,14 @@ public interface ProgramApi
 	/**
 	 * Get manager chart
 	 *
-	 * @param id        (required)
-	 * @param timeFrame (optional)
+	 * @param id            (required)
+	 * @param chartDateFrom (optional)
+	 * @param chartDateTo   (optional)
 	 * @return Call&lt;ProgramChart&gt;
 	 */
 	@GET("v1.0/program/{id}/chart")
 	Observable<ProgramChart> v10ProgramByIdChartGet(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("TimeFrame") String timeFrame
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("ChartDateFrom") DateTime chartDateFrom, @retrofit2.http.Query("ChartDateTo") DateTime chartDateTo
 	);
 
 	/**
@@ -82,23 +84,26 @@ public interface ProgramApi
 	/**
 	 * Programs list
 	 *
-	 * @param authorization (optional)
-	 * @param levelMin      (optional)
-	 * @param levelMax      (optional)
-	 * @param profitAvgMin  (optional)
-	 * @param profitAvgMax  (optional)
-	 * @param timeFrame     (optional)
-	 * @param mask          (optional)
-	 * @param facetId       (optional)
-	 * @param isFavorite    (optional)
-	 * @param currency      (optional)
-	 * @param skip          (optional)
-	 * @param take          (optional)
+	 * @param authorization     (optional)
+	 * @param levelMin          (optional)
+	 * @param levelMax          (optional)
+	 * @param profitAvgMin      (optional)
+	 * @param profitAvgMax      (optional)
+	 * @param statisticDateFrom (optional)
+	 * @param statisticDateTo   (optional)
+	 * @param sorting           (optional)
+	 * @param mask              (optional)
+	 * @param facetId           (optional)
+	 * @param isFavorite        (optional)
+	 * @param currency          (optional)
+	 * @param ids               (optional)
+	 * @param skip              (optional)
+	 * @param take              (optional)
 	 * @return Call&lt;ProgramsList&gt;
 	 */
 	@GET("v1.0/program/list")
 	Observable<ProgramsList> v10ProgramListGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("LevelMin") Integer levelMin, @retrofit2.http.Query("LevelMax") Integer levelMax, @retrofit2.http.Query("ProfitAvgMin") Double profitAvgMin, @retrofit2.http.Query("ProfitAvgMax") Double profitAvgMax, @retrofit2.http.Query("TimeFrame") String timeFrame, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("FacetId") UUID facetId, @retrofit2.http.Query("IsFavorite") Boolean isFavorite, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("LevelMin") Integer levelMin, @retrofit2.http.Query("LevelMax") Integer levelMax, @retrofit2.http.Query("ProfitAvgMin") Double profitAvgMin, @retrofit2.http.Query("ProfitAvgMax") Double profitAvgMax, @retrofit2.http.Query("StatisticDateFrom") DateTime statisticDateFrom, @retrofit2.http.Query("StatisticDateTo") DateTime statisticDateTo, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("FacetId") UUID facetId, @retrofit2.http.Query("IsFavorite") Boolean isFavorite, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("Ids") List<UUID> ids, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 }

@@ -28,19 +28,19 @@ import io.swagger.annotations.ApiModelProperty;
 public class ProgramsList
 {
 	@SerializedName("programs")
-	private List<ProgramDetailsList> programs = null;
+	private List<ProgramDetails> programs = null;
 
 	@SerializedName("total")
 	private Integer total = null;
 
-	public ProgramsList programs(List<ProgramDetailsList> programs) {
+	public ProgramsList programs(List<ProgramDetails> programs) {
 		this.programs = programs;
 		return this;
 	}
 
-	public ProgramsList addProgramsItem(ProgramDetailsList programsItem) {
+	public ProgramsList addProgramsItem(ProgramDetails programsItem) {
 		if (this.programs == null) {
-			this.programs = new ArrayList<ProgramDetailsList>();
+			this.programs = new ArrayList<ProgramDetails>();
 		}
 		this.programs.add(programsItem);
 		return this;
@@ -52,11 +52,11 @@ public class ProgramsList
 	 * @return programs
 	 **/
 	@ApiModelProperty(value = "")
-	public List<ProgramDetailsList> getPrograms() {
+	public List<ProgramDetails> getPrograms() {
 		return programs;
 	}
 
-	public void setPrograms(List<ProgramDetailsList> programs) {
+	public void setPrograms(List<ProgramDetails> programs) {
 		this.programs = programs;
 	}
 

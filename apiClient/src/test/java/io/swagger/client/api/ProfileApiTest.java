@@ -27,7 +27,7 @@ public class ProfileApiTest
 	@Test
 	public void v10ProfileByIdPublicGetTest() {
 		UUID id = null;
-		// ProfilePublicViewModel response = api.v10ProfileByIdPublicGet(id);
+		// ManagerProfile response = api.v10ProfileByIdPublicGet(id);
 
 		// TODO: test validations
 	}

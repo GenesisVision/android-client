@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.UUID;
 
-import io.swagger.client.model.TransactionsFilter;
 import vision.genesis.clientapp.feature.main.program.description.ProgramDescriptionFragment;
 import vision.genesis.clientapp.feature.main.program.details.ProgramDetailsFragment;
 import vision.genesis.clientapp.feature.main.program.trades.TradesFragment;
@@ -42,7 +41,8 @@ public class ProgramInfoPagerAdapter extends FragmentStatePagerAdapter
 		this.tabLayout = tabLayout;
 		programDetailsFragment = ProgramDetailsFragment.with(programId);
 		programDescriptionFragment = ProgramDescriptionFragment.with(programId);
-		historyFragment = TransactionsFragment.with(TransactionsFilter.TypeEnum.ALL, programId);
+//		historyFragment = TransactionsFragment.with(TransactionsFilter.TypeEnum.ALL, programId);
+		historyFragment = TransactionsFragment.with(programId);
 		tradesFragment = TradesFragment.with(programId);
 	}
 

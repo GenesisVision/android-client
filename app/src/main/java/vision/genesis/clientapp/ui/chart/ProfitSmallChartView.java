@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import io.swagger.client.model.Chart;
-import io.swagger.client.model.ChartByDate;
+import io.swagger.client.model.ChartSimple;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 
@@ -37,15 +36,15 @@ public class ProfitSmallChartView extends com.github.mikephil.charting.charts.Li
 
 	private static int lineRedColor = R.color.transactionRed;
 
-	public static LineData getPreparedEquityChart(List<ChartByDate> equityChart) {
-		List<Entry> lineEntries = new ArrayList<>();
-
-		for (ChartByDate chart : equityChart) {
-			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getValue().floatValue()));
-		}
-
-		return getLineData(lineEntries);
-	}
+//	public static LineData getPreparedEquityChart(List<ChartByDate> equityChart) {
+//		List<Entry> lineEntries = new ArrayList<>();
+//
+//		for (ChartByDate chart : equityChart) {
+//			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getValue().floatValue()));
+//		}
+//
+//		return getLineData(lineEntries);
+//	}
 
 	private static LineData getLineData(List<Entry> data) {
 		Collections.sort(data, new EntryXComparator());
@@ -128,30 +127,46 @@ public class ProfitSmallChartView extends com.github.mikephil.charting.charts.Li
 		this.invalidate();
 	}
 
-	public void setEquityChart(List<ChartByDate> charts) {
-		if (charts.size() <= 1) {
-			this.clear();
-			return;
-		}
-		List<Entry> lineEntries = new ArrayList<>();
+//	public void setEquityChart(List<ChartByDate> charts) {
+//		if (charts.size() <= 1) {
+//			this.clear();
+//			return;
+//		}
+//		List<Entry> lineEntries = new ArrayList<>();
+//
+//		for (ChartByDate chart : charts) {
+//			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getValue().floatValue()));
+//		}
+//
+//		this.setData(getLineData(lineEntries));
+//		this.invalidate();
+//	}
 
-		for (ChartByDate chart : charts) {
-			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getValue().floatValue()));
-		}
+//	public void setChart(List<Chart> charts) {
+//		if (charts.size() <= 1) {
+//			this.clear();
+//			return;
+//		}
+//		List<Entry> lineEntries = new ArrayList<>();
+//		float index = 0;
+//		for (Chart chart : charts) {
+//			lineEntries.add(new Entry(index, chart.getTotalProfit().floatValue()));
+//			index++;
+//		}
+//
+//		this.setData(getLineData(lineEntries));
+//		this.invalidate();
+//	}
 
-		this.setData(getLineData(lineEntries));
-		this.invalidate();
-	}
-
-	public void setChart(List<Chart> charts) {
+	public void setChart(List<ChartSimple> charts) {
 		if (charts.size() <= 1) {
 			this.clear();
 			return;
 		}
 		List<Entry> lineEntries = new ArrayList<>();
 		float index = 0;
-		for (Chart chart : charts) {
-			lineEntries.add(new Entry(index, chart.getTotalProfit().floatValue()));
+		for (ChartSimple chart : charts) {
+			lineEntries.add(new Entry(index, chart.getValue().floatValue()));
 			index++;
 		}
 

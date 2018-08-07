@@ -19,6 +19,20 @@ Name | Type | Description | Notes
 **gender** | **Boolean** |  |  [optional]
 **avatar** | **String** |  |  [optional]
 **userName** | **String** |  |  [optional]
+**favoriteCurrency** | [**FavoriteCurrencyEnum**](#FavoriteCurrencyEnum) |  |  [optional]
+
+
+<a name="FavoriteCurrencyEnum"></a>
+## Enum: FavoriteCurrencyEnum
+Name | Value
+---- | -----
+UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
+ADA | &quot;ADA&quot;
+USD | &quot;USD&quot;
+EUR | &quot;EUR&quot;
 
 
 

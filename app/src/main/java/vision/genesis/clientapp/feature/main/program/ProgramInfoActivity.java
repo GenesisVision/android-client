@@ -23,7 +23,7 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.InvestmentProgramDetails;
+import io.swagger.client.model.ProgramDetailsFull;
 import timber.log.Timber;
 import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
@@ -84,7 +84,7 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 	@InjectPresenter
 	ProgramInfoPresenter programInfoPresenter;
 
-	private InvestmentProgramDetails programDetails;
+	private ProgramDetailsFull programDetails;
 
 	private TabLayout.OnTabSelectedListener tabSelectedListener;
 
@@ -117,9 +117,9 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 	@OnClick(R.id.button_favorite)
 	public void onFavoriteClicked() {
 		if (programDetails != null) {
-			programDetails.isFavorite(!programDetails.isIsFavorite());
-			setFavoriteButtonImage(programDetails.isIsFavorite());
-			programInfoPresenter.onFavoriteButtonClicked(programDetails.isIsFavorite());
+//			programDetails.isFavorite(!programDetails.isIsFavorite());
+//			setFavoriteButtonImage(programDetails.isIsFavorite());
+//			programInfoPresenter.onFavoriteButtonClicked(programDetails.isIsFavorite());
 		}
 	}
 
@@ -242,14 +242,14 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 	}
 
 	@Override
-	public void setProgram(InvestmentProgramDetails programDetails) {
+	public void setProgram(ProgramDetailsFull programDetails) {
 		this.programDetails = programDetails;
 
-		if (programDetails.getTradesCount() > 0)
-			addPage(tradesTab, false);
-
-		if (programDetails.isIsHistoryEnable())
-			addPage(historyTab, false);
+//		if (programDetails.getTradesCount() > 0)
+//			addPage(tradesTab, false);
+//
+//		if (programDetails.isIsHistoryEnable())
+//			addPage(historyTab, false);
 
 		model.update(programDetails);
 		updateHeader();

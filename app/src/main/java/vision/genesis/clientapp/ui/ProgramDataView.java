@@ -96,11 +96,11 @@ public class ProgramDataView extends RelativeLayout
 	}
 
 	public void setData(InvestmentProgramExtended program) {
-		totalProfitText.setText(program.getTotalProfitTextFull());
-		avgProfitText.setText(program.getAvgProfitTextFull());
-		balanceText.setText(program.getBalanceTextFull());
-		this.balanceCurrency.setCurrency(program.getBalanceCurrency());
-		investorsText.setText(program.getInvestorsText());
+//		totalProfitText.setText(program.getTotalProfitTextFull());
+//		avgProfitText.setText(program.getAvgProfitTextFull());
+//		balanceText.setText(program.getBalanceTextFull());
+//		this.balanceCurrency.setCurrency(program.getBalanceCurrency());
+//		investorsText.setText(program.getInvestorsText());
 	}
 
 	public void setData(Double profitTotal, Double profitAvg, Double balance, Integer investorsCount, String balanceCurrency) {

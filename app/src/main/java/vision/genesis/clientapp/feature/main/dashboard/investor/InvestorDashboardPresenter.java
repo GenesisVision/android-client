@@ -10,26 +10,21 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.InvestmentProgramDashboardInvestor;
-import io.swagger.client.model.InvestmentProgramsFilter;
-import io.swagger.client.model.InvestorDashboard;
-import io.swagger.client.model.WalletTransaction;
+import io.swagger.client.model.DashboardProgramsList;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.InvestorDashboardManager;
+import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
+import vision.genesis.clientapp.model.SortingEnum;
 import vision.genesis.clientapp.model.events.OnDashboardProgramsUpdateEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
-import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
-import vision.genesis.clientapp.utils.Constants;
-import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVision
@@ -50,6 +45,8 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	private List<InvestmentProgramDashboardExtended> activePrograms = new ArrayList<>();
 
 	private List<InvestmentProgramDashboardExtended> archivedPrograms = new ArrayList<>();
+
+	private DateRange dateRange = new DateRange();
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -76,7 +73,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 	private void getInvestments() {
 		getViewState().showProgressBar(true);
-		getInvestmentsSubscription = dashboardManager.getInvestments(InvestmentProgramsFilter.SortingEnum.BYPROFITDESC.toString())
+		getInvestmentsSubscription = dashboardManager.getPrograms(SortingEnum.BYPROFITDESC.toString(), dateRange, 0, 1000)
 				.subscribeOn(Schedulers.computation())
 				.map(this::prepareData)
 				.observeOn(AndroidSchedulers.mainThread())
@@ -84,35 +81,35 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 						this::handleGetInvestmentsError);
 	}
 
-	private InvestorDashboard prepareData(InvestorDashboard dashboard) {
-		List<InvestmentProgramDashboardInvestor> programs = dashboard.getInvestmentPrograms();
-		activePrograms = new ArrayList<>();
-		archivedPrograms = new ArrayList<>();
-
-		for (InvestmentProgramDashboardInvestor program : programs) {
-			InvestmentProgramDashboardExtended programExtended = new InvestmentProgramDashboardExtended(program);
-
-			programExtended.setTokens(StringFormatUtil.formatAmount(program.getInvestedTokens(), 0,
-					Constants.TOKENS_MAX_DECIMAL_POINT_DIGITS));
-			double tokensFiatValue = program.getInvestedTokens() * program.getToken().getInitialPrice();
-			programExtended.setTokensFiat(String.format(Locale.getDefault(), "($%.2f)", tokensFiatValue));
-
-			programExtended.setProfitShort(StringFormatUtil.formatAmount(program.getProfitFromProgram(), 0, 2));
-			programExtended.setProfitFull(StringFormatUtil.formatAmount(program.getProfitFromProgram(), 2,
-					StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.GVT.toString())));
-
-			programExtended.setEquityChart(ProfitSmallChartView.getPreparedEquityChart(program.getEquityChart()));
-
-			if (!program.isIsArchived())
-				activePrograms.add(programExtended);
-			else
-				archivedPrograms.add(programExtended);
-		}
+	private DashboardProgramsList prepareData(DashboardProgramsList dashboard) {
+//		List<InvestmentProgramDashboardInvestor> programs = dashboard.getInvestmentPrograms();
+//		activePrograms = new ArrayList<>();
+//		archivedPrograms = new ArrayList<>();
+//
+//		for (InvestmentProgramDashboardInvestor program : programs) {
+//			InvestmentProgramDashboardExtended programExtended = new InvestmentProgramDashboardExtended(program);
+//
+//			programExtended.setTokens(StringFormatUtil.formatAmount(program.getInvestedTokens(), 0,
+//					Constants.TOKENS_MAX_DECIMAL_POINT_DIGITS));
+//			double tokensFiatValue = program.getInvestedTokens() * program.getToken().getInitialPrice();
+//			programExtended.setTokensFiat(String.format(Locale.getDefault(), "($%.2f)", tokensFiatValue));
+//
+//			programExtended.setProfitShort(StringFormatUtil.formatAmount(program.getProfitFromProgram(), 0, 2));
+//			programExtended.setProfitFull(StringFormatUtil.formatAmount(program.getProfitFromProgram(), 2,
+//					StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.toString())));
+//
+//			programExtended.setEquityChart(ProfitSmallChartView.getPreparedEquityChart(program.getEquityChart()));
+//
+//			if (!program.isIsArchived())
+//				activePrograms.add(programExtended);
+//			else
+//				archivedPrograms.add(programExtended);
+//		}
 
 		return dashboard;
 	}
 
-	private void handleGetInvestmentsSuccess(InvestorDashboard dashboard) {
+	private void handleGetInvestmentsSuccess(DashboardProgramsList dashboard) {
 		getInvestmentsSubscription.unsubscribe();
 
 		getViewState().setRefreshing(false);
@@ -121,7 +118,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 		getViewState().setActivePrograms(activePrograms);
 		getViewState().setArchivedPrograms(archivedPrograms);
-		getViewState().setTotalPortfolioValue(dashboard.getTotalPortfolioAmount());
+//		getViewState().setTotalPortfolioValue(dashboard.getTotalPortfolioAmount());
 	}
 
 	private void handleGetInvestmentsError(Throwable throwable) {

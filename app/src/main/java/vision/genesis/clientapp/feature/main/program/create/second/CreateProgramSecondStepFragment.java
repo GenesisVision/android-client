@@ -23,11 +23,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.BrokerTradeServer;
 import rx.Subscription;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.ui.BrokersArrayAdapter;
 
 /**
  * GenesisVisionAndroid
@@ -132,23 +130,23 @@ public class CreateProgramSecondStepFragment extends BaseFragment implements Cre
 		}
 	}
 
-	@Override
-	public void setBrokers(List<BrokerTradeServer> brokersList) {
-		BrokersArrayAdapter adapter = new BrokersArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, brokersList.toArray());
-		adapter.setDropDownViewResource(R.layout.spinner_two_lines_item);
-		brokers.setAdapter(adapter);
-		brokers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-		{
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				createProgramSecondStepPresenter.onBrokerSelected(position);
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-			}
-		});
-	}
+//	@Override
+//	public void setBrokers(List<BrokerTradeServer> brokersList) {
+//		BrokersArrayAdapter adapter = new BrokersArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, brokersList.toArray());
+//		adapter.setDropDownViewResource(R.layout.spinner_two_lines_item);
+//		brokers.setAdapter(adapter);
+//		brokers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+//		{
+//			@Override
+//			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//				createProgramSecondStepPresenter.onBrokerSelected(position);
+//			}
+//
+//			@Override
+//			public void onNothingSelected(AdapterView<?> parent) {
+//			}
+//		});
+//	}
 
 	@Override
 	public void setLeverages(List<Integer> leveragesList) {

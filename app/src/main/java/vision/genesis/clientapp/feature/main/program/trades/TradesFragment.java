@@ -14,14 +14,12 @@ import android.widget.TextView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.swagger.client.model.OrderModel;
-import io.swagger.client.model.TradesViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -180,16 +178,16 @@ public class TradesFragment extends BaseFragment implements TradesView
 		refreshLayout.setRefreshing(refreshing);
 	}
 
-	@Override
-	public void setTrades(List<OrderModel> trades, TradesViewModel.TradeServerTypeEnum tradeServerType) {
-		if (trades.isEmpty()) {
-			groupNoTransactions.setVisibility(View.VISIBLE);
-			return;
-		}
-
-		tradesListAdapter.setTrades(trades, tradeServerType);
-		header.setVisibility(View.VISIBLE);
-	}
+//	@Override
+//	public void setTrades(List<OrderModel> trades, TradesViewModel.TradeServerTypeEnum tradeServerType) {
+//		if (trades.isEmpty()) {
+//			groupNoTransactions.setVisibility(View.VISIBLE);
+//			return;
+//		}
+//
+//		tradesListAdapter.setTrades(trades, tradeServerType);
+//		header.setVisibility(View.VISIBLE);
+//	}
 
 	@Override
 	public void addTrades(List<OrderModel> trades) {
@@ -201,23 +199,23 @@ public class TradesFragment extends BaseFragment implements TradesView
 		showSnackbar(message, recyclerView);
 	}
 
-	@Override
-	public void setTradeServerType(TradesViewModel.TradeServerTypeEnum tradeServerType) {
-		switch (tradeServerType) {
-			case METATRADER4:
-				dateClose.setVisibility(View.VISIBLE);
-				priceClose.setVisibility(View.VISIBLE);
-
-				dateOpen.setText(String.format(Locale.getDefault(), "%s %s", getString(R.string.date), getString(R.string.open)));
-				priceOpen.setText(String.format(Locale.getDefault(), "%s %s", getString(R.string.price), getString(R.string.open)));
-				break;
-			default:
-				dateClose.setVisibility(View.GONE);
-				priceClose.setVisibility(View.GONE);
-
-				dateOpen.setText(getString(R.string.date));
-				priceOpen.setText(getString(R.string.price));
-				break;
-		}
-	}
+//	@Override
+//	public void setTradeServerType(TradesViewModel.TradeServerTypeEnum tradeServerType) {
+//		switch (tradeServerType) {
+//			case METATRADER4:
+//				dateClose.setVisibility(View.VISIBLE);
+//				priceClose.setVisibility(View.VISIBLE);
+//
+//				dateOpen.setText(String.format(Locale.getDefault(), "%s %s", getString(R.string.date), getString(R.string.open)));
+//				priceOpen.setText(String.format(Locale.getDefault(), "%s %s", getString(R.string.price), getString(R.string.open)));
+//				break;
+//			default:
+//				dateClose.setVisibility(View.GONE);
+//				priceClose.setVisibility(View.GONE);
+//
+//				dateOpen.setText(getString(R.string.date));
+//				priceOpen.setText(getString(R.string.price));
+//				break;
+//		}
+//	}
 }

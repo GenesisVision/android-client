@@ -4,8 +4,6 @@ import com.arellomobile.mvp.MvpView;
 
 import java.util.List;
 
-import io.swagger.client.model.BrokerTradeServer;
-
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 10/07/2018.
@@ -13,7 +11,7 @@ import io.swagger.client.model.BrokerTradeServer;
 
 public interface CreateProgramSecondStepView extends MvpView
 {
-	void setBrokers(List<BrokerTradeServer> brokers);
+//	void setBrokers(List<BrokerTradeServer> brokers);
 
 	void setLeverages(List<Integer> leverages);
 

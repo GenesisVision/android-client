@@ -4,7 +4,6 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -45,7 +44,6 @@ import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
 import vision.genesis.clientapp.ui.common.BlockScreenHolder;
-import vision.genesis.clientapp.utils.StatusBarUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -342,12 +340,12 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 		inactiveColorAnimation.addUpdateListener(animator -> bottomNavigationView.setInactiveColor((int) animator.getAnimatedValue()));
 		inactiveColorAnimation.start();
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-			ValueAnimator statusBarColorAnimation = ThemeUtil.getColorAnimator(this, StatusBarUtil.getColor(this), android.R.attr.statusBarColor);
-			statusBarColorAnimation.addUpdateListener(animator ->
-					StatusBarUtil.setColor(this, (int) animator.getAnimatedValue()));
-			statusBarColorAnimation.start();
-		}
+//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//			ValueAnimator statusBarColorAnimation = ThemeUtil.getColorAnimator(this, StatusBarUtil.getColor(this), android.R.attr.statusBarColor);
+//			statusBarColorAnimation.addUpdateListener(animator ->
+//					StatusBarUtil.setColor(this, (int) animator.getAnimatedValue()));
+//			statusBarColorAnimation.start();
+//		}
 	}
 
 	@Override

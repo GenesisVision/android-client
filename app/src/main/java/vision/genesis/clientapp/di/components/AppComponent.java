@@ -45,7 +45,6 @@ import vision.genesis.clientapp.feature.pin.check.CheckPinPresenter;
 import vision.genesis.clientapp.feature.pin.fingerprint.VerifyFingerprintPresenter;
 import vision.genesis.clientapp.feature.pin.set.SetPinPresenter;
 import vision.genesis.clientapp.feature.splashscreen.SplashScreenPresenter;
-import vision.genesis.clientapp.feature.tournament.TournamentPresenter;
 import vision.genesis.clientapp.feature.two_factor.disable.DisableTfaPresenter;
 import vision.genesis.clientapp.feature.two_factor.setup.SetupTfaPresenter;
 import vision.genesis.clientapp.ui.ProgramDataView;
@@ -107,8 +106,6 @@ public interface AppComponent
 	void inject(ProgramDetailsPresenter programDetailsPresenter);
 
 	void inject(ProgramDescriptionPresenter programDescriptionPresenter);
-
-	void inject(TournamentPresenter tournamentPresenter);
 
 	void inject(AssetsPresenter assetsPresenter);
 

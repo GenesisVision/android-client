@@ -7,10 +7,7 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.WalletAddressViewModel;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.ui.AmountEditText;
@@ -69,17 +66,17 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 
 	private void getWalletAddress() {
 		getViewState().showProgress(true);
-		getWalletAddressSubscription = walletManager.getWalletAddress()
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleGetWalletAddressSuccess,
-						this::handleGetWalletAddressError);
+//		getWalletAddressSubscription = walletManager.getWalletAddress()
+//				.observeOn(AndroidSchedulers.mainThread())
+//				.subscribeOn(Schedulers.io())
+//				.subscribe(this::handleGetWalletAddressSuccess,
+//						this::handleGetWalletAddressError);
 	}
 
-	private void handleGetWalletAddressSuccess(WalletAddressViewModel response) {
-		getViewState().showProgress(false);
-
-	}
+//	private void handleGetWalletAddressSuccess(WalletAddressViewModel response) {
+//		getViewState().showProgress(false);
+//
+//	}
 
 	private void handleGetWalletAddressError(Throwable throwable) {
 		getViewState().finishActivity();

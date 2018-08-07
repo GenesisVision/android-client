@@ -4,8 +4,6 @@ import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
-import io.swagger.client.model.TransactionsFilter;
-
 /**
  * GenesisVision
  * Created by Vitaly on 1/19/18.
@@ -19,8 +17,8 @@ interface WalletView extends MvpView
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void setFiatBalance(double balance);
 
-	@StateStrategyType(AddToEndSingleStrategy.class)
-	void setTransactionsFilterType(TransactionsFilter.TypeEnum type);
+//	@StateStrategyType(AddToEndSingleStrategy.class)
+//	void setTransactionsFilterType(TransactionsFilter.TypeEnum type);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showBalanceProgress();

@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.ApiClient;
@@ -27,8 +28,9 @@ public class ProgramApiTest
 	@Test
 	public void v10ProgramByIdChartGetTest() {
 		UUID id = null;
-		String timeFrame = null;
-		// ProgramChart response = api.v10ProgramByIdChartGet(id, timeFrame);
+		DateTime chartDateFrom = null;
+		DateTime chartDateTo = null;
+		// ProgramChart response = api.v10ProgramByIdChartGet(id, chartDateFrom, chartDateTo);
 
 		// TODO: test validations
 	}
@@ -96,14 +98,17 @@ public class ProgramApiTest
 		Integer levelMax = null;
 		Double profitAvgMin = null;
 		Double profitAvgMax = null;
-		String timeFrame = null;
+		DateTime statisticDateFrom = null;
+		DateTime statisticDateTo = null;
+		String sorting = null;
 		String mask = null;
 		UUID facetId = null;
 		Boolean isFavorite = null;
 		String currency = null;
+		List<UUID> ids = null;
 		Integer skip = null;
 		Integer take = null;
-		// ProgramsList response = api.v10ProgramListGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, timeFrame, mask, facetId, isFavorite, currency, skip, take);
+		// ProgramsList response = api.v10ProgramListGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, statisticDateFrom, statisticDateTo, sorting, mask, facetId, isFavorite, currency, ids, skip, take);
 
 		// TODO: test validations
 	}

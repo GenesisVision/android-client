@@ -9,10 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.Locale;
-
-import io.swagger.client.model.BrokerTradeServer;
-import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 
 /**
@@ -37,15 +33,15 @@ public class BrokersArrayAdapter extends ArrayAdapter
 			view = convertView;
 		}
 
-		if (getItem(position) instanceof BrokerTradeServer) {
-			BrokerTradeServer broker = (BrokerTradeServer) getItem(position);
-			if (broker != null) {
-				TextView title = view.findViewById(android.R.id.text1);
-				title.setText(String.format(Locale.getDefault(), "%s (%s)",
-						broker.getName(), broker.getHost()));
-			}
-
-		}
+//		if (getItem(position) instanceof BrokerTradeServer) {
+//			BrokerTradeServer broker = (BrokerTradeServer) getItem(position);
+//			if (broker != null) {
+//				TextView title = view.findViewById(android.R.id.text1);
+//				title.setText(String.format(Locale.getDefault(), "%s (%s)",
+//						broker.getName(), broker.getHost()));
+//			}
+//
+//		}
 		return view;
 	}
 
@@ -61,26 +57,26 @@ public class BrokersArrayAdapter extends ArrayAdapter
 		TextView title = view.findViewById(R.id.title);
 		TextView subtitle = view.findViewById(R.id.subtitle);
 
-		if (getItem(position) instanceof BrokerTradeServer) {
-			BrokerTradeServer broker = (BrokerTradeServer) getItem(position);
-			if (broker != null) {
-				title.setText(String.format(Locale.getDefault(), "%s (%s)",
-						broker.getName(), broker.getHost()));
-
-				StringBuilder leveragesString = new StringBuilder();
-				int index = 0;
-				for (Integer leverage : broker.getLeverages()) {
-					leveragesString.append(leverage.toString());
-					if (index < broker.getLeverages().size() - 1)
-						leveragesString.append(", ");
-					index++;
-				}
-
-				subtitle.setText(String.format(Locale.getDefault(), "%s: %s",
-						GenesisVisionApplication.INSTANCE.getString(R.string.leverages),
-						leveragesString.toString()));
-			}
-		}
+//		if (getItem(position) instanceof BrokerTradeServer) {
+//			BrokerTradeServer broker = (BrokerTradeServer) getItem(position);
+//			if (broker != null) {
+//				title.setText(String.format(Locale.getDefault(), "%s (%s)",
+//						broker.getName(), broker.getHost()));
+//
+//				StringBuilder leveragesString = new StringBuilder();
+//				int index = 0;
+//				for (Integer leverage : broker.getLeverages()) {
+//					leveragesString.append(leverage.toString());
+//					if (index < broker.getLeverages().size() - 1)
+//						leveragesString.append(", ");
+//					index++;
+//				}
+//
+//				subtitle.setText(String.format(Locale.getDefault(), "%s: %s",
+//						GenesisVisionApplication.INSTANCE.getString(R.string.leverages),
+//						leveragesString.toString()));
+//			}
+//		}
 		return view;
 	}
 }

@@ -7,21 +7,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.InvestmentProgramDashboardInvestor;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
-import vision.genesis.clientapp.model.ProgramInfoModel;
-import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
@@ -67,13 +61,13 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 	}
 
 	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
-		for (InvestmentProgramDashboardExtended program : investorPrograms) {
-			if (program.getData().getId().equals(programId)) {
-				program.getData().isFavorite(isFavorite);
-				notifyDataSetChanged();
-				break;
-			}
-		}
+//		for (InvestmentProgramDashboardExtended program : investorPrograms) {
+//			if (program.getData().getId().equals(programId)) {
+//				program.getData().isFavorite(isFavorite);
+//				notifyDataSetChanged();
+//				break;
+//			}
+//		}
 	}
 
 	static class InvestorProgramViewHolder extends RecyclerView.ViewHolder
@@ -131,16 +125,16 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 			setFonts();
 			itemView.setOnClickListener(v -> {
-				if (investmentProgram != null) {
-					InvestmentProgramDashboardInvestor data = investmentProgram.getData();
-
-					ProgramInfoModel programInfoModel = new ProgramInfoModel(data.getId(),
-							data.getLogo(),
-							data.getTitle(),
-							data.getManager().getUsername(),
-							data.isIsFavorite());
-					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programInfoModel));
-				}
+//				if (investmentProgram != null) {
+//					InvestmentProgramDashboardInvestor data = investmentProgram.getData();
+//
+//					ProgramInfoModel programInfoModel = new ProgramInfoModel(data.getId(),
+//							data.getLogo(),
+//							data.getTitle(),
+//							data.getManager().getUsername(),
+//							data.isIsFavorite());
+//					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programInfoModel));
+//				}
 			});
 		}
 
@@ -164,29 +158,29 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		}
 
 		private void updateData() {
-			InvestmentProgramDashboardInvestor data = investmentProgram.getData();
-
-			programLogo.setImage(data.getLogo(), 100, 100);
-			programLogo.setLevel(data.getLevel());
-
-			favoriteIcon.setVisibility(data.isIsFavorite() ? View.VISIBLE : View.GONE);
-
-			programName.setText(data.getTitle());
-			managerName.setText(String.format(Locale.getDefault(), "%s %s",
-					itemView.getContext().getResources().getString(R.string.by),
-					data.getManager().getUsername()));
-
-			chart.setEquityChart(investmentProgram.getEquityChart());
-
-			tokens.setText(investmentProgram.getTokens());
-			tokensFiat.setText(investmentProgram.getTokensFiat());
-
-			profitShort.setText(investmentProgram.getProfitShort());
-			profitFull.setText(investmentProgram.getProfitFull());
-
-			if (data.isIsEnabled())
-				periodLeftView.setDateTo(data.getStartOfPeriod(), data.getEndOfPeriod());
-			periodLeftView.setProgramClosed(!data.isIsEnabled());
+//			InvestmentProgramDashboardInvestor data = investmentProgram.getData();
+//
+//			programLogo.setImage(data.getLogo(), 100, 100);
+//			programLogo.setLevel(data.getLevel());
+//
+//			favoriteIcon.setVisibility(data.isIsFavorite() ? View.VISIBLE : View.GONE);
+//
+//			programName.setText(data.getTitle());
+//			managerName.setText(String.format(Locale.getDefault(), "%s %s",
+//					itemView.getContext().getResources().getString(R.string.by),
+//					data.getManager().getUsername()));
+//
+//			chart.setEquityChart(investmentProgram.getEquityChart());
+//
+//			tokens.setText(investmentProgram.getTokens());
+//			tokensFiat.setText(investmentProgram.getTokensFiat());
+//
+//			profitShort.setText(investmentProgram.getProfitShort());
+//			profitFull.setText(investmentProgram.getProfitFull());
+//
+//			if (data.isIsEnabled())
+//				periodLeftView.setDateTo(data.getStartOfPeriod(), data.getEndOfPeriod());
+//			periodLeftView.setProgramClosed(!data.isIsEnabled());
 		}
 
 		private void setProfitVisibility() {

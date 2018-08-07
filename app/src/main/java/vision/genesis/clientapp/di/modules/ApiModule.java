@@ -9,7 +9,6 @@ import io.swagger.client.JSON;
 import io.swagger.client.api.AuthApi;
 import io.swagger.client.api.FileApi;
 import io.swagger.client.api.InvestorApi;
-import io.swagger.client.api.ManagerApi;
 import io.swagger.client.api.PlatformApi;
 import io.swagger.client.api.ProfileApi;
 import io.swagger.client.api.ProgramApi;
@@ -64,11 +63,11 @@ public class ApiModule
 		return apiClient.createService(InvestorApi.class);
 	}
 
-	@Provides
-	@Singleton
-	public ManagerApi provideManagerApi(ApiClient apiClient) {
-		return apiClient.createService(ManagerApi.class);
-	}
+//	@Provides
+//	@Singleton
+//	public ManagerApi provideManagerApi(ApiClient apiClient) {
+//		return apiClient.createService(ManagerApi.class);
+//	}
 
 	@Provides
 	@Singleton

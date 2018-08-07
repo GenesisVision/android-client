@@ -10,14 +10,13 @@ import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.TransactionsFilter;
-import io.swagger.client.model.WalletTransaction;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.RateManager;
 import vision.genesis.clientapp.managers.WalletManager;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.events.ShowDepositWalletActivityEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawWalletActivityEvent;
 
@@ -29,7 +28,7 @@ import vision.genesis.clientapp.model.events.ShowWithdrawWalletActivityEvent;
 @InjectViewState
 public class WalletPresenter extends MvpPresenter<WalletView> implements ViewPager.OnPageChangeListener
 {
-	private static final String FIAT_CURRENCY = WalletTransaction.CurrencyEnum.USD.toString();
+	private static final String FIAT_CURRENCY = CurrencyEnum.USD.toString();
 
 	@Inject
 	public Context context;
@@ -81,19 +80,19 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements ViewPag
 		EventBus.getDefault().post(new ShowDepositWalletActivityEvent());
 	}
 
-	void onTransactionsFilterSelected(int position) {
-		switch (position) {
-			case 0:
-				getViewState().setTransactionsFilterType(TransactionsFilter.TypeEnum.ALL);
-				break;
-			case 1:
-				getViewState().setTransactionsFilterType(TransactionsFilter.TypeEnum.INTERNAL);
-				break;
-			case 2:
-				getViewState().setTransactionsFilterType(TransactionsFilter.TypeEnum.EXTERNAL);
-				break;
-		}
-	}
+//	void onTransactionsFilterSelected(int position) {
+//		switch (position) {
+//			case 0:
+//				getViewState().setTransactionsFilterType(TransactionsFilter.TypeEnum.ALL);
+//				break;
+//			case 1:
+//				getViewState().setTransactionsFilterType(TransactionsFilter.TypeEnum.INTERNAL);
+//				break;
+//			case 2:
+//				getViewState().setTransactionsFilterType(TransactionsFilter.TypeEnum.EXTERNAL);
+//				break;
+//		}
+//	}
 
 	private void updateBalance() {
 		getViewState().showBalanceProgress();
@@ -119,7 +118,7 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements ViewPag
 	}
 
 	private void updateRate() {
-		rateSubscription = rateManager.getRate(WalletTransaction.CurrencyEnum.GVT.toString(), FIAT_CURRENCY)
+		rateSubscription = rateManager.getRate(CurrencyEnum.GVT.toString(), FIAT_CURRENCY)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::getRateSuccessHandler,

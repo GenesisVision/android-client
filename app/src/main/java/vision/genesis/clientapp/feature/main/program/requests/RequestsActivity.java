@@ -11,12 +11,10 @@ import android.support.v7.widget.RecyclerView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
-import java.util.List;
 import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.swagger.client.model.InvestmentProgramRequest;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -109,10 +107,10 @@ public class RequestsActivity extends BaseSwipeBackActivity implements RequestsV
 		finishActivity();
 	}
 
-	@Override
-	public void setRequests(List<InvestmentProgramRequest> requests) {
-		requestsAdapter.setRequests(requests);
-	}
+//	@Override
+//	public void setRequests(List<InvestmentProgramRequest> requests) {
+//		requestsAdapter.setRequests(requests);
+//	}
 
 	@Override
 	public void setRefreshing(boolean refreshing) {

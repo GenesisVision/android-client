@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**programs** | [**List&lt;ProgramDetailsList&gt;**](ProgramDetailsList.md) |  |  [optional]
+**programs** | [**List&lt;ProgramDetails&gt;**](ProgramDetails.md) |  |  [optional]
 **total** | **Integer** |  |  [optional]
 
 

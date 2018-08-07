@@ -10,8 +10,6 @@ import org.greenrobot.eventbus.EventBus;
 import javax.inject.Inject;
 
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.ProgramsManager;
@@ -88,11 +86,11 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 
 	private void sendWithdrawRequest() {
 		getViewState().showProgress(true);
-		withdrawSubscription = programsManager.withdraw(withdrawalRequest)
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleWithdrawSuccess,
-						this::handleWithdrawError);
+//		withdrawSubscription = programsManager.withdraw(withdrawalRequest)
+//				.observeOn(AndroidSchedulers.mainThread())
+//				.subscribeOn(Schedulers.io())
+//				.subscribe(this::handleWithdrawSuccess,
+//						this::handleWithdrawError);
 	}
 
 	private void handleWithdrawSuccess(Void response) {

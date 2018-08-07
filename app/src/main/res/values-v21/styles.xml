@@ -3,6 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:typeface">serif</item>
         <item name="colorPrimary">@color/accent</item>
         <item name="colorAccent">@color/accent</item>
@@ -13,7 +14,6 @@
 
     <style name="AppTheme.Base.Dark" parent="AppTheme.Base">
         <item name="android:windowBackground">@color/darkBackground</item>
-        <item name="android:statusBarColor">@color/darkBackground</item>
         <item name="colorBackground">@color/darkBackground</item>
         <item name="colorCard">@color/darkCard</item>
         <item name="colorDelimiter">@color/darkDelimiter</item>
@@ -23,7 +23,6 @@
 
     <style name="AppTheme.Base.Light" parent="AppTheme.Base">
         <item name="android:windowBackground">@color/lightBackground</item>
-        <item name="android:statusBarColor">@color/lightBackground</item>
         <item name="colorBackground">@color/lightBackground</item>
         <item name="colorCard">@color/lightCard</item>
         <item name="colorDelimiter">@color/lightCard</item>

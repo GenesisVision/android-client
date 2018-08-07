@@ -9,7 +9,7 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.regex.Pattern;
 
-import io.swagger.client.model.WalletTransaction;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
@@ -24,7 +24,7 @@ public class AmountEditText extends android.support.v7.widget.AppCompatEditText
 		void onAmountChanged(double amount);
 	}
 
-	private static final int GVT_MAX_FRACTION = StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.GVT.toString());
+	private static final int GVT_MAX_FRACTION = StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.toString());
 
 	private AmountChangeListener listener;
 

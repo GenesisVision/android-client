@@ -15,8 +15,6 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -37,9 +35,6 @@ public class ProfileHeaderViewModel
 	@SerializedName("avatar")
 	private String avatar = null;
 
-	@SerializedName("wallets")
-	private List<WalletViewModel> wallets = null;
-
 	@SerializedName("hasNotifications")
 	private Boolean hasNotifications = null;
 
@@ -49,11 +44,11 @@ public class ProfileHeaderViewModel
 	@SerializedName("totalBalanceGvt")
 	private Double totalBalanceGvt = null;
 
-	@SerializedName("totalInvestedGvt")
-	private Double totalInvestedGvt = null;
+	@SerializedName("investedGvt")
+	private Double investedGvt = null;
 
-	@SerializedName("totalAvailableGvt")
-	private Double totalAvailableGvt = null;
+	@SerializedName("availableGvt")
+	private Double availableGvt = null;
 
 	public ProfileHeaderViewModel id(UUID id) {
 		this.id = id;
@@ -110,33 +105,6 @@ public class ProfileHeaderViewModel
 
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
-	}
-
-	public ProfileHeaderViewModel wallets(List<WalletViewModel> wallets) {
-		this.wallets = wallets;
-		return this;
-	}
-
-	public ProfileHeaderViewModel addWalletsItem(WalletViewModel walletsItem) {
-		if (this.wallets == null) {
-			this.wallets = new ArrayList<WalletViewModel>();
-		}
-		this.wallets.add(walletsItem);
-		return this;
-	}
-
-	/**
-	 * Get wallets
-	 *
-	 * @return wallets
-	 **/
-	@ApiModelProperty(value = "")
-	public List<WalletViewModel> getWallets() {
-		return wallets;
-	}
-
-	public void setWallets(List<WalletViewModel> wallets) {
-		this.wallets = wallets;
 	}
 
 	public ProfileHeaderViewModel hasNotifications(Boolean hasNotifications) {
@@ -196,42 +164,42 @@ public class ProfileHeaderViewModel
 		this.totalBalanceGvt = totalBalanceGvt;
 	}
 
-	public ProfileHeaderViewModel totalInvestedGvt(Double totalInvestedGvt) {
-		this.totalInvestedGvt = totalInvestedGvt;
+	public ProfileHeaderViewModel investedGvt(Double investedGvt) {
+		this.investedGvt = investedGvt;
 		return this;
 	}
 
 	/**
-	 * Get totalInvestedGvt
+	 * Get investedGvt
 	 *
-	 * @return totalInvestedGvt
+	 * @return investedGvt
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getTotalInvestedGvt() {
-		return totalInvestedGvt;
+	public Double getInvestedGvt() {
+		return investedGvt;
 	}
 
-	public void setTotalInvestedGvt(Double totalInvestedGvt) {
-		this.totalInvestedGvt = totalInvestedGvt;
+	public void setInvestedGvt(Double investedGvt) {
+		this.investedGvt = investedGvt;
 	}
 
-	public ProfileHeaderViewModel totalAvailableGvt(Double totalAvailableGvt) {
-		this.totalAvailableGvt = totalAvailableGvt;
+	public ProfileHeaderViewModel availableGvt(Double availableGvt) {
+		this.availableGvt = availableGvt;
 		return this;
 	}
 
 	/**
-	 * Get totalAvailableGvt
+	 * Get availableGvt
 	 *
-	 * @return totalAvailableGvt
+	 * @return availableGvt
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getTotalAvailableGvt() {
-		return totalAvailableGvt;
+	public Double getAvailableGvt() {
+		return availableGvt;
 	}
 
-	public void setTotalAvailableGvt(Double totalAvailableGvt) {
-		this.totalAvailableGvt = totalAvailableGvt;
+	public void setAvailableGvt(Double availableGvt) {
+		this.availableGvt = availableGvt;
 	}
 
 
@@ -247,17 +215,16 @@ public class ProfileHeaderViewModel
 		return Objects.equals(this.id, profileHeaderViewModel.id) &&
 				Objects.equals(this.name, profileHeaderViewModel.name) &&
 				Objects.equals(this.avatar, profileHeaderViewModel.avatar) &&
-				Objects.equals(this.wallets, profileHeaderViewModel.wallets) &&
 				Objects.equals(this.hasNotifications, profileHeaderViewModel.hasNotifications) &&
 				Objects.equals(this.favoritesCount, profileHeaderViewModel.favoritesCount) &&
 				Objects.equals(this.totalBalanceGvt, profileHeaderViewModel.totalBalanceGvt) &&
-				Objects.equals(this.totalInvestedGvt, profileHeaderViewModel.totalInvestedGvt) &&
-				Objects.equals(this.totalAvailableGvt, profileHeaderViewModel.totalAvailableGvt);
+				Objects.equals(this.investedGvt, profileHeaderViewModel.investedGvt) &&
+				Objects.equals(this.availableGvt, profileHeaderViewModel.availableGvt);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, avatar, wallets, hasNotifications, favoritesCount, totalBalanceGvt, totalInvestedGvt, totalAvailableGvt);
+		return Objects.hash(id, name, avatar, hasNotifications, favoritesCount, totalBalanceGvt, investedGvt, availableGvt);
 	}
 
 
@@ -269,12 +236,11 @@ public class ProfileHeaderViewModel
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
-		sb.append("    wallets: ").append(toIndentedString(wallets)).append("\n");
 		sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
 		sb.append("    favoritesCount: ").append(toIndentedString(favoritesCount)).append("\n");
 		sb.append("    totalBalanceGvt: ").append(toIndentedString(totalBalanceGvt)).append("\n");
-		sb.append("    totalInvestedGvt: ").append(toIndentedString(totalInvestedGvt)).append("\n");
-		sb.append("    totalAvailableGvt: ").append(toIndentedString(totalAvailableGvt)).append("\n");
+		sb.append("    investedGvt: ").append(toIndentedString(investedGvt)).append("\n");
+		sb.append("    availableGvt: ").append(toIndentedString(availableGvt)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

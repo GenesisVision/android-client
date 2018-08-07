@@ -5,16 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**UUID**](UUID.md) |  |  [optional]
-**login** | **Long** |  |  [optional]
-**ticket** | **Long** |  |  [optional]
+**login** | **String** |  |  [optional]
+**ticket** | **String** |  |  [optional]
 **symbol** | **String** |  |  [optional]
 **volume** | **Double** |  |  [optional]
 **profit** | **Double** |  |  [optional]
 **direction** | [**DirectionEnum**](#DirectionEnum) |  |  [optional]
-**dateOpen** | [**DateTime**](DateTime.md) |  |  [optional]
-**dateClose** | [**DateTime**](DateTime.md) |  |  [optional]
-**priceOpen** | **Double** |  |  [optional]
-**priceClose** | **Double** |  |  [optional]
 **date** | [**DateTime**](DateTime.md) |  |  [optional]
 **price** | **Double** |  |  [optional]
 **entry** | [**EntryEnum**](#EntryEnum) |  |  [optional]

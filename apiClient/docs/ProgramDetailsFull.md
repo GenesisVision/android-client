@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **periodDateEnd** | [**DateTime**](DateTime.md) |  |  [optional]
 **successFee** | **Double** |  |  [optional]
 **availableForInvestment** | **Double** |  |  [optional]
-**manager** | [**ProfilePublicViewModel**](ProfilePublicViewModel.md) |  |  [optional]
+**manager** | [**ManagerProfile**](ManagerProfile.md) |  |  [optional]
 **statistic** | [**ProgramStatistic**](ProgramStatistic.md) |  |  [optional]
 **personalProgramDetails** | [**PersonalProgramDetailsFull**](PersonalProgramDetailsFull.md) | Fields for authorized user |  [optional]
 

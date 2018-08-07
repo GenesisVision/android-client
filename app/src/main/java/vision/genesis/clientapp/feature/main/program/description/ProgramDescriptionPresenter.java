@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.InvestmentProgramViewModel;
+import io.swagger.client.model.ProgramDetailsFull;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -64,23 +64,23 @@ public class ProgramDescriptionPresenter extends MvpPresenter<ProgramDescription
 		if (programId != null && programsManager != null) {
 			if (programDetailsSubscription != null)
 				programDetailsSubscription.unsubscribe();
-			programDetailsSubscription = programsManager.getInvestmentProgramDetails(programId)
+			programDetailsSubscription = programsManager.getProgramDetails(programId)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleInvestmentProgramDetailsSuccess,
-							this::handleInvestmentProgramDetailsError);
+					.subscribe(this::handleProgramDetailsSuccess,
+							this::handleProgramDetailsError);
 		}
 	}
 
-	private void handleInvestmentProgramDetailsSuccess(InvestmentProgramViewModel model) {
+	private void handleProgramDetailsSuccess(ProgramDetailsFull programDetails) {
 		programDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 		getViewState().setRefreshing(false);
 
-		getViewState().setProgramDescription(model.getInvestmentProgram());
+		getViewState().setProgramDescription(programDetails);
 	}
 
-	private void handleInvestmentProgramDetailsError(Throwable throwable) {
+	private void handleProgramDetailsError(Throwable throwable) {
 		programDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 		getViewState().setRefreshing(false);

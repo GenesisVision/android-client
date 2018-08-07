@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="?attr/colorBackground"
+                android:fitsSystemWindows="true">
 
 
     <android.support.design.widget.CoordinatorLayout
@@ -13,7 +15,7 @@
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="?attr/colorCard"
             app:elevation="0dp">
 
             <android.support.design.widget.CollapsingToolbarLayout
@@ -26,7 +28,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
-                    android:background="@color/white"
                     android:gravity="center"
                     android:padding="6dp"
                     android:visibility="visible"
@@ -36,7 +37,7 @@
                         android:id="@+id/searchbar"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/searchbar_height"
-                        app:cardBackgroundColor="@color/colorGrayBackground"
+                        app:cardBackgroundColor="?attr/colorCard"
                         app:cardCornerRadius="2dp"
                         app:cardElevation="2dp"
                         app:cardPreventCornerOverlap="true"
@@ -53,7 +54,7 @@
                                 android:layout_height="@dimen/searchbar_height"
                                 android:padding="6dp"
                                 android:src="@drawable/ic_search_black_24dp"
-                                android:tint="@color/grey300"/>
+                                android:tint="?attr/colorTextSecondary"/>
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -63,9 +64,8 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_toEndOf="@+id/icon_search"
                                 android:layout_toRightOf="@+id/icon_search"
-                                android:fontFamily="sans-serif"
                                 android:text="@string/search"
-                                android:textColor="@color/grey300"
+                                android:textColor="?attr/colorTextSecondary"
                                 android:textSize="18sp"/>
 
                         </RelativeLayout>
@@ -80,36 +80,22 @@
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tabs_height"
-                android:background="@color/white"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:layout_collapseMode="pin"
                 app:tabGravity="center"
-                app:tabIndicatorColor="@color/colorAccentLight"
+                app:tabIndicatorColor="?attr/colorAccent"
                 app:tabMode="fixed"
-                app:tabSelectedTextColor="@color/colorAccent"
-                app:tabTextColor="@color/colorFontMedium"/>
+                app:tabSelectedTextColor="?attr/colorAccent"
+                app:tabTextColor="?attr/colorTextSecondary"/>
 
         </android.support.design.widget.AppBarLayout>
 
-        <RelativeLayout
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager_assets"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/view_pager_assets"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/shadow_down_black"/>
-
-        </RelativeLayout>
-
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     </android.support.design.widget.CoordinatorLayout>
 

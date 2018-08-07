@@ -33,7 +33,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.swagger.client.model.TradeChart;
+import io.swagger.client.model.ChartProgramDetails;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ChartZoomEnum;
@@ -214,7 +214,7 @@ public class ProfitDetailsChartView extends RelativeLayout
 		});
 	}
 
-	public void setChart(List<TradeChart> charts) {
+	public void setChart(List<ChartProgramDetails> charts) {
 		showProgress(false);
 
 		if (charts.size() <= 1) {
@@ -223,8 +223,8 @@ public class ProfitDetailsChartView extends RelativeLayout
 		}
 
 		List<Entry> lineEntries = new ArrayList<>();
-		for (TradeChart chart : charts) {
-			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getProfit().floatValue()));
+		for (ChartProgramDetails chart : charts) {
+			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getValue().floatValue()));
 		}
 
 		chart.setData(getLineData(lineEntries));
@@ -263,9 +263,9 @@ public class ProfitDetailsChartView extends RelativeLayout
 		return dataSet;
 	}
 
-	private void updateChangeText(List<TradeChart> charts) {
-		double first = charts.get(0).getProfit();
-		double last = charts.get(charts.size() - 1).getProfit();
+	private void updateChangeText(List<ChartProgramDetails> charts) {
+		double first = charts.get(0).getValue();
+		double last = charts.get(charts.size() - 1).getValue();
 
 		double changeValue = last - first;
 		String directionSymbol = "";

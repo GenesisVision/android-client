@@ -18,7 +18,7 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.swagger.client.model.InvestmentProgramDetails;
+import io.swagger.client.model.ProgramDetailsFull;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -103,8 +103,8 @@ public class ProgramDescriptionFragment extends BaseFragment implements ProgramD
 	}
 
 	@Override
-	public void setProgramDescription(InvestmentProgramDetails programDetails) {
-		programLogo.setImage(programDetails.getLogo(), 500, 500);
+	public void setProgramDescription(ProgramDetailsFull programDetails) {
+		programLogo.setImage(programDetails.getAvatar(), 500, 500);
 		programLogo.setLevel(programDetails.getLevel());
 
 		String programDescription = !programDetails.getDescription().isEmpty()

@@ -5,18 +5,9 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.Locale;
-
 import javax.inject.Inject;
 
-import io.swagger.client.model.InvestmentProgramBuyToken;
-import io.swagger.client.model.WalletTransaction;
-import io.swagger.client.model.WalletsViewModel;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.ProgramsManager;
@@ -25,10 +16,8 @@ import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.api.Error;
 import vision.genesis.clientapp.model.api.ErrorResponse;
-import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
-import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVision
@@ -111,25 +100,25 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 	}
 
 	private void getBuyTokensModel() {
-		if (programsManager != null && investRequest != null) {
-			getViewState().showAvailableProgress(true);
-			buyTokensModelSubscription = programsManager.getBuyTokensModel(investRequest.programId)
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleBuyTokensModelResponse,
-							this::handleBuyTokensModelError);
-		}
+//		if (programsManager != null && investRequest != null) {
+//			getViewState().showAvailableProgress(true);
+//			buyTokensModelSubscription = programsManager.getBuyTokensModel(investRequest.programId)
+//					.observeOn(AndroidSchedulers.mainThread())
+//					.subscribeOn(Schedulers.io())
+//					.subscribe(this::handleBuyTokensModelResponse,
+//							this::handleBuyTokensModelError);
+//		}
 	}
 
-	private void handleBuyTokensModelResponse(InvestmentProgramBuyToken response) {
-		getViewState().showAvailableProgress(false);
-		rate = response.getGvtRate();
-		double availableToInvest = investRequest.available;
-		if (response.getGvtWalletAmount() < availableToInvest)
-			availableToInvest = response.getGvtWalletAmount();
-		setBalance(availableToInvest);
-		updateFiatBalance();
-	}
+//	private void handleBuyTokensModelResponse(InvestmentProgramBuyToken response) {
+//		getViewState().showAvailableProgress(false);
+//		rate = response.getGvtRate();
+//		double availableToInvest = investRequest.available;
+//		if (response.getGvtWalletAmount() < availableToInvest)
+//			availableToInvest = response.getGvtWalletAmount();
+//		setBalance(availableToInvest);
+//		updateFiatBalance();
+//	}
 
 	private void handleBuyTokensModelError(Throwable error) {
 		getViewState().showAvailableProgress(false);
@@ -143,25 +132,25 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 
 	private void sendInvestRequest() {
 		getViewState().showProgress(true);
-		investSubscription = programsManager.invest(investRequest)
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleInvestSuccess,
-						this::handleInvestError);
+//		investSubscription = programsManager.invest(investRequest)
+//				.observeOn(AndroidSchedulers.mainThread())
+//				.subscribeOn(Schedulers.io())
+//				.subscribe(this::handleInvestSuccess,
+//						this::handleInvestError);
 	}
 
-	private void handleInvestSuccess(WalletsViewModel model) {
-		investSubscription.unsubscribe();
-		walletManager.getBalance();
-
-		EventBus.getDefault().post(new ShowMessageActivityEvent(
-				String.format(Locale.getDefault(), context.getString(R.string.message_program_invest_success),
-						StringFormatUtil.formatAmount(investRequest.amount, 0,
-								StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.GVT.toString()))),
-				R.drawable.ic_email_confirmed_icon,
-				false));
-		getViewState().finishActivity();
-	}
+//	private void handleInvestSuccess(WalletsViewModel model) {
+//		investSubscription.unsubscribe();
+//		walletManager.getBalance();
+//
+//		EventBus.getDefault().post(new ShowMessageActivityEvent(
+//				String.format(Locale.getDefault(), context.getString(R.string.message_program_invest_success),
+//						StringFormatUtil.formatAmount(investRequest.amount, 0,
+//								StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.toString()))),
+//				R.drawable.ic_email_confirmed_icon,
+//				false));
+//		getViewState().finishActivity();
+//	}
 
 	private void handleInvestError(Throwable throwable) {
 		investSubscription.unsubscribe();

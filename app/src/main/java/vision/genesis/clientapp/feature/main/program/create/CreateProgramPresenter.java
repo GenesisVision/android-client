@@ -12,11 +12,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.BrokersViewModel;
-import io.swagger.client.model.NewInvestmentRequest;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.ProgramsManager;
@@ -27,7 +23,6 @@ import vision.genesis.clientapp.model.events.CreateProgramConfirmButtonClickedEv
 import vision.genesis.clientapp.model.events.OnCreateProgramFirstStepPassedEvent;
 import vision.genesis.clientapp.model.events.OnCreateProgramSecondStepPassedEvent;
 import vision.genesis.clientapp.model.events.OnCreateProgramThirdStepPassedEvent;
-import vision.genesis.clientapp.model.events.SetCreateProgramDataEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
 
@@ -49,7 +44,7 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 
 	private CreateProgramData createProgramData;
 
-	private NewInvestmentRequest request = new NewInvestmentRequest();
+//	private NewInvestmentRequest request = new NewInvestmentRequest();
 
 	private Subscription createProgramSubscription;
 
@@ -65,11 +60,11 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 	}
 
 	private void getDataToCreateProgram() {
-		dataSubscription = programsManager.getDataToCreateProgram()
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::handleGetDataSuccess,
-						this::handleGetDataError);
+//		dataSubscription = programsManager.getDataToCreateProgram()
+//				.subscribeOn(Schedulers.io())
+//				.observeOn(AndroidSchedulers.mainThread())
+//				.subscribe(this::handleGetDataSuccess,
+//						this::handleGetDataError);
 	}
 
 	@Override
@@ -84,15 +79,15 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 		super.onDestroy();
 	}
 
-	private void handleGetDataSuccess(BrokersViewModel model) {
-		dataSubscription.unsubscribe();
-
-		createProgramData = new CreateProgramData();
-		createProgramData.setBrokers(model.getBrokers());
-
-		EventBus.getDefault().postSticky(new SetCreateProgramDataEvent(createProgramData));
-		getViewState().showProgress(false);
-	}
+//	private void handleGetDataSuccess(BrokersViewModel model) {
+//		dataSubscription.unsubscribe();
+//
+//		createProgramData = new CreateProgramData();
+//		createProgramData.setBrokers(model.getBrokers());
+//
+//		EventBus.getDefault().postSticky(new SetCreateProgramDataEvent(createProgramData));
+//		getViewState().showProgress(false);
+//	}
 
 	private void handleGetDataError(Throwable throwable) {
 		dataSubscription.unsubscribe();
@@ -112,10 +107,10 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 	private void createProgram() {
 		getViewState().showProgress(true);
 
-		createProgramSubscription = programsManager.sendCreateProgramRequest(request)
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::handleCreateProgramSuccess, this::handleCreateProgramError);
+//		createProgramSubscription = programsManager.sendCreateProgramRequest(request)
+//				.subscribeOn(Schedulers.io())
+//				.observeOn(AndroidSchedulers.mainThread())
+//				.subscribe(this::handleCreateProgramSuccess, this::handleCreateProgramError);
 	}
 
 	private void handleCreateProgramSuccess(UUID programId) {
@@ -151,29 +146,29 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 
 	@Subscribe
 	public void onEventMainThread(OnCreateProgramFirstStepPassedEvent event) {
-		request.setLogo(event.getLogo());
-		request.setTitle(event.getTitle());
-		request.setDescription(event.getDescription());
+//		request.setLogo(event.getLogo());
+//		request.setTitle(event.getTitle());
+//		request.setDescription(event.getDescription());
 		getViewState().showNextStep();
 	}
 
 	@Subscribe
 	public void onEventMainThread(OnCreateProgramSecondStepPassedEvent event) {
-		request.setBrokerTradeServerId(event.getBroker().getId());
-		request.setLeverage(event.getLeverage());
-		request.setTradePlatformPassword(event.getPassword());
+//		request.setBrokerTradeServerId(event.getBroker().getId());
+//		request.setLeverage(event.getLeverage());
+//		request.setTradePlatformPassword(event.getPassword());
 		getViewState().showNextStep();
 	}
 
 	@Subscribe
 	public void onEventMainThread(OnCreateProgramThirdStepPassedEvent event) {
-		request.setPeriod(event.getPeriod());
-		request.setDateFrom(event.getStartDate());
-		request.setDepositAmount(event.getDeposit());
-		request.setFeeSuccess(event.getSuccessFee());
-		request.setFeeManagement(event.getManagementFee());
-		request.setTokenSymbol(event.getTokenSymbol());
-		request.setTokenName(event.getTokenName());
+//		request.setPeriod(event.getPeriod());
+//		request.setDateFrom(event.getStartDate());
+//		request.setDepositAmount(event.getDeposit());
+//		request.setFeeSuccess(event.getSuccessFee());
+//		request.setFeeManagement(event.getManagementFee());
+//		request.setTokenSymbol(event.getTokenSymbol());
+//		request.setTokenName(event.getTokenName());
 		createProgram();
 	}
 

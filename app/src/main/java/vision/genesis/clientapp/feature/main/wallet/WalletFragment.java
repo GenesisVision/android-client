@@ -19,11 +19,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.TransactionsFilter;
-import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPagerAdapter;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -172,20 +171,20 @@ public class WalletFragment extends BaseFragment implements WalletView
 	@Override
 	public void setBalance(double balance) {
 		this.balance.setText(String.format(Locale.getDefault(), "%s %s", StringFormatUtil.formatAmount(balance, 2,
-				StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.GVT.toString())), getString(R.string.gvt)));
+				StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.toString())), getString(R.string.gvt)));
 	}
 
 	@Override
 	public void setFiatBalance(double balance) {
 		balanceSecondary.setText(String.format(Locale.getDefault(), "$ %s",
 				StringFormatUtil.formatAmount(balance, 2,
-						StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.USD.toString()))));
+						StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.USD.toString()))));
 	}
 
-	@Override
-	public void setTransactionsFilterType(TransactionsFilter.TypeEnum type) {
-		pagerAdapter.setTransactionsFilterType(type);
-	}
+//	@Override
+//	public void setTransactionsFilterType(TransactionsFilter.TypeEnum type) {
+//		pagerAdapter.setTransactionsFilterType(type);
+//	}
 
 	@Override
 	public void showBalanceProgress() {

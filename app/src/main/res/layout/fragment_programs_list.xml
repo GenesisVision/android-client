@@ -3,7 +3,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorGrayBackground">
+                android:background="?attr/colorBackground">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
@@ -14,7 +14,6 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorGrayBackground"
             android:clipToPadding="false"
             android:paddingBottom="70dp"
             android:paddingTop="16dp"/>
@@ -38,7 +37,7 @@
             android:gravity="center"
             android:lineSpacingMultiplier="1.2"
             android:text="@string/cannot_find_programs"
-            android:textColor="@color/colorMedium"
+            android:textColor="?attr/colorTextSecondary"
             android:textSize="24sp"/>
 
     </LinearLayout>
@@ -58,7 +57,7 @@
             android:layout_width="@dimen/programs_no_internet_image_width"
             android:layout_height="@dimen/programs_no_internet_image_height"
             android:src="@drawable/no_internet"
-            android:tint="@color/colorFontLight"/>
+            android:tint="?attr/colorTextSecondary"/>
 
         <TextView
             android:id="@+id/no_internet_text"
@@ -67,7 +66,7 @@
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="@string/network_error"
-            android:textColor="@color/black12"
+            android:textColor="?attr/colorTextSecondary"
             android:textSize="18sp"/>
 
         <FrameLayout

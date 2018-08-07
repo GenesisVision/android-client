@@ -6,8 +6,8 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
-import io.swagger.client.model.InvestmentProgramDetails;
-import io.swagger.client.model.TradeChart;
+import io.swagger.client.model.ChartProgramDetails;
+import io.swagger.client.model.ProgramDetailsFull;
 
 /**
  * GenesisVisionAndroid
@@ -17,7 +17,7 @@ import io.swagger.client.model.TradeChart;
 interface ProgramDetailsView extends MvpView
 {
 	@StateStrategyType(AddToEndSingleStrategy.class)
-	void setProgramDetails(InvestmentProgramDetails programDetails);
+	void setProgramDetails(ProgramDetailsFull programDetails);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showInvestWithdrawButtons(boolean show);
@@ -28,5 +28,5 @@ interface ProgramDetailsView extends MvpView
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void setRefreshing(boolean show);
 
-	void setChartData(List<TradeChart> chart);
+	void setChartData(List<ChartProgramDetails> chart);
 }

@@ -14,9 +14,9 @@ import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.InvestmentProgramsFilter;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.MinMaxFilterModel;
+import vision.genesis.clientapp.model.ProgramsFilter;
 import vision.genesis.clientapp.utils.NumberFormatUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -30,7 +30,7 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 {
 	interface OnFiltersChangedListener
 	{
-		void onFiltersChanged(InvestmentProgramsFilter filter);
+		void onFiltersChanged(ProgramsFilter filter);
 	}
 
 	@BindView(R.id.text_filters)
@@ -70,7 +70,7 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 
 	private OnFiltersChangedListener listener;
 
-	private InvestmentProgramsFilter filter;
+	private ProgramsFilter filter;
 
 	private Integer minLevel;
 
@@ -146,18 +146,18 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 			setFilterData(filter);
 	}
 
-	public void setCurrentFilter(InvestmentProgramsFilter filter) {
+	public void setCurrentFilter(ProgramsFilter filter) {
 		this.filter = filter;
 
 		minLevel = filter.getLevelMin();
 		maxLevel = filter.getLevelMax();
-		minAvgProfit = NumberFormatUtil.doubleToInteger(filter.getProfitAvgPercentMin());
-		maxAvgProfit = NumberFormatUtil.doubleToInteger(filter.getProfitAvgPercentMax());
-		minTotalProfit = NumberFormatUtil.doubleToInteger(filter.getProfitTotalMin());
-		maxTotalProfit = NumberFormatUtil.doubleToInteger(filter.getProfitTotalMax());
-		minBalance = NumberFormatUtil.doubleToInteger(filter.getBalanceUsdMin());
-		maxBalance = NumberFormatUtil.doubleToInteger(filter.getBalanceUsdMax());
-		activeOnly = filter.isShowActivePrograms();
+		minAvgProfit = NumberFormatUtil.doubleToInteger(filter.getProfitAvgMin());
+		maxAvgProfit = NumberFormatUtil.doubleToInteger(filter.getProfitAvgMax());
+//		minTotalProfit = NumberFormatUtil.doubleToInteger(filter.getProfitTotalMin());
+//		maxTotalProfit = NumberFormatUtil.doubleToInteger(filter.getProfitTotalMax());
+//		minBalance = NumberFormatUtil.doubleToInteger(filter.getBalanceUsdMin());
+//		maxBalance = NumberFormatUtil.doubleToInteger(filter.getBalanceUsdMax());
+//		activeOnly = filter.isShowActivePrograms();
 
 		if (activeProgramsOnly != null)
 			setFilterData(filter);
@@ -311,20 +311,20 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 		filterOptionView.setValue(getString(R.string.any));
 	}
 
-	private void setFilterData(InvestmentProgramsFilter filter) {
+	private void setFilterData(ProgramsFilter filter) {
 		setRangeFilterValue(level, filter.getLevelMin(), filter.getLevelMax());
 		setRangeFilterValue(avgProfit,
-				NumberFormatUtil.doubleToInteger(filter.getProfitAvgPercentMin()),
-				NumberFormatUtil.doubleToInteger(filter.getProfitAvgPercentMax()));
-		setRangeFilterValue(totalProfit,
-				NumberFormatUtil.doubleToInteger(filter.getProfitTotalMin()),
-				NumberFormatUtil.doubleToInteger(filter.getProfitTotalMax()));
-		setRangeFilterValue(balance,
-				NumberFormatUtil.doubleToInteger(filter.getBalanceUsdMin()),
-				NumberFormatUtil.doubleToInteger(filter.getBalanceUsdMax()));
+				NumberFormatUtil.doubleToInteger(filter.getProfitAvgMin()),
+				NumberFormatUtil.doubleToInteger(filter.getProfitAvgMax()));
+//		setRangeFilterValue(totalProfit,
+//				NumberFormatUtil.doubleToInteger(filter.getProfitTotalMin()),
+//				NumberFormatUtil.doubleToInteger(filter.getProfitTotalMax()));
+//		setRangeFilterValue(balance,
+//				NumberFormatUtil.doubleToInteger(filter.getBalanceUsdMin()),
+//				NumberFormatUtil.doubleToInteger(filter.getBalanceUsdMax()));
 
-		if (filter.isShowActivePrograms() != null)
-			activeProgramsOnly.setChecked(filter.isShowActivePrograms());
+//		if (filter.isShowActivePrograms() != null)
+//			activeProgramsOnly.setChecked(filter.isShowActivePrograms());
 
 //		if (filter.isShowAvailable() != null)
 //		availableToInvestProgramsOnly.setChecked(filter.isShowAvailable());
@@ -352,26 +352,26 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 	private void saveChanges() {
 		filter.setLevelMin(minLevel);
 		filter.setLevelMax(maxLevel);
-		filter.setProfitAvgPercentMin(NumberFormatUtil.integerToDouble(minAvgProfit));
-		filter.setProfitAvgPercentMax(NumberFormatUtil.integerToDouble(maxAvgProfit));
-		filter.setProfitTotalMin(NumberFormatUtil.integerToDouble(minTotalProfit));
-		filter.setProfitTotalMax(NumberFormatUtil.integerToDouble(maxTotalProfit));
-		filter.setBalanceUsdMin(NumberFormatUtil.integerToDouble(minBalance));
-		filter.setBalanceUsdMax(NumberFormatUtil.integerToDouble(maxBalance));
-		filter.setShowActivePrograms(activeOnly);
+		filter.setProfitAvgMin(NumberFormatUtil.integerToDouble(minAvgProfit));
+		filter.setProfitAvgMax(NumberFormatUtil.integerToDouble(maxAvgProfit));
+//		filter.setProfitTotalMin(NumberFormatUtil.integerToDouble(minTotalProfit));
+//		filter.setProfitTotalMax(NumberFormatUtil.integerToDouble(maxTotalProfit));
+//		filter.setBalanceUsdMin(NumberFormatUtil.integerToDouble(minBalance));
+//		filter.setBalanceUsdMax(NumberFormatUtil.integerToDouble(maxBalance));
+//		filter.setShowActivePrograms(activeOnly);
 //		filter.setShowAvailableToInvestPrograms(availableToInvestOnly);
 	}
 
 	private void updateButtons() {
 		boolean isFilterChanged = !valuesAreEqual(filter.getLevelMin(), minLevel, 1)
 				|| !valuesAreEqual(filter.getLevelMax(), maxLevel, 7)
-				|| !valuesAreEqual(NumberFormatUtil.doubleToInteger(filter.getProfitAvgPercentMin()), minAvgProfit, null)
-				|| !valuesAreEqual(NumberFormatUtil.doubleToInteger(filter.getProfitAvgPercentMax()), maxAvgProfit, null)
-				|| !valuesAreEqual(NumberFormatUtil.doubleToInteger(filter.getProfitTotalMin()), minTotalProfit, null)
-				|| !valuesAreEqual(NumberFormatUtil.doubleToInteger(filter.getProfitTotalMax()), maxTotalProfit, null)
-				|| !valuesAreEqual(NumberFormatUtil.doubleToInteger(filter.getBalanceUsdMin()), minBalance, null)
-				|| !valuesAreEqual(NumberFormatUtil.doubleToInteger(filter.getBalanceUsdMax()), maxBalance, null)
-				|| !valuesAreEqual(filter.isShowActivePrograms(), activeOnly, false);
+				|| !valuesAreEqual(NumberFormatUtil.doubleToInteger(filter.getProfitAvgMin()), minAvgProfit, null)
+				|| !valuesAreEqual(NumberFormatUtil.doubleToInteger(filter.getProfitAvgMax()), maxAvgProfit, null);
+//				|| !valuesAreEqual(NumberFormatUtil.doubleToInteger(filter.getProfitTotalMin()), minTotalProfit, null)
+//				|| !valuesAreEqual(NumberFormatUtil.doubleToInteger(filter.getProfitTotalMax()), maxTotalProfit, null)
+//				|| !valuesAreEqual(NumberFormatUtil.doubleToInteger(filter.getBalanceUsdMin()), minBalance, null)
+//				|| !valuesAreEqual(NumberFormatUtil.doubleToInteger(filter.getBalanceUsdMax()), maxBalance, null)
+//				|| !valuesAreEqual(filter.isShowActivePrograms(), activeOnly, false);
 //				|| !valuesAreEqual(filter.isShowAvailableToInvestPrograms(), availableToInvestOnly, false);
 		applyButton.setVisibility(isFilterChanged ? View.VISIBLE : View.GONE);
 		closeButton.setVisibility(!isFilterChanged ? View.VISIBLE : View.GONE);

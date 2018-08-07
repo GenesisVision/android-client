@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import java.util.UUID;
 
-import io.swagger.client.model.InvestmentProgramDetails;
+import io.swagger.client.model.ProgramDetailsFull;
 
 /**
  * GenesisVisionAndroid
@@ -86,11 +86,11 @@ public class ProgramInfoModel implements Parcelable
 		dest.writeByte((byte) (favorite ? 1 : 0));
 	}
 
-	public void update(InvestmentProgramDetails programDetails) {
+	public void update(ProgramDetailsFull programDetails) {
 		this.programId = programDetails.getId();
-		this.avatar = programDetails.getLogo();
+		this.avatar = programDetails.getAvatar();
 		this.programName = programDetails.getTitle();
 		this.managerName = programDetails.getManager().getUsername();
-		this.favorite = programDetails.isIsFavorite();
+//		this.favorite = programDetails.isIsFavorite();
 	}
 }

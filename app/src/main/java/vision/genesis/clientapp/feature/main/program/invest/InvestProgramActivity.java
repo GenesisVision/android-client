@@ -13,10 +13,10 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.WalletTransaction;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.AmountTextView;
 import vision.genesis.clientapp.ui.CurrencyView;
@@ -142,7 +142,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 
 	private void initAmountTextView() {
 		amountTextView.setKeyboard(keyboard);
-		amountTextView.setMaxDecimalDigits(StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.GVT.toString()));
+		amountTextView.setMaxDecimalDigits(StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.toString()));
 		amountTextView.setAmountChangeListener(new AmountTextView.AmountChangeListener()
 		{
 			@Override
@@ -186,7 +186,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	@Override
 	public void setAvailable(double availableFunds) {
 		balance.setText(StringFormatUtil.formatAmount(availableFunds, 0,
-				StringFormatUtil.getCurrencyMaxFraction(WalletTransaction.CurrencyEnum.GVT.toString())));
+				StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.toString())));
 	}
 
 	@Override

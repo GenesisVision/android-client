@@ -9,15 +9,12 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.EntryXComparator;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.TradeChart;
-import io.swagger.client.model.TradesChartViewModel;
 import rx.Subscription;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -83,24 +80,24 @@ public class ChartPresenter extends MvpPresenter<ChartView>
 		if (programsManager == null || programId == null)
 			return;
 		getViewState().showProgress(true);
-//		getChartSubscription = investManager.getEquityChart(programId)//currentZoom
+//		getChartSubscription = investManager.getChart(programId)//currentZoom
 //				.observeOn(AndroidSchedulers.mainThread())
 //				.subscribeOn(Schedulers.io())
 //				.subscribe(this::handleGetChartResponse,
 //						this::handleGetChartError);
 	}
 
-	private void handleGetChartResponse(TradesChartViewModel response) {
-		getChartSubscription.unsubscribe();
-		getViewState().showProgress(false);
-
-		List<Entry> lineEntries = new ArrayList<>();
-		for (TradeChart chart : response.getChart()) {
-			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getProfit().floatValue()));
-		}
-
-		getViewState().setChartData(getLineData(lineEntries));
-	}
+//	private void handleGetChartResponse(TradesChartViewModel response) {
+//		getChartSubscription.unsubscribe();
+//		getViewState().showProgress(false);
+//
+//		List<Entry> lineEntries = new ArrayList<>();
+//		for (TradeChart chart : response.getChart()) {
+//			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getProfit().floatValue()));
+//		}
+//
+//		getViewState().setChartData(getLineData(lineEntries));
+//	}
 
 	private LineData getLineData(List<Entry> data) {
 		Collections.sort(data, new EntryXComparator());

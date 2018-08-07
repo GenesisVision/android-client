@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import vision.genesis.clientapp.feature.main.favorites.FavoritesFragment;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListFragment;
-import vision.genesis.clientapp.feature.tournament.TournamentFragment;
 
 /**
  * GenesisVisionAndroid
@@ -27,8 +26,6 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 
 	private ProgramsListFragment programsFragment;
 
-	private TournamentFragment tournamentFragment;
-
 	private TabLayout tabLayout;
 
 	AssetsPagerAdapter(FragmentManager fm, TabLayout tabLayout) {
@@ -36,7 +33,6 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 		this.tabLayout = tabLayout;
 		favoritesFragment = new FavoritesFragment();
 		programsFragment = new ProgramsListFragment();
-		tournamentFragment = new TournamentFragment();
 	}
 
 	@Override
@@ -46,8 +42,6 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 				return favoritesFragment;
 			case "programs":
 				return programsFragment;
-			case "tournament":
-				return tournamentFragment;
 			default:
 				return null;
 		}
@@ -59,9 +53,5 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	public void destroy() {
-	}
-
-	public void setTournamentData(Integer tournamentCurrentRound, Integer tournamentTotalRounds) {
-		tournamentFragment.setTournamentData(tournamentCurrentRound, tournamentTotalRounds);
 	}
 }

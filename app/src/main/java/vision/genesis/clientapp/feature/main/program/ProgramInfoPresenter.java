@@ -12,8 +12,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.InvestmentProgramDetails;
-import io.swagger.client.model.InvestmentProgramViewModel;
+import io.swagger.client.model.ProgramDetailsFull;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -52,7 +51,7 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 	private UUID programId;
 
-	private InvestmentProgramDetails programDetails;
+	private ProgramDetailsFull programDetails;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -99,20 +98,20 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 	private void getProgramDetails() {
 		if (programId != null && programsManager != null)
-			programDetailsSubscription = programsManager.getInvestmentProgramDetails(programId)
+			programDetailsSubscription = programsManager.getProgramDetails(programId)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleInvestmentProgramDetailsSuccess,
 							this::handleInvestmentProgramDetailsError);
 	}
 
-	private void handleInvestmentProgramDetailsSuccess(InvestmentProgramViewModel model) {
+	private void handleInvestmentProgramDetailsSuccess(ProgramDetailsFull programDetails) {
 		programDetailsSubscription.unsubscribe();
 		getViewState().showNoInternet(false);
 		getViewState().showNoInternetProgress(false);
 		getViewState().showProgress(false);
 
-		programDetails = model.getInvestmentProgram();
+		this.programDetails = programDetails;
 		getViewState().setProgram(programDetails);
 	}
 

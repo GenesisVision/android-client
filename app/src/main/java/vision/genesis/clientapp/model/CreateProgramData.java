@@ -3,15 +3,13 @@ package vision.genesis.clientapp.model;
 import java.util.Arrays;
 import java.util.List;
 
-import io.swagger.client.model.BrokerTradeServer;
-
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 09/07/2018.
  */
 public class CreateProgramData
 {
-	private List<BrokerTradeServer> brokers;
+//	private List<BrokerTradeServer> brokers;
 
 	private int maxTitleLength = 20;
 
@@ -27,13 +25,13 @@ public class CreateProgramData
 
 	private List<Integer> availablePeriods = Arrays.asList(1, 2, 3, 5, 7, 10, 14);
 
-	public List<BrokerTradeServer> getBrokers() {
-		return brokers;
-	}
+//	public List<BrokerTradeServer> getBrokers() {
+//		return brokers;
+//	}
 
-	public void setBrokers(List<BrokerTradeServer> brokers) {
-		this.brokers = brokers;
-	}
+//	public void setBrokers(List<BrokerTradeServer> brokers) {
+//		this.brokers = brokers;
+//	}
 
 	public int getMaxTitleLength() {
 		return maxTitleLength;

@@ -32,14 +32,14 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ProgramStatistic
 {
-	@SerializedName("balanceInBase")
-	private AmountWithCurrency balanceInBase = null;
+	@SerializedName("balanceBase")
+	private AmountWithCurrency balanceBase = null;
 
-	@SerializedName("balanceInGVT")
-	private AmountWithCurrency balanceInGVT = null;
+	@SerializedName("balanceGVT")
+	private AmountWithCurrency balanceGVT = null;
 
-	@SerializedName("balanceInFavorite")
-	private AmountWithCurrency balanceInFavorite = null;
+	@SerializedName("balanceSecondary")
+	private AmountWithCurrency balanceSecondary = null;
 
 	@SerializedName("investorsCount")
 	private Integer investorsCount = null;
@@ -77,61 +77,61 @@ public class ProgramStatistic
 	@SerializedName("profitPercent")
 	private Double profitPercent = null;
 
-	public ProgramStatistic balanceInBase(AmountWithCurrency balanceInBase) {
-		this.balanceInBase = balanceInBase;
+	public ProgramStatistic balanceBase(AmountWithCurrency balanceBase) {
+		this.balanceBase = balanceBase;
 		return this;
 	}
 
 	/**
-	 * Get balanceInBase
+	 * Get balanceBase
 	 *
-	 * @return balanceInBase
+	 * @return balanceBase
 	 **/
 	@ApiModelProperty(value = "")
-	public AmountWithCurrency getBalanceInBase() {
-		return balanceInBase;
+	public AmountWithCurrency getBalanceBase() {
+		return balanceBase;
 	}
 
-	public void setBalanceInBase(AmountWithCurrency balanceInBase) {
-		this.balanceInBase = balanceInBase;
+	public void setBalanceBase(AmountWithCurrency balanceBase) {
+		this.balanceBase = balanceBase;
 	}
 
-	public ProgramStatistic balanceInGVT(AmountWithCurrency balanceInGVT) {
-		this.balanceInGVT = balanceInGVT;
+	public ProgramStatistic balanceGVT(AmountWithCurrency balanceGVT) {
+		this.balanceGVT = balanceGVT;
 		return this;
 	}
 
 	/**
-	 * Get balanceInGVT
+	 * Get balanceGVT
 	 *
-	 * @return balanceInGVT
+	 * @return balanceGVT
 	 **/
 	@ApiModelProperty(value = "")
-	public AmountWithCurrency getBalanceInGVT() {
-		return balanceInGVT;
+	public AmountWithCurrency getBalanceGVT() {
+		return balanceGVT;
 	}
 
-	public void setBalanceInGVT(AmountWithCurrency balanceInGVT) {
-		this.balanceInGVT = balanceInGVT;
+	public void setBalanceGVT(AmountWithCurrency balanceGVT) {
+		this.balanceGVT = balanceGVT;
 	}
 
-	public ProgramStatistic balanceInFavorite(AmountWithCurrency balanceInFavorite) {
-		this.balanceInFavorite = balanceInFavorite;
+	public ProgramStatistic balanceSecondary(AmountWithCurrency balanceSecondary) {
+		this.balanceSecondary = balanceSecondary;
 		return this;
 	}
 
 	/**
-	 * Get balanceInFavorite
+	 * Get balanceSecondary
 	 *
-	 * @return balanceInFavorite
+	 * @return balanceSecondary
 	 **/
 	@ApiModelProperty(value = "")
-	public AmountWithCurrency getBalanceInFavorite() {
-		return balanceInFavorite;
+	public AmountWithCurrency getBalanceSecondary() {
+		return balanceSecondary;
 	}
 
-	public void setBalanceInFavorite(AmountWithCurrency balanceInFavorite) {
-		this.balanceInFavorite = balanceInFavorite;
+	public void setBalanceSecondary(AmountWithCurrency balanceSecondary) {
+		this.balanceSecondary = balanceSecondary;
 	}
 
 	public ProgramStatistic investorsCount(Integer investorsCount) {
@@ -371,9 +371,9 @@ public class ProgramStatistic
 			return false;
 		}
 		ProgramStatistic programStatistic = (ProgramStatistic) o;
-		return Objects.equals(this.balanceInBase, programStatistic.balanceInBase) &&
-				Objects.equals(this.balanceInGVT, programStatistic.balanceInGVT) &&
-				Objects.equals(this.balanceInFavorite, programStatistic.balanceInFavorite) &&
+		return Objects.equals(this.balanceBase, programStatistic.balanceBase) &&
+				Objects.equals(this.balanceGVT, programStatistic.balanceGVT) &&
+				Objects.equals(this.balanceSecondary, programStatistic.balanceSecondary) &&
 				Objects.equals(this.investorsCount, programStatistic.investorsCount) &&
 				Objects.equals(this.startDate, programStatistic.startDate) &&
 				Objects.equals(this.startBalance, programStatistic.startBalance) &&
@@ -390,7 +390,7 @@ public class ProgramStatistic
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(balanceInBase, balanceInGVT, balanceInFavorite, investorsCount, startDate, startBalance, startCurrency, investedAmount, investedCurrency, tradesCount, tradesSuccessCount, profitFactorPercent, sharpeRatioPercent, drawdownPercent, profitPercent);
+		return Objects.hash(balanceBase, balanceGVT, balanceSecondary, investorsCount, startDate, startBalance, startCurrency, investedAmount, investedCurrency, tradesCount, tradesSuccessCount, profitFactorPercent, sharpeRatioPercent, drawdownPercent, profitPercent);
 	}
 
 	@Override
@@ -398,9 +398,9 @@ public class ProgramStatistic
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ProgramStatistic {\n");
 
-		sb.append("    balanceInBase: ").append(toIndentedString(balanceInBase)).append("\n");
-		sb.append("    balanceInGVT: ").append(toIndentedString(balanceInGVT)).append("\n");
-		sb.append("    balanceInFavorite: ").append(toIndentedString(balanceInFavorite)).append("\n");
+		sb.append("    balanceBase: ").append(toIndentedString(balanceBase)).append("\n");
+		sb.append("    balanceGVT: ").append(toIndentedString(balanceGVT)).append("\n");
+		sb.append("    balanceSecondary: ").append(toIndentedString(balanceSecondary)).append("\n");
 		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
 		sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
 		sb.append("    startBalance: ").append(toIndentedString(startBalance)).append("\n");

@@ -67,7 +67,7 @@ public class ProgramDetailsFull
 	private Double availableForInvestment = null;
 
 	@SerializedName("manager")
-	private ProfilePublicViewModel manager = null;
+	private ManagerProfile manager = null;
 
 	@SerializedName("statistic")
 	private ProgramStatistic statistic = null;
@@ -284,7 +284,7 @@ public class ProgramDetailsFull
 		this.availableForInvestment = availableForInvestment;
 	}
 
-	public ProgramDetailsFull manager(ProfilePublicViewModel manager) {
+	public ProgramDetailsFull manager(ManagerProfile manager) {
 		this.manager = manager;
 		return this;
 	}
@@ -295,11 +295,11 @@ public class ProgramDetailsFull
 	 * @return manager
 	 **/
 	@ApiModelProperty(value = "")
-	public ProfilePublicViewModel getManager() {
+	public ManagerProfile getManager() {
 		return manager;
 	}
 
-	public void setManager(ProfilePublicViewModel manager) {
+	public void setManager(ManagerProfile manager) {
 		this.manager = manager;
 	}
 

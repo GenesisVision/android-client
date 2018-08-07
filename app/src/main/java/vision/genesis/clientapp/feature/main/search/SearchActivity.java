@@ -31,10 +31,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.OnFocusChange;
+import io.swagger.client.model.ProgramDetails;
 import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListAdapter;
-import vision.genesis.clientapp.model.InvestmentProgramExtended;
 
 /**
  * GenesisVisionAndroid
@@ -216,21 +216,15 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 	}
 
 	@Override
-	public void setInvestmentPrograms(List<InvestmentProgramExtended> programs) {
+	public void setInvestmentPrograms(List<ProgramDetails> programs) {
 //		programsText.setVisibility(!programs.isEmpty() ? View.VISIBLE : View.GONE);
 		programsAdapter.setInvestmentPrograms(programs);
 		programsRecyclerView.scrollToPosition(0);
 	}
 
 	@Override
-	public void addInvestmentPrograms(List<InvestmentProgramExtended> programs) {
+	public void addInvestmentPrograms(List<ProgramDetails> programs) {
 		programsAdapter.addInvestmentPrograms(programs);
-	}
-
-	@Override
-	public void setTournamentPrograms(List<InvestmentProgramExtended> programs) {
-//		tournamentText.setVisibility(!programs.isEmpty() ? View.VISIBLE : View.GONE);
-//		tournamentAdapter.setInvestmentPrograms(programs);
 	}
 
 	@Override
