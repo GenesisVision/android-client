@@ -6,6 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
+import io.swagger.client.model.DashboardPortfolioEvent;
 import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
 
 
@@ -32,4 +33,6 @@ interface InvestorDashboardView extends MvpView
 	void showSnackbarMessage(String message);
 
 	void setTotalPortfolioValue(Double totalPortfolioAmount);
+
+	void setPortfolioEvents(List<DashboardPortfolioEvent> events);
 }

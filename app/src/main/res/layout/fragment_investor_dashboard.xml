@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?attr/colorBackground">
@@ -9,13 +8,12 @@
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/header">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbar"
             android:background="?attr/colorCard"
             app:elevation="0dp">
 
@@ -29,142 +27,138 @@
                     android:layout_height="@dimen/dashboard_appbar_background_height"
                     app:layout_collapseMode="pin">
 
-                    <ImageView
-                        android:id="@+id/portfolio_image"
-                        android:layout_width="@dimen/portfolio_image_width"
-                        android:layout_height="@dimen/portfolio_image_height"
-                        android:layout_centerHorizontal="true"
-                        android:layout_margin="16dp"
-                        android:src="@drawable/portfolio_icon"/>
-
-                    <RelativeLayout
-                        android:id="@+id/group_portfolio_value"
+                    <vision.genesis.clientapp.ui.chart.ChartTimeFrameSelectorView
+                        android:id="@+id/time_frame_selector"
                         android:layout_width="match_parent"
+                        android:layout_height="28dp"
+                        android:layout_margin="4dp"/>
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/investor_dashboard_header_view_pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_above="@+id/indicator"
+                        android:layout_below="@+id/time_frame_selector"
+                        android:layout_marginTop="8dp"/>
+
+                    <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
+                        android:id="@+id/indicator"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/portfolio_image"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginStart="16dp">
-
-                        <FrameLayout
-                            android:id="@+id/group_balance_progress"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp">
-
-                            <ProgressBar
-                                android:id="@+id/portfolio_value_progress"
-                                style="?android:attr/progressBarStyleLarge"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:visibility="visible"/>
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:id="@+id/portfolio_value"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:lines="1"
-                                android:textAlignment="center"
-                                android:textColor="@color/colorMedium"
-                                android:textSize="56sp"
-                                app:autoSizeMaxTextSize="56sp"
-                                app:autoSizeMinTextSize="32sp"
-                                app:autoSizeTextType="uniform"
-                                tools:text="$56,470"/>
-
-                        </FrameLayout>
-
-                        <TextView
-                            android:id="@+id/label_total_portfolio_value"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/group_balance_progress"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="4dp"
-                            android:lines="1"
-                            android:text="@string/total_portfolio_value"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorMedium"
-                            android:textSize="16sp"/>
-
-                        <ImageView
-                            android:id="@+id/tooltip_total_portfolio_value"
-                            style="@style/tooltip_icon"
-                            android:layout_width="20dp"
-                            android:layout_below="@+id/group_balance_progress"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginTop="2dp"
-                            android:layout_toEndOf="@id/label_total_portfolio_value"
-                            android:layout_toRightOf="@id/label_total_portfolio_value"/>
-
-                    </RelativeLayout>
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        app:spi_dotColor="?attr/colorTextSecondary"
+                        app:spi_dotSelectedColor="?attr/colorTextPrimary"/>
 
                 </RelativeLayout>
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
-            <!--<vision.genesis.clientapp.ui.SpinnerView-->
-            <!--android:id="@+id/spinner_view"-->
-            <!--android:layout_width="250dp"-->
-            <!--android:layout_height="40dp"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:layout_below="@+id/group_buttons"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:layout_marginBottom="16dp"-->
-            <!--app:layout_collapseMode="pin"/>-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="?attr/colorBackground"
+                android:orientation="vertical"
+                app:layout_collapseMode="pin">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp">
+
+                    <TextView
+                        android:id="@+id/label_portfolio_events"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/portfolio_events"
+                        android:textColor="?attr/colorTextPrimary"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/see_all"
+                        android:textColor="?attr/colorTextSecondary"/>
+
+                </RelativeLayout>
+
+                <HorizontalScrollView
+                    android:id="@+id/scroll_view_events"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"/>
+
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tabs_height"
-                android:layout_below="@+id/toolbar"
+                android:background="?attr/colorBackground"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
                 app:layout_collapseMode="pin">
 
                 <android.support.design.widget.TabLayout
                     android:id="@+id/tab_layout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/tabs_height"
-                    android:background="?attr/colorCard"
+                    android:layout_toLeftOf="@+id/button_filters"
+                    android:layout_toStartOf="@+id/button_filters"
                     android:minHeight="?attr/actionBarSize"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                     app:tabGravity="fill"
-                    app:tabIndicatorColor="@color/colorAccentLight"
-                    app:tabMode="fixed"
-                    app:tabSelectedTextColor="@color/colorAccent"
-                    app:tabTextColor="@color/colorFontMedium"/>
+                    app:tabIndicatorColor="?attr/colorTextPrimary"
+                    app:tabMode="scrollable"
+                    app:tabSelectedTextColor="?attr/colorTextPrimary"
+                    app:tabTextColor="?attr/colorTextSecondary"/>
+
+                <ImageView
+                    android:id="@+id/button_filters"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/filters_icon"
+                    android:tint="?attr/colorTextSecondary"/>
 
             </RelativeLayout>
 
         </android.support.design.widget.AppBarLayout>
 
-        <RelativeLayout
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager_dashboard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/view_pager_dashboard"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/shadow_down_black"/>
-
-        </RelativeLayout>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <vision.genesis.clientapp.ui.ToolbarView
-        android:id="@+id/toolbar"
+    <RelativeLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="60dp"
+        android:background="?attr/colorCard"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/dashboard"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="26sp"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

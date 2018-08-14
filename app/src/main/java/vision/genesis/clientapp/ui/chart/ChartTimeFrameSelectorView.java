@@ -1,7 +1,6 @@
 package vision.genesis.clientapp.ui.chart;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -11,9 +10,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ChartZoomEnum;
+import vision.genesis.clientapp.utils.ThemeUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
@@ -128,6 +128,18 @@ public class ChartTimeFrameSelectorView extends RelativeLayout
 		inflate(getContext(), R.layout.view_chart_time_frame_selector, this);
 
 		unbinder = ButterKnife.bind(this);
+
+		setFonts();
+	}
+
+	private void setFonts() {
+		zoomOneDay.setTypeface(TypefaceUtil.semibold());
+		zoomOneWeek.setTypeface(TypefaceUtil.semibold());
+		zoomOneMonth.setTypeface(TypefaceUtil.semibold());
+		zoomThreeMonths.setTypeface(TypefaceUtil.semibold());
+		zoomSixMonths.setTypeface(TypefaceUtil.semibold());
+		zoomOneYear.setTypeface(TypefaceUtil.semibold());
+		zoomAll.setTypeface(TypefaceUtil.semibold());
 	}
 
 	public void setTimeFrameChangeListener(TimeFrameChangeListener timeFrameChangeListener) {
@@ -178,12 +190,12 @@ public class ChartTimeFrameSelectorView extends RelativeLayout
 	}
 
 	private void selectZoomButton(TextView zoomButton, View underline) {
-		zoomButton.setTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent));
+		zoomButton.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextPrimary));
 		underline.setVisibility(View.VISIBLE);
 	}
 
 	private void deselectZoomButton(TextView zoomButton, View underline) {
-		zoomButton.setTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.grey400));
+		zoomButton.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary));
 		underline.setVisibility(View.GONE);
 	}
 

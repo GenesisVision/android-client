@@ -389,5 +389,8 @@
     <string name="available">Available</string>
     <string name="invested_value">Invested value</string>
     <string name="add_funds">Add funds</string>
+    <string name="portfolio">Portfolio</string>
+    <string name="portfolio_events">Portfolio Events</string>
+    <string name="see_all">see all</string>
 
 </resources>

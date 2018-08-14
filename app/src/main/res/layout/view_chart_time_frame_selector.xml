@@ -8,14 +8,14 @@
         android:id="@+id/group_zoom_one_day"
         style="@style/chart_zoom_button_group">
 
+        <View
+            android:id="@+id/zoom_one_day_underline"
+            style="@style/chart_zoom_button_underline"/>
+
         <TextView
             android:id="@+id/zoom_one_day"
             style="@style/chart_zoom_button"
             android:text="@string/zoom_one_day"/>
-
-        <View
-            android:id="@+id/zoom_one_day_underline"
-            style="@style/chart_zoom_button_underline"/>
 
     </RelativeLayout>
 
@@ -23,14 +23,14 @@
         android:id="@+id/group_zoom_one_week"
         style="@style/chart_zoom_button_group">
 
+        <View
+            android:id="@+id/zoom_one_week_underline"
+            style="@style/chart_zoom_button_underline"/>
+
         <TextView
             android:id="@+id/zoom_one_week"
             style="@style/chart_zoom_button"
             android:text="@string/zoom_one_week"/>
-
-        <View
-            android:id="@+id/zoom_one_week_underline"
-            style="@style/chart_zoom_button_underline"/>
 
     </RelativeLayout>
 
@@ -38,14 +38,14 @@
         android:id="@+id/group_zoom_one_month"
         style="@style/chart_zoom_button_group">
 
+        <View
+            android:id="@+id/zoom_one_month_underline"
+            style="@style/chart_zoom_button_underline"/>
+
         <TextView
             android:id="@+id/zoom_one_month"
             style="@style/chart_zoom_button"
             android:text="@string/zoom_one_month"/>
-
-        <View
-            android:id="@+id/zoom_one_month_underline"
-            style="@style/chart_zoom_button_underline"/>
 
     </RelativeLayout>
 
@@ -53,14 +53,14 @@
         android:id="@+id/group_zoom_three_months"
         style="@style/chart_zoom_button_group">
 
+        <View
+            android:id="@+id/zoom_three_months_underline"
+            style="@style/chart_zoom_button_underline"/>
+
         <TextView
             android:id="@+id/zoom_three_months"
             style="@style/chart_zoom_button"
             android:text="@string/zoom_three_months"/>
-
-        <View
-            android:id="@+id/zoom_three_months_underline"
-            style="@style/chart_zoom_button_underline"/>
 
     </RelativeLayout>
 
@@ -68,14 +68,14 @@
         android:id="@+id/group_zoom_six_months"
         style="@style/chart_zoom_button_group">
 
+        <View
+            android:id="@+id/zoom_six_months_underline"
+            style="@style/chart_zoom_button_underline"/>
+
         <TextView
             android:id="@+id/zoom_six_months"
             style="@style/chart_zoom_button"
             android:text="@string/zoom_six_months"/>
-
-        <View
-            android:id="@+id/zoom_six_months_underline"
-            style="@style/chart_zoom_button_underline"/>
 
     </RelativeLayout>
 
@@ -83,14 +83,14 @@
         android:id="@+id/group_zoom_one_year"
         style="@style/chart_zoom_button_group">
 
+        <View
+            android:id="@+id/zoom_one_year_underline"
+            style="@style/chart_zoom_button_underline"/>
+
         <TextView
             android:id="@+id/zoom_one_year"
             style="@style/chart_zoom_button"
             android:text="@string/zoom_one_year"/>
-
-        <View
-            android:id="@+id/zoom_one_year_underline"
-            style="@style/chart_zoom_button_underline"/>
 
     </RelativeLayout>
 
@@ -98,14 +98,14 @@
         android:id="@+id/group_zoom_all"
         style="@style/chart_zoom_button_group">
 
+        <View
+            android:id="@+id/zoom_all_underline"
+            style="@style/chart_zoom_button_underline"/>
+
         <TextView
             android:id="@+id/zoom_all"
             style="@style/chart_zoom_button"
             android:text="@string/zoom_all"/>
-
-        <View
-            android:id="@+id/zoom_all_underline"
-            style="@style/chart_zoom_button_underline"/>
 
     </RelativeLayout>
 

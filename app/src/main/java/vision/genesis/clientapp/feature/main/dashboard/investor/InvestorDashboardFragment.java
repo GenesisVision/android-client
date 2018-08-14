@@ -10,26 +10,25 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
+import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.DashboardPortfolioEvent;
+import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.programs.DashboardPagerAdapter;
 import vision.genesis.clientapp.feature.main.tooltip.TooltipActivity;
 import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
 import vision.genesis.clientapp.model.TooltipModel;
-import vision.genesis.clientapp.ui.ToolbarView;
-import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.ui.PortfolioEventDashboardView;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -40,26 +39,26 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class InvestorDashboardFragment extends BaseFragment implements InvestorDashboardView, ViewPager.OnPageChangeListener
 {
-	@BindView(R.id.portfolio_value)
-	public TextView portfolioValue;
+	@BindView(R.id.title)
+	public TextView title;
 
-	@BindView(R.id.portfolio_value_progress)
-	public ProgressBar portfolioValueProgressBar;
+	@BindView(R.id.investor_dashboard_header_view_pager)
+	public ViewPager headerViewPager;
 
-	@BindView(R.id.label_total_portfolio_value)
-	public TextView totalPortfolioValueLabel;
+	@BindView(R.id.indicator)
+	public ScrollingPagerIndicator indicator;
 
-	@BindView(R.id.group_portfolio_value)
-	public ViewGroup portfolioValueGroup;
+	@BindView(R.id.label_portfolio_events)
+	public TextView portfolioEventsLabel;
 
-	@BindView(R.id.toolbar)
-	public ToolbarView toolbar;
-
-	@BindView(R.id.view_pager_dashboard)
-	public ViewPager viewPager;
+	@BindView(R.id.scroll_view_events)
+	public HorizontalScrollView eventsScrollView;
 
 	@BindView(R.id.tab_layout)
 	public TabLayout tabLayout;
+
+	@BindView(R.id.view_pager_dashboard)
+	public ViewPager viewPager;
 
 	@InjectPresenter
 	InvestorDashboardPresenter investorDashboardPresenter;
@@ -73,11 +72,6 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	private Fragment currentFragment;
 
 	private Unbinder unbinder;
-
-	@OnClick(R.id.tooltip_total_portfolio_value)
-	public void onTooltipTotalPortfolioClicked() {
-		showTooltip(portfolioValueGroup, R.string.tooltip_total_portfolio_value);
-	}
 
 	@Nullable
 	@Override
@@ -95,7 +89,7 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 		setFonts();
 
-		initToolbar();
+		initHeaderViewPager();
 		initTabs();
 		initViewPager();
 	}
@@ -145,12 +139,13 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	}
 
 	private void setFonts() {
-		portfolioValue.setTypeface(TypefaceUtil.light());
-		totalPortfolioValueLabel.setTypeface(TypefaceUtil.bold());
+		title.setTypeface(TypefaceUtil.bold());
+		portfolioEventsLabel.setTypeface(TypefaceUtil.medium());
 	}
 
-	private void initToolbar() {
-		toolbar.setTitle(getString(R.string.dashboard));
+	private void initHeaderViewPager() {
+		headerViewPager.setAdapter(new DashboardHeaderPagerAdapter(getChildFragmentManager()));
+		indicator.attachToPager(headerViewPager);
 	}
 
 	private void initTabs() {
@@ -219,13 +214,22 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 	@Override
 	public void showSnackbarMessage(String message) {
-		showSnackbar(message, toolbar);
+		showSnackbar(message, viewPager);
 	}
 
 	@Override
 	public void setTotalPortfolioValue(Double totalPortfolioAmount) {
-		portfolioValueProgressBar.setVisibility(View.GONE);
-		portfolioValue.setText(String.format(Locale.getDefault(), "$%s", StringFormatUtil.formatAmount(totalPortfolioAmount, 2, 2)));
+//		portfolioValueProgressBar.setVisibility(View.GONE);
+//		portfolioValue.setText(String.format(Locale.getDefault(), "$%s", StringFormatUtil.formatAmount(totalPortfolioAmount, 2, 2)));
+	}
+
+	@Override
+	public void setPortfolioEvents(List<DashboardPortfolioEvent> events) {
+		for (DashboardPortfolioEvent event : events) {
+			PortfolioEventDashboardView eventView = new PortfolioEventDashboardView(getContext());
+			eventView.setEvent(event);
+			eventsScrollView.addView(eventView);
+		}
 	}
 
 	@Override

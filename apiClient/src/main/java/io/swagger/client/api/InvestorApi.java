@@ -28,14 +28,11 @@ public interface InvestorApi
 	 * Portfolio events
 	 *
 	 * @param authorization JWT access token (required)
-	 * @param from          (optional)
-	 * @param to            (optional)
-	 * @param currency      (optional)
 	 * @return Call&lt;DashboardPortfolioEvents&gt;
 	 */
 	@GET("v1.0/investor/dashboard/events")
 	Observable<DashboardPortfolioEvents> v10InvestorDashboardEventsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("from") DateTime from, @retrofit2.http.Query("to") DateTime to, @retrofit2.http.Query("currency") String currency
+			@retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**

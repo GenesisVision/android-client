@@ -188,14 +188,17 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerInParent">true</item>
-        <item name="android:textColor">@color/grey400</item>
+        <item name="android:textColor">?attr/colorTextSecondary</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="chart_zoom_button_underline">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">2dp</item>
-        <item name="android:layout_alignParentBottom">true</item>
-        <item name="android:background">@color/colorAccent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:background">@drawable/time_frame_underline</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginRight">4dp</item>
         <item name="android:visibility">gone</item>
     </style>
 

@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.DashboardPortfolioEvent;
 import io.swagger.client.model.DashboardProgramsList;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -42,6 +43,8 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 	private Subscription getInvestmentsSubscription;
 
+	private Subscription getEventsSubscription;
+
 	private List<InvestmentProgramDashboardExtended> activePrograms = new ArrayList<>();
 
 	private List<InvestmentProgramDashboardExtended> archivedPrograms = new ArrayList<>();
@@ -69,6 +72,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 	void onResume() {
 		getInvestments();
+		getEvents();
 	}
 
 	private void getInvestments() {
@@ -124,6 +128,31 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	private void handleGetInvestmentsError(Throwable throwable) {
 		getInvestmentsSubscription.unsubscribe();
 
+		getViewState().setRefreshing(false);
+		getViewState().showProgressBar(false);
+		getViewState().showEmpty(false);
+
+		if (ApiErrorResolver.isNetworkError(throwable)) {
+			if (activePrograms.size() == 0 && archivedPrograms.size() == 0)
+				getViewState().showNoInternet(true);
+			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
+		}
+	}
+
+	private void getEvents() {
+		getEventsSubscription = dashboardManager.getPortfolioEvents()
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(this::handleGetEventsSuccess,
+						this::handleGetEventsError);
+	}
+
+	private void handleGetEventsSuccess(List<DashboardPortfolioEvent> response) {
+		List<DashboardPortfolioEvent> events = response.size() > 10 ? response.subList(0, 10) : response;
+		getViewState().setPortfolioEvents(events);
+	}
+
+	private void handleGetEventsError(Throwable throwable) {
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		getViewState().showEmpty(false);

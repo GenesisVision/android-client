@@ -60,7 +60,7 @@ No authorization required
 
 <a name="v10InvestorDashboardEventsGet"></a>
 # **v10InvestorDashboardEventsGet**
-> DashboardPortfolioEvents v10InvestorDashboardEventsGet(authorization, from, to, currency)
+> DashboardPortfolioEvents v10InvestorDashboardEventsGet(authorization)
 
 Portfolio events
 
@@ -73,11 +73,8 @@ Portfolio events
 
 InvestorApi apiInstance = new InvestorApi();
 String authorization = "authorization_example"; // String | JWT access token
-DateTime from = new DateTime(); // DateTime | 
-DateTime to = new DateTime(); // DateTime | 
-String currency = "currency_example"; // String | 
 try {
-    DashboardPortfolioEvents result = apiInstance.v10InvestorDashboardEventsGet(authorization, from, to, currency);
+    DashboardPortfolioEvents result = apiInstance.v10InvestorDashboardEventsGet(authorization);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestorApi#v10InvestorDashboardEventsGet");
@@ -90,9 +87,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **from** | **DateTime**|  | [optional]
- **to** | **DateTime**|  | [optional]
- **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
 
 ### Return type
 
