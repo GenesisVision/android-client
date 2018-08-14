@@ -78,11 +78,14 @@
                         android:textColor="?attr/colorTextPrimary"/>
 
                     <TextView
+                        android:id="@+id/button_see_all"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:padding="8dp"
                         android:text="@string/see_all"
                         android:textColor="?attr/colorTextSecondary"/>
 

@@ -19,12 +19,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.DashboardPortfolioEvent;
 import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.programs.DashboardPagerAdapter;
+import vision.genesis.clientapp.feature.main.portfolio_events.PortfolioEventsActivity;
 import vision.genesis.clientapp.feature.main.tooltip.TooltipActivity;
 import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
 import vision.genesis.clientapp.model.TooltipModel;
@@ -72,6 +74,12 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	private Fragment currentFragment;
 
 	private Unbinder unbinder;
+
+	@OnClick(R.id.button_see_all)
+	public void onSeeAllEventClicked() {
+		if (getActivity() != null)
+			PortfolioEventsActivity.startWith(getActivity());
+	}
 
 	@Nullable
 	@Override
@@ -140,7 +148,7 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 	private void setFonts() {
 		title.setTypeface(TypefaceUtil.bold());
-		portfolioEventsLabel.setTypeface(TypefaceUtil.medium());
+		portfolioEventsLabel.setTypeface(TypefaceUtil.semibold());
 	}
 
 	private void initHeaderViewPager() {

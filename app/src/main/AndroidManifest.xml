@@ -37,7 +37,7 @@
         <activity
             android:name=".feature.main.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppTheme.Base"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
 
         <activity
@@ -190,6 +190,12 @@
             android:name=".feature.main.program.create.CreateProgramActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+
+        <activity
+            android:name=".feature.main.portfolio_events.PortfolioEventsActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 
         <provider

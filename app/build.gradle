@@ -19,14 +19,19 @@ android {
         }
     }
 
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
     defaultConfig {
         applicationId "vision.genesis.clientapp"
         minSdkVersion 16
         targetSdkVersion 27
         multiDexEnabled true
 
-        versionCode 18062801
-        versionName "0.0.9-alpha"
+        versionCode 18081401
+        versionName "0.1.0-alpha"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         renderscriptTargetApi 27
