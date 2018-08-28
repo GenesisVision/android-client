@@ -392,5 +392,8 @@
     <string name="portfolio">Portfolio</string>
     <string name="portfolio_events">Portfolio Events</string>
     <string name="see_all">see all</string>
+    <string name="funds">Funds</string>
+    <string name="change">Change</string>
+    <string name="in_requests">In Requests</string>
 
 </resources>

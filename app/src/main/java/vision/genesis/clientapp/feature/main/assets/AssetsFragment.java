@@ -117,7 +117,7 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 	private void initTabs() {
 		favoritesTab = tabLayout.newTab().setCustomView(getFavoritesTabView()).setTag("favorites");
 		programsTab = tabLayout.newTab().setCustomView(getProgramsTabView()).setTag("programs");
-//		tournamentTab = tabLayout.newTab().setText(getString(R.string.tournament)).setTag("tournament");
+//		tournamentTab = tabLayoutAssets.newTab().setText(getString(R.string.tournament)).setTag("tournament");
 
 		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 

@@ -2,8 +2,6 @@ package vision.genesis.clientapp.feature.main.dashboard.investor.programs;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,7 +18,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
@@ -38,9 +35,6 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 		dashboardProgramsFragment.setArguments(arguments);
 		return dashboardProgramsFragment;
 	}
-
-	@BindView(R.id.refresh_layout)
-	public SwipeRefreshLayout refreshLayout;
 
 	@BindView(R.id.recycler_view)
 	public RecyclerView recyclerView;
@@ -86,7 +80,6 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 
 		unbinder = ButterKnife.bind(this, view);
 
-		initRefreshLayout();
 		initRecyclerView();
 	}
 
@@ -101,13 +94,6 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 		}
 
 		super.onDestroyView();
-	}
-
-	private void initRefreshLayout() {
-		refreshLayout.setColorSchemeColors(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent),
-				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent),
-				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorMedium));
-		refreshLayout.setOnRefreshListener(() -> dashboardProgramsPresenter.onSwipeRefresh());
 	}
 
 	private void initRecyclerView() {
@@ -132,16 +118,9 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 	}
 
 	@Override
-	public void setRefreshing(boolean refreshing) {
-		if (refreshLayout != null)
-			refreshLayout.setRefreshing(refreshing);
-	}
-
-	@Override
 	public void showEmpty(boolean show) {
 		if (emptyGroup != null) {
 			emptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);
-			refreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
 		}
 	}
 
@@ -157,7 +136,6 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 	public void showNoInternet(boolean show) {
 		if (noInternetGroup != null) {
 			noInternetGroup.setVisibility(show ? View.VISIBLE : View.GONE);
-			refreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
 		}
 	}
 

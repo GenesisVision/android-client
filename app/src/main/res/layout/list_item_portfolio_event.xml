@@ -1,54 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/portfolio_event_item_height"
-                android:paddingLeft="32dp"
-                android:paddingRight="64dp">
+                android:layout_width="250dp"
+                android:layout_height="140dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/portfolio_event_background"
+                android:padding="20dp">
 
     <RelativeLayout
-        android:id="@+id/group_icons"
-        android:layout_width="80dp"
-        android:layout_height="match_parent">
-
-
-    </RelativeLayout>
-
-    <RelativeLayout
+        android:id="@+id/group_top"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_toEndOf="@+id/group_icons"
-        android:layout_toRightOf="@+id/group_icons"
-        android:paddingBottom="16dp"
-        android:paddingTop="16dp">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/colorTextSecondary"
-            android:textSize="12sp"
-            tools:text="20 minutes ago"/>
+        <RelativeLayout
+            android:id="@+id/group_icons"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/action"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                app:roundAsCircle="true"/>
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/subject"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                app:roundAsCircle="true"
+                app:roundingBorderColor="?attr/colorCardLight"
+                app:roundingBorderWidth="2dp"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textColor="?attr/colorTextPrimary"
-            android:textSize="14sp"
-            tools:text="BlockChainTrader invest request added"/>
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/group_icons"
+            android:layout_toRightOf="@+id/group_icons"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerVertical="true"
-            android:textColor="?attr/colorGreen"
-            android:textSize="14sp"
-            tools:text="+42.1294 GVT"/>
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="12sp"
+                tools:text="1 aug 2018, 10:30am"/>
+
+            <TextView
+                android:id="@+id/value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lines="1"
+                android:textColor="?attr/colorGreen"
+                android:textSize="16sp"
+                tools:text="+42.1294 GVT"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/group_top"
+        android:layout_marginTop="16dp"
+        android:ellipsize="end"
+        android:lines="2"
+        android:textColor="?attr/colorTextPrimary"
+        android:textSize="14sp"
+        tools:text="BlockChainTrader invest request added"/>
 
 </RelativeLayout>

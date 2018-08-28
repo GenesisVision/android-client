@@ -1,6 +1,10 @@
 package vision.genesis.clientapp.managers;
 
+import org.joda.time.DateTime;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.model.DashboardPortfolioEvent;
@@ -35,7 +39,8 @@ public class InvestorDashboardManager
 	}
 
 	public BehaviorSubject<List<DashboardPortfolioEvent>> getPortfolioEvents() {
-		updatePortfolioEvents();
+//		updatePortfolioEvents();
+		mockUpdatePortfolioEvents();
 		return portfolioEventsSubject;
 	}
 
@@ -53,5 +58,17 @@ public class InvestorDashboardManager
 
 	private void handleUpdatePortfolioEventsError(Throwable error) {
 		portfolioEventsSubject.onError(error);
+	}
+
+	private void mockUpdatePortfolioEvents() {
+		List<DashboardPortfolioEvent> events = new ArrayList<>();
+		for (int i = 0; i < 3; i++) {
+			DashboardPortfolioEvent event = new DashboardPortfolioEvent();
+			event.setDate(DateTime.now().minusSeconds(new Random().nextInt(100000)));
+			event.setValue(new Random().nextDouble() * 100 - 50);
+			event.setDescription("BlockChainTrader program was reinvested");
+			events.add(event);
+		}
+		portfolioEventsSubject.onNext(events);
 	}
 }

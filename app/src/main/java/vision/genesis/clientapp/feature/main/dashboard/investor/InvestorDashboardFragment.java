@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
-import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -19,20 +18,17 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.DashboardPortfolioEvent;
-import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.programs.DashboardPagerAdapter;
-import vision.genesis.clientapp.feature.main.portfolio_events.PortfolioEventsActivity;
 import vision.genesis.clientapp.feature.main.tooltip.TooltipActivity;
 import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
 import vision.genesis.clientapp.model.TooltipModel;
 import vision.genesis.clientapp.ui.PortfolioEventDashboardView;
 import vision.genesis.clientapp.utils.ThemeUtil;
-import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -41,33 +37,37 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class InvestorDashboardFragment extends BaseFragment implements InvestorDashboardView, ViewPager.OnPageChangeListener
 {
-	@BindView(R.id.title)
-	public TextView title;
+//	@BindView(R.id.refresh_layout)
+//	public SwipeRefreshLayout refreshLayout;
+
+	@BindView(R.id.tab_layout_chart)
+	public TabLayout tabLayoutChart;
 
 	@BindView(R.id.investor_dashboard_header_view_pager)
 	public ViewPager headerViewPager;
 
-	@BindView(R.id.indicator)
-	public ScrollingPagerIndicator indicator;
-
-	@BindView(R.id.label_portfolio_events)
-	public TextView portfolioEventsLabel;
-
 	@BindView(R.id.scroll_view_events)
 	public HorizontalScrollView eventsScrollView;
 
-	@BindView(R.id.tab_layout)
-	public TabLayout tabLayout;
+	@BindView(R.id.group_events)
+	public ViewGroup eventsGroup;
+
+	@BindView(R.id.tab_layout_assets)
+	public TabLayout tabLayoutAssets;
 
 	@BindView(R.id.view_pager_dashboard)
-	public ViewPager viewPager;
+	public ViewPager viewPagerAssets;
 
 	@InjectPresenter
 	InvestorDashboardPresenter investorDashboardPresenter;
 
-	private TabLayout.OnTabSelectedListener tabSelectedListener;
+	private TabLayout.OnTabSelectedListener headerTabSelectedListener;
 
-	private TabLayout.TabLayoutOnPageChangeListener tabLayoutOnPageChangeListener;
+	private TabLayout.OnTabSelectedListener assetsTabSelectedListener;
+
+	private TabLayout.TabLayoutOnPageChangeListener tabLayoutChartOnPageChangeListener;
+
+	private TabLayout.TabLayoutOnPageChangeListener tabLayoutAssetsOnPageChangeListener;
 
 	private DashboardPagerAdapter pagerAdapter;
 
@@ -75,11 +75,11 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 	private Unbinder unbinder;
 
-	@OnClick(R.id.button_see_all)
-	public void onSeeAllEventClicked() {
-		if (getActivity() != null)
-			PortfolioEventsActivity.startWith(getActivity());
-	}
+//	@OnClick(R.id.button_see_all)
+//	public void onSeeAllEventClicked() {
+//		if (getActivity() != null)
+//			PortfolioEventsActivity.startWith(getActivity());
+//	}
 
 	@Nullable
 	@Override
@@ -97,9 +97,11 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 		setFonts();
 
+//		initRefreshLayout();
+		initHeaderTabs();
 		initHeaderViewPager();
-		initTabs();
-		initViewPager();
+		initAssetsTabs();
+		initAssetsViewPager();
 	}
 
 	@Override
@@ -113,14 +115,23 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 		if (pagerAdapter != null)
 			pagerAdapter.destroy();
 
-		if (tabSelectedListener != null)
-			tabLayout.removeOnTabSelectedListener(tabSelectedListener);
+		if (headerTabSelectedListener != null)
+			tabLayoutChart.removeOnTabSelectedListener(headerTabSelectedListener);
 
-		if (tabLayoutOnPageChangeListener != null)
-			viewPager.removeOnPageChangeListener(tabLayoutOnPageChangeListener);
+		if (assetsTabSelectedListener != null)
+			tabLayoutAssets.removeOnTabSelectedListener(assetsTabSelectedListener);
 
-		if (viewPager != null)
-			viewPager.clearOnPageChangeListeners();
+		if (tabLayoutChartOnPageChangeListener != null)
+			headerViewPager.removeOnPageChangeListener(tabLayoutChartOnPageChangeListener);
+
+		if (tabLayoutAssetsOnPageChangeListener != null)
+			viewPagerAssets.removeOnPageChangeListener(tabLayoutAssetsOnPageChangeListener);
+
+		if (headerViewPager != null)
+			headerViewPager.clearOnPageChangeListeners();
+
+		if (viewPagerAssets != null)
+			viewPagerAssets.clearOnPageChangeListeners();
 
 		if (unbinder != null) {
 			unbinder.unbind();
@@ -147,25 +158,26 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	}
 
 	private void setFonts() {
-		title.setTypeface(TypefaceUtil.bold());
-		portfolioEventsLabel.setTypeface(TypefaceUtil.semibold());
+//		portfolioEventsLabel.setTypeface(TypefaceUtil.semibold());
 	}
 
-	private void initHeaderViewPager() {
-		headerViewPager.setAdapter(new DashboardHeaderPagerAdapter(getChildFragmentManager()));
-		indicator.attachToPager(headerViewPager);
-	}
+//	private void initRefreshLayout() {
+//		refreshLayout.setColorSchemeColors(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent),
+//				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent),
+//				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorMedium));
+//		refreshLayout.setOnRefreshListener(() -> investorDashboardPresenter.onSwipeRefresh());
+//	}
 
-	private void initTabs() {
-		tabLayout.addTab(tabLayout.newTab().setText(getContext().getResources().getString(R.string.active)), true);
-		tabLayout.addTab(tabLayout.newTab().setText(getContext().getResources().getString(R.string.archived)));
-		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+	private void initHeaderTabs() {
+		tabLayoutChart.addTab(tabLayoutChart.newTab().setText(GenesisVisionApplication.INSTANCE.getString(R.string.portfolio)), true);
+		tabLayoutChart.addTab(tabLayoutChart.newTab().setText(GenesisVisionApplication.INSTANCE.getString(R.string.profit)));
+		tabLayoutChart.setTabGravity(TabLayout.GRAVITY_FILL);
 
-		tabSelectedListener = new TabLayout.OnTabSelectedListener()
+		headerTabSelectedListener = new TabLayout.OnTabSelectedListener()
 		{
 			@Override
 			public void onTabSelected(TabLayout.Tab tab) {
-				viewPager.setCurrentItem(tab.getPosition());
+				headerViewPager.setCurrentItem(tab.getPosition());
 			}
 
 			@Override
@@ -179,16 +191,49 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 			}
 		};
 
-		tabLayout.addOnTabSelectedListener(tabSelectedListener);
+		tabLayoutChart.addOnTabSelectedListener(headerTabSelectedListener);
 	}
 
-	private void initViewPager() {
-		pagerAdapter = new DashboardPagerAdapter(getActivity().getSupportFragmentManager());
-		viewPager.setAdapter(pagerAdapter);
+	private void initHeaderViewPager() {
+		headerViewPager.setAdapter(new DashboardHeaderPagerAdapter(getChildFragmentManager()));
 
-		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
-		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
-		viewPager.addOnPageChangeListener(this);
+		tabLayoutChartOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayoutChart);
+		headerViewPager.addOnPageChangeListener(tabLayoutChartOnPageChangeListener);
+	}
+
+	private void initAssetsTabs() {
+		tabLayoutAssets.addTab(tabLayoutAssets.newTab().setText(GenesisVisionApplication.INSTANCE.getString(R.string.programs)), true);
+		tabLayoutAssets.addTab(tabLayoutAssets.newTab().setText(GenesisVisionApplication.INSTANCE.getString(R.string.funds)));
+		tabLayoutAssets.setTabGravity(TabLayout.GRAVITY_FILL);
+
+		assetsTabSelectedListener = new TabLayout.OnTabSelectedListener()
+		{
+			@Override
+			public void onTabSelected(TabLayout.Tab tab) {
+				viewPagerAssets.setCurrentItem(tab.getPosition());
+			}
+
+			@Override
+			public void onTabUnselected(TabLayout.Tab tab) {
+
+			}
+
+			@Override
+			public void onTabReselected(TabLayout.Tab tab) {
+
+			}
+		};
+
+		tabLayoutAssets.addOnTabSelectedListener(assetsTabSelectedListener);
+	}
+
+	private void initAssetsViewPager() {
+		pagerAdapter = new DashboardPagerAdapter(getActivity().getSupportFragmentManager());
+		viewPagerAssets.setAdapter(pagerAdapter);
+
+		tabLayoutAssetsOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayoutAssets);
+		viewPagerAssets.addOnPageChangeListener(tabLayoutAssetsOnPageChangeListener);
+		viewPagerAssets.addOnPageChangeListener(this);
 	}
 
 	@Override
@@ -216,13 +261,14 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	}
 
 	@Override
-	public void setRefreshing(boolean show) {
-		pagerAdapter.setRefreshing(show);
+	public void setRefreshing(boolean refreshing) {
+//		if (refreshLayout != null)
+//			refreshLayout.setRefreshing(refreshing);
 	}
 
 	@Override
 	public void showSnackbarMessage(String message) {
-		showSnackbar(message, viewPager);
+		showSnackbar(message, viewPagerAssets);
 	}
 
 	@Override
@@ -233,10 +279,11 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 	@Override
 	public void setPortfolioEvents(List<DashboardPortfolioEvent> events) {
+		eventsGroup.removeAllViews();
 		for (DashboardPortfolioEvent event : events) {
 			PortfolioEventDashboardView eventView = new PortfolioEventDashboardView(getContext());
 			eventView.setEvent(event);
-			eventsScrollView.addView(eventView);
+			eventsGroup.addView(eventView);
 		}
 	}
 

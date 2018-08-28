@@ -7,7 +7,7 @@ import com.arellomobile.mvp.MvpView;
  * Created by Vitaly on 13/08/2018.
  */
 
-interface InvestorDashboardHeaderView extends MvpView
+interface InvestorDashboardHeaderPortfolioView extends MvpView
 {
 	void setData(String value, String valueSecondary);
 }

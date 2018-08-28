@@ -80,10 +80,4 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 		archivedProgramsFragment.showEmpty(show);
 
 	}
-
-	public void setRefreshing(boolean show) {
-		activeProgramsFragment.setRefreshing(show);
-		archivedProgramsFragment.setRefreshing(show);
-
-	}
 }

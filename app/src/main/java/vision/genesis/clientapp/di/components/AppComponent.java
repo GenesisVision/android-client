@@ -17,7 +17,7 @@ import vision.genesis.clientapp.feature.main.MainPresenter;
 import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
 import vision.genesis.clientapp.feature.main.assets.AssetsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.investor.InvestorDashboardPresenter;
-import vision.genesis.clientapp.feature.main.dashboard.investor.header.InvestorDashboardHeaderPresenter;
+import vision.genesis.clientapp.feature.main.dashboard.investor.header.InvestorDashboardHeaderPortfolioPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.manager.ManagerDashboardPresenter;
 import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
 import vision.genesis.clientapp.feature.main.message.MessageActivity;
@@ -139,7 +139,7 @@ public interface AppComponent
 
 	void inject(CreateProgramThirdStepPresenter createProgramThirdStepPresenter);
 
-	void inject(InvestorDashboardHeaderPresenter investorDashboardHeaderPresenter);
+	void inject(InvestorDashboardHeaderPortfolioPresenter investorDashboardHeaderPortfolioPresenter);
 
 	void inject(PortfolioEventsListPresenter portfolioEventsListPresenter);
 }

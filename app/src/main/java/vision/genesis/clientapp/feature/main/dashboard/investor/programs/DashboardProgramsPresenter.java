@@ -36,7 +36,6 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 	}
 
 	void onSwipeRefresh() {
-		getViewState().setRefreshing(true);
 		EventBus.getDefault().post(new OnDashboardProgramsUpdateEvent());
 	}
 

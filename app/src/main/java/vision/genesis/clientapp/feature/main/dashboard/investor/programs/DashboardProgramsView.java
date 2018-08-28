@@ -14,8 +14,6 @@ import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
 
 interface DashboardProgramsView extends MvpView
 {
-	void setRefreshing(boolean refreshing);
-
 	void showProgressBar(boolean show);
 
 	void showEmpty(boolean show);

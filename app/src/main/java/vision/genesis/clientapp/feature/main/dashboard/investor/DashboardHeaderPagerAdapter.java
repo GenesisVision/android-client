@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import vision.genesis.clientapp.feature.main.dashboard.investor.header.InvestorDashboardHeaderFragment;
+import vision.genesis.clientapp.feature.main.dashboard.investor.header.InvestorDashboardHeaderPortfolioFragment;
 
 /**
  * GenesisVisionAndroid
@@ -12,9 +12,9 @@ import vision.genesis.clientapp.feature.main.dashboard.investor.header.InvestorD
  */
 public class DashboardHeaderPagerAdapter extends FragmentStatePagerAdapter
 {
-	private InvestorDashboardHeaderFragment value;
+	private InvestorDashboardHeaderPortfolioFragment portfolio;
 
-	private InvestorDashboardHeaderFragment profit;
+	private InvestorDashboardHeaderPortfolioFragment profit;
 
 	DashboardHeaderPagerAdapter(FragmentManager fm) {
 		super(fm);
@@ -23,19 +23,19 @@ public class DashboardHeaderPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	private void createFragments() {
-		value = InvestorDashboardHeaderFragment.with(InvestorDashboardHeaderFragment.TYPE_PORTFOLIO);
-		profit = InvestorDashboardHeaderFragment.with(InvestorDashboardHeaderFragment.TYPE_PROFIT);
+		portfolio = new InvestorDashboardHeaderPortfolioFragment();
+		profit = new InvestorDashboardHeaderPortfolioFragment();
 	}
 
 	@Override
 	public Fragment getItem(int position) {
 		switch (position) {
 			case 0:
-				return value;
+				return portfolio;
 			case 1:
 				return profit;
 			default:
-				return value;
+				return portfolio;
 		}
 	}
 

@@ -17,7 +17,7 @@ import vision.genesis.clientapp.managers.InvestorDashboardManager;
  */
 
 @InjectViewState
-public class InvestorDashboardHeaderPresenter extends MvpPresenter<InvestorDashboardHeaderView>
+public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<InvestorDashboardHeaderPortfolioView>
 {
 	@Inject
 	public Context context;

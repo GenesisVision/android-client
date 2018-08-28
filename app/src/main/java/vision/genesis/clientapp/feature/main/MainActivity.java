@@ -200,7 +200,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 
 		bottomNavigationView.setAccentColor(ThemeUtil.getColorByAttrId(this, R.attr.colorAccent));
 		bottomNavigationView.setInactiveColor(ThemeUtil.getColorByAttrId(this, R.attr.colorTextSecondary));
-		bottomNavigationView.setDefaultBackgroundColor(ThemeUtil.getColorByAttrId(this, R.attr.colorCard));
+		bottomNavigationView.setDefaultBackgroundColor(ThemeUtil.getColorByAttrId(this, R.attr.colorBottom));
 
 		bottomNavigationView.setTitleState(AHBottomNavigation.TitleState.ALWAYS_HIDE);
 

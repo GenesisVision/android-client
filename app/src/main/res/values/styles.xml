@@ -13,8 +13,10 @@
 
     <style name="AppTheme.Base.Dark" parent="AppTheme.Base">
         <item name="android:windowBackground">@color/darkBackground</item>
+        <item name="colorBottom">@color/darkBottom</item>
         <item name="colorBackground">@color/darkBackground</item>
         <item name="colorCard">@color/darkCard</item>
+        <item name="colorCardLight">@color/darkCardLight</item>
         <item name="colorDelimiter">@color/darkDelimiter</item>
         <item name="colorTextPrimary">@color/darkTextPrimary</item>
         <item name="colorTextSecondary">@color/darkTextSecondary</item>
@@ -22,8 +24,10 @@
 
     <style name="AppTheme.Base.Light" parent="AppTheme.Base">
         <item name="android:windowBackground">@color/lightBackground</item>
+        <item name="colorBottom">@color/lightBottom</item>
         <item name="colorBackground">@color/lightBackground</item>
         <item name="colorCard">@color/lightCard</item>
+        <item name="colorCardLight">@color/lightCardLight</item>
         <item name="colorDelimiter">@color/lightCard</item>
         <item name="colorTextPrimary">@color/lightTextPrimary</item>
         <item name="colorTextSecondary">@color/lightTextSecondary</item>
@@ -259,4 +263,43 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">36sp</item>
     </style>
+
+    <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16sp</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="dashboard_header_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?attr/colorTextSecondary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="dashboard_header_value">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="dashboard_header_secondary_value">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:textColor">?attr/colorTextSecondary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="dashboard_header_change_percent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:textColor">?attr/colorGreen</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>

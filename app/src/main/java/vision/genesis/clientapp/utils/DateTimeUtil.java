@@ -27,6 +27,8 @@ public class DateTimeUtil
 
 	private static DateTimeFormatter dateTimeShortFormatter = DateTimeFormat.forPattern("dd.MM.YY HH:mm");
 
+	private static DateTimeFormatter eventDateTimeFormatter = DateTimeFormat.forPattern("dd MMM YYYY, KK:mmaa");
+
 	public static String formatDate(DateTime dateTime) {
 		return dateFormatter.withLocale(Locale.US).print(dateTime);
 	}
@@ -45,6 +47,10 @@ public class DateTimeUtil
 
 	public static String formatDateTime(DateTime dateTime) {
 		return dateTimeFormatter.withLocale(Locale.UK).print(dateTime);
+	}
+
+	public static String formatEventDateTime(DateTime dateTime) {
+		return eventDateTimeFormatter.withLocale(Locale.US).print(dateTime);
 	}
 
 	public static int getDaysToDate(DateTime date) {

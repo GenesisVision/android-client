@@ -5,9 +5,6 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +21,6 @@ import vision.genesis.clientapp.managers.InvestorDashboardManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
 import vision.genesis.clientapp.model.SortingEnum;
-import vision.genesis.clientapp.model.events.OnDashboardProgramsUpdateEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -57,7 +53,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		EventBus.getDefault().register(this);
+//		EventBus.getDefault().register(this);
 	}
 
 	@Override
@@ -65,12 +61,18 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 		if (getInvestmentsSubscription != null)
 			getInvestmentsSubscription.unsubscribe();
 
-		EventBus.getDefault().unregister(this);
+//		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
 
 	void onResume() {
+		getInvestments();
+		getEvents();
+	}
+
+	void onSwipeRefresh() {
+		getViewState().setRefreshing(true);
 		getInvestments();
 		getEvents();
 	}
@@ -162,10 +164,5 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 				getViewState().showNoInternet(true);
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}
-	}
-
-	@Subscribe
-	public void onEventMainThread(OnDashboardProgramsUpdateEvent event) {
-		getInvestments();
 	}
 }
