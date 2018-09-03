@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 <a name="v10ProfileByIdPublicGet"></a>
 # **v10ProfileByIdPublicGet**
-> ManagerProfile v10ProfileByIdPublicGet(id)
+> ProfilePublic v10ProfileByIdPublicGet(id)
 
 Get public profile
 
@@ -26,7 +26,7 @@ Get public profile
 ProfileApi apiInstance = new ProfileApi();
 UUID id = new UUID(); // UUID | 
 try {
-    ManagerProfile result = apiInstance.v10ProfileByIdPublicGet(id);
+    ProfilePublic result = apiInstance.v10ProfileByIdPublicGet(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProfileApi#v10ProfileByIdPublicGet");
@@ -42,7 +42,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ManagerProfile**](ManagerProfile.md)
+[**ProfilePublic**](ProfilePublic.md)
 
 ### Authorization
 

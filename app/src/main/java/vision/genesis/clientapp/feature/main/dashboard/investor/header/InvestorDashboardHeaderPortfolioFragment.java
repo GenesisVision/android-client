@@ -9,12 +9,16 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.swagger.client.model.DashboardChartValue;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.ui.chart.PortfolioChartView;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -109,8 +113,10 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 		requestsValueSecondary.setTypeface(TypefaceUtil.medium());
 	}
 
-	@Override
-	public void setData(String value, String valueSecondary) {
+	public void setData(DashboardChartValue chartValue) {
+		investorDashboardHeaderPortfolioPresenter.setData(chartValue);
 
+		balanceValue.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatAmount(chartValue.getValue())));
+		changeValue.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatAmount(chartValue.getValue())));
 	}
 }

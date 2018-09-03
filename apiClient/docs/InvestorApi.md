@@ -4,16 +4,25 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v10InvestorDashboardChartValueGet**](InvestorApi.md#v10InvestorDashboardChartValueGet) | **GET** v1.0/investor/dashboard/chart/value | Value chart
-[**v10InvestorDashboardEventsGet**](InvestorApi.md#v10InvestorDashboardEventsGet) | **GET** v1.0/investor/dashboard/events | Portfolio events
-[**v10InvestorDashboardProgramListGet**](InvestorApi.md#v10InvestorDashboardProgramListGet) | **GET** v1.0/investor/dashboard/program/list | Programs list
+[**v10InvestorGet**](InvestorApi.md#v10InvestorGet) | **GET** v1.0/investor | Summary dashdoard info
+[**v10InvestorPortfolioChartGet**](InvestorApi.md#v10InvestorPortfolioChartGet) | **GET** v1.0/investor/portfolio/chart | Portfolio charts
+[**v10InvestorPortfolioEventsGet**](InvestorApi.md#v10InvestorPortfolioEventsGet) | **GET** v1.0/investor/portfolio/events | Portfolio events
+[**v10InvestorProgramsByIdInvestByAmountPost**](InvestorApi.md#v10InvestorProgramsByIdInvestByAmountPost) | **POST** v1.0/investor/programs/{id}/invest/{amount} | investing
+[**v10InvestorProgramsByIdInvestInfoByCurrencyGet**](InvestorApi.md#v10InvestorProgramsByIdInvestInfoByCurrencyGet) | **GET** v1.0/investor/programs/{id}/invest/info/{currency} | Data for investing
+[**v10InvestorProgramsByIdReinvestOffPost**](InvestorApi.md#v10InvestorProgramsByIdReinvestOffPost) | **POST** v1.0/investor/programs/{id}/reinvest/off | Disable reinvesting
+[**v10InvestorProgramsByIdReinvestOnPost**](InvestorApi.md#v10InvestorProgramsByIdReinvestOnPost) | **POST** v1.0/investor/programs/{id}/reinvest/on | Enable reinvesting
+[**v10InvestorProgramsByIdRequestsGet**](InvestorApi.md#v10InvestorProgramsByIdRequestsGet) | **GET** v1.0/investor/programs/{id}/requests | Ger requests
+[**v10InvestorProgramsByIdWithdrawByAmountPost**](InvestorApi.md#v10InvestorProgramsByIdWithdrawByAmountPost) | **POST** v1.0/investor/programs/{id}/withdraw/{amount} | Withdrawal
+[**v10InvestorProgramsByIdWithdrawInfoByCurrencyGet**](InvestorApi.md#v10InvestorProgramsByIdWithdrawInfoByCurrencyGet) | **GET** v1.0/investor/programs/{id}/withdraw/info/{currency} | Data for withdrawal
+[**v10InvestorProgramsGet**](InvestorApi.md#v10InvestorProgramsGet) | **GET** v1.0/investor/programs | Programs list
+[**v10InvestorProgramsRequestsByIdCancelPost**](InvestorApi.md#v10InvestorProgramsRequestsByIdCancelPost) | **POST** v1.0/investor/programs/requests/{id}/cancel | Cancel request
 
 
-<a name="v10InvestorDashboardChartValueGet"></a>
-# **v10InvestorDashboardChartValueGet**
-> DashboardChartValue v10InvestorDashboardChartValueGet(authorization, from, to, currency)
+<a name="v10InvestorGet"></a>
+# **v10InvestorGet**
+> DashboardSummary v10InvestorGet(authorization, sorting, from, to, skip, take)
 
-Value chart
+Summary dashdoard info
 
 ### Example
 ```java
@@ -24,14 +33,16 @@ Value chart
 
 InvestorApi apiInstance = new InvestorApi();
 String authorization = "authorization_example"; // String | JWT access token
+String sorting = "sorting_example"; // String | 
 DateTime from = new DateTime(); // DateTime | 
 DateTime to = new DateTime(); // DateTime | 
-String currency = "currency_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
 try {
-    DashboardChartValue result = apiInstance.v10InvestorDashboardChartValueGet(authorization, from, to, currency);
+    DashboardSummary result = apiInstance.v10InvestorGet(authorization, sorting, from, to, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling InvestorApi#v10InvestorDashboardChartValueGet");
+    System.err.println("Exception when calling InvestorApi#v10InvestorGet");
     e.printStackTrace();
 }
 ```
@@ -41,9 +52,60 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
+ **sorting** | **String**|  | [optional] [enum: ByShareAsc, ByShareDesc, ByCurrAsc, ByCurrDesc, ByTimeLeftAsc, ByTimeLeftDesc, ByValueAsc, ByValueDesc, ByProfitAsc, ByProfitDesc]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
- **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**DashboardSummary**](DashboardSummary.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10InvestorPortfolioChartGet"></a>
+# **v10InvestorPortfolioChartGet**
+> DashboardChartValue v10InvestorPortfolioChartGet(authorization, currency, from, to)
+
+Portfolio charts
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+String authorization = "authorization_example"; // String | JWT access token
+UUID currency = new UUID(); // UUID | 
+DateTime from = new DateTime(); // DateTime | 
+DateTime to = new DateTime(); // DateTime | 
+try {
+    DashboardChartValue result = apiInstance.v10InvestorPortfolioChartGet(authorization, currency, from, to);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#v10InvestorPortfolioChartGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **currency** | [**UUID**](.md)|  | [optional]
+ **from** | **DateTime**|  | [optional]
+ **to** | **DateTime**|  | [optional]
 
 ### Return type
 
@@ -58,9 +120,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10InvestorDashboardEventsGet"></a>
-# **v10InvestorDashboardEventsGet**
-> DashboardPortfolioEvents v10InvestorDashboardEventsGet(authorization)
+<a name="v10InvestorPortfolioEventsGet"></a>
+# **v10InvestorPortfolioEventsGet**
+> DashboardPortfolioEvents v10InvestorPortfolioEventsGet(authorization, assetId, from, to, type, assetType, skip, take)
 
 Portfolio events
 
@@ -73,11 +135,18 @@ Portfolio events
 
 InvestorApi apiInstance = new InvestorApi();
 String authorization = "authorization_example"; // String | JWT access token
+UUID assetId = new UUID(); // UUID | 
+DateTime from = new DateTime(); // DateTime | 
+DateTime to = new DateTime(); // DateTime | 
+String type = "type_example"; // String | 
+String assetType = "assetType_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
 try {
-    DashboardPortfolioEvents result = apiInstance.v10InvestorDashboardEventsGet(authorization);
+    DashboardPortfolioEvents result = apiInstance.v10InvestorPortfolioEventsGet(authorization, assetId, from, to, type, assetType, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling InvestorApi#v10InvestorDashboardEventsGet");
+    System.err.println("Exception when calling InvestorApi#v10InvestorPortfolioEventsGet");
     e.printStackTrace();
 }
 ```
@@ -87,6 +156,13 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
+ **assetId** | [**UUID**](.md)|  | [optional]
+ **from** | **DateTime**|  | [optional]
+ **to** | **DateTime**|  | [optional]
+ **type** | **String**|  | [optional] [enum: All, Invest, Withdraw, Profit, Reinvest, Canceled, Ended]
+ **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
 
 ### Return type
 
@@ -101,9 +177,332 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10InvestorDashboardProgramListGet"></a>
-# **v10InvestorDashboardProgramListGet**
-> DashboardProgramsList v10InvestorDashboardProgramListGet(authorization, sorting, statisticDateFrom, statisticDateTo, skip, take)
+<a name="v10InvestorProgramsByIdInvestByAmountPost"></a>
+# **v10InvestorProgramsByIdInvestByAmountPost**
+> Void v10InvestorProgramsByIdInvestByAmountPost(id, amount, authorization)
+
+investing
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+UUID id = new UUID(); // UUID | 
+Double amount = 3.4D; // Double | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.v10InvestorProgramsByIdInvestByAmountPost(id, amount, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#v10InvestorProgramsByIdInvestByAmountPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **amount** | **Double**|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10InvestorProgramsByIdInvestInfoByCurrencyGet"></a>
+# **v10InvestorProgramsByIdInvestInfoByCurrencyGet**
+> InvestInfo v10InvestorProgramsByIdInvestInfoByCurrencyGet(id, currency, authorization)
+
+Data for investing
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+UUID id = new UUID(); // UUID | 
+String currency = "currency_example"; // String | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    InvestInfo result = apiInstance.v10InvestorProgramsByIdInvestInfoByCurrencyGet(id, currency, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#v10InvestorProgramsByIdInvestInfoByCurrencyGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**InvestInfo**](InvestInfo.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10InvestorProgramsByIdReinvestOffPost"></a>
+# **v10InvestorProgramsByIdReinvestOffPost**
+> Void v10InvestorProgramsByIdReinvestOffPost(id, authorization)
+
+Disable reinvesting
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.v10InvestorProgramsByIdReinvestOffPost(id, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#v10InvestorProgramsByIdReinvestOffPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10InvestorProgramsByIdReinvestOnPost"></a>
+# **v10InvestorProgramsByIdReinvestOnPost**
+> Void v10InvestorProgramsByIdReinvestOnPost(id, authorization)
+
+Enable reinvesting
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.v10InvestorProgramsByIdReinvestOnPost(id, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#v10InvestorProgramsByIdReinvestOnPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10InvestorProgramsByIdRequestsGet"></a>
+# **v10InvestorProgramsByIdRequestsGet**
+> ProgramRequests v10InvestorProgramsByIdRequestsGet(id, authorization)
+
+Ger requests
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    ProgramRequests result = apiInstance.v10InvestorProgramsByIdRequestsGet(id, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#v10InvestorProgramsByIdRequestsGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**ProgramRequests**](ProgramRequests.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10InvestorProgramsByIdWithdrawByAmountPost"></a>
+# **v10InvestorProgramsByIdWithdrawByAmountPost**
+> Void v10InvestorProgramsByIdWithdrawByAmountPost(id, amount, authorization)
+
+Withdrawal
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+UUID id = new UUID(); // UUID | 
+Double amount = 3.4D; // Double | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.v10InvestorProgramsByIdWithdrawByAmountPost(id, amount, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#v10InvestorProgramsByIdWithdrawByAmountPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **amount** | **Double**|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10InvestorProgramsByIdWithdrawInfoByCurrencyGet"></a>
+# **v10InvestorProgramsByIdWithdrawInfoByCurrencyGet**
+> WithdrawInfo v10InvestorProgramsByIdWithdrawInfoByCurrencyGet(id, currency, authorization)
+
+Data for withdrawal
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+UUID id = new UUID(); // UUID | 
+String currency = "currency_example"; // String | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    WithdrawInfo result = apiInstance.v10InvestorProgramsByIdWithdrawInfoByCurrencyGet(id, currency, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#v10InvestorProgramsByIdWithdrawInfoByCurrencyGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**WithdrawInfo**](WithdrawInfo.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10InvestorProgramsGet"></a>
+# **v10InvestorProgramsGet**
+> DashboardProgramsList v10InvestorProgramsGet(authorization, sorting, from, to, skip, take)
 
 Programs list
 
@@ -117,15 +516,15 @@ Programs list
 InvestorApi apiInstance = new InvestorApi();
 String authorization = "authorization_example"; // String | JWT access token
 String sorting = "sorting_example"; // String | 
-DateTime statisticDateFrom = new DateTime(); // DateTime | 
-DateTime statisticDateTo = new DateTime(); // DateTime | 
+DateTime from = new DateTime(); // DateTime | 
+DateTime to = new DateTime(); // DateTime | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    DashboardProgramsList result = apiInstance.v10InvestorDashboardProgramListGet(authorization, sorting, statisticDateFrom, statisticDateTo, skip, take);
+    DashboardProgramsList result = apiInstance.v10InvestorProgramsGet(authorization, sorting, from, to, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling InvestorApi#v10InvestorDashboardProgramListGet");
+    System.err.println("Exception when calling InvestorApi#v10InvestorProgramsGet");
     e.printStackTrace();
 }
 ```
@@ -136,14 +535,59 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
  **sorting** | **String**|  | [optional] [enum: ByShareAsc, ByShareDesc, ByCurrAsc, ByCurrDesc, ByTimeLeftAsc, ByTimeLeftDesc, ByValueAsc, ByValueDesc, ByProfitAsc, ByProfitDesc]
- **statisticDateFrom** | **DateTime**|  | [optional]
- **statisticDateTo** | **DateTime**|  | [optional]
+ **from** | **DateTime**|  | [optional]
+ **to** | **DateTime**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
 ### Return type
 
 [**DashboardProgramsList**](DashboardProgramsList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10InvestorProgramsRequestsByIdCancelPost"></a>
+# **v10InvestorProgramsRequestsByIdCancelPost**
+> Void v10InvestorProgramsRequestsByIdCancelPost(id, authorization)
+
+Cancel request
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.v10InvestorProgramsRequestsByIdCancelPost(id, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#v10InvestorProgramsRequestsByIdCancelPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
 
 ### Authorization
 

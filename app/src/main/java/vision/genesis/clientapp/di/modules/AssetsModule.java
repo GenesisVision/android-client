@@ -5,7 +5,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import io.swagger.client.api.InvestorApi;
-import io.swagger.client.api.ProgramApi;
+import io.swagger.client.api.ProgramsApi;
 import io.swagger.client.api.RateApi;
 import vision.genesis.clientapp.managers.InvestorDashboardManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
@@ -28,8 +28,8 @@ public class AssetsModule
 
 //	@Provides
 //	@Singleton
-//	public ProgramsManager provideProgramsManager(InvestorApi investorApi, ManagerApi managerApi, ProgramApi programApi) {
-//		return new ProgramsManager(investorApi, managerApi, programApi);
+//	public ProgramsManager provideProgramsManager(InvestorApi investorApi, ManagerApi managerApi, ProgramsApi programsApi) {
+//		return new ProgramsManager(investorApi, managerApi, programsApi);
 //	}
 //
 //	@Provides
@@ -40,7 +40,7 @@ public class AssetsModule
 
 	@Provides
 	@Singleton
-	public ProgramsManager provideProgramsManager(InvestorApi investorApi, ProgramApi programApi) {
+	public ProgramsManager provideProgramsManager(InvestorApi investorApi, ProgramsApi programApi) {
 		return new ProgramsManager(investorApi, programApi);
 	}
 

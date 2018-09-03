@@ -4,10 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import java.util.List;
-
-import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
-
 /**
  * GenesisVision
  * Created by Vitaly on 3/13/18.
@@ -49,14 +45,6 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 		return 2;
 	}
 
-	public void setActivePrograms(List<InvestmentProgramDashboardExtended> programs) {
-		activeProgramsFragment.setPrograms(programs);
-	}
-
-	public void setArchivedPrograms(List<InvestmentProgramDashboardExtended> programs) {
-		archivedProgramsFragment.setPrograms(programs);
-	}
-
 	public void destroy() {
 		if (activeProgramsFragment != null)
 			activeProgramsFragment.onDestroyView();
@@ -68,11 +56,6 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 	public void showProgressBar(boolean show) {
 		activeProgramsFragment.showProgressBar(show);
 		archivedProgramsFragment.showProgressBar(show);
-	}
-
-	public void showNoInternet(boolean show) {
-		activeProgramsFragment.showNoInternet(show);
-		archivedProgramsFragment.showNoInternet(show);
 	}
 
 	public void showEmpty(boolean show) {

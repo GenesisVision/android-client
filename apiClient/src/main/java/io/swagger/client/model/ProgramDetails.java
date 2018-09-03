@@ -38,8 +38,8 @@ public class ProgramDetails
 	@SerializedName("id")
 	private UUID id = null;
 
-	@SerializedName("avatar")
-	private String avatar = null;
+	@SerializedName("logo")
+	private String logo = null;
 
 	@SerializedName("title")
 	private String title = null;
@@ -66,7 +66,7 @@ public class ProgramDetails
 	private Double availableForInvestment = null;
 
 	@SerializedName("manager")
-	private ManagerProfile manager = null;
+	private ProfilePublic manager = null;
 
 	@SerializedName("statistic")
 	private ProgramDetailsListStatistic statistic = null;
@@ -96,23 +96,23 @@ public class ProgramDetails
 		this.id = id;
 	}
 
-	public ProgramDetails avatar(String avatar) {
-		this.avatar = avatar;
+	public ProgramDetails logo(String logo) {
+		this.logo = logo;
 		return this;
 	}
 
 	/**
-	 * Get avatar
+	 * Get logo
 	 *
-	 * @return avatar
+	 * @return logo
 	 **/
 	@ApiModelProperty(value = "")
-	public String getAvatar() {
-		return avatar;
+	public String getLogo() {
+		return logo;
 	}
 
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 
 	public ProgramDetails title(String title) {
@@ -267,7 +267,7 @@ public class ProgramDetails
 		this.availableForInvestment = availableForInvestment;
 	}
 
-	public ProgramDetails manager(ManagerProfile manager) {
+	public ProgramDetails manager(ProfilePublic manager) {
 		this.manager = manager;
 		return this;
 	}
@@ -278,11 +278,11 @@ public class ProgramDetails
 	 * @return manager
 	 **/
 	@ApiModelProperty(value = "")
-	public ManagerProfile getManager() {
+	public ProfilePublic getManager() {
 		return manager;
 	}
 
-	public void setManager(ManagerProfile manager) {
+	public void setManager(ProfilePublic manager) {
 		this.manager = manager;
 	}
 
@@ -361,7 +361,7 @@ public class ProgramDetails
 		}
 		ProgramDetails programDetails = (ProgramDetails) o;
 		return Objects.equals(this.id, programDetails.id) &&
-				Objects.equals(this.avatar, programDetails.avatar) &&
+				Objects.equals(this.logo, programDetails.logo) &&
 				Objects.equals(this.title, programDetails.title) &&
 				Objects.equals(this.description, programDetails.description) &&
 				Objects.equals(this.currency, programDetails.currency) &&
@@ -378,7 +378,7 @@ public class ProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, avatar, title, description, currency, level, periodDuration, periodDateStart, periodDateEnd, availableForInvestment, manager, statistic, chart, personalProgramDetails);
+		return Objects.hash(id, logo, title, description, currency, level, periodDuration, periodDateStart, periodDateEnd, availableForInvestment, manager, statistic, chart, personalProgramDetails);
 	}
 
 	@Override
@@ -387,7 +387,7 @@ public class ProgramDetails
 		sb.append("class ProgramDetails {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
+		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");

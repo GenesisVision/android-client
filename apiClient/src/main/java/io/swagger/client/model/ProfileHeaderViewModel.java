@@ -32,11 +32,14 @@ public class ProfileHeaderViewModel
 	@SerializedName("name")
 	private String name = null;
 
+	@SerializedName("email")
+	private String email = null;
+
 	@SerializedName("avatar")
 	private String avatar = null;
 
-	@SerializedName("hasNotifications")
-	private Boolean hasNotifications = null;
+	@SerializedName("notificationsAmount")
+	private Integer notificationsAmount = null;
 
 	@SerializedName("favoritesCount")
 	private Integer favoritesCount = null;
@@ -88,6 +91,25 @@ public class ProfileHeaderViewModel
 		this.name = name;
 	}
 
+	public ProfileHeaderViewModel email(String email) {
+		this.email = email;
+		return this;
+	}
+
+	/**
+	 * Get email
+	 *
+	 * @return email
+	 **/
+	@ApiModelProperty(value = "")
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public ProfileHeaderViewModel avatar(String avatar) {
 		this.avatar = avatar;
 		return this;
@@ -107,23 +129,23 @@ public class ProfileHeaderViewModel
 		this.avatar = avatar;
 	}
 
-	public ProfileHeaderViewModel hasNotifications(Boolean hasNotifications) {
-		this.hasNotifications = hasNotifications;
+	public ProfileHeaderViewModel notificationsAmount(Integer notificationsAmount) {
+		this.notificationsAmount = notificationsAmount;
 		return this;
 	}
 
 	/**
-	 * Get hasNotifications
+	 * Get notificationsAmount
 	 *
-	 * @return hasNotifications
+	 * @return notificationsAmount
 	 **/
 	@ApiModelProperty(value = "")
-	public Boolean isHasNotifications() {
-		return hasNotifications;
+	public Integer getNotificationsAmount() {
+		return notificationsAmount;
 	}
 
-	public void setHasNotifications(Boolean hasNotifications) {
-		this.hasNotifications = hasNotifications;
+	public void setNotificationsAmount(Integer notificationsAmount) {
+		this.notificationsAmount = notificationsAmount;
 	}
 
 	public ProfileHeaderViewModel favoritesCount(Integer favoritesCount) {
@@ -214,8 +236,9 @@ public class ProfileHeaderViewModel
 		ProfileHeaderViewModel profileHeaderViewModel = (ProfileHeaderViewModel) o;
 		return Objects.equals(this.id, profileHeaderViewModel.id) &&
 				Objects.equals(this.name, profileHeaderViewModel.name) &&
+				Objects.equals(this.email, profileHeaderViewModel.email) &&
 				Objects.equals(this.avatar, profileHeaderViewModel.avatar) &&
-				Objects.equals(this.hasNotifications, profileHeaderViewModel.hasNotifications) &&
+				Objects.equals(this.notificationsAmount, profileHeaderViewModel.notificationsAmount) &&
 				Objects.equals(this.favoritesCount, profileHeaderViewModel.favoritesCount) &&
 				Objects.equals(this.totalBalanceGvt, profileHeaderViewModel.totalBalanceGvt) &&
 				Objects.equals(this.investedGvt, profileHeaderViewModel.investedGvt) &&
@@ -224,7 +247,7 @@ public class ProfileHeaderViewModel
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, avatar, hasNotifications, favoritesCount, totalBalanceGvt, investedGvt, availableGvt);
+		return Objects.hash(id, name, email, avatar, notificationsAmount, favoritesCount, totalBalanceGvt, investedGvt, availableGvt);
 	}
 
 
@@ -235,8 +258,9 @@ public class ProfileHeaderViewModel
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
+		sb.append("    email: ").append(toIndentedString(email)).append("\n");
 		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
-		sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
+		sb.append("    notificationsAmount: ").append(toIndentedString(notificationsAmount)).append("\n");
 		sb.append("    favoritesCount: ").append(toIndentedString(favoritesCount)).append("\n");
 		sb.append("    totalBalanceGvt: ").append(toIndentedString(totalBalanceGvt)).append("\n");
 		sb.append("    investedGvt: ").append(toIndentedString(investedGvt)).append("\n");

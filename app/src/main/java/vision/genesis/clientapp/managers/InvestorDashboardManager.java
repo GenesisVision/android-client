@@ -10,6 +10,7 @@ import io.swagger.client.api.InvestorApi;
 import io.swagger.client.model.DashboardPortfolioEvent;
 import io.swagger.client.model.DashboardPortfolioEvents;
 import io.swagger.client.model.DashboardProgramsList;
+import io.swagger.client.model.DashboardSummary;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
@@ -30,22 +31,23 @@ public class InvestorDashboardManager
 		this.investorApi = investorApi;
 	}
 
-	public Observable<DashboardProgramsList> getPrograms(String sorting, DateRange dateRange, Integer skip, Integer take) {
-		return investorApi.v10InvestorDashboardProgramListGet(AuthManager.token.getValue(), sorting, dateRange.getFrom(), dateRange.getTo(), skip, take);
+	public Observable<DashboardSummary> getDashboard(DateRange dateRange) {
+		return investorApi.v10InvestorGet(AuthManager.token.getValue(), null, dateRange.getFrom(), dateRange.getTo(), 0, 10);
 	}
 
-	public Observable<DashboardProgramsList> getPortfolioEvents(String sorting, DateRange dateRange, Integer skip, Integer take) {
-		return investorApi.v10InvestorDashboardProgramListGet(AuthManager.token.getValue(), sorting, dateRange.getFrom(), dateRange.getTo(), skip, take);
+	public Observable<DashboardProgramsList> getPrograms(String sorting, DateRange dateRange, Integer skip, Integer take) {
+		return investorApi.v10InvestorProgramsGet(AuthManager.token.getValue(), sorting, dateRange.getFrom(), dateRange.getTo(), skip, take);
 	}
 
 	public BehaviorSubject<List<DashboardPortfolioEvent>> getPortfolioEvents() {
-//		updatePortfolioEvents();
-		mockUpdatePortfolioEvents();
+		updatePortfolioEvents();
+//		mockUpdatePortfolioEvents();
 		return portfolioEventsSubject;
 	}
 
 	private void updatePortfolioEvents() {
-		investorApi.v10InvestorDashboardEventsGet(AuthManager.token.getValue())
+		investorApi.v10InvestorPortfolioEventsGet(AuthManager.token.getValue(),
+				null, null, null, null, null, 0, 10)
 				.observeOn(Schedulers.io())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleUpdatePortfolioEventsResponse,
@@ -66,7 +68,7 @@ public class InvestorDashboardManager
 			DashboardPortfolioEvent event = new DashboardPortfolioEvent();
 			event.setDate(DateTime.now().minusSeconds(new Random().nextInt(100000)));
 			event.setValue(new Random().nextDouble() * 100 - 50);
-			event.setDescription("BlockChainTrader program was reinvested");
+//			event.setDescription("BlockChainTrader program was reinvested");
 			events.add(event);
 		}
 		portfolioEventsSubject.onNext(events);

@@ -36,8 +36,8 @@ public class ProgramDetailsFull
 	@SerializedName("id")
 	private UUID id = null;
 
-	@SerializedName("avatar")
-	private String avatar = null;
+	@SerializedName("logo")
+	private String logo = null;
 
 	@SerializedName("description")
 	private String description = null;
@@ -67,7 +67,7 @@ public class ProgramDetailsFull
 	private Double availableForInvestment = null;
 
 	@SerializedName("manager")
-	private ManagerProfile manager = null;
+	private ProfilePublic manager = null;
 
 	@SerializedName("statistic")
 	private ProgramStatistic statistic = null;
@@ -94,23 +94,23 @@ public class ProgramDetailsFull
 		this.id = id;
 	}
 
-	public ProgramDetailsFull avatar(String avatar) {
-		this.avatar = avatar;
+	public ProgramDetailsFull logo(String logo) {
+		this.logo = logo;
 		return this;
 	}
 
 	/**
-	 * Get avatar
+	 * Get logo
 	 *
-	 * @return avatar
+	 * @return logo
 	 **/
 	@ApiModelProperty(value = "")
-	public String getAvatar() {
-		return avatar;
+	public String getLogo() {
+		return logo;
 	}
 
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 
 	public ProgramDetailsFull description(String description) {
@@ -284,7 +284,7 @@ public class ProgramDetailsFull
 		this.availableForInvestment = availableForInvestment;
 	}
 
-	public ProgramDetailsFull manager(ManagerProfile manager) {
+	public ProgramDetailsFull manager(ProfilePublic manager) {
 		this.manager = manager;
 		return this;
 	}
@@ -295,11 +295,11 @@ public class ProgramDetailsFull
 	 * @return manager
 	 **/
 	@ApiModelProperty(value = "")
-	public ManagerProfile getManager() {
+	public ProfilePublic getManager() {
 		return manager;
 	}
 
-	public void setManager(ManagerProfile manager) {
+	public void setManager(ProfilePublic manager) {
 		this.manager = manager;
 	}
 
@@ -351,7 +351,7 @@ public class ProgramDetailsFull
 		}
 		ProgramDetailsFull programDetailsFull = (ProgramDetailsFull) o;
 		return Objects.equals(this.id, programDetailsFull.id) &&
-				Objects.equals(this.avatar, programDetailsFull.avatar) &&
+				Objects.equals(this.logo, programDetailsFull.logo) &&
 				Objects.equals(this.description, programDetailsFull.description) &&
 				Objects.equals(this.title, programDetailsFull.title) &&
 				Objects.equals(this.currency, programDetailsFull.currency) &&
@@ -368,7 +368,7 @@ public class ProgramDetailsFull
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, avatar, description, title, currency, level, periodDuration, periodDateStart, periodDateEnd, successFee, availableForInvestment, manager, statistic, personalProgramDetails);
+		return Objects.hash(id, logo, description, title, currency, level, periodDuration, periodDateStart, periodDateEnd, successFee, availableForInvestment, manager, statistic, personalProgramDetails);
 	}
 
 	@Override
@@ -377,7 +377,7 @@ public class ProgramDetailsFull
 		sb.append("class ProgramDetailsFull {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
+		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");

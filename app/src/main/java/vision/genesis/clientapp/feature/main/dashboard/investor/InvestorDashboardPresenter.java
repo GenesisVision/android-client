@@ -5,13 +5,12 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.swagger.client.model.DashboardPortfolioEvent;
-import io.swagger.client.model.DashboardProgramsList;
+import io.swagger.client.model.DashboardSummary;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -19,8 +18,6 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.InvestorDashboardManager;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
-import vision.genesis.clientapp.model.SortingEnum;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -37,13 +34,9 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	@Inject
 	public InvestorDashboardManager dashboardManager;
 
-	private Subscription getInvestmentsSubscription;
-
 	private Subscription getEventsSubscription;
 
-	private List<InvestmentProgramDashboardExtended> activePrograms = new ArrayList<>();
-
-	private List<InvestmentProgramDashboardExtended> archivedPrograms = new ArrayList<>();
+	private Subscription dashboardSubscription;
 
 	private DateRange dateRange = new DateRange();
 
@@ -54,91 +47,53 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 		GenesisVisionApplication.getComponent().inject(this);
 
 //		EventBus.getDefault().register(this);
+		getDashboard();
 	}
 
 	@Override
 	public void onDestroy() {
-		if (getInvestmentsSubscription != null)
-			getInvestmentsSubscription.unsubscribe();
-
+		if (getEventsSubscription != null)
+			getEventsSubscription.unsubscribe();
+		if (dashboardSubscription != null)
+			dashboardSubscription.unsubscribe();
 //		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
 
 	void onResume() {
-		getInvestments();
-		getEvents();
+//		getEvents();
 	}
 
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
-		getInvestments();
-		getEvents();
+		getDashboard();
+//		getEvents();
 	}
 
-	private void getInvestments() {
-		getViewState().showProgressBar(true);
-		getInvestmentsSubscription = dashboardManager.getPrograms(SortingEnum.BYPROFITDESC.toString(), dateRange, 0, 1000)
-				.subscribeOn(Schedulers.computation())
-				.map(this::prepareData)
+	private void getDashboard() {
+		if (dashboardSubscription != null)
+			dashboardSubscription.unsubscribe();
+		dashboardSubscription = dashboardManager.getDashboard(dateRange)
+				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::handleGetInvestmentsSuccess,
-						this::handleGetInvestmentsError);
+				.subscribe(this::handleGetDashboardSuccess,
+						this::handleGetDashboardError);
 	}
 
-	private DashboardProgramsList prepareData(DashboardProgramsList dashboard) {
-//		List<InvestmentProgramDashboardInvestor> programs = dashboard.getInvestmentPrograms();
-//		activePrograms = new ArrayList<>();
-//		archivedPrograms = new ArrayList<>();
-//
-//		for (InvestmentProgramDashboardInvestor program : programs) {
-//			InvestmentProgramDashboardExtended programExtended = new InvestmentProgramDashboardExtended(program);
-//
-//			programExtended.setTokens(StringFormatUtil.formatAmount(program.getInvestedTokens(), 0,
-//					Constants.TOKENS_MAX_DECIMAL_POINT_DIGITS));
-//			double tokensFiatValue = program.getInvestedTokens() * program.getToken().getInitialPrice();
-//			programExtended.setTokensFiat(String.format(Locale.getDefault(), "($%.2f)", tokensFiatValue));
-//
-//			programExtended.setProfitShort(StringFormatUtil.formatAmount(program.getProfitFromProgram(), 0, 2));
-//			programExtended.setProfitFull(StringFormatUtil.formatAmount(program.getProfitFromProgram(), 2,
-//					StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.toString())));
-//
-//			programExtended.setEquityChart(ProfitSmallChartView.getPreparedEquityChart(program.getEquityChart()));
-//
-//			if (!program.isIsArchived())
-//				activePrograms.add(programExtended);
-//			else
-//				archivedPrograms.add(programExtended);
-//		}
-
-		return dashboard;
-	}
-
-	private void handleGetInvestmentsSuccess(DashboardProgramsList dashboard) {
-		getInvestmentsSubscription.unsubscribe();
-
+	private void handleGetDashboardSuccess(DashboardSummary response) {
+		dashboardSubscription.unsubscribe();
 		getViewState().setRefreshing(false);
-		getViewState().showProgressBar(false);
-		getViewState().showNoInternet(false);
 
-		getViewState().setActivePrograms(activePrograms);
-		getViewState().setArchivedPrograms(archivedPrograms);
-//		getViewState().setTotalPortfolioValue(dashboard.getTotalPortfolioAmount());
+		getViewState().setChartData(response.getChart());
+		getViewState().setPortfolioEvents(response.getEvents().getEvents());
+		getViewState().setAssetsCount(response.getProgramsCount(), response.getFundsCount());
+
 	}
 
-	private void handleGetInvestmentsError(Throwable throwable) {
-		getInvestmentsSubscription.unsubscribe();
-
+	private void handleGetDashboardError(Throwable throwable) {
+		dashboardSubscription.unsubscribe();
 		getViewState().setRefreshing(false);
-		getViewState().showProgressBar(false);
-		getViewState().showEmpty(false);
-
-		if (ApiErrorResolver.isNetworkError(throwable)) {
-			if (activePrograms.size() == 0 && archivedPrograms.size() == 0)
-				getViewState().showNoInternet(true);
-			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
-		}
 	}
 
 	private void getEvents() {
@@ -157,11 +112,10 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	private void handleGetEventsError(Throwable throwable) {
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
-		getViewState().showEmpty(false);
 
 		if (ApiErrorResolver.isNetworkError(throwable)) {
-			if (activePrograms.size() == 0 && archivedPrograms.size() == 0)
-				getViewState().showNoInternet(true);
+//			if (programs.size() == 0)
+//				getViewState().showNoInternet(true);
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}
 	}

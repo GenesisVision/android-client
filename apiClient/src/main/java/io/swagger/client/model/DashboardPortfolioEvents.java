@@ -30,6 +30,9 @@ public class DashboardPortfolioEvents
 	@SerializedName("events")
 	private List<DashboardPortfolioEvent> events = null;
 
+	@SerializedName("total")
+	private Integer total = null;
+
 	public DashboardPortfolioEvents events(List<DashboardPortfolioEvent> events) {
 		this.events = events;
 		return this;
@@ -57,6 +60,25 @@ public class DashboardPortfolioEvents
 		this.events = events;
 	}
 
+	public DashboardPortfolioEvents total(Integer total) {
+		this.total = total;
+		return this;
+	}
+
+	/**
+	 * Get total
+	 *
+	 * @return total
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getTotal() {
+		return total;
+	}
+
+	public void setTotal(Integer total) {
+		this.total = total;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -67,12 +89,13 @@ public class DashboardPortfolioEvents
 			return false;
 		}
 		DashboardPortfolioEvents dashboardPortfolioEvents = (DashboardPortfolioEvents) o;
-		return Objects.equals(this.events, dashboardPortfolioEvents.events);
+		return Objects.equals(this.events, dashboardPortfolioEvents.events) &&
+				Objects.equals(this.total, dashboardPortfolioEvents.total);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(events);
+		return Objects.hash(events, total);
 	}
 
 
@@ -82,6 +105,7 @@ public class DashboardPortfolioEvents
 		sb.append("class DashboardPortfolioEvents {\n");
 
 		sb.append("    events: ").append(toIndentedString(events)).append("\n");
+		sb.append("    total: ").append(toIndentedString(total)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

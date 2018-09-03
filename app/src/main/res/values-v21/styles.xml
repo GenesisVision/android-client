@@ -10,6 +10,8 @@
         <item name="textColorError">@color/red</item>
         <item name="colorGreen">@color/green</item>
         <item name="colorRed">@color/red</item>
+        <item name="colorPending">@color/pending</item>
+        <item name="colorWithdrawing">@color/withdrawing</item>
     </style>
 
     <style name="AppTheme.Base.Dark" parent="AppTheme.Base">

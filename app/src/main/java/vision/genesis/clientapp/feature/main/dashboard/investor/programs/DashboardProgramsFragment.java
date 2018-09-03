@@ -12,15 +12,14 @@ import android.widget.ProgressBar;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
-import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.DashboardProgramDetails;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
 
 /**
  * GenesisVision
@@ -42,12 +41,6 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
-	@BindView(R.id.button_try_again)
-	public View tryAgainButton;
-
-	@BindView(R.id.group_no_internet)
-	public ViewGroup noInternetGroup;
-
 	@BindView(R.id.group_empty)
 	public ViewGroup emptyGroup;
 
@@ -57,11 +50,6 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 	private DashboardProgramsAdapter dashboardProgramsAdapter;
 
 	private Unbinder unbinder;
-
-	@OnClick(R.id.button_try_again)
-	public void onTryAgainClicked() {
-		dashboardProgramsPresenter.onTryAgainClicked();
-	}
 
 	@OnClick(R.id.button_browse_programs)
 	public void onStartInvestingClicked() {
@@ -106,15 +94,10 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 	}
 
 	@Override
-	public void setPrograms(List<InvestmentProgramDashboardExtended> programs) {
-		dashboardProgramsAdapter.setInvestorPrograms(programs);
+	public void setPrograms(List<DashboardProgramDetails> programs) {
+		dashboardProgramsAdapter.setPrograms(programs);
 
 		showEmpty(programs.size() == 0);
-	}
-
-	@Override
-	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
-		dashboardProgramsAdapter.changeProgramIsFavorite(programId, isFavorite);
 	}
 
 	@Override
@@ -128,14 +111,6 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 	public void showProgressBar(boolean show) {
 		if (progressBar != null) {
 			progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-			tryAgainButton.setVisibility(show ? View.GONE : View.VISIBLE);
-		}
-	}
-
-	@Override
-	public void showNoInternet(boolean show) {
-		if (noInternetGroup != null) {
-			noInternetGroup.setVisibility(show ? View.VISIBLE : View.GONE);
 		}
 	}
 

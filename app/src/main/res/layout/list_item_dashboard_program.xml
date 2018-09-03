@@ -3,257 +3,220 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginBottom="4dp"
-              android:orientation="vertical">
+              android:layout_height="@dimen/item_investment_program_height"
+              android:layout_marginBottom="8dp"
+              android:layout_marginEnd="16dp"
+              android:layout_marginLeft="16dp"
+              android:layout_marginRight="16dp"
+              android:layout_marginStart="16dp"
+              android:layout_marginTop="8dp"
+              android:background="@drawable/program_list_item_background"
+              android:gravity="center_vertical"
+              android:orientation="vertical"
+              android:padding="16dp">
 
-    <LinearLayout
-        android:id="@+id/group_data"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_investment_program_height"
-        android:layout_gravity="center"
-        android:background="@drawable/program_list_item_background"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingEnd="8dp"
-            android:paddingLeft="6dp"
-            android:paddingRight="8dp"
-            android:paddingStart="6dp">
-
-            <vision.genesis.clientapp.ui.AvatarView
-                android:id="@+id/program_logo"
-                android:layout_width="@dimen/dashboard_program_logo_width"
-                android:layout_height="@dimen/dashboard_program_logo_height"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"/>
-
-            <ImageView
-                android:id="@+id/icon_favorite"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginLeft="@dimen/manager_avatar_width"
-                android:layout_marginStart="@dimen/manager_avatar_width"
-                android:background="@drawable/circle_white"
-                android:padding="1dp"
-                android:src="@drawable/ic_star_black_24dp"
-                android:tint="@color/gold"
-                android:visibility="gone"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_toEndOf="@+id/program_logo"
-                android:layout_toLeftOf="@+id/chart"
-                android:layout_toRightOf="@+id/program_logo"
-                android:layout_toStartOf="@+id/chart"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/program_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:textColor="@color/colorMedium"
-                    android:textSize="18sp"
-                    tools:text="My awesome moneymaking machine"/>
-
-                <TextView
-                    android:id="@+id/manager_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="16sp"
-                    tools:text="by Warren Buffett"/>
-
-            </LinearLayout>
-
-            <vision.genesis.clientapp.ui.chart.ProfitSmallChartView
-                android:id="@+id/chart"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"/>
-
-        </RelativeLayout>
+        <vision.genesis.clientapp.ui.AvatarView
+            android:id="@+id/program_logo"
+            android:layout_width="@dimen/dashboard_program_logo_width"
+            android:layout_height="@dimen/dashboard_program_logo_height"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/program_logo"
+            android:layout_toRightOf="@+id/program_logo"
+            android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center">
+            <TextView
+                android:id="@+id/program_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="18sp"
+                tools:text="Janus Capital Group"/>
 
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/tokens"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:gravity="center_horizontal|bottom"
-                    android:textColor="@color/colorMedium"
-                    android:textSize="32sp"
-                    app:autoSizeMaxTextSize="32sp"
-                    app:autoSizeMinTextSize="14sp"
-                    app:autoSizeTextType="uniform"
-                    tools:text="34,123.44"/>
+            <TextView
+                android:id="@+id/manager_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorAccent"
+                android:textSize="14sp"
+                tools:text="Eddie Carr"/>
 
-                <TextView
-                    android:id="@+id/tokens_fiat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tokens"
-                    android:layout_centerHorizontal="true"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="14sp"
-                    tools:text="($8,700)"/>
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/label_my_tokens"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tokens_fiat"
-                    android:layout_centerHorizontal="true"
-                    android:text="@string/my_tokens"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorMedium"
-                    android:textSize="12sp"/>
+    </RelativeLayout>
 
-            </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/left_divider"
-                android:layout_width="4dp"
-                android:layout_height="16dp"
-                android:layout_gravity="center_vertical"
-                android:scaleType="centerInside"
-                android:src="@drawable/dotted_vertical_line"/>
+        <vision.genesis.clientapp.ui.chart.ProfitSmallChartView
+            android:id="@+id/chart"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2"/>
 
-            <RelativeLayout
-                android:id="@+id/group_profit"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center">
+        <LinearLayout
+            android:id="@+id/group_profit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-                <FrameLayout
-                    android:id="@+id/group_profit_value"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_centerHorizontal="true">
+            <TextView
+                android:id="@+id/profit_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_profit_green"
+                android:padding="4dp"
+                android:textColor="?attr/colorGreen"
+                android:textSize="18sp"
+                tools:text="5.4%"/>
 
-                    <RelativeLayout
-                        android:id="@+id/group_profit_short"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/profit_short"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_centerInParent="true"
-                            android:textColor="@color/colorMedium"
-                            android:textSize="32sp"
-                            tools:text="2"/>
-
-                        <View
-                            android:layout_width="4dp"
-                            android:layout_height="4dp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginStart="4dp"
-                            android:layout_toEndOf="@+id/profit_short"
-                            android:layout_toRightOf="@+id/profit_short"
-                            android:background="@drawable/circle_primary"/>
-
-                    </RelativeLayout>
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/profit_full"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_horizontal|bottom"
-                        android:textColor="@color/colorMedium"
-                        android:visibility="gone"
-                        app:autoSizeMaxTextSize="32sp"
-                        app:autoSizeMinTextSize="14sp"
-                        app:autoSizeTextType="uniform"
-                        tools:text="1,230.1234"/>
-
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/profit_currency"
-                    style="@style/item_investment_program_currency"
-                    android:layout_below="@+id/group_profit_value"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="-4dp"
-                    android:text="@string/gvt"
-                    android:textAllCaps="true"
-                    android:textSize="10sp"/>
-
-                <TextView
-                    android:id="@+id/label_profit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/profit_currency"
-                    android:layout_centerHorizontal="true"
-                    android:text="@string/my_profit"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorMedium"
-                    android:textSize="12sp"/>
-
-            </RelativeLayout>
-
-            <ImageView
-                android:id="@+id/right_divider"
-                android:layout_width="4dp"
-                android:layout_height="16dp"
-                android:layout_gravity="center_vertical"
-                android:scaleType="centerInside"
-                android:src="@drawable/dotted_vertical_line"/>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <vision.genesis.clientapp.ui.PeriodLeftView
-                    android:id="@+id/view_period_left"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"/>
-
-            </RelativeLayout>
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/profit_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorTextSecondary"
+                app:autoSizeMaxTextSize="18sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeTextType="uniform"
+                tools:text="+124.6 GVT"/>
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <View
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:background="@drawable/shadow_down_black"/>
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/current_value_label"
+                style="@style/text_label"
+                android:text="@string/current_value"/>
+
+            <TextView
+                android:id="@+id/current_value"
+                style="@style/text_value"
+                android:layout_marginTop="4dp"
+                tools:text="5 672.2321 GVT"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/share_label"
+                style="@style/text_label"
+                android:text="@string/share"/>
+
+            <TextView
+                android:id="@+id/share"
+                style="@style/text_value"
+                android:layout_marginTop="4dp"
+                tools:text="23.73%"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/time_left_label"
+                style="@style/text_label"
+                android:text="@string/time_left"/>
+
+            <vision.genesis.clientapp.ui.PeriodLeftView
+                android:id="@+id/time_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textColor="?attr/colorPending"
+            android:textSize="14sp"
+            tools:text="Pending"/>
+
+        <ImageView
+            android:id="@+id/tooltip_reinvest"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_toLeftOf="@id/label_reinvest"
+            android:layout_toStartOf="@id/label_reinvest"
+            android:padding="8dp"
+            android:src="@drawable/icon_tooltip"/>
+
+        <TextView
+            android:id="@+id/label_reinvest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_toLeftOf="@+id/switch_reinvest"
+            android:layout_toStartOf="@+id/switch_reinvest"
+            android:text="@string/reinvest"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="14sp"/>
+
+        <Switch
+            android:id="@+id/switch_reinvest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

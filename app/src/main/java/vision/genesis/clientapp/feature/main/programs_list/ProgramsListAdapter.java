@@ -121,7 +121,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 			itemView.setOnClickListener(v -> {
 				if (investmentProgram != null) {
 					ProgramInfoModel programInfoModel = new ProgramInfoModel(investmentProgram.getId(),
-							investmentProgram.getAvatar(),
+							investmentProgram.getLogo(),
 							investmentProgram.getTitle(),
 							investmentProgram.getManager().getUsername(),
 							false);
@@ -141,7 +141,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 		}
 
 		private void updateData() {
-			avatar.setImage(investmentProgram.getAvatar(), 100, 100);
+			avatar.setImage(investmentProgram.getLogo(), 100, 100);
 			avatar.setLevel(investmentProgram.getLevel());
 
 //			favoriteIcon.setVisibility(data.isIsFavorite() ? View.VISIBLE : View.GONE);

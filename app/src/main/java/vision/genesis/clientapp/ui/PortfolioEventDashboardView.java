@@ -83,6 +83,6 @@ public class PortfolioEventDashboardView extends RelativeLayout
 		this.value.setText(valueString);
 		this.value.setTextColor(ThemeUtil.getColorByAttrId(getContext(), event.getValue() >= 0 ? R.attr.colorGreen : R.attr.colorRed));
 
-		this.text.setText(event.getDescription());
+//		this.text.setText(event.getDescription());
 	}
 }

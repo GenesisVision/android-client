@@ -7,6 +7,7 @@ import io.swagger.client.model.PasswordModel;
 import io.swagger.client.model.RecoveryCodesViewModel;
 import io.swagger.client.model.RegisterInvestorViewModel;
 import io.swagger.client.model.RegisterManagerViewModel;
+import io.swagger.client.model.ResendConfirmationViewModel;
 import io.swagger.client.model.ResetPasswordViewModel;
 import io.swagger.client.model.TwoFactorAuthenticator;
 import io.swagger.client.model.TwoFactorAuthenticatorConfirm;
@@ -159,17 +160,17 @@ public interface AuthApi
 	);
 
 	/**
-	 * Authorize
+	 * Resend Confirmation Link
 	 *
 	 * @param model (optional)
-	 * @return Call&lt;String&gt;
+	 * @return Call&lt;Void&gt;
 	 */
 	@Headers({
 			"Content-Type:application/json"
 	})
-	@POST("v1.0/auth/signin/broker")
-	Observable<String> v10AuthSigninBrokerPost(
-			@retrofit2.http.Body LoginViewModel model
+	@POST("v1.0/auth/resendconfirmationlink")
+	Observable<Void> v10AuthResendconfirmationlinkPost(
+			@retrofit2.http.Body ResendConfirmationViewModel model
 	);
 
 	/**

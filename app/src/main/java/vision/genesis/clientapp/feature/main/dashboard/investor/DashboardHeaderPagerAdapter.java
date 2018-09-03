@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import io.swagger.client.model.DashboardChartValue;
 import vision.genesis.clientapp.feature.main.dashboard.investor.header.InvestorDashboardHeaderPortfolioFragment;
 
 /**
@@ -42,5 +43,10 @@ public class DashboardHeaderPagerAdapter extends FragmentStatePagerAdapter
 	@Override
 	public int getCount() {
 		return 2;
+	}
+
+	public void setPortfolioChart(DashboardChartValue chart) {
+		if (portfolio != null)
+			portfolio.setData(chart);
 	}
 }

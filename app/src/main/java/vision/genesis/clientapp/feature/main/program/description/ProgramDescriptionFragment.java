@@ -104,7 +104,7 @@ public class ProgramDescriptionFragment extends BaseFragment implements ProgramD
 
 	@Override
 	public void setProgramDescription(ProgramDetailsFull programDetails) {
-		programLogo.setImage(programDetails.getAvatar(), 500, 500);
+		programLogo.setImage(programDetails.getLogo(), 500, 500);
 		programLogo.setLevel(programDetails.getLevel());
 
 		String programDescription = !programDetails.getDescription().isEmpty()

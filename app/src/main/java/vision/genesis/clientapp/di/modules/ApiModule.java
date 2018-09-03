@@ -11,7 +11,7 @@ import io.swagger.client.api.FileApi;
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.PlatformApi;
 import io.swagger.client.api.ProfileApi;
-import io.swagger.client.api.ProgramApi;
+import io.swagger.client.api.ProgramsApi;
 import io.swagger.client.api.RateApi;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -95,8 +95,8 @@ public class ApiModule
 
 	@Provides
 	@Singleton
-	public ProgramApi provideProgramApi(ApiClient apiClient) {
-		return apiClient.createService(ProgramApi.class);
+	public ProgramsApi provideProgramsApi(ApiClient apiClient) {
+		return apiClient.createService(ProgramsApi.class);
 	}
 
 	@Provides

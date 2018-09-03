@@ -43,6 +43,15 @@ public class AssetsValue
 	@SerializedName("avatar")
 	private String avatar = null;
 
+	@SerializedName("value")
+	private Double value = null;
+
+	@SerializedName("changePercent")
+	private Double changePercent = null;
+
+	@SerializedName("changeValue")
+	private Double changeValue = null;
+
 	public AssetsValue type(TypeEnum type) {
 		this.type = type;
 		return this;
@@ -119,6 +128,63 @@ public class AssetsValue
 		this.avatar = avatar;
 	}
 
+	public AssetsValue value(Double value) {
+		this.value = value;
+		return this;
+	}
+
+	/**
+	 * Get value
+	 *
+	 * @return value
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getValue() {
+		return value;
+	}
+
+	public void setValue(Double value) {
+		this.value = value;
+	}
+
+	public AssetsValue changePercent(Double changePercent) {
+		this.changePercent = changePercent;
+		return this;
+	}
+
+	/**
+	 * Get changePercent
+	 *
+	 * @return changePercent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getChangePercent() {
+		return changePercent;
+	}
+
+	public void setChangePercent(Double changePercent) {
+		this.changePercent = changePercent;
+	}
+
+	public AssetsValue changeValue(Double changeValue) {
+		this.changeValue = changeValue;
+		return this;
+	}
+
+	/**
+	 * Get changeValue
+	 *
+	 * @return changeValue
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getChangeValue() {
+		return changeValue;
+	}
+
+	public void setChangeValue(Double changeValue) {
+		this.changeValue = changeValue;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -131,12 +197,15 @@ public class AssetsValue
 		return Objects.equals(this.type, assetsValue.type) &&
 				Objects.equals(this.id, assetsValue.id) &&
 				Objects.equals(this.title, assetsValue.title) &&
-				Objects.equals(this.avatar, assetsValue.avatar);
+				Objects.equals(this.avatar, assetsValue.avatar) &&
+				Objects.equals(this.value, assetsValue.value) &&
+				Objects.equals(this.changePercent, assetsValue.changePercent) &&
+				Objects.equals(this.changeValue, assetsValue.changeValue);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(type, id, title, avatar);
+		return Objects.hash(type, id, title, avatar, value, changePercent, changeValue);
 	}
 
 	@Override
@@ -148,6 +217,9 @@ public class AssetsValue
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
+		sb.append("    value: ").append(toIndentedString(value)).append("\n");
+		sb.append("    changePercent: ").append(toIndentedString(changePercent)).append("\n");
+		sb.append("    changeValue: ").append(toIndentedString(changeValue)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -169,6 +241,8 @@ public class AssetsValue
 	@JsonAdapter(TypeEnum.Adapter.class)
 	public enum TypeEnum
 	{
+		ALL("All"),
+
 		PROGRAM("Program"),
 
 		FUND("Fund");

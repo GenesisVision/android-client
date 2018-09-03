@@ -9,6 +9,8 @@
         <item name="textColorError">@color/red</item>
         <item name="colorGreen">@color/green</item>
         <item name="colorRed">@color/red</item>
+        <item name="colorPending">@color/pending</item>
+        <item name="colorWithdrawing">@color/withdrawing</item>
     </style>
 
     <style name="AppTheme.Base.Dark" parent="AppTheme.Base">
@@ -299,6 +301,20 @@
         <item name="android:layout_marginLeft">8dp</item>
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:textColor">?attr/colorGreen</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="text_label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?attr/colorTextSecondary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="text_value">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
         <item name="android:textSize">14sp</item>
     </style>
 

@@ -19,6 +19,8 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
+import org.joda.time.DateTime;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +38,8 @@ public class DashboardProgramDetails
 	@SerializedName("id")
 	private UUID id = null;
 
-	@SerializedName("avatar")
-	private String avatar = null;
+	@SerializedName("logo")
+	private String logo = null;
 
 	@SerializedName("level")
 	private Integer level = null;
@@ -52,25 +54,43 @@ public class DashboardProgramDetails
 	private CurrencyEnum currency = null;
 
 	@SerializedName("manager")
-	private ManagerProfile manager = null;
+	private ProfilePublic manager = null;
 
 	@SerializedName("share")
 	private Double share = null;
 
-	@SerializedName("timeLeft")
-	private Integer timeLeft = null;
+	@SerializedName("currentValue")
+	private Double currentValue = null;
 
-	@SerializedName("value")
-	private Double value = null;
+	@SerializedName("profitPercent")
+	private Double profitPercent = null;
 
-	@SerializedName("profit")
-	private Double profit = null;
+	@SerializedName("profitValue")
+	private Double profitValue = null;
 
 	@SerializedName("status")
 	private StatusEnum status = null;
 
 	@SerializedName("chart")
 	private List<ChartSimple> chart = null;
+
+	@SerializedName("periodStarts")
+	private DateTime periodStarts = null;
+
+	@SerializedName("periodEnds")
+	private DateTime periodEnds = null;
+
+	@SerializedName("isReinvesting")
+	private Boolean isReinvesting = null;
+
+	@SerializedName("profit")
+	private Double profit = null;
+
+	@SerializedName("timeLeft")
+	private Double timeLeft = null;
+
+	@SerializedName("value")
+	private Double value = null;
 
 	public DashboardProgramDetails id(UUID id) {
 		this.id = id;
@@ -91,23 +111,23 @@ public class DashboardProgramDetails
 		this.id = id;
 	}
 
-	public DashboardProgramDetails avatar(String avatar) {
-		this.avatar = avatar;
+	public DashboardProgramDetails logo(String logo) {
+		this.logo = logo;
 		return this;
 	}
 
 	/**
-	 * Get avatar
+	 * Get logo
 	 *
-	 * @return avatar
+	 * @return logo
 	 **/
 	@ApiModelProperty(value = "")
-	public String getAvatar() {
-		return avatar;
+	public String getLogo() {
+		return logo;
 	}
 
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 
 	public DashboardProgramDetails level(Integer level) {
@@ -186,7 +206,7 @@ public class DashboardProgramDetails
 		this.currency = currency;
 	}
 
-	public DashboardProgramDetails manager(ManagerProfile manager) {
+	public DashboardProgramDetails manager(ProfilePublic manager) {
 		this.manager = manager;
 		return this;
 	}
@@ -197,11 +217,11 @@ public class DashboardProgramDetails
 	 * @return manager
 	 **/
 	@ApiModelProperty(value = "")
-	public ManagerProfile getManager() {
+	public ProfilePublic getManager() {
 		return manager;
 	}
 
-	public void setManager(ManagerProfile manager) {
+	public void setManager(ProfilePublic manager) {
 		this.manager = manager;
 	}
 
@@ -224,61 +244,61 @@ public class DashboardProgramDetails
 		this.share = share;
 	}
 
-	public DashboardProgramDetails timeLeft(Integer timeLeft) {
-		this.timeLeft = timeLeft;
+	public DashboardProgramDetails currentValue(Double currentValue) {
+		this.currentValue = currentValue;
 		return this;
 	}
 
 	/**
-	 * Get timeLeft
+	 * Get currentValue
 	 *
-	 * @return timeLeft
+	 * @return currentValue
 	 **/
 	@ApiModelProperty(value = "")
-	public Integer getTimeLeft() {
-		return timeLeft;
+	public Double getCurrentValue() {
+		return currentValue;
 	}
 
-	public void setTimeLeft(Integer timeLeft) {
-		this.timeLeft = timeLeft;
+	public void setCurrentValue(Double currentValue) {
+		this.currentValue = currentValue;
 	}
 
-	public DashboardProgramDetails value(Double value) {
-		this.value = value;
+	public DashboardProgramDetails profitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
 		return this;
 	}
 
 	/**
-	 * Get value
+	 * Get profitPercent
 	 *
-	 * @return value
+	 * @return profitPercent
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getValue() {
-		return value;
+	public Double getProfitPercent() {
+		return profitPercent;
 	}
 
-	public void setValue(Double value) {
-		this.value = value;
+	public void setProfitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
 	}
 
-	public DashboardProgramDetails profit(Double profit) {
-		this.profit = profit;
+	public DashboardProgramDetails profitValue(Double profitValue) {
+		this.profitValue = profitValue;
 		return this;
 	}
 
 	/**
-	 * Get profit
+	 * Get profitValue
 	 *
-	 * @return profit
+	 * @return profitValue
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getProfit() {
-		return profit;
+	public Double getProfitValue() {
+		return profitValue;
 	}
 
-	public void setProfit(Double profit) {
-		this.profit = profit;
+	public void setProfitValue(Double profitValue) {
+		this.profitValue = profitValue;
 	}
 
 	public DashboardProgramDetails status(StatusEnum status) {
@@ -327,6 +347,102 @@ public class DashboardProgramDetails
 		this.chart = chart;
 	}
 
+	public DashboardProgramDetails periodStarts(DateTime periodStarts) {
+		this.periodStarts = periodStarts;
+		return this;
+	}
+
+	/**
+	 * Get periodStarts
+	 *
+	 * @return periodStarts
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getPeriodStarts() {
+		return periodStarts;
+	}
+
+	public void setPeriodStarts(DateTime periodStarts) {
+		this.periodStarts = periodStarts;
+	}
+
+	public DashboardProgramDetails periodEnds(DateTime periodEnds) {
+		this.periodEnds = periodEnds;
+		return this;
+	}
+
+	/**
+	 * Get periodEnds
+	 *
+	 * @return periodEnds
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getPeriodEnds() {
+		return periodEnds;
+	}
+
+	public void setPeriodEnds(DateTime periodEnds) {
+		this.periodEnds = periodEnds;
+	}
+
+	public DashboardProgramDetails isReinvesting(Boolean isReinvesting) {
+		this.isReinvesting = isReinvesting;
+		return this;
+	}
+
+	/**
+	 * Get isReinvesting
+	 *
+	 * @return isReinvesting
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsReinvesting() {
+		return isReinvesting;
+	}
+
+	public void setIsReinvesting(Boolean isReinvesting) {
+		this.isReinvesting = isReinvesting;
+	}
+
+	public DashboardProgramDetails profit(Double profit) {
+		this.profit = profit;
+		return this;
+	}
+
+	/**
+	 * Get profit
+	 *
+	 * @return profit
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProfit() {
+		return profit;
+	}
+
+	public void setProfit(Double profit) {
+		this.profit = profit;
+	}
+
+	/**
+	 * Get timeLeft
+	 *
+	 * @return timeLeft
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getTimeLeft() {
+		return timeLeft;
+	}
+
+	/**
+	 * Get value
+	 *
+	 * @return value
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getValue() {
+		return value;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -337,23 +453,29 @@ public class DashboardProgramDetails
 		}
 		DashboardProgramDetails dashboardProgramDetails = (DashboardProgramDetails) o;
 		return Objects.equals(this.id, dashboardProgramDetails.id) &&
-				Objects.equals(this.avatar, dashboardProgramDetails.avatar) &&
+				Objects.equals(this.logo, dashboardProgramDetails.logo) &&
 				Objects.equals(this.level, dashboardProgramDetails.level) &&
 				Objects.equals(this.title, dashboardProgramDetails.title) &&
 				Objects.equals(this.description, dashboardProgramDetails.description) &&
 				Objects.equals(this.currency, dashboardProgramDetails.currency) &&
 				Objects.equals(this.manager, dashboardProgramDetails.manager) &&
 				Objects.equals(this.share, dashboardProgramDetails.share) &&
-				Objects.equals(this.timeLeft, dashboardProgramDetails.timeLeft) &&
-				Objects.equals(this.value, dashboardProgramDetails.value) &&
-				Objects.equals(this.profit, dashboardProgramDetails.profit) &&
+				Objects.equals(this.currentValue, dashboardProgramDetails.currentValue) &&
+				Objects.equals(this.profitPercent, dashboardProgramDetails.profitPercent) &&
+				Objects.equals(this.profitValue, dashboardProgramDetails.profitValue) &&
 				Objects.equals(this.status, dashboardProgramDetails.status) &&
-				Objects.equals(this.chart, dashboardProgramDetails.chart);
+				Objects.equals(this.chart, dashboardProgramDetails.chart) &&
+				Objects.equals(this.periodStarts, dashboardProgramDetails.periodStarts) &&
+				Objects.equals(this.periodEnds, dashboardProgramDetails.periodEnds) &&
+				Objects.equals(this.isReinvesting, dashboardProgramDetails.isReinvesting) &&
+				Objects.equals(this.profit, dashboardProgramDetails.profit) &&
+				Objects.equals(this.timeLeft, dashboardProgramDetails.timeLeft) &&
+				Objects.equals(this.value, dashboardProgramDetails.value);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, avatar, level, title, description, currency, manager, share, timeLeft, value, profit, status, chart);
+		return Objects.hash(id, logo, level, title, description, currency, manager, share, currentValue, profitPercent, profitValue, status, chart, periodStarts, periodEnds, isReinvesting, profit, timeLeft, value);
 	}
 
 	@Override
@@ -362,18 +484,24 @@ public class DashboardProgramDetails
 		sb.append("class DashboardProgramDetails {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
+		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    share: ").append(toIndentedString(share)).append("\n");
-		sb.append("    timeLeft: ").append(toIndentedString(timeLeft)).append("\n");
-		sb.append("    value: ").append(toIndentedString(value)).append("\n");
-		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
+		sb.append("    currentValue: ").append(toIndentedString(currentValue)).append("\n");
+		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
+		sb.append("    profitValue: ").append(toIndentedString(profitValue)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+		sb.append("    periodStarts: ").append(toIndentedString(periodStarts)).append("\n");
+		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
+		sb.append("    isReinvesting: ").append(toIndentedString(isReinvesting)).append("\n");
+		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
+		sb.append("    timeLeft: ").append(toIndentedString(timeLeft)).append("\n");
+		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

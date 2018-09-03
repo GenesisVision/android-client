@@ -6,8 +6,8 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
+import io.swagger.client.model.DashboardChartValue;
 import io.swagger.client.model.DashboardPortfolioEvent;
-import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
 
 
 /**
@@ -17,22 +17,16 @@ import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
 
 interface InvestorDashboardView extends MvpView
 {
-	void setActivePrograms(List<InvestmentProgramDashboardExtended> programs);
+	void setChartData(DashboardChartValue chart);
 
-	void setArchivedPrograms(List<InvestmentProgramDashboardExtended> programs);
-
-	void showNoInternet(boolean show);
-
-	void showProgressBar(boolean show);
-
-	void showEmpty(boolean show);
+	void setPortfolioEvents(List<DashboardPortfolioEvent> events);
 
 	void setRefreshing(boolean show);
+
+	void showProgressBar(boolean show);
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showSnackbarMessage(String message);
 
-	void setTotalPortfolioValue(Double totalPortfolioAmount);
-
-	void setPortfolioEvents(List<DashboardPortfolioEvent> events);
+	void setAssetsCount(Integer programsCount, Integer fundsCount);
 }

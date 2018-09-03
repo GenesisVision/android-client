@@ -4,20 +4,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.DashboardProgramDetails;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
-import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
+import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -26,57 +24,44 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 1/25/18.
  */
 
-public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProgramsAdapter.InvestorProgramViewHolder>
+public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProgramsAdapter.ProgramViewHolder>
 {
-	private List<InvestmentProgramDashboardExtended> investorPrograms = new ArrayList<>();
+	private List<DashboardProgramDetails> programs = new ArrayList<>();
 
 	@Override
-	public InvestorProgramViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+	public ProgramViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_dashboard_program, parent, false);
-		return new InvestorProgramViewHolder(itemView);
+		return new ProgramViewHolder(itemView);
 	}
 
 	@Override
-	public void onBindViewHolder(InvestorProgramViewHolder holder, int position) {
-		if (investorPrograms.get(position) != null)
-			holder.setInvestmentProgram(investorPrograms.get(position));
+	public void onBindViewHolder(ProgramViewHolder holder, int position) {
+		if (programs.get(position) != null)
+			holder.setProgram(programs.get(position));
 	}
 
 	@Override
 	public int getItemCount() {
-		return investorPrograms.size();
+		return programs.size();
 	}
 
 	@Override
 	public long getItemId(int position) {
-		return investorPrograms.get(position) != null
-				? investorPrograms.get(position).hashCode()
+		return programs.get(position) != null
+				? programs.get(position).hashCode()
 				: RecyclerView.NO_ID;
 	}
 
-	void setInvestorPrograms(List<InvestmentProgramDashboardExtended> investorPrograms) {
-		this.investorPrograms.clear();
-		this.investorPrograms.addAll(investorPrograms);
+	void setPrograms(List<DashboardProgramDetails> programs) {
+		this.programs.clear();
+		this.programs.addAll(programs);
 		notifyDataSetChanged();
 	}
 
-	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
-//		for (InvestmentProgramDashboardExtended program : investorPrograms) {
-//			if (program.getData().getId().equals(programId)) {
-//				program.getData().isFavorite(isFavorite);
-//				notifyDataSetChanged();
-//				break;
-//			}
-//		}
-	}
-
-	static class InvestorProgramViewHolder extends RecyclerView.ViewHolder
+	static class ProgramViewHolder extends RecyclerView.ViewHolder
 	{
 		@BindView(R.id.program_logo)
-		public AvatarView programLogo;
-
-		@BindView(R.id.icon_favorite)
-		public ImageView favoriteIcon;
+		public ProgramLogoView programLogo;
 
 		@BindView(R.id.program_name)
 		public TextView programName;
@@ -87,38 +72,39 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		@BindView(R.id.chart)
 		public ProfitSmallChartView chart;
 
-		@BindView(R.id.tokens)
-		public TextView tokens;
+		@BindView(R.id.profit_percent)
+		public TextView profitPercent;
 
-		@BindView(R.id.tokens_fiat)
-		public TextView tokensFiat;
+		@BindView(R.id.profit_value)
+		public TextView profitValue;
 
-		@BindView(R.id.label_my_tokens)
-		public TextView myTokensLabel;
+		@BindView(R.id.current_value_label)
+		public TextView currentValueLabel;
 
-		@BindView(R.id.group_profit_short)
-		public ViewGroup profitShortGroup;
+		@BindView(R.id.current_value)
+		public TextView currentValue;
 
-		@BindView(R.id.profit_short)
-		public TextView profitShort;
+		@BindView(R.id.share_label)
+		public TextView shareLabel;
 
-		@BindView(R.id.profit_full)
-		public TextView profitFull;
+		@BindView(R.id.share)
+		public TextView share;
 
-		@BindView(R.id.profit_currency)
-		public TextView profitCurrency;
+		@BindView(R.id.time_left_label)
+		public TextView timeLeftLabel;
 
-		@BindView(R.id.label_profit)
-		public TextView profitLabel;
+		@BindView(R.id.time_left)
+		public PeriodLeftView timeLeft;
 
-		@BindView(R.id.view_period_left)
-		public PeriodLeftView periodLeftView;
+		@BindView(R.id.status)
+		public TextView status;
 
-		private boolean isProfitFull = false;
+		@BindView(R.id.label_reinvest)
+		public TextView reinvestLabel;
 
-		private InvestmentProgramDashboardExtended investmentProgram;
+		private DashboardProgramDetails program;
 
-		InvestorProgramViewHolder(View itemView) {
+		ProgramViewHolder(View itemView) {
 			super(itemView);
 
 			ButterKnife.bind(this, itemView);
@@ -140,38 +126,28 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 		@OnClick(R.id.group_profit)
 		public void onProfitClicked() {
-			isProfitFull = !isProfitFull;
-			setProfitVisibility();
+
 		}
 
 		private void setFonts() {
-			programName.setTypeface(TypefaceUtil.bold());
-			tokensFiat.setTypeface(TypefaceUtil.bold());
-			myTokensLabel.setTypeface(TypefaceUtil.bold());
-			profitCurrency.setTypeface(TypefaceUtil.bold());
-			profitLabel.setTypeface(TypefaceUtil.bold());
+			profitPercent.setTypeface(TypefaceUtil.semibold());
+			reinvestLabel.setTypeface(TypefaceUtil.semibold());
 		}
 
-		void setInvestmentProgram(InvestmentProgramDashboardExtended investmentProgram) {
-			this.investmentProgram = investmentProgram;
+		void setProgram(DashboardProgramDetails program) {
+			this.program = program;
 			updateData();
 		}
 
 		private void updateData() {
-//			InvestmentProgramDashboardInvestor data = investmentProgram.getData();
-//
-//			programLogo.setImage(data.getLogo(), 100, 100);
-//			programLogo.setLevel(data.getLevel());
-//
-//			favoriteIcon.setVisibility(data.isIsFavorite() ? View.VISIBLE : View.GONE);
-//
-//			programName.setText(data.getTitle());
-//			managerName.setText(String.format(Locale.getDefault(), "%s %s",
-//					itemView.getContext().getResources().getString(R.string.by),
-//					data.getManager().getUsername()));
-//
-//			chart.setEquityChart(investmentProgram.getEquityChart());
-//
+			programLogo.setImage(program.getLogo(), 100, 100);
+			programLogo.setLevel(program.getLevel());
+
+			programName.setText(program.getTitle());
+			managerName.setText(program.getManager().getUsername());
+//			chart.setEquityChart(program.getChart());
+
+
 //			tokens.setText(investmentProgram.getTokens());
 //			tokensFiat.setText(investmentProgram.getTokensFiat());
 //
@@ -181,11 +157,6 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 //			if (data.isIsEnabled())
 //				periodLeftView.setDateTo(data.getStartOfPeriod(), data.getEndOfPeriod());
 //			periodLeftView.setProgramClosed(!data.isIsEnabled());
-		}
-
-		private void setProfitVisibility() {
-			profitShortGroup.setVisibility(!isProfitFull ? View.VISIBLE : View.GONE);
-			profitFull.setVisibility(isProfitFull ? View.VISIBLE : View.GONE);
 		}
 	}
 }

@@ -19,13 +19,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.swagger.client.model.DashboardChartValue;
 import io.swagger.client.model.DashboardPortfolioEvent;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.programs.DashboardPagerAdapter;
 import vision.genesis.clientapp.feature.main.tooltip.TooltipActivity;
-import vision.genesis.clientapp.model.InvestmentProgramDashboardExtended;
 import vision.genesis.clientapp.model.TooltipModel;
 import vision.genesis.clientapp.ui.PortfolioEventDashboardView;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -70,6 +70,8 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	private TabLayout.TabLayoutOnPageChangeListener tabLayoutAssetsOnPageChangeListener;
 
 	private DashboardPagerAdapter pagerAdapter;
+
+	private DashboardHeaderPagerAdapter dashboardHeaderPagerAdapter;
 
 	private Fragment currentFragment;
 
@@ -195,7 +197,8 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	}
 
 	private void initHeaderViewPager() {
-		headerViewPager.setAdapter(new DashboardHeaderPagerAdapter(getChildFragmentManager()));
+		dashboardHeaderPagerAdapter = new DashboardHeaderPagerAdapter(getChildFragmentManager());
+		headerViewPager.setAdapter(dashboardHeaderPagerAdapter);
 
 		tabLayoutChartOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayoutChart);
 		headerViewPager.addOnPageChangeListener(tabLayoutChartOnPageChangeListener);
@@ -237,27 +240,7 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	}
 
 	@Override
-	public void setActivePrograms(List<InvestmentProgramDashboardExtended> programs) {
-		pagerAdapter.setActivePrograms(programs);
-	}
-
-	@Override
-	public void setArchivedPrograms(List<InvestmentProgramDashboardExtended> programs) {
-		pagerAdapter.setArchivedPrograms(programs);
-	}
-
-	@Override
-	public void showNoInternet(boolean show) {
-		pagerAdapter.showNoInternet(show);
-	}
-
-	@Override
 	public void showProgressBar(boolean show) {
-	}
-
-	@Override
-	public void showEmpty(boolean show) {
-		pagerAdapter.showEmpty(show);
 	}
 
 	@Override
@@ -272,9 +255,13 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	}
 
 	@Override
-	public void setTotalPortfolioValue(Double totalPortfolioAmount) {
-//		portfolioValueProgressBar.setVisibility(View.GONE);
-//		portfolioValue.setText(String.format(Locale.getDefault(), "$%s", StringFormatUtil.formatAmount(totalPortfolioAmount, 2, 2)));
+	public void setAssetsCount(Integer programsCount, Integer fundsCount) {
+
+	}
+
+	@Override
+	public void setChartData(DashboardChartValue chart) {
+		dashboardHeaderPagerAdapter.setPortfolioChart(chart);
 	}
 
 	@Override

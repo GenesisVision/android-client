@@ -9,5 +9,4 @@ import com.arellomobile.mvp.MvpView;
 
 interface InvestorDashboardHeaderPortfolioView extends MvpView
 {
-	void setData(String value, String valueSecondary);
 }

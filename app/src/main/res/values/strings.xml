@@ -166,7 +166,7 @@
 
     <string name="active">Active</string>
     <string name="archived">Archived</string>
-    <string name="dashboard_empty">you don\'t have\nany programs yet…</string>
+    <string name="dashboard_programs_empty">you have not yet invested\nin any program…</string>
     <string name="browse_programs">Browse programs</string>
 
     <string name="tokens">tokens</string>
@@ -395,5 +395,9 @@
     <string name="funds">Funds</string>
     <string name="change">Change</string>
     <string name="in_requests">In Requests</string>
+    <string name="current_value">Current value</string>
+    <string name="share">Share</string>
+    <string name="time_left">Time left</string>
+    <string name="reinvest">Reinvest</string>
 
 </resources>

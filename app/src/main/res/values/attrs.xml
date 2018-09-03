@@ -5,6 +5,8 @@
         <attr name="colorAccent" format="color"/>
         <attr name="colorGreen" format="color"/>
         <attr name="colorRed" format="color"/>
+        <attr name="colorPending" format="color"/>
+        <attr name="colorWithdrawing" format="color"/>
         <attr name="colorBottom" format="color"/>
         <attr name="colorBackground" format="color"/>
         <attr name="colorCard" format="color"/>

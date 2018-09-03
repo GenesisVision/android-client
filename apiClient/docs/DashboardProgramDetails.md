@@ -5,18 +5,24 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**UUID**](UUID.md) |  |  [optional]
-**avatar** | **String** |  |  [optional]
+**logo** | **String** |  |  [optional]
 **level** | **Integer** |  |  [optional]
 **title** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
-**manager** | [**ManagerProfile**](ManagerProfile.md) |  |  [optional]
+**manager** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 **share** | **Double** |  |  [optional]
-**timeLeft** | **Integer** |  |  [optional]
-**value** | **Double** |  |  [optional]
-**profit** | **Double** |  |  [optional]
+**currentValue** | **Double** |  |  [optional]
+**profitPercent** | **Double** |  |  [optional]
+**profitValue** | **Double** |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
 **chart** | [**List&lt;ChartSimple&gt;**](ChartSimple.md) |  |  [optional]
+**periodStarts** | [**DateTime**](DateTime.md) |  |  [optional]
+**periodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
+**isReinvesting** | **Boolean** |  |  [optional]
+**profit** | **Double** |  |  [optional]
+**timeLeft** | **Double** |  |  [optional]
+**value** | **Double** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

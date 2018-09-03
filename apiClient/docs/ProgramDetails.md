@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**UUID**](UUID.md) |  |  [optional]
-**avatar** | **String** |  |  [optional]
+**logo** | **String** |  |  [optional]
 **title** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **periodDateStart** | [**DateTime**](DateTime.md) |  |  [optional]
 **periodDateEnd** | [**DateTime**](DateTime.md) |  |  [optional]
 **availableForInvestment** | **Double** |  |  [optional]
-**manager** | [**ManagerProfile**](ManagerProfile.md) |  |  [optional]
+**manager** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 **statistic** | [**ProgramDetailsListStatistic**](ProgramDetailsListStatistic.md) |  |  [optional]
 **chart** | [**List&lt;ChartSimple&gt;**](ChartSimple.md) |  |  [optional]
 **personalProgramDetails** | [**PersonalProgramDetailsList**](PersonalProgramDetailsList.md) | Fields for authorized user |  [optional]

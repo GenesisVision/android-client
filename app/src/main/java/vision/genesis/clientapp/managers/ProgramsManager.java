@@ -3,7 +3,7 @@ package vision.genesis.clientapp.managers;
 import java.util.UUID;
 
 import io.swagger.client.api.InvestorApi;
-import io.swagger.client.api.ProgramApi;
+import io.swagger.client.api.ProgramsApi;
 import io.swagger.client.model.ProgramChart;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramsList;
@@ -22,17 +22,17 @@ public class ProgramsManager
 
 //	private ManagerApi managerApi;
 
-	private ProgramApi programApi;
+	private ProgramsApi programsApi;
 
-	//	public ProgramsManager(InvestorApi investorApi, ManagerApi managerApi, ProgramApi programApi) {
-	public ProgramsManager(InvestorApi investorApi, ProgramApi programApi) {
+	//	public ProgramsManager(InvestorApi investorApi, ManagerApi managerApi, ProgramApi programsApi) {
+	public ProgramsManager(InvestorApi investorApi, ProgramsApi programsApi) {
 		this.investorApi = investorApi;
 //		this.managerApi = managerApi;
-		this.programApi = programApi;
+		this.programsApi = programsApi;
 	}
 
 	public Observable<ProgramsList> getProgramsList(ProgramsFilter filter) {
-		return programApi.v10ProgramListGet(AuthManager.token.getValue(),
+		return programsApi.v10ProgramsGet(AuthManager.token.getValue(),
 				filter.getLevelMin(), filter.getLevelMax(), filter.getProfitAvgMin(), filter.getProfitAvgMax(),
 				filter.getStatisticDateFrom(), filter.getStatisticDateTo(), filter.getSorting().getValue(),
 				filter.getMask(), filter.getFacetId(), filter.getIsFavorite(),
@@ -47,23 +47,23 @@ public class ProgramsManager
 	}
 
 	private Observable<Void> programFavoritesAdd(UUID programId) {
-		return programApi.v10ProgramByIdFavoriteAddPost(programId, AuthManager.token.getValue());
+		return programsApi.v10ProgramsByIdFavoriteAddPost(programId, AuthManager.token.getValue());
 	}
 
 	private Observable<Void> programFavoritesRemove(UUID programId) {
-		return programApi.v10ProgramByIdFavoriteRemovePost(programId, AuthManager.token.getValue());
+		return programsApi.v10ProgramsByIdFavoriteRemovePost(programId, AuthManager.token.getValue());
 	}
 
 	public Observable<ProgramDetailsFull> getProgramDetails(UUID programId) {
-		return programApi.v10ProgramByIdGet(programId, AuthManager.token.getValue());
+		return programsApi.v10ProgramsByIdGet(programId, AuthManager.token.getValue());
 	}
 
 //	public Observable<TradesViewModel> getProgramTrades(TradesFilter filter) {
-//		return programApi.v10ProgramByIdTradesGet()
+//		return programsApi.v10ProgramByIdTradesGet()
 //	}
 
 	public Observable<ProgramChart> getChart(UUID programId, DateRange dateRange) {
-		return programApi.v10ProgramByIdChartGet(programId, dateRange.getFrom(), dateRange.getTo());
+		return programsApi.v10ProgramsByIdChartGet(programId, dateRange.getFrom(), dateRange.getTo());
 	}
 
 //	public Observable<InvestmentProgramBuyToken> getBuyTokensModel(UUID programId) {

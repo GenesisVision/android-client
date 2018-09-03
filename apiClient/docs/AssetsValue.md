@@ -8,12 +8,16 @@ Name | Type | Description | Notes
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **title** | **String** |  |  [optional]
 **avatar** | **String** |  |  [optional]
+**value** | **Double** |  |  [optional]
+**changePercent** | **Double** |  |  [optional]
+**changeValue** | **Double** |  |  [optional]
 
 
 <a name="TypeEnum"></a>
 ## Enum: TypeEnum
 Name | Value
 ---- | -----
+ALL | &quot;All&quot;
 PROGRAM | &quot;Program&quot;
 FUND | &quot;Fund&quot;
 

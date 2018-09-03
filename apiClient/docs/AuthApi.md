@@ -14,7 +14,7 @@ Method | HTTP request | Description
 [**v10AuthPasswordForgotInvestorPost**](AuthApi.md#v10AuthPasswordForgotInvestorPost) | **POST** v1.0/auth/password/forgot/investor | Forgot password for investor
 [**v10AuthPasswordForgotManagerPost**](AuthApi.md#v10AuthPasswordForgotManagerPost) | **POST** v1.0/auth/password/forgot/manager | Forgot password for manager
 [**v10AuthPasswordResetPost**](AuthApi.md#v10AuthPasswordResetPost) | **POST** v1.0/auth/password/reset | Reset password
-[**v10AuthSigninBrokerPost**](AuthApi.md#v10AuthSigninBrokerPost) | **POST** v1.0/auth/signin/broker | Authorize
+[**v10AuthResendconfirmationlinkPost**](AuthApi.md#v10AuthResendconfirmationlinkPost) | **POST** v1.0/auth/resendconfirmationlink | Resend Confirmation Link
 [**v10AuthSigninInvestorPost**](AuthApi.md#v10AuthSigninInvestorPost) | **POST** v1.0/auth/signin/investor | Authorize
 [**v10AuthSigninManagerPost**](AuthApi.md#v10AuthSigninManagerPost) | **POST** v1.0/auth/signin/manager | Authorize
 [**v10AuthSignupConfirmPost**](AuthApi.md#v10AuthSignupConfirmPost) | **POST** v1.0/auth/signup/confirm | Confirm email after registration
@@ -463,11 +463,11 @@ No authorization required
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10AuthSigninBrokerPost"></a>
-# **v10AuthSigninBrokerPost**
-> String v10AuthSigninBrokerPost(model)
+<a name="v10AuthResendconfirmationlinkPost"></a>
+# **v10AuthResendconfirmationlinkPost**
+> Void v10AuthResendconfirmationlinkPost(model)
 
-Authorize
+Resend Confirmation Link
 
 ### Example
 ```java
@@ -477,12 +477,12 @@ Authorize
 
 
 AuthApi apiInstance = new AuthApi();
-LoginViewModel model = new LoginViewModel(); // LoginViewModel | 
+ResendConfirmationViewModel model = new ResendConfirmationViewModel(); // ResendConfirmationViewModel | 
 try {
-    String result = apiInstance.v10AuthSigninBrokerPost(model);
+    Void result = apiInstance.v10AuthResendconfirmationlinkPost(model);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10AuthSigninBrokerPost");
+    System.err.println("Exception when calling AuthApi#v10AuthResendconfirmationlinkPost");
     e.printStackTrace();
 }
 ```
@@ -491,11 +491,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **model** | [**LoginViewModel**](LoginViewModel.md)|  | [optional]
+ **model** | [**ResendConfirmationViewModel**](ResendConfirmationViewModel.md)|  | [optional]
 
 ### Return type
 
-**String**
+[**Void**](.md)
 
 ### Authorization
 

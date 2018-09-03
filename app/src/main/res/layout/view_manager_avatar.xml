@@ -15,15 +15,20 @@
         app:failureImage="@drawable/profile_placeholder"
         app:failureImageScaleType="centerCrop"
         app:placeholderImage="@drawable/profile_placeholder"
-        app:placeholderImageScaleType="centerCrop"/>
+        app:placeholderImageScaleType="centerCrop"
+        app:roundBottomLeft="true"
+        app:roundBottomRight="true"
+        app:roundTopLeft="true"
+        app:roundTopRight="true"
+        app:roundedCornerRadius="4dp"/>
 
     <FrameLayout
         android:id="@+id/group_level"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true">
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true">
 
         <View
             android:layout_width="match_parent"

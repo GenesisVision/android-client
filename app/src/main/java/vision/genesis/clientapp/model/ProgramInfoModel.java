@@ -88,7 +88,7 @@ public class ProgramInfoModel implements Parcelable
 
 	public void update(ProgramDetailsFull programDetails) {
 		this.programId = programDetails.getId();
-		this.avatar = programDetails.getAvatar();
+		this.avatar = programDetails.getLogo();
 		this.programName = programDetails.getTitle();
 		this.managerName = programDetails.getManager().getUsername();
 //		this.favorite = programDetails.isIsFavorite();

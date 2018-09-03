@@ -13,13 +13,8 @@
 
 package io.swagger.client.model;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -38,8 +33,23 @@ public class DashboardChartValue
 	@SerializedName("chart")
 	private List<ChartSimple> chart = null;
 
-	@SerializedName("currency")
-	private CurrencyEnum currency = null;
+	@SerializedName("value")
+	private Double value = null;
+
+	@SerializedName("valueCurrency")
+	private Double valueCurrency = null;
+
+	@SerializedName("changePercent")
+	private Double changePercent = null;
+
+	@SerializedName("changeValue")
+	private Double changeValue = null;
+
+	@SerializedName("changeValueCurrency")
+	private Double changeValueCurrency = null;
+
+	@SerializedName("rate")
+	private Double rate = null;
 
 	public DashboardChartValue bars(List<ValueChartBar> bars) {
 		this.bars = bars;
@@ -95,24 +105,120 @@ public class DashboardChartValue
 		this.chart = chart;
 	}
 
-	public DashboardChartValue currency(CurrencyEnum currency) {
-		this.currency = currency;
+	public DashboardChartValue value(Double value) {
+		this.value = value;
 		return this;
 	}
 
 	/**
-	 * Get currency
+	 * Get value
 	 *
-	 * @return currency
+	 * @return value
 	 **/
 	@ApiModelProperty(value = "")
-	public CurrencyEnum getCurrency() {
-		return currency;
+	public Double getValue() {
+		return value;
 	}
 
-	public void setCurrency(CurrencyEnum currency) {
-		this.currency = currency;
+	public void setValue(Double value) {
+		this.value = value;
 	}
+
+	public DashboardChartValue valueCurrency(Double valueCurrency) {
+		this.valueCurrency = valueCurrency;
+		return this;
+	}
+
+	/**
+	 * Get valueCurrency
+	 *
+	 * @return valueCurrency
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getValueCurrency() {
+		return valueCurrency;
+	}
+
+	public void setValueCurrency(Double valueCurrency) {
+		this.valueCurrency = valueCurrency;
+	}
+
+	public DashboardChartValue changePercent(Double changePercent) {
+		this.changePercent = changePercent;
+		return this;
+	}
+
+	/**
+	 * Get changePercent
+	 *
+	 * @return changePercent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getChangePercent() {
+		return changePercent;
+	}
+
+	public void setChangePercent(Double changePercent) {
+		this.changePercent = changePercent;
+	}
+
+	public DashboardChartValue changeValue(Double changeValue) {
+		this.changeValue = changeValue;
+		return this;
+	}
+
+	/**
+	 * Get changeValue
+	 *
+	 * @return changeValue
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getChangeValue() {
+		return changeValue;
+	}
+
+	public void setChangeValue(Double changeValue) {
+		this.changeValue = changeValue;
+	}
+
+	public DashboardChartValue changeValueCurrency(Double changeValueCurrency) {
+		this.changeValueCurrency = changeValueCurrency;
+		return this;
+	}
+
+	/**
+	 * Get changeValueCurrency
+	 *
+	 * @return changeValueCurrency
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getChangeValueCurrency() {
+		return changeValueCurrency;
+	}
+
+	public void setChangeValueCurrency(Double changeValueCurrency) {
+		this.changeValueCurrency = changeValueCurrency;
+	}
+
+	public DashboardChartValue rate(Double rate) {
+		this.rate = rate;
+		return this;
+	}
+
+	/**
+	 * Get rate
+	 *
+	 * @return rate
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getRate() {
+		return rate;
+	}
+
+	public void setRate(Double rate) {
+		this.rate = rate;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -125,13 +231,19 @@ public class DashboardChartValue
 		DashboardChartValue dashboardChartValue = (DashboardChartValue) o;
 		return Objects.equals(this.bars, dashboardChartValue.bars) &&
 				Objects.equals(this.chart, dashboardChartValue.chart) &&
-				Objects.equals(this.currency, dashboardChartValue.currency);
+				Objects.equals(this.value, dashboardChartValue.value) &&
+				Objects.equals(this.valueCurrency, dashboardChartValue.valueCurrency) &&
+				Objects.equals(this.changePercent, dashboardChartValue.changePercent) &&
+				Objects.equals(this.changeValue, dashboardChartValue.changeValue) &&
+				Objects.equals(this.changeValueCurrency, dashboardChartValue.changeValueCurrency) &&
+				Objects.equals(this.rate, dashboardChartValue.rate);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(bars, chart, currency);
+		return Objects.hash(bars, chart, value, valueCurrency, changePercent, changeValue, changeValueCurrency, rate);
 	}
+
 
 	@Override
 	public String toString() {
@@ -140,7 +252,12 @@ public class DashboardChartValue
 
 		sb.append("    bars: ").append(toIndentedString(bars)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
-		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+		sb.append("    value: ").append(toIndentedString(value)).append("\n");
+		sb.append("    valueCurrency: ").append(toIndentedString(valueCurrency)).append("\n");
+		sb.append("    changePercent: ").append(toIndentedString(changePercent)).append("\n");
+		sb.append("    changeValue: ").append(toIndentedString(changeValue)).append("\n");
+		sb.append("    changeValueCurrency: ").append(toIndentedString(changeValueCurrency)).append("\n");
+		sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -154,65 +271,6 @@ public class DashboardChartValue
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
-	}
-
-	/**
-	 * Gets or Sets currency
-	 */
-	@JsonAdapter(CurrencyEnum.Adapter.class)
-	public enum CurrencyEnum
-	{
-		UNDEFINED("Undefined"),
-
-		GVT("GVT"),
-
-		ETH("ETH"),
-
-		BTC("BTC"),
-
-		ADA("ADA"),
-
-		USD("USD"),
-
-		EUR("EUR");
-
-		public static CurrencyEnum fromValue(String text) {
-			for (CurrencyEnum b : CurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		CurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<CurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return CurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 
 }

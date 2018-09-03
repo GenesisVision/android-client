@@ -13,11 +13,17 @@
 
 package io.swagger.client.model;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
 import org.joda.time.DateTime;
 
+import java.io.IOException;
 import java.util.Objects;
+import java.util.UUID;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -27,14 +33,42 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class DashboardPortfolioEvent
 {
+	@SerializedName("assetId")
+	private UUID assetId = null;
+
 	@SerializedName("date")
 	private DateTime date = null;
 
-	@SerializedName("description")
-	private String description = null;
+	@SerializedName("title")
+	private String title = null;
 
 	@SerializedName("value")
 	private Double value = null;
+
+	@SerializedName("type")
+	private TypeEnum type = null;
+
+	@SerializedName("logo")
+	private String logo = null;
+
+	public DashboardPortfolioEvent assetId(UUID assetId) {
+		this.assetId = assetId;
+		return this;
+	}
+
+	/**
+	 * Get assetId
+	 *
+	 * @return assetId
+	 **/
+	@ApiModelProperty(value = "")
+	public UUID getAssetId() {
+		return assetId;
+	}
+
+	public void setAssetId(UUID assetId) {
+		this.assetId = assetId;
+	}
 
 	public DashboardPortfolioEvent date(DateTime date) {
 		this.date = date;
@@ -55,23 +89,23 @@ public class DashboardPortfolioEvent
 		this.date = date;
 	}
 
-	public DashboardPortfolioEvent description(String description) {
-		this.description = description;
+	public DashboardPortfolioEvent title(String title) {
+		this.title = title;
 		return this;
 	}
 
 	/**
-	 * Get description
+	 * Get title
 	 *
-	 * @return description
+	 * @return title
 	 **/
 	@ApiModelProperty(value = "")
-	public String getDescription() {
-		return description;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public DashboardPortfolioEvent value(Double value) {
@@ -93,6 +127,43 @@ public class DashboardPortfolioEvent
 		this.value = value;
 	}
 
+	public DashboardPortfolioEvent type(TypeEnum type) {
+		this.type = type;
+		return this;
+	}
+
+	/**
+	 * Get type
+	 *
+	 * @return type
+	 **/
+	@ApiModelProperty(value = "")
+	public TypeEnum getType() {
+		return type;
+	}
+
+	public void setType(TypeEnum type) {
+		this.type = type;
+	}
+
+	public DashboardPortfolioEvent logo(String logo) {
+		this.logo = logo;
+		return this;
+	}
+
+	/**
+	 * Get logo
+	 *
+	 * @return logo
+	 **/
+	@ApiModelProperty(value = "")
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -103,25 +174,30 @@ public class DashboardPortfolioEvent
 			return false;
 		}
 		DashboardPortfolioEvent dashboardPortfolioEvent = (DashboardPortfolioEvent) o;
-		return Objects.equals(this.date, dashboardPortfolioEvent.date) &&
-				Objects.equals(this.description, dashboardPortfolioEvent.description) &&
-				Objects.equals(this.value, dashboardPortfolioEvent.value);
+		return Objects.equals(this.assetId, dashboardPortfolioEvent.assetId) &&
+				Objects.equals(this.date, dashboardPortfolioEvent.date) &&
+				Objects.equals(this.title, dashboardPortfolioEvent.title) &&
+				Objects.equals(this.value, dashboardPortfolioEvent.value) &&
+				Objects.equals(this.type, dashboardPortfolioEvent.type) &&
+				Objects.equals(this.logo, dashboardPortfolioEvent.logo);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(date, description, value);
+		return Objects.hash(assetId, date, title, value, type, logo);
 	}
-
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("class DashboardPortfolioEvent {\n");
 
+		sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
-		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
+		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -135,6 +211,65 @@ public class DashboardPortfolioEvent
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	/**
+	 * Gets or Sets type
+	 */
+	@JsonAdapter(TypeEnum.Adapter.class)
+	public enum TypeEnum
+	{
+		ALL("All"),
+
+		INVEST("Invest"),
+
+		WITHDRAW("Withdraw"),
+
+		PROFIT("Profit"),
+
+		REINVEST("Reinvest"),
+
+		CANCELED("Canceled"),
+
+		ENDED("Ended");
+
+		public static TypeEnum fromValue(String text) {
+			for (TypeEnum b : TypeEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		TypeEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<TypeEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public TypeEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return TypeEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 }

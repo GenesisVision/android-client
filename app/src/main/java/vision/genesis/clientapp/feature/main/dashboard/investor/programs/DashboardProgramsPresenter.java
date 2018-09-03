@@ -4,11 +4,20 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
+import javax.inject.Inject;
+
+import io.swagger.client.model.DashboardProgramsList;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.managers.InvestorDashboardManager;
+import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.SortingEnum;
 import vision.genesis.clientapp.model.events.OnDashboardProgramsUpdateEvent;
 import vision.genesis.clientapp.model.events.OnInvestButtonClickedEvent;
-import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
+import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
  * GenesisVision
@@ -18,25 +27,35 @@ import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
 @InjectViewState
 public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsView>
 {
+	@Inject
+	public InvestorDashboardManager dashboardManager;
+
+	private Subscription getProgramsSubscription;
+
+	private DateRange dateRange = new DateRange();
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 
-		EventBus.getDefault().register(this);
+		GenesisVisionApplication.getComponent().inject(this);
+
+//		EventBus.getDefault().register(this);
+		getPrograms();
 	}
 
 	@Override
 	public void onDestroy() {
-		EventBus.getDefault().unregister(this);
+		if (getProgramsSubscription != null)
+			getProgramsSubscription.unsubscribe();
+
+//		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
 
 	void onShow() {
-	}
-
-	void onSwipeRefresh() {
-		EventBus.getDefault().post(new OnDashboardProgramsUpdateEvent());
+		getPrograms();
 	}
 
 	void onStartInvestingClicked() {
@@ -48,8 +67,61 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 		EventBus.getDefault().post(new OnDashboardProgramsUpdateEvent());
 	}
 
-	@Subscribe
-	public void onEventMainThread(ProgramIsFavoriteChangedEvent event) {
-		getViewState().changeProgramIsFavorite(event.programId, event.isFavorite);
+	private void getPrograms() {
+		getProgramsSubscription = dashboardManager.getPrograms(SortingEnum.BYPROFITDESC.toString(), dateRange, 0, 10)
+				.subscribeOn(Schedulers.computation())
+				.map(this::prepareData)
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(this::handleGetProgramsSuccess,
+						this::handleGetProgramsError);
+	}
+
+	private DashboardProgramsList prepareData(DashboardProgramsList dashboard) {
+//		List<InvestmentProgramDashboardInvestor> programs = dashboard.getInvestmentPrograms();
+//		programs = new ArrayList<>();
+//		archivedPrograms = new ArrayList<>();
+//
+//		for (InvestmentProgramDashboardInvestor program : programs) {
+//			InvestmentProgramDashboardExtended programExtended = new InvestmentProgramDashboardExtended(program);
+//
+//			programExtended.setTokens(StringFormatUtil.formatAmount(program.getInvestedTokens(), 0,
+//					Constants.TOKENS_MAX_DECIMAL_POINT_DIGITS));
+//			double tokensFiatValue = program.getInvestedTokens() * program.getToken().getInitialPrice();
+//			programExtended.setTokensFiat(String.format(Locale.getDefault(), "($%.2f)", tokensFiatValue));
+//
+//			programExtended.setProfitShort(StringFormatUtil.formatAmount(program.getProfitFromProgram(), 0, 2));
+//			programExtended.setProfitFull(StringFormatUtil.formatAmount(program.getProfitFromProgram(), 2,
+//					StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.toString())));
+//
+//			programExtended.setEquityChart(ProfitSmallChartView.getPreparedEquityChart(program.getEquityChart()));
+//
+//			if (!program.isIsArchived())
+//				programs.add(programExtended);
+//			else
+//				archivedPrograms.add(programExtended);
+//		}
+
+		return dashboard;
+	}
+
+	private void handleGetProgramsSuccess(DashboardProgramsList response) {
+		getProgramsSubscription.unsubscribe();
+
+		getViewState().showProgressBar(false);
+
+		getViewState().setPrograms(response.getPrograms());
+//		getViewState().setTotalPortfolioValue(dashboard.getTotalPortfolioAmount());
+	}
+
+	private void handleGetProgramsError(Throwable throwable) {
+		getProgramsSubscription.unsubscribe();
+
+		getViewState().showProgressBar(false);
+		getViewState().showEmpty(false);
+
+		if (ApiErrorResolver.isNetworkError(throwable)) {
+//			if (programs.size() == 0)
+//			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
+		}
 	}
 }
