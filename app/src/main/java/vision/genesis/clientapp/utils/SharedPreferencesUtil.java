@@ -31,6 +31,12 @@ public class SharedPreferencesUtil
 
 	private static final String KEY_THEME = "keyTheme";
 
+	private static final String KEY_DATE_RANGE = "keyDateRange";
+
+	private static final String KEY_DATE_RANGE_FROM = "keyDateRangeFrom";
+
+	private static final String KEY_DATE_RANGE_TO = "keyDateRangeTo";
+
 	private Context context;
 
 	public SharedPreferencesUtil(Context context) {
@@ -131,5 +137,29 @@ public class SharedPreferencesUtil
 		sharedPreferences.edit()
 				.putString(KEY_THEME, newTheme)
 				.apply();
+	}
+
+	public void saveDateRange(String dateRange, Long dateRangeFrom, Long dateRangeTo) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+		sharedPreferences.edit()
+				.putString(KEY_DATE_RANGE, dateRange)
+				.putLong(KEY_DATE_RANGE_FROM, dateRangeFrom)
+				.putLong(KEY_DATE_RANGE_TO, dateRangeTo)
+				.apply();
+	}
+
+	public String getDateRange() {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+		return sharedPreferences.getString(KEY_DATE_RANGE, "");
+	}
+
+	public Long getDateRangeFrom() {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+		return sharedPreferences.getLong(KEY_DATE_RANGE_FROM, 0);
+	}
+
+	public Long getDateRangeTo() {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+		return sharedPreferences.getLong(KEY_DATE_RANGE_TO, 0);
 	}
 }

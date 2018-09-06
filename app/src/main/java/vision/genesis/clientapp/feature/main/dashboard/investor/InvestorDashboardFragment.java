@@ -18,15 +18,19 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.DashboardChartValue;
 import io.swagger.client.model.DashboardPortfolioEvent;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.programs.DashboardPagerAdapter;
 import vision.genesis.clientapp.feature.main.tooltip.TooltipActivity;
+import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.TooltipModel;
+import vision.genesis.clientapp.ui.DateRangeView;
 import vision.genesis.clientapp.ui.PortfolioEventDashboardView;
 import vision.genesis.clientapp.utils.ThemeUtil;
 
@@ -39,6 +43,9 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 {
 //	@BindView(R.id.refresh_layout)
 //	public SwipeRefreshLayout refreshLayout;
+
+	@BindView(R.id.date_range)
+	public DateRangeView dateRangeView;
 
 	@BindView(R.id.tab_layout_chart)
 	public TabLayout tabLayoutChart;
@@ -75,7 +82,19 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 	private Fragment currentFragment;
 
+	private DateRange dateRange = new DateRange();
+
 	private Unbinder unbinder;
+
+	@OnClick(R.id.date_range)
+	public void onDateRangeClicked() {
+		if (getActivity() != null) {
+			DateRangeBottomSheetFragment bottomSheetDialog = new DateRangeBottomSheetFragment();
+			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
+			bottomSheetDialog.setDateRange(dateRange);
+			bottomSheetDialog.setListener(investorDashboardPresenter);
+		}
+	}
 
 //	@OnClick(R.id.button_see_all)
 //	public void onSeeAllEventClicked() {
@@ -257,6 +276,12 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	@Override
 	public void setAssetsCount(Integer programsCount, Integer fundsCount) {
 
+	}
+
+	@Override
+	public void setDateRange(DateRange dateRange) {
+		this.dateRange = dateRange;
+		dateRangeView.setDateRange(dateRange);
 	}
 
 	@Override

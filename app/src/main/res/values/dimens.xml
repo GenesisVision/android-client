@@ -84,4 +84,7 @@
     <dimen name="dashboard_pager_header_height">400dp</dimen>
     <dimen name="portfolio_chart_height">150dp</dimen>
     <dimen name="button_in_requests_size">24dp</dimen>
+    <dimen name="bottomsheet_radius">16dp</dimen>
+    <dimen name="date_range_option_height">38dp</dimen>
+    <dimen name="apply_button_height">65dp</dimen>
 </resources>

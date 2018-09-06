@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:drawable="@color/darkDelimiter"
-        android:state_enabled="false"/>
-    <item
-        android:drawable="@color/darkDelimiter"
+        android:drawable="@drawable/date_range_option_selected"
         android:state_checked="true"/>
     <item
-        android:drawable="@color/darkDelimiter"
+        android:drawable="@drawable/date_range_option_pressed"
         android:state_pressed="true"/>
     <item
-        android:drawable="@color/colorAccent"
+        android:drawable="@drawable/date_range_option_normal"
         android:state_checked="false"/>
 </selector>

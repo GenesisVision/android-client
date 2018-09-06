@@ -15,8 +15,13 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.github.mikephil.charting.charts.CombinedChart;
+import com.github.mikephil.charting.charts.CombinedChart.DrawOrder;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -31,7 +36,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.swagger.client.model.ChartProgramDetails;
+import io.swagger.client.model.ChartSimple;
+import io.swagger.client.model.DashboardChartValue;
+import io.swagger.client.model.ValueChartBar;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.DateTimeValueFormatter;
@@ -132,6 +139,10 @@ public class PortfolioChartView extends RelativeLayout
 		chart.setNoDataTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorMedium));
 		chart.setViewPortOffsets(0f, 0f, 0f, 0f);
 
+		chart.setDrawOrder(new DrawOrder[]{
+				DrawOrder.BAR, DrawOrder.BUBBLE, DrawOrder.CANDLE, DrawOrder.LINE, DrawOrder.SCATTER
+		});
+
 		YAxis yAxis = chart.getAxisLeft();
 		yAxis.setDrawLabels(false);
 		yAxis.setDrawAxisLine(false);
@@ -163,20 +174,28 @@ public class PortfolioChartView extends RelativeLayout
 		});
 	}
 
-	public void setChart(List<ChartProgramDetails> charts) {
+	public void setChart(DashboardChartValue chartData) {
 		showProgress(false);
 
-		if (charts.size() <= 1) {
+		if (chartData.getChart().size() <= 1) {
 			chart.clear();
 			return;
 		}
 
 		List<Entry> lineEntries = new ArrayList<>();
-		for (ChartProgramDetails chart : charts) {
+		for (ChartSimple chart : chartData.getChart()) {
 			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getValue().floatValue()));
 		}
 
-//		chart.setData(getLineData(lineEntries));
+		List<BarEntry> barEntries = new ArrayList<>();
+		for (ValueChartBar bar : chartData.getBars()) {
+			barEntries.add(new BarEntry(bar.getDate().getMillis(), bar.getValue().floatValue(), bar.getAssets()));
+		}
+
+		CombinedData combinedData = new CombinedData();
+		combinedData.setData(getLineData(lineEntries));
+		combinedData.setData(getBarData(barEntries));
+		chart.setData(combinedData);
 		chart.invalidate();
 	}
 
@@ -206,6 +225,33 @@ public class PortfolioChartView extends RelativeLayout
 			dataSet.setFillDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.chart_background_gradient));
 			dataSet.setDrawFilled(true);
 		}
+
+		return dataSet;
+	}
+
+	private BarData getBarData(List<BarEntry> data) {
+		Collections.sort(data, new EntryXComparator());
+		BarData barData = new BarData();
+
+		barData.addDataSet(createBarDataSet(data));
+		barData.setBarWidth(0.45f);
+
+		return barData;
+	}
+
+	private BarDataSet createBarDataSet(List<BarEntry> data) {
+		BarDataSet dataSet = new BarDataSet(data, "");
+
+		dataSet.setLabel("");
+		dataSet.setDrawValues(false);
+		dataSet.setColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.white));
+//		dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+		dataSet.setHighLightColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, highlightColor));
+
+//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//			dataSet.setFillDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.chart_background_gradient));
+//			dataSet.setDrawFilled(true);
+//		}
 
 		return dataSet;
 	}

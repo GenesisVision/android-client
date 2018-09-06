@@ -8,6 +8,7 @@ import java.util.List;
 
 import io.swagger.client.model.DashboardChartValue;
 import io.swagger.client.model.DashboardPortfolioEvent;
+import vision.genesis.clientapp.model.DateRange;
 
 
 /**
@@ -29,4 +30,6 @@ interface InvestorDashboardView extends MvpView
 	void showSnackbarMessage(String message);
 
 	void setAssetsCount(Integer programsCount, Integer fundsCount);
+
+	void setDateRange(DateRange dateRange);
 }

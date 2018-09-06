@@ -16,7 +16,9 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.InvestorDashboardManager;
+import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -26,13 +28,16 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardView>
+public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener
 {
 	@Inject
 	public Context context;
 
 	@Inject
 	public InvestorDashboardManager dashboardManager;
+
+	@Inject
+	public SettingsManager settingsManager;
 
 	private Subscription getEventsSubscription;
 
@@ -47,6 +52,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 		GenesisVisionApplication.getComponent().inject(this);
 
 //		EventBus.getDefault().register(this);
+		dateRange = settingsManager.getSavedDateRange();
 		getDashboard();
 	}
 
@@ -72,6 +78,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	}
 
 	private void getDashboard() {
+		updateDateRange();
 		if (dashboardSubscription != null)
 			dashboardSubscription.unsubscribe();
 		dashboardSubscription = dashboardManager.getDashboard(dateRange)
@@ -79,6 +86,12 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(this::handleGetDashboardSuccess,
 						this::handleGetDashboardError);
+	}
+
+	private void updateDateRange() {
+		dateRange.updateDates(dateRange.getSelectedRange());
+		settingsManager.saveDateRange(dateRange);
+		getViewState().setDateRange(dateRange);
 	}
 
 	private void handleGetDashboardSuccess(DashboardSummary response) {
@@ -118,5 +131,14 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 //				getViewState().showNoInternet(true);
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}
+	}
+
+	@Override
+	public void onDateRangeChanged(DateRange dateRange) {
+		this.dateRange = dateRange;
+		settingsManager.saveDateRange(dateRange);
+		getViewState().setDateRange(dateRange);
+		getViewState().setRefreshing(true);
+		getDashboard();
 	}
 }

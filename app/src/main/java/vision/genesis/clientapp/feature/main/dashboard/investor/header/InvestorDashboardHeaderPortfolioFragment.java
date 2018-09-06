@@ -118,5 +118,7 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 
 		balanceValue.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatAmount(chartValue.getValue())));
 		changeValue.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatAmount(chartValue.getValue())));
+
+		chart.setChart(chartValue);
 	}
 }

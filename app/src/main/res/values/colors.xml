@@ -63,8 +63,9 @@
     <color name="darkBottom">#12191e</color>
     <color name="darkBackground">#131e26</color>
     <color name="darkCard">#1c2730</color>
-    <color name="darkCardLight">#273642</color>
+    <color name="darkCardLight">#242f38</color>
     <color name="darkDelimiter">#232b31</color>
+    <color name="darkDelimiterLight">#4d565c</color>
 
     <color name="darkTextPrimary">#ffffff</color>
     <color name="darkTextSecondary">#787d82</color>
@@ -75,6 +76,7 @@
     <color name="lightCard">#ffffff</color>
     <color name="lightCardLight">#ffffff</color>
     <color name="lightDelimiter">#fafafa</color>
+    <color name="lightDelimiterLight">#4d565c</color>
 
     <color name="lightTextPrimary">#1c232a</color>
     <color name="lightTextSecondary">#bbbdbf</color>

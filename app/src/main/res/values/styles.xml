@@ -20,6 +20,7 @@
         <item name="colorCard">@color/darkCard</item>
         <item name="colorCardLight">@color/darkCardLight</item>
         <item name="colorDelimiter">@color/darkDelimiter</item>
+        <item name="colorDelimiterLight">@color/darkDelimiterLight</item>
         <item name="colorTextPrimary">@color/darkTextPrimary</item>
         <item name="colorTextSecondary">@color/darkTextSecondary</item>
     </style>
@@ -31,6 +32,7 @@
         <item name="colorCard">@color/lightCard</item>
         <item name="colorCardLight">@color/lightCardLight</item>
         <item name="colorDelimiter">@color/lightCard</item>
+        <item name="colorDelimiterLight">@color/lightDelimiterLight</item>
         <item name="colorTextPrimary">@color/lightTextPrimary</item>
         <item name="colorTextSecondary">@color/lightTextSecondary</item>
     </style>

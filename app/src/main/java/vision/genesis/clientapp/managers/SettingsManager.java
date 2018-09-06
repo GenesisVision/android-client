@@ -8,6 +8,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
+import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.SettingsModel;
 import vision.genesis.clientapp.utils.SharedPreferencesUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -143,5 +144,17 @@ public class SettingsManager
 
 	public boolean isScreenLockEnabled() {
 		return settingsSubject.getValue().isPinCodeEnabled();
+	}
+
+	public DateRange getSavedDateRange() {
+		return new DateRange(sharedPreferencesUtil.getDateRange(),
+				sharedPreferencesUtil.getDateRangeFrom(),
+				sharedPreferencesUtil.getDateRangeTo());
+	}
+
+	public void saveDateRange(DateRange dateRange) {
+		sharedPreferencesUtil.saveDateRange(dateRange.getSelectedRange().toString(),
+				dateRange.getFrom().getMillis(),
+				dateRange.getTo().getMillis());
 	}
 }

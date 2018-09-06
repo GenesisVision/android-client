@@ -21,7 +21,7 @@ public class DateTimeUtil
 
 	private static DateTimeFormatter dateTimeFormatter = DateTimeFormat.shortDateTime();
 
-	private static DateTimeFormatter dateShortFormatter = DateTimeFormat.forPattern("dd.MM.YY");
+	private static DateTimeFormatter dateShortFormatter = DateTimeFormat.forPattern("dd MMM YYYY");
 
 	private static DateTimeFormatter timeShortFormatter = DateTimeFormat.forPattern("HH:mm");
 

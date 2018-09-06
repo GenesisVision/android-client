@@ -286,8 +286,8 @@
     <string name="sort_by_place">BY PLACE ↑</string>
     <string name="place">Place</string>
     <string name="any">Any</string>
-    <string name="from">from</string>
-    <string name="to">to</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
     <string name="min_level">Min level</string>
     <string name="max_level">Max level</string>
     <string name="min_avg_profit">Min avg. profit (%)</string>
@@ -399,5 +399,12 @@
     <string name="share">Share</string>
     <string name="time_left">Time left</string>
     <string name="reinvest">Reinvest</string>
+
+    <string name="day">Day</string>
+    <string name="week">Week</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="custom">Custom</string>
+    <string name="date_range">Date range</string>
 
 </resources>

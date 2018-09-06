@@ -12,6 +12,7 @@
         <attr name="colorCard" format="color"/>
         <attr name="colorCardLight" format="color"/>
         <attr name="colorDelimiter" format="color"/>
+        <attr name="colorDelimiterLight" format="color"/>
         <attr name="colorTextPrimary" format="color"/>
         <attr name="colorTextSecondary" format="color"/>
     </declare-styleable>

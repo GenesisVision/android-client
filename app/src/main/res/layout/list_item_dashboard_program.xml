@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <vision.genesis.clientapp.ui.AvatarView
+        <vision.genesis.clientapp.ui.ProgramLogoView
             android:id="@+id/program_logo"
             android:layout_width="@dimen/dashboard_program_logo_width"
             android:layout_height="@dimen/dashboard_program_logo_height"

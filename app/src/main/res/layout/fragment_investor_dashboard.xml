@@ -5,9 +5,28 @@
                 android:layout_height="match_parent"
                 android:background="?attr/colorBackground">
 
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="?attr/colorBackground"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
+
+        <vision.genesis.clientapp.ui.DateRangeView
+            android:id="@+id/date_range"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="?attr/selectableItemBackground"/>
+
+    </RelativeLayout>
+
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
@@ -33,7 +52,6 @@
                         android:orientation="vertical">
 
                         <RelativeLayout
-                            android:id="@+id/header"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:paddingLeft="24dp"
@@ -43,7 +61,6 @@
                                 android:id="@+id/tab_layout_chart"
                                 android:layout_width="match_parent"
                                 android:layout_height="36dp"
-                                android:layout_marginTop="12dp"
                                 android:minHeight="?attr/actionBarSize"
                                 app:tabGravity="fill"
                                 app:tabIndicatorColor="?attr/colorAccent"
