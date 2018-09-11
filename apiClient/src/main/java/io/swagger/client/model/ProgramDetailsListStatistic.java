@@ -34,17 +34,23 @@ public class ProgramDetailsListStatistic
 	@SerializedName("balanceInFavorite")
 	private AmountWithCurrency balanceInFavorite = null;
 
+	@SerializedName("currentValue")
+	private Double currentValue = null;
+
+	@SerializedName("profitPercent")
+	private Double profitPercent = null;
+
+	@SerializedName("profitValue")
+	private Double profitValue = null;
+
+	@SerializedName("drawdownPercent")
+	private Double drawdownPercent = null;
+
 	@SerializedName("investorsCount")
 	private Integer investorsCount = null;
 
 	@SerializedName("tradesCount")
 	private Integer tradesCount = null;
-
-	@SerializedName("drawdownPercent")
-	private Double drawdownPercent = null;
-
-	@SerializedName("profitPercent")
-	private Double profitPercent = null;
 
 	public ProgramDetailsListStatistic balanceInBase(AmountWithCurrency balanceInBase) {
 		this.balanceInBase = balanceInBase;
@@ -103,6 +109,82 @@ public class ProgramDetailsListStatistic
 		this.balanceInFavorite = balanceInFavorite;
 	}
 
+	public ProgramDetailsListStatistic currentValue(Double currentValue) {
+		this.currentValue = currentValue;
+		return this;
+	}
+
+	/**
+	 * Get currentValue
+	 *
+	 * @return currentValue
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getCurrentValue() {
+		return currentValue;
+	}
+
+	public void setCurrentValue(Double currentValue) {
+		this.currentValue = currentValue;
+	}
+
+	public ProgramDetailsListStatistic profitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
+		return this;
+	}
+
+	/**
+	 * Get profitPercent
+	 *
+	 * @return profitPercent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProfitPercent() {
+		return profitPercent;
+	}
+
+	public void setProfitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
+	}
+
+	public ProgramDetailsListStatistic profitValue(Double profitValue) {
+		this.profitValue = profitValue;
+		return this;
+	}
+
+	/**
+	 * Get profitValue
+	 *
+	 * @return profitValue
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProfitValue() {
+		return profitValue;
+	}
+
+	public void setProfitValue(Double profitValue) {
+		this.profitValue = profitValue;
+	}
+
+	public ProgramDetailsListStatistic drawdownPercent(Double drawdownPercent) {
+		this.drawdownPercent = drawdownPercent;
+		return this;
+	}
+
+	/**
+	 * Get drawdownPercent
+	 *
+	 * @return drawdownPercent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getDrawdownPercent() {
+		return drawdownPercent;
+	}
+
+	public void setDrawdownPercent(Double drawdownPercent) {
+		this.drawdownPercent = drawdownPercent;
+	}
+
 	public ProgramDetailsListStatistic investorsCount(Integer investorsCount) {
 		this.investorsCount = investorsCount;
 		return this;
@@ -141,44 +223,6 @@ public class ProgramDetailsListStatistic
 		this.tradesCount = tradesCount;
 	}
 
-	public ProgramDetailsListStatistic drawdownPercent(Double drawdownPercent) {
-		this.drawdownPercent = drawdownPercent;
-		return this;
-	}
-
-	/**
-	 * Get drawdownPercent
-	 *
-	 * @return drawdownPercent
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getDrawdownPercent() {
-		return drawdownPercent;
-	}
-
-	public void setDrawdownPercent(Double drawdownPercent) {
-		this.drawdownPercent = drawdownPercent;
-	}
-
-	public ProgramDetailsListStatistic profitPercent(Double profitPercent) {
-		this.profitPercent = profitPercent;
-		return this;
-	}
-
-	/**
-	 * Get profitPercent
-	 *
-	 * @return profitPercent
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getProfitPercent() {
-		return profitPercent;
-	}
-
-	public void setProfitPercent(Double profitPercent) {
-		this.profitPercent = profitPercent;
-	}
-
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -192,15 +236,17 @@ public class ProgramDetailsListStatistic
 		return Objects.equals(this.balanceInBase, programDetailsListStatistic.balanceInBase) &&
 				Objects.equals(this.balanceInGVT, programDetailsListStatistic.balanceInGVT) &&
 				Objects.equals(this.balanceInFavorite, programDetailsListStatistic.balanceInFavorite) &&
-				Objects.equals(this.investorsCount, programDetailsListStatistic.investorsCount) &&
-				Objects.equals(this.tradesCount, programDetailsListStatistic.tradesCount) &&
+				Objects.equals(this.currentValue, programDetailsListStatistic.currentValue) &&
+				Objects.equals(this.profitPercent, programDetailsListStatistic.profitPercent) &&
+				Objects.equals(this.profitValue, programDetailsListStatistic.profitValue) &&
 				Objects.equals(this.drawdownPercent, programDetailsListStatistic.drawdownPercent) &&
-				Objects.equals(this.profitPercent, programDetailsListStatistic.profitPercent);
+				Objects.equals(this.investorsCount, programDetailsListStatistic.investorsCount) &&
+				Objects.equals(this.tradesCount, programDetailsListStatistic.tradesCount);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(balanceInBase, balanceInGVT, balanceInFavorite, investorsCount, tradesCount, drawdownPercent, profitPercent);
+		return Objects.hash(balanceInBase, balanceInGVT, balanceInFavorite, currentValue, profitPercent, profitValue, drawdownPercent, investorsCount, tradesCount);
 	}
 
 
@@ -212,10 +258,12 @@ public class ProgramDetailsListStatistic
 		sb.append("    balanceInBase: ").append(toIndentedString(balanceInBase)).append("\n");
 		sb.append("    balanceInGVT: ").append(toIndentedString(balanceInGVT)).append("\n");
 		sb.append("    balanceInFavorite: ").append(toIndentedString(balanceInFavorite)).append("\n");
+		sb.append("    currentValue: ").append(toIndentedString(currentValue)).append("\n");
+		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
+		sb.append("    profitValue: ").append(toIndentedString(profitValue)).append("\n");
+		sb.append("    drawdownPercent: ").append(toIndentedString(drawdownPercent)).append("\n");
 		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
 		sb.append("    tradesCount: ").append(toIndentedString(tradesCount)).append("\n");
-		sb.append("    drawdownPercent: ").append(toIndentedString(drawdownPercent)).append("\n");
-		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -16,9 +16,11 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.InvestorDashboardManager;
 import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -28,7 +30,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener
+public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener, SelectCurrencyFragment.OnCurrencyChangedListener
 {
 	@Inject
 	public Context context;
@@ -45,6 +47,8 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 	private DateRange dateRange = new DateRange();
 
+	private CurrencyEnum baseCurrency;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -53,6 +57,8 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 //		EventBus.getDefault().register(this);
 		dateRange = settingsManager.getSavedDateRange();
+		baseCurrency = settingsManager.getPreferredCurrency();
+		getViewState().setBaseCurrency(baseCurrency);
 		getDashboard();
 	}
 
@@ -81,7 +87,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 		updateDateRange();
 		if (dashboardSubscription != null)
 			dashboardSubscription.unsubscribe();
-		dashboardSubscription = dashboardManager.getDashboard(dateRange)
+		dashboardSubscription = dashboardManager.getDashboard(dateRange, baseCurrency.getValue())
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(this::handleGetDashboardSuccess,
@@ -98,6 +104,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 		dashboardSubscription.unsubscribe();
 		getViewState().setRefreshing(false);
 
+		getViewState().setHaveNewNotifications(response.getProfileHeader().getNotificationsAmount() > 0);
 		getViewState().setChartData(response.getChart());
 		getViewState().setPortfolioEvents(response.getEvents().getEvents());
 		getViewState().setAssetsCount(response.getProgramsCount(), response.getFundsCount());
@@ -139,6 +146,14 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 		settingsManager.saveDateRange(dateRange);
 		getViewState().setDateRange(dateRange);
 		getViewState().setRefreshing(true);
+		getDashboard();
+	}
+
+	@Override
+	public void onCurrencyChanged(CurrencyEnum currency) {
+		baseCurrency = currency;
+		getViewState().setBaseCurrency(currency);
+		settingsManager.saveBaseCurrency(currency.getValue());
 		getDashboard();
 	}
 }

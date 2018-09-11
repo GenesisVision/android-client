@@ -16,7 +16,6 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="try_again">Try again</string>
-    <string name="gvt">GVT</string>
 
     <string name="dashboard">Dashboard</string>
     <string name="programs">Programs</string>
@@ -406,5 +405,10 @@
     <string name="year">Year</string>
     <string name="custom">Custom</string>
     <string name="date_range">Date range</string>
+
+    <string name="gvt">GVT</string>
+    <string name="btc">BTC</string>
+    <string name="usd">USD</string>
+    <string name="eur">EUR</string>
 
 </resources>

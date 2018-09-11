@@ -15,6 +15,10 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.joda.time.DateTime;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -32,8 +36,17 @@ public class ManagerProfile
 	@SerializedName("username")
 	private String username = null;
 
+	@SerializedName("about")
+	private String about = null;
+
 	@SerializedName("avatar")
 	private String avatar = null;
+
+	@SerializedName("regDate")
+	private DateTime regDate = null;
+
+	@SerializedName("assets")
+	private List<String> assets = null;
 
 	public ManagerProfile id(UUID id) {
 		this.id = id;
@@ -73,6 +86,25 @@ public class ManagerProfile
 		this.username = username;
 	}
 
+	public ManagerProfile about(String about) {
+		this.about = about;
+		return this;
+	}
+
+	/**
+	 * Get about
+	 *
+	 * @return about
+	 **/
+	@ApiModelProperty(value = "")
+	public String getAbout() {
+		return about;
+	}
+
+	public void setAbout(String about) {
+		this.about = about;
+	}
+
 	public ManagerProfile avatar(String avatar) {
 		this.avatar = avatar;
 		return this;
@@ -92,6 +124,52 @@ public class ManagerProfile
 		this.avatar = avatar;
 	}
 
+	public ManagerProfile regDate(DateTime regDate) {
+		this.regDate = regDate;
+		return this;
+	}
+
+	/**
+	 * Get regDate
+	 *
+	 * @return regDate
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getRegDate() {
+		return regDate;
+	}
+
+	public void setRegDate(DateTime regDate) {
+		this.regDate = regDate;
+	}
+
+	public ManagerProfile assets(List<String> assets) {
+		this.assets = assets;
+		return this;
+	}
+
+	public ManagerProfile addAssetsItem(String assetsItem) {
+		if (this.assets == null) {
+			this.assets = new ArrayList<String>();
+		}
+		this.assets.add(assetsItem);
+		return this;
+	}
+
+	/**
+	 * Get assets
+	 *
+	 * @return assets
+	 **/
+	@ApiModelProperty(value = "")
+	public List<String> getAssets() {
+		return assets;
+	}
+
+	public void setAssets(List<String> assets) {
+		this.assets = assets;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -104,12 +182,15 @@ public class ManagerProfile
 		ManagerProfile managerProfile = (ManagerProfile) o;
 		return Objects.equals(this.id, managerProfile.id) &&
 				Objects.equals(this.username, managerProfile.username) &&
-				Objects.equals(this.avatar, managerProfile.avatar);
+				Objects.equals(this.about, managerProfile.about) &&
+				Objects.equals(this.avatar, managerProfile.avatar) &&
+				Objects.equals(this.regDate, managerProfile.regDate) &&
+				Objects.equals(this.assets, managerProfile.assets);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, username, avatar);
+		return Objects.hash(id, username, about, avatar, regDate, assets);
 	}
 
 
@@ -120,7 +201,10 @@ public class ManagerProfile
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    username: ").append(toIndentedString(username)).append("\n");
+		sb.append("    about: ").append(toIndentedString(about)).append("\n");
 		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
+		sb.append("    regDate: ").append(toIndentedString(regDate)).append("\n");
+		sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -25,14 +26,17 @@ import io.swagger.client.model.DashboardPortfolioEvent;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.programs.DashboardPagerAdapter;
 import vision.genesis.clientapp.feature.main.tooltip.TooltipActivity;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.TooltipModel;
 import vision.genesis.clientapp.ui.DateRangeView;
 import vision.genesis.clientapp.ui.PortfolioEventDashboardView;
 import vision.genesis.clientapp.utils.ThemeUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -43,6 +47,12 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 {
 //	@BindView(R.id.refresh_layout)
 //	public SwipeRefreshLayout refreshLayout;
+
+	@BindView(R.id.notifications_dot)
+	public View notificationsDot;
+
+	@BindView(R.id.text_currency)
+	public TextView currencyText;
 
 	@BindView(R.id.date_range)
 	public DateRangeView dateRangeView;
@@ -84,7 +94,23 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 	private DateRange dateRange = new DateRange();
 
+	private CurrencyEnum baseCurrency;
+
 	private Unbinder unbinder;
+
+	@OnClick(R.id.group_notifications)
+	public void onNotificationsClicked() {
+
+	}
+
+	@OnClick(R.id.group_currency)
+	public void onCurrencyClicked() {
+		if (getActivity() != null) {
+			SelectCurrencyFragment fragment = SelectCurrencyFragment.with(baseCurrency.getValue());
+			fragment.setListener(investorDashboardPresenter);
+			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
+		}
+	}
 
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
@@ -179,7 +205,7 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	}
 
 	private void setFonts() {
-//		portfolioEventsLabel.setTypeface(TypefaceUtil.semibold());
+		currencyText.setTypeface(TypefaceUtil.semibold());
 	}
 
 //	private void initRefreshLayout() {
@@ -282,6 +308,17 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	public void setDateRange(DateRange dateRange) {
 		this.dateRange = dateRange;
 		dateRangeView.setDateRange(dateRange);
+	}
+
+	@Override
+	public void setHaveNewNotifications(boolean have) {
+		notificationsDot.setVisibility(have ? View.VISIBLE : View.INVISIBLE);
+	}
+
+	@Override
+	public void setBaseCurrency(CurrencyEnum baseCurrency) {
+		this.baseCurrency = baseCurrency;
+		currencyText.setText(baseCurrency.getValue());
 	}
 
 	@Override

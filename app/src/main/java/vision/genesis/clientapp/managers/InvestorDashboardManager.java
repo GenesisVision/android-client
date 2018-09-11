@@ -9,8 +9,8 @@ import java.util.Random;
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.model.DashboardPortfolioEvent;
 import io.swagger.client.model.DashboardPortfolioEvents;
-import io.swagger.client.model.DashboardProgramsList;
 import io.swagger.client.model.DashboardSummary;
+import io.swagger.client.model.ProgramsList;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
@@ -31,11 +31,12 @@ public class InvestorDashboardManager
 		this.investorApi = investorApi;
 	}
 
-	public Observable<DashboardSummary> getDashboard(DateRange dateRange) {
-		return investorApi.v10InvestorGet(AuthManager.token.getValue(), null, dateRange.getFrom(), dateRange.getTo(), 0, 10);
+	public Observable<DashboardSummary> getDashboard(DateRange dateRange, String baseCurrency) {
+		return investorApi.v10InvestorGet(AuthManager.token.getValue(), null, dateRange.getFrom(), dateRange.getTo(),
+				null, null, 0, 10, baseCurrency, dateRange.getFrom(), dateRange.getTo());
 	}
 
-	public Observable<DashboardProgramsList> getPrograms(String sorting, DateRange dateRange, Integer skip, Integer take) {
+	public Observable<ProgramsList> getPrograms(String sorting, DateRange dateRange, Integer skip, Integer take) {
 		return investorApi.v10InvestorProgramsGet(AuthManager.token.getValue(), sorting, dateRange.getFrom(), dateRange.getTo(), skip, take);
 	}
 

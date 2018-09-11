@@ -323,7 +323,7 @@ No authorization required
 
 <a name="v10ProgramsSetsGet"></a>
 # **v10ProgramsSetsGet**
-> ProgramSets v10ProgramsSetsGet()
+> ProgramSets v10ProgramsSetsGet(authorization)
 
 Programs sets
 
@@ -335,8 +335,9 @@ Programs sets
 
 
 ProgramsApi apiInstance = new ProgramsApi();
+String authorization = "authorization_example"; // String | JWT access token
 try {
-    ProgramSets result = apiInstance.v10ProgramsSetsGet();
+    ProgramSets result = apiInstance.v10ProgramsSetsGet(authorization);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#v10ProgramsSetsGet");
@@ -345,7 +346,10 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
 
 ### Return type
 

@@ -56,14 +56,17 @@ public class ProgramDetails
 	@SerializedName("periodDuration")
 	private Integer periodDuration = null;
 
-	@SerializedName("periodDateStart")
-	private DateTime periodDateStart = null;
+	@SerializedName("periodStarts")
+	private DateTime periodStarts = null;
 
-	@SerializedName("periodDateEnd")
-	private DateTime periodDateEnd = null;
+	@SerializedName("periodEnds")
+	private DateTime periodEnds = null;
 
-	@SerializedName("availableForInvestment")
-	private Double availableForInvestment = null;
+	@SerializedName("isReinvesting")
+	private Boolean isReinvesting = null;
+
+	@SerializedName("availableInvestment")
+	private Double availableInvestment = null;
 
 	@SerializedName("manager")
 	private ProfilePublic manager = null;
@@ -76,6 +79,9 @@ public class ProgramDetails
 
 	@SerializedName("personalProgramDetails")
 	private PersonalProgramDetailsList personalProgramDetails = null;
+
+	@SerializedName("dashboardProgramDetails")
+	private DashboardProgramDetails dashboardProgramDetails = null;
 
 	public ProgramDetails id(UUID id) {
 		this.id = id;
@@ -210,61 +216,80 @@ public class ProgramDetails
 		this.periodDuration = periodDuration;
 	}
 
-	public ProgramDetails periodDateStart(DateTime periodDateStart) {
-		this.periodDateStart = periodDateStart;
+	public ProgramDetails periodStarts(DateTime periodStarts) {
+		this.periodStarts = periodStarts;
 		return this;
 	}
 
 	/**
-	 * Get periodDateStart
+	 * Get periodStarts
 	 *
-	 * @return periodDateStart
+	 * @return periodStarts
 	 **/
 	@ApiModelProperty(value = "")
-	public DateTime getPeriodDateStart() {
-		return periodDateStart;
+	public DateTime getPeriodStarts() {
+		return periodStarts;
 	}
 
-	public void setPeriodDateStart(DateTime periodDateStart) {
-		this.periodDateStart = periodDateStart;
+	public void setPeriodStarts(DateTime periodStarts) {
+		this.periodStarts = periodStarts;
 	}
 
-	public ProgramDetails periodDateEnd(DateTime periodDateEnd) {
-		this.periodDateEnd = periodDateEnd;
+	public ProgramDetails periodEnds(DateTime periodEnds) {
+		this.periodEnds = periodEnds;
 		return this;
 	}
 
 	/**
-	 * Get periodDateEnd
+	 * Get periodEnds
 	 *
-	 * @return periodDateEnd
+	 * @return periodEnds
 	 **/
 	@ApiModelProperty(value = "")
-	public DateTime getPeriodDateEnd() {
-		return periodDateEnd;
+	public DateTime getPeriodEnds() {
+		return periodEnds;
 	}
 
-	public void setPeriodDateEnd(DateTime periodDateEnd) {
-		this.periodDateEnd = periodDateEnd;
+	public void setPeriodEnds(DateTime periodEnds) {
+		this.periodEnds = periodEnds;
 	}
 
-	public ProgramDetails availableForInvestment(Double availableForInvestment) {
-		this.availableForInvestment = availableForInvestment;
+	public ProgramDetails isReinvesting(Boolean isReinvesting) {
+		this.isReinvesting = isReinvesting;
 		return this;
 	}
 
 	/**
-	 * Get availableForInvestment
+	 * Get isReinvesting
 	 *
-	 * @return availableForInvestment
+	 * @return isReinvesting
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getAvailableForInvestment() {
-		return availableForInvestment;
+	public Boolean isIsReinvesting() {
+		return isReinvesting;
 	}
 
-	public void setAvailableForInvestment(Double availableForInvestment) {
-		this.availableForInvestment = availableForInvestment;
+	public void setIsReinvesting(Boolean isReinvesting) {
+		this.isReinvesting = isReinvesting;
+	}
+
+	public ProgramDetails availableInvestment(Double availableInvestment) {
+		this.availableInvestment = availableInvestment;
+		return this;
+	}
+
+	/**
+	 * Get availableInvestment
+	 *
+	 * @return availableInvestment
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getAvailableInvestment() {
+		return availableInvestment;
+	}
+
+	public void setAvailableInvestment(Double availableInvestment) {
+		this.availableInvestment = availableInvestment;
 	}
 
 	public ProgramDetails manager(ProfilePublic manager) {
@@ -351,6 +376,25 @@ public class ProgramDetails
 		this.personalProgramDetails = personalProgramDetails;
 	}
 
+	public ProgramDetails dashboardProgramDetails(DashboardProgramDetails dashboardProgramDetails) {
+		this.dashboardProgramDetails = dashboardProgramDetails;
+		return this;
+	}
+
+	/**
+	 * Fields for dashboard
+	 *
+	 * @return dashboardProgramDetails
+	 **/
+	@ApiModelProperty(value = "Fields for dashboard")
+	public DashboardProgramDetails getDashboardProgramDetails() {
+		return dashboardProgramDetails;
+	}
+
+	public void setDashboardProgramDetails(DashboardProgramDetails dashboardProgramDetails) {
+		this.dashboardProgramDetails = dashboardProgramDetails;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -367,18 +411,20 @@ public class ProgramDetails
 				Objects.equals(this.currency, programDetails.currency) &&
 				Objects.equals(this.level, programDetails.level) &&
 				Objects.equals(this.periodDuration, programDetails.periodDuration) &&
-				Objects.equals(this.periodDateStart, programDetails.periodDateStart) &&
-				Objects.equals(this.periodDateEnd, programDetails.periodDateEnd) &&
-				Objects.equals(this.availableForInvestment, programDetails.availableForInvestment) &&
+				Objects.equals(this.periodStarts, programDetails.periodStarts) &&
+				Objects.equals(this.periodEnds, programDetails.periodEnds) &&
+				Objects.equals(this.isReinvesting, programDetails.isReinvesting) &&
+				Objects.equals(this.availableInvestment, programDetails.availableInvestment) &&
 				Objects.equals(this.manager, programDetails.manager) &&
 				Objects.equals(this.statistic, programDetails.statistic) &&
 				Objects.equals(this.chart, programDetails.chart) &&
-				Objects.equals(this.personalProgramDetails, programDetails.personalProgramDetails);
+				Objects.equals(this.personalProgramDetails, programDetails.personalProgramDetails) &&
+				Objects.equals(this.dashboardProgramDetails, programDetails.dashboardProgramDetails);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, title, description, currency, level, periodDuration, periodDateStart, periodDateEnd, availableForInvestment, manager, statistic, chart, personalProgramDetails);
+		return Objects.hash(id, logo, title, description, currency, level, periodDuration, periodStarts, periodEnds, isReinvesting, availableInvestment, manager, statistic, chart, personalProgramDetails, dashboardProgramDetails);
 	}
 
 	@Override
@@ -393,13 +439,15 @@ public class ProgramDetails
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
 		sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
-		sb.append("    periodDateStart: ").append(toIndentedString(periodDateStart)).append("\n");
-		sb.append("    periodDateEnd: ").append(toIndentedString(periodDateEnd)).append("\n");
-		sb.append("    availableForInvestment: ").append(toIndentedString(availableForInvestment)).append("\n");
+		sb.append("    periodStarts: ").append(toIndentedString(periodStarts)).append("\n");
+		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
+		sb.append("    isReinvesting: ").append(toIndentedString(isReinvesting)).append("\n");
+		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("    personalProgramDetails: ").append(toIndentedString(personalProgramDetails)).append("\n");
+		sb.append("    dashboardProgramDetails: ").append(toIndentedString(dashboardProgramDetails)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -41,6 +41,18 @@ public class ProgramStatistic
 	@SerializedName("balanceSecondary")
 	private AmountWithCurrency balanceSecondary = null;
 
+	@SerializedName("currentValue")
+	private Double currentValue = null;
+
+	@SerializedName("profitPercent")
+	private Double profitPercent = null;
+
+	@SerializedName("profitValue")
+	private Double profitValue = null;
+
+	@SerializedName("drawdownPercent")
+	private Double drawdownPercent = null;
+
 	@SerializedName("investorsCount")
 	private Integer investorsCount = null;
 
@@ -70,12 +82,6 @@ public class ProgramStatistic
 
 	@SerializedName("sharpeRatioPercent")
 	private Double sharpeRatioPercent = null;
-
-	@SerializedName("drawdownPercent")
-	private Double drawdownPercent = null;
-
-	@SerializedName("profitPercent")
-	private Double profitPercent = null;
 
 	public ProgramStatistic balanceBase(AmountWithCurrency balanceBase) {
 		this.balanceBase = balanceBase;
@@ -132,6 +138,82 @@ public class ProgramStatistic
 
 	public void setBalanceSecondary(AmountWithCurrency balanceSecondary) {
 		this.balanceSecondary = balanceSecondary;
+	}
+
+	public ProgramStatistic currentValue(Double currentValue) {
+		this.currentValue = currentValue;
+		return this;
+	}
+
+	/**
+	 * Get currentValue
+	 *
+	 * @return currentValue
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getCurrentValue() {
+		return currentValue;
+	}
+
+	public void setCurrentValue(Double currentValue) {
+		this.currentValue = currentValue;
+	}
+
+	public ProgramStatistic profitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
+		return this;
+	}
+
+	/**
+	 * Get profitPercent
+	 *
+	 * @return profitPercent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProfitPercent() {
+		return profitPercent;
+	}
+
+	public void setProfitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
+	}
+
+	public ProgramStatistic profitValue(Double profitValue) {
+		this.profitValue = profitValue;
+		return this;
+	}
+
+	/**
+	 * Get profitValue
+	 *
+	 * @return profitValue
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProfitValue() {
+		return profitValue;
+	}
+
+	public void setProfitValue(Double profitValue) {
+		this.profitValue = profitValue;
+	}
+
+	public ProgramStatistic drawdownPercent(Double drawdownPercent) {
+		this.drawdownPercent = drawdownPercent;
+		return this;
+	}
+
+	/**
+	 * Get drawdownPercent
+	 *
+	 * @return drawdownPercent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getDrawdownPercent() {
+		return drawdownPercent;
+	}
+
+	public void setDrawdownPercent(Double drawdownPercent) {
+		this.drawdownPercent = drawdownPercent;
 	}
 
 	public ProgramStatistic investorsCount(Integer investorsCount) {
@@ -324,44 +406,6 @@ public class ProgramStatistic
 		this.sharpeRatioPercent = sharpeRatioPercent;
 	}
 
-	public ProgramStatistic drawdownPercent(Double drawdownPercent) {
-		this.drawdownPercent = drawdownPercent;
-		return this;
-	}
-
-	/**
-	 * Get drawdownPercent
-	 *
-	 * @return drawdownPercent
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getDrawdownPercent() {
-		return drawdownPercent;
-	}
-
-	public void setDrawdownPercent(Double drawdownPercent) {
-		this.drawdownPercent = drawdownPercent;
-	}
-
-	public ProgramStatistic profitPercent(Double profitPercent) {
-		this.profitPercent = profitPercent;
-		return this;
-	}
-
-	/**
-	 * Get profitPercent
-	 *
-	 * @return profitPercent
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getProfitPercent() {
-		return profitPercent;
-	}
-
-	public void setProfitPercent(Double profitPercent) {
-		this.profitPercent = profitPercent;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -374,6 +418,10 @@ public class ProgramStatistic
 		return Objects.equals(this.balanceBase, programStatistic.balanceBase) &&
 				Objects.equals(this.balanceGVT, programStatistic.balanceGVT) &&
 				Objects.equals(this.balanceSecondary, programStatistic.balanceSecondary) &&
+				Objects.equals(this.currentValue, programStatistic.currentValue) &&
+				Objects.equals(this.profitPercent, programStatistic.profitPercent) &&
+				Objects.equals(this.profitValue, programStatistic.profitValue) &&
+				Objects.equals(this.drawdownPercent, programStatistic.drawdownPercent) &&
 				Objects.equals(this.investorsCount, programStatistic.investorsCount) &&
 				Objects.equals(this.startDate, programStatistic.startDate) &&
 				Objects.equals(this.startBalance, programStatistic.startBalance) &&
@@ -383,14 +431,12 @@ public class ProgramStatistic
 				Objects.equals(this.tradesCount, programStatistic.tradesCount) &&
 				Objects.equals(this.tradesSuccessCount, programStatistic.tradesSuccessCount) &&
 				Objects.equals(this.profitFactorPercent, programStatistic.profitFactorPercent) &&
-				Objects.equals(this.sharpeRatioPercent, programStatistic.sharpeRatioPercent) &&
-				Objects.equals(this.drawdownPercent, programStatistic.drawdownPercent) &&
-				Objects.equals(this.profitPercent, programStatistic.profitPercent);
+				Objects.equals(this.sharpeRatioPercent, programStatistic.sharpeRatioPercent);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(balanceBase, balanceGVT, balanceSecondary, investorsCount, startDate, startBalance, startCurrency, investedAmount, investedCurrency, tradesCount, tradesSuccessCount, profitFactorPercent, sharpeRatioPercent, drawdownPercent, profitPercent);
+		return Objects.hash(balanceBase, balanceGVT, balanceSecondary, currentValue, profitPercent, profitValue, drawdownPercent, investorsCount, startDate, startBalance, startCurrency, investedAmount, investedCurrency, tradesCount, tradesSuccessCount, profitFactorPercent, sharpeRatioPercent);
 	}
 
 	@Override
@@ -401,6 +447,10 @@ public class ProgramStatistic
 		sb.append("    balanceBase: ").append(toIndentedString(balanceBase)).append("\n");
 		sb.append("    balanceGVT: ").append(toIndentedString(balanceGVT)).append("\n");
 		sb.append("    balanceSecondary: ").append(toIndentedString(balanceSecondary)).append("\n");
+		sb.append("    currentValue: ").append(toIndentedString(currentValue)).append("\n");
+		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
+		sb.append("    profitValue: ").append(toIndentedString(profitValue)).append("\n");
+		sb.append("    drawdownPercent: ").append(toIndentedString(drawdownPercent)).append("\n");
 		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
 		sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
 		sb.append("    startBalance: ").append(toIndentedString(startBalance)).append("\n");
@@ -411,8 +461,6 @@ public class ProgramStatistic
 		sb.append("    tradesSuccessCount: ").append(toIndentedString(tradesSuccessCount)).append("\n");
 		sb.append("    profitFactorPercent: ").append(toIndentedString(profitFactorPercent)).append("\n");
 		sb.append("    sharpeRatioPercent: ").append(toIndentedString(sharpeRatioPercent)).append("\n");
-		sb.append("    drawdownPercent: ").append(toIndentedString(drawdownPercent)).append("\n");
-		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

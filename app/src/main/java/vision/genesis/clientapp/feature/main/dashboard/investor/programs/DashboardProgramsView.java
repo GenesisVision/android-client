@@ -4,7 +4,7 @@ import com.arellomobile.mvp.MvpView;
 
 import java.util.List;
 
-import io.swagger.client.model.DashboardProgramDetails;
+import io.swagger.client.model.ProgramDetails;
 
 /**
  * GenesisVision
@@ -17,5 +17,5 @@ interface DashboardProgramsView extends MvpView
 
 	void showEmpty(boolean show);
 
-	void setPrograms(List<DashboardProgramDetails> programs);
+	void setPrograms(List<ProgramDetails> programs);
 }

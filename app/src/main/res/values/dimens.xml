@@ -87,4 +87,5 @@
     <dimen name="bottomsheet_radius">16dp</dimen>
     <dimen name="date_range_option_height">38dp</dimen>
     <dimen name="apply_button_height">65dp</dimen>
+    <dimen name="currency_option_view_height">50dp</dimen>
 </resources>

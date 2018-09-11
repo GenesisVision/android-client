@@ -4,54 +4,10 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v10ProfileByIdPublicGet**](ProfileApi.md#v10ProfileByIdPublicGet) | **GET** v1.0/profile/{id}/public | Get public profile
 [**v10ProfileGet**](ProfileApi.md#v10ProfileGet) | **GET** v1.0/profile | Get full profile
 [**v10ProfileHeaderGet**](ProfileApi.md#v10ProfileHeaderGet) | **GET** v1.0/profile/header | Get header profile
 [**v10ProfileUpdatePost**](ProfileApi.md#v10ProfileUpdatePost) | **POST** v1.0/profile/update | Update profile
 
-
-<a name="v10ProfileByIdPublicGet"></a>
-# **v10ProfileByIdPublicGet**
-> ProfilePublic v10ProfileByIdPublicGet(id)
-
-Get public profile
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.ProfileApi;
-
-
-ProfileApi apiInstance = new ProfileApi();
-UUID id = new UUID(); // UUID | 
-try {
-    ProfilePublic result = apiInstance.v10ProfileByIdPublicGet(id);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling ProfileApi#v10ProfileByIdPublicGet");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)|  |
-
-### Return type
-
-[**ProfilePublic**](ProfilePublic.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
 
 <a name="v10ProfileGet"></a>
 # **v10ProfileGet**

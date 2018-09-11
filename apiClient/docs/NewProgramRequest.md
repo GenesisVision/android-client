@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **successFee** | **Double** |  |  [optional]
 **entryFee** | **Double** |  |  [optional]
 **stopOutLevel** | **Double** |  |  [optional]
+**depositAmount** | **Double** |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **leverage** | **Integer** |  |  [optional]
 

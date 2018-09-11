@@ -13,6 +13,7 @@ import vision.genesis.clientapp.di.modules.UtilsModule;
 import vision.genesis.clientapp.feature.auth.forgot_password.ForgotPasswordPresenter;
 import vision.genesis.clientapp.feature.auth.login.LoginPresenter;
 import vision.genesis.clientapp.feature.auth.registration.RegistrationPresenter;
+import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
 import vision.genesis.clientapp.feature.main.MainPresenter;
 import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
 import vision.genesis.clientapp.feature.main.assets.AssetsPresenter;
@@ -145,4 +146,6 @@ public interface AppComponent
 	void inject(PortfolioEventsListPresenter portfolioEventsListPresenter);
 
 	void inject(DashboardProgramsPresenter dashboardProgramsPresenter);
+
+	void inject(SelectCurrencyFragment selectCurrencyFragment);
 }

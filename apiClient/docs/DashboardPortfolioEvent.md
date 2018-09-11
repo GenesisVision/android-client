@@ -20,6 +20,7 @@ ALL | &quot;All&quot;
 INVEST | &quot;Invest&quot;
 WITHDRAW | &quot;Withdraw&quot;
 PROFIT | &quot;Profit&quot;
+LOSS | &quot;Loss&quot;
 REINVEST | &quot;Reinvest&quot;
 CANCELED | &quot;Canceled&quot;
 ENDED | &quot;Ended&quot;

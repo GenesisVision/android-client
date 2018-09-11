@@ -1,10 +1,7 @@
 package io.swagger.client.api;
 
-import java.util.UUID;
-
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.ProfileHeaderViewModel;
-import io.swagger.client.model.ProfilePublic;
 import io.swagger.client.model.UpdateProfileViewModel;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -13,17 +10,6 @@ import rx.Observable;
 
 public interface ProfileApi
 {
-	/**
-	 * Get public profile
-	 *
-	 * @param id (required)
-	 * @return Call&lt;ProfilePublic&gt;
-	 */
-	@GET("v1.0/profile/{id}/public")
-	Observable<ProfilePublic> v10ProfileByIdPublicGet(
-			@retrofit2.http.Path("id") UUID id
-	);
-
 	/**
 	 * Get full profile
 	 *

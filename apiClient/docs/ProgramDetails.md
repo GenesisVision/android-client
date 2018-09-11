@@ -11,13 +11,15 @@ Name | Type | Description | Notes
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **level** | **Integer** |  |  [optional]
 **periodDuration** | **Integer** |  |  [optional]
-**periodDateStart** | [**DateTime**](DateTime.md) |  |  [optional]
-**periodDateEnd** | [**DateTime**](DateTime.md) |  |  [optional]
-**availableForInvestment** | **Double** |  |  [optional]
+**periodStarts** | [**DateTime**](DateTime.md) |  |  [optional]
+**periodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
+**isReinvesting** | **Boolean** |  |  [optional]
+**availableInvestment** | **Double** |  |  [optional]
 **manager** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 **statistic** | [**ProgramDetailsListStatistic**](ProgramDetailsListStatistic.md) |  |  [optional]
 **chart** | [**List&lt;ChartSimple&gt;**](ChartSimple.md) |  |  [optional]
 **personalProgramDetails** | [**PersonalProgramDetailsList**](PersonalProgramDetailsList.md) | Fields for authorized user |  [optional]
+**dashboardProgramDetails** | [**DashboardProgramDetails**](DashboardProgramDetails.md) | Fields for dashboard |  [optional]
 
 
 <a name="CurrencyEnum"></a>

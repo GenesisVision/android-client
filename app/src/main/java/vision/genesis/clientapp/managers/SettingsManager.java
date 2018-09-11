@@ -8,6 +8,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.SettingsModel;
 import vision.genesis.clientapp.utils.SharedPreferencesUtil;
@@ -156,5 +157,13 @@ public class SettingsManager
 		sharedPreferencesUtil.saveDateRange(dateRange.getSelectedRange().toString(),
 				dateRange.getFrom().getMillis(),
 				dateRange.getTo().getMillis());
+	}
+
+	public CurrencyEnum getPreferredCurrency() {
+		return CurrencyEnum.fromValue(sharedPreferencesUtil.getCurrency());
+	}
+
+	public void saveBaseCurrency(String currency) {
+		sharedPreferencesUtil.saveCurrency(currency);
 	}
 }

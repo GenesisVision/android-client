@@ -7,6 +7,10 @@ Name | Type | Description | Notes
 **balanceBase** | [**AmountWithCurrency**](AmountWithCurrency.md) |  |  [optional]
 **balanceGVT** | [**AmountWithCurrency**](AmountWithCurrency.md) |  |  [optional]
 **balanceSecondary** | [**AmountWithCurrency**](AmountWithCurrency.md) |  |  [optional]
+**currentValue** | **Double** |  |  [optional]
+**profitPercent** | **Double** |  |  [optional]
+**profitValue** | **Double** |  |  [optional]
+**drawdownPercent** | **Double** |  |  [optional]
 **investorsCount** | **Integer** |  |  [optional]
 **startDate** | [**DateTime**](DateTime.md) |  |  [optional]
 **startBalance** | **Double** |  |  [optional]
@@ -17,8 +21,6 @@ Name | Type | Description | Notes
 **tradesSuccessCount** | **Integer** |  |  [optional]
 **profitFactorPercent** | **Double** |  |  [optional]
 **sharpeRatioPercent** | **Double** |  |  [optional]
-**drawdownPercent** | **Double** |  |  [optional]
-**profitPercent** | **Double** |  |  [optional]
 
 
 <a name="StartCurrencyEnum"></a>

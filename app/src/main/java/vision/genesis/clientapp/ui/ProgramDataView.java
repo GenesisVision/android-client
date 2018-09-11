@@ -99,7 +99,7 @@ public class ProgramDataView extends RelativeLayout
 //		totalProfitText.setText(program.getTotalProfitTextFull());
 //		avgProfitText.setText(program.getAvgProfitTextFull());
 //		balanceText.setText(program.getBalanceTextFull());
-//		this.balanceCurrency.setCurrency(program.getBalanceCurrency());
+//		this.balanceCurrency.setBaseCurrency(program.getBalanceCurrency());
 //		investorsText.setText(program.getInvestorsText());
 	}
 

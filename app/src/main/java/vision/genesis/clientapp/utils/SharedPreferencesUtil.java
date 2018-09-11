@@ -37,6 +37,8 @@ public class SharedPreferencesUtil
 
 	private static final String KEY_DATE_RANGE_TO = "keyDateRangeTo";
 
+	private static final String KEY_CURRENCY = "keyCurrency";
+
 	private Context context;
 
 	public SharedPreferencesUtil(Context context) {
@@ -161,5 +163,17 @@ public class SharedPreferencesUtil
 	public Long getDateRangeTo() {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
 		return sharedPreferences.getLong(KEY_DATE_RANGE_TO, 0);
+	}
+
+	public void saveCurrency(String currency) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+		sharedPreferences.edit()
+				.putString(KEY_CURRENCY, currency)
+				.apply();
+	}
+
+	public String getCurrency() {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+		return sharedPreferences.getString(KEY_CURRENCY, "USD");
 	}
 }

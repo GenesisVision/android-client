@@ -11,10 +11,12 @@ Name | Type | Description | Notes
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **level** | **Integer** |  |  [optional]
 **periodDuration** | **Integer** |  |  [optional]
-**periodDateStart** | [**DateTime**](DateTime.md) |  |  [optional]
-**periodDateEnd** | [**DateTime**](DateTime.md) |  |  [optional]
-**successFee** | **Double** |  |  [optional]
-**availableForInvestment** | **Double** |  |  [optional]
+**periodStarts** | [**DateTime**](DateTime.md) |  |  [optional]
+**periodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
+**entryFee** | **Double** |  |  [optional]
+**isReinvesting** | **Boolean** |  |  [optional]
+**status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
+**availableInvestment** | **Double** |  |  [optional]
 **manager** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 **statistic** | [**ProgramStatistic**](ProgramStatistic.md) |  |  [optional]
 **personalProgramDetails** | [**PersonalProgramDetailsFull**](PersonalProgramDetailsFull.md) | Fields for authorized user |  [optional]
@@ -31,6 +33,18 @@ BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
+
+
+<a name="StatusEnum"></a>
+## Enum: StatusEnum
+Name | Value
+---- | -----
+NONE | &quot;None&quot;
+PENDING | &quot;Pending&quot;
+ERRORCREATING | &quot;ErrorCreating&quot;
+ACTIVE | &quot;Active&quot;
+CLOSED | &quot;Closed&quot;
+ARCHIVED | &quot;Archived&quot;
 
 
 

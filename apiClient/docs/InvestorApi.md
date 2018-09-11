@@ -11,7 +11,7 @@ Method | HTTP request | Description
 [**v10InvestorProgramsByIdInvestInfoByCurrencyGet**](InvestorApi.md#v10InvestorProgramsByIdInvestInfoByCurrencyGet) | **GET** v1.0/investor/programs/{id}/invest/info/{currency} | Data for investing
 [**v10InvestorProgramsByIdReinvestOffPost**](InvestorApi.md#v10InvestorProgramsByIdReinvestOffPost) | **POST** v1.0/investor/programs/{id}/reinvest/off | Disable reinvesting
 [**v10InvestorProgramsByIdReinvestOnPost**](InvestorApi.md#v10InvestorProgramsByIdReinvestOnPost) | **POST** v1.0/investor/programs/{id}/reinvest/on | Enable reinvesting
-[**v10InvestorProgramsByIdRequestsGet**](InvestorApi.md#v10InvestorProgramsByIdRequestsGet) | **GET** v1.0/investor/programs/{id}/requests | Ger requests
+[**v10InvestorProgramsByIdRequestsBySkipByTakeGet**](InvestorApi.md#v10InvestorProgramsByIdRequestsBySkipByTakeGet) | **GET** v1.0/investor/programs/{id}/requests/{skip}/{take} | Get requests
 [**v10InvestorProgramsByIdWithdrawByAmountPost**](InvestorApi.md#v10InvestorProgramsByIdWithdrawByAmountPost) | **POST** v1.0/investor/programs/{id}/withdraw/{amount} | Withdrawal
 [**v10InvestorProgramsByIdWithdrawInfoByCurrencyGet**](InvestorApi.md#v10InvestorProgramsByIdWithdrawInfoByCurrencyGet) | **GET** v1.0/investor/programs/{id}/withdraw/info/{currency} | Data for withdrawal
 [**v10InvestorProgramsGet**](InvestorApi.md#v10InvestorProgramsGet) | **GET** v1.0/investor/programs | Programs list
@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 <a name="v10InvestorGet"></a>
 # **v10InvestorGet**
-> DashboardSummary v10InvestorGet(authorization, sorting, from, to, skip, take)
+> DashboardSummary v10InvestorGet(authorization, assetId, from, to, type, assetType, skip, take, chartCurrency, chartFrom, chartTo)
 
 Summary dashdoard info
 
@@ -33,13 +33,18 @@ Summary dashdoard info
 
 InvestorApi apiInstance = new InvestorApi();
 String authorization = "authorization_example"; // String | JWT access token
-String sorting = "sorting_example"; // String | 
+UUID assetId = new UUID(); // UUID | 
 DateTime from = new DateTime(); // DateTime | 
 DateTime to = new DateTime(); // DateTime | 
+String type = "type_example"; // String | 
+String assetType = "assetType_example"; // String | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
+String chartCurrency = "chartCurrency_example"; // String | 
+DateTime chartFrom = new DateTime(); // DateTime | 
+DateTime chartTo = new DateTime(); // DateTime | 
 try {
-    DashboardSummary result = apiInstance.v10InvestorGet(authorization, sorting, from, to, skip, take);
+    DashboardSummary result = apiInstance.v10InvestorGet(authorization, assetId, from, to, type, assetType, skip, take, chartCurrency, chartFrom, chartTo);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestorApi#v10InvestorGet");
@@ -52,11 +57,16 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **sorting** | **String**|  | [optional] [enum: ByShareAsc, ByShareDesc, ByCurrAsc, ByCurrDesc, ByTimeLeftAsc, ByTimeLeftDesc, ByValueAsc, ByValueDesc, ByProfitAsc, ByProfitDesc]
+ **assetId** | [**UUID**](.md)|  | [optional]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
+ **type** | **String**|  | [optional] [enum: All, Invest, Withdraw, Profit, Loss, Reinvest, Canceled, Ended]
+ **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
+ **chartCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **chartFrom** | **DateTime**|  | [optional]
+ **chartTo** | **DateTime**|  | [optional]
 
 ### Return type
 
@@ -86,7 +96,7 @@ Portfolio charts
 
 InvestorApi apiInstance = new InvestorApi();
 String authorization = "authorization_example"; // String | JWT access token
-UUID currency = new UUID(); // UUID | 
+String currency = "currency_example"; // String | 
 DateTime from = new DateTime(); // DateTime | 
 DateTime to = new DateTime(); // DateTime | 
 try {
@@ -103,7 +113,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **currency** | [**UUID**](.md)|  | [optional]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
 
@@ -159,7 +169,7 @@ Name | Type | Description  | Notes
  **assetId** | [**UUID**](.md)|  | [optional]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
- **type** | **String**|  | [optional] [enum: All, Invest, Withdraw, Profit, Reinvest, Canceled, Ended]
+ **type** | **String**|  | [optional] [enum: All, Invest, Withdraw, Profit, Loss, Reinvest, Canceled, Ended]
  **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
@@ -361,11 +371,11 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10InvestorProgramsByIdRequestsGet"></a>
-# **v10InvestorProgramsByIdRequestsGet**
-> ProgramRequests v10InvestorProgramsByIdRequestsGet(id, authorization)
+<a name="v10InvestorProgramsByIdRequestsBySkipByTakeGet"></a>
+# **v10InvestorProgramsByIdRequestsBySkipByTakeGet**
+> ProgramRequests v10InvestorProgramsByIdRequestsBySkipByTakeGet(id, skip, take, authorization)
 
-Ger requests
+Get requests
 
 ### Example
 ```java
@@ -376,12 +386,14 @@ Ger requests
 
 InvestorApi apiInstance = new InvestorApi();
 UUID id = new UUID(); // UUID | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
 String authorization = "authorization_example"; // String | JWT access token
 try {
-    ProgramRequests result = apiInstance.v10InvestorProgramsByIdRequestsGet(id, authorization);
+    ProgramRequests result = apiInstance.v10InvestorProgramsByIdRequestsBySkipByTakeGet(id, skip, take, authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling InvestorApi#v10InvestorProgramsByIdRequestsGet");
+    System.err.println("Exception when calling InvestorApi#v10InvestorProgramsByIdRequestsBySkipByTakeGet");
     e.printStackTrace();
 }
 ```
@@ -391,6 +403,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
+ **skip** | **Integer**|  |
+ **take** | **Integer**|  |
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -502,7 +516,7 @@ No authorization required
 
 <a name="v10InvestorProgramsGet"></a>
 # **v10InvestorProgramsGet**
-> DashboardProgramsList v10InvestorProgramsGet(authorization, sorting, from, to, skip, take)
+> ProgramsList v10InvestorProgramsGet(authorization, sorting, from, to, skip, take)
 
 Programs list
 
@@ -521,7 +535,7 @@ DateTime to = new DateTime(); // DateTime |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    DashboardProgramsList result = apiInstance.v10InvestorProgramsGet(authorization, sorting, from, to, skip, take);
+    ProgramsList result = apiInstance.v10InvestorProgramsGet(authorization, sorting, from, to, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestorApi#v10InvestorProgramsGet");
@@ -534,7 +548,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **sorting** | **String**|  | [optional] [enum: ByShareAsc, ByShareDesc, ByCurrAsc, ByCurrDesc, ByTimeLeftAsc, ByTimeLeftDesc, ByValueAsc, ByValueDesc, ByProfitAsc, ByProfitDesc]
+ **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByTradesAsc, ByTradesDesc, ByInvestorsAsc, ByInvestorsDesc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **skip** | **Integer**|  | [optional]
@@ -542,7 +556,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DashboardProgramsList**](DashboardProgramsList.md)
+[**ProgramsList**](ProgramsList.md)
 
 ### Authorization
 

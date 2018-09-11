@@ -13,8 +13,13 @@
 
 package io.swagger.client.model;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
+import java.io.IOException;
 import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -34,14 +39,20 @@ public class PersonalProgramDetailsFull
 	@SerializedName("isOwnProgram")
 	private Boolean isOwnProgram = null;
 
-	@SerializedName("canCloseProgram")
-	private Boolean canCloseProgram = null;
+	@SerializedName("isReinvest")
+	private Boolean isReinvest = null;
 
-	@SerializedName("canClosePeriod")
-	private Boolean canClosePeriod = null;
+	@SerializedName("invested")
+	private Double invested = null;
 
-	@SerializedName("canInvest")
-	private Boolean canInvest = null;
+	@SerializedName("value")
+	private Double value = null;
+
+	@SerializedName("profit")
+	private Double profit = null;
+
+	@SerializedName("investmentProgramStatus")
+	private InvestmentProgramStatusEnum investmentProgramStatus = null;
 
 	public PersonalProgramDetailsFull isFavorite(Boolean isFavorite) {
 		this.isFavorite = isFavorite;
@@ -100,63 +111,100 @@ public class PersonalProgramDetailsFull
 		this.isOwnProgram = isOwnProgram;
 	}
 
-	public PersonalProgramDetailsFull canCloseProgram(Boolean canCloseProgram) {
-		this.canCloseProgram = canCloseProgram;
+	public PersonalProgramDetailsFull isReinvest(Boolean isReinvest) {
+		this.isReinvest = isReinvest;
 		return this;
 	}
 
 	/**
-	 * Get canCloseProgram
+	 * Get isReinvest
 	 *
-	 * @return canCloseProgram
+	 * @return isReinvest
 	 **/
 	@ApiModelProperty(value = "")
-	public Boolean isCanCloseProgram() {
-		return canCloseProgram;
+	public Boolean isIsReinvest() {
+		return isReinvest;
 	}
 
-	public void setCanCloseProgram(Boolean canCloseProgram) {
-		this.canCloseProgram = canCloseProgram;
+	public void setIsReinvest(Boolean isReinvest) {
+		this.isReinvest = isReinvest;
 	}
 
-	public PersonalProgramDetailsFull canClosePeriod(Boolean canClosePeriod) {
-		this.canClosePeriod = canClosePeriod;
+	public PersonalProgramDetailsFull invested(Double invested) {
+		this.invested = invested;
 		return this;
 	}
 
 	/**
-	 * Get canClosePeriod
+	 * Get invested
 	 *
-	 * @return canClosePeriod
+	 * @return invested
 	 **/
 	@ApiModelProperty(value = "")
-	public Boolean isCanClosePeriod() {
-		return canClosePeriod;
+	public Double getInvested() {
+		return invested;
 	}
 
-	public void setCanClosePeriod(Boolean canClosePeriod) {
-		this.canClosePeriod = canClosePeriod;
+	public void setInvested(Double invested) {
+		this.invested = invested;
 	}
 
-	public PersonalProgramDetailsFull canInvest(Boolean canInvest) {
-		this.canInvest = canInvest;
+	public PersonalProgramDetailsFull value(Double value) {
+		this.value = value;
 		return this;
 	}
 
 	/**
-	 * Get canInvest
+	 * Get value
 	 *
-	 * @return canInvest
+	 * @return value
 	 **/
 	@ApiModelProperty(value = "")
-	public Boolean isCanInvest() {
-		return canInvest;
+	public Double getValue() {
+		return value;
 	}
 
-	public void setCanInvest(Boolean canInvest) {
-		this.canInvest = canInvest;
+	public void setValue(Double value) {
+		this.value = value;
 	}
 
+	public PersonalProgramDetailsFull profit(Double profit) {
+		this.profit = profit;
+		return this;
+	}
+
+	/**
+	 * Get profit
+	 *
+	 * @return profit
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProfit() {
+		return profit;
+	}
+
+	public void setProfit(Double profit) {
+		this.profit = profit;
+	}
+
+	public PersonalProgramDetailsFull investmentProgramStatus(InvestmentProgramStatusEnum investmentProgramStatus) {
+		this.investmentProgramStatus = investmentProgramStatus;
+		return this;
+	}
+
+	/**
+	 * Get investmentProgramStatus
+	 *
+	 * @return investmentProgramStatus
+	 **/
+	@ApiModelProperty(value = "")
+	public InvestmentProgramStatusEnum getInvestmentProgramStatus() {
+		return investmentProgramStatus;
+	}
+
+	public void setInvestmentProgramStatus(InvestmentProgramStatusEnum investmentProgramStatus) {
+		this.investmentProgramStatus = investmentProgramStatus;
+	}
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -170,16 +218,17 @@ public class PersonalProgramDetailsFull
 		return Objects.equals(this.isFavorite, personalProgramDetailsFull.isFavorite) &&
 				Objects.equals(this.isInvested, personalProgramDetailsFull.isInvested) &&
 				Objects.equals(this.isOwnProgram, personalProgramDetailsFull.isOwnProgram) &&
-				Objects.equals(this.canCloseProgram, personalProgramDetailsFull.canCloseProgram) &&
-				Objects.equals(this.canClosePeriod, personalProgramDetailsFull.canClosePeriod) &&
-				Objects.equals(this.canInvest, personalProgramDetailsFull.canInvest);
+				Objects.equals(this.isReinvest, personalProgramDetailsFull.isReinvest) &&
+				Objects.equals(this.invested, personalProgramDetailsFull.invested) &&
+				Objects.equals(this.value, personalProgramDetailsFull.value) &&
+				Objects.equals(this.profit, personalProgramDetailsFull.profit) &&
+				Objects.equals(this.investmentProgramStatus, personalProgramDetailsFull.investmentProgramStatus);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isFavorite, isInvested, isOwnProgram, canCloseProgram, canClosePeriod, canInvest);
+		return Objects.hash(isFavorite, isInvested, isOwnProgram, isReinvest, invested, value, profit, investmentProgramStatus);
 	}
-
 
 	@Override
 	public String toString() {
@@ -189,9 +238,11 @@ public class PersonalProgramDetailsFull
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
 		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
-		sb.append("    canCloseProgram: ").append(toIndentedString(canCloseProgram)).append("\n");
-		sb.append("    canClosePeriod: ").append(toIndentedString(canClosePeriod)).append("\n");
-		sb.append("    canInvest: ").append(toIndentedString(canInvest)).append("\n");
+		sb.append("    isReinvest: ").append(toIndentedString(isReinvest)).append("\n");
+		sb.append("    invested: ").append(toIndentedString(invested)).append("\n");
+		sb.append("    value: ").append(toIndentedString(value)).append("\n");
+		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
+		sb.append("    investmentProgramStatus: ").append(toIndentedString(investmentProgramStatus)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -205,6 +256,59 @@ public class PersonalProgramDetailsFull
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	/**
+	 * Gets or Sets investmentProgramStatus
+	 */
+	@JsonAdapter(InvestmentProgramStatusEnum.Adapter.class)
+	public enum InvestmentProgramStatusEnum
+	{
+		ACTIVE("Active"),
+
+		INVESTING("Investing"),
+
+		WITHDRAWING("Withdrawing"),
+
+		ENDED("Ended");
+
+		public static InvestmentProgramStatusEnum fromValue(String text) {
+			for (InvestmentProgramStatusEnum b : InvestmentProgramStatusEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		InvestmentProgramStatusEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<InvestmentProgramStatusEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final InvestmentProgramStatusEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public InvestmentProgramStatusEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return InvestmentProgramStatusEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 }

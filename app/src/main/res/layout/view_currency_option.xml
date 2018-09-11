@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/currency_option_view_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp">
+
+    <TextView
+        android:id="@+id/currency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textColor="?attr/colorTextSecondary"
+        android:textSize="16sp"
+        tools:text="USD"/>
+
+    <TextView
+        android:id="@+id/rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_toEndOf="@+id/currency"
+        android:layout_toLeftOf="@+id/check"
+        android:layout_toRightOf="@+id/currency"
+        android:layout_toStartOf="@+id/check"
+        android:gravity="end|center_vertical"
+        android:textColor="?attr/colorTextSecondary"
+        android:textSize="16sp"
+        tools:text="1 GVT = 10.23 USD"/>
+
+    <ImageView
+        android:id="@+id/check"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_check_black_24dp"
+        android:tint="?attr/colorTextPrimary"
+        android:visibility="invisible"
+        tools:visibility="visible"/>
+
+</RelativeLayout>

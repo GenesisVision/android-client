@@ -8,15 +8,17 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.DashboardProgramDetails;
+import io.swagger.client.model.ProgramDetails;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -26,7 +28,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProgramsAdapter.ProgramViewHolder>
 {
-	private List<DashboardProgramDetails> programs = new ArrayList<>();
+	private List<ProgramDetails> programs = new ArrayList<>();
 
 	@Override
 	public ProgramViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -52,7 +54,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 				: RecyclerView.NO_ID;
 	}
 
-	void setPrograms(List<DashboardProgramDetails> programs) {
+	void setPrograms(List<ProgramDetails> programs) {
 		this.programs.clear();
 		this.programs.addAll(programs);
 		notifyDataSetChanged();
@@ -102,7 +104,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		@BindView(R.id.label_reinvest)
 		public TextView reinvestLabel;
 
-		private DashboardProgramDetails program;
+		private ProgramDetails program;
 
 		ProgramViewHolder(View itemView) {
 			super(itemView);
@@ -130,11 +132,13 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		}
 
 		private void setFonts() {
+			programName.setTypeface(TypefaceUtil.semibold());
+			managerName.setTypeface(TypefaceUtil.medium());
 			profitPercent.setTypeface(TypefaceUtil.semibold());
 			reinvestLabel.setTypeface(TypefaceUtil.semibold());
 		}
 
-		void setProgram(DashboardProgramDetails program) {
+		void setProgram(ProgramDetails program) {
 			this.program = program;
 			updateData();
 		}
@@ -145,18 +149,9 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 			programName.setText(program.getTitle());
 			managerName.setText(program.getManager().getUsername());
-//			chart.setEquityChart(program.getChart());
 
-
-//			tokens.setText(investmentProgram.getTokens());
-//			tokensFiat.setText(investmentProgram.getTokensFiat());
-//
-//			profitShort.setText(investmentProgram.getProfitShort());
-//			profitFull.setText(investmentProgram.getProfitFull());
-//
-//			if (data.isIsEnabled())
-//				periodLeftView.setDateTo(data.getStartOfPeriod(), data.getEndOfPeriod());
-//			periodLeftView.setProgramClosed(!data.isIsEnabled());
+			share.setText(String.format(Locale.getDefault(), "%s%%",
+					StringFormatUtil.formatAmount(program.getDashboardProgramDetails().getShare(), 0, 2)));
 		}
 	}
 }

@@ -110,10 +110,12 @@ public interface ProgramsApi
 	/**
 	 * Programs sets
 	 *
+	 * @param authorization JWT access token (required)
 	 * @return Call&lt;ProgramSets&gt;
 	 */
 	@GET("v1.0/programs/sets")
-	Observable<ProgramSets> v10ProgramsSetsGet();
-
+	Observable<ProgramSets> v10ProgramsSetsGet(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
 
 }

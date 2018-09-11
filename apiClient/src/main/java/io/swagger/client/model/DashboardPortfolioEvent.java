@@ -227,6 +227,8 @@ public class DashboardPortfolioEvent
 
 		PROFIT("Profit"),
 
+		LOSS("Loss"),
+
 		REINVEST("Reinvest"),
 
 		CANCELED("Canceled"),

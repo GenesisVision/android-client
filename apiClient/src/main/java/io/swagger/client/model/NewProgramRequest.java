@@ -55,6 +55,9 @@ public class NewProgramRequest
 	@SerializedName("stopOutLevel")
 	private Double stopOutLevel = null;
 
+	@SerializedName("depositAmount")
+	private Double depositAmount = null;
+
 	@SerializedName("currency")
 	private CurrencyEnum currency = null;
 
@@ -213,6 +216,25 @@ public class NewProgramRequest
 		this.stopOutLevel = stopOutLevel;
 	}
 
+	public NewProgramRequest depositAmount(Double depositAmount) {
+		this.depositAmount = depositAmount;
+		return this;
+	}
+
+	/**
+	 * Get depositAmount
+	 *
+	 * @return depositAmount
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getDepositAmount() {
+		return depositAmount;
+	}
+
+	public void setDepositAmount(Double depositAmount) {
+		this.depositAmount = depositAmount;
+	}
+
 	public NewProgramRequest currency(CurrencyEnum currency) {
 		this.currency = currency;
 		return this;
@@ -268,13 +290,14 @@ public class NewProgramRequest
 				Objects.equals(this.successFee, newProgramRequest.successFee) &&
 				Objects.equals(this.entryFee, newProgramRequest.entryFee) &&
 				Objects.equals(this.stopOutLevel, newProgramRequest.stopOutLevel) &&
+				Objects.equals(this.depositAmount, newProgramRequest.depositAmount) &&
 				Objects.equals(this.currency, newProgramRequest.currency) &&
 				Objects.equals(this.leverage, newProgramRequest.leverage);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, description, logo, tradingPlatformId, periodLength, successFee, entryFee, stopOutLevel, currency, leverage);
+		return Objects.hash(title, description, logo, tradingPlatformId, periodLength, successFee, entryFee, stopOutLevel, depositAmount, currency, leverage);
 	}
 
 	@Override
@@ -290,6 +313,7 @@ public class NewProgramRequest
 		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
 		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
+		sb.append("    depositAmount: ").append(toIndentedString(depositAmount)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
 		sb.append("}");

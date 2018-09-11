@@ -5,33 +5,74 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**UUID**](UUID.md) |  |  [optional]
-**type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
 **amount** | **Double** |  |  [optional]
+**amountConverted** | **Double** |  |  [optional]
 **date** | [**DateTime**](DateTime.md) |  |  [optional]
-**walletId** | [**UUID**](UUID.md) |  |  [optional]
-**currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
-**investmentProgram** | [**InvestmentProgramTxInfo**](InvestmentProgramTxInfo.md) |  |  [optional]
-**investmentProgramRequest** | [**InvestmentProgramRequestTxInfo**](InvestmentProgramRequestTxInfo.md) |  |  [optional]
-**paymentTx** | [**PaymentTxInfo**](PaymentTxInfo.md) |  |  [optional]
+**number** | **Long** |  |  [optional]
+**sourceId** | [**UUID**](UUID.md) |  |  [optional]
+**sourceType** | [**SourceTypeEnum**](#SourceTypeEnum) |  |  [optional]
+**sourceCurrency** | [**SourceCurrencyEnum**](#SourceCurrencyEnum) |  |  [optional]
+**action** | [**ActionEnum**](#ActionEnum) |  |  [optional]
+**destinationId** | [**UUID**](UUID.md) |  |  [optional]
+**destinationType** | [**DestinationTypeEnum**](#DestinationTypeEnum) |  |  [optional]
+**destinationCurrency** | [**DestinationCurrencyEnum**](#DestinationCurrencyEnum) |  |  [optional]
 
 
-<a name="TypeEnum"></a>
-## Enum: TypeEnum
+<a name="SourceTypeEnum"></a>
+## Enum: SourceTypeEnum
 Name | Value
 ---- | -----
-DEPOSIT | &quot;Deposit&quot;
-WITHDRAW | &quot;Withdraw&quot;
-OPENPROGRAM | &quot;OpenProgram&quot;
-INVESTTOPROGRAM | &quot;InvestToProgram&quot;
-WITHDRAWFROMPROGRAM | &quot;WithdrawFromProgram&quot;
-PROFITFROMPROGRAM | &quot;ProfitFromProgram&quot;
-CANCELINVESTMENTREQUEST | &quot;CancelInvestmentRequest&quot;
-PARTIALINVESTMENTEXECUTIONREFUND | &quot;PartialInvestmentExecutionRefund&quot;
-CLOSINGPROGRAMREFUND | &quot;ClosingProgramRefund&quot;
+WALLET | &quot;Wallet&quot;
+PROGRAM | &quot;Program&quot;
+FUND | &quot;Fund&quot;
+PROGRAMREQUEST | &quot;ProgramRequest&quot;
+WITHDRAWALREQUEST | &quot;WithdrawalRequest&quot;
+PAYMENTTRANSACTION | &quot;PaymentTransaction&quot;
 
 
-<a name="CurrencyEnum"></a>
-## Enum: CurrencyEnum
+<a name="SourceCurrencyEnum"></a>
+## Enum: SourceCurrencyEnum
+Name | Value
+---- | -----
+UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
+ADA | &quot;ADA&quot;
+USD | &quot;USD&quot;
+EUR | &quot;EUR&quot;
+
+
+<a name="ActionEnum"></a>
+## Enum: ActionEnum
+Name | Value
+---- | -----
+TRANSFER | &quot;Transfer&quot;
+PROGRAMOPEN | &quot;ProgramOpen&quot;
+PROGRAMPROFIT | &quot;ProgramProfit&quot;
+PROGRAMINVEST | &quot;ProgramInvest&quot;
+PROGRAMWITHDRAWAL | &quot;ProgramWithdrawal&quot;
+PROGRAMREFUNDPARTIALEXECUTION | &quot;ProgramRefundPartialExecution&quot;
+PROGRAMREFUNDCLOSE | &quot;ProgramRefundClose&quot;
+PROGRAMREQUESTINVEST | &quot;ProgramRequestInvest&quot;
+PROGRAMREQUESTWITHDRAWAL | &quot;ProgramRequestWithdrawal&quot;
+PROGRAMREQUESTCANCEL | &quot;ProgramRequestCancel&quot;
+
+
+<a name="DestinationTypeEnum"></a>
+## Enum: DestinationTypeEnum
+Name | Value
+---- | -----
+WALLET | &quot;Wallet&quot;
+PROGRAM | &quot;Program&quot;
+FUND | &quot;Fund&quot;
+PROGRAMREQUEST | &quot;ProgramRequest&quot;
+WITHDRAWALREQUEST | &quot;WithdrawalRequest&quot;
+PAYMENTTRANSACTION | &quot;PaymentTransaction&quot;
+
+
+<a name="DestinationCurrencyEnum"></a>
+## Enum: DestinationCurrencyEnum
 Name | Value
 ---- | -----
 UNDEFINED | &quot;Undefined&quot;

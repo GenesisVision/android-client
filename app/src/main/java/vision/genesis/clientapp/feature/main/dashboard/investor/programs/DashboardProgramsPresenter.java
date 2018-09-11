@@ -7,7 +7,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.DashboardProgramsList;
+import io.swagger.client.model.ProgramsList;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -76,7 +76,7 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 						this::handleGetProgramsError);
 	}
 
-	private DashboardProgramsList prepareData(DashboardProgramsList dashboard) {
+	private ProgramsList prepareData(ProgramsList dashboard) {
 //		List<InvestmentProgramDashboardInvestor> programs = dashboard.getInvestmentPrograms();
 //		programs = new ArrayList<>();
 //		archivedPrograms = new ArrayList<>();
@@ -104,7 +104,7 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 		return dashboard;
 	}
 
-	private void handleGetProgramsSuccess(DashboardProgramsList response) {
+	private void handleGetProgramsSuccess(ProgramsList response) {
 		getProgramsSubscription.unsubscribe();
 
 		getViewState().showProgressBar(false);

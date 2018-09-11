@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?attr/colorBackground">
@@ -10,8 +11,74 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
         android:background="?attr/colorBackground"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp">
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
+
+        <RelativeLayout
+            android:id="@+id/group_notifications"
+            android:layout_width="62dp"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <ImageView
+                android:id="@+id/icon_notifications"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/icon_notifications"
+                android:tint="?attr/colorTextPrimary"/>
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/notifications_dot"
+                android:layout_width="@dimen/toolbar_dot_width"
+                android:layout_height="@dimen/toolbar_dot_height"
+                android:layout_alignEnd="@+id/icon_notifications"
+                android:layout_alignRight="@+id/icon_notifications"
+                android:layout_alignTop="@+id/icon_notifications"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:visibility="gone"
+                app:placeholderImage="?attr/colorRed"
+                app:roundAsCircle="true"
+                tools:visibility="visible"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/group_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/group_notifications"
+            android:layout_toRightOf="@+id/group_notifications"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp">
+
+            <TextView
+                android:id="@+id/text_currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/btc"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="16sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignEnd="@+id/text_currency"
+                android:layout_alignLeft="@+id/text_currency"
+                android:layout_alignRight="@+id/text_currency"
+                android:layout_alignStart="@+id/text_currency"
+                android:layout_below="@+id/text_currency"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/divider_dot_horizontal"
+                android:foregroundGravity="center"
+                android:layerType="software"/>
+
+        </RelativeLayout>
 
         <vision.genesis.clientapp.ui.DateRangeView
             android:id="@+id/date_range"
@@ -19,7 +86,9 @@
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:background="?attr/selectableItemBackground"/>
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"/>
 
     </RelativeLayout>
 
@@ -51,26 +120,21 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <RelativeLayout
+                        <android.support.design.widget.TabLayout
+                            android:id="@+id/tab_layout_chart"
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_height="36dp"
+                            android:layout_marginTop="8dp"
+                            android:minHeight="?attr/actionBarSize"
                             android:paddingLeft="24dp"
-                            android:paddingRight="24dp">
-
-                            <android.support.design.widget.TabLayout
-                                android:id="@+id/tab_layout_chart"
-                                android:layout_width="match_parent"
-                                android:layout_height="36dp"
-                                android:minHeight="?attr/actionBarSize"
-                                app:tabGravity="fill"
-                                app:tabIndicatorColor="?attr/colorAccent"
-                                app:tabMode="scrollable"
-                                app:tabPaddingStart="0dp"
-                                app:tabSelectedTextColor="?attr/colorTextPrimary"
-                                app:tabTextAppearance="@style/TabTextAppearance"
-                                app:tabTextColor="?attr/colorTextSecondary"/>
-
-                        </RelativeLayout>
+                            android:paddingRight="24dp"
+                            app:tabGravity="fill"
+                            app:tabIndicatorColor="?attr/colorAccent"
+                            app:tabMode="scrollable"
+                            app:tabPaddingStart="0dp"
+                            app:tabSelectedTextColor="?attr/colorTextPrimary"
+                            app:tabTextAppearance="@style/TabTextAppearance"
+                            app:tabTextColor="?attr/colorTextSecondary"/>
 
                         <android.support.v4.view.ViewPager
                             android:id="@+id/investor_dashboard_header_view_pager"
