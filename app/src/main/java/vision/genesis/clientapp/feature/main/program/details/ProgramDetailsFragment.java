@@ -23,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.ChartProgramDetails;
+import io.swagger.client.model.ChartSimple;
 import io.swagger.client.model.ProgramDetailsFull;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -474,7 +474,7 @@ public class ProgramDetailsFragment extends BaseFragment implements ProgramDetai
 	}
 
 	@Override
-	public void setChartData(List<ChartProgramDetails> chart) {
+	public void setChartData(List<ChartSimple> chart) {
 		this.chart.setChart(chart);
 	}
 

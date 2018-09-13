@@ -62,8 +62,8 @@ public class ProgramsManager
 //		return programsApi.v10ProgramByIdTradesGet()
 //	}
 
-	public Observable<ProgramChart> getChart(UUID programId, DateRange dateRange) {
-		return programsApi.v10ProgramsByIdChartGet(programId, dateRange.getFrom(), dateRange.getTo());
+	public Observable<ProgramChart> getChart(UUID programId, DateRange dateRange, Integer maxPointCount) {
+		return programsApi.v10ProgramsByIdChartGet(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount);
 	}
 
 //	public Observable<InvestmentProgramBuyToken> getBuyTokensModel(UUID programId) {

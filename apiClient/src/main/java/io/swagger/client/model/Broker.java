@@ -15,22 +15,26 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.joda.time.DateTime;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * Facet
+ * Broker
  */
 
-public class Facet
+public class Broker
 {
 	@SerializedName("id")
 	private UUID id = null;
 
-	@SerializedName("title")
-	private String title = null;
+	@SerializedName("name")
+	private String name = null;
 
 	@SerializedName("description")
 	private String description = null;
@@ -38,10 +42,13 @@ public class Facet
 	@SerializedName("logo")
 	private String logo = null;
 
-	@SerializedName("count")
-	private Integer count = null;
+	@SerializedName("registrationDate")
+	private DateTime registrationDate = null;
 
-	public Facet id(UUID id) {
+	@SerializedName("servers")
+	private List<BrokerTradingServer> servers = null;
+
+	public Broker id(UUID id) {
 		this.id = id;
 		return this;
 	}
@@ -60,26 +67,26 @@ public class Facet
 		this.id = id;
 	}
 
-	public Facet title(String title) {
-		this.title = title;
+	public Broker name(String name) {
+		this.name = name;
 		return this;
 	}
 
 	/**
-	 * Get title
+	 * Get name
 	 *
-	 * @return title
+	 * @return name
 	 **/
 	@ApiModelProperty(value = "")
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Facet description(String description) {
+	public Broker description(String description) {
 		this.description = description;
 		return this;
 	}
@@ -98,7 +105,7 @@ public class Facet
 		this.description = description;
 	}
 
-	public Facet logo(String logo) {
+	public Broker logo(String logo) {
 		this.logo = logo;
 		return this;
 	}
@@ -117,23 +124,50 @@ public class Facet
 		this.logo = logo;
 	}
 
-	public Facet count(Integer count) {
-		this.count = count;
+	public Broker registrationDate(DateTime registrationDate) {
+		this.registrationDate = registrationDate;
 		return this;
 	}
 
 	/**
-	 * Get count
+	 * Get registrationDate
 	 *
-	 * @return count
+	 * @return registrationDate
 	 **/
 	@ApiModelProperty(value = "")
-	public Integer getCount() {
-		return count;
+	public DateTime getRegistrationDate() {
+		return registrationDate;
 	}
 
-	public void setCount(Integer count) {
-		this.count = count;
+	public void setRegistrationDate(DateTime registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
+	public Broker servers(List<BrokerTradingServer> servers) {
+		this.servers = servers;
+		return this;
+	}
+
+	public Broker addServersItem(BrokerTradingServer serversItem) {
+		if (this.servers == null) {
+			this.servers = new ArrayList<BrokerTradingServer>();
+		}
+		this.servers.add(serversItem);
+		return this;
+	}
+
+	/**
+	 * Get servers
+	 *
+	 * @return servers
+	 **/
+	@ApiModelProperty(value = "")
+	public List<BrokerTradingServer> getServers() {
+		return servers;
+	}
+
+	public void setServers(List<BrokerTradingServer> servers) {
+		this.servers = servers;
 	}
 
 
@@ -145,30 +179,32 @@ public class Facet
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		Facet facet = (Facet) o;
-		return Objects.equals(this.id, facet.id) &&
-				Objects.equals(this.title, facet.title) &&
-				Objects.equals(this.description, facet.description) &&
-				Objects.equals(this.logo, facet.logo) &&
-				Objects.equals(this.count, facet.count);
+		Broker broker = (Broker) o;
+		return Objects.equals(this.id, broker.id) &&
+				Objects.equals(this.name, broker.name) &&
+				Objects.equals(this.description, broker.description) &&
+				Objects.equals(this.logo, broker.logo) &&
+				Objects.equals(this.registrationDate, broker.registrationDate) &&
+				Objects.equals(this.servers, broker.servers);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, logo, count);
+		return Objects.hash(id, name, description, logo, registrationDate, servers);
 	}
 
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class Facet {\n");
+		sb.append("class Broker {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
-		sb.append("    count: ").append(toIndentedString(count)).append("\n");
+		sb.append("    registrationDate: ").append(toIndentedString(registrationDate)).append("\n");
+		sb.append("    servers: ").append(toIndentedString(servers)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **name** | **String** |  |  [optional]
 **email** | **String** |  |  [optional]
 **avatar** | **String** |  |  [optional]
-**notificationsAmount** | **Integer** |  |  [optional]
+**notificationsCount** | **Integer** |  |  [optional]
 **favoritesCount** | **Integer** |  |  [optional]
 **totalBalanceGvt** | **Double** |  |  [optional]
 **investedGvt** | **Double** |  |  [optional]

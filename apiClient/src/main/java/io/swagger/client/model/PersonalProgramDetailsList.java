@@ -31,6 +31,9 @@ public class PersonalProgramDetailsList
 	@SerializedName("isInvested")
 	private Boolean isInvested = null;
 
+	@SerializedName("hasNotifications")
+	private Boolean hasNotifications = null;
+
 	public PersonalProgramDetailsList isFavorite(Boolean isFavorite) {
 		this.isFavorite = isFavorite;
 		return this;
@@ -69,6 +72,25 @@ public class PersonalProgramDetailsList
 		this.isInvested = isInvested;
 	}
 
+	public PersonalProgramDetailsList hasNotifications(Boolean hasNotifications) {
+		this.hasNotifications = hasNotifications;
+		return this;
+	}
+
+	/**
+	 * Get hasNotifications
+	 *
+	 * @return hasNotifications
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isHasNotifications() {
+		return hasNotifications;
+	}
+
+	public void setHasNotifications(Boolean hasNotifications) {
+		this.hasNotifications = hasNotifications;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -80,12 +102,13 @@ public class PersonalProgramDetailsList
 		}
 		PersonalProgramDetailsList personalProgramDetailsList = (PersonalProgramDetailsList) o;
 		return Objects.equals(this.isFavorite, personalProgramDetailsList.isFavorite) &&
-				Objects.equals(this.isInvested, personalProgramDetailsList.isInvested);
+				Objects.equals(this.isInvested, personalProgramDetailsList.isInvested) &&
+				Objects.equals(this.hasNotifications, personalProgramDetailsList.hasNotifications);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isFavorite, isInvested);
+		return Objects.hash(isFavorite, isInvested, hasNotifications);
 	}
 
 
@@ -96,6 +119,7 @@ public class PersonalProgramDetailsList
 
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
+		sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

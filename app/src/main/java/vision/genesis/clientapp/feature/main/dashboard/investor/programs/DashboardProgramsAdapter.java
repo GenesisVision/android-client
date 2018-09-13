@@ -1,5 +1,6 @@
 package vision.genesis.clientapp.feature.main.dashboard.investor.programs;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -106,10 +108,14 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 		private ProgramDetails program;
 
+		private Context context;
+
 		ProgramViewHolder(View itemView) {
 			super(itemView);
 
 			ButterKnife.bind(this, itemView);
+
+			this.context = itemView.getContext();
 
 			setFonts();
 			itemView.setOnClickListener(v -> {
@@ -135,6 +141,8 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			programName.setTypeface(TypefaceUtil.semibold());
 			managerName.setTypeface(TypefaceUtil.medium());
 			profitPercent.setTypeface(TypefaceUtil.semibold());
+			currentValue.setTypeface(TypefaceUtil.medium());
+			share.setTypeface(TypefaceUtil.medium());
 			reinvestLabel.setTypeface(TypefaceUtil.semibold());
 		}
 
@@ -144,14 +152,47 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		}
 
 		private void updateData() {
-			programLogo.setImage(program.getLogo(), 100, 100);
-			programLogo.setLevel(program.getLevel());
+			this.programLogo.setImage(program.getLogo(), 100, 100);
+			this.programLogo.setLevel(program.getLevel());
 
-			programName.setText(program.getTitle());
-			managerName.setText(program.getManager().getUsername());
+			this.programName.setText(program.getTitle());
+			this.managerName.setText(program.getManager().getUsername());
 
-			share.setText(String.format(Locale.getDefault(), "%s%%",
+			this.chart.setChart(program.getChart());
+
+			Double profitPercent = getProfitPercent();
+//			Double profitPercent = program.getStatistic().getProfitPercent();
+			Double profitValue = getProfitValue();
+////			Double profitValue = program.getStatistic().getProfitValue();
+			this.profitPercent.setText(String.format(Locale.getDefault(), "%s%%",
+					StringFormatUtil.formatAmount(profitPercent, 0, 2)));
+			this.profitPercent.setTextColor(profitValue >= 0
+					? ThemeUtil.getColorByAttrId(context, R.attr.colorGreen)
+					: ThemeUtil.getColorByAttrId(context, R.attr.colorRed));
+
+			this.profitValue.setText(String.format(Locale.getDefault(), "%s%s GVT",
+					profitValue > 0 ? "+" : "",
+					StringFormatUtil.formatAmount(profitValue, 0, 4)));
+
+			this.currentValue.setText(String.format(Locale.getDefault(), "%s GVT",
+					StringFormatUtil.formatAmount(program.getStatistic().getCurrentValue(), 0, 4)));
+
+			this.share.setText(String.format(Locale.getDefault(), "%s%%",
 					StringFormatUtil.formatAmount(program.getDashboardProgramDetails().getShare(), 0, 2)));
+		}
+
+		private Double getProfitPercent() {
+			Double first = program.getChart().get(0).getValue();
+			Double last = program.getChart().get(program.getChart().size() - 1).getValue();
+
+			return Math.abs(first != 0 ? 100 / first * (first - last) : 0);
+		}
+
+		private Double getProfitValue() {
+			Double first = program.getChart().get(0).getValue();
+			Double last = program.getChart().get(program.getChart().size() - 1).getValue();
+
+			return last - first;
 		}
 	}
 }

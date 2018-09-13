@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **title** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
 **logo** | **String** |  |  [optional]
-**tradingPlatformId** | [**UUID**](UUID.md) |  |  [optional]
+**tradingServerId** | [**UUID**](UUID.md) |  |  [optional]
 **periodLength** | **Integer** |  |  [optional]
 **successFee** | **Double** |  |  [optional]
 **entryFee** | **Double** |  |  [optional]

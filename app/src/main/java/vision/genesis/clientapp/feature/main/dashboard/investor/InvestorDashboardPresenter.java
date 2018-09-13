@@ -41,11 +41,15 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	@Inject
 	public SettingsManager settingsManager;
 
+	private Subscription baseCurrencySubscription;
+
+	private Subscription dateRangeSubscription;
+
 	private Subscription getEventsSubscription;
 
 	private Subscription dashboardSubscription;
 
-	private DateRange dateRange = new DateRange();
+	private DateRange dateRange;
 
 	private CurrencyEnum baseCurrency;
 
@@ -56,14 +60,17 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 		GenesisVisionApplication.getComponent().inject(this);
 
 //		EventBus.getDefault().register(this);
-		dateRange = settingsManager.getSavedDateRange();
-		baseCurrency = settingsManager.getPreferredCurrency();
-		getViewState().setBaseCurrency(baseCurrency);
-		getDashboard();
+//		dateRange = settingsManager.getSavedDateRange();
+		subscribeToDateRange();
+		subscribeToBaseCurrency();
 	}
 
 	@Override
 	public void onDestroy() {
+		if (baseCurrencySubscription != null)
+			baseCurrencySubscription.unsubscribe();
+		if (dateRangeSubscription != null)
+			dateRangeSubscription.unsubscribe();
 		if (getEventsSubscription != null)
 			getEventsSubscription.unsubscribe();
 		if (dashboardSubscription != null)
@@ -83,20 +90,48 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 //		getEvents();
 	}
 
+	private void subscribeToBaseCurrency() {
+		baseCurrencySubscription = settingsManager.getBaseCurrency()
+				.subscribeOn(Schedulers.newThread())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(this::baseCurrencyChangedHandler);
+	}
+
+	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
+		this.baseCurrency = baseCurrency;
+		getViewState().setBaseCurrency(baseCurrency);
+		getDashboard();
+	}
+
+	private void subscribeToDateRange() {
+		dateRangeSubscription = settingsManager.getDateRange()
+				.subscribeOn(Schedulers.newThread())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(this::dateRangeChangedHandler);
+	}
+
+	private void dateRangeChangedHandler(DateRange dateRange) {
+		this.dateRange = dateRange;
+		getViewState().setDateRange(dateRange);
+		getViewState().setRefreshing(true);
+		getDashboard();
+	}
+
 	private void getDashboard() {
-		updateDateRange();
 		if (dashboardSubscription != null)
 			dashboardSubscription.unsubscribe();
-		dashboardSubscription = dashboardManager.getDashboard(dateRange, baseCurrency.getValue())
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::handleGetDashboardSuccess,
-						this::handleGetDashboardError);
+		if (baseCurrency != null && dateRange != null) {
+			updateDateRange();
+			dashboardSubscription = dashboardManager.getDashboard(dateRange, baseCurrency.getValue())
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleGetDashboardSuccess,
+							this::handleGetDashboardError);
+		}
 	}
 
 	private void updateDateRange() {
 		dateRange.updateDates(dateRange.getSelectedRange());
-		settingsManager.saveDateRange(dateRange);
 		getViewState().setDateRange(dateRange);
 	}
 
@@ -104,7 +139,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 		dashboardSubscription.unsubscribe();
 		getViewState().setRefreshing(false);
 
-		getViewState().setHaveNewNotifications(response.getProfileHeader().getNotificationsAmount() > 0);
+		getViewState().setHaveNewNotifications(response.getProfileHeader().getNotificationsCount() > 0);
 		getViewState().setChartData(response.getChart());
 		getViewState().setPortfolioEvents(response.getEvents().getEvents());
 		getViewState().setAssetsCount(response.getProgramsCount(), response.getFundsCount());
@@ -142,18 +177,11 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 	@Override
 	public void onDateRangeChanged(DateRange dateRange) {
-		this.dateRange = dateRange;
 		settingsManager.saveDateRange(dateRange);
-		getViewState().setDateRange(dateRange);
-		getViewState().setRefreshing(true);
-		getDashboard();
 	}
 
 	@Override
 	public void onCurrencyChanged(CurrencyEnum currency) {
-		baseCurrency = currency;
-		getViewState().setBaseCurrency(currency);
-		settingsManager.saveBaseCurrency(currency.getValue());
-		getDashboard();
+		settingsManager.saveBaseCurrency(currency);
 	}
 }

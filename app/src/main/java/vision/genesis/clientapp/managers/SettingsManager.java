@@ -27,6 +27,10 @@ public class SettingsManager
 
 	private BehaviorSubject<SettingsModel> settingsSubject = BehaviorSubject.create();
 
+	private BehaviorSubject<CurrencyEnum> baseCurrencySubject = BehaviorSubject.create();
+
+	private BehaviorSubject<DateRange> dateRangeSubject = BehaviorSubject.create();
+
 	private volatile BehaviorSubject<PlatformInfo> platformInfoBehaviorSubject;
 
 	private Subscription getPlatformInfoSubscription;
@@ -147,7 +151,16 @@ public class SettingsManager
 		return settingsSubject.getValue().isPinCodeEnabled();
 	}
 
-	public DateRange getSavedDateRange() {
+	public BehaviorSubject<DateRange> getDateRange() {
+		if (dateRangeSubject.getValue() == null) {
+			DateRange dateRange = getSavedDateRange();
+			dateRange.updateDates(dateRange.getSelectedRange());
+			dateRangeSubject.onNext(dateRange);
+		}
+		return dateRangeSubject;
+	}
+
+	private DateRange getSavedDateRange() {
 		return new DateRange(sharedPreferencesUtil.getDateRange(),
 				sharedPreferencesUtil.getDateRangeFrom(),
 				sharedPreferencesUtil.getDateRangeTo());
@@ -157,13 +170,19 @@ public class SettingsManager
 		sharedPreferencesUtil.saveDateRange(dateRange.getSelectedRange().toString(),
 				dateRange.getFrom().getMillis(),
 				dateRange.getTo().getMillis());
+		dateRangeSubject.onNext(dateRange);
 	}
 
-	public CurrencyEnum getPreferredCurrency() {
-		return CurrencyEnum.fromValue(sharedPreferencesUtil.getCurrency());
+	public BehaviorSubject<CurrencyEnum> getBaseCurrency() {
+		if (baseCurrencySubject.getValue() == null)
+			baseCurrencySubject.onNext(CurrencyEnum.fromValue(sharedPreferencesUtil.getCurrency()));
+		return baseCurrencySubject;
 	}
 
-	public void saveBaseCurrency(String currency) {
-		sharedPreferencesUtil.saveCurrency(currency);
+	public void saveBaseCurrency(CurrencyEnum currency) {
+		sharedPreferencesUtil.saveCurrency(currency.getValue());
+		baseCurrencySubject.onNext(currency);
 	}
+
+
 }

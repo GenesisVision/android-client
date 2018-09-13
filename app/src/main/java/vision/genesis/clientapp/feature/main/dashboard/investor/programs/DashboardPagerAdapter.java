@@ -18,13 +18,13 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 		void pagerHide();
 	}
 
-	private DashboardProgramsFragment activeProgramsFragment;
+	private DashboardProgramsFragment programsFragment;
 
 	private DashboardProgramsFragment archivedProgramsFragment;
 
 	public DashboardPagerAdapter(FragmentManager fm) {
 		super(fm);
-		activeProgramsFragment = DashboardProgramsFragment.with();
+		programsFragment = DashboardProgramsFragment.with();
 		archivedProgramsFragment = DashboardProgramsFragment.with();
 	}
 
@@ -32,7 +32,7 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 	public Fragment getItem(int position) {
 		switch (position) {
 			case 0:
-				return activeProgramsFragment;
+				return programsFragment;
 			case 1:
 				return archivedProgramsFragment;
 			default:
@@ -46,20 +46,20 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	public void destroy() {
-		if (activeProgramsFragment != null)
-			activeProgramsFragment.onDestroyView();
+		if (programsFragment != null)
+			programsFragment.onDestroyView();
 
 		if (archivedProgramsFragment != null)
 			archivedProgramsFragment.onDestroyView();
 	}
 
 	public void showProgressBar(boolean show) {
-		activeProgramsFragment.showProgressBar(show);
+		programsFragment.showProgressBar(show);
 		archivedProgramsFragment.showProgressBar(show);
 	}
 
 	public void showEmpty(boolean show) {
-		activeProgramsFragment.showEmpty(show);
+		programsFragment.showEmpty(show);
 		archivedProgramsFragment.showEmpty(show);
 
 	}

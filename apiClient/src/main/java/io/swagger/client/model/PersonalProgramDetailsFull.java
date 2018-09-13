@@ -42,6 +42,9 @@ public class PersonalProgramDetailsFull
 	@SerializedName("isReinvest")
 	private Boolean isReinvest = null;
 
+	@SerializedName("hasNotifications")
+	private Boolean hasNotifications = null;
+
 	@SerializedName("invested")
 	private Double invested = null;
 
@@ -128,6 +131,25 @@ public class PersonalProgramDetailsFull
 
 	public void setIsReinvest(Boolean isReinvest) {
 		this.isReinvest = isReinvest;
+	}
+
+	public PersonalProgramDetailsFull hasNotifications(Boolean hasNotifications) {
+		this.hasNotifications = hasNotifications;
+		return this;
+	}
+
+	/**
+	 * Get hasNotifications
+	 *
+	 * @return hasNotifications
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isHasNotifications() {
+		return hasNotifications;
+	}
+
+	public void setHasNotifications(Boolean hasNotifications) {
+		this.hasNotifications = hasNotifications;
 	}
 
 	public PersonalProgramDetailsFull invested(Double invested) {
@@ -219,6 +241,7 @@ public class PersonalProgramDetailsFull
 				Objects.equals(this.isInvested, personalProgramDetailsFull.isInvested) &&
 				Objects.equals(this.isOwnProgram, personalProgramDetailsFull.isOwnProgram) &&
 				Objects.equals(this.isReinvest, personalProgramDetailsFull.isReinvest) &&
+				Objects.equals(this.hasNotifications, personalProgramDetailsFull.hasNotifications) &&
 				Objects.equals(this.invested, personalProgramDetailsFull.invested) &&
 				Objects.equals(this.value, personalProgramDetailsFull.value) &&
 				Objects.equals(this.profit, personalProgramDetailsFull.profit) &&
@@ -227,7 +250,7 @@ public class PersonalProgramDetailsFull
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isFavorite, isInvested, isOwnProgram, isReinvest, invested, value, profit, investmentProgramStatus);
+		return Objects.hash(isFavorite, isInvested, isOwnProgram, isReinvest, hasNotifications, invested, value, profit, investmentProgramStatus);
 	}
 
 	@Override
@@ -239,6 +262,7 @@ public class PersonalProgramDetailsFull
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
 		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
 		sb.append("    isReinvest: ").append(toIndentedString(isReinvest)).append("\n");
+		sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
 		sb.append("    invested: ").append(toIndentedString(invested)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");

@@ -20,13 +20,14 @@ public interface ProgramsApi
 	 * Program chart
 	 *
 	 * @param id            (required)
-	 * @param chartDateFrom (optional)
-	 * @param chartDateTo   (optional)
+	 * @param dateFrom      (optional)
+	 * @param dateTo        (optional)
+	 * @param maxPointCount (optional)
 	 * @return Call&lt;ProgramChart&gt;
 	 */
 	@GET("v1.0/programs/{id}/chart")
 	Observable<ProgramChart> v10ProgramsByIdChartGet(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("ChartDateFrom") DateTime chartDateFrom, @retrofit2.http.Query("ChartDateTo") DateTime chartDateTo
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount
 	);
 
 	/**

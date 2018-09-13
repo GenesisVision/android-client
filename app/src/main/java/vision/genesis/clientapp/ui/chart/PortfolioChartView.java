@@ -2,7 +2,6 @@ package vision.genesis.clientapp.ui.chart;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
@@ -13,10 +12,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.charts.CombinedChart.DrawOrder;
 import com.github.mikephil.charting.components.LimitLine;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -39,9 +40,13 @@ import butterknife.Unbinder;
 import io.swagger.client.model.ChartSimple;
 import io.swagger.client.model.DashboardChartValue;
 import io.swagger.client.model.ValueChartBar;
+import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.utils.DateTimeValueFormatter;
+import vision.genesis.clientapp.utils.DateValueFormatter;
+import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
@@ -52,7 +57,7 @@ public class PortfolioChartView extends RelativeLayout
 {
 	public interface TouchListener
 	{
-		void onTouch();
+		void onTouch(int index);
 
 		void onStop();
 	}
@@ -62,6 +67,12 @@ public class PortfolioChartView extends RelativeLayout
 
 	@BindView(R.id.highlight_circle)
 	public View highlightCircle;
+
+	@BindView(R.id.min_value)
+	public TextView minValue;
+
+	@BindView(R.id.max_value)
+	public TextView maxValue;
 
 	@BindView(R.id.chart_progress_bar)
 	public ProgressBar progressBar;
@@ -74,7 +85,7 @@ public class PortfolioChartView extends RelativeLayout
 
 	private TouchListener touchListener;
 
-	private IAxisValueFormatter xAxisValueFormatter = new DateTimeValueFormatter();
+	private IAxisValueFormatter xAxisValueFormatter = new DateValueFormatter();
 
 	public PortfolioChartView(Context context) {
 		super(context);
@@ -123,13 +134,13 @@ public class PortfolioChartView extends RelativeLayout
 
 	@SuppressLint("ClickableViewAccessibility")
 	private void initChart() {
-		chart.setHardwareAccelerationEnabled(false);
+//		chart.setHardwareAccelerationEnabled(false);
 		chart.getDescription().setEnabled(false);
 		chart.setDrawGridBackground(false);
 		chart.setDragEnabled(false);
 		chart.setTouchEnabled(true);
 		chart.setDoubleTapToZoomEnabled(false);
-		chart.getXAxis().setEnabled(false);
+		chart.getXAxis().setEnabled(true);
 		chart.getLegend().setEnabled(false);
 		chart.getAxisLeft().setEnabled(true);
 		chart.getAxisRight().setEnabled(false);
@@ -140,7 +151,7 @@ public class PortfolioChartView extends RelativeLayout
 		chart.setViewPortOffsets(0f, 0f, 0f, 0f);
 
 		chart.setDrawOrder(new DrawOrder[]{
-				DrawOrder.BAR, DrawOrder.BUBBLE, DrawOrder.CANDLE, DrawOrder.LINE, DrawOrder.SCATTER
+				DrawOrder.BAR, DrawOrder.LINE
 		});
 
 		YAxis yAxis = chart.getAxisLeft();
@@ -148,28 +159,36 @@ public class PortfolioChartView extends RelativeLayout
 		yAxis.setDrawAxisLine(false);
 		yAxis.setDrawGridLines(false);
 
-		LimitLine ll = new LimitLine(0f, "");
-		ll.setLineColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.grey400));
-		ll.setLineWidth(1f);
-		int lineLength = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics());
-		int spaceLength = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 7, GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics());
-		ll.enableDashedLine(lineLength, spaceLength, 0);
-		yAxis.setDrawLimitLinesBehindData(true);
-		yAxis.addLimitLine(ll);
+		XAxis xAxis = chart.getXAxis();
+		xAxis.setValueFormatter(xAxisValueFormatter);
+		xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+		xAxis.setAvoidFirstLastClipping(true);
+		xAxis.setAxisMinimum(0f);
+		xAxis.setGranularity(1f);
+		xAxis.setDrawGridLines(false);
+		xAxis.setTypeface(TypefaceUtil.medium());
+		xAxis.setDrawAxisLine(false);
+//		xAxis.setYOffset(-6f);
+//		xAxis.setLabelCount(3);
+		xAxis.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary));
 
 		chart.setOnTouchListener((v, me) -> {
 			v.getParent().requestDisallowInterceptTouchEvent(true);
 			if (me.getAction() == MotionEvent.ACTION_DOWN || me.getAction() == MotionEvent.ACTION_MOVE) {
-				showHighlight(chart.getHighlightByTouchPoint(me.getX(), me.getY()));
-				if (touchListener != null)
-					touchListener.onTouch();
+				Highlight highlight = chart.getHighlightByTouchPoint(me.getX(), me.getY());
+				showHighlight(highlight);
+				if (touchListener != null) {
+					float index = highlight.getX();
+					Timber.d("TEST_CHART %f", index);
+					touchListener.onTouch((int) index);
+				}
 			}
-			else if (me.getAction() == MotionEvent.ACTION_UP || me.getAction() == MotionEvent.ACTION_CANCEL) {
-				hideHighlight();
-				if (touchListener != null)
-					touchListener.onStop();
-				v.getParent().requestDisallowInterceptTouchEvent(false);
-			}
+//			else if (me.getAction() == MotionEvent.ACTION_UP || me.getAction() == MotionEvent.ACTION_CANCEL) {
+//				hideHighlight();
+//				if (touchListener != null)
+//					touchListener.onStop();
+//				v.getParent().requestDisallowInterceptTouchEvent(false);
+//			}
 			return true;
 		});
 	}
@@ -182,21 +201,68 @@ public class PortfolioChartView extends RelativeLayout
 			return;
 		}
 
+		float min = chartData.getChart().get(0).getValue().floatValue();
+		float max = chartData.getChart().get(0).getValue().floatValue();
+
 		List<Entry> lineEntries = new ArrayList<>();
+
+		int index = 0;
 		for (ChartSimple chart : chartData.getChart()) {
-			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getValue().floatValue()));
+//			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getValue().floatValue()));
+			lineEntries.add(new Entry(index, chart.getValue().floatValue()));
+//			lineEntries.add(new Entry(index, Math.abs(chart.getValue().floatValue())));
+			if (min > chart.getValue().floatValue())
+				min = chart.getValue().floatValue();
+			if (max < chart.getValue().floatValue())
+				max = chart.getValue().floatValue();
+			index++;
+			if (index == 7)
+				break;
 		}
 
 		List<BarEntry> barEntries = new ArrayList<>();
+		index = 0;
 		for (ValueChartBar bar : chartData.getBars()) {
-			barEntries.add(new BarEntry(bar.getDate().getMillis(), bar.getValue().floatValue(), bar.getAssets()));
+//			barEntries.add(new BarEntry(bar.getDate().getMillis(), bar.getValue().floatValue(), bar.getAssets()));
+			barEntries.add(new BarEntry(index, bar.getValue().floatValue()));
+			index++;
+			if (index == 7)
+				break;
 		}
+
+		minValue.setText(StringFormatUtil.formatAmount(min, 2, 4));
+		maxValue.setText(StringFormatUtil.formatAmount(max, 2, 4));
+
+		setLimitLines(min, max);
+
+//		chart.getAxisLeft().setAxisMaximum(max);
+//		chart.getAxisLeft().setAxisMinimum(min);
 
 		CombinedData combinedData = new CombinedData();
 		combinedData.setData(getLineData(lineEntries));
 		combinedData.setData(getBarData(barEntries));
 		chart.setData(combinedData);
 		chart.invalidate();
+	}
+
+	private void setLimitLines(float min, float max) {
+		YAxis yAxis = chart.getAxisLeft();
+		yAxis.setDrawLimitLinesBehindData(true);
+
+		yAxis.removeAllLimitLines();
+//		yAxis.addLimitLine(createLimitLine(0f));
+		yAxis.addLimitLine(createLimitLine(min));
+		yAxis.addLimitLine(createLimitLine(max));
+	}
+
+	private LimitLine createLimitLine(float limit) {
+		LimitLine ll = new LimitLine(limit, "");
+		ll.setLineColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorDelimiterLight));
+		ll.setLineWidth(1f);
+		int lineLength = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics());
+		int spaceLength = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics());
+		ll.enableDashedLine(lineLength, spaceLength, 0);
+		return ll;
 	}
 
 	private LineData getLineData(List<Entry> data) {
@@ -216,15 +282,15 @@ public class PortfolioChartView extends RelativeLayout
 		dataSet.setDrawCircles(false);
 		dataSet.setColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, lineColor));
 //		dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-		dataSet.setLineWidth(1.5f);
+		dataSet.setLineWidth(1.2f);
 		dataSet.setDrawHorizontalHighlightIndicator(false);
 		dataSet.setHighLightColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, highlightColor));
 		dataSet.setHighlightLineWidth(1.5f);
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-			dataSet.setFillDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.chart_background_gradient));
-			dataSet.setDrawFilled(true);
-		}
+//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//			dataSet.setFillDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.chart_background_gradient));
+//			dataSet.setDrawFilled(true);
+//		}
 
 		return dataSet;
 	}
@@ -234,7 +300,8 @@ public class PortfolioChartView extends RelativeLayout
 		BarData barData = new BarData();
 
 		barData.addDataSet(createBarDataSet(data));
-		barData.setBarWidth(0.45f);
+		barData.setBarWidth(0.07f);
+		barData.setHighlightEnabled(false);
 
 		return barData;
 	}
@@ -244,9 +311,9 @@ public class PortfolioChartView extends RelativeLayout
 
 		dataSet.setLabel("");
 		dataSet.setDrawValues(false);
-		dataSet.setColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.white));
+		dataSet.setColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextPrimary));
 //		dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-		dataSet.setHighLightColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, highlightColor));
+//		dataSet.setHighLightColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, highlightColor));
 
 //		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
 //			dataSet.setFillDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.chart_background_gradient));

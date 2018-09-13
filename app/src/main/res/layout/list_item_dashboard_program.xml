@@ -5,15 +5,15 @@
               android:layout_width="match_parent"
               android:layout_height="@dimen/item_investment_program_height"
               android:layout_marginBottom="8dp"
-              android:layout_marginEnd="16dp"
-              android:layout_marginLeft="16dp"
-              android:layout_marginRight="16dp"
-              android:layout_marginStart="16dp"
+              android:layout_marginEnd="24dp"
+              android:layout_marginLeft="24dp"
+              android:layout_marginRight="24dp"
+              android:layout_marginStart="24dp"
               android:layout_marginTop="8dp"
               android:background="@drawable/program_list_item_background"
               android:gravity="center_vertical"
               android:orientation="vertical"
-              android:padding="16dp">
+              android:padding="24dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -44,14 +44,14 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:textColor="?attr/colorTextPrimary"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 tools:text="Janus Capital Group"/>
 
             <TextView
                 android:id="@+id/manager_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?attr/colorAccent"
+                android:textColor="?attr/colorTextSecondary"
                 android:textSize="14sp"
                 tools:text="Eddie Carr"/>
 
@@ -62,15 +62,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal">
 
         <vision.genesis.clientapp.ui.chart.ProfitSmallChartView
             android:id="@+id/chart"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_gravity="center_vertical"
-            android:layout_weight="2"/>
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="5"/>
 
         <LinearLayout
             android:id="@+id/group_profit"
@@ -78,7 +80,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
@@ -86,8 +88,6 @@
                 android:id="@+id/profit_percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_profit_green"
-                android:padding="4dp"
                 android:textColor="?attr/colorGreen"
                 android:textSize="18sp"
                 tools:text="5.4%"/>
@@ -96,9 +96,11 @@
                 android:id="@+id/profit_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:textColor="?attr/colorTextSecondary"
                 app:autoSizeMaxTextSize="18sp"
                 app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
                 app:autoSizeTextType="uniform"
                 tools:text="+124.6 GVT"/>
 
@@ -109,7 +111,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="16dp">
 
         <LinearLayout
             android:layout_width="0dp"

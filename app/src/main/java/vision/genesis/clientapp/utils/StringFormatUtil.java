@@ -40,6 +40,10 @@ public class StringFormatUtil
 		return df.format(decimal);
 	}
 
+	public static String formatCurrencyAmount(double amountValue, String currency) {
+		return formatAmount(amountValue, getCurrencyMaxFraction(currency), getCurrencyMaxFraction(currency));
+	}
+
 	public static String formatAmountWithoutGrouping(double amountValue) {
 		BigDecimal decimal = BigDecimal.valueOf(amountValue);
 		DecimalFormatSymbols dfs = new DecimalFormatSymbols(Locale.US);
@@ -72,12 +76,12 @@ public class StringFormatUtil
 		return shortenedAmount;
 	}
 
-	public static int getCurrencyMaxFraction(String programCurrency) {
-		if (programCurrency.equals(CurrencyEnum.USD.toString()) ||
-				programCurrency.equals(CurrencyEnum.EUR.toString())) {
+	public static int getCurrencyMaxFraction(String currency) {
+		if (currency.equals(CurrencyEnum.USD.toString()) ||
+				currency.equals(CurrencyEnum.EUR.toString())) {
 			return 2;
 		}
-		if (programCurrency.equals(CurrencyEnum.GVT.toString())) {
+		if (currency.equals(CurrencyEnum.GVT.toString())) {
 			return 4;
 		}
 		else {

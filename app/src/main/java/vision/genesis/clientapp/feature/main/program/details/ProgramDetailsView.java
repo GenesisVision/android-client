@@ -6,7 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
-import io.swagger.client.model.ChartProgramDetails;
+import io.swagger.client.model.ChartSimple;
 import io.swagger.client.model.ProgramDetailsFull;
 
 /**
@@ -28,5 +28,5 @@ interface ProgramDetailsView extends MvpView
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void setRefreshing(boolean show);
 
-	void setChartData(List<ChartProgramDetails> chart);
+	void setChartData(List<ChartSimple> chart);
 }

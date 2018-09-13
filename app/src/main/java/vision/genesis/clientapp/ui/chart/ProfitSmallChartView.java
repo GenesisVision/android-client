@@ -74,7 +74,7 @@ public class ProfitSmallChartView extends com.github.mikephil.charting.charts.Li
 		dataSet.setDrawCircles(false);
 		boolean isProfitable = data.get(0).getY() <= data.get(data.size() - 1).getY();
 		dataSet.setColor(ThemeUtil.getColorByAttrId(getContext(), isProfitable ? R.attr.colorGreen : R.attr.colorRed));
-//		dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+		dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
 		dataSet.setLineWidth(1.5f);
 
 		return dataSet;

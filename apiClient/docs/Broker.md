@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **description** | **String** |  |  [optional]
 **logo** | **String** |  |  [optional]
 **registrationDate** | [**DateTime**](DateTime.md) |  |  [optional]
+**servers** | [**List&lt;BrokerTradingServer&gt;**](BrokerTradingServer.md) |  |  [optional]
 
 
 

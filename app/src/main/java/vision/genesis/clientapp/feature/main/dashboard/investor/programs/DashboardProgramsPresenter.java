@@ -13,6 +13,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.InvestorDashboardManager;
+import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.SortingEnum;
 import vision.genesis.clientapp.model.events.OnDashboardProgramsUpdateEvent;
@@ -30,9 +31,14 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 	@Inject
 	public InvestorDashboardManager dashboardManager;
 
+	@Inject
+	public SettingsManager settingsManager;
+
+	private Subscription dateRangeSubscription;
+
 	private Subscription getProgramsSubscription;
 
-	private DateRange dateRange = new DateRange();
+	private DateRange dateRange;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -40,16 +46,15 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-//		EventBus.getDefault().register(this);
-		getPrograms();
+		subscribeToDateRange();
 	}
 
 	@Override
 	public void onDestroy() {
+		if (dateRangeSubscription != null)
+			dateRangeSubscription.unsubscribe();
 		if (getProgramsSubscription != null)
 			getProgramsSubscription.unsubscribe();
-
-//		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -67,13 +72,26 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 		EventBus.getDefault().post(new OnDashboardProgramsUpdateEvent());
 	}
 
-	private void getPrograms() {
-		getProgramsSubscription = dashboardManager.getPrograms(SortingEnum.BYPROFITDESC.toString(), dateRange, 0, 10)
-				.subscribeOn(Schedulers.computation())
-				.map(this::prepareData)
+	private void subscribeToDateRange() {
+		dateRangeSubscription = settingsManager.getDateRange()
+				.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::handleGetProgramsSuccess,
-						this::handleGetProgramsError);
+				.subscribe(this::dateRangeChangedHandler);
+	}
+
+	private void dateRangeChangedHandler(DateRange dateRange) {
+		this.dateRange = dateRange;
+		getPrograms();
+	}
+
+	private void getPrograms() {
+		if (dateRange != null)
+			getProgramsSubscription = dashboardManager.getPrograms(SortingEnum.BYPROFITDESC.toString(), dateRange, 0, 10)
+					.subscribeOn(Schedulers.computation())
+					.map(this::prepareData)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleGetProgramsSuccess,
+							this::handleGetProgramsError);
 	}
 
 	private ProgramsList prepareData(ProgramsList dashboard) {

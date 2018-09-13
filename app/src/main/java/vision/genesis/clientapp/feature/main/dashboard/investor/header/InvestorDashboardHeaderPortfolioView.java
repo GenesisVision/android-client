@@ -9,4 +9,9 @@ import com.arellomobile.mvp.MvpView;
 
 interface InvestorDashboardHeaderPortfolioView extends MvpView
 {
+	void hideRequests();
+
+	void setBalance(String gvtBalance, String baseBalance);
+
+	void setChange(Boolean isChangeNegative, String changePercent, String changeValue, String baseChangeValue);
 }

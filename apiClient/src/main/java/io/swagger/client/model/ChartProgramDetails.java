@@ -15,8 +15,8 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.joda.time.DateTime;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -27,48 +27,86 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ChartProgramDetails
 {
-	@SerializedName("value")
-	private Double value = null;
+	@SerializedName("equityChart")
+	private List<ChartSimple> equityChart = null;
 
-	@SerializedName("date")
-	private DateTime date = null;
+	@SerializedName("pnLChart")
+	private List<ChartSimple> pnLChart = null;
 
-	public ChartProgramDetails value(Double value) {
-		this.value = value;
+	@SerializedName("statistic")
+	private StatisticProgramDetails statistic = null;
+
+	public ChartProgramDetails equityChart(List<ChartSimple> equityChart) {
+		this.equityChart = equityChart;
+		return this;
+	}
+
+	public ChartProgramDetails addEquityChartItem(ChartSimple equityChartItem) {
+		if (this.equityChart == null) {
+			this.equityChart = new ArrayList<ChartSimple>();
+		}
+		this.equityChart.add(equityChartItem);
 		return this;
 	}
 
 	/**
-	 * Get value
+	 * Get equityChart
 	 *
-	 * @return value
+	 * @return equityChart
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getValue() {
-		return value;
+	public List<ChartSimple> getEquityChart() {
+		return equityChart;
 	}
 
-	public void setValue(Double value) {
-		this.value = value;
+	public void setEquityChart(List<ChartSimple> equityChart) {
+		this.equityChart = equityChart;
 	}
 
-	public ChartProgramDetails date(DateTime date) {
-		this.date = date;
+	public ChartProgramDetails pnLChart(List<ChartSimple> pnLChart) {
+		this.pnLChart = pnLChart;
+		return this;
+	}
+
+	public ChartProgramDetails addPnLChartItem(ChartSimple pnLChartItem) {
+		if (this.pnLChart == null) {
+			this.pnLChart = new ArrayList<ChartSimple>();
+		}
+		this.pnLChart.add(pnLChartItem);
 		return this;
 	}
 
 	/**
-	 * Get date
+	 * Get pnLChart
 	 *
-	 * @return date
+	 * @return pnLChart
 	 **/
 	@ApiModelProperty(value = "")
-	public DateTime getDate() {
-		return date;
+	public List<ChartSimple> getPnLChart() {
+		return pnLChart;
 	}
 
-	public void setDate(DateTime date) {
-		this.date = date;
+	public void setPnLChart(List<ChartSimple> pnLChart) {
+		this.pnLChart = pnLChart;
+	}
+
+	public ChartProgramDetails statistic(StatisticProgramDetails statistic) {
+		this.statistic = statistic;
+		return this;
+	}
+
+	/**
+	 * Get statistic
+	 *
+	 * @return statistic
+	 **/
+	@ApiModelProperty(value = "")
+	public StatisticProgramDetails getStatistic() {
+		return statistic;
+	}
+
+	public void setStatistic(StatisticProgramDetails statistic) {
+		this.statistic = statistic;
 	}
 
 
@@ -81,13 +119,14 @@ public class ChartProgramDetails
 			return false;
 		}
 		ChartProgramDetails chartProgramDetails = (ChartProgramDetails) o;
-		return Objects.equals(this.value, chartProgramDetails.value) &&
-				Objects.equals(this.date, chartProgramDetails.date);
+		return Objects.equals(this.equityChart, chartProgramDetails.equityChart) &&
+				Objects.equals(this.pnLChart, chartProgramDetails.pnLChart) &&
+				Objects.equals(this.statistic, chartProgramDetails.statistic);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(value, date);
+		return Objects.hash(equityChart, pnLChart, statistic);
 	}
 
 
@@ -96,8 +135,9 @@ public class ChartProgramDetails
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ChartProgramDetails {\n");
 
-		sb.append("    value: ").append(toIndentedString(value)).append("\n");
-		sb.append("    date: ").append(toIndentedString(date)).append("\n");
+		sb.append("    equityChart: ").append(toIndentedString(equityChart)).append("\n");
+		sb.append("    pnLChart: ").append(toIndentedString(pnLChart)).append("\n");
+		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

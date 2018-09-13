@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 <a name="v10ProgramsByIdChartGet"></a>
 # **v10ProgramsByIdChartGet**
-> ProgramChart v10ProgramsByIdChartGet(id, chartDateFrom, chartDateTo)
+> ProgramChart v10ProgramsByIdChartGet(id, dateFrom, dateTo, maxPointCount)
 
 Program chart
 
@@ -28,10 +28,11 @@ Program chart
 
 ProgramsApi apiInstance = new ProgramsApi();
 UUID id = new UUID(); // UUID | 
-DateTime chartDateFrom = new DateTime(); // DateTime | 
-DateTime chartDateTo = new DateTime(); // DateTime | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer maxPointCount = 56; // Integer | 
 try {
-    ProgramChart result = apiInstance.v10ProgramsByIdChartGet(id, chartDateFrom, chartDateTo);
+    ProgramChart result = apiInstance.v10ProgramsByIdChartGet(id, dateFrom, dateTo, maxPointCount);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#v10ProgramsByIdChartGet");
@@ -44,8 +45,9 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **chartDateFrom** | **DateTime**|  | [optional]
- **chartDateTo** | **DateTime**|  | [optional]
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **maxPointCount** | **Integer**|  | [optional]
 
 ### Return type
 

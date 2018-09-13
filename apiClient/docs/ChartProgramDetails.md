@@ -4,8 +4,9 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**value** | **Double** |  |  [optional]
-**date** | [**DateTime**](DateTime.md) |  |  [optional]
+**equityChart** | [**List&lt;ChartSimple&gt;**](ChartSimple.md) |  |  [optional]
+**pnLChart** | [**List&lt;ChartSimple&gt;**](ChartSimple.md) |  |  [optional]
+**statistic** | [**StatisticProgramDetails**](StatisticProgramDetails.md) |  |  [optional]
 
 
 

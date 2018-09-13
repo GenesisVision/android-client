@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
-import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -18,7 +16,7 @@ import io.swagger.client.model.DashboardChartValue;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.ui.chart.PortfolioChartView;
-import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -79,6 +77,19 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 		unbinder = ButterKnife.bind(this, view);
 
 		setFonts();
+
+		chart.setTouchListener(new PortfolioChartView.TouchListener()
+		{
+			@Override
+			public void onTouch(int index) {
+				investorDashboardHeaderPortfolioPresenter.onPortfolioChartTouch(index);
+			}
+
+			@Override
+			public void onStop() {
+
+			}
+		});
 	}
 
 	@Override
@@ -115,10 +126,28 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 
 	public void setData(DashboardChartValue chartValue) {
 		investorDashboardHeaderPortfolioPresenter.setData(chartValue);
-
-		balanceValue.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatAmount(chartValue.getValue())));
-		changeValue.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatAmount(chartValue.getValue())));
-
 		chart.setChart(chartValue);
+	}
+
+	@Override
+	public void hideRequests() {
+
+	}
+
+	@Override
+	public void setBalance(String gvtBalance, String baseBalance) {
+		balanceValue.setText(gvtBalance);
+		balanceValueSecondary.setText(baseBalance);
+	}
+
+	@Override
+	public void setChange(Boolean isChangeNegative, String changePercent, String changeValue, String baseChangeValue) {
+		this.changePercent.setTextColor(isChangeNegative
+				? ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed)
+				: ThemeUtil.getColorByAttrId(getContext(), R.attr.colorGreen));
+
+		this.changePercent.setText(changePercent);
+		this.changeValue.setText(changeValue);
+		this.changeValueSecondary.setText(baseChangeValue);
 	}
 }

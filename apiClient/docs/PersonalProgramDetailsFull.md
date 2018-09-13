@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **isInvested** | **Boolean** |  |  [optional]
 **isOwnProgram** | **Boolean** |  |  [optional]
 **isReinvest** | **Boolean** |  |  [optional]
+**hasNotifications** | **Boolean** |  |  [optional]
 **invested** | **Double** |  |  [optional]
 **value** | **Double** |  |  [optional]
 **profit** | **Double** |  |  [optional]

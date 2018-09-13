@@ -128,7 +128,8 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 		if (programId != null && programsManager != null) {
 			if (chartDataSubscription != null)
 				chartDataSubscription.unsubscribe();
-			chartDataSubscription = programsManager.getChart(programId, chartDateRange)
+			//TODO: calculate maxPointCount
+			chartDataSubscription = programsManager.getChart(programId, chartDateRange, 10)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetChartDataSuccess,
@@ -141,7 +142,7 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 		getViewState().showProgress(false);
 		getViewState().setRefreshing(false);
 
-		getViewState().setChartData(response.getChart());
+		getViewState().setChartData(response.getChart().get(0).getEquityChart());
 	}
 
 	private void handleGetChartDataError(Throwable throwable) {

@@ -33,7 +33,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.swagger.client.model.ChartProgramDetails;
+import io.swagger.client.model.ChartSimple;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ChartZoomEnum;
@@ -214,7 +214,7 @@ public class ProfitDetailsChartView extends RelativeLayout
 		});
 	}
 
-	public void setChart(List<ChartProgramDetails> charts) {
+	public void setChart(List<ChartSimple> charts) {
 		showProgress(false);
 
 		if (charts.size() <= 1) {
@@ -223,7 +223,7 @@ public class ProfitDetailsChartView extends RelativeLayout
 		}
 
 		List<Entry> lineEntries = new ArrayList<>();
-		for (ChartProgramDetails chart : charts) {
+		for (ChartSimple chart : charts) {
 			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getValue().floatValue()));
 		}
 
@@ -263,7 +263,7 @@ public class ProfitDetailsChartView extends RelativeLayout
 		return dataSet;
 	}
 
-	private void updateChangeText(List<ChartProgramDetails> charts) {
+	private void updateChangeText(List<ChartSimple> charts) {
 		double first = charts.get(0).getValue();
 		double last = charts.get(charts.size() - 1).getValue();
 

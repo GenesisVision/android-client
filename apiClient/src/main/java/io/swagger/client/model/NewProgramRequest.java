@@ -40,8 +40,8 @@ public class NewProgramRequest
 	@SerializedName("logo")
 	private String logo = null;
 
-	@SerializedName("tradingPlatformId")
-	private UUID tradingPlatformId = null;
+	@SerializedName("tradingServerId")
+	private UUID tradingServerId = null;
 
 	@SerializedName("periodLength")
 	private Integer periodLength = null;
@@ -121,23 +121,23 @@ public class NewProgramRequest
 		this.logo = logo;
 	}
 
-	public NewProgramRequest tradingPlatformId(UUID tradingPlatformId) {
-		this.tradingPlatformId = tradingPlatformId;
+	public NewProgramRequest tradingServerId(UUID tradingServerId) {
+		this.tradingServerId = tradingServerId;
 		return this;
 	}
 
 	/**
-	 * Get tradingPlatformId
+	 * Get tradingServerId
 	 *
-	 * @return tradingPlatformId
+	 * @return tradingServerId
 	 **/
 	@ApiModelProperty(value = "")
-	public UUID getTradingPlatformId() {
-		return tradingPlatformId;
+	public UUID getTradingServerId() {
+		return tradingServerId;
 	}
 
-	public void setTradingPlatformId(UUID tradingPlatformId) {
-		this.tradingPlatformId = tradingPlatformId;
+	public void setTradingServerId(UUID tradingServerId) {
+		this.tradingServerId = tradingServerId;
 	}
 
 	public NewProgramRequest periodLength(Integer periodLength) {
@@ -285,7 +285,7 @@ public class NewProgramRequest
 		return Objects.equals(this.title, newProgramRequest.title) &&
 				Objects.equals(this.description, newProgramRequest.description) &&
 				Objects.equals(this.logo, newProgramRequest.logo) &&
-				Objects.equals(this.tradingPlatformId, newProgramRequest.tradingPlatformId) &&
+				Objects.equals(this.tradingServerId, newProgramRequest.tradingServerId) &&
 				Objects.equals(this.periodLength, newProgramRequest.periodLength) &&
 				Objects.equals(this.successFee, newProgramRequest.successFee) &&
 				Objects.equals(this.entryFee, newProgramRequest.entryFee) &&
@@ -297,7 +297,7 @@ public class NewProgramRequest
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, description, logo, tradingPlatformId, periodLength, successFee, entryFee, stopOutLevel, depositAmount, currency, leverage);
+		return Objects.hash(title, description, logo, tradingServerId, periodLength, successFee, entryFee, stopOutLevel, depositAmount, currency, leverage);
 	}
 
 	@Override
@@ -308,7 +308,7 @@ public class NewProgramRequest
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
-		sb.append("    tradingPlatformId: ").append(toIndentedString(tradingPlatformId)).append("\n");
+		sb.append("    tradingServerId: ").append(toIndentedString(tradingServerId)).append("\n");
 		sb.append("    periodLength: ").append(toIndentedString(periodLength)).append("\n");
 		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
