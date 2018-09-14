@@ -5,6 +5,9 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,6 +25,7 @@ import vision.genesis.clientapp.managers.InvestorDashboardManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.events.OnPortfolioChartViewModeChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -59,8 +63,8 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-//		EventBus.getDefault().register(this);
-//		dateRange = settingsManager.getSavedDateRange();
+		EventBus.getDefault().register(this);
+
 		subscribeToDateRange();
 		subscribeToBaseCurrency();
 	}
@@ -75,7 +79,8 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 			getEventsSubscription.unsubscribe();
 		if (dashboardSubscription != null)
 			dashboardSubscription.unsubscribe();
-//		EventBus.getDefault().unregister(this);
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -183,5 +188,10 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	@Override
 	public void onCurrencyChanged(CurrencyEnum currency) {
 		settingsManager.saveBaseCurrency(currency);
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnPortfolioChartViewModeChangedEvent event) {
+		getViewState().setChartViewMode(event.getViewMode());
 	}
 }

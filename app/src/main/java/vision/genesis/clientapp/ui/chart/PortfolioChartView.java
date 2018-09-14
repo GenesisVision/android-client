@@ -58,8 +58,6 @@ public class PortfolioChartView extends RelativeLayout
 	public interface TouchListener
 	{
 		void onTouch(int index);
-
-		void onStop();
 	}
 
 	@BindView(R.id.chart)
@@ -176,11 +174,13 @@ public class PortfolioChartView extends RelativeLayout
 			v.getParent().requestDisallowInterceptTouchEvent(true);
 			if (me.getAction() == MotionEvent.ACTION_DOWN || me.getAction() == MotionEvent.ACTION_MOVE) {
 				Highlight highlight = chart.getHighlightByTouchPoint(me.getX(), me.getY());
-				showHighlight(highlight);
-				if (touchListener != null) {
-					float index = highlight.getX();
-					Timber.d("TEST_CHART %f", index);
-					touchListener.onTouch((int) index);
+				if (highlight != null) {
+					showHighlight(highlight);
+					if (touchListener != null) {
+						float index = highlight.getX();
+						Timber.d("TEST_CHART %f", index);
+						touchListener.onTouch((int) index);
+					}
 				}
 			}
 //			else if (me.getAction() == MotionEvent.ACTION_UP || me.getAction() == MotionEvent.ACTION_CANCEL) {
@@ -348,7 +348,7 @@ public class PortfolioChartView extends RelativeLayout
 		highlightCircle.setY(y);
 	}
 
-	private void hideHighlight() {
+	public void hideHighlight() {
 		highlightCircle.setVisibility(View.INVISIBLE);
 		chart.highlightValue(null, false);
 	}

@@ -7,7 +7,6 @@
         android:id="@+id/group_values"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
         android:layout_marginEnd="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
@@ -85,49 +84,54 @@
 
         </LinearLayout>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/group_requests"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/group_values"
+        android:layout_marginEnd="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal">
+
         <LinearLayout
-            android:id="@+id/group_requests"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            <TextView
+                android:id="@+id/requests_title"
+                style="@style/dashboard_header_title"
+                android:text="@string/in_requests"/>
 
-                <TextView
-                    android:id="@+id/requests_title"
-                    style="@style/dashboard_header_title"
-                    android:text="@string/in_requests"/>
+            <TextView
+                android:id="@+id/requests_value"
+                style="@style/dashboard_header_value"
+                android:text="+305.405 GVT"/>
 
-                <TextView
-                    android:id="@+id/requests_value"
-                    style="@style/dashboard_header_value"
-                    android:text="+305.405 GVT"/>
-
-                <TextView
-                    android:id="@+id/requests_value_secondary"
-                    style="@style/dashboard_header_secondary_value"
-                    android:text="0.00928124 BTC"/>
-
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/button_requests"
-                android:layout_width="@dimen/button_in_requests_size"
-                android:layout_height="@dimen/button_in_requests_size"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="12dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/button_in_requests"
-                android:padding="2dp"
-                android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
-                android:tint="?attr/colorTextPrimary"/>
+            <TextView
+                android:id="@+id/requests_value_secondary"
+                style="@style/dashboard_header_secondary_value"
+                android:text="0.00928124 BTC"/>
 
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/button_requests"
+            android:layout_width="@dimen/button_in_requests_size"
+            android:layout_height="@dimen/button_in_requests_size"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/button_in_requests"
+            android:padding="2dp"
+            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+            android:tint="?attr/colorTextPrimary"/>
 
     </LinearLayout>
 
@@ -135,6 +139,7 @@
         android:id="@+id/portfolio_chart"
         android:layout_width="match_parent"
         android:layout_height="@dimen/portfolio_chart_height"
-        android:layout_below="@+id/group_values"/>
+        android:layout_below="@+id/group_values"
+        android:layout_marginTop="128dp"/>
 
 </RelativeLayout>

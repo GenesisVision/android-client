@@ -18,7 +18,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
-import vision.genesis.clientapp.model.events.OnPortfolioChartTouchEvent;
+import vision.genesis.clientapp.model.events.OnPortfolioChartViewModeChangedEvent;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
@@ -69,8 +69,13 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 
 	void setData(DashboardChartValue chartValue) {
 		this.chartValue = chartValue;
+		resetValuesSelection();
+	}
+
+	private void resetValuesSelection() {
 		first = chartValue.getChart().get(0).getValue();
 		selected = chartValue.getChart().get(chartValue.getChart().size() - 1).getValue();
+		getViewState().hideHighlight();
 		updateValues();
 	}
 
@@ -88,10 +93,10 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 	}
 
 	public void onPortfolioChartTouch(int index) {
-		if (isViewMode != null) {
+		if (!isViewMode) {
 			isViewMode = true;
 			getViewState().hideRequests();
-			EventBus.getDefault().post(new OnPortfolioChartTouchEvent());
+			EventBus.getDefault().post(new OnPortfolioChartViewModeChangedEvent(isViewMode));
 		}
 
 		EventBus.getDefault().post(new OnPortfolioAssetsChangedEvent(chartValue.getBars().get(index)));
@@ -128,5 +133,14 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 	private String getChangeValueString(Double changeValue) {
 		return String.format(Locale.getDefault(), "%s%s GVT", changeValue > 0 ? "+" : "",
 				StringFormatUtil.formatCurrencyAmount(changeValue, CurrencyEnum.GVT.getValue()));
+	}
+
+	public void onPagerDrag() {
+		if (isViewMode) {
+			isViewMode = false;
+			getViewState().showRequests();
+			resetValuesSelection();
+			EventBus.getDefault().post(new OnPortfolioChartViewModeChangedEvent(isViewMode));
+		}
 	}
 }

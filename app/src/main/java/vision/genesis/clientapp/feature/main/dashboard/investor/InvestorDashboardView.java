@@ -37,4 +37,6 @@ interface InvestorDashboardView extends MvpView
 	void setHaveNewNotifications(boolean have);
 
 	void setBaseCurrency(CurrencyEnum currency);
+
+	void setChartViewMode(Boolean viewMode);
 }

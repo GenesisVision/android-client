@@ -3,6 +3,8 @@ package vision.genesis.clientapp.feature.main.dashboard.investor;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -23,6 +25,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.DashboardChartValue;
 import io.swagger.client.model.DashboardPortfolioEvent;
+import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -47,6 +50,12 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 {
 //	@BindView(R.id.refresh_layout)
 //	public SwipeRefreshLayout refreshLayout;
+
+	@BindView(R.id.coordinator_layout)
+	public CoordinatorLayout coordinatorLayout;
+
+	@BindView(R.id.appBarLayout)
+	public AppBarLayout appBarLayout;
 
 	@BindView(R.id.notifications_dot)
 	public View notificationsDot;
@@ -319,6 +328,43 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	public void setBaseCurrency(CurrencyEnum baseCurrency) {
 		this.baseCurrency = baseCurrency;
 		currencyText.setText(baseCurrency.getValue());
+	}
+
+	@Override
+	public void setChartViewMode(Boolean viewMode) {
+		if (viewMode) {
+			appBarLayout.setExpanded(true, true);
+			headerViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
+			{
+				@Override
+				public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+					dashboardHeaderPagerAdapter.onDrag();
+				}
+
+				@Override
+				public void onPageSelected(int position) {
+
+				}
+
+				@Override
+				public void onPageScrollStateChanged(int state) {
+
+				}
+			});
+			appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener()
+			{
+				Integer previousOffset;
+
+				@Override
+				public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+					Timber.d("TEST_OFFSET %d", verticalOffset);
+					if (previousOffset != null && verticalOffset < -100 && verticalOffset < previousOffset)
+						dashboardHeaderPagerAdapter.onDrag();
+					previousOffset = verticalOffset;
+				}
+			});
+			//show assets bottomsheet
+		}
 	}
 
 	@Override

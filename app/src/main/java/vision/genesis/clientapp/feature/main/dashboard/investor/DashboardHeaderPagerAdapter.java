@@ -49,4 +49,8 @@ public class DashboardHeaderPagerAdapter extends FragmentStatePagerAdapter
 		if (portfolio != null)
 			portfolio.setData(chart);
 	}
+
+	public void onDrag() {
+		portfolio.onPagerDrag();
+	}
 }

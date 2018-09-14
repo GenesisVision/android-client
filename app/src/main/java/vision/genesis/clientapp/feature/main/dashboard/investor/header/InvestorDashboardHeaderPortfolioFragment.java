@@ -1,10 +1,15 @@
 package vision.genesis.clientapp.feature.main.dashboard.investor.header;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -13,6 +18,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.swagger.client.model.DashboardChartValue;
+import timber.log.Timber;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.ui.chart.PortfolioChartView;
@@ -46,6 +53,9 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 
 	@BindView(R.id.change_percent)
 	public TextView changePercent;
+
+	@BindView(R.id.group_requests)
+	public ViewGroup requestsGroup;
 
 	@BindView(R.id.requests_title)
 	public TextView requestsTitle;
@@ -83,11 +93,6 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 			@Override
 			public void onTouch(int index) {
 				investorDashboardHeaderPortfolioPresenter.onPortfolioChartTouch(index);
-			}
-
-			@Override
-			public void onStop() {
-
 			}
 		});
 	}
@@ -131,7 +136,68 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 
 	@Override
 	public void hideRequests() {
+		Timber.d("TEST_CHART hideRequests");
+		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.hide_to_top);
+		animation.setAnimationListener(new Animation.AnimationListener()
+		{
+			@Override
+			public void onAnimationStart(Animation animation) {
+			}
 
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				requestsGroup.setVisibility(View.GONE);
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+			}
+		});
+		animation.setFillAfter(true);
+		requestsGroup.startAnimation(animation);
+
+		float yDelta = TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_DIP,
+				128 - 32,
+				GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics());
+
+		ObjectAnimator chartAnim = ObjectAnimator.ofFloat(chart, "y", chart.getY() - yDelta);
+		chartAnim.setInterpolator(new DecelerateInterpolator());
+		chartAnim.setDuration(400);
+		chartAnim.start();
+	}
+
+	@Override
+	public void showRequests() {
+		Timber.d("TEST_CHART showRequests");
+		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.show_from_top);
+		animation.setAnimationListener(new Animation.AnimationListener()
+		{
+			@Override
+			public void onAnimationStart(Animation animation) {
+				requestsGroup.setVisibility(View.VISIBLE);
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+			}
+		});
+		animation.setFillAfter(true);
+		requestsGroup.startAnimation(animation);
+
+		float yDelta = TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_DIP,
+				128 - 32,
+				GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics());
+
+		ObjectAnimator chartAnim = ObjectAnimator.ofFloat(chart, "y", chart.getY() + yDelta);
+		chartAnim.setInterpolator(new DecelerateInterpolator());
+		chartAnim.setDuration(400);
+		chartAnim.start();
 	}
 
 	@Override
@@ -149,5 +215,14 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 		this.changePercent.setText(changePercent);
 		this.changeValue.setText(changeValue);
 		this.changeValueSecondary.setText(baseChangeValue);
+	}
+
+	@Override
+	public void hideHighlight() {
+		chart.hideHighlight();
+	}
+
+	public void onPagerDrag() {
+		investorDashboardHeaderPortfolioPresenter.onPagerDrag();
 	}
 }
