@@ -18,6 +18,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.model.events.OnPortfolioAssetsChangedEvent;
 import vision.genesis.clientapp.model.events.OnPortfolioChartViewModeChangedEvent;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -92,11 +93,11 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 		updateValues();
 	}
 
-	public void onPortfolioChartTouch(int index) {
+	public void onPortfolioChartTouch(int index, float chartBottomY) {
 		if (!isViewMode) {
 			isViewMode = true;
 			getViewState().hideRequests();
-			EventBus.getDefault().post(new OnPortfolioChartViewModeChangedEvent(isViewMode));
+			EventBus.getDefault().post(new OnPortfolioChartViewModeChangedEvent(isViewMode, chartBottomY));
 		}
 
 		EventBus.getDefault().post(new OnPortfolioAssetsChangedEvent(chartValue.getBars().get(index)));
@@ -135,12 +136,12 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 				StringFormatUtil.formatCurrencyAmount(changeValue, CurrencyEnum.GVT.getValue()));
 	}
 
-	public void onPagerDrag() {
+	public void chartViewModeTurnOff() {
 		if (isViewMode) {
 			isViewMode = false;
 			getViewState().showRequests();
 			resetValuesSelection();
-			EventBus.getDefault().post(new OnPortfolioChartViewModeChangedEvent(isViewMode));
+			EventBus.getDefault().post(new OnPortfolioChartViewModeChangedEvent(isViewMode, 0f));
 		}
 	}
 }

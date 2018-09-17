@@ -2,12 +2,15 @@ package vision.genesis.clientapp.feature.main.dashboard.investor;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +20,10 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +31,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.DashboardChartValue;
 import io.swagger.client.model.DashboardPortfolioEvent;
-import timber.log.Timber;
+import io.swagger.client.model.ValueChartBar;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -36,6 +42,8 @@ import vision.genesis.clientapp.feature.main.tooltip.TooltipActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.TooltipModel;
+import vision.genesis.clientapp.model.events.HideBottomNavigationEvent;
+import vision.genesis.clientapp.model.events.ShowBottomNavigationEvent;
 import vision.genesis.clientapp.ui.DateRangeView;
 import vision.genesis.clientapp.ui.PortfolioEventDashboardView;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -50,6 +58,12 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 {
 //	@BindView(R.id.refresh_layout)
 //	public SwipeRefreshLayout refreshLayout;
+
+	@BindView(R.id.root)
+	public ViewGroup root;
+
+	@BindView(R.id.header)
+	public ViewGroup header;
 
 	@BindView(R.id.coordinator_layout)
 	public CoordinatorLayout coordinatorLayout;
@@ -84,6 +98,12 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	@BindView(R.id.view_pager_dashboard)
 	public ViewPager viewPagerAssets;
 
+	@BindView(R.id.assets_bottomsheet)
+	public ViewGroup assetsBottomsheet;
+
+	@BindView(R.id.bottomsheet_title)
+	public TextView bottomsheetTitle;
+
 	@InjectPresenter
 	InvestorDashboardPresenter investorDashboardPresenter;
 
@@ -106,6 +126,35 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	private CurrencyEnum baseCurrency;
 
 	private Unbinder unbinder;
+
+	private ViewPager.OnPageChangeListener headerViewPagerPageChangeListener = new ViewPager.OnPageChangeListener()
+	{
+		@Override
+		public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+			dashboardHeaderPagerAdapter.chartViewModeTurnOff();
+		}
+
+		@Override
+		public void onPageSelected(int position) {
+		}
+
+		@Override
+		public void onPageScrollStateChanged(int state) {
+		}
+	};
+
+	private AppBarLayout.OnOffsetChangedListener appBarLayoutOffsetChangedListener = new AppBarLayout.OnOffsetChangedListener()
+	{
+		Integer previousOffset;
+
+		@Override
+		public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+			if (previousOffset != null && verticalOffset < -100 && verticalOffset < previousOffset) {
+				dashboardHeaderPagerAdapter.chartViewModeTurnOff();
+			}
+			previousOffset = verticalOffset;
+		}
+	};
 
 	@OnClick(R.id.group_notifications)
 	public void onNotificationsClicked() {
@@ -139,14 +188,14 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 	@Nullable
 	@Override
-	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), ThemeUtil.getCurrentThemeResource());
 		LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
 		return localInflater.inflate(R.layout.fragment_investor_dashboard, container, false);
 	}
 
 	@Override
-	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
 		unbinder = ButterKnife.bind(this, view);
@@ -158,6 +207,7 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 		initHeaderViewPager();
 		initAssetsTabs();
 		initAssetsViewPager();
+		initAssetsBottomSheet();
 	}
 
 	@Override
@@ -197,6 +247,11 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 		super.onDestroyView();
 	}
 
+	private void setFonts() {
+		currencyText.setTypeface(TypefaceUtil.semibold());
+		bottomsheetTitle.setTypeface(TypefaceUtil.semibold());
+	}
+
 	private void showTooltip(View view, int tooltipTextResId) {
 		int[] viewLocation = new int[2];
 		view.getLocationInWindow(viewLocation);
@@ -211,10 +266,6 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 		if (getActivity() != null)
 			TooltipActivity.startWith(getActivity(), tooltipModel);
-	}
-
-	private void setFonts() {
-		currencyText.setTypeface(TypefaceUtil.semibold());
 	}
 
 //	private void initRefreshLayout() {
@@ -285,12 +336,17 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	}
 
 	private void initAssetsViewPager() {
-		pagerAdapter = new DashboardPagerAdapter(getActivity().getSupportFragmentManager());
+		pagerAdapter = new DashboardPagerAdapter(Objects.requireNonNull(getActivity()).getSupportFragmentManager());
 		viewPagerAssets.setAdapter(pagerAdapter);
 
 		tabLayoutAssetsOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayoutAssets);
 		viewPagerAssets.addOnPageChangeListener(tabLayoutAssetsOnPageChangeListener);
 		viewPagerAssets.addOnPageChangeListener(this);
+	}
+
+	private void initAssetsBottomSheet() {
+		appBarLayout.addOnOffsetChangedListener(appBarLayoutOffsetChangedListener);
+		BottomSheetBehavior.from(assetsBottomsheet).setState(BottomSheetBehavior.STATE_HIDDEN);
 	}
 
 	@Override
@@ -331,40 +387,55 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	}
 
 	@Override
-	public void setChartViewMode(Boolean viewMode) {
+	public void setChartViewMode(Boolean viewMode, Float chartBottomY) {
 		if (viewMode) {
 			appBarLayout.setExpanded(true, true);
-			headerViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
-			{
-				@Override
-				public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-					dashboardHeaderPagerAdapter.onDrag();
-				}
+			headerViewPager.addOnPageChangeListener(headerViewPagerPageChangeListener);
 
-				@Override
-				public void onPageSelected(int position) {
-
-				}
-
-				@Override
-				public void onPageScrollStateChanged(int state) {
-
-				}
-			});
-			appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener()
-			{
-				Integer previousOffset;
-
-				@Override
-				public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-					Timber.d("TEST_OFFSET %d", verticalOffset);
-					if (previousOffset != null && verticalOffset < -100 && verticalOffset < previousOffset)
-						dashboardHeaderPagerAdapter.onDrag();
-					previousOffset = verticalOffset;
-				}
-			});
-			//show assets bottomsheet
+			showAssetsBottomSheet(chartBottomY + header.getHeight() + tabLayoutChart.getHeight());
 		}
+		else {
+			headerViewPager.removeOnPageChangeListener(headerViewPagerPageChangeListener);
+//			appBarLayout.removeOnOffsetChangedListener(appBarLayoutOffsetChangedListener);
+
+			hideAssetsBottomSheet();
+		}
+	}
+
+	public void showAssetsBottomSheet(float height) {
+		BottomSheetBehavior assetsBottomsheetBehavior = BottomSheetBehavior.from(assetsBottomsheet);
+		assetsBottomsheetBehavior.setPeekHeight((int) (root.getHeight() - height
+				- TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32, GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics())));
+		assetsBottomsheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+		assetsBottomsheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback()
+		{
+			int currentState = -1;
+
+			@Override
+			public void onStateChanged(@NonNull View bottomSheet, int newState) {
+				currentState = newState;
+				switch (newState) {
+					case BottomSheetBehavior.STATE_HIDDEN:
+						dashboardHeaderPagerAdapter.chartViewModeTurnOff();
+						break;
+				}
+			}
+
+			@Override
+			public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+			}
+		});
+		EventBus.getDefault().post(new HideBottomNavigationEvent());
+	}
+
+	public void hideAssetsBottomSheet() {
+		BottomSheetBehavior.from(assetsBottomsheet).setState(BottomSheetBehavior.STATE_HIDDEN);
+		EventBus.getDefault().post(new ShowBottomNavigationEvent(true));
+	}
+
+	@Override
+	public void setPortfolioAssets(ValueChartBar valueChartBar) {
+
 	}
 
 	@Override

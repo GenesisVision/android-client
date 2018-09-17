@@ -25,6 +25,7 @@ import vision.genesis.clientapp.managers.InvestorDashboardManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.events.OnPortfolioAssetsChangedEvent;
 import vision.genesis.clientapp.model.events.OnPortfolioChartViewModeChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -192,6 +193,11 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 	@Subscribe
 	public void onEventMainThread(OnPortfolioChartViewModeChangedEvent event) {
-		getViewState().setChartViewMode(event.getViewMode());
+		getViewState().setChartViewMode(event.getViewMode(), event.getChartBottomY());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnPortfolioAssetsChangedEvent event) {
+		getViewState().setPortfolioAssets(event.getValueChartBar());
 	}
 }

@@ -18,7 +18,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.swagger.client.model.DashboardChartValue;
-import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -33,6 +32,9 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment implements InvestorDashboardHeaderPortfolioView
 {
+	@BindView(R.id.root)
+	public ViewGroup root;
+
 	@BindView(R.id.balance_title)
 	public TextView balanceTitle;
 
@@ -74,6 +76,13 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 
 	private Unbinder unbinder;
 
+	private float chartYDelta = TypedValue.applyDimension(
+			TypedValue.COMPLEX_UNIT_DIP,
+			128 - 32,
+			GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics());
+
+	private Float initialChartY;
+
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -88,12 +97,9 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 
 		setFonts();
 
-		chart.setTouchListener(new PortfolioChartView.TouchListener()
-		{
-			@Override
-			public void onTouch(int index) {
-				investorDashboardHeaderPortfolioPresenter.onPortfolioChartTouch(index);
-			}
+		chart.setTouchListener(index -> {
+			float chartBottomY = chart.getY() + chart.getHeight() - chartYDelta;
+			investorDashboardHeaderPortfolioPresenter.onPortfolioChartTouch(index, chartBottomY);
 		});
 	}
 
@@ -136,7 +142,6 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 
 	@Override
 	public void hideRequests() {
-		Timber.d("TEST_CHART hideRequests");
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.hide_to_top);
 		animation.setAnimationListener(new Animation.AnimationListener()
 		{
@@ -156,12 +161,9 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 		animation.setFillAfter(true);
 		requestsGroup.startAnimation(animation);
 
-		float yDelta = TypedValue.applyDimension(
-				TypedValue.COMPLEX_UNIT_DIP,
-				128 - 32,
-				GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics());
-
-		ObjectAnimator chartAnim = ObjectAnimator.ofFloat(chart, "y", chart.getY() - yDelta);
+		if (initialChartY == null)
+			initialChartY = chart.getY();
+		ObjectAnimator chartAnim = ObjectAnimator.ofFloat(chart, "y", initialChartY - chartYDelta);
 		chartAnim.setInterpolator(new DecelerateInterpolator());
 		chartAnim.setDuration(400);
 		chartAnim.start();
@@ -169,7 +171,6 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 
 	@Override
 	public void showRequests() {
-		Timber.d("TEST_CHART showRequests");
 		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.show_from_top);
 		animation.setAnimationListener(new Animation.AnimationListener()
 		{
@@ -189,12 +190,7 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 		animation.setFillAfter(true);
 		requestsGroup.startAnimation(animation);
 
-		float yDelta = TypedValue.applyDimension(
-				TypedValue.COMPLEX_UNIT_DIP,
-				128 - 32,
-				GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics());
-
-		ObjectAnimator chartAnim = ObjectAnimator.ofFloat(chart, "y", chart.getY() + yDelta);
+		ObjectAnimator chartAnim = ObjectAnimator.ofFloat(chart, "y", initialChartY);
 		chartAnim.setInterpolator(new DecelerateInterpolator());
 		chartAnim.setDuration(400);
 		chartAnim.start();
@@ -222,7 +218,7 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 		chart.hideHighlight();
 	}
 
-	public void onPagerDrag() {
-		investorDashboardHeaderPortfolioPresenter.onPagerDrag();
+	public void chartViewModeTurnOff() {
+		investorDashboardHeaderPortfolioPresenter.chartViewModeTurnOff();
 	}
 }

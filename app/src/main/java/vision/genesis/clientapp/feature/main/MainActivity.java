@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -20,6 +21,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import org.greenrobot.eventbus.EventBus;
+import org.joda.time.DateTime;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +46,7 @@ import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
 import vision.genesis.clientapp.ui.common.BlockScreenHolder;
+import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -61,6 +64,12 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 		activity.startActivity(mainActivityIntent);
 		activity.overridePendingTransition(R.anim.hold, R.anim.hold);
 	}
+
+	@BindView(R.id.root)
+	public View root;
+
+	@BindView(R.id.boring_text)
+	public TextView boringText;
 
 	@BindView(R.id.splashscreen)
 	public View splashScreen;
@@ -91,6 +100,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 		setContentView(R.layout.activity_main);
 
 		ButterKnife.bind(this);
+
+		boringText.setText(String.valueOf(DateTimeUtil.getDaysToDate(new DateTime(1540857600000L))));
 
 		initBottomNavigation();
 	}
@@ -215,14 +226,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 		});
 	}
 
-	private void showBottomNavigationWithAnimation() {
-		Animation signInAnimation = AnimationUtils.loadAnimation(this, R.anim.sign_in_button_slide);
-		signInAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-		bottomNavigationView.startAnimation(signInAnimation);
-		bottomNavigationView.setVisibility(View.VISIBLE);
-	}
-
-
 	private void showSignInButtonWithAnimation() {
 		Animation signInAnimation = AnimationUtils.loadAnimation(this, R.anim.sign_in_button_slide);
 		signInAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -236,8 +239,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	}
 
 	@Override
-	public void showBottomNavigation() {
-		showBottomNavigationWithAnimation();
+	public void showBottomNavigation(Boolean animate) {
+		if (animate) {
+			Animation signInAnimation = AnimationUtils.loadAnimation(this, R.anim.sign_in_button_slide);
+			signInAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+			bottomNavigationView.startAnimation(signInAnimation);
+		}
+		bottomNavigationView.setVisibility(View.VISIBLE);
 	}
 
 	@Override

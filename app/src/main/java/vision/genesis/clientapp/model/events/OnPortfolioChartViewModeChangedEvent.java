@@ -8,12 +8,18 @@ public class OnPortfolioChartViewModeChangedEvent
 {
 	private Boolean isViewMode;
 
-	public OnPortfolioChartViewModeChangedEvent(Boolean isViewMode) {
+	private Float chartBottomY;
 
+	public OnPortfolioChartViewModeChangedEvent(Boolean isViewMode, Float chartBottomY) {
 		this.isViewMode = isViewMode;
+		this.chartBottomY = chartBottomY;
 	}
 
 	public Boolean getViewMode() {
 		return isViewMode;
+	}
+
+	public Float getChartBottomY() {
+		return chartBottomY;
 	}
 }

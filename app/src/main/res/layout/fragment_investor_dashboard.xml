@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout android:id="@+id/root"
+                xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
@@ -201,6 +202,35 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
+        <RelativeLayout
+            android:id="@+id/assets_bottomsheet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_bottomsheet"
+            android:clickable="true"
+            android:focusable="true"
+            app:behavior_hideable="true"
+            app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+            <View
+                android:layout_width="45dp"
+                android:layout_height="3dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/line_bottomsheet"/>
+
+            <TextView
+                android:id="@+id/bottomsheet_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="8dp"
+                android:padding="24dp"
+                android:text="@string/assets"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="18sp"/>
+
+        </RelativeLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 

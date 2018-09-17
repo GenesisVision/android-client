@@ -50,7 +50,7 @@ public class DashboardHeaderPagerAdapter extends FragmentStatePagerAdapter
 			portfolio.setData(chart);
 	}
 
-	public void onDrag() {
-		portfolio.onPagerDrag();
+	public void chartViewModeTurnOff() {
+		portfolio.chartViewModeTurnOff();
 	}
 }

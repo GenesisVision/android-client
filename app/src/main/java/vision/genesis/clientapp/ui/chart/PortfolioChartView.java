@@ -40,7 +40,6 @@ import butterknife.Unbinder;
 import io.swagger.client.model.ChartSimple;
 import io.swagger.client.model.DashboardChartValue;
 import io.swagger.client.model.ValueChartBar;
-import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.DateValueFormatter;
@@ -178,7 +177,7 @@ public class PortfolioChartView extends RelativeLayout
 					showHighlight(highlight);
 					if (touchListener != null) {
 						float index = highlight.getX();
-						Timber.d("TEST_CHART %f", index);
+//						Timber.d("TEST_CHART %f", index);
 						touchListener.onTouch((int) index);
 					}
 				}
