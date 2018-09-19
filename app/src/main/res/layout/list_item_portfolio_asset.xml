@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/portfolio_asset_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp">
+
+    <View
+        android:id="@+id/color_indicator"
+        android:layout_width="3dp"
+        android:layout_height="match_parent"
+        tools:background="?attr/colorGreen"/>
+
+    <LinearLayout
+        android:id="@+id/group_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@+id/color_indicator"
+        android:layout_toRightOf="@+id/color_indicator"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="16sp"
+            tools:text="Digi-Key"/>
+
+        <TextView
+            android:id="@+id/value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="?attr/colorTextSecondary"
+            android:textSize="16sp"
+            tools:text="1 022.43 GVT"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/group_change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/group_name"
+        android:layout_toRightOf="@+id/group_name"
+        android:gravity="center_vertical|end"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/change_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorGreen"
+            android:textSize="16sp"
+            tools:text="5.4%"/>
+
+        <TextView
+            android:id="@+id/change_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="?attr/colorTextSecondary"
+            android:textSize="16sp"
+            tools:text="+124.6 GVT"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

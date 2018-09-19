@@ -100,7 +100,7 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 			EventBus.getDefault().post(new OnPortfolioChartViewModeChangedEvent(isViewMode, chartBottomY));
 		}
 
-		EventBus.getDefault().post(new OnPortfolioAssetsChangedEvent(chartValue.getBars().get(index)));
+		EventBus.getDefault().post(new OnPortfolioAssetsChangedEvent(index));
 
 		selected = chartValue.getChart().get(index).getValue();
 

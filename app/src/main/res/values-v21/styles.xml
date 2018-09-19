@@ -17,6 +17,7 @@
     <style name="AppTheme.Base.Dark" parent="AppTheme.Base">
         <item name="android:windowBackground">@color/darkBackground</item>
         <item name="colorBottom">@color/darkBottom</item>
+        <item name="colorBottomSheet">@color/darkBottomSheet</item>
         <item name="colorBackground">@color/darkBackground</item>
         <item name="colorCard">@color/darkCard</item>
         <item name="colorCardLight">@color/darkCardLight</item>
@@ -29,6 +30,7 @@
     <style name="AppTheme.Base.Light" parent="AppTheme.Base">
         <item name="android:windowBackground">@color/lightBackground</item>
         <item name="colorBottom">@color/lightBottom</item>
+        <item name="colorBottomSheet">@color/lightBottomSheet</item>
         <item name="colorBackground">@color/lightBackground</item>
         <item name="colorCard">@color/lightCard</item>
         <item name="colorCardLight">@color/lightCardLight</item>

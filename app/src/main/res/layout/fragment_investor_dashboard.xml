@@ -207,10 +207,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/background_bottomsheet"
-            android:clickable="true"
             android:focusable="true"
+            android:focusableInTouchMode="true"
             app:behavior_hideable="true"
-            app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+            app:layout_behavior="vision.genesis.clientapp.ui.common.CustomBottomSheetBehavior">
 
             <View
                 android:layout_width="45dp"
@@ -223,12 +223,22 @@
                 android:id="@+id/bottomsheet_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="8dp"
-                android:padding="24dp"
+                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
                 android:text="@string/assets"
                 android:textColor="?attr/colorTextPrimary"
-                android:textSize="18sp"/>
+                android:textSize="20sp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/assets_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bottomsheet_title"
+                android:clickable="true"
+                android:focusable="true"
+                android:scrollbars="none"/>
 
         </RelativeLayout>
 

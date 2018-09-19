@@ -8,6 +8,7 @@
         <attr name="colorPending" format="color"/>
         <attr name="colorWithdrawing" format="color"/>
         <attr name="colorBottom" format="color"/>
+        <attr name="colorBottomSheet" format="color"/>
         <attr name="colorBackground" format="color"/>
         <attr name="colorCard" format="color"/>
         <attr name="colorCardLight" format="color"/>

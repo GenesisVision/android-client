@@ -60,18 +60,45 @@
     <color name="colorNotFound">#ff00ff</color>
 
 
+    <color name="asset0">#ecdf75</color>
+    <color name="asset1">#d7466c</color>
+    <color name="asset2">#279ef3</color>
+    <color name="asset3">#67b882</color>
+    <color name="asset4">#f0eee2</color>
+    <color name="asset5">#f4968e</color>
+    <color name="asset6">#79d1e5</color>
+    <color name="asset7">#8b46d4</color>
+    <color name="asset8">#ce7ca1</color>
+    <color name="asset9">#5758a5</color>
+
+    <array name="assetsColors">
+        <item>@color/asset0</item>
+        <item>@color/asset1</item>
+        <item>@color/asset2</item>
+        <item>@color/asset3</item>
+        <item>@color/asset4</item>
+        <item>@color/asset5</item>
+        <item>@color/asset6</item>
+        <item>@color/asset7</item>
+        <item>@color/asset8</item>
+        <item>@color/asset9</item>
+    </array>
+
+
     <color name="darkBottom">#12191e</color>
+    <color name="darkBottomSheet">#212c34</color>
     <color name="darkBackground">#131e26</color>
     <color name="darkCard">#1c2730</color>
     <color name="darkCardLight">#242f38</color>
     <color name="darkDelimiter">#232b31</color>
-    <color name="darkDelimiterLight">#4d565c</color>
+    <color name="darkDelimiterLight">#2c363e</color>
 
     <color name="darkTextPrimary">#ffffff</color>
     <color name="darkTextSecondary">#787d82</color>
 
 
     <color name="lightBottom">#f3f3f3</color>
+    <color name="lightBottomSheet">#ffffff</color>
     <color name="lightBackground">#f3f3f3</color>
     <color name="lightCard">#ffffff</color>
     <color name="lightCardLight">#ffffff</color>

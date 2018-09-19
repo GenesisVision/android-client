@@ -1,20 +1,18 @@
 package vision.genesis.clientapp.model.events;
 
-import io.swagger.client.model.ValueChartBar;
-
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 13/09/2018.
  */
 public class OnPortfolioAssetsChangedEvent
 {
-	private ValueChartBar valueChartBar;
+	private Integer index;
 
-	public OnPortfolioAssetsChangedEvent(ValueChartBar valueChartBar) {
-		this.valueChartBar = valueChartBar;
+	public OnPortfolioAssetsChangedEvent(Integer index) {
+		this.index = index;
 	}
 
-	public ValueChartBar getValueChartBar() {
-		return valueChartBar;
+	public Integer getIndex() {
+		return index;
 	}
 }
