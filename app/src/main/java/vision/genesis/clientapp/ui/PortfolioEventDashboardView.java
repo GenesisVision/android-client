@@ -73,7 +73,7 @@ public class PortfolioEventDashboardView extends RelativeLayout
 
 	public void setEvent(DashboardPortfolioEvent event) {
 		subject.getHierarchy().setPlaceholderImage(ContextCompat.getDrawable(getContext(), R.drawable.logo));
-		action.getHierarchy().setPlaceholderImage(ContextCompat.getDrawable(getContext(), R.drawable.icon_event_reinvest));
+		action.getHierarchy().setPlaceholderImage(ContextCompat.getDrawable(getContext(), R.drawable.icon_reinvest));
 
 		this.date.setText(DateTimeUtil.formatEventDateTime(event.getDate()).toLowerCase());
 

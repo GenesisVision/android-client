@@ -89,4 +89,6 @@
     <dimen name="apply_button_height">65dp</dimen>
     <dimen name="currency_option_view_height">50dp</dimen>
     <dimen name="portfolio_asset_height">70dp</dimen>
+    <dimen name="item_request_height">70dp</dimen>
+    <dimen name="item_request_bottomview_width">140dp</dimen>
 </resources>

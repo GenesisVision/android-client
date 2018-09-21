@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
 **logo** | **String** |  |  [optional]
+**title** | **String** |  |  [optional]
 **canCancelRequest** | **Boolean** |  |  [optional]
 
 

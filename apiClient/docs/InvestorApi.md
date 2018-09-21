@@ -4,25 +4,26 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v10InvestorGet**](InvestorApi.md#v10InvestorGet) | **GET** v1.0/investor | Summary dashdoard info
+[**v10InvestorGet**](InvestorApi.md#v10InvestorGet) | **GET** v1.0/investor | Summary dashboard info
 [**v10InvestorPortfolioChartGet**](InvestorApi.md#v10InvestorPortfolioChartGet) | **GET** v1.0/investor/portfolio/chart | Portfolio charts
 [**v10InvestorPortfolioEventsGet**](InvestorApi.md#v10InvestorPortfolioEventsGet) | **GET** v1.0/investor/portfolio/events | Portfolio events
 [**v10InvestorProgramsByIdInvestByAmountPost**](InvestorApi.md#v10InvestorProgramsByIdInvestByAmountPost) | **POST** v1.0/investor/programs/{id}/invest/{amount} | investing
 [**v10InvestorProgramsByIdInvestInfoByCurrencyGet**](InvestorApi.md#v10InvestorProgramsByIdInvestInfoByCurrencyGet) | **GET** v1.0/investor/programs/{id}/invest/info/{currency} | Data for investing
 [**v10InvestorProgramsByIdReinvestOffPost**](InvestorApi.md#v10InvestorProgramsByIdReinvestOffPost) | **POST** v1.0/investor/programs/{id}/reinvest/off | Disable reinvesting
 [**v10InvestorProgramsByIdReinvestOnPost**](InvestorApi.md#v10InvestorProgramsByIdReinvestOnPost) | **POST** v1.0/investor/programs/{id}/reinvest/on | Enable reinvesting
-[**v10InvestorProgramsByIdRequestsBySkipByTakeGet**](InvestorApi.md#v10InvestorProgramsByIdRequestsBySkipByTakeGet) | **GET** v1.0/investor/programs/{id}/requests/{skip}/{take} | Get requests
+[**v10InvestorProgramsByIdRequestsBySkipByTakeGet**](InvestorApi.md#v10InvestorProgramsByIdRequestsBySkipByTakeGet) | **GET** v1.0/investor/programs/{id}/requests/{skip}/{take} | Get program requests
 [**v10InvestorProgramsByIdWithdrawByAmountPost**](InvestorApi.md#v10InvestorProgramsByIdWithdrawByAmountPost) | **POST** v1.0/investor/programs/{id}/withdraw/{amount} | Withdrawal
 [**v10InvestorProgramsByIdWithdrawInfoByCurrencyGet**](InvestorApi.md#v10InvestorProgramsByIdWithdrawInfoByCurrencyGet) | **GET** v1.0/investor/programs/{id}/withdraw/info/{currency} | Data for withdrawal
 [**v10InvestorProgramsGet**](InvestorApi.md#v10InvestorProgramsGet) | **GET** v1.0/investor/programs | Programs list
 [**v10InvestorProgramsRequestsByIdCancelPost**](InvestorApi.md#v10InvestorProgramsRequestsByIdCancelPost) | **POST** v1.0/investor/programs/requests/{id}/cancel | Cancel request
+[**v10InvestorRequestsBySkipByTakeGet**](InvestorApi.md#v10InvestorRequestsBySkipByTakeGet) | **GET** v1.0/investor/requests/{skip}/{take} | Get all requests
 
 
 <a name="v10InvestorGet"></a>
 # **v10InvestorGet**
-> DashboardSummary v10InvestorGet(authorization, assetId, from, to, type, assetType, skip, take, chartCurrency, chartFrom, chartTo)
+> DashboardSummary v10InvestorGet(authorization, assetId, from, to, type, assetType, skip, take, chartCurrency, chartFrom, chartTo, requestsSkip, requestsTake)
 
-Summary dashdoard info
+Summary dashboard info
 
 ### Example
 ```java
@@ -43,8 +44,10 @@ Integer take = 56; // Integer |
 String chartCurrency = "chartCurrency_example"; // String | 
 DateTime chartFrom = new DateTime(); // DateTime | 
 DateTime chartTo = new DateTime(); // DateTime | 
+Integer requestsSkip = 56; // Integer | 
+Integer requestsTake = 56; // Integer | 
 try {
-    DashboardSummary result = apiInstance.v10InvestorGet(authorization, assetId, from, to, type, assetType, skip, take, chartCurrency, chartFrom, chartTo);
+    DashboardSummary result = apiInstance.v10InvestorGet(authorization, assetId, from, to, type, assetType, skip, take, chartCurrency, chartFrom, chartTo, requestsSkip, requestsTake);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestorApi#v10InvestorGet");
@@ -67,6 +70,8 @@ Name | Type | Description  | Notes
  **chartCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
  **chartFrom** | **DateTime**|  | [optional]
  **chartTo** | **DateTime**|  | [optional]
+ **requestsSkip** | **Integer**|  | [optional]
+ **requestsTake** | **Integer**|  | [optional]
 
 ### Return type
 
@@ -375,7 +380,7 @@ No authorization required
 # **v10InvestorProgramsByIdRequestsBySkipByTakeGet**
 > ProgramRequests v10InvestorProgramsByIdRequestsBySkipByTakeGet(id, skip, take, authorization)
 
-Get requests
+Get program requests
 
 ### Example
 ```java
@@ -516,7 +521,7 @@ No authorization required
 
 <a name="v10InvestorProgramsGet"></a>
 # **v10InvestorProgramsGet**
-> ProgramsList v10InvestorProgramsGet(authorization, sorting, from, to, skip, take)
+> ProgramsList v10InvestorProgramsGet(authorization, sorting, from, to, chartPointsCount, skip, take)
 
 Programs list
 
@@ -532,10 +537,11 @@ String authorization = "authorization_example"; // String | JWT access token
 String sorting = "sorting_example"; // String | 
 DateTime from = new DateTime(); // DateTime | 
 DateTime to = new DateTime(); // DateTime | 
+Integer chartPointsCount = 56; // Integer | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ProgramsList result = apiInstance.v10InvestorProgramsGet(authorization, sorting, from, to, skip, take);
+    ProgramsList result = apiInstance.v10InvestorProgramsGet(authorization, sorting, from, to, chartPointsCount, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestorApi#v10InvestorProgramsGet");
@@ -551,6 +557,7 @@ Name | Type | Description  | Notes
  **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByTradesAsc, ByTradesDesc, ByInvestorsAsc, ByInvestorsDesc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
+ **chartPointsCount** | **Integer**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -602,6 +609,55 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10InvestorRequestsBySkipByTakeGet"></a>
+# **v10InvestorRequestsBySkipByTakeGet**
+> ProgramRequests v10InvestorRequestsBySkipByTakeGet(skip, take, authorization, id)
+
+Get all requests
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+String authorization = "authorization_example"; // String | JWT access token
+UUID id = new UUID(); // UUID | 
+try {
+    ProgramRequests result = apiInstance.v10InvestorRequestsBySkipByTakeGet(skip, take, authorization, id);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#v10InvestorRequestsBySkipByTakeGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **skip** | **Integer**|  |
+ **take** | **Integer**|  |
+ **authorization** | **String**| JWT access token |
+ **id** | [**UUID**](.md)|  | [optional]
+
+### Return type
+
+[**ProgramRequests**](ProgramRequests.md)
 
 ### Authorization
 

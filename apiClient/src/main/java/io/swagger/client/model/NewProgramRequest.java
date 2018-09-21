@@ -31,6 +31,21 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class NewProgramRequest
 {
+	@SerializedName("periodLength")
+	private Integer periodLength = null;
+
+	@SerializedName("successFee")
+	private Double successFee = null;
+
+	@SerializedName("stopOutLevel")
+	private Double stopOutLevel = null;
+
+	@SerializedName("currency")
+	private CurrencyEnum currency = null;
+
+	@SerializedName("leverage")
+	private Integer leverage = null;
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -43,26 +58,106 @@ public class NewProgramRequest
 	@SerializedName("tradingServerId")
 	private UUID tradingServerId = null;
 
-	@SerializedName("periodLength")
-	private Integer periodLength = null;
-
-	@SerializedName("successFee")
-	private Double successFee = null;
-
 	@SerializedName("entryFee")
 	private Double entryFee = null;
-
-	@SerializedName("stopOutLevel")
-	private Double stopOutLevel = null;
 
 	@SerializedName("depositAmount")
 	private Double depositAmount = null;
 
-	@SerializedName("currency")
-	private CurrencyEnum currency = null;
+	public NewProgramRequest periodLength(Integer periodLength) {
+		this.periodLength = periodLength;
+		return this;
+	}
 
-	@SerializedName("leverage")
-	private Integer leverage = null;
+	/**
+	 * Get periodLength
+	 *
+	 * @return periodLength
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getPeriodLength() {
+		return periodLength;
+	}
+
+	public void setPeriodLength(Integer periodLength) {
+		this.periodLength = periodLength;
+	}
+
+	public NewProgramRequest successFee(Double successFee) {
+		this.successFee = successFee;
+		return this;
+	}
+
+	/**
+	 * Get successFee
+	 *
+	 * @return successFee
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getSuccessFee() {
+		return successFee;
+	}
+
+	public void setSuccessFee(Double successFee) {
+		this.successFee = successFee;
+	}
+
+	public NewProgramRequest stopOutLevel(Double stopOutLevel) {
+		this.stopOutLevel = stopOutLevel;
+		return this;
+	}
+
+	/**
+	 * Get stopOutLevel
+	 *
+	 * @return stopOutLevel
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getStopOutLevel() {
+		return stopOutLevel;
+	}
+
+	public void setStopOutLevel(Double stopOutLevel) {
+		this.stopOutLevel = stopOutLevel;
+	}
+
+	public NewProgramRequest currency(CurrencyEnum currency) {
+		this.currency = currency;
+		return this;
+	}
+
+	/**
+	 * Get currency
+	 *
+	 * @return currency
+	 **/
+	@ApiModelProperty(value = "")
+	public CurrencyEnum getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(CurrencyEnum currency) {
+		this.currency = currency;
+	}
+
+	public NewProgramRequest leverage(Integer leverage) {
+		this.leverage = leverage;
+		return this;
+	}
+
+	/**
+	 * Get leverage
+	 *
+	 * @return leverage
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getLeverage() {
+		return leverage;
+	}
+
+	public void setLeverage(Integer leverage) {
+		this.leverage = leverage;
+	}
 
 	public NewProgramRequest title(String title) {
 		this.title = title;
@@ -140,44 +235,6 @@ public class NewProgramRequest
 		this.tradingServerId = tradingServerId;
 	}
 
-	public NewProgramRequest periodLength(Integer periodLength) {
-		this.periodLength = periodLength;
-		return this;
-	}
-
-	/**
-	 * Get periodLength
-	 *
-	 * @return periodLength
-	 **/
-	@ApiModelProperty(value = "")
-	public Integer getPeriodLength() {
-		return periodLength;
-	}
-
-	public void setPeriodLength(Integer periodLength) {
-		this.periodLength = periodLength;
-	}
-
-	public NewProgramRequest successFee(Double successFee) {
-		this.successFee = successFee;
-		return this;
-	}
-
-	/**
-	 * Get successFee
-	 *
-	 * @return successFee
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getSuccessFee() {
-		return successFee;
-	}
-
-	public void setSuccessFee(Double successFee) {
-		this.successFee = successFee;
-	}
-
 	public NewProgramRequest entryFee(Double entryFee) {
 		this.entryFee = entryFee;
 		return this;
@@ -195,25 +252,6 @@ public class NewProgramRequest
 
 	public void setEntryFee(Double entryFee) {
 		this.entryFee = entryFee;
-	}
-
-	public NewProgramRequest stopOutLevel(Double stopOutLevel) {
-		this.stopOutLevel = stopOutLevel;
-		return this;
-	}
-
-	/**
-	 * Get stopOutLevel
-	 *
-	 * @return stopOutLevel
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getStopOutLevel() {
-		return stopOutLevel;
-	}
-
-	public void setStopOutLevel(Double stopOutLevel) {
-		this.stopOutLevel = stopOutLevel;
 	}
 
 	public NewProgramRequest depositAmount(Double depositAmount) {
@@ -235,44 +273,6 @@ public class NewProgramRequest
 		this.depositAmount = depositAmount;
 	}
 
-	public NewProgramRequest currency(CurrencyEnum currency) {
-		this.currency = currency;
-		return this;
-	}
-
-	/**
-	 * Get currency
-	 *
-	 * @return currency
-	 **/
-	@ApiModelProperty(value = "")
-	public CurrencyEnum getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(CurrencyEnum currency) {
-		this.currency = currency;
-	}
-
-	public NewProgramRequest leverage(Integer leverage) {
-		this.leverage = leverage;
-		return this;
-	}
-
-	/**
-	 * Get leverage
-	 *
-	 * @return leverage
-	 **/
-	@ApiModelProperty(value = "")
-	public Integer getLeverage() {
-		return leverage;
-	}
-
-	public void setLeverage(Integer leverage) {
-		this.leverage = leverage;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -282,22 +282,22 @@ public class NewProgramRequest
 			return false;
 		}
 		NewProgramRequest newProgramRequest = (NewProgramRequest) o;
-		return Objects.equals(this.title, newProgramRequest.title) &&
+		return Objects.equals(this.periodLength, newProgramRequest.periodLength) &&
+				Objects.equals(this.successFee, newProgramRequest.successFee) &&
+				Objects.equals(this.stopOutLevel, newProgramRequest.stopOutLevel) &&
+				Objects.equals(this.currency, newProgramRequest.currency) &&
+				Objects.equals(this.leverage, newProgramRequest.leverage) &&
+				Objects.equals(this.title, newProgramRequest.title) &&
 				Objects.equals(this.description, newProgramRequest.description) &&
 				Objects.equals(this.logo, newProgramRequest.logo) &&
 				Objects.equals(this.tradingServerId, newProgramRequest.tradingServerId) &&
-				Objects.equals(this.periodLength, newProgramRequest.periodLength) &&
-				Objects.equals(this.successFee, newProgramRequest.successFee) &&
 				Objects.equals(this.entryFee, newProgramRequest.entryFee) &&
-				Objects.equals(this.stopOutLevel, newProgramRequest.stopOutLevel) &&
-				Objects.equals(this.depositAmount, newProgramRequest.depositAmount) &&
-				Objects.equals(this.currency, newProgramRequest.currency) &&
-				Objects.equals(this.leverage, newProgramRequest.leverage);
+				Objects.equals(this.depositAmount, newProgramRequest.depositAmount);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, description, logo, tradingServerId, periodLength, successFee, entryFee, stopOutLevel, depositAmount, currency, leverage);
+		return Objects.hash(periodLength, successFee, stopOutLevel, currency, leverage, title, description, logo, tradingServerId, entryFee, depositAmount);
 	}
 
 	@Override
@@ -305,17 +305,17 @@ public class NewProgramRequest
 		StringBuilder sb = new StringBuilder();
 		sb.append("class NewProgramRequest {\n");
 
+		sb.append("    periodLength: ").append(toIndentedString(periodLength)).append("\n");
+		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
+		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
+		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    tradingServerId: ").append(toIndentedString(tradingServerId)).append("\n");
-		sb.append("    periodLength: ").append(toIndentedString(periodLength)).append("\n");
-		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
-		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
 		sb.append("    depositAmount: ").append(toIndentedString(depositAmount)).append("\n");
-		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

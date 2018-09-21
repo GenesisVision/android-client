@@ -54,6 +54,9 @@ public class ProgramRequest
 	@SerializedName("logo")
 	private String logo = null;
 
+	@SerializedName("title")
+	private String title = null;
+
 	@SerializedName("canCancelRequest")
 	private Boolean canCancelRequest = null;
 
@@ -190,6 +193,25 @@ public class ProgramRequest
 		this.logo = logo;
 	}
 
+	public ProgramRequest title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@ApiModelProperty(value = "")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public ProgramRequest canCancelRequest(Boolean canCancelRequest) {
 		this.canCancelRequest = canCancelRequest;
 		return this;
@@ -225,12 +247,13 @@ public class ProgramRequest
 				Objects.equals(this.type, programRequest.type) &&
 				Objects.equals(this.status, programRequest.status) &&
 				Objects.equals(this.logo, programRequest.logo) &&
+				Objects.equals(this.title, programRequest.title) &&
 				Objects.equals(this.canCancelRequest, programRequest.canCancelRequest);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, programId, date, value, type, status, logo, canCancelRequest);
+		return Objects.hash(id, programId, date, value, type, status, logo, title, canCancelRequest);
 	}
 
 	@Override
@@ -245,6 +268,7 @@ public class ProgramRequest
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    canCancelRequest: ").append(toIndentedString(canCancelRequest)).append("\n");
 		sb.append("}");
 		return sb.toString();

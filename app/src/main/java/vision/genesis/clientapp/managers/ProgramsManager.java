@@ -34,12 +34,10 @@ public class ProgramsManager
 	public Observable<ProgramsList> getProgramsList(ProgramsFilter filter) {
 		return programsApi.v10ProgramsGet(AuthManager.token.getValue(),
 				filter.getLevelMin(), filter.getLevelMax(), filter.getProfitAvgMin(), filter.getProfitAvgMax(),
-				filter.getStatisticDateFrom(), filter.getStatisticDateTo(), filter.getSorting().getValue(),
+				filter.getSorting().getValue(), filter.getCurrency() != null ? filter.getCurrency().getValue() : null,
+				filter.getStatisticDateFrom(), filter.getStatisticDateTo(), 10,
 				filter.getMask(), filter.getFacetId(), filter.getIsFavorite(),
-				filter.getCurrency().getValue(), filter.getIds(), filter.getSkip(), filter.getTake());
-//		return Constants.IS_INVESTOR
-//				? investorApi.apiInvestorInvestmentProgramsPost(AuthManager.token.getValue(), filter)
-//				: managerApi.apiManagerInvestmentProgramsPost(AuthManager.token.getValue(), filter);
+				filter.getIds(), filter.getSkip(), filter.getTake());
 	}
 
 	public Observable<Void> setProgramFavorite(UUID programId, boolean isFavorite) {
@@ -66,7 +64,7 @@ public class ProgramsManager
 		return programsApi.v10ProgramsByIdChartGet(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount);
 	}
 
-//	public Observable<InvestmentProgramBuyToken> getBuyTokensModel(UUID programId) {
+	//	public Observable<InvestmentProgramBuyToken> getBuyTokensModel(UUID programId) {
 //		return investorApi.apiInvestorInvestmentProgramBuyTokensGet(programId, AuthManager.token.getValue());
 //	}
 //
@@ -84,9 +82,9 @@ public class ProgramsManager
 //		return investorApi.apiInvestorInvestmentProgramsWithdrawPost(AuthManager.token.getValue(), model);
 //	}
 //
-//	public Observable<Void> cancelRequest(UUID requestId) {
-//		return investorApi.apiInvestorInvestmentProgramsCancelInvestmentRequestPost(requestId, AuthManager.token.getValue());
-//	}
+	public Observable<Void> cancelRequest(UUID requestId) {
+		return investorApi.v10InvestorProgramsRequestsByIdCancelPost(requestId, AuthManager.token.getValue());
+	}
 //
 //	public Observable<InvestmentProgramRequests> getInvestmentProgramRequests(InvestmentProgramRequestsFilter filter) {
 //		return investorApi.apiInvestorInvestmentProgramRequestsPost(AuthManager.token.getValue(), filter);

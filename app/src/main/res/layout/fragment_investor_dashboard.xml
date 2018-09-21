@@ -126,7 +126,6 @@
                             android:id="@+id/tab_layout_chart"
                             android:layout_width="match_parent"
                             android:layout_height="36dp"
-                            android:layout_marginTop="8dp"
                             android:minHeight="?attr/actionBarSize"
                             android:paddingLeft="24dp"
                             android:paddingRight="24dp"
@@ -152,6 +151,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/group_chart"
+                        android:layout_marginBottom="24dp"
                         android:layout_marginTop="16dp"
                         android:clipToPadding="false"
                         android:paddingLeft="16dp"
@@ -172,7 +172,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/tabs_height"
+                android:layout_height="36dp"
                 android:background="?attr/colorBackground"
                 android:paddingLeft="24dp"
                 android:paddingRight="24dp"
@@ -182,7 +182,6 @@
                     android:id="@+id/tab_layout_assets"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
-                    android:layout_marginTop="12dp"
                     android:minHeight="?attr/actionBarSize"
                     app:tabGravity="fill"
                     app:tabIndicatorColor="?attr/colorAccent"

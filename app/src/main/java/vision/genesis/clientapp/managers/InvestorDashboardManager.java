@@ -33,11 +33,11 @@ public class InvestorDashboardManager
 
 	public Observable<DashboardSummary> getDashboard(DateRange dateRange, String baseCurrency) {
 		return investorApi.v10InvestorGet(AuthManager.token.getValue(), null, dateRange.getFrom(), dateRange.getTo(),
-				null, null, 0, 10, baseCurrency, dateRange.getFrom(), dateRange.getTo());
+				null, null, 0, 10, baseCurrency, dateRange.getFrom(), dateRange.getTo(), 0, 100);
 	}
 
 	public Observable<ProgramsList> getPrograms(String sorting, DateRange dateRange, Integer skip, Integer take) {
-		return investorApi.v10InvestorProgramsGet(AuthManager.token.getValue(), sorting, dateRange.getFrom(), dateRange.getTo(), skip, take);
+		return investorApi.v10InvestorProgramsGet(AuthManager.token.getValue(), sorting, dateRange.getFrom(), dateRange.getTo(), 10, skip, take);
 	}
 
 	public BehaviorSubject<List<DashboardPortfolioEvent>> getPortfolioEvents() {

@@ -34,11 +34,13 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.DashboardChartValue;
 import io.swagger.client.model.DashboardPortfolioEvent;
+import io.swagger.client.model.ProgramRequest;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.programs.DashboardPagerAdapter;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
@@ -494,6 +496,20 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	@Override
 	public void setPortfolioAssets(List<PortfolioAssetData> portfolioAssets) {
 		portfolioAssetsAdapter.setAssets(portfolioAssets);
+	}
+
+	@Override
+	public void setInRequests(Double totalValue, Double rate) {
+		dashboardHeaderPagerAdapter.setInRequests(totalValue, rate);
+	}
+
+	@Override
+	public void showInRequests(List<ProgramRequest> requests) {
+		if (getActivity() != null) {
+			RequestsBottomSheetFragment bottomSheetDialog = new RequestsBottomSheetFragment();
+			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
+			bottomSheetDialog.setRequests(requests);
+		}
 	}
 
 	@Override

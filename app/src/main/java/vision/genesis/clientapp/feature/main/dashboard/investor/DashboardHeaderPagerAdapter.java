@@ -50,6 +50,10 @@ public class DashboardHeaderPagerAdapter extends FragmentStatePagerAdapter
 			portfolio.setData(chart);
 	}
 
+	public void setInRequests(Double totalValue, Double rate) {
+		portfolio.setInRequestsData(totalValue, rate);
+	}
+
 	public void chartViewModeTurnOff() {
 		portfolio.chartViewModeTurnOff();
 	}

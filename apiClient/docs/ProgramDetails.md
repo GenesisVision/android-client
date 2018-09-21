@@ -4,10 +4,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | [**UUID**](UUID.md) |  |  [optional]
-**logo** | **String** |  |  [optional]
-**title** | **String** |  |  [optional]
-**description** | **String** |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **level** | **Integer** |  |  [optional]
 **periodDuration** | **Integer** |  |  [optional]
@@ -15,8 +11,12 @@ Name | Type | Description | Notes
 **periodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
 **isReinvesting** | **Boolean** |  |  [optional]
 **availableInvestment** | **Double** |  |  [optional]
-**manager** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 **statistic** | [**ProgramDetailsListStatistic**](ProgramDetailsListStatistic.md) |  |  [optional]
+**id** | [**UUID**](UUID.md) |  |  [optional]
+**logo** | **String** |  |  [optional]
+**title** | **String** |  |  [optional]
+**description** | **String** |  |  [optional]
+**manager** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 **chart** | [**List&lt;ChartSimple&gt;**](ChartSimple.md) |  |  [optional]
 **personalProgramDetails** | [**PersonalProgramDetailsList**](PersonalProgramDetailsList.md) | Fields for authorized user |  [optional]
 **dashboardProgramDetails** | [**DashboardProgramDetails**](DashboardProgramDetails.md) | Fields for dashboard |  [optional]

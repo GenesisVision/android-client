@@ -6,6 +6,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**v10ProfileGet**](ProfileApi.md#v10ProfileGet) | **GET** v1.0/profile | Get full profile
 [**v10ProfileHeaderGet**](ProfileApi.md#v10ProfileHeaderGet) | **GET** v1.0/profile/header | Get header profile
+[**v10ProfilePhoneRequestVerificationCodePost**](ProfileApi.md#v10ProfilePhoneRequestVerificationCodePost) | **POST** v1.0/profile/phone/requestVerificationCode | Request to send phone verification code via SMS.
+[**v10ProfilePhoneVerifyByCodePost**](ProfileApi.md#v10ProfilePhoneVerifyByCodePost) | **POST** v1.0/profile/phone/verify/{code} | Verifies phone verification code that was sent by SMS.
 [**v10ProfileUpdatePost**](ProfileApi.md#v10ProfileUpdatePost) | **POST** v1.0/profile/update | Update profile
 
 
@@ -85,6 +87,94 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ProfileHeaderViewModel**](ProfileHeaderViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ProfilePhoneRequestVerificationCodePost"></a>
+# **v10ProfilePhoneRequestVerificationCodePost**
+> Integer v10ProfilePhoneRequestVerificationCodePost(authorization)
+
+Request to send phone verification code via SMS.
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ProfileApi;
+
+
+ProfileApi apiInstance = new ProfileApi();
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Integer result = apiInstance.v10ProfilePhoneRequestVerificationCodePost(authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProfileApi#v10ProfilePhoneRequestVerificationCodePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+**Integer**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ProfilePhoneVerifyByCodePost"></a>
+# **v10ProfilePhoneVerifyByCodePost**
+> Void v10ProfilePhoneVerifyByCodePost(code, authorization)
+
+Verifies phone verification code that was sent by SMS.
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ProfileApi;
+
+
+ProfileApi apiInstance = new ProfileApi();
+String code = "code_example"; // String | Verification code that was received by client by SMS
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.v10ProfilePhoneVerifyByCodePost(code, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProfileApi#v10ProfilePhoneVerifyByCodePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **code** | **String**| Verification code that was received by client by SMS |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
 
 ### Authorization
 

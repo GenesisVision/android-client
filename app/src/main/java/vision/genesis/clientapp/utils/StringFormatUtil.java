@@ -41,7 +41,7 @@ public class StringFormatUtil
 	}
 
 	public static String formatCurrencyAmount(double amountValue, String currency) {
-		return formatAmount(amountValue, getCurrencyMaxFraction(currency), getCurrencyMaxFraction(currency));
+		return formatAmount(amountValue, 2, getCurrencyMaxFraction(currency));
 	}
 
 	public static String formatAmountWithoutGrouping(double amountValue) {

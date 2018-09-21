@@ -14,6 +14,7 @@ import vision.genesis.clientapp.feature.auth.forgot_password.ForgotPasswordPrese
 import vision.genesis.clientapp.feature.auth.login.LoginPresenter;
 import vision.genesis.clientapp.feature.auth.registration.RegistrationPresenter;
 import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
+import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.MainPresenter;
 import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
 import vision.genesis.clientapp.feature.main.assets.AssetsPresenter;
@@ -35,7 +36,6 @@ import vision.genesis.clientapp.feature.main.program.create.third.CreateProgramT
 import vision.genesis.clientapp.feature.main.program.description.ProgramDescriptionPresenter;
 import vision.genesis.clientapp.feature.main.program.details.ProgramDetailsPresenter;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramPresenter;
-import vision.genesis.clientapp.feature.main.program.requests.RequestsPresenter;
 import vision.genesis.clientapp.feature.main.program.trades.TradesPresenter;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramPresenter;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListPresenter;
@@ -88,8 +88,6 @@ public interface AppComponent
 	void inject(DepositWalletPresenter depositWalletPresenter);
 
 	void inject(WithdrawWalletPresenter withdrawWalletPresenter);
-
-	void inject(RequestsPresenter requestsPresenter);
 
 	void inject(TransactionsPresenter transactionsPresenter);
 
@@ -148,4 +146,6 @@ public interface AppComponent
 	void inject(DashboardProgramsPresenter dashboardProgramsPresenter);
 
 	void inject(SelectCurrencyFragment selectCurrencyFragment);
+
+	void inject(RequestsBottomSheetFragment requestsBottomSheetFragment);
 }

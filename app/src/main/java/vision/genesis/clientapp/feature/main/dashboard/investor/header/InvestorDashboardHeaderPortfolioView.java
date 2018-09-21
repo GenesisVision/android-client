@@ -18,4 +18,6 @@ interface InvestorDashboardHeaderPortfolioView extends MvpView
 	void setChange(Boolean isChangeNegative, String changePercent, String changeValue, String baseChangeValue);
 
 	void hideHighlight();
+
+	void setInRequests(String inRequests, String baseInRequests);
 }

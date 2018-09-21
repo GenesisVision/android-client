@@ -47,7 +47,7 @@ public class ProgramsFilter implements Parcelable
 
 	private Boolean isFavorite;
 
-	private CurrencyEnum currency = CurrencyEnum.UNDEFINED;
+	private CurrencyEnum currency;
 
 	private List<UUID> ids;
 

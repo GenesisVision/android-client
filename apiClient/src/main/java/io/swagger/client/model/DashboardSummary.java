@@ -40,6 +40,9 @@ public class DashboardSummary
 	@SerializedName("fundsCount")
 	private Integer fundsCount = null;
 
+	@SerializedName("requests")
+	private ProgramRequests requests = null;
+
 	public DashboardSummary chart(DashboardChartValue chart) {
 		this.chart = chart;
 		return this;
@@ -135,6 +138,25 @@ public class DashboardSummary
 		this.fundsCount = fundsCount;
 	}
 
+	public DashboardSummary requests(ProgramRequests requests) {
+		this.requests = requests;
+		return this;
+	}
+
+	/**
+	 * Get requests
+	 *
+	 * @return requests
+	 **/
+	@ApiModelProperty(value = "")
+	public ProgramRequests getRequests() {
+		return requests;
+	}
+
+	public void setRequests(ProgramRequests requests) {
+		this.requests = requests;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -149,12 +171,13 @@ public class DashboardSummary
 				Objects.equals(this.events, dashboardSummary.events) &&
 				Objects.equals(this.profileHeader, dashboardSummary.profileHeader) &&
 				Objects.equals(this.programsCount, dashboardSummary.programsCount) &&
-				Objects.equals(this.fundsCount, dashboardSummary.fundsCount);
+				Objects.equals(this.fundsCount, dashboardSummary.fundsCount) &&
+				Objects.equals(this.requests, dashboardSummary.requests);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(chart, events, profileHeader, programsCount, fundsCount);
+		return Objects.hash(chart, events, profileHeader, programsCount, fundsCount, requests);
 	}
 
 
@@ -168,6 +191,7 @@ public class DashboardSummary
 		sb.append("    profileHeader: ").append(toIndentedString(profileHeader)).append("\n");
 		sb.append("    programsCount: ").append(toIndentedString(programsCount)).append("\n");
 		sb.append("    fundsCount: ").append(toIndentedString(fundsCount)).append("\n");
+		sb.append("    requests: ").append(toIndentedString(requests)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **isOwnProgram** | **Boolean** |  |  [optional]
 **isReinvest** | **Boolean** |  |  [optional]
 **hasNotifications** | **Boolean** |  |  [optional]
-**invested** | **Double** |  |  [optional]
 **value** | **Double** |  |  [optional]
 **profit** | **Double** |  |  [optional]
 **investmentProgramStatus** | [**InvestmentProgramStatusEnum**](#InvestmentProgramStatusEnum) |  |  [optional]

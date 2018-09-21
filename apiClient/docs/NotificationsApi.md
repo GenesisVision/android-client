@@ -6,16 +6,14 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**v10NotificationsGet**](NotificationsApi.md#v10NotificationsGet) | **GET** v1.0/notifications | 
 [**v10NotificationsNewGet**](NotificationsApi.md#v10NotificationsNewGet) | **GET** v1.0/notifications/new | 
+[**v10NotificationsSettingsAddPost**](NotificationsApi.md#v10NotificationsSettingsAddPost) | **POST** v1.0/notifications/settings/add | 
 [**v10NotificationsSettingsGet**](NotificationsApi.md#v10NotificationsSettingsGet) | **GET** v1.0/notifications/settings | 
-[**v10NotificationsSettingsProgramByIdAddPost**](NotificationsApi.md#v10NotificationsSettingsProgramByIdAddPost) | **POST** v1.0/notifications/settings/program/{id}/add | 
-[**v10NotificationsSettingsProgramByIdGet**](NotificationsApi.md#v10NotificationsSettingsProgramByIdGet) | **GET** v1.0/notifications/settings/program/{id} | 
-[**v10NotificationsSettingsProgramByIdRemoveByNtfIdPost**](NotificationsApi.md#v10NotificationsSettingsProgramByIdRemoveByNtfIdPost) | **POST** v1.0/notifications/settings/program/{id}/remove/{ntfId} | 
-[**v10NotificationsSettingsUpdatePost**](NotificationsApi.md#v10NotificationsSettingsUpdatePost) | **POST** v1.0/notifications/settings/update | 
+[**v10NotificationsSettingsRemoveByIdPost**](NotificationsApi.md#v10NotificationsSettingsRemoveByIdPost) | **POST** v1.0/notifications/settings/remove/{id} | 
 
 
 <a name="v10NotificationsGet"></a>
 # **v10NotificationsGet**
-> Void v10NotificationsGet(authorization, skip, take)
+> NotificationList v10NotificationsGet(authorization, skip, take)
 
 
 
@@ -31,7 +29,7 @@ String authorization = "authorization_example"; // String | JWT access token
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    Void result = apiInstance.v10NotificationsGet(authorization, skip, take);
+    NotificationList result = apiInstance.v10NotificationsGet(authorization, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NotificationsApi#v10NotificationsGet");
@@ -49,7 +47,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Void**](.md)
+[**NotificationList**](NotificationList.md)
 
 ### Authorization
 
@@ -103,9 +101,64 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="v10NotificationsSettingsAddPost"></a>
+# **v10NotificationsSettingsAddPost**
+> Void v10NotificationsSettingsAddPost(authorization, id, programId, managerId, type, conditionType, conditionAmount)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.NotificationsApi;
+
+
+NotificationsApi apiInstance = new NotificationsApi();
+String authorization = "authorization_example"; // String | JWT access token
+UUID id = new UUID(); // UUID | 
+UUID programId = new UUID(); // UUID | 
+UUID managerId = new UUID(); // UUID | 
+String type = "type_example"; // String | 
+String conditionType = "conditionType_example"; // String | 
+Double conditionAmount = 3.4D; // Double | 
+try {
+    Void result = apiInstance.v10NotificationsSettingsAddPost(authorization, id, programId, managerId, type, conditionType, conditionAmount);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling NotificationsApi#v10NotificationsSettingsAddPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **id** | [**UUID**](.md)|  | [optional]
+ **programId** | [**UUID**](.md)|  | [optional]
+ **managerId** | [**UUID**](.md)|  | [optional]
+ **type** | **String**|  | [optional] [enum: PlatformNewsAndUpdates, PlatformEmergency, PlatformOther, ProfileUpdated, ProfilePwdUpdated, ProfileVerification, Profile2FA, ProgramNewsAndUpdates, ProgramEndOfPeriod, ProgramCondition, ManagerNewProgram]
+ **conditionType** | **String**|  | [optional] [enum: Empty, Profit, Level]
+ **conditionAmount** | **Double**|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="v10NotificationsSettingsGet"></a>
 # **v10NotificationsSettingsGet**
-> Void v10NotificationsSettingsGet(authorization)
+> NotificationSettingList v10NotificationsSettingsGet(authorization)
 
 
 
@@ -119,7 +172,7 @@ No authorization required
 NotificationsApi apiInstance = new NotificationsApi();
 String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.v10NotificationsSettingsGet(authorization);
+    NotificationSettingList result = apiInstance.v10NotificationsSettingsGet(authorization);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NotificationsApi#v10NotificationsSettingsGet");
@@ -135,7 +188,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Void**](.md)
+[**NotificationSettingList**](NotificationSettingList.md)
 
 ### Authorization
 
@@ -146,56 +199,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10NotificationsSettingsProgramByIdAddPost"></a>
-# **v10NotificationsSettingsProgramByIdAddPost**
-> Void v10NotificationsSettingsProgramByIdAddPost(id, authorization, model)
-
-
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.NotificationsApi;
-
-
-NotificationsApi apiInstance = new NotificationsApi();
-UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
-Map<String, String> model = new HashMap(); // Map<String, String> | 
-try {
-    Void result = apiInstance.v10NotificationsSettingsProgramByIdAddPost(id, authorization, model);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling NotificationsApi#v10NotificationsSettingsProgramByIdAddPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
- **model** | [**Map&lt;String, String&gt;**](String.md)|  | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10NotificationsSettingsProgramByIdGet"></a>
-# **v10NotificationsSettingsProgramByIdGet**
-> Void v10NotificationsSettingsProgramByIdGet(id, authorization)
+<a name="v10NotificationsSettingsRemoveByIdPost"></a>
+# **v10NotificationsSettingsRemoveByIdPost**
+> Void v10NotificationsSettingsRemoveByIdPost(id, authorization)
 
 
 
@@ -210,10 +216,10 @@ NotificationsApi apiInstance = new NotificationsApi();
 UUID id = new UUID(); // UUID | 
 String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.v10NotificationsSettingsProgramByIdGet(id, authorization);
+    Void result = apiInstance.v10NotificationsSettingsRemoveByIdPost(id, authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling NotificationsApi#v10NotificationsSettingsProgramByIdGet");
+    System.err.println("Exception when calling NotificationsApi#v10NotificationsSettingsRemoveByIdPost");
     e.printStackTrace();
 }
 ```
@@ -223,96 +229,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10NotificationsSettingsProgramByIdRemoveByNtfIdPost"></a>
-# **v10NotificationsSettingsProgramByIdRemoveByNtfIdPost**
-> Void v10NotificationsSettingsProgramByIdRemoveByNtfIdPost(id, ntfId, authorization)
-
-
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.NotificationsApi;
-
-
-NotificationsApi apiInstance = new NotificationsApi();
-UUID id = new UUID(); // UUID | 
-UUID ntfId = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
-try {
-    Void result = apiInstance.v10NotificationsSettingsProgramByIdRemoveByNtfIdPost(id, ntfId, authorization);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling NotificationsApi#v10NotificationsSettingsProgramByIdRemoveByNtfIdPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)|  |
- **ntfId** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10NotificationsSettingsUpdatePost"></a>
-# **v10NotificationsSettingsUpdatePost**
-> Void v10NotificationsSettingsUpdatePost(authorization)
-
-
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.NotificationsApi;
-
-
-NotificationsApi apiInstance = new NotificationsApi();
-String authorization = "authorization_example"; // String | JWT access token
-try {
-    Void result = apiInstance.v10NotificationsSettingsUpdatePost(authorization);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling NotificationsApi#v10NotificationsSettingsUpdatePost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
 
 ### Return type

@@ -18,7 +18,7 @@ import rx.Observable;
 public interface InvestorApi
 {
 	/**
-	 * Summary dashdoard info
+	 * Summary dashboard info
 	 *
 	 * @param authorization JWT access token (required)
 	 * @param assetId       (optional)
@@ -31,11 +31,13 @@ public interface InvestorApi
 	 * @param chartCurrency (optional)
 	 * @param chartFrom     (optional)
 	 * @param chartTo       (optional)
+	 * @param requestsSkip  (optional)
+	 * @param requestsTake  (optional)
 	 * @return Call&lt;DashboardSummary&gt;
 	 */
 	@GET("v1.0/investor")
 	Observable<DashboardSummary> v10InvestorGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("AssetId") UUID assetId, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("Type") String type, @retrofit2.http.Query("AssetType") String assetType, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take, @retrofit2.http.Query("chartCurrency") String chartCurrency, @retrofit2.http.Query("chartFrom") DateTime chartFrom, @retrofit2.http.Query("chartTo") DateTime chartTo
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("AssetId") UUID assetId, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("Type") String type, @retrofit2.http.Query("AssetType") String assetType, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take, @retrofit2.http.Query("chartCurrency") String chartCurrency, @retrofit2.http.Query("chartFrom") DateTime chartFrom, @retrofit2.http.Query("chartTo") DateTime chartTo, @retrofit2.http.Query("requestsSkip") Integer requestsSkip, @retrofit2.http.Query("requestsTake") Integer requestsTake
 	);
 
 	/**
@@ -121,7 +123,7 @@ public interface InvestorApi
 	);
 
 	/**
-	 * Get requests
+	 * Get program requests
 	 *
 	 * @param id            (required)
 	 * @param skip          (required)
@@ -163,17 +165,18 @@ public interface InvestorApi
 	/**
 	 * Programs list
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param sorting       (optional)
-	 * @param from          (optional)
-	 * @param to            (optional)
-	 * @param skip          (optional)
-	 * @param take          (optional)
+	 * @param authorization    JWT access token (required)
+	 * @param sorting          (optional)
+	 * @param from             (optional)
+	 * @param to               (optional)
+	 * @param chartPointsCount (optional)
+	 * @param skip             (optional)
+	 * @param take             (optional)
 	 * @return Call&lt;ProgramsList&gt;
 	 */
 	@GET("v1.0/investor/programs")
 	Observable<ProgramsList> v10InvestorProgramsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -186,6 +189,20 @@ public interface InvestorApi
 	@POST("v1.0/investor/programs/requests/{id}/cancel")
 	Observable<Void> v10InvestorProgramsRequestsByIdCancelPost(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Get all requests
+	 *
+	 * @param skip          (required)
+	 * @param take          (required)
+	 * @param authorization JWT access token (required)
+	 * @param id            (optional)
+	 * @return Call&lt;ProgramRequests&gt;
+	 */
+	@GET("v1.0/investor/requests/{skip}/{take}")
+	Observable<ProgramRequests> v10InvestorRequestsBySkipByTakeGet(
+			@retrofit2.http.Path("skip") Integer skip, @retrofit2.http.Path("take") Integer take, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("id") UUID id
 	);
 
 }

@@ -144,4 +144,8 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 			EventBus.getDefault().post(new OnPortfolioChartViewModeChangedEvent(isViewMode, 0f));
 		}
 	}
+
+	public void setInRequestsData(Double totalValue, Double rate) {
+		getViewState().setInRequests(getChangeValueString(totalValue), getBaseValueString(totalValue * rate));
+	}
 }

@@ -411,5 +411,6 @@
     <string name="usd">USD</string>
     <string name="eur">EUR</string>
     <string name="assets">Assets</string>
+    <string name="requests_empty">You have no requests</string>
 
 </resources>

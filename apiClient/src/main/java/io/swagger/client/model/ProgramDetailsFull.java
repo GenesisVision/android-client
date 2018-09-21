@@ -63,6 +63,9 @@ public class ProgramDetailsFull
 	@SerializedName("entryFee")
 	private Double entryFee = null;
 
+	@SerializedName("successFee")
+	private Double successFee = null;
+
 	@SerializedName("isReinvesting")
 	private Boolean isReinvesting = null;
 
@@ -271,6 +274,25 @@ public class ProgramDetailsFull
 		this.entryFee = entryFee;
 	}
 
+	public ProgramDetailsFull successFee(Double successFee) {
+		this.successFee = successFee;
+		return this;
+	}
+
+	/**
+	 * Get successFee
+	 *
+	 * @return successFee
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getSuccessFee() {
+		return successFee;
+	}
+
+	public void setSuccessFee(Double successFee) {
+		this.successFee = successFee;
+	}
+
 	public ProgramDetailsFull isReinvesting(Boolean isReinvesting) {
 		this.isReinvesting = isReinvesting;
 		return this;
@@ -404,6 +426,7 @@ public class ProgramDetailsFull
 				Objects.equals(this.periodStarts, programDetailsFull.periodStarts) &&
 				Objects.equals(this.periodEnds, programDetailsFull.periodEnds) &&
 				Objects.equals(this.entryFee, programDetailsFull.entryFee) &&
+				Objects.equals(this.successFee, programDetailsFull.successFee) &&
 				Objects.equals(this.isReinvesting, programDetailsFull.isReinvesting) &&
 				Objects.equals(this.status, programDetailsFull.status) &&
 				Objects.equals(this.availableInvestment, programDetailsFull.availableInvestment) &&
@@ -414,7 +437,7 @@ public class ProgramDetailsFull
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, description, title, currency, level, periodDuration, periodStarts, periodEnds, entryFee, isReinvesting, status, availableInvestment, manager, statistic, personalProgramDetails);
+		return Objects.hash(id, logo, description, title, currency, level, periodDuration, periodStarts, periodEnds, entryFee, successFee, isReinvesting, status, availableInvestment, manager, statistic, personalProgramDetails);
 	}
 
 	@Override
@@ -432,6 +455,7 @@ public class ProgramDetailsFull
 		sb.append("    periodStarts: ").append(toIndentedString(periodStarts)).append("\n");
 		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
+		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("    isReinvesting: ").append(toIndentedString(isReinvesting)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");

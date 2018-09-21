@@ -30,9 +30,6 @@ public class ChartProgramDetails
 	@SerializedName("equityChart")
 	private List<ChartSimple> equityChart = null;
 
-	@SerializedName("pnLChart")
-	private List<ChartSimple> pnLChart = null;
-
 	@SerializedName("statistic")
 	private StatisticProgramDetails statistic = null;
 
@@ -61,33 +58,6 @@ public class ChartProgramDetails
 
 	public void setEquityChart(List<ChartSimple> equityChart) {
 		this.equityChart = equityChart;
-	}
-
-	public ChartProgramDetails pnLChart(List<ChartSimple> pnLChart) {
-		this.pnLChart = pnLChart;
-		return this;
-	}
-
-	public ChartProgramDetails addPnLChartItem(ChartSimple pnLChartItem) {
-		if (this.pnLChart == null) {
-			this.pnLChart = new ArrayList<ChartSimple>();
-		}
-		this.pnLChart.add(pnLChartItem);
-		return this;
-	}
-
-	/**
-	 * Get pnLChart
-	 *
-	 * @return pnLChart
-	 **/
-	@ApiModelProperty(value = "")
-	public List<ChartSimple> getPnLChart() {
-		return pnLChart;
-	}
-
-	public void setPnLChart(List<ChartSimple> pnLChart) {
-		this.pnLChart = pnLChart;
 	}
 
 	public ChartProgramDetails statistic(StatisticProgramDetails statistic) {
@@ -120,13 +90,12 @@ public class ChartProgramDetails
 		}
 		ChartProgramDetails chartProgramDetails = (ChartProgramDetails) o;
 		return Objects.equals(this.equityChart, chartProgramDetails.equityChart) &&
-				Objects.equals(this.pnLChart, chartProgramDetails.pnLChart) &&
 				Objects.equals(this.statistic, chartProgramDetails.statistic);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(equityChart, pnLChart, statistic);
+		return Objects.hash(equityChart, statistic);
 	}
 
 
@@ -136,7 +105,6 @@ public class ChartProgramDetails
 		sb.append("class ChartProgramDetails {\n");
 
 		sb.append("    equityChart: ").append(toIndentedString(equityChart)).append("\n");
-		sb.append("    pnLChart: ").append(toIndentedString(pnLChart)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("}");
 		return sb.toString();

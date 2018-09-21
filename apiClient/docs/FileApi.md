@@ -53,7 +53,7 @@ No authorization required
 
 <a name="v10FileUploadPost"></a>
 # **v10FileUploadPost**
-> UploadResult v10FileUploadPost(contentType, contentDisposition, headers, length, name, fileName)
+> UploadResult v10FileUploadPost(uploadedFile, authorization)
 
 Upload file
 
@@ -65,14 +65,10 @@ Upload file
 
 
 FileApi apiInstance = new FileApi();
-String contentType = "contentType_example"; // String | 
-String contentDisposition = "contentDisposition_example"; // String | 
-Map<String, String> headers = new HashMap(); // Map<String, String> | 
-Long length = 789L; // Long | 
-String name = "name_example"; // String | 
-String fileName = "fileName_example"; // String | 
+File uploadedFile = new File("/path/to/file.txt"); // File | Upload File
+String authorization = "authorization_example"; // String | 
 try {
-    UploadResult result = apiInstance.v10FileUploadPost(contentType, contentDisposition, headers, length, name, fileName);
+    UploadResult result = apiInstance.v10FileUploadPost(uploadedFile, authorization);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FileApi#v10FileUploadPost");
@@ -84,12 +80,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **contentType** | **String**|  | [optional]
- **contentDisposition** | **String**|  | [optional]
- **headers** | [**Map&lt;String, String&gt;**](String.md)|  | [optional]
- **length** | **Long**|  | [optional]
- **name** | **String**|  | [optional]
- **fileName** | **String**|  | [optional]
+ **uploadedFile** | **File**| Upload File |
+ **authorization** | **String**|  | [optional]
 
 ### Return type
 
@@ -101,6 +93,6 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: multipart/form-data
  - **Accept**: text/plain, application/json, text/json
 

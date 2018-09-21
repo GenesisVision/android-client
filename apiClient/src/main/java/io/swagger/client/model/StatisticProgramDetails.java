@@ -36,14 +36,11 @@ public class StatisticProgramDetails
 	@SerializedName("trades")
 	private Integer trades = null;
 
-	@SerializedName("successTrades")
-	private Double successTrades = null;
+	@SerializedName("successTradesPercent")
+	private Double successTradesPercent = null;
 
 	@SerializedName("profitFactor")
 	private Double profitFactor = null;
-
-	@SerializedName("sharpeRatio")
-	private Double sharpeRatio = null;
 
 	@SerializedName("maxDrawdown")
 	private Double maxDrawdown = null;
@@ -111,23 +108,23 @@ public class StatisticProgramDetails
 		this.trades = trades;
 	}
 
-	public StatisticProgramDetails successTrades(Double successTrades) {
-		this.successTrades = successTrades;
+	public StatisticProgramDetails successTradesPercent(Double successTradesPercent) {
+		this.successTradesPercent = successTradesPercent;
 		return this;
 	}
 
 	/**
-	 * Get successTrades
+	 * Get successTradesPercent
 	 *
-	 * @return successTrades
+	 * @return successTradesPercent
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getSuccessTrades() {
-		return successTrades;
+	public Double getSuccessTradesPercent() {
+		return successTradesPercent;
 	}
 
-	public void setSuccessTrades(Double successTrades) {
-		this.successTrades = successTrades;
+	public void setSuccessTradesPercent(Double successTradesPercent) {
+		this.successTradesPercent = successTradesPercent;
 	}
 
 	public StatisticProgramDetails profitFactor(Double profitFactor) {
@@ -147,25 +144,6 @@ public class StatisticProgramDetails
 
 	public void setProfitFactor(Double profitFactor) {
 		this.profitFactor = profitFactor;
-	}
-
-	public StatisticProgramDetails sharpeRatio(Double sharpeRatio) {
-		this.sharpeRatio = sharpeRatio;
-		return this;
-	}
-
-	/**
-	 * Get sharpeRatio
-	 *
-	 * @return sharpeRatio
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getSharpeRatio() {
-		return sharpeRatio;
-	}
-
-	public void setSharpeRatio(Double sharpeRatio) {
-		this.sharpeRatio = sharpeRatio;
 	}
 
 	public StatisticProgramDetails maxDrawdown(Double maxDrawdown) {
@@ -238,9 +216,8 @@ public class StatisticProgramDetails
 		return Objects.equals(this.pnL, statisticProgramDetails.pnL) &&
 				Objects.equals(this.investors, statisticProgramDetails.investors) &&
 				Objects.equals(this.trades, statisticProgramDetails.trades) &&
-				Objects.equals(this.successTrades, statisticProgramDetails.successTrades) &&
+				Objects.equals(this.successTradesPercent, statisticProgramDetails.successTradesPercent) &&
 				Objects.equals(this.profitFactor, statisticProgramDetails.profitFactor) &&
-				Objects.equals(this.sharpeRatio, statisticProgramDetails.sharpeRatio) &&
 				Objects.equals(this.maxDrawdown, statisticProgramDetails.maxDrawdown) &&
 				Objects.equals(this.periodStarts, statisticProgramDetails.periodStarts) &&
 				Objects.equals(this.periodEnds, statisticProgramDetails.periodEnds);
@@ -248,7 +225,7 @@ public class StatisticProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(pnL, investors, trades, successTrades, profitFactor, sharpeRatio, maxDrawdown, periodStarts, periodEnds);
+		return Objects.hash(pnL, investors, trades, successTradesPercent, profitFactor, maxDrawdown, periodStarts, periodEnds);
 	}
 
 
@@ -260,9 +237,8 @@ public class StatisticProgramDetails
 		sb.append("    pnL: ").append(toIndentedString(pnL)).append("\n");
 		sb.append("    investors: ").append(toIndentedString(investors)).append("\n");
 		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
-		sb.append("    successTrades: ").append(toIndentedString(successTrades)).append("\n");
+		sb.append("    successTradesPercent: ").append(toIndentedString(successTradesPercent)).append("\n");
 		sb.append("    profitFactor: ").append(toIndentedString(profitFactor)).append("\n");
-		sb.append("    sharpeRatio: ").append(toIndentedString(sharpeRatio)).append("\n");
 		sb.append("    maxDrawdown: ").append(toIndentedString(maxDrawdown)).append("\n");
 		sb.append("    periodStarts: ").append(toIndentedString(periodStarts)).append("\n");
 		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");

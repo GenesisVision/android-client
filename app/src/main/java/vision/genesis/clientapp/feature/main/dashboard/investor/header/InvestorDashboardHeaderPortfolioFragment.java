@@ -14,13 +14,17 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.DashboardChartValue;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.model.events.OnInRequestsClickedEvent;
 import vision.genesis.clientapp.ui.chart.PortfolioChartView;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -70,6 +74,11 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 
 	@BindView(R.id.portfolio_chart)
 	public PortfolioChartView chart;
+
+	@OnClick(R.id.group_requests)
+	public void onRequestsClicked() {
+		EventBus.getDefault().post(new OnInRequestsClickedEvent());
+	}
 
 	@InjectPresenter
 	public InvestorDashboardHeaderPortfolioPresenter investorDashboardHeaderPortfolioPresenter;
@@ -218,7 +227,17 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 		chart.hideHighlight();
 	}
 
+	@Override
+	public void setInRequests(String inRequests, String baseInRequests) {
+		this.requestsValue.setText(inRequests);
+		this.requestsValueSecondary.setText(baseInRequests);
+	}
+
 	public void chartViewModeTurnOff() {
 		investorDashboardHeaderPortfolioPresenter.chartViewModeTurnOff();
+	}
+
+	public void setInRequestsData(Double totalValue, Double rate) {
+		investorDashboardHeaderPortfolioPresenter.setInRequestsData(totalValue, rate);
 	}
 }

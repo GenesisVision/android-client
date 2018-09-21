@@ -27,8 +27,121 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ProgramChart
 {
+	@SerializedName("equity")
+	private Double equity = null;
+
+	@SerializedName("totalProfit")
+	private Double totalProfit = null;
+
+	@SerializedName("sharpeRatio")
+	private Double sharpeRatio = null;
+
+	@SerializedName("sortinoRatio")
+	private Double sortinoRatio = null;
+
+	@SerializedName("calmarRatio")
+	private Double calmarRatio = null;
+
 	@SerializedName("chart")
 	private List<ChartProgramDetails> chart = null;
+
+	@SerializedName("pnLChart")
+	private List<ChartSimple> pnLChart = null;
+
+	public ProgramChart equity(Double equity) {
+		this.equity = equity;
+		return this;
+	}
+
+	/**
+	 * Get equity
+	 *
+	 * @return equity
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getEquity() {
+		return equity;
+	}
+
+	public void setEquity(Double equity) {
+		this.equity = equity;
+	}
+
+	public ProgramChart totalProfit(Double totalProfit) {
+		this.totalProfit = totalProfit;
+		return this;
+	}
+
+	/**
+	 * Get totalProfit
+	 *
+	 * @return totalProfit
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getTotalProfit() {
+		return totalProfit;
+	}
+
+	public void setTotalProfit(Double totalProfit) {
+		this.totalProfit = totalProfit;
+	}
+
+	public ProgramChart sharpeRatio(Double sharpeRatio) {
+		this.sharpeRatio = sharpeRatio;
+		return this;
+	}
+
+	/**
+	 * Get sharpeRatio
+	 *
+	 * @return sharpeRatio
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getSharpeRatio() {
+		return sharpeRatio;
+	}
+
+	public void setSharpeRatio(Double sharpeRatio) {
+		this.sharpeRatio = sharpeRatio;
+	}
+
+	public ProgramChart sortinoRatio(Double sortinoRatio) {
+		this.sortinoRatio = sortinoRatio;
+		return this;
+	}
+
+	/**
+	 * Get sortinoRatio
+	 *
+	 * @return sortinoRatio
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getSortinoRatio() {
+		return sortinoRatio;
+	}
+
+	public void setSortinoRatio(Double sortinoRatio) {
+		this.sortinoRatio = sortinoRatio;
+	}
+
+	public ProgramChart calmarRatio(Double calmarRatio) {
+		this.calmarRatio = calmarRatio;
+		return this;
+	}
+
+	/**
+	 * Get calmarRatio
+	 *
+	 * @return calmarRatio
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getCalmarRatio() {
+		return calmarRatio;
+	}
+
+	public void setCalmarRatio(Double calmarRatio) {
+		this.calmarRatio = calmarRatio;
+	}
 
 	public ProgramChart chart(List<ChartProgramDetails> chart) {
 		this.chart = chart;
@@ -57,6 +170,33 @@ public class ProgramChart
 		this.chart = chart;
 	}
 
+	public ProgramChart pnLChart(List<ChartSimple> pnLChart) {
+		this.pnLChart = pnLChart;
+		return this;
+	}
+
+	public ProgramChart addPnLChartItem(ChartSimple pnLChartItem) {
+		if (this.pnLChart == null) {
+			this.pnLChart = new ArrayList<ChartSimple>();
+		}
+		this.pnLChart.add(pnLChartItem);
+		return this;
+	}
+
+	/**
+	 * Get pnLChart
+	 *
+	 * @return pnLChart
+	 **/
+	@ApiModelProperty(value = "")
+	public List<ChartSimple> getPnLChart() {
+		return pnLChart;
+	}
+
+	public void setPnLChart(List<ChartSimple> pnLChart) {
+		this.pnLChart = pnLChart;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -67,12 +207,18 @@ public class ProgramChart
 			return false;
 		}
 		ProgramChart programChart = (ProgramChart) o;
-		return Objects.equals(this.chart, programChart.chart);
+		return Objects.equals(this.equity, programChart.equity) &&
+				Objects.equals(this.totalProfit, programChart.totalProfit) &&
+				Objects.equals(this.sharpeRatio, programChart.sharpeRatio) &&
+				Objects.equals(this.sortinoRatio, programChart.sortinoRatio) &&
+				Objects.equals(this.calmarRatio, programChart.calmarRatio) &&
+				Objects.equals(this.chart, programChart.chart) &&
+				Objects.equals(this.pnLChart, programChart.pnLChart);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(chart);
+		return Objects.hash(equity, totalProfit, sharpeRatio, sortinoRatio, calmarRatio, chart, pnLChart);
 	}
 
 
@@ -81,7 +227,13 @@ public class ProgramChart
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ProgramChart {\n");
 
+		sb.append("    equity: ").append(toIndentedString(equity)).append("\n");
+		sb.append("    totalProfit: ").append(toIndentedString(totalProfit)).append("\n");
+		sb.append("    sharpeRatio: ").append(toIndentedString(sharpeRatio)).append("\n");
+		sb.append("    sortinoRatio: ").append(toIndentedString(sortinoRatio)).append("\n");
+		sb.append("    calmarRatio: ").append(toIndentedString(calmarRatio)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+		sb.append("    pnLChart: ").append(toIndentedString(pnLChart)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

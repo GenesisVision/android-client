@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import io.swagger.client.model.AssetsValue;
 import io.swagger.client.model.DashboardPortfolioEvent;
 import io.swagger.client.model.DashboardSummary;
+import io.swagger.client.model.ProgramRequest;
 import io.swagger.client.model.ValueChartBar;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -31,6 +32,7 @@ import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.PortfolioAssetData;
+import vision.genesis.clientapp.model.events.OnInRequestsClickedEvent;
 import vision.genesis.clientapp.model.events.OnPortfolioAssetsChangedEvent;
 import vision.genesis.clientapp.model.events.OnPortfolioChartViewModeChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -66,6 +68,8 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	private CurrencyEnum baseCurrency;
 
 	private List<List<PortfolioAssetData>> portfolioAssetsDataList = new ArrayList<>();
+
+	private List<ProgramRequest> requests = new ArrayList<>();
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -194,8 +198,19 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 		dashboardSubscription.unsubscribe();
 		getViewState().setRefreshing(false);
 
+		this.requests = response.getRequests().getRequests();
+//		ProgramRequest request = new ProgramRequest();
+//		request.setTitle("Janus Capital Group");
+//		request.setType(ProgramRequest.TypeEnum.INVEST);
+//		request.setValue(-12.76);
+//		request.setDate(DateTime.now());
+//		for (int i = 0; i < 10; i++) {
+//			this.requests.add(request);
+//		}
+
 		getViewState().setHaveNewNotifications(response.getProfileHeader().getNotificationsCount() > 0);
 		getViewState().setChartData(response.getChart());
+		getViewState().setInRequests(response.getRequests().getTotalValue(), response.getChart().getRate());
 		getViewState().setPortfolioEvents(response.getEvents().getEvents());
 		getViewState().setAssetsCount(response.getProgramsCount(), response.getFundsCount());
 
@@ -248,5 +263,10 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	@Subscribe
 	public void onEventMainThread(OnPortfolioAssetsChangedEvent event) {
 		getViewState().setPortfolioAssets(portfolioAssetsDataList.get(event.getIndex()));
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnInRequestsClickedEvent event) {
+		getViewState().showInRequests(requests);
 	}
 }

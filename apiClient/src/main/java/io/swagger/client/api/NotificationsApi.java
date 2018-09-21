@@ -1,8 +1,9 @@
 package io.swagger.client.api;
 
-import java.util.Map;
 import java.util.UUID;
 
+import io.swagger.client.model.NotificationList;
+import io.swagger.client.model.NotificationSettingList;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import rx.Observable;
@@ -13,10 +14,10 @@ public interface NotificationsApi
 	 * @param authorization JWT access token (required)
 	 * @param skip          (optional)
 	 * @param take          (optional)
-	 * @return Call&lt;Void&gt;
+	 * @return Call&lt;NotificationList&gt;
 	 */
 	@GET("v1.0/notifications")
-	Observable<Void> v10NotificationsGet(
+	Observable<NotificationList> v10NotificationsGet(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("skip") Integer skip, @retrofit2.http.Query("take") Integer take
 	);
 
@@ -30,53 +31,37 @@ public interface NotificationsApi
 	);
 
 	/**
-	 * @param authorization JWT access token (required)
+	 * @param authorization   JWT access token (required)
+	 * @param id              (optional)
+	 * @param programId       (optional)
+	 * @param managerId       (optional)
+	 * @param type            (optional)
+	 * @param conditionType   (optional)
+	 * @param conditionAmount (optional)
 	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v1.0/notifications/settings/add")
+	Observable<Void> v10NotificationsSettingsAddPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Id") UUID id, @retrofit2.http.Query("ProgramId") UUID programId, @retrofit2.http.Query("ManagerId") UUID managerId, @retrofit2.http.Query("Type") String type, @retrofit2.http.Query("ConditionType") String conditionType, @retrofit2.http.Query("ConditionAmount") Double conditionAmount
+	);
+
+	/**
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;NotificationSettingList&gt;
 	 */
 	@GET("v1.0/notifications/settings")
-	Observable<Void> v10NotificationsSettingsGet(
+	Observable<NotificationSettingList> v10NotificationsSettingsGet(
 			@retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
 	 * @param id            (required)
 	 * @param authorization JWT access token (required)
-	 * @param model         (optional)
 	 * @return Call&lt;Void&gt;
 	 */
-	@POST("v1.0/notifications/settings/program/{id}/add")
-	Observable<Void> v10NotificationsSettingsProgramByIdAddPost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("model") Map<String, String> model
-	);
-
-	/**
-	 * @param id            (required)
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;Void&gt;
-	 */
-	@GET("v1.0/notifications/settings/program/{id}")
-	Observable<Void> v10NotificationsSettingsProgramByIdGet(
+	@POST("v1.0/notifications/settings/remove/{id}")
+	Observable<Void> v10NotificationsSettingsRemoveByIdPost(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
-	 * @param id            (required)
-	 * @param ntfId         (required)
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;Void&gt;
-	 */
-	@POST("v1.0/notifications/settings/program/{id}/remove/{ntfId}")
-	Observable<Void> v10NotificationsSettingsProgramByIdRemoveByNtfIdPost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("ntfId") UUID ntfId, @retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;Void&gt;
-	 */
-	@POST("v1.0/notifications/settings/update")
-	Observable<Void> v10NotificationsSettingsUpdatePost(
-			@retrofit2.http.Header("Authorization") String authorization
 	);
 
 }

@@ -35,18 +35,6 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ProgramDetails
 {
-	@SerializedName("id")
-	private UUID id = null;
-
-	@SerializedName("logo")
-	private String logo = null;
-
-	@SerializedName("title")
-	private String title = null;
-
-	@SerializedName("description")
-	private String description = null;
-
 	@SerializedName("currency")
 	private CurrencyEnum currency = null;
 
@@ -68,11 +56,23 @@ public class ProgramDetails
 	@SerializedName("availableInvestment")
 	private Double availableInvestment = null;
 
-	@SerializedName("manager")
-	private ProfilePublic manager = null;
-
 	@SerializedName("statistic")
 	private ProgramDetailsListStatistic statistic = null;
+
+	@SerializedName("id")
+	private UUID id = null;
+
+	@SerializedName("logo")
+	private String logo = null;
+
+	@SerializedName("title")
+	private String title = null;
+
+	@SerializedName("description")
+	private String description = null;
+
+	@SerializedName("manager")
+	private ProfilePublic manager = null;
 
 	@SerializedName("chart")
 	private List<ChartSimple> chart = null;
@@ -82,82 +82,6 @@ public class ProgramDetails
 
 	@SerializedName("dashboardProgramDetails")
 	private DashboardProgramDetails dashboardProgramDetails = null;
-
-	public ProgramDetails id(UUID id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@ApiModelProperty(value = "")
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public ProgramDetails logo(String logo) {
-		this.logo = logo;
-		return this;
-	}
-
-	/**
-	 * Get logo
-	 *
-	 * @return logo
-	 **/
-	@ApiModelProperty(value = "")
-	public String getLogo() {
-		return logo;
-	}
-
-	public void setLogo(String logo) {
-		this.logo = logo;
-	}
-
-	public ProgramDetails title(String title) {
-		this.title = title;
-		return this;
-	}
-
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@ApiModelProperty(value = "")
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public ProgramDetails description(String description) {
-		this.description = description;
-		return this;
-	}
-
-	/**
-	 * Get description
-	 *
-	 * @return description
-	 **/
-	@ApiModelProperty(value = "")
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	public ProgramDetails currency(CurrencyEnum currency) {
 		this.currency = currency;
@@ -292,25 +216,6 @@ public class ProgramDetails
 		this.availableInvestment = availableInvestment;
 	}
 
-	public ProgramDetails manager(ProfilePublic manager) {
-		this.manager = manager;
-		return this;
-	}
-
-	/**
-	 * Get manager
-	 *
-	 * @return manager
-	 **/
-	@ApiModelProperty(value = "")
-	public ProfilePublic getManager() {
-		return manager;
-	}
-
-	public void setManager(ProfilePublic manager) {
-		this.manager = manager;
-	}
-
 	public ProgramDetails statistic(ProgramDetailsListStatistic statistic) {
 		this.statistic = statistic;
 		return this;
@@ -328,6 +233,101 @@ public class ProgramDetails
 
 	public void setStatistic(ProgramDetailsListStatistic statistic) {
 		this.statistic = statistic;
+	}
+
+	public ProgramDetails id(UUID id) {
+		this.id = id;
+		return this;
+	}
+
+	/**
+	 * Get id
+	 *
+	 * @return id
+	 **/
+	@ApiModelProperty(value = "")
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public ProgramDetails logo(String logo) {
+		this.logo = logo;
+		return this;
+	}
+
+	/**
+	 * Get logo
+	 *
+	 * @return logo
+	 **/
+	@ApiModelProperty(value = "")
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public ProgramDetails title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@ApiModelProperty(value = "")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public ProgramDetails description(String description) {
+		this.description = description;
+		return this;
+	}
+
+	/**
+	 * Get description
+	 *
+	 * @return description
+	 **/
+	@ApiModelProperty(value = "")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public ProgramDetails manager(ProfilePublic manager) {
+		this.manager = manager;
+		return this;
+	}
+
+	/**
+	 * Get manager
+	 *
+	 * @return manager
+	 **/
+	@ApiModelProperty(value = "")
+	public ProfilePublic getManager() {
+		return manager;
+	}
+
+	public void setManager(ProfilePublic manager) {
+		this.manager = manager;
 	}
 
 	public ProgramDetails chart(List<ChartSimple> chart) {
@@ -404,19 +404,19 @@ public class ProgramDetails
 			return false;
 		}
 		ProgramDetails programDetails = (ProgramDetails) o;
-		return Objects.equals(this.id, programDetails.id) &&
-				Objects.equals(this.logo, programDetails.logo) &&
-				Objects.equals(this.title, programDetails.title) &&
-				Objects.equals(this.description, programDetails.description) &&
-				Objects.equals(this.currency, programDetails.currency) &&
+		return Objects.equals(this.currency, programDetails.currency) &&
 				Objects.equals(this.level, programDetails.level) &&
 				Objects.equals(this.periodDuration, programDetails.periodDuration) &&
 				Objects.equals(this.periodStarts, programDetails.periodStarts) &&
 				Objects.equals(this.periodEnds, programDetails.periodEnds) &&
 				Objects.equals(this.isReinvesting, programDetails.isReinvesting) &&
 				Objects.equals(this.availableInvestment, programDetails.availableInvestment) &&
-				Objects.equals(this.manager, programDetails.manager) &&
 				Objects.equals(this.statistic, programDetails.statistic) &&
+				Objects.equals(this.id, programDetails.id) &&
+				Objects.equals(this.logo, programDetails.logo) &&
+				Objects.equals(this.title, programDetails.title) &&
+				Objects.equals(this.description, programDetails.description) &&
+				Objects.equals(this.manager, programDetails.manager) &&
 				Objects.equals(this.chart, programDetails.chart) &&
 				Objects.equals(this.personalProgramDetails, programDetails.personalProgramDetails) &&
 				Objects.equals(this.dashboardProgramDetails, programDetails.dashboardProgramDetails);
@@ -424,7 +424,7 @@ public class ProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, title, description, currency, level, periodDuration, periodStarts, periodEnds, isReinvesting, availableInvestment, manager, statistic, chart, personalProgramDetails, dashboardProgramDetails);
+		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, isReinvesting, availableInvestment, statistic, id, logo, title, description, manager, chart, personalProgramDetails, dashboardProgramDetails);
 	}
 
 	@Override
@@ -432,10 +432,6 @@ public class ProgramDetails
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ProgramDetails {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
 		sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
@@ -443,8 +439,12 @@ public class ProgramDetails
 		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
 		sb.append("    isReinvesting: ").append(toIndentedString(isReinvesting)).append("\n");
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
-		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("    personalProgramDetails: ").append(toIndentedString(personalProgramDetails)).append("\n");
 		sb.append("    dashboardProgramDetails: ").append(toIndentedString(dashboardProgramDetails)).append("\n");

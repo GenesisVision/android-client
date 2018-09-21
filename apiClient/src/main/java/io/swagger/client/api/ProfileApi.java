@@ -33,6 +33,29 @@ public interface ProfileApi
 	);
 
 	/**
+	 * Request to send phone verification code via SMS.
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Integer&gt;
+	 */
+	@POST("v1.0/profile/phone/requestVerificationCode")
+	Observable<Integer> v10ProfilePhoneRequestVerificationCodePost(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Verifies phone verification code that was sent by SMS.
+	 *
+	 * @param code          Verification code that was received by client by SMS (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v1.0/profile/phone/verify/{code}")
+	Observable<Void> v10ProfilePhoneVerifyByCodePost(
+			@retrofit2.http.Path("code") String code, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
 	 * Update profile
 	 *
 	 * @param authorization JWT access token (required)

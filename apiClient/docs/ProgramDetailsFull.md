@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **periodStarts** | [**DateTime**](DateTime.md) |  |  [optional]
 **periodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
 **entryFee** | **Double** |  |  [optional]
+**successFee** | **Double** |  |  [optional]
 **isReinvesting** | **Boolean** |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
 **availableInvestment** | **Double** |  |  [optional]

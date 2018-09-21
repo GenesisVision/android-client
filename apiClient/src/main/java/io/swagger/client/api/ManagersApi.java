@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import io.swagger.client.model.InvestmentProgramUpdate;
 import io.swagger.client.model.ManagerProfile;
+import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.NewProgramRequest;
 import io.swagger.client.model.ProgramRequests;
 import retrofit2.http.GET;
@@ -22,6 +23,21 @@ public interface ManagersApi
 	@GET("v1.0/managers/{id}")
 	Observable<ManagerProfile> v10ManagersByIdGet(
 			@retrofit2.http.Path("id") UUID id
+	);
+
+	/**
+	 * Create fund
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param request       (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v1.0/managers/funds/create")
+	Observable<Void> v10ManagersFundsCreatePost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body NewFundRequest request
 	);
 
 	/**

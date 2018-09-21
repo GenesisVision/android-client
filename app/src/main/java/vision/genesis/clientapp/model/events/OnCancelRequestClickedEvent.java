@@ -9,9 +9,13 @@ import java.util.UUID;
 
 public class OnCancelRequestClickedEvent
 {
-	public UUID requestId;
+	private UUID requestId;
 
 	public OnCancelRequestClickedEvent(UUID requestId) {
 		this.requestId = requestId;
+	}
+
+	public UUID getRequestId() {
+		return requestId;
 	}
 }
