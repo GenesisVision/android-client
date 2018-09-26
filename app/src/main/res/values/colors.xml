@@ -84,12 +84,10 @@
         <item>@color/asset9</item>
     </array>
 
-
-    <color name="darkBottom">#12191e</color>
-    <color name="darkBottomSheet">#212c34</color>
-    <color name="darkBackground">#131e26</color>
-    <color name="darkCard">#1c2730</color>
-    <color name="darkCardLight">#242f38</color>
+    <color name="darkBackground">#111a20</color>
+    <color name="darkCard">#131e26</color>
+    <color name="darkCardLight">#1f2b35</color>
+    <color name="darkCardLightAlpha0">#001f2b35</color>
     <color name="darkDelimiter">#232b31</color>
     <color name="darkDelimiterLight">#2c363e</color>
 
@@ -101,6 +99,7 @@
     <color name="lightBottomSheet">#ffffff</color>
     <color name="lightBackground">#f3f3f3</color>
     <color name="lightCard">#ffffff</color>
+    <color name="lightCardAlpha0">#00ffffff</color>
     <color name="lightCardLight">#ffffff</color>
     <color name="lightDelimiter">#fafafa</color>
     <color name="lightDelimiterLight">#4d565c</color>

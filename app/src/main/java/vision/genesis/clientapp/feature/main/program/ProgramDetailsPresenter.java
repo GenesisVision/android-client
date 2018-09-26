@@ -32,7 +32,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
+public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 {
 	@Inject
 	public Context context;

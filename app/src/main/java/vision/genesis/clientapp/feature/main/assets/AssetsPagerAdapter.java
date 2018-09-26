@@ -26,6 +26,8 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 
 	private ProgramsListFragment programsFragment;
 
+	private ProgramsListFragment fundsFragment;
+
 	private TabLayout tabLayout;
 
 	AssetsPagerAdapter(FragmentManager fm, TabLayout tabLayout) {
@@ -33,6 +35,7 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 		this.tabLayout = tabLayout;
 		favoritesFragment = new FavoritesFragment();
 		programsFragment = new ProgramsListFragment();
+		fundsFragment = new ProgramsListFragment();
 	}
 
 	@Override
@@ -42,6 +45,8 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 				return favoritesFragment;
 			case "programs":
 				return programsFragment;
+			case "funds":
+				return fundsFragment;
 			default:
 				return null;
 		}

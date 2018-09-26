@@ -91,4 +91,6 @@
     <dimen name="portfolio_asset_height">70dp</dimen>
     <dimen name="item_request_height">70dp</dimen>
     <dimen name="item_request_bottomview_width">140dp</dimen>
+    <dimen name="program_details_padding_left">24dp</dimen>
+    <dimen name="assets_padding_left">24dp</dimen>
 </resources>

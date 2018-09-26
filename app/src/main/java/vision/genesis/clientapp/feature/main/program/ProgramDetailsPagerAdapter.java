@@ -7,8 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.UUID;
 
-import vision.genesis.clientapp.feature.main.program.description.ProgramDescriptionFragment;
-import vision.genesis.clientapp.feature.main.program.details.ProgramDetailsFragment;
+import vision.genesis.clientapp.feature.main.program.info.ProgramInfoFragment;
 import vision.genesis.clientapp.feature.main.program.trades.TradesFragment;
 import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsFragment;
 
@@ -17,7 +16,7 @@ import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsFra
  * Created by Vitaly on 17/04/2018.
  */
 
-public class ProgramInfoPagerAdapter extends FragmentStatePagerAdapter
+public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 {
 	public interface OnPageVisibilityChanged
 	{
@@ -26,9 +25,9 @@ public class ProgramInfoPagerAdapter extends FragmentStatePagerAdapter
 		void pagerHide();
 	}
 
-	private ProgramDetailsFragment programDetailsFragment;
+	private ProgramInfoFragment programInfoFragment;
 
-	private ProgramDescriptionFragment programDescriptionFragment;
+//	private ProgramDescriptionFragment programDescriptionFragment;
 
 	private TransactionsFragment historyFragment;
 
@@ -36,11 +35,11 @@ public class ProgramInfoPagerAdapter extends FragmentStatePagerAdapter
 
 	private TabLayout tabLayout;
 
-	public ProgramInfoPagerAdapter(FragmentManager fm, TabLayout tabLayout, UUID programId) {
+	public ProgramDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, UUID programId) {
 		super(fm);
 		this.tabLayout = tabLayout;
-		programDetailsFragment = ProgramDetailsFragment.with(programId);
-		programDescriptionFragment = ProgramDescriptionFragment.with(programId);
+		programInfoFragment = ProgramInfoFragment.with(programId);
+//		programDescriptionFragment = ProgramDescriptionFragment.with(programId);
 //		historyFragment = TransactionsFragment.with(TransactionsFilter.TypeEnum.ALL, programId);
 		historyFragment = TransactionsFragment.with(programId);
 		tradesFragment = TradesFragment.with(programId);
@@ -49,10 +48,10 @@ public class ProgramInfoPagerAdapter extends FragmentStatePagerAdapter
 	@Override
 	public Fragment getItem(int position) {
 		switch (tabLayout.getTabAt(position).getTag().toString()) {
-			case "details":
-				return programDetailsFragment;
-			case "description":
-				return programDescriptionFragment;
+			case "info":
+				return programInfoFragment;
+//			case "description":
+//				return programDescriptionFragment;
 			case "history":
 				return historyFragment;
 			case "trades":
@@ -71,7 +70,7 @@ public class ProgramInfoPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	public void sendUpdate() {
-		programDetailsFragment.pagerShow();
-		programDescriptionFragment.pagerShow();
+		programInfoFragment.pagerShow();
+//		programDescriptionFragment.pagerShow();
 	}
 }

@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import io.swagger.client.model.ProgramDetails;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.ProgramInfoModel;
+import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.ProgramDataView;
@@ -120,13 +120,14 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 			setFonts();
 			itemView.setOnClickListener(v -> {
 				if (investmentProgram != null) {
-					ProgramInfoModel programInfoModel = new ProgramInfoModel(investmentProgram.getId(),
+					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(investmentProgram.getId(),
 							investmentProgram.getLogo(),
+							investmentProgram.getLevel(),
 							investmentProgram.getTitle(),
 							investmentProgram.getManager().getUsername(),
 							false);
 //							investmentProgram.isIsFavorite());
-					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programInfoModel));
+					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programDetailsModel));
 				}
 			});
 		}
@@ -154,14 +155,6 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 //			programDataView.setData(investmentProgram);
 
 			chart.setChart(investmentProgram.getChart());
-
-//			freeTokensText.setText(investmentProgram.isHasFreeTokens()
-//					? investmentProgram.getAvailableTokensText()
-//					: GenesisVisionApplication.INSTANCE.getString(R.string.no_available));
-//			freeTokensText.setTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE,
-//					investmentProgram.isHasFreeTokens()
-//							? R.color.colorMedium
-//							: R.color.transactionRed));
 		}
 	}
 }

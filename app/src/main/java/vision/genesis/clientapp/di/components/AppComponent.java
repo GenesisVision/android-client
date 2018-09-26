@@ -28,13 +28,13 @@ import vision.genesis.clientapp.feature.main.portfolio_events.fragment.Portfolio
 import vision.genesis.clientapp.feature.main.profile.ImageCropActivity;
 import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
 import vision.genesis.clientapp.feature.main.profile.change_password.ChangePasswordPresenter;
-import vision.genesis.clientapp.feature.main.program.ProgramInfoPresenter;
+import vision.genesis.clientapp.feature.main.program.ProgramDetailsPresenter;
 import vision.genesis.clientapp.feature.main.program.chart.ChartPresenter;
 import vision.genesis.clientapp.feature.main.program.create.CreateProgramPresenter;
 import vision.genesis.clientapp.feature.main.program.create.first.CreateProgramFirstStepPresenter;
 import vision.genesis.clientapp.feature.main.program.create.third.CreateProgramThirdStepPresenter;
 import vision.genesis.clientapp.feature.main.program.description.ProgramDescriptionPresenter;
-import vision.genesis.clientapp.feature.main.program.details.ProgramDetailsPresenter;
+import vision.genesis.clientapp.feature.main.program.info.ProgramInfoPresenter;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramPresenter;
 import vision.genesis.clientapp.feature.main.program.trades.TradesPresenter;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramPresenter;
@@ -79,7 +79,7 @@ public interface AppComponent
 
 	void inject(ProfilePresenter profilePresenter);
 
-	void inject(ProgramInfoPresenter programInfoPresenter);
+	void inject(ProgramDetailsPresenter programDetailsPresenter);
 
 	void inject(InvestProgramPresenter investProgramPresenter);
 
@@ -105,7 +105,7 @@ public interface AppComponent
 
 	void inject(ChartPresenter chartPresenter);
 
-	void inject(ProgramDetailsPresenter programDetailsPresenter);
+	void inject(ProgramInfoPresenter programInfoPresenter);
 
 	void inject(ProgramDescriptionPresenter programDescriptionPresenter);
 

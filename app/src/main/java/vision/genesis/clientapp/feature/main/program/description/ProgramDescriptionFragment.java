@@ -22,7 +22,7 @@ import io.swagger.client.model.ProgramDetailsFull;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.main.program.ProgramInfoPagerAdapter;
+import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.ui.AvatarView;
 
 /**
@@ -30,7 +30,7 @@ import vision.genesis.clientapp.ui.AvatarView;
  * Created by Vitaly on 22/03/2018.
  */
 
-public class ProgramDescriptionFragment extends BaseFragment implements ProgramDescriptionView, ProgramInfoPagerAdapter.OnPageVisibilityChanged
+public class ProgramDescriptionFragment extends BaseFragment implements ProgramDescriptionView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
 {
 	private static String EXTRA_PROGRAM_ID = "extra_program_id";
 

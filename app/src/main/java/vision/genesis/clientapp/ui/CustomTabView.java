@@ -15,6 +15,8 @@ import butterknife.Unbinder;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
@@ -56,9 +58,17 @@ public class CustomTabView extends RelativeLayout
 	}
 
 	private void initView() {
-		inflate(getContext(), R.layout.view_custom_tab, this);
+		View customView = inflate(getContext(), R.layout.view_custom_tab, this);
+//		View targetViewToApplyMargin = (View) customView.getParent();
+//		ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) targetViewToApplyMargin.getLayoutParams();
+//
+//		layoutParams.rightMargin = 20;
+//		targetViewToApplyMargin.setLayoutParams(layoutParams);
 
 		unbinder = ButterKnife.bind(this);
+
+		text.setTypeface(TypefaceUtil.semibold());
+		count.setTypeface(TypefaceUtil.semibold());
 	}
 
 	public void setData(int iconResId, int textResId) {
@@ -78,14 +88,10 @@ public class CustomTabView extends RelativeLayout
 		}
 	}
 
-
 	public void setSelectedState(boolean selected) {
-		icon.setColorFilter(selected
-				? ContextCompat.getColor(getContext(), R.color.colorAccent)
-				: ContextCompat.getColor(getContext(), R.color.colorFontMedium));
-		text.setTextColor(selected
-				? ContextCompat.getColor(getContext(), R.color.colorAccent)
-				: ContextCompat.getColor(getContext(), R.color.colorFontMedium));
+		icon.setColorFilter(ThemeUtil.getColorByAttrId(getContext(), selected ? R.attr.colorTextPrimary : R.attr.colorTextSecondary));
+		text.setTextColor(ThemeUtil.getColorByAttrId(getContext(), selected ? R.attr.colorTextPrimary : R.attr.colorTextSecondary));
+		count.setTextColor(ThemeUtil.getColorByAttrId(getContext(), selected ? R.attr.colorTextPrimary : R.attr.colorTextSecondary));
 	}
 
 	public void setCount(int count) {

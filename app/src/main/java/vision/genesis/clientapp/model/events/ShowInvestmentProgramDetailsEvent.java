@@ -1,6 +1,6 @@
 package vision.genesis.clientapp.model.events;
 
-import vision.genesis.clientapp.model.ProgramInfoModel;
+import vision.genesis.clientapp.model.ProgramDetailsModel;
 
 /**
  * GenesisVision
@@ -9,9 +9,9 @@ import vision.genesis.clientapp.model.ProgramInfoModel;
 
 public class ShowInvestmentProgramDetailsEvent
 {
-	public ProgramInfoModel programInfoModel;
+	public ProgramDetailsModel programDetailsModel;
 
-	public ShowInvestmentProgramDetailsEvent(ProgramInfoModel programInfoModel) {
-		this.programInfoModel = programInfoModel;
+	public ShowInvestmentProgramDetailsEvent(ProgramDetailsModel programDetailsModel) {
+		this.programDetailsModel = programDetailsModel;
 	}
 }

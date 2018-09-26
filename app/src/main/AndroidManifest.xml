@@ -41,7 +41,7 @@
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
 
         <activity
-            android:name=".feature.main.program.ProgramInfoActivity"
+            android:name=".feature.main.program.ProgramDetailsActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="adjustResize"/>
@@ -66,12 +66,6 @@
 
         <activity
             android:name=".feature.main.wallet.withdraw.WithdrawWalletActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/SwipeBackActivityTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
-
-        <activity
-            android:name=".feature.main.program.requests.RequestsActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>

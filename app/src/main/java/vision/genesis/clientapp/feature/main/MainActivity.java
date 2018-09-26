@@ -32,7 +32,7 @@ import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
 import vision.genesis.clientapp.feature.main.message.MessageActivity;
-import vision.genesis.clientapp.feature.main.program.ProgramInfoActivity;
+import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
@@ -41,14 +41,13 @@ import vision.genesis.clientapp.feature.pin.set.SetPinActivity;
 import vision.genesis.clientapp.feature.two_factor.disable.DisableTfaActivity;
 import vision.genesis.clientapp.feature.two_factor.setup.SetupTfaActivity;
 import vision.genesis.clientapp.model.AppUpdateModel;
-import vision.genesis.clientapp.model.ProgramInfoModel;
+import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
 import vision.genesis.clientapp.ui.common.BlockScreenHolder;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
-import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -201,9 +200,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 		AHBottomNavigationItem walletItem = new AHBottomNavigationItem(null, R.drawable.wallet_icon);
 		AHBottomNavigationItem settingsItem = new AHBottomNavigationItem(null, R.drawable.ic_settings_black_24dp);
 
-		bottomNavigationView.setTitleTypeface(TypefaceUtil.bold());
-		bottomNavigationView.setTitleTextSizeInSp(10, 10);
-
 		bottomNavigationView.addItem(dashboardItem);
 		bottomNavigationView.addItem(investItem);
 		bottomNavigationView.addItem(walletItem);
@@ -211,7 +207,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 
 		bottomNavigationView.setAccentColor(ThemeUtil.getColorByAttrId(this, R.attr.colorAccent));
 		bottomNavigationView.setInactiveColor(ThemeUtil.getColorByAttrId(this, R.attr.colorTextSecondary));
-		bottomNavigationView.setDefaultBackgroundColor(ThemeUtil.getColorByAttrId(this, R.attr.colorBottom));
+		bottomNavigationView.setDefaultBackgroundColor(ThemeUtil.getColorByAttrId(this, R.attr.colorBackground));
 
 		bottomNavigationView.setTitleState(AHBottomNavigation.TitleState.ALWAYS_HIDE);
 
@@ -269,8 +265,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	}
 
 	@Override
-	public void showInvestmentProgramDetails(ProgramInfoModel programInfoModel) {
-		ProgramInfoActivity.startWith(this, programInfoModel);
+	public void showInvestmentProgramDetails(ProgramDetailsModel programDetailsModel) {
+		ProgramDetailsActivity.startWith(this, programDetailsModel);
 	}
 
 	@Override

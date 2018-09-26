@@ -1,19 +1,24 @@
 package vision.genesis.clientapp.feature.main.assets;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+
+import java.lang.reflect.Field;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +29,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.search.SearchActivity;
 import vision.genesis.clientapp.ui.CustomTabView;
+import vision.genesis.clientapp.utils.TabLayoutUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 
 /**
@@ -56,7 +62,7 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 	private TabLayout.Tab programsTab;
 
-//	private TabLayout.Tab tournamentTab;
+	private TabLayout.Tab fundsTab;
 
 	private AssetsPagerAdapter pagerAdapter;
 
@@ -117,7 +123,7 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 	private void initTabs() {
 		favoritesTab = tabLayout.newTab().setCustomView(getFavoritesTabView()).setTag("favorites");
 		programsTab = tabLayout.newTab().setCustomView(getProgramsTabView()).setTag("programs");
-//		tournamentTab = tabLayoutAssets.newTab().setText(getString(R.string.tournament)).setTag("tournament");
+		fundsTab = tabLayout.newTab().setCustomView(getFundsTabView()).setTag("funds");
 
 		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -148,8 +154,59 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 		tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
-		addPage(favoritesTab, false);
+//		addPage(favoritesTab, false);
 		addPage(programsTab, true);
+		addPage(fundsTab, false);
+
+//		tabLayout.post(this::setTabsIndicator);
+	}
+
+	private void setTabsIndicator() {
+//		for (int i = 0; i < tabLayout.getTabCount(); i++) {
+//			TabLayout.Tab tab = tabLayout.getTabAt(i);
+//			if (tab != null) {
+//				View customView = tab.getCustomView();
+//				if (customView != null) {
+//					View targetViewToApplyMargin = (View) customView.getParent();
+//					ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) targetViewToApplyMargin.getLayoutParams();
+//
+//					layoutParams.rightMargin = 200;
+//					targetViewToApplyMargin.setLayoutParams(layoutParams);
+//				}
+//			}
+//		}
+
+		Class<?> tabLayoutClass = tabLayout.getClass();
+		Field tabStrip = null;
+		try {
+			tabStrip = tabLayoutClass.getDeclaredField("mTabStrip");
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		}
+
+		tabStrip.setAccessible(true);
+		LinearLayout llTab = null;
+		try {
+			llTab = (LinearLayout) tabStrip.get(tabLayout);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+
+		int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32, Resources.getSystem().getDisplayMetrics());
+		int right = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, Resources.getSystem().getDisplayMetrics());
+
+		ViewGroup.LayoutParams lp = llTab.getLayoutParams();
+		lp.width = width;
+		llTab.setLayoutParams(lp);
+//		for (int i = 0; i < llTab.getChildCount(); i++) {
+//			View child = llTab.getChildAt(i);
+//			child.setPadding(0, 0, 0, 0);
+//			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1);
+//			params.leftMargin = left;
+//			params.rightMargin = right;
+//			child.setLayoutParams(params);
+//			child.invalidate();
+//		}
 	}
 
 	private View getFavoritesTabView() {
@@ -164,11 +221,18 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 		return view;
 	}
 
+	private View getFundsTabView() {
+		CustomTabView view = new CustomTabView(getContext());
+		view.setData(0, R.string.funds);
+		return view;
+	}
+
 	private void addPage(TabLayout.Tab tab, boolean selected) {
 		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION)
 			return;
 
 		tabLayout.addTab(tab, selected);
+		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 24, 16);
 		if (pagerAdapter != null)
 			pagerAdapter.notifyDataSetChanged();
 	}

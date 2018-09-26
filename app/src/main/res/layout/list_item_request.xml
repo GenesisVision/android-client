@@ -32,7 +32,7 @@
         android:id="@+id/surface_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorBottomSheet"
+        android:background="?attr/colorCardLight"
         android:orientation="vertical"
         android:paddingBottom="10dp"
         android:paddingLeft="20dp"

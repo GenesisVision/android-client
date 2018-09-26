@@ -11,18 +11,18 @@ import io.swagger.client.model.ProgramDetailsFull;
  * GenesisVisionAndroid
  * Created by Vitaly on 25/04/2018.
  */
-public class ProgramInfoModel implements Parcelable
+public class ProgramDetailsModel implements Parcelable
 {
-	public static final Creator<ProgramInfoModel> CREATOR = new Creator<ProgramInfoModel>()
+	public static final Creator<ProgramDetailsModel> CREATOR = new Creator<ProgramDetailsModel>()
 	{
 		@Override
-		public ProgramInfoModel createFromParcel(Parcel in) {
-			return new ProgramInfoModel(in);
+		public ProgramDetailsModel createFromParcel(Parcel in) {
+			return new ProgramDetailsModel(in);
 		}
 
 		@Override
-		public ProgramInfoModel[] newArray(int size) {
-			return new ProgramInfoModel[size];
+		public ProgramDetailsModel[] newArray(int size) {
+			return new ProgramDetailsModel[size];
 		}
 	};
 
@@ -30,23 +30,27 @@ public class ProgramInfoModel implements Parcelable
 
 	private String avatar;
 
+	private Integer level;
+
 	private String programName;
 
 	private String managerName;
 
 	private boolean favorite;
 
-	public ProgramInfoModel(UUID programId, String avatar, String programName, String managerName, boolean isFavorite) {
+	public ProgramDetailsModel(UUID programId, String avatar, Integer level, String programName, String managerName, boolean isFavorite) {
 		this.programId = programId;
 		this.avatar = avatar;
+		this.level = level;
 		this.programName = programName;
 		this.managerName = managerName;
 		this.favorite = isFavorite;
 	}
 
-	protected ProgramInfoModel(Parcel in) {
+	protected ProgramDetailsModel(Parcel in) {
 		programId = (UUID) in.readSerializable();
 		avatar = in.readString();
+		level = in.readInt();
 		programName = in.readString();
 		managerName = in.readString();
 		favorite = in.readByte() != 0;
@@ -58,6 +62,10 @@ public class ProgramInfoModel implements Parcelable
 
 	public String getAvatar() {
 		return avatar;
+	}
+
+	public Integer getLevel() {
+		return level;
 	}
 
 	public String getProgramName() {
@@ -81,6 +89,7 @@ public class ProgramInfoModel implements Parcelable
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeSerializable(programId);
 		dest.writeString(avatar);
+		dest.writeInt(level);
 		dest.writeString(programName);
 		dest.writeString(managerName);
 		dest.writeByte((byte) (favorite ? 1 : 0));
@@ -89,6 +98,7 @@ public class ProgramInfoModel implements Parcelable
 	public void update(ProgramDetailsFull programDetails) {
 		this.programId = programDetails.getId();
 		this.avatar = programDetails.getLogo();
+		this.level = programDetails.getLevel();
 		this.programName = programDetails.getTitle();
 		this.managerName = programDetails.getManager().getUsername();
 //		this.favorite = programDetails.isIsFavorite();

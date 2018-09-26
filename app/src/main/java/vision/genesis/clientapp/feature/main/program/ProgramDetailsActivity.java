@@ -2,8 +2,8 @@ package vision.genesis.clientapp.feature.main.program;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -16,8 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.facebook.drawee.view.SimpleDraweeView;
 
-import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -25,11 +25,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.ProgramDetailsFull;
 import timber.log.Timber;
-import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.model.ProgramInfoModel;
+import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.ui.AvatarView;
+import vision.genesis.clientapp.ui.common.DetailsTabView;
+import vision.genesis.clientapp.utils.ImageUtils;
+import vision.genesis.clientapp.utils.TabLayoutUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -37,36 +40,48 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 17/04/2018.
  */
 
-public class ProgramInfoActivity extends BaseSwipeBackActivity implements ProgramInfoView, ViewPager.OnPageChangeListener
+public class ProgramDetailsActivity extends BaseSwipeBackActivity implements ProgramDetailsView, ViewPager.OnPageChangeListener
 {
 	private static String EXTRA_MODEL = "extra_model";
 
-	public static void startWith(Activity activity, ProgramInfoModel model) {
-		Intent intent = new Intent(activity.getApplicationContext(), ProgramInfoActivity.class);
+	public static void startWith(Activity activity, ProgramDetailsModel model) {
+		Intent intent = new Intent(activity.getApplicationContext(), ProgramDetailsActivity.class);
 		intent.putExtra(EXTRA_MODEL, model);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
 
-	@BindView(R.id.version)
-	public TextView version;
+	@BindView(R.id.toolbar_program_logo)
+	public AvatarView toolbarProgramLogo;
 
-	@BindView(R.id.avatar)
-	public AvatarView avatar;
-
-	@BindView(R.id.program_name)
-	public TextView programName;
-
-	@BindView(R.id.manager_name)
-	public TextView managerName;
+	@BindView(R.id.toolbar_program_name)
+	public TextView toolbarProgramName;
 
 	@BindView(R.id.button_favorite)
 	public ImageView favoriteButton;
 
+	@BindView(R.id.program_logo)
+	public SimpleDraweeView programLogo;
+
+	@BindView(R.id.level)
+	public TextView level;
+
+	@BindView(R.id.program_name)
+	public TextView programName;
+
+	@BindView(R.id.app_bar_layout)
+	public AppBarLayout appBarLayout;
+
+	@BindView(R.id.collapsing_toolbar_screen)
+	public View collapsingToolbarScreen;
+
+	@BindView(R.id.group_tabs)
+	public ViewGroup tabsGroup;
+
 	@BindView(R.id.tab_layout)
 	public TabLayout tabLayout;
 
-	@BindView(R.id.view_pager_program_info)
+	@BindView(R.id.view_pager_program_details)
 	public ViewPager viewPager;
 
 	@BindView(R.id.progress_bar)
@@ -82,7 +97,7 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 	public View tryAgainButton;
 
 	@InjectPresenter
-	ProgramInfoPresenter programInfoPresenter;
+	ProgramDetailsPresenter programDetailsPresenter;
 
 	private ProgramDetailsFull programDetails;
 
@@ -90,19 +105,19 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 
 	private TabLayout.TabLayoutOnPageChangeListener tabLayoutOnPageChangeListener;
 
-	private TabLayout.Tab detailsTab;
+//	private TabLayout.Tab descriptionTab;
 
-	private TabLayout.Tab descriptionTab;
+	private TabLayout.Tab infoTab;
 
 	private TabLayout.Tab tradesTab;
 
 	private TabLayout.Tab historyTab;
 
-	private ProgramInfoPagerAdapter pagerAdapter;
+	private ProgramDetailsPagerAdapter pagerAdapter;
 
 	private Fragment currentFragment;
 
-	private ProgramInfoModel model;
+	private ProgramDetailsModel model;
 
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
@@ -111,7 +126,7 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
-		programInfoPresenter.onTryAgainClicked();
+		programDetailsPresenter.onTryAgainClicked();
 	}
 
 	@OnClick(R.id.button_favorite)
@@ -125,9 +140,10 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_program_info);
+		setContentView(R.layout.activity_program_details);
 
 		ButterKnife.bind(this);
 
@@ -137,17 +153,32 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 			initViewPager(model.getProgramId());
 			setFonts();
 
-			avatar.hideLevel();
+			toolbarProgramLogo.hideLevel();
 			updateHeader();
 
-			programInfoPresenter.setProgramId(model.getProgramId());
+			programDetailsPresenter.setProgramId(model.getProgramId());
 
-			version.setText(String.format(Locale.getDefault(), "%s (%d)", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
+			setAnimations();
 		}
 		else {
 			Timber.e("Passed empty program to ProgramDetailsActivity");
 			onBackPressed();
 		}
+	}
+
+	private void setAnimations() {
+		appBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+			double toolbarStartOffset = Math.abs((float) appBarLayout.getTotalScrollRange() * 0.15);
+			float alphaPercent = ((float) Math.abs(verticalOffset) / ((float) appBarLayout.getTotalScrollRange() - 100));
+			collapsingToolbarScreen.setAlpha(alphaPercent);
+
+			float toolbarAlphaPercent = 1;
+			if (Math.abs(verticalOffset) > appBarLayout.getTotalScrollRange() - toolbarStartOffset) {
+				toolbarAlphaPercent = (float) ((appBarLayout.getTotalScrollRange() - Math.abs(verticalOffset)) / toolbarStartOffset);
+			}
+			toolbarProgramLogo.setAlpha(1 - toolbarAlphaPercent);
+			toolbarProgramName.setAlpha(1 - toolbarAlphaPercent);
+		});
 	}
 
 	@Override
@@ -168,26 +199,28 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 	}
 
 	private void setFonts() {
-		programName.setTypeface(TypefaceUtil.bold());
+		toolbarProgramName.setTypeface(TypefaceUtil.semibold());
+		programName.setTypeface(TypefaceUtil.semibold());
+		level.setTypeface(TypefaceUtil.semibold());
 	}
 
 	private void updateHeader() {
-		avatar.setImage(model.getAvatar(), 50, 50);
+		programLogo.setImageURI(ImageUtils.getImageUri(model.getAvatar()));
+		toolbarProgramLogo.setImage(model.getAvatar(), 50, 50);
+
+		level.setText(String.valueOf(model.getLevel()));
 
 		programName.setText(model.getProgramName());
-		managerName.setText(String.format(Locale.getDefault(), "%s %s", getResources().getString(R.string.by), model.getManagerName()));
+//		toolbarProgramName.setText(model.getProgramName());
+		toolbarProgramName.setText("Very long program name");
 
 		setFavoriteButtonImage(model.isFavorite());
 	}
 
 	private void initTabs() {
-		detailsTab = tabLayout.newTab().setText(getString(R.string.details)).setTag("details");
-		descriptionTab = tabLayout.newTab().setText(getString(R.string.strategy)).setTag("description");
-		tradesTab = tabLayout.newTab().setText(getString(R.string.trades)).setTag("trades");
-		historyTab = tabLayout.newTab().setText(getString(R.string.history)).setTag("history");
-
-		addPage(detailsTab, true);
-		addPage(descriptionTab, false);
+		infoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("info");
+		tradesTab = tabLayout.newTab().setCustomView(getTabView(R.string.trades)).setTag("trades");
+		historyTab = tabLayout.newTab().setCustomView(getTabView(R.string.history)).setTag("history");
 
 		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -196,20 +229,37 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 			@Override
 			public void onTabSelected(TabLayout.Tab tab) {
 				viewPager.setCurrentItem(tab.getPosition());
+				if (tab.getCustomView() != null && tab.getCustomView().getClass().equals(DetailsTabView.class)) {
+					((DetailsTabView) tab.getCustomView()).setSelectedState(true);
+				}
 			}
 
 			@Override
 			public void onTabUnselected(TabLayout.Tab tab) {
-
+				if (tab.getCustomView() != null && tab.getCustomView().getClass().equals(DetailsTabView.class)) {
+					((DetailsTabView) tab.getCustomView()).setSelectedState(false);
+				}
 			}
 
 			@Override
 			public void onTabReselected(TabLayout.Tab tab) {
-
+				if (tab.getCustomView() != null && tab.getCustomView().getClass().equals(DetailsTabView.class)) {
+					((DetailsTabView) tab.getCustomView()).setSelectedState(true);
+				}
 			}
 		};
 
 		tabLayout.addOnTabSelectedListener(tabSelectedListener);
+
+		addPage(infoTab, true);
+//		addPage(descriptionTab, false);
+		addPage(tradesTab, false);
+	}
+
+	private View getTabView(int textResId) {
+		DetailsTabView view = new DetailsTabView(this);
+		view.setData(textResId);
+		return view;
 	}
 
 	private void addPage(TabLayout.Tab tab, boolean selected) {
@@ -217,12 +267,13 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 			return;
 
 		tabLayout.addTab(tab, selected);
+		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 0, 8);
 		if (pagerAdapter != null)
 			pagerAdapter.notifyDataSetChanged();
 	}
 
 	private void initViewPager(UUID programId) {
-		pagerAdapter = new ProgramInfoPagerAdapter(getSupportFragmentManager(), tabLayout, programId);
+		pagerAdapter = new ProgramDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, programId);
 		viewPager.setAdapter(pagerAdapter);
 
 		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
@@ -233,7 +284,7 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 	@Override
 	protected void onResume() {
 		super.onResume();
-		programInfoPresenter.onResume();
+		programDetailsPresenter.onResume();
 	}
 
 	@Override
@@ -245,30 +296,24 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 	public void setProgram(ProgramDetailsFull programDetails) {
 		this.programDetails = programDetails;
 
-//		if (programDetails.getTradesCount() > 0)
-//			addPage(tradesTab, false);
-//
+
 //		if (programDetails.isIsHistoryEnable())
-//			addPage(historyTab, false);
+		addPage(historyTab, false);
 
 		model.update(programDetails);
 		updateHeader();
 
-		tabLayout.setVisibility(View.VISIBLE);
+		tabsGroup.setVisibility(View.VISIBLE);
 		viewPager.setVisibility(View.VISIBLE);
 
 		pagerAdapter.sendUpdate();
 	}
 
 	private void setFavoriteButtonImage(boolean isFavorite) {
-		favoriteButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), isFavorite
-				? R.drawable.ic_star_black_24dp
-				: R.drawable.ic_star_border_black_24dp));
 
-		favoriteButton.setColorFilter(ContextCompat.getColor(getApplicationContext(), isFavorite
-						? R.color.gold
-						: R.color.grey400),
-				PorterDuff.Mode.SRC_IN);
+		favoriteButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), isFavorite
+				? R.drawable.icon_favorite_fill
+				: R.drawable.icon_favorite));
 	}
 
 	@Override
@@ -278,11 +323,11 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 
 	@Override
 	public void onPageSelected(int position) {
-		if (currentFragment != null && currentFragment instanceof ProgramInfoPagerAdapter.OnPageVisibilityChanged)
-			((ProgramInfoPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerHide();
+		if (currentFragment != null && currentFragment instanceof ProgramDetailsPagerAdapter.OnPageVisibilityChanged)
+			((ProgramDetailsPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerHide();
 		currentFragment = pagerAdapter.getItem(position);
-		if (pagerAdapter.getItem(position) instanceof ProgramInfoPagerAdapter.OnPageVisibilityChanged) {
-			((ProgramInfoPagerAdapter.OnPageVisibilityChanged) pagerAdapter.getItem(position)).pagerShow();
+		if (pagerAdapter.getItem(position) instanceof ProgramDetailsPagerAdapter.OnPageVisibilityChanged) {
+			((ProgramDetailsPagerAdapter.OnPageVisibilityChanged) pagerAdapter.getItem(position)).pagerShow();
 		}
 	}
 
@@ -291,14 +336,14 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 
 	}
 
-	public void onChartTouch() {
-		viewPager.requestDisallowInterceptTouchEvent(true);
-	}
-
-	public void onChartTouchEnd() {
-		viewPager.requestDisallowInterceptTouchEvent(false);
-
-	}
+//	public void onChartTouch() {
+//		viewPager.requestDisallowInterceptTouchEvent(true);
+//	}
+//
+//	public void onChartTouchEnd() {
+//		viewPager.requestDisallowInterceptTouchEvent(false);
+//
+//	}
 
 	@Override
 	public void finishActivity() {
@@ -318,12 +363,12 @@ public class ProgramInfoActivity extends BaseSwipeBackActivity implements Progra
 
 	@Override
 	public void showNoInternet(boolean show) {
-		noInternetGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+//		noInternetGroup.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 
 	@Override
 	public void showSnackbarMessage(String message) {
-		showSnackbar(message, avatar);
+		showSnackbar(message, toolbarProgramLogo);
 	}
 
 	@Override

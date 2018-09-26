@@ -15,7 +15,7 @@
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorCard"
+            android:background="?attr/colorBackground"
             app:elevation="0dp">
 
             <android.support.design.widget.CollapsingToolbarLayout
@@ -37,7 +37,7 @@
                         android:id="@+id/searchbar"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/searchbar_height"
-                        app:cardBackgroundColor="?attr/colorCard"
+                        app:cardBackgroundColor="?attr/colorBackground"
                         app:cardCornerRadius="2dp"
                         app:cardElevation="2dp"
                         app:cardPreventCornerOverlap="true"
@@ -81,12 +81,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tabs_height"
                 android:minHeight="?attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:layout_collapseMode="pin"
-                app:tabGravity="center"
+                app:tabGravity="fill"
                 app:tabIndicatorColor="?attr/colorAccent"
-                app:tabMode="fixed"
-                app:tabSelectedTextColor="?attr/colorAccent"
+                app:tabMaxWidth="0dp"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="?attr/colorTextPrimary"
                 app:tabTextColor="?attr/colorTextSecondary"/>
 
         </android.support.design.widget.AppBarLayout>

@@ -12,7 +12,7 @@ import io.swagger.client.model.ProgramDetailsFull;
  * Created by Vitaly on 1/26/18.
  */
 
-interface ProgramInfoView extends MvpView
+interface ProgramDetailsView extends MvpView
 {
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void setProgram(ProgramDetailsFull programDetails);
