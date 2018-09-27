@@ -21,17 +21,14 @@ public class PeriodLeftDetailsView extends PeriodLeftView
 	@BindView(R.id.group_period)
 	public ViewGroup periodGroup;
 
-	@BindView(R.id.text_number)
-	public TextView numberText;
-
 	@BindView(R.id.period_progress_bar)
 	public ProgressBar progressBar;
 
-	@BindView(R.id.text_period)
-	public TextView periodText;
+	@BindView(R.id.period_length)
+	public TextView periodLength;
 
-	@BindView(R.id.text_label)
-	public TextView labelText;
+	@BindView(R.id.period_left)
+	public TextView periodLeft;
 
 	@BindView(R.id.text_program_closed)
 	public TextView programClosedText;
@@ -54,15 +51,14 @@ public class PeriodLeftDetailsView extends PeriodLeftView
 
 		unbinder = ButterKnife.bind(this);
 
-		writeLeft = false;
+		writeLeft = true;
 
 		setFonts();
 	}
 
 	protected void setFonts() {
-		numberText.setTypeface(TypefaceUtil.bold());
-		periodText.setTypeface(TypefaceUtil.bold());
-		labelText.setTypeface(TypefaceUtil.bold());
+		periodLength.setTypeface(TypefaceUtil.semibold());
+		periodLeft.setTypeface(TypefaceUtil.semibold());
 
 		programClosedText.setTypeface(TypefaceUtil.bold());
 	}

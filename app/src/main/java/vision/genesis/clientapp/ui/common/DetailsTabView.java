@@ -16,7 +16,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 07/05/2018.
+ * Created by Vitaly on 26/09/2018.
  */
 public class DetailsTabView extends RelativeLayout
 {
@@ -66,6 +66,9 @@ public class DetailsTabView extends RelativeLayout
 	}
 
 	public void setSelectedState(boolean selected) {
-		text.setTextColor(ThemeUtil.getColorByAttrId(getContext(), selected ? R.attr.colorTextPrimary : R.attr.colorTextSecondary));
+		text.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
+				selected
+						? R.attr.colorTextPrimary
+						: R.attr.colorTextSecondary));
 	}
 }

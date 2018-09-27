@@ -4,645 +4,151 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="?attr/colorBackground"
+                android:background="?attr/colorBackgroundDark"
                 android:orientation="vertical">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible">
 
-        <ScrollView
-            android:id="@+id/scrollview"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            tools:visibility="visible">
+            android:layout_height="wrap_content"
+            android:background="?attr/colorBackground"
+            android:orientation="vertical"
+            android:paddingBottom="16dp"
+            android:paddingTop="24dp">
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/group_manager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:background="?attr/selectableItemBackground"
+                android:paddingBottom="8dp"
+                android:paddingLeft="@dimen/program_details_padding_left"
+                android:paddingRight="@dimen/program_details_padding_left"
+                android:paddingTop="8dp">
 
-                <LinearLayout
-                    android:id="@+id/group_tournament"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginTop="4dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/tournament"
-                            android:textColor="@color/grey400"
-                            android:textSize="16sp"/>
-
-                        <ImageView
-                            android:id="@+id/tooltip_tournament"
-                            style="@style/tooltip_icon"
-                            android:layout_width="20dp"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginStart="4dp"/>
-
-                    </LinearLayout>
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/card_tournament"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="2dp"
-                        app:cardElevation="2dp"
-                        app:cardPreventCornerOverlap="true"
-                        app:cardUseCompatPadding="true">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:padding="8dp">
-
-                            <LinearLayout
-                                style="@style/program_details_data_group">
-
-                                <TextView
-                                    android:id="@+id/round"
-                                    style="@style/program_details_data_value"
-                                    tools:text="1"/>
-
-                                <TextView
-                                    android:id="@+id/round_label"
-                                    style="@style/program_details_data_title"
-                                    android:text="@string/round"/>
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                style="@style/program_details_data_group">
-
-                                <TextView
-                                    android:id="@+id/place"
-                                    style="@style/program_details_data_value"
-                                    tools:text="123"/>
-
-                                <TextView
-                                    android:id="@+id/place_label"
-                                    style="@style/program_details_data_title"
-                                    android:text="@string/place"/>
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </android.support.v7.widget.CardView>
-
-                </LinearLayout>
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/manager_avatar"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_centerVertical="true"
+                    app:backgroundImage="?attr/colorDelimiterLight"
+                    app:placeholderImage="@drawable/avatar_placeholder"
+                    app:placeholderImageScaleType="center"
+                    app:roundAsCircle="true"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="4dp"
-                    android:orientation="horizontal">
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_toEndOf="@+id/manager_avatar"
+                    android:layout_toRightOf="@+id/manager_avatar"
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/manager_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/equity_chart"
-                        android:textColor="@color/grey400"
-                        android:textSize="16sp"/>
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textSize="16sp"
+                        tools:text="Nicholas Barton"/>
 
-                    <ImageView
-                        android:id="@+id/tooltip_equity_chart"
-                        style="@style/tooltip_icon"
-                        android:layout_width="20dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginStart="4dp"/>
+                    <TextView
+                        android:id="@+id/manager_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:alpha="0.4"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textSize="14sp"
+                        tools:text="10 Feb 2018"/>
 
                 </LinearLayout>
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/card_program_data"
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:alpha="0.4"
+                    android:src="@drawable/icon_arrow_right"
+                    android:tint="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="@dimen/program_details_padding_left">
+
+                <TextView
+                    android:id="@+id/label_strategy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.4"
+                    android:text="@string/strategy"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/strategy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/label_strategy"
+                    android:layout_marginTop="24dp"
+                    android:alpha="0.9"
+                    android:lineSpacingMultiplier="1.5"
+                    android:maxHeight="@dimen/program_info_strategy_max_height"
+                    android:text="@string/lorem_ipsum"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="16sp"/>
+
+                <View
+                    android:id="@+id/strategy_shadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/shadow_up_background"
+                    android:visibility="invisible"
+                    tools:visibility="visible"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/program_details_padding_left">
+
+                <TextView
+                    android:id="@+id/label_period"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.4"
+                    android:text="@string/period"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="16sp"/>
+
+                <vision.genesis.clientapp.ui.PeriodLeftDetailsView
+                    android:id="@+id/view_period"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    app:cardCornerRadius="2dp"
-                    app:cardElevation="2dp"
-                    app:cardPreventCornerOverlap="true"
-                    app:cardUseCompatPadding="true"
-                    app:contentPadding="8dp">
+                    android:layout_below="@+id/label_period"
+                    android:layout_marginTop="@dimen/program_details_padding_left"/>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/chart">
+            </RelativeLayout>
 
-                        <vision.genesis.clientapp.ui.ProgramDataView
-                            android:id="@+id/view_program_data"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="16dp"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginRight="16dp"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"/>
+        </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/tooltip_program_data"
-                            style="@style/tooltip_icon"
-                            android:layout_width="20dp"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"/>
-
-                    </RelativeLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/card_data"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    app:cardCornerRadius="2dp"
-                    app:cardElevation="2dp"
-                    app:cardPreventCornerOverlap="true"
-                    app:cardUseCompatPadding="true"
-                    app:contentPadding="8dp">
-
-                    <LinearLayout
-                        android:id="@+id/group_data"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:id="@+id/group_period_duration"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <ImageView
-                                    android:layout_width="32dp"
-                                    android:layout_height="30dp"
-                                    android:scaleType="centerInside"
-                                    android:src="@drawable/calendar"/>
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:id="@+id/period_duration"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textColor="@color/colorAccent"
-                                        android:textSize="22sp"
-                                        tools:text="30"/>
-
-                                    <TextView
-                                        android:id="@+id/period_duration_days"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="6dp"
-                                        android:layout_marginStart="6dp"
-                                        android:text="@string/days"
-                                        android:textColor="@color/colorMedium"
-                                        android:textSize="22sp"/>
-
-                                </LinearLayout>
-
-                                <TextView
-                                    android:id="@+id/period_duration_label"
-                                    style="@style/program_details_data_title"
-                                    android:layout_marginTop="4dp"
-                                    android:text="@string/trading_period_duration"/>
-
-                                <ImageView
-                                    android:id="@+id/tooltip_period_duration"
-                                    style="@style/tooltip_icon"/>
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center">
-
-                                <vision.genesis.clientapp.ui.PeriodLeftDetailsView
-                                    android:id="@+id/view_period_left"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <View
-                            style="@style/program_details_data_delimiter"/>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:id="@+id/group_manager_share"
-                                style="@style/program_details_data_group">
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:id="@+id/manager_share"
-                                        style="@style/program_details_data_value"
-                                        tools:text="99.99"/>
-
-                                    <TextView
-                                        android:id="@+id/manager_share_percent"
-                                        style="@style/program_details_data_value"
-                                        android:text="%"
-                                        android:textSize="20sp"/>
-
-                                </LinearLayout>
-
-                                <TextView
-                                    android:id="@+id/manager_share_label"
-                                    style="@style/program_details_data_title"
-                                    android:text="@string/manager_share"/>
-
-                                <ImageView
-                                    android:id="@+id/tooltip_manager_share"
-                                    style="@style/tooltip_icon"/>
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/group_trades"
-                                style="@style/program_details_data_group">
-
-                                <TextView
-                                    android:id="@+id/trades"
-                                    style="@style/program_details_data_value"
-                                    tools:text="1,546"/>
-
-                                <TextView
-                                    android:id="@+id/trades_label"
-                                    style="@style/program_details_data_title"
-                                    android:text="@string/trades"/>
-
-                                <ImageView
-                                    android:id="@+id/tooltip_trades"
-                                    style="@style/tooltip_icon"/>
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <View
-                            style="@style/program_details_data_delimiter"/>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:id="@+id/group_success_fee"
-                                style="@style/program_details_data_group">
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:id="@+id/success_fee"
-                                        style="@style/program_details_data_value"
-                                        tools:text="4,99"/>
-
-                                    <TextView
-                                        android:id="@+id/success_fee_percent"
-                                        style="@style/program_details_data_value"
-                                        android:text="%"
-                                        android:textSize="20sp"/>
-
-                                </LinearLayout>
-
-                                <TextView
-                                    android:id="@+id/success_fee_label"
-                                    style="@style/program_details_data_title"
-                                    android:text="@string/success_fee"/>
-
-                                <ImageView
-                                    android:id="@+id/tooltip_success_fee"
-                                    style="@style/tooltip_icon"/>
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/group_management_fee"
-                                style="@style/program_details_data_group">
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:id="@+id/management_fee"
-                                        style="@style/program_details_data_value"
-                                        tools:text="225,49"/>
-
-                                    <TextView
-                                        android:id="@+id/management_fee_percent"
-                                        style="@style/program_details_data_value"
-                                        android:text="%"
-                                        android:textSize="20sp"/>
-
-                                </LinearLayout>
-
-                                <TextView
-                                    android:id="@+id/management_fee_label"
-                                    style="@style/program_details_data_title"
-                                    android:text="@string/management_fee"/>
-
-                                <ImageView
-                                    android:id="@+id/tooltip_management_fee"
-                                    style="@style/tooltip_icon"/>
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/card_my_tokens"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    app:cardCornerRadius="2dp"
-                    app:cardElevation="2dp"
-                    app:cardPreventCornerOverlap="true"
-                    app:cardUseCompatPadding="true"
-                    app:contentPadding="8dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="90dp"
-                        android:orientation="horizontal">
-
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center">
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:id="@+id/my_tokens"
-                                android:layout_width="match_parent"
-                                android:layout_height="32dp"
-                                android:gravity="center_horizontal|bottom"
-                                android:textColor="@color/colorMedium"
-                                app:autoSizeMaxTextSize="26sp"
-                                app:autoSizeMinTextSize="14sp"
-                                app:autoSizeTextType="uniform"
-                                tools:text="34,123.44"/>
-
-                            <TextView
-                                android:id="@+id/my_tokens_fiat"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/my_tokens"
-                                android:layout_centerHorizontal="true"
-                                android:padding="1dp"
-                                android:textAlignment="center"
-                                android:textAllCaps="true"
-                                android:textColor="@color/colorAccent"
-                                android:textSize="14sp"
-                                tools:text="($8,700)"/>
-
-                            <TextView
-                                android:id="@+id/my_tokens_label"
-                                style="@style/program_details_data_title"
-                                android:layout_below="@id/my_tokens_fiat"
-                                android:layout_centerHorizontal="true"
-                                android:text="@string/my_tokens"/>
-
-                            <ImageView
-                                android:id="@+id/tooltip_my_tokens"
-                                style="@style/tooltip_icon"
-                                android:layout_below="@+id/my_tokens_label"
-                                android:layout_centerHorizontal="true"/>
-
-                        </RelativeLayout>
-
-                        <ImageView
-                            android:id="@+id/left_divider"
-                            android:layout_width="4dp"
-                            android:layout_height="16dp"
-                            android:layout_gravity="center_vertical"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/dotted_vertical_line"/>
-
-                        <RelativeLayout
-                            android:id="@+id/group_profit"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center">
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:id="@+id/my_profit"
-                                android:layout_width="match_parent"
-                                android:layout_height="32dp"
-                                android:layout_centerHorizontal="true"
-                                android:gravity="center_horizontal|bottom"
-                                android:textColor="@color/colorMedium"
-                                app:autoSizeMaxTextSize="26sp"
-                                app:autoSizeMinTextSize="14sp"
-                                app:autoSizeTextType="uniform"
-                                tools:text="1,230.1234"/>
-
-                            <TextView
-                                android:id="@+id/profit_currency"
-                                style="@style/item_investment_program_currency"
-                                android:layout_below="@+id/my_profit"
-                                android:layout_centerHorizontal="true"
-                                android:text="@string/gvt"
-                                android:textAllCaps="true"
-                                android:textSize="10sp"/>
-
-                            <TextView
-                                android:id="@+id/my_profit_label"
-                                style="@style/program_details_data_title"
-                                android:layout_below="@id/profit_currency"
-                                android:layout_centerHorizontal="true"
-                                android:text="@string/my_profit"/>
-
-                            <ImageView
-                                android:id="@+id/tooltip_my_profit"
-                                style="@style/tooltip_icon"
-                                android:layout_below="@+id/my_profit_label"
-                                android:layout_centerHorizontal="true"/>
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/card_available"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    app:cardCornerRadius="2dp"
-                    app:cardElevation="2dp"
-                    app:cardPreventCornerOverlap="true"
-                    app:cardUseCompatPadding="true"
-                    app:contentPadding="8dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:orientation="horizontal"
-                        android:paddingEnd="16dp"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp"
-                        android:paddingStart="16dp">
-
-                        <TextView
-                            android:id="@+id/label_available_to_invest"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:text="@string/available_to_invest"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorMedium"
-                            android:textSize="12sp"/>
-
-                        <ImageView
-                            android:id="@+id/tooltip_available_tokens"
-                            style="@style/tooltip_icon"
-                            android:layout_width="30dp"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_toEndOf="@+id/label_available_to_invest"
-                            android:layout_toRightOf="@+id/label_available_to_invest"/>
-
-                        <TextView
-                            android:id="@+id/text_available_to_invest"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toLeftOf="@+id/available_currency"
-                            android:layout_toStartOf="@+id/available_currency"
-                            android:textColor="@color/colorMedium"
-                            android:textSize="26sp"
-                            tools:text="2 225,4999"/>
-
-                        <TextView
-                            android:id="@+id/available_currency"
-                            style="@style/item_investment_program_currency"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignTop="@+id/text_available_to_invest"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginTop="-4dp"
-                            android:text="@string/gvt"
-                            android:textAllCaps="true"
-                            android:textSize="10sp"/>
-
-                    </RelativeLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <LinearLayout
-                    android:id="@+id/group_buttons"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/program_buttons_height"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginRight="32dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
-
-                    <vision.genesis.clientapp.ui.PrimaryButton
-                        android:id="@+id/button_withdraw"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_margin="8dp"
-                        android:layout_weight="1"
-                        android:maxWidth="200dp"
-                        android:text="@string/withdraw"
-                        android:visibility="gone"/>
-
-                    <vision.genesis.clientapp.ui.PrimaryButton
-                        android:id="@+id/button_invest"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_margin="8dp"
-                        android:layout_weight="1"
-                        android:maxWidth="200dp"
-                        android:text="@string/invest"
-                        android:visibility="gone"/>
-
-                    <vision.genesis.clientapp.ui.PrimaryButton
-                        android:id="@+id/button_requests"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_margin="8dp"
-                        android:layout_weight="1"
-                        android:maxWidth="200dp"
-                        android:text="@string/requests"
-                        android:visibility="gone"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </ScrollView>
-
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <ProgressBar
         android:id="@+id/progress_bar"

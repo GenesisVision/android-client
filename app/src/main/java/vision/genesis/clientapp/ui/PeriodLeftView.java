@@ -35,14 +35,14 @@ public class PeriodLeftView extends RelativeLayout
 	@BindView(R.id.group_period)
 	public ViewGroup periodGroup;
 
-	@BindView(R.id.text_number)
-	public TextView numberText;
-
 	@BindView(R.id.period_progress_bar)
 	public ProgressBar progressBar;
 
-	@BindView(R.id.text_period)
-	public TextView periodText;
+	@BindView(R.id.period_length)
+	public TextView periodLength;
+
+	@BindView(R.id.period_left)
+	public TextView periodLeft;
 
 	@BindView(R.id.text_program_closed)
 	public TextView programClosedText;
@@ -58,6 +58,8 @@ public class PeriodLeftView extends RelativeLayout
 	protected boolean writeLeft = true;
 
 	protected Unbinder unbinder;
+
+	private Integer duration;
 
 	public PeriodLeftView(Context context) {
 		super(context);
@@ -93,14 +95,18 @@ public class PeriodLeftView extends RelativeLayout
 	}
 
 	protected void setFonts() {
-		periodText.setTypeface(TypefaceUtil.bold());
+		periodLength.setTypeface(TypefaceUtil.semibold());
+		periodLeft.setTypeface(TypefaceUtil.semibold());
+
 		programClosedText.setTypeface(TypefaceUtil.bold());
 	}
 
-	public void setDateTo(DateTime dateFrom, DateTime dateTo) {
+	public void setData(Integer duration, DateTime dateFrom, DateTime dateTo) {
+		this.duration = duration;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
 		initProgressBar();
+		updatePeriodLength();
 		updatePeriodLeft();
 //		startTimer();
 	}
@@ -124,38 +130,38 @@ public class PeriodLeftView extends RelativeLayout
 						Throwable::printStackTrace, System.out::println);
 	}
 
+	protected void updatePeriodLength() {
+		periodLength.setText(String.format(Locale.getDefault(), "%d %s", duration,
+				GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.days, duration, duration, duration)));
+	}
+
 	protected void updatePeriodLeft() {
 		updateProgressBar();
 
 		int daysLeft = DateTimeUtil.getDaysToDate(dateTo);
 		if (daysLeft > 0) {
-			numberText.setText(String.valueOf(daysLeft));
-			setPeriodText(GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.days, daysLeft, daysLeft, daysLeft));
+			setPeriodText(daysLeft, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.days, daysLeft, daysLeft, daysLeft));
 			return;
 		}
 
 		int hoursLeft = DateTimeUtil.getHoursToDate(dateTo);
 		if (hoursLeft > 0) {
-			numberText.setText(String.valueOf(hoursLeft));
-			setPeriodText(GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.hours, hoursLeft, hoursLeft, hoursLeft));
+			setPeriodText(hoursLeft, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.hours, hoursLeft, hoursLeft, hoursLeft));
 			return;
 		}
 
 		int minutesLeft = DateTimeUtil.getMinutesToDate(dateTo);
 		if (minutesLeft > 0) {
-			numberText.setText(String.valueOf(minutesLeft));
-			setPeriodText(GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.minutes, minutesLeft, minutesLeft, minutesLeft));
+			setPeriodText(minutesLeft, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.minutes, minutesLeft, minutesLeft, minutesLeft));
 			return;
 		}
 
 		int secondsLeft = DateTimeUtil.getSecondsToDate(dateTo);
 		if (secondsLeft > 0) {
-			numberText.setText(String.valueOf(secondsLeft));
-			setPeriodText(GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft));
+			setPeriodText(secondsLeft, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft));
 		}
 		else {
-			numberText.setText("0");
-			setPeriodText(GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft));
+			setPeriodText(0, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft));
 
 			if (timeSubscription != null)
 				timeSubscription.unsubscribe();
@@ -165,13 +171,13 @@ public class PeriodLeftView extends RelativeLayout
 		}
 	}
 
-	private void setPeriodText(String text) {
+	private void setPeriodText(Integer number, String period) {
 		if (writeLeft) {
-			periodText.setText(String.format(Locale.getDefault(), "%s %s", text,
+			periodLeft.setText(String.format(Locale.getDefault(), "%d %s %s", number, period,
 					GenesisVisionApplication.INSTANCE.getResources().getString(R.string.left)));
 		}
 		else {
-			periodText.setText(text);
+			periodLeft.setText(String.format(Locale.getDefault(), "%d %s", number, period));
 		}
 	}
 

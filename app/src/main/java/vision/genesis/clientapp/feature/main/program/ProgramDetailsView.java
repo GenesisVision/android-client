@@ -32,5 +32,10 @@ interface ProgramDetailsView extends MvpView
 
 	void showProgress(boolean show);
 
+//	@StateStrategyType(AddToEndSingleStrategy.class)
+//	void setRefreshing(boolean show);
+
 	void showTrades();
+
+	void setRefreshing(boolean refreshing);
 }

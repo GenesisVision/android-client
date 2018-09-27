@@ -1,47 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
     <RelativeLayout
         android:id="@+id/group_period"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/text_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/colorMedium"
-            android:textSize="32sp"
-            tools:text="23"/>
 
         <ProgressBar
             android:id="@+id/period_progress_bar"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="64dp"
-            android:layout_height="14dp"
-            android:layout_below="@+id/text_number"
-            android:layout_centerHorizontal="true"
-            android:paddingBottom="4dp"
-            android:paddingTop="5dp"
+            style="@android:style/Widget.ProgressBar.Small"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:progressDrawable="@drawable/progress_drawable"
             tools:max="100"
             tools:min="1"
             tools:progress="25"/>
 
         <TextView
-            android:id="@+id/text_period"
+            android:id="@+id/period_length"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/period_progress_bar"
-            android:layout_centerHorizontal="true"
-            android:textAllCaps="true"
-            android:textColor="@color/colorMedium"
-            android:textSize="12sp"
-            tools:text="minutes left"/>
+            android:layout_below="@+id/period_progress_bar"
+            android:layout_marginTop="8dp"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="16sp"
+            android:visibility="gone"
+            tools:text="1 month"/>
+
+        <TextView
+            android:id="@+id/period_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/period_progress_bar"
+            android:layout_toRightOf="@+id/period_progress_bar"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="14sp"
+            tools:text="23 days"/>
 
     </RelativeLayout>
 

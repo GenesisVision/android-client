@@ -8,9 +8,10 @@
         <attr name="colorPending" format="color"/>
         <attr name="colorWithdrawing" format="color"/>
         <attr name="colorBackground" format="color"/>
+        <attr name="colorBackgroundAlpha0" format="color"/>
+        <attr name="colorBackgroundDark" format="color"/>
         <attr name="colorCard" format="color"/>
-        <attr name="colorCardLight" format="color"/>
-        <attr name="colorCardLightAlpha0" format="color"/>
+        <attr name="colorCardAlpha0" format="color"/>
         <attr name="colorDelimiter" format="color"/>
         <attr name="colorDelimiterLight" format="color"/>
         <attr name="colorTextPrimary" format="color"/>

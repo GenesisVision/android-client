@@ -35,7 +35,7 @@
                 android:layout_width="34dp"
                 android:layout_height="34dp"
                 app:roundAsCircle="true"
-                app:roundingBorderColor="?attr/colorCardLight"
+                app:roundingBorderColor="?attr/colorCard"
                 app:roundingBorderWidth="2dp"/>
 
         </RelativeLayout>

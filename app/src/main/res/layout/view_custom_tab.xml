@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:lines="1"
             android:textAllCaps="false"
-            android:textColor="?attr/colorTextPrimary"
+            android:textColor="?attr/colorTextSecondary"
             android:textSize="18sp"
             tools:text="Programs"/>
 

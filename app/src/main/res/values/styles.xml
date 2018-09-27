@@ -16,9 +16,10 @@
     <style name="AppTheme.Base.Dark" parent="AppTheme.Base">
         <item name="android:windowBackground">@color/darkBackground</item>
         <item name="colorBackground">@color/darkBackground</item>
+        <item name="colorBackgroundAlpha0">@color/darkBackgroundAlpha0</item>
+        <item name="colorBackgroundDark">@color/darkBackgroundDark</item>
         <item name="colorCard">@color/darkCard</item>
-        <item name="colorCardLight">@color/darkCardLight</item>
-        <item name="colorCardLightAlpha0">@color/darkCardLightAlpha0</item>
+        <item name="colorCardAlpha0">@color/darkCardAlpha0</item>
         <item name="colorDelimiter">@color/darkDelimiter</item>
         <item name="colorDelimiterLight">@color/darkDelimiterLight</item>
         <item name="colorTextPrimary">@color/darkTextPrimary</item>
@@ -28,9 +29,10 @@
     <style name="AppTheme.Base.Light" parent="AppTheme.Base">
         <item name="android:windowBackground">@color/lightBackground</item>
         <item name="colorBackground">@color/lightBackground</item>
+        <item name="colorBackgroundAlpha0">@color/lightBackgroundAlpha0</item>
+        <item name="colorBackgroundDark">@color/lightBackgroundDark</item>
         <item name="colorCard">@color/lightCard</item>
-        <item name="colorCardLight">@color/lightCardLight</item>
-        <item name="colorCardLightAlpha0">@color/lightCardAlpha0</item>
+        <item name="colorCardAlpha0">@color/lightCardAlpha0</item>
         <item name="colorDelimiter">@color/lightCard</item>
         <item name="colorDelimiterLight">@color/lightDelimiterLight</item>
         <item name="colorTextPrimary">@color/lightTextPrimary</item>

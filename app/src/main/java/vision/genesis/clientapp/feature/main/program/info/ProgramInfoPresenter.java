@@ -9,7 +9,6 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ProgramChart;
 import io.swagger.client.model.ProgramDetailsFull;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -79,18 +78,12 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	void setProgramId(UUID programId) {
 		this.programId = programId;
 		getProgramDetails();
-		getChartData();
+//		getChartData();
 	}
 
 	void onShow() {
 		getProgramDetails();
 //		getChartData();
-	}
-
-	void onSwipeRefresh() {
-		getViewState().setRefreshing(true);
-		getProgramDetails();
-		getChartData();
 	}
 
 //	void onChartTimeFrameChanged(String newTimeFrame) {
@@ -113,7 +106,6 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	private void handleInvestmentProgramDetailsSuccess(ProgramDetailsFull programDetails) {
 		programDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
-		getViewState().setRefreshing(false);
 
 		getViewState().setProgramDetails(programDetails);
 	}
@@ -121,35 +113,34 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	private void handleInvestmentProgramDetailsError(Throwable throwable) {
 		programDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
-		getViewState().setRefreshing(false);
 	}
 
-	private void getChartData() {
-		if (programId != null && programsManager != null) {
-			if (chartDataSubscription != null)
-				chartDataSubscription.unsubscribe();
-			//TODO: calculate maxPointCount
-			chartDataSubscription = programsManager.getChart(programId, chartDateRange, 10)
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleGetChartDataSuccess,
-							this::handleGetChartDataError);
-		}
-	}
-
-	private void handleGetChartDataSuccess(ProgramChart response) {
-		chartDataSubscription.unsubscribe();
-		getViewState().showProgress(false);
-		getViewState().setRefreshing(false);
-
-		getViewState().setChartData(response.getChart().get(0).getEquityChart());
-	}
-
-	private void handleGetChartDataError(Throwable throwable) {
-		chartDataSubscription.unsubscribe();
-		getViewState().showProgress(false);
-		getViewState().setRefreshing(false);
-	}
+//	private void getChartData() {
+//		if (programId != null && programsManager != null) {
+//			if (chartDataSubscription != null)
+//				chartDataSubscription.unsubscribe();
+//			//TODO: calculate maxPointCount
+//			chartDataSubscription = programsManager.getChart(programId, chartDateRange, 10)
+//					.observeOn(AndroidSchedulers.mainThread())
+//					.subscribeOn(Schedulers.io())
+//					.subscribe(this::handleGetChartDataSuccess,
+//							this::handleGetChartDataError);
+//		}
+//	}
+//
+//	private void handleGetChartDataSuccess(ProgramChart response) {
+//		chartDataSubscription.unsubscribe();
+//		getViewState().showProgress(false);
+//		getViewState().setRefreshing(false);
+//
+//		getViewState().setChartData(response.getChart().get(0).getEquityChart());
+//	}
+//
+//	private void handleGetChartDataError(Throwable throwable) {
+//		chartDataSubscription.unsubscribe();
+//		getViewState().showProgress(false);
+//		getViewState().setRefreshing(false);
+//	}
 
 	private void subscribeToUser() {
 		userSubscription = authManager.userSubject

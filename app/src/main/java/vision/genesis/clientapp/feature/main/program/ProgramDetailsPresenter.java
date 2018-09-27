@@ -91,6 +91,11 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 		getProgramDetails();
 	}
 
+	void onSwipeRefresh() {
+		getViewState().setRefreshing(true);
+		getProgramDetails();
+	}
+
 	void onTryAgainClicked() {
 		getViewState().showNoInternetProgress(true);
 		getProgramDetails();
@@ -110,6 +115,7 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 		getViewState().showNoInternet(false);
 		getViewState().showNoInternetProgress(false);
 		getViewState().showProgress(false);
+		getViewState().setRefreshing(false);
 
 		this.programDetails = programDetails;
 		getViewState().setProgram(programDetails);
@@ -118,6 +124,7 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	private void handleInvestmentProgramDetailsError(Throwable throwable) {
 		programDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
+		getViewState().setRefreshing(false);
 
 		if (ApiErrorResolver.isNetworkError(throwable)) {
 			if (programDetails == null) {
@@ -187,4 +194,5 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	public void onEventMainThread(ShowTradesEvent event) {
 		getViewState().showTrades();
 	}
+
 }

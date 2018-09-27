@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -50,6 +51,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
+
+	@BindView(R.id.swipe_refresh)
+	public SwipeRefreshLayout refreshLayout;
 
 	@BindView(R.id.toolbar_program_logo)
 	public AvatarView toolbarProgramLogo;
@@ -147,13 +151,14 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 		ButterKnife.bind(this);
 
+		setFonts();
+
 		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
 			model = getIntent().getExtras().getParcelable(EXTRA_MODEL);
+
+			initRefreshLayout();
 			initTabs();
 			initViewPager(model.getProgramId());
-			setFonts();
-
-			toolbarProgramLogo.hideLevel();
 			updateHeader();
 
 			programDetailsPresenter.setProgramId(model.getProgramId());
@@ -164,6 +169,15 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			Timber.e("Passed empty program to ProgramDetailsActivity");
 			onBackPressed();
 		}
+	}
+
+	private void initRefreshLayout() {
+//		refreshLayout.setBackgroundColor(ThemeUtil.getColorByAttrId(this, R.attr.colorAccent));
+		refreshLayout.setColorSchemeColors(
+				ThemeUtil.getColorByAttrId(this, R.attr.colorAccent),
+				ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary),
+				ThemeUtil.getColorByAttrId(this, R.attr.colorTextSecondary));
+		refreshLayout.setOnRefreshListener(() -> programDetailsPresenter.onSwipeRefresh());
 	}
 
 	private void setAnimations() {
@@ -178,6 +192,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			}
 			toolbarProgramLogo.setAlpha(1 - toolbarAlphaPercent);
 			toolbarProgramName.setAlpha(1 - toolbarAlphaPercent);
+
+			refreshLayout.setEnabled(verticalOffset == 0);
 		});
 	}
 
@@ -207,12 +223,12 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	private void updateHeader() {
 		programLogo.setImageURI(ImageUtils.getImageUri(model.getAvatar()));
 		toolbarProgramLogo.setImage(model.getAvatar(), 50, 50);
+		toolbarProgramLogo.hideLevel();
 
 		level.setText(String.valueOf(model.getLevel()));
 
 		programName.setText(model.getProgramName());
-//		toolbarProgramName.setText(model.getProgramName());
-		toolbarProgramName.setText("Very long program name");
+		toolbarProgramName.setText(model.getProgramName());
 
 		setFavoriteButtonImage(model.isFavorite());
 	}
@@ -267,7 +283,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			return;
 
 		tabLayout.addTab(tab, selected);
-		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 0, 8);
+		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 0, 10);
 		if (pagerAdapter != null)
 			pagerAdapter.notifyDataSetChanged();
 	}
@@ -382,8 +398,19 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 
+//	@Override
+//	public void setRefreshing(boolean refreshing) {
+//		if (refreshLayout != null)
+//			refreshLayout.setRefreshing(refreshing);
+//	}
+
 	@Override
 	public void showTrades() {
 		tradesTab.select();
+	}
+
+	@Override
+	public void setRefreshing(boolean refreshing) {
+		refreshLayout.setRefreshing(refreshing);
 	}
 }

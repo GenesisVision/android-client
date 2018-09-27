@@ -101,16 +101,30 @@
                         android:textColor="?attr/colorTextSecondary"
                         android:textSize="14sp"/>
 
-                    <TextView
-                        android:id="@+id/date_from"
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/background_date"
-                        android:padding="16dp"
-                        android:text="01 Feb 2018"
-                        android:textColor="?attr/colorTextPrimary"
-                        android:textSize="16sp"/>
+                        android:layout_marginTop="8dp">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
+                            android:alpha="0.3"
+                            android:background="@drawable/background_date"/>
+
+                        <TextView
+                            android:id="@+id/date_from"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginStart="16dp"
+                            android:text="01 Feb 2018"
+                            android:textColor="?attr/colorTextPrimary"
+                            android:textSize="16sp"/>
+
+                    </RelativeLayout>
+
 
                 </LinearLayout>
 
@@ -138,16 +152,29 @@
                         android:textColor="?attr/colorTextSecondary"
                         android:textSize="14sp"/>
 
-                    <TextView
-                        android:id="@+id/date_to"
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/background_date"
-                        android:padding="16dp"
-                        android:text="08 Feb 2018"
-                        android:textColor="?attr/colorTextPrimary"
-                        android:textSize="16sp"/>
+                        android:layout_marginTop="8dp">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
+                            android:alpha="0.3"
+                            android:background="@drawable/background_date"/>
+
+                        <TextView
+                            android:id="@+id/date_to"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginStart="16dp"
+                            android:text="08 Feb 2018"
+                            android:textColor="?attr/colorTextPrimary"
+                            android:textSize="16sp"/>
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 

@@ -32,7 +32,7 @@
         android:id="@+id/surface_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorCardLight"
+        android:background="?attr/colorCard"
         android:orientation="vertical"
         android:paddingBottom="10dp"
         android:paddingLeft="20dp"
@@ -59,7 +59,7 @@
                 android:layout_height="34dp"
                 app:placeholderImage="@drawable/program_placeholder"
                 app:roundAsCircle="true"
-                app:roundingBorderColor="?attr/colorCardLight"
+                app:roundingBorderColor="?attr/colorCard"
                 app:roundingBorderWidth="2dp"/>
 
         </RelativeLayout>
