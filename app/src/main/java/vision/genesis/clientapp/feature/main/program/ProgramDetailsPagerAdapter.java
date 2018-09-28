@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.UUID;
 
 import vision.genesis.clientapp.feature.main.program.info.ProgramInfoFragment;
+import vision.genesis.clientapp.feature.main.program.profit.ProgramProfitFragment;
 import vision.genesis.clientapp.feature.main.program.trades.TradesFragment;
 import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsFragment;
 
@@ -25,9 +26,9 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		void pagerHide();
 	}
 
-	private ProgramInfoFragment programInfoFragment;
+	private final ProgramProfitFragment programProfitFragment;
 
-//	private ProgramDescriptionFragment programDescriptionFragment;
+	private ProgramInfoFragment programInfoFragment;
 
 	private TransactionsFragment historyFragment;
 
@@ -39,8 +40,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		super(fm);
 		this.tabLayout = tabLayout;
 		programInfoFragment = ProgramInfoFragment.with(programId);
-//		programDescriptionFragment = ProgramDescriptionFragment.with(programId);
-//		historyFragment = TransactionsFragment.with(TransactionsFilter.TypeEnum.ALL, programId);
+		programProfitFragment = ProgramProfitFragment.with(programId);
 		historyFragment = TransactionsFragment.with(programId);
 		tradesFragment = TradesFragment.with(programId);
 	}
@@ -50,12 +50,12 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		switch (tabLayout.getTabAt(position).getTag().toString()) {
 			case "info":
 				return programInfoFragment;
-//			case "description":
-//				return programDescriptionFragment;
-			case "history":
-				return historyFragment;
+			case "profit":
+				return programProfitFragment;
 			case "trades":
 				return tradesFragment;
+			case "history":
+				return historyFragment;
 			default:
 				return null;
 		}
@@ -71,6 +71,6 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	public void sendUpdate() {
 		programInfoFragment.pagerShow();
-//		programDescriptionFragment.pagerShow();
+		programProfitFragment.pagerShow();
 	}
 }

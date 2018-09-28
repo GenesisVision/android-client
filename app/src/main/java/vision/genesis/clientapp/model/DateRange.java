@@ -31,6 +31,13 @@ public class DateRange implements Parcelable
 		}
 	};
 
+	public static DateRange createFromEnum(DateRangeEnum range) {
+		DateRange dateRange = new DateRange();
+		dateRange.setSelectedRange(range);
+		dateRange.updateDates(range);
+		return dateRange;
+	}
+
 	private DateTime from = DateTime.now().minusDays(1);
 
 	private DateTime to = DateTime.now();

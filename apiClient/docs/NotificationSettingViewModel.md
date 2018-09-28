@@ -23,6 +23,7 @@ PROFILEUPDATED | &quot;ProfileUpdated&quot;
 PROFILEPWDUPDATED | &quot;ProfilePwdUpdated&quot;
 PROFILEVERIFICATION | &quot;ProfileVerification&quot;
 PROFILE2FA | &quot;Profile2FA&quot;
+PROFILESECURITY | &quot;ProfileSecurity&quot;
 PROGRAMNEWSANDUPDATES | &quot;ProgramNewsAndUpdates&quot;
 PROGRAMENDOFPERIOD | &quot;ProgramEndOfPeriod&quot;
 PROGRAMCONDITION | &quot;ProgramCondition&quot;

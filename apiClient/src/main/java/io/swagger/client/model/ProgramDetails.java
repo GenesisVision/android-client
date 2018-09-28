@@ -50,9 +50,6 @@ public class ProgramDetails
 	@SerializedName("periodEnds")
 	private DateTime periodEnds = null;
 
-	@SerializedName("isReinvesting")
-	private Boolean isReinvesting = null;
-
 	@SerializedName("availableInvestment")
 	private Double availableInvestment = null;
 
@@ -70,6 +67,9 @@ public class ProgramDetails
 
 	@SerializedName("description")
 	private String description = null;
+
+	@SerializedName("status")
+	private StatusEnum status = null;
 
 	@SerializedName("manager")
 	private ProfilePublic manager = null;
@@ -176,25 +176,6 @@ public class ProgramDetails
 
 	public void setPeriodEnds(DateTime periodEnds) {
 		this.periodEnds = periodEnds;
-	}
-
-	public ProgramDetails isReinvesting(Boolean isReinvesting) {
-		this.isReinvesting = isReinvesting;
-		return this;
-	}
-
-	/**
-	 * Get isReinvesting
-	 *
-	 * @return isReinvesting
-	 **/
-	@ApiModelProperty(value = "")
-	public Boolean isIsReinvesting() {
-		return isReinvesting;
-	}
-
-	public void setIsReinvesting(Boolean isReinvesting) {
-		this.isReinvesting = isReinvesting;
 	}
 
 	public ProgramDetails availableInvestment(Double availableInvestment) {
@@ -311,6 +292,25 @@ public class ProgramDetails
 		this.description = description;
 	}
 
+	public ProgramDetails status(StatusEnum status) {
+		this.status = status;
+		return this;
+	}
+
+	/**
+	 * Get status
+	 *
+	 * @return status
+	 **/
+	@ApiModelProperty(value = "")
+	public StatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusEnum status) {
+		this.status = status;
+	}
+
 	public ProgramDetails manager(ProfilePublic manager) {
 		this.manager = manager;
 		return this;
@@ -409,13 +409,13 @@ public class ProgramDetails
 				Objects.equals(this.periodDuration, programDetails.periodDuration) &&
 				Objects.equals(this.periodStarts, programDetails.periodStarts) &&
 				Objects.equals(this.periodEnds, programDetails.periodEnds) &&
-				Objects.equals(this.isReinvesting, programDetails.isReinvesting) &&
 				Objects.equals(this.availableInvestment, programDetails.availableInvestment) &&
 				Objects.equals(this.statistic, programDetails.statistic) &&
 				Objects.equals(this.id, programDetails.id) &&
 				Objects.equals(this.logo, programDetails.logo) &&
 				Objects.equals(this.title, programDetails.title) &&
 				Objects.equals(this.description, programDetails.description) &&
+				Objects.equals(this.status, programDetails.status) &&
 				Objects.equals(this.manager, programDetails.manager) &&
 				Objects.equals(this.chart, programDetails.chart) &&
 				Objects.equals(this.personalProgramDetails, programDetails.personalProgramDetails) &&
@@ -424,7 +424,7 @@ public class ProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, isReinvesting, availableInvestment, statistic, id, logo, title, description, manager, chart, personalProgramDetails, dashboardProgramDetails);
+		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, availableInvestment, statistic, id, logo, title, description, status, manager, chart, personalProgramDetails, dashboardProgramDetails);
 	}
 
 	@Override
@@ -437,13 +437,13 @@ public class ProgramDetails
 		sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
 		sb.append("    periodStarts: ").append(toIndentedString(periodStarts)).append("\n");
 		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
-		sb.append("    isReinvesting: ").append(toIndentedString(isReinvesting)).append("\n");
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("    personalProgramDetails: ").append(toIndentedString(personalProgramDetails)).append("\n");
@@ -462,6 +462,7 @@ public class ProgramDetails
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
+
 
 	/**
 	 * Gets or Sets currency
@@ -518,6 +519,65 @@ public class ProgramDetails
 			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
 				String value = jsonReader.nextString();
 				return CurrencyEnum.fromValue(String.valueOf(value));
+			}
+		}
+	}
+
+	/**
+	 * Gets or Sets status
+	 */
+	@JsonAdapter(StatusEnum.Adapter.class)
+	public enum StatusEnum
+	{
+		NONE("None"),
+
+		PENDING("Pending"),
+
+		ERRORCREATING("ErrorCreating"),
+
+		ACTIVE("Active"),
+
+		CLOSED("Closed"),
+
+		ARCHIVED("Archived"),
+
+		CLOSEDDUETOINACTIVITY("ClosedDueToInactivity");
+
+		public static StatusEnum fromValue(String text) {
+			for (StatusEnum b : StatusEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		StatusEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<StatusEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public StatusEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return StatusEnum.fromValue(String.valueOf(value));
 			}
 		}
 	}

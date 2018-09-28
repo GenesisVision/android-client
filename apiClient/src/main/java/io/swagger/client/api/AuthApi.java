@@ -160,6 +160,29 @@ public interface AuthApi
 	);
 
 	/**
+	 * Request phone number verification code
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Integer&gt;
+	 */
+	@POST("v1.0/auth/phone/code")
+	Observable<Integer> v10AuthPhoneCodePost(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Verify phone number
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param token         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v1.0/auth/phone/verify")
+	Observable<Void> v10AuthPhoneVerifyPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("token") String token
+	);
+
+	/**
 	 * Resend Confirmation Link
 	 *
 	 * @param model (optional)
@@ -239,6 +262,17 @@ public interface AuthApi
 	@POST("v1.0/auth/signup/manager")
 	Observable<Void> v10AuthSignupManagerPost(
 			@retrofit2.http.Body RegisterManagerViewModel model
+	);
+
+	/**
+	 * Logout from another devices
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;String&gt;
+	 */
+	@POST("v1.0/auth/token/devices/logout")
+	Observable<String> v10AuthTokenDevicesLogoutPost(
+			@retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**

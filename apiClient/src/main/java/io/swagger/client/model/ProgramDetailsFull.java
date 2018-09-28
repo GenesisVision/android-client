@@ -33,18 +33,6 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ProgramDetailsFull
 {
-	@SerializedName("id")
-	private UUID id = null;
-
-	@SerializedName("logo")
-	private String logo = null;
-
-	@SerializedName("description")
-	private String description = null;
-
-	@SerializedName("title")
-	private String title = null;
-
 	@SerializedName("currency")
 	private CurrencyEnum currency = null;
 
@@ -69,14 +57,8 @@ public class ProgramDetailsFull
 	@SerializedName("isReinvesting")
 	private Boolean isReinvesting = null;
 
-	@SerializedName("status")
-	private StatusEnum status = null;
-
 	@SerializedName("availableInvestment")
 	private Double availableInvestment = null;
-
-	@SerializedName("manager")
-	private ProfilePublic manager = null;
 
 	@SerializedName("statistic")
 	private ProgramStatistic statistic = null;
@@ -84,81 +66,23 @@ public class ProgramDetailsFull
 	@SerializedName("personalProgramDetails")
 	private PersonalProgramDetailsFull personalProgramDetails = null;
 
-	public ProgramDetailsFull id(UUID id) {
-		this.id = id;
-		return this;
-	}
+	@SerializedName("id")
+	private UUID id = null;
 
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@ApiModelProperty(value = "")
-	public UUID getId() {
-		return id;
-	}
+	@SerializedName("logo")
+	private String logo = null;
 
-	public void setId(UUID id) {
-		this.id = id;
-	}
+	@SerializedName("description")
+	private String description = null;
 
-	public ProgramDetailsFull logo(String logo) {
-		this.logo = logo;
-		return this;
-	}
+	@SerializedName("title")
+	private String title = null;
 
-	/**
-	 * Get logo
-	 *
-	 * @return logo
-	 **/
-	@ApiModelProperty(value = "")
-	public String getLogo() {
-		return logo;
-	}
+	@SerializedName("status")
+	private StatusEnum status = null;
 
-	public void setLogo(String logo) {
-		this.logo = logo;
-	}
-
-	public ProgramDetailsFull description(String description) {
-		this.description = description;
-		return this;
-	}
-
-	/**
-	 * Get description
-	 *
-	 * @return description
-	 **/
-	@ApiModelProperty(value = "")
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public ProgramDetailsFull title(String title) {
-		this.title = title;
-		return this;
-	}
-
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@ApiModelProperty(value = "")
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
+	@SerializedName("manager")
+	private ProfilePublic manager = null;
 
 	public ProgramDetailsFull currency(CurrencyEnum currency) {
 		this.currency = currency;
@@ -312,25 +236,6 @@ public class ProgramDetailsFull
 		this.isReinvesting = isReinvesting;
 	}
 
-	public ProgramDetailsFull status(StatusEnum status) {
-		this.status = status;
-		return this;
-	}
-
-	/**
-	 * Get status
-	 *
-	 * @return status
-	 **/
-	@ApiModelProperty(value = "")
-	public StatusEnum getStatus() {
-		return status;
-	}
-
-	public void setStatus(StatusEnum status) {
-		this.status = status;
-	}
-
 	public ProgramDetailsFull availableInvestment(Double availableInvestment) {
 		this.availableInvestment = availableInvestment;
 		return this;
@@ -348,25 +253,6 @@ public class ProgramDetailsFull
 
 	public void setAvailableInvestment(Double availableInvestment) {
 		this.availableInvestment = availableInvestment;
-	}
-
-	public ProgramDetailsFull manager(ProfilePublic manager) {
-		this.manager = manager;
-		return this;
-	}
-
-	/**
-	 * Get manager
-	 *
-	 * @return manager
-	 **/
-	@ApiModelProperty(value = "")
-	public ProfilePublic getManager() {
-		return manager;
-	}
-
-	public void setManager(ProfilePublic manager) {
-		this.manager = manager;
 	}
 
 	public ProgramDetailsFull statistic(ProgramStatistic statistic) {
@@ -407,6 +293,120 @@ public class ProgramDetailsFull
 		this.personalProgramDetails = personalProgramDetails;
 	}
 
+	public ProgramDetailsFull id(UUID id) {
+		this.id = id;
+		return this;
+	}
+
+	/**
+	 * Get id
+	 *
+	 * @return id
+	 **/
+	@ApiModelProperty(value = "")
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public ProgramDetailsFull logo(String logo) {
+		this.logo = logo;
+		return this;
+	}
+
+	/**
+	 * Get logo
+	 *
+	 * @return logo
+	 **/
+	@ApiModelProperty(value = "")
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public ProgramDetailsFull description(String description) {
+		this.description = description;
+		return this;
+	}
+
+	/**
+	 * Get description
+	 *
+	 * @return description
+	 **/
+	@ApiModelProperty(value = "")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public ProgramDetailsFull title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@ApiModelProperty(value = "")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public ProgramDetailsFull status(StatusEnum status) {
+		this.status = status;
+		return this;
+	}
+
+	/**
+	 * Get status
+	 *
+	 * @return status
+	 **/
+	@ApiModelProperty(value = "")
+	public StatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusEnum status) {
+		this.status = status;
+	}
+
+	public ProgramDetailsFull manager(ProfilePublic manager) {
+		this.manager = manager;
+		return this;
+	}
+
+	/**
+	 * Get manager
+	 *
+	 * @return manager
+	 **/
+	@ApiModelProperty(value = "")
+	public ProfilePublic getManager() {
+		return manager;
+	}
+
+	public void setManager(ProfilePublic manager) {
+		this.manager = manager;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -416,11 +416,7 @@ public class ProgramDetailsFull
 			return false;
 		}
 		ProgramDetailsFull programDetailsFull = (ProgramDetailsFull) o;
-		return Objects.equals(this.id, programDetailsFull.id) &&
-				Objects.equals(this.logo, programDetailsFull.logo) &&
-				Objects.equals(this.description, programDetailsFull.description) &&
-				Objects.equals(this.title, programDetailsFull.title) &&
-				Objects.equals(this.currency, programDetailsFull.currency) &&
+		return Objects.equals(this.currency, programDetailsFull.currency) &&
 				Objects.equals(this.level, programDetailsFull.level) &&
 				Objects.equals(this.periodDuration, programDetailsFull.periodDuration) &&
 				Objects.equals(this.periodStarts, programDetailsFull.periodStarts) &&
@@ -428,16 +424,20 @@ public class ProgramDetailsFull
 				Objects.equals(this.entryFee, programDetailsFull.entryFee) &&
 				Objects.equals(this.successFee, programDetailsFull.successFee) &&
 				Objects.equals(this.isReinvesting, programDetailsFull.isReinvesting) &&
-				Objects.equals(this.status, programDetailsFull.status) &&
 				Objects.equals(this.availableInvestment, programDetailsFull.availableInvestment) &&
-				Objects.equals(this.manager, programDetailsFull.manager) &&
 				Objects.equals(this.statistic, programDetailsFull.statistic) &&
-				Objects.equals(this.personalProgramDetails, programDetailsFull.personalProgramDetails);
+				Objects.equals(this.personalProgramDetails, programDetailsFull.personalProgramDetails) &&
+				Objects.equals(this.id, programDetailsFull.id) &&
+				Objects.equals(this.logo, programDetailsFull.logo) &&
+				Objects.equals(this.description, programDetailsFull.description) &&
+				Objects.equals(this.title, programDetailsFull.title) &&
+				Objects.equals(this.status, programDetailsFull.status) &&
+				Objects.equals(this.manager, programDetailsFull.manager);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, description, title, currency, level, periodDuration, periodStarts, periodEnds, entryFee, successFee, isReinvesting, status, availableInvestment, manager, statistic, personalProgramDetails);
+		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, entryFee, successFee, isReinvesting, availableInvestment, statistic, personalProgramDetails, id, logo, description, title, status, manager);
 	}
 
 	@Override
@@ -445,10 +445,6 @@ public class ProgramDetailsFull
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ProgramDetailsFull {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
-		sb.append("    description: ").append(toIndentedString(description)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
 		sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
@@ -457,11 +453,15 @@ public class ProgramDetailsFull
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
 		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("    isReinvesting: ").append(toIndentedString(isReinvesting)).append("\n");
-		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
-		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    personalProgramDetails: ").append(toIndentedString(personalProgramDetails)).append("\n");
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    status: ").append(toIndentedString(status)).append("\n");
+		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -553,7 +553,9 @@ public class ProgramDetailsFull
 
 		CLOSED("Closed"),
 
-		ARCHIVED("Archived");
+		ARCHIVED("Archived"),
+
+		CLOSEDDUETOINACTIVITY("ClosedDueToInactivity");
 
 		public static StatusEnum fromValue(String text) {
 			for (StatusEnum b : StatusEnum.values()) {

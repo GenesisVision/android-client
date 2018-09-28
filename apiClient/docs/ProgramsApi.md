@@ -4,63 +4,14 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v10ProgramsByIdChartGet**](ProgramsApi.md#v10ProgramsByIdChartGet) | **GET** v1.0/programs/{id}/chart | Program chart
 [**v10ProgramsByIdFavoriteAddPost**](ProgramsApi.md#v10ProgramsByIdFavoriteAddPost) | **POST** v1.0/programs/{id}/favorite/add | Add to favorites
 [**v10ProgramsByIdFavoriteRemovePost**](ProgramsApi.md#v10ProgramsByIdFavoriteRemovePost) | **POST** v1.0/programs/{id}/favorite/remove | Remove from favorites
 [**v10ProgramsByIdGet**](ProgramsApi.md#v10ProgramsByIdGet) | **GET** v1.0/programs/{id} | Program details
+[**v10ProgramsByIdProfitchartGet**](ProgramsApi.md#v10ProgramsByIdProfitchartGet) | **GET** v1.0/programs/{id}/profitchart | Program profit chart
 [**v10ProgramsByIdTradesGet**](ProgramsApi.md#v10ProgramsByIdTradesGet) | **GET** v1.0/programs/{id}/trades | Trade history
 [**v10ProgramsGet**](ProgramsApi.md#v10ProgramsGet) | **GET** v1.0/programs | Programs list
 [**v10ProgramsSetsGet**](ProgramsApi.md#v10ProgramsSetsGet) | **GET** v1.0/programs/sets | Programs sets
 
-
-<a name="v10ProgramsByIdChartGet"></a>
-# **v10ProgramsByIdChartGet**
-> ProgramChart v10ProgramsByIdChartGet(id, dateFrom, dateTo, maxPointCount)
-
-Program chart
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.ProgramsApi;
-
-
-ProgramsApi apiInstance = new ProgramsApi();
-UUID id = new UUID(); // UUID | 
-DateTime dateFrom = new DateTime(); // DateTime | 
-DateTime dateTo = new DateTime(); // DateTime | 
-Integer maxPointCount = 56; // Integer | 
-try {
-    ProgramChart result = apiInstance.v10ProgramsByIdChartGet(id, dateFrom, dateTo, maxPointCount);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling ProgramsApi#v10ProgramsByIdChartGet");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)|  |
- **dateFrom** | **DateTime**|  | [optional]
- **dateTo** | **DateTime**|  | [optional]
- **maxPointCount** | **Integer**|  | [optional]
-
-### Return type
-
-[**ProgramChart**](ProgramChart.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
 
 <a name="v10ProgramsByIdFavoriteAddPost"></a>
 # **v10ProgramsByIdFavoriteAddPost**
@@ -154,7 +105,7 @@ No authorization required
 
 <a name="v10ProgramsByIdGet"></a>
 # **v10ProgramsByIdGet**
-> ProgramDetailsFull v10ProgramsByIdGet(id, authorization)
+> ProgramDetailsFull v10ProgramsByIdGet(id, authorization, currencySecondary)
 
 Program details
 
@@ -168,8 +119,9 @@ Program details
 ProgramsApi apiInstance = new ProgramsApi();
 UUID id = new UUID(); // UUID | 
 String authorization = "authorization_example"; // String | 
+String currencySecondary = "currencySecondary_example"; // String | 
 try {
-    ProgramDetailsFull result = apiInstance.v10ProgramsByIdGet(id, authorization);
+    ProgramDetailsFull result = apiInstance.v10ProgramsByIdGet(id, authorization, currencySecondary);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#v10ProgramsByIdGet");
@@ -183,10 +135,62 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
  **authorization** | **String**|  | [optional]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
 
 ### Return type
 
 [**ProgramDetailsFull**](ProgramDetailsFull.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ProgramsByIdProfitchartGet"></a>
+# **v10ProgramsByIdProfitchartGet**
+> ProgramChart v10ProgramsByIdProfitchartGet(id, currency, dateFrom, dateTo, maxPointCount)
+
+Program profit chart
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ProgramsApi;
+
+
+ProgramsApi apiInstance = new ProgramsApi();
+UUID id = new UUID(); // UUID | 
+String currency = "currency_example"; // String | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer maxPointCount = 56; // Integer | 
+try {
+    ProgramChart result = apiInstance.v10ProgramsByIdProfitchartGet(id, currency, dateFrom, dateTo, maxPointCount);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProgramsApi#v10ProgramsByIdProfitchartGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **maxPointCount** | **Integer**|  | [optional]
+
+### Return type
+
+[**ProgramChart**](ProgramChart.md)
 
 ### Authorization
 
@@ -254,7 +258,7 @@ No authorization required
 
 <a name="v10ProgramsGet"></a>
 # **v10ProgramsGet**
-> ProgramsList v10ProgramsGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, sorting, currency, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, ids, skip, take)
+> ProgramsList v10ProgramsGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, sorting, programCurrency, currencySecondary, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, ids, skip, take)
 
 Programs list
 
@@ -272,7 +276,8 @@ Integer levelMax = 56; // Integer |
 Double profitAvgMin = 3.4D; // Double | 
 Double profitAvgMax = 3.4D; // Double | 
 String sorting = "sorting_example"; // String | 
-String currency = "currency_example"; // String | 
+String programCurrency = "programCurrency_example"; // String | 
+String currencySecondary = "currencySecondary_example"; // String | 
 DateTime statisticDateFrom = new DateTime(); // DateTime | 
 DateTime statisticDateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
@@ -283,7 +288,7 @@ List<UUID> ids = Arrays.asList(new UUID()); // List<UUID> |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ProgramsList result = apiInstance.v10ProgramsGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, sorting, currency, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, ids, skip, take);
+    ProgramsList result = apiInstance.v10ProgramsGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, sorting, programCurrency, currencySecondary, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, ids, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#v10ProgramsGet");
@@ -301,7 +306,8 @@ Name | Type | Description  | Notes
  **profitAvgMin** | **Double**|  | [optional]
  **profitAvgMax** | **Double**|  | [optional]
  **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByTradesAsc, ByTradesDesc, ByInvestorsAsc, ByInvestorsDesc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc]
- **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **programCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
  **statisticDateFrom** | **DateTime**|  | [optional]
  **statisticDateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]

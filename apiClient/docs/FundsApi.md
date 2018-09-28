@@ -4,12 +4,300 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**v10FundsAssetsGet**](FundsApi.md#v10FundsAssetsGet) | **GET** v1.0/funds/assets | Get all supported assets for funds
+[**v10FundsByIdFavoriteAddPost**](FundsApi.md#v10FundsByIdFavoriteAddPost) | **POST** v1.0/funds/{id}/favorite/add | Add to favorites
+[**v10FundsByIdFavoriteRemovePost**](FundsApi.md#v10FundsByIdFavoriteRemovePost) | **POST** v1.0/funds/{id}/favorite/remove | Remove from favorites
+[**v10FundsByIdGet**](FundsApi.md#v10FundsByIdGet) | **GET** v1.0/funds/{id} | Funds details
+[**v10FundsByIdProfitchartGet**](FundsApi.md#v10FundsByIdProfitchartGet) | **GET** v1.0/funds/{id}/profitchart | Fund profit chart
+[**v10FundsByIdRebalancingGet**](FundsApi.md#v10FundsByIdRebalancingGet) | **GET** v1.0/funds/{id}/rebalancing | Rebalancing history
 [**v10FundsGet**](FundsApi.md#v10FundsGet) | **GET** v1.0/funds | Funds list
 
 
+<a name="v10FundsAssetsGet"></a>
+# **v10FundsAssetsGet**
+> PlatformAssets v10FundsAssetsGet(authorization)
+
+Get all supported assets for funds
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.FundsApi;
+
+
+FundsApi apiInstance = new FundsApi();
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    PlatformAssets result = apiInstance.v10FundsAssetsGet(authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FundsApi#v10FundsAssetsGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**PlatformAssets**](PlatformAssets.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10FundsByIdFavoriteAddPost"></a>
+# **v10FundsByIdFavoriteAddPost**
+> Void v10FundsByIdFavoriteAddPost(id, authorization)
+
+Add to favorites
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.FundsApi;
+
+
+FundsApi apiInstance = new FundsApi();
+UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.v10FundsByIdFavoriteAddPost(id, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FundsApi#v10FundsByIdFavoriteAddPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10FundsByIdFavoriteRemovePost"></a>
+# **v10FundsByIdFavoriteRemovePost**
+> Void v10FundsByIdFavoriteRemovePost(id, authorization)
+
+Remove from favorites
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.FundsApi;
+
+
+FundsApi apiInstance = new FundsApi();
+UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.v10FundsByIdFavoriteRemovePost(id, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FundsApi#v10FundsByIdFavoriteRemovePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10FundsByIdGet"></a>
+# **v10FundsByIdGet**
+> FundDetailsFull v10FundsByIdGet(id, authorization, currencySecondary)
+
+Funds details
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.FundsApi;
+
+
+FundsApi apiInstance = new FundsApi();
+UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | 
+String currencySecondary = "currencySecondary_example"; // String | 
+try {
+    FundDetailsFull result = apiInstance.v10FundsByIdGet(id, authorization, currencySecondary);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FundsApi#v10FundsByIdGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **authorization** | **String**|  | [optional]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+
+### Return type
+
+[**FundDetailsFull**](FundDetailsFull.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10FundsByIdProfitchartGet"></a>
+# **v10FundsByIdProfitchartGet**
+> FundChart v10FundsByIdProfitchartGet(id, currency, dateFrom, dateTo, maxPointCount)
+
+Fund profit chart
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.FundsApi;
+
+
+FundsApi apiInstance = new FundsApi();
+UUID id = new UUID(); // UUID | 
+String currency = "currency_example"; // String | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer maxPointCount = 56; // Integer | 
+try {
+    FundChart result = apiInstance.v10FundsByIdProfitchartGet(id, currency, dateFrom, dateTo, maxPointCount);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FundsApi#v10FundsByIdProfitchartGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **maxPointCount** | **Integer**|  | [optional]
+
+### Return type
+
+[**FundChart**](FundChart.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10FundsByIdRebalancingGet"></a>
+# **v10FundsByIdRebalancingGet**
+> RebalancesViewModel v10FundsByIdRebalancingGet(id, dateFrom, dateTo, skip, take)
+
+Rebalancing history
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.FundsApi;
+
+
+FundsApi apiInstance = new FundsApi();
+UUID id = new UUID(); // UUID | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    RebalancesViewModel result = apiInstance.v10FundsByIdRebalancingGet(id, dateFrom, dateTo, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FundsApi#v10FundsByIdRebalancingGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**RebalancesViewModel**](RebalancesViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="v10FundsGet"></a>
 # **v10FundsGet**
-> ProgramsList v10FundsGet(authorization, sorting, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, ids, skip, take)
+> FundsList v10FundsGet(authorization, sorting, currencySecondary, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, ids, skip, take)
 
 Funds list
 
@@ -23,6 +311,7 @@ Funds list
 FundsApi apiInstance = new FundsApi();
 String authorization = "authorization_example"; // String | 
 String sorting = "sorting_example"; // String | 
+String currencySecondary = "currencySecondary_example"; // String | 
 DateTime statisticDateFrom = new DateTime(); // DateTime | 
 DateTime statisticDateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
@@ -33,7 +322,7 @@ List<UUID> ids = Arrays.asList(new UUID()); // List<UUID> |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ProgramsList result = apiInstance.v10FundsGet(authorization, sorting, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, ids, skip, take);
+    FundsList result = apiInstance.v10FundsGet(authorization, sorting, currencySecondary, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, ids, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#v10FundsGet");
@@ -47,6 +336,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**|  | [optional]
  **sorting** | **String**|  | [optional] [enum: ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByInvestorsAsc, ByInvestorsDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
  **statisticDateFrom** | **DateTime**|  | [optional]
  **statisticDateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
@@ -59,7 +349,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProgramsList**](ProgramsList.md)
+[**FundsList**](FundsList.md)
 
 ### Authorization
 

@@ -14,12 +14,15 @@ Method | HTTP request | Description
 [**v10AuthPasswordForgotInvestorPost**](AuthApi.md#v10AuthPasswordForgotInvestorPost) | **POST** v1.0/auth/password/forgot/investor | Forgot password for investor
 [**v10AuthPasswordForgotManagerPost**](AuthApi.md#v10AuthPasswordForgotManagerPost) | **POST** v1.0/auth/password/forgot/manager | Forgot password for manager
 [**v10AuthPasswordResetPost**](AuthApi.md#v10AuthPasswordResetPost) | **POST** v1.0/auth/password/reset | Reset password
+[**v10AuthPhoneCodePost**](AuthApi.md#v10AuthPhoneCodePost) | **POST** v1.0/auth/phone/code | Request phone number verification code
+[**v10AuthPhoneVerifyPost**](AuthApi.md#v10AuthPhoneVerifyPost) | **POST** v1.0/auth/phone/verify | Verify phone number
 [**v10AuthResendconfirmationlinkPost**](AuthApi.md#v10AuthResendconfirmationlinkPost) | **POST** v1.0/auth/resendconfirmationlink | Resend Confirmation Link
 [**v10AuthSigninInvestorPost**](AuthApi.md#v10AuthSigninInvestorPost) | **POST** v1.0/auth/signin/investor | Authorize
 [**v10AuthSigninManagerPost**](AuthApi.md#v10AuthSigninManagerPost) | **POST** v1.0/auth/signin/manager | Authorize
 [**v10AuthSignupConfirmPost**](AuthApi.md#v10AuthSignupConfirmPost) | **POST** v1.0/auth/signup/confirm | Confirm email after registration
 [**v10AuthSignupInvestorPost**](AuthApi.md#v10AuthSignupInvestorPost) | **POST** v1.0/auth/signup/investor | New investor registration
 [**v10AuthSignupManagerPost**](AuthApi.md#v10AuthSignupManagerPost) | **POST** v1.0/auth/signup/manager | New manager registration
+[**v10AuthTokenDevicesLogoutPost**](AuthApi.md#v10AuthTokenDevicesLogoutPost) | **POST** v1.0/auth/token/devices/logout | Logout from another devices
 [**v10AuthTokenUpdatePost**](AuthApi.md#v10AuthTokenUpdatePost) | **POST** v1.0/auth/token/update | Update auth token
 
 
@@ -463,6 +466,94 @@ No authorization required
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
+<a name="v10AuthPhoneCodePost"></a>
+# **v10AuthPhoneCodePost**
+> Integer v10AuthPhoneCodePost(authorization)
+
+Request phone number verification code
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.AuthApi;
+
+
+AuthApi apiInstance = new AuthApi();
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Integer result = apiInstance.v10AuthPhoneCodePost(authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AuthApi#v10AuthPhoneCodePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+**Integer**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10AuthPhoneVerifyPost"></a>
+# **v10AuthPhoneVerifyPost**
+> Void v10AuthPhoneVerifyPost(authorization, token)
+
+Verify phone number
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.AuthApi;
+
+
+AuthApi apiInstance = new AuthApi();
+String authorization = "authorization_example"; // String | JWT access token
+String token = "token_example"; // String | 
+try {
+    Void result = apiInstance.v10AuthPhoneVerifyPost(authorization, token);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AuthApi#v10AuthPhoneVerifyPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **token** | **String**|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="v10AuthResendconfirmationlinkPost"></a>
 # **v10AuthResendconfirmationlinkPost**
 > Void v10AuthResendconfirmationlinkPost(model)
@@ -721,6 +812,49 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10AuthTokenDevicesLogoutPost"></a>
+# **v10AuthTokenDevicesLogoutPost**
+> String v10AuthTokenDevicesLogoutPost(authorization)
+
+Logout from another devices
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.AuthApi;
+
+
+AuthApi apiInstance = new AuthApi();
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    String result = apiInstance.v10AuthTokenDevicesLogoutPost(authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AuthApi#v10AuthTokenDevicesLogoutPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+**String**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 <a name="v10AuthTokenUpdatePost"></a>

@@ -80,7 +80,7 @@ public class ChartPresenter extends MvpPresenter<ChartView>
 		if (programsManager == null || programId == null)
 			return;
 		getViewState().showProgress(true);
-//		getChartSubscription = investManager.getChart(programId)//currentZoom
+//		getChartSubscription = investManager.getProfitChart(programId)//currentZoom
 //				.observeOn(AndroidSchedulers.mainThread())
 //				.subscribeOn(Schedulers.io())
 //				.subscribe(this::handleGetChartResponse,
@@ -92,7 +92,7 @@ public class ChartPresenter extends MvpPresenter<ChartView>
 //		getViewState().showProgress(false);
 //
 //		List<Entry> lineEntries = new ArrayList<>();
-//		for (TradeChart chart : response.getChart()) {
+//		for (TradeChart chart : response.getProfitChart()) {
 //			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getProfit().floatValue()));
 //		}
 //

@@ -8,6 +8,7 @@ import io.swagger.client.model.ProgramChart;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramsList;
 import rx.Observable;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.ProgramsFilter;
 
@@ -34,7 +35,7 @@ public class ProgramsManager
 	public Observable<ProgramsList> getProgramsList(ProgramsFilter filter) {
 		return programsApi.v10ProgramsGet(AuthManager.token.getValue(),
 				filter.getLevelMin(), filter.getLevelMax(), filter.getProfitAvgMin(), filter.getProfitAvgMax(),
-				filter.getSorting().getValue(), filter.getCurrency() != null ? filter.getCurrency().getValue() : null,
+				filter.getSorting().getValue(), filter.getCurrency() != null ? filter.getCurrency().getValue() : null, null,
 				filter.getStatisticDateFrom(), filter.getStatisticDateTo(), 10,
 				filter.getMask(), filter.getFacetId(), filter.getIsFavorite(),
 				filter.getIds(), filter.getSkip(), filter.getTake());
@@ -52,16 +53,16 @@ public class ProgramsManager
 		return programsApi.v10ProgramsByIdFavoriteRemovePost(programId, AuthManager.token.getValue());
 	}
 
-	public Observable<ProgramDetailsFull> getProgramDetails(UUID programId) {
-		return programsApi.v10ProgramsByIdGet(programId, AuthManager.token.getValue());
+	public Observable<ProgramDetailsFull> getProgramDetails(UUID programId, CurrencyEnum baseCurrency) {
+		return programsApi.v10ProgramsByIdGet(programId, AuthManager.token.getValue(), baseCurrency.getValue());
 	}
 
 //	public Observable<TradesViewModel> getProgramTrades(TradesFilter filter) {
 //		return programsApi.v10ProgramByIdTradesGet()
 //	}
 
-	public Observable<ProgramChart> getChart(UUID programId, DateRange dateRange, Integer maxPointCount) {
-		return programsApi.v10ProgramsByIdChartGet(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount);
+	public Observable<ProgramChart> getProfitChart(UUID programId, CurrencyEnum baseCurrency, DateRange dateRange, Integer maxPointCount) {
+		return programsApi.v10ProgramsByIdProfitchartGet(programId, baseCurrency.getValue(), dateRange.getFrom(), dateRange.getTo(), maxPointCount);
 	}
 
 	//	public Observable<InvestmentProgramBuyToken> getBuyTokensModel(UUID programId) {

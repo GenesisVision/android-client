@@ -21,7 +21,6 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 import java.util.Objects;
-import java.util.UUID;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -31,55 +30,20 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class WalletInfo
 {
-	@SerializedName("walletId")
-	private UUID walletId = null;
-
-	@SerializedName("gatewayCode")
-	private String gatewayCode = null;
-
 	@SerializedName("currency")
 	private CurrencyEnum currency = null;
 
 	@SerializedName("address")
 	private String address = null;
 
-	public WalletInfo walletId(UUID walletId) {
-		this.walletId = walletId;
-		return this;
-	}
+	@SerializedName("rateToGVT")
+	private Double rateToGVT = null;
 
-	/**
-	 * Get walletId
-	 *
-	 * @return walletId
-	 **/
-	@ApiModelProperty(value = "")
-	public UUID getWalletId() {
-		return walletId;
-	}
+	@SerializedName("description")
+	private String description = null;
 
-	public void setWalletId(UUID walletId) {
-		this.walletId = walletId;
-	}
-
-	public WalletInfo gatewayCode(String gatewayCode) {
-		this.gatewayCode = gatewayCode;
-		return this;
-	}
-
-	/**
-	 * Get gatewayCode
-	 *
-	 * @return gatewayCode
-	 **/
-	@ApiModelProperty(value = "")
-	public String getGatewayCode() {
-		return gatewayCode;
-	}
-
-	public void setGatewayCode(String gatewayCode) {
-		this.gatewayCode = gatewayCode;
-	}
+	@SerializedName("logo")
+	private String logo = null;
 
 	public WalletInfo currency(CurrencyEnum currency) {
 		this.currency = currency;
@@ -119,6 +83,63 @@ public class WalletInfo
 		this.address = address;
 	}
 
+	public WalletInfo rateToGVT(Double rateToGVT) {
+		this.rateToGVT = rateToGVT;
+		return this;
+	}
+
+	/**
+	 * Get rateToGVT
+	 *
+	 * @return rateToGVT
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getRateToGVT() {
+		return rateToGVT;
+	}
+
+	public void setRateToGVT(Double rateToGVT) {
+		this.rateToGVT = rateToGVT;
+	}
+
+	public WalletInfo description(String description) {
+		this.description = description;
+		return this;
+	}
+
+	/**
+	 * Get description
+	 *
+	 * @return description
+	 **/
+	@ApiModelProperty(value = "")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public WalletInfo logo(String logo) {
+		this.logo = logo;
+		return this;
+	}
+
+	/**
+	 * Get logo
+	 *
+	 * @return logo
+	 **/
+	@ApiModelProperty(value = "")
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -128,15 +149,16 @@ public class WalletInfo
 			return false;
 		}
 		WalletInfo walletInfo = (WalletInfo) o;
-		return Objects.equals(this.walletId, walletInfo.walletId) &&
-				Objects.equals(this.gatewayCode, walletInfo.gatewayCode) &&
-				Objects.equals(this.currency, walletInfo.currency) &&
-				Objects.equals(this.address, walletInfo.address);
+		return Objects.equals(this.currency, walletInfo.currency) &&
+				Objects.equals(this.address, walletInfo.address) &&
+				Objects.equals(this.rateToGVT, walletInfo.rateToGVT) &&
+				Objects.equals(this.description, walletInfo.description) &&
+				Objects.equals(this.logo, walletInfo.logo);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(walletId, gatewayCode, currency, address);
+		return Objects.hash(currency, address, rateToGVT, description, logo);
 	}
 
 	@Override
@@ -144,10 +166,11 @@ public class WalletInfo
 		StringBuilder sb = new StringBuilder();
 		sb.append("class WalletInfo {\n");
 
-		sb.append("    walletId: ").append(toIndentedString(walletId)).append("\n");
-		sb.append("    gatewayCode: ").append(toIndentedString(gatewayCode)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    address: ").append(toIndentedString(address)).append("\n");
+		sb.append("    rateToGVT: ").append(toIndentedString(rateToGVT)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

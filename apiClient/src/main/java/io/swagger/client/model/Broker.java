@@ -15,12 +15,9 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.joda.time.DateTime;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -30,9 +27,6 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class Broker
 {
-	@SerializedName("id")
-	private UUID id = null;
-
 	@SerializedName("name")
 	private String name = null;
 
@@ -42,30 +36,23 @@ public class Broker
 	@SerializedName("logo")
 	private String logo = null;
 
-	@SerializedName("registrationDate")
-	private DateTime registrationDate = null;
+	@SerializedName("terms")
+	private String terms = null;
 
-	@SerializedName("servers")
-	private List<BrokerTradingServer> servers = null;
+	@SerializedName("assets")
+	private String assets = null;
 
-	public Broker id(UUID id) {
-		this.id = id;
-		return this;
-	}
+	@SerializedName("fee")
+	private Double fee = null;
 
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@ApiModelProperty(value = "")
-	public UUID getId() {
-		return id;
-	}
+	@SerializedName("leverageMin")
+	private Integer leverageMin = null;
 
-	public void setId(UUID id) {
-		this.id = id;
-	}
+	@SerializedName("leverageMax")
+	private Integer leverageMax = null;
+
+	@SerializedName("accountTypes")
+	private List<BrokerAccountType> accountTypes = null;
 
 	public Broker name(String name) {
 		this.name = name;
@@ -124,50 +111,108 @@ public class Broker
 		this.logo = logo;
 	}
 
-	public Broker registrationDate(DateTime registrationDate) {
-		this.registrationDate = registrationDate;
+	public Broker terms(String terms) {
+		this.terms = terms;
 		return this;
 	}
 
 	/**
-	 * Get registrationDate
+	 * Get terms
 	 *
-	 * @return registrationDate
+	 * @return terms
 	 **/
 	@ApiModelProperty(value = "")
-	public DateTime getRegistrationDate() {
-		return registrationDate;
+	public String getTerms() {
+		return terms;
 	}
 
-	public void setRegistrationDate(DateTime registrationDate) {
-		this.registrationDate = registrationDate;
+	public void setTerms(String terms) {
+		this.terms = terms;
 	}
 
-	public Broker servers(List<BrokerTradingServer> servers) {
-		this.servers = servers;
+	public Broker assets(String assets) {
+		this.assets = assets;
 		return this;
 	}
 
-	public Broker addServersItem(BrokerTradingServer serversItem) {
-		if (this.servers == null) {
-			this.servers = new ArrayList<BrokerTradingServer>();
+	/**
+	 * Get assets
+	 *
+	 * @return assets
+	 **/
+	@ApiModelProperty(value = "")
+	public String getAssets() {
+		return assets;
+	}
+
+	public void setAssets(String assets) {
+		this.assets = assets;
+	}
+
+	public Broker fee(Double fee) {
+		this.fee = fee;
+		return this;
+	}
+
+	/**
+	 * Get fee
+	 *
+	 * @return fee
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getFee() {
+		return fee;
+	}
+
+	public void setFee(Double fee) {
+		this.fee = fee;
+	}
+
+	/**
+	 * Get leverageMin
+	 *
+	 * @return leverageMin
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getLeverageMin() {
+		return leverageMin;
+	}
+
+	/**
+	 * Get leverageMax
+	 *
+	 * @return leverageMax
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getLeverageMax() {
+		return leverageMax;
+	}
+
+	public Broker accountTypes(List<BrokerAccountType> accountTypes) {
+		this.accountTypes = accountTypes;
+		return this;
+	}
+
+	public Broker addAccountTypesItem(BrokerAccountType accountTypesItem) {
+		if (this.accountTypes == null) {
+			this.accountTypes = new ArrayList<BrokerAccountType>();
 		}
-		this.servers.add(serversItem);
+		this.accountTypes.add(accountTypesItem);
 		return this;
 	}
 
 	/**
-	 * Get servers
+	 * Get accountTypes
 	 *
-	 * @return servers
+	 * @return accountTypes
 	 **/
 	@ApiModelProperty(value = "")
-	public List<BrokerTradingServer> getServers() {
-		return servers;
+	public List<BrokerAccountType> getAccountTypes() {
+		return accountTypes;
 	}
 
-	public void setServers(List<BrokerTradingServer> servers) {
-		this.servers = servers;
+	public void setAccountTypes(List<BrokerAccountType> accountTypes) {
+		this.accountTypes = accountTypes;
 	}
 
 
@@ -180,17 +225,20 @@ public class Broker
 			return false;
 		}
 		Broker broker = (Broker) o;
-		return Objects.equals(this.id, broker.id) &&
-				Objects.equals(this.name, broker.name) &&
+		return Objects.equals(this.name, broker.name) &&
 				Objects.equals(this.description, broker.description) &&
 				Objects.equals(this.logo, broker.logo) &&
-				Objects.equals(this.registrationDate, broker.registrationDate) &&
-				Objects.equals(this.servers, broker.servers);
+				Objects.equals(this.terms, broker.terms) &&
+				Objects.equals(this.assets, broker.assets) &&
+				Objects.equals(this.fee, broker.fee) &&
+				Objects.equals(this.leverageMin, broker.leverageMin) &&
+				Objects.equals(this.leverageMax, broker.leverageMax) &&
+				Objects.equals(this.accountTypes, broker.accountTypes);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, description, logo, registrationDate, servers);
+		return Objects.hash(name, description, logo, terms, assets, fee, leverageMin, leverageMax, accountTypes);
 	}
 
 
@@ -199,12 +247,15 @@ public class Broker
 		StringBuilder sb = new StringBuilder();
 		sb.append("class Broker {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
-		sb.append("    registrationDate: ").append(toIndentedString(registrationDate)).append("\n");
-		sb.append("    servers: ").append(toIndentedString(servers)).append("\n");
+		sb.append("    terms: ").append(toIndentedString(terms)).append("\n");
+		sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
+		sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
+		sb.append("    leverageMin: ").append(toIndentedString(leverageMin)).append("\n");
+		sb.append("    leverageMax: ").append(toIndentedString(leverageMax)).append("\n");
+		sb.append("    accountTypes: ").append(toIndentedString(accountTypes)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

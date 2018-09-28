@@ -327,4 +327,28 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="statistics_group">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+    </style>
+
+    <style name="statistics_label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:alpha">0.4</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="statistics_value">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
 </resources>

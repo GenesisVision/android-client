@@ -4,10 +4,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | [**UUID**](UUID.md) |  |  [optional]
-**logo** | **String** |  |  [optional]
-**description** | **String** |  |  [optional]
-**title** | **String** |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **level** | **Integer** |  |  [optional]
 **periodDuration** | **Integer** |  |  [optional]
@@ -16,11 +12,15 @@ Name | Type | Description | Notes
 **entryFee** | **Double** |  |  [optional]
 **successFee** | **Double** |  |  [optional]
 **isReinvesting** | **Boolean** |  |  [optional]
-**status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
 **availableInvestment** | **Double** |  |  [optional]
-**manager** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 **statistic** | [**ProgramStatistic**](ProgramStatistic.md) |  |  [optional]
 **personalProgramDetails** | [**PersonalProgramDetailsFull**](PersonalProgramDetailsFull.md) | Fields for authorized user |  [optional]
+**id** | [**UUID**](UUID.md) |  |  [optional]
+**logo** | **String** |  |  [optional]
+**description** | **String** |  |  [optional]
+**title** | **String** |  |  [optional]
+**status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
+**manager** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>
@@ -46,6 +46,7 @@ ERRORCREATING | &quot;ErrorCreating&quot;
 ACTIVE | &quot;Active&quot;
 CLOSED | &quot;Closed&quot;
 ARCHIVED | &quot;Archived&quot;
+CLOSEDDUETOINACTIVITY | &quot;ClosedDueToInactivity&quot;
 
 
 

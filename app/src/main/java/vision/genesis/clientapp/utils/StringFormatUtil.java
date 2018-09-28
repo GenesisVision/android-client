@@ -103,4 +103,22 @@ public class StringFormatUtil
 		}
 		return text;
 	}
+
+	public static String getGvtValueString(Double gvtValue) {
+		return String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(gvtValue, CurrencyEnum.GVT.getValue()));
+	}
+
+	public static String getBaseValueString(Double baseValue, String baseCurrency) {
+		return String.format(Locale.getDefault(), "%s %s", StringFormatUtil.formatCurrencyAmount(baseValue, baseCurrency), baseCurrency);
+	}
+
+	public static String getChangePercentString(Double first, Double last) {
+		return String.format(Locale.getDefault(), "%s%%",
+				StringFormatUtil.formatAmount(Math.abs(first != 0 ? 100 / first * (first - last) : 0), 0, 2));
+	}
+
+	public static String getChangeValueString(Double changeValue) {
+		return String.format(Locale.getDefault(), "%s%s GVT", changeValue > 0 ? "+" : "",
+				StringFormatUtil.formatCurrencyAmount(changeValue, CurrencyEnum.GVT.getValue()));
+	}
 }

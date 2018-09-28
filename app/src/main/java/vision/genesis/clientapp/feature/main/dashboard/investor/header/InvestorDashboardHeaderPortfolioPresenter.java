@@ -7,8 +7,6 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.Locale;
-
 import javax.inject.Inject;
 
 import io.swagger.client.model.DashboardChartValue;
@@ -111,29 +109,14 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 		if (first == null || selected == null)
 			return;
 
-		getViewState().setBalance(getGvtValueString(selected), getBaseValueString(selected * chartValue.getRate()));
+		getViewState().setBalance(StringFormatUtil.getGvtValueString(selected),
+				StringFormatUtil.getBaseValueString(selected * chartValue.getRate(), baseCurrency.getValue()));
 
 		Double changeValue = selected - first;
-		getViewState().setChange(changeValue < 0, getChangePercentString(first, selected),
-				getChangeValueString(changeValue), getBaseValueString(changeValue * chartValue.getRate()));
-	}
-
-	private String getGvtValueString(Double gvtValue) {
-		return String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(gvtValue, CurrencyEnum.GVT.getValue()));
-	}
-
-	private String getBaseValueString(Double baseValue) {
-		return String.format(Locale.getDefault(), "%s %s", StringFormatUtil.formatCurrencyAmount(baseValue, baseCurrency.getValue()), baseCurrency.getValue());
-	}
-
-	private String getChangePercentString(Double first, Double last) {
-		return String.format(Locale.getDefault(), "%s%%",
-				StringFormatUtil.formatAmount(Math.abs(first != 0 ? 100 / first * (first - last) : 0), 0, 2));
-	}
-
-	private String getChangeValueString(Double changeValue) {
-		return String.format(Locale.getDefault(), "%s%s GVT", changeValue > 0 ? "+" : "",
-				StringFormatUtil.formatCurrencyAmount(changeValue, CurrencyEnum.GVT.getValue()));
+		getViewState().setChange(changeValue < 0,
+				StringFormatUtil.getChangePercentString(first, selected),
+				StringFormatUtil.getChangeValueString(changeValue),
+				StringFormatUtil.getBaseValueString(changeValue * chartValue.getRate(), baseCurrency.getValue()));
 	}
 
 	public void chartViewModeTurnOff() {
@@ -146,6 +129,7 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 	}
 
 	public void setInRequestsData(Double totalValue, Double rate) {
-		getViewState().setInRequests(getChangeValueString(totalValue), getBaseValueString(totalValue * rate));
+		getViewState().setInRequests(StringFormatUtil.getChangeValueString(totalValue),
+				StringFormatUtil.getBaseValueString(totalValue * rate, baseCurrency.getValue()));
 	}
 }

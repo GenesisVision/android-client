@@ -7,14 +7,13 @@ Name | Type | Description | Notes
 **periodLength** | **Integer** |  |  [optional]
 **successFee** | **Double** |  |  [optional]
 **stopOutLevel** | **Double** |  |  [optional]
-**currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **leverage** | **Integer** |  |  [optional]
 **title** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
 **logo** | **String** |  |  [optional]
-**tradingServerId** | [**UUID**](UUID.md) |  |  [optional]
+**brokerAccountTypeId** | [**UUID**](UUID.md) |  |  [optional]
 **entryFee** | **Double** |  |  [optional]
-**depositAmount** | **Double** |  |  [optional]
+**currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

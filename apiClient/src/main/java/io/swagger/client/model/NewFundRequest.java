@@ -13,8 +13,13 @@
 
 package io.swagger.client.model;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -46,14 +51,14 @@ public class NewFundRequest
 	@SerializedName("logo")
 	private String logo = null;
 
-	@SerializedName("tradingServerId")
-	private UUID tradingServerId = null;
+	@SerializedName("brokerAccountTypeId")
+	private UUID brokerAccountTypeId = null;
 
 	@SerializedName("entryFee")
 	private Double entryFee = null;
 
-	@SerializedName("depositAmount")
-	private Double depositAmount = null;
+	@SerializedName("currency")
+	private CurrencyEnum currency = null;
 
 	public NewFundRequest exitFee(Double exitFee) {
 		this.exitFee = exitFee;
@@ -177,23 +182,23 @@ public class NewFundRequest
 		this.logo = logo;
 	}
 
-	public NewFundRequest tradingServerId(UUID tradingServerId) {
-		this.tradingServerId = tradingServerId;
+	public NewFundRequest brokerAccountTypeId(UUID brokerAccountTypeId) {
+		this.brokerAccountTypeId = brokerAccountTypeId;
 		return this;
 	}
 
 	/**
-	 * Get tradingServerId
+	 * Get brokerAccountTypeId
 	 *
-	 * @return tradingServerId
+	 * @return brokerAccountTypeId
 	 **/
 	@ApiModelProperty(value = "")
-	public UUID getTradingServerId() {
-		return tradingServerId;
+	public UUID getBrokerAccountTypeId() {
+		return brokerAccountTypeId;
 	}
 
-	public void setTradingServerId(UUID tradingServerId) {
-		this.tradingServerId = tradingServerId;
+	public void setBrokerAccountTypeId(UUID brokerAccountTypeId) {
+		this.brokerAccountTypeId = brokerAccountTypeId;
 	}
 
 	public NewFundRequest entryFee(Double entryFee) {
@@ -215,25 +220,24 @@ public class NewFundRequest
 		this.entryFee = entryFee;
 	}
 
-	public NewFundRequest depositAmount(Double depositAmount) {
-		this.depositAmount = depositAmount;
+	public NewFundRequest currency(CurrencyEnum currency) {
+		this.currency = currency;
 		return this;
 	}
 
 	/**
-	 * Get depositAmount
+	 * Get currency
 	 *
-	 * @return depositAmount
+	 * @return currency
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getDepositAmount() {
-		return depositAmount;
+	public CurrencyEnum getCurrency() {
+		return currency;
 	}
 
-	public void setDepositAmount(Double depositAmount) {
-		this.depositAmount = depositAmount;
+	public void setCurrency(CurrencyEnum currency) {
+		this.currency = currency;
 	}
-
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -250,16 +254,15 @@ public class NewFundRequest
 				Objects.equals(this.title, newFundRequest.title) &&
 				Objects.equals(this.description, newFundRequest.description) &&
 				Objects.equals(this.logo, newFundRequest.logo) &&
-				Objects.equals(this.tradingServerId, newFundRequest.tradingServerId) &&
+				Objects.equals(this.brokerAccountTypeId, newFundRequest.brokerAccountTypeId) &&
 				Objects.equals(this.entryFee, newFundRequest.entryFee) &&
-				Objects.equals(this.depositAmount, newFundRequest.depositAmount);
+				Objects.equals(this.currency, newFundRequest.currency);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(exitFee, managementFee, assetsParts, title, description, logo, tradingServerId, entryFee, depositAmount);
+		return Objects.hash(exitFee, managementFee, assetsParts, title, description, logo, brokerAccountTypeId, entryFee, currency);
 	}
-
 
 	@Override
 	public String toString() {
@@ -272,9 +275,9 @@ public class NewFundRequest
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
-		sb.append("    tradingServerId: ").append(toIndentedString(tradingServerId)).append("\n");
+		sb.append("    brokerAccountTypeId: ").append(toIndentedString(brokerAccountTypeId)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
-		sb.append("    depositAmount: ").append(toIndentedString(depositAmount)).append("\n");
+		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -288,6 +291,65 @@ public class NewFundRequest
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	/**
+	 * Gets or Sets currency
+	 */
+	@JsonAdapter(CurrencyEnum.Adapter.class)
+	public enum CurrencyEnum
+	{
+		UNDEFINED("Undefined"),
+
+		GVT("GVT"),
+
+		ETH("ETH"),
+
+		BTC("BTC"),
+
+		ADA("ADA"),
+
+		USD("USD"),
+
+		EUR("EUR");
+
+		public static CurrencyEnum fromValue(String text) {
+			for (CurrencyEnum b : CurrencyEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		CurrencyEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<CurrencyEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return CurrencyEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 }

@@ -25,14 +25,14 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ProgramDetailsListStatistic
 {
-	@SerializedName("balanceInBase")
-	private AmountWithCurrency balanceInBase = null;
+	@SerializedName("balanceBase")
+	private AmountWithCurrency balanceBase = null;
 
-	@SerializedName("balanceInGVT")
-	private AmountWithCurrency balanceInGVT = null;
+	@SerializedName("balanceGVT")
+	private AmountWithCurrency balanceGVT = null;
 
-	@SerializedName("balanceInFavorite")
-	private AmountWithCurrency balanceInFavorite = null;
+	@SerializedName("balanceSecondary")
+	private AmountWithCurrency balanceSecondary = null;
 
 	@SerializedName("currentValue")
 	private Double currentValue = null;
@@ -52,61 +52,61 @@ public class ProgramDetailsListStatistic
 	@SerializedName("tradesCount")
 	private Integer tradesCount = null;
 
-	public ProgramDetailsListStatistic balanceInBase(AmountWithCurrency balanceInBase) {
-		this.balanceInBase = balanceInBase;
+	public ProgramDetailsListStatistic balanceBase(AmountWithCurrency balanceBase) {
+		this.balanceBase = balanceBase;
 		return this;
 	}
 
 	/**
-	 * Get balanceInBase
+	 * Get balanceBase
 	 *
-	 * @return balanceInBase
+	 * @return balanceBase
 	 **/
 	@ApiModelProperty(value = "")
-	public AmountWithCurrency getBalanceInBase() {
-		return balanceInBase;
+	public AmountWithCurrency getBalanceBase() {
+		return balanceBase;
 	}
 
-	public void setBalanceInBase(AmountWithCurrency balanceInBase) {
-		this.balanceInBase = balanceInBase;
+	public void setBalanceBase(AmountWithCurrency balanceBase) {
+		this.balanceBase = balanceBase;
 	}
 
-	public ProgramDetailsListStatistic balanceInGVT(AmountWithCurrency balanceInGVT) {
-		this.balanceInGVT = balanceInGVT;
+	public ProgramDetailsListStatistic balanceGVT(AmountWithCurrency balanceGVT) {
+		this.balanceGVT = balanceGVT;
 		return this;
 	}
 
 	/**
-	 * Get balanceInGVT
+	 * Get balanceGVT
 	 *
-	 * @return balanceInGVT
+	 * @return balanceGVT
 	 **/
 	@ApiModelProperty(value = "")
-	public AmountWithCurrency getBalanceInGVT() {
-		return balanceInGVT;
+	public AmountWithCurrency getBalanceGVT() {
+		return balanceGVT;
 	}
 
-	public void setBalanceInGVT(AmountWithCurrency balanceInGVT) {
-		this.balanceInGVT = balanceInGVT;
+	public void setBalanceGVT(AmountWithCurrency balanceGVT) {
+		this.balanceGVT = balanceGVT;
 	}
 
-	public ProgramDetailsListStatistic balanceInFavorite(AmountWithCurrency balanceInFavorite) {
-		this.balanceInFavorite = balanceInFavorite;
+	public ProgramDetailsListStatistic balanceSecondary(AmountWithCurrency balanceSecondary) {
+		this.balanceSecondary = balanceSecondary;
 		return this;
 	}
 
 	/**
-	 * Get balanceInFavorite
+	 * Get balanceSecondary
 	 *
-	 * @return balanceInFavorite
+	 * @return balanceSecondary
 	 **/
 	@ApiModelProperty(value = "")
-	public AmountWithCurrency getBalanceInFavorite() {
-		return balanceInFavorite;
+	public AmountWithCurrency getBalanceSecondary() {
+		return balanceSecondary;
 	}
 
-	public void setBalanceInFavorite(AmountWithCurrency balanceInFavorite) {
-		this.balanceInFavorite = balanceInFavorite;
+	public void setBalanceSecondary(AmountWithCurrency balanceSecondary) {
+		this.balanceSecondary = balanceSecondary;
 	}
 
 	public ProgramDetailsListStatistic currentValue(Double currentValue) {
@@ -233,9 +233,9 @@ public class ProgramDetailsListStatistic
 			return false;
 		}
 		ProgramDetailsListStatistic programDetailsListStatistic = (ProgramDetailsListStatistic) o;
-		return Objects.equals(this.balanceInBase, programDetailsListStatistic.balanceInBase) &&
-				Objects.equals(this.balanceInGVT, programDetailsListStatistic.balanceInGVT) &&
-				Objects.equals(this.balanceInFavorite, programDetailsListStatistic.balanceInFavorite) &&
+		return Objects.equals(this.balanceBase, programDetailsListStatistic.balanceBase) &&
+				Objects.equals(this.balanceGVT, programDetailsListStatistic.balanceGVT) &&
+				Objects.equals(this.balanceSecondary, programDetailsListStatistic.balanceSecondary) &&
 				Objects.equals(this.currentValue, programDetailsListStatistic.currentValue) &&
 				Objects.equals(this.profitPercent, programDetailsListStatistic.profitPercent) &&
 				Objects.equals(this.profitValue, programDetailsListStatistic.profitValue) &&
@@ -246,7 +246,7 @@ public class ProgramDetailsListStatistic
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(balanceInBase, balanceInGVT, balanceInFavorite, currentValue, profitPercent, profitValue, drawdownPercent, investorsCount, tradesCount);
+		return Objects.hash(balanceBase, balanceGVT, balanceSecondary, currentValue, profitPercent, profitValue, drawdownPercent, investorsCount, tradesCount);
 	}
 
 
@@ -255,9 +255,9 @@ public class ProgramDetailsListStatistic
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ProgramDetailsListStatistic {\n");
 
-		sb.append("    balanceInBase: ").append(toIndentedString(balanceInBase)).append("\n");
-		sb.append("    balanceInGVT: ").append(toIndentedString(balanceInGVT)).append("\n");
-		sb.append("    balanceInFavorite: ").append(toIndentedString(balanceInFavorite)).append("\n");
+		sb.append("    balanceBase: ").append(toIndentedString(balanceBase)).append("\n");
+		sb.append("    balanceGVT: ").append(toIndentedString(balanceGVT)).append("\n");
+		sb.append("    balanceSecondary: ").append(toIndentedString(balanceSecondary)).append("\n");
 		sb.append("    currentValue: ").append(toIndentedString(currentValue)).append("\n");
 		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
 		sb.append("    profitValue: ").append(toIndentedString(profitValue)).append("\n");

@@ -15,6 +15,8 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.joda.time.DateTime;
+
 import java.util.Objects;
 import java.util.UUID;
 
@@ -34,6 +36,9 @@ public class ProfilePublic
 
 	@SerializedName("avatar")
 	private String avatar = null;
+
+	@SerializedName("registrationDate")
+	private DateTime registrationDate = null;
 
 	public ProfilePublic id(UUID id) {
 		this.id = id;
@@ -92,6 +97,25 @@ public class ProfilePublic
 		this.avatar = avatar;
 	}
 
+	public ProfilePublic registrationDate(DateTime registrationDate) {
+		this.registrationDate = registrationDate;
+		return this;
+	}
+
+	/**
+	 * Get registrationDate
+	 *
+	 * @return registrationDate
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getRegistrationDate() {
+		return registrationDate;
+	}
+
+	public void setRegistrationDate(DateTime registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -104,12 +128,13 @@ public class ProfilePublic
 		ProfilePublic profilePublic = (ProfilePublic) o;
 		return Objects.equals(this.id, profilePublic.id) &&
 				Objects.equals(this.username, profilePublic.username) &&
-				Objects.equals(this.avatar, profilePublic.avatar);
+				Objects.equals(this.avatar, profilePublic.avatar) &&
+				Objects.equals(this.registrationDate, profilePublic.registrationDate);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, username, avatar);
+		return Objects.hash(id, username, avatar, registrationDate);
 	}
 
 
@@ -121,6 +146,7 @@ public class ProfilePublic
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    username: ").append(toIndentedString(username)).append("\n");
 		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
+		sb.append("    registrationDate: ").append(toIndentedString(registrationDate)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -4,18 +4,19 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v10WalletAddressByCurrencyGet**](WalletApi.md#v10WalletAddressByCurrencyGet) | **GET** v1.0/wallet/address/{currency} | 
+[**v10WalletAddressesGet**](WalletApi.md#v10WalletAddressesGet) | **GET** v1.0/wallet/addresses | 
 [**v10WalletByCurrencyGet**](WalletApi.md#v10WalletByCurrencyGet) | **GET** v1.0/wallet/{currency} | Wallet summary
 [**v10WalletTransactionsGet**](WalletApi.md#v10WalletTransactionsGet) | **GET** v1.0/wallet/transactions | Wallet transactions
+[**v10WalletWithdrawInfoGet**](WalletApi.md#v10WalletWithdrawInfoGet) | **GET** v1.0/wallet/withdraw/info | 
 [**v10WalletWithdrawRequestCancelByTxIdPost**](WalletApi.md#v10WalletWithdrawRequestCancelByTxIdPost) | **POST** v1.0/wallet/withdraw/request/cancel/{txId} | 
 [**v10WalletWithdrawRequestConfirmPost**](WalletApi.md#v10WalletWithdrawRequestConfirmPost) | **POST** v1.0/wallet/withdraw/request/confirm | 
 [**v10WalletWithdrawRequestNewPost**](WalletApi.md#v10WalletWithdrawRequestNewPost) | **POST** v1.0/wallet/withdraw/request/new | 
 [**v10WalletWithdrawRequestResendByTxIdPost**](WalletApi.md#v10WalletWithdrawRequestResendByTxIdPost) | **POST** v1.0/wallet/withdraw/request/resend/{txId} | 
 
 
-<a name="v10WalletAddressByCurrencyGet"></a>
-# **v10WalletAddressByCurrencyGet**
-> WalletInfo v10WalletAddressByCurrencyGet(currency, authorization)
+<a name="v10WalletAddressesGet"></a>
+# **v10WalletAddressesGet**
+> WalletsInfo v10WalletAddressesGet(authorization)
 
 
 
@@ -27,13 +28,12 @@ Method | HTTP request | Description
 
 
 WalletApi apiInstance = new WalletApi();
-String currency = "currency_example"; // String | 
 String authorization = "authorization_example"; // String | JWT access token
 try {
-    WalletInfo result = apiInstance.v10WalletAddressByCurrencyGet(currency, authorization);
+    WalletsInfo result = apiInstance.v10WalletAddressesGet(authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling WalletApi#v10WalletAddressByCurrencyGet");
+    System.err.println("Exception when calling WalletApi#v10WalletAddressesGet");
     e.printStackTrace();
 }
 ```
@@ -42,12 +42,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
 
-[**WalletInfo**](WalletInfo.md)
+[**WalletsInfo**](WalletsInfo.md)
 
 ### Authorization
 
@@ -150,6 +149,49 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**WalletTransactionsViewModel**](WalletTransactionsViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10WalletWithdrawInfoGet"></a>
+# **v10WalletWithdrawInfoGet**
+> WithdrawalSummary v10WalletWithdrawInfoGet(authorization)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.WalletApi;
+
+
+WalletApi apiInstance = new WalletApi();
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    WithdrawalSummary result = apiInstance.v10WalletWithdrawInfoGet(authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling WalletApi#v10WalletWithdrawInfoGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**WithdrawalSummary**](WithdrawalSummary.md)
 
 ### Authorization
 

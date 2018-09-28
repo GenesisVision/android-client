@@ -4,10 +4,11 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**walletId** | [**UUID**](UUID.md) |  |  [optional]
-**gatewayCode** | **String** |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **address** | **String** |  |  [optional]
+**rateToGVT** | **Double** |  |  [optional]
+**description** | **String** |  |  [optional]
+**logo** | **String** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

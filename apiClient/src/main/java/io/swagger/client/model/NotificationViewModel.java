@@ -233,6 +233,8 @@ public class NotificationViewModel
 
 		PROFILE2FA("Profile2FA"),
 
+		PROFILESECURITY("ProfileSecurity"),
+
 		PROGRAMNEWSANDUPDATES("ProgramNewsAndUpdates"),
 
 		PROGRAMENDOFPERIOD("ProgramEndOfPeriod"),

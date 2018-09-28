@@ -2,11 +2,12 @@ package io.swagger.client.api;
 
 import java.util.UUID;
 
-import io.swagger.client.model.InvestmentProgramUpdate;
+import io.swagger.client.model.AssetsPartsChangeRequest;
 import io.swagger.client.model.ManagerProfile;
 import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.NewProgramRequest;
 import io.swagger.client.model.ProgramRequests;
+import io.swagger.client.model.ProgramUpdate;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -26,6 +27,64 @@ public interface ManagersApi
 	);
 
 	/**
+	 * Update fund assets parts
+	 *
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v1.0/managers/funds/{id}/assets/update")
+	Observable<Void> v10ManagersFundsByIdAssetsUpdatePost(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body AssetsPartsChangeRequest model
+	);
+
+	/**
+	 * Close existing investment program/fund
+	 *
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v1.0/managers/funds/{id}/close")
+	Observable<Void> v10ManagersFundsByIdClosePost(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Get investment program/fund requests
+	 *
+	 * @param id            (required)
+	 * @param skip          (required)
+	 * @param take          (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;ProgramRequests&gt;
+	 */
+	@GET("v1.0/managers/funds/{id}/requests/{skip}/{take}")
+	Observable<ProgramRequests> v10ManagersFundsByIdRequestsBySkipByTakeGet(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("skip") Integer skip, @retrofit2.http.Path("take") Integer take, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Update investment program/fund details
+	 *
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v1.0/managers/funds/{id}/update")
+	Observable<Void> v10ManagersFundsByIdUpdatePost(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ProgramUpdate model
+	);
+
+	/**
 	 * Create fund
 	 *
 	 * @param authorization JWT access token (required)
@@ -41,7 +100,30 @@ public interface ManagersApi
 	);
 
 	/**
-	 * Close existing investment program
+	 * Get GVT investment to create fund
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Double&gt;
+	 */
+	@GET("v1.0/managers/funds/investment/amount")
+	Observable<Double> v10ManagersFundsInvestmentAmountGet(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Cancel investment program/fund request
+	 *
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v1.0/managers/funds/requests/{id}/cancel")
+	Observable<Void> v10ManagersFundsRequestsByIdCancelPost(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Close existing investment program/fund
 	 *
 	 * @param id            (required)
 	 * @param authorization JWT access token (required)
@@ -65,7 +147,7 @@ public interface ManagersApi
 	);
 
 	/**
-	 * Get requests
+	 * Get investment program/fund requests
 	 *
 	 * @param id            (required)
 	 * @param skip          (required)
@@ -79,7 +161,7 @@ public interface ManagersApi
 	);
 
 	/**
-	 * Update investment program details
+	 * Update investment program/fund details
 	 *
 	 * @param id            (required)
 	 * @param authorization JWT access token (required)
@@ -91,7 +173,7 @@ public interface ManagersApi
 	})
 	@POST("v1.0/managers/programs/{id}/update")
 	Observable<Void> v10ManagersProgramsByIdUpdatePost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body InvestmentProgramUpdate model
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ProgramUpdate model
 	);
 
 	/**
@@ -110,7 +192,18 @@ public interface ManagersApi
 	);
 
 	/**
-	 * Cancel request
+	 * Get GVT investment to create program
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Double&gt;
+	 */
+	@GET("v1.0/managers/programs/investment/amount")
+	Observable<Double> v10ManagersProgramsInvestmentAmountGet(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Cancel investment program/fund request
 	 *
 	 * @param id            (required)
 	 * @param authorization JWT access token (required)

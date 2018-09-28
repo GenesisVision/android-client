@@ -13,15 +13,10 @@
 
 package io.swagger.client.model;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
 import org.joda.time.DateTime;
 
-import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -77,9 +72,6 @@ public class ProfileFullViewModel
 
 	@SerializedName("userName")
 	private String userName = null;
-
-	@SerializedName("favoriteCurrency")
-	private FavoriteCurrencyEnum favoriteCurrency = null;
 
 	public ProfileFullViewModel id(UUID id) {
 		this.id = id;
@@ -366,24 +358,6 @@ public class ProfileFullViewModel
 		this.userName = userName;
 	}
 
-	public ProfileFullViewModel favoriteCurrency(FavoriteCurrencyEnum favoriteCurrency) {
-		this.favoriteCurrency = favoriteCurrency;
-		return this;
-	}
-
-	/**
-	 * Get favoriteCurrency
-	 *
-	 * @return favoriteCurrency
-	 **/
-	@ApiModelProperty(value = "")
-	public FavoriteCurrencyEnum getFavoriteCurrency() {
-		return favoriteCurrency;
-	}
-
-	public void setFavoriteCurrency(FavoriteCurrencyEnum favoriteCurrency) {
-		this.favoriteCurrency = favoriteCurrency;
-	}
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -408,14 +382,14 @@ public class ProfileFullViewModel
 				Objects.equals(this.birthday, profileFullViewModel.birthday) &&
 				Objects.equals(this.gender, profileFullViewModel.gender) &&
 				Objects.equals(this.avatar, profileFullViewModel.avatar) &&
-				Objects.equals(this.userName, profileFullViewModel.userName) &&
-				Objects.equals(this.favoriteCurrency, profileFullViewModel.favoriteCurrency);
+				Objects.equals(this.userName, profileFullViewModel.userName);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, email, firstName, middleName, lastName, documentType, documentNumber, country, city, address, phone, birthday, gender, avatar, userName, favoriteCurrency);
+		return Objects.hash(id, email, firstName, middleName, lastName, documentType, documentNumber, country, city, address, phone, birthday, gender, avatar, userName);
 	}
+
 
 	@Override
 	public String toString() {
@@ -437,7 +411,6 @@ public class ProfileFullViewModel
 		sb.append("    gender: ").append(toIndentedString(gender)).append("\n");
 		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
 		sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
-		sb.append("    favoriteCurrency: ").append(toIndentedString(favoriteCurrency)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -451,65 +424,6 @@ public class ProfileFullViewModel
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
-	}
-
-	/**
-	 * Gets or Sets favoriteCurrency
-	 */
-	@JsonAdapter(FavoriteCurrencyEnum.Adapter.class)
-	public enum FavoriteCurrencyEnum
-	{
-		UNDEFINED("Undefined"),
-
-		GVT("GVT"),
-
-		ETH("ETH"),
-
-		BTC("BTC"),
-
-		ADA("ADA"),
-
-		USD("USD"),
-
-		EUR("EUR");
-
-		public static FavoriteCurrencyEnum fromValue(String text) {
-			for (FavoriteCurrencyEnum b : FavoriteCurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		FavoriteCurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<FavoriteCurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final FavoriteCurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public FavoriteCurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return FavoriteCurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 
 }

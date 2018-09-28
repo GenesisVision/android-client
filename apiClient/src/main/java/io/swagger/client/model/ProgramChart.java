@@ -27,6 +27,12 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ProgramChart
 {
+	@SerializedName("chart")
+	private List<ChartProgramDetails> chart = null;
+
+	@SerializedName("pnLChart")
+	private List<ChartSimple> pnLChart = null;
+
 	@SerializedName("equity")
 	private Double equity = null;
 
@@ -42,11 +48,62 @@ public class ProgramChart
 	@SerializedName("calmarRatio")
 	private Double calmarRatio = null;
 
-	@SerializedName("chart")
-	private List<ChartProgramDetails> chart = null;
+	@SerializedName("rate")
+	private Double rate = null;
 
-	@SerializedName("pnLChart")
-	private List<ChartSimple> pnLChart = null;
+	public ProgramChart chart(List<ChartProgramDetails> chart) {
+		this.chart = chart;
+		return this;
+	}
+
+	public ProgramChart addChartItem(ChartProgramDetails chartItem) {
+		if (this.chart == null) {
+			this.chart = new ArrayList<ChartProgramDetails>();
+		}
+		this.chart.add(chartItem);
+		return this;
+	}
+
+	/**
+	 * Get chart
+	 *
+	 * @return chart
+	 **/
+	@ApiModelProperty(value = "")
+	public List<ChartProgramDetails> getChart() {
+		return chart;
+	}
+
+	public void setChart(List<ChartProgramDetails> chart) {
+		this.chart = chart;
+	}
+
+	public ProgramChart pnLChart(List<ChartSimple> pnLChart) {
+		this.pnLChart = pnLChart;
+		return this;
+	}
+
+	public ProgramChart addPnLChartItem(ChartSimple pnLChartItem) {
+		if (this.pnLChart == null) {
+			this.pnLChart = new ArrayList<ChartSimple>();
+		}
+		this.pnLChart.add(pnLChartItem);
+		return this;
+	}
+
+	/**
+	 * Get pnLChart
+	 *
+	 * @return pnLChart
+	 **/
+	@ApiModelProperty(value = "")
+	public List<ChartSimple> getPnLChart() {
+		return pnLChart;
+	}
+
+	public void setPnLChart(List<ChartSimple> pnLChart) {
+		this.pnLChart = pnLChart;
+	}
 
 	public ProgramChart equity(Double equity) {
 		this.equity = equity;
@@ -143,58 +200,23 @@ public class ProgramChart
 		this.calmarRatio = calmarRatio;
 	}
 
-	public ProgramChart chart(List<ChartProgramDetails> chart) {
-		this.chart = chart;
-		return this;
-	}
-
-	public ProgramChart addChartItem(ChartProgramDetails chartItem) {
-		if (this.chart == null) {
-			this.chart = new ArrayList<ChartProgramDetails>();
-		}
-		this.chart.add(chartItem);
+	public ProgramChart rate(Double rate) {
+		this.rate = rate;
 		return this;
 	}
 
 	/**
-	 * Get chart
+	 * Get rate
 	 *
-	 * @return chart
+	 * @return rate
 	 **/
 	@ApiModelProperty(value = "")
-	public List<ChartProgramDetails> getChart() {
-		return chart;
+	public Double getRate() {
+		return rate;
 	}
 
-	public void setChart(List<ChartProgramDetails> chart) {
-		this.chart = chart;
-	}
-
-	public ProgramChart pnLChart(List<ChartSimple> pnLChart) {
-		this.pnLChart = pnLChart;
-		return this;
-	}
-
-	public ProgramChart addPnLChartItem(ChartSimple pnLChartItem) {
-		if (this.pnLChart == null) {
-			this.pnLChart = new ArrayList<ChartSimple>();
-		}
-		this.pnLChart.add(pnLChartItem);
-		return this;
-	}
-
-	/**
-	 * Get pnLChart
-	 *
-	 * @return pnLChart
-	 **/
-	@ApiModelProperty(value = "")
-	public List<ChartSimple> getPnLChart() {
-		return pnLChart;
-	}
-
-	public void setPnLChart(List<ChartSimple> pnLChart) {
-		this.pnLChart = pnLChart;
+	public void setRate(Double rate) {
+		this.rate = rate;
 	}
 
 
@@ -207,18 +229,19 @@ public class ProgramChart
 			return false;
 		}
 		ProgramChart programChart = (ProgramChart) o;
-		return Objects.equals(this.equity, programChart.equity) &&
+		return Objects.equals(this.chart, programChart.chart) &&
+				Objects.equals(this.pnLChart, programChart.pnLChart) &&
+				Objects.equals(this.equity, programChart.equity) &&
 				Objects.equals(this.totalProfit, programChart.totalProfit) &&
 				Objects.equals(this.sharpeRatio, programChart.sharpeRatio) &&
 				Objects.equals(this.sortinoRatio, programChart.sortinoRatio) &&
 				Objects.equals(this.calmarRatio, programChart.calmarRatio) &&
-				Objects.equals(this.chart, programChart.chart) &&
-				Objects.equals(this.pnLChart, programChart.pnLChart);
+				Objects.equals(this.rate, programChart.rate);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(equity, totalProfit, sharpeRatio, sortinoRatio, calmarRatio, chart, pnLChart);
+		return Objects.hash(chart, pnLChart, equity, totalProfit, sharpeRatio, sortinoRatio, calmarRatio, rate);
 	}
 
 
@@ -227,13 +250,14 @@ public class ProgramChart
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ProgramChart {\n");
 
+		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+		sb.append("    pnLChart: ").append(toIndentedString(pnLChart)).append("\n");
 		sb.append("    equity: ").append(toIndentedString(equity)).append("\n");
 		sb.append("    totalProfit: ").append(toIndentedString(totalProfit)).append("\n");
 		sb.append("    sharpeRatio: ").append(toIndentedString(sharpeRatio)).append("\n");
 		sb.append("    sortinoRatio: ").append(toIndentedString(sortinoRatio)).append("\n");
 		sb.append("    calmarRatio: ").append(toIndentedString(calmarRatio)).append("\n");
-		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
-		sb.append("    pnLChart: ").append(toIndentedString(pnLChart)).append("\n");
+		sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -38,6 +38,9 @@ public class PlatformAsset
 	@SerializedName("description")
 	private String description = null;
 
+	@SerializedName("icon")
+	private String icon = null;
+
 	public PlatformAsset id(UUID id) {
 		this.id = id;
 		return this;
@@ -114,6 +117,25 @@ public class PlatformAsset
 		this.description = description;
 	}
 
+	public PlatformAsset icon(String icon) {
+		this.icon = icon;
+		return this;
+	}
+
+	/**
+	 * Get icon
+	 *
+	 * @return icon
+	 **/
+	@ApiModelProperty(value = "")
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -127,12 +149,13 @@ public class PlatformAsset
 		return Objects.equals(this.id, platformAsset.id) &&
 				Objects.equals(this.name, platformAsset.name) &&
 				Objects.equals(this.symbol, platformAsset.symbol) &&
-				Objects.equals(this.description, platformAsset.description);
+				Objects.equals(this.description, platformAsset.description) &&
+				Objects.equals(this.icon, platformAsset.icon);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, symbol, description);
+		return Objects.hash(id, name, symbol, description, icon);
 	}
 
 
@@ -145,6 +168,7 @@ public class PlatformAsset
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

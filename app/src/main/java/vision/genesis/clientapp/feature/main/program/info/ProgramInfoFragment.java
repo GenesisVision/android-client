@@ -27,6 +27,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.ui.PeriodLeftDetailsView;
+import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.ImageUtils;
 
 /**
@@ -199,7 +200,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 		managerAvatar.setImageURI(ImageUtils.getImageUri(programDetails.getManager().getAvatar()));
 		managerName.setText(programDetails.getManager().getUsername());
-//		managerDate.setText(DateTimeUtil.formatShortDate(programDetails.getManager().getDate()));
+		managerDate.setText(DateTimeUtil.formatShortDate(programDetails.getManager().getRegistrationDate()));
 
 		strategy.setText(programDetails.getDescription());
 		new Handler().postDelayed(() -> strategyShadow.setVisibility(strategy.getHeight() < strategyMaxHeight ? View.INVISIBLE : View.VISIBLE), 300);

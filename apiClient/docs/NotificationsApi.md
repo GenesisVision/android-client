@@ -139,7 +139,7 @@ Name | Type | Description  | Notes
  **id** | [**UUID**](.md)|  | [optional]
  **programId** | [**UUID**](.md)|  | [optional]
  **managerId** | [**UUID**](.md)|  | [optional]
- **type** | **String**|  | [optional] [enum: PlatformNewsAndUpdates, PlatformEmergency, PlatformOther, ProfileUpdated, ProfilePwdUpdated, ProfileVerification, Profile2FA, ProgramNewsAndUpdates, ProgramEndOfPeriod, ProgramCondition, ManagerNewProgram]
+ **type** | **String**|  | [optional] [enum: PlatformNewsAndUpdates, PlatformEmergency, PlatformOther, ProfileUpdated, ProfilePwdUpdated, ProfileVerification, Profile2FA, ProfileSecurity, ProgramNewsAndUpdates, ProgramEndOfPeriod, ProgramCondition, ManagerNewProgram]
  **conditionType** | **String**|  | [optional] [enum: Empty, Profit, Level]
  **conditionAmount** | **Double**|  | [optional]
 

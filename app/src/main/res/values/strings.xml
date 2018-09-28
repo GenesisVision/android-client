@@ -416,5 +416,13 @@
     <string name="requests_empty">You have no requests</string>
     <string name="info">Info</string>
     <string name="period">Period</string>
+    <string name="statistics">Statistics</string>
+    <string name="start_day">Start day</string>
+    <string name="start_balance">Start balance</string>
+    <string name="invested">Invested</string>
+    <string name="success_trades">Success trades</string>
+    <string name="profit_factor">Profit factor</string>
+    <string name="sharpe_ratio">Sharpe ratio</string>
+    <string name="max_drawdown">Max Drawdown</string>
 
 </resources>

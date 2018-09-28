@@ -40,9 +40,6 @@ public class NewProgramRequest
 	@SerializedName("stopOutLevel")
 	private Double stopOutLevel = null;
 
-	@SerializedName("currency")
-	private CurrencyEnum currency = null;
-
 	@SerializedName("leverage")
 	private Integer leverage = null;
 
@@ -55,14 +52,14 @@ public class NewProgramRequest
 	@SerializedName("logo")
 	private String logo = null;
 
-	@SerializedName("tradingServerId")
-	private UUID tradingServerId = null;
+	@SerializedName("brokerAccountTypeId")
+	private UUID brokerAccountTypeId = null;
 
 	@SerializedName("entryFee")
 	private Double entryFee = null;
 
-	@SerializedName("depositAmount")
-	private Double depositAmount = null;
+	@SerializedName("currency")
+	private CurrencyEnum currency = null;
 
 	public NewProgramRequest periodLength(Integer periodLength) {
 		this.periodLength = periodLength;
@@ -119,25 +116,6 @@ public class NewProgramRequest
 
 	public void setStopOutLevel(Double stopOutLevel) {
 		this.stopOutLevel = stopOutLevel;
-	}
-
-	public NewProgramRequest currency(CurrencyEnum currency) {
-		this.currency = currency;
-		return this;
-	}
-
-	/**
-	 * Get currency
-	 *
-	 * @return currency
-	 **/
-	@ApiModelProperty(value = "")
-	public CurrencyEnum getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(CurrencyEnum currency) {
-		this.currency = currency;
 	}
 
 	public NewProgramRequest leverage(Integer leverage) {
@@ -216,23 +194,23 @@ public class NewProgramRequest
 		this.logo = logo;
 	}
 
-	public NewProgramRequest tradingServerId(UUID tradingServerId) {
-		this.tradingServerId = tradingServerId;
+	public NewProgramRequest brokerAccountTypeId(UUID brokerAccountTypeId) {
+		this.brokerAccountTypeId = brokerAccountTypeId;
 		return this;
 	}
 
 	/**
-	 * Get tradingServerId
+	 * Get brokerAccountTypeId
 	 *
-	 * @return tradingServerId
+	 * @return brokerAccountTypeId
 	 **/
 	@ApiModelProperty(value = "")
-	public UUID getTradingServerId() {
-		return tradingServerId;
+	public UUID getBrokerAccountTypeId() {
+		return brokerAccountTypeId;
 	}
 
-	public void setTradingServerId(UUID tradingServerId) {
-		this.tradingServerId = tradingServerId;
+	public void setBrokerAccountTypeId(UUID brokerAccountTypeId) {
+		this.brokerAccountTypeId = brokerAccountTypeId;
 	}
 
 	public NewProgramRequest entryFee(Double entryFee) {
@@ -254,23 +232,23 @@ public class NewProgramRequest
 		this.entryFee = entryFee;
 	}
 
-	public NewProgramRequest depositAmount(Double depositAmount) {
-		this.depositAmount = depositAmount;
+	public NewProgramRequest currency(CurrencyEnum currency) {
+		this.currency = currency;
 		return this;
 	}
 
 	/**
-	 * Get depositAmount
+	 * Get currency
 	 *
-	 * @return depositAmount
+	 * @return currency
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getDepositAmount() {
-		return depositAmount;
+	public CurrencyEnum getCurrency() {
+		return currency;
 	}
 
-	public void setDepositAmount(Double depositAmount) {
-		this.depositAmount = depositAmount;
+	public void setCurrency(CurrencyEnum currency) {
+		this.currency = currency;
 	}
 
 	@Override
@@ -285,19 +263,18 @@ public class NewProgramRequest
 		return Objects.equals(this.periodLength, newProgramRequest.periodLength) &&
 				Objects.equals(this.successFee, newProgramRequest.successFee) &&
 				Objects.equals(this.stopOutLevel, newProgramRequest.stopOutLevel) &&
-				Objects.equals(this.currency, newProgramRequest.currency) &&
 				Objects.equals(this.leverage, newProgramRequest.leverage) &&
 				Objects.equals(this.title, newProgramRequest.title) &&
 				Objects.equals(this.description, newProgramRequest.description) &&
 				Objects.equals(this.logo, newProgramRequest.logo) &&
-				Objects.equals(this.tradingServerId, newProgramRequest.tradingServerId) &&
+				Objects.equals(this.brokerAccountTypeId, newProgramRequest.brokerAccountTypeId) &&
 				Objects.equals(this.entryFee, newProgramRequest.entryFee) &&
-				Objects.equals(this.depositAmount, newProgramRequest.depositAmount);
+				Objects.equals(this.currency, newProgramRequest.currency);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(periodLength, successFee, stopOutLevel, currency, leverage, title, description, logo, tradingServerId, entryFee, depositAmount);
+		return Objects.hash(periodLength, successFee, stopOutLevel, leverage, title, description, logo, brokerAccountTypeId, entryFee, currency);
 	}
 
 	@Override
@@ -308,14 +285,13 @@ public class NewProgramRequest
 		sb.append("    periodLength: ").append(toIndentedString(periodLength)).append("\n");
 		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
-		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
-		sb.append("    tradingServerId: ").append(toIndentedString(tradingServerId)).append("\n");
+		sb.append("    brokerAccountTypeId: ").append(toIndentedString(brokerAccountTypeId)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
-		sb.append("    depositAmount: ").append(toIndentedString(depositAmount)).append("\n");
+		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

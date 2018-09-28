@@ -20,6 +20,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
@@ -103,7 +104,7 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 
 	private void getProgramDetails() {
 		if (programId != null && programsManager != null)
-			programDetailsSubscription = programsManager.getProgramDetails(programId)
+			programDetailsSubscription = programsManager.getProgramDetails(programId, CurrencyEnum.GVT)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleInvestmentProgramDetailsSuccess,

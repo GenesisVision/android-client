@@ -33,9 +33,9 @@ import vision.genesis.clientapp.feature.main.program.chart.ChartPresenter;
 import vision.genesis.clientapp.feature.main.program.create.CreateProgramPresenter;
 import vision.genesis.clientapp.feature.main.program.create.first.CreateProgramFirstStepPresenter;
 import vision.genesis.clientapp.feature.main.program.create.third.CreateProgramThirdStepPresenter;
-import vision.genesis.clientapp.feature.main.program.description.ProgramDescriptionPresenter;
 import vision.genesis.clientapp.feature.main.program.info.ProgramInfoPresenter;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramPresenter;
+import vision.genesis.clientapp.feature.main.program.profit.ProgramProfitPresenter;
 import vision.genesis.clientapp.feature.main.program.trades.TradesPresenter;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramPresenter;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListPresenter;
@@ -107,8 +107,6 @@ public interface AppComponent
 
 	void inject(ProgramInfoPresenter programInfoPresenter);
 
-	void inject(ProgramDescriptionPresenter programDescriptionPresenter);
-
 	void inject(AssetsPresenter assetsPresenter);
 
 	void inject(FavoritesPresenter favoritesPresenter);
@@ -148,4 +146,6 @@ public interface AppComponent
 	void inject(SelectCurrencyFragment selectCurrencyFragment);
 
 	void inject(RequestsBottomSheetFragment requestsBottomSheetFragment);
+
+	void inject(ProgramProfitPresenter programProfitPresenter);
 }

@@ -17,20 +17,6 @@ import rx.Observable;
 public interface ProgramsApi
 {
 	/**
-	 * Program chart
-	 *
-	 * @param id            (required)
-	 * @param dateFrom      (optional)
-	 * @param dateTo        (optional)
-	 * @param maxPointCount (optional)
-	 * @return Call&lt;ProgramChart&gt;
-	 */
-	@GET("v1.0/programs/{id}/chart")
-	Observable<ProgramChart> v10ProgramsByIdChartGet(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount
-	);
-
-	/**
 	 * Add to favorites
 	 *
 	 * @param id            (required)
@@ -57,13 +43,29 @@ public interface ProgramsApi
 	/**
 	 * Program details
 	 *
-	 * @param id            (required)
-	 * @param authorization (optional)
+	 * @param id                (required)
+	 * @param authorization     (optional)
+	 * @param currencySecondary (optional)
 	 * @return Call&lt;ProgramDetailsFull&gt;
 	 */
 	@GET("v1.0/programs/{id}")
 	Observable<ProgramDetailsFull> v10ProgramsByIdGet(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currencySecondary") String currencySecondary
+	);
+
+	/**
+	 * Program profit chart
+	 *
+	 * @param id            (required)
+	 * @param currency      (optional)
+	 * @param dateFrom      (optional)
+	 * @param dateTo        (optional)
+	 * @param maxPointCount (optional)
+	 * @return Call&lt;ProgramChart&gt;
+	 */
+	@GET("v1.0/programs/{id}/profitchart")
+	Observable<ProgramChart> v10ProgramsByIdProfitchartGet(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("currency") String currency, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount
 	);
 
 	/**
@@ -92,7 +94,8 @@ public interface ProgramsApi
 	 * @param profitAvgMin      (optional)
 	 * @param profitAvgMax      (optional)
 	 * @param sorting           (optional)
-	 * @param currency          (optional)
+	 * @param programCurrency   (optional)
+	 * @param currencySecondary (optional)
 	 * @param statisticDateFrom (optional)
 	 * @param statisticDateTo   (optional)
 	 * @param chartPointsCount  (optional)
@@ -106,7 +109,7 @@ public interface ProgramsApi
 	 */
 	@GET("v1.0/programs")
 	Observable<ProgramsList> v10ProgramsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("LevelMin") Integer levelMin, @retrofit2.http.Query("LevelMax") Integer levelMax, @retrofit2.http.Query("ProfitAvgMin") Double profitAvgMin, @retrofit2.http.Query("ProfitAvgMax") Double profitAvgMax, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("StatisticDateFrom") DateTime statisticDateFrom, @retrofit2.http.Query("StatisticDateTo") DateTime statisticDateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("FacetId") UUID facetId, @retrofit2.http.Query("IsFavorite") Boolean isFavorite, @retrofit2.http.Query("Ids") List<UUID> ids, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("LevelMin") Integer levelMin, @retrofit2.http.Query("LevelMax") Integer levelMax, @retrofit2.http.Query("ProfitAvgMin") Double profitAvgMin, @retrofit2.http.Query("ProfitAvgMax") Double profitAvgMax, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("ProgramCurrency") String programCurrency, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("StatisticDateFrom") DateTime statisticDateFrom, @retrofit2.http.Query("StatisticDateTo") DateTime statisticDateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("FacetId") UUID facetId, @retrofit2.http.Query("IsFavorite") Boolean isFavorite, @retrofit2.http.Query("Ids") List<UUID> ids, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

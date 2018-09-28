@@ -1,7 +1,5 @@
 package vision.genesis.clientapp.feature.main.program.info;
 
-import android.content.Context;
-
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
@@ -16,7 +14,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
-import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.utils.Constants;
 
@@ -29,9 +27,6 @@ import vision.genesis.clientapp.utils.Constants;
 public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 {
 	@Inject
-	public Context context;
-
-	@Inject
 	public AuthManager authManager;
 
 	@Inject
@@ -41,13 +36,7 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 	private Subscription programDetailsSubscription;
 
-	private Subscription chartDataSubscription;
-
 	private UUID programId;
-
-//	private String chartTimeFrame = "All";
-
-	private DateRange chartDateRange = new DateRange();
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -69,33 +58,23 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		if (programDetailsSubscription != null)
 			programDetailsSubscription.unsubscribe();
 
-		if (chartDataSubscription != null)
-			chartDataSubscription.unsubscribe();
-
 		super.onDestroy();
 	}
 
 	void setProgramId(UUID programId) {
 		this.programId = programId;
 		getProgramDetails();
-//		getChartData();
 	}
 
 	void onShow() {
 		getProgramDetails();
-//		getChartData();
 	}
-
-//	void onChartTimeFrameChanged(String newTimeFrame) {
-//		chartTimeFrame = newTimeFrame;
-//		getChartData();
-//	}
 
 	private void getProgramDetails() {
 		if (programId != null && programsManager != null) {
 			if (programDetailsSubscription != null)
 				programDetailsSubscription.unsubscribe();
-			programDetailsSubscription = programsManager.getProgramDetails(programId)
+			programDetailsSubscription = programsManager.getProgramDetails(programId, CurrencyEnum.GVT)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleInvestmentProgramDetailsSuccess,
@@ -114,33 +93,6 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		programDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 	}
-
-//	private void getChartData() {
-//		if (programId != null && programsManager != null) {
-//			if (chartDataSubscription != null)
-//				chartDataSubscription.unsubscribe();
-//			//TODO: calculate maxPointCount
-//			chartDataSubscription = programsManager.getChart(programId, chartDateRange, 10)
-//					.observeOn(AndroidSchedulers.mainThread())
-//					.subscribeOn(Schedulers.io())
-//					.subscribe(this::handleGetChartDataSuccess,
-//							this::handleGetChartDataError);
-//		}
-//	}
-//
-//	private void handleGetChartDataSuccess(ProgramChart response) {
-//		chartDataSubscription.unsubscribe();
-//		getViewState().showProgress(false);
-//		getViewState().setRefreshing(false);
-//
-//		getViewState().setChartData(response.getChart().get(0).getEquityChart());
-//	}
-//
-//	private void handleGetChartDataError(Throwable throwable) {
-//		chartDataSubscription.unsubscribe();
-//		getViewState().showProgress(false);
-//		getViewState().setRefreshing(false);
-//	}
 
 	private void subscribeToUser() {
 		userSubscription = authManager.userSubject

@@ -40,6 +40,9 @@ public class LoginViewModel
 	@SerializedName("recoveryCode")
 	private String recoveryCode = null;
 
+	@SerializedName("client")
+	private String client = null;
+
 	public LoginViewModel email(String email) {
 		this.email = email;
 		return this;
@@ -135,6 +138,25 @@ public class LoginViewModel
 		this.recoveryCode = recoveryCode;
 	}
 
+	public LoginViewModel client(String client) {
+		this.client = client;
+		return this;
+	}
+
+	/**
+	 * Get client
+	 *
+	 * @return client
+	 **/
+	@ApiModelProperty(value = "")
+	public String getClient() {
+		return client;
+	}
+
+	public void setClient(String client) {
+		this.client = client;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -149,12 +171,13 @@ public class LoginViewModel
 				Objects.equals(this.password, loginViewModel.password) &&
 				Objects.equals(this.rememberMe, loginViewModel.rememberMe) &&
 				Objects.equals(this.twoFactorCode, loginViewModel.twoFactorCode) &&
-				Objects.equals(this.recoveryCode, loginViewModel.recoveryCode);
+				Objects.equals(this.recoveryCode, loginViewModel.recoveryCode) &&
+				Objects.equals(this.client, loginViewModel.client);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, password, rememberMe, twoFactorCode, recoveryCode);
+		return Objects.hash(email, password, rememberMe, twoFactorCode, recoveryCode, client);
 	}
 
 
@@ -168,6 +191,7 @@ public class LoginViewModel
 		sb.append("    rememberMe: ").append(toIndentedString(rememberMe)).append("\n");
 		sb.append("    twoFactorCode: ").append(toIndentedString(twoFactorCode)).append("\n");
 		sb.append("    recoveryCode: ").append(toIndentedString(recoveryCode)).append("\n");
+		sb.append("    client: ").append(toIndentedString(client)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

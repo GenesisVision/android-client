@@ -113,6 +113,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	private TabLayout.Tab infoTab;
 
+	private TabLayout.Tab profitTab;
+
 	private TabLayout.Tab tradesTab;
 
 	private TabLayout.Tab historyTab;
@@ -235,6 +237,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	private void initTabs() {
 		infoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("info");
+		profitTab = tabLayout.newTab().setCustomView(getTabView(R.string.profit)).setTag("profit");
 		tradesTab = tabLayout.newTab().setCustomView(getTabView(R.string.trades)).setTag("trades");
 		historyTab = tabLayout.newTab().setCustomView(getTabView(R.string.history)).setTag("history");
 
@@ -268,7 +271,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
 		addPage(infoTab, true);
-//		addPage(descriptionTab, false);
+		addPage(profitTab, false);
 		addPage(tradesTab, false);
 	}
 

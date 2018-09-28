@@ -75,11 +75,6 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 	@BindView(R.id.portfolio_chart)
 	public PortfolioChartView chart;
 
-	@OnClick(R.id.group_requests)
-	public void onRequestsClicked() {
-		EventBus.getDefault().post(new OnInRequestsClickedEvent());
-	}
-
 	@InjectPresenter
 	public InvestorDashboardHeaderPortfolioPresenter investorDashboardHeaderPortfolioPresenter;
 
@@ -91,6 +86,11 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 			GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics());
 
 	private Float initialChartY;
+
+	@OnClick(R.id.group_requests)
+	public void onRequestsClicked() {
+		EventBus.getDefault().post(new OnInRequestsClickedEvent());
+	}
 
 	@Nullable
 	@Override
@@ -130,10 +130,6 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 	}
 
 	private void setFonts() {
-//		balanceTitle.setTypeface(TypefaceUtil.light());
-//		changeTitle.setTypeface(TypefaceUtil.light());
-//		requestsTitle.setTypeface(TypefaceUtil.light());
-
 		balanceValue.setTypeface(TypefaceUtil.semibold());
 		changeValue.setTypeface(TypefaceUtil.semibold());
 		changePercent.setTypeface(TypefaceUtil.semibold());
