@@ -4,18 +4,18 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v10NotificationsGet**](NotificationsApi.md#v10NotificationsGet) | **GET** v1.0/notifications | 
-[**v10NotificationsNewGet**](NotificationsApi.md#v10NotificationsNewGet) | **GET** v1.0/notifications/new | 
-[**v10NotificationsSettingsAddPost**](NotificationsApi.md#v10NotificationsSettingsAddPost) | **POST** v1.0/notifications/settings/add | 
-[**v10NotificationsSettingsGet**](NotificationsApi.md#v10NotificationsSettingsGet) | **GET** v1.0/notifications/settings | 
-[**v10NotificationsSettingsRemoveByIdPost**](NotificationsApi.md#v10NotificationsSettingsRemoveByIdPost) | **POST** v1.0/notifications/settings/remove/{id} | 
+[**v10NotificationsGet**](NotificationsApi.md#v10NotificationsGet) | **GET** v1.0/notifications | User notifications
+[**v10NotificationsNewGet**](NotificationsApi.md#v10NotificationsNewGet) | **GET** v1.0/notifications/new | Unread notifications count
+[**v10NotificationsSettingsAddPost**](NotificationsApi.md#v10NotificationsSettingsAddPost) | **POST** v1.0/notifications/settings/add | Add new setting
+[**v10NotificationsSettingsGet**](NotificationsApi.md#v10NotificationsSettingsGet) | **GET** v1.0/notifications/settings | User settings
+[**v10NotificationsSettingsRemoveByIdPost**](NotificationsApi.md#v10NotificationsSettingsRemoveByIdPost) | **POST** v1.0/notifications/settings/remove/{id} | Remove setting
 
 
 <a name="v10NotificationsGet"></a>
 # **v10NotificationsGet**
 > NotificationList v10NotificationsGet(authorization, skip, take)
 
-
+User notifications
 
 ### Example
 ```java
@@ -62,7 +62,7 @@ No authorization required
 # **v10NotificationsNewGet**
 > Integer v10NotificationsNewGet(authorization)
 
-
+Unread notifications count
 
 ### Example
 ```java
@@ -103,9 +103,9 @@ No authorization required
 
 <a name="v10NotificationsSettingsAddPost"></a>
 # **v10NotificationsSettingsAddPost**
-> Void v10NotificationsSettingsAddPost(authorization, id, programId, managerId, type, conditionType, conditionAmount)
+> UUID v10NotificationsSettingsAddPost(authorization, id, programId, managerId, type, conditionType, conditionAmount)
 
-
+Add new setting
 
 ### Example
 ```java
@@ -123,7 +123,7 @@ String type = "type_example"; // String |
 String conditionType = "conditionType_example"; // String | 
 Double conditionAmount = 3.4D; // Double | 
 try {
-    Void result = apiInstance.v10NotificationsSettingsAddPost(authorization, id, programId, managerId, type, conditionType, conditionAmount);
+    UUID result = apiInstance.v10NotificationsSettingsAddPost(authorization, id, programId, managerId, type, conditionType, conditionAmount);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NotificationsApi#v10NotificationsSettingsAddPost");
@@ -145,7 +145,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Void**](.md)
+[**UUID**](UUID.md)
 
 ### Authorization
 
@@ -160,7 +160,7 @@ No authorization required
 # **v10NotificationsSettingsGet**
 > NotificationSettingList v10NotificationsSettingsGet(authorization)
 
-
+User settings
 
 ### Example
 ```java
@@ -203,7 +203,7 @@ No authorization required
 # **v10NotificationsSettingsRemoveByIdPost**
 > Void v10NotificationsSettingsRemoveByIdPost(id, authorization)
 
-
+Remove setting
 
 ### Example
 ```java

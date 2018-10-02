@@ -5,8 +5,9 @@ import org.joda.time.DateTime;
 import java.util.List;
 import java.util.UUID;
 
-import io.swagger.client.model.ProgramChart;
+import io.swagger.client.model.ProgramBalanceChart;
 import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.ProgramProfitChart;
 import io.swagger.client.model.ProgramSets;
 import io.swagger.client.model.ProgramsList;
 import io.swagger.client.model.TradesViewModel;
@@ -16,6 +17,34 @@ import rx.Observable;
 
 public interface ProgramsApi
 {
+	/**
+	 * Program balance chart
+	 *
+	 * @param id            (required)
+	 * @param dateFrom      (optional)
+	 * @param dateTo        (optional)
+	 * @param maxPointCount (optional)
+	 * @return Call&lt;ProgramBalanceChart&gt;
+	 */
+	@GET("v1.0/programs/{id}/charts/balance")
+	Observable<ProgramBalanceChart> v10ProgramsByIdChartsBalanceGet(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount
+	);
+
+	/**
+	 * Program profit chart
+	 *
+	 * @param id            (required)
+	 * @param dateFrom      (optional)
+	 * @param dateTo        (optional)
+	 * @param maxPointCount (optional)
+	 * @return Call&lt;ProgramProfitChart&gt;
+	 */
+	@GET("v1.0/programs/{id}/charts/profit")
+	Observable<ProgramProfitChart> v10ProgramsByIdChartsProfitGet(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount
+	);
+
 	/**
 	 * Add to favorites
 	 *
@@ -50,22 +79,7 @@ public interface ProgramsApi
 	 */
 	@GET("v1.0/programs/{id}")
 	Observable<ProgramDetailsFull> v10ProgramsByIdGet(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currencySecondary") String currencySecondary
-	);
-
-	/**
-	 * Program profit chart
-	 *
-	 * @param id            (required)
-	 * @param currency      (optional)
-	 * @param dateFrom      (optional)
-	 * @param dateTo        (optional)
-	 * @param maxPointCount (optional)
-	 * @return Call&lt;ProgramChart&gt;
-	 */
-	@GET("v1.0/programs/{id}/profitchart")
-	Observable<ProgramChart> v10ProgramsByIdProfitchartGet(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("currency") String currency, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount
+			@retrofit2.http.Path("id") String id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currencySecondary") String currencySecondary
 	);
 
 	/**

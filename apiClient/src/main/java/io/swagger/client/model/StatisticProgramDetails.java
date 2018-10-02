@@ -33,15 +33,6 @@ public class StatisticProgramDetails
 	@SerializedName("investors")
 	private Integer investors = null;
 
-	@SerializedName("trades")
-	private Integer trades = null;
-
-	@SerializedName("successTradesPercent")
-	private Double successTradesPercent = null;
-
-	@SerializedName("profitFactor")
-	private Double profitFactor = null;
-
 	@SerializedName("maxDrawdown")
 	private Double maxDrawdown = null;
 
@@ -87,63 +78,6 @@ public class StatisticProgramDetails
 
 	public void setInvestors(Integer investors) {
 		this.investors = investors;
-	}
-
-	public StatisticProgramDetails trades(Integer trades) {
-		this.trades = trades;
-		return this;
-	}
-
-	/**
-	 * Get trades
-	 *
-	 * @return trades
-	 **/
-	@ApiModelProperty(value = "")
-	public Integer getTrades() {
-		return trades;
-	}
-
-	public void setTrades(Integer trades) {
-		this.trades = trades;
-	}
-
-	public StatisticProgramDetails successTradesPercent(Double successTradesPercent) {
-		this.successTradesPercent = successTradesPercent;
-		return this;
-	}
-
-	/**
-	 * Get successTradesPercent
-	 *
-	 * @return successTradesPercent
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getSuccessTradesPercent() {
-		return successTradesPercent;
-	}
-
-	public void setSuccessTradesPercent(Double successTradesPercent) {
-		this.successTradesPercent = successTradesPercent;
-	}
-
-	public StatisticProgramDetails profitFactor(Double profitFactor) {
-		this.profitFactor = profitFactor;
-		return this;
-	}
-
-	/**
-	 * Get profitFactor
-	 *
-	 * @return profitFactor
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getProfitFactor() {
-		return profitFactor;
-	}
-
-	public void setProfitFactor(Double profitFactor) {
-		this.profitFactor = profitFactor;
 	}
 
 	public StatisticProgramDetails maxDrawdown(Double maxDrawdown) {
@@ -215,9 +149,6 @@ public class StatisticProgramDetails
 		StatisticProgramDetails statisticProgramDetails = (StatisticProgramDetails) o;
 		return Objects.equals(this.pnL, statisticProgramDetails.pnL) &&
 				Objects.equals(this.investors, statisticProgramDetails.investors) &&
-				Objects.equals(this.trades, statisticProgramDetails.trades) &&
-				Objects.equals(this.successTradesPercent, statisticProgramDetails.successTradesPercent) &&
-				Objects.equals(this.profitFactor, statisticProgramDetails.profitFactor) &&
 				Objects.equals(this.maxDrawdown, statisticProgramDetails.maxDrawdown) &&
 				Objects.equals(this.periodStarts, statisticProgramDetails.periodStarts) &&
 				Objects.equals(this.periodEnds, statisticProgramDetails.periodEnds);
@@ -225,7 +156,7 @@ public class StatisticProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(pnL, investors, trades, successTradesPercent, profitFactor, maxDrawdown, periodStarts, periodEnds);
+		return Objects.hash(pnL, investors, maxDrawdown, periodStarts, periodEnds);
 	}
 
 
@@ -236,9 +167,6 @@ public class StatisticProgramDetails
 
 		sb.append("    pnL: ").append(toIndentedString(pnL)).append("\n");
 		sb.append("    investors: ").append(toIndentedString(investors)).append("\n");
-		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
-		sb.append("    successTradesPercent: ").append(toIndentedString(successTradesPercent)).append("\n");
-		sb.append("    profitFactor: ").append(toIndentedString(profitFactor)).append("\n");
 		sb.append("    maxDrawdown: ").append(toIndentedString(maxDrawdown)).append("\n");
 		sb.append("    periodStarts: ").append(toIndentedString(periodStarts)).append("\n");
 		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");

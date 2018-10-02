@@ -262,7 +262,7 @@ public interface InvestorApi
 	);
 
 	/**
-	 * Programs list
+	 * Dashboard program list
 	 *
 	 * @param authorization     JWT access token (required)
 	 * @param sorting           (optional)

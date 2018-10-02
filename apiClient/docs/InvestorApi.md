@@ -21,7 +21,7 @@ Method | HTTP request | Description
 [**v10InvestorProgramsByIdRequestsBySkipByTakeGet**](InvestorApi.md#v10InvestorProgramsByIdRequestsBySkipByTakeGet) | **GET** v1.0/investor/programs/{id}/requests/{skip}/{take} | Get program/fund requests
 [**v10InvestorProgramsByIdWithdrawByAmountPost**](InvestorApi.md#v10InvestorProgramsByIdWithdrawByAmountPost) | **POST** v1.0/investor/programs/{id}/withdraw/{amount} | Withdrawal from investment program/fund
 [**v10InvestorProgramsByIdWithdrawInfoByCurrencyGet**](InvestorApi.md#v10InvestorProgramsByIdWithdrawInfoByCurrencyGet) | **GET** v1.0/investor/programs/{id}/withdraw/info/{currency} | Data for withdrawal from investment program
-[**v10InvestorProgramsGet**](InvestorApi.md#v10InvestorProgramsGet) | **GET** v1.0/investor/programs | Programs list
+[**v10InvestorProgramsGet**](InvestorApi.md#v10InvestorProgramsGet) | **GET** v1.0/investor/programs | Dashboard program list
 [**v10InvestorProgramsRequestsByIdCancelPost**](InvestorApi.md#v10InvestorProgramsRequestsByIdCancelPost) | **POST** v1.0/investor/programs/requests/{id}/cancel | Cancel investment program/fund request
 [**v10InvestorRequestsBySkipByTakeGet**](InvestorApi.md#v10InvestorRequestsBySkipByTakeGet) | **GET** v1.0/investor/requests/{skip}/{take} | Get all requests
 
@@ -104,7 +104,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **currency** | **String**|  | [enum: GVT, Undefined, ETH, BTC, ADA, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -247,7 +247,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **currency** | **String**|  | [enum: GVT, Undefined, ETH, BTC, ADA, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -303,7 +303,7 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: GVT, Undefined, ETH, BTC, ADA, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -413,7 +413,7 @@ Name | Type | Description  | Notes
  **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
- **chartCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **chartCurrency** | **String**|  | [optional] [enum: GVT, Undefined, ETH, BTC, ADA, USD, EUR]
  **chartFrom** | **DateTime**|  | [optional]
  **chartTo** | **DateTime**|  | [optional]
  **requestsSkip** | **Integer**|  | [optional]
@@ -464,7 +464,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **currency** | **String**|  | [optional] [enum: GVT, Undefined, ETH, BTC, ADA, USD, EUR]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
 
@@ -616,7 +616,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **currency** | **String**|  | [enum: GVT, Undefined, ETH, BTC, ADA, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -849,7 +849,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **currency** | **String**|  | [enum: GVT, Undefined, ETH, BTC, ADA, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -869,7 +869,7 @@ No authorization required
 # **v10InvestorProgramsGet**
 > ProgramsList v10InvestorProgramsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, skip, take)
 
-Programs list
+Dashboard program list
 
 ### Example
 ```java
@@ -905,7 +905,7 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: GVT, Undefined, ETH, BTC, ADA, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

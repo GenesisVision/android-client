@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **personalFundDetails** | [**PersonalFundDetailsFull**](PersonalFundDetailsFull.md) | Fields for authorized user |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **logo** | **String** |  |  [optional]
+**url** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
 **title** | **String** |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]

@@ -421,9 +421,9 @@ public class WalletTransaction
 	@JsonAdapter(SourceCurrencyEnum.Adapter.class)
 	public enum SourceCurrencyEnum
 	{
-		UNDEFINED("Undefined"),
-
 		GVT("GVT"),
+
+		UNDEFINED("Undefined"),
 
 		ETH("ETH"),
 
@@ -603,9 +603,9 @@ public class WalletTransaction
 	@JsonAdapter(DestinationCurrencyEnum.Adapter.class)
 	public enum DestinationCurrencyEnum
 	{
-		UNDEFINED("Undefined"),
-
 		GVT("GVT"),
+
+		UNDEFINED("Undefined"),
 
 		ETH("ETH"),
 

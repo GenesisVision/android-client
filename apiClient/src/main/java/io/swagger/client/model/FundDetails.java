@@ -48,6 +48,9 @@ public class FundDetails
 	@SerializedName("logo")
 	private String logo = null;
 
+	@SerializedName("url")
+	private String url = null;
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -170,6 +173,25 @@ public class FundDetails
 
 	public void setLogo(String logo) {
 		this.logo = logo;
+	}
+
+	public FundDetails url(String url) {
+		this.url = url;
+		return this;
+	}
+
+	/**
+	 * Get url
+	 *
+	 * @return url
+	 **/
+	@ApiModelProperty(value = "")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public FundDetails title(String title) {
@@ -327,6 +349,7 @@ public class FundDetails
 				Objects.equals(this.statistic, fundDetails.statistic) &&
 				Objects.equals(this.id, fundDetails.id) &&
 				Objects.equals(this.logo, fundDetails.logo) &&
+				Objects.equals(this.url, fundDetails.url) &&
 				Objects.equals(this.title, fundDetails.title) &&
 				Objects.equals(this.description, fundDetails.description) &&
 				Objects.equals(this.status, fundDetails.status) &&
@@ -338,7 +361,7 @@ public class FundDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(totalAssetsCount, topFundAssets, statistic, id, logo, title, description, status, manager, chart, personalProgramDetails, dashboardProgramDetails);
+		return Objects.hash(totalAssetsCount, topFundAssets, statistic, id, logo, url, title, description, status, manager, chart, personalProgramDetails, dashboardProgramDetails);
 	}
 
 	@Override
@@ -351,6 +374,7 @@ public class FundDetails
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");

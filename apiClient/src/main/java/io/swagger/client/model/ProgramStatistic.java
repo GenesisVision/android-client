@@ -483,9 +483,9 @@ public class ProgramStatistic
 	@JsonAdapter(StartCurrencyEnum.Adapter.class)
 	public enum StartCurrencyEnum
 	{
-		UNDEFINED("Undefined"),
-
 		GVT("GVT"),
+
+		UNDEFINED("Undefined"),
 
 		ETH("ETH"),
 
@@ -542,9 +542,9 @@ public class ProgramStatistic
 	@JsonAdapter(InvestedCurrencyEnum.Adapter.class)
 	public enum InvestedCurrencyEnum
 	{
-		UNDEFINED("Undefined"),
-
 		GVT("GVT"),
+
+		UNDEFINED("Undefined"),
 
 		ETH("ETH"),
 

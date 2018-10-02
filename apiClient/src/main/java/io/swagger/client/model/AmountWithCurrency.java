@@ -120,9 +120,9 @@ public class AmountWithCurrency
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		UNDEFINED("Undefined"),
-
 		GVT("GVT"),
+
+		UNDEFINED("Undefined"),
 
 		ETH("ETH"),
 

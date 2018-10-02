@@ -11,6 +11,8 @@ import rx.Observable;
 public interface NotificationsApi
 {
 	/**
+	 * User notifications
+	 *
 	 * @param authorization JWT access token (required)
 	 * @param skip          (optional)
 	 * @param take          (optional)
@@ -22,6 +24,8 @@ public interface NotificationsApi
 	);
 
 	/**
+	 * Unread notifications count
+	 *
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;Integer&gt;
 	 */
@@ -31,6 +35,8 @@ public interface NotificationsApi
 	);
 
 	/**
+	 * Add new setting
+	 *
 	 * @param authorization   JWT access token (required)
 	 * @param id              (optional)
 	 * @param programId       (optional)
@@ -38,14 +44,16 @@ public interface NotificationsApi
 	 * @param type            (optional)
 	 * @param conditionType   (optional)
 	 * @param conditionAmount (optional)
-	 * @return Call&lt;Void&gt;
+	 * @return Call&lt;UUID&gt;
 	 */
 	@POST("v1.0/notifications/settings/add")
-	Observable<Void> v10NotificationsSettingsAddPost(
+	Observable<UUID> v10NotificationsSettingsAddPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Id") UUID id, @retrofit2.http.Query("ProgramId") UUID programId, @retrofit2.http.Query("ManagerId") UUID managerId, @retrofit2.http.Query("Type") String type, @retrofit2.http.Query("ConditionType") String conditionType, @retrofit2.http.Query("ConditionAmount") Double conditionAmount
 	);
 
 	/**
+	 * User settings
+	 *
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;NotificationSettingList&gt;
 	 */
@@ -55,6 +63,8 @@ public interface NotificationsApi
 	);
 
 	/**
+	 * Remove setting
+	 *
 	 * @param id            (required)
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;Void&gt;

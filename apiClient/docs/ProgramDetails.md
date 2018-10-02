@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **statistic** | [**ProgramDetailsListStatistic**](ProgramDetailsListStatistic.md) |  |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **logo** | **String** |  |  [optional]
+**url** | **String** |  |  [optional]
 **title** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
@@ -26,8 +27,8 @@ Name | Type | Description | Notes
 ## Enum: CurrencyEnum
 Name | Value
 ---- | -----
-UNDEFINED | &quot;Undefined&quot;
 GVT | &quot;GVT&quot;
+UNDEFINED | &quot;Undefined&quot;
 ETH | &quot;ETH&quot;
 BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;

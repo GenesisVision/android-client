@@ -5,8 +5,9 @@ import org.joda.time.DateTime;
 import java.util.List;
 import java.util.UUID;
 
-import io.swagger.client.model.FundChart;
+import io.swagger.client.model.FundBalanceChart;
 import io.swagger.client.model.FundDetailsFull;
+import io.swagger.client.model.FundProfitChart;
 import io.swagger.client.model.FundsList;
 import io.swagger.client.model.PlatformAssets;
 import io.swagger.client.model.RebalancesViewModel;
@@ -25,6 +26,34 @@ public interface FundsApi
 	@GET("v1.0/funds/assets")
 	Observable<PlatformAssets> v10FundsAssetsGet(
 			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Fund balance chart
+	 *
+	 * @param id            (required)
+	 * @param dateFrom      (optional)
+	 * @param dateTo        (optional)
+	 * @param maxPointCount (optional)
+	 * @return Call&lt;FundBalanceChart&gt;
+	 */
+	@GET("v1.0/funds/{id}/charts/balance")
+	Observable<FundBalanceChart> v10FundsByIdChartsBalanceGet(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount
+	);
+
+	/**
+	 * Fund profit chart
+	 *
+	 * @param id            (required)
+	 * @param dateFrom      (optional)
+	 * @param dateTo        (optional)
+	 * @param maxPointCount (optional)
+	 * @return Call&lt;FundProfitChart&gt;
+	 */
+	@GET("v1.0/funds/{id}/charts/profit")
+	Observable<FundProfitChart> v10FundsByIdChartsProfitGet(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount
 	);
 
 	/**
@@ -62,21 +91,6 @@ public interface FundsApi
 	@GET("v1.0/funds/{id}")
 	Observable<FundDetailsFull> v10FundsByIdGet(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currencySecondary") String currencySecondary
-	);
-
-	/**
-	 * Fund profit chart
-	 *
-	 * @param id            (required)
-	 * @param currency      (optional)
-	 * @param dateFrom      (optional)
-	 * @param dateTo        (optional)
-	 * @param maxPointCount (optional)
-	 * @return Call&lt;FundChart&gt;
-	 */
-	@GET("v1.0/funds/{id}/profitchart")
-	Observable<FundChart> v10FundsByIdProfitchartGet(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("currency") String currency, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount
 	);
 
 	/**

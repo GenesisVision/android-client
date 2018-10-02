@@ -57,6 +57,9 @@ public class FundDetailsFull
 	@SerializedName("logo")
 	private String logo = null;
 
+	@SerializedName("url")
+	private String url = null;
+
 	@SerializedName("description")
 	private String description = null;
 
@@ -229,6 +232,25 @@ public class FundDetailsFull
 		this.logo = logo;
 	}
 
+	public FundDetailsFull url(String url) {
+		this.url = url;
+		return this;
+	}
+
+	/**
+	 * Get url
+	 *
+	 * @return url
+	 **/
+	@ApiModelProperty(value = "")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	public FundDetailsFull description(String description) {
 		this.description = description;
 		return this;
@@ -322,6 +344,7 @@ public class FundDetailsFull
 				Objects.equals(this.personalFundDetails, fundDetailsFull.personalFundDetails) &&
 				Objects.equals(this.id, fundDetailsFull.id) &&
 				Objects.equals(this.logo, fundDetailsFull.logo) &&
+				Objects.equals(this.url, fundDetailsFull.url) &&
 				Objects.equals(this.description, fundDetailsFull.description) &&
 				Objects.equals(this.title, fundDetailsFull.title) &&
 				Objects.equals(this.status, fundDetailsFull.status) &&
@@ -330,7 +353,7 @@ public class FundDetailsFull
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(entryFee, exitFee, managementFee, currentAssets, statistic, personalFundDetails, id, logo, description, title, status, manager);
+		return Objects.hash(entryFee, exitFee, managementFee, currentAssets, statistic, personalFundDetails, id, logo, url, description, title, status, manager);
 	}
 
 	@Override
@@ -346,6 +369,7 @@ public class FundDetailsFull
 		sb.append("    personalFundDetails: ").append(toIndentedString(personalFundDetails)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");

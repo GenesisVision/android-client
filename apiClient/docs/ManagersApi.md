@@ -13,9 +13,11 @@ Method | HTTP request | Description
 [**v10ManagersFundsInvestmentAmountGet**](ManagersApi.md#v10ManagersFundsInvestmentAmountGet) | **GET** v1.0/managers/funds/investment/amount | Get GVT investment to create fund
 [**v10ManagersFundsRequestsByIdCancelPost**](ManagersApi.md#v10ManagersFundsRequestsByIdCancelPost) | **POST** v1.0/managers/funds/requests/{id}/cancel | Cancel investment program/fund request
 [**v10ManagersProgramsByIdClosePost**](ManagersApi.md#v10ManagersProgramsByIdClosePost) | **POST** v1.0/managers/programs/{id}/close | Close existing investment program/fund
+[**v10ManagersProgramsByIdDepositByAmountPost**](ManagersApi.md#v10ManagersProgramsByIdDepositByAmountPost) | **POST** v1.0/managers/programs/{id}/deposit/{amount} | Deposit
 [**v10ManagersProgramsByIdPeriodClosePost**](ManagersApi.md#v10ManagersProgramsByIdPeriodClosePost) | **POST** v1.0/managers/programs/{id}/period/close | Close current period
 [**v10ManagersProgramsByIdRequestsBySkipByTakeGet**](ManagersApi.md#v10ManagersProgramsByIdRequestsBySkipByTakeGet) | **GET** v1.0/managers/programs/{id}/requests/{skip}/{take} | Get investment program/fund requests
 [**v10ManagersProgramsByIdUpdatePost**](ManagersApi.md#v10ManagersProgramsByIdUpdatePost) | **POST** v1.0/managers/programs/{id}/update | Update investment program/fund details
+[**v10ManagersProgramsByIdWithdrawByAmountPost**](ManagersApi.md#v10ManagersProgramsByIdWithdrawByAmountPost) | **POST** v1.0/managers/programs/{id}/withdraw/{amount} | Withdraw
 [**v10ManagersProgramsCreatePost**](ManagersApi.md#v10ManagersProgramsCreatePost) | **POST** v1.0/managers/programs/create | Create an investment program
 [**v10ManagersProgramsInvestmentAmountGet**](ManagersApi.md#v10ManagersProgramsInvestmentAmountGet) | **GET** v1.0/managers/programs/investment/amount | Get GVT investment to create program
 [**v10ManagersProgramsRequestsByIdCancelPost**](ManagersApi.md#v10ManagersProgramsRequestsByIdCancelPost) | **POST** v1.0/managers/programs/requests/{id}/cancel | Cancel investment program/fund request
@@ -430,6 +432,53 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="v10ManagersProgramsByIdDepositByAmountPost"></a>
+# **v10ManagersProgramsByIdDepositByAmountPost**
+> Void v10ManagersProgramsByIdDepositByAmountPost(id, amount, authorization)
+
+Deposit
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagersApi;
+
+
+ManagersApi apiInstance = new ManagersApi();
+UUID id = new UUID(); // UUID | 
+Double amount = 3.4D; // Double | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.v10ManagersProgramsByIdDepositByAmountPost(id, amount, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagersApi#v10ManagersProgramsByIdDepositByAmountPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **amount** | **Double**|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="v10ManagersProgramsByIdPeriodClosePost"></a>
 # **v10ManagersProgramsByIdPeriodClosePost**
 > Void v10ManagersProgramsByIdPeriodClosePost(id, authorization)
@@ -569,6 +618,53 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ManagersProgramsByIdWithdrawByAmountPost"></a>
+# **v10ManagersProgramsByIdWithdrawByAmountPost**
+> Void v10ManagersProgramsByIdWithdrawByAmountPost(id, amount, authorization)
+
+Withdraw
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagersApi;
+
+
+ManagersApi apiInstance = new ManagersApi();
+UUID id = new UUID(); // UUID | 
+Double amount = 3.4D; // Double | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.v10ManagersProgramsByIdWithdrawByAmountPost(id, amount, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagersApi#v10ManagersProgramsByIdWithdrawByAmountPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **amount** | **Double**|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 <a name="v10ManagersProgramsCreatePost"></a>

@@ -135,6 +135,19 @@ public interface ManagersApi
 	);
 
 	/**
+	 * Deposit
+	 *
+	 * @param id            (required)
+	 * @param amount        (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v1.0/managers/programs/{id}/deposit/{amount}")
+	Observable<Void> v10ManagersProgramsByIdDepositByAmountPost(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("amount") Double amount, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
 	 * Close current period
 	 *
 	 * @param id            (required)
@@ -174,6 +187,19 @@ public interface ManagersApi
 	@POST("v1.0/managers/programs/{id}/update")
 	Observable<Void> v10ManagersProgramsByIdUpdatePost(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ProgramUpdate model
+	);
+
+	/**
+	 * Withdraw
+	 *
+	 * @param id            (required)
+	 * @param amount        (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v1.0/managers/programs/{id}/withdraw/{amount}")
+	Observable<Void> v10ManagersProgramsByIdWithdrawByAmountPost(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("amount") Double amount, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**

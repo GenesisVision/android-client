@@ -5,10 +5,11 @@ All URIs are relative to *https://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**v10FundsAssetsGet**](FundsApi.md#v10FundsAssetsGet) | **GET** v1.0/funds/assets | Get all supported assets for funds
+[**v10FundsByIdChartsBalanceGet**](FundsApi.md#v10FundsByIdChartsBalanceGet) | **GET** v1.0/funds/{id}/charts/balance | Fund balance chart
+[**v10FundsByIdChartsProfitGet**](FundsApi.md#v10FundsByIdChartsProfitGet) | **GET** v1.0/funds/{id}/charts/profit | Fund profit chart
 [**v10FundsByIdFavoriteAddPost**](FundsApi.md#v10FundsByIdFavoriteAddPost) | **POST** v1.0/funds/{id}/favorite/add | Add to favorites
 [**v10FundsByIdFavoriteRemovePost**](FundsApi.md#v10FundsByIdFavoriteRemovePost) | **POST** v1.0/funds/{id}/favorite/remove | Remove from favorites
 [**v10FundsByIdGet**](FundsApi.md#v10FundsByIdGet) | **GET** v1.0/funds/{id} | Funds details
-[**v10FundsByIdProfitchartGet**](FundsApi.md#v10FundsByIdProfitchartGet) | **GET** v1.0/funds/{id}/profitchart | Fund profit chart
 [**v10FundsByIdRebalancingGet**](FundsApi.md#v10FundsByIdRebalancingGet) | **GET** v1.0/funds/{id}/rebalancing | Rebalancing history
 [**v10FundsGet**](FundsApi.md#v10FundsGet) | **GET** v1.0/funds | Funds list
 
@@ -46,6 +47,104 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PlatformAssets**](PlatformAssets.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10FundsByIdChartsBalanceGet"></a>
+# **v10FundsByIdChartsBalanceGet**
+> FundBalanceChart v10FundsByIdChartsBalanceGet(id, dateFrom, dateTo, maxPointCount)
+
+Fund balance chart
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.FundsApi;
+
+
+FundsApi apiInstance = new FundsApi();
+UUID id = new UUID(); // UUID | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer maxPointCount = 56; // Integer | 
+try {
+    FundBalanceChart result = apiInstance.v10FundsByIdChartsBalanceGet(id, dateFrom, dateTo, maxPointCount);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FundsApi#v10FundsByIdChartsBalanceGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **maxPointCount** | **Integer**|  | [optional]
+
+### Return type
+
+[**FundBalanceChart**](FundBalanceChart.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10FundsByIdChartsProfitGet"></a>
+# **v10FundsByIdChartsProfitGet**
+> FundProfitChart v10FundsByIdChartsProfitGet(id, dateFrom, dateTo, maxPointCount)
+
+Fund profit chart
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.FundsApi;
+
+
+FundsApi apiInstance = new FundsApi();
+UUID id = new UUID(); // UUID | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer maxPointCount = 56; // Integer | 
+try {
+    FundProfitChart result = apiInstance.v10FundsByIdChartsProfitGet(id, dateFrom, dateTo, maxPointCount);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FundsApi#v10FundsByIdChartsProfitGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **maxPointCount** | **Integer**|  | [optional]
+
+### Return type
+
+[**FundProfitChart**](FundProfitChart.md)
 
 ### Authorization
 
@@ -178,62 +277,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
  **authorization** | **String**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: GVT, Undefined, ETH, BTC, ADA, USD, EUR]
 
 ### Return type
 
 [**FundDetailsFull**](FundDetailsFull.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10FundsByIdProfitchartGet"></a>
-# **v10FundsByIdProfitchartGet**
-> FundChart v10FundsByIdProfitchartGet(id, currency, dateFrom, dateTo, maxPointCount)
-
-Fund profit chart
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.FundsApi;
-
-
-FundsApi apiInstance = new FundsApi();
-UUID id = new UUID(); // UUID | 
-String currency = "currency_example"; // String | 
-DateTime dateFrom = new DateTime(); // DateTime | 
-DateTime dateTo = new DateTime(); // DateTime | 
-Integer maxPointCount = 56; // Integer | 
-try {
-    FundChart result = apiInstance.v10FundsByIdProfitchartGet(id, currency, dateFrom, dateTo, maxPointCount);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling FundsApi#v10FundsByIdProfitchartGet");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
- **dateFrom** | **DateTime**|  | [optional]
- **dateTo** | **DateTime**|  | [optional]
- **maxPointCount** | **Integer**|  | [optional]
-
-### Return type
-
-[**FundChart**](FundChart.md)
 
 ### Authorization
 
@@ -336,7 +384,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**|  | [optional]
  **sorting** | **String**|  | [optional] [enum: ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByInvestorsAsc, ByInvestorsDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc]
- **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: GVT, Undefined, ETH, BTC, ADA, USD, EUR]
  **statisticDateFrom** | **DateTime**|  | [optional]
  **statisticDateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
