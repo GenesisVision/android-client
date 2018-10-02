@@ -89,7 +89,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textColor="?attr/colorTextSecondary"
+                android:alpha="0.3"
+                android:textColor="?attr/colorTextPrimary"
                 android:textSize="14sp"
                 tools:text="Invest"/>
 

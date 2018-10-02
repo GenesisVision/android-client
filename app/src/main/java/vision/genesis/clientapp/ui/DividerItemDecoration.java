@@ -6,7 +6,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.View;
 
 /**
@@ -30,8 +29,8 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration
 
 	public DividerItemDecoration(Context context, Drawable divider, int paddingLeft, int paddingRight) {
 		mDivider = divider;
-		mPaddingLeft = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, paddingLeft, context.getResources().getDisplayMetrics());
-		mPaddingRight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, paddingRight, context.getResources().getDisplayMetrics());
+		mPaddingLeft = paddingLeft;
+		mPaddingRight = paddingRight;
 	}
 
 	@Override

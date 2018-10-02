@@ -36,7 +36,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private TabLayout tabLayout;
 
-	public ProgramDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, UUID programId) {
+	ProgramDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, UUID programId) {
 		super(fm);
 		this.tabLayout = tabLayout;
 		programInfoFragment = ProgramInfoFragment.with(programId);
@@ -72,5 +72,10 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 	public void sendUpdate() {
 		programInfoFragment.pagerShow();
 		programProfitFragment.pagerShow();
+		tradesFragment.pagerShow();
+	}
+
+	public void sendSwipeRefresh() {
+		tradesFragment.onSwipeRefresh();
 	}
 }

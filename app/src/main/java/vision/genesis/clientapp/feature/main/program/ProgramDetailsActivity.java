@@ -179,7 +179,11 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 				ThemeUtil.getColorByAttrId(this, R.attr.colorAccent),
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary),
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextSecondary));
-		refreshLayout.setOnRefreshListener(() -> programDetailsPresenter.onSwipeRefresh());
+		refreshLayout.setOnRefreshListener(() -> {
+			programDetailsPresenter.onSwipeRefresh();
+			if (pagerAdapter != null)
+				pagerAdapter.sendSwipeRefresh();
+		});
 	}
 
 	private void setAnimations() {

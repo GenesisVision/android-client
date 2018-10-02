@@ -203,7 +203,10 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		managerDate.setText(DateTimeUtil.formatShortDate(programDetails.getManager().getRegistrationDate()));
 
 		strategy.setText(programDetails.getDescription());
-		new Handler().postDelayed(() -> strategyShadow.setVisibility(strategy.getHeight() < strategyMaxHeight ? View.INVISIBLE : View.VISIBLE), 300);
+		new Handler().postDelayed(() -> {
+			if (strategyShadow != null && strategy != null)
+				strategyShadow.setVisibility(strategy.getHeight() < strategyMaxHeight ? View.INVISIBLE : View.VISIBLE);
+		}, 300);
 
 		periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds());
 

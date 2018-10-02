@@ -7,6 +7,7 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
@@ -87,8 +88,9 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 	private void initRecyclerView() {
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
+		int paddingLeft = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getContext().getResources().getDisplayMetrics());
 		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-				ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider), 90, 0);
+				ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider), paddingLeft, 0);
 		recyclerView.addItemDecoration(dividerItemDecoration);
 		requestsAdapter = new RequestsAdapter();
 		requestsAdapter.setHasStableIds(true);

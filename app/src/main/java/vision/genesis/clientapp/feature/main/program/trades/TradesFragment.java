@@ -2,14 +2,12 @@ package vision.genesis.clientapp.feature.main.program.trades;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -18,21 +16,24 @@ import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.OrderModel;
 import timber.log.Timber;
-import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.ui.DividerItemDecoration;
-import vision.genesis.clientapp.utils.TypefaceUtil;
+import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
+import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.ui.DateRangeView;
+import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 
 /**
  * GenesisVision
  * Created by Vitaly on 4/1/18.
  */
 
-public class TradesFragment extends BaseFragment implements TradesView
+public class TradesFragment extends BaseFragment implements TradesView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
 {
 	private static final String EXTRA_PROGRAM_ID = "extra_program_id";
 
@@ -44,51 +45,44 @@ public class TradesFragment extends BaseFragment implements TradesView
 		return tradesFragment;
 	}
 
+	@BindView(R.id.progress_bar)
+	public ProgressBar progressBar;
+
 	@BindView(R.id.header)
 	public ViewGroup header;
+
+	@BindView(R.id.date_range)
+	public DateRangeView dateRangeView;
 
 	@BindView(R.id.group_no_trades)
 	public View groupNoTransactions;
 
-	@BindView(R.id.label_whoops)
-	public TextView whoopsLabel;
-
-	@BindView(R.id.refresh_layout)
-	public SwipeRefreshLayout refreshLayout;
-
 	@BindView(R.id.recycler_view)
 	public RecyclerView recyclerView;
 
-	@BindView(R.id.header_date_open)
-	public TextView dateOpen;
-
-	@BindView(R.id.header_date_close)
-	public TextView dateClose;
-
-	@BindView(R.id.header_symbol)
-	public TextView symbol;
-
-	@BindView(R.id.header_price_open)
-	public TextView priceOpen;
-
-	@BindView(R.id.header_price_close)
-	public TextView priceClose;
-
-	@BindView(R.id.header_volume)
-	public TextView volume;
-
-	@BindView(R.id.header_profit)
-	public TextView profit;
-
-	@BindView(R.id.header_direction)
-	public TextView direction;
+//	@BindDimen(R.dimen.program_details_padding_left)
+//	public int paddingLeft;
 
 	@InjectPresenter
 	public TradesPresenter tradesPresenter;
 
 	private TradesListAdapter tradesListAdapter;
 
+	private SimpleSectionedRecyclerViewAdapter sectionedAdapter;
+
 	private Unbinder unbinder;
+
+	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
+
+	@OnClick(R.id.date_range)
+	public void onDateRangeClicked() {
+		if (getActivity() != null) {
+			DateRangeBottomSheetFragment bottomSheetDialog = new DateRangeBottomSheetFragment();
+			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
+			bottomSheetDialog.setDateRange(dateRange);
+			bottomSheetDialog.setListener(tradesPresenter);
+		}
+	}
 
 	@Nullable
 	@Override
@@ -102,17 +96,11 @@ public class TradesFragment extends BaseFragment implements TradesView
 
 		unbinder = ButterKnife.bind(this, view);
 
-		initRefreshLayout();
 		initRecyclerView();
 		setFonts();
 
 		if (getArguments() != null) {
-			UUID programId = (UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID);
-			tradesPresenter.setProgramId(programId);
-
-			setFonts();
-
-			initRefreshLayout();
+			tradesPresenter.setProgramId((UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID));
 		}
 		else {
 			Timber.e("Passed empty programId to TradesFragment");
@@ -131,32 +119,19 @@ public class TradesFragment extends BaseFragment implements TradesView
 	}
 
 	private void setFonts() {
-		whoopsLabel.setTypeface(TypefaceUtil.bold());
-		dateOpen.setTypeface(TypefaceUtil.bold());
-		dateClose.setTypeface(TypefaceUtil.bold());
-		symbol.setTypeface(TypefaceUtil.bold());
-		priceOpen.setTypeface(TypefaceUtil.bold());
-		priceClose.setTypeface(TypefaceUtil.bold());
-		volume.setTypeface(TypefaceUtil.bold());
-		profit.setTypeface(TypefaceUtil.bold());
-		direction.setTypeface(TypefaceUtil.bold());
-	}
-
-	private void initRefreshLayout() {
-		refreshLayout.setColorSchemeColors(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent),
-				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent),
-				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorMedium));
-		refreshLayout.setOnRefreshListener(() -> tradesPresenter.onSwipeRefresh());
 	}
 
 	private void initRecyclerView() {
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
+//		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
+//				ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider), paddingLeft, 0);
+//		recyclerView.addItemDecoration(dividerItemDecoration);
+
 		tradesListAdapter = new TradesListAdapter();
-		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-				ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.list_item_divider));
-		recyclerView.addItemDecoration(dividerItemDecoration);
-		recyclerView.setAdapter(tradesListAdapter);
+		sectionedAdapter = new SimpleSectionedRecyclerViewAdapter(getContext(), R.layout.list_item_trades_date_section, R.id.text, tradesListAdapter);
+		recyclerView.setAdapter(sectionedAdapter);
+
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
 		{
 			@Override
@@ -174,23 +149,39 @@ public class TradesFragment extends BaseFragment implements TradesView
 	}
 
 	@Override
-	public void setRefreshing(boolean refreshing) {
-		refreshLayout.setRefreshing(refreshing);
+	public void showProgress(boolean show) {
+		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+		if (!show) {
+			header.setVisibility(View.VISIBLE);
+			recyclerView.setVisibility(View.VISIBLE);
+		}
 	}
 
-//	@Override
-//	public void setTrades(List<OrderModel> trades, TradesViewModel.TradeServerTypeEnum tradeServerType) {
-//		if (trades.isEmpty()) {
-//			groupNoTransactions.setVisibility(View.VISIBLE);
-//			return;
-//		}
-//
-//		tradesListAdapter.setTrades(trades, tradeServerType);
-//		header.setVisibility(View.VISIBLE);
-//	}
+	@Override
+	public void setDateRange(DateRange dateRange) {
+		this.dateRange = dateRange;
+		dateRangeView.setDateRange(dateRange);
+	}
 
 	@Override
-	public void addTrades(List<OrderModel> trades) {
+	public void setTrades(List<OrderModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+		if (trades.isEmpty()) {
+			groupNoTransactions.setVisibility(View.VISIBLE);
+			header.setVisibility(View.GONE);
+			recyclerView.setVisibility(View.GONE);
+			return;
+		}
+
+		sectionedAdapter.setSections(sections);
+		tradesListAdapter.setTrades(trades);
+		groupNoTransactions.setVisibility(View.GONE);
+		header.setVisibility(View.VISIBLE);
+		recyclerView.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void addTrades(List<OrderModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+		sectionedAdapter.setSections(sections);
 		tradesListAdapter.addTrades(trades);
 	}
 
@@ -199,23 +190,18 @@ public class TradesFragment extends BaseFragment implements TradesView
 		showSnackbar(message, recyclerView);
 	}
 
-//	@Override
-//	public void setTradeServerType(TradesViewModel.TradeServerTypeEnum tradeServerType) {
-//		switch (tradeServerType) {
-//			case METATRADER4:
-//				dateClose.setVisibility(View.VISIBLE);
-//				priceClose.setVisibility(View.VISIBLE);
-//
-//				dateOpen.setText(String.format(Locale.getDefault(), "%s %s", getString(R.string.date), getString(R.string.open)));
-//				priceOpen.setText(String.format(Locale.getDefault(), "%s %s", getString(R.string.price), getString(R.string.open)));
-//				break;
-//			default:
-//				dateClose.setVisibility(View.GONE);
-//				priceClose.setVisibility(View.GONE);
-//
-//				dateOpen.setText(getString(R.string.date));
-//				priceOpen.setText(getString(R.string.price));
-//				break;
-//		}
-//	}
+	@Override
+	public void pagerShow() {
+		if (tradesPresenter != null)
+			tradesPresenter.onShow();
+	}
+
+	@Override
+	public void pagerHide() {
+	}
+
+	public void onSwipeRefresh() {
+		if (tradesPresenter != null)
+			tradesPresenter.onSwipeRefresh();
+	}
 }

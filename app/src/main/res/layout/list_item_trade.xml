@@ -1,129 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/item_trades_height"
-              android:orientation="horizontal">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_trades_height"
+                android:paddingLeft="@dimen/program_details_padding_left"
+                android:paddingRight="@dimen/program_details_padding_left">
+
+    <ImageView
+        android:id="@+id/entry"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_centerVertical="true"
+        tools:src="@drawable/icon_red_arrow_up"/>
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/date_open"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black87"
-            android:textSize="14sp"
-            tools:text="01.04.2018 09:46"/>
-
-        <TextView
-            android:id="@+id/date_close"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black87"
-            android:textSize="14sp"
-            tools:text="01.04.2018 09:46"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_margin="8dp"
-        android:layout_weight="1"
-        android:gravity="center"
+        android:id="@+id/group_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@+id/entry"
+        android:layout_toRightOf="@+id/entry"
+        android:gravity="center_vertical"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/symbol"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/black87"
-            android:textSize="18sp"
-            tools:text="TSTBTC"/>
-
-        <TextView
-            android:id="@+id/volume"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/black87"
+            android:textColor="?attr/colorTextPrimary"
             android:textSize="16sp"
-            tools:text="0.5"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_margin="8dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/price_open"
-            android:layout_width="match_parent"
-            android:layout_height="24dp"
-            android:maxLines="1"
-            android:textColor="@color/black87"
-            android:textSize="18sp"
-            app:autoSizeMaxTextSize="18sp"
-            app:autoSizeMinTextSize="12sp"
-            app:autoSizeTextType="uniform"
-            tools:text="0.966"/>
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/price_close"
-            android:layout_width="match_parent"
-            android:layout_height="24dp"
-            android:maxLines="1"
-            android:textColor="@color/black87"
-            android:textSize="18sp"
-            app:autoSizeMaxTextSize="18sp"
-            app:autoSizeMinTextSize="12sp"
-            app:autoSizeTextType="uniform"
-            tools:text="0.966555555"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_margin="8dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/profit"
-            android:layout_width="match_parent"
-            android:layout_height="24dp"
-            android:maxLines="1"
-            android:textColor="@color/transactionGreen"
-            android:textSize="18sp"
-            app:autoSizeMaxTextSize="18sp"
-            app:autoSizeMinTextSize="12sp"
-            app:autoSizeTextType="uniform"
-            tools:text="0.000004"/>
+            tools:text="BTCUSD"/>
 
         <TextView
             android:id="@+id/direction"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black87"
-            android:textSize="16sp"
-            tools:text="BUY out"/>
+            android:layout_marginTop="4dp"
+            android:alpha="0.3"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="14sp"
+            tools:text="@string/sell"/>
 
     </LinearLayout>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:alpha="0.3"
+        android:textColor="?attr/colorTextPrimary"
+        android:textSize="14sp"
+        tools:text="24 Sep 2018 15:00"/>
+
+    <LinearLayout
+        android:id="@+id/group_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/group_left"
+        android:layout_toRightOf="@+id/group_left"
+        android:gravity="center_vertical|end"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="16sp"
+            tools:text="120.2301"/>
+
+        <TextView
+            android:id="@+id/profit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="?attr/colorGreen"
+            android:textSize="14sp"
+            tools:text="1.23"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:alpha="0.5"
+        android:background="?attr/colorDelimiterLight"/>
+
+</RelativeLayout>

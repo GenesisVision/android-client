@@ -1,10 +1,14 @@
 package vision.genesis.clientapp.feature.main.program.trades;
 
 import com.arellomobile.mvp.MvpView;
+import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
+import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
 import io.swagger.client.model.OrderModel;
+import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 
 /**
  * GenesisVision
@@ -13,13 +17,14 @@ import io.swagger.client.model.OrderModel;
 
 interface TradesView extends MvpView
 {
-	void setRefreshing(boolean refreshing);
+	@StateStrategyType(AddToEndSingleStrategy.class)
+	void showProgress(boolean show);
 
-//	void setTrades(List<OrderModel> trades, TradesViewModel.TradeServerTypeEnum tradeServerType);
+	void setDateRange(DateRange dateRange);
 
-	void addTrades(List<OrderModel> trades);
+	void setTrades(List<OrderModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
+
+	void addTrades(List<OrderModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
 
 	void showSnackbarMessage(String message);
-
-//	void setTradeServerType(TradesViewModel.TradeServerTypeEnum tradeServerType);
 }

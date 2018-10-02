@@ -120,10 +120,10 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Invest
 			int actionResId = 0;
 			switch (request.getType()) {
 				case INVEST:
-					actionResId = R.drawable.icon_green_arrow_down;
+					actionResId = R.drawable.icon_arrow_green_down;
 					break;
 				case WITHDRAWAL:
-					actionResId = R.drawable.icon_red_arrow_up;
+					actionResId = R.drawable.icon_arrow_red_up;
 					break;
 			}
 			this.action.getHierarchy().setPlaceholderImage(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, actionResId));

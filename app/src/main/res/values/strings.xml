@@ -424,5 +424,7 @@
     <string name="profit_factor">Profit factor</string>
     <string name="sharpe_ratio">Sharpe ratio</string>
     <string name="max_drawdown">Max Drawdown</string>
+    <string name="sell">Sell</string>
+    <string name="buy">Buy</string>
 
 </resources>

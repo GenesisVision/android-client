@@ -394,8 +394,9 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		assetsRecyclerView.setLayoutManager(layoutManager);
+		int paddingLeft = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 43, getContext().getResources().getDisplayMetrics());
 		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-				ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider), 43, 0);
+				ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider), paddingLeft, 0);
 		assetsRecyclerView.addItemDecoration(dividerItemDecoration);
 		portfolioAssetsAdapter = new PortfolioAssetsAdapter();
 		portfolioAssetsAdapter.setHasStableIds(true);

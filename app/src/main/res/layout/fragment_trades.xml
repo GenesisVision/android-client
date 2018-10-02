@@ -3,159 +3,63 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:background="?attr/colorBackground">
 
     <RelativeLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="@dimen/program_details_fragment_header_height"
+        android:layout_marginTop="24dp"
+        android:paddingLeft="@dimen/program_details_padding_left"
+        android:paddingRight="@dimen/program_details_padding_left"
+        android:visibility="gone">
 
-        <LinearLayout
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/activity_trades_header_height"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <LinearLayout
-                style="@style/trades_header_text"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:paddingLeft="16dp"
-                android:paddingStart="16dp">
-
-                <TextView
-                    android:id="@+id/header_date_open"
-                    style="@style/trades_header_text_stacked"
-                    android:text="@string/date"/>
-
-                <TextView
-                    android:id="@+id/header_date_close"
-                    style="@style/trades_header_text_stacked"
-                    android:text="@string/date_close"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/trades_header_text"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:paddingLeft="8dp"
-                android:paddingStart="8dp">
-
-                <TextView
-                    android:id="@+id/header_symbol"
-                    style="@style/trades_header_text_stacked"
-                    android:gravity="center"
-                    android:text="@string/symbol"/>
-
-                <TextView
-                    android:id="@+id/header_volume"
-                    style="@style/trades_header_text_stacked"
-                    android:gravity="center"
-                    android:text="@string/volume"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/trades_header_text"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:paddingLeft="8dp"
-                android:paddingStart="8dp">
-
-                <TextView
-                    android:id="@+id/header_price_open"
-                    style="@style/trades_header_text_stacked"
-                    android:text="@string/price"/>
-
-                <TextView
-                    android:id="@+id/header_price_close"
-                    style="@style/trades_header_text_stacked"
-                    android:text="@string/price_close"/>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                style="@style/trades_header_text"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:paddingLeft="8dp"
-                android:paddingStart="8dp">
-
-                <TextView
-                    android:id="@+id/header_profit"
-                    style="@style/trades_header_text_stacked"
-                    android:text="@string/profit"/>
-
-                <TextView
-                    android:id="@+id/header_direction"
-                    style="@style/trades_header_text_stacked"
-                    android:text="@string/direction"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="4dp"-->
-        <!--android:layout_below="@+id/header"-->
-        <!--android:background="@drawable/shadow_down_black"/>-->
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/header"
-            android:background="@color/black12"/>
-
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/refresh_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/header">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </android.support.v4.widget.SwipeRefreshLayout>
+        <vision.genesis.clientapp.ui.DateRangeView
+            android:id="@+id/date_range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
 
     </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/group_no_trades"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
         android:orientation="vertical"
+        android:padding="32dp"
         android:visibility="gone"
         tools:visibility="gone">
 
         <TextView
-            android:id="@+id/label_whoops"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:text="@string/whoops"
-            android:textColor="@color/colorAccent"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="8dp"
             android:gravity="center"
             android:text="@string/program_has_no_trades_yet"
-            android:textColor="@color/colorMedium"
-            android:textSize="20sp"/>
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="16sp"/>
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:indeterminate="true"
+        android:scaleY="4"
+        android:visibility="visible"/>
 
 </RelativeLayout>
