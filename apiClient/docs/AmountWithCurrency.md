@@ -12,10 +12,10 @@ Name | Type | Description | Notes
 ## Enum: CurrencyEnum
 Name | Value
 ---- | -----
-GVT | &quot;GVT&quot;
-UNDEFINED | &quot;Undefined&quot;
 ETH | &quot;ETH&quot;
+GVT | &quot;GVT&quot;
 BTC | &quot;BTC&quot;
+UNDEFINED | &quot;Undefined&quot;
 ADA | &quot;ADA&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;

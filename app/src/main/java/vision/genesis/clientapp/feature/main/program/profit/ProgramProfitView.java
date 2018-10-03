@@ -26,4 +26,6 @@ interface ProgramProfitView extends MvpView
 	void showProgress(boolean show);
 
 	void setDateRange(DateRange dateRange);
+
+	void setStatisticsData(Integer trades, Double successTradesPercent, Double profitFactor, Double sharpeRatio, Double sortinoRatio, Double calmarRatio, Double maxDrawdown);
 }

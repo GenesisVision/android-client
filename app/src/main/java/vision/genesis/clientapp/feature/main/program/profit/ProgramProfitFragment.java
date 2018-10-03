@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -25,6 +26,7 @@ import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFr
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -90,6 +92,12 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 	@BindView(R.id.sharpe_ratio)
 	public TextView sharpeRatio;
 
+	@BindView(R.id.sortino_ratio)
+	public TextView sortinoRatio;
+
+	@BindView(R.id.calmar_ratio)
+	public TextView calmarRatio;
+
 	@BindView(R.id.trades)
 	public TextView trades;
 
@@ -106,7 +114,7 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 
 	private Unbinder unbinder;
 
-	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
+	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.DAY);
 
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
@@ -160,6 +168,8 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 		successTrades.setTypeface(TypefaceUtil.semibold());
 		profitFactor.setTypeface(TypefaceUtil.semibold());
 		sharpeRatio.setTypeface(TypefaceUtil.semibold());
+		sortinoRatio.setTypeface(TypefaceUtil.semibold());
+		calmarRatio.setTypeface(TypefaceUtil.semibold());
 		trades.setTypeface(TypefaceUtil.semibold());
 		investors.setTypeface(TypefaceUtil.semibold());
 		maxDrawdown.setTypeface(TypefaceUtil.semibold());
@@ -198,6 +208,17 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 	public void setDateRange(DateRange dateRange) {
 		this.dateRange = dateRange;
 		dateRangeView.setDateRange(dateRange);
+	}
+
+	@Override
+	public void setStatisticsData(Integer trades, Double successTradesPercent, Double profitFactor, Double sharpeRatio, Double sortinoRatio, Double calmarRatio, Double maxDrawdown) {
+		this.trades.setText(String.valueOf(trades));
+		this.successTrades.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(successTradesPercent, 0, 4)));
+		this.profitFactor.setText(profitFactor == null ? "∞" : StringFormatUtil.formatAmount(profitFactor, 0, 4));
+		this.sharpeRatio.setText(StringFormatUtil.formatAmount(sharpeRatio, 0, 4));
+		this.sortinoRatio.setText(StringFormatUtil.formatAmount(sortinoRatio, 0, 4));
+		this.calmarRatio.setText(StringFormatUtil.formatAmount(calmarRatio, 0, 4));
+		this.maxDrawdown.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(maxDrawdown, 0, 4)));
 	}
 
 	@Override

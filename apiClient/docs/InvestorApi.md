@@ -104,7 +104,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: GVT, Undefined, ETH, BTC, ADA, USD, EUR]
+ **currency** | **String**|  | [enum: ETH, GVT, BTC, Undefined, ADA, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -247,7 +247,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: GVT, Undefined, ETH, BTC, ADA, USD, EUR]
+ **currency** | **String**|  | [enum: ETH, GVT, BTC, Undefined, ADA, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -303,7 +303,7 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: GVT, Undefined, ETH, BTC, ADA, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: ETH, GVT, BTC, Undefined, ADA, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -413,7 +413,7 @@ Name | Type | Description  | Notes
  **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
- **chartCurrency** | **String**|  | [optional] [enum: GVT, Undefined, ETH, BTC, ADA, USD, EUR]
+ **chartCurrency** | **String**|  | [optional] [enum: ETH, GVT, BTC, Undefined, ADA, USD, EUR]
  **chartFrom** | **DateTime**|  | [optional]
  **chartTo** | **DateTime**|  | [optional]
  **requestsSkip** | **Integer**|  | [optional]
@@ -464,7 +464,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **currency** | **String**|  | [optional] [enum: GVT, Undefined, ETH, BTC, ADA, USD, EUR]
+ **currency** | **String**|  | [optional] [enum: ETH, GVT, BTC, Undefined, ADA, USD, EUR]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
 
@@ -616,7 +616,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: GVT, Undefined, ETH, BTC, ADA, USD, EUR]
+ **currency** | **String**|  | [enum: ETH, GVT, BTC, Undefined, ADA, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -849,7 +849,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: GVT, Undefined, ETH, BTC, ADA, USD, EUR]
+ **currency** | **String**|  | [enum: ETH, GVT, BTC, Undefined, ADA, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -905,7 +905,7 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: GVT, Undefined, ETH, BTC, ADA, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: ETH, GVT, BTC, Undefined, ADA, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

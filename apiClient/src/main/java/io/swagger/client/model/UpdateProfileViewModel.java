@@ -63,9 +63,6 @@ public class UpdateProfileViewModel
 	@SerializedName("gender")
 	private Boolean gender = null;
 
-	@SerializedName("avatar")
-	private String avatar = null;
-
 	public UpdateProfileViewModel userName(String userName) {
 		this.userName = userName;
 		return this;
@@ -294,25 +291,6 @@ public class UpdateProfileViewModel
 		this.gender = gender;
 	}
 
-	public UpdateProfileViewModel avatar(String avatar) {
-		this.avatar = avatar;
-		return this;
-	}
-
-	/**
-	 * Get avatar
-	 *
-	 * @return avatar
-	 **/
-	@ApiModelProperty(value = "")
-	public String getAvatar() {
-		return avatar;
-	}
-
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
-
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -334,13 +312,12 @@ public class UpdateProfileViewModel
 				Objects.equals(this.address, updateProfileViewModel.address) &&
 				Objects.equals(this.phone, updateProfileViewModel.phone) &&
 				Objects.equals(this.birthday, updateProfileViewModel.birthday) &&
-				Objects.equals(this.gender, updateProfileViewModel.gender) &&
-				Objects.equals(this.avatar, updateProfileViewModel.avatar);
+				Objects.equals(this.gender, updateProfileViewModel.gender);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userName, firstName, middleName, lastName, documentType, documentNumber, country, city, address, phone, birthday, gender, avatar);
+		return Objects.hash(userName, firstName, middleName, lastName, documentType, documentNumber, country, city, address, phone, birthday, gender);
 	}
 
 
@@ -361,7 +338,6 @@ public class UpdateProfileViewModel
 		sb.append("    phone: ").append(toIndentedString(phone)).append("\n");
 		sb.append("    birthday: ").append(toIndentedString(birthday)).append("\n");
 		sb.append("    gender: ").append(toIndentedString(gender)).append("\n");
-		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

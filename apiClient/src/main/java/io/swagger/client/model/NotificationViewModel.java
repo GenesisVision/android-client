@@ -33,6 +33,9 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class NotificationViewModel
 {
+	@SerializedName("id")
+	private UUID id = null;
+
 	@SerializedName("text")
 	private String text = null;
 
@@ -50,6 +53,25 @@ public class NotificationViewModel
 
 	@SerializedName("logo")
 	private String logo = null;
+
+	public NotificationViewModel id(UUID id) {
+		this.id = id;
+		return this;
+	}
+
+	/**
+	 * Get id
+	 *
+	 * @return id
+	 **/
+	@ApiModelProperty(value = "")
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
 	public NotificationViewModel text(String text) {
 		this.text = text;
@@ -174,7 +196,8 @@ public class NotificationViewModel
 			return false;
 		}
 		NotificationViewModel notificationViewModel = (NotificationViewModel) o;
-		return Objects.equals(this.text, notificationViewModel.text) &&
+		return Objects.equals(this.id, notificationViewModel.id) &&
+				Objects.equals(this.text, notificationViewModel.text) &&
 				Objects.equals(this.date, notificationViewModel.date) &&
 				Objects.equals(this.type, notificationViewModel.type) &&
 				Objects.equals(this.programId, notificationViewModel.programId) &&
@@ -184,7 +207,7 @@ public class NotificationViewModel
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(text, date, type, programId, managerId, logo);
+		return Objects.hash(id, text, date, type, programId, managerId, logo);
 	}
 
 	@Override
@@ -192,6 +215,7 @@ public class NotificationViewModel
 		StringBuilder sb = new StringBuilder();
 		sb.append("class NotificationViewModel {\n");
 
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    text: ").append(toIndentedString(text)).append("\n");
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");

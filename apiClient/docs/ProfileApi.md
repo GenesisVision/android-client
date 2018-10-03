@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**v10ProfileGet**](ProfileApi.md#v10ProfileGet) | **GET** v1.0/profile | Get full profile
 [**v10ProfileHeaderGet**](ProfileApi.md#v10ProfileHeaderGet) | **GET** v1.0/profile/header | Get header profile
+[**v10ProfileUpdateAvatarByFileIdPost**](ProfileApi.md#v10ProfileUpdateAvatarByFileIdPost) | **POST** v1.0/profile/update/avatar/{fileId} | Update avatar
 [**v10ProfileUpdatePost**](ProfileApi.md#v10ProfileUpdatePost) | **POST** v1.0/profile/update | Update profile
 
 
@@ -85,6 +86,51 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ProfileHeaderViewModel**](ProfileHeaderViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ProfileUpdateAvatarByFileIdPost"></a>
+# **v10ProfileUpdateAvatarByFileIdPost**
+> Void v10ProfileUpdateAvatarByFileIdPost(fileId, authorization)
+
+Update avatar
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ProfileApi;
+
+
+ProfileApi apiInstance = new ProfileApi();
+String fileId = "fileId_example"; // String | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.v10ProfileUpdateAvatarByFileIdPost(fileId, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProfileApi#v10ProfileUpdateAvatarByFileIdPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **fileId** | **String**|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
 
 ### Authorization
 

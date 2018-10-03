@@ -4,12 +4,13 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import javax.inject.Inject;
 
 import io.swagger.client.model.ChartSimple;
-import io.swagger.client.model.ProgramChart;
+import io.swagger.client.model.ProgramProfitChart;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -17,7 +18,6 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
-import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -35,21 +35,21 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 	@Inject
 	public SettingsManager settingsManager;
 
-	private Subscription baseCurrencySubscription;
+//	private Subscription baseCurrencySubscription;
 
 	private Subscription chartDataSubscription;
 
 	private UUID programId;
 
-	private CurrencyEnum baseCurrency;
+//	private CurrencyEnum baseCurrency;
 
-	private Double first;
+//	private Double first;
 
-	private Double selected;
+//	private Double selected;
 
-	private ProgramChart chartData;
+	private ProgramProfitChart chartData;
 
-	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
+	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.DAY);
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -57,7 +57,7 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		subscribeToBaseCurrency();
+//		subscribeToBaseCurrency();
 
 		getViewState().setDateRange(chartDateRange);
 		getViewState().showProgress(true);
@@ -66,8 +66,8 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 
 	@Override
 	public void onDestroy() {
-		if (baseCurrencySubscription != null)
-			baseCurrencySubscription.unsubscribe();
+//		if (baseCurrencySubscription != null)
+//			baseCurrencySubscription.unsubscribe();
 		if (chartDataSubscription != null)
 			chartDataSubscription.unsubscribe();
 
@@ -88,25 +88,26 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 //		getChartData();
 //	}
 
-	private void subscribeToBaseCurrency() {
-		baseCurrencySubscription = settingsManager.getBaseCurrency()
-				.subscribeOn(Schedulers.newThread())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::baseCurrencyChangedHandler);
-	}
+//	private void subscribeToBaseCurrency() {
+//		baseCurrencySubscription = settingsManager.getBaseCurrency()
+//				.subscribeOn(Schedulers.newThread())
+//				.observeOn(AndroidSchedulers.mainThread())
+//				.subscribe(this::baseCurrencyChangedHandler);
+//	}
 
-	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
-		this.baseCurrency = baseCurrency;
-
-		getChartData();
-	}
+//	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
+//		this.baseCurrency = baseCurrency;
+//
+//		getChartData();
+//	}
 
 	private void getChartData() {
-		if (programId != null && programsManager != null && baseCurrency != null) {
+//		if (programId != null && programsManager != null && baseCurrency != null) {
+		if (programId != null && programsManager != null) {
 			if (chartDataSubscription != null)
 				chartDataSubscription.unsubscribe();
 			//TODO: calculate maxPointCount
-			chartDataSubscription = programsManager.getProfitChart(programId, baseCurrency, chartDateRange, 10)
+			chartDataSubscription = programsManager.getProfitChart(programId, chartDateRange, 10)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetChartDataSuccess,
@@ -114,7 +115,7 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 		}
 	}
 
-	private void handleGetChartDataSuccess(ProgramChart response) {
+	private void handleGetChartDataSuccess(ProgramProfitChart response) {
 		chartDataSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
@@ -132,9 +133,9 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 
 	private void resetValuesSelection() {
 		List<ChartSimple> firstEquityChart = chartData.getChart().get(0).getEquityChart();
-		first = firstEquityChart.get(0).getValue();
+//		first = firstEquityChart.get(0).getValue();
 		List<ChartSimple> lastEquityChart = chartData.getChart().get(chartData.getChart().size() - 1).getEquityChart();
-		selected = lastEquityChart.get(lastEquityChart.size() - 1).getValue();
+//		selected = lastEquityChart.get(lastEquityChart.size() - 1).getValue();
 //		getViewState().hideHighlight();
 		updateValues();
 	}
@@ -146,17 +147,23 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 	}
 
 	private void updateValues() {
-		if (first == null || selected == null || baseCurrency == null)
-			return;
+//		if (first == null || selected == null || baseCurrency == null)
+//			return;
 
-		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getBaseValueString(selected * chartData.getRate(), baseCurrency.getValue()));
+		getViewState().setAmount(StringFormatUtil.getGvtValueString(chartData.getTotalGvtProfit()), StringFormatUtil.getBaseValueString(chartData.getTotalProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
 //		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getBaseValueString(selected * 7, baseCurrency.getValue()));
 
-		Double changeValue = selected - first;
-		getViewState().setChange(changeValue < 0, StringFormatUtil.getChangePercentString(first, selected),
-				StringFormatUtil.getChangeValueString(changeValue), StringFormatUtil.getBaseValueString(changeValue * chartData.getRate(), baseCurrency.getValue()));
+//		Double changeValue = selected - first;
 //		getViewState().setChange(changeValue < 0, StringFormatUtil.getChangePercentString(first, selected),
-//				StringFormatUtil.getChangeValueString(changeValue), StringFormatUtil.getBaseValueString(changeValue * 7, baseCurrency.getValue()));
+//				StringFormatUtil.getChangeValueString(changeValue), StringFormatUtil.getBaseValueString(changeValue * chartData.get(), baseCurrency.getValue()));
+		getViewState().setChange(chartData.getProfitChangePercent() != null && chartData.getProfitChangePercent() < 0,
+				chartData.getProfitChangePercent() == null ? "∞" : String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(chartData.getProfitChangePercent(), 0, 2)),
+				StringFormatUtil.getChangeValueString(chartData.getTimeframeGvtProfit()),
+				StringFormatUtil.getBaseValueString(chartData.getTimeframeProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
+
+		getViewState().setStatisticsData(chartData.getTrades(), chartData.getSuccessTradesPercent(),
+				chartData.getProfitFactor(), chartData.getSharpeRatio(), chartData.getSortinoRatio(),
+				chartData.getCalmarRatio(), chartData.getMaxDrawdown());
 	}
 
 	@Override

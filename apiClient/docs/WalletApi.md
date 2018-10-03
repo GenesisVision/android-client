@@ -86,7 +86,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [enum: GVT, Undefined, ETH, BTC, ADA, USD, EUR]
+ **currency** | **String**|  | [enum: ETH, GVT, BTC, Undefined, ADA, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type

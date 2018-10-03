@@ -143,6 +143,21 @@
 
                     <TextView
                         style="@style/statistics_label"
+                        android:text="@string/trades"/>
+
+                    <TextView
+                        android:id="@+id/trades"
+                        style="@style/statistics_value"
+                        tools:text="421"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    style="@style/statistics_group"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/statistics_label"
                         android:text="@string/start_day"/>
 
                     <TextView
@@ -153,7 +168,8 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    style="@style/statistics_group">
+                    style="@style/statistics_group"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/statistics_label"
@@ -167,7 +183,8 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    style="@style/statistics_group">
+                    style="@style/statistics_group"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/statistics_label"
@@ -227,17 +244,32 @@
 
                     <TextView
                         style="@style/statistics_label"
-                        android:text="@string/trades"/>
+                        android:text="@string/sortino_ratio"/>
 
                     <TextView
-                        android:id="@+id/trades"
+                        android:id="@+id/sortino_ratio"
                         style="@style/statistics_value"
-                        tools:text="421"/>
+                        tools:text="3%"/>
 
                 </RelativeLayout>
 
                 <RelativeLayout
                     style="@style/statistics_group">
+
+                    <TextView
+                        style="@style/statistics_label"
+                        android:text="@string/calmar_ratio"/>
+
+                    <TextView
+                        android:id="@+id/calmar_ratio"
+                        style="@style/statistics_value"
+                        tools:text="3%"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    style="@style/statistics_group"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/statistics_label"

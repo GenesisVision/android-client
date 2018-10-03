@@ -13,8 +13,13 @@
 
 package io.swagger.client.model;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,6 +34,9 @@ public class ProgramBalanceChart
 {
 	@SerializedName("programCurrencyBalance")
 	private Double programCurrencyBalance = null;
+
+	@SerializedName("programCurrency")
+	private ProgramCurrencyEnum programCurrency = null;
 
 	@SerializedName("balanceChart")
 	private List<ProgramBalanceChartElement> balanceChart = null;
@@ -53,6 +61,25 @@ public class ProgramBalanceChart
 
 	public void setProgramCurrencyBalance(Double programCurrencyBalance) {
 		this.programCurrencyBalance = programCurrencyBalance;
+	}
+
+	public ProgramBalanceChart programCurrency(ProgramCurrencyEnum programCurrency) {
+		this.programCurrency = programCurrency;
+		return this;
+	}
+
+	/**
+	 * Get programCurrency
+	 *
+	 * @return programCurrency
+	 **/
+	@ApiModelProperty(value = "")
+	public ProgramCurrencyEnum getProgramCurrency() {
+		return programCurrency;
+	}
+
+	public void setProgramCurrency(ProgramCurrencyEnum programCurrency) {
+		this.programCurrency = programCurrency;
 	}
 
 	public ProgramBalanceChart balanceChart(List<ProgramBalanceChartElement> balanceChart) {
@@ -101,7 +128,6 @@ public class ProgramBalanceChart
 		this.gvtBalance = gvtBalance;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -112,15 +138,15 @@ public class ProgramBalanceChart
 		}
 		ProgramBalanceChart programBalanceChart = (ProgramBalanceChart) o;
 		return Objects.equals(this.programCurrencyBalance, programBalanceChart.programCurrencyBalance) &&
+				Objects.equals(this.programCurrency, programBalanceChart.programCurrency) &&
 				Objects.equals(this.balanceChart, programBalanceChart.balanceChart) &&
 				Objects.equals(this.gvtBalance, programBalanceChart.gvtBalance);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(programCurrencyBalance, balanceChart, gvtBalance);
+		return Objects.hash(programCurrencyBalance, programCurrency, balanceChart, gvtBalance);
 	}
-
 
 	@Override
 	public String toString() {
@@ -128,6 +154,7 @@ public class ProgramBalanceChart
 		sb.append("class ProgramBalanceChart {\n");
 
 		sb.append("    programCurrencyBalance: ").append(toIndentedString(programCurrencyBalance)).append("\n");
+		sb.append("    programCurrency: ").append(toIndentedString(programCurrency)).append("\n");
 		sb.append("    balanceChart: ").append(toIndentedString(balanceChart)).append("\n");
 		sb.append("    gvtBalance: ").append(toIndentedString(gvtBalance)).append("\n");
 		sb.append("}");
@@ -143,6 +170,65 @@ public class ProgramBalanceChart
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	/**
+	 * Gets or Sets programCurrency
+	 */
+	@JsonAdapter(ProgramCurrencyEnum.Adapter.class)
+	public enum ProgramCurrencyEnum
+	{
+		ETH("ETH"),
+
+		GVT("GVT"),
+
+		BTC("BTC"),
+
+		UNDEFINED("Undefined"),
+
+		ADA("ADA"),
+
+		USD("USD"),
+
+		EUR("EUR");
+
+		public static ProgramCurrencyEnum fromValue(String text) {
+			for (ProgramCurrencyEnum b : ProgramCurrencyEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		ProgramCurrencyEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<ProgramCurrencyEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final ProgramCurrencyEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public ProgramCurrencyEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return ProgramCurrencyEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 }

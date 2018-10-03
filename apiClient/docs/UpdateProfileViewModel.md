@@ -16,7 +16,6 @@ Name | Type | Description | Notes
 **phone** | **String** |  |  [optional]
 **birthday** | [**DateTime**](DateTime.md) |  |  [optional]
 **gender** | **Boolean** |  |  [optional]
-**avatar** | **String** |  |  [optional]
 
 
 

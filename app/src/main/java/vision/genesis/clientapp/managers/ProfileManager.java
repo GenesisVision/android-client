@@ -73,7 +73,7 @@ public class ProfileManager
 		UpdateProfileViewModel updateModel = new UpdateProfileViewModel();
 
 		updateModel.setAddress(newProfileModel.getAddress());
-		updateModel.setAvatar(newProfileModel.getAvatar());
+//		updateModel.setAvatar(newProfileModel.getAvatar());
 		updateModel.setBirthday(newProfileModel.getBirthday());
 		updateModel.setCity(newProfileModel.getCity());
 		updateModel.setCountry(newProfileModel.getCountry());

@@ -33,6 +33,18 @@ public interface ProfileApi
 	);
 
 	/**
+	 * Update avatar
+	 *
+	 * @param fileId        (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v1.0/profile/update/avatar/{fileId}")
+	Observable<Void> v10ProfileUpdateAvatarByFileIdPost(
+			@retrofit2.http.Path("fileId") String fileId, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
 	 * Update profile
 	 *
 	 * @param authorization JWT access token (required)

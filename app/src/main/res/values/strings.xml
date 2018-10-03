@@ -426,5 +426,7 @@
     <string name="max_drawdown">Max Drawdown</string>
     <string name="sell">Sell</string>
     <string name="buy">Buy</string>
+    <string name="calmar_ratio">Calmar ratio</string>
+    <string name="sortino_ratio">Sortino ratio</string>
 
 </resources>

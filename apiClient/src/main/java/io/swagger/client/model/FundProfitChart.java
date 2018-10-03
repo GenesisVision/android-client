@@ -71,6 +71,9 @@ public class FundProfitChart
 	@SerializedName("timeframeGvtProfit")
 	private Double timeframeGvtProfit = null;
 
+	@SerializedName("profitChangePercent")
+	private Double profitChangePercent = null;
+
 	public FundProfitChart totalUsdProfit(Double totalUsdProfit) {
 		this.totalUsdProfit = totalUsdProfit;
 		return this;
@@ -345,6 +348,25 @@ public class FundProfitChart
 		this.timeframeGvtProfit = timeframeGvtProfit;
 	}
 
+	public FundProfitChart profitChangePercent(Double profitChangePercent) {
+		this.profitChangePercent = profitChangePercent;
+		return this;
+	}
+
+	/**
+	 * Get profitChangePercent
+	 *
+	 * @return profitChangePercent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProfitChangePercent() {
+		return profitChangePercent;
+	}
+
+	public void setProfitChangePercent(Double profitChangePercent) {
+		this.profitChangePercent = profitChangePercent;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -368,12 +390,13 @@ public class FundProfitChart
 				Objects.equals(this.sortinoRatio, fundProfitChart.sortinoRatio) &&
 				Objects.equals(this.calmarRatio, fundProfitChart.calmarRatio) &&
 				Objects.equals(this.totalGvtProfit, fundProfitChart.totalGvtProfit) &&
-				Objects.equals(this.timeframeGvtProfit, fundProfitChart.timeframeGvtProfit);
+				Objects.equals(this.timeframeGvtProfit, fundProfitChart.timeframeGvtProfit) &&
+				Objects.equals(this.profitChangePercent, fundProfitChart.profitChangePercent);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(totalUsdProfit, timeframeUsdProfit, rebalances, startInvestors, endInvestors, lastPeriodStarts, lastPeriodEnds, equityChart, equity, sharpeRatio, sortinoRatio, calmarRatio, totalGvtProfit, timeframeGvtProfit);
+		return Objects.hash(totalUsdProfit, timeframeUsdProfit, rebalances, startInvestors, endInvestors, lastPeriodStarts, lastPeriodEnds, equityChart, equity, sharpeRatio, sortinoRatio, calmarRatio, totalGvtProfit, timeframeGvtProfit, profitChangePercent);
 	}
 
 
@@ -396,6 +419,7 @@ public class FundProfitChart
 		sb.append("    calmarRatio: ").append(toIndentedString(calmarRatio)).append("\n");
 		sb.append("    totalGvtProfit: ").append(toIndentedString(totalGvtProfit)).append("\n");
 		sb.append("    timeframeGvtProfit: ").append(toIndentedString(timeframeGvtProfit)).append("\n");
+		sb.append("    profitChangePercent: ").append(toIndentedString(profitChangePercent)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

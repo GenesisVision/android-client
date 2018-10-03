@@ -34,10 +34,10 @@ PAYMENTTRANSACTION | &quot;PaymentTransaction&quot;
 ## Enum: SourceCurrencyEnum
 Name | Value
 ---- | -----
-GVT | &quot;GVT&quot;
-UNDEFINED | &quot;Undefined&quot;
 ETH | &quot;ETH&quot;
+GVT | &quot;GVT&quot;
 BTC | &quot;BTC&quot;
+UNDEFINED | &quot;Undefined&quot;
 ADA | &quot;ADA&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
@@ -75,10 +75,10 @@ PAYMENTTRANSACTION | &quot;PaymentTransaction&quot;
 ## Enum: DestinationCurrencyEnum
 Name | Value
 ---- | -----
-GVT | &quot;GVT&quot;
-UNDEFINED | &quot;Undefined&quot;
 ETH | &quot;ETH&quot;
+GVT | &quot;GVT&quot;
 BTC | &quot;BTC&quot;
+UNDEFINED | &quot;Undefined&quot;
 ADA | &quot;ADA&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
