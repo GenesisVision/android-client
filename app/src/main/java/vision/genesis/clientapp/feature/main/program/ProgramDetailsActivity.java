@@ -117,7 +117,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	private TabLayout.Tab tradesTab;
 
-	private TabLayout.Tab historyTab;
+	private TabLayout.Tab eventsTab;
 
 	private ProgramDetailsPagerAdapter pagerAdapter;
 
@@ -243,7 +243,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		infoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("info");
 		profitTab = tabLayout.newTab().setCustomView(getTabView(R.string.profit)).setTag("profit");
 		tradesTab = tabLayout.newTab().setCustomView(getTabView(R.string.trades)).setTag("trades");
-		historyTab = tabLayout.newTab().setCustomView(getTabView(R.string.history)).setTag("history");
+		eventsTab = tabLayout.newTab().setCustomView(getTabView(R.string.events)).setTag("events");
 
 		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -319,9 +319,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	public void setProgram(ProgramDetailsFull programDetails) {
 		this.programDetails = programDetails;
 
-
 //		if (programDetails.isIsHistoryEnable())
-		addPage(historyTab, false);
+		addPage(eventsTab, false);
 
 		model.update(programDetails);
 		updateHeader();

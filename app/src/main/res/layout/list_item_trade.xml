@@ -3,8 +3,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_trades_height"
-                android:paddingLeft="@dimen/program_details_padding_left"
-                android:paddingRight="@dimen/program_details_padding_left">
+                android:paddingLeft="@dimen/program_details_padding_left">
 
     <ImageView
         android:id="@+id/entry"
@@ -55,6 +54,7 @@
         android:alpha="0.3"
         android:textColor="?attr/colorTextPrimary"
         android:textSize="14sp"
+        android:visibility="gone"
         tools:text="24 Sep 2018 15:00"/>
 
     <LinearLayout
@@ -64,6 +64,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/program_details_padding_left"
+        android:layout_marginRight="@dimen/program_details_padding_left"
         android:layout_toEndOf="@+id/group_left"
         android:layout_toRightOf="@+id/group_left"
         android:gravity="center_vertical|end"

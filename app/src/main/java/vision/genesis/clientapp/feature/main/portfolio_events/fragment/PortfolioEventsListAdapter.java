@@ -1,18 +1,24 @@
 package vision.genesis.clientapp.feature.main.portfolio_events.fragment;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.swagger.client.model.DashboardPortfolioEvent;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.ui.AvatarView;
+import vision.genesis.clientapp.model.PortfolioEvent;
+import vision.genesis.clientapp.utils.ImageUtils;
+import vision.genesis.clientapp.utils.ThemeUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -21,7 +27,7 @@ import vision.genesis.clientapp.ui.AvatarView;
 
 public class PortfolioEventsListAdapter extends RecyclerView.Adapter<PortfolioEventsListAdapter.PortfolioEventViewHolder>
 {
-	private List<DashboardPortfolioEvent> events = new ArrayList<>();
+	private List<PortfolioEvent> events = new ArrayList<>();
 
 	@Override
 	public PortfolioEventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -47,18 +53,35 @@ public class PortfolioEventsListAdapter extends RecyclerView.Adapter<PortfolioEv
 				: RecyclerView.NO_ID;
 	}
 
-	void setEvents(List<DashboardPortfolioEvent> events) {
+	public void setEvents(List<PortfolioEvent> events) {
 		this.events.clear();
+		this.events.addAll(events);
+		notifyDataSetChanged();
+	}
+
+	public void addEvents(List<PortfolioEvent> events) {
 		this.events.addAll(events);
 		notifyDataSetChanged();
 	}
 
 	static class PortfolioEventViewHolder extends RecyclerView.ViewHolder
 	{
-		@BindView(R.id.program_logo)
-		public AvatarView programLogo;
+		@BindView(R.id.subject)
+		public SimpleDraweeView subject;
 
-		private DashboardPortfolioEvent event;
+		@BindView(R.id.action)
+		public SimpleDraweeView action;
+
+		@BindView(R.id.text)
+		public TextView text;
+
+		@BindView(R.id.time)
+		public TextView time;
+
+		@BindView(R.id.value)
+		public TextView value;
+
+		private PortfolioEvent event;
 
 		PortfolioEventViewHolder(View itemView) {
 			super(itemView);
@@ -74,16 +97,22 @@ public class PortfolioEventsListAdapter extends RecyclerView.Adapter<PortfolioEv
 		}
 
 		private void setFonts() {
-//			programName.setTypeface(TypefaceUtil.bold());
+			time.setTypeface(TypefaceUtil.semibold());
+			value.setTypeface(TypefaceUtil.semibold());
 		}
 
-		void setEvent(DashboardPortfolioEvent investmentProgram) {
+		void setEvent(PortfolioEvent event) {
 			this.event = event;
-			updateData();
-		}
 
-		private void updateData() {
-
+			subject.setImageURI(ImageUtils.getImageUri(event.getLogoUrl()));
+			action.getHierarchy().setPlaceholderImage(ContextCompat.getDrawable(itemView.getContext(), event.getActionResId()));
+			text.setText(event.getText());
+			time.setText(event.getTime());
+			value.setText(event.getValue());
+			value.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
+					!event.getValueNegative()
+							? R.attr.colorGreen
+							: R.attr.colorRed));
 		}
 	}
 }

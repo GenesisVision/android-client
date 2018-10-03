@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.trades;
+package vision.genesis.clientapp.feature.main.program.events;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,31 +18,32 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.OrderModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.portfolio_events.fragment.PortfolioEventsListAdapter;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.PortfolioEvent;
 import vision.genesis.clientapp.ui.DateRangeView;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 
 /**
- * GenesisVision
- * Created by Vitaly on 4/1/18.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 03/10/2018.
  */
 
-public class TradesFragment extends BaseFragment implements TradesView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
+public class ProgramEventsFragment extends BaseFragment implements ProgramEventsView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
 {
 	private static final String EXTRA_PROGRAM_ID = "extra_program_id";
 
-	public static TradesFragment with(UUID programId) {
-		TradesFragment tradesFragment = new TradesFragment();
+	public static ProgramEventsFragment with(UUID programId) {
+		ProgramEventsFragment programHistoryFragment = new ProgramEventsFragment();
 		Bundle arguments = new Bundle(1);
 		arguments.putSerializable(EXTRA_PROGRAM_ID, programId);
-		tradesFragment.setArguments(arguments);
-		return tradesFragment;
+		programHistoryFragment.setArguments(arguments);
+		return programHistoryFragment;
 	}
 
 	@BindView(R.id.progress_bar)
@@ -54,19 +55,16 @@ public class TradesFragment extends BaseFragment implements TradesView, ProgramD
 	@BindView(R.id.date_range)
 	public DateRangeView dateRangeView;
 
-	@BindView(R.id.group_no_trades)
-	public View groupNoTransactions;
+	@BindView(R.id.group_no_events)
+	public View groupNoEvents;
 
 	@BindView(R.id.recycler_view)
 	public RecyclerView recyclerView;
 
-//	@BindDimen(R.dimen.program_details_padding_left)
-//	public int paddingLeft;
-
 	@InjectPresenter
-	public TradesPresenter tradesPresenter;
+	public ProgramEventsPresenter programEventsPresenter;
 
-	private TradesListAdapter tradesListAdapter;
+	private PortfolioEventsListAdapter eventsListAdapter;
 
 	private SimpleSectionedRecyclerViewAdapter sectionedAdapter;
 
@@ -80,14 +78,14 @@ public class TradesFragment extends BaseFragment implements TradesView, ProgramD
 			DateRangeBottomSheetFragment bottomSheetDialog = new DateRangeBottomSheetFragment();
 			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
 			bottomSheetDialog.setDateRange(dateRange);
-			bottomSheetDialog.setListener(tradesPresenter);
+			bottomSheetDialog.setListener(programEventsPresenter);
 		}
 	}
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_trades, container, false);
+		return inflater.inflate(R.layout.fragment_program_events, container, false);
 	}
 
 	@Override
@@ -100,10 +98,10 @@ public class TradesFragment extends BaseFragment implements TradesView, ProgramD
 		setFonts();
 
 		if (getArguments() != null) {
-			tradesPresenter.setProgramId((UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID));
+			programEventsPresenter.setProgramId((UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID));
 		}
 		else {
-			Timber.e("Passed empty programId to TradesFragment");
+			Timber.e("Passed empty programId to ProgramEventsFragment");
 			onBackPressed();
 		}
 	}
@@ -124,12 +122,9 @@ public class TradesFragment extends BaseFragment implements TradesView, ProgramD
 	private void initRecyclerView() {
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
-//		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-//				ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider), paddingLeft, 0);
-//		recyclerView.addItemDecoration(dividerItemDecoration);
 
-		tradesListAdapter = new TradesListAdapter();
-		sectionedAdapter = new SimpleSectionedRecyclerViewAdapter(getContext(), R.layout.list_item_trades_date_section, R.id.text, tradesListAdapter);
+		eventsListAdapter = new PortfolioEventsListAdapter();
+		sectionedAdapter = new SimpleSectionedRecyclerViewAdapter(getContext(), R.layout.list_item_trades_date_section, R.id.text, eventsListAdapter);
 		recyclerView.setAdapter(sectionedAdapter);
 
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
@@ -142,7 +137,7 @@ public class TradesFragment extends BaseFragment implements TradesView, ProgramD
 
 				boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
 				if (totalItemCount > 0 && endHasBeenReached) {
-					tradesPresenter.onLastListItemVisible();
+					programEventsPresenter.onLastListItemVisible();
 				}
 			}
 		});
@@ -164,25 +159,23 @@ public class TradesFragment extends BaseFragment implements TradesView, ProgramD
 	}
 
 	@Override
-	public void setTrades(List<OrderModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+	public void setEvents(List<PortfolioEvent> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
 		if (trades.isEmpty()) {
-			groupNoTransactions.setVisibility(View.VISIBLE);
-			header.setVisibility(View.GONE);
+			groupNoEvents.setVisibility(View.VISIBLE);
 			recyclerView.setVisibility(View.GONE);
 			return;
 		}
 
 		sectionedAdapter.setSections(sections);
-		tradesListAdapter.setTrades(trades);
-		groupNoTransactions.setVisibility(View.GONE);
-		header.setVisibility(View.VISIBLE);
+		eventsListAdapter.setEvents(trades);
+		groupNoEvents.setVisibility(View.GONE);
 		recyclerView.setVisibility(View.VISIBLE);
 	}
 
 	@Override
-	public void addTrades(List<OrderModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+	public void addTrades(List<PortfolioEvent> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
 		sectionedAdapter.setSections(sections);
-		tradesListAdapter.addTrades(trades);
+		eventsListAdapter.addEvents(trades);
 	}
 
 	@Override
@@ -192,8 +185,8 @@ public class TradesFragment extends BaseFragment implements TradesView, ProgramD
 
 	@Override
 	public void pagerShow() {
-		if (tradesPresenter != null)
-			tradesPresenter.onShow();
+		if (programEventsPresenter != null)
+			programEventsPresenter.onShow();
 	}
 
 	@Override
@@ -201,7 +194,7 @@ public class TradesFragment extends BaseFragment implements TradesView, ProgramD
 	}
 
 	public void onSwipeRefresh() {
-		if (tradesPresenter != null)
-			tradesPresenter.onSwipeRefresh();
+		if (programEventsPresenter != null)
+			programEventsPresenter.onSwipeRefresh();
 	}
 }

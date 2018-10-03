@@ -7,10 +7,10 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.UUID;
 
+import vision.genesis.clientapp.feature.main.program.events.ProgramEventsFragment;
 import vision.genesis.clientapp.feature.main.program.info.ProgramInfoFragment;
 import vision.genesis.clientapp.feature.main.program.profit.ProgramProfitFragment;
-import vision.genesis.clientapp.feature.main.program.trades.TradesFragment;
-import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsFragment;
+import vision.genesis.clientapp.feature.main.program.trades.ProgramTradesFragment;
 
 /**
  * GenesisVisionAndroid
@@ -26,13 +26,15 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		void pagerHide();
 	}
 
-	private final ProgramProfitFragment programProfitFragment;
-
 	private ProgramInfoFragment programInfoFragment;
 
-	private TransactionsFragment historyFragment;
+	private ProgramProfitFragment programProfitFragment;
 
-	private TradesFragment tradesFragment;
+//	private ProgramBalanceFragment programBalanceFragment;
+
+	private ProgramTradesFragment programTradesFragment;
+
+	private ProgramEventsFragment programEventsFragment;
 
 	private TabLayout tabLayout;
 
@@ -41,8 +43,9 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		this.tabLayout = tabLayout;
 		programInfoFragment = ProgramInfoFragment.with(programId);
 		programProfitFragment = ProgramProfitFragment.with(programId);
-		historyFragment = TransactionsFragment.with(programId);
-		tradesFragment = TradesFragment.with(programId);
+//		programBalanceFragment = ProgramBalanceFragment.with(programId);
+		programEventsFragment = ProgramEventsFragment.with(programId);
+		programTradesFragment = ProgramTradesFragment.with(programId);
 	}
 
 	@Override
@@ -52,10 +55,12 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 				return programInfoFragment;
 			case "profit":
 				return programProfitFragment;
+//			case "balance":
+//				return programBalanceFragment;
 			case "trades":
-				return tradesFragment;
-			case "history":
-				return historyFragment;
+				return programTradesFragment;
+			case "events":
+				return programEventsFragment;
 			default:
 				return null;
 		}
@@ -72,10 +77,13 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 	public void sendUpdate() {
 		programInfoFragment.pagerShow();
 		programProfitFragment.pagerShow();
-		tradesFragment.pagerShow();
+//		programBalanceFragment.pagerShow();
+		programTradesFragment.pagerShow();
+		programEventsFragment.pagerShow();
 	}
 
 	public void sendSwipeRefresh() {
-		tradesFragment.onSwipeRefresh();
+		programTradesFragment.onSwipeRefresh();
+		programEventsFragment.onSwipeRefresh();
 	}
 }

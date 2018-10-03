@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.trades;
+package vision.genesis.clientapp.feature.main.program.events;
 
 import android.content.Context;
 
@@ -11,8 +11,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.OrderModel;
-import io.swagger.client.model.TradesViewModel;
+import io.swagger.client.model.DashboardPortfolioEvent;
+import io.swagger.client.model.DashboardPortfolioEvents;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -21,17 +21,18 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.PortfolioEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 
 /**
- * GenesisVision
- * Created by Vitaly on 4/1/18.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 03/10/2018.
  */
 
 @InjectViewState
-public class TradesPresenter extends MvpPresenter<TradesView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener
+public class ProgramEventsPresenter extends MvpPresenter<ProgramEventsView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener
 {
 	private static final int TAKE = 20;
 
@@ -41,7 +42,7 @@ public class TradesPresenter extends MvpPresenter<TradesView> implements DateRan
 	@Inject
 	public ProgramsManager programsManager;
 
-	private Subscription tradesSubscription;
+	private Subscription eventsSubscription;
 
 	private int skip = 0;
 
@@ -49,9 +50,11 @@ public class TradesPresenter extends MvpPresenter<TradesView> implements DateRan
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
 
-	private List<OrderModel> trades = new ArrayList<>();
+	private List<DashboardPortfolioEvent> events = new ArrayList<>();
 
 	private List<SimpleSectionedRecyclerViewAdapter.Section> sections = new ArrayList<>();
+
+	private List<PortfolioEvent> newPreparedEvents = new ArrayList<>();
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -63,13 +66,13 @@ public class TradesPresenter extends MvpPresenter<TradesView> implements DateRan
 		getViewState().setDateRange(dateRange);
 
 		if (programId != null)
-			getTrades(true);
+			getEvents(true);
 	}
 
 	@Override
 	public void onDestroy() {
-		if (tradesSubscription != null)
-			tradesSubscription.unsubscribe();
+		if (eventsSubscription != null)
+			eventsSubscription.unsubscribe();
 
 		super.onDestroy();
 	}
@@ -77,73 +80,84 @@ public class TradesPresenter extends MvpPresenter<TradesView> implements DateRan
 	void setProgramId(UUID programId) {
 		this.programId = programId;
 		if (programsManager != null)
-			getTrades(true);
+			getEvents(true);
 	}
 
 	void onShow() {
-		getTrades(false);
+		getEvents(false);
 	}
 
 	void onSwipeRefresh() {
 		getViewState().showProgress(true);
-		getTrades(true);
+		getEvents(true);
 	}
 
 	void onLastListItemVisible() {
 		getViewState().showProgress(true);
-		getTrades(false);
+		getEvents(false);
 	}
 
-	private void getTrades(boolean forceUpdate) {
+	private void getEvents(boolean forceUpdate) {
 		if (dateRange != null && programId != null) {
 			if (forceUpdate) {
 				skip = 0;
 			}
 
-			if (tradesSubscription != null)
-				tradesSubscription.unsubscribe();
-			tradesSubscription = programsManager.getProgramTrades(programId, dateRange, skip, TAKE)
+			if (eventsSubscription != null)
+				eventsSubscription.unsubscribe();
+			eventsSubscription = programsManager.getProgramHistory(programId, dateRange, skip, TAKE)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleGetTradesResponse,
-							this::handleGetTradesError);
+					.map(this::prepareData)
+					.subscribe(this::handleGetEventsResponse,
+							this::handleGetEventsError);
 		}
 	}
 
-	private void handleGetTradesResponse(TradesViewModel model) {
-		tradesSubscription.unsubscribe();
+	private DashboardPortfolioEvents prepareData(DashboardPortfolioEvents dashboardPortfolioEvents) {
+		newPreparedEvents = new ArrayList<>();
+
+		for (DashboardPortfolioEvent event : dashboardPortfolioEvents.getEvents()) {
+			newPreparedEvents.add(PortfolioEvent.createFrom(event));
+		}
+
+		return dashboardPortfolioEvents;
+	}
+
+	private void handleGetEventsResponse(DashboardPortfolioEvents response) {
+		eventsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
-		List<OrderModel> newTrades = model.getTrades();
-
 		if (skip == 0) {
-			trades.clear();
+			events.clear();
 			sections.clear();
 		}
 
-		int index = trades.size();
-		for (OrderModel newTrade : newTrades) {
-			String dateString = DateTimeUtil.formatShortDate(newTrade.getDate());
+		List<DashboardPortfolioEvent> newEvents = response.getEvents();
+
+		int index = events.size();
+		for (DashboardPortfolioEvent newEvent : newEvents) {
+			String dateString = DateTimeUtil.formatShortDate(newEvent.getDate());
 			String lastSectionDate = sections.isEmpty() ? "" : sections.get(sections.size() - 1).getTitle().toString();
 			if (!lastSectionDate.equals(dateString))
 				sections.add(new SimpleSectionedRecyclerViewAdapter.Section(index, dateString));
 			index++;
 		}
 
-		trades.addAll(newTrades);
+		events.addAll(newEvents);
 
 		if (skip == 0) {
-			getViewState().setTrades(newTrades, sections);
+			getViewState().setEvents(newPreparedEvents, sections);
 		}
 		else {
-			getViewState().addTrades(newTrades, sections);
+			getViewState().addTrades(newPreparedEvents, sections);
 		}
 
 		skip += TAKE;
 	}
 
-	private void handleGetTradesError(Throwable error) {
-		tradesSubscription.unsubscribe();
+	private void handleGetEventsError(Throwable error) {
+		eventsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
 		if (ApiErrorResolver.isNetworkError(error)) {
@@ -157,6 +171,6 @@ public class TradesPresenter extends MvpPresenter<TradesView> implements DateRan
 		this.dateRange = dateRange;
 		getViewState().setDateRange(dateRange);
 		getViewState().showProgress(true);
-		getTrades(true);
+		getEvents(true);
 	}
 }

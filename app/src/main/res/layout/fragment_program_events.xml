@@ -32,7 +32,7 @@
         android:visibility="gone"/>
 
     <LinearLayout
-        android:id="@+id/group_no_trades"
+        android:id="@+id/group_no_events"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/header"
@@ -48,7 +48,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="8dp"
             android:gravity="center"
-            android:text="@string/no_trades_for_selected_period"
+            android:text="@string/no_events_for_selected_period"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="16sp"/>
 

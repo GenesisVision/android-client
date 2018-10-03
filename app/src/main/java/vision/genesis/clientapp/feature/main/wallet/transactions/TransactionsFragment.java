@@ -156,7 +156,7 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 //	public void setTransactions(List<WalletTransaction> transactions) {
 //		transactionsListAdapter.setTransactions(transactions);
 //
-//		groupNoTransactions.setVisibility(transactions.size() == 0
+//		groupNoEvents.setVisibility(transactions.size() == 0
 //				? View.VISIBLE
 //				: View.GONE);
 //	}

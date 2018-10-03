@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ProgramsApi;
+import io.swagger.client.model.DashboardPortfolioEvents;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramProfitChart;
 import io.swagger.client.model.ProgramsList;
@@ -58,12 +59,16 @@ public class ProgramsManager
 		return programsApi.v10ProgramsByIdGet(programId.toString(), AuthManager.token.getValue(), baseCurrency.getValue());
 	}
 
+	public Observable<ProgramProfitChart> getProfitChart(UUID programId, DateRange dateRange, Integer maxPointCount) {
+		return programsApi.v10ProgramsByIdChartsProfitGet(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount);
+	}
+
 	public Observable<TradesViewModel> getProgramTrades(UUID programId, DateRange dateRange, Integer skip, Integer take) {
 		return programsApi.v10ProgramsByIdTradesGet(programId, dateRange.getFrom(), dateRange.getTo(), null, null, skip, take);
 	}
 
-	public Observable<ProgramProfitChart> getProfitChart(UUID programId, DateRange dateRange, Integer maxPointCount) {
-		return programsApi.v10ProgramsByIdChartsProfitGet(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount);
+	public Observable<DashboardPortfolioEvents> getProgramHistory(UUID programId, DateRange dateRange, Integer skip, Integer take) {
+		return investorApi.v10InvestorPortfolioEventsGet(AuthManager.token.getValue(), programId, dateRange.getFrom(), dateRange.getTo(), null, null, skip, take);
 	}
 
 	//	public Observable<InvestmentProgramBuyToken> getBuyTokensModel(UUID programId) {

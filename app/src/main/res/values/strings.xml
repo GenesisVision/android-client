@@ -209,7 +209,8 @@
     <string name="message_program_invest_success">You have been successfully invested %s GVT in the investment program. Your tokens will be working for you only since the next reporting period.\n\nIn case you decide to cancel the investment before the start of the next reporting period, you will have to pay a commission, and you will get your GVT at the actual GVT exchange rate.</string>
 
     <string name="history">History</string>
-    <string name="program_has_no_trades_yet">This program has no trades yet.</string>
+    <string name="no_trades_for_selected_period">No trades for the selected period.</string>
+    <string name="no_events_for_selected_period">No events for the selected period.</string>
     <string name="date">Date</string>
     <string name="symbol">Symbol</string>
     <string name="price">Price</string>
@@ -428,5 +429,12 @@
     <string name="buy">Buy</string>
     <string name="calmar_ratio">Calmar ratio</string>
     <string name="sortino_ratio">Sortino ratio</string>
+
+    <string name="event_invest_template">Investment request to %s was added</string>
+    <string name="event_withdraw_template">Withdrawal request to %s was added</string>
+    <string name="event_period_ended_template">%s period ended</string>
+    <string name="event_request_canceled_template">Your request to %s has been canceled</string>
+    <string name="event_closed_template">%s was closed</string>
+    <string name="events">Events</string>
 
 </resources>

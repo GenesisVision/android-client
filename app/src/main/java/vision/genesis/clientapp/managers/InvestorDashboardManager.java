@@ -46,6 +46,12 @@ public class InvestorDashboardManager
 		return portfolioEventsSubject;
 	}
 
+	public BehaviorSubject<List<DashboardPortfolioEvent>> getProgramEvents() {
+		updatePortfolioEvents();
+//		mockUpdatePortfolioEvents();
+		return portfolioEventsSubject;
+	}
+
 	private void updatePortfolioEvents() {
 		investorApi.v10InvestorPortfolioEventsGet(AuthManager.token.getValue(),
 				null, null, null, null, null, 0, 10)
