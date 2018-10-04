@@ -150,7 +150,7 @@ public class ProgramEventsPresenter extends MvpPresenter<ProgramEventsView> impl
 			getViewState().setEvents(newPreparedEvents, sections);
 		}
 		else {
-			getViewState().addTrades(newPreparedEvents, sections);
+			getViewState().addEvents(newPreparedEvents, sections);
 		}
 
 		skip += TAKE;

@@ -9,6 +9,7 @@ import io.swagger.client.JSON;
 import io.swagger.client.api.AuthApi;
 import io.swagger.client.api.FileApi;
 import io.swagger.client.api.InvestorApi;
+import io.swagger.client.api.NotificationsApi;
 import io.swagger.client.api.PlatformApi;
 import io.swagger.client.api.ProfileApi;
 import io.swagger.client.api.ProgramsApi;
@@ -79,6 +80,12 @@ public class ApiModule
 	@Singleton
 	public FileApi provideFileApi(ApiClient apiClient) {
 		return apiClient.createService(FileApi.class);
+	}
+
+	@Provides
+	@Singleton
+	public NotificationsApi provideNotificationsApi(ApiClient apiClient) {
+		return apiClient.createService(NotificationsApi.class);
 	}
 
 	@Provides

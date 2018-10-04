@@ -24,7 +24,7 @@ interface ProgramEventsView extends MvpView
 
 	void setEvents(List<PortfolioEvent> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
 
-	void addTrades(List<PortfolioEvent> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
+	void addEvents(List<PortfolioEvent> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
 
 	void showSnackbarMessage(String message);
 }

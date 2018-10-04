@@ -8,6 +8,7 @@ import vision.genesis.clientapp.di.modules.AppModule;
 import vision.genesis.clientapp.di.modules.AssetsModule;
 import vision.genesis.clientapp.di.modules.AuthModule;
 import vision.genesis.clientapp.di.modules.FilesModule;
+import vision.genesis.clientapp.di.modules.NotificationsModule;
 import vision.genesis.clientapp.di.modules.SettingsModule;
 import vision.genesis.clientapp.di.modules.UtilsModule;
 import vision.genesis.clientapp.feature.auth.forgot_password.ForgotPasswordPresenter;
@@ -24,6 +25,7 @@ import vision.genesis.clientapp.feature.main.dashboard.investor.programs.Dashboa
 import vision.genesis.clientapp.feature.main.dashboard.manager.ManagerDashboardPresenter;
 import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
 import vision.genesis.clientapp.feature.main.message.MessageActivity;
+import vision.genesis.clientapp.feature.main.notifications.NotificationsPresenter;
 import vision.genesis.clientapp.feature.main.portfolio_events.fragment.PortfolioEventsListPresenter;
 import vision.genesis.clientapp.feature.main.profile.ImageCropActivity;
 import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
@@ -60,7 +62,7 @@ import vision.genesis.clientapp.utils.AppLifecycleTracker;
  * Created by Vitaly on 1/18/18.
  */
 
-@Component(modules = {ApiModule.class, AppModule.class, AssetsModule.class, AuthModule.class, FilesModule.class, SettingsModule.class, UtilsModule.class})
+@Component(modules = {ApiModule.class, AppModule.class, AssetsModule.class, AuthModule.class, FilesModule.class, NotificationsModule.class, SettingsModule.class, UtilsModule.class})
 @Singleton
 public interface AppComponent
 {
@@ -151,4 +153,6 @@ public interface AppComponent
 	void inject(ProgramProfitPresenter programProfitPresenter);
 
 	void inject(ProgramEventsPresenter programEventsPresenter);
+
+	void inject(NotificationsPresenter notificationsPresenter);
 }

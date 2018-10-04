@@ -173,7 +173,7 @@ public class ProgramEventsFragment extends BaseFragment implements ProgramEvents
 	}
 
 	@Override
-	public void addTrades(List<PortfolioEvent> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+	public void addEvents(List<PortfolioEvent> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
 		sectionedAdapter.setSections(sections);
 		eventsListAdapter.addEvents(trades);
 	}

@@ -4,31 +4,30 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/program_details_padding_left"
-                android:layout_marginStart="@dimen/program_details_padding_left"
+                android:paddingLeft="@dimen/program_details_padding_left"
                 android:paddingTop="@dimen/program_details_padding_left">
 
     <RelativeLayout
         android:id="@+id/group_icons"
-        android:layout_width="50dp"
-        android:layout_height="50dp">
+        android:layout_width="40dp"
+        android:layout_height="40dp">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:src="@drawable/icon_notification_star"/>
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/action"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignParentBottom="true"
+            android:id="@+id/not_read"
+            android:layout_width="@dimen/toolbar_dot_width"
+            android:layout_height="@dimen/toolbar_dot_height"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            app:roundAsCircle="true"/>
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/subject"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
+            android:visibility="gone"
+            app:placeholderImage="?attr/colorRed"
             app:roundAsCircle="true"
-            app:roundingBorderColor="?attr/colorCard"
-            app:roundingBorderWidth="2dp"/>
+            tools:visibility="visible"/>
 
     </RelativeLayout>
 
@@ -36,16 +35,18 @@
         android:id="@+id/group_right"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/program_details_padding_left"
+        android:layout_marginStart="@dimen/program_details_padding_left"
         android:layout_toEndOf="@+id/group_icons"
         android:layout_toRightOf="@+id/group_icons"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/program_details_padding_left"
-        android:paddingRight="@dimen/program_details_padding_left">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/program_details_padding_left"
+            android:layout_marginRight="@dimen/program_details_padding_left"
             android:ellipsize="end"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="16sp"
@@ -66,30 +67,27 @@
                 tools:text="10:30am"/>
 
             <TextView
-                android:id="@+id/value"
+                android:id="@+id/action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
                 android:lines="1"
-                android:textColor="?attr/colorGreen"
+                android:textColor="?attr/colorAccent"
                 android:textSize="14sp"
-                tools:text="42.1294 GVT"/>
+                tools:text="Get verified >"/>
 
         </RelativeLayout>
 
-    </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:alpha="0.5"
+            android:background="?attr/colorDelimiterLight"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignLeft="@+id/group_right"
-        android:layout_alignStart="@+id/group_right"
-        android:layout_below="@+id/group_right"
-        android:layout_marginLeft="@dimen/program_details_padding_left"
-        android:layout_marginStart="@dimen/program_details_padding_left"
-        android:layout_marginTop="16dp"
-        android:alpha="0.5"
-        android:background="?attr/colorDelimiterLight"/>
+    </LinearLayout>
 
 </RelativeLayout>

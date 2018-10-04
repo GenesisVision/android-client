@@ -436,5 +436,8 @@
     <string name="event_request_canceled_template">Your request to %s has been canceled</string>
     <string name="event_closed_template">%s was closed</string>
     <string name="events">Events</string>
+    <string name="notifications">Notifications</string>
+    <string name="no_notifications">You have no notifications yet</string>
+    <string name="get_verified">Get verified</string>
 
 </resources>
