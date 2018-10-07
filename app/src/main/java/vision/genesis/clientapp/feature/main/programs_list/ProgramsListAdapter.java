@@ -152,7 +152,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 					GenesisVisionApplication.INSTANCE.getResources().getString(R.string.by),
 					investmentProgram.getManager().getUsername()));
 
-//			programDataView.setData(investmentProgram);
+//			programDataView.setProgramRequest(investmentProgram);
 
 			chart.setChart(investmentProgram.getChart());
 		}

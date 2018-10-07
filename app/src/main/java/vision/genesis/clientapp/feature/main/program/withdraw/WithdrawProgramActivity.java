@@ -130,7 +130,7 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	private void initToolbar() {
 		toolbar.setWhite();
 		toolbar.setTitle(getString(R.string.withdraw_from_program));
-		toolbar.setSubtitle(withdrawalRequest.programName);
+//		toolbar.setSubtitle(withdrawalRequest.programName);
 		toolbar.addLeftButton(R.drawable.back_arrow, () -> withdrawProgramPresenter.onBackClicked());
 	}
 

@@ -6,6 +6,7 @@ import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ProgramsApi;
 import io.swagger.client.model.DashboardPortfolioEvents;
 import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.ProgramInvestInfo;
 import io.swagger.client.model.ProgramProfitChart;
 import io.swagger.client.model.ProgramsList;
 import io.swagger.client.model.TradesViewModel;
@@ -71,11 +72,11 @@ public class ProgramsManager
 		return investorApi.v10InvestorPortfolioEventsGet(AuthManager.token.getValue(), programId, dateRange.getFrom(), dateRange.getTo(), null, null, skip, take);
 	}
 
-	//	public Observable<InvestmentProgramBuyToken> getBuyTokensModel(UUID programId) {
-//		return investorApi.apiInvestorInvestmentProgramBuyTokensGet(programId, AuthManager.token.getValue());
-//	}
-//
-//	public Observable<WalletsViewModel> invest(ProgramRequest investRequest) {
+	public Observable<ProgramInvestInfo> getInvestInfo(UUID programId, CurrencyEnum baseCurrency) {
+		return investorApi.v10InvestorProgramsByIdInvestInfoByCurrencyGet(programId, baseCurrency.getValue(), AuthManager.token.getValue());
+	}
+
+	//	public Observable<WalletsViewModel> invest(ProgramRequest investRequest) {
 //		Invest model = new Invest();
 //		model.setInvestmentProgramId(investRequest.programId);
 //		model.setAmount(investRequest.amount);

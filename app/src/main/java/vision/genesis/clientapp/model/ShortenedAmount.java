@@ -7,7 +7,12 @@ package vision.genesis.clientapp.model;
 
 public class ShortenedAmount
 {
-	public String amount;
+	public String amount = "";
 
-	public String modifier;
+	public String modifier = "";
+
+	@Override
+	public String toString() {
+		return amount.concat(modifier);
+	}
 }

@@ -28,22 +28,34 @@ public class ProgramRequest implements Parcelable
 	};
 
 	@SerializedName("program_id")
-	public UUID programId;
+	private UUID programId;
 
 	@SerializedName("program_name")
-	public String programName;
+	private String programName;
 
-	@SerializedName("available")
-	public double available;
+	@SerializedName("manager_name")
+	private String managerName;
+
+	@SerializedName("program_logo")
+	private String programLogo;
+
+	@SerializedName("level")
+	private Integer level = 1;
+
+	@SerializedName("period_ends_text")
+	private String periodEndsText;
+
+	@SerializedName("amount_to_invest_text")
+	private String amountToInvestText;
+
+	@SerializedName("entry_fee_text")
+	private String entryFeeText;
+
+	@SerializedName("amount_due_text")
+	private String amountDueText;
 
 	@SerializedName("amount")
-	public double amount;
-
-	@SerializedName("token_price")
-	public double tokenPrice;
-
-	@SerializedName("program_currency")
-	public String programCurrency;
+	private Double amount = 0.0;
 
 	public ProgramRequest() {
 
@@ -52,10 +64,14 @@ public class ProgramRequest implements Parcelable
 	protected ProgramRequest(Parcel in) {
 		programId = (UUID) in.readValue(UUID.class.getClassLoader());
 		programName = in.readString();
-		available = in.readDouble();
+		managerName = in.readString();
+		programLogo = in.readString();
+		level = in.readInt();
+		periodEndsText = in.readString();
+		amountToInvestText = in.readString();
+		entryFeeText = in.readString();
+		amountDueText = in.readString();
 		amount = in.readDouble();
-		tokenPrice = in.readDouble();
-		programCurrency = in.readString();
 	}
 
 	@Override
@@ -67,9 +83,93 @@ public class ProgramRequest implements Parcelable
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeValue(programId);
 		dest.writeString(programName);
-		dest.writeDouble(available);
+		dest.writeString(managerName);
+		dest.writeString(programLogo);
+		dest.writeInt(level);
+		dest.writeString(periodEndsText);
+		dest.writeString(amountToInvestText);
+		dest.writeString(entryFeeText);
+		dest.writeString(amountDueText);
 		dest.writeDouble(amount);
-		dest.writeDouble(tokenPrice);
-		dest.writeString(programCurrency);
+	}
+
+	public UUID getProgramId() {
+		return programId;
+	}
+
+	public void setProgramId(UUID programId) {
+		this.programId = programId;
+	}
+
+	public String getProgramName() {
+		return programName;
+	}
+
+	public void setProgramName(String programName) {
+		this.programName = programName;
+	}
+
+	public String getManagerName() {
+		return managerName;
+	}
+
+	public void setManagerName(String managerName) {
+		this.managerName = managerName;
+	}
+
+	public String getProgramLogo() {
+		return programLogo;
+	}
+
+	public void setProgramLogo(String programLogo) {
+		this.programLogo = programLogo;
+	}
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+
+	public String getPeriodEndsText() {
+		return periodEndsText;
+	}
+
+	public void setPeriodEndsText(String periodEndsText) {
+		this.periodEndsText = periodEndsText;
+	}
+
+	public String getAmountToInvestText() {
+		return amountToInvestText;
+	}
+
+	public void setAmountToInvestText(String amountToInvestText) {
+		this.amountToInvestText = amountToInvestText;
+	}
+
+	public String getEntryFeeText() {
+		return entryFeeText;
+	}
+
+	public void setEntryFeeText(String entryFeeText) {
+		this.entryFeeText = entryFeeText;
+	}
+
+	public String getAmountDueText() {
+		return amountDueText;
+	}
+
+	public void setAmountDueText(String amountDueText) {
+		this.amountDueText = amountDueText;
+	}
+
+	public Double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
 }

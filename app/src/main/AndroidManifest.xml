@@ -50,7 +50,7 @@
             android:name=".feature.main.program.invest.InvestProgramActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateVisible|adjustResize"/>
 
         <activity
             android:name=".feature.main.program.withdraw.WithdrawProgramActivity"

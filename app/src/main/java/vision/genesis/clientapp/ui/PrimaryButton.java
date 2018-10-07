@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -32,18 +33,22 @@ public class PrimaryButton extends android.support.v7.widget.AppCompatButton
 
 	public void setWhite() {
 		setBackground(ContextCompat.getDrawable(getContext(), R.drawable.button_primary_white));
-		setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+		setTextColorByAttrId(R.attr.colorAccent);
 	}
 
 	public void setEmpty() {
 		setBackground(ContextCompat.getDrawable(getContext(), R.drawable.button_primary_empty));
 	}
 
+	public void setTextColorByAttrId(int colorAttrId) {
+		setTextColor(ThemeUtil.getColorByAttrId(getContext(), colorAttrId));
+	}
+
 	private void initView() {
 		setTransformationMethod(null);
 		setBackground(ContextCompat.getDrawable(getContext(), R.drawable.button_primary));
-		setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+		setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextPrimary));
 		setTypeface(TypefaceUtil.semibold());
-		setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+		setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 	}
 }

@@ -103,6 +103,14 @@
 
                 </android.support.design.widget.CollapsingToolbarLayout>
 
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:indeterminate="true"
+                    android:scaleY="4"
+                    android:visibility="visible"/>
 
                 <RelativeLayout
                     android:id="@+id/group_tabs"
@@ -276,15 +284,5 @@
         </FrameLayout>
 
     </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:indeterminate="true"
-        android:scaleY="4"
-        android:visibility="visible"/>
-
 
 </RelativeLayout>

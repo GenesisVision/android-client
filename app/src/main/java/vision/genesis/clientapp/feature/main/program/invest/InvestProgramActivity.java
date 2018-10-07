@@ -1,14 +1,20 @@
 package vision.genesis.clientapp.feature.main.program.invest;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.jakewharton.rxbinding.widget.RxTextView;
+
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,13 +22,12 @@ import butterknife.OnClick;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.program.invest.confirm.ConfirmProgramInvestBottomSheetFragment;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.ProgramRequest;
-import vision.genesis.clientapp.ui.AmountTextView;
-import vision.genesis.clientapp.ui.CurrencyView;
-import vision.genesis.clientapp.ui.NumericKeyboardView;
-import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -32,77 +37,76 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class InvestProgramActivity extends BaseSwipeBackActivity implements InvestProgramView
 {
-	private static final String EXTRA_REQUEST = "extra_request";
+	private static final String EXTRA_PROGRAM_REQUEST = "extra_program_request";
 
-	public static void startWith(Activity activity, ProgramRequest request) {
+	public static void startWith(Activity activity, ProgramRequest programRequest) {
 		Intent intent = new Intent(activity.getApplicationContext(), InvestProgramActivity.class);
-		intent.putExtra(EXTRA_REQUEST, request);
+		intent.putExtra(EXTRA_PROGRAM_REQUEST, programRequest);
 		activity.startActivity(intent);
-		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
+		activity.overridePendingTransition(R.anim.slide_from_bottom, R.anim.hold);
 	}
 
-	@BindView(R.id.toolbar)
-	public ToolbarView toolbar;
+	@BindView(R.id.title)
+	public TextView title;
 
-	@BindView(R.id.group_progress_bar)
-	public ViewGroup progressBarGroup;
+	@BindView(R.id.content)
+	public ViewGroup content;
 
-	@BindView(R.id.balance)
-	public TextView balance;
+	@BindView(R.id.available_to_invest)
+	public TextView availableToInvest;
 
-	@BindView(R.id.balance_program_currency)
-	public TextView balanceProgramCurrency;
+	@BindView(R.id.edittext_amount)
+	public EditText amount;
 
-	@BindView(R.id.balance_program_currency_currency)
-	public CurrencyView balanceProgramCurrencyCurrency;
+	@BindView(R.id.max)
+	public TextView max;
 
-	@BindView(R.id.balance_currency)
-	public TextView balanceCurrency;
+	@BindView(R.id.base_currency_amount)
+	public TextView baseCurrencyAmount;
 
-	@BindView(R.id.label_available_to_invest)
-	public TextView availableToInvestLabel;
+	@BindView(R.id.entry_fee)
+	public TextView entryFee;
 
-	@BindView(R.id.textview_amount_hint)
-	public TextView amountHintTextView;
+	@BindView(R.id.amount_due)
+	public TextView amountDue;
 
-	@BindView(R.id.textview_amount)
-	public AmountTextView amountTextView;
+	@BindView(R.id.button_continue)
+	public PrimaryButton continueButton;
 
-	@BindView(R.id.amount_currency)
-	public TextView amountCurrency;
-
-	@BindView(R.id.amount_program_currency)
-	public TextView amountProgramCurrency;
-
-	@BindView(R.id.amount_program_currency_currency)
-	public CurrencyView amountProgramCurrencyCurrency;
-
-	@BindView(R.id.label_enter_amount)
-	public TextView enterAmountLabel;
-
-	@BindView(R.id.button_invest)
-	public View investButton;
-
-	@BindView(R.id.keyboard)
-	public NumericKeyboardView keyboard;
+	@BindView(R.id.progress_bar)
+	public ProgressBar progressBar;
 
 	@InjectPresenter
 	InvestProgramPresenter investProgramPresenter;
 
-	private ProgramRequest investRequest;
-
-	@OnClick(R.id.button_invest)
-	public void onInvestClicked() {
-		investProgramPresenter.onInvestClicked();
+	@OnClick(R.id.button_close)
+	public void onCloseClicked() {
+		finishActivity();
 	}
 
-	@OnClick(R.id.balance)
-	public void onBalanceClicked() {
-		investProgramPresenter.onAvailableClicked();
+	@OnClick(R.id.group_amount)
+	public void onAmountClicked() {
+		showSoftKeyboard();
+	}
+
+	@OnClick(R.id.available_to_invest)
+	public void onAvailvalbeClicked() {
+		investProgramPresenter.onMaxClicked();
+	}
+
+	@OnClick(R.id.max)
+	public void onMaxClicked() {
+		investProgramPresenter.onMaxClicked();
+	}
+
+	@OnClick(R.id.button_continue)
+	public void onContinueClicked() {
+		investProgramPresenter.onContinueClicked();
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_program_invest);
@@ -110,13 +114,11 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 		ButterKnife.bind(this);
 
 		if (getIntent().getExtras() != null) {
-			investRequest = getIntent().getExtras().getParcelable(EXTRA_REQUEST);
-			investProgramPresenter.setInvestRequest(investRequest);
+			investProgramPresenter.setProgramRequest(getIntent().getExtras().getParcelable(EXTRA_PROGRAM_REQUEST));
 
-			initToolbar();
-			initAmountTextView();
 			setFonts();
-			setProgramCurrency();
+
+			setTextListener();
 		}
 		else {
 			Timber.e("Passed empty request to InvestProgramActivity");
@@ -124,107 +126,53 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 		}
 	}
 
-	@Override
-	protected void onDestroy() {
-		toolbar.onDestroy();
-		amountTextView.onDestroy();
-		keyboard.onDestroy();
-
-		super.onDestroy();
-	}
-
-	private void initToolbar() {
-		toolbar.setWhite();
-		toolbar.setTitle(getString(R.string.invest_to_program));
-		toolbar.setSubtitle(investRequest.programName);
-		toolbar.addLeftButton(R.drawable.back_arrow, () -> investProgramPresenter.onBackClicked());
-	}
-
-	private void initAmountTextView() {
-		amountTextView.setKeyboard(keyboard);
-		amountTextView.setMaxDecimalDigits(StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.toString()));
-		amountTextView.setAmountChangeListener(new AmountTextView.AmountChangeListener()
-		{
-			@Override
-			public void onAmountChanged(double newAmount) {
-				investProgramPresenter.onAmountChanged(newAmount);
-			}
-
-			@Override
-			public void onAmountCleared() {
-				investProgramPresenter.onAmountCleared();
-			}
-		});
+	private void setTextListener() {
+		RxTextView.textChanges(amount)
+				.subscribe(charSequence -> investProgramPresenter.onAmountChanged(charSequence.toString()));
 	}
 
 	private void setFonts() {
-		balance.setTypeface(TypefaceUtil.light());
-		balanceProgramCurrency.setTypeface(TypefaceUtil.light());
-		balanceCurrency.setTypeface(TypefaceUtil.bold());
-		availableToInvestLabel.setTypeface(TypefaceUtil.bold());
-		enterAmountLabel.setTypeface(TypefaceUtil.bold());
-		amountHintTextView.setTypeface(TypefaceUtil.light());
-		amountCurrency.setTypeface(TypefaceUtil.bold());
-		amountProgramCurrency.setTypeface(TypefaceUtil.light());
-	}
-
-	private void setProgramCurrency() {
-		balanceProgramCurrencyCurrency.setCurrency(investRequest.programCurrency);
-		amountProgramCurrencyCurrency.setCurrency(investRequest.programCurrency);
+		title.setTypeface(TypefaceUtil.semibold());
+		max.setTypeface(TypefaceUtil.semibold());
 	}
 
 	@Override
-	public void setInvestButtonEnabled(boolean enabled) {
-		investButton.setEnabled(enabled);
+	public void setAvailableToInvest(Double availableToInvest) {
+		this.availableToInvest.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(availableToInvest, CurrencyEnum.GVT.toString())));
 	}
 
 	@Override
-	public void setAmount(double amount) {
-		amountTextView.setText(String.valueOf(amount));
+	public void setAmount(String amountText) {
+		this.amount.setText(amountText);
+		this.amount.setSelection(amountText.length(), amountText.length());
 	}
 
 	@Override
-	public void setAvailable(double availableFunds) {
-		balance.setText(StringFormatUtil.formatAmount(availableFunds, 0,
-				StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.toString())));
+	public void setEntryFee(String entryFeeText) {
+		this.entryFee.setText(entryFeeText);
 	}
 
 	@Override
-	public void showAvailableProgress(boolean show) {
-
+	public void setAmountDue(String amountDueText) {
+		this.amountDue.setText(amountDueText);
 	}
 
 	@Override
-	public void setProgramCurrencyBalance(Double fiatBalance) {
-		balanceProgramCurrency.setText(StringFormatUtil.formatAmount(fiatBalance, 2,
-				StringFormatUtil.getCurrencyMaxFraction(investRequest.programCurrency)));
-	}
-
-	@Override
-	public void setProgramCurrencyAmount(Double fiatAmount) {
-		amountProgramCurrency.setText(StringFormatUtil.formatAmount(fiatAmount, 2,
-				StringFormatUtil.getCurrencyMaxFraction(investRequest.programCurrency)));
-	}
-
-	@Override
-	public void showAmountHint(boolean show) {
-		amountHintTextView.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
-		amountTextView.setVisibility(!show ? View.VISIBLE : View.INVISIBLE);
-	}
-
-	@Override
-	public void setKeyboardKeysEnabled(boolean enabled) {
-		keyboard.disableAllKeysExceptBackspace(!enabled);
+	public void setContinueButtonEnabled(boolean enabled) {
+		continueButton.setEnabled(enabled);
 	}
 
 	@Override
 	public void showProgress(boolean show) {
-		progressBarGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+		if (!show) {
+			content.setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override
-	public void showToastMessage(String message) {
-		Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+	public void showSnackbarMessage(String message) {
+		showSnackbar(message, title);
 	}
 
 	@Override
@@ -235,6 +183,22 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	@Override
 	public void finishActivity() {
 		finish();
-		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
+		overridePendingTransition(R.anim.hold, R.anim.slide_to_bottom);
+	}
+
+	@Override
+	public void showConfirmDialog(ProgramRequest programRequest) {
+		ConfirmProgramInvestBottomSheetFragment bottomSheetDialog = new ConfirmProgramInvestBottomSheetFragment();
+		bottomSheetDialog.show(getSupportFragmentManager(), bottomSheetDialog.getTag());
+		bottomSheetDialog.setData(programRequest);
+		bottomSheetDialog.setListener(investProgramPresenter);
+	}
+
+	private void showSoftKeyboard() {
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		amount.requestFocus();
+		if (imm != null) {
+			imm.showSoftInput(amount, 0);
+		}
 	}
 }

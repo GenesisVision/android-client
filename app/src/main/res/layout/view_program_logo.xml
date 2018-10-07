@@ -4,41 +4,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:layout_height="50dp">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:scaleType="centerCrop"
-        app:backgroundImage="@color/grey200"
         app:failureImage="@drawable/profile_placeholder"
         app:failureImageScaleType="centerCrop"
         app:placeholderImage="@drawable/profile_placeholder"
-        app:placeholderImageScaleType="centerCrop"/>
+        app:placeholderImageScaleType="centerCrop"
+        app:roundedCornerRadius="4dp"/>
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/group_level"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_alignParentBottom="true"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true">
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true">
 
-        <View
+        <ImageView
+            android:id="@+id/level_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorAccent"/>
+            android:layout_centerInParent="true"
+            android:src="@drawable/circle_white"
+            android:tint="?attr/colorBackground"/>
+
+        <ImageView
+            android:id="@+id/level_color"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/circle_white"
+            android:tint="?attr/colorAccent"/>
 
         <TextView
             android:id="@+id/level"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_centerInParent="true"
             android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="14sp"
             tools:text="3"/>
 
-    </FrameLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

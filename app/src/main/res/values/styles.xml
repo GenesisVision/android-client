@@ -351,4 +351,36 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="program_info_invest_value">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="program_info_invest_label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:alpha">0.4</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="confirmation_dialog_label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">32dp</item>
+        <item name="android:alpha">0.4</item>
+        <item name="android:textColor">?attr/colorCard</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="confirmation_dialog_value">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:textColor">?attr/colorCard</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>

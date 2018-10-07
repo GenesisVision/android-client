@@ -272,9 +272,9 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowWithdrawProgramEvent event) {
 		ProgramRequest withdrawalRequest = new ProgramRequest();
-		withdrawalRequest.programId = event.programId;
-		withdrawalRequest.programName = event.programName;
-		withdrawalRequest.available = event.investedTokens;
+//		withdrawalRequest.programId = event.programId;
+//		withdrawalRequest.programName = event.programName;
+//		withdrawalRequest.available = event.investedTokens;
 		getViewState().showWithdrawProgram(withdrawalRequest);
 	}
 

@@ -96,7 +96,7 @@
     <color name="darkTextSecondary">#787d82</color>
 
     <color name="lightBackground">#f3f3f3</color>
-    <color name="lightBackgroundAlpha0">#f3f3f3</color>
+    <color name="lightBackgroundAlpha0">#00f3f3f3</color>
     <color name="lightBackgroundDark">#4d565c</color>
     <color name="lightCard">#ffffff</color>
     <color name="lightCardAlpha0">#00ffffff</color>

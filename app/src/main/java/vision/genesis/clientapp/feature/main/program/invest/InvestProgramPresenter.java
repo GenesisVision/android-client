@@ -5,19 +5,27 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 
+import io.swagger.client.model.ProgramInvestInfo;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.main.program.invest.confirm.ConfirmProgramInvestBottomSheetFragment;
 import vision.genesis.clientapp.managers.ProgramsManager;
-import vision.genesis.clientapp.managers.RateManager;
-import vision.genesis.clientapp.managers.WalletManager;
+import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.api.Error;
 import vision.genesis.clientapp.model.api.ErrorResponse;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
+import vision.genesis.clientapp.utils.DateTimeUtil;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVision
@@ -25,29 +33,34 @@ import vision.genesis.clientapp.net.ErrorResponseConverter;
  */
 
 @InjectViewState
-public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
+public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> implements ConfirmProgramInvestBottomSheetFragment.OnConfirmProgramInvestListener
 {
 	@Inject
 	public Context context;
 
 	@Inject
+	public SettingsManager settingsManager;
+
+	@Inject
 	public ProgramsManager programsManager;
 
-	@Inject
-	public WalletManager walletManager;
+	private Subscription baseCurrencySubscription;
 
-	@Inject
-	public RateManager rateManager;
+	private Subscription investInfoSubscription;
 
-	private ProgramRequest investRequest;
+	private ProgramRequest programRequest;
 
-	private Subscription investSubscription;
+	private CurrencyEnum baseCurrency;
 
-	private Subscription buyTokensModelSubscription;
+	private Double amount;
 
-	private double balance = 0;
+	private ProgramInvestInfo investInfo;
 
-	private double rate = 0;
+	private Double availableToInvest;
+
+	private Double entryFee;
+
+	private Double amountDue;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -55,116 +68,131 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		getBuyTokensModel();
+		subscribeToBaseCurrency();
+		getInvestInfo();
 	}
 
 	@Override
 	public void onDestroy() {
-		if (investSubscription != null)
-			investSubscription.unsubscribe();
-
-		if (buyTokensModelSubscription != null)
-			buyTokensModelSubscription.unsubscribe();
+		if (baseCurrencySubscription != null)
+			baseCurrencySubscription.unsubscribe();
+		if (investInfoSubscription != null)
+			investInfoSubscription.unsubscribe();
 
 		super.onDestroy();
 	}
 
-	void setInvestRequest(ProgramRequest request) {
-		investRequest = request;
-		getBuyTokensModel();
-	}
-
-	void onBackClicked() {
-		getViewState().finishActivity();
-	}
-
-	void onAmountChanged(double newAmount) {
-		investRequest.amount = newAmount;
-		getViewState().setProgramCurrencyAmount(rate * newAmount);
-		getViewState().setInvestButtonEnabled(investRequest.amount > 0 && investRequest.amount <= balance);
-		if (balance != 0)
-			getViewState().setKeyboardKeysEnabled(investRequest.amount < balance);
-		getViewState().showAmountHint(false);
-	}
-
-	void onAmountCleared() {
-		getViewState().showAmountHint(true);
-	}
-
-	void onAvailableClicked() {
-		getViewState().setAmount(balance);
-	}
-
-	void onInvestClicked() {
-		sendInvestRequest();
-	}
-
-	private void getBuyTokensModel() {
-//		if (programsManager != null && investRequest != null) {
-//			getViewState().showAvailableProgress(true);
-//			buyTokensModelSubscription = programsManager.getBuyTokensModel(investRequest.programId)
-//					.observeOn(AndroidSchedulers.mainThread())
-//					.subscribeOn(Schedulers.io())
-//					.subscribe(this::handleBuyTokensModelResponse,
-//							this::handleBuyTokensModelError);
+	void onAmountChanged(String newAmount) {
+		try {
+			amount = Double.parseDouble(newAmount);
+			//TODO: fix newAmount == "000.000000"
+		} catch (NumberFormatException e) {
+			amount = 0.0;
+		}
+//		double fractionalPart = NumberFormatUtil.roundDouble(amount - ((long) amount.doubleValue()), StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()));
+//		if (String.valueOf(fractionalPart).length() > StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()) + 2) {
+//			getViewState().setAmount(newAmount.substring(0, newAmount.length() - 1));
 //		}
+		if (investInfo != null) {
+			if (amount > availableToInvest) {
+				getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableToInvest, CurrencyEnum.GVT.getValue()));
+				return;
+			}
+
+			entryFee = amount * (investInfo.getEntryFee() / 100);
+			amountDue = amount + entryFee;
+
+			getViewState().setEntryFee(getEntryFeeString());
+			getViewState().setAmountDue(getAmountDueString());
+			getViewState().setContinueButtonEnabled(amount > 0
+					&& amount <= availableToInvest
+					&& amountDue <= investInfo.getAvailableInWallet());
+		}
 	}
 
-//	private void handleBuyTokensModelResponse(InvestmentProgramBuyToken response) {
-//		getViewState().showAvailableProgress(false);
-//		rate = response.getGvtRate();
-//		double availableToInvest = investRequest.available;
-//		if (response.getGvtWalletAmount() < availableToInvest)
-//			availableToInvest = response.getGvtWalletAmount();
-//		setBalance(availableToInvest);
-//		updateFiatBalance();
-//	}
-
-	private void handleBuyTokensModelError(Throwable error) {
-		getViewState().showAvailableProgress(false);
+	private String getAmountToInvestString() {
+		return String.format(Locale.getDefault(), "%s GVT",
+				StringFormatUtil.formatCurrencyAmount(amount, CurrencyEnum.GVT.getValue()));
 	}
 
-	private void setBalance(Double balance) {
-		this.balance = balance;
-		getViewState().setAvailable(balance);
-		getViewState().setProgramCurrencyBalance(rate * balance);
+	private String getEntryFeeString() {
+		return String.format(Locale.getDefault(), "%s%% (%s GVT)",
+				StringFormatUtil.formatAmount(investInfo.getEntryFee(), 0, 2),
+				StringFormatUtil.formatCurrencyAmount(entryFee, CurrencyEnum.GVT.getValue()));
 	}
 
-	private void sendInvestRequest() {
-		getViewState().showProgress(true);
-//		investSubscription = programsManager.invest(investRequest)
-//				.observeOn(AndroidSchedulers.mainThread())
-//				.subscribeOn(Schedulers.io())
-//				.subscribe(this::handleInvestSuccess,
-//						this::handleInvestError);
+	private String getAmountDueString() {
+		return String.format(Locale.getDefault(), "%s GVT",
+				StringFormatUtil.formatCurrencyAmount(amountDue, CurrencyEnum.GVT.getValue()));
 	}
 
-//	private void handleInvestSuccess(WalletsViewModel model) {
-//		investSubscription.unsubscribe();
-//		walletManager.getBalance();
-//
-//		EventBus.getDefault().post(new ShowMessageActivityEvent(
-//				String.format(Locale.getDefault(), context.getString(R.string.message_program_invest_success),
-//						StringFormatUtil.formatAmount(investRequest.amount, 0,
-//								StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.toString()))),
-//				R.drawable.ic_email_confirmed_icon,
-//				false));
-//		getViewState().finishActivity();
-//	}
+	void onMaxClicked() {
+		if (investInfo != null) {
+			getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableToInvest, CurrencyEnum.GVT.getValue()));
+		}
+	}
 
-	private void handleInvestError(Throwable throwable) {
-		investSubscription.unsubscribe();
+	void onContinueClicked() {
+		programRequest.setAmount(amount);
+		programRequest.setAmountToInvestText(getAmountToInvestString());
+		programRequest.setEntryFeeText(getEntryFeeString());
+		programRequest.setAmountDueText(getAmountDueString());
+		programRequest.setPeriodEndsText(String.format(Locale.getDefault(),
+				context.getString(R.string.request_info_template),
+				DateTimeUtil.formatShortDateTime(investInfo.getPeriodEnds())));
+		getViewState().showConfirmDialog(programRequest);
+	}
+
+	private void subscribeToBaseCurrency() {
+		baseCurrencySubscription = settingsManager.getBaseCurrency()
+				.subscribeOn(Schedulers.newThread())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(this::baseCurrencyChangedHandler);
+	}
+
+	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
+		this.baseCurrency = baseCurrency;
+		getInvestInfo();
+	}
+
+	private void getInvestInfo() {
+		if (programsManager != null && programRequest != null && baseCurrency != null) {
+			investInfoSubscription = programsManager.getInvestInfo(programRequest.getProgramId(), baseCurrency)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleInvestInfoResponse,
+							this::handleInvestInfoError);
+		}
+	}
+
+	private void handleInvestInfoResponse(ProgramInvestInfo response) {
+		investInfoSubscription.unsubscribe();
+
+		investInfo = response;
+
+		double maxAmount = investInfo.getAvailableInWallet() / (1 + investInfo.getEntryFee() / 100);
+		availableToInvest = investInfo.getAvailableToInvest() < maxAmount
+				? investInfo.getAvailableToInvest()
+				: maxAmount;
+
+		getViewState().showProgress(false);
+		getViewState().setAvailableToInvest(availableToInvest);
+		onAmountChanged("0");
+	}
+
+	private void handleInvestInfoError(Throwable throwable) {
+		investInfoSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
 		if (ApiErrorResolver.isNetworkError(throwable)) {
-			getViewState().showToastMessage(context.getResources().getString(R.string.network_error));
+			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}
 		else {
 			ErrorResponse response = ErrorResponseConverter.createFromThrowable(throwable);
 			if (response != null) {
 				for (Error error : response.errors) {
 					if (error.message != null) {
-						getViewState().showToastMessage(error.message);
+						getViewState().showSnackbarMessage(error.message);
 						break;
 					}
 				}
@@ -172,8 +200,13 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView>
 		}
 	}
 
-	private void updateFiatBalance() {
-		getViewState().setProgramCurrencyBalance(rate * balance);
-		getViewState().setProgramCurrencyAmount(rate * investRequest.amount);
+	public void setProgramRequest(ProgramRequest programRequest) {
+		this.programRequest = programRequest;
+		getInvestInfo();
+	}
+
+	@Override
+	public void onInvestSucceeded() {
+		getViewState().finishActivity();
 	}
 }

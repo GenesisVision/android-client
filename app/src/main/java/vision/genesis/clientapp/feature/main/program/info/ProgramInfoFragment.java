@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindDimen;
@@ -26,9 +27,15 @@ import io.swagger.client.model.ProgramDetailsFull;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
+import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
+import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.PeriodLeftDetailsView;
+import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.ImageUtils;
+import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
@@ -76,6 +83,45 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@BindView(R.id.view_period)
 	public PeriodLeftDetailsView periodView;
+
+	@BindView(R.id.label_your_investment)
+	public TextView labelYourInvestment;
+
+	@BindView(R.id.invested)
+	public TextView invested;
+
+	@BindView(R.id.invested_label)
+	public TextView investedLabel;
+
+	@BindView(R.id.value)
+	public TextView value;
+
+	@BindView(R.id.profit)
+	public TextView profit;
+
+	@BindView(R.id.profit_label)
+	public TextView profitLabel;
+
+	@BindView(R.id.button_withdraw)
+	public PrimaryButton withdrawButton;
+
+	@BindView(R.id.label_invest_now)
+	public TextView labelInvestNow;
+
+	@BindView(R.id.available_to_invest)
+	public TextView availableToInvest;
+
+	@BindView(R.id.entry_fee)
+	public TextView entryFee;
+
+	@BindView(R.id.label_entry_fee)
+	public TextView entryFeeLabel;
+
+	@BindView(R.id.success_fee)
+	public TextView successFee;
+
+	@BindView(R.id.invest_info)
+	public TextView investInfo;
 
 	@InjectPresenter
 	public ProgramInfoPresenter programInfoPresenter;
@@ -128,21 +174,25 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		strategyShadow.setVisibility(View.VISIBLE);
 	}
 
-//	@OnClick(R.id.button_invest)
-//	public void onInvestClicked() {
-//		if (programDetails == null || getActivity() == null)
-//			return;
-//		if (programDetails.getAvailableInvestment() == 0) {
-//			showInvestmentNotAvailableDialog();
-//			return;
-//		}
-//		ProgramRequest request = new ProgramRequest();
-//		request.programId = programDetails.getId();
-//		request.programName = programDetails.getTitle();
-//		request.programCurrency = programDetails.getCurrency().toString();
-//		request.available = programDetails.getAvailableInvestment();
-//		InvestProgramActivity.startWith(getActivity(), request);
-//	}
+	@OnClick(R.id.button_invest)
+	public void onInvestClicked() {
+		if (programDetails == null || getActivity() == null)
+			return;
+		if (programDetails.getAvailableInvestment() == 0) {
+			showInvestmentNotAvailableDialog();
+			return;
+		}
+
+		ProgramRequest request = new ProgramRequest();
+
+		request.setProgramId(programDetails.getId());
+		request.setProgramLogo(programDetails.getLogo());
+		request.setLevel(programDetails.getLevel());
+		request.setProgramName(programDetails.getTitle());
+		request.setManagerName(programDetails.getManager().getUsername());
+
+		InvestProgramActivity.startWith(getActivity(), request);
+	}
 //
 //	@OnClick(R.id.button_withdraw)
 //	public void onWithdrawClicked() {
@@ -179,6 +229,8 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		programInfoPresenter.setProgramId(programId);
 
 		setFonts();
+
+		withdrawButton.setEmpty();
 	}
 
 	@Override
@@ -192,11 +244,26 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	}
 
 	private void setFonts() {
+		labelYourInvestment.setTypeface(TypefaceUtil.semibold());
+		invested.setTypeface(TypefaceUtil.semibold());
+		value.setTypeface(TypefaceUtil.semibold());
+		profit.setTypeface(TypefaceUtil.semibold());
+
+		labelInvestNow.setTypeface(TypefaceUtil.semibold());
+		availableToInvest.setTypeface(TypefaceUtil.semibold());
+		entryFee.setTypeface(TypefaceUtil.semibold());
+		successFee.setTypeface(TypefaceUtil.semibold());
+
+		investedLabel.setText(investedLabel.getText().toString().toLowerCase());
+		profitLabel.setText(profitLabel.getText().toString().toLowerCase());
+		entryFeeLabel.setText(entryFeeLabel.getText().toString().toLowerCase());
 	}
 
 	@Override
 	public void setProgramDetails(ProgramDetailsFull programDetails) {
 		this.programDetails = programDetails;
+
+		scrollView.setVisibility(View.VISIBLE);
 
 		managerAvatar.setImageURI(ImageUtils.getImageUri(programDetails.getManager().getAvatar()));
 		managerName.setText(programDetails.getManager().getUsername());
@@ -210,7 +277,17 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 		periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds());
 
-		scrollView.setVisibility(View.VISIBLE);
+//		invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(programDetails.getPersonalProgramDetails().getInvested()).toString()));
+		invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(programDetails.getPersonalProgramDetails().getValue(), ProgramDetailsFull.CurrencyEnum.GVT.toString())));
+		value.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(programDetails.getPersonalProgramDetails().getValue(), ProgramDetailsFull.CurrencyEnum.GVT.toString())));
+		profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getPersonalProgramDetails().getProfit(), 0, 4)));
+		profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(), programDetails.getPersonalProgramDetails().getProfit() < 0 ? R.attr.colorRed : R.attr.colorGreen));
+
+		availableToInvest.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(programDetails.getAvailableInvestment()).toString()));
+		entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getEntryFee(), 0, 4)));
+		successFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getSuccessFee(), 0, 4)));
+
+		investInfo.setText(String.format(Locale.getDefault(), getString(R.string.request_info_template), DateTimeUtil.formatShortDateTime(programDetails.getPeriodEnds())));
 	}
 
 	@Override

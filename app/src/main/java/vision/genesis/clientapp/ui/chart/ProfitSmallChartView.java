@@ -134,7 +134,7 @@ public class ProfitSmallChartView extends com.github.mikephil.charting.charts.Li
 //			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getValue().floatValue()));
 //		}
 //
-//		this.setData(getLineData(lineEntries));
+//		this.setProgramRequest(getLineData(lineEntries));
 //		this.invalidate();
 //	}
 
@@ -150,7 +150,7 @@ public class ProfitSmallChartView extends com.github.mikephil.charting.charts.Li
 //			index++;
 //		}
 //
-//		this.setData(getLineData(lineEntries));
+//		this.setProgramRequest(getLineData(lineEntries));
 //		this.invalidate();
 //	}
 

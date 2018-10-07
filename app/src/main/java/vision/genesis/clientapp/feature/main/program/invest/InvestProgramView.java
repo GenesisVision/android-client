@@ -2,6 +2,8 @@ package vision.genesis.clientapp.feature.main.program.invest;
 
 import com.arellomobile.mvp.MvpView;
 
+import vision.genesis.clientapp.model.ProgramRequest;
+
 /**
  * GenesisVision
  * Created by Vitaly on 2/21/18.
@@ -9,25 +11,21 @@ import com.arellomobile.mvp.MvpView;
 
 interface InvestProgramView extends MvpView
 {
-	void setInvestButtonEnabled(boolean enabled);
+	void setAvailableToInvest(Double availableToInvest);
 
-	void setAmount(double amount);
+	void setAmount(String amountText);
 
-	void setAvailable(double availableFunds);
+	void setEntryFee(String entryFeeText);
 
-	void showAvailableProgress(boolean show);
+	void setAmountDue(String amountDueText);
 
-	void setProgramCurrencyBalance(Double fiatBalance);
+	void setContinueButtonEnabled(boolean enabled);
 
-	void setProgramCurrencyAmount(Double fiatAmount);
-
-	void showAmountHint(boolean show);
-
-	void setKeyboardKeysEnabled(boolean enabled);
+	void showConfirmDialog(ProgramRequest programRequest);
 
 	void showProgress(boolean show);
 
-	void showToastMessage(String message);
+	void showSnackbarMessage(String message);
 
 	void finishActivity();
 }

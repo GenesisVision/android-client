@@ -148,7 +148,7 @@
     <string name="trading_period_duration">Trading period duration</string>
     <string name="manager_share">Manager\'s funds share</string>
     <string name="trades">Trades</string>
-    <string name="success_fee">Success fee</string>
+    <string name="success_fee">success fee</string>
     <string name="management_fee">Management fee</string>
     <string name="my_tokens">My tokens</string>
     <string name="my_profit">My profit</string>
@@ -439,5 +439,18 @@
     <string name="notifications">Notifications</string>
     <string name="no_notifications">You have no notifications yet</string>
     <string name="get_verified">Get verified</string>
+    <string name="invest_now">Invest now</string>
+    <string name="av_to_invest">av. to invest</string>
+    <string name="entry_fee">Entry fee</string>
+    <string name="auto_reinvest">Auto reinvest</string>
+    <string name="request_info_template">Your request will be processed at the end of the reporting period  %s</string>
+    <string name="your_investment">Your investment</string>
+    <string name="value">value</string>
+    <string name="program_info_withdraw_info">You can withdraw only the invested funds, the profit will be withdrawn to your account at the end of the period automatically.</string>
+    <string name="text_continue">Continue</string>
+    <string name="amount_due">Amount due</string>
+    <string name="amount_to_invest">Amount to invest</string>
+    <string name="max">Max</string>
+    <string name="confirm_invest">Confirm Invest</string>
 
 </resources>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.ImageUtils;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -32,6 +34,12 @@ public class ProgramLogoView extends RelativeLayout
 
 	@BindView(R.id.level)
 	public TextView level;
+
+	@BindView(R.id.level_background)
+	public ImageView levelBackground;
+
+	@BindView(R.id.level_color)
+	public ImageView levelColor;
 
 	@BindView(R.id.group_level)
 	public ViewGroup groupLevel;
@@ -56,7 +64,7 @@ public class ProgramLogoView extends RelativeLayout
 
 		ButterKnife.bind(this);
 
-		level.setTypeface(TypefaceUtil.bold());
+		level.setTypeface(TypefaceUtil.semibold());
 	}
 
 	public void setImage(String imageId, int width, int height) {
@@ -79,5 +87,12 @@ public class ProgramLogoView extends RelativeLayout
 
 	public void setLevel(int level) {
 		this.level.setText(String.valueOf(level));
+
+		//TODO: change color depending on level
+		levelColor.setColorFilter(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorAccent));
+	}
+
+	public void setLevelBackground(int colorResId) {
+		levelBackground.setColorFilter(ThemeUtil.getColorByAttrId(getContext(), colorResId));
 	}
 }
