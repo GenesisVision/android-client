@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                tools:layout_height="30dp">
 
     <RelativeLayout
         android:id="@+id/group_period"
@@ -11,38 +12,41 @@
 
         <ProgressBar
             android:id="@+id/period_progress_bar"
-            style="@android:style/Widget.ProgressBar.Small"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:progressDrawable="@drawable/progress_drawable"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/circle_shape"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/circular_progress_bar"
             tools:max="100"
             tools:min="1"
             tools:progress="25"/>
 
         <TextView
             android:id="@+id/period_length"
+            style="@style/text_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/period_progress_bar"
-            android:layout_marginTop="8dp"
-            android:textColor="?attr/colorTextPrimary"
-            android:textSize="16sp"
-            android:visibility="gone"
-            tools:text="1 month"/>
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/period_progress_bar"
+            android:layout_toRightOf="@+id/period_progress_bar"
+            tools:text="14 days"/>
 
         <TextView
             android:id="@+id/period_left"
+            style="@style/text_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="4dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_toEndOf="@+id/period_progress_bar"
             android:layout_toRightOf="@+id/period_progress_bar"
-            android:textColor="?attr/colorTextPrimary"
-            android:textSize="14sp"
-            tools:text="23 days"/>
+            tools:text="23 days"
+            tools:visibility="gone"/>
 
     </RelativeLayout>
 

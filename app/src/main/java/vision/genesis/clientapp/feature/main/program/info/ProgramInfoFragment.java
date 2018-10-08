@@ -275,7 +275,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 				strategyShadow.setVisibility(strategy.getHeight() < strategyMaxHeight ? View.INVISIBLE : View.VISIBLE);
 		}, 300);
 
-		periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds());
+		periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds(), true, true);
 
 //		invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(programDetails.getPersonalProgramDetails().getInvested()).toString()));
 		invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(programDetails.getPersonalProgramDetails().getValue(), ProgramDetailsFull.CurrencyEnum.GVT.toString())));

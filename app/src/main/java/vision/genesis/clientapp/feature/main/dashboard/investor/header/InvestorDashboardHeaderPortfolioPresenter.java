@@ -72,8 +72,13 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 	}
 
 	private void resetValuesSelection() {
-		first = chartValue.getChart().get(0).getValue();
-		selected = chartValue.getChart().get(chartValue.getChart().size() - 1).getValue();
+		selected = chartValue.getValue();
+		if (!chartValue.getChart().isEmpty()) {
+			first = chartValue.getChart().get(0).getValue();
+		}
+		else {
+			first = selected;
+		}
 		getViewState().hideHighlight();
 		updateValues();
 	}

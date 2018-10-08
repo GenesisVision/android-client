@@ -189,16 +189,16 @@
         <item quantity="other">hours</item>
     </plurals>
 
-    <plurals name="minutes">
-        <item quantity="one">minute</item>
-        <item quantity="two">minutes</item>
-        <item quantity="other">minutes</item>
+    <plurals name="mins">
+        <item quantity="one">min</item>
+        <item quantity="two">mins</item>
+        <item quantity="other">mins</item>
     </plurals>
 
-    <plurals name="seconds">
-        <item quantity="one">second</item>
-        <item quantity="two">seconds</item>
-        <item quantity="other">seconds</item>
+    <plurals name="secs">
+        <item quantity="one">sec</item>
+        <item quantity="two">secs</item>
+        <item quantity="other">secs</item>
     </plurals>
 
     <string name="my_balance">My balance</string>

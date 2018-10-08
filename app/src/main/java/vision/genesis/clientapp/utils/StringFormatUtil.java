@@ -64,7 +64,7 @@ public class StringFormatUtil
 		}
 		else if (Math.abs(amountValue) >= 1000) {
 			shortenedAmount.amount = formatAmount(amountValue / 1000, 0, 1);
-			shortenedAmount.modifier = "K";
+			shortenedAmount.modifier = "k";
 		}
 		else if (Math.abs(amountValue) < 1) {
 			shortenedAmount.amount = formatAmount(amountValue, 0, 2);

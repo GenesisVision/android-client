@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -16,6 +18,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.ProgramDetails;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.ProgramDetailsModel;
+import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
@@ -117,18 +121,20 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 			this.context = itemView.getContext();
 
+			programLogo.setLevelBackground(R.attr.colorCard);
+
 			setFonts();
+
 			itemView.setOnClickListener(v -> {
-//				if (investmentProgram != null) {
-//					InvestmentProgramDashboardInvestor data = investmentProgram.getData();
-//
-//					ProgramInfoModel programInfoModel = new ProgramInfoModel(data.getId(),
-//							data.getLogo(),
-//							data.getTitle(),
-//							data.getManager().getUsername(),
-//							data.isIsFavorite());
-//					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programInfoModel));
-//				}
+				if (program != null) {
+					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(program.getId(),
+							program.getLogo(),
+							program.getLevel(),
+							program.getTitle(),
+							program.getManager().getUsername(),
+							program.getPersonalProgramDetails().isIsFavorite());
+					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programDetailsModel));
+				}
 			});
 		}
 
@@ -141,8 +147,8 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			programName.setTypeface(TypefaceUtil.semibold());
 			managerName.setTypeface(TypefaceUtil.medium());
 			profitPercent.setTypeface(TypefaceUtil.semibold());
-			currentValue.setTypeface(TypefaceUtil.medium());
-			share.setTypeface(TypefaceUtil.medium());
+			share.setTypeface(TypefaceUtil.semibold());
+			currentValue.setTypeface(TypefaceUtil.semibold());
 			reinvestLabel.setTypeface(TypefaceUtil.semibold());
 		}
 
@@ -174,11 +180,13 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 					profitValue > 0 ? "+" : "",
 					StringFormatUtil.formatAmount(profitValue, 0, 4)));
 
+			this.share.setText(String.format(Locale.getDefault(), "%s%%",
+					StringFormatUtil.formatAmount(program.getDashboardProgramDetails().getShare(), 0, 2)));
+
 			this.currentValue.setText(String.format(Locale.getDefault(), "%s GVT",
 					StringFormatUtil.formatAmount(program.getStatistic().getCurrentValue(), 0, 4)));
 
-			this.share.setText(String.format(Locale.getDefault(), "%s%%",
-					StringFormatUtil.formatAmount(program.getDashboardProgramDetails().getShare(), 0, 2)));
+			this.timeLeft.setData(program.getPeriodDuration(), program.getPeriodStarts(), program.getPeriodEnds(), false, true);
 		}
 
 		private Double getProfitPercent() {

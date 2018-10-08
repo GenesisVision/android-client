@@ -55,7 +55,7 @@ public class PeriodLeftView extends RelativeLayout
 
 	protected boolean programClosed = false;
 
-	protected boolean writeLeft = true;
+	protected boolean writeLeft = false;
 
 	protected Unbinder unbinder;
 
@@ -101,13 +101,15 @@ public class PeriodLeftView extends RelativeLayout
 		programClosedText.setTypeface(TypefaceUtil.bold());
 	}
 
-	public void setData(Integer duration, DateTime dateFrom, DateTime dateTo) {
+	public void setData(Integer duration, DateTime dateFrom, DateTime dateTo, Boolean showPeriod, Boolean showTimeLeft) {
 		this.duration = duration;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
 		initProgressBar();
 		updatePeriodLength();
 		updatePeriodLeft();
+		periodLength.setVisibility(showPeriod ? View.VISIBLE : View.GONE);
+		periodLeft.setVisibility(showTimeLeft ? View.VISIBLE : View.GONE);
 //		startTimer();
 	}
 
@@ -152,16 +154,16 @@ public class PeriodLeftView extends RelativeLayout
 
 		int minutesLeft = DateTimeUtil.getMinutesToDate(dateTo);
 		if (minutesLeft > 0) {
-			setPeriodText(minutesLeft, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.minutes, minutesLeft, minutesLeft, minutesLeft));
+			setPeriodText(minutesLeft, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.mins, minutesLeft, minutesLeft, minutesLeft));
 			return;
 		}
 
 		int secondsLeft = DateTimeUtil.getSecondsToDate(dateTo);
 		if (secondsLeft > 0) {
-			setPeriodText(secondsLeft, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft));
+			setPeriodText(secondsLeft, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.secs, secondsLeft, secondsLeft, secondsLeft));
 		}
 		else {
-			setPeriodText(0, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.seconds, secondsLeft, secondsLeft, secondsLeft));
+			setPeriodText(0, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.secs, secondsLeft, secondsLeft, secondsLeft));
 
 			if (timeSubscription != null)
 				timeSubscription.unsubscribe();

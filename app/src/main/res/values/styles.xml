@@ -322,7 +322,8 @@
 
     <style name="text_value">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:gravity">bottom</item>
         <item name="android:textColor">?attr/colorTextPrimary</item>
         <item name="android:textSize">16sp</item>
     </style>

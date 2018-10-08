@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -17,13 +16,14 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.ProgramDetails;
-import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
-import vision.genesis.clientapp.ui.AvatarView;
-import vision.genesis.clientapp.ui.ProgramDataView;
+import vision.genesis.clientapp.ui.PeriodLeftView;
+import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
+import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -43,7 +43,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 
 	@Override
 	public void onBindViewHolder(InvestmentProgramViewHolder holder, int position) {
-		holder.setInvestmentProgram(investmentPrograms.get(position));
+		holder.setProgram(investmentPrograms.get(position));
 	}
 
 	@Override
@@ -89,72 +89,132 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 
 	static class InvestmentProgramViewHolder extends RecyclerView.ViewHolder
 	{
-		@BindView(R.id.avatar)
-		public AvatarView avatar;
+		@BindView(R.id.program_logo)
+		public ProgramLogoView programLogo;
 
-		@BindView(R.id.icon_favorite)
-		public ImageView favoriteIcon;
-
-		@BindView(R.id.title)
-		public TextView title;
+		@BindView(R.id.program_name)
+		public TextView programName;
 
 		@BindView(R.id.manager_name)
 		public TextView managerName;
 
+//		@BindView(R.id.icon_favorite)
+//		public ImageView favoriteIcon;
+
 		@BindView(R.id.chart)
 		public ProfitSmallChartView chart;
 
-		@BindView(R.id.view_program_data)
-		public ProgramDataView programDataView;
+		@BindView(R.id.profit_percent)
+		public TextView profitPercent;
 
-		@BindView(R.id.text_free_tokens)
-		public TextView freeTokensText;
+		@BindView(R.id.profit_value)
+		public TextView profitValue;
 
-		private ProgramDetails investmentProgram;
+		@BindView(R.id.balance)
+		public TextView balance;
+
+		@BindView(R.id.balance_label)
+		public TextView balanceLabel;
+
+		@BindView(R.id.available_to_invest)
+		public TextView availableToInvest;
+
+		@BindView(R.id.available_to_invest_label)
+		public TextView availableToInvestLabel;
+
+		@BindView(R.id.period)
+		public PeriodLeftView period;
+
+		@BindView(R.id.period_label)
+		public TextView periodLabel;
+
+		private ProgramDetails program;
 
 		InvestmentProgramViewHolder(View itemView) {
 			super(itemView);
 
 			ButterKnife.bind(this, itemView);
 
+			programLogo.setLevelBackground(R.attr.colorCard);
+
 			setFonts();
+
 			itemView.setOnClickListener(v -> {
-				if (investmentProgram != null) {
-					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(investmentProgram.getId(),
-							investmentProgram.getLogo(),
-							investmentProgram.getLevel(),
-							investmentProgram.getTitle(),
-							investmentProgram.getManager().getUsername(),
-							false);
-//							investmentProgram.isIsFavorite());
+				if (program != null) {
+					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(program.getId(),
+							program.getLogo(),
+							program.getLevel(),
+							program.getTitle(),
+							program.getManager().getUsername(),
+							program.getPersonalProgramDetails().isIsFavorite());
 					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programDetailsModel));
 				}
 			});
 		}
 
 		private void setFonts() {
-			title.setTypeface(TypefaceUtil.bold());
+			programName.setTypeface(TypefaceUtil.semibold());
+			managerName.setTypeface(TypefaceUtil.medium());
+			profitPercent.setTypeface(TypefaceUtil.semibold());
+			balance.setTypeface(TypefaceUtil.semibold());
+			availableToInvest.setTypeface(TypefaceUtil.semibold());
+
+			balanceLabel.setText(balanceLabel.getText().toString().toLowerCase());
+			availableToInvestLabel.setText(availableToInvestLabel.getText().toString().toLowerCase());
+			periodLabel.setText(periodLabel.getText().toString().toLowerCase());
 		}
 
-		void setInvestmentProgram(ProgramDetails investmentProgram) {
-			this.investmentProgram = investmentProgram;
+		void setProgram(ProgramDetails program) {
+			this.program = program;
 			updateData();
 		}
 
 		private void updateData() {
-			avatar.setImage(investmentProgram.getLogo(), 100, 100);
-			avatar.setLevel(investmentProgram.getLevel());
+			programLogo.setImage(program.getLogo(), 100, 100);
+			programLogo.setLevel(program.getLevel());
 
 //			favoriteIcon.setVisibility(data.isIsFavorite() ? View.VISIBLE : View.GONE);
 
-			title.setText(investmentProgram.getTitle());
-			managerName.setText(String.format(Locale.getDefault(), "%s %s",
-					GenesisVisionApplication.INSTANCE.getResources().getString(R.string.by),
-					investmentProgram.getManager().getUsername()));
+			this.programName.setText(program.getTitle());
+			this.managerName.setText(program.getManager().getUsername());
 
-//			programDataView.setProgramRequest(investmentProgram);
+			this.chart.setChart(program.getChart());
 
-			chart.setChart(investmentProgram.getChart());
+			Double profitPercent = getProfitPercent();
+			Double profitValue = getProfitValue();
+
+			this.profitPercent.setText(String.format(Locale.getDefault(), "%s%%",
+					StringFormatUtil.formatAmount(profitPercent, 0, 2)));
+			this.profitPercent.setTextColor(profitValue >= 0
+					? ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorGreen)
+					: ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorRed));
+
+			this.profitValue.setText(String.format(Locale.getDefault(), "%s%s GVT",
+					profitValue > 0 ? "+" : "",
+					StringFormatUtil.formatAmount(profitValue, 0, 4)));
+
+			this.period.setData(program.getPeriodDuration(), program.getPeriodStarts(), program.getPeriodEnds(), true, false);
+
+			this.balance.setText(String.format(Locale.getDefault(), "%s GVT",
+					StringFormatUtil.getShortenedAmount(program.getStatistic().getBalanceGVT().getAmount())));
+
+			this.availableToInvest.setText(String.format(Locale.getDefault(), "%s GVT",
+					StringFormatUtil.getShortenedAmount(program.getAvailableInvestment())));
+
+		}
+
+		private Double getProfitPercent() {
+			Double first = program.getChart().get(0).getValue();
+			Double last = program.getChart().get(program.getChart().size() - 1).getValue();
+
+			return Math.abs(first != 0 ? 100 / first * (first - last) : 0);
+		}
+
+		private Double getProfitValue() {
+			Double first = program.getChart().get(0).getValue();
+			Double last = program.getChart().get(program.getChart().size() - 1).getValue();
+
+			return last - first;
 		}
 	}
 }

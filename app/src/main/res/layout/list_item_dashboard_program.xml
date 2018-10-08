@@ -3,7 +3,7 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
-              android:layout_height="@dimen/item_investment_program_height"
+              android:layout_height="@dimen/item_dashboard_program_height"
               android:layout_marginBottom="8dp"
               android:layout_marginEnd="24dp"
               android:layout_marginLeft="24dp"
@@ -31,8 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
             android:layout_toEndOf="@+id/program_logo"
             android:layout_toRightOf="@+id/program_logo"
             android:orientation="vertical">
@@ -51,7 +51,8 @@
                 android:id="@+id/manager_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?attr/colorTextSecondary"
+                android:layout_marginTop="4dp"
+                android:textColor="?attr/colorAccent"
                 android:textSize="14sp"
                 tools:text="Eddie Carr"/>
 
@@ -72,7 +73,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:layout_weight="5"/>
+            android:layout_weight="2"/>
 
         <LinearLayout
             android:id="@+id/group_profit"
@@ -80,7 +81,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
@@ -116,38 +117,38 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/current_value_label"
-                style="@style/text_label"
-                android:text="@string/current_value"/>
-
-            <TextView
-                android:id="@+id/current_value"
-                style="@style/text_value"
-                android:layout_marginTop="4dp"
-                tools:text="5 672.2321 GVT"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
             android:layout_weight="2"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/share_label"
-                style="@style/text_label"
-                android:text="@string/share"/>
 
             <TextView
                 android:id="@+id/share"
                 style="@style/text_value"
-                android:layout_marginTop="4dp"
                 tools:text="23.73%"/>
+
+            <TextView
+                android:id="@+id/share_label"
+                style="@style/text_label"
+                android:layout_marginTop="4dp"
+                android:text="@string/share"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/current_value"
+                style="@style/text_value"
+                tools:text="5 672.2321 GVT"/>
+
+            <TextView
+                android:id="@+id/current_value_label"
+                style="@style/text_label"
+                android:layout_marginTop="4dp"
+                android:text="@string/current_value"/>
 
         </LinearLayout>
 
@@ -157,16 +158,15 @@
             android:layout_weight="2"
             android:orientation="vertical">
 
+            <vision.genesis.clientapp.ui.PeriodLeftView
+                android:id="@+id/time_left"
+                style="@style/text_value"/>
+
             <TextView
                 android:id="@+id/time_left_label"
                 style="@style/text_label"
+                android:layout_marginTop="4dp"
                 android:text="@string/time_left"/>
-
-            <vision.genesis.clientapp.ui.PeriodLeftView
-                android:id="@+id/time_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"/>
 
         </LinearLayout>
 
@@ -191,11 +191,11 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="6dp"
             android:layout_toLeftOf="@id/label_reinvest"
             android:layout_toStartOf="@id/label_reinvest"
-            android:padding="8dp"
+            android:padding="4dp"
             android:src="@drawable/icon_tooltip"/>
 
         <TextView

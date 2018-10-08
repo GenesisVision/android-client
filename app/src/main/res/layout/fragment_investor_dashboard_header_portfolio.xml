@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:id="@+id/root"
                 xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -37,12 +38,14 @@
                 <TextView
                     android:id="@+id/balance_value"
                     style="@style/dashboard_header_value"
-                    android:text="600.142345 GVT"/>
+                    android:text="-"
+                    tools:text="600.142345 GVT"/>
 
                 <TextView
                     android:id="@+id/balance_value_secondary"
                     style="@style/dashboard_header_secondary_value"
-                    android:text="0.00000234 BTC"/>
+                    android:text="-"
+                    tools:text="0.00000234 BTC"/>
 
             </LinearLayout>
 
@@ -67,19 +70,22 @@
                     <TextView
                         android:id="@+id/change_percent"
                         style="@style/dashboard_header_change_percent"
-                        android:text="5.4%"/>
+                        android:text="-"
+                        tools:text="5.4%"/>
 
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/change_value"
                     style="@style/dashboard_header_value"
-                    android:text="+120.2301 GVT"/>
+                    android:text="-"
+                    tools:text="+120.2301 GVT"/>
 
                 <TextView
                     android:id="@+id/change_value_secondary"
                     style="@style/dashboard_header_secondary_value"
-                    android:text="0.00928124 BTC"/>
+                    android:text="-"
+                    tools:text="0.00928124 BTC"/>
 
             </LinearLayout>
 
@@ -113,12 +119,14 @@
             <TextView
                 android:id="@+id/requests_value"
                 style="@style/dashboard_header_value"
-                android:text="+305.405 GVT"/>
+                android:text="-"
+                tools:text="+305.405 GVT"/>
 
             <TextView
                 android:id="@+id/requests_value_secondary"
                 style="@style/dashboard_header_secondary_value"
-                android:text="0.00928124 BTC"/>
+                android:text="-"
+                tools:text="0.00928124 BTC"/>
 
         </LinearLayout>
 
