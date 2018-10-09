@@ -590,6 +590,8 @@ public class ProgramProfitChart
 
 		ADA("ADA"),
 
+		USDT("USDT"),
+
 		USD("USD"),
 
 		EUR("EUR");

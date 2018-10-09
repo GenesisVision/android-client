@@ -150,7 +150,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 							program.getLevel(),
 							program.getTitle(),
 							program.getManager().getUsername(),
-							program.getPersonalProgramDetails().isIsFavorite());
+							program.getPersonalDetails().isIsFavorite());
 					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programDetailsModel));
 				}
 			});

@@ -5,7 +5,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/background_bottomsheet">
 
         <View
@@ -17,8 +17,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/button_apply"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="24dp">
 
@@ -180,25 +179,14 @@
 
             </LinearLayout>
 
+            <vision.genesis.clientapp.ui.PrimaryButton
+                android:id="@+id/button_apply"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginTop="20dp"
+                android:text="@string/apply"/>
+
         </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/button_apply"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/apply_button_height"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/button_square_primary">
-
-            <TextView
-                android:id="@+id/text_apply"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/apply"
-                android:textColor="@color/white"
-                android:textSize="16sp"/>
-
-        </RelativeLayout>
 
     </RelativeLayout>
 

@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -46,6 +47,9 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 		programProfitFragment.setArguments(arguments);
 		return programProfitFragment;
 	}
+
+	@BindView(R.id.root)
+	public ViewGroup root;
 
 	@BindView(R.id.scrollview)
 	public NestedScrollView scrollView;
@@ -107,6 +111,9 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 	@BindView(R.id.max_drawdown)
 	public TextView maxDrawdown;
 
+	@BindDimen(R.dimen.date_range_margin_bottom)
+	public int dateRangeMarginBottom;
+
 	@InjectPresenter
 	public ProgramProfitPresenter programProfitPresenter;
 
@@ -114,7 +121,7 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 
 	private Unbinder unbinder;
 
-	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.DAY);
+	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
 
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
@@ -200,8 +207,10 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 	@Override
 	public void showProgress(boolean show) {
 		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-		if (!show)
+		if (!show) {
 			scrollView.setVisibility(View.VISIBLE);
+			dateRangeView.setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override
@@ -229,5 +238,10 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 
 	@Override
 	public void pagerHide() {
+	}
+
+	public void onOffsetChanged(int verticalOffset) {
+		if (dateRangeView != null)
+			dateRangeView.setY(root.getHeight() - verticalOffset - dateRangeView.getHeight() - dateRangeMarginBottom);
 	}
 }

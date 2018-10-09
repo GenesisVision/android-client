@@ -1,54 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?attr/colorBackground">
 
     <RelativeLayout
-        android:id="@+id/header"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:background="?attr/colorBackground">
+        android:layout_height="@dimen/toolbar_height">
 
         <ImageView
             android:id="@+id/button_back"
-            android:layout_width="@dimen/toolbar_height"
+            android:layout_width="50dp"
             android:layout_height="@dimen/toolbar_height"
-            android:background="?attr/selectableItemBackground"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="20dp"
-            android:src="@drawable/back_arrow"
+            android:src="@drawable/icon_back"
             android:tint="?attr/colorTextPrimary"/>
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_toEndOf="@+id/button_back"
-            android:layout_toRightOf="@+id/button_back"
+            android:layout_centerInParent="true"
             android:text="@string/portfolio_events"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="18sp"/>
 
-        <ImageView
-            android:id="@+id/button_filters"
-            android:layout_width="@dimen/toolbar_height"
-            android:layout_height="@dimen/toolbar_height"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:background="?attr/selectableItemBackground"
-            android:padding="20dp"
-            android:src="@drawable/filters_icon"
-            android:tint="?attr/colorTextSecondary"/>
-
     </RelativeLayout>
 
-    <FrameLayout
-        android:id="@+id/content"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/header"/>
+        android:layout_below="@+id/toolbar"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="100dp"/>
+
+            <LinearLayout
+                android:id="@+id/group_no_events"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical"
+                android:padding="32dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="8dp"
+                    android:gravity="center"
+                    android:text="@string/no_events_for_selected_period"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <vision.genesis.clientapp.ui.DateRangeView
+        android:id="@+id/date_range"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/date_range_margin_bottom"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/toolbar"
+        android:indeterminate="true"
+        android:scaleY="4"
+        android:visibility="visible"/>
 
 </RelativeLayout>

@@ -392,7 +392,7 @@
     <string name="invested_value">Invested value</string>
     <string name="add_funds">Add funds</string>
     <string name="portfolio">Portfolio</string>
-    <string name="portfolio_events">Portfolio Events</string>
+    <string name="portfolio_events">Portfolio events</string>
     <string name="see_all">see all</string>
     <string name="funds">Funds</string>
     <string name="change">Change</string>
@@ -452,5 +452,6 @@
     <string name="amount_to_invest">Amount to invest</string>
     <string name="max">Max</string>
     <string name="confirm_invest">Confirm Invest</string>
+    <string name="show_all">Show all</string>
 
 </resources>

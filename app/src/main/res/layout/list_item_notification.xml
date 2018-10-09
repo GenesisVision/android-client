@@ -4,8 +4,8 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/program_details_padding_left"
-                android:paddingTop="@dimen/program_details_padding_left">
+                android:paddingLeft="@dimen/program_details_padding"
+                android:paddingTop="@dimen/program_details_padding">
 
     <RelativeLayout
         android:id="@+id/group_icons"
@@ -35,8 +35,8 @@
         android:id="@+id/group_right"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/program_details_padding_left"
-        android:layout_marginStart="@dimen/program_details_padding_left"
+        android:layout_marginLeft="@dimen/program_details_padding"
+        android:layout_marginStart="@dimen/program_details_padding"
         android:layout_toEndOf="@+id/group_icons"
         android:layout_toRightOf="@+id/group_icons"
         android:orientation="vertical">
@@ -45,8 +45,8 @@
             android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/program_details_padding_left"
-            android:layout_marginRight="@dimen/program_details_padding_left"
+            android:layout_marginEnd="@dimen/program_details_padding"
+            android:layout_marginRight="@dimen/program_details_padding"
             android:ellipsize="end"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="16sp"

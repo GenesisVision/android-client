@@ -202,6 +202,8 @@ public class WalletWithdrawalInfo
 
 		ADA("ADA"),
 
+		USDT("USDT"),
+
 		USD("USD"),
 
 		EUR("EUR");

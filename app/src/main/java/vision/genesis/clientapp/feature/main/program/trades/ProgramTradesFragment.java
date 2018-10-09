@@ -14,6 +14,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import java.util.List;
 import java.util.UUID;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -45,11 +46,11 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 		return programTradesFragment;
 	}
 
+	@BindView(R.id.root)
+	public ViewGroup root;
+
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
-
-	@BindView(R.id.header)
-	public ViewGroup header;
 
 	@BindView(R.id.date_range)
 	public DateRangeView dateRangeView;
@@ -59,6 +60,9 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 
 	@BindView(R.id.recycler_view)
 	public RecyclerView recyclerView;
+
+	@BindDimen(R.dimen.date_range_margin_bottom)
+	public int dateRangeMarginBottom;
 
 //	@BindDimen(R.dimen.program_details_padding_left)
 //	public int paddingLeft;
@@ -152,7 +156,7 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 	public void showProgress(boolean show) {
 		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
 		if (!show) {
-			header.setVisibility(View.VISIBLE);
+			dateRangeView.setVisibility(View.VISIBLE);
 			recyclerView.setVisibility(View.VISIBLE);
 		}
 	}
@@ -201,5 +205,10 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 	public void onSwipeRefresh() {
 		if (programTradesPresenter != null)
 			programTradesPresenter.onSwipeRefresh();
+	}
+
+	public void onOffsetChanged(int verticalOffset) {
+		if (dateRangeView != null)
+			dateRangeView.setY(root.getHeight() - verticalOffset - dateRangeView.getHeight() - dateRangeMarginBottom);
 	}
 }

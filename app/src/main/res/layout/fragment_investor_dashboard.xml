@@ -74,23 +74,15 @@
 
         </RelativeLayout>
 
-        <vision.genesis.clientapp.ui.DateRangeView
-            android:id="@+id/date_range"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"/>
-
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/header">
+        android:layout_below="@+id/header"
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <android.support.design.widget.CoordinatorLayout
             android:id="@+id/coordinator_layout"
@@ -144,12 +136,65 @@
 
                         </LinearLayout>
 
+                        <RelativeLayout
+                            android:id="@+id/group_events_header"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/group_chart"
+                            android:layout_marginTop="24dp"
+                            android:paddingLeft="@dimen/dashboard_padding"
+                            android:paddingRight="@dimen/dashboard_padding">
+
+                            <TextView
+                                android:id="@+id/label_portfolio_events"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:text="@string/portfolio_events"
+                                android:textColor="?attr/colorTextPrimary"
+                                android:textSize="18sp"/>
+
+                            <LinearLayout
+                                android:id="@+id/show_all_events"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp">
+
+                                <TextView
+                                    android:id="@+id/label_show_all"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/show_all"
+                                    android:textColor="?attr/colorTextPrimary"
+                                    android:textSize="12sp"/>
+
+                                <ImageView
+                                    android:layout_width="6dp"
+                                    android:layout_height="6dp"
+                                    android:layout_marginLeft="6dp"
+                                    android:layout_marginStart="6dp"
+                                    android:alpha="0.4"
+                                    android:src="@drawable/icon_arrow_right"
+                                    android:tint="?attr/colorTextPrimary"/>
+
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
                         <HorizontalScrollView
                             android:id="@+id/scroll_view_events"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/group_chart"
-                            android:layout_marginBottom="24dp"
+                            android:layout_below="@+id/group_events_header"
+                            android:layout_marginBottom="32dp"
                             android:layout_marginTop="16dp"
                             android:clipToPadding="false"
                             android:paddingLeft="16dp"
@@ -207,7 +252,8 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 app:behavior_hideable="true"
-                app:layout_behavior="vision.genesis.clientapp.ui.common.CustomBottomSheetBehavior">
+                app:layout_behavior="vision.genesis.clientapp.ui.common.CustomBottomSheetBehavior"
+                tools:visibility="gone">
 
                 <View
                     android:layout_width="45dp"
@@ -242,6 +288,16 @@
         </android.support.design.widget.CoordinatorLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <vision.genesis.clientapp.ui.DateRangeView
+        android:id="@+id/date_range"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="70dp"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     <ProgressBar
         android:id="@+id/progress_bar"

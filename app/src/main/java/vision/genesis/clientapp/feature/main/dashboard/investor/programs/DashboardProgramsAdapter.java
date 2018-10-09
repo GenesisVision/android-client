@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -20,6 +21,7 @@ import io.swagger.client.model.ProgramDetails;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
+import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
@@ -105,10 +107,13 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		public PeriodLeftView timeLeft;
 
 		@BindView(R.id.status)
-		public TextView status;
+		public InvestmentStatusView status;
 
 		@BindView(R.id.label_reinvest)
 		public TextView reinvestLabel;
+
+		@BindView(R.id.switch_reinvest)
+		public Switch reinvest;
 
 		private ProgramDetails program;
 
@@ -132,7 +137,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 							program.getLevel(),
 							program.getTitle(),
 							program.getManager().getUsername(),
-							program.getPersonalProgramDetails().isIsFavorite());
+							program.getPersonalDetails().isIsFavorite());
 					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programDetailsModel));
 				}
 			});
@@ -181,12 +186,16 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 					StringFormatUtil.formatAmount(profitValue, 0, 4)));
 
 			this.share.setText(String.format(Locale.getDefault(), "%s%%",
-					StringFormatUtil.formatAmount(program.getDashboardProgramDetails().getShare(), 0, 2)));
+					StringFormatUtil.formatAmount(program.getDashboardAssetsDetails().getShare(), 0, 2)));
 
 			this.currentValue.setText(String.format(Locale.getDefault(), "%s GVT",
 					StringFormatUtil.formatAmount(program.getStatistic().getCurrentValue(), 0, 4)));
 
 			this.timeLeft.setData(program.getPeriodDuration(), program.getPeriodStarts(), program.getPeriodEnds(), false, true);
+
+			this.status.setStatus(program.getPersonalDetails().getStatus().getValue());
+
+			this.reinvest.setChecked(program.getPersonalDetails().isIsReinvest());
 		}
 
 		private Double getProfitPercent() {

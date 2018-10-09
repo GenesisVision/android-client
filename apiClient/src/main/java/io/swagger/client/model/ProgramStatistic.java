@@ -493,6 +493,8 @@ public class ProgramStatistic
 
 		ADA("ADA"),
 
+		USDT("USDT"),
+
 		USD("USD"),
 
 		EUR("EUR");
@@ -551,6 +553,8 @@ public class ProgramStatistic
 		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		USD("USD"),
 

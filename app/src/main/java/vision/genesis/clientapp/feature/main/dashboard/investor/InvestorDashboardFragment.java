@@ -36,7 +36,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.DashboardChartValue;
-import io.swagger.client.model.DashboardPortfolioEvent;
 import io.swagger.client.model.ProgramRequest;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -46,9 +45,11 @@ import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFr
 import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.programs.DashboardPagerAdapter;
 import vision.genesis.clientapp.feature.main.notifications.NotificationsActivity;
+import vision.genesis.clientapp.feature.main.portfolio_events.PortfolioEventsActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.PortfolioAssetData;
+import vision.genesis.clientapp.model.PortfolioEvent;
 import vision.genesis.clientapp.model.events.HideBottomNavigationEvent;
 import vision.genesis.clientapp.model.events.ShowBottomNavigationEvent;
 import vision.genesis.clientapp.ui.CustomTabView;
@@ -96,6 +97,12 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 	@BindView(R.id.investor_dashboard_header_view_pager)
 	public ViewPager headerViewPager;
+
+	@BindView(R.id.label_portfolio_events)
+	public TextView portfolioEventsLabel;
+
+	@BindView(R.id.label_show_all)
+	public TextView showAllLabel;
 
 	@BindView(R.id.scroll_view_events)
 	public HorizontalScrollView eventsScrollView;
@@ -222,11 +229,11 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 		}
 	}
 
-//	@OnClick(R.id.button_see_all)
-//	public void onSeeAllEventClicked() {
-//		if (getActivity() != null)
-//			PortfolioEventsActivity.startWith(getActivity());
-//	}
+	@OnClick(R.id.show_all_events)
+	public void onShowAllEventsClicked() {
+		if (getActivity() != null)
+			PortfolioEventsActivity.startWith(getActivity());
+	}
 
 	@Nullable
 	@Override
@@ -307,6 +314,8 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	private void setFonts() {
 		currencyText.setTypeface(TypefaceUtil.semibold());
 		bottomSheetTitle.setTypeface(TypefaceUtil.semibold());
+		portfolioEventsLabel.setTypeface(TypefaceUtil.semibold());
+		showAllLabel.setTypeface(TypefaceUtil.semibold());
 	}
 
 //	private void showTooltip(View view, int tooltipTextResId) {
@@ -471,7 +480,10 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	@Override
 	public void showProgressBar(boolean show) {
 		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-
+		if (!show) {
+			refreshLayout.setVisibility(View.VISIBLE);
+			dateRangeView.setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override
@@ -578,9 +590,9 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	}
 
 	@Override
-	public void setPortfolioEvents(List<DashboardPortfolioEvent> events) {
+	public void setPortfolioEvents(List<PortfolioEvent> events) {
 		eventsGroup.removeAllViews();
-		for (DashboardPortfolioEvent event : events) {
+		for (PortfolioEvent event : events) {
 			PortfolioEventDashboardView eventView = new PortfolioEventDashboardView(getContext());
 			eventView.setEvent(event);
 			eventsGroup.addView(eventView);

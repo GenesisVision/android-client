@@ -52,6 +52,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
 
+	@BindView(R.id.toolbar)
+	public ViewGroup toolbar;
+
 	@BindView(R.id.swipe_refresh)
 	public SwipeRefreshLayout refreshLayout;
 
@@ -200,6 +203,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			toolbarProgramName.setAlpha(1 - toolbarAlphaPercent);
 
 			refreshLayout.setEnabled(verticalOffset == 0);
+
+			pagerAdapter.onOffsetChanged(appBarLayout.getHeight() + verticalOffset - tabLayout.getHeight() - toolbar.getHeight());
 		});
 	}
 

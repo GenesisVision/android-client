@@ -45,6 +45,10 @@ public class ProgramsManager
 				filter.getIds(), filter.getSkip(), filter.getTake());
 	}
 
+	public Observable<DashboardPortfolioEvents> getPortfolioEvents(DateRange dateRange, Integer skip, Integer take) {
+		return investorApi.v10InvestorPortfolioEventsGet(AuthManager.token.getValue(), null, dateRange.getFrom(), dateRange.getTo(), null, null, skip, take);
+	}
+
 	public Observable<Void> setProgramFavorite(UUID programId, boolean isFavorite) {
 		return isFavorite ? programFavoritesAdd(programId) : programFavoritesRemove(programId);
 	}

@@ -202,6 +202,8 @@ public class WalletInfo
 
 		ADA("ADA"),
 
+		USDT("USDT"),
+
 		USD("USD"),
 
 		EUR("EUR");

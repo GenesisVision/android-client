@@ -104,7 +104,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -247,7 +247,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -303,7 +303,7 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -367,7 +367,7 @@ No authorization required
 
 <a name="v10InvestorGet"></a>
 # **v10InvestorGet**
-> DashboardSummary v10InvestorGet(authorization, assetId, from, to, type, assetType, skip, take, chartCurrency, from2, to2, balancePoints, programsPoints, requestsSkip, requestsTake)
+> DashboardSummary v10InvestorGet(authorization, chartCurrency, from, to, balancePoints, programsPoints, eventsTake, requestsSkip, requestsTake)
 
 Summary dashboard info
 
@@ -380,22 +380,16 @@ Summary dashboard info
 
 InvestorApi apiInstance = new InvestorApi();
 String authorization = "authorization_example"; // String | JWT access token
-UUID assetId = new UUID(); // UUID | 
+String chartCurrency = "chartCurrency_example"; // String | 
 DateTime from = new DateTime(); // DateTime | 
 DateTime to = new DateTime(); // DateTime | 
-String type = "type_example"; // String | 
-String assetType = "assetType_example"; // String | 
-Integer skip = 56; // Integer | 
-Integer take = 56; // Integer | 
-String chartCurrency = "chartCurrency_example"; // String | 
-DateTime from2 = new DateTime(); // DateTime | 
-DateTime to2 = new DateTime(); // DateTime | 
 Integer balancePoints = 56; // Integer | 
 Integer programsPoints = 56; // Integer | 
+Integer eventsTake = 56; // Integer | 
 Integer requestsSkip = 56; // Integer | 
 Integer requestsTake = 56; // Integer | 
 try {
-    DashboardSummary result = apiInstance.v10InvestorGet(authorization, assetId, from, to, type, assetType, skip, take, chartCurrency, from2, to2, balancePoints, programsPoints, requestsSkip, requestsTake);
+    DashboardSummary result = apiInstance.v10InvestorGet(authorization, chartCurrency, from, to, balancePoints, programsPoints, eventsTake, requestsSkip, requestsTake);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestorApi#v10InvestorGet");
@@ -408,18 +402,12 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **assetId** | [**UUID**](.md)|  | [optional]
+ **chartCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, USD, EUR]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
- **type** | **String**|  | [optional] [enum: All, Invest, Withdraw, Profit, Loss, Reinvest, Canceled, Ended]
- **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
- **skip** | **Integer**|  | [optional]
- **take** | **Integer**|  | [optional]
- **chartCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
- **from2** | **DateTime**|  | [optional]
- **to2** | **DateTime**|  | [optional]
  **balancePoints** | **Integer**|  | [optional]
  **programsPoints** | **Integer**|  | [optional]
+ **eventsTake** | **Integer**|  | [optional]
  **requestsSkip** | **Integer**|  | [optional]
  **requestsTake** | **Integer**|  | [optional]
 
@@ -470,7 +458,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, USD, EUR]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **balancePoints** | **Integer**|  | [optional]
@@ -624,7 +612,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -857,7 +845,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -913,7 +901,7 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

@@ -80,11 +80,11 @@ public class ProgramDetails
 	@SerializedName("chart")
 	private List<ChartSimple> chart = null;
 
-	@SerializedName("personalProgramDetails")
-	private PersonalProgramDetailsList personalProgramDetails = null;
+	@SerializedName("personalDetails")
+	private PersonalProgramDetailsList personalDetails = null;
 
-	@SerializedName("dashboardProgramDetails")
-	private DashboardProgramDetails dashboardProgramDetails = null;
+	@SerializedName("dashboardAssetsDetails")
+	private DashboardProgramDetails dashboardAssetsDetails = null;
 
 	public ProgramDetails currency(CurrencyEnum currency) {
 		this.currency = currency;
@@ -379,42 +379,42 @@ public class ProgramDetails
 		this.chart = chart;
 	}
 
-	public ProgramDetails personalProgramDetails(PersonalProgramDetailsList personalProgramDetails) {
-		this.personalProgramDetails = personalProgramDetails;
+	public ProgramDetails personalDetails(PersonalProgramDetailsList personalDetails) {
+		this.personalDetails = personalDetails;
 		return this;
 	}
 
 	/**
 	 * Fields for authorized user
 	 *
-	 * @return personalProgramDetails
+	 * @return personalDetails
 	 **/
 	@ApiModelProperty(value = "Fields for authorized user")
-	public PersonalProgramDetailsList getPersonalProgramDetails() {
-		return personalProgramDetails;
+	public PersonalProgramDetailsList getPersonalDetails() {
+		return personalDetails;
 	}
 
-	public void setPersonalProgramDetails(PersonalProgramDetailsList personalProgramDetails) {
-		this.personalProgramDetails = personalProgramDetails;
+	public void setPersonalDetails(PersonalProgramDetailsList personalDetails) {
+		this.personalDetails = personalDetails;
 	}
 
-	public ProgramDetails dashboardProgramDetails(DashboardProgramDetails dashboardProgramDetails) {
-		this.dashboardProgramDetails = dashboardProgramDetails;
+	public ProgramDetails dashboardAssetsDetails(DashboardProgramDetails dashboardAssetsDetails) {
+		this.dashboardAssetsDetails = dashboardAssetsDetails;
 		return this;
 	}
 
 	/**
 	 * Fields for dashboard
 	 *
-	 * @return dashboardProgramDetails
+	 * @return dashboardAssetsDetails
 	 **/
 	@ApiModelProperty(value = "Fields for dashboard")
-	public DashboardProgramDetails getDashboardProgramDetails() {
-		return dashboardProgramDetails;
+	public DashboardProgramDetails getDashboardAssetsDetails() {
+		return dashboardAssetsDetails;
 	}
 
-	public void setDashboardProgramDetails(DashboardProgramDetails dashboardProgramDetails) {
-		this.dashboardProgramDetails = dashboardProgramDetails;
+	public void setDashboardAssetsDetails(DashboardProgramDetails dashboardAssetsDetails) {
+		this.dashboardAssetsDetails = dashboardAssetsDetails;
 	}
 
 	@Override
@@ -441,13 +441,13 @@ public class ProgramDetails
 				Objects.equals(this.status, programDetails.status) &&
 				Objects.equals(this.manager, programDetails.manager) &&
 				Objects.equals(this.chart, programDetails.chart) &&
-				Objects.equals(this.personalProgramDetails, programDetails.personalProgramDetails) &&
-				Objects.equals(this.dashboardProgramDetails, programDetails.dashboardProgramDetails);
+				Objects.equals(this.personalDetails, programDetails.personalDetails) &&
+				Objects.equals(this.dashboardAssetsDetails, programDetails.dashboardAssetsDetails);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, availableInvestment, statistic, id, logo, url, title, description, status, manager, chart, personalProgramDetails, dashboardProgramDetails);
+		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, availableInvestment, statistic, id, logo, url, title, description, status, manager, chart, personalDetails, dashboardAssetsDetails);
 	}
 
 	@Override
@@ -470,8 +470,8 @@ public class ProgramDetails
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
-		sb.append("    personalProgramDetails: ").append(toIndentedString(personalProgramDetails)).append("\n");
-		sb.append("    dashboardProgramDetails: ").append(toIndentedString(dashboardProgramDetails)).append("\n");
+		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
+		sb.append("    dashboardAssetsDetails: ").append(toIndentedString(dashboardAssetsDetails)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -503,6 +503,8 @@ public class ProgramDetails
 		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		USD("USD"),
 

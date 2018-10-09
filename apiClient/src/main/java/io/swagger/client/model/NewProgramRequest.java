@@ -323,6 +323,8 @@ public class NewProgramRequest
 
 		ADA("ADA"),
 
+		USDT("USDT"),
+
 		USD("USD"),
 
 		EUR("EUR");

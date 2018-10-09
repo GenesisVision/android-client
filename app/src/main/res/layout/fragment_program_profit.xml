@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout android:id="@+id/root"
+                xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="?attr/colorBackgroundDark"
-                android:orientation="vertical">
+                android:background="?attr/colorBackgroundDark">
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollview"
@@ -16,7 +16,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="100dp">
 
             <LinearLayout
                 android:id="@+id/group_top"
@@ -27,30 +28,13 @@
                 android:paddingBottom="16dp"
                 android:paddingTop="24dp">
 
-                <RelativeLayout
-                    android:id="@+id/header"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/program_details_fragment_header_height"
-                    android:paddingLeft="@dimen/program_details_padding_left"
-                    android:paddingRight="@dimen/program_details_padding_left">
-
-                    <vision.genesis.clientapp.ui.DateRangeView
-                        android:id="@+id/date_range"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:background="?attr/selectableItemBackgroundBorderless"/>
-
-                </RelativeLayout>
-
                 <LinearLayout
                     android:id="@+id/group_values"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:paddingLeft="@dimen/program_details_padding_left"
-                    android:paddingRight="@dimen/program_details_padding_left">
+                    android:paddingLeft="@dimen/program_details_padding"
+                    android:paddingRight="@dimen/program_details_padding">
 
                     <LinearLayout
                         android:id="@+id/group_amount"
@@ -126,7 +110,7 @@
                 android:layout_marginTop="24dp"
                 android:background="?attr/colorBackground"
                 android:orientation="vertical"
-                android:padding="@dimen/program_details_padding_left">
+                android:padding="@dimen/program_details_padding">
 
                 <TextView
                     android:id="@+id/label_statistics"
@@ -301,6 +285,16 @@
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
+    <vision.genesis.clientapp.ui.DateRangeView
+        android:id="@+id/date_range"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     <ProgressBar
         android:id="@+id/progress_bar"

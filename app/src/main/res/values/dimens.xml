@@ -22,7 +22,7 @@
     <dimen name="email_verification_image_height">200dp</dimen>
     <dimen name="email_verification_text_width">250dp</dimen>
 
-    <dimen name="item_dashboard_program_height">300dp</dimen>
+    <dimen name="item_dashboard_program_height">310dp</dimen>
     <dimen name="item_list_program_height">250dp</dimen>
 
     <dimen name="wallet_image_width">50dp</dimen>
@@ -82,6 +82,8 @@
     <dimen name="check_pin_fingerprint_image_size">70dp</dimen>
     <dimen name="portfolio_event_item_height">120dp</dimen>
     <dimen name="dashboard_portfolio_events_height">200dp</dimen>
+    <dimen name="dashboard_portfolio_events_width">250dp</dimen>
+
     <dimen name="dashboard_pager_header_height">400dp</dimen>
     <dimen name="portfolio_chart_height">150dp</dimen>
     <dimen name="button_in_requests_size">24dp</dimen>
@@ -92,10 +94,12 @@
     <dimen name="portfolio_asset_height">70dp</dimen>
     <dimen name="item_request_height">70dp</dimen>
     <dimen name="item_request_bottomview_width">140dp</dimen>
-    <dimen name="program_details_padding_left">20dp</dimen>
-    <dimen name="assets_padding_left">24dp</dimen>
+    <dimen name="program_details_padding">20dp</dimen>
+    <dimen name="assets_padding">20dp</dimen>
     <dimen name="program_info_strategy_max_height">130dp</dimen>
     <dimen name="program_details_fragment_header_height">40dp</dimen>
     <dimen name="invest_padding">24dp</dimen>
     <dimen name="text_input_height">40dp</dimen>
+    <dimen name="date_range_margin_bottom">16dp</dimen>
+    <dimen name="dashboard_padding">20dp</dimen>
 </resources>

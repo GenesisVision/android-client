@@ -4,9 +4,9 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/program_details_padding_left"
-                android:layout_marginStart="@dimen/program_details_padding_left"
-                android:paddingTop="@dimen/program_details_padding_left">
+                android:layout_marginLeft="@dimen/program_details_padding"
+                android:layout_marginStart="@dimen/program_details_padding"
+                android:paddingTop="@dimen/program_details_padding">
 
     <RelativeLayout
         android:id="@+id/group_icons"
@@ -39,8 +39,8 @@
         android:layout_toEndOf="@+id/group_icons"
         android:layout_toRightOf="@+id/group_icons"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/program_details_padding_left"
-        android:paddingRight="@dimen/program_details_padding_left">
+        android:paddingLeft="@dimen/program_details_padding"
+        android:paddingRight="@dimen/program_details_padding">
 
         <TextView
             android:id="@+id/text"
@@ -86,8 +86,8 @@
         android:layout_alignLeft="@+id/group_right"
         android:layout_alignStart="@+id/group_right"
         android:layout_below="@+id/group_right"
-        android:layout_marginLeft="@dimen/program_details_padding_left"
-        android:layout_marginStart="@dimen/program_details_padding_left"
+        android:layout_marginLeft="@dimen/program_details_padding"
+        android:layout_marginStart="@dimen/program_details_padding"
         android:layout_marginTop="16dp"
         android:alpha="0.5"
         android:background="?attr/colorDelimiterLight"/>

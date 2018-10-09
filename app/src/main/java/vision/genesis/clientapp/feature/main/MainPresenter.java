@@ -89,7 +89,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 			onCheckPinPassed();
 		}
 
-		getViewState().setNavigationItemSelected(1);
+//		getViewState().setNavigationItemSelected(1);
 	}
 
 	@Override
@@ -245,6 +245,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	private void userLoggedOn() {
+		getViewState().setNavigationItemSelected(0);
 		getViewState().showBottomNavigation(true);
 		getViewState().hideSignInButton();
 	}

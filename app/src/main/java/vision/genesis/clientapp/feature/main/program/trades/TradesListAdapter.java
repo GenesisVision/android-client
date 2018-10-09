@@ -111,7 +111,7 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 			direction.setText(trade.getDirection().getValue());
 //			balance.setText(trade.getBalance());
 			balance.setText("120.2301");
-//			date.setText(DateTimeUtil.formatShortDateTime(trade.getDate()));
+//			time.setText(DateTimeUtil.formatShortDateTime(trade.getDate()));
 
 			setProfit(trade);
 		}

@@ -42,6 +42,9 @@ public class RatesModelRates
 	@SerializedName("ADA")
 	private List<RateItem> ADA = null;
 
+	@SerializedName("USDT")
+	private List<RateItem> USDT = null;
+
 	@SerializedName("USD")
 	private List<RateItem> USD = null;
 
@@ -183,6 +186,33 @@ public class RatesModelRates
 		this.ADA = ADA;
 	}
 
+	public RatesModelRates USDT(List<RateItem> USDT) {
+		this.USDT = USDT;
+		return this;
+	}
+
+	public RatesModelRates addUSDTItem(RateItem USDTItem) {
+		if (this.USDT == null) {
+			this.USDT = new ArrayList<RateItem>();
+		}
+		this.USDT.add(USDTItem);
+		return this;
+	}
+
+	/**
+	 * Get USDT
+	 *
+	 * @return USDT
+	 **/
+	@ApiModelProperty(value = "")
+	public List<RateItem> getUSDT() {
+		return USDT;
+	}
+
+	public void setUSDT(List<RateItem> USDT) {
+		this.USDT = USDT;
+	}
+
 	public RatesModelRates USD(List<RateItem> USD) {
 		this.USD = USD;
 		return this;
@@ -252,13 +282,14 @@ public class RatesModelRates
 				Objects.equals(this.ETH, ratesModelRates.ETH) &&
 				Objects.equals(this.BTC, ratesModelRates.BTC) &&
 				Objects.equals(this.ADA, ratesModelRates.ADA) &&
+				Objects.equals(this.USDT, ratesModelRates.USDT) &&
 				Objects.equals(this.USD, ratesModelRates.USD) &&
 				Objects.equals(this.EUR, ratesModelRates.EUR);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(undefined, GVT, ETH, BTC, ADA, USD, EUR);
+		return Objects.hash(undefined, GVT, ETH, BTC, ADA, USDT, USD, EUR);
 	}
 
 
@@ -272,6 +303,7 @@ public class RatesModelRates
 		sb.append("    ETH: ").append(toIndentedString(ETH)).append("\n");
 		sb.append("    BTC: ").append(toIndentedString(BTC)).append("\n");
 		sb.append("    ADA: ").append(toIndentedString(ADA)).append("\n");
+		sb.append("    USDT: ").append(toIndentedString(USDT)).append("\n");
 		sb.append("    USD: ").append(toIndentedString(USD)).append("\n");
 		sb.append("    EUR: ").append(toIndentedString(EUR)).append("\n");
 		sb.append("}");

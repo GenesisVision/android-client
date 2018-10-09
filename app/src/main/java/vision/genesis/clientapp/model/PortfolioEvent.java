@@ -63,6 +63,7 @@ public class PortfolioEvent
 		event.setText(text);
 
 		event.setTime(DateTimeUtil.formatShortTime(dashboardEvent.getDate()));
+		event.setDateTime(DateTimeUtil.formatEventDateTime(dashboardEvent.getDate()));
 		event.setValue(StringFormatUtil.getGvtValueString(dashboardEvent.getValue()));
 		event.setValueNegative(dashboardEvent.getValue() < 0);
 
@@ -78,6 +79,8 @@ public class PortfolioEvent
 	private String text;
 
 	private String time;
+
+	private String dateTime;
 
 	private String value;
 
@@ -137,5 +140,13 @@ public class PortfolioEvent
 
 	public void setValueNegative(Boolean valueNegative) {
 		isValueNegative = valueNegative;
+	}
+
+	public String getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(String dateTime) {
+		this.dateTime = dateTime;
 	}
 }

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -20,6 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -66,10 +66,7 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 	public TextView dateTo;
 
 	@BindView(R.id.button_apply)
-	public ViewGroup applyButton;
-
-	@BindView(R.id.text_apply)
-	public TextView applyText;
+	public PrimaryButton applyButton;
 
 	private OnDateRangeChangedListener listener;
 
@@ -169,7 +166,6 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 
 	private void setFonts() {
 		title.setTypeface(TypefaceUtil.semibold());
-		applyText.setTypeface(TypefaceUtil.semibold());
 	}
 
 	private void onOptionButtonClicked(DateRangeOptionView newOption) {

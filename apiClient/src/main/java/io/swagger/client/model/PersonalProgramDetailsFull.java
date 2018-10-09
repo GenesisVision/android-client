@@ -42,17 +42,14 @@ public class PersonalProgramDetailsFull
 	@SerializedName("isOwnProgram")
 	private Boolean isOwnProgram = null;
 
-	@SerializedName("hasNotifications")
-	private Boolean hasNotifications = null;
-
 	@SerializedName("value")
 	private Double value = null;
 
 	@SerializedName("profit")
 	private Double profit = null;
 
-	@SerializedName("investmentProgramStatus")
-	private InvestmentProgramStatusEnum investmentProgramStatus = null;
+	@SerializedName("status")
+	private StatusEnum status = null;
 
 	public PersonalProgramDetailsFull isReinvest(Boolean isReinvest) {
 		this.isReinvest = isReinvest;
@@ -130,25 +127,6 @@ public class PersonalProgramDetailsFull
 		this.isOwnProgram = isOwnProgram;
 	}
 
-	public PersonalProgramDetailsFull hasNotifications(Boolean hasNotifications) {
-		this.hasNotifications = hasNotifications;
-		return this;
-	}
-
-	/**
-	 * Get hasNotifications
-	 *
-	 * @return hasNotifications
-	 **/
-	@ApiModelProperty(value = "")
-	public Boolean isHasNotifications() {
-		return hasNotifications;
-	}
-
-	public void setHasNotifications(Boolean hasNotifications) {
-		this.hasNotifications = hasNotifications;
-	}
-
 	public PersonalProgramDetailsFull value(Double value) {
 		this.value = value;
 		return this;
@@ -187,23 +165,23 @@ public class PersonalProgramDetailsFull
 		this.profit = profit;
 	}
 
-	public PersonalProgramDetailsFull investmentProgramStatus(InvestmentProgramStatusEnum investmentProgramStatus) {
-		this.investmentProgramStatus = investmentProgramStatus;
+	public PersonalProgramDetailsFull status(StatusEnum status) {
+		this.status = status;
 		return this;
 	}
 
 	/**
-	 * Get investmentProgramStatus
+	 * Get status
 	 *
-	 * @return investmentProgramStatus
+	 * @return status
 	 **/
 	@ApiModelProperty(value = "")
-	public InvestmentProgramStatusEnum getInvestmentProgramStatus() {
-		return investmentProgramStatus;
+	public StatusEnum getStatus() {
+		return status;
 	}
 
-	public void setInvestmentProgramStatus(InvestmentProgramStatusEnum investmentProgramStatus) {
-		this.investmentProgramStatus = investmentProgramStatus;
+	public void setStatus(StatusEnum status) {
+		this.status = status;
 	}
 
 	@Override
@@ -219,15 +197,14 @@ public class PersonalProgramDetailsFull
 				Objects.equals(this.isFavorite, personalProgramDetailsFull.isFavorite) &&
 				Objects.equals(this.isInvested, personalProgramDetailsFull.isInvested) &&
 				Objects.equals(this.isOwnProgram, personalProgramDetailsFull.isOwnProgram) &&
-				Objects.equals(this.hasNotifications, personalProgramDetailsFull.hasNotifications) &&
 				Objects.equals(this.value, personalProgramDetailsFull.value) &&
 				Objects.equals(this.profit, personalProgramDetailsFull.profit) &&
-				Objects.equals(this.investmentProgramStatus, personalProgramDetailsFull.investmentProgramStatus);
+				Objects.equals(this.status, personalProgramDetailsFull.status);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isReinvest, isFavorite, isInvested, isOwnProgram, hasNotifications, value, profit, investmentProgramStatus);
+		return Objects.hash(isReinvest, isFavorite, isInvested, isOwnProgram, value, profit, status);
 	}
 
 	@Override
@@ -239,10 +216,9 @@ public class PersonalProgramDetailsFull
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
 		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
-		sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
-		sb.append("    investmentProgramStatus: ").append(toIndentedString(investmentProgramStatus)).append("\n");
+		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -259,10 +235,10 @@ public class PersonalProgramDetailsFull
 	}
 
 	/**
-	 * Gets or Sets investmentProgramStatus
+	 * Gets or Sets status
 	 */
-	@JsonAdapter(InvestmentProgramStatusEnum.Adapter.class)
-	public enum InvestmentProgramStatusEnum
+	@JsonAdapter(StatusEnum.Adapter.class)
+	public enum StatusEnum
 	{
 		ACTIVE("Active"),
 
@@ -272,8 +248,8 @@ public class PersonalProgramDetailsFull
 
 		ENDED("Ended");
 
-		public static InvestmentProgramStatusEnum fromValue(String text) {
-			for (InvestmentProgramStatusEnum b : InvestmentProgramStatusEnum.values()) {
+		public static StatusEnum fromValue(String text) {
+			for (StatusEnum b : StatusEnum.values()) {
 				if (String.valueOf(b.value).equals(text)) {
 					return b;
 				}
@@ -283,7 +259,7 @@ public class PersonalProgramDetailsFull
 
 		private String value;
 
-		InvestmentProgramStatusEnum(String value) {
+		StatusEnum(String value) {
 			this.value = value;
 		}
 
@@ -296,17 +272,17 @@ public class PersonalProgramDetailsFull
 			return String.valueOf(value);
 		}
 
-		public static class Adapter extends TypeAdapter<InvestmentProgramStatusEnum>
+		public static class Adapter extends TypeAdapter<StatusEnum>
 		{
 			@Override
-			public void write(final JsonWriter jsonWriter, final InvestmentProgramStatusEnum enumeration) throws IOException {
+			public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
 				jsonWriter.value(enumeration.getValue());
 			}
 
 			@Override
-			public InvestmentProgramStatusEnum read(final JsonReader jsonReader) throws IOException {
+			public StatusEnum read(final JsonReader jsonReader) throws IOException {
 				String value = jsonReader.nextString();
-				return InvestmentProgramStatusEnum.fromValue(String.valueOf(value));
+				return StatusEnum.fromValue(String.valueOf(value));
 			}
 		}
 	}

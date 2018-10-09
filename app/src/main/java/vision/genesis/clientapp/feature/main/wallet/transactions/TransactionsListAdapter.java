@@ -103,7 +103,7 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 //		private void updateData() {
 //			InvestmentProgramTxInfo program = transaction.getInvestmentProgram();
 //			setType();
-//			date.setText(DateTimeUtil.formatDateTime(transaction.getDate()));
+//			time.setText(DateTimeUtil.formatDateTime(transaction.getDate()));
 //			if (program != null) {
 //				if (!clickDisabled) {
 //					ProgramInfoModel programInfoModel = new ProgramInfoModel(program.getId(),

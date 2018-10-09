@@ -11,10 +11,9 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.swagger.client.model.DashboardPortfolioEvent;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.utils.DateTimeUtil;
-import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.model.PortfolioEvent;
+import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -64,25 +63,26 @@ public class PortfolioEventDashboardView extends RelativeLayout
 	}
 
 	private void initView() {
-		inflate(getContext(), R.layout.list_item_portfolio_event, this);
+		inflate(getContext(), R.layout.dashboard_portfolio_event, this);
 
 		unbinder = ButterKnife.bind(this);
 
 		value.setTypeface(TypefaceUtil.semibold());
+		date.setTypeface(TypefaceUtil.semibold());
 	}
 
-	public void setEvent(DashboardPortfolioEvent event) {
-		subject.getHierarchy().setPlaceholderImage(ContextCompat.getDrawable(getContext(), R.drawable.logo));
-		action.getHierarchy().setPlaceholderImage(ContextCompat.getDrawable(getContext(), R.drawable.icon_reinvest));
+	public void setEvent(PortfolioEvent event) {
+		subject.setImageURI(ImageUtils.getImageUri(event.getLogoUrl()));
+		action.getHierarchy().setPlaceholderImage(ContextCompat.getDrawable(getContext(), event.getActionResId()));
 
-		this.date.setText(DateTimeUtil.formatEventDateTime(event.getDate()).toLowerCase());
+		this.value.setText(event.getValue());
+		this.value.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
+				!event.getValueNegative()
+						? R.attr.colorGreen
+						: R.attr.colorRed));
 
-		String valueString = event.getValue() > 0 ? "+" : "";
-		valueString = valueString.concat(StringFormatUtil.formatAmount(event.getValue(), 2, 4));
-		valueString = valueString.concat(" GVT");
-		this.value.setText(valueString);
-		this.value.setTextColor(ThemeUtil.getColorByAttrId(getContext(), event.getValue() >= 0 ? R.attr.colorGreen : R.attr.colorRed));
+		this.text.setText(event.getText());
 
-//		this.text.setText(event.getDescription());
+		this.date.setText(event.getDateTime());
 	}
 }

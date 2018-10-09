@@ -26,6 +26,7 @@ import vision.genesis.clientapp.feature.main.dashboard.manager.ManagerDashboardP
 import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
 import vision.genesis.clientapp.feature.main.message.MessageActivity;
 import vision.genesis.clientapp.feature.main.notifications.NotificationsPresenter;
+import vision.genesis.clientapp.feature.main.portfolio_events.PortfolioEventsPresenter;
 import vision.genesis.clientapp.feature.main.portfolio_events.fragment.PortfolioEventsListPresenter;
 import vision.genesis.clientapp.feature.main.profile.ImageCropActivity;
 import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
@@ -158,4 +159,6 @@ public interface AppComponent
 	void inject(NotificationsPresenter notificationsPresenter);
 
 	void inject(ConfirmProgramInvestBottomSheetFragment confirmProgramInvestBottomSheetFragment);
+
+	void inject(PortfolioEventsPresenter PortfolioEventsPresenter);
 }

@@ -33,8 +33,8 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:paddingBottom="8dp"
-                    android:paddingLeft="@dimen/program_details_padding_left"
-                    android:paddingRight="@dimen/program_details_padding_left"
+                    android:paddingLeft="@dimen/program_details_padding"
+                    android:paddingRight="@dimen/program_details_padding"
                     android:paddingTop="8dp">
 
                     <com.facebook.drawee.view.SimpleDraweeView
@@ -93,7 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:padding="@dimen/program_details_padding_left">
+                    android:padding="@dimen/program_details_padding">
 
                     <TextView
                         android:id="@+id/label_strategy"
@@ -131,7 +131,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/program_details_padding_left">
+                    android:padding="@dimen/program_details_padding">
 
                     <TextView
                         android:id="@+id/label_period"
@@ -147,7 +147,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/label_period"
-                        android:layout_marginTop="@dimen/program_details_padding_left"/>
+                        android:layout_marginTop="@dimen/program_details_padding"/>
 
                 </RelativeLayout>
 
@@ -161,25 +161,33 @@
                 android:background="?attr/colorBackground"
                 android:orientation="vertical"
                 android:paddingBottom="24dp"
-                android:paddingLeft="@dimen/program_details_padding_left"
-                android:paddingRight="@dimen/program_details_padding_left"
+                android:paddingLeft="@dimen/program_details_padding"
+                android:paddingRight="@dimen/program_details_padding"
                 android:paddingTop="24dp"
                 android:visibility="gone"
                 tools:visibility="visible">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
 
                     <TextView
                         android:id="@+id/label_your_investment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_centerVertical="true"
                         android:text="@string/your_investment"
                         android:textColor="?attr/colorTextPrimary"
                         android:textSize="20sp"/>
 
+                    <vision.genesis.clientapp.ui.InvestmentStatusView
+                        android:id="@+id/status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"/>
 
                 </RelativeLayout>
 
@@ -314,8 +322,8 @@
                 android:background="?attr/colorBackground"
                 android:orientation="vertical"
                 android:paddingBottom="24dp"
-                android:paddingLeft="@dimen/program_details_padding_left"
-                android:paddingRight="@dimen/program_details_padding_left"
+                android:paddingLeft="@dimen/program_details_padding"
+                android:paddingRight="@dimen/program_details_padding"
                 android:paddingTop="24dp">
 
                 <TextView

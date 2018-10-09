@@ -87,6 +87,12 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 
 	private Float initialChartY;
 
+	private DashboardChartValue chartData;
+
+	private Double inRequestsTotalValue;
+
+	private Double inRequestsRate;
+
 	@OnClick(R.id.group_requests)
 	public void onRequestsClicked() {
 		EventBus.getDefault().post(new OnInRequestsClickedEvent());
@@ -110,6 +116,13 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 			float chartBottomY = chart.getY() + chart.getHeight() - chartYDelta;
 			investorDashboardHeaderPortfolioPresenter.onPortfolioChartTouch(index, chartBottomY);
 		});
+
+		if (chartData != null) {
+			setData(chartData);
+		}
+		if (inRequestsTotalValue != null && inRequestsRate != null) {
+			setInRequestsData(inRequestsTotalValue, inRequestsRate);
+		}
 	}
 
 	@Override
@@ -141,8 +154,11 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 	}
 
 	public void setData(DashboardChartValue chartValue) {
-		investorDashboardHeaderPortfolioPresenter.setData(chartValue);
-		chart.setChart(chartValue);
+		this.chartData = chartValue;
+		if (investorDashboardHeaderPortfolioPresenter != null) {
+			investorDashboardHeaderPortfolioPresenter.setData(chartValue);
+			chart.setChart(chartValue);
+		}
 	}
 
 	@Override
@@ -234,6 +250,9 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 	}
 
 	public void setInRequestsData(Double totalValue, Double rate) {
-		investorDashboardHeaderPortfolioPresenter.setInRequestsData(totalValue, rate);
+		inRequestsTotalValue = totalValue;
+		inRequestsRate = rate;
+		if (investorDashboardHeaderPortfolioPresenter != null)
+			investorDashboardHeaderPortfolioPresenter.setInRequestsData(totalValue, rate);
 	}
 }

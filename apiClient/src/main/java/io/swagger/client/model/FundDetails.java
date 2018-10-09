@@ -66,11 +66,11 @@ public class FundDetails
 	@SerializedName("chart")
 	private List<ChartSimple> chart = null;
 
-	@SerializedName("personalProgramDetails")
-	private PersonalProgramDetailsList personalProgramDetails = null;
+	@SerializedName("personalDetails")
+	private PersonalProgramDetailsList personalDetails = null;
 
-	@SerializedName("dashboardProgramDetails")
-	private DashboardProgramDetails dashboardProgramDetails = null;
+	@SerializedName("dashboardAssetsDetails")
+	private DashboardProgramDetails dashboardAssetsDetails = null;
 
 	public FundDetails totalAssetsCount(Integer totalAssetsCount) {
 		this.totalAssetsCount = totalAssetsCount;
@@ -297,42 +297,42 @@ public class FundDetails
 		this.chart = chart;
 	}
 
-	public FundDetails personalProgramDetails(PersonalProgramDetailsList personalProgramDetails) {
-		this.personalProgramDetails = personalProgramDetails;
+	public FundDetails personalDetails(PersonalProgramDetailsList personalDetails) {
+		this.personalDetails = personalDetails;
 		return this;
 	}
 
 	/**
 	 * Fields for authorized user
 	 *
-	 * @return personalProgramDetails
+	 * @return personalDetails
 	 **/
 	@ApiModelProperty(value = "Fields for authorized user")
-	public PersonalProgramDetailsList getPersonalProgramDetails() {
-		return personalProgramDetails;
+	public PersonalProgramDetailsList getPersonalDetails() {
+		return personalDetails;
 	}
 
-	public void setPersonalProgramDetails(PersonalProgramDetailsList personalProgramDetails) {
-		this.personalProgramDetails = personalProgramDetails;
+	public void setPersonalDetails(PersonalProgramDetailsList personalDetails) {
+		this.personalDetails = personalDetails;
 	}
 
-	public FundDetails dashboardProgramDetails(DashboardProgramDetails dashboardProgramDetails) {
-		this.dashboardProgramDetails = dashboardProgramDetails;
+	public FundDetails dashboardAssetsDetails(DashboardProgramDetails dashboardAssetsDetails) {
+		this.dashboardAssetsDetails = dashboardAssetsDetails;
 		return this;
 	}
 
 	/**
 	 * Fields for dashboard
 	 *
-	 * @return dashboardProgramDetails
+	 * @return dashboardAssetsDetails
 	 **/
 	@ApiModelProperty(value = "Fields for dashboard")
-	public DashboardProgramDetails getDashboardProgramDetails() {
-		return dashboardProgramDetails;
+	public DashboardProgramDetails getDashboardAssetsDetails() {
+		return dashboardAssetsDetails;
 	}
 
-	public void setDashboardProgramDetails(DashboardProgramDetails dashboardProgramDetails) {
-		this.dashboardProgramDetails = dashboardProgramDetails;
+	public void setDashboardAssetsDetails(DashboardProgramDetails dashboardAssetsDetails) {
+		this.dashboardAssetsDetails = dashboardAssetsDetails;
 	}
 
 	@Override
@@ -355,13 +355,13 @@ public class FundDetails
 				Objects.equals(this.status, fundDetails.status) &&
 				Objects.equals(this.manager, fundDetails.manager) &&
 				Objects.equals(this.chart, fundDetails.chart) &&
-				Objects.equals(this.personalProgramDetails, fundDetails.personalProgramDetails) &&
-				Objects.equals(this.dashboardProgramDetails, fundDetails.dashboardProgramDetails);
+				Objects.equals(this.personalDetails, fundDetails.personalDetails) &&
+				Objects.equals(this.dashboardAssetsDetails, fundDetails.dashboardAssetsDetails);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(totalAssetsCount, topFundAssets, statistic, id, logo, url, title, description, status, manager, chart, personalProgramDetails, dashboardProgramDetails);
+		return Objects.hash(totalAssetsCount, topFundAssets, statistic, id, logo, url, title, description, status, manager, chart, personalDetails, dashboardAssetsDetails);
 	}
 
 	@Override
@@ -380,8 +380,8 @@ public class FundDetails
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
-		sb.append("    personalProgramDetails: ").append(toIndentedString(personalProgramDetails)).append("\n");
-		sb.append("    dashboardProgramDetails: ").append(toIndentedString(dashboardProgramDetails)).append("\n");
+		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
+		sb.append("    dashboardAssetsDetails: ").append(toIndentedString(dashboardAssetsDetails)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -120,25 +120,19 @@ public interface InvestorApi
 	 * Summary dashboard info
 	 *
 	 * @param authorization  JWT access token (required)
-	 * @param assetId        (optional)
+	 * @param chartCurrency  (optional)
 	 * @param from           (optional)
 	 * @param to             (optional)
-	 * @param type           (optional)
-	 * @param assetType      (optional)
-	 * @param skip           (optional)
-	 * @param take           (optional)
-	 * @param chartCurrency  (optional)
-	 * @param from2          (optional)
-	 * @param to2            (optional)
 	 * @param balancePoints  (optional)
 	 * @param programsPoints (optional)
+	 * @param eventsTake     (optional)
 	 * @param requestsSkip   (optional)
 	 * @param requestsTake   (optional)
 	 * @return Call&lt;DashboardSummary&gt;
 	 */
 	@GET("v1.0/investor")
 	Observable<DashboardSummary> v10InvestorGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("AssetId") UUID assetId, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("Type") String type, @retrofit2.http.Query("AssetType") String assetType, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take, @retrofit2.http.Query("chartCurrency") String chartCurrency, @retrofit2.http.Query("From") DateTime from2, @retrofit2.http.Query("To") DateTime to2, @retrofit2.http.Query("BalancePoints") Integer balancePoints, @retrofit2.http.Query("ProgramsPoints") Integer programsPoints, @retrofit2.http.Query("requestsSkip") Integer requestsSkip, @retrofit2.http.Query("requestsTake") Integer requestsTake
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("chartCurrency") String chartCurrency, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("BalancePoints") Integer balancePoints, @retrofit2.http.Query("ProgramsPoints") Integer programsPoints, @retrofit2.http.Query("eventsTake") Integer eventsTake, @retrofit2.http.Query("requestsSkip") Integer requestsSkip, @retrofit2.http.Query("requestsTake") Integer requestsTake
 	);
 
 	/**

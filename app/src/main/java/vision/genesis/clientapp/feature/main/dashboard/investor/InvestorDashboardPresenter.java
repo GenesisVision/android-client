@@ -16,6 +16,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AssetsValue;
+import io.swagger.client.model.DashboardPortfolioEvent;
 import io.swagger.client.model.DashboardSummary;
 import io.swagger.client.model.ProgramRequest;
 import io.swagger.client.model.ValueChartBar;
@@ -31,6 +32,7 @@ import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.PortfolioAssetData;
+import vision.genesis.clientapp.model.PortfolioEvent;
 import vision.genesis.clientapp.model.events.OnInRequestsClickedEvent;
 import vision.genesis.clientapp.model.events.OnPortfolioAssetsChangedEvent;
 import vision.genesis.clientapp.model.events.OnPortfolioChartViewModeChangedEvent;
@@ -68,6 +70,8 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	private List<List<PortfolioAssetData>> portfolioAssetsDataList = new ArrayList<>();
 
 	private List<ProgramRequest> requests = new ArrayList<>();
+
+	private List<PortfolioEvent> newPreparedEvents;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -142,14 +146,14 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 			updateDateRange();
 			dashboardSubscription = dashboardManager.getDashboard(dateRange, baseCurrency.getValue())
 					.subscribeOn(Schedulers.io())
-					.map(this::prepareAssetsData)
+					.map(this::prepareData)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handleGetDashboardSuccess,
 							this::handleGetDashboardError);
 		}
 	}
 
-	private DashboardSummary prepareAssetsData(DashboardSummary dashboardSummary) {
+	private DashboardSummary prepareData(DashboardSummary dashboardSummary) {
 		portfolioAssetsDataList.clear();
 		int colorRed = ContextCompat.getColor(context, R.color.red);
 		int colorGreen = ContextCompat.getColor(context, R.color.green);
@@ -158,12 +162,6 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 		for (ValueChartBar valueChartBar : dashboardSummary.getChart().getInvestedProgramsInfo()) {
 			List<PortfolioAssetData> portfolioAssetDataList = new ArrayList<>();
 			colorIndex = 0;
-//			List<AssetsValue> list = new ArrayList<>(valueChartBar.getAssets());
-//			list.addAll(valueChartBar.getAssets());
-//			list.addAll(valueChartBar.getAssets());
-//			list.addAll(valueChartBar.getAssets());
-//			list.addAll(valueChartBar.getAssets());
-//			for (AssetsValue assetsValue : list) {
 			//TODO: add other assets
 			for (AssetsValue assetsValue : valueChartBar.getTopAssets()) {
 				PortfolioAssetData portfolioAssetData = new PortfolioAssetData(
@@ -186,6 +184,12 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 			}
 			portfolioAssetsDataList.add(portfolioAssetDataList);
 		}
+
+		newPreparedEvents = new ArrayList<>();
+		for (DashboardPortfolioEvent event : dashboardSummary.getEvents().getEvents()) {
+			newPreparedEvents.add(PortfolioEvent.createFrom(event));
+		}
+
 		return dashboardSummary;
 	}
 
@@ -212,7 +216,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 		getViewState().setHaveNewNotifications(response.getProfileHeader().getNotificationsCount() > 0);
 		getViewState().setChartData(response.getChart());
 		getViewState().setInRequests(response.getRequests().getTotalValue(), response.getChart().getRate());
-		getViewState().setPortfolioEvents(response.getEvents().getEvents());
+		getViewState().setPortfolioEvents(newPreparedEvents);
 		getViewState().setAssetsCount(response.getProgramsCount(), response.getFundsCount());
 
 	}

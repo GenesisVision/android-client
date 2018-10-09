@@ -29,6 +29,7 @@ import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PeriodLeftDetailsView;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.DateTimeUtil;
@@ -89,6 +90,9 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@BindView(R.id.label_your_investment)
 	public TextView labelYourInvestment;
+
+	@BindView(R.id.status)
+	public InvestmentStatusView status;
 
 	@BindView(R.id.invested)
 	public TextView invested;
@@ -282,6 +286,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 		if (programDetails.getPersonalProgramDetails().isIsInvested()) {
 			yourInvestmentGroup.setVisibility(View.VISIBLE);
+			status.setStatus(programDetails.getPersonalProgramDetails().getStatus().getValue());
 //		invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(programDetails.getPersonalProgramDetails().getInvested()).toString()));
 			invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(programDetails.getPersonalProgramDetails().getValue(), ProgramDetailsFull.CurrencyEnum.GVT.toString())));
 			value.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(programDetails.getPersonalProgramDetails().getValue(), ProgramDetailsFull.CurrencyEnum.GVT.toString())));

@@ -81,7 +81,7 @@
                         android:layout_gravity="bottom"
                         android:background="@drawable/shadow_up_card_light"
                         android:orientation="vertical"
-                        android:padding="@dimen/program_details_padding_left"
+                        android:padding="@dimen/program_details_padding"
                         app:layout_collapseMode="pin">
 
                         <TextView
@@ -117,8 +117,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/toolbar_height"
                     android:background="?attr/colorCard"
-                    android:paddingLeft="@dimen/program_details_padding_left"
-                    android:paddingStart="@dimen/program_details_padding_left"
+                    android:paddingLeft="@dimen/program_details_padding"
+                    android:paddingStart="@dimen/program_details_padding"
                     android:visibility="gone"
                     app:layout_collapseMode="pin"
                     tools:visibility="visible">

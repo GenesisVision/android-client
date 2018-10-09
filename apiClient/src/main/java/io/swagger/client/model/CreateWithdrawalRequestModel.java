@@ -178,6 +178,8 @@ public class CreateWithdrawalRequestModel
 
 		ADA("ADA"),
 
+		USDT("USDT"),
+
 		USD("USD"),
 
 		EUR("EUR");

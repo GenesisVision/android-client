@@ -431,6 +431,8 @@ public class WalletTransaction
 
 		ADA("ADA"),
 
+		USDT("USDT"),
+
 		USD("USD"),
 
 		EUR("EUR");
@@ -612,6 +614,8 @@ public class WalletTransaction
 		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		USD("USD"),
 

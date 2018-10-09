@@ -13,8 +13,13 @@
 
 package io.swagger.client.model;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
+import java.io.IOException;
 import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -31,8 +36,11 @@ public class PersonalProgramDetailsList
 	@SerializedName("isInvested")
 	private Boolean isInvested = null;
 
-	@SerializedName("hasNotifications")
-	private Boolean hasNotifications = null;
+	@SerializedName("isReinvest")
+	private Boolean isReinvest = null;
+
+	@SerializedName("status")
+	private StatusEnum status = null;
 
 	public PersonalProgramDetailsList isFavorite(Boolean isFavorite) {
 		this.isFavorite = isFavorite;
@@ -72,25 +80,43 @@ public class PersonalProgramDetailsList
 		this.isInvested = isInvested;
 	}
 
-	public PersonalProgramDetailsList hasNotifications(Boolean hasNotifications) {
-		this.hasNotifications = hasNotifications;
+	public PersonalProgramDetailsList isReinvest(Boolean isReinvest) {
+		this.isReinvest = isReinvest;
 		return this;
 	}
 
 	/**
-	 * Get hasNotifications
+	 * Get isReinvest
 	 *
-	 * @return hasNotifications
+	 * @return isReinvest
 	 **/
 	@ApiModelProperty(value = "")
-	public Boolean isHasNotifications() {
-		return hasNotifications;
+	public Boolean isIsReinvest() {
+		return isReinvest;
 	}
 
-	public void setHasNotifications(Boolean hasNotifications) {
-		this.hasNotifications = hasNotifications;
+	public void setIsReinvest(Boolean isReinvest) {
+		this.isReinvest = isReinvest;
 	}
 
+	public PersonalProgramDetailsList status(StatusEnum status) {
+		this.status = status;
+		return this;
+	}
+
+	/**
+	 * Get status
+	 *
+	 * @return status
+	 **/
+	@ApiModelProperty(value = "")
+	public StatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusEnum status) {
+		this.status = status;
+	}
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -103,14 +129,14 @@ public class PersonalProgramDetailsList
 		PersonalProgramDetailsList personalProgramDetailsList = (PersonalProgramDetailsList) o;
 		return Objects.equals(this.isFavorite, personalProgramDetailsList.isFavorite) &&
 				Objects.equals(this.isInvested, personalProgramDetailsList.isInvested) &&
-				Objects.equals(this.hasNotifications, personalProgramDetailsList.hasNotifications);
+				Objects.equals(this.isReinvest, personalProgramDetailsList.isReinvest) &&
+				Objects.equals(this.status, personalProgramDetailsList.status);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isFavorite, isInvested, hasNotifications);
+		return Objects.hash(isFavorite, isInvested, isReinvest, status);
 	}
-
 
 	@Override
 	public String toString() {
@@ -119,7 +145,8 @@ public class PersonalProgramDetailsList
 
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
-		sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
+		sb.append("    isReinvest: ").append(toIndentedString(isReinvest)).append("\n");
+		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -133,6 +160,59 @@ public class PersonalProgramDetailsList
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	/**
+	 * Gets or Sets status
+	 */
+	@JsonAdapter(StatusEnum.Adapter.class)
+	public enum StatusEnum
+	{
+		ACTIVE("Active"),
+
+		INVESTING("Investing"),
+
+		WITHDRAWING("Withdrawing"),
+
+		ENDED("Ended");
+
+		public static StatusEnum fromValue(String text) {
+			for (StatusEnum b : StatusEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		StatusEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<StatusEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public StatusEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return StatusEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 }

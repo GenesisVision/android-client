@@ -86,4 +86,10 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		programTradesFragment.onSwipeRefresh();
 		programEventsFragment.onSwipeRefresh();
 	}
+
+	public void onOffsetChanged(int verticalOffset) {
+		programProfitFragment.onOffsetChanged(verticalOffset);
+		programTradesFragment.onOffsetChanged(verticalOffset);
+		programEventsFragment.onOffsetChanged(verticalOffset);
+	}
 }
