@@ -1,5 +1,6 @@
 package vision.genesis.clientapp.feature.main.dashboard.investor;
 
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -13,48 +14,46 @@ import vision.genesis.clientapp.feature.main.dashboard.investor.header.InvestorD
  */
 public class DashboardHeaderPagerAdapter extends FragmentStatePagerAdapter
 {
-	private InvestorDashboardHeaderPortfolioFragment portfolio;
+	private InvestorDashboardHeaderPortfolioFragment portfolioFragment;
 
-	private InvestorDashboardHeaderPortfolioFragment profit;
+	private InvestorDashboardHeaderPortfolioFragment profitFragment;
 
-	DashboardHeaderPagerAdapter(FragmentManager fm) {
+	private TabLayout tabLayout;
+
+	DashboardHeaderPagerAdapter(FragmentManager fm, TabLayout tabLayout) {
 		super(fm);
-
-		createFragments();
-	}
-
-	private void createFragments() {
-		portfolio = new InvestorDashboardHeaderPortfolioFragment();
-		profit = new InvestorDashboardHeaderPortfolioFragment();
+		this.tabLayout = tabLayout;
+		portfolioFragment = new InvestorDashboardHeaderPortfolioFragment();
+		profitFragment = new InvestorDashboardHeaderPortfolioFragment();
 	}
 
 	@Override
 	public Fragment getItem(int position) {
-		switch (position) {
-			case 0:
-				return portfolio;
-			case 1:
-				return profit;
+		switch (tabLayout.getTabAt(position).getTag().toString()) {
+			case "portfolio":
+				return portfolioFragment;
+			case "profit":
+				return profitFragment;
 			default:
-				return portfolio;
+				return null;
 		}
 	}
 
 	@Override
 	public int getCount() {
-		return 2;
+		return tabLayout.getTabCount();
 	}
 
 	public void setPortfolioChart(DashboardChartValue chart) {
-		if (portfolio != null)
-			portfolio.setData(chart);
+		if (portfolioFragment != null)
+			portfolioFragment.setData(chart);
 	}
 
 	public void setInRequests(Double totalValue, Double rate) {
-		portfolio.setInRequestsData(totalValue, rate);
+		portfolioFragment.setInRequestsData(totalValue, rate);
 	}
 
 	public void chartViewModeTurnOff() {
-		portfolio.chartViewModeTurnOff();
+		portfolioFragment.chartViewModeTurnOff();
 	}
 }

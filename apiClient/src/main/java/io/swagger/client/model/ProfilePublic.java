@@ -40,6 +40,9 @@ public class ProfilePublic
 	@SerializedName("registrationDate")
 	private DateTime registrationDate = null;
 
+	@SerializedName("url")
+	private String url = null;
+
 	public ProfilePublic id(UUID id) {
 		this.id = id;
 		return this;
@@ -116,6 +119,25 @@ public class ProfilePublic
 		this.registrationDate = registrationDate;
 	}
 
+	public ProfilePublic url(String url) {
+		this.url = url;
+		return this;
+	}
+
+	/**
+	 * Get url
+	 *
+	 * @return url
+	 **/
+	@ApiModelProperty(value = "")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -129,12 +151,13 @@ public class ProfilePublic
 		return Objects.equals(this.id, profilePublic.id) &&
 				Objects.equals(this.username, profilePublic.username) &&
 				Objects.equals(this.avatar, profilePublic.avatar) &&
-				Objects.equals(this.registrationDate, profilePublic.registrationDate);
+				Objects.equals(this.registrationDate, profilePublic.registrationDate) &&
+				Objects.equals(this.url, profilePublic.url);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, username, avatar, registrationDate);
+		return Objects.hash(id, username, avatar, registrationDate, url);
 	}
 
 
@@ -147,6 +170,7 @@ public class ProfilePublic
 		sb.append("    username: ").append(toIndentedString(username)).append("\n");
 		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
 		sb.append("    registrationDate: ").append(toIndentedString(registrationDate)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -195,10 +195,10 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	}
 
 	public void initBottomNavigation() {
-		AHBottomNavigationItem dashboardItem = new AHBottomNavigationItem(null, R.drawable.dashboard_icon);
-		AHBottomNavigationItem investItem = new AHBottomNavigationItem(null, R.drawable.traders_icon);
-		AHBottomNavigationItem walletItem = new AHBottomNavigationItem(null, R.drawable.wallet_icon);
-		AHBottomNavigationItem settingsItem = new AHBottomNavigationItem(null, R.drawable.ic_settings_black_24dp);
+		AHBottomNavigationItem dashboardItem = new AHBottomNavigationItem(null, R.drawable.icon_dashboard);
+		AHBottomNavigationItem investItem = new AHBottomNavigationItem(null, R.drawable.icon_assets);
+		AHBottomNavigationItem walletItem = new AHBottomNavigationItem(null, R.drawable.icon_wallet);
+		AHBottomNavigationItem settingsItem = new AHBottomNavigationItem(null, R.drawable.icon_profile);
 
 		bottomNavigationView.addItem(dashboardItem);
 		bottomNavigationView.addItem(investItem);

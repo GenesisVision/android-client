@@ -34,6 +34,9 @@ public class NotificationSettingViewModel
 	@SerializedName("id")
 	private UUID id = null;
 
+	@SerializedName("isEnabled")
+	private Boolean isEnabled = null;
+
 	@SerializedName("programId")
 	private UUID programId = null;
 
@@ -66,6 +69,25 @@ public class NotificationSettingViewModel
 
 	public void setId(UUID id) {
 		this.id = id;
+	}
+
+	public NotificationSettingViewModel isEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
+		return this;
+	}
+
+	/**
+	 * Get isEnabled
+	 *
+	 * @return isEnabled
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsEnabled() {
+		return isEnabled;
+	}
+
+	public void setIsEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
 	}
 
 	public NotificationSettingViewModel programId(UUID programId) {
@@ -173,6 +195,7 @@ public class NotificationSettingViewModel
 		}
 		NotificationSettingViewModel notificationSettingViewModel = (NotificationSettingViewModel) o;
 		return Objects.equals(this.id, notificationSettingViewModel.id) &&
+				Objects.equals(this.isEnabled, notificationSettingViewModel.isEnabled) &&
 				Objects.equals(this.programId, notificationSettingViewModel.programId) &&
 				Objects.equals(this.managerId, notificationSettingViewModel.managerId) &&
 				Objects.equals(this.type, notificationSettingViewModel.type) &&
@@ -182,7 +205,7 @@ public class NotificationSettingViewModel
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, programId, managerId, type, conditionType, conditionAmount);
+		return Objects.hash(id, isEnabled, programId, managerId, type, conditionType, conditionAmount);
 	}
 
 	@Override
@@ -191,6 +214,7 @@ public class NotificationSettingViewModel
 		sb.append("class NotificationSettingViewModel {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
 		sb.append("    programId: ").append(toIndentedString(programId)).append("\n");
 		sb.append("    managerId: ").append(toIndentedString(managerId)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");

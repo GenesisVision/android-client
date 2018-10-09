@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **username** | **String** |  |  [optional]
 **avatar** | **String** |  |  [optional]
 **registrationDate** | [**DateTime**](DateTime.md) |  |  [optional]
+**url** | **String** |  |  [optional]
 
 
 

@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import vision.genesis.clientapp.feature.main.favorites.FavoritesFragment;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListFragment;
 
 /**
@@ -22,8 +21,6 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 		void pagerHide();
 	}
 
-	private FavoritesFragment favoritesFragment;
-
 	private ProgramsListFragment programsFragment;
 
 	private ProgramsListFragment fundsFragment;
@@ -33,7 +30,6 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 	AssetsPagerAdapter(FragmentManager fm, TabLayout tabLayout) {
 		super(fm);
 		this.tabLayout = tabLayout;
-		favoritesFragment = new FavoritesFragment();
 		programsFragment = new ProgramsListFragment();
 		fundsFragment = new ProgramsListFragment();
 	}
@@ -41,8 +37,6 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 	@Override
 	public Fragment getItem(int position) {
 		switch (tabLayout.getTabAt(position).getTag().toString()) {
-			case "favorites":
-				return favoritesFragment;
 			case "programs":
 				return programsFragment;
 			case "funds":

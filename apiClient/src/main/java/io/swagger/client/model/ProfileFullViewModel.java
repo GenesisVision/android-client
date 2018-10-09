@@ -61,6 +61,9 @@ public class ProfileFullViewModel
 	@SerializedName("phone")
 	private String phone = null;
 
+	@SerializedName("phoneNumberConfirmed")
+	private Boolean phoneNumberConfirmed = null;
+
 	@SerializedName("birthday")
 	private DateTime birthday = null;
 
@@ -72,6 +75,9 @@ public class ProfileFullViewModel
 
 	@SerializedName("userName")
 	private String userName = null;
+
+	@SerializedName("documentsConfirmed")
+	private Boolean documentsConfirmed = null;
 
 	public ProfileFullViewModel id(UUID id) {
 		this.id = id;
@@ -282,6 +288,25 @@ public class ProfileFullViewModel
 		this.phone = phone;
 	}
 
+	public ProfileFullViewModel phoneNumberConfirmed(Boolean phoneNumberConfirmed) {
+		this.phoneNumberConfirmed = phoneNumberConfirmed;
+		return this;
+	}
+
+	/**
+	 * Get phoneNumberConfirmed
+	 *
+	 * @return phoneNumberConfirmed
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isPhoneNumberConfirmed() {
+		return phoneNumberConfirmed;
+	}
+
+	public void setPhoneNumberConfirmed(Boolean phoneNumberConfirmed) {
+		this.phoneNumberConfirmed = phoneNumberConfirmed;
+	}
+
 	public ProfileFullViewModel birthday(DateTime birthday) {
 		this.birthday = birthday;
 		return this;
@@ -358,6 +383,25 @@ public class ProfileFullViewModel
 		this.userName = userName;
 	}
 
+	public ProfileFullViewModel documentsConfirmed(Boolean documentsConfirmed) {
+		this.documentsConfirmed = documentsConfirmed;
+		return this;
+	}
+
+	/**
+	 * Get documentsConfirmed
+	 *
+	 * @return documentsConfirmed
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isDocumentsConfirmed() {
+		return documentsConfirmed;
+	}
+
+	public void setDocumentsConfirmed(Boolean documentsConfirmed) {
+		this.documentsConfirmed = documentsConfirmed;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -379,15 +423,17 @@ public class ProfileFullViewModel
 				Objects.equals(this.city, profileFullViewModel.city) &&
 				Objects.equals(this.address, profileFullViewModel.address) &&
 				Objects.equals(this.phone, profileFullViewModel.phone) &&
+				Objects.equals(this.phoneNumberConfirmed, profileFullViewModel.phoneNumberConfirmed) &&
 				Objects.equals(this.birthday, profileFullViewModel.birthday) &&
 				Objects.equals(this.gender, profileFullViewModel.gender) &&
 				Objects.equals(this.avatar, profileFullViewModel.avatar) &&
-				Objects.equals(this.userName, profileFullViewModel.userName);
+				Objects.equals(this.userName, profileFullViewModel.userName) &&
+				Objects.equals(this.documentsConfirmed, profileFullViewModel.documentsConfirmed);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, email, firstName, middleName, lastName, documentType, documentNumber, country, city, address, phone, birthday, gender, avatar, userName);
+		return Objects.hash(id, email, firstName, middleName, lastName, documentType, documentNumber, country, city, address, phone, phoneNumberConfirmed, birthday, gender, avatar, userName, documentsConfirmed);
 	}
 
 
@@ -407,10 +453,12 @@ public class ProfileFullViewModel
 		sb.append("    city: ").append(toIndentedString(city)).append("\n");
 		sb.append("    address: ").append(toIndentedString(address)).append("\n");
 		sb.append("    phone: ").append(toIndentedString(phone)).append("\n");
+		sb.append("    phoneNumberConfirmed: ").append(toIndentedString(phoneNumberConfirmed)).append("\n");
 		sb.append("    birthday: ").append(toIndentedString(birthday)).append("\n");
 		sb.append("    gender: ").append(toIndentedString(gender)).append("\n");
 		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
 		sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
+		sb.append("    documentsConfirmed: ").append(toIndentedString(documentsConfirmed)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

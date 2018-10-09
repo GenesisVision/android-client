@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **totalBalanceGvt** | **Double** |  |  [optional]
 **investedGvt** | **Double** |  |  [optional]
 **availableGvt** | **Double** |  |  [optional]
+**kycConfirmed** | **Boolean** |  |  [optional]
 
 
 

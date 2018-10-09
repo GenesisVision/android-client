@@ -195,18 +195,18 @@ public class PortfolioChartView extends RelativeLayout
 	public void setChart(DashboardChartValue chartData) {
 		showProgress(false);
 
-		if (chartData.getChart().size() <= 1) {
+		if (chartData.getBalanceChart().size() <= 1) {
 			chart.clear();
 			return;
 		}
 
-		float min = chartData.getChart().get(0).getValue().floatValue();
-		float max = chartData.getChart().get(0).getValue().floatValue();
+		float min = chartData.getBalanceChart().get(0).getValue().floatValue();
+		float max = chartData.getBalanceChart().get(0).getValue().floatValue();
 
 		List<Entry> lineEntries = new ArrayList<>();
 
 		int index = 0;
-		for (ChartSimple chart : chartData.getChart()) {
+		for (ChartSimple chart : chartData.getBalanceChart()) {
 //			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getValue().floatValue()));
 			lineEntries.add(new Entry(index, chart.getValue().floatValue()));
 //			lineEntries.add(new Entry(index, Math.abs(chart.getValue().floatValue())));
@@ -221,7 +221,7 @@ public class PortfolioChartView extends RelativeLayout
 
 		List<BarEntry> barEntries = new ArrayList<>();
 		index = 0;
-		for (ValueChartBar bar : chartData.getBars()) {
+		for (ValueChartBar bar : chartData.getInvestedProgramsInfo()) {
 //			barEntries.add(new BarEntry(bar.getDate().getMillis(), bar.getValue().floatValue(), bar.getAssets()));
 			barEntries.add(new BarEntry(index, bar.getValue().floatValue()));
 			index++;

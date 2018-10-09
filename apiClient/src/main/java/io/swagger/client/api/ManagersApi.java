@@ -23,7 +23,7 @@ public interface ManagersApi
 	 */
 	@GET("v1.0/managers/{id}")
 	Observable<ManagerProfile> v10ManagersByIdGet(
-			@retrofit2.http.Path("id") UUID id
+			@retrofit2.http.Path("id") String id
 	);
 
 	/**

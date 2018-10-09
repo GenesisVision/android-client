@@ -7,7 +7,10 @@ Method | HTTP request | Description
 [**v10NotificationsGet**](NotificationsApi.md#v10NotificationsGet) | **GET** v1.0/notifications | User notifications
 [**v10NotificationsNewGet**](NotificationsApi.md#v10NotificationsNewGet) | **GET** v1.0/notifications/new | Unread notifications count
 [**v10NotificationsSettingsAddPost**](NotificationsApi.md#v10NotificationsSettingsAddPost) | **POST** v1.0/notifications/settings/add | Add new setting
+[**v10NotificationsSettingsByIdByEnablePost**](NotificationsApi.md#v10NotificationsSettingsByIdByEnablePost) | **POST** v1.0/notifications/settings/{id}/{enable} | Enable/disable setting
 [**v10NotificationsSettingsGet**](NotificationsApi.md#v10NotificationsSettingsGet) | **GET** v1.0/notifications/settings | User settings
+[**v10NotificationsSettingsManagersByIdGet**](NotificationsApi.md#v10NotificationsSettingsManagersByIdGet) | **GET** v1.0/notifications/settings/managers/{id} | User settings for manager
+[**v10NotificationsSettingsProgramsByIdGet**](NotificationsApi.md#v10NotificationsSettingsProgramsByIdGet) | **GET** v1.0/notifications/settings/programs/{id} | User settings for program
 [**v10NotificationsSettingsRemoveByIdPost**](NotificationsApi.md#v10NotificationsSettingsRemoveByIdPost) | **POST** v1.0/notifications/settings/remove/{id} | Remove setting
 
 
@@ -103,7 +106,7 @@ No authorization required
 
 <a name="v10NotificationsSettingsAddPost"></a>
 # **v10NotificationsSettingsAddPost**
-> UUID v10NotificationsSettingsAddPost(authorization, id, programId, managerId, type, conditionType, conditionAmount)
+> UUID v10NotificationsSettingsAddPost(authorization, programId, managerId, type, conditionType, conditionAmount)
 
 Add new setting
 
@@ -116,14 +119,13 @@ Add new setting
 
 NotificationsApi apiInstance = new NotificationsApi();
 String authorization = "authorization_example"; // String | JWT access token
-UUID id = new UUID(); // UUID | 
 UUID programId = new UUID(); // UUID | 
 UUID managerId = new UUID(); // UUID | 
 String type = "type_example"; // String | 
 String conditionType = "conditionType_example"; // String | 
 Double conditionAmount = 3.4D; // Double | 
 try {
-    UUID result = apiInstance.v10NotificationsSettingsAddPost(authorization, id, programId, managerId, type, conditionType, conditionAmount);
+    UUID result = apiInstance.v10NotificationsSettingsAddPost(authorization, programId, managerId, type, conditionType, conditionAmount);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NotificationsApi#v10NotificationsSettingsAddPost");
@@ -136,12 +138,58 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **id** | [**UUID**](.md)|  | [optional]
  **programId** | [**UUID**](.md)|  | [optional]
  **managerId** | [**UUID**](.md)|  | [optional]
  **type** | **String**|  | [optional] [enum: PlatformNewsAndUpdates, PlatformEmergency, PlatformOther, ProfileUpdated, ProfilePwdUpdated, ProfileVerification, Profile2FA, ProfileSecurity, ProgramNewsAndUpdates, ProgramEndOfPeriod, ProgramCondition, ManagerNewProgram]
  **conditionType** | **String**|  | [optional] [enum: Empty, Profit, Level]
  **conditionAmount** | **Double**|  | [optional]
+
+### Return type
+
+[**UUID**](UUID.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10NotificationsSettingsByIdByEnablePost"></a>
+# **v10NotificationsSettingsByIdByEnablePost**
+> UUID v10NotificationsSettingsByIdByEnablePost(id, enable, authorization)
+
+Enable/disable setting
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.NotificationsApi;
+
+
+NotificationsApi apiInstance = new NotificationsApi();
+UUID id = new UUID(); // UUID | 
+Boolean enable = true; // Boolean | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    UUID result = apiInstance.v10NotificationsSettingsByIdByEnablePost(id, enable, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling NotificationsApi#v10NotificationsSettingsByIdByEnablePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **enable** | **Boolean**|  |
+ **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -189,6 +237,96 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**NotificationSettingList**](NotificationSettingList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10NotificationsSettingsManagersByIdGet"></a>
+# **v10NotificationsSettingsManagersByIdGet**
+> ManagerNotificationSettingList v10NotificationsSettingsManagersByIdGet(id, authorization)
+
+User settings for manager
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.NotificationsApi;
+
+
+NotificationsApi apiInstance = new NotificationsApi();
+String id = "id_example"; // String | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    ManagerNotificationSettingList result = apiInstance.v10NotificationsSettingsManagersByIdGet(id, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling NotificationsApi#v10NotificationsSettingsManagersByIdGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**ManagerNotificationSettingList**](ManagerNotificationSettingList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10NotificationsSettingsProgramsByIdGet"></a>
+# **v10NotificationsSettingsProgramsByIdGet**
+> ProgramNotificationSettingList v10NotificationsSettingsProgramsByIdGet(id, authorization)
+
+User settings for program
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.NotificationsApi;
+
+
+NotificationsApi apiInstance = new NotificationsApi();
+String id = "id_example"; // String | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    ProgramNotificationSettingList result = apiInstance.v10NotificationsSettingsProgramsByIdGet(id, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling NotificationsApi#v10NotificationsSettingsProgramsByIdGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**ProgramNotificationSettingList**](ProgramNotificationSettingList.md)
 
 ### Authorization
 

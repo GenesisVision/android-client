@@ -234,7 +234,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  |
  **authorization** | **String**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: ETH, GVT, BTC, Undefined, ADA, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
 
 ### Return type
 
@@ -330,7 +330,7 @@ DateTime statisticDateFrom = new DateTime(); // DateTime |
 DateTime statisticDateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
 String mask = "mask_example"; // String | 
-UUID facetId = new UUID(); // UUID | 
+String facetId = "facetId_example"; // String | 
 Boolean isFavorite = true; // Boolean | 
 List<UUID> ids = Arrays.asList(new UUID()); // List<UUID> | 
 Integer skip = 56; // Integer | 
@@ -354,13 +354,13 @@ Name | Type | Description  | Notes
  **profitAvgMin** | **Double**|  | [optional]
  **profitAvgMax** | **Double**|  | [optional]
  **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByTradesAsc, ByTradesDesc, ByInvestorsAsc, ByInvestorsDesc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc]
- **programCurrency** | **String**|  | [optional] [enum: ETH, GVT, BTC, Undefined, ADA, USD, EUR]
- **currencySecondary** | **String**|  | [optional] [enum: ETH, GVT, BTC, Undefined, ADA, USD, EUR]
+ **programCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
  **statisticDateFrom** | **DateTime**|  | [optional]
  **statisticDateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
  **mask** | **String**|  | [optional]
- **facetId** | [**UUID**](.md)|  | [optional]
+ **facetId** | **String**|  | [optional]
  **isFavorite** | **Boolean**|  | [optional]
  **ids** | [**List&lt;UUID&gt;**](UUID.md)|  | [optional]
  **skip** | **Integer**|  | [optional]

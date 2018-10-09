@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **avatar** | **String** |  |  [optional]
 **regDate** | [**DateTime**](DateTime.md) |  |  [optional]
 **assets** | **List&lt;String&gt;** |  |  [optional]
+**url** | **String** |  |  [optional]
 
 
 

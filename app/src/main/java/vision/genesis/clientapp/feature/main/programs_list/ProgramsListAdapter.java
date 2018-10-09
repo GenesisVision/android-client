@@ -19,6 +19,7 @@ import io.swagger.client.model.ProgramDetails;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
+import vision.genesis.clientapp.ui.CurrencyView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
@@ -104,6 +105,9 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 		@BindView(R.id.chart)
 		public ProfitSmallChartView chart;
 
+		@BindView(R.id.program_currency)
+		public CurrencyView programCurrency;
+
 		@BindView(R.id.profit_percent)
 		public TextView profitPercent;
 
@@ -182,6 +186,8 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 
 			Double profitPercent = getProfitPercent();
 			Double profitValue = getProfitValue();
+
+			this.programCurrency.setCurrency(program.getCurrency().getValue());
 
 			this.profitPercent.setText(String.format(Locale.getDefault(), "%s%%",
 					StringFormatUtil.formatAmount(profitPercent, 0, 2)));

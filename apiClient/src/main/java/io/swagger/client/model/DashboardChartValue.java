@@ -27,11 +27,11 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class DashboardChartValue
 {
-	@SerializedName("bars")
-	private List<ValueChartBar> bars = null;
+	@SerializedName("investedProgramsInfo")
+	private List<ValueChartBar> investedProgramsInfo = null;
 
-	@SerializedName("chart")
-	private List<ChartSimple> chart = null;
+	@SerializedName("balanceChart")
+	private List<ChartSimple> balanceChart = null;
 
 	@SerializedName("value")
 	private Double value = null;
@@ -51,58 +51,58 @@ public class DashboardChartValue
 	@SerializedName("rate")
 	private Double rate = null;
 
-	public DashboardChartValue bars(List<ValueChartBar> bars) {
-		this.bars = bars;
+	public DashboardChartValue investedProgramsInfo(List<ValueChartBar> investedProgramsInfo) {
+		this.investedProgramsInfo = investedProgramsInfo;
 		return this;
 	}
 
-	public DashboardChartValue addBarsItem(ValueChartBar barsItem) {
-		if (this.bars == null) {
-			this.bars = new ArrayList<ValueChartBar>();
+	public DashboardChartValue addInvestedProgramsInfoItem(ValueChartBar investedProgramsInfoItem) {
+		if (this.investedProgramsInfo == null) {
+			this.investedProgramsInfo = new ArrayList<ValueChartBar>();
 		}
-		this.bars.add(barsItem);
+		this.investedProgramsInfo.add(investedProgramsInfoItem);
 		return this;
 	}
 
 	/**
-	 * Get bars
+	 * Get investedProgramsInfo
 	 *
-	 * @return bars
+	 * @return investedProgramsInfo
 	 **/
 	@ApiModelProperty(value = "")
-	public List<ValueChartBar> getBars() {
-		return bars;
+	public List<ValueChartBar> getInvestedProgramsInfo() {
+		return investedProgramsInfo;
 	}
 
-	public void setBars(List<ValueChartBar> bars) {
-		this.bars = bars;
+	public void setInvestedProgramsInfo(List<ValueChartBar> investedProgramsInfo) {
+		this.investedProgramsInfo = investedProgramsInfo;
 	}
 
-	public DashboardChartValue chart(List<ChartSimple> chart) {
-		this.chart = chart;
+	public DashboardChartValue balanceChart(List<ChartSimple> balanceChart) {
+		this.balanceChart = balanceChart;
 		return this;
 	}
 
-	public DashboardChartValue addChartItem(ChartSimple chartItem) {
-		if (this.chart == null) {
-			this.chart = new ArrayList<ChartSimple>();
+	public DashboardChartValue addBalanceChartItem(ChartSimple balanceChartItem) {
+		if (this.balanceChart == null) {
+			this.balanceChart = new ArrayList<ChartSimple>();
 		}
-		this.chart.add(chartItem);
+		this.balanceChart.add(balanceChartItem);
 		return this;
 	}
 
 	/**
-	 * Get chart
+	 * Get balanceChart
 	 *
-	 * @return chart
+	 * @return balanceChart
 	 **/
 	@ApiModelProperty(value = "")
-	public List<ChartSimple> getChart() {
-		return chart;
+	public List<ChartSimple> getBalanceChart() {
+		return balanceChart;
 	}
 
-	public void setChart(List<ChartSimple> chart) {
-		this.chart = chart;
+	public void setBalanceChart(List<ChartSimple> balanceChart) {
+		this.balanceChart = balanceChart;
 	}
 
 	public DashboardChartValue value(Double value) {
@@ -229,8 +229,8 @@ public class DashboardChartValue
 			return false;
 		}
 		DashboardChartValue dashboardChartValue = (DashboardChartValue) o;
-		return Objects.equals(this.bars, dashboardChartValue.bars) &&
-				Objects.equals(this.chart, dashboardChartValue.chart) &&
+		return Objects.equals(this.investedProgramsInfo, dashboardChartValue.investedProgramsInfo) &&
+				Objects.equals(this.balanceChart, dashboardChartValue.balanceChart) &&
 				Objects.equals(this.value, dashboardChartValue.value) &&
 				Objects.equals(this.valueCurrency, dashboardChartValue.valueCurrency) &&
 				Objects.equals(this.changePercent, dashboardChartValue.changePercent) &&
@@ -241,7 +241,7 @@ public class DashboardChartValue
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(bars, chart, value, valueCurrency, changePercent, changeValue, changeValueCurrency, rate);
+		return Objects.hash(investedProgramsInfo, balanceChart, value, valueCurrency, changePercent, changeValue, changeValueCurrency, rate);
 	}
 
 
@@ -250,8 +250,8 @@ public class DashboardChartValue
 		StringBuilder sb = new StringBuilder();
 		sb.append("class DashboardChartValue {\n");
 
-		sb.append("    bars: ").append(toIndentedString(bars)).append("\n");
-		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+		sb.append("    investedProgramsInfo: ").append(toIndentedString(investedProgramsInfo)).append("\n");
+		sb.append("    balanceChart: ").append(toIndentedString(balanceChart)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("    valueCurrency: ").append(toIndentedString(valueCurrency)).append("\n");
 		sb.append("    changePercent: ").append(toIndentedString(changePercent)).append("\n");

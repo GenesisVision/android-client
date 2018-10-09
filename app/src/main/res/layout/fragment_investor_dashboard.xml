@@ -49,35 +49,28 @@
 
         <RelativeLayout
             android:id="@+id/group_currency"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_toEndOf="@+id/group_notifications"
-            android:layout_toRightOf="@+id/group_notifications"
+            android:layout_width="85dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:paddingLeft="4dp"
             android:paddingRight="4dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:background="@drawable/background_select_currency"
+                android:tint="?attr/colorCard"/>
 
             <TextView
                 android:id="@+id/text_currency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_centerInParent="true"
                 android:text="@string/btc"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="16sp"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_alignEnd="@+id/text_currency"
-                android:layout_alignLeft="@+id/text_currency"
-                android:layout_alignRight="@+id/text_currency"
-                android:layout_alignStart="@+id/text_currency"
-                android:layout_below="@+id/text_currency"
-                android:layout_marginTop="2dp"
-                android:background="@drawable/divider_dot_horizontal"
-                android:foregroundGravity="center"
-                android:layerType="software"/>
 
         </RelativeLayout>
 
@@ -93,154 +86,171 @@
 
     </RelativeLayout>
 
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/coordinator_layout"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/header">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBarLayout"
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/coordinator_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorBackground"
-            app:elevation="0dp">
+            android:layout_height="match_parent">
 
-            <android.support.design.widget.CollapsingToolbarLayout
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlwaysCollapsed|exitUntilCollapsed">
+                android:background="?attr/colorBackground"
+                app:elevation="0dp">
+
+                <android.support.design.widget.CollapsingToolbarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_scrollFlags="scroll|enterAlwaysCollapsed|exitUntilCollapsed">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_collapseMode="pin">
+
+                        <LinearLayout
+                            android:id="@+id/group_chart"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <android.support.design.widget.TabLayout
+                                android:id="@+id/tab_layout_chart"
+                                android:layout_width="match_parent"
+                                android:layout_height="36dp"
+                                android:minHeight="?attr/actionBarSize"
+                                android:paddingLeft="24dp"
+                                android:paddingRight="24dp"
+                                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                                app:tabGravity="fill"
+                                app:tabIndicatorColor="?attr/colorAccent"
+                                app:tabMaxWidth="0dp"
+                                app:tabMode="scrollable"
+                                app:tabSelectedTextColor="?attr/colorTextPrimary"
+                                app:tabTextColor="?attr/colorTextSecondary"/>
+
+                            <android.support.v4.view.ViewPager
+                                android:id="@+id/investor_dashboard_header_view_pager"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dashboard_pager_header_height"
+                                android:layout_marginBottom="16dp"
+                                android:layout_marginTop="8dp"/>
+
+                        </LinearLayout>
+
+                        <HorizontalScrollView
+                            android:id="@+id/scroll_view_events"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/group_chart"
+                            android:layout_marginBottom="24dp"
+                            android:layout_marginTop="16dp"
+                            android:clipToPadding="false"
+                            android:paddingLeft="16dp"
+                            android:paddingRight="16dp"
+                            android:scrollbars="none">
+
+                            <LinearLayout
+                                android:id="@+id/group_events"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"/>
+
+                        </HorizontalScrollView>
+
+                    </RelativeLayout>
+
+                </android.support.design.widget.CollapsingToolbarLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="36dp"
+                    android:background="?attr/colorBackground"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
                     app:layout_collapseMode="pin">
 
-                    <LinearLayout
-                        android:id="@+id/group_chart"
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/tab_layout_assets"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <android.support.design.widget.TabLayout
-                            android:id="@+id/tab_layout_chart"
-                            android:layout_width="match_parent"
-                            android:layout_height="36dp"
-                            android:minHeight="?attr/actionBarSize"
-                            android:paddingLeft="24dp"
-                            android:paddingRight="24dp"
-                            app:tabGravity="fill"
-                            app:tabIndicatorColor="?attr/colorAccent"
-                            app:tabMode="scrollable"
-                            app:tabPaddingStart="0dp"
-                            app:tabSelectedTextColor="?attr/colorTextPrimary"
-                            app:tabTextAppearance="@style/TabTextAppearance"
-                            app:tabTextColor="?attr/colorTextSecondary"/>
-
-                        <android.support.v4.view.ViewPager
-                            android:id="@+id/investor_dashboard_header_view_pager"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dashboard_pager_header_height"
-                            android:layout_marginBottom="16dp"
-                            android:layout_marginTop="8dp"/>
-
-                    </LinearLayout>
-
-                    <HorizontalScrollView
-                        android:id="@+id/scroll_view_events"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/group_chart"
-                        android:layout_marginBottom="24dp"
-                        android:layout_marginTop="16dp"
-                        android:clipToPadding="false"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp"
-                        android:scrollbars="none">
-
-                        <LinearLayout
-                            android:id="@+id/group_events"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"/>
-
-                    </HorizontalScrollView>
+                        android:layout_height="36dp"
+                        android:minHeight="?attr/actionBarSize"
+                        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                        app:tabGravity="fill"
+                        app:tabIndicatorColor="?attr/colorAccent"
+                        app:tabMaxWidth="0dp"
+                        app:tabMode="scrollable"
+                        app:tabSelectedTextColor="?attr/colorTextPrimary"
+                        app:tabTextColor="?attr/colorTextSecondary"/>
 
                 </RelativeLayout>
 
-            </android.support.design.widget.CollapsingToolbarLayout>
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager_dashboard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
             <RelativeLayout
+                android:id="@+id/assets_bottomsheet"
                 android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:background="?attr/colorBackground"
-                android:paddingLeft="24dp"
-                android:paddingRight="24dp"
-                app:layout_collapseMode="pin">
+                android:layout_height="match_parent"
+                android:background="@drawable/background_bottomsheet"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:behavior_hideable="true"
+                app:layout_behavior="vision.genesis.clientapp.ui.common.CustomBottomSheetBehavior">
 
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/tab_layout_assets"
+                <View
+                    android:layout_width="45dp"
+                    android:layout_height="3dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/line_bottomsheet"/>
+
+                <TextView
+                    android:id="@+id/bottomsheet_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/assets"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="20sp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/assets_recycler_view"
                     android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:minHeight="?attr/actionBarSize"
-                    app:tabGravity="fill"
-                    app:tabIndicatorColor="?attr/colorAccent"
-                    app:tabMode="scrollable"
-                    app:tabPaddingStart="0dp"
-                    app:tabSelectedTextColor="?attr/colorTextPrimary"
-                    app:tabTextAppearance="@style/TabTextAppearance"
-                    app:tabTextColor="?attr/colorTextSecondary"/>
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/bottomsheet_title"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:scrollbars="none"/>
 
             </RelativeLayout>
 
-        </android.support.design.widget.AppBarLayout>
+        </android.support.design.widget.CoordinatorLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager_dashboard"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-        <RelativeLayout
-            android:id="@+id/assets_bottomsheet"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/background_bottomsheet"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            app:behavior_hideable="true"
-            app:layout_behavior="vision.genesis.clientapp.ui.common.CustomBottomSheetBehavior">
-
-            <View
-                android:layout_width="45dp"
-                android:layout_height="3dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/line_bottomsheet"/>
-
-            <TextView
-                android:id="@+id/bottomsheet_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="24dp"
-                android:text="@string/assets"
-                android:textColor="?attr/colorTextPrimary"
-                android:textSize="20sp"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/assets_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/bottomsheet_title"
-                android:clickable="true"
-                android:focusable="true"
-                android:scrollbars="none"/>
-
-        </RelativeLayout>
-
-    </android.support.design.widget.CoordinatorLayout>
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/header"
+        android:indeterminate="true"
+        android:scaleY="4"
+        android:visibility="visible"/>
 
 </RelativeLayout>

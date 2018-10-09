@@ -84,6 +84,9 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	@BindView(R.id.view_period)
 	public PeriodLeftDetailsView periodView;
 
+	@BindView(R.id.group_your_investment)
+	public ViewGroup yourInvestmentGroup;
+
 	@BindView(R.id.label_your_investment)
 	public TextView labelYourInvestment;
 
@@ -277,12 +280,14 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 		periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds(), true, true);
 
+		if (programDetails.getPersonalProgramDetails().isIsInvested()) {
+			yourInvestmentGroup.setVisibility(View.VISIBLE);
 //		invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(programDetails.getPersonalProgramDetails().getInvested()).toString()));
-		invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(programDetails.getPersonalProgramDetails().getValue(), ProgramDetailsFull.CurrencyEnum.GVT.toString())));
-		value.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(programDetails.getPersonalProgramDetails().getValue(), ProgramDetailsFull.CurrencyEnum.GVT.toString())));
-		profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getPersonalProgramDetails().getProfit(), 0, 4)));
-		profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(), programDetails.getPersonalProgramDetails().getProfit() < 0 ? R.attr.colorRed : R.attr.colorGreen));
-
+			invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(programDetails.getPersonalProgramDetails().getValue(), ProgramDetailsFull.CurrencyEnum.GVT.toString())));
+			value.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(programDetails.getPersonalProgramDetails().getValue(), ProgramDetailsFull.CurrencyEnum.GVT.toString())));
+			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getPersonalProgramDetails().getProfit(), 0, 4)));
+			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(), programDetails.getPersonalProgramDetails().getProfit() < 0 ? R.attr.colorRed : R.attr.colorGreen));
+		}
 		availableToInvest.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(programDetails.getAvailableInvestment()).toString()));
 		entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getEntryFee(), 0, 4)));
 		successFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getSuccessFee(), 0, 4)));

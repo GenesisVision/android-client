@@ -31,6 +31,9 @@ public class ManagerNotificationSettingList
 	@SerializedName("managerId")
 	private UUID managerId = null;
 
+	@SerializedName("url")
+	private String url = null;
+
 	@SerializedName("username")
 	private String username = null;
 
@@ -60,6 +63,25 @@ public class ManagerNotificationSettingList
 
 	public void setManagerId(UUID managerId) {
 		this.managerId = managerId;
+	}
+
+	public ManagerNotificationSettingList url(String url) {
+		this.url = url;
+		return this;
+	}
+
+	/**
+	 * Get url
+	 *
+	 * @return url
+	 **/
+	@ApiModelProperty(value = "")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public ManagerNotificationSettingList username(String username) {
@@ -157,6 +179,7 @@ public class ManagerNotificationSettingList
 		}
 		ManagerNotificationSettingList managerNotificationSettingList = (ManagerNotificationSettingList) o;
 		return Objects.equals(this.managerId, managerNotificationSettingList.managerId) &&
+				Objects.equals(this.url, managerNotificationSettingList.url) &&
 				Objects.equals(this.username, managerNotificationSettingList.username) &&
 				Objects.equals(this.avatar, managerNotificationSettingList.avatar) &&
 				Objects.equals(this.about, managerNotificationSettingList.about) &&
@@ -165,7 +188,7 @@ public class ManagerNotificationSettingList
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(managerId, username, avatar, about, settingsGeneral);
+		return Objects.hash(managerId, url, username, avatar, about, settingsGeneral);
 	}
 
 
@@ -175,6 +198,7 @@ public class ManagerNotificationSettingList
 		sb.append("class ManagerNotificationSettingList {\n");
 
 		sb.append("    managerId: ").append(toIndentedString(managerId)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    username: ").append(toIndentedString(username)).append("\n");
 		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
 		sb.append("    about: ").append(toIndentedString(about)).append("\n");

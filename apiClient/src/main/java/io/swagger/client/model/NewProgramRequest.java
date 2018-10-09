@@ -31,6 +31,9 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class NewProgramRequest
 {
+	@SerializedName("currency")
+	private CurrencyEnum currency = null;
+
 	@SerializedName("periodLength")
 	private Integer periodLength = null;
 
@@ -58,8 +61,24 @@ public class NewProgramRequest
 	@SerializedName("entryFee")
 	private Double entryFee = null;
 
-	@SerializedName("currency")
-	private CurrencyEnum currency = null;
+	public NewProgramRequest currency(CurrencyEnum currency) {
+		this.currency = currency;
+		return this;
+	}
+
+	/**
+	 * Get currency
+	 *
+	 * @return currency
+	 **/
+	@ApiModelProperty(value = "")
+	public CurrencyEnum getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(CurrencyEnum currency) {
+		this.currency = currency;
+	}
 
 	public NewProgramRequest periodLength(Integer periodLength) {
 		this.periodLength = periodLength;
@@ -232,25 +251,6 @@ public class NewProgramRequest
 		this.entryFee = entryFee;
 	}
 
-	public NewProgramRequest currency(CurrencyEnum currency) {
-		this.currency = currency;
-		return this;
-	}
-
-	/**
-	 * Get currency
-	 *
-	 * @return currency
-	 **/
-	@ApiModelProperty(value = "")
-	public CurrencyEnum getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(CurrencyEnum currency) {
-		this.currency = currency;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -260,7 +260,8 @@ public class NewProgramRequest
 			return false;
 		}
 		NewProgramRequest newProgramRequest = (NewProgramRequest) o;
-		return Objects.equals(this.periodLength, newProgramRequest.periodLength) &&
+		return Objects.equals(this.currency, newProgramRequest.currency) &&
+				Objects.equals(this.periodLength, newProgramRequest.periodLength) &&
 				Objects.equals(this.successFee, newProgramRequest.successFee) &&
 				Objects.equals(this.stopOutLevel, newProgramRequest.stopOutLevel) &&
 				Objects.equals(this.leverage, newProgramRequest.leverage) &&
@@ -268,13 +269,12 @@ public class NewProgramRequest
 				Objects.equals(this.description, newProgramRequest.description) &&
 				Objects.equals(this.logo, newProgramRequest.logo) &&
 				Objects.equals(this.brokerAccountTypeId, newProgramRequest.brokerAccountTypeId) &&
-				Objects.equals(this.entryFee, newProgramRequest.entryFee) &&
-				Objects.equals(this.currency, newProgramRequest.currency);
+				Objects.equals(this.entryFee, newProgramRequest.entryFee);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(periodLength, successFee, stopOutLevel, leverage, title, description, logo, brokerAccountTypeId, entryFee, currency);
+		return Objects.hash(currency, periodLength, successFee, stopOutLevel, leverage, title, description, logo, brokerAccountTypeId, entryFee);
 	}
 
 	@Override
@@ -282,6 +282,7 @@ public class NewProgramRequest
 		StringBuilder sb = new StringBuilder();
 		sb.append("class NewProgramRequest {\n");
 
+		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    periodLength: ").append(toIndentedString(periodLength)).append("\n");
 		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
@@ -291,7 +292,6 @@ public class NewProgramRequest
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    brokerAccountTypeId: ").append(toIndentedString(brokerAccountTypeId)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
-		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -313,13 +313,13 @@ public class NewProgramRequest
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		ETH("ETH"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		BTC("BTC"),
+		ETH("ETH"),
 
-		UNDEFINED("Undefined"),
+		BTC("BTC"),
 
 		ADA("ADA"),
 

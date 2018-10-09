@@ -16,7 +16,6 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AssetsValue;
-import io.swagger.client.model.DashboardPortfolioEvent;
 import io.swagger.client.model.DashboardSummary;
 import io.swagger.client.model.ProgramRequest;
 import io.swagger.client.model.ValueChartBar;
@@ -35,7 +34,6 @@ import vision.genesis.clientapp.model.PortfolioAssetData;
 import vision.genesis.clientapp.model.events.OnInRequestsClickedEvent;
 import vision.genesis.clientapp.model.events.OnPortfolioAssetsChangedEvent;
 import vision.genesis.clientapp.model.events.OnPortfolioChartViewModeChangedEvent;
-import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
@@ -59,7 +57,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 	private Subscription dateRangeSubscription;
 
-	private Subscription getEventsSubscription;
+//	private Subscription getEventsSubscription;
 
 	private Subscription dashboardSubscription;
 
@@ -89,8 +87,8 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 			baseCurrencySubscription.unsubscribe();
 		if (dateRangeSubscription != null)
 			dateRangeSubscription.unsubscribe();
-		if (getEventsSubscription != null)
-			getEventsSubscription.unsubscribe();
+//		if (getEventsSubscription != null)
+//			getEventsSubscription.unsubscribe();
 		if (dashboardSubscription != null)
 			dashboardSubscription.unsubscribe();
 
@@ -119,6 +117,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
 		this.baseCurrency = baseCurrency;
 		getViewState().setBaseCurrency(baseCurrency);
+		getViewState().showProgressBar(true);
 		getDashboard();
 	}
 
@@ -132,7 +131,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	private void dateRangeChangedHandler(DateRange dateRange) {
 		this.dateRange = dateRange;
 		getViewState().setDateRange(dateRange);
-		getViewState().setRefreshing(true);
+		getViewState().showProgressBar(true);
 		getDashboard();
 	}
 
@@ -156,7 +155,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 		int colorGreen = ContextCompat.getColor(context, R.color.green);
 		int[] colors = context.getResources().getIntArray(R.array.assetsColors);
 		int colorIndex;
-		for (ValueChartBar valueChartBar : dashboardSummary.getChart().getBars()) {
+		for (ValueChartBar valueChartBar : dashboardSummary.getChart().getInvestedProgramsInfo()) {
 			List<PortfolioAssetData> portfolioAssetDataList = new ArrayList<>();
 			colorIndex = 0;
 //			List<AssetsValue> list = new ArrayList<>(valueChartBar.getAssets());
@@ -165,7 +164,8 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 //			list.addAll(valueChartBar.getAssets());
 //			list.addAll(valueChartBar.getAssets());
 //			for (AssetsValue assetsValue : list) {
-			for (AssetsValue assetsValue : valueChartBar.getAssets()) {
+			//TODO: add other assets
+			for (AssetsValue assetsValue : valueChartBar.getTopAssets()) {
 				PortfolioAssetData portfolioAssetData = new PortfolioAssetData(
 						colors[colorIndex],
 						assetsValue.getTitle(),
@@ -197,6 +197,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	private void handleGetDashboardSuccess(DashboardSummary response) {
 		dashboardSubscription.unsubscribe();
 		getViewState().setRefreshing(false);
+		getViewState().showProgressBar(false);
 
 		this.requests = response.getRequests().getRequests();
 //		ProgramRequest request = new ProgramRequest();
@@ -221,29 +222,29 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 		getViewState().setRefreshing(false);
 	}
 
-	private void getEvents() {
-		getEventsSubscription = dashboardManager.getPortfolioEvents()
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::handleGetEventsSuccess,
-						this::handleGetEventsError);
-	}
-
-	private void handleGetEventsSuccess(List<DashboardPortfolioEvent> response) {
-		List<DashboardPortfolioEvent> events = response.size() > 10 ? response.subList(0, 10) : response;
-		getViewState().setPortfolioEvents(events);
-	}
-
-	private void handleGetEventsError(Throwable throwable) {
-		getViewState().setRefreshing(false);
-		getViewState().showProgressBar(false);
-
-		if (ApiErrorResolver.isNetworkError(throwable)) {
-//			if (programs.size() == 0)
-//				getViewState().showNoInternet(true);
-			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
-		}
-	}
+//	private void getEvents() {
+//		getEventsSubscription = dashboardManager.getPortfolioEvents()
+//				.subscribeOn(Schedulers.io())
+//				.observeOn(AndroidSchedulers.mainThread())
+//				.subscribe(this::handleGetEventsSuccess,
+//						this::handleGetEventsError);
+//	}
+//
+//	private void handleGetEventsSuccess(List<DashboardPortfolioEvent> response) {
+//		List<DashboardPortfolioEvent> events = response.size() > 10 ? response.subList(0, 10) : response;
+//		getViewState().setPortfolioEvents(events);
+//	}
+//
+//	private void handleGetEventsError(Throwable throwable) {
+//		getViewState().setRefreshing(false);
+//		getViewState().showProgressBar(false);
+//
+//		if (ApiErrorResolver.isNetworkError(throwable)) {
+////			if (programs.size() == 0)
+////				getViewState().showNoInternet(true);
+//			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
+//		}
+//	}
 
 	@Override
 	public void onDateRangeChanged(DateRange dateRange) {

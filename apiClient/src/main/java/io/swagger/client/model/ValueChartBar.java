@@ -35,8 +35,11 @@ public class ValueChartBar
 	@SerializedName("date")
 	private DateTime date = null;
 
-	@SerializedName("assets")
-	private List<AssetsValue> assets = null;
+	@SerializedName("topAssets")
+	private List<AssetsValue> topAssets = null;
+
+	@SerializedName("otherAssetsValue")
+	private OtherAssetsValue otherAssetsValue = null;
 
 	public ValueChartBar value(Double value) {
 		this.value = value;
@@ -76,31 +79,50 @@ public class ValueChartBar
 		this.date = date;
 	}
 
-	public ValueChartBar assets(List<AssetsValue> assets) {
-		this.assets = assets;
+	public ValueChartBar topAssets(List<AssetsValue> topAssets) {
+		this.topAssets = topAssets;
 		return this;
 	}
 
-	public ValueChartBar addAssetsItem(AssetsValue assetsItem) {
-		if (this.assets == null) {
-			this.assets = new ArrayList<AssetsValue>();
+	public ValueChartBar addTopAssetsItem(AssetsValue topAssetsItem) {
+		if (this.topAssets == null) {
+			this.topAssets = new ArrayList<AssetsValue>();
 		}
-		this.assets.add(assetsItem);
+		this.topAssets.add(topAssetsItem);
 		return this;
 	}
 
 	/**
-	 * Get assets
+	 * Get topAssets
 	 *
-	 * @return assets
+	 * @return topAssets
 	 **/
 	@ApiModelProperty(value = "")
-	public List<AssetsValue> getAssets() {
-		return assets;
+	public List<AssetsValue> getTopAssets() {
+		return topAssets;
 	}
 
-	public void setAssets(List<AssetsValue> assets) {
-		this.assets = assets;
+	public void setTopAssets(List<AssetsValue> topAssets) {
+		this.topAssets = topAssets;
+	}
+
+	public ValueChartBar otherAssetsValue(OtherAssetsValue otherAssetsValue) {
+		this.otherAssetsValue = otherAssetsValue;
+		return this;
+	}
+
+	/**
+	 * Get otherAssetsValue
+	 *
+	 * @return otherAssetsValue
+	 **/
+	@ApiModelProperty(value = "")
+	public OtherAssetsValue getOtherAssetsValue() {
+		return otherAssetsValue;
+	}
+
+	public void setOtherAssetsValue(OtherAssetsValue otherAssetsValue) {
+		this.otherAssetsValue = otherAssetsValue;
 	}
 
 
@@ -115,12 +137,13 @@ public class ValueChartBar
 		ValueChartBar valueChartBar = (ValueChartBar) o;
 		return Objects.equals(this.value, valueChartBar.value) &&
 				Objects.equals(this.date, valueChartBar.date) &&
-				Objects.equals(this.assets, valueChartBar.assets);
+				Objects.equals(this.topAssets, valueChartBar.topAssets) &&
+				Objects.equals(this.otherAssetsValue, valueChartBar.otherAssetsValue);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(value, date, assets);
+		return Objects.hash(value, date, topAssets, otherAssetsValue);
 	}
 
 
@@ -131,7 +154,8 @@ public class ValueChartBar
 
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
-		sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
+		sb.append("    topAssets: ").append(toIndentedString(topAssets)).append("\n");
+		sb.append("    otherAssetsValue: ").append(toIndentedString(otherAssetsValue)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

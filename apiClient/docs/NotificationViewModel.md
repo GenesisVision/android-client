@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **programId** | [**UUID**](UUID.md) |  |  [optional]
 **managerId** | [**UUID**](UUID.md) |  |  [optional]
 **logo** | **String** |  |  [optional]
+**url** | **String** |  |  [optional]
+**isUnread** | **Boolean** |  |  [optional]
 
 
 <a name="TypeEnum"></a>

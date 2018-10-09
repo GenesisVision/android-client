@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -29,7 +30,10 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.ProgramsManager;
+import vision.genesis.clientapp.model.api.ErrorResponse;
 import vision.genesis.clientapp.model.events.OnCancelRequestClickedEvent;
+import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.net.ErrorResponseConverter;
 import vision.genesis.clientapp.ui.DividerItemDecoration;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -126,6 +130,20 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 		}
 	}
 
+	private void deleteRequest(UUID requestId) {
+		int position = 0;
+		for (ProgramRequest request : requests) {
+			if (request.getId().equals(requestId)) {
+				requests.remove(request);
+				break;
+			}
+			position++;
+		}
+
+		requestsAdapter.deleteRequest(position);
+		showEmpty(requests.isEmpty());
+	}
+
 	@Subscribe
 	public void onEventMainThread(OnCancelRequestClickedEvent event) {
 		cancelRequest(event.getRequestId());
@@ -135,15 +153,29 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 		cancelRequestSubscription = programsManager.cancelRequest(requestId)
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::handleCancelRequestSuccess,
+				.subscribe(response -> handleCancelRequestSuccess(requestId),
 						this::handleCancelRequestError);
 	}
 
-	private void handleCancelRequestSuccess(Void response) {
-
+	private void handleCancelRequestSuccess(UUID requestId) {
+		cancelRequestSubscription.unsubscribe();
+		deleteRequest(requestId);
 	}
 
 	private void handleCancelRequestError(Throwable throwable) {
+		cancelRequestSubscription.unsubscribe();
+		if (ApiErrorResolver.isNetworkError(throwable)) {
+			showToast(getContext().getResources().getString(R.string.network_error));
+		}
+		else {
+			ErrorResponse response = ErrorResponseConverter.createFromThrowable(throwable);
+			if (response != null && response.errors != null && response.errors.get(0) != null) {
+				showToast(response.errors.get(0).message);
+			}
+		}
+	}
 
+	private void showToast(String message) {
+		Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
 	}
 }

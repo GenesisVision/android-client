@@ -13,13 +13,8 @@
 
 package io.swagger.client.model;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -56,9 +51,6 @@ public class NewFundRequest
 
 	@SerializedName("entryFee")
 	private Double entryFee = null;
-
-	@SerializedName("currency")
-	private CurrencyEnum currency = null;
 
 	public NewFundRequest exitFee(Double exitFee) {
 		this.exitFee = exitFee;
@@ -220,24 +212,6 @@ public class NewFundRequest
 		this.entryFee = entryFee;
 	}
 
-	public NewFundRequest currency(CurrencyEnum currency) {
-		this.currency = currency;
-		return this;
-	}
-
-	/**
-	 * Get currency
-	 *
-	 * @return currency
-	 **/
-	@ApiModelProperty(value = "")
-	public CurrencyEnum getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(CurrencyEnum currency) {
-		this.currency = currency;
-	}
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -255,14 +229,14 @@ public class NewFundRequest
 				Objects.equals(this.description, newFundRequest.description) &&
 				Objects.equals(this.logo, newFundRequest.logo) &&
 				Objects.equals(this.brokerAccountTypeId, newFundRequest.brokerAccountTypeId) &&
-				Objects.equals(this.entryFee, newFundRequest.entryFee) &&
-				Objects.equals(this.currency, newFundRequest.currency);
+				Objects.equals(this.entryFee, newFundRequest.entryFee);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(exitFee, managementFee, assetsParts, title, description, logo, brokerAccountTypeId, entryFee, currency);
+		return Objects.hash(exitFee, managementFee, assetsParts, title, description, logo, brokerAccountTypeId, entryFee);
 	}
+
 
 	@Override
 	public String toString() {
@@ -277,7 +251,6 @@ public class NewFundRequest
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    brokerAccountTypeId: ").append(toIndentedString(brokerAccountTypeId)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
-		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -291,65 +264,6 @@ public class NewFundRequest
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
-	}
-
-	/**
-	 * Gets or Sets currency
-	 */
-	@JsonAdapter(CurrencyEnum.Adapter.class)
-	public enum CurrencyEnum
-	{
-		ETH("ETH"),
-
-		GVT("GVT"),
-
-		BTC("BTC"),
-
-		UNDEFINED("Undefined"),
-
-		ADA("ADA"),
-
-		USD("USD"),
-
-		EUR("EUR");
-
-		public static CurrencyEnum fromValue(String text) {
-			for (CurrencyEnum b : CurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		CurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<CurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return CurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 
 }

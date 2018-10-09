@@ -1,5 +1,6 @@
 package vision.genesis.clientapp.feature.main.dashboard.investor.programs;
 
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -20,21 +21,24 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 
 	private DashboardProgramsFragment programsFragment;
 
-	private DashboardProgramsFragment archivedProgramsFragment;
+	private DashboardProgramsFragment fundsFragment;
 
-	public DashboardPagerAdapter(FragmentManager fm) {
+	private TabLayout tabLayout;
+
+	public DashboardPagerAdapter(FragmentManager fm, TabLayout tabLayout) {
 		super(fm);
+		this.tabLayout = tabLayout;
 		programsFragment = DashboardProgramsFragment.with();
-		archivedProgramsFragment = DashboardProgramsFragment.with();
+		fundsFragment = DashboardProgramsFragment.with();
 	}
 
 	@Override
 	public Fragment getItem(int position) {
-		switch (position) {
-			case 0:
+		switch (tabLayout.getTabAt(position).getTag().toString()) {
+			case "programs":
 				return programsFragment;
-			case 1:
-				return archivedProgramsFragment;
+			case "funds":
+				return fundsFragment;
 			default:
 				return null;
 		}
@@ -42,25 +46,25 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 
 	@Override
 	public int getCount() {
-		return 2;
+		return tabLayout.getTabCount();
 	}
 
 	public void destroy() {
 		if (programsFragment != null)
 			programsFragment.onDestroyView();
 
-		if (archivedProgramsFragment != null)
-			archivedProgramsFragment.onDestroyView();
+		if (fundsFragment != null)
+			fundsFragment.onDestroyView();
 	}
 
 	public void showProgressBar(boolean show) {
 		programsFragment.showProgressBar(show);
-		archivedProgramsFragment.showProgressBar(show);
+		fundsFragment.showProgressBar(show);
 	}
 
 	public void showEmpty(boolean show) {
 		programsFragment.showEmpty(show);
-		archivedProgramsFragment.showEmpty(show);
+		fundsFragment.showEmpty(show);
 
 	}
 }

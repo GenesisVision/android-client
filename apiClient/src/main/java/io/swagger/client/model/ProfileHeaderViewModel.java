@@ -53,6 +53,9 @@ public class ProfileHeaderViewModel
 	@SerializedName("availableGvt")
 	private Double availableGvt = null;
 
+	@SerializedName("kycConfirmed")
+	private Boolean kycConfirmed = null;
+
 	public ProfileHeaderViewModel id(UUID id) {
 		this.id = id;
 		return this;
@@ -224,6 +227,25 @@ public class ProfileHeaderViewModel
 		this.availableGvt = availableGvt;
 	}
 
+	public ProfileHeaderViewModel kycConfirmed(Boolean kycConfirmed) {
+		this.kycConfirmed = kycConfirmed;
+		return this;
+	}
+
+	/**
+	 * Get kycConfirmed
+	 *
+	 * @return kycConfirmed
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isKycConfirmed() {
+		return kycConfirmed;
+	}
+
+	public void setKycConfirmed(Boolean kycConfirmed) {
+		this.kycConfirmed = kycConfirmed;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -242,12 +264,13 @@ public class ProfileHeaderViewModel
 				Objects.equals(this.favoritesCount, profileHeaderViewModel.favoritesCount) &&
 				Objects.equals(this.totalBalanceGvt, profileHeaderViewModel.totalBalanceGvt) &&
 				Objects.equals(this.investedGvt, profileHeaderViewModel.investedGvt) &&
-				Objects.equals(this.availableGvt, profileHeaderViewModel.availableGvt);
+				Objects.equals(this.availableGvt, profileHeaderViewModel.availableGvt) &&
+				Objects.equals(this.kycConfirmed, profileHeaderViewModel.kycConfirmed);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, email, avatar, notificationsCount, favoritesCount, totalBalanceGvt, investedGvt, availableGvt);
+		return Objects.hash(id, name, email, avatar, notificationsCount, favoritesCount, totalBalanceGvt, investedGvt, availableGvt, kycConfirmed);
 	}
 
 
@@ -265,6 +288,7 @@ public class ProfileHeaderViewModel
 		sb.append("    totalBalanceGvt: ").append(toIndentedString(totalBalanceGvt)).append("\n");
 		sb.append("    investedGvt: ").append(toIndentedString(investedGvt)).append("\n");
 		sb.append("    availableGvt: ").append(toIndentedString(availableGvt)).append("\n");
+		sb.append("    kycConfirmed: ").append(toIndentedString(kycConfirmed)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

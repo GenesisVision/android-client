@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**UUID**](UUID.md) |  |  [optional]
+**isEnabled** | **Boolean** |  |  [optional]
 **programId** | [**UUID**](UUID.md) |  |  [optional]
 **managerId** | [**UUID**](UUID.md) |  |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]

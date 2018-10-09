@@ -3,6 +3,7 @@ package vision.genesis.clientapp.ui;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,6 +22,9 @@ public class CurrencyView extends RelativeLayout
 {
 	@BindView(R.id.currency)
 	public TextView currency;
+
+	@BindView(R.id.background)
+	public View background;
 
 	private Unbinder unbinder;
 
@@ -51,27 +55,34 @@ public class CurrencyView extends RelativeLayout
 
 		unbinder = ButterKnife.bind(this);
 
-		currency.setTypeface(TypefaceUtil.bold());
+		currency.setTypeface(TypefaceUtil.semibold());
 	}
 
 	public void setCurrency(String currency) {
 		this.currency.setText(currency);
+
 		int drawableResId = R.drawable.currency_background;
+		int colorResId = R.color.white;
 		switch (currency.toUpperCase()) {
 			case "USD":
 				drawableResId = R.drawable.currency_usd_background;
+				colorResId = R.color.colorUsd;
 				break;
 			case "EUR":
 				drawableResId = R.drawable.currency_eur_background;
+				colorResId = R.color.colorEur;
 				break;
 			case "BTC":
 				drawableResId = R.drawable.currency_btc_background;
+				colorResId = R.color.colorBtc;
 				break;
 			case "ETH":
 				drawableResId = R.drawable.currency_eth_background;
+				colorResId = R.color.colorEth;
 				break;
 		}
 
-		this.currency.setBackground(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, drawableResId));
+		this.currency.setTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, colorResId));
+		this.background.setBackground(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, drawableResId));
 	}
 }

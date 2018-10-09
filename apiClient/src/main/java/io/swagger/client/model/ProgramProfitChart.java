@@ -19,6 +19,8 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
+import org.joda.time.DateTime;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,17 +52,20 @@ public class ProgramProfitChart
 	@SerializedName("profitFactor")
 	private Double profitFactor = null;
 
-	@SerializedName("maxDrawdown")
-	private Double maxDrawdown = null;
-
-	@SerializedName("chart")
-	private List<ChartProgramDetails> chart = null;
-
 	@SerializedName("pnLChart")
 	private List<ChartSimple> pnLChart = null;
 
-	@SerializedName("equity")
-	private Double equity = null;
+	@SerializedName("periods")
+	private List<PeriodDate> periods = null;
+
+	@SerializedName("equityChart")
+	private List<ChartSimple> equityChart = null;
+
+	@SerializedName("balance")
+	private Double balance = null;
+
+	@SerializedName("investors")
+	private Integer investors = null;
 
 	@SerializedName("sharpeRatio")
 	private Double sharpeRatio = null;
@@ -71,6 +76,9 @@ public class ProgramProfitChart
 	@SerializedName("calmarRatio")
 	private Double calmarRatio = null;
 
+	@SerializedName("maxDrawdown")
+	private Double maxDrawdown = null;
+
 	@SerializedName("totalGvtProfit")
 	private Double totalGvtProfit = null;
 
@@ -79,6 +87,12 @@ public class ProgramProfitChart
 
 	@SerializedName("profitChangePercent")
 	private Double profitChangePercent = null;
+
+	@SerializedName("lastPeriodStarts")
+	private DateTime lastPeriodStarts = null;
+
+	@SerializedName("lastPeriodEnds")
+	private DateTime lastPeriodEnds = null;
 
 	public ProgramProfitChart totalProgramCurrencyProfit(Double totalProgramCurrencyProfit) {
 		this.totalProgramCurrencyProfit = totalProgramCurrencyProfit;
@@ -194,52 +208,6 @@ public class ProgramProfitChart
 		this.profitFactor = profitFactor;
 	}
 
-	public ProgramProfitChart maxDrawdown(Double maxDrawdown) {
-		this.maxDrawdown = maxDrawdown;
-		return this;
-	}
-
-	/**
-	 * Get maxDrawdown
-	 *
-	 * @return maxDrawdown
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getMaxDrawdown() {
-		return maxDrawdown;
-	}
-
-	public void setMaxDrawdown(Double maxDrawdown) {
-		this.maxDrawdown = maxDrawdown;
-	}
-
-	public ProgramProfitChart chart(List<ChartProgramDetails> chart) {
-		this.chart = chart;
-		return this;
-	}
-
-	public ProgramProfitChart addChartItem(ChartProgramDetails chartItem) {
-		if (this.chart == null) {
-			this.chart = new ArrayList<ChartProgramDetails>();
-		}
-		this.chart.add(chartItem);
-		return this;
-	}
-
-	/**
-	 * Get chart
-	 *
-	 * @return chart
-	 **/
-	@ApiModelProperty(value = "")
-	public List<ChartProgramDetails> getChart() {
-		return chart;
-	}
-
-	public void setChart(List<ChartProgramDetails> chart) {
-		this.chart = chart;
-	}
-
 	public ProgramProfitChart pnLChart(List<ChartSimple> pnLChart) {
 		this.pnLChart = pnLChart;
 		return this;
@@ -267,23 +235,96 @@ public class ProgramProfitChart
 		this.pnLChart = pnLChart;
 	}
 
-	public ProgramProfitChart equity(Double equity) {
-		this.equity = equity;
+	public ProgramProfitChart periods(List<PeriodDate> periods) {
+		this.periods = periods;
+		return this;
+	}
+
+	public ProgramProfitChart addPeriodsItem(PeriodDate periodsItem) {
+		if (this.periods == null) {
+			this.periods = new ArrayList<PeriodDate>();
+		}
+		this.periods.add(periodsItem);
 		return this;
 	}
 
 	/**
-	 * Get equity
+	 * Get periods
 	 *
-	 * @return equity
+	 * @return periods
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getEquity() {
-		return equity;
+	public List<PeriodDate> getPeriods() {
+		return periods;
 	}
 
-	public void setEquity(Double equity) {
-		this.equity = equity;
+	public void setPeriods(List<PeriodDate> periods) {
+		this.periods = periods;
+	}
+
+	public ProgramProfitChart equityChart(List<ChartSimple> equityChart) {
+		this.equityChart = equityChart;
+		return this;
+	}
+
+	public ProgramProfitChart addEquityChartItem(ChartSimple equityChartItem) {
+		if (this.equityChart == null) {
+			this.equityChart = new ArrayList<ChartSimple>();
+		}
+		this.equityChart.add(equityChartItem);
+		return this;
+	}
+
+	/**
+	 * Get equityChart
+	 *
+	 * @return equityChart
+	 **/
+	@ApiModelProperty(value = "")
+	public List<ChartSimple> getEquityChart() {
+		return equityChart;
+	}
+
+	public void setEquityChart(List<ChartSimple> equityChart) {
+		this.equityChart = equityChart;
+	}
+
+	public ProgramProfitChart balance(Double balance) {
+		this.balance = balance;
+		return this;
+	}
+
+	/**
+	 * Get balance
+	 *
+	 * @return balance
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Double balance) {
+		this.balance = balance;
+	}
+
+	public ProgramProfitChart investors(Integer investors) {
+		this.investors = investors;
+		return this;
+	}
+
+	/**
+	 * Get investors
+	 *
+	 * @return investors
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getInvestors() {
+		return investors;
+	}
+
+	public void setInvestors(Integer investors) {
+		this.investors = investors;
 	}
 
 	public ProgramProfitChart sharpeRatio(Double sharpeRatio) {
@@ -343,6 +384,25 @@ public class ProgramProfitChart
 		this.calmarRatio = calmarRatio;
 	}
 
+	public ProgramProfitChart maxDrawdown(Double maxDrawdown) {
+		this.maxDrawdown = maxDrawdown;
+		return this;
+	}
+
+	/**
+	 * Get maxDrawdown
+	 *
+	 * @return maxDrawdown
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getMaxDrawdown() {
+		return maxDrawdown;
+	}
+
+	public void setMaxDrawdown(Double maxDrawdown) {
+		this.maxDrawdown = maxDrawdown;
+	}
+
 	public ProgramProfitChart totalGvtProfit(Double totalGvtProfit) {
 		this.totalGvtProfit = totalGvtProfit;
 		return this;
@@ -400,6 +460,44 @@ public class ProgramProfitChart
 		this.profitChangePercent = profitChangePercent;
 	}
 
+	public ProgramProfitChart lastPeriodStarts(DateTime lastPeriodStarts) {
+		this.lastPeriodStarts = lastPeriodStarts;
+		return this;
+	}
+
+	/**
+	 * Get lastPeriodStarts
+	 *
+	 * @return lastPeriodStarts
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getLastPeriodStarts() {
+		return lastPeriodStarts;
+	}
+
+	public void setLastPeriodStarts(DateTime lastPeriodStarts) {
+		this.lastPeriodStarts = lastPeriodStarts;
+	}
+
+	public ProgramProfitChart lastPeriodEnds(DateTime lastPeriodEnds) {
+		this.lastPeriodEnds = lastPeriodEnds;
+		return this;
+	}
+
+	/**
+	 * Get lastPeriodEnds
+	 *
+	 * @return lastPeriodEnds
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getLastPeriodEnds() {
+		return lastPeriodEnds;
+	}
+
+	public void setLastPeriodEnds(DateTime lastPeriodEnds) {
+		this.lastPeriodEnds = lastPeriodEnds;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -415,21 +513,25 @@ public class ProgramProfitChart
 				Objects.equals(this.trades, programProfitChart.trades) &&
 				Objects.equals(this.successTradesPercent, programProfitChart.successTradesPercent) &&
 				Objects.equals(this.profitFactor, programProfitChart.profitFactor) &&
-				Objects.equals(this.maxDrawdown, programProfitChart.maxDrawdown) &&
-				Objects.equals(this.chart, programProfitChart.chart) &&
 				Objects.equals(this.pnLChart, programProfitChart.pnLChart) &&
-				Objects.equals(this.equity, programProfitChart.equity) &&
+				Objects.equals(this.periods, programProfitChart.periods) &&
+				Objects.equals(this.equityChart, programProfitChart.equityChart) &&
+				Objects.equals(this.balance, programProfitChart.balance) &&
+				Objects.equals(this.investors, programProfitChart.investors) &&
 				Objects.equals(this.sharpeRatio, programProfitChart.sharpeRatio) &&
 				Objects.equals(this.sortinoRatio, programProfitChart.sortinoRatio) &&
 				Objects.equals(this.calmarRatio, programProfitChart.calmarRatio) &&
+				Objects.equals(this.maxDrawdown, programProfitChart.maxDrawdown) &&
 				Objects.equals(this.totalGvtProfit, programProfitChart.totalGvtProfit) &&
 				Objects.equals(this.timeframeGvtProfit, programProfitChart.timeframeGvtProfit) &&
-				Objects.equals(this.profitChangePercent, programProfitChart.profitChangePercent);
+				Objects.equals(this.profitChangePercent, programProfitChart.profitChangePercent) &&
+				Objects.equals(this.lastPeriodStarts, programProfitChart.lastPeriodStarts) &&
+				Objects.equals(this.lastPeriodEnds, programProfitChart.lastPeriodEnds);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(totalProgramCurrencyProfit, timeframeProgramCurrencyProfit, programCurrency, trades, successTradesPercent, profitFactor, maxDrawdown, chart, pnLChart, equity, sharpeRatio, sortinoRatio, calmarRatio, totalGvtProfit, timeframeGvtProfit, profitChangePercent);
+		return Objects.hash(totalProgramCurrencyProfit, timeframeProgramCurrencyProfit, programCurrency, trades, successTradesPercent, profitFactor, pnLChart, periods, equityChart, balance, investors, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, totalGvtProfit, timeframeGvtProfit, profitChangePercent, lastPeriodStarts, lastPeriodEnds);
 	}
 
 	@Override
@@ -443,16 +545,20 @@ public class ProgramProfitChart
 		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
 		sb.append("    successTradesPercent: ").append(toIndentedString(successTradesPercent)).append("\n");
 		sb.append("    profitFactor: ").append(toIndentedString(profitFactor)).append("\n");
-		sb.append("    maxDrawdown: ").append(toIndentedString(maxDrawdown)).append("\n");
-		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("    pnLChart: ").append(toIndentedString(pnLChart)).append("\n");
-		sb.append("    equity: ").append(toIndentedString(equity)).append("\n");
+		sb.append("    periods: ").append(toIndentedString(periods)).append("\n");
+		sb.append("    equityChart: ").append(toIndentedString(equityChart)).append("\n");
+		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+		sb.append("    investors: ").append(toIndentedString(investors)).append("\n");
 		sb.append("    sharpeRatio: ").append(toIndentedString(sharpeRatio)).append("\n");
 		sb.append("    sortinoRatio: ").append(toIndentedString(sortinoRatio)).append("\n");
 		sb.append("    calmarRatio: ").append(toIndentedString(calmarRatio)).append("\n");
+		sb.append("    maxDrawdown: ").append(toIndentedString(maxDrawdown)).append("\n");
 		sb.append("    totalGvtProfit: ").append(toIndentedString(totalGvtProfit)).append("\n");
 		sb.append("    timeframeGvtProfit: ").append(toIndentedString(timeframeGvtProfit)).append("\n");
 		sb.append("    profitChangePercent: ").append(toIndentedString(profitChangePercent)).append("\n");
+		sb.append("    lastPeriodStarts: ").append(toIndentedString(lastPeriodStarts)).append("\n");
+		sb.append("    lastPeriodEnds: ").append(toIndentedString(lastPeriodEnds)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -474,13 +580,13 @@ public class ProgramProfitChart
 	@JsonAdapter(ProgramCurrencyEnum.Adapter.class)
 	public enum ProgramCurrencyEnum
 	{
-		ETH("ETH"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		BTC("BTC"),
+		ETH("ETH"),
 
-		UNDEFINED("Undefined"),
+		BTC("BTC"),
 
 		ADA("ADA"),
 

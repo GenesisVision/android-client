@@ -178,13 +178,13 @@ public class ProgramBalanceChart
 	@JsonAdapter(ProgramCurrencyEnum.Adapter.class)
 	public enum ProgramCurrencyEnum
 	{
-		ETH("ETH"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		BTC("BTC"),
+		ETH("ETH"),
 
-		UNDEFINED("Undefined"),
+		BTC("BTC"),
 
 		ADA("ADA"),
 

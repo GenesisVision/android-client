@@ -48,6 +48,9 @@ public class ManagerProfile
 	@SerializedName("assets")
 	private List<String> assets = null;
 
+	@SerializedName("url")
+	private String url = null;
+
 	public ManagerProfile id(UUID id) {
 		this.id = id;
 		return this;
@@ -170,6 +173,25 @@ public class ManagerProfile
 		this.assets = assets;
 	}
 
+	public ManagerProfile url(String url) {
+		this.url = url;
+		return this;
+	}
+
+	/**
+	 * Get url
+	 *
+	 * @return url
+	 **/
+	@ApiModelProperty(value = "")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -185,12 +207,13 @@ public class ManagerProfile
 				Objects.equals(this.about, managerProfile.about) &&
 				Objects.equals(this.avatar, managerProfile.avatar) &&
 				Objects.equals(this.regDate, managerProfile.regDate) &&
-				Objects.equals(this.assets, managerProfile.assets);
+				Objects.equals(this.assets, managerProfile.assets) &&
+				Objects.equals(this.url, managerProfile.url);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, username, about, avatar, regDate, assets);
+		return Objects.hash(id, username, about, avatar, regDate, assets, url);
 	}
 
 
@@ -205,6 +228,7 @@ public class ManagerProfile
 		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
 		sb.append("    regDate: ").append(toIndentedString(regDate)).append("\n");
 		sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

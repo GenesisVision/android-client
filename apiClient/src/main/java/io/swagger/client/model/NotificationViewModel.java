@@ -54,6 +54,12 @@ public class NotificationViewModel
 	@SerializedName("logo")
 	private String logo = null;
 
+	@SerializedName("url")
+	private String url = null;
+
+	@SerializedName("isUnread")
+	private Boolean isUnread = null;
+
 	public NotificationViewModel id(UUID id) {
 		this.id = id;
 		return this;
@@ -187,6 +193,44 @@ public class NotificationViewModel
 		this.logo = logo;
 	}
 
+	public NotificationViewModel url(String url) {
+		this.url = url;
+		return this;
+	}
+
+	/**
+	 * Get url
+	 *
+	 * @return url
+	 **/
+	@ApiModelProperty(value = "")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public NotificationViewModel isUnread(Boolean isUnread) {
+		this.isUnread = isUnread;
+		return this;
+	}
+
+	/**
+	 * Get isUnread
+	 *
+	 * @return isUnread
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsUnread() {
+		return isUnread;
+	}
+
+	public void setIsUnread(Boolean isUnread) {
+		this.isUnread = isUnread;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -202,12 +246,14 @@ public class NotificationViewModel
 				Objects.equals(this.type, notificationViewModel.type) &&
 				Objects.equals(this.programId, notificationViewModel.programId) &&
 				Objects.equals(this.managerId, notificationViewModel.managerId) &&
-				Objects.equals(this.logo, notificationViewModel.logo);
+				Objects.equals(this.logo, notificationViewModel.logo) &&
+				Objects.equals(this.url, notificationViewModel.url) &&
+				Objects.equals(this.isUnread, notificationViewModel.isUnread);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, text, date, type, programId, managerId, logo);
+		return Objects.hash(id, text, date, type, programId, managerId, logo, url, isUnread);
 	}
 
 	@Override
@@ -222,6 +268,8 @@ public class NotificationViewModel
 		sb.append("    programId: ").append(toIndentedString(programId)).append("\n");
 		sb.append("    managerId: ").append(toIndentedString(managerId)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
+		sb.append("    isUnread: ").append(toIndentedString(isUnread)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

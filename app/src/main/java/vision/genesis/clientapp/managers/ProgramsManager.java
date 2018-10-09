@@ -13,6 +13,7 @@ import io.swagger.client.model.TradesViewModel;
 import rx.Observable;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.ProgramsFilter;
 
 /**
@@ -40,7 +41,7 @@ public class ProgramsManager
 				filter.getLevelMin(), filter.getLevelMax(), filter.getProfitAvgMin(), filter.getProfitAvgMax(),
 				filter.getSorting().getValue(), filter.getCurrency() != null ? filter.getCurrency().getValue() : null, null,
 				filter.getStatisticDateFrom(), filter.getStatisticDateTo(), 10,
-				filter.getMask(), filter.getFacetId(), filter.getIsFavorite(),
+				filter.getMask(), filter.getFacetId() != null ? filter.getFacetId().toString() : null, filter.getIsFavorite(),
 				filter.getIds(), filter.getSkip(), filter.getTake());
 	}
 
@@ -76,14 +77,11 @@ public class ProgramsManager
 		return investorApi.v10InvestorProgramsByIdInvestInfoByCurrencyGet(programId, baseCurrency.getValue(), AuthManager.token.getValue());
 	}
 
-	//	public Observable<WalletsViewModel> invest(ProgramRequest investRequest) {
-//		Invest model = new Invest();
-//		model.setInvestmentProgramId(investRequest.programId);
-//		model.setAmount(investRequest.amount);
-//		return investorApi.apiInvestorInvestmentProgramsInvestPost(AuthManager.token.getValue(), model);
-//	}
-//
-//	public Observable<Void> withdraw(ProgramRequest withdrawalRequest) {
+	public Observable<Void> invest(ProgramRequest investRequest) {
+		return investorApi.v10InvestorProgramsByIdInvestByAmountPost(investRequest.getProgramId(), investRequest.getAmount(), AuthManager.token.getValue());
+	}
+
+	//	public Observable<Void> withdraw(ProgramRequest withdrawalRequest) {
 //		Invest model = new Invest();
 //		model.setInvestmentProgramId(withdrawalRequest.programId);
 //		model.setAmount(withdrawalRequest.amount);

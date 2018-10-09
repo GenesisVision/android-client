@@ -37,7 +37,7 @@ Manager profile
 
 
 ManagersApi apiInstance = new ManagersApi();
-UUID id = new UUID(); // UUID | 
+String id = "id_example"; // String | 
 try {
     ManagerProfile result = apiInstance.v10ManagersByIdGet(id);
     System.out.println(result);
@@ -51,7 +51,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)|  |
+ **id** | **String**|  |
 
 ### Return type
 

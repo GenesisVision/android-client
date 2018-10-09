@@ -119,38 +119,42 @@ public interface InvestorApi
 	/**
 	 * Summary dashboard info
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param assetId       (optional)
-	 * @param from          (optional)
-	 * @param to            (optional)
-	 * @param type          (optional)
-	 * @param assetType     (optional)
-	 * @param skip          (optional)
-	 * @param take          (optional)
-	 * @param chartCurrency (optional)
-	 * @param chartFrom     (optional)
-	 * @param chartTo       (optional)
-	 * @param requestsSkip  (optional)
-	 * @param requestsTake  (optional)
+	 * @param authorization  JWT access token (required)
+	 * @param assetId        (optional)
+	 * @param from           (optional)
+	 * @param to             (optional)
+	 * @param type           (optional)
+	 * @param assetType      (optional)
+	 * @param skip           (optional)
+	 * @param take           (optional)
+	 * @param chartCurrency  (optional)
+	 * @param from2          (optional)
+	 * @param to2            (optional)
+	 * @param balancePoints  (optional)
+	 * @param programsPoints (optional)
+	 * @param requestsSkip   (optional)
+	 * @param requestsTake   (optional)
 	 * @return Call&lt;DashboardSummary&gt;
 	 */
 	@GET("v1.0/investor")
 	Observable<DashboardSummary> v10InvestorGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("AssetId") UUID assetId, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("Type") String type, @retrofit2.http.Query("AssetType") String assetType, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take, @retrofit2.http.Query("chartCurrency") String chartCurrency, @retrofit2.http.Query("chartFrom") DateTime chartFrom, @retrofit2.http.Query("chartTo") DateTime chartTo, @retrofit2.http.Query("requestsSkip") Integer requestsSkip, @retrofit2.http.Query("requestsTake") Integer requestsTake
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("AssetId") UUID assetId, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("Type") String type, @retrofit2.http.Query("AssetType") String assetType, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take, @retrofit2.http.Query("chartCurrency") String chartCurrency, @retrofit2.http.Query("From") DateTime from2, @retrofit2.http.Query("To") DateTime to2, @retrofit2.http.Query("BalancePoints") Integer balancePoints, @retrofit2.http.Query("ProgramsPoints") Integer programsPoints, @retrofit2.http.Query("requestsSkip") Integer requestsSkip, @retrofit2.http.Query("requestsTake") Integer requestsTake
 	);
 
 	/**
 	 * Portfolio charts
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param currency      (optional)
-	 * @param from          (optional)
-	 * @param to            (optional)
+	 * @param authorization  JWT access token (required)
+	 * @param currency       (optional)
+	 * @param from           (optional)
+	 * @param to             (optional)
+	 * @param balancePoints  (optional)
+	 * @param programsPoints (optional)
 	 * @return Call&lt;DashboardChartValue&gt;
 	 */
 	@GET("v1.0/investor/portfolio/chart")
 	Observable<DashboardChartValue> v10InvestorPortfolioChartGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currency") String currency, @retrofit2.http.Query("from") DateTime from, @retrofit2.http.Query("to") DateTime to
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currency") String currency, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("BalancePoints") Integer balancePoints, @retrofit2.http.Query("ProgramsPoints") Integer programsPoints
 	);
 
 	/**

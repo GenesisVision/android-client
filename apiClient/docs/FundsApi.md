@@ -277,7 +277,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
  **authorization** | **String**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: ETH, GVT, BTC, Undefined, ADA, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
 
 ### Return type
 
@@ -364,7 +364,7 @@ DateTime statisticDateFrom = new DateTime(); // DateTime |
 DateTime statisticDateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
 String mask = "mask_example"; // String | 
-UUID facetId = new UUID(); // UUID | 
+String facetId = "facetId_example"; // String | 
 Boolean isFavorite = true; // Boolean | 
 List<UUID> ids = Arrays.asList(new UUID()); // List<UUID> | 
 Integer skip = 56; // Integer | 
@@ -384,12 +384,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**|  | [optional]
  **sorting** | **String**|  | [optional] [enum: ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByInvestorsAsc, ByInvestorsDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc]
- **currencySecondary** | **String**|  | [optional] [enum: ETH, GVT, BTC, Undefined, ADA, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USD, EUR]
  **statisticDateFrom** | **DateTime**|  | [optional]
  **statisticDateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
  **mask** | **String**|  | [optional]
- **facetId** | [**UUID**](.md)|  | [optional]
+ **facetId** | **String**|  | [optional]
  **isFavorite** | **Boolean**|  | [optional]
  **ids** | [**List&lt;UUID&gt;**](UUID.md)|  | [optional]
  **skip** | **Integer**|  | [optional]

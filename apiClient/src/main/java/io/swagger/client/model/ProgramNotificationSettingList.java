@@ -34,6 +34,9 @@ public class ProgramNotificationSettingList
 	@SerializedName("title")
 	private String title = null;
 
+	@SerializedName("url")
+	private String url = null;
+
 	@SerializedName("logo")
 	private String logo = null;
 
@@ -82,6 +85,25 @@ public class ProgramNotificationSettingList
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public ProgramNotificationSettingList url(String url) {
+		this.url = url;
+		return this;
+	}
+
+	/**
+	 * Get url
+	 *
+	 * @return url
+	 **/
+	@ApiModelProperty(value = "")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public ProgramNotificationSettingList logo(String logo) {
@@ -188,6 +210,7 @@ public class ProgramNotificationSettingList
 		ProgramNotificationSettingList programNotificationSettingList = (ProgramNotificationSettingList) o;
 		return Objects.equals(this.programId, programNotificationSettingList.programId) &&
 				Objects.equals(this.title, programNotificationSettingList.title) &&
+				Objects.equals(this.url, programNotificationSettingList.url) &&
 				Objects.equals(this.logo, programNotificationSettingList.logo) &&
 				Objects.equals(this.level, programNotificationSettingList.level) &&
 				Objects.equals(this.settingsGeneral, programNotificationSettingList.settingsGeneral) &&
@@ -196,7 +219,7 @@ public class ProgramNotificationSettingList
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(programId, title, logo, level, settingsGeneral, settingsCustom);
+		return Objects.hash(programId, title, url, logo, level, settingsGeneral, settingsCustom);
 	}
 
 
@@ -207,6 +230,7 @@ public class ProgramNotificationSettingList
 
 		sb.append("    programId: ").append(toIndentedString(programId)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
 		sb.append("    settingsGeneral: ").append(toIndentedString(settingsGeneral)).append("\n");

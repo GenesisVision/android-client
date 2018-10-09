@@ -7,13 +7,26 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.model.api.ErrorResponse;
+import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.net.ErrorResponseConverter;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -29,6 +42,9 @@ public class ConfirmProgramInvestBottomSheetFragment extends BottomSheetDialogFr
 	{
 		void onInvestSucceeded();
 	}
+
+	@Inject
+	public ProgramsManager programsManager;
 
 	@BindView(R.id.title)
 	public TextView title;
@@ -54,6 +70,12 @@ public class ConfirmProgramInvestBottomSheetFragment extends BottomSheetDialogFr
 	@BindView(R.id.amount_due)
 	public TextView amountDue;
 
+	@BindView(R.id.group_buttons)
+	public ViewGroup buttonsGroup;
+
+	@BindView(R.id.progress_bar)
+	public ProgressBar progressBar;
+
 	@BindView(R.id.button_cancel)
 	public PrimaryButton cancelButton;
 
@@ -61,12 +83,11 @@ public class ConfirmProgramInvestBottomSheetFragment extends BottomSheetDialogFr
 
 	private ProgramRequest programRequest;
 
+	private Subscription investSubscription;
+
 	@OnClick(R.id.button_confirm)
 	public void onConfirmClicked() {
-		if (listener != null) {
-			listener.onInvestSucceeded();
-			this.dismiss();
-		}
+		sendInvestRequest();
 	}
 
 	@OnClick(R.id.button_cancel)
@@ -92,6 +113,8 @@ public class ConfirmProgramInvestBottomSheetFragment extends BottomSheetDialogFr
 
 		ButterKnife.bind(this, contentView);
 
+		GenesisVisionApplication.getComponent().inject(this);
+
 		setFonts();
 
 		programLogo.setLevelBackground(R.attr.colorTextPrimary);
@@ -99,6 +122,14 @@ public class ConfirmProgramInvestBottomSheetFragment extends BottomSheetDialogFr
 		cancelButton.setTextColorByAttrId(R.attr.colorCard);
 
 		updateView();
+	}
+
+	@Override
+	public void onDestroyView() {
+		if (investSubscription != null)
+			investSubscription.unsubscribe();
+
+		super.onDestroyView();
 	}
 
 	@Override
@@ -140,5 +171,49 @@ public class ConfirmProgramInvestBottomSheetFragment extends BottomSheetDialogFr
 			entryFee.setText(programRequest.getEntryFeeText());
 			amountDue.setText(programRequest.getAmountDueText());
 		}
+	}
+
+	private void sendInvestRequest() {
+		if (programRequest != null && programsManager != null) {
+			showProgress(true);
+			investSubscription = programsManager.invest(programRequest)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleInvestSuccess,
+							this::handleInvestError);
+		}
+	}
+
+	private void handleInvestSuccess(Void response) {
+		investSubscription.unsubscribe();
+
+		if (listener != null) {
+			listener.onInvestSucceeded();
+			this.dismiss();
+		}
+	}
+
+	private void handleInvestError(Throwable throwable) {
+		investSubscription.unsubscribe();
+		showProgress(false);
+
+		if (ApiErrorResolver.isNetworkError(throwable)) {
+			showToast(getContext().getResources().getString(R.string.network_error));
+		}
+		else {
+			ErrorResponse response = ErrorResponseConverter.createFromThrowable(throwable);
+			if (response != null && response.errors != null && response.errors.get(0) != null) {
+				showToast(response.errors.get(0).message);
+			}
+		}
+	}
+
+	private void showProgress(boolean show) {
+		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+		buttonsGroup.setVisibility(!show ? View.VISIBLE : View.GONE);
+	}
+
+	private void showToast(String message) {
+		Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
 	}
 }

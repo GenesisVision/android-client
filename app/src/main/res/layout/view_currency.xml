@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
-    android:id="@+id/currency"
-    style="@style/item_investment_program_currency"
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="20dp"
-    android:gravity="center"
-    android:minWidth="38dp"
-    android:text="@string/gvt"
-    android:textAllCaps="true"
-    android:textSize="10sp"
-    tools:text="USD"/>
+    android:layout_width="50dp"
+    android:layout_height="30dp">
+
+    <View
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.1"
+        android:background="@drawable/currency_usd_background"/>
+
+    <TextView
+        android:id="@+id/currency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="@string/gvt"
+        android:textAllCaps="true"
+        android:textColor="@color/colorUsd"
+        android:textSize="12sp"
+        tools:text="USD"/>
+
+</RelativeLayout>

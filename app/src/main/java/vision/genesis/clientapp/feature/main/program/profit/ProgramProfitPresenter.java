@@ -121,7 +121,7 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 
 		this.chartData = response;
 
-		getViewState().setChartData(chartData.getChart().get(0).getEquityChart());
+		getViewState().setChartData(chartData.getEquityChart());
 
 		resetValuesSelection();
 	}
@@ -132,9 +132,9 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 	}
 
 	private void resetValuesSelection() {
-		List<ChartSimple> firstEquityChart = chartData.getChart().get(0).getEquityChart();
+		List<ChartSimple> firstEquityChart = chartData.getEquityChart();
 //		first = firstEquityChart.get(0).getValue();
-		List<ChartSimple> lastEquityChart = chartData.getChart().get(chartData.getChart().size() - 1).getEquityChart();
+//		List<ChartSimple> lastEquityChart = chartData.getChart().get(chartData.getChart().size() - 1).getEquityChart();
 //		selected = lastEquityChart.get(lastEquityChart.size() - 1).getValue();
 //		getViewState().hideHighlight();
 		updateValues();

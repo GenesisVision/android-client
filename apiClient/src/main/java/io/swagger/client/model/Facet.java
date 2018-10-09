@@ -38,6 +38,9 @@ public class Facet
 	@SerializedName("logo")
 	private String logo = null;
 
+	@SerializedName("url")
+	private String url = null;
+
 	@SerializedName("count")
 	private Integer count = null;
 
@@ -117,6 +120,25 @@ public class Facet
 		this.logo = logo;
 	}
 
+	public Facet url(String url) {
+		this.url = url;
+		return this;
+	}
+
+	/**
+	 * Get url
+	 *
+	 * @return url
+	 **/
+	@ApiModelProperty(value = "")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	public Facet count(Integer count) {
 		this.count = count;
 		return this;
@@ -150,12 +172,13 @@ public class Facet
 				Objects.equals(this.title, facet.title) &&
 				Objects.equals(this.description, facet.description) &&
 				Objects.equals(this.logo, facet.logo) &&
+				Objects.equals(this.url, facet.url) &&
 				Objects.equals(this.count, facet.count);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, logo, count);
+		return Objects.hash(id, title, description, logo, url, count);
 	}
 
 
@@ -168,6 +191,7 @@ public class Facet
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    count: ").append(toIndentedString(count)).append("\n");
 		sb.append("}");
 		return sb.toString();

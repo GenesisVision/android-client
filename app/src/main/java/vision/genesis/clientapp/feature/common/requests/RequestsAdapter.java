@@ -60,6 +60,11 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Invest
 		notifyDataSetChanged();
 	}
 
+	public void deleteRequest(int position) {
+		requests.remove(position);
+		notifyItemRemoved(position);
+	}
+
 	static class InvestorProgramViewHolder extends RecyclerView.ViewHolder
 	{
 		@BindView(R.id.swipe_layout)

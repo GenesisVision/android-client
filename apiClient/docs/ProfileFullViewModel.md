@@ -15,10 +15,12 @@ Name | Type | Description | Notes
 **city** | **String** |  |  [optional]
 **address** | **String** |  |  [optional]
 **phone** | **String** |  |  [optional]
+**phoneNumberConfirmed** | **Boolean** |  |  [optional]
 **birthday** | [**DateTime**](DateTime.md) |  |  [optional]
 **gender** | **Boolean** |  |  [optional]
 **avatar** | **String** |  |  [optional]
 **userName** | **String** |  |  [optional]
+**documentsConfirmed** | **Boolean** |  |  [optional]
 
 
 

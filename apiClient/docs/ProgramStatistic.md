@@ -27,10 +27,10 @@ Name | Type | Description | Notes
 ## Enum: StartCurrencyEnum
 Name | Value
 ---- | -----
-ETH | &quot;ETH&quot;
-GVT | &quot;GVT&quot;
-BTC | &quot;BTC&quot;
 UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
@@ -40,10 +40,10 @@ EUR | &quot;EUR&quot;
 ## Enum: InvestedCurrencyEnum
 Name | Value
 ---- | -----
-ETH | &quot;ETH&quot;
-GVT | &quot;GVT&quot;
-BTC | &quot;BTC&quot;
 UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;

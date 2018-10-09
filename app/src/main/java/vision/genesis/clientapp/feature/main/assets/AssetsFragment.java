@@ -1,24 +1,19 @@
 package vision.genesis.clientapp.feature.main.assets;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
-
-import java.lang.reflect.Field;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,8 +64,6 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 	private Fragment currentFragment;
 
 	private Unbinder unbinder;
-
-//	private boolean isTournamentAlreadyAdded = false;
 
 	@OnClick(R.id.searchbar)
 	public void onSearchbarClicked() {
@@ -125,8 +118,6 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 		programsTab = tabLayout.newTab().setCustomView(getProgramsTabView()).setTag("programs");
 		fundsTab = tabLayout.newTab().setCustomView(getFundsTabView()).setTag("funds");
 
-		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
 		tabSelectedListener = new TabLayout.OnTabSelectedListener()
 		{
 			@Override
@@ -161,7 +152,7 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 //		tabLayout.post(this::setTabsIndicator);
 	}
 
-	private void setTabsIndicator() {
+//	private void setTabsIndicator() {
 //		for (int i = 0; i < tabLayout.getTabCount(); i++) {
 //			TabLayout.Tab tab = tabLayout.getTabAt(i);
 //			if (tab != null) {
@@ -175,29 +166,29 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 //				}
 //			}
 //		}
-
-		Class<?> tabLayoutClass = tabLayout.getClass();
-		Field tabStrip = null;
-		try {
-			tabStrip = tabLayoutClass.getDeclaredField("mTabStrip");
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		}
-
-		tabStrip.setAccessible(true);
-		LinearLayout llTab = null;
-		try {
-			llTab = (LinearLayout) tabStrip.get(tabLayout);
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
-
-		int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32, Resources.getSystem().getDisplayMetrics());
-		int right = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, Resources.getSystem().getDisplayMetrics());
-
-		ViewGroup.LayoutParams lp = llTab.getLayoutParams();
-		lp.width = width;
-		llTab.setLayoutParams(lp);
+//
+//		Class<?> tabLayoutClass = tabLayout.getClass();
+//		Field tabStrip = null;
+//		try {
+//			tabStrip = tabLayoutClass.getDeclaredField("mTabStrip");
+//		} catch (NoSuchFieldException e) {
+//			e.printStackTrace();
+//		}
+//
+//		tabStrip.setAccessible(true);
+//		LinearLayout llTab = null;
+//		try {
+//			llTab = (LinearLayout) tabStrip.get(tabLayout);
+//		} catch (IllegalAccessException e) {
+//			e.printStackTrace();
+//		}
+//
+//		int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32, Resources.getSystem().getDisplayMetrics());
+//		int right = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, Resources.getSystem().getDisplayMetrics());
+//
+//		ViewGroup.LayoutParams lp = llTab.getLayoutParams();
+//		lp.width = width;
+//		llTab.setLayoutParams(lp);
 //		for (int i = 0; i < llTab.getChildCount(); i++) {
 //			View child = llTab.getChildAt(i);
 //			child.setPadding(0, 0, 0, 0);
@@ -207,7 +198,7 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 //			child.setLayoutParams(params);
 //			child.invalidate();
 //		}
-	}
+//	}
 
 	private View getFavoritesTabView() {
 		CustomTabView view = new CustomTabView(getContext());

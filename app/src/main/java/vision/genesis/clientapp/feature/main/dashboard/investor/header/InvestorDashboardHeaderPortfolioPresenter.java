@@ -73,8 +73,8 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 
 	private void resetValuesSelection() {
 		selected = chartValue.getValue();
-		if (!chartValue.getChart().isEmpty()) {
-			first = chartValue.getChart().get(0).getValue();
+		if (!chartValue.getBalanceChart().isEmpty()) {
+			first = chartValue.getBalanceChart().get(0).getValue();
 		}
 		else {
 			first = selected;
@@ -105,7 +105,7 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 
 		EventBus.getDefault().post(new OnPortfolioAssetsChangedEvent(index));
 
-		selected = chartValue.getChart().get(index).getValue();
+		selected = chartValue.getBalanceChart().get(index).getValue();
 
 		updateValues();
 	}
