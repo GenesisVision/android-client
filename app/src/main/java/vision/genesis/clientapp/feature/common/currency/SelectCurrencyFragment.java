@@ -6,6 +6,7 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ProgressBar;
 
 import java.util.HashMap;
 
@@ -49,6 +50,9 @@ public class SelectCurrencyFragment extends BottomSheetDialogFragment
 
 	@BindView(R.id.group_options)
 	public ViewGroup optionsGroup;
+
+	@BindView(R.id.progress_bar)
+	public ProgressBar progressBar;
 
 	private OnCurrencyChangedListener listener;
 
@@ -98,7 +102,7 @@ public class SelectCurrencyFragment extends BottomSheetDialogFragment
 		this.listener = listener;
 	}
 
-	public void setData(HashMap<CurrencyEnum, Double> currenciesRatesMap) {
+	private void setData(HashMap<CurrencyEnum, Double> currenciesRatesMap) {
 		for (String currency : RateManager.baseCurrenciesList) {
 			CurrencyEnum currencyEnum = CurrencyEnum.fromValue(currency);
 			optionsGroup.addView(createCurrencyOptionView(currencyEnum, currenciesRatesMap.get(currencyEnum), currency.equals(selectedCurrency)));
@@ -125,12 +129,12 @@ public class SelectCurrencyFragment extends BottomSheetDialogFragment
 
 	private void handleGetRatesSuccess(HashMap<CurrencyEnum, Double> response) {
 		ratesSubscription.unsubscribe();
+		progressBar.setVisibility(View.GONE);
 		setData(response);
 	}
 
 	private void handleGetRatesError(Throwable throwable) {
 		ratesSubscription.unsubscribe();
-
 	}
 
 	private void selectOption(CurrencyOptionView newOption) {

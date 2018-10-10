@@ -40,10 +40,6 @@ public interface MainView extends MvpView
 
 	void showMessageActivity(String message, int imageResourceId, boolean mustRead);
 
-	void showWithdrawWallet();
-
-	void showDepositWallet();
-
 	void showAppUpdateDialog(AppUpdateModel model);
 
 	void showEnableTwoFactor();

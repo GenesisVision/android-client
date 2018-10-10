@@ -14,6 +14,7 @@ import io.swagger.client.api.PlatformApi;
 import io.swagger.client.api.ProfileApi;
 import io.swagger.client.api.ProgramsApi;
 import io.swagger.client.api.RateApi;
+import io.swagger.client.api.WalletApi;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -110,5 +111,11 @@ public class ApiModule
 	@Singleton
 	public RateApi provideRateApi(ApiClient apiClient) {
 		return apiClient.createService(RateApi.class);
+	}
+
+	@Provides
+	@Singleton
+	public WalletApi provideWalletApi(ApiClient apiClient) {
+		return apiClient.createService(WalletApi.class);
 	}
 }

@@ -4,6 +4,9 @@ import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import io.swagger.client.model.WalletSummary;
+import vision.genesis.clientapp.model.CurrencyEnum;
+
 /**
  * GenesisVision
  * Created by Vitaly on 1/19/18.
@@ -11,23 +14,14 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 interface WalletView extends MvpView
 {
-	@StateStrategyType(AddToEndSingleStrategy.class)
-	void setBalance(double balance);
+	void setBaseCurrency(CurrencyEnum baseCurrency);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
-	void setFiatBalance(double balance);
+	void setBalance(WalletSummary data);
 
-//	@StateStrategyType(AddToEndSingleStrategy.class)
-//	void setTransactionsFilterType(TransactionsFilter.TypeEnum type);
+	void showProgress(boolean show);
 
-	@StateStrategyType(AddToEndSingleStrategy.class)
-	void showBalanceProgress();
-
-	@StateStrategyType(AddToEndSingleStrategy.class)
-	void hideBalanceProgress();
+	void setRefreshing(boolean refreshing);
 
 	void showSnackbarMessage(String message);
-
-	@StateStrategyType(AddToEndSingleStrategy.class)
-	void showPage(int position);
 }

@@ -1,24 +1,22 @@
 package vision.genesis.clientapp.feature.main.wallet;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import org.greenrobot.eventbus.EventBus;
-
 import javax.inject.Inject;
 
+import io.swagger.client.model.WalletSummary;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.managers.RateManager;
+import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
+import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
-import vision.genesis.clientapp.model.events.ShowDepositWalletActivityEvent;
-import vision.genesis.clientapp.model.events.ShowWithdrawWalletActivityEvent;
+import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
  * GenesisVision
@@ -26,40 +24,38 @@ import vision.genesis.clientapp.model.events.ShowWithdrawWalletActivityEvent;
  */
 
 @InjectViewState
-public class WalletPresenter extends MvpPresenter<WalletView> implements ViewPager.OnPageChangeListener
+public class WalletPresenter extends MvpPresenter<WalletView> implements SelectCurrencyFragment.OnCurrencyChangedListener
 {
-	private static final String FIAT_CURRENCY = CurrencyEnum.USD.toString();
-
 	@Inject
 	public Context context;
 
 	@Inject
-	public WalletManager walletManager;
+	public SettingsManager settingsManager;
 
 	@Inject
-	public RateManager rateManager;
+	public WalletManager walletManager;
+
+	private Subscription baseCurrencySubscription;
 
 	private Subscription balanceSubscription;
 
-	private Subscription rateSubscription;
-
-	private double gvtBalance = 0;
-
-	private double rate = 0;
+	private CurrencyEnum baseCurrency;
 
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
+
+		subscribeToBaseCurrency();
 	}
 
 	@Override
 	public void onDestroy() {
+		if (baseCurrencySubscription != null)
+			baseCurrencySubscription.unsubscribe();
 		if (balanceSubscription != null)
 			balanceSubscription.unsubscribe();
-		if (rateSubscription != null)
-			rateSubscription.unsubscribe();
 
 		super.onDestroy();
 	}
@@ -68,92 +64,58 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements ViewPag
 		updateBalance();
 	}
 
-	void onBalanceGroupClicked() {
+	void onSwipeRefresh() {
+		getViewState().setRefreshing(true);
 		updateBalance();
 	}
 
-	void onWithdrawButtonClicked() {
-		EventBus.getDefault().post(new ShowWithdrawWalletActivityEvent());
+	private void subscribeToBaseCurrency() {
+		baseCurrencySubscription = settingsManager.getBaseCurrency()
+				.subscribeOn(Schedulers.newThread())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(this::baseCurrencyChangedHandler);
 	}
 
-	void onDepositButtonClicked() {
-		EventBus.getDefault().post(new ShowDepositWalletActivityEvent());
+	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
+		this.baseCurrency = baseCurrency;
+		getViewState().setBaseCurrency(baseCurrency);
+		getViewState().showProgress(true);
+		updateBalance();
 	}
-
-//	void onTransactionsFilterSelected(int position) {
-//		switch (position) {
-//			case 0:
-//				getViewState().setTransactionsFilterType(TransactionsFilter.TypeEnum.ALL);
-//				break;
-//			case 1:
-//				getViewState().setTransactionsFilterType(TransactionsFilter.TypeEnum.INTERNAL);
-//				break;
-//			case 2:
-//				getViewState().setTransactionsFilterType(TransactionsFilter.TypeEnum.EXTERNAL);
-//				break;
-//		}
-//	}
 
 	private void updateBalance() {
-		getViewState().showBalanceProgress();
-		balanceSubscription = walletManager.getBalance()
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleBalanceUpdateResponse,
-						this::handleBalanceUpdateError);
-
-		updateRate();
+		if (baseCurrency != null) {
+			if (balanceSubscription != null)
+				balanceSubscription.unsubscribe();
+			balanceSubscription = walletManager.getWallet(baseCurrency)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleBalanceUpdateResponse,
+							this::handleBalanceUpdateError);
+		}
 	}
 
-	private void handleBalanceUpdateResponse(Double balance) {
+	private void handleBalanceUpdateResponse(WalletSummary response) {
 		balanceSubscription.unsubscribe();
-		gvtBalance = balance;
-		getViewState().setBalance(balance);
-		updateFiatBalance();
+
+		getViewState().showProgress(false);
+		getViewState().setRefreshing(false);
+
+		getViewState().setBalance(response);
 	}
 
-	private void handleBalanceUpdateError(Throwable error) {
+	private void handleBalanceUpdateError(Throwable throwable) {
 		balanceSubscription.unsubscribe();
-		getViewState().hideBalanceProgress();
-	}
 
-	private void updateRate() {
-		rateSubscription = rateManager.getRate(CurrencyEnum.GVT.toString(), FIAT_CURRENCY)
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::getRateSuccessHandler,
-						this::getRateErrorHandler);
-	}
+		getViewState().setRefreshing(false);
 
-	private void getRateSuccessHandler(Double rate) {
-		rateSubscription.unsubscribe();
-		getViewState().hideBalanceProgress();
-
-		this.rate = rate;
-		updateFiatBalance();
-	}
-
-	private void updateFiatBalance() {
-		getViewState().setFiatBalance(rate * gvtBalance);
-	}
-
-	private void getRateErrorHandler(Throwable error) {
-		rateSubscription.unsubscribe();
-		getViewState().hideBalanceProgress();
-	}
-
-	@Override
-	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
 
 	}
 
 	@Override
-	public void onPageSelected(int position) {
-		getViewState().showPage(position);
-	}
-
-	@Override
-	public void onPageScrollStateChanged(int state) {
-
+	public void onCurrencyChanged(CurrencyEnum currency) {
+		settingsManager.saveBaseCurrency(currency);
 	}
 }

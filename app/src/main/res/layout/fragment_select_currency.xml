@@ -17,6 +17,14 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/line_bottomsheet"/>
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"/>
+
         <LinearLayout android:id="@+id/group_options"
                       xmlns:android="http://schemas.android.com/apk/res/android"
                       android:layout_width="match_parent"

@@ -59,8 +59,6 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 	private Subscription dateRangeSubscription;
 
-//	private Subscription getEventsSubscription;
-
 	private Subscription dashboardSubscription;
 
 	private DateRange dateRange;
@@ -91,8 +89,6 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 			baseCurrencySubscription.unsubscribe();
 		if (dateRangeSubscription != null)
 			dateRangeSubscription.unsubscribe();
-//		if (getEventsSubscription != null)
-//			getEventsSubscription.unsubscribe();
 		if (dashboardSubscription != null)
 			dashboardSubscription.unsubscribe();
 
@@ -102,13 +98,12 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	}
 
 	void onResume() {
-//		getEvents();
+		getDashboard();
 	}
 
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
 		getDashboard();
-//		getEvents();
 	}
 
 	private void subscribeToBaseCurrency() {
@@ -204,14 +199,6 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 		getViewState().showProgressBar(false);
 
 		this.requests = response.getRequests().getRequests();
-//		ProgramRequest request = new ProgramRequest();
-//		request.setTitle("Janus Capital Group");
-//		request.setType(ProgramRequest.TypeEnum.INVEST);
-//		request.setValue(-12.76);
-//		request.setDate(DateTime.now());
-//		for (int i = 0; i < 10; i++) {
-//			this.requests.add(request);
-//		}
 
 		getViewState().setHaveNewNotifications(response.getProfileHeader().getNotificationsCount() > 0);
 		getViewState().setChartData(response.getChart());
@@ -225,30 +212,6 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 		dashboardSubscription.unsubscribe();
 		getViewState().setRefreshing(false);
 	}
-
-//	private void getEvents() {
-//		getEventsSubscription = dashboardManager.getPortfolioEvents()
-//				.subscribeOn(Schedulers.io())
-//				.observeOn(AndroidSchedulers.mainThread())
-//				.subscribe(this::handleGetEventsSuccess,
-//						this::handleGetEventsError);
-//	}
-//
-//	private void handleGetEventsSuccess(List<DashboardPortfolioEvent> response) {
-//		List<DashboardPortfolioEvent> events = response.size() > 10 ? response.subList(0, 10) : response;
-//		getViewState().setPortfolioEvents(events);
-//	}
-//
-//	private void handleGetEventsError(Throwable throwable) {
-//		getViewState().setRefreshing(false);
-//		getViewState().showProgressBar(false);
-//
-//		if (ApiErrorResolver.isNetworkError(throwable)) {
-////			if (programs.size() == 0)
-////				getViewState().showNoInternet(true);
-//			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
-//		}
-//	}
 
 	@Override
 	public void onDateRangeChanged(DateRange dateRange) {

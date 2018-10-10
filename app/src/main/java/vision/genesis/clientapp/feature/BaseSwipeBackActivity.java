@@ -2,7 +2,6 @@ package vision.genesis.clientapp.feature;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -19,6 +18,7 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivityHelper;
 import permissions.dispatcher.PermissionRequest;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.utils.ThemeUtil;
 
 /**
  * GenesisVision
@@ -74,7 +74,9 @@ public class BaseSwipeBackActivity extends MvpAppCompatActivity implements Swipe
 
 	protected void showSnackbar(String message, View view) {
 		Snackbar snack = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
-		((TextView) snack.getView().findViewById(android.support.design.R.id.snackbar_text)).setTextColor(Color.WHITE);
+		((TextView) snack.getView().findViewById(android.support.design.R.id.snackbar_text))
+				.setTextColor(ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary));
+		snack.getView().setBackgroundColor(ThemeUtil.getColorByAttrId(this, R.attr.colorCard));
 		snack.show();
 	}
 

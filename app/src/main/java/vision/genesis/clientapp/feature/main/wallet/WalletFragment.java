@@ -3,8 +3,7 @@ package vision.genesis.clientapp.feature.main.wallet;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +12,19 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
-import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.WalletSummary;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPagerAdapter;
+import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
+import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
+import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
-import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -34,14 +34,20 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class WalletFragment extends BaseFragment implements WalletView
 {
+	@BindView(R.id.swipe_refresh)
+	public SwipeRefreshLayout refreshLayout;
+
 	@BindView(R.id.appBarLayout)
 	public AppBarLayout appBarLayout;
 
-	@BindView(R.id.title)
-	public TextView title;
+	@BindView(R.id.withdraw)
+	public TextView withdraw;
 
-	@BindView(R.id.group_balance)
-	public ViewGroup balanceGroup;
+	@BindView(R.id.currency)
+	public TextView currency;
+
+	@BindView(R.id.add_funds)
+	public TextView addFunds;
 
 	@BindView(R.id.label_balance)
 	public TextView balanceLabel;
@@ -49,58 +55,58 @@ public class WalletFragment extends BaseFragment implements WalletView
 	@BindView(R.id.balance)
 	public TextView balance;
 
-	@BindView(R.id.balance_secondary)
-	public TextView balanceSecondary;
+	@BindView(R.id.balance_base)
+	public TextView balanceBase;
 
-	@BindView(R.id.label_available)
-	public TextView availableLabel;
+	@BindView(R.id.available_share)
+	public ProgressBar availableShare;
 
 	@BindView(R.id.available)
 	public TextView available;
 
-	@BindView(R.id.available_secondary)
-	public TextView availableSecondary;
+	@BindView(R.id.available_base)
+	public TextView availableBase;
 
-	@BindView(R.id.label_invested)
-	public TextView investedLabel;
+	@BindView(R.id.invested_share)
+	public ProgressBar investedShare;
 
 	@BindView(R.id.invested)
 	public TextView invested;
 
-	@BindView(R.id.invested_secondary)
-	public TextView investedSecondary;
+	@BindView(R.id.invested_base)
+	public TextView investedBase;
 
-	@BindView(R.id.button_withdraw)
-	public PrimaryButton withdrawButton;
-
-	@BindView(R.id.balance_progress)
-	public ProgressBar balanceProgress;
-
-	@BindView(R.id.view_pager_wallet)
-	public ViewPager viewPager;
+	@BindView(R.id.progress_bar)
+	public ProgressBar progressBar;
 
 	@InjectPresenter
 	WalletPresenter walletPresenter;
 
-	private TransactionsPagerAdapter pagerAdapter;
-
-	private Fragment currentFragment;
-
 	private Unbinder unbinder;
 
-	@OnClick(R.id.group_balance)
-	public void onBalanceGroupClicked() {
-		walletPresenter.onBalanceGroupClicked();
+	private CurrencyEnum baseCurrency;
+
+	@OnClick(R.id.group_currency)
+	public void onCurrencyClicked() {
+		if (getActivity() != null) {
+			SelectCurrencyFragment fragment = SelectCurrencyFragment.with(baseCurrency.getValue());
+			fragment.setListener(walletPresenter);
+			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
+		}
 	}
 
-	@OnClick(R.id.button_withdraw)
+	@OnClick(R.id.withdraw)
 	public void onWithdrawButtonClicked() {
-		walletPresenter.onWithdrawButtonClicked();
+		if (getActivity() != null) {
+			WithdrawWalletActivity.startWith(getActivity());
+		}
 	}
 
-	@OnClick(R.id.button_deposit)
-	public void onDepositButtonClicked() {
-		walletPresenter.onDepositButtonClicked();
+	@OnClick(R.id.add_funds)
+	public void onAddFundsButtonClicked() {
+		if (getActivity() != null) {
+			DepositWalletActivity.startWith(getActivity());
+		}
 	}
 
 	@Nullable
@@ -115,10 +121,10 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 		unbinder = ButterKnife.bind(this, view);
 
-		initViewPager();
 		setFonts();
 
-		withdrawButton.setEmpty();
+		initRefreshLayout();
+		setOffsetListener();
 	}
 
 	@Override
@@ -130,12 +136,6 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 	@Override
 	public void onDestroyView() {
-		if (pagerAdapter != null)
-			pagerAdapter.destroy();
-
-		if (viewPager != null)
-			viewPager.addOnPageChangeListener(walletPresenter);
-
 		if (unbinder != null) {
 			unbinder.unbind();
 			unbinder = null;
@@ -145,57 +145,61 @@ public class WalletFragment extends BaseFragment implements WalletView
 	}
 
 	private void setFonts() {
-		title.setTypeface(TypefaceUtil.bold());
+		withdraw.setTypeface(TypefaceUtil.semibold());
+		addFunds.setTypeface(TypefaceUtil.semibold());
+		currency.setTypeface(TypefaceUtil.semibold());
 
-		balanceLabel.setTypeface(TypefaceUtil.bold());
-		balance.setTypeface(TypefaceUtil.light());
-		balanceSecondary.setTypeface(TypefaceUtil.regular());
+		balanceLabel.setTypeface(TypefaceUtil.semibold());
+		balance.setTypeface(TypefaceUtil.semibold());
 
-		availableLabel.setTypeface(TypefaceUtil.bold());
-		available.setTypeface(TypefaceUtil.light());
-		availableSecondary.setTypeface(TypefaceUtil.regular());
-
-		investedLabel.setTypeface(TypefaceUtil.bold());
-		invested.setTypeface(TypefaceUtil.light());
-		investedSecondary.setTypeface(TypefaceUtil.regular());
+		available.setTypeface(TypefaceUtil.semibold());
+		invested.setTypeface(TypefaceUtil.semibold());
 	}
 
-	private void initViewPager() {
-		pagerAdapter = new TransactionsPagerAdapter(getActivity().getSupportFragmentManager());
-		viewPager.setAdapter(pagerAdapter);
-
-		viewPager.addOnPageChangeListener(walletPresenter);
-		viewPager.setCurrentItem(0);
+	private void initRefreshLayout() {
+		refreshLayout.setColorSchemeColors(
+				ThemeUtil.getColorByAttrId(getContext(), R.attr.colorAccent),
+				ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextPrimary),
+				ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary));
+		refreshLayout.setOnRefreshListener(() -> walletPresenter.onSwipeRefresh());
 	}
 
-	@Override
-	public void setBalance(double balance) {
-		this.balance.setText(String.format(Locale.getDefault(), "%s %s", StringFormatUtil.formatAmount(balance, 2,
-				StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.toString())), getString(R.string.gvt)));
+	private void setOffsetListener() {
+		appBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> refreshLayout.setEnabled(verticalOffset == 0));
 	}
 
 	@Override
-	public void setFiatBalance(double balance) {
-		balanceSecondary.setText(String.format(Locale.getDefault(), "$ %s",
-				StringFormatUtil.formatAmount(balance, 2,
-						StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.USD.toString()))));
-	}
-
-//	@Override
-//	public void setTransactionsFilterType(TransactionsFilter.TypeEnum type) {
-//		pagerAdapter.setTransactionsFilterType(type);
-//	}
-
-	@Override
-	public void showBalanceProgress() {
-		balanceProgress.setVisibility(View.VISIBLE);
-		balanceGroup.setVisibility(View.INVISIBLE);
+	public void setBaseCurrency(CurrencyEnum baseCurrency) {
+		this.baseCurrency = baseCurrency;
+		currency.setText(baseCurrency.getValue());
 	}
 
 	@Override
-	public void hideBalanceProgress() {
-		balanceProgress.setVisibility(View.GONE);
-		balanceGroup.setVisibility(View.VISIBLE);
+	public void setBalance(WalletSummary data) {
+		this.balance.setText(StringFormatUtil.getGvtValueString(data.getTotalBalanceGVT()));
+		this.balanceBase.setText(StringFormatUtil.getBaseValueString(data.getTotalBalanceCurrency(), baseCurrency.getValue()));
+
+		this.available.setText(StringFormatUtil.getGvtValueString(data.getAvailableGVT()));
+		this.availableBase.setText(StringFormatUtil.getBaseValueString(data.getAvailableCurrency(), baseCurrency.getValue()));
+
+		this.invested.setText(StringFormatUtil.getGvtValueString(data.getInvestedGVT()));
+		this.investedBase.setText(StringFormatUtil.getBaseValueString(data.getInvestedCurrency(), baseCurrency.getValue()));
+
+		availableShare.setProgress((int) (data.getAvailableGVT() * 100 / data.getTotalBalanceGVT()));
+		investedShare.setProgress((int) (data.getInvestedGVT() * 100 / data.getTotalBalanceGVT()));
+	}
+
+	@Override
+	public void showProgress(boolean show) {
+		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+		if (!show) {
+			refreshLayout.setVisibility(View.VISIBLE);
+		}
+	}
+
+	@Override
+	public void setRefreshing(boolean refreshing) {
+		refreshLayout.setRefreshing(refreshing);
 	}
 
 	@Override
@@ -203,20 +207,4 @@ public class WalletFragment extends BaseFragment implements WalletView
 		showSnackbar(message, appBarLayout);
 	}
 
-	@Override
-	public void showPage(int position) {
-		if (currentFragment != null && currentFragment instanceof TransactionsPagerAdapter.OnPageVisibilityChanged)
-			((TransactionsPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerHide();
-		currentFragment = pagerAdapter.getItem(position);
-		if (pagerAdapter.getItem(position) instanceof TransactionsPagerAdapter.OnPageVisibilityChanged) {
-			((TransactionsPagerAdapter.OnPageVisibilityChanged) pagerAdapter.getItem(position)).pagerShow();
-		}
-	}
-
-	@Override
-	public void onShow() {
-		walletPresenter.onResume();
-		if (currentFragment != null && currentFragment instanceof TransactionsPagerAdapter.OnPageVisibilityChanged)
-			((TransactionsPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerShow();
-	}
 }

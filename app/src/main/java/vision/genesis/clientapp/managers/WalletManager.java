@@ -3,8 +3,11 @@ package vision.genesis.clientapp.managers;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import io.swagger.client.api.InvestorApi;
+import io.swagger.client.api.WalletApi;
+import io.swagger.client.model.WalletSummary;
+import rx.Observable;
 import rx.subjects.BehaviorSubject;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.events.OnUnauthorizedResponseGetEvent;
 
 /**
@@ -14,16 +17,13 @@ import vision.genesis.clientapp.model.events.OnUnauthorizedResponseGetEvent;
 
 public class WalletManager
 {
-	private InvestorApi investorApi;
-
-//	private ManagerApi managerApi;
+	private WalletApi walletApi;
 
 	private BehaviorSubject<Double> balanceBehaviorSubject = BehaviorSubject.create();
 
 	//	public WalletManager(InvestorApi investorApi, ManagerApi managerApi) {
-	public WalletManager(InvestorApi investorApi) {
-		this.investorApi = investorApi;
-//		this.managerApi = managerApi;
+	public WalletManager(WalletApi walletApi) {
+		this.walletApi = walletApi;
 
 		EventBus.getDefault().register(this);
 	}
@@ -66,6 +66,10 @@ public class WalletManager
 //				? investorApi.apiInvestorWalletAddressGet(AuthManager.token.getValue())
 //				: managerApi.apiManagerWalletAddressGet(AuthManager.token.getValue());
 //	}
+
+	public Observable<WalletSummary> getWallet(CurrencyEnum currency) {
+		return walletApi.v10WalletByCurrencyGet(currency.getValue(), AuthManager.token.getValue());
+	}
 
 	@Subscribe
 	public void onEventMainThread(OnUnauthorizedResponseGetEvent event) {

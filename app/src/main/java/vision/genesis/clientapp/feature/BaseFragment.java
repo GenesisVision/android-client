@@ -2,7 +2,6 @@ package vision.genesis.clientapp.feature;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +13,7 @@ import com.arellomobile.mvp.MvpAppCompatFragment;
 import permissions.dispatcher.PermissionRequest;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
+import vision.genesis.clientapp.utils.ThemeUtil;
 
 /**
  * GenesisVision
@@ -31,7 +31,9 @@ public class BaseFragment extends MvpAppCompatFragment implements BackButtonList
 
 	public void showSnackbar(String message, View view) {
 		Snackbar snack = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
-		((TextView) snack.getView().findViewById(android.support.design.R.id.snackbar_text)).setTextColor(Color.WHITE);
+		((TextView) snack.getView().findViewById(android.support.design.R.id.snackbar_text))
+				.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextPrimary));
+		snack.getView().setBackgroundColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorCard));
 		snack.show();
 	}
 

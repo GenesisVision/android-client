@@ -16,7 +16,6 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.DateRange;
@@ -147,14 +146,13 @@ public class PortfolioEventsPresenter extends MvpPresenter<PortfolioEventsView> 
 		skip += TAKE;
 	}
 
-	private void handleGetEventsError(Throwable error) {
+	private void handleGetEventsError(Throwable throwable) {
 		eventsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 		getViewState().setRefreshing(false);
 
-		if (ApiErrorResolver.isNetworkError(error)) {
-			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
-		}
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
 	}
 
 

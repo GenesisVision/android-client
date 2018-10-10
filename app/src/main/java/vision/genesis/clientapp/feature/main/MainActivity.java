@@ -34,8 +34,6 @@ import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
 import vision.genesis.clientapp.feature.main.message.MessageActivity;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
-import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
-import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
 import vision.genesis.clientapp.feature.pin.check.CheckPinActivity;
 import vision.genesis.clientapp.feature.pin.set.SetPinActivity;
 import vision.genesis.clientapp.feature.two_factor.disable.DisableTfaActivity;
@@ -277,16 +275,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void showMessageActivity(String message, int imageResourceId, boolean mustRead) {
 		MessageActivity.startWith(this, message, imageResourceId, mustRead);
-	}
-
-	@Override
-	public void showWithdrawWallet() {
-		WithdrawWalletActivity.startWith(this);
-	}
-
-	@Override
-	public void showDepositWallet() {
-		DepositWalletActivity.startWith(this);
 	}
 
 	@Override

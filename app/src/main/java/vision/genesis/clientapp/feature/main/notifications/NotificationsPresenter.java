@@ -16,7 +16,6 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.NotificationsManager;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
@@ -122,13 +121,12 @@ public class NotificationsPresenter extends MvpPresenter<NotificationsView>
 		skip += TAKE;
 	}
 
-	private void handleGetNotificationsError(Throwable error) {
+	private void handleGetNotificationsError(Throwable throwable) {
 		notificationsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 		getViewState().setRefreshing(false);
 
-		if (ApiErrorResolver.isNetworkError(error)) {
-			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
-		}
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
 	}
 }

@@ -7,6 +7,7 @@ import dagger.Provides;
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ProgramsApi;
 import io.swagger.client.api.RateApi;
+import io.swagger.client.api.WalletApi;
 import vision.genesis.clientapp.managers.InvestorDashboardManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.RateManager;
@@ -46,8 +47,8 @@ public class AssetsModule
 
 	@Provides
 	@Singleton
-	public WalletManager provideWalletManager(InvestorApi investorApi) {
-		return new WalletManager(investorApi);
+	public WalletManager provideWalletManager(WalletApi walletApi) {
+		return new WalletManager(walletApi);
 	}
 
 	@Provides

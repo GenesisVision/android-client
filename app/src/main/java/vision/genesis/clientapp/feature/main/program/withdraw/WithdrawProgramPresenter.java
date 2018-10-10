@@ -56,7 +56,7 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 	void setWithdrawalRequest(ProgramRequest request) {
 		withdrawalRequest = request;
 //		getViewState().setAvailable(withdrawalRequest.available);
-//		getViewState().setFiatBalance(withdrawalRequest.available * withdrawalRequest.tokenPrice);
+//		getViewState().setBaseBalance(withdrawalRequest.available * withdrawalRequest.tokenPrice);
 	}
 
 	void onBackClicked() {
