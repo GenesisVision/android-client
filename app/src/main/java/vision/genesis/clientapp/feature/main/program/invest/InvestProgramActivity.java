@@ -148,6 +148,11 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	}
 
 	@Override
+	public void setAmountBase(String amountBaseString) {
+		this.baseCurrencyAmount.setText(amountBaseString);
+	}
+
+	@Override
 	public void setEntryFee(String entryFeeText) {
 		this.entryFee.setText(entryFeeText);
 	}

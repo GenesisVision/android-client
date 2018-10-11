@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.portfolio_events.fragment;
+package vision.genesis.clientapp.feature.main.portfolio_events;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;

@@ -2,16 +2,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-    <ScrollView
-        android:id="@+id/scrollview"
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height">
+
+        <ImageView
+            android:id="@+id/button_close"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="10dp"
+            android:src="@drawable/ic_close_black_24dp"
+            android:tint="?attr/colorTextPrimary"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/add_funds"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="18sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/toolbar"
+        android:padding="@dimen/invest_padding">
 
         <LinearLayout
+            android:id="@+id/group_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -19,86 +47,161 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="16dp"
-                android:text="@string/this_is_your_gvt_address"
-                android:textColor="@color/colorFontMedium"
-                android:textSize="16sp"/>
+                android:alpha="0.4"
+                android:text="@string/select_wallet_currency"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"/>
 
             <RelativeLayout
+                android:id="@+id/group_wallet"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/grey200"
-                android:padding="16dp">
+                android:layout_height="@dimen/text_input_height">
 
                 <TextView
-                    android:id="@+id/text_wallet_address"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/wallet"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/button_copy"
-                    android:layout_toStartOf="@+id/button_copy"
-                    android:textColor="@color/colorFontDark"
-                    android:textSize="20sp"
-                    tools:text="0xc62F5E5481847D48d3aB979C304210926F734ad3"/>
+                    android:layout_toLeftOf="@+id/arrow"
+                    android:layout_toStartOf="@+id/arrow"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextPrimary"
+                    android:textSize="18sp"
+                    tools:text="Bitcoin (BTC)"/>
 
-                <RelativeLayout
-                    android:id="@+id/button_copy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                <ImageView
+                    android:id="@+id/arrow"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:background="@drawable/button_primary"
-                    android:padding="8dp">
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center_vertical|end"
+                    android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+                    android:textSize="18sp"
+                    android:tint="?attr/colorTextPrimary"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="@string/copy"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"/>
-
-                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.2"
+                    android:background="?attr/colorTextPrimary"/>
 
             </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:padding="16dp"
-                android:text="@string/for_depositing_just_send"
-                android:textColor="@color/colorFontMedium"
-                android:textSize="16sp"/>
+                android:layout_marginTop="48dp"
+                android:alpha="0.4"
+                android:text="@string/you_will_send"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"/>
 
-            <ImageView
-                android:id="@+id/image_qrcode"
+            <RelativeLayout
+                android:id="@+id/group_amount"
                 android:layout_width="match_parent"
+                android:layout_height="@dimen/text_input_height">
+
+                <EditText
+                    android:id="@+id/edittext_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/gvt"
+                    android:layout_toStartOf="@+id/gvt"
+                    android:background="@android:color/transparent"
+                    android:hint="0"
+                    android:inputType="numberDecimal"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextPrimary"
+                    android:textSize="18sp"
+                    tools:text="10.235"/>
+
+                <TextView
+                    android:id="@+id/gvt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:alpha="0.4"
+                    android:gravity="center_vertical|end"
+                    android:text="@string/gvt"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="18sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.2"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/base_currency_amount"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="16dp"
-                android:scaleType="fitCenter"/>
+                android:layout_marginTop="12dp"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"
+                tools:text="= 0.234901 BTC"/>
 
         </LinearLayout>
 
-    </ScrollView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/button_copy"
+            android:layout_below="@+id/group_top"
+            android:layout_marginBottom="32dp"
+            android:layout_marginTop="32dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/image_qr_code"
+                android:layout_width="@dimen/wallet_add_funds_qr_size"
+                android:layout_height="@dimen/wallet_add_funds_qr_size"
+                android:layout_above="@+id/address"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitCenter"/>
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="14sp"
+                tools:text="114a8egRrbNmJpHJSJoF6qaqbUnCdrcME9"/>
+
+        </RelativeLayout>
+
+        <vision.genesis.clientapp.ui.PrimaryButton
+            android:id="@+id/button_copy"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_alignParentBottom="true"
+            android:text="@string/copy"/>
+
+    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/progress_bar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"/>
-
-    <vision.genesis.clientapp.ui.ToolbarView
-        android:id="@+id/toolbar"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="2dp"
+        android:layout_below="@+id/toolbar"
+        android:indeterminate="true"
+        android:scaleY="4"
+        android:visibility="visible"/>
 
 </RelativeLayout>

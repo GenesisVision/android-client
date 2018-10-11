@@ -91,6 +91,7 @@
     <dimen name="date_range_option_height">38dp</dimen>
     <dimen name="apply_button_height">65dp</dimen>
     <dimen name="currency_option_view_height">50dp</dimen>
+    <dimen name="option_view_height">50dp</dimen>
     <dimen name="portfolio_asset_height">70dp</dimen>
     <dimen name="item_request_height">70dp</dimen>
     <dimen name="item_request_bottomview_width">140dp</dimen>
@@ -103,4 +104,5 @@
     <dimen name="date_range_margin_bottom">16dp</dimen>
     <dimen name="dashboard_padding">20dp</dimen>
     <dimen name="wallet_padding">20dp</dimen>
+    <dimen name="wallet_add_funds_qr_size">200dp</dimen>
 </resources>

@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -14,14 +15,12 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 
-import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.feature.main.portfolio_events.fragment.PortfolioEventsListAdapter;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.PortfolioEvent;
 import vision.genesis.clientapp.ui.DateRangeView;
@@ -52,16 +51,13 @@ public class PortfolioEventsActivity extends BaseSwipeBackActivity implements Po
 	public DateRangeView dateRangeView;
 
 	@BindView(R.id.group_no_events)
-	public View groupNoEvents;
+	public ViewGroup groupNoEvents;
 
 	@BindView(R.id.swipe_refresh)
 	public SwipeRefreshLayout refreshLayout;
 
 	@BindView(R.id.recycler_view)
 	public RecyclerView recyclerView;
-
-	@BindDimen(R.dimen.date_range_margin_bottom)
-	public int dateRangeMarginBottom;
 
 	@InjectPresenter
 	PortfolioEventsPresenter portfolioEventsPresenter;

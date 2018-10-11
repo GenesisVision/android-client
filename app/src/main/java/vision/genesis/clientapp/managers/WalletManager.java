@@ -5,9 +5,12 @@ import org.greenrobot.eventbus.Subscribe;
 
 import io.swagger.client.api.WalletApi;
 import io.swagger.client.model.WalletSummary;
+import io.swagger.client.model.WalletTransactionsViewModel;
+import io.swagger.client.model.WalletsInfo;
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.OnUnauthorizedResponseGetEvent;
 
 /**
@@ -41,7 +44,7 @@ public class WalletManager
 //						this::handleGetProfileShortError);
 	}
 
-//	private void handleGetProfileShortResponse(WalletsViewModel model) {
+	//	private void handleGetProfileShortResponse(WalletsViewModel model) {
 //		balanceBehaviorSubject.onNext(model.getWallets().get(0).getAmount());
 //	}
 //
@@ -55,20 +58,20 @@ public class WalletManager
 //				: managerApi.apiManagerWalletGet(AuthManager.token.getValue());
 //	}
 //
-//	public Observable<WalletTransactionsViewModel> getTransactions(TransactionsFilter filter) {
-//		return Constants.IS_INVESTOR
-//				? investorApi.apiInvestorWalletTransactionsPost(AuthManager.token.getValue(), filter)
-//				: managerApi.apiManagerWalletTransactionsPost(AuthManager.token.getValue(), filter);
-//	}
-//
-//	public Observable<WalletAddressViewModel> getWalletAddress() {
-//		return Constants.IS_INVESTOR
-//				? investorApi.apiInvestorWalletAddressGet(AuthManager.token.getValue())
-//				: managerApi.apiManagerWalletAddressGet(AuthManager.token.getValue());
-//	}
+
+	public Observable<WalletsInfo> getWalletAddress() {
+		return walletApi.v10WalletAddressesGet(AuthManager.token.getValue());
+	}
 
 	public Observable<WalletSummary> getWallet(CurrencyEnum currency) {
 		return walletApi.v10WalletByCurrencyGet(currency.getValue(), AuthManager.token.getValue());
+	}
+
+	public Observable<WalletTransactionsViewModel> getTransactions(DateRange dateRange, Integer skip, Integer take) {
+		return walletApi.v10WalletTransactionsGet(AuthManager.token.getValue(), null,
+				dateRange.getFrom(), dateRange.getTo(),
+				null, null,
+				skip, take);
 	}
 
 	@Subscribe

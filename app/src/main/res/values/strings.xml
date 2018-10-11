@@ -59,8 +59,8 @@
     <string name="whoops">Whoops</string>
     <string name="you_dont_have_transactions">you don\'t have any transactions</string>
 
-    <string name="transaction_type_deposit">Deposit</string>
-    <string name="transaction_type_withdraw">Withdraw</string>
+    <string name="transaction_type_deposit">Depositing</string>
+    <string name="transaction_type_withdraw">Withdrawal</string>
     <string name="transaction_type_open_program">Open program</string>
     <string name="transaction_type_invest_to_program">Invest to program</string>
     <string name="transaction_type_cancel_investment_request">Cancel investment request</string>
@@ -211,6 +211,7 @@
     <string name="history">History</string>
     <string name="no_trades_for_selected_period">No trades for the selected period.</string>
     <string name="no_events_for_selected_period">No events for the selected period.</string>
+    <string name="no_transactions_for_selected_period">No transactions for the selected period.</string>
     <string name="date">Date</string>
     <string name="symbol">Symbol</string>
     <string name="price">Price</string>
@@ -453,5 +454,8 @@
     <string name="max">Max</string>
     <string name="confirm_invest">Confirm Invest</string>
     <string name="show_all">Show all</string>
+    <string name="transactions_history">Transactions history</string>
+    <string name="you_will_send">You will send</string>
+    <string name="select_wallet_currency">Select a wallet currency</string>
 
 </resources>

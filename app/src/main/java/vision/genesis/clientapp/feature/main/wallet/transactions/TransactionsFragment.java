@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.wallet.TransactionsListAdapter;
 import vision.genesis.clientapp.ui.DividerItemDecoration;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -121,7 +122,7 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 		recyclerView.setHasFixedSize(true);
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
-		transactionsListAdapter = new TransactionsListAdapter(programId != null);
+		transactionsListAdapter = new TransactionsListAdapter();
 		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
 				ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider),
 				20, 20);

@@ -15,6 +15,7 @@ import vision.genesis.clientapp.feature.auth.forgot_password.ForgotPasswordPrese
 import vision.genesis.clientapp.feature.auth.login.LoginPresenter;
 import vision.genesis.clientapp.feature.auth.registration.RegistrationPresenter;
 import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
+import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.MainPresenter;
 import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
@@ -27,7 +28,6 @@ import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
 import vision.genesis.clientapp.feature.main.message.MessageActivity;
 import vision.genesis.clientapp.feature.main.notifications.NotificationsPresenter;
 import vision.genesis.clientapp.feature.main.portfolio_events.PortfolioEventsPresenter;
-import vision.genesis.clientapp.feature.main.portfolio_events.fragment.PortfolioEventsListPresenter;
 import vision.genesis.clientapp.feature.main.profile.ImageCropActivity;
 import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
 import vision.genesis.clientapp.feature.main.profile.change_password.ChangePasswordPresenter;
@@ -144,8 +144,6 @@ public interface AppComponent
 
 	void inject(InvestorDashboardHeaderPortfolioPresenter investorDashboardHeaderPortfolioPresenter);
 
-	void inject(PortfolioEventsListPresenter portfolioEventsListPresenter);
-
 	void inject(DashboardProgramsPresenter dashboardProgramsPresenter);
 
 	void inject(SelectCurrencyFragment selectCurrencyFragment);
@@ -161,4 +159,6 @@ public interface AppComponent
 	void inject(ConfirmProgramInvestBottomSheetFragment confirmProgramInvestBottomSheetFragment);
 
 	void inject(PortfolioEventsPresenter PortfolioEventsPresenter);
+
+	void inject(SelectOptionBottomSheetFragment selectOptionBottomSheetFragment);
 }

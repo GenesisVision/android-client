@@ -65,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="8dp"
+                    android:alpha="0.3"
                     android:gravity="center"
                     android:text="@string/no_events_for_selected_period"
                     android:textColor="?attr/colorTextPrimary"

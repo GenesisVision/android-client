@@ -155,7 +155,6 @@ public class PortfolioEventsPresenter extends MvpPresenter<PortfolioEventsView> 
 				message -> getViewState().showSnackbarMessage(message));
 	}
 
-
 	@Override
 	public void onDateRangeChanged(DateRange dateRange) {
 		this.dateRange = dateRange;

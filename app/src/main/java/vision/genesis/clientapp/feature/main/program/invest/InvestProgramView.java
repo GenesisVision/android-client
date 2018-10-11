@@ -15,6 +15,8 @@ interface InvestProgramView extends MvpView
 
 	void setAmount(String amountText);
 
+	void setAmountBase(String amountBaseString);
+
 	void setEntryFee(String entryFeeText);
 
 	void setAmountDue(String amountDueText);

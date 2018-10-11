@@ -1,8 +1,10 @@
 package vision.genesis.clientapp.feature.main.wallet.deposit;
 
-import android.graphics.Bitmap;
-
 import com.arellomobile.mvp.MvpView;
+
+import java.util.ArrayList;
+
+import io.swagger.client.model.WalletInfo;
 
 /**
  * GenesisVision
@@ -11,11 +13,15 @@ import com.arellomobile.mvp.MvpView;
 
 interface DepositWalletView extends MvpView
 {
-	void setWalletAddress(String address);
+	void setWalletsOptions(ArrayList<String> walletsOptions);
 
-	void setWalletQrCode(Bitmap image);
+	void setWalletInfo(WalletInfo wallet, String walletName, Integer position);
+
+	void setAmountBase(String amountBaseString);
 
 	void showProgress(boolean show);
+
+	void showSnackbarMessage(String message);
 
 	void finishActivity();
 }

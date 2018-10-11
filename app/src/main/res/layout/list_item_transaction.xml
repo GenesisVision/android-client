@@ -1,94 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/item_transaction_height"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/wallet_padding"
+                android:layout_marginStart="@dimen/wallet_padding"
+                android:paddingTop="@dimen/wallet_padding">
 
     <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/icon"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:id="@+id/action"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        fresco:placeholderImage="@drawable/logo"/>
+        app:roundAsCircle="true"/>
 
     <LinearLayout
-        android:id="@+id/group_type"
-        android:layout_width="wrap_content"
+        android:id="@+id/group_right"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_toEndOf="@+id/icon"
-        android:layout_toLeftOf="@+id/group_amount"
-        android:layout_toRightOf="@+id/icon"
-        android:layout_toStartOf="@+id/group_amount"
-        android:orientation="vertical">
+        android:layout_toEndOf="@+id/action"
+        android:layout_toLeftOf="@+id/value"
+        android:layout_toRightOf="@+id/action"
+        android:layout_toStartOf="@+id/value"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/program_details_padding"
+        android:paddingRight="@dimen/program_details_padding">
 
         <TextView
-            android:id="@+id/type"
-            android:layout_width="wrap_content"
+            android:id="@+id/text"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorMedium"
-            android:textSize="18sp"
-            tools:text="Withdraw from program"/>
+            android:ellipsize="end"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="16sp"
+            tools:text="Depositing"/>
 
         <TextView
-            android:id="@+id/program_name"
+            android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp"
-            android:textColor="@color/colorFontDark"
-            android:textSize="18sp"
-            tools:text="Super program"/>
-
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/grey400"
-            android:textSize="12sp"
-            tools:text="01/02/2018 18:46"/>
+            android:alpha="0.3"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="14sp"
+            tools:text="10:30am"/>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/group_amount"
+    <TextView
+        android:id="@+id/value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:orientation="vertical">
+        android:lines="1"
+        android:paddingLeft="@dimen/wallet_padding"
+        android:paddingRight="@dimen/wallet_padding"
+        android:textColor="?attr/colorTextPrimary"
+        android:textSize="16sp"
+        tools:text="42.1294 GVT"/>
 
-        <TextView
-            android:id="@+id/amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:textColor="@color/transactionGreen"
-            android:textSize="20sp"
-            tools:text="+1240.272235"/>
-
-        <TextView
-            android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:textColor="@color/colorFontDark"
-            android:textSize="16sp"
-            tools:text="pending"/>
-
-
-    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignLeft="@+id/group_right"
+        android:layout_alignStart="@+id/group_right"
+        android:layout_below="@+id/group_right"
+        android:layout_marginLeft="@dimen/program_details_padding"
+        android:layout_marginStart="@dimen/program_details_padding"
+        android:layout_marginTop="16dp"
+        android:alpha="0.5"
+        android:background="?attr/colorDelimiterLight"/>
 
 </RelativeLayout>
