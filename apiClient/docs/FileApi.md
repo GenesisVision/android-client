@@ -54,7 +54,7 @@ No authorization required
 
 <a name="v10FileDocumentUploadPost"></a>
 # **v10FileDocumentUploadPost**
-> UploadResult v10FileDocumentUploadPost(contentType, contentDisposition, headers, length, name, fileName)
+> UploadResult v10FileDocumentUploadPost(authorization, uploadedFile)
 
 Upload document
 
@@ -66,14 +66,10 @@ Upload document
 
 
 FileApi apiInstance = new FileApi();
-String contentType = "contentType_example"; // String | 
-String contentDisposition = "contentDisposition_example"; // String | 
-Map<String, String> headers = new HashMap(); // Map<String, String> | 
-Long length = 789L; // Long | 
-String name = "name_example"; // String | 
-String fileName = "fileName_example"; // String | 
+String authorization = "authorization_example"; // String | JWT access token
+File uploadedFile = new File("/path/to/file.txt"); // File | Upload File
 try {
-    UploadResult result = apiInstance.v10FileDocumentUploadPost(contentType, contentDisposition, headers, length, name, fileName);
+    UploadResult result = apiInstance.v10FileDocumentUploadPost(authorization, uploadedFile);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FileApi#v10FileDocumentUploadPost");
@@ -85,12 +81,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **contentType** | **String**|  | [optional]
- **contentDisposition** | **String**|  | [optional]
- **headers** | [**Map&lt;String, String&gt;**](String.md)|  | [optional]
- **length** | **Long**|  | [optional]
- **name** | **String**|  | [optional]
- **fileName** | **String**|  | [optional]
+ **authorization** | **String**| JWT access token |
+ **uploadedFile** | **File**| Upload File |
 
 ### Return type
 
@@ -102,7 +94,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: multipart/form-data
  - **Accept**: text/plain, application/json, text/json
 
 <a name="v10FileUploadPost"></a>

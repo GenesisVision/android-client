@@ -33,8 +33,11 @@ public class PlatformInfo
 	@SerializedName("androidVersion")
 	private AndroidAppVersion androidVersion = null;
 
-	@SerializedName("facets")
-	private List<Facet> facets = null;
+	@SerializedName("programsFacets")
+	private List<Facet> programsFacets = null;
+
+	@SerializedName("fundsFacets")
+	private List<Facet> fundsFacets = null;
 
 	public PlatformInfo iOSVersion(IOsAppVersion iOSVersion) {
 		this.iOSVersion = iOSVersion;
@@ -74,31 +77,58 @@ public class PlatformInfo
 		this.androidVersion = androidVersion;
 	}
 
-	public PlatformInfo facets(List<Facet> facets) {
-		this.facets = facets;
+	public PlatformInfo programsFacets(List<Facet> programsFacets) {
+		this.programsFacets = programsFacets;
 		return this;
 	}
 
-	public PlatformInfo addFacetsItem(Facet facetsItem) {
-		if (this.facets == null) {
-			this.facets = new ArrayList<Facet>();
+	public PlatformInfo addProgramsFacetsItem(Facet programsFacetsItem) {
+		if (this.programsFacets == null) {
+			this.programsFacets = new ArrayList<Facet>();
 		}
-		this.facets.add(facetsItem);
+		this.programsFacets.add(programsFacetsItem);
 		return this;
 	}
 
 	/**
-	 * Get facets
+	 * Get programsFacets
 	 *
-	 * @return facets
+	 * @return programsFacets
 	 **/
 	@ApiModelProperty(value = "")
-	public List<Facet> getFacets() {
-		return facets;
+	public List<Facet> getProgramsFacets() {
+		return programsFacets;
 	}
 
-	public void setFacets(List<Facet> facets) {
-		this.facets = facets;
+	public void setProgramsFacets(List<Facet> programsFacets) {
+		this.programsFacets = programsFacets;
+	}
+
+	public PlatformInfo fundsFacets(List<Facet> fundsFacets) {
+		this.fundsFacets = fundsFacets;
+		return this;
+	}
+
+	public PlatformInfo addFundsFacetsItem(Facet fundsFacetsItem) {
+		if (this.fundsFacets == null) {
+			this.fundsFacets = new ArrayList<Facet>();
+		}
+		this.fundsFacets.add(fundsFacetsItem);
+		return this;
+	}
+
+	/**
+	 * Get fundsFacets
+	 *
+	 * @return fundsFacets
+	 **/
+	@ApiModelProperty(value = "")
+	public List<Facet> getFundsFacets() {
+		return fundsFacets;
+	}
+
+	public void setFundsFacets(List<Facet> fundsFacets) {
+		this.fundsFacets = fundsFacets;
 	}
 
 
@@ -113,12 +143,13 @@ public class PlatformInfo
 		PlatformInfo platformInfo = (PlatformInfo) o;
 		return Objects.equals(this.iOSVersion, platformInfo.iOSVersion) &&
 				Objects.equals(this.androidVersion, platformInfo.androidVersion) &&
-				Objects.equals(this.facets, platformInfo.facets);
+				Objects.equals(this.programsFacets, platformInfo.programsFacets) &&
+				Objects.equals(this.fundsFacets, platformInfo.fundsFacets);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(iOSVersion, androidVersion, facets);
+		return Objects.hash(iOSVersion, androidVersion, programsFacets, fundsFacets);
 	}
 
 
@@ -129,7 +160,8 @@ public class PlatformInfo
 
 		sb.append("    iOSVersion: ").append(toIndentedString(iOSVersion)).append("\n");
 		sb.append("    androidVersion: ").append(toIndentedString(androidVersion)).append("\n");
-		sb.append("    facets: ").append(toIndentedString(facets)).append("\n");
+		sb.append("    programsFacets: ").append(toIndentedString(programsFacets)).append("\n");
+		sb.append("    fundsFacets: ").append(toIndentedString(fundsFacets)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

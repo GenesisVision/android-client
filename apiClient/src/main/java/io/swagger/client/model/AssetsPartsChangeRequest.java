@@ -28,16 +28,16 @@ import io.swagger.annotations.ApiModelProperty;
 public class AssetsPartsChangeRequest
 {
 	@SerializedName("assetsParts")
-	private List<OefAssetPart> assetsParts = null;
+	private List<FundAssetPart> assetsParts = null;
 
-	public AssetsPartsChangeRequest assetsParts(List<OefAssetPart> assetsParts) {
+	public AssetsPartsChangeRequest assetsParts(List<FundAssetPart> assetsParts) {
 		this.assetsParts = assetsParts;
 		return this;
 	}
 
-	public AssetsPartsChangeRequest addAssetsPartsItem(OefAssetPart assetsPartsItem) {
+	public AssetsPartsChangeRequest addAssetsPartsItem(FundAssetPart assetsPartsItem) {
 		if (this.assetsParts == null) {
-			this.assetsParts = new ArrayList<OefAssetPart>();
+			this.assetsParts = new ArrayList<FundAssetPart>();
 		}
 		this.assetsParts.add(assetsPartsItem);
 		return this;
@@ -49,11 +49,11 @@ public class AssetsPartsChangeRequest
 	 * @return assetsParts
 	 **/
 	@ApiModelProperty(value = "")
-	public List<OefAssetPart> getAssetsParts() {
+	public List<FundAssetPart> getAssetsParts() {
 		return assetsParts;
 	}
 
-	public void setAssetsParts(List<OefAssetPart> assetsParts) {
+	public void setAssetsParts(List<FundAssetPart> assetsParts) {
 		this.assetsParts = assetsParts;
 	}
 

@@ -46,6 +46,9 @@ public class NewProgramRequest
 	@SerializedName("leverage")
 	private Integer leverage = null;
 
+	@SerializedName("brokerAccountTypeId")
+	private UUID brokerAccountTypeId = null;
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -54,9 +57,6 @@ public class NewProgramRequest
 
 	@SerializedName("logo")
 	private String logo = null;
-
-	@SerializedName("brokerAccountTypeId")
-	private UUID brokerAccountTypeId = null;
 
 	@SerializedName("entryFee")
 	private Double entryFee = null;
@@ -156,6 +156,25 @@ public class NewProgramRequest
 		this.leverage = leverage;
 	}
 
+	public NewProgramRequest brokerAccountTypeId(UUID brokerAccountTypeId) {
+		this.brokerAccountTypeId = brokerAccountTypeId;
+		return this;
+	}
+
+	/**
+	 * Get brokerAccountTypeId
+	 *
+	 * @return brokerAccountTypeId
+	 **/
+	@ApiModelProperty(value = "")
+	public UUID getBrokerAccountTypeId() {
+		return brokerAccountTypeId;
+	}
+
+	public void setBrokerAccountTypeId(UUID brokerAccountTypeId) {
+		this.brokerAccountTypeId = brokerAccountTypeId;
+	}
+
 	public NewProgramRequest title(String title) {
 		this.title = title;
 		return this;
@@ -213,25 +232,6 @@ public class NewProgramRequest
 		this.logo = logo;
 	}
 
-	public NewProgramRequest brokerAccountTypeId(UUID brokerAccountTypeId) {
-		this.brokerAccountTypeId = brokerAccountTypeId;
-		return this;
-	}
-
-	/**
-	 * Get brokerAccountTypeId
-	 *
-	 * @return brokerAccountTypeId
-	 **/
-	@ApiModelProperty(value = "")
-	public UUID getBrokerAccountTypeId() {
-		return brokerAccountTypeId;
-	}
-
-	public void setBrokerAccountTypeId(UUID brokerAccountTypeId) {
-		this.brokerAccountTypeId = brokerAccountTypeId;
-	}
-
 	public NewProgramRequest entryFee(Double entryFee) {
 		this.entryFee = entryFee;
 		return this;
@@ -265,16 +265,16 @@ public class NewProgramRequest
 				Objects.equals(this.successFee, newProgramRequest.successFee) &&
 				Objects.equals(this.stopOutLevel, newProgramRequest.stopOutLevel) &&
 				Objects.equals(this.leverage, newProgramRequest.leverage) &&
+				Objects.equals(this.brokerAccountTypeId, newProgramRequest.brokerAccountTypeId) &&
 				Objects.equals(this.title, newProgramRequest.title) &&
 				Objects.equals(this.description, newProgramRequest.description) &&
 				Objects.equals(this.logo, newProgramRequest.logo) &&
-				Objects.equals(this.brokerAccountTypeId, newProgramRequest.brokerAccountTypeId) &&
 				Objects.equals(this.entryFee, newProgramRequest.entryFee);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, periodLength, successFee, stopOutLevel, leverage, title, description, logo, brokerAccountTypeId, entryFee);
+		return Objects.hash(currency, periodLength, successFee, stopOutLevel, leverage, brokerAccountTypeId, title, description, logo, entryFee);
 	}
 
 	@Override
@@ -287,10 +287,10 @@ public class NewProgramRequest
 		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
 		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
+		sb.append("    brokerAccountTypeId: ").append(toIndentedString(brokerAccountTypeId)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
-		sb.append("    brokerAccountTypeId: ").append(toIndentedString(brokerAccountTypeId)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
 		sb.append("}");
 		return sb.toString();

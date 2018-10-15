@@ -9,8 +9,6 @@ Name | Type | Description | Notes
 **firstName** | **String** |  |  [optional]
 **middleName** | **String** |  |  [optional]
 **lastName** | **String** |  |  [optional]
-**documentType** | **String** |  |  [optional]
-**documentNumber** | **String** |  |  [optional]
 **country** | **String** |  |  [optional]
 **city** | **String** |  |  [optional]
 **address** | **String** |  |  [optional]
@@ -19,8 +17,21 @@ Name | Type | Description | Notes
 **birthday** | [**DateTime**](DateTime.md) |  |  [optional]
 **gender** | **Boolean** |  |  [optional]
 **avatar** | **String** |  |  [optional]
+**about** | **String** |  |  [optional]
 **userName** | **String** |  |  [optional]
-**documentsConfirmed** | **Boolean** |  |  [optional]
+**index** | **String** |  |  [optional]
+**citizenship** | **String** |  |  [optional]
+**verificationStatus** | [**VerificationStatusEnum**](#VerificationStatusEnum) |  |  [optional]
+
+
+<a name="VerificationStatusEnum"></a>
+## Enum: VerificationStatusEnum
+Name | Value
+---- | -----
+NOTVERIFIED | &quot;NotVerified&quot;
+VERIFIED | &quot;Verified&quot;
+UNDERREVIEW | &quot;UnderReview&quot;
+REJECTED | &quot;Rejected&quot;
 
 
 

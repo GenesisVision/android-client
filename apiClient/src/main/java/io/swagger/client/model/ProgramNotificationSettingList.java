@@ -28,6 +28,12 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ProgramNotificationSettingList
 {
+	@SerializedName("level")
+	private Integer level = null;
+
+	@SerializedName("settingsCustom")
+	private List<NotificationSettingViewModel> settingsCustom = null;
+
 	@SerializedName("programId")
 	private UUID programId = null;
 
@@ -40,14 +46,54 @@ public class ProgramNotificationSettingList
 	@SerializedName("logo")
 	private String logo = null;
 
-	@SerializedName("level")
-	private Integer level = null;
-
 	@SerializedName("settingsGeneral")
 	private List<NotificationSettingViewModel> settingsGeneral = null;
 
-	@SerializedName("settingsCustom")
-	private List<NotificationSettingViewModel> settingsCustom = null;
+	public ProgramNotificationSettingList level(Integer level) {
+		this.level = level;
+		return this;
+	}
+
+	/**
+	 * Get level
+	 *
+	 * @return level
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+
+	public ProgramNotificationSettingList settingsCustom(List<NotificationSettingViewModel> settingsCustom) {
+		this.settingsCustom = settingsCustom;
+		return this;
+	}
+
+	public ProgramNotificationSettingList addSettingsCustomItem(NotificationSettingViewModel settingsCustomItem) {
+		if (this.settingsCustom == null) {
+			this.settingsCustom = new ArrayList<NotificationSettingViewModel>();
+		}
+		this.settingsCustom.add(settingsCustomItem);
+		return this;
+	}
+
+	/**
+	 * Get settingsCustom
+	 *
+	 * @return settingsCustom
+	 **/
+	@ApiModelProperty(value = "")
+	public List<NotificationSettingViewModel> getSettingsCustom() {
+		return settingsCustom;
+	}
+
+	public void setSettingsCustom(List<NotificationSettingViewModel> settingsCustom) {
+		this.settingsCustom = settingsCustom;
+	}
 
 	public ProgramNotificationSettingList programId(UUID programId) {
 		this.programId = programId;
@@ -125,25 +171,6 @@ public class ProgramNotificationSettingList
 		this.logo = logo;
 	}
 
-	public ProgramNotificationSettingList level(Integer level) {
-		this.level = level;
-		return this;
-	}
-
-	/**
-	 * Get level
-	 *
-	 * @return level
-	 **/
-	@ApiModelProperty(value = "")
-	public Integer getLevel() {
-		return level;
-	}
-
-	public void setLevel(Integer level) {
-		this.level = level;
-	}
-
 	public ProgramNotificationSettingList settingsGeneral(List<NotificationSettingViewModel> settingsGeneral) {
 		this.settingsGeneral = settingsGeneral;
 		return this;
@@ -171,33 +198,6 @@ public class ProgramNotificationSettingList
 		this.settingsGeneral = settingsGeneral;
 	}
 
-	public ProgramNotificationSettingList settingsCustom(List<NotificationSettingViewModel> settingsCustom) {
-		this.settingsCustom = settingsCustom;
-		return this;
-	}
-
-	public ProgramNotificationSettingList addSettingsCustomItem(NotificationSettingViewModel settingsCustomItem) {
-		if (this.settingsCustom == null) {
-			this.settingsCustom = new ArrayList<NotificationSettingViewModel>();
-		}
-		this.settingsCustom.add(settingsCustomItem);
-		return this;
-	}
-
-	/**
-	 * Get settingsCustom
-	 *
-	 * @return settingsCustom
-	 **/
-	@ApiModelProperty(value = "")
-	public List<NotificationSettingViewModel> getSettingsCustom() {
-		return settingsCustom;
-	}
-
-	public void setSettingsCustom(List<NotificationSettingViewModel> settingsCustom) {
-		this.settingsCustom = settingsCustom;
-	}
-
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -208,18 +208,18 @@ public class ProgramNotificationSettingList
 			return false;
 		}
 		ProgramNotificationSettingList programNotificationSettingList = (ProgramNotificationSettingList) o;
-		return Objects.equals(this.programId, programNotificationSettingList.programId) &&
+		return Objects.equals(this.level, programNotificationSettingList.level) &&
+				Objects.equals(this.settingsCustom, programNotificationSettingList.settingsCustom) &&
+				Objects.equals(this.programId, programNotificationSettingList.programId) &&
 				Objects.equals(this.title, programNotificationSettingList.title) &&
 				Objects.equals(this.url, programNotificationSettingList.url) &&
 				Objects.equals(this.logo, programNotificationSettingList.logo) &&
-				Objects.equals(this.level, programNotificationSettingList.level) &&
-				Objects.equals(this.settingsGeneral, programNotificationSettingList.settingsGeneral) &&
-				Objects.equals(this.settingsCustom, programNotificationSettingList.settingsCustom);
+				Objects.equals(this.settingsGeneral, programNotificationSettingList.settingsGeneral);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(programId, title, url, logo, level, settingsGeneral, settingsCustom);
+		return Objects.hash(level, settingsCustom, programId, title, url, logo, settingsGeneral);
 	}
 
 
@@ -228,13 +228,13 @@ public class ProgramNotificationSettingList
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ProgramNotificationSettingList {\n");
 
+		sb.append("    level: ").append(toIndentedString(level)).append("\n");
+		sb.append("    settingsCustom: ").append(toIndentedString(settingsCustom)).append("\n");
 		sb.append("    programId: ").append(toIndentedString(programId)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
-		sb.append("    level: ").append(toIndentedString(level)).append("\n");
 		sb.append("    settingsGeneral: ").append(toIndentedString(settingsGeneral)).append("\n");
-		sb.append("    settingsCustom: ").append(toIndentedString(settingsCustom)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

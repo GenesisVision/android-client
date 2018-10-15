@@ -18,7 +18,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -35,7 +34,7 @@ public class NewFundRequest
 	private Double managementFee = null;
 
 	@SerializedName("assetsParts")
-	private List<OefAssetPart> assetsParts = null;
+	private List<FundAssetPart> assetsParts = null;
 
 	@SerializedName("title")
 	private String title = null;
@@ -45,9 +44,6 @@ public class NewFundRequest
 
 	@SerializedName("logo")
 	private String logo = null;
-
-	@SerializedName("brokerAccountTypeId")
-	private UUID brokerAccountTypeId = null;
 
 	@SerializedName("entryFee")
 	private Double entryFee = null;
@@ -90,14 +86,14 @@ public class NewFundRequest
 		this.managementFee = managementFee;
 	}
 
-	public NewFundRequest assetsParts(List<OefAssetPart> assetsParts) {
+	public NewFundRequest assetsParts(List<FundAssetPart> assetsParts) {
 		this.assetsParts = assetsParts;
 		return this;
 	}
 
-	public NewFundRequest addAssetsPartsItem(OefAssetPart assetsPartsItem) {
+	public NewFundRequest addAssetsPartsItem(FundAssetPart assetsPartsItem) {
 		if (this.assetsParts == null) {
-			this.assetsParts = new ArrayList<OefAssetPart>();
+			this.assetsParts = new ArrayList<FundAssetPart>();
 		}
 		this.assetsParts.add(assetsPartsItem);
 		return this;
@@ -109,11 +105,11 @@ public class NewFundRequest
 	 * @return assetsParts
 	 **/
 	@ApiModelProperty(value = "")
-	public List<OefAssetPart> getAssetsParts() {
+	public List<FundAssetPart> getAssetsParts() {
 		return assetsParts;
 	}
 
-	public void setAssetsParts(List<OefAssetPart> assetsParts) {
+	public void setAssetsParts(List<FundAssetPart> assetsParts) {
 		this.assetsParts = assetsParts;
 	}
 
@@ -174,25 +170,6 @@ public class NewFundRequest
 		this.logo = logo;
 	}
 
-	public NewFundRequest brokerAccountTypeId(UUID brokerAccountTypeId) {
-		this.brokerAccountTypeId = brokerAccountTypeId;
-		return this;
-	}
-
-	/**
-	 * Get brokerAccountTypeId
-	 *
-	 * @return brokerAccountTypeId
-	 **/
-	@ApiModelProperty(value = "")
-	public UUID getBrokerAccountTypeId() {
-		return brokerAccountTypeId;
-	}
-
-	public void setBrokerAccountTypeId(UUID brokerAccountTypeId) {
-		this.brokerAccountTypeId = brokerAccountTypeId;
-	}
-
 	public NewFundRequest entryFee(Double entryFee) {
 		this.entryFee = entryFee;
 		return this;
@@ -228,13 +205,12 @@ public class NewFundRequest
 				Objects.equals(this.title, newFundRequest.title) &&
 				Objects.equals(this.description, newFundRequest.description) &&
 				Objects.equals(this.logo, newFundRequest.logo) &&
-				Objects.equals(this.brokerAccountTypeId, newFundRequest.brokerAccountTypeId) &&
 				Objects.equals(this.entryFee, newFundRequest.entryFee);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(exitFee, managementFee, assetsParts, title, description, logo, brokerAccountTypeId, entryFee);
+		return Objects.hash(exitFee, managementFee, assetsParts, title, description, logo, entryFee);
 	}
 
 
@@ -249,7 +225,6 @@ public class NewFundRequest
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
-		sb.append("    brokerAccountTypeId: ").append(toIndentedString(brokerAccountTypeId)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
 		sb.append("}");
 		return sb.toString();

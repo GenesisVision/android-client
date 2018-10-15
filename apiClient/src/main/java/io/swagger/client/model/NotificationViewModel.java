@@ -313,6 +313,12 @@ public class NotificationViewModel
 
 		PROGRAMCONDITION("ProgramCondition"),
 
+		FUNDNEWSANDUPDATES("FundNewsAndUpdates"),
+
+		FUNDENDOFPERIOD("FundEndOfPeriod"),
+
+		FUNDREBALANCING("FundRebalancing"),
+
 		MANAGERNEWPROGRAM("ManagerNewProgram");
 
 		public static TypeEnum fromValue(String text) {

@@ -10,6 +10,7 @@ import io.swagger.client.model.FundDetailsFull;
 import io.swagger.client.model.FundProfitChart;
 import io.swagger.client.model.FundsList;
 import io.swagger.client.model.PlatformAssets;
+import io.swagger.client.model.ProgramSets;
 import io.swagger.client.model.RebalancesViewModel;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -90,7 +91,7 @@ public interface FundsApi
 	 */
 	@GET("v1.0/funds/{id}")
 	Observable<FundDetailsFull> v10FundsByIdGet(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currencySecondary") String currencySecondary
+			@retrofit2.http.Path("id") String id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currencySecondary") String currencySecondary
 	);
 
 	/**
@@ -121,13 +122,26 @@ public interface FundsApi
 	 * @param facetId           (optional)
 	 * @param isFavorite        (optional)
 	 * @param ids               (optional)
+	 * @param managerId         (optional)
+	 * @param programManagerId  (optional)
 	 * @param skip              (optional)
 	 * @param take              (optional)
 	 * @return Call&lt;FundsList&gt;
 	 */
 	@GET("v1.0/funds")
 	Observable<FundsList> v10FundsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("StatisticDateFrom") DateTime statisticDateFrom, @retrofit2.http.Query("StatisticDateTo") DateTime statisticDateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("IsFavorite") Boolean isFavorite, @retrofit2.http.Query("Ids") List<UUID> ids, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("StatisticDateFrom") DateTime statisticDateFrom, @retrofit2.http.Query("StatisticDateTo") DateTime statisticDateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("IsFavorite") Boolean isFavorite, @retrofit2.http.Query("Ids") List<UUID> ids, @retrofit2.http.Query("ManagerId") String managerId, @retrofit2.http.Query("ProgramManagerId") UUID programManagerId, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Fund sets
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;ProgramSets&gt;
+	 */
+	@GET("v1.0/funds/sets")
+	Observable<ProgramSets> v10FundsSetsGet(
+			@retrofit2.http.Header("Authorization") String authorization
 	);
 
 }

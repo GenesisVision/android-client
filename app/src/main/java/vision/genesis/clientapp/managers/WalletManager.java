@@ -4,13 +4,16 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import io.swagger.client.api.WalletApi;
+import io.swagger.client.model.CreateWithdrawalRequestModel;
 import io.swagger.client.model.WalletSummary;
 import io.swagger.client.model.WalletTransactionsViewModel;
 import io.swagger.client.model.WalletsInfo;
+import io.swagger.client.model.WithdrawalSummary;
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.WithdrawalRequest;
 import vision.genesis.clientapp.model.events.OnUnauthorizedResponseGetEvent;
 
 /**
@@ -61,6 +64,18 @@ public class WalletManager
 
 	public Observable<WalletsInfo> getWalletAddress() {
 		return walletApi.v10WalletAddressesGet(AuthManager.token.getValue());
+	}
+
+	public Observable<WithdrawalSummary> getWalletWithdrawInfo() {
+		return walletApi.v10WalletWithdrawInfoGet(AuthManager.token.getValue());
+	}
+
+	public Observable<Void> withdraw(WithdrawalRequest request) {
+		CreateWithdrawalRequestModel requestModel = new CreateWithdrawalRequestModel();
+		requestModel.setAmount(request.getAmount());
+		requestModel.setCurrency(CreateWithdrawalRequestModel.CurrencyEnum.fromValue(request.getCurrency()));
+		requestModel.setAddress(request.getAddress());
+		return walletApi.v10WalletWithdrawRequestNewPost(AuthManager.token.getValue(), requestModel);
 	}
 
 	public Observable<WalletSummary> getWallet(CurrencyEnum currency) {

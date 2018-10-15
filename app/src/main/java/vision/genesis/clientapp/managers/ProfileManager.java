@@ -72,18 +72,18 @@ public class ProfileManager
 	private UpdateProfileViewModel getUpdateProfileViewModel(ProfileFullViewModel newProfileModel) {
 		UpdateProfileViewModel updateModel = new UpdateProfileViewModel();
 
-		updateModel.setAddress(newProfileModel.getAddress());
-//		updateModel.setAvatar(newProfileModel.getAvatar());
-		updateModel.setBirthday(newProfileModel.getBirthday());
-		updateModel.setCity(newProfileModel.getCity());
-		updateModel.setCountry(newProfileModel.getCountry());
-		updateModel.setCity(newProfileModel.getCity());
-		updateModel.setDocumentNumber(newProfileModel.getDocumentNumber());
-		updateModel.setDocumentType(newProfileModel.getDocumentType());
-		updateModel.setFirstName(newProfileModel.getFirstName());
-		updateModel.setMiddleName(newProfileModel.getMiddleName());
-		updateModel.setLastName(newProfileModel.getLastName());
-		updateModel.setGender(newProfileModel.isGender());
+//		updateModel.setAddress(newProfileModel.getAddress());
+////		updateModel.setAvatar(newProfileModel.getAvatar());
+//		updateModel.setBirthday(newProfileModel.getBirthday());
+//		updateModel.setCity(newProfileModel.getCity());
+//		updateModel.setCountry(newProfileModel.getCountry());
+//		updateModel.setCity(newProfileModel.getCity());
+//		updateModel.setDocumentNumber(newProfileModel.getDocumentNumber());
+//		updateModel.setDocumentType(newProfileModel.getDocumentType());
+//		updateModel.setFirstName(newProfileModel.getFirstName());
+//		updateModel.setMiddleName(newProfileModel.getMiddleName());
+//		updateModel.setLastName(newProfileModel.getLastName());
+//		updateModel.setGender(newProfileModel.isGender());
 		updateModel.setUserName(newProfileModel.getUserName());
 
 		return updateModel;

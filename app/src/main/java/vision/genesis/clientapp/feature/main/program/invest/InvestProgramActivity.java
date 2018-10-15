@@ -90,7 +90,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	}
 
 	@OnClick(R.id.available_to_invest)
-	public void onAvailvalbeClicked() {
+	public void onAvailableClicked() {
 		investProgramPresenter.onMaxClicked();
 	}
 
@@ -138,7 +138,8 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 
 	@Override
 	public void setAvailableToInvest(Double availableToInvest) {
-		this.availableToInvest.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(availableToInvest, CurrencyEnum.GVT.toString())));
+		this.availableToInvest.setText(String.format(Locale.getDefault(), "%s GVT",
+				StringFormatUtil.formatCurrencyAmount(availableToInvest, CurrencyEnum.GVT.toString())));
 	}
 
 	@Override

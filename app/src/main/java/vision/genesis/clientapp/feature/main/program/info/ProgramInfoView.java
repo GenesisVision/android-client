@@ -5,6 +5,7 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import io.swagger.client.model.ProgramDetailsFull;
+import vision.genesis.clientapp.model.ProgramRequest;
 
 /**
  * GenesisVisionAndroid
@@ -21,4 +22,8 @@ interface ProgramInfoView extends MvpView
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);
+
+	void showInvestProgramActivity(ProgramRequest request);
+
+	void showLoginActivity();
 }

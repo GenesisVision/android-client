@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import io.swagger.client.model.AssetsPartsChangeRequest;
 import io.swagger.client.model.ManagerProfile;
+import io.swagger.client.model.ManagerProfileDetails;
 import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.NewProgramRequest;
 import io.swagger.client.model.ProgramRequests;
@@ -15,6 +16,17 @@ import rx.Observable;
 
 public interface ManagersApi
 {
+	/**
+	 * Manager details
+	 *
+	 * @param id (required)
+	 * @return Call&lt;ManagerProfileDetails&gt;
+	 */
+	@GET("v1.0/managers/{id}/details")
+	Observable<ManagerProfileDetails> v10ManagersByIdDetailsGet(
+			@retrofit2.http.Path("id") String id
+	);
+
 	/**
 	 * Manager profile
 	 *

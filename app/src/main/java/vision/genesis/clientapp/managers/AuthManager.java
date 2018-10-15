@@ -202,7 +202,7 @@ public class AuthManager
 				: authApi.v10AuthPasswordForgotManagerPost(model);
 	}
 
-	public Observable<Void> sendChangePassword(String oldPassword, String newPassword, String confirmPassword) {
+	public Observable<String> sendChangePassword(String oldPassword, String newPassword, String confirmPassword) {
 		ChangePasswordViewModel model = new ChangePasswordViewModel();
 		model.setOldPassword(oldPassword);
 		model.setPassword(newPassword);

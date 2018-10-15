@@ -42,6 +42,9 @@ public class FundDetails
 	@SerializedName("statistic")
 	private FundDetailsListStatistic statistic = null;
 
+	@SerializedName("personalDetails")
+	private PersonalFundDetailsList personalDetails = null;
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -65,9 +68,6 @@ public class FundDetails
 
 	@SerializedName("chart")
 	private List<ChartSimple> chart = null;
-
-	@SerializedName("personalDetails")
-	private PersonalProgramDetailsList personalDetails = null;
 
 	@SerializedName("dashboardAssetsDetails")
 	private DashboardProgramDetails dashboardAssetsDetails = null;
@@ -135,6 +135,25 @@ public class FundDetails
 
 	public void setStatistic(FundDetailsListStatistic statistic) {
 		this.statistic = statistic;
+	}
+
+	public FundDetails personalDetails(PersonalFundDetailsList personalDetails) {
+		this.personalDetails = personalDetails;
+		return this;
+	}
+
+	/**
+	 * Fields for authorized user
+	 *
+	 * @return personalDetails
+	 **/
+	@ApiModelProperty(value = "Fields for authorized user")
+	public PersonalFundDetailsList getPersonalDetails() {
+		return personalDetails;
+	}
+
+	public void setPersonalDetails(PersonalFundDetailsList personalDetails) {
+		this.personalDetails = personalDetails;
 	}
 
 	public FundDetails id(UUID id) {
@@ -297,25 +316,6 @@ public class FundDetails
 		this.chart = chart;
 	}
 
-	public FundDetails personalDetails(PersonalProgramDetailsList personalDetails) {
-		this.personalDetails = personalDetails;
-		return this;
-	}
-
-	/**
-	 * Fields for authorized user
-	 *
-	 * @return personalDetails
-	 **/
-	@ApiModelProperty(value = "Fields for authorized user")
-	public PersonalProgramDetailsList getPersonalDetails() {
-		return personalDetails;
-	}
-
-	public void setPersonalDetails(PersonalProgramDetailsList personalDetails) {
-		this.personalDetails = personalDetails;
-	}
-
 	public FundDetails dashboardAssetsDetails(DashboardProgramDetails dashboardAssetsDetails) {
 		this.dashboardAssetsDetails = dashboardAssetsDetails;
 		return this;
@@ -347,6 +347,7 @@ public class FundDetails
 		return Objects.equals(this.totalAssetsCount, fundDetails.totalAssetsCount) &&
 				Objects.equals(this.topFundAssets, fundDetails.topFundAssets) &&
 				Objects.equals(this.statistic, fundDetails.statistic) &&
+				Objects.equals(this.personalDetails, fundDetails.personalDetails) &&
 				Objects.equals(this.id, fundDetails.id) &&
 				Objects.equals(this.logo, fundDetails.logo) &&
 				Objects.equals(this.url, fundDetails.url) &&
@@ -355,13 +356,12 @@ public class FundDetails
 				Objects.equals(this.status, fundDetails.status) &&
 				Objects.equals(this.manager, fundDetails.manager) &&
 				Objects.equals(this.chart, fundDetails.chart) &&
-				Objects.equals(this.personalDetails, fundDetails.personalDetails) &&
 				Objects.equals(this.dashboardAssetsDetails, fundDetails.dashboardAssetsDetails);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(totalAssetsCount, topFundAssets, statistic, id, logo, url, title, description, status, manager, chart, personalDetails, dashboardAssetsDetails);
+		return Objects.hash(totalAssetsCount, topFundAssets, statistic, personalDetails, id, logo, url, title, description, status, manager, chart, dashboardAssetsDetails);
 	}
 
 	@Override
@@ -372,6 +372,7 @@ public class FundDetails
 		sb.append("    totalAssetsCount: ").append(toIndentedString(totalAssetsCount)).append("\n");
 		sb.append("    topFundAssets: ").append(toIndentedString(topFundAssets)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
+		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
@@ -380,7 +381,6 @@ public class FundDetails
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
-		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("    dashboardAssetsDetails: ").append(toIndentedString(dashboardAssetsDetails)).append("\n");
 		sb.append("}");
 		return sb.toString();

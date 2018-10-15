@@ -42,7 +42,7 @@ public class ProgramsManager
 				filter.getSorting().getValue(), filter.getCurrency() != null ? filter.getCurrency().getValue() : null, null,
 				filter.getStatisticDateFrom(), filter.getStatisticDateTo(), 10,
 				filter.getMask(), filter.getFacetId() != null ? filter.getFacetId().toString() : null, filter.getIsFavorite(),
-				filter.getIds(), filter.getSkip(), filter.getTake());
+				filter.getIds(), null, null, filter.getSkip(), filter.getTake());
 	}
 
 	public Observable<DashboardPortfolioEvents> getPortfolioEvents(DateRange dateRange, Integer skip, Integer take) {

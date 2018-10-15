@@ -15,6 +15,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.utils.Constants;
 
@@ -37,6 +38,10 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	private Subscription programDetailsSubscription;
 
 	private UUID programId;
+
+	private Boolean userLoggedOn;
+
+	private ProgramDetailsFull programDetails;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -86,6 +91,8 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		programDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
+		this.programDetails = programDetails;
+
 		getViewState().setProgramDetails(programDetails);
 	}
 
@@ -109,14 +116,36 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	}
 
 	private void userLoggedOn() {
+		userLoggedOn = true;
 		getViewState().showInvestWithdrawButtons(Constants.IS_INVESTOR);
 	}
 
 	private void userLoggedOff() {
+		userLoggedOn = false;
 		getViewState().showInvestWithdrawButtons(false);
 	}
 
 	private void handleUserError(Throwable throwable) {
 		userLoggedOff();
+	}
+
+	public void onInvestClicked() {
+		if (!userLoggedOn) {
+			getViewState().showLoginActivity();
+			return;
+		}
+
+		if (programDetails == null || programDetails.getAvailableInvestment() == 0)
+			return;
+
+		ProgramRequest request = new ProgramRequest();
+
+		request.setProgramId(programDetails.getId());
+		request.setProgramLogo(programDetails.getLogo());
+		request.setLevel(programDetails.getLevel());
+		request.setProgramName(programDetails.getTitle());
+		request.setManagerName(programDetails.getManager().getUsername());
+
+		getViewState().showInvestProgramActivity(request);
 	}
 }

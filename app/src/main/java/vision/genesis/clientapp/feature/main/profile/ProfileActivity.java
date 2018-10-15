@@ -222,11 +222,11 @@ public class ProfileActivity extends BaseSwipeBackActivity implements ProfileVie
 		String phoneText = phone.getText().trim();
 		profileModel.setPhone(phoneText);
 
-		String documentTypeText = documentType.getText().trim();
-		profileModel.setDocumentType(documentTypeText);
-
-		String documentNumberText = documentNumber.getText().trim();
-		profileModel.setDocumentNumber(documentNumberText);
+//		String documentTypeText = documentType.getText().trim();
+//		profileModel.setDocumentType(documentTypeText);
+//
+//		String documentNumberText = documentNumber.getText().trim();
+//		profileModel.setDocumentNumber(documentNumberText);
 
 		profilePresenter.saveChanges(profileModel);
 	}
@@ -277,8 +277,8 @@ public class ProfileActivity extends BaseSwipeBackActivity implements ProfileVie
 		city.setText(profileModel.getCity());
 		address.setText(profileModel.getAddress());
 		phone.setText(profileModel.getPhone());
-		documentType.setText(profileModel.getDocumentType());
-		documentNumber.setText(profileModel.getDocumentNumber());
+//		documentType.setText(profileModel.getDocumentType());
+//		documentNumber.setText(profileModel.getDocumentNumber());
 	}
 
 	private void setBirthday() {

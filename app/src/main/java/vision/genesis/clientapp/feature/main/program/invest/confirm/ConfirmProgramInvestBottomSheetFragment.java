@@ -24,9 +24,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.ProgramRequest;
-import vision.genesis.clientapp.model.api.ErrorResponse;
 import vision.genesis.clientapp.net.ApiErrorResolver;
-import vision.genesis.clientapp.net.ErrorResponseConverter;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -197,15 +195,7 @@ public class ConfirmProgramInvestBottomSheetFragment extends BottomSheetDialogFr
 		investSubscription.unsubscribe();
 		showProgress(false);
 
-		if (ApiErrorResolver.isNetworkError(throwable)) {
-			showToast(getContext().getResources().getString(R.string.network_error));
-		}
-		else {
-			ErrorResponse response = ErrorResponseConverter.createFromThrowable(throwable);
-			if (response != null && response.errors != null && response.errors.get(0) != null) {
-				showToast(response.errors.get(0).message);
-			}
-		}
+		ApiErrorResolver.resolveErrors(throwable, this::showToast);
 	}
 
 	private void showProgress(boolean show) {

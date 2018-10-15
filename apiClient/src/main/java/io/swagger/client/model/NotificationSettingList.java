@@ -33,6 +33,9 @@ public class NotificationSettingList
 	@SerializedName("settingsProgram")
 	private List<ProgramNotificationSettingList> settingsProgram = null;
 
+	@SerializedName("settingsFund")
+	private List<ProgramNotificationSettingList> settingsFund = null;
+
 	@SerializedName("settingsManager")
 	private List<ManagerNotificationSettingList> settingsManager = null;
 
@@ -90,6 +93,33 @@ public class NotificationSettingList
 		this.settingsProgram = settingsProgram;
 	}
 
+	public NotificationSettingList settingsFund(List<ProgramNotificationSettingList> settingsFund) {
+		this.settingsFund = settingsFund;
+		return this;
+	}
+
+	public NotificationSettingList addSettingsFundItem(ProgramNotificationSettingList settingsFundItem) {
+		if (this.settingsFund == null) {
+			this.settingsFund = new ArrayList<ProgramNotificationSettingList>();
+		}
+		this.settingsFund.add(settingsFundItem);
+		return this;
+	}
+
+	/**
+	 * Get settingsFund
+	 *
+	 * @return settingsFund
+	 **/
+	@ApiModelProperty(value = "")
+	public List<ProgramNotificationSettingList> getSettingsFund() {
+		return settingsFund;
+	}
+
+	public void setSettingsFund(List<ProgramNotificationSettingList> settingsFund) {
+		this.settingsFund = settingsFund;
+	}
+
 	public NotificationSettingList settingsManager(List<ManagerNotificationSettingList> settingsManager) {
 		this.settingsManager = settingsManager;
 		return this;
@@ -129,12 +159,13 @@ public class NotificationSettingList
 		NotificationSettingList notificationSettingList = (NotificationSettingList) o;
 		return Objects.equals(this.settingsGeneral, notificationSettingList.settingsGeneral) &&
 				Objects.equals(this.settingsProgram, notificationSettingList.settingsProgram) &&
+				Objects.equals(this.settingsFund, notificationSettingList.settingsFund) &&
 				Objects.equals(this.settingsManager, notificationSettingList.settingsManager);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(settingsGeneral, settingsProgram, settingsManager);
+		return Objects.hash(settingsGeneral, settingsProgram, settingsFund, settingsManager);
 	}
 
 
@@ -145,6 +176,7 @@ public class NotificationSettingList
 
 		sb.append("    settingsGeneral: ").append(toIndentedString(settingsGeneral)).append("\n");
 		sb.append("    settingsProgram: ").append(toIndentedString(settingsProgram)).append("\n");
+		sb.append("    settingsFund: ").append(toIndentedString(settingsFund)).append("\n");
 		sb.append("    settingsManager: ").append(toIndentedString(settingsManager)).append("\n");
 		sb.append("}");
 		return sb.toString();

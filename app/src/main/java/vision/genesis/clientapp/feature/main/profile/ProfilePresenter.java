@@ -287,8 +287,6 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 		newProfile.setCity(profile.getCity());
 		newProfile.setCountry(profile.getCountry());
 		newProfile.setCity(profile.getCity());
-		newProfile.setDocumentNumber(profile.getDocumentNumber());
-		newProfile.setDocumentType(profile.getDocumentType());
 		newProfile.setEmail(profile.getEmail());
 		newProfile.setFirstName(profile.getFirstName());
 		newProfile.setMiddleName(profile.getMiddleName());

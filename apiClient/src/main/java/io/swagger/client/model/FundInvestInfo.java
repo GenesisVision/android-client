@@ -33,6 +33,9 @@ public class FundInvestInfo
 	@SerializedName("availableInWallet")
 	private Double availableInWallet = null;
 
+	@SerializedName("minInvestmentAmount")
+	private Double minInvestmentAmount = null;
+
 	@SerializedName("entryFee")
 	private Double entryFee = null;
 
@@ -78,6 +81,25 @@ public class FundInvestInfo
 
 	public void setAvailableInWallet(Double availableInWallet) {
 		this.availableInWallet = availableInWallet;
+	}
+
+	public FundInvestInfo minInvestmentAmount(Double minInvestmentAmount) {
+		this.minInvestmentAmount = minInvestmentAmount;
+		return this;
+	}
+
+	/**
+	 * Get minInvestmentAmount
+	 *
+	 * @return minInvestmentAmount
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getMinInvestmentAmount() {
+		return minInvestmentAmount;
+	}
+
+	public void setMinInvestmentAmount(Double minInvestmentAmount) {
+		this.minInvestmentAmount = minInvestmentAmount;
 	}
 
 	public FundInvestInfo entryFee(Double entryFee) {
@@ -149,6 +171,7 @@ public class FundInvestInfo
 		FundInvestInfo fundInvestInfo = (FundInvestInfo) o;
 		return Objects.equals(this.title, fundInvestInfo.title) &&
 				Objects.equals(this.availableInWallet, fundInvestInfo.availableInWallet) &&
+				Objects.equals(this.minInvestmentAmount, fundInvestInfo.minInvestmentAmount) &&
 				Objects.equals(this.entryFee, fundInvestInfo.entryFee) &&
 				Objects.equals(this.periodEnds, fundInvestInfo.periodEnds) &&
 				Objects.equals(this.rate, fundInvestInfo.rate);
@@ -156,7 +179,7 @@ public class FundInvestInfo
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, availableInWallet, entryFee, periodEnds, rate);
+		return Objects.hash(title, availableInWallet, minInvestmentAmount, entryFee, periodEnds, rate);
 	}
 
 
@@ -167,6 +190,7 @@ public class FundInvestInfo
 
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    availableInWallet: ").append(toIndentedString(availableInWallet)).append("\n");
+		sb.append("    minInvestmentAmount: ").append(toIndentedString(minInvestmentAmount)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
 		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
 		sb.append("    rate: ").append(toIndentedString(rate)).append("\n");

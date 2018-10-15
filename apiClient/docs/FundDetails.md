@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **totalAssetsCount** | **Integer** |  |  [optional]
 **topFundAssets** | [**List&lt;FundAssetPercent&gt;**](FundAssetPercent.md) |  |  [optional]
 **statistic** | [**FundDetailsListStatistic**](FundDetailsListStatistic.md) |  |  [optional]
+**personalDetails** | [**PersonalFundDetailsList**](PersonalFundDetailsList.md) | Fields for authorized user |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **logo** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
@@ -15,7 +16,6 @@ Name | Type | Description | Notes
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
 **manager** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 **chart** | [**List&lt;ChartSimple&gt;**](ChartSimple.md) |  |  [optional]
-**personalDetails** | [**PersonalProgramDetailsList**](PersonalProgramDetailsList.md) | Fields for authorized user |  [optional]
 **dashboardAssetsDetails** | [**DashboardProgramDetails**](DashboardProgramDetails.md) | Fields for dashboard |  [optional]
 
 

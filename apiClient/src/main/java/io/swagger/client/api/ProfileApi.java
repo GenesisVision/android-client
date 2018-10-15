@@ -2,6 +2,7 @@ package io.swagger.client.api;
 
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.ProfileHeaderViewModel;
+import io.swagger.client.model.UpdatePersonalDetailViewModel;
 import io.swagger.client.model.UpdateProfileViewModel;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -53,6 +54,21 @@ public interface ProfileApi
 	@GET("v1.0/profile/header")
 	Observable<ProfileHeaderViewModel> v10ProfileHeaderGet(
 			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Update user personal details
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v1.0/profile/personal/update")
+	Observable<Void> v10ProfilePersonalUpdatePost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body UpdatePersonalDetailViewModel model
 	);
 
 	/**

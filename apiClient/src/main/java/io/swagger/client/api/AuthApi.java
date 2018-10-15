@@ -107,13 +107,13 @@ public interface AuthApi
 	 *
 	 * @param authorization JWT access token (required)
 	 * @param model         (optional)
-	 * @return Call&lt;Void&gt;
+	 * @return Call&lt;String&gt;
 	 */
 	@Headers({
 			"Content-Type:application/json"
 	})
 	@POST("v1.0/auth/password/change")
-	Observable<Void> v10AuthPasswordChangePost(
+	Observable<String> v10AuthPasswordChangePost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ChangePasswordViewModel model
 	);
 
@@ -160,14 +160,15 @@ public interface AuthApi
 	);
 
 	/**
-	 * Request phone number verification code
+	 * Add phone number
 	 *
 	 * @param authorization JWT access token (required)
+	 * @param phoneNumber   (optional)
 	 * @return Call&lt;Integer&gt;
 	 */
-	@POST("v1.0/auth/phone/code")
-	Observable<Integer> v10AuthPhoneCodePost(
-			@retrofit2.http.Header("Authorization") String authorization
+	@POST("v1.0/auth/phone/add")
+	Observable<Integer> v10AuthPhoneAddPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("phoneNumber") String phoneNumber
 	);
 
 	/**

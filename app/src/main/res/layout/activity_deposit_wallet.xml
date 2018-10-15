@@ -36,7 +36,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:padding="@dimen/invest_padding">
+        android:padding="@dimen/invest_padding"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/group_top"
@@ -55,7 +56,8 @@
             <RelativeLayout
                 android:id="@+id/group_wallet"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/text_input_height">
+                android:layout_height="@dimen/text_input_height"
+                android:background="?attr/selectableItemBackground">
 
                 <TextView
                     android:id="@+id/wallet"

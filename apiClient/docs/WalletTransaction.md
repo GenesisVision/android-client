@@ -12,10 +12,12 @@ Name | Type | Description | Notes
 **sourceId** | [**UUID**](UUID.md) |  |  [optional]
 **sourceType** | [**SourceTypeEnum**](#SourceTypeEnum) |  |  [optional]
 **sourceCurrency** | [**SourceCurrencyEnum**](#SourceCurrencyEnum) |  |  [optional]
+**sourceTitle** | **String** |  |  [optional]
 **action** | [**ActionEnum**](#ActionEnum) |  |  [optional]
 **destinationId** | [**UUID**](UUID.md) |  |  [optional]
 **destinationType** | [**DestinationTypeEnum**](#DestinationTypeEnum) |  |  [optional]
 **destinationCurrency** | [**DestinationCurrencyEnum**](#DestinationCurrencyEnum) |  |  [optional]
+**destinationTitle** | **String** |  |  [optional]
 
 
 <a name="SourceTypeEnum"></a>

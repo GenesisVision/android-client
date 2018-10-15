@@ -4,9 +4,9 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**isReinvest** | **Boolean** |  |  [optional]
 **isFavorite** | **Boolean** |  |  [optional]
 **isInvested** | **Boolean** |  |  [optional]
-**isReinvest** | **Boolean** |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
 
 

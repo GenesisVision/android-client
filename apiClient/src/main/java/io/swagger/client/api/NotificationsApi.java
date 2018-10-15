@@ -2,6 +2,7 @@ package io.swagger.client.api;
 
 import java.util.UUID;
 
+import io.swagger.client.model.FundNotificationSettingList;
 import io.swagger.client.model.ManagerNotificationSettingList;
 import io.swagger.client.model.NotificationList;
 import io.swagger.client.model.NotificationSettingList;
@@ -63,6 +64,18 @@ public interface NotificationsApi
 	@POST("v1.0/notifications/settings/{id}/{enable}")
 	Observable<UUID> v10NotificationsSettingsByIdByEnablePost(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("enable") Boolean enable, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * User settings for fund
+	 *
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;FundNotificationSettingList&gt;
+	 */
+	@GET("v1.0/notifications/settings/funds/{id}")
+	Observable<FundNotificationSettingList> v10NotificationsSettingsFundsByIdGet(
+			@retrofit2.http.Path("id") String id, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**

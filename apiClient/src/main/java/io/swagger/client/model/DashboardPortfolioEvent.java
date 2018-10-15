@@ -231,7 +231,7 @@ public class DashboardPortfolioEvent
 
 		REINVEST("Reinvest"),
 
-		CANCELED("Canceled"),
+		CANCELLED("Cancelled"),
 
 		ENDED("Ended");
 

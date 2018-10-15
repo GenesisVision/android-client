@@ -30,17 +30,36 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class PersonalProgramDetailsList
 {
+	@SerializedName("isReinvest")
+	private Boolean isReinvest = null;
+
 	@SerializedName("isFavorite")
 	private Boolean isFavorite = null;
 
 	@SerializedName("isInvested")
 	private Boolean isInvested = null;
 
-	@SerializedName("isReinvest")
-	private Boolean isReinvest = null;
-
 	@SerializedName("status")
 	private StatusEnum status = null;
+
+	public PersonalProgramDetailsList isReinvest(Boolean isReinvest) {
+		this.isReinvest = isReinvest;
+		return this;
+	}
+
+	/**
+	 * Get isReinvest
+	 *
+	 * @return isReinvest
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsReinvest() {
+		return isReinvest;
+	}
+
+	public void setIsReinvest(Boolean isReinvest) {
+		this.isReinvest = isReinvest;
+	}
 
 	public PersonalProgramDetailsList isFavorite(Boolean isFavorite) {
 		this.isFavorite = isFavorite;
@@ -80,25 +99,6 @@ public class PersonalProgramDetailsList
 		this.isInvested = isInvested;
 	}
 
-	public PersonalProgramDetailsList isReinvest(Boolean isReinvest) {
-		this.isReinvest = isReinvest;
-		return this;
-	}
-
-	/**
-	 * Get isReinvest
-	 *
-	 * @return isReinvest
-	 **/
-	@ApiModelProperty(value = "")
-	public Boolean isIsReinvest() {
-		return isReinvest;
-	}
-
-	public void setIsReinvest(Boolean isReinvest) {
-		this.isReinvest = isReinvest;
-	}
-
 	public PersonalProgramDetailsList status(StatusEnum status) {
 		this.status = status;
 		return this;
@@ -127,15 +127,15 @@ public class PersonalProgramDetailsList
 			return false;
 		}
 		PersonalProgramDetailsList personalProgramDetailsList = (PersonalProgramDetailsList) o;
-		return Objects.equals(this.isFavorite, personalProgramDetailsList.isFavorite) &&
+		return Objects.equals(this.isReinvest, personalProgramDetailsList.isReinvest) &&
+				Objects.equals(this.isFavorite, personalProgramDetailsList.isFavorite) &&
 				Objects.equals(this.isInvested, personalProgramDetailsList.isInvested) &&
-				Objects.equals(this.isReinvest, personalProgramDetailsList.isReinvest) &&
 				Objects.equals(this.status, personalProgramDetailsList.status);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isFavorite, isInvested, isReinvest, status);
+		return Objects.hash(isReinvest, isFavorite, isInvested, status);
 	}
 
 	@Override
@@ -143,9 +143,9 @@ public class PersonalProgramDetailsList
 		StringBuilder sb = new StringBuilder();
 		sb.append("class PersonalProgramDetailsList {\n");
 
+		sb.append("    isReinvest: ").append(toIndentedString(isReinvest)).append("\n");
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
-		sb.append("    isReinvest: ").append(toIndentedString(isReinvest)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("}");
 		return sb.toString();

@@ -457,5 +457,16 @@
     <string name="transactions_history">Transactions history</string>
     <string name="you_will_send">You will send</string>
     <string name="select_wallet_currency">Select a wallet currency</string>
+    <string name="available_in_wallet">Available in wallet</string>
+    <string name="fee_amount">Fee amount</string>
+    <string name="scan_qr">Scan QR</string>
+    <string name="withdrawal_address">Withdrawal address</string>
+    <string name="amount_to_withdraw">Amount to withdraw</string>
+    <string name="wallet_withdraw_warning">Check again because after the approval the transaction cannot be reversed</string>
+    <string name="withdrawal_amount">Withdrawal amount</string>
+    <string name="to_address">To address</string>
+    <string name="estimated_amount">Estimated amount</string>
+    <string name="confirm_withdraw">Confirm Withdraw</string>
+    <string name="wallet_address_not_valid">\@string/The wallet address is not valid</string>
 
 </resources>

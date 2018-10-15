@@ -516,7 +516,7 @@ Name | Type | Description  | Notes
  **assetId** | [**UUID**](.md)|  | [optional]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
- **type** | **String**|  | [optional] [enum: All, Invest, Withdraw, Profit, Loss, Reinvest, Canceled, Ended]
+ **type** | **String**|  | [optional] [enum: All, Invest, Withdraw, Profit, Loss, Reinvest, Cancelled, Ended]
  **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]

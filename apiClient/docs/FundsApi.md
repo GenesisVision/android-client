@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**v10FundsByIdGet**](FundsApi.md#v10FundsByIdGet) | **GET** v1.0/funds/{id} | Funds details
 [**v10FundsByIdRebalancingGet**](FundsApi.md#v10FundsByIdRebalancingGet) | **GET** v1.0/funds/{id}/rebalancing | Rebalancing history
 [**v10FundsGet**](FundsApi.md#v10FundsGet) | **GET** v1.0/funds | Funds list
+[**v10FundsSetsGet**](FundsApi.md#v10FundsSetsGet) | **GET** v1.0/funds/sets | Fund sets
 
 
 <a name="v10FundsAssetsGet"></a>
@@ -259,7 +260,7 @@ Funds details
 
 
 FundsApi apiInstance = new FundsApi();
-UUID id = new UUID(); // UUID | 
+String id = "id_example"; // String | 
 String authorization = "authorization_example"; // String | 
 String currencySecondary = "currencySecondary_example"; // String | 
 try {
@@ -275,7 +276,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)|  |
+ **id** | **String**|  |
  **authorization** | **String**|  | [optional]
  **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, USD, EUR]
 
@@ -345,7 +346,7 @@ No authorization required
 
 <a name="v10FundsGet"></a>
 # **v10FundsGet**
-> FundsList v10FundsGet(authorization, sorting, currencySecondary, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, ids, skip, take)
+> FundsList v10FundsGet(authorization, sorting, currencySecondary, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, ids, managerId, programManagerId, skip, take)
 
 Funds list
 
@@ -367,10 +368,12 @@ String mask = "mask_example"; // String |
 String facetId = "facetId_example"; // String | 
 Boolean isFavorite = true; // Boolean | 
 List<UUID> ids = Arrays.asList(new UUID()); // List<UUID> | 
+String managerId = "managerId_example"; // String | 
+UUID programManagerId = new UUID(); // UUID | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    FundsList result = apiInstance.v10FundsGet(authorization, sorting, currencySecondary, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, ids, skip, take);
+    FundsList result = apiInstance.v10FundsGet(authorization, sorting, currencySecondary, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, ids, managerId, programManagerId, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#v10FundsGet");
@@ -392,12 +395,57 @@ Name | Type | Description  | Notes
  **facetId** | **String**|  | [optional]
  **isFavorite** | **Boolean**|  | [optional]
  **ids** | [**List&lt;UUID&gt;**](UUID.md)|  | [optional]
+ **managerId** | **String**|  | [optional]
+ **programManagerId** | [**UUID**](.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
 ### Return type
 
 [**FundsList**](FundsList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10FundsSetsGet"></a>
+# **v10FundsSetsGet**
+> ProgramSets v10FundsSetsGet(authorization)
+
+Fund sets
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.FundsApi;
+
+
+FundsApi apiInstance = new FundsApi();
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    ProgramSets result = apiInstance.v10FundsSetsGet(authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FundsApi#v10FundsSetsGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**ProgramSets**](ProgramSets.md)
 
 ### Authorization
 

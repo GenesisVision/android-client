@@ -56,6 +56,9 @@ public class ProgramDetails
 	@SerializedName("statistic")
 	private ProgramDetailsListStatistic statistic = null;
 
+	@SerializedName("personalDetails")
+	private PersonalProgramDetailsList personalDetails = null;
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -79,9 +82,6 @@ public class ProgramDetails
 
 	@SerializedName("chart")
 	private List<ChartSimple> chart = null;
-
-	@SerializedName("personalDetails")
-	private PersonalProgramDetailsList personalDetails = null;
 
 	@SerializedName("dashboardAssetsDetails")
 	private DashboardProgramDetails dashboardAssetsDetails = null;
@@ -217,6 +217,25 @@ public class ProgramDetails
 
 	public void setStatistic(ProgramDetailsListStatistic statistic) {
 		this.statistic = statistic;
+	}
+
+	public ProgramDetails personalDetails(PersonalProgramDetailsList personalDetails) {
+		this.personalDetails = personalDetails;
+		return this;
+	}
+
+	/**
+	 * Fields for authorized user
+	 *
+	 * @return personalDetails
+	 **/
+	@ApiModelProperty(value = "Fields for authorized user")
+	public PersonalProgramDetailsList getPersonalDetails() {
+		return personalDetails;
+	}
+
+	public void setPersonalDetails(PersonalProgramDetailsList personalDetails) {
+		this.personalDetails = personalDetails;
 	}
 
 	public ProgramDetails id(UUID id) {
@@ -379,25 +398,6 @@ public class ProgramDetails
 		this.chart = chart;
 	}
 
-	public ProgramDetails personalDetails(PersonalProgramDetailsList personalDetails) {
-		this.personalDetails = personalDetails;
-		return this;
-	}
-
-	/**
-	 * Fields for authorized user
-	 *
-	 * @return personalDetails
-	 **/
-	@ApiModelProperty(value = "Fields for authorized user")
-	public PersonalProgramDetailsList getPersonalDetails() {
-		return personalDetails;
-	}
-
-	public void setPersonalDetails(PersonalProgramDetailsList personalDetails) {
-		this.personalDetails = personalDetails;
-	}
-
 	public ProgramDetails dashboardAssetsDetails(DashboardProgramDetails dashboardAssetsDetails) {
 		this.dashboardAssetsDetails = dashboardAssetsDetails;
 		return this;
@@ -433,6 +433,7 @@ public class ProgramDetails
 				Objects.equals(this.periodEnds, programDetails.periodEnds) &&
 				Objects.equals(this.availableInvestment, programDetails.availableInvestment) &&
 				Objects.equals(this.statistic, programDetails.statistic) &&
+				Objects.equals(this.personalDetails, programDetails.personalDetails) &&
 				Objects.equals(this.id, programDetails.id) &&
 				Objects.equals(this.logo, programDetails.logo) &&
 				Objects.equals(this.url, programDetails.url) &&
@@ -441,13 +442,12 @@ public class ProgramDetails
 				Objects.equals(this.status, programDetails.status) &&
 				Objects.equals(this.manager, programDetails.manager) &&
 				Objects.equals(this.chart, programDetails.chart) &&
-				Objects.equals(this.personalDetails, programDetails.personalDetails) &&
 				Objects.equals(this.dashboardAssetsDetails, programDetails.dashboardAssetsDetails);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, availableInvestment, statistic, id, logo, url, title, description, status, manager, chart, personalDetails, dashboardAssetsDetails);
+		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, availableInvestment, statistic, personalDetails, id, logo, url, title, description, status, manager, chart, dashboardAssetsDetails);
 	}
 
 	@Override
@@ -462,6 +462,7 @@ public class ProgramDetails
 		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
+		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
@@ -470,7 +471,6 @@ public class ProgramDetails
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
-		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("    dashboardAssetsDetails: ").append(toIndentedString(dashboardAssetsDetails)).append("\n");
 		sb.append("}");
 		return sb.toString();

@@ -9,10 +9,10 @@ Name | Type | Description | Notes
 **successFee** | **Double** |  |  [optional]
 **stopOutLevel** | **Double** |  |  [optional]
 **leverage** | **Integer** |  |  [optional]
+**brokerAccountTypeId** | [**UUID**](UUID.md) |  |  [optional]
 **title** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
 **logo** | **String** |  |  [optional]
-**brokerAccountTypeId** | [**UUID**](UUID.md) |  |  [optional]
 **entryFee** | **Double** |  |  [optional]
 
 

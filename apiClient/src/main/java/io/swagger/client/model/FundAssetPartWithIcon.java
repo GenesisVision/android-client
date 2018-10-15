@@ -31,11 +31,11 @@ public class FundAssetPartWithIcon
 	@SerializedName("name")
 	private String name = null;
 
-	@SerializedName("symbol")
-	private String symbol = null;
+	@SerializedName("asset")
+	private String asset = null;
 
-	@SerializedName("assetPart")
-	private Double assetPart = null;
+	@SerializedName("percent")
+	private Double percent = null;
 
 	public FundAssetPartWithIcon icon(String icon) {
 		this.icon = icon;
@@ -75,42 +75,42 @@ public class FundAssetPartWithIcon
 		this.name = name;
 	}
 
-	public FundAssetPartWithIcon symbol(String symbol) {
-		this.symbol = symbol;
+	public FundAssetPartWithIcon asset(String asset) {
+		this.asset = asset;
 		return this;
 	}
 
 	/**
-	 * Get symbol
+	 * Get asset
 	 *
-	 * @return symbol
+	 * @return asset
 	 **/
 	@ApiModelProperty(value = "")
-	public String getSymbol() {
-		return symbol;
+	public String getAsset() {
+		return asset;
 	}
 
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
+	public void setAsset(String asset) {
+		this.asset = asset;
 	}
 
-	public FundAssetPartWithIcon assetPart(Double assetPart) {
-		this.assetPart = assetPart;
+	public FundAssetPartWithIcon percent(Double percent) {
+		this.percent = percent;
 		return this;
 	}
 
 	/**
-	 * Get assetPart
+	 * Get percent
 	 *
-	 * @return assetPart
+	 * @return percent
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getAssetPart() {
-		return assetPart;
+	public Double getPercent() {
+		return percent;
 	}
 
-	public void setAssetPart(Double assetPart) {
-		this.assetPart = assetPart;
+	public void setPercent(Double percent) {
+		this.percent = percent;
 	}
 
 
@@ -125,13 +125,13 @@ public class FundAssetPartWithIcon
 		FundAssetPartWithIcon fundAssetPartWithIcon = (FundAssetPartWithIcon) o;
 		return Objects.equals(this.icon, fundAssetPartWithIcon.icon) &&
 				Objects.equals(this.name, fundAssetPartWithIcon.name) &&
-				Objects.equals(this.symbol, fundAssetPartWithIcon.symbol) &&
-				Objects.equals(this.assetPart, fundAssetPartWithIcon.assetPart);
+				Objects.equals(this.asset, fundAssetPartWithIcon.asset) &&
+				Objects.equals(this.percent, fundAssetPartWithIcon.percent);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(icon, name, symbol, assetPart);
+		return Objects.hash(icon, name, asset, percent);
 	}
 
 
@@ -142,8 +142,8 @@ public class FundAssetPartWithIcon
 
 		sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
-		sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
-		sb.append("    assetPart: ").append(toIndentedString(assetPart)).append("\n");
+		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
+		sb.append("    percent: ").append(toIndentedString(percent)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

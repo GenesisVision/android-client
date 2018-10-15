@@ -15,8 +15,6 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.joda.time.DateTime;
-
 import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -30,38 +28,8 @@ public class UpdateProfileViewModel
 	@SerializedName("userName")
 	private String userName = null;
 
-	@SerializedName("firstName")
-	private String firstName = null;
-
-	@SerializedName("middleName")
-	private String middleName = null;
-
-	@SerializedName("lastName")
-	private String lastName = null;
-
-	@SerializedName("documentType")
-	private String documentType = null;
-
-	@SerializedName("documentNumber")
-	private String documentNumber = null;
-
-	@SerializedName("country")
-	private String country = null;
-
-	@SerializedName("city")
-	private String city = null;
-
-	@SerializedName("address")
-	private String address = null;
-
-	@SerializedName("phone")
-	private String phone = null;
-
-	@SerializedName("birthday")
-	private DateTime birthday = null;
-
-	@SerializedName("gender")
-	private Boolean gender = null;
+	@SerializedName("about")
+	private String about = null;
 
 	public UpdateProfileViewModel userName(String userName) {
 		this.userName = userName;
@@ -82,213 +50,23 @@ public class UpdateProfileViewModel
 		this.userName = userName;
 	}
 
-	public UpdateProfileViewModel firstName(String firstName) {
-		this.firstName = firstName;
+	public UpdateProfileViewModel about(String about) {
+		this.about = about;
 		return this;
 	}
 
 	/**
-	 * Get firstName
+	 * Get about
 	 *
-	 * @return firstName
+	 * @return about
 	 **/
 	@ApiModelProperty(value = "")
-	public String getFirstName() {
-		return firstName;
+	public String getAbout() {
+		return about;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public UpdateProfileViewModel middleName(String middleName) {
-		this.middleName = middleName;
-		return this;
-	}
-
-	/**
-	 * Get middleName
-	 *
-	 * @return middleName
-	 **/
-	@ApiModelProperty(value = "")
-	public String getMiddleName() {
-		return middleName;
-	}
-
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
-
-	public UpdateProfileViewModel lastName(String lastName) {
-		this.lastName = lastName;
-		return this;
-	}
-
-	/**
-	 * Get lastName
-	 *
-	 * @return lastName
-	 **/
-	@ApiModelProperty(value = "")
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public UpdateProfileViewModel documentType(String documentType) {
-		this.documentType = documentType;
-		return this;
-	}
-
-	/**
-	 * Get documentType
-	 *
-	 * @return documentType
-	 **/
-	@ApiModelProperty(value = "")
-	public String getDocumentType() {
-		return documentType;
-	}
-
-	public void setDocumentType(String documentType) {
-		this.documentType = documentType;
-	}
-
-	public UpdateProfileViewModel documentNumber(String documentNumber) {
-		this.documentNumber = documentNumber;
-		return this;
-	}
-
-	/**
-	 * Get documentNumber
-	 *
-	 * @return documentNumber
-	 **/
-	@ApiModelProperty(value = "")
-	public String getDocumentNumber() {
-		return documentNumber;
-	}
-
-	public void setDocumentNumber(String documentNumber) {
-		this.documentNumber = documentNumber;
-	}
-
-	public UpdateProfileViewModel country(String country) {
-		this.country = country;
-		return this;
-	}
-
-	/**
-	 * Get country
-	 *
-	 * @return country
-	 **/
-	@ApiModelProperty(value = "")
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public UpdateProfileViewModel city(String city) {
-		this.city = city;
-		return this;
-	}
-
-	/**
-	 * Get city
-	 *
-	 * @return city
-	 **/
-	@ApiModelProperty(value = "")
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public UpdateProfileViewModel address(String address) {
-		this.address = address;
-		return this;
-	}
-
-	/**
-	 * Get address
-	 *
-	 * @return address
-	 **/
-	@ApiModelProperty(value = "")
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public UpdateProfileViewModel phone(String phone) {
-		this.phone = phone;
-		return this;
-	}
-
-	/**
-	 * Get phone
-	 *
-	 * @return phone
-	 **/
-	@ApiModelProperty(value = "")
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public UpdateProfileViewModel birthday(DateTime birthday) {
-		this.birthday = birthday;
-		return this;
-	}
-
-	/**
-	 * Get birthday
-	 *
-	 * @return birthday
-	 **/
-	@ApiModelProperty(value = "")
-	public DateTime getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(DateTime birthday) {
-		this.birthday = birthday;
-	}
-
-	public UpdateProfileViewModel gender(Boolean gender) {
-		this.gender = gender;
-		return this;
-	}
-
-	/**
-	 * Get gender
-	 *
-	 * @return gender
-	 **/
-	@ApiModelProperty(value = "")
-	public Boolean isGender() {
-		return gender;
-	}
-
-	public void setGender(Boolean gender) {
-		this.gender = gender;
+	public void setAbout(String about) {
+		this.about = about;
 	}
 
 
@@ -302,22 +80,12 @@ public class UpdateProfileViewModel
 		}
 		UpdateProfileViewModel updateProfileViewModel = (UpdateProfileViewModel) o;
 		return Objects.equals(this.userName, updateProfileViewModel.userName) &&
-				Objects.equals(this.firstName, updateProfileViewModel.firstName) &&
-				Objects.equals(this.middleName, updateProfileViewModel.middleName) &&
-				Objects.equals(this.lastName, updateProfileViewModel.lastName) &&
-				Objects.equals(this.documentType, updateProfileViewModel.documentType) &&
-				Objects.equals(this.documentNumber, updateProfileViewModel.documentNumber) &&
-				Objects.equals(this.country, updateProfileViewModel.country) &&
-				Objects.equals(this.city, updateProfileViewModel.city) &&
-				Objects.equals(this.address, updateProfileViewModel.address) &&
-				Objects.equals(this.phone, updateProfileViewModel.phone) &&
-				Objects.equals(this.birthday, updateProfileViewModel.birthday) &&
-				Objects.equals(this.gender, updateProfileViewModel.gender);
+				Objects.equals(this.about, updateProfileViewModel.about);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userName, firstName, middleName, lastName, documentType, documentNumber, country, city, address, phone, birthday, gender);
+		return Objects.hash(userName, about);
 	}
 
 
@@ -327,17 +95,7 @@ public class UpdateProfileViewModel
 		sb.append("class UpdateProfileViewModel {\n");
 
 		sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
-		sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
-		sb.append("    middleName: ").append(toIndentedString(middleName)).append("\n");
-		sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
-		sb.append("    documentType: ").append(toIndentedString(documentType)).append("\n");
-		sb.append("    documentNumber: ").append(toIndentedString(documentNumber)).append("\n");
-		sb.append("    country: ").append(toIndentedString(country)).append("\n");
-		sb.append("    city: ").append(toIndentedString(city)).append("\n");
-		sb.append("    address: ").append(toIndentedString(address)).append("\n");
-		sb.append("    phone: ").append(toIndentedString(phone)).append("\n");
-		sb.append("    birthday: ").append(toIndentedString(birthday)).append("\n");
-		sb.append("    gender: ").append(toIndentedString(gender)).append("\n");
+		sb.append("    about: ").append(toIndentedString(about)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

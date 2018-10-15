@@ -47,7 +47,7 @@ public class PortfolioEvent
 				text = String.format(Locale.getDefault(), GenesisVisionApplication.INSTANCE.getString(R.string.event_period_ended_template), title);
 				actionResId = R.drawable.icon_reinvest;
 				break;
-			case CANCELED:
+			case CANCELLED:
 				text = String.format(Locale.getDefault(), GenesisVisionApplication.INSTANCE.getString(R.string.event_request_canceled_template), title);
 				actionResId = R.drawable.icon_arrow_red_up;
 				break;

@@ -1,128 +1,294 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-    <ScrollView
-        android:id="@+id/scrollview"
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height">
+
+        <ImageView
+            android:id="@+id/button_close"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="10dp"
+            android:src="@drawable/ic_close_black_24dp"
+            android:tint="?attr/colorTextPrimary"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/withdraw"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="18sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/toolbar"
+        android:padding="@dimen/invest_padding"
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/enter_desired_amount_withdraw"
-                android:textColor="@color/colorFontMedium"
-                android:textSize="16sp"/>
-
-            <vision.genesis.clientapp.ui.AmountEditText
-                android:id="@+id/edittext_amount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                android:layout_marginTop="8dp"
-                android:hint="@string/amount"
-                android:textAlignment="center"
-                android:textColor="@color/colorAccent"
-                android:textSize="22sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/enter_wallet_address_withdraw"
-                android:textColor="@color/colorFontMedium"
-                android:textSize="16sp"/>
-
-            <EditText
-                android:id="@+id/edittext_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:hint="@string/wallet_address"
-                android:inputType="textNoSuggestions|textVisiblePassword"
-                android:textAlignment="center"
-                android:textSize="22sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/or_use_camera_qr_code"
-                android:textColor="@color/colorFontMedium"
-                android:textSize="16sp"/>
-
-            <RelativeLayout
-                android:id="@+id/button_camera"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/button_primary"
-                android:padding="8dp">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/ic_camera_alt_black_24dp"
-                    android:tint="@color/grey200"/>
-
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="32dp"
-                android:gravity="center"
-                android:text="@string/double_check_address"
-                android:textColor="@color/transactionRed"
-                android:textSize="16sp"/>
-
-            <RelativeLayout
-                android:id="@+id/button_withdraw"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/button_primary"
-                android:padding="8dp">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/withdraw"
-                    android:textAllCaps="true"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"/>
+                    android:text="@string/available_in_wallet"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/available_in_wallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginStart="6dp"
+                    android:textColor="?attr/colorAccent"
+                    android:textSize="16sp"
+                    tools:text="20.235 GVT"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:alpha="0.4"
+                android:text="@string/amount_to_withdraw"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"/>
+
+            <RelativeLayout
+                android:id="@+id/group_amount"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_input_height">
+
+                <EditText
+                    android:id="@+id/edittext_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:hint="0"
+                    android:inputType="numberDecimal"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextPrimary"
+                    android:textSize="18sp"
+                    tools:text="10.235"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@+id/edittext_amount"
+                    android:layout_toRightOf="@+id/edittext_amount"
+                    android:alpha="0.4"
+                    android:gravity="center"
+                    android:text="@string/gvt"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/max"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical|end"
+                    android:text="@string/max"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="12sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.2"
+                    android:background="?attr/colorTextPrimary"/>
 
             </RelativeLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:alpha="0.4"
+                android:text="@string/select_wallet_currency"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"/>
+
+            <RelativeLayout
+                android:id="@+id/group_wallet"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_input_height"
+                android:background="?attr/selectableItemBackground">
+
+                <TextView
+                    android:id="@+id/wallet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/arrow"
+                    android:layout_toStartOf="@+id/arrow"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextPrimary"
+                    android:textSize="18sp"
+                    tools:text="Bitcoin (BTC)"/>
+
+                <ImageView
+                    android:id="@+id/arrow"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center_vertical|end"
+                    android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+                    android:textSize="18sp"
+                    android:tint="?attr/colorTextPrimary"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.2"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/base_currency_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"
+                tools:text="= 0.234901 BTC"/>
+
+            <RelativeLayout
+                android:id="@+id/group_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp">
+
+                <EditText
+                    android:id="@+id/edittext_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_toLeftOf="@id/scan_qr"
+                    android:layout_toStartOf="@id/scan_qr"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/withdrawal_address"
+                    android:inputType="text"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextSecondary"
+                    android:textSize="12sp"
+                    tools:text=""/>
+
+                <TextView
+                    android:id="@+id/scan_qr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical|end"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/scan_qr"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="12sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/edittext_address"
+                    android:alpha="0.2"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/address_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/wallet_address_not_valid"
+                android:textColor="?attr/colorRed"
+                android:textSize="12sp"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
         </LinearLayout>
 
-    </ScrollView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/button_continue"
+            android:layout_marginBottom="32dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.4"
+                android:text="@string/fee_amount"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/fee_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="14sp"
+                tools:text="1.4% (0.008 GVT)"/>
+
+        </RelativeLayout>
+
+        <vision.genesis.clientapp.ui.PrimaryButton
+            android:id="@+id/button_continue"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_alignParentBottom="true"
+            android:text="@string/text_continue"/>
+
+    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/progress_bar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"/>
-
-    <vision.genesis.clientapp.ui.ToolbarView
-        android:id="@+id/toolbar"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="2dp"
+        android:layout_below="@+id/toolbar"
+        android:indeterminate="true"
+        android:scaleY="4"
+        android:visibility="visible"/>
 
 </RelativeLayout>

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **periodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
 **availableInvestment** | **Double** |  |  [optional]
 **statistic** | [**ProgramDetailsListStatistic**](ProgramDetailsListStatistic.md) |  |  [optional]
+**personalDetails** | [**PersonalProgramDetailsList**](PersonalProgramDetailsList.md) | Fields for authorized user |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **logo** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
@@ -19,7 +20,6 @@ Name | Type | Description | Notes
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
 **manager** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 **chart** | [**List&lt;ChartSimple&gt;**](ChartSimple.md) |  |  [optional]
-**personalDetails** | [**PersonalProgramDetailsList**](PersonalProgramDetailsList.md) | Fields for authorized user |  [optional]
 **dashboardAssetsDetails** | [**DashboardProgramDetails**](DashboardProgramDetails.md) | Fields for dashboard |  [optional]
 
 

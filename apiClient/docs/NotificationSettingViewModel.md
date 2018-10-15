@@ -28,6 +28,9 @@ PROFILESECURITY | &quot;ProfileSecurity&quot;
 PROGRAMNEWSANDUPDATES | &quot;ProgramNewsAndUpdates&quot;
 PROGRAMENDOFPERIOD | &quot;ProgramEndOfPeriod&quot;
 PROGRAMCONDITION | &quot;ProgramCondition&quot;
+FUNDNEWSANDUPDATES | &quot;FundNewsAndUpdates&quot;
+FUNDENDOFPERIOD | &quot;FundEndOfPeriod&quot;
+FUNDREBALANCING | &quot;FundRebalancing&quot;
 MANAGERNEWPROGRAM | &quot;ManagerNewProgram&quot;
 
 

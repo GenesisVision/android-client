@@ -30,6 +30,9 @@ public class RecoveryCodesViewModel
 	@SerializedName("codes")
 	private List<RecoveryCode> codes = null;
 
+	@SerializedName("authToken")
+	private String authToken = null;
+
 	public RecoveryCodesViewModel codes(List<RecoveryCode> codes) {
 		this.codes = codes;
 		return this;
@@ -57,6 +60,25 @@ public class RecoveryCodesViewModel
 		this.codes = codes;
 	}
 
+	public RecoveryCodesViewModel authToken(String authToken) {
+		this.authToken = authToken;
+		return this;
+	}
+
+	/**
+	 * Get authToken
+	 *
+	 * @return authToken
+	 **/
+	@ApiModelProperty(value = "")
+	public String getAuthToken() {
+		return authToken;
+	}
+
+	public void setAuthToken(String authToken) {
+		this.authToken = authToken;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -67,12 +89,13 @@ public class RecoveryCodesViewModel
 			return false;
 		}
 		RecoveryCodesViewModel recoveryCodesViewModel = (RecoveryCodesViewModel) o;
-		return Objects.equals(this.codes, recoveryCodesViewModel.codes);
+		return Objects.equals(this.codes, recoveryCodesViewModel.codes) &&
+				Objects.equals(this.authToken, recoveryCodesViewModel.authToken);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codes);
+		return Objects.hash(codes, authToken);
 	}
 
 
@@ -82,6 +105,7 @@ public class RecoveryCodesViewModel
 		sb.append("class RecoveryCodesViewModel {\n");
 
 		sb.append("    codes: ").append(toIndentedString(codes)).append("\n");
+		sb.append("    authToken: ").append(toIndentedString(authToken)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -57,6 +57,9 @@ public class WalletTransaction
 	@SerializedName("sourceCurrency")
 	private SourceCurrencyEnum sourceCurrency = null;
 
+	@SerializedName("sourceTitle")
+	private String sourceTitle = null;
+
 	@SerializedName("action")
 	private ActionEnum action = null;
 
@@ -68,6 +71,9 @@ public class WalletTransaction
 
 	@SerializedName("destinationCurrency")
 	private DestinationCurrencyEnum destinationCurrency = null;
+
+	@SerializedName("destinationTitle")
+	private String destinationTitle = null;
 
 	public WalletTransaction id(UUID id) {
 		this.id = id;
@@ -221,6 +227,25 @@ public class WalletTransaction
 		this.sourceCurrency = sourceCurrency;
 	}
 
+	public WalletTransaction sourceTitle(String sourceTitle) {
+		this.sourceTitle = sourceTitle;
+		return this;
+	}
+
+	/**
+	 * Get sourceTitle
+	 *
+	 * @return sourceTitle
+	 **/
+	@ApiModelProperty(value = "")
+	public String getSourceTitle() {
+		return sourceTitle;
+	}
+
+	public void setSourceTitle(String sourceTitle) {
+		this.sourceTitle = sourceTitle;
+	}
+
 	public WalletTransaction action(ActionEnum action) {
 		this.action = action;
 		return this;
@@ -297,6 +322,25 @@ public class WalletTransaction
 		this.destinationCurrency = destinationCurrency;
 	}
 
+	public WalletTransaction destinationTitle(String destinationTitle) {
+		this.destinationTitle = destinationTitle;
+		return this;
+	}
+
+	/**
+	 * Get destinationTitle
+	 *
+	 * @return destinationTitle
+	 **/
+	@ApiModelProperty(value = "")
+	public String getDestinationTitle() {
+		return destinationTitle;
+	}
+
+	public void setDestinationTitle(String destinationTitle) {
+		this.destinationTitle = destinationTitle;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -314,15 +358,17 @@ public class WalletTransaction
 				Objects.equals(this.sourceId, walletTransaction.sourceId) &&
 				Objects.equals(this.sourceType, walletTransaction.sourceType) &&
 				Objects.equals(this.sourceCurrency, walletTransaction.sourceCurrency) &&
+				Objects.equals(this.sourceTitle, walletTransaction.sourceTitle) &&
 				Objects.equals(this.action, walletTransaction.action) &&
 				Objects.equals(this.destinationId, walletTransaction.destinationId) &&
 				Objects.equals(this.destinationType, walletTransaction.destinationType) &&
-				Objects.equals(this.destinationCurrency, walletTransaction.destinationCurrency);
+				Objects.equals(this.destinationCurrency, walletTransaction.destinationCurrency) &&
+				Objects.equals(this.destinationTitle, walletTransaction.destinationTitle);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, amount, amountConverted, date, number, sourceId, sourceType, sourceCurrency, action, destinationId, destinationType, destinationCurrency);
+		return Objects.hash(id, amount, amountConverted, date, number, sourceId, sourceType, sourceCurrency, sourceTitle, action, destinationId, destinationType, destinationCurrency, destinationTitle);
 	}
 
 	@Override
@@ -338,10 +384,12 @@ public class WalletTransaction
 		sb.append("    sourceId: ").append(toIndentedString(sourceId)).append("\n");
 		sb.append("    sourceType: ").append(toIndentedString(sourceType)).append("\n");
 		sb.append("    sourceCurrency: ").append(toIndentedString(sourceCurrency)).append("\n");
+		sb.append("    sourceTitle: ").append(toIndentedString(sourceTitle)).append("\n");
 		sb.append("    action: ").append(toIndentedString(action)).append("\n");
 		sb.append("    destinationId: ").append(toIndentedString(destinationId)).append("\n");
 		sb.append("    destinationType: ").append(toIndentedString(destinationType)).append("\n");
 		sb.append("    destinationCurrency: ").append(toIndentedString(destinationCurrency)).append("\n");
+		sb.append("    destinationTitle: ").append(toIndentedString(destinationTitle)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

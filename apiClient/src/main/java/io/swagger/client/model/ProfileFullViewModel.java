@@ -13,10 +13,15 @@
 
 package io.swagger.client.model;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
 import org.joda.time.DateTime;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -43,12 +48,6 @@ public class ProfileFullViewModel
 	@SerializedName("lastName")
 	private String lastName = null;
 
-	@SerializedName("documentType")
-	private String documentType = null;
-
-	@SerializedName("documentNumber")
-	private String documentNumber = null;
-
 	@SerializedName("country")
 	private String country = null;
 
@@ -73,11 +72,20 @@ public class ProfileFullViewModel
 	@SerializedName("avatar")
 	private String avatar = null;
 
+	@SerializedName("about")
+	private String about = null;
+
 	@SerializedName("userName")
 	private String userName = null;
 
-	@SerializedName("documentsConfirmed")
-	private Boolean documentsConfirmed = null;
+	@SerializedName("index")
+	private String index = null;
+
+	@SerializedName("citizenship")
+	private String citizenship = null;
+
+	@SerializedName("verificationStatus")
+	private VerificationStatusEnum verificationStatus = null;
 
 	public ProfileFullViewModel id(UUID id) {
 		this.id = id;
@@ -172,44 +180,6 @@ public class ProfileFullViewModel
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public ProfileFullViewModel documentType(String documentType) {
-		this.documentType = documentType;
-		return this;
-	}
-
-	/**
-	 * Get documentType
-	 *
-	 * @return documentType
-	 **/
-	@ApiModelProperty(value = "")
-	public String getDocumentType() {
-		return documentType;
-	}
-
-	public void setDocumentType(String documentType) {
-		this.documentType = documentType;
-	}
-
-	public ProfileFullViewModel documentNumber(String documentNumber) {
-		this.documentNumber = documentNumber;
-		return this;
-	}
-
-	/**
-	 * Get documentNumber
-	 *
-	 * @return documentNumber
-	 **/
-	@ApiModelProperty(value = "")
-	public String getDocumentNumber() {
-		return documentNumber;
-	}
-
-	public void setDocumentNumber(String documentNumber) {
-		this.documentNumber = documentNumber;
 	}
 
 	public ProfileFullViewModel country(String country) {
@@ -364,6 +334,25 @@ public class ProfileFullViewModel
 		this.avatar = avatar;
 	}
 
+	public ProfileFullViewModel about(String about) {
+		this.about = about;
+		return this;
+	}
+
+	/**
+	 * Get about
+	 *
+	 * @return about
+	 **/
+	@ApiModelProperty(value = "")
+	public String getAbout() {
+		return about;
+	}
+
+	public void setAbout(String about) {
+		this.about = about;
+	}
+
 	public ProfileFullViewModel userName(String userName) {
 		this.userName = userName;
 		return this;
@@ -383,25 +372,62 @@ public class ProfileFullViewModel
 		this.userName = userName;
 	}
 
-	public ProfileFullViewModel documentsConfirmed(Boolean documentsConfirmed) {
-		this.documentsConfirmed = documentsConfirmed;
+	public ProfileFullViewModel index(String index) {
+		this.index = index;
 		return this;
 	}
 
 	/**
-	 * Get documentsConfirmed
+	 * Get index
 	 *
-	 * @return documentsConfirmed
+	 * @return index
 	 **/
 	@ApiModelProperty(value = "")
-	public Boolean isDocumentsConfirmed() {
-		return documentsConfirmed;
+	public String getIndex() {
+		return index;
 	}
 
-	public void setDocumentsConfirmed(Boolean documentsConfirmed) {
-		this.documentsConfirmed = documentsConfirmed;
+	public void setIndex(String index) {
+		this.index = index;
 	}
 
+	public ProfileFullViewModel citizenship(String citizenship) {
+		this.citizenship = citizenship;
+		return this;
+	}
+
+	/**
+	 * Get citizenship
+	 *
+	 * @return citizenship
+	 **/
+	@ApiModelProperty(value = "")
+	public String getCitizenship() {
+		return citizenship;
+	}
+
+	public void setCitizenship(String citizenship) {
+		this.citizenship = citizenship;
+	}
+
+	public ProfileFullViewModel verificationStatus(VerificationStatusEnum verificationStatus) {
+		this.verificationStatus = verificationStatus;
+		return this;
+	}
+
+	/**
+	 * Get verificationStatus
+	 *
+	 * @return verificationStatus
+	 **/
+	@ApiModelProperty(value = "")
+	public VerificationStatusEnum getVerificationStatus() {
+		return verificationStatus;
+	}
+
+	public void setVerificationStatus(VerificationStatusEnum verificationStatus) {
+		this.verificationStatus = verificationStatus;
+	}
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -417,8 +443,6 @@ public class ProfileFullViewModel
 				Objects.equals(this.firstName, profileFullViewModel.firstName) &&
 				Objects.equals(this.middleName, profileFullViewModel.middleName) &&
 				Objects.equals(this.lastName, profileFullViewModel.lastName) &&
-				Objects.equals(this.documentType, profileFullViewModel.documentType) &&
-				Objects.equals(this.documentNumber, profileFullViewModel.documentNumber) &&
 				Objects.equals(this.country, profileFullViewModel.country) &&
 				Objects.equals(this.city, profileFullViewModel.city) &&
 				Objects.equals(this.address, profileFullViewModel.address) &&
@@ -427,15 +451,17 @@ public class ProfileFullViewModel
 				Objects.equals(this.birthday, profileFullViewModel.birthday) &&
 				Objects.equals(this.gender, profileFullViewModel.gender) &&
 				Objects.equals(this.avatar, profileFullViewModel.avatar) &&
+				Objects.equals(this.about, profileFullViewModel.about) &&
 				Objects.equals(this.userName, profileFullViewModel.userName) &&
-				Objects.equals(this.documentsConfirmed, profileFullViewModel.documentsConfirmed);
+				Objects.equals(this.index, profileFullViewModel.index) &&
+				Objects.equals(this.citizenship, profileFullViewModel.citizenship) &&
+				Objects.equals(this.verificationStatus, profileFullViewModel.verificationStatus);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, email, firstName, middleName, lastName, documentType, documentNumber, country, city, address, phone, phoneNumberConfirmed, birthday, gender, avatar, userName, documentsConfirmed);
+		return Objects.hash(id, email, firstName, middleName, lastName, country, city, address, phone, phoneNumberConfirmed, birthday, gender, avatar, about, userName, index, citizenship, verificationStatus);
 	}
-
 
 	@Override
 	public String toString() {
@@ -447,8 +473,6 @@ public class ProfileFullViewModel
 		sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
 		sb.append("    middleName: ").append(toIndentedString(middleName)).append("\n");
 		sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
-		sb.append("    documentType: ").append(toIndentedString(documentType)).append("\n");
-		sb.append("    documentNumber: ").append(toIndentedString(documentNumber)).append("\n");
 		sb.append("    country: ").append(toIndentedString(country)).append("\n");
 		sb.append("    city: ").append(toIndentedString(city)).append("\n");
 		sb.append("    address: ").append(toIndentedString(address)).append("\n");
@@ -457,8 +481,11 @@ public class ProfileFullViewModel
 		sb.append("    birthday: ").append(toIndentedString(birthday)).append("\n");
 		sb.append("    gender: ").append(toIndentedString(gender)).append("\n");
 		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
+		sb.append("    about: ").append(toIndentedString(about)).append("\n");
 		sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
-		sb.append("    documentsConfirmed: ").append(toIndentedString(documentsConfirmed)).append("\n");
+		sb.append("    index: ").append(toIndentedString(index)).append("\n");
+		sb.append("    citizenship: ").append(toIndentedString(citizenship)).append("\n");
+		sb.append("    verificationStatus: ").append(toIndentedString(verificationStatus)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -472,6 +499,59 @@ public class ProfileFullViewModel
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	/**
+	 * Gets or Sets verificationStatus
+	 */
+	@JsonAdapter(VerificationStatusEnum.Adapter.class)
+	public enum VerificationStatusEnum
+	{
+		NOTVERIFIED("NotVerified"),
+
+		VERIFIED("Verified"),
+
+		UNDERREVIEW("UnderReview"),
+
+		REJECTED("Rejected");
+
+		public static VerificationStatusEnum fromValue(String text) {
+			for (VerificationStatusEnum b : VerificationStatusEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		VerificationStatusEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<VerificationStatusEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final VerificationStatusEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public VerificationStatusEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return VerificationStatusEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 }

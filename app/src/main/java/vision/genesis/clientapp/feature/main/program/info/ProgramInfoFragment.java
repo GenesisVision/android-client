@@ -26,6 +26,7 @@ import butterknife.Unbinder;
 import io.swagger.client.model.ProgramDetailsFull;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
 import vision.genesis.clientapp.model.ProgramRequest;
@@ -127,6 +128,9 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	@BindView(R.id.success_fee)
 	public TextView successFee;
 
+	@BindView(R.id.button_invest)
+	public PrimaryButton investButton;
+
 	@BindView(R.id.invest_info)
 	public TextView investInfo;
 
@@ -183,22 +187,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@OnClick(R.id.button_invest)
 	public void onInvestClicked() {
-		if (programDetails == null || getActivity() == null)
-			return;
-		if (programDetails.getAvailableInvestment() == 0) {
-			showInvestmentNotAvailableDialog();
-			return;
-		}
-
-		ProgramRequest request = new ProgramRequest();
-
-		request.setProgramId(programDetails.getId());
-		request.setProgramLogo(programDetails.getLogo());
-		request.setLevel(programDetails.getLevel());
-		request.setProgramName(programDetails.getTitle());
-		request.setManagerName(programDetails.getManager().getUsername());
-
-		InvestProgramActivity.startWith(getActivity(), request);
+		programInfoPresenter.onInvestClicked();
 	}
 //
 //	@OnClick(R.id.button_withdraw)
@@ -284,7 +273,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 		periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds(), true, true);
 
-		if (programDetails.getPersonalProgramDetails().isIsInvested()) {
+		if (programDetails.getPersonalProgramDetails() != null && programDetails.getPersonalProgramDetails().isIsInvested()) {
 			yourInvestmentGroup.setVisibility(View.VISIBLE);
 			status.setStatus(programDetails.getPersonalProgramDetails().getStatus().getValue());
 //		invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(programDetails.getPersonalProgramDetails().getInvested()).toString()));
@@ -296,6 +285,8 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		availableToInvest.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(programDetails.getAvailableInvestment()).toString()));
 		entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getEntryFee(), 0, 4)));
 		successFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getSuccessFee(), 0, 4)));
+
+		investButton.setEnabled(programDetails.getAvailableInvestment() > 0);
 
 		investInfo.setText(String.format(Locale.getDefault(), getString(R.string.request_info_template), DateTimeUtil.formatShortDateTime(programDetails.getPeriodEnds())));
 	}
@@ -320,7 +311,15 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	public void pagerHide() {
 	}
 
-	private void showInvestmentNotAvailableDialog() {
-		showMessageDialog(getString(R.string.no_available_tokens_to_purchase));
+	@Override
+	public void showInvestProgramActivity(ProgramRequest request) {
+		if (getActivity() != null)
+			InvestProgramActivity.startWith(getActivity(), request);
+	}
+
+	@Override
+	public void showLoginActivity() {
+		if (getActivity() != null)
+			LoginActivity.startFrom(getActivity());
 	}
 }

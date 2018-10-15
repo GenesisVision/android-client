@@ -139,6 +139,8 @@ dependencies {
 
     implementation 'com.github.kenglxn.QRGen:android:2.4.0'
 
+    implementation 'me.dm7.barcodescanner:zxing:1.9.8'
+
     implementation 'com.github.hotchemi:permissionsdispatcher:3.1.0'
 
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.6.0'

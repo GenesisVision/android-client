@@ -4,6 +4,7 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**v10ManagersByIdDetailsGet**](ManagersApi.md#v10ManagersByIdDetailsGet) | **GET** v1.0/managers/{id}/details | Manager details
 [**v10ManagersByIdGet**](ManagersApi.md#v10ManagersByIdGet) | **GET** v1.0/managers/{id} | Manager profile
 [**v10ManagersFundsByIdAssetsUpdatePost**](ManagersApi.md#v10ManagersFundsByIdAssetsUpdatePost) | **POST** v1.0/managers/funds/{id}/assets/update | Update fund assets parts
 [**v10ManagersFundsByIdClosePost**](ManagersApi.md#v10ManagersFundsByIdClosePost) | **POST** v1.0/managers/funds/{id}/close | Close existing investment program/fund
@@ -22,6 +23,49 @@ Method | HTTP request | Description
 [**v10ManagersProgramsInvestmentAmountGet**](ManagersApi.md#v10ManagersProgramsInvestmentAmountGet) | **GET** v1.0/managers/programs/investment/amount | Get GVT investment to create program
 [**v10ManagersProgramsRequestsByIdCancelPost**](ManagersApi.md#v10ManagersProgramsRequestsByIdCancelPost) | **POST** v1.0/managers/programs/requests/{id}/cancel | Cancel investment program/fund request
 
+
+<a name="v10ManagersByIdDetailsGet"></a>
+# **v10ManagersByIdDetailsGet**
+> ManagerProfileDetails v10ManagersByIdDetailsGet(id)
+
+Manager details
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagersApi;
+
+
+ManagersApi apiInstance = new ManagersApi();
+String id = "id_example"; // String | 
+try {
+    ManagerProfileDetails result = apiInstance.v10ManagersByIdDetailsGet(id);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagersApi#v10ManagersByIdDetailsGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  |
+
+### Return type
+
+[**ManagerProfileDetails**](ManagerProfileDetails.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 <a name="v10ManagersByIdGet"></a>
 # **v10ManagersByIdGet**
