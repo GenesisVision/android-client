@@ -13,7 +13,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.Locale;
 import java.util.UUID;
@@ -23,18 +22,21 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.ProfilePublic;
 import io.swagger.client.model.ProgramDetailsFull;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
+import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
+import vision.genesis.clientapp.model.ManagerDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PeriodLeftDetailsView;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.DateTimeUtil;
-import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -63,7 +65,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	public ProgressBar progressBar;
 
 	@BindView(R.id.manager_avatar)
-	public SimpleDraweeView managerAvatar;
+	public AvatarView managerAvatar;
 
 	@BindView(R.id.manager_name)
 	public TextView managerName;
@@ -71,17 +73,11 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	@BindView(R.id.manager_date)
 	public TextView managerDate;
 
-	@BindView(R.id.label_strategy)
-	public TextView labelStrategy;
-
 	@BindView(R.id.strategy)
 	public TextView strategy;
 
 	@BindView(R.id.strategy_shadow)
 	public View strategyShadow;
-
-	@BindView(R.id.label_period)
-	public TextView labelPeriod;
 
 	@BindView(R.id.view_period)
 	public PeriodLeftDetailsView periodView;
@@ -148,7 +144,15 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@OnClick(R.id.group_manager)
 	public void onManagerClicked() {
-
+		if (getActivity() != null) {
+			ProfilePublic manager = programDetails.getManager();
+			ManagerDetailsModel model = new ManagerDetailsModel(
+					manager.getId(),
+					manager.getAvatar(),
+					manager.getUsername(),
+					manager.getRegistrationDate());
+			ManagerDetailsActivity.startWith(getActivity(), model);
+		}
 	}
 
 	@OnClick(R.id.strategy)
@@ -261,7 +265,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 		scrollView.setVisibility(View.VISIBLE);
 
-		managerAvatar.setImageURI(ImageUtils.getImageUri(programDetails.getManager().getAvatar()));
+		managerAvatar.setImage(programDetails.getManager().getAvatar(), 100, 100);
 		managerName.setText(programDetails.getManager().getUsername());
 		managerDate.setText(DateTimeUtil.formatShortDate(programDetails.getManager().getRegistrationDate()));
 

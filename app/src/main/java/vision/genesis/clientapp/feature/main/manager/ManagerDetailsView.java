@@ -1,21 +1,21 @@
-package vision.genesis.clientapp.feature.main.program;
+package vision.genesis.clientapp.feature.main.manager;
 
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
-import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.ManagerProfileDetails;
 
 /**
- * GenesisVision
- * Created by Vitaly on 1/26/18.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 15/10/2018.
  */
 
-interface ProgramDetailsView extends MvpView
+interface ManagerDetailsView extends MvpView
 {
 	@StateStrategyType(AddToEndSingleStrategy.class)
-	void setProgram(ProgramDetailsFull programDetails);
+	void setManagerDetails(ManagerProfileDetails managerDetails);
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void finishActivity();
@@ -31,8 +31,6 @@ interface ProgramDetailsView extends MvpView
 	void showNoInternetProgress(boolean show);
 
 	void showProgress(boolean show);
-
-	void showTrades();
 
 	void setRefreshing(boolean refreshing);
 }

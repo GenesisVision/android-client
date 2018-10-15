@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program;
+package vision.genesis.clientapp.feature.main.manager;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,18 +19,20 @@ import android.widget.Toast;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.ManagerProfileDetails;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.model.ProgramDetailsModel;
-import vision.genesis.clientapp.ui.ProgramLogoView;
+import vision.genesis.clientapp.model.ManagerDetailsModel;
+import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
+import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.TabLayoutUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -38,17 +40,17 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 17/04/2018.
+ * Created by Vitaly on 15/10/2018.
  */
 
-public class ProgramDetailsActivity extends BaseSwipeBackActivity implements ProgramDetailsView, ViewPager.OnPageChangeListener
+public class ManagerDetailsActivity extends BaseSwipeBackActivity implements ManagerDetailsView, ViewPager.OnPageChangeListener
 {
 	private static String EXTRA_MODEL = "extra_model";
 
-	public static void startWith(Activity activity, ProgramDetailsModel model) {
-		Intent intent = new Intent(activity.getApplicationContext(), ProgramDetailsActivity.class);
+	public static void startWith(Activity activity, ManagerDetailsModel model) {
+		Intent intent = new Intent(activity.getApplicationContext(), ManagerDetailsActivity.class);
 		intent.putExtra(EXTRA_MODEL, model);
-		intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
@@ -59,11 +61,11 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@BindView(R.id.swipe_refresh)
 	public SwipeRefreshLayout refreshLayout;
 
-	@BindView(R.id.toolbar_program_logo)
-	public ProgramLogoView toolbarProgramLogo;
+	@BindView(R.id.toolbar_manager_avatar)
+	public AvatarView toolbarManagerAvatar;
 
-	@BindView(R.id.toolbar_program_name)
-	public TextView toolbarProgramName;
+	@BindView(R.id.toolbar_manager_name)
+	public TextView toolbarManagerName;
 
 	@BindView(R.id.group_toolbar_buttons)
 	public ViewGroup toolbarButtons;
@@ -74,14 +76,14 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@BindView(R.id.button_favorite)
 	public ImageView favoriteButton;
 
-	@BindView(R.id.program_logo)
+	@BindView(R.id.manager_avatar)
 	public SimpleDraweeView programLogo;
 
-	@BindView(R.id.level)
-	public TextView level;
+	@BindView(R.id.manager_name)
+	public TextView managerName;
 
-	@BindView(R.id.program_name)
-	public TextView programName;
+	@BindView(R.id.manager_date)
+	public TextView managerDate;
 
 	@BindView(R.id.app_bar_layout)
 	public AppBarLayout appBarLayout;
@@ -111,9 +113,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	public View tryAgainButton;
 
 	@InjectPresenter
-	ProgramDetailsPresenter programDetailsPresenter;
+	ManagerDetailsPresenter managerDetailsPresenter;
 
-	private ProgramDetailsFull programDetails;
+	private ManagerProfileDetails managerDetails;
 
 	private TabLayout.OnTabSelectedListener tabSelectedListener;
 
@@ -123,15 +125,15 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	private TabLayout.Tab profitTab;
 
-	private TabLayout.Tab tradesTab;
+	private TabLayout.Tab programsTab;
 
-	private TabLayout.Tab eventsTab;
+	private TabLayout.Tab fundsTab;
 
-	private ProgramDetailsPagerAdapter pagerAdapter;
+	private ManagerDetailsPagerAdapter pagerAdapter;
 
 	private Fragment currentFragment;
 
-	private ProgramDetailsModel model;
+	private ManagerDetailsModel model;
 
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
@@ -140,12 +142,12 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
-		programDetailsPresenter.onTryAgainClicked();
+		managerDetailsPresenter.onTryAgainClicked();
 	}
 
 	@OnClick(R.id.button_favorite)
 	public void onFavoriteClicked() {
-		if (programDetails != null) {
+		if (managerDetails != null) {
 //			programDetails.isFavorite(!programDetails.isIsFavorite());
 //			setFavoriteButtonImage(programDetails.isIsFavorite());
 //			programInfoPresenter.onFavoriteButtonClicked(programDetails.isIsFavorite());
@@ -157,7 +159,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_program_details);
+		setContentView(R.layout.activity_manager_details);
 
 		ButterKnife.bind(this);
 
@@ -167,28 +169,27 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			model = getIntent().getExtras().getParcelable(EXTRA_MODEL);
 
 			initRefreshLayout();
+			initViewPager(model.getManagerId());
 			initTabs();
-			initViewPager(model.getProgramId());
 			updateHeader();
 
-			programDetailsPresenter.setProgramId(model.getProgramId());
+			managerDetailsPresenter.setManagerId(model.getManagerId());
 
 			setAnimations();
 		}
 		else {
-			Timber.e("Passed empty program to ProgramDetailsActivity");
+			Timber.e("Passed empty program to ManagerDetailsActivity");
 			onBackPressed();
 		}
 	}
 
 	private void initRefreshLayout() {
-//		refreshLayout.setBackgroundColor(ThemeUtil.getColorByAttrId(this, R.attr.colorAccent));
 		refreshLayout.setColorSchemeColors(
 				ThemeUtil.getColorByAttrId(this, R.attr.colorAccent),
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary),
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextSecondary));
 		refreshLayout.setOnRefreshListener(() -> {
-			programDetailsPresenter.onSwipeRefresh();
+			managerDetailsPresenter.onSwipeRefresh();
 			if (pagerAdapter != null)
 				pagerAdapter.sendSwipeRefresh();
 		});
@@ -204,8 +205,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			if (Math.abs(verticalOffset) > appBarLayout.getTotalScrollRange() - toolbarStartOffset) {
 				toolbarAlphaPercent = (float) ((appBarLayout.getTotalScrollRange() - Math.abs(verticalOffset)) / toolbarStartOffset);
 			}
-			toolbarProgramLogo.setAlpha(1 - toolbarAlphaPercent);
-			toolbarProgramName.setAlpha(1 - toolbarAlphaPercent);
+			toolbarManagerAvatar.setAlpha(1 - toolbarAlphaPercent);
+			toolbarManagerName.setAlpha(1 - toolbarAlphaPercent);
 
 			refreshLayout.setEnabled(verticalOffset == 0);
 
@@ -231,29 +232,27 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	private void setFonts() {
-		toolbarProgramName.setTypeface(TypefaceUtil.semibold());
-		programName.setTypeface(TypefaceUtil.semibold());
-		level.setTypeface(TypefaceUtil.semibold());
+		toolbarManagerName.setTypeface(TypefaceUtil.semibold());
+		managerName.setTypeface(TypefaceUtil.semibold());
 	}
 
 	private void updateHeader() {
 		programLogo.setImageURI(ImageUtils.getImageUri(model.getAvatar()));
-		toolbarProgramLogo.setImage(model.getAvatar(), 50, 50);
-		toolbarProgramLogo.hideLevel();
+		toolbarManagerAvatar.setImage(model.getAvatar(), 50, 50);
 
-		level.setText(String.valueOf(model.getLevel()));
+		managerName.setText(model.getManagerName());
+		toolbarManagerName.setText(model.getManagerName());
 
-		programName.setText(model.getProgramName());
-		toolbarProgramName.setText(model.getProgramName());
-
-		setFavoriteButtonImage(model.isFavorite());
+		managerDate.setText(String.format(Locale.getDefault(),
+				getString(R.string.manager_member_sicne_template),
+				DateTimeUtil.formatShortDate(model.getManagerDate())));
 	}
 
 	private void initTabs() {
 		infoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("info");
 		profitTab = tabLayout.newTab().setCustomView(getTabView(R.string.profit)).setTag("profit");
-		tradesTab = tabLayout.newTab().setCustomView(getTabView(R.string.trades)).setTag("trades");
-		eventsTab = tabLayout.newTab().setCustomView(getTabView(R.string.events)).setTag("events");
+		programsTab = tabLayout.newTab().setCustomView(getTabView(R.string.programs)).setTag("programs");
+		fundsTab = tabLayout.newTab().setCustomView(getTabView(R.string.funds)).setTag("funds");
 
 		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -286,7 +285,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 		addPage(infoTab, true);
 		addPage(profitTab, false);
-		addPage(tradesTab, false);
+		addPage(programsTab, false);
+		addPage(fundsTab, false);
 	}
 
 	private View getTabView(int textResId) {
@@ -306,7 +306,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	private void initViewPager(UUID programId) {
-		pagerAdapter = new ProgramDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, programId);
+		pagerAdapter = new ManagerDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, programId);
 		viewPager.setAdapter(pagerAdapter);
 
 		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
@@ -317,7 +317,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@Override
 	protected void onResume() {
 		super.onResume();
-		programDetailsPresenter.onResume();
+		managerDetailsPresenter.onResume();
 	}
 
 	@Override
@@ -326,13 +326,10 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	@Override
-	public void setProgram(ProgramDetailsFull programDetails) {
-		this.programDetails = programDetails;
+	public void setManagerDetails(ManagerProfileDetails managerDetails) {
+		this.managerDetails = managerDetails;
 
-//		if (programDetails.isIsHistoryEnable())
-		addPage(eventsTab, false);
-
-		model.update(programDetails);
+		model.update(managerDetails);
 		updateHeader();
 
 		tabsGroup.setVisibility(View.VISIBLE);
@@ -342,7 +339,6 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	private void setFavoriteButtonImage(boolean isFavorite) {
-
 		favoriteButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), isFavorite
 				? R.drawable.icon_favorite_fill
 				: R.drawable.icon_favorite));
@@ -355,11 +351,11 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	@Override
 	public void onPageSelected(int position) {
-		if (currentFragment != null && currentFragment instanceof ProgramDetailsPagerAdapter.OnPageVisibilityChanged)
-			((ProgramDetailsPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerHide();
+		if (currentFragment != null && currentFragment instanceof ManagerDetailsPagerAdapter.OnPageVisibilityChanged)
+			((ManagerDetailsPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerHide();
 		currentFragment = pagerAdapter.getItem(position);
-		if (pagerAdapter.getItem(position) instanceof ProgramDetailsPagerAdapter.OnPageVisibilityChanged) {
-			((ProgramDetailsPagerAdapter.OnPageVisibilityChanged) pagerAdapter.getItem(position)).pagerShow();
+		if (pagerAdapter.getItem(position) instanceof ManagerDetailsPagerAdapter.OnPageVisibilityChanged) {
+			((ManagerDetailsPagerAdapter.OnPageVisibilityChanged) pagerAdapter.getItem(position)).pagerShow();
 		}
 	}
 
@@ -400,7 +396,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	@Override
 	public void showSnackbarMessage(String message) {
-		showSnackbar(message, toolbarProgramLogo);
+		showSnackbar(message, toolbarManagerAvatar);
 	}
 
 	@Override
@@ -419,11 +415,6 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 //		if (refreshLayout != null)
 //			refreshLayout.setRefreshing(refreshing);
 //	}
-
-	@Override
-	public void showTrades() {
-		tradesTab.select();
-	}
 
 	@Override
 	public void setRefreshing(boolean refreshing) {

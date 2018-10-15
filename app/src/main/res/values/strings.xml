@@ -468,5 +468,8 @@
     <string name="estimated_amount">Estimated amount</string>
     <string name="confirm_withdraw">Confirm Withdraw</string>
     <string name="wallet_address_not_valid">\@string/The wallet address is not valid</string>
+    <string name="manager_member_sicne_template">Member since %s</string>
+    <string name="about">About</string>
+    <string name="assets_type">Assets type</string>
 
 </resources>

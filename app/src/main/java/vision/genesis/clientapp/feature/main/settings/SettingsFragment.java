@@ -189,8 +189,6 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 
 		version.setText(String.format(Locale.getDefault(), "Version %s (%d)", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
 
-		avatar.hideLevel();
-
 		initSwitchOptions();
 	}
 
@@ -286,7 +284,7 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 
 	@Override
 	public void updateProfile(ProfileFullViewModel profile) {
-		avatar.setImage(profile.getAvatar(), 50, 50);
+		avatar.setImage(profile.getAvatar(), 200, 200);
 
 		if (profile.getUserName() != null && !profile.getUserName().isEmpty()) {
 			profileName.setText(profile.getUserName());

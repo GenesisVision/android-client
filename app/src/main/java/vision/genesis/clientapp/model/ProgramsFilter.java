@@ -51,6 +51,8 @@ public class ProgramsFilter implements Parcelable
 
 	private List<UUID> ids;
 
+	private UUID managerId;
+
 	private Integer skip;
 
 	private Integer take;
@@ -100,6 +102,7 @@ public class ProgramsFilter implements Parcelable
 			currency = null;
 		}
 		in.readList(ids, null);
+		managerId = (UUID) in.readSerializable();
 		if (in.readByte() == 0) {
 			skip = null;
 		}
@@ -210,6 +213,14 @@ public class ProgramsFilter implements Parcelable
 		this.ids = ids;
 	}
 
+	public UUID getManagerId() {
+		return managerId;
+	}
+
+	public void setManagerId(UUID managerId) {
+		this.managerId = managerId;
+	}
+
 	public Integer getSkip() {
 		return skip;
 	}
@@ -288,6 +299,7 @@ public class ProgramsFilter implements Parcelable
 			dest.writeString(currency.name());
 		}
 		dest.writeList(ids);
+		dest.writeSerializable(managerId);
 		if (skip == null) {
 			dest.writeByte((byte) 0);
 		}

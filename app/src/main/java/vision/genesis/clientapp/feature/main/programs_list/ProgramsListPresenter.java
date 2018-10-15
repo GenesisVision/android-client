@@ -10,6 +10,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -55,6 +56,10 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 
 	private List<ProgramDetails> programsToAdd = new ArrayList<>();
 
+	private UUID managerId;
+
+	private Boolean managerSet;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -78,6 +83,16 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 		super.onDestroy();
 	}
 
+	void setManagerId(UUID managerId) {
+		this.managerId = managerId;
+		this.managerSet = true;
+		if (filter != null) {
+			filter.setManagerId(managerId);
+			getViewState().updateFilter(filter);
+		}
+		getProgramsList(true);
+	}
+
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
 		getProgramsList(true);
@@ -97,6 +112,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 		filter = new ProgramsFilter();
 		filter.setSkip(0);
 		filter.setTake(TAKE);
+		filter.setManagerId(managerId);
 //		filter.setEquityChartLength(10);
 
 		getViewState().updateFilter(filter);
@@ -109,19 +125,21 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 	}
 
 	private void getProgramsList(boolean forceUpdate) {
-		if (forceUpdate) {
-			skip = 0;
-			filter.setSkip(skip);
-		}
+		if (programsManager != null && managerSet) {
+			if (forceUpdate) {
+				skip = 0;
+				filter.setSkip(skip);
+			}
 
-		if (getProgramsSubscription != null)
-			getProgramsSubscription.unsubscribe();
-		getProgramsSubscription = programsManager.getProgramsList(filter)
-				.subscribeOn(Schedulers.computation())
+			if (getProgramsSubscription != null)
+				getProgramsSubscription.unsubscribe();
+			getProgramsSubscription = programsManager.getProgramsList(filter)
+					.subscribeOn(Schedulers.computation())
 //				.map(this::prepareData)
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::handleGetProgramsList,
-						this::handleGetProgramsListError);
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleGetProgramsList,
+							this::handleGetProgramsListError);
+		}
 	}
 
 //	private InvestmentProgramsViewModel prepareData(InvestmentProgramsViewModel model) {

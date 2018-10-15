@@ -52,7 +52,6 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		subscribeToUser();
 		getViewState().showProgress(true);
 		getProgramDetails();
-//		getChartData();
 	}
 
 	@Override

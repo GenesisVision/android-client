@@ -5,10 +5,13 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import io.swagger.client.api.InvestorApi;
+import io.swagger.client.api.ManagersApi;
 import io.swagger.client.api.ProgramsApi;
 import io.swagger.client.api.RateApi;
 import io.swagger.client.api.WalletApi;
 import vision.genesis.clientapp.managers.InvestorDashboardManager;
+import vision.genesis.clientapp.managers.ManagerDashboardManager;
+import vision.genesis.clientapp.managers.ManagersManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.RateManager;
 import vision.genesis.clientapp.managers.WalletManager;
@@ -27,22 +30,22 @@ public class AssetsModule
 		return new InvestorDashboardManager(investorApi);
 	}
 
-//	@Provides
-//	@Singleton
-//	public ProgramsManager provideProgramsManager(InvestorApi investorApi, ManagerApi managerApi, ProgramsApi programsApi) {
-//		return new ProgramsManager(investorApi, managerApi, programsApi);
-//	}
-//
-//	@Provides
-//	@Singleton
-//	public WalletManager provideWalletManager(InvestorApi investorApi, ManagerApi managerApi) {
-//		return new WalletManager(investorApi, managerApi);
-//	}
+	@Provides
+	@Singleton
+	public ManagerDashboardManager provideManagerDashboardManager(ManagersApi managersApi) {
+		return new ManagerDashboardManager(managersApi);
+	}
 
 	@Provides
 	@Singleton
 	public ProgramsManager provideProgramsManager(InvestorApi investorApi, ProgramsApi programApi) {
 		return new ProgramsManager(investorApi, programApi);
+	}
+
+	@Provides
+	@Singleton
+	public ManagersManager provideManagersManager(ManagersApi managersApi) {
+		return new ManagersManager(managersApi);
 	}
 
 	@Provides

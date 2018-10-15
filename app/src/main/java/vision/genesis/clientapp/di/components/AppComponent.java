@@ -25,6 +25,9 @@ import vision.genesis.clientapp.feature.main.dashboard.investor.header.InvestorD
 import vision.genesis.clientapp.feature.main.dashboard.investor.programs.DashboardProgramsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.manager.ManagerDashboardPresenter;
 import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
+import vision.genesis.clientapp.feature.main.manager.ManagerDetailsPresenter;
+import vision.genesis.clientapp.feature.main.manager.info.ManagerInfoPresenter;
+import vision.genesis.clientapp.feature.main.manager.profit.ManagerProfitPresenter;
 import vision.genesis.clientapp.feature.main.message.MessageActivity;
 import vision.genesis.clientapp.feature.main.notifications.NotificationsPresenter;
 import vision.genesis.clientapp.feature.main.portfolio_events.PortfolioEventsPresenter;
@@ -164,4 +167,10 @@ public interface AppComponent
 	void inject(SelectOptionBottomSheetFragment selectOptionBottomSheetFragment);
 
 	void inject(ConfirmWalletWithdrawBottomSheetFragment confirmWalletWithdrawBottomSheetFragment);
+
+	void inject(ManagerDetailsPresenter managerDetailsPresenter);
+
+	void inject(ManagerInfoPresenter managerInfoPresenter);
+
+	void inject(ManagerProfitPresenter managerProfitPresenter);
 }

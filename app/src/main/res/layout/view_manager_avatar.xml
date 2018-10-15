@@ -1,49 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<com.facebook.drawee.view.SimpleDraweeView
+    android:id="@+id/image"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        app:backgroundImage="@color/grey200"
-        app:failureImage="@drawable/profile_placeholder"
-        app:failureImageScaleType="centerCrop"
-        app:placeholderImage="@drawable/profile_placeholder"
-        app:placeholderImageScaleType="centerCrop"
-        app:roundBottomLeft="true"
-        app:roundBottomRight="true"
-        app:roundTopLeft="true"
-        app:roundTopRight="true"
-        app:roundedCornerRadius="4dp"/>
-
-    <FrameLayout
-        android:id="@+id/group_level"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorAccent"/>
-
-        <TextView
-            android:id="@+id/level"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            tools:text="3"/>
-
-    </FrameLayout>
-
-</RelativeLayout>
+    android:layout_height="match_parent"
+    app:backgroundImage="?attr/colorDelimiterLight"
+    app:placeholderImage="@drawable/avatar_placeholder"
+    app:placeholderImageScaleType="center"
+    app:roundAsCircle="true"/>

@@ -175,11 +175,11 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	}
 
 	private void userLoggedOn() {
-		getViewState().showFavoriteButton(true);
+		getViewState().showToolbarButtons(true);
 	}
 
 	private void userLoggedOff() {
-		getViewState().showFavoriteButton(false);
+		getViewState().showToolbarButtons(false);
 	}
 
 	private void handleUserError(Throwable throwable) {

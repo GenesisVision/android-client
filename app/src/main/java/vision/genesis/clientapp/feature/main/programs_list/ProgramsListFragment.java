@@ -36,6 +36,16 @@ import vision.genesis.clientapp.model.ProgramsFilter;
 
 public class ProgramsListFragment extends BaseFragment implements ProgramsListView
 {
+	private static String EXTRA_MANAGER_ID = "extra_manager_id";
+
+	public static ProgramsListFragment with(UUID managerId) {
+		ProgramsListFragment programListFragment = new ProgramsListFragment();
+		Bundle arguments = new Bundle(1);
+		arguments.putSerializable(EXTRA_MANAGER_ID, managerId);
+		programListFragment.setArguments(arguments);
+		return programListFragment;
+	}
+
 	@BindView(R.id.refresh_layout)
 	public SwipeRefreshLayout refreshLayout;
 
@@ -84,6 +94,12 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		super.onViewCreated(view, savedInstanceState);
 
 		unbinder = ButterKnife.bind(this, view);
+
+		UUID managerId = null;
+		if (getArguments() != null) {
+			managerId = (UUID) getArguments().getSerializable(EXTRA_MANAGER_ID);
+		}
+		programsListPresenter.setManagerId(managerId);
 
 		initRefreshLayout();
 		initRecyclerView();
