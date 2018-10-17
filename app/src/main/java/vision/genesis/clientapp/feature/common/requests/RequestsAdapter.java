@@ -23,7 +23,9 @@ import io.swagger.client.model.ProgramRequest;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.OnCancelRequestClickedEvent;
+import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -101,6 +103,20 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Invest
 			cancelText.setTypeface(TypefaceUtil.semibold());
 
 			swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+
+			itemView.setOnClickListener(v -> {
+				if (request != null) {
+					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(request.getProgramId(),
+							request.getLogo(),
+//							request.getColor(),
+							"#00FF00",
+							0,
+							request.getTitle(),
+							"",
+							false);
+					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programDetailsModel));
+				}
+			});
 		}
 
 		@OnClick(R.id.button_cancel)

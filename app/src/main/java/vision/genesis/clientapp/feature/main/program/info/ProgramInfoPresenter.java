@@ -141,6 +141,7 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 		request.setProgramId(programDetails.getId());
 		request.setProgramLogo(programDetails.getLogo());
+		request.setProgramColor(programDetails.getColor());
 		request.setLevel(programDetails.getLevel());
 		request.setProgramName(programDetails.getTitle());
 		request.setManagerName(programDetails.getManager().getUsername());

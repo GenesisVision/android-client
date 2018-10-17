@@ -134,6 +134,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 				if (program != null) {
 					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(program.getId(),
 							program.getLogo(),
+							program.getColor(),
 							program.getLevel(),
 							program.getTitle(),
 							program.getManager().getUsername(),
@@ -163,7 +164,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		}
 
 		private void updateData() {
-			this.programLogo.setImage(program.getLogo(), 100, 100);
+			this.programLogo.setImage(program.getLogo(), program.getColor(), 100, 100);
 			this.programLogo.setLevel(program.getLevel());
 
 			this.programName.setText(program.getTitle());

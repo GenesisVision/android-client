@@ -3,13 +3,10 @@ package vision.genesis.clientapp.feature.main.program.profit;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ChartSimple;
 import io.swagger.client.model.ProgramProfitChart;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -19,6 +16,7 @@ import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFr
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.ui.chart.ProfitChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
@@ -27,7 +25,7 @@ import vision.genesis.clientapp.utils.StringFormatUtil;
  */
 
 @InjectViewState
-public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener
+public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener, ProfitChartView.TouchListener
 {
 	@Inject
 	public ProgramsManager programsManager;
@@ -35,17 +33,13 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 	@Inject
 	public SettingsManager settingsManager;
 
-//	private Subscription baseCurrencySubscription;
-
 	private Subscription chartDataSubscription;
 
 	private UUID programId;
 
-//	private CurrencyEnum baseCurrency;
+	private Double first;
 
-//	private Double first;
-
-//	private Double selected;
+	private Double selected;
 
 	private ProgramProfitChart chartData;
 
@@ -57,8 +51,6 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-//		subscribeToBaseCurrency();
-
 		getViewState().setDateRange(chartDateRange);
 		getViewState().showProgress(true);
 		getChartData();
@@ -66,8 +58,6 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 
 	@Override
 	public void onDestroy() {
-//		if (baseCurrencySubscription != null)
-//			baseCurrencySubscription.unsubscribe();
 		if (chartDataSubscription != null)
 			chartDataSubscription.unsubscribe();
 
@@ -83,31 +73,12 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 		getChartData();
 	}
 
-//	void onChartTimeFrameChanged(String newTimeFrame) {
-//		chartTimeFrame = newTimeFrame;
-//		getChartData();
-//	}
-
-//	private void subscribeToBaseCurrency() {
-//		baseCurrencySubscription = settingsManager.getBaseCurrency()
-//				.subscribeOn(Schedulers.newThread())
-//				.observeOn(AndroidSchedulers.mainThread())
-//				.subscribe(this::baseCurrencyChangedHandler);
-//	}
-
-//	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
-//		this.baseCurrency = baseCurrency;
-//
-//		getChartData();
-//	}
-
 	private void getChartData() {
-//		if (programId != null && programsManager != null && baseCurrency != null) {
 		if (programId != null && programsManager != null) {
 			if (chartDataSubscription != null)
 				chartDataSubscription.unsubscribe();
 			//TODO: calculate maxPointCount
-			chartDataSubscription = programsManager.getProfitChart(programId, chartDateRange, 10)
+			chartDataSubscription = programsManager.getProfitChart(programId, chartDateRange, 100)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetChartDataSuccess,
@@ -121,7 +92,7 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 
 		this.chartData = response;
 
-		getViewState().setChartData(chartData.getEquityChart());
+		getViewState().setChartData(chartData.getEquityChart(), chartData.getPnLChart(), chartData.getPeriods());
 
 		resetValuesSelection();
 	}
@@ -132,34 +103,36 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 	}
 
 	private void resetValuesSelection() {
-		List<ChartSimple> firstEquityChart = chartData.getEquityChart();
-//		first = firstEquityChart.get(0).getValue();
-//		List<ChartSimple> lastEquityChart = chartData.getChart().get(chartData.getChart().size() - 1).getEquityChart();
-//		selected = lastEquityChart.get(lastEquityChart.size() - 1).getValue();
-//		getViewState().hideHighlight();
-		updateValues();
-	}
-
-	public void onPortfolioChartTouch(int index, float chartBottomY) {
-//		selected = chartData.getProfitChart().get(index).getValue();
-
+		first = 0.0;
+		selected = 0.0;
+		if (chartData.getEquityChart() != null && !chartData.getEquityChart().isEmpty()) {
+			first = chartData.getEquityChart().get(0).getValue();
+			selected = chartData.getEquityChart().get(chartData.getEquityChart().size() - 1).getValue();
+		}
 		updateValues();
 	}
 
 	private void updateValues() {
-//		if (first == null || selected == null || baseCurrency == null)
-//			return;
+		if (first == null || selected == null)
+			return;
 
-		getViewState().setAmount(StringFormatUtil.getGvtValueString(chartData.getTotalGvtProfit()), StringFormatUtil.getBaseValueString(chartData.getTotalProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
+//		getViewState().setAmount(StringFormatUtil.getGvtValueString(chartData.getTotalGvtProfit()), StringFormatUtil.getBaseValueString(chartData.getTotalProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
+		//TODO: getBaseValueString(selected * rate
+		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getBaseValueString(selected, chartData.getProgramCurrency().getValue()));
 //		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getBaseValueString(selected * 7, baseCurrency.getValue()));
 
-//		Double changeValue = selected - first;
+		Double changeValue = selected - first;
 //		getViewState().setChange(changeValue < 0, StringFormatUtil.getChangePercentString(first, selected),
 //				StringFormatUtil.getChangeValueString(changeValue), StringFormatUtil.getBaseValueString(changeValue * chartData.get(), baseCurrency.getValue()));
-		getViewState().setChange(chartData.getProfitChangePercent() != null && chartData.getProfitChangePercent() < 0,
-				chartData.getProfitChangePercent() == null ? "∞" : String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(chartData.getProfitChangePercent(), 0, 2)),
-				StringFormatUtil.getChangeValueString(chartData.getTimeframeGvtProfit()),
-				StringFormatUtil.getBaseValueString(chartData.getTimeframeProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
+//		getViewState().setChange(chartData.getProfitChangePercent() != null && chartData.getProfitChangePercent() < 0,
+//				chartData.getProfitChangePercent() == null ? "∞" : String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(chartData.getProfitChangePercent(), 0, 2)),
+//				StringFormatUtil.getChangeValueString(chartData.getTimeframeGvtProfit()),
+//				StringFormatUtil.getBaseValueString(chartData.getTimeframeProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
+		//TODO: getBaseValueString(changeValue * rate
+		getViewState().setChange(changeValue < 0,
+				StringFormatUtil.getChangePercentString(first, selected),
+				StringFormatUtil.getChangeValueString(changeValue),
+				StringFormatUtil.getBaseValueString(changeValue, chartData.getProgramCurrency().getValue()));
 
 		getViewState().setStatisticsData(chartData.getTrades(), chartData.getSuccessTradesPercent(),
 				chartData.getProfitFactor(), chartData.getSharpeRatio(), chartData.getSortinoRatio(),
@@ -172,5 +145,16 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 		getViewState().setDateRange(dateRange);
 		getViewState().showProgress(true);
 		getChartData();
+	}
+
+	@Override
+	public void onTouch(float value) {
+		selected = (double) value;
+		updateValues();
+	}
+
+	@Override
+	public void onStop() {
+		resetValuesSelection();
 	}
 }

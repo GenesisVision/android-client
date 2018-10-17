@@ -32,14 +32,17 @@ public class PlatformAsset
 	@SerializedName("name")
 	private String name = null;
 
-	@SerializedName("symbol")
-	private String symbol = null;
+	@SerializedName("asset")
+	private String asset = null;
 
 	@SerializedName("description")
 	private String description = null;
 
 	@SerializedName("icon")
 	private String icon = null;
+
+	@SerializedName("color")
+	private String color = null;
 
 	public PlatformAsset id(UUID id) {
 		this.id = id;
@@ -79,23 +82,23 @@ public class PlatformAsset
 		this.name = name;
 	}
 
-	public PlatformAsset symbol(String symbol) {
-		this.symbol = symbol;
+	public PlatformAsset asset(String asset) {
+		this.asset = asset;
 		return this;
 	}
 
 	/**
-	 * Get symbol
+	 * Get asset
 	 *
-	 * @return symbol
+	 * @return asset
 	 **/
 	@ApiModelProperty(value = "")
-	public String getSymbol() {
-		return symbol;
+	public String getAsset() {
+		return asset;
 	}
 
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
+	public void setAsset(String asset) {
+		this.asset = asset;
 	}
 
 	public PlatformAsset description(String description) {
@@ -136,6 +139,25 @@ public class PlatformAsset
 		this.icon = icon;
 	}
 
+	public PlatformAsset color(String color) {
+		this.color = color;
+		return this;
+	}
+
+	/**
+	 * Get color
+	 *
+	 * @return color
+	 **/
+	@ApiModelProperty(value = "")
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -148,14 +170,15 @@ public class PlatformAsset
 		PlatformAsset platformAsset = (PlatformAsset) o;
 		return Objects.equals(this.id, platformAsset.id) &&
 				Objects.equals(this.name, platformAsset.name) &&
-				Objects.equals(this.symbol, platformAsset.symbol) &&
+				Objects.equals(this.asset, platformAsset.asset) &&
 				Objects.equals(this.description, platformAsset.description) &&
-				Objects.equals(this.icon, platformAsset.icon);
+				Objects.equals(this.icon, platformAsset.icon) &&
+				Objects.equals(this.color, platformAsset.color);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, symbol, description, icon);
+		return Objects.hash(id, name, asset, description, icon, color);
 	}
 
 
@@ -166,9 +189,10 @@ public class PlatformAsset
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
-		sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
+		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
+		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

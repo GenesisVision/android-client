@@ -30,6 +30,8 @@ public class ProgramDetailsModel implements Parcelable
 
 	private String avatar;
 
+	private String programColor;
+
 	private Integer level;
 
 	private String programName;
@@ -38,9 +40,10 @@ public class ProgramDetailsModel implements Parcelable
 
 	private boolean favorite;
 
-	public ProgramDetailsModel(UUID programId, String avatar, Integer level, String programName, String managerName, boolean isFavorite) {
+	public ProgramDetailsModel(UUID programId, String avatar, String programColor, Integer level, String programName, String managerName, boolean isFavorite) {
 		this.programId = programId;
 		this.avatar = avatar;
+		this.programColor = programColor;
 		this.level = level;
 		this.programName = programName;
 		this.managerName = managerName;
@@ -50,6 +53,7 @@ public class ProgramDetailsModel implements Parcelable
 	protected ProgramDetailsModel(Parcel in) {
 		programId = (UUID) in.readSerializable();
 		avatar = in.readString();
+		programColor = in.readString();
 		level = in.readInt();
 		programName = in.readString();
 		managerName = in.readString();
@@ -62,6 +66,10 @@ public class ProgramDetailsModel implements Parcelable
 
 	public String getAvatar() {
 		return avatar;
+	}
+
+	public String getProgramColor() {
+		return programColor;
 	}
 
 	public Integer getLevel() {
@@ -89,6 +97,7 @@ public class ProgramDetailsModel implements Parcelable
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeSerializable(programId);
 		dest.writeString(avatar);
+		dest.writeString(programColor);
 		dest.writeInt(level);
 		dest.writeString(programName);
 		dest.writeString(managerName);
@@ -98,9 +107,12 @@ public class ProgramDetailsModel implements Parcelable
 	public void update(ProgramDetailsFull programDetails) {
 		this.programId = programDetails.getId();
 		this.avatar = programDetails.getLogo();
+		this.programColor = programDetails.getColor();
 		this.level = programDetails.getLevel();
 		this.programName = programDetails.getTitle();
 		this.managerName = programDetails.getManager().getUsername();
-//		this.favorite = programDetails.isIsFavorite();
+		this.favorite = programDetails.getPersonalProgramDetails() != null
+				? programDetails.getPersonalProgramDetails().isIsFavorite()
+				: false;
 	}
 }

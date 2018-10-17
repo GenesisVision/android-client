@@ -29,7 +29,7 @@
                 <android.support.design.widget.CollapsingToolbarLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_scrollFlags="scroll|enterAlways">
+                    app:layout_scrollFlags="scroll|enterAlwaysCollapsed|exitUntilCollapsed">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -196,6 +196,12 @@
 
                         </LinearLayout>
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="24dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="?attr/colorBackgroundDark"/>
+
                     </RelativeLayout>
 
                 </android.support.design.widget.CollapsingToolbarLayout>
@@ -206,7 +212,6 @@
                 android:id="@+id/group_transactions"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="24dp"
                 android:background="?attr/colorBackground"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -228,7 +233,7 @@
                     android:layout_height="match_parent"
                     android:layout_below="@+id/label_transactions"
                     android:clipToPadding="false"
-                    android:paddingBottom="100dp"/>
+                    android:paddingBottom="140dp"/>
 
                 <LinearLayout
                     android:id="@+id/group_no_transactions"

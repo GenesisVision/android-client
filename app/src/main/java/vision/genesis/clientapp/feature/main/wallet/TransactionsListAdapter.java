@@ -12,6 +12,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,7 +20,6 @@ import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
-import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -49,7 +49,6 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 		return transactions.size();
 	}
 
-	//
 	void setTransactions(List<WalletTransaction> transactions) {
 		this.transactions.clear();
 		this.transactions.addAll(transactions);
@@ -76,7 +75,6 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 		public TextView value;
 
 		private WalletTransaction transaction;
-
 
 		TransactionViewHolder(View itemView) {
 			super(itemView);
@@ -145,11 +143,15 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 					}
 					break;
 				case PROGRAMOPEN:
-					text = itemView.getContext().getResources().getString(R.string.transaction_type_open_program);
+					text = String.format(Locale.getDefault(),
+							itemView.getContext().getResources().getString(R.string.transaction_opening_template),
+							transaction.getDestinationTitle());
 					actionResId = R.drawable.icon_arrow_red_up;
 					break;
 				case PROGRAMPROFIT:
-					text = itemView.getContext().getResources().getString(R.string.profit_from_program);
+					text = String.format(Locale.getDefault(),
+							itemView.getContext().getResources().getString(R.string.transaction_profit_template),
+							transaction.getDestinationTitle());
 					actionResId = R.drawable.icon_arrow_green_down;
 					break;
 				case PROGRAMINVEST:
@@ -165,17 +167,27 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 					actionResId = R.drawable.icon_arrow_green_down;
 					break;
 				case PROGRAMREFUNDCLOSE:
-					text = itemView.getContext().getResources().getString(R.string.closing_program_refund);
+					text = String.format(Locale.getDefault(),
+							itemView.getContext().getResources().getString(R.string.transaction_refund_template),
+							transaction.getSourceTitle());
 					actionResId = R.drawable.icon_arrow_green_down;
 					break;
 				case PROGRAMREQUESTINVEST:
+					text = String.format(Locale.getDefault(),
+							itemView.getContext().getResources().getString(R.string.transaction_invest_template),
+							transaction.getDestinationTitle());
 					actionResId = R.drawable.icon_arrow_red_up;
 					break;
 				case PROGRAMREQUESTWITHDRAWAL:
+					text = String.format(Locale.getDefault(),
+							itemView.getContext().getResources().getString(R.string.transaction_withdrawal_template),
+							transaction.getDestinationTitle());
 					actionResId = R.drawable.icon_arrow_green_down;
 					break;
 				case PROGRAMREQUESTCANCEL:
-					text = itemView.getContext().getResources().getString(R.string.transaction_type_cancel_investment_request);
+					text = String.format(Locale.getDefault(),
+							itemView.getContext().getResources().getString(R.string.transaction_request_cancelled_template),
+							transaction.getSourceTitle());
 					actionResId = R.drawable.icon_arrow_green_down;
 					break;
 			}
@@ -185,10 +197,10 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 
 			this.time.setText(DateTimeUtil.formatShortTime(transaction.getDate()));
 			this.value.setText(StringFormatUtil.getGvtValueString(transaction.getAmount()));
-			this.value.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
-					transaction.getAmount() >= 0
-							? R.attr.colorGreen
-							: R.attr.colorRed));
+//			this.value.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
+//					transaction.getAmount() >= 0
+//							? R.attr.colorGreen
+//							: R.attr.colorRed));
 		}
 //
 //		private void setAmount() {

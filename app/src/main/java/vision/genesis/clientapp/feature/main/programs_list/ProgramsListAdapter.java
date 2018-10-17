@@ -147,6 +147,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 				if (program != null) {
 					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(program.getId(),
 							program.getLogo(),
+							program.getColor(),
 							program.getLevel(),
 							program.getTitle(),
 							program.getManager().getUsername(),
@@ -176,7 +177,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 		}
 
 		private void updateData() {
-			programLogo.setImage(program.getLogo(), 100, 100);
+			programLogo.setImage(program.getLogo(), program.getColor(), 100, 100);
 			programLogo.setLevel(program.getLevel());
 
 //			favoriteIcon.setVisibility(data.isIsFavorite() ? View.VISIBLE : View.GONE);

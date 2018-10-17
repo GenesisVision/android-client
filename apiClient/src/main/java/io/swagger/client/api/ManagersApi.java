@@ -59,11 +59,12 @@ public interface ManagersApi
 	 *
 	 * @param id            (required)
 	 * @param authorization JWT access token (required)
+	 * @param twoFactorCode (optional)
 	 * @return Call&lt;Void&gt;
 	 */
 	@POST("v1.0/managers/funds/{id}/close")
 	Observable<Void> v10ManagersFundsByIdClosePost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("twoFactorCode") String twoFactorCode
 	);
 
 	/**
@@ -139,11 +140,12 @@ public interface ManagersApi
 	 *
 	 * @param id            (required)
 	 * @param authorization JWT access token (required)
+	 * @param twoFactorCode (optional)
 	 * @return Call&lt;Void&gt;
 	 */
 	@POST("v1.0/managers/programs/{id}/close")
 	Observable<Void> v10ManagersProgramsByIdClosePost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("twoFactorCode") String twoFactorCode
 	);
 
 	/**

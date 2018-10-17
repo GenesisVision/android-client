@@ -1,15 +1,14 @@
 
-# PlatformAsset
+# FundAssetInfo
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | [**UUID**](UUID.md) |  |  [optional]
-**name** | **String** |  |  [optional]
 **asset** | **String** |  |  [optional]
-**description** | **String** |  |  [optional]
+**name** | **String** |  |  [optional]
 **icon** | **String** |  |  [optional]
-**color** | **String** |  |  [optional]
+**targetPercent** | **Double** |  |  [optional]
+**currentPercent** | **Double** |  |  [optional]
 
 
 

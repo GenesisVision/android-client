@@ -39,6 +39,9 @@ public class ProgramRequest implements Parcelable
 	@SerializedName("program_logo")
 	private String programLogo;
 
+	@SerializedName("program_color")
+	private String programColor;
+
 	@SerializedName("level")
 	private Integer level = 1;
 
@@ -54,8 +57,8 @@ public class ProgramRequest implements Parcelable
 	@SerializedName("amount_due_text")
 	private String amountDueText;
 
-	@SerializedName("amount")
-	private Double amount = 0.0;
+	@SerializedName("amount_due")
+	private Double amountDue = 0.0;
 
 	public ProgramRequest() {
 
@@ -66,12 +69,13 @@ public class ProgramRequest implements Parcelable
 		programName = in.readString();
 		managerName = in.readString();
 		programLogo = in.readString();
+		programColor = in.readString();
 		level = in.readInt();
 		periodEndsText = in.readString();
 		amountToInvestText = in.readString();
 		entryFeeText = in.readString();
 		amountDueText = in.readString();
-		amount = in.readDouble();
+		amountDue = in.readDouble();
 	}
 
 	@Override
@@ -85,12 +89,13 @@ public class ProgramRequest implements Parcelable
 		dest.writeString(programName);
 		dest.writeString(managerName);
 		dest.writeString(programLogo);
+		dest.writeString(programColor);
 		dest.writeInt(level);
 		dest.writeString(periodEndsText);
 		dest.writeString(amountToInvestText);
 		dest.writeString(entryFeeText);
 		dest.writeString(amountDueText);
-		dest.writeDouble(amount);
+		dest.writeDouble(amountDue);
 	}
 
 	public UUID getProgramId() {
@@ -123,6 +128,14 @@ public class ProgramRequest implements Parcelable
 
 	public void setProgramLogo(String programLogo) {
 		this.programLogo = programLogo;
+	}
+
+	public String getProgramColor() {
+		return programColor;
+	}
+
+	public void setProgramColor(String programColor) {
+		this.programColor = programColor;
 	}
 
 	public Integer getLevel() {
@@ -165,11 +178,11 @@ public class ProgramRequest implements Parcelable
 		this.amountDueText = amountDueText;
 	}
 
-	public Double getAmount() {
-		return amount;
+	public Double getAmountDue() {
+		return amountDue;
 	}
 
-	public void setAmount(Double amount) {
-		this.amount = amount;
+	public void setAmountDue(Double amountDue) {
+		this.amountDue = amountDue;
 	}
 }

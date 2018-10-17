@@ -24,6 +24,7 @@ Name | Type | Description | Notes
 **profitChangePercent** | **Double** |  |  [optional]
 **lastPeriodStarts** | [**DateTime**](DateTime.md) |  |  [optional]
 **lastPeriodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
+**rate** | **Double** |  |  [optional]
 
 
 <a name="ProgramCurrencyEnum"></a>

@@ -14,10 +14,8 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:scaleType="centerCrop"
-        app:failureImage="@drawable/profile_placeholder"
-        app:failureImageScaleType="centerCrop"
-        app:placeholderImage="@drawable/profile_placeholder"
-        app:placeholderImageScaleType="centerCrop"
+        app:placeholderImage="@drawable/icon_program_placeholder"
+        app:placeholderImageScaleType="centerInside"
         app:roundedCornerRadius="4dp"/>
 
     <RelativeLayout

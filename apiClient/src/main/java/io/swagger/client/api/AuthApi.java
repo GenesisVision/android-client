@@ -160,27 +160,26 @@ public interface AuthApi
 	);
 
 	/**
-	 * Add phone number
+	 * Get phone number verification code
 	 *
 	 * @param authorization JWT access token (required)
-	 * @param phoneNumber   (optional)
 	 * @return Call&lt;Integer&gt;
 	 */
-	@POST("v1.0/auth/phone/add")
-	Observable<Integer> v10AuthPhoneAddPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("phoneNumber") String phoneNumber
+	@POST("v1.0/auth/phone/code")
+	Observable<Integer> v10AuthPhoneCodePost(
+			@retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
 	 * Verify phone number
 	 *
 	 * @param authorization JWT access token (required)
-	 * @param token         (optional)
+	 * @param code          (optional)
 	 * @return Call&lt;Void&gt;
 	 */
 	@POST("v1.0/auth/phone/verify")
 	Observable<Void> v10AuthPhoneVerifyPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("token") String token
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("code") String code
 	);
 
 	/**

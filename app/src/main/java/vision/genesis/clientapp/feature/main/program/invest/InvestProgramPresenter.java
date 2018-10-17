@@ -140,7 +140,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 	}
 
 	void onContinueClicked() {
-		programRequest.setAmount(amount);
+		programRequest.setAmountDue(amountDue);
 		programRequest.setAmountToInvestText(getAmountToInvestString());
 		programRequest.setEntryFeeText(getEntryFeeString());
 		programRequest.setAmountDueText(getAmountDueString());

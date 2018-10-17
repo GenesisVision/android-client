@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:background="?attr/colorBackground"
+        android:background="?attr/colorCard"
         android:gravity="center"
         android:textColor="?attr/colorTextPrimary"
         tools:text="310.1241"/>
@@ -31,7 +31,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:background="?attr/colorBackground"
+        android:background="?attr/colorCard"
         android:gravity="center"
         android:textColor="?attr/colorTextPrimary"
         tools:text="230.226"/>

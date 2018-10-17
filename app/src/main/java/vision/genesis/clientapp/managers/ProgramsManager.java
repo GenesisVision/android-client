@@ -42,7 +42,7 @@ public class ProgramsManager
 				filter.getSorting().getValue(), filter.getCurrency() != null ? filter.getCurrency().getValue() : null, null,
 				filter.getStatisticDateFrom(), filter.getStatisticDateTo(), 10,
 				filter.getMask(), filter.getFacetId() != null ? filter.getFacetId().toString() : null, filter.getIsFavorite(),
-				filter.getIds(), null, null, filter.getSkip(), filter.getTake());
+				filter.getIds(), filter.getManagerId() != null ? filter.getManagerId().toString() : null, null, filter.getSkip(), filter.getTake());
 	}
 
 	public Observable<DashboardPortfolioEvents> getPortfolioEvents(DateRange dateRange, Integer skip, Integer take) {
@@ -82,7 +82,7 @@ public class ProgramsManager
 	}
 
 	public Observable<Void> invest(ProgramRequest investRequest) {
-		return investorApi.v10InvestorProgramsByIdInvestByAmountPost(investRequest.getProgramId(), investRequest.getAmount(), AuthManager.token.getValue());
+		return investorApi.v10InvestorProgramsByIdInvestByAmountPost(investRequest.getProgramId(), investRequest.getAmountDue(), AuthManager.token.getValue());
 	}
 
 	//	public Observable<Void> withdraw(ProgramRequest withdrawalRequest) {

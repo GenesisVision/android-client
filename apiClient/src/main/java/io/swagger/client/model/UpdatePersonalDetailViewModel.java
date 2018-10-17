@@ -48,6 +48,9 @@ public class UpdatePersonalDetailViewModel
 	@SerializedName("documentId")
 	private String documentId = null;
 
+	@SerializedName("phoneNumber")
+	private String phoneNumber = null;
+
 	@SerializedName("country")
 	private String country = null;
 
@@ -193,6 +196,25 @@ public class UpdatePersonalDetailViewModel
 		this.documentId = documentId;
 	}
 
+	public UpdatePersonalDetailViewModel phoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+		return this;
+	}
+
+	/**
+	 * Get phoneNumber
+	 *
+	 * @return phoneNumber
+	 **/
+	@ApiModelProperty(value = "")
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 	public UpdatePersonalDetailViewModel country(String country) {
 		this.country = country;
 		return this;
@@ -286,6 +308,7 @@ public class UpdatePersonalDetailViewModel
 				Objects.equals(this.citizenship, updatePersonalDetailViewModel.citizenship) &&
 				Objects.equals(this.gender, updatePersonalDetailViewModel.gender) &&
 				Objects.equals(this.documentId, updatePersonalDetailViewModel.documentId) &&
+				Objects.equals(this.phoneNumber, updatePersonalDetailViewModel.phoneNumber) &&
 				Objects.equals(this.country, updatePersonalDetailViewModel.country) &&
 				Objects.equals(this.city, updatePersonalDetailViewModel.city) &&
 				Objects.equals(this.address, updatePersonalDetailViewModel.address) &&
@@ -294,7 +317,7 @@ public class UpdatePersonalDetailViewModel
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(firstName, middleName, lastName, birthday, citizenship, gender, documentId, country, city, address, index);
+		return Objects.hash(firstName, middleName, lastName, birthday, citizenship, gender, documentId, phoneNumber, country, city, address, index);
 	}
 
 
@@ -310,6 +333,7 @@ public class UpdatePersonalDetailViewModel
 		sb.append("    citizenship: ").append(toIndentedString(citizenship)).append("\n");
 		sb.append("    gender: ").append(toIndentedString(gender)).append("\n");
 		sb.append("    documentId: ").append(toIndentedString(documentId)).append("\n");
+		sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
 		sb.append("    country: ").append(toIndentedString(country)).append("\n");
 		sb.append("    city: ").append(toIndentedString(city)).append("\n");
 		sb.append("    address: ").append(toIndentedString(address)).append("\n");

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **citizenship** | **String** |  |  [optional]
 **gender** | **Boolean** |  |  [optional]
 **documentId** | **String** |  |  [optional]
+**phoneNumber** | **String** |  |  [optional]
 **country** | **String** |  |  [optional]
 **city** | **String** |  |  [optional]
 **address** | **String** |  |  [optional]

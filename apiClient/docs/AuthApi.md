@@ -14,7 +14,7 @@ Method | HTTP request | Description
 [**v10AuthPasswordForgotInvestorPost**](AuthApi.md#v10AuthPasswordForgotInvestorPost) | **POST** v1.0/auth/password/forgot/investor | Forgot password for investor
 [**v10AuthPasswordForgotManagerPost**](AuthApi.md#v10AuthPasswordForgotManagerPost) | **POST** v1.0/auth/password/forgot/manager | Forgot password for manager
 [**v10AuthPasswordResetPost**](AuthApi.md#v10AuthPasswordResetPost) | **POST** v1.0/auth/password/reset | Reset password
-[**v10AuthPhoneAddPost**](AuthApi.md#v10AuthPhoneAddPost) | **POST** v1.0/auth/phone/add | Add phone number
+[**v10AuthPhoneCodePost**](AuthApi.md#v10AuthPhoneCodePost) | **POST** v1.0/auth/phone/code | Get phone number verification code
 [**v10AuthPhoneVerifyPost**](AuthApi.md#v10AuthPhoneVerifyPost) | **POST** v1.0/auth/phone/verify | Verify phone number
 [**v10AuthResendconfirmationlinkPost**](AuthApi.md#v10AuthResendconfirmationlinkPost) | **POST** v1.0/auth/resendconfirmationlink | Resend Confirmation Link
 [**v10AuthSigninInvestorPost**](AuthApi.md#v10AuthSigninInvestorPost) | **POST** v1.0/auth/signin/investor | Authorize
@@ -466,11 +466,11 @@ No authorization required
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10AuthPhoneAddPost"></a>
-# **v10AuthPhoneAddPost**
-> Integer v10AuthPhoneAddPost(authorization, phoneNumber)
+<a name="v10AuthPhoneCodePost"></a>
+# **v10AuthPhoneCodePost**
+> Integer v10AuthPhoneCodePost(authorization)
 
-Add phone number
+Get phone number verification code
 
 ### Example
 ```java
@@ -481,12 +481,11 @@ Add phone number
 
 AuthApi apiInstance = new AuthApi();
 String authorization = "authorization_example"; // String | JWT access token
-String phoneNumber = "phoneNumber_example"; // String | 
 try {
-    Integer result = apiInstance.v10AuthPhoneAddPost(authorization, phoneNumber);
+    Integer result = apiInstance.v10AuthPhoneCodePost(authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10AuthPhoneAddPost");
+    System.err.println("Exception when calling AuthApi#v10AuthPhoneCodePost");
     e.printStackTrace();
 }
 ```
@@ -496,7 +495,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **phoneNumber** | **String**|  | [optional]
 
 ### Return type
 
@@ -513,7 +511,7 @@ No authorization required
 
 <a name="v10AuthPhoneVerifyPost"></a>
 # **v10AuthPhoneVerifyPost**
-> Void v10AuthPhoneVerifyPost(authorization, token)
+> Void v10AuthPhoneVerifyPost(authorization, code)
 
 Verify phone number
 
@@ -526,9 +524,9 @@ Verify phone number
 
 AuthApi apiInstance = new AuthApi();
 String authorization = "authorization_example"; // String | JWT access token
-String token = "token_example"; // String | 
+String code = "code_example"; // String | 
 try {
-    Void result = apiInstance.v10AuthPhoneVerifyPost(authorization, token);
+    Void result = apiInstance.v10AuthPhoneVerifyPost(authorization, code);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AuthApi#v10AuthPhoneVerifyPost");
@@ -541,7 +539,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **token** | **String**|  | [optional]
+ **code** | **String**|  | [optional]
 
 ### Return type
 

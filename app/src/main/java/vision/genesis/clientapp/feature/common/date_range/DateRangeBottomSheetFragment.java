@@ -101,12 +101,12 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 //		onOptionButtonClicked(custom);
 //	}
 
-	@OnClick(R.id.date_from)
+	@OnClick(R.id.group_date_from)
 	public void onDateFromClicked() {
 		showDateFromPicker();
 	}
 
-	@OnClick(R.id.date_to)
+	@OnClick(R.id.group_date_to)
 	public void onDateToClicked() {
 		showDateToPicker();
 	}

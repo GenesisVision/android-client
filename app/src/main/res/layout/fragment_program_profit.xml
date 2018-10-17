@@ -32,7 +32,7 @@
                     android:id="@+id/group_values"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:paddingLeft="@dimen/program_details_padding"
                     android:paddingRight="@dimen/program_details_padding">
 
@@ -100,6 +100,12 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <vision.genesis.clientapp.ui.chart.ProfitChartView
+                    android:id="@+id/profit_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/details_profit_chart_height"
+                    android:layout_marginTop="32dp"/>
 
             </LinearLayout>
 

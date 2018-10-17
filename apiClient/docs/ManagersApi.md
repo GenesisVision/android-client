@@ -159,7 +159,7 @@ No authorization required
 
 <a name="v10ManagersFundsByIdClosePost"></a>
 # **v10ManagersFundsByIdClosePost**
-> Void v10ManagersFundsByIdClosePost(id, authorization)
+> Void v10ManagersFundsByIdClosePost(id, authorization, twoFactorCode)
 
 Close existing investment program/fund
 
@@ -173,8 +173,9 @@ Close existing investment program/fund
 ManagersApi apiInstance = new ManagersApi();
 UUID id = new UUID(); // UUID | 
 String authorization = "authorization_example"; // String | JWT access token
+String twoFactorCode = "twoFactorCode_example"; // String | 
 try {
-    Void result = apiInstance.v10ManagersFundsByIdClosePost(id, authorization);
+    Void result = apiInstance.v10ManagersFundsByIdClosePost(id, authorization, twoFactorCode);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ManagersApi#v10ManagersFundsByIdClosePost");
@@ -188,6 +189,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
  **authorization** | **String**| JWT access token |
+ **twoFactorCode** | **String**|  | [optional]
 
 ### Return type
 
@@ -433,7 +435,7 @@ No authorization required
 
 <a name="v10ManagersProgramsByIdClosePost"></a>
 # **v10ManagersProgramsByIdClosePost**
-> Void v10ManagersProgramsByIdClosePost(id, authorization)
+> Void v10ManagersProgramsByIdClosePost(id, authorization, twoFactorCode)
 
 Close existing investment program/fund
 
@@ -447,8 +449,9 @@ Close existing investment program/fund
 ManagersApi apiInstance = new ManagersApi();
 UUID id = new UUID(); // UUID | 
 String authorization = "authorization_example"; // String | JWT access token
+String twoFactorCode = "twoFactorCode_example"; // String | 
 try {
-    Void result = apiInstance.v10ManagersProgramsByIdClosePost(id, authorization);
+    Void result = apiInstance.v10ManagersProgramsByIdClosePost(id, authorization, twoFactorCode);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ManagersApi#v10ManagersProgramsByIdClosePost");
@@ -462,6 +465,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
  **authorization** | **String**| JWT access token |
+ **twoFactorCode** | **String**|  | [optional]
 
 ### Return type
 

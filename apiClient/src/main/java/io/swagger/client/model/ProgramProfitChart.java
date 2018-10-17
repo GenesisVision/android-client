@@ -94,6 +94,9 @@ public class ProgramProfitChart
 	@SerializedName("lastPeriodEnds")
 	private DateTime lastPeriodEnds = null;
 
+	@SerializedName("rate")
+	private Double rate = null;
+
 	public ProgramProfitChart totalProgramCurrencyProfit(Double totalProgramCurrencyProfit) {
 		this.totalProgramCurrencyProfit = totalProgramCurrencyProfit;
 		return this;
@@ -498,6 +501,25 @@ public class ProgramProfitChart
 		this.lastPeriodEnds = lastPeriodEnds;
 	}
 
+	public ProgramProfitChart rate(Double rate) {
+		this.rate = rate;
+		return this;
+	}
+
+	/**
+	 * Get rate
+	 *
+	 * @return rate
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getRate() {
+		return rate;
+	}
+
+	public void setRate(Double rate) {
+		this.rate = rate;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -526,12 +548,13 @@ public class ProgramProfitChart
 				Objects.equals(this.timeframeGvtProfit, programProfitChart.timeframeGvtProfit) &&
 				Objects.equals(this.profitChangePercent, programProfitChart.profitChangePercent) &&
 				Objects.equals(this.lastPeriodStarts, programProfitChart.lastPeriodStarts) &&
-				Objects.equals(this.lastPeriodEnds, programProfitChart.lastPeriodEnds);
+				Objects.equals(this.lastPeriodEnds, programProfitChart.lastPeriodEnds) &&
+				Objects.equals(this.rate, programProfitChart.rate);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(totalProgramCurrencyProfit, timeframeProgramCurrencyProfit, programCurrency, trades, successTradesPercent, profitFactor, pnLChart, periods, equityChart, balance, investors, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, totalGvtProfit, timeframeGvtProfit, profitChangePercent, lastPeriodStarts, lastPeriodEnds);
+		return Objects.hash(totalProgramCurrencyProfit, timeframeProgramCurrencyProfit, programCurrency, trades, successTradesPercent, profitFactor, pnLChart, periods, equityChart, balance, investors, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, totalGvtProfit, timeframeGvtProfit, profitChangePercent, lastPeriodStarts, lastPeriodEnds, rate);
 	}
 
 	@Override
@@ -559,6 +582,7 @@ public class ProgramProfitChart
 		sb.append("    profitChangePercent: ").append(toIndentedString(profitChangePercent)).append("\n");
 		sb.append("    lastPeriodStarts: ").append(toIndentedString(lastPeriodStarts)).append("\n");
 		sb.append("    lastPeriodEnds: ").append(toIndentedString(lastPeriodEnds)).append("\n");
+		sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

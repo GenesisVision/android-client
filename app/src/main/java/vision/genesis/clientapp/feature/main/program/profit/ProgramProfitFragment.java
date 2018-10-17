@@ -21,12 +21,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.ChartSimple;
+import io.swagger.client.model.PeriodDate;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
+import vision.genesis.clientapp.ui.chart.ProfitChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -59,6 +61,9 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 
 	@BindView(R.id.date_range)
 	public DateRangeView dateRangeView;
+
+	@BindView(R.id.profit_chart)
+	public ProfitChartView profitChart;
 
 	@BindView(R.id.amount_value)
 	public TextView amountValue;
@@ -149,6 +154,8 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 		programProfitPresenter.setProgramId(programId);
 
 		setFonts();
+
+		profitChart.setTouchListener(programProfitPresenter);
 	}
 
 	@Override
@@ -183,8 +190,8 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 	}
 
 	@Override
-	public void setChartData(List<ChartSimple> equityChart) {
-
+	public void setChartData(List<ChartSimple> equityChart, List<ChartSimple> pnLChart, List<PeriodDate> periods) {
+		profitChart.setChartData(equityChart, pnLChart, periods, dateRange);
 	}
 
 	@Override

@@ -74,6 +74,9 @@ public class FundProfitChart
 	@SerializedName("lastPeriodEnds")
 	private DateTime lastPeriodEnds = null;
 
+	@SerializedName("rate")
+	private Double rate = null;
+
 	public FundProfitChart totalUsdProfit(Double totalUsdProfit) {
 		this.totalUsdProfit = totalUsdProfit;
 		return this;
@@ -367,6 +370,25 @@ public class FundProfitChart
 		this.lastPeriodEnds = lastPeriodEnds;
 	}
 
+	public FundProfitChart rate(Double rate) {
+		this.rate = rate;
+		return this;
+	}
+
+	/**
+	 * Get rate
+	 *
+	 * @return rate
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getRate() {
+		return rate;
+	}
+
+	public void setRate(Double rate) {
+		this.rate = rate;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -391,12 +413,13 @@ public class FundProfitChart
 				Objects.equals(this.timeframeGvtProfit, fundProfitChart.timeframeGvtProfit) &&
 				Objects.equals(this.profitChangePercent, fundProfitChart.profitChangePercent) &&
 				Objects.equals(this.lastPeriodStarts, fundProfitChart.lastPeriodStarts) &&
-				Objects.equals(this.lastPeriodEnds, fundProfitChart.lastPeriodEnds);
+				Objects.equals(this.lastPeriodEnds, fundProfitChart.lastPeriodEnds) &&
+				Objects.equals(this.rate, fundProfitChart.rate);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(totalUsdProfit, timeframeUsdProfit, rebalances, equityChart, balance, investors, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, totalGvtProfit, timeframeGvtProfit, profitChangePercent, lastPeriodStarts, lastPeriodEnds);
+		return Objects.hash(totalUsdProfit, timeframeUsdProfit, rebalances, equityChart, balance, investors, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, totalGvtProfit, timeframeGvtProfit, profitChangePercent, lastPeriodStarts, lastPeriodEnds, rate);
 	}
 
 
@@ -420,6 +443,7 @@ public class FundProfitChart
 		sb.append("    profitChangePercent: ").append(toIndentedString(profitChangePercent)).append("\n");
 		sb.append("    lastPeriodStarts: ").append(toIndentedString(lastPeriodStarts)).append("\n");
 		sb.append("    lastPeriodEnds: ").append(toIndentedString(lastPeriodEnds)).append("\n");
+		sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

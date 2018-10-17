@@ -2,6 +2,9 @@ package vision.genesis.clientapp.feature.main.program;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
@@ -17,7 +20,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
+import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.common.ResizeOptions;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 import java.util.UUID;
 
@@ -237,8 +246,19 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	private void updateHeader() {
-		programLogo.setImageURI(ImageUtils.getImageUri(model.getAvatar()));
-		toolbarProgramLogo.setImage(model.getAvatar(), 50, 50);
+		GenericDraweeHierarchy hierarchy = programLogo.getHierarchy();
+		hierarchy.setBackgroundImage(new ColorDrawable(Color.parseColor(model.getProgramColor())));
+		programLogo.setHierarchy(hierarchy);
+		ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(ImageUtils.getImageUri(model.getAvatar())))
+				.setResizeOptions(new ResizeOptions(300, 300))
+				.build();
+		PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
+				.setOldController(programLogo.getController())
+				.setImageRequest(request)
+				.build();
+		programLogo.setController(controller);
+
+		toolbarProgramLogo.setImage(model.getAvatar(), model.getProgramColor(), 50, 50);
 		toolbarProgramLogo.hideLevel();
 
 		level.setText(String.valueOf(model.getLevel()));
@@ -329,8 +349,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	public void setProgram(ProgramDetailsFull programDetails) {
 		this.programDetails = programDetails;
 
-//		if (programDetails.isIsHistoryEnable())
-		addPage(eventsTab, false);
+		if (programDetails.getPersonalProgramDetails() != null)
+			addPage(eventsTab, false);
 
 		model.update(programDetails);
 		updateHeader();
@@ -342,7 +362,6 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	private void setFavoriteButtonImage(boolean isFavorite) {
-
 		favoriteButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), isFavorite
 				? R.drawable.icon_favorite_fill
 				: R.drawable.icon_favorite));

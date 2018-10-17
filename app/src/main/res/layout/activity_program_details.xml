@@ -44,9 +44,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             app:actualImageScaleType="centerCrop"
-                            app:placeholderImage="@drawable/example_logo"
-                            app:placeholderImageScaleType="centerCrop"/>
-                        <!--app:placeholderImage="?attr/colorBackground"/>-->
+                            app:placeholderImage="@drawable/icon_program_placeholder_big"
+                            app:placeholderImageScaleType="centerInside"/>
 
                         <ImageView
                             android:layout_width="70dp"

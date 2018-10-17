@@ -467,9 +467,17 @@
     <string name="to_address">To address</string>
     <string name="estimated_amount">Estimated amount</string>
     <string name="confirm_withdraw">Confirm Withdraw</string>
-    <string name="wallet_address_not_valid">\@string/The wallet address is not valid</string>
+    <string name="wallet_address_not_valid">The wallet address is not valid</string>
     <string name="manager_member_sicne_template">Member since %s</string>
     <string name="about">About</string>
     <string name="assets_type">Assets type</string>
+
+
+    <string name="transaction_invest_template">Investment request to %s</string>
+    <string name="transaction_withdrawal_template">Withdrawal request to %s</string>
+    <string name="transaction_request_cancelled_template">Request to %s has been cancelled</string>
+    <string name="transaction_refund_template">Refund due to %s closure</string>
+    <string name="transaction_opening_template">Opening %s</string>
+    <string name="transaction_profit_template">Profit from %s</string>
 
 </resources>

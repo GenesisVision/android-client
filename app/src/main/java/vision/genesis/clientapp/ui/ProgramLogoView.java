@@ -1,6 +1,8 @@
 package vision.genesis.clientapp.ui;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
+import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
@@ -69,8 +72,11 @@ public class ProgramLogoView extends RelativeLayout
 		level.setTypeface(TypefaceUtil.semibold());
 	}
 
-	public void setImage(String imageId, int width, int height) {
+	public void setImage(String imageId, String programColorHex, int width, int height) {
 		if (imageId == null || imageId.isEmpty()) {
+			GenericDraweeHierarchy hierarchy = image.getHierarchy();
+			hierarchy.setBackgroundImage(new ColorDrawable(Color.parseColor(programColorHex)));
+			image.setHierarchy(hierarchy);
 			image.setImageURI("");
 			return;
 		}

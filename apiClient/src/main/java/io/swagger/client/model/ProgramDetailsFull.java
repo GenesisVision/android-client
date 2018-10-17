@@ -75,6 +75,9 @@ public class ProgramDetailsFull
 	@SerializedName("url")
 	private String url = null;
 
+	@SerializedName("color")
+	private String color = null;
+
 	@SerializedName("description")
 	private String description = null;
 
@@ -353,6 +356,25 @@ public class ProgramDetailsFull
 		this.url = url;
 	}
 
+	public ProgramDetailsFull color(String color) {
+		this.color = color;
+		return this;
+	}
+
+	/**
+	 * Get color
+	 *
+	 * @return color
+	 **/
+	@ApiModelProperty(value = "")
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 	public ProgramDetailsFull description(String description) {
 		this.description = description;
 		return this;
@@ -452,6 +474,7 @@ public class ProgramDetailsFull
 				Objects.equals(this.id, programDetailsFull.id) &&
 				Objects.equals(this.logo, programDetailsFull.logo) &&
 				Objects.equals(this.url, programDetailsFull.url) &&
+				Objects.equals(this.color, programDetailsFull.color) &&
 				Objects.equals(this.description, programDetailsFull.description) &&
 				Objects.equals(this.title, programDetailsFull.title) &&
 				Objects.equals(this.status, programDetailsFull.status) &&
@@ -460,7 +483,7 @@ public class ProgramDetailsFull
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, entryFee, successFee, isReinvesting, availableInvestment, statistic, personalProgramDetails, id, logo, url, description, title, status, manager);
+		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, entryFee, successFee, isReinvesting, availableInvestment, statistic, personalProgramDetails, id, logo, url, color, description, title, status, manager);
 	}
 
 	@Override
@@ -482,6 +505,7 @@ public class ProgramDetailsFull
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
+		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");

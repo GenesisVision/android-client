@@ -165,9 +165,9 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 						String.format(Locale.getDefault(), "%s GVT",
 								StringFormatUtil.formatAmount(assetsValue.getValue(),
 										0, StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()))),
-						String.format(Locale.getDefault(), "%s%%", String.valueOf(Math.abs(assetsValue.getChangePercent()))),
-						assetsValue.getChangePercent() < 0
-								? colorRed
+						assetsValue.getChangePercent() == null ? "-" : String.format(Locale.getDefault(), "%s%%", String.valueOf(Math.abs(assetsValue.getChangePercent()))),
+						assetsValue.getChangePercent() != null
+								? assetsValue.getChangePercent() < 0 ? colorRed : colorGreen
 								: colorGreen,
 						String.format(Locale.getDefault(), "%s%s GVT", assetsValue.getChangeValue() > 0 ? "+" : "",
 								StringFormatUtil.formatAmount(assetsValue.getChangeValue(),

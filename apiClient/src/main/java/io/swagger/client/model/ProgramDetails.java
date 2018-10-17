@@ -68,6 +68,9 @@ public class ProgramDetails
 	@SerializedName("url")
 	private String url = null;
 
+	@SerializedName("color")
+	private String color = null;
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -295,6 +298,25 @@ public class ProgramDetails
 		this.url = url;
 	}
 
+	public ProgramDetails color(String color) {
+		this.color = color;
+		return this;
+	}
+
+	/**
+	 * Get color
+	 *
+	 * @return color
+	 **/
+	@ApiModelProperty(value = "")
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 	public ProgramDetails title(String title) {
 		this.title = title;
 		return this;
@@ -437,6 +459,7 @@ public class ProgramDetails
 				Objects.equals(this.id, programDetails.id) &&
 				Objects.equals(this.logo, programDetails.logo) &&
 				Objects.equals(this.url, programDetails.url) &&
+				Objects.equals(this.color, programDetails.color) &&
 				Objects.equals(this.title, programDetails.title) &&
 				Objects.equals(this.description, programDetails.description) &&
 				Objects.equals(this.status, programDetails.status) &&
@@ -447,7 +470,7 @@ public class ProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, availableInvestment, statistic, personalDetails, id, logo, url, title, description, status, manager, chart, dashboardAssetsDetails);
+		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, availableInvestment, statistic, personalDetails, id, logo, url, color, title, description, status, manager, chart, dashboardAssetsDetails);
 	}
 
 	@Override
@@ -466,6 +489,7 @@ public class ProgramDetails
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
+		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");

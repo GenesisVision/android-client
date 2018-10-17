@@ -7,6 +7,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import java.util.List;
 
 import io.swagger.client.model.ChartSimple;
+import io.swagger.client.model.PeriodDate;
 import vision.genesis.clientapp.model.DateRange;
 
 /**
@@ -16,7 +17,7 @@ import vision.genesis.clientapp.model.DateRange;
 
 interface ProgramProfitView extends MvpView
 {
-	void setChartData(List<ChartSimple> equityChart);
+	void setChartData(List<ChartSimple> equityChart, List<ChartSimple> pnLChart, List<PeriodDate> periods);
 
 	void setAmount(String gvtAmount, String baseAmount);
 

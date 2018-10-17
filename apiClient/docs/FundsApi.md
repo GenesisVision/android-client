@@ -5,19 +5,19 @@ All URIs are relative to *https://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**v10FundsAssetsGet**](FundsApi.md#v10FundsAssetsGet) | **GET** v1.0/funds/assets | Get all supported assets for funds
+[**v10FundsByIdAssetsGet**](FundsApi.md#v10FundsByIdAssetsGet) | **GET** v1.0/funds/{id}/assets | Fund assets info
 [**v10FundsByIdChartsBalanceGet**](FundsApi.md#v10FundsByIdChartsBalanceGet) | **GET** v1.0/funds/{id}/charts/balance | Fund balance chart
 [**v10FundsByIdChartsProfitGet**](FundsApi.md#v10FundsByIdChartsProfitGet) | **GET** v1.0/funds/{id}/charts/profit | Fund profit chart
 [**v10FundsByIdFavoriteAddPost**](FundsApi.md#v10FundsByIdFavoriteAddPost) | **POST** v1.0/funds/{id}/favorite/add | Add to favorites
 [**v10FundsByIdFavoriteRemovePost**](FundsApi.md#v10FundsByIdFavoriteRemovePost) | **POST** v1.0/funds/{id}/favorite/remove | Remove from favorites
 [**v10FundsByIdGet**](FundsApi.md#v10FundsByIdGet) | **GET** v1.0/funds/{id} | Funds details
-[**v10FundsByIdRebalancingGet**](FundsApi.md#v10FundsByIdRebalancingGet) | **GET** v1.0/funds/{id}/rebalancing | Rebalancing history
 [**v10FundsGet**](FundsApi.md#v10FundsGet) | **GET** v1.0/funds | Funds list
 [**v10FundsSetsGet**](FundsApi.md#v10FundsSetsGet) | **GET** v1.0/funds/sets | Fund sets
 
 
 <a name="v10FundsAssetsGet"></a>
 # **v10FundsAssetsGet**
-> PlatformAssets v10FundsAssetsGet(authorization)
+> PlatformAssets v10FundsAssetsGet()
 
 Get all supported assets for funds
 
@@ -29,9 +29,8 @@ Get all supported assets for funds
 
 
 FundsApi apiInstance = new FundsApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    PlatformAssets result = apiInstance.v10FundsAssetsGet(authorization);
+    PlatformAssets result = apiInstance.v10FundsAssetsGet();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#v10FundsAssetsGet");
@@ -40,14 +39,54 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
 [**PlatformAssets**](PlatformAssets.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10FundsByIdAssetsGet"></a>
+# **v10FundsByIdAssetsGet**
+> FundAssetsListInfo v10FundsByIdAssetsGet(id)
+
+Fund assets info
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.FundsApi;
+
+
+FundsApi apiInstance = new FundsApi();
+UUID id = new UUID(); // UUID | 
+try {
+    FundAssetsListInfo result = apiInstance.v10FundsByIdAssetsGet(id);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FundsApi#v10FundsByIdAssetsGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+
+### Return type
+
+[**FundAssetsListInfo**](FundAssetsListInfo.md)
 
 ### Authorization
 
@@ -283,57 +322,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**FundDetailsFull**](FundDetailsFull.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10FundsByIdRebalancingGet"></a>
-# **v10FundsByIdRebalancingGet**
-> RebalancesViewModel v10FundsByIdRebalancingGet(id, dateFrom, dateTo, skip, take)
-
-Rebalancing history
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.FundsApi;
-
-
-FundsApi apiInstance = new FundsApi();
-UUID id = new UUID(); // UUID | 
-DateTime dateFrom = new DateTime(); // DateTime | 
-DateTime dateTo = new DateTime(); // DateTime | 
-Integer skip = 56; // Integer | 
-Integer take = 56; // Integer | 
-try {
-    RebalancesViewModel result = apiInstance.v10FundsByIdRebalancingGet(id, dateFrom, dateTo, skip, take);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling FundsApi#v10FundsByIdRebalancingGet");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)|  |
- **dateFrom** | **DateTime**|  | [optional]
- **dateTo** | **DateTime**|  | [optional]
- **skip** | **Integer**|  | [optional]
- **take** | **Integer**|  | [optional]
-
-### Return type
-
-[**RebalancesViewModel**](RebalancesViewModel.md)
 
 ### Authorization
 

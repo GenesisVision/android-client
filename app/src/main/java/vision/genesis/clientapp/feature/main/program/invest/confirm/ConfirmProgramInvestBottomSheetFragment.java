@@ -159,7 +159,7 @@ public class ConfirmProgramInvestBottomSheetFragment extends BottomSheetDialogFr
 		if (programRequest != null) {
 			periodText.setText(programRequest.getPeriodEndsText());
 
-			programLogo.setImage(programRequest.getProgramLogo(), 50, 50);
+			programLogo.setImage(programRequest.getProgramLogo(), programRequest.getProgramColor(), 50, 50);
 			programLogo.setLevel(programRequest.getLevel());
 
 			programName.setText(programRequest.getProgramName());
