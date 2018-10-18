@@ -284,7 +284,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	@Subscribe
 	public void onEventMainThread(ShowMessageActivityEvent event) {
-		getViewState().showMessageActivity(event.message, event.imageResourceId, event.mustRead);
+		getViewState().showMessageDialog(event.imageResourceId, event.title, event.message, event.mustRead, event.listener);
 	}
 
 	@Subscribe

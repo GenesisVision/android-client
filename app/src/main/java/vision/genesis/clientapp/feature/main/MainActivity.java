@@ -31,7 +31,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
-import vision.genesis.clientapp.feature.main.message.MessageActivity;
+import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.pin.check.CheckPinActivity;
@@ -273,8 +273,10 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	}
 
 	@Override
-	public void showMessageActivity(String message, int imageResourceId, boolean mustRead) {
-		MessageActivity.startWith(this, message, imageResourceId, mustRead);
+	public void showMessageDialog(int imageResourceId, String title, String message, boolean mustRead, MessageBottomSheetDialog.OnButtonClickListener listener) {
+		MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
+		dialog.show(getSupportFragmentManager(), dialog.getTag());
+		dialog.setData(imageResourceId, title, message, mustRead, listener);
 	}
 
 	@Override

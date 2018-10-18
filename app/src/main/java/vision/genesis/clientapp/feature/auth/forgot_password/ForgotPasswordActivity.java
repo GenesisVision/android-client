@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.jakewharton.rxbinding.widget.RxTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,7 +17,10 @@ import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
+import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.utils.ThemeUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -24,19 +29,25 @@ import vision.genesis.clientapp.ui.ToolbarView;
 
 public class ForgotPasswordActivity extends BaseSwipeBackActivity implements ForgotPasswordView
 {
-	public static void startWith(Activity activity) {
+	private static final String EXTRA_EMAIL = "extra_email";
+
+	public static void startWith(Activity activity, String email) {
 		Intent intent = new Intent(activity.getApplicationContext(), ForgotPasswordActivity.class);
+		intent.putExtra(EXTRA_EMAIL, email);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
 
-	@BindView(R.id.toolbar)
-	public ToolbarView toolbar;
+	@BindView(R.id.title)
+	public TextView title;
 
 	@BindView(R.id.email)
 	public EditText email;
 
-	@BindView(R.id.group_progress_bar)
+	@BindView(R.id.button_reset_password)
+	public PrimaryButton resetPasswordButton;
+
+	@BindView(R.id.group_progressbar)
 	public View progressBarGroup;
 
 	@InjectPresenter
@@ -55,40 +66,63 @@ public class ForgotPasswordActivity extends BaseSwipeBackActivity implements For
 		forgotPasswordPresenter.onResetPasswordClicked(email.getText().toString());
 	}
 
+	@OnClick(R.id.button_back)
+	public void onBackClicked() {
+		finishActivity();
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_forgot_password);
 
 		ButterKnife.bind(this);
 
-		initToolbar();
+		if (getIntent().getExtras() != null)
+			email.setText(getIntent().getExtras().getString(EXTRA_EMAIL, ""));
+
 		setFonts();
+
+		setTextListener();
 	}
 
-	private void initToolbar() {
-		toolbar.setTitle(getString(R.string.forgot_password));
-		toolbar.addLeftButton(R.drawable.back_arrow, this::onBackPressed);
+	private void setTextListener() {
+		RxTextView.textChanges(email)
+				.subscribe(charSequence -> forgotPasswordPresenter.onEmailChanged(charSequence.toString()));
 	}
 
 	private void setFonts() {
-//		whoopsLabel.setTypeface(TypefaceUtil.bold(this));
+		title.setTypeface(TypefaceUtil.semibold());
 	}
 
 	@Override
 	public void showProgressBar(boolean show) {
 		progressBarGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+		resetPasswordButton.setVisibility(!show ? View.VISIBLE : View.GONE);
 	}
 
 	@Override
 	public void showSnackbarMessage(String message) {
-		showSnackbar(message, toolbar);
+		showSnackbar(message, title);
 	}
 
 	@Override
 	public void setEmailError(String error) {
 		email.setError(error);
+	}
+
+	@Override
+	public void setButtonEnabled(boolean enabled) {
+		resetPasswordButton.setEnabled(enabled);
+	}
+
+	@Override
+	public void showMessageDialog(int imageResourceId, String title, String message, boolean mustRead, MessageBottomSheetDialog.OnButtonClickListener listener) {
+		MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
+		dialog.show(getSupportFragmentManager(), dialog.getTag());
+		dialog.setData(imageResourceId, title, message, mustRead, listener);
 	}
 
 	@Override

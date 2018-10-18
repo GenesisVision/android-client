@@ -24,7 +24,6 @@ import rx.Subscription;
 import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.feature.main.message.MessageActivity;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.Constants;
 
@@ -140,7 +139,7 @@ public class DisableTfaActivity extends BaseSwipeBackActivity implements Disable
 
 	@Override
 	public void finishWithSuccess() {
-		MessageActivity.startWith(this, getString(R.string.tfa_disable_success), R.drawable.ic_email_confirmed_icon, false);
+//		MessageBottomSheetDialog.startWith(this, getString(R.string.tfa_disable_success), R.drawable.ic_email_confirmed_icon, false);
 		finish();
 	}
 

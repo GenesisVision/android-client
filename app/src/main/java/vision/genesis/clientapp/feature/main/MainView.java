@@ -3,6 +3,7 @@ package vision.genesis.clientapp.feature.main;
 import com.arellomobile.mvp.MvpView;
 
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
@@ -38,7 +39,7 @@ public interface MainView extends MvpView
 
 	void showWithdrawProgram(ProgramRequest request);
 
-	void showMessageActivity(String message, int imageResourceId, boolean mustRead);
+	void showMessageDialog(int imageResourceId, String title, String message, boolean mustRead, MessageBottomSheetDialog.OnButtonClickListener listener);
 
 	void showAppUpdateDialog(AppUpdateModel model);
 

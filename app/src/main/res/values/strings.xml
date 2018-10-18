@@ -33,7 +33,8 @@
     <string name="sign_up">Sign Up</string>
     <string name="email_verification_text">We sent a verification link to the email you specified.\n\nPlease follow this link to complete the registration.</string>
 
-    <string name="forgot_password">Forgot?</string>
+    <string name="forgot">Forgot?</string>
+    <string name="forgot_password">Forgot password</string>
     <string name="reset_password">Reset password</string>
     <string name="enter_your_account_email">Enter your account email</string>
 
@@ -103,7 +104,7 @@
 
     <string name="change_password">Change password</string>
     <string name="enter_valid_email">Enter valid email</string>
-    <string name="forgot_password_we_sent_email">We sent a password reset link to the email you specified.\n\nPlease follow this link to reset your password.</string>
+    <string name="forgot_password_we_sent_email">We sent a password reset link to the email you specified. Please follow this link to reset your password.</string>
     <string name="enter_your_current_password">Enter your current password</string>
     <string name="enter_your_new_password">Enter your new password</string>
     <string name="confirm_your_new_password">Confirm your new password</string>
@@ -480,5 +481,6 @@
     <string name="transaction_opening_template">Opening %s</string>
     <string name="transaction_profit_template">Profit from %s</string>
     <string name="i_agree_to_the">I agree to the</string>
+    <string name="email_sent">Email sent</string>
 
 </resources>

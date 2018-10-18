@@ -5,8 +5,6 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import org.greenrobot.eventbus.EventBus;
-
 import javax.inject.Inject;
 
 import rx.Subscription;
@@ -16,7 +14,6 @@ import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.api.Error;
 import vision.genesis.clientapp.model.api.ErrorResponse;
-import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
 
@@ -96,7 +93,7 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView>
 	private void handleWithdrawSuccess(Void response) {
 		withdrawSubscription.unsubscribe();
 
-		EventBus.getDefault().post(new ShowMessageActivityEvent(context.getString(R.string.message_program_withdraw_success), R.drawable.ic_email_confirmed_icon, false));
+//		EventBus.getDefault().post(new ShowMessageActivityEvent(context.getString(R.string.message_program_withdraw_success), R.drawable.ic_email_confirmed_icon, false));
 		getViewState().finishActivity();
 	}
 

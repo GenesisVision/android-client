@@ -21,6 +21,7 @@ import butterknife.OnEditorAction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
+import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -61,8 +62,8 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 	@BindView(R.id.button_sign_up)
 	public PrimaryButton signUpButton;
 
-	@BindView(R.id.progress_bar)
-	public View progressBar;
+	@BindView(R.id.group_progressbar)
+	public View progressbarGroup;
 
 	@InjectPresenter
 	RegistrationPresenter registrationPresenter;
@@ -109,7 +110,6 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 		setContentView(R.layout.activity_registration);
 
 		ButterKnife.bind(this);
-
 
 //		userName.setVisibility(Constants.IS_INVESTOR ? View.GONE : View.VISIBLE);
 
@@ -160,15 +160,9 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 	}
 
 	@Override
-	public void showProgress() {
-		signUpButton.setVisibility(View.GONE);
-		progressBar.setVisibility(View.VISIBLE);
-	}
-
-	@Override
-	public void hideProgress() {
-		progressBar.setVisibility(View.GONE);
-		signUpButton.setVisibility(View.VISIBLE);
+	public void showProgress(boolean show) {
+		progressbarGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+		signUpButton.setVisibility(!show ? View.VISIBLE : View.GONE);
 	}
 
 	@Override
@@ -179,6 +173,13 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 	@Override
 	public void showLoginActivity() {
 		LoginActivity.startFrom(this);
+	}
+
+	@Override
+	public void showMessageDialog(int imageResourceId, String title, String message, boolean mustRead, MessageBottomSheetDialog.OnButtonClickListener listener) {
+		MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
+		dialog.show(getSupportFragmentManager(), dialog.getTag());
+		dialog.setData(imageResourceId, title, message, mustRead, listener);
 	}
 
 	@Override

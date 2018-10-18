@@ -28,7 +28,7 @@ import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsPresenter;
 import vision.genesis.clientapp.feature.main.manager.info.ManagerInfoPresenter;
 import vision.genesis.clientapp.feature.main.manager.profit.ManagerProfitPresenter;
-import vision.genesis.clientapp.feature.main.message.MessageActivity;
+import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.notifications.NotificationsPresenter;
 import vision.genesis.clientapp.feature.main.portfolio_events.PortfolioEventsPresenter;
 import vision.genesis.clientapp.feature.main.profile.ImageCropActivity;
@@ -102,7 +102,7 @@ public interface AppComponent
 
 	void inject(ImageCropActivity imageCropActivity);
 
-	void inject(MessageActivity messageActivity);
+	void inject(MessageBottomSheetDialog messageBottomSheetDialog);
 
 	void inject(ProgramTradesPresenter programTradesPresenter);
 

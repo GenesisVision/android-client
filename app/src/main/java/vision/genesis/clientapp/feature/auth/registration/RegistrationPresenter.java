@@ -5,8 +5,6 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import org.greenrobot.eventbus.EventBus;
-
 import javax.inject.Inject;
 
 import rx.Observable;
@@ -18,7 +16,6 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.model.api.Error;
 import vision.genesis.clientapp.model.api.ErrorResponse;
-import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
 import vision.genesis.clientapp.utils.Constants;
@@ -72,7 +69,7 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 	//	void onSignUpClicked(String userName, String email, String password, String confirmPassword) {
 	void onSignUpClicked(String email, String password, String confirmPassword) {
 		getViewState().clearErrors();
-		getViewState().showProgress();
+		getViewState().showProgress(true);
 
 //		registrationSubscription = getRegisterObservable(userName, email, password, confirmPassword)
 		registrationSubscription = getRegisterObservable(null, email, password, confirmPassword)
@@ -91,13 +88,16 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 	private void onRegisterResponse(Void response) {
 		registrationSubscription.unsubscribe();
 
-		EventBus.getDefault().post(new ShowMessageActivityEvent(context.getString(R.string.email_verification_text), R.drawable.ic_email_white_64dp, true));
-		getViewState().finishActivity();
+		getViewState().showMessageDialog(R.drawable.image_ok,
+				context.getString(R.string.email_sent),
+				context.getString(R.string.email_verification_text),
+				true,
+				() -> getViewState().finishActivity());
 	}
 
 	private void onRegisterError(Throwable throwable) {
 		registrationSubscription.unsubscribe();
-		getViewState().hideProgress();
+		getViewState().showProgress(false);
 
 		if (ApiErrorResolver.isNetworkError(throwable)) {
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));

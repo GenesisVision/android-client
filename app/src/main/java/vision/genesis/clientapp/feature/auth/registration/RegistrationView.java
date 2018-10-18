@@ -4,6 +4,8 @@ import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
+
 /**
  * GenesisVision
  * Created by Vitaly on 1/19/18.
@@ -21,16 +23,16 @@ interface RegistrationView extends MvpView
 
 	void clearErrors();
 
-	void showProgress();
+	void setSignUpButtonEnabled(boolean enabled);
 
-	void hideProgress();
+	void showProgress(boolean show);
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showSnackbarMessage(String message);
 
 	void showLoginActivity();
 
-	void finishActivity();
+	void showMessageDialog(int imageResourceId, String title, String message, boolean mustRead, MessageBottomSheetDialog.OnButtonClickListener listener);
 
-	void setSignUpButtonEnabled(boolean enabled);
+	void finishActivity();
 }

@@ -57,80 +57,89 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/sign_in_padding">
+        android:layout_below="@+id/toolbar">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical">
+            android:layout_above="@+id/group_bottom"
+            android:layout_centerInParent="true">
 
-            <ImageView
-                android:id="@+id/logo"
-                android:layout_width="@dimen/login_logo_width"
-                android:layout_height="@dimen/login_logo_height"
-                android:layout_gravity="center_horizontal"
-                android:scaleType="centerInside"
-                android:src="@drawable/logo_green_white"/>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/email_input_layout"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/login_field_height"
-                android:layout_marginTop="32dp"
-                android:gravity="bottom"
-                android:textColorHint="?attr/colorTextSecondary">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/email"
-                    style="@style/edittext"
-                    android:hint="@string/email"
-                    android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="100dp"
-                android:layout_marginTop="24dp">
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/sign_in_padding"
+                android:paddingRight="@dimen/sign_in_padding">
+
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="@dimen/login_logo_width"
+                    android:layout_height="@dimen/login_logo_height"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/logo_green_white"/>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/password_input_layout"
+                    android:id="@+id/email_input_layout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/login_field_height"
+                    android:layout_marginTop="16dp"
                     android:gravity="bottom"
                     android:textColorHint="?attr/colorTextSecondary">
 
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/password"
+                        android:id="@+id/email"
                         style="@style/edittext"
-                        android:hint="@string/password"
-                        android:imeOptions="actionDone"
-                        android:inputType="textPassword"/>
+                        android:hint="@string/email"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"/>
 
                 </android.support.design.widget.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/forgot_password"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/password_input_layout"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginBottom="8dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="@string/forgot_password"
-                    android:textColor="?attr/colorTextPrimary"/>
+                    android:layout_marginBottom="100dp"
+                    android:layout_marginTop="16dp">
 
-            </RelativeLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/password_input_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/login_field_height"
+                        android:gravity="bottom"
+                        android:textColorHint="?attr/colorTextSecondary">
 
-        </LinearLayout>
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/password"
+                            style="@style/edittext"
+                            android:hint="@string/password"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPassword"/>
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/forgot_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/password_input_layout"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="8dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="@string/forgot"
+                        android:textColor="?attr/colorTextPrimary"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
 
         <RelativeLayout
             android:id="@+id/group_bottom"
@@ -138,6 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center_horizontal"
+            android:padding="@dimen/sign_in_padding"
             tools:visibility="visible">
 
             <vision.genesis.clientapp.ui.PrimaryButton

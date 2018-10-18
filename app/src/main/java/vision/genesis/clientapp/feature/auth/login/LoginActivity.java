@@ -75,7 +75,7 @@ public class LoginActivity extends BaseSwipeBackActivity implements LoginView
 
 	@OnClick(R.id.forgot_password)
 	public void onForgotPasswordClicked() {
-		ForgotPasswordActivity.startWith(this);
+		ForgotPasswordActivity.startWith(this, email.getText().toString().trim());
 	}
 
 	@OnClick(R.id.button_sign_up)
