@@ -5,6 +5,8 @@
         android:drawable="@drawable/splashscreen_background_dark"/>
 
     <item
+        android:width="125dp"
+        android:height="148dp"
         android:gravity="center">
         <bitmap
             android:src="@drawable/logo_green_white"/>

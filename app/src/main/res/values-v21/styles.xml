@@ -26,6 +26,8 @@
         <item name="colorDelimiterLight">@color/darkDelimiterLight</item>
         <item name="colorTextPrimary">@color/darkTextPrimary</item>
         <item name="colorTextSecondary">@color/darkTextSecondary</item>
+        <item name="colorControlNormal">@color/darkTextSecondary</item>
+        <item name="colorControlActivated">@color/accent</item>
     </style>
 
     <style name="AppTheme.Base.Light" parent="AppTheme.Base">
@@ -39,6 +41,8 @@
         <item name="colorDelimiterLight">@color/lightDelimiterLight</item>
         <item name="colorTextPrimary">@color/lightTextPrimary</item>
         <item name="colorTextSecondary">@color/lightTextSecondary</item>
+        <item name="colorControlNormal">@color/lightTextSecondary</item>
+        <item name="colorControlActivated">@color/accent</item>
     </style>
 
 

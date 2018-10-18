@@ -2,9 +2,12 @@ package vision.genesis.clientapp.feature.auth.registration;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -12,13 +15,14 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
-import vision.genesis.clientapp.ui.ToolbarView;
-import vision.genesis.clientapp.utils.Constants;
+import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -33,11 +37,11 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
 
-	@BindView(R.id.toolbar)
-	public ToolbarView toolbar;
+	@BindView(R.id.title)
+	public TextView title;
 
-	@BindView(R.id.user_name)
-	public EditText userName;
+	@BindView(R.id.button_sign_in)
+	public TextView signInButton;
 
 	@BindView(R.id.email)
 	public EditText email;
@@ -45,17 +49,20 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 	@BindView(R.id.password)
 	public EditText password;
 
+	@BindView(R.id.password_input_layout)
+	public TextInputLayout passwordInputLayout;
+
 	@BindView(R.id.confirm_password)
 	public EditText confirmPassword;
 
+	@BindView(R.id.confirm_password_input_layout)
+	public TextInputLayout confirmPasswordInputLayout;
+
 	@BindView(R.id.button_sign_up)
-	public View signUpButton;
+	public PrimaryButton signUpButton;
 
 	@BindView(R.id.progress_bar)
 	public View progressBar;
-
-	@BindView(R.id.text_sign_in)
-	public TextView signInText;
 
 	@InjectPresenter
 	RegistrationPresenter registrationPresenter;
@@ -78,33 +85,47 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 		registrationPresenter.onSignInClicked();
 	}
 
+	@OnClick(R.id.button_back)
+	public void onBackClicked() {
+		finishActivity();
+	}
+
+	@OnClick(R.id.privacy_policy)
+	public void onPrivacyPolicyClicked() {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.privacy_policy_address)));
+		startActivity(browserIntent);
+	}
+
+	@OnCheckedChanged(R.id.checkbox_agree_terms_policy)
+	public void onAgreeTermsPolicyCheckedChanged(CompoundButton button, boolean checked) {
+		registrationPresenter.onAgreeTermsPolicyCheckedChanged(checked);
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_registration);
 
 		ButterKnife.bind(this);
 
-		initToolbar();
 
-		userName.setVisibility(Constants.IS_INVESTOR ? View.GONE : View.VISIBLE);
+//		userName.setVisibility(Constants.IS_INVESTOR ? View.GONE : View.VISIBLE);
 
 		setFonts();
 	}
 
 	private void setFonts() {
-		signInText.setTypeface(TypefaceUtil.bold());
-	}
-
-	private void initToolbar() {
-		toolbar.setTitle(getString(R.string.sign_up));
-		toolbar.addLeftButton(R.drawable.back_arrow, this::finishActivity);
+		title.setTypeface(TypefaceUtil.bold());
+		signInButton.setTypeface(TypefaceUtil.bold());
+		passwordInputLayout.setTypeface(TypefaceUtil.regular());
+		confirmPasswordInputLayout.setTypeface(TypefaceUtil.regular());
 	}
 
 	private void signUp() {
 		registrationPresenter.onSignUpClicked(
-				userName.getText().toString(),
+//				userName.getText().toString(),
 				email.getText().toString(),
 				password.getText().toString(),
 				confirmPassword.getText().toString());
@@ -112,7 +133,7 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 
 	@Override
 	public void setUserNameError(String message) {
-		userName.setError(message);
+//		userName.setError(message);
 	}
 
 	@Override
@@ -132,7 +153,7 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 
 	@Override
 	public void clearErrors() {
-		userName.setError(null);
+//		userName.setError(null);
 		email.setError(null);
 		password.setError(null);
 		confirmPassword.setError(null);
@@ -152,7 +173,7 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 
 	@Override
 	public void showSnackbarMessage(String message) {
-		showSnackbar(message, toolbar);
+		showSnackbar(message, title);
 	}
 
 	@Override
@@ -169,5 +190,10 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 	public void finishActivity() {
 		finish();
 		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
+	}
+
+	@Override
+	public void setSignUpButtonEnabled(boolean enabled) {
+		signUpButton.setEnabled(enabled);
 	}
 }

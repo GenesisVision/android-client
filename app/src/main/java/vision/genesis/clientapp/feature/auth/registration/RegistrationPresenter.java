@@ -39,6 +39,8 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 
 	private Subscription registrationSubscription;
 
+	private boolean termsPolicyAccepted;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -54,15 +56,26 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 		super.onDestroy();
 	}
 
+	void onAgreeTermsPolicyCheckedChanged(boolean checked) {
+		termsPolicyAccepted = checked;
+		updateSignUpButtonEnabled();
+	}
+
+	private void updateSignUpButtonEnabled() {
+		getViewState().setSignUpButtonEnabled(termsPolicyAccepted);
+	}
+
 	void onSignInClicked() {
 		getViewState().showLoginActivity();
 	}
 
-	void onSignUpClicked(String userName, String email, String password, String confirmPassword) {
+	//	void onSignUpClicked(String userName, String email, String password, String confirmPassword) {
+	void onSignUpClicked(String email, String password, String confirmPassword) {
 		getViewState().clearErrors();
 		getViewState().showProgress();
 
-		registrationSubscription = getRegisterObservable(userName, email, password, confirmPassword)
+//		registrationSubscription = getRegisterObservable(userName, email, password, confirmPassword)
+		registrationSubscription = getRegisterObservable(null, email, password, confirmPassword)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::onRegisterResponse,

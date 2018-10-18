@@ -31,7 +31,7 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/edit_text_password"
-                style="@style/profile_edittext"
+                style="@style/edittext"
                 android:hint="@string/your_password"
                 android:imeOptions="actionNext"
                 android:inputType="textPassword"
@@ -53,7 +53,7 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/edit_text_code"
-                style="@style/profile_edittext"
+                style="@style/edittext"
                 android:hint="@string/tfa_code"
                 android:imeOptions="actionDone"
                 android:inputType="number"

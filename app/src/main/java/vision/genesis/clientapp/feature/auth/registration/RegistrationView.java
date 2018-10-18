@@ -31,4 +31,6 @@ interface RegistrationView extends MvpView
 	void showLoginActivity();
 
 	void finishActivity();
+
+	void setSignUpButtonEnabled(boolean enabled);
 }

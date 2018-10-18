@@ -3,6 +3,7 @@ package vision.genesis.clientapp.feature.auth.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -19,7 +20,8 @@ import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.auth.forgot_password.ForgotPasswordActivity;
 import vision.genesis.clientapp.feature.auth.registration.RegistrationActivity;
 import vision.genesis.clientapp.feature.two_factor.check.CheckTfaActivity;
-import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -36,26 +38,29 @@ public class LoginActivity extends BaseSwipeBackActivity implements LoginView
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
 
-	@BindView(R.id.toolbar)
-	public ToolbarView toolbar;
+	@BindView(R.id.title)
+	public TextView title;
+
+	@BindView(R.id.button_sign_up)
+	public TextView signUpButton;
 
 	@BindView(R.id.email)
 	public EditText email;
 
+	@BindView(R.id.password_input_layout)
+	public TextInputLayout passwordInputLayout;
+
 	@BindView(R.id.password)
 	public EditText password;
 
-	@BindView(R.id.group_buttons)
-	public View buttonsGroup;
+	@BindView(R.id.forgot_password)
+	public TextView forgotPassword;
+
+	@BindView(R.id.button_sign_in)
+	public PrimaryButton signInButton;
 
 	@BindView(R.id.group_progressbar)
 	public View progressbarGroup;
-
-	@BindView(R.id.sign_up_label)
-	public TextView signUpLabel;
-
-	@BindView(R.id.text_sign_up)
-	public TextView signUpText;
 
 	@InjectPresenter
 	LoginPresenter loginPresenter;
@@ -83,26 +88,28 @@ public class LoginActivity extends BaseSwipeBackActivity implements LoginView
 		loginPresenter.onSignInClicked(email.getText().toString(), password.getText().toString());
 	}
 
+	@OnClick(R.id.button_back)
+	public void onBackClicked() {
+		finishActivity(true);
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_login);
 
 		ButterKnife.bind(this);
 
-		initToolbar();
-
 		setFonts();
 	}
 
 	private void setFonts() {
-		signUpText.setTypeface(TypefaceUtil.bold());
-	}
-
-	private void initToolbar() {
-		toolbar.setTitle(getString(R.string.sign_in));
-		toolbar.addLeftButton(R.drawable.back_arrow, () -> finishActivity(true));
+		title.setTypeface(TypefaceUtil.semibold());
+		signUpButton.setTypeface(TypefaceUtil.semibold());
+		forgotPassword.setTypeface(TypefaceUtil.semibold());
+		passwordInputLayout.setTypeface(TypefaceUtil.regular());
 	}
 
 	@Override
@@ -128,19 +135,19 @@ public class LoginActivity extends BaseSwipeBackActivity implements LoginView
 
 	@Override
 	public void showProgress() {
-		buttonsGroup.setVisibility(View.GONE);
+		signInButton.setVisibility(View.INVISIBLE);
 		progressbarGroup.setVisibility(View.VISIBLE);
 	}
 
 	@Override
 	public void hideProgress() {
+		signInButton.setVisibility(View.VISIBLE);
 		progressbarGroup.setVisibility(View.GONE);
-		buttonsGroup.setVisibility(View.VISIBLE);
 	}
 
 	@Override
 	public void showSnackbarMessage(String message) {
-		showSnackbar(message, toolbar);
+		showSnackbar(message, title);
 	}
 
 	@Override

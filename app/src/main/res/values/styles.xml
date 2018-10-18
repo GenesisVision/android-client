@@ -24,6 +24,8 @@
         <item name="colorDelimiterLight">@color/darkDelimiterLight</item>
         <item name="colorTextPrimary">@color/darkTextPrimary</item>
         <item name="colorTextSecondary">@color/darkTextSecondary</item>
+        <item name="colorControlNormal">@color/darkTextSecondary</item>
+        <item name="colorControlActivated">@color/accent</item>
     </style>
 
     <style name="AppTheme.Base.Light" parent="AppTheme.Base">
@@ -37,6 +39,8 @@
         <item name="colorDelimiterLight">@color/lightDelimiterLight</item>
         <item name="colorTextPrimary">@color/lightTextPrimary</item>
         <item name="colorTextSecondary">@color/lightTextSecondary</item>
+        <item name="colorControlNormal">@color/lightTextSecondary</item>
+        <item name="colorControlActivated">@color/accent</item>
     </style>
 
     <!-- Base application theme. -->
@@ -105,11 +109,13 @@
         <item name="android:layout_marginStart">16dp</item>
     </style>
 
-    <style name="profile_edittext">
+    <style name="edittext">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/colorMedium</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="profile_delimiter">
