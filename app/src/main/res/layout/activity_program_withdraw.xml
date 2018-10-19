@@ -1,250 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <vision.genesis.clientapp.ui.ToolbarView
+    <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"/>
+        android:layout_height="@dimen/toolbar_height">
 
-    <LinearLayout
+        <ImageView
+            android:id="@+id/button_close"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="10dp"
+            android:src="@drawable/ic_close_black_24dp"
+            android:tint="?attr/colorTextPrimary"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/withdraw"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="18sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:orientation="vertical">
+        android:padding="@dimen/invest_padding"
+        android:visibility="gone">
 
-        <RelativeLayout
-            android:id="@+id/group_available"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="4"
-            android:background="@color/colorAccent"
-            android:gravity="center_vertical">
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/available_tokens"
-                android:layout_width="wrap_content"
-                android:layout_height="90dp"
-                android:layout_centerHorizontal="true"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:lines="1"
-                android:maxWidth="250dp"
-                android:textColor="@color/white"
-                android:textSize="64sp"
-                app:autoSizeMaxTextSize="64sp"
-                app:autoSizeMinTextSize="32sp"
-                app:autoSizeTextType="uniform"
-                tools:text="340"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/balance_currency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/available_tokens"
-                android:layout_toRightOf="@+id/available_tokens"
-                android:background="@drawable/currency_background_white"
-                android:paddingBottom="4dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingTop="4dp"
-                android:text="@string/tokens"
-                android:textAllCaps="true"
-                android:textColor="@color/colorAccent"
-                android:textSize="10sp"/>
-
-            <TextView
-                android:id="@+id/label_my_balance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/available_tokens"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="-12dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/my_balance"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
+                android:text="@string/available_to_withdraw"
+                android:textColor="?attr/colorTextPrimary"
                 android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/available_to_withdraw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginStart="6dp"
+                android:textColor="?attr/colorAccent"
+                android:textSize="16sp"
+                tools:text="20.235 GVT"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.4"
+                android:text="@string/amount_to_withdraw"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"/>
+
+            <RelativeLayout
+                android:id="@+id/group_amount"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_input_height">
+
+                <EditText
+                    android:id="@+id/edittext_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:hint="0"
+                    android:inputType="numberDecimal"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextPrimary"
+                    android:textSize="18sp"
+                    tools:text="10.235"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@+id/edittext_amount"
+                    android:layout_toRightOf="@+id/edittext_amount"
+                    android:alpha="0.4"
+                    android:gravity="center"
+                    android:text="@string/gvt"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/max"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical|end"
+                    android:text="@string/max"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="12sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.2"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/base_currency_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"
+                tools:text="= 0.234901 BTC"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/button_continue"
+            android:layout_marginBottom="32dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.4"
+                    android:text="@string/remaining_investment"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/remaining_investment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"
+                    tools:text="0.498 GVT"/>
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/label_my_balance"
-                android:layout_marginBottom="4dp">
+                android:layout_marginTop="12dp">
 
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/balance_fiat"
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_centerHorizontal="true"
-                    android:gravity="center"
-                    android:lines="1"
-                    android:maxWidth="250dp"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorAccentLight"
-                    android:textSize="26sp"
-                    app:autoSizeMaxTextSize="26sp"
-                    app:autoSizeMinTextSize="14sp"
-                    app:autoSizeTextType="uniform"
-                    tools:text="01234567"/>
+                    android:layout_height="wrap_content"
+                    android:alpha="0.4"
+                    android:text="@string/payout_date"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/payout_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"
+                    tools:text="05 Nov 2018"/>
 
             </RelativeLayout>
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/group_amount"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="5"
-            android:background="@color/white">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingTop="4dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/textview_amount_hint"
-                        android:layout_width="wrap_content"
-                        android:layout_height="70dp"
-                        android:layout_centerHorizontal="true"
-                        android:gravity="center"
-                        android:lines="1"
-                        android:maxWidth="250dp"
-                        android:minWidth="40dp"
-                        android:text="@string/zero"
-                        android:textColor="@color/colorFontLight"
-                        android:textSize="72sp"
-                        app:autoSizeMaxTextSize="72sp"
-                        app:autoSizeMinTextSize="24sp"
-                        app:autoSizeTextType="uniform"/>
-
-                    <vision.genesis.clientapp.ui.AmountTextView
-                        android:id="@+id/textview_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="70dp"
-                        android:layout_centerHorizontal="true"
-                        android:gravity="center"
-                        android:lines="1"
-                        android:maxWidth="250dp"
-                        android:minWidth="40dp"
-                        android:textColor="@color/colorMedium"
-                        android:visibility="invisible"
-                        app:autoSizeMaxTextSize="72sp"
-                        app:autoSizeMinTextSize="24sp"
-                        app:autoSizeTextType="uniform"
-                        tools:text="0"/>
-
-                    <TextView
-                        android:id="@+id/amount_currency"
-                        style="@style/item_investment_program_currency"
-                        android:layout_toEndOf="@+id/textview_amount"
-                        android:layout_toRightOf="@+id/textview_amount"
-                        android:text="@string/tokens"
-                        android:textAllCaps="true"
-                        android:textSize="10sp"/>
-
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/label_enter_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="-4dp"
-                    android:gravity="center"
-                    android:text="@string/enter_withdrawal_amount"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorMedium"
-                    android:textSize="16sp"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/amount_fiat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="-4dp"
-                        android:gravity="center"
-                        android:lines="1"
-                        android:maxWidth="250dp"
-                        android:textAllCaps="true"
-                        android:textColor="@color/colorFontLight"
-                        android:textSize="48sp"
-                        app:autoSizeMaxTextSize="48sp"
-                        app:autoSizeMinTextSize="24sp"
-                        app:autoSizeTextType="uniform"
-                        tools:text="0,00"/>
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-        </RelativeLayout>
+        </LinearLayout>
 
         <vision.genesis.clientapp.ui.PrimaryButton
-            android:id="@+id/button_withdraw"
+            android:id="@+id/button_continue"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_weight="1.4"
-            android:text="@string/withdraw"/>
-
-        <vision.genesis.clientapp.ui.NumericKeyboardView
-            android:id="@+id/keyboard"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginStart="4dp"
-            android:layout_weight="6"/>
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/group_progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:focusable="true"
-        android:visibility="gone"
-        tools:visibility="visible">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.7"
-            android:background="@color/colorAccent"/>
-
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"/>
+            android:layout_height="@dimen/button_height"
+            android:layout_alignParentBottom="true"
+            android:text="@string/text_continue"/>
 
     </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/toolbar"
+        android:indeterminate="true"
+        android:scaleY="4"
+        android:visibility="visible"/>
 
 </RelativeLayout>

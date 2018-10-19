@@ -482,5 +482,8 @@
     <string name="transaction_profit_template">Profit from %s</string>
     <string name="i_agree_to_the">I agree to the</string>
     <string name="email_sent">Email sent</string>
+    <string name="available_to_withdraw">Available to withdraw</string>
+    <string name="payout_date">Payout date</string>
+    <string name="remaining_investment">Remaining investment</string>
 
 </resources>

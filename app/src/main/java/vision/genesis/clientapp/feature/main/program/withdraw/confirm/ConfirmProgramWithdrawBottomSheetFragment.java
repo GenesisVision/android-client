@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.invest.confirm;
+package vision.genesis.clientapp.feature.main.program.withdraw.confirm;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -34,11 +34,11 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 07/10/2018.
  */
 
-public class ConfirmProgramInvestBottomSheetFragment extends BottomSheetDialogFragment
+public class ConfirmProgramWithdrawBottomSheetFragment extends BottomSheetDialogFragment
 {
-	public interface OnConfirmProgramInvestListener
+	public interface OnConfirmProgramWithdrawListener
 	{
-		void onInvestSucceeded();
+		void onWithdrawSucceeded();
 	}
 
 	@Inject
@@ -59,14 +59,14 @@ public class ConfirmProgramInvestBottomSheetFragment extends BottomSheetDialogFr
 	@BindView(R.id.manager_name)
 	public TextView managerName;
 
-	@BindView(R.id.amount_to_invest)
-	public TextView amountToInvest;
+	@BindView(R.id.amount_to_withdraw)
+	public TextView amountToWithdraw;
 
-	@BindView(R.id.entry_fee)
-	public TextView entryFee;
+	@BindView(R.id.payout_date)
+	public TextView payoutDate;
 
-	@BindView(R.id.amount_due)
-	public TextView amountDue;
+	@BindView(R.id.remaining_investment)
+	public TextView remainingInvestment;
 
 	@BindView(R.id.group_buttons)
 	public ViewGroup buttonsGroup;
@@ -77,15 +77,15 @@ public class ConfirmProgramInvestBottomSheetFragment extends BottomSheetDialogFr
 	@BindView(R.id.button_cancel)
 	public PrimaryButton cancelButton;
 
-	private OnConfirmProgramInvestListener listener;
+	private OnConfirmProgramWithdrawListener listener;
 
 	private ProgramRequest programRequest;
 
-	private Subscription investSubscription;
+	private Subscription withdrawSubscription;
 
 	@OnClick(R.id.button_confirm)
 	public void onConfirmClicked() {
-		sendInvestRequest();
+		sendWithdrawRequest();
 	}
 
 	@OnClick(R.id.button_cancel)
@@ -105,7 +105,7 @@ public class ConfirmProgramInvestBottomSheetFragment extends BottomSheetDialogFr
 				BottomSheetBehavior.from(bottomSheetInternal).setState(BottomSheetBehavior.STATE_EXPANDED);
 		});
 
-		View contentView = View.inflate(getContext(), R.layout.fragment_bottomsheet_confirm_program_invest, null);
+		View contentView = View.inflate(getContext(), R.layout.fragment_bottomsheet_confirm_program_withdraw, null);
 
 		dialog.setContentView(contentView);
 
@@ -124,8 +124,8 @@ public class ConfirmProgramInvestBottomSheetFragment extends BottomSheetDialogFr
 
 	@Override
 	public void onDestroyView() {
-		if (investSubscription != null)
-			investSubscription.unsubscribe();
+		if (withdrawSubscription != null)
+			withdrawSubscription.unsubscribe();
 
 		super.onDestroyView();
 	}
@@ -139,7 +139,7 @@ public class ConfirmProgramInvestBottomSheetFragment extends BottomSheetDialogFr
 		}
 	}
 
-	public void setListener(OnConfirmProgramInvestListener listener) {
+	public void setListener(OnConfirmProgramWithdrawListener listener) {
 		this.listener = listener;
 	}
 
@@ -165,34 +165,34 @@ public class ConfirmProgramInvestBottomSheetFragment extends BottomSheetDialogFr
 			programName.setText(programRequest.getProgramName());
 			managerName.setText(programRequest.getManagerName());
 
-			amountToInvest.setText(programRequest.getAmountTopText());
-			entryFee.setText(programRequest.getInfoMiddleText());
-			amountDue.setText(programRequest.getAmountBottomText());
+			amountToWithdraw.setText(programRequest.getAmountTopText());
+			payoutDate.setText(programRequest.getInfoMiddleText());
+			remainingInvestment.setText(programRequest.getAmountBottomText());
 		}
 	}
 
-	private void sendInvestRequest() {
+	private void sendWithdrawRequest() {
 		if (programRequest != null && programsManager != null) {
 			showProgress(true);
-			investSubscription = programsManager.invest(programRequest)
+			withdrawSubscription = programsManager.withdraw(programRequest)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleInvestSuccess,
-							this::handleInvestError);
+					.subscribe(this::handleWithdrawSuccess,
+							this::handleWithdrawError);
 		}
 	}
 
-	private void handleInvestSuccess(Void response) {
-		investSubscription.unsubscribe();
+	private void handleWithdrawSuccess(Void response) {
+		withdrawSubscription.unsubscribe();
 
 		if (listener != null) {
-			listener.onInvestSucceeded();
+			listener.onWithdrawSucceeded();
 			this.dismiss();
 		}
 	}
 
-	private void handleInvestError(Throwable throwable) {
-		investSubscription.unsubscribe();
+	private void handleWithdrawError(Throwable throwable) {
+		withdrawSubscription.unsubscribe();
 		showProgress(false);
 
 		ApiErrorResolver.resolveErrors(throwable, this::showToast);

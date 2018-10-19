@@ -78,7 +78,7 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 			if (chartDataSubscription != null)
 				chartDataSubscription.unsubscribe();
 			//TODO: calculate maxPointCount
-			chartDataSubscription = programsManager.getProfitChart(programId, chartDateRange, 100)
+			chartDataSubscription = programsManager.getProfitChart(programId, chartDateRange, 30)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetChartDataSuccess,

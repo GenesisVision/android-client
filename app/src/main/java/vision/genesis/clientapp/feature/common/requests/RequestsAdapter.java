@@ -72,6 +72,9 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Invest
 		@BindView(R.id.swipe_layout)
 		public SwipeLayout swipeLayout;
 
+		@BindView(R.id.surface_view)
+		public ViewGroup surfaceView;
+
 		@BindView(R.id.subject)
 		public SimpleDraweeView subject;
 
@@ -104,7 +107,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Invest
 
 			swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
 
-			itemView.setOnClickListener(v -> {
+			surfaceView.setOnClickListener(v -> {
 				if (request != null) {
 					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(request.getProgramId(),
 							request.getLogo(),

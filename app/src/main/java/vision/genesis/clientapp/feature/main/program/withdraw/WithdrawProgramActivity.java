@@ -1,14 +1,18 @@
 package vision.genesis.clientapp.feature.main.program.withdraw;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.Locale;
 
@@ -18,12 +22,12 @@ import butterknife.OnClick;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.program.withdraw.confirm.ConfirmProgramWithdrawBottomSheetFragment;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.ProgramRequest;
-import vision.genesis.clientapp.ui.AmountTextView;
-import vision.genesis.clientapp.ui.NumericKeyboardView;
-import vision.genesis.clientapp.ui.ToolbarView;
-import vision.genesis.clientapp.utils.Constants;
+import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -33,71 +37,76 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class WithdrawProgramActivity extends BaseSwipeBackActivity implements WithdrawProgramView
 {
-	private static final String EXTRA_REQUEST = "extra_request";
+	private static final String EXTRA_PROGRAM_REQUEST = "extra_program_request";
 
 	public static void startWith(Activity activity, ProgramRequest request) {
 		Intent intent = new Intent(activity.getApplicationContext(), WithdrawProgramActivity.class);
-		intent.putExtra(EXTRA_REQUEST, request);
+		intent.putExtra(EXTRA_PROGRAM_REQUEST, request);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
 
-	@BindView(R.id.toolbar)
-	public ToolbarView toolbar;
+	@BindView(R.id.title)
+	public TextView title;
 
-	@BindView(R.id.group_progress_bar)
-	public ViewGroup progressBarGroup;
+	@BindView(R.id.content)
+	public ViewGroup content;
 
-	@BindView(R.id.available_tokens)
-	public TextView availableTokens;
+	@BindView(R.id.available_to_withdraw)
+	public TextView availableToWithdraw;
 
-	@BindView(R.id.balance_currency)
-	public TextView balanceCurrency;
+	@BindView(R.id.edittext_amount)
+	public EditText amount;
 
-	@BindView(R.id.label_my_balance)
-	public TextView myBalanceLabel;
+	@BindView(R.id.max)
+	public TextView max;
 
-	@BindView(R.id.balance_fiat)
-	public TextView balanceFiat;
+	@BindView(R.id.base_currency_amount)
+	public TextView baseCurrencyAmount;
 
-	@BindView(R.id.textview_amount_hint)
-	public TextView amountHintTextView;
+	@BindView(R.id.remaining_investment)
+	public TextView remainingInvestment;
 
-	@BindView(R.id.textview_amount)
-	public AmountTextView amountTextView;
+	@BindView(R.id.payout_date)
+	public TextView payoutDate;
 
-	@BindView(R.id.amount_currency)
-	public TextView amountCurrency;
+	@BindView(R.id.button_continue)
+	public PrimaryButton continueButton;
 
-	@BindView(R.id.label_enter_amount)
-	public TextView enterAmountLabel;
-
-	@BindView(R.id.amount_fiat)
-	public TextView amountFiat;
-
-	@BindView(R.id.button_withdraw)
-	public View withdrawButton;
-
-	@BindView(R.id.keyboard)
-	public NumericKeyboardView keyboard;
+	@BindView(R.id.progress_bar)
+	public ProgressBar progressBar;
 
 	@InjectPresenter
 	WithdrawProgramPresenter withdrawProgramPresenter;
 
-	private ProgramRequest withdrawalRequest;
-
-	@OnClick(R.id.button_withdraw)
-	public void onWithdrawClicked() {
-		withdrawProgramPresenter.onWithdrawClicked();
+	@OnClick(R.id.button_close)
+	public void onCloseClicked() {
+		finishActivity();
 	}
 
-	@OnClick(R.id.group_available)
+	@OnClick(R.id.group_amount)
+	public void onAmountClicked() {
+		showSoftKeyboard();
+	}
+
+	@OnClick(R.id.available_to_withdraw)
 	public void onAvailableClicked() {
-		withdrawProgramPresenter.onAvailableClicked();
+		withdrawProgramPresenter.onMaxClicked();
+	}
+
+	@OnClick(R.id.max)
+	public void onMaxClicked() {
+		withdrawProgramPresenter.onMaxClicked();
+	}
+
+	@OnClick(R.id.button_continue)
+	public void onContinueClicked() {
+		withdrawProgramPresenter.onContinueClicked();
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_program_withdraw);
@@ -105,12 +114,11 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 		ButterKnife.bind(this);
 
 		if (getIntent().getExtras() != null) {
-			withdrawalRequest = getIntent().getExtras().getParcelable(EXTRA_REQUEST);
-			withdrawProgramPresenter.setWithdrawalRequest(withdrawalRequest);
+			withdrawProgramPresenter.setProgramRequest(getIntent().getExtras().getParcelable(EXTRA_PROGRAM_REQUEST));
 
-			initToolbar();
-			initAmountTextView();
 			setFonts();
+
+			setTextListener();
 		}
 		else {
 			Timber.e("Passed empty request to WithdrawProgramActivity");
@@ -118,95 +126,59 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 		}
 	}
 
-	@Override
-	protected void onDestroy() {
-		toolbar.onDestroy();
-		amountTextView.onDestroy();
-		keyboard.onDestroy();
-
-		super.onDestroy();
-	}
-
-	private void initToolbar() {
-		toolbar.setWhite();
-		toolbar.setTitle(getString(R.string.withdraw_from_program));
-//		toolbar.setSubtitle(withdrawalRequest.programName);
-		toolbar.addLeftButton(R.drawable.back_arrow, () -> withdrawProgramPresenter.onBackClicked());
-	}
-
-	private void initAmountTextView() {
-		amountTextView.setKeyboard(keyboard);
-		amountTextView.setMaxDecimalDigits(Constants.TOKENS_MAX_DECIMAL_POINT_DIGITS);
-		amountTextView.setAmountChangeListener(new AmountTextView.AmountChangeListener()
-		{
-			@Override
-			public void onAmountChanged(double newAmount) {
-				withdrawProgramPresenter.onAmountChanged(newAmount);
-			}
-
-			@Override
-			public void onAmountCleared() {
-				withdrawProgramPresenter.onAmountCleared();
-			}
-		});
+	private void setTextListener() {
+		RxTextView.textChanges(amount)
+				.subscribe(charSequence -> withdrawProgramPresenter.onAmountChanged(charSequence.toString()));
 	}
 
 	private void setFonts() {
-		availableTokens.setTypeface(TypefaceUtil.light());
-		balanceFiat.setTypeface(TypefaceUtil.light());
-		myBalanceLabel.setTypeface(TypefaceUtil.bold());
-		enterAmountLabel.setTypeface(TypefaceUtil.bold());
-		amountHintTextView.setTypeface(TypefaceUtil.light());
-		amountFiat.setTypeface(TypefaceUtil.light());
-
-		balanceCurrency.setTypeface(TypefaceUtil.bold());
-		amountCurrency.setTypeface(TypefaceUtil.bold());
+		title.setTypeface(TypefaceUtil.semibold());
+		max.setTypeface(TypefaceUtil.semibold());
 	}
 
 	@Override
-	public void setWithdrawButtonEnabled(boolean enabled) {
-		withdrawButton.setEnabled(enabled);
+	public void setAvailableToWithdraw(Double availableToWithdraw) {
+		this.availableToWithdraw.setText(String.format(Locale.getDefault(), "%s GVT",
+				StringFormatUtil.formatCurrencyAmount(availableToWithdraw, CurrencyEnum.GVT.toString())));
 	}
 
 	@Override
-	public void setAmount(double amount) {
-		amountTextView.setText(String.valueOf(amount));
+	public void setAmount(String amountText) {
+		this.amount.setText(amountText);
+		this.amount.setSelection(amountText.length(), amountText.length());
 	}
 
 	@Override
-	public void setAvailable(double availableFunds) {
-		availableTokens.setText(StringFormatUtil.formatAmount(availableFunds, 0, Constants.TOKENS_MAX_DECIMAL_POINT_DIGITS));
+	public void setAmountBase(String amountBaseString) {
+		this.baseCurrencyAmount.setText(amountBaseString);
 	}
 
 	@Override
-	public void showToastMessage(String message) {
-		Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+	public void setRemainingInvestment(String remainingInvestmentString) {
+		this.remainingInvestment.setText(remainingInvestmentString);
 	}
 
 	@Override
-	public void setFiatBalance(Double fiatBalance) {
-		balanceFiat.setText(String.format(Locale.getDefault(), "$%s", StringFormatUtil.formatAmount(fiatBalance, 2, 2)));
+	public void setPayoutDate(String payoutDate) {
+		this.payoutDate.setText(payoutDate);
 	}
 
 	@Override
-	public void setFiatAmount(Double fiatAmount) {
-		amountFiat.setText(String.format(Locale.getDefault(), "$%s", StringFormatUtil.formatAmount(fiatAmount, 2, 2)));
-	}
-
-	@Override
-	public void showAmountHint(boolean show) {
-		amountHintTextView.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
-		amountTextView.setVisibility(!show ? View.VISIBLE : View.INVISIBLE);
-	}
-
-	@Override
-	public void setKeyboardKeysEnabled(boolean enabled) {
-		keyboard.disableAllKeysExceptBackspace(!enabled);
+	public void setContinueButtonEnabled(boolean enabled) {
+		continueButton.setEnabled(enabled);
 	}
 
 	@Override
 	public void showProgress(boolean show) {
-		progressBarGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+		if (!show) {
+			content.setVisibility(View.VISIBLE);
+		}
+	}
+
+	@Override
+	public void showSnackbarMessage(String message) {
+		showSnackbar(message, title);
 	}
 
 	@Override
@@ -217,6 +189,22 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	@Override
 	public void finishActivity() {
 		finish();
-		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
+		overridePendingTransition(R.anim.hold, R.anim.slide_to_bottom);
+	}
+
+	@Override
+	public void showConfirmDialog(ProgramRequest programRequest) {
+		ConfirmProgramWithdrawBottomSheetFragment bottomSheetDialog = new ConfirmProgramWithdrawBottomSheetFragment();
+		bottomSheetDialog.show(getSupportFragmentManager(), bottomSheetDialog.getTag());
+		bottomSheetDialog.setData(programRequest);
+		bottomSheetDialog.setListener(withdrawProgramPresenter);
+	}
+
+	private void showSoftKeyboard() {
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		amount.requestFocus();
+		if (imm != null) {
+			imm.showSoftInput(amount, 0);
+		}
 	}
 }

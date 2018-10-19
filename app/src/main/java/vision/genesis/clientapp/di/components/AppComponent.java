@@ -46,6 +46,7 @@ import vision.genesis.clientapp.feature.main.program.invest.confirm.ConfirmProgr
 import vision.genesis.clientapp.feature.main.program.profit.ProgramProfitPresenter;
 import vision.genesis.clientapp.feature.main.program.trades.ProgramTradesPresenter;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramPresenter;
+import vision.genesis.clientapp.feature.main.program.withdraw.confirm.ConfirmProgramWithdrawBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListPresenter;
 import vision.genesis.clientapp.feature.main.search.SearchPresenter;
 import vision.genesis.clientapp.feature.main.settings.SettingsPresenter;
@@ -161,6 +162,8 @@ public interface AppComponent
 	void inject(NotificationsPresenter notificationsPresenter);
 
 	void inject(ConfirmProgramInvestBottomSheetFragment confirmProgramInvestBottomSheetFragment);
+
+	void inject(ConfirmProgramWithdrawBottomSheetFragment confirmProgramWithdrawBottomSheetFragment);
 
 	void inject(PortfolioEventsPresenter PortfolioEventsPresenter);
 

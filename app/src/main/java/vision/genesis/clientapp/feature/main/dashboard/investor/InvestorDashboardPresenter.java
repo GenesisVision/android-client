@@ -140,7 +140,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 		if (baseCurrency != null && dateRange != null) {
 			updateDateRange();
 			dashboardSubscription = dashboardManager.getDashboard(dateRange, baseCurrency.getValue())
-					.subscribeOn(Schedulers.io())
+					.subscribeOn(Schedulers.newThread())
 					.map(this::prepareData)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handleGetDashboardSuccess,

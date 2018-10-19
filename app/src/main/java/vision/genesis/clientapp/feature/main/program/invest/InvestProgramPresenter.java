@@ -20,10 +20,7 @@ import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.ProgramRequest;
-import vision.genesis.clientapp.model.api.Error;
-import vision.genesis.clientapp.model.api.ErrorResponse;
 import vision.genesis.clientapp.net.ApiErrorResolver;
-import vision.genesis.clientapp.net.ErrorResponseConverter;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -141,9 +138,9 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 	void onContinueClicked() {
 		programRequest.setAmountDue(amountDue);
-		programRequest.setAmountToInvestText(getAmountToInvestString());
-		programRequest.setEntryFeeText(getEntryFeeString());
-		programRequest.setAmountDueText(getAmountDueString());
+		programRequest.setAmountTopText(getAmountToInvestString());
+		programRequest.setInfoMiddleText(getEntryFeeString());
+		programRequest.setAmountBottomText(getAmountDueString());
 		programRequest.setPeriodEndsText(String.format(Locale.getDefault(),
 				context.getString(R.string.request_info_template),
 				DateTimeUtil.formatShortDateTime(investInfo.getPeriodEnds())));
@@ -191,20 +188,8 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 		investInfoSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
-		if (ApiErrorResolver.isNetworkError(throwable)) {
-			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
-		}
-		else {
-			ErrorResponse response = ErrorResponseConverter.createFromThrowable(throwable);
-			if (response != null) {
-				for (Error error : response.errors) {
-					if (error.message != null) {
-						getViewState().showSnackbarMessage(error.message);
-						break;
-					}
-				}
-			}
-		}
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
 	}
 
 	public void setProgramRequest(ProgramRequest programRequest) {

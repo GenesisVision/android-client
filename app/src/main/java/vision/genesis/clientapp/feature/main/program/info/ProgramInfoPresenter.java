@@ -148,4 +148,25 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 		getViewState().showInvestProgramActivity(request);
 	}
+
+	public void onWithdrawClicked() {
+		if (!userLoggedOn) {
+			getViewState().showLoginActivity();
+			return;
+		}
+
+		if (programDetails == null || programDetails.getAvailableInvestment() == 0)
+			return;
+
+		ProgramRequest request = new ProgramRequest();
+
+		request.setProgramId(programDetails.getId());
+		request.setProgramLogo(programDetails.getLogo());
+		request.setProgramColor(programDetails.getColor());
+		request.setLevel(programDetails.getLevel());
+		request.setProgramName(programDetails.getTitle());
+		request.setManagerName(programDetails.getManager().getUsername());
+
+		getViewState().showWithdrawProgramActivity(request);
+	}
 }

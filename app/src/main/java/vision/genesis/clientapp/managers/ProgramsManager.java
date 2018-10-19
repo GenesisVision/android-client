@@ -8,6 +8,7 @@ import io.swagger.client.model.DashboardPortfolioEvents;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramInvestInfo;
 import io.swagger.client.model.ProgramProfitChart;
+import io.swagger.client.model.ProgramWithdrawInfo;
 import io.swagger.client.model.ProgramsList;
 import io.swagger.client.model.TradesViewModel;
 import rx.Observable;
@@ -81,8 +82,16 @@ public class ProgramsManager
 		return investorApi.v10InvestorProgramsByIdInvestInfoByCurrencyGet(programId, baseCurrency.getValue(), AuthManager.token.getValue());
 	}
 
+	public Observable<ProgramWithdrawInfo> getWithdrawInfo(UUID programId, CurrencyEnum baseCurrency) {
+		return investorApi.v10InvestorProgramsByIdWithdrawInfoByCurrencyGet(programId, baseCurrency.getValue(), AuthManager.token.getValue());
+	}
+
 	public Observable<Void> invest(ProgramRequest investRequest) {
 		return investorApi.v10InvestorProgramsByIdInvestByAmountPost(investRequest.getProgramId(), investRequest.getAmountDue(), AuthManager.token.getValue());
+	}
+
+	public Observable<Void> withdraw(ProgramRequest withdrawRequest) {
+		return investorApi.v10InvestorProgramsByIdWithdrawByAmountPost(withdrawRequest.getProgramId(), withdrawRequest.getAmountDue(), AuthManager.token.getValue());
 	}
 
 	//	public Observable<Void> withdraw(ProgramRequest withdrawalRequest) {

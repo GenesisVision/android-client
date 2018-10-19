@@ -2,6 +2,8 @@ package vision.genesis.clientapp.feature.main.program.withdraw;
 
 import com.arellomobile.mvp.MvpView;
 
+import vision.genesis.clientapp.model.ProgramRequest;
+
 /**
  * GenesisVision
  * Created by Vitaly on 2/21/18.
@@ -9,23 +11,23 @@ import com.arellomobile.mvp.MvpView;
 
 interface WithdrawProgramView extends MvpView
 {
-	void setWithdrawButtonEnabled(boolean enabled);
+	void setAvailableToWithdraw(Double availableToWithdraw);
 
-	void setAmount(double amount);
+	void setAmount(String amountText);
 
-	void setAvailable(double availableFunds);
+	void setAmountBase(String amountBaseString);
 
-	void showToastMessage(String message);
+	void setRemainingInvestment(String remainingInvestmentString);
 
-	void setFiatBalance(Double fiatBalance);
+	void setPayoutDate(String payoutDate);
 
-	void setFiatAmount(Double fiatAmount);
+	void setContinueButtonEnabled(boolean enabled);
 
-	void showAmountHint(boolean show);
-
-	void setKeyboardKeysEnabled(boolean enabled);
+	void showConfirmDialog(ProgramRequest programRequest);
 
 	void showProgress(boolean show);
+
+	void showSnackbarMessage(String message);
 
 	void finishActivity();
 }

@@ -30,6 +30,7 @@ import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
+import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.model.ManagerDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.AvatarView;
@@ -189,29 +190,20 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		strategyShadow.setVisibility(View.VISIBLE);
 	}
 
+	@OnClick(R.id.status)
+	public void onStatusClicked() {
+		programInfoPresenter.onInvestClicked();
+	}
+
 	@OnClick(R.id.button_invest)
 	public void onInvestClicked() {
 		programInfoPresenter.onInvestClicked();
 	}
-//
-//	@OnClick(R.id.button_withdraw)
-//	public void onWithdrawClicked() {
-//		if (programDetails == null || getActivity() == null)
-//			return;
-//		ProgramRequest request = new ProgramRequest();
-//		request.programId = programDetails.getId();
-//		request.programName = programDetails.getTitle();
-//		request.available = programDetails.getInvestedTokens();
-//		request.tokenPrice = programDetails.getToken().getInitialPrice();
-//		WithdrawProgramActivity.startWith(getActivity(), request);
-//	}
-//
-//	@OnClick(R.id.button_requests)
-//	public void onRequestsClicked() {
-//		if (programDetails == null || getActivity() == null)
-//			return;
-//		RequestsActivity.startWith(getActivity(), programDetails.getId());
-//	}
+
+	@OnClick(R.id.button_withdraw)
+	public void onWithdrawClicked() {
+		programInfoPresenter.onWithdrawClicked();
+	}
 
 	@Nullable
 	@Override
@@ -319,6 +311,12 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	public void showInvestProgramActivity(ProgramRequest request) {
 		if (getActivity() != null)
 			InvestProgramActivity.startWith(getActivity(), request);
+	}
+
+	@Override
+	public void showWithdrawProgramActivity(ProgramRequest request) {
+		if (getActivity() != null)
+			WithdrawProgramActivity.startWith(getActivity(), request);
 	}
 
 	@Override

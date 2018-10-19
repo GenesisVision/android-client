@@ -49,13 +49,13 @@ public class ProgramRequest implements Parcelable
 	private String periodEndsText;
 
 	@SerializedName("amount_to_invest_text")
-	private String amountToInvestText;
+	private String amountTopText;
 
 	@SerializedName("entry_fee_text")
-	private String entryFeeText;
+	private String infoMiddleText;
 
 	@SerializedName("amount_due_text")
-	private String amountDueText;
+	private String amountBottomText;
 
 	@SerializedName("amount_due")
 	private Double amountDue = 0.0;
@@ -72,9 +72,9 @@ public class ProgramRequest implements Parcelable
 		programColor = in.readString();
 		level = in.readInt();
 		periodEndsText = in.readString();
-		amountToInvestText = in.readString();
-		entryFeeText = in.readString();
-		amountDueText = in.readString();
+		amountTopText = in.readString();
+		infoMiddleText = in.readString();
+		amountBottomText = in.readString();
 		amountDue = in.readDouble();
 	}
 
@@ -92,9 +92,9 @@ public class ProgramRequest implements Parcelable
 		dest.writeString(programColor);
 		dest.writeInt(level);
 		dest.writeString(periodEndsText);
-		dest.writeString(amountToInvestText);
-		dest.writeString(entryFeeText);
-		dest.writeString(amountDueText);
+		dest.writeString(amountTopText);
+		dest.writeString(infoMiddleText);
+		dest.writeString(amountBottomText);
 		dest.writeDouble(amountDue);
 	}
 
@@ -154,28 +154,28 @@ public class ProgramRequest implements Parcelable
 		this.periodEndsText = periodEndsText;
 	}
 
-	public String getAmountToInvestText() {
-		return amountToInvestText;
+	public String getAmountTopText() {
+		return amountTopText;
 	}
 
-	public void setAmountToInvestText(String amountToInvestText) {
-		this.amountToInvestText = amountToInvestText;
+	public void setAmountTopText(String amountTopText) {
+		this.amountTopText = amountTopText;
 	}
 
-	public String getEntryFeeText() {
-		return entryFeeText;
+	public String getInfoMiddleText() {
+		return infoMiddleText;
 	}
 
-	public void setEntryFeeText(String entryFeeText) {
-		this.entryFeeText = entryFeeText;
+	public void setInfoMiddleText(String infoMiddleText) {
+		this.infoMiddleText = infoMiddleText;
 	}
 
-	public String getAmountDueText() {
-		return amountDueText;
+	public String getAmountBottomText() {
+		return amountBottomText;
 	}
 
-	public void setAmountDueText(String amountDueText) {
-		this.amountDueText = amountDueText;
+	public void setAmountBottomText(String amountBottomText) {
+		this.amountBottomText = amountBottomText;
 	}
 
 	public Double getAmountDue() {

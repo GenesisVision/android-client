@@ -25,5 +25,7 @@ interface ProgramInfoView extends MvpView
 
 	void showInvestProgramActivity(ProgramRequest request);
 
+	void showWithdrawProgramActivity(ProgramRequest request);
+
 	void showLoginActivity();
 }

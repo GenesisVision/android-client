@@ -83,7 +83,7 @@ public class NotificationsPresenter extends MvpPresenter<NotificationsView>
 			notificationsSubscription.unsubscribe();
 		notificationsSubscription = notificationsManager.getNotifications(skip, TAKE)
 				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
+				.subscribeOn(Schedulers.newThread())
 				.subscribe(this::handleGetNotificationsResponse,
 						this::handleGetNotificationsError);
 	}
