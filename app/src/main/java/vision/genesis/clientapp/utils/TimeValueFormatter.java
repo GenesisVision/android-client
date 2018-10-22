@@ -31,6 +31,6 @@ public class TimeValueFormatter implements IAxisValueFormatter
 
 	@Override
 	public String getFormattedValue(float value, AxisBase axis) {
-		return DateTimeUtil.formatShortTime(new DateTime().withMillis((long) value));
+		return DateTimeUtil.formatShortTime(new DateTime().withMillis((long) value * 1000 * 60));
 	}
 }

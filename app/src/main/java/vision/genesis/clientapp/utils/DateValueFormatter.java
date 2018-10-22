@@ -13,6 +13,6 @@ public class DateValueFormatter implements IAxisValueFormatter
 {
 	@Override
 	public String getFormattedValue(float value, AxisBase axis) {
-		return DateTimeUtil.formatExtraShortDate(new DateTime().withMillis((long) value));
+		return DateTimeUtil.formatExtraShortDate(new DateTime().withMillis((long) value * 1000 * 60));
 	}
 }

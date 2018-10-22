@@ -96,16 +96,16 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 		updateValues();
 	}
 
-	public void onPortfolioChartTouch(int index, float chartBottomY) {
+	public void onPortfolioChartTouch(int lineIndex, int barIndex, float chartBottomY) {
 		if (!isViewMode) {
 			isViewMode = true;
 			getViewState().hideRequests();
 			EventBus.getDefault().post(new OnPortfolioChartViewModeChangedEvent(isViewMode, chartBottomY));
 		}
 
-		EventBus.getDefault().post(new OnPortfolioAssetsChangedEvent(index));
+		EventBus.getDefault().post(new OnPortfolioAssetsChangedEvent(barIndex));
 
-		selected = chartValue.getBalanceChart().get(index).getValue();
+		selected = chartValue.getBalanceChart().get(lineIndex).getValue();
 
 		updateValues();
 	}

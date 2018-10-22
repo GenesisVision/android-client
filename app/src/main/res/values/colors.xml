@@ -84,6 +84,10 @@
         <item>@color/asset9</item>
     </array>
 
+    <color name="balanceManagerColor">#214650</color>
+    <color name="balanceInvestorsColor">#00BDAF</color>
+    <color name="balanceProfitColor">#84D6D0</color>
+
     <color name="darkBackground">#131e26</color>
     <color name="darkBackgroundAlpha0">#00131e26</color>
     <color name="darkBackgroundDark">#111a20</color>

@@ -2,9 +2,12 @@ package vision.genesis.clientapp.ui.chart;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -13,15 +16,10 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.CombinedChart;
-import com.github.mikephil.charting.charts.CombinedChart.DrawOrder;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -36,8 +34,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.swagger.client.model.ChartSimple;
-import io.swagger.client.model.PeriodDate;
+import io.swagger.client.model.ProgramBalanceChartElement;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.DateRange;
@@ -49,10 +46,10 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 16/10/2018.
+ * Created by Vitaly on 19/10/2018.
  */
 
-public class ProfitChartView extends RelativeLayout
+public class BalanceChartView extends RelativeLayout
 {
 	public interface TouchListener
 	{
@@ -61,10 +58,8 @@ public class ProfitChartView extends RelativeLayout
 		void onStop();
 	}
 
-	private static final int MAX_PERIODS_COUNT = 50;
-
 	@BindView(R.id.chart)
-	public CombinedChart chart;
+	public LineChart chart;
 
 	@BindView(R.id.highlight_circle)
 	public View highlightCircle;
@@ -80,7 +75,11 @@ public class ProfitChartView extends RelativeLayout
 
 	private Unbinder unbinder;
 
-	private int lineColor = R.attr.colorGreen;
+	private int managerColor = R.color.balanceManagerColor;
+
+	private int investorsColor = R.color.balanceInvestorsColor;
+
+	private int profitColor = R.color.balanceProfitColor;
 
 	private int highlightColor = R.attr.colorAccent;
 
@@ -90,23 +89,23 @@ public class ProfitChartView extends RelativeLayout
 
 	private IAxisValueFormatter xAxisTimeValueFormatter = new TimeValueFormatter();
 
-	public ProfitChartView(Context context) {
+	public BalanceChartView(Context context) {
 		super(context);
 		initView();
 	}
 
-	public ProfitChartView(Context context, AttributeSet attrs) {
+	public BalanceChartView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		initView();
 	}
 
-	public ProfitChartView(Context context, AttributeSet attrs, int defStyleAttr) {
+	public BalanceChartView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		initView();
 	}
 
 	private void initView() {
-		inflate(getContext(), R.layout.view_portfolio_chart, this);
+		inflate(getContext(), R.layout.view_balance_chart, this);
 
 		unbinder = ButterKnife.bind(this);
 
@@ -148,17 +147,13 @@ public class ProfitChartView extends RelativeLayout
 		chart.getAxisLeft().setEnabled(true);
 		chart.getAxisRight().setEnabled(false);
 		chart.setDrawBorders(false);
-		chart.setAutoScaleMinMaxEnabled(true);
+		chart.setAutoScaleMinMaxEnabled(false);
 		chart.setNoDataText(GenesisVisionApplication.INSTANCE.getResources().getString(R.string.not_enough_data));
 		chart.setNoDataTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary));
 		chart.setNoDataTextTypeface(TypefaceUtil.regular());
 		chart.setViewPortOffsets(0f, 0f, 0f,
 				TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20,
 						GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics()));
-
-		chart.setDrawOrder(new DrawOrder[]{
-				DrawOrder.BAR, DrawOrder.LINE
-		});
 
 		YAxis yAxis = chart.getAxisLeft();
 		yAxis.setDrawLabels(false);
@@ -197,38 +192,37 @@ public class ProfitChartView extends RelativeLayout
 		});
 	}
 
-	public void setChartData(List<ChartSimple> equityChart, List<ChartSimple> pnLChart, List<PeriodDate> periods, DateRange dateRange) {
+	public void setChartData(List<ProgramBalanceChartElement> balanceChart, DateRange dateRange) {
 		showProgress(false);
 
-		if (equityChart.size() <= 1) {
+		if (balanceChart.size() <= 1) {
 			chart.clear();
 			return;
 		}
 
 		updateXAxis(dateRange);
 
-		float min = equityChart.get(0).getValue().floatValue();
-		float max = equityChart.get(0).getValue().floatValue();
+		float min = 0;
+		float max = 0;
 
-		List<Entry> lineEntries = new ArrayList<>();
+		List<Entry> managerEntries = new ArrayList<>();
+		List<Entry> investorsEntries = new ArrayList<>();
+		List<Entry> profitEntries = new ArrayList<>();
 
 		int index = 0;
-		for (ChartSimple chart : equityChart) {
-			lineEntries.add(new Entry(chart.getDate().getMillis() / 1000 / 60, chart.getValue().floatValue()));
-//			lineEntries.add(new Entry(index, chart.getValue().floatValue()));
-//			lineEntries.add(new Entry(index, Math.abs(chart.getValue().floatValue())));
-			if (min > chart.getValue().floatValue())
-				min = chart.getValue().floatValue();
-			if (max < chart.getValue().floatValue())
-				max = chart.getValue().floatValue();
-			index++;
-		}
+		for (ProgramBalanceChartElement element : balanceChart) {
+			float managerValue = element.getManagerFunds().floatValue();
+			float investorsValue = managerValue + element.getInvestorsFunds().floatValue();
+			float profitValue = investorsValue + element.getProfit().floatValue();
 
-		List<BarEntry> barEntries = new ArrayList<>();
-		index = 0;
-		for (ChartSimple bar : pnLChart) {
-			barEntries.add(new BarEntry(bar.getDate().getMillis() / 1000 / 60, bar.getValue().floatValue()));
-//			barEntries.add(new BarEntry(index, bar.getValue().floatValue()));
+			managerEntries.add(new Entry(element.getDate().getMillis() / 1000 / 60, managerValue));
+			investorsEntries.add(new Entry(element.getDate().getMillis() / 1000 / 60, investorsValue));
+			profitEntries.add(new Entry(element.getDate().getMillis() / 1000 / 60, profitValue));
+
+			if (min > profitValue)
+				min = profitValue;
+			if (max < profitValue)
+				max = profitValue;
 			index++;
 		}
 
@@ -236,16 +230,9 @@ public class ProfitChartView extends RelativeLayout
 		maxValue.setText(StringFormatUtil.formatAmount(max, 2, 4));
 
 		setLimitLines(min, max);
-		if (periods.size() <= MAX_PERIODS_COUNT)
-			setPeriodLines(periods);
 
-//		chart.getAxisLeft().setAxisMaximum(max);
-//		chart.getAxisLeft().setAxisMinimum(min);
-
-		CombinedData combinedData = new CombinedData();
-		combinedData.setData(getLineData(lineEntries));
-		combinedData.setData(getBarData(barEntries));
-		chart.setData(combinedData);
+		chart.setData(getLineData(managerEntries, investorsEntries, profitEntries));
+		chart.getXAxis().setAxisMaximum(chart.getData().getXMax() + 1f);
 		chart.invalidate();
 	}
 
@@ -280,22 +267,13 @@ public class ProfitChartView extends RelativeLayout
 	private void setLimitLines(float min, float max) {
 		YAxis yAxis = chart.getAxisLeft();
 		yAxis.setDrawLimitLinesBehindData(true);
+		yAxis.setAxisMinimum(min);
+		yAxis.setAxisMaximum(max);
 
 		yAxis.removeAllLimitLines();
 //		yAxis.addLimitLine(createLimitLine(0f));
 		yAxis.addLimitLine(createLimitLine(min));
 		yAxis.addLimitLine(createLimitLine(max));
-	}
-
-	private void setPeriodLines(List<PeriodDate> periods) {
-		XAxis xAxis = chart.getXAxis();
-		xAxis.setDrawLimitLinesBehindData(true);
-
-		xAxis.removeAllLimitLines();
-		for (PeriodDate period : periods) {
-			xAxis.addLimitLine(createPeriodLine(period.getDateFrom().getMillis() / 1000 / 60));
-			xAxis.addLimitLine(createPeriodLine(period.getDateTo().getMillis() / 1000 / 60));
-		}
 	}
 
 	private LimitLine createLimitLine(float limit) {
@@ -308,70 +286,39 @@ public class ProfitChartView extends RelativeLayout
 		return ll;
 	}
 
-	private LimitLine createPeriodLine(float date) {
-		LimitLine ll = new LimitLine(date, "");
-		ll.setLineColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorDelimiterLight));
-		ll.setLineWidth(1f);
-//		int lineLength = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics());
-//		int spaceLength = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics());
-//		ll.enableDashedLine(lineLength, spaceLength, 0);
-		return ll;
-	}
+	private LineData getLineData(List<Entry> managerEntries, List<Entry> investorsEntries, List<Entry> profitEntries) {
+		Collections.sort(managerEntries, new EntryXComparator());
+		Collections.sort(investorsEntries, new EntryXComparator());
+		Collections.sort(profitEntries, new EntryXComparator());
 
-	private LineData getLineData(List<Entry> data) {
-		Collections.sort(data, new EntryXComparator());
 		LineData lineData = new LineData();
 
-		lineData.addDataSet(createLineDataSet(data));
+		lineData.addDataSet(createLineDataSet(profitEntries, profitColor, true));
+		lineData.addDataSet(createLineDataSet(investorsEntries, investorsColor, false));
+		lineData.addDataSet(createLineDataSet(managerEntries, managerColor, false));
 
 		return lineData;
 	}
 
-	private LineDataSet createLineDataSet(List<Entry> data) {
+	private LineDataSet createLineDataSet(List<Entry> data, int color, boolean highlightEnabled) {
 		LineDataSet dataSet = new LineDataSet(data, "");
 
 		dataSet.setLabel("");
 		dataSet.setDrawValues(false);
 		dataSet.setDrawCircles(false);
-		dataSet.setColor(ThemeUtil.getColorByAttrId(getContext(), lineColor));
+		dataSet.setColor(ContextCompat.getColor(getContext(), color));
 //		dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
 		dataSet.setLineWidth(1.2f);
+
+		dataSet.setHighlightEnabled(highlightEnabled);
 		dataSet.setDrawHorizontalHighlightIndicator(false);
 		dataSet.setHighLightColor(ThemeUtil.getColorByAttrId(getContext(), highlightColor));
 		dataSet.setHighlightLineWidth(1.5f);
 
-//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-//			dataSet.setFillDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.chart_background_gradient));
-//			dataSet.setDrawFilled(true);
-//		}
-
-		return dataSet;
-	}
-
-	private BarData getBarData(List<BarEntry> data) {
-		Collections.sort(data, new EntryXComparator());
-		BarData barData = new BarData();
-
-		barData.addDataSet(createBarDataSet(data));
-		barData.setBarWidth(0.07f);
-		barData.setHighlightEnabled(false);
-
-		return barData;
-	}
-
-	private BarDataSet createBarDataSet(List<BarEntry> data) {
-		BarDataSet dataSet = new BarDataSet(data, "");
-
-		dataSet.setLabel("");
-		dataSet.setDrawValues(false);
-		dataSet.setColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextPrimary));
-//		dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-//		dataSet.setHighLightColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, highlightColor));
-
-//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-//			dataSet.setFillDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.chart_background_gradient));
-//			dataSet.setDrawFilled(true);
-//		}
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+			dataSet.setFillDrawable(new ColorDrawable(ContextCompat.getColor(getContext(), color)));
+			dataSet.setDrawFilled(true);
+		}
 
 		return dataSet;
 	}
@@ -389,7 +336,6 @@ public class ProfitChartView extends RelativeLayout
 		if (highlight == null)
 			return;
 		highlightCircle.setVisibility(View.VISIBLE);
-//		chart.highlightValue(highlight, false);
 		moveHighlightCircle(highlight);
 	}
 

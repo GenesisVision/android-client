@@ -373,8 +373,8 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 		addTab(tabLayoutHeader, dashboardHeaderPagerAdapter,
 				tabLayoutHeader.newTab().setCustomView(getTabView(R.string.portfolio)).setTag("portfolio"), true);
-		addTab(tabLayoutHeader, dashboardHeaderPagerAdapter,
-				tabLayoutHeader.newTab().setCustomView(getTabView(R.string.profit)).setTag("profit"), false);
+//		addTab(tabLayoutHeader, dashboardHeaderPagerAdapter,
+//				tabLayoutHeader.newTab().setCustomView(getTabView(R.string.profit)).setTag("profit"), false);
 
 	}
 
@@ -586,7 +586,7 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 	@Override
 	public void setChartData(DashboardChartValue chart) {
-		dashboardHeaderPagerAdapter.setPortfolioChart(chart);
+		dashboardHeaderPagerAdapter.setPortfolioChart(chart, dateRange);
 	}
 
 	@Override

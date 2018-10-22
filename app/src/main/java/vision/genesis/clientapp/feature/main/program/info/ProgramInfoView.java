@@ -2,6 +2,7 @@ package vision.genesis.clientapp.feature.main.program.info;
 
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
+import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import io.swagger.client.model.ProgramDetailsFull;
@@ -23,8 +24,10 @@ interface ProgramInfoView extends MvpView
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);
 
+	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showInvestProgramActivity(ProgramRequest request);
 
+	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showWithdrawProgramActivity(ProgramRequest request);
 
 	void showLoginActivity();

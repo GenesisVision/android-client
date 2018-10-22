@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.UUID;
 
+import vision.genesis.clientapp.feature.main.program.balance.ProgramBalanceFragment;
 import vision.genesis.clientapp.feature.main.program.events.ProgramEventsFragment;
 import vision.genesis.clientapp.feature.main.program.info.ProgramInfoFragment;
 import vision.genesis.clientapp.feature.main.program.profit.ProgramProfitFragment;
@@ -30,7 +31,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private ProgramProfitFragment programProfitFragment;
 
-//	private ProgramBalanceFragment programBalanceFragment;
+	private ProgramBalanceFragment programBalanceFragment;
 
 	private ProgramTradesFragment programTradesFragment;
 
@@ -43,7 +44,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		this.tabLayout = tabLayout;
 		programInfoFragment = ProgramInfoFragment.with(programId);
 		programProfitFragment = ProgramProfitFragment.with(programId);
-//		programBalanceFragment = ProgramBalanceFragment.with(programId);
+		programBalanceFragment = ProgramBalanceFragment.with(programId);
 		programEventsFragment = ProgramEventsFragment.with(programId);
 		programTradesFragment = ProgramTradesFragment.with(programId);
 	}
@@ -55,8 +56,8 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 				return programInfoFragment;
 			case "profit":
 				return programProfitFragment;
-//			case "balance":
-//				return programBalanceFragment;
+			case "balance":
+				return programBalanceFragment;
 			case "trades":
 				return programTradesFragment;
 			case "events":
@@ -77,7 +78,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 	public void sendUpdate() {
 		programInfoFragment.pagerShow();
 		programProfitFragment.pagerShow();
-//		programBalanceFragment.pagerShow();
+		programBalanceFragment.pagerShow();
 		programTradesFragment.pagerShow();
 		programEventsFragment.pagerShow();
 	}
@@ -89,6 +90,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	public void onOffsetChanged(int verticalOffset) {
 		programProfitFragment.onOffsetChanged(verticalOffset);
+		programBalanceFragment.onOffsetChanged(verticalOffset);
 		programTradesFragment.onOffsetChanged(verticalOffset);
 		programEventsFragment.onOffsetChanged(verticalOffset);
 	}

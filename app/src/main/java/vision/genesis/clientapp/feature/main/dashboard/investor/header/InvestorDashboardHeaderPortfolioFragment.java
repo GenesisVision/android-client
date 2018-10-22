@@ -24,6 +24,7 @@ import io.swagger.client.model.DashboardChartValue;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.OnInRequestsClickedEvent;
 import vision.genesis.clientapp.ui.chart.PortfolioChartView;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -93,6 +94,8 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 
 	private Double inRequestsRate;
 
+	private DateRange dateRange;
+
 	@OnClick(R.id.group_requests)
 	public void onRequestsClicked() {
 		EventBus.getDefault().post(new OnInRequestsClickedEvent());
@@ -112,13 +115,13 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 
 		setFonts();
 
-		chart.setTouchListener(index -> {
+		chart.setTouchListener((lineIndex, barIndex) -> {
 			float chartBottomY = chart.getY() + chart.getHeight() - chartYDelta;
-			investorDashboardHeaderPortfolioPresenter.onPortfolioChartTouch(index, chartBottomY);
+			investorDashboardHeaderPortfolioPresenter.onPortfolioChartTouch(lineIndex, barIndex, chartBottomY);
 		});
 
 		if (chartData != null) {
-			setData(chartData);
+			setData(chartData, dateRange);
 		}
 		if (inRequestsTotalValue != null && inRequestsRate != null) {
 			setInRequestsData(inRequestsTotalValue, inRequestsRate);
@@ -153,11 +156,12 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 		requestsValueSecondary.setTypeface(TypefaceUtil.medium());
 	}
 
-	public void setData(DashboardChartValue chartValue) {
+	public void setData(DashboardChartValue chartValue, DateRange dateRange) {
 		this.chartData = chartValue;
+		this.dateRange = dateRange;
 		if (investorDashboardHeaderPortfolioPresenter != null) {
 			investorDashboardHeaderPortfolioPresenter.setData(chartValue);
-			chart.setChart(chartValue);
+			chart.setChart(chartValue, dateRange);
 		}
 	}
 

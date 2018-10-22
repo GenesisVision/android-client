@@ -5,6 +5,7 @@ import java.util.UUID;
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ProgramsApi;
 import io.swagger.client.model.DashboardPortfolioEvents;
+import io.swagger.client.model.ProgramBalanceChart;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramInvestInfo;
 import io.swagger.client.model.ProgramProfitChart;
@@ -68,6 +69,10 @@ public class ProgramsManager
 
 	public Observable<ProgramProfitChart> getProfitChart(UUID programId, DateRange dateRange, Integer maxPointCount) {
 		return programsApi.v10ProgramsByIdChartsProfitGet(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount);
+	}
+
+	public Observable<ProgramBalanceChart> getBalanceChart(UUID programId, DateRange dateRange, Integer maxPointCount) {
+		return programsApi.v10ProgramsByIdChartsBalanceGet(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount);
 	}
 
 	public Observable<TradesViewModel> getProgramTrades(UUID programId, DateRange dateRange, Integer skip, Integer take) {

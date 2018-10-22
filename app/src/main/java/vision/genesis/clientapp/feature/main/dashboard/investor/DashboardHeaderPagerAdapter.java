@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import io.swagger.client.model.DashboardChartValue;
 import vision.genesis.clientapp.feature.main.dashboard.investor.header.InvestorDashboardHeaderPortfolioFragment;
+import vision.genesis.clientapp.model.DateRange;
 
 /**
  * GenesisVisionAndroid
@@ -16,7 +17,7 @@ public class DashboardHeaderPagerAdapter extends FragmentStatePagerAdapter
 {
 	private InvestorDashboardHeaderPortfolioFragment portfolioFragment;
 
-	private InvestorDashboardHeaderPortfolioFragment profitFragment;
+//	private InvestorDashboardHeaderPortfolioFragment profitFragment;
 
 	private TabLayout tabLayout;
 
@@ -24,7 +25,7 @@ public class DashboardHeaderPagerAdapter extends FragmentStatePagerAdapter
 		super(fm);
 		this.tabLayout = tabLayout;
 		portfolioFragment = new InvestorDashboardHeaderPortfolioFragment();
-		profitFragment = new InvestorDashboardHeaderPortfolioFragment();
+//		profitFragment = new InvestorDashboardHeaderPortfolioFragment();
 	}
 
 	@Override
@@ -32,8 +33,8 @@ public class DashboardHeaderPagerAdapter extends FragmentStatePagerAdapter
 		switch (tabLayout.getTabAt(position).getTag().toString()) {
 			case "portfolio":
 				return portfolioFragment;
-			case "profit":
-				return profitFragment;
+//			case "profit":
+//				return profitFragment;
 			default:
 				return null;
 		}
@@ -44,9 +45,9 @@ public class DashboardHeaderPagerAdapter extends FragmentStatePagerAdapter
 		return tabLayout.getTabCount();
 	}
 
-	public void setPortfolioChart(DashboardChartValue chart) {
+	public void setPortfolioChart(DashboardChartValue chart, DateRange dateRange) {
 		if (portfolioFragment != null)
-			portfolioFragment.setData(chart);
+			portfolioFragment.setData(chart, dateRange);
 	}
 
 	public void setInRequests(Double totalValue, Double rate) {
