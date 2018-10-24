@@ -17,6 +17,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.confirm.ConfirmWalletWithdrawBottomSheetFragment;
 import vision.genesis.clientapp.managers.WalletManager;
@@ -151,7 +152,7 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 	}
 
 	private String getAmountBaseString() {
-		return String.format(Locale.getDefault(), "= %s %s",
+		return String.format(Locale.getDefault(), "%s %s %s", context.getString(R.string.approximate_amount),
 				StringFormatUtil.formatCurrencyAmount(amount * selectedWallet.getRateToGvt(), selectedWallet.getCurrency().getValue()),
 				selectedWallet.getCurrency().getValue());
 	}

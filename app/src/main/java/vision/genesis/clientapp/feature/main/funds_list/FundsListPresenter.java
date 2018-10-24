@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.programs_list;
+package vision.genesis.clientapp.feature.main.funds_list;
 
 import android.content.Context;
 
@@ -14,29 +14,29 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ProgramDetails;
-import io.swagger.client.model.ProgramsList;
+import io.swagger.client.model.FundDetails;
+import io.swagger.client.model.FundsList;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView;
-import vision.genesis.clientapp.managers.ProgramsManager;
+import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.model.ProgramsFilter;
-import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
+import vision.genesis.clientapp.model.events.FundIsFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersClearedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
- * GenesisVision
- * Created by Vitaly on 1/19/18.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 24/10/2018.
  */
 
 @InjectViewState
-public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implements SortingFiltersButtonsView.OnFilterUpdatedListener
+public class FundsListPresenter extends MvpPresenter<FundsListView> implements SortingFiltersButtonsView.OnFilterUpdatedListener
 {
 	private static int TAKE = 20;
 
@@ -44,17 +44,17 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 	public Context context;
 
 	@Inject
-	public ProgramsManager programsManager;
+	public FundsManager fundsManager;
 
-	private Subscription getProgramsSubscription;
+	private Subscription getFundsSubscription;
 
-	private List<ProgramDetails> investmentProgramsList = new ArrayList<ProgramDetails>();
+	private List<FundDetails> fundsList = new ArrayList<>();
 
 	private int skip = 0;
 
 	private ProgramsFilter filter;
 
-	private List<ProgramDetails> programsToAdd = new ArrayList<>();
+	private List<FundDetails> fundsToAdd = new ArrayList<>();
 
 	private UUID managerId;
 
@@ -70,13 +70,13 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 
 		createFilter();
 		getViewState().setRefreshing(true);
-		getProgramsList(true);
+		getFundsList(true);
 	}
 
 	@Override
 	public void onDestroy() {
-		if (getProgramsSubscription != null)
-			getProgramsSubscription.unsubscribe();
+		if (getFundsSubscription != null)
+			getFundsSubscription.unsubscribe();
 
 		EventBus.getDefault().unregister(this);
 
@@ -90,22 +90,22 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 			filter.setManagerId(managerId);
 			getViewState().updateFilter(filter);
 		}
-		getProgramsList(true);
+		getFundsList(true);
 	}
 
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
-		getProgramsList(true);
+		getFundsList(true);
 	}
 
 	void onTryAgainClicked() {
 		getViewState().showProgressBar(true);
-		getProgramsList(true);
+		getFundsList(true);
 	}
 
 	void onLastListItemVisible() {
 		getViewState().showBottomProgress(true);
-		getProgramsList(false);
+		getFundsList(false);
 	}
 
 	private void createFilter() {
@@ -121,72 +121,72 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 	public void onFilterUpdated(ProgramsFilter filter) {
 		this.filter = filter;
 		getViewState().setRefreshing(true);
-		getProgramsList(true);
+		getFundsList(true);
 	}
 
-	private void getProgramsList(boolean forceUpdate) {
-		if (programsManager != null && isManagerSet) {
+	private void getFundsList(boolean forceUpdate) {
+		if (fundsManager != null && isManagerSet) {
 			if (forceUpdate) {
 				skip = 0;
 				filter.setSkip(skip);
 			}
 
-			if (getProgramsSubscription != null)
-				getProgramsSubscription.unsubscribe();
-			getProgramsSubscription = programsManager.getProgramsList(filter)
+			if (getFundsSubscription != null)
+				getFundsSubscription.unsubscribe();
+			getFundsSubscription = fundsManager.getFundsList(filter)
 					.subscribeOn(Schedulers.computation())
 //				.map(this::prepareData)
 					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(this::handleGetProgramsList,
-							this::handleGetProgramsListError);
+					.subscribe(this::handleGetFundsList,
+							this::handleGetFundsListError);
 		}
 	}
 
 //	private InvestmentProgramsViewModel prepareData(InvestmentProgramsViewModel model) {
-//		programsToAdd = InvestmentProgramExtended.extendInvestmentPrograms(model.getInvestmentPrograms());
+//		fundsToAdd = InvestmentProgramExtended.extendInvestmentPrograms(model.getInvestmentPrograms());
 //		return model;
 //	}
 
-	private void handleGetProgramsList(ProgramsList response) {
+	private void handleGetFundsList(FundsList response) {
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);
 		getViewState().showEmptyList(false);
 		getViewState().showBottomProgress(false);
 
-		getProgramsSubscription.unsubscribe();
+		getFundsSubscription.unsubscribe();
 
-		programsToAdd = response.getPrograms();
+		fundsToAdd = response.getFunds();
 
 		getViewState().setProgramsCount(StringFormatUtil.formatAmount(response.getTotal(), 0, 0));
 
-		if (programsToAdd.size() == 0) {
+		if (fundsToAdd.size() == 0) {
 			if (skip == 0)
 				getViewState().showEmptyList(true);
 			return;
 		}
 
 		if (skip == 0) {
-			investmentProgramsList.clear();
-			getViewState().setInvestmentPrograms(programsToAdd);
+			fundsList.clear();
+			getViewState().setFunds(fundsToAdd);
 		}
 		else {
-			getViewState().addInvestmentPrograms(programsToAdd);
+			getViewState().addFunds(fundsToAdd);
 		}
-		investmentProgramsList.addAll(programsToAdd);
+		fundsList.addAll(fundsToAdd);
 		skip += TAKE;
 		filter.setTake(TAKE);
 		filter.setSkip(skip);
 	}
 
-	private void handleGetProgramsListError(Throwable error) {
-		getProgramsSubscription.unsubscribe();
+	private void handleGetFundsListError(Throwable error) {
+		getFundsSubscription.unsubscribe();
 		getViewState().showBottomProgress(false);
 
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		if (ApiErrorResolver.isNetworkError(error)) {
-			if (investmentProgramsList.size() == 0) {
+			if (fundsList.size() == 0) {
 				getViewState().showEmptyList(false);
 				getViewState().showNoInternet(true);
 			}
@@ -205,7 +205,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 	}
 
 	@Subscribe
-	public void onEventMainThread(ProgramIsFavoriteChangedEvent event) {
-		getViewState().changeProgramIsFavorite(event.programId, event.isFavorite);
+	public void onEventMainThread(FundIsFavoriteChangedEvent event) {
+		getViewState().changeFundIsFavorite(event.getFundId(), event.getFavorite());
 	}
 }

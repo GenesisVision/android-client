@@ -17,6 +17,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -78,7 +79,7 @@ public class DepositWalletPresenter extends MvpPresenter<DepositWalletView> impl
 	}
 
 	private String getAmountBaseString() {
-		return String.format(Locale.getDefault(), "= %s %s",
+		return String.format(Locale.getDefault(), "%s %s %s", context.getString(R.string.approximate_amount),
 				StringFormatUtil.formatCurrencyAmount(amount * selectedWallet.getRateToGVT(), selectedWallet.getCurrency().getValue()),
 				selectedWallet.getCurrency().getValue());
 	}

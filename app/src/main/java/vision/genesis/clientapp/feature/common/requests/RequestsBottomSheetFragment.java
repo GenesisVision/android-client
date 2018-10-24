@@ -29,7 +29,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.managers.ProgramsManager;
+import vision.genesis.clientapp.managers.InvestorDashboardManager;
 import vision.genesis.clientapp.model.api.ErrorResponse;
 import vision.genesis.clientapp.model.events.OnCancelRequestClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -45,7 +45,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 {
 	@Inject
-	public ProgramsManager programsManager;
+	public InvestorDashboardManager investorDashboardManager;
 
 	@BindView(R.id.title)
 	public TextView title;
@@ -150,7 +150,7 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 	}
 
 	private void cancelRequest(UUID requestId) {
-		cancelRequestSubscription = programsManager.cancelRequest(requestId)
+		cancelRequestSubscription = investorDashboardManager.cancelRequest(requestId)
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(response -> handleCancelRequestSuccess(requestId),

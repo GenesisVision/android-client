@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.UUID;
 
+import vision.genesis.clientapp.feature.main.funds_list.FundsListFragment;
 import vision.genesis.clientapp.feature.main.manager.info.ManagerInfoFragment;
 import vision.genesis.clientapp.feature.main.manager.profit.ManagerProfitFragment;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListFragment;
@@ -31,7 +32,7 @@ public class ManagerDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private ProgramsListFragment managerProgramsFragment;
 
-	private ProgramsListFragment managerFundsFragment;
+	private FundsListFragment managerFundsFragment;
 
 	private TabLayout tabLayout;
 
@@ -41,7 +42,7 @@ public class ManagerDetailsPagerAdapter extends FragmentStatePagerAdapter
 		managerInfoFragment = ManagerInfoFragment.with(managerId);
 		managerProfitFragment = ManagerProfitFragment.with(managerId);
 		managerProgramsFragment = ProgramsListFragment.with(managerId);
-		managerFundsFragment = ProgramsListFragment.with(managerId);
+		managerFundsFragment = FundsListFragment.with(managerId);
 	}
 
 	@Override

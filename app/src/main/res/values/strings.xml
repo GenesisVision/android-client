@@ -39,7 +39,7 @@
     <string name="enter_your_account_email">Enter your account email</string>
 
     <string name="search">Search</string>
-    <string name="cannot_find_programs">Cannot find investment programs with your request</string>
+    <string name="cannot_find_anything">Cannot find anything with your request</string>
 
     <string name="filters">Filters</string>
     <string name="level">Level</string>
@@ -499,5 +499,8 @@
     <string name="enter_amount">Enter amount</string>
     <string name="select_notification_type">Select notification type</string>
     <string name="select_level">Select level</string>
+    <string name="i_confirm_i_am_not_us_resident_or_citizen">I confirm that I am not the U.S. resident or citizen</string>
+    <string name="approximate_amount">Approximate amount</string>
+    <string name="ddown">D.down</string>
 
 </resources>

@@ -25,6 +25,7 @@ import vision.genesis.clientapp.feature.main.dashboard.investor.header.InvestorD
 import vision.genesis.clientapp.feature.main.dashboard.investor.programs.DashboardProgramsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.manager.ManagerDashboardPresenter;
 import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
+import vision.genesis.clientapp.feature.main.funds_list.FundsListPresenter;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsPresenter;
 import vision.genesis.clientapp.feature.main.manager.info.ManagerInfoPresenter;
 import vision.genesis.clientapp.feature.main.manager.profit.ManagerProfitPresenter;
@@ -188,4 +189,6 @@ public interface AppComponent
 	void inject(ProgramNotificationsSettingsPresenter programNotificationsSettingsPresenter);
 
 	void inject(CreateCustomNotificationSettingPresenter createCustomNotificationSettingPresenter);
+
+	void inject(FundsListPresenter fundsListPresenter);
 }

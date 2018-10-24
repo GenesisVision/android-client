@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.model.DashboardPortfolioEvent;
@@ -40,6 +41,14 @@ public class InvestorDashboardManager
 		return investorApi.v10InvestorProgramsGet(AuthManager.token.getValue(), sorting, dateRange.getFrom(), dateRange.getTo(), 10, null, skip, take);
 	}
 
+	public Observable<DashboardPortfolioEvents> getPortfolioEvents(DateRange dateRange, Integer skip, Integer take) {
+		return investorApi.v10InvestorPortfolioEventsGet(AuthManager.token.getValue(), null, dateRange.getFrom(), dateRange.getTo(), null, null, skip, take);
+	}
+
+	public Observable<Void> cancelRequest(UUID requestId) {
+		return investorApi.v10InvestorProgramsRequestsByIdCancelPost(requestId, AuthManager.token.getValue());
+	}
+
 	public BehaviorSubject<List<DashboardPortfolioEvent>> getPortfolioEvents() {
 		updatePortfolioEvents();
 //		mockUpdatePortfolioEvents();
@@ -51,6 +60,7 @@ public class InvestorDashboardManager
 //		mockUpdatePortfolioEvents();
 		return portfolioEventsSubject;
 	}
+
 
 	private void updatePortfolioEvents() {
 		investorApi.v10InvestorPortfolioEventsGet(AuthManager.token.getValue(),

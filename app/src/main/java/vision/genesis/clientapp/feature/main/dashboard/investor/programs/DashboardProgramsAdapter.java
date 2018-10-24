@@ -172,10 +172,10 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 			this.chart.setChart(program.getChart());
 
-			Double profitPercent = getProfitPercent();
-//			Double profitPercent = program.getStatistic().getProfitPercent();
-			Double profitValue = getProfitValue();
-////			Double profitValue = program.getStatistic().getProfitValue();
+//			Double profitPercent = getProfitPercent();
+			Double profitPercent = program.getStatistic().getProfitPercent();
+//			Double profitValue = getProfitValue();
+			Double profitValue = program.getStatistic().getProfitValue();
 			this.profitPercent.setText(String.format(Locale.getDefault(), "%s%%",
 					StringFormatUtil.formatAmount(profitPercent, 0, 2)));
 			this.profitPercent.setTextColor(profitValue >= 0

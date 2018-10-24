@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import vision.genesis.clientapp.feature.main.funds_list.FundsListFragment;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListFragment;
 
 /**
@@ -23,7 +24,7 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 
 	private ProgramsListFragment programsFragment;
 
-	private ProgramsListFragment fundsFragment;
+	private FundsListFragment fundsFragment;
 
 	private TabLayout tabLayout;
 
@@ -31,7 +32,7 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 		super(fm);
 		this.tabLayout = tabLayout;
 		programsFragment = new ProgramsListFragment();
-		fundsFragment = new ProgramsListFragment();
+		fundsFragment = new FundsListFragment();
 	}
 
 	@Override

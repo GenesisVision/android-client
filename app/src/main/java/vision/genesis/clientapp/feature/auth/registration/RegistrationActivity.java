@@ -102,6 +102,11 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 		registrationPresenter.onAgreeTermsPolicyCheckedChanged(checked);
 	}
 
+	@OnCheckedChanged(R.id.checkbox_confirm_not_us)
+	public void onConfirmNotUsCheckedChanged(CompoundButton button, boolean checked) {
+		registrationPresenter.onConfirmNotUsCheckedChanged(checked);
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setTheme(ThemeUtil.getCurrentThemeResource());

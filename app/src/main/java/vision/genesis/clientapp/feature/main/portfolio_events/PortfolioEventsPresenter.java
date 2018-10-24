@@ -17,7 +17,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.managers.ProgramsManager;
+import vision.genesis.clientapp.managers.InvestorDashboardManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.PortfolioEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -38,7 +38,7 @@ public class PortfolioEventsPresenter extends MvpPresenter<PortfolioEventsView> 
 	public Context context;
 
 	@Inject
-	public ProgramsManager programsManager;
+	public InvestorDashboardManager investorDashboardManager;
 
 	private Subscription eventsSubscription;
 
@@ -94,7 +94,7 @@ public class PortfolioEventsPresenter extends MvpPresenter<PortfolioEventsView> 
 
 			if (eventsSubscription != null)
 				eventsSubscription.unsubscribe();
-			eventsSubscription = programsManager.getPortfolioEvents(dateRange, skip, TAKE)
+			eventsSubscription = investorDashboardManager.getPortfolioEvents(dateRange, skip, TAKE)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.map(this::prepareData)

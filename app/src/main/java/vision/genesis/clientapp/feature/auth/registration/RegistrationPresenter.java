@@ -38,6 +38,8 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 
 	private boolean termsPolicyAccepted;
 
+	private boolean notUsResidentChecked;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -58,8 +60,13 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 		updateSignUpButtonEnabled();
 	}
 
+	void onConfirmNotUsCheckedChanged(boolean checked) {
+		notUsResidentChecked = checked;
+		updateSignUpButtonEnabled();
+	}
+
 	private void updateSignUpButtonEnabled() {
-		getViewState().setSignUpButtonEnabled(termsPolicyAccepted);
+		getViewState().setSignUpButtonEnabled(termsPolicyAccepted && notUsResidentChecked);
 	}
 
 	void onSignInClicked() {

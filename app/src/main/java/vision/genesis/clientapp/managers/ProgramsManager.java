@@ -47,10 +47,6 @@ public class ProgramsManager
 				filter.getIds(), filter.getManagerId() != null ? filter.getManagerId().toString() : null, null, filter.getSkip(), filter.getTake());
 	}
 
-	public Observable<DashboardPortfolioEvents> getPortfolioEvents(DateRange dateRange, Integer skip, Integer take) {
-		return investorApi.v10InvestorPortfolioEventsGet(AuthManager.token.getValue(), null, dateRange.getFrom(), dateRange.getTo(), null, null, skip, take);
-	}
-
 	public Observable<Void> setProgramFavorite(UUID programId, boolean isFavorite) {
 		return isFavorite ? programFavoritesAdd(programId) : programFavoritesRemove(programId);
 	}
@@ -106,9 +102,6 @@ public class ProgramsManager
 //		return investorApi.apiInvestorInvestmentProgramsWithdrawPost(AuthManager.token.getValue(), model);
 //	}
 //
-	public Observable<Void> cancelRequest(UUID requestId) {
-		return investorApi.v10InvestorProgramsRequestsByIdCancelPost(requestId, AuthManager.token.getValue());
-	}
 //
 //	public Observable<InvestmentProgramRequests> getInvestmentProgramRequests(InvestmentProgramRequestsFilter filter) {
 //		return investorApi.apiInvestorInvestmentProgramRequestsPost(AuthManager.token.getValue(), filter);

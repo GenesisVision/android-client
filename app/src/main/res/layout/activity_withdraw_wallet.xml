@@ -185,7 +185,7 @@
                 android:layout_marginTop="12dp"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="12sp"
-                tools:text="= 0.234901 BTC"/>
+                tools:text="Approximate amount 0.234901 BTC"/>
 
             <RelativeLayout
                 android:id="@+id/group_address"

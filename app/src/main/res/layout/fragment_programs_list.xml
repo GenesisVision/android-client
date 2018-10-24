@@ -36,7 +36,7 @@
             android:layout_margin="16dp"
             android:gravity="center"
             android:lineSpacingMultiplier="1.2"
-            android:text="@string/cannot_find_programs"
+            android:text="@string/cannot_find_anything"
             android:textColor="?attr/colorTextSecondary"
             android:textSize="24sp"/>
 

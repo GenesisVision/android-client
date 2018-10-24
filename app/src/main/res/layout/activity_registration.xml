@@ -159,6 +159,14 @@
 
                 </RelativeLayout>
 
+                <CheckBox
+                    android:id="@+id/checkbox_confirm_not_us"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/login_field_height"
+                    android:gravity="center_vertical"
+                    android:text="@string/i_confirm_i_am_not_us_resident_or_citizen"
+                    android:textColor="?attr/colorTextPrimary"/>
+
             </LinearLayout>
 
         </ScrollView>

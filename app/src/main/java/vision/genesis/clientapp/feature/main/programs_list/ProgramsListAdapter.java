@@ -1,9 +1,12 @@
 package vision.genesis.clientapp.feature.main.programs_list;
 
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -16,6 +19,7 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.ProgramDetails;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
@@ -34,16 +38,17 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapter.InvestmentProgramViewHolder>
 {
-	public List<ProgramDetails> investmentPrograms = new ArrayList<>();
+	private List<ProgramDetails> investmentPrograms = new ArrayList<>();
 
+	@NonNull
 	@Override
-	public InvestmentProgramViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+	public InvestmentProgramViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_investment_program, parent, false);
 		return new InvestmentProgramViewHolder(itemView);
 	}
 
 	@Override
-	public void onBindViewHolder(InvestmentProgramViewHolder holder, int position) {
+	public void onBindViewHolder(@NonNull InvestmentProgramViewHolder holder, int position) {
 		holder.setProgram(investmentPrograms.get(position));
 	}
 
@@ -71,7 +76,8 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
 		for (ProgramDetails program : investmentPrograms) {
 			if (program.getId().equals(programId)) {
-//				program.isFavorite(isFavorite);
+				if (program.getPersonalDetails() != null)
+					program.getPersonalDetails().setIsFavorite(isFavorite);
 				notifyDataSetChanged();
 				break;
 			}
@@ -99,8 +105,8 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 		@BindView(R.id.manager_name)
 		public TextView managerName;
 
-//		@BindView(R.id.icon_favorite)
-//		public ImageView favoriteIcon;
+		@BindView(R.id.favorite)
+		public ImageView favorite;
 
 		@BindView(R.id.chart)
 		public ProfitSmallChartView chart;
@@ -180,7 +186,10 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 			programLogo.setImage(program.getLogo(), program.getColor(), 100, 100);
 			programLogo.setLevel(program.getLevel());
 
-//			favoriteIcon.setVisibility(data.isIsFavorite() ? View.VISIBLE : View.GONE);
+			if (program.getPersonalDetails() != null)
+				favorite.setImageDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, program.getPersonalDetails().isIsFavorite()
+						? R.drawable.icon_favorite_fill
+						: R.drawable.icon_favorite));
 
 			this.programName.setText(program.getTitle());
 			this.managerName.setText(program.getManager().getUsername());
