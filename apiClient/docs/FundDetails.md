@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **totalAssetsCount** | **Integer** |  |  [optional]
 **topFundAssets** | [**List&lt;FundAssetPercent&gt;**](FundAssetPercent.md) |  |  [optional]
 **statistic** | [**FundDetailsListStatistic**](FundDetailsListStatistic.md) |  |  [optional]
-**personalDetails** | [**PersonalFundDetailsList**](PersonalFundDetailsList.md) | Fields for authorized user |  [optional]
+**personalDetails** | [**PersonalFundDetailsFull**](PersonalFundDetailsFull.md) | Fields for authorized user |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **logo** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]

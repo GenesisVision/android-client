@@ -36,18 +36,18 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 19/09/2018.
  */
 
-public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.InvestorProgramViewHolder>
+public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.RequestViewHolder>
 {
 	public List<ProgramRequest> requests = new ArrayList<>();
 
 	@Override
-	public InvestorProgramViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+	public RequestViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_request, parent, false);
-		return new InvestorProgramViewHolder(itemView);
+		return new RequestViewHolder(itemView);
 	}
 
 	@Override
-	public void onBindViewHolder(InvestorProgramViewHolder holder, int position) {
+	public void onBindViewHolder(RequestViewHolder holder, int position) {
 		holder.setRequest(requests.get(position));
 	}
 
@@ -67,7 +67,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Invest
 		notifyItemRemoved(position);
 	}
 
-	static class InvestorProgramViewHolder extends RecyclerView.ViewHolder
+	static class RequestViewHolder extends RecyclerView.ViewHolder
 	{
 		@BindView(R.id.swipe_layout)
 		public SwipeLayout swipeLayout;
@@ -98,7 +98,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Invest
 
 		private ProgramRequest request;
 
-		InvestorProgramViewHolder(View itemView) {
+		RequestViewHolder(View itemView) {
 			super(itemView);
 
 			ButterKnife.bind(this, itemView);

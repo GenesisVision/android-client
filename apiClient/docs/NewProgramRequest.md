@@ -26,6 +26,10 @@ ETH | &quot;ETH&quot;
 BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
 USDT | &quot;USDT&quot;
+XRP | &quot;XRP&quot;
+BCH | &quot;BCH&quot;
+LTC | &quot;LTC&quot;
+DOGE | &quot;DOGE&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
 

@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **color** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
 **title** | **String** |  |  [optional]
+**ipfsHash** | **String** |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
 **manager** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 
@@ -35,6 +36,10 @@ ETH | &quot;ETH&quot;
 BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
 USDT | &quot;USDT&quot;
+XRP | &quot;XRP&quot;
+BCH | &quot;BCH&quot;
+LTC | &quot;LTC&quot;
+DOGE | &quot;DOGE&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
 

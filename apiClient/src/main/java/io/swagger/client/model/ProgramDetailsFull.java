@@ -84,6 +84,9 @@ public class ProgramDetailsFull
 	@SerializedName("title")
 	private String title = null;
 
+	@SerializedName("ipfsHash")
+	private String ipfsHash = null;
+
 	@SerializedName("status")
 	private StatusEnum status = null;
 
@@ -413,6 +416,25 @@ public class ProgramDetailsFull
 		this.title = title;
 	}
 
+	public ProgramDetailsFull ipfsHash(String ipfsHash) {
+		this.ipfsHash = ipfsHash;
+		return this;
+	}
+
+	/**
+	 * Get ipfsHash
+	 *
+	 * @return ipfsHash
+	 **/
+	@ApiModelProperty(value = "")
+	public String getIpfsHash() {
+		return ipfsHash;
+	}
+
+	public void setIpfsHash(String ipfsHash) {
+		this.ipfsHash = ipfsHash;
+	}
+
 	public ProgramDetailsFull status(StatusEnum status) {
 		this.status = status;
 		return this;
@@ -477,13 +499,14 @@ public class ProgramDetailsFull
 				Objects.equals(this.color, programDetailsFull.color) &&
 				Objects.equals(this.description, programDetailsFull.description) &&
 				Objects.equals(this.title, programDetailsFull.title) &&
+				Objects.equals(this.ipfsHash, programDetailsFull.ipfsHash) &&
 				Objects.equals(this.status, programDetailsFull.status) &&
 				Objects.equals(this.manager, programDetailsFull.manager);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, entryFee, successFee, isReinvesting, availableInvestment, statistic, personalProgramDetails, id, logo, url, color, description, title, status, manager);
+		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, entryFee, successFee, isReinvesting, availableInvestment, statistic, personalProgramDetails, id, logo, url, color, description, title, ipfsHash, status, manager);
 	}
 
 	@Override
@@ -508,6 +531,7 @@ public class ProgramDetailsFull
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    ipfsHash: ").append(toIndentedString(ipfsHash)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("}");
@@ -543,6 +567,14 @@ public class ProgramDetailsFull
 		ADA("ADA"),
 
 		USDT("USDT"),
+
+		XRP("XRP"),
+
+		BCH("BCH"),
+
+		LTC("LTC"),
+
+		DOGE("DOGE"),
 
 		USD("USD"),
 

@@ -43,7 +43,7 @@ public class FundDetails
 	private FundDetailsListStatistic statistic = null;
 
 	@SerializedName("personalDetails")
-	private PersonalFundDetailsList personalDetails = null;
+	private PersonalFundDetailsFull personalDetails = null;
 
 	@SerializedName("id")
 	private UUID id = null;
@@ -140,7 +140,7 @@ public class FundDetails
 		this.statistic = statistic;
 	}
 
-	public FundDetails personalDetails(PersonalFundDetailsList personalDetails) {
+	public FundDetails personalDetails(PersonalFundDetailsFull personalDetails) {
 		this.personalDetails = personalDetails;
 		return this;
 	}
@@ -151,11 +151,11 @@ public class FundDetails
 	 * @return personalDetails
 	 **/
 	@ApiModelProperty(value = "Fields for authorized user")
-	public PersonalFundDetailsList getPersonalDetails() {
+	public PersonalFundDetailsFull getPersonalDetails() {
 		return personalDetails;
 	}
 
-	public void setPersonalDetails(PersonalFundDetailsList personalDetails) {
+	public void setPersonalDetails(PersonalFundDetailsFull personalDetails) {
 		this.personalDetails = personalDetails;
 	}
 

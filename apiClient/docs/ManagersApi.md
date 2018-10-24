@@ -6,19 +6,22 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**v10ManagersByIdDetailsGet**](ManagersApi.md#v10ManagersByIdDetailsGet) | **GET** v1.0/managers/{id}/details | Manager details
 [**v10ManagersByIdGet**](ManagersApi.md#v10ManagersByIdGet) | **GET** v1.0/managers/{id} | Manager profile
-[**v10ManagersFundsByIdAssetsUpdatePost**](ManagersApi.md#v10ManagersFundsByIdAssetsUpdatePost) | **POST** v1.0/managers/funds/{id}/assets/update | Update fund assets parts
 [**v10ManagersFundsByIdClosePost**](ManagersApi.md#v10ManagersFundsByIdClosePost) | **POST** v1.0/managers/funds/{id}/close | Close existing investment program/fund
+[**v10ManagersFundsByIdInvestByAmountPost**](ManagersApi.md#v10ManagersFundsByIdInvestByAmountPost) | **POST** v1.0/managers/funds/{id}/invest/{amount} | Deposit
 [**v10ManagersFundsByIdRequestsBySkipByTakeGet**](ManagersApi.md#v10ManagersFundsByIdRequestsBySkipByTakeGet) | **GET** v1.0/managers/funds/{id}/requests/{skip}/{take} | Get investment program/fund requests
 [**v10ManagersFundsByIdUpdatePost**](ManagersApi.md#v10ManagersFundsByIdUpdatePost) | **POST** v1.0/managers/funds/{id}/update | Update investment program/fund details
+[**v10ManagersFundsByIdWithdrawByPercentPost**](ManagersApi.md#v10ManagersFundsByIdWithdrawByPercentPost) | **POST** v1.0/managers/funds/{id}/withdraw/{percent} | Withdraw from fund. Percent is % of investor total money.
+[**v10ManagersFundsByIdWithdrawInfoByCurrencyGet**](ManagersApi.md#v10ManagersFundsByIdWithdrawInfoByCurrencyGet) | **GET** v1.0/managers/funds/{id}/withdraw/info/{currency} | Data for withdrawal from fund
 [**v10ManagersFundsCreatePost**](ManagersApi.md#v10ManagersFundsCreatePost) | **POST** v1.0/managers/funds/create | Create fund
 [**v10ManagersFundsInvestmentAmountGet**](ManagersApi.md#v10ManagersFundsInvestmentAmountGet) | **GET** v1.0/managers/funds/investment/amount | Get GVT investment to create fund
 [**v10ManagersFundsRequestsByIdCancelPost**](ManagersApi.md#v10ManagersFundsRequestsByIdCancelPost) | **POST** v1.0/managers/funds/requests/{id}/cancel | Cancel investment program/fund request
 [**v10ManagersProgramsByIdClosePost**](ManagersApi.md#v10ManagersProgramsByIdClosePost) | **POST** v1.0/managers/programs/{id}/close | Close existing investment program/fund
-[**v10ManagersProgramsByIdDepositByAmountPost**](ManagersApi.md#v10ManagersProgramsByIdDepositByAmountPost) | **POST** v1.0/managers/programs/{id}/deposit/{amount} | Deposit
+[**v10ManagersProgramsByIdInvestByAmountPost**](ManagersApi.md#v10ManagersProgramsByIdInvestByAmountPost) | **POST** v1.0/managers/programs/{id}/invest/{amount} | Deposit
 [**v10ManagersProgramsByIdPeriodClosePost**](ManagersApi.md#v10ManagersProgramsByIdPeriodClosePost) | **POST** v1.0/managers/programs/{id}/period/close | Close current period
 [**v10ManagersProgramsByIdRequestsBySkipByTakeGet**](ManagersApi.md#v10ManagersProgramsByIdRequestsBySkipByTakeGet) | **GET** v1.0/managers/programs/{id}/requests/{skip}/{take} | Get investment program/fund requests
 [**v10ManagersProgramsByIdUpdatePost**](ManagersApi.md#v10ManagersProgramsByIdUpdatePost) | **POST** v1.0/managers/programs/{id}/update | Update investment program/fund details
-[**v10ManagersProgramsByIdWithdrawByAmountPost**](ManagersApi.md#v10ManagersProgramsByIdWithdrawByAmountPost) | **POST** v1.0/managers/programs/{id}/withdraw/{amount} | Withdraw
+[**v10ManagersProgramsByIdWithdrawByAmountPost**](ManagersApi.md#v10ManagersProgramsByIdWithdrawByAmountPost) | **POST** v1.0/managers/programs/{id}/withdraw/{amount} | Withdraw from program
+[**v10ManagersProgramsByIdWithdrawInfoByCurrencyGet**](ManagersApi.md#v10ManagersProgramsByIdWithdrawInfoByCurrencyGet) | **GET** v1.0/managers/programs/{id}/withdraw/info/{currency} | Data for withdrawal from investment program
 [**v10ManagersProgramsCreatePost**](ManagersApi.md#v10ManagersProgramsCreatePost) | **POST** v1.0/managers/programs/create | Create an investment program
 [**v10ManagersProgramsInvestmentAmountGet**](ManagersApi.md#v10ManagersProgramsInvestmentAmountGet) | **GET** v1.0/managers/programs/investment/amount | Get GVT investment to create program
 [**v10ManagersProgramsRequestsByIdCancelPost**](ManagersApi.md#v10ManagersProgramsRequestsByIdCancelPost) | **POST** v1.0/managers/programs/requests/{id}/cancel | Cancel investment program/fund request
@@ -110,53 +113,6 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10ManagersFundsByIdAssetsUpdatePost"></a>
-# **v10ManagersFundsByIdAssetsUpdatePost**
-> Void v10ManagersFundsByIdAssetsUpdatePost(id, authorization, model)
-
-Update fund assets parts
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.ManagersApi;
-
-
-ManagersApi apiInstance = new ManagersApi();
-UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
-AssetsPartsChangeRequest model = new AssetsPartsChangeRequest(); // AssetsPartsChangeRequest | 
-try {
-    Void result = apiInstance.v10ManagersFundsByIdAssetsUpdatePost(id, authorization, model);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling ManagersApi#v10ManagersFundsByIdAssetsUpdatePost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
- **model** | [**AssetsPartsChangeRequest**](AssetsPartsChangeRequest.md)|  | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
 <a name="v10ManagersFundsByIdClosePost"></a>
 # **v10ManagersFundsByIdClosePost**
 > Void v10ManagersFundsByIdClosePost(id, authorization, twoFactorCode)
@@ -190,6 +146,53 @@ Name | Type | Description  | Notes
  **id** | [**UUID**](.md)|  |
  **authorization** | **String**| JWT access token |
  **twoFactorCode** | **String**|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ManagersFundsByIdInvestByAmountPost"></a>
+# **v10ManagersFundsByIdInvestByAmountPost**
+> Void v10ManagersFundsByIdInvestByAmountPost(id, amount, authorization)
+
+Deposit
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagersApi;
+
+
+ManagersApi apiInstance = new ManagersApi();
+UUID id = new UUID(); // UUID | 
+Double amount = 3.4D; // Double | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.v10ManagersFundsByIdInvestByAmountPost(id, amount, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagersApi#v10ManagersFundsByIdInvestByAmountPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **amount** | **Double**|  |
+ **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -298,6 +301,100 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ManagersFundsByIdWithdrawByPercentPost"></a>
+# **v10ManagersFundsByIdWithdrawByPercentPost**
+> Void v10ManagersFundsByIdWithdrawByPercentPost(id, percent, authorization)
+
+Withdraw from fund. Percent is % of investor total money.
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagersApi;
+
+
+ManagersApi apiInstance = new ManagersApi();
+UUID id = new UUID(); // UUID | 
+Double percent = 3.4D; // Double | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.v10ManagersFundsByIdWithdrawByPercentPost(id, percent, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagersApi#v10ManagersFundsByIdWithdrawByPercentPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **percent** | **Double**|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ManagersFundsByIdWithdrawInfoByCurrencyGet"></a>
+# **v10ManagersFundsByIdWithdrawInfoByCurrencyGet**
+> ManagerFundWithdrawInfo v10ManagersFundsByIdWithdrawInfoByCurrencyGet(id, currency, authorization)
+
+Data for withdrawal from fund
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagersApi;
+
+
+ManagersApi apiInstance = new ManagersApi();
+UUID id = new UUID(); // UUID | 
+String currency = "currency_example"; // String | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    ManagerFundWithdrawInfo result = apiInstance.v10ManagersFundsByIdWithdrawInfoByCurrencyGet(id, currency, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagersApi#v10ManagersFundsByIdWithdrawInfoByCurrencyGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, USD, EUR]
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**ManagerFundWithdrawInfo**](ManagerFundWithdrawInfo.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 <a name="v10ManagersFundsCreatePost"></a>
@@ -480,9 +577,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10ManagersProgramsByIdDepositByAmountPost"></a>
-# **v10ManagersProgramsByIdDepositByAmountPost**
-> Void v10ManagersProgramsByIdDepositByAmountPost(id, amount, authorization)
+<a name="v10ManagersProgramsByIdInvestByAmountPost"></a>
+# **v10ManagersProgramsByIdInvestByAmountPost**
+> Void v10ManagersProgramsByIdInvestByAmountPost(id, amount, authorization)
 
 Deposit
 
@@ -498,10 +595,10 @@ UUID id = new UUID(); // UUID |
 Double amount = 3.4D; // Double | 
 String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.v10ManagersProgramsByIdDepositByAmountPost(id, amount, authorization);
+    Void result = apiInstance.v10ManagersProgramsByIdInvestByAmountPost(id, amount, authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling ManagersApi#v10ManagersProgramsByIdDepositByAmountPost");
+    System.err.println("Exception when calling ManagersApi#v10ManagersProgramsByIdInvestByAmountPost");
     e.printStackTrace();
 }
 ```
@@ -672,7 +769,7 @@ No authorization required
 # **v10ManagersProgramsByIdWithdrawByAmountPost**
 > Void v10ManagersProgramsByIdWithdrawByAmountPost(id, amount, authorization)
 
-Withdraw
+Withdraw from program
 
 ### Example
 ```java
@@ -705,6 +802,53 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ManagersProgramsByIdWithdrawInfoByCurrencyGet"></a>
+# **v10ManagersProgramsByIdWithdrawInfoByCurrencyGet**
+> ManagerProgramWithdrawInfo v10ManagersProgramsByIdWithdrawInfoByCurrencyGet(id, currency, authorization)
+
+Data for withdrawal from investment program
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagersApi;
+
+
+ManagersApi apiInstance = new ManagersApi();
+UUID id = new UUID(); // UUID | 
+String currency = "currency_example"; // String | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    ManagerProgramWithdrawInfo result = apiInstance.v10ManagersProgramsByIdWithdrawInfoByCurrencyGet(id, currency, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagersApi#v10ManagersProgramsByIdWithdrawInfoByCurrencyGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, USD, EUR]
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**ManagerProgramWithdrawInfo**](ManagerProgramWithdrawInfo.md)
 
 ### Authorization
 

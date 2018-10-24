@@ -485,5 +485,19 @@
     <string name="available_to_withdraw">Available to withdraw</string>
     <string name="payout_date">Payout date</string>
     <string name="remaining_investment">Remaining investment</string>
+    <string name="notifications_settings">Notifications settings</string>
+    <string name="news_and_updates">News and updates</string>
+    <string name="emergency_notifications">Emergency notifications</string>
+    <string name="program_notifications">Program notifications</string>
+    <string name="general">General</string>
+    <string name="program_news_and_updates">Program news and updates</string>
+    <string name="end_of_the_period">End of the period</string>
+    <string name="delete">Delete</string>
+    <string name="create_notification">Create notification</string>
+    <string name="create">Create</string>
+    <string name="type">Type</string>
+    <string name="enter_amount">Enter amount</string>
+    <string name="select_notification_type">Select notification type</string>
+    <string name="select_level">Select level</string>
 
 </resources>

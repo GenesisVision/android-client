@@ -42,6 +42,9 @@ public class ProgramInvestInfo
 	@SerializedName("entryFee")
 	private Double entryFee = null;
 
+	@SerializedName("gvCommission")
+	private Double gvCommission = null;
+
 	@SerializedName("periodEnds")
 	private DateTime periodEnds = null;
 
@@ -143,6 +146,25 @@ public class ProgramInvestInfo
 		this.entryFee = entryFee;
 	}
 
+	public ProgramInvestInfo gvCommission(Double gvCommission) {
+		this.gvCommission = gvCommission;
+		return this;
+	}
+
+	/**
+	 * Get gvCommission
+	 *
+	 * @return gvCommission
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getGvCommission() {
+		return gvCommission;
+	}
+
+	public void setGvCommission(Double gvCommission) {
+		this.gvCommission = gvCommission;
+	}
+
 	public ProgramInvestInfo periodEnds(DateTime periodEnds) {
 		this.periodEnds = periodEnds;
 		return this;
@@ -196,13 +218,14 @@ public class ProgramInvestInfo
 				Objects.equals(this.availableInWallet, programInvestInfo.availableInWallet) &&
 				Objects.equals(this.minInvestmentAmount, programInvestInfo.minInvestmentAmount) &&
 				Objects.equals(this.entryFee, programInvestInfo.entryFee) &&
+				Objects.equals(this.gvCommission, programInvestInfo.gvCommission) &&
 				Objects.equals(this.periodEnds, programInvestInfo.periodEnds) &&
 				Objects.equals(this.rate, programInvestInfo.rate);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(availableToInvest, title, availableInWallet, minInvestmentAmount, entryFee, periodEnds, rate);
+		return Objects.hash(availableToInvest, title, availableInWallet, minInvestmentAmount, entryFee, gvCommission, periodEnds, rate);
 	}
 
 
@@ -216,6 +239,7 @@ public class ProgramInvestInfo
 		sb.append("    availableInWallet: ").append(toIndentedString(availableInWallet)).append("\n");
 		sb.append("    minInvestmentAmount: ").append(toIndentedString(minInvestmentAmount)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
+		sb.append("    gvCommission: ").append(toIndentedString(gvCommission)).append("\n");
 		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
 		sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
 		sb.append("}");

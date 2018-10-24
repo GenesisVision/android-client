@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **availableInWallet** | **Double** |  |  [optional]
 **minInvestmentAmount** | **Double** |  |  [optional]
 **entryFee** | **Double** |  |  [optional]
+**gvCommission** | **Double** |  |  [optional]
 **periodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
 **rate** | **Double** |  |  [optional]
 

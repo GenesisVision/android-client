@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **periodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
 **availableInvestment** | **Double** |  |  [optional]
 **statistic** | [**ProgramDetailsListStatistic**](ProgramDetailsListStatistic.md) |  |  [optional]
-**personalDetails** | [**PersonalProgramDetailsList**](PersonalProgramDetailsList.md) | Fields for authorized user |  [optional]
+**personalDetails** | [**PersonalProgramDetailsFull**](PersonalProgramDetailsFull.md) | Fields for authorized user |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **logo** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
@@ -34,6 +34,10 @@ ETH | &quot;ETH&quot;
 BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
 USDT | &quot;USDT&quot;
+XRP | &quot;XRP&quot;
+BCH | &quot;BCH&quot;
+LTC | &quot;LTC&quot;
+DOGE | &quot;DOGE&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
 

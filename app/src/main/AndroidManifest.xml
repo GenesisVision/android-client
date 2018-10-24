@@ -197,6 +197,24 @@
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="adjustResize"/>
 
+        <activity
+            android:name=".feature.main.notifications.settings.NotificationsSettingsActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity
+            android:name=".feature.main.notifications.program.ProgramNotificationsSettingsActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity
+            android:name=".feature.main.notifications.create.CreateCustomNotificationSettingActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="adjustResize"/>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"

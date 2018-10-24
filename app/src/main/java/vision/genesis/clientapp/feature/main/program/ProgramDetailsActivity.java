@@ -37,6 +37,7 @@ import io.swagger.client.model.ProgramDetailsFull;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.notifications.program.ProgramNotificationsSettingsActivity;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
@@ -152,6 +153,11 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
 		programDetailsPresenter.onTryAgainClicked();
+	}
+
+	@OnClick(R.id.button_notifications)
+	public void onNotificationsClicked() {
+		ProgramNotificationsSettingsActivity.startWith(this, model.getProgramId(), model.getProgramName());
 	}
 
 	@OnClick(R.id.button_favorite)

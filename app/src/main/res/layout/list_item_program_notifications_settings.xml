@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_notifications_settings"
+                android:background="?attr/selectableItemBackground"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+    <vision.genesis.clientapp.ui.ProgramLogoView
+        android:id="@+id/program_logo"
+        android:layout_width="70dp"
+        android:layout_height="45dp"
+        android:layout_centerVertical="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@+id/program_logo"
+        android:layout_toLeftOf="@+id/count"
+        android:layout_toRightOf="@+id/program_logo"
+        android:layout_toStartOf="@+id/count"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/program_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.9"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="14sp"
+            tools:text="Janus Capital Group"/>
+
+        <TextView
+            android:id="@+id/manager_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:alpha="0.4"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="12sp"
+            tools:text="Eddie Carr"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_toLeftOf="@+id/arrow"
+        android:layout_toStartOf="@+id/arrow"
+        android:textColor="?attr/colorTextPrimary"
+        android:textSize="14sp"
+        tools:text="4"/>
+
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="6dp"
+        android:layout_height="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:alpha="0.4"
+        android:src="@drawable/icon_arrow_right"
+        android:tint="?attr/colorTextPrimary"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:alpha="0.05"
+        android:background="?attr/colorTextPrimary"/>
+
+</RelativeLayout>

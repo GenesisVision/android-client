@@ -30,6 +30,9 @@ import vision.genesis.clientapp.feature.main.manager.info.ManagerInfoPresenter;
 import vision.genesis.clientapp.feature.main.manager.profit.ManagerProfitPresenter;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.notifications.NotificationsPresenter;
+import vision.genesis.clientapp.feature.main.notifications.create.CreateCustomNotificationSettingPresenter;
+import vision.genesis.clientapp.feature.main.notifications.program.ProgramNotificationsSettingsPresenter;
+import vision.genesis.clientapp.feature.main.notifications.settings.NotificationsSettingsPresenter;
 import vision.genesis.clientapp.feature.main.portfolio_events.PortfolioEventsPresenter;
 import vision.genesis.clientapp.feature.main.profile.ImageCropActivity;
 import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
@@ -179,4 +182,10 @@ public interface AppComponent
 	void inject(ManagerProfitPresenter managerProfitPresenter);
 
 	void inject(ProgramBalancePresenter programBalancePresenter);
+
+	void inject(NotificationsSettingsPresenter notificationsSettingsPresenter);
+
+	void inject(ProgramNotificationsSettingsPresenter programNotificationsSettingsPresenter);
+
+	void inject(CreateCustomNotificationSettingPresenter createCustomNotificationSettingPresenter);
 }

@@ -107,4 +107,7 @@
     <dimen name="wallet_add_funds_qr_size">200dp</dimen>
     <dimen name="details_profit_chart_height">200dp</dimen>
     <dimen name="sign_in_padding">20dp</dimen>
+    <dimen name="item_notifications_settings">80dp</dimen>
+    <dimen name="item_custom_notification_setting_height">60dp</dimen>
+    <dimen name="view_select_level_button_size">45dp</dimen>
 </resources>

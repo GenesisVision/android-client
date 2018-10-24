@@ -132,6 +132,14 @@ public class RateItem
 
 		USDT("USDT"),
 
+		XRP("XRP"),
+
+		BCH("BCH"),
+
+		LTC("LTC"),
+
+		DOGE("DOGE"),
+
 		USD("USD"),
 
 		EUR("EUR");

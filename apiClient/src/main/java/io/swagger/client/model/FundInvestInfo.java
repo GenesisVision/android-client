@@ -39,6 +39,9 @@ public class FundInvestInfo
 	@SerializedName("entryFee")
 	private Double entryFee = null;
 
+	@SerializedName("gvCommission")
+	private Double gvCommission = null;
+
 	@SerializedName("periodEnds")
 	private DateTime periodEnds = null;
 
@@ -121,6 +124,25 @@ public class FundInvestInfo
 		this.entryFee = entryFee;
 	}
 
+	public FundInvestInfo gvCommission(Double gvCommission) {
+		this.gvCommission = gvCommission;
+		return this;
+	}
+
+	/**
+	 * Get gvCommission
+	 *
+	 * @return gvCommission
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getGvCommission() {
+		return gvCommission;
+	}
+
+	public void setGvCommission(Double gvCommission) {
+		this.gvCommission = gvCommission;
+	}
+
 	public FundInvestInfo periodEnds(DateTime periodEnds) {
 		this.periodEnds = periodEnds;
 		return this;
@@ -173,13 +195,14 @@ public class FundInvestInfo
 				Objects.equals(this.availableInWallet, fundInvestInfo.availableInWallet) &&
 				Objects.equals(this.minInvestmentAmount, fundInvestInfo.minInvestmentAmount) &&
 				Objects.equals(this.entryFee, fundInvestInfo.entryFee) &&
+				Objects.equals(this.gvCommission, fundInvestInfo.gvCommission) &&
 				Objects.equals(this.periodEnds, fundInvestInfo.periodEnds) &&
 				Objects.equals(this.rate, fundInvestInfo.rate);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, availableInWallet, minInvestmentAmount, entryFee, periodEnds, rate);
+		return Objects.hash(title, availableInWallet, minInvestmentAmount, entryFee, gvCommission, periodEnds, rate);
 	}
 
 
@@ -192,6 +215,7 @@ public class FundInvestInfo
 		sb.append("    availableInWallet: ").append(toIndentedString(availableInWallet)).append("\n");
 		sb.append("    minInvestmentAmount: ").append(toIndentedString(minInvestmentAmount)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
+		sb.append("    gvCommission: ").append(toIndentedString(gvCommission)).append("\n");
 		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
 		sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
 		sb.append("}");

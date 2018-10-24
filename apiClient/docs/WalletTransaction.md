@@ -12,12 +12,16 @@ Name | Type | Description | Notes
 **sourceId** | [**UUID**](UUID.md) |  |  [optional]
 **sourceType** | [**SourceTypeEnum**](#SourceTypeEnum) |  |  [optional]
 **sourceCurrency** | [**SourceCurrencyEnum**](#SourceCurrencyEnum) |  |  [optional]
-**sourceTitle** | **String** |  |  [optional]
+**sourceProgramInfo** | [**ProgramInfo**](ProgramInfo.md) |  |  [optional]
+**sourceBlockchainInfo** | [**BlockchainInfo**](BlockchainInfo.md) |  |  [optional]
+**sourceWithdrawalInfo** | [**WithdrawalInfo**](WithdrawalInfo.md) |  |  [optional]
 **action** | [**ActionEnum**](#ActionEnum) |  |  [optional]
 **destinationId** | [**UUID**](UUID.md) |  |  [optional]
 **destinationType** | [**DestinationTypeEnum**](#DestinationTypeEnum) |  |  [optional]
 **destinationCurrency** | [**DestinationCurrencyEnum**](#DestinationCurrencyEnum) |  |  [optional]
-**destinationTitle** | **String** |  |  [optional]
+**destinationProgramInfo** | [**ProgramInfo**](ProgramInfo.md) |  |  [optional]
+**destinationBlockchainInfo** | [**BlockchainInfo**](BlockchainInfo.md) |  |  [optional]
+**destinationWithdrawalInfo** | [**WithdrawalInfo**](WithdrawalInfo.md) |  |  [optional]
 
 
 <a name="SourceTypeEnum"></a>
@@ -28,6 +32,7 @@ WALLET | &quot;Wallet&quot;
 PROGRAM | &quot;Program&quot;
 FUND | &quot;Fund&quot;
 PROGRAMREQUEST | &quot;ProgramRequest&quot;
+FUNDREQUEST | &quot;FundRequest&quot;
 WITHDRAWALREQUEST | &quot;WithdrawalRequest&quot;
 PAYMENTTRANSACTION | &quot;PaymentTransaction&quot;
 
@@ -42,6 +47,10 @@ ETH | &quot;ETH&quot;
 BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
 USDT | &quot;USDT&quot;
+XRP | &quot;XRP&quot;
+BCH | &quot;BCH&quot;
+LTC | &quot;LTC&quot;
+DOGE | &quot;DOGE&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
 
@@ -70,6 +79,7 @@ WALLET | &quot;Wallet&quot;
 PROGRAM | &quot;Program&quot;
 FUND | &quot;Fund&quot;
 PROGRAMREQUEST | &quot;ProgramRequest&quot;
+FUNDREQUEST | &quot;FundRequest&quot;
 WITHDRAWALREQUEST | &quot;WithdrawalRequest&quot;
 PAYMENTTRANSACTION | &quot;PaymentTransaction&quot;
 
@@ -84,6 +94,10 @@ ETH | &quot;ETH&quot;
 BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
 USDT | &quot;USDT&quot;
+XRP | &quot;XRP&quot;
+BCH | &quot;BCH&quot;
+LTC | &quot;LTC&quot;
+DOGE | &quot;DOGE&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
 

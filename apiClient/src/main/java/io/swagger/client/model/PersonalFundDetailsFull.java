@@ -39,6 +39,12 @@ public class PersonalFundDetailsFull
 	@SerializedName("isOwnProgram")
 	private Boolean isOwnProgram = null;
 
+	@SerializedName("canInvest")
+	private Boolean canInvest = null;
+
+	@SerializedName("canWithdraw")
+	private Boolean canWithdraw = null;
+
 	@SerializedName("value")
 	private Double value = null;
 
@@ -103,6 +109,44 @@ public class PersonalFundDetailsFull
 
 	public void setIsOwnProgram(Boolean isOwnProgram) {
 		this.isOwnProgram = isOwnProgram;
+	}
+
+	public PersonalFundDetailsFull canInvest(Boolean canInvest) {
+		this.canInvest = canInvest;
+		return this;
+	}
+
+	/**
+	 * Get canInvest
+	 *
+	 * @return canInvest
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isCanInvest() {
+		return canInvest;
+	}
+
+	public void setCanInvest(Boolean canInvest) {
+		this.canInvest = canInvest;
+	}
+
+	public PersonalFundDetailsFull canWithdraw(Boolean canWithdraw) {
+		this.canWithdraw = canWithdraw;
+		return this;
+	}
+
+	/**
+	 * Get canWithdraw
+	 *
+	 * @return canWithdraw
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isCanWithdraw() {
+		return canWithdraw;
+	}
+
+	public void setCanWithdraw(Boolean canWithdraw) {
+		this.canWithdraw = canWithdraw;
 	}
 
 	public PersonalFundDetailsFull value(Double value) {
@@ -174,6 +218,8 @@ public class PersonalFundDetailsFull
 		return Objects.equals(this.isFavorite, personalFundDetailsFull.isFavorite) &&
 				Objects.equals(this.isInvested, personalFundDetailsFull.isInvested) &&
 				Objects.equals(this.isOwnProgram, personalFundDetailsFull.isOwnProgram) &&
+				Objects.equals(this.canInvest, personalFundDetailsFull.canInvest) &&
+				Objects.equals(this.canWithdraw, personalFundDetailsFull.canWithdraw) &&
 				Objects.equals(this.value, personalFundDetailsFull.value) &&
 				Objects.equals(this.profit, personalFundDetailsFull.profit) &&
 				Objects.equals(this.status, personalFundDetailsFull.status);
@@ -181,7 +227,7 @@ public class PersonalFundDetailsFull
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isFavorite, isInvested, isOwnProgram, value, profit, status);
+		return Objects.hash(isFavorite, isInvested, isOwnProgram, canInvest, canWithdraw, value, profit, status);
 	}
 
 	@Override
@@ -192,6 +238,8 @@ public class PersonalFundDetailsFull
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
 		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
+		sb.append("    canInvest: ").append(toIndentedString(canInvest)).append("\n");
+		sb.append("    canWithdraw: ").append(toIndentedString(canWithdraw)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");

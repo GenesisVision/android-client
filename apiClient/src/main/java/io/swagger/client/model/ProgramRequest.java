@@ -45,6 +45,9 @@ public class ProgramRequest
 	@SerializedName("value")
 	private Double value = null;
 
+	@SerializedName("fundWithdrawPercent")
+	private Double fundWithdrawPercent = null;
+
 	@SerializedName("type")
 	private TypeEnum type = null;
 
@@ -57,8 +60,14 @@ public class ProgramRequest
 	@SerializedName("title")
 	private String title = null;
 
+	@SerializedName("color")
+	private String color = null;
+
 	@SerializedName("canCancelRequest")
 	private Boolean canCancelRequest = null;
+
+	@SerializedName("programType")
+	private ProgramTypeEnum programType = null;
 
 	public ProgramRequest id(UUID id) {
 		this.id = id;
@@ -134,6 +143,25 @@ public class ProgramRequest
 
 	public void setValue(Double value) {
 		this.value = value;
+	}
+
+	public ProgramRequest fundWithdrawPercent(Double fundWithdrawPercent) {
+		this.fundWithdrawPercent = fundWithdrawPercent;
+		return this;
+	}
+
+	/**
+	 * Used only in fund withdraw request
+	 *
+	 * @return fundWithdrawPercent
+	 **/
+	@ApiModelProperty(value = "Used only in fund withdraw request")
+	public Double getFundWithdrawPercent() {
+		return fundWithdrawPercent;
+	}
+
+	public void setFundWithdrawPercent(Double fundWithdrawPercent) {
+		this.fundWithdrawPercent = fundWithdrawPercent;
 	}
 
 	public ProgramRequest type(TypeEnum type) {
@@ -212,6 +240,25 @@ public class ProgramRequest
 		this.title = title;
 	}
 
+	public ProgramRequest color(String color) {
+		this.color = color;
+		return this;
+	}
+
+	/**
+	 * Get color
+	 *
+	 * @return color
+	 **/
+	@ApiModelProperty(value = "")
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 	public ProgramRequest canCancelRequest(Boolean canCancelRequest) {
 		this.canCancelRequest = canCancelRequest;
 		return this;
@@ -231,6 +278,25 @@ public class ProgramRequest
 		this.canCancelRequest = canCancelRequest;
 	}
 
+	public ProgramRequest programType(ProgramTypeEnum programType) {
+		this.programType = programType;
+		return this;
+	}
+
+	/**
+	 * Get programType
+	 *
+	 * @return programType
+	 **/
+	@ApiModelProperty(value = "")
+	public ProgramTypeEnum getProgramType() {
+		return programType;
+	}
+
+	public void setProgramType(ProgramTypeEnum programType) {
+		this.programType = programType;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -244,16 +310,19 @@ public class ProgramRequest
 				Objects.equals(this.programId, programRequest.programId) &&
 				Objects.equals(this.date, programRequest.date) &&
 				Objects.equals(this.value, programRequest.value) &&
+				Objects.equals(this.fundWithdrawPercent, programRequest.fundWithdrawPercent) &&
 				Objects.equals(this.type, programRequest.type) &&
 				Objects.equals(this.status, programRequest.status) &&
 				Objects.equals(this.logo, programRequest.logo) &&
 				Objects.equals(this.title, programRequest.title) &&
-				Objects.equals(this.canCancelRequest, programRequest.canCancelRequest);
+				Objects.equals(this.color, programRequest.color) &&
+				Objects.equals(this.canCancelRequest, programRequest.canCancelRequest) &&
+				Objects.equals(this.programType, programRequest.programType);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, programId, date, value, type, status, logo, title, canCancelRequest);
+		return Objects.hash(id, programId, date, value, fundWithdrawPercent, type, status, logo, title, color, canCancelRequest, programType);
 	}
 
 	@Override
@@ -265,11 +334,14 @@ public class ProgramRequest
 		sb.append("    programId: ").append(toIndentedString(programId)).append("\n");
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
+		sb.append("    fundWithdrawPercent: ").append(toIndentedString(fundWithdrawPercent)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    canCancelRequest: ").append(toIndentedString(canCancelRequest)).append("\n");
+		sb.append("    programType: ").append(toIndentedString(programType)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -284,7 +356,6 @@ public class ProgramRequest
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
-
 
 	/**
 	 * Gets or Sets type
@@ -335,6 +406,7 @@ public class ProgramRequest
 		}
 	}
 
+
 	/**
 	 * Gets or Sets status
 	 */
@@ -382,6 +454,55 @@ public class ProgramRequest
 			public StatusEnum read(final JsonReader jsonReader) throws IOException {
 				String value = jsonReader.nextString();
 				return StatusEnum.fromValue(String.valueOf(value));
+			}
+		}
+	}
+
+	/**
+	 * Gets or Sets programType
+	 */
+	@JsonAdapter(ProgramTypeEnum.Adapter.class)
+	public enum ProgramTypeEnum
+	{
+		PROGRAM("Program"),
+
+		FUND("Fund");
+
+		public static ProgramTypeEnum fromValue(String text) {
+			for (ProgramTypeEnum b : ProgramTypeEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		ProgramTypeEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<ProgramTypeEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final ProgramTypeEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public ProgramTypeEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return ProgramTypeEnum.fromValue(String.valueOf(value));
 			}
 		}
 	}

@@ -12,7 +12,6 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -143,15 +142,15 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 					}
 					break;
 				case PROGRAMOPEN:
-					text = String.format(Locale.getDefault(),
-							itemView.getContext().getResources().getString(R.string.transaction_opening_template),
-							transaction.getDestinationTitle());
+//					text = String.format(Locale.getDefault(),
+//							itemView.getContext().getResources().getString(R.string.transaction_opening_template),
+//							transaction.getDestinationProgramInfo().getTitle());
 					actionResId = R.drawable.icon_arrow_red_up;
 					break;
 				case PROGRAMPROFIT:
-					text = String.format(Locale.getDefault(),
-							itemView.getContext().getResources().getString(R.string.transaction_profit_template),
-							transaction.getDestinationTitle());
+//					text = String.format(Locale.getDefault(),
+//							itemView.getContext().getResources().getString(R.string.transaction_profit_template),
+//							transaction.getDestinationTitle());
 					actionResId = R.drawable.icon_arrow_green_down;
 					break;
 				case PROGRAMINVEST:
@@ -167,27 +166,27 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 					actionResId = R.drawable.icon_arrow_green_down;
 					break;
 				case PROGRAMREFUNDCLOSE:
-					text = String.format(Locale.getDefault(),
-							itemView.getContext().getResources().getString(R.string.transaction_refund_template),
-							transaction.getSourceTitle());
+//					text = String.format(Locale.getDefault(),
+//							itemView.getContext().getResources().getString(R.string.transaction_refund_template),
+//							transaction.getSourceTitle());
 					actionResId = R.drawable.icon_arrow_green_down;
 					break;
 				case PROGRAMREQUESTINVEST:
-					text = String.format(Locale.getDefault(),
-							itemView.getContext().getResources().getString(R.string.transaction_invest_template),
-							transaction.getDestinationTitle());
+//					text = String.format(Locale.getDefault(),
+//							itemView.getContext().getResources().getString(R.string.transaction_invest_template),
+//							transaction.getDestinationTitle());
 					actionResId = R.drawable.icon_arrow_red_up;
 					break;
 				case PROGRAMREQUESTWITHDRAWAL:
-					text = String.format(Locale.getDefault(),
-							itemView.getContext().getResources().getString(R.string.transaction_withdrawal_template),
-							transaction.getDestinationTitle());
+//					text = String.format(Locale.getDefault(),
+//							itemView.getContext().getResources().getString(R.string.transaction_withdrawal_template),
+//							transaction.getDestinationTitle());
 					actionResId = R.drawable.icon_arrow_green_down;
 					break;
 				case PROGRAMREQUESTCANCEL:
-					text = String.format(Locale.getDefault(),
-							itemView.getContext().getResources().getString(R.string.transaction_request_cancelled_template),
-							transaction.getSourceTitle());
+//					text = String.format(Locale.getDefault(),
+//							itemView.getContext().getResources().getString(R.string.transaction_request_cancelled_template),
+//							transaction.getSourceTitle());
 					actionResId = R.drawable.icon_arrow_green_down;
 					break;
 			}

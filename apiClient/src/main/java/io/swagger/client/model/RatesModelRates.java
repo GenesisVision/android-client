@@ -45,6 +45,18 @@ public class RatesModelRates
 	@SerializedName("USDT")
 	private List<RateItem> USDT = null;
 
+	@SerializedName("XRP")
+	private List<RateItem> XRP = null;
+
+	@SerializedName("BCH")
+	private List<RateItem> BCH = null;
+
+	@SerializedName("LTC")
+	private List<RateItem> LTC = null;
+
+	@SerializedName("DOGE")
+	private List<RateItem> DOGE = null;
+
 	@SerializedName("USD")
 	private List<RateItem> USD = null;
 
@@ -213,6 +225,114 @@ public class RatesModelRates
 		this.USDT = USDT;
 	}
 
+	public RatesModelRates XRP(List<RateItem> XRP) {
+		this.XRP = XRP;
+		return this;
+	}
+
+	public RatesModelRates addXRPItem(RateItem XRPItem) {
+		if (this.XRP == null) {
+			this.XRP = new ArrayList<RateItem>();
+		}
+		this.XRP.add(XRPItem);
+		return this;
+	}
+
+	/**
+	 * Get XRP
+	 *
+	 * @return XRP
+	 **/
+	@ApiModelProperty(value = "")
+	public List<RateItem> getXRP() {
+		return XRP;
+	}
+
+	public void setXRP(List<RateItem> XRP) {
+		this.XRP = XRP;
+	}
+
+	public RatesModelRates BCH(List<RateItem> BCH) {
+		this.BCH = BCH;
+		return this;
+	}
+
+	public RatesModelRates addBCHItem(RateItem BCHItem) {
+		if (this.BCH == null) {
+			this.BCH = new ArrayList<RateItem>();
+		}
+		this.BCH.add(BCHItem);
+		return this;
+	}
+
+	/**
+	 * Get BCH
+	 *
+	 * @return BCH
+	 **/
+	@ApiModelProperty(value = "")
+	public List<RateItem> getBCH() {
+		return BCH;
+	}
+
+	public void setBCH(List<RateItem> BCH) {
+		this.BCH = BCH;
+	}
+
+	public RatesModelRates LTC(List<RateItem> LTC) {
+		this.LTC = LTC;
+		return this;
+	}
+
+	public RatesModelRates addLTCItem(RateItem LTCItem) {
+		if (this.LTC == null) {
+			this.LTC = new ArrayList<RateItem>();
+		}
+		this.LTC.add(LTCItem);
+		return this;
+	}
+
+	/**
+	 * Get LTC
+	 *
+	 * @return LTC
+	 **/
+	@ApiModelProperty(value = "")
+	public List<RateItem> getLTC() {
+		return LTC;
+	}
+
+	public void setLTC(List<RateItem> LTC) {
+		this.LTC = LTC;
+	}
+
+	public RatesModelRates DOGE(List<RateItem> DOGE) {
+		this.DOGE = DOGE;
+		return this;
+	}
+
+	public RatesModelRates addDOGEItem(RateItem DOGEItem) {
+		if (this.DOGE == null) {
+			this.DOGE = new ArrayList<RateItem>();
+		}
+		this.DOGE.add(DOGEItem);
+		return this;
+	}
+
+	/**
+	 * Get DOGE
+	 *
+	 * @return DOGE
+	 **/
+	@ApiModelProperty(value = "")
+	public List<RateItem> getDOGE() {
+		return DOGE;
+	}
+
+	public void setDOGE(List<RateItem> DOGE) {
+		this.DOGE = DOGE;
+	}
+
 	public RatesModelRates USD(List<RateItem> USD) {
 		this.USD = USD;
 		return this;
@@ -283,13 +403,17 @@ public class RatesModelRates
 				Objects.equals(this.BTC, ratesModelRates.BTC) &&
 				Objects.equals(this.ADA, ratesModelRates.ADA) &&
 				Objects.equals(this.USDT, ratesModelRates.USDT) &&
+				Objects.equals(this.XRP, ratesModelRates.XRP) &&
+				Objects.equals(this.BCH, ratesModelRates.BCH) &&
+				Objects.equals(this.LTC, ratesModelRates.LTC) &&
+				Objects.equals(this.DOGE, ratesModelRates.DOGE) &&
 				Objects.equals(this.USD, ratesModelRates.USD) &&
 				Objects.equals(this.EUR, ratesModelRates.EUR);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(undefined, GVT, ETH, BTC, ADA, USDT, USD, EUR);
+		return Objects.hash(undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, USD, EUR);
 	}
 
 
@@ -304,6 +428,10 @@ public class RatesModelRates
 		sb.append("    BTC: ").append(toIndentedString(BTC)).append("\n");
 		sb.append("    ADA: ").append(toIndentedString(ADA)).append("\n");
 		sb.append("    USDT: ").append(toIndentedString(USDT)).append("\n");
+		sb.append("    XRP: ").append(toIndentedString(XRP)).append("\n");
+		sb.append("    BCH: ").append(toIndentedString(BCH)).append("\n");
+		sb.append("    LTC: ").append(toIndentedString(LTC)).append("\n");
+		sb.append("    DOGE: ").append(toIndentedString(DOGE)).append("\n");
 		sb.append("    USD: ").append(toIndentedString(USD)).append("\n");
 		sb.append("    EUR: ").append(toIndentedString(EUR)).append("\n");
 		sb.append("}");

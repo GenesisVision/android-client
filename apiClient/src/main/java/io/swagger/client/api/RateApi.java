@@ -11,6 +11,19 @@ public interface RateApi
 	/**
 	 * Get rate
 	 *
+	 * @param exchange (required)
+	 * @param from     (required)
+	 * @param to       (required)
+	 * @return Call&lt;Double&gt;
+	 */
+	@GET("v1.0/rate/{exchange}/{from}/{to}")
+	Observable<Double> v10RateByExchangeByFromByToGet(
+			@retrofit2.http.Path("exchange") String exchange, @retrofit2.http.Path("from") String from, @retrofit2.http.Path("to") String to
+	);
+
+	/**
+	 * Get rate
+	 *
 	 * @param from (required)
 	 * @param to   (required)
 	 * @return Call&lt;Double&gt;

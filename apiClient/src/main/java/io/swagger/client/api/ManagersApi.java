@@ -2,9 +2,10 @@ package io.swagger.client.api;
 
 import java.util.UUID;
 
-import io.swagger.client.model.AssetsPartsChangeRequest;
+import io.swagger.client.model.ManagerFundWithdrawInfo;
 import io.swagger.client.model.ManagerProfile;
 import io.swagger.client.model.ManagerProfileDetails;
+import io.swagger.client.model.ManagerProgramWithdrawInfo;
 import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.NewProgramRequest;
 import io.swagger.client.model.ProgramRequests;
@@ -39,22 +40,6 @@ public interface ManagersApi
 	);
 
 	/**
-	 * Update fund assets parts
-	 *
-	 * @param id            (required)
-	 * @param authorization JWT access token (required)
-	 * @param model         (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("v1.0/managers/funds/{id}/assets/update")
-	Observable<Void> v10ManagersFundsByIdAssetsUpdatePost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body AssetsPartsChangeRequest model
-	);
-
-	/**
 	 * Close existing investment program/fund
 	 *
 	 * @param id            (required)
@@ -65,6 +50,19 @@ public interface ManagersApi
 	@POST("v1.0/managers/funds/{id}/close")
 	Observable<Void> v10ManagersFundsByIdClosePost(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("twoFactorCode") String twoFactorCode
+	);
+
+	/**
+	 * Deposit
+	 *
+	 * @param id            (required)
+	 * @param amount        (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v1.0/managers/funds/{id}/invest/{amount}")
+	Observable<Void> v10ManagersFundsByIdInvestByAmountPost(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("amount") Double amount, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
@@ -95,6 +93,32 @@ public interface ManagersApi
 	@POST("v1.0/managers/funds/{id}/update")
 	Observable<Void> v10ManagersFundsByIdUpdatePost(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ProgramUpdate model
+	);
+
+	/**
+	 * Withdraw from fund. Percent is % of investor total money.
+	 *
+	 * @param id            (required)
+	 * @param percent       (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v1.0/managers/funds/{id}/withdraw/{percent}")
+	Observable<Void> v10ManagersFundsByIdWithdrawByPercentPost(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("percent") Double percent, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Data for withdrawal from fund
+	 *
+	 * @param id            (required)
+	 * @param currency      (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;ManagerFundWithdrawInfo&gt;
+	 */
+	@GET("v1.0/managers/funds/{id}/withdraw/info/{currency}")
+	Observable<ManagerFundWithdrawInfo> v10ManagersFundsByIdWithdrawInfoByCurrencyGet(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("currency") String currency, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
@@ -156,8 +180,8 @@ public interface ManagersApi
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;Void&gt;
 	 */
-	@POST("v1.0/managers/programs/{id}/deposit/{amount}")
-	Observable<Void> v10ManagersProgramsByIdDepositByAmountPost(
+	@POST("v1.0/managers/programs/{id}/invest/{amount}")
+	Observable<Void> v10ManagersProgramsByIdInvestByAmountPost(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("amount") Double amount, @retrofit2.http.Header("Authorization") String authorization
 	);
 
@@ -204,7 +228,7 @@ public interface ManagersApi
 	);
 
 	/**
-	 * Withdraw
+	 * Withdraw from program
 	 *
 	 * @param id            (required)
 	 * @param amount        (required)
@@ -214,6 +238,19 @@ public interface ManagersApi
 	@POST("v1.0/managers/programs/{id}/withdraw/{amount}")
 	Observable<Void> v10ManagersProgramsByIdWithdrawByAmountPost(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("amount") Double amount, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Data for withdrawal from investment program
+	 *
+	 * @param id            (required)
+	 * @param currency      (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;ManagerProgramWithdrawInfo&gt;
+	 */
+	@GET("v1.0/managers/programs/{id}/withdraw/info/{currency}")
+	Observable<ManagerProgramWithdrawInfo> v10ManagersProgramsByIdWithdrawInfoByCurrencyGet(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("currency") String currency, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**

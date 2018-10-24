@@ -69,6 +69,9 @@ public class FundDetailsFull
 	@SerializedName("title")
 	private String title = null;
 
+	@SerializedName("ipfsHash")
+	private String ipfsHash = null;
+
 	@SerializedName("status")
 	private StatusEnum status = null;
 
@@ -311,6 +314,25 @@ public class FundDetailsFull
 		this.title = title;
 	}
 
+	public FundDetailsFull ipfsHash(String ipfsHash) {
+		this.ipfsHash = ipfsHash;
+		return this;
+	}
+
+	/**
+	 * Get ipfsHash
+	 *
+	 * @return ipfsHash
+	 **/
+	@ApiModelProperty(value = "")
+	public String getIpfsHash() {
+		return ipfsHash;
+	}
+
+	public void setIpfsHash(String ipfsHash) {
+		this.ipfsHash = ipfsHash;
+	}
+
 	public FundDetailsFull status(StatusEnum status) {
 		this.status = status;
 		return this;
@@ -370,13 +392,14 @@ public class FundDetailsFull
 				Objects.equals(this.color, fundDetailsFull.color) &&
 				Objects.equals(this.description, fundDetailsFull.description) &&
 				Objects.equals(this.title, fundDetailsFull.title) &&
+				Objects.equals(this.ipfsHash, fundDetailsFull.ipfsHash) &&
 				Objects.equals(this.status, fundDetailsFull.status) &&
 				Objects.equals(this.manager, fundDetailsFull.manager);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(entryFee, exitFee, managementFee, currentAssets, statistic, personalFundDetails, id, logo, url, color, description, title, status, manager);
+		return Objects.hash(entryFee, exitFee, managementFee, currentAssets, statistic, personalFundDetails, id, logo, url, color, description, title, ipfsHash, status, manager);
 	}
 
 	@Override
@@ -396,6 +419,7 @@ public class FundDetailsFull
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    ipfsHash: ").append(toIndentedString(ipfsHash)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("}");

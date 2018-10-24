@@ -45,11 +45,17 @@ public class DashboardPortfolioEvent
 	@SerializedName("value")
 	private Double value = null;
 
+	@SerializedName("currency")
+	private CurrencyEnum currency = null;
+
 	@SerializedName("type")
 	private TypeEnum type = null;
 
 	@SerializedName("logo")
 	private String logo = null;
+
+	@SerializedName("description")
+	private String description = null;
 
 	public DashboardPortfolioEvent assetId(UUID assetId) {
 		this.assetId = assetId;
@@ -127,6 +133,25 @@ public class DashboardPortfolioEvent
 		this.value = value;
 	}
 
+	public DashboardPortfolioEvent currency(CurrencyEnum currency) {
+		this.currency = currency;
+		return this;
+	}
+
+	/**
+	 * Get currency
+	 *
+	 * @return currency
+	 **/
+	@ApiModelProperty(value = "")
+	public CurrencyEnum getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(CurrencyEnum currency) {
+		this.currency = currency;
+	}
+
 	public DashboardPortfolioEvent type(TypeEnum type) {
 		this.type = type;
 		return this;
@@ -165,6 +190,25 @@ public class DashboardPortfolioEvent
 		this.logo = logo;
 	}
 
+	public DashboardPortfolioEvent description(String description) {
+		this.description = description;
+		return this;
+	}
+
+	/**
+	 * Get description
+	 *
+	 * @return description
+	 **/
+	@ApiModelProperty(value = "")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -178,13 +222,15 @@ public class DashboardPortfolioEvent
 				Objects.equals(this.date, dashboardPortfolioEvent.date) &&
 				Objects.equals(this.title, dashboardPortfolioEvent.title) &&
 				Objects.equals(this.value, dashboardPortfolioEvent.value) &&
+				Objects.equals(this.currency, dashboardPortfolioEvent.currency) &&
 				Objects.equals(this.type, dashboardPortfolioEvent.type) &&
-				Objects.equals(this.logo, dashboardPortfolioEvent.logo);
+				Objects.equals(this.logo, dashboardPortfolioEvent.logo) &&
+				Objects.equals(this.description, dashboardPortfolioEvent.description);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assetId, date, title, value, type, logo);
+		return Objects.hash(assetId, date, title, value, currency, type, logo, description);
 	}
 
 	@Override
@@ -196,8 +242,10 @@ public class DashboardPortfolioEvent
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
+		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -211,6 +259,76 @@ public class DashboardPortfolioEvent
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+
+	/**
+	 * Gets or Sets currency
+	 */
+	@JsonAdapter(CurrencyEnum.Adapter.class)
+	public enum CurrencyEnum
+	{
+		UNDEFINED("Undefined"),
+
+		GVT("GVT"),
+
+		ETH("ETH"),
+
+		BTC("BTC"),
+
+		ADA("ADA"),
+
+		USDT("USDT"),
+
+		XRP("XRP"),
+
+		BCH("BCH"),
+
+		LTC("LTC"),
+
+		DOGE("DOGE"),
+
+		USD("USD"),
+
+		EUR("EUR");
+
+		public static CurrencyEnum fromValue(String text) {
+			for (CurrencyEnum b : CurrencyEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		CurrencyEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<CurrencyEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return CurrencyEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 	/**

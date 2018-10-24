@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **isFavorite** | **Boolean** |  |  [optional]
 **isInvested** | **Boolean** |  |  [optional]
 **isOwnProgram** | **Boolean** |  |  [optional]
+**canInvest** | **Boolean** |  |  [optional]
+**canWithdraw** | **Boolean** |  |  [optional]
 **value** | **Double** |  |  [optional]
 **profit** | **Double** |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]

@@ -20,6 +20,7 @@ import butterknife.OnClick;
 import io.swagger.client.model.NotificationViewModel;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.notifications.settings.NotificationsSettingsActivity;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -61,7 +62,7 @@ public class NotificationsActivity extends BaseSwipeBackActivity implements Noti
 
 	@OnClick(R.id.settings)
 	public void onSettingsClicked() {
-
+		NotificationsSettingsActivity.startWith(this);
 	}
 
 	@OnClick(R.id.button_back)

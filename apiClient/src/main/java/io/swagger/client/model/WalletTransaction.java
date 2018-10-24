@@ -57,8 +57,14 @@ public class WalletTransaction
 	@SerializedName("sourceCurrency")
 	private SourceCurrencyEnum sourceCurrency = null;
 
-	@SerializedName("sourceTitle")
-	private String sourceTitle = null;
+	@SerializedName("sourceProgramInfo")
+	private ProgramInfo sourceProgramInfo = null;
+
+	@SerializedName("sourceBlockchainInfo")
+	private BlockchainInfo sourceBlockchainInfo = null;
+
+	@SerializedName("sourceWithdrawalInfo")
+	private WithdrawalInfo sourceWithdrawalInfo = null;
 
 	@SerializedName("action")
 	private ActionEnum action = null;
@@ -72,8 +78,14 @@ public class WalletTransaction
 	@SerializedName("destinationCurrency")
 	private DestinationCurrencyEnum destinationCurrency = null;
 
-	@SerializedName("destinationTitle")
-	private String destinationTitle = null;
+	@SerializedName("destinationProgramInfo")
+	private ProgramInfo destinationProgramInfo = null;
+
+	@SerializedName("destinationBlockchainInfo")
+	private BlockchainInfo destinationBlockchainInfo = null;
+
+	@SerializedName("destinationWithdrawalInfo")
+	private WithdrawalInfo destinationWithdrawalInfo = null;
 
 	public WalletTransaction id(UUID id) {
 		this.id = id;
@@ -227,23 +239,61 @@ public class WalletTransaction
 		this.sourceCurrency = sourceCurrency;
 	}
 
-	public WalletTransaction sourceTitle(String sourceTitle) {
-		this.sourceTitle = sourceTitle;
+	public WalletTransaction sourceProgramInfo(ProgramInfo sourceProgramInfo) {
+		this.sourceProgramInfo = sourceProgramInfo;
 		return this;
 	}
 
 	/**
-	 * Get sourceTitle
+	 * Get sourceProgramInfo
 	 *
-	 * @return sourceTitle
+	 * @return sourceProgramInfo
 	 **/
 	@ApiModelProperty(value = "")
-	public String getSourceTitle() {
-		return sourceTitle;
+	public ProgramInfo getSourceProgramInfo() {
+		return sourceProgramInfo;
 	}
 
-	public void setSourceTitle(String sourceTitle) {
-		this.sourceTitle = sourceTitle;
+	public void setSourceProgramInfo(ProgramInfo sourceProgramInfo) {
+		this.sourceProgramInfo = sourceProgramInfo;
+	}
+
+	public WalletTransaction sourceBlockchainInfo(BlockchainInfo sourceBlockchainInfo) {
+		this.sourceBlockchainInfo = sourceBlockchainInfo;
+		return this;
+	}
+
+	/**
+	 * Get sourceBlockchainInfo
+	 *
+	 * @return sourceBlockchainInfo
+	 **/
+	@ApiModelProperty(value = "")
+	public BlockchainInfo getSourceBlockchainInfo() {
+		return sourceBlockchainInfo;
+	}
+
+	public void setSourceBlockchainInfo(BlockchainInfo sourceBlockchainInfo) {
+		this.sourceBlockchainInfo = sourceBlockchainInfo;
+	}
+
+	public WalletTransaction sourceWithdrawalInfo(WithdrawalInfo sourceWithdrawalInfo) {
+		this.sourceWithdrawalInfo = sourceWithdrawalInfo;
+		return this;
+	}
+
+	/**
+	 * Get sourceWithdrawalInfo
+	 *
+	 * @return sourceWithdrawalInfo
+	 **/
+	@ApiModelProperty(value = "")
+	public WithdrawalInfo getSourceWithdrawalInfo() {
+		return sourceWithdrawalInfo;
+	}
+
+	public void setSourceWithdrawalInfo(WithdrawalInfo sourceWithdrawalInfo) {
+		this.sourceWithdrawalInfo = sourceWithdrawalInfo;
 	}
 
 	public WalletTransaction action(ActionEnum action) {
@@ -322,23 +372,61 @@ public class WalletTransaction
 		this.destinationCurrency = destinationCurrency;
 	}
 
-	public WalletTransaction destinationTitle(String destinationTitle) {
-		this.destinationTitle = destinationTitle;
+	public WalletTransaction destinationProgramInfo(ProgramInfo destinationProgramInfo) {
+		this.destinationProgramInfo = destinationProgramInfo;
 		return this;
 	}
 
 	/**
-	 * Get destinationTitle
+	 * Get destinationProgramInfo
 	 *
-	 * @return destinationTitle
+	 * @return destinationProgramInfo
 	 **/
 	@ApiModelProperty(value = "")
-	public String getDestinationTitle() {
-		return destinationTitle;
+	public ProgramInfo getDestinationProgramInfo() {
+		return destinationProgramInfo;
 	}
 
-	public void setDestinationTitle(String destinationTitle) {
-		this.destinationTitle = destinationTitle;
+	public void setDestinationProgramInfo(ProgramInfo destinationProgramInfo) {
+		this.destinationProgramInfo = destinationProgramInfo;
+	}
+
+	public WalletTransaction destinationBlockchainInfo(BlockchainInfo destinationBlockchainInfo) {
+		this.destinationBlockchainInfo = destinationBlockchainInfo;
+		return this;
+	}
+
+	/**
+	 * Get destinationBlockchainInfo
+	 *
+	 * @return destinationBlockchainInfo
+	 **/
+	@ApiModelProperty(value = "")
+	public BlockchainInfo getDestinationBlockchainInfo() {
+		return destinationBlockchainInfo;
+	}
+
+	public void setDestinationBlockchainInfo(BlockchainInfo destinationBlockchainInfo) {
+		this.destinationBlockchainInfo = destinationBlockchainInfo;
+	}
+
+	public WalletTransaction destinationWithdrawalInfo(WithdrawalInfo destinationWithdrawalInfo) {
+		this.destinationWithdrawalInfo = destinationWithdrawalInfo;
+		return this;
+	}
+
+	/**
+	 * Get destinationWithdrawalInfo
+	 *
+	 * @return destinationWithdrawalInfo
+	 **/
+	@ApiModelProperty(value = "")
+	public WithdrawalInfo getDestinationWithdrawalInfo() {
+		return destinationWithdrawalInfo;
+	}
+
+	public void setDestinationWithdrawalInfo(WithdrawalInfo destinationWithdrawalInfo) {
+		this.destinationWithdrawalInfo = destinationWithdrawalInfo;
 	}
 
 	@Override
@@ -358,17 +446,21 @@ public class WalletTransaction
 				Objects.equals(this.sourceId, walletTransaction.sourceId) &&
 				Objects.equals(this.sourceType, walletTransaction.sourceType) &&
 				Objects.equals(this.sourceCurrency, walletTransaction.sourceCurrency) &&
-				Objects.equals(this.sourceTitle, walletTransaction.sourceTitle) &&
+				Objects.equals(this.sourceProgramInfo, walletTransaction.sourceProgramInfo) &&
+				Objects.equals(this.sourceBlockchainInfo, walletTransaction.sourceBlockchainInfo) &&
+				Objects.equals(this.sourceWithdrawalInfo, walletTransaction.sourceWithdrawalInfo) &&
 				Objects.equals(this.action, walletTransaction.action) &&
 				Objects.equals(this.destinationId, walletTransaction.destinationId) &&
 				Objects.equals(this.destinationType, walletTransaction.destinationType) &&
 				Objects.equals(this.destinationCurrency, walletTransaction.destinationCurrency) &&
-				Objects.equals(this.destinationTitle, walletTransaction.destinationTitle);
+				Objects.equals(this.destinationProgramInfo, walletTransaction.destinationProgramInfo) &&
+				Objects.equals(this.destinationBlockchainInfo, walletTransaction.destinationBlockchainInfo) &&
+				Objects.equals(this.destinationWithdrawalInfo, walletTransaction.destinationWithdrawalInfo);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, amount, amountConverted, date, number, sourceId, sourceType, sourceCurrency, sourceTitle, action, destinationId, destinationType, destinationCurrency, destinationTitle);
+		return Objects.hash(id, amount, amountConverted, date, number, sourceId, sourceType, sourceCurrency, sourceProgramInfo, sourceBlockchainInfo, sourceWithdrawalInfo, action, destinationId, destinationType, destinationCurrency, destinationProgramInfo, destinationBlockchainInfo, destinationWithdrawalInfo);
 	}
 
 	@Override
@@ -384,12 +476,16 @@ public class WalletTransaction
 		sb.append("    sourceId: ").append(toIndentedString(sourceId)).append("\n");
 		sb.append("    sourceType: ").append(toIndentedString(sourceType)).append("\n");
 		sb.append("    sourceCurrency: ").append(toIndentedString(sourceCurrency)).append("\n");
-		sb.append("    sourceTitle: ").append(toIndentedString(sourceTitle)).append("\n");
+		sb.append("    sourceProgramInfo: ").append(toIndentedString(sourceProgramInfo)).append("\n");
+		sb.append("    sourceBlockchainInfo: ").append(toIndentedString(sourceBlockchainInfo)).append("\n");
+		sb.append("    sourceWithdrawalInfo: ").append(toIndentedString(sourceWithdrawalInfo)).append("\n");
 		sb.append("    action: ").append(toIndentedString(action)).append("\n");
 		sb.append("    destinationId: ").append(toIndentedString(destinationId)).append("\n");
 		sb.append("    destinationType: ").append(toIndentedString(destinationType)).append("\n");
 		sb.append("    destinationCurrency: ").append(toIndentedString(destinationCurrency)).append("\n");
-		sb.append("    destinationTitle: ").append(toIndentedString(destinationTitle)).append("\n");
+		sb.append("    destinationProgramInfo: ").append(toIndentedString(destinationProgramInfo)).append("\n");
+		sb.append("    destinationBlockchainInfo: ").append(toIndentedString(destinationBlockchainInfo)).append("\n");
+		sb.append("    destinationWithdrawalInfo: ").append(toIndentedString(destinationWithdrawalInfo)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -418,6 +514,8 @@ public class WalletTransaction
 		FUND("Fund"),
 
 		PROGRAMREQUEST("ProgramRequest"),
+
+		FUNDREQUEST("FundRequest"),
 
 		WITHDRAWALREQUEST("WithdrawalRequest"),
 
@@ -480,6 +578,14 @@ public class WalletTransaction
 		ADA("ADA"),
 
 		USDT("USDT"),
+
+		XRP("XRP"),
+
+		BCH("BCH"),
+
+		LTC("LTC"),
+
+		DOGE("DOGE"),
 
 		USD("USD"),
 
@@ -604,6 +710,8 @@ public class WalletTransaction
 
 		PROGRAMREQUEST("ProgramRequest"),
 
+		FUNDREQUEST("FundRequest"),
+
 		WITHDRAWALREQUEST("WithdrawalRequest"),
 
 		PAYMENTTRANSACTION("PaymentTransaction");
@@ -664,6 +772,14 @@ public class WalletTransaction
 		ADA("ADA"),
 
 		USDT("USDT"),
+
+		XRP("XRP"),
+
+		BCH("BCH"),
+
+		LTC("LTC"),
+
+		DOGE("DOGE"),
 
 		USD("USD"),
 

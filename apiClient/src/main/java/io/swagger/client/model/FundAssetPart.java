@@ -26,29 +26,29 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class FundAssetPart
 {
-	@SerializedName("assetId")
-	private UUID assetId = null;
+	@SerializedName("id")
+	private UUID id = null;
 
 	@SerializedName("percent")
 	private Double percent = null;
 
-	public FundAssetPart assetId(UUID assetId) {
-		this.assetId = assetId;
+	public FundAssetPart id(UUID id) {
+		this.id = id;
 		return this;
 	}
 
 	/**
-	 * Get assetId
+	 * Get id
 	 *
-	 * @return assetId
+	 * @return id
 	 **/
 	@ApiModelProperty(value = "")
-	public UUID getAssetId() {
-		return assetId;
+	public UUID getId() {
+		return id;
 	}
 
-	public void setAssetId(UUID assetId) {
-		this.assetId = assetId;
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
 	public FundAssetPart percent(Double percent) {
@@ -80,13 +80,13 @@ public class FundAssetPart
 			return false;
 		}
 		FundAssetPart fundAssetPart = (FundAssetPart) o;
-		return Objects.equals(this.assetId, fundAssetPart.assetId) &&
+		return Objects.equals(this.id, fundAssetPart.id) &&
 				Objects.equals(this.percent, fundAssetPart.percent);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assetId, percent);
+		return Objects.hash(id, percent);
 	}
 
 
@@ -95,7 +95,7 @@ public class FundAssetPart
 		StringBuilder sb = new StringBuilder();
 		sb.append("class FundAssetPart {\n");
 
-		sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    percent: ").append(toIndentedString(percent)).append("\n");
 		sb.append("}");
 		return sb.toString();

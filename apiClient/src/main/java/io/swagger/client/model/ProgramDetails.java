@@ -57,7 +57,7 @@ public class ProgramDetails
 	private ProgramDetailsListStatistic statistic = null;
 
 	@SerializedName("personalDetails")
-	private PersonalProgramDetailsList personalDetails = null;
+	private PersonalProgramDetailsFull personalDetails = null;
 
 	@SerializedName("id")
 	private UUID id = null;
@@ -222,7 +222,7 @@ public class ProgramDetails
 		this.statistic = statistic;
 	}
 
-	public ProgramDetails personalDetails(PersonalProgramDetailsList personalDetails) {
+	public ProgramDetails personalDetails(PersonalProgramDetailsFull personalDetails) {
 		this.personalDetails = personalDetails;
 		return this;
 	}
@@ -233,11 +233,11 @@ public class ProgramDetails
 	 * @return personalDetails
 	 **/
 	@ApiModelProperty(value = "Fields for authorized user")
-	public PersonalProgramDetailsList getPersonalDetails() {
+	public PersonalProgramDetailsFull getPersonalDetails() {
 		return personalDetails;
 	}
 
-	public void setPersonalDetails(PersonalProgramDetailsList personalDetails) {
+	public void setPersonalDetails(PersonalProgramDetailsFull personalDetails) {
 		this.personalDetails = personalDetails;
 	}
 
@@ -529,6 +529,14 @@ public class ProgramDetails
 		ADA("ADA"),
 
 		USDT("USDT"),
+
+		XRP("XRP"),
+
+		BCH("BCH"),
+
+		LTC("LTC"),
+
+		DOGE("DOGE"),
 
 		USD("USD"),
 

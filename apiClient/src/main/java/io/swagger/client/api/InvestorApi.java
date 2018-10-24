@@ -61,16 +61,16 @@ public interface InvestorApi
 	);
 
 	/**
-	 * Withdrawal from investment program/fund
+	 * Withdraw from fund. Percent is % of investor total money.
 	 *
 	 * @param id            (required)
-	 * @param amount        (required)
+	 * @param percent       (required)
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;Void&gt;
 	 */
-	@POST("v1.0/investor/funds/{id}/withdraw/{amount}")
-	Observable<Void> v10InvestorFundsByIdWithdrawByAmountPost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("amount") Double amount, @retrofit2.http.Header("Authorization") String authorization
+	@POST("v1.0/investor/funds/{id}/withdraw/{percent}")
+	Observable<Void> v10InvestorFundsByIdWithdrawByPercentPost(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("percent") Double percent, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
@@ -234,7 +234,7 @@ public interface InvestorApi
 	);
 
 	/**
-	 * Withdrawal from investment program/fund
+	 * Withdraw from investment program
 	 *
 	 * @param id            (required)
 	 * @param amount        (required)
