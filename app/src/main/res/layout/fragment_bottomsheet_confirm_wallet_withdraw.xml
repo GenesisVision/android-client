@@ -55,6 +55,7 @@
 
             <TextView
                 style="@style/confirmation_dialog_label"
+                android:lines="2"
                 android:text="@string/to_address"/>
 
             <TextView
@@ -64,21 +65,21 @@
 
             <TextView
                 style="@style/confirmation_dialog_label"
-                android:text="@string/estimated_amount"/>
-
-            <TextView
-                android:id="@+id/estimated_amount"
-                style="@style/confirmation_dialog_value"
-                tools:text="0.234901 BTC"/>
-
-            <TextView
-                style="@style/confirmation_dialog_label"
                 android:text="@string/fee_amount"/>
 
             <TextView
                 android:id="@+id/fee_amount"
                 style="@style/confirmation_dialog_value"
                 tools:text="1.4% (0.008 GVT)"/>
+
+            <TextView
+                style="@style/confirmation_dialog_label"
+                android:text="@string/estimated_amount"/>
+
+            <TextView
+                android:id="@+id/estimated_amount"
+                style="@style/confirmation_dialog_value"
+                tools:text="0.234901 BTC"/>
 
         </LinearLayout>
 

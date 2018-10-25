@@ -511,5 +511,6 @@
     <string name="gv_commission">GV commission</string>
     <string name="fund_invest_withdraw_disclaimer">Your request will be processed within a few minutes.</string>
     <string name="fees_and_commissions">Fees and commissions</string>
+    <string name="you_will_get">You will get</string>
 
 </resources>

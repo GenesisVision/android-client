@@ -63,9 +63,6 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 	@BindView(R.id.wallet)
 	public TextView wallet;
 
-	@BindView(R.id.base_currency_amount)
-	public TextView baseCurrencyAmount;
-
 	@BindView(R.id.edittext_address)
 	public EditText address;
 
@@ -77,6 +74,12 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 
 	@BindView(R.id.fee_amount)
 	public TextView feeAmount;
+
+	@BindView(R.id.label_final_amount)
+	public TextView finalAmountLabel;
+
+	@BindView(R.id.final_amount)
+	public TextView finalAmount;
 
 	@BindView(R.id.button_continue)
 	public PrimaryButton continueButton;
@@ -98,7 +101,7 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 
 	@OnClick(R.id.available_in_wallet)
 	public void onAvailableClicked() {
-		withdrawWalletPresenter.onAvailableClicked();
+		withdrawWalletPresenter.onMaxClicked();
 	}
 
 	@OnClick(R.id.group_amount)
@@ -180,13 +183,18 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 	}
 
 	@Override
-	public void setAmountBase(String amountBaseString) {
-		this.baseCurrencyAmount.setText(amountBaseString);
+	public void setFeeAmount(String feeAmountText) {
+		this.feeAmount.setText(feeAmountText);
 	}
 
 	@Override
-	public void setFeeAmount(String feeAmountText) {
-		this.feeAmount.setText(feeAmountText);
+	public void setFinalAmountLabel(String finalAmountLabelString) {
+		this.finalAmountLabel.setText(finalAmountLabelString);
+	}
+
+	@Override
+	public void setFinalAmount(String finalAmountString) {
+		this.finalAmount.setText(finalAmountString);
 	}
 
 	@Override

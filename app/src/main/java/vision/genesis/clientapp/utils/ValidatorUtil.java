@@ -15,6 +15,6 @@ public class ValidatorUtil
 	}
 
 	public static boolean isEthAddressValid(String address) {
-		return Pattern.matches("^0x[a-fA-F0-9]{40}$", address);
+		return Pattern.matches("^0x[a-fA-F0-9]{40,}$", address);
 	}
 }

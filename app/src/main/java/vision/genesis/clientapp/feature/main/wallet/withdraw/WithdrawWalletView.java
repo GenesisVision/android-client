@@ -22,9 +22,11 @@ interface WithdrawWalletView extends MvpView
 
 	void setAmount(String amountString);
 
-	void setAmountBase(String amountBaseString);
-
 	void setFeeAmount(String feeAmountString);
+
+	void setFinalAmountLabel(String finalAmountLabelString);
+
+	void setFinalAmount(String finalAmountString);
 
 	void setContinueButtonEnabled(boolean enabled);
 

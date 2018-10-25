@@ -131,7 +131,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:alpha="0.4"
                 android:text="@string/select_wallet_currency"
                 android:textColor="?attr/colorTextPrimary"
@@ -178,20 +178,11 @@
 
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/base_currency_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:textColor="?attr/colorTextPrimary"
-                android:textSize="12sp"
-                tools:text="Approximate amount 0.234901 BTC"/>
-
             <RelativeLayout
                 android:id="@+id/group_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp">
+                android:layout_marginTop="24dp">
 
                 <EditText
                     android:id="@+id/edittext_address"
@@ -220,6 +211,7 @@
                     android:gravity="center_vertical|end"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
+                    android:visibility="gone"
                     android:text="@string/scan_qr"
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="12sp"/>
@@ -249,8 +241,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/button_continue"
-            android:layout_marginBottom="32dp">
+            android:layout_above="@+id/group_final_amount"
+            android:layout_marginBottom="12dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -268,7 +260,35 @@
                 android:layout_alignParentRight="true"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="14sp"
-                tools:text="1.4% (0.008 GVT)"/>
+                tools:text="0.005 BTC"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/group_final_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/button_continue"
+            android:layout_marginBottom="32dp">
+
+            <TextView
+                android:id="@+id/label_final_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.4"
+                android:text="@string/approximate_amount"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/final_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="14sp"
+                tools:text="12.08 BTC"/>
 
         </RelativeLayout>
 

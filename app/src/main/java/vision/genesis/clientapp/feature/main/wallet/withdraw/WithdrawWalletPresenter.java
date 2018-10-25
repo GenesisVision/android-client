@@ -47,11 +47,11 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 
 	private WalletWithdrawalInfo selectedWallet;
 
-	private Double amount = 0.0;
-
 	private Double availableInWallet;
 
-	private double feeAmount;
+	private Double amount = 0.0;
+
+	private Double finalAmount = 0.0;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -71,16 +71,9 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 		super.onDestroy();
 	}
 
-	void onAvailableClicked() {
+	void onMaxClicked() {
 		if (availableInWallet != null) {
 			getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableInWallet, CurrencyEnum.GVT.getValue()));
-		}
-	}
-
-	void onMaxClicked() {
-		if (availableInWallet != null && selectedWallet != null) {
-			double maxAmount = availableInWallet / (1 + selectedWallet.getCommission() / 100);
-			getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(maxAmount, CurrencyEnum.GVT.getValue()));
 		}
 	}
 
@@ -96,7 +89,7 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 				isAddressValid = ValidatorUtil.isEthAddressValid(address);
 				break;
 			default:
-				isAddressValid = true;
+				isAddressValid = !address.trim().isEmpty();
 				break;
 		}
 		if (!isAddressValid) {
@@ -110,10 +103,8 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 		request.setAddress(address);
 		request.setAmountText(String.format(Locale.getDefault(), "%s GVT",
 				StringFormatUtil.formatCurrencyAmount(amount, CurrencyEnum.GVT.getValue())));
-		request.setEstimatedAmountText(String.format(Locale.getDefault(), "%s %s",
-				StringFormatUtil.formatCurrencyAmount(amount, selectedWallet.getCurrency().getValue()),
-				selectedWallet.getCurrency().getValue()));
 		request.setFeeAmountText(getFeeAmountString());
+		request.setEstimatedAmountText(getFinalAmountString());
 		getViewState().showConfirmDialog(request);
 	}
 
@@ -130,37 +121,42 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 				return;
 			}
 
-			updateAmountBase();
 			updateFeeAmount();
+			updateFinalAmount();
 
-			getViewState().setContinueButtonEnabled(amount > 0
-					&& amount + feeAmount <= availableInWallet);
+			getViewState().setContinueButtonEnabled(finalAmount > 0 && amount <= availableInWallet);
 		}
-	}
-
-	private void updateAmountBase() {
-		if (selectedWallet != null)
-			getViewState().setAmountBase(getAmountBaseString());
 	}
 
 	private void updateFeeAmount() {
 		if (selectedWallet != null) {
-			feeAmount = amount * (selectedWallet.getCommission() / 100);
-
 			getViewState().setFeeAmount(getFeeAmountString());
 		}
 	}
 
-	private String getAmountBaseString() {
-		return String.format(Locale.getDefault(), "%s %s %s", context.getString(R.string.approximate_amount),
-				StringFormatUtil.formatCurrencyAmount(amount * selectedWallet.getRateToGvt(), selectedWallet.getCurrency().getValue()),
-				selectedWallet.getCurrency().getValue());
+	private void updateFinalAmount() {
+		if (selectedWallet != null) {
+			finalAmount = amount * selectedWallet.getRateToGvt() - selectedWallet.getCommission();
+			if (finalAmount < 0)
+				finalAmount = 0.0;
+
+			getViewState().setFinalAmountLabel(getFinalAmountLabelString());
+			getViewState().setFinalAmount(getFinalAmountString());
+		}
+	}
+
+	private String getFinalAmountLabelString() {
+		return selectedWallet.getCurrency().getValue().equals(CurrencyEnum.GVT.getValue())
+				? context.getString(R.string.you_will_get)
+				: context.getString(R.string.approximate_amount);
+	}
+
+	private String getFinalAmountString() {
+		return String.format(Locale.getDefault(), "%s %s", StringFormatUtil.formatAmount(finalAmount, 0, 8), selectedWallet.getCurrency().getValue());
 	}
 
 	private String getFeeAmountString() {
-		return String.format(Locale.getDefault(), "%s%% (%s GVT)",
-				StringFormatUtil.formatAmount(selectedWallet.getCommission(), 0, 4),
-				StringFormatUtil.formatAmount(feeAmount, 0, 8));
+		return StringFormatUtil.getBaseValueString(selectedWallet.getCommission(), selectedWallet.getCurrency().getValue());
 	}
 
 	private void getWalletAddresses() {
@@ -202,7 +198,7 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 	public void onOptionSelected(Integer position, String text) {
 		this.selectedWallet = wallets.get(position);
 		getViewState().setWalletInfo(selectedWallet, text, position);
-		updateAmountBase();
+		updateFinalAmount();
 		updateFeeAmount();
 	}
 
