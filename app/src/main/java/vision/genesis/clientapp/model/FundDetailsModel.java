@@ -38,13 +38,16 @@ public class FundDetailsModel implements Parcelable
 
 	private boolean favorite;
 
-	public FundDetailsModel(UUID fundId, String logo, String fundColor, String fundName, String managerName, boolean isFavorite) {
+	private boolean hasNotifications;
+
+	public FundDetailsModel(UUID fundId, String logo, String fundColor, String fundName, String managerName, boolean isFavorite, boolean hasNotifications) {
 		this.fundId = fundId;
 		this.logo = logo;
 		this.fundColor = fundColor;
 		this.fundName = fundName;
 		this.managerName = managerName;
 		this.favorite = isFavorite;
+		this.hasNotifications = hasNotifications;
 	}
 
 	protected FundDetailsModel(Parcel in) {
@@ -54,6 +57,7 @@ public class FundDetailsModel implements Parcelable
 		fundName = in.readString();
 		managerName = in.readString();
 		favorite = in.readByte() != 0;
+		hasNotifications = in.readByte() != 0;
 	}
 
 	public UUID getFundId() {
@@ -80,6 +84,10 @@ public class FundDetailsModel implements Parcelable
 		return favorite;
 	}
 
+	public boolean isHasNotifications() {
+		return hasNotifications;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -93,6 +101,7 @@ public class FundDetailsModel implements Parcelable
 		dest.writeString(fundName);
 		dest.writeString(managerName);
 		dest.writeByte((byte) (favorite ? 1 : 0));
+		dest.writeByte((byte) (hasNotifications ? 1 : 0));
 	}
 
 	public void update(FundDetailsFull fundDetails) {
@@ -103,6 +112,9 @@ public class FundDetailsModel implements Parcelable
 		this.managerName = fundDetails.getManager().getUsername();
 		this.favorite = fundDetails.getPersonalFundDetails() != null
 				? fundDetails.getPersonalFundDetails().isIsFavorite()
+				: false;
+		this.hasNotifications = fundDetails.getPersonalFundDetails() != null
+				? fundDetails.getPersonalFundDetails().isHasNotifications()
 				: false;
 	}
 }

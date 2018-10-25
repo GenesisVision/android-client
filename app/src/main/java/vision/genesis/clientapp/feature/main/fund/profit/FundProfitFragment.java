@@ -42,11 +42,11 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 	private static String EXTRA_FUND_ID = "extra_fund_id";
 
 	public static FundProfitFragment with(UUID fundID) {
-		FundProfitFragment programProfitFragment = new FundProfitFragment();
+		FundProfitFragment fundProfitFragment = new FundProfitFragment();
 		Bundle arguments = new Bundle(1);
 		arguments.putSerializable(EXTRA_FUND_ID, fundID);
-		programProfitFragment.setArguments(arguments);
-		return programProfitFragment;
+		fundProfitFragment.setArguments(arguments);
+		return fundProfitFragment;
 	}
 
 	@BindView(R.id.root)

@@ -24,7 +24,6 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.FundDetailsFull;
 import io.swagger.client.model.ProfilePublic;
-import io.swagger.client.model.ProgramDetailsFull;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
@@ -32,6 +31,7 @@ import vision.genesis.clientapp.feature.main.fund.FundDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.ManagerDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.AvatarView;
@@ -52,11 +52,11 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 	private static String EXTRA_FUND_ID = "extra_fund_id";
 
 	public static FundInfoFragment with(UUID fundId) {
-		FundInfoFragment programInfoFragment = new FundInfoFragment();
+		FundInfoFragment fundInfoFragment = new FundInfoFragment();
 		Bundle arguments = new Bundle(1);
 		arguments.putSerializable(EXTRA_FUND_ID, fundId);
-		programInfoFragment.setArguments(arguments);
-		return programInfoFragment;
+		fundInfoFragment.setArguments(arguments);
+		return fundInfoFragment;
 	}
 
 	@BindView(R.id.scrollview)
@@ -268,8 +268,8 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 			yourInvestmentGroup.setVisibility(View.VISIBLE);
 			status.setStatus(fundDetails.getPersonalFundDetails().getStatus().getValue());
 //		invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(fundDetails.getPersonalProgramDetails().getInvested()).toString()));
-			invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(fundDetails.getPersonalFundDetails().getValue(), ProgramDetailsFull.CurrencyEnum.GVT.toString())));
-			value.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(fundDetails.getPersonalFundDetails().getValue(), ProgramDetailsFull.CurrencyEnum.GVT.toString())));
+			invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(fundDetails.getPersonalFundDetails().getValue(), CurrencyEnum.GVT.toString())));
+			value.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(fundDetails.getPersonalFundDetails().getValue(), CurrencyEnum.GVT.toString())));
 			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(fundDetails.getPersonalFundDetails().getProfit(), 0, 4)));
 			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(), fundDetails.getPersonalFundDetails().getProfit() < 0 ? R.attr.colorRed : R.attr.colorGreen));
 		}

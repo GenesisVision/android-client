@@ -14,7 +14,6 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.FundsManager;
-import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.chart.ProfitChartView;
@@ -30,9 +29,6 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 {
 	@Inject
 	public FundsManager fundsManager;
-
-	@Inject
-	public SettingsManager settingsManager;
 
 	private Subscription chartDataSubscription;
 

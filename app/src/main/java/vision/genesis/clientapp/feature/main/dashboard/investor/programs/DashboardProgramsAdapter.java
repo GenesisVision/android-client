@@ -138,7 +138,8 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 							program.getLevel(),
 							program.getTitle(),
 							program.getManager().getUsername(),
-							program.getPersonalDetails().isIsFavorite());
+							program.getPersonalDetails().isIsFavorite(),
+							program.getPersonalDetails().isHasNotifications());
 					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programDetailsModel));
 				}
 			});

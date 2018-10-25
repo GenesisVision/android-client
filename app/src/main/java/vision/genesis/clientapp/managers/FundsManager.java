@@ -5,6 +5,7 @@ import java.util.UUID;
 import io.swagger.client.api.FundsApi;
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.model.DashboardPortfolioEvents;
+import io.swagger.client.model.FundAssetsListInfo;
 import io.swagger.client.model.FundBalanceChart;
 import io.swagger.client.model.FundDetailsFull;
 import io.swagger.client.model.FundProfitChart;
@@ -59,6 +60,10 @@ public class FundsManager
 
 	public Observable<FundDetailsFull> getFundDetails(UUID fundId, CurrencyEnum baseCurrency) {
 		return fundsApi.v10FundsByIdGet(fundId.toString(), AuthManager.token.getValue(), baseCurrency.getValue());
+	}
+
+	public Observable<FundAssetsListInfo> getFundAssets(UUID fundId) {
+		return fundsApi.v10FundsByIdAssetsGet(fundId);
 	}
 
 	public Observable<FundProfitChart> getProfitChart(UUID fundId, DateRange dateRange, Integer maxPointCount) {

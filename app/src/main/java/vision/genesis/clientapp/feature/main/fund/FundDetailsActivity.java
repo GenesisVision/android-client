@@ -128,6 +128,8 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 
 	private TabLayout.Tab infoTab;
 
+	private TabLayout.Tab structureTab;
+
 	private TabLayout.Tab profitTab;
 
 	private TabLayout.Tab balanceTab;
@@ -266,11 +268,13 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 		fundName.setText(model.getFundName());
 		toolbarFundName.setText(model.getFundName());
 
+		setNotificationsButtonImage(model.isHasNotifications());
 		setFavoriteButtonImage(model.isFavorite());
 	}
 
 	private void initTabs() {
 		infoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("info");
+		structureTab = tabLayout.newTab().setCustomView(getTabView(R.string.structure)).setTag("structure");
 		profitTab = tabLayout.newTab().setCustomView(getTabView(R.string.profit)).setTag("profit");
 		balanceTab = tabLayout.newTab().setCustomView(getTabView(R.string.balance)).setTag("balance");
 		eventsTab = tabLayout.newTab().setCustomView(getTabView(R.string.events)).setTag("events");
@@ -305,6 +309,7 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 		tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
 		addPage(infoTab, true);
+		addPage(structureTab, false);
 		addPage(profitTab, false);
 		addPage(balanceTab, false);
 	}
@@ -361,6 +366,12 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 		pagerAdapter.sendUpdate();
 	}
 
+	private void setNotificationsButtonImage(boolean hasNotifications) {
+		notificationsButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), hasNotifications
+				? R.drawable.icon_notifications_fill
+				: R.drawable.icon_notifications));
+	}
+
 	private void setFavoriteButtonImage(boolean isFavorite) {
 		favoriteButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), isFavorite
 				? R.drawable.icon_favorite_fill
@@ -386,15 +397,6 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 	public void onPageScrollStateChanged(int state) {
 
 	}
-
-//	public void onChartTouch() {
-//		viewPager.requestDisallowInterceptTouchEvent(true);
-//	}
-//
-//	public void onChartTouchEnd() {
-//		viewPager.requestDisallowInterceptTouchEvent(false);
-//
-//	}
 
 	@Override
 	public void finishActivity() {

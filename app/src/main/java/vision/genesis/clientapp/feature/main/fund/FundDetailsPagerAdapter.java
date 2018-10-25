@@ -10,6 +10,7 @@ import java.util.UUID;
 import vision.genesis.clientapp.feature.main.fund.balance.FundBalanceFragment;
 import vision.genesis.clientapp.feature.main.fund.info.FundInfoFragment;
 import vision.genesis.clientapp.feature.main.fund.profit.FundProfitFragment;
+import vision.genesis.clientapp.feature.main.fund.structure.FundStructureFragment;
 import vision.genesis.clientapp.feature.main.program.events.ProgramEventsFragment;
 
 /**
@@ -28,6 +29,8 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private FundInfoFragment fundInfoFragment;
 
+	private FundStructureFragment fundStructureFragment;
+
 	private FundProfitFragment fundProfitFragment;
 
 	private FundBalanceFragment fundBalanceFragment;
@@ -36,13 +39,14 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private TabLayout tabLayout;
 
-	FundDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, UUID programId) {
+	FundDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, UUID fundId) {
 		super(fm);
 		this.tabLayout = tabLayout;
-		fundInfoFragment = FundInfoFragment.with(programId);
-		fundProfitFragment = FundProfitFragment.with(programId);
-		fundBalanceFragment = FundBalanceFragment.with(programId);
-		fundEventsFragment = ProgramEventsFragment.with(programId);
+		fundInfoFragment = FundInfoFragment.with(fundId);
+		fundStructureFragment = FundStructureFragment.with(fundId);
+		fundProfitFragment = FundProfitFragment.with(fundId);
+		fundBalanceFragment = FundBalanceFragment.with(fundId);
+		fundEventsFragment = ProgramEventsFragment.with(fundId);
 	}
 
 	@Override
@@ -50,6 +54,8 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 		switch (tabLayout.getTabAt(position).getTag().toString()) {
 			case "info":
 				return fundInfoFragment;
+			case "structure":
+				return fundStructureFragment;
 			case "profit":
 				return fundProfitFragment;
 			case "balance":
@@ -71,12 +77,14 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	public void sendUpdate() {
 		fundInfoFragment.pagerShow();
+		fundStructureFragment.pagerShow();
 		fundProfitFragment.pagerShow();
 		fundBalanceFragment.pagerShow();
 		fundEventsFragment.pagerShow();
 	}
 
 	public void sendSwipeRefresh() {
+		fundStructureFragment.onSwipeRefresh();
 		fundEventsFragment.onSwipeRefresh();
 	}
 

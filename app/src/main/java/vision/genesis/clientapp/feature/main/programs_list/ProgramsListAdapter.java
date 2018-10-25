@@ -159,6 +159,9 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 							program.getManager().getUsername(),
 							program.getPersonalDetails() != null ?
 									program.getPersonalDetails().isIsFavorite()
+									: false,
+							program.getPersonalDetails() != null ?
+									program.getPersonalDetails().isHasNotifications()
 									: false);
 					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programDetailsModel));
 				}
@@ -196,8 +199,10 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 
 			this.chart.setChart(program.getChart());
 
-			Double profitPercent = getProfitPercent();
-			Double profitValue = getProfitValue();
+//			Double profitPercent = getProfitPercent();
+			Double profitPercent = program.getStatistic().getProfitPercent();
+//			Double profitValue = getProfitValue();
+			Double profitValue = program.getStatistic().getProfitValue();
 
 			this.programCurrency.setCurrency(program.getCurrency().getValue());
 
@@ -221,18 +226,18 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 
 		}
 
-		private Double getProfitPercent() {
-			Double first = program.getChart().get(0).getValue();
-			Double last = program.getChart().get(program.getChart().size() - 1).getValue();
-
-			return Math.abs(first != 0 ? 100 / first * (first - last) : 0);
-		}
-
-		private Double getProfitValue() {
-			Double first = program.getChart().get(0).getValue();
-			Double last = program.getChart().get(program.getChart().size() - 1).getValue();
-
-			return last - first;
-		}
+//		private Double getProfitPercent() {
+//			Double first = program.getChart().get(0).getValue();
+//			Double last = program.getChart().get(program.getChart().size() - 1).getValue();
+//
+//			return Math.abs(first != 0 ? 100 / first * (first - last) : 0);
+//		}
+//
+//		private Double getProfitValue() {
+//			Double first = program.getChart().get(0).getValue();
+//			Double last = program.getChart().get(program.getChart().size() - 1).getValue();
+//
+//			return last - first;
+//		}
 	}
 }

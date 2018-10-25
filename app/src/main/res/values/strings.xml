@@ -504,5 +504,9 @@
     <string name="ddown">D.down</string>
     <string name="exit_fee">Exit fee</string>
     <string name="rebalances">Number of rebalances</string>
+    <string name="header_holding">Holding (Ticker)</string>
+    <string name="header_target">Target</string>
+    <string name="header_rebalancing">Rebalancing</string>
+    <string name="structure">Structure</string>
 
 </resources>

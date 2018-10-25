@@ -117,9 +117,6 @@ public class FundsListAdapter extends RecyclerView.Adapter<FundsListAdapter.Fund
 		@BindView(R.id.profit_percent)
 		public TextView profitPercent;
 
-		@BindView(R.id.profit_value)
-		public TextView profitValue;
-
 		@BindView(R.id.balance)
 		public TextView balance;
 
@@ -191,6 +188,9 @@ public class FundsListAdapter extends RecyclerView.Adapter<FundsListAdapter.Fund
 							fund.getManager().getUsername(),
 							fund.getPersonalDetails() != null ?
 									fund.getPersonalDetails().isIsFavorite()
+									: false,
+							fund.getPersonalDetails() != null ?
+									fund.getPersonalDetails().isHasNotifications()
 									: false);
 					EventBus.getDefault().post(new ShowFundDetailsEvent(fundDetailsModel));
 				}
@@ -234,18 +234,14 @@ public class FundsListAdapter extends RecyclerView.Adapter<FundsListAdapter.Fund
 
 			this.chart.setChart(fund.getChart());
 
-			Double profitPercent = getProfitPercent();
-			Double profitValue = getProfitValue();
+//			Double profitPercent = getProfitPercent();
+			Double profitPercent = fund.getStatistic().getProfitPercent();
 
 			this.profitPercent.setText(String.format(Locale.getDefault(), "%s%%",
 					StringFormatUtil.formatAmount(profitPercent, 0, 2)));
-			this.profitPercent.setTextColor(profitValue >= 0
+			this.profitPercent.setTextColor(profitPercent >= 0
 					? ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorGreen)
 					: ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorRed));
-
-			this.profitValue.setText(String.format(Locale.getDefault(), "%s%s GVT",
-					profitValue > 0 ? "+" : "",
-					StringFormatUtil.formatAmount(profitValue, 0, 4)));
 
 			this.balance.setText(String.format(Locale.getDefault(), "%s GVT",
 					StringFormatUtil.getShortenedAmount(fund.getStatistic().getBalanceGVT().getAmount())));
@@ -296,18 +292,18 @@ public class FundsListAdapter extends RecyclerView.Adapter<FundsListAdapter.Fund
 			nameAsset.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(fundAsset.getPercent(), 0, 0)));
 		}
 
-		private Double getProfitPercent() {
-			Double first = fund.getChart().get(0).getValue();
-			Double last = fund.getChart().get(fund.getChart().size() - 1).getValue();
-
-			return Math.abs(first != 0 ? 100 / first * (first - last) : 0);
-		}
-
-		private Double getProfitValue() {
-			Double first = fund.getChart().get(0).getValue();
-			Double last = fund.getChart().get(fund.getChart().size() - 1).getValue();
-
-			return last - first;
-		}
+//		private Double getProfitPercent() {
+//			Double first = fund.getChart().get(0).getValue();
+//			Double last = fund.getChart().get(fund.getChart().size() - 1).getValue();
+//
+//			return Math.abs(first != 0 ? 100 / first * (first - last) : 0);
+//		}
+//
+//		private Double getProfitValue() {
+//			Double first = fund.getChart().get(0).getValue();
+//			Double last = fund.getChart().get(fund.getChart().size() - 1).getValue();
+//
+//			return last - first;
+//		}
 	}
 }

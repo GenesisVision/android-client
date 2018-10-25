@@ -40,11 +40,11 @@ public class FundBalanceFragment extends BaseFragment implements FundBalanceView
 	private static String EXTRA_FUND_ID = "extra_fund_id";
 
 	public static FundBalanceFragment with(UUID fundId) {
-		FundBalanceFragment programProfitFragment = new FundBalanceFragment();
+		FundBalanceFragment fundBalanceFragment = new FundBalanceFragment();
 		Bundle arguments = new Bundle(1);
 		arguments.putSerializable(EXTRA_FUND_ID, fundId);
-		programProfitFragment.setArguments(arguments);
-		return programProfitFragment;
+		fundBalanceFragment.setArguments(arguments);
+		return fundBalanceFragment;
 	}
 
 	@BindView(R.id.root)

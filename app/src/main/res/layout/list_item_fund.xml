@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="@dimen/item_list_fund_height"
@@ -106,18 +105,6 @@
                 android:textColor="?attr/colorGreen"
                 android:textSize="18sp"
                 tools:text="5.4%"/>
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/profit_value"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:textColor="?attr/colorTextSecondary"
-                app:autoSizeMaxTextSize="18sp"
-                app:autoSizeMinTextSize="12sp"
-                app:autoSizeStepGranularity="2sp"
-                app:autoSizeTextType="uniform"
-                tools:text="+124.6 GVT"/>
 
         </LinearLayout>
 

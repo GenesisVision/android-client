@@ -274,6 +274,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		programName.setText(model.getProgramName());
 		toolbarProgramName.setText(model.getProgramName());
 
+		setNotificationsButtonImage(model.isHasNotifications());
 		setFavoriteButtonImage(model.isFavorite());
 	}
 
@@ -371,6 +372,12 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		pagerAdapter.sendUpdate();
 	}
 
+	private void setNotificationsButtonImage(boolean hasNotifications) {
+		notificationsButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), hasNotifications
+				? R.drawable.icon_notifications_fill
+				: R.drawable.icon_notifications));
+	}
+
 	private void setFavoriteButtonImage(boolean isFavorite) {
 		favoriteButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), isFavorite
 				? R.drawable.icon_favorite_fill
@@ -396,15 +403,6 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	public void onPageScrollStateChanged(int state) {
 
 	}
-
-//	public void onChartTouch() {
-//		viewPager.requestDisallowInterceptTouchEvent(true);
-//	}
-//
-//	public void onChartTouchEnd() {
-//		viewPager.requestDisallowInterceptTouchEvent(false);
-//
-//	}
 
 	@Override
 	public void finishActivity() {

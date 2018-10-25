@@ -40,7 +40,9 @@ public class ProgramDetailsModel implements Parcelable
 
 	private boolean favorite;
 
-	public ProgramDetailsModel(UUID programId, String avatar, String programColor, Integer level, String programName, String managerName, boolean isFavorite) {
+	private boolean hasNotifications;
+
+	public ProgramDetailsModel(UUID programId, String avatar, String programColor, Integer level, String programName, String managerName, boolean isFavorite, boolean hasNotifications) {
 		this.programId = programId;
 		this.avatar = avatar;
 		this.programColor = programColor;
@@ -48,6 +50,7 @@ public class ProgramDetailsModel implements Parcelable
 		this.programName = programName;
 		this.managerName = managerName;
 		this.favorite = isFavorite;
+		this.hasNotifications = hasNotifications;
 	}
 
 	protected ProgramDetailsModel(Parcel in) {
@@ -58,6 +61,7 @@ public class ProgramDetailsModel implements Parcelable
 		programName = in.readString();
 		managerName = in.readString();
 		favorite = in.readByte() != 0;
+		hasNotifications = in.readByte() != 0;
 	}
 
 	public UUID getProgramId() {
@@ -88,6 +92,10 @@ public class ProgramDetailsModel implements Parcelable
 		return favorite;
 	}
 
+	public boolean isHasNotifications() {
+		return hasNotifications;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -102,6 +110,7 @@ public class ProgramDetailsModel implements Parcelable
 		dest.writeString(programName);
 		dest.writeString(managerName);
 		dest.writeByte((byte) (favorite ? 1 : 0));
+		dest.writeByte((byte) (hasNotifications ? 1 : 0));
 	}
 
 	public void update(ProgramDetailsFull programDetails) {
@@ -113,6 +122,9 @@ public class ProgramDetailsModel implements Parcelable
 		this.managerName = programDetails.getManager().getUsername();
 		this.favorite = programDetails.getPersonalProgramDetails() != null
 				? programDetails.getPersonalProgramDetails().isIsFavorite()
+				: false;
+		this.hasNotifications = programDetails.getPersonalProgramDetails() != null
+				? programDetails.getPersonalProgramDetails().isHasNotifications()
 				: false;
 	}
 }
