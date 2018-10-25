@@ -37,7 +37,8 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
         android:padding="@dimen/invest_padding"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -47,12 +48,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/available_to_invest"
+                android:text="@string/available_in_wallet"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="14sp"/>
 
             <TextView
-                android:id="@+id/available_to_invest"
+                android:id="@+id/available_in_wallet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
@@ -70,6 +71,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/label_amount_to_invest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.4"
@@ -134,7 +136,7 @@
                 android:layout_marginTop="12dp"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="12sp"
-                tools:text="= 0.234901 BTC"/>
+                tools:text="Estimated amount 0.234901 BTC"/>
 
         </LinearLayout>
 
@@ -178,12 +180,37 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.4"
+                    android:text="@string/gv_commission"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/gv_commission"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"
+                    tools:text="0.005% (0.008 GVT)"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.4"
                     android:text="@string/investment_amount"
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="14sp"/>
 
                 <TextView
-                    android:id="@+id/amount_due"
+                    android:id="@+id/investment_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"

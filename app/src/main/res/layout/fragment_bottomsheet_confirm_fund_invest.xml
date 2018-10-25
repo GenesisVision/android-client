@@ -33,9 +33,9 @@
                 android:layout_marginTop="16dp"
                 android:alpha="0.5"
                 android:lineSpacingMultiplier="1.2"
+                android:text="@string/fund_invest_withdraw_disclaimer"
                 android:textColor="?attr/colorCard"
-                android:textSize="14sp"
-                tools:text="Your request will be processed at the end of the reporting period 12.07.2018 16:20"/>
+                android:textSize="14sp"/>
 
             <View
                 android:layout_width="match_parent"
@@ -51,8 +51,8 @@
                 android:orientation="horizontal">
 
                 <vision.genesis.clientapp.ui.ProgramLogoView
-                    android:id="@+id/program_logo"
-                    android:layout_width="75dp"
+                    android:id="@+id/fund_logo"
+                    android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_vertical"/>
 
@@ -65,7 +65,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/program_name"
+                        android:id="@+id/fund_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="?attr/colorCard"
@@ -97,10 +97,10 @@
 
             <TextView
                 style="@style/confirmation_dialog_label"
-                android:text="@string/entry_fee"/>
+                android:text="@string/fees_and_commissions"/>
 
             <TextView
-                android:id="@+id/entry_fee"
+                android:id="@+id/fees_and_commissions"
                 style="@style/confirmation_dialog_value"
                 tools:text="1.4% (0.1433 GVT)"/>
 
@@ -109,7 +109,7 @@
                 android:text="@string/investment_amount"/>
 
             <TextView
-                android:id="@+id/amount_due"
+                android:id="@+id/investment_amount"
                 style="@style/confirmation_dialog_value"
                 tools:text="10.3783 GVT"/>
 

@@ -8,14 +8,14 @@ import io.swagger.client.model.DashboardPortfolioEvents;
 import io.swagger.client.model.FundAssetsListInfo;
 import io.swagger.client.model.FundBalanceChart;
 import io.swagger.client.model.FundDetailsFull;
+import io.swagger.client.model.FundInvestInfo;
 import io.swagger.client.model.FundProfitChart;
+import io.swagger.client.model.FundWithdrawInfo;
 import io.swagger.client.model.FundsList;
-import io.swagger.client.model.ProgramInvestInfo;
-import io.swagger.client.model.ProgramWithdrawInfo;
 import rx.Observable;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.model.FundRequest;
 import vision.genesis.clientapp.model.ProgramsFilter;
 
 /**
@@ -78,20 +78,20 @@ public class FundsManager
 		return investorApi.v10InvestorPortfolioEventsGet(AuthManager.token.getValue(), fundId, dateRange.getFrom(), dateRange.getTo(), null, null, skip, take);
 	}
 
-	public Observable<ProgramInvestInfo> getInvestInfo(UUID programId, CurrencyEnum baseCurrency) {
-		return investorApi.v10InvestorProgramsByIdInvestInfoByCurrencyGet(programId, baseCurrency.getValue(), AuthManager.token.getValue());
+	public Observable<FundInvestInfo> getInvestInfo(UUID programId, CurrencyEnum baseCurrency) {
+		return investorApi.v10InvestorFundsByIdInvestInfoByCurrencyGet(programId, baseCurrency.getValue(), AuthManager.token.getValue());
 	}
 
-	public Observable<ProgramWithdrawInfo> getWithdrawInfo(UUID programId, CurrencyEnum baseCurrency) {
-		return investorApi.v10InvestorProgramsByIdWithdrawInfoByCurrencyGet(programId, baseCurrency.getValue(), AuthManager.token.getValue());
+	public Observable<FundWithdrawInfo> getWithdrawInfo(UUID programId, CurrencyEnum baseCurrency) {
+		return investorApi.v10InvestorFundsByIdWithdrawInfoByCurrencyGet(programId, baseCurrency.getValue(), AuthManager.token.getValue());
 	}
 
-	public Observable<Void> invest(ProgramRequest investRequest) {
-		return investorApi.v10InvestorFundsByIdInvestByAmountPost(investRequest.getProgramId(), investRequest.getAmountDue(), AuthManager.token.getValue());
+	public Observable<Void> invest(FundRequest fundRequest) {
+		return investorApi.v10InvestorFundsByIdInvestByAmountPost(fundRequest.getFundId(), fundRequest.getAmount(), AuthManager.token.getValue());
 	}
 
-	public Observable<Void> withdraw(ProgramRequest withdrawRequest) {
-		return investorApi.v10InvestorFundsByIdWithdrawByPercentPost(withdrawRequest.getProgramId(), withdrawRequest.getAmountDue(), AuthManager.token.getValue());
+	public Observable<Void> withdraw(FundRequest fundRequest) {
+		return investorApi.v10InvestorFundsByIdWithdrawByPercentPost(fundRequest.getFundId(), fundRequest.getAmount(), AuthManager.token.getValue());
 	}
 
 	//	public Observable<Void> withdraw(ProgramRequest withdrawalRequest) {

@@ -28,6 +28,8 @@ import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsPresenter;
 import vision.genesis.clientapp.feature.main.fund.balance.FundBalancePresenter;
 import vision.genesis.clientapp.feature.main.fund.info.FundInfoPresenter;
+import vision.genesis.clientapp.feature.main.fund.invest.InvestFundPresenter;
+import vision.genesis.clientapp.feature.main.fund.invest.confirm.ConfirmFundInvestBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.fund.profit.FundProfitPresenter;
 import vision.genesis.clientapp.feature.main.fund.structure.FundStructurePresenter;
 import vision.genesis.clientapp.feature.main.funds_list.FundsListPresenter;
@@ -206,4 +208,8 @@ public interface AppComponent
 	void inject(FundProfitPresenter fundProfitPresenter);
 
 	void inject(FundBalancePresenter fundBalancePresenter);
+
+	void inject(InvestFundPresenter investFundPresenter);
+
+	void inject(ConfirmFundInvestBottomSheetFragment confirmFundInvestBottomSheetFragment);
 }

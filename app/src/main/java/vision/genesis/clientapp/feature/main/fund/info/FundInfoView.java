@@ -6,6 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import io.swagger.client.model.FundDetailsFull;
+import vision.genesis.clientapp.model.FundRequest;
 import vision.genesis.clientapp.model.ProgramRequest;
 
 /**
@@ -25,7 +26,7 @@ interface FundInfoView extends MvpView
 	void showProgress(boolean show);
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
-	void showInvestFundActivity(ProgramRequest request);
+	void showInvestFundActivity(FundRequest request);
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showWithdrawFundActivity(ProgramRequest request);

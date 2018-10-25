@@ -28,10 +28,11 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsPagerAdapter;
+import vision.genesis.clientapp.feature.main.fund.invest.InvestFundActivity;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
-import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.model.FundRequest;
 import vision.genesis.clientapp.model.ManagerDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.AvatarView;
@@ -301,9 +302,9 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 	}
 
 	@Override
-	public void showInvestFundActivity(ProgramRequest request) {
+	public void showInvestFundActivity(FundRequest request) {
 		if (getActivity() != null)
-			InvestProgramActivity.startWith(getActivity(), request);
+			InvestFundActivity.startWith(getActivity(), request);
 	}
 
 	@Override

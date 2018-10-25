@@ -450,7 +450,7 @@
     <string name="value">value</string>
     <string name="program_info_withdraw_info">You can withdraw only the invested funds, the profit will be withdrawn to your account at the end of the period automatically.</string>
     <string name="text_continue">Continue</string>
-    <string name="amount_due">Amount due</string>
+    <string name="investment_amount">Investment amount</string>
     <string name="amount_to_invest">Amount to invest</string>
     <string name="max">Max</string>
     <string name="confirm_invest">Confirm Invest</string>
@@ -508,5 +508,8 @@
     <string name="header_target">Target</string>
     <string name="header_rebalancing">Rebalancing</string>
     <string name="structure">Structure</string>
+    <string name="gv_commission">GV commission</string>
+    <string name="fund_invest_withdraw_disclaimer">Your request will be processed within a few minutes.</string>
+    <string name="fees_and_commissions">Fees and commissions</string>
 
 </resources>
