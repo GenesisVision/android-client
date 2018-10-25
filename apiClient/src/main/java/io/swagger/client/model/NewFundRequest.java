@@ -33,8 +33,8 @@ public class NewFundRequest
 	@SerializedName("managementFee")
 	private Double managementFee = null;
 
-	@SerializedName("assetsParts")
-	private List<FundAssetPart> assetsParts = null;
+	@SerializedName("assets")
+	private List<FundAssetPart> assets = null;
 
 	@SerializedName("title")
 	private String title = null;
@@ -86,31 +86,31 @@ public class NewFundRequest
 		this.managementFee = managementFee;
 	}
 
-	public NewFundRequest assetsParts(List<FundAssetPart> assetsParts) {
-		this.assetsParts = assetsParts;
+	public NewFundRequest assets(List<FundAssetPart> assets) {
+		this.assets = assets;
 		return this;
 	}
 
-	public NewFundRequest addAssetsPartsItem(FundAssetPart assetsPartsItem) {
-		if (this.assetsParts == null) {
-			this.assetsParts = new ArrayList<FundAssetPart>();
+	public NewFundRequest addAssetsItem(FundAssetPart assetsItem) {
+		if (this.assets == null) {
+			this.assets = new ArrayList<FundAssetPart>();
 		}
-		this.assetsParts.add(assetsPartsItem);
+		this.assets.add(assetsItem);
 		return this;
 	}
 
 	/**
-	 * Get assetsParts
+	 * Get assets
 	 *
-	 * @return assetsParts
+	 * @return assets
 	 **/
 	@ApiModelProperty(value = "")
-	public List<FundAssetPart> getAssetsParts() {
-		return assetsParts;
+	public List<FundAssetPart> getAssets() {
+		return assets;
 	}
 
-	public void setAssetsParts(List<FundAssetPart> assetsParts) {
-		this.assetsParts = assetsParts;
+	public void setAssets(List<FundAssetPart> assets) {
+		this.assets = assets;
 	}
 
 	public NewFundRequest title(String title) {
@@ -201,7 +201,7 @@ public class NewFundRequest
 		NewFundRequest newFundRequest = (NewFundRequest) o;
 		return Objects.equals(this.exitFee, newFundRequest.exitFee) &&
 				Objects.equals(this.managementFee, newFundRequest.managementFee) &&
-				Objects.equals(this.assetsParts, newFundRequest.assetsParts) &&
+				Objects.equals(this.assets, newFundRequest.assets) &&
 				Objects.equals(this.title, newFundRequest.title) &&
 				Objects.equals(this.description, newFundRequest.description) &&
 				Objects.equals(this.logo, newFundRequest.logo) &&
@@ -210,7 +210,7 @@ public class NewFundRequest
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(exitFee, managementFee, assetsParts, title, description, logo, entryFee);
+		return Objects.hash(exitFee, managementFee, assets, title, description, logo, entryFee);
 	}
 
 
@@ -221,7 +221,7 @@ public class NewFundRequest
 
 		sb.append("    exitFee: ").append(toIndentedString(exitFee)).append("\n");
 		sb.append("    managementFee: ").append(toIndentedString(managementFee)).append("\n");
-		sb.append("    assetsParts: ").append(toIndentedString(assetsParts)).append("\n");
+		sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");

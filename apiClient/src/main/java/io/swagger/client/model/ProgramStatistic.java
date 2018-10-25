@@ -56,6 +56,9 @@ public class ProgramStatistic
 	@SerializedName("investorsCount")
 	private Integer investorsCount = null;
 
+	@SerializedName("hasNotifications")
+	private Boolean hasNotifications = null;
+
 	@SerializedName("startDate")
 	private DateTime startDate = null;
 
@@ -233,6 +236,25 @@ public class ProgramStatistic
 
 	public void setInvestorsCount(Integer investorsCount) {
 		this.investorsCount = investorsCount;
+	}
+
+	public ProgramStatistic hasNotifications(Boolean hasNotifications) {
+		this.hasNotifications = hasNotifications;
+		return this;
+	}
+
+	/**
+	 * Get hasNotifications
+	 *
+	 * @return hasNotifications
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isHasNotifications() {
+		return hasNotifications;
+	}
+
+	public void setHasNotifications(Boolean hasNotifications) {
+		this.hasNotifications = hasNotifications;
 	}
 
 	public ProgramStatistic startDate(DateTime startDate) {
@@ -423,6 +445,7 @@ public class ProgramStatistic
 				Objects.equals(this.profitValue, programStatistic.profitValue) &&
 				Objects.equals(this.drawdownPercent, programStatistic.drawdownPercent) &&
 				Objects.equals(this.investorsCount, programStatistic.investorsCount) &&
+				Objects.equals(this.hasNotifications, programStatistic.hasNotifications) &&
 				Objects.equals(this.startDate, programStatistic.startDate) &&
 				Objects.equals(this.startBalance, programStatistic.startBalance) &&
 				Objects.equals(this.startCurrency, programStatistic.startCurrency) &&
@@ -436,7 +459,7 @@ public class ProgramStatistic
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(balanceBase, balanceGVT, balanceSecondary, currentValue, profitPercent, profitValue, drawdownPercent, investorsCount, startDate, startBalance, startCurrency, investedAmount, investedCurrency, tradesCount, tradesSuccessCount, profitFactorPercent, sharpeRatioPercent);
+		return Objects.hash(balanceBase, balanceGVT, balanceSecondary, currentValue, profitPercent, profitValue, drawdownPercent, investorsCount, hasNotifications, startDate, startBalance, startCurrency, investedAmount, investedCurrency, tradesCount, tradesSuccessCount, profitFactorPercent, sharpeRatioPercent);
 	}
 
 	@Override
@@ -452,6 +475,7 @@ public class ProgramStatistic
 		sb.append("    profitValue: ").append(toIndentedString(profitValue)).append("\n");
 		sb.append("    drawdownPercent: ").append(toIndentedString(drawdownPercent)).append("\n");
 		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
+		sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
 		sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
 		sb.append("    startBalance: ").append(toIndentedString(startBalance)).append("\n");
 		sb.append("    startCurrency: ").append(toIndentedString(startCurrency)).append("\n");

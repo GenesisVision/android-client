@@ -212,24 +212,17 @@ public class ProfitChartView extends RelativeLayout
 
 		List<Entry> lineEntries = new ArrayList<>();
 
-		int index = 0;
 		for (ChartSimple chart : equityChart) {
 			lineEntries.add(new Entry(chart.getDate().getMillis() / 1000 / 60, chart.getValue().floatValue()));
-//			lineEntries.add(new Entry(index, chart.getValue().floatValue()));
-//			lineEntries.add(new Entry(index, Math.abs(chart.getValue().floatValue())));
 			if (min > chart.getValue().floatValue())
 				min = chart.getValue().floatValue();
 			if (max < chart.getValue().floatValue())
 				max = chart.getValue().floatValue();
-			index++;
 		}
 
 		List<BarEntry> barEntries = new ArrayList<>();
-		index = 0;
 		for (ChartSimple bar : pnLChart) {
 			barEntries.add(new BarEntry(bar.getDate().getMillis() / 1000 / 60, bar.getValue().floatValue()));
-//			barEntries.add(new BarEntry(index, bar.getValue().floatValue()));
-			index++;
 		}
 
 		minValue.setText(StringFormatUtil.formatAmount(min, 2, 4));
@@ -247,6 +240,10 @@ public class ProfitChartView extends RelativeLayout
 		combinedData.setData(getBarData(barEntries));
 		chart.setData(combinedData);
 		chart.invalidate();
+	}
+
+	public void setFundChartData(List<ChartSimple> equityChart, DateRange dateRange) {
+		setChartData(equityChart, new ArrayList<>(), new ArrayList<>(), dateRange);
 	}
 
 	private void updateXAxis(DateRange dateRange) {

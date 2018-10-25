@@ -5,6 +5,7 @@ import com.arellomobile.mvp.MvpView;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.model.AppUpdateModel;
+import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 
@@ -36,6 +37,8 @@ public interface MainView extends MvpView
 	void showLoginActivity();
 
 	void showInvestmentProgramDetails(ProgramDetailsModel programDetailsModel);
+
+	void showFundDetails(FundDetailsModel fundDetailsModel);
 
 	void showWithdrawProgram(ProgramRequest request);
 

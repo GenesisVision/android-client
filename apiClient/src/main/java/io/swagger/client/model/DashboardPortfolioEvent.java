@@ -337,15 +337,15 @@ public class DashboardPortfolioEvent
 	@JsonAdapter(TypeEnum.Adapter.class)
 	public enum TypeEnum
 	{
-		ALL("All"),
-
 		INVEST("Invest"),
 
-		WITHDRAW("Withdraw"),
+		LOSS("Loss"),
 
 		PROFIT("Profit"),
 
-		LOSS("Loss"),
+		ALL("All"),
+
+		WITHDRAW("Withdraw"),
 
 		REINVEST("Reinvest"),
 

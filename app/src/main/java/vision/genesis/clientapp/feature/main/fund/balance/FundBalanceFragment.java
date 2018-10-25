@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.balance;
+package vision.genesis.clientapp.feature.main.fund.balance;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,11 +19,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.ProgramBalanceChartElement;
+import io.swagger.client.model.BalanceChartElement;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
+import vision.genesis.clientapp.feature.main.fund.FundDetailsPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
 import vision.genesis.clientapp.ui.chart.BalanceChartView;
@@ -32,17 +32,17 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 19/10/2018.
+ * Created by Vitaly on 24/10/2018.
  */
 
-public class ProgramBalanceFragment extends BaseFragment implements ProgramBalanceView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
+public class FundBalanceFragment extends BaseFragment implements FundBalanceView, FundDetailsPagerAdapter.OnPageVisibilityChanged
 {
-	private static String EXTRA_PROGRAM_ID = "extra_program_id";
+	private static String EXTRA_FUND_ID = "extra_fund_id";
 
-	public static ProgramBalanceFragment with(UUID programId) {
-		ProgramBalanceFragment programProfitFragment = new ProgramBalanceFragment();
+	public static FundBalanceFragment with(UUID fundId) {
+		FundBalanceFragment programProfitFragment = new FundBalanceFragment();
 		Bundle arguments = new Bundle(1);
-		arguments.putSerializable(EXTRA_PROGRAM_ID, programId);
+		arguments.putSerializable(EXTRA_FUND_ID, fundId);
 		programProfitFragment.setArguments(arguments);
 		return programProfitFragment;
 	}
@@ -81,9 +81,9 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 	public int dateRangeMarginBottom;
 
 	@InjectPresenter
-	public ProgramBalancePresenter programBalancePresenter;
+	public FundBalancePresenter fundBalancePresenter;
 
-	private UUID programId;
+	private UUID fundId;
 
 	private Unbinder unbinder;
 
@@ -95,7 +95,7 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 			DateRangeBottomSheetFragment bottomSheetDialog = new DateRangeBottomSheetFragment();
 			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
 			bottomSheetDialog.setDateRange(dateRange);
-			bottomSheetDialog.setListener(programBalancePresenter);
+			bottomSheetDialog.setListener(fundBalancePresenter);
 		}
 	}
 
@@ -111,12 +111,12 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 
 		unbinder = ButterKnife.bind(this, view);
 
-		programId = (UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID);
-		programBalancePresenter.setProgramId(programId);
+		fundId = (UUID) getArguments().getSerializable(EXTRA_FUND_ID);
+		fundBalancePresenter.setFundId(fundId);
 
 		setFonts();
 
-		balanceChart.setTouchListener(programBalancePresenter);
+		balanceChart.setTouchListener(fundBalancePresenter);
 	}
 
 	@Override
@@ -138,8 +138,8 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 	}
 
 	@Override
-	public void setChartData(List<ProgramBalanceChartElement> balanceChart) {
-		this.balanceChart.setProgramChartData(balanceChart, dateRange);
+	public void setChartData(List<BalanceChartElement> balanceChart) {
+		this.balanceChart.setFundChartData(balanceChart, dateRange);
 	}
 
 	@Override
@@ -176,8 +176,8 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 
 	@Override
 	public void pagerShow() {
-		if (programBalancePresenter != null)
-			programBalancePresenter.onShow();
+		if (fundBalancePresenter != null)
+			fundBalancePresenter.onShow();
 	}
 
 	@Override

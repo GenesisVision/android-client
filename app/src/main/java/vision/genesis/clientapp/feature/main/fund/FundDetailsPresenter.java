@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program;
+package vision.genesis.clientapp.feature.main.fund;
 
 import android.content.Context;
 
@@ -12,27 +12,27 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.FundDetailsFull;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
-import vision.genesis.clientapp.managers.ProgramsManager;
+import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.User;
+import vision.genesis.clientapp.model.events.FundIsFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
-import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
- * GenesisVision
- * Created by Vitaly on 1/26/18.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 24/10/2018.
  */
 
 @InjectViewState
-public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
+public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 {
 	@Inject
 	public Context context;
@@ -41,17 +41,17 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	public AuthManager authManager;
 
 	@Inject
-	public ProgramsManager programsManager;
+	public FundsManager fundsManager;
 
 	private Subscription userSubscription;
 
-	private Subscription programDetailsSubscription;
+	private Subscription fundDetailsSubscription;
 
-	private Subscription setProgramFavoriteSubscription;
+	private Subscription setFundFavoriteSubscription;
 
-	private UUID programId;
+	private UUID fundId;
 
-	private ProgramDetailsFull programDetails;
+	private FundDetailsFull fundDetails;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -69,65 +69,65 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 		if (userSubscription != null)
 			userSubscription.unsubscribe();
 
-		if (programDetailsSubscription != null)
-			programDetailsSubscription.unsubscribe();
+		if (fundDetailsSubscription != null)
+			fundDetailsSubscription.unsubscribe();
 
-		if (setProgramFavoriteSubscription != null)
-			setProgramFavoriteSubscription.unsubscribe();
+		if (setFundFavoriteSubscription != null)
+			setFundFavoriteSubscription.unsubscribe();
 
 		EventBus.getDefault().unregister(this);
 		super.onDestroy();
 	}
 
-	void setProgramId(UUID programId) {
-		this.programId = programId;
+	void setFundId(UUID fundId) {
+		this.fundId = fundId;
 	}
 
 	void onFavoriteButtonClicked(boolean isFavorite) {
-		setProgramFavorite(isFavorite);
+		setFundFavorite(isFavorite);
 	}
 
 	void onResume() {
-		getProgramDetails();
+		getFundDetails();
 	}
 
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
-		getProgramDetails();
+		getFundDetails();
 	}
 
 	void onTryAgainClicked() {
 		getViewState().showNoInternetProgress(true);
-		getProgramDetails();
+		getFundDetails();
 	}
 
-	private void getProgramDetails() {
-		if (programId != null && programsManager != null)
-			programDetailsSubscription = programsManager.getProgramDetails(programId, CurrencyEnum.GVT)
+	private void getFundDetails() {
+		if (fundId != null && fundsManager != null)
+			fundDetailsSubscription = fundsManager.getFundDetails(fundId, CurrencyEnum.GVT)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleInvestmentProgramDetailsSuccess,
-							this::handleInvestmentProgramDetailsError);
+					.subscribe(this::handleFundDetailsSuccess,
+							this::handleFundDetailsError);
 	}
 
-	private void handleInvestmentProgramDetailsSuccess(ProgramDetailsFull programDetails) {
-		programDetailsSubscription.unsubscribe();
+	private void handleFundDetailsSuccess(FundDetailsFull fundDetails) {
+		fundDetailsSubscription.unsubscribe();
 		getViewState().showNoInternet(false);
 		getViewState().showNoInternetProgress(false);
 		getViewState().showProgress(false);
 		getViewState().setRefreshing(false);
 
-		this.programDetails = programDetails;
-		getViewState().setProgram(programDetails);
+		this.fundDetails = fundDetails;
+		getViewState().setFund(fundDetails);
 	}
 
-	private void handleInvestmentProgramDetailsError(Throwable throwable) {
-		programDetailsSubscription.unsubscribe();
+	private void handleFundDetailsError(Throwable throwable) {
+		fundDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 		getViewState().setRefreshing(false);
 
 		if (ApiErrorResolver.isNetworkError(throwable)) {
-			if (programDetails == null) {
+			if (fundDetails == null) {
 				getViewState().showNoInternet(true);
 				getViewState().showNoInternetProgress(false);
 			}
@@ -137,25 +137,25 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 		}
 	}
 
-	private void setProgramFavorite(boolean isFavorite) {
-		setProgramFavoriteSubscription = programsManager.setProgramFavorite(programId, isFavorite)
+	private void setFundFavorite(boolean isFavorite) {
+		setFundFavoriteSubscription = fundsManager.setFundFavorite(fundId, isFavorite)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
-				.subscribe(response -> handleSetProgramFavoriteSuccess(response, programId, isFavorite),
-						this::handleSetProgramFavoriteError);
+				.subscribe(response -> handleSetFundFavoriteSuccess(response, fundId, isFavorite),
+						this::handleSetFundFavoriteError);
 	}
 
-	private void handleSetProgramFavoriteSuccess(Void response, UUID programId, boolean isFavorite) {
-		setProgramFavoriteSubscription.unsubscribe();
+	private void handleSetFundFavoriteSuccess(Void response, UUID fundId, boolean isFavorite) {
+		setFundFavoriteSubscription.unsubscribe();
 
-		EventBus.getDefault().post(new ProgramIsFavoriteChangedEvent(programId, isFavorite));
+		EventBus.getDefault().post(new FundIsFavoriteChangedEvent(fundId, isFavorite));
 	}
 
-	private void handleSetProgramFavoriteError(Throwable throwable) {
-		setProgramFavoriteSubscription.unsubscribe();
+	private void handleSetFundFavoriteError(Throwable throwable) {
+		setFundFavoriteSubscription.unsubscribe();
 
-		if (programDetails == null)
-			getViewState().setProgram(programDetails);
+		if (fundDetails == null)
+			getViewState().setFund(fundDetails);
 		getViewState().showToast(context.getString(R.string.error_occurred_performing_operation));
 	}
 

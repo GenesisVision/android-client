@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.info;
+package vision.genesis.clientapp.feature.main.fund.info;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -7,13 +7,13 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.FundDetailsFull;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
-import vision.genesis.clientapp.managers.ProgramsManager;
+import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.User;
@@ -21,27 +21,27 @@ import vision.genesis.clientapp.utils.Constants;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 17/04/2018.
+ * Created by Vitaly on 24/10/2018.
  */
 
 @InjectViewState
-public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
+public class FundInfoPresenter extends MvpPresenter<FundInfoView>
 {
 	@Inject
 	public AuthManager authManager;
 
 	@Inject
-	public ProgramsManager programsManager;
+	public FundsManager fundsManager;
 
 	private Subscription userSubscription;
 
-	private Subscription programDetailsSubscription;
+	private Subscription fundDetailsSubscription;
 
-	private UUID programId;
+	private UUID fundId;
 
 	private Boolean userLoggedOn;
 
-	private ProgramDetailsFull programDetails;
+	private FundDetailsFull fundDetails;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -51,7 +51,7 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 		subscribeToUser();
 		getViewState().showProgress(true);
-		getProgramDetails();
+		getFundDetails();
 	}
 
 	@Override
@@ -59,44 +59,44 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		if (userSubscription != null)
 			userSubscription.unsubscribe();
 
-		if (programDetailsSubscription != null)
-			programDetailsSubscription.unsubscribe();
+		if (fundDetailsSubscription != null)
+			fundDetailsSubscription.unsubscribe();
 
 		super.onDestroy();
 	}
 
-	void setProgramId(UUID programId) {
-		this.programId = programId;
-		getProgramDetails();
+	void setFundId(UUID fundId) {
+		this.fundId = fundId;
+		getFundDetails();
 	}
 
 	void onShow() {
-		getProgramDetails();
+		getFundDetails();
 	}
 
-	private void getProgramDetails() {
-		if (programId != null && programsManager != null) {
-			if (programDetailsSubscription != null)
-				programDetailsSubscription.unsubscribe();
-			programDetailsSubscription = programsManager.getProgramDetails(programId, CurrencyEnum.GVT)
+	private void getFundDetails() {
+		if (fundId != null && fundsManager != null) {
+			if (fundDetailsSubscription != null)
+				fundDetailsSubscription.unsubscribe();
+			fundDetailsSubscription = fundsManager.getFundDetails(fundId, CurrencyEnum.GVT)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleInvestmentProgramDetailsSuccess,
-							this::handleInvestmentProgramDetailsError);
+					.subscribe(this::handleFundDetailsSuccess,
+							this::handleFundDetailsError);
 		}
 	}
 
-	private void handleInvestmentProgramDetailsSuccess(ProgramDetailsFull programDetails) {
-		programDetailsSubscription.unsubscribe();
+	private void handleFundDetailsSuccess(FundDetailsFull fundDetails) {
+		fundDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
-		this.programDetails = programDetails;
+		this.fundDetails = fundDetails;
 
-		getViewState().setProgramDetails(programDetails);
+		getViewState().setFundDetails(fundDetails);
 	}
 
-	private void handleInvestmentProgramDetailsError(Throwable throwable) {
-		programDetailsSubscription.unsubscribe();
+	private void handleFundDetailsError(Throwable throwable) {
+		fundDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 	}
 
@@ -134,19 +134,18 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 			return;
 		}
 
-		if (programDetails == null || programDetails.getAvailableInvestment() == 0)
+		if (fundDetails == null)
 			return;
 
 		ProgramRequest request = new ProgramRequest();
 
-		request.setProgramId(programDetails.getId());
-		request.setProgramLogo(programDetails.getLogo());
-		request.setProgramColor(programDetails.getColor());
-		request.setLevel(programDetails.getLevel());
-		request.setProgramName(programDetails.getTitle());
-		request.setManagerName(programDetails.getManager().getUsername());
+		request.setProgramId(fundDetails.getId());
+		request.setProgramLogo(fundDetails.getLogo());
+		request.setProgramColor(fundDetails.getColor());
+		request.setProgramName(fundDetails.getTitle());
+		request.setManagerName(fundDetails.getManager().getUsername());
 
-		getViewState().showInvestProgramActivity(request);
+		getViewState().showInvestFundActivity(request);
 	}
 
 	public void onWithdrawClicked() {
@@ -155,18 +154,17 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 			return;
 		}
 
-		if (programDetails == null)
+		if (fundDetails == null)
 			return;
 
 		ProgramRequest request = new ProgramRequest();
 
-		request.setProgramId(programDetails.getId());
-		request.setProgramLogo(programDetails.getLogo());
-		request.setProgramColor(programDetails.getColor());
-		request.setLevel(programDetails.getLevel());
-		request.setProgramName(programDetails.getTitle());
-		request.setManagerName(programDetails.getManager().getUsername());
+		request.setProgramId(fundDetails.getId());
+		request.setProgramLogo(fundDetails.getLogo());
+		request.setProgramColor(fundDetails.getColor());
+		request.setProgramName(fundDetails.getTitle());
+		request.setManagerName(fundDetails.getManager().getUsername());
 
-		getViewState().showWithdrawProgramActivity(request);
+		getViewState().showWithdrawFundActivity(request);
 	}
 }

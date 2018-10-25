@@ -34,6 +34,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.swagger.client.model.BalanceChartElement;
 import io.swagger.client.model.ProgramBalanceChartElement;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -192,15 +193,11 @@ public class BalanceChartView extends RelativeLayout
 		});
 	}
 
-	public void setChartData(List<ProgramBalanceChartElement> balanceChart, DateRange dateRange) {
-		showProgress(false);
-
+	public void setProgramChartData(List<ProgramBalanceChartElement> balanceChart, DateRange dateRange) {
 		if (balanceChart.size() <= 1) {
 			chart.clear();
 			return;
 		}
-
-		updateXAxis(dateRange);
 
 		float min = 0;
 		float max = 0;
@@ -209,7 +206,6 @@ public class BalanceChartView extends RelativeLayout
 		List<Entry> investorsEntries = new ArrayList<>();
 		List<Entry> profitEntries = new ArrayList<>();
 
-		int index = 0;
 		for (ProgramBalanceChartElement element : balanceChart) {
 			float managerValue = element.getManagerFunds().floatValue();
 			float investorsValue = managerValue + element.getInvestorsFunds().floatValue();
@@ -223,8 +219,43 @@ public class BalanceChartView extends RelativeLayout
 				min = profitValue;
 			if (max < profitValue)
 				max = profitValue;
-			index++;
 		}
+
+		setChartData(managerEntries, investorsEntries, profitEntries, min, max, dateRange);
+	}
+
+	public void setFundChartData(List<BalanceChartElement> balanceChart, DateRange dateRange) {
+		if (balanceChart.size() <= 1) {
+			chart.clear();
+			return;
+		}
+
+		float min = 0;
+		float max = 0;
+
+		List<Entry> managerEntries = new ArrayList<>();
+		List<Entry> investorsEntries = new ArrayList<>();
+		List<Entry> profitEntries = new ArrayList<>();
+
+		for (BalanceChartElement element : balanceChart) {
+			float managerValue = element.getManagerFunds().floatValue();
+			float investorsValue = managerValue + element.getInvestorsFunds().floatValue();
+
+			managerEntries.add(new Entry(element.getDate().getMillis() / 1000 / 60, managerValue));
+			investorsEntries.add(new Entry(element.getDate().getMillis() / 1000 / 60, investorsValue));
+			profitEntries.add(new Entry(element.getDate().getMillis() / 1000 / 60, investorsValue));
+
+			if (min > investorsValue)
+				min = investorsValue;
+			if (max < investorsValue)
+				max = investorsValue;
+		}
+
+		setChartData(managerEntries, investorsEntries, profitEntries, min, max, dateRange);
+	}
+
+	private void setChartData(List<Entry> managerEntries, List<Entry> investorsEntries, List<Entry> profitEntries, float min, float max, DateRange dateRange) {
+		updateXAxis(dateRange);
 
 		minValue.setText(StringFormatUtil.formatAmount(min, 2, 4));
 		maxValue.setText(StringFormatUtil.formatAmount(max, 2, 4));
@@ -350,10 +381,5 @@ public class BalanceChartView extends RelativeLayout
 	public void hideHighlight() {
 		highlightCircle.setVisibility(View.INVISIBLE);
 		chart.highlightValue(null, false);
-	}
-
-	private void showProgress(boolean show) {
-		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-		chart.setVisibility(!show ? View.VISIBLE : View.GONE);
 	}
 }

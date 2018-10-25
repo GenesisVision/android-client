@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.balance;
+package vision.genesis.clientapp.feature.main.fund.profit;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindDimen;
@@ -19,30 +20,31 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.ProgramBalanceChartElement;
+import io.swagger.client.model.ChartSimple;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
+import vision.genesis.clientapp.feature.main.fund.FundDetailsPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
-import vision.genesis.clientapp.ui.chart.BalanceChartView;
+import vision.genesis.clientapp.ui.chart.ProfitChartView;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 19/10/2018.
+ * Created by Vitaly on 25/10/2018.
  */
 
-public class ProgramBalanceFragment extends BaseFragment implements ProgramBalanceView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
+public class FundProfitFragment extends BaseFragment implements FundProfitView, FundDetailsPagerAdapter.OnPageVisibilityChanged
 {
-	private static String EXTRA_PROGRAM_ID = "extra_program_id";
+	private static String EXTRA_FUND_ID = "extra_fund_id";
 
-	public static ProgramBalanceFragment with(UUID programId) {
-		ProgramBalanceFragment programProfitFragment = new ProgramBalanceFragment();
+	public static FundProfitFragment with(UUID fundID) {
+		FundProfitFragment programProfitFragment = new FundProfitFragment();
 		Bundle arguments = new Bundle(1);
-		arguments.putSerializable(EXTRA_PROGRAM_ID, programId);
+		arguments.putSerializable(EXTRA_FUND_ID, fundID);
 		programProfitFragment.setArguments(arguments);
 		return programProfitFragment;
 	}
@@ -59,8 +61,8 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 	@BindView(R.id.date_range)
 	public DateRangeView dateRangeView;
 
-	@BindView(R.id.balance_chart)
-	public BalanceChartView balanceChart;
+	@BindView(R.id.profit_chart)
+	public ProfitChartView profitChart;
 
 	@BindView(R.id.amount_value)
 	public TextView amountValue;
@@ -77,13 +79,31 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 	@BindView(R.id.change_value_secondary)
 	public TextView changeValueSecondary;
 
+	@BindView(R.id.label_statistics)
+	public TextView statisticsLabel;
+
+	@BindView(R.id.rebalances)
+	public TextView rebalances;
+
+	@BindView(R.id.sharpe_ratio)
+	public TextView sharpeRatio;
+
+	@BindView(R.id.sortino_ratio)
+	public TextView sortinoRatio;
+
+	@BindView(R.id.calmar_ratio)
+	public TextView calmarRatio;
+
+	@BindView(R.id.max_drawdown)
+	public TextView maxDrawdown;
+
 	@BindDimen(R.dimen.date_range_margin_bottom)
 	public int dateRangeMarginBottom;
 
 	@InjectPresenter
-	public ProgramBalancePresenter programBalancePresenter;
+	public FundProfitPresenter fundProfitPresenter;
 
-	private UUID programId;
+	private UUID fundId;
 
 	private Unbinder unbinder;
 
@@ -95,14 +115,14 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 			DateRangeBottomSheetFragment bottomSheetDialog = new DateRangeBottomSheetFragment();
 			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
 			bottomSheetDialog.setDateRange(dateRange);
-			bottomSheetDialog.setListener(programBalancePresenter);
+			bottomSheetDialog.setListener(fundProfitPresenter);
 		}
 	}
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_program_balance, container, false);
+		return inflater.inflate(R.layout.fragment_fund_profit, container, false);
 	}
 
 	@Override
@@ -111,12 +131,12 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 
 		unbinder = ButterKnife.bind(this, view);
 
-		programId = (UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID);
-		programBalancePresenter.setProgramId(programId);
+		fundId = (UUID) getArguments().getSerializable(EXTRA_FUND_ID);
+		fundProfitPresenter.setFundId(fundId);
 
 		setFonts();
 
-		balanceChart.setTouchListener(programBalancePresenter);
+		profitChart.setTouchListener(fundProfitPresenter);
 	}
 
 	@Override
@@ -135,11 +155,18 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 		changePercent.setTypeface(TypefaceUtil.semibold());
 		amountValueSecondary.setTypeface(TypefaceUtil.medium());
 		changeValueSecondary.setTypeface(TypefaceUtil.medium());
+
+		statisticsLabel.setTypeface(TypefaceUtil.semibold());
+		rebalances.setTypeface(TypefaceUtil.semibold());
+		sharpeRatio.setTypeface(TypefaceUtil.semibold());
+		sortinoRatio.setTypeface(TypefaceUtil.semibold());
+		calmarRatio.setTypeface(TypefaceUtil.semibold());
+		maxDrawdown.setTypeface(TypefaceUtil.semibold());
 	}
 
 	@Override
-	public void setChartData(List<ProgramBalanceChartElement> balanceChart) {
-		this.balanceChart.setProgramChartData(balanceChart, dateRange);
+	public void setChartData(List<ChartSimple> equityChart) {
+		profitChart.setFundChartData(equityChart, dateRange);
 	}
 
 	@Override
@@ -175,9 +202,18 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 	}
 
 	@Override
+	public void setStatisticsData(Integer rebalances, Double sharpeRatio, Double sortinoRatio, Double calmarRatio, Double maxDrawdown) {
+		this.rebalances.setText(String.valueOf(rebalances));
+		this.sharpeRatio.setText(StringFormatUtil.formatAmount(sharpeRatio, 0, 4));
+		this.sortinoRatio.setText(StringFormatUtil.formatAmount(sortinoRatio, 0, 4));
+		this.calmarRatio.setText(StringFormatUtil.formatAmount(calmarRatio, 0, 4));
+		this.maxDrawdown.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(maxDrawdown, 0, 4)));
+	}
+
+	@Override
 	public void pagerShow() {
-		if (programBalancePresenter != null)
-			programBalancePresenter.onShow();
+		if (fundProfitPresenter != null)
+			fundProfitPresenter.onShow();
 	}
 
 	@Override

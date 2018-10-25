@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **profitValue** | **Double** |  |  [optional]
 **drawdownPercent** | **Double** |  |  [optional]
 **investorsCount** | **Integer** |  |  [optional]
+**hasNotifications** | **Boolean** |  |  [optional]
 **startDate** | [**DateTime**](DateTime.md) |  |  [optional]
 **startBalance** | **Double** |  |  [optional]
 **startCurrency** | [**StartCurrencyEnum**](#StartCurrencyEnum) |  |  [optional]

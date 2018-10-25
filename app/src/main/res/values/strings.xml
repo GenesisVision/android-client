@@ -502,5 +502,7 @@
     <string name="i_confirm_i_am_not_us_resident_or_citizen">I confirm that I am not the U.S. resident or citizen</string>
     <string name="approximate_amount">Approximate amount</string>
     <string name="ddown">D.down</string>
+    <string name="exit_fee">Exit fee</string>
+    <string name="rebalances">Number of rebalances</string>
 
 </resources>

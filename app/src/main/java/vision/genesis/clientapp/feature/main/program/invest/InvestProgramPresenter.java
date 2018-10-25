@@ -190,6 +190,8 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));
+
+		getViewState().finishActivity();
 	}
 
 	public void setProgramRequest(ProgramRequest programRequest) {

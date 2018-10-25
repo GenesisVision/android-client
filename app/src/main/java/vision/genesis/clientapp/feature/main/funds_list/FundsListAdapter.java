@@ -22,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.FundAssetPercent;
 import io.swagger.client.model.FundDetails;
+import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.FundDetailsModel;
@@ -265,11 +266,15 @@ public class FundsListAdapter extends RecyclerView.Adapter<FundsListAdapter.Fund
 			groupAsset3.setVisibility(View.INVISIBLE);
 			groupAssetsLeft.setVisibility(View.INVISIBLE);
 
-			if (fund.getTopFundAssets() != null) {
+			try {
 				updateAsset(groupAsset1, iconAsset1, nameAsset1, fund.getTopFundAssets().get(0));
 				updateAsset(groupAsset2, iconAsset2, nameAsset2, fund.getTopFundAssets().get(1));
 				updateAsset(groupAsset3, iconAsset3, nameAsset3, fund.getTopFundAssets().get(2));
 				updateAssetsLeft();
+			} catch (IndexOutOfBoundsException e) {
+				Timber.d(e.getMessage());
+			} catch (NullPointerException e) {
+				Timber.e(e.getMessage());
 			}
 		}
 

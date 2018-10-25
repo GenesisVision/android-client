@@ -40,11 +40,11 @@ public class ProgramEventsFragment extends BaseFragment implements ProgramEvents
 	private static final String EXTRA_PROGRAM_ID = "extra_program_id";
 
 	public static ProgramEventsFragment with(UUID programId) {
-		ProgramEventsFragment programHistoryFragment = new ProgramEventsFragment();
+		ProgramEventsFragment programEventsFragment = new ProgramEventsFragment();
 		Bundle arguments = new Bundle(1);
 		arguments.putSerializable(EXTRA_PROGRAM_ID, programId);
-		programHistoryFragment.setArguments(arguments);
-		return programHistoryFragment;
+		programEventsFragment.setArguments(arguments);
+		return programEventsFragment;
 	}
 
 	@BindView(R.id.root)

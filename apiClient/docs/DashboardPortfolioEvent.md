@@ -36,11 +36,11 @@ EUR | &quot;EUR&quot;
 ## Enum: TypeEnum
 Name | Value
 ---- | -----
-ALL | &quot;All&quot;
 INVEST | &quot;Invest&quot;
-WITHDRAW | &quot;Withdraw&quot;
-PROFIT | &quot;Profit&quot;
 LOSS | &quot;Loss&quot;
+PROFIT | &quot;Profit&quot;
+ALL | &quot;All&quot;
+WITHDRAW | &quot;Withdraw&quot;
 REINVEST | &quot;Reinvest&quot;
 CANCELLED | &quot;Cancelled&quot;
 ENDED | &quot;Ended&quot;
