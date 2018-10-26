@@ -137,6 +137,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 							program.getLevel(),
 							program.getTitle(),
 							program.getManager().getUsername(),
+							program.getCurrency().getValue(),
 							program.getPersonalDetails().isIsFavorite(),
 							program.getPersonalDetails().isHasNotifications());
 					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programDetailsModel));
@@ -184,8 +185,10 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			this.share.setText(String.format(Locale.getDefault(), "%s%%",
 					StringFormatUtil.formatAmount(program.getDashboardAssetsDetails().getShare(), 0, 2)));
 
-			this.currentValue.setText(String.format(Locale.getDefault(), "%s GVT",
-					StringFormatUtil.formatAmount(program.getStatistic().getCurrentValue(), 0, 4)));
+			this.currentValue.setText(String.format(Locale.getDefault(), "%s %s",
+					StringFormatUtil.formatAmount(program.getPersonalDetails().getValue(), 0,
+							StringFormatUtil.getCurrencyMaxFraction(program.getCurrency().getValue())),
+					program.getCurrency().getValue()));
 
 			this.timeLeft.setData(program.getPeriodDuration(), program.getPeriodStarts(), program.getPeriodEnds(), false, true);
 

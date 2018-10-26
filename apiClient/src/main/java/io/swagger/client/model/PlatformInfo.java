@@ -39,6 +39,12 @@ public class PlatformInfo
 	@SerializedName("fundsFacets")
 	private List<Facet> fundsFacets = null;
 
+	@SerializedName("programsInfo")
+	private ProgramsInfo programsInfo = null;
+
+	@SerializedName("currencies")
+	private List<String> currencies = null;
+
 	public PlatformInfo iOSVersion(IOsAppVersion iOSVersion) {
 		this.iOSVersion = iOSVersion;
 		return this;
@@ -131,6 +137,52 @@ public class PlatformInfo
 		this.fundsFacets = fundsFacets;
 	}
 
+	public PlatformInfo programsInfo(ProgramsInfo programsInfo) {
+		this.programsInfo = programsInfo;
+		return this;
+	}
+
+	/**
+	 * Get programsInfo
+	 *
+	 * @return programsInfo
+	 **/
+	@ApiModelProperty(value = "")
+	public ProgramsInfo getProgramsInfo() {
+		return programsInfo;
+	}
+
+	public void setProgramsInfo(ProgramsInfo programsInfo) {
+		this.programsInfo = programsInfo;
+	}
+
+	public PlatformInfo currencies(List<String> currencies) {
+		this.currencies = currencies;
+		return this;
+	}
+
+	public PlatformInfo addCurrenciesItem(String currenciesItem) {
+		if (this.currencies == null) {
+			this.currencies = new ArrayList<String>();
+		}
+		this.currencies.add(currenciesItem);
+		return this;
+	}
+
+	/**
+	 * Get currencies
+	 *
+	 * @return currencies
+	 **/
+	@ApiModelProperty(value = "")
+	public List<String> getCurrencies() {
+		return currencies;
+	}
+
+	public void setCurrencies(List<String> currencies) {
+		this.currencies = currencies;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -144,12 +196,14 @@ public class PlatformInfo
 		return Objects.equals(this.iOSVersion, platformInfo.iOSVersion) &&
 				Objects.equals(this.androidVersion, platformInfo.androidVersion) &&
 				Objects.equals(this.programsFacets, platformInfo.programsFacets) &&
-				Objects.equals(this.fundsFacets, platformInfo.fundsFacets);
+				Objects.equals(this.fundsFacets, platformInfo.fundsFacets) &&
+				Objects.equals(this.programsInfo, platformInfo.programsInfo) &&
+				Objects.equals(this.currencies, platformInfo.currencies);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(iOSVersion, androidVersion, programsFacets, fundsFacets);
+		return Objects.hash(iOSVersion, androidVersion, programsFacets, fundsFacets, programsInfo, currencies);
 	}
 
 
@@ -162,6 +216,8 @@ public class PlatformInfo
 		sb.append("    androidVersion: ").append(toIndentedString(androidVersion)).append("\n");
 		sb.append("    programsFacets: ").append(toIndentedString(programsFacets)).append("\n");
 		sb.append("    fundsFacets: ").append(toIndentedString(fundsFacets)).append("\n");
+		sb.append("    programsInfo: ").append(toIndentedString(programsInfo)).append("\n");
+		sb.append("    currencies: ").append(toIndentedString(currencies)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

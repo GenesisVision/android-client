@@ -19,7 +19,7 @@ CONFIRMEDBYGATE | &quot;ConfirmedByGate&quot;
 CONFIRMEDANDVALIDATED | &quot;ConfirmedAndValidated&quot;
 PENDINGADDINWALLET | &quot;PendingAddInWallet&quot;
 ERROR | &quot;Error&quot;
-CANCELED | &quot;Canceled&quot;
+CANCELLED | &quot;Cancelled&quot;
 
 
 

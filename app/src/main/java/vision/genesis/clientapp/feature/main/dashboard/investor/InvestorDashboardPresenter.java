@@ -232,7 +232,8 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 	@Subscribe
 	public void onEventMainThread(OnPortfolioAssetsChangedEvent event) {
-		getViewState().setPortfolioAssets(portfolioAssetsDataList.get(event.getIndex()));
+		if (event.getIndex() < portfolioAssetsDataList.size())
+			getViewState().setPortfolioAssets(portfolioAssetsDataList.get(event.getIndex()));
 	}
 
 	@Subscribe

@@ -69,6 +69,9 @@ public class WalletTransaction
 	@SerializedName("action")
 	private ActionEnum action = null;
 
+	@SerializedName("information")
+	private String information = null;
+
 	@SerializedName("destinationId")
 	private UUID destinationId = null;
 
@@ -315,6 +318,25 @@ public class WalletTransaction
 		this.action = action;
 	}
 
+	public WalletTransaction information(String information) {
+		this.information = information;
+		return this;
+	}
+
+	/**
+	 * Get information
+	 *
+	 * @return information
+	 **/
+	@ApiModelProperty(value = "")
+	public String getInformation() {
+		return information;
+	}
+
+	public void setInformation(String information) {
+		this.information = information;
+	}
+
 	public WalletTransaction destinationId(UUID destinationId) {
 		this.destinationId = destinationId;
 		return this;
@@ -450,6 +472,7 @@ public class WalletTransaction
 				Objects.equals(this.sourceBlockchainInfo, walletTransaction.sourceBlockchainInfo) &&
 				Objects.equals(this.sourceWithdrawalInfo, walletTransaction.sourceWithdrawalInfo) &&
 				Objects.equals(this.action, walletTransaction.action) &&
+				Objects.equals(this.information, walletTransaction.information) &&
 				Objects.equals(this.destinationId, walletTransaction.destinationId) &&
 				Objects.equals(this.destinationType, walletTransaction.destinationType) &&
 				Objects.equals(this.destinationCurrency, walletTransaction.destinationCurrency) &&
@@ -460,7 +483,7 @@ public class WalletTransaction
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, amount, amountConverted, date, number, sourceId, sourceType, sourceCurrency, sourceProgramInfo, sourceBlockchainInfo, sourceWithdrawalInfo, action, destinationId, destinationType, destinationCurrency, destinationProgramInfo, destinationBlockchainInfo, destinationWithdrawalInfo);
+		return Objects.hash(id, amount, amountConverted, date, number, sourceId, sourceType, sourceCurrency, sourceProgramInfo, sourceBlockchainInfo, sourceWithdrawalInfo, action, information, destinationId, destinationType, destinationCurrency, destinationProgramInfo, destinationBlockchainInfo, destinationWithdrawalInfo);
 	}
 
 	@Override
@@ -480,6 +503,7 @@ public class WalletTransaction
 		sb.append("    sourceBlockchainInfo: ").append(toIndentedString(sourceBlockchainInfo)).append("\n");
 		sb.append("    sourceWithdrawalInfo: ").append(toIndentedString(sourceWithdrawalInfo)).append("\n");
 		sb.append("    action: ").append(toIndentedString(action)).append("\n");
+		sb.append("    information: ").append(toIndentedString(information)).append("\n");
 		sb.append("    destinationId: ").append(toIndentedString(destinationId)).append("\n");
 		sb.append("    destinationType: ").append(toIndentedString(destinationType)).append("\n");
 		sb.append("    destinationCurrency: ").append(toIndentedString(destinationCurrency)).append("\n");

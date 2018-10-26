@@ -7,6 +7,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import java.util.List;
 import java.util.UUID;
 
+import io.swagger.client.model.FundNotificationSettingList;
 import io.swagger.client.model.ProgramNotificationSettingList;
 
 /**
@@ -22,7 +23,7 @@ interface NotificationsSettingsView extends MvpView
 
 	void setProgramsSettings(List<ProgramNotificationSettingList> settings);
 
-	void setFundsSettings(List<ProgramNotificationSettingList> settings);
+	void setFundsSettings(List<FundNotificationSettingList> settings);
 
 	void showProgramNotificationsSettings(UUID programId, String programName);
 

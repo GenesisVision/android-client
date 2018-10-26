@@ -20,6 +20,7 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.FundNotificationSettingList;
 import io.swagger.client.model.ProgramNotificationSettingList;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
@@ -150,7 +151,7 @@ public class NotificationsSettingsActivity extends BaseSwipeBackActivity impleme
 	}
 
 	@Override
-	public void setFundsSettings(List<ProgramNotificationSettingList> settings) {
+	public void setFundsSettings(List<FundNotificationSettingList> settings) {
 		fundsGroup.setVisibility(settings.isEmpty() ? View.GONE : View.VISIBLE);
 		fundsListAdapter.setSettings(settings);
 	}

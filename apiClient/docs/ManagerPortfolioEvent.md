@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **programType** | [**ProgramTypeEnum**](#ProgramTypeEnum) |  |  [optional]
 **logo** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
+**periodNumber** | **Integer** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>
@@ -39,6 +40,7 @@ EUR | &quot;EUR&quot;
 ## Enum: TypeEnum
 Name | Value
 ---- | -----
+ALL | &quot;All&quot;
 ASSETSTARTED | &quot;AssetStarted&quot;
 PROGRAMPERIODSTATS | &quot;ProgramPeriodStats&quot;
 PROGRAMPERIODENDS | &quot;ProgramPeriodEnds&quot;

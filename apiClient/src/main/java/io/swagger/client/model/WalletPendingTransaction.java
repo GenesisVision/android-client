@@ -28,22 +28,19 @@ import java.util.UUID;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * DashboardPortfolioEvent
+ * WalletPendingTransaction
  */
 
-public class DashboardPortfolioEvent
+public class WalletPendingTransaction
 {
-	@SerializedName("assetId")
-	private UUID assetId = null;
+	@SerializedName("id")
+	private UUID id = null;
 
-	@SerializedName("date")
-	private DateTime date = null;
+	@SerializedName("hash")
+	private String hash = null;
 
-	@SerializedName("title")
-	private String title = null;
-
-	@SerializedName("value")
-	private Double value = null;
+	@SerializedName("amount")
+	private Double amount = null;
 
 	@SerializedName("currency")
 	private CurrencyEnum currency = null;
@@ -51,89 +48,73 @@ public class DashboardPortfolioEvent
 	@SerializedName("type")
 	private TypeEnum type = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("dateCreated")
+	private DateTime dateCreated = null;
 
-	@SerializedName("description")
-	private String description = null;
+	@SerializedName("lastUpdated")
+	private DateTime lastUpdated = null;
 
-	public DashboardPortfolioEvent assetId(UUID assetId) {
-		this.assetId = assetId;
+	@SerializedName("address")
+	private String address = null;
+
+	public WalletPendingTransaction id(UUID id) {
+		this.id = id;
 		return this;
 	}
 
 	/**
-	 * Get assetId
+	 * Get id
 	 *
-	 * @return assetId
+	 * @return id
 	 **/
 	@ApiModelProperty(value = "")
-	public UUID getAssetId() {
-		return assetId;
+	public UUID getId() {
+		return id;
 	}
 
-	public void setAssetId(UUID assetId) {
-		this.assetId = assetId;
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
-	public DashboardPortfolioEvent date(DateTime date) {
-		this.date = date;
+	public WalletPendingTransaction hash(String hash) {
+		this.hash = hash;
 		return this;
 	}
 
 	/**
-	 * Get date
+	 * Get hash
 	 *
-	 * @return date
+	 * @return hash
 	 **/
 	@ApiModelProperty(value = "")
-	public DateTime getDate() {
-		return date;
+	public String getHash() {
+		return hash;
 	}
 
-	public void setDate(DateTime date) {
-		this.date = date;
+	public void setHash(String hash) {
+		this.hash = hash;
 	}
 
-	public DashboardPortfolioEvent title(String title) {
-		this.title = title;
+	public WalletPendingTransaction amount(Double amount) {
+		this.amount = amount;
 		return this;
 	}
 
 	/**
-	 * Get title
+	 * Get amount
 	 *
-	 * @return title
+	 * @return amount
 	 **/
 	@ApiModelProperty(value = "")
-	public String getTitle() {
-		return title;
+	public Double getAmount() {
+		return amount;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
 
-	public DashboardPortfolioEvent value(Double value) {
-		this.value = value;
-		return this;
-	}
-
-	/**
-	 * Get value
-	 *
-	 * @return value
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getValue() {
-		return value;
-	}
-
-	public void setValue(Double value) {
-		this.value = value;
-	}
-
-	public DashboardPortfolioEvent currency(CurrencyEnum currency) {
+	public WalletPendingTransaction currency(CurrencyEnum currency) {
 		this.currency = currency;
 		return this;
 	}
@@ -152,7 +133,7 @@ public class DashboardPortfolioEvent
 		this.currency = currency;
 	}
 
-	public DashboardPortfolioEvent type(TypeEnum type) {
+	public WalletPendingTransaction type(TypeEnum type) {
 		this.type = type;
 		return this;
 	}
@@ -171,42 +152,61 @@ public class DashboardPortfolioEvent
 		this.type = type;
 	}
 
-	public DashboardPortfolioEvent logo(String logo) {
-		this.logo = logo;
+	public WalletPendingTransaction dateCreated(DateTime dateCreated) {
+		this.dateCreated = dateCreated;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get dateCreated
 	 *
-	 * @return logo
+	 * @return dateCreated
 	 **/
 	@ApiModelProperty(value = "")
-	public String getLogo() {
-		return logo;
+	public DateTime getDateCreated() {
+		return dateCreated;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setDateCreated(DateTime dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 
-	public DashboardPortfolioEvent description(String description) {
-		this.description = description;
+	public WalletPendingTransaction lastUpdated(DateTime lastUpdated) {
+		this.lastUpdated = lastUpdated;
 		return this;
 	}
 
 	/**
-	 * Get description
+	 * Get lastUpdated
 	 *
-	 * @return description
+	 * @return lastUpdated
 	 **/
 	@ApiModelProperty(value = "")
-	public String getDescription() {
-		return description;
+	public DateTime getLastUpdated() {
+		return lastUpdated;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setLastUpdated(DateTime lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
+
+	public WalletPendingTransaction address(String address) {
+		this.address = address;
+		return this;
+	}
+
+	/**
+	 * Get address
+	 *
+	 * @return address
+	 **/
+	@ApiModelProperty(value = "")
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	@Override
@@ -217,35 +217,35 @@ public class DashboardPortfolioEvent
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		DashboardPortfolioEvent dashboardPortfolioEvent = (DashboardPortfolioEvent) o;
-		return Objects.equals(this.assetId, dashboardPortfolioEvent.assetId) &&
-				Objects.equals(this.date, dashboardPortfolioEvent.date) &&
-				Objects.equals(this.title, dashboardPortfolioEvent.title) &&
-				Objects.equals(this.value, dashboardPortfolioEvent.value) &&
-				Objects.equals(this.currency, dashboardPortfolioEvent.currency) &&
-				Objects.equals(this.type, dashboardPortfolioEvent.type) &&
-				Objects.equals(this.logo, dashboardPortfolioEvent.logo) &&
-				Objects.equals(this.description, dashboardPortfolioEvent.description);
+		WalletPendingTransaction walletPendingTransaction = (WalletPendingTransaction) o;
+		return Objects.equals(this.id, walletPendingTransaction.id) &&
+				Objects.equals(this.hash, walletPendingTransaction.hash) &&
+				Objects.equals(this.amount, walletPendingTransaction.amount) &&
+				Objects.equals(this.currency, walletPendingTransaction.currency) &&
+				Objects.equals(this.type, walletPendingTransaction.type) &&
+				Objects.equals(this.dateCreated, walletPendingTransaction.dateCreated) &&
+				Objects.equals(this.lastUpdated, walletPendingTransaction.lastUpdated) &&
+				Objects.equals(this.address, walletPendingTransaction.address);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assetId, date, title, value, currency, type, logo, description);
+		return Objects.hash(id, hash, amount, currency, type, dateCreated, lastUpdated, address);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class DashboardPortfolioEvent {\n");
+		sb.append("class WalletPendingTransaction {\n");
 
-		sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
-		sb.append("    date: ").append(toIndentedString(date)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    value: ").append(toIndentedString(value)).append("\n");
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    hash: ").append(toIndentedString(hash)).append("\n");
+		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
-		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    dateCreated: ").append(toIndentedString(dateCreated)).append("\n");
+		sb.append("    lastUpdated: ").append(toIndentedString(lastUpdated)).append("\n");
+		sb.append("    address: ").append(toIndentedString(address)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -337,21 +337,9 @@ public class DashboardPortfolioEvent
 	@JsonAdapter(TypeEnum.Adapter.class)
 	public enum TypeEnum
 	{
-		ALL("All"),
+		DEPOSIT("Deposit"),
 
-		INVEST("Invest"),
-
-		WITHDRAW("Withdraw"),
-
-		PROFIT("Profit"),
-
-		LOSS("Loss"),
-
-		REINVEST("Reinvest"),
-
-		CANCELLED("Cancelled"),
-
-		ENDED("Ended");
+		WITHDRAWN("Withdrawn");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {

@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**programId** | [**UUID**](UUID.md) |  |  [optional]
+**assetId** | [**UUID**](UUID.md) |  |  [optional]
 **title** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
 **logo** | **String** |  |  [optional]

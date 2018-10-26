@@ -122,7 +122,7 @@ No authorization required
 
 <a name="v10ManagerEventsGet"></a>
 # **v10ManagerEventsGet**
-> ManagerPortfolioEvents v10ManagerEventsGet(authorization, assetId, from, to, type, assetType)
+> ManagerPortfolioEvents v10ManagerEventsGet(authorization, assetId, from, to, type, assetType, skip, take)
 
 Manager events
 
@@ -140,8 +140,10 @@ DateTime from = new DateTime(); // DateTime |
 DateTime to = new DateTime(); // DateTime | 
 String type = "type_example"; // String | 
 String assetType = "assetType_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
 try {
-    ManagerPortfolioEvents result = apiInstance.v10ManagerEventsGet(authorization, assetId, from, to, type, assetType);
+    ManagerPortfolioEvents result = apiInstance.v10ManagerEventsGet(authorization, assetId, from, to, type, assetType, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ManagerApi#v10ManagerEventsGet");
@@ -157,8 +159,10 @@ Name | Type | Description  | Notes
  **assetId** | [**UUID**](.md)|  | [optional]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
- **type** | **String**|  | [optional] [enum: AssetStarted, ProgramPeriodStats, ProgramPeriodEnds, InvestorInvest, InvestorWithdraw, ManagerInvest, ManagerWithdraw, AssetFinished]
+ **type** | **String**|  | [optional] [enum: All, AssetStarted, ProgramPeriodStats, ProgramPeriodEnds, InvestorInvest, InvestorWithdraw, ManagerInvest, ManagerWithdraw, AssetFinished]
  **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
 
 ### Return type
 
@@ -551,7 +555,7 @@ No authorization required
 
 <a name="v10ManagerFundsGet"></a>
 # **v10ManagerFundsGet**
-> ManagerFunds v10ManagerFundsGet(authorization, sorting, from, to, pointsCount, skip, take)
+> FundsList v10ManagerFundsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, skip, take)
 
 Manager funds
 
@@ -567,11 +571,12 @@ String authorization = "authorization_example"; // String | JWT access token
 String sorting = "sorting_example"; // String | 
 DateTime from = new DateTime(); // DateTime | 
 DateTime to = new DateTime(); // DateTime | 
-Integer pointsCount = 56; // Integer | 
+Integer chartPointsCount = 56; // Integer | 
+String currencySecondary = "currencySecondary_example"; // String | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ManagerFunds result = apiInstance.v10ManagerFundsGet(authorization, sorting, from, to, pointsCount, skip, take);
+    FundsList result = apiInstance.v10ManagerFundsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ManagerApi#v10ManagerFundsGet");
@@ -587,13 +592,14 @@ Name | Type | Description  | Notes
  **sorting** | **String**|  | [optional] [enum: ByTitleAsc, ByTitleDesc, ByShareAsc, ByShareDesc, ByInvestmentsAsc, ByInvestmentsDesc, ByWithdrawalsAsc, ByWithdrawalsDesc, ByBalanceAsc, ByBalanceDesc, ByProfitAsc, ByProfitDesc]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
- **pointsCount** | **Integer**|  | [optional]
+ **chartPointsCount** | **Integer**|  | [optional]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
 ### Return type
 
-[**ManagerFunds**](ManagerFunds.md)
+[**FundsList**](FundsList.md)
 
 ### Authorization
 
@@ -1164,7 +1170,7 @@ No authorization required
 
 <a name="v10ManagerProgramsGet"></a>
 # **v10ManagerProgramsGet**
-> ManagerPrograms v10ManagerProgramsGet(authorization, sorting, from, to, pointsCount, skip, take)
+> ProgramsList v10ManagerProgramsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, skip, take)
 
 Manager programs
 
@@ -1180,11 +1186,12 @@ String authorization = "authorization_example"; // String | JWT access token
 String sorting = "sorting_example"; // String | 
 DateTime from = new DateTime(); // DateTime | 
 DateTime to = new DateTime(); // DateTime | 
-Integer pointsCount = 56; // Integer | 
+Integer chartPointsCount = 56; // Integer | 
+String currencySecondary = "currencySecondary_example"; // String | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ManagerPrograms result = apiInstance.v10ManagerProgramsGet(authorization, sorting, from, to, pointsCount, skip, take);
+    ProgramsList result = apiInstance.v10ManagerProgramsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ManagerApi#v10ManagerProgramsGet");
@@ -1200,13 +1207,14 @@ Name | Type | Description  | Notes
  **sorting** | **String**|  | [optional] [enum: ByTitleAsc, ByTitleDesc, ByShareAsc, ByShareDesc, ByInvestmentsAsc, ByInvestmentsDesc, ByWithdrawalsAsc, ByWithdrawalsDesc, ByTimeLeftAsc, ByTimeLeftDesc, ByBalanceAsc, ByBalanceDesc, ByProfitAsc, ByProfitDesc]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
- **pointsCount** | **Integer**|  | [optional]
+ **chartPointsCount** | **Integer**|  | [optional]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
 ### Return type
 
-[**ManagerPrograms**](ManagerPrograms.md)
+[**ProgramsList**](ProgramsList.md)
 
 ### Authorization
 

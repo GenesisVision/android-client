@@ -1,17 +1,17 @@
 
-# DashboardPortfolioEvent
+# WalletPendingTransaction
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**assetId** | [**UUID**](UUID.md) |  |  [optional]
-**date** | [**DateTime**](DateTime.md) |  |  [optional]
-**title** | **String** |  |  [optional]
-**value** | **Double** |  |  [optional]
+**id** | [**UUID**](UUID.md) |  |  [optional]
+**hash** | **String** |  |  [optional]
+**amount** | **Double** |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
-**logo** | **String** |  |  [optional]
-**description** | **String** |  |  [optional]
+**dateCreated** | [**DateTime**](DateTime.md) |  |  [optional]
+**lastUpdated** | [**DateTime**](DateTime.md) |  |  [optional]
+**address** | **String** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>
@@ -36,14 +36,8 @@ EUR | &quot;EUR&quot;
 ## Enum: TypeEnum
 Name | Value
 ---- | -----
-ALL | &quot;All&quot;
-INVEST | &quot;Invest&quot;
-WITHDRAW | &quot;Withdraw&quot;
-PROFIT | &quot;Profit&quot;
-LOSS | &quot;Loss&quot;
-REINVEST | &quot;Reinvest&quot;
-CANCELLED | &quot;Cancelled&quot;
-ENDED | &quot;Ended&quot;
+DEPOSIT | &quot;Deposit&quot;
+WITHDRAWN | &quot;Withdrawn&quot;
 
 
 

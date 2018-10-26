@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import java.util.UUID;
 
 import io.swagger.client.model.CreateWithdrawalRequestModel;
+import io.swagger.client.model.WalletPendingTransactionsViewModel;
 import io.swagger.client.model.WalletSummary;
 import io.swagger.client.model.WalletTransactionsViewModel;
 import io.swagger.client.model.WalletsInfo;
@@ -53,6 +54,17 @@ public interface WalletApi
 	@GET("v1.0/wallet/transactions")
 	Observable<WalletTransactionsViewModel> v10WalletTransactionsGet(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("AssetId") UUID assetId, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("AssetType") String assetType, @retrofit2.http.Query("TxAction") String txAction, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Wallet pending transactions
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;WalletPendingTransactionsViewModel&gt;
+	 */
+	@GET("v1.0/wallet/transactions/pending")
+	Observable<WalletPendingTransactionsViewModel> v10WalletTransactionsPendingGet(
+			@retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**

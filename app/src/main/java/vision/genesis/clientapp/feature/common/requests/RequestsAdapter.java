@@ -116,6 +116,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 							0,
 							request.getTitle(),
 							"",
+							"",
 							false,
 							false);
 					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programDetailsModel));

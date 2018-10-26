@@ -5,19 +5,19 @@ import org.joda.time.DateTime;
 import java.util.UUID;
 
 import io.swagger.client.model.FundInvestInfo;
+import io.swagger.client.model.FundsList;
 import io.swagger.client.model.ManagerDashboard;
 import io.swagger.client.model.ManagerFundWithdrawInfo;
-import io.swagger.client.model.ManagerFunds;
 import io.swagger.client.model.ManagerPortfolioEvents;
 import io.swagger.client.model.ManagerProfile;
 import io.swagger.client.model.ManagerProfileDetails;
 import io.swagger.client.model.ManagerProgramWithdrawInfo;
-import io.swagger.client.model.ManagerPrograms;
 import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.NewProgramRequest;
 import io.swagger.client.model.ProgramInvestInfo;
 import io.swagger.client.model.ProgramRequests;
 import io.swagger.client.model.ProgramUpdate;
+import io.swagger.client.model.ProgramsList;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -56,11 +56,13 @@ public interface ManagerApi
 	 * @param to            (optional)
 	 * @param type          (optional)
 	 * @param assetType     (optional)
+	 * @param skip          (optional)
+	 * @param take          (optional)
 	 * @return Call&lt;ManagerPortfolioEvents&gt;
 	 */
 	@GET("v1.0/manager/events")
 	Observable<ManagerPortfolioEvents> v10ManagerEventsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("AssetId") UUID assetId, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("Type") String type, @retrofit2.http.Query("AssetType") String assetType
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("AssetId") UUID assetId, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("Type") String type, @retrofit2.http.Query("AssetType") String assetType, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -176,18 +178,19 @@ public interface ManagerApi
 	/**
 	 * Manager funds
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param sorting       (optional)
-	 * @param from          (optional)
-	 * @param to            (optional)
-	 * @param pointsCount   (optional)
-	 * @param skip          (optional)
-	 * @param take          (optional)
-	 * @return Call&lt;ManagerFunds&gt;
+	 * @param authorization     JWT access token (required)
+	 * @param sorting           (optional)
+	 * @param from              (optional)
+	 * @param to                (optional)
+	 * @param chartPointsCount  (optional)
+	 * @param currencySecondary (optional)
+	 * @param skip              (optional)
+	 * @param take              (optional)
+	 * @return Call&lt;FundsList&gt;
 	 */
 	@GET("v1.0/manager/funds")
-	Observable<ManagerFunds> v10ManagerFundsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("PointsCount") Integer pointsCount, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	Observable<FundsList> v10ManagerFundsGet(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -352,18 +355,19 @@ public interface ManagerApi
 	/**
 	 * Manager programs
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param sorting       (optional)
-	 * @param from          (optional)
-	 * @param to            (optional)
-	 * @param pointsCount   (optional)
-	 * @param skip          (optional)
-	 * @param take          (optional)
-	 * @return Call&lt;ManagerPrograms&gt;
+	 * @param authorization     JWT access token (required)
+	 * @param sorting           (optional)
+	 * @param from              (optional)
+	 * @param to                (optional)
+	 * @param chartPointsCount  (optional)
+	 * @param currencySecondary (optional)
+	 * @param skip              (optional)
+	 * @param take              (optional)
+	 * @return Call&lt;ProgramsList&gt;
 	 */
 	@GET("v1.0/manager/programs")
-	Observable<ManagerPrograms> v10ManagerProgramsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("PointsCount") Integer pointsCount, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	Observable<ProgramsList> v10ManagerProgramsGet(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

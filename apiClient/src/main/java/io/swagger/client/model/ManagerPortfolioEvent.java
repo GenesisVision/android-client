@@ -66,6 +66,9 @@ public class ManagerPortfolioEvent
 	@SerializedName("description")
 	private String description = null;
 
+	@SerializedName("periodNumber")
+	private Integer periodNumber = null;
+
 	public ManagerPortfolioEvent assetId(UUID assetId) {
 		this.assetId = assetId;
 		return this;
@@ -275,6 +278,25 @@ public class ManagerPortfolioEvent
 		this.description = description;
 	}
 
+	public ManagerPortfolioEvent periodNumber(Integer periodNumber) {
+		this.periodNumber = periodNumber;
+		return this;
+	}
+
+	/**
+	 * Get periodNumber
+	 *
+	 * @return periodNumber
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getPeriodNumber() {
+		return periodNumber;
+	}
+
+	public void setPeriodNumber(Integer periodNumber) {
+		this.periodNumber = periodNumber;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -294,12 +316,13 @@ public class ManagerPortfolioEvent
 				Objects.equals(this.type, managerPortfolioEvent.type) &&
 				Objects.equals(this.programType, managerPortfolioEvent.programType) &&
 				Objects.equals(this.logo, managerPortfolioEvent.logo) &&
-				Objects.equals(this.description, managerPortfolioEvent.description);
+				Objects.equals(this.description, managerPortfolioEvent.description) &&
+				Objects.equals(this.periodNumber, managerPortfolioEvent.periodNumber);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assetId, date, title, value, feeValue, profitPercent, currency, type, programType, logo, description);
+		return Objects.hash(assetId, date, title, value, feeValue, profitPercent, currency, type, programType, logo, description, periodNumber);
 	}
 
 	@Override
@@ -318,6 +341,7 @@ public class ManagerPortfolioEvent
 		sb.append("    programType: ").append(toIndentedString(programType)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    periodNumber: ").append(toIndentedString(periodNumber)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -409,6 +433,8 @@ public class ManagerPortfolioEvent
 	@JsonAdapter(TypeEnum.Adapter.class)
 	public enum TypeEnum
 	{
+		ALL("All"),
+
 		ASSETSTARTED("AssetStarted"),
 
 		PROGRAMPERIODSTATS("ProgramPeriodStats"),

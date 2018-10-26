@@ -34,8 +34,8 @@ public class ProgramNotificationSettingList
 	@SerializedName("settingsCustom")
 	private List<NotificationSettingViewModel> settingsCustom = null;
 
-	@SerializedName("programId")
-	private UUID programId = null;
+	@SerializedName("assetId")
+	private UUID assetId = null;
 
 	@SerializedName("title")
 	private String title = null;
@@ -95,23 +95,23 @@ public class ProgramNotificationSettingList
 		this.settingsCustom = settingsCustom;
 	}
 
-	public ProgramNotificationSettingList programId(UUID programId) {
-		this.programId = programId;
+	public ProgramNotificationSettingList assetId(UUID assetId) {
+		this.assetId = assetId;
 		return this;
 	}
 
 	/**
-	 * Get programId
+	 * Get assetId
 	 *
-	 * @return programId
+	 * @return assetId
 	 **/
 	@ApiModelProperty(value = "")
-	public UUID getProgramId() {
-		return programId;
+	public UUID getAssetId() {
+		return assetId;
 	}
 
-	public void setProgramId(UUID programId) {
-		this.programId = programId;
+	public void setAssetId(UUID assetId) {
+		this.assetId = assetId;
 	}
 
 	public ProgramNotificationSettingList title(String title) {
@@ -210,7 +210,7 @@ public class ProgramNotificationSettingList
 		ProgramNotificationSettingList programNotificationSettingList = (ProgramNotificationSettingList) o;
 		return Objects.equals(this.level, programNotificationSettingList.level) &&
 				Objects.equals(this.settingsCustom, programNotificationSettingList.settingsCustom) &&
-				Objects.equals(this.programId, programNotificationSettingList.programId) &&
+				Objects.equals(this.assetId, programNotificationSettingList.assetId) &&
 				Objects.equals(this.title, programNotificationSettingList.title) &&
 				Objects.equals(this.url, programNotificationSettingList.url) &&
 				Objects.equals(this.logo, programNotificationSettingList.logo) &&
@@ -219,7 +219,7 @@ public class ProgramNotificationSettingList
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(level, settingsCustom, programId, title, url, logo, settingsGeneral);
+		return Objects.hash(level, settingsCustom, assetId, title, url, logo, settingsGeneral);
 	}
 
 
@@ -230,7 +230,7 @@ public class ProgramNotificationSettingList
 
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
 		sb.append("    settingsCustom: ").append(toIndentedString(settingsCustom)).append("\n");
-		sb.append("    programId: ").append(toIndentedString(programId)).append("\n");
+		sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");

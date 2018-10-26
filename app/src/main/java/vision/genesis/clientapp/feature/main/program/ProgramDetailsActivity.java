@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -39,6 +38,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.notifications.program.ProgramNotificationsSettingsActivity;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
+import vision.genesis.clientapp.ui.CurrencyView;
 import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -93,6 +93,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@BindView(R.id.program_name)
 	public TextView programName;
 
+	@BindView(R.id.program_currency)
+	public CurrencyView programCurrency;
+
 	@BindView(R.id.app_bar_layout)
 	public AppBarLayout appBarLayout;
 
@@ -140,8 +143,6 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	private TabLayout.Tab eventsTab;
 
 	private ProgramDetailsPagerAdapter pagerAdapter;
-
-	private Fragment currentFragment;
 
 	private ProgramDetailsModel model;
 
@@ -199,7 +200,6 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	private void initRefreshLayout() {
-//		refreshLayout.setBackgroundColor(ThemeUtil.getColorByAttrId(this, R.attr.colorAccent));
 		refreshLayout.setColorSchemeColors(
 				ThemeUtil.getColorByAttrId(this, R.attr.colorAccent),
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary),
@@ -273,6 +273,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 		programName.setText(model.getProgramName());
 		toolbarProgramName.setText(model.getProgramName());
+
+		programCurrency.setCurrency(model.getCurrency());
 
 		setNotificationsButtonImage(model.isHasNotifications());
 		setFavoriteButtonImage(model.isFavorite());

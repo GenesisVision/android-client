@@ -97,7 +97,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 			}
 
 			entryFee = amount * (investInfo.getEntryFee() / 100);
-			amountDue = amount + entryFee;
+			amountDue = amount - entryFee;
 
 			getViewState().setAmountBase(getAmountBaseString());
 			getViewState().setEntryFee(getEntryFeeString());
@@ -137,7 +137,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 	}
 
 	void onContinueClicked() {
-		programRequest.setAmountDue(amountDue);
+		programRequest.setAmount(amount);
 		programRequest.setAmountTopText(getAmountToInvestString());
 		programRequest.setInfoMiddleText(getEntryFeeString());
 		programRequest.setAmountBottomText(getAmountDueString());

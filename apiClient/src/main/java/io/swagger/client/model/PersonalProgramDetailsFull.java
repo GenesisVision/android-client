@@ -60,6 +60,12 @@ public class PersonalProgramDetailsFull
 	@SerializedName("invested")
 	private Double invested = null;
 
+	@SerializedName("pendingInput")
+	private Double pendingInput = null;
+
+	@SerializedName("pendingOutput")
+	private Double pendingOutput = null;
+
 	@SerializedName("status")
 	private StatusEnum status = null;
 
@@ -253,6 +259,44 @@ public class PersonalProgramDetailsFull
 		this.invested = invested;
 	}
 
+	public PersonalProgramDetailsFull pendingInput(Double pendingInput) {
+		this.pendingInput = pendingInput;
+		return this;
+	}
+
+	/**
+	 * Get pendingInput
+	 *
+	 * @return pendingInput
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getPendingInput() {
+		return pendingInput;
+	}
+
+	public void setPendingInput(Double pendingInput) {
+		this.pendingInput = pendingInput;
+	}
+
+	public PersonalProgramDetailsFull pendingOutput(Double pendingOutput) {
+		this.pendingOutput = pendingOutput;
+		return this;
+	}
+
+	/**
+	 * Get pendingOutput
+	 *
+	 * @return pendingOutput
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getPendingOutput() {
+		return pendingOutput;
+	}
+
+	public void setPendingOutput(Double pendingOutput) {
+		this.pendingOutput = pendingOutput;
+	}
+
 	public PersonalProgramDetailsFull status(StatusEnum status) {
 		this.status = status;
 		return this;
@@ -291,12 +335,14 @@ public class PersonalProgramDetailsFull
 				Objects.equals(this.value, personalProgramDetailsFull.value) &&
 				Objects.equals(this.profit, personalProgramDetailsFull.profit) &&
 				Objects.equals(this.invested, personalProgramDetailsFull.invested) &&
+				Objects.equals(this.pendingInput, personalProgramDetailsFull.pendingInput) &&
+				Objects.equals(this.pendingOutput, personalProgramDetailsFull.pendingOutput) &&
 				Objects.equals(this.status, personalProgramDetailsFull.status);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isReinvest, isFavorite, isInvested, isOwnProgram, canInvest, canWithdraw, hasNotifications, value, profit, invested, status);
+		return Objects.hash(isReinvest, isFavorite, isInvested, isOwnProgram, canInvest, canWithdraw, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status);
 	}
 
 	@Override
@@ -314,6 +360,8 @@ public class PersonalProgramDetailsFull
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
 		sb.append("    invested: ").append(toIndentedString(invested)).append("\n");
+		sb.append("    pendingInput: ").append(toIndentedString(pendingInput)).append("\n");
+		sb.append("    pendingOutput: ").append(toIndentedString(pendingOutput)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("}");
 		return sb.toString();

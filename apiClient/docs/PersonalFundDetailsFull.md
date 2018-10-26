@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **value** | **Double** |  |  [optional]
 **profit** | **Double** |  |  [optional]
 **invested** | **Double** |  |  [optional]
+**pendingInput** | **Double** |  |  [optional]
+**pendingOutput** | **Double** |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
 
 

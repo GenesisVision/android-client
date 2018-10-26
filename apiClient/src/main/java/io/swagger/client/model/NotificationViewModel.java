@@ -45,8 +45,8 @@ public class NotificationViewModel
 	@SerializedName("type")
 	private TypeEnum type = null;
 
-	@SerializedName("programId")
-	private UUID programId = null;
+	@SerializedName("assetId")
+	private UUID assetId = null;
 
 	@SerializedName("managerId")
 	private UUID managerId = null;
@@ -136,23 +136,23 @@ public class NotificationViewModel
 		this.type = type;
 	}
 
-	public NotificationViewModel programId(UUID programId) {
-		this.programId = programId;
+	public NotificationViewModel assetId(UUID assetId) {
+		this.assetId = assetId;
 		return this;
 	}
 
 	/**
-	 * Get programId
+	 * Get assetId
 	 *
-	 * @return programId
+	 * @return assetId
 	 **/
 	@ApiModelProperty(value = "")
-	public UUID getProgramId() {
-		return programId;
+	public UUID getAssetId() {
+		return assetId;
 	}
 
-	public void setProgramId(UUID programId) {
-		this.programId = programId;
+	public void setAssetId(UUID assetId) {
+		this.assetId = assetId;
 	}
 
 	public NotificationViewModel managerId(UUID managerId) {
@@ -244,7 +244,7 @@ public class NotificationViewModel
 				Objects.equals(this.text, notificationViewModel.text) &&
 				Objects.equals(this.date, notificationViewModel.date) &&
 				Objects.equals(this.type, notificationViewModel.type) &&
-				Objects.equals(this.programId, notificationViewModel.programId) &&
+				Objects.equals(this.assetId, notificationViewModel.assetId) &&
 				Objects.equals(this.managerId, notificationViewModel.managerId) &&
 				Objects.equals(this.logo, notificationViewModel.logo) &&
 				Objects.equals(this.url, notificationViewModel.url) &&
@@ -253,7 +253,7 @@ public class NotificationViewModel
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, text, date, type, programId, managerId, logo, url, isUnread);
+		return Objects.hash(id, text, date, type, assetId, managerId, logo, url, isUnread);
 	}
 
 	@Override
@@ -265,7 +265,7 @@ public class NotificationViewModel
 		sb.append("    text: ").append(toIndentedString(text)).append("\n");
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
-		sb.append("    programId: ").append(toIndentedString(programId)).append("\n");
+		sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
 		sb.append("    managerId: ").append(toIndentedString(managerId)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");

@@ -110,10 +110,11 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 	private String getAmountToWithdrawString() {
 		return String.format(Locale.getDefault(), "%s GVT",
 				StringFormatUtil.formatCurrencyAmount(amount, CurrencyEnum.GVT.getValue()));
+//		return StringFormatUtil.getBaseValueString(amount, withdrawInfo.getCurrency());
 	}
 
 	private String getRemainingInvestmentString() {
-		return String.format(Locale.getDefault(), "%s GVT",
+		return String.format(Locale.getDefault(), "%s %s",
 				StringFormatUtil.formatCurrencyAmount(availableToWithdraw - amount, CurrencyEnum.GVT.getValue()));
 	}
 
@@ -128,7 +129,7 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 	}
 
 	void onContinueClicked() {
-		programRequest.setAmountDue(amount);
+		programRequest.setAmount(amount);
 		programRequest.setAmountTopText(getAmountToWithdrawString());
 		programRequest.setInfoMiddleText(getPayoutDateString());
 		programRequest.setAmountBottomText(getRemainingInvestmentString());

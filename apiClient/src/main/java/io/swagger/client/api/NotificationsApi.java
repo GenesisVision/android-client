@@ -41,7 +41,7 @@ public interface NotificationsApi
 	 * Add new setting
 	 *
 	 * @param authorization   JWT access token (required)
-	 * @param programId       (optional)
+	 * @param assetId         (optional)
 	 * @param managerId       (optional)
 	 * @param type            (optional)
 	 * @param conditionType   (optional)
@@ -50,7 +50,7 @@ public interface NotificationsApi
 	 */
 	@POST("v1.0/notifications/settings/add")
 	Observable<UUID> v10NotificationsSettingsAddPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("ProgramId") UUID programId, @retrofit2.http.Query("ManagerId") UUID managerId, @retrofit2.http.Query("Type") String type, @retrofit2.http.Query("ConditionType") String conditionType, @retrofit2.http.Query("ConditionAmount") Double conditionAmount
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("AssetId") UUID assetId, @retrofit2.http.Query("ManagerId") UUID managerId, @retrofit2.http.Query("Type") String type, @retrofit2.http.Query("ConditionType") String conditionType, @retrofit2.http.Query("ConditionAmount") Double conditionAmount
 	);
 
 	/**

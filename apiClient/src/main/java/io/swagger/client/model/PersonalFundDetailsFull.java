@@ -57,6 +57,12 @@ public class PersonalFundDetailsFull
 	@SerializedName("invested")
 	private Double invested = null;
 
+	@SerializedName("pendingInput")
+	private Double pendingInput = null;
+
+	@SerializedName("pendingOutput")
+	private Double pendingOutput = null;
+
 	@SerializedName("status")
 	private StatusEnum status = null;
 
@@ -231,6 +237,44 @@ public class PersonalFundDetailsFull
 		this.invested = invested;
 	}
 
+	public PersonalFundDetailsFull pendingInput(Double pendingInput) {
+		this.pendingInput = pendingInput;
+		return this;
+	}
+
+	/**
+	 * Get pendingInput
+	 *
+	 * @return pendingInput
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getPendingInput() {
+		return pendingInput;
+	}
+
+	public void setPendingInput(Double pendingInput) {
+		this.pendingInput = pendingInput;
+	}
+
+	public PersonalFundDetailsFull pendingOutput(Double pendingOutput) {
+		this.pendingOutput = pendingOutput;
+		return this;
+	}
+
+	/**
+	 * Get pendingOutput
+	 *
+	 * @return pendingOutput
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getPendingOutput() {
+		return pendingOutput;
+	}
+
+	public void setPendingOutput(Double pendingOutput) {
+		this.pendingOutput = pendingOutput;
+	}
+
 	public PersonalFundDetailsFull status(StatusEnum status) {
 		this.status = status;
 		return this;
@@ -268,12 +312,14 @@ public class PersonalFundDetailsFull
 				Objects.equals(this.value, personalFundDetailsFull.value) &&
 				Objects.equals(this.profit, personalFundDetailsFull.profit) &&
 				Objects.equals(this.invested, personalFundDetailsFull.invested) &&
+				Objects.equals(this.pendingInput, personalFundDetailsFull.pendingInput) &&
+				Objects.equals(this.pendingOutput, personalFundDetailsFull.pendingOutput) &&
 				Objects.equals(this.status, personalFundDetailsFull.status);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isFavorite, isInvested, isOwnProgram, canInvest, canWithdraw, hasNotifications, value, profit, invested, status);
+		return Objects.hash(isFavorite, isInvested, isOwnProgram, canInvest, canWithdraw, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status);
 	}
 
 	@Override
@@ -290,6 +336,8 @@ public class PersonalFundDetailsFull
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
 		sb.append("    invested: ").append(toIndentedString(invested)).append("\n");
+		sb.append("    pendingInput: ").append(toIndentedString(pendingInput)).append("\n");
+		sb.append("    pendingOutput: ").append(toIndentedString(pendingOutput)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("}");
 		return sb.toString();

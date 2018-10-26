@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **text** | **String** |  |  [optional]
 **date** | [**DateTime**](DateTime.md) |  |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
-**programId** | [**UUID**](UUID.md) |  |  [optional]
+**assetId** | [**UUID**](UUID.md) |  |  [optional]
 **managerId** | [**UUID**](UUID.md) |  |  [optional]
 **logo** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]

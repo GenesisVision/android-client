@@ -134,7 +134,7 @@ public class BlockchainInfo
 
 		ERROR("Error"),
 
-		CANCELED("Canceled");
+		CANCELLED("Cancelled");
 
 		public static StatusEnum fromValue(String text) {
 			for (StatusEnum b : StatusEnum.values()) {

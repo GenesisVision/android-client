@@ -37,8 +37,8 @@ public class NotificationSettingViewModel
 	@SerializedName("isEnabled")
 	private Boolean isEnabled = null;
 
-	@SerializedName("programId")
-	private UUID programId = null;
+	@SerializedName("assetId")
+	private UUID assetId = null;
 
 	@SerializedName("managerId")
 	private UUID managerId = null;
@@ -90,23 +90,23 @@ public class NotificationSettingViewModel
 		this.isEnabled = isEnabled;
 	}
 
-	public NotificationSettingViewModel programId(UUID programId) {
-		this.programId = programId;
+	public NotificationSettingViewModel assetId(UUID assetId) {
+		this.assetId = assetId;
 		return this;
 	}
 
 	/**
-	 * Get programId
+	 * Get assetId
 	 *
-	 * @return programId
+	 * @return assetId
 	 **/
 	@ApiModelProperty(value = "")
-	public UUID getProgramId() {
-		return programId;
+	public UUID getAssetId() {
+		return assetId;
 	}
 
-	public void setProgramId(UUID programId) {
-		this.programId = programId;
+	public void setAssetId(UUID assetId) {
+		this.assetId = assetId;
 	}
 
 	public NotificationSettingViewModel managerId(UUID managerId) {
@@ -196,7 +196,7 @@ public class NotificationSettingViewModel
 		NotificationSettingViewModel notificationSettingViewModel = (NotificationSettingViewModel) o;
 		return Objects.equals(this.id, notificationSettingViewModel.id) &&
 				Objects.equals(this.isEnabled, notificationSettingViewModel.isEnabled) &&
-				Objects.equals(this.programId, notificationSettingViewModel.programId) &&
+				Objects.equals(this.assetId, notificationSettingViewModel.assetId) &&
 				Objects.equals(this.managerId, notificationSettingViewModel.managerId) &&
 				Objects.equals(this.type, notificationSettingViewModel.type) &&
 				Objects.equals(this.conditionType, notificationSettingViewModel.conditionType) &&
@@ -205,7 +205,7 @@ public class NotificationSettingViewModel
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, isEnabled, programId, managerId, type, conditionType, conditionAmount);
+		return Objects.hash(id, isEnabled, assetId, managerId, type, conditionType, conditionAmount);
 	}
 
 	@Override
@@ -215,7 +215,7 @@ public class NotificationSettingViewModel
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
-		sb.append("    programId: ").append(toIndentedString(programId)).append("\n");
+		sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
 		sb.append("    managerId: ").append(toIndentedString(managerId)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    conditionType: ").append(toIndentedString(conditionType)).append("\n");

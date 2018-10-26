@@ -88,11 +88,11 @@ public class ProgramsManager
 	}
 
 	public Observable<Void> invest(ProgramRequest investRequest) {
-		return investorApi.v10InvestorProgramsByIdInvestByAmountPost(investRequest.getProgramId(), investRequest.getAmountDue(), AuthManager.token.getValue());
+		return investorApi.v10InvestorProgramsByIdInvestByAmountPost(investRequest.getProgramId(), investRequest.getAmount(), AuthManager.token.getValue());
 	}
 
 	public Observable<Void> withdraw(ProgramRequest withdrawRequest) {
-		return investorApi.v10InvestorProgramsByIdWithdrawByAmountPost(withdrawRequest.getProgramId(), withdrawRequest.getAmountDue(), AuthManager.token.getValue());
+		return investorApi.v10InvestorProgramsByIdWithdrawByAmountPost(withdrawRequest.getProgramId(), withdrawRequest.getAmount(), AuthManager.token.getValue());
 	}
 
 	//	public Observable<Void> withdraw(ProgramRequest withdrawalRequest) {

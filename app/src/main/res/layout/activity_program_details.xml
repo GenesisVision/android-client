@@ -91,6 +91,12 @@
                             android:textSize="26sp"
                             tools:text="Intellectual Ventures"/>
 
+                        <vision.genesis.clientapp.ui.CurrencyView
+                            android:id="@+id/program_currency"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"/>
+
                     </LinearLayout>
 
                     <View

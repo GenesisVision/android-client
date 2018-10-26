@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **sourceBlockchainInfo** | [**BlockchainInfo**](BlockchainInfo.md) |  |  [optional]
 **sourceWithdrawalInfo** | [**WithdrawalInfo**](WithdrawalInfo.md) |  |  [optional]
 **action** | [**ActionEnum**](#ActionEnum) |  |  [optional]
+**information** | **String** |  |  [optional]
 **destinationId** | [**UUID**](UUID.md) |  |  [optional]
 **destinationType** | [**DestinationTypeEnum**](#DestinationTypeEnum) |  |  [optional]
 **destinationCurrency** | [**DestinationCurrencyEnum**](#DestinationCurrencyEnum) |  |  [optional]

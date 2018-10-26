@@ -107,7 +107,7 @@ No authorization required
 
 <a name="v10NotificationsSettingsAddPost"></a>
 # **v10NotificationsSettingsAddPost**
-> UUID v10NotificationsSettingsAddPost(authorization, programId, managerId, type, conditionType, conditionAmount)
+> UUID v10NotificationsSettingsAddPost(authorization, assetId, managerId, type, conditionType, conditionAmount)
 
 Add new setting
 
@@ -120,13 +120,13 @@ Add new setting
 
 NotificationsApi apiInstance = new NotificationsApi();
 String authorization = "authorization_example"; // String | JWT access token
-UUID programId = new UUID(); // UUID | 
+UUID assetId = new UUID(); // UUID | 
 UUID managerId = new UUID(); // UUID | 
 String type = "type_example"; // String | 
 String conditionType = "conditionType_example"; // String | 
 Double conditionAmount = 3.4D; // Double | 
 try {
-    UUID result = apiInstance.v10NotificationsSettingsAddPost(authorization, programId, managerId, type, conditionType, conditionAmount);
+    UUID result = apiInstance.v10NotificationsSettingsAddPost(authorization, assetId, managerId, type, conditionType, conditionAmount);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NotificationsApi#v10NotificationsSettingsAddPost");
@@ -139,7 +139,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **programId** | [**UUID**](.md)|  | [optional]
+ **assetId** | [**UUID**](.md)|  | [optional]
  **managerId** | [**UUID**](.md)|  | [optional]
  **type** | **String**|  | [optional] [enum: PlatformNewsAndUpdates, PlatformEmergency, PlatformOther, ProfileUpdated, ProfilePwdUpdated, ProfileVerification, Profile2FA, ProfileSecurity, ProgramNewsAndUpdates, ProgramEndOfPeriod, ProgramCondition, FundNewsAndUpdates, FundEndOfPeriod, FundRebalancing, ManagerNewProgram]
  **conditionType** | **String**|  | [optional] [enum: Empty, Profit, Level]

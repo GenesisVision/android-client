@@ -273,10 +273,19 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 			yourInvestmentGroup.setVisibility(View.VISIBLE);
 			status.setStatus(programDetails.getPersonalProgramDetails().getStatus().getValue());
 //		invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(programDetails.getPersonalProgramDetails().getInvested()).toString()));
-			invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(programDetails.getPersonalProgramDetails().getValue(), ProgramDetailsFull.CurrencyEnum.GVT.toString())));
-			value.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(programDetails.getPersonalProgramDetails().getValue(), ProgramDetailsFull.CurrencyEnum.GVT.toString())));
-			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getPersonalProgramDetails().getProfit(), 0, 4)));
-			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(), programDetails.getPersonalProgramDetails().getProfit() < 0 ? R.attr.colorRed : R.attr.colorGreen));
+			invested.setText(String.format(Locale.getDefault(), "%s %s",
+					StringFormatUtil.formatAmount(programDetails.getPersonalProgramDetails().getInvested(), 0,
+							StringFormatUtil.getCurrencyMaxFraction(programDetails.getCurrency().getValue())),
+					programDetails.getCurrency().getValue()));
+			value.setText(String.format(Locale.getDefault(), "%s %s",
+					StringFormatUtil.formatAmount(programDetails.getPersonalProgramDetails().getValue(), 0,
+							StringFormatUtil.getCurrencyMaxFraction(programDetails.getCurrency().getValue())),
+					programDetails.getCurrency().getValue()));
+			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(getProfitPercent(), 0, 4)));
+			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
+					programDetails.getPersonalProgramDetails().getValue() < programDetails.getPersonalProgramDetails().getInvested()
+							? R.attr.colorRed
+							: R.attr.colorGreen));
 		}
 		availableToInvest.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(programDetails.getAvailableInvestment()).toString()));
 		entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getEntryFee(), 0, 4)));
@@ -285,6 +294,12 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		investButton.setEnabled(programDetails.getAvailableInvestment() > 0);
 
 		investInfo.setText(String.format(Locale.getDefault(), getString(R.string.request_info_template), DateTimeUtil.formatShortDateTime(programDetails.getPeriodEnds())));
+	}
+
+	private Double getProfitPercent() {
+		Double invested = programDetails.getPersonalProgramDetails().getInvested();
+		Double value = programDetails.getPersonalProgramDetails().getValue();
+		return Math.abs(invested != 0 ? 100 / invested * (invested - value) : 0);
 	}
 
 	@Override

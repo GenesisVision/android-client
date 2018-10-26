@@ -157,6 +157,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 							program.getLevel(),
 							program.getTitle(),
 							program.getManager().getUsername(),
+							program.getCurrency().getValue(),
 							program.getPersonalDetails() != null ?
 									program.getPersonalDetails().isIsFavorite()
 									: false,

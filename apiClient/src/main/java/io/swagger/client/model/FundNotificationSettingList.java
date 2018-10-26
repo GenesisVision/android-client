@@ -28,8 +28,8 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class FundNotificationSettingList
 {
-	@SerializedName("programId")
-	private UUID programId = null;
+	@SerializedName("assetId")
+	private UUID assetId = null;
 
 	@SerializedName("title")
 	private String title = null;
@@ -43,23 +43,23 @@ public class FundNotificationSettingList
 	@SerializedName("settingsGeneral")
 	private List<NotificationSettingViewModel> settingsGeneral = null;
 
-	public FundNotificationSettingList programId(UUID programId) {
-		this.programId = programId;
+	public FundNotificationSettingList assetId(UUID assetId) {
+		this.assetId = assetId;
 		return this;
 	}
 
 	/**
-	 * Get programId
+	 * Get assetId
 	 *
-	 * @return programId
+	 * @return assetId
 	 **/
 	@ApiModelProperty(value = "")
-	public UUID getProgramId() {
-		return programId;
+	public UUID getAssetId() {
+		return assetId;
 	}
 
-	public void setProgramId(UUID programId) {
-		this.programId = programId;
+	public void setAssetId(UUID assetId) {
+		this.assetId = assetId;
 	}
 
 	public FundNotificationSettingList title(String title) {
@@ -156,7 +156,7 @@ public class FundNotificationSettingList
 			return false;
 		}
 		FundNotificationSettingList fundNotificationSettingList = (FundNotificationSettingList) o;
-		return Objects.equals(this.programId, fundNotificationSettingList.programId) &&
+		return Objects.equals(this.assetId, fundNotificationSettingList.assetId) &&
 				Objects.equals(this.title, fundNotificationSettingList.title) &&
 				Objects.equals(this.url, fundNotificationSettingList.url) &&
 				Objects.equals(this.logo, fundNotificationSettingList.logo) &&
@@ -165,7 +165,7 @@ public class FundNotificationSettingList
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(programId, title, url, logo, settingsGeneral);
+		return Objects.hash(assetId, title, url, logo, settingsGeneral);
 	}
 
 
@@ -174,7 +174,7 @@ public class FundNotificationSettingList
 		StringBuilder sb = new StringBuilder();
 		sb.append("class FundNotificationSettingList {\n");
 
-		sb.append("    programId: ").append(toIndentedString(programId)).append("\n");
+		sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");

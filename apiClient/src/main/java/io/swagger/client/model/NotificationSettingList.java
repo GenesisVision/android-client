@@ -34,7 +34,7 @@ public class NotificationSettingList
 	private List<ProgramNotificationSettingList> settingsProgram = null;
 
 	@SerializedName("settingsFund")
-	private List<ProgramNotificationSettingList> settingsFund = null;
+	private List<FundNotificationSettingList> settingsFund = null;
 
 	@SerializedName("settingsManager")
 	private List<ManagerNotificationSettingList> settingsManager = null;
@@ -93,14 +93,14 @@ public class NotificationSettingList
 		this.settingsProgram = settingsProgram;
 	}
 
-	public NotificationSettingList settingsFund(List<ProgramNotificationSettingList> settingsFund) {
+	public NotificationSettingList settingsFund(List<FundNotificationSettingList> settingsFund) {
 		this.settingsFund = settingsFund;
 		return this;
 	}
 
-	public NotificationSettingList addSettingsFundItem(ProgramNotificationSettingList settingsFundItem) {
+	public NotificationSettingList addSettingsFundItem(FundNotificationSettingList settingsFundItem) {
 		if (this.settingsFund == null) {
-			this.settingsFund = new ArrayList<ProgramNotificationSettingList>();
+			this.settingsFund = new ArrayList<FundNotificationSettingList>();
 		}
 		this.settingsFund.add(settingsFundItem);
 		return this;
@@ -112,11 +112,11 @@ public class NotificationSettingList
 	 * @return settingsFund
 	 **/
 	@ApiModelProperty(value = "")
-	public List<ProgramNotificationSettingList> getSettingsFund() {
+	public List<FundNotificationSettingList> getSettingsFund() {
 		return settingsFund;
 	}
 
-	public void setSettingsFund(List<ProgramNotificationSettingList> settingsFund) {
+	public void setSettingsFund(List<FundNotificationSettingList> settingsFund) {
 		this.settingsFund = settingsFund;
 	}
 

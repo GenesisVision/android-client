@@ -14,7 +14,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.swagger.client.model.ProgramNotificationSettingList;
+import io.swagger.client.model.FundNotificationSettingList;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowProgramNotificationsSettingsEvent;
 import vision.genesis.clientapp.ui.ProgramLogoView;
@@ -27,7 +27,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class FundsNotificationsListAdapter extends RecyclerView.Adapter<FundsNotificationsListAdapter.SettingsViewHolder>
 {
-	private List<ProgramNotificationSettingList> settings = new ArrayList<>();
+	private List<FundNotificationSettingList> settings = new ArrayList<>();
 
 	@NonNull
 	@Override
@@ -54,7 +54,7 @@ public class FundsNotificationsListAdapter extends RecyclerView.Adapter<FundsNot
 				: RecyclerView.NO_ID;
 	}
 
-	public void setSettings(List<ProgramNotificationSettingList> settings) {
+	public void setSettings(List<FundNotificationSettingList> settings) {
 		this.settings.clear();
 		this.settings.addAll(settings);
 		notifyDataSetChanged();
@@ -74,7 +74,7 @@ public class FundsNotificationsListAdapter extends RecyclerView.Adapter<FundsNot
 		@BindView(R.id.count)
 		public TextView count;
 
-		private ProgramNotificationSettingList settings;
+		private FundNotificationSettingList settings;
 
 		SettingsViewHolder(View itemView) {
 			super(itemView);
@@ -84,7 +84,7 @@ public class FundsNotificationsListAdapter extends RecyclerView.Adapter<FundsNot
 			setFonts();
 			itemView.setOnClickListener(v -> {
 				if (settings != null) {
-					EventBus.getDefault().post(new ShowProgramNotificationsSettingsEvent(settings.getProgramId(), settings.getTitle()));
+					EventBus.getDefault().post(new ShowProgramNotificationsSettingsEvent(settings.getAssetId(), settings.getTitle()));
 				}
 			});
 		}
@@ -94,13 +94,13 @@ public class FundsNotificationsListAdapter extends RecyclerView.Adapter<FundsNot
 			count.setTypeface(TypefaceUtil.semibold());
 		}
 
-		void setSettings(ProgramNotificationSettingList settings) {
+		void setSettings(FundNotificationSettingList settings) {
 			this.settings = settings;
 
 			fundLogo.setImage(settings.getLogo(), "#ffffff", 50, 50);
 			fundName.setText(settings.getTitle());
 //			managerName.setText(settings.getManagerName());
-			count.setText(String.valueOf(settings.getSettingsGeneral().size() + settings.getSettingsCustom().size()));
+			count.setText(String.valueOf(settings.getSettingsGeneral().size()));
 		}
 	}
 }

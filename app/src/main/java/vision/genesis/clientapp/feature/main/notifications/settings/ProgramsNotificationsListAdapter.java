@@ -82,7 +82,7 @@ public class ProgramsNotificationsListAdapter extends RecyclerView.Adapter<Progr
 			setFonts();
 			itemView.setOnClickListener(v -> {
 				if (settings != null) {
-					EventBus.getDefault().post(new ShowProgramNotificationsSettingsEvent(settings.getProgramId(), settings.getTitle()));
+					EventBus.getDefault().post(new ShowProgramNotificationsSettingsEvent(settings.getAssetId(), settings.getTitle()));
 				}
 			});
 		}

@@ -57,8 +57,8 @@ public class ProgramRequest implements Parcelable
 	@SerializedName("amount_due_text")
 	private String amountBottomText;
 
-	@SerializedName("amount_due")
-	private Double amountDue = 0.0;
+	@SerializedName("amount")
+	private Double amount = 0.0;
 
 	public ProgramRequest() {
 
@@ -75,7 +75,7 @@ public class ProgramRequest implements Parcelable
 		amountTopText = in.readString();
 		infoMiddleText = in.readString();
 		amountBottomText = in.readString();
-		amountDue = in.readDouble();
+		amount = in.readDouble();
 	}
 
 	@Override
@@ -95,7 +95,7 @@ public class ProgramRequest implements Parcelable
 		dest.writeString(amountTopText);
 		dest.writeString(infoMiddleText);
 		dest.writeString(amountBottomText);
-		dest.writeDouble(amountDue);
+		dest.writeDouble(amount);
 	}
 
 	public UUID getProgramId() {
@@ -178,11 +178,11 @@ public class ProgramRequest implements Parcelable
 		this.amountBottomText = amountBottomText;
 	}
 
-	public Double getAmountDue() {
-		return amountDue;
+	public Double getAmount() {
+		return amount;
 	}
 
-	public void setAmountDue(Double amountDue) {
-		this.amountDue = amountDue;
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
 }

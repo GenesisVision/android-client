@@ -38,17 +38,21 @@ public class ProgramDetailsModel implements Parcelable
 
 	private String managerName;
 
+	private String currency;
+
 	private boolean favorite;
 
 	private boolean hasNotifications;
 
-	public ProgramDetailsModel(UUID programId, String avatar, String programColor, Integer level, String programName, String managerName, boolean isFavorite, boolean hasNotifications) {
+	public ProgramDetailsModel(UUID programId, String avatar, String programColor, Integer level,
+	                           String programName, String managerName, String currency, boolean isFavorite, boolean hasNotifications) {
 		this.programId = programId;
 		this.avatar = avatar;
 		this.programColor = programColor;
 		this.level = level;
 		this.programName = programName;
 		this.managerName = managerName;
+		this.currency = currency;
 		this.favorite = isFavorite;
 		this.hasNotifications = hasNotifications;
 	}
@@ -60,6 +64,7 @@ public class ProgramDetailsModel implements Parcelable
 		level = in.readInt();
 		programName = in.readString();
 		managerName = in.readString();
+		currency = in.readString();
 		favorite = in.readByte() != 0;
 		hasNotifications = in.readByte() != 0;
 	}
@@ -88,6 +93,10 @@ public class ProgramDetailsModel implements Parcelable
 		return managerName;
 	}
 
+	public String getCurrency() {
+		return currency;
+	}
+
 	public boolean isFavorite() {
 		return favorite;
 	}
@@ -109,6 +118,7 @@ public class ProgramDetailsModel implements Parcelable
 		dest.writeInt(level);
 		dest.writeString(programName);
 		dest.writeString(managerName);
+		dest.writeString(currency);
 		dest.writeByte((byte) (favorite ? 1 : 0));
 		dest.writeByte((byte) (hasNotifications ? 1 : 0));
 	}
@@ -120,6 +130,7 @@ public class ProgramDetailsModel implements Parcelable
 		this.level = programDetails.getLevel();
 		this.programName = programDetails.getTitle();
 		this.managerName = programDetails.getManager().getUsername();
+		this.currency = programDetails.getCurrency().getValue();
 		this.favorite = programDetails.getPersonalProgramDetails() != null
 				? programDetails.getPersonalProgramDetails().isIsFavorite()
 				: false;

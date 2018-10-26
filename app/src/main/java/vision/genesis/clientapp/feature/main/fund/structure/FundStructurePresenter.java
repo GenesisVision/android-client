@@ -3,16 +3,20 @@ package vision.genesis.clientapp.feature.main.fund.structure;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.FundAssetInfo;
 import io.swagger.client.model.FundAssetsListInfo;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.FundsManager;
+import vision.genesis.clientapp.utils.FundAssetsComparator;
 
 /**
  * GenesisVisionAndroid
@@ -77,7 +81,10 @@ public class FundStructurePresenter extends MvpPresenter<FundStructureView>
 		assetsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
-		getViewState().setAssets(response.getAssets());
+		List<FundAssetInfo> assets = response.getAssets();
+		Collections.sort(assets, new FundAssetsComparator());
+		Collections.reverse(assets);
+		getViewState().setAssets(assets);
 	}
 
 	private void handleGetAssetsError(Throwable throwable) {

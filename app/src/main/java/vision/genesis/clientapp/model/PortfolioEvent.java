@@ -64,7 +64,7 @@ public class PortfolioEvent
 
 		event.setTime(DateTimeUtil.formatShortTime(dashboardEvent.getDate()));
 		event.setDateTime(DateTimeUtil.formatEventDateTime(dashboardEvent.getDate()));
-		event.setValue(StringFormatUtil.getGvtValueString(dashboardEvent.getValue()));
+		event.setValue(StringFormatUtil.getBaseValueString(dashboardEvent.getValue(), dashboardEvent.getCurrency().getValue()));
 		event.setValueNegative(dashboardEvent.getValue() < 0);
 
 		return event;
