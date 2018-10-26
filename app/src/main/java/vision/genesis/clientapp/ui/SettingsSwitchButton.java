@@ -1,16 +1,13 @@
 package vision.genesis.clientapp.ui;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 
 /**
@@ -24,9 +21,6 @@ public class SettingsSwitchButton extends RelativeLayout
 	{
 		void onChecked(boolean checked);
 	}
-
-	@BindView(R.id.icon)
-	public ImageView icon;
 
 	@BindView(R.id.text)
 	public TextView text;
@@ -61,10 +55,6 @@ public class SettingsSwitchButton extends RelativeLayout
 		this.setOnClickListener(v -> setChecked(!checked));
 	}
 
-	public void setIcon(int iconResId) {
-		this.icon.setImageDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, iconResId));
-	}
-
 	public void setText(String text) {
 		this.text.setText(text);
 	}
@@ -90,7 +80,6 @@ public class SettingsSwitchButton extends RelativeLayout
 	}
 
 	public void setColor(int color) {
-		icon.setColorFilter(color);
 		text.setTextColor(color);
 	}
 }

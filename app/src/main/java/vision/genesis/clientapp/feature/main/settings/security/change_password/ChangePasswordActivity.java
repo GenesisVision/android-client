@@ -1,13 +1,15 @@
-package vision.genesis.clientapp.feature.main.profile.change_password;
+package vision.genesis.clientapp.feature.main.settings.security.change_password;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.TextInputLayout;
 import android.text.InputFilter;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -17,8 +19,9 @@ import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.utils.ThemeUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -27,15 +30,23 @@ import vision.genesis.clientapp.utils.ThemeUtil;
 
 public class ChangePasswordActivity extends BaseSwipeBackActivity implements ChangePasswordView
 {
-	public static void startWith(Fragment fragment, int requestCode) {
-		Intent intent = new Intent(fragment.getContext(), ChangePasswordActivity.class);
-		fragment.startActivityForResult(intent, requestCode);
-		if (fragment.getActivity() != null)
-			fragment.getActivity().overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
+	public static void startFrom(Activity activity) {
+		Intent intent = new Intent(activity.getApplicationContext(), ChangePasswordActivity.class);
+		activity.startActivity(intent);
+		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
 
-	@BindView(R.id.toolbar)
-	public ToolbarView toolbar;
+	@BindView(R.id.title)
+	public TextView title;
+
+	@BindView(R.id.old_password_input_layout)
+	public TextInputLayout oldPasswordInputLayout;
+
+	@BindView(R.id.new_password_input_layout)
+	public TextInputLayout newPasswordInputLayout;
+
+	@BindView(R.id.repeat_password_input_layout)
+	public TextInputLayout repeatPasswordInputLayout;
 
 	@BindView(R.id.old_password)
 	public EditText oldPassword;
@@ -43,17 +54,20 @@ public class ChangePasswordActivity extends BaseSwipeBackActivity implements Cha
 	@BindView(R.id.new_password)
 	public EditText newPassword;
 
-	@BindView(R.id.confirm_password)
-	public EditText confirmPassword;
+	@BindView(R.id.repeat_password)
+	public EditText repeatPassword;
 
-	@BindView(R.id.group_progress_bar)
-	public View progressBarGroup;
+	@BindView(R.id.button_change_password)
+	public View changePasswordButton;
+
+	@BindView(R.id.group_progressbar)
+	public ViewGroup progressBarGroup;
 
 	@InjectPresenter
 	public ChangePasswordPresenter changePasswordPresenter;
 
-	@OnEditorAction(R.id.confirm_password)
-	protected boolean onConfirmPasswordEditorAction(int actionId) {
+	@OnEditorAction(R.id.repeat_password)
+	protected boolean onRepeatPasswordEditorAction(int actionId) {
 		if (actionId == EditorInfo.IME_ACTION_DONE) {
 			onChangePasswordClicked();
 		}
@@ -74,13 +88,15 @@ public class ChangePasswordActivity extends BaseSwipeBackActivity implements Cha
 
 		ButterKnife.bind(this);
 
-		initToolbar();
+		setFonts();
 		setInputFilters();
 	}
 
-	private void initToolbar() {
-		toolbar.setTitle(getString(R.string.change_password));
-		toolbar.addLeftButton(R.drawable.back_arrow, this::onBackPressed);
+	private void setFonts() {
+		title.setTypeface(TypefaceUtil.semibold());
+		oldPasswordInputLayout.setTypeface(TypefaceUtil.regular());
+		newPasswordInputLayout.setTypeface(TypefaceUtil.regular());
+		repeatPasswordInputLayout.setTypeface(TypefaceUtil.regular());
 	}
 
 	private void setInputFilters() {
@@ -94,29 +110,29 @@ public class ChangePasswordActivity extends BaseSwipeBackActivity implements Cha
 		};
 		oldPassword.setFilters(new InputFilter[]{filter});
 		newPassword.setFilters(new InputFilter[]{filter});
-		confirmPassword.setFilters(new InputFilter[]{filter});
+		repeatPassword.setFilters(new InputFilter[]{filter});
 	}
 
 	private void onChangePasswordClicked() {
 		changePasswordPresenter.onChangePasswordClicked(
 				oldPassword.getText().toString(),
 				newPassword.getText().toString(),
-				confirmPassword.getText().toString());
+				repeatPassword.getText().toString());
 	}
 
 	@Override
 	public void showProgressBar(boolean show) {
 		progressBarGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+		changePasswordButton.setVisibility(!show ? View.VISIBLE : View.GONE);
 	}
 
 	@Override
 	public void showSnackbarMessage(String message) {
-		showSnackbar(message, toolbar);
+		showSnackbar(message, title);
 	}
 
 	@Override
-	public void finishActivity(int resultCode) {
-		setResult(resultCode);
+	public void finishActivity() {
 		finish();
 		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
 	}
@@ -125,7 +141,7 @@ public class ChangePasswordActivity extends BaseSwipeBackActivity implements Cha
 	public void clearErrors() {
 		oldPassword.setError(null);
 		newPassword.setError(null);
-		confirmPassword.setError(null);
+		repeatPassword.setError(null);
 	}
 
 	@Override
@@ -139,8 +155,15 @@ public class ChangePasswordActivity extends BaseSwipeBackActivity implements Cha
 	}
 
 	@Override
-	public void setConfirmPasswordError(String error) {
-		confirmPassword.setError(error);
+	public void setRepeatPasswordError(String error) {
+		repeatPassword.setError(error);
+	}
+
+	@Override
+	public void showMessageDialog(int imageResourceId, String title, String message, boolean mustRead, MessageBottomSheetDialog.OnButtonClickListener listener) {
+		MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
+		dialog.show(getSupportFragmentManager(), dialog.getTag());
+		dialog.setData(imageResourceId, title, message, mustRead, listener);
 	}
 
 	@Override

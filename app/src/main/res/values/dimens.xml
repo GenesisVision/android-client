@@ -113,4 +113,5 @@
     <dimen name="view_select_level_button_size">45dp</dimen>
     <dimen name="item_fund_asset_height">40dp</dimen>
     <dimen name="item_fund_asset_image_size">20dp</dimen>
+    <dimen name="settings_padding">20dp</dimen>
 </resources>

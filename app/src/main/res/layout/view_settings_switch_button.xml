@@ -6,16 +6,9 @@
                 android:background="?attr/selectableItemBackground"
                 android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/icon"
-        style="@style/settings_icon"
-        tools:src="@drawable/icon_tfa"/>
-
     <TextView
         android:id="@+id/text"
         style="@style/settings_text"
-        android:layout_toEndOf="@+id/icon"
-        android:layout_toRightOf="@+id/icon"
         tools:text="Two factor authentication"/>
 
     <Switch

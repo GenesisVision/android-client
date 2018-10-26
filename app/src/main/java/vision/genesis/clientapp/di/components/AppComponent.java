@@ -47,7 +47,6 @@ import vision.genesis.clientapp.feature.main.notifications.settings.Notification
 import vision.genesis.clientapp.feature.main.portfolio_events.PortfolioEventsPresenter;
 import vision.genesis.clientapp.feature.main.profile.ImageCropActivity;
 import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
-import vision.genesis.clientapp.feature.main.profile.change_password.ChangePasswordPresenter;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPresenter;
 import vision.genesis.clientapp.feature.main.program.balance.ProgramBalancePresenter;
 import vision.genesis.clientapp.feature.main.program.chart.ChartPresenter;
@@ -65,6 +64,8 @@ import vision.genesis.clientapp.feature.main.program.withdraw.confirm.ConfirmPro
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListPresenter;
 import vision.genesis.clientapp.feature.main.search.SearchPresenter;
 import vision.genesis.clientapp.feature.main.settings.SettingsPresenter;
+import vision.genesis.clientapp.feature.main.settings.security.SecurityPresenter;
+import vision.genesis.clientapp.feature.main.settings.security.change_password.ChangePasswordPresenter;
 import vision.genesis.clientapp.feature.main.wallet.WalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPresenter;
@@ -221,4 +222,6 @@ public interface AppComponent
 	void inject(WithdrawFundPresenter withdrawFundPresenter);
 
 	void inject(ConfirmFundWithdrawBottomSheetFragment confirmFundWithdrawBottomSheetFragment);
+
+	void inject(SecurityPresenter securityPresenter);
 }

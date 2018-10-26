@@ -3,7 +3,6 @@ package vision.genesis.clientapp.feature.pin.check;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,12 +38,11 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 
 	private static final String EXTRA_FINGERPRINT_ENABLED = "extra_fingerprint_enabled";
 
-	public static void startForResult(Fragment fragment, int requestCode, boolean canClose) {
-		Intent intent = new Intent(fragment.getContext(), CheckPinActivity.class);
+	public static void startForResult(Activity activity, int requestCode, boolean canClose) {
+		Intent intent = new Intent(activity.getApplicationContext(), CheckPinActivity.class);
 		intent.putExtra(EXTRA_CAN_CLOSE, canClose);
-		fragment.startActivityForResult(intent, requestCode);
-		if (fragment.getActivity() != null)
-			fragment.getActivity().overridePendingTransition(R.anim.fragment_fade_in, R.anim.hold);
+		activity.startActivityForResult(intent, requestCode);
+		activity.overridePendingTransition(R.anim.fragment_fade_in, R.anim.hold);
 	}
 
 	public static void startForResult(Activity activity, int requestCode, boolean canClose, boolean allowFingerprint) {

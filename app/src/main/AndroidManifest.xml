@@ -103,12 +103,6 @@
             android:windowSoftInputMode="stateVisible|adjustResize"/>
 
         <activity
-            android:name=".feature.main.profile.change_password.ChangePasswordActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/SwipeBackActivityTheme"
-            android:windowSoftInputMode="stateVisible"/>
-
-        <activity
             android:name=".feature.main.program.chart.ChartActivity"
             android:launchMode="singleTop"
             android:screenOrientation="landscape"
@@ -229,6 +223,18 @@
 
         <activity
             android:name=".feature.main.fund.withdraw.WithdrawFundActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+
+        <activity
+            android:name=".feature.main.settings.security.SecurityActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+
+        <activity
+            android:name=".feature.main.settings.security.change_password.ChangePasswordActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>

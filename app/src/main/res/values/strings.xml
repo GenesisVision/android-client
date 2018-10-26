@@ -107,7 +107,7 @@
     <string name="forgot_password_we_sent_email">We sent a password reset link to the email you specified. Please follow this link to reset your password.</string>
     <string name="enter_your_current_password">Enter your current password</string>
     <string name="enter_your_new_password">Enter your new password</string>
-    <string name="confirm_your_new_password">Confirm your new password</string>
+    <string name="repeat_your_new_password">Repeat your new password</string>
     <string name="passwords_should_match">Passwords should match</string>
     <string name="current_password">Current password</string>
     <string name="new_password">New password</string>
@@ -514,5 +514,13 @@
     <string name="you_will_get">You will get</string>
     <string name="current_invested_value">Current invested value</string>
     <string name="fund_withdraw_disclaimer">The withdrawal amount can be changed depending on the exchange rate or the success of the Manager.</string>
+    <string name="security">Security</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="not_verified">Not verified</string>
+    <string name="verified">Verified</string>
+    <string name="under_review">Under review</string>
+    <string name="rejected">Rejected</string>
+    <string name="old_password">Old password</string>
+    <string name="repeat_password">Repeat password</string>
 
 </resources>

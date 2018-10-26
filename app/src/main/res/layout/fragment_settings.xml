@@ -1,316 +1,306 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@+id/root"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="?attr/colorBackground">
+                android:background="?attr/colorBackgroundDark">
 
     <ScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingBottom="48dp">
+            android:background="?attr/colorBackground"
+            android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_profile"
+            <RelativeLayout
+                android:id="@+id/header"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                app:cardBackgroundColor="?attr/colorBackground"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="2dp"
-                app:cardPreventCornerOverlap="true">
+                android:layout_height="wrap_content"
+                android:padding="@dimen/settings_padding">
+
+                <vision.genesis.clientapp.ui.AvatarView
+                    android:id="@+id/avatar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"/>
 
                 <RelativeLayout
-                    android:id="@+id/profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="?attr/selectableItemBackground">
+                    android:id="@+id/avatar_add"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignBottom="@+id/avatar"
+                    android:layout_alignEnd="@+id/avatar"
+                    android:layout_alignRight="@+id/avatar">
 
-                    <vision.genesis.clientapp.ui.AvatarView
-                        android:id="@+id/avatar"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="16sp"
-                        android:layout_marginStart="16sp"/>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/circle_white"
+                        android:tint="?attr/colorAccent"/>
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="16sp"
-                        android:layout_marginStart="16sp"
-                        android:layout_toEndOf="@+id/avatar"
-                        android:layout_toRightOf="@+id/avatar"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/profile_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="?attr/colorTextPrimary"
-                            android:textSize="20sp"
-                            tools:text="Warren Buffett"/>
-
-                        <TextView
-                            android:id="@+id/profile_email"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="?attr/colorAccent"
-                            android:textSize="16sp"
-                            tools:text="buffett@berkshirehathaway.com"/>
-
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/arrow_profile"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginRight="16dp"
-                        android:src="@drawable/ic_chevron_right_black_24dp"
-                        android:tint="?attr/colorTextPrimary"/>
+                        android:layout_centerInParent="true"
+                        android:text="+"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textSize="18sp"/>
 
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_change_password"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/settings_item_height"
-                android:layout_below="@+id/card_profile"
-                android:layout_marginTop="24dp"
-                app:cardBackgroundColor="?attr/colorBackground"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="2dp"
-                app:cardPreventCornerOverlap="true">
-
-                <RelativeLayout
-                    android:id="@+id/change_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="?attr/selectableItemBackground"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:id="@+id/icon_change_password"
-                        style="@style/settings_icon"
-                        android:src="@drawable/ic_lock_black_24dp"/>
-
-                    <TextView
-                        android:id="@+id/text_change_password"
-                        style="@style/settings_text"
-                        android:layout_toEndOf="@+id/icon_change_password"
-                        android:layout_toRightOf="@+id/icon_change_password"
-                        android:text="@string/change_password"/>
-
-                    <ImageView
-                        android:id="@+id/arrow_change_password"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ic_chevron_right_black_24dp"
-                        android:tint="?attr/colorTextPrimary"/>
-
-                </RelativeLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_security"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/card_change_password"
-                android:layout_marginTop="24dp"
-                app:cardBackgroundColor="?attr/colorBackground"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="2dp"
-                app:cardPreventCornerOverlap="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <vision.genesis.clientapp.ui.SettingsSwitchButton
-                        android:id="@+id/two_factor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <View
-                        android:id="@+id/pin_code_delimiter"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="?attr/colorDelimiter"/>
-
-                    <vision.genesis.clientapp.ui.SettingsSwitchButton
-                        android:id="@+id/pin_code"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <View
-                        android:id="@+id/fingerprint_delimiter"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="?attr/colorDelimiter"
-                        android:visibility="gone"/>
-
-                    <vision.genesis.clientapp.ui.SettingsSwitchButton
-                        android:id="@+id/fingerprint"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"/>
-
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_dark_theme"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/card_security"
-                android:layout_marginTop="24dp"
-                app:cardBackgroundColor="?attr/colorBackground"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="2dp"
-                app:cardPreventCornerOverlap="true">
-
-                <vision.genesis.clientapp.ui.SettingsSwitchButton
-                    android:id="@+id/dark_theme"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_feedback"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/settings_item_height"
-                android:layout_below="@+id/card_dark_theme"
-                android:layout_marginTop="24dp"
-                app:cardBackgroundColor="?attr/colorBackground"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="2dp"
-                app:cardPreventCornerOverlap="true">
-
-                <RelativeLayout
-                    android:id="@+id/send_feedback"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="?attr/selectableItemBackground"
-                    android:paddingEnd="16dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:paddingStart="16dp">
-
-                    <ImageView
-                        android:id="@+id/icon_feedback"
-                        style="@style/settings_icon"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_feedback_black_24dp"/>
-
-                    <TextView
-                        android:id="@+id/text_feedback"
-                        style="@style/settings_text"
-                        android:layout_toEndOf="@+id/icon_feedback"
-                        android:layout_toRightOf="@+id/icon_feedback"
-                        android:text="@string/send_feedback"/>
-
-                </RelativeLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_logout"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/settings_item_height"
-                android:layout_below="@+id/card_feedback"
-                android:layout_marginTop="24dp"
-                app:cardBackgroundColor="?attr/colorBackground"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="2dp"
-                app:cardPreventCornerOverlap="true">
-
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/logout"
+                    android:layout_width="22dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/icon_logout"
+                    android:tint="?attr/colorTextPrimary"/>
+
+                <TextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/avatar"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/profile"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="26sp"/>
+
+                <TextView
+                    android:id="@+id/profile_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profile_name"
+                    android:layout_marginTop="20dp"
+                    android:alpha="0.5"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"
+                    tools:text="buffett@berkshirehathaway.com"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+
+                <View
+                    android:id="@+id/verification_status_background"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?attr/selectableItemBackground"
-                    android:paddingEnd="16dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:paddingStart="16dp">
+                    android:alpha="0.1"
+                    android:background="?attr/colorRed"/>
 
-                    <ImageView
-                        android:id="@+id/icon_logout"
-                        style="@style/settings_icon"
-                        android:padding="8dp"
-                        android:src="@drawable/logout"
-                        android:tint="?attr/colorRed"/>
+                <TextView
+                    android:id="@+id/verification_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/settings_padding"
+                    android:layout_marginStart="@dimen/settings_padding"
+                    android:textColor="?attr/colorRed"
+                    android:textSize="14sp"
+                    tools:text="Not verified"/>
 
-                    <TextView
-                        style="@style/settings_text"
-                        android:layout_toEndOf="@+id/icon_logout"
-                        android:layout_toRightOf="@+id/icon_logout"
-                        android:text="@string/log_out"
-                        android:textColor="?attr/colorRed"/>
+            </RelativeLayout>
 
-                </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/security"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingLeft="@dimen/settings_padding">
 
-            </android.support.v7.widget.CardView>
+                <ImageView
+                    android:id="@+id/icon_security"
+                    style="@style/settings_icon"
+                    android:padding="2dp"
+                    android:src="@drawable/icon_security"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+                <TextView
+                    style="@style/settings_text"
+                    android:layout_toEndOf="@+id/icon_security"
+                    android:layout_toRightOf="@+id/icon_security"
+                    android:text="@string/security"/>
+
+                <ImageView
+                    style="@style/menu_item_arrow_right"
+                    android:layout_marginEnd="@dimen/settings_padding"
+                    android:layout_marginRight="@dimen/settings_padding"/>
+
+            </RelativeLayout>
+
+            <!--<RelativeLayout-->
+            <!--android:id="@+id/change_password"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_below="@+id/header"-->
+            <!--android:background="?attr/selectableItemBackground"-->
+            <!--android:padding="16dp">-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/text_change_password"-->
+            <!--style="@style/settings_text"-->
+            <!--android:text="@string/change_password"/>-->
+
+            <!--<ImageView-->
+            <!--android:id="@+id/arrow_change_password"-->
+            <!--style="@style/menu_item_arrow_right"/>-->
+
+            <!--</RelativeLayout>-->
+
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<vision.genesis.clientapp.ui.SettingsSwitchButton-->
+            <!--android:id="@+id/two_factor"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+            <!--<View-->
+            <!--android:id="@+id/pin_code_delimiter"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="?attr/colorDelimiter"/>-->
+
+            <!--<vision.genesis.clientapp.ui.SettingsSwitchButton-->
+            <!--android:id="@+id/pin_code"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+            <!--<View-->
+            <!--android:id="@+id/fingerprint_delimiter"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="?attr/colorDelimiter"-->
+            <!--android:visibility="gone"/>-->
+
+            <!--<vision.genesis.clientapp.ui.SettingsSwitchButton-->
+            <!--android:id="@+id/fingerprint"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:visibility="gone"/>-->
+
+            <!--</LinearLayout>-->
+
+            <!--<android.support.v7.widget.CardView-->
+            <!--android:id="@+id/card_dark_theme"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="24dp"-->
+            <!--app:cardBackgroundColor="?attr/colorBackground"-->
+            <!--app:cardCornerRadius="0dp"-->
+            <!--app:cardElevation="2dp"-->
+            <!--app:cardPreventCornerOverlap="true">-->
+
+            <!--<vision.genesis.clientapp.ui.SettingsSwitchButton-->
+            <!--android:id="@+id/dark_theme"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+            <!--</android.support.v7.widget.CardView>-->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="?attr/colorBackgroundDark"/>
+
+            <RelativeLayout
+                android:id="@+id/terms_conditions"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingLeft="@dimen/settings_padding">
+
+                <TextView
+                    style="@style/settings_text"
+                    android:text="@string/terms_and_conditions"/>
+
+                <ImageView
+                    style="@style/menu_item_arrow_right"
+                    android:layout_marginEnd="@dimen/settings_padding"
+                    android:layout_marginRight="@dimen/settings_padding"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.05"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/privacy_policy"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingLeft="@dimen/settings_padding">
+
+                <TextView
+                    style="@style/settings_text"
+                    android:text="@string/privacy_policy"/>
+
+                <ImageView
+                    style="@style/menu_item_arrow_right"
+                    android:layout_marginEnd="@dimen/settings_padding"
+                    android:layout_marginRight="@dimen/settings_padding"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.05"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/contact_us"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingLeft="@dimen/settings_padding">
+
+                <TextView
+                    style="@style/settings_text"
+                    android:text="@string/contact_us"/>
+
+                <ImageView
+                    style="@style/menu_item_arrow_right"
+                    android:layout_marginEnd="@dimen/settings_padding"
+                    android:layout_marginRight="@dimen/settings_padding"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/card_logout"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="32dp"
-                android:layout_marginTop="32dp"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:background="?attr/colorBackgroundDark"
+                android:paddingBottom="48dp">
 
                 <TextView
                     android:id="@+id/version"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="?attr/colorTextSecondary"
+                    android:layout_marginTop="20dp"
+                    android:alpha="0.4"
+                    android:padding="@dimen/settings_padding"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="12sp"
                     tools:text="Version 0.0.8-alpha (18060802)"/>
 
-                <TextView
-                    android:id="@+id/privacy_policy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:text="@string/privacy_policy"
-                    android:textColor="?attr/colorAccent"
-                    android:textSize="16sp"/>
+            </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/terms_conditions"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/terms_and_conditions"
-                    android:textColor="?attr/colorAccent"
-                    android:textSize="16sp"/>
-
-            </LinearLayout>
-
-        </RelativeLayout>
+        </LinearLayout>
 
     </ScrollView>
+
 
 </RelativeLayout>

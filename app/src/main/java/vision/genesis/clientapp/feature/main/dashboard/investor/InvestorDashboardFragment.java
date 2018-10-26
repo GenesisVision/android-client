@@ -330,7 +330,7 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 //				getString(tooltipTextResId));
 //
 //		if (getActivity() != null)
-//			TooltipActivity.startWith(getActivity(), tooltipModel);
+//			TooltipActivity.startFrom(getActivity(), tooltipModel);
 //	}
 
 	private void initRefreshLayout() {

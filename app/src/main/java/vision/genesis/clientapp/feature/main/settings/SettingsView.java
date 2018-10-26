@@ -3,7 +3,6 @@ package vision.genesis.clientapp.feature.main.settings;
 import com.arellomobile.mvp.MvpView;
 
 import io.swagger.client.model.ProfileFullViewModel;
-import vision.genesis.clientapp.model.SettingsModel;
 
 /**
  * GenesisVisionAndroid
@@ -12,19 +11,19 @@ import vision.genesis.clientapp.model.SettingsModel;
 
 interface SettingsView extends MvpView
 {
-	void showFingerprintOption();
+//	void showFingerprintOption();
 
 	void updateProfile(ProfileFullViewModel profile);
 
-	void updateSettings(SettingsModel settingsModel);
-
-	void showDisablePin();
-
-	void showEnableFingerprint();
-
-	void showDisableFingerprint();
+//	void updateSettings(SettingsModel settingsModel);
+//
+//	void showDisablePin();
+//
+//	void showEnableFingerprint();
+//
+//	void showDisableFingerprint();
 
 	void showDialogMessage(String message);
 
-	void changeThemeWithAnim(String newTheme);
+//	void changeThemeWithAnim(String newTheme);
 }

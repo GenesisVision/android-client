@@ -1,6 +1,5 @@
-package vision.genesis.clientapp.feature.main.profile.change_password;
+package vision.genesis.clientapp.feature.main.settings.security.change_password;
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.arellomobile.mvp.InjectViewState;
@@ -50,7 +49,7 @@ public class ChangePasswordPresenter extends MvpPresenter<ChangePasswordView>
 		super.onDestroy();
 	}
 
-	void onChangePasswordClicked(String oldPassword, String newPassword, String confirmPassword) {
+	void onChangePasswordClicked(String oldPassword, String newPassword, String repeatPassword) {
 		boolean hasErrors = false;
 		getViewState().clearErrors();
 
@@ -62,18 +61,18 @@ public class ChangePasswordPresenter extends MvpPresenter<ChangePasswordView>
 			getViewState().setNewPasswordError(context.getString(R.string.enter_your_new_password));
 			hasErrors = true;
 		}
-		if (confirmPassword.trim().isEmpty()) {
-			getViewState().setConfirmPasswordError(context.getString(R.string.confirm_your_new_password));
+		if (repeatPassword.trim().isEmpty()) {
+			getViewState().setRepeatPasswordError(context.getString(R.string.repeat_your_new_password));
 			hasErrors = true;
 		}
-		else if (!newPassword.equals(confirmPassword)) {
+		else if (!newPassword.equals(repeatPassword)) {
 			getViewState().setNewPasswordError(context.getString(R.string.passwords_should_match));
-			getViewState().setConfirmPasswordError(context.getString(R.string.passwords_should_match));
+			getViewState().setRepeatPasswordError(context.getString(R.string.passwords_should_match));
 			hasErrors = true;
 		}
 
 		if (!hasErrors)
-			sendChangePassword(oldPassword, newPassword, confirmPassword);
+			sendChangePassword(oldPassword, newPassword, repeatPassword);
 	}
 
 	private void sendChangePassword(String oldPassword, String newPassword, String confirmPassword) {
@@ -87,7 +86,11 @@ public class ChangePasswordPresenter extends MvpPresenter<ChangePasswordView>
 
 	private void handleChangePasswordResponse() {
 		sendCodeSubscription.unsubscribe();
-		getViewState().finishActivity(Activity.RESULT_OK);
+		getViewState().showMessageDialog(R.drawable.image_ok,
+				context.getString(R.string.password_changed),
+				"",
+				false,
+				() -> getViewState().finishActivity());
 	}
 
 	private void handleChangePasswordError(Throwable throwable) {

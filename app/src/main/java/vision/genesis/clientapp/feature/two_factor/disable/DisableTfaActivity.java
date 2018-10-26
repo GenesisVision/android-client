@@ -139,7 +139,7 @@ public class DisableTfaActivity extends BaseSwipeBackActivity implements Disable
 
 	@Override
 	public void finishWithSuccess() {
-//		MessageBottomSheetDialog.startWith(this, getString(R.string.tfa_disable_success), R.drawable.ic_email_confirmed_icon, false);
+//		MessageBottomSheetDialog.startFrom(this, getString(R.string.tfa_disable_success), R.drawable.ic_email_confirmed_icon, false);
 		finish();
 	}
 
