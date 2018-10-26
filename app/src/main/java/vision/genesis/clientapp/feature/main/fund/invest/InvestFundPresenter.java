@@ -29,7 +29,7 @@ import vision.genesis.clientapp.utils.StringFormatUtil;
  */
 
 @InjectViewState
-public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements ConfirmFundInvestBottomSheetFragment.OnConfirmProgramInvestListener
+public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements ConfirmFundInvestBottomSheetFragment.OnConfirmFundInvestListener
 {
 	@Inject
 	public Context context;

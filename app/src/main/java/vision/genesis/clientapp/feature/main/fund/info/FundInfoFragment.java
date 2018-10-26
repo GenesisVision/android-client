@@ -29,12 +29,11 @@ import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.fund.invest.InvestFundActivity;
+import vision.genesis.clientapp.feature.main.fund.withdraw.WithdrawFundActivity;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
-import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.FundRequest;
 import vision.genesis.clientapp.model.ManagerDetailsModel;
-import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PrimaryButton;
@@ -135,8 +134,6 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 	@BindDimen(R.dimen.program_info_strategy_max_height)
 	public int strategyMaxHeight;
 
-	private UUID fundId;
-
 	private FundDetailsFull fundDetails;
 
 	private Unbinder unbinder;
@@ -215,8 +212,7 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 
 		unbinder = ButterKnife.bind(this, view);
 
-		fundId = (UUID) getArguments().getSerializable(EXTRA_FUND_ID);
-		fundInfoPresenter.setFundId(fundId);
+		fundInfoPresenter.setFundId((UUID) getArguments().getSerializable(EXTRA_FUND_ID));
 
 		setFonts();
 
@@ -246,7 +242,7 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 		investedLabel.setText(investedLabel.getText().toString().toLowerCase());
 		profitLabel.setText(profitLabel.getText().toString().toLowerCase());
 		entryFeeLabel.setText(entryFeeLabel.getText().toString().toLowerCase());
-		exitFeeLabel.setText(entryFeeLabel.getText().toString().toLowerCase());
+		exitFeeLabel.setText(exitFeeLabel.getText().toString().toLowerCase());
 	}
 
 	@Override
@@ -269,7 +265,7 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 			yourInvestmentGroup.setVisibility(View.VISIBLE);
 			status.setStatus(fundDetails.getPersonalFundDetails().getStatus().getValue());
 //		invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(fundDetails.getPersonalProgramDetails().getInvested()).toString()));
-			invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(fundDetails.getPersonalFundDetails().getValue(), CurrencyEnum.GVT.toString())));
+			invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(fundDetails.getPersonalFundDetails().getInvested(), CurrencyEnum.GVT.toString())));
 			value.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(fundDetails.getPersonalFundDetails().getValue(), CurrencyEnum.GVT.toString())));
 			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(fundDetails.getPersonalFundDetails().getProfit(), 0, 4)));
 			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(), fundDetails.getPersonalFundDetails().getProfit() < 0 ? R.attr.colorRed : R.attr.colorGreen));
@@ -308,9 +304,9 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 	}
 
 	@Override
-	public void showWithdrawFundActivity(ProgramRequest request) {
+	public void showWithdrawFundActivity(FundRequest request) {
 		if (getActivity() != null)
-			WithdrawProgramActivity.startWith(getActivity(), request);
+			WithdrawFundActivity.startWith(getActivity(), request);
 	}
 
 	@Override

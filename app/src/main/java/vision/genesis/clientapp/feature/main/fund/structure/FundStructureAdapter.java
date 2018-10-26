@@ -21,7 +21,7 @@ import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 19/09/2018.
+ * Created by Vitaly on 25/10/2018.
  */
 
 public class FundStructureAdapter extends RecyclerView.Adapter<FundStructureAdapter.AssetViewHolder>

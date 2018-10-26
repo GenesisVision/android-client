@@ -512,5 +512,7 @@
     <string name="fund_invest_withdraw_disclaimer">Your request will be processed within a few minutes.</string>
     <string name="fees_and_commissions">Fees and commissions</string>
     <string name="you_will_get">You will get</string>
+    <string name="current_invested_value">Current invested value</string>
+    <string name="fund_withdraw_disclaimer">The withdrawal amount can be changed depending on the exchange rate or the success of the Manager.</string>
 
 </resources>

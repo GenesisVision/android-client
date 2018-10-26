@@ -226,61 +226,22 @@
 
                 </LinearLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp">
-
-                    <TextView
-                        android:id="@+id/label_reinvest"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="12dp"
-                        android:layout_marginRight="12dp"
-                        android:alpha="0.9"
-                        android:text="@string/auto_reinvest"
-                        android:textColor="?attr/colorTextPrimary"
-                        android:textSize="16sp"/>
-
-                    <ImageView
-                        android:id="@+id/tooltip_reinvest"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginRight="4dp"
-                        android:layout_toEndOf="@id/label_reinvest"
-                        android:layout_toRightOf="@id/label_reinvest"
-                        android:padding="8dp"
-                        android:src="@drawable/icon_tooltip_2"/>
-
-                    <Switch
-                        android:id="@+id/switch_reinvest"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"/>
-
-                </RelativeLayout>
-
                 <vision.genesis.clientapp.ui.PrimaryButton
                     android:id="@+id/button_withdraw"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/button_height"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="32dp"
                     android:text="@string/withdraw"/>
 
                 <TextView
                     android:id="@+id/withdraw_info"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:alpha="0.3"
                     android:gravity="center"
                     android:lineSpacingMultiplier="1.2"
-                    android:text="@string/program_info_withdraw_info"
+                    android:text="@string/fund_invest_withdraw_disclaimer"
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="12sp"/>
 

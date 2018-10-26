@@ -7,7 +7,6 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import io.swagger.client.model.FundDetailsFull;
 import vision.genesis.clientapp.model.FundRequest;
-import vision.genesis.clientapp.model.ProgramRequest;
 
 /**
  * GenesisVisionAndroid
@@ -29,7 +28,7 @@ interface FundInfoView extends MvpView
 	void showInvestFundActivity(FundRequest request);
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
-	void showWithdrawFundActivity(ProgramRequest request);
+	void showWithdrawFundActivity(FundRequest request);
 
 	void showLoginActivity();
 }

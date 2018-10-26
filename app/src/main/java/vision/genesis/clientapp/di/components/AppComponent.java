@@ -33,6 +33,8 @@ import vision.genesis.clientapp.feature.main.fund.invest.InvestFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.invest.confirm.ConfirmFundInvestBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.fund.profit.FundProfitPresenter;
 import vision.genesis.clientapp.feature.main.fund.structure.FundStructurePresenter;
+import vision.genesis.clientapp.feature.main.fund.withdraw.WithdrawFundPresenter;
+import vision.genesis.clientapp.feature.main.fund.withdraw.confirm.ConfirmFundWithdrawBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.funds_list.FundsListPresenter;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsPresenter;
 import vision.genesis.clientapp.feature.main.manager.info.ManagerInfoPresenter;
@@ -215,4 +217,8 @@ public interface AppComponent
 	void inject(ConfirmFundInvestBottomSheetFragment confirmFundInvestBottomSheetFragment);
 
 	void inject(DashboardFundsPresenter dashboardFundsPresenter);
+
+	void inject(WithdrawFundPresenter withdrawFundPresenter);
+
+	void inject(ConfirmFundWithdrawBottomSheetFragment confirmFundWithdrawBottomSheetFragment);
 }

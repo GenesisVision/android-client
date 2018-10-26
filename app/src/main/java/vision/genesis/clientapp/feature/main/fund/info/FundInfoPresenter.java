@@ -16,7 +16,6 @@ import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.FundRequest;
-import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.utils.Constants;
 
@@ -158,12 +157,12 @@ public class FundInfoPresenter extends MvpPresenter<FundInfoView>
 		if (fundDetails == null)
 			return;
 
-		ProgramRequest request = new ProgramRequest();
+		FundRequest request = new FundRequest();
 
-		request.setProgramId(fundDetails.getId());
-		request.setProgramLogo(fundDetails.getLogo());
-		request.setProgramColor(fundDetails.getColor());
-		request.setProgramName(fundDetails.getTitle());
+		request.setFundId(fundDetails.getId());
+		request.setFundLogo(fundDetails.getLogo());
+		request.setFundColor(fundDetails.getColor());
+		request.setFundName(fundDetails.getTitle());
 		request.setManagerName(fundDetails.getManager().getUsername());
 
 		getViewState().showWithdrawFundActivity(request);

@@ -136,7 +136,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 		private void updateData() {
 			this.name.setText(request.getTitle());
 			this.type.setText(request.getType().getValue());
-			this.value.setText(String.format(Locale.getDefault(), "%s %s GVT", request.getValue() > 0 ? "+" : "",
+			this.value.setText(String.format(Locale.getDefault(), "%s %s GVT", request.getType().equals(ProgramRequest.TypeEnum.INVEST) ? "+" : "-",
 					StringFormatUtil.formatCurrencyAmount(request.getValue(), CurrencyEnum.GVT.getValue())));
 			this.date.setText(DateTimeUtil.formatRequestDate(request.getDate()));
 
