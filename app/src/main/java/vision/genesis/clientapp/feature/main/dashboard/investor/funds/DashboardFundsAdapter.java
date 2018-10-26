@@ -1,6 +1,5 @@
-package vision.genesis.clientapp.feature.main.funds_list;
+package vision.genesis.clientapp.feature.main.dashboard.investor.funds;
 
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,28 +34,23 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 24/10/2018.
+ * Created by Vitaly on 25/10/2018.
  */
 
-public class FundsListAdapter extends RecyclerView.Adapter<FundsListAdapter.FundViewHolder>
+public class DashboardFundsAdapter extends RecyclerView.Adapter<DashboardFundsAdapter.FundViewHolder>
 {
 	private List<FundDetails> funds = new ArrayList<>();
 
-	@NonNull
 	@Override
-	public FundViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_fund, parent, false);
+	public FundViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_dashboard_fund, parent, false);
 		return new FundViewHolder(itemView);
 	}
 
 	@Override
-	public void onBindViewHolder(@NonNull FundViewHolder holder, int position) {
-		holder.setFund(funds.get(position));
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return funds.get(position).hashCode();
+	public void onBindViewHolder(FundViewHolder holder, int position) {
+		if (funds.get(position) != null)
+			holder.setFund(funds.get(position));
 	}
 
 	@Override
@@ -65,36 +58,17 @@ public class FundsListAdapter extends RecyclerView.Adapter<FundsListAdapter.Fund
 		return funds.size();
 	}
 
-	public void setFunds(List<FundDetails> funds) {
+	@Override
+	public long getItemId(int position) {
+		return funds.get(position) != null
+				? funds.get(position).hashCode()
+				: RecyclerView.NO_ID;
+	}
+
+	void setFunds(List<FundDetails> funds) {
 		this.funds.clear();
 		this.funds.addAll(funds);
 		notifyDataSetChanged();
-	}
-
-	public void addFunds(List<FundDetails> funds) {
-		this.funds.addAll(funds);
-		notifyDataSetChanged();
-	}
-
-	public void changeFundIsFavorite(UUID fundId, boolean isFavorite) {
-		for (FundDetails fund : funds) {
-			if (fund.getId().equals(fundId)) {
-				if (fund.getPersonalDetails() != null)
-					fund.getPersonalDetails().setIsFavorite(isFavorite);
-				notifyDataSetChanged();
-				break;
-			}
-		}
-	}
-
-	public void removeFund(UUID fundId) {
-		for (int i = 0; i < funds.size(); i++) {
-			if (funds.get(i).getId().equals(fundId)) {
-				funds.remove(i);
-				notifyItemRemoved(i);
-				break;
-			}
-		}
 	}
 
 	static class FundViewHolder extends RecyclerView.ViewHolder
@@ -234,7 +208,6 @@ public class FundsListAdapter extends RecyclerView.Adapter<FundsListAdapter.Fund
 
 			this.chart.setChart(fund.getChart());
 
-//			Double profitPercent = getProfitPercent();
 			Double profitPercent = fund.getStatistic().getProfitPercent();
 
 			this.profitPercent.setText(String.format(Locale.getDefault(), "%s%%",

@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/item_list_fund_height"
+              android:layout_marginBottom="@dimen/assets_padding"
+              android:layout_marginEnd="@dimen/assets_padding"
+              android:layout_marginLeft="@dimen/assets_padding"
+              android:layout_marginRight="@dimen/assets_padding"
+              android:layout_marginStart="@dimen/assets_padding"
+              android:background="@drawable/program_list_item_background"
+              android:gravity="center_vertical"
+              android:orientation="vertical"
+              android:padding="@dimen/assets_padding">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <vision.genesis.clientapp.ui.ProgramLogoView
+            android:id="@+id/fund_logo"
+            android:layout_width="@dimen/dashboard_program_logo_height"
+            android:layout_height="@dimen/dashboard_program_logo_height"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/fund_logo"
+            android:layout_toLeftOf="@+id/favorite"
+            android:layout_toRightOf="@+id/fund_logo"
+            android:layout_toStartOf="@+id/favorite"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/fund_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="16sp"
+                tools:text="Janus Capital Group"/>
+
+            <TextView
+                android:id="@+id/manager_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="?attr/colorAccent"
+                android:textSize="14sp"
+                tools:text="Eddie Carr"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/favorite"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:alpha="0.3"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingBottom="24dp"
+            android:paddingLeft="24dp"
+            android:src="@drawable/icon_favorite"
+            android:tint="?attr/colorTextPrimary"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <vision.genesis.clientapp.ui.chart.ProfitSmallChartView
+            android:id="@+id/chart"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="20"/>
+
+        <LinearLayout
+            android:id="@+id/group_profit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_weight="12"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/profit_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorGreen"
+                android:textSize="18sp"
+                tools:text="5.4%"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/balance"
+                style="@style/text_value"
+                tools:text="235k GVT"/>
+
+            <TextView
+                android:id="@+id/balance_label"
+                style="@style/text_label"
+                android:layout_marginTop="4dp"
+                android:text="@string/balance"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/investors"
+                style="@style/text_value"
+                tools:text="349"/>
+
+            <TextView
+                android:id="@+id/investors_label"
+                style="@style/text_label"
+                android:layout_marginTop="4dp"
+                android:text="@string/investors"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/drawdown"
+                style="@style/text_value"
+                tools:text="0.71%"/>
+
+            <TextView
+                android:id="@+id/drawdown_label"
+                style="@style/text_label"
+                android:layout_marginTop="4dp"
+                android:text="@string/ddown"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <RelativeLayout
+            android:id="@+id/group_asset1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/item_fund_asset_height"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            tools:visibility="visible">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.02"
+                android:background="@drawable/fund_asset_background"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/icon_asset1"
+                    android:layout_width="@dimen/item_fund_asset_image_size"
+                    android:layout_height="@dimen/item_fund_asset_image_size"/>
+
+                <TextView
+                    android:id="@+id/name_asset1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"
+                    tools:text="15%"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/group_asset2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/item_fund_asset_height"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            tools:visibility="visible">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.02"
+                android:background="@drawable/fund_asset_background"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/icon_asset2"
+                    android:layout_width="@dimen/item_fund_asset_image_size"
+                    android:layout_height="@dimen/item_fund_asset_image_size"/>
+
+                <TextView
+                    android:id="@+id/name_asset2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"
+                    tools:text="15%"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/group_asset3"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/item_fund_asset_height"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            tools:visibility="visible">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.02"
+                android:background="@drawable/fund_asset_background"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/icon_asset3"
+                    android:layout_width="@dimen/item_fund_asset_image_size"
+                    android:layout_height="@dimen/item_fund_asset_image_size"/>
+
+                <TextView
+                    android:id="@+id/name_asset3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"
+                    tools:text="15%"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/group_assets_left"
+            android:layout_width="30dp"
+            android:layout_height="@dimen/item_fund_asset_height"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:visibility="invisible"
+            tools:visibility="visible">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.02"
+                android:background="@drawable/fund_asset_background"/>
+
+            <TextView
+                android:id="@+id/text_assets_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:alpha="0.4"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="14sp"
+                tools:text="+99"/>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

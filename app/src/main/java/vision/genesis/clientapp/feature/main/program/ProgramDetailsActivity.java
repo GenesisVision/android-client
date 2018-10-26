@@ -339,6 +339,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	private void initViewPager(UUID programId) {
 		pagerAdapter = new ProgramDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, programId);
 		viewPager.setAdapter(pagerAdapter);
+		viewPager.setOffscreenPageLimit(5);
 
 		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
 		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
@@ -391,12 +392,12 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	@Override
 	public void onPageSelected(int position) {
-		if (currentFragment != null && currentFragment instanceof ProgramDetailsPagerAdapter.OnPageVisibilityChanged)
-			((ProgramDetailsPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerHide();
-		currentFragment = pagerAdapter.getItem(position);
-		if (pagerAdapter.getItem(position) instanceof ProgramDetailsPagerAdapter.OnPageVisibilityChanged) {
-			((ProgramDetailsPagerAdapter.OnPageVisibilityChanged) pagerAdapter.getItem(position)).pagerShow();
-		}
+//		if (currentFragment != null && currentFragment instanceof ProgramDetailsPagerAdapter.OnPageVisibilityChanged)
+//			((ProgramDetailsPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerHide();
+//		currentFragment = pagerAdapter.getItem(position);
+//		if (pagerAdapter.getItem(position) instanceof ProgramDetailsPagerAdapter.OnPageVisibilityChanged) {
+//			((ProgramDetailsPagerAdapter.OnPageVisibilityChanged) pagerAdapter.getItem(position)).pagerShow();
+//		}
 	}
 
 	@Override

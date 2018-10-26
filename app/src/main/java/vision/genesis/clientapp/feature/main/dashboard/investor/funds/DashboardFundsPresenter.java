@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.dashboard.investor.programs;
+package vision.genesis.clientapp.feature.main.dashboard.investor.funds;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -7,7 +7,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ProgramsList;
+import io.swagger.client.model.FundsList;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -16,17 +16,16 @@ import vision.genesis.clientapp.managers.InvestorDashboardManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.SortingEnum;
-import vision.genesis.clientapp.model.events.OnDashboardProgramsUpdateEvent;
 import vision.genesis.clientapp.model.events.OnInvestButtonClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
- * GenesisVision
- * Created by Vitaly on 3/13/18.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 25/10/2018.
  */
 
 @InjectViewState
-public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsView>
+public class DashboardFundsPresenter extends MvpPresenter<DashboardFundsView>
 {
 	@Inject
 	public InvestorDashboardManager dashboardManager;
@@ -36,7 +35,7 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 
 	private Subscription dateRangeSubscription;
 
-	private Subscription getProgramsSubscription;
+	private Subscription getFundsSubscription;
 
 	private DateRange dateRange;
 
@@ -53,23 +52,18 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 	public void onDestroy() {
 		if (dateRangeSubscription != null)
 			dateRangeSubscription.unsubscribe();
-		if (getProgramsSubscription != null)
-			getProgramsSubscription.unsubscribe();
+		if (getFundsSubscription != null)
+			getFundsSubscription.unsubscribe();
 
 		super.onDestroy();
 	}
 
 	void onShow() {
-		getPrograms();
+		getFunds();
 	}
 
 	void onStartInvestingClicked() {
 		EventBus.getDefault().post(new OnInvestButtonClickedEvent());
-	}
-
-	void onTryAgainClicked() {
-		getViewState().showProgressBar(true);
-		EventBus.getDefault().post(new OnDashboardProgramsUpdateEvent());
 	}
 
 	private void subscribeToDateRange() {
@@ -81,20 +75,20 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 
 	private void dateRangeChangedHandler(DateRange dateRange) {
 		this.dateRange = dateRange;
-		getPrograms();
+		getFunds();
 	}
 
-	private void getPrograms() {
+	private void getFunds() {
 		if (dateRange != null)
-			getProgramsSubscription = dashboardManager.getPrograms(SortingEnum.BYPROFITDESC.toString(), dateRange, 0, 100)
+			getFundsSubscription = dashboardManager.getFunds(SortingEnum.BYPROFITDESC.toString(), dateRange, 0, 100)
 					.subscribeOn(Schedulers.computation())
 					.map(this::prepareData)
 					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(this::handleGetProgramsSuccess,
-							this::handleGetProgramsError);
+					.subscribe(this::handleGetFundsSuccess,
+							this::handleGetFundsError);
 	}
 
-	private ProgramsList prepareData(ProgramsList dashboard) {
+	private FundsList prepareData(FundsList dashboard) {
 //		List<InvestmentProgramDashboardInvestor> programs = dashboard.getInvestmentPrograms();
 //		programs = new ArrayList<>();
 //		archivedPrograms = new ArrayList<>();
@@ -122,24 +116,22 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 		return dashboard;
 	}
 
-	private void handleGetProgramsSuccess(ProgramsList response) {
-		getProgramsSubscription.unsubscribe();
+	private void handleGetFundsSuccess(FundsList response) {
+		getFundsSubscription.unsubscribe();
 
 		getViewState().showProgressBar(false);
 
-		getViewState().setPrograms(response.getPrograms());
+		getViewState().setFunds(response.getFunds());
 //		getViewState().setTotalPortfolioValue(dashboard.getTotalPortfolioAmount());
 	}
 
-	private void handleGetProgramsError(Throwable throwable) {
-		getProgramsSubscription.unsubscribe();
+	private void handleGetFundsError(Throwable throwable) {
+		getFundsSubscription.unsubscribe();
 
 		getViewState().showProgressBar(false);
 		getViewState().showEmpty(false);
 
 		if (ApiErrorResolver.isNetworkError(throwable)) {
-//			if (programs.size() == 0)
-//			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}
 	}
 }

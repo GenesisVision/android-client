@@ -11,6 +11,7 @@ import io.swagger.client.api.InvestorApi;
 import io.swagger.client.model.DashboardPortfolioEvent;
 import io.swagger.client.model.DashboardPortfolioEvents;
 import io.swagger.client.model.DashboardSummary;
+import io.swagger.client.model.FundsList;
 import io.swagger.client.model.ProgramsList;
 import rx.Observable;
 import rx.schedulers.Schedulers;
@@ -39,6 +40,10 @@ public class InvestorDashboardManager
 
 	public Observable<ProgramsList> getPrograms(String sorting, DateRange dateRange, Integer skip, Integer take) {
 		return investorApi.v10InvestorProgramsGet(AuthManager.token.getValue(), sorting, dateRange.getFrom(), dateRange.getTo(), 10, null, skip, take);
+	}
+
+	public Observable<FundsList> getFunds(String sorting, DateRange dateRange, Integer skip, Integer take) {
+		return investorApi.v10InvestorFundsGet(AuthManager.token.getValue(), sorting, dateRange.getFrom(), dateRange.getTo(), 10, null, skip, take);
 	}
 
 	public Observable<DashboardPortfolioEvents> getPortfolioEvents(DateRange dateRange, Integer skip, Integer take) {

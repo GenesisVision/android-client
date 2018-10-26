@@ -16,7 +16,6 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.swagger.client.model.ProgramDetails;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
@@ -143,11 +142,6 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programDetailsModel));
 				}
 			});
-		}
-
-		@OnClick(R.id.group_profit)
-		public void onProfitClicked() {
-
 		}
 
 		private void setFonts() {

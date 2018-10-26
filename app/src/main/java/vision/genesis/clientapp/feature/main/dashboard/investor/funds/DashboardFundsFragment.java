@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.dashboard.investor.programs;
+package vision.genesis.clientapp.feature.main.dashboard.investor.funds;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,20 +17,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.ProgramDetails;
+import io.swagger.client.model.FundDetails;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.DashboardPagerAdapter;
 
 /**
- * GenesisVision
- * Created by Vitaly on 3/13/18.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 25/10/2018.
  */
 
-public class DashboardProgramsFragment extends BaseFragment implements DashboardProgramsView, DashboardPagerAdapter.OnPageVisibilityChanged
+public class DashboardFundsFragment extends BaseFragment implements DashboardFundsView, DashboardPagerAdapter.OnPageVisibilityChanged
 {
-	public static DashboardProgramsFragment with() {
-		DashboardProgramsFragment dashboardProgramsFragment = new DashboardProgramsFragment();
+	public static DashboardFundsFragment with() {
+		DashboardFundsFragment dashboardProgramsFragment = new DashboardFundsFragment();
 		Bundle arguments = new Bundle(1);
 		dashboardProgramsFragment.setArguments(arguments);
 		return dashboardProgramsFragment;
@@ -46,15 +46,15 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 	public ViewGroup emptyGroup;
 
 	@InjectPresenter
-	public DashboardProgramsPresenter dashboardProgramsPresenter;
+	public DashboardFundsPresenter dashboardFundsPresenter;
 
-	private DashboardProgramsAdapter dashboardProgramsAdapter;
+	private DashboardFundsAdapter dashboardFundsAdapter;
 
 	private Unbinder unbinder;
 
 	@OnClick(R.id.button_browse_programs)
 	public void onStartInvestingClicked() {
-		dashboardProgramsPresenter.onStartInvestingClicked();
+		dashboardFundsPresenter.onStartInvestingClicked();
 	}
 
 	@Nullable
@@ -89,16 +89,16 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 		recyclerView.setHasFixedSize(true);
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
-		dashboardProgramsAdapter = new DashboardProgramsAdapter();
-		dashboardProgramsAdapter.setHasStableIds(true);
-		recyclerView.setAdapter(dashboardProgramsAdapter);
+		dashboardFundsAdapter = new DashboardFundsAdapter();
+		dashboardFundsAdapter.setHasStableIds(true);
+		recyclerView.setAdapter(dashboardFundsAdapter);
 	}
 
 	@Override
-	public void setPrograms(List<ProgramDetails> programs) {
-		dashboardProgramsAdapter.setPrograms(programs);
+	public void setFunds(List<FundDetails> funds) {
+		dashboardFundsAdapter.setFunds(funds);
 
-		showEmpty(programs.size() == 0);
+		showEmpty(funds.size() == 0);
 	}
 
 	@Override
@@ -117,8 +117,8 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 
 	@Override
 	public void pagerShow() {
-		if (dashboardProgramsPresenter != null)
-			dashboardProgramsPresenter.onShow();
+		if (dashboardFundsPresenter != null)
+			dashboardFundsPresenter.onShow();
 	}
 
 	@Override

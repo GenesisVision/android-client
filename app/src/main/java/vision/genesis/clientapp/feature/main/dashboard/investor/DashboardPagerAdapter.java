@@ -1,9 +1,12 @@
-package vision.genesis.clientapp.feature.main.dashboard.investor.programs;
+package vision.genesis.clientapp.feature.main.dashboard.investor;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import vision.genesis.clientapp.feature.main.dashboard.investor.funds.DashboardFundsFragment;
+import vision.genesis.clientapp.feature.main.dashboard.investor.programs.DashboardProgramsFragment;
 
 /**
  * GenesisVision
@@ -21,7 +24,7 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 
 	private DashboardProgramsFragment programsFragment;
 
-	private DashboardProgramsFragment fundsFragment;
+	private DashboardFundsFragment fundsFragment;
 
 	private TabLayout tabLayout;
 
@@ -29,7 +32,7 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 		super(fm);
 		this.tabLayout = tabLayout;
 		programsFragment = DashboardProgramsFragment.with();
-		fundsFragment = DashboardProgramsFragment.with();
+		fundsFragment = DashboardFundsFragment.with();
 	}
 
 	@Override

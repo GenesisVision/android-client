@@ -333,6 +333,7 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 	private void initViewPager(UUID fundId) {
 		pagerAdapter = new FundDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, fundId);
 		viewPager.setAdapter(pagerAdapter);
+		viewPager.setOffscreenPageLimit(5);
 
 		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
 		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
@@ -385,12 +386,12 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 
 	@Override
 	public void onPageSelected(int position) {
-		if (currentFragment != null && currentFragment instanceof FundDetailsPagerAdapter.OnPageVisibilityChanged)
-			((FundDetailsPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerHide();
-		currentFragment = pagerAdapter.getItem(position);
-		if (pagerAdapter.getItem(position) instanceof FundDetailsPagerAdapter.OnPageVisibilityChanged) {
-			((FundDetailsPagerAdapter.OnPageVisibilityChanged) pagerAdapter.getItem(position)).pagerShow();
-		}
+//		if (currentFragment != null && currentFragment instanceof FundDetailsPagerAdapter.OnPageVisibilityChanged)
+//			((FundDetailsPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerHide();
+//		currentFragment = pagerAdapter.getItem(position);
+//		if (pagerAdapter.getItem(position) instanceof FundDetailsPagerAdapter.OnPageVisibilityChanged) {
+//			((FundDetailsPagerAdapter.OnPageVisibilityChanged) pagerAdapter.getItem(position)).pagerShow();
+//		}
 	}
 
 	@Override
