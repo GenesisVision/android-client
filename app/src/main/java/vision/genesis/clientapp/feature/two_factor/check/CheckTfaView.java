@@ -11,8 +11,6 @@ interface CheckTfaView extends MvpView
 {
 	void setCode(String code);
 
-	void setConfirmButtonEnabled(boolean enabled);
-
 	void setKeyboardKeysEnabled(boolean enabled);
 
 	void showProgress(boolean show);

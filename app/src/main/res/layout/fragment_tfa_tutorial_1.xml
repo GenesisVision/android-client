@@ -16,8 +16,9 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/tfa_tutorial_1_top"
-        android:textColor="@color/black87"
-        android:textSize="18sp"/>
+        android:alpha="0.5"
+        android:textColor="?attr/colorTextPrimary"
+        android:textSize="14sp"/>
 
     <ImageView
         android:id="@+id/image"
@@ -42,7 +43,8 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/tfa_tutorial_1_bottom"
-        android:textColor="@color/black87"
-        android:textSize="18sp"/>
+        android:alpha="0.5"
+        android:textColor="?attr/colorTextPrimary"
+        android:textSize="14sp"/>
 
 </RelativeLayout>

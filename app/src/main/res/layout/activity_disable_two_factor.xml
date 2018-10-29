@@ -1,120 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-    <vision.genesis.clientapp.ui.ToolbarView
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"/>
-
-    <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/text_input_layout_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
-            android:gravity="bottom"
-            android:textColorHint="@color/grey400"
-            app:hintTextAppearance="@style/ProfileHintText">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/edit_text_password"
-                style="@style/edittext"
-                android:hint="@string/your_password"
-                android:imeOptions="actionNext"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:textSize="18sp"
-                tools:text="qwerty"/>
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/text_input_layout_code"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="8dp"
-            android:gravity="bottom"
-            android:textColorHint="@color/grey400"
-            app:hintTextAppearance="@style/ProfileHintText">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/edit_text_code"
-                style="@style/edittext"
-                android:hint="@string/tfa_code"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textSize="18sp"
-                tools:text="690 763"/>
-
-        </android.support.design.widget.TextInputLayout>
-
-    </LinearLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/button_disable"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/button_square_primary">
+        android:layout_height="@dimen/toolbar_height">
+
+        <ImageView
+            android:id="@+id/button_back"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="20dp"
+            android:src="@drawable/icon_back"
+            android:tint="?attr/colorTextPrimary"/>
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/disable"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="16sp"/>
+            android:text="@string/disable_two_factor"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="18sp"/>
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/version"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/grey300"
-        android:textSize="10sp"
-        tools:text="0.0.2-alpha (18040401)"/>
-
     <RelativeLayout
-        android:id="@+id/group_progress_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="true"
-        android:focusable="true"
-        android:visibility="gone"
-        tools:visibility="gone">
+        android:layout_below="@+id/toolbar">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.7"
-            android:background="@color/colorAccent"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/settings_padding"
+            android:paddingRight="@dimen/settings_padding">
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"/>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/password_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_field_height"
+                android:layout_marginTop="30dp"
+                android:gravity="bottom"
+                android:textColorHint="?attr/colorTextSecondary">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_text_password"
+                    style="@style/edittext"
+                    android:hint="@string/your_password"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/code_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_field_height"
+                android:layout_marginTop="30dp"
+                android:gravity="bottom"
+                android:textColorHint="?attr/colorTextSecondary">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_text_code"
+                    style="@style/edittext"
+                    android:hint="@string/tfa_code"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLines="1"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/group_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal"
+            android:padding="@dimen/sign_in_padding"
+            tools:visibility="visible">
+
+            <vision.genesis.clientapp.ui.PrimaryButton
+                android:id="@+id/button_disable"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:background="@drawable/button_primary"
+                android:text="@string/disable"/>
+
+            <FrameLayout
+                android:id="@+id/group_progressbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:visibility="invisible">
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+            </FrameLayout>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

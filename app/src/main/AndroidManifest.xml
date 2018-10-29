@@ -74,13 +74,13 @@
             android:name=".feature.auth.login.LoginActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
 
         <activity
             android:name=".feature.auth.registration.RegistrationActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
 
         <activity
             android:name=".feature.auth.email_verification.EmailVerificationActivity"
@@ -123,15 +123,9 @@
 
         <activity
             android:name=".feature.two_factor.setup.SetupTfaActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
-
-        <activity
-            android:name=".feature.two_factor.setup.forth.SetupTfaForthStepActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
 
         <activity
             android:name=".feature.two_factor.disable.DisableTfaActivity"

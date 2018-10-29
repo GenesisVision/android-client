@@ -88,10 +88,14 @@ public class DisableTfaPresenter extends MvpPresenter<DisableTfaView>
 
 	private void handleDisableTfaSuccess(Void response) {
 		disableTfaSubscription.unsubscribe();
-		getViewState().showProgress(false);
 
 		authManager.setTwoFactorStatus(false);
-		getViewState().finishWithSuccess();
+
+		getViewState().showMessageDialog(R.drawable.image_ok,
+				context.getString(R.string.tfa_disable_success_title),
+				context.getString(R.string.tfa_disable_success),
+				true,
+				() -> getViewState().finishActivity());
 	}
 
 	private void handleDisableTfaError(Throwable throwable) {

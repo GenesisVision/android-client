@@ -14,10 +14,11 @@
         android:layout_marginRight="64dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
+        android:alpha="0.5"
         android:gravity="center"
         android:text="@string/tfa_tutorial_3_top"
-        android:textColor="@color/black87"
-        android:textSize="18sp"/>
+        android:textColor="?attr/colorTextPrimary"
+        android:textSize="14sp"/>
 
     <ImageView
         android:id="@+id/image"
@@ -40,9 +41,10 @@
         android:layout_marginRight="64dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
+        android:alpha="0.5"
         android:gravity="center"
         android:text="@string/tfa_tutorial_3_bottom"
-        android:textColor="@color/black87"
-        android:textSize="18sp"/>
+        android:textColor="?attr/colorTextPrimary"
+        android:textSize="14sp"/>
 
 </RelativeLayout>

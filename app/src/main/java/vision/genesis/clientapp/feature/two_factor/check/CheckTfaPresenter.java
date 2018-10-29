@@ -37,10 +37,6 @@ public class CheckTfaPresenter extends MvpPresenter<CheckTfaView>
 		super.onDestroy();
 	}
 
-	void onBackClicked() {
-		getViewState().finishActivity();
-	}
-
 	void onConfirmClicked() {
 		getViewState().showProgress(true);
 		EventBus.getDefault().post(new OnCheckTfaConfirmClickedEvent(code, useRecoveryCode));
@@ -53,7 +49,6 @@ public class CheckTfaPresenter extends MvpPresenter<CheckTfaView>
 		}
 		if (code.length() == Constants.TWO_FACTOR_CODE_LENGTH) {
 			getViewState().setKeyboardKeysEnabled(false);
-			getViewState().setConfirmButtonEnabled(true);
 			onConfirmClicked();
 		}
 	}
@@ -63,7 +58,6 @@ public class CheckTfaPresenter extends MvpPresenter<CheckTfaView>
 			code = code.substring(0, code.length() - 1);
 			getViewState().setCode(code);
 			getViewState().setKeyboardKeysEnabled(true);
-			getViewState().setConfirmButtonEnabled(false);
 		}
 	}
 
@@ -71,7 +65,6 @@ public class CheckTfaPresenter extends MvpPresenter<CheckTfaView>
 		code = "";
 		getViewState().setCode(code);
 		getViewState().setKeyboardKeysEnabled(true);
-		getViewState().setConfirmButtonEnabled(false);
 	}
 
 	@Subscribe
@@ -82,6 +75,7 @@ public class CheckTfaPresenter extends MvpPresenter<CheckTfaView>
 	@Subscribe
 	public void onEventMainThread(OnCheckTfaErrorEvent event) {
 		getViewState().showProgress(false);
+		onLongBackspace();
 		getViewState().showToastMessage(event.getError());
 	}
 

@@ -3,8 +3,8 @@ package vision.genesis.clientapp.feature.two_factor.check;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -16,12 +16,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
-import timber.log.Timber;
-import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.ui.NumericKeyboardView;
-import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.ui.PinKeyboardView;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -41,17 +38,11 @@ public class CheckTfaActivity extends BaseSwipeBackActivity implements CheckTfaV
 		activity.overridePendingTransition(R.anim.slide_from_right, R.anim.hold);
 	}
 
-	@BindView(R.id.toolbar)
-	public ToolbarView toolbar;
+	@BindView(R.id.title)
+	public TextView title;
 
-	@BindView(R.id.label_about_to_perform)
-	public TextView aboutToPerformLabel;
-
-	@BindView(R.id.action)
-	public TextView action;
-
-	@BindView(R.id.label_confirm_this_action)
-	public TextView confirmThisActionLabel;
+	@BindView(R.id.group_code)
+	public ViewGroup codeGroup;
 
 	@BindView(R.id.code_1)
 	public TextView code1;
@@ -71,14 +62,11 @@ public class CheckTfaActivity extends BaseSwipeBackActivity implements CheckTfaV
 	@BindView(R.id.code_6)
 	public TextView code6;
 
-	@BindView(R.id.button_confirm)
-	public View confirmButton;
-
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
 	@BindView(R.id.keyboard)
-	public NumericKeyboardView keyboard;
+	public PinKeyboardView keyboard;
 
 	@InjectPresenter
 	CheckTfaPresenter checkTfaPresenter;
@@ -86,14 +74,11 @@ public class CheckTfaActivity extends BaseSwipeBackActivity implements CheckTfaV
 	@OnCheckedChanged(R.id.checkbox_recovery_code)
 	public void onRecoveryCodeCheckedChanged(CompoundButton button, boolean checked) {
 		checkTfaPresenter.setUseRecoveryCode(checked);
-		button.setTextColor(checked
-				? ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorMedium)
-				: ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.grey300));
 	}
 
-	@OnClick(R.id.button_confirm)
-	public void onConfirmClicked() {
-		checkTfaPresenter.onConfirmClicked();
+	@OnClick(R.id.button_back)
+	public void onBackClicked() {
+		finishActivity();
 	}
 
 	@Override
@@ -105,48 +90,25 @@ public class CheckTfaActivity extends BaseSwipeBackActivity implements CheckTfaV
 
 		ButterKnife.bind(this);
 
-		confirmButton.setEnabled(false);
 		setCode("");
 
-		if (getIntent().getExtras() != null) {
-			action.setText(getIntent().getExtras().getString(EXTRA_ACTION));
-
-			initToolbar();
-			initKeyboardListener();
-			setFonts();
-		}
-		else {
-			Timber.e("Passed empty request to InvestProgramActivity");
-			onBackPressed();
-		}
+		initKeyboardListener();
+		setFonts();
 	}
 
 	@Override
 	protected void onDestroy() {
-		toolbar.onDestroy();
 		keyboard.onDestroy();
 
 		super.onDestroy();
 	}
 
-	private void initToolbar() {
-		toolbar.setWhite();
-		toolbar.setTitle(getString(R.string.two_factor_authentication));
-		toolbar.addLeftButton(R.drawable.back_arrow, () -> checkTfaPresenter.onBackClicked());
-	}
-
 	private void initKeyboardListener() {
-		keyboard.disableDecimal();
-		keyboard.setListener(new NumericKeyboardView.InputListener()
+		keyboard.setListener(new PinKeyboardView.InputListener()
 		{
 			@Override
 			public void onNumber(String number) {
 				checkTfaPresenter.onNumber(number);
-			}
-
-			@Override
-			public void onDecimal() {
-
 			}
 
 			@Override
@@ -162,6 +124,7 @@ public class CheckTfaActivity extends BaseSwipeBackActivity implements CheckTfaV
 	}
 
 	private void setFonts() {
+		title.setTypeface(TypefaceUtil.semibold());
 		code1.setTypeface(TypefaceUtil.light());
 		code2.setTypeface(TypefaceUtil.light());
 		code3.setTypeface(TypefaceUtil.light());
@@ -178,38 +141,50 @@ public class CheckTfaActivity extends BaseSwipeBackActivity implements CheckTfaV
 		code4.setText("_");
 		code5.setText("_");
 		code6.setText("_");
-		if (code.length() > 0)
-			code1.setText(String.valueOf(code.charAt(0)));
-		if (code.length() > 1)
-			code2.setText(String.valueOf(code.charAt(1)));
-		if (code.length() > 2)
-			code3.setText(String.valueOf(code.charAt(2)));
-		if (code.length() > 3)
-			code4.setText(String.valueOf(code.charAt(3)));
-		if (code.length() > 4)
-			code5.setText(String.valueOf(code.charAt(4)));
-		if (code.length() > 5)
-			code6.setText(String.valueOf(code.charAt(5)));
-	}
 
-	@Override
-	public void setConfirmButtonEnabled(boolean enabled) {
-		confirmButton.setEnabled(enabled);
+		code1.setAlpha(0.5f);
+		code2.setAlpha(0.5f);
+		code3.setAlpha(0.5f);
+		code4.setAlpha(0.5f);
+		code5.setAlpha(0.5f);
+		code6.setAlpha(0.5f);
+
+		if (code.length() > 0) {
+			code1.setAlpha(1f);
+			code1.setText(String.valueOf(code.charAt(0)));
+		}
+		if (code.length() > 1) {
+			code2.setAlpha(1f);
+			code2.setText(String.valueOf(code.charAt(1)));
+		}
+		if (code.length() > 2) {
+			code3.setAlpha(1f);
+			code3.setText(String.valueOf(code.charAt(2)));
+		}
+		if (code.length() > 3) {
+			code4.setAlpha(1f);
+			code4.setText(String.valueOf(code.charAt(3)));
+		}
+		if (code.length() > 4) {
+			code5.setAlpha(1f);
+			code5.setText(String.valueOf(code.charAt(4)));
+		}
+		if (code.length() > 5) {
+			code6.setAlpha(1f);
+			code6.setText(String.valueOf(code.charAt(5)));
+		}
 	}
 
 	@Override
 	public void setKeyboardKeysEnabled(boolean enabled) {
-		keyboard.disableAllKeysExceptBackspace(!enabled);
+		keyboard.disableKeyboard(!enabled);
 	}
 
 	@Override
 	public void showProgress(boolean show) {
-		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-		confirmButton.setVisibility(!show ? View.VISIBLE : View.GONE);
-		if (show)
-			keyboard.disableKeyboard(true);
-		else
-			keyboard.disableAllKeysExceptBackspace(true);
+		progressBar.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+		codeGroup.setVisibility(!show ? View.VISIBLE : View.INVISIBLE);
+		keyboard.disableKeyboard(show);
 	}
 
 	@Override

@@ -2,10 +2,12 @@ package vision.genesis.clientapp.feature.two_factor.setup.third;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -14,11 +16,13 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnEditorAction;
 import butterknife.Unbinder;
 import rx.Subscription;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.utils.Constants;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
@@ -27,6 +31,9 @@ import vision.genesis.clientapp.utils.Constants;
 
 public class SetupTfaThirdStepFragment extends BaseFragment implements SetupTfaThirdStepView
 {
+	@BindView(R.id.text_input_layout_password)
+	public TextInputLayout textInputPassword;
+
 	@BindView(R.id.edit_text_password)
 	public EditText password;
 
@@ -44,6 +51,14 @@ public class SetupTfaThirdStepFragment extends BaseFragment implements SetupTfaT
 	private Subscription passwordTextChangeSubscription;
 
 	private Subscription codeTextChangeSubscription;
+
+	@OnEditorAction(R.id.edit_text_code)
+	public boolean onCodeEditorAction(int actionId) {
+		if (actionId == EditorInfo.IME_ACTION_DONE) {
+			setupTfaThirdStepPresenter.onConfirmClicked();
+		}
+		return false;
+	}
 
 	@OnClick(R.id.button_confirm)
 	public void onConfirmButtonClicked() {
@@ -104,6 +119,7 @@ public class SetupTfaThirdStepFragment extends BaseFragment implements SetupTfaT
 	}
 
 	private void setFonts() {
+		textInputPassword.setTypeface(TypefaceUtil.regular());
 	}
 
 	@Override

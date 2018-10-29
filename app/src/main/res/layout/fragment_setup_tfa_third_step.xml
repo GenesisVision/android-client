@@ -1,35 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="20dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:alpha="0.5"
             android:gravity="center"
             android:text="@string/confirm_tfa_enabling"
-            android:textColor="@color/black87"
-            android:textSize="18sp"/>
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="14sp"/>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/text_input_layout_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_height="@dimen/login_field_height"
             android:layout_marginTop="32dp"
             android:gravity="bottom"
-            android:textColorHint="@color/grey400"
-            app:hintTextAppearance="@style/ProfileHintText">
+            android:textColorHint="?attr/colorTextSecondary">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/edit_text_password"
@@ -37,21 +34,17 @@
                 android:hint="@string/your_password"
                 android:imeOptions="actionNext"
                 android:inputType="textPassword"
-                android:maxLines="1"
-                android:textSize="18sp"
-                tools:text="Marian Garrett"/>
+                android:maxLines="1"/>
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/text_input_layout_code"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="@dimen/login_field_height"
+            android:layout_marginTop="20dp"
             android:gravity="bottom"
-            android:textColorHint="@color/grey400"
-            app:hintTextAppearance="@style/ProfileHintText">
+            android:textColorHint="?attr/colorTextSecondary">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/edit_text_code"
@@ -59,30 +52,18 @@
                 android:hint="@string/tfa_code"
                 android:imeOptions="actionDone"
                 android:inputType="number"
-                android:maxLines="1"
-                android:textSize="18sp"
-                tools:text="690 763"/>
+                android:maxLines="1"/>
 
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
 
-    <RelativeLayout
+    <vision.genesis.clientapp.ui.PrimaryButton
         android:id="@+id/button_confirm"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/button_height"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/button_square_primary">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/confirm"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="16sp"/>
-
-    </RelativeLayout>
+        android:layout_margin="20dp"
+        android:text="@string/confirm"/>
 
 </RelativeLayout>

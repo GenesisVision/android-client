@@ -1,12 +1,15 @@
 package vision.genesis.clientapp.feature.two_factor.setup.second;
 
-import android.graphics.Color;
+import android.content.Context;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 import net.glxn.qrgen.android.QRCode;
+
+import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.utils.ThemeUtil;
 
 /**
  * GenesisVisionAndroid
@@ -16,10 +19,11 @@ import net.glxn.qrgen.android.QRCode;
 @InjectViewState
 public class SetupTfaSecondStepPresenter extends MvpPresenter<SetupTfaSecondStepView>
 {
-	public void onSetKey(String sharedKey, String authenticatorUri) {
+	public void onSetKey(Context context, String sharedKey, String authenticatorUri) {
 		getViewState().setKey(sharedKey);
 		getViewState().setQrCode(QRCode.from(authenticatorUri)
-				.withColor(0xFF000000, Color.WHITE)
+				.withColor(ThemeUtil.getColorByAttrId(context, R.attr.colorTextPrimary),
+						ThemeUtil.getColorByAttrId(context, R.attr.colorBackground))
 				.withSize(1000, 1000)
 				.withErrorCorrection(ErrorCorrectionLevel.H)
 				.bitmap());

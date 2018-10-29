@@ -1,5 +1,6 @@
 package vision.genesis.clientapp.feature.two_factor.setup;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,36 +10,38 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
-import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.shuhart.stepview.StepView;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.feature.two_factor.setup.forth.SetupTfaForthStepActivity;
+import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.ui.NonSwipeableViewPager;
 import vision.genesis.clientapp.utils.ThemeUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 30/05/2018.
  */
 
-public class SetupTfaActivity extends MvpAppCompatActivity implements SetupTfaView
+public class SetupTfaActivity extends BaseSwipeBackActivity implements SetupTfaView
 {
-	public static void startFrom(Context context) {
-		Intent activityIntent = new Intent(context, SetupTfaActivity.class);
-		context.startActivity(activityIntent);
+	public static void startFrom(Activity activity) {
+		Intent activityIntent = new Intent(activity, SetupTfaActivity.class);
+		activity.startActivity(activityIntent);
+		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
 
-	@BindView(R.id.version)
-	public TextView version;
+	@BindView(R.id.button_back)
+	public View backButton;
+
+	@BindView(R.id.title)
+	public TextView title;
 
 	@BindView(R.id.step_view)
 	public StepView stepView;
@@ -69,9 +72,13 @@ public class SetupTfaActivity extends MvpAppCompatActivity implements SetupTfaVi
 
 		ButterKnife.bind(this);
 
-		version.setText(String.format(Locale.getDefault(), "%s (%d)", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
-
+		setFonts();
 		initViewPager();
+	}
+
+	private void setFonts() {
+		title.setTypeface(TypefaceUtil.semibold());
+		stepView.getState().typeface(TypefaceUtil.regular()).commit();
 	}
 
 	private void initViewPager() {
@@ -90,8 +97,10 @@ public class SetupTfaActivity extends MvpAppCompatActivity implements SetupTfaVi
 
 	@Override
 	public void onBackPressed() {
-		if (currentStepNumber == 0 || currentStepNumber == 3)
+		if (currentStepNumber == 0)
 			finish();
+		else if (currentStepNumber == 3) {
+		}
 		else {
 			setCurrentStep(currentStepNumber - 1);
 		}
@@ -120,13 +129,15 @@ public class SetupTfaActivity extends MvpAppCompatActivity implements SetupTfaVi
 
 	@Override
 	public void onConfirmSuccess(ArrayList<String> codes) {
-		SetupTfaForthStepActivity.startWith(this, codes);
-		finishActivity();
+		pagerAdapter.setCodes(codes);
+		setCurrentStep(3);
+		backButton.setVisibility(View.GONE);
 	}
 
 	@Override
 	public void finishActivity() {
 		finish();
+		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
 	}
 
 	@Override

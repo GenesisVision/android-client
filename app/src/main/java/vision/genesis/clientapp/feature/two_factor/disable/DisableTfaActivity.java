@@ -1,9 +1,10 @@
 package vision.genesis.clientapp.feature.two_factor.disable;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.text.InputFilter;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +15,17 @@ import android.widget.TextView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
-import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import rx.Subscription;
-import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.ThemeUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
@@ -35,16 +34,17 @@ import vision.genesis.clientapp.utils.ThemeUtil;
 
 public class DisableTfaActivity extends BaseSwipeBackActivity implements DisableTfaView
 {
-	public static void startFrom(Context context) {
-		Intent activityIntent = new Intent(context, DisableTfaActivity.class);
-		context.startActivity(activityIntent);
+	public static void startFrom(Activity activity) {
+		Intent activityIntent = new Intent(activity, DisableTfaActivity.class);
+		activity.startActivity(activityIntent);
+		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
 
-	@BindView(R.id.toolbar)
-	public ToolbarView toolbar;
+	@BindView(R.id.title)
+	public TextView title;
 
-	@BindView(R.id.version)
-	public TextView version;
+	@BindView(R.id.password_input_layout)
+	public TextInputLayout passwordInputLayout;
 
 	@BindView(R.id.edit_text_password)
 	public EditText password;
@@ -55,7 +55,7 @@ public class DisableTfaActivity extends BaseSwipeBackActivity implements Disable
 	@BindView(R.id.button_disable)
 	public View disableButton;
 
-	@BindView(R.id.group_progress_bar)
+	@BindView(R.id.group_progressbar)
 	public ViewGroup progressBarGroup;
 
 	@InjectPresenter
@@ -86,15 +86,18 @@ public class DisableTfaActivity extends BaseSwipeBackActivity implements Disable
 
 		ButterKnife.bind(this);
 
-		initToolbar();
-
-		version.setText(String.format(Locale.getDefault(), "%s (%d)", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
+		setFonts();
 
 		disableButton.setEnabled(false);
 
 		InputFilter[] filters = new InputFilter[1];
 		filters[0] = new InputFilter.LengthFilter(Constants.TWO_FACTOR_CODE_LENGTH);
 		code.setFilters(filters);
+	}
+
+	private void setFonts() {
+		title.setTypeface(TypefaceUtil.semibold());
+		passwordInputLayout.setTypeface(TypefaceUtil.semibold());
 	}
 
 	@Override
@@ -119,11 +122,6 @@ public class DisableTfaActivity extends BaseSwipeBackActivity implements Disable
 				.subscribe(text -> disableTfaPresenter.onCodeChanged(text.toString()));
 	}
 
-	private void initToolbar() {
-		toolbar.setTitle(getString(R.string.disable_two_factor));
-		toolbar.addLeftButton(R.drawable.back_arrow, this::onBackPressed);
-	}
-
 	@Override
 	public void onBackPressed() {
 		finish();
@@ -132,6 +130,7 @@ public class DisableTfaActivity extends BaseSwipeBackActivity implements Disable
 	@Override
 	public void showProgress(boolean show) {
 		progressBarGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+		disableButton.setVisibility(!show ? View.VISIBLE : View.GONE);
 	}
 
 	@Override
@@ -140,9 +139,16 @@ public class DisableTfaActivity extends BaseSwipeBackActivity implements Disable
 	}
 
 	@Override
-	public void finishWithSuccess() {
-//		MessageBottomSheetDialog.startFrom(this, getString(R.string.tfa_disable_success), R.drawable.ic_email_confirmed_icon, false);
+	public void finishActivity() {
 		finish();
+		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
+	}
+
+	@Override
+	public void showMessageDialog(int imageResourceId, String title, String message, boolean mustRead, MessageBottomSheetDialog.OnButtonClickListener listener) {
+		MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
+		dialog.show(getSupportFragmentManager(), dialog.getTag());
+		dialog.setData(imageResourceId, title, message, mustRead, listener);
 	}
 
 	@Override

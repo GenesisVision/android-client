@@ -120,12 +120,16 @@ public class AuthManager
 	}
 
 	private void handleGetTokenResponse(String token) {
+		saveNewToken(token);
+		getTwoFactorStatus();
+	}
+
+	public void saveNewToken(String token) {
 		String newToken = "Bearer " + token;
 		sharedPreferencesUtil.saveToken(newToken);
 		AuthManager.token.onNext(newToken);
 		Timber.d("TOKEN: %s", newToken);
 		getTokenResponseSubject.onNext(newToken);
-		getTwoFactorStatus();
 	}
 
 	private void getTwoFactorStatus() {

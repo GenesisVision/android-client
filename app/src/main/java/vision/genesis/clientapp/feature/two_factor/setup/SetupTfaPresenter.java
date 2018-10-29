@@ -24,6 +24,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.model.api.ErrorResponse;
 import vision.genesis.clientapp.model.events.SetupTfaConfirmButtonClickedEvent;
+import vision.genesis.clientapp.model.events.SetupTfaFinishedEvent;
 import vision.genesis.clientapp.model.events.SetupTfaNextButtonClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
@@ -113,7 +114,10 @@ public class SetupTfaPresenter extends MvpPresenter<SetupTfaView>
 
 	private void handleConfirmTfaKeySuccess(RecoveryCodesViewModel response) {
 		confirmTfaKeySubscription.unsubscribe();
+		getViewState().showProgress(false);
 		getViewState().hideKeyboard();
+
+		authManager.saveNewToken(response.getAuthToken());
 		authManager.setTwoFactorStatus(true);
 		getViewState().onConfirmSuccess(getCodesStringList(response.getCodes()));
 	}
@@ -152,5 +156,10 @@ public class SetupTfaPresenter extends MvpPresenter<SetupTfaView>
 	@Subscribe
 	public void onEventMainThread(SetupTfaConfirmButtonClickedEvent event) {
 		confirmTfa(event.getPassword(), event.getCode());
+	}
+
+	@Subscribe
+	public void onEventMainThread(SetupTfaFinishedEvent event) {
+		getViewState().finishActivity();
 	}
 }

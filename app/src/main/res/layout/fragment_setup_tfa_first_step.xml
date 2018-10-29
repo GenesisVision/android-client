@@ -16,27 +16,16 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/button_next"
         android:layout_centerHorizontal="true"
-        android:layout_margin="24dp"
-        app:spi_dotColor="@color/grey200"
-        app:spi_dotSelectedColor="@color/grey300"/>
+        android:layout_marginTop="24dp"
+        app:spi_dotColor="?attr/colorTextSecondary"
+        app:spi_dotSelectedColor="?attr/colorAccent"/>
 
-    <RelativeLayout
+    <vision.genesis.clientapp.ui.PrimaryButton
         android:id="@+id/button_next"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/button_height"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/button_square_primary">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/got_it"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="16sp"/>
-
-    </RelativeLayout>
-
+        android:layout_margin="20dp"
+        android:text="@string/got_it"/>
 
 </RelativeLayout>

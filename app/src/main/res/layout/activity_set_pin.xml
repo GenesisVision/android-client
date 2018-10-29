@@ -102,8 +102,8 @@
 
     <vision.genesis.clientapp.ui.PinKeyboardView
         android:id="@+id/keyboard"
-        android:layout_width="300dp"
-        android:layout_height="400dp"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/group_pins"
         android:layout_centerHorizontal="true"

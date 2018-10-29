@@ -4,66 +4,61 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white">
+                android:background="?attr/colorBackground">
+
 
     <RelativeLayout
-        android:id="@+id/header"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/toolbar_height">
 
         <ImageView
             android:id="@+id/button_back"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/toolbar_height"
             android:layout_centerVertical="true"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="22dp"
-            android:src="@drawable/back_arrow"/>
+            android:padding="20dp"
+            android:src="@drawable/icon_back"
+            android:tint="?attr/colorTextPrimary"/>
 
-        <com.shuhart.stepview.StepView
-            android:id="@+id/step_view"
+        <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:paddingLeft="60dp"
-            android:paddingRight="60dp"
-            android:paddingStart="60dp"
-            app:sv_animationType="All"
-            app:sv_doneCircleColor="@color/colorMedium"
-            app:sv_doneStepLineColor="@color/colorMedium"
-            app:sv_doneStepMarkColor="@color/white"
-            app:sv_doneTextColor="@color/colorMedium"
-            app:sv_nextStepLineColor="@color/colorAccent"
-            app:sv_nextTextColor="@color/colorAccent"
-            app:sv_selectedCircleColor="@color/colorAccent"
-            app:sv_selectedStepNumberColor="@color/white"
-            app:sv_selectedTextColor="@color/colorAccent"
-            app:sv_steps="@array/setup_tfa_steps"
-            app:sv_stepsNumber="4"/>
+            android:text="@string/two_factor_authentication"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="18sp"/>
 
     </RelativeLayout>
+
+    <com.shuhart.stepview.StepView
+        android:id="@+id/step_view"
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginBottom="16dp"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp"
+        app:sv_animationType="All"
+        app:sv_doneCircleColor="?attr/colorAccent"
+        app:sv_doneStepLineColor="?attr/colorAccent"
+        app:sv_doneStepMarkColor="?attr/colorTextPrimary"
+        app:sv_doneTextColor="?attr/colorAccent"
+        app:sv_nextStepLineColor="?attr/colorTextSecondary"
+        app:sv_nextTextColor="?attr/colorTextSecondary"
+        app:sv_selectedCircleColor="?attr/colorAccent"
+        app:sv_selectedStepNumberColor="?attr/colorTextPrimary"
+        app:sv_selectedTextColor="?attr/colorAccent"
+        app:sv_steps="@array/setup_tfa_steps"
+        app:sv_stepsNumber="4"/>
 
     <vision.genesis.clientapp.ui.NonSwipeableViewPager
         android:id="@+id/setup_tfa_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/header"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:layout_below="@+id/header"
-        android:background="@drawable/shadow_down_white"/>
-
-    <TextView
-        android:id="@+id/version"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/grey300"
-        android:textSize="10sp"
-        tools:text="0.0.2-alpha (18040401)"/>
+        android:layout_below="@+id/step_view"/>
 
     <RelativeLayout
         android:id="@+id/group_progress_bar"
@@ -78,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.7"
-            android:background="@color/colorAccent"/>
+            android:background="?attr/colorBackground"/>
 
         <ProgressBar
             android:id="@+id/progress_bar"
