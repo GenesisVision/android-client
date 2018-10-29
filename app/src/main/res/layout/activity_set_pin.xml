@@ -61,7 +61,7 @@
                 android:alpha="0.5"
                 android:text="@string/enter_pin_code"
                 android:textColor="?attr/colorTextPrimary"
-                android:textSize="16sp"/>
+                android:textSize="14sp"/>
 
             <vision.genesis.clientapp.ui.PinCodeView
                 android:id="@+id/view_pin_code"
@@ -88,7 +88,7 @@
                 android:alpha="0.5"
                 android:text="@string/repeat_pin_code"
                 android:textColor="?attr/colorTextPrimary"
-                android:textSize="16sp"/>
+                android:textSize="14sp"/>
 
             <vision.genesis.clientapp.ui.PinCodeView
                 android:id="@+id/view_repeat_pin_code"

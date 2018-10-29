@@ -32,12 +32,6 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 
 	private static final String EXTRA_FINGERPRINT_ENABLED = "extra_fingerprint_enabled";
 
-	public static void startForResult(Activity activity, int requestCode) {
-		Intent intent = new Intent(activity.getApplicationContext(), CheckPinActivity.class);
-		activity.startActivityForResult(intent, requestCode);
-		activity.overridePendingTransition(R.anim.hold, R.anim.hold);
-	}
-
 	public static void startForResult(Activity activity, int requestCode, boolean allowFingerprint) {
 		Intent intent = new Intent(activity.getApplicationContext(), CheckPinActivity.class);
 		intent.putExtra(EXTRA_FINGERPRINT_ENABLED, allowFingerprint);

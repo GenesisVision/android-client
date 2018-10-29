@@ -525,5 +525,6 @@
     <string name="repeat_password">Repeat password</string>
     <string name="enter_pin_code_to_enable">Enter PIN code to enable it</string>
     <string name="enter_pin_code_to_disable">Enter PIN code to disable it</string>
+    <string name="fingerprint">Fingerprint</string>
 
 </resources>

@@ -166,7 +166,8 @@
 
         <activity
             android:name=".feature.pin.fingerprint.VerifyFingerprintActivity"
-            android:theme="@style/TranslucentActivityTheme"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 
         <activity

@@ -3,30 +3,28 @@ package vision.genesis.clientapp.feature.pin.fingerprint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.utils.StatusBarUtil;
+import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.utils.ThemeUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 21/06/2018.
  */
 
-public class VerifyFingerprintActivity extends MvpAppCompatActivity implements VerifyFingerprintView
+public class VerifyFingerprintActivity extends BaseSwipeBackActivity implements VerifyFingerprintView
 {
 	public static final int ENABLE_FINGERPRINT_REQUEST_CODE = 403;
 
@@ -38,11 +36,14 @@ public class VerifyFingerprintActivity extends MvpAppCompatActivity implements V
 		Intent intent = new Intent(activity, VerifyFingerprintActivity.class);
 		intent.putExtra(EXTRA_REQUEST_CODE, requestCode);
 		activity.startActivity(intent);
-//		activity.overridePendingTransition(R.anim.fragment_fade_in, R.anim.hold);
+		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
 
 	@BindView(R.id.image_fingerprint)
 	public ImageView fingerprintImage;
+
+	@BindView(R.id.title)
+	public TextView title;
 
 	@BindView(R.id.fingerprint_hint)
 	public TextView fingerprintHint;
@@ -53,8 +54,8 @@ public class VerifyFingerprintActivity extends MvpAppCompatActivity implements V
 	@InjectPresenter
 	VerifyFingerprintPresenter verifyFingerprintPresenter;
 
-	@OnClick(R.id.button_close)
-	public void onCloseClicked() {
+	@OnClick(R.id.button_back)
+	public void onBackClicked() {
 		finishActivity();
 	}
 
@@ -67,7 +68,7 @@ public class VerifyFingerprintActivity extends MvpAppCompatActivity implements V
 
 		ButterKnife.bind(this);
 
-		StatusBarUtil.setColorResId(this, R.color.colorAccent);
+		setFonts();
 
 		if (getIntent().getExtras() != null) {
 			int requestCode = getIntent().getExtras().getInt(EXTRA_REQUEST_CODE);
@@ -86,6 +87,10 @@ public class VerifyFingerprintActivity extends MvpAppCompatActivity implements V
 	protected void onStop() {
 		super.onStop();
 		verifyFingerprintPresenter.onStop();
+	}
+
+	private void setFonts() {
+		title.setTypeface(TypefaceUtil.semibold());
 	}
 
 	private void setHint(int requestCode) {
@@ -107,13 +112,18 @@ public class VerifyFingerprintActivity extends MvpAppCompatActivity implements V
 
 	@Override
 	public void disableFingerprint(String message) {
-		fingerprintImage.setColorFilter(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent));
+		fingerprintImage.setColorFilter(ThemeUtil.getColorByAttrId(this, R.attr.colorRed));
 		fingerprintError.setText(message);
 	}
 
 	@Override
 	public void showToastMessage(String message) {
 		Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+	}
+
+	@Override
+	public void onAuthenticationSucceeded() {
+		fingerprintImage.setColorFilter(ThemeUtil.getColorByAttrId(this, R.attr.colorAccent));
 	}
 
 	@Override
@@ -124,6 +134,6 @@ public class VerifyFingerprintActivity extends MvpAppCompatActivity implements V
 	@Override
 	public void finishActivity() {
 		finish();
-//		overridePendingTransition(R.anim.hold, R.anim.fragment_fade_out);
+		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
 	}
 }

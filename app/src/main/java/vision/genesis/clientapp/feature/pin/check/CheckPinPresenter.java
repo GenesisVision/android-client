@@ -137,16 +137,6 @@ public class CheckPinPresenter extends MvpPresenter<CheckPinView> implements Fin
 		}
 	}
 
-	private void resetPin() {
-		pin = "";
-		wrongAttempts = 0;
-		getViewState().setPin(0);
-		getViewState().setPin(0);
-		getViewState().setPinError(false);
-		getViewState().setKeyboardKeysEnabled(true);
-		VibrationUtil.vibrateResetPin(context);
-	}
-
 	private void finish() {
 		getViewState().finishAnimations();
 		new Handler().postDelayed(() -> getViewState().finishActivity(Activity.RESULT_OK), 200);

@@ -176,6 +176,7 @@ public class SetPinPresenter extends MvpPresenter<SetPinView>
 		else {
 			VibrationUtil.vibrateRightPin(context);
 			settingsManager.setPinCodeEnabled(false);
+			settingsManager.setFingerprintEnabled(false);
 			if (settingsManager.setPin("")) {
 				finish();
 			}

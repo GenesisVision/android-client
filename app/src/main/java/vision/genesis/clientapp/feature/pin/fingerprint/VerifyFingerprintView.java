@@ -15,5 +15,7 @@ interface VerifyFingerprintView extends MvpView
 
 	void showToastMessage(String message);
 
+	void onAuthenticationSucceeded();
+
 	void finishActivity();
 }

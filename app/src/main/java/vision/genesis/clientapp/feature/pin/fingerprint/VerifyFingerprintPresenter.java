@@ -66,6 +66,7 @@ public class VerifyFingerprintPresenter extends MvpPresenter<VerifyFingerprintVi
 
 	@Override
 	public void onAuthenticationSucceeded() {
+		getViewState().onAuthenticationSucceeded();
 		implementRequest();
 		getViewState().finishActivity();
 	}
