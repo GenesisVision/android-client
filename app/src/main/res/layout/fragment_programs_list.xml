@@ -93,10 +93,72 @@
 
     </LinearLayout>
 
-    <vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView
-        android:id="@+id/view_sorting_filters_buttons"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:id="@+id/filters"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="70dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/group_filters"
+            android:layout_alignEnd="@+id/group_filters"
+            android:layout_alignLeft="@+id/group_filters"
+            android:layout_alignRight="@+id/group_filters"
+            android:layout_alignStart="@+id/group_filters"
+            android:layout_alignTop="@+id/group_filters"
+            android:src="@drawable/button_filters"/>
+
+
+        <LinearLayout
+            android:id="@+id/group_filters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="12dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="12dp">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/icon_filters"
+                android:tint="?attr/colorBackground"/>
+
+            <TextView
+                android:id="@+id/text_filters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:text="@string/filters"
+                android:textColor="?attr/colorBackground"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/filters_dot"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/circle_white"
+            android:tint="?attr/colorRed"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

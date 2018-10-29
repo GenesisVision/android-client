@@ -3,12 +3,10 @@ package vision.genesis.clientapp.feature.pin.check;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,13 +15,11 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.pin.fingerprint.VerifyFingerprintActivity;
 import vision.genesis.clientapp.ui.PinCodeView;
 import vision.genesis.clientapp.ui.PinKeyboardView;
-import vision.genesis.clientapp.utils.StatusBarUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
 
 /**
  * GenesisVisionAndroid
@@ -34,20 +30,16 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 {
 	public static final int LOCK_SCREEN_REQUEST_CODE = 1234;
 
-	private static final String EXTRA_CAN_CLOSE = "extra_can_close";
-
 	private static final String EXTRA_FINGERPRINT_ENABLED = "extra_fingerprint_enabled";
 
-	public static void startForResult(Activity activity, int requestCode, boolean canClose) {
+	public static void startForResult(Activity activity, int requestCode) {
 		Intent intent = new Intent(activity.getApplicationContext(), CheckPinActivity.class);
-		intent.putExtra(EXTRA_CAN_CLOSE, canClose);
 		activity.startActivityForResult(intent, requestCode);
-		activity.overridePendingTransition(R.anim.fragment_fade_in, R.anim.hold);
+		activity.overridePendingTransition(R.anim.hold, R.anim.hold);
 	}
 
-	public static void startForResult(Activity activity, int requestCode, boolean canClose, boolean allowFingerprint) {
+	public static void startForResult(Activity activity, int requestCode, boolean allowFingerprint) {
 		Intent intent = new Intent(activity.getApplicationContext(), CheckPinActivity.class);
-		intent.putExtra(EXTRA_CAN_CLOSE, canClose);
 		intent.putExtra(EXTRA_FINGERPRINT_ENABLED, allowFingerprint);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		activity.startActivityForResult(intent, requestCode);
@@ -57,54 +49,38 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 	@BindView(R.id.view_pin_code)
 	public PinCodeView pinCodeView;
 
-	@BindView(R.id.text_error_message)
-	public TextView errorMessageText;
+	@BindView(R.id.text)
+	public TextView text;
 
 	@BindView(R.id.keyboard)
 	public PinKeyboardView keyboard;
 
-	@BindView(R.id.button_close)
-	public View closeButton;
-
 	@BindView(R.id.group_pin)
 	public ViewGroup pinGroup;
-
-	@BindView(R.id.group_fingerprint)
-	public ViewGroup fingerprintGroup;
 
 	@BindView(R.id.background)
 	public View background;
 
-	@BindView(R.id.image_fingerprint)
-	public ImageView fingerprintImage;
-
 	@InjectPresenter
 	CheckPinPresenter checkPinPresenter;
 
-	private boolean canClose = false;
-
 	private boolean firstStart = true;
-
-	@OnClick(R.id.button_close)
-	public void onCloseClicked() {
-		finishActivity(RESULT_CANCELED);
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_check_pin);
 
 		ButterKnife.bind(this);
 
-		StatusBarUtil.setColorResId(this, R.color.colorAccent);
-
 		if (getIntent().getExtras() != null) {
-			canClose = getIntent().getExtras().getBoolean(EXTRA_CAN_CLOSE);
 			boolean fingerprintEnabled = getIntent().getExtras().getBoolean(EXTRA_FINGERPRINT_ENABLED);
-			closeButton.setVisibility(canClose ? View.VISIBLE : View.GONE);
-			fingerprintGroup.setVisibility(fingerprintEnabled ? View.VISIBLE : View.GONE);
+			text.setText(getString(fingerprintEnabled
+					? R.string.enter_pin_code_or_use_fingerprint
+					: R.string.enter_pin_code));
+			keyboard.showFingerprint(fingerprintEnabled);
 			checkPinPresenter.setFingerprintEnabled(fingerprintEnabled);
 		}
 
@@ -128,9 +104,6 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 
 		Animation pinAnimation = AnimationUtils.loadAnimation(this, R.anim.pin_appear);
 		pinGroup.startAnimation(pinAnimation);
-
-		Animation fingerprintAnimation = AnimationUtils.loadAnimation(this, R.anim.fingerprint_appear);
-		fingerprintGroup.startAnimation(fingerprintAnimation);
 	}
 
 	@Override
@@ -194,7 +167,8 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 
 	@Override
 	public void setErrorMessage(String message) {
-		errorMessageText.setText(message);
+		text.setText(message);
+		text.setTextColor(ThemeUtil.getColorByAttrId(this, R.attr.colorRed));
 	}
 
 	@Override
@@ -209,16 +183,12 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 
 	@Override
 	public void shakeFingerprint() {
-		Animation animShake = AnimationUtils.loadAnimation(this, R.anim.shake_horizontal);
-		fingerprintGroup.startAnimation(animShake);
+		keyboard.shakeFingerprint();
 	}
 
 	@Override
 	public void onBackPressed() {
-		if (canClose)
-			finishActivity(RESULT_CANCELED);
-		else
-			moveTaskToBack(true);
+		moveTaskToBack(true);
 	}
 
 	@Override
@@ -230,10 +200,6 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 		Animation pinAnimation = AnimationUtils.loadAnimation(this, R.anim.pin_disappear);
 		pinAnimation.setFillAfter(true);
 		pinGroup.startAnimation(pinAnimation);
-
-		Animation fingerprintAnimation = AnimationUtils.loadAnimation(this, R.anim.fingerprint_disappear);
-		fingerprintAnimation.setFillAfter(true);
-		fingerprintGroup.startAnimation(fingerprintAnimation);
 
 		Animation backgroundAnimation = AnimationUtils.loadAnimation(this, R.anim.check_pin_disappear);
 		backgroundAnimation.setFillAfter(true);
@@ -248,8 +214,9 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 	}
 
 	@Override
-	public void disableFingerprint(String message) {
-		fingerprintImage.setColorFilter(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent));
-		errorMessageText.setText(message);
+	public void disableFingerprint(boolean changeText) {
+		keyboard.showFingerprintError();
+		if (changeText)
+			text.setText(getString(R.string.enter_pin_code));
 	}
 }

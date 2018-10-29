@@ -8,7 +8,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/group_toolbar">
+        android:layout_below="@+id/group_toolbar"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"

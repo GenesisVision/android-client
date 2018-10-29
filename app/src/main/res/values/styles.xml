@@ -55,10 +55,17 @@
         <item name="textColorError">@color/transactionRed</item>
     </style>
 
-    <style name="SplashTheme" parent="AppTheme">
+    <style name="SplashTheme" parent="AppTheme.Base">
         <item name="android:windowBackground">@string/drawable_background_splash</item>
     </style>
 
+    <style name="SplashTheme.Light" parent="AppTheme.Base.Light">
+        <item name="android:windowBackground">@string/drawable_background_splash</item>
+    </style>
+
+    <style name="SplashTheme.Dark" parent="AppTheme.Base.Dark">
+        <item name="android:windowBackground">@string/drawable_background_splash</item>
+    </style>
 
     <style name="SwipeBackActivityTheme" parent="AppTheme.Base">
         <item name="android:windowIsTranslucent">true</item>
@@ -73,7 +80,7 @@
     </style>
 
 
-    <style name="TranslucentActivityTheme" parent="AppTheme">
+    <style name="TranslucentActivityTheme" parent="AppTheme.Base">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
@@ -273,13 +280,19 @@
     </style>
 
     <style name="AppTheme.PinButton" parent="Widget.AppCompat.Button.Borderless">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_margin">3dp</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">36sp</item>
+        <item name="android:layout_width">@dimen/pin_button_size</item>
+        <item name="android:layout_height">@dimen/pin_button_size</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:alpha">0.1</item>
+        <item name="android:background">@drawable/button_pin</item>
+    </style>
+
+    <style name="AppTheme.PinButtonText" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textSize">32sp</item>
     </style>
 
     <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
@@ -411,5 +424,4 @@
         <item name="android:src">@drawable/ic_chevron_right_black_24dp</item>
         <item name="android:tint">?attr/colorTextPrimary</item>
     </style>
-
 </resources>

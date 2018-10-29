@@ -9,21 +9,41 @@
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent"/>
+        android:background="?attr/colorBackground"/>
 
-    <ImageView
-        android:id="@+id/button_close"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:padding="20dp"
-        android:src="@drawable/ic_close_black_24dp"
-        android:tint="@color/white"/>
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height">
+
+        <ImageView
+            android:id="@+id/button_back"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="20dp"
+            android:src="@drawable/icon_back"
+            android:tint="?attr/colorTextPrimary"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/pin_code"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/group_pins"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/keyboard"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -35,15 +55,17 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:alpha="0.5"
                 android:text="@string/enter_pin_code"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorTextPrimary"
                 android:textSize="16sp"/>
 
             <vision.genesis.clientapp.ui.PinCodeView
                 android:id="@+id/view_pin_code"
-                android:layout_width="100dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"/>
 
@@ -53,7 +75,7 @@
             android:id="@+id/group_repeat_pin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="invisible"
@@ -63,36 +85,27 @@
                 android:id="@+id/text_repeat_pin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:alpha="0.5"
                 android:text="@string/repeat_pin_code"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorTextPrimary"
                 android:textSize="16sp"/>
 
             <vision.genesis.clientapp.ui.PinCodeView
                 android:id="@+id/view_repeat_pin_code"
-                android:layout_width="150dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"/>
+                android:layout_marginTop="16dp"/>
 
         </LinearLayout>
-
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="32dp"
-            android:visibility="invisible"/>
 
     </LinearLayout>
 
     <vision.genesis.clientapp.ui.PinKeyboardView
         android:id="@+id/keyboard"
         android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:layout_alignParentBottom="true"
+        android:layout_below="@+id/group_pins"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="32dp"/>
 

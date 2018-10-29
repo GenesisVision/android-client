@@ -35,7 +35,6 @@ import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowLockScreenEvent;
 import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
-import vision.genesis.clientapp.model.events.ShowSetPinActivityEvent;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawProgramEvent;
 import vision.genesis.clientapp.utils.Constants;
@@ -88,7 +87,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 			onCheckPinPassed();
 		}
 
-//		getViewState().setNavigationItemSelected(1);
+		getViewState().setNavigationItemSelected(1);
 	}
 
 	@Override
@@ -296,11 +295,6 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowDisableTfaActivityEvent event) {
 		getViewState().showDisableTwoFactorActivity();
-	}
-
-	@Subscribe
-	public void onEventMainThread(ShowSetPinActivityEvent event) {
-		getViewState().showSetPinActivity();
 	}
 
 	@Subscribe

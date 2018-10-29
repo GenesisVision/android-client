@@ -103,6 +103,16 @@ public class DepositWalletPresenter extends MvpPresenter<DepositWalletView> impl
 
 		wallets = response.getWallets();
 
+		WalletInfo gvtWallet = null;
+		for (WalletInfo wallet : wallets) {
+			if (wallet.getCurrency().getValue().equals(CurrencyEnum.GVT.getValue()))
+				gvtWallet = wallet;
+		}
+		if (gvtWallet != null) {
+			wallets.remove(gvtWallet);
+			wallets.add(0, gvtWallet);
+		}
+
 		ArrayList<String> walletsOptions = new ArrayList<>();
 		for (WalletInfo wallet : wallets) {
 			walletsOptions.add(String.format(Locale.getDefault(), "%s (%s)",

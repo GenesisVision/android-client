@@ -7,15 +7,19 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -66,8 +70,41 @@ public class PinKeyboardView extends RelativeLayout
 	@BindView(R.id.button_zero)
 	public Button buttonZero;
 
+	@BindView(R.id.text_one)
+	public TextView textOne;
+
+	@BindView(R.id.text_two)
+	public TextView textTwo;
+
+	@BindView(R.id.text_three)
+	public TextView textThree;
+
+	@BindView(R.id.text_four)
+	public TextView textFour;
+
+	@BindView(R.id.text_five)
+	public TextView textFive;
+
+	@BindView(R.id.text_six)
+	public TextView textSix;
+
+	@BindView(R.id.text_seven)
+	public TextView textSeven;
+
+	@BindView(R.id.text_eight)
+	public TextView textEight;
+
+	@BindView(R.id.text_nine)
+	public TextView textNine;
+
+	@BindView(R.id.text_zero)
+	public TextView textZero;
+
 	@BindView(R.id.button_backspace)
 	public View buttonBackspace;
+
+	@BindView(R.id.image_fingerprint)
+	public ImageView fingerprint;
 
 	@BindView(R.id.image_backspace)
 	public ImageView backspaceImage;
@@ -177,18 +214,31 @@ public class PinKeyboardView extends RelativeLayout
 		int enabledColor = ContextCompat.getColor(getContext(), R.color.white);
 		int disabledColor = ContextCompat.getColor(getContext(), R.color.white38);
 
-		buttonOne.setTextColor(disable ? disabledColor : enabledColor);
-		buttonTwo.setTextColor(disable ? disabledColor : enabledColor);
-		buttonThree.setTextColor(disable ? disabledColor : enabledColor);
-		buttonFour.setTextColor(disable ? disabledColor : enabledColor);
-		buttonFive.setTextColor(disable ? disabledColor : enabledColor);
-		buttonSix.setTextColor(disable ? disabledColor : enabledColor);
-		buttonSeven.setTextColor(disable ? disabledColor : enabledColor);
-		buttonEight.setTextColor(disable ? disabledColor : enabledColor);
-		buttonNine.setTextColor(disable ? disabledColor : enabledColor);
-		buttonZero.setTextColor(disable ? disabledColor : enabledColor);
+		textOne.setAlpha(disable ? 0.5f : 1f);
+		textTwo.setAlpha(disable ? 0.5f : 1f);
+		textThree.setAlpha(disable ? 0.5f : 1f);
+		textFour.setAlpha(disable ? 0.5f : 1f);
+		textFive.setAlpha(disable ? 0.5f : 1f);
+		textSix.setAlpha(disable ? 0.5f : 1f);
+		textSeven.setAlpha(disable ? 0.5f : 1f);
+		textEight.setAlpha(disable ? 0.5f : 1f);
+		textNine.setAlpha(disable ? 0.5f : 1f);
+		textZero.setAlpha(disable ? 0.5f : 1f);
 		backspaceImage.setColorFilter(disable ? disabledColor : enabledColor, PorterDuff.Mode.SRC_IN);
+		backspaceImage.setColorFilter(disable ? disabledColor : enabledColor, PorterDuff.Mode.SRC_IN);
+	}
 
+	public void showFingerprint(boolean show) {
+		fingerprint.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
+
+	public void shakeFingerprint() {
+		Animation animShake = AnimationUtils.loadAnimation(getContext(), R.anim.shake_horizontal);
+		fingerprint.startAnimation(animShake);
+	}
+
+	public void showFingerprintError() {
+		fingerprint.setColorFilter(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed));
 	}
 
 	private void initView() {
@@ -201,16 +251,16 @@ public class PinKeyboardView extends RelativeLayout
 	}
 
 	private void setFonts() {
-		buttonOne.setTypeface(TypefaceUtil.light());
-		buttonTwo.setTypeface(TypefaceUtil.light());
-		buttonThree.setTypeface(TypefaceUtil.light());
-		buttonFour.setTypeface(TypefaceUtil.light());
-		buttonFive.setTypeface(TypefaceUtil.light());
-		buttonSix.setTypeface(TypefaceUtil.light());
-		buttonSeven.setTypeface(TypefaceUtil.light());
-		buttonEight.setTypeface(TypefaceUtil.light());
-		buttonNine.setTypeface(TypefaceUtil.light());
-		buttonZero.setTypeface(TypefaceUtil.light());
+		textOne.setTypeface(TypefaceUtil.light());
+		textTwo.setTypeface(TypefaceUtil.light());
+		textThree.setTypeface(TypefaceUtil.light());
+		textFour.setTypeface(TypefaceUtil.light());
+		textFive.setTypeface(TypefaceUtil.light());
+		textSix.setTypeface(TypefaceUtil.light());
+		textSeven.setTypeface(TypefaceUtil.light());
+		textEight.setTypeface(TypefaceUtil.light());
+		textNine.setTypeface(TypefaceUtil.light());
+		textZero.setTypeface(TypefaceUtil.light());
 	}
 
 	private void setBackspaceLongClickListener() {

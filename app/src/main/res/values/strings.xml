@@ -347,7 +347,7 @@
     <string name="ok_i_understand">OK, I understand</string>
     <string name="i_am_using_a_recovery_code">I\'m using a recovery code</string>
     <string name="log_out">Log out</string>
-    <string name="pin_code">Pin code</string>
+    <string name="pin_code">PIN code</string>
     <string name="use_fingerprint">Use fingerprint</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="terms_and_conditions">Terms and Conditions</string>
@@ -356,6 +356,7 @@
     <string name="are_you_sure_logout">Are you sure you want to log out?</string>
     <string name="settings">Settings</string>
     <string name="enter_pin_code">Enter PIN code</string>
+    <string name="enter_pin_code_or_use_fingerprint">Enter PIN code or use fingerprint</string>
     <string name="repeat_pin_code">Repeat PIN code</string>
     <string name="error_set_pin">An error occurred while setting the PIN code. Please try again later</string>
     <string name="error_pin_too_many_attempts">Too many attempts.\nPlease try again later</string>
@@ -522,5 +523,7 @@
     <string name="rejected">Rejected</string>
     <string name="old_password">Old password</string>
     <string name="repeat_password">Repeat password</string>
+    <string name="enter_pin_code_to_enable">Enter PIN code to enable it</string>
+    <string name="enter_pin_code_to_disable">Enter PIN code to disable it</string>
 
 </resources>

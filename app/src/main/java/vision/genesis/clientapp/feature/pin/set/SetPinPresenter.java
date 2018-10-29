@@ -34,11 +34,17 @@ public class SetPinPresenter extends MvpPresenter<SetPinView>
 
 	private int wrongAttempts = 0;
 
+	private boolean enablePin;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
+	}
+
+	void setMode(boolean enablePin) {
+		this.enablePin = enablePin;
 	}
 
 	public void onNumber(String number) {
@@ -54,8 +60,14 @@ public class SetPinPresenter extends MvpPresenter<SetPinView>
 			getViewState().setPin(pin.length());
 		}
 		if (pin.length() == Constants.PIN_CODE_LENGTH) {
-			getViewState().showRepeatPin(true);
-			VibrationUtil.vibrateRightPin(context);
+			if (enablePin) {
+				getViewState().showRepeatPin(true);
+				VibrationUtil.vibrateRightPin(context);
+			}
+			else {
+				getViewState().setKeyboardKeysEnabled(false);
+				checkPinToDisable();
+			}
 		}
 	}
 
@@ -66,7 +78,7 @@ public class SetPinPresenter extends MvpPresenter<SetPinView>
 		}
 		if (repeatPin.length() == Constants.PIN_CODE_LENGTH) {
 			getViewState().setKeyboardKeysEnabled(false);
-			checkPin();
+			checkPinToEnable();
 		}
 	}
 
@@ -112,7 +124,7 @@ public class SetPinPresenter extends MvpPresenter<SetPinView>
 		getViewState().setKeyboardKeysEnabled(true);
 	}
 
-	private void checkPin() {
+	private void checkPinToEnable() {
 		if (!pin.equals(repeatPin)) {
 			getViewState().setRepeatPinError(true);
 			getViewState().setKeyboardKeysEnabled(false);
@@ -133,6 +145,38 @@ public class SetPinPresenter extends MvpPresenter<SetPinView>
 			VibrationUtil.vibrateRightPin(context);
 			settingsManager.setPinCodeEnabled(true);
 			if (settingsManager.setPin(pin)) {
+				finish();
+			}
+			else {
+				getViewState().showToastMessage(context.getString(R.string.error_set_pin));
+				resetPin();
+			}
+		}
+	}
+
+	private void checkPinToDisable() {
+		if (!settingsManager.checkPin(pin)) {
+			getViewState().setPinError(true);
+			getViewState().setKeyboardKeysEnabled(false);
+			pin = "";
+			wrongAttempts++;
+			if (wrongAttempts == Constants.PIN_MAX_WRONG_ATTEMPTS) {
+				getViewState().setKeyboardKeysEnabled(false);
+				getViewState().setErrorMessage(context.getString(R.string.error_pin_too_many_attempts));
+				VibrationUtil.vibrateResetPin(context);
+			}
+			else {
+				VibrationUtil.vibrateWrongPin(context);
+				new Handler().postDelayed(() -> {
+					getViewState().setPinError(false);
+					getViewState().setKeyboardKeysEnabled(true);
+				}, 400);
+			}
+		}
+		else {
+			VibrationUtil.vibrateRightPin(context);
+			settingsManager.setPinCodeEnabled(false);
+			if (settingsManager.setPin("")) {
 				finish();
 			}
 			else {

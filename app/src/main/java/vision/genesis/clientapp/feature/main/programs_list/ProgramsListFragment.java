@@ -9,8 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -26,7 +24,6 @@ import io.swagger.client.model.ProgramDetails;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView;
 import vision.genesis.clientapp.model.ProgramsFilter;
 
 /**
@@ -55,8 +52,11 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	@BindView(R.id.group_no_internet)
 	public ViewGroup noInternetGroup;
 
-	@BindView(R.id.view_sorting_filters_buttons)
-	public SortingFiltersButtonsView sortingFiltersButtonsView;
+	@BindView(R.id.filters)
+	public ViewGroup filters;
+
+	@BindView(R.id.filters_dot)
+	public View filtersDot;
 
 	@BindView(R.id.group_empty)
 	public ViewGroup emptyGroup;
@@ -70,8 +70,6 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	@InjectPresenter
 	ProgramsListPresenter programsListPresenter;
 
-	private boolean sortingFiltersInAnim = false;
-
 	private int lastVisible = 0;
 
 	private ProgramsListAdapter programsListAdapter;
@@ -81,6 +79,11 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
 		programsListPresenter.onTryAgainClicked();
+	}
+
+	@OnClick(R.id.filters)
+	public void onFiltersClicked() {
+		programsListPresenter.onFiltersClicked();
 	}
 
 	@Nullable
@@ -103,7 +106,6 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 		initRefreshLayout();
 		initRecyclerView();
-		initSortingFiltersButtonsView();
 	}
 
 	@Override
@@ -138,19 +140,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 			@Override
 			public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 				checkIfLastItemVisible();
-				updateSortingFiltersVisibility(dy);
 			}
-		});
-	}
-
-	private void initSortingFiltersButtonsView() {
-		sortingFiltersButtonsView.setActivity(getActivity());
-		sortingFiltersButtonsView.setFiltersUpdateListener(programsListPresenter);
-		sortingFiltersButtonsView.setButtonUpListener(() -> {
-			if (lastVisible < 20)
-				recyclerView.smoothScrollToPosition(0);
-			else
-				recyclerView.scrollToPosition(0);
 		});
 	}
 
@@ -165,60 +155,6 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		if (totalItemCount > 0 && endHasBeenReached) {
 			programsListPresenter.onLastListItemVisible();
 		}
-	}
-
-	private void updateSortingFiltersVisibility(int dy) {
-		if (!sortingFiltersInAnim && sortingFiltersButtonsView.getVisibility() != View.VISIBLE && dy > 10)
-			showSortingFilters();
-		else if (!sortingFiltersInAnim && sortingFiltersButtonsView.getVisibility() == View.VISIBLE && dy < -10)
-			hideSortingFilters();
-	}
-
-	private void showSortingFilters() {
-		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_from_bottom);
-		animation.setAnimationListener(new Animation.AnimationListener()
-		{
-			@Override
-			public void onAnimationStart(Animation animation) {
-				sortingFiltersInAnim = true;
-				sortingFiltersButtonsView.setVisibility(View.VISIBLE);
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				sortingFiltersInAnim = false;
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-
-			}
-		});
-		sortingFiltersButtonsView.startAnimation(animation);
-	}
-
-	private void hideSortingFilters() {
-		Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_to_bottom);
-		animation.setAnimationListener(new Animation.AnimationListener()
-		{
-			@Override
-			public void onAnimationStart(Animation animation) {
-				sortingFiltersInAnim = true;
-				sortingFiltersButtonsView.setVisibility(View.VISIBLE);
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				sortingFiltersInAnim = false;
-				sortingFiltersButtonsView.setVisibility(View.GONE);
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-
-			}
-		});
-		sortingFiltersButtonsView.startAnimation(animation);
 	}
 
 	@Override
@@ -262,7 +198,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	@Override
 	public void showFiltersActive(boolean show) {
-//		toolbar.showRightButtonDot(show);
+		filtersDot.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 
 	@Override
@@ -271,13 +207,13 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	}
 
 	@Override
-	public void updateFilter(ProgramsFilter filter) {
-		sortingFiltersButtonsView.setFilter(filter);
+	public void showFiltersActivity(ProgramsFilter filter) {
+
 	}
 
 	@Override
 	public void setProgramsCount(String count) {
-		sortingFiltersButtonsView.setCount(count);
+
 	}
 
 	@Override

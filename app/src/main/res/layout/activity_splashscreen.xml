@@ -8,9 +8,9 @@
         android:id="@+id/group_network_error"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorGrayBackground"
+        android:background="?attr/colorBackground"
         android:visibility="gone"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,18 +22,20 @@
             <ImageView
                 android:layout_width="@dimen/programs_no_internet_image_width"
                 android:layout_height="@dimen/programs_no_internet_image_height"
+                android:alpha="0.4"
                 android:src="@drawable/no_internet"
-                android:tint="@color/colorFontLight"/>
+                android:tint="?attr/colorTextPrimary"/>
 
             <TextView
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif"
+                android:alpha="0.4"
                 android:gravity="center"
+                android:lineSpacingMultiplier="1.2"
                 android:text="@string/app_requires_network"
-                android:textColor="@color/black38"
-                android:textSize="20sp"/>
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="18sp"/>
 
             <FrameLayout
                 android:layout_width="120dp"
@@ -65,9 +67,9 @@
         android:id="@+id/group_server_error"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorGrayBackground"
+        android:background="?attr/colorBackground"
         android:visibility="gone"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -79,18 +81,20 @@
             <ImageView
                 android:layout_width="@dimen/programs_no_internet_image_width"
                 android:layout_height="@dimen/programs_no_internet_image_height"
+                android:alpha="0.4"
                 android:src="@drawable/ic_report_problem_black_24dp"
-                android:tint="@color/colorFontLight"/>
+                android:tint="?attr/colorTextPrimary"/>
 
             <TextView
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif"
+                android:alpha="0.4"
                 android:gravity="center"
+                android:lineSpacingMultiplier="1.2"
                 android:text="@string/server_error"
-                android:textColor="@color/black38"
-                android:textSize="20sp"/>
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="18sp"/>
 
             <FrameLayout
                 android:layout_width="120dp"

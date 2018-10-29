@@ -19,6 +19,7 @@ import butterknife.OnClick;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.StatusBarUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
 
 /**
  * GenesisVisionAndroid
@@ -59,6 +60,7 @@ public class VerifyFingerprintActivity extends MvpAppCompatActivity implements V
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_verify_fingerprint);

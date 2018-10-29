@@ -88,7 +88,6 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 		this.isManagerSet = true;
 		if (filter != null) {
 			filter.setManagerId(managerId);
-			getViewState().updateFilter(filter);
 		}
 		getFundsList(true);
 	}
@@ -114,8 +113,6 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 		filter.setTake(TAKE);
 		filter.setManagerId(managerId);
 //		filter.setEquityChartLength(10);
-
-		getViewState().updateFilter(filter);
 	}
 
 	public void onFilterUpdated(ProgramsFilter filter) {
@@ -158,7 +155,7 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 
 		fundsToAdd = response.getFunds();
 
-		getViewState().setProgramsCount(StringFormatUtil.formatAmount(response.getTotal(), 0, 0));
+		getViewState().setFundsCount(StringFormatUtil.formatAmount(response.getTotal(), 0, 0));
 
 		if (fundsToAdd.size() == 0) {
 			if (skip == 0)

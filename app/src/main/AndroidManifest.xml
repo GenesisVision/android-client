@@ -154,13 +154,15 @@
         <activity
             android:name=".feature.pin.check.CheckPinActivity"
             android:launchMode="singleTop"
-            android:theme="@style/TranslucentActivityTheme"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Base"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 
         <activity
             android:name=".feature.pin.set.SetPinActivity"
-            android:theme="@style/TranslucentActivityTheme"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
 
         <activity
             android:name=".feature.pin.fingerprint.VerifyFingerprintActivity"

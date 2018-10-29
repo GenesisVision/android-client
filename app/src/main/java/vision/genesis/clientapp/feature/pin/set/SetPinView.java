@@ -21,7 +21,7 @@ interface SetPinView extends MvpView
 
 	void setKeyboardKeysEnabled(boolean enabled);
 
-	void showProgress(boolean show);
+	void setErrorMessage(String message);
 
 	void showToastMessage(String message);
 

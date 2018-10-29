@@ -23,7 +23,7 @@ interface CheckPinView extends MvpView
 
 	void shakeFingerprint();
 
-	void disableFingerprint(String message);
+	void disableFingerprint(boolean changeText);
 
 	void finishAnimations();
 

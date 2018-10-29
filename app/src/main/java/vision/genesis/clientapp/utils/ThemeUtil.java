@@ -42,6 +42,10 @@ public class ThemeUtil
 		return getThemeResource(currentTheme);
 	}
 
+	public static int getSplashThemeResource() {
+		return getSplashThemeResource(currentTheme);
+	}
+
 	private static int getThemeResource(String theme) {
 		switch (theme) {
 			case THEME_LIGHT:
@@ -50,6 +54,17 @@ public class ThemeUtil
 				return R.style.AppTheme_Base_Dark;
 			default:
 				return R.style.AppTheme_Base_Light;
+		}
+	}
+
+	private static int getSplashThemeResource(String theme) {
+		switch (theme) {
+			case THEME_LIGHT:
+				return R.style.SplashTheme_Light;
+			case THEME_DARK:
+				return R.style.SplashTheme_Dark;
+			default:
+				return R.style.SplashTheme_Light;
 		}
 	}
 

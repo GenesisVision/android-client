@@ -22,6 +22,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.ui.NumericKeyboardView;
 import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -97,6 +98,7 @@ public class CheckTfaActivity extends BaseSwipeBackActivity implements CheckTfaV
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_check_tfa);

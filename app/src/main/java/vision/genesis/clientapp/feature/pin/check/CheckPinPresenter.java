@@ -9,15 +9,12 @@ import android.os.Handler;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import org.greenrobot.eventbus.EventBus;
-
 import javax.inject.Inject;
 
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.SettingsManager;
-import vision.genesis.clientapp.model.events.CheckPinSuccessEvent;
 import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.VibrationUtil;
 import vision.genesis.clientapp.utils.fingerprint.FingerprintHandler;
@@ -75,7 +72,8 @@ public class CheckPinPresenter extends MvpPresenter<CheckPinView> implements Fin
 			cancellationSignal = authManager.startFingerprintAuth(new FingerprintHandler(this));
 			if (cancellationSignal == null) {
 				fingerprintChanged = true;
-				getViewState().disableFingerprint(context.getString(R.string.error_fingerprint_changed));
+				getViewState().setErrorMessage(context.getString(R.string.error_fingerprint_changed));
+				getViewState().disableFingerprint(false);
 				settingsManager.setFingerprintEnabled(false);
 			}
 		}
@@ -117,6 +115,9 @@ public class CheckPinPresenter extends MvpPresenter<CheckPinView> implements Fin
 				getViewState().setKeyboardKeysEnabled(false);
 				getViewState().setErrorMessage(context.getString(R.string.error_pin_too_many_attempts));
 				VibrationUtil.vibrateResetPin(context);
+				if (cancellationSignal != null)
+					cancellationSignal.cancel();
+				getViewState().disableFingerprint(false);
 			}
 			else {
 				VibrationUtil.vibrateWrongPin(context);
@@ -128,7 +129,6 @@ public class CheckPinPresenter extends MvpPresenter<CheckPinView> implements Fin
 		}
 		else {
 			VibrationUtil.vibrateRightPin(context);
-			EventBus.getDefault().post(new CheckPinSuccessEvent());
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 				if (fingerprintChanged && authManager.hasEnrolledFingerprints())
 					getViewState().showVerifyFingerprintActivity();
@@ -154,7 +154,6 @@ public class CheckPinPresenter extends MvpPresenter<CheckPinView> implements Fin
 
 	@Override
 	public void onAuthenticationSucceeded() {
-		EventBus.getDefault().post(new CheckPinSuccessEvent());
 		finish();
 	}
 
@@ -165,7 +164,7 @@ public class CheckPinPresenter extends MvpPresenter<CheckPinView> implements Fin
 
 	@Override
 	public void onAuthenticationError(String message) {
-		getViewState().disableFingerprint(message);
+		getViewState().disableFingerprint(true);
 	}
 
 	@Override

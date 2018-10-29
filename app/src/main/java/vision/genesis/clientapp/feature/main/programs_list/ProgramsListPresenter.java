@@ -88,7 +88,6 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 		this.isManagerSet = true;
 		if (filter != null) {
 			filter.setManagerId(managerId);
-			getViewState().updateFilter(filter);
 		}
 		getProgramsList(true);
 	}
@@ -103,6 +102,10 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 		getProgramsList(true);
 	}
 
+	void onFiltersClicked() {
+		getViewState().showFiltersActivity(filter);
+	}
+
 	void onLastListItemVisible() {
 		getViewState().showBottomProgress(true);
 		getProgramsList(false);
@@ -114,8 +117,6 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 		filter.setTake(TAKE);
 		filter.setManagerId(managerId);
 //		filter.setEquityChartLength(10);
-
-		getViewState().updateFilter(filter);
 	}
 
 	public void onFilterUpdated(ProgramsFilter filter) {

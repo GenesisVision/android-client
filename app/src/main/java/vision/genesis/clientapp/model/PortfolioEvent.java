@@ -60,7 +60,8 @@ public class PortfolioEvent
 		}
 
 		event.setActionResId(actionResId);
-		event.setText(text);
+//		event.setText(text);
+		event.setText(dashboardEvent.getDescription());
 
 		event.setTime(DateTimeUtil.formatShortTime(dashboardEvent.getDate()));
 		event.setDateTime(DateTimeUtil.formatEventDateTime(dashboardEvent.getDate()));

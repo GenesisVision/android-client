@@ -209,7 +209,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 
 			this.profitPercent.setText(String.format(Locale.getDefault(), "%s%%",
 					StringFormatUtil.formatAmount(profitPercent, 0, 2)));
-			this.profitPercent.setTextColor(profitValue >= 0
+			this.profitPercent.setTextColor(profitPercent >= 0
 					? ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorGreen)
 					: ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorRed));
 

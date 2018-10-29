@@ -4,5 +4,5 @@
         android:duration="@android:integer/config_shortAnimTime"
         android:fromYDelta="0"
         android:interpolator="@android:anim/decelerate_interpolator"
-        android:toYDelta="-200%"/>
+        android:toYDelta="-500%"/>
 </set>

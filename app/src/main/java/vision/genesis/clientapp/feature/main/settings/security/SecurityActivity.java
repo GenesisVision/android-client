@@ -15,7 +15,6 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.settings.security.change_password.ChangePasswordActivity;
-import vision.genesis.clientapp.feature.pin.check.CheckPinActivity;
 import vision.genesis.clientapp.feature.pin.fingerprint.VerifyFingerprintActivity;
 import vision.genesis.clientapp.feature.pin.set.SetPinActivity;
 import vision.genesis.clientapp.feature.two_factor.disable.DisableTfaActivity;
@@ -118,7 +117,7 @@ public class SecurityActivity extends BaseSwipeBackActivity implements SecurityV
 
 	@Override
 	public void showDisablePin() {
-		CheckPinActivity.startForResult(this, DISABLE_PIN_REQUEST_CODE, true);
+		SetPinActivity.startFrom(this, false);
 	}
 
 	@Override
@@ -138,7 +137,7 @@ public class SecurityActivity extends BaseSwipeBackActivity implements SecurityV
 
 	@Override
 	public void showSetPinActivity() {
-		SetPinActivity.startFrom(this);
+		SetPinActivity.startFrom(this, true);
 	}
 
 	@Override

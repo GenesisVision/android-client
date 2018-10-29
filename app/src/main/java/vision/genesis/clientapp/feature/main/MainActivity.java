@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -21,7 +20,6 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import org.greenrobot.eventbus.EventBus;
-import org.joda.time.DateTime;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,7 +34,6 @@ import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.pin.check.CheckPinActivity;
-import vision.genesis.clientapp.feature.pin.set.SetPinActivity;
 import vision.genesis.clientapp.feature.two_factor.disable.DisableTfaActivity;
 import vision.genesis.clientapp.feature.two_factor.setup.SetupTfaActivity;
 import vision.genesis.clientapp.model.AppUpdateModel;
@@ -46,7 +43,6 @@ import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
 import vision.genesis.clientapp.ui.common.BlockScreenHolder;
-import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 
 /**
@@ -66,9 +62,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 
 	@BindView(R.id.root)
 	public View root;
-
-	@BindView(R.id.boring_text)
-	public TextView boringText;
 
 	@BindView(R.id.splashscreen)
 	public View splashScreen;
@@ -99,8 +92,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 		setContentView(R.layout.activity_main);
 
 		ButterKnife.bind(this);
-
-		boringText.setText(String.valueOf(DateTimeUtil.getDaysToDate(new DateTime(1540857600000L))));
 
 		initBottomNavigation();
 	}
@@ -317,13 +308,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	}
 
 	@Override
-	public void showSetPinActivity() {
-		SetPinActivity.startFrom(this);
-	}
-
-	@Override
 	public void showLockScreen(boolean allowFingerprint) {
-		CheckPinActivity.startForResult(this, CheckPinActivity.LOCK_SCREEN_REQUEST_CODE, false, allowFingerprint);
+		CheckPinActivity.startForResult(this, CheckPinActivity.LOCK_SCREEN_REQUEST_CODE, allowFingerprint);
 	}
 
 	@Override

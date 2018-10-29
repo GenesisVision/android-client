@@ -7,35 +7,45 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.ui.PinCodeView;
 import vision.genesis.clientapp.ui.PinKeyboardView;
-import vision.genesis.clientapp.utils.StatusBarUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 18/06/2018.
  */
 
-public class SetPinActivity extends MvpAppCompatActivity implements SetPinView
+public class SetPinActivity extends BaseSwipeBackActivity implements SetPinView
 {
-	public static void startFrom(Activity activity) {
+	private static final String EXTRA_ENABLE = "extra_enable";
+
+	public static void startFrom(Activity activity, boolean enable) {
 		Intent intent = new Intent(activity.getApplicationContext(), SetPinActivity.class);
+		intent.putExtra(EXTRA_ENABLE, enable);
 		activity.startActivity(intent);
-		activity.overridePendingTransition(R.anim.fragment_fade_in, R.anim.hold);
+		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
 
 	@BindView(R.id.background)
 	public View background;
+
+	@BindView(R.id.title)
+	public TextView title;
+
+	@BindView(R.id.text)
+	public TextView text;
 
 	@BindView(R.id.group_pins)
 	public ViewGroup pinsGroup;
@@ -52,9 +62,6 @@ public class SetPinActivity extends MvpAppCompatActivity implements SetPinView
 	@BindView(R.id.group_repeat_pin)
 	public ViewGroup repeatPinGroup;
 
-	@BindView(R.id.progress_bar)
-	public ProgressBar progressBar;
-
 	@BindView(R.id.keyboard)
 	public PinKeyboardView keyboard;
 
@@ -63,23 +70,35 @@ public class SetPinActivity extends MvpAppCompatActivity implements SetPinView
 
 	private boolean firstStart = true;
 
-	@OnClick(R.id.button_close)
-	public void onCloseClicked() {
+	private boolean enablePin = true;
+
+	@OnClick(R.id.button_back)
+	public void onBackClicked() {
 		finishActivity();
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_set_pin);
 
 		ButterKnife.bind(this);
 
-		StatusBarUtil.setColorResId(this, R.color.colorAccent);
+		enablePin = getIntent().getExtras().getBoolean(EXTRA_ENABLE, true);
+		setPinPresenter.setMode(enablePin);
 
 		initKeyboardListener();
 		setFonts();
+
+		setText();
+	}
+
+	private void setText() {
+		text.setText(getString(enablePin
+				? R.string.enter_pin_code_to_enable
+				: R.string.enter_pin_code_to_disable));
 	}
 
 	@Override
@@ -98,11 +117,11 @@ public class SetPinActivity extends MvpAppCompatActivity implements SetPinView
 	}
 
 	private void startAnimations() {
-		Animation keyboardAnimation = AnimationUtils.loadAnimation(this, R.anim.keyboard_appear);
-		keyboard.startAnimation(keyboardAnimation);
-
-		Animation pinAnimation = AnimationUtils.loadAnimation(this, R.anim.pin_appear);
-		pinGroup.startAnimation(pinAnimation);
+//		Animation keyboardAnimation = AnimationUtils.loadAnimation(this, R.anim.keyboard_appear);
+//		keyboard.startAnimation(keyboardAnimation);
+//
+//		Animation pinAnimation = AnimationUtils.loadAnimation(this, R.anim.pin_appear);
+//		pinGroup.startAnimation(pinAnimation);
 	}
 
 	private void initKeyboardListener() {
@@ -126,6 +145,7 @@ public class SetPinActivity extends MvpAppCompatActivity implements SetPinView
 	}
 
 	private void setFonts() {
+		title.setTypeface(TypefaceUtil.semibold());
 	}
 
 	@Override
@@ -136,6 +156,13 @@ public class SetPinActivity extends MvpAppCompatActivity implements SetPinView
 	@Override
 	public void setPinError(boolean error) {
 		pinCodeView.setError(error);
+		if (error) {
+			Animation animShake = AnimationUtils.loadAnimation(this, R.anim.shake_horizontal);
+			pinCodeView.startAnimation(animShake);
+		}
+		else {
+			pinCodeView.clearAnimation();
+		}
 	}
 
 	@Override
@@ -166,9 +193,9 @@ public class SetPinActivity extends MvpAppCompatActivity implements SetPinView
 	}
 
 	@Override
-	public void showProgress(boolean show) {
-		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-		keyboard.disableKeyboard(show);
+	public void setErrorMessage(String message) {
+		text.setText(message);
+		text.setTextColor(ThemeUtil.getColorByAttrId(this, R.attr.colorRed));
 	}
 
 	@Override
@@ -183,22 +210,22 @@ public class SetPinActivity extends MvpAppCompatActivity implements SetPinView
 
 	@Override
 	public void finishAnimations() {
-		Animation keyboardAnimation = AnimationUtils.loadAnimation(this, R.anim.keyboard_disappear);
-		keyboardAnimation.setFillAfter(true);
-		keyboard.startAnimation(keyboardAnimation);
-
-		Animation pinsAnimation = AnimationUtils.loadAnimation(this, R.anim.pin_disappear);
-		pinsAnimation.setFillAfter(true);
-		pinsGroup.startAnimation(pinsAnimation);
-
-		Animation backgroundAnimation = AnimationUtils.loadAnimation(this, R.anim.check_pin_disappear);
-		backgroundAnimation.setFillAfter(true);
-		background.startAnimation(backgroundAnimation);
+//		Animation keyboardAnimation = AnimationUtils.loadAnimation(this, R.anim.keyboard_disappear);
+//		keyboardAnimation.setFillAfter(true);
+//		keyboard.startAnimation(keyboardAnimation);
+//
+//		Animation pinsAnimation = AnimationUtils.loadAnimation(this, R.anim.pin_disappear);
+//		pinsAnimation.setFillAfter(true);
+//		pinsGroup.startAnimation(pinsAnimation);
+//
+//		Animation backgroundAnimation = AnimationUtils.loadAnimation(this, R.anim.check_pin_disappear);
+//		backgroundAnimation.setFillAfter(true);
+//		background.startAnimation(backgroundAnimation);
 	}
 
 	@Override
 	public void finishActivity() {
 		finish();
-		overridePendingTransition(R.anim.hold, R.anim.fragment_fade_out);
+		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
 	}
 }

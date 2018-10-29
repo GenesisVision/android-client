@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent">
@@ -9,81 +8,38 @@
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent"/>
-
-    <ImageView
-        android:id="@+id/button_close"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:padding="20dp"
-        android:src="@drawable/ic_close_black_24dp"
-        android:tint="@color/white"/>
+        android:background="@drawable/splashscreen_background_dark"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/group_pin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/keyboard"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="48dp"
         android:gravity="center"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/group_pin"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/enter_pin_code"
-                android:textColor="@color/white"
-                android:textSize="16sp"/>
-
-            <vision.genesis.clientapp.ui.PinCodeView
-                android:id="@+id/view_pin_code"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"/>
-
-        </LinearLayout>
-
         <TextView
-            android:id="@+id/text_error_message"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:textColor="@color/transactionRed"
-            android:textSize="16sp"
-            tools:text="@string/error_pin_too_many_attempts"/>
-
-
-        <LinearLayout
-            android:id="@+id/group_fingerprint"
+            android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:text="@string/enter_pin_code_or_use_fingerprint"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="16sp"/>
 
-            <ImageView
-                android:id="@+id/image_fingerprint"
-                android:layout_width="@dimen/check_pin_fingerprint_image_size"
-                android:layout_height="@dimen/check_pin_fingerprint_image_size"
-                android:background="@drawable/circle_white_12"
-                android:padding="12dp"
-                android:src="@drawable/ic_fingerprint_black_24dp"
-                android:tint="@color/white"/>
-
-        </LinearLayout>
+        <vision.genesis.clientapp.ui.PinCodeView
+            android:id="@+id/view_pin_code"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"/>
 
     </LinearLayout>
 
     <vision.genesis.clientapp.ui.PinKeyboardView
         android:id="@+id/keyboard"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="32dp"/>

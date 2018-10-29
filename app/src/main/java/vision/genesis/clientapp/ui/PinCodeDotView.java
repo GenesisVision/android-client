@@ -8,7 +8,6 @@ import android.widget.RelativeLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 
 /**
@@ -44,13 +43,15 @@ public class PinCodeDotView extends RelativeLayout
 
 	public void setSelected(boolean selected) {
 		dot.setImageDrawable(selected
-				? ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.pin_code_dot_selected)
-				: ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.pin_code_dot_unselected));
+				? ContextCompat.getDrawable(getContext(), R.drawable.pin_code_dot_selected)
+				: ContextCompat.getDrawable(getContext(), R.drawable.pin_code_dot_unselected));
+		dot.setAlpha(selected ? 1f : 0.1f);
 	}
 
 	public void setError(boolean error) {
+		dot.setAlpha(error ? 1f : 0.1f);
 		dot.setImageDrawable(error
-				? ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.pin_code_dot_error)
-				: ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.pin_code_dot_unselected));
+				? ContextCompat.getDrawable(getContext(), R.drawable.pin_code_dot_error)
+				: ContextCompat.getDrawable(getContext(), R.drawable.pin_code_dot_unselected));
 	}
 }

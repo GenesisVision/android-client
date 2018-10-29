@@ -23,6 +23,7 @@ import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.two_factor.setup.forth.SetupTfaForthStepActivity;
 import vision.genesis.clientapp.ui.NonSwipeableViewPager;
+import vision.genesis.clientapp.utils.ThemeUtil;
 
 /**
  * GenesisVisionAndroid
@@ -62,6 +63,7 @@ public class SetupTfaActivity extends MvpAppCompatActivity implements SetupTfaVi
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_setup_two_factor);
 

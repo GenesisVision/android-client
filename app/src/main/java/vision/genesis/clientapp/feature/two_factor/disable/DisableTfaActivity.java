@@ -26,6 +26,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.Constants;
+import vision.genesis.clientapp.utils.ThemeUtil;
 
 /**
  * GenesisVisionAndroid
@@ -79,6 +80,7 @@ public class DisableTfaActivity extends BaseSwipeBackActivity implements Disable
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_disable_two_factor);
 

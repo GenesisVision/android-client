@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.MainActivity;
+import vision.genesis.clientapp.utils.ThemeUtil;
 
 /**
  * GenesisVision
@@ -54,6 +55,7 @@ public class SplashScreenActivity extends MvpAppCompatActivity implements Splash
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(ThemeUtil.getSplashThemeResource());
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splashscreen);
 

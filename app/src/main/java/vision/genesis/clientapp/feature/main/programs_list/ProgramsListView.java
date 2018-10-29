@@ -32,11 +32,11 @@ interface ProgramsListView extends MvpView
 
 	void showEmptyList(boolean show);
 
+	void showFiltersActivity(ProgramsFilter filter);
+
 	void showFiltersActive(boolean show);
 
 	void changeProgramIsFavorite(UUID programId, boolean isFavorite);
-
-	void updateFilter(ProgramsFilter filter);
 
 	void setProgramsCount(String count);
 
