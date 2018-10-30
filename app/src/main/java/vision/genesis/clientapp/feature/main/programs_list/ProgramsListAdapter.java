@@ -18,10 +18,12 @@ import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.swagger.client.model.ProgramDetails;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
+import vision.genesis.clientapp.model.events.OnListProgramFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.CurrencyView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
@@ -76,9 +78,10 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
 		for (ProgramDetails program : investmentPrograms) {
 			if (program.getId().equals(programId)) {
-				if (program.getPersonalDetails() != null)
+				if (program.getPersonalDetails() != null && !program.getPersonalDetails().isIsFavorite().equals(isFavorite)) {
 					program.getPersonalDetails().setIsFavorite(isFavorite);
-				notifyDataSetChanged();
+					notifyItemChanged(investmentPrograms.indexOf(program));
+				}
 				break;
 			}
 		}
@@ -169,6 +172,15 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 			});
 		}
 
+		@OnClick(R.id.favorite)
+		public void onFavoriteClicked() {
+			if (program != null && program.getPersonalDetails() != null) {
+				program.getPersonalDetails().setIsFavorite(!program.getPersonalDetails().isIsFavorite());
+				updateData();
+				EventBus.getDefault().post(new OnListProgramFavoriteClickedEvent(program.getId(), program.getPersonalDetails().isIsFavorite()));
+			}
+		}
+
 		private void setFonts() {
 			programName.setTypeface(TypefaceUtil.semibold());
 			managerName.setTypeface(TypefaceUtil.medium());
@@ -190,10 +202,12 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 			programLogo.setImage(program.getLogo(), program.getColor(), 100, 100);
 			programLogo.setLevel(program.getLevel());
 
-			if (program.getPersonalDetails() != null)
+			if (program.getPersonalDetails() != null) {
 				favorite.setImageDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, program.getPersonalDetails().isIsFavorite()
 						? R.drawable.icon_favorite_fill
 						: R.drawable.icon_favorite));
+				favorite.setAlpha(program.getPersonalDetails().isIsFavorite() ? 1f : 0.3f);
+			}
 
 			this.programName.setText(program.getTitle());
 			this.managerName.setText(program.getManager().getUsername());

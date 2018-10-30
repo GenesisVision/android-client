@@ -191,7 +191,7 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 
 	@Override
 	public void changeFundIsFavorite(UUID fundId, boolean isFavorite) {
-		fundsListAdapter.changeFundIsFavorite(fundId, isFavorite);
+		fundsListAdapter.setFundFavorite(fundId, isFavorite);
 	}
 
 	@Override

@@ -4,6 +4,9 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -12,11 +15,14 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.managers.InvestorDashboardManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.SortingEnum;
 import vision.genesis.clientapp.model.events.OnBrowseFundsClickedEvent;
+import vision.genesis.clientapp.model.events.OnDashboardFundFavoriteClickedEvent;
+import vision.genesis.clientapp.model.events.OnFundFavoriteChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -31,11 +37,16 @@ public class DashboardFundsPresenter extends MvpPresenter<DashboardFundsView>
 	public InvestorDashboardManager dashboardManager;
 
 	@Inject
+	public FundsManager fundsManager;
+
+	@Inject
 	public SettingsManager settingsManager;
 
 	private Subscription dateRangeSubscription;
 
 	private Subscription getFundsSubscription;
+
+	private Subscription favoriteSubscription;
 
 	private DateRange dateRange;
 
@@ -54,6 +65,8 @@ public class DashboardFundsPresenter extends MvpPresenter<DashboardFundsView>
 			dateRangeSubscription.unsubscribe();
 		if (getFundsSubscription != null)
 			getFundsSubscription.unsubscribe();
+		if (favoriteSubscription != null)
+			favoriteSubscription.unsubscribe();
 
 		super.onDestroy();
 	}
@@ -133,5 +146,40 @@ public class DashboardFundsPresenter extends MvpPresenter<DashboardFundsView>
 
 		if (ApiErrorResolver.isNetworkError(throwable)) {
 		}
+	}
+
+	private void setFavorite(UUID fundId, boolean favorite) {
+		if (fundsManager != null) {
+			if (favoriteSubscription != null)
+				favoriteSubscription.unsubscribe();
+			favoriteSubscription = fundsManager.setFundFavorite(fundId, favorite)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(response -> handleFavoriteSuccess(fundId, favorite),
+							throwable -> handleFavoriteError(throwable, fundId, favorite));
+		}
+	}
+
+	private void handleFavoriteSuccess(UUID fundId, Boolean favorite) {
+		favoriteSubscription.unsubscribe();
+
+		EventBus.getDefault().post(new OnFundFavoriteChangedEvent(fundId, favorite));
+	}
+
+	private void handleFavoriteError(Throwable throwable, UUID programId, Boolean favorite) {
+		favoriteSubscription.unsubscribe();
+		getViewState().setFundFavorite(programId, favorite);
+
+//		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnFundFavoriteChangedEvent event) {
+		getViewState().setFundFavorite(event.getFundId(), event.isFavorite());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnDashboardFundFavoriteClickedEvent event) {
+		setFavorite(event.getFundId(), event.isFavorite());
 	}
 }

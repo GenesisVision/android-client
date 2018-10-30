@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -104,6 +105,11 @@ public class DashboardFundsFragment extends BaseFragment implements DashboardFun
 		dashboardFundsAdapter.setFunds(funds);
 
 		showEmpty(funds.size() == 0);
+	}
+
+	@Override
+	public void setFundFavorite(UUID fundId, Boolean favorite) {
+		dashboardFundsAdapter.setFundFavorite(fundId, favorite);
 	}
 
 	@Override

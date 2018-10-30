@@ -282,7 +282,6 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		if (programDetails.getPersonalProgramDetails() != null && programDetails.getPersonalProgramDetails().isIsInvested()) {
 			yourInvestmentGroup.setVisibility(View.VISIBLE);
 			status.setStatus(programDetails.getPersonalProgramDetails().getStatus().getValue());
-//		invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(programDetails.getPersonalProgramDetails().getInvested()).toString()));
 			invested.setText(String.format(Locale.getDefault(), "%s %s",
 					StringFormatUtil.formatAmount(programDetails.getPersonalProgramDetails().getInvested(), 0,
 							StringFormatUtil.getCurrencyMaxFraction(programDetails.getCurrency().getValue())),

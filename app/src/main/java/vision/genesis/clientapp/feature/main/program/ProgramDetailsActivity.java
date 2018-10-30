@@ -164,9 +164,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@OnClick(R.id.button_favorite)
 	public void onFavoriteClicked() {
 		if (programDetails != null) {
-//			programDetails.isFavorite(!programDetails.isIsFavorite());
-//			setFavoriteButtonImage(programDetails.isIsFavorite());
-//			programInfoPresenter.onFavoriteButtonClicked(programDetails.isIsFavorite());
+			programDetails.getPersonalProgramDetails().setIsFavorite(!programDetails.getPersonalProgramDetails().isIsFavorite());
+			setFavoriteButtonImage(programDetails.getPersonalProgramDetails().isIsFavorite());
+			programDetailsPresenter.onFavoriteButtonClicked(programDetails.getPersonalProgramDetails().isIsFavorite());
 		}
 	}
 

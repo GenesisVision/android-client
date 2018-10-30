@@ -18,7 +18,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.InvestmentProgramExtended;
-import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
+import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -200,8 +200,8 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 	}
 
 	@Subscribe
-	public void onEventMainThread(ProgramIsFavoriteChangedEvent event) {
-		getViewState().changeProgramIsFavorite(event.programId, event.isFavorite);
+	public void onEventMainThread(OnProgramFavoriteChangedEvent event) {
+		getViewState().changeProgramIsFavorite(event.getProgramId(), event.isFavorite());
 	}
 
 	public void onSearchClicked(String text) {

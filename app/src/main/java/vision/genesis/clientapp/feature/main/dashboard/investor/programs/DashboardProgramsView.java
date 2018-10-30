@@ -21,4 +21,6 @@ interface DashboardProgramsView extends MvpView
 	void setPrograms(List<ProgramDetails> programs);
 
 	void setProgramReinvest(UUID programId, Boolean reinvest);
+
+	void setProgramFavorite(UUID programId, Boolean favorite);
 }

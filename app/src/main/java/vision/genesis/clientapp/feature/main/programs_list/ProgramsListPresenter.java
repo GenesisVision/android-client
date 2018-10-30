@@ -25,7 +25,8 @@ import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButto
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.ProgramsFilter;
-import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
+import vision.genesis.clientapp.model.events.OnListProgramFavoriteClickedEvent;
+import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersClearedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -48,6 +49,8 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 	public ProgramsManager programsManager;
 
 	private Subscription getProgramsSubscription;
+
+	private Subscription favoriteSubscription;
 
 	private List<ProgramDetails> investmentProgramsList = new ArrayList<ProgramDetails>();
 
@@ -80,6 +83,8 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 	public void onDestroy() {
 		if (getProgramsSubscription != null)
 			getProgramsSubscription.unsubscribe();
+		if (favoriteSubscription != null)
+			favoriteSubscription.unsubscribe();
 
 		EventBus.getDefault().unregister(this);
 
@@ -200,6 +205,31 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 		}
 	}
 
+	private void setFavorite(UUID programId, boolean favorite) {
+		if (programsManager != null) {
+			if (favoriteSubscription != null)
+				favoriteSubscription.unsubscribe();
+			favoriteSubscription = programsManager.setProgramFavorite(programId, favorite)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(response -> handleFavoriteSuccess(programId, favorite),
+							throwable -> handleFavoriteError(throwable, programId, favorite));
+		}
+	}
+
+	private void handleFavoriteSuccess(UUID programId, Boolean favorite) {
+		favoriteSubscription.unsubscribe();
+
+		EventBus.getDefault().post(new OnProgramFavoriteChangedEvent(programId, favorite));
+	}
+
+	private void handleFavoriteError(Throwable throwable, UUID programId, Boolean favorite) {
+		favoriteSubscription.unsubscribe();
+		getViewState().changeProgramIsFavorite(programId, favorite);
+
+//		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
 	@Subscribe
 	public void onEventMainThread(ProgramsListFiltersAppliedEvent event) {
 		getViewState().showFiltersActive(true);
@@ -211,7 +241,12 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 	}
 
 	@Subscribe
-	public void onEventMainThread(ProgramIsFavoriteChangedEvent event) {
-		getViewState().changeProgramIsFavorite(event.programId, event.isFavorite);
+	public void onEventMainThread(OnProgramFavoriteChangedEvent event) {
+		getViewState().changeProgramIsFavorite(event.getProgramId(), event.isFavorite());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnListProgramFavoriteClickedEvent event) {
+		setFavorite(event.getProgramId(), event.isFavorite());
 	}
 }

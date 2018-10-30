@@ -23,7 +23,7 @@ import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
-import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
+import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -141,14 +141,14 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 		setProgramFavoriteSubscription = programsManager.setProgramFavorite(programId, isFavorite)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
-				.subscribe(response -> handleSetProgramFavoriteSuccess(response, programId, isFavorite),
+				.subscribe(response -> handleSetProgramFavoriteSuccess(programId, isFavorite),
 						this::handleSetProgramFavoriteError);
 	}
 
-	private void handleSetProgramFavoriteSuccess(Void response, UUID programId, boolean isFavorite) {
+	private void handleSetProgramFavoriteSuccess(UUID programId, boolean isFavorite) {
 		setProgramFavoriteSubscription.unsubscribe();
 
-		EventBus.getDefault().post(new ProgramIsFavoriteChangedEvent(programId, isFavorite));
+		EventBus.getDefault().post(new OnProgramFavoriteChangedEvent(programId, isFavorite));
 	}
 
 	private void handleSetProgramFavoriteError(Throwable throwable) {
@@ -156,7 +156,7 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 
 		if (programDetails == null)
 			getViewState().setProgram(programDetails);
-		getViewState().showToast(context.getString(R.string.error_occurred_performing_operation));
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showToast(message));
 	}
 
 	private void subscribeToUser() {

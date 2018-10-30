@@ -22,8 +22,8 @@ import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.User;
-import vision.genesis.clientapp.model.events.FundIsFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
+import vision.genesis.clientapp.model.events.OnFundFavoriteChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -148,7 +148,7 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 	private void handleSetFundFavoriteSuccess(Void response, UUID fundId, boolean isFavorite) {
 		setFundFavoriteSubscription.unsubscribe();
 
-		EventBus.getDefault().post(new FundIsFavoriteChangedEvent(fundId, isFavorite));
+		EventBus.getDefault().post(new OnFundFavoriteChangedEvent(fundId, isFavorite));
 	}
 
 	private void handleSetFundFavoriteError(Throwable throwable) {

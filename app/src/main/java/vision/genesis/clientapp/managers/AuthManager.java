@@ -101,6 +101,7 @@ public class AuthManager
 		else
 			model.setTwoFactorCode(tfaCode);
 		model.rememberMe(true);
+		model.setClient("Android");
 
 		getToken(getLoginApiObservable(model));
 		return getTokenResponseSubject;

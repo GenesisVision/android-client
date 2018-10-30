@@ -113,6 +113,11 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 	}
 
 	@Override
+	public void setProgramFavorite(UUID programId, Boolean favorite) {
+		dashboardProgramsAdapter.setProgramFavorite(programId, favorite);
+	}
+
+	@Override
 	public void showEmpty(boolean show) {
 		if (emptyGroup != null) {
 			emptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);

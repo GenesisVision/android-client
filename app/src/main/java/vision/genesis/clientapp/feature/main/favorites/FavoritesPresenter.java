@@ -25,7 +25,7 @@ import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.ProgramsFilter;
 import vision.genesis.clientapp.model.User;
-import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
+import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -266,12 +266,12 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 	}
 
 	@Subscribe
-	public void onEventMainThread(ProgramIsFavoriteChangedEvent event) {
-		if (event.isFavorite)
+	public void onEventMainThread(OnProgramFavoriteChangedEvent event) {
+		if (event.isFavorite())
 			getFavorites();
 		else {
-			removeProgram(event.programId);
-			getViewState().removeProgram(event.programId);
+			removeProgram(event.getProgramId());
+			getViewState().removeProgram(event.getProgramId());
 		}
 	}
 }

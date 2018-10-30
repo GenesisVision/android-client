@@ -20,12 +20,14 @@ import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.swagger.client.model.FundAssetPercent;
 import io.swagger.client.model.FundDetails;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.FundDetailsModel;
+import vision.genesis.clientapp.model.events.OnListFundFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
 import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
@@ -76,12 +78,13 @@ public class FundsListAdapter extends RecyclerView.Adapter<FundsListAdapter.Fund
 		notifyDataSetChanged();
 	}
 
-	public void changeFundIsFavorite(UUID fundId, boolean isFavorite) {
+	public void setFundFavorite(UUID fundId, Boolean favorite) {
 		for (FundDetails fund : funds) {
 			if (fund.getId().equals(fundId)) {
-				if (fund.getPersonalDetails() != null)
-					fund.getPersonalDetails().setIsFavorite(isFavorite);
-				notifyDataSetChanged();
+				if (fund.getPersonalDetails() != null && !fund.getPersonalDetails().isIsFavorite().equals(favorite)) {
+					fund.getPersonalDetails().setIsFavorite(favorite);
+					notifyItemChanged(funds.indexOf(fund));
+				}
 				break;
 			}
 		}
@@ -197,6 +200,15 @@ public class FundsListAdapter extends RecyclerView.Adapter<FundsListAdapter.Fund
 			});
 		}
 
+		@OnClick(R.id.favorite)
+		public void onFavoriteClicked() {
+			if (fund != null && fund.getPersonalDetails() != null) {
+				fund.getPersonalDetails().setIsFavorite(!fund.getPersonalDetails().isIsFavorite());
+				updateData();
+				EventBus.getDefault().post(new OnListFundFavoriteClickedEvent(fund.getId(), fund.getPersonalDetails().isIsFavorite()));
+			}
+		}
+
 		private void setFonts() {
 			fundName.setTypeface(TypefaceUtil.semibold());
 			managerName.setTypeface(TypefaceUtil.medium());
@@ -224,10 +236,12 @@ public class FundsListAdapter extends RecyclerView.Adapter<FundsListAdapter.Fund
 			fundLogo.setImage(fund.getLogo(), fund.getColor(), 100, 100);
 			fundLogo.hideLevel();
 
-			if (fund.getPersonalDetails() != null)
+			if (fund.getPersonalDetails() != null) {
 				favorite.setImageDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, fund.getPersonalDetails().isIsFavorite()
 						? R.drawable.icon_favorite_fill
 						: R.drawable.icon_favorite));
+				favorite.setAlpha(fund.getPersonalDetails().isIsFavorite() ? 1f : 0.3f);
+			}
 
 			this.fundName.setText(fund.getTitle());
 			this.managerName.setText(fund.getManager().getUsername());

@@ -25,7 +25,8 @@ import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButto
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.ProgramsFilter;
-import vision.genesis.clientapp.model.events.FundIsFavoriteChangedEvent;
+import vision.genesis.clientapp.model.events.OnFundFavoriteChangedEvent;
+import vision.genesis.clientapp.model.events.OnListFundFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersClearedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -48,6 +49,8 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 	public FundsManager fundsManager;
 
 	private Subscription getFundsSubscription;
+
+	private Subscription favoriteSubscription;
 
 	private List<FundDetails> fundsList = new ArrayList<>();
 
@@ -80,6 +83,8 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 	public void onDestroy() {
 		if (getFundsSubscription != null)
 			getFundsSubscription.unsubscribe();
+		if (favoriteSubscription != null)
+			favoriteSubscription.unsubscribe();
 
 		EventBus.getDefault().unregister(this);
 
@@ -196,6 +201,31 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 		}
 	}
 
+	private void setFavorite(UUID fundId, boolean favorite) {
+		if (fundsManager != null) {
+			if (favoriteSubscription != null)
+				favoriteSubscription.unsubscribe();
+			favoriteSubscription = fundsManager.setFundFavorite(fundId, favorite)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(response -> handleFavoriteSuccess(fundId, favorite),
+							throwable -> handleFavoriteError(throwable, fundId, favorite));
+		}
+	}
+
+	private void handleFavoriteSuccess(UUID fundId, Boolean favorite) {
+		favoriteSubscription.unsubscribe();
+
+		EventBus.getDefault().post(new OnFundFavoriteChangedEvent(fundId, favorite));
+	}
+
+	private void handleFavoriteError(Throwable throwable, UUID programId, Boolean favorite) {
+		favoriteSubscription.unsubscribe();
+		getViewState().changeFundIsFavorite(programId, favorite);
+
+//		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
 	@Subscribe
 	public void onEventMainThread(ProgramsListFiltersAppliedEvent event) {
 		getViewState().showFiltersActive(true);
@@ -207,7 +237,12 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 	}
 
 	@Subscribe
-	public void onEventMainThread(FundIsFavoriteChangedEvent event) {
-		getViewState().changeFundIsFavorite(event.getFundId(), event.getFavorite());
+	public void onEventMainThread(OnFundFavoriteChangedEvent event) {
+		getViewState().changeFundIsFavorite(event.getFundId(), event.isFavorite());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnListFundFavoriteClickedEvent event) {
+		setFavorite(event.getFundId(), event.isFavorite());
 	}
 }

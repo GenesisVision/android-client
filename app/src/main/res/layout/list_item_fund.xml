@@ -65,7 +65,6 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:alpha="0.3"
-            android:background="?attr/selectableItemBackgroundBorderless"
             android:paddingBottom="24dp"
             android:paddingLeft="24dp"
             android:src="@drawable/icon_favorite"

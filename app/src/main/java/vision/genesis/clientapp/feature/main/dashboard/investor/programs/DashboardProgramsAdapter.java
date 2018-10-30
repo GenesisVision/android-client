@@ -1,10 +1,12 @@
 package vision.genesis.clientapp.feature.main.dashboard.investor.programs;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -19,8 +21,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.ProgramDetails;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
+import vision.genesis.clientapp.model.events.OnDashboardProgramFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.OnDashboardReinvestClickedEvent;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
@@ -73,8 +77,22 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 	public void setProgramReinvest(UUID programId, Boolean reinvest) {
 		for (ProgramDetails program : programs) {
 			if (program.getId().equals(programId)) {
-				program.getPersonalDetails().setIsReinvest(reinvest);
-				notifyItemChanged(programs.indexOf(program));
+				if (program.getPersonalDetails() != null && !program.getPersonalDetails().isIsFavorite().equals(reinvest)) {
+					program.getPersonalDetails().setIsReinvest(reinvest);
+					notifyItemChanged(programs.indexOf(program));
+				}
+				break;
+			}
+		}
+	}
+
+	public void setProgramFavorite(UUID programId, Boolean favorite) {
+		for (ProgramDetails program : programs) {
+			if (program.getId().equals(programId)) {
+				if (program.getPersonalDetails() != null && !program.getPersonalDetails().isIsFavorite().equals(favorite)) {
+					program.getPersonalDetails().setIsFavorite(favorite);
+					notifyItemChanged(programs.indexOf(program));
+				}
 				break;
 			}
 		}
@@ -90,6 +108,9 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 		@BindView(R.id.manager_name)
 		public TextView managerName;
+
+		@BindView(R.id.favorite)
+		public ImageView favorite;
 
 		@BindView(R.id.chart)
 		public ProfitSmallChartView chart;
@@ -131,13 +152,6 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 		private Context context;
 
-		@OnClick(R.id.switch_reinvest)
-		public void onReinvestClicked() {
-			if (program != null) {
-				EventBus.getDefault().post(new OnDashboardReinvestClickedEvent(program.getId(), !program.getPersonalDetails().isIsReinvest()));
-			}
-		}
-
 		ProgramViewHolder(View itemView) {
 			super(itemView);
 
@@ -165,6 +179,22 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			});
 		}
 
+		@OnClick(R.id.switch_reinvest)
+		public void onReinvestClicked() {
+			if (program != null) {
+				EventBus.getDefault().post(new OnDashboardReinvestClickedEvent(program.getId(), !program.getPersonalDetails().isIsReinvest()));
+			}
+		}
+
+		@OnClick(R.id.favorite)
+		public void onFavoriteClicked() {
+			if (program != null && program.getPersonalDetails() != null) {
+				program.getPersonalDetails().setIsFavorite(!program.getPersonalDetails().isIsFavorite());
+				updateData();
+				EventBus.getDefault().post(new OnDashboardProgramFavoriteClickedEvent(program.getId(), program.getPersonalDetails().isIsFavorite()));
+			}
+		}
+
 		private void setFonts() {
 			programName.setTypeface(TypefaceUtil.semibold());
 			managerName.setTypeface(TypefaceUtil.medium());
@@ -185,6 +215,11 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 			this.programName.setText(program.getTitle());
 			this.managerName.setText(program.getManager().getUsername());
+
+			favorite.setImageDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, program.getPersonalDetails().isIsFavorite()
+					? R.drawable.icon_favorite_fill
+					: R.drawable.icon_favorite));
+			favorite.setAlpha(program.getPersonalDetails().isIsFavorite() ? 1f : 0.3f);
 
 			this.chart.setChart(program.getChart());
 

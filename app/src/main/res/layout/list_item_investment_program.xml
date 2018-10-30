@@ -66,7 +66,6 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:alpha="0.3"
-            android:background="?attr/selectableItemBackgroundBorderless"
             android:paddingBottom="24dp"
             android:paddingLeft="24dp"
             android:src="@drawable/icon_favorite"
@@ -107,8 +106,8 @@
             <TextView
                 android:id="@+id/profit_percent"
                 android:layout_width="wrap_content"
-                android:layout_marginTop="2dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:textColor="?attr/colorGreen"
                 android:textSize="18sp"
                 tools:text="5.4%"/>

@@ -3,6 +3,7 @@ package vision.genesis.clientapp.feature.main.dashboard.investor.funds;
 import com.arellomobile.mvp.MvpView;
 
 import java.util.List;
+import java.util.UUID;
 
 import io.swagger.client.model.FundDetails;
 
@@ -14,6 +15,8 @@ import io.swagger.client.model.FundDetails;
 interface DashboardFundsView extends MvpView
 {
 	void setFunds(List<FundDetails> programs);
+
+	void setFundFavorite(UUID fundId, Boolean favorite);
 
 	void showEmpty(boolean show);
 

@@ -21,8 +21,10 @@ import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.SortingEnum;
 import vision.genesis.clientapp.model.events.OnBrowseProgramsClickedEvent;
+import vision.genesis.clientapp.model.events.OnDashboardProgramFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.OnDashboardProgramsUpdateEvent;
 import vision.genesis.clientapp.model.events.OnDashboardReinvestClickedEvent;
+import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.OnProgramReinvestChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -48,6 +50,8 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 	private Subscription getProgramsSubscription;
 
 	private Subscription reinvestSubscription;
+
+	private Subscription favoriteSubscription;
 
 	private DateRange dateRange;
 
@@ -185,6 +189,31 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 //		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
 
+	private void setFavorite(UUID programId, boolean favorite) {
+		if (programsManager != null) {
+			if (favoriteSubscription != null)
+				favoriteSubscription.unsubscribe();
+			favoriteSubscription = programsManager.setProgramFavorite(programId, favorite)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(response -> handleFavoriteSuccess(programId, favorite),
+							throwable -> handleFavoriteError(throwable, programId, favorite));
+		}
+	}
+
+	private void handleFavoriteSuccess(UUID programId, Boolean favorite) {
+		favoriteSubscription.unsubscribe();
+
+		EventBus.getDefault().post(new OnProgramFavoriteChangedEvent(programId, favorite));
+	}
+
+	private void handleFavoriteError(Throwable throwable, UUID programId, Boolean favorite) {
+		favoriteSubscription.unsubscribe();
+		getViewState().setProgramFavorite(programId, favorite);
+
+//		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
 	@Subscribe
 	public void onEventMainThread(OnProgramReinvestChangedEvent event) {
 		getViewState().setProgramReinvest(event.getProgramId(), event.getReinvest());
@@ -193,5 +222,15 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 	@Subscribe
 	public void onEventMainThread(OnDashboardReinvestClickedEvent event) {
 		setReinvest(event.getProgramId(), event.getReinvest());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnProgramFavoriteChangedEvent event) {
+		getViewState().setProgramFavorite(event.getProgramId(), event.isFavorite());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnDashboardProgramFavoriteClickedEvent event) {
+		setFavorite(event.getProgramId(), event.isFavorite());
 	}
 }

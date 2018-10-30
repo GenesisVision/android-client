@@ -46,8 +46,8 @@ public class FundsManager
 				filter.getIds(), filter.getManagerId() != null ? filter.getManagerId().toString() : null, null, filter.getSkip(), filter.getTake());
 	}
 
-	public Observable<Void> setFundFavorite(UUID programId, boolean isFavorite) {
-		return isFavorite ? fundFavoritesAdd(programId) : fundFavoritesRemove(programId);
+	public Observable<Void> setFundFavorite(UUID fundId, boolean isFavorite) {
+		return isFavorite ? fundFavoritesAdd(fundId) : fundFavoritesRemove(fundId);
 	}
 
 	private Observable<Void> fundFavoritesAdd(UUID fundId) {
