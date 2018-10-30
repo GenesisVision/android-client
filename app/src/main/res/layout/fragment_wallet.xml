@@ -206,15 +206,6 @@
 
                 </android.support.design.widget.CollapsingToolbarLayout>
 
-            </android.support.design.widget.AppBarLayout>
-
-            <RelativeLayout
-                android:id="@+id/group_transactions"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/colorBackground"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
                 <TextView
                     android:id="@+id/label_transactions"
                     android:layout_width="wrap_content"
@@ -225,13 +216,22 @@
                     android:paddingRight="@dimen/wallet_padding"
                     android:text="@string/transactions_history"
                     android:textColor="?attr/colorTextPrimary"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"/>
+
+            </android.support.design.widget.AppBarLayout>
+
+            <RelativeLayout
+                android:id="@+id/group_transactions"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorBackground"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@+id/label_transactions"
                     android:clipToPadding="false"
                     android:paddingBottom="140dp"/>
 
@@ -239,7 +239,6 @@
                     android:id="@+id/group_no_transactions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/label_transactions"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="64dp"
                     android:orientation="vertical"

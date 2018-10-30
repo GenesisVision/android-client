@@ -4,6 +4,9 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -13,11 +16,14 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.InvestorDashboardManager;
+import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.SortingEnum;
+import vision.genesis.clientapp.model.events.OnBrowseProgramsClickedEvent;
 import vision.genesis.clientapp.model.events.OnDashboardProgramsUpdateEvent;
-import vision.genesis.clientapp.model.events.OnInvestButtonClickedEvent;
+import vision.genesis.clientapp.model.events.OnDashboardReinvestClickedEvent;
+import vision.genesis.clientapp.model.events.OnProgramReinvestChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -32,11 +38,16 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 	public InvestorDashboardManager dashboardManager;
 
 	@Inject
+	public ProgramsManager programsManager;
+
+	@Inject
 	public SettingsManager settingsManager;
 
 	private Subscription dateRangeSubscription;
 
 	private Subscription getProgramsSubscription;
+
+	private Subscription reinvestSubscription;
 
 	private DateRange dateRange;
 
@@ -45,6 +56,8 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
+
+		EventBus.getDefault().register(this);
 
 		subscribeToDateRange();
 	}
@@ -55,6 +68,10 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 			dateRangeSubscription.unsubscribe();
 		if (getProgramsSubscription != null)
 			getProgramsSubscription.unsubscribe();
+		if (reinvestSubscription != null)
+			reinvestSubscription.unsubscribe();
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -64,7 +81,7 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 	}
 
 	void onStartInvestingClicked() {
-		EventBus.getDefault().post(new OnInvestButtonClickedEvent());
+		EventBus.getDefault().post(new OnBrowseProgramsClickedEvent());
 	}
 
 	void onTryAgainClicked() {
@@ -141,5 +158,40 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 //			if (programs.size() == 0)
 //			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}
+	}
+
+	private void setReinvest(UUID programId, boolean reinvest) {
+		if (programsManager != null) {
+			if (reinvestSubscription != null)
+				reinvestSubscription.unsubscribe();
+			reinvestSubscription = programsManager.setReinvest(programId, reinvest)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(response -> handleReinvestSuccess(programId, reinvest),
+							throwable -> handleReinvestError(throwable, programId, reinvest));
+		}
+	}
+
+	private void handleReinvestSuccess(UUID programId, Boolean reinvest) {
+		reinvestSubscription.unsubscribe();
+
+		EventBus.getDefault().post(new OnProgramReinvestChangedEvent(programId, reinvest));
+	}
+
+	private void handleReinvestError(Throwable throwable, UUID programId, Boolean reinvest) {
+		reinvestSubscription.unsubscribe();
+		getViewState().setProgramReinvest(programId, reinvest);
+
+//		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnProgramReinvestChangedEvent event) {
+		getViewState().setProgramReinvest(event.getProgramId(), event.getReinvest());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnDashboardReinvestClickedEvent event) {
+		setReinvest(event.getProgramId(), event.getReinvest());
 	}
 }

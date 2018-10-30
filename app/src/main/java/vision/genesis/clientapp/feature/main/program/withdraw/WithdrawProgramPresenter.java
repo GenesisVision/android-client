@@ -41,8 +41,6 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 	@Inject
 	public ProgramsManager programsManager;
 
-	private ProgramRequest withdrawalRequest;
-
 	private Subscription baseCurrencySubscription;
 
 	private Subscription withdrawInfoSubscription;
@@ -51,7 +49,7 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 
 	private CurrencyEnum baseCurrency;
 
-	private Double amount;
+	private Double amount = 0.0;
 
 	private ProgramWithdrawInfo withdrawInfo;
 
@@ -90,15 +88,20 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 //		}
 		if (withdrawInfo != null) {
 			if (amount > availableToWithdraw) {
-				getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableToWithdraw, CurrencyEnum.GVT.getValue()));
+				getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableToWithdraw, programRequest.getProgramCurrency()));
 				return;
 			}
 
+			updateRemainingInvestment();
+
 			getViewState().setAmountBase(getAmountBaseString());
-			getViewState().setRemainingInvestment(getRemainingInvestmentString());
 			getViewState().setContinueButtonEnabled(amount > 0
 					&& amount <= availableToWithdraw);
 		}
+	}
+
+	private void updateRemainingInvestment() {
+		getViewState().setRemainingInvestment(getRemainingInvestmentString());
 	}
 
 	private String getAmountBaseString() {
@@ -108,14 +111,15 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 	}
 
 	private String getAmountToWithdrawString() {
-		return String.format(Locale.getDefault(), "%s GVT",
-				StringFormatUtil.formatCurrencyAmount(amount, CurrencyEnum.GVT.getValue()));
-//		return StringFormatUtil.getBaseValueString(amount, withdrawInfo.getCurrency());
+		return String.format(Locale.getDefault(), "%s %s",
+				StringFormatUtil.formatCurrencyAmount(amount, programRequest.getProgramCurrency()),
+				programRequest.getProgramCurrency());
 	}
 
 	private String getRemainingInvestmentString() {
 		return String.format(Locale.getDefault(), "%s %s",
-				StringFormatUtil.formatCurrencyAmount(availableToWithdraw - amount, CurrencyEnum.GVT.getValue()));
+				StringFormatUtil.formatCurrencyAmount(availableToWithdraw - amount, programRequest.getProgramCurrency()),
+				programRequest.getProgramCurrency());
 	}
 
 	private String getPayoutDateString() {
@@ -124,7 +128,7 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 
 	void onMaxClicked() {
 		if (withdrawInfo != null) {
-			getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableToWithdraw, CurrencyEnum.GVT.getValue()));
+			getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableToWithdraw, programRequest.getProgramCurrency()));
 		}
 	}
 
@@ -133,9 +137,7 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 		programRequest.setAmountTopText(getAmountToWithdrawString());
 		programRequest.setInfoMiddleText(getPayoutDateString());
 		programRequest.setAmountBottomText(getRemainingInvestmentString());
-		programRequest.setPeriodEndsText(String.format(Locale.getDefault(),
-				context.getString(R.string.request_info_template),
-				DateTimeUtil.formatShortDateTime(withdrawInfo.getPeriodEnds())));
+		programRequest.setPeriodEndsText(context.getString(R.string.program_withdraw_warning));
 		getViewState().showConfirmDialog(programRequest);
 	}
 
@@ -166,10 +168,14 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 
 		withdrawInfo = response;
 
-		availableToWithdraw = withdrawInfo.getAvailableToWithdraw();
+		availableToWithdraw = withdrawInfo.getAvailableToWithdraw() / withdrawInfo.getRate();
 
 		getViewState().showProgress(false);
-		getViewState().setAvailableToWithdraw(availableToWithdraw);
+		getViewState().setAvailableToWithdraw(String.format(Locale.getDefault(), "%s %s",
+				StringFormatUtil.formatCurrencyAmount(availableToWithdraw, programRequest.getProgramCurrency()),
+				programRequest.getProgramCurrency()));
+		getViewState().setCurrency(programRequest.getProgramCurrency());
+		updateRemainingInvestment();
 		getViewState().setPayoutDate(getPayoutDateString());
 		onAmountChanged("0");
 	}

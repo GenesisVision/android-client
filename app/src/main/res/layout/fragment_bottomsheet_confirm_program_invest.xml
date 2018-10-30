@@ -97,10 +97,10 @@
 
             <TextView
                 style="@style/confirmation_dialog_label"
-                android:text="@string/entry_fee"/>
+                android:text="@string/fees_and_commissions"/>
 
             <TextView
-                android:id="@+id/entry_fee"
+                android:id="@+id/fees_and_commissions"
                 style="@style/confirmation_dialog_value"
                 tools:text="1.4% (0.1433 GVT)"/>
 
@@ -109,7 +109,7 @@
                 android:text="@string/investment_amount"/>
 
             <TextView
-                android:id="@+id/amount_due"
+                android:id="@+id/investment_amount"
                 style="@style/confirmation_dialog_value"
                 tools:text="10.3783 GVT"/>
 

@@ -284,7 +284,7 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 		tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
 		addPage(infoTab, true);
-		addPage(profitTab, false);
+//		addPage(profitTab, false);
 		addPage(programsTab, false);
 		addPage(fundsTab, false);
 	}

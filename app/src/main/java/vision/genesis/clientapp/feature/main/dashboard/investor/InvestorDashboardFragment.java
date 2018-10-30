@@ -106,6 +106,9 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	@BindView(R.id.scroll_view_events)
 	public HorizontalScrollView eventsScrollView;
 
+	@BindView(R.id.group_events_header)
+	public ViewGroup eventsHeaderGroup;
+
 	@BindView(R.id.group_events)
 	public ViewGroup eventsGroup;
 
@@ -596,6 +599,7 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 			eventView.setEvent(event);
 			eventsGroup.addView(eventView);
 		}
+		eventsHeaderGroup.setVisibility(!events.isEmpty() ? View.VISIBLE : View.GONE);
 	}
 
 	@Override

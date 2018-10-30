@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.FundNotificationSettingList;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.events.ShowProgramNotificationsSettingsEvent;
+import vision.genesis.clientapp.model.events.ShowFundNotificationsSettingsEvent;
 import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -81,10 +81,12 @@ public class FundsNotificationsListAdapter extends RecyclerView.Adapter<FundsNot
 
 			ButterKnife.bind(this, itemView);
 
+			fundLogo.hideLevel();
+
 			setFonts();
 			itemView.setOnClickListener(v -> {
 				if (settings != null) {
-					EventBus.getDefault().post(new ShowProgramNotificationsSettingsEvent(settings.getAssetId(), settings.getTitle()));
+					EventBus.getDefault().post(new ShowFundNotificationsSettingsEvent(settings.getAssetId(), settings.getTitle()));
 				}
 			});
 		}

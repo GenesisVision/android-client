@@ -11,11 +11,13 @@ import vision.genesis.clientapp.model.ProgramRequest;
 
 interface WithdrawProgramView extends MvpView
 {
-	void setAvailableToWithdraw(Double availableToWithdraw);
+	void setAvailableToWithdraw(String availableToWithdrawText);
 
 	void setAmount(String amountText);
 
 	void setAmountBase(String amountBaseString);
+
+	void setCurrency(String programCurrency);
 
 	void setRemainingInvestment(String remainingInvestmentString);
 

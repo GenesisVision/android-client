@@ -18,4 +18,8 @@ interface AssetsView extends MvpView
 	void showProgress(boolean show);
 
 	void onPlatformInfoUpdated(PlatformInfo platformInfo);
+
+	void showPrograms();
+
+	void showFunds();
 }

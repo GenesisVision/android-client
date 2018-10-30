@@ -63,6 +63,9 @@ public class ManagerPortfolioEvent
 	@SerializedName("logo")
 	private String logo = null;
 
+	@SerializedName("color")
+	private String color = null;
+
 	@SerializedName("description")
 	private String description = null;
 
@@ -259,6 +262,25 @@ public class ManagerPortfolioEvent
 		this.logo = logo;
 	}
 
+	public ManagerPortfolioEvent color(String color) {
+		this.color = color;
+		return this;
+	}
+
+	/**
+	 * Get color
+	 *
+	 * @return color
+	 **/
+	@ApiModelProperty(value = "")
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 	public ManagerPortfolioEvent description(String description) {
 		this.description = description;
 		return this;
@@ -316,13 +338,14 @@ public class ManagerPortfolioEvent
 				Objects.equals(this.type, managerPortfolioEvent.type) &&
 				Objects.equals(this.programType, managerPortfolioEvent.programType) &&
 				Objects.equals(this.logo, managerPortfolioEvent.logo) &&
+				Objects.equals(this.color, managerPortfolioEvent.color) &&
 				Objects.equals(this.description, managerPortfolioEvent.description) &&
 				Objects.equals(this.periodNumber, managerPortfolioEvent.periodNumber);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assetId, date, title, value, feeValue, profitPercent, currency, type, programType, logo, description, periodNumber);
+		return Objects.hash(assetId, date, title, value, feeValue, profitPercent, currency, type, programType, logo, color, description, periodNumber);
 	}
 
 	@Override
@@ -340,6 +363,7 @@ public class ManagerPortfolioEvent
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    programType: ").append(toIndentedString(programType)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    periodNumber: ").append(toIndentedString(periodNumber)).append("\n");
 		sb.append("}");
@@ -449,7 +473,9 @@ public class ManagerPortfolioEvent
 
 		MANAGERWITHDRAW("ManagerWithdraw"),
 
-		ASSETFINISHED("AssetFinished");
+		ASSETFINISHED("AssetFinished"),
+
+		ENTRANCEFEE("EntranceFee");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {

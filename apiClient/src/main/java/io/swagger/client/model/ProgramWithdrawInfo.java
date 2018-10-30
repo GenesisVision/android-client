@@ -27,17 +27,36 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ProgramWithdrawInfo
 {
+	@SerializedName("periodEnds")
+	private DateTime periodEnds = null;
+
 	@SerializedName("title")
 	private String title = null;
 
 	@SerializedName("availableToWithdraw")
 	private Double availableToWithdraw = null;
 
-	@SerializedName("periodEnds")
-	private DateTime periodEnds = null;
-
 	@SerializedName("rate")
 	private Double rate = null;
+
+	public ProgramWithdrawInfo periodEnds(DateTime periodEnds) {
+		this.periodEnds = periodEnds;
+		return this;
+	}
+
+	/**
+	 * Get periodEnds
+	 *
+	 * @return periodEnds
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getPeriodEnds() {
+		return periodEnds;
+	}
+
+	public void setPeriodEnds(DateTime periodEnds) {
+		this.periodEnds = periodEnds;
+	}
 
 	public ProgramWithdrawInfo title(String title) {
 		this.title = title;
@@ -77,25 +96,6 @@ public class ProgramWithdrawInfo
 		this.availableToWithdraw = availableToWithdraw;
 	}
 
-	public ProgramWithdrawInfo periodEnds(DateTime periodEnds) {
-		this.periodEnds = periodEnds;
-		return this;
-	}
-
-	/**
-	 * Get periodEnds
-	 *
-	 * @return periodEnds
-	 **/
-	@ApiModelProperty(value = "")
-	public DateTime getPeriodEnds() {
-		return periodEnds;
-	}
-
-	public void setPeriodEnds(DateTime periodEnds) {
-		this.periodEnds = periodEnds;
-	}
-
 	public ProgramWithdrawInfo rate(Double rate) {
 		this.rate = rate;
 		return this;
@@ -125,15 +125,15 @@ public class ProgramWithdrawInfo
 			return false;
 		}
 		ProgramWithdrawInfo programWithdrawInfo = (ProgramWithdrawInfo) o;
-		return Objects.equals(this.title, programWithdrawInfo.title) &&
+		return Objects.equals(this.periodEnds, programWithdrawInfo.periodEnds) &&
+				Objects.equals(this.title, programWithdrawInfo.title) &&
 				Objects.equals(this.availableToWithdraw, programWithdrawInfo.availableToWithdraw) &&
-				Objects.equals(this.periodEnds, programWithdrawInfo.periodEnds) &&
 				Objects.equals(this.rate, programWithdrawInfo.rate);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, availableToWithdraw, periodEnds, rate);
+		return Objects.hash(periodEnds, title, availableToWithdraw, rate);
 	}
 
 
@@ -142,9 +142,9 @@ public class ProgramWithdrawInfo
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ProgramWithdrawInfo {\n");
 
+		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    availableToWithdraw: ").append(toIndentedString(availableToWithdraw)).append("\n");
-		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
 		sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
 		sb.append("}");
 		return sb.toString();

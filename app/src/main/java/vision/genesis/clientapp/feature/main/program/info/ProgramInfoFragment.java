@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -27,6 +28,7 @@ import io.swagger.client.model.ProgramDetailsFull;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
+import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
@@ -106,6 +108,9 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@BindView(R.id.profit_label)
 	public TextView profitLabel;
+
+	@BindView(R.id.switch_reinvest)
+	public Switch reinvestSwitch;
 
 	@BindView(R.id.button_withdraw)
 	public PrimaryButton withdrawButton;
@@ -192,7 +197,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@OnClick(R.id.status)
 	public void onStatusClicked() {
-		programInfoPresenter.onInvestClicked();
+		programInfoPresenter.onStatusClicked();
 	}
 
 	@OnClick(R.id.button_invest)
@@ -203,6 +208,11 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	@OnClick(R.id.button_withdraw)
 	public void onWithdrawClicked() {
 		programInfoPresenter.onWithdrawClicked();
+	}
+
+	@OnClick(R.id.switch_reinvest)
+	public void onReinvestClicked() {
+		programInfoPresenter.onReinvestClicked();
 	}
 
 	@Nullable
@@ -286,6 +296,8 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 					programDetails.getPersonalProgramDetails().getValue() < programDetails.getPersonalProgramDetails().getInvested()
 							? R.attr.colorRed
 							: R.attr.colorGreen));
+
+			reinvestSwitch.setChecked(programDetails.getPersonalProgramDetails().isIsReinvest());
 		}
 		availableToInvest.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(programDetails.getAvailableInvestment()).toString()));
 		entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getEntryFee(), 0, 4)));
@@ -332,6 +344,25 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	public void showWithdrawProgramActivity(ProgramRequest request) {
 		if (getActivity() != null)
 			WithdrawProgramActivity.startWith(getActivity(), request);
+	}
+
+	@Override
+	public void setReinvest(Boolean isReinvest) {
+		reinvestSwitch.setChecked(isReinvest);
+	}
+
+	@Override
+	public void showRequestsBottomSheet() {
+		if (getActivity() != null) {
+			RequestsBottomSheetFragment bottomSheetDialog = new RequestsBottomSheetFragment();
+			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
+			bottomSheetDialog.setAssetId(programId);
+		}
+	}
+
+	@Override
+	public void showSnackbarMessage(String message) {
+		showSnackbar(message, scrollView);
 	}
 
 	@Override

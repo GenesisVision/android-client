@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,16 +25,16 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.ProgramRequest;
+import io.swagger.client.model.ProgramRequests;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.InvestorDashboardManager;
-import vision.genesis.clientapp.model.api.ErrorResponse;
 import vision.genesis.clientapp.model.events.OnCancelRequestClickedEvent;
+import vision.genesis.clientapp.model.events.OnRequestCancelledEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
-import vision.genesis.clientapp.net.ErrorResponseConverter;
 import vision.genesis.clientapp.ui.DividerItemDecoration;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -56,11 +57,18 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 	@BindView(R.id.recycler_view)
 	public RecyclerView recyclerView;
 
+	@BindView(R.id.progress_bar)
+	public ProgressBar progressBar;
+
 	private List<ProgramRequest> requests = new ArrayList<>();
 
 	private RequestsAdapter requestsAdapter;
 
 	private Subscription cancelRequestSubscription;
+
+	private Subscription getRequestsSubscription;
+
+	private UUID assetId;
 
 	@SuppressLint("RestrictedApi")
 	@Override
@@ -78,12 +86,17 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 		setFonts();
 
 		initRecyclerView();
+
+		if (assetId != null)
+			getRequests(assetId);
 	}
 
 	@Override
 	public void onDestroyView() {
 		if (cancelRequestSubscription != null)
 			cancelRequestSubscription.unsubscribe();
+		if (getRequestsSubscription != null)
+			getRequestsSubscription.unsubscribe();
 
 		EventBus.getDefault().unregister(this);
 		super.onDestroyView();
@@ -123,6 +136,11 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 			requestsAdapter.setRequests(requests);
 	}
 
+	public void setAssetId(UUID assetId) {
+		this.assetId = assetId;
+		getRequests(assetId);
+	}
+
 	private void showEmpty(boolean empty) {
 		if (emptyText != null) {
 			emptyText.setVisibility(empty ? View.VISIBLE : View.GONE);
@@ -149,6 +167,32 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 		cancelRequest(event.getRequestId());
 	}
 
+	private void getRequests(UUID assetId) {
+		if (investorDashboardManager != null && assetId != null) {
+			getRequestsSubscription = investorDashboardManager.getRequests(assetId)
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleGetRequests,
+							this::handleGetRequestsError);
+		}
+	}
+
+	private void handleGetRequests(ProgramRequests programRequests) {
+		getRequestsSubscription.unsubscribe();
+
+		progressBar.setVisibility(View.GONE);
+
+		setRequests(programRequests.getRequests());
+	}
+
+	private void handleGetRequestsError(Throwable throwable) {
+		getRequestsSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, this::showToast);
+
+		this.dismiss();
+	}
+
 	private void cancelRequest(UUID requestId) {
 		cancelRequestSubscription = investorDashboardManager.cancelRequest(requestId)
 				.subscribeOn(Schedulers.io())
@@ -160,19 +204,13 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 	private void handleCancelRequestSuccess(UUID requestId) {
 		cancelRequestSubscription.unsubscribe();
 		deleteRequest(requestId);
+		EventBus.getDefault().post(new OnRequestCancelledEvent());
 	}
 
 	private void handleCancelRequestError(Throwable throwable) {
 		cancelRequestSubscription.unsubscribe();
-		if (ApiErrorResolver.isNetworkError(throwable)) {
-			showToast(getContext().getResources().getString(R.string.network_error));
-		}
-		else {
-			ErrorResponse response = ErrorResponseConverter.createFromThrowable(throwable);
-			if (response != null && response.errors != null && response.errors.get(0) != null) {
-				showToast(response.errors.get(0).message);
-			}
-		}
+
+		ApiErrorResolver.resolveErrors(throwable, this::showToast);
 	}
 
 	private void showToast(String message) {

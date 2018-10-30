@@ -1,5 +1,6 @@
 package vision.genesis.clientapp.feature.main.dashboard.investor.programs;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.widget.ProgressBar;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,6 +71,10 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 
 		unbinder = ButterKnife.bind(this, view);
 
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			emptyGroup.setNestedScrollingEnabled(true);
+		}
+
 		initRecyclerView();
 	}
 
@@ -99,6 +105,11 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 		dashboardProgramsAdapter.setPrograms(programs);
 
 		showEmpty(programs.size() == 0);
+	}
+
+	@Override
+	public void setProgramReinvest(UUID programId, Boolean reinvest) {
+		dashboardProgramsAdapter.setProgramReinvest(programId, reinvest);
 	}
 
 	@Override

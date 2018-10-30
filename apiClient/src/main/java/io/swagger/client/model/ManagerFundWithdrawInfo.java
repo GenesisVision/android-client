@@ -15,8 +15,6 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.joda.time.DateTime;
-
 import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -38,9 +36,6 @@ public class ManagerFundWithdrawInfo
 
 	@SerializedName("availableToWithdraw")
 	private Double availableToWithdraw = null;
-
-	@SerializedName("periodEnds")
-	private DateTime periodEnds = null;
 
 	@SerializedName("rate")
 	private Double rate = null;
@@ -121,25 +116,6 @@ public class ManagerFundWithdrawInfo
 		this.availableToWithdraw = availableToWithdraw;
 	}
 
-	public ManagerFundWithdrawInfo periodEnds(DateTime periodEnds) {
-		this.periodEnds = periodEnds;
-		return this;
-	}
-
-	/**
-	 * Get periodEnds
-	 *
-	 * @return periodEnds
-	 **/
-	@ApiModelProperty(value = "")
-	public DateTime getPeriodEnds() {
-		return periodEnds;
-	}
-
-	public void setPeriodEnds(DateTime periodEnds) {
-		this.periodEnds = periodEnds;
-	}
-
 	public ManagerFundWithdrawInfo rate(Double rate) {
 		this.rate = rate;
 		return this;
@@ -173,13 +149,12 @@ public class ManagerFundWithdrawInfo
 				Objects.equals(this.exitFee, managerFundWithdrawInfo.exitFee) &&
 				Objects.equals(this.title, managerFundWithdrawInfo.title) &&
 				Objects.equals(this.availableToWithdraw, managerFundWithdrawInfo.availableToWithdraw) &&
-				Objects.equals(this.periodEnds, managerFundWithdrawInfo.periodEnds) &&
 				Objects.equals(this.rate, managerFundWithdrawInfo.rate);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(withheldInvestment, exitFee, title, availableToWithdraw, periodEnds, rate);
+		return Objects.hash(withheldInvestment, exitFee, title, availableToWithdraw, rate);
 	}
 
 
@@ -192,7 +167,6 @@ public class ManagerFundWithdrawInfo
 		sb.append("    exitFee: ").append(toIndentedString(exitFee)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    availableToWithdraw: ").append(toIndentedString(availableToWithdraw)).append("\n");
-		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
 		sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
 		sb.append("}");
 		return sb.toString();

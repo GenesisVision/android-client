@@ -191,7 +191,8 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 					break;
 			}
 
-			this.text.setText(text);
+//			this.text.setText(text);
+			this.text.setText(transaction.getInformation());
 			this.action.getHierarchy().setPlaceholderImage(ContextCompat.getDrawable(itemView.getContext(), actionResId));
 
 			this.time.setText(DateTimeUtil.formatShortTime(transaction.getDate()));

@@ -42,6 +42,7 @@ import vision.genesis.clientapp.feature.main.manager.profit.ManagerProfitPresent
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.notifications.NotificationsPresenter;
 import vision.genesis.clientapp.feature.main.notifications.create.CreateCustomNotificationSettingPresenter;
+import vision.genesis.clientapp.feature.main.notifications.fund.FundNotificationsSettingsPresenter;
 import vision.genesis.clientapp.feature.main.notifications.program.ProgramNotificationsSettingsPresenter;
 import vision.genesis.clientapp.feature.main.notifications.settings.NotificationsSettingsPresenter;
 import vision.genesis.clientapp.feature.main.portfolio_events.PortfolioEventsPresenter;
@@ -224,4 +225,6 @@ public interface AppComponent
 	void inject(ConfirmFundWithdrawBottomSheetFragment confirmFundWithdrawBottomSheetFragment);
 
 	void inject(SecurityPresenter securityPresenter);
+
+	void inject(FundNotificationsSettingsPresenter fundNotificationsSettingsPresenter);
 }

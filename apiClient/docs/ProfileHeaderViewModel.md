@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **investedGvt** | **Double** |  |  [optional]
 **availableGvt** | **Double** |  |  [optional]
 **kycConfirmed** | **Boolean** |  |  [optional]
+**isTwoFactorEnabled** | **Boolean** |  |  [optional]
 
 
 

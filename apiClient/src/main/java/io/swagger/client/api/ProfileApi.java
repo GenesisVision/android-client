@@ -86,4 +86,13 @@ public interface ProfileApi
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body UpdateProfileViewModel model
 	);
 
+	/**
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;String&gt;
+	 */
+	@POST("v1.0/profile/verification/token")
+	Observable<String> v10ProfileVerificationTokenPost(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
 }

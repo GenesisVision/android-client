@@ -95,6 +95,12 @@ public class ProgramsManager
 		return investorApi.v10InvestorProgramsByIdWithdrawByAmountPost(withdrawRequest.getProgramId(), withdrawRequest.getAmount(), AuthManager.token.getValue());
 	}
 
+	public Observable<Void> setReinvest(UUID programId, boolean reinvest) {
+		return reinvest
+				? investorApi.v10InvestorProgramsByIdReinvestOnPost(programId, AuthManager.token.getValue())
+				: investorApi.v10InvestorProgramsByIdReinvestOffPost(programId, AuthManager.token.getValue());
+	}
+
 	//	public Observable<Void> withdraw(ProgramRequest withdrawalRequest) {
 //		Invest model = new Invest();
 //		model.setInvestmentProgramId(withdrawalRequest.programId);

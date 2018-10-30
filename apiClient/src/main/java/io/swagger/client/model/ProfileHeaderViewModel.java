@@ -56,6 +56,9 @@ public class ProfileHeaderViewModel
 	@SerializedName("kycConfirmed")
 	private Boolean kycConfirmed = null;
 
+	@SerializedName("isTwoFactorEnabled")
+	private Boolean isTwoFactorEnabled = null;
+
 	public ProfileHeaderViewModel id(UUID id) {
 		this.id = id;
 		return this;
@@ -246,6 +249,25 @@ public class ProfileHeaderViewModel
 		this.kycConfirmed = kycConfirmed;
 	}
 
+	public ProfileHeaderViewModel isTwoFactorEnabled(Boolean isTwoFactorEnabled) {
+		this.isTwoFactorEnabled = isTwoFactorEnabled;
+		return this;
+	}
+
+	/**
+	 * Get isTwoFactorEnabled
+	 *
+	 * @return isTwoFactorEnabled
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsTwoFactorEnabled() {
+		return isTwoFactorEnabled;
+	}
+
+	public void setIsTwoFactorEnabled(Boolean isTwoFactorEnabled) {
+		this.isTwoFactorEnabled = isTwoFactorEnabled;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -265,12 +287,13 @@ public class ProfileHeaderViewModel
 				Objects.equals(this.totalBalanceGvt, profileHeaderViewModel.totalBalanceGvt) &&
 				Objects.equals(this.investedGvt, profileHeaderViewModel.investedGvt) &&
 				Objects.equals(this.availableGvt, profileHeaderViewModel.availableGvt) &&
-				Objects.equals(this.kycConfirmed, profileHeaderViewModel.kycConfirmed);
+				Objects.equals(this.kycConfirmed, profileHeaderViewModel.kycConfirmed) &&
+				Objects.equals(this.isTwoFactorEnabled, profileHeaderViewModel.isTwoFactorEnabled);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, email, avatar, notificationsCount, favoritesCount, totalBalanceGvt, investedGvt, availableGvt, kycConfirmed);
+		return Objects.hash(id, name, email, avatar, notificationsCount, favoritesCount, totalBalanceGvt, investedGvt, availableGvt, kycConfirmed, isTwoFactorEnabled);
 	}
 
 
@@ -289,6 +312,7 @@ public class ProfileHeaderViewModel
 		sb.append("    investedGvt: ").append(toIndentedString(investedGvt)).append("\n");
 		sb.append("    availableGvt: ").append(toIndentedString(availableGvt)).append("\n");
 		sb.append("    kycConfirmed: ").append(toIndentedString(kycConfirmed)).append("\n");
+		sb.append("    isTwoFactorEnabled: ").append(toIndentedString(isTwoFactorEnabled)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

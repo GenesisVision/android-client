@@ -281,4 +281,14 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 //			isTournamentAlreadyAdded = true;
 //		}
 	}
+
+	@Override
+	public void showPrograms() {
+		viewPager.setCurrentItem(0);
+	}
+
+	@Override
+	public void showFunds() {
+		viewPager.setCurrentItem(1);
+	}
 }

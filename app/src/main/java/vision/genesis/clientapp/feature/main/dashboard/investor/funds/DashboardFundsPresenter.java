@@ -16,7 +16,7 @@ import vision.genesis.clientapp.managers.InvestorDashboardManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.SortingEnum;
-import vision.genesis.clientapp.model.events.OnInvestButtonClickedEvent;
+import vision.genesis.clientapp.model.events.OnBrowseFundsClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -62,8 +62,8 @@ public class DashboardFundsPresenter extends MvpPresenter<DashboardFundsView>
 		getFunds();
 	}
 
-	void onStartInvestingClicked() {
-		EventBus.getDefault().post(new OnInvestButtonClickedEvent());
+	void onBrowseFundsClicked() {
+		EventBus.getDefault().post(new OnBrowseFundsClickedEvent());
 	}
 
 	private void subscribeToDateRange() {

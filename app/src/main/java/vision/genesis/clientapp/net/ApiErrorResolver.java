@@ -22,12 +22,7 @@ public class ApiErrorResolver
 	public static boolean isNetworkError(Throwable throwable) {
 		try {
 			RetrofitException error = RetrofitException.asRetrofitException(throwable);
-			if (error.getKind().equals(RetrofitException.Kind.NETWORK)) {
-				return true;
-			}
-			else {
-				return false;
-			}
+			return error.getKind().equals(RetrofitException.Kind.NETWORK) && !throwable.getMessage().equals("timeout");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

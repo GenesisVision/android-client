@@ -80,12 +80,11 @@ public class DepositWalletPresenter extends MvpPresenter<DepositWalletView> impl
 	}
 
 	private String getAmountBaseString() {
-		return String.format(Locale.getDefault(), "%s %s %s",
+		return String.format(Locale.getDefault(), "%s %s GVT",
 				selectedWallet.getCurrency().getValue().equals(CurrencyEnum.GVT.getValue())
 						? context.getString(R.string.you_will_get)
 						: context.getString(R.string.approximate_amount),
-				StringFormatUtil.formatCurrencyAmount(amount * selectedWallet.getRateToGVT(), selectedWallet.getCurrency().getValue()),
-				selectedWallet.getCurrency().getValue());
+				StringFormatUtil.formatCurrencyAmount(amount / selectedWallet.getRateToGVT(), CurrencyEnum.GVT.getValue()));
 	}
 
 	private void getWalletAddresses() {

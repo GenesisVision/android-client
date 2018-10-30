@@ -13,12 +13,15 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.swagger.client.model.ProgramDetails;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
+import vision.genesis.clientapp.model.events.OnDashboardReinvestClickedEvent;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
@@ -65,6 +68,16 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		this.programs.clear();
 		this.programs.addAll(programs);
 		notifyDataSetChanged();
+	}
+
+	public void setProgramReinvest(UUID programId, Boolean reinvest) {
+		for (ProgramDetails program : programs) {
+			if (program.getId().equals(programId)) {
+				program.getPersonalDetails().setIsReinvest(reinvest);
+				notifyItemChanged(programs.indexOf(program));
+				break;
+			}
+		}
 	}
 
 	static class ProgramViewHolder extends RecyclerView.ViewHolder
@@ -117,6 +130,13 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		private ProgramDetails program;
 
 		private Context context;
+
+		@OnClick(R.id.switch_reinvest)
+		public void onReinvestClicked() {
+			if (program != null) {
+				EventBus.getDefault().post(new OnDashboardReinvestClickedEvent(program.getId(), !program.getPersonalDetails().isIsReinvest()));
+			}
+		}
 
 		ProgramViewHolder(View itemView) {
 			super(itemView);
@@ -174,7 +194,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			Double profitValue = program.getStatistic().getProfitValue();
 			this.profitPercent.setText(String.format(Locale.getDefault(), "%s%%",
 					StringFormatUtil.formatAmount(profitPercent, 0, 2)));
-			this.profitPercent.setTextColor(profitValue >= 0
+			this.profitPercent.setTextColor(profitPercent >= 0
 					? ThemeUtil.getColorByAttrId(context, R.attr.colorGreen)
 					: ThemeUtil.getColorByAttrId(context, R.attr.colorRed));
 

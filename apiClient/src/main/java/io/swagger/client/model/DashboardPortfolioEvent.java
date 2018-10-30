@@ -54,6 +54,9 @@ public class DashboardPortfolioEvent
 	@SerializedName("logo")
 	private String logo = null;
 
+	@SerializedName("color")
+	private String color = null;
+
 	@SerializedName("description")
 	private String description = null;
 
@@ -190,6 +193,25 @@ public class DashboardPortfolioEvent
 		this.logo = logo;
 	}
 
+	public DashboardPortfolioEvent color(String color) {
+		this.color = color;
+		return this;
+	}
+
+	/**
+	 * Get color
+	 *
+	 * @return color
+	 **/
+	@ApiModelProperty(value = "")
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 	public DashboardPortfolioEvent description(String description) {
 		this.description = description;
 		return this;
@@ -225,12 +247,13 @@ public class DashboardPortfolioEvent
 				Objects.equals(this.currency, dashboardPortfolioEvent.currency) &&
 				Objects.equals(this.type, dashboardPortfolioEvent.type) &&
 				Objects.equals(this.logo, dashboardPortfolioEvent.logo) &&
+				Objects.equals(this.color, dashboardPortfolioEvent.color) &&
 				Objects.equals(this.description, dashboardPortfolioEvent.description);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assetId, date, title, value, currency, type, logo, description);
+		return Objects.hash(assetId, date, title, value, currency, type, logo, color, description);
 	}
 
 	@Override
@@ -245,6 +268,7 @@ public class DashboardPortfolioEvent
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("}");
 		return sb.toString();

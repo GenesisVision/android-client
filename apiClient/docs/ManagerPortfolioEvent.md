@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
 **programType** | [**ProgramTypeEnum**](#ProgramTypeEnum) |  |  [optional]
 **logo** | **String** |  |  [optional]
+**color** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
 **periodNumber** | **Integer** |  |  [optional]
 
@@ -49,6 +50,7 @@ INVESTORWITHDRAW | &quot;InvestorWithdraw&quot;
 MANAGERINVEST | &quot;ManagerInvest&quot;
 MANAGERWITHDRAW | &quot;ManagerWithdraw&quot;
 ASSETFINISHED | &quot;AssetFinished&quot;
+ENTRANCEFEE | &quot;EntranceFee&quot;
 
 
 <a name="ProgramTypeEnum"></a>

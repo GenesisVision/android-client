@@ -30,5 +30,11 @@ interface ProgramInfoView extends MvpView
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showWithdrawProgramActivity(ProgramRequest request);
 
+	void setReinvest(Boolean isReinvest);
+
+	void showRequestsBottomSheet();
+
+	void showSnackbarMessage(String message);
+
 	void showLoginActivity();
 }

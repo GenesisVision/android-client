@@ -30,14 +30,14 @@ public class ManagerProgramWithdrawInfo
 	@SerializedName("withheldInvestment")
 	private Double withheldInvestment = null;
 
+	@SerializedName("periodEnds")
+	private DateTime periodEnds = null;
+
 	@SerializedName("title")
 	private String title = null;
 
 	@SerializedName("availableToWithdraw")
 	private Double availableToWithdraw = null;
-
-	@SerializedName("periodEnds")
-	private DateTime periodEnds = null;
 
 	@SerializedName("rate")
 	private Double rate = null;
@@ -59,6 +59,25 @@ public class ManagerProgramWithdrawInfo
 
 	public void setWithheldInvestment(Double withheldInvestment) {
 		this.withheldInvestment = withheldInvestment;
+	}
+
+	public ManagerProgramWithdrawInfo periodEnds(DateTime periodEnds) {
+		this.periodEnds = periodEnds;
+		return this;
+	}
+
+	/**
+	 * Get periodEnds
+	 *
+	 * @return periodEnds
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getPeriodEnds() {
+		return periodEnds;
+	}
+
+	public void setPeriodEnds(DateTime periodEnds) {
+		this.periodEnds = periodEnds;
 	}
 
 	public ManagerProgramWithdrawInfo title(String title) {
@@ -99,25 +118,6 @@ public class ManagerProgramWithdrawInfo
 		this.availableToWithdraw = availableToWithdraw;
 	}
 
-	public ManagerProgramWithdrawInfo periodEnds(DateTime periodEnds) {
-		this.periodEnds = periodEnds;
-		return this;
-	}
-
-	/**
-	 * Get periodEnds
-	 *
-	 * @return periodEnds
-	 **/
-	@ApiModelProperty(value = "")
-	public DateTime getPeriodEnds() {
-		return periodEnds;
-	}
-
-	public void setPeriodEnds(DateTime periodEnds) {
-		this.periodEnds = periodEnds;
-	}
-
 	public ManagerProgramWithdrawInfo rate(Double rate) {
 		this.rate = rate;
 		return this;
@@ -148,15 +148,15 @@ public class ManagerProgramWithdrawInfo
 		}
 		ManagerProgramWithdrawInfo managerProgramWithdrawInfo = (ManagerProgramWithdrawInfo) o;
 		return Objects.equals(this.withheldInvestment, managerProgramWithdrawInfo.withheldInvestment) &&
+				Objects.equals(this.periodEnds, managerProgramWithdrawInfo.periodEnds) &&
 				Objects.equals(this.title, managerProgramWithdrawInfo.title) &&
 				Objects.equals(this.availableToWithdraw, managerProgramWithdrawInfo.availableToWithdraw) &&
-				Objects.equals(this.periodEnds, managerProgramWithdrawInfo.periodEnds) &&
 				Objects.equals(this.rate, managerProgramWithdrawInfo.rate);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(withheldInvestment, title, availableToWithdraw, periodEnds, rate);
+		return Objects.hash(withheldInvestment, periodEnds, title, availableToWithdraw, rate);
 	}
 
 
@@ -166,9 +166,9 @@ public class ManagerProgramWithdrawInfo
 		sb.append("class ManagerProgramWithdrawInfo {\n");
 
 		sb.append("    withheldInvestment: ").append(toIndentedString(withheldInvestment)).append("\n");
+		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    availableToWithdraw: ").append(toIndentedString(availableToWithdraw)).append("\n");
-		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
 		sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
 		sb.append("}");
 		return sb.toString();

@@ -6,7 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import io.swagger.client.api.FundsApi;
 import io.swagger.client.api.InvestorApi;
-import io.swagger.client.api.ManagersApi;
+import io.swagger.client.api.ManagerApi;
 import io.swagger.client.api.ProgramsApi;
 import io.swagger.client.api.RateApi;
 import io.swagger.client.api.WalletApi;
@@ -34,8 +34,8 @@ public class AssetsModule
 
 	@Provides
 	@Singleton
-	public ManagerDashboardManager provideManagerDashboardManager(ManagersApi managersApi) {
-		return new ManagerDashboardManager(managersApi);
+	public ManagerDashboardManager provideManagerDashboardManager(ManagerApi managerApi) {
+		return new ManagerDashboardManager(managerApi);
 	}
 
 	@Provides
@@ -52,8 +52,8 @@ public class AssetsModule
 
 	@Provides
 	@Singleton
-	public ManagersManager provideManagersManager(ManagersApi managersApi) {
-		return new ManagersManager(managersApi);
+	public ManagersManager provideManagersManager(ManagerApi managerApi) {
+		return new ManagersManager(managerApi);
 	}
 
 	@Provides

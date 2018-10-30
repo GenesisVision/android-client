@@ -235,6 +235,11 @@
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:name=".feature.main.notifications.fund.FundNotificationsSettingsActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="adjustResize"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

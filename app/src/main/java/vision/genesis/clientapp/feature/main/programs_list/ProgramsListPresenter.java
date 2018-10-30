@@ -23,6 +23,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView;
 import vision.genesis.clientapp.managers.ProgramsManager;
+import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.ProgramsFilter;
 import vision.genesis.clientapp.model.events.ProgramIsFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
@@ -59,6 +60,8 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 	private UUID managerId;
 
 	private Boolean isManagerSet;
+
+	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -116,6 +119,8 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 		filter.setSkip(0);
 		filter.setTake(TAKE);
 		filter.setManagerId(managerId);
+		filter.setStatisticDateFrom(dateRange.getFrom());
+		filter.setStatisticDateTo(dateRange.getTo());
 //		filter.setEquityChartLength(10);
 	}
 

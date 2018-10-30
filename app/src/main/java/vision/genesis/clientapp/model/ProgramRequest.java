@@ -60,6 +60,9 @@ public class ProgramRequest implements Parcelable
 	@SerializedName("amount")
 	private Double amount = 0.0;
 
+	@SerializedName("currency")
+	private String programCurrency;
+
 	public ProgramRequest() {
 
 	}
@@ -70,6 +73,7 @@ public class ProgramRequest implements Parcelable
 		managerName = in.readString();
 		programLogo = in.readString();
 		programColor = in.readString();
+		programCurrency = in.readString();
 		level = in.readInt();
 		periodEndsText = in.readString();
 		amountTopText = in.readString();
@@ -90,6 +94,7 @@ public class ProgramRequest implements Parcelable
 		dest.writeString(managerName);
 		dest.writeString(programLogo);
 		dest.writeString(programColor);
+		dest.writeString(programCurrency);
 		dest.writeInt(level);
 		dest.writeString(periodEndsText);
 		dest.writeString(amountTopText);
@@ -136,6 +141,14 @@ public class ProgramRequest implements Parcelable
 
 	public void setProgramColor(String programColor) {
 		this.programColor = programColor;
+	}
+
+	public String getProgramCurrency() {
+		return programCurrency;
+	}
+
+	public void setProgramCurrency(String programCurrency) {
+		this.programCurrency = programCurrency;
 	}
 
 	public Integer getLevel() {

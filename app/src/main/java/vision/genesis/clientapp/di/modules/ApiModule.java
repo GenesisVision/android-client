@@ -10,7 +10,7 @@ import io.swagger.client.api.AuthApi;
 import io.swagger.client.api.FileApi;
 import io.swagger.client.api.FundsApi;
 import io.swagger.client.api.InvestorApi;
-import io.swagger.client.api.ManagersApi;
+import io.swagger.client.api.ManagerApi;
 import io.swagger.client.api.NotificationsApi;
 import io.swagger.client.api.PlatformApi;
 import io.swagger.client.api.ProfileApi;
@@ -87,8 +87,8 @@ public class ApiModule
 
 	@Provides
 	@Singleton
-	public ManagersApi provideManagersApi(ApiClient apiClient) {
-		return apiClient.createService(ManagersApi.class);
+	public ManagerApi provideManagersApi(ApiClient apiClient) {
+		return apiClient.createService(ManagerApi.class);
 	}
 
 	@Provides

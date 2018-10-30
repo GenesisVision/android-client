@@ -9,7 +9,17 @@ Name | Type | Description | Notes
 **description** | **String** |  |  [optional]
 **logo** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
-**count** | **Integer** |  |  [optional]
+**sortType** | [**SortTypeEnum**](#SortTypeEnum) |  |  [optional]
+
+
+<a name="SortTypeEnum"></a>
+## Enum: SortTypeEnum
+Name | Value
+---- | -----
+NEW | &quot;New&quot;
+TOP | &quot;Top&quot;
+WEEKLYTOP | &quot;WeeklyTop&quot;
+POPULAR | &quot;Popular&quot;
 
 
 

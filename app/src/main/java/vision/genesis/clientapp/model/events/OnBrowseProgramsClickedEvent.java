@@ -5,6 +5,6 @@ package vision.genesis.clientapp.model.events;
  * Created by Vitaly on 1/19/18.
  */
 
-public class OnInvestButtonClickedEvent
+public class OnBrowseProgramsClickedEvent
 {
 }

@@ -220,14 +220,18 @@ public interface ManagerApi
 	 * Manager dashboard
 	 *
 	 * @param authorization JWT access token (required)
-	 * @param eventsTake    (optional)
-	 * @param requestsSkip  (optional)
-	 * @param requestsTake  (optional)
+	 * @param assetId       (optional)
+	 * @param from          (optional)
+	 * @param to            (optional)
+	 * @param type          (optional)
+	 * @param assetType     (optional)
+	 * @param skip          (optional)
+	 * @param take          (optional)
 	 * @return Call&lt;ManagerDashboard&gt;
 	 */
 	@GET("v1.0/manager")
 	Observable<ManagerDashboard> v10ManagerGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("eventsTake") Integer eventsTake, @retrofit2.http.Query("requestsSkip") Integer requestsSkip, @retrofit2.http.Query("requestsTake") Integer requestsTake
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("AssetId") UUID assetId, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("Type") String type, @retrofit2.http.Query("AssetType") String assetType, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

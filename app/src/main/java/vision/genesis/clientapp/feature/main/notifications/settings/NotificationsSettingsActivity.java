@@ -24,6 +24,7 @@ import io.swagger.client.model.FundNotificationSettingList;
 import io.swagger.client.model.ProgramNotificationSettingList;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.notifications.fund.FundNotificationsSettingsActivity;
 import vision.genesis.clientapp.feature.main.notifications.program.ProgramNotificationsSettingsActivity;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -159,6 +160,11 @@ public class NotificationsSettingsActivity extends BaseSwipeBackActivity impleme
 	@Override
 	public void showProgramNotificationsSettings(UUID programId, String programName) {
 		ProgramNotificationsSettingsActivity.startWith(this, programId, programName);
+	}
+
+	@Override
+	public void showFundNotificationsSettings(UUID fundId, String fundName) {
+		FundNotificationsSettingsActivity.startWith(this, fundId, fundName);
 	}
 
 	@Override

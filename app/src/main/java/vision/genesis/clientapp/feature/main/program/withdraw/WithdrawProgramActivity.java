@@ -14,8 +14,6 @@ import android.widget.TextView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
-import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -23,10 +21,8 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.confirm.ConfirmProgramWithdrawBottomSheetFragment;
-import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.PrimaryButton;
-import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -57,6 +53,9 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 
 	@BindView(R.id.edittext_amount)
 	public EditText amount;
+
+	@BindView(R.id.currency)
+	public TextView currency;
 
 	@BindView(R.id.max)
 	public TextView max;
@@ -137,9 +136,8 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	}
 
 	@Override
-	public void setAvailableToWithdraw(Double availableToWithdraw) {
-		this.availableToWithdraw.setText(String.format(Locale.getDefault(), "%s GVT",
-				StringFormatUtil.formatCurrencyAmount(availableToWithdraw, CurrencyEnum.GVT.toString())));
+	public void setAvailableToWithdraw(String availableToWithdrawText) {
+		this.availableToWithdraw.setText(availableToWithdrawText);
 	}
 
 	@Override
@@ -151,6 +149,11 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	@Override
 	public void setAmountBase(String amountBaseString) {
 		this.baseCurrencyAmount.setText(amountBaseString);
+	}
+
+	@Override
+	public void setCurrency(String programCurrency) {
+		this.currency.setText(programCurrency);
 	}
 
 	@Override

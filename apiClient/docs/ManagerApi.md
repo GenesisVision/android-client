@@ -159,7 +159,7 @@ Name | Type | Description  | Notes
  **assetId** | [**UUID**](.md)|  | [optional]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
- **type** | **String**|  | [optional] [enum: All, AssetStarted, ProgramPeriodStats, ProgramPeriodEnds, InvestorInvest, InvestorWithdraw, ManagerInvest, ManagerWithdraw, AssetFinished]
+ **type** | **String**|  | [optional] [enum: All, AssetStarted, ProgramPeriodStats, ProgramPeriodEnds, InvestorInvest, InvestorWithdraw, ManagerInvest, ManagerWithdraw, AssetFinished, EntranceFee]
  **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
@@ -589,7 +589,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **sorting** | **String**|  | [optional] [enum: ByTitleAsc, ByTitleDesc, ByShareAsc, ByShareDesc, ByInvestmentsAsc, ByInvestmentsDesc, ByWithdrawalsAsc, ByWithdrawalsDesc, ByBalanceAsc, ByBalanceDesc, ByProfitAsc, ByProfitDesc]
+ **sorting** | **String**|  | [optional] [enum: ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByInvestorsAsc, ByInvestorsDesc, ByNewAsc, ByNewDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
@@ -700,7 +700,7 @@ No authorization required
 
 <a name="v10ManagerGet"></a>
 # **v10ManagerGet**
-> ManagerDashboard v10ManagerGet(authorization, eventsTake, requestsSkip, requestsTake)
+> ManagerDashboard v10ManagerGet(authorization, assetId, from, to, type, assetType, skip, take)
 
 Manager dashboard
 
@@ -713,11 +713,15 @@ Manager dashboard
 
 ManagerApi apiInstance = new ManagerApi();
 String authorization = "authorization_example"; // String | JWT access token
-Integer eventsTake = 56; // Integer | 
-Integer requestsSkip = 56; // Integer | 
-Integer requestsTake = 56; // Integer | 
+UUID assetId = new UUID(); // UUID | 
+DateTime from = new DateTime(); // DateTime | 
+DateTime to = new DateTime(); // DateTime | 
+String type = "type_example"; // String | 
+String assetType = "assetType_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
 try {
-    ManagerDashboard result = apiInstance.v10ManagerGet(authorization, eventsTake, requestsSkip, requestsTake);
+    ManagerDashboard result = apiInstance.v10ManagerGet(authorization, assetId, from, to, type, assetType, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ManagerApi#v10ManagerGet");
@@ -730,9 +734,13 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **eventsTake** | **Integer**|  | [optional]
- **requestsSkip** | **Integer**|  | [optional]
- **requestsTake** | **Integer**|  | [optional]
+ **assetId** | [**UUID**](.md)|  | [optional]
+ **from** | **DateTime**|  | [optional]
+ **to** | **DateTime**|  | [optional]
+ **type** | **String**|  | [optional] [enum: All, AssetStarted, ProgramPeriodStats, ProgramPeriodEnds, InvestorInvest, InvestorWithdraw, ManagerInvest, ManagerWithdraw, AssetFinished, EntranceFee]
+ **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
 
 ### Return type
 
@@ -1204,7 +1212,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **sorting** | **String**|  | [optional] [enum: ByTitleAsc, ByTitleDesc, ByShareAsc, ByShareDesc, ByInvestmentsAsc, ByInvestmentsDesc, ByWithdrawalsAsc, ByWithdrawalsDesc, ByTimeLeftAsc, ByTimeLeftDesc, ByBalanceAsc, ByBalanceDesc, ByProfitAsc, ByProfitDesc]
+ **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByTradesAsc, ByTradesDesc, ByInvestorsAsc, ByInvestorsDesc, ByNewDesc, ByNewAsc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc, ByCurrDesc, ByCurrAsc]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]

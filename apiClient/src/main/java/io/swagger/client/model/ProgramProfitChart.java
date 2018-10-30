@@ -58,6 +58,12 @@ public class ProgramProfitChart
 	@SerializedName("periods")
 	private List<PeriodDate> periods = null;
 
+	@SerializedName("lastPeriodStarts")
+	private DateTime lastPeriodStarts = null;
+
+	@SerializedName("lastPeriodEnds")
+	private DateTime lastPeriodEnds = null;
+
 	@SerializedName("equityChart")
 	private List<ChartSimple> equityChart = null;
 
@@ -66,6 +72,9 @@ public class ProgramProfitChart
 
 	@SerializedName("investors")
 	private Integer investors = null;
+
+	@SerializedName("profitChangePercent")
+	private Double profitChangePercent = null;
 
 	@SerializedName("sharpeRatio")
 	private Double sharpeRatio = null;
@@ -84,15 +93,6 @@ public class ProgramProfitChart
 
 	@SerializedName("timeframeGvtProfit")
 	private Double timeframeGvtProfit = null;
-
-	@SerializedName("profitChangePercent")
-	private Double profitChangePercent = null;
-
-	@SerializedName("lastPeriodStarts")
-	private DateTime lastPeriodStarts = null;
-
-	@SerializedName("lastPeriodEnds")
-	private DateTime lastPeriodEnds = null;
 
 	@SerializedName("rate")
 	private Double rate = null;
@@ -265,6 +265,44 @@ public class ProgramProfitChart
 		this.periods = periods;
 	}
 
+	public ProgramProfitChart lastPeriodStarts(DateTime lastPeriodStarts) {
+		this.lastPeriodStarts = lastPeriodStarts;
+		return this;
+	}
+
+	/**
+	 * Get lastPeriodStarts
+	 *
+	 * @return lastPeriodStarts
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getLastPeriodStarts() {
+		return lastPeriodStarts;
+	}
+
+	public void setLastPeriodStarts(DateTime lastPeriodStarts) {
+		this.lastPeriodStarts = lastPeriodStarts;
+	}
+
+	public ProgramProfitChart lastPeriodEnds(DateTime lastPeriodEnds) {
+		this.lastPeriodEnds = lastPeriodEnds;
+		return this;
+	}
+
+	/**
+	 * Get lastPeriodEnds
+	 *
+	 * @return lastPeriodEnds
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getLastPeriodEnds() {
+		return lastPeriodEnds;
+	}
+
+	public void setLastPeriodEnds(DateTime lastPeriodEnds) {
+		this.lastPeriodEnds = lastPeriodEnds;
+	}
+
 	public ProgramProfitChart equityChart(List<ChartSimple> equityChart) {
 		this.equityChart = equityChart;
 		return this;
@@ -328,6 +366,25 @@ public class ProgramProfitChart
 
 	public void setInvestors(Integer investors) {
 		this.investors = investors;
+	}
+
+	public ProgramProfitChart profitChangePercent(Double profitChangePercent) {
+		this.profitChangePercent = profitChangePercent;
+		return this;
+	}
+
+	/**
+	 * Get profitChangePercent
+	 *
+	 * @return profitChangePercent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProfitChangePercent() {
+		return profitChangePercent;
+	}
+
+	public void setProfitChangePercent(Double profitChangePercent) {
+		this.profitChangePercent = profitChangePercent;
 	}
 
 	public ProgramProfitChart sharpeRatio(Double sharpeRatio) {
@@ -444,63 +501,6 @@ public class ProgramProfitChart
 		this.timeframeGvtProfit = timeframeGvtProfit;
 	}
 
-	public ProgramProfitChart profitChangePercent(Double profitChangePercent) {
-		this.profitChangePercent = profitChangePercent;
-		return this;
-	}
-
-	/**
-	 * Get profitChangePercent
-	 *
-	 * @return profitChangePercent
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getProfitChangePercent() {
-		return profitChangePercent;
-	}
-
-	public void setProfitChangePercent(Double profitChangePercent) {
-		this.profitChangePercent = profitChangePercent;
-	}
-
-	public ProgramProfitChart lastPeriodStarts(DateTime lastPeriodStarts) {
-		this.lastPeriodStarts = lastPeriodStarts;
-		return this;
-	}
-
-	/**
-	 * Get lastPeriodStarts
-	 *
-	 * @return lastPeriodStarts
-	 **/
-	@ApiModelProperty(value = "")
-	public DateTime getLastPeriodStarts() {
-		return lastPeriodStarts;
-	}
-
-	public void setLastPeriodStarts(DateTime lastPeriodStarts) {
-		this.lastPeriodStarts = lastPeriodStarts;
-	}
-
-	public ProgramProfitChart lastPeriodEnds(DateTime lastPeriodEnds) {
-		this.lastPeriodEnds = lastPeriodEnds;
-		return this;
-	}
-
-	/**
-	 * Get lastPeriodEnds
-	 *
-	 * @return lastPeriodEnds
-	 **/
-	@ApiModelProperty(value = "")
-	public DateTime getLastPeriodEnds() {
-		return lastPeriodEnds;
-	}
-
-	public void setLastPeriodEnds(DateTime lastPeriodEnds) {
-		this.lastPeriodEnds = lastPeriodEnds;
-	}
-
 	public ProgramProfitChart rate(Double rate) {
 		this.rate = rate;
 		return this;
@@ -537,24 +537,24 @@ public class ProgramProfitChart
 				Objects.equals(this.profitFactor, programProfitChart.profitFactor) &&
 				Objects.equals(this.pnLChart, programProfitChart.pnLChart) &&
 				Objects.equals(this.periods, programProfitChart.periods) &&
+				Objects.equals(this.lastPeriodStarts, programProfitChart.lastPeriodStarts) &&
+				Objects.equals(this.lastPeriodEnds, programProfitChart.lastPeriodEnds) &&
 				Objects.equals(this.equityChart, programProfitChart.equityChart) &&
 				Objects.equals(this.balance, programProfitChart.balance) &&
 				Objects.equals(this.investors, programProfitChart.investors) &&
+				Objects.equals(this.profitChangePercent, programProfitChart.profitChangePercent) &&
 				Objects.equals(this.sharpeRatio, programProfitChart.sharpeRatio) &&
 				Objects.equals(this.sortinoRatio, programProfitChart.sortinoRatio) &&
 				Objects.equals(this.calmarRatio, programProfitChart.calmarRatio) &&
 				Objects.equals(this.maxDrawdown, programProfitChart.maxDrawdown) &&
 				Objects.equals(this.totalGvtProfit, programProfitChart.totalGvtProfit) &&
 				Objects.equals(this.timeframeGvtProfit, programProfitChart.timeframeGvtProfit) &&
-				Objects.equals(this.profitChangePercent, programProfitChart.profitChangePercent) &&
-				Objects.equals(this.lastPeriodStarts, programProfitChart.lastPeriodStarts) &&
-				Objects.equals(this.lastPeriodEnds, programProfitChart.lastPeriodEnds) &&
 				Objects.equals(this.rate, programProfitChart.rate);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(totalProgramCurrencyProfit, timeframeProgramCurrencyProfit, programCurrency, trades, successTradesPercent, profitFactor, pnLChart, periods, equityChart, balance, investors, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, totalGvtProfit, timeframeGvtProfit, profitChangePercent, lastPeriodStarts, lastPeriodEnds, rate);
+		return Objects.hash(totalProgramCurrencyProfit, timeframeProgramCurrencyProfit, programCurrency, trades, successTradesPercent, profitFactor, pnLChart, periods, lastPeriodStarts, lastPeriodEnds, equityChart, balance, investors, profitChangePercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, totalGvtProfit, timeframeGvtProfit, rate);
 	}
 
 	@Override
@@ -570,18 +570,18 @@ public class ProgramProfitChart
 		sb.append("    profitFactor: ").append(toIndentedString(profitFactor)).append("\n");
 		sb.append("    pnLChart: ").append(toIndentedString(pnLChart)).append("\n");
 		sb.append("    periods: ").append(toIndentedString(periods)).append("\n");
+		sb.append("    lastPeriodStarts: ").append(toIndentedString(lastPeriodStarts)).append("\n");
+		sb.append("    lastPeriodEnds: ").append(toIndentedString(lastPeriodEnds)).append("\n");
 		sb.append("    equityChart: ").append(toIndentedString(equityChart)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("    investors: ").append(toIndentedString(investors)).append("\n");
+		sb.append("    profitChangePercent: ").append(toIndentedString(profitChangePercent)).append("\n");
 		sb.append("    sharpeRatio: ").append(toIndentedString(sharpeRatio)).append("\n");
 		sb.append("    sortinoRatio: ").append(toIndentedString(sortinoRatio)).append("\n");
 		sb.append("    calmarRatio: ").append(toIndentedString(calmarRatio)).append("\n");
 		sb.append("    maxDrawdown: ").append(toIndentedString(maxDrawdown)).append("\n");
 		sb.append("    totalGvtProfit: ").append(toIndentedString(totalGvtProfit)).append("\n");
 		sb.append("    timeframeGvtProfit: ").append(toIndentedString(timeframeGvtProfit)).append("\n");
-		sb.append("    profitChangePercent: ").append(toIndentedString(profitChangePercent)).append("\n");
-		sb.append("    lastPeriodStarts: ").append(toIndentedString(lastPeriodStarts)).append("\n");
-		sb.append("    lastPeriodEnds: ").append(toIndentedString(lastPeriodEnds)).append("\n");
 		sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
 		sb.append("}");
 		return sb.toString();

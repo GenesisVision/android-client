@@ -5,6 +5,9 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import javax.inject.Inject;
 
 import io.swagger.client.model.PlatformInfo;
@@ -13,6 +16,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.model.events.OnBrowseFundsClickedEvent;
+import vision.genesis.clientapp.model.events.OnBrowseProgramsClickedEvent;
 
 /**
  * GenesisVisionAndroid
@@ -36,6 +41,8 @@ public class AssetsPresenter extends MvpPresenter<AssetsView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		EventBus.getDefault().register(this);
+
 		getPlatformInfo();
 	}
 
@@ -43,6 +50,8 @@ public class AssetsPresenter extends MvpPresenter<AssetsView>
 	public void onDestroy() {
 		if (platformStatusSubscription != null)
 			platformStatusSubscription.unsubscribe();
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -62,5 +71,15 @@ public class AssetsPresenter extends MvpPresenter<AssetsView>
 
 	private void onPlatformStatusError(Throwable error) {
 		platformStatusSubscription.unsubscribe();
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnBrowseProgramsClickedEvent event) {
+		getViewState().showPrograms();
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnBrowseFundsClickedEvent event) {
+		getViewState().showFunds();
 	}
 }

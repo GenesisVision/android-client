@@ -62,11 +62,11 @@ public class ConfirmProgramInvestBottomSheetFragment extends BottomSheetDialogFr
 	@BindView(R.id.amount_to_invest)
 	public TextView amountToInvest;
 
-	@BindView(R.id.entry_fee)
-	public TextView entryFee;
+	@BindView(R.id.fees_and_commissions)
+	public TextView feesAndCommissions;
 
-	@BindView(R.id.amount_due)
-	public TextView amountDue;
+	@BindView(R.id.investment_amount)
+	public TextView investmentAmount;
 
 	@BindView(R.id.group_buttons)
 	public ViewGroup buttonsGroup;
@@ -166,8 +166,8 @@ public class ConfirmProgramInvestBottomSheetFragment extends BottomSheetDialogFr
 			managerName.setText(programRequest.getManagerName());
 
 			amountToInvest.setText(programRequest.getAmountTopText());
-			entryFee.setText(programRequest.getInfoMiddleText());
-			amountDue.setText(programRequest.getAmountBottomText());
+			feesAndCommissions.setText(programRequest.getInfoMiddleText());
+			investmentAmount.setText(programRequest.getAmountBottomText());
 		}
 	}
 

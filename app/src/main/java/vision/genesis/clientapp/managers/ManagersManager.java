@@ -2,7 +2,7 @@ package vision.genesis.clientapp.managers;
 
 import java.util.UUID;
 
-import io.swagger.client.api.ManagersApi;
+import io.swagger.client.api.ManagerApi;
 import io.swagger.client.model.ManagerProfileDetails;
 import rx.Observable;
 
@@ -13,13 +13,13 @@ import rx.Observable;
 
 public class ManagersManager
 {
-	private ManagersApi managerApi;
+	private ManagerApi managerApi;
 
-	public ManagersManager(ManagersApi managerApi) {
+	public ManagersManager(ManagerApi managerApi) {
 		this.managerApi = managerApi;
 	}
 
 	public Observable<ManagerProfileDetails> getManagerDetails(UUID managerId) {
-		return managerApi.v10ManagersByIdDetailsGet(managerId.toString());
+		return managerApi.v10ManagerByIdDetailsGet(managerId.toString());
 	}
 }

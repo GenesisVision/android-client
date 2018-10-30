@@ -56,6 +56,9 @@ public class DepositWalletActivity extends BaseSwipeBackActivity implements Depo
 	@BindView(R.id.edittext_amount)
 	public EditText amount;
 
+	@BindView(R.id.currency)
+	public TextView currency;
+
 	@BindView(R.id.base_currency_amount)
 	public TextView baseCurrencyAmount;
 
@@ -137,6 +140,7 @@ public class DepositWalletActivity extends BaseSwipeBackActivity implements Depo
 		this.selectedWalletsPosition = position;
 		this.walletAddress = wallet.getAddress();
 		this.address.setText(wallet.getAddress());
+		this.currency.setText(wallet.getCurrency().getValue());
 		qrCodeImage.setImageBitmap(QRCode.from(wallet.getAddress())
 				.withColor(ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary),
 						ThemeUtil.getColorByAttrId(this, R.attr.colorBackground))

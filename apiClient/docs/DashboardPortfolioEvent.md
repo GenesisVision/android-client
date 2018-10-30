@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
 **logo** | **String** |  |  [optional]
+**color** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
 
 

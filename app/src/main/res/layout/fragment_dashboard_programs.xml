@@ -28,7 +28,7 @@
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="64dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -39,13 +39,14 @@
                 android:gravity="center"
                 android:text="@string/dashboard_programs_empty"
                 android:textColor="?attr/colorTextPrimary"
-                android:textSize="18sp"/>
+                android:alpha="0.4"
+                android:textSize="16sp"/>
 
             <vision.genesis.clientapp.ui.PrimaryButton
                 android:id="@+id/button_browse_programs"
                 android:layout_width="220dp"
                 android:layout_height="@dimen/button_height"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="64dp"
                 android:text="@string/browse_programs"/>
 
         </LinearLayout>

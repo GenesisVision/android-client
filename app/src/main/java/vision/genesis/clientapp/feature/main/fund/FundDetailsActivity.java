@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -37,7 +36,7 @@ import io.swagger.client.model.FundDetailsFull;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.feature.main.notifications.program.ProgramNotificationsSettingsActivity;
+import vision.genesis.clientapp.feature.main.notifications.fund.FundNotificationsSettingsActivity;
 import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
@@ -138,8 +137,6 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 
 	private FundDetailsPagerAdapter pagerAdapter;
 
-	private Fragment currentFragment;
-
 	private FundDetailsModel model;
 
 	@OnClick(R.id.button_back)
@@ -154,7 +151,7 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 
 	@OnClick(R.id.button_notifications)
 	public void onNotificationsClicked() {
-		ProgramNotificationsSettingsActivity.startWith(this, model.getFundId(), model.getFundName());
+		FundNotificationsSettingsActivity.startWith(this, model.getFundId(), model.getFundName());
 	}
 
 	@OnClick(R.id.button_favorite)

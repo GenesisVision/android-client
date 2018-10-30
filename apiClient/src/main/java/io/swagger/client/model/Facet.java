@@ -13,8 +13,13 @@
 
 package io.swagger.client.model;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -41,8 +46,8 @@ public class Facet
 	@SerializedName("url")
 	private String url = null;
 
-	@SerializedName("count")
-	private Integer count = null;
+	@SerializedName("sortType")
+	private SortTypeEnum sortType = null;
 
 	public Facet id(UUID id) {
 		this.id = id;
@@ -139,25 +144,24 @@ public class Facet
 		this.url = url;
 	}
 
-	public Facet count(Integer count) {
-		this.count = count;
+	public Facet sortType(SortTypeEnum sortType) {
+		this.sortType = sortType;
 		return this;
 	}
 
 	/**
-	 * Get count
+	 * Get sortType
 	 *
-	 * @return count
+	 * @return sortType
 	 **/
 	@ApiModelProperty(value = "")
-	public Integer getCount() {
-		return count;
+	public SortTypeEnum getSortType() {
+		return sortType;
 	}
 
-	public void setCount(Integer count) {
-		this.count = count;
+	public void setSortType(SortTypeEnum sortType) {
+		this.sortType = sortType;
 	}
-
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -173,14 +177,13 @@ public class Facet
 				Objects.equals(this.description, facet.description) &&
 				Objects.equals(this.logo, facet.logo) &&
 				Objects.equals(this.url, facet.url) &&
-				Objects.equals(this.count, facet.count);
+				Objects.equals(this.sortType, facet.sortType);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, logo, url, count);
+		return Objects.hash(id, title, description, logo, url, sortType);
 	}
-
 
 	@Override
 	public String toString() {
@@ -192,7 +195,7 @@ public class Facet
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("    count: ").append(toIndentedString(count)).append("\n");
+		sb.append("    sortType: ").append(toIndentedString(sortType)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -206,6 +209,59 @@ public class Facet
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	/**
+	 * Gets or Sets sortType
+	 */
+	@JsonAdapter(SortTypeEnum.Adapter.class)
+	public enum SortTypeEnum
+	{
+		NEW("New"),
+
+		TOP("Top"),
+
+		WEEKLYTOP("WeeklyTop"),
+
+		POPULAR("Popular");
+
+		public static SortTypeEnum fromValue(String text) {
+			for (SortTypeEnum b : SortTypeEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		SortTypeEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<SortTypeEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final SortTypeEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public SortTypeEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return SortTypeEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 }

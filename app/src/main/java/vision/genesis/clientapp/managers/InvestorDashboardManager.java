@@ -1,10 +1,6 @@
 package vision.genesis.clientapp.managers;
 
-import org.joda.time.DateTime;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 import io.swagger.client.api.InvestorApi;
@@ -12,9 +8,9 @@ import io.swagger.client.model.DashboardPortfolioEvent;
 import io.swagger.client.model.DashboardPortfolioEvents;
 import io.swagger.client.model.DashboardSummary;
 import io.swagger.client.model.FundsList;
+import io.swagger.client.model.ProgramRequests;
 import io.swagger.client.model.ProgramsList;
 import rx.Observable;
-import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.model.DateRange;
 
@@ -54,45 +50,7 @@ public class InvestorDashboardManager
 		return investorApi.v10InvestorProgramsRequestsByIdCancelPost(requestId, AuthManager.token.getValue());
 	}
 
-	public BehaviorSubject<List<DashboardPortfolioEvent>> getPortfolioEvents() {
-		updatePortfolioEvents();
-//		mockUpdatePortfolioEvents();
-		return portfolioEventsSubject;
-	}
-
-	public BehaviorSubject<List<DashboardPortfolioEvent>> getProgramEvents() {
-		updatePortfolioEvents();
-//		mockUpdatePortfolioEvents();
-		return portfolioEventsSubject;
-	}
-
-
-	private void updatePortfolioEvents() {
-		investorApi.v10InvestorPortfolioEventsGet(AuthManager.token.getValue(),
-				null, null, null, null, null, 0, 10)
-				.observeOn(Schedulers.io())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleUpdatePortfolioEventsResponse,
-						this::handleUpdatePortfolioEventsError);
-	}
-
-	private void handleUpdatePortfolioEventsResponse(DashboardPortfolioEvents response) {
-		portfolioEventsSubject.onNext(response.getEvents());
-	}
-
-	private void handleUpdatePortfolioEventsError(Throwable error) {
-		portfolioEventsSubject.onError(error);
-	}
-
-	private void mockUpdatePortfolioEvents() {
-		List<DashboardPortfolioEvent> events = new ArrayList<>();
-		for (int i = 0; i < 3; i++) {
-			DashboardPortfolioEvent event = new DashboardPortfolioEvent();
-			event.setDate(DateTime.now().minusSeconds(new Random().nextInt(100000)));
-			event.setValue(new Random().nextDouble() * 100 - 50);
-//			event.setDescription("BlockChainTrader program was reinvested");
-			events.add(event);
-		}
-		portfolioEventsSubject.onNext(events);
+	public Observable<ProgramRequests> getRequests(UUID assetId) {
+		return investorApi.v10InvestorProgramsByIdRequestsBySkipByTakeGet(assetId, 0, 100, AuthManager.token.getValue());
 	}
 }

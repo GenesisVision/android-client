@@ -15,8 +15,6 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.joda.time.DateTime;
-
 import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -41,9 +39,6 @@ public class FundInvestInfo
 
 	@SerializedName("gvCommission")
 	private Double gvCommission = null;
-
-	@SerializedName("periodEnds")
-	private DateTime periodEnds = null;
 
 	@SerializedName("rate")
 	private Double rate = null;
@@ -143,25 +138,6 @@ public class FundInvestInfo
 		this.gvCommission = gvCommission;
 	}
 
-	public FundInvestInfo periodEnds(DateTime periodEnds) {
-		this.periodEnds = periodEnds;
-		return this;
-	}
-
-	/**
-	 * Get periodEnds
-	 *
-	 * @return periodEnds
-	 **/
-	@ApiModelProperty(value = "")
-	public DateTime getPeriodEnds() {
-		return periodEnds;
-	}
-
-	public void setPeriodEnds(DateTime periodEnds) {
-		this.periodEnds = periodEnds;
-	}
-
 	public FundInvestInfo rate(Double rate) {
 		this.rate = rate;
 		return this;
@@ -196,13 +172,12 @@ public class FundInvestInfo
 				Objects.equals(this.minInvestmentAmount, fundInvestInfo.minInvestmentAmount) &&
 				Objects.equals(this.entryFee, fundInvestInfo.entryFee) &&
 				Objects.equals(this.gvCommission, fundInvestInfo.gvCommission) &&
-				Objects.equals(this.periodEnds, fundInvestInfo.periodEnds) &&
 				Objects.equals(this.rate, fundInvestInfo.rate);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, availableInWallet, minInvestmentAmount, entryFee, gvCommission, periodEnds, rate);
+		return Objects.hash(title, availableInWallet, minInvestmentAmount, entryFee, gvCommission, rate);
 	}
 
 
@@ -216,7 +191,6 @@ public class FundInvestInfo
 		sb.append("    minInvestmentAmount: ").append(toIndentedString(minInvestmentAmount)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
 		sb.append("    gvCommission: ").append(toIndentedString(gvCommission)).append("\n");
-		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
 		sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
 		sb.append("}");
 		return sb.toString();

@@ -1,6 +1,6 @@
 package vision.genesis.clientapp.managers;
 
-import io.swagger.client.api.ManagersApi;
+import io.swagger.client.api.ManagerApi;
 
 /**
  * GenesisVisionAndroid
@@ -9,9 +9,9 @@ import io.swagger.client.api.ManagersApi;
 
 public class ManagerDashboardManager
 {
-	private ManagersApi managerApi;
+	private ManagerApi managerApi;
 
-	public ManagerDashboardManager(ManagersApi managerApi) {
+	public ManagerDashboardManager(ManagerApi managerApi) {
 		this.managerApi = managerApi;
 	}
 

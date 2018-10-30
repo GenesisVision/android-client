@@ -67,8 +67,11 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	@BindView(R.id.entry_fee)
 	public TextView entryFee;
 
-	@BindView(R.id.amount_due)
-	public TextView amountDue;
+	@BindView(R.id.gv_commission)
+	public TextView gvCommission;
+
+	@BindView(R.id.investment_amount)
+	public TextView investmentAmount;
 
 	@BindView(R.id.button_continue)
 	public PrimaryButton continueButton;
@@ -159,8 +162,13 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	}
 
 	@Override
-	public void setAmountDue(String amountDueText) {
-		this.amountDue.setText(amountDueText);
+	public void setGvCommission(String gvCommissionString) {
+		this.gvCommission.setText(gvCommissionString);
+	}
+
+	@Override
+	public void setInvestmentAmount(String investmentAmountText) {
+		this.investmentAmount.setText(investmentAmountText);
 	}
 
 	@Override

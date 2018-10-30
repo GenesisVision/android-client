@@ -27,6 +27,8 @@ interface NotificationsSettingsView extends MvpView
 
 	void showProgramNotificationsSettings(UUID programId, String programName);
 
+	void showFundNotificationsSettings(UUID fundId, String fundName);
+
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);
 

@@ -28,6 +28,9 @@ public class FundAssetPercent
 	@SerializedName("asset")
 	private String asset = null;
 
+	@SerializedName("name")
+	private String name = null;
+
 	@SerializedName("percent")
 	private Double percent = null;
 
@@ -51,6 +54,25 @@ public class FundAssetPercent
 
 	public void setAsset(String asset) {
 		this.asset = asset;
+	}
+
+	public FundAssetPercent name(String name) {
+		this.name = name;
+		return this;
+	}
+
+	/**
+	 * Get name
+	 *
+	 * @return name
+	 **/
+	@ApiModelProperty(value = "")
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public FundAssetPercent percent(Double percent) {
@@ -102,13 +124,14 @@ public class FundAssetPercent
 		}
 		FundAssetPercent fundAssetPercent = (FundAssetPercent) o;
 		return Objects.equals(this.asset, fundAssetPercent.asset) &&
+				Objects.equals(this.name, fundAssetPercent.name) &&
 				Objects.equals(this.percent, fundAssetPercent.percent) &&
 				Objects.equals(this.icon, fundAssetPercent.icon);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(asset, percent, icon);
+		return Objects.hash(asset, name, percent, icon);
 	}
 
 
@@ -118,6 +141,7 @@ public class FundAssetPercent
 		sb.append("class FundAssetPercent {\n");
 
 		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
+		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    percent: ").append(toIndentedString(percent)).append("\n");
 		sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
 		sb.append("}");

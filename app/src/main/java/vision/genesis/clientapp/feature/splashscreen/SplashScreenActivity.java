@@ -76,11 +76,13 @@ public class SplashScreenActivity extends MvpAppCompatActivity implements Splash
 	@Override
 	public void showNetworkError() {
 		networkErrorGroup.setVisibility(View.VISIBLE);
+		serverErrorGroup.setVisibility(View.GONE);
 	}
 
 	@Override
 	public void showServerError() {
-
+		serverErrorGroup.setVisibility(View.VISIBLE);
+		networkErrorGroup.setVisibility(View.GONE);
 	}
 
 	@Override

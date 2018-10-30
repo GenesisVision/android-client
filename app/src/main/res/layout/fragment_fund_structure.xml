@@ -40,7 +40,7 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:lines="1"
-            android:text="@string/header_rebalancing"
+            android:text="@string/header_current"
             android:textColor="?attr/colorTextSecondary"
             android:textSize="12sp"/>
 

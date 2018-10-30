@@ -4,6 +4,7 @@ package vision.genesis.clientapp.managers;
 import java.util.UUID;
 
 import io.swagger.client.api.NotificationsApi;
+import io.swagger.client.model.FundNotificationSettingList;
 import io.swagger.client.model.NotificationList;
 import io.swagger.client.model.NotificationSettingList;
 import io.swagger.client.model.ProgramNotificationSettingList;
@@ -30,8 +31,8 @@ public class NotificationsManager
 		return notificationsApi.v10NotificationsSettingsGet(AuthManager.token.getValue());
 	}
 
-	public Observable<UUID> addNotificationSetting(UUID programId, UUID managerId, String settingType, String conditionType, Double conditionAmount) {
-		return notificationsApi.v10NotificationsSettingsAddPost(AuthManager.token.getValue(), programId, managerId, settingType, conditionType, conditionAmount);
+	public Observable<UUID> addNotificationSetting(UUID assetId, UUID managerId, String settingType, String conditionType, Double conditionAmount) {
+		return notificationsApi.v10NotificationsSettingsAddPost(AuthManager.token.getValue(), assetId, managerId, settingType, conditionType, conditionAmount);
 	}
 
 	public Observable<Void> removeNotificationSetting(UUID settingId) {
@@ -40,6 +41,10 @@ public class NotificationsManager
 
 	public Observable<ProgramNotificationSettingList> getProgramNotificationsSettings(UUID programId) {
 		return notificationsApi.v10NotificationsSettingsProgramsByIdGet(programId.toString(), AuthManager.token.getValue());
+	}
+
+	public Observable<FundNotificationSettingList> getFundNotificationsSettings(UUID fundId) {
+		return notificationsApi.v10NotificationsSettingsFundsByIdGet(fundId.toString(), AuthManager.token.getValue());
 	}
 
 	public Observable<UUID> setEnabledNotificationSetting(UUID settingId, Boolean enabled) {

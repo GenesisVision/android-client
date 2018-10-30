@@ -21,7 +21,6 @@ import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.net.ApiErrorResolver;
-import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
@@ -57,7 +56,9 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 	private Double entryFee;
 
-	private Double amountDue;
+	private Double gvCommission;
+
+	private Double investmentAmount;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -97,14 +98,16 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 			}
 
 			entryFee = amount * (investInfo.getEntryFee() / 100);
-			amountDue = amount - entryFee;
+			gvCommission = amount * (investInfo.getGvCommission() / 100);
+			investmentAmount = amount - entryFee - gvCommission;
 
 			getViewState().setAmountBase(getAmountBaseString());
 			getViewState().setEntryFee(getEntryFeeString());
-			getViewState().setAmountDue(getAmountDueString());
+			getViewState().setGvCommission(getGvCommissionString());
+			getViewState().setInvestmentAmount(getInvestmentAmountString());
 			getViewState().setContinueButtonEnabled(amount > 0
 					&& amount <= availableToInvest
-					&& amountDue <= investInfo.getAvailableInWallet());
+					&& investmentAmount <= investInfo.getAvailableInWallet());
 		}
 	}
 
@@ -125,9 +128,21 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 				StringFormatUtil.formatCurrencyAmount(entryFee, CurrencyEnum.GVT.getValue()));
 	}
 
-	private String getAmountDueString() {
+	private String getGvCommissionString() {
+		return String.format(Locale.getDefault(), "%s%% (%s GVT)",
+				StringFormatUtil.formatAmount(investInfo.getGvCommission(), 0, 5),
+				StringFormatUtil.formatCurrencyAmount(gvCommission, CurrencyEnum.GVT.getValue()));
+	}
+
+	private String getInvestmentAmountString() {
 		return String.format(Locale.getDefault(), "%s GVT",
-				StringFormatUtil.formatCurrencyAmount(amountDue, CurrencyEnum.GVT.getValue()));
+				StringFormatUtil.formatCurrencyAmount(investmentAmount, CurrencyEnum.GVT.getValue()));
+	}
+
+	private String getFeesAndCommissionsString() {
+		return String.format(Locale.getDefault(), "%s%% (%s GVT)",
+				StringFormatUtil.formatAmount(investInfo.getEntryFee() + investInfo.getGvCommission(), 0, 5),
+				StringFormatUtil.formatCurrencyAmount(entryFee + gvCommission, CurrencyEnum.GVT.getValue()));
 	}
 
 	void onMaxClicked() {
@@ -139,11 +154,11 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 	void onContinueClicked() {
 		programRequest.setAmount(amount);
 		programRequest.setAmountTopText(getAmountToInvestString());
-		programRequest.setInfoMiddleText(getEntryFeeString());
-		programRequest.setAmountBottomText(getAmountDueString());
+		programRequest.setInfoMiddleText(getFeesAndCommissionsString());
+		programRequest.setAmountBottomText(getInvestmentAmountString());
 		programRequest.setPeriodEndsText(String.format(Locale.getDefault(),
-				context.getString(R.string.request_info_template),
-				DateTimeUtil.formatShortDateTime(investInfo.getPeriodEnds())));
+				context.getString(R.string.program_invest_warning_template),
+				programRequest.getProgramCurrency(), programRequest.getProgramCurrency()));
 		getViewState().showConfirmDialog(programRequest);
 	}
 

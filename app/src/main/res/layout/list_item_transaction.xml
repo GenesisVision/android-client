@@ -5,8 +5,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/wallet_padding"
-                android:layout_marginStart="@dimen/wallet_padding"
-                android:paddingTop="@dimen/wallet_padding">
+                android:layout_marginStart="@dimen/wallet_padding">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/action"
@@ -19,6 +18,7 @@
         android:id="@+id/group_right"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_toEndOf="@+id/action"
         android:layout_toLeftOf="@+id/value"
         android:layout_toRightOf="@+id/action"
@@ -54,6 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
         android:lines="1"
         android:paddingLeft="@dimen/wallet_padding"
         android:paddingRight="@dimen/wallet_padding"

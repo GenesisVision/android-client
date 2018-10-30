@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**v10ProfileHeaderGet**](ProfileApi.md#v10ProfileHeaderGet) | **GET** v1.0/profile/header | Get header profile
 [**v10ProfilePersonalUpdatePost**](ProfileApi.md#v10ProfilePersonalUpdatePost) | **POST** v1.0/profile/personal/update | Update user personal details
 [**v10ProfileUpdatePost**](ProfileApi.md#v10ProfileUpdatePost) | **POST** v1.0/profile/update | Update profile
+[**v10ProfileVerificationTokenPost**](ProfileApi.md#v10ProfileVerificationTokenPost) | **POST** v1.0/profile/verification/token | 
 
 
 <a name="v10ProfileAvatarRemovePost"></a>
@@ -274,5 +275,48 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ProfileVerificationTokenPost"></a>
+# **v10ProfileVerificationTokenPost**
+> String v10ProfileVerificationTokenPost(authorization)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ProfileApi;
+
+
+ProfileApi apiInstance = new ProfileApi();
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    String result = apiInstance.v10ProfileVerificationTokenPost(authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProfileApi#v10ProfileVerificationTokenPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+**String**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 

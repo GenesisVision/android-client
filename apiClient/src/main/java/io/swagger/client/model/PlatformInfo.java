@@ -45,6 +45,9 @@ public class PlatformInfo
 	@SerializedName("currencies")
 	private List<String> currencies = null;
 
+	@SerializedName("platformCurrencies")
+	private List<PlatformCurrency> platformCurrencies = null;
+
 	public PlatformInfo iOSVersion(IOsAppVersion iOSVersion) {
 		this.iOSVersion = iOSVersion;
 		return this;
@@ -183,6 +186,33 @@ public class PlatformInfo
 		this.currencies = currencies;
 	}
 
+	public PlatformInfo platformCurrencies(List<PlatformCurrency> platformCurrencies) {
+		this.platformCurrencies = platformCurrencies;
+		return this;
+	}
+
+	public PlatformInfo addPlatformCurrenciesItem(PlatformCurrency platformCurrenciesItem) {
+		if (this.platformCurrencies == null) {
+			this.platformCurrencies = new ArrayList<PlatformCurrency>();
+		}
+		this.platformCurrencies.add(platformCurrenciesItem);
+		return this;
+	}
+
+	/**
+	 * Get platformCurrencies
+	 *
+	 * @return platformCurrencies
+	 **/
+	@ApiModelProperty(value = "")
+	public List<PlatformCurrency> getPlatformCurrencies() {
+		return platformCurrencies;
+	}
+
+	public void setPlatformCurrencies(List<PlatformCurrency> platformCurrencies) {
+		this.platformCurrencies = platformCurrencies;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -198,12 +228,13 @@ public class PlatformInfo
 				Objects.equals(this.programsFacets, platformInfo.programsFacets) &&
 				Objects.equals(this.fundsFacets, platformInfo.fundsFacets) &&
 				Objects.equals(this.programsInfo, platformInfo.programsInfo) &&
-				Objects.equals(this.currencies, platformInfo.currencies);
+				Objects.equals(this.currencies, platformInfo.currencies) &&
+				Objects.equals(this.platformCurrencies, platformInfo.platformCurrencies);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(iOSVersion, androidVersion, programsFacets, fundsFacets, programsInfo, currencies);
+		return Objects.hash(iOSVersion, androidVersion, programsFacets, fundsFacets, programsInfo, currencies, platformCurrencies);
 	}
 
 
@@ -218,6 +249,7 @@ public class PlatformInfo
 		sb.append("    fundsFacets: ").append(toIndentedString(fundsFacets)).append("\n");
 		sb.append("    programsInfo: ").append(toIndentedString(programsInfo)).append("\n");
 		sb.append("    currencies: ").append(toIndentedString(currencies)).append("\n");
+		sb.append("    platformCurrencies: ").append(toIndentedString(platformCurrencies)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

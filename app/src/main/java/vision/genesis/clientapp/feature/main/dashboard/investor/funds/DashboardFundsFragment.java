@@ -1,5 +1,6 @@
 package vision.genesis.clientapp.feature.main.dashboard.investor.funds;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -52,15 +53,15 @@ public class DashboardFundsFragment extends BaseFragment implements DashboardFun
 
 	private Unbinder unbinder;
 
-	@OnClick(R.id.button_browse_programs)
-	public void onStartInvestingClicked() {
-		dashboardFundsPresenter.onStartInvestingClicked();
+	@OnClick(R.id.button_browse_funds)
+	public void onBrowseFundsClicked() {
+		dashboardFundsPresenter.onBrowseFundsClicked();
 	}
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_dashboard_programs, container, false);
+		return inflater.inflate(R.layout.fragment_dashboard_funds, container, false);
 	}
 
 	@Override
@@ -68,6 +69,10 @@ public class DashboardFundsFragment extends BaseFragment implements DashboardFun
 		super.onViewCreated(view, savedInstanceState);
 
 		unbinder = ButterKnife.bind(this, view);
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			emptyGroup.setNestedScrollingEnabled(true);
+		}
 
 		initRecyclerView();
 	}
