@@ -82,7 +82,7 @@ public class StringFormatUtil
 			return 2;
 		}
 		if (currency.equals(CurrencyEnum.GVT.toString())) {
-			return 4;
+			return 8;
 		}
 		else {
 			return 8;

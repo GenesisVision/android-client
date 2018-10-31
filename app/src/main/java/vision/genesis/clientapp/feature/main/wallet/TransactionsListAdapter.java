@@ -1,7 +1,7 @@
 package vision.genesis.clientapp.feature.main.wallet;
 
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -193,7 +193,7 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 
 //			this.text.setText(text);
 			this.text.setText(transaction.getInformation());
-			this.action.getHierarchy().setPlaceholderImage(ContextCompat.getDrawable(itemView.getContext(), actionResId));
+			this.action.getHierarchy().setPlaceholderImage(AppCompatResources.getDrawable(itemView.getContext(), actionResId));
 
 			this.time.setText(DateTimeUtil.formatShortTime(transaction.getDate()));
 			this.value.setText(StringFormatUtil.getGvtValueString(transaction.getAmount()));

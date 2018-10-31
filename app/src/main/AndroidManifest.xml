@@ -50,13 +50,13 @@
             android:name=".feature.main.program.invest.InvestProgramActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
 
         <activity
             android:name=".feature.main.program.withdraw.WithdrawProgramActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
 
         <activity
             android:name=".feature.main.wallet.deposit.DepositWalletActivity"
@@ -68,7 +68,7 @@
             android:name=".feature.main.wallet.withdraw.WithdrawWalletActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
 
         <activity
             android:name=".feature.auth.login.LoginActivity"
@@ -216,13 +216,13 @@
             android:name=".feature.main.fund.invest.InvestFundActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
 
         <activity
             android:name=".feature.main.fund.withdraw.WithdrawFundActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
 
         <activity
             android:name=".feature.main.settings.security.SecurityActivity"

@@ -1,6 +1,6 @@
 package vision.genesis.clientapp.feature.common.requests;
 
-import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +22,6 @@ import butterknife.OnClick;
 import io.swagger.client.model.ProgramRequest;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.OnCancelRequestClickedEvent;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
@@ -137,8 +136,8 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 		private void updateData() {
 			this.name.setText(request.getTitle());
 			this.type.setText(request.getType().getValue());
-			this.value.setText(String.format(Locale.getDefault(), "%s %s GVT", request.getType().equals(ProgramRequest.TypeEnum.INVEST) ? "+" : "-",
-					StringFormatUtil.formatCurrencyAmount(request.getValue(), CurrencyEnum.GVT.getValue())));
+			this.value.setText(String.format(Locale.getDefault(), "%s %s %s", request.getType().equals(ProgramRequest.TypeEnum.INVEST) ? "+" : "-",
+					StringFormatUtil.formatCurrencyAmount(request.getValue(), request.getCurrency().getValue()), request.getCurrency().getValue()));
 			this.date.setText(DateTimeUtil.formatRequestDate(request.getDate()));
 
 			this.subject.setImageURI(ImageUtils.getImageUri(request.getLogo()));
@@ -152,7 +151,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 					actionResId = R.drawable.icon_arrow_red_up;
 					break;
 			}
-			this.action.getHierarchy().setPlaceholderImage(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, actionResId));
+			this.action.getHierarchy().setPlaceholderImage(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, actionResId));
 		}
 	}
 }

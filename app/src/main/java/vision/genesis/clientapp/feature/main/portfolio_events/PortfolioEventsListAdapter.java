@@ -1,6 +1,6 @@
 package vision.genesis.clientapp.feature.main.portfolio_events;
 
-import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,7 +105,7 @@ public class PortfolioEventsListAdapter extends RecyclerView.Adapter<PortfolioEv
 			this.event = event;
 
 			subject.setImageURI(ImageUtils.getImageUri(event.getLogoUrl()));
-			action.getHierarchy().setPlaceholderImage(ContextCompat.getDrawable(itemView.getContext(), event.getActionResId()));
+			action.getHierarchy().setPlaceholderImage(AppCompatResources.getDrawable(itemView.getContext(), event.getActionResId()));
 			text.setText(event.getText());
 			time.setText(event.getTime());
 			value.setText(event.getValue());

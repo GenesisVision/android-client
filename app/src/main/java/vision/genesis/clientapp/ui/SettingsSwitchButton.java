@@ -1,9 +1,9 @@
 package vision.genesis.clientapp.ui;
 
 import android.content.Context;
+import android.support.v7.widget.SwitchCompat;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -26,7 +26,7 @@ public class SettingsSwitchButton extends RelativeLayout
 	public TextView text;
 
 	@BindView(R.id.switch_view)
-	public Switch switchView;
+	public SwitchCompat switchView;
 
 	private OnCheckChangeListener listener;
 

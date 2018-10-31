@@ -1,6 +1,6 @@
 package vision.genesis.clientapp.feature.main.dashboard.investor.funds;
 
-import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -223,7 +223,7 @@ public class DashboardFundsAdapter extends RecyclerView.Adapter<DashboardFundsAd
 			fundLogo.hideLevel();
 
 			if (fund.getPersonalDetails() != null) {
-				favorite.setImageDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, fund.getPersonalDetails().isIsFavorite()
+				favorite.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, fund.getPersonalDetails().isIsFavorite()
 						? R.drawable.icon_favorite_fill
 						: R.drawable.icon_favorite));
 				favorite.setAlpha(fund.getPersonalDetails().isIsFavorite() ? 1f : 0.3f);

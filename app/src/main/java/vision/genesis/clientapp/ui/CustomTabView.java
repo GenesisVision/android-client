@@ -2,7 +2,7 @@ package vision.genesis.clientapp.ui;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -73,7 +73,7 @@ public class CustomTabView extends RelativeLayout
 
 	public void setData(int iconResId, int textResId) {
 		if (iconResId != 0) {
-			icon.setImageDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, iconResId));
+			icon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, iconResId));
 			icon.setVisibility(View.VISIBLE);
 		}
 		else {

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="wrap_content"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_height="match_parent">
 
     <LinearLayout
@@ -15,7 +16,7 @@
             android:id="@+id/icon"
             android:layout_width="26dp"
             android:layout_height="26dp"
-            android:src="@drawable/ic_star_border_black_24dp"
+            app:srcCompat="@drawable/ic_star_border_black_24dp"
             android:tint="@color/colorFontMedium"
             android:visibility="visible"
             tools:visibility="gone"/>

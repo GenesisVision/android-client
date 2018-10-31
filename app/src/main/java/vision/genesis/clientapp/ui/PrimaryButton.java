@@ -1,7 +1,7 @@
 package vision.genesis.clientapp.ui;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 
@@ -32,12 +32,12 @@ public class PrimaryButton extends android.support.v7.widget.AppCompatButton
 	}
 
 	public void setWhite() {
-		setBackground(ContextCompat.getDrawable(getContext(), R.drawable.button_primary_white));
+		setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.button_primary_white));
 		setTextColorByAttrId(R.attr.colorAccent);
 	}
 
 	public void setEmpty() {
-		setBackground(ContextCompat.getDrawable(getContext(), R.drawable.button_primary_empty));
+		setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.button_primary_empty));
 	}
 
 	public void setTextColorByAttrId(int colorAttrId) {
@@ -46,7 +46,7 @@ public class PrimaryButton extends android.support.v7.widget.AppCompatButton
 
 	private void initView() {
 		setTransformationMethod(null);
-		setBackground(ContextCompat.getDrawable(getContext(), R.drawable.button_primary));
+		setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.button_primary));
 		setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextPrimary));
 		setTypeface(TypefaceUtil.semibold());
 		setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);

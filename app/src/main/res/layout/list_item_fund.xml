@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="@dimen/item_list_fund_height"
@@ -63,12 +64,10 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:alpha="0.3"
             android:paddingBottom="24dp"
-            android:paddingLeft="24dp"
-            android:src="@drawable/icon_favorite"
-            android:tint="?attr/colorTextPrimary"/>
+            android:tint="?attr/colorTextPrimary"
+            app:srcCompat="@drawable/icon_favorite"/>
 
     </RelativeLayout>
 
@@ -84,7 +83,6 @@
             android:layout_height="50dp"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:layout_weight="20"/>
 
         <LinearLayout

@@ -8,138 +8,152 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_bottomsheet_contrast"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/confirm_withdraw"
-                android:textColor="?attr/colorCard"
-                android:textSize="20sp"/>
-
-            <TextView
-                android:id="@+id/period_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:alpha="0.5"
-                android:lineSpacingMultiplier="1.2"
-                android:text="@string/fund_invest_withdraw_disclaimer"
-                android:textColor="?attr/colorCard"
-                android:textSize="14sp"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="24dp"
-                android:alpha="0.2"
-                android:background="?attr/colorCard"/>
+            android:layout_height="match_parent"
+            android:nestedScrollingEnabled="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:orientation="horizontal">
-
-                <vision.genesis.clientapp.ui.ProgramLogoView
-                    android:id="@+id/fund_logo"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center_vertical"/>
+                android:orientation="vertical"
+                android:padding="24dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
                     <TextView
-                        android:id="@+id/fund_name"
+                        android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/confirm_withdraw"
                         android:textColor="?attr/colorCard"
-                        android:textSize="18sp"
-                        tools:text="Infodata Systems"/>
+                        android:textSize="20sp"/>
 
                     <TextView
-                        android:id="@+id/manager_name"
+                        android:id="@+id/period_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:alpha="0.4"
+                        android:layout_marginTop="16dp"
+                        android:alpha="0.5"
+                        android:lineSpacingMultiplier="1.2"
+                        android:text="@string/fund_invest_withdraw_disclaimer"
                         android:textColor="?attr/colorCard"
-                        android:textSize="14sp"
-                        tools:text="Eddie Carr"/>
+                        android:textSize="14sp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="24dp"
+                        android:alpha="0.2"
+                        android:background="?attr/colorCard"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:orientation="horizontal">
+
+                        <vision.genesis.clientapp.ui.ProgramLogoView
+                            android:id="@+id/fund_logo"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginStart="16dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/fund_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="?attr/colorCard"
+                                android:textSize="18sp"
+                                tools:text="Infodata Systems"/>
+
+                            <TextView
+                                android:id="@+id/manager_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:alpha="0.4"
+                                android:textColor="?attr/colorCard"
+                                android:textSize="14sp"
+                                tools:text="Eddie Carr"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/confirmation_dialog_label"
+                        android:text="@string/amount_to_withdraw"/>
+
+                    <TextView
+                        android:id="@+id/amount_to_withdraw"
+                        style="@style/confirmation_dialog_value"
+                        tools:text="10.235%"/>
+
+                    <TextView
+                        style="@style/confirmation_dialog_label"
+                        android:text="@string/exit_fee"/>
+
+                    <TextView
+                        android:id="@+id/exit_fee"
+                        style="@style/confirmation_dialog_value"
+                        tools:text="5%"/>
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/group_buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_marginTop="50dp">
+
+                    <vision.genesis.clientapp.ui.PrimaryButton
+                        android:id="@+id/button_cancel"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/cancel"/>
+
+                    <vision.genesis.clientapp.ui.PrimaryButton
+                        android:id="@+id/button_confirm"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/confirm"/>
+
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="50dp"
+                    android:visibility="gone"/>
+
             </LinearLayout>
 
-            <TextView
-                style="@style/confirmation_dialog_label"
-                android:text="@string/amount_to_withdraw"/>
-
-            <TextView
-                android:id="@+id/amount_to_withdraw"
-                style="@style/confirmation_dialog_value"
-                tools:text="10.235%"/>
-
-            <TextView
-                style="@style/confirmation_dialog_label"
-                android:text="@string/exit_fee"/>
-
-            <TextView
-                android:id="@+id/exit_fee"
-                style="@style/confirmation_dialog_value"
-                tools:text="5%"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/group_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/button_height"
-            android:layout_marginTop="50dp">
-
-            <vision.genesis.clientapp.ui.PrimaryButton
-                android:id="@+id/button_cancel"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/cancel"/>
-
-            <vision.genesis.clientapp.ui.PrimaryButton
-                android:id="@+id/button_confirm"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:text="@string/confirm"/>
-
-        </LinearLayout>
-
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/button_height"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:visibility="gone"/>
+        </ScrollView>
 
     </LinearLayout>
 

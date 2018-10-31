@@ -384,6 +384,8 @@ public class PersonalProgramDetailsFull
 	@JsonAdapter(StatusEnum.Adapter.class)
 	public enum StatusEnum
 	{
+		PENDING("Pending"),
+
 		ACTIVE("Active"),
 
 		INVESTING("Investing"),

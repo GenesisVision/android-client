@@ -1,9 +1,9 @@
 package vision.genesis.clientapp.feature.main.filters_sorting;
 
 import android.content.Context;
+import android.support.v7.widget.SwitchCompat;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -25,7 +25,7 @@ public class FilterSwitchView extends RelativeLayout
 	public TextView name;
 
 	@BindView(R.id.switch_box)
-	public Switch switchBox;
+	public SwitchCompat switchBox;
 
 	private OnCheckChangeListener listener;
 

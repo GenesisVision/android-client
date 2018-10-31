@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -256,7 +257,7 @@ public class ProfitDetailsChartView extends RelativeLayout
 		dataSet.setHighlightLineWidth(1.5f);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-			dataSet.setFillDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.chart_background_gradient));
+			dataSet.setFillDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.chart_background_gradient));
 			dataSet.setDrawFilled(true);
 		}
 

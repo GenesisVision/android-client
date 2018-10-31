@@ -8,10 +8,10 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -30,6 +30,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -456,7 +457,7 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 		assetsRecyclerView.setLayoutManager(layoutManager);
 		int paddingLeft = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 43, getContext().getResources().getDisplayMetrics());
 		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-				ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider), paddingLeft, 0);
+				AppCompatResources.getDrawable(getContext(), R.drawable.list_item_divider), paddingLeft, 0);
 		assetsRecyclerView.addItemDecoration(dividerItemDecoration);
 		portfolioAssetsAdapter = new PortfolioAssetsAdapter();
 		portfolioAssetsAdapter.setHasStableIds(true);
@@ -583,6 +584,15 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 			RequestsBottomSheetFragment bottomSheetDialog = new RequestsBottomSheetFragment();
 			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
 			bottomSheetDialog.setRequests(requests);
+		}
+	}
+
+	@Override
+	public void showProgramRequests(UUID programId) {
+		if (getActivity() != null) {
+			RequestsBottomSheetFragment bottomSheetDialog = new RequestsBottomSheetFragment();
+			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
+			bottomSheetDialog.setAssetId(programId);
 		}
 	}
 

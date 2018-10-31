@@ -5,7 +5,11 @@
         android:drawable="@drawable/splashscreen_background_dark"/>
 
     <item
-        android:gravity="center">
+        android:bottom="220dp"
+        android:gravity="center"
+        android:left="125dp"
+        android:right="125dp"
+        android:top="220dp">
         <bitmap
             android:src="@drawable/logo_green_white"/>
     </item>

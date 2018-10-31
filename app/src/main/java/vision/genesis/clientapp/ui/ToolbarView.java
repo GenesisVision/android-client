@@ -3,6 +3,7 @@ package vision.genesis.clientapp.ui;
 import android.content.Context;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -130,19 +131,19 @@ public class ToolbarView extends RelativeLayout
 	}
 
 	public void addLeftButton(int buttonImageResId, ButtonClickListener clickListener) {
-		leftButton.setImageDrawable(ContextCompat.getDrawable(getContext(), buttonImageResId));
+		leftButton.setImageDrawable(AppCompatResources.getDrawable(getContext(), buttonImageResId));
 		leftButtonClickListener = clickListener;
 		leftButton.setVisibility(View.VISIBLE);
 	}
 
 	public void addRightSecondButton(int buttonImageResId, ButtonClickListener clickListener) {
-		rightSecondButton.setImageDrawable(ContextCompat.getDrawable(getContext(), buttonImageResId));
+		rightSecondButton.setImageDrawable(AppCompatResources.getDrawable(getContext(), buttonImageResId));
 		rightSecondButtonClickListener = clickListener;
 		rightSecondButton.setVisibility(View.VISIBLE);
 	}
 
 	public void addRightButton(int buttonImageResId, ButtonClickListener clickListener) {
-		rightButton.setImageDrawable(ContextCompat.getDrawable(getContext(), buttonImageResId));
+		rightButton.setImageDrawable(AppCompatResources.getDrawable(getContext(), buttonImageResId));
 		rightButtonClickListener = clickListener;
 		rightButton.setVisibility(View.VISIBLE);
 	}

@@ -60,6 +60,9 @@ public class DashboardPortfolioEvent
 	@SerializedName("description")
 	private String description = null;
 
+	@SerializedName("assetType")
+	private AssetTypeEnum assetType = null;
+
 	public DashboardPortfolioEvent assetId(UUID assetId) {
 		this.assetId = assetId;
 		return this;
@@ -231,6 +234,25 @@ public class DashboardPortfolioEvent
 		this.description = description;
 	}
 
+	public DashboardPortfolioEvent assetType(AssetTypeEnum assetType) {
+		this.assetType = assetType;
+		return this;
+	}
+
+	/**
+	 * Get assetType
+	 *
+	 * @return assetType
+	 **/
+	@ApiModelProperty(value = "")
+	public AssetTypeEnum getAssetType() {
+		return assetType;
+	}
+
+	public void setAssetType(AssetTypeEnum assetType) {
+		this.assetType = assetType;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -248,12 +270,13 @@ public class DashboardPortfolioEvent
 				Objects.equals(this.type, dashboardPortfolioEvent.type) &&
 				Objects.equals(this.logo, dashboardPortfolioEvent.logo) &&
 				Objects.equals(this.color, dashboardPortfolioEvent.color) &&
-				Objects.equals(this.description, dashboardPortfolioEvent.description);
+				Objects.equals(this.description, dashboardPortfolioEvent.description) &&
+				Objects.equals(this.assetType, dashboardPortfolioEvent.assetType);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assetId, date, title, value, currency, type, logo, color, description);
+		return Objects.hash(assetId, date, title, value, currency, type, logo, color, description, assetType);
 	}
 
 	@Override
@@ -270,6 +293,7 @@ public class DashboardPortfolioEvent
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    assetType: ").append(toIndentedString(assetType)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -284,7 +308,6 @@ public class DashboardPortfolioEvent
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
-
 
 	/**
 	 * Gets or Sets currency
@@ -355,6 +378,7 @@ public class DashboardPortfolioEvent
 		}
 	}
 
+
 	/**
 	 * Gets or Sets type
 	 */
@@ -412,6 +436,55 @@ public class DashboardPortfolioEvent
 			public TypeEnum read(final JsonReader jsonReader) throws IOException {
 				String value = jsonReader.nextString();
 				return TypeEnum.fromValue(String.valueOf(value));
+			}
+		}
+	}
+
+	/**
+	 * Gets or Sets assetType
+	 */
+	@JsonAdapter(AssetTypeEnum.Adapter.class)
+	public enum AssetTypeEnum
+	{
+		PROGRAM("Program"),
+
+		FUND("Fund");
+
+		public static AssetTypeEnum fromValue(String text) {
+			for (AssetTypeEnum b : AssetTypeEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		AssetTypeEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<AssetTypeEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final AssetTypeEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public AssetTypeEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return AssetTypeEnum.fromValue(String.valueOf(value));
 			}
 		}
 	}

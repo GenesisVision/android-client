@@ -37,6 +37,7 @@ import vision.genesis.clientapp.model.events.OnInRequestsClickedEvent;
 import vision.genesis.clientapp.model.events.OnPortfolioAssetsChangedEvent;
 import vision.genesis.clientapp.model.events.OnPortfolioChartViewModeChangedEvent;
 import vision.genesis.clientapp.model.events.OnRequestCancelledEvent;
+import vision.genesis.clientapp.model.events.ShowProgramRequestsEvent;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
@@ -245,5 +246,10 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	@Subscribe
 	public void onEventMainThread(OnRequestCancelledEvent event) {
 		getDashboard();
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowProgramRequestsEvent event) {
+		getViewState().showProgramRequests(event.getProgramId());
 	}
 }

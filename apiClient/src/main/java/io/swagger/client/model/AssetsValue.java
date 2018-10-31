@@ -43,6 +43,9 @@ public class AssetsValue
 	@SerializedName("avatar")
 	private String avatar = null;
 
+	@SerializedName("color")
+	private String color = null;
+
 	@SerializedName("value")
 	private Double value = null;
 
@@ -128,6 +131,25 @@ public class AssetsValue
 		this.avatar = avatar;
 	}
 
+	public AssetsValue color(String color) {
+		this.color = color;
+		return this;
+	}
+
+	/**
+	 * Get color
+	 *
+	 * @return color
+	 **/
+	@ApiModelProperty(value = "")
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 	public AssetsValue value(Double value) {
 		this.value = value;
 		return this;
@@ -198,6 +220,7 @@ public class AssetsValue
 				Objects.equals(this.id, assetsValue.id) &&
 				Objects.equals(this.title, assetsValue.title) &&
 				Objects.equals(this.avatar, assetsValue.avatar) &&
+				Objects.equals(this.color, assetsValue.color) &&
 				Objects.equals(this.value, assetsValue.value) &&
 				Objects.equals(this.changePercent, assetsValue.changePercent) &&
 				Objects.equals(this.changeValue, assetsValue.changeValue);
@@ -205,7 +228,7 @@ public class AssetsValue
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(type, id, title, avatar, value, changePercent, changeValue);
+		return Objects.hash(type, id, title, avatar, color, value, changePercent, changeValue);
 	}
 
 	@Override
@@ -217,6 +240,7 @@ public class AssetsValue
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
+		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("    changePercent: ").append(toIndentedString(changePercent)).append("\n");
 		sb.append("    changeValue: ").append(toIndentedString(changeValue)).append("\n");

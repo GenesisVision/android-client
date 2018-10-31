@@ -1,7 +1,7 @@
 package vision.genesis.clientapp.feature.main.programs_list;
 
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -203,7 +203,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 			programLogo.setLevel(program.getLevel());
 
 			if (program.getPersonalDetails() != null) {
-				favorite.setImageDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, program.getPersonalDetails().isIsFavorite()
+				favorite.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, program.getPersonalDetails().isIsFavorite()
 						? R.drawable.icon_favorite_fill
 						: R.drawable.icon_favorite));
 				favorite.setAlpha(program.getPersonalDetails().isIsFavorite() ? 1f : 0.3f);

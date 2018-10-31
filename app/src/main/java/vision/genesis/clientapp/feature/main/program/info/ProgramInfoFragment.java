@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ProgressBar;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -110,7 +110,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	public TextView profitLabel;
 
 	@BindView(R.id.switch_reinvest)
-	public Switch reinvestSwitch;
+	public SwitchCompat reinvestSwitch;
 
 	@BindView(R.id.button_withdraw)
 	public PrimaryButton withdrawButton;

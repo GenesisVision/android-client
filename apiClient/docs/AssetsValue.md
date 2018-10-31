@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **title** | **String** |  |  [optional]
 **avatar** | **String** |  |  [optional]
+**color** | **String** |  |  [optional]
 **value** | **Double** |  |  [optional]
 **changePercent** | **Double** |  |  [optional]
 **changeValue** | **Double** |  |  [optional]

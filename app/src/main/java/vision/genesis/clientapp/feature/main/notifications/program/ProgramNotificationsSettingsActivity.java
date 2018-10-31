@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -63,10 +63,10 @@ public class ProgramNotificationsSettingsActivity extends BaseSwipeBackActivity 
 	public TextView labelGeneral;
 
 	@BindView(R.id.switch_news)
-	public Switch newsSwitch;
+	public SwitchCompat newsSwitch;
 
 	@BindView(R.id.switch_period)
-	public Switch periodSwitch;
+	public SwitchCompat periodSwitch;
 
 	@BindView(R.id.label_custom)
 	public TextView labelCustom;

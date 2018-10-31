@@ -68,7 +68,7 @@
             android:alpha="0.3"
             android:paddingBottom="24dp"
             android:paddingLeft="24dp"
-            android:src="@drawable/icon_favorite"
+            app:srcCompat="@drawable/icon_favorite"
             android:tint="?attr/colorTextPrimary"/>
 
     </RelativeLayout>

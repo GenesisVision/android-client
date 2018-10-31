@@ -138,7 +138,7 @@
             android:layout_height="@dimen/toolbar_height"
             android:layout_centerVertical="true"
             android:padding="20dp"
-            android:src="@drawable/icon_back"
+            app:srcCompat="@drawable/icon_back"
             android:tint="?attr/colorTextPrimary"/>
 
         <vision.genesis.clientapp.ui.ProgramLogoView
@@ -189,7 +189,7 @@
                 android:layout_height="@dimen/toolbar_height"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="14dp"
-                android:src="@drawable/icon_notifications"
+                app:srcCompat="@drawable/icon_notifications"
                 android:tint="?attr/colorTextPrimary"/>
 
             <ImageView
@@ -200,7 +200,7 @@
                 android:layout_marginRight="12dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="12dp"
-                android:src="@drawable/icon_favorite"
+                app:srcCompat="@drawable/icon_favorite"
                 android:tint="?attr/colorTextPrimary"/>
 
         </LinearLayout>

@@ -59,6 +59,9 @@ public class ProfileHeaderViewModel
 	@SerializedName("isTwoFactorEnabled")
 	private Boolean isTwoFactorEnabled = null;
 
+	@SerializedName("isNewUser")
+	private Boolean isNewUser = null;
+
 	public ProfileHeaderViewModel id(UUID id) {
 		this.id = id;
 		return this;
@@ -268,6 +271,25 @@ public class ProfileHeaderViewModel
 		this.isTwoFactorEnabled = isTwoFactorEnabled;
 	}
 
+	public ProfileHeaderViewModel isNewUser(Boolean isNewUser) {
+		this.isNewUser = isNewUser;
+		return this;
+	}
+
+	/**
+	 * Get isNewUser
+	 *
+	 * @return isNewUser
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsNewUser() {
+		return isNewUser;
+	}
+
+	public void setIsNewUser(Boolean isNewUser) {
+		this.isNewUser = isNewUser;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -288,12 +310,13 @@ public class ProfileHeaderViewModel
 				Objects.equals(this.investedGvt, profileHeaderViewModel.investedGvt) &&
 				Objects.equals(this.availableGvt, profileHeaderViewModel.availableGvt) &&
 				Objects.equals(this.kycConfirmed, profileHeaderViewModel.kycConfirmed) &&
-				Objects.equals(this.isTwoFactorEnabled, profileHeaderViewModel.isTwoFactorEnabled);
+				Objects.equals(this.isTwoFactorEnabled, profileHeaderViewModel.isTwoFactorEnabled) &&
+				Objects.equals(this.isNewUser, profileHeaderViewModel.isNewUser);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, email, avatar, notificationsCount, favoritesCount, totalBalanceGvt, investedGvt, availableGvt, kycConfirmed, isTwoFactorEnabled);
+		return Objects.hash(id, name, email, avatar, notificationsCount, favoritesCount, totalBalanceGvt, investedGvt, availableGvt, kycConfirmed, isTwoFactorEnabled, isNewUser);
 	}
 
 
@@ -313,6 +336,7 @@ public class ProfileHeaderViewModel
 		sb.append("    availableGvt: ").append(toIndentedString(availableGvt)).append("\n");
 		sb.append("    kycConfirmed: ").append(toIndentedString(kycConfirmed)).append("\n");
 		sb.append("    isTwoFactorEnabled: ").append(toIndentedString(isTwoFactorEnabled)).append("\n");
+		sb.append("    isNewUser: ").append(toIndentedString(isNewUser)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

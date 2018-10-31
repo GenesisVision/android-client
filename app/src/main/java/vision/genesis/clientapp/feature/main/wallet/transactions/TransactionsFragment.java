@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -124,7 +125,7 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 		recyclerView.setLayoutManager(layoutManager);
 		transactionsListAdapter = new TransactionsListAdapter();
 		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-				ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider),
+				AppCompatResources.getDrawable(getContext(), R.drawable.list_item_divider),
 				20, 20);
 		recyclerView.addItemDecoration(dividerItemDecoration);
 		recyclerView.setAdapter(transactionsListAdapter);

@@ -60,6 +60,11 @@ public class SecurityActivity extends BaseSwipeBackActivity implements SecurityV
 	@InjectPresenter
 	SecurityPresenter securityPresenter;
 
+	@OnClick(R.id.button_back)
+	public void onBackClicked() {
+		finishActivity();
+	}
+
 	@OnClick(R.id.change_password)
 	public void onChangePasswordClicked() {
 		ChangePasswordActivity.startFrom(this);
@@ -148,6 +153,11 @@ public class SecurityActivity extends BaseSwipeBackActivity implements SecurityV
 	@Override
 	public void showDialogMessage(String message) {
 		showMessageDialog(message);
+	}
+
+	private void finishActivity() {
+		finish();
+		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
 	}
 
 	@Override

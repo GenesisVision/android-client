@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **logo** | **String** |  |  [optional]
 **color** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
+**assetType** | [**AssetTypeEnum**](#AssetTypeEnum) |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>
@@ -45,6 +46,14 @@ LOSS | &quot;Loss&quot;
 REINVEST | &quot;Reinvest&quot;
 CANCELLED | &quot;Cancelled&quot;
 ENDED | &quot;Ended&quot;
+
+
+<a name="AssetTypeEnum"></a>
+## Enum: AssetTypeEnum
+Name | Value
+---- | -----
+PROGRAM | &quot;Program&quot;
+FUND | &quot;Fund&quot;
 
 
 

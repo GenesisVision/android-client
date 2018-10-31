@@ -1,6 +1,6 @@
 package vision.genesis.clientapp.feature.main.notifications;
 
-import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -138,7 +138,7 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<Notifications
 					break;
 			}
 
-			icon.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), iconResId));
+			icon.setImageDrawable(AppCompatResources.getDrawable(itemView.getContext(), iconResId));
 		}
 	}
 }

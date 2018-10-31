@@ -8,9 +8,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.content.res.AppCompatResources;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -376,13 +376,13 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	private void setNotificationsButtonImage(boolean hasNotifications) {
-		notificationsButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), hasNotifications
+		notificationsButton.setImageDrawable(AppCompatResources.getDrawable(getApplicationContext(), hasNotifications
 				? R.drawable.icon_notifications_fill
 				: R.drawable.icon_notifications));
 	}
 
 	private void setFavoriteButtonImage(boolean isFavorite) {
-		favoriteButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), isFavorite
+		favoriteButton.setImageDrawable(AppCompatResources.getDrawable(getApplicationContext(), isFavorite
 				? R.drawable.icon_favorite_fill
 				: R.drawable.icon_favorite));
 	}

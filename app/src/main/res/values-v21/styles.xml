@@ -8,7 +8,7 @@
         <item name="android:typeface">serif</item>
         <item name="colorPrimary">@color/accent</item>
         <item name="colorAccent">@color/accent</item>
-        <item name="textColorError">@color/red</item>
+        <item name="colorError">@color/red</item>
         <item name="colorGreen">@color/green</item>
         <item name="colorRed">@color/red</item>
         <item name="colorPending">@color/pending</item>
@@ -55,7 +55,7 @@
         <item name="colorPrimaryDark">@color/colorMedium</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/grey300</item>
-        <item name="textColorError">@color/transactionRed</item>
+        <item name="colorError">@color/transactionRed</item>
         <!--<item name="android:statusBarColor">@color/white</item>-->
     </style>
 

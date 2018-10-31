@@ -3,10 +3,10 @@ package vision.genesis.clientapp.feature.main.notifications.fund;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -57,10 +57,10 @@ public class FundNotificationsSettingsActivity extends BaseSwipeBackActivity imp
 	public TextView labelGeneral;
 
 	@BindView(R.id.switch_news)
-	public Switch newsSwitch;
+	public SwitchCompat newsSwitch;
 
 	@BindView(R.id.switch_structure)
-	public Switch structureSwitch;
+	public SwitchCompat structureSwitch;
 
 	@InjectPresenter
 	FundNotificationsSettingsPresenter fundNotificationsSettingsPresenter;

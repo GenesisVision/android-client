@@ -5,7 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -96,7 +96,7 @@ public class MessageBottomSheetDialog extends BottomSheetDialogFragment
 
 	private void updateView() {
 		if (this.image != null) {
-			this.image.setImageDrawable(ContextCompat.getDrawable(Objects.requireNonNull(getContext()), imageResourceId));
+			this.image.setImageDrawable(AppCompatResources.getDrawable(Objects.requireNonNull(getContext()), imageResourceId));
 			this.title.setText(titleText);
 			this.message.setText(messageText);
 

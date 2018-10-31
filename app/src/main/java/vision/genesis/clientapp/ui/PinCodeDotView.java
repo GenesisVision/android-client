@@ -1,7 +1,7 @@
 package vision.genesis.clientapp.ui;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -43,15 +43,15 @@ public class PinCodeDotView extends RelativeLayout
 
 	public void setSelected(boolean selected) {
 		dot.setImageDrawable(selected
-				? ContextCompat.getDrawable(getContext(), R.drawable.pin_code_dot_selected)
-				: ContextCompat.getDrawable(getContext(), R.drawable.pin_code_dot_unselected));
+				? AppCompatResources.getDrawable(getContext(), R.drawable.pin_code_dot_selected)
+				: AppCompatResources.getDrawable(getContext(), R.drawable.pin_code_dot_unselected));
 		dot.setAlpha(selected ? 1f : 0.1f);
 	}
 
 	public void setError(boolean error) {
 		dot.setAlpha(error ? 1f : 0.1f);
 		dot.setImageDrawable(error
-				? ContextCompat.getDrawable(getContext(), R.drawable.pin_code_dot_error)
-				: ContextCompat.getDrawable(getContext(), R.drawable.pin_code_dot_unselected));
+				? AppCompatResources.getDrawable(getContext(), R.drawable.pin_code_dot_error)
+				: AppCompatResources.getDrawable(getContext(), R.drawable.pin_code_dot_unselected));
 	}
 }

@@ -1,14 +1,14 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/background">
         <shape>
-            <solid android:color="?attr/colorDelimiterLight"/>
+            <solid android:color="@color/darkDelimiterLight"/>
         </shape>
     </item>
 
     <item android:id="@android:id/progress">
         <clip>
             <shape>
-                <solid android:color="?attr/colorAccent"/>
+                <solid android:color="@color/accent"/>
             </shape>
         </clip>
     </item>

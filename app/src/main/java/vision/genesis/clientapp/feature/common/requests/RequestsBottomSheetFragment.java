@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -107,7 +107,7 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 		recyclerView.setLayoutManager(layoutManager);
 		int paddingLeft = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getContext().getResources().getDisplayMetrics());
 		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-				ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider), paddingLeft, 0);
+				AppCompatResources.getDrawable(getContext(), R.drawable.list_item_divider), paddingLeft, 0);
 		recyclerView.addItemDecoration(dividerItemDecoration);
 		requestsAdapter = new RequestsAdapter();
 		requestsAdapter.setHasStableIds(true);
@@ -131,6 +131,7 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 
 	public void setRequests(List<ProgramRequest> requests) {
 		this.requests = requests;
+		progressBar.setVisibility(View.GONE);
 		showEmpty(requests.isEmpty());
 		if (requestsAdapter != null)
 			requestsAdapter.setRequests(requests);
@@ -179,8 +180,6 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 
 	private void handleGetRequests(ProgramRequests programRequests) {
 		getRequestsSubscription.unsubscribe();
-
-		progressBar.setVisibility(View.GONE);
 
 		setRequests(programRequests.getRequests());
 	}

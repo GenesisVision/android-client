@@ -51,22 +51,27 @@
                             android:layout_width="70dp"
                             android:layout_height="184dp"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:scaleType="fitEnd"
                             android:src="@drawable/details_level_background"/>
+
+                        <ImageView
+                            android:id="@+id/level_color"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="14dp"
+                            android:src="@drawable/circle_white"
+                            android:tint="?attr/colorAccent"/>
 
                         <TextView
                             android:id="@+id/level"
                             android:layout_width="38dp"
                             android:layout_height="38dp"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginEnd="14dp"
-                            android:layout_marginRight="14dp"
-                            android:background="@drawable/circle_white"
-                            android:backgroundTint="@color/accent"
                             android:gravity="center"
                             android:textColor="?attr/colorTextPrimary"
                             android:textSize="16sp"
@@ -169,7 +174,7 @@
             android:layout_height="@dimen/toolbar_height"
             android:layout_centerVertical="true"
             android:padding="20dp"
-            android:src="@drawable/icon_back"
+            app:srcCompat="@drawable/icon_back"
             android:tint="?attr/colorTextPrimary"/>
 
         <vision.genesis.clientapp.ui.ProgramLogoView
@@ -193,8 +198,6 @@
             android:layout_marginRight="12dp"
             android:layout_marginStart="12dp"
             android:layout_toEndOf="@+id/toolbar_program_logo"
-            android:layout_toLeftOf="@+id/group_toolbar_buttons"
-            android:layout_toRightOf="@+id/toolbar_program_logo"
             android:layout_toStartOf="@+id/group_toolbar_buttons"
             android:alpha="0"
             android:ellipsize="end"
@@ -209,7 +212,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:orientation="horizontal"
             android:visibility="gone"
             tools:visibility="visible">
@@ -220,7 +222,7 @@
                 android:layout_height="@dimen/toolbar_height"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="14dp"
-                android:src="@drawable/icon_notifications"
+                app:srcCompat="@drawable/icon_notifications"
                 android:tint="?attr/colorTextPrimary"/>
 
             <ImageView
@@ -228,10 +230,9 @@
                 android:layout_width="50dp"
                 android:layout_height="@dimen/toolbar_height"
                 android:layout_marginEnd="12dp"
-                android:layout_marginRight="12dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="12dp"
-                android:src="@drawable/icon_favorite"
+                app:srcCompat="@drawable/icon_favorite"
                 android:tint="?attr/colorTextPrimary"/>
 
         </LinearLayout>

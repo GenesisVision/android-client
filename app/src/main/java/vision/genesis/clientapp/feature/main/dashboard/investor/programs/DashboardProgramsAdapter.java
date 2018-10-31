@@ -1,13 +1,13 @@
 package vision.genesis.clientapp.feature.main.dashboard.investor.programs;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -20,6 +20,7 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.PersonalProgramDetailsFull;
 import io.swagger.client.model.ProgramDetails;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -27,6 +28,7 @@ import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.OnDashboardProgramFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.OnDashboardReinvestClickedEvent;
 import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowProgramRequestsEvent;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProgramLogoView;
@@ -146,7 +148,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		public TextView reinvestLabel;
 
 		@BindView(R.id.switch_reinvest)
-		public Switch reinvest;
+		public SwitchCompat reinvest;
 
 		private ProgramDetails program;
 
@@ -195,6 +197,16 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			}
 		}
 
+		@OnClick(R.id.status)
+		public void onStatusClicked() {
+			if (program != null && program.getPersonalDetails() != null) {
+				if (program.getPersonalDetails().getStatus().equals(PersonalProgramDetailsFull.StatusEnum.INVESTING) ||
+						(program.getPersonalDetails().getStatus().equals(PersonalProgramDetailsFull.StatusEnum.WITHDRAWING))) {
+					EventBus.getDefault().post(new ShowProgramRequestsEvent(program.getId()));
+				}
+			}
+		}
+
 		private void setFonts() {
 			programName.setTypeface(TypefaceUtil.semibold());
 			managerName.setTypeface(TypefaceUtil.medium());
@@ -216,7 +228,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			this.programName.setText(program.getTitle());
 			this.managerName.setText(program.getManager().getUsername());
 
-			favorite.setImageDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, program.getPersonalDetails().isIsFavorite()
+			favorite.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, program.getPersonalDetails().isIsFavorite()
 					? R.drawable.icon_favorite_fill
 					: R.drawable.icon_favorite));
 			favorite.setAlpha(program.getPersonalDetails().isIsFavorite() ? 1f : 0.3f);

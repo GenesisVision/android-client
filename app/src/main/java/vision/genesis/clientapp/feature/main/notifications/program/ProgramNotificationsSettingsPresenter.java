@@ -226,11 +226,6 @@ public class ProgramNotificationsSettingsPresenter extends MvpPresenter<ProgramN
 
 	private void handleSetEnabledCustomNotificationError(Throwable throwable, UUID settingId, Boolean enabled) {
 		setEnabledSettingSubscription.unsubscribe();
-
-		getViewState().setCustomSettingEnabled(settingId, !enabled);
-
-		ApiErrorResolver.resolveErrors(throwable,
-				message -> getViewState().showSnackbarMessage(message));
 	}
 
 	@Subscribe

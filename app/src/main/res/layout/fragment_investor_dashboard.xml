@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/icon_notifications"
+                app:srcCompat="@drawable/icon_notifications"
                 android:tint="?attr/colorTextPrimary"/>
 
             <com.facebook.drawee.view.SimpleDraweeView
@@ -181,7 +181,7 @@
                                     android:layout_marginLeft="6dp"
                                     android:layout_marginStart="6dp"
                                     android:alpha="0.4"
-                                    android:src="@drawable/icon_arrow_right"
+                                    app:srcCompat="@drawable/icon_arrow_right"
                                     android:tint="?attr/colorTextPrimary"/>
 
                             </LinearLayout>

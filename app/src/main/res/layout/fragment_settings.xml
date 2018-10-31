@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -58,8 +59,8 @@
                     android:layout_height="20dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/icon_logout"
-                    android:tint="?attr/colorTextPrimary"/>
+                    android:tint="?attr/colorTextPrimary"
+                    app:srcCompat="@drawable/icon_logout"/>
 
                 <TextView
                     android:id="@+id/profile_name"
@@ -119,7 +120,7 @@
                     android:id="@+id/icon_security"
                     style="@style/settings_icon"
                     android:padding="2dp"
-                    android:src="@drawable/icon_security"/>
+                    app:srcCompat="@drawable/icon_security"/>
 
                 <TextView
                     style="@style/settings_text"

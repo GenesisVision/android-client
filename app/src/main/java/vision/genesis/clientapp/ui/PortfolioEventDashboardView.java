@@ -1,7 +1,7 @@
 package vision.genesis.clientapp.ui;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -73,7 +73,7 @@ public class PortfolioEventDashboardView extends RelativeLayout
 
 	public void setEvent(PortfolioEvent event) {
 		subject.setImageURI(ImageUtils.getImageUri(event.getLogoUrl()));
-		action.getHierarchy().setPlaceholderImage(ContextCompat.getDrawable(getContext(), event.getActionResId()));
+		action.getHierarchy().setPlaceholderImage(AppCompatResources.getDrawable(getContext(), event.getActionResId()));
 
 		this.value.setText(event.getValue());
 		this.value.setTextColor(ThemeUtil.getColorByAttrId(getContext(),

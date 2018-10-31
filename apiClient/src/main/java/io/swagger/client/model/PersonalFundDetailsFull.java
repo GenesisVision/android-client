@@ -360,6 +360,8 @@ public class PersonalFundDetailsFull
 	@JsonAdapter(StatusEnum.Adapter.class)
 	public enum StatusEnum
 	{
+		PENDING("Pending"),
+
 		ACTIVE("Active"),
 
 		INVESTING("Investing"),

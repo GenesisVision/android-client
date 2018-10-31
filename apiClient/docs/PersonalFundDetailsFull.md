@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 ## Enum: StatusEnum
 Name | Value
 ---- | -----
+PENDING | &quot;Pending&quot;
 ACTIVE | &quot;Active&quot;
 INVESTING | &quot;Investing&quot;
 WITHDRAWING | &quot;Withdrawing&quot;

@@ -1,7 +1,7 @@
 package vision.genesis.clientapp.feature.common.date_range;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -58,7 +58,7 @@ public class DateRangeOptionView extends RelativeLayout
 				? ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextPrimary)
 				: ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary));
 
-		background.setBackground(ContextCompat.getDrawable(getContext(),
+		background.setBackground(AppCompatResources.getDrawable(getContext(),
 				selected ? R.drawable.date_range_option_selected : R.drawable.date_range_option));
 	}
 }

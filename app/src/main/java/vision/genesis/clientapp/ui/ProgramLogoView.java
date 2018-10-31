@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,9 +107,7 @@ public class ProgramLogoView extends RelativeLayout
 		groupLevel.setVisibility(View.GONE);
 		LayoutParams lp = (LayoutParams) image.getLayoutParams();
 		lp.setMargins(0, 0, 0, 0);
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-			lp.setMarginEnd(0);
-		}
+		lp.setMarginEnd(0);
 		image.setLayoutParams(lp);
 	}
 }

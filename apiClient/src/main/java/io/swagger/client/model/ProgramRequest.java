@@ -45,6 +45,12 @@ public class ProgramRequest
 	@SerializedName("value")
 	private Double value = null;
 
+	@SerializedName("valueGvt")
+	private Double valueGvt = null;
+
+	@SerializedName("currency")
+	private CurrencyEnum currency = null;
+
 	@SerializedName("fundWithdrawPercent")
 	private Double fundWithdrawPercent = null;
 
@@ -143,6 +149,44 @@ public class ProgramRequest
 
 	public void setValue(Double value) {
 		this.value = value;
+	}
+
+	public ProgramRequest valueGvt(Double valueGvt) {
+		this.valueGvt = valueGvt;
+		return this;
+	}
+
+	/**
+	 * Get valueGvt
+	 *
+	 * @return valueGvt
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getValueGvt() {
+		return valueGvt;
+	}
+
+	public void setValueGvt(Double valueGvt) {
+		this.valueGvt = valueGvt;
+	}
+
+	public ProgramRequest currency(CurrencyEnum currency) {
+		this.currency = currency;
+		return this;
+	}
+
+	/**
+	 * Get currency
+	 *
+	 * @return currency
+	 **/
+	@ApiModelProperty(value = "")
+	public CurrencyEnum getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(CurrencyEnum currency) {
+		this.currency = currency;
 	}
 
 	public ProgramRequest fundWithdrawPercent(Double fundWithdrawPercent) {
@@ -310,6 +354,8 @@ public class ProgramRequest
 				Objects.equals(this.programId, programRequest.programId) &&
 				Objects.equals(this.date, programRequest.date) &&
 				Objects.equals(this.value, programRequest.value) &&
+				Objects.equals(this.valueGvt, programRequest.valueGvt) &&
+				Objects.equals(this.currency, programRequest.currency) &&
 				Objects.equals(this.fundWithdrawPercent, programRequest.fundWithdrawPercent) &&
 				Objects.equals(this.type, programRequest.type) &&
 				Objects.equals(this.status, programRequest.status) &&
@@ -322,7 +368,7 @@ public class ProgramRequest
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, programId, date, value, fundWithdrawPercent, type, status, logo, title, color, canCancelRequest, programType);
+		return Objects.hash(id, programId, date, value, valueGvt, currency, fundWithdrawPercent, type, status, logo, title, color, canCancelRequest, programType);
 	}
 
 	@Override
@@ -334,6 +380,8 @@ public class ProgramRequest
 		sb.append("    programId: ").append(toIndentedString(programId)).append("\n");
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
+		sb.append("    valueGvt: ").append(toIndentedString(valueGvt)).append("\n");
+		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    fundWithdrawPercent: ").append(toIndentedString(fundWithdrawPercent)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
@@ -355,6 +403,76 @@ public class ProgramRequest
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+
+	/**
+	 * Gets or Sets currency
+	 */
+	@JsonAdapter(CurrencyEnum.Adapter.class)
+	public enum CurrencyEnum
+	{
+		UNDEFINED("Undefined"),
+
+		GVT("GVT"),
+
+		ETH("ETH"),
+
+		BTC("BTC"),
+
+		ADA("ADA"),
+
+		USDT("USDT"),
+
+		XRP("XRP"),
+
+		BCH("BCH"),
+
+		LTC("LTC"),
+
+		DOGE("DOGE"),
+
+		USD("USD"),
+
+		EUR("EUR");
+
+		public static CurrencyEnum fromValue(String text) {
+			for (CurrencyEnum b : CurrencyEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		CurrencyEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<CurrencyEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return CurrencyEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 	/**

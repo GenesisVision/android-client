@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -18,8 +19,8 @@
             android:layout_marginStart="8dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="10dp"
-            android:src="@drawable/ic_close_black_24dp"
-            android:tint="?attr/colorTextPrimary"/>
+            android:tint="?attr/colorTextPrimary"
+            app:srcCompat="@drawable/ic_close_black_24dp"/>
 
         <TextView
             android:id="@+id/title"
@@ -165,9 +166,9 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
                     android:gravity="center_vertical|end"
-                    android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
                     android:textSize="18sp"
-                    android:tint="?attr/colorTextPrimary"/>
+                    android:tint="?attr/colorTextPrimary"
+                    app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -211,10 +212,10 @@
                     android:gravity="center_vertical|end"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
-                    android:visibility="gone"
                     android:text="@string/scan_qr"
                     android:textColor="?attr/colorTextPrimary"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp"
+                    android:visibility="gone"/>
 
                 <View
                     android:layout_width="match_parent"

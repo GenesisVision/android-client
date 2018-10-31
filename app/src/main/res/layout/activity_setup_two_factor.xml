@@ -19,7 +19,7 @@
             android:layout_centerVertical="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="20dp"
-            android:src="@drawable/icon_back"
+            app:srcCompat="@drawable/icon_back"
             android:tint="?attr/colorTextPrimary"/>
 
         <TextView

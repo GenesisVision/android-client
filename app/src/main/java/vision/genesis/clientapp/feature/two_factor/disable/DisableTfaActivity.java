@@ -78,6 +78,12 @@ public class DisableTfaActivity extends BaseSwipeBackActivity implements Disable
 		disableTfaPresenter.onDisableClicked();
 	}
 
+
+	@OnClick(R.id.button_back)
+	public void onBackButtonClicked() {
+		onBackPressed();
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setTheme(ThemeUtil.getCurrentThemeResource());
@@ -124,7 +130,7 @@ public class DisableTfaActivity extends BaseSwipeBackActivity implements Disable
 
 	@Override
 	public void onBackPressed() {
-		finish();
+		finishActivity();
 	}
 
 	@Override

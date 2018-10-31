@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -52,10 +52,10 @@ public class NotificationsSettingsActivity extends BaseSwipeBackActivity impleme
 	public ScrollView scrollView;
 
 	@BindView(R.id.switch_news)
-	public Switch newsSwitch;
+	public SwitchCompat newsSwitch;
 
 	@BindView(R.id.switch_emergency)
-	public Switch emergencySwitch;
+	public SwitchCompat emergencySwitch;
 
 	@BindView(R.id.group_programs)
 	public ViewGroup programsGroup;

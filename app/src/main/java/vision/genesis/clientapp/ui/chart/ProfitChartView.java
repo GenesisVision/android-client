@@ -338,7 +338,7 @@ public class ProfitChartView extends RelativeLayout
 		dataSet.setHighlightLineWidth(1.5f);
 
 //		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-//			dataSet.setFillDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.chart_background_gradient));
+//			dataSet.setFillDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.chart_background_gradient));
 //			dataSet.setDrawFilled(true);
 //		}
 
@@ -366,7 +366,7 @@ public class ProfitChartView extends RelativeLayout
 //		dataSet.setHighLightColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, highlightColor));
 
 //		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-//			dataSet.setFillDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.chart_background_gradient));
+//			dataSet.setFillDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, R.drawable.chart_background_gradient));
 //			dataSet.setDrawFilled(true);
 //		}
 

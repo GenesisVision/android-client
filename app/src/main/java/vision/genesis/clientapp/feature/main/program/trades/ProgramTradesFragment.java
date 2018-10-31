@@ -129,7 +129,7 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
 //		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-//				ContextCompat.getDrawable(getContext(), R.drawable.list_item_divider), paddingLeft, 0);
+//				AppCompatResources.getDrawable(getContext(), R.drawable.list_item_divider), paddingLeft, 0);
 //		recyclerView.addItemDecoration(dividerItemDecoration);
 
 		tradesListAdapter = new TradesListAdapter();

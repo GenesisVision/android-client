@@ -68,7 +68,7 @@
             android:alpha="0.3"
             android:paddingBottom="24dp"
             android:paddingLeft="24dp"
-            android:src="@drawable/icon_favorite"
+            app:srcCompat="@drawable/icon_favorite"
             android:tint="?attr/colorTextPrimary"/>
 
     </RelativeLayout>
@@ -207,7 +207,7 @@
             android:layout_toLeftOf="@id/label_reinvest"
             android:layout_toStartOf="@id/label_reinvest"
             android:padding="4dp"
-            android:src="@drawable/icon_tooltip"/>
+            app:srcCompat="@drawable/icon_tooltip"/>
 
         <TextView
             android:id="@+id/label_reinvest"
@@ -222,7 +222,7 @@
             android:textColor="?attr/colorTextPrimary"
             android:textSize="14sp"/>
 
-        <Switch
+        <android.support.v7.widget.SwitchCompat
             android:id="@+id/switch_reinvest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

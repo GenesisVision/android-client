@@ -1,7 +1,7 @@
 package vision.genesis.clientapp.feature.main.program.trades;
 
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,7 +105,7 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 					break;
 			}
 
-			entry.setImageDrawable(ContextCompat.getDrawable(GenesisVisionApplication.INSTANCE, entryResId));
+			entry.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, entryResId));
 
 			symbol.setText(trade.getSymbol());
 			direction.setText(trade.getDirection().getValue());

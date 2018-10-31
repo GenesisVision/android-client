@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_notifications_settings"
@@ -74,8 +75,8 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:alpha="0.4"
-        android:src="@drawable/icon_arrow_right"
-        android:tint="?attr/colorTextPrimary"/>
+        android:tint="?attr/colorTextPrimary"
+        app:srcCompat="@drawable/icon_arrow_right"/>
 
     <View
         android:layout_width="match_parent"

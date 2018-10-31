@@ -4,6 +4,6 @@
 
     <stroke
         android:width="3dp"
-        android:color="?attr/colorTextPrimary"/>
+        android:color="@color/darkTextPrimary"/>
 
 </shape>

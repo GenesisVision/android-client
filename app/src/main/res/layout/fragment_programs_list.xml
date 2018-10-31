@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -131,8 +132,8 @@
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/icon_filters"
-                android:tint="?attr/colorBackground"/>
+                android:tint="?attr/colorBackground"
+                app:srcCompat="@drawable/icon_filters"/>
 
             <TextView
                 android:id="@+id/text_filters"
