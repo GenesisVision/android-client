@@ -109,9 +109,9 @@
                         android:alpha="0.9"
                         android:lineSpacingMultiplier="1.5"
                         android:maxHeight="@dimen/program_info_strategy_max_height"
-                        android:text="@string/lorem_ipsum"
                         android:textColor="?attr/colorTextPrimary"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp"
+                        tools:text="@string/lorem_ipsum"/>
 
                     <View
                         android:id="@+id/strategy_shadow"
@@ -326,15 +326,15 @@
 
                 <TextView
                     android:id="@+id/invest_info"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:alpha="0.3"
                     android:gravity="center"
                     android:lineSpacingMultiplier="1.2"
+                    android:text="@string/fund_invest_withdraw_disclaimer"
                     android:textColor="?attr/colorTextPrimary"
-                    android:textSize="12sp"
-                    tools:text="Your request will be processed at the end of the reporting period 12.07.2019, 16:20"/>
+                    android:textSize="12sp"/>
 
             </LinearLayout>
 

@@ -281,6 +281,7 @@
                         android:layout_toEndOf="@id/label_reinvest"
                         android:layout_toRightOf="@id/label_reinvest"
                         android:padding="8dp"
+                        android:visibility="invisible"
                         app:srcCompat="@drawable/icon_tooltip_2"/>
 
                     <android.support.v7.widget.SwitchCompat

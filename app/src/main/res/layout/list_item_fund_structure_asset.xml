@@ -47,7 +47,7 @@
         tools:text="50.00%"/>
 
     <TextView
-        android:id="@+id/rebalancing"
+        android:id="@+id/current"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

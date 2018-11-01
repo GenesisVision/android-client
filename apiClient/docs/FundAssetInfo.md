@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **asset** | **String** |  |  [optional]
-**name** | **String** |  |  [optional]
+**symbol** | **String** |  |  [optional]
 **icon** | **String** |  |  [optional]
-**targetPercent** | **Double** |  |  [optional]
-**currentPercent** | **Double** |  |  [optional]
+**target** | **Double** |  |  [optional]
+**current** | **Double** |  |  [optional]
 
 
 

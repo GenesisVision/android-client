@@ -95,8 +95,13 @@ public class ProgramLogoView extends RelativeLayout
 	public void setLevel(int level) {
 		this.level.setText(String.valueOf(level));
 
-		//TODO: change color depending on level
-		levelColor.setColorFilter(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorAccent));
+		if (level > 0) {
+			int[] levelColors = getResources().getIntArray(R.array.levelColors);
+			if (level > levelColors.length) {
+				level = levelColors.length;
+			}
+			levelColor.setColorFilter(levelColors[level - 1]);
+		}
 	}
 
 	public void setLevelBackground(int colorResId) {

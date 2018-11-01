@@ -12,7 +12,7 @@ public class FundAssetsComparator implements Comparator<FundAssetInfo>
 {
 	@Override
 	public int compare(FundAssetInfo asset1, FundAssetInfo asset2) {
-		double diff = asset1.getTargetPercent() - asset2.getTargetPercent();
+		double diff = asset1.getTarget() - asset2.getTarget();
 
 		if (diff == 0f)
 			return 0;

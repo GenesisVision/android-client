@@ -15,20 +15,27 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/action"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             app:roundAsCircle="true"/>
+
+        <ImageView
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:src="@drawable/circle_white"
+            android:tint="?attr/colorBackground"/>
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/subject"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            app:roundAsCircle="true"
-            app:roundingBorderColor="?attr/colorCard"
-            app:roundingBorderWidth="2dp"/>
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            app:placeholderImage="@drawable/icon_program_placeholder"
+            app:placeholderImageScaleType="centerInside"
+            app:roundAsCircle="true"/>
 
     </RelativeLayout>
 

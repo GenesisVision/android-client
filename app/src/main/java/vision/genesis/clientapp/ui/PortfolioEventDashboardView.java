@@ -1,18 +1,28 @@
 package vision.genesis.clientapp.ui;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.swagger.client.model.DashboardPortfolioEvent;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.PortfolioEvent;
+import vision.genesis.clientapp.model.ProgramDetailsModel;
+import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -39,6 +49,8 @@ public class PortfolioEventDashboardView extends RelativeLayout
 	public TextView text;
 
 	private Unbinder unbinder;
+
+	private PortfolioEvent event;
 
 	public PortfolioEventDashboardView(Context context) {
 		super(context);
@@ -69,17 +81,52 @@ public class PortfolioEventDashboardView extends RelativeLayout
 
 		value.setTypeface(TypefaceUtil.semibold());
 		date.setTypeface(TypefaceUtil.semibold());
+
+		setOnClickListener(view -> {
+			if (event != null) {
+				if (event.getAssetType().equals(DashboardPortfolioEvent.AssetTypeEnum.PROGRAM)) {
+					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(event.getAssetId(),
+							event.getLogoUrl(),
+							event.getAssetColor(),
+							0,
+							event.getAssetName(),
+							"",
+							event.getProgramCurrency(),
+							false,
+							false);
+					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programDetailsModel));
+				}
+				else if (event.getAssetType().equals(DashboardPortfolioEvent.AssetTypeEnum.FUND)) {
+					FundDetailsModel fundDetailsModel = new FundDetailsModel(event.getAssetId(),
+							event.getLogoUrl(),
+							event.getAssetColor(),
+							event.getAssetName(),
+							"",
+							false,
+							false);
+					EventBus.getDefault().post(new ShowFundDetailsEvent(fundDetailsModel));
+				}
+			}
+		});
 	}
 
 	public void setEvent(PortfolioEvent event) {
-		subject.setImageURI(ImageUtils.getImageUri(event.getLogoUrl()));
+		this.event = event;
+
+		if (event.getLogoUrl() == null || event.getLogoUrl().isEmpty()) {
+			GenericDraweeHierarchy hierarchy = subject.getHierarchy();
+			hierarchy.setBackgroundImage(new ColorDrawable(Color.parseColor(event.getAssetColor())));
+			subject.setHierarchy(hierarchy);
+			subject.setImageURI("");
+		}
+		else {
+			subject.setImageURI(ImageUtils.getImageUri(event.getLogoUrl()));
+		}
+
 		action.getHierarchy().setPlaceholderImage(AppCompatResources.getDrawable(getContext(), event.getActionResId()));
 
 		this.value.setText(event.getValue());
-		this.value.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
-				!event.getValueNegative()
-						? R.attr.colorGreen
-						: R.attr.colorRed));
+		this.value.setTextColor(ThemeUtil.getColorByAttrId(getContext(), event.getValueColorResId()));
 
 		this.text.setText(event.getText());
 

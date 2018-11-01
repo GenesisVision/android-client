@@ -46,21 +46,27 @@
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/action"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 app:roundAsCircle="true"/>
+
+            <ImageView
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:src="@drawable/circle_white"
+                android:tint="?attr/colorCard"/>
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/subject"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                app:placeholderImage="@drawable/program_placeholder"
-                app:roundAsCircle="true"
-                app:roundingBorderColor="?attr/colorCard"
-                app:roundingBorderWidth="2dp"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                app:placeholderImage="@drawable/icon_program_placeholder"
+                app:placeholderImageScaleType="centerInside"
+                app:roundAsCircle="true"/>
 
         </RelativeLayout>
 
@@ -69,10 +75,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
             android:layout_toEndOf="@+id/group_icons"
-            android:layout_toRightOf="@+id/group_icons"
+            android:layout_toStartOf="@+id/group_right"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
@@ -80,6 +85,8 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="16sp"
                 tools:text="Janus Capital Group"/>
@@ -101,10 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/group_name"
-            android:layout_toRightOf="@+id/group_name"
             android:gravity="center_vertical|end"
             android:orientation="vertical">
 
@@ -123,7 +127,7 @@
                 android:layout_marginTop="4dp"
                 android:textColor="?attr/colorTextSecondary"
                 android:textSize="14sp"
-                tools:text="09 May"/>
+                tools:text="est. time 09 May"/>
 
         </LinearLayout>
 

@@ -30,7 +30,7 @@
                     android:layout_margin="4dp"
                     android:gravity="center"
                     android:padding="6dp"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:layout_collapseMode="pin">
 
                     <android.support.v7.widget.CardView
@@ -53,8 +53,8 @@
                                 android:layout_width="@dimen/searchbar_height"
                                 android:layout_height="@dimen/searchbar_height"
                                 android:padding="6dp"
-                                app:srcCompat="@drawable/ic_search_black_24dp"
-                                android:tint="?attr/colorTextSecondary"/>
+                                android:tint="?attr/colorTextSecondary"
+                                app:srcCompat="@drawable/ic_search_black_24dp"/>
 
                             <TextView
                                 android:layout_width="match_parent"

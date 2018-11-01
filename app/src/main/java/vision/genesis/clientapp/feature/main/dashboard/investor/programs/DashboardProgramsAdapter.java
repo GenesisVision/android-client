@@ -79,7 +79,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 	public void setProgramReinvest(UUID programId, Boolean reinvest) {
 		for (ProgramDetails program : programs) {
 			if (program.getId().equals(programId)) {
-				if (program.getPersonalDetails() != null && !program.getPersonalDetails().isIsFavorite().equals(reinvest)) {
+				if (program.getPersonalDetails() != null && !program.getPersonalDetails().isIsReinvest().equals(reinvest)) {
 					program.getPersonalDetails().setIsReinvest(reinvest);
 					notifyItemChanged(programs.indexOf(program));
 				}
@@ -184,7 +184,9 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		@OnClick(R.id.switch_reinvest)
 		public void onReinvestClicked() {
 			if (program != null) {
-				EventBus.getDefault().post(new OnDashboardReinvestClickedEvent(program.getId(), !program.getPersonalDetails().isIsReinvest()));
+				program.getPersonalDetails().setIsReinvest(!program.getPersonalDetails().isIsReinvest());
+//				updateData();
+				EventBus.getDefault().post(new OnDashboardReinvestClickedEvent(program.getId(), program.getPersonalDetails().isIsReinvest()));
 			}
 		}
 

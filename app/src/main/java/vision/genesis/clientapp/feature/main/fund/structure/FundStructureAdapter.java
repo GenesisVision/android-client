@@ -61,9 +61,8 @@ public class FundStructureAdapter extends RecyclerView.Adapter<FundStructureAdap
 		@BindView(R.id.target)
 		public TextView target;
 
-		@BindView(R.id.rebalancing)
-		public TextView rebalancing;
-
+		@BindView(R.id.current)
+		public TextView current;
 
 		private FundAssetInfo asset;
 
@@ -77,9 +76,9 @@ public class FundStructureAdapter extends RecyclerView.Adapter<FundStructureAdap
 			this.asset = asset;
 
 			icon.setImageURI(ImageUtils.getImageUri(asset.getIcon()));
-			name.setText(asset.getName());
-			target.setText(String.format(Locale.getDefault(), "%s %%", StringFormatUtil.formatAmount(asset.getTargetPercent(), 2, 2)));
-			rebalancing.setText(String.format(Locale.getDefault(), "%s %%", StringFormatUtil.formatAmount(asset.getCurrentPercent(), 2, 2)));
+			name.setText(asset.getAsset());
+			target.setText(String.format(Locale.getDefault(), "%s %%", StringFormatUtil.formatAmount(asset.getTarget(), 2, 2)));
+			current.setText(String.format(Locale.getDefault(), "%s %%", StringFormatUtil.formatAmount(asset.getCurrent(), 2, 2)));
 		}
 	}
 }

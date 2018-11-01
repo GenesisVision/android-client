@@ -28,17 +28,17 @@ public class FundAssetInfo
 	@SerializedName("asset")
 	private String asset = null;
 
-	@SerializedName("name")
-	private String name = null;
+	@SerializedName("symbol")
+	private String symbol = null;
 
 	@SerializedName("icon")
 	private String icon = null;
 
-	@SerializedName("targetPercent")
-	private Double targetPercent = null;
+	@SerializedName("target")
+	private Double target = null;
 
-	@SerializedName("currentPercent")
-	private Double currentPercent = null;
+	@SerializedName("current")
+	private Double current = null;
 
 	public FundAssetInfo asset(String asset) {
 		this.asset = asset;
@@ -59,23 +59,23 @@ public class FundAssetInfo
 		this.asset = asset;
 	}
 
-	public FundAssetInfo name(String name) {
-		this.name = name;
+	public FundAssetInfo symbol(String symbol) {
+		this.symbol = symbol;
 		return this;
 	}
 
 	/**
-	 * Get name
+	 * Get symbol
 	 *
-	 * @return name
+	 * @return symbol
 	 **/
 	@ApiModelProperty(value = "")
-	public String getName() {
-		return name;
+	public String getSymbol() {
+		return symbol;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
 	}
 
 	public FundAssetInfo icon(String icon) {
@@ -97,42 +97,42 @@ public class FundAssetInfo
 		this.icon = icon;
 	}
 
-	public FundAssetInfo targetPercent(Double targetPercent) {
-		this.targetPercent = targetPercent;
+	public FundAssetInfo target(Double target) {
+		this.target = target;
 		return this;
 	}
 
 	/**
-	 * Get targetPercent
+	 * Get target
 	 *
-	 * @return targetPercent
+	 * @return target
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getTargetPercent() {
-		return targetPercent;
+	public Double getTarget() {
+		return target;
 	}
 
-	public void setTargetPercent(Double targetPercent) {
-		this.targetPercent = targetPercent;
+	public void setTarget(Double target) {
+		this.target = target;
 	}
 
-	public FundAssetInfo currentPercent(Double currentPercent) {
-		this.currentPercent = currentPercent;
+	public FundAssetInfo current(Double current) {
+		this.current = current;
 		return this;
 	}
 
 	/**
-	 * Get currentPercent
+	 * Get current
 	 *
-	 * @return currentPercent
+	 * @return current
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getCurrentPercent() {
-		return currentPercent;
+	public Double getCurrent() {
+		return current;
 	}
 
-	public void setCurrentPercent(Double currentPercent) {
-		this.currentPercent = currentPercent;
+	public void setCurrent(Double current) {
+		this.current = current;
 	}
 
 
@@ -146,15 +146,15 @@ public class FundAssetInfo
 		}
 		FundAssetInfo fundAssetInfo = (FundAssetInfo) o;
 		return Objects.equals(this.asset, fundAssetInfo.asset) &&
-				Objects.equals(this.name, fundAssetInfo.name) &&
+				Objects.equals(this.symbol, fundAssetInfo.symbol) &&
 				Objects.equals(this.icon, fundAssetInfo.icon) &&
-				Objects.equals(this.targetPercent, fundAssetInfo.targetPercent) &&
-				Objects.equals(this.currentPercent, fundAssetInfo.currentPercent);
+				Objects.equals(this.target, fundAssetInfo.target) &&
+				Objects.equals(this.current, fundAssetInfo.current);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(asset, name, icon, targetPercent, currentPercent);
+		return Objects.hash(asset, symbol, icon, target, current);
 	}
 
 
@@ -164,10 +164,10 @@ public class FundAssetInfo
 		sb.append("class FundAssetInfo {\n");
 
 		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
-		sb.append("    name: ").append(toIndentedString(name)).append("\n");
+		sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
 		sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
-		sb.append("    targetPercent: ").append(toIndentedString(targetPercent)).append("\n");
-		sb.append("    currentPercent: ").append(toIndentedString(currentPercent)).append("\n");
+		sb.append("    target: ").append(toIndentedString(target)).append("\n");
+		sb.append("    current: ").append(toIndentedString(current)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

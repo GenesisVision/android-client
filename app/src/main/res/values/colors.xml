@@ -84,6 +84,24 @@
         <item>@color/asset9</item>
     </array>
 
+    <color name="level1">#373867</color>
+    <color name="level2">#4A5090</color>
+    <color name="level3">#5E6ABE</color>
+    <color name="level4">#6E81E2</color>
+    <color name="level5">#5094D1</color>
+    <color name="level6">#34A6C1</color>
+    <color name="level7">#15BBAF</color>
+
+    <array name="levelColors">
+        <item>@color/level1</item>
+        <item>@color/level2</item>
+        <item>@color/level3</item>
+        <item>@color/level4</item>
+        <item>@color/level5</item>
+        <item>@color/level6</item>
+        <item>@color/level7</item>
+    </array>
+
     <color name="balanceManagerColor">#214650</color>
     <color name="balanceInvestorsColor">#00BDAF</color>
     <color name="balanceProfitColor">#84D6D0</color>

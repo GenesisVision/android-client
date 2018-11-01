@@ -97,9 +97,20 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 		startActivity(browserIntent);
 	}
 
-	@OnCheckedChanged(R.id.checkbox_agree_terms_policy)
-	public void onAgreeTermsPolicyCheckedChanged(CompoundButton button, boolean checked) {
-		registrationPresenter.onAgreeTermsPolicyCheckedChanged(checked);
+	@OnClick(R.id.terms_conditions)
+	public void onTermsConditionsClicked() {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.term_conditions_address)));
+		startActivity(browserIntent);
+	}
+
+	@OnCheckedChanged(R.id.checkbox_accept_privacy_policy)
+	public void onAcceptPrivacyPolicyCheckedChanged(CompoundButton button, boolean checked) {
+		registrationPresenter.onAcceptPrivacyPolicyCheckedChanged(checked);
+	}
+
+	@OnCheckedChanged(R.id.checkbox_accept_terms_conditions)
+	public void onAcceptTermsConditionsCheckedChanged(CompoundButton button, boolean checked) {
+		registrationPresenter.onAcceptTermsConditionsCheckedChanged(checked);
 	}
 
 	@OnCheckedChanged(R.id.checkbox_confirm_not_us)

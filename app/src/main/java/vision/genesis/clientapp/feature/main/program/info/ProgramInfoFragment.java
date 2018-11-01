@@ -23,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.PersonalProgramDetailsFull;
 import io.swagger.client.model.ProfilePublic;
 import io.swagger.client.model.ProgramDetailsFull;
 import vision.genesis.clientapp.R;
@@ -279,30 +280,36 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 		periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds(), true, true);
 
-		if (programDetails.getPersonalProgramDetails() != null && programDetails.getPersonalProgramDetails().isIsInvested()) {
+		PersonalProgramDetailsFull personalDetails = programDetails.getPersonalProgramDetails();
+		if (personalDetails != null && personalDetails.isIsInvested()) {
 			yourInvestmentGroup.setVisibility(View.VISIBLE);
-			status.setStatus(programDetails.getPersonalProgramDetails().getStatus().getValue());
+			status.setStatus(personalDetails.getStatus().getValue());
 			invested.setText(String.format(Locale.getDefault(), "%s %s",
-					StringFormatUtil.formatAmount(programDetails.getPersonalProgramDetails().getInvested(), 0,
+					StringFormatUtil.formatAmount(personalDetails.getInvested(), 0,
 							StringFormatUtil.getCurrencyMaxFraction(programDetails.getCurrency().getValue())),
 					programDetails.getCurrency().getValue()));
 			value.setText(String.format(Locale.getDefault(), "%s %s",
-					StringFormatUtil.formatAmount(programDetails.getPersonalProgramDetails().getValue(), 0,
+					StringFormatUtil.formatAmount(personalDetails.getValue(), 0,
 							StringFormatUtil.getCurrencyMaxFraction(programDetails.getCurrency().getValue())),
 					programDetails.getCurrency().getValue()));
 			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(getProfitPercent(), 0, 4)));
 			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
-					programDetails.getPersonalProgramDetails().getValue() < programDetails.getPersonalProgramDetails().getInvested()
+					personalDetails.getValue() < personalDetails.getInvested()
 							? R.attr.colorRed
 							: R.attr.colorGreen));
 
-			reinvestSwitch.setChecked(programDetails.getPersonalProgramDetails().isIsReinvest());
+			reinvestSwitch.setChecked(personalDetails.isIsReinvest());
 		}
 		availableToInvest.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(programDetails.getAvailableInvestment()).toString()));
 		entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getEntryFee(), 0, 4)));
 		successFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getSuccessFee(), 0, 4)));
 
 		investButton.setEnabled(programDetails.getAvailableInvestment() > 0);
+
+		if (personalDetails != null) {
+			investButton.setEnabled(programDetails.getAvailableInvestment() > 0 && personalDetails.isCanInvest());
+			withdrawButton.setEnabled(personalDetails.isCanWithdraw());
+		}
 
 		investInfo.setText(String.format(Locale.getDefault(), getString(R.string.request_info_template), DateTimeUtil.formatShortDateTime(programDetails.getPeriodEnds())));
 	}

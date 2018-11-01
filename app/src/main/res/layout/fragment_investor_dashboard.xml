@@ -28,8 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
                 android:layout_centerInParent="true"
-                app:srcCompat="@drawable/icon_notifications"
-                android:tint="?attr/colorTextPrimary"/>
+                android:tint="?attr/colorTextPrimary"
+                app:srcCompat="@drawable/icon_notifications"/>
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/notifications_dot"
@@ -181,8 +181,8 @@
                                     android:layout_marginLeft="6dp"
                                     android:layout_marginStart="6dp"
                                     android:alpha="0.4"
-                                    app:srcCompat="@drawable/icon_arrow_right"
-                                    android:tint="?attr/colorTextPrimary"/>
+                                    android:tint="?attr/colorTextPrimary"
+                                    app:srcCompat="@drawable/icon_arrow_right"/>
 
                             </LinearLayout>
 
@@ -244,6 +244,17 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
+            <vision.genesis.clientapp.ui.DateRangeView
+                android:id="@+id/date_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="70dp"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
             <RelativeLayout
                 android:id="@+id/assets_bottomsheet"
                 android:layout_width="match_parent"
@@ -288,16 +299,6 @@
         </android.support.design.widget.CoordinatorLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
-
-    <vision.genesis.clientapp.ui.DateRangeView
-        android:id="@+id/date_range"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp"
-        android:visibility="gone"
-        tools:visibility="visible"/>
 
     <ProgressBar
         android:id="@+id/progress_bar"

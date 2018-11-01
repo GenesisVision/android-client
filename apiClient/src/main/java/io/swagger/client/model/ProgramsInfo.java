@@ -30,8 +30,17 @@ public class ProgramsInfo
 	@SerializedName("managerProgramInvestment")
 	private Double managerProgramInvestment = null;
 
+	@SerializedName("managerMaxEntryFee")
+	private Double managerMaxEntryFee = null;
+
+	@SerializedName("managerMaxSuccessFee")
+	private Double managerMaxSuccessFee = null;
+
 	@SerializedName("managerFundInvestment")
 	private Double managerFundInvestment = null;
+
+	@SerializedName("managerMaxExitFee")
+	private Double managerMaxExitFee = null;
 
 	@SerializedName("periods")
 	private List<Integer> periods = null;
@@ -55,6 +64,44 @@ public class ProgramsInfo
 		this.managerProgramInvestment = managerProgramInvestment;
 	}
 
+	public ProgramsInfo managerMaxEntryFee(Double managerMaxEntryFee) {
+		this.managerMaxEntryFee = managerMaxEntryFee;
+		return this;
+	}
+
+	/**
+	 * Get managerMaxEntryFee
+	 *
+	 * @return managerMaxEntryFee
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getManagerMaxEntryFee() {
+		return managerMaxEntryFee;
+	}
+
+	public void setManagerMaxEntryFee(Double managerMaxEntryFee) {
+		this.managerMaxEntryFee = managerMaxEntryFee;
+	}
+
+	public ProgramsInfo managerMaxSuccessFee(Double managerMaxSuccessFee) {
+		this.managerMaxSuccessFee = managerMaxSuccessFee;
+		return this;
+	}
+
+	/**
+	 * Get managerMaxSuccessFee
+	 *
+	 * @return managerMaxSuccessFee
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getManagerMaxSuccessFee() {
+		return managerMaxSuccessFee;
+	}
+
+	public void setManagerMaxSuccessFee(Double managerMaxSuccessFee) {
+		this.managerMaxSuccessFee = managerMaxSuccessFee;
+	}
+
 	public ProgramsInfo managerFundInvestment(Double managerFundInvestment) {
 		this.managerFundInvestment = managerFundInvestment;
 		return this;
@@ -72,6 +119,25 @@ public class ProgramsInfo
 
 	public void setManagerFundInvestment(Double managerFundInvestment) {
 		this.managerFundInvestment = managerFundInvestment;
+	}
+
+	public ProgramsInfo managerMaxExitFee(Double managerMaxExitFee) {
+		this.managerMaxExitFee = managerMaxExitFee;
+		return this;
+	}
+
+	/**
+	 * Get managerMaxExitFee
+	 *
+	 * @return managerMaxExitFee
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getManagerMaxExitFee() {
+		return managerMaxExitFee;
+	}
+
+	public void setManagerMaxExitFee(Double managerMaxExitFee) {
+		this.managerMaxExitFee = managerMaxExitFee;
 	}
 
 	public ProgramsInfo periods(List<Integer> periods) {
@@ -112,13 +178,16 @@ public class ProgramsInfo
 		}
 		ProgramsInfo programsInfo = (ProgramsInfo) o;
 		return Objects.equals(this.managerProgramInvestment, programsInfo.managerProgramInvestment) &&
+				Objects.equals(this.managerMaxEntryFee, programsInfo.managerMaxEntryFee) &&
+				Objects.equals(this.managerMaxSuccessFee, programsInfo.managerMaxSuccessFee) &&
 				Objects.equals(this.managerFundInvestment, programsInfo.managerFundInvestment) &&
+				Objects.equals(this.managerMaxExitFee, programsInfo.managerMaxExitFee) &&
 				Objects.equals(this.periods, programsInfo.periods);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(managerProgramInvestment, managerFundInvestment, periods);
+		return Objects.hash(managerProgramInvestment, managerMaxEntryFee, managerMaxSuccessFee, managerFundInvestment, managerMaxExitFee, periods);
 	}
 
 
@@ -128,7 +197,10 @@ public class ProgramsInfo
 		sb.append("class ProgramsInfo {\n");
 
 		sb.append("    managerProgramInvestment: ").append(toIndentedString(managerProgramInvestment)).append("\n");
+		sb.append("    managerMaxEntryFee: ").append(toIndentedString(managerMaxEntryFee)).append("\n");
+		sb.append("    managerMaxSuccessFee: ").append(toIndentedString(managerMaxSuccessFee)).append("\n");
 		sb.append("    managerFundInvestment: ").append(toIndentedString(managerFundInvestment)).append("\n");
+		sb.append("    managerMaxExitFee: ").append(toIndentedString(managerMaxExitFee)).append("\n");
 		sb.append("    periods: ").append(toIndentedString(periods)).append("\n");
 		sb.append("}");
 		return sb.toString();

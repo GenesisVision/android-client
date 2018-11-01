@@ -82,10 +82,10 @@
     <dimen name="verify_fingerprint_image_size">60dp</dimen>
     <dimen name="check_pin_fingerprint_image_size">70dp</dimen>
     <dimen name="portfolio_event_item_height">120dp</dimen>
-    <dimen name="dashboard_portfolio_events_height">200dp</dimen>
+    <dimen name="dashboard_portfolio_events_height">180dp</dimen>
     <dimen name="dashboard_portfolio_events_width">250dp</dimen>
 
-    <dimen name="dashboard_pager_header_height">400dp</dimen>
+    <dimen name="dashboard_pager_header_height">350dp</dimen>
     <dimen name="portfolio_chart_height">150dp</dimen>
     <dimen name="button_in_requests_size">24dp</dimen>
     <dimen name="bottomsheet_radius">16dp</dimen>

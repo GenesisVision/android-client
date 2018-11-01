@@ -90,6 +90,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@BindView(R.id.level)
 	public TextView level;
 
+	@BindView(R.id.level_color)
+	public ImageView levelColor;
+
 	@BindView(R.id.program_name)
 	public TextView programName;
 
@@ -269,7 +272,15 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		toolbarProgramLogo.setImage(model.getAvatar(), model.getProgramColor(), 50, 50);
 		toolbarProgramLogo.hideLevel();
 
-		level.setText(String.valueOf(model.getLevel()));
+		int level = model.getLevel();
+		if (level > 0) {
+			this.level.setText(String.valueOf(level));
+			int[] levelColors = getResources().getIntArray(R.array.levelColors);
+			if (level > levelColors.length) {
+				level = levelColors.length;
+			}
+			levelColor.setColorFilter(levelColors[level - 1]);
+		}
 
 		programName.setText(model.getProgramName());
 		toolbarProgramName.setText(model.getProgramName());

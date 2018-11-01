@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.FundDetailsFull;
+import io.swagger.client.model.PersonalFundDetailsFull;
 import io.swagger.client.model.ProfilePublic;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -185,11 +186,6 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 		strategyShadow.setVisibility(View.VISIBLE);
 	}
 
-	@OnClick(R.id.status)
-	public void onStatusClicked() {
-		fundInfoPresenter.onInvestClicked();
-	}
-
 	@OnClick(R.id.button_invest)
 	public void onInvestClicked() {
 		fundInfoPresenter.onInvestClicked();
@@ -261,20 +257,34 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 				strategyShadow.setVisibility(strategy.getHeight() < strategyMaxHeight ? View.INVISIBLE : View.VISIBLE);
 		}, 300);
 
-		if (fundDetails.getPersonalFundDetails() != null && fundDetails.getPersonalFundDetails().isIsInvested()) {
+		PersonalFundDetailsFull personalDetails = fundDetails.getPersonalFundDetails();
+		if (personalDetails != null && personalDetails.isIsInvested()) {
 			yourInvestmentGroup.setVisibility(View.VISIBLE);
-			status.setStatus(fundDetails.getPersonalFundDetails().getStatus().getValue());
+			status.setStatus(personalDetails.getStatus().getValue());
 //		invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(fundDetails.getPersonalProgramDetails().getInvested()).toString()));
-			invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(fundDetails.getPersonalFundDetails().getInvested(), CurrencyEnum.GVT.toString())));
-			value.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(fundDetails.getPersonalFundDetails().getValue(), CurrencyEnum.GVT.toString())));
-			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(fundDetails.getPersonalFundDetails().getProfit(), 0, 4)));
-			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(), fundDetails.getPersonalFundDetails().getProfit() < 0 ? R.attr.colorRed : R.attr.colorGreen));
+			invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(personalDetails.getInvested(), CurrencyEnum.GVT.toString())));
+			value.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(personalDetails.getValue(), CurrencyEnum.GVT.toString())));
+//			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(personalDetails.getProfit(), 0, 4)));
+			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(getProfitPercent(personalDetails), 0, 4)));
+			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(), personalDetails.getProfit() < 0 ? R.attr.colorRed : R.attr.colorGreen));
 		}
 
 		entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(fundDetails.getEntryFee(), 0, 4)));
 		exitFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(fundDetails.getExitFee(), 0, 4)));
 
+		if (personalDetails != null) {
+			investButton.setEnabled(personalDetails.isCanInvest());
+			withdrawButton.setEnabled(personalDetails.isCanWithdraw());
+		}
+
 //		investInfo.setText(String.format(Locale.getDefault(), getString(R.string.request_info_template), DateTimeUtil.formatShortDateTime(fundDetails.getPeriodEnds())));
+	}
+
+	private Double getProfitPercent(PersonalFundDetailsFull personalDetails) {
+		Double first = personalDetails.getInvested();
+		Double last = personalDetails.getValue();
+
+		return Math.abs(first != 0 ? 100 / first * (first - last) : 0);
 	}
 
 	@Override

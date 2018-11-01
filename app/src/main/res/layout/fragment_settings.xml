@@ -35,7 +35,7 @@
                     android:layout_height="24dp"
                     android:layout_alignBottom="@+id/avatar"
                     android:layout_alignEnd="@+id/avatar"
-                    android:layout_alignRight="@+id/avatar">
+                    android:visibility="invisible">
 
                     <ImageView
                         android:layout_width="match_parent"

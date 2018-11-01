@@ -18,47 +18,60 @@ public class PortfolioEvent
 	public static PortfolioEvent createFrom(DashboardPortfolioEvent dashboardEvent) {
 		PortfolioEvent event = new PortfolioEvent();
 
+		event.setAssetType(dashboardEvent.getAssetType());
 		event.setAssetId(dashboardEvent.getAssetId());
 
 		event.setLogoUrl(dashboardEvent.getLogo());
+		event.setAssetColor(dashboardEvent.getColor());
+		event.setAssetName(dashboardEvent.getTitle());
+		event.setProgramCurrency(dashboardEvent.getCurrency().getValue());
 
 		Integer actionResId = R.drawable.icon_arrow_green_down;
 		String text = "";
 		String title = dashboardEvent.getTitle();
+		int valueColorAttrId = R.attr.colorTextPrimary;
 
 		switch (dashboardEvent.getType()) {
 			case INVEST:
 				text = String.format(Locale.getDefault(), GenesisVisionApplication.INSTANCE.getString(R.string.event_invest_template), title);
-				actionResId = R.drawable.icon_arrow_green_down;
+				actionResId = R.drawable.icon_arrow_white_left;
+				valueColorAttrId = R.attr.colorTextPrimary;
 				break;
 			case WITHDRAW:
 				text = String.format(Locale.getDefault(), GenesisVisionApplication.INSTANCE.getString(R.string.event_withdraw_template), title);
-				actionResId = R.drawable.icon_arrow_red_up;
+				actionResId = R.drawable.icon_arrow_white_right;
+				valueColorAttrId = R.attr.colorTextPrimary;
 				break;
 			case PROFIT:
 				text = String.format(Locale.getDefault(), GenesisVisionApplication.INSTANCE.getString(R.string.event_period_ended_template), title);
-				actionResId = R.drawable.icon_arrow_red_up;
+				actionResId = R.drawable.icon_arrow_green_up;
+				valueColorAttrId = R.attr.colorGreen;
 				break;
 			case LOSS:
 				text = String.format(Locale.getDefault(), GenesisVisionApplication.INSTANCE.getString(R.string.event_period_ended_template), title);
-				actionResId = R.drawable.icon_arrow_red_up;
+				actionResId = R.drawable.icon_arrow_red_down;
+				valueColorAttrId = R.attr.colorRed;
 				break;
 			case REINVEST:
 				text = String.format(Locale.getDefault(), GenesisVisionApplication.INSTANCE.getString(R.string.event_period_ended_template), title);
 				actionResId = R.drawable.icon_reinvest;
+				valueColorAttrId = R.attr.colorAccent;
 				break;
 			case CANCELLED:
 				text = String.format(Locale.getDefault(), GenesisVisionApplication.INSTANCE.getString(R.string.event_request_canceled_template), title);
-				actionResId = R.drawable.icon_arrow_red_up;
+				actionResId = R.drawable.icon_request_cancelled;
+				valueColorAttrId = R.attr.colorRed;
 				break;
 			case ENDED:
 				text = String.format(Locale.getDefault(), GenesisVisionApplication.INSTANCE.getString(R.string.event_closed_template), title);
-				actionResId = R.drawable.icon_arrow_red_up;
+				actionResId = R.drawable.icon_program_closed;
+				valueColorAttrId = R.attr.colorTextPrimary;
 				break;
 			default:
 				break;
 		}
 
+		event.setValueColorResId(valueColorAttrId);
 		event.setActionResId(actionResId);
 //		event.setText(text);
 		event.setText(dashboardEvent.getDescription());
@@ -86,6 +99,16 @@ public class PortfolioEvent
 	private String value;
 
 	private Boolean isValueNegative;
+
+	private String assetColor;
+
+	private String assetName;
+
+	private String programCurrency;
+
+	private DashboardPortfolioEvent.AssetTypeEnum assetType;
+
+	private int valueColorResId;
 
 	public UUID getAssetId() {
 		return assetId;
@@ -149,5 +172,45 @@ public class PortfolioEvent
 
 	public void setDateTime(String dateTime) {
 		this.dateTime = dateTime;
+	}
+
+	public String getAssetColor() {
+		return assetColor;
+	}
+
+	public void setAssetColor(String assetColor) {
+		this.assetColor = assetColor;
+	}
+
+	public String getAssetName() {
+		return assetName;
+	}
+
+	public void setAssetName(String assetName) {
+		this.assetName = assetName;
+	}
+
+	public String getProgramCurrency() {
+		return programCurrency;
+	}
+
+	public void setProgramCurrency(String programCurrency) {
+		this.programCurrency = programCurrency;
+	}
+
+	public DashboardPortfolioEvent.AssetTypeEnum getAssetType() {
+		return assetType;
+	}
+
+	public void setAssetType(DashboardPortfolioEvent.AssetTypeEnum assetType) {
+		this.assetType = assetType;
+	}
+
+	public int getValueColorResId() {
+		return valueColorResId;
+	}
+
+	public void setValueColorResId(int valueColorResId) {
+		this.valueColorResId = valueColorResId;
 	}
 }

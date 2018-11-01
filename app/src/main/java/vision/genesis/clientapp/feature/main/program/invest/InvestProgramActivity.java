@@ -55,6 +55,9 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	@BindView(R.id.available_to_invest)
 	public TextView availableToInvest;
 
+	@BindView(R.id.amount_to_invest_label)
+	public TextView amountToInvestLabel;
+
 	@BindView(R.id.edittext_amount)
 	public EditText amount;
 
@@ -143,6 +146,13 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	public void setAvailableToInvest(Double availableToInvest) {
 		this.availableToInvest.setText(String.format(Locale.getDefault(), "%s GVT",
 				StringFormatUtil.formatCurrencyAmount(availableToInvest, CurrencyEnum.GVT.toString())));
+	}
+
+	@Override
+	public void setMinInvestmentAmount(Double minInvestmentAmount) {
+		amountToInvestLabel.setText(String.format(Locale.getDefault(), "%s (min %s)",
+				getString(R.string.amount_to_invest),
+				StringFormatUtil.formatAmount(minInvestmentAmount, 0, 6)));
 	}
 
 	@Override

@@ -13,6 +13,8 @@ interface InvestProgramView extends MvpView
 {
 	void setAvailableToInvest(Double availableToInvest);
 
+	void setMinInvestmentAmount(Double minInvestmentAmount);
+
 	void setAmount(String amountText);
 
 	void setAmountBase(String amountBaseString);

@@ -140,11 +140,11 @@
                     android:layout_marginTop="16dp">
 
                     <CheckBox
-                        android:id="@+id/checkbox_agree_terms_policy"
+                        android:id="@+id/checkbox_accept_privacy_policy"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/login_field_height"
                         android:gravity="center_vertical"
-                        android:text="@string/i_agree_to_the"
+                        android:text="@string/i_accept_the"
                         android:textColor="?attr/colorTextPrimary"/>
 
                     <TextView
@@ -153,10 +153,34 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="4dp"
                         android:layout_marginStart="4dp"
-                        android:layout_toEndOf="@+id/checkbox_agree_terms_policy"
-                        android:layout_toRightOf="@+id/checkbox_agree_terms_policy"
+                        android:layout_toEndOf="@+id/checkbox_accept_privacy_policy"
                         android:gravity="center_vertical"
                         android:text="@string/privacy_policy"
+                        android:textColor="?attr/colorAccent"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/login_field_height"
+                    android:layout_marginTop="16dp">
+
+                    <CheckBox
+                        android:id="@+id/checkbox_accept_terms_conditions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/login_field_height"
+                        android:gravity="center_vertical"
+                        android:text="@string/i_accept_the"
+                        android:textColor="?attr/colorTextPrimary"/>
+
+                    <TextView
+                        android:id="@+id/terms_and_conditions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="4dp"
+                        android:layout_toEndOf="@+id/checkbox_accept_terms_conditions"
+                        android:gravity="center_vertical"
+                        android:text="@string/terms_and_conditions"
                         android:textColor="?attr/colorAccent"/>
 
                 </RelativeLayout>

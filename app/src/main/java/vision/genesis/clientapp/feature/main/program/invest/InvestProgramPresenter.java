@@ -105,9 +105,8 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 			getViewState().setEntryFee(getEntryFeeString());
 			getViewState().setGvCommission(getGvCommissionString());
 			getViewState().setInvestmentAmount(getInvestmentAmountString());
-			getViewState().setContinueButtonEnabled(amount > 0
-					&& amount <= availableToInvest
-					&& investmentAmount <= investInfo.getAvailableInWallet());
+			getViewState().setContinueButtonEnabled(amount >= investInfo.getMinInvestmentAmount()
+					&& amount <= availableToInvest);
 		}
 	}
 
@@ -189,13 +188,17 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 		investInfo = response;
 
-		double maxAmount = investInfo.getAvailableInWallet() / (1 + investInfo.getEntryFee() / 100);
-		availableToInvest = investInfo.getAvailableToInvest() < maxAmount
+//		double maxAmount = investInfo.getAvailableInWallet() / (1 + investInfo.getEntryFee() / 100);
+//		availableToInvest = investInfo.getAvailableToInvest() < maxAmount
+//				? investInfo.getAvailableToInvest()
+//				: maxAmount;
+		availableToInvest = investInfo.getAvailableToInvest() < investInfo.getAvailableInWallet()
 				? investInfo.getAvailableToInvest()
-				: maxAmount;
+				: investInfo.getAvailableInWallet();
 
 		getViewState().showProgress(false);
 		getViewState().setAvailableToInvest(availableToInvest);
+		getViewState().setMinInvestmentAmount(investInfo.getMinInvestmentAmount());
 		onAmountChanged("0");
 	}
 

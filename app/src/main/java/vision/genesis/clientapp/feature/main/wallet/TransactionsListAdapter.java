@@ -12,11 +12,13 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -100,6 +102,7 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 		private void setType() {
 			Integer actionResId = R.drawable.icon_arrow_green_down;
 			String text = "";
+			boolean isValueNegative = false;
 
 			switch (transaction.getAction()) {
 
@@ -135,10 +138,12 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 					if (transaction.getSourceType().equals(WalletTransaction.SourceTypeEnum.WALLET)) {
 						text = itemView.getContext().getResources().getString(R.string.transaction_type_withdraw);
 						actionResId = R.drawable.icon_arrow_red_up;
+						isValueNegative = true;
 					}
 					else if (transaction.getDestinationType().equals(WalletTransaction.DestinationTypeEnum.WALLET)) {
 						text = itemView.getContext().getResources().getString(R.string.transaction_type_deposit);
 						actionResId = R.drawable.icon_arrow_green_down;
+						isValueNegative = false;
 					}
 					break;
 				case PROGRAMOPEN:
@@ -146,48 +151,57 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 //							itemView.getContext().getResources().getString(R.string.transaction_opening_template),
 //							transaction.getDestinationProgramInfo().getTitle());
 					actionResId = R.drawable.icon_arrow_red_up;
+					isValueNegative = true;
 					break;
 				case PROGRAMPROFIT:
 //					text = String.format(Locale.getDefault(),
 //							itemView.getContext().getResources().getString(R.string.transaction_profit_template),
 //							transaction.getDestinationTitle());
 					actionResId = R.drawable.icon_arrow_green_down;
+					isValueNegative = false;
 					break;
 				case PROGRAMINVEST:
 					text = itemView.getContext().getResources().getString(R.string.transaction_type_invest_to_program);
 					actionResId = R.drawable.icon_arrow_red_up;
+					isValueNegative = true;
 					break;
 				case PROGRAMWITHDRAWAL:
 					text = itemView.getContext().getResources().getString(R.string.transaction_type_withdraw_from_program);
 					actionResId = R.drawable.icon_arrow_green_down;
+					isValueNegative = false;
 					break;
 				case PROGRAMREFUNDPARTIALEXECUTION:
 					text = itemView.getContext().getResources().getString(R.string.partial_investment_execution_refund);
 					actionResId = R.drawable.icon_arrow_green_down;
+					isValueNegative = false;
 					break;
 				case PROGRAMREFUNDCLOSE:
 //					text = String.format(Locale.getDefault(),
 //							itemView.getContext().getResources().getString(R.string.transaction_refund_template),
 //							transaction.getSourceTitle());
 					actionResId = R.drawable.icon_arrow_green_down;
+					isValueNegative = false;
 					break;
 				case PROGRAMREQUESTINVEST:
 //					text = String.format(Locale.getDefault(),
 //							itemView.getContext().getResources().getString(R.string.transaction_invest_template),
 //							transaction.getDestinationTitle());
 					actionResId = R.drawable.icon_arrow_red_up;
+					isValueNegative = true;
 					break;
 				case PROGRAMREQUESTWITHDRAWAL:
 //					text = String.format(Locale.getDefault(),
 //							itemView.getContext().getResources().getString(R.string.transaction_withdrawal_template),
 //							transaction.getDestinationTitle());
 					actionResId = R.drawable.icon_arrow_green_down;
+					isValueNegative = false;
 					break;
 				case PROGRAMREQUESTCANCEL:
 //					text = String.format(Locale.getDefault(),
 //							itemView.getContext().getResources().getString(R.string.transaction_request_cancelled_template),
 //							transaction.getSourceTitle());
 					actionResId = R.drawable.icon_arrow_green_down;
+					isValueNegative = false;
 					break;
 			}
 
@@ -196,7 +210,13 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 			this.action.getHierarchy().setPlaceholderImage(AppCompatResources.getDrawable(itemView.getContext(), actionResId));
 
 			this.time.setText(DateTimeUtil.formatShortTime(transaction.getDate()));
-			this.value.setText(StringFormatUtil.getGvtValueString(transaction.getAmount()));
+
+			Double amount = transaction.getSourceCurrency().getValue().equals(CurrencyEnum.GVT.getValue())
+					? transaction.getAmount()
+					: transaction.getAmountConverted();
+			this.value.setText(String.format(Locale.getDefault(), "%s%s",
+					isValueNegative ? "-" : "+",
+					StringFormatUtil.getGvtValueString(amount)));
 //			this.value.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
 //					transaction.getAmount() >= 0
 //							? R.attr.colorGreen

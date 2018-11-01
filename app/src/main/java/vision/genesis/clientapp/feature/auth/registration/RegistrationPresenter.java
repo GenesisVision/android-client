@@ -36,7 +36,9 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 
 	private Subscription registrationSubscription;
 
-	private boolean termsPolicyAccepted;
+	private boolean privacyPolicyAccepted;
+
+	private boolean termsConditionsAccepted;
 
 	private boolean notUsResidentChecked;
 
@@ -55,8 +57,13 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 		super.onDestroy();
 	}
 
-	void onAgreeTermsPolicyCheckedChanged(boolean checked) {
-		termsPolicyAccepted = checked;
+	void onAcceptPrivacyPolicyCheckedChanged(boolean checked) {
+		privacyPolicyAccepted = checked;
+		updateSignUpButtonEnabled();
+	}
+
+	void onAcceptTermsConditionsCheckedChanged(boolean checked) {
+		termsConditionsAccepted = checked;
 		updateSignUpButtonEnabled();
 	}
 
@@ -66,7 +73,7 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 	}
 
 	private void updateSignUpButtonEnabled() {
-		getViewState().setSignUpButtonEnabled(termsPolicyAccepted && notUsResidentChecked);
+		getViewState().setSignUpButtonEnabled(privacyPolicyAccepted && termsConditionsAccepted && notUsResidentChecked);
 	}
 
 	void onSignInClicked() {
@@ -75,15 +82,17 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 
 	//	void onSignUpClicked(String userName, String email, String password, String confirmPassword) {
 	void onSignUpClicked(String email, String password, String confirmPassword) {
-		getViewState().clearErrors();
-		getViewState().showProgress(true);
+		if (privacyPolicyAccepted && termsConditionsAccepted && notUsResidentChecked) {
+			getViewState().clearErrors();
+			getViewState().showProgress(true);
 
 //		registrationSubscription = getRegisterObservable(userName, email, password, confirmPassword)
-		registrationSubscription = getRegisterObservable(null, email, password, confirmPassword)
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::onRegisterResponse,
-						this::onRegisterError);
+			registrationSubscription = getRegisterObservable(null, email, password, confirmPassword)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::onRegisterResponse,
+							this::onRegisterError);
+		}
 	}
 
 	private Observable<Void> getRegisterObservable(String userName, String email, String password, String confirmPassword) {

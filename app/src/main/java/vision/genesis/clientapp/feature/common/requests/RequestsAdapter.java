@@ -1,5 +1,7 @@
 package vision.genesis.clientapp.feature.common.requests;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
+import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -103,6 +106,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 			ButterKnife.bind(this, itemView);
 
 			cancelText.setTypeface(TypefaceUtil.semibold());
+			value.setTypeface(TypefaceUtil.semibold());
 
 			swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
 
@@ -110,12 +114,11 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 				if (request != null) {
 					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(request.getProgramId(),
 							request.getLogo(),
-//							request.getColor(),
-							"#00FF00",
+							request.getColor(),
 							0,
 							request.getTitle(),
 							"",
-							"",
+							request.getCurrency().getValue(),
 							false,
 							false);
 					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programDetailsModel));
@@ -125,7 +128,8 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 
 		@OnClick(R.id.button_cancel)
 		public void onCancelClicked() {
-			EventBus.getDefault().post(new OnCancelRequestClickedEvent(request.getId()));
+			if (request.isCanCancelRequest())
+				EventBus.getDefault().post(new OnCancelRequestClickedEvent(request.getId()));
 		}
 
 		void setRequest(ProgramRequest request) {
@@ -140,15 +144,23 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 					StringFormatUtil.formatCurrencyAmount(request.getValue(), request.getCurrency().getValue()), request.getCurrency().getValue()));
 			this.date.setText(DateTimeUtil.formatRequestDate(request.getDate()));
 
-			this.subject.setImageURI(ImageUtils.getImageUri(request.getLogo()));
+			if (request.getLogo() == null || request.getLogo().isEmpty()) {
+				GenericDraweeHierarchy hierarchy = subject.getHierarchy();
+				hierarchy.setBackgroundImage(new ColorDrawable(Color.parseColor(request.getColor())));
+				subject.setHierarchy(hierarchy);
+				subject.setImageURI("");
+			}
+			else {
+				subject.setImageURI(ImageUtils.getImageUri(request.getLogo()));
+			}
 
 			int actionResId = 0;
 			switch (request.getType()) {
 				case INVEST:
-					actionResId = R.drawable.icon_arrow_green_down;
+					actionResId = R.drawable.icon_arrow_white_left;
 					break;
 				case WITHDRAWAL:
-					actionResId = R.drawable.icon_arrow_red_up;
+					actionResId = R.drawable.icon_arrow_white_right;
 					break;
 			}
 			this.action.getHierarchy().setPlaceholderImage(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, actionResId));
