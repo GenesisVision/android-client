@@ -78,17 +78,24 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 		initRecyclerView();
 	}
 
+//	@Override
+//	public void onDestroyView() {
+//		if (recyclerView != null)
+//			recyclerView.setAdapter(null);
+//
+//		if (unbinder != null) {
+//			unbinder.unbind();
+//			unbinder = null;
+//		}
+//
+//		super.onDestroyView();
+//	}
+
 	@Override
-	public void onDestroyView() {
-		if (recyclerView != null)
-			recyclerView.setAdapter(null);
+	public void onResume() {
+		super.onResume();
 
-		if (unbinder != null) {
-			unbinder.unbind();
-			unbinder = null;
-		}
-
-		super.onDestroyView();
+		dashboardProgramsPresenter.onShow();
 	}
 
 	private void initRecyclerView() {

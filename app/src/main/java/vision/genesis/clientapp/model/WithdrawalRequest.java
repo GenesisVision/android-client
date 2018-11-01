@@ -34,6 +34,8 @@ public class WithdrawalRequest implements Parcelable
 
 	private String feeAmountText;
 
+	private String tfaCode;
+
 	public WithdrawalRequest() {
 
 	}
@@ -50,6 +52,7 @@ public class WithdrawalRequest implements Parcelable
 		amountText = in.readString();
 		estimatedAmountText = in.readString();
 		feeAmountText = in.readString();
+		tfaCode = in.readString();
 	}
 
 	public Double getAmount() {
@@ -119,5 +122,14 @@ public class WithdrawalRequest implements Parcelable
 		dest.writeString(amountText);
 		dest.writeString(estimatedAmountText);
 		dest.writeString(feeAmountText);
+		dest.writeString(tfaCode);
+	}
+
+	public String getTfaCode() {
+		return tfaCode;
+	}
+
+	public void setTfaCode(String tfaCode) {
+		this.tfaCode = tfaCode;
 	}
 }

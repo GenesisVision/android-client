@@ -75,6 +75,7 @@ public class WalletManager
 		requestModel.setAmount(request.getAmount());
 		requestModel.setCurrency(CreateWithdrawalRequestModel.CurrencyEnum.fromValue(request.getCurrency()));
 		requestModel.setAddress(request.getAddress());
+		requestModel.setTwoFactorCode(request.getTfaCode());
 		return walletApi.v10WalletWithdrawRequestNewPost(AuthManager.token.getValue(), requestModel);
 	}
 

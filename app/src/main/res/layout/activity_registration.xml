@@ -63,7 +63,6 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/group_bottom"
             android:layout_centerInParent="true"
             android:scrollbars="none">
 
@@ -80,7 +79,7 @@
                     android:layout_width="@dimen/login_logo_width"
                     android:layout_height="@dimen/login_logo_height"
                     android:layout_gravity="center_horizontal"
-                    android:scaleType="centerInside"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/logo_green_white"/>
 
                 <android.support.design.widget.TextInputLayout
@@ -162,8 +161,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/login_field_height"
-                    android:layout_marginTop="16dp">
+                    android:layout_height="@dimen/login_field_height">
 
                     <CheckBox
                         android:id="@+id/checkbox_accept_terms_conditions"
@@ -174,7 +172,7 @@
                         android:textColor="?attr/colorTextPrimary"/>
 
                     <TextView
-                        android:id="@+id/terms_and_conditions"
+                        android:id="@+id/terms_conditions"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="4dp"
@@ -193,43 +191,43 @@
                     android:text="@string/i_confirm_i_am_not_us_resident_or_citizen"
                     android:textColor="?attr/colorTextPrimary"/>
 
+                <RelativeLayout
+                    android:id="@+id/group_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    tools:visibility="visible">
+
+                    <vision.genesis.clientapp.ui.PrimaryButton
+                        android:id="@+id/button_sign_up"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/button_height"
+                        android:background="@drawable/button_primary"
+                        android:enabled="false"
+                        android:text="@string/sign_up"/>
+
+                    <FrameLayout
+                        android:id="@+id/group_progressbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/button_height"
+                        android:visibility="gone">
+
+                        <ProgressBar
+                            android:id="@+id/progress_bar"
+                            style="?android:attr/progressBarStyleLarge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"/>
+
+                    </FrameLayout>
+
+                </RelativeLayout>
+
             </LinearLayout>
 
         </ScrollView>
-
-        <RelativeLayout
-            android:id="@+id/group_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="center_horizontal"
-            android:padding="@dimen/sign_in_padding"
-            tools:visibility="visible">
-
-            <vision.genesis.clientapp.ui.PrimaryButton
-                android:id="@+id/button_sign_up"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/button_height"
-                android:background="@drawable/button_primary"
-                android:enabled="false"
-                android:text="@string/sign_up"/>
-
-            <FrameLayout
-                android:id="@+id/group_progressbar"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/button_height"
-                android:visibility="gone">
-
-                <ProgressBar
-                    android:id="@+id/progress_bar"
-                    style="?android:attr/progressBarStyleLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"/>
-
-            </FrameLayout>
-
-        </RelativeLayout>
 
     </RelativeLayout>
 

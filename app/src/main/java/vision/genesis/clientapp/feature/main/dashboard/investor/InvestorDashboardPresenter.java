@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import io.swagger.client.model.AssetsValue;
 import io.swagger.client.model.DashboardPortfolioEvent;
 import io.swagger.client.model.DashboardSummary;
+import io.swagger.client.model.OtherAssetsValue;
 import io.swagger.client.model.ProgramRequest;
 import io.swagger.client.model.ValueChartBar;
 import rx.Subscription;
@@ -180,6 +181,25 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 				if (++colorIndex == colors.length)
 					colorIndex = 0;
+			}
+			OtherAssetsValue other = valueChartBar.getOtherAssetsValue();
+			if (other != null) {
+				PortfolioAssetData portfolioAssetData = new PortfolioAssetData(
+						colors[colorIndex],
+						context.getString(R.string.other),
+						String.format(Locale.getDefault(), "%s GVT",
+								StringFormatUtil.formatAmount(other.getValue(),
+										0, StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()))),
+						other.getChangePercent() == null
+								? "-"
+								: String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(Math.abs(other.getChangePercent()), 0, 2)),
+						other.getChangePercent() != null
+								? other.getChangePercent() < 0 ? colorRed : colorGreen
+								: colorGreen,
+						String.format(Locale.getDefault(), "%s%s GVT", other.getChangeValue() > 0 ? "+" : "",
+								StringFormatUtil.formatAmount(other.getChangeValue(),
+										0, StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()))));
+				portfolioAssetDataList.add(portfolioAssetData);
 			}
 			portfolioAssetsDataList.add(portfolioAssetDataList);
 		}

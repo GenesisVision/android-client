@@ -537,5 +537,6 @@
     <string name="fund_structure_changing">Fund structure changing</string>
     <string name="program_invest_warning_template">After tapping the "Confirm" button, the invested GVT will be immediately converted to %s. Accrual of %s to the account manager will only occur at the end of the reporting period.</string>
     <string name="program_withdraw_warning">Your request will be processed at the end of the reporting period. The requested amount will be converted to GVT and transferred to your wallet.</string>
+    <string name="other">Other</string>
 
 </resources>

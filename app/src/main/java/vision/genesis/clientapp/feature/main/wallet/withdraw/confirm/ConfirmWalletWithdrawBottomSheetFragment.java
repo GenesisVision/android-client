@@ -12,6 +12,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -22,9 +25,18 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.two_factor.check.CheckTfaActivity;
+import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.WalletManager;
+import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.WithdrawalRequest;
+import vision.genesis.clientapp.model.api.Error;
+import vision.genesis.clientapp.model.api.ErrorResponse;
+import vision.genesis.clientapp.model.events.OnCheckTfaConfirmClickedEvent;
+import vision.genesis.clientapp.model.events.OnCheckTfaErrorEvent;
+import vision.genesis.clientapp.model.events.OnCheckTfaSuccessEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.net.ErrorResponseConverter;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -39,6 +51,9 @@ public class ConfirmWalletWithdrawBottomSheetFragment extends BottomSheetDialogF
 	{
 		void onWithdrawSucceeded();
 	}
+
+	@Inject
+	public AuthManager authManager;
 
 	@Inject
 	public WalletManager walletManager;
@@ -71,11 +86,23 @@ public class ConfirmWalletWithdrawBottomSheetFragment extends BottomSheetDialogF
 
 	private WithdrawalRequest withdrawalRequest;
 
+	private Subscription userSubscription;
+
 	private Subscription withdrawSubscription;
+
+	private boolean tfaEnabled;
+
+	private Boolean twoFactorEnabled = false;
 
 	@OnClick(R.id.button_confirm)
 	public void onConfirmClicked() {
-		sendWithdrawRequest();
+		if (twoFactorEnabled) {
+			if (getActivity() != null)
+				CheckTfaActivity.startWith(getActivity(), "");
+		}
+		else {
+			sendWithdrawRequest();
+		}
 	}
 
 	@OnClick(R.id.button_cancel)
@@ -103,18 +130,26 @@ public class ConfirmWalletWithdrawBottomSheetFragment extends BottomSheetDialogF
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		EventBus.getDefault().register(this);
+
 		setFonts();
 
 		cancelButton.setEmpty();
 		cancelButton.setTextColorByAttrId(R.attr.colorCard);
 
 		updateView();
+
+		subscribeToUser();
 	}
 
 	@Override
 	public void onDestroyView() {
+		if (userSubscription != null)
+			userSubscription.unsubscribe();
 		if (withdrawSubscription != null)
 			withdrawSubscription.unsubscribe();
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroyView();
 	}
@@ -152,6 +187,17 @@ public class ConfirmWalletWithdrawBottomSheetFragment extends BottomSheetDialogF
 		}
 	}
 
+	private void subscribeToUser() {
+		userSubscription = authManager.userSubject
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.newThread())
+				.subscribe(this::userUpdated);
+	}
+
+	private void userUpdated(User user) {
+		this.twoFactorEnabled = user.getTwoFactorStatus();
+	}
+
 	private void sendWithdrawRequest() {
 		if (withdrawalRequest != null && walletManager != null) {
 			showProgress(true);
@@ -166,6 +212,9 @@ public class ConfirmWalletWithdrawBottomSheetFragment extends BottomSheetDialogF
 	private void handleWithdrawSuccess(Void response) {
 		withdrawSubscription.unsubscribe();
 
+		if (tfaEnabled)
+			EventBus.getDefault().post(new OnCheckTfaSuccessEvent());
+
 		if (listener != null) {
 			listener.onWithdrawSucceeded();
 			this.dismiss();
@@ -176,7 +225,26 @@ public class ConfirmWalletWithdrawBottomSheetFragment extends BottomSheetDialogF
 		withdrawSubscription.unsubscribe();
 		showProgress(false);
 
-		ApiErrorResolver.resolveErrors(throwable, this::showToast);
+		if (ApiErrorResolver.isNetworkError(throwable)) {
+			if (tfaEnabled)
+				EventBus.getDefault().post(new OnCheckTfaErrorEvent(getContext().getResources().getString(R.string.network_error)));
+			else
+				showToast(getContext().getResources().getString(R.string.network_error));
+		}
+		else {
+			ErrorResponse response = ErrorResponseConverter.createFromThrowable(throwable);
+			if (response != null) {
+				for (Error error : response.errors) {
+					if (error.property == null || error.property.isEmpty()) {
+						if (tfaEnabled)
+							EventBus.getDefault().post(new OnCheckTfaErrorEvent(error.message));
+						else
+							showToast(error.message);
+					}
+				}
+			}
+			tfaEnabled = false;
+		}
 	}
 
 	private void showProgress(boolean show) {
@@ -186,5 +254,13 @@ public class ConfirmWalletWithdrawBottomSheetFragment extends BottomSheetDialogF
 
 	private void showToast(String message) {
 		Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+	}
+
+
+	@Subscribe
+	public void onEventMainThread(OnCheckTfaConfirmClickedEvent event) {
+		tfaEnabled = true;
+		withdrawalRequest.setTfaCode(event.getCode());
+		sendWithdrawRequest();
 	}
 }

@@ -103,7 +103,7 @@ public class DisableTfaActivity extends BaseSwipeBackActivity implements Disable
 
 	private void setFonts() {
 		title.setTypeface(TypefaceUtil.semibold());
-		passwordInputLayout.setTypeface(TypefaceUtil.semibold());
+		passwordInputLayout.setTypeface(TypefaceUtil.regular());
 	}
 
 	@Override

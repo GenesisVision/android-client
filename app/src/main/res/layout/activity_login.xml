@@ -81,7 +81,7 @@
                     android:layout_width="@dimen/login_logo_width"
                     android:layout_height="@dimen/login_logo_height"
                     android:layout_gravity="center_horizontal"
-                    android:scaleType="centerInside"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/logo_green_white"/>
 
                 <android.support.design.widget.TextInputLayout
