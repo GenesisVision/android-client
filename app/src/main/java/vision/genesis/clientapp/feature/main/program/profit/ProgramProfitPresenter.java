@@ -3,6 +3,7 @@ package vision.genesis.clientapp.feature.main.program.profit;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.Locale;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -116,23 +117,23 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 		if (first == null || selected == null)
 			return;
 
-//		getViewState().setAmount(StringFormatUtil.getGvtValueString(chartData.getTotalGvtProfit()), StringFormatUtil.getBaseValueString(chartData.getTotalProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
+		getViewState().setAmount(StringFormatUtil.getGvtValueString(chartData.getTotalGvtProfit()), StringFormatUtil.getBaseValueString(chartData.getTotalProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
 		//TODO: getBaseValueString(selected * rate
-		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getBaseValueString(selected, chartData.getProgramCurrency().getValue()));
+//		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getBaseValueString(selected, chartData.getProgramCurrency().getValue()));
 //		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getBaseValueString(selected * 7, baseCurrency.getValue()));
 
 		Double changeValue = selected - first;
 //		getViewState().setChange(changeValue < 0, StringFormatUtil.getChangePercentString(first, selected),
 //				StringFormatUtil.getChangeValueString(changeValue), StringFormatUtil.getBaseValueString(changeValue * chartData.get(), baseCurrency.getValue()));
-//		getViewState().setChange(chartData.getProfitChangePercent() != null && chartData.getProfitChangePercent() < 0,
-//				chartData.getProfitChangePercent() == null ? "∞" : String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(chartData.getProfitChangePercent(), 0, 2)),
-//				StringFormatUtil.getChangeValueString(chartData.getTimeframeGvtProfit()),
-//				StringFormatUtil.getBaseValueString(chartData.getTimeframeProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
+		getViewState().setChange(chartData.getProfitChangePercent() != null && chartData.getProfitChangePercent() < 0,
+				chartData.getProfitChangePercent() == null ? "∞" : String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(chartData.getProfitChangePercent(), 0, 2)),
+				StringFormatUtil.getChangeValueString(chartData.getTimeframeGvtProfit()),
+				StringFormatUtil.getBaseValueString(chartData.getTimeframeProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
 		//TODO: getBaseValueString(changeValue * rate
-		getViewState().setChange(changeValue < 0,
-				StringFormatUtil.getChangePercentString(first, selected),
-				StringFormatUtil.getChangeValueString(changeValue),
-				StringFormatUtil.getBaseValueString(changeValue, chartData.getProgramCurrency().getValue()));
+//		getViewState().setChange(changeValue < 0,
+//				StringFormatUtil.getChangePercentString(first, selected),
+//				StringFormatUtil.getChangeValueString(changeValue),
+//				StringFormatUtil.getBaseValueString(changeValue, chartData.getProgramCurrency().getValue()));
 
 		getViewState().setStatisticsData(chartData.getTrades(), chartData.getSuccessTradesPercent(),
 				chartData.getProfitFactor(), chartData.getSharpeRatio(), chartData.getSortinoRatio(),

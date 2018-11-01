@@ -119,9 +119,9 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 		if (first == null || selected == null)
 			return;
 
-//		getViewState().setAmount(StringFormatUtil.getGvtValueString(chartData.getTotalGvtProfit()), StringFormatUtil.getBaseValueString(chartData.getTotalProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
+		getViewState().setAmount(StringFormatUtil.getGvtValueString(chartData.getGvtBalance()), StringFormatUtil.getBaseValueString(chartData.getProgramCurrencyBalance(), chartData.getProgramCurrency().getValue()));
 		//TODO: getBaseValueString(selected * rate
-		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getBaseValueString(selected, chartData.getProgramCurrency().getValue()));
+//		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getBaseValueString(selected, chartData.getProgramCurrency().getValue()));
 //		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getBaseValueString(selected * 7, baseCurrency.getValue()));
 
 		Double changeValue = selected - first;
@@ -132,10 +132,10 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 //				StringFormatUtil.getChangeValueString(chartData.getTimeframeGvtProfit()),
 //				StringFormatUtil.getBaseValueString(chartData.getTimeframeProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
 		//TODO: getBaseValueString(changeValue * rate
-		getViewState().setChange(changeValue < 0,
-				StringFormatUtil.getChangePercentString(first, selected),
-				StringFormatUtil.getChangeValueString(changeValue),
-				StringFormatUtil.getBaseValueString(changeValue, chartData.getProgramCurrency().getValue()));
+//		getViewState().setChange(changeValue < 0,
+//				StringFormatUtil.getChangePercentString(first, selected),
+//				StringFormatUtil.getChangeValueString(changeValue),
+//				StringFormatUtil.getBaseValueString(changeValue, chartData.getProgramCurrency().getValue()));
 	}
 
 	@Override
