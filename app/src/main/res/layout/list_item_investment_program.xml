@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="2"
+                android:maxLines="1"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="16sp"
                 tools:text="Janus Capital Group"/>
@@ -53,6 +53,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textColor="?attr/colorAccent"
                 android:textSize="14sp"
                 tools:text="Eddie Carr"/>
@@ -68,8 +70,8 @@
             android:alpha="0.3"
             android:paddingBottom="24dp"
             android:paddingLeft="24dp"
-            app:srcCompat="@drawable/icon_favorite"
-            android:tint="?attr/colorTextPrimary"/>
+            android:tint="?attr/colorTextPrimary"
+            app:srcCompat="@drawable/icon_favorite"/>
 
     </RelativeLayout>
 

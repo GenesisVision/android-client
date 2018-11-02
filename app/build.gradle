@@ -30,32 +30,39 @@ android {
         targetSdkVersion 28
         multiDexEnabled true
 
-        versionCode 18102901
-        versionName "0.1.0-prerelease"
+        versionCode 18110201
+        versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         renderscriptTargetApi 28
         renderscriptSupportModeEnabled true
 
         buildConfigField "boolean", "PROD", "false"
-
-        File propertiesFile = new File(project.property("genesisvision.properties") as String)
-        Properties appProperties = new Properties()
-        if (propertiesFile.exists()) {
-            appProperties.load(new FileInputStream(propertiesFile))
-            buildConfigField "String", "API_ADDRESS", appProperties.getProperty("apiAddress")
-        }
     }
 
     buildTypes {
         debug {
             versionNameSuffix ' Dev'
             applicationIdSuffix '.dev'
+
+            File propertiesFile = new File(project.property("genesisvision.properties") as String)
+            Properties appProperties = new Properties()
+            if (propertiesFile.exists()) {
+                appProperties.load(new FileInputStream(propertiesFile))
+                buildConfigField "String", "API_ADDRESS", appProperties.getProperty("devApiAddress")
+            }
         }
         release {
             buildConfigField "boolean", "PROD", "true"
 
             signingConfig signingConfigs.release
+
+            File propertiesFile = new File(project.property("genesisvision.properties") as String)
+            Properties appProperties = new Properties()
+            if (propertiesFile.exists()) {
+                appProperties.load(new FileInputStream(propertiesFile))
+                buildConfigField "String", "API_ADDRESS", appProperties.getProperty("apiAddress")
+            }
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

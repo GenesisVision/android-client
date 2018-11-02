@@ -66,7 +66,7 @@ public class PortfolioEventsActivity extends BaseSwipeBackActivity implements Po
 
 	private SimpleSectionedRecyclerViewAdapter sectionedAdapter;
 
-	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
+	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {

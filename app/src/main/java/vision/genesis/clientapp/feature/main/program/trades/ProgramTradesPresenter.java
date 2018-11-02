@@ -47,7 +47,7 @@ public class ProgramTradesPresenter extends MvpPresenter<ProgramTradesView> impl
 
 	private UUID programId;
 
-	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
+	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
 	private List<OrderModel> trades = new ArrayList<>();
 

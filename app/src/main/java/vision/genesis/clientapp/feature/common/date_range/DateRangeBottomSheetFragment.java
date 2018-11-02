@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.View;
 import android.widget.TextView;
@@ -49,6 +51,9 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 
 	@BindView(R.id.year)
 	public DateRangeOptionView year;
+
+	@BindView(R.id.all_time)
+	public DateRangeOptionView allTime;
 
 	@BindView(R.id.custom)
 	public DateRangeOptionView custom;
@@ -96,10 +101,10 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 		onOptionButtonClicked(year);
 	}
 
-//	@OnClick(R.id.custom)
-//	public void onCustomClicked() {
-//		onOptionButtonClicked(custom);
-//	}
+	@OnClick(R.id.all_time)
+	public void onAllTImeClicked() {
+		onOptionButtonClicked(allTime);
+	}
 
 	@OnClick(R.id.group_date_from)
 	public void onDateFromClicked() {
@@ -123,6 +128,14 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 	@Override
 	public void setupDialog(Dialog dialog, int style) {
 		super.setupDialog(dialog, style);
+
+		getDialog().setOnShowListener(dialog1 -> {
+			BottomSheetDialog d = (BottomSheetDialog) dialog1;
+			View bottomSheetInternal = d.findViewById(android.support.design.R.id.design_bottom_sheet);
+			if (bottomSheetInternal != null)
+				BottomSheetBehavior.from(bottomSheetInternal).setState(BottomSheetBehavior.STATE_EXPANDED);
+		});
+
 		View contentView = View.inflate(getContext(), R.layout.fragment_bottomsheet_date_range, null);
 
 		dialog.setContentView(contentView);
@@ -149,6 +162,7 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 		week.setText(getString(R.string.week));
 		month.setText(getString(R.string.month));
 		year.setText(getString(R.string.year));
+		allTime.setText(getString(R.string.all_time));
 		custom.setText(getString(R.string.custom));
 	}
 
@@ -187,7 +201,7 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 	}
 
 	private void setDateRange(DateRangeOptionView newOption) {
-		DateRange.DateRangeEnum selected = DateRange.DateRangeEnum.fromValue(newOption.getText().toLowerCase());
+		DateRange.DateRangeEnum selected = DateRange.DateRangeEnum.fromValue(newOption.getText().toLowerCase().replace(" ", ""));
 		if (selected != null) {
 			dateRange.setSelectedRange(selected);
 			dateRange.updateDates(selected);
@@ -235,6 +249,9 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 			case YEAR:
 				selectOption(year);
 				break;
+			case ALL_TIME:
+				selectOption(allTime);
+				break;
 			case CUSTOM:
 				selectOption(custom);
 				break;
@@ -244,7 +261,12 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 	}
 
 	private void updateDates() {
-		dateFrom.setText(DateTimeUtil.formatShortDate(dateRange.getFrom()));
+		if (dateRange.getSelectedRange().equals(DateRange.DateRangeEnum.ALL_TIME)) {
+			dateFrom.setText(getString(R.string.start));
+		}
+		else {
+			dateFrom.setText(DateTimeUtil.formatShortDate(dateRange.getFrom()));
+		}
 		dateTo.setText(DateTimeUtil.formatShortDate(dateRange.getTo()));
 	}
 
@@ -253,9 +275,12 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 	}
 
 	public void showDateFromPicker() {
+		DateTime dateFrom = dateRange.getFrom();
+		if (dateRange.getSelectedRange().equals(DateRange.DateRangeEnum.ALL_TIME))
+			dateFrom = dateRange.getTo();
 		DatePickerDialog dpd = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth) ->
 						setFrom(new DateTime(year, monthOfYear + 1, dayOfMonth, 0, 0, 0)),
-				dateRange.getFrom().getYear(), dateRange.getFrom().getMonthOfYear() - 1, dateRange.getFrom().getDayOfMonth());
+				dateFrom.getYear(), dateFrom.getMonthOfYear() - 1, dateFrom.getDayOfMonth());
 		dpd.setMaxDate(dateRange.getTo().toCalendar(Locale.getDefault()));
 		if (getActivity() != null)
 			dpd.show(getActivity().getFragmentManager(), "DateFromPickerDialog");

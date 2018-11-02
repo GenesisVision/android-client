@@ -155,6 +155,11 @@ public class SecurityActivity extends BaseSwipeBackActivity implements SecurityV
 		showMessageDialog(message);
 	}
 
+	@Override
+	public void onBackPressed() {
+		finishActivity();
+	}
+
 	private void finishActivity() {
 		finish();
 		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);

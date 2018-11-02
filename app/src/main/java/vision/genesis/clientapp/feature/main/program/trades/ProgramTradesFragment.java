@@ -76,7 +76,7 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 
 	private Unbinder unbinder;
 
-	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
+	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {

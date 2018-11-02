@@ -62,23 +62,40 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"/>
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
 
                 <vision.genesis.clientapp.feature.common.date_range.DateRangeOptionView
                     android:id="@+id/year"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"/>
 
-            </LinearLayout>
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
 
-            <vision.genesis.clientapp.feature.common.date_range.DateRangeOptionView
-                android:id="@+id/custom"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/button_height"
-                android:layout_marginTop="12dp"/>
+                <vision.genesis.clientapp.feature.common.date_range.DateRangeOptionView
+                    android:id="@+id/all_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <vision.genesis.clientapp.feature.common.date_range.DateRangeOptionView
+                    android:id="@+id/custom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

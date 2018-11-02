@@ -79,6 +79,12 @@ public class ChangePasswordActivity extends BaseSwipeBackActivity implements Cha
 		onChangePasswordClicked();
 	}
 
+
+	@OnClick(R.id.button_back)
+	public void onBackButtonClicked() {
+		onBackPressed();
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setTheme(ThemeUtil.getCurrentThemeResource());
@@ -168,6 +174,6 @@ public class ChangePasswordActivity extends BaseSwipeBackActivity implements Cha
 
 	@Override
 	public void onBackPressed() {
-		finishActivity(Activity.RESULT_CANCELED);
+		finishActivity();
 	}
 }

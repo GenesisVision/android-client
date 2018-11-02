@@ -208,6 +208,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 						: R.drawable.icon_favorite));
 				favorite.setAlpha(program.getPersonalDetails().isIsFavorite() ? 1f : 0.3f);
 			}
+			favorite.setVisibility(program.getPersonalDetails() != null ? View.VISIBLE : View.INVISIBLE);
 
 			this.programName.setText(program.getTitle());
 			this.managerName.setText(program.getManager().getUsername());

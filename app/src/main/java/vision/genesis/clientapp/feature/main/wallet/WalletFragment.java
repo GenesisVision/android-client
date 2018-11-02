@@ -111,7 +111,7 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 	private SimpleSectionedRecyclerViewAdapter sectionedAdapter;
 
-	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
+	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
 	@OnClick(R.id.group_currency)
 	public void onCurrencyClicked() {

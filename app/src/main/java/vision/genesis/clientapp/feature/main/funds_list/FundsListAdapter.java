@@ -242,6 +242,7 @@ public class FundsListAdapter extends RecyclerView.Adapter<FundsListAdapter.Fund
 						: R.drawable.icon_favorite));
 				favorite.setAlpha(fund.getPersonalDetails().isIsFavorite() ? 1f : 0.3f);
 			}
+			favorite.setVisibility(fund.getPersonalDetails() != null ? View.VISIBLE : View.INVISIBLE);
 
 			this.fundName.setText(fund.getTitle());
 			this.managerName.setText(fund.getManager().getUsername());

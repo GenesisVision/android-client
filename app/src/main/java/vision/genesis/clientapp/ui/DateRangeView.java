@@ -68,6 +68,9 @@ public class DateRangeView extends RelativeLayout
 			case YEAR:
 				this.dateRange.setText(GenesisVisionApplication.INSTANCE.getString(R.string.year));
 				break;
+			case ALL_TIME:
+				this.dateRange.setText(GenesisVisionApplication.INSTANCE.getString(R.string.all_time));
+				break;
 			case CUSTOM:
 				this.dateRange.setText(GenesisVisionApplication.INSTANCE.getString(R.string.custom));
 				break;

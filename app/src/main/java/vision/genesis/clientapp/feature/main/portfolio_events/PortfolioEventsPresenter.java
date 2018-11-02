@@ -44,7 +44,7 @@ public class PortfolioEventsPresenter extends MvpPresenter<PortfolioEventsView> 
 
 	private int skip = 0;
 
-	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.YEAR);
+	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
 	private List<DashboardPortfolioEvent> events = new ArrayList<>();
 

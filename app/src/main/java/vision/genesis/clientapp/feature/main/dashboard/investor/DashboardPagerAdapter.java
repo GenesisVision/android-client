@@ -53,11 +53,11 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	public void destroy() {
-		if (programsFragment != null)
-			programsFragment.onDestroyView();
-
-		if (fundsFragment != null)
-			fundsFragment.onDestroyView();
+//		if (programsFragment != null)
+//			programsFragment.onDestroyView();
+//
+//		if (fundsFragment != null)
+//			fundsFragment.onDestroyView();
 	}
 
 	public void showProgressBar(boolean show) {

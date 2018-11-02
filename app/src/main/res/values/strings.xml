@@ -251,7 +251,6 @@
     <string name="three_months">3 MONTHS</string>
     <string name="six_months">6 MONTHS</string>
     <string name="one_year">1 YEAR</string>
-    <string name="all_time">ALL TIME</string>
 
     <string name="tooltip_total_portfolio_value">Total portfolio value is the value of all your tokens from all investment programs.</string>
 
@@ -414,6 +413,7 @@
     <string name="week">Week</string>
     <string name="month">Month</string>
     <string name="year">Year</string>
+    <string name="all_time">All time</string>
     <string name="custom">Custom</string>
     <string name="date_range">Date range</string>
 
@@ -538,5 +538,6 @@
     <string name="program_invest_warning_template">After tapping the "Confirm" button, the invested GVT will be immediately converted to %s. Accrual of %s to the account manager will only occur at the end of the reporting period.</string>
     <string name="program_withdraw_warning">Your request will be processed at the end of the reporting period. The requested amount will be converted to GVT and transferred to your wallet.</string>
     <string name="other">Other</string>
+    <string name="start">Start</string>
 
 </resources>

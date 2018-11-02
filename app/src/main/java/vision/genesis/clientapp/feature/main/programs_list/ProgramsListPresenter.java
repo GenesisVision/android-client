@@ -22,6 +22,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView;
+import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.ProgramsFilter;
@@ -46,7 +47,12 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 	public Context context;
 
 	@Inject
+	public AuthManager authManager;
+
+	@Inject
 	public ProgramsManager programsManager;
+
+	private Subscription userSubscription;
 
 	private Subscription getProgramsSubscription;
 
@@ -74,6 +80,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 
 		EventBus.getDefault().register(this);
 
+		subscribeToUser();
 		createFilter();
 		getViewState().setRefreshing(true);
 		getProgramsList(true);
@@ -81,6 +88,8 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 
 	@Override
 	public void onDestroy() {
+		if (userSubscription != null)
+			userSubscription.unsubscribe();
 		if (getProgramsSubscription != null)
 			getProgramsSubscription.unsubscribe();
 		if (favoriteSubscription != null)
@@ -119,6 +128,17 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 		getProgramsList(false);
 	}
 
+	private void subscribeToUser() {
+		userSubscription = authManager.userSubject
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.newThread())
+				.subscribe(user -> userUpdated(), error -> userUpdated());
+	}
+
+	private void userUpdated() {
+		getProgramsList(true);
+	}
+
 	private void createFilter() {
 		filter = new ProgramsFilter();
 		filter.setSkip(0);
@@ -136,7 +156,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 	}
 
 	private void getProgramsList(boolean forceUpdate) {
-		if (programsManager != null && isManagerSet) {
+		if (filter != null && programsManager != null && isManagerSet) {
 			if (forceUpdate) {
 				skip = 0;
 				filter.setSkip(skip);

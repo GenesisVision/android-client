@@ -56,7 +56,7 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements SelectC
 
 	private int skip = 0;
 
-	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
+	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
 	private List<WalletTransaction> transactions = new ArrayList<>();
 

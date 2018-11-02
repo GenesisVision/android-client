@@ -300,7 +300,12 @@ public class PortfolioChartView extends RelativeLayout
 
 	private void updateXAxis(DateRange dateRange) {
 		XAxis xAxis = chart.getXAxis();
-		xAxis.setAxisMinimum(dateRange.getFrom().getMillis() / 1000 / 60);
+		if (!dateRange.getSelectedRange().equals(DateRange.DateRangeEnum.ALL_TIME)) {
+			xAxis.setAxisMinimum(dateRange.getFrom().getMillis() / 1000 / 60);
+		}
+		else {
+			xAxis.resetAxisMinimum();
+		}
 		xAxis.setAxisMaximum(dateRange.getTo().getMillis() / 1000 / 60);
 		switch (dateRange.getSelectedRange()) {
 			case DAY:
@@ -316,6 +321,10 @@ public class PortfolioChartView extends RelativeLayout
 				xAxis.setLabelCount(4, true);
 				break;
 			case YEAR:
+				xAxis.setValueFormatter(xAxisDateValueFormatter);
+				xAxis.setLabelCount(6, true);
+				break;
+			case ALL_TIME:
 				xAxis.setValueFormatter(xAxisDateValueFormatter);
 				xAxis.setLabelCount(6, true);
 				break;

@@ -22,6 +22,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView;
+import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.ProgramsFilter;
@@ -46,7 +47,12 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 	public Context context;
 
 	@Inject
+	public AuthManager authManager;
+
+	@Inject
 	public FundsManager fundsManager;
+
+	private Subscription userSubscription;
 
 	private Subscription getFundsSubscription;
 
@@ -74,6 +80,7 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 
 		EventBus.getDefault().register(this);
 
+		subscribeToUser();
 		createFilter();
 		getViewState().setRefreshing(true);
 		getFundsList(true);
@@ -81,6 +88,8 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 
 	@Override
 	public void onDestroy() {
+		if (userSubscription != null)
+			userSubscription.unsubscribe();
 		if (getFundsSubscription != null)
 			getFundsSubscription.unsubscribe();
 		if (favoriteSubscription != null)
@@ -115,6 +124,17 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 		getFundsList(false);
 	}
 
+	private void subscribeToUser() {
+		userSubscription = authManager.userSubject
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.newThread())
+				.subscribe(user -> userUpdated(), error -> userUpdated());
+	}
+
+	private void userUpdated() {
+		getFundsList(true);
+	}
+
 	private void createFilter() {
 		filter = new ProgramsFilter();
 		filter.setSkip(0);
@@ -132,7 +152,7 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 	}
 
 	private void getFundsList(boolean forceUpdate) {
-		if (fundsManager != null && isManagerSet) {
+		if (filter != null && fundsManager != null && isManagerSet) {
 			if (forceUpdate) {
 				skip = 0;
 				filter.setSkip(skip);

@@ -138,6 +138,9 @@ public class DateRange implements Parcelable
 				case YEAR:
 					this.setFrom(this.getTo().minusYears(1));
 					break;
+				case ALL_TIME:
+					this.setFrom(new DateTime(0));
+					break;
 				default:
 					break;
 			}
@@ -153,6 +156,8 @@ public class DateRange implements Parcelable
 		MONTH("Month"),
 
 		YEAR("Year"),
+
+		ALL_TIME("AllTime"),
 
 		CUSTOM("Custom");
 

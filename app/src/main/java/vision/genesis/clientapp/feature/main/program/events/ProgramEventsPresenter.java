@@ -48,7 +48,7 @@ public class ProgramEventsPresenter extends MvpPresenter<ProgramEventsView> impl
 
 	private UUID programId;
 
-	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
+	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
 	private List<DashboardPortfolioEvent> events = new ArrayList<>();
 
