@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.main.filters.sorting.SortingBottomSheetFragment;
 import vision.genesis.clientapp.model.ProgramsFilter;
 import vision.genesis.clientapp.model.SortingEnum;
 
@@ -170,11 +171,11 @@ public class SortingFiltersButtonsView extends RelativeLayout
 				currentSortingDirection = "desc";
 				break;
 			case BYENDOFPERIODASC:
-				currentSortingName = "end of periods";
+				currentSortingName = "end of period";
 				currentSortingDirection = "asc";
 				break;
 			case BYENDOFPERIODDESC:
-				currentSortingName = "end of periods";
+				currentSortingName = "end of period";
 				currentSortingDirection = "desc";
 				break;
 			case BYBALANCEASC:
@@ -215,7 +216,7 @@ public class SortingFiltersButtonsView extends RelativeLayout
 				else
 					sortingEnum = SortingEnum.BYLEVELDESC;
 				break;
-			case "end of periods":
+			case "end of period":
 				if (direction.equals("asc"))
 					sortingEnum = SortingEnum.BYENDOFPERIODASC;
 				else

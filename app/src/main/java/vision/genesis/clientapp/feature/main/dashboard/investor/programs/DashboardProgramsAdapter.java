@@ -27,7 +27,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.OnDashboardProgramFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.OnDashboardReinvestClickedEvent;
-import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowProgramRequestsEvent;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
@@ -176,7 +176,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 							program.getCurrency().getValue(),
 							program.getPersonalDetails().isIsFavorite(),
 							program.getPersonalDetails().isHasNotifications());
-					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programDetailsModel));
+					EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 				}
 			});
 		}

@@ -8,7 +8,6 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -55,25 +54,6 @@ public class DateRangeView extends RelativeLayout
 	}
 
 	public void setDateRange(DateRange dateRange) {
-		switch (dateRange.getSelectedRange()) {
-			case DAY:
-				this.dateRange.setText(GenesisVisionApplication.INSTANCE.getString(R.string.day));
-				break;
-			case WEEK:
-				this.dateRange.setText(GenesisVisionApplication.INSTANCE.getString(R.string.week));
-				break;
-			case MONTH:
-				this.dateRange.setText(GenesisVisionApplication.INSTANCE.getString(R.string.month));
-				break;
-			case YEAR:
-				this.dateRange.setText(GenesisVisionApplication.INSTANCE.getString(R.string.year));
-				break;
-			case ALL_TIME:
-				this.dateRange.setText(GenesisVisionApplication.INSTANCE.getString(R.string.all_time));
-				break;
-			case CUSTOM:
-				this.dateRange.setText(GenesisVisionApplication.INSTANCE.getString(R.string.custom));
-				break;
-		}
+		this.dateRange.setText(dateRange.toString());
 	}
 }

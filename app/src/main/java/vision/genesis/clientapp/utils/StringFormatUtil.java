@@ -121,4 +121,15 @@ public class StringFormatUtil
 		return String.format(Locale.getDefault(), "%s%s GVT", changeValue > 0 ? "+" : "",
 				StringFormatUtil.formatCurrencyAmount(changeValue, CurrencyEnum.GVT.getValue()));
 	}
+
+	public static String capitalize(String string) {
+		if (string != null && !string.isEmpty()) {
+			if (string.length() > 1)
+				return Character.toUpperCase(string.charAt(0)) + string.substring(1).toLowerCase();
+			else
+				return string.toUpperCase();
+		}
+		else
+			return "";
+	}
 }

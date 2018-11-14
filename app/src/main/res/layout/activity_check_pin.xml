@@ -24,6 +24,7 @@
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/enter_pin_code_or_use_fingerprint"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="16sp"/>

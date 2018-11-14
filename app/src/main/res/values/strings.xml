@@ -282,7 +282,7 @@
     <string name="sorting">Sorting</string>
     <string name="sorting_asc">ASCENDING ↑</string>
     <string name="sorting_desc">DESCENDING ↓</string>
-    <string name="sort_by">Sort by:</string>
+    <string name="sort_by">Sort by</string>
     <string name="end_of_period">End of period</string>
     <string name="title">Title</string>
     <string name="no_programs_registered">There are no programs registered in this round, or the round has not been launched yet.</string>
@@ -539,5 +539,10 @@
     <string name="program_withdraw_warning">Your request will be processed at the end of the reporting period. The requested amount will be converted to GVT and transferred to your wallet.</string>
     <string name="other">Other</string>
     <string name="start">Start</string>
+    <string name="levels">Levels</string>
+    <string name="currency">Currency</string>
+    <string name="all">All</string>
+    <string name="high_to_low">High to Low</string>
+    <string name="low_to_high">Low to High</string>
 
 </resources>

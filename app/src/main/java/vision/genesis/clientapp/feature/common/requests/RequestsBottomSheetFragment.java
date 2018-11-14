@@ -131,10 +131,12 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 
 	public void setRequests(List<ProgramRequest> requests) {
 		this.requests = requests;
-		progressBar.setVisibility(View.GONE);
-		showEmpty(requests.isEmpty());
-		if (requestsAdapter != null)
-			requestsAdapter.setRequests(requests);
+		if (progressBar != null) {
+			progressBar.setVisibility(View.GONE);
+			showEmpty(requests.isEmpty());
+			if (requestsAdapter != null)
+				requestsAdapter.setRequests(requests);
+		}
 	}
 
 	public void setAssetId(UUID assetId) {

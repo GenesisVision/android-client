@@ -1,8 +1,6 @@
-package vision.genesis.clientapp.feature.main.filters_sorting;
+package vision.genesis.clientapp.feature.main.filters.sorting;
 
 import android.content.Context;
-import android.graphics.Typeface;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -56,11 +54,5 @@ public class SortingOptionView extends RelativeLayout
 
 	public void setSelected(boolean selected) {
 		check.setVisibility(selected ? View.VISIBLE : View.GONE);
-		name.setTextColor(selected
-				? ContextCompat.getColor(getContext(), R.color.black)
-				: ContextCompat.getColor(getContext(), R.color.grey500));
-		name.setTypeface(null, selected
-				? Typeface.BOLD
-				: Typeface.NORMAL);
 	}
 }

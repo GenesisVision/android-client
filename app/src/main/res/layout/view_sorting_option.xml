@@ -3,32 +3,36 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/button_height"
+                android:layout_height="60dp"
                 android:background="?attr/selectableItemBackground"
                 android:orientation="vertical"
-                android:paddingLeft="32dp"
-                android:paddingRight="16dp">
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:fontFamily="sans-serif"
-        android:textColor="@color/grey500"
-        android:textSize="16sp"
-        tools:text="@string/title"
-        tools:textColor="@color/black"/>
+        android:textColor="?attr/colorTextPrimary"
+        android:textSize="14sp"
+        tools:text="@string/title"/>
 
-    <ImageView
-        android:id="@+id/check"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+    <RelativeLayout
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:visibility="gone"
-        app:srcCompat="@drawable/ic_check_black_24dp"
-        tools:visibility="visible"/>
+        android:background="@drawable/icon_radio_off">
+
+        <ImageView
+            android:id="@+id/check"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:srcCompat="@drawable/icon_radio_on"
+            tools:visibility="visible"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

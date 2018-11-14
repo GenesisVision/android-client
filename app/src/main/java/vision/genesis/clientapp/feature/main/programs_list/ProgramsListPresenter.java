@@ -21,11 +21,11 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.ProgramsFilter;
+import vision.genesis.clientapp.model.SortingEnum;
 import vision.genesis.clientapp.model.events.OnListProgramFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
@@ -39,7 +39,7 @@ import vision.genesis.clientapp.utils.StringFormatUtil;
  */
 
 @InjectViewState
-public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implements SortingFiltersButtonsView.OnFilterUpdatedListener
+public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 {
 	private static int TAKE = 20;
 
@@ -128,14 +128,9 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 		getProgramsList(false);
 	}
 
-	private void subscribeToUser() {
-		userSubscription = authManager.userSubject
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.newThread())
-				.subscribe(user -> userUpdated(), error -> userUpdated());
-	}
-
-	private void userUpdated() {
+	void onFilterUpdated(ProgramsFilter filter) {
+		this.filter = filter;
+		getViewState().setRefreshing(true);
 		getProgramsList(true);
 	}
 
@@ -144,14 +139,19 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView> implem
 		filter.setSkip(0);
 		filter.setTake(TAKE);
 		filter.setManagerId(managerId);
-		filter.setStatisticDateFrom(dateRange.getFrom());
-		filter.setStatisticDateTo(dateRange.getTo());
+		filter.setDateRange(dateRange);
+		filter.setSorting(SortingEnum.BYPROFITDESC);
 //		filter.setEquityChartLength(10);
 	}
 
-	public void onFilterUpdated(ProgramsFilter filter) {
-		this.filter = filter;
-		getViewState().setRefreshing(true);
+	private void subscribeToUser() {
+		userSubscription = authManager.userSubject
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.newThread())
+				.subscribe(user -> userUpdated(), error -> userUpdated());
+	}
+
+	private void userUpdated() {
 		getProgramsList(true);
 	}
 

@@ -1,5 +1,7 @@
 package vision.genesis.clientapp.feature.main.programs_list;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -10,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -24,7 +27,9 @@ import io.swagger.client.model.ProgramDetails;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.filters.FiltersActivity;
 import vision.genesis.clientapp.model.ProgramsFilter;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -54,6 +59,9 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	@BindView(R.id.filters)
 	public ViewGroup filters;
+
+	@BindView(R.id.text_filters)
+	public TextView filtersText;
 
 	@BindView(R.id.filters_dot)
 	public View filtersDot;
@@ -104,6 +112,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		}
 		programsListPresenter.setManagerId(managerId);
 
+		setFonts();
 		initRefreshLayout();
 		initRecyclerView();
 	}
@@ -119,6 +128,10 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		}
 
 		super.onDestroyView();
+	}
+
+	private void setFonts() {
+		filtersText.setTypeface(TypefaceUtil.semibold());
 	}
 
 	private void initRefreshLayout() {
@@ -208,7 +221,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	@Override
 	public void showFiltersActivity(ProgramsFilter filter) {
-
+		FiltersActivity.startFromFragment(this, filter, FiltersActivity.PROGRAM_FILTER);
 	}
 
 	@Override
@@ -219,5 +232,17 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	@Override
 	public void showBottomProgress(boolean show) {
 
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == FiltersActivity.PROGRAM_FILTER && resultCode == Activity.RESULT_OK) {
+			ProgramsFilter newFilter = data.getParcelableExtra("filter");
+			if (newFilter != null)
+				programsListPresenter.onFilterUpdated(newFilter);
+		}
+		else {
+			super.onActivityResult(requestCode, resultCode, data);
+		}
 	}
 }

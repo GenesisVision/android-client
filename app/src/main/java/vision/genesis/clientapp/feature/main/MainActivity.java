@@ -256,7 +256,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	}
 
 	@Override
-	public void showInvestmentProgramDetails(ProgramDetailsModel programDetailsModel) {
+	public void showProgramDetails(ProgramDetailsModel programDetailsModel) {
 		ProgramDetailsActivity.startWith(this, programDetailsModel);
 	}
 

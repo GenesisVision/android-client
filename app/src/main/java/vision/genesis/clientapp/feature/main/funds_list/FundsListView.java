@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.model.FundDetails;
+import vision.genesis.clientapp.model.ProgramsFilter;
 
 /**
  * GenesisVisionAndroid
@@ -36,6 +37,8 @@ interface FundsListView extends MvpView
 	void changeFundIsFavorite(UUID fundId, boolean isFavorite);
 
 	void setFundsCount(String count);
+
+	void showFiltersActivity(ProgramsFilter filter);
 
 	void showBottomProgress(boolean show);
 }

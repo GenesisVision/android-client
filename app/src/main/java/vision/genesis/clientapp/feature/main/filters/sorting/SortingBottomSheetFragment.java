@@ -1,16 +1,20 @@
-package vision.genesis.clientapp.feature.main.filters_sorting;
+package vision.genesis.clientapp.feature.main.filters.sorting;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v7.app.AppCompatDialogFragment;
+import android.support.v7.content.res.AppCompatResources;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -19,9 +23,9 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 26/03/2018.
  */
 
-public class SortingBottomSheetFragment extends BottomSheetDialogFragment
+public class SortingBottomSheetFragment extends AppCompatDialogFragment
 {
-	interface OnSortingChangedListener
+	public interface OnSortingChangedListener
 	{
 		void onSortingChanged(String option, String direction);
 	}
@@ -29,8 +33,11 @@ public class SortingBottomSheetFragment extends BottomSheetDialogFragment
 	@BindView(R.id.text_sort_by)
 	public TextView sortByText;
 
-	@BindView(R.id.direction)
-	public TextView direction;
+	@BindView(R.id.direction_icon)
+	public ImageView directionIcon;
+
+	@BindView(R.id.direction_value)
+	public TextView directionValue;
 
 	@BindView(R.id.profit)
 	public SortingOptionView profit;
@@ -47,11 +54,26 @@ public class SortingBottomSheetFragment extends BottomSheetDialogFragment
 	@BindView(R.id.title)
 	public SortingOptionView title;
 
-	@BindView(R.id.button_apply)
-	public ViewGroup applyButton;
+	@BindView(R.id.profit_delimiter)
+	public View profitDelimiter;
 
-	@BindView(R.id.button_close)
-	public ViewGroup closeButton;
+	@BindView(R.id.level_delimiter)
+	public View levelDelimiter;
+
+	@BindView(R.id.end_of_period_delimiter)
+	public View endOfPeriodDelimiter;
+
+	@BindView(R.id.balance_delimiter)
+	public View balanceDelimiter;
+
+	@BindView(R.id.title_delimiter)
+	public View titleDelimiter;
+
+	@BindView(R.id.button_apply)
+	public TextView applyButton;
+
+	@BindView(R.id.button_cancel)
+	public TextView cancelButton;
 
 	private OnSortingChangedListener listener;
 
@@ -63,7 +85,9 @@ public class SortingBottomSheetFragment extends BottomSheetDialogFragment
 
 	private String oldDirection;
 
-	@OnClick(R.id.direction)
+	private String assetType;
+
+	@OnClick(R.id.group_direction)
 	public void onDirectionClicked() {
 		changeDirection();
 	}
@@ -101,15 +125,15 @@ public class SortingBottomSheetFragment extends BottomSheetDialogFragment
 		}
 	}
 
-	@OnClick(R.id.button_close)
-	public void onCloseClicked() {
+	@OnClick(R.id.button_cancel)
+	public void onCancelClicked() {
 		this.dismiss();
 	}
 
 	@Override
 	public void setupDialog(Dialog dialog, int style) {
 		super.setupDialog(dialog, style);
-		View contentView = View.inflate(getContext(), R.layout.fragment_bottomsheet_sorting, null);
+		View contentView = View.inflate(getContext(), R.layout.fragment_dialog_sorting, null);
 
 		dialog.setContentView(contentView);
 
@@ -117,6 +141,7 @@ public class SortingBottomSheetFragment extends BottomSheetDialogFragment
 
 		setFonts();
 
+		updateAvailableOptions();
 		initSortingOptions();
 		updateSelections();
 	}
@@ -124,8 +149,9 @@ public class SortingBottomSheetFragment extends BottomSheetDialogFragment
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		if (getDialog().getWindow() != null)
-			getDialog().getWindow().getAttributes().windowAnimations = R.style.dialog_slide_animation;
+		if (getDialog().getWindow() != null) {
+			getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+		}
 	}
 
 	public void setCurrentSorting(@NonNull String oldOption, @NonNull String oldDirection) {
@@ -136,12 +162,49 @@ public class SortingBottomSheetFragment extends BottomSheetDialogFragment
 			updateSelections();
 	}
 
+	public void setAssetType(String type) {
+		this.assetType = type;
+		updateAvailableOptions();
+	}
+
+	private void updateAvailableOptions() {
+		if (profit != null && assetType != null) {
+			if (assetType.equals("program")) {
+				profit.setVisibility(View.VISIBLE);
+				profitDelimiter.setVisibility(View.VISIBLE);
+				level.setVisibility(View.VISIBLE);
+				levelDelimiter.setVisibility(View.VISIBLE);
+				endOfPeriod.setVisibility(View.VISIBLE);
+				endOfPeriodDelimiter.setVisibility(View.VISIBLE);
+				balance.setVisibility(View.VISIBLE);
+				balanceDelimiter.setVisibility(View.VISIBLE);
+				title.setVisibility(View.VISIBLE);
+				titleDelimiter.setVisibility(View.VISIBLE);
+			}
+			else {
+				profit.setVisibility(View.VISIBLE);
+				profitDelimiter.setVisibility(View.VISIBLE);
+				level.setVisibility(View.GONE);
+				levelDelimiter.setVisibility(View.GONE);
+				endOfPeriod.setVisibility(View.GONE);
+				endOfPeriodDelimiter.setVisibility(View.GONE);
+				balance.setVisibility(View.VISIBLE);
+				balanceDelimiter.setVisibility(View.VISIBLE);
+				title.setVisibility(View.VISIBLE);
+				titleDelimiter.setVisibility(View.VISIBLE);
+			}
+		}
+	}
+
 	public void setListener(OnSortingChangedListener listener) {
 		this.listener = listener;
 	}
 
 	private void setFonts() {
-		sortByText.setTypeface(TypefaceUtil.bold());
+		sortByText.setTypeface(TypefaceUtil.semibold());
+		directionValue.setTypeface(TypefaceUtil.medium());
+		applyButton.setTypeface(TypefaceUtil.semibold());
+		cancelButton.setTypeface(TypefaceUtil.semibold());
 	}
 
 	private void initSortingOptions() {
@@ -160,7 +223,7 @@ public class SortingBottomSheetFragment extends BottomSheetDialogFragment
 			case "level":
 				selectOption(level);
 				break;
-			case "end of periods":
+			case "end of period":
 				selectOption(endOfPeriod);
 				break;
 			case "balance":
@@ -189,8 +252,6 @@ public class SortingBottomSheetFragment extends BottomSheetDialogFragment
 		deselectPreviousOption();
 		newOption.setSelected(true);
 		selectedOption = newOption;
-
-		updateButtons();
 	}
 
 	private void deselectPreviousOption() {
@@ -200,15 +261,17 @@ public class SortingBottomSheetFragment extends BottomSheetDialogFragment
 
 	private void setDirection(String direction) {
 		if (direction.equals("asc")) {
-			this.direction.setText(getString(R.string.sorting_asc));
+			this.directionIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
+					R.drawable.icon_sorting_low_to_high));
+			this.directionValue.setText(getString(R.string.low_to_high));
 		}
 		else if (direction.equals("desc")) {
-			this.direction.setText(getString(R.string.sorting_desc));
+			this.directionIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
+					R.drawable.icon_sorting_high_to_low));
+			this.directionValue.setText(getString(R.string.high_to_low));
 		}
 
 		selectedDirection = direction;
-
-		updateButtons();
 	}
 
 	private void changeDirection() {
@@ -216,13 +279,5 @@ public class SortingBottomSheetFragment extends BottomSheetDialogFragment
 			setDirection("desc");
 		else
 			setDirection("asc");
-	}
-
-	private void updateButtons() {
-		boolean isNewSortingSelected = selectedOption != null &&
-				(!selectedOption.getText().toLowerCase().equals(oldOption)
-						|| !selectedDirection.equals(oldDirection));
-		applyButton.setVisibility(isNewSortingSelected ? View.VISIBLE : View.GONE);
-		closeButton.setVisibility(!isNewSortingSelected ? View.VISIBLE : View.GONE);
 	}
 }

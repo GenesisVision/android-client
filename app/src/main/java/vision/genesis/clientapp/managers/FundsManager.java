@@ -41,7 +41,7 @@ public class FundsManager
 	public Observable<FundsList> getFundsList(ProgramsFilter filter) {
 		return fundsApi.v10FundsGet(AuthManager.token.getValue(),
 				filter.getSorting().getValue(), filter.getCurrency() != null ? filter.getCurrency().getValue() : null,
-				filter.getStatisticDateFrom(), filter.getStatisticDateTo(), 10,
+				filter.getDateRange().getFrom(), filter.getDateRange().getTo(), 10,
 				filter.getMask(), filter.getFacetId() != null ? filter.getFacetId().toString() : null, filter.getIsFavorite(),
 				filter.getIds(), filter.getManagerId() != null ? filter.getManagerId().toString() : null, null, filter.getSkip(), filter.getTake());
 	}

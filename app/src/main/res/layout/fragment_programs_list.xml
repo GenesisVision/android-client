@@ -101,7 +101,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="70dp"
-        android:visibility="gone"
+        android:visibility="visible"
         tools:visibility="visible">
 
         <ImageView

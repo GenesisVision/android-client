@@ -5,10 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.NotificationViewModel;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.ProgramDetailsModel;
+import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
 import vision.genesis.clientapp.utils.DateTimeUtil;
+import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -67,7 +72,7 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<Notifications
 	static class NotificationViewHolder extends RecyclerView.ViewHolder
 	{
 		@BindView(R.id.icon)
-		public ImageView icon;
+		public SimpleDraweeView icon;
 
 		@BindView(R.id.not_read)
 		public SimpleDraweeView notRead;
@@ -90,8 +95,22 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<Notifications
 
 			setFonts();
 			itemView.setOnClickListener(v -> {
-				if (notification != null) {
-//					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent());
+				switch (notification.getType()) {
+					case PROGRAMNEWSANDUPDATES:
+					case PROGRAMENDOFPERIOD:
+					case PROGRAMCONDITION:
+					case MANAGERNEWPROGRAM:
+						ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(notification.getAssetId(),
+								notification.getLogo(),
+								"#131e26",
+								0,
+								"",
+								"",
+								"",
+								false,
+								false);
+						EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
+						break;
 				}
 			});
 		}
@@ -109,6 +128,7 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<Notifications
 			time.setText(DateTimeUtil.formatShortTime(notification.getDate()));
 
 			int iconResId = R.drawable.icon_notification_star;
+			String logo = null;
 			switch (notification.getType()) {
 				case PLATFORMNEWSANDUPDATES:
 					break;
@@ -129,16 +149,28 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<Notifications
 				case PROFILESECURITY:
 					break;
 				case PROGRAMNEWSANDUPDATES:
+					logo = notification.getLogo();
 					break;
 				case PROGRAMENDOFPERIOD:
+					logo = notification.getLogo();
 					break;
 				case PROGRAMCONDITION:
+					logo = notification.getLogo();
 					break;
 				case MANAGERNEWPROGRAM:
+					logo = notification.getLogo();
 					break;
 			}
 
-			icon.setImageDrawable(AppCompatResources.getDrawable(itemView.getContext(), iconResId));
+			if (logo == null || logo.isEmpty()) {
+				GenericDraweeHierarchy hierarchy = icon.getHierarchy();
+				hierarchy.setBackgroundImage(AppCompatResources.getDrawable(itemView.getContext(), iconResId));
+				icon.setHierarchy(hierarchy);
+				icon.setImageURI("");
+			}
+			else {
+				icon.setImageURI(ImageUtils.getImageUri(logo));
+			}
 		}
 	}
 }

@@ -424,4 +424,19 @@
         <item name="android:src">@drawable/ic_chevron_right_black_24dp</item>
         <item name="android:tint">?attr/colorTextPrimary</item>
     </style>
+
+    <style name="filter_option_value">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:alpha">0.4</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">end</item>
+        <item name="android:lines">1</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorBackground">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height">
+
+        <ImageView
+            android:id="@+id/button_close"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="10dp"
+            android:tint="?attr/colorTextPrimary"
+            app:srcCompat="@drawable/ic_close_black_24dp"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/filters"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/button_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="@string/reset"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="14sp"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/button_levels"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/filter_option_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="20dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/levels_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/levels"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/levels_value"
+                    style="@style/filter_option_value"
+                    android:layout_toEndOf="@+id/levels_label"
+                    tools:text="All"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.5"
+                    android:background="?attr/colorDelimiterLight"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/button_currency"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/filter_option_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="20dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/currency_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/currency"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/currency_value"
+                    style="@style/filter_option_value"
+                    android:layout_toEndOf="@+id/currency_label"
+                    tools:text="All"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="?attr/colorBackgroundDark"
+                android:visibility="gone"/>
+
+
+            <RelativeLayout
+                android:id="@+id/button_date_range"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/filter_option_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="20dp">
+
+                <TextView
+                    android:id="@+id/date_range_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/date_range"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/date_range_value"
+                    style="@style/filter_option_value"
+                    android:layout_toEndOf="@+id/date_range_label"
+                    android:alpha="1"
+                    android:textColor="?attr/colorAccent"
+                    tools:text="All"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.5"
+                    android:background="?attr/colorDelimiterLight"/>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/button_sorting"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/filter_option_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="20dp">
+
+                <TextView
+                    android:id="@+id/sorting_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/sorting"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"/>
+
+                <ImageView
+                    android:id="@+id/sorting_icon"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/sorting_value"
+                    app:srcCompat="@drawable/icon_sorting_high_to_low"/>
+
+                <TextView
+                    android:id="@+id/sorting_value"
+                    style="@style/filter_option_value"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="15dp"
+                    android:alpha="1"
+                    android:textColor="?attr/colorAccent"
+                    tools:text="Profit"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.5"
+                    android:background="?attr/colorDelimiterLight"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <vision.genesis.clientapp.ui.PrimaryButton
+        android:id="@+id/button_apply"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
+        android:text="@string/apply"/>
+
+</RelativeLayout>

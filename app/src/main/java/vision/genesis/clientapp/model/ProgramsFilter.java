@@ -3,9 +3,8 @@ package vision.genesis.clientapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.joda.time.DateTime;
-
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -37,9 +36,7 @@ public class ProgramsFilter implements Parcelable
 
 	private Double profitAvgMax;
 
-	private DateTime statisticDateFrom;
-
-	private DateTime statisticDateTo;
+	private DateRange dateRange;
 
 	private String mask;
 
@@ -59,6 +56,25 @@ public class ProgramsFilter implements Parcelable
 
 	public ProgramsFilter() {
 
+	}
+
+	public ProgramsFilter(ProgramsFilter filter) {
+		if (filter != null) {
+			this.sorting = filter.getSorting();
+			this.levelMin = filter.getLevelMin();
+			this.levelMax = filter.getLevelMax();
+			this.profitAvgMin = filter.getProfitAvgMin();
+			this.profitAvgMax = filter.getProfitAvgMax();
+			this.dateRange = DateRange.copy(filter.getDateRange());
+			this.mask = filter.getMask();
+			this.facetId = filter.getFacetId();
+			this.isFavorite = filter.getIsFavorite();
+			this.currency = filter.getCurrency();
+			this.ids = filter.getIds();
+			this.managerId = filter.getManagerId();
+			this.skip = filter.getSkip();
+			this.take = filter.getTake();
+		}
 	}
 
 	private ProgramsFilter(Parcel in) {
@@ -91,8 +107,7 @@ public class ProgramsFilter implements Parcelable
 		else {
 			profitAvgMax = in.readDouble();
 		}
-		statisticDateFrom = DateTime.parse(in.readString());
-		statisticDateTo = DateTime.parse(in.readString());
+		dateRange = in.readParcelable(DateRange.class.getClassLoader());
 		mask = in.readString();
 		byte tmpIsFavorite = in.readByte();
 		isFavorite = tmpIsFavorite == 0 ? null : tmpIsFavorite == 1;
@@ -157,20 +172,12 @@ public class ProgramsFilter implements Parcelable
 		this.profitAvgMax = profitAvgMax;
 	}
 
-	public DateTime getStatisticDateFrom() {
-		return statisticDateFrom;
+	public DateRange getDateRange() {
+		return dateRange;
 	}
 
-	public void setStatisticDateFrom(DateTime statisticDateFrom) {
-		this.statisticDateFrom = statisticDateFrom;
-	}
-
-	public DateTime getStatisticDateTo() {
-		return statisticDateTo;
-	}
-
-	public void setStatisticDateTo(DateTime statisticDateTo) {
-		this.statisticDateTo = statisticDateTo;
+	public void setDateRange(DateRange dateRange) {
+		this.dateRange = dateRange;
 	}
 
 	public String getMask() {
@@ -278,18 +285,7 @@ public class ProgramsFilter implements Parcelable
 			dest.writeByte((byte) 1);
 			dest.writeDouble(profitAvgMax);
 		}
-		if (statisticDateFrom == null) {
-			dest.writeString("");
-		}
-		else {
-			dest.writeString(statisticDateFrom.toString());
-		}
-		if (statisticDateTo == null) {
-			dest.writeString("");
-		}
-		else {
-			dest.writeString(statisticDateTo.toString());
-		}
+		dest.writeParcelable(dateRange, flags);
 		dest.writeString(mask);
 		dest.writeByte((byte) (isFavorite == null ? 0 : isFavorite ? 1 : 2));
 		if (currency == null) {
@@ -314,5 +310,30 @@ public class ProgramsFilter implements Parcelable
 			dest.writeByte((byte) 1);
 			dest.writeInt(take);
 		}
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		ProgramsFilter filter = (ProgramsFilter) o;
+		return Objects.equals(getSorting(), filter.getSorting()) &&
+				Objects.equals(getLevelMin(), filter.getLevelMin()) &&
+				Objects.equals(getLevelMax(), filter.getLevelMax()) &&
+				Objects.equals(getProfitAvgMin(), filter.getProfitAvgMin()) &&
+				Objects.equals(getProfitAvgMax(), filter.getProfitAvgMax()) &&
+				getDateRange().equals(filter.getDateRange()) &&
+				Objects.equals(getMask(), filter.getMask()) &&
+				Objects.equals(getFacetId(), filter.getFacetId()) &&
+				Objects.equals(getIsFavorite(), filter.getIsFavorite()) &&
+				Objects.equals(getCurrency(), filter.getCurrency()) &&
+				Objects.equals(getIds(), filter.getIds()) &&
+				Objects.equals(getManagerId(), filter.getManagerId()) &&
+				Objects.equals(getSkip(), filter.getSkip()) &&
+				Objects.equals(getTake(), filter.getTake());
 	}
 }

@@ -27,7 +27,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.OnCancelRequestClickedEvent;
-import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -121,7 +121,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 							request.getCurrency().getValue(),
 							false,
 							false);
-					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programDetailsModel));
+					EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 				}
 			});
 		}

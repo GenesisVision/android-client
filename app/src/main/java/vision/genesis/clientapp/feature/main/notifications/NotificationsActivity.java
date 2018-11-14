@@ -21,6 +21,8 @@ import io.swagger.client.model.NotificationViewModel;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.notifications.settings.NotificationsSettingsActivity;
+import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
+import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -167,6 +169,11 @@ public class NotificationsActivity extends BaseSwipeBackActivity implements Noti
 	public void addNotifications(List<NotificationViewModel> notifications, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
 		sectionedAdapter.setSections(sections);
 		notificationsListAdapter.addNotifications(notifications);
+	}
+
+	@Override
+	public void showProgramDetails(ProgramDetailsModel programDetailsModel) {
+		ProgramDetailsActivity.startWith(this, programDetailsModel);
 	}
 
 	@Override

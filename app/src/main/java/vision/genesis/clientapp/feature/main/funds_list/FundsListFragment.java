@@ -1,5 +1,7 @@
 package vision.genesis.clientapp.feature.main.funds_list;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -10,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -24,6 +27,9 @@ import io.swagger.client.model.FundDetails;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.filters.FiltersActivity;
+import vision.genesis.clientapp.model.ProgramsFilter;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
@@ -51,6 +57,15 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 	@BindView(R.id.group_no_internet)
 	public ViewGroup noInternetGroup;
 
+	@BindView(R.id.filters)
+	public ViewGroup filters;
+
+	@BindView(R.id.text_filters)
+	public TextView filtersText;
+
+	@BindView(R.id.filters_dot)
+	public View filtersDot;
+
 	@BindView(R.id.group_empty)
 	public ViewGroup emptyGroup;
 
@@ -74,6 +89,11 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 		fundsListPresenter.onTryAgainClicked();
 	}
 
+	@OnClick(R.id.filters)
+	public void onFiltersClicked() {
+		fundsListPresenter.onFiltersClicked();
+	}
+
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -92,6 +112,8 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 		}
 		fundsListPresenter.setManagerId(managerId);
 
+		setFonts();
+
 		initRefreshLayout();
 		initRecyclerView();
 	}
@@ -107,6 +129,10 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 		}
 
 		super.onDestroyView();
+	}
+
+	private void setFonts() {
+		filtersText.setTypeface(TypefaceUtil.semibold());
 	}
 
 	private void initRefreshLayout() {
@@ -199,7 +225,24 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 	}
 
 	@Override
+	public void showFiltersActivity(ProgramsFilter filter) {
+		FiltersActivity.startFromFragment(this, filter, FiltersActivity.FUND_FILTER);
+	}
+
+	@Override
 	public void showBottomProgress(boolean show) {
 
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == FiltersActivity.FUND_FILTER && resultCode == Activity.RESULT_OK) {
+			ProgramsFilter newFilter = data.getParcelableExtra("filter");
+			if (newFilter != null)
+				fundsListPresenter.onFilterUpdated(newFilter);
+		}
+		else {
+			super.onActivityResult(requestCode, resultCode, data);
+		}
 	}
 }

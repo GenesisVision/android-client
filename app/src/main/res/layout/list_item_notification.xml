@@ -4,6 +4,8 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
                 android:paddingLeft="@dimen/program_details_padding"
                 android:paddingTop="@dimen/program_details_padding">
 
@@ -12,10 +14,11 @@
         android:layout_width="40dp"
         android:layout_height="40dp">
 
-        <ImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/icon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:roundAsCircle="true"
             tools:src="@drawable/icon_notification_star"/>
 
         <com.facebook.drawee.view.SimpleDraweeView

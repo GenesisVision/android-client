@@ -24,7 +24,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.OnListProgramFavoriteClickedEvent;
-import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
 import vision.genesis.clientapp.ui.CurrencyView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProgramLogoView;
@@ -167,7 +167,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 							program.getPersonalDetails() != null ?
 									program.getPersonalDetails().isHasNotifications()
 									: false);
-					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programDetailsModel));
+					EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 				}
 			});
 		}

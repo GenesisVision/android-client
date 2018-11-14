@@ -22,7 +22,7 @@ import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.PortfolioEvent;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
-import vision.genesis.clientapp.model.events.ShowInvestmentProgramDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -94,7 +94,7 @@ public class PortfolioEventDashboardView extends RelativeLayout
 							event.getProgramCurrency(),
 							false,
 							false);
-					EventBus.getDefault().post(new ShowInvestmentProgramDetailsEvent(programDetailsModel));
+					EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 				}
 				else if (event.getAssetType().equals(DashboardPortfolioEvent.AssetTypeEnum.FUND)) {
 					FundDetailsModel fundDetailsModel = new FundDetailsModel(event.getAssetId(),

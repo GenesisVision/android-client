@@ -105,7 +105,7 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 	private void networkAvailabilityHandler(Boolean available) {
 		if (available) {
 			networkAvailabilitySubscription.unsubscribe();
-			new Handler().postDelayed(this::onTryAgainClicked, 500);
+			new Handler().postDelayed(this::onTryAgainClicked, 1000);
 		}
 	}
 
@@ -122,7 +122,7 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 	private void serverAvailabilityHandler(Boolean available) {
 		if (available) {
 			serverAvailabilitySubscription.unsubscribe();
-			new Handler().postDelayed(this::onTryAgainClicked, 500);
+//			new Handler().postDelayed(this::onTryAgainClicked, 500);
 		}
 	}
 }

@@ -26,6 +26,7 @@ import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.ProgramsFilter;
+import vision.genesis.clientapp.model.SortingEnum;
 import vision.genesis.clientapp.model.events.OnFundFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.OnListFundFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
@@ -124,6 +125,10 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 		getFundsList(false);
 	}
 
+	void onFiltersClicked() {
+		getViewState().showFiltersActivity(filter);
+	}
+
 	private void subscribeToUser() {
 		userSubscription = authManager.userSubject
 				.observeOn(AndroidSchedulers.mainThread())
@@ -140,8 +145,8 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 		filter.setSkip(0);
 		filter.setTake(TAKE);
 		filter.setManagerId(managerId);
-		filter.setStatisticDateFrom(dateRange.getFrom());
-		filter.setStatisticDateTo(dateRange.getTo());
+		filter.setDateRange(dateRange);
+		filter.setSorting(SortingEnum.BYPROFITDESC);
 //		filter.setEquityChartLength(10);
 	}
 

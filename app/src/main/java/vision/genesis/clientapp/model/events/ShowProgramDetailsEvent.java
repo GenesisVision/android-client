@@ -7,11 +7,11 @@ import vision.genesis.clientapp.model.ProgramDetailsModel;
  * Created by Vitaly on 1/26/18.
  */
 
-public class ShowInvestmentProgramDetailsEvent
+public class ShowProgramDetailsEvent
 {
 	public ProgramDetailsModel programDetailsModel;
 
-	public ShowInvestmentProgramDetailsEvent(ProgramDetailsModel programDetailsModel) {
+	public ShowProgramDetailsEvent(ProgramDetailsModel programDetailsModel) {
 		this.programDetailsModel = programDetailsModel;
 	}
 }

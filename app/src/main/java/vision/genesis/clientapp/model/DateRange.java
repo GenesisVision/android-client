@@ -12,6 +12,9 @@ import org.joda.time.DateTime;
 import java.io.IOException;
 import java.util.Objects;
 
+import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
+
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 07/08/2018.
@@ -30,6 +33,12 @@ public class DateRange implements Parcelable
 			return new DateRange[size];
 		}
 	};
+
+	public static DateRange copy(DateRange dateRange) {
+		return new DateRange(dateRange.getSelectedRange().getValue(),
+				dateRange.getFrom().getMillis(),
+				dateRange.getTo().getMillis());
+	}
 
 	public static DateRange createFromEnum(DateRangeEnum range) {
 		DateRange dateRange = new DateRange();
@@ -63,6 +72,25 @@ public class DateRange implements Parcelable
 			selectedRange = DateRangeEnum.valueOf(in.readString());
 		} catch (IllegalArgumentException e) {
 			selectedRange = null;
+		}
+	}
+
+	@Override
+	public String toString() {
+		switch (selectedRange) {
+			case DAY:
+				return GenesisVisionApplication.INSTANCE.getString(R.string.day);
+			case WEEK:
+				return GenesisVisionApplication.INSTANCE.getString(R.string.week);
+			case MONTH:
+				return GenesisVisionApplication.INSTANCE.getString(R.string.month);
+			case YEAR:
+				return GenesisVisionApplication.INSTANCE.getString(R.string.year);
+			case ALL_TIME:
+				return GenesisVisionApplication.INSTANCE.getString(R.string.all_time);
+			case CUSTOM:
+			default:
+				return GenesisVisionApplication.INSTANCE.getString(R.string.custom);
 		}
 	}
 
@@ -145,6 +173,20 @@ public class DateRange implements Parcelable
 					break;
 			}
 		}
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		DateRange dateRange = (DateRange) o;
+		return getFrom().getMillis() == dateRange.getFrom().getMillis() &&
+				getTo().getMillis() == dateRange.getTo().getMillis() &&
+				getSelectedRange().equals(dateRange.getSelectedRange());
 	}
 
 	public enum DateRangeEnum

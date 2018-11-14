@@ -36,7 +36,7 @@ public interface MainView extends MvpView
 
 	void showLoginActivity();
 
-	void showInvestmentProgramDetails(ProgramDetailsModel programDetailsModel);
+	void showProgramDetails(ProgramDetailsModel programDetailsModel);
 
 	void showFundDetails(FundDetailsModel fundDetailsModel);
 

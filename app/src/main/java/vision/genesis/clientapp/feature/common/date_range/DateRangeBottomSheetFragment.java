@@ -171,7 +171,7 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 	}
 
 	public void setDateRange(@NonNull DateRange dateRange) {
-		this.dateRange = dateRange;
+		this.dateRange = DateRange.copy(dateRange);
 		this.oldDateRange = dateRange;
 
 		if (day != null)
@@ -236,7 +236,7 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 	}
 
 	private void updateSelections() {
-		switch (oldDateRange.getSelectedRange()) {
+		switch (dateRange.getSelectedRange()) {
 			case DAY:
 				selectOption(day);
 				break;
