@@ -174,7 +174,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/invested"
@@ -206,7 +207,7 @@
                         <TextView
                             android:id="@+id/value_label"
                             style="@style/program_info_invest_label"
-                            android:text="@string/value"/>
+                            android:text="@string/current_value"/>
 
                     </LinearLayout>
 
@@ -214,7 +215,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/profit"

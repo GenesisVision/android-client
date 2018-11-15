@@ -129,7 +129,8 @@
                     android:textSize="20sp"/>
 
                 <RelativeLayout
-                    style="@style/statistics_group">
+                    style="@style/statistics_group"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/statistics_label"

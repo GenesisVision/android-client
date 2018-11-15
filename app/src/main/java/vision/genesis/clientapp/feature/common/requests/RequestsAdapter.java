@@ -25,8 +25,11 @@ import butterknife.OnClick;
 import io.swagger.client.model.ProgramRequest;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.OnCancelRequestClickedEvent;
+import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -112,16 +115,28 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 
 			surfaceView.setOnClickListener(v -> {
 				if (request != null) {
-					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(request.getProgramId(),
-							request.getLogo(),
-							request.getColor(),
-							0,
-							request.getTitle(),
-							"",
-							request.getCurrency().getValue(),
-							false,
-							false);
-					EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
+					if (request.getProgramType().equals(ProgramRequest.ProgramTypeEnum.PROGRAM)) {
+						ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(request.getProgramId(),
+								request.getLogo(),
+								request.getColor(),
+								0,
+								request.getTitle(),
+								"",
+								request.getCurrency().getValue(),
+								false,
+								false);
+						EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
+					}
+					else if (request.getProgramType().equals(ProgramRequest.ProgramTypeEnum.FUND)) {
+						FundDetailsModel fundDetailsModel = new FundDetailsModel(request.getProgramId(),
+								request.getLogo(),
+								request.getColor(),
+								request.getTitle(),
+								"",
+								false,
+								false);
+						EventBus.getDefault().post(new ShowFundDetailsEvent(fundDetailsModel));
+					}
 				}
 			});
 		}
@@ -140,8 +155,14 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 		private void updateData() {
 			this.name.setText(request.getTitle());
 			this.type.setText(request.getType().getValue());
-			this.value.setText(String.format(Locale.getDefault(), "%s %s %s", request.getType().equals(ProgramRequest.TypeEnum.INVEST) ? "+" : "-",
-					StringFormatUtil.formatCurrencyAmount(request.getValue(), request.getCurrency().getValue()), request.getCurrency().getValue()));
+			if (request.getFundWithdrawPercent() != null) {
+				this.value.setText(String.format(Locale.getDefault(), "%s%% (est. %s GVT)", StringFormatUtil.formatAmount(request.getFundWithdrawPercent(), 0, 2),
+						StringFormatUtil.formatCurrencyAmount(request.getValue(), CurrencyEnum.GVT.getValue())));
+			}
+			else {
+				this.value.setText(String.format(Locale.getDefault(), "%s %s %s", request.getType().equals(ProgramRequest.TypeEnum.INVEST) ? "+" : "-",
+						StringFormatUtil.formatCurrencyAmount(request.getValue(), request.getCurrency().getValue()), request.getCurrency().getValue()));
+			}
 			this.date.setText(DateTimeUtil.formatRequestDate(request.getDate()));
 
 			if (request.getLogo() == null || request.getLogo().isEmpty()) {
@@ -164,6 +185,8 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 					break;
 			}
 			this.action.getHierarchy().setPlaceholderImage(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, actionResId));
+
+			swipeLayout.setSwipeEnabled(request.isCanCancelRequest());
 		}
 	}
 }

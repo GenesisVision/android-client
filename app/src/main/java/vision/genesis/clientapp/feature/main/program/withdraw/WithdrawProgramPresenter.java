@@ -168,7 +168,7 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 
 		withdrawInfo = response;
 
-		availableToWithdraw = withdrawInfo.getAvailableToWithdraw() / withdrawInfo.getRate();
+		availableToWithdraw = withdrawInfo.getAvailableToWithdraw();
 
 		getViewState().showProgress(false);
 		getViewState().setAvailableToWithdraw(String.format(Locale.getDefault(), "%s %s",

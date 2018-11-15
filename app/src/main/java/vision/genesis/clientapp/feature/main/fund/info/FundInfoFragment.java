@@ -28,6 +28,7 @@ import io.swagger.client.model.ProfilePublic;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
+import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.fund.invest.InvestFundActivity;
 import vision.genesis.clientapp.feature.main.fund.withdraw.WithdrawFundActivity;
@@ -186,6 +187,11 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 		strategyShadow.setVisibility(View.VISIBLE);
 	}
 
+	@OnClick(R.id.status)
+	public void onStatusClicked() {
+		fundInfoPresenter.onStatusClicked();
+	}
+
 	@OnClick(R.id.button_invest)
 	public void onInvestClicked() {
 		fundInfoPresenter.onInvestClicked();
@@ -323,5 +329,14 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 	public void showLoginActivity() {
 		if (getActivity() != null)
 			LoginActivity.startFrom(getActivity());
+	}
+
+	@Override
+	public void showRequestsBottomSheet() {
+		if (getActivity() != null) {
+			RequestsBottomSheetFragment bottomSheetDialog = new RequestsBottomSheetFragment();
+			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
+			bottomSheetDialog.setAssetId(fundDetails.getId());
+		}
 	}
 }

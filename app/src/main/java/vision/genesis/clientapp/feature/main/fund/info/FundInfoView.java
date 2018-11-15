@@ -31,4 +31,6 @@ interface FundInfoView extends MvpView
 	void showWithdrawFundActivity(FundRequest request);
 
 	void showLoginActivity();
+
+	void showRequestsBottomSheet();
 }

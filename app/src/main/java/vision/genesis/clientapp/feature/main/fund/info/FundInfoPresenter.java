@@ -8,6 +8,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.FundDetailsFull;
+import io.swagger.client.model.PersonalFundDetailsFull;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -128,7 +129,16 @@ public class FundInfoPresenter extends MvpPresenter<FundInfoView>
 		userLoggedOff();
 	}
 
-	public void onInvestClicked() {
+	void onStatusClicked() {
+		if (fundDetails != null && fundDetails.getPersonalFundDetails() != null) {
+			if (fundDetails.getPersonalFundDetails().getStatus().equals(PersonalFundDetailsFull.StatusEnum.INVESTING) ||
+					(fundDetails.getPersonalFundDetails().getStatus().equals(PersonalFundDetailsFull.StatusEnum.WITHDRAWING))) {
+				getViewState().showRequestsBottomSheet();
+			}
+		}
+	}
+
+	void onInvestClicked() {
 		if (!userLoggedOn) {
 			getViewState().showLoginActivity();
 			return;
@@ -148,7 +158,7 @@ public class FundInfoPresenter extends MvpPresenter<FundInfoView>
 		getViewState().showInvestFundActivity(request);
 	}
 
-	public void onWithdrawClicked() {
+	void onWithdrawClicked() {
 		if (!userLoggedOn) {
 			getViewState().showLoginActivity();
 			return;

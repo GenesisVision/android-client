@@ -269,12 +269,12 @@ public class BalanceChartView extends RelativeLayout
 
 	private void updateXAxis(DateRange dateRange) {
 		XAxis xAxis = chart.getXAxis();
-		if (!dateRange.getSelectedRange().equals(DateRange.DateRangeEnum.ALL_TIME)) {
-			xAxis.setAxisMinimum(dateRange.getFrom().getMillis() / 1000 / 60);
-		}
-		else {
-			xAxis.resetAxisMinimum();
-		}
+//		if (!dateRange.getSelectedRange().equals(DateRange.DateRangeEnum.ALL_TIME)) {
+//			xAxis.setAxisMinimum(dateRange.getFrom().getMillis() / 1000 / 60);
+//		}
+//		else {
+		xAxis.resetAxisMinimum();
+//		}
 		switch (dateRange.getSelectedRange()) {
 			case DAY:
 				xAxis.setValueFormatter(xAxisTimeValueFormatter);

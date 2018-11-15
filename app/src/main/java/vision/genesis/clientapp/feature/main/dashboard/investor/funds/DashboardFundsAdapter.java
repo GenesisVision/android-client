@@ -25,6 +25,7 @@ import io.swagger.client.model.FundDetails;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.events.OnDashboardFundFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
@@ -106,11 +107,11 @@ public class DashboardFundsAdapter extends RecyclerView.Adapter<DashboardFundsAd
 		@BindView(R.id.profit_percent)
 		public TextView profitPercent;
 
-		@BindView(R.id.balance)
-		public TextView balance;
+		@BindView(R.id.value)
+		public TextView value;
 
-		@BindView(R.id.balance_label)
-		public TextView balanceLabel;
+		@BindView(R.id.value_label)
+		public TextView valueLabel;
 
 		@BindView(R.id.investors)
 		public TextView investors;
@@ -199,11 +200,11 @@ public class DashboardFundsAdapter extends RecyclerView.Adapter<DashboardFundsAd
 			fundName.setTypeface(TypefaceUtil.semibold());
 			managerName.setTypeface(TypefaceUtil.medium());
 			profitPercent.setTypeface(TypefaceUtil.semibold());
-			balance.setTypeface(TypefaceUtil.semibold());
+			value.setTypeface(TypefaceUtil.semibold());
 			investors.setTypeface(TypefaceUtil.semibold());
 			drawdown.setTypeface(TypefaceUtil.semibold());
 
-			balanceLabel.setText(balanceLabel.getText().toString().toLowerCase());
+			valueLabel.setText(valueLabel.getText().toString().toLowerCase());
 			investorsLabel.setText(investorsLabel.getText().toString().toLowerCase());
 			drawdownLabel.setText(drawdownLabel.getText().toString().toLowerCase());
 
@@ -242,8 +243,7 @@ public class DashboardFundsAdapter extends RecyclerView.Adapter<DashboardFundsAd
 					? ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorGreen)
 					: ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorRed));
 
-			this.balance.setText(String.format(Locale.getDefault(), "%s GVT",
-					StringFormatUtil.getShortenedAmount(fund.getStatistic().getBalanceGVT().getAmount())));
+			this.value.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(fund.getPersonalDetails().getValue(), CurrencyEnum.GVT.toString())));
 
 			this.investors.setText(String.format(Locale.getDefault(), "%s",
 					StringFormatUtil.getShortenedAmount(fund.getStatistic().getInvestorsCount())));

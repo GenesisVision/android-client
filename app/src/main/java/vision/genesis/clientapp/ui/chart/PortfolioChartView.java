@@ -300,12 +300,12 @@ public class PortfolioChartView extends RelativeLayout
 
 	private void updateXAxis(DateRange dateRange) {
 		XAxis xAxis = chart.getXAxis();
-		if (!dateRange.getSelectedRange().equals(DateRange.DateRangeEnum.ALL_TIME)) {
-			xAxis.setAxisMinimum(dateRange.getFrom().getMillis() / 1000 / 60);
-		}
-		else {
-			xAxis.resetAxisMinimum();
-		}
+//		if (!dateRange.getSelectedRange().equals(DateRange.DateRangeEnum.ALL_TIME)) {
+//			xAxis.setAxisMinimum(dateRange.getFrom().getMillis() / 1000 / 60);
+//		}
+//		else {
+		xAxis.resetAxisMinimum();
+//		}
 		xAxis.setAxisMaximum(dateRange.getTo().getMillis() / 1000 / 60);
 		switch (dateRange.getSelectedRange()) {
 			case DAY:
@@ -394,7 +394,8 @@ public class PortfolioChartView extends RelativeLayout
 			dataList.add(entry);
 			barData.addDataSet(createBarDataSet(dataList));
 		}
-		barData.setBarWidth((dateRange.getTo().getMillis() - dateRange.getFrom().getMillis()) / 1000 / 60 / data.size() * 0.2f);
+		if (!data.isEmpty())
+			barData.setBarWidth((dateRange.getTo().getMillis() / 1000 / 60 - data.get(0).getX()) / data.size() * 0.2f);
 		barData.setHighlightEnabled(false);
 
 		return barData;
