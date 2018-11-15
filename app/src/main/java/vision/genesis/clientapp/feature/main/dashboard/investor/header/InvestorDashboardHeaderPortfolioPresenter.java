@@ -134,7 +134,9 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 	}
 
 	public void setInRequestsData(Double totalValue, Double rate) {
-		getViewState().setInRequests(StringFormatUtil.getChangeValueString(totalValue),
+		getViewState().setInRequests(
+//				StringFormatUtil.getChangeValueString(totalValue),
+				StringFormatUtil.getGvtValueString(totalValue),
 				StringFormatUtil.getBaseValueString(totalValue * rate, baseCurrency.getValue()));
 	}
 }

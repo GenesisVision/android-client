@@ -51,6 +51,9 @@ public class ProgramInvestInfo
 	@SerializedName("rate")
 	private Double rate = null;
 
+	@SerializedName("isOwnProgram")
+	private Boolean isOwnProgram = null;
+
 	public ProgramInvestInfo periodEnds(DateTime periodEnds) {
 		this.periodEnds = periodEnds;
 		return this;
@@ -203,6 +206,25 @@ public class ProgramInvestInfo
 		this.rate = rate;
 	}
 
+	public ProgramInvestInfo isOwnProgram(Boolean isOwnProgram) {
+		this.isOwnProgram = isOwnProgram;
+		return this;
+	}
+
+	/**
+	 * Get isOwnProgram
+	 *
+	 * @return isOwnProgram
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsOwnProgram() {
+		return isOwnProgram;
+	}
+
+	public void setIsOwnProgram(Boolean isOwnProgram) {
+		this.isOwnProgram = isOwnProgram;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -220,12 +242,13 @@ public class ProgramInvestInfo
 				Objects.equals(this.minInvestmentAmount, programInvestInfo.minInvestmentAmount) &&
 				Objects.equals(this.entryFee, programInvestInfo.entryFee) &&
 				Objects.equals(this.gvCommission, programInvestInfo.gvCommission) &&
-				Objects.equals(this.rate, programInvestInfo.rate);
+				Objects.equals(this.rate, programInvestInfo.rate) &&
+				Objects.equals(this.isOwnProgram, programInvestInfo.isOwnProgram);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(periodEnds, availableToInvest, title, availableInWallet, minInvestmentAmount, entryFee, gvCommission, rate);
+		return Objects.hash(periodEnds, availableToInvest, title, availableInWallet, minInvestmentAmount, entryFee, gvCommission, rate, isOwnProgram);
 	}
 
 
@@ -242,6 +265,7 @@ public class ProgramInvestInfo
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
 		sb.append("    gvCommission: ").append(toIndentedString(gvCommission)).append("\n");
 		sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
+		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -475,7 +475,9 @@ public class ManagerPortfolioEvent
 
 		ASSETFINISHED("AssetFinished"),
 
-		ENTRANCEFEE("EntranceFee");
+		ENTRANCEFEE("EntranceFee"),
+
+		EXITFEE("ExitFee");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {

@@ -264,7 +264,7 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 		}, 300);
 
 		PersonalFundDetailsFull personalDetails = fundDetails.getPersonalFundDetails();
-		if (personalDetails != null && personalDetails.isIsInvested()) {
+		if (personalDetails != null && !personalDetails.getStatus().equals(PersonalFundDetailsFull.StatusEnum.ENDED)) {
 			yourInvestmentGroup.setVisibility(View.VISIBLE);
 			status.setStatus(personalDetails.getStatus().getValue());
 //		invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(fundDetails.getPersonalProgramDetails().getInvested()).toString()));
@@ -273,6 +273,8 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 //			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(personalDetails.getProfit(), 0, 4)));
 			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(getProfitPercent(personalDetails), 0, 4)));
 			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(), personalDetails.getProfit() < 0 ? R.attr.colorRed : R.attr.colorGreen));
+		} else {
+			yourInvestmentGroup.setVisibility(View.GONE);
 		}
 
 		entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(fundDetails.getEntryFee(), 0, 4)));

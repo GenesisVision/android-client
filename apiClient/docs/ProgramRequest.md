@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **date** | [**DateTime**](DateTime.md) |  |  [optional]
 **value** | **Double** |  |  [optional]
 **valueGvt** | **Double** |  |  [optional]
+**feeEntry** | **Double** |  |  [optional]
+**feeExit** | **Double** |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **fundWithdrawPercent** | **Double** | Used only in fund withdraw request |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]

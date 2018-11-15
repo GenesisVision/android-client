@@ -8,7 +8,7 @@
 
     <dimen name="button_corner_radius">24dp</dimen>
 
-    <dimen name="main_sign_in_button_height">100dp</dimen>
+    <dimen name="main_sign_in_button_height">60dp</dimen>
 
     <dimen name="login_button_height">48dp</dimen>
     <dimen name="login_logo_height">148dp</dimen>

@@ -20,8 +20,10 @@ import butterknife.OnClick;
 import io.swagger.client.model.NotificationViewModel;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.fund.FundDetailsActivity;
 import vision.genesis.clientapp.feature.main.notifications.settings.NotificationsSettingsActivity;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
+import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -174,6 +176,11 @@ public class NotificationsActivity extends BaseSwipeBackActivity implements Noti
 	@Override
 	public void showProgramDetails(ProgramDetailsModel programDetailsModel) {
 		ProgramDetailsActivity.startWith(this, programDetailsModel);
+	}
+
+	@Override
+	public void showFundDetails(FundDetailsModel fundDetailsModel) {
+		FundDetailsActivity.startWith(this, fundDetailsModel);
 	}
 
 	@Override

@@ -33,6 +33,9 @@ public class PersonalProgramDetailsFull
 	@SerializedName("isReinvest")
 	private Boolean isReinvest = null;
 
+	@SerializedName("gvtValue")
+	private Double gvtValue = null;
+
 	@SerializedName("isFavorite")
 	private Boolean isFavorite = null;
 
@@ -42,11 +45,20 @@ public class PersonalProgramDetailsFull
 	@SerializedName("isOwnProgram")
 	private Boolean isOwnProgram = null;
 
+	@SerializedName("canCloseProgram")
+	private Boolean canCloseProgram = null;
+
+	@SerializedName("isFinishing")
+	private Boolean isFinishing = null;
+
 	@SerializedName("canInvest")
 	private Boolean canInvest = null;
 
 	@SerializedName("canWithdraw")
 	private Boolean canWithdraw = null;
+
+	@SerializedName("canClosePeriod")
+	private Boolean canClosePeriod = null;
 
 	@SerializedName("hasNotifications")
 	private Boolean hasNotifications = null;
@@ -86,6 +98,25 @@ public class PersonalProgramDetailsFull
 
 	public void setIsReinvest(Boolean isReinvest) {
 		this.isReinvest = isReinvest;
+	}
+
+	public PersonalProgramDetailsFull gvtValue(Double gvtValue) {
+		this.gvtValue = gvtValue;
+		return this;
+	}
+
+	/**
+	 * Get gvtValue
+	 *
+	 * @return gvtValue
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getGvtValue() {
+		return gvtValue;
+	}
+
+	public void setGvtValue(Double gvtValue) {
+		this.gvtValue = gvtValue;
 	}
 
 	public PersonalProgramDetailsFull isFavorite(Boolean isFavorite) {
@@ -145,6 +176,44 @@ public class PersonalProgramDetailsFull
 		this.isOwnProgram = isOwnProgram;
 	}
 
+	public PersonalProgramDetailsFull canCloseProgram(Boolean canCloseProgram) {
+		this.canCloseProgram = canCloseProgram;
+		return this;
+	}
+
+	/**
+	 * Get canCloseProgram
+	 *
+	 * @return canCloseProgram
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isCanCloseProgram() {
+		return canCloseProgram;
+	}
+
+	public void setCanCloseProgram(Boolean canCloseProgram) {
+		this.canCloseProgram = canCloseProgram;
+	}
+
+	public PersonalProgramDetailsFull isFinishing(Boolean isFinishing) {
+		this.isFinishing = isFinishing;
+		return this;
+	}
+
+	/**
+	 * Get isFinishing
+	 *
+	 * @return isFinishing
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsFinishing() {
+		return isFinishing;
+	}
+
+	public void setIsFinishing(Boolean isFinishing) {
+		this.isFinishing = isFinishing;
+	}
+
 	public PersonalProgramDetailsFull canInvest(Boolean canInvest) {
 		this.canInvest = canInvest;
 		return this;
@@ -181,6 +250,25 @@ public class PersonalProgramDetailsFull
 
 	public void setCanWithdraw(Boolean canWithdraw) {
 		this.canWithdraw = canWithdraw;
+	}
+
+	public PersonalProgramDetailsFull canClosePeriod(Boolean canClosePeriod) {
+		this.canClosePeriod = canClosePeriod;
+		return this;
+	}
+
+	/**
+	 * Get canClosePeriod
+	 *
+	 * @return canClosePeriod
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isCanClosePeriod() {
+		return canClosePeriod;
+	}
+
+	public void setCanClosePeriod(Boolean canClosePeriod) {
+		this.canClosePeriod = canClosePeriod;
 	}
 
 	public PersonalProgramDetailsFull hasNotifications(Boolean hasNotifications) {
@@ -326,11 +414,15 @@ public class PersonalProgramDetailsFull
 		}
 		PersonalProgramDetailsFull personalProgramDetailsFull = (PersonalProgramDetailsFull) o;
 		return Objects.equals(this.isReinvest, personalProgramDetailsFull.isReinvest) &&
+				Objects.equals(this.gvtValue, personalProgramDetailsFull.gvtValue) &&
 				Objects.equals(this.isFavorite, personalProgramDetailsFull.isFavorite) &&
 				Objects.equals(this.isInvested, personalProgramDetailsFull.isInvested) &&
 				Objects.equals(this.isOwnProgram, personalProgramDetailsFull.isOwnProgram) &&
+				Objects.equals(this.canCloseProgram, personalProgramDetailsFull.canCloseProgram) &&
+				Objects.equals(this.isFinishing, personalProgramDetailsFull.isFinishing) &&
 				Objects.equals(this.canInvest, personalProgramDetailsFull.canInvest) &&
 				Objects.equals(this.canWithdraw, personalProgramDetailsFull.canWithdraw) &&
+				Objects.equals(this.canClosePeriod, personalProgramDetailsFull.canClosePeriod) &&
 				Objects.equals(this.hasNotifications, personalProgramDetailsFull.hasNotifications) &&
 				Objects.equals(this.value, personalProgramDetailsFull.value) &&
 				Objects.equals(this.profit, personalProgramDetailsFull.profit) &&
@@ -342,7 +434,7 @@ public class PersonalProgramDetailsFull
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isReinvest, isFavorite, isInvested, isOwnProgram, canInvest, canWithdraw, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status);
+		return Objects.hash(isReinvest, gvtValue, isFavorite, isInvested, isOwnProgram, canCloseProgram, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status);
 	}
 
 	@Override
@@ -351,11 +443,15 @@ public class PersonalProgramDetailsFull
 		sb.append("class PersonalProgramDetailsFull {\n");
 
 		sb.append("    isReinvest: ").append(toIndentedString(isReinvest)).append("\n");
+		sb.append("    gvtValue: ").append(toIndentedString(gvtValue)).append("\n");
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
 		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
+		sb.append("    canCloseProgram: ").append(toIndentedString(canCloseProgram)).append("\n");
+		sb.append("    isFinishing: ").append(toIndentedString(isFinishing)).append("\n");
 		sb.append("    canInvest: ").append(toIndentedString(canInvest)).append("\n");
 		sb.append("    canWithdraw: ").append(toIndentedString(canWithdraw)).append("\n");
+		sb.append("    canClosePeriod: ").append(toIndentedString(canClosePeriod)).append("\n");
 		sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");

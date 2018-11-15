@@ -19,6 +19,8 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
+import org.joda.time.DateTime;
+
 import java.io.IOException;
 import java.util.Objects;
 
@@ -30,6 +32,15 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class PersonalFundDetailsFull
 {
+	@SerializedName("withdrawPercent")
+	private Double withdrawPercent = null;
+
+	@SerializedName("canReallocate")
+	private Boolean canReallocate = null;
+
+	@SerializedName("possibleReallocationTime")
+	private DateTime possibleReallocationTime = null;
+
 	@SerializedName("isFavorite")
 	private Boolean isFavorite = null;
 
@@ -39,11 +50,20 @@ public class PersonalFundDetailsFull
 	@SerializedName("isOwnProgram")
 	private Boolean isOwnProgram = null;
 
+	@SerializedName("canCloseProgram")
+	private Boolean canCloseProgram = null;
+
+	@SerializedName("isFinishing")
+	private Boolean isFinishing = null;
+
 	@SerializedName("canInvest")
 	private Boolean canInvest = null;
 
 	@SerializedName("canWithdraw")
 	private Boolean canWithdraw = null;
+
+	@SerializedName("canClosePeriod")
+	private Boolean canClosePeriod = null;
 
 	@SerializedName("hasNotifications")
 	private Boolean hasNotifications = null;
@@ -65,6 +85,63 @@ public class PersonalFundDetailsFull
 
 	@SerializedName("status")
 	private StatusEnum status = null;
+
+	public PersonalFundDetailsFull withdrawPercent(Double withdrawPercent) {
+		this.withdrawPercent = withdrawPercent;
+		return this;
+	}
+
+	/**
+	 * Get withdrawPercent
+	 *
+	 * @return withdrawPercent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getWithdrawPercent() {
+		return withdrawPercent;
+	}
+
+	public void setWithdrawPercent(Double withdrawPercent) {
+		this.withdrawPercent = withdrawPercent;
+	}
+
+	public PersonalFundDetailsFull canReallocate(Boolean canReallocate) {
+		this.canReallocate = canReallocate;
+		return this;
+	}
+
+	/**
+	 * Get canReallocate
+	 *
+	 * @return canReallocate
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isCanReallocate() {
+		return canReallocate;
+	}
+
+	public void setCanReallocate(Boolean canReallocate) {
+		this.canReallocate = canReallocate;
+	}
+
+	public PersonalFundDetailsFull possibleReallocationTime(DateTime possibleReallocationTime) {
+		this.possibleReallocationTime = possibleReallocationTime;
+		return this;
+	}
+
+	/**
+	 * Get possibleReallocationTime
+	 *
+	 * @return possibleReallocationTime
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getPossibleReallocationTime() {
+		return possibleReallocationTime;
+	}
+
+	public void setPossibleReallocationTime(DateTime possibleReallocationTime) {
+		this.possibleReallocationTime = possibleReallocationTime;
+	}
 
 	public PersonalFundDetailsFull isFavorite(Boolean isFavorite) {
 		this.isFavorite = isFavorite;
@@ -123,6 +200,44 @@ public class PersonalFundDetailsFull
 		this.isOwnProgram = isOwnProgram;
 	}
 
+	public PersonalFundDetailsFull canCloseProgram(Boolean canCloseProgram) {
+		this.canCloseProgram = canCloseProgram;
+		return this;
+	}
+
+	/**
+	 * Get canCloseProgram
+	 *
+	 * @return canCloseProgram
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isCanCloseProgram() {
+		return canCloseProgram;
+	}
+
+	public void setCanCloseProgram(Boolean canCloseProgram) {
+		this.canCloseProgram = canCloseProgram;
+	}
+
+	public PersonalFundDetailsFull isFinishing(Boolean isFinishing) {
+		this.isFinishing = isFinishing;
+		return this;
+	}
+
+	/**
+	 * Get isFinishing
+	 *
+	 * @return isFinishing
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsFinishing() {
+		return isFinishing;
+	}
+
+	public void setIsFinishing(Boolean isFinishing) {
+		this.isFinishing = isFinishing;
+	}
+
 	public PersonalFundDetailsFull canInvest(Boolean canInvest) {
 		this.canInvest = canInvest;
 		return this;
@@ -159,6 +274,25 @@ public class PersonalFundDetailsFull
 
 	public void setCanWithdraw(Boolean canWithdraw) {
 		this.canWithdraw = canWithdraw;
+	}
+
+	public PersonalFundDetailsFull canClosePeriod(Boolean canClosePeriod) {
+		this.canClosePeriod = canClosePeriod;
+		return this;
+	}
+
+	/**
+	 * Get canClosePeriod
+	 *
+	 * @return canClosePeriod
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isCanClosePeriod() {
+		return canClosePeriod;
+	}
+
+	public void setCanClosePeriod(Boolean canClosePeriod) {
+		this.canClosePeriod = canClosePeriod;
 	}
 
 	public PersonalFundDetailsFull hasNotifications(Boolean hasNotifications) {
@@ -303,11 +437,17 @@ public class PersonalFundDetailsFull
 			return false;
 		}
 		PersonalFundDetailsFull personalFundDetailsFull = (PersonalFundDetailsFull) o;
-		return Objects.equals(this.isFavorite, personalFundDetailsFull.isFavorite) &&
+		return Objects.equals(this.withdrawPercent, personalFundDetailsFull.withdrawPercent) &&
+				Objects.equals(this.canReallocate, personalFundDetailsFull.canReallocate) &&
+				Objects.equals(this.possibleReallocationTime, personalFundDetailsFull.possibleReallocationTime) &&
+				Objects.equals(this.isFavorite, personalFundDetailsFull.isFavorite) &&
 				Objects.equals(this.isInvested, personalFundDetailsFull.isInvested) &&
 				Objects.equals(this.isOwnProgram, personalFundDetailsFull.isOwnProgram) &&
+				Objects.equals(this.canCloseProgram, personalFundDetailsFull.canCloseProgram) &&
+				Objects.equals(this.isFinishing, personalFundDetailsFull.isFinishing) &&
 				Objects.equals(this.canInvest, personalFundDetailsFull.canInvest) &&
 				Objects.equals(this.canWithdraw, personalFundDetailsFull.canWithdraw) &&
+				Objects.equals(this.canClosePeriod, personalFundDetailsFull.canClosePeriod) &&
 				Objects.equals(this.hasNotifications, personalFundDetailsFull.hasNotifications) &&
 				Objects.equals(this.value, personalFundDetailsFull.value) &&
 				Objects.equals(this.profit, personalFundDetailsFull.profit) &&
@@ -319,7 +459,7 @@ public class PersonalFundDetailsFull
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isFavorite, isInvested, isOwnProgram, canInvest, canWithdraw, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status);
+		return Objects.hash(withdrawPercent, canReallocate, possibleReallocationTime, isFavorite, isInvested, isOwnProgram, canCloseProgram, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status);
 	}
 
 	@Override
@@ -327,11 +467,17 @@ public class PersonalFundDetailsFull
 		StringBuilder sb = new StringBuilder();
 		sb.append("class PersonalFundDetailsFull {\n");
 
+		sb.append("    withdrawPercent: ").append(toIndentedString(withdrawPercent)).append("\n");
+		sb.append("    canReallocate: ").append(toIndentedString(canReallocate)).append("\n");
+		sb.append("    possibleReallocationTime: ").append(toIndentedString(possibleReallocationTime)).append("\n");
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
 		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
+		sb.append("    canCloseProgram: ").append(toIndentedString(canCloseProgram)).append("\n");
+		sb.append("    isFinishing: ").append(toIndentedString(isFinishing)).append("\n");
 		sb.append("    canInvest: ").append(toIndentedString(canInvest)).append("\n");
 		sb.append("    canWithdraw: ").append(toIndentedString(canWithdraw)).append("\n");
+		sb.append("    canClosePeriod: ").append(toIndentedString(canClosePeriod)).append("\n");
 		sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");

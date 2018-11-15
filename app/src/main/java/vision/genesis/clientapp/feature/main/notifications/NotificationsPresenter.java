@@ -19,6 +19,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.NotificationsManager;
+import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
@@ -136,5 +137,10 @@ public class NotificationsPresenter extends MvpPresenter<NotificationsView>
 	@Subscribe
 	public void onEventMainThread(ShowProgramDetailsEvent event) {
 		getViewState().showProgramDetails(event.programDetailsModel);
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowFundDetailsEvent event) {
+		getViewState().showFundDetails(event.getFundDetailsModel());
 	}
 }

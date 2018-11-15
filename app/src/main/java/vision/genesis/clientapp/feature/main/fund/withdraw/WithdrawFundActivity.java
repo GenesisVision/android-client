@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -26,6 +27,7 @@ import vision.genesis.clientapp.feature.main.fund.withdraw.confirm.ConfirmFundWi
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.FundRequest;
 import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.utils.DigitsInputFilter;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -60,6 +62,9 @@ public class WithdrawFundActivity extends BaseSwipeBackActivity implements Withd
 
 	@BindView(R.id.max)
 	public TextView max;
+
+	@BindView(R.id.estimated_amount)
+	public TextView estimatedAmount;
 
 	@BindView(R.id.exit_fee)
 	public TextView exitFee;
@@ -113,6 +118,7 @@ public class WithdrawFundActivity extends BaseSwipeBackActivity implements Withd
 			setFonts();
 
 			setTextListener();
+			amount.setFilters(new InputFilter[]{new DigitsInputFilter(3, 2, 1000)});
 		}
 		else {
 			Timber.e("Passed empty request to WithdrawFundActivity");
@@ -140,6 +146,11 @@ public class WithdrawFundActivity extends BaseSwipeBackActivity implements Withd
 	public void setAmount(String amountText) {
 		this.amount.setText(amountText);
 		this.amount.setSelection(amountText.length(), amountText.length());
+	}
+
+	@Override
+	public void setEstimatedAmount(String estimatedAmountString) {
+		this.estimatedAmount.setText(estimatedAmountString);
 	}
 
 	@Override

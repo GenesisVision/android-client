@@ -597,6 +597,11 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	}
 
 	@Override
+	public void onAssetsListsUpdate() {
+		assetsPagerAdapter.onAssetsListsUpdate();
+	}
+
+	@Override
 	public void setChartData(DashboardChartValue chart) {
 		dashboardHeaderPagerAdapter.setPortfolioChart(chart, dateRange);
 	}

@@ -19,7 +19,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.NotificationViewModel;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
+import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -100,16 +102,30 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<Notifications
 					case PROGRAMENDOFPERIOD:
 					case PROGRAMCONDITION:
 					case MANAGERNEWPROGRAM:
-						ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(notification.getAssetId(),
-								notification.getLogo(),
-								"#131e26",
-								0,
-								"",
-								"",
-								"",
-								false,
-								false);
-						EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
+						if (notification.getAssetType() != null) {
+							if (notification.getAssetType().equals(NotificationViewModel.AssetTypeEnum.PROGRAM)) {
+								ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(notification.getAssetId(),
+										notification.getLogo(),
+										"#131e26",
+										0,
+										"",
+										"",
+										"",
+										false,
+										false);
+								EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
+							}
+							else if (notification.getAssetType().equals(NotificationViewModel.AssetTypeEnum.PROGRAM)) {
+								FundDetailsModel fundDetailsModel = new FundDetailsModel(notification.getAssetId(),
+										notification.getLogo(),
+										"#131e26",
+										"",
+										"",
+										false,
+										false);
+								EventBus.getDefault().post(new ShowFundDetailsEvent(fundDetailsModel));
+							}
+						}
 						break;
 				}
 			});

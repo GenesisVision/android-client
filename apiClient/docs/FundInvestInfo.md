@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **entryFee** | **Double** |  |  [optional]
 **gvCommission** | **Double** |  |  [optional]
 **rate** | **Double** |  |  [optional]
+**isOwnProgram** | **Boolean** |  |  [optional]
 
 
 

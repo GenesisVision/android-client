@@ -50,4 +50,6 @@ interface InvestorDashboardView extends MvpView
 	void showInRequests(List<ProgramRequest> requests);
 
 	void showProgramRequests(UUID programId);
+
+	void onAssetsListsUpdate();
 }

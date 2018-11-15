@@ -51,6 +51,7 @@ MANAGERINVEST | &quot;ManagerInvest&quot;
 MANAGERWITHDRAW | &quot;ManagerWithdraw&quot;
 ASSETFINISHED | &quot;AssetFinished&quot;
 ENTRANCEFEE | &quot;EntranceFee&quot;
+EXITFEE | &quot;ExitFee&quot;
 
 
 <a name="ProgramTypeEnum"></a>

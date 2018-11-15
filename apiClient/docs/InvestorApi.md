@@ -10,7 +10,6 @@ Method | HTTP request | Description
 [**v10InvestorFundsByIdWithdrawByPercentPost**](InvestorApi.md#v10InvestorFundsByIdWithdrawByPercentPost) | **POST** v1.0/investor/funds/{id}/withdraw/{percent} | Withdraw from fund. Percent is % of investor total money.
 [**v10InvestorFundsByIdWithdrawInfoByCurrencyGet**](InvestorApi.md#v10InvestorFundsByIdWithdrawInfoByCurrencyGet) | **GET** v1.0/investor/funds/{id}/withdraw/info/{currency} | Data for withdrawal from fund
 [**v10InvestorFundsGet**](InvestorApi.md#v10InvestorFundsGet) | **GET** v1.0/investor/funds | Funds list
-[**v10InvestorFundsRequestsByIdCancelPost**](InvestorApi.md#v10InvestorFundsRequestsByIdCancelPost) | **POST** v1.0/investor/funds/requests/{id}/cancel | Cancel investment program/fund request
 [**v10InvestorGet**](InvestorApi.md#v10InvestorGet) | **GET** v1.0/investor | Summary dashboard info
 [**v10InvestorPortfolioChartGet**](InvestorApi.md#v10InvestorPortfolioChartGet) | **GET** v1.0/investor/portfolio/chart | Portfolio charts
 [**v10InvestorPortfolioEventsGet**](InvestorApi.md#v10InvestorPortfolioEventsGet) | **GET** v1.0/investor/portfolio/events | Portfolio events
@@ -22,7 +21,7 @@ Method | HTTP request | Description
 [**v10InvestorProgramsByIdWithdrawByAmountPost**](InvestorApi.md#v10InvestorProgramsByIdWithdrawByAmountPost) | **POST** v1.0/investor/programs/{id}/withdraw/{amount} | Withdraw from investment program
 [**v10InvestorProgramsByIdWithdrawInfoByCurrencyGet**](InvestorApi.md#v10InvestorProgramsByIdWithdrawInfoByCurrencyGet) | **GET** v1.0/investor/programs/{id}/withdraw/info/{currency} | Data for withdrawal from investment program
 [**v10InvestorProgramsGet**](InvestorApi.md#v10InvestorProgramsGet) | **GET** v1.0/investor/programs | Dashboard program list
-[**v10InvestorProgramsRequestsByIdCancelPost**](InvestorApi.md#v10InvestorProgramsRequestsByIdCancelPost) | **POST** v1.0/investor/programs/requests/{id}/cancel | Cancel investment program/fund request
+[**v10InvestorProgramsRequestsByIdCancelPost**](InvestorApi.md#v10InvestorProgramsRequestsByIdCancelPost) | **POST** v1.0/investor/programs/requests/{id}/cancel | Cancel investment program request
 [**v10InvestorRequestsBySkipByTakeGet**](InvestorApi.md#v10InvestorRequestsBySkipByTakeGet) | **GET** v1.0/investor/requests/{skip}/{take} | Get all requests
 
 
@@ -310,51 +309,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**FundsList**](FundsList.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10InvestorFundsRequestsByIdCancelPost"></a>
-# **v10InvestorFundsRequestsByIdCancelPost**
-> Void v10InvestorFundsRequestsByIdCancelPost(id, authorization)
-
-Cancel investment program/fund request
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.InvestorApi;
-
-
-InvestorApi apiInstance = new InvestorApi();
-UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
-try {
-    Void result = apiInstance.v10InvestorFundsRequestsByIdCancelPost(id, authorization);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling InvestorApi#v10InvestorFundsRequestsByIdCancelPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
-
-### Return type
-
-[**Void**](.md)
 
 ### Authorization
 
@@ -922,7 +876,7 @@ No authorization required
 # **v10InvestorProgramsRequestsByIdCancelPost**
 > Void v10InvestorProgramsRequestsByIdCancelPost(id, authorization)
 
-Cancel investment program/fund request
+Cancel investment program request
 
 ### Example
 ```java

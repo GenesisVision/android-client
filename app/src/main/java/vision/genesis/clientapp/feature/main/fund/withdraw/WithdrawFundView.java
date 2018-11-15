@@ -15,6 +15,8 @@ interface WithdrawFundView extends MvpView
 
 	void setAmount(String amountText);
 
+	void setEstimatedAmount(String estimatedAmountString);
+
 	void setExitFee(String exitFeeString);
 
 	void setContinueButtonEnabled(boolean enabled);

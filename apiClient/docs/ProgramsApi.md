@@ -306,7 +306,7 @@ No authorization required
 
 <a name="v10ProgramsGet"></a>
 # **v10ProgramsGet**
-> ProgramsList v10ProgramsGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, sorting, programCurrency, currencySecondary, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, ids, managerId, programManagerId, skip, take)
+> ProgramsList v10ProgramsGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, sorting, programCurrency, currencySecondary, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, ids, managerId, programManagerId, skip, take)
 
 Programs list
 
@@ -332,13 +332,14 @@ Integer chartPointsCount = 56; // Integer |
 String mask = "mask_example"; // String | 
 String facetId = "facetId_example"; // String | 
 Boolean isFavorite = true; // Boolean | 
+Boolean isEnabled = true; // Boolean | 
 List<UUID> ids = Arrays.asList(new UUID()); // List<UUID> | 
 String managerId = "managerId_example"; // String | 
 UUID programManagerId = new UUID(); // UUID | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ProgramsList result = apiInstance.v10ProgramsGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, sorting, programCurrency, currencySecondary, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, ids, managerId, programManagerId, skip, take);
+    ProgramsList result = apiInstance.v10ProgramsGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, sorting, programCurrency, currencySecondary, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, ids, managerId, programManagerId, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#v10ProgramsGet");
@@ -364,6 +365,7 @@ Name | Type | Description  | Notes
  **mask** | **String**|  | [optional]
  **facetId** | **String**|  | [optional]
  **isFavorite** | **Boolean**|  | [optional]
+ **isEnabled** | **Boolean**|  | [optional]
  **ids** | [**List&lt;UUID&gt;**](UUID.md)|  | [optional]
  **managerId** | **String**|  | [optional]
  **programManagerId** | [**UUID**](.md)|  | [optional]

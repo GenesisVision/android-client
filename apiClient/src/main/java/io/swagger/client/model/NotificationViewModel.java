@@ -60,6 +60,9 @@ public class NotificationViewModel
 	@SerializedName("isUnread")
 	private Boolean isUnread = null;
 
+	@SerializedName("assetType")
+	private AssetTypeEnum assetType = null;
+
 	public NotificationViewModel id(UUID id) {
 		this.id = id;
 		return this;
@@ -231,6 +234,25 @@ public class NotificationViewModel
 		this.isUnread = isUnread;
 	}
 
+	public NotificationViewModel assetType(AssetTypeEnum assetType) {
+		this.assetType = assetType;
+		return this;
+	}
+
+	/**
+	 * Get assetType
+	 *
+	 * @return assetType
+	 **/
+	@ApiModelProperty(value = "")
+	public AssetTypeEnum getAssetType() {
+		return assetType;
+	}
+
+	public void setAssetType(AssetTypeEnum assetType) {
+		this.assetType = assetType;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -248,12 +270,13 @@ public class NotificationViewModel
 				Objects.equals(this.managerId, notificationViewModel.managerId) &&
 				Objects.equals(this.logo, notificationViewModel.logo) &&
 				Objects.equals(this.url, notificationViewModel.url) &&
-				Objects.equals(this.isUnread, notificationViewModel.isUnread);
+				Objects.equals(this.isUnread, notificationViewModel.isUnread) &&
+				Objects.equals(this.assetType, notificationViewModel.assetType);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, text, date, type, assetId, managerId, logo, url, isUnread);
+		return Objects.hash(id, text, date, type, assetId, managerId, logo, url, isUnread, assetType);
 	}
 
 	@Override
@@ -270,6 +293,7 @@ public class NotificationViewModel
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    isUnread: ").append(toIndentedString(isUnread)).append("\n");
+		sb.append("    assetType: ").append(toIndentedString(assetType)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -284,6 +308,7 @@ public class NotificationViewModel
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
+
 
 	/**
 	 * Gets or Sets type
@@ -356,6 +381,55 @@ public class NotificationViewModel
 			public TypeEnum read(final JsonReader jsonReader) throws IOException {
 				String value = jsonReader.nextString();
 				return TypeEnum.fromValue(String.valueOf(value));
+			}
+		}
+	}
+
+	/**
+	 * Gets or Sets assetType
+	 */
+	@JsonAdapter(AssetTypeEnum.Adapter.class)
+	public enum AssetTypeEnum
+	{
+		PROGRAM("Program"),
+
+		FUND("Fund");
+
+		public static AssetTypeEnum fromValue(String text) {
+			for (AssetTypeEnum b : AssetTypeEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		AssetTypeEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<AssetTypeEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final AssetTypeEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public AssetTypeEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return AssetTypeEnum.fromValue(String.valueOf(value));
 			}
 		}
 	}

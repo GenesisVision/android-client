@@ -38,7 +38,8 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
         android:padding="@dimen/invest_padding"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="wrap_content"

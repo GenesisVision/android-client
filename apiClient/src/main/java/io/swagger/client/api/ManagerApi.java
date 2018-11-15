@@ -2,8 +2,10 @@ package io.swagger.client.api;
 
 import org.joda.time.DateTime;
 
+import java.util.List;
 import java.util.UUID;
 
+import io.swagger.client.model.FundAssetPart;
 import io.swagger.client.model.FundInvestInfo;
 import io.swagger.client.model.FundsList;
 import io.swagger.client.model.ManagerDashboard;
@@ -63,6 +65,22 @@ public interface ManagerApi
 	@GET("v1.0/manager/events")
 	Observable<ManagerPortfolioEvents> v10ManagerEventsGet(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("AssetId") UUID assetId, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("Type") String type, @retrofit2.http.Query("AssetType") String assetType, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Update fund assets parts
+	 *
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @param assets        (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v1.0/manager/funds/{id}/assets/update")
+	Observable<Void> v10ManagerFundsByIdAssetsUpdatePost(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body List<FundAssetPart> assets
 	);
 
 	/**

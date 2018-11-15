@@ -105,18 +105,6 @@ public interface InvestorApi
 	);
 
 	/**
-	 * Cancel investment program/fund request
-	 *
-	 * @param id            (required)
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;Void&gt;
-	 */
-	@POST("v1.0/investor/funds/requests/{id}/cancel")
-	Observable<Void> v10InvestorFundsRequestsByIdCancelPost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
 	 * Summary dashboard info
 	 *
 	 * @param authorization  JWT access token (required)
@@ -278,7 +266,7 @@ public interface InvestorApi
 	);
 
 	/**
-	 * Cancel investment program/fund request
+	 * Cancel investment program request
 	 *
 	 * @param id            (required)
 	 * @param authorization JWT access token (required)

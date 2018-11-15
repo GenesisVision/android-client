@@ -281,7 +281,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds(), true, true);
 
 		PersonalProgramDetailsFull personalDetails = programDetails.getPersonalProgramDetails();
-		if (personalDetails != null && personalDetails.isIsInvested()) {
+		if (personalDetails != null && personalDetails.isIsInvested() && !personalDetails.getStatus().equals(PersonalProgramDetailsFull.StatusEnum.ENDED)) {
 			yourInvestmentGroup.setVisibility(View.VISIBLE);
 			status.setStatus(personalDetails.getStatus().getValue());
 			invested.setText(String.format(Locale.getDefault(), "%s %s",
@@ -300,6 +300,10 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 			reinvestSwitch.setChecked(personalDetails.isIsReinvest());
 		}
+		else {
+			yourInvestmentGroup.setVisibility(View.GONE);
+		}
+
 		availableToInvest.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(programDetails.getAvailableInvestment()).toString()));
 		entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getEntryFee(), 0, 4)));
 		successFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getSuccessFee(), 0, 4)));

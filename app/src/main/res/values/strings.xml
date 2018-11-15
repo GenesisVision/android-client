@@ -544,5 +544,6 @@
     <string name="all">All</string>
     <string name="high_to_low">High to Low</string>
     <string name="low_to_high">Low to High</string>
+    <string name="you_will_get_approx">You will get approximately</string>
 
 </resources>

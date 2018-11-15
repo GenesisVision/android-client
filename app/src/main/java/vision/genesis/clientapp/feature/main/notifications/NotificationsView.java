@@ -7,6 +7,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import java.util.List;
 
 import io.swagger.client.model.NotificationViewModel;
+import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 
@@ -30,4 +31,6 @@ interface NotificationsView extends MvpView
 	void showSnackbarMessage(String message);
 
 	void showProgramDetails(ProgramDetailsModel programDetailsModel);
+
+	void showFundDetails(FundDetailsModel fundDetailsModel);
 }

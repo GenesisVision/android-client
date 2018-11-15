@@ -78,8 +78,8 @@ public class ManagerDetailsPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	public void sendSwipeRefresh() {
-//		managerProgramsFragment.onSwipeRefresh();
-//		managerFundsFragment.onSwipeRefresh();
+//		managerProgramsFragment.onAssetsListsUpdate();
+//		managerFundsFragment.onAssetsListsUpdate();
 	}
 
 	public void onOffsetChanged(int verticalOffset) {

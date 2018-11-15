@@ -48,6 +48,12 @@ public class ProgramRequest
 	@SerializedName("valueGvt")
 	private Double valueGvt = null;
 
+	@SerializedName("feeEntry")
+	private Double feeEntry = null;
+
+	@SerializedName("feeExit")
+	private Double feeExit = null;
+
 	@SerializedName("currency")
 	private CurrencyEnum currency = null;
 
@@ -168,6 +174,44 @@ public class ProgramRequest
 
 	public void setValueGvt(Double valueGvt) {
 		this.valueGvt = valueGvt;
+	}
+
+	public ProgramRequest feeEntry(Double feeEntry) {
+		this.feeEntry = feeEntry;
+		return this;
+	}
+
+	/**
+	 * Get feeEntry
+	 *
+	 * @return feeEntry
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getFeeEntry() {
+		return feeEntry;
+	}
+
+	public void setFeeEntry(Double feeEntry) {
+		this.feeEntry = feeEntry;
+	}
+
+	public ProgramRequest feeExit(Double feeExit) {
+		this.feeExit = feeExit;
+		return this;
+	}
+
+	/**
+	 * Get feeExit
+	 *
+	 * @return feeExit
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getFeeExit() {
+		return feeExit;
+	}
+
+	public void setFeeExit(Double feeExit) {
+		this.feeExit = feeExit;
 	}
 
 	public ProgramRequest currency(CurrencyEnum currency) {
@@ -355,6 +399,8 @@ public class ProgramRequest
 				Objects.equals(this.date, programRequest.date) &&
 				Objects.equals(this.value, programRequest.value) &&
 				Objects.equals(this.valueGvt, programRequest.valueGvt) &&
+				Objects.equals(this.feeEntry, programRequest.feeEntry) &&
+				Objects.equals(this.feeExit, programRequest.feeExit) &&
 				Objects.equals(this.currency, programRequest.currency) &&
 				Objects.equals(this.fundWithdrawPercent, programRequest.fundWithdrawPercent) &&
 				Objects.equals(this.type, programRequest.type) &&
@@ -368,7 +414,7 @@ public class ProgramRequest
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, programId, date, value, valueGvt, currency, fundWithdrawPercent, type, status, logo, title, color, canCancelRequest, programType);
+		return Objects.hash(id, programId, date, value, valueGvt, feeEntry, feeExit, currency, fundWithdrawPercent, type, status, logo, title, color, canCancelRequest, programType);
 	}
 
 	@Override
@@ -381,6 +427,8 @@ public class ProgramRequest
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("    valueGvt: ").append(toIndentedString(valueGvt)).append("\n");
+		sb.append("    feeEntry: ").append(toIndentedString(feeEntry)).append("\n");
+		sb.append("    feeExit: ").append(toIndentedString(feeExit)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    fundWithdrawPercent: ").append(toIndentedString(fundWithdrawPercent)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");

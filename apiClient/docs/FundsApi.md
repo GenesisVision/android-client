@@ -334,7 +334,7 @@ No authorization required
 
 <a name="v10FundsGet"></a>
 # **v10FundsGet**
-> FundsList v10FundsGet(authorization, sorting, currencySecondary, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, ids, managerId, programManagerId, skip, take)
+> FundsList v10FundsGet(authorization, sorting, currencySecondary, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, ids, managerId, programManagerId, skip, take)
 
 Funds list
 
@@ -355,13 +355,14 @@ Integer chartPointsCount = 56; // Integer |
 String mask = "mask_example"; // String | 
 String facetId = "facetId_example"; // String | 
 Boolean isFavorite = true; // Boolean | 
+Boolean isEnabled = true; // Boolean | 
 List<UUID> ids = Arrays.asList(new UUID()); // List<UUID> | 
 String managerId = "managerId_example"; // String | 
 UUID programManagerId = new UUID(); // UUID | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    FundsList result = apiInstance.v10FundsGet(authorization, sorting, currencySecondary, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, ids, managerId, programManagerId, skip, take);
+    FundsList result = apiInstance.v10FundsGet(authorization, sorting, currencySecondary, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, ids, managerId, programManagerId, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#v10FundsGet");
@@ -382,6 +383,7 @@ Name | Type | Description  | Notes
  **mask** | **String**|  | [optional]
  **facetId** | **String**|  | [optional]
  **isFavorite** | **Boolean**|  | [optional]
+ **isEnabled** | **Boolean**|  | [optional]
  **ids** | [**List&lt;UUID&gt;**](UUID.md)|  | [optional]
  **managerId** | **String**|  | [optional]
  **programManagerId** | [**UUID**](.md)|  | [optional]

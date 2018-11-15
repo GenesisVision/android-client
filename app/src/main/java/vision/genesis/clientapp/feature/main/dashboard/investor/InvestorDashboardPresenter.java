@@ -106,7 +106,12 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
+		updateAll();
+	}
+
+	private void updateAll() {
 		getDashboard();
+		getViewState().onAssetsListsUpdate();
 	}
 
 	private void subscribeToBaseCurrency() {
@@ -265,7 +270,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 	@Subscribe
 	public void onEventMainThread(OnRequestCancelledEvent event) {
-		getDashboard();
+		updateAll();
 	}
 
 	@Subscribe

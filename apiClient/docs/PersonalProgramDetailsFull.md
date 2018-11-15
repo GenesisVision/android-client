@@ -5,11 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **isReinvest** | **Boolean** |  |  [optional]
+**gvtValue** | **Double** |  |  [optional]
 **isFavorite** | **Boolean** |  |  [optional]
 **isInvested** | **Boolean** |  |  [optional]
 **isOwnProgram** | **Boolean** |  |  [optional]
+**canCloseProgram** | **Boolean** |  |  [optional]
+**isFinishing** | **Boolean** |  |  [optional]
 **canInvest** | **Boolean** |  |  [optional]
 **canWithdraw** | **Boolean** |  |  [optional]
+**canClosePeriod** | **Boolean** |  |  [optional]
 **hasNotifications** | **Boolean** |  |  [optional]
 **value** | **Double** |  |  [optional]
 **profit** | **Double** |  |  [optional]

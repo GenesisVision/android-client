@@ -28,6 +28,9 @@ public class FundAssetPartWithIcon
 	@SerializedName("icon")
 	private String icon = null;
 
+	@SerializedName("color")
+	private String color = null;
+
 	@SerializedName("name")
 	private String name = null;
 
@@ -54,6 +57,25 @@ public class FundAssetPartWithIcon
 
 	public void setIcon(String icon) {
 		this.icon = icon;
+	}
+
+	public FundAssetPartWithIcon color(String color) {
+		this.color = color;
+		return this;
+	}
+
+	/**
+	 * Get color
+	 *
+	 * @return color
+	 **/
+	@ApiModelProperty(value = "")
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	public FundAssetPartWithIcon name(String name) {
@@ -124,6 +146,7 @@ public class FundAssetPartWithIcon
 		}
 		FundAssetPartWithIcon fundAssetPartWithIcon = (FundAssetPartWithIcon) o;
 		return Objects.equals(this.icon, fundAssetPartWithIcon.icon) &&
+				Objects.equals(this.color, fundAssetPartWithIcon.color) &&
 				Objects.equals(this.name, fundAssetPartWithIcon.name) &&
 				Objects.equals(this.asset, fundAssetPartWithIcon.asset) &&
 				Objects.equals(this.percent, fundAssetPartWithIcon.percent);
@@ -131,7 +154,7 @@ public class FundAssetPartWithIcon
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(icon, name, asset, percent);
+		return Objects.hash(icon, color, name, asset, percent);
 	}
 
 
@@ -141,6 +164,7 @@ public class FundAssetPartWithIcon
 		sb.append("class FundAssetPartWithIcon {\n");
 
 		sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
+		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
 		sb.append("    percent: ").append(toIndentedString(percent)).append("\n");

@@ -44,6 +44,8 @@ public class ProgramsFilter implements Parcelable
 
 	private Boolean isFavorite;
 
+	private Boolean isEnabled;
+
 	private CurrencyEnum currency;
 
 	private List<UUID> ids;
@@ -69,6 +71,7 @@ public class ProgramsFilter implements Parcelable
 			this.mask = filter.getMask();
 			this.facetId = filter.getFacetId();
 			this.isFavorite = filter.getIsFavorite();
+			this.isEnabled = filter.getIsEnabled();
 			this.currency = filter.getCurrency();
 			this.ids = filter.getIds();
 			this.managerId = filter.getManagerId();
@@ -111,6 +114,8 @@ public class ProgramsFilter implements Parcelable
 		mask = in.readString();
 		byte tmpIsFavorite = in.readByte();
 		isFavorite = tmpIsFavorite == 0 ? null : tmpIsFavorite == 1;
+		byte tmpIsEnabled = in.readByte();
+		isEnabled = tmpIsEnabled == 0 ? null : tmpIsEnabled == 1;
 		try {
 			currency = CurrencyEnum.valueOf(in.readString());
 		} catch (IllegalArgumentException e) {
@@ -204,6 +209,14 @@ public class ProgramsFilter implements Parcelable
 		isFavorite = favorite;
 	}
 
+	public Boolean getIsEnabled() {
+		return isEnabled;
+	}
+
+	public void setIsEnabled(Boolean enabled) {
+		isEnabled = enabled;
+	}
+
 	public CurrencyEnum getCurrency() {
 		return currency;
 	}
@@ -288,6 +301,7 @@ public class ProgramsFilter implements Parcelable
 		dest.writeParcelable(dateRange, flags);
 		dest.writeString(mask);
 		dest.writeByte((byte) (isFavorite == null ? 0 : isFavorite ? 1 : 2));
+		dest.writeByte((byte) (isEnabled == null ? 0 : isEnabled ? 1 : 2));
 		if (currency == null) {
 			dest.writeString("");
 		}
@@ -330,6 +344,7 @@ public class ProgramsFilter implements Parcelable
 				Objects.equals(getMask(), filter.getMask()) &&
 				Objects.equals(getFacetId(), filter.getFacetId()) &&
 				Objects.equals(getIsFavorite(), filter.getIsFavorite()) &&
+				Objects.equals(getIsEnabled(), filter.getIsEnabled()) &&
 				Objects.equals(getCurrency(), filter.getCurrency()) &&
 				Objects.equals(getIds(), filter.getIds()) &&
 				Objects.equals(getManagerId(), filter.getManagerId()) &&

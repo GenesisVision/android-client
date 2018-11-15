@@ -156,7 +156,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 			this.name.setText(request.getTitle());
 			this.type.setText(request.getType().getValue());
 			if (request.getFundWithdrawPercent() != null) {
-				this.value.setText(String.format(Locale.getDefault(), "%s%% (est. %s GVT)", StringFormatUtil.formatAmount(request.getFundWithdrawPercent(), 0, 2),
+				this.value.setText(String.format(Locale.getDefault(), "%s%% (≈ %s GVT)", StringFormatUtil.formatAmount(request.getFundWithdrawPercent(), 0, 2),
 						StringFormatUtil.formatCurrencyAmount(request.getValue(), CurrencyEnum.GVT.getValue())));
 			}
 			else {

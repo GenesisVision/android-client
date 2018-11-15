@@ -74,32 +74,54 @@ public class WithdrawFundPresenter extends MvpPresenter<WithdrawFundView> implem
 	void onAmountChanged(String newAmount) {
 		try {
 			amount = Double.parseDouble(newAmount);
-			//TODO: fix newAmount == "000.000000"
 		} catch (NumberFormatException e) {
 			amount = 0.0;
 		}
-//		double fractionalPart = NumberFormatUtil.roundDouble(amount - ((long) amount.doubleValue()), StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()));
-//		if (String.valueOf(fractionalPart).length() > StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()) + 2) {
-//			getViewState().setAmount(newAmount.substring(0, newAmount.length() - 1));
-//		}
+
 		if (withdrawInfo != null) {
 			if (amount > 100) {
 				getViewState().setAmount("100");
 				return;
 			}
 
+			getViewState().setEstimatedAmount(getEstimatedAmountString());
+			getViewState().setExitFee(getExitFeeString());
 			getViewState().setContinueButtonEnabled(amount > 0
 					&& amount <= 100);
 		}
 	}
 
+	private Double getEstimatedAmount() {
+		return withdrawInfo.getAvailableToWithdraw() * amount / 100;
+	}
+
+	private Double getEstimatedExitFee() {
+		return getEstimatedAmount() * withdrawInfo.getExitFee() / 100;
+	}
+
+	private Double getEstimatedYouWillGet() {
+		return getEstimatedAmount() - getEstimatedExitFee();
+	}
+
+	private String getEstimatedAmountString() {
+		return String.format(Locale.getDefault(), "≈ %s GVT",
+				StringFormatUtil.formatCurrencyAmount(getEstimatedAmount(), CurrencyEnum.GVT.getValue()));
+	}
+
 	private String getAmountToWithdrawString() {
-		return String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(amount, 0, 4));
+		return String.format(Locale.getDefault(), "%s%% (%s)",
+				StringFormatUtil.formatAmount(amount, 0, 4), getEstimatedAmountString());
 	}
 
 	private String getExitFeeString() {
-		return String.format(Locale.getDefault(), "%s%%",
-				StringFormatUtil.formatAmount(withdrawInfo.getExitFee(), 0, 5));
+		return String.format(Locale.getDefault(), "%s%% (≈ %s GVT)",
+				StringFormatUtil.formatAmount(withdrawInfo.getExitFee(), 0, 4),
+				StringFormatUtil.formatCurrencyAmount(getEstimatedExitFee(), CurrencyEnum.GVT.getValue()));
+	}
+
+	private String getEstimatedYouWillGetString() {
+		return String.format(Locale.getDefault(), "≈ %s GVT",
+				StringFormatUtil.formatCurrencyAmount(getEstimatedYouWillGet(), CurrencyEnum.GVT.getValue()));
 	}
 
 	void onMaxClicked() {
@@ -110,7 +132,7 @@ public class WithdrawFundPresenter extends MvpPresenter<WithdrawFundView> implem
 		fundRequest.setAmount(amount);
 		fundRequest.setAmountTopText(getAmountToWithdrawString());
 		fundRequest.setInfoMiddleText(getExitFeeString());
-		fundRequest.setAmountBottomText("");
+		fundRequest.setAmountBottomText(getEstimatedYouWillGetString());
 		getViewState().showConfirmDialog(fundRequest);
 	}
 

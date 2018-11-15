@@ -70,4 +70,9 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 		fundsFragment.showEmpty(show);
 
 	}
+
+	public void onAssetsListsUpdate() {
+		programsFragment.pagerShow();
+		fundsFragment.pagerShow();
+	}
 }

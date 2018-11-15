@@ -103,7 +103,7 @@
                     <TextView
                         android:id="@+id/amount_to_withdraw"
                         style="@style/confirmation_dialog_value"
-                        tools:text="10.235%"/>
+                        tools:text="10.235% (≈ 1.5246 GVT)"/>
 
                     <TextView
                         style="@style/confirmation_dialog_label"
@@ -112,7 +112,16 @@
                     <TextView
                         android:id="@+id/exit_fee"
                         style="@style/confirmation_dialog_value"
-                        tools:text="5%"/>
+                        tools:text="5% (≈ 0.01251 GVT)"/>
+
+                    <TextView
+                        style="@style/confirmation_dialog_label"
+                        android:text="@string/you_will_get_approx"/>
+
+                    <TextView
+                        android:id="@+id/you_will_get"
+                        style="@style/confirmation_dialog_value"
+                        tools:text="≈ 1.50984 GVT"/>
 
                 </LinearLayout>
 

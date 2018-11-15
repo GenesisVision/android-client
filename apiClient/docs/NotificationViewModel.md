@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **logo** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
 **isUnread** | **Boolean** |  |  [optional]
+**assetType** | [**AssetTypeEnum**](#AssetTypeEnum) |  |  [optional]
 
 
 <a name="TypeEnum"></a>
@@ -34,6 +35,14 @@ FUNDNEWSANDUPDATES | &quot;FundNewsAndUpdates&quot;
 FUNDENDOFPERIOD | &quot;FundEndOfPeriod&quot;
 FUNDREBALANCING | &quot;FundRebalancing&quot;
 MANAGERNEWPROGRAM | &quot;ManagerNewProgram&quot;
+
+
+<a name="AssetTypeEnum"></a>
+## Enum: AssetTypeEnum
+Name | Value
+---- | -----
+PROGRAM | &quot;Program&quot;
+FUND | &quot;Fund&quot;
 
 
 
