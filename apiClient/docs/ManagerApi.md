@@ -4,11 +4,12 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**v10ManagerAssetsGet**](ManagerApi.md#v10ManagerAssetsGet) | **GET** v1.0/manager/assets | Manager assets list
 [**v10ManagerByIdDetailsGet**](ManagerApi.md#v10ManagerByIdDetailsGet) | **GET** v1.0/manager/{id}/details | Manager details
 [**v10ManagerByIdGet**](ManagerApi.md#v10ManagerByIdGet) | **GET** v1.0/manager/{id} | Manager profile
 [**v10ManagerEventsGet**](ManagerApi.md#v10ManagerEventsGet) | **GET** v1.0/manager/events | Manager events
 [**v10ManagerFundsByIdAssetsUpdatePost**](ManagerApi.md#v10ManagerFundsByIdAssetsUpdatePost) | **POST** v1.0/manager/funds/{id}/assets/update | Update fund assets parts
-[**v10ManagerFundsByIdClosePost**](ManagerApi.md#v10ManagerFundsByIdClosePost) | **POST** v1.0/manager/funds/{id}/close | Close existing investment program/fund
+[**v10ManagerFundsByIdClosePost**](ManagerApi.md#v10ManagerFundsByIdClosePost) | **POST** v1.0/manager/funds/{id}/close | Close existing fund
 [**v10ManagerFundsByIdInvestByAmountPost**](ManagerApi.md#v10ManagerFundsByIdInvestByAmountPost) | **POST** v1.0/manager/funds/{id}/invest/{amount} | Deposit
 [**v10ManagerFundsByIdInvestInfoByCurrencyGet**](ManagerApi.md#v10ManagerFundsByIdInvestInfoByCurrencyGet) | **GET** v1.0/manager/funds/{id}/invest/info/{currency} | Data for investing into the fund
 [**v10ManagerFundsByIdRequestsBySkipByTakeGet**](ManagerApi.md#v10ManagerFundsByIdRequestsBySkipByTakeGet) | **GET** v1.0/manager/funds/{id}/requests/{skip}/{take} | Get investment program/fund requests
@@ -20,7 +21,7 @@ Method | HTTP request | Description
 [**v10ManagerFundsInvestmentAmountGet**](ManagerApi.md#v10ManagerFundsInvestmentAmountGet) | **GET** v1.0/manager/funds/investment/amount | Get GVT investment to create fund
 [**v10ManagerFundsRequestsByIdCancelPost**](ManagerApi.md#v10ManagerFundsRequestsByIdCancelPost) | **POST** v1.0/manager/funds/requests/{id}/cancel | Cancel investment program/fund request
 [**v10ManagerGet**](ManagerApi.md#v10ManagerGet) | **GET** v1.0/manager | Manager dashboard
-[**v10ManagerProgramsByIdClosePost**](ManagerApi.md#v10ManagerProgramsByIdClosePost) | **POST** v1.0/manager/programs/{id}/close | Close existing investment program/fund
+[**v10ManagerProgramsByIdClosePost**](ManagerApi.md#v10ManagerProgramsByIdClosePost) | **POST** v1.0/manager/programs/{id}/close | Close existing investment program
 [**v10ManagerProgramsByIdInvestByAmountPost**](ManagerApi.md#v10ManagerProgramsByIdInvestByAmountPost) | **POST** v1.0/manager/programs/{id}/invest/{amount} | Deposit
 [**v10ManagerProgramsByIdInvestInfoByCurrencyGet**](ManagerApi.md#v10ManagerProgramsByIdInvestInfoByCurrencyGet) | **GET** v1.0/manager/programs/{id}/invest/info/{currency} | Data for investing into the program
 [**v10ManagerProgramsByIdPeriodClosePost**](ManagerApi.md#v10ManagerProgramsByIdPeriodClosePost) | **POST** v1.0/manager/programs/{id}/period/close | Close current period
@@ -34,6 +35,49 @@ Method | HTTP request | Description
 [**v10ManagerProgramsRequestsByIdCancelPost**](ManagerApi.md#v10ManagerProgramsRequestsByIdCancelPost) | **POST** v1.0/manager/programs/requests/{id}/cancel | Cancel investment program/fund request
 [**v10ManagerRequestsBySkipByTakeGet**](ManagerApi.md#v10ManagerRequestsBySkipByTakeGet) | **GET** v1.0/manager/requests/{skip}/{take} | Get all requests
 
+
+<a name="v10ManagerAssetsGet"></a>
+# **v10ManagerAssetsGet**
+> ManagerAssets v10ManagerAssetsGet(authorization)
+
+Manager assets list
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    ManagerAssets result = apiInstance.v10ManagerAssetsGet(authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#v10ManagerAssetsGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**ManagerAssets**](ManagerAssets.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 <a name="v10ManagerByIdDetailsGet"></a>
 # **v10ManagerByIdDetailsGet**
@@ -229,7 +273,7 @@ No authorization required
 # **v10ManagerFundsByIdClosePost**
 > Void v10ManagerFundsByIdClosePost(id, authorization, twoFactorCode)
 
-Close existing investment program/fund
+Close existing fund
 
 ### Example
 ```java
@@ -807,7 +851,7 @@ No authorization required
 # **v10ManagerProgramsByIdClosePost**
 > Void v10ManagerProgramsByIdClosePost(id, authorization, twoFactorCode)
 
-Close existing investment program/fund
+Close existing investment program
 
 ### Example
 ```java

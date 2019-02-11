@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **userName** | **String** |  |  [optional]
 **index** | **String** |  |  [optional]
 **citizenship** | **String** |  |  [optional]
+**refUrl** | **String** |  |  [optional]
 **verificationStatus** | [**VerificationStatusEnum**](#VerificationStatusEnum) |  |  [optional]
 
 

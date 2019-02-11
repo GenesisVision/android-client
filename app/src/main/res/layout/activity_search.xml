@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:descendantFocusability="beforeDescendants"
+                android:fitsSystemWindows="true"
                 android:focusableInTouchMode="true">
 
     <View
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorGrayBackground"
+        android:background="?attr/colorBackground"
         android:visibility="gone"/>
 
 
@@ -109,7 +111,7 @@
         android:id="@+id/group_no_internet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/group_search"
+        android:layout_below="@+id/searchbar"
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
@@ -134,6 +136,11 @@
     </LinearLayout>
 
     <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/searchbar_height"
+        android:background="?attr/colorBackground"/>
+
+    <View
         android:id="@+id/background_black"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -142,31 +149,39 @@
         tools:visibility="gone"/>
 
     <RelativeLayout
-        android:id="@+id/group_search"
+        android:id="@+id/searchbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:gravity="center"
-        android:paddingLeft="6dp"
-        android:paddingRight="6dp"
-        android:paddingTop="6dp"
-        android:visibility="visible">
+        android:layout_height="@dimen/searchbar_height"
+        android:layout_marginEnd="@dimen/assets_padding"
+        android:layout_marginStart="@dimen/assets_padding">
 
-        <include
-            android:id="@+id/searchbar"
-            layout="@layout/view_searchbar"/>
-
-        <TextView
-            android:id="@+id/text_results_count"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/edittext_search"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/searchbar"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:fontFamily="sans-serif"
-            android:textColor="@color/grey300"
-            android:textSize="12sp"
-            tools:text="Results: 8"/>
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/icon_close"
+            android:background="@android:color/transparent"
+            android:hint="@string/search"
+            android:imeOptions="actionSearch"
+            android:textColor="?attr/colorTextPrimary"
+            android:textColorHint="?attr/colorTextSecondary"
+            android:textSize="18sp"/>
+
+        <ImageView
+            android:id="@+id/icon_close"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:tint="?attr/colorTextPrimary"
+            app:srcCompat="@drawable/ic_close_black_24dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="?attr/colorDelimiterLight"/>
 
     </RelativeLayout>
 
@@ -175,20 +190,10 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_below="@+id/group_search"
+        android:layout_below="@+id/searchbar"
         android:indeterminate="true"
         android:scaleY="4"
         android:visibility="gone"
         tools:visibility="visible"/>
-
-    <TextView
-        android:id="@+id/version"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/grey300"
-        android:textSize="10sp"
-        tools:text="0.0.2-alpha (18040401)"/>
 
 </RelativeLayout>

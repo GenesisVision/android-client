@@ -23,7 +23,6 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -32,7 +31,6 @@ import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.OnFocusChange;
 import io.swagger.client.model.ProgramDetails;
-import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListAdapter;
 
@@ -49,9 +47,6 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 		activity.overridePendingTransition(R.anim.fragment_fade_in, R.anim.hold);
 	}
 
-	@BindView(R.id.version)
-	public TextView version;
-
 //	@BindView(R.id.scrollview)
 //	public NestedScrollView scrollView;
 
@@ -64,26 +59,14 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 	@BindView(R.id.edittext_search)
 	public EditText searchEditText;
 
-	@BindView(R.id.text_results_count)
-	public TextView resultsCount;
-
 	@BindView(R.id.programs_recycler_view)
 	public RecyclerView programsRecyclerView;
-
-//	@BindView(R.id.tournament_recycler_view)
-//	public RecyclerView tournamentRecyclerView;
 
 	@BindView(R.id.group_no_internet)
 	public ViewGroup noInternetGroup;
 
 	@BindView(R.id.group_empty)
 	public ViewGroup emptyGroup;
-
-//	@BindView(R.id.text_programs)
-//	public TextView programsText;
-//
-//	@BindView(R.id.text_tournament)
-//	public TextView tournamentText;
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
@@ -95,8 +78,6 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 
 	private int lastVisible = 0;
 
-//	private ProgramsListAdapter tournamentAdapter;
-
 	@OnClick(R.id.background_black)
 	public void onBackgroundBlackClicked() {
 		if (background.getVisibility() == View.VISIBLE)
@@ -105,8 +86,8 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 			onBackPressed();
 	}
 
-	@OnClick(R.id.icon_back)
-	public void onBackClicked() {
+	@OnClick(R.id.icon_close)
+	public void onCloseClicked() {
 		onBackPressed();
 	}
 
@@ -131,6 +112,7 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+//		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_search);
@@ -140,17 +122,12 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 		initRecyclerViews();
 
 		showSoftKeyboard();
-
-		version.setText(String.format(Locale.getDefault(), "%s (%d)", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
 	}
 
 	@Override
 	protected void onDestroy() {
 		if (programsRecyclerView != null)
 			programsRecyclerView.setAdapter(null);
-
-//		if (tournamentRecyclerView != null)
-//			tournamentRecyclerView.setAdapter(null);
 
 		super.onDestroy();
 	}
@@ -217,7 +194,6 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 
 	@Override
 	public void setInvestmentPrograms(List<ProgramDetails> programs) {
-//		programsText.setVisibility(!programs.isEmpty() ? View.VISIBLE : View.GONE);
 		programsAdapter.setInvestmentPrograms(programs);
 		programsRecyclerView.scrollToPosition(0);
 	}
@@ -262,12 +238,11 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 	@Override
 	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
 		programsAdapter.changeProgramIsFavorite(programId, isFavorite);
-//		tournamentAdapter.changeProgramIsFavorite(programId, isFavorite);
 	}
 
 	@Override
 	public void setResultsCount(String count) {
-		resultsCount.setText(String.format(Locale.getDefault(), "%s: %s", getString(R.string.results), count));
+//		resultsCount.setText(String.format(Locale.getDefault(), "%s: %s", getString(R.string.results), count));
 	}
 
 	@Override

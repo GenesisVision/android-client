@@ -84,6 +84,9 @@ public class ProfileFullViewModel
 	@SerializedName("citizenship")
 	private String citizenship = null;
 
+	@SerializedName("refUrl")
+	private String refUrl = null;
+
 	@SerializedName("verificationStatus")
 	private VerificationStatusEnum verificationStatus = null;
 
@@ -410,6 +413,25 @@ public class ProfileFullViewModel
 		this.citizenship = citizenship;
 	}
 
+	public ProfileFullViewModel refUrl(String refUrl) {
+		this.refUrl = refUrl;
+		return this;
+	}
+
+	/**
+	 * Get refUrl
+	 *
+	 * @return refUrl
+	 **/
+	@ApiModelProperty(value = "")
+	public String getRefUrl() {
+		return refUrl;
+	}
+
+	public void setRefUrl(String refUrl) {
+		this.refUrl = refUrl;
+	}
+
 	public ProfileFullViewModel verificationStatus(VerificationStatusEnum verificationStatus) {
 		this.verificationStatus = verificationStatus;
 		return this;
@@ -455,12 +477,13 @@ public class ProfileFullViewModel
 				Objects.equals(this.userName, profileFullViewModel.userName) &&
 				Objects.equals(this.index, profileFullViewModel.index) &&
 				Objects.equals(this.citizenship, profileFullViewModel.citizenship) &&
+				Objects.equals(this.refUrl, profileFullViewModel.refUrl) &&
 				Objects.equals(this.verificationStatus, profileFullViewModel.verificationStatus);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, email, firstName, middleName, lastName, country, city, address, phone, phoneNumberConfirmed, birthday, gender, avatar, about, userName, index, citizenship, verificationStatus);
+		return Objects.hash(id, email, firstName, middleName, lastName, country, city, address, phone, phoneNumberConfirmed, birthday, gender, avatar, about, userName, index, citizenship, refUrl, verificationStatus);
 	}
 
 	@Override
@@ -485,6 +508,7 @@ public class ProfileFullViewModel
 		sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
 		sb.append("    index: ").append(toIndentedString(index)).append("\n");
 		sb.append("    citizenship: ").append(toIndentedString(citizenship)).append("\n");
+		sb.append("    refUrl: ").append(toIndentedString(refUrl)).append("\n");
 		sb.append("    verificationStatus: ").append(toIndentedString(verificationStatus)).append("\n");
 		sb.append("}");
 		return sb.toString();

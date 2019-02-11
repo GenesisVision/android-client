@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **periodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
 **availableInvestment** | **Double** |  |  [optional]
 **statistic** | [**ProgramDetailsListStatistic**](ProgramDetailsListStatistic.md) |  |  [optional]
+**rating** | [**ProgramDetailsRating**](ProgramDetailsRating.md) |  |  [optional]
 **personalDetails** | [**PersonalProgramDetailsFull**](PersonalProgramDetailsFull.md) | Fields for authorized user |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **logo** | **String** |  |  [optional]

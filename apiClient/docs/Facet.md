@@ -20,6 +20,7 @@ NEW | &quot;New&quot;
 TOP | &quot;Top&quot;
 WEEKLYTOP | &quot;WeeklyTop&quot;
 POPULAR | &quot;Popular&quot;
+TOLEVELUP | &quot;ToLevelUp&quot;
 
 
 

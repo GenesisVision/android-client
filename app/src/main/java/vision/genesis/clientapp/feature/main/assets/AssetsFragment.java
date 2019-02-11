@@ -37,9 +37,6 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 	@BindView(R.id.appBarLayout)
 	public AppBarLayout appBarLayout;
 
-	@BindView(R.id.group_search)
-	public ViewGroup searchGroup;
-
 	@BindView(R.id.tab_layout)
 	public TabLayout tabLayout;
 
@@ -280,6 +277,8 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 //			pagerAdapter.setTournamentData(platformInfo.getTournamentCurrentRound(), platformInfo.getTournamentTotalRounds());
 //			isTournamentAlreadyAdded = true;
 //		}
+		pagerAdapter.setProgramsFacets(platformInfo.getProgramsFacets());
+		pagerAdapter.setFundsFacets(platformInfo.getFundsFacets());
 	}
 
 	@Override

@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **isReinvesting** | **Boolean** |  |  [optional]
 **availableInvestment** | **Double** |  |  [optional]
 **statistic** | [**ProgramStatistic**](ProgramStatistic.md) |  |  [optional]
+**rating** | [**ProgramDetailsRating**](ProgramDetailsRating.md) |  |  [optional]
 **personalProgramDetails** | [**PersonalProgramDetailsFull**](PersonalProgramDetailsFull.md) | Fields for authorized user |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **logo** | **String** |  |  [optional]

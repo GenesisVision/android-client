@@ -23,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.Facet;
 import io.swagger.client.model.ProgramDetails;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -168,6 +169,10 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		if (totalItemCount > 0 && endHasBeenReached) {
 			programsListPresenter.onLastListItemVisible();
 		}
+	}
+
+	public void setFacets(List<Facet> facets) {
+
 	}
 
 	@Override

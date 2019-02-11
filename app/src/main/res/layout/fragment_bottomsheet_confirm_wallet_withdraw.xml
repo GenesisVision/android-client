@@ -8,115 +8,129 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_bottomsheet_contrast"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:layout_height="match_parent"
+            android:nestedScrollingEnabled="true">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/confirm_withdraw"
-                android:textColor="?attr/colorCard"
-                android:textSize="20sp"/>
-
-            <TextView
-                android:id="@+id/warning_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:alpha="0.5"
-                android:lineSpacingMultiplier="1.2"
-                android:text="@string/wallet_withdraw_warning"
-                android:textColor="?attr/colorCard"
-                android:textSize="14sp"/>
-
-            <View
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="24dp"
-                android:alpha="0.2"
-                android:background="?attr/colorCard"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
 
-            <TextView
-                style="@style/confirmation_dialog_label"
-                android:text="@string/withdrawal_amount"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
-            <TextView
-                android:id="@+id/withdrawal_amount"
-                style="@style/confirmation_dialog_value"
-                tools:text="10.235 GVT"/>
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/confirm_withdraw"
+                        android:textColor="?attr/colorCard"
+                        android:textSize="20sp"/>
 
-            <TextView
-                style="@style/confirmation_dialog_label"
-                android:lines="2"
-                android:text="@string/to_address"/>
+                    <TextView
+                        android:id="@+id/warning_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:alpha="0.5"
+                        android:lineSpacingMultiplier="1.2"
+                        android:text="@string/wallet_withdraw_warning"
+                        android:textColor="?attr/colorCard"
+                        android:textSize="14sp"/>
 
-            <TextView
-                android:id="@+id/address"
-                style="@style/confirmation_dialog_value"
-                tools:text="1AsuTDWTYbRdcU6WczJy5XfnocgNey8y3o"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="24dp"
+                        android:alpha="0.2"
+                        android:background="?attr/colorCard"/>
 
-            <TextView
-                style="@style/confirmation_dialog_label"
-                android:text="@string/fee_amount"/>
+                    <TextView
+                        style="@style/confirmation_dialog_label"
+                        android:text="@string/withdrawal_amount"/>
 
-            <TextView
-                android:id="@+id/fee_amount"
-                style="@style/confirmation_dialog_value"
-                tools:text="1.4% (0.008 GVT)"/>
+                    <TextView
+                        android:id="@+id/withdrawal_amount"
+                        style="@style/confirmation_dialog_value"
+                        tools:text="10.235 GVT"/>
 
-            <TextView
-                style="@style/confirmation_dialog_label"
-                android:text="@string/estimated_amount"/>
+                    <TextView
+                        style="@style/confirmation_dialog_label"
+                        android:lines="2"
+                        android:text="@string/to_address"/>
 
-            <TextView
-                android:id="@+id/estimated_amount"
-                style="@style/confirmation_dialog_value"
-                tools:text="0.234901 BTC"/>
+                    <TextView
+                        android:id="@+id/address"
+                        style="@style/confirmation_dialog_value"
+                        tools:text="1AsuTDWTYbRdcU6WczJy5XfnocgNey8y3o"/>
 
-        </LinearLayout>
+                    <TextView
+                        style="@style/confirmation_dialog_label"
+                        android:text="@string/fee_amount"/>
 
-        <LinearLayout
-            android:id="@+id/group_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/button_height"
-            android:layout_marginTop="50dp">
+                    <TextView
+                        android:id="@+id/fee_amount"
+                        style="@style/confirmation_dialog_value"
+                        tools:text="1.4% (0.008 GVT)"/>
 
-            <vision.genesis.clientapp.ui.PrimaryButton
-                android:id="@+id/button_cancel"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/cancel"/>
+                    <TextView
+                        style="@style/confirmation_dialog_label"
+                        android:text="@string/estimated_amount"/>
 
-            <vision.genesis.clientapp.ui.PrimaryButton
-                android:id="@+id/button_confirm"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:text="@string/confirm"/>
+                    <TextView
+                        android:id="@+id/estimated_amount"
+                        style="@style/confirmation_dialog_value"
+                        tools:text="0.234901 BTC"/>
 
-        </LinearLayout>
+                </LinearLayout>
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/button_height"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:visibility="gone"/>
+                <LinearLayout
+                    android:id="@+id/group_buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_marginTop="50dp">
+
+                    <vision.genesis.clientapp.ui.PrimaryButton
+                        android:id="@+id/button_cancel"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/cancel"/>
+
+                    <vision.genesis.clientapp.ui.PrimaryButton
+                        android:id="@+id/button_confirm"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/confirm"/>
+
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="50dp"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </LinearLayout>
 

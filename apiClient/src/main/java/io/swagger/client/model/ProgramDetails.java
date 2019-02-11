@@ -56,6 +56,9 @@ public class ProgramDetails
 	@SerializedName("statistic")
 	private ProgramDetailsListStatistic statistic = null;
 
+	@SerializedName("rating")
+	private ProgramDetailsRating rating = null;
+
 	@SerializedName("personalDetails")
 	private PersonalProgramDetailsFull personalDetails = null;
 
@@ -220,6 +223,25 @@ public class ProgramDetails
 
 	public void setStatistic(ProgramDetailsListStatistic statistic) {
 		this.statistic = statistic;
+	}
+
+	public ProgramDetails rating(ProgramDetailsRating rating) {
+		this.rating = rating;
+		return this;
+	}
+
+	/**
+	 * Get rating
+	 *
+	 * @return rating
+	 **/
+	@ApiModelProperty(value = "")
+	public ProgramDetailsRating getRating() {
+		return rating;
+	}
+
+	public void setRating(ProgramDetailsRating rating) {
+		this.rating = rating;
 	}
 
 	public ProgramDetails personalDetails(PersonalProgramDetailsFull personalDetails) {
@@ -455,6 +477,7 @@ public class ProgramDetails
 				Objects.equals(this.periodEnds, programDetails.periodEnds) &&
 				Objects.equals(this.availableInvestment, programDetails.availableInvestment) &&
 				Objects.equals(this.statistic, programDetails.statistic) &&
+				Objects.equals(this.rating, programDetails.rating) &&
 				Objects.equals(this.personalDetails, programDetails.personalDetails) &&
 				Objects.equals(this.id, programDetails.id) &&
 				Objects.equals(this.logo, programDetails.logo) &&
@@ -470,7 +493,7 @@ public class ProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, availableInvestment, statistic, personalDetails, id, logo, url, color, title, description, status, manager, chart, dashboardAssetsDetails);
+		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, availableInvestment, statistic, rating, personalDetails, id, logo, url, color, title, description, status, manager, chart, dashboardAssetsDetails);
 	}
 
 	@Override
@@ -485,6 +508,7 @@ public class ProgramDetails
 		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
+		sb.append("    rating: ").append(toIndentedString(rating)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");

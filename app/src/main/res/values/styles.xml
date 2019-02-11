@@ -80,7 +80,7 @@
     </style>
 
 
-    <style name="TranslucentActivityTheme" parent="AppTheme.Base">
+    <style name="TranslucentActivityTheme" parent="AppTheme.Base.Dark">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>

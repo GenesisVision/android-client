@@ -8,6 +8,7 @@ import java.util.UUID;
 import io.swagger.client.model.FundAssetPart;
 import io.swagger.client.model.FundInvestInfo;
 import io.swagger.client.model.FundsList;
+import io.swagger.client.model.ManagerAssets;
 import io.swagger.client.model.ManagerDashboard;
 import io.swagger.client.model.ManagerFundWithdrawInfo;
 import io.swagger.client.model.ManagerPortfolioEvents;
@@ -27,6 +28,17 @@ import rx.Observable;
 
 public interface ManagerApi
 {
+	/**
+	 * Manager assets list
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;ManagerAssets&gt;
+	 */
+	@GET("v1.0/manager/assets")
+	Observable<ManagerAssets> v10ManagerAssetsGet(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
 	/**
 	 * Manager details
 	 *
@@ -84,7 +96,7 @@ public interface ManagerApi
 	);
 
 	/**
-	 * Close existing investment program/fund
+	 * Close existing fund
 	 *
 	 * @param id            (required)
 	 * @param authorization JWT access token (required)
@@ -253,7 +265,7 @@ public interface ManagerApi
 	);
 
 	/**
-	 * Close existing investment program/fund
+	 * Close existing investment program
 	 *
 	 * @param id            (required)
 	 * @param authorization JWT access token (required)

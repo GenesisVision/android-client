@@ -223,7 +223,9 @@ public class Facet
 
 		WEEKLYTOP("WeeklyTop"),
 
-		POPULAR("Popular");
+		POPULAR("Popular"),
+
+		TOLEVELUP("ToLevelUp");
 
 		public static SortTypeEnum fromValue(String text) {
 			for (SortTypeEnum b : SortTypeEnum.values()) {

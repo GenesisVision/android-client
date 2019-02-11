@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **timeframeUsdProfit** | **Double** |  |  [optional]
 **rebalances** | **Integer** |  |  [optional]
 **creationDate** | [**DateTime**](DateTime.md) |  |  [optional]
+**profitPercent** | **Double** |  |  [optional]
 **equityChart** | [**List&lt;ChartSimple&gt;**](ChartSimple.md) |  |  [optional]
 **balance** | **Double** |  |  [optional]
 **investors** | **Integer** |  |  [optional]

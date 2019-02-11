@@ -48,6 +48,8 @@ public class ProgramsFilter implements Parcelable
 
 	private CurrencyEnum currency;
 
+	private Integer levelUpFrom;
+
 	private List<UUID> ids;
 
 	private UUID managerId;
@@ -73,6 +75,7 @@ public class ProgramsFilter implements Parcelable
 			this.isFavorite = filter.getIsFavorite();
 			this.isEnabled = filter.getIsEnabled();
 			this.currency = filter.getCurrency();
+			this.levelUpFrom = filter.getLevelUpFrom();
 			this.ids = filter.getIds();
 			this.managerId = filter.getManagerId();
 			this.skip = filter.getSkip();
@@ -120,6 +123,12 @@ public class ProgramsFilter implements Parcelable
 			currency = CurrencyEnum.valueOf(in.readString());
 		} catch (IllegalArgumentException e) {
 			currency = null;
+		}
+		if (in.readByte() == 0) {
+			levelUpFrom = null;
+		}
+		else {
+			levelUpFrom = in.readInt();
 		}
 		in.readList(ids, null);
 		managerId = (UUID) in.readSerializable();
@@ -225,6 +234,14 @@ public class ProgramsFilter implements Parcelable
 		this.currency = currency;
 	}
 
+	public Integer getLevelUpFrom() {
+		return levelUpFrom;
+	}
+
+	public void setLevelUpFrom(Integer levelUpFrom) {
+		this.levelUpFrom = levelUpFrom;
+	}
+
 	public List<UUID> getIds() {
 		return ids;
 	}
@@ -308,6 +325,13 @@ public class ProgramsFilter implements Parcelable
 		else {
 			dest.writeString(currency.name());
 		}
+		if (levelUpFrom == null) {
+			dest.writeByte((byte) 0);
+		}
+		else {
+			dest.writeByte((byte) 1);
+			dest.writeInt(levelUpFrom);
+		}
 		dest.writeList(ids);
 		dest.writeSerializable(managerId);
 		if (skip == null) {
@@ -346,6 +370,7 @@ public class ProgramsFilter implements Parcelable
 				Objects.equals(getIsFavorite(), filter.getIsFavorite()) &&
 				Objects.equals(getIsEnabled(), filter.getIsEnabled()) &&
 				Objects.equals(getCurrency(), filter.getCurrency()) &&
+				Objects.equals(getLevelUpFrom(), filter.getLevelUpFrom()) &&
 				Objects.equals(getIds(), filter.getIds()) &&
 				Objects.equals(getManagerId(), filter.getManagerId()) &&
 				Objects.equals(getSkip(), filter.getSkip()) &&

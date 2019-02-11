@@ -41,6 +41,9 @@ public class FundProfitChart
 	@SerializedName("creationDate")
 	private DateTime creationDate = null;
 
+	@SerializedName("profitPercent")
+	private Double profitPercent = null;
+
 	@SerializedName("equityChart")
 	private List<ChartSimple> equityChart = null;
 
@@ -148,6 +151,25 @@ public class FundProfitChart
 
 	public void setCreationDate(DateTime creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public FundProfitChart profitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
+		return this;
+	}
+
+	/**
+	 * Get profitPercent
+	 *
+	 * @return profitPercent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProfitPercent() {
+		return profitPercent;
+	}
+
+	public void setProfitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
 	}
 
 	public FundProfitChart equityChart(List<ChartSimple> equityChart) {
@@ -381,6 +403,7 @@ public class FundProfitChart
 				Objects.equals(this.timeframeUsdProfit, fundProfitChart.timeframeUsdProfit) &&
 				Objects.equals(this.rebalances, fundProfitChart.rebalances) &&
 				Objects.equals(this.creationDate, fundProfitChart.creationDate) &&
+				Objects.equals(this.profitPercent, fundProfitChart.profitPercent) &&
 				Objects.equals(this.equityChart, fundProfitChart.equityChart) &&
 				Objects.equals(this.balance, fundProfitChart.balance) &&
 				Objects.equals(this.investors, fundProfitChart.investors) &&
@@ -396,7 +419,7 @@ public class FundProfitChart
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(totalUsdProfit, timeframeUsdProfit, rebalances, creationDate, equityChart, balance, investors, profitChangePercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, totalGvtProfit, timeframeGvtProfit, rate);
+		return Objects.hash(totalUsdProfit, timeframeUsdProfit, rebalances, creationDate, profitPercent, equityChart, balance, investors, profitChangePercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, totalGvtProfit, timeframeGvtProfit, rate);
 	}
 
 
@@ -409,6 +432,7 @@ public class FundProfitChart
 		sb.append("    timeframeUsdProfit: ").append(toIndentedString(timeframeUsdProfit)).append("\n");
 		sb.append("    rebalances: ").append(toIndentedString(rebalances)).append("\n");
 		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
+		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
 		sb.append("    equityChart: ").append(toIndentedString(equityChart)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("    investors: ").append(toIndentedString(investors)).append("\n");

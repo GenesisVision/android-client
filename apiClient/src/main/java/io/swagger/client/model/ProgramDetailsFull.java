@@ -63,6 +63,9 @@ public class ProgramDetailsFull
 	@SerializedName("statistic")
 	private ProgramStatistic statistic = null;
 
+	@SerializedName("rating")
+	private ProgramDetailsRating rating = null;
+
 	@SerializedName("personalProgramDetails")
 	private PersonalProgramDetailsFull personalProgramDetails = null;
 
@@ -283,6 +286,25 @@ public class ProgramDetailsFull
 		this.statistic = statistic;
 	}
 
+	public ProgramDetailsFull rating(ProgramDetailsRating rating) {
+		this.rating = rating;
+		return this;
+	}
+
+	/**
+	 * Get rating
+	 *
+	 * @return rating
+	 **/
+	@ApiModelProperty(value = "")
+	public ProgramDetailsRating getRating() {
+		return rating;
+	}
+
+	public void setRating(ProgramDetailsRating rating) {
+		this.rating = rating;
+	}
+
 	public ProgramDetailsFull personalProgramDetails(PersonalProgramDetailsFull personalProgramDetails) {
 		this.personalProgramDetails = personalProgramDetails;
 		return this;
@@ -492,6 +514,7 @@ public class ProgramDetailsFull
 				Objects.equals(this.isReinvesting, programDetailsFull.isReinvesting) &&
 				Objects.equals(this.availableInvestment, programDetailsFull.availableInvestment) &&
 				Objects.equals(this.statistic, programDetailsFull.statistic) &&
+				Objects.equals(this.rating, programDetailsFull.rating) &&
 				Objects.equals(this.personalProgramDetails, programDetailsFull.personalProgramDetails) &&
 				Objects.equals(this.id, programDetailsFull.id) &&
 				Objects.equals(this.logo, programDetailsFull.logo) &&
@@ -506,7 +529,7 @@ public class ProgramDetailsFull
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, entryFee, successFee, isReinvesting, availableInvestment, statistic, personalProgramDetails, id, logo, url, color, description, title, ipfsHash, status, manager);
+		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, entryFee, successFee, isReinvesting, availableInvestment, statistic, rating, personalProgramDetails, id, logo, url, color, description, title, ipfsHash, status, manager);
 	}
 
 	@Override
@@ -524,6 +547,7 @@ public class ProgramDetailsFull
 		sb.append("    isReinvesting: ").append(toIndentedString(isReinvesting)).append("\n");
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
+		sb.append("    rating: ").append(toIndentedString(rating)).append("\n");
 		sb.append("    personalProgramDetails: ").append(toIndentedString(personalProgramDetails)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
