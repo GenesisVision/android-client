@@ -31,6 +31,7 @@ import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
+import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
@@ -40,6 +41,7 @@ import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PeriodLeftDetailsView;
 import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -169,6 +171,15 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		}
 		else if (strategy.getHeight() > strategyMaxHeight) {
 			collapseStrategy();
+		}
+	}
+
+	@OnClick(R.id.group_entry_fee)
+	public void onEntryFeeClicked() {
+		if (programDetails != null && programDetails.getLevel() < Constants.MIN_PROGRAM_LEVEL_ENTRY_FEE && getActivity() != null) {
+			MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
+			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
+			dialog.setData(R.drawable.icon_info, getString(R.string.entry_fee_disabled_title), getString(R.string.entry_fee_disabled_message), false, null);
 		}
 	}
 
@@ -305,7 +316,13 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		}
 
 		availableToInvest.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(programDetails.getAvailableInvestment()).toString()));
-		entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getEntryFee(), 0, 4)));
+
+		if (programDetails.getLevel() < Constants.MIN_PROGRAM_LEVEL_ENTRY_FEE)
+			entryFee.setText(String.format(Locale.getDefault(), "%s%% (%s%%)",
+					StringFormatUtil.formatAmount(programDetails.getEntryFeeCurrent(), 0, 4),
+					StringFormatUtil.formatAmount(programDetails.getEntryFeeSelected(), 0, 4)));
+		else
+			entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getEntryFeeCurrent(), 0, 4)));
 		successFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getSuccessFee(), 0, 4)));
 
 		investButton.setEnabled(programDetails.getAvailableInvestment() > 0);

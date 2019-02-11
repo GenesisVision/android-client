@@ -19,4 +19,6 @@ public class Constants
 	public static final int PIN_MAX_WRONG_ATTEMPTS = 5;
 
 	public static final long MILLISECONDS_IN_BACKGROUND_TO_LOCK = 30 * 1000;
+
+	public static final int MIN_PROGRAM_LEVEL_ENTRY_FEE = 3;
 }

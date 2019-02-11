@@ -96,7 +96,8 @@ public class MessageBottomSheetDialog extends BottomSheetDialogFragment
 
 	private void updateView() {
 		if (this.image != null) {
-			this.image.setImageDrawable(AppCompatResources.getDrawable(Objects.requireNonNull(getContext()), imageResourceId));
+			if (imageResourceId > 0)
+				this.image.setImageDrawable(AppCompatResources.getDrawable(Objects.requireNonNull(getContext()), imageResourceId));
 			this.title.setText(titleText);
 			this.message.setText(messageText);
 
