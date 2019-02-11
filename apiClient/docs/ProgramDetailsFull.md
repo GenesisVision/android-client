@@ -10,12 +10,15 @@ Name | Type | Description | Notes
 **periodStarts** | [**DateTime**](DateTime.md) |  |  [optional]
 **periodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
 **entryFee** | **Double** |  |  [optional]
+**entryFeeSelected** | **Double** |  |  [optional]
+**entryFeeCurrent** | **Double** |  |  [optional]
 **successFee** | **Double** |  |  [optional]
 **isReinvesting** | **Boolean** |  |  [optional]
 **availableInvestment** | **Double** |  |  [optional]
 **statistic** | [**ProgramStatistic**](ProgramStatistic.md) |  |  [optional]
 **rating** | [**ProgramDetailsRating**](ProgramDetailsRating.md) |  |  [optional]
 **personalProgramDetails** | [**PersonalProgramDetailsFull**](PersonalProgramDetailsFull.md) | Fields for authorized user |  [optional]
+**tags** | [**List&lt;ProgramTag&gt;**](ProgramTag.md) |  |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **logo** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
@@ -31,6 +34,7 @@ Name | Type | Description | Notes
 ## Enum: CurrencyEnum
 Name | Value
 ---- | -----
+USD | &quot;USD&quot;
 UNDEFINED | &quot;Undefined&quot;
 GVT | &quot;GVT&quot;
 ETH | &quot;ETH&quot;
@@ -41,7 +45,7 @@ XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
 DOGE | &quot;DOGE&quot;
-USD | &quot;USD&quot;
+BNB | &quot;BNB&quot;
 EUR | &quot;EUR&quot;
 
 

@@ -57,6 +57,9 @@ public class RatesModelRates
 	@SerializedName("DOGE")
 	private List<RateItem> DOGE = null;
 
+	@SerializedName("BNB")
+	private List<RateItem> BNB = null;
+
 	@SerializedName("USD")
 	private List<RateItem> USD = null;
 
@@ -333,6 +336,33 @@ public class RatesModelRates
 		this.DOGE = DOGE;
 	}
 
+	public RatesModelRates BNB(List<RateItem> BNB) {
+		this.BNB = BNB;
+		return this;
+	}
+
+	public RatesModelRates addBNBItem(RateItem BNBItem) {
+		if (this.BNB == null) {
+			this.BNB = new ArrayList<RateItem>();
+		}
+		this.BNB.add(BNBItem);
+		return this;
+	}
+
+	/**
+	 * Get BNB
+	 *
+	 * @return BNB
+	 **/
+	@ApiModelProperty(value = "")
+	public List<RateItem> getBNB() {
+		return BNB;
+	}
+
+	public void setBNB(List<RateItem> BNB) {
+		this.BNB = BNB;
+	}
+
 	public RatesModelRates USD(List<RateItem> USD) {
 		this.USD = USD;
 		return this;
@@ -407,13 +437,14 @@ public class RatesModelRates
 				Objects.equals(this.BCH, ratesModelRates.BCH) &&
 				Objects.equals(this.LTC, ratesModelRates.LTC) &&
 				Objects.equals(this.DOGE, ratesModelRates.DOGE) &&
+				Objects.equals(this.BNB, ratesModelRates.BNB) &&
 				Objects.equals(this.USD, ratesModelRates.USD) &&
 				Objects.equals(this.EUR, ratesModelRates.EUR);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, USD, EUR);
+		return Objects.hash(undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR);
 	}
 
 
@@ -432,6 +463,7 @@ public class RatesModelRates
 		sb.append("    BCH: ").append(toIndentedString(BCH)).append("\n");
 		sb.append("    LTC: ").append(toIndentedString(LTC)).append("\n");
 		sb.append("    DOGE: ").append(toIndentedString(DOGE)).append("\n");
+		sb.append("    BNB: ").append(toIndentedString(BNB)).append("\n");
 		sb.append("    USD: ").append(toIndentedString(USD)).append("\n");
 		sb.append("    EUR: ").append(toIndentedString(EUR)).append("\n");
 		sb.append("}");

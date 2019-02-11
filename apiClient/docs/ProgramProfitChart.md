@@ -31,6 +31,7 @@ Name | Type | Description | Notes
 ## Enum: ProgramCurrencyEnum
 Name | Value
 ---- | -----
+USD | &quot;USD&quot;
 UNDEFINED | &quot;Undefined&quot;
 GVT | &quot;GVT&quot;
 ETH | &quot;ETH&quot;
@@ -41,7 +42,7 @@ XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
 DOGE | &quot;DOGE&quot;
-USD | &quot;USD&quot;
+BNB | &quot;BNB&quot;
 EUR | &quot;EUR&quot;
 
 

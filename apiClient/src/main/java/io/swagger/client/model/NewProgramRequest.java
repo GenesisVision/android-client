@@ -313,6 +313,8 @@ public class NewProgramRequest
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
+		USD("USD"),
+
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -333,7 +335,7 @@ public class NewProgramRequest
 
 		DOGE("DOGE"),
 
-		USD("USD"),
+		BNB("BNB"),
 
 		EUR("EUR");
 

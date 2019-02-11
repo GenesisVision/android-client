@@ -14,6 +14,18 @@ import rx.Observable;
 public interface NotificationsApi
 {
 	/**
+	 * Read notification
+	 *
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v1.0/notifications/{id}/read")
+	Observable<Void> v10NotificationsByIdReadPost(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
 	 * User notifications
 	 *
 	 * @param authorization JWT access token (required)

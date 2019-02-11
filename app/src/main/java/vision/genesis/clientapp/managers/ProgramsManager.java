@@ -42,7 +42,7 @@ public class ProgramsManager
 		return programsApi.v10ProgramsGet(AuthManager.token.getValue(),
 				filter.getLevelMin(), filter.getLevelMax(), filter.getProfitAvgMin(), filter.getProfitAvgMax(),
 				filter.getSorting().getValue(), filter.getCurrency() != null ? filter.getCurrency().getValue() : null, null,
-				filter.getLevelUpFrom(), filter.getDateRange().getFrom(), filter.getDateRange().getTo(), 10,
+				filter.getLevelUpFrom(), filter.getTags(), filter.getDateRange().getFrom(), filter.getDateRange().getTo(), 10,
 				filter.getMask(), filter.getFacetId() != null ? filter.getFacetId().toString() : null, filter.getIsFavorite(), filter.getIsEnabled(),
 				filter.getIds(), filter.getManagerId() != null ? filter.getManagerId().toString() : null, null, filter.getSkip(), filter.getTake());
 	}

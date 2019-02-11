@@ -178,6 +178,8 @@ public class ProgramBalanceChart
 	@JsonAdapter(ProgramCurrencyEnum.Adapter.class)
 	public enum ProgramCurrencyEnum
 	{
+		USD("USD"),
+
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -198,7 +200,7 @@ public class ProgramBalanceChart
 
 		DOGE("DOGE"),
 
-		USD("USD"),
+		BNB("BNB"),
 
 		EUR("EUR");
 

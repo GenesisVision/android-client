@@ -1,5 +1,6 @@
 package io.swagger.client.api;
 
+import io.swagger.client.model.FcmTokenViewModel;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.ProfileHeaderViewModel;
 import io.swagger.client.model.UpdatePersonalDetailViewModel;
@@ -69,6 +70,19 @@ public interface ProfileApi
 	@POST("v1.0/profile/personal/update")
 	Observable<Void> v10ProfilePersonalUpdatePost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body UpdatePersonalDetailViewModel model
+	);
+
+	/**
+	 * @param authorization JWT access token (required)
+	 * @param token         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v1.0/profile/push/token")
+	Observable<Void> v10ProfilePushTokenPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body FcmTokenViewModel token
 	);
 
 	/**

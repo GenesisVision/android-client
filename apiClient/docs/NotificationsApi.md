@@ -4,6 +4,7 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**v10NotificationsByIdReadPost**](NotificationsApi.md#v10NotificationsByIdReadPost) | **POST** v1.0/notifications/{id}/read | Read notification
 [**v10NotificationsGet**](NotificationsApi.md#v10NotificationsGet) | **GET** v1.0/notifications | User notifications
 [**v10NotificationsNewGet**](NotificationsApi.md#v10NotificationsNewGet) | **GET** v1.0/notifications/new | Unread notifications count
 [**v10NotificationsSettingsAddPost**](NotificationsApi.md#v10NotificationsSettingsAddPost) | **POST** v1.0/notifications/settings/add | Add new setting
@@ -14,6 +15,51 @@ Method | HTTP request | Description
 [**v10NotificationsSettingsProgramsByIdGet**](NotificationsApi.md#v10NotificationsSettingsProgramsByIdGet) | **GET** v1.0/notifications/settings/programs/{id} | User settings for program
 [**v10NotificationsSettingsRemoveByIdPost**](NotificationsApi.md#v10NotificationsSettingsRemoveByIdPost) | **POST** v1.0/notifications/settings/remove/{id} | Remove setting
 
+
+<a name="v10NotificationsByIdReadPost"></a>
+# **v10NotificationsByIdReadPost**
+> Void v10NotificationsByIdReadPost(id, authorization)
+
+Read notification
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.NotificationsApi;
+
+
+NotificationsApi apiInstance = new NotificationsApi();
+UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.v10NotificationsByIdReadPost(id, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling NotificationsApi#v10NotificationsByIdReadPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 <a name="v10NotificationsGet"></a>
 # **v10NotificationsGet**

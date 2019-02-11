@@ -8,6 +8,12 @@ Name | Type | Description | Notes
 **date** | [**DateTime**](DateTime.md) |  |  [optional]
 **title** | **String** |  |  [optional]
 **value** | **Double** |  |  [optional]
+**valueTotal** | **Double** |  |  [optional]
+**feeSuccessManager** | **Double** |  |  [optional]
+**feeSuccessManagerCurrency** | [**FeeSuccessManagerCurrencyEnum**](#FeeSuccessManagerCurrencyEnum) |  |  [optional]
+**feeSuccessPlatform** | **Double** |  |  [optional]
+**feeSuccessPlatformCurrency** | [**FeeSuccessPlatformCurrencyEnum**](#FeeSuccessPlatformCurrencyEnum) |  |  [optional]
+**profitPercent** | **Double** |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
 **logo** | **String** |  |  [optional]
@@ -16,10 +22,11 @@ Name | Type | Description | Notes
 **assetType** | [**AssetTypeEnum**](#AssetTypeEnum) |  |  [optional]
 
 
-<a name="CurrencyEnum"></a>
-## Enum: CurrencyEnum
+<a name="FeeSuccessManagerCurrencyEnum"></a>
+## Enum: FeeSuccessManagerCurrencyEnum
 Name | Value
 ---- | -----
+USD | &quot;USD&quot;
 UNDEFINED | &quot;Undefined&quot;
 GVT | &quot;GVT&quot;
 ETH | &quot;ETH&quot;
@@ -30,7 +37,45 @@ XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
 DOGE | &quot;DOGE&quot;
+BNB | &quot;BNB&quot;
+EUR | &quot;EUR&quot;
+
+
+<a name="FeeSuccessPlatformCurrencyEnum"></a>
+## Enum: FeeSuccessPlatformCurrencyEnum
+Name | Value
+---- | -----
 USD | &quot;USD&quot;
+UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
+ADA | &quot;ADA&quot;
+USDT | &quot;USDT&quot;
+XRP | &quot;XRP&quot;
+BCH | &quot;BCH&quot;
+LTC | &quot;LTC&quot;
+DOGE | &quot;DOGE&quot;
+BNB | &quot;BNB&quot;
+EUR | &quot;EUR&quot;
+
+
+<a name="CurrencyEnum"></a>
+## Enum: CurrencyEnum
+Name | Value
+---- | -----
+USD | &quot;USD&quot;
+UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
+ADA | &quot;ADA&quot;
+USDT | &quot;USDT&quot;
+XRP | &quot;XRP&quot;
+BCH | &quot;BCH&quot;
+LTC | &quot;LTC&quot;
+DOGE | &quot;DOGE&quot;
+BNB | &quot;BNB&quot;
 EUR | &quot;EUR&quot;
 
 
@@ -44,7 +89,7 @@ WITHDRAW | &quot;Withdraw&quot;
 PROFIT | &quot;Profit&quot;
 LOSS | &quot;Loss&quot;
 REINVEST | &quot;Reinvest&quot;
-CANCELLED | &quot;Cancelled&quot;
+CANCELED | &quot;Canceled&quot;
 ENDED | &quot;Ended&quot;
 
 

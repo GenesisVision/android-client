@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **correlationId** | **String** |  |  [optional]
 **externalUserId** | **String** |  |  [optional]
 **success** | **Boolean** |  |  [optional]
-**details** | **Object** |  |  [optional]
 **type** | **String** |  |  [optional]
 **review** | [**Review**](Review.md) |  |  [optional]
 

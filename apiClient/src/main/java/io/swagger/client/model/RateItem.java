@@ -120,6 +120,8 @@ public class RateItem
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
+		USD("USD"),
+
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -140,7 +142,7 @@ public class RateItem
 
 		DOGE("DOGE"),
 
-		USD("USD"),
+		BNB("BNB"),
 
 		EUR("EUR");
 

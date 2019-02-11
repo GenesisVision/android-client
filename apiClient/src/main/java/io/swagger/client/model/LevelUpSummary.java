@@ -15,8 +15,8 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -28,18 +28,18 @@ import io.swagger.annotations.ApiModelProperty;
 public class LevelUpSummary
 {
 	@SerializedName("levelData")
-	private Map<String, LevelUpData> levelData = null;
+	private List<LevelUpData> levelData = null;
 
-	public LevelUpSummary levelData(Map<String, LevelUpData> levelData) {
+	public LevelUpSummary levelData(List<LevelUpData> levelData) {
 		this.levelData = levelData;
 		return this;
 	}
 
-	public LevelUpSummary putLevelDataItem(String key, LevelUpData levelDataItem) {
+	public LevelUpSummary addLevelDataItem(LevelUpData levelDataItem) {
 		if (this.levelData == null) {
-			this.levelData = new HashMap<String, LevelUpData>();
+			this.levelData = new ArrayList<LevelUpData>();
 		}
-		this.levelData.put(key, levelDataItem);
+		this.levelData.add(levelDataItem);
 		return this;
 	}
 
@@ -49,11 +49,11 @@ public class LevelUpSummary
 	 * @return levelData
 	 **/
 	@ApiModelProperty(value = "")
-	public Map<String, LevelUpData> getLevelData() {
+	public List<LevelUpData> getLevelData() {
 		return levelData;
 	}
 
-	public void setLevelData(Map<String, LevelUpData> levelData) {
+	public void setLevelData(List<LevelUpData> levelData) {
 		this.levelData = levelData;
 	}
 

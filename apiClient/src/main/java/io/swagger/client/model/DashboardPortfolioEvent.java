@@ -45,6 +45,24 @@ public class DashboardPortfolioEvent
 	@SerializedName("value")
 	private Double value = null;
 
+	@SerializedName("valueTotal")
+	private Double valueTotal = null;
+
+	@SerializedName("feeSuccessManager")
+	private Double feeSuccessManager = null;
+
+	@SerializedName("feeSuccessManagerCurrency")
+	private FeeSuccessManagerCurrencyEnum feeSuccessManagerCurrency = null;
+
+	@SerializedName("feeSuccessPlatform")
+	private Double feeSuccessPlatform = null;
+
+	@SerializedName("feeSuccessPlatformCurrency")
+	private FeeSuccessPlatformCurrencyEnum feeSuccessPlatformCurrency = null;
+
+	@SerializedName("profitPercent")
+	private Double profitPercent = null;
+
 	@SerializedName("currency")
 	private CurrencyEnum currency = null;
 
@@ -137,6 +155,120 @@ public class DashboardPortfolioEvent
 
 	public void setValue(Double value) {
 		this.value = value;
+	}
+
+	public DashboardPortfolioEvent valueTotal(Double valueTotal) {
+		this.valueTotal = valueTotal;
+		return this;
+	}
+
+	/**
+	 * Get valueTotal
+	 *
+	 * @return valueTotal
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getValueTotal() {
+		return valueTotal;
+	}
+
+	public void setValueTotal(Double valueTotal) {
+		this.valueTotal = valueTotal;
+	}
+
+	public DashboardPortfolioEvent feeSuccessManager(Double feeSuccessManager) {
+		this.feeSuccessManager = feeSuccessManager;
+		return this;
+	}
+
+	/**
+	 * Get feeSuccessManager
+	 *
+	 * @return feeSuccessManager
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getFeeSuccessManager() {
+		return feeSuccessManager;
+	}
+
+	public void setFeeSuccessManager(Double feeSuccessManager) {
+		this.feeSuccessManager = feeSuccessManager;
+	}
+
+	public DashboardPortfolioEvent feeSuccessManagerCurrency(FeeSuccessManagerCurrencyEnum feeSuccessManagerCurrency) {
+		this.feeSuccessManagerCurrency = feeSuccessManagerCurrency;
+		return this;
+	}
+
+	/**
+	 * Get feeSuccessManagerCurrency
+	 *
+	 * @return feeSuccessManagerCurrency
+	 **/
+	@ApiModelProperty(value = "")
+	public FeeSuccessManagerCurrencyEnum getFeeSuccessManagerCurrency() {
+		return feeSuccessManagerCurrency;
+	}
+
+	public void setFeeSuccessManagerCurrency(FeeSuccessManagerCurrencyEnum feeSuccessManagerCurrency) {
+		this.feeSuccessManagerCurrency = feeSuccessManagerCurrency;
+	}
+
+	public DashboardPortfolioEvent feeSuccessPlatform(Double feeSuccessPlatform) {
+		this.feeSuccessPlatform = feeSuccessPlatform;
+		return this;
+	}
+
+	/**
+	 * Get feeSuccessPlatform
+	 *
+	 * @return feeSuccessPlatform
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getFeeSuccessPlatform() {
+		return feeSuccessPlatform;
+	}
+
+	public void setFeeSuccessPlatform(Double feeSuccessPlatform) {
+		this.feeSuccessPlatform = feeSuccessPlatform;
+	}
+
+	public DashboardPortfolioEvent feeSuccessPlatformCurrency(FeeSuccessPlatformCurrencyEnum feeSuccessPlatformCurrency) {
+		this.feeSuccessPlatformCurrency = feeSuccessPlatformCurrency;
+		return this;
+	}
+
+	/**
+	 * Get feeSuccessPlatformCurrency
+	 *
+	 * @return feeSuccessPlatformCurrency
+	 **/
+	@ApiModelProperty(value = "")
+	public FeeSuccessPlatformCurrencyEnum getFeeSuccessPlatformCurrency() {
+		return feeSuccessPlatformCurrency;
+	}
+
+	public void setFeeSuccessPlatformCurrency(FeeSuccessPlatformCurrencyEnum feeSuccessPlatformCurrency) {
+		this.feeSuccessPlatformCurrency = feeSuccessPlatformCurrency;
+	}
+
+	public DashboardPortfolioEvent profitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
+		return this;
+	}
+
+	/**
+	 * Get profitPercent
+	 *
+	 * @return profitPercent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProfitPercent() {
+		return profitPercent;
+	}
+
+	public void setProfitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
 	}
 
 	public DashboardPortfolioEvent currency(CurrencyEnum currency) {
@@ -266,6 +398,12 @@ public class DashboardPortfolioEvent
 				Objects.equals(this.date, dashboardPortfolioEvent.date) &&
 				Objects.equals(this.title, dashboardPortfolioEvent.title) &&
 				Objects.equals(this.value, dashboardPortfolioEvent.value) &&
+				Objects.equals(this.valueTotal, dashboardPortfolioEvent.valueTotal) &&
+				Objects.equals(this.feeSuccessManager, dashboardPortfolioEvent.feeSuccessManager) &&
+				Objects.equals(this.feeSuccessManagerCurrency, dashboardPortfolioEvent.feeSuccessManagerCurrency) &&
+				Objects.equals(this.feeSuccessPlatform, dashboardPortfolioEvent.feeSuccessPlatform) &&
+				Objects.equals(this.feeSuccessPlatformCurrency, dashboardPortfolioEvent.feeSuccessPlatformCurrency) &&
+				Objects.equals(this.profitPercent, dashboardPortfolioEvent.profitPercent) &&
 				Objects.equals(this.currency, dashboardPortfolioEvent.currency) &&
 				Objects.equals(this.type, dashboardPortfolioEvent.type) &&
 				Objects.equals(this.logo, dashboardPortfolioEvent.logo) &&
@@ -276,7 +414,7 @@ public class DashboardPortfolioEvent
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assetId, date, title, value, currency, type, logo, color, description, assetType);
+		return Objects.hash(assetId, date, title, value, valueTotal, feeSuccessManager, feeSuccessManagerCurrency, feeSuccessPlatform, feeSuccessPlatformCurrency, profitPercent, currency, type, logo, color, description, assetType);
 	}
 
 	@Override
@@ -288,6 +426,12 @@ public class DashboardPortfolioEvent
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
+		sb.append("    valueTotal: ").append(toIndentedString(valueTotal)).append("\n");
+		sb.append("    feeSuccessManager: ").append(toIndentedString(feeSuccessManager)).append("\n");
+		sb.append("    feeSuccessManagerCurrency: ").append(toIndentedString(feeSuccessManagerCurrency)).append("\n");
+		sb.append("    feeSuccessPlatform: ").append(toIndentedString(feeSuccessPlatform)).append("\n");
+		sb.append("    feeSuccessPlatformCurrency: ").append(toIndentedString(feeSuccessPlatformCurrency)).append("\n");
+		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
@@ -310,11 +454,13 @@ public class DashboardPortfolioEvent
 	}
 
 	/**
-	 * Gets or Sets currency
+	 * Gets or Sets feeSuccessManagerCurrency
 	 */
-	@JsonAdapter(CurrencyEnum.Adapter.class)
-	public enum CurrencyEnum
+	@JsonAdapter(FeeSuccessManagerCurrencyEnum.Adapter.class)
+	public enum FeeSuccessManagerCurrencyEnum
 	{
+		USD("USD"),
+
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -335,7 +481,150 @@ public class DashboardPortfolioEvent
 
 		DOGE("DOGE"),
 
+		BNB("BNB"),
+
+		EUR("EUR");
+
+		public static FeeSuccessManagerCurrencyEnum fromValue(String text) {
+			for (FeeSuccessManagerCurrencyEnum b : FeeSuccessManagerCurrencyEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		FeeSuccessManagerCurrencyEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<FeeSuccessManagerCurrencyEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final FeeSuccessManagerCurrencyEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public FeeSuccessManagerCurrencyEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return FeeSuccessManagerCurrencyEnum.fromValue(String.valueOf(value));
+			}
+		}
+	}
+
+
+	/**
+	 * Gets or Sets feeSuccessPlatformCurrency
+	 */
+	@JsonAdapter(FeeSuccessPlatformCurrencyEnum.Adapter.class)
+	public enum FeeSuccessPlatformCurrencyEnum
+	{
 		USD("USD"),
+
+		UNDEFINED("Undefined"),
+
+		GVT("GVT"),
+
+		ETH("ETH"),
+
+		BTC("BTC"),
+
+		ADA("ADA"),
+
+		USDT("USDT"),
+
+		XRP("XRP"),
+
+		BCH("BCH"),
+
+		LTC("LTC"),
+
+		DOGE("DOGE"),
+
+		BNB("BNB"),
+
+		EUR("EUR");
+
+		public static FeeSuccessPlatformCurrencyEnum fromValue(String text) {
+			for (FeeSuccessPlatformCurrencyEnum b : FeeSuccessPlatformCurrencyEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		FeeSuccessPlatformCurrencyEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<FeeSuccessPlatformCurrencyEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final FeeSuccessPlatformCurrencyEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public FeeSuccessPlatformCurrencyEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return FeeSuccessPlatformCurrencyEnum.fromValue(String.valueOf(value));
+			}
+		}
+	}
+
+	/**
+	 * Gets or Sets currency
+	 */
+	@JsonAdapter(CurrencyEnum.Adapter.class)
+	public enum CurrencyEnum
+	{
+		USD("USD"),
+
+		UNDEFINED("Undefined"),
+
+		GVT("GVT"),
+
+		ETH("ETH"),
+
+		BTC("BTC"),
+
+		ADA("ADA"),
+
+		USDT("USDT"),
+
+		XRP("XRP"),
+
+		BCH("BCH"),
+
+		LTC("LTC"),
+
+		DOGE("DOGE"),
+
+		BNB("BNB"),
 
 		EUR("EUR");
 
@@ -397,7 +686,7 @@ public class DashboardPortfolioEvent
 
 		REINVEST("Reinvest"),
 
-		CANCELLED("Cancelled"),
+		CANCELED("Canceled"),
 
 		ENDED("Ended");
 

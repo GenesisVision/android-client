@@ -57,7 +57,7 @@ public class PortfolioEvent
 				actionResId = R.drawable.icon_reinvest;
 				valueColorAttrId = R.attr.colorAccent;
 				break;
-			case CANCELLED:
+			case CANCELED:
 				text = String.format(Locale.getDefault(), GenesisVisionApplication.INSTANCE.getString(R.string.event_request_canceled_template), title);
 				actionResId = R.drawable.icon_request_cancelled;
 				valueColorAttrId = R.attr.colorRed;

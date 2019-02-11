@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **BCH** | [**List&lt;RateItem&gt;**](RateItem.md) |  |  [optional]
 **LTC** | [**List&lt;RateItem&gt;**](RateItem.md) |  |  [optional]
 **DOGE** | [**List&lt;RateItem&gt;**](RateItem.md) |  |  [optional]
+**BNB** | [**List&lt;RateItem&gt;**](RateItem.md) |  |  [optional]
 **USD** | [**List&lt;RateItem&gt;**](RateItem.md) |  |  [optional]
 **EUR** | [**List&lt;RateItem&gt;**](RateItem.md) |  |  [optional]
 

@@ -40,6 +40,9 @@ public class FundNotificationSettingList
 	@SerializedName("logo")
 	private String logo = null;
 
+	@SerializedName("color")
+	private String color = null;
+
 	@SerializedName("settingsGeneral")
 	private List<NotificationSettingViewModel> settingsGeneral = null;
 
@@ -119,6 +122,25 @@ public class FundNotificationSettingList
 		this.logo = logo;
 	}
 
+	public FundNotificationSettingList color(String color) {
+		this.color = color;
+		return this;
+	}
+
+	/**
+	 * Get color
+	 *
+	 * @return color
+	 **/
+	@ApiModelProperty(value = "")
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 	public FundNotificationSettingList settingsGeneral(List<NotificationSettingViewModel> settingsGeneral) {
 		this.settingsGeneral = settingsGeneral;
 		return this;
@@ -160,12 +182,13 @@ public class FundNotificationSettingList
 				Objects.equals(this.title, fundNotificationSettingList.title) &&
 				Objects.equals(this.url, fundNotificationSettingList.url) &&
 				Objects.equals(this.logo, fundNotificationSettingList.logo) &&
+				Objects.equals(this.color, fundNotificationSettingList.color) &&
 				Objects.equals(this.settingsGeneral, fundNotificationSettingList.settingsGeneral);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assetId, title, url, logo, settingsGeneral);
+		return Objects.hash(assetId, title, url, logo, color, settingsGeneral);
 	}
 
 
@@ -178,6 +201,7 @@ public class FundNotificationSettingList
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    settingsGeneral: ").append(toIndentedString(settingsGeneral)).append("\n");
 		sb.append("}");
 		return sb.toString();

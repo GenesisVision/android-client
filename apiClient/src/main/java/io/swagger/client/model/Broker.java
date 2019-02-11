@@ -54,6 +54,9 @@ public class Broker
 	@SerializedName("accountTypes")
 	private List<BrokerAccountType> accountTypes = null;
 
+	@SerializedName("isForex")
+	private Boolean isForex = null;
+
 	public Broker name(String name) {
 		this.name = name;
 		return this;
@@ -215,6 +218,25 @@ public class Broker
 		this.accountTypes = accountTypes;
 	}
 
+	public Broker isForex(Boolean isForex) {
+		this.isForex = isForex;
+		return this;
+	}
+
+	/**
+	 * Get isForex
+	 *
+	 * @return isForex
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsForex() {
+		return isForex;
+	}
+
+	public void setIsForex(Boolean isForex) {
+		this.isForex = isForex;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -233,12 +255,13 @@ public class Broker
 				Objects.equals(this.fee, broker.fee) &&
 				Objects.equals(this.leverageMin, broker.leverageMin) &&
 				Objects.equals(this.leverageMax, broker.leverageMax) &&
-				Objects.equals(this.accountTypes, broker.accountTypes);
+				Objects.equals(this.accountTypes, broker.accountTypes) &&
+				Objects.equals(this.isForex, broker.isForex);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, description, logo, terms, assets, fee, leverageMin, leverageMax, accountTypes);
+		return Objects.hash(name, description, logo, terms, assets, fee, leverageMin, leverageMax, accountTypes, isForex);
 	}
 
 
@@ -256,6 +279,7 @@ public class Broker
 		sb.append("    leverageMin: ").append(toIndentedString(leverageMin)).append("\n");
 		sb.append("    leverageMax: ").append(toIndentedString(leverageMax)).append("\n");
 		sb.append("    accountTypes: ").append(toIndentedString(accountTypes)).append("\n");
+		sb.append("    isForex: ").append(toIndentedString(isForex)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

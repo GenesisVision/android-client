@@ -17,7 +17,6 @@ NEW | &quot;New&quot;
 PENDING | &quot;Pending&quot;
 CONFIRMEDBYGATE | &quot;ConfirmedByGate&quot;
 CONFIRMEDANDVALIDATED | &quot;ConfirmedAndValidated&quot;
-PENDINGADDINWALLET | &quot;PendingAddInWallet&quot;
 ERROR | &quot;Error&quot;
 CANCELLED | &quot;Cancelled&quot;
 

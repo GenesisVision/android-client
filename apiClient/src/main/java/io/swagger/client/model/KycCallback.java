@@ -40,9 +40,6 @@ public class KycCallback
 	@SerializedName("success")
 	private Boolean success = null;
 
-	@SerializedName("details")
-	private Object details = null;
-
 	@SerializedName("type")
 	private String type = null;
 
@@ -144,25 +141,6 @@ public class KycCallback
 		this.success = success;
 	}
 
-	public KycCallback details(Object details) {
-		this.details = details;
-		return this;
-	}
-
-	/**
-	 * Get details
-	 *
-	 * @return details
-	 **/
-	@ApiModelProperty(value = "")
-	public Object getDetails() {
-		return details;
-	}
-
-	public void setDetails(Object details) {
-		this.details = details;
-	}
-
 	public KycCallback type(String type) {
 		this.type = type;
 		return this;
@@ -216,14 +194,13 @@ public class KycCallback
 				Objects.equals(this.correlationId, kycCallback.correlationId) &&
 				Objects.equals(this.externalUserId, kycCallback.externalUserId) &&
 				Objects.equals(this.success, kycCallback.success) &&
-				Objects.equals(this.details, kycCallback.details) &&
 				Objects.equals(this.type, kycCallback.type) &&
 				Objects.equals(this.review, kycCallback.review);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(applicantId, inspectionId, correlationId, externalUserId, success, details, type, review);
+		return Objects.hash(applicantId, inspectionId, correlationId, externalUserId, success, type, review);
 	}
 
 
@@ -237,7 +214,6 @@ public class KycCallback
 		sb.append("    correlationId: ").append(toIndentedString(correlationId)).append("\n");
 		sb.append("    externalUserId: ").append(toIndentedString(externalUserId)).append("\n");
 		sb.append("    success: ").append(toIndentedString(success)).append("\n");
-		sb.append("    details: ").append(toIndentedString(details)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    review: ").append(toIndentedString(review)).append("\n");
 		sb.append("}");

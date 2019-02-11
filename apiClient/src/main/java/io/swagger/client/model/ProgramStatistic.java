@@ -507,6 +507,8 @@ public class ProgramStatistic
 	@JsonAdapter(StartCurrencyEnum.Adapter.class)
 	public enum StartCurrencyEnum
 	{
+		USD("USD"),
+
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -527,7 +529,7 @@ public class ProgramStatistic
 
 		DOGE("DOGE"),
 
-		USD("USD"),
+		BNB("BNB"),
 
 		EUR("EUR");
 
@@ -576,6 +578,8 @@ public class ProgramStatistic
 	@JsonAdapter(InvestedCurrencyEnum.Adapter.class)
 	public enum InvestedCurrencyEnum
 	{
+		USD("USD"),
+
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -596,7 +600,7 @@ public class ProgramStatistic
 
 		DOGE("DOGE"),
 
-		USD("USD"),
+		BNB("BNB"),
 
 		EUR("EUR");
 

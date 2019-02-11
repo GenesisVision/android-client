@@ -60,6 +60,9 @@ public class OrderModel
 	@SerializedName("price")
 	private Double price = null;
 
+	@SerializedName("priceCurrent")
+	private Double priceCurrent = null;
+
 	@SerializedName("entry")
 	private EntryEnum entry = null;
 
@@ -234,6 +237,25 @@ public class OrderModel
 		this.price = price;
 	}
 
+	public OrderModel priceCurrent(Double priceCurrent) {
+		this.priceCurrent = priceCurrent;
+		return this;
+	}
+
+	/**
+	 * Get priceCurrent
+	 *
+	 * @return priceCurrent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getPriceCurrent() {
+		return priceCurrent;
+	}
+
+	public void setPriceCurrent(Double priceCurrent) {
+		this.priceCurrent = priceCurrent;
+	}
+
 	public OrderModel entry(EntryEnum entry) {
 		this.entry = entry;
 		return this;
@@ -271,12 +293,13 @@ public class OrderModel
 				Objects.equals(this.direction, orderModel.direction) &&
 				Objects.equals(this.date, orderModel.date) &&
 				Objects.equals(this.price, orderModel.price) &&
+				Objects.equals(this.priceCurrent, orderModel.priceCurrent) &&
 				Objects.equals(this.entry, orderModel.entry);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, login, ticket, symbol, volume, profit, direction, date, price, entry);
+		return Objects.hash(id, login, ticket, symbol, volume, profit, direction, date, price, priceCurrent, entry);
 	}
 
 	@Override
@@ -293,6 +316,7 @@ public class OrderModel
 		sb.append("    direction: ").append(toIndentedString(direction)).append("\n");
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    price: ").append(toIndentedString(price)).append("\n");
+		sb.append("    priceCurrent: ").append(toIndentedString(priceCurrent)).append("\n");
 		sb.append("    entry: ").append(toIndentedString(entry)).append("\n");
 		sb.append("}");
 		return sb.toString();

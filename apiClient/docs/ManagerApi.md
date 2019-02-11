@@ -394,7 +394,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, USD, EUR]
+ **currency** | **String**|  | [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -584,7 +584,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, USD, EUR]
+ **currency** | **String**|  | [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -685,7 +685,7 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -972,7 +972,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, USD, EUR]
+ **currency** | **String**|  | [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -1207,7 +1207,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, USD, EUR]
+ **currency** | **String**|  | [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -1308,7 +1308,7 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

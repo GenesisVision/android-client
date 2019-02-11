@@ -25,6 +25,9 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class LevelUpData
 {
+	@SerializedName("level")
+	private Integer level = null;
+
 	@SerializedName("total")
 	private Integer total = null;
 
@@ -36,6 +39,25 @@ public class LevelUpData
 
 	@SerializedName("targetProfit")
 	private Double targetProfit = null;
+
+	public LevelUpData level(Integer level) {
+		this.level = level;
+		return this;
+	}
+
+	/**
+	 * Get level
+	 *
+	 * @return level
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
 
 	public LevelUpData total(Integer total) {
 		this.total = total;
@@ -123,7 +145,8 @@ public class LevelUpData
 			return false;
 		}
 		LevelUpData levelUpData = (LevelUpData) o;
-		return Objects.equals(this.total, levelUpData.total) &&
+		return Objects.equals(this.level, levelUpData.level) &&
+				Objects.equals(this.total, levelUpData.total) &&
 				Objects.equals(this.totalOwn, levelUpData.totalOwn) &&
 				Objects.equals(this.quota, levelUpData.quota) &&
 				Objects.equals(this.targetProfit, levelUpData.targetProfit);
@@ -131,7 +154,7 @@ public class LevelUpData
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(total, totalOwn, quota, targetProfit);
+		return Objects.hash(level, total, totalOwn, quota, targetProfit);
 	}
 
 
@@ -140,6 +163,7 @@ public class LevelUpData
 		StringBuilder sb = new StringBuilder();
 		sb.append("class LevelUpData {\n");
 
+		sb.append("    level: ").append(toIndentedString(level)).append("\n");
 		sb.append("    total: ").append(toIndentedString(total)).append("\n");
 		sb.append("    totalOwn: ").append(toIndentedString(totalOwn)).append("\n");
 		sb.append("    quota: ").append(toIndentedString(quota)).append("\n");

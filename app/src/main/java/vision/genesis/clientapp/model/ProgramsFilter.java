@@ -58,6 +58,8 @@ public class ProgramsFilter implements Parcelable
 
 	private Integer take;
 
+	private List<String> tags;
+
 	public ProgramsFilter() {
 
 	}
@@ -144,6 +146,7 @@ public class ProgramsFilter implements Parcelable
 		else {
 			take = in.readInt();
 		}
+		in.readList(tags, String.class.getClassLoader());
 	}
 
 	public SortingEnum getSorting() {
@@ -274,6 +277,14 @@ public class ProgramsFilter implements Parcelable
 		this.take = take;
 	}
 
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -348,6 +359,7 @@ public class ProgramsFilter implements Parcelable
 			dest.writeByte((byte) 1);
 			dest.writeInt(take);
 		}
+		dest.writeList(tags);
 	}
 
 	@Override
@@ -374,6 +386,7 @@ public class ProgramsFilter implements Parcelable
 				Objects.equals(getIds(), filter.getIds()) &&
 				Objects.equals(getManagerId(), filter.getManagerId()) &&
 				Objects.equals(getSkip(), filter.getSkip()) &&
-				Objects.equals(getTake(), filter.getTake());
+				Objects.equals(getTake(), filter.getTake()) &&
+				Objects.equals(getTags(), filter.getTags());
 	}
 }

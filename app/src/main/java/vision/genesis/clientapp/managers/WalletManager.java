@@ -87,6 +87,7 @@ public class WalletManager
 		return walletApi.v10WalletTransactionsGet(AuthManager.token.getValue(), null,
 				dateRange.getFrom(), dateRange.getTo(),
 				null, null,
+				null,
 				skip, take);
 	}
 

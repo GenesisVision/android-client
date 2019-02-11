@@ -48,6 +48,9 @@ public class PlatformInfo
 	@SerializedName("platformCurrencies")
 	private List<PlatformCurrency> platformCurrencies = null;
 
+	@SerializedName("programTags")
+	private List<ProgramTag> programTags = null;
+
 	public PlatformInfo iOSVersion(IOsAppVersion iOSVersion) {
 		this.iOSVersion = iOSVersion;
 		return this;
@@ -213,6 +216,33 @@ public class PlatformInfo
 		this.platformCurrencies = platformCurrencies;
 	}
 
+	public PlatformInfo programTags(List<ProgramTag> programTags) {
+		this.programTags = programTags;
+		return this;
+	}
+
+	public PlatformInfo addProgramTagsItem(ProgramTag programTagsItem) {
+		if (this.programTags == null) {
+			this.programTags = new ArrayList<ProgramTag>();
+		}
+		this.programTags.add(programTagsItem);
+		return this;
+	}
+
+	/**
+	 * Get programTags
+	 *
+	 * @return programTags
+	 **/
+	@ApiModelProperty(value = "")
+	public List<ProgramTag> getProgramTags() {
+		return programTags;
+	}
+
+	public void setProgramTags(List<ProgramTag> programTags) {
+		this.programTags = programTags;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -229,12 +259,13 @@ public class PlatformInfo
 				Objects.equals(this.fundsFacets, platformInfo.fundsFacets) &&
 				Objects.equals(this.programsInfo, platformInfo.programsInfo) &&
 				Objects.equals(this.currencies, platformInfo.currencies) &&
-				Objects.equals(this.platformCurrencies, platformInfo.platformCurrencies);
+				Objects.equals(this.platformCurrencies, platformInfo.platformCurrencies) &&
+				Objects.equals(this.programTags, platformInfo.programTags);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(iOSVersion, androidVersion, programsFacets, fundsFacets, programsInfo, currencies, platformCurrencies);
+		return Objects.hash(iOSVersion, androidVersion, programsFacets, fundsFacets, programsInfo, currencies, platformCurrencies, programTags);
 	}
 
 
@@ -250,6 +281,7 @@ public class PlatformInfo
 		sb.append("    programsInfo: ").append(toIndentedString(programsInfo)).append("\n");
 		sb.append("    currencies: ").append(toIndentedString(currencies)).append("\n");
 		sb.append("    platformCurrencies: ").append(toIndentedString(platformCurrencies)).append("\n");
+		sb.append("    programTags: ").append(toIndentedString(programTags)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

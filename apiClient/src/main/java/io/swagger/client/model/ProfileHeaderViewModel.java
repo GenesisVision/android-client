@@ -53,8 +53,23 @@ public class ProfileHeaderViewModel
 	@SerializedName("availableGvt")
 	private Double availableGvt = null;
 
+	@SerializedName("totalBalance")
+	private Double totalBalance = null;
+
+	@SerializedName("invested")
+	private Double invested = null;
+
+	@SerializedName("available")
+	private Double available = null;
+
+	@SerializedName("pending")
+	private Double pending = null;
+
 	@SerializedName("kycConfirmed")
 	private Boolean kycConfirmed = null;
+
+	@SerializedName("allowForex")
+	private Boolean allowForex = null;
 
 	@SerializedName("isTwoFactorEnabled")
 	private Boolean isTwoFactorEnabled = null;
@@ -233,6 +248,82 @@ public class ProfileHeaderViewModel
 		this.availableGvt = availableGvt;
 	}
 
+	public ProfileHeaderViewModel totalBalance(Double totalBalance) {
+		this.totalBalance = totalBalance;
+		return this;
+	}
+
+	/**
+	 * Get totalBalance
+	 *
+	 * @return totalBalance
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getTotalBalance() {
+		return totalBalance;
+	}
+
+	public void setTotalBalance(Double totalBalance) {
+		this.totalBalance = totalBalance;
+	}
+
+	public ProfileHeaderViewModel invested(Double invested) {
+		this.invested = invested;
+		return this;
+	}
+
+	/**
+	 * Get invested
+	 *
+	 * @return invested
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getInvested() {
+		return invested;
+	}
+
+	public void setInvested(Double invested) {
+		this.invested = invested;
+	}
+
+	public ProfileHeaderViewModel available(Double available) {
+		this.available = available;
+		return this;
+	}
+
+	/**
+	 * Get available
+	 *
+	 * @return available
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getAvailable() {
+		return available;
+	}
+
+	public void setAvailable(Double available) {
+		this.available = available;
+	}
+
+	public ProfileHeaderViewModel pending(Double pending) {
+		this.pending = pending;
+		return this;
+	}
+
+	/**
+	 * Get pending
+	 *
+	 * @return pending
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getPending() {
+		return pending;
+	}
+
+	public void setPending(Double pending) {
+		this.pending = pending;
+	}
+
 	public ProfileHeaderViewModel kycConfirmed(Boolean kycConfirmed) {
 		this.kycConfirmed = kycConfirmed;
 		return this;
@@ -250,6 +341,25 @@ public class ProfileHeaderViewModel
 
 	public void setKycConfirmed(Boolean kycConfirmed) {
 		this.kycConfirmed = kycConfirmed;
+	}
+
+	public ProfileHeaderViewModel allowForex(Boolean allowForex) {
+		this.allowForex = allowForex;
+		return this;
+	}
+
+	/**
+	 * Get allowForex
+	 *
+	 * @return allowForex
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isAllowForex() {
+		return allowForex;
+	}
+
+	public void setAllowForex(Boolean allowForex) {
+		this.allowForex = allowForex;
 	}
 
 	public ProfileHeaderViewModel isTwoFactorEnabled(Boolean isTwoFactorEnabled) {
@@ -309,14 +419,19 @@ public class ProfileHeaderViewModel
 				Objects.equals(this.totalBalanceGvt, profileHeaderViewModel.totalBalanceGvt) &&
 				Objects.equals(this.investedGvt, profileHeaderViewModel.investedGvt) &&
 				Objects.equals(this.availableGvt, profileHeaderViewModel.availableGvt) &&
+				Objects.equals(this.totalBalance, profileHeaderViewModel.totalBalance) &&
+				Objects.equals(this.invested, profileHeaderViewModel.invested) &&
+				Objects.equals(this.available, profileHeaderViewModel.available) &&
+				Objects.equals(this.pending, profileHeaderViewModel.pending) &&
 				Objects.equals(this.kycConfirmed, profileHeaderViewModel.kycConfirmed) &&
+				Objects.equals(this.allowForex, profileHeaderViewModel.allowForex) &&
 				Objects.equals(this.isTwoFactorEnabled, profileHeaderViewModel.isTwoFactorEnabled) &&
 				Objects.equals(this.isNewUser, profileHeaderViewModel.isNewUser);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, email, avatar, notificationsCount, favoritesCount, totalBalanceGvt, investedGvt, availableGvt, kycConfirmed, isTwoFactorEnabled, isNewUser);
+		return Objects.hash(id, name, email, avatar, notificationsCount, favoritesCount, totalBalanceGvt, investedGvt, availableGvt, totalBalance, invested, available, pending, kycConfirmed, allowForex, isTwoFactorEnabled, isNewUser);
 	}
 
 
@@ -334,7 +449,12 @@ public class ProfileHeaderViewModel
 		sb.append("    totalBalanceGvt: ").append(toIndentedString(totalBalanceGvt)).append("\n");
 		sb.append("    investedGvt: ").append(toIndentedString(investedGvt)).append("\n");
 		sb.append("    availableGvt: ").append(toIndentedString(availableGvt)).append("\n");
+		sb.append("    totalBalance: ").append(toIndentedString(totalBalance)).append("\n");
+		sb.append("    invested: ").append(toIndentedString(invested)).append("\n");
+		sb.append("    available: ").append(toIndentedString(available)).append("\n");
+		sb.append("    pending: ").append(toIndentedString(pending)).append("\n");
 		sb.append("    kycConfirmed: ").append(toIndentedString(kycConfirmed)).append("\n");
+		sb.append("    allowForex: ").append(toIndentedString(allowForex)).append("\n");
 		sb.append("    isTwoFactorEnabled: ").append(toIndentedString(isTwoFactorEnabled)).append("\n");
 		sb.append("    isNewUser: ").append(toIndentedString(isNewUser)).append("\n");
 		sb.append("}");

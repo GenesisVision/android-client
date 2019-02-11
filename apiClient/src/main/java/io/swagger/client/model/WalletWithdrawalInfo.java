@@ -45,6 +45,9 @@ public class WalletWithdrawalInfo
 	@SerializedName("rateToGvt")
 	private Double rateToGvt = null;
 
+	@SerializedName("availableToWithdrawal")
+	private Double availableToWithdrawal = null;
+
 	public WalletWithdrawalInfo currency(CurrencyEnum currency) {
 		this.currency = currency;
 		return this;
@@ -140,6 +143,25 @@ public class WalletWithdrawalInfo
 		this.rateToGvt = rateToGvt;
 	}
 
+	public WalletWithdrawalInfo availableToWithdrawal(Double availableToWithdrawal) {
+		this.availableToWithdrawal = availableToWithdrawal;
+		return this;
+	}
+
+	/**
+	 * Get availableToWithdrawal
+	 *
+	 * @return availableToWithdrawal
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getAvailableToWithdrawal() {
+		return availableToWithdrawal;
+	}
+
+	public void setAvailableToWithdrawal(Double availableToWithdrawal) {
+		this.availableToWithdrawal = availableToWithdrawal;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -153,12 +175,13 @@ public class WalletWithdrawalInfo
 				Objects.equals(this.description, walletWithdrawalInfo.description) &&
 				Objects.equals(this.logo, walletWithdrawalInfo.logo) &&
 				Objects.equals(this.commission, walletWithdrawalInfo.commission) &&
-				Objects.equals(this.rateToGvt, walletWithdrawalInfo.rateToGvt);
+				Objects.equals(this.rateToGvt, walletWithdrawalInfo.rateToGvt) &&
+				Objects.equals(this.availableToWithdrawal, walletWithdrawalInfo.availableToWithdrawal);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, description, logo, commission, rateToGvt);
+		return Objects.hash(currency, description, logo, commission, rateToGvt, availableToWithdrawal);
 	}
 
 	@Override
@@ -171,6 +194,7 @@ public class WalletWithdrawalInfo
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    commission: ").append(toIndentedString(commission)).append("\n");
 		sb.append("    rateToGvt: ").append(toIndentedString(rateToGvt)).append("\n");
+		sb.append("    availableToWithdrawal: ").append(toIndentedString(availableToWithdrawal)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -192,6 +216,8 @@ public class WalletWithdrawalInfo
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
+		USD("USD"),
+
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -212,7 +238,7 @@ public class WalletWithdrawalInfo
 
 		DOGE("DOGE"),
 
-		USD("USD"),
+		BNB("BNB"),
 
 		EUR("EUR");
 

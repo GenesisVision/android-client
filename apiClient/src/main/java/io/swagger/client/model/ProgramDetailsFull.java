@@ -22,6 +22,8 @@ import com.google.gson.stream.JsonWriter;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -51,6 +53,12 @@ public class ProgramDetailsFull
 	@SerializedName("entryFee")
 	private Double entryFee = null;
 
+	@SerializedName("entryFeeSelected")
+	private Double entryFeeSelected = null;
+
+	@SerializedName("entryFeeCurrent")
+	private Double entryFeeCurrent = null;
+
 	@SerializedName("successFee")
 	private Double successFee = null;
 
@@ -68,6 +76,9 @@ public class ProgramDetailsFull
 
 	@SerializedName("personalProgramDetails")
 	private PersonalProgramDetailsFull personalProgramDetails = null;
+
+	@SerializedName("tags")
+	private List<ProgramTag> tags = null;
 
 	@SerializedName("id")
 	private UUID id = null;
@@ -210,6 +221,44 @@ public class ProgramDetailsFull
 		this.entryFee = entryFee;
 	}
 
+	public ProgramDetailsFull entryFeeSelected(Double entryFeeSelected) {
+		this.entryFeeSelected = entryFeeSelected;
+		return this;
+	}
+
+	/**
+	 * Get entryFeeSelected
+	 *
+	 * @return entryFeeSelected
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getEntryFeeSelected() {
+		return entryFeeSelected;
+	}
+
+	public void setEntryFeeSelected(Double entryFeeSelected) {
+		this.entryFeeSelected = entryFeeSelected;
+	}
+
+	public ProgramDetailsFull entryFeeCurrent(Double entryFeeCurrent) {
+		this.entryFeeCurrent = entryFeeCurrent;
+		return this;
+	}
+
+	/**
+	 * Get entryFeeCurrent
+	 *
+	 * @return entryFeeCurrent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getEntryFeeCurrent() {
+		return entryFeeCurrent;
+	}
+
+	public void setEntryFeeCurrent(Double entryFeeCurrent) {
+		this.entryFeeCurrent = entryFeeCurrent;
+	}
+
 	public ProgramDetailsFull successFee(Double successFee) {
 		this.successFee = successFee;
 		return this;
@@ -322,6 +371,33 @@ public class ProgramDetailsFull
 
 	public void setPersonalProgramDetails(PersonalProgramDetailsFull personalProgramDetails) {
 		this.personalProgramDetails = personalProgramDetails;
+	}
+
+	public ProgramDetailsFull tags(List<ProgramTag> tags) {
+		this.tags = tags;
+		return this;
+	}
+
+	public ProgramDetailsFull addTagsItem(ProgramTag tagsItem) {
+		if (this.tags == null) {
+			this.tags = new ArrayList<ProgramTag>();
+		}
+		this.tags.add(tagsItem);
+		return this;
+	}
+
+	/**
+	 * Get tags
+	 *
+	 * @return tags
+	 **/
+	@ApiModelProperty(value = "")
+	public List<ProgramTag> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<ProgramTag> tags) {
+		this.tags = tags;
 	}
 
 	public ProgramDetailsFull id(UUID id) {
@@ -510,12 +586,15 @@ public class ProgramDetailsFull
 				Objects.equals(this.periodStarts, programDetailsFull.periodStarts) &&
 				Objects.equals(this.periodEnds, programDetailsFull.periodEnds) &&
 				Objects.equals(this.entryFee, programDetailsFull.entryFee) &&
+				Objects.equals(this.entryFeeSelected, programDetailsFull.entryFeeSelected) &&
+				Objects.equals(this.entryFeeCurrent, programDetailsFull.entryFeeCurrent) &&
 				Objects.equals(this.successFee, programDetailsFull.successFee) &&
 				Objects.equals(this.isReinvesting, programDetailsFull.isReinvesting) &&
 				Objects.equals(this.availableInvestment, programDetailsFull.availableInvestment) &&
 				Objects.equals(this.statistic, programDetailsFull.statistic) &&
 				Objects.equals(this.rating, programDetailsFull.rating) &&
 				Objects.equals(this.personalProgramDetails, programDetailsFull.personalProgramDetails) &&
+				Objects.equals(this.tags, programDetailsFull.tags) &&
 				Objects.equals(this.id, programDetailsFull.id) &&
 				Objects.equals(this.logo, programDetailsFull.logo) &&
 				Objects.equals(this.url, programDetailsFull.url) &&
@@ -529,7 +608,7 @@ public class ProgramDetailsFull
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, entryFee, successFee, isReinvesting, availableInvestment, statistic, rating, personalProgramDetails, id, logo, url, color, description, title, ipfsHash, status, manager);
+		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, entryFee, entryFeeSelected, entryFeeCurrent, successFee, isReinvesting, availableInvestment, statistic, rating, personalProgramDetails, tags, id, logo, url, color, description, title, ipfsHash, status, manager);
 	}
 
 	@Override
@@ -543,12 +622,15 @@ public class ProgramDetailsFull
 		sb.append("    periodStarts: ").append(toIndentedString(periodStarts)).append("\n");
 		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
+		sb.append("    entryFeeSelected: ").append(toIndentedString(entryFeeSelected)).append("\n");
+		sb.append("    entryFeeCurrent: ").append(toIndentedString(entryFeeCurrent)).append("\n");
 		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("    isReinvesting: ").append(toIndentedString(isReinvesting)).append("\n");
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    rating: ").append(toIndentedString(rating)).append("\n");
 		sb.append("    personalProgramDetails: ").append(toIndentedString(personalProgramDetails)).append("\n");
+		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
@@ -580,6 +662,8 @@ public class ProgramDetailsFull
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
+		USD("USD"),
+
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -600,7 +684,7 @@ public class ProgramDetailsFull
 
 		DOGE("DOGE"),
 
-		USD("USD"),
+		BNB("BNB"),
 
 		EUR("EUR");
 

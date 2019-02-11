@@ -34,6 +34,9 @@ public class ProgramDetailsRating
 	@SerializedName("canLevelUp")
 	private Boolean canLevelUp = null;
 
+	@SerializedName("topPercent")
+	private Double topPercent = null;
+
 	public ProgramDetailsRating rating(Integer rating) {
 		this.rating = rating;
 		return this;
@@ -91,6 +94,25 @@ public class ProgramDetailsRating
 		this.canLevelUp = canLevelUp;
 	}
 
+	public ProgramDetailsRating topPercent(Double topPercent) {
+		this.topPercent = topPercent;
+		return this;
+	}
+
+	/**
+	 * Get topPercent
+	 *
+	 * @return topPercent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getTopPercent() {
+		return topPercent;
+	}
+
+	public void setTopPercent(Double topPercent) {
+		this.topPercent = topPercent;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -103,12 +125,13 @@ public class ProgramDetailsRating
 		ProgramDetailsRating programDetailsRating = (ProgramDetailsRating) o;
 		return Objects.equals(this.rating, programDetailsRating.rating) &&
 				Objects.equals(this.profit, programDetailsRating.profit) &&
-				Objects.equals(this.canLevelUp, programDetailsRating.canLevelUp);
+				Objects.equals(this.canLevelUp, programDetailsRating.canLevelUp) &&
+				Objects.equals(this.topPercent, programDetailsRating.topPercent);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(rating, profit, canLevelUp);
+		return Objects.hash(rating, profit, canLevelUp, topPercent);
 	}
 
 
@@ -120,6 +143,7 @@ public class ProgramDetailsRating
 		sb.append("    rating: ").append(toIndentedString(rating)).append("\n");
 		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
 		sb.append("    canLevelUp: ").append(toIndentedString(canLevelUp)).append("\n");
+		sb.append("    topPercent: ").append(toIndentedString(topPercent)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

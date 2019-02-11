@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **direction** | [**DirectionEnum**](#DirectionEnum) |  |  [optional]
 **date** | [**DateTime**](DateTime.md) |  |  [optional]
 **price** | **Double** |  |  [optional]
+**priceCurrent** | **Double** |  |  [optional]
 **entry** | [**EntryEnum**](#EntryEnum) |  |  [optional]
 
 

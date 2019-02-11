@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **statistic** | [**ProgramDetailsListStatistic**](ProgramDetailsListStatistic.md) |  |  [optional]
 **rating** | [**ProgramDetailsRating**](ProgramDetailsRating.md) |  |  [optional]
 **personalDetails** | [**PersonalProgramDetailsFull**](PersonalProgramDetailsFull.md) | Fields for authorized user |  [optional]
+**tags** | [**List&lt;ProgramTag&gt;**](ProgramTag.md) |  |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **logo** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
@@ -29,6 +30,7 @@ Name | Type | Description | Notes
 ## Enum: CurrencyEnum
 Name | Value
 ---- | -----
+USD | &quot;USD&quot;
 UNDEFINED | &quot;Undefined&quot;
 GVT | &quot;GVT&quot;
 ETH | &quot;ETH&quot;
@@ -39,7 +41,7 @@ XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
 DOGE | &quot;DOGE&quot;
-USD | &quot;USD&quot;
+BNB | &quot;BNB&quot;
 EUR | &quot;EUR&quot;
 
 

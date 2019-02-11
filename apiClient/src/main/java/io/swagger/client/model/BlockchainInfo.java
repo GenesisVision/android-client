@@ -130,8 +130,6 @@ public class BlockchainInfo
 
 		CONFIRMEDANDVALIDATED("ConfirmedAndValidated"),
 
-		PENDINGADDINWALLET("PendingAddInWallet"),
-
 		ERROR("Error"),
 
 		CANCELLED("Cancelled");

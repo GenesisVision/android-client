@@ -13,7 +13,12 @@ Name | Type | Description | Notes
 **totalBalanceGvt** | **Double** |  |  [optional]
 **investedGvt** | **Double** |  |  [optional]
 **availableGvt** | **Double** |  |  [optional]
+**totalBalance** | **Double** |  |  [optional]
+**invested** | **Double** |  |  [optional]
+**available** | **Double** |  |  [optional]
+**pending** | **Double** |  |  [optional]
 **kycConfirmed** | **Boolean** |  |  [optional]
+**allowForex** | **Boolean** |  |  [optional]
 **isTwoFactorEnabled** | **Boolean** |  |  [optional]
 **isNewUser** | **Boolean** |  |  [optional]
 

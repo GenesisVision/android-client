@@ -62,6 +62,9 @@ public class ProgramDetails
 	@SerializedName("personalDetails")
 	private PersonalProgramDetailsFull personalDetails = null;
 
+	@SerializedName("tags")
+	private List<ProgramTag> tags = null;
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -261,6 +264,33 @@ public class ProgramDetails
 
 	public void setPersonalDetails(PersonalProgramDetailsFull personalDetails) {
 		this.personalDetails = personalDetails;
+	}
+
+	public ProgramDetails tags(List<ProgramTag> tags) {
+		this.tags = tags;
+		return this;
+	}
+
+	public ProgramDetails addTagsItem(ProgramTag tagsItem) {
+		if (this.tags == null) {
+			this.tags = new ArrayList<ProgramTag>();
+		}
+		this.tags.add(tagsItem);
+		return this;
+	}
+
+	/**
+	 * Get tags
+	 *
+	 * @return tags
+	 **/
+	@ApiModelProperty(value = "")
+	public List<ProgramTag> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<ProgramTag> tags) {
+		this.tags = tags;
 	}
 
 	public ProgramDetails id(UUID id) {
@@ -479,6 +509,7 @@ public class ProgramDetails
 				Objects.equals(this.statistic, programDetails.statistic) &&
 				Objects.equals(this.rating, programDetails.rating) &&
 				Objects.equals(this.personalDetails, programDetails.personalDetails) &&
+				Objects.equals(this.tags, programDetails.tags) &&
 				Objects.equals(this.id, programDetails.id) &&
 				Objects.equals(this.logo, programDetails.logo) &&
 				Objects.equals(this.url, programDetails.url) &&
@@ -493,7 +524,7 @@ public class ProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, availableInvestment, statistic, rating, personalDetails, id, logo, url, color, title, description, status, manager, chart, dashboardAssetsDetails);
+		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, availableInvestment, statistic, rating, personalDetails, tags, id, logo, url, color, title, description, status, manager, chart, dashboardAssetsDetails);
 	}
 
 	@Override
@@ -510,6 +541,7 @@ public class ProgramDetails
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    rating: ").append(toIndentedString(rating)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
+		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
@@ -542,6 +574,8 @@ public class ProgramDetails
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
+		USD("USD"),
+
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -562,7 +596,7 @@ public class ProgramDetails
 
 		DOGE("DOGE"),
 
-		USD("USD"),
+		BNB("BNB"),
 
 		EUR("EUR");
 
