@@ -294,7 +294,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	private void initTabs() {
 		infoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("info");
 		profitTab = tabLayout.newTab().setCustomView(getTabView(R.string.profit)).setTag("profit");
-		balanceTab = tabLayout.newTab().setCustomView(getTabView(R.string.balance)).setTag("balance");
+		balanceTab = tabLayout.newTab().setCustomView(getTabView(R.string.equity)).setTag("balance");
 		tradesTab = tabLayout.newTab().setCustomView(getTabView(R.string.trades)).setTag("trades");
 		eventsTab = tabLayout.newTab().setCustomView(getTabView(R.string.events)).setTag("events");
 

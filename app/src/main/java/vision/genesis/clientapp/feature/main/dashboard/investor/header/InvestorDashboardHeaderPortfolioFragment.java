@@ -27,6 +27,7 @@ import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.OnInRequestsClickedEvent;
 import vision.genesis.clientapp.ui.chart.PortfolioChartView;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -126,6 +127,8 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 		if (inRequestsTotalValue != null && inRequestsRate != null) {
 			setInRequestsData(inRequestsTotalValue, inRequestsRate);
 		}
+
+		balanceTitle.setText(StringFormatUtil.capitalize(balanceTitle.getText().toString()));
 	}
 
 	@Override

@@ -150,7 +150,7 @@
                 android:id="@+id/balance_label"
                 style="@style/text_label"
                 android:layout_marginTop="4dp"
-                android:text="@string/balance"/>
+                android:text="@string/equity"/>
 
         </LinearLayout>
 

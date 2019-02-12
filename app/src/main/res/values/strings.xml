@@ -547,5 +547,6 @@
     <string name="you_will_get_approx">You will get approximately</string>
     <string name="entry_fee_disabled_title">The entry fee is disabled for programs that have not reached level 3</string>
     <string name="entry_fee_disabled_message">It will be charged only for programs with level 3 or higher.</string>
+    <string name="equity">Equity</string>
 
 </resources>

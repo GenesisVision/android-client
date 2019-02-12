@@ -34,7 +34,7 @@
                     style="@style/dashboard_header_title"
                     android:layout_height="24dp"
                     android:gravity="bottom"
-                    android:text="@string/balance"/>
+                    android:text="@string/value"/>
 
                 <TextView
                     android:id="@+id/balance_value"
