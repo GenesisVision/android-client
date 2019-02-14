@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.trades;
+package vision.genesis.clientapp.feature.main.program.open_positions;
 
 import android.support.annotation.NonNull;
 import android.support.v7.content.res.AppCompatResources;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,44 +19,40 @@ import butterknife.ButterKnife;
 import io.swagger.client.model.OrderModel;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.events.OnOpenPositionClickedEvent;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
- * GenesisVision
- * Created by Vitaly on 4/1/18.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 12/02/2019.
  */
 
-public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.TradeViewHolder>
+public class OpenPositionsListAdapter extends RecyclerView.Adapter<OpenPositionsListAdapter.TradeViewHolder>
 {
-	public List<OrderModel> trades = new ArrayList<>();
+	private List<OrderModel> openPositions = new ArrayList<>();
 
 	@NonNull
 	@Override
 	public TradeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_trade, parent, false);
+		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_open_position, parent, false);
 		return new TradeViewHolder(itemView);
 	}
 
 	@Override
 	public void onBindViewHolder(@NonNull TradeViewHolder holder, int position) {
-		holder.setTrade(trades.get(position));
+		holder.setTrade(openPositions.get(position));
 	}
 
 	@Override
 	public int getItemCount() {
-		return trades.size();
+		return openPositions.size();
 	}
 
-	void setTrades(List<OrderModel> trades) {
-		this.trades.clear();
-		this.trades.addAll(trades);
-		notifyDataSetChanged();
-	}
-
-	void addTrades(List<OrderModel> trades) {
-		this.trades.addAll(trades);
+	void setOpenPositions(List<OrderModel> trades) {
+		this.openPositions.clear();
+		this.openPositions.addAll(trades);
 		notifyDataSetChanged();
 	}
 
@@ -69,6 +67,9 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 		@BindView(R.id.direction)
 		public TextView direction;
 
+		@BindView(R.id.volume)
+		public TextView volume;
+
 		@BindView(R.id.balance)
 		public TextView balance;
 
@@ -78,37 +79,47 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 		@BindView(R.id.date)
 		public TextView date;
 
+		private OrderModel trade;
+
 		TradeViewHolder(View itemView) {
 			super(itemView);
 
 			ButterKnife.bind(this, itemView);
+
+			itemView.setOnClickListener(view -> {
+				if (trade != null)
+					EventBus.getDefault().post(new OnOpenPositionClickedEvent(trade));
+			});
 
 			setFonts();
 		}
 
 		private void setFonts() {
 			direction.setTypeface(TypefaceUtil.semibold());
+			volume.setTypeface(TypefaceUtil.semibold());
 			balance.setTypeface(TypefaceUtil.semibold());
 			profit.setTypeface(TypefaceUtil.semibold());
 		}
 
 		void setTrade(OrderModel trade) {
-			int entryResId = R.drawable.icon_red_arrow_up;
+			this.trade = trade;
+			int dirResId = R.drawable.icon_red_arrow_up;
 			switch (trade.getDirection()) {
 				case BUY:
-					entryResId = R.drawable.icon_arrow_green_down;
+					dirResId = R.drawable.icon_arrow_green_down;
 					break;
 				case SELL:
-					entryResId = R.drawable.icon_arrow_red_up;
+					dirResId = R.drawable.icon_arrow_red_up;
 					break;
 				default:
 					break;
 			}
 
-			entry.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, entryResId));
+			entry.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, dirResId));
 
 			symbol.setText(trade.getSymbol());
 			direction.setText(trade.getDirection().getValue());
+			volume.setText(StringFormatUtil.formatAmount(trade.getVolume(), 2, 8));
 			balance.setText(StringFormatUtil.formatAmountWithoutGrouping(trade.getPrice()));
 //			balance.setText("120.2301");
 //			time.setText(DateTimeUtil.formatShortDateTime(trade.getDate()));

@@ -10,6 +10,7 @@ import java.util.UUID;
 import vision.genesis.clientapp.feature.main.program.balance.ProgramBalanceFragment;
 import vision.genesis.clientapp.feature.main.program.events.ProgramEventsFragment;
 import vision.genesis.clientapp.feature.main.program.info.ProgramInfoFragment;
+import vision.genesis.clientapp.feature.main.program.open_positions.OpenPositionsFragment;
 import vision.genesis.clientapp.feature.main.program.profit.ProgramProfitFragment;
 import vision.genesis.clientapp.feature.main.program.trades.ProgramTradesFragment;
 
@@ -29,6 +30,8 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private ProgramInfoFragment programInfoFragment;
 
+	private OpenPositionsFragment openPositionsFragment;
+
 	private ProgramProfitFragment programProfitFragment;
 
 	private ProgramBalanceFragment programBalanceFragment;
@@ -43,6 +46,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		super(fm);
 		this.tabLayout = tabLayout;
 		programInfoFragment = ProgramInfoFragment.with(programId);
+		openPositionsFragment = OpenPositionsFragment.with(programId);
 		programProfitFragment = ProgramProfitFragment.with(programId);
 		programBalanceFragment = ProgramBalanceFragment.with(programId);
 		programEventsFragment = ProgramEventsFragment.with(programId);
@@ -54,6 +58,8 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		switch (tabLayout.getTabAt(position).getTag().toString()) {
 			case "info":
 				return programInfoFragment;
+			case "open_positions":
+				return openPositionsFragment;
 			case "profit":
 				return programProfitFragment;
 			case "balance":
@@ -77,6 +83,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	public void sendUpdate() {
 		programInfoFragment.pagerShow();
+		openPositionsFragment.pagerShow();
 		programProfitFragment.pagerShow();
 		programBalanceFragment.pagerShow();
 		programTradesFragment.pagerShow();
@@ -84,6 +91,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	public void sendSwipeRefresh() {
+		openPositionsFragment.onSwipeRefresh();
 		programTradesFragment.onSwipeRefresh();
 		programEventsFragment.onSwipeRefresh();
 	}

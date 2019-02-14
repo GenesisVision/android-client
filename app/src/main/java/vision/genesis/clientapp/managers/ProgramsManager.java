@@ -63,6 +63,10 @@ public class ProgramsManager
 		return programsApi.v10ProgramsByIdGet(programId.toString(), AuthManager.token.getValue(), baseCurrency.getValue());
 	}
 
+	public Observable<TradesViewModel> getProgramOpenPositions(UUID programId) {
+		return programsApi.v10ProgramsByIdTradesOpenGet(programId, "ByDateDesc", 0, 1000);
+	}
+
 	public Observable<ProgramProfitChart> getProfitChart(UUID programId, DateRange dateRange, Integer maxPointCount) {
 		return programsApi.v10ProgramsByIdChartsProfitGet(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount);
 	}

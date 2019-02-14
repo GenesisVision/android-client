@@ -505,7 +505,7 @@
     <string name="enter_amount">Enter amount</string>
     <string name="select_notification_type">Select notification type</string>
     <string name="select_level">Select level</string>
-    <string name="i_confirm_i_am_not_us_resident_or_citizen">I confirm that I am not the U.S. resident or citizen</string>
+    <string name="i_confirm_i_am_not_us_resident_or_citizen">I confirm that I am not a U.S. resident or citizen</string>
     <string name="approximate_amount">Approximate amount</string>
     <string name="ddown">D.down</string>
     <string name="exit_fee">Exit fee</string>
@@ -548,5 +548,8 @@
     <string name="entry_fee_disabled_title">The entry fee is disabled for programs that have not reached level 3</string>
     <string name="entry_fee_disabled_message">It will be charged only for programs with level 3 or higher.</string>
     <string name="equity">Equity</string>
+    <string name="program_has_no_open_positions">There are currently no open positions in this program.</string>
+    <string name="open_positions">Open positions</string>
+    <string name="price_open">Price open</string>
 
 </resources>
