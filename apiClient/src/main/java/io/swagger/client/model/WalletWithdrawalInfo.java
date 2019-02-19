@@ -216,8 +216,6 @@ public class WalletWithdrawalInfo
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		USD("USD"),
-
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -239,6 +237,8 @@ public class WalletWithdrawalInfo
 		DOGE("DOGE"),
 
 		BNB("BNB"),
+
+		USD("USD"),
 
 		EUR("EUR");
 

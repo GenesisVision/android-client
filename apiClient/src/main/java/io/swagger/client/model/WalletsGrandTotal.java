@@ -295,8 +295,6 @@ public class WalletsGrandTotal
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		USD("USD"),
-
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -318,6 +316,8 @@ public class WalletsGrandTotal
 		DOGE("DOGE"),
 
 		BNB("BNB"),
+
+		USD("USD"),
 
 		EUR("EUR");
 
@@ -366,8 +366,6 @@ public class WalletsGrandTotal
 	@JsonAdapter(CurrencyCcyEnum.Adapter.class)
 	public enum CurrencyCcyEnum
 	{
-		USD("USD"),
-
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -389,6 +387,8 @@ public class WalletsGrandTotal
 		DOGE("DOGE"),
 
 		BNB("BNB"),
+
+		USD("USD"),
 
 		EUR("EUR");
 

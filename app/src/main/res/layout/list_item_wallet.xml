@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_my_wallet_height"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/icon"
+        android:layout_width="@dimen/icon_wallet_list_size"
+        android:layout_height="@dimen/icon_wallet_list_size"
+        android:layout_centerVertical="true"
+        app:placeholderImageScaleType="centerInside"
+        app:roundAsCircle="true"/>
+
+    <TextView
+        android:id="@+id/currency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@+id/icon"
+        android:layout_toStartOf="@+id/value"
+        android:ellipsize="end"
+        android:textColor="?attr/colorTextPrimary"
+        android:textSize="16sp"
+        tools:text="Genesis Vision"/>
+
+    <TextView
+        android:id="@+id/value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:textColor="?attr/colorTextPrimary"
+        android:textSize="14sp"
+        tools:text="547.6783 GVT"/>
+
+</RelativeLayout>

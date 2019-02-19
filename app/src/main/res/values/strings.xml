@@ -551,5 +551,10 @@
     <string name="program_has_no_open_positions">There are currently no open positions in this program.</string>
     <string name="open_positions">Open positions</string>
     <string name="price_open">Price open</string>
+    <string name="my_wallets">My wallets</string>
+    <string name="transactions">Transactions</string>
+    <string name="deposits_withdrawals">Deposits/Withdrawals</string>
+    <string name="status_done">Done</string>
+    <string name="no_deposits_or_withdrawals">There are currently no deposits or withdrawals</string>
 
 </resources>

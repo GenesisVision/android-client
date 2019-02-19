@@ -28,19 +28,19 @@ import io.swagger.annotations.ApiModelProperty;
 public class ProgramSets
 {
 	@SerializedName("sets")
-	private List<Facet> sets = null;
+	private List<ProgramFacet> sets = null;
 
 	@SerializedName("favoritesCount")
 	private Integer favoritesCount = null;
 
-	public ProgramSets sets(List<Facet> sets) {
+	public ProgramSets sets(List<ProgramFacet> sets) {
 		this.sets = sets;
 		return this;
 	}
 
-	public ProgramSets addSetsItem(Facet setsItem) {
+	public ProgramSets addSetsItem(ProgramFacet setsItem) {
 		if (this.sets == null) {
-			this.sets = new ArrayList<Facet>();
+			this.sets = new ArrayList<ProgramFacet>();
 		}
 		this.sets.add(setsItem);
 		return this;
@@ -52,11 +52,11 @@ public class ProgramSets
 	 * @return sets
 	 **/
 	@ApiModelProperty(value = "")
-	public List<Facet> getSets() {
+	public List<ProgramFacet> getSets() {
 		return sets;
 	}
 
-	public void setSets(List<Facet> sets) {
+	public void setSets(List<ProgramFacet> sets) {
 		this.sets = sets;
 	}
 

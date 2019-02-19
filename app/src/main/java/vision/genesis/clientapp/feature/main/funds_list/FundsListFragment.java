@@ -23,8 +23,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.Facet;
 import io.swagger.client.model.FundDetails;
+import io.swagger.client.model.FundFacet;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -172,7 +172,7 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 		}
 	}
 
-	public void setFacets(List<Facet> facets) {
+	public void setFacets(List<FundFacet> facets) {
 
 	}
 

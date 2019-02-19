@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/toolbar"
-                android:background="?attr/colorBackground"
+                android:background="?attr/colorCard"
                 app:elevation="0dp">
 
                 <android.support.design.widget.CollapsingToolbarLayout
@@ -196,70 +196,83 @@
 
                         </LinearLayout>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="24dp"
-                            android:layout_alignParentBottom="true"
-                            android:background="?attr/colorBackgroundDark"/>
-
                     </RelativeLayout>
 
                 </android.support.design.widget.CollapsingToolbarLayout>
 
-                <TextView
-                    android:id="@+id/label_transactions"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginTop="24dp"
-                    android:paddingLeft="@dimen/wallet_padding"
-                    android:paddingRight="@dimen/wallet_padding"
-                    android:text="@string/transactions_history"
-                    android:textColor="?attr/colorTextPrimary"
-                    android:textSize="18sp"
-                    app:layout_scrollFlags="scroll|exitUntilCollapsed"/>
+                <RelativeLayout
+                    android:id="@+id/group_tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/toolbar_height"
+                    android:background="?attr/colorCard"
+                    android:paddingStart="@dimen/program_details_padding"
+                    app:layout_collapseMode="pin"
+                    tools:visibility="visible">
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/tab_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/tabs_height"
+                        android:layout_alignParentBottom="true"
+                        android:minHeight="?attr/actionBarSize"
+                        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                        app:tabGravity="fill"
+                        app:tabIndicatorColor="?attr/colorAccent"
+                        app:tabMaxWidth="0dp"
+                        app:tabMode="scrollable"
+                        app:tabSelectedTextColor="?attr/colorTextPrimary"
+                        app:tabTextColor="?attr/colorTextSecondary"/>
+
+                </RelativeLayout>
 
             </android.support.design.widget.AppBarLayout>
 
-            <RelativeLayout
-                android:id="@+id/group_transactions"
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager_wallet"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="?attr/colorBackground"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:visibility="visible"/>
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clipToPadding="false"
-                    android:paddingBottom="140dp"/>
+            <!--<RelativeLayout-->
+            <!--android:id="@+id/group_transactions"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="?attr/colorBackground"-->
+            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
 
-                <LinearLayout
-                    android:id="@+id/group_no_transactions"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="64dp"
-                    android:orientation="vertical"
-                    android:padding="32dp"
-                    android:visibility="gone"
-                    tools:visibility="visible">
+            <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/recycler_view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:clipToPadding="false"-->
+            <!--android:paddingBottom="140dp"/>-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_margin="8dp"
-                        android:alpha="0.3"
-                        android:gravity="center"
-                        android:text="@string/no_transactions_for_selected_period"
-                        android:textColor="?attr/colorTextPrimary"
-                        android:textSize="16sp"/>
+            <!--<LinearLayout-->
+            <!--android:id="@+id/group_no_transactions"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginBottom="64dp"-->
+            <!--android:orientation="vertical"-->
+            <!--android:padding="32dp"-->
+            <!--android:visibility="gone"-->
+            <!--tools:visibility="visible">-->
 
-                </LinearLayout>
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_margin="8dp"-->
+            <!--android:alpha="0.3"-->
+            <!--android:gravity="center"-->
+            <!--android:text="@string/no_transactions_for_selected_period"-->
+            <!--android:textColor="?attr/colorTextPrimary"-->
+            <!--android:textSize="16sp"/>-->
 
-            </RelativeLayout>
+            <!--</LinearLayout>-->
+
+            <!--</RelativeLayout>-->
 
 
         </android.support.design.widget.CoordinatorLayout>
@@ -270,19 +283,19 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
-        android:background="?attr/colorBackground"
+        android:background="?attr/colorCard"
         android:paddingLeft="@dimen/wallet_padding"
         android:paddingRight="@dimen/wallet_padding">
 
-        <TextView
-            android:id="@+id/withdraw"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:gravity="center"
-            android:text="@string/withdraw"
-            android:textColor="?attr/colorTextPrimary"
-            android:textSize="16sp"/>
+        <!--<TextView-->
+        <!--android:id="@+id/withdraw"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="?attr/selectableItemBackgroundBorderless"-->
+        <!--android:gravity="center"-->
+        <!--android:text="@string/withdraw"-->
+        <!--android:textColor="?attr/colorTextPrimary"-->
+        <!--android:textSize="16sp"/>-->
 
         <RelativeLayout
             android:id="@+id/group_currency"
@@ -311,17 +324,17 @@
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/add_funds"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:gravity="center"
-            android:text="@string/add_funds"
-            android:textColor="?attr/colorAccent"
-            android:textSize="16sp"/>
+        <!--<TextView-->
+        <!--android:id="@+id/add_funds"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:background="?attr/selectableItemBackgroundBorderless"-->
+        <!--android:gravity="center"-->
+        <!--android:text="@string/add_funds"-->
+        <!--android:textColor="?attr/colorAccent"-->
+        <!--android:textSize="16sp"/>-->
 
     </RelativeLayout>
 
@@ -335,14 +348,14 @@
         android:scaleY="4"
         android:visibility="visible"/>
 
-    <vision.genesis.clientapp.ui.DateRangeView
-        android:id="@+id/date_range"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp"
-        android:visibility="gone"
-        tools:visibility="visible"/>
+    <!--<vision.genesis.clientapp.ui.DateRangeView-->
+    <!--android:id="@+id/date_range"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_marginBottom="70dp"-->
+    <!--android:visibility="gone"-->
+    <!--tools:visibility="visible"/>-->
 
 </RelativeLayout>

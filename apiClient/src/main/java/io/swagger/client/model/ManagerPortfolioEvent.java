@@ -387,8 +387,6 @@ public class ManagerPortfolioEvent
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		USD("USD"),
-
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -410,6 +408,8 @@ public class ManagerPortfolioEvent
 		DOGE("DOGE"),
 
 		BNB("BNB"),
+
+		USD("USD"),
 
 		EUR("EUR");
 

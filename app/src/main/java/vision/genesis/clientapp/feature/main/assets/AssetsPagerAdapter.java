@@ -7,7 +7,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-import io.swagger.client.model.Facet;
+import io.swagger.client.model.FundFacet;
+import io.swagger.client.model.ProgramFacet;
 import vision.genesis.clientapp.feature.main.funds_list.FundsListFragment;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListFragment;
 
@@ -58,11 +59,11 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 	public void destroy() {
 	}
 
-	public void setProgramsFacets(List<Facet> programsFacets) {
+	public void setProgramsFacets(List<ProgramFacet> programsFacets) {
 		programsFragment.setFacets(programsFacets);
 	}
 
-	public void setFundsFacets(List<Facet> fundsFacets) {
+	public void setFundsFacets(List<FundFacet> fundsFacets) {
 		fundsFragment.setFacets(fundsFacets);
 	}
 }

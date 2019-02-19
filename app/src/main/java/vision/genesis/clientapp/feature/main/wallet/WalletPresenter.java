@@ -25,7 +25,6 @@ import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
-import vision.genesis.clientapp.utils.DateTimeUtil;
 
 /**
  * GenesisVision
@@ -56,8 +55,6 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements SelectC
 
 	private int skip = 0;
 
-	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
-
 	private List<WalletTransaction> transactions = new ArrayList<>();
 
 	private List<SimpleSectionedRecyclerViewAdapter.Section> sections = new ArrayList<>();
@@ -69,7 +66,6 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements SelectC
 		GenesisVisionApplication.getComponent().inject(this);
 
 		getViewState().showProgress(true);
-		getViewState().setDateRange(dateRange);
 
 		subscribeToBaseCurrency();
 		getTransactions(true);
@@ -146,50 +142,50 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements SelectC
 	}
 
 	private void getTransactions(boolean forceUpdate) {
-		if (forceUpdate) {
-			skip = 0;
-		}
-
-		if (transactionsSubscription != null)
-			transactionsSubscription.unsubscribe();
-		transactionsSubscription = walletManager.getTransactions(dateRange, skip, TAKE)
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleGetTransactionsResponse,
-						this::handleGetTransactionsError);
+//		if (forceUpdate) {
+//			skip = 0;
+//		}
+//
+//		if (transactionsSubscription != null)
+//			transactionsSubscription.unsubscribe();
+//		transactionsSubscription = walletManager.getTransactions(dateRange, skip, TAKE)
+//				.observeOn(AndroidSchedulers.mainThread())
+//				.subscribeOn(Schedulers.io())
+//				.subscribe(this::handleGetTransactionsResponse,
+//						this::handleGetTransactionsError);
 	}
 
 	private void handleGetTransactionsResponse(WalletTransactionsViewModel response) {
-		transactionsSubscription.unsubscribe();
-		getViewState().showProgress(false);
-		getViewState().setRefreshing(false);
-
-		if (skip == 0) {
-			transactions.clear();
-			sections.clear();
-		}
-
-		List<WalletTransaction> newTransactions = response.getTransactions();
-
-		int index = transactions.size();
-		for (WalletTransaction newTransaction : newTransactions) {
-			String dateString = DateTimeUtil.formatShortDate(newTransaction.getDate());
-			String lastSectionDate = sections.isEmpty() ? "" : sections.get(sections.size() - 1).getTitle().toString();
-			if (!lastSectionDate.equals(dateString))
-				sections.add(new SimpleSectionedRecyclerViewAdapter.Section(index, dateString));
-			index++;
-		}
-
-		transactions.addAll(newTransactions);
-
-		if (skip == 0) {
-			getViewState().setTransactions(newTransactions, sections);
-		}
-		else {
-			getViewState().addTransactions(newTransactions, sections);
-		}
-
-		skip += TAKE;
+//		transactionsSubscription.unsubscribe();
+//		getViewState().showProgress(false);
+//		getViewState().setRefreshing(false);
+//
+//		if (skip == 0) {
+//			transactions.clear();
+//			sections.clear();
+//		}
+//
+//		List<WalletTransaction> newTransactions = response.getTransactions();
+//
+//		int index = transactions.size();
+//		for (WalletTransaction newTransaction : newTransactions) {
+//			String dateString = DateTimeUtil.formatShortDate(newTransaction.getDate());
+//			String lastSectionDate = sections.isEmpty() ? "" : sections.get(sections.size() - 1).getTitle().toString();
+//			if (!lastSectionDate.equals(dateString))
+//				sections.add(new SimpleSectionedRecyclerViewAdapter.Section(index, dateString));
+//			index++;
+//		}
+//
+//		transactions.addAll(newTransactions);
+//
+//		if (skip == 0) {
+//			getViewState().setTransactions(newTransactions, sections);
+//		}
+//		else {
+//			getViewState().addTransactions(newTransactions, sections);
+//		}
+//
+//		skip += TAKE;
 	}
 
 	private void handleGetTransactionsError(Throwable throwable) {
@@ -208,9 +204,9 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements SelectC
 
 	@Override
 	public void onDateRangeChanged(DateRange dateRange) {
-		this.dateRange = dateRange;
-		getViewState().setDateRange(dateRange);
-		getViewState().showProgress(true);
-		getTransactions(true);
+//		this.dateRange = dateRange;
+//		getViewState().setDateRange(dateRange);
+//		getViewState().showProgress(true);
+//		getTransactions(true);
 	}
 }

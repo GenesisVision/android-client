@@ -2,18 +2,23 @@ package vision.genesis.clientapp.feature.main.wallet.transactions;
 
 import com.arellomobile.mvp.MvpView;
 
+import java.util.List;
+
+import io.swagger.client.model.MultiWalletTransaction;
+import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
+
 /**
- * GenesisVision
- * Created by Vitaly on 3/5/18.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 17/02/2019.
  */
 
 interface TransactionsView extends MvpView
 {
-	void setRefreshing(boolean refreshing);
+	void showProgress(boolean show);
 
-//	void setTransactions(List<WalletTransaction> transactions);
-//
-//	void addTransactions(List<WalletTransaction> transactions);
+	void setTransactions(List<MultiWalletTransaction> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
+
+	void addTransactions(List<MultiWalletTransaction> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
 
 	void showSnackbarMessage(String message);
 }

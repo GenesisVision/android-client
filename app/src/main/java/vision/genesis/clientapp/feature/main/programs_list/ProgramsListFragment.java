@@ -23,8 +23,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.Facet;
 import io.swagger.client.model.ProgramDetails;
+import io.swagger.client.model.ProgramFacet;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -171,7 +171,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		}
 	}
 
-	public void setFacets(List<Facet> facets) {
+	public void setFacets(List<ProgramFacet> facets) {
 
 	}
 

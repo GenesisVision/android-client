@@ -316,8 +316,6 @@ public class MultiWalletTransaction
 	@JsonAdapter(CurrencyFromEnum.Adapter.class)
 	public enum CurrencyFromEnum
 	{
-		USD("USD"),
-
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -339,6 +337,8 @@ public class MultiWalletTransaction
 		DOGE("DOGE"),
 
 		BNB("BNB"),
+
+		USD("USD"),
 
 		EUR("EUR");
 
@@ -387,8 +387,6 @@ public class MultiWalletTransaction
 	@JsonAdapter(CurrencyToEnum.Adapter.class)
 	public enum CurrencyToEnum
 	{
-		USD("USD"),
-
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -410,6 +408,8 @@ public class MultiWalletTransaction
 		DOGE("DOGE"),
 
 		BNB("BNB"),
+
+		USD("USD"),
 
 		EUR("EUR");
 
@@ -520,7 +520,7 @@ public class MultiWalletTransaction
 	@JsonAdapter(StatusEnum.Adapter.class)
 	public enum StatusEnum
 	{
-		CONFIRM("Confirm"),
+		DONE("Done"),
 
 		PENDING("Pending"),
 

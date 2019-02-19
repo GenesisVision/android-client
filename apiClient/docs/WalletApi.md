@@ -52,7 +52,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -140,7 +140,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -185,7 +185,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -282,7 +282,7 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **type** | **String**|  | [optional] [enum: All, Deposit, Withdrawal]
- **currency** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -337,7 +337,7 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **type** | **String**|  | [optional] [enum: All, Investment, Converting, Withdrawal, Close, Open, Fee, Profits]
- **currency** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -442,7 +442,7 @@ No authorization required
 
 <a name="v10WalletTransactionByIdGet"></a>
 # **v10WalletTransactionByIdGet**
-> TransactionDetatils v10WalletTransactionByIdGet(id, authorization)
+> TransactionDetails v10WalletTransactionByIdGet(id, authorization)
 
 Get transaction details
 
@@ -457,7 +457,7 @@ WalletApi apiInstance = new WalletApi();
 UUID id = new UUID(); // UUID | 
 String authorization = "authorization_example"; // String | JWT access token
 try {
-    TransactionDetatils result = apiInstance.v10WalletTransactionByIdGet(id, authorization);
+    TransactionDetails result = apiInstance.v10WalletTransactionByIdGet(id, authorization);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling WalletApi#v10WalletTransactionByIdGet");
@@ -474,7 +474,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TransactionDetatils**](TransactionDetatils.md)
+[**TransactionDetails**](TransactionDetails.md)
 
 ### Authorization
 
@@ -527,7 +527,7 @@ Name | Type | Description  | Notes
  **to** | **DateTime**|  | [optional]
  **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
  **txAction** | **String**|  | [optional] [enum: Transfer, ProgramOpen, ProgramProfit, ProgramInvest, ProgramWithdrawal, ProgramRefundPartialExecution, ProgramRefundClose, ProgramRequestInvest, ProgramRequestWithdrawal, ProgramRequestCancel]
- **wallet** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **wallet** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -546,7 +546,7 @@ No authorization required
 
 <a name="v10WalletTransferPost"></a>
 # **v10WalletTransferPost**
-> Void v10WalletTransferPost(authorization, from, to, amount)
+> Void v10WalletTransferPost(authorization, sourceId, sourceType, destinationId, destinationType, amount)
 
 Transfer money
 
@@ -559,11 +559,13 @@ Transfer money
 
 WalletApi apiInstance = new WalletApi();
 String authorization = "authorization_example"; // String | JWT access token
-String from = "from_example"; // String | 
-String to = "to_example"; // String | 
+UUID sourceId = new UUID(); // UUID | 
+String sourceType = "sourceType_example"; // String | 
+UUID destinationId = new UUID(); // UUID | 
+String destinationType = "destinationType_example"; // String | 
 Double amount = 3.4D; // Double | 
 try {
-    Void result = apiInstance.v10WalletTransferPost(authorization, from, to, amount);
+    Void result = apiInstance.v10WalletTransferPost(authorization, sourceId, sourceType, destinationId, destinationType, amount);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling WalletApi#v10WalletTransferPost");
@@ -576,8 +578,10 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **from** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
- **to** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **sourceId** | [**UUID**](.md)|  | [optional]
+ **sourceType** | **String**|  | [optional] [enum: Undefined, Wallet]
+ **destinationId** | [**UUID**](.md)|  | [optional]
+ **destinationType** | **String**|  | [optional] [enum: Undefined, Wallet]
  **amount** | **Double**|  | [optional]
 
 ### Return type

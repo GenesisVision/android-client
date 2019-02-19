@@ -8,7 +8,7 @@ import io.swagger.client.model.CreateWithdrawalRequestModel;
 import io.swagger.client.model.MultiWalletExternalTransactionsViewModel;
 import io.swagger.client.model.MultiWalletFilters;
 import io.swagger.client.model.MultiWalletTransactionsViewModel;
-import io.swagger.client.model.TransactionDetatils;
+import io.swagger.client.model.TransactionDetails;
 import io.swagger.client.model.WalletInfo;
 import io.swagger.client.model.WalletMultiSummary;
 import io.swagger.client.model.WalletSummary;
@@ -137,10 +137,10 @@ public interface WalletApi
 	 *
 	 * @param id            (required)
 	 * @param authorization JWT access token (required)
-	 * @return Call&lt;TransactionDetatils&gt;
+	 * @return Call&lt;TransactionDetails&gt;
 	 */
 	@GET("v1.0/wallet/transaction/{id}")
-	Observable<TransactionDetatils> v10WalletTransactionByIdGet(
+	Observable<TransactionDetails> v10WalletTransactionByIdGet(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
 	);
 
@@ -166,15 +166,17 @@ public interface WalletApi
 	/**
 	 * Transfer money
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param from          (optional)
-	 * @param to            (optional)
-	 * @param amount        (optional)
+	 * @param authorization   JWT access token (required)
+	 * @param sourceId        (optional)
+	 * @param sourceType      (optional)
+	 * @param destinationId   (optional)
+	 * @param destinationType (optional)
+	 * @param amount          (optional)
 	 * @return Call&lt;Void&gt;
 	 */
 	@POST("v1.0/wallet/transfer")
 	Observable<Void> v10WalletTransferPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("From") String from, @retrofit2.http.Query("To") String to, @retrofit2.http.Query("Amount") Double amount
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("SourceId") UUID sourceId, @retrofit2.http.Query("SourceType") String sourceType, @retrofit2.http.Query("DestinationId") UUID destinationId, @retrofit2.http.Query("DestinationType") String destinationType, @retrofit2.http.Query("Amount") Double amount
 	);
 
 	/**

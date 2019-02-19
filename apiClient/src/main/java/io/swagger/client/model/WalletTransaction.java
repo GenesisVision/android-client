@@ -543,7 +543,9 @@ public class WalletTransaction
 
 		WITHDRAWALREQUEST("WithdrawalRequest"),
 
-		PAYMENTTRANSACTION("PaymentTransaction");
+		PAYMENTTRANSACTION("PaymentTransaction"),
+
+		BLOCKCHAIN("Blockchain");
 
 		public static SourceTypeEnum fromValue(String text) {
 			for (SourceTypeEnum b : SourceTypeEnum.values()) {
@@ -591,8 +593,6 @@ public class WalletTransaction
 	@JsonAdapter(SourceCurrencyEnum.Adapter.class)
 	public enum SourceCurrencyEnum
 	{
-		USD("USD"),
-
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -614,6 +614,8 @@ public class WalletTransaction
 		DOGE("DOGE"),
 
 		BNB("BNB"),
+
+		USD("USD"),
 
 		EUR("EUR");
 
@@ -740,7 +742,9 @@ public class WalletTransaction
 
 		WITHDRAWALREQUEST("WithdrawalRequest"),
 
-		PAYMENTTRANSACTION("PaymentTransaction");
+		PAYMENTTRANSACTION("PaymentTransaction"),
+
+		BLOCKCHAIN("Blockchain");
 
 		public static DestinationTypeEnum fromValue(String text) {
 			for (DestinationTypeEnum b : DestinationTypeEnum.values()) {
@@ -787,8 +791,6 @@ public class WalletTransaction
 	@JsonAdapter(DestinationCurrencyEnum.Adapter.class)
 	public enum DestinationCurrencyEnum
 	{
-		USD("USD"),
-
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -810,6 +812,8 @@ public class WalletTransaction
 		DOGE("DOGE"),
 
 		BNB("BNB"),
+
+		USD("USD"),
 
 		EUR("EUR");
 

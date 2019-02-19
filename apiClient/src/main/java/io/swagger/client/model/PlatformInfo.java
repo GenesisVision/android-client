@@ -34,10 +34,10 @@ public class PlatformInfo
 	private AndroidAppVersion androidVersion = null;
 
 	@SerializedName("programsFacets")
-	private List<Facet> programsFacets = null;
+	private List<ProgramFacet> programsFacets = null;
 
 	@SerializedName("fundsFacets")
-	private List<Facet> fundsFacets = null;
+	private List<FundFacet> fundsFacets = null;
 
 	@SerializedName("programsInfo")
 	private ProgramsInfo programsInfo = null;
@@ -89,14 +89,14 @@ public class PlatformInfo
 		this.androidVersion = androidVersion;
 	}
 
-	public PlatformInfo programsFacets(List<Facet> programsFacets) {
+	public PlatformInfo programsFacets(List<ProgramFacet> programsFacets) {
 		this.programsFacets = programsFacets;
 		return this;
 	}
 
-	public PlatformInfo addProgramsFacetsItem(Facet programsFacetsItem) {
+	public PlatformInfo addProgramsFacetsItem(ProgramFacet programsFacetsItem) {
 		if (this.programsFacets == null) {
-			this.programsFacets = new ArrayList<Facet>();
+			this.programsFacets = new ArrayList<ProgramFacet>();
 		}
 		this.programsFacets.add(programsFacetsItem);
 		return this;
@@ -108,22 +108,22 @@ public class PlatformInfo
 	 * @return programsFacets
 	 **/
 	@ApiModelProperty(value = "")
-	public List<Facet> getProgramsFacets() {
+	public List<ProgramFacet> getProgramsFacets() {
 		return programsFacets;
 	}
 
-	public void setProgramsFacets(List<Facet> programsFacets) {
+	public void setProgramsFacets(List<ProgramFacet> programsFacets) {
 		this.programsFacets = programsFacets;
 	}
 
-	public PlatformInfo fundsFacets(List<Facet> fundsFacets) {
+	public PlatformInfo fundsFacets(List<FundFacet> fundsFacets) {
 		this.fundsFacets = fundsFacets;
 		return this;
 	}
 
-	public PlatformInfo addFundsFacetsItem(Facet fundsFacetsItem) {
+	public PlatformInfo addFundsFacetsItem(FundFacet fundsFacetsItem) {
 		if (this.fundsFacets == null) {
-			this.fundsFacets = new ArrayList<Facet>();
+			this.fundsFacets = new ArrayList<FundFacet>();
 		}
 		this.fundsFacets.add(fundsFacetsItem);
 		return this;
@@ -135,11 +135,11 @@ public class PlatformInfo
 	 * @return fundsFacets
 	 **/
 	@ApiModelProperty(value = "")
-	public List<Facet> getFundsFacets() {
+	public List<FundFacet> getFundsFacets() {
 		return fundsFacets;
 	}
 
-	public void setFundsFacets(List<Facet> fundsFacets) {
+	public void setFundsFacets(List<FundFacet> fundsFacets) {
 		this.fundsFacets = fundsFacets;
 	}
 

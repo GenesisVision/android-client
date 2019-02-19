@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**sets** | [**List&lt;Facet&gt;**](Facet.md) |  |  [optional]
+**sets** | [**List&lt;ProgramFacet&gt;**](ProgramFacet.md) |  |  [optional]
 **favoritesCount** | **Integer** |  |  [optional]
 
 

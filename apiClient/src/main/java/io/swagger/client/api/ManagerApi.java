@@ -109,16 +109,17 @@ public interface ManagerApi
 	);
 
 	/**
-	 * Deposit
+	 * Deposit  Invest in GVT if currency is empty
 	 *
 	 * @param id            (required)
 	 * @param amount        (required)
 	 * @param authorization JWT access token (required)
+	 * @param currency      (optional, default to 100)
 	 * @return Call&lt;Void&gt;
 	 */
 	@POST("v1.0/manager/funds/{id}/invest/{amount}")
 	Observable<Void> v10ManagerFundsByIdInvestByAmountPost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("amount") Double amount, @retrofit2.http.Header("Authorization") String authorization
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("amount") Double amount, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currency") String currency
 	);
 
 	/**
@@ -165,16 +166,17 @@ public interface ManagerApi
 	);
 
 	/**
-	 * Withdraw from fund. Percent is % of investor total money.
+	 * Withdraw from fund. Percent is % of manager total money.  Withdraw in GVT if currency is empty
 	 *
 	 * @param id            (required)
 	 * @param percent       (required)
 	 * @param authorization JWT access token (required)
+	 * @param currency      (optional, default to 100)
 	 * @return Call&lt;Void&gt;
 	 */
 	@POST("v1.0/manager/funds/{id}/withdraw/{percent}")
 	Observable<Void> v10ManagerFundsByIdWithdrawByPercentPost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("percent") Double percent, @retrofit2.http.Header("Authorization") String authorization
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("percent") Double percent, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currency") String currency
 	);
 
 	/**
@@ -278,16 +280,17 @@ public interface ManagerApi
 	);
 
 	/**
-	 * Deposit
+	 * Deposit  Invest in GVT if currency is empty
 	 *
 	 * @param id            (required)
 	 * @param amount        (required)
 	 * @param authorization JWT access token (required)
+	 * @param currency      (optional, default to 100)
 	 * @return Call&lt;Void&gt;
 	 */
 	@POST("v1.0/manager/programs/{id}/invest/{amount}")
 	Observable<Void> v10ManagerProgramsByIdInvestByAmountPost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("amount") Double amount, @retrofit2.http.Header("Authorization") String authorization
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("amount") Double amount, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currency") String currency
 	);
 
 	/**
@@ -346,7 +349,7 @@ public interface ManagerApi
 	);
 
 	/**
-	 * Withdraw from program
+	 * [Obsolete] Withdraw from investment program in GVT
 	 *
 	 * @param id            (required)
 	 * @param amount        (required)
@@ -369,6 +372,19 @@ public interface ManagerApi
 	@GET("v1.0/manager/programs/{id}/withdraw/info/{currency}")
 	Observable<ManagerProgramWithdrawInfo> v10ManagerProgramsByIdWithdrawInfoByCurrencyGet(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("currency") String currency, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Withdraw from investment program in program currency
+	 *
+	 * @param id            (required)
+	 * @param amount        (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v1.0/manager/programs/{id}/withdraw/multi/{amount}")
+	Observable<Void> v10ManagerProgramsByIdWithdrawMultiByAmountPost(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("amount") Double amount, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
@@ -438,6 +454,20 @@ public interface ManagerApi
 	@GET("v1.0/manager/requests/{skip}/{take}")
 	Observable<ProgramRequests> v10ManagerRequestsBySkipByTakeGet(
 			@retrofit2.http.Path("skip") Integer skip, @retrofit2.http.Path("take") Integer take, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Make manager&#39;s program signal provider
+	 *
+	 * @param authorization   JWT access token (required)
+	 * @param programId       (optional)
+	 * @param subscriptionFee (optional)
+	 * @param successFee      (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v1.0/manager/signal/create")
+	Observable<Void> v10ManagerSignalCreatePost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("ProgramId") UUID programId, @retrofit2.http.Query("SubscriptionFee") Double subscriptionFee, @retrofit2.http.Query("SuccessFee") Double successFee
 	);
 
 }

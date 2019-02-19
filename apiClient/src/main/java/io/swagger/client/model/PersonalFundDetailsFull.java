@@ -86,6 +86,9 @@ public class PersonalFundDetailsFull
 	@SerializedName("status")
 	private StatusEnum status = null;
 
+	@SerializedName("isFollowSignals")
+	private Boolean isFollowSignals = null;
+
 	public PersonalFundDetailsFull withdrawPercent(Double withdrawPercent) {
 		this.withdrawPercent = withdrawPercent;
 		return this;
@@ -428,6 +431,25 @@ public class PersonalFundDetailsFull
 		this.status = status;
 	}
 
+	public PersonalFundDetailsFull isFollowSignals(Boolean isFollowSignals) {
+		this.isFollowSignals = isFollowSignals;
+		return this;
+	}
+
+	/**
+	 * Get isFollowSignals
+	 *
+	 * @return isFollowSignals
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsFollowSignals() {
+		return isFollowSignals;
+	}
+
+	public void setIsFollowSignals(Boolean isFollowSignals) {
+		this.isFollowSignals = isFollowSignals;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -454,12 +476,13 @@ public class PersonalFundDetailsFull
 				Objects.equals(this.invested, personalFundDetailsFull.invested) &&
 				Objects.equals(this.pendingInput, personalFundDetailsFull.pendingInput) &&
 				Objects.equals(this.pendingOutput, personalFundDetailsFull.pendingOutput) &&
-				Objects.equals(this.status, personalFundDetailsFull.status);
+				Objects.equals(this.status, personalFundDetailsFull.status) &&
+				Objects.equals(this.isFollowSignals, personalFundDetailsFull.isFollowSignals);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(withdrawPercent, canReallocate, possibleReallocationTime, isFavorite, isInvested, isOwnProgram, canCloseProgram, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status);
+		return Objects.hash(withdrawPercent, canReallocate, possibleReallocationTime, isFavorite, isInvested, isOwnProgram, canCloseProgram, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status, isFollowSignals);
 	}
 
 	@Override
@@ -485,6 +508,7 @@ public class PersonalFundDetailsFull
 		sb.append("    pendingInput: ").append(toIndentedString(pendingInput)).append("\n");
 		sb.append("    pendingOutput: ").append(toIndentedString(pendingOutput)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
+		sb.append("    isFollowSignals: ").append(toIndentedString(isFollowSignals)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

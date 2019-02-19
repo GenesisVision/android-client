@@ -10,11 +10,11 @@ Method | HTTP request | Description
 [**v10ManagerEventsGet**](ManagerApi.md#v10ManagerEventsGet) | **GET** v1.0/manager/events | Manager events
 [**v10ManagerFundsByIdAssetsUpdatePost**](ManagerApi.md#v10ManagerFundsByIdAssetsUpdatePost) | **POST** v1.0/manager/funds/{id}/assets/update | Update fund assets parts
 [**v10ManagerFundsByIdClosePost**](ManagerApi.md#v10ManagerFundsByIdClosePost) | **POST** v1.0/manager/funds/{id}/close | Close existing fund
-[**v10ManagerFundsByIdInvestByAmountPost**](ManagerApi.md#v10ManagerFundsByIdInvestByAmountPost) | **POST** v1.0/manager/funds/{id}/invest/{amount} | Deposit
+[**v10ManagerFundsByIdInvestByAmountPost**](ManagerApi.md#v10ManagerFundsByIdInvestByAmountPost) | **POST** v1.0/manager/funds/{id}/invest/{amount} | Deposit  Invest in GVT if currency is empty
 [**v10ManagerFundsByIdInvestInfoByCurrencyGet**](ManagerApi.md#v10ManagerFundsByIdInvestInfoByCurrencyGet) | **GET** v1.0/manager/funds/{id}/invest/info/{currency} | Data for investing into the fund
 [**v10ManagerFundsByIdRequestsBySkipByTakeGet**](ManagerApi.md#v10ManagerFundsByIdRequestsBySkipByTakeGet) | **GET** v1.0/manager/funds/{id}/requests/{skip}/{take} | Get investment program/fund requests
 [**v10ManagerFundsByIdUpdatePost**](ManagerApi.md#v10ManagerFundsByIdUpdatePost) | **POST** v1.0/manager/funds/{id}/update | Update investment program/fund details
-[**v10ManagerFundsByIdWithdrawByPercentPost**](ManagerApi.md#v10ManagerFundsByIdWithdrawByPercentPost) | **POST** v1.0/manager/funds/{id}/withdraw/{percent} | Withdraw from fund. Percent is % of investor total money.
+[**v10ManagerFundsByIdWithdrawByPercentPost**](ManagerApi.md#v10ManagerFundsByIdWithdrawByPercentPost) | **POST** v1.0/manager/funds/{id}/withdraw/{percent} | Withdraw from fund. Percent is % of manager total money.  Withdraw in GVT if currency is empty
 [**v10ManagerFundsByIdWithdrawInfoByCurrencyGet**](ManagerApi.md#v10ManagerFundsByIdWithdrawInfoByCurrencyGet) | **GET** v1.0/manager/funds/{id}/withdraw/info/{currency} | Data for withdrawal from fund
 [**v10ManagerFundsCreatePost**](ManagerApi.md#v10ManagerFundsCreatePost) | **POST** v1.0/manager/funds/create | Create fund
 [**v10ManagerFundsGet**](ManagerApi.md#v10ManagerFundsGet) | **GET** v1.0/manager/funds | Manager funds
@@ -22,18 +22,20 @@ Method | HTTP request | Description
 [**v10ManagerFundsRequestsByIdCancelPost**](ManagerApi.md#v10ManagerFundsRequestsByIdCancelPost) | **POST** v1.0/manager/funds/requests/{id}/cancel | Cancel investment program/fund request
 [**v10ManagerGet**](ManagerApi.md#v10ManagerGet) | **GET** v1.0/manager | Manager dashboard
 [**v10ManagerProgramsByIdClosePost**](ManagerApi.md#v10ManagerProgramsByIdClosePost) | **POST** v1.0/manager/programs/{id}/close | Close existing investment program
-[**v10ManagerProgramsByIdInvestByAmountPost**](ManagerApi.md#v10ManagerProgramsByIdInvestByAmountPost) | **POST** v1.0/manager/programs/{id}/invest/{amount} | Deposit
+[**v10ManagerProgramsByIdInvestByAmountPost**](ManagerApi.md#v10ManagerProgramsByIdInvestByAmountPost) | **POST** v1.0/manager/programs/{id}/invest/{amount} | Deposit  Invest in GVT if currency is empty
 [**v10ManagerProgramsByIdInvestInfoByCurrencyGet**](ManagerApi.md#v10ManagerProgramsByIdInvestInfoByCurrencyGet) | **GET** v1.0/manager/programs/{id}/invest/info/{currency} | Data for investing into the program
 [**v10ManagerProgramsByIdPeriodClosePost**](ManagerApi.md#v10ManagerProgramsByIdPeriodClosePost) | **POST** v1.0/manager/programs/{id}/period/close | Close current period
 [**v10ManagerProgramsByIdRequestsBySkipByTakeGet**](ManagerApi.md#v10ManagerProgramsByIdRequestsBySkipByTakeGet) | **GET** v1.0/manager/programs/{id}/requests/{skip}/{take} | Get investment program/fund requests
 [**v10ManagerProgramsByIdUpdatePost**](ManagerApi.md#v10ManagerProgramsByIdUpdatePost) | **POST** v1.0/manager/programs/{id}/update | Update investment program/fund details
-[**v10ManagerProgramsByIdWithdrawByAmountPost**](ManagerApi.md#v10ManagerProgramsByIdWithdrawByAmountPost) | **POST** v1.0/manager/programs/{id}/withdraw/{amount} | Withdraw from program
+[**v10ManagerProgramsByIdWithdrawByAmountPost**](ManagerApi.md#v10ManagerProgramsByIdWithdrawByAmountPost) | **POST** v1.0/manager/programs/{id}/withdraw/{amount} | [Obsolete] Withdraw from investment program in GVT
 [**v10ManagerProgramsByIdWithdrawInfoByCurrencyGet**](ManagerApi.md#v10ManagerProgramsByIdWithdrawInfoByCurrencyGet) | **GET** v1.0/manager/programs/{id}/withdraw/info/{currency} | Data for withdrawal from investment program
+[**v10ManagerProgramsByIdWithdrawMultiByAmountPost**](ManagerApi.md#v10ManagerProgramsByIdWithdrawMultiByAmountPost) | **POST** v1.0/manager/programs/{id}/withdraw/multi/{amount} | Withdraw from investment program in program currency
 [**v10ManagerProgramsCreatePost**](ManagerApi.md#v10ManagerProgramsCreatePost) | **POST** v1.0/manager/programs/create | Create an investment program
 [**v10ManagerProgramsGet**](ManagerApi.md#v10ManagerProgramsGet) | **GET** v1.0/manager/programs | Manager programs
 [**v10ManagerProgramsInvestmentAmountGet**](ManagerApi.md#v10ManagerProgramsInvestmentAmountGet) | **GET** v1.0/manager/programs/investment/amount | Get GVT investment to create program
 [**v10ManagerProgramsRequestsByIdCancelPost**](ManagerApi.md#v10ManagerProgramsRequestsByIdCancelPost) | **POST** v1.0/manager/programs/requests/{id}/cancel | Cancel investment program/fund request
 [**v10ManagerRequestsBySkipByTakeGet**](ManagerApi.md#v10ManagerRequestsBySkipByTakeGet) | **GET** v1.0/manager/requests/{skip}/{take} | Get all requests
+[**v10ManagerSignalCreatePost**](ManagerApi.md#v10ManagerSignalCreatePost) | **POST** v1.0/manager/signal/create | Make manager&#39;s program signal provider
 
 
 <a name="v10ManagerAssetsGet"></a>
@@ -318,9 +320,9 @@ No authorization required
 
 <a name="v10ManagerFundsByIdInvestByAmountPost"></a>
 # **v10ManagerFundsByIdInvestByAmountPost**
-> Void v10ManagerFundsByIdInvestByAmountPost(id, amount, authorization)
+> Void v10ManagerFundsByIdInvestByAmountPost(id, amount, authorization, currency)
 
-Deposit
+Deposit  Invest in GVT if currency is empty
 
 ### Example
 ```java
@@ -333,8 +335,9 @@ ManagerApi apiInstance = new ManagerApi();
 UUID id = new UUID(); // UUID | 
 Double amount = 3.4D; // Double | 
 String authorization = "authorization_example"; // String | JWT access token
+String currency = "100"; // String | 
 try {
-    Void result = apiInstance.v10ManagerFundsByIdInvestByAmountPost(id, amount, authorization);
+    Void result = apiInstance.v10ManagerFundsByIdInvestByAmountPost(id, amount, authorization, currency);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ManagerApi#v10ManagerFundsByIdInvestByAmountPost");
@@ -349,6 +352,7 @@ Name | Type | Description  | Notes
  **id** | [**UUID**](.md)|  |
  **amount** | **Double**|  |
  **authorization** | **String**| JWT access token |
+ **currency** | **String**|  | [optional] [default to 100] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -394,7 +398,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -508,9 +512,9 @@ No authorization required
 
 <a name="v10ManagerFundsByIdWithdrawByPercentPost"></a>
 # **v10ManagerFundsByIdWithdrawByPercentPost**
-> Void v10ManagerFundsByIdWithdrawByPercentPost(id, percent, authorization)
+> Void v10ManagerFundsByIdWithdrawByPercentPost(id, percent, authorization, currency)
 
-Withdraw from fund. Percent is % of investor total money.
+Withdraw from fund. Percent is % of manager total money.  Withdraw in GVT if currency is empty
 
 ### Example
 ```java
@@ -523,8 +527,9 @@ ManagerApi apiInstance = new ManagerApi();
 UUID id = new UUID(); // UUID | 
 Double percent = 3.4D; // Double | 
 String authorization = "authorization_example"; // String | JWT access token
+String currency = "100"; // String | 
 try {
-    Void result = apiInstance.v10ManagerFundsByIdWithdrawByPercentPost(id, percent, authorization);
+    Void result = apiInstance.v10ManagerFundsByIdWithdrawByPercentPost(id, percent, authorization, currency);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ManagerApi#v10ManagerFundsByIdWithdrawByPercentPost");
@@ -539,6 +544,7 @@ Name | Type | Description  | Notes
  **id** | [**UUID**](.md)|  |
  **percent** | **Double**|  |
  **authorization** | **String**| JWT access token |
+ **currency** | **String**|  | [optional] [default to 100] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -584,7 +590,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -685,7 +691,7 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -896,9 +902,9 @@ No authorization required
 
 <a name="v10ManagerProgramsByIdInvestByAmountPost"></a>
 # **v10ManagerProgramsByIdInvestByAmountPost**
-> Void v10ManagerProgramsByIdInvestByAmountPost(id, amount, authorization)
+> Void v10ManagerProgramsByIdInvestByAmountPost(id, amount, authorization, currency)
 
-Deposit
+Deposit  Invest in GVT if currency is empty
 
 ### Example
 ```java
@@ -911,8 +917,9 @@ ManagerApi apiInstance = new ManagerApi();
 UUID id = new UUID(); // UUID | 
 Double amount = 3.4D; // Double | 
 String authorization = "authorization_example"; // String | JWT access token
+String currency = "100"; // String | 
 try {
-    Void result = apiInstance.v10ManagerProgramsByIdInvestByAmountPost(id, amount, authorization);
+    Void result = apiInstance.v10ManagerProgramsByIdInvestByAmountPost(id, amount, authorization, currency);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ManagerApi#v10ManagerProgramsByIdInvestByAmountPost");
@@ -927,6 +934,7 @@ Name | Type | Description  | Notes
  **id** | [**UUID**](.md)|  |
  **amount** | **Double**|  |
  **authorization** | **String**| JWT access token |
+ **currency** | **String**|  | [optional] [default to 100] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -972,7 +980,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -1133,7 +1141,7 @@ No authorization required
 # **v10ManagerProgramsByIdWithdrawByAmountPost**
 > Void v10ManagerProgramsByIdWithdrawByAmountPost(id, amount, authorization)
 
-Withdraw from program
+[Obsolete] Withdraw from investment program in GVT
 
 ### Example
 ```java
@@ -1207,12 +1215,59 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
 
 [**ManagerProgramWithdrawInfo**](ManagerProgramWithdrawInfo.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ManagerProgramsByIdWithdrawMultiByAmountPost"></a>
+# **v10ManagerProgramsByIdWithdrawMultiByAmountPost**
+> Void v10ManagerProgramsByIdWithdrawMultiByAmountPost(id, amount, authorization)
+
+Withdraw from investment program in program currency
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+UUID id = new UUID(); // UUID | 
+Double amount = 3.4D; // Double | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.v10ManagerProgramsByIdWithdrawMultiByAmountPost(id, amount, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#v10ManagerProgramsByIdWithdrawMultiByAmountPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **amount** | **Double**|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
 
 ### Authorization
 
@@ -1308,7 +1363,7 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -1450,6 +1505,55 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ProgramRequests**](ProgramRequests.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ManagerSignalCreatePost"></a>
+# **v10ManagerSignalCreatePost**
+> Void v10ManagerSignalCreatePost(authorization, programId, subscriptionFee, successFee)
+
+Make manager&#39;s program signal provider
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+String authorization = "authorization_example"; // String | JWT access token
+UUID programId = new UUID(); // UUID | 
+Double subscriptionFee = 3.4D; // Double | 
+Double successFee = 3.4D; // Double | 
+try {
+    Void result = apiInstance.v10ManagerSignalCreatePost(authorization, programId, subscriptionFee, successFee);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#v10ManagerSignalCreatePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **programId** | [**UUID**](.md)|  | [optional]
+ **subscriptionFee** | **Double**|  | [optional]
+ **successFee** | **Double**|  | [optional]
+
+### Return type
+
+[**Void**](.md)
 
 ### Authorization
 

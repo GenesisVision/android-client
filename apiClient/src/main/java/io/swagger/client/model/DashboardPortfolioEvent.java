@@ -459,8 +459,6 @@ public class DashboardPortfolioEvent
 	@JsonAdapter(FeeSuccessManagerCurrencyEnum.Adapter.class)
 	public enum FeeSuccessManagerCurrencyEnum
 	{
-		USD("USD"),
-
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -482,6 +480,8 @@ public class DashboardPortfolioEvent
 		DOGE("DOGE"),
 
 		BNB("BNB"),
+
+		USD("USD"),
 
 		EUR("EUR");
 
@@ -531,8 +531,6 @@ public class DashboardPortfolioEvent
 	@JsonAdapter(FeeSuccessPlatformCurrencyEnum.Adapter.class)
 	public enum FeeSuccessPlatformCurrencyEnum
 	{
-		USD("USD"),
-
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -554,6 +552,8 @@ public class DashboardPortfolioEvent
 		DOGE("DOGE"),
 
 		BNB("BNB"),
+
+		USD("USD"),
 
 		EUR("EUR");
 
@@ -602,8 +602,6 @@ public class DashboardPortfolioEvent
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		USD("USD"),
-
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -625,6 +623,8 @@ public class DashboardPortfolioEvent
 		DOGE("DOGE"),
 
 		BNB("BNB"),
+
+		USD("USD"),
 
 		EUR("EUR");
 

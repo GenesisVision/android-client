@@ -9,9 +9,9 @@ import io.swagger.client.model.FundAssetsListInfo;
 import io.swagger.client.model.FundBalanceChart;
 import io.swagger.client.model.FundDetailsFull;
 import io.swagger.client.model.FundProfitChart;
+import io.swagger.client.model.FundSets;
 import io.swagger.client.model.FundsList;
 import io.swagger.client.model.PlatformAssets;
-import io.swagger.client.model.ProgramSets;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import rx.Observable;
@@ -132,10 +132,10 @@ public interface FundsApi
 	 * Fund sets
 	 *
 	 * @param authorization JWT access token (required)
-	 * @return Call&lt;ProgramSets&gt;
+	 * @return Call&lt;FundSets&gt;
 	 */
 	@GET("v1.0/funds/sets")
-	Observable<ProgramSets> v10FundsSetsGet(
+	Observable<FundSets> v10FundsSetsGet(
 			@retrofit2.http.Header("Authorization") String authorization
 	);
 

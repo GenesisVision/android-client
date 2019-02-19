@@ -49,6 +49,12 @@ public class NewProgramRequest
 	@SerializedName("brokerAccountTypeId")
 	private UUID brokerAccountTypeId = null;
 
+	@SerializedName("signalSuccessFee")
+	private Double signalSuccessFee = null;
+
+	@SerializedName("signalSubscriptionFee")
+	private Double signalSubscriptionFee = null;
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -60,6 +66,12 @@ public class NewProgramRequest
 
 	@SerializedName("entryFee")
 	private Double entryFee = null;
+
+	@SerializedName("depositAmount")
+	private Double depositAmount = null;
+
+	@SerializedName("depositWalletId")
+	private UUID depositWalletId = null;
 
 	public NewProgramRequest currency(CurrencyEnum currency) {
 		this.currency = currency;
@@ -175,6 +187,44 @@ public class NewProgramRequest
 		this.brokerAccountTypeId = brokerAccountTypeId;
 	}
 
+	public NewProgramRequest signalSuccessFee(Double signalSuccessFee) {
+		this.signalSuccessFee = signalSuccessFee;
+		return this;
+	}
+
+	/**
+	 * Get signalSuccessFee
+	 *
+	 * @return signalSuccessFee
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getSignalSuccessFee() {
+		return signalSuccessFee;
+	}
+
+	public void setSignalSuccessFee(Double signalSuccessFee) {
+		this.signalSuccessFee = signalSuccessFee;
+	}
+
+	public NewProgramRequest signalSubscriptionFee(Double signalSubscriptionFee) {
+		this.signalSubscriptionFee = signalSubscriptionFee;
+		return this;
+	}
+
+	/**
+	 * Get signalSubscriptionFee
+	 *
+	 * @return signalSubscriptionFee
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getSignalSubscriptionFee() {
+		return signalSubscriptionFee;
+	}
+
+	public void setSignalSubscriptionFee(Double signalSubscriptionFee) {
+		this.signalSubscriptionFee = signalSubscriptionFee;
+	}
+
 	public NewProgramRequest title(String title) {
 		this.title = title;
 		return this;
@@ -251,6 +301,44 @@ public class NewProgramRequest
 		this.entryFee = entryFee;
 	}
 
+	public NewProgramRequest depositAmount(Double depositAmount) {
+		this.depositAmount = depositAmount;
+		return this;
+	}
+
+	/**
+	 * Get depositAmount
+	 *
+	 * @return depositAmount
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getDepositAmount() {
+		return depositAmount;
+	}
+
+	public void setDepositAmount(Double depositAmount) {
+		this.depositAmount = depositAmount;
+	}
+
+	public NewProgramRequest depositWalletId(UUID depositWalletId) {
+		this.depositWalletId = depositWalletId;
+		return this;
+	}
+
+	/**
+	 * Get depositWalletId
+	 *
+	 * @return depositWalletId
+	 **/
+	@ApiModelProperty(value = "")
+	public UUID getDepositWalletId() {
+		return depositWalletId;
+	}
+
+	public void setDepositWalletId(UUID depositWalletId) {
+		this.depositWalletId = depositWalletId;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -266,15 +354,19 @@ public class NewProgramRequest
 				Objects.equals(this.stopOutLevel, newProgramRequest.stopOutLevel) &&
 				Objects.equals(this.leverage, newProgramRequest.leverage) &&
 				Objects.equals(this.brokerAccountTypeId, newProgramRequest.brokerAccountTypeId) &&
+				Objects.equals(this.signalSuccessFee, newProgramRequest.signalSuccessFee) &&
+				Objects.equals(this.signalSubscriptionFee, newProgramRequest.signalSubscriptionFee) &&
 				Objects.equals(this.title, newProgramRequest.title) &&
 				Objects.equals(this.description, newProgramRequest.description) &&
 				Objects.equals(this.logo, newProgramRequest.logo) &&
-				Objects.equals(this.entryFee, newProgramRequest.entryFee);
+				Objects.equals(this.entryFee, newProgramRequest.entryFee) &&
+				Objects.equals(this.depositAmount, newProgramRequest.depositAmount) &&
+				Objects.equals(this.depositWalletId, newProgramRequest.depositWalletId);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, periodLength, successFee, stopOutLevel, leverage, brokerAccountTypeId, title, description, logo, entryFee);
+		return Objects.hash(currency, periodLength, successFee, stopOutLevel, leverage, brokerAccountTypeId, signalSuccessFee, signalSubscriptionFee, title, description, logo, entryFee, depositAmount, depositWalletId);
 	}
 
 	@Override
@@ -288,10 +380,14 @@ public class NewProgramRequest
 		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
 		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
 		sb.append("    brokerAccountTypeId: ").append(toIndentedString(brokerAccountTypeId)).append("\n");
+		sb.append("    signalSuccessFee: ").append(toIndentedString(signalSuccessFee)).append("\n");
+		sb.append("    signalSubscriptionFee: ").append(toIndentedString(signalSubscriptionFee)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
+		sb.append("    depositAmount: ").append(toIndentedString(depositAmount)).append("\n");
+		sb.append("    depositWalletId: ").append(toIndentedString(depositWalletId)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -313,8 +409,6 @@ public class NewProgramRequest
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		USD("USD"),
-
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -336,6 +430,8 @@ public class NewProgramRequest
 		DOGE("DOGE"),
 
 		BNB("BNB"),
+
+		USD("USD"),
 
 		EUR("EUR");
 

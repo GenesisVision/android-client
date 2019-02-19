@@ -5,19 +5,28 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.MultiWalletTransaction;
+import io.swagger.client.model.MultiWalletTransactionsViewModel;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.WalletManager;
+import vision.genesis.clientapp.model.TransactionsFilter;
 import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
+import vision.genesis.clientapp.utils.DateTimeUtil;
 
 /**
- * GenesisVision
- * Created by Vitaly on 3/5/18.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 17/02/2019.
  */
 
 @InjectViewState
@@ -35,7 +44,11 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 
 	private int skip = 0;
 
-//	private TransactionsFilter filter = new TransactionsFilter();
+	private TransactionsFilter filter;
+
+	private List<MultiWalletTransaction> transactions = new ArrayList<>();
+
+	private List<SimpleSectionedRecyclerViewAdapter.Section> sections = new ArrayList<>();
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -43,11 +56,8 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-//		filter.setSkip(0);
-//		filter.setTake(TAKE);
-
+		getViewState().showProgress(true);
 		getTransactions(true);
-		getViewState().setRefreshing(true);
 	}
 
 	@Override
@@ -58,63 +68,84 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 		super.onDestroy();
 	}
 
-	void onShow() {
+	void setWalletId(UUID walletId) {
+		filter = new TransactionsFilter();
+		filter.setWalletId(walletId);
+		filter.setSkip(0);
+		filter.setTake(TAKE);
 		getTransactions(true);
 	}
 
-	void setFilter(String type, UUID programId) {
-//		filter.setType(TransactionsFilter.TypeEnum.fromValue(type));
-//		if (programId != null)
-//			filter.setInvestmentProgramId(programId);
-//		if (walletManager != null)
-//			getTransactions(true);
+	void onShow() {
+		getTransactions(false);
 	}
 
+
 	void onSwipeRefresh() {
-		getViewState().setRefreshing(true);
+		getViewState().showProgress(true);
 		getTransactions(true);
 	}
 
 	void onLastListItemVisible() {
+		getViewState().showProgress(true);
 		getTransactions(false);
 	}
 
 	private void getTransactions(boolean forceUpdate) {
-		if (forceUpdate) {
-			skip = 0;
-//			filter.setSkip(skip);
-		}
+		if (filter != null && walletManager != null) {
+			if (forceUpdate) {
+				skip = 0;
+				filter.setSkip(skip);
+			}
 
-		if (transactionsSubscription != null)
-			transactionsSubscription.unsubscribe();
-//		transactionsSubscription = walletManager.getTransactions(filter)
-//				.observeOn(AndroidSchedulers.mainThread())
-//				.subscribeOn(Schedulers.io())
-//				.subscribe(this::handleGetTransactionsResponse,
-//						this::handleGetTransactionsError);
+			if (transactionsSubscription != null)
+				transactionsSubscription.unsubscribe();
+			transactionsSubscription = walletManager.getTransactions(filter)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetTransactionsResponse,
+							this::handleGetTransactionsError);
+		}
 	}
 
-//	private void handleGetTransactionsResponse(WalletTransactionsViewModel model) {
-//		transactionsSubscription.unsubscribe();
-//
-//		getViewState().setRefreshing(false);
-//
-//		List<WalletTransaction> transactions = model.getTransactions();
-//
-//		if (skip == 0)
-//			getViewState().setTransactions(transactions);
-//		else
-//			getViewState().addTransactions(transactions);
-//
-//		skip += TAKE;
-//		filter.setTake(TAKE);
-//		filter.setSkip(skip);
-//	}
+	private void handleGetTransactionsResponse(MultiWalletTransactionsViewModel model) {
+		transactionsSubscription.unsubscribe();
+		getViewState().showProgress(false);
+
+		if (skip == 0) {
+			transactions.clear();
+			sections.clear();
+		}
+
+		List<MultiWalletTransaction> newTransactions = model.getTransactions();
+
+		int index = transactions.size();
+		for (MultiWalletTransaction newTransaction : newTransactions) {
+			String dateString = DateTimeUtil.formatShortDate(newTransaction.getDate());
+			String lastSectionDate = sections.isEmpty() ? "" : sections.get(sections.size() - 1).getTitle().toString();
+			if (!lastSectionDate.equals(dateString))
+				sections.add(new SimpleSectionedRecyclerViewAdapter.Section(index, dateString));
+			index++;
+		}
+
+		transactions.addAll(newTransactions);
+
+		if (skip == 0) {
+			getViewState().setTransactions(newTransactions, sections);
+		}
+		else {
+			getViewState().addTransactions(newTransactions, sections);
+		}
+
+		skip += TAKE;
+		filter.setTake(TAKE);
+		filter.setSkip(skip);
+	}
 
 	private void handleGetTransactionsError(Throwable error) {
 		transactionsSubscription.unsubscribe();
 
-		getViewState().setRefreshing(false);
+		getViewState().showProgress(false);
 
 		if (ApiErrorResolver.isNetworkError(error)) {
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));

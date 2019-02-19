@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **description** | **String** |  |  [optional]
 **logo** | **String** |  |  [optional]
 **entryFee** | **Double** |  |  [optional]
+**depositAmount** | **Double** |  |  [optional]
+**depositWalletId** | [**UUID**](UUID.md) |  |  [optional]
 
 
 

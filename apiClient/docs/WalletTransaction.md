@@ -36,13 +36,13 @@ PROGRAMREQUEST | &quot;ProgramRequest&quot;
 FUNDREQUEST | &quot;FundRequest&quot;
 WITHDRAWALREQUEST | &quot;WithdrawalRequest&quot;
 PAYMENTTRANSACTION | &quot;PaymentTransaction&quot;
+BLOCKCHAIN | &quot;Blockchain&quot;
 
 
 <a name="SourceCurrencyEnum"></a>
 ## Enum: SourceCurrencyEnum
 Name | Value
 ---- | -----
-USD | &quot;USD&quot;
 UNDEFINED | &quot;Undefined&quot;
 GVT | &quot;GVT&quot;
 ETH | &quot;ETH&quot;
@@ -54,6 +54,7 @@ BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
 DOGE | &quot;DOGE&quot;
 BNB | &quot;BNB&quot;
+USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
 
 
@@ -84,13 +85,13 @@ PROGRAMREQUEST | &quot;ProgramRequest&quot;
 FUNDREQUEST | &quot;FundRequest&quot;
 WITHDRAWALREQUEST | &quot;WithdrawalRequest&quot;
 PAYMENTTRANSACTION | &quot;PaymentTransaction&quot;
+BLOCKCHAIN | &quot;Blockchain&quot;
 
 
 <a name="DestinationCurrencyEnum"></a>
 ## Enum: DestinationCurrencyEnum
 Name | Value
 ---- | -----
-USD | &quot;USD&quot;
 UNDEFINED | &quot;Undefined&quot;
 GVT | &quot;GVT&quot;
 ETH | &quot;ETH&quot;
@@ -102,6 +103,7 @@ BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
 DOGE | &quot;DOGE&quot;
 BNB | &quot;BNB&quot;
+USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
 
 

@@ -37,8 +37,14 @@ public class WalletData
 	@SerializedName("title")
 	private String title = null;
 
-	@SerializedName("icon")
-	private String icon = null;
+	@SerializedName("logo")
+	private String logo = null;
+
+	@SerializedName("address")
+	private String address = null;
+
+	@SerializedName("rateToGVT")
+	private Double rateToGVT = null;
 
 	@SerializedName("currency")
 	private CurrencyEnum currency = null;
@@ -108,23 +114,61 @@ public class WalletData
 		this.title = title;
 	}
 
-	public WalletData icon(String icon) {
-		this.icon = icon;
+	public WalletData logo(String logo) {
+		this.logo = logo;
 		return this;
 	}
 
 	/**
-	 * Get icon
+	 * Get logo
 	 *
-	 * @return icon
+	 * @return logo
 	 **/
 	@ApiModelProperty(value = "")
-	public String getIcon() {
-		return icon;
+	public String getLogo() {
+		return logo;
 	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public WalletData address(String address) {
+		this.address = address;
+		return this;
+	}
+
+	/**
+	 * Get address
+	 *
+	 * @return address
+	 **/
+	@ApiModelProperty(value = "")
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public WalletData rateToGVT(Double rateToGVT) {
+		this.rateToGVT = rateToGVT;
+		return this;
+	}
+
+	/**
+	 * Get rateToGVT
+	 *
+	 * @return rateToGVT
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getRateToGVT() {
+		return rateToGVT;
+	}
+
+	public void setRateToGVT(Double rateToGVT) {
+		this.rateToGVT = rateToGVT;
 	}
 
 	public WalletData currency(CurrencyEnum currency) {
@@ -310,7 +354,9 @@ public class WalletData
 		WalletData walletData = (WalletData) o;
 		return Objects.equals(this.id, walletData.id) &&
 				Objects.equals(this.title, walletData.title) &&
-				Objects.equals(this.icon, walletData.icon) &&
+				Objects.equals(this.logo, walletData.logo) &&
+				Objects.equals(this.address, walletData.address) &&
+				Objects.equals(this.rateToGVT, walletData.rateToGVT) &&
 				Objects.equals(this.currency, walletData.currency) &&
 				Objects.equals(this.available, walletData.available) &&
 				Objects.equals(this.invested, walletData.invested) &&
@@ -325,7 +371,7 @@ public class WalletData
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, icon, currency, available, invested, pending, total, currencyCcy, availableCcy, investedCcy, pendingCcy, totalCcy);
+		return Objects.hash(id, title, logo, address, rateToGVT, currency, available, invested, pending, total, currencyCcy, availableCcy, investedCcy, pendingCcy, totalCcy);
 	}
 
 	@Override
@@ -335,7 +381,9 @@ public class WalletData
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
+		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    address: ").append(toIndentedString(address)).append("\n");
+		sb.append("    rateToGVT: ").append(toIndentedString(rateToGVT)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    available: ").append(toIndentedString(available)).append("\n");
 		sb.append("    invested: ").append(toIndentedString(invested)).append("\n");
@@ -368,8 +416,6 @@ public class WalletData
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		USD("USD"),
-
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -391,6 +437,8 @@ public class WalletData
 		DOGE("DOGE"),
 
 		BNB("BNB"),
+
+		USD("USD"),
 
 		EUR("EUR");
 
@@ -439,8 +487,6 @@ public class WalletData
 	@JsonAdapter(CurrencyCcyEnum.Adapter.class)
 	public enum CurrencyCcyEnum
 	{
-		USD("USD"),
-
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -462,6 +508,8 @@ public class WalletData
 		DOGE("DOGE"),
 
 		BNB("BNB"),
+
+		USD("USD"),
 
 		EUR("EUR");
 

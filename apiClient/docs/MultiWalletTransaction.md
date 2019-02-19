@@ -20,7 +20,6 @@ Name | Type | Description | Notes
 ## Enum: CurrencyFromEnum
 Name | Value
 ---- | -----
-USD | &quot;USD&quot;
 UNDEFINED | &quot;Undefined&quot;
 GVT | &quot;GVT&quot;
 ETH | &quot;ETH&quot;
@@ -32,6 +31,7 @@ BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
 DOGE | &quot;DOGE&quot;
 BNB | &quot;BNB&quot;
+USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
 
 
@@ -39,7 +39,6 @@ EUR | &quot;EUR&quot;
 ## Enum: CurrencyToEnum
 Name | Value
 ---- | -----
-USD | &quot;USD&quot;
 UNDEFINED | &quot;Undefined&quot;
 GVT | &quot;GVT&quot;
 ETH | &quot;ETH&quot;
@@ -51,6 +50,7 @@ BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
 DOGE | &quot;DOGE&quot;
 BNB | &quot;BNB&quot;
+USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
 
 
@@ -72,7 +72,7 @@ PROFITS | &quot;Profits&quot;
 ## Enum: StatusEnum
 Name | Value
 ---- | -----
-CONFIRM | &quot;Confirm&quot;
+DONE | &quot;Done&quot;
 PENDING | &quot;Pending&quot;
 CANCELED | &quot;Canceled&quot;
 ERROR | &quot;Error&quot;

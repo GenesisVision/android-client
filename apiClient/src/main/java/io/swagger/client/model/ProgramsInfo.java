@@ -30,6 +30,18 @@ public class ProgramsInfo
 	@SerializedName("managerProgramInvestment")
 	private Double managerProgramInvestment = null;
 
+	@SerializedName("managerProgramInvestmentUSD")
+	private Double managerProgramInvestmentUSD = null;
+
+	@SerializedName("managerProgramInvestmentUSDT")
+	private Double managerProgramInvestmentUSDT = null;
+
+	@SerializedName("managerProgramInvestmentBTC")
+	private Double managerProgramInvestmentBTC = null;
+
+	@SerializedName("managerProgramInvestmentETH")
+	private Double managerProgramInvestmentETH = null;
+
 	@SerializedName("managerMaxEntryFee")
 	private Double managerMaxEntryFee = null;
 
@@ -62,6 +74,82 @@ public class ProgramsInfo
 
 	public void setManagerProgramInvestment(Double managerProgramInvestment) {
 		this.managerProgramInvestment = managerProgramInvestment;
+	}
+
+	public ProgramsInfo managerProgramInvestmentUSD(Double managerProgramInvestmentUSD) {
+		this.managerProgramInvestmentUSD = managerProgramInvestmentUSD;
+		return this;
+	}
+
+	/**
+	 * Get managerProgramInvestmentUSD
+	 *
+	 * @return managerProgramInvestmentUSD
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getManagerProgramInvestmentUSD() {
+		return managerProgramInvestmentUSD;
+	}
+
+	public void setManagerProgramInvestmentUSD(Double managerProgramInvestmentUSD) {
+		this.managerProgramInvestmentUSD = managerProgramInvestmentUSD;
+	}
+
+	public ProgramsInfo managerProgramInvestmentUSDT(Double managerProgramInvestmentUSDT) {
+		this.managerProgramInvestmentUSDT = managerProgramInvestmentUSDT;
+		return this;
+	}
+
+	/**
+	 * Get managerProgramInvestmentUSDT
+	 *
+	 * @return managerProgramInvestmentUSDT
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getManagerProgramInvestmentUSDT() {
+		return managerProgramInvestmentUSDT;
+	}
+
+	public void setManagerProgramInvestmentUSDT(Double managerProgramInvestmentUSDT) {
+		this.managerProgramInvestmentUSDT = managerProgramInvestmentUSDT;
+	}
+
+	public ProgramsInfo managerProgramInvestmentBTC(Double managerProgramInvestmentBTC) {
+		this.managerProgramInvestmentBTC = managerProgramInvestmentBTC;
+		return this;
+	}
+
+	/**
+	 * Get managerProgramInvestmentBTC
+	 *
+	 * @return managerProgramInvestmentBTC
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getManagerProgramInvestmentBTC() {
+		return managerProgramInvestmentBTC;
+	}
+
+	public void setManagerProgramInvestmentBTC(Double managerProgramInvestmentBTC) {
+		this.managerProgramInvestmentBTC = managerProgramInvestmentBTC;
+	}
+
+	public ProgramsInfo managerProgramInvestmentETH(Double managerProgramInvestmentETH) {
+		this.managerProgramInvestmentETH = managerProgramInvestmentETH;
+		return this;
+	}
+
+	/**
+	 * Get managerProgramInvestmentETH
+	 *
+	 * @return managerProgramInvestmentETH
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getManagerProgramInvestmentETH() {
+		return managerProgramInvestmentETH;
+	}
+
+	public void setManagerProgramInvestmentETH(Double managerProgramInvestmentETH) {
+		this.managerProgramInvestmentETH = managerProgramInvestmentETH;
 	}
 
 	public ProgramsInfo managerMaxEntryFee(Double managerMaxEntryFee) {
@@ -178,6 +266,10 @@ public class ProgramsInfo
 		}
 		ProgramsInfo programsInfo = (ProgramsInfo) o;
 		return Objects.equals(this.managerProgramInvestment, programsInfo.managerProgramInvestment) &&
+				Objects.equals(this.managerProgramInvestmentUSD, programsInfo.managerProgramInvestmentUSD) &&
+				Objects.equals(this.managerProgramInvestmentUSDT, programsInfo.managerProgramInvestmentUSDT) &&
+				Objects.equals(this.managerProgramInvestmentBTC, programsInfo.managerProgramInvestmentBTC) &&
+				Objects.equals(this.managerProgramInvestmentETH, programsInfo.managerProgramInvestmentETH) &&
 				Objects.equals(this.managerMaxEntryFee, programsInfo.managerMaxEntryFee) &&
 				Objects.equals(this.managerMaxSuccessFee, programsInfo.managerMaxSuccessFee) &&
 				Objects.equals(this.managerFundInvestment, programsInfo.managerFundInvestment) &&
@@ -187,7 +279,7 @@ public class ProgramsInfo
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(managerProgramInvestment, managerMaxEntryFee, managerMaxSuccessFee, managerFundInvestment, managerMaxExitFee, periods);
+		return Objects.hash(managerProgramInvestment, managerProgramInvestmentUSD, managerProgramInvestmentUSDT, managerProgramInvestmentBTC, managerProgramInvestmentETH, managerMaxEntryFee, managerMaxSuccessFee, managerFundInvestment, managerMaxExitFee, periods);
 	}
 
 
@@ -197,6 +289,10 @@ public class ProgramsInfo
 		sb.append("class ProgramsInfo {\n");
 
 		sb.append("    managerProgramInvestment: ").append(toIndentedString(managerProgramInvestment)).append("\n");
+		sb.append("    managerProgramInvestmentUSD: ").append(toIndentedString(managerProgramInvestmentUSD)).append("\n");
+		sb.append("    managerProgramInvestmentUSDT: ").append(toIndentedString(managerProgramInvestmentUSDT)).append("\n");
+		sb.append("    managerProgramInvestmentBTC: ").append(toIndentedString(managerProgramInvestmentBTC)).append("\n");
+		sb.append("    managerProgramInvestmentETH: ").append(toIndentedString(managerProgramInvestmentETH)).append("\n");
 		sb.append("    managerMaxEntryFee: ").append(toIndentedString(managerMaxEntryFee)).append("\n");
 		sb.append("    managerMaxSuccessFee: ").append(toIndentedString(managerMaxSuccessFee)).append("\n");
 		sb.append("    managerFundInvestment: ").append(toIndentedString(managerFundInvestment)).append("\n");

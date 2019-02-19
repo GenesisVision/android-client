@@ -20,7 +20,6 @@ Name | Type | Description | Notes
 ## Enum: CurrencyEnum
 Name | Value
 ---- | -----
-USD | &quot;USD&quot;
 UNDEFINED | &quot;Undefined&quot;
 GVT | &quot;GVT&quot;
 ETH | &quot;ETH&quot;
@@ -32,6 +31,7 @@ BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
 DOGE | &quot;DOGE&quot;
 BNB | &quot;BNB&quot;
+USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
 
 
@@ -39,7 +39,6 @@ EUR | &quot;EUR&quot;
 ## Enum: CurrencyCcyEnum
 Name | Value
 ---- | -----
-USD | &quot;USD&quot;
 UNDEFINED | &quot;Undefined&quot;
 GVT | &quot;GVT&quot;
 ETH | &quot;ETH&quot;
@@ -51,6 +50,7 @@ BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
 DOGE | &quot;DOGE&quot;
 BNB | &quot;BNB&quot;
+USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
 
 

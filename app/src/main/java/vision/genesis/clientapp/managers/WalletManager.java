@@ -5,14 +5,16 @@ import org.greenrobot.eventbus.Subscribe;
 
 import io.swagger.client.api.WalletApi;
 import io.swagger.client.model.CreateWithdrawalRequestModel;
+import io.swagger.client.model.MultiWalletExternalTransactionsViewModel;
+import io.swagger.client.model.MultiWalletTransactionsViewModel;
+import io.swagger.client.model.WalletMultiSummary;
 import io.swagger.client.model.WalletSummary;
-import io.swagger.client.model.WalletTransactionsViewModel;
 import io.swagger.client.model.WalletsInfo;
 import io.swagger.client.model.WithdrawalSummary;
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.model.CurrencyEnum;
-import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.TransactionsFilter;
 import vision.genesis.clientapp.model.WithdrawalRequest;
 import vision.genesis.clientapp.model.events.OnUnauthorizedResponseGetEvent;
 
@@ -83,12 +85,22 @@ public class WalletManager
 		return walletApi.v10WalletByCurrencyGet(currency.getValue(), AuthManager.token.getValue());
 	}
 
-	public Observable<WalletTransactionsViewModel> getTransactions(DateRange dateRange, Integer skip, Integer take) {
-		return walletApi.v10WalletTransactionsGet(AuthManager.token.getValue(), null,
-				dateRange.getFrom(), dateRange.getTo(),
+	public Observable<WalletMultiSummary> getWallets(CurrencyEnum currency) {
+		return walletApi.v10WalletMultiByCurrencyGet(currency.getValue(), AuthManager.token.getValue());
+	}
+
+	public Observable<MultiWalletTransactionsViewModel> getTransactions(TransactionsFilter filter) {
+		return walletApi.v10WalletMultiTransactionsGet(AuthManager.token.getValue(),
+				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				null, null,
-				null,
-				skip, take);
+				filter.getSkip(), filter.getTake());
+	}
+
+	public Observable<MultiWalletExternalTransactionsViewModel> getExternalTransactions(TransactionsFilter filter) {
+		return walletApi.v10WalletMultiTransactionsExternalGet(AuthManager.token.getValue(),
+				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
+				null, null,
+				filter.getSkip(), filter.getTake());
 	}
 
 	@Subscribe

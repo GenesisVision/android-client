@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **profileHeader** | [**ProfileHeaderViewModel**](ProfileHeaderViewModel.md) |  |  [optional]
 **programsCount** | **Integer** |  |  [optional]
 **fundsCount** | **Integer** |  |  [optional]
+**signalsCount** | **Integer** |  |  [optional]
 **requests** | [**ProgramRequests**](ProgramRequests.md) |  |  [optional]
 
 

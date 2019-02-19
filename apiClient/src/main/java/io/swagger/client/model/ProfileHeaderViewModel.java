@@ -13,8 +13,13 @@
 
 package io.swagger.client.model;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -37,6 +42,9 @@ public class ProfileHeaderViewModel
 
 	@SerializedName("avatar")
 	private String avatar = null;
+
+	@SerializedName("userType")
+	private UserTypeEnum userType = null;
 
 	@SerializedName("notificationsCount")
 	private Integer notificationsCount = null;
@@ -151,6 +159,25 @@ public class ProfileHeaderViewModel
 
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+
+	public ProfileHeaderViewModel userType(UserTypeEnum userType) {
+		this.userType = userType;
+		return this;
+	}
+
+	/**
+	 * Get userType
+	 *
+	 * @return userType
+	 **/
+	@ApiModelProperty(value = "")
+	public UserTypeEnum getUserType() {
+		return userType;
+	}
+
+	public void setUserType(UserTypeEnum userType) {
+		this.userType = userType;
 	}
 
 	public ProfileHeaderViewModel notificationsCount(Integer notificationsCount) {
@@ -400,7 +427,6 @@ public class ProfileHeaderViewModel
 		this.isNewUser = isNewUser;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -414,6 +440,7 @@ public class ProfileHeaderViewModel
 				Objects.equals(this.name, profileHeaderViewModel.name) &&
 				Objects.equals(this.email, profileHeaderViewModel.email) &&
 				Objects.equals(this.avatar, profileHeaderViewModel.avatar) &&
+				Objects.equals(this.userType, profileHeaderViewModel.userType) &&
 				Objects.equals(this.notificationsCount, profileHeaderViewModel.notificationsCount) &&
 				Objects.equals(this.favoritesCount, profileHeaderViewModel.favoritesCount) &&
 				Objects.equals(this.totalBalanceGvt, profileHeaderViewModel.totalBalanceGvt) &&
@@ -431,9 +458,8 @@ public class ProfileHeaderViewModel
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, email, avatar, notificationsCount, favoritesCount, totalBalanceGvt, investedGvt, availableGvt, totalBalance, invested, available, pending, kycConfirmed, allowForex, isTwoFactorEnabled, isNewUser);
+		return Objects.hash(id, name, email, avatar, userType, notificationsCount, favoritesCount, totalBalanceGvt, investedGvt, availableGvt, totalBalance, invested, available, pending, kycConfirmed, allowForex, isTwoFactorEnabled, isNewUser);
 	}
-
 
 	@Override
 	public String toString() {
@@ -444,6 +470,7 @@ public class ProfileHeaderViewModel
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    email: ").append(toIndentedString(email)).append("\n");
 		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
+		sb.append("    userType: ").append(toIndentedString(userType)).append("\n");
 		sb.append("    notificationsCount: ").append(toIndentedString(notificationsCount)).append("\n");
 		sb.append("    favoritesCount: ").append(toIndentedString(favoritesCount)).append("\n");
 		sb.append("    totalBalanceGvt: ").append(toIndentedString(totalBalanceGvt)).append("\n");
@@ -470,6 +497,55 @@ public class ProfileHeaderViewModel
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	/**
+	 * Gets or Sets userType
+	 */
+	@JsonAdapter(UserTypeEnum.Adapter.class)
+	public enum UserTypeEnum
+	{
+		INVESTOR("Investor"),
+
+		MANAGER("Manager");
+
+		public static UserTypeEnum fromValue(String text) {
+			for (UserTypeEnum b : UserTypeEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		UserTypeEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<UserTypeEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final UserTypeEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public UserTypeEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return UserTypeEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 }

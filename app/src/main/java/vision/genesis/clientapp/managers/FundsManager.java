@@ -87,11 +87,11 @@ public class FundsManager
 	}
 
 	public Observable<Void> invest(FundRequest fundRequest) {
-		return investorApi.v10InvestorFundsByIdInvestByAmountPost(fundRequest.getFundId(), fundRequest.getAmount(), AuthManager.token.getValue());
+		return investorApi.v10InvestorFundsByIdInvestByAmountPost(fundRequest.getFundId(), fundRequest.getAmount(), AuthManager.token.getValue(), null);
 	}
 
 	public Observable<Void> withdraw(FundRequest fundRequest) {
-		return investorApi.v10InvestorFundsByIdWithdrawByPercentPost(fundRequest.getFundId(), fundRequest.getAmount(), AuthManager.token.getValue());
+		return investorApi.v10InvestorFundsByIdWithdrawByPercentPost(fundRequest.getFundId(), fundRequest.getAmount(), AuthManager.token.getValue(), null);
 	}
 
 	//	public Observable<Void> withdraw(ProgramRequest withdrawalRequest) {

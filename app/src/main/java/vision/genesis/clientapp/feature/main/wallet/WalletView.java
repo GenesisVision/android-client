@@ -4,13 +4,8 @@ import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
-import java.util.List;
-
 import io.swagger.client.model.WalletSummary;
-import io.swagger.client.model.WalletTransaction;
 import vision.genesis.clientapp.model.CurrencyEnum;
-import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 
 /**
  * GenesisVision
@@ -21,8 +16,6 @@ interface WalletView extends MvpView
 {
 	void setBaseCurrency(CurrencyEnum baseCurrency);
 
-	void setDateRange(DateRange dateRange);
-
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void setBalance(WalletSummary data);
 
@@ -32,7 +25,7 @@ interface WalletView extends MvpView
 
 	void showSnackbarMessage(String message);
 
-	void setTransactions(List<WalletTransaction> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
-
-	void addTransactions(List<WalletTransaction> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
+//	void setTransactions(List<WalletTransaction> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
+//
+//	void addTransactions(List<WalletTransaction> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
 }

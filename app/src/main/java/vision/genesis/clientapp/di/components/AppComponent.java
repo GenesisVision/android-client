@@ -70,6 +70,8 @@ import vision.genesis.clientapp.feature.main.settings.security.SecurityPresenter
 import vision.genesis.clientapp.feature.main.settings.security.change_password.ChangePasswordPresenter;
 import vision.genesis.clientapp.feature.main.wallet.WalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletPresenter;
+import vision.genesis.clientapp.feature.main.wallet.external_transactions.ExternalTransactionsPresenter;
+import vision.genesis.clientapp.feature.main.wallet.my_wallets.MyWalletsPresenter;
 import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPresenter;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.confirm.ConfirmWalletWithdrawBottomSheetFragment;
@@ -230,4 +232,8 @@ public interface AppComponent
 	void inject(FundNotificationsSettingsPresenter fundNotificationsSettingsPresenter);
 
 	void inject(OpenPositionsPresenter openPositionsPresenter);
+
+	void inject(MyWalletsPresenter myWalletsPresenter);
+
+	void inject(ExternalTransactionsPresenter externalTransactionsPresenter);
 }

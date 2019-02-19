@@ -18,6 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -47,6 +48,12 @@ public class NewFundRequest
 
 	@SerializedName("entryFee")
 	private Double entryFee = null;
+
+	@SerializedName("depositAmount")
+	private Double depositAmount = null;
+
+	@SerializedName("depositWalletId")
+	private UUID depositWalletId = null;
 
 	public NewFundRequest exitFee(Double exitFee) {
 		this.exitFee = exitFee;
@@ -189,6 +196,44 @@ public class NewFundRequest
 		this.entryFee = entryFee;
 	}
 
+	public NewFundRequest depositAmount(Double depositAmount) {
+		this.depositAmount = depositAmount;
+		return this;
+	}
+
+	/**
+	 * Get depositAmount
+	 *
+	 * @return depositAmount
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getDepositAmount() {
+		return depositAmount;
+	}
+
+	public void setDepositAmount(Double depositAmount) {
+		this.depositAmount = depositAmount;
+	}
+
+	public NewFundRequest depositWalletId(UUID depositWalletId) {
+		this.depositWalletId = depositWalletId;
+		return this;
+	}
+
+	/**
+	 * Get depositWalletId
+	 *
+	 * @return depositWalletId
+	 **/
+	@ApiModelProperty(value = "")
+	public UUID getDepositWalletId() {
+		return depositWalletId;
+	}
+
+	public void setDepositWalletId(UUID depositWalletId) {
+		this.depositWalletId = depositWalletId;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -205,12 +250,14 @@ public class NewFundRequest
 				Objects.equals(this.title, newFundRequest.title) &&
 				Objects.equals(this.description, newFundRequest.description) &&
 				Objects.equals(this.logo, newFundRequest.logo) &&
-				Objects.equals(this.entryFee, newFundRequest.entryFee);
+				Objects.equals(this.entryFee, newFundRequest.entryFee) &&
+				Objects.equals(this.depositAmount, newFundRequest.depositAmount) &&
+				Objects.equals(this.depositWalletId, newFundRequest.depositWalletId);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(exitFee, managementFee, assets, title, description, logo, entryFee);
+		return Objects.hash(exitFee, managementFee, assets, title, description, logo, entryFee, depositAmount, depositWalletId);
 	}
 
 
@@ -226,6 +273,8 @@ public class NewFundRequest
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
+		sb.append("    depositAmount: ").append(toIndentedString(depositAmount)).append("\n");
+		sb.append("    depositWalletId: ").append(toIndentedString(depositWalletId)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

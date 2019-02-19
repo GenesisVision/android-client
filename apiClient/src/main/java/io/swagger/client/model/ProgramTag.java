@@ -122,7 +122,11 @@ public class ProgramTag
 	{
 		CRYPTO("Crypto"),
 
-		FOREX("Forex");
+		FOREX("Forex"),
+
+		HIGHRISK("HighRisk"),
+
+		SIGNAL("Signal");
 
 		public static NameEnum fromValue(String text) {
 			for (NameEnum b : NameEnum.values()) {

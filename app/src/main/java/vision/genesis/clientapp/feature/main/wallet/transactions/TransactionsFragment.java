@@ -2,67 +2,71 @@ package vision.genesis.clientapp.feature.main.wallet.transactions;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.List;
 import java.util.UUID;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.swagger.client.model.MultiWalletTransaction;
+import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.main.wallet.TransactionsListAdapter;
-import vision.genesis.clientapp.ui.DividerItemDecoration;
-import vision.genesis.clientapp.utils.TypefaceUtil;
+import vision.genesis.clientapp.feature.main.wallet.WalletPagerAdapter;
+import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 
 /**
- * GenesisVision
- * Created by Vitaly on 3/5/18.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 17/02/2019.
  */
 
-public class TransactionsFragment extends BaseFragment implements TransactionsView, TransactionsPagerAdapter.OnPageVisibilityChanged
+public class TransactionsFragment extends BaseFragment implements TransactionsView, WalletPagerAdapter.OnPageVisibilityChanged
 {
-	private static final String EXTRA_TYPE = "extra_type";
+	private static final String EXTRA_WALLET_ID = "extra_wallet_id";
 
-	private static final String EXTRA_PROGRAM_ID = "extra_program_id";
-
-	public static TransactionsFragment with(@Nullable UUID programId) {
+	public static TransactionsFragment with(@Nullable UUID walletId) {
 		TransactionsFragment transactionsFragment = new TransactionsFragment();
-		Bundle arguments = new Bundle(2);
-//		arguments.putString(EXTRA_TYPE, type.toString());
-		arguments.putSerializable(EXTRA_PROGRAM_ID, programId);
+		Bundle arguments = new Bundle(1);
+		arguments.putSerializable(EXTRA_WALLET_ID, walletId);
 		transactionsFragment.setArguments(arguments);
 		return transactionsFragment;
 	}
 
+	@BindView(R.id.root)
+	public ViewGroup root;
+
+	@BindView(R.id.progress_bar)
+	public ProgressBar progressBar;
+
 	@BindView(R.id.group_no_transactions)
 	public View groupNoTransactions;
 
-	@BindView(R.id.label_whoops)
-	public TextView whoopsLabel;
-
-	@BindView(R.id.refresh_layout)
-	public SwipeRefreshLayout refreshLayout;
-
 	@BindView(R.id.recycler_view)
 	public RecyclerView recyclerView;
+
+	@BindView(R.id.filters)
+	public RelativeLayout filtersView;
+
+	@BindDimen(R.dimen.date_range_margin_bottom)
+	public int filtersMarginBottom;
 
 	@InjectPresenter
 	public TransactionsPresenter transactionsPresenter;
 
 	private TransactionsListAdapter transactionsListAdapter;
 
-	private UUID programId;
+	private SimpleSectionedRecyclerViewAdapter sectionedAdapter;
 
 	private Unbinder unbinder;
 
@@ -80,12 +84,15 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 
 		setFonts();
 
-		programId = (UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID);
-//		transactionsPresenter.setFilter(getArguments().getString(EXTRA_TYPE), programId);
+		if (getArguments() != null) {
+			transactionsPresenter.setWalletId((UUID) getArguments().getSerializable(EXTRA_WALLET_ID));
 
-		initRefreshLayout();
-		initRecyclerView();
-
+			initRecyclerView();
+		}
+		else {
+			Timber.e("Passed empty arguments to TransactionsFragment");
+			onBackPressed();
+		}
 	}
 
 	@Override
@@ -97,9 +104,6 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 
 	@Override
 	public void onDestroyView() {
-		if (recyclerView != null)
-			recyclerView.setAdapter(null);
-
 		if (unbinder != null) {
 			unbinder.unbind();
 			unbinder = null;
@@ -109,26 +113,16 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 	}
 
 	private void setFonts() {
-		whoopsLabel.setTypeface(TypefaceUtil.bold());
-	}
-
-	private void initRefreshLayout() {
-		refreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorAccent),
-				ContextCompat.getColor(getContext(), R.color.colorAccent),
-				ContextCompat.getColor(getContext(), R.color.colorMedium));
-		refreshLayout.setOnRefreshListener(() -> transactionsPresenter.onSwipeRefresh());
 	}
 
 	private void initRecyclerView() {
-		recyclerView.setHasFixedSize(true);
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
+
 		transactionsListAdapter = new TransactionsListAdapter();
-		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-				AppCompatResources.getDrawable(getContext(), R.drawable.list_item_divider),
-				20, 20);
-		recyclerView.addItemDecoration(dividerItemDecoration);
-		recyclerView.setAdapter(transactionsListAdapter);
+		sectionedAdapter = new SimpleSectionedRecyclerViewAdapter(getContext(), R.layout.list_item_trades_date_section, R.id.text, transactionsListAdapter);
+		recyclerView.setAdapter(sectionedAdapter);
+
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
 		{
 			@Override
@@ -145,28 +139,35 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 		});
 	}
 
-//	public void setTransactionsFilterType(TransactionsFilter.TypeEnum type) {
-//		transactionsPresenter.setFilter(type.toString(), null);
-//	}
 
 	@Override
-	public void setRefreshing(boolean refreshing) {
-		refreshLayout.setRefreshing(refreshing);
+	public void showProgress(boolean show) {
+		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+		if (!show) {
+//			filtersView.setVisibility(View.VISIBLE);
+			recyclerView.setVisibility(View.VISIBLE);
+		}
 	}
 
-//	@Override
-//	public void setTransactions(List<WalletTransaction> transactions) {
-//		transactionsListAdapter.setTransactions(transactions);
-//
-//		groupNoEvents.setVisibility(transactions.size() == 0
-//				? View.VISIBLE
-//				: View.GONE);
-//	}
-//
-//	@Override
-//	public void addTransactions(List<WalletTransaction> transactions) {
-//		transactionsListAdapter.addTransactions(transactions);
-//	}
+	@Override
+	public void setTransactions(List<MultiWalletTransaction> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+		if (transactions.isEmpty()) {
+			groupNoTransactions.setVisibility(View.VISIBLE);
+			recyclerView.setVisibility(View.GONE);
+			return;
+		}
+
+		sectionedAdapter.setSections(sections);
+		transactionsListAdapter.setTransactions(transactions);
+		groupNoTransactions.setVisibility(View.GONE);
+		recyclerView.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void addTransactions(List<MultiWalletTransaction> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+		sectionedAdapter.setSections(sections);
+		transactionsListAdapter.addTransactions(transactions);
+	}
 
 	@Override
 	public void showSnackbarMessage(String message) {
@@ -181,5 +182,15 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 
 	@Override
 	public void pagerHide() {
+	}
+
+	public void onSwipeRefresh() {
+		if (transactionsPresenter != null)
+			transactionsPresenter.onSwipeRefresh();
+	}
+
+	public void onOffsetChanged(int verticalOffset) {
+		if (filtersView != null)
+			filtersView.setY(root.getHeight() - verticalOffset - filtersView.getHeight() - filtersMarginBottom);
 	}
 }

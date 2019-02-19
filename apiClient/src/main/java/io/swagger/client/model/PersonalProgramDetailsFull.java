@@ -81,6 +81,9 @@ public class PersonalProgramDetailsFull
 	@SerializedName("status")
 	private StatusEnum status = null;
 
+	@SerializedName("isFollowSignals")
+	private Boolean isFollowSignals = null;
+
 	public PersonalProgramDetailsFull isReinvest(Boolean isReinvest) {
 		this.isReinvest = isReinvest;
 		return this;
@@ -404,6 +407,25 @@ public class PersonalProgramDetailsFull
 		this.status = status;
 	}
 
+	public PersonalProgramDetailsFull isFollowSignals(Boolean isFollowSignals) {
+		this.isFollowSignals = isFollowSignals;
+		return this;
+	}
+
+	/**
+	 * Get isFollowSignals
+	 *
+	 * @return isFollowSignals
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsFollowSignals() {
+		return isFollowSignals;
+	}
+
+	public void setIsFollowSignals(Boolean isFollowSignals) {
+		this.isFollowSignals = isFollowSignals;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -429,12 +451,13 @@ public class PersonalProgramDetailsFull
 				Objects.equals(this.invested, personalProgramDetailsFull.invested) &&
 				Objects.equals(this.pendingInput, personalProgramDetailsFull.pendingInput) &&
 				Objects.equals(this.pendingOutput, personalProgramDetailsFull.pendingOutput) &&
-				Objects.equals(this.status, personalProgramDetailsFull.status);
+				Objects.equals(this.status, personalProgramDetailsFull.status) &&
+				Objects.equals(this.isFollowSignals, personalProgramDetailsFull.isFollowSignals);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isReinvest, gvtValue, isFavorite, isInvested, isOwnProgram, canCloseProgram, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status);
+		return Objects.hash(isReinvest, gvtValue, isFavorite, isInvested, isOwnProgram, canCloseProgram, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status, isFollowSignals);
 	}
 
 	@Override
@@ -459,6 +482,7 @@ public class PersonalProgramDetailsFull
 		sb.append("    pendingInput: ").append(toIndentedString(pendingInput)).append("\n");
 		sb.append("    pendingOutput: ").append(toIndentedString(pendingOutput)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
+		sb.append("    isFollowSignals: ").append(toIndentedString(isFollowSignals)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

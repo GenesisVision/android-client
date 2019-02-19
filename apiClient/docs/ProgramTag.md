@@ -14,6 +14,8 @@ Name | Value
 ---- | -----
 CRYPTO | &quot;Crypto&quot;
 FOREX | &quot;Forex&quot;
+HIGHRISK | &quot;HighRisk&quot;
+SIGNAL | &quot;Signal&quot;
 
 
 

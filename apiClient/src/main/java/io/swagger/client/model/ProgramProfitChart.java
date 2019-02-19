@@ -604,8 +604,6 @@ public class ProgramProfitChart
 	@JsonAdapter(ProgramCurrencyEnum.Adapter.class)
 	public enum ProgramCurrencyEnum
 	{
-		USD("USD"),
-
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -627,6 +625,8 @@ public class ProgramProfitChart
 		DOGE("DOGE"),
 
 		BNB("BNB"),
+
+		USD("USD"),
 
 		EUR("EUR");
 

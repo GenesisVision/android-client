@@ -21,16 +21,17 @@ import rx.Observable;
 public interface InvestorApi
 {
 	/**
-	 * Investing into the fund
+	 * Investing into the fund  Invest in GVT if currency is empty
 	 *
 	 * @param id            (required)
 	 * @param amount        (required)
 	 * @param authorization JWT access token (required)
+	 * @param currency      (optional, default to 100)
 	 * @return Call&lt;Void&gt;
 	 */
 	@POST("v1.0/investor/funds/{id}/invest/{amount}")
 	Observable<Void> v10InvestorFundsByIdInvestByAmountPost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("amount") Double amount, @retrofit2.http.Header("Authorization") String authorization
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("amount") Double amount, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currency") String currency
 	);
 
 	/**
@@ -61,16 +62,17 @@ public interface InvestorApi
 	);
 
 	/**
-	 * Withdraw from fund. Percent is % of investor total money.
+	 * Withdraw from fund. Percent is % of investor total money.  Withdraw in GVT if currency is empty
 	 *
 	 * @param id            (required)
 	 * @param percent       (required)
 	 * @param authorization JWT access token (required)
+	 * @param currency      (optional, default to 100)
 	 * @return Call&lt;Void&gt;
 	 */
 	@POST("v1.0/investor/funds/{id}/withdraw/{percent}")
 	Observable<Void> v10InvestorFundsByIdWithdrawByPercentPost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("percent") Double percent, @retrofit2.http.Header("Authorization") String authorization
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("percent") Double percent, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currency") String currency
 	);
 
 	/**
@@ -158,16 +160,17 @@ public interface InvestorApi
 	);
 
 	/**
-	 * Investing into the program
+	 * Investing into the program  Invest in GVT if currency is empty
 	 *
 	 * @param id            (required)
 	 * @param amount        (required)
 	 * @param authorization JWT access token (required)
+	 * @param currency      (optional, default to 100)
 	 * @return Call&lt;Void&gt;
 	 */
 	@POST("v1.0/investor/programs/{id}/invest/{amount}")
 	Observable<Void> v10InvestorProgramsByIdInvestByAmountPost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("amount") Double amount, @retrofit2.http.Header("Authorization") String authorization
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("amount") Double amount, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currency") String currency
 	);
 
 	/**
@@ -222,7 +225,7 @@ public interface InvestorApi
 	);
 
 	/**
-	 * Withdraw from investment program
+	 * [Obsolete] Withdraw from investment program in GVT
 	 *
 	 * @param id            (required)
 	 * @param amount        (required)
@@ -245,6 +248,19 @@ public interface InvestorApi
 	@GET("v1.0/investor/programs/{id}/withdraw/info/{currency}")
 	Observable<ProgramWithdrawInfo> v10InvestorProgramsByIdWithdrawInfoByCurrencyGet(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("currency") String currency, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Withdraw from investment program in program currency
+	 *
+	 * @param id            (required)
+	 * @param amount        (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v1.0/investor/programs/{id}/withdraw/multi/{amount}")
+	Observable<Void> v10InvestorProgramsByIdWithdrawMultiByAmountPost(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("amount") Double amount, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
@@ -288,6 +304,24 @@ public interface InvestorApi
 	@GET("v1.0/investor/requests/{skip}/{take}")
 	Observable<ProgramRequests> v10InvestorRequestsBySkipByTakeGet(
 			@retrofit2.http.Path("skip") Integer skip, @retrofit2.http.Path("take") Integer take, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Dashboard program list
+	 *
+	 * @param authorization     JWT access token (required)
+	 * @param sorting           (optional)
+	 * @param from              (optional)
+	 * @param to                (optional)
+	 * @param chartPointsCount  (optional)
+	 * @param currencySecondary (optional)
+	 * @param skip              (optional)
+	 * @param take              (optional)
+	 * @return Call&lt;ProgramsList&gt;
+	 */
+	@GET("v1.0/investor/signals")
+	Observable<ProgramsList> v10InvestorSignalsGet(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 }

@@ -14,6 +14,9 @@ Name | Type | Description | Notes
 **entryFeeCurrent** | **Double** |  |  [optional]
 **successFee** | **Double** |  |  [optional]
 **isReinvesting** | **Boolean** |  |  [optional]
+**isSignalProgram** | **Boolean** |  |  [optional]
+**signalSuccessFee** | **Double** |  |  [optional]
+**signalSubscriptionFee** | **Double** |  |  [optional]
 **availableInvestment** | **Double** |  |  [optional]
 **statistic** | [**ProgramStatistic**](ProgramStatistic.md) |  |  [optional]
 **rating** | [**ProgramDetailsRating**](ProgramDetailsRating.md) |  |  [optional]
@@ -34,7 +37,6 @@ Name | Type | Description | Notes
 ## Enum: CurrencyEnum
 Name | Value
 ---- | -----
-USD | &quot;USD&quot;
 UNDEFINED | &quot;Undefined&quot;
 GVT | &quot;GVT&quot;
 ETH | &quot;ETH&quot;
@@ -46,6 +48,7 @@ BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
 DOGE | &quot;DOGE&quot;
 BNB | &quot;BNB&quot;
+USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
 
 

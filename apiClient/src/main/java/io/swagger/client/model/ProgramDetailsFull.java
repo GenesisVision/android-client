@@ -65,6 +65,15 @@ public class ProgramDetailsFull
 	@SerializedName("isReinvesting")
 	private Boolean isReinvesting = null;
 
+	@SerializedName("isSignalProgram")
+	private Boolean isSignalProgram = null;
+
+	@SerializedName("signalSuccessFee")
+	private Double signalSuccessFee = null;
+
+	@SerializedName("signalSubscriptionFee")
+	private Double signalSubscriptionFee = null;
+
 	@SerializedName("availableInvestment")
 	private Double availableInvestment = null;
 
@@ -295,6 +304,63 @@ public class ProgramDetailsFull
 
 	public void setIsReinvesting(Boolean isReinvesting) {
 		this.isReinvesting = isReinvesting;
+	}
+
+	public ProgramDetailsFull isSignalProgram(Boolean isSignalProgram) {
+		this.isSignalProgram = isSignalProgram;
+		return this;
+	}
+
+	/**
+	 * Get isSignalProgram
+	 *
+	 * @return isSignalProgram
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsSignalProgram() {
+		return isSignalProgram;
+	}
+
+	public void setIsSignalProgram(Boolean isSignalProgram) {
+		this.isSignalProgram = isSignalProgram;
+	}
+
+	public ProgramDetailsFull signalSuccessFee(Double signalSuccessFee) {
+		this.signalSuccessFee = signalSuccessFee;
+		return this;
+	}
+
+	/**
+	 * Get signalSuccessFee
+	 *
+	 * @return signalSuccessFee
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getSignalSuccessFee() {
+		return signalSuccessFee;
+	}
+
+	public void setSignalSuccessFee(Double signalSuccessFee) {
+		this.signalSuccessFee = signalSuccessFee;
+	}
+
+	public ProgramDetailsFull signalSubscriptionFee(Double signalSubscriptionFee) {
+		this.signalSubscriptionFee = signalSubscriptionFee;
+		return this;
+	}
+
+	/**
+	 * Get signalSubscriptionFee
+	 *
+	 * @return signalSubscriptionFee
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getSignalSubscriptionFee() {
+		return signalSubscriptionFee;
+	}
+
+	public void setSignalSubscriptionFee(Double signalSubscriptionFee) {
+		this.signalSubscriptionFee = signalSubscriptionFee;
 	}
 
 	public ProgramDetailsFull availableInvestment(Double availableInvestment) {
@@ -590,6 +656,9 @@ public class ProgramDetailsFull
 				Objects.equals(this.entryFeeCurrent, programDetailsFull.entryFeeCurrent) &&
 				Objects.equals(this.successFee, programDetailsFull.successFee) &&
 				Objects.equals(this.isReinvesting, programDetailsFull.isReinvesting) &&
+				Objects.equals(this.isSignalProgram, programDetailsFull.isSignalProgram) &&
+				Objects.equals(this.signalSuccessFee, programDetailsFull.signalSuccessFee) &&
+				Objects.equals(this.signalSubscriptionFee, programDetailsFull.signalSubscriptionFee) &&
 				Objects.equals(this.availableInvestment, programDetailsFull.availableInvestment) &&
 				Objects.equals(this.statistic, programDetailsFull.statistic) &&
 				Objects.equals(this.rating, programDetailsFull.rating) &&
@@ -608,7 +677,7 @@ public class ProgramDetailsFull
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, entryFee, entryFeeSelected, entryFeeCurrent, successFee, isReinvesting, availableInvestment, statistic, rating, personalProgramDetails, tags, id, logo, url, color, description, title, ipfsHash, status, manager);
+		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, entryFee, entryFeeSelected, entryFeeCurrent, successFee, isReinvesting, isSignalProgram, signalSuccessFee, signalSubscriptionFee, availableInvestment, statistic, rating, personalProgramDetails, tags, id, logo, url, color, description, title, ipfsHash, status, manager);
 	}
 
 	@Override
@@ -626,6 +695,9 @@ public class ProgramDetailsFull
 		sb.append("    entryFeeCurrent: ").append(toIndentedString(entryFeeCurrent)).append("\n");
 		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("    isReinvesting: ").append(toIndentedString(isReinvesting)).append("\n");
+		sb.append("    isSignalProgram: ").append(toIndentedString(isSignalProgram)).append("\n");
+		sb.append("    signalSuccessFee: ").append(toIndentedString(signalSuccessFee)).append("\n");
+		sb.append("    signalSubscriptionFee: ").append(toIndentedString(signalSubscriptionFee)).append("\n");
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    rating: ").append(toIndentedString(rating)).append("\n");
@@ -662,8 +734,6 @@ public class ProgramDetailsFull
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		USD("USD"),
-
 		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
@@ -685,6 +755,8 @@ public class ProgramDetailsFull
 		DOGE("DOGE"),
 
 		BNB("BNB"),
+
+		USD("USD"),
 
 		EUR("EUR");
 
