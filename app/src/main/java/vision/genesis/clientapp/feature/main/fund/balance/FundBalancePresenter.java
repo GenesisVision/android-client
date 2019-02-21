@@ -120,15 +120,15 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 		if (first == null || selected == null)
 			return;
 
-		//TODO: getBaseValueString(selected * rate
-		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getBaseValueString(selected, CurrencyEnum.USD.getValue()));
+		//TODO: getValueString(selected * rate
+		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getValueString(selected, CurrencyEnum.USD.getValue()));
 
 		Double changeValue = selected - first;
-		//TODO: getBaseValueString(changeValue * rate
+		//TODO: getValueString(changeValue * rate
 		getViewState().setChange(changeValue < 0,
 				StringFormatUtil.getChangePercentString(first, selected),
 				StringFormatUtil.getChangeValueString(changeValue),
-				StringFormatUtil.getBaseValueString(changeValue, CurrencyEnum.USD.getValue()));
+				StringFormatUtil.getValueString(changeValue, CurrencyEnum.USD.getValue()));
 	}
 
 	@Override

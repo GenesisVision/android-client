@@ -1,23 +1,20 @@
-package vision.genesis.clientapp.feature.main.wallet;
+package vision.genesis.clientapp.feature.main.wallet.specific_wallet;
 
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
-import io.swagger.client.model.WalletMultiSummary;
-import vision.genesis.clientapp.model.CurrencyEnum;
+import io.swagger.client.model.WalletData;
 
 /**
- * GenesisVision
- * Created by Vitaly on 1/19/18.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 19/02/2019.
  */
 
-interface WalletView extends MvpView
+interface SpecificWalletView extends MvpView
 {
-	void setBaseCurrency(CurrencyEnum baseCurrency);
-
 	@StateStrategyType(AddToEndSingleStrategy.class)
-	void setBalance(WalletMultiSummary data);
+	void setWalletData(WalletData data);
 
 	void showProgress(boolean show);
 

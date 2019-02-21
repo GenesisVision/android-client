@@ -37,6 +37,7 @@ import vision.genesis.clientapp.model.events.ShowLockScreenEvent;
 import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
 import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
+import vision.genesis.clientapp.model.events.ShowSpecificWalletEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawProgramEvent;
 import vision.genesis.clientapp.utils.Constants;
 
@@ -326,5 +327,10 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowFundDetailsEvent event) {
 		getViewState().showFundDetails(event.getFundDetailsModel());
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowSpecificWalletEvent event) {
+		getViewState().showSpecificWallet(event.getWalletModel());
 	}
 }

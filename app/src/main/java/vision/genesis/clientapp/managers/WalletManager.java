@@ -12,6 +12,8 @@ import io.swagger.client.model.WalletSummary;
 import io.swagger.client.model.WalletsInfo;
 import io.swagger.client.model.WithdrawalSummary;
 import rx.Observable;
+import rx.Subscription;
+import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.TransactionsFilter;
@@ -28,6 +30,10 @@ public class WalletManager
 	private WalletApi walletApi;
 
 	private BehaviorSubject<Double> balanceBehaviorSubject = BehaviorSubject.create();
+
+	private BehaviorSubject<WalletMultiSummary> walletsSubject = BehaviorSubject.create();
+
+	private Subscription getWalletsSubscription;
 
 	//	public WalletManager(InvestorApi investorApi, ManagerApi managerApi) {
 	public WalletManager(WalletApi walletApi) {
@@ -85,21 +91,36 @@ public class WalletManager
 		return walletApi.v10WalletByCurrencyGet(currency.getValue(), AuthManager.token.getValue());
 	}
 
-	public Observable<WalletMultiSummary> getWallets(CurrencyEnum currency) {
-		return walletApi.v10WalletMultiByCurrencyGet(currency.getValue(), AuthManager.token.getValue());
+	public BehaviorSubject<WalletMultiSummary> getWallets(CurrencyEnum currency) {
+		getWalletsSubscription = walletApi.v10WalletMultiByCurrencyGet(currency.getValue(), AuthManager.token.getValue())
+				.observeOn(Schedulers.io())
+				.subscribeOn(Schedulers.io())
+				.subscribe(this::handleGetWalletsSuccess,
+						this::handleGetWalletsError);
+
+		return walletsSubject;
+	}
+
+	private void handleGetWalletsSuccess(WalletMultiSummary response) {
+		getWalletsSubscription.unsubscribe();
+		walletsSubject.onNext(response);
+	}
+
+	private void handleGetWalletsError(Throwable error) {
+		getWalletsSubscription.unsubscribe();
 	}
 
 	public Observable<MultiWalletTransactionsViewModel> getTransactions(TransactionsFilter filter) {
 		return walletApi.v10WalletMultiTransactionsGet(AuthManager.token.getValue(),
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
-				null, null,
+				null, filter.getWalletCurrency(),
 				filter.getSkip(), filter.getTake());
 	}
 
 	public Observable<MultiWalletExternalTransactionsViewModel> getExternalTransactions(TransactionsFilter filter) {
 		return walletApi.v10WalletMultiTransactionsExternalGet(AuthManager.token.getValue(),
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
-				null, null,
+				null, filter.getWalletCurrency(),
 				filter.getSkip(), filter.getTake());
 	}
 

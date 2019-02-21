@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -17,6 +19,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.WalletData;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.WalletModel;
+import vision.genesis.clientapp.model.events.ShowSpecificWalletEvent;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -64,12 +68,19 @@ public class MyWalletsListAdapter extends RecyclerView.Adapter<MyWalletsListAdap
 		@BindView(R.id.value)
 		public TextView value;
 
+		private WalletData wallet;
+
 		MyWalletViewHolder(View itemView) {
 			super(itemView);
 
 			ButterKnife.bind(this, itemView);
 
 			setFonts();
+
+			itemView.setOnClickListener(v -> {
+				if (wallet != null)
+					EventBus.getDefault().post(new ShowSpecificWalletEvent(WalletModel.createFrom(wallet)));
+			});
 		}
 
 		private void setFonts() {
@@ -77,6 +88,7 @@ public class MyWalletsListAdapter extends RecyclerView.Adapter<MyWalletsListAdap
 		}
 
 		void setWallet(WalletData wallet) {
+			this.wallet = wallet;
 			icon.setImageURI(ImageUtils.getImageUri(wallet.getLogo()));
 			currency.setText(wallet.getTitle());
 			value.setText(String.format(Locale.getDefault(), "%s %s",

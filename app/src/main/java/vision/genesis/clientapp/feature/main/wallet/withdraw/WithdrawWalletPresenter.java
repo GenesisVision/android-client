@@ -156,7 +156,7 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 	}
 
 	private String getFeeAmountString() {
-		return StringFormatUtil.getBaseValueString(selectedWallet.getCommission(), selectedWallet.getCurrency().getValue());
+		return StringFormatUtil.getValueString(selectedWallet.getCommission(), selectedWallet.getCurrency().getValue());
 	}
 
 	private void getWalletAddresses() {

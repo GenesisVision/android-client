@@ -1,45 +1,45 @@
-package vision.genesis.clientapp.feature.main.wallet;
-
-import android.content.Context;
+package vision.genesis.clientapp.feature.main.wallet.specific_wallet;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.UUID;
+
 import javax.inject.Inject;
 
+import io.swagger.client.model.WalletData;
 import io.swagger.client.model.WalletMultiSummary;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
-import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
- * GenesisVision
- * Created by Vitaly on 1/19/18.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 19/02/2019.
  */
 
 @InjectViewState
-public class WalletPresenter extends MvpPresenter<WalletView> implements SelectCurrencyFragment.OnCurrencyChangedListener
+public class SpecificWalletPresenter extends MvpPresenter<SpecificWalletView>
 {
-	@Inject
-	public Context context;
-
 	@Inject
 	public SettingsManager settingsManager;
 
 	@Inject
 	public WalletManager walletManager;
 
+	private UUID walletId;
+
 	private Subscription baseCurrencySubscription;
 
-	private Subscription balanceSubscription;
+	private Subscription walletSubscription;
 
 	private CurrencyEnum baseCurrency;
+
+	private WalletData walletData;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -56,19 +56,23 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements SelectC
 	public void onDestroy() {
 		if (baseCurrencySubscription != null)
 			baseCurrencySubscription.unsubscribe();
-		if (balanceSubscription != null)
-			balanceSubscription.unsubscribe();
+		if (walletSubscription != null)
+			walletSubscription.unsubscribe();
 
 		super.onDestroy();
 	}
 
 	void onResume() {
-		updateBalance();
 	}
 
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
-		updateBalance();
+		subscribeToWallet();
+	}
+
+	void setWalletId(UUID walletId) {
+		this.walletId = walletId;
+		subscribeToWallet();
 	}
 
 	private void subscribeToBaseCurrency() {
@@ -80,43 +84,35 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements SelectC
 
 	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
 		this.baseCurrency = baseCurrency;
-		getViewState().setBaseCurrency(baseCurrency);
 		getViewState().showProgress(true);
-		updateBalance();
+		subscribeToWallet();
 	}
 
-	private void updateBalance() {
-		if (baseCurrency != null) {
-			if (balanceSubscription != null)
-				balanceSubscription.unsubscribe();
-			balanceSubscription = walletManager.getWallets(baseCurrency)
+	private void subscribeToWallet() {
+		if (walletManager != null && walletId != null && baseCurrency != null) {
+			if (walletSubscription != null)
+				walletSubscription.unsubscribe();
+			walletSubscription = walletManager.getWallets(baseCurrency)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleBalanceUpdateResponse,
-							this::handleBalanceUpdateError);
+					.subscribe(response -> handleWalletUpdateSuccess(response, walletId),
+							this::handleWalletUpdateError);
 		}
 	}
 
-	private void handleBalanceUpdateResponse(WalletMultiSummary response) {
-		balanceSubscription.unsubscribe();
-
-		getViewState().showProgress(false);
-		getViewState().setRefreshing(false);
-
-		getViewState().setBalance(response);
+	private void handleWalletUpdateSuccess(WalletMultiSummary response, UUID walletId) {
+		for (WalletData walletData : response.getWallets()) {
+			if (walletData.getId().equals(walletId)) {
+				this.walletData = walletData;
+				getViewState().showProgress(false);
+				getViewState().setRefreshing(false);
+				getViewState().setWalletData(walletData);
+				break;
+			}
+		}
 	}
 
-	private void handleBalanceUpdateError(Throwable throwable) {
-		balanceSubscription.unsubscribe();
+	private void handleWalletUpdateError(Throwable error) {
 
-		getViewState().setRefreshing(false);
-
-		ApiErrorResolver.resolveErrors(throwable,
-				message -> getViewState().showSnackbarMessage(message));
-	}
-
-	@Override
-	public void onCurrencyChanged(CurrencyEnum currency) {
-		settingsManager.saveBaseCurrency(currency);
 	}
 }

@@ -8,6 +8,7 @@ import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.model.WalletModel;
 
 /**
  * GenesisVision
@@ -57,4 +58,6 @@ public interface MainView extends MvpView
 	void hideSplashScreen();
 
 	void changeThemeWithAnim();
+
+	void showSpecificWallet(WalletModel walletModel);
 }

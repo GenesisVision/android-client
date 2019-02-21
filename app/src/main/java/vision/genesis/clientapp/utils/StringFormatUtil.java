@@ -108,8 +108,8 @@ public class StringFormatUtil
 		return String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(gvtValue, CurrencyEnum.GVT.getValue()));
 	}
 
-	public static String getBaseValueString(Double baseValue, String baseCurrency) {
-		return String.format(Locale.getDefault(), "%s %s", StringFormatUtil.formatCurrencyAmount(baseValue, baseCurrency), baseCurrency);
+	public static String getValueString(Double baseValue, String currency) {
+		return String.format(Locale.getDefault(), "%s %s", StringFormatUtil.formatCurrencyAmount(baseValue, currency), currency);
 	}
 
 	public static String getChangePercentString(Double first, Double last) {

@@ -1,14 +1,12 @@
 package vision.genesis.clientapp.model;
 
-import java.util.UUID;
-
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 18/02/2019.
  */
 public class TransactionsFilter
 {
-	private UUID walletId;
+	private String walletCurrency;
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
@@ -16,12 +14,12 @@ public class TransactionsFilter
 
 	private Integer take;
 
-	public UUID getWalletId() {
-		return walletId;
+	public String getWalletCurrency() {
+		return walletCurrency;
 	}
 
-	public void setWalletId(UUID walletId) {
-		this.walletId = walletId;
+	public void setWalletCurrency(String walletCurrency) {
+		this.walletCurrency = walletCurrency;
 	}
 
 	public DateRange getDateRange() {

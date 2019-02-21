@@ -72,6 +72,7 @@ import vision.genesis.clientapp.feature.main.wallet.WalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.external_transactions.ExternalTransactionsPresenter;
 import vision.genesis.clientapp.feature.main.wallet.my_wallets.MyWalletsPresenter;
+import vision.genesis.clientapp.feature.main.wallet.specific_wallet.SpecificWalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPresenter;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.confirm.ConfirmWalletWithdrawBottomSheetFragment;
@@ -236,4 +237,6 @@ public interface AppComponent
 	void inject(MyWalletsPresenter myWalletsPresenter);
 
 	void inject(ExternalTransactionsPresenter externalTransactionsPresenter);
+
+	void inject(SpecificWalletPresenter specificWalletPresenter);
 }

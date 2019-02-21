@@ -115,13 +115,13 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 			return;
 
 		getViewState().setBalance(StringFormatUtil.getGvtValueString(selected),
-				StringFormatUtil.getBaseValueString(selected * chartValue.getRate(), baseCurrency.getValue()));
+				StringFormatUtil.getValueString(selected * chartValue.getRate(), baseCurrency.getValue()));
 
 		Double changeValue = selected - first;
 		getViewState().setChange(changeValue < 0,
 				StringFormatUtil.getChangePercentString(first, selected),
 				StringFormatUtil.getChangeValueString(changeValue),
-				StringFormatUtil.getBaseValueString(changeValue * chartValue.getRate(), baseCurrency.getValue()));
+				StringFormatUtil.getValueString(changeValue * chartValue.getRate(), baseCurrency.getValue()));
 	}
 
 	public void chartViewModeTurnOff() {
@@ -137,6 +137,6 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 		getViewState().setInRequests(
 //				StringFormatUtil.getChangeValueString(totalValue),
 				StringFormatUtil.getGvtValueString(totalValue),
-				StringFormatUtil.getBaseValueString(totalValue * rate, baseCurrency.getValue()));
+				StringFormatUtil.getValueString(totalValue * rate, baseCurrency.getValue()));
 	}
 }

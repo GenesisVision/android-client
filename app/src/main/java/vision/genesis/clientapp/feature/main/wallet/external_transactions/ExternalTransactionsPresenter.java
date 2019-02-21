@@ -7,7 +7,6 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -68,9 +67,9 @@ public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransact
 		super.onDestroy();
 	}
 
-	void setWalletId(UUID walletId) {
+	void setWalletCurrency(String walletCurrency) {
 		filter = new TransactionsFilter();
-		filter.setWalletId(walletId);
+		filter.setWalletCurrency(walletCurrency);
 		filter.setSkip(0);
 		filter.setTake(TAKE);
 		getTransactions(true);

@@ -33,6 +33,7 @@ import vision.genesis.clientapp.feature.main.fund.FundDetailsActivity;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
+import vision.genesis.clientapp.feature.main.wallet.specific_wallet.SpecificWalletActivity;
 import vision.genesis.clientapp.feature.pin.check.CheckPinActivity;
 import vision.genesis.clientapp.feature.two_factor.disable.DisableTfaActivity;
 import vision.genesis.clientapp.feature.two_factor.setup.SetupTfaActivity;
@@ -40,6 +41,7 @@ import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.model.WalletModel;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
 import vision.genesis.clientapp.ui.common.BlockScreenHolder;
@@ -333,6 +335,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 //					StatusBarUtil.setColor(this, (int) animator.getAnimatedValue()));
 //			statusBarColorAnimation.start();
 //		}
+	}
+
+	@Override
+	public void showSpecificWallet(WalletModel walletModel) {
+		SpecificWalletActivity.startWith(this, walletModel);
 	}
 
 	@Override

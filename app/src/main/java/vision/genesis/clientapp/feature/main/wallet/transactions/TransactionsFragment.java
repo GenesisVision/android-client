@@ -13,7 +13,6 @@ import android.widget.RelativeLayout;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
-import java.util.UUID;
 
 import butterknife.BindDimen;
 import butterknife.BindView;
@@ -33,12 +32,12 @@ import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 
 public class TransactionsFragment extends BaseFragment implements TransactionsView, WalletPagerAdapter.OnPageVisibilityChanged
 {
-	private static final String EXTRA_WALLET_ID = "extra_wallet_id";
+	private static final String EXTRA_WALLET_CURRENCY = "extra_wallet_id";
 
-	public static TransactionsFragment with(@Nullable UUID walletId) {
+	public static TransactionsFragment with(@Nullable String walletCurrency) {
 		TransactionsFragment transactionsFragment = new TransactionsFragment();
 		Bundle arguments = new Bundle(1);
-		arguments.putSerializable(EXTRA_WALLET_ID, walletId);
+		arguments.putString(EXTRA_WALLET_CURRENCY, walletCurrency);
 		transactionsFragment.setArguments(arguments);
 		return transactionsFragment;
 	}
@@ -85,7 +84,7 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 		setFonts();
 
 		if (getArguments() != null) {
-			transactionsPresenter.setWalletId((UUID) getArguments().getSerializable(EXTRA_WALLET_ID));
+			transactionsPresenter.setWalletCurrency(getArguments().getString(EXTRA_WALLET_CURRENCY));
 
 			initRecyclerView();
 		}
