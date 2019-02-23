@@ -12,10 +12,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
-import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,11 +24,11 @@ import butterknife.OnClick;
 import io.swagger.client.model.WalletWithdrawalInfo;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.confirm.ConfirmWalletWithdrawBottomSheetFragment;
-import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.model.WalletModel;
 import vision.genesis.clientapp.model.WithdrawalRequest;
 import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -39,8 +40,11 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class WithdrawWalletActivity extends BaseSwipeBackActivity implements WithdrawWalletView
 {
-	public static void startWith(Activity activity) {
+	private static final String EXTRA_MODEL = "extra_model";
+
+	public static void startWith(Activity activity, WalletModel model) {
 		Intent intent = new Intent(activity.getApplicationContext(), WithdrawWalletActivity.class);
+		intent.putExtra(EXTRA_MODEL, model);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.slide_from_bottom, R.anim.hold);
 	}
@@ -51,17 +55,20 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 	@BindView(R.id.content)
 	public ViewGroup content;
 
-	@BindView(R.id.available_in_wallet)
-	public TextView availableInWallet;
+	@BindView(R.id.wallet_icon)
+	public SimpleDraweeView walletIcon;
+
+	@BindView(R.id.wallet_name)
+	public TextView walletName;
+
+	@BindView(R.id.wallet_balance)
+	public TextView walletBalance;
 
 	@BindView(R.id.edittext_amount)
 	public EditText amount;
 
 	@BindView(R.id.max)
 	public TextView max;
-
-	@BindView(R.id.wallet)
-	public TextView wallet;
 
 	@BindView(R.id.edittext_address)
 	public EditText address;
@@ -90,18 +97,11 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 	@InjectPresenter
 	WithdrawWalletPresenter withdrawWalletPresenter;
 
-	private ArrayList<String> walletsOptions;
-
-	private Integer selectedWalletsPosition = 0;
+	private WalletModel model;
 
 	@OnClick(R.id.button_close)
 	public void onCloseClicked() {
 		finishActivity();
-	}
-
-	@OnClick(R.id.available_in_wallet)
-	public void onAvailableClicked() {
-		withdrawWalletPresenter.onMaxClicked();
 	}
 
 	@OnClick(R.id.group_amount)
@@ -112,14 +112,6 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 	@OnClick(R.id.max)
 	public void onMaxClicked() {
 		withdrawWalletPresenter.onMaxClicked();
-	}
-
-	@OnClick(R.id.group_wallet)
-	public void onWalletClicked() {
-		SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
-				getString(R.string.select_wallet_currency), walletsOptions, selectedWalletsPosition);
-		fragment.setListener(withdrawWalletPresenter);
-		fragment.show(getSupportFragmentManager(), fragment.getTag());
 	}
 
 	@OnClick(R.id.scan_qr)
@@ -141,6 +133,11 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 
 		ButterKnife.bind(this);
 
+		if (getIntent().getExtras() != null) {
+			model = Objects.requireNonNull(getIntent().getExtras().getParcelable(EXTRA_MODEL));
+			withdrawWalletPresenter.setModel(model);
+		}
+
 		setFonts();
 
 		setTextListener();
@@ -160,20 +157,12 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 	}
 
 	@Override
-	public void setAvailableInWallet(Double availableInWallet) {
-		this.availableInWallet.setText(String.format(Locale.getDefault(), "%s GVT",
-				StringFormatUtil.formatCurrencyAmount(availableInWallet, CurrencyEnum.GVT.toString())));
-	}
-
-	@Override
-	public void setWalletsOptions(ArrayList<String> walletsOptions) {
-		this.walletsOptions = walletsOptions;
-	}
-
-	@Override
-	public void setWalletInfo(WalletWithdrawalInfo selectedWallet, String walletName, Integer position) {
-		this.wallet.setText(walletName);
-		this.selectedWalletsPosition = position;
+	public void setWalletInfo(WalletWithdrawalInfo wallet) {
+		this.walletIcon.setImageURI(ImageUtils.getImageUri(wallet.getLogo()));
+		this.walletName.setText(wallet.getDescription());
+		this.walletBalance.setText(String.format(Locale.getDefault(), "%s %s",
+				StringFormatUtil.formatCurrencyAmount(wallet.getAvailableToWithdrawal(), wallet.getCurrency().getValue()),
+				wallet.getCurrency().getValue()));
 	}
 
 	@Override

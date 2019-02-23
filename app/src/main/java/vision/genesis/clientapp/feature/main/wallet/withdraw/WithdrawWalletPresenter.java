@@ -5,8 +5,6 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -18,10 +16,10 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.confirm.ConfirmWalletWithdrawBottomSheetFragment;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.model.WalletModel;
 import vision.genesis.clientapp.model.WithdrawalRequest;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -33,7 +31,7 @@ import vision.genesis.clientapp.utils.ValidatorUtil;
  */
 
 @InjectViewState
-public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> implements SelectOptionBottomSheetFragment.OnOptionSelectedListener, ConfirmWalletWithdrawBottomSheetFragment.OnConfirmWalletWithdrawListener
+public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> implements ConfirmWalletWithdrawBottomSheetFragment.OnConfirmWalletWithdrawListener
 {
 	@Inject
 	public Context context;
@@ -43,15 +41,15 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 
 	private Subscription getWithdrawalInfoSubscription;
 
-	private List<WalletWithdrawalInfo> wallets;
-
-	private WalletWithdrawalInfo selectedWallet;
+	private WalletWithdrawalInfo walletInfo;
 
 	private Double availableInWallet;
 
 	private Double amount = 0.0;
 
 	private Double finalAmount = 0.0;
+
+	private WalletModel model;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -60,7 +58,8 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 		GenesisVisionApplication.getComponent().inject(this);
 
 		getViewState().showProgress(true);
-		getWalletAddresses();
+
+		getWalletInfo();
 	}
 
 	@Override
@@ -71,19 +70,24 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 		super.onDestroy();
 	}
 
+	public void setModel(WalletModel model) {
+		this.model = model;
+		getWalletInfo();
+	}
+
 	void onMaxClicked() {
 		if (availableInWallet != null) {
-			getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableInWallet, CurrencyEnum.GVT.getValue()));
+			getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableInWallet, walletInfo.getCurrency().getValue()));
 		}
 	}
 
 	void onContinueClicked(String address) {
-		if (selectedWallet == null) {
+		if (walletInfo == null) {
 			return;
 		}
 
 		Boolean isAddressValid;
-		switch (selectedWallet.getCurrency()) {
+		switch (walletInfo.getCurrency()) {
 			case GVT:
 			case ETH:
 				isAddressValid = ValidatorUtil.isEthAddressValid(address);
@@ -99,10 +103,11 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 
 		WithdrawalRequest request = new WithdrawalRequest();
 		request.setAmount(amount);
-		request.setCurrency(selectedWallet.getCurrency().getValue());
+		request.setCurrency(walletInfo.getCurrency().getValue());
 		request.setAddress(address);
-		request.setAmountText(String.format(Locale.getDefault(), "%s GVT",
-				StringFormatUtil.formatCurrencyAmount(amount, CurrencyEnum.GVT.getValue())));
+		request.setAmountText(String.format(Locale.getDefault(), "%s %s",
+				StringFormatUtil.formatCurrencyAmount(amount, walletInfo.getCurrency().getValue()),
+				walletInfo.getCurrency().getValue()));
 		request.setFeeAmountText(getFeeAmountString());
 		request.setEstimatedAmountText(getFinalAmountString());
 		getViewState().showConfirmDialog(request);
@@ -115,9 +120,9 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 			amount = 0.0;
 		}
 
-		if (availableInWallet != null && selectedWallet != null) {
+		if (availableInWallet != null && walletInfo != null) {
 			if (amount > availableInWallet) {
-				getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableInWallet, CurrencyEnum.GVT.getValue()));
+				getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableInWallet, walletInfo.getCurrency().getValue()));
 				return;
 			}
 
@@ -129,14 +134,14 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 	}
 
 	private void updateFeeAmount() {
-		if (selectedWallet != null) {
+		if (walletInfo != null) {
 			getViewState().setFeeAmount(getFeeAmountString());
 		}
 	}
 
 	private void updateFinalAmount() {
-		if (selectedWallet != null) {
-			finalAmount = amount * selectedWallet.getRateToGvt() - selectedWallet.getCommission();
+		if (walletInfo != null) {
+			finalAmount = amount - walletInfo.getCommission();
 			if (finalAmount < 0)
 				finalAmount = 0.0;
 
@@ -146,60 +151,51 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 	}
 
 	private String getFinalAmountLabelString() {
-		return selectedWallet.getCurrency().getValue().equals(CurrencyEnum.GVT.getValue())
+		return walletInfo.getCurrency().getValue().equals(CurrencyEnum.GVT.getValue())
 				? context.getString(R.string.you_will_get)
 				: context.getString(R.string.approximate_amount);
 	}
 
 	private String getFinalAmountString() {
-		return String.format(Locale.getDefault(), "%s %s", StringFormatUtil.formatAmount(finalAmount, 0, 8), selectedWallet.getCurrency().getValue());
+		return String.format(Locale.getDefault(), "%s %s", StringFormatUtil.formatCurrencyAmount(finalAmount, walletInfo.getCurrency().getValue()), walletInfo.getCurrency().getValue());
 	}
 
 	private String getFeeAmountString() {
-		return StringFormatUtil.getValueString(selectedWallet.getCommission(), selectedWallet.getCurrency().getValue());
+		return StringFormatUtil.getValueString(walletInfo.getCommission(), walletInfo.getCurrency().getValue());
 	}
 
-	private void getWalletAddresses() {
-		getViewState().showProgress(true);
-		getWithdrawalInfoSubscription = walletManager.getWalletWithdrawInfo()
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleGetWalletAddressesSuccess,
-						this::handleGetWalletAddressesError);
+	private void getWalletInfo() {
+		if (walletManager != null && model != null) {
+			getViewState().showProgress(true);
+			getWithdrawalInfoSubscription = walletManager.getWalletWithdrawInfo()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetWalletWithdrawInfoSuccess,
+							this::handleGetWalletWithdrawInfoError);
+		}
 	}
 
-	private void handleGetWalletAddressesSuccess(WithdrawalSummary response) {
+	private void handleGetWalletWithdrawInfoSuccess(WithdrawalSummary response) {
 		getWithdrawalInfoSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
-		availableInWallet = response.getAvailableToWithdrawal();
-		getViewState().setAvailableInWallet(availableInWallet);
-
-		wallets = response.getWallets();
-
-		ArrayList<String> walletsOptions = new ArrayList<>();
-		for (WalletWithdrawalInfo wallet : wallets) {
-			walletsOptions.add(String.format(Locale.getDefault(), "%s (%s)",
-					wallet.getDescription(), wallet.getCurrency().getValue()));
+		for (WalletWithdrawalInfo info : response.getWallets()) {
+			if (info.getCurrency().getValue().equals(model.getCurrency())) {
+				walletInfo = info;
+				availableInWallet = walletInfo.getAvailableToWithdrawal();
+				getViewState().setWalletInfo(walletInfo);
+				updateFinalAmount();
+				updateFeeAmount();
+				break;
+			}
 		}
-		getViewState().setWalletsOptions(walletsOptions);
-		onOptionSelected(0, walletsOptions.get(0));
-		onAmountChanged("0");
 	}
 
-	private void handleGetWalletAddressesError(Throwable throwable) {
+	private void handleGetWalletWithdrawInfoError(Throwable throwable) {
 		getWithdrawalInfoSubscription.unsubscribe();
 
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));
-	}
-
-	@Override
-	public void onOptionSelected(Integer position, String text) {
-		this.selectedWallet = wallets.get(position);
-		getViewState().setWalletInfo(selectedWallet, text, position);
-		updateFinalAmount();
-		updateFeeAmount();
 	}
 
 	@Override

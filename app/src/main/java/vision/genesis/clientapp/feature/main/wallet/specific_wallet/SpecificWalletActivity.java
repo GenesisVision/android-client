@@ -128,7 +128,7 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 
 	@OnClick(R.id.withdraw)
 	public void onWithdrawButtonClicked() {
-		WithdrawWalletActivity.startWith(this);
+		WithdrawWalletActivity.startWith(this, model);
 	}
 
 	@OnClick(R.id.add_funds)

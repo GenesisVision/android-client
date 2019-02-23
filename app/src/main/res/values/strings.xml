@@ -131,8 +131,8 @@
     <string name="address_copied">Copied to the clipboard</string>
     <string name="cannot_copy">Cannot copy</string>
 
-    <string name="enter_desired_amount_withdraw">Enter the desired amount of GVT you would like to withdraw:</string>
-    <string name="enter_wallet_address_withdraw">Enter the wallet address you would like to withdraw to:</string>
+    <string name="enter_desired_amount_withdraw">Enter correct amount you would like to withdraw</string>
+    <string name="enter_wallet_address_withdraw">Enter correct address</string>
     <string name="or_use_camera_qr_code">Or use your camera to read a QR code:</string>
     <string name="wallet_address">Wallet address</string>
     <string name="amount">Amount</string>
@@ -469,11 +469,11 @@
     <string name="scan_qr">Scan QR</string>
     <string name="withdrawal_address">Withdrawal address</string>
     <string name="amount_to_withdraw">Amount to withdraw</string>
-    <string name="wallet_withdraw_warning">Check again because after the approval the transaction cannot be reversed</string>
+    <string name="wallet_withdraw_warning">Please check the withdrawal details below. After you confirm it, please approve the withdrawal request by clicking on the link in the email we will send you.</string>
     <string name="withdrawal_amount">Withdrawal amount</string>
     <string name="to_address">To address</string>
     <string name="estimated_amount">Estimated amount</string>
-    <string name="confirm_withdraw">Confirm Withdraw</string>
+    <string name="confirm_withdrawal">Confirm Withdrawal</string>
     <string name="wallet_address_not_valid">The wallet address is not valid</string>
     <string name="manager_member_sicne_template">Member since %s</string>
     <string name="about">About</string>
