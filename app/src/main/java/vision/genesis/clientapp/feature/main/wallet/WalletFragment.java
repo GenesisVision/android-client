@@ -264,13 +264,13 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 	@Override
 	public void setBalance(WalletMultiSummary data) {
-		this.balance.setText(StringFormatUtil.getGvtValueString(data.getGrandTotal().getTotal()));
+		this.balance.setText(StringFormatUtil.getValueString(data.getGrandTotal().getTotal(), data.getGrandTotal().getCurrency().getValue()));
 		this.balanceBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getTotalCcy(), baseCurrency.getValue()));
 
-		this.available.setText(StringFormatUtil.getGvtValueString(data.getGrandTotal().getAvailable()));
+		this.available.setText(StringFormatUtil.getValueString(data.getGrandTotal().getAvailable(), data.getGrandTotal().getCurrency().getValue()));
 		this.availableBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getAvailableCcy(), baseCurrency.getValue()));
 
-		this.invested.setText(StringFormatUtil.getGvtValueString(data.getGrandTotal().getInvested()));
+		this.invested.setText(StringFormatUtil.getValueString(data.getGrandTotal().getInvested(), data.getGrandTotal().getCurrency().getValue()));
 		this.investedBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getInvestedCcy(), baseCurrency.getValue()));
 
 		availableShare.setProgress((int) (data.getGrandTotal().getAvailable() * 100 / data.getGrandTotal().getTotal()));

@@ -5,29 +5,28 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.jakewharton.rxbinding.widget.RxTextView;
 
 import net.glxn.qrgen.android.QRCode;
 
-import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.WalletInfo;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
+import vision.genesis.clientapp.model.WalletModel;
+import vision.genesis.clientapp.utils.ImageUtils;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -38,8 +37,11 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class DepositWalletActivity extends BaseSwipeBackActivity implements DepositWalletView
 {
-	public static void startWith(Activity activity) {
+	private static final String EXTRA_MODEL = "extra_model";
+
+	public static void startWith(Activity activity, WalletModel model) {
 		Intent intent = new Intent(activity.getApplicationContext(), DepositWalletActivity.class);
+		intent.putExtra(EXTRA_MODEL, model);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.slide_from_bottom, R.anim.hold);
 	}
@@ -50,17 +52,14 @@ public class DepositWalletActivity extends BaseSwipeBackActivity implements Depo
 	@BindView(R.id.content)
 	public ViewGroup content;
 
-	@BindView(R.id.wallet)
-	public TextView wallet;
+	@BindView(R.id.wallet_icon)
+	public SimpleDraweeView walletIcon;
 
-	@BindView(R.id.edittext_amount)
-	public EditText amount;
+	@BindView(R.id.wallet_name)
+	public TextView walletName;
 
-	@BindView(R.id.currency)
-	public TextView currency;
-
-	@BindView(R.id.base_currency_amount)
-	public TextView baseCurrencyAmount;
+	@BindView(R.id.wallet_balance)
+	public TextView walletBalance;
 
 	@BindView(R.id.address)
 	public TextView address;
@@ -68,35 +67,20 @@ public class DepositWalletActivity extends BaseSwipeBackActivity implements Depo
 	@BindView(R.id.image_qr_code)
 	public ImageView qrCodeImage;
 
-	@BindView(R.id.progress_bar)
-	public ProgressBar progressBar;
-
 	@InjectPresenter
 	DepositWalletPresenter depositWalletPresenter;
 
-	private String walletAddress = "";
-
-	private ArrayList<String> walletsOptions;
-
-	private Integer selectedWalletsPosition = 0;
+	private WalletModel model;
 
 	@OnClick(R.id.button_close)
 	public void onCloseClicked() {
 		finishActivity();
 	}
 
-	@OnClick(R.id.group_wallet)
-	public void onWalletClicked() {
-		SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
-				getString(R.string.select_wallet_currency), walletsOptions, selectedWalletsPosition);
-		fragment.setListener(depositWalletPresenter);
-		fragment.show(getSupportFragmentManager(), fragment.getTag());
-	}
-
 	@OnClick(R.id.button_copy)
 	public void onCopyClicked() {
 		ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-		ClipData clipData = ClipData.newPlainText("address", walletAddress);
+		ClipData clipData = ClipData.newPlainText("address", model.getAddress());
 		if (clipboardManager != null) {
 			clipboardManager.setPrimaryClip(clipData);
 			Toast.makeText(this, getString(R.string.address_copied), Toast.LENGTH_SHORT).show();
@@ -115,56 +99,32 @@ public class DepositWalletActivity extends BaseSwipeBackActivity implements Depo
 
 		ButterKnife.bind(this);
 
+		if (getIntent().getExtras() != null) {
+			model = Objects.requireNonNull(getIntent().getExtras().getParcelable(EXTRA_MODEL));
+			updateData(model);
+		}
+
 		setFonts();
-
-		setTextListener();
 	}
 
-	private void setFonts() {
-		title.setTypeface(TypefaceUtil.semibold());
-	}
+	private void updateData(WalletModel model) {
+		this.walletIcon.setImageURI(ImageUtils.getImageUri(model.getLogo()));
+		this.walletName.setText(model.getTitle());
+		this.walletBalance.setText(String.format(Locale.getDefault(), "%s %s",
+				StringFormatUtil.formatCurrencyAmount(model.getAvailable(), model.getCurrency()),
+				model.getCurrency()));
 
-	private void setTextListener() {
-		RxTextView.textChanges(amount)
-				.subscribe(charSequence -> depositWalletPresenter.onAmountChanged(charSequence.toString()));
-	}
-
-	@Override
-	public void setWalletsOptions(ArrayList<String> walletsOptions) {
-		this.walletsOptions = walletsOptions;
-	}
-
-	@Override
-	public void setWalletInfo(WalletInfo wallet, String walletName, Integer position) {
-		this.wallet.setText(walletName);
-		this.selectedWalletsPosition = position;
-		this.walletAddress = wallet.getAddress();
-		this.address.setText(wallet.getAddress());
-		this.currency.setText(wallet.getCurrency().getValue());
-		qrCodeImage.setImageBitmap(QRCode.from(wallet.getAddress())
+		this.address.setText(model.getAddress());
+		this.qrCodeImage.setImageBitmap(QRCode.from(model.getAddress())
 				.withColor(ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary),
-						ThemeUtil.getColorByAttrId(this, R.attr.colorBackground))
+						ThemeUtil.getColorByAttrId(this, R.attr.colorCard))
 				.withSize(1000, 1000)
 				.withErrorCorrection(ErrorCorrectionLevel.H)
 				.bitmap());
 	}
 
-	@Override
-	public void setAmountBase(String amountBaseString) {
-		this.baseCurrencyAmount.setText(amountBaseString);
-	}
-
-	@Override
-	public void showProgress(boolean show) {
-		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-		if (!show) {
-			content.setVisibility(View.VISIBLE);
-		}
-	}
-
-	@Override
-	public void showSnackbarMessage(String message) {
-		showSnackbar(message, title);
+	private void setFonts() {
+		title.setTypeface(TypefaceUtil.semibold());
 	}
 
 	@Override
@@ -172,10 +132,8 @@ public class DepositWalletActivity extends BaseSwipeBackActivity implements Depo
 		finishActivity();
 	}
 
-	@Override
-	public void finishActivity() {
+	private void finishActivity() {
 		finish();
 		overridePendingTransition(R.anim.hold, R.anim.slide_to_bottom);
 	}
-
 }

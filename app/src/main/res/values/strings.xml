@@ -556,5 +556,7 @@
     <string name="deposits_withdrawals">Deposits/Withdrawals</string>
     <string name="status_done">Done</string>
     <string name="no_deposits_or_withdrawals">There are currently no deposits or withdrawals</string>
+    <string name="external_address">External address</string>
+    <string name="deposit_to_this_address">Deposit to this address</string>
 
 </resources>

@@ -22,6 +22,8 @@ import io.swagger.client.model.WalletData;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
+import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
 import vision.genesis.clientapp.model.WalletModel;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -124,29 +126,15 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 		onBackPressed();
 	}
 
-//	@OnClick(R.id.date_range)
-//	public void onDateRangeClicked() {
-//		if (getActivity() != null) {
-//			DateRangeBottomSheetFragment bottomSheetDialog = new DateRangeBottomSheetFragment();
-//			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
-//			bottomSheetDialog.setDateRange(dateRange);
-//			bottomSheetDialog.setListener(walletPresenter);
-//		}
-//	}
+	@OnClick(R.id.withdraw)
+	public void onWithdrawButtonClicked() {
+		WithdrawWalletActivity.startWith(this);
+	}
 
-//	@OnClick(R.id.withdraw)
-//	public void onWithdrawButtonClicked() {
-//		if (getActivity() != null) {
-//			WithdrawWalletActivity.startWith(getActivity());
-//		}
-//	}
-//
-//	@OnClick(R.id.add_funds)
-//	public void onAddFundsButtonClicked() {
-//		if (getActivity() != null) {
-//			DepositWalletActivity.startWith(getActivity());
-//		}
-//	}
+	@OnClick(R.id.add_funds)
+	public void onAddFundsButtonClicked() {
+		DepositWalletActivity.startWith(this, model);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -301,7 +289,6 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 
 		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
 		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
-//			viewPager.addOnPageChangeListener(this);
 	}
 
 	@Override

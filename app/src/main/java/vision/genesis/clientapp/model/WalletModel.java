@@ -27,7 +27,8 @@ public class WalletModel implements Parcelable
 	};
 
 	public static WalletModel createFrom(WalletData walletData) {
-		return new WalletModel(walletData.getId(), walletData.getLogo(), walletData.getTitle(), walletData.getCurrency().getValue());
+		return new WalletModel(walletData.getId(), walletData.getLogo(), walletData.getTitle(),
+				walletData.getCurrency().getValue(), walletData.getAvailable(), walletData.getAddress());
 	}
 
 	private UUID id;
@@ -38,18 +39,26 @@ public class WalletModel implements Parcelable
 
 	private String currency;
 
-	protected WalletModel(Parcel in) {
+	private Double available;
+
+	private String address;
+
+	private WalletModel(Parcel in) {
 		id = (UUID) in.readSerializable();
 		logo = in.readString();
 		title = in.readString();
 		currency = in.readString();
+		available = in.readDouble();
+		address = in.readString();
 	}
 
-	public WalletModel(UUID id, String logo, String title, String currency) {
+	private WalletModel(UUID id, String logo, String title, String currency, Double available, String address) {
 		this.id = id;
 		this.logo = logo;
 		this.title = title;
 		this.currency = currency;
+		this.available = available;
+		this.address = address;
 	}
 
 	public UUID getId() {
@@ -84,6 +93,10 @@ public class WalletModel implements Parcelable
 		this.currency = currency;
 	}
 
+	public Double getAvailable() {
+		return available;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -95,5 +108,11 @@ public class WalletModel implements Parcelable
 		parcel.writeString(logo);
 		parcel.writeString(title);
 		parcel.writeString(currency);
+		parcel.writeDouble(available);
+		parcel.writeString(address);
+	}
+
+	public String getAddress() {
+		return address;
 	}
 }
