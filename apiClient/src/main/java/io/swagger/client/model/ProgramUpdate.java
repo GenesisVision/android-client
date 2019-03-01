@@ -34,6 +34,9 @@ public class ProgramUpdate
 	@SerializedName("logo")
 	private String logo = null;
 
+	@SerializedName("stopOutLevel")
+	private Double stopOutLevel = null;
+
 	public ProgramUpdate title(String title) {
 		this.title = title;
 		return this;
@@ -91,6 +94,25 @@ public class ProgramUpdate
 		this.logo = logo;
 	}
 
+	public ProgramUpdate stopOutLevel(Double stopOutLevel) {
+		this.stopOutLevel = stopOutLevel;
+		return this;
+	}
+
+	/**
+	 * Get stopOutLevel
+	 *
+	 * @return stopOutLevel
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getStopOutLevel() {
+		return stopOutLevel;
+	}
+
+	public void setStopOutLevel(Double stopOutLevel) {
+		this.stopOutLevel = stopOutLevel;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -103,12 +125,13 @@ public class ProgramUpdate
 		ProgramUpdate programUpdate = (ProgramUpdate) o;
 		return Objects.equals(this.title, programUpdate.title) &&
 				Objects.equals(this.description, programUpdate.description) &&
-				Objects.equals(this.logo, programUpdate.logo);
+				Objects.equals(this.logo, programUpdate.logo) &&
+				Objects.equals(this.stopOutLevel, programUpdate.stopOutLevel);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, description, logo);
+		return Objects.hash(title, description, logo, stopOutLevel);
 	}
 
 
@@ -120,6 +143,7 @@ public class ProgramUpdate
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

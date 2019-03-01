@@ -1,9 +1,12 @@
 package io.swagger.client.api;
 
+import org.joda.time.DateTime;
+
 import java.util.UUID;
 
 import io.swagger.client.model.CopyTradingAccountsList;
-import io.swagger.client.model.OpenSignalTradesList;
+import io.swagger.client.model.TradesHistorySignalSlaveViewModel;
+import io.swagger.client.model.TradesOpenSignalSlaveViewModel;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import rx.Observable;
@@ -53,14 +56,46 @@ public interface SignalApi
 	);
 
 	/**
+	 * Close signal trade
+	 *
+	 * @param id            Trade id (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v1.0/signal/trades/{id}/close")
+	Observable<Void> v10SignalTradesByIdClosePost(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Get investors signals trades history
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param dateFrom      (optional)
+	 * @param dateTo        (optional)
+	 * @param symbol        (optional)
+	 * @param sorting       (optional)
+	 * @param skip          (optional)
+	 * @param take          (optional)
+	 * @return Call&lt;TradesHistorySignalSlaveViewModel&gt;
+	 */
+	@GET("v1.0/signal/trades")
+	Observable<TradesHistorySignalSlaveViewModel> v10SignalTradesGet(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
 	 * Get investors signals open trades
 	 *
 	 * @param authorization JWT access token (required)
-	 * @return Call&lt;OpenSignalTradesList&gt;
+	 * @param sorting       (optional)
+	 * @param skip          (optional)
+	 * @param take          (optional)
+	 * @return Call&lt;TradesOpenSignalSlaveViewModel&gt;
 	 */
-	@GET("v1.0/signal/opensignaltrades")
-	Observable<OpenSignalTradesList> v10SignalOpensignaltradesGet(
-			@retrofit2.http.Header("Authorization") String authorization
+	@GET("v1.0/signal/trades/open")
+	Observable<TradesOpenSignalSlaveViewModel> v10SignalTradesOpenGet(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

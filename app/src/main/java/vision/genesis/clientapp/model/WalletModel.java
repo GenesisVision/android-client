@@ -28,7 +28,7 @@ public class WalletModel implements Parcelable
 
 	public static WalletModel createFrom(WalletData walletData) {
 		return new WalletModel(walletData.getId(), walletData.getLogo(), walletData.getTitle(),
-				walletData.getCurrency().getValue(), walletData.getAvailable(), walletData.getAddress());
+				walletData.getCurrency().getValue(), walletData.getAvailable(), walletData.getDepositAddress());
 	}
 
 	private UUID id;

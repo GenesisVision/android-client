@@ -57,6 +57,9 @@ public class TransactionDetails
 	@SerializedName("gvCommission")
 	private Double gvCommission = null;
 
+	@SerializedName("gvCommissionCurrency")
+	private GvCommissionCurrencyEnum gvCommissionCurrency = null;
+
 	@SerializedName("gvCommissionPercent")
 	private Double gvCommissionPercent = null;
 
@@ -234,6 +237,25 @@ public class TransactionDetails
 		this.gvCommission = gvCommission;
 	}
 
+	public TransactionDetails gvCommissionCurrency(GvCommissionCurrencyEnum gvCommissionCurrency) {
+		this.gvCommissionCurrency = gvCommissionCurrency;
+		return this;
+	}
+
+	/**
+	 * Get gvCommissionCurrency
+	 *
+	 * @return gvCommissionCurrency
+	 **/
+	@ApiModelProperty(value = "")
+	public GvCommissionCurrencyEnum getGvCommissionCurrency() {
+		return gvCommissionCurrency;
+	}
+
+	public void setGvCommissionCurrency(GvCommissionCurrencyEnum gvCommissionCurrency) {
+		this.gvCommissionCurrency = gvCommissionCurrency;
+	}
+
 	public TransactionDetails gvCommissionPercent(Double gvCommissionPercent) {
 		this.gvCommissionPercent = gvCommissionPercent;
 		return this;
@@ -290,13 +312,14 @@ public class TransactionDetails
 				Objects.equals(this.currencyName, transactionDetails.currencyName) &&
 				Objects.equals(this.currencyLogo, transactionDetails.currencyLogo) &&
 				Objects.equals(this.gvCommission, transactionDetails.gvCommission) &&
+				Objects.equals(this.gvCommissionCurrency, transactionDetails.gvCommissionCurrency) &&
 				Objects.equals(this.gvCommissionPercent, transactionDetails.gvCommissionPercent) &&
 				Objects.equals(this.amount, transactionDetails.amount);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(type, programDetails, convertingDetails, externalTransactionDetails, status, currency, currencyName, currencyLogo, gvCommission, gvCommissionPercent, amount);
+		return Objects.hash(type, programDetails, convertingDetails, externalTransactionDetails, status, currency, currencyName, currencyLogo, gvCommission, gvCommissionCurrency, gvCommissionPercent, amount);
 	}
 
 	@Override
@@ -313,6 +336,7 @@ public class TransactionDetails
 		sb.append("    currencyName: ").append(toIndentedString(currencyName)).append("\n");
 		sb.append("    currencyLogo: ").append(toIndentedString(currencyLogo)).append("\n");
 		sb.append("    gvCommission: ").append(toIndentedString(gvCommission)).append("\n");
+		sb.append("    gvCommissionCurrency: ").append(toIndentedString(gvCommissionCurrency)).append("\n");
 		sb.append("    gvCommissionPercent: ").append(toIndentedString(gvCommissionPercent)).append("\n");
 		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
 		sb.append("}");
@@ -329,6 +353,7 @@ public class TransactionDetails
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
+
 
 	/**
 	 * Gets or Sets type
@@ -350,7 +375,9 @@ public class TransactionDetails
 
 		CLOSE("Close"),
 
-		PROFIT("Profit");
+		PROFIT("Profit"),
+
+		PLATFORMFEE("PlatformFee");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {
@@ -390,7 +417,6 @@ public class TransactionDetails
 			}
 		}
 	}
-
 
 	/**
 	 * Gets or Sets status
@@ -444,6 +470,7 @@ public class TransactionDetails
 			}
 		}
 	}
+
 
 	/**
 	 * Gets or Sets currency
@@ -512,6 +539,77 @@ public class TransactionDetails
 			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
 				String value = jsonReader.nextString();
 				return CurrencyEnum.fromValue(String.valueOf(value));
+			}
+		}
+	}
+
+	/**
+	 * Gets or Sets gvCommissionCurrency
+	 */
+	@JsonAdapter(GvCommissionCurrencyEnum.Adapter.class)
+	public enum GvCommissionCurrencyEnum
+	{
+		UNDEFINED("Undefined"),
+
+		GVT("GVT"),
+
+		ETH("ETH"),
+
+		BTC("BTC"),
+
+		ADA("ADA"),
+
+		USDT("USDT"),
+
+		XRP("XRP"),
+
+		BCH("BCH"),
+
+		LTC("LTC"),
+
+		DOGE("DOGE"),
+
+		BNB("BNB"),
+
+		USD("USD"),
+
+		EUR("EUR");
+
+		public static GvCommissionCurrencyEnum fromValue(String text) {
+			for (GvCommissionCurrencyEnum b : GvCommissionCurrencyEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		GvCommissionCurrencyEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<GvCommissionCurrencyEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final GvCommissionCurrencyEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public GvCommissionCurrencyEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return GvCommissionCurrencyEnum.fromValue(String.valueOf(value));
 			}
 		}
 	}

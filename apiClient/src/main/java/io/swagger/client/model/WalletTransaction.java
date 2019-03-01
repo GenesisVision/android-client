@@ -545,7 +545,9 @@ public class WalletTransaction
 
 		PAYMENTTRANSACTION("PaymentTransaction"),
 
-		BLOCKCHAIN("Blockchain");
+		BLOCKCHAIN("Blockchain"),
+
+		GENESISVISIONPLATFORM("GenesisVisionPlatform");
 
 		public static SourceTypeEnum fromValue(String text) {
 			for (SourceTypeEnum b : SourceTypeEnum.values()) {
@@ -682,7 +684,9 @@ public class WalletTransaction
 
 		PROGRAMREQUESTWITHDRAWAL("ProgramRequestWithdrawal"),
 
-		PROGRAMREQUESTCANCEL("ProgramRequestCancel");
+		PROGRAMREQUESTCANCEL("ProgramRequestCancel"),
+
+		PAYINGFEE("PayingFee");
 
 		public static ActionEnum fromValue(String text) {
 			for (ActionEnum b : ActionEnum.values()) {
@@ -744,7 +748,9 @@ public class WalletTransaction
 
 		PAYMENTTRANSACTION("PaymentTransaction"),
 
-		BLOCKCHAIN("Blockchain");
+		BLOCKCHAIN("Blockchain"),
+
+		GENESISVISIONPLATFORM("GenesisVisionPlatform");
 
 		public static DestinationTypeEnum fromValue(String text) {
 			for (DestinationTypeEnum b : DestinationTypeEnum.values()) {

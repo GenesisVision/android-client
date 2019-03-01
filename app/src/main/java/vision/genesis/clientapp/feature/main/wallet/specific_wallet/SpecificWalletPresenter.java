@@ -16,6 +16,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
  * GenesisVisionAndroid
@@ -63,6 +64,7 @@ public class SpecificWalletPresenter extends MvpPresenter<SpecificWalletView>
 	}
 
 	void onResume() {
+		subscribeToWallet();
 	}
 
 	void onSwipeRefresh() {
@@ -92,7 +94,7 @@ public class SpecificWalletPresenter extends MvpPresenter<SpecificWalletView>
 		if (walletManager != null && walletId != null && baseCurrency != null) {
 			if (walletSubscription != null)
 				walletSubscription.unsubscribe();
-			walletSubscription = walletManager.getWallets(baseCurrency)
+			walletSubscription = walletManager.getWallets(baseCurrency.getValue())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(response -> handleWalletUpdateSuccess(response, walletId),
@@ -101,6 +103,8 @@ public class SpecificWalletPresenter extends MvpPresenter<SpecificWalletView>
 	}
 
 	private void handleWalletUpdateSuccess(WalletMultiSummary response, UUID walletId) {
+		walletSubscription.unsubscribe();
+
 		for (WalletData walletData : response.getWallets()) {
 			if (walletData.getId().equals(walletId)) {
 				this.walletData = walletData;
@@ -112,7 +116,10 @@ public class SpecificWalletPresenter extends MvpPresenter<SpecificWalletView>
 		}
 	}
 
-	private void handleWalletUpdateError(Throwable error) {
+	private void handleWalletUpdateError(Throwable throwable) {
+		walletSubscription.unsubscribe();
 
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
 	}
 }

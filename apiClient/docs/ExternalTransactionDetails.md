@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **description** | **String** |  |  [optional]
 **descriptionUrl** | **String** |  |  [optional]
 **fromAddress** | **String** |  |  [optional]
+**isEnableActions** | **Boolean** |  |  [optional]
 
 
 

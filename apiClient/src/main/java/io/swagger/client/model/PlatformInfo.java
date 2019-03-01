@@ -48,8 +48,8 @@ public class PlatformInfo
 	@SerializedName("platformCurrencies")
 	private List<PlatformCurrency> platformCurrencies = null;
 
-	@SerializedName("programTags")
-	private List<ProgramTag> programTags = null;
+	@SerializedName("enums")
+	private Enums enums = null;
 
 	public PlatformInfo iOSVersion(IOsAppVersion iOSVersion) {
 		this.iOSVersion = iOSVersion;
@@ -216,31 +216,23 @@ public class PlatformInfo
 		this.platformCurrencies = platformCurrencies;
 	}
 
-	public PlatformInfo programTags(List<ProgramTag> programTags) {
-		this.programTags = programTags;
-		return this;
-	}
-
-	public PlatformInfo addProgramTagsItem(ProgramTag programTagsItem) {
-		if (this.programTags == null) {
-			this.programTags = new ArrayList<ProgramTag>();
-		}
-		this.programTags.add(programTagsItem);
+	public PlatformInfo enums(Enums enums) {
+		this.enums = enums;
 		return this;
 	}
 
 	/**
-	 * Get programTags
+	 * Get enums
 	 *
-	 * @return programTags
+	 * @return enums
 	 **/
 	@ApiModelProperty(value = "")
-	public List<ProgramTag> getProgramTags() {
-		return programTags;
+	public Enums getEnums() {
+		return enums;
 	}
 
-	public void setProgramTags(List<ProgramTag> programTags) {
-		this.programTags = programTags;
+	public void setEnums(Enums enums) {
+		this.enums = enums;
 	}
 
 
@@ -260,12 +252,12 @@ public class PlatformInfo
 				Objects.equals(this.programsInfo, platformInfo.programsInfo) &&
 				Objects.equals(this.currencies, platformInfo.currencies) &&
 				Objects.equals(this.platformCurrencies, platformInfo.platformCurrencies) &&
-				Objects.equals(this.programTags, platformInfo.programTags);
+				Objects.equals(this.enums, platformInfo.enums);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(iOSVersion, androidVersion, programsFacets, fundsFacets, programsInfo, currencies, platformCurrencies, programTags);
+		return Objects.hash(iOSVersion, androidVersion, programsFacets, fundsFacets, programsInfo, currencies, platformCurrencies, enums);
 	}
 
 
@@ -281,7 +273,7 @@ public class PlatformInfo
 		sb.append("    programsInfo: ").append(toIndentedString(programsInfo)).append("\n");
 		sb.append("    currencies: ").append(toIndentedString(currencies)).append("\n");
 		sb.append("    platformCurrencies: ").append(toIndentedString(platformCurrencies)).append("\n");
-		sb.append("    programTags: ").append(toIndentedString(programTags)).append("\n");
+		sb.append("    enums: ").append(toIndentedString(enums)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

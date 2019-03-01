@@ -44,6 +44,9 @@ public class ProgramDetails
 	@SerializedName("periodDuration")
 	private Integer periodDuration = null;
 
+	@SerializedName("stopOutLevel")
+	private Double stopOutLevel = null;
+
 	@SerializedName("periodStarts")
 	private DateTime periodStarts = null;
 
@@ -52,6 +55,12 @@ public class ProgramDetails
 
 	@SerializedName("availableInvestment")
 	private Double availableInvestment = null;
+
+	@SerializedName("availableInvestmentBase")
+	private Double availableInvestmentBase = null;
+
+	@SerializedName("dashboardAssetsDetails")
+	private DashboardProgramDetails dashboardAssetsDetails = null;
 
 	@SerializedName("statistic")
 	private ProgramDetailsListStatistic statistic = null;
@@ -91,9 +100,6 @@ public class ProgramDetails
 
 	@SerializedName("chart")
 	private List<ChartSimple> chart = null;
-
-	@SerializedName("dashboardAssetsDetails")
-	private DashboardProgramDetails dashboardAssetsDetails = null;
 
 	public ProgramDetails currency(CurrencyEnum currency) {
 		this.currency = currency;
@@ -152,6 +158,25 @@ public class ProgramDetails
 		this.periodDuration = periodDuration;
 	}
 
+	public ProgramDetails stopOutLevel(Double stopOutLevel) {
+		this.stopOutLevel = stopOutLevel;
+		return this;
+	}
+
+	/**
+	 * Get stopOutLevel
+	 *
+	 * @return stopOutLevel
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getStopOutLevel() {
+		return stopOutLevel;
+	}
+
+	public void setStopOutLevel(Double stopOutLevel) {
+		this.stopOutLevel = stopOutLevel;
+	}
+
 	public ProgramDetails periodStarts(DateTime periodStarts) {
 		this.periodStarts = periodStarts;
 		return this;
@@ -196,17 +221,55 @@ public class ProgramDetails
 	}
 
 	/**
-	 * Get availableInvestment
+	 * In GVT
 	 *
 	 * @return availableInvestment
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(value = "In GVT")
 	public Double getAvailableInvestment() {
 		return availableInvestment;
 	}
 
 	public void setAvailableInvestment(Double availableInvestment) {
 		this.availableInvestment = availableInvestment;
+	}
+
+	public ProgramDetails availableInvestmentBase(Double availableInvestmentBase) {
+		this.availableInvestmentBase = availableInvestmentBase;
+		return this;
+	}
+
+	/**
+	 * In account currency
+	 *
+	 * @return availableInvestmentBase
+	 **/
+	@ApiModelProperty(value = "In account currency")
+	public Double getAvailableInvestmentBase() {
+		return availableInvestmentBase;
+	}
+
+	public void setAvailableInvestmentBase(Double availableInvestmentBase) {
+		this.availableInvestmentBase = availableInvestmentBase;
+	}
+
+	public ProgramDetails dashboardAssetsDetails(DashboardProgramDetails dashboardAssetsDetails) {
+		this.dashboardAssetsDetails = dashboardAssetsDetails;
+		return this;
+	}
+
+	/**
+	 * Fields for dashboard
+	 *
+	 * @return dashboardAssetsDetails
+	 **/
+	@ApiModelProperty(value = "Fields for dashboard")
+	public DashboardProgramDetails getDashboardAssetsDetails() {
+		return dashboardAssetsDetails;
+	}
+
+	public void setDashboardAssetsDetails(DashboardProgramDetails dashboardAssetsDetails) {
+		this.dashboardAssetsDetails = dashboardAssetsDetails;
 	}
 
 	public ProgramDetails statistic(ProgramDetailsListStatistic statistic) {
@@ -472,25 +535,6 @@ public class ProgramDetails
 		this.chart = chart;
 	}
 
-	public ProgramDetails dashboardAssetsDetails(DashboardProgramDetails dashboardAssetsDetails) {
-		this.dashboardAssetsDetails = dashboardAssetsDetails;
-		return this;
-	}
-
-	/**
-	 * Fields for dashboard
-	 *
-	 * @return dashboardAssetsDetails
-	 **/
-	@ApiModelProperty(value = "Fields for dashboard")
-	public DashboardProgramDetails getDashboardAssetsDetails() {
-		return dashboardAssetsDetails;
-	}
-
-	public void setDashboardAssetsDetails(DashboardProgramDetails dashboardAssetsDetails) {
-		this.dashboardAssetsDetails = dashboardAssetsDetails;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -503,9 +547,12 @@ public class ProgramDetails
 		return Objects.equals(this.currency, programDetails.currency) &&
 				Objects.equals(this.level, programDetails.level) &&
 				Objects.equals(this.periodDuration, programDetails.periodDuration) &&
+				Objects.equals(this.stopOutLevel, programDetails.stopOutLevel) &&
 				Objects.equals(this.periodStarts, programDetails.periodStarts) &&
 				Objects.equals(this.periodEnds, programDetails.periodEnds) &&
 				Objects.equals(this.availableInvestment, programDetails.availableInvestment) &&
+				Objects.equals(this.availableInvestmentBase, programDetails.availableInvestmentBase) &&
+				Objects.equals(this.dashboardAssetsDetails, programDetails.dashboardAssetsDetails) &&
 				Objects.equals(this.statistic, programDetails.statistic) &&
 				Objects.equals(this.rating, programDetails.rating) &&
 				Objects.equals(this.personalDetails, programDetails.personalDetails) &&
@@ -518,13 +565,12 @@ public class ProgramDetails
 				Objects.equals(this.description, programDetails.description) &&
 				Objects.equals(this.status, programDetails.status) &&
 				Objects.equals(this.manager, programDetails.manager) &&
-				Objects.equals(this.chart, programDetails.chart) &&
-				Objects.equals(this.dashboardAssetsDetails, programDetails.dashboardAssetsDetails);
+				Objects.equals(this.chart, programDetails.chart);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, availableInvestment, statistic, rating, personalDetails, tags, id, logo, url, color, title, description, status, manager, chart, dashboardAssetsDetails);
+		return Objects.hash(currency, level, periodDuration, stopOutLevel, periodStarts, periodEnds, availableInvestment, availableInvestmentBase, dashboardAssetsDetails, statistic, rating, personalDetails, tags, id, logo, url, color, title, description, status, manager, chart);
 	}
 
 	@Override
@@ -535,9 +581,12 @@ public class ProgramDetails
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
 		sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
+		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
 		sb.append("    periodStarts: ").append(toIndentedString(periodStarts)).append("\n");
 		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
+		sb.append("    availableInvestmentBase: ").append(toIndentedString(availableInvestmentBase)).append("\n");
+		sb.append("    dashboardAssetsDetails: ").append(toIndentedString(dashboardAssetsDetails)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    rating: ").append(toIndentedString(rating)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
@@ -551,7 +600,6 @@ public class ProgramDetails
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
-		sb.append("    dashboardAssetsDetails: ").append(toIndentedString(dashboardAssetsDetails)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

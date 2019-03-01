@@ -51,6 +51,12 @@ public class BrokerAccountType
 	@SerializedName("currencies")
 	private List<String> currencies = null;
 
+	@SerializedName("isForex")
+	private Boolean isForex = null;
+
+	@SerializedName("isSignalsAvailable")
+	private Boolean isSignalsAvailable = null;
+
 	public BrokerAccountType id(UUID id) {
 		this.id = id;
 		return this;
@@ -181,6 +187,44 @@ public class BrokerAccountType
 		this.currencies = currencies;
 	}
 
+	public BrokerAccountType isForex(Boolean isForex) {
+		this.isForex = isForex;
+		return this;
+	}
+
+	/**
+	 * Get isForex
+	 *
+	 * @return isForex
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsForex() {
+		return isForex;
+	}
+
+	public void setIsForex(Boolean isForex) {
+		this.isForex = isForex;
+	}
+
+	public BrokerAccountType isSignalsAvailable(Boolean isSignalsAvailable) {
+		this.isSignalsAvailable = isSignalsAvailable;
+		return this;
+	}
+
+	/**
+	 * Get isSignalsAvailable
+	 *
+	 * @return isSignalsAvailable
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsSignalsAvailable() {
+		return isSignalsAvailable;
+	}
+
+	public void setIsSignalsAvailable(Boolean isSignalsAvailable) {
+		this.isSignalsAvailable = isSignalsAvailable;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -195,12 +239,14 @@ public class BrokerAccountType
 				Objects.equals(this.description, brokerAccountType.description) &&
 				Objects.equals(this.type, brokerAccountType.type) &&
 				Objects.equals(this.leverages, brokerAccountType.leverages) &&
-				Objects.equals(this.currencies, brokerAccountType.currencies);
+				Objects.equals(this.currencies, brokerAccountType.currencies) &&
+				Objects.equals(this.isForex, brokerAccountType.isForex) &&
+				Objects.equals(this.isSignalsAvailable, brokerAccountType.isSignalsAvailable);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, description, type, leverages, currencies);
+		return Objects.hash(id, name, description, type, leverages, currencies, isForex, isSignalsAvailable);
 	}
 
 	@Override
@@ -214,6 +260,8 @@ public class BrokerAccountType
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    leverages: ").append(toIndentedString(leverages)).append("\n");
 		sb.append("    currencies: ").append(toIndentedString(currencies)).append("\n");
+		sb.append("    isForex: ").append(toIndentedString(isForex)).append("\n");
+		sb.append("    isSignalsAvailable: ").append(toIndentedString(isSignalsAvailable)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

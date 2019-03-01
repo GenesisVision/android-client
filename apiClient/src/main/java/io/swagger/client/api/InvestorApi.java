@@ -14,6 +14,7 @@ import io.swagger.client.model.ProgramInvestInfo;
 import io.swagger.client.model.ProgramRequests;
 import io.swagger.client.model.ProgramWithdrawInfo;
 import io.swagger.client.model.ProgramsList;
+import io.swagger.client.model.SignalsList;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import rx.Observable;
@@ -21,7 +22,7 @@ import rx.Observable;
 public interface InvestorApi
 {
 	/**
-	 * Investing into the fund  Invest in GVT if currency is empty
+	 * Investing into the fund.  Invest in GVT if currency is empty
 	 *
 	 * @param id            (required)
 	 * @param amount        (required)
@@ -89,7 +90,7 @@ public interface InvestorApi
 	);
 
 	/**
-	 * Funds list
+	 * Dashboard funds list
 	 *
 	 * @param authorization     JWT access token (required)
 	 * @param sorting           (optional)
@@ -160,7 +161,7 @@ public interface InvestorApi
 	);
 
 	/**
-	 * Investing into the program  Invest in GVT if currency is empty
+	 * Investing into the program.  Invest in GVT if currency is empty
 	 *
 	 * @param id            (required)
 	 * @param amount        (required)
@@ -307,7 +308,7 @@ public interface InvestorApi
 	);
 
 	/**
-	 * Dashboard program list
+	 * Dashboard signal providers list
 	 *
 	 * @param authorization     JWT access token (required)
 	 * @param sorting           (optional)
@@ -317,10 +318,10 @@ public interface InvestorApi
 	 * @param currencySecondary (optional)
 	 * @param skip              (optional)
 	 * @param take              (optional)
-	 * @return Call&lt;ProgramsList&gt;
+	 * @return Call&lt;SignalsList&gt;
 	 */
 	@GET("v1.0/investor/signals")
-	Observable<ProgramsList> v10InvestorSignalsGet(
+	Observable<SignalsList> v10InvestorSignalsGet(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 

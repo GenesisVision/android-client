@@ -18,6 +18,7 @@ import io.swagger.client.model.ManagerProgramWithdrawInfo;
 import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.NewProgramRequest;
 import io.swagger.client.model.ProgramInvestInfo;
+import io.swagger.client.model.ProgramMinimumDeposit;
 import io.swagger.client.model.ProgramRequests;
 import io.swagger.client.model.ProgramUpdate;
 import io.swagger.client.model.ProgramsList;
@@ -109,7 +110,7 @@ public interface ManagerApi
 	);
 
 	/**
-	 * Deposit  Invest in GVT if currency is empty
+	 * Deposit.  Invest in GVT if currency is empty
 	 *
 	 * @param id            (required)
 	 * @param amount        (required)
@@ -421,13 +422,13 @@ public interface ManagerApi
 	);
 
 	/**
-	 * Get GVT investment to create program
+	 * Get investment amount to create program
 	 *
 	 * @param authorization JWT access token (required)
-	 * @return Call&lt;Double&gt;
+	 * @return Call&lt;ProgramMinimumDeposit&gt;
 	 */
 	@GET("v1.0/manager/programs/investment/amount")
-	Observable<Double> v10ManagerProgramsInvestmentAmountGet(
+	Observable<ProgramMinimumDeposit> v10ManagerProgramsInvestmentAmountGet(
 			@retrofit2.http.Header("Authorization") String authorization
 	);
 

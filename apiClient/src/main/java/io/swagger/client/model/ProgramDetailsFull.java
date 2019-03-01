@@ -62,6 +62,9 @@ public class ProgramDetailsFull
 	@SerializedName("successFee")
 	private Double successFee = null;
 
+	@SerializedName("stopOutLevel")
+	private Double stopOutLevel = null;
+
 	@SerializedName("isReinvesting")
 	private Boolean isReinvesting = null;
 
@@ -76,6 +79,9 @@ public class ProgramDetailsFull
 
 	@SerializedName("availableInvestment")
 	private Double availableInvestment = null;
+
+	@SerializedName("availableInvestmentBase")
+	private Double availableInvestmentBase = null;
 
 	@SerializedName("statistic")
 	private ProgramStatistic statistic = null;
@@ -287,6 +293,25 @@ public class ProgramDetailsFull
 		this.successFee = successFee;
 	}
 
+	public ProgramDetailsFull stopOutLevel(Double stopOutLevel) {
+		this.stopOutLevel = stopOutLevel;
+		return this;
+	}
+
+	/**
+	 * Get stopOutLevel
+	 *
+	 * @return stopOutLevel
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getStopOutLevel() {
+		return stopOutLevel;
+	}
+
+	public void setStopOutLevel(Double stopOutLevel) {
+		this.stopOutLevel = stopOutLevel;
+	}
+
 	public ProgramDetailsFull isReinvesting(Boolean isReinvesting) {
 		this.isReinvesting = isReinvesting;
 		return this;
@@ -369,17 +394,36 @@ public class ProgramDetailsFull
 	}
 
 	/**
-	 * Get availableInvestment
+	 * In GVT
 	 *
 	 * @return availableInvestment
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(value = "In GVT")
 	public Double getAvailableInvestment() {
 		return availableInvestment;
 	}
 
 	public void setAvailableInvestment(Double availableInvestment) {
 		this.availableInvestment = availableInvestment;
+	}
+
+	public ProgramDetailsFull availableInvestmentBase(Double availableInvestmentBase) {
+		this.availableInvestmentBase = availableInvestmentBase;
+		return this;
+	}
+
+	/**
+	 * In account currency
+	 *
+	 * @return availableInvestmentBase
+	 **/
+	@ApiModelProperty(value = "In account currency")
+	public Double getAvailableInvestmentBase() {
+		return availableInvestmentBase;
+	}
+
+	public void setAvailableInvestmentBase(Double availableInvestmentBase) {
+		this.availableInvestmentBase = availableInvestmentBase;
 	}
 
 	public ProgramDetailsFull statistic(ProgramStatistic statistic) {
@@ -655,11 +699,13 @@ public class ProgramDetailsFull
 				Objects.equals(this.entryFeeSelected, programDetailsFull.entryFeeSelected) &&
 				Objects.equals(this.entryFeeCurrent, programDetailsFull.entryFeeCurrent) &&
 				Objects.equals(this.successFee, programDetailsFull.successFee) &&
+				Objects.equals(this.stopOutLevel, programDetailsFull.stopOutLevel) &&
 				Objects.equals(this.isReinvesting, programDetailsFull.isReinvesting) &&
 				Objects.equals(this.isSignalProgram, programDetailsFull.isSignalProgram) &&
 				Objects.equals(this.signalSuccessFee, programDetailsFull.signalSuccessFee) &&
 				Objects.equals(this.signalSubscriptionFee, programDetailsFull.signalSubscriptionFee) &&
 				Objects.equals(this.availableInvestment, programDetailsFull.availableInvestment) &&
+				Objects.equals(this.availableInvestmentBase, programDetailsFull.availableInvestmentBase) &&
 				Objects.equals(this.statistic, programDetailsFull.statistic) &&
 				Objects.equals(this.rating, programDetailsFull.rating) &&
 				Objects.equals(this.personalProgramDetails, programDetailsFull.personalProgramDetails) &&
@@ -677,7 +723,7 @@ public class ProgramDetailsFull
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, entryFee, entryFeeSelected, entryFeeCurrent, successFee, isReinvesting, isSignalProgram, signalSuccessFee, signalSubscriptionFee, availableInvestment, statistic, rating, personalProgramDetails, tags, id, logo, url, color, description, title, ipfsHash, status, manager);
+		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, entryFee, entryFeeSelected, entryFeeCurrent, successFee, stopOutLevel, isReinvesting, isSignalProgram, signalSuccessFee, signalSubscriptionFee, availableInvestment, availableInvestmentBase, statistic, rating, personalProgramDetails, tags, id, logo, url, color, description, title, ipfsHash, status, manager);
 	}
 
 	@Override
@@ -694,11 +740,13 @@ public class ProgramDetailsFull
 		sb.append("    entryFeeSelected: ").append(toIndentedString(entryFeeSelected)).append("\n");
 		sb.append("    entryFeeCurrent: ").append(toIndentedString(entryFeeCurrent)).append("\n");
 		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
+		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
 		sb.append("    isReinvesting: ").append(toIndentedString(isReinvesting)).append("\n");
 		sb.append("    isSignalProgram: ").append(toIndentedString(isSignalProgram)).append("\n");
 		sb.append("    signalSuccessFee: ").append(toIndentedString(signalSuccessFee)).append("\n");
 		sb.append("    signalSubscriptionFee: ").append(toIndentedString(signalSubscriptionFee)).append("\n");
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
+		sb.append("    availableInvestmentBase: ").append(toIndentedString(availableInvestmentBase)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    rating: ").append(toIndentedString(rating)).append("\n");
 		sb.append("    personalProgramDetails: ").append(toIndentedString(personalProgramDetails)).append("\n");

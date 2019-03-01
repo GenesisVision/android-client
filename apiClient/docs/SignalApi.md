@@ -7,7 +7,9 @@ Method | HTTP request | Description
 [**v10SignalAccountsGet**](SignalApi.md#v10SignalAccountsGet) | **GET** v1.0/signal/accounts | Get copytrading accounts
 [**v10SignalAttachByIdPost**](SignalApi.md#v10SignalAttachByIdPost) | **POST** v1.0/signal/attach/{id} | Subscribe to programs signals
 [**v10SignalDetachByIdPost**](SignalApi.md#v10SignalDetachByIdPost) | **POST** v1.0/signal/detach/{id} | Unsubscribe from program signals
-[**v10SignalOpensignaltradesGet**](SignalApi.md#v10SignalOpensignaltradesGet) | **GET** v1.0/signal/opensignaltrades | Get investors signals open trades
+[**v10SignalTradesByIdClosePost**](SignalApi.md#v10SignalTradesByIdClosePost) | **POST** v1.0/signal/trades/{id}/close | Close signal trade
+[**v10SignalTradesGet**](SignalApi.md#v10SignalTradesGet) | **GET** v1.0/signal/trades | Get investors signals trades history
+[**v10SignalTradesOpenGet**](SignalApi.md#v10SignalTradesOpenGet) | **GET** v1.0/signal/trades/open | Get investors signals open trades
 [**v10SignalUpdatePost**](SignalApi.md#v10SignalUpdatePost) | **POST** v1.0/signal/update | Update signal subscription settings
 
 
@@ -158,9 +160,109 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10SignalOpensignaltradesGet"></a>
-# **v10SignalOpensignaltradesGet**
-> OpenSignalTradesList v10SignalOpensignaltradesGet(authorization)
+<a name="v10SignalTradesByIdClosePost"></a>
+# **v10SignalTradesByIdClosePost**
+> Void v10SignalTradesByIdClosePost(id, authorization)
+
+Close signal trade
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.SignalApi;
+
+
+SignalApi apiInstance = new SignalApi();
+UUID id = new UUID(); // UUID | Trade id
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.v10SignalTradesByIdClosePost(id, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SignalApi#v10SignalTradesByIdClosePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)| Trade id |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10SignalTradesGet"></a>
+# **v10SignalTradesGet**
+> TradesHistorySignalSlaveViewModel v10SignalTradesGet(authorization, dateFrom, dateTo, symbol, sorting, skip, take)
+
+Get investors signals trades history
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.SignalApi;
+
+
+SignalApi apiInstance = new SignalApi();
+String authorization = "authorization_example"; // String | JWT access token
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+String symbol = "symbol_example"; // String | 
+String sorting = "sorting_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    TradesHistorySignalSlaveViewModel result = apiInstance.v10SignalTradesGet(authorization, dateFrom, dateTo, symbol, sorting, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SignalApi#v10SignalTradesGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **symbol** | **String**|  | [optional]
+ **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**TradesHistorySignalSlaveViewModel**](TradesHistorySignalSlaveViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10SignalTradesOpenGet"></a>
+# **v10SignalTradesOpenGet**
+> TradesOpenSignalSlaveViewModel v10SignalTradesOpenGet(authorization, sorting, skip, take)
 
 Get investors signals open trades
 
@@ -173,11 +275,14 @@ Get investors signals open trades
 
 SignalApi apiInstance = new SignalApi();
 String authorization = "authorization_example"; // String | JWT access token
+String sorting = "sorting_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
 try {
-    OpenSignalTradesList result = apiInstance.v10SignalOpensignaltradesGet(authorization);
+    TradesOpenSignalSlaveViewModel result = apiInstance.v10SignalTradesOpenGet(authorization, sorting, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#v10SignalOpensignaltradesGet");
+    System.err.println("Exception when calling SignalApi#v10SignalTradesOpenGet");
     e.printStackTrace();
 }
 ```
@@ -187,10 +292,13 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
+ **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
 
 ### Return type
 
-[**OpenSignalTradesList**](OpenSignalTradesList.md)
+[**TradesOpenSignalSlaveViewModel**](TradesOpenSignalSlaveViewModel.md)
 
 ### Authorization
 

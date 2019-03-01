@@ -5,10 +5,11 @@ import org.joda.time.DateTime;
 import java.util.UUID;
 
 import io.swagger.client.model.CreateWithdrawalRequestModel;
+import io.swagger.client.model.InternalTransferRequest;
 import io.swagger.client.model.MultiWalletExternalTransactionsViewModel;
-import io.swagger.client.model.MultiWalletFilters;
 import io.swagger.client.model.MultiWalletTransactionsViewModel;
 import io.swagger.client.model.TransactionDetails;
+import io.swagger.client.model.UserCommissionData;
 import io.swagger.client.model.WalletInfo;
 import io.swagger.client.model.WalletMultiSummary;
 import io.swagger.client.model.WalletSummary;
@@ -54,6 +55,17 @@ public interface WalletApi
 	);
 
 	/**
+	 * GenesisMarkets commission data
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;UserCommissionData&gt;
+	 */
+	@GET("v1.0/wallet/fee/gvtholding")
+	Observable<UserCommissionData> v10WalletFeeGvtholdingGet(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
 	 * Multi wallet summary
 	 *
 	 * @param currency      (required)
@@ -63,17 +75,6 @@ public interface WalletApi
 	@GET("v1.0/wallet/multi/{currency}")
 	Observable<WalletMultiSummary> v10WalletMultiByCurrencyGet(
 			@retrofit2.http.Path("currency") String currency, @retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
-	 * Get filters
-	 *
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;MultiWalletFilters&gt;
-	 */
-	@GET("v1.0/wallet/multi/filters")
-	Observable<MultiWalletFilters> v10WalletMultiFiltersGet(
-			@retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
@@ -166,17 +167,16 @@ public interface WalletApi
 	/**
 	 * Transfer money
 	 *
-	 * @param authorization   JWT access token (required)
-	 * @param sourceId        (optional)
-	 * @param sourceType      (optional)
-	 * @param destinationId   (optional)
-	 * @param destinationType (optional)
-	 * @param amount          (optional)
+	 * @param authorization JWT access token (required)
+	 * @param request       (optional)
 	 * @return Call&lt;Void&gt;
 	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
 	@POST("v1.0/wallet/transfer")
 	Observable<Void> v10WalletTransferPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("SourceId") UUID sourceId, @retrofit2.http.Query("SourceType") String sourceType, @retrofit2.http.Query("DestinationId") UUID destinationId, @retrofit2.http.Query("DestinationType") String destinationType, @retrofit2.http.Query("Amount") Double amount
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body InternalTransferRequest request
 	);
 
 	/**

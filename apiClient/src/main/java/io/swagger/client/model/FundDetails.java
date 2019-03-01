@@ -45,6 +45,9 @@ public class FundDetails
 	@SerializedName("personalDetails")
 	private PersonalFundDetailsFull personalDetails = null;
 
+	@SerializedName("dashboardAssetsDetails")
+	private DashboardProgramDetails dashboardAssetsDetails = null;
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -71,9 +74,6 @@ public class FundDetails
 
 	@SerializedName("chart")
 	private List<ChartSimple> chart = null;
-
-	@SerializedName("dashboardAssetsDetails")
-	private DashboardProgramDetails dashboardAssetsDetails = null;
 
 	public FundDetails totalAssetsCount(Integer totalAssetsCount) {
 		this.totalAssetsCount = totalAssetsCount;
@@ -157,6 +157,25 @@ public class FundDetails
 
 	public void setPersonalDetails(PersonalFundDetailsFull personalDetails) {
 		this.personalDetails = personalDetails;
+	}
+
+	public FundDetails dashboardAssetsDetails(DashboardProgramDetails dashboardAssetsDetails) {
+		this.dashboardAssetsDetails = dashboardAssetsDetails;
+		return this;
+	}
+
+	/**
+	 * Fields for dashboard
+	 *
+	 * @return dashboardAssetsDetails
+	 **/
+	@ApiModelProperty(value = "Fields for dashboard")
+	public DashboardProgramDetails getDashboardAssetsDetails() {
+		return dashboardAssetsDetails;
+	}
+
+	public void setDashboardAssetsDetails(DashboardProgramDetails dashboardAssetsDetails) {
+		this.dashboardAssetsDetails = dashboardAssetsDetails;
 	}
 
 	public FundDetails id(UUID id) {
@@ -338,25 +357,6 @@ public class FundDetails
 		this.chart = chart;
 	}
 
-	public FundDetails dashboardAssetsDetails(DashboardProgramDetails dashboardAssetsDetails) {
-		this.dashboardAssetsDetails = dashboardAssetsDetails;
-		return this;
-	}
-
-	/**
-	 * Fields for dashboard
-	 *
-	 * @return dashboardAssetsDetails
-	 **/
-	@ApiModelProperty(value = "Fields for dashboard")
-	public DashboardProgramDetails getDashboardAssetsDetails() {
-		return dashboardAssetsDetails;
-	}
-
-	public void setDashboardAssetsDetails(DashboardProgramDetails dashboardAssetsDetails) {
-		this.dashboardAssetsDetails = dashboardAssetsDetails;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -370,6 +370,7 @@ public class FundDetails
 				Objects.equals(this.topFundAssets, fundDetails.topFundAssets) &&
 				Objects.equals(this.statistic, fundDetails.statistic) &&
 				Objects.equals(this.personalDetails, fundDetails.personalDetails) &&
+				Objects.equals(this.dashboardAssetsDetails, fundDetails.dashboardAssetsDetails) &&
 				Objects.equals(this.id, fundDetails.id) &&
 				Objects.equals(this.logo, fundDetails.logo) &&
 				Objects.equals(this.url, fundDetails.url) &&
@@ -378,13 +379,12 @@ public class FundDetails
 				Objects.equals(this.description, fundDetails.description) &&
 				Objects.equals(this.status, fundDetails.status) &&
 				Objects.equals(this.manager, fundDetails.manager) &&
-				Objects.equals(this.chart, fundDetails.chart) &&
-				Objects.equals(this.dashboardAssetsDetails, fundDetails.dashboardAssetsDetails);
+				Objects.equals(this.chart, fundDetails.chart);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(totalAssetsCount, topFundAssets, statistic, personalDetails, id, logo, url, color, title, description, status, manager, chart, dashboardAssetsDetails);
+		return Objects.hash(totalAssetsCount, topFundAssets, statistic, personalDetails, dashboardAssetsDetails, id, logo, url, color, title, description, status, manager, chart);
 	}
 
 	@Override
@@ -396,6 +396,7 @@ public class FundDetails
 		sb.append("    topFundAssets: ").append(toIndentedString(topFundAssets)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
+		sb.append("    dashboardAssetsDetails: ").append(toIndentedString(dashboardAssetsDetails)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
@@ -405,7 +406,6 @@ public class FundDetails
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
-		sb.append("    dashboardAssetsDetails: ").append(toIndentedString(dashboardAssetsDetails)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

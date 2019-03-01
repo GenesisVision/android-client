@@ -84,6 +84,9 @@ public class PersonalProgramDetailsFull
 	@SerializedName("isFollowSignals")
 	private Boolean isFollowSignals = null;
 
+	@SerializedName("canMakeSignalProvider")
+	private Boolean canMakeSignalProvider = null;
+
 	public PersonalProgramDetailsFull isReinvest(Boolean isReinvest) {
 		this.isReinvest = isReinvest;
 		return this;
@@ -426,6 +429,25 @@ public class PersonalProgramDetailsFull
 		this.isFollowSignals = isFollowSignals;
 	}
 
+	public PersonalProgramDetailsFull canMakeSignalProvider(Boolean canMakeSignalProvider) {
+		this.canMakeSignalProvider = canMakeSignalProvider;
+		return this;
+	}
+
+	/**
+	 * Get canMakeSignalProvider
+	 *
+	 * @return canMakeSignalProvider
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isCanMakeSignalProvider() {
+		return canMakeSignalProvider;
+	}
+
+	public void setCanMakeSignalProvider(Boolean canMakeSignalProvider) {
+		this.canMakeSignalProvider = canMakeSignalProvider;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -452,12 +474,13 @@ public class PersonalProgramDetailsFull
 				Objects.equals(this.pendingInput, personalProgramDetailsFull.pendingInput) &&
 				Objects.equals(this.pendingOutput, personalProgramDetailsFull.pendingOutput) &&
 				Objects.equals(this.status, personalProgramDetailsFull.status) &&
-				Objects.equals(this.isFollowSignals, personalProgramDetailsFull.isFollowSignals);
+				Objects.equals(this.isFollowSignals, personalProgramDetailsFull.isFollowSignals) &&
+				Objects.equals(this.canMakeSignalProvider, personalProgramDetailsFull.canMakeSignalProvider);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isReinvest, gvtValue, isFavorite, isInvested, isOwnProgram, canCloseProgram, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status, isFollowSignals);
+		return Objects.hash(isReinvest, gvtValue, isFavorite, isInvested, isOwnProgram, canCloseProgram, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status, isFollowSignals, canMakeSignalProvider);
 	}
 
 	@Override
@@ -483,6 +506,7 @@ public class PersonalProgramDetailsFull
 		sb.append("    pendingOutput: ").append(toIndentedString(pendingOutput)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    isFollowSignals: ").append(toIndentedString(isFollowSignals)).append("\n");
+		sb.append("    canMakeSignalProvider: ").append(toIndentedString(canMakeSignalProvider)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

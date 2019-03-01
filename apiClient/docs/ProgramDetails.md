@@ -7,9 +7,12 @@ Name | Type | Description | Notes
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **level** | **Integer** |  |  [optional]
 **periodDuration** | **Integer** |  |  [optional]
+**stopOutLevel** | **Double** |  |  [optional]
 **periodStarts** | [**DateTime**](DateTime.md) |  |  [optional]
 **periodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
-**availableInvestment** | **Double** |  |  [optional]
+**availableInvestment** | **Double** | In GVT |  [optional]
+**availableInvestmentBase** | **Double** | In account currency |  [optional]
+**dashboardAssetsDetails** | [**DashboardProgramDetails**](DashboardProgramDetails.md) | Fields for dashboard |  [optional]
 **statistic** | [**ProgramDetailsListStatistic**](ProgramDetailsListStatistic.md) |  |  [optional]
 **rating** | [**ProgramDetailsRating**](ProgramDetailsRating.md) |  |  [optional]
 **personalDetails** | [**PersonalProgramDetailsFull**](PersonalProgramDetailsFull.md) | Fields for authorized user |  [optional]
@@ -23,7 +26,6 @@ Name | Type | Description | Notes
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
 **manager** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 **chart** | [**List&lt;ChartSimple&gt;**](ChartSimple.md) |  |  [optional]
-**dashboardAssetsDetails** | [**DashboardProgramDetails**](DashboardProgramDetails.md) | Fields for dashboard |  [optional]
 
 
 <a name="CurrencyEnum"></a>

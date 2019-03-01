@@ -4,8 +4,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**multiWalletTransactionType** | **List&lt;String&gt;** |  |  [optional]
-**multiWalletExternalTransactionType** | **List&lt;String&gt;** |  |  [optional]
+**transactionType** | **List&lt;String&gt;** |  |  [optional]
+**externalTransactionType** | **List&lt;String&gt;** |  |  [optional]
 
 
 

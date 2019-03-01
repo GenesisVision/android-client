@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **brokerAccountTypeId** | [**UUID**](UUID.md) |  |  [optional]
 **signalSuccessFee** | **Double** |  |  [optional]
 **signalSubscriptionFee** | **Double** |  |  [optional]
+**isSignalProgram** | **Boolean** |  |  [optional]
 **title** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
 **logo** | **String** |  |  [optional]

@@ -89,7 +89,7 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements SelectC
 		if (baseCurrency != null) {
 			if (balanceSubscription != null)
 				balanceSubscription.unsubscribe();
-			balanceSubscription = walletManager.getWallets(baseCurrency)
+			balanceSubscription = walletManager.getWallets(baseCurrency.getValue())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleBalanceUpdateResponse,

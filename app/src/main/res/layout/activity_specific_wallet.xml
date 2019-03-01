@@ -197,6 +197,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/group_deposit_withdraw_buttons"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/group_available_invested"
@@ -211,6 +212,14 @@
                                 android:layout_height="@dimen/button_height"
                                 android:layout_weight="1"
                                 android:text="@string/withdraw"/>
+
+                            <vision.genesis.clientapp.ui.PrimaryButton
+                                android:id="@+id/transfer"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/button_height"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="1"
+                                android:text="@string/transfer"/>
 
                             <vision.genesis.clientapp.ui.PrimaryButton
                                 android:id="@+id/add_funds"

@@ -91,6 +91,7 @@ LOSS | &quot;Loss&quot;
 REINVEST | &quot;Reinvest&quot;
 CANCELED | &quot;Canceled&quot;
 ENDED | &quot;Ended&quot;
+WITHDRAWBYSTOPOUT | &quot;WithdrawByStopOut&quot;
 
 
 <a name="AssetTypeEnum"></a>

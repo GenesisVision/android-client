@@ -33,6 +33,9 @@ public class ProgramInvestInfo
 	@SerializedName("availableToInvest")
 	private Double availableToInvest = null;
 
+	@SerializedName("availableToInvestBase")
+	private Double availableToInvestBase = null;
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -79,17 +82,36 @@ public class ProgramInvestInfo
 	}
 
 	/**
-	 * Get availableToInvest
+	 * In GVT
 	 *
 	 * @return availableToInvest
 	 **/
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(value = "In GVT")
 	public Double getAvailableToInvest() {
 		return availableToInvest;
 	}
 
 	public void setAvailableToInvest(Double availableToInvest) {
 		this.availableToInvest = availableToInvest;
+	}
+
+	public ProgramInvestInfo availableToInvestBase(Double availableToInvestBase) {
+		this.availableToInvestBase = availableToInvestBase;
+		return this;
+	}
+
+	/**
+	 * In account currency
+	 *
+	 * @return availableToInvestBase
+	 **/
+	@ApiModelProperty(value = "In account currency")
+	public Double getAvailableToInvestBase() {
+		return availableToInvestBase;
+	}
+
+	public void setAvailableToInvestBase(Double availableToInvestBase) {
+		this.availableToInvestBase = availableToInvestBase;
 	}
 
 	public ProgramInvestInfo title(String title) {
@@ -237,6 +259,7 @@ public class ProgramInvestInfo
 		ProgramInvestInfo programInvestInfo = (ProgramInvestInfo) o;
 		return Objects.equals(this.periodEnds, programInvestInfo.periodEnds) &&
 				Objects.equals(this.availableToInvest, programInvestInfo.availableToInvest) &&
+				Objects.equals(this.availableToInvestBase, programInvestInfo.availableToInvestBase) &&
 				Objects.equals(this.title, programInvestInfo.title) &&
 				Objects.equals(this.availableInWallet, programInvestInfo.availableInWallet) &&
 				Objects.equals(this.minInvestmentAmount, programInvestInfo.minInvestmentAmount) &&
@@ -248,7 +271,7 @@ public class ProgramInvestInfo
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(periodEnds, availableToInvest, title, availableInWallet, minInvestmentAmount, entryFee, gvCommission, rate, isOwnProgram);
+		return Objects.hash(periodEnds, availableToInvest, availableToInvestBase, title, availableInWallet, minInvestmentAmount, entryFee, gvCommission, rate, isOwnProgram);
 	}
 
 
@@ -259,6 +282,7 @@ public class ProgramInvestInfo
 
 		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
 		sb.append("    availableToInvest: ").append(toIndentedString(availableToInvest)).append("\n");
+		sb.append("    availableToInvestBase: ").append(toIndentedString(availableToInvestBase)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    availableInWallet: ").append(toIndentedString(availableInWallet)).append("\n");
 		sb.append("    minInvestmentAmount: ").append(toIndentedString(minInvestmentAmount)).append("\n");

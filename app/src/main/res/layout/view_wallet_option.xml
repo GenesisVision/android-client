@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/option_view_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/wallet_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@+id/icon"
+        android:textColor="?attr/colorTextPrimary"
+        android:textSize="14sp"
+        tools:text="Genesis Vision Token"/>
+
+    <TextView
+        android:id="@+id/wallet_available"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:alpha="0.4"
+        android:textColor="?attr/colorTextPrimary"
+        android:textSize="14sp"
+        tools:text="GVT"/>
+
+</RelativeLayout>

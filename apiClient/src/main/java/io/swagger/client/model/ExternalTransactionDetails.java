@@ -34,6 +34,9 @@ public class ExternalTransactionDetails
 	@SerializedName("fromAddress")
 	private String fromAddress = null;
 
+	@SerializedName("isEnableActions")
+	private Boolean isEnableActions = null;
+
 	public ExternalTransactionDetails description(String description) {
 		this.description = description;
 		return this;
@@ -91,6 +94,25 @@ public class ExternalTransactionDetails
 		this.fromAddress = fromAddress;
 	}
 
+	public ExternalTransactionDetails isEnableActions(Boolean isEnableActions) {
+		this.isEnableActions = isEnableActions;
+		return this;
+	}
+
+	/**
+	 * Get isEnableActions
+	 *
+	 * @return isEnableActions
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsEnableActions() {
+		return isEnableActions;
+	}
+
+	public void setIsEnableActions(Boolean isEnableActions) {
+		this.isEnableActions = isEnableActions;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -103,12 +125,13 @@ public class ExternalTransactionDetails
 		ExternalTransactionDetails externalTransactionDetails = (ExternalTransactionDetails) o;
 		return Objects.equals(this.description, externalTransactionDetails.description) &&
 				Objects.equals(this.descriptionUrl, externalTransactionDetails.descriptionUrl) &&
-				Objects.equals(this.fromAddress, externalTransactionDetails.fromAddress);
+				Objects.equals(this.fromAddress, externalTransactionDetails.fromAddress) &&
+				Objects.equals(this.isEnableActions, externalTransactionDetails.isEnableActions);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, descriptionUrl, fromAddress);
+		return Objects.hash(description, descriptionUrl, fromAddress, isEnableActions);
 	}
 
 
@@ -120,6 +143,7 @@ public class ExternalTransactionDetails
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    descriptionUrl: ").append(toIndentedString(descriptionUrl)).append("\n");
 		sb.append("    fromAddress: ").append(toIndentedString(fromAddress)).append("\n");
+		sb.append("    isEnableActions: ").append(toIndentedString(isEnableActions)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

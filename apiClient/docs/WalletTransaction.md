@@ -37,6 +37,7 @@ FUNDREQUEST | &quot;FundRequest&quot;
 WITHDRAWALREQUEST | &quot;WithdrawalRequest&quot;
 PAYMENTTRANSACTION | &quot;PaymentTransaction&quot;
 BLOCKCHAIN | &quot;Blockchain&quot;
+GENESISVISIONPLATFORM | &quot;GenesisVisionPlatform&quot;
 
 
 <a name="SourceCurrencyEnum"></a>
@@ -72,6 +73,7 @@ PROGRAMREFUNDCLOSE | &quot;ProgramRefundClose&quot;
 PROGRAMREQUESTINVEST | &quot;ProgramRequestInvest&quot;
 PROGRAMREQUESTWITHDRAWAL | &quot;ProgramRequestWithdrawal&quot;
 PROGRAMREQUESTCANCEL | &quot;ProgramRequestCancel&quot;
+PAYINGFEE | &quot;PayingFee&quot;
 
 
 <a name="DestinationTypeEnum"></a>
@@ -86,6 +88,7 @@ FUNDREQUEST | &quot;FundRequest&quot;
 WITHDRAWALREQUEST | &quot;WithdrawalRequest&quot;
 PAYMENTTRANSACTION | &quot;PaymentTransaction&quot;
 BLOCKCHAIN | &quot;Blockchain&quot;
+GENESISVISIONPLATFORM | &quot;GenesisVisionPlatform&quot;
 
 
 <a name="DestinationCurrencyEnum"></a>

@@ -5,7 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **periodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
-**availableToInvest** | **Double** |  |  [optional]
+**availableToInvest** | **Double** | In GVT |  [optional]
+**availableToInvestBase** | **Double** | In account currency |  [optional]
 **title** | **String** |  |  [optional]
 **availableInWallet** | **Double** |  |  [optional]
 **minInvestmentAmount** | **Double** |  |  [optional]

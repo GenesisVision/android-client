@@ -251,6 +251,12 @@
             android:name=".feature.main.wallet.specific_wallet.SpecificWalletActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="adjustPan"/>
+
+        <activity
+            android:name=".feature.main.wallet.transfer.TransferWalletActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="adjustResize"/>
 
         <provider

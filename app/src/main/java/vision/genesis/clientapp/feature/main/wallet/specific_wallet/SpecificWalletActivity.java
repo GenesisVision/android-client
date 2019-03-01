@@ -23,6 +23,7 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
+import vision.genesis.clientapp.feature.main.wallet.transfer.TransferWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
 import vision.genesis.clientapp.model.WalletModel;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
@@ -124,6 +125,11 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
+	}
+
+	@OnClick(R.id.transfer)
+	public void onTransferButtonClicked() {
+		TransferWalletActivity.startWith(this, model);
 	}
 
 	@OnClick(R.id.withdraw)

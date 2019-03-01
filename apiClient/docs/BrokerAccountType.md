@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
 **leverages** | **List&lt;Integer&gt;** |  |  [optional]
 **currencies** | **List&lt;String&gt;** |  |  [optional]
+**isForex** | **Boolean** |  |  [optional]
+**isSignalsAvailable** | **Boolean** |  |  [optional]
 
 
 <a name="TypeEnum"></a>

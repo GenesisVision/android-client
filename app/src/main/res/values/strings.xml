@@ -558,5 +558,9 @@
     <string name="no_deposits_or_withdrawals">There are currently no deposits or withdrawals</string>
     <string name="external_address">External address</string>
     <string name="deposit_to_this_address">Deposit to this address</string>
+    <string name="enter_correct_amount">Enter correct amount</string>
+    <string name="transfer">Transfer</string>
+    <string name="enter_amount_to_transfer">Enter amount to transfer</string>
+    <string name="transfer_disclaimer">The funds will be converted according to the current market price (Market order on Binance).</string>
 
 </resources>

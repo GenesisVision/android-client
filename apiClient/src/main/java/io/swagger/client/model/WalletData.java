@@ -40,11 +40,20 @@ public class WalletData
 	@SerializedName("logo")
 	private String logo = null;
 
-	@SerializedName("address")
-	private String address = null;
-
 	@SerializedName("rateToGVT")
 	private Double rateToGVT = null;
+
+	@SerializedName("isDepositEnabled")
+	private Boolean isDepositEnabled = null;
+
+	@SerializedName("isWithdrawalEnabled")
+	private Boolean isWithdrawalEnabled = null;
+
+	@SerializedName("withdrawalCommission")
+	private Double withdrawalCommission = null;
+
+	@SerializedName("depositAddress")
+	private String depositAddress = null;
 
 	@SerializedName("currency")
 	private CurrencyEnum currency = null;
@@ -133,25 +142,6 @@ public class WalletData
 		this.logo = logo;
 	}
 
-	public WalletData address(String address) {
-		this.address = address;
-		return this;
-	}
-
-	/**
-	 * Get address
-	 *
-	 * @return address
-	 **/
-	@ApiModelProperty(value = "")
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
 	public WalletData rateToGVT(Double rateToGVT) {
 		this.rateToGVT = rateToGVT;
 		return this;
@@ -169,6 +159,82 @@ public class WalletData
 
 	public void setRateToGVT(Double rateToGVT) {
 		this.rateToGVT = rateToGVT;
+	}
+
+	public WalletData isDepositEnabled(Boolean isDepositEnabled) {
+		this.isDepositEnabled = isDepositEnabled;
+		return this;
+	}
+
+	/**
+	 * Get isDepositEnabled
+	 *
+	 * @return isDepositEnabled
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsDepositEnabled() {
+		return isDepositEnabled;
+	}
+
+	public void setIsDepositEnabled(Boolean isDepositEnabled) {
+		this.isDepositEnabled = isDepositEnabled;
+	}
+
+	public WalletData isWithdrawalEnabled(Boolean isWithdrawalEnabled) {
+		this.isWithdrawalEnabled = isWithdrawalEnabled;
+		return this;
+	}
+
+	/**
+	 * Get isWithdrawalEnabled
+	 *
+	 * @return isWithdrawalEnabled
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsWithdrawalEnabled() {
+		return isWithdrawalEnabled;
+	}
+
+	public void setIsWithdrawalEnabled(Boolean isWithdrawalEnabled) {
+		this.isWithdrawalEnabled = isWithdrawalEnabled;
+	}
+
+	public WalletData withdrawalCommission(Double withdrawalCommission) {
+		this.withdrawalCommission = withdrawalCommission;
+		return this;
+	}
+
+	/**
+	 * Get withdrawalCommission
+	 *
+	 * @return withdrawalCommission
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getWithdrawalCommission() {
+		return withdrawalCommission;
+	}
+
+	public void setWithdrawalCommission(Double withdrawalCommission) {
+		this.withdrawalCommission = withdrawalCommission;
+	}
+
+	public WalletData depositAddress(String depositAddress) {
+		this.depositAddress = depositAddress;
+		return this;
+	}
+
+	/**
+	 * Get depositAddress
+	 *
+	 * @return depositAddress
+	 **/
+	@ApiModelProperty(value = "")
+	public String getDepositAddress() {
+		return depositAddress;
+	}
+
+	public void setDepositAddress(String depositAddress) {
+		this.depositAddress = depositAddress;
 	}
 
 	public WalletData currency(CurrencyEnum currency) {
@@ -355,8 +421,11 @@ public class WalletData
 		return Objects.equals(this.id, walletData.id) &&
 				Objects.equals(this.title, walletData.title) &&
 				Objects.equals(this.logo, walletData.logo) &&
-				Objects.equals(this.address, walletData.address) &&
 				Objects.equals(this.rateToGVT, walletData.rateToGVT) &&
+				Objects.equals(this.isDepositEnabled, walletData.isDepositEnabled) &&
+				Objects.equals(this.isWithdrawalEnabled, walletData.isWithdrawalEnabled) &&
+				Objects.equals(this.withdrawalCommission, walletData.withdrawalCommission) &&
+				Objects.equals(this.depositAddress, walletData.depositAddress) &&
 				Objects.equals(this.currency, walletData.currency) &&
 				Objects.equals(this.available, walletData.available) &&
 				Objects.equals(this.invested, walletData.invested) &&
@@ -371,7 +440,7 @@ public class WalletData
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, logo, address, rateToGVT, currency, available, invested, pending, total, currencyCcy, availableCcy, investedCcy, pendingCcy, totalCcy);
+		return Objects.hash(id, title, logo, rateToGVT, isDepositEnabled, isWithdrawalEnabled, withdrawalCommission, depositAddress, currency, available, invested, pending, total, currencyCcy, availableCcy, investedCcy, pendingCcy, totalCcy);
 	}
 
 	@Override
@@ -382,8 +451,11 @@ public class WalletData
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
-		sb.append("    address: ").append(toIndentedString(address)).append("\n");
 		sb.append("    rateToGVT: ").append(toIndentedString(rateToGVT)).append("\n");
+		sb.append("    isDepositEnabled: ").append(toIndentedString(isDepositEnabled)).append("\n");
+		sb.append("    isWithdrawalEnabled: ").append(toIndentedString(isWithdrawalEnabled)).append("\n");
+		sb.append("    withdrawalCommission: ").append(toIndentedString(withdrawalCommission)).append("\n");
+		sb.append("    depositAddress: ").append(toIndentedString(depositAddress)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    available: ").append(toIndentedString(available)).append("\n");
 		sb.append("    invested: ").append(toIndentedString(invested)).append("\n");

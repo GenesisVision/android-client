@@ -63,6 +63,9 @@ public class MultiWalletTransaction
 	@SerializedName("amount")
 	private Double amount = null;
 
+	@SerializedName("amountTo")
+	private Double amountTo = null;
+
 	public MultiWalletTransaction id(UUID id) {
 		this.id = id;
 		return this;
@@ -253,6 +256,25 @@ public class MultiWalletTransaction
 		this.amount = amount;
 	}
 
+	public MultiWalletTransaction amountTo(Double amountTo) {
+		this.amountTo = amountTo;
+		return this;
+	}
+
+	/**
+	 * Get amountTo
+	 *
+	 * @return amountTo
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getAmountTo() {
+		return amountTo;
+	}
+
+	public void setAmountTo(Double amountTo) {
+		this.amountTo = amountTo;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -271,12 +293,13 @@ public class MultiWalletTransaction
 				Objects.equals(this.logoFrom, multiWalletTransaction.logoFrom) &&
 				Objects.equals(this.logoTo, multiWalletTransaction.logoTo) &&
 				Objects.equals(this.description, multiWalletTransaction.description) &&
-				Objects.equals(this.amount, multiWalletTransaction.amount);
+				Objects.equals(this.amount, multiWalletTransaction.amount) &&
+				Objects.equals(this.amountTo, multiWalletTransaction.amountTo);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, currencyFrom, currencyTo, type, date, status, logoFrom, logoTo, description, amount);
+		return Objects.hash(id, currencyFrom, currencyTo, type, date, status, logoFrom, logoTo, description, amount, amountTo);
 	}
 
 	@Override
@@ -294,6 +317,7 @@ public class MultiWalletTransaction
 		sb.append("    logoTo: ").append(toIndentedString(logoTo)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+		sb.append("    amountTo: ").append(toIndentedString(amountTo)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

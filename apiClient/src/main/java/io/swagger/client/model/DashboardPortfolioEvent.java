@@ -688,7 +688,9 @@ public class DashboardPortfolioEvent
 
 		CANCELED("Canceled"),
 
-		ENDED("Ended");
+		ENDED("Ended"),
+
+		WITHDRAWBYSTOPOUT("WithdrawByStopOut");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {

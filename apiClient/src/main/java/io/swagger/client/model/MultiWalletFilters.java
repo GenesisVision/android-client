@@ -27,64 +27,64 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class MultiWalletFilters
 {
-	@SerializedName("multiWalletTransactionType")
-	private List<String> multiWalletTransactionType = null;
+	@SerializedName("transactionType")
+	private List<String> transactionType = null;
 
-	@SerializedName("multiWalletExternalTransactionType")
-	private List<String> multiWalletExternalTransactionType = null;
+	@SerializedName("externalTransactionType")
+	private List<String> externalTransactionType = null;
 
-	public MultiWalletFilters multiWalletTransactionType(List<String> multiWalletTransactionType) {
-		this.multiWalletTransactionType = multiWalletTransactionType;
+	public MultiWalletFilters transactionType(List<String> transactionType) {
+		this.transactionType = transactionType;
 		return this;
 	}
 
-	public MultiWalletFilters addMultiWalletTransactionTypeItem(String multiWalletTransactionTypeItem) {
-		if (this.multiWalletTransactionType == null) {
-			this.multiWalletTransactionType = new ArrayList<String>();
+	public MultiWalletFilters addTransactionTypeItem(String transactionTypeItem) {
+		if (this.transactionType == null) {
+			this.transactionType = new ArrayList<String>();
 		}
-		this.multiWalletTransactionType.add(multiWalletTransactionTypeItem);
+		this.transactionType.add(transactionTypeItem);
 		return this;
 	}
 
 	/**
-	 * Get multiWalletTransactionType
+	 * Get transactionType
 	 *
-	 * @return multiWalletTransactionType
+	 * @return transactionType
 	 **/
 	@ApiModelProperty(value = "")
-	public List<String> getMultiWalletTransactionType() {
-		return multiWalletTransactionType;
+	public List<String> getTransactionType() {
+		return transactionType;
 	}
 
-	public void setMultiWalletTransactionType(List<String> multiWalletTransactionType) {
-		this.multiWalletTransactionType = multiWalletTransactionType;
+	public void setTransactionType(List<String> transactionType) {
+		this.transactionType = transactionType;
 	}
 
-	public MultiWalletFilters multiWalletExternalTransactionType(List<String> multiWalletExternalTransactionType) {
-		this.multiWalletExternalTransactionType = multiWalletExternalTransactionType;
+	public MultiWalletFilters externalTransactionType(List<String> externalTransactionType) {
+		this.externalTransactionType = externalTransactionType;
 		return this;
 	}
 
-	public MultiWalletFilters addMultiWalletExternalTransactionTypeItem(String multiWalletExternalTransactionTypeItem) {
-		if (this.multiWalletExternalTransactionType == null) {
-			this.multiWalletExternalTransactionType = new ArrayList<String>();
+	public MultiWalletFilters addExternalTransactionTypeItem(String externalTransactionTypeItem) {
+		if (this.externalTransactionType == null) {
+			this.externalTransactionType = new ArrayList<String>();
 		}
-		this.multiWalletExternalTransactionType.add(multiWalletExternalTransactionTypeItem);
+		this.externalTransactionType.add(externalTransactionTypeItem);
 		return this;
 	}
 
 	/**
-	 * Get multiWalletExternalTransactionType
+	 * Get externalTransactionType
 	 *
-	 * @return multiWalletExternalTransactionType
+	 * @return externalTransactionType
 	 **/
 	@ApiModelProperty(value = "")
-	public List<String> getMultiWalletExternalTransactionType() {
-		return multiWalletExternalTransactionType;
+	public List<String> getExternalTransactionType() {
+		return externalTransactionType;
 	}
 
-	public void setMultiWalletExternalTransactionType(List<String> multiWalletExternalTransactionType) {
-		this.multiWalletExternalTransactionType = multiWalletExternalTransactionType;
+	public void setExternalTransactionType(List<String> externalTransactionType) {
+		this.externalTransactionType = externalTransactionType;
 	}
 
 
@@ -97,13 +97,13 @@ public class MultiWalletFilters
 			return false;
 		}
 		MultiWalletFilters multiWalletFilters = (MultiWalletFilters) o;
-		return Objects.equals(this.multiWalletTransactionType, multiWalletFilters.multiWalletTransactionType) &&
-				Objects.equals(this.multiWalletExternalTransactionType, multiWalletFilters.multiWalletExternalTransactionType);
+		return Objects.equals(this.transactionType, multiWalletFilters.transactionType) &&
+				Objects.equals(this.externalTransactionType, multiWalletFilters.externalTransactionType);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(multiWalletTransactionType, multiWalletExternalTransactionType);
+		return Objects.hash(transactionType, externalTransactionType);
 	}
 
 
@@ -112,8 +112,8 @@ public class MultiWalletFilters
 		StringBuilder sb = new StringBuilder();
 		sb.append("class MultiWalletFilters {\n");
 
-		sb.append("    multiWalletTransactionType: ").append(toIndentedString(multiWalletTransactionType)).append("\n");
-		sb.append("    multiWalletExternalTransactionType: ").append(toIndentedString(multiWalletExternalTransactionType)).append("\n");
+		sb.append("    transactionType: ").append(toIndentedString(transactionType)).append("\n");
+		sb.append("    externalTransactionType: ").append(toIndentedString(externalTransactionType)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

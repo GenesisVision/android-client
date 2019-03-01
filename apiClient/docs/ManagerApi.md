@@ -10,7 +10,7 @@ Method | HTTP request | Description
 [**v10ManagerEventsGet**](ManagerApi.md#v10ManagerEventsGet) | **GET** v1.0/manager/events | Manager events
 [**v10ManagerFundsByIdAssetsUpdatePost**](ManagerApi.md#v10ManagerFundsByIdAssetsUpdatePost) | **POST** v1.0/manager/funds/{id}/assets/update | Update fund assets parts
 [**v10ManagerFundsByIdClosePost**](ManagerApi.md#v10ManagerFundsByIdClosePost) | **POST** v1.0/manager/funds/{id}/close | Close existing fund
-[**v10ManagerFundsByIdInvestByAmountPost**](ManagerApi.md#v10ManagerFundsByIdInvestByAmountPost) | **POST** v1.0/manager/funds/{id}/invest/{amount} | Deposit  Invest in GVT if currency is empty
+[**v10ManagerFundsByIdInvestByAmountPost**](ManagerApi.md#v10ManagerFundsByIdInvestByAmountPost) | **POST** v1.0/manager/funds/{id}/invest/{amount} | Deposit.  Invest in GVT if currency is empty
 [**v10ManagerFundsByIdInvestInfoByCurrencyGet**](ManagerApi.md#v10ManagerFundsByIdInvestInfoByCurrencyGet) | **GET** v1.0/manager/funds/{id}/invest/info/{currency} | Data for investing into the fund
 [**v10ManagerFundsByIdRequestsBySkipByTakeGet**](ManagerApi.md#v10ManagerFundsByIdRequestsBySkipByTakeGet) | **GET** v1.0/manager/funds/{id}/requests/{skip}/{take} | Get investment program/fund requests
 [**v10ManagerFundsByIdUpdatePost**](ManagerApi.md#v10ManagerFundsByIdUpdatePost) | **POST** v1.0/manager/funds/{id}/update | Update investment program/fund details
@@ -32,7 +32,7 @@ Method | HTTP request | Description
 [**v10ManagerProgramsByIdWithdrawMultiByAmountPost**](ManagerApi.md#v10ManagerProgramsByIdWithdrawMultiByAmountPost) | **POST** v1.0/manager/programs/{id}/withdraw/multi/{amount} | Withdraw from investment program in program currency
 [**v10ManagerProgramsCreatePost**](ManagerApi.md#v10ManagerProgramsCreatePost) | **POST** v1.0/manager/programs/create | Create an investment program
 [**v10ManagerProgramsGet**](ManagerApi.md#v10ManagerProgramsGet) | **GET** v1.0/manager/programs | Manager programs
-[**v10ManagerProgramsInvestmentAmountGet**](ManagerApi.md#v10ManagerProgramsInvestmentAmountGet) | **GET** v1.0/manager/programs/investment/amount | Get GVT investment to create program
+[**v10ManagerProgramsInvestmentAmountGet**](ManagerApi.md#v10ManagerProgramsInvestmentAmountGet) | **GET** v1.0/manager/programs/investment/amount | Get investment amount to create program
 [**v10ManagerProgramsRequestsByIdCancelPost**](ManagerApi.md#v10ManagerProgramsRequestsByIdCancelPost) | **POST** v1.0/manager/programs/requests/{id}/cancel | Cancel investment program/fund request
 [**v10ManagerRequestsBySkipByTakeGet**](ManagerApi.md#v10ManagerRequestsBySkipByTakeGet) | **GET** v1.0/manager/requests/{skip}/{take} | Get all requests
 [**v10ManagerSignalCreatePost**](ManagerApi.md#v10ManagerSignalCreatePost) | **POST** v1.0/manager/signal/create | Make manager&#39;s program signal provider
@@ -206,7 +206,7 @@ Name | Type | Description  | Notes
  **assetId** | [**UUID**](.md)|  | [optional]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
- **type** | **String**|  | [optional] [enum: All, AssetStarted, ProgramPeriodStats, ProgramPeriodEnds, InvestorInvest, InvestorWithdraw, ManagerInvest, ManagerWithdraw, AssetFinished, EntranceFee, ExitFee]
+ **type** | **String**|  | [optional] [enum: All, AssetStarted, ProgramPeriodStarts, ProgramPeriodEnds, InvestorInvest, InvestorWithdraw, ManagerInvest, ManagerWithdraw, AssetFinished, EntranceFee, ExitFee, ProgramStopOut]
  **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
@@ -322,7 +322,7 @@ No authorization required
 # **v10ManagerFundsByIdInvestByAmountPost**
 > Void v10ManagerFundsByIdInvestByAmountPost(id, amount, authorization, currency)
 
-Deposit  Invest in GVT if currency is empty
+Deposit.  Invest in GVT if currency is empty
 
 ### Example
 ```java
@@ -835,7 +835,7 @@ Name | Type | Description  | Notes
  **assetId** | [**UUID**](.md)|  | [optional]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
- **type** | **String**|  | [optional] [enum: All, AssetStarted, ProgramPeriodStats, ProgramPeriodEnds, InvestorInvest, InvestorWithdraw, ManagerInvest, ManagerWithdraw, AssetFinished, EntranceFee, ExitFee]
+ **type** | **String**|  | [optional] [enum: All, AssetStarted, ProgramPeriodStarts, ProgramPeriodEnds, InvestorInvest, InvestorWithdraw, ManagerInvest, ManagerWithdraw, AssetFinished, EntranceFee, ExitFee, ProgramStopOut]
  **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
@@ -1382,9 +1382,9 @@ No authorization required
 
 <a name="v10ManagerProgramsInvestmentAmountGet"></a>
 # **v10ManagerProgramsInvestmentAmountGet**
-> Double v10ManagerProgramsInvestmentAmountGet(authorization)
+> ProgramMinimumDeposit v10ManagerProgramsInvestmentAmountGet(authorization)
 
-Get GVT investment to create program
+Get investment amount to create program
 
 ### Example
 ```java
@@ -1396,7 +1396,7 @@ Get GVT investment to create program
 ManagerApi apiInstance = new ManagerApi();
 String authorization = "authorization_example"; // String | JWT access token
 try {
-    Double result = apiInstance.v10ManagerProgramsInvestmentAmountGet(authorization);
+    ProgramMinimumDeposit result = apiInstance.v10ManagerProgramsInvestmentAmountGet(authorization);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ManagerApi#v10ManagerProgramsInvestmentAmountGet");
@@ -1412,7 +1412,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Double**
+[**ProgramMinimumDeposit**](ProgramMinimumDeposit.md)
 
 ### Authorization
 

@@ -55,6 +55,9 @@ public class NewProgramRequest
 	@SerializedName("signalSubscriptionFee")
 	private Double signalSubscriptionFee = null;
 
+	@SerializedName("isSignalProgram")
+	private Boolean isSignalProgram = null;
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -225,6 +228,25 @@ public class NewProgramRequest
 		this.signalSubscriptionFee = signalSubscriptionFee;
 	}
 
+	public NewProgramRequest isSignalProgram(Boolean isSignalProgram) {
+		this.isSignalProgram = isSignalProgram;
+		return this;
+	}
+
+	/**
+	 * Get isSignalProgram
+	 *
+	 * @return isSignalProgram
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsSignalProgram() {
+		return isSignalProgram;
+	}
+
+	public void setIsSignalProgram(Boolean isSignalProgram) {
+		this.isSignalProgram = isSignalProgram;
+	}
+
 	public NewProgramRequest title(String title) {
 		this.title = title;
 		return this;
@@ -356,6 +378,7 @@ public class NewProgramRequest
 				Objects.equals(this.brokerAccountTypeId, newProgramRequest.brokerAccountTypeId) &&
 				Objects.equals(this.signalSuccessFee, newProgramRequest.signalSuccessFee) &&
 				Objects.equals(this.signalSubscriptionFee, newProgramRequest.signalSubscriptionFee) &&
+				Objects.equals(this.isSignalProgram, newProgramRequest.isSignalProgram) &&
 				Objects.equals(this.title, newProgramRequest.title) &&
 				Objects.equals(this.description, newProgramRequest.description) &&
 				Objects.equals(this.logo, newProgramRequest.logo) &&
@@ -366,7 +389,7 @@ public class NewProgramRequest
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, periodLength, successFee, stopOutLevel, leverage, brokerAccountTypeId, signalSuccessFee, signalSubscriptionFee, title, description, logo, entryFee, depositAmount, depositWalletId);
+		return Objects.hash(currency, periodLength, successFee, stopOutLevel, leverage, brokerAccountTypeId, signalSuccessFee, signalSubscriptionFee, isSignalProgram, title, description, logo, entryFee, depositAmount, depositWalletId);
 	}
 
 	@Override
@@ -382,6 +405,7 @@ public class NewProgramRequest
 		sb.append("    brokerAccountTypeId: ").append(toIndentedString(brokerAccountTypeId)).append("\n");
 		sb.append("    signalSuccessFee: ").append(toIndentedString(signalSuccessFee)).append("\n");
 		sb.append("    signalSubscriptionFee: ").append(toIndentedString(signalSubscriptionFee)).append("\n");
+		sb.append("    isSignalProgram: ").append(toIndentedString(isSignalProgram)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");

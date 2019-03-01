@@ -5,6 +5,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import io.swagger.client.api.WalletApi;
 import io.swagger.client.model.CreateWithdrawalRequestModel;
+import io.swagger.client.model.InternalTransferRequest;
 import io.swagger.client.model.MultiWalletExternalTransactionsViewModel;
 import io.swagger.client.model.MultiWalletTransactionsViewModel;
 import io.swagger.client.model.WalletMultiSummary;
@@ -91,8 +92,8 @@ public class WalletManager
 		return walletApi.v10WalletByCurrencyGet(currency.getValue(), AuthManager.token.getValue());
 	}
 
-	public BehaviorSubject<WalletMultiSummary> getWallets(CurrencyEnum currency) {
-		getWalletsSubscription = walletApi.v10WalletMultiByCurrencyGet(currency.getValue(), AuthManager.token.getValue())
+	public BehaviorSubject<WalletMultiSummary> getWallets(String currency) {
+		getWalletsSubscription = walletApi.v10WalletMultiByCurrencyGet(currency, AuthManager.token.getValue())
 				.observeOn(Schedulers.io())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleGetWalletsSuccess,
@@ -127,5 +128,9 @@ public class WalletManager
 	@Subscribe
 	public void onEventMainThread(OnUnauthorizedResponseGetEvent event) {
 		balanceBehaviorSubject = BehaviorSubject.create();
+	}
+
+	public Observable<Void> transfer(InternalTransferRequest request) {
+		return walletApi.v10WalletTransferPost(AuthManager.token.getValue(), request);
 	}
 }

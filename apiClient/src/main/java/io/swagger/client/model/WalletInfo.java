@@ -45,6 +45,9 @@ public class WalletInfo
 	@SerializedName("logo")
 	private String logo = null;
 
+	@SerializedName("isDepositEnabled")
+	private Boolean isDepositEnabled = null;
+
 	public WalletInfo currency(CurrencyEnum currency) {
 		this.currency = currency;
 		return this;
@@ -140,6 +143,25 @@ public class WalletInfo
 		this.logo = logo;
 	}
 
+	public WalletInfo isDepositEnabled(Boolean isDepositEnabled) {
+		this.isDepositEnabled = isDepositEnabled;
+		return this;
+	}
+
+	/**
+	 * Get isDepositEnabled
+	 *
+	 * @return isDepositEnabled
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsDepositEnabled() {
+		return isDepositEnabled;
+	}
+
+	public void setIsDepositEnabled(Boolean isDepositEnabled) {
+		this.isDepositEnabled = isDepositEnabled;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -153,12 +175,13 @@ public class WalletInfo
 				Objects.equals(this.address, walletInfo.address) &&
 				Objects.equals(this.rateToGVT, walletInfo.rateToGVT) &&
 				Objects.equals(this.description, walletInfo.description) &&
-				Objects.equals(this.logo, walletInfo.logo);
+				Objects.equals(this.logo, walletInfo.logo) &&
+				Objects.equals(this.isDepositEnabled, walletInfo.isDepositEnabled);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, address, rateToGVT, description, logo);
+		return Objects.hash(currency, address, rateToGVT, description, logo, isDepositEnabled);
 	}
 
 	@Override
@@ -171,6 +194,7 @@ public class WalletInfo
 		sb.append("    rateToGVT: ").append(toIndentedString(rateToGVT)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    isDepositEnabled: ").append(toIndentedString(isDepositEnabled)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

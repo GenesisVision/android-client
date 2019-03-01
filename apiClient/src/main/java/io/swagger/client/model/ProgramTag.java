@@ -13,13 +13,8 @@
 
 package io.swagger.client.model;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -31,12 +26,12 @@ import io.swagger.annotations.ApiModelProperty;
 public class ProgramTag
 {
 	@SerializedName("name")
-	private NameEnum name = null;
+	private String name = null;
 
 	@SerializedName("color")
 	private String color = null;
 
-	public ProgramTag name(NameEnum name) {
+	public ProgramTag name(String name) {
 		this.name = name;
 		return this;
 	}
@@ -47,11 +42,11 @@ public class ProgramTag
 	 * @return name
 	 **/
 	@ApiModelProperty(value = "")
-	public NameEnum getName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setName(NameEnum name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
@@ -74,6 +69,7 @@ public class ProgramTag
 		this.color = color;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -91,6 +87,7 @@ public class ProgramTag
 	public int hashCode() {
 		return Objects.hash(name, color);
 	}
+
 
 	@Override
 	public String toString() {
@@ -112,59 +109,6 @@ public class ProgramTag
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
-	}
-
-	/**
-	 * Gets or Sets name
-	 */
-	@JsonAdapter(NameEnum.Adapter.class)
-	public enum NameEnum
-	{
-		CRYPTO("Crypto"),
-
-		FOREX("Forex"),
-
-		HIGHRISK("HighRisk"),
-
-		SIGNAL("Signal");
-
-		public static NameEnum fromValue(String text) {
-			for (NameEnum b : NameEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		NameEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<NameEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final NameEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public NameEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return NameEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 
 }

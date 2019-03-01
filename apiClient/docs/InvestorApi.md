@@ -4,16 +4,16 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v10InvestorFundsByIdInvestByAmountPost**](InvestorApi.md#v10InvestorFundsByIdInvestByAmountPost) | **POST** v1.0/investor/funds/{id}/invest/{amount} | Investing into the fund  Invest in GVT if currency is empty
+[**v10InvestorFundsByIdInvestByAmountPost**](InvestorApi.md#v10InvestorFundsByIdInvestByAmountPost) | **POST** v1.0/investor/funds/{id}/invest/{amount} | Investing into the fund.  Invest in GVT if currency is empty
 [**v10InvestorFundsByIdInvestInfoByCurrencyGet**](InvestorApi.md#v10InvestorFundsByIdInvestInfoByCurrencyGet) | **GET** v1.0/investor/funds/{id}/invest/info/{currency} | Data for investing into the fund
 [**v10InvestorFundsByIdRequestsBySkipByTakeGet**](InvestorApi.md#v10InvestorFundsByIdRequestsBySkipByTakeGet) | **GET** v1.0/investor/funds/{id}/requests/{skip}/{take} | Get program/fund requests
 [**v10InvestorFundsByIdWithdrawByPercentPost**](InvestorApi.md#v10InvestorFundsByIdWithdrawByPercentPost) | **POST** v1.0/investor/funds/{id}/withdraw/{percent} | Withdraw from fund. Percent is % of investor total money.  Withdraw in GVT if currency is empty
 [**v10InvestorFundsByIdWithdrawInfoByCurrencyGet**](InvestorApi.md#v10InvestorFundsByIdWithdrawInfoByCurrencyGet) | **GET** v1.0/investor/funds/{id}/withdraw/info/{currency} | Data for withdrawal from fund
-[**v10InvestorFundsGet**](InvestorApi.md#v10InvestorFundsGet) | **GET** v1.0/investor/funds | Funds list
+[**v10InvestorFundsGet**](InvestorApi.md#v10InvestorFundsGet) | **GET** v1.0/investor/funds | Dashboard funds list
 [**v10InvestorGet**](InvestorApi.md#v10InvestorGet) | **GET** v1.0/investor | Summary dashboard info
 [**v10InvestorPortfolioChartGet**](InvestorApi.md#v10InvestorPortfolioChartGet) | **GET** v1.0/investor/portfolio/chart | Portfolio charts
 [**v10InvestorPortfolioEventsGet**](InvestorApi.md#v10InvestorPortfolioEventsGet) | **GET** v1.0/investor/portfolio/events | Portfolio events
-[**v10InvestorProgramsByIdInvestByAmountPost**](InvestorApi.md#v10InvestorProgramsByIdInvestByAmountPost) | **POST** v1.0/investor/programs/{id}/invest/{amount} | Investing into the program  Invest in GVT if currency is empty
+[**v10InvestorProgramsByIdInvestByAmountPost**](InvestorApi.md#v10InvestorProgramsByIdInvestByAmountPost) | **POST** v1.0/investor/programs/{id}/invest/{amount} | Investing into the program.  Invest in GVT if currency is empty
 [**v10InvestorProgramsByIdInvestInfoByCurrencyGet**](InvestorApi.md#v10InvestorProgramsByIdInvestInfoByCurrencyGet) | **GET** v1.0/investor/programs/{id}/invest/info/{currency} | Data for investing into the program
 [**v10InvestorProgramsByIdReinvestOffPost**](InvestorApi.md#v10InvestorProgramsByIdReinvestOffPost) | **POST** v1.0/investor/programs/{id}/reinvest/off | Disable reinvesting
 [**v10InvestorProgramsByIdReinvestOnPost**](InvestorApi.md#v10InvestorProgramsByIdReinvestOnPost) | **POST** v1.0/investor/programs/{id}/reinvest/on | Enable reinvesting
@@ -24,14 +24,14 @@ Method | HTTP request | Description
 [**v10InvestorProgramsGet**](InvestorApi.md#v10InvestorProgramsGet) | **GET** v1.0/investor/programs | Dashboard program list
 [**v10InvestorProgramsRequestsByIdCancelPost**](InvestorApi.md#v10InvestorProgramsRequestsByIdCancelPost) | **POST** v1.0/investor/programs/requests/{id}/cancel | Cancel investment program request
 [**v10InvestorRequestsBySkipByTakeGet**](InvestorApi.md#v10InvestorRequestsBySkipByTakeGet) | **GET** v1.0/investor/requests/{skip}/{take} | Get all requests
-[**v10InvestorSignalsGet**](InvestorApi.md#v10InvestorSignalsGet) | **GET** v1.0/investor/signals | Dashboard program list
+[**v10InvestorSignalsGet**](InvestorApi.md#v10InvestorSignalsGet) | **GET** v1.0/investor/signals | Dashboard signal providers list
 
 
 <a name="v10InvestorFundsByIdInvestByAmountPost"></a>
 # **v10InvestorFundsByIdInvestByAmountPost**
 > Void v10InvestorFundsByIdInvestByAmountPost(id, amount, authorization, currency)
 
-Investing into the fund  Invest in GVT if currency is empty
+Investing into the fund.  Invest in GVT if currency is empty
 
 ### Example
 ```java
@@ -272,7 +272,7 @@ No authorization required
 # **v10InvestorFundsGet**
 > FundsList v10InvestorFundsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, skip, take)
 
-Funds list
+Dashboard funds list
 
 ### Example
 ```java
@@ -476,7 +476,7 @@ Name | Type | Description  | Notes
  **assetId** | [**UUID**](.md)|  | [optional]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
- **type** | **String**|  | [optional] [enum: All, Invest, Withdraw, Profit, Loss, Reinvest, Canceled, Ended]
+ **type** | **String**|  | [optional] [enum: All, Invest, Withdraw, Profit, Loss, Reinvest, Canceled, Ended, WithdrawByStopOut]
  **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
@@ -498,7 +498,7 @@ No authorization required
 # **v10InvestorProgramsByIdInvestByAmountPost**
 > Void v10InvestorProgramsByIdInvestByAmountPost(id, amount, authorization, currency)
 
-Investing into the program  Invest in GVT if currency is empty
+Investing into the program.  Invest in GVT if currency is empty
 
 ### Example
 ```java
@@ -1021,9 +1021,9 @@ No authorization required
 
 <a name="v10InvestorSignalsGet"></a>
 # **v10InvestorSignalsGet**
-> ProgramsList v10InvestorSignalsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, skip, take)
+> SignalsList v10InvestorSignalsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, skip, take)
 
-Dashboard program list
+Dashboard signal providers list
 
 ### Example
 ```java
@@ -1042,7 +1042,7 @@ String currencySecondary = "currencySecondary_example"; // String |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ProgramsList result = apiInstance.v10InvestorSignalsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, skip, take);
+    SignalsList result = apiInstance.v10InvestorSignalsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestorApi#v10InvestorSignalsGet");
@@ -1065,7 +1065,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProgramsList**](ProgramsList.md)
+[**SignalsList**](SignalsList.md)
 
 ### Authorization
 

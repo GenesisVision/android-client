@@ -357,7 +357,7 @@ No authorization required
 
 <a name="v10ProgramsGet"></a>
 # **v10ProgramsGet**
-> ProgramsList v10ProgramsGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, sorting, programCurrency, currencySecondary, levelUpFrom, tags, programsType, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, ids, managerId, programManagerId, skip, take)
+> ProgramsList v10ProgramsGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, sorting, programCurrency, currencySecondary, levelUpFrom, tags, isSignal, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, ids, managerId, programManagerId, skip, take)
 
 Programs list
 
@@ -379,7 +379,7 @@ String programCurrency = "programCurrency_example"; // String |
 String currencySecondary = "currencySecondary_example"; // String | 
 Integer levelUpFrom = 56; // Integer | 
 List<String> tags = Arrays.asList("tags_example"); // List<String> | 
-String programsType = "programsType_example"; // String | 
+Boolean isSignal = true; // Boolean | 
 DateTime statisticDateFrom = new DateTime(); // DateTime | 
 DateTime statisticDateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
@@ -393,7 +393,7 @@ UUID programManagerId = new UUID(); // UUID |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ProgramsList result = apiInstance.v10ProgramsGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, sorting, programCurrency, currencySecondary, levelUpFrom, tags, programsType, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, ids, managerId, programManagerId, skip, take);
+    ProgramsList result = apiInstance.v10ProgramsGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, sorting, programCurrency, currencySecondary, levelUpFrom, tags, isSignal, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, ids, managerId, programManagerId, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#v10ProgramsGet");
@@ -414,8 +414,8 @@ Name | Type | Description  | Notes
  **programCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **levelUpFrom** | **Integer**|  | [optional]
- **tags** | [**List&lt;String&gt;**](String.md)|  | [optional] [enum: Crypto, Forex, HighRisk, Signal]
- **programsType** | **String**|  | [optional] [enum: All, InvestmentProgram, SignalProgram]
+ **tags** | [**List&lt;String&gt;**](String.md)|  | [optional]
+ **isSignal** | **Boolean**|  | [optional]
  **statisticDateFrom** | **DateTime**|  | [optional]
  **statisticDateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]

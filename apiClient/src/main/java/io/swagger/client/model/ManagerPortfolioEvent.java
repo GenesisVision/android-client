@@ -463,7 +463,7 @@ public class ManagerPortfolioEvent
 
 		ASSETSTARTED("AssetStarted"),
 
-		PROGRAMPERIODSTATS("ProgramPeriodStats"),
+		PROGRAMPERIODSTARTS("ProgramPeriodStarts"),
 
 		PROGRAMPERIODENDS("ProgramPeriodEnds"),
 
@@ -479,7 +479,9 @@ public class ManagerPortfolioEvent
 
 		ENTRANCEFEE("EntranceFee"),
 
-		EXITFEE("ExitFee");
+		EXITFEE("ExitFee"),
+
+		PROGRAMSTOPOUT("ProgramStopOut");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {

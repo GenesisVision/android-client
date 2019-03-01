@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **programsInfo** | [**ProgramsInfo**](ProgramsInfo.md) |  |  [optional]
 **currencies** | **List&lt;String&gt;** |  |  [optional]
 **platformCurrencies** | [**List&lt;PlatformCurrency&gt;**](PlatformCurrency.md) |  |  [optional]
-**programTags** | [**List&lt;ProgramTag&gt;**](ProgramTag.md) |  |  [optional]
+**enums** | [**Enums**](Enums.md) |  |  [optional]
 
 
 

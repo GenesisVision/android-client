@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **rateToGVT** | **Double** |  |  [optional]
 **description** | **String** |  |  [optional]
 **logo** | **String** |  |  [optional]
+**isDepositEnabled** | **Boolean** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>
