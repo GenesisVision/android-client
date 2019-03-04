@@ -118,7 +118,7 @@ public class DepositWalletActivity extends BaseSwipeBackActivity implements Depo
 				StringFormatUtil.formatCurrencyAmount(model.getAvailable(), model.getCurrency()),
 				model.getCurrency()));
 
-		if (model.getAddress() != null) {
+		if (model.getAddress() != null && !model.getAddress().isEmpty()) {
 			this.address.setText(model.getAddress());
 			this.qrCodeImage.setImageBitmap(QRCode.from(model.getAddress())
 					.withColor(ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary),

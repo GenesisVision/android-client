@@ -94,7 +94,7 @@ public class MyWalletsPresenter extends MvpPresenter<MyWalletsView>
 		if (walletManager != null && baseCurrency != null) {
 			if (walletsSubscription != null)
 				walletsSubscription.unsubscribe();
-			walletsSubscription = walletManager.getWallets(baseCurrency.getValue())
+			walletsSubscription = walletManager.getWallets(baseCurrency.getValue(), false)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetWalletsResponse,

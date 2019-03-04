@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -83,26 +85,41 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 	@BindView(R.id.balance)
 	public TextView balance;
 
-	@BindView(R.id.balance_base)
-	public TextView balanceBase;
-
 	@BindView(R.id.available_share)
 	public ProgressBar availableShare;
+
+	@BindView(R.id.available_percent)
+	public TextView availablePercent;
 
 	@BindView(R.id.available)
 	public TextView available;
 
-	@BindView(R.id.available_base)
-	public TextView availableBase;
-
 	@BindView(R.id.invested_share)
 	public ProgressBar investedShare;
+
+	@BindView(R.id.invested_percent)
+	public TextView investedPercent;
 
 	@BindView(R.id.invested)
 	public TextView invested;
 
-	@BindView(R.id.invested_base)
-	public TextView investedBase;
+	@BindView(R.id.pending_share)
+	public ProgressBar pendingShare;
+
+	@BindView(R.id.pending_percent)
+	public TextView pendingPercent;
+
+	@BindView(R.id.pending)
+	public TextView pending;
+
+	@BindView(R.id.label_withdraw)
+	public TextView withdrawLabel;
+
+	@BindView(R.id.label_transfer)
+	public TextView transferLabel;
+
+	@BindView(R.id.label_add_funds)
+	public TextView addFundsLabel;
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
@@ -161,6 +178,7 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 			setFonts();
 
 			initRefreshLayout();
+			initButtons();
 			setOffsetListener();
 			initTabs();
 			initViewPager(model.getCurrency());
@@ -217,6 +235,11 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 
 		available.setTypeface(TypefaceUtil.semibold());
 		invested.setTypeface(TypefaceUtil.semibold());
+		pending.setTypeface(TypefaceUtil.semibold());
+
+		withdrawLabel.setTypeface(TypefaceUtil.semibold());
+		addFundsLabel.setTypeface(TypefaceUtil.semibold());
+		transferLabel.setTypeface(TypefaceUtil.semibold());
 	}
 
 	private void initRefreshLayout() {
@@ -229,6 +252,13 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 			if (pagerAdapter != null)
 				pagerAdapter.sendSwipeRefresh();
 		});
+	}
+
+	private void initButtons() {
+//		withdraw.setEmpty();
+//		transfer.setEmpty();
+
+
 	}
 
 	private void setOffsetListener() {
@@ -299,17 +329,28 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 
 	@Override
 	public void setWalletData(WalletData data) {
+		String currency = data.getCurrency().getValue();
+
 		this.balance.setText(StringFormatUtil.getValueString(data.getTotal(), data.getCurrency().getValue()));
-		this.balanceBase.setText(StringFormatUtil.getValueString(data.getTotalCcy(), data.getCurrencyCcy().getValue()));
+//		this.balanceBase.setText(StringFormatUtil.getValueString(data.getTotalCcy(), data.getCurrencyCcy().getValue()));
 
-		this.available.setText(StringFormatUtil.getValueString(data.getAvailable(), data.getCurrency().getValue()));
-		this.availableBase.setText(StringFormatUtil.getValueString(data.getAvailableCcy(), data.getCurrencyCcy().getValue()));
+		Integer availablePercent = (int) (data.getAvailableCcy() * 100 / data.getTotalCcy());
+		this.availableShare.setProgress(availablePercent);
+		this.availablePercent.setText(String.format(Locale.getDefault(), "%d%%", availablePercent));
+		this.available.setText(StringFormatUtil.getValueString(data.getAvailableCcy(), currency));
+//		this.availableBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getAvailableCcy(), baseCurrency.getValue()));
 
-		this.invested.setText(StringFormatUtil.getValueString(data.getInvested(), data.getCurrency().getValue()));
-		this.investedBase.setText(StringFormatUtil.getValueString(data.getInvestedCcy(), data.getCurrencyCcy().getValue()));
+		Integer investedPercent = (int) (data.getInvestedCcy() * 100 / data.getTotalCcy());
+		this.investedShare.setProgress(investedPercent);
+		this.investedPercent.setText(String.format(Locale.getDefault(), "%d%%", investedPercent));
+		this.invested.setText(StringFormatUtil.getValueString(data.getInvestedCcy(), currency));
+//		this.investedBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getInvestedCcy(), baseCurrency.getValue()));
 
-		availableShare.setProgress((int) (data.getAvailable() * 100 / data.getTotal()));
-		investedShare.setProgress((int) (data.getInvested() * 100 / data.getTotal()));
+		Integer pendingPercent = (int) (data.getPendingCcy() * 100 / data.getTotalCcy());
+		this.pendingShare.setProgress(pendingPercent);
+		this.pendingPercent.setText(String.format(Locale.getDefault(), "%d%%", pendingPercent));
+		this.pending.setText(StringFormatUtil.getValueString(data.getPendingCcy(), currency));
+
 	}
 
 	@Override

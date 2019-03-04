@@ -1,6 +1,7 @@
 package vision.genesis.clientapp.feature.main.wallet.external_transactions;
 
 import android.support.annotation.NonNull;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.MultiWalletExternalTransaction;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowTransactionDetailsEvent;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -122,6 +124,27 @@ public class ExternalTransactionsListAdapter extends RecyclerView.Adapter<Extern
 							: R.attr.colorRed));
 
 //			status.setText(String.format(Locale.getDefault(), "%s / %s", transaction.));
+			setStatus(transaction.getStatus());
+		}
+
+		private void setStatus(String status) {
+			switch (status.toLowerCase()) {
+				case "done":
+					this.status.setText(itemView.getContext().getString(R.string.status_done));
+					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
+							R.drawable.icon_status_done));
+					break;
+				case "pending":
+					this.status.setText(itemView.getContext().getString(R.string.status_pending));
+					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
+							R.drawable.icon_status_pending));
+					break;
+				case "canceled":
+					this.status.setText(itemView.getContext().getString(R.string.status_canceled));
+					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
+							R.drawable.icon_status_canceled));
+					break;
+			}
 		}
 	}
 }

@@ -67,6 +67,9 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 	@BindView(R.id.edittext_amount)
 	public EditText amount;
 
+	@BindView(R.id.currency)
+	public TextView currency;
+
 	@BindView(R.id.max)
 	public TextView max;
 
@@ -163,6 +166,7 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 		this.walletBalance.setText(String.format(Locale.getDefault(), "%s %s",
 				StringFormatUtil.formatCurrencyAmount(wallet.getAvailableToWithdrawal(), wallet.getCurrency().getValue()),
 				wallet.getCurrency().getValue()));
+		this.currency.setText(wallet.getCurrency().getValue());
 	}
 
 	@Override

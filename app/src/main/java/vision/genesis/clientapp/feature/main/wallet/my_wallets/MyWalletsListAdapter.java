@@ -68,6 +68,9 @@ public class MyWalletsListAdapter extends RecyclerView.Adapter<MyWalletsListAdap
 		@BindView(R.id.value)
 		public TextView value;
 
+		@BindView(R.id.value_ccy)
+		public TextView valueCcy;
+
 		private WalletData wallet;
 
 		MyWalletViewHolder(View itemView) {
@@ -91,9 +94,10 @@ public class MyWalletsListAdapter extends RecyclerView.Adapter<MyWalletsListAdap
 			this.wallet = wallet;
 			icon.setImageURI(ImageUtils.getImageUri(wallet.getLogo()));
 			currency.setText(wallet.getTitle());
-			value.setText(String.format(Locale.getDefault(), "%s %s",
-					StringFormatUtil.formatCurrencyAmount(wallet.getTotal(), wallet.getCurrency().getValue()),
-					wallet.getCurrency().getValue()));
+			value.setText(String.format(Locale.getDefault(), "%s",
+					StringFormatUtil.getValueString(wallet.getTotal(), wallet.getCurrency().getValue())));
+			valueCcy.setText(String.format(Locale.getDefault(), "%s",
+					StringFormatUtil.getValueString(wallet.getTotalCcy(), wallet.getCurrencyCcy().getValue())));
 		}
 	}
 }

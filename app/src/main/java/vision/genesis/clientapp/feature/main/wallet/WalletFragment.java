@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.Locale;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -62,26 +63,32 @@ public class WalletFragment extends BaseFragment implements WalletView
 	@BindView(R.id.balance)
 	public TextView balance;
 
-	@BindView(R.id.balance_base)
-	public TextView balanceBase;
-
 	@BindView(R.id.available_share)
 	public ProgressBar availableShare;
+
+	@BindView(R.id.available_percent)
+	public TextView availablePercent;
 
 	@BindView(R.id.available)
 	public TextView available;
 
-	@BindView(R.id.available_base)
-	public TextView availableBase;
-
 	@BindView(R.id.invested_share)
 	public ProgressBar investedShare;
+
+	@BindView(R.id.invested_percent)
+	public TextView investedPercent;
 
 	@BindView(R.id.invested)
 	public TextView invested;
 
-	@BindView(R.id.invested_base)
-	public TextView investedBase;
+	@BindView(R.id.pending_share)
+	public ProgressBar pendingShare;
+
+	@BindView(R.id.pending_percent)
+	public TextView pendingPercent;
+
+	@BindView(R.id.pending)
+	public TextView pending;
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
@@ -172,6 +179,11 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 		available.setTypeface(TypefaceUtil.semibold());
 		invested.setTypeface(TypefaceUtil.semibold());
+		pending.setTypeface(TypefaceUtil.semibold());
+
+		availablePercent.setTypeface(TypefaceUtil.semibold());
+		investedPercent.setTypeface(TypefaceUtil.semibold());
+		pendingPercent.setTypeface(TypefaceUtil.semibold());
 	}
 
 	private void initRefreshLayout() {
@@ -264,17 +276,27 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 	@Override
 	public void setBalance(WalletMultiSummary data) {
-		this.balance.setText(StringFormatUtil.getValueString(data.getGrandTotal().getTotal(), data.getGrandTotal().getCurrency().getValue()));
-		this.balanceBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getTotalCcy(), baseCurrency.getValue()));
+		String currency = data.getGrandTotal().getCurrencyCcy().getValue();
 
-		this.available.setText(StringFormatUtil.getValueString(data.getGrandTotal().getAvailable(), data.getGrandTotal().getCurrency().getValue()));
-		this.availableBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getAvailableCcy(), baseCurrency.getValue()));
+		this.balance.setText(StringFormatUtil.getValueString(data.getGrandTotal().getTotalCcy(), currency));
+//		this.balanceBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getTotalCcy(), baseCurrency.getValue()));
 
-		this.invested.setText(StringFormatUtil.getValueString(data.getGrandTotal().getInvested(), data.getGrandTotal().getCurrency().getValue()));
-		this.investedBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getInvestedCcy(), baseCurrency.getValue()));
+		Integer availablePercent = (int) (data.getGrandTotal().getAvailableCcy() * 100 / data.getGrandTotal().getTotalCcy());
+		this.availableShare.setProgress(availablePercent);
+		this.availablePercent.setText(String.format(Locale.getDefault(), "%d%%", availablePercent));
+		this.available.setText(StringFormatUtil.getValueString(data.getGrandTotal().getAvailableCcy(), currency));
+//		this.availableBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getAvailableCcy(), baseCurrency.getValue()));
 
-		availableShare.setProgress((int) (data.getGrandTotal().getAvailable() * 100 / data.getGrandTotal().getTotal()));
-		investedShare.setProgress((int) (data.getGrandTotal().getInvested() * 100 / data.getGrandTotal().getTotal()));
+		Integer investedPercent = (int) (data.getGrandTotal().getInvestedCcy() * 100 / data.getGrandTotal().getTotalCcy());
+		this.investedShare.setProgress(investedPercent);
+		this.investedPercent.setText(String.format(Locale.getDefault(), "%d%%", investedPercent));
+		this.invested.setText(StringFormatUtil.getValueString(data.getGrandTotal().getInvestedCcy(), currency));
+//		this.investedBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getInvestedCcy(), baseCurrency.getValue()));
+
+		Integer pendingPercent = (int) (data.getGrandTotal().getPendingCcy() * 100 / data.getGrandTotal().getTotalCcy());
+		this.pendingShare.setProgress(pendingPercent);
+		this.pendingPercent.setText(String.format(Locale.getDefault(), "%d%%", pendingPercent));
+		this.pending.setText(StringFormatUtil.getValueString(data.getGrandTotal().getPendingCcy(), currency));
 	}
 
 	@Override

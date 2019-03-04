@@ -33,7 +33,7 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/wallet_appbar_background_height"
+                        android:layout_height="@dimen/specific_wallet_appbar_background_height"
                         app:layout_collapseMode="pin">
 
                         <LinearLayout
@@ -41,7 +41,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="24dp"
+                            android:layout_marginTop="4dp"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -65,16 +65,6 @@
                                 android:textSize="28sp"
                                 tools:text="410.411 GVT"/>
 
-                            <TextView
-                                android:id="@+id/balance_base"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:alpha="0.3"
-                                android:textColor="?attr/colorTextPrimary"
-                                android:textSize="14sp"
-                                tools:text="0.00928124 BTC"/>
-
                         </LinearLayout>
 
                         <LinearLayout
@@ -83,114 +73,201 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/group_balance"
                             android:layout_marginTop="20dp"
-                            android:orientation="horizontal">
+                            android:orientation="vertical"
+                            android:paddingEnd="20dp"
+                            android:paddingStart="20dp">
 
                             <LinearLayout
                                 android:id="@+id/group_available"
-                                android:layout_width="0dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
+                                android:orientation="horizontal">
 
-                                <ProgressBar
-                                    android:id="@+id/available_share"
-                                    style="?android:attr/progressBarStyleHorizontal"
+                                <RelativeLayout
                                     android:layout_width="48dp"
-                                    android:layout_height="48dp"
-                                    android:background="@drawable/circular_background_wallet_available"
-                                    android:indeterminate="false"
-                                    android:progressDrawable="@drawable/circular_progress_wallet_available"
-                                    tools:max="100"
-                                    tools:min="1"
-                                    tools:progress="25"/>
+                                    android:layout_height="48dp">
 
-                                <TextView
-                                    android:id="@+id/label_available"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="16dp"
-                                    android:alpha="0.4"
-                                    android:lines="1"
-                                    android:text="@string/available"
-                                    android:textColor="?attr/colorTextPrimary"
-                                    android:textSize="12sp"/>
+                                    <ProgressBar
+                                        android:id="@+id/available_share"
+                                        style="?android:attr/progressBarStyleHorizontal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@drawable/circular_background_wallet_available"
+                                        android:indeterminate="false"
+                                        android:progressDrawable="@drawable/circular_progress_wallet_available"
+                                        tools:max="100"
+                                        tools:min="1"
+                                        tools:progress="25"/>
 
-                                <TextView
-                                    android:id="@+id/available"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:lines="1"
-                                    android:textColor="?attr/colorTextPrimary"
-                                    android:textSize="14sp"
-                                    tools:text="10.498 GVT"/>
+                                    <TextView
+                                        android:id="@+id/available_percent"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textColor="?attr/colorTextPrimary"
+                                        android:textSize="12sp"
+                                        tools:text="25%"/>
 
-                                <TextView
-                                    android:id="@+id/available_base"
-                                    android:layout_width="wrap_content"
+                                </RelativeLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:alpha="0.3"
-                                    android:textColor="?attr/colorTextPrimary"
-                                    android:textSize="12sp"
-                                    tools:text="0.05094524 BTC"/>
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/label_available"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:alpha="0.4"
+                                        android:lines="1"
+                                        android:text="@string/available"
+                                        android:textColor="?attr/colorTextPrimary"
+                                        android:textSize="12sp"/>
+
+                                    <TextView
+                                        android:id="@+id/available"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="2dp"
+                                        android:lines="1"
+                                        android:textColor="?attr/colorTextPrimary"
+                                        android:textSize="16sp"
+                                        tools:text="10.498 GVT"/>
+
+                                </LinearLayout>
 
                             </LinearLayout>
 
-                            <View
-                                android:layout_width="1dp"
-                                android:layout_height="match_parent"
-                                android:background="?attr/colorBackgroundDark"/>
-
                             <LinearLayout
                                 android:id="@+id/group_invested"
-                                android:layout_width="0dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
+                                android:layout_marginTop="16dp"
+                                android:orientation="horizontal">
 
-                                <ProgressBar
-                                    android:id="@+id/invested_share"
-                                    style="?android:attr/progressBarStyleHorizontal"
+                                <RelativeLayout
                                     android:layout_width="48dp"
-                                    android:layout_height="48dp"
-                                    android:background="@drawable/circular_background_wallet_invested"
-                                    android:indeterminate="false"
-                                    android:progressDrawable="@drawable/circular_progress_wallet_invested"
-                                    tools:max="100"
-                                    tools:min="1"
-                                    tools:progress="25"/>
+                                    android:layout_height="48dp">
 
-                                <TextView
-                                    android:id="@+id/label_invested"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="16dp"
-                                    android:alpha="0.4"
-                                    android:text="@string/invested_value"
-                                    android:textColor="?attr/colorTextPrimary"
-                                    android:textSize="12sp"/>
+                                    <ProgressBar
+                                        android:id="@+id/invested_share"
+                                        style="?android:attr/progressBarStyleHorizontal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@drawable/circular_background_wallet_invested"
+                                        android:indeterminate="false"
+                                        android:progressDrawable="@drawable/circular_progress_wallet_invested"
+                                        tools:max="100"
+                                        tools:min="1"
+                                        tools:progress="50"/>
 
-                                <TextView
-                                    android:id="@+id/invested"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:textColor="?attr/colorTextPrimary"
-                                    android:textSize="14sp"
-                                    tools:text="305.405 GVT"/>
+                                    <TextView
+                                        android:id="@+id/invested_percent"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textColor="?attr/colorTextPrimary"
+                                        android:textSize="12sp"
+                                        tools:text="50%"/>
 
-                                <TextView
-                                    android:id="@+id/invested_base"
-                                    android:layout_width="wrap_content"
+                                </RelativeLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:alpha="0.3"
-                                    android:textColor="?attr/colorTextPrimary"
-                                    android:textSize="12sp"
-                                    tools:text="0.022057 BTC"/>
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/label_invested"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:alpha="0.4"
+                                        android:lines="1"
+                                        android:text="@string/invested"
+                                        android:textColor="?attr/colorTextPrimary"
+                                        android:textSize="12sp"/>
+
+                                    <TextView
+                                        android:id="@+id/invested"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="2dp"
+                                        android:lines="1"
+                                        android:textColor="?attr/colorTextPrimary"
+                                        android:textSize="16sp"
+                                        tools:text="0.022057 BTC"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/group_pending"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:orientation="horizontal">
+
+                                <RelativeLayout
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp">
+
+                                    <ProgressBar
+                                        android:id="@+id/pending_share"
+                                        style="?android:attr/progressBarStyleHorizontal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@drawable/circular_background_wallet_pending"
+                                        android:indeterminate="false"
+                                        android:progressDrawable="@drawable/circular_progress_wallet_pending"
+                                        tools:max="100"
+                                        tools:min="1"
+                                        tools:progress="25"/>
+
+                                    <TextView
+                                        android:id="@+id/pending_percent"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textColor="?attr/colorTextPrimary"
+                                        android:textSize="12sp"
+                                        tools:text="25%"/>
+
+                                </RelativeLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="20dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/label_pending"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:alpha="0.4"
+                                        android:lines="1"
+                                        android:text="@string/pending"
+                                        android:textColor="?attr/colorTextPrimary"
+                                        android:textSize="12sp"/>
+
+                                    <TextView
+                                        android:id="@+id/pending"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="2dp"
+                                        android:lines="1"
+                                        android:textColor="?attr/colorTextPrimary"
+                                        android:textSize="16sp"
+                                        tools:text="10.498 GVT"/>
+
+                                </LinearLayout>
 
                             </LinearLayout>
 
@@ -206,28 +283,84 @@
                             android:paddingEnd="20dp"
                             android:paddingStart="20dp">
 
-                            <vision.genesis.clientapp.ui.PrimaryButton
+                            <LinearLayout
                                 android:id="@+id/withdraw"
                                 android:layout_width="0dp"
                                 android:layout_height="@dimen/button_height"
                                 android:layout_weight="1"
-                                android:text="@string/withdraw"/>
+                                android:background="@drawable/button_wallet_empty"
+                                android:gravity="center"
+                                android:orientation="horizontal">
 
-                            <vision.genesis.clientapp.ui.PrimaryButton
-                                android:id="@+id/transfer"
-                                android:layout_width="0dp"
-                                android:layout_height="@dimen/button_height"
-                                android:layout_marginStart="16dp"
-                                android:layout_weight="1"
-                                android:text="@string/transfer"/>
+                                <ImageView
+                                    android:layout_width="12dp"
+                                    android:layout_height="12dp"
+                                    android:src="@drawable/icon_withdraw"/>
 
-                            <vision.genesis.clientapp.ui.PrimaryButton
+                                <TextView
+                                    android:id="@+id/label_withdraw"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:text="@string/withdraw"
+                                    android:textColor="?attr/colorTextPrimary"
+                                    android:textSize="14sp"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:id="@+id/add_funds"
                                 android:layout_width="0dp"
                                 android:layout_height="@dimen/button_height"
-                                android:layout_marginStart="16dp"
+                                android:layout_marginStart="10dp"
                                 android:layout_weight="1"
-                                android:text="@string/add_funds"/>
+                                android:background="@drawable/button_primary"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="12dp"
+                                    android:layout_height="12dp"
+                                    android:src="@drawable/icon_add_funds"/>
+
+                                <TextView
+                                    android:id="@+id/label_add_funds"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:text="@string/add_funds"
+                                    android:textColor="?attr/colorTextPrimary"
+                                    android:textSize="14sp"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/transfer"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/button_height"
+                            android:layout_below="@+id/group_deposit_withdraw_buttons"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/button_wallet_empty"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@drawable/icon_transfer"/>
+
+                            <TextView
+                                android:id="@+id/label_transfer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:text="@string/transfer"
+                                android:textColor="?attr/colorTextPrimary"
+                                android:textSize="14sp"/>
 
                         </LinearLayout>
 

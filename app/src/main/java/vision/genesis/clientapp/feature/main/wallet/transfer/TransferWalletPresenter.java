@@ -136,7 +136,7 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 		if (walletManager != null && model != null) {
 			if (walletsSubscription != null)
 				walletsSubscription.unsubscribe();
-			walletsSubscription = walletManager.getWallets(model.getCurrency())
+			walletsSubscription = walletManager.getWallets(model.getCurrency(), false)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleWalletUpdateSuccess,

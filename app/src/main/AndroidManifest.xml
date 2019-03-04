@@ -257,7 +257,7 @@
             android:name=".feature.main.wallet.transfer.TransferWalletActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
 
         <activity
             android:name=".feature.main.wallet.transaction_details.TransactionDetailsActivity"

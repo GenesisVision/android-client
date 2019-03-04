@@ -575,5 +575,6 @@
     <string name="credited_to_wallet">Credited to the wallet</string>
     <string name="to_external_address">To external address</string>
     <string name="from_external_address">From external address</string>
+    <string name="pending">Pending</string>
 
 </resources>

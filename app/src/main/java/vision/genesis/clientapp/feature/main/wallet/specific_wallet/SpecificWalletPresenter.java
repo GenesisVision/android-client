@@ -94,7 +94,7 @@ public class SpecificWalletPresenter extends MvpPresenter<SpecificWalletView>
 		if (walletManager != null && walletId != null && baseCurrency != null) {
 			if (walletSubscription != null)
 				walletSubscription.unsubscribe();
-			walletSubscription = walletManager.getWallets(baseCurrency.getValue())
+			walletSubscription = walletManager.getWallets(baseCurrency.getValue(), false)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(response -> handleWalletUpdateSuccess(response, walletId),

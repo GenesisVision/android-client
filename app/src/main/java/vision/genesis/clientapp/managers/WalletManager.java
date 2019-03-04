@@ -95,7 +95,9 @@ public class WalletManager
 		return walletApi.v10WalletByCurrencyGet(currency.getValue(), AuthManager.token.getValue());
 	}
 
-	public BehaviorSubject<WalletMultiSummary> getWallets(String currency) {
+	public BehaviorSubject<WalletMultiSummary> getWallets(String currency, Boolean forceUpdate) {
+		if (forceUpdate)
+			walletsSubject = BehaviorSubject.create();
 		getWalletsSubscription = walletApi.v10WalletMultiByCurrencyGet(currency, AuthManager.token.getValue())
 				.observeOn(Schedulers.io())
 				.subscribeOn(Schedulers.io())
