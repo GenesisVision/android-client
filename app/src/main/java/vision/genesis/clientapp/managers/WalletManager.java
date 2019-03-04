@@ -3,11 +3,14 @@ package vision.genesis.clientapp.managers;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.UUID;
+
 import io.swagger.client.api.WalletApi;
 import io.swagger.client.model.CreateWithdrawalRequestModel;
 import io.swagger.client.model.InternalTransferRequest;
 import io.swagger.client.model.MultiWalletExternalTransactionsViewModel;
 import io.swagger.client.model.MultiWalletTransactionsViewModel;
+import io.swagger.client.model.TransactionDetails;
 import io.swagger.client.model.WalletMultiSummary;
 import io.swagger.client.model.WalletSummary;
 import io.swagger.client.model.WalletsInfo;
@@ -132,5 +135,9 @@ public class WalletManager
 
 	public Observable<Void> transfer(InternalTransferRequest request) {
 		return walletApi.v10WalletTransferPost(AuthManager.token.getValue(), request);
+	}
+
+	public Observable<TransactionDetails> getTransaction(UUID transactionId) {
+		return walletApi.v10WalletTransactionByIdGet(transactionId, AuthManager.token.getValue());
 	}
 }

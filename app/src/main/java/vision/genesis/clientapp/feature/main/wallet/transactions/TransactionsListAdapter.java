@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -20,6 +22,7 @@ import butterknife.ButterKnife;
 import io.swagger.client.model.MultiWalletTransaction;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.events.ShowTransactionDetailsEvent;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -88,6 +91,11 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 			ButterKnife.bind(this, itemView);
 
 			setFonts();
+
+			itemView.setOnClickListener(v -> {
+				if (transaction != null)
+					EventBus.getDefault().post(new ShowTransactionDetailsEvent(transaction.getId(), transaction.getType().getValue(), transaction.getDate()));
+			});
 		}
 
 		private void setFonts() {
@@ -105,29 +113,51 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 		}
 
 		private void setType() {
-			String logo = "";
-			String currency = "";
-
-			if (transaction.getType().equals(MultiWalletTransaction.TypeEnum.CONVERTING)) {
-
-			}
-
-			logo = transaction.getLogoFrom();
-			currency = transaction.getCurrencyFrom().getValue();
+			String logo = transaction.getLogoFrom();
+			String currency = transaction.getCurrencyFrom().getValue();
 
 			this.logo.setImageURI(ImageUtils.getImageUri(logo));
 			description.setText(transaction.getDescription());
-			value.setText(String.format(Locale.getDefault(), "%s %s %s",
-					transaction.getAmount() < 0 ? "-" : "+",
-					StringFormatUtil.formatCurrencyAmount(Math.abs(transaction.getAmount()), currency), currency));
-			value.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
-					transaction.getAmount() >= 0
-							? R.attr.colorGreen
-							: R.attr.colorRed));
 
-			status.setText(itemView.getResources().getString(R.string.status_done));
-			statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
-					R.drawable.icon_status_done));
+			if (transaction.getType().equals(MultiWalletTransaction.TypeEnum.CONVERTING)) {
+				value.setText(String.format(Locale.getDefault(), "- %s %s",
+						StringFormatUtil.formatCurrencyAmount(Math.abs(transaction.getAmount()), currency), currency));
+				value.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorRed));
+			}
+			else {
+				value.setText(String.format(Locale.getDefault(), "%s %s %s",
+						transaction.getAmount() < 0 ? "-" : "+",
+						StringFormatUtil.formatCurrencyAmount(Math.abs(transaction.getAmount()), currency), currency));
+				value.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
+						transaction.getAmount() >= 0
+								? R.attr.colorGreen
+								: R.attr.colorRed));
+			}
+
+
+			setStatus(transaction.getStatus());
+		}
+
+		private void setStatus(MultiWalletTransaction.StatusEnum status) {
+			switch (status) {
+				case DONE:
+					this.status.setText(itemView.getContext().getString(R.string.status_done));
+					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
+							R.drawable.icon_status_done));
+					break;
+				case PENDING:
+					this.status.setText(itemView.getContext().getString(R.string.status_pending));
+					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
+							R.drawable.icon_status_pending));
+					break;
+				case CANCELED:
+					this.status.setText(itemView.getContext().getString(R.string.status_canceled));
+					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
+							R.drawable.icon_status_canceled));
+					break;
+				case ERROR:
+					break;
+			}
 		}
 	}
 }

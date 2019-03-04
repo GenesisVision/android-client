@@ -58,15 +58,15 @@
                 android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?attr/colorGreen"
+                android:textColor="?attr/colorTextPrimary"
                 android:textSize="12sp"
                 tools:text="Done"/>
 
             <ImageView
                 android:id="@+id/icon_status"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="12dp"/>
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"/>
 
         </LinearLayout>
 

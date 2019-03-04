@@ -2,6 +2,10 @@ package vision.genesis.clientapp.feature.main;
 
 import com.arellomobile.mvp.MvpView;
 
+import org.joda.time.DateTime;
+
+import java.util.UUID;
+
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.model.AppUpdateModel;
@@ -60,4 +64,6 @@ public interface MainView extends MvpView
 	void changeThemeWithAnim();
 
 	void showSpecificWallet(WalletModel walletModel);
+
+	void showTransactionDetails(UUID transactionId, String transactionType, DateTime transactionDate);
 }

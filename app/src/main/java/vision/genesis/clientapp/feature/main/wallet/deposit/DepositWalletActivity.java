@@ -22,6 +22,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.model.WalletModel;
@@ -102,9 +103,12 @@ public class DepositWalletActivity extends BaseSwipeBackActivity implements Depo
 		if (getIntent().getExtras() != null) {
 			model = Objects.requireNonNull(getIntent().getExtras().getParcelable(EXTRA_MODEL));
 			updateData(model);
+			setFonts();
 		}
-
-		setFonts();
+		else {
+			Timber.e("Passed empty params to DepositActivity");
+			onBackPressed();
+		}
 	}
 
 	private void updateData(WalletModel model) {

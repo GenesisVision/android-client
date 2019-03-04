@@ -20,6 +20,9 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import org.greenrobot.eventbus.EventBus;
+import org.joda.time.DateTime;
+
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +37,7 @@ import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.wallet.specific_wallet.SpecificWalletActivity;
+import vision.genesis.clientapp.feature.main.wallet.transaction_details.TransactionDetailsActivity;
 import vision.genesis.clientapp.feature.pin.check.CheckPinActivity;
 import vision.genesis.clientapp.feature.two_factor.disable.DisableTfaActivity;
 import vision.genesis.clientapp.feature.two_factor.setup.SetupTfaActivity;
@@ -340,6 +344,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void showSpecificWallet(WalletModel walletModel) {
 		SpecificWalletActivity.startWith(this, walletModel);
+	}
+
+	@Override
+	public void showTransactionDetails(UUID transactionId, String transactionType, DateTime transactionDate) {
+		TransactionDetailsActivity.startWith(this, transactionId, transactionType, transactionDate);
 	}
 
 	@Override

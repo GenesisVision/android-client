@@ -555,6 +555,8 @@
     <string name="transactions">Transactions</string>
     <string name="deposits_withdrawals">Deposits/Withdrawals</string>
     <string name="status_done">Done</string>
+    <string name="status_pending">Pending</string>
+    <string name="status_canceled">Canceled</string>
     <string name="no_deposits_or_withdrawals">There are currently no deposits or withdrawals</string>
     <string name="external_address">External address</string>
     <string name="deposit_to_this_address">Deposit to this address</string>
@@ -562,5 +564,16 @@
     <string name="transfer">Transfer</string>
     <string name="enter_amount_to_transfer">Enter amount to transfer</string>
     <string name="transfer_disclaimer">The funds will be converted according to the current market price (Market order on Binance).</string>
+    <string name="transaction_details">Transaction details</string>
+    <string name="status">Status</string>
+    <string name="to_the_program">To the program</string>
+    <string name="from_the_program">From the program</string>
+    <string name="to_the_fund">To the fund</string>
+    <string name="from_the_fund">From the fund</string>
+    <string name="program">Program</string>
+    <string name="written_off_wallet">Written off from the wallet</string>
+    <string name="credited_to_wallet">Credited to the wallet</string>
+    <string name="to_external_address">To external address</string>
+    <string name="from_external_address">From external address</string>
 
 </resources>

@@ -98,8 +98,8 @@ Name | Type | Description  | Notes
  **percent** | **Double**|  | [optional]
  **openTolerancePercent** | **Double**|  | [optional]
  **fixedVolume** | **Double**|  | [optional]
- **fixedCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
- **initialDepositCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **fixedCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **initialDepositCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **initialDepositAmount** | **Double**|  | [optional]
 
 ### Return type
@@ -351,8 +351,8 @@ Name | Type | Description  | Notes
  **percent** | **Double**|  | [optional]
  **openTolerancePercent** | **Double**|  | [optional]
  **fixedVolume** | **Double**|  | [optional]
- **fixedCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
- **initialDepositCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **fixedCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **initialDepositCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **initialDepositAmount** | **Double**|  | [optional]
 
 ### Return type

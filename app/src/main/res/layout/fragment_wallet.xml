@@ -259,8 +259,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
-                android:background="@drawable/background_select_currency"
-                android:tint="?attr/colorCard"/>
+                android:background="@drawable/background_select_currency_background"
+                android:tint="?attr/colorBackground"/>
 
             <TextView
                 android:id="@+id/currency"

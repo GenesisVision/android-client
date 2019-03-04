@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -18,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.MultiWalletExternalTransaction;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.events.ShowTransactionDetailsEvent;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -86,6 +89,11 @@ public class ExternalTransactionsListAdapter extends RecyclerView.Adapter<Extern
 			ButterKnife.bind(this, itemView);
 
 			setFonts();
+
+			itemView.setOnClickListener(v -> {
+				if (transaction != null)
+					EventBus.getDefault().post(new ShowTransactionDetailsEvent(transaction.getId(), transaction.getType().getValue(), transaction.getDate()));
+			});
 		}
 
 		private void setFonts() {

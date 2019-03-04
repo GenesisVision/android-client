@@ -45,7 +45,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/date_range_margin_bottom"
-        android:visibility="visible"
+        android:visibility="gone"
         tools:visibility="visible">
 
         <ImageView
