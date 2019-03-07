@@ -104,8 +104,6 @@ public class TransferWalletActivity extends BaseSwipeBackActivity implements Tra
 	@InjectPresenter
 	TransferWalletPresenter transferWalletPresenter;
 
-	private WalletModel model;
-
 	private List<WalletData> walletsTo = new ArrayList<>();
 
 	@OnClick(R.id.button_close)
@@ -146,8 +144,7 @@ public class TransferWalletActivity extends BaseSwipeBackActivity implements Tra
 		ButterKnife.bind(this);
 
 		if (getIntent().getExtras() != null) {
-			model = Objects.requireNonNull(getIntent().getExtras().getParcelable(EXTRA_MODEL));
-			transferWalletPresenter.setModel(model);
+			transferWalletPresenter.setModel(Objects.requireNonNull(getIntent().getExtras().getParcelable(EXTRA_MODEL)));
 		}
 
 		setFonts();

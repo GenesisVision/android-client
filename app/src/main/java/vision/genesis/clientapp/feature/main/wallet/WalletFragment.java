@@ -158,10 +158,10 @@ public class WalletFragment extends BaseFragment implements WalletView
 		if (pagerAdapter != null)
 			pagerAdapter.destroy();
 
-		if (tabSelectedListener != null)
+		if (tabSelectedListener != null && tabLayout != null)
 			tabLayout.removeOnTabSelectedListener(tabSelectedListener);
 
-		if (tabLayoutOnPageChangeListener != null)
+		if (tabLayoutOnPageChangeListener != null && viewPager != null)
 			viewPager.removeOnPageChangeListener(tabLayoutOnPageChangeListener);
 
 		if (viewPager != null)

@@ -23,10 +23,12 @@ import vision.genesis.clientapp.model.CurrencyEnum;
 public class RateManager
 {
 	public static List<String> baseCurrenciesList = new ArrayList<>(Arrays.asList(
-			CurrencyEnum.USD.getValue(),
-			CurrencyEnum.EUR.getValue(),
 			CurrencyEnum.BTC.getValue(),
-			CurrencyEnum.ETH.getValue()));
+			CurrencyEnum.ETH.getValue(),
+			CurrencyEnum.GVT.getValue(),
+			CurrencyEnum.USDT.getValue(),
+			CurrencyEnum.USD.getValue(),
+			CurrencyEnum.EUR.getValue()));
 
 	private RateApi rateApi;
 

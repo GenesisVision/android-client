@@ -30,6 +30,7 @@
             android:text="@string/transfer"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="18sp"/>
+
     </RelativeLayout>
 
     <ScrollView

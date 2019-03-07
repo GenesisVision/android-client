@@ -103,7 +103,8 @@
             <vision.genesis.clientapp.ui.CurrencyView
                 android:id="@+id/program_currency"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:visibility="invisible"/>
 
             <TextView
                 android:id="@+id/profit_percent"
@@ -120,6 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:textColor="?attr/colorTextSecondary"
+                android:visibility="invisible"
                 app:autoSizeMaxTextSize="18sp"
                 app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="2sp"

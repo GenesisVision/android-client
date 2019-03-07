@@ -237,8 +237,9 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 			this.balance.setText(String.format(Locale.getDefault(), "%s GVT",
 					StringFormatUtil.getShortenedAmount(program.getStatistic().getBalanceGVT().getAmount())));
 
-			this.availableToInvest.setText(String.format(Locale.getDefault(), "%s GVT",
-					StringFormatUtil.getShortenedAmount(program.getAvailableInvestment())));
+			this.availableToInvest.setText(String.format(Locale.getDefault(), "%s %s",
+					StringFormatUtil.getShortenedAmount(program.getAvailableInvestmentBase()),
+					program.getCurrency().getValue()));
 
 		}
 

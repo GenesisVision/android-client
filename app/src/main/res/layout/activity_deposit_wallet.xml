@@ -169,9 +169,9 @@
                 android:layout_marginTop="4dp"
                 android:alpha="0.4"
                 android:gravity="center"
-                android:text="@string/deposit_to_this_address"
                 android:textColor="?attr/colorTextPrimary"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                tools:text="@string/deposit_to_this_address"/>
 
             <TextView
                 android:id="@+id/address"
@@ -191,7 +191,7 @@
                 android:layout_height="@dimen/button_height"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="20dp"
-                android:text="@string/copy"/>
+                android:text="@string/copy_address"/>
 
         </RelativeLayout>
 

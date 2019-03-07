@@ -132,4 +132,8 @@ public class StringFormatUtil
 		else
 			return "";
 	}
+
+	public static String getApproxSymbolIfNeeded(Double amount) {
+		return amount != 0 ? "≈" : "";
+	}
 }

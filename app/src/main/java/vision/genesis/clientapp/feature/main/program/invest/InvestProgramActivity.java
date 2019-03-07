@@ -12,20 +12,24 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.WalletData;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.common.select_wallet.SelectWalletBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.program.invest.confirm.ConfirmProgramInvestBottomSheetFragment;
-import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -49,23 +53,44 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	@BindView(R.id.title)
 	public TextView title;
 
+	@BindView(R.id.program_name)
+	public TextView programName;
+
 	@BindView(R.id.content)
 	public ViewGroup content;
 
 	@BindView(R.id.available_to_invest)
 	public TextView availableToInvest;
 
+	@BindView(R.id.group_amount)
+	public ViewGroup amountGroup;
+
 	@BindView(R.id.amount_to_invest_label)
 	public TextView amountToInvestLabel;
 
+	@BindView(R.id.icon_from)
+	public SimpleDraweeView iconFrom;
+
+	@BindView(R.id.wallet_from)
+	public TextView walletFrom;
+
+	@BindView(R.id.available_from)
+	public TextView availableFrom;
+
 	@BindView(R.id.edittext_amount)
 	public EditText amount;
+
+	@BindView(R.id.amount_currency)
+	public TextView amountCurrency;
 
 	@BindView(R.id.max)
 	public TextView max;
 
 	@BindView(R.id.base_currency_amount)
 	public TextView baseCurrencyAmount;
+
+	@BindView(R.id.group_commissions)
+	public ViewGroup commissionsGroup;
 
 	@BindView(R.id.entry_fee)
 	public TextView entryFee;
@@ -82,22 +107,32 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
+	@BindView(R.id.amount_progress_bar)
+	public ProgressBar amountProgress;
+
 	@InjectPresenter
 	InvestProgramPresenter investProgramPresenter;
+
+	private List<WalletData> walletsFrom;
+
+	private ProgramRequest request;
 
 	@OnClick(R.id.button_close)
 	public void onCloseClicked() {
 		finishActivity();
 	}
 
-	@OnClick(R.id.group_amount)
-	public void onAmountClicked() {
-		showSoftKeyboard();
+	@OnClick(R.id.group_wallet)
+	public void onWalletClicked() {
+		SelectWalletBottomSheetFragment fragment = new SelectWalletBottomSheetFragment();
+		fragment.setData(getString(R.string.select_wallet_currency), walletsFrom);
+		fragment.setListener(investProgramPresenter);
+		fragment.show(getSupportFragmentManager(), fragment.getTag());
 	}
 
-	@OnClick(R.id.available_to_invest)
-	public void onAvailableClicked() {
-		investProgramPresenter.onMaxClicked();
+	@OnClick(R.id.group_edittext_amount)
+	public void onAmountClicked() {
+		showSoftKeyboard();
 	}
 
 	@OnClick(R.id.max)
@@ -120,16 +155,23 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 		ButterKnife.bind(this);
 
 		if (getIntent().getExtras() != null) {
-			investProgramPresenter.setProgramRequest(getIntent().getExtras().getParcelable(EXTRA_PROGRAM_REQUEST));
+			request = getIntent().getExtras().getParcelable(EXTRA_PROGRAM_REQUEST);
+			if (request != null) {
+				investProgramPresenter.setProgramRequest(request);
 
-			setFonts();
+				setProgramName(request.getProgramName());
+				setFonts();
 
-			setTextListener();
+				setTextListener();
+				return;
+			}
 		}
-		else {
-			Timber.e("Passed empty request to InvestProgramActivity");
-			onBackPressed();
-		}
+		Timber.e("Passed empty request to InvestProgramActivity");
+		onBackPressed();
+	}
+
+	private void setProgramName(String programName) {
+		this.programName.setText(programName);
 	}
 
 	private void setTextListener() {
@@ -143,9 +185,27 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	}
 
 	@Override
-	public void setAvailableToInvest(Double availableToInvest) {
-		this.availableToInvest.setText(String.format(Locale.getDefault(), "%s GVT",
-				StringFormatUtil.formatCurrencyAmount(availableToInvest, CurrencyEnum.GVT.toString())));
+	public void setAvailableToInvest(String availableToInvest) {
+		this.availableToInvest.setText(availableToInvest);
+	}
+
+	@Override
+	public void setWalletsFrom(List<WalletData> wallets) {
+		this.walletsFrom = wallets;
+	}
+
+	@Override
+	public void setWalletFrom(WalletData wallet) {
+		this.iconFrom.setImageURI(ImageUtils.getImageUri(wallet.getLogo()));
+		this.walletFrom.setText(wallet.getTitle());
+		this.availableFrom.setText(String.format(Locale.getDefault(), "%s %s",
+				getString(R.string.available_in_wallet),
+				StringFormatUtil.getValueString(wallet.getAvailable(), wallet.getCurrency().getValue())));
+		this.amountCurrency.setText(wallet.getCurrency().getValue());
+		this.baseCurrencyAmount.setVisibility(
+				wallet.getCurrency().getValue().equals(request.getProgramCurrency())
+						? View.GONE
+						: View.VISIBLE);
 	}
 
 	@Override
@@ -192,6 +252,13 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 		if (!show) {
 			content.setVisibility(View.VISIBLE);
 		}
+	}
+
+	@Override
+	public void showAmountProgress(boolean show) {
+		amountGroup.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+		commissionsGroup.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+		amountProgress.setVisibility(!show ? View.INVISIBLE : View.VISIBLE);
 	}
 
 	@Override

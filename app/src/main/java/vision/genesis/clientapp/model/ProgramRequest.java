@@ -63,6 +63,9 @@ public class ProgramRequest implements Parcelable
 	@SerializedName("currency")
 	private String programCurrency;
 
+	@SerializedName("wallet_currency")
+	private String walletCurrency;
+
 	public ProgramRequest() {
 
 	}
@@ -80,6 +83,7 @@ public class ProgramRequest implements Parcelable
 		infoMiddleText = in.readString();
 		amountBottomText = in.readString();
 		amount = in.readDouble();
+		walletCurrency = in.readString();
 	}
 
 	@Override
@@ -101,6 +105,7 @@ public class ProgramRequest implements Parcelable
 		dest.writeString(infoMiddleText);
 		dest.writeString(amountBottomText);
 		dest.writeDouble(amount);
+		dest.writeString(walletCurrency);
 	}
 
 	public UUID getProgramId() {
@@ -197,5 +202,13 @@ public class ProgramRequest implements Parcelable
 
 	public void setAmount(Double amount) {
 		this.amount = amount;
+	}
+
+	public String getWalletCurrency() {
+		return walletCurrency;
+	}
+
+	public void setWalletCurrency(String walletCurrency) {
+		this.walletCurrency = walletCurrency;
 	}
 }

@@ -62,6 +62,9 @@ public class DepositWalletActivity extends BaseSwipeBackActivity implements Depo
 	@BindView(R.id.wallet_balance)
 	public TextView walletBalance;
 
+	@BindView(R.id.label_deposit)
+	public TextView depositLabel;
+
 	@BindView(R.id.address)
 	public TextView address;
 
@@ -126,6 +129,7 @@ public class DepositWalletActivity extends BaseSwipeBackActivity implements Depo
 					.withSize(1000, 1000)
 					.withErrorCorrection(ErrorCorrectionLevel.H)
 					.bitmap());
+			this.depositLabel.setText(String.format(Locale.getDefault(), getString(R.string.deposit_to_this_address), model.getCurrency(), model.getTitle()));
 		}
 	}
 

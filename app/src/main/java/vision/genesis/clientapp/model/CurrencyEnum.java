@@ -16,13 +16,13 @@ public enum CurrencyEnum
 {
 	UNDEFINED("Undefined"),
 
-	GVT("GVT"),
+	BTC("BTC"),
 
 	ETH("ETH"),
 
-	BTC("BTC"),
+	GVT("GVT"),
 
-	ADA("ADA"),
+	USDT("USDT"),
 
 	USD("USD"),
 

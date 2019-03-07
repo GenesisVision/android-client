@@ -559,7 +559,7 @@
     <string name="status_canceled">Canceled</string>
     <string name="no_deposits_or_withdrawals">There are currently no deposits or withdrawals</string>
     <string name="external_address">External address</string>
-    <string name="deposit_to_this_address">Deposit to this address</string>
+    <string name="deposit_to_this_address">Use this address to deposit %s to your %s wallet</string>
     <string name="enter_correct_amount">Enter correct amount</string>
     <string name="transfer">Transfer</string>
     <string name="enter_amount_to_transfer">Enter amount to transfer</string>
@@ -576,5 +576,7 @@
     <string name="to_external_address">To external address</string>
     <string name="from_external_address">From external address</string>
     <string name="pending">Pending</string>
+    <string name="copy_address">Copy address</string>
+    <string name="available_to_invest_in_program">Available to invest in program</string>
 
 </resources>

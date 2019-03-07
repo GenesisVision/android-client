@@ -2,6 +2,9 @@ package vision.genesis.clientapp.feature.main.program.invest;
 
 import com.arellomobile.mvp.MvpView;
 
+import java.util.List;
+
+import io.swagger.client.model.WalletData;
 import vision.genesis.clientapp.model.ProgramRequest;
 
 /**
@@ -11,7 +14,11 @@ import vision.genesis.clientapp.model.ProgramRequest;
 
 interface InvestProgramView extends MvpView
 {
-	void setAvailableToInvest(Double availableToInvest);
+	void setAvailableToInvest(String availableToInvest);
+
+	void setWalletsFrom(List<WalletData> wallets);
+
+	void setWalletFrom(WalletData selectedWalletFrom);
 
 	void setMinInvestmentAmount(Double minInvestmentAmount);
 
@@ -30,6 +37,8 @@ interface InvestProgramView extends MvpView
 	void showConfirmDialog(ProgramRequest programRequest);
 
 	void showProgress(boolean show);
+
+	void showAmountProgress(boolean show);
 
 	void showSnackbarMessage(String message);
 

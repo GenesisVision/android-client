@@ -315,7 +315,9 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 			yourInvestmentGroup.setVisibility(View.GONE);
 		}
 
-		availableToInvest.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(programDetails.getAvailableInvestment()).toString()));
+		availableToInvest.setText(String.format(Locale.getDefault(), "%s %s",
+				StringFormatUtil.getShortenedAmount(programDetails.getAvailableInvestmentBase()).toString(),
+				programDetails.getCurrency().getValue()));
 
 		if (programDetails.getLevel() < Constants.MIN_PROGRAM_LEVEL_ENTRY_FEE)
 			entryFee.setText(String.format(Locale.getDefault(), "%s%% (%s%%)",

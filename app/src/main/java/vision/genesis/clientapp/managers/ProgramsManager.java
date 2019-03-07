@@ -83,8 +83,8 @@ public class ProgramsManager
 		return investorApi.v10InvestorPortfolioEventsGet(AuthManager.token.getValue(), programId, dateRange.getFrom(), dateRange.getTo(), null, null, skip, take);
 	}
 
-	public Observable<ProgramInvestInfo> getInvestInfo(UUID programId, CurrencyEnum baseCurrency) {
-		return investorApi.v10InvestorProgramsByIdInvestInfoByCurrencyGet(programId, baseCurrency.getValue(), AuthManager.token.getValue());
+	public Observable<ProgramInvestInfo> getInvestInfo(UUID programId, String baseCurrency) {
+		return investorApi.v10InvestorProgramsByIdInvestInfoByCurrencyGet(programId, baseCurrency, AuthManager.token.getValue());
 	}
 
 	public Observable<ProgramWithdrawInfo> getWithdrawInfo(UUID programId, CurrencyEnum baseCurrency) {
@@ -92,7 +92,7 @@ public class ProgramsManager
 	}
 
 	public Observable<Void> invest(ProgramRequest investRequest) {
-		return investorApi.v10InvestorProgramsByIdInvestByAmountPost(investRequest.getProgramId(), investRequest.getAmount(), AuthManager.token.getValue(), null);
+		return investorApi.v10InvestorProgramsByIdInvestByAmountPost(investRequest.getProgramId(), investRequest.getAmount(), AuthManager.token.getValue(), investRequest.getWalletCurrency());
 	}
 
 	public Observable<Void> withdraw(ProgramRequest withdrawRequest) {

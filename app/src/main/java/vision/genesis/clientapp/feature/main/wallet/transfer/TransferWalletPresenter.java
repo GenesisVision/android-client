@@ -125,7 +125,9 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 	}
 
 	private String getFinalAmountString() {
-		return String.format(Locale.getDefault(), "≈ %s", StringFormatUtil.getValueString(finalAmount, selectedWalletTo.getCurrency().getValue()));
+		return String.format(Locale.getDefault(), "%s%s",
+				StringFormatUtil.getApproxSymbolIfNeeded(finalAmount),
+				StringFormatUtil.getValueString(finalAmount, selectedWalletTo.getCurrency().getValue()));
 	}
 
 	private String getRateString(Double rate, String wallet1Currency, String wallet2Currency) {
@@ -217,10 +219,14 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 	}
 
 	private void handleTransferSuccess(Void response) {
+		transferSubscription.unsubscribe();
+
 		getViewState().finishActivity();
 	}
 
 	private void handleTransferError(Throwable throwable) {
+		transferSubscription.unsubscribe();
+
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));
 	}
