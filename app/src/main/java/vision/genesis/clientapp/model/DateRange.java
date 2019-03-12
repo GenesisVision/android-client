@@ -100,6 +100,7 @@ public class DateRange implements Parcelable
 	}
 
 	public DateTime getFrom() {
+		updateDates(getSelectedRange());
 		return from;
 	}
 
@@ -108,6 +109,7 @@ public class DateRange implements Parcelable
 	}
 
 	public DateTime getTo() {
+		updateDates(getSelectedRange());
 		return to;
 	}
 
@@ -155,16 +157,16 @@ public class DateRange implements Parcelable
 			this.setTo(DateTime.now());
 			switch (selectedRange) {
 				case DAY:
-					this.setFrom(this.getTo().minusDays(1));
+					this.setFrom(this.to.minusDays(1));
 					break;
 				case WEEK:
-					this.setFrom(this.getTo().minusWeeks(1));
+					this.setFrom(this.to.minusWeeks(1));
 					break;
 				case MONTH:
-					this.setFrom(this.getTo().minusMonths(1));
+					this.setFrom(this.to.minusMonths(1));
 					break;
 				case YEAR:
-					this.setFrom(this.getTo().minusYears(1));
+					this.setFrom(this.to.minusYears(1));
 					break;
 				case ALL_TIME:
 					this.setFrom(new DateTime(0));

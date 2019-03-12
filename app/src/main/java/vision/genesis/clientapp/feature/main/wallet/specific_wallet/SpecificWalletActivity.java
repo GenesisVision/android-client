@@ -243,6 +243,10 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 		invested.setTypeface(TypefaceUtil.semibold());
 		pending.setTypeface(TypefaceUtil.semibold());
 
+		availablePercent.setTypeface(TypefaceUtil.semibold());
+		investedPercent.setTypeface(TypefaceUtil.semibold());
+		pendingPercent.setTypeface(TypefaceUtil.semibold());
+
 		withdrawLabel.setTypeface(TypefaceUtil.semibold());
 		addFundsLabel.setTypeface(TypefaceUtil.semibold());
 		transferLabel.setTypeface(TypefaceUtil.semibold());
@@ -340,19 +344,19 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 		this.balance.setText(StringFormatUtil.getValueString(data.getTotal(), data.getCurrency().getValue()));
 //		this.balanceBase.setText(StringFormatUtil.getValueString(data.getTotalCcy(), data.getCurrencyCcy().getValue()));
 
-		Integer availablePercent = (int) (data.getAvailable() * 100 / data.getTotal());
+		Integer availablePercent = (int) Math.round(data.getAvailable() * 100 / data.getTotal());
 		this.availableShare.setProgress(availablePercent);
 		this.availablePercent.setText(String.format(Locale.getDefault(), "%d%%", availablePercent));
 		this.available.setText(StringFormatUtil.getValueString(data.getAvailable(), currency));
 //		this.availableBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getAvailableCcy(), baseCurrency.getValue()));
 
-		Integer investedPercent = (int) (data.getInvested() * 100 / data.getTotal());
+		Integer investedPercent = (int) Math.round(data.getInvested() * 100 / data.getTotal());
 		this.investedShare.setProgress(investedPercent);
 		this.investedPercent.setText(String.format(Locale.getDefault(), "%d%%", investedPercent));
 		this.invested.setText(StringFormatUtil.getValueString(data.getInvested(), currency));
 //		this.investedBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getInvestedCcy(), baseCurrency.getValue()));
 
-		Integer pendingPercent = (int) (data.getPending() * 100 / data.getTotal());
+		Integer pendingPercent = (int) Math.round(data.getPending() * 100 / data.getTotal());
 		this.pendingShare.setProgress(pendingPercent);
 		this.pendingPercent.setText(String.format(Locale.getDefault(), "%d%%", pendingPercent));
 		this.pending.setText(StringFormatUtil.getValueString(data.getPending(), currency));

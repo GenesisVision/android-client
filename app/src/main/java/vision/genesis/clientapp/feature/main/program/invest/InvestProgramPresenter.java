@@ -94,6 +94,11 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 		super.onDestroy();
 	}
 
+	void setProgramRequest(ProgramRequest programRequest) {
+		this.programRequest = programRequest;
+		subscribeToWallets();
+	}
+
 	void onAmountChanged(String newAmount) {
 		try {
 			amount = Double.parseDouble(newAmount);
@@ -259,7 +264,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 				: selectedWalletFrom.getAvailable();
 
 		getViewState().setMinInvestmentAmount(investInfo.getMinInvestmentAmount());
-		getViewState().setAmount("0");
+		getViewState().setAmount("");
 	}
 
 	private void handleInvestInfoError(Throwable throwable) {
@@ -270,11 +275,6 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 				message -> getViewState().showSnackbarMessage(message));
 
 		getViewState().finishActivity();
-	}
-
-	public void setProgramRequest(ProgramRequest programRequest) {
-		this.programRequest = programRequest;
-		subscribeToWallets();
 	}
 
 	@Override

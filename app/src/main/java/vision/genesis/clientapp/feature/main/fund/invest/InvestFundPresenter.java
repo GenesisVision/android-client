@@ -5,18 +5,24 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
 
 import io.swagger.client.model.FundInvestInfo;
+import io.swagger.client.model.WalletData;
+import io.swagger.client.model.WalletMultiSummary;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.feature.common.select_wallet.SelectWalletBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.fund.invest.confirm.ConfirmFundInvestBottomSheetFragment;
 import vision.genesis.clientapp.managers.FundsManager;
+import vision.genesis.clientapp.managers.RateManager;
 import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.FundRequest;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -29,7 +35,9 @@ import vision.genesis.clientapp.utils.StringFormatUtil;
  */
 
 @InjectViewState
-public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements ConfirmFundInvestBottomSheetFragment.OnConfirmFundInvestListener
+public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
+		ConfirmFundInvestBottomSheetFragment.OnConfirmFundInvestListener,
+		SelectWalletBottomSheetFragment.OnWalletSelectedListener
 {
 	@Inject
 	public Context context;
@@ -38,17 +46,25 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 	public SettingsManager settingsManager;
 
 	@Inject
+	public WalletManager walletManager;
+
+	@Inject
+	public RateManager rateManager;
+
+	@Inject
 	public FundsManager fundsManager;
 
 	private Subscription baseCurrencySubscription;
+
+	private Subscription walletsSubscription;
 
 	private Subscription investInfoSubscription;
 
 	private FundRequest fundRequest;
 
-	private CurrencyEnum baseCurrency;
-
 	private Double amount;
+
+	private Double amountBase;
 
 	private FundInvestInfo investInfo;
 
@@ -59,6 +75,12 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 	private Double gvCommission;
 
 	private Double investmentAmount;
+
+	private WalletData selectedWalletFrom;
+
+	private CurrencyEnum baseCurrency;
+
+	private Double rate = 0.0;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -74,6 +96,8 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 	public void onDestroy() {
 		if (baseCurrencySubscription != null)
 			baseCurrencySubscription.unsubscribe();
+		if (walletsSubscription != null)
+			walletsSubscription.unsubscribe();
 		if (investInfoSubscription != null)
 			investInfoSubscription.unsubscribe();
 
@@ -82,7 +106,7 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 
 	void setFundRequest(FundRequest fundRequest) {
 		this.fundRequest = fundRequest;
-		getInvestInfo();
+		subscribeToBaseCurrency();
 	}
 
 	void onAmountChanged(String newAmount) {
@@ -98,9 +122,11 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 //		}
 		if (investInfo != null) {
 			if (amount > availableInWallet) {
-				getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableInWallet, CurrencyEnum.GVT.getValue()));
+				getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableInWallet, selectedWalletFrom.getCurrency().getValue()));
 				return;
 			}
+
+			amountBase = amount / rate;
 
 			entryFee = amount * (investInfo.getEntryFee() / 100);
 			gvCommission = amount * (investInfo.getGvCommission() / 100);
@@ -115,37 +141,37 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 	}
 
 	private String getAmountBaseString() {
-		return String.format(Locale.getDefault(), "= %s %s",
-				StringFormatUtil.formatCurrencyAmount(amount * investInfo.getRate(), baseCurrency.getValue()),
-				baseCurrency.getValue());
+		return String.format(Locale.getDefault(), "≈ %s",
+				StringFormatUtil.getValueString(amountBase, baseCurrency.getValue()));
 	}
 
 	private String getAmountToInvestString() {
-		return String.format(Locale.getDefault(), "%s GVT",
-				StringFormatUtil.formatCurrencyAmount(amount, CurrencyEnum.GVT.getValue()));
+		return String.format(Locale.getDefault(), "%s (≈%s)",
+				StringFormatUtil.getValueString(amount, selectedWalletFrom.getCurrency().getValue()),
+				StringFormatUtil.getValueString(amountBase, baseCurrency.getValue()));
 	}
 
 	private String getEntryFeeString() {
-		return String.format(Locale.getDefault(), "%s%% (%s GVT)",
-				StringFormatUtil.formatAmount(investInfo.getEntryFee(), 0, 5),
-				StringFormatUtil.formatCurrencyAmount(entryFee, CurrencyEnum.GVT.getValue()));
+		return String.format(Locale.getDefault(), "%s%% (%s)",
+				StringFormatUtil.formatAmount(investInfo.getEntryFee(), 0, 2),
+				StringFormatUtil.getValueString(entryFee, selectedWalletFrom.getCurrency().getValue()));
 	}
 
 	private String getGvCommissionString() {
-		return String.format(Locale.getDefault(), "%s%% (%s GVT)",
+		return String.format(Locale.getDefault(), "%s%% (%s)",
 				StringFormatUtil.formatAmount(investInfo.getGvCommission(), 0, 5),
-				StringFormatUtil.formatCurrencyAmount(gvCommission, CurrencyEnum.GVT.getValue()));
+				StringFormatUtil.getValueString(gvCommission, selectedWalletFrom.getCurrency().getValue()));
 	}
 
 	private String getInvestmentAmountString() {
-		return String.format(Locale.getDefault(), "%s GVT",
-				StringFormatUtil.formatCurrencyAmount(investmentAmount, CurrencyEnum.GVT.getValue()));
+		return String.format(Locale.getDefault(), "%s",
+				StringFormatUtil.getValueString(investmentAmount, selectedWalletFrom.getCurrency().getValue()));
 	}
 
 	private String getFeesAndCommissionsString() {
-		return String.format(Locale.getDefault(), "%s%% (%s GVT)",
+		return String.format(Locale.getDefault(), "%s%% (%s)",
 				StringFormatUtil.formatAmount(investInfo.getEntryFee() + investInfo.getGvCommission(), 0, 5),
-				StringFormatUtil.formatCurrencyAmount(entryFee + gvCommission, CurrencyEnum.GVT.getValue()));
+				StringFormatUtil.getValueString(entryFee + gvCommission, selectedWalletFrom.getCurrency().getValue()));
 	}
 
 	void onMaxClicked() {
@@ -156,6 +182,7 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 
 	void onContinueClicked() {
 		fundRequest.setAmount(amount);
+		fundRequest.setWalletCurrency(selectedWalletFrom.getCurrency().getValue());
 		fundRequest.setAmountTopText(getAmountToInvestString());
 		fundRequest.setInfoMiddleText(getFeesAndCommissionsString());
 		fundRequest.setAmountBottomText(getInvestmentAmountString());
@@ -163,20 +190,68 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 	}
 
 	private void subscribeToBaseCurrency() {
-		baseCurrencySubscription = settingsManager.getBaseCurrency()
-				.subscribeOn(Schedulers.newThread())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::baseCurrencyChangedHandler);
+		if (settingsManager != null && fundRequest != null) {
+			baseCurrencySubscription = settingsManager.getBaseCurrency()
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::baseCurrencyChangedHandler);
+		}
 	}
 
 	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
 		this.baseCurrency = baseCurrency;
+		subscribeToWallets();
+	}
+
+	private void subscribeToWallets() {
+		if (walletManager != null && fundRequest != null && baseCurrency != null) {
+			if (walletsSubscription != null)
+				walletsSubscription.unsubscribe();
+			walletsSubscription = walletManager.getWallets(baseCurrency.getValue(), false)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleWalletUpdateSuccess,
+							this::handleWalletUpdateError);
+		}
+	}
+
+	private void handleWalletUpdateSuccess(WalletMultiSummary response) {
+		List<WalletData> wallets = response.getWallets();
+
+		getViewState().setWalletsFrom(wallets);
+		onWalletSelected(wallets.get(0));
+	}
+
+	private void handleWalletUpdateError(Throwable throwable) {
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void updateRate() {
+		if (fundRequest != null && selectedWalletFrom != null && rateManager != null && baseCurrency != null) {
+			getViewState().showAmountProgress(true);
+			getViewState().setContinueButtonEnabled(false);
+			rateManager.getRate(baseCurrency.getValue(), selectedWalletFrom.getCurrency().getValue())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetRateSuccess,
+							this::handleGetRateError);
+		}
+	}
+
+	private void handleGetRateSuccess(Double rate) {
+		this.rate = rate;
 		getInvestInfo();
 	}
 
+	private void handleGetRateError(Throwable throwable) {
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
+	}
+
 	private void getInvestInfo() {
-		if (fundsManager != null && fundRequest != null && baseCurrency != null) {
-			investInfoSubscription = fundsManager.getInvestInfo(fundRequest.getFundId(), baseCurrency)
+		if (fundsManager != null && fundRequest != null && selectedWalletFrom != null) {
+			investInfoSubscription = fundsManager.getInvestInfo(fundRequest.getFundId(), selectedWalletFrom.getCurrency().getValue())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleInvestInfoResponse,
@@ -187,14 +262,13 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 	private void handleInvestInfoResponse(FundInvestInfo response) {
 		investInfoSubscription.unsubscribe();
 
+		getViewState().showProgress(false);
+		getViewState().showAmountProgress(false);
+
 		investInfo = response;
 
-		availableInWallet = investInfo.getAvailableInWallet();
-
-		getViewState().showProgress(false);
-		getViewState().setAvailableInWallet(availableInWallet);
 		getViewState().setMinInvestmentAmount(investInfo.getMinInvestmentAmount());
-		onAmountChanged("0");
+		getViewState().setAmount("");
 	}
 
 	private void handleInvestInfoError(Throwable throwable) {
@@ -205,6 +279,14 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 				message -> getViewState().showSnackbarMessage(message));
 
 		getViewState().finishActivity();
+	}
+
+	@Override
+	public void onWalletSelected(WalletData wallet) {
+		this.selectedWalletFrom = wallet;
+		availableInWallet = selectedWalletFrom.getAvailable();
+		getViewState().setWalletFrom(selectedWalletFrom, baseCurrency);
+		updateRate();
 	}
 
 	@Override

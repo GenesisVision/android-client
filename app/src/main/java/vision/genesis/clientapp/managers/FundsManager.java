@@ -78,8 +78,8 @@ public class FundsManager
 		return investorApi.v10InvestorPortfolioEventsGet(AuthManager.token.getValue(), fundId, dateRange.getFrom(), dateRange.getTo(), null, null, skip, take);
 	}
 
-	public Observable<FundInvestInfo> getInvestInfo(UUID programId, CurrencyEnum baseCurrency) {
-		return investorApi.v10InvestorFundsByIdInvestInfoByCurrencyGet(programId, baseCurrency.getValue(), AuthManager.token.getValue());
+	public Observable<FundInvestInfo> getInvestInfo(UUID programId, String baseCurrency) {
+		return investorApi.v10InvestorFundsByIdInvestInfoByCurrencyGet(programId, baseCurrency, AuthManager.token.getValue());
 	}
 
 	public Observable<FundWithdrawInfo> getWithdrawInfo(UUID programId, CurrencyEnum baseCurrency) {

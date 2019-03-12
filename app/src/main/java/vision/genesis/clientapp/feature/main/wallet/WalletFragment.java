@@ -281,19 +281,19 @@ public class WalletFragment extends BaseFragment implements WalletView
 		this.balance.setText(StringFormatUtil.getValueString(data.getGrandTotal().getTotalCcy(), currency));
 //		this.balanceBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getTotalCcy(), baseCurrency.getValue()));
 
-		Integer availablePercent = (int) (data.getGrandTotal().getAvailableCcy() * 100 / data.getGrandTotal().getTotalCcy());
+		Integer availablePercent = (int) Math.round(data.getGrandTotal().getAvailableCcy() * 100 / data.getGrandTotal().getTotalCcy());
 		this.availableShare.setProgress(availablePercent);
 		this.availablePercent.setText(String.format(Locale.getDefault(), "%d%%", availablePercent));
 		this.available.setText(StringFormatUtil.getValueString(data.getGrandTotal().getAvailableCcy(), currency));
 //		this.availableBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getAvailableCcy(), baseCurrency.getValue()));
 
-		Integer investedPercent = (int) (data.getGrandTotal().getInvestedCcy() * 100 / data.getGrandTotal().getTotalCcy());
+		Integer investedPercent = (int) Math.round(data.getGrandTotal().getInvestedCcy() * 100 / data.getGrandTotal().getTotalCcy());
 		this.investedShare.setProgress(investedPercent);
 		this.investedPercent.setText(String.format(Locale.getDefault(), "%d%%", investedPercent));
 		this.invested.setText(StringFormatUtil.getValueString(data.getGrandTotal().getInvestedCcy(), currency));
 //		this.investedBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getInvestedCcy(), baseCurrency.getValue()));
 
-		Integer pendingPercent = (int) (data.getGrandTotal().getPendingCcy() * 100 / data.getGrandTotal().getTotalCcy());
+		Integer pendingPercent = (int) Math.round(data.getGrandTotal().getPendingCcy() * 100 / data.getGrandTotal().getTotalCcy());
 		this.pendingShare.setProgress(pendingPercent);
 		this.pendingPercent.setText(String.format(Locale.getDefault(), "%d%%", pendingPercent));
 		this.pending.setText(StringFormatUtil.getValueString(data.getGrandTotal().getPendingCcy(), currency));

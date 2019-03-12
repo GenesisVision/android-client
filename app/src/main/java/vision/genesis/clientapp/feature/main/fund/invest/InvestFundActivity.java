@@ -12,20 +12,25 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.WalletData;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.common.select_wallet.SelectWalletBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.fund.invest.confirm.ConfirmFundInvestBottomSheetFragment;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.FundRequest;
 import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -49,17 +54,32 @@ public class InvestFundActivity extends BaseSwipeBackActivity implements InvestF
 	@BindView(R.id.title)
 	public TextView title;
 
+	@BindView(R.id.fund_name)
+	public TextView fundName;
+
 	@BindView(R.id.content)
 	public ViewGroup content;
 
-	@BindView(R.id.available_in_wallet)
-	public TextView availableInWallet;
+	@BindView(R.id.group_amount)
+	public ViewGroup amountGroup;
 
 	@BindView(R.id.label_amount_to_invest)
 	public TextView amountToInvestLabel;
 
+	@BindView(R.id.icon_from)
+	public SimpleDraweeView iconFrom;
+
+	@BindView(R.id.wallet_from)
+	public TextView walletFrom;
+
+	@BindView(R.id.available_from)
+	public TextView availableFrom;
+
 	@BindView(R.id.edittext_amount)
 	public EditText amount;
+
+	@BindView(R.id.amount_currency)
+	public TextView amountCurrency;
 
 	@BindView(R.id.max)
 	public TextView max;
@@ -69,6 +89,9 @@ public class InvestFundActivity extends BaseSwipeBackActivity implements InvestF
 
 	@BindView(R.id.entry_fee)
 	public TextView entryFee;
+
+	@BindView(R.id.group_commissions)
+	public ViewGroup commissionsGroup;
 
 	@BindView(R.id.gv_commission)
 	public TextView gvCommission;
@@ -82,22 +105,32 @@ public class InvestFundActivity extends BaseSwipeBackActivity implements InvestF
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
+	@BindView(R.id.amount_progress_bar)
+	public ProgressBar amountProgress;
+
 	@InjectPresenter
 	InvestFundPresenter investFundPresenter;
+
+	private List<WalletData> walletsFrom;
+
+	private FundRequest request;
 
 	@OnClick(R.id.button_close)
 	public void onCloseClicked() {
 		finishActivity();
 	}
 
-	@OnClick(R.id.group_amount)
-	public void onAmountClicked() {
-		showSoftKeyboard();
+	@OnClick(R.id.group_wallet)
+	public void onWalletClicked() {
+		SelectWalletBottomSheetFragment fragment = new SelectWalletBottomSheetFragment();
+		fragment.setData(getString(R.string.select_wallet_currency), walletsFrom);
+		fragment.setListener(investFundPresenter);
+		fragment.show(getSupportFragmentManager(), fragment.getTag());
 	}
 
-	@OnClick(R.id.available_in_wallet)
-	public void onAvailableClicked() {
-		investFundPresenter.onMaxClicked();
+	@OnClick(R.id.group_edittext_amount)
+	public void onAmountClicked() {
+		showSoftKeyboard();
 	}
 
 	@OnClick(R.id.max)
@@ -120,16 +153,25 @@ public class InvestFundActivity extends BaseSwipeBackActivity implements InvestF
 		ButterKnife.bind(this);
 
 		if (getIntent().getExtras() != null) {
-			investFundPresenter.setFundRequest(getIntent().getExtras().getParcelable(EXTRA_FUND_REQUEST));
+			request = getIntent().getExtras().getParcelable(EXTRA_FUND_REQUEST);
+			if (request != null) {
+				investFundPresenter.setFundRequest(request);
 
-			setFonts();
+				setFundName(request.getFundName());
 
-			setTextListener();
+				setFonts();
+
+				setTextListener();
+				return;
+			}
 		}
-		else {
-			Timber.e("Passed empty request to InvestFundActivity");
-			onBackPressed();
-		}
+		Timber.e("Passed empty request to InvestFundActivity");
+		onBackPressed();
+
+	}
+
+	private void setFundName(String fundName) {
+		this.fundName.setText(fundName);
 	}
 
 	private void setTextListener() {
@@ -143,9 +185,22 @@ public class InvestFundActivity extends BaseSwipeBackActivity implements InvestF
 	}
 
 	@Override
-	public void setAvailableInWallet(Double availableToInvest) {
-		this.availableInWallet.setText(String.format(Locale.getDefault(), "%s GVT",
-				StringFormatUtil.formatCurrencyAmount(availableToInvest, CurrencyEnum.GVT.toString())));
+	public void setWalletsFrom(List<WalletData> wallets) {
+		this.walletsFrom = wallets;
+	}
+
+	@Override
+	public void setWalletFrom(WalletData wallet, CurrencyEnum baseCurrency) {
+		this.iconFrom.setImageURI(ImageUtils.getImageUri(wallet.getLogo()));
+		this.walletFrom.setText(wallet.getTitle());
+		this.availableFrom.setText(String.format(Locale.getDefault(), "%s %s",
+				getString(R.string.available_in_wallet),
+				StringFormatUtil.getValueString(wallet.getAvailable(), wallet.getCurrency().getValue())));
+		this.amountCurrency.setText(wallet.getCurrency().getValue());
+		this.baseCurrencyAmount.setVisibility(
+				wallet.getCurrency().getValue().equals(baseCurrency.getValue())
+						? View.GONE
+						: View.VISIBLE);
 	}
 
 	@Override
@@ -192,6 +247,13 @@ public class InvestFundActivity extends BaseSwipeBackActivity implements InvestF
 		if (!show) {
 			content.setVisibility(View.VISIBLE);
 		}
+	}
+
+	@Override
+	public void showAmountProgress(boolean show) {
+		amountGroup.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+		commissionsGroup.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+		amountProgress.setVisibility(!show ? View.INVISIBLE : View.VISIBLE);
 	}
 
 	@Override

@@ -54,6 +54,8 @@ public class FundRequest implements Parcelable
 	@SerializedName("amount")
 	private Double amount = 0.0;
 
+	private String walletCurrency;
+
 	public FundRequest() {
 
 	}
@@ -68,6 +70,7 @@ public class FundRequest implements Parcelable
 		infoMiddleText = in.readString();
 		amountBottomText = in.readString();
 		amount = in.readDouble();
+		walletCurrency = in.readString();
 	}
 
 	@Override
@@ -86,6 +89,7 @@ public class FundRequest implements Parcelable
 		dest.writeString(infoMiddleText);
 		dest.writeString(amountBottomText);
 		dest.writeDouble(amount);
+		dest.writeString(walletCurrency);
 	}
 
 	public UUID getFundId() {
@@ -158,5 +162,13 @@ public class FundRequest implements Parcelable
 
 	public void setAmount(Double amount) {
 		this.amount = amount;
+	}
+
+	public String getWalletCurrency() {
+		return walletCurrency;
+	}
+
+	public void setWalletCurrency(String walletCurrency) {
+		this.walletCurrency = walletCurrency;
 	}
 }

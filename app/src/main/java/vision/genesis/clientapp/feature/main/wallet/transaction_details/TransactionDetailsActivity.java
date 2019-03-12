@@ -153,9 +153,12 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 			case PLATFORMFEE:
 				break;
 		}
+		addEmptyView();
 	}
 
 	private void createProgramInvestingDetails() {
+		addWallet(getString(R.string.from), details.getCurrencyLogo(), details.getCurrencyName());
+		addWrittenOffWallet();
 		addProgramView(getString(R.string.to_the_program));
 		addEntryFee();
 		addGvCommission();
@@ -164,6 +167,8 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 	}
 
 	private void createFundInvestingDetails() {
+		addWallet(getString(R.string.from), details.getCurrencyLogo(), details.getCurrencyName());
+		addWrittenOffWallet();
 		addProgramView(getString(R.string.to_the_fund));
 		addEntryFee();
 		addGvCommission();
@@ -275,14 +280,16 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 		ValueView view = new ValueView(this);
 		String value = String.format(Locale.getDefault(), "%s%% (%s)",
 				StringFormatUtil.formatAmount(details.getGvCommissionPercent(), 0, 2),
-				StringFormatUtil.getValueString(details.getGvCommission(), details.getCurrency().getValue()));
+				StringFormatUtil.getValueString(details.getGvCommission(), details.getGvCommissionCurrency().getValue()));
 		view.setData(getString(R.string.gv_commission), value);
 		addView(view);
 	}
 
 	private void addInvestmentAmount() {
 		ValueView view = new ValueView(this);
-		String value = StringFormatUtil.getValueString(details.getAmount(), details.getCurrency().getValue());
+		Double amount = Math.abs(details.getAmount() - details.getAmount() *
+				(details.getProgramDetails().getEntryFeePercent() + details.getGvCommissionPercent()) / 100);
+		String value = StringFormatUtil.getValueString(amount, details.getCurrency().getValue());
 		view.setData(getString(R.string.investment_amount), value);
 		view.setValueParams(true, 20);
 		addView(view);
@@ -328,6 +335,12 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 	private void addStatus() {
 		StatusView view = new StatusView(this);
 		view.setData(details.getStatus());
+		addView(view);
+	}
+
+	private void addEmptyView() {
+		View view = new View(this);
+		view.setMinimumHeight(50);
 		addView(view);
 	}
 
