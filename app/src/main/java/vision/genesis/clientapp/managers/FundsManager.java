@@ -82,8 +82,8 @@ public class FundsManager
 		return investorApi.v10InvestorFundsByIdInvestInfoByCurrencyGet(programId, baseCurrency, AuthManager.token.getValue());
 	}
 
-	public Observable<FundWithdrawInfo> getWithdrawInfo(UUID programId, CurrencyEnum baseCurrency) {
-		return investorApi.v10InvestorFundsByIdWithdrawInfoByCurrencyGet(programId, baseCurrency.getValue(), AuthManager.token.getValue());
+	public Observable<FundWithdrawInfo> getWithdrawInfo(UUID programId, String baseCurrency) {
+		return investorApi.v10InvestorFundsByIdWithdrawInfoByCurrencyGet(programId, baseCurrency, AuthManager.token.getValue());
 	}
 
 	public Observable<Void> invest(FundRequest fundRequest) {
@@ -91,7 +91,7 @@ public class FundsManager
 	}
 
 	public Observable<Void> withdraw(FundRequest fundRequest) {
-		return investorApi.v10InvestorFundsByIdWithdrawByPercentPost(fundRequest.getFundId(), fundRequest.getAmount(), AuthManager.token.getValue(), null);
+		return investorApi.v10InvestorFundsByIdWithdrawByPercentPost(fundRequest.getFundId(), fundRequest.getAmount(), AuthManager.token.getValue(), fundRequest.getWalletCurrency());
 	}
 
 	//	public Observable<Void> withdraw(ProgramRequest withdrawalRequest) {

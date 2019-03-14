@@ -41,7 +41,7 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 
 	private FundProfitChart chartData;
 
-	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
+	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
 	@Override
 	protected void onFirstViewAttach() {

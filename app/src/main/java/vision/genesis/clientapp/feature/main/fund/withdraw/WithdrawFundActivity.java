@@ -13,21 +13,25 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.WalletData;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.common.select_wallet.SelectWalletBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.fund.withdraw.confirm.ConfirmFundWithdrawBottomSheetFragment;
-import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.FundRequest;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.DigitsInputFilter;
+import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -51,11 +55,29 @@ public class WithdrawFundActivity extends BaseSwipeBackActivity implements Withd
 	@BindView(R.id.title)
 	public TextView title;
 
+	@BindView(R.id.fund_name)
+	public TextView fundName;
+
 	@BindView(R.id.content)
 	public ViewGroup content;
 
+	@BindView(R.id.icon_to)
+	public SimpleDraweeView iconTo;
+
+	@BindView(R.id.wallet_to)
+	public TextView walletTo;
+
+	@BindView(R.id.group_invested)
+	public ViewGroup investedGroup;
+
 	@BindView(R.id.available_to_withdraw)
 	public TextView availableToWithdraw;
+
+	@BindView(R.id.group_amount)
+	public ViewGroup amountGroup;
+
+	@BindView(R.id.amount_to_withdraw_label)
+	public TextView amountToWithdrawLabel;
 
 	@BindView(R.id.edittext_amount)
 	public EditText amount;
@@ -66,8 +88,14 @@ public class WithdrawFundActivity extends BaseSwipeBackActivity implements Withd
 	@BindView(R.id.estimated_amount)
 	public TextView estimatedAmount;
 
+	@BindView(R.id.group_commissions)
+	public ViewGroup commissionsGroup;
+
 	@BindView(R.id.exit_fee)
 	public TextView exitFee;
+
+	@BindView(R.id.withdrawal_amount)
+	public TextView withdrawalAmount;
 
 	@BindView(R.id.button_continue)
 	public PrimaryButton continueButton;
@@ -75,12 +103,25 @@ public class WithdrawFundActivity extends BaseSwipeBackActivity implements Withd
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
+	@BindView(R.id.amount_progress_bar)
+	public ProgressBar amountProgress;
+
 	@InjectPresenter
 	WithdrawFundPresenter withdrawFundPresenter;
+
+	private List<WalletData> walletsTo;
 
 	@OnClick(R.id.button_close)
 	public void onCloseClicked() {
 		finishActivity();
+	}
+
+	@OnClick(R.id.group_wallet)
+	public void onWalletClicked() {
+		SelectWalletBottomSheetFragment fragment = new SelectWalletBottomSheetFragment();
+		fragment.setData(getString(R.string.select_wallet_currency), walletsTo);
+		fragment.setListener(withdrawFundPresenter);
+		fragment.show(getSupportFragmentManager(), fragment.getTag());
 	}
 
 	@OnClick(R.id.group_amount)
@@ -113,17 +154,25 @@ public class WithdrawFundActivity extends BaseSwipeBackActivity implements Withd
 		ButterKnife.bind(this);
 
 		if (getIntent().getExtras() != null) {
-			withdrawFundPresenter.setFundRequest(getIntent().getExtras().getParcelable(EXTRA_FUND_REQUEST));
+			FundRequest request = getIntent().getExtras().getParcelable(EXTRA_FUND_REQUEST);
+			if (request != null) {
+				withdrawFundPresenter.setFundRequest(request);
 
-			setFonts();
+				setFundName(request.getFundName());
+				setFonts();
 
-			setTextListener();
-			amount.setFilters(new InputFilter[]{new DigitsInputFilter(3, 2, 1000)});
+				setTextListener();
+				amount.setFilters(new InputFilter[]{new DigitsInputFilter(3, 2, 1000)});
+				return;
+			}
 		}
-		else {
-			Timber.e("Passed empty request to WithdrawFundActivity");
-			onBackPressed();
-		}
+		Timber.e("Passed empty request to WithdrawFundActivity");
+		onBackPressed();
+
+	}
+
+	private void setFundName(String fundName) {
+		this.fundName.setText(fundName);
 	}
 
 	private void setTextListener() {
@@ -137,9 +186,26 @@ public class WithdrawFundActivity extends BaseSwipeBackActivity implements Withd
 	}
 
 	@Override
-	public void setAvailableToWithdraw(Double availableToWithdraw) {
-		this.availableToWithdraw.setText(String.format(Locale.getDefault(), "%s GVT",
-				StringFormatUtil.formatCurrencyAmount(availableToWithdraw, CurrencyEnum.GVT.toString())));
+	public void setAvailableToWithdraw(String availableToWithdraw) {
+		this.availableToWithdraw.setText(availableToWithdraw);
+	}
+
+	@Override
+	public void setWalletsTo(List<WalletData> wallets) {
+		this.walletsTo = wallets;
+	}
+
+	@Override
+	public void setWalletTo(WalletData wallet) {
+		this.iconTo.setImageURI(ImageUtils.getImageUri(wallet.getLogo()));
+		this.walletTo.setText(wallet.getTitle());
+	}
+
+	@Override
+	public void setMinWithdrawalAmount(Double minWithdrawalAmount) {
+		amountToWithdrawLabel.setText(String.format(Locale.getDefault(), "%s (min %s%%)",
+				getString(R.string.amount_to_withdraw),
+				StringFormatUtil.formatAmount(minWithdrawalAmount, 0, 6)));
 	}
 
 	@Override
@@ -159,6 +225,11 @@ public class WithdrawFundActivity extends BaseSwipeBackActivity implements Withd
 	}
 
 	@Override
+	public void setWithdrawalAmount(String withdrawalAmountText) {
+		this.withdrawalAmount.setText(withdrawalAmountText);
+	}
+
+	@Override
 	public void setContinueButtonEnabled(boolean enabled) {
 		continueButton.setEnabled(enabled);
 	}
@@ -169,6 +240,14 @@ public class WithdrawFundActivity extends BaseSwipeBackActivity implements Withd
 		if (!show) {
 			content.setVisibility(View.VISIBLE);
 		}
+	}
+
+	@Override
+	public void showAmountProgress(boolean show) {
+		investedGroup.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+		amountGroup.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+		commissionsGroup.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+		amountProgress.setVisibility(!show ? View.INVISIBLE : View.VISIBLE);
 	}
 
 	@Override

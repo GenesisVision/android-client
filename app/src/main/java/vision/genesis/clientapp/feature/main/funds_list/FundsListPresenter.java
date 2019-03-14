@@ -71,7 +71,7 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 
 	private Boolean isManagerSet;
 
-	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
+	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
 	@Override
 	protected void onFirstViewAttach() {

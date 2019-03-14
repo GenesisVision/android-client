@@ -44,7 +44,7 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 
 	private ProgramBalanceChart chartData;
 
-	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
+	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
 	@Override
 	protected void onFirstViewAttach() {

@@ -45,7 +45,7 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 
 	private FundBalanceChart chartData;
 
-	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
+	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
 	@Override
 	protected void onFirstViewAttach() {

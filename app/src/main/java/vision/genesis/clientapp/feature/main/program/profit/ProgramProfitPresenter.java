@@ -44,7 +44,7 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 
 	private ProgramProfitChart chartData;
 
-	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
+	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
 	@Override
 	protected void onFirstViewAttach() {

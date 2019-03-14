@@ -2,6 +2,9 @@ package vision.genesis.clientapp.feature.main.fund.withdraw;
 
 import com.arellomobile.mvp.MvpView;
 
+import java.util.List;
+
+import io.swagger.client.model.WalletData;
 import vision.genesis.clientapp.model.FundRequest;
 
 /**
@@ -11,7 +14,13 @@ import vision.genesis.clientapp.model.FundRequest;
 
 interface WithdrawFundView extends MvpView
 {
-	void setAvailableToWithdraw(Double availableToWithdraw);
+	void setAvailableToWithdraw(String availableToWithdrawString);
+
+	void setWalletsTo(List<WalletData> wallets);
+
+	void setWalletTo(WalletData selectedWalletTo);
+
+	void setMinWithdrawalAmount(Double minWithdrawalAmount);
 
 	void setAmount(String amountText);
 
@@ -19,11 +28,15 @@ interface WithdrawFundView extends MvpView
 
 	void setExitFee(String exitFeeString);
 
+	void setWithdrawalAmount(String withdrawalAmountString);
+
 	void setContinueButtonEnabled(boolean enabled);
 
 	void showConfirmDialog(FundRequest fundRequest);
 
 	void showProgress(boolean show);
+
+	void showAmountProgress(boolean show);
 
 	void showSnackbarMessage(String message);
 

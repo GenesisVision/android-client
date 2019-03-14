@@ -15,21 +15,40 @@
             android:layout_width="50dp"
             android:layout_height="@dimen/toolbar_height"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="10dp"
             android:tint="?attr/colorTextPrimary"
             app:srcCompat="@drawable/ic_close_black_24dp"/>
 
-        <TextView
-            android:id="@+id/title"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/withdraw"
-            android:textColor="?attr/colorTextPrimary"
-            android:textSize="18sp"/>
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/withdraw"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/fund_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.3"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="14sp"
+                tools:text="Superfund from supermanager"/>
+
+        </LinearLayout>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -41,9 +60,87 @@
         android:visibility="gone"
         tools:visibility="visible">
 
+        <RelativeLayout
+            android:id="@+id/group_to"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/label_to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.4"
+                android:text="@string/to"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"/>
+
+            <RelativeLayout
+                android:id="@+id/group_wallet"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/label_to"
+                android:background="?attr/selectableItemBackground">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/icon_to"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:id="@+id/wallet_to"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_toEndOf="@+id/icon_to"
+                    android:layout_toStartOf="@+id/arrow"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextPrimary"
+                    android:textSize="14sp"
+                    tools:text="Bitcoin (BTC)"/>
+
+                <ImageView
+                    android:id="@+id/arrow"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
+                    android:alpha="0.3"
+                    android:gravity="center_vertical|end"
+                    android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+                    android:textSize="18sp"
+                    android:tint="?attr/colorTextPrimary"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.2"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/amount_progress_bar"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/group_to"
+            android:layout_marginTop="20dp"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            tools:visibility="visible"/>
+
         <LinearLayout
+            android:id="@+id/group_invested"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/group_to"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -57,7 +154,6 @@
                 android:id="@+id/available_to_withdraw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
                 android:layout_marginStart="6dp"
                 android:textColor="?attr/colorAccent"
                 android:textSize="16sp"
@@ -66,12 +162,15 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/group_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
+            android:layout_below="@+id/group_invested"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/amount_to_withdraw_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.4"
@@ -80,7 +179,7 @@
                 android:textSize="12sp"/>
 
             <RelativeLayout
-                android:id="@+id/group_amount"
+                android:id="@+id/group_edittext_amount"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/text_input_height">
 
@@ -99,10 +198,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_toEndOf="@+id/edittext_amount"
-                    android:layout_toRightOf="@+id/edittext_amount"
                     android:alpha="0.4"
                     android:gravity="center"
                     android:text="%"
@@ -114,7 +211,6 @@
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
                     android:gravity="center_vertical|end"
                     android:text="@string/max"
                     android:textColor="?attr/colorTextPrimary"
@@ -141,6 +237,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/group_commissions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/button_continue"
@@ -150,7 +247,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="12dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -165,10 +262,33 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="14sp"
-                    tools:text="5%"/>
+                    tools:text="5% (≈ 0.5632 GVT)"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.4"
+                    android:text="@string/withdrawal_amount"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/withdrawal_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"
+                    tools:text="≈ 14.5353 GVT"/>
 
             </RelativeLayout>
 
