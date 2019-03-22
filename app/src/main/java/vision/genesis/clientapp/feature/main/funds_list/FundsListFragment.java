@@ -25,6 +25,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.FundDetails;
 import io.swagger.client.model.FundFacet;
+import io.swagger.client.model.FundsList;
+import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -39,11 +41,20 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class FundsListFragment extends BaseFragment implements FundsListView
 {
+	public static String LOCATION_ASSETS = "location_assets";
+
+	public static String LOCATION_SEARCH = "location_search";
+
+	public static String LOCATION_MANAGER = "location_manager";
+
+	private static String EXTRA_LOCATION = "extra_location";
+
 	private static String EXTRA_MANAGER_ID = "extra_manager_id";
 
-	public static FundsListFragment with(UUID managerId) {
+	public static FundsListFragment with(String location, UUID managerId) {
 		FundsListFragment programListFragment = new FundsListFragment();
-		Bundle arguments = new Bundle(1);
+		Bundle arguments = new Bundle(2);
+		arguments.putSerializable(EXTRA_LOCATION, location);
 		arguments.putSerializable(EXTRA_MANAGER_ID, managerId);
 		programListFragment.setArguments(arguments);
 		return programListFragment;
@@ -98,7 +109,7 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_programs_list, container, false);
+		return inflater.inflate(R.layout.fragment_funds_list, container, false);
 	}
 
 	@Override
@@ -107,16 +118,24 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 
 		unbinder = ButterKnife.bind(this, view);
 
-		UUID managerId = null;
 		if (getArguments() != null) {
-			managerId = (UUID) getArguments().getSerializable(EXTRA_MANAGER_ID);
+			String location = getArguments().getString(EXTRA_LOCATION);
+			UUID managerId = (UUID) getArguments().getSerializable(EXTRA_MANAGER_ID);
+
+			if (location != null && location.equals(LOCATION_SEARCH)) {
+				filters.setVisibility(View.GONE);
+			}
+
+			fundsListPresenter.setData(location, managerId);
+
+			setFonts();
+			initRefreshLayout();
+			initRecyclerView();
 		}
-		fundsListPresenter.setManagerId(managerId);
-
-		setFonts();
-
-		initRefreshLayout();
-		initRecyclerView();
+		else {
+			Timber.e("Passed empty arguments to FundsListFragment");
+			onBackPressed();
+		}
 	}
 
 	@Override
@@ -249,5 +268,10 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 		else {
 			super.onActivityResult(requestCode, resultCode, data);
 		}
+	}
+
+	public void showSearchResults(FundsList result) {
+		if (fundsListPresenter != null)
+			fundsListPresenter.showSearchResults(result);
 	}
 }

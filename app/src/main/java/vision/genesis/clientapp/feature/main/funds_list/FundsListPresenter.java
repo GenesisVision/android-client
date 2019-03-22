@@ -69,7 +69,9 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 
 	private UUID managerId;
 
-	private Boolean isManagerSet;
+	private Boolean isDataSet = false;
+
+	private String location = "";
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
@@ -101,13 +103,20 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 		super.onDestroy();
 	}
 
-	void setManagerId(UUID managerId) {
+	void setData(String location, UUID managerId) {
+		this.location = location;
 		this.managerId = managerId;
-		this.isManagerSet = true;
 		if (filter != null) {
 			filter.setManagerId(managerId);
 		}
-		getFundsList(true);
+		if (!location.equals(FundsListFragment.LOCATION_SEARCH)) {
+			isDataSet = true;
+			getFundsList(true);
+		}
+	}
+
+	void showSearchResults(FundsList result) {
+		handleGetFundsList(result);
 	}
 
 	void onSwipeRefresh() {
@@ -157,7 +166,7 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 	}
 
 	private void getFundsList(boolean forceUpdate) {
-		if (filter != null && fundsManager != null && isManagerSet) {
+		if (filter != null && fundsManager != null && isDataSet) {
 			if (forceUpdate) {
 				skip = 0;
 				filter.setSkip(skip);

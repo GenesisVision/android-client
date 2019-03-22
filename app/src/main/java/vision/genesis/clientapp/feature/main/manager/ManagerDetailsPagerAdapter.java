@@ -41,8 +41,8 @@ public class ManagerDetailsPagerAdapter extends FragmentStatePagerAdapter
 		this.tabLayout = tabLayout;
 		managerInfoFragment = ManagerInfoFragment.with(managerId);
 		managerProfitFragment = ManagerProfitFragment.with(managerId);
-		managerProgramsFragment = ProgramsListFragment.with(managerId);
-		managerFundsFragment = FundsListFragment.with(managerId);
+		managerProgramsFragment = ProgramsListFragment.with(ProgramsListFragment.LOCATION_MANAGER, managerId);
+		managerFundsFragment = FundsListFragment.with(FundsListFragment.LOCATION_MANAGER, managerId);
 	}
 
 	@Override

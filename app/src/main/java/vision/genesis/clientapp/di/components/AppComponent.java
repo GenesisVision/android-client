@@ -39,6 +39,7 @@ import vision.genesis.clientapp.feature.main.funds_list.FundsListPresenter;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsPresenter;
 import vision.genesis.clientapp.feature.main.manager.info.ManagerInfoPresenter;
 import vision.genesis.clientapp.feature.main.manager.profit.ManagerProfitPresenter;
+import vision.genesis.clientapp.feature.main.managers_list.ManagersListPresenter;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.notifications.NotificationsPresenter;
 import vision.genesis.clientapp.feature.main.notifications.create.CreateCustomNotificationSettingPresenter;
@@ -245,4 +246,6 @@ public interface AppComponent
 	void inject(TransferWalletPresenter transferWalletPresenter);
 
 	void inject(TransactionDetailsPresenter transactionDetailsPresenter);
+
+	void inject(ManagersListPresenter managersListPresenter);
 }

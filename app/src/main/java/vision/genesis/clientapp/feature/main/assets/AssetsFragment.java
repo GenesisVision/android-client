@@ -220,7 +220,7 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 			return;
 
 		tabLayout.addTab(tab, selected);
-		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 24, 16);
+		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 16);
 		if (pagerAdapter != null)
 			pagerAdapter.notifyDataSetChanged();
 	}

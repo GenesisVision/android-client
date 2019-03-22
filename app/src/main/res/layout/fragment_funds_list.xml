@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorBackground">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="70dp"
+            android:paddingTop="16dp"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/group_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.2"
+            android:text="@string/cannot_find_anything"
+            android:textColor="?attr/colorTextSecondary"
+            android:textSize="24sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/group_no_internet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/no_internet_image"
+            android:layout_width="@dimen/programs_no_internet_image_width"
+            android:layout_height="@dimen/programs_no_internet_image_height"
+            android:src="@drawable/no_internet"
+            android:tint="?attr/colorTextSecondary"/>
+
+        <TextView
+            android:id="@+id/no_internet_text"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/network_error"
+            android:textColor="?attr/colorTextSecondary"
+            android:textSize="18sp"/>
+
+        <FrameLayout
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp">
+
+            <vision.genesis.clientapp.ui.PrimaryButton
+                android:id="@+id/button_try_again"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/try_again"/>
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/filters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="70dp"
+        android:visibility="visible"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/group_filters"
+            android:layout_alignEnd="@+id/group_filters"
+            android:layout_alignLeft="@+id/group_filters"
+            android:layout_alignRight="@+id/group_filters"
+            android:layout_alignStart="@+id/group_filters"
+            android:layout_alignTop="@+id/group_filters"
+            android:src="@drawable/button_filters"/>
+
+
+        <LinearLayout
+            android:id="@+id/group_filters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="12dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="12dp">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="center_vertical"
+                android:tint="?attr/colorBackground"
+                app:srcCompat="@drawable/icon_filters"/>
+
+            <TextView
+                android:id="@+id/text_filters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:text="@string/filters"
+                android:textColor="?attr/colorBackground"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/filters_dot"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/circle_white"
+            android:tint="?attr/colorRed"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

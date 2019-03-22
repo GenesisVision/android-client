@@ -17,16 +17,16 @@
         android:visibility="gone"/>
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/programs_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/group_search"
-        android:background="@color/colorGrayBackground"
-        android:clipToPadding="false"
-        android:paddingBottom="70dp"
-        android:paddingTop="16dp"
-        android:visibility="gone"/>
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/programs_recycler_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_below="@+id/group_search"-->
+    <!--android:background="@color/colorGrayBackground"-->
+    <!--android:clipToPadding="false"-->
+    <!--android:paddingBottom="70dp"-->
+    <!--android:paddingTop="16dp"-->
+    <!--android:visibility="gone"/>-->
 
     <!--<android.support.v4.widget.NestedScrollView-->
     <!--android:id="@+id/scrollview"-->
@@ -111,7 +111,7 @@
         android:id="@+id/group_no_internet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/searchbar"
+        android:layout_below="@+id/group_searchbar"
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
@@ -144,12 +144,10 @@
         android:id="@+id/background_black"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.5"
-        android:background="@color/black"
         tools:visibility="gone"/>
 
     <RelativeLayout
-        android:id="@+id/searchbar"
+        android:id="@+id/group_searchbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/searchbar_height"
         android:layout_marginEnd="@dimen/assets_padding"
@@ -164,6 +162,8 @@
             android:background="@android:color/transparent"
             android:hint="@string/search"
             android:imeOptions="actionSearch"
+            android:inputType="textNoSuggestions"
+            android:lines="1"
             android:textColor="?attr/colorTextPrimary"
             android:textColorHint="?attr/colorTextSecondary"
             android:textSize="18sp"/>
@@ -185,12 +185,44 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/group_results"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/group_searchbar"
+        android:background="?attr/colorBackground"
+        android:visibility="invisible"
+        tools:visibility="visible">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tabs_height"
+            android:minHeight="?attr/actionBarSize"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="?attr/colorAccent"
+            app:tabMaxWidth="0dp"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="?attr/colorTextPrimary"
+            app:tabTextColor="?attr/colorTextSecondary"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tab_layout"
+            android:visibility="visible"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:visibility="visible"/>
+
+    </RelativeLayout>
+
     <ProgressBar
         android:id="@+id/progress_bar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_below="@+id/searchbar"
+        android:layout_alignBottom="@+id/group_searchbar"
         android:indeterminate="true"
         android:scaleY="4"
         android:visibility="gone"

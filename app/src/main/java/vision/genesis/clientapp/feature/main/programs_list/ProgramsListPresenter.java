@@ -68,7 +68,9 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 
 	private UUID managerId;
 
-	private Boolean isManagerSet;
+	private Boolean isDataSet = false;
+
+	private String location = "";
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
@@ -100,13 +102,20 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		super.onDestroy();
 	}
 
-	void setManagerId(UUID managerId) {
+	void setData(String location, UUID managerId) {
+		this.location = location;
 		this.managerId = managerId;
-		this.isManagerSet = true;
 		if (filter != null) {
 			filter.setManagerId(managerId);
 		}
-		getProgramsList(true);
+		if (!location.equals(ProgramsListFragment.LOCATION_SEARCH)) {
+			isDataSet = true;
+			getProgramsList(true);
+		}
+	}
+
+	void showSearchResults(ProgramsList result) {
+		handleGetProgramsList(result);
 	}
 
 	void onSwipeRefresh() {
@@ -156,7 +165,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 	}
 
 	private void getProgramsList(boolean forceUpdate) {
-		if (filter != null && programsManager != null && isManagerSet) {
+		if (filter != null && programsManager != null && isDataSet) {
 			if (forceUpdate) {
 				skip = 0;
 				filter.setSkip(skip);

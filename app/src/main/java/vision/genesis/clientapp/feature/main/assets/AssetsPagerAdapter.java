@@ -35,8 +35,8 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 	AssetsPagerAdapter(FragmentManager fm, TabLayout tabLayout) {
 		super(fm);
 		this.tabLayout = tabLayout;
-		programsFragment = new ProgramsListFragment();
-		fundsFragment = new FundsListFragment();
+		programsFragment = ProgramsListFragment.with(ProgramsListFragment.LOCATION_ASSETS, null);
+		fundsFragment = FundsListFragment.with(FundsListFragment.LOCATION_ASSETS, null);
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.programs_list;
+package vision.genesis.clientapp.feature.main.managers_list;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,15 +18,13 @@ import android.widget.TextView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
-import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.ProgramDetails;
-import io.swagger.client.model.ProgramFacet;
-import io.swagger.client.model.ProgramsList;
+import io.swagger.client.model.ManagerProfile;
+import io.swagger.client.model.ManagersList;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -36,27 +34,20 @@ import vision.genesis.clientapp.model.ProgramsFilter;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
- * GenesisVision
- * Created by Vitaly on 1/19/18.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 21/03/2019.
  */
 
-public class ProgramsListFragment extends BaseFragment implements ProgramsListView
+public class ManagersListFragment extends BaseFragment implements ManagersListView
 {
-	public static String LOCATION_ASSETS = "location_assets";
-
 	public static String LOCATION_SEARCH = "location_search";
-
-	public static String LOCATION_MANAGER = "location_manager";
 
 	private static String EXTRA_LOCATION = "extra_location";
 
-	private static String EXTRA_MANAGER_ID = "extra_manager_id";
-
-	public static ProgramsListFragment with(@NonNull String location, UUID managerId) {
-		ProgramsListFragment programListFragment = new ProgramsListFragment();
-		Bundle arguments = new Bundle(2);
+	public static ManagersListFragment with(String location) {
+		ManagersListFragment programListFragment = new ManagersListFragment();
+		Bundle arguments = new Bundle(1);
 		arguments.putSerializable(EXTRA_LOCATION, location);
-		arguments.putSerializable(EXTRA_MANAGER_ID, managerId);
 		programListFragment.setArguments(arguments);
 		return programListFragment;
 	}
@@ -89,52 +80,51 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	public ProgressBar progressBar;
 
 	@InjectPresenter
-	ProgramsListPresenter programsListPresenter;
+	ManagersListPresenter managersListPresenter;
 
 	private int lastVisible = 0;
 
-	private ProgramsListAdapter programsListAdapter;
+	private ManagersListAdapter managersListAdapter;
 
 	private Unbinder unbinder;
 
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
-		programsListPresenter.onTryAgainClicked();
+		managersListPresenter.onTryAgainClicked();
 	}
 
 	@OnClick(R.id.filters)
 	public void onFiltersClicked() {
-		programsListPresenter.onFiltersClicked();
+		managersListPresenter.onFiltersClicked();
 	}
 
 	@Nullable
 	@Override
-	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_programs_list, container, false);
+	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.fragment_managers_list, container, false);
 	}
 
 	@Override
-	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
 		unbinder = ButterKnife.bind(this, view);
 
 		if (getArguments() != null) {
 			String location = getArguments().getString(EXTRA_LOCATION);
-			UUID managerId = (UUID) getArguments().getSerializable(EXTRA_MANAGER_ID);
 
 			if (location != null && location.equals(LOCATION_SEARCH)) {
 				filters.setVisibility(View.GONE);
 			}
 
-			programsListPresenter.setData(location, managerId);
+			managersListPresenter.setData(location);
 
 			setFonts();
 			initRefreshLayout();
 			initRecyclerView();
 		}
 		else {
-			Timber.e("Passed empty arguments to ProgramsListFragment");
+			Timber.e("Passed empty arguments to ManagersListFragment");
 			onBackPressed();
 		}
 	}
@@ -160,20 +150,20 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		refreshLayout.setColorSchemeColors(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent),
 				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent),
 				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorMedium));
-		refreshLayout.setOnRefreshListener(() -> programsListPresenter.onSwipeRefresh());
+		refreshLayout.setOnRefreshListener(() -> managersListPresenter.onSwipeRefresh());
 	}
 
 	private void initRecyclerView() {
 		recyclerView.setHasFixedSize(true);
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
-		programsListAdapter = new ProgramsListAdapter();
-		programsListAdapter.setHasStableIds(true);
-		recyclerView.setAdapter(programsListAdapter);
+		managersListAdapter = new ManagersListAdapter();
+		managersListAdapter.setHasStableIds(true);
+		recyclerView.setAdapter(managersListAdapter);
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
 		{
 			@Override
-			public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+			public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
 				checkIfLastItemVisible();
 			}
 		});
@@ -188,23 +178,19 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 		boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
 		if (totalItemCount > 0 && endHasBeenReached) {
-			programsListPresenter.onLastListItemVisible();
+			managersListPresenter.onLastListItemVisible();
 		}
 	}
 
-	public void setFacets(List<ProgramFacet> facets) {
-
-	}
-
 	@Override
-	public void setInvestmentPrograms(List<ProgramDetails> programs) {
-		programsListAdapter.setInvestmentPrograms(programs);
+	public void setManagers(List<ManagerProfile> managers) {
+		managersListAdapter.setManagers(managers);
 		recyclerView.scrollToPosition(0);
 	}
 
 	@Override
-	public void addInvestmentPrograms(List<ProgramDetails> programs) {
-		programsListAdapter.addInvestmentPrograms(programs);
+	public void addManagers(List<ManagerProfile> managers) {
+		managersListAdapter.addManagers(managers);
 	}
 
 	@Override
@@ -237,43 +223,28 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	@Override
 	public void showFiltersActive(boolean show) {
-		filtersDot.setVisibility(show ? View.VISIBLE : View.GONE);
-	}
-
-	@Override
-	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
-		programsListAdapter.changeProgramIsFavorite(programId, isFavorite);
+//		toolbar.showRightButtonDot(show);
 	}
 
 	@Override
 	public void showFiltersActivity(ProgramsFilter filter) {
-		FiltersActivity.startFromFragment(this, filter, FiltersActivity.PROGRAM_FILTER);
-	}
-
-	@Override
-	public void setProgramsCount(String count) {
-
-	}
-
-	@Override
-	public void showBottomProgress(boolean show) {
-
+		FiltersActivity.startFromFragment(this, filter, FiltersActivity.FUND_FILTER);
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == FiltersActivity.PROGRAM_FILTER && resultCode == Activity.RESULT_OK) {
+		if (requestCode == FiltersActivity.FUND_FILTER && resultCode == Activity.RESULT_OK) {
 			ProgramsFilter newFilter = data.getParcelableExtra("filter");
 			if (newFilter != null)
-				programsListPresenter.onFilterUpdated(newFilter);
+				managersListPresenter.onFilterUpdated(newFilter);
 		}
 		else {
 			super.onActivityResult(requestCode, resultCode, data);
 		}
 	}
 
-	public void showSearchResults(ProgramsList result) {
-		if (programsListPresenter != null)
-			programsListPresenter.showSearchResults(result);
+	public void showSearchResults(ManagersList result) {
+		if (managersListPresenter != null)
+			managersListPresenter.showSearchResults(result);
 	}
 }

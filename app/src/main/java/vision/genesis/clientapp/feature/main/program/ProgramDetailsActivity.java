@@ -348,7 +348,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			return;
 
 		tabLayout.addTab(tab, selected);
-		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 0, 10);
+		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 10);
 		if (pagerAdapter != null)
 			pagerAdapter.notifyDataSetChanged();
 	}

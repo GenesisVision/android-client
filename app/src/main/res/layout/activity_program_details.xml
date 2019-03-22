@@ -127,8 +127,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/toolbar_height"
                     android:background="?attr/colorCard"
-                    android:paddingLeft="@dimen/program_details_padding"
-                    android:paddingStart="@dimen/program_details_padding"
                     android:visibility="gone"
                     app:layout_collapseMode="pin"
                     tools:visibility="visible">
@@ -174,8 +172,8 @@
             android:layout_height="@dimen/toolbar_height"
             android:layout_centerVertical="true"
             android:padding="20dp"
-            app:srcCompat="@drawable/icon_back"
-            android:tint="?attr/colorTextPrimary"/>
+            android:tint="?attr/colorTextPrimary"
+            app:srcCompat="@drawable/icon_back"/>
 
         <vision.genesis.clientapp.ui.ProgramLogoView
             android:id="@+id/toolbar_program_logo"
@@ -222,8 +220,8 @@
                 android:layout_height="@dimen/toolbar_height"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="14dp"
-                app:srcCompat="@drawable/icon_notifications"
-                android:tint="?attr/colorTextPrimary"/>
+                android:tint="?attr/colorTextPrimary"
+                app:srcCompat="@drawable/icon_notifications"/>
 
             <ImageView
                 android:id="@+id/button_favorite"
@@ -232,8 +230,8 @@
                 android:layout_marginEnd="12dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="12dp"
-                app:srcCompat="@drawable/icon_favorite"
-                android:tint="?attr/colorTextPrimary"/>
+                android:tint="?attr/colorTextPrimary"
+                app:srcCompat="@drawable/icon_favorite"/>
 
         </LinearLayout>
 

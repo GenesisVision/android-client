@@ -21,7 +21,7 @@
             <android.support.design.widget.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed|exitUntilCollapsed">
 
                 <RelativeLayout
                     android:id="@+id/searchbar"
@@ -29,7 +29,7 @@
                     android:layout_height="@dimen/searchbar_height"
                     android:layout_marginEnd="@dimen/assets_padding"
                     android:layout_marginStart="@dimen/assets_padding"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="match_parent"

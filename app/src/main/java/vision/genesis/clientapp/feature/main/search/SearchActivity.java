@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -22,17 +22,14 @@ import android.widget.TextView;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
-import java.util.List;
-import java.util.UUID;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.OnFocusChange;
-import io.swagger.client.model.ProgramDetails;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.feature.main.programs_list.ProgramsListAdapter;
+import vision.genesis.clientapp.ui.CustomTabView;
+import vision.genesis.clientapp.utils.TabLayoutUtil;
 
 /**
  * GenesisVisionAndroid
@@ -47,9 +44,6 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 		activity.overridePendingTransition(R.anim.fragment_fade_in, R.anim.hold);
 	}
 
-//	@BindView(R.id.scrollview)
-//	public NestedScrollView scrollView;
-
 	@BindView(R.id.background_black)
 	public View backgroundBlack;
 
@@ -59,14 +53,17 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 	@BindView(R.id.edittext_search)
 	public EditText searchEditText;
 
-	@BindView(R.id.programs_recycler_view)
-	public RecyclerView programsRecyclerView;
-
 	@BindView(R.id.group_no_internet)
 	public ViewGroup noInternetGroup;
 
-	@BindView(R.id.group_empty)
-	public ViewGroup emptyGroup;
+	@BindView(R.id.group_results)
+	public ViewGroup resultsGroup;
+
+	@BindView(R.id.tab_layout)
+	public TabLayout tabLayout;
+
+	@BindView(R.id.view_pager_search)
+	public ViewPager viewPager;
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
@@ -74,9 +71,17 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 	@InjectPresenter
 	SearchPresenter searchPresenter;
 
-	private ProgramsListAdapter programsAdapter;
+	private TabLayout.OnTabSelectedListener tabSelectedListener;
 
-	private int lastVisible = 0;
+	private TabLayout.TabLayoutOnPageChangeListener tabLayoutOnPageChangeListener;
+
+	private TabLayout.Tab programsTab;
+
+	private TabLayout.Tab fundsTab;
+
+	private TabLayout.Tab managersTab;
+
+	private SearchPagerAdapter pagerAdapter;
 
 	@OnClick(R.id.background_black)
 	public void onBackgroundBlackClicked() {
@@ -103,7 +108,6 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 	protected boolean onSearchEditorAction(int actionId) {
 		if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 			searchPresenter.onSearchClicked(searchEditText.getText().toString());
-//			searchEditText.clearFocus();
 			background.setVisibility(View.VISIBLE);
 			hideSoftKeyboard();
 		}
@@ -112,55 +116,80 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-//		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_search);
 
 		ButterKnife.bind(this);
 
-		initRecyclerViews();
+		initTabs();
+		initViewPager();
 
 		showSoftKeyboard();
 	}
 
-	@Override
-	protected void onDestroy() {
-		if (programsRecyclerView != null)
-			programsRecyclerView.setAdapter(null);
+	private void initTabs() {
+		programsTab = tabLayout.newTab().setCustomView(getTabView(R.string.programs)).setTag("programs");
+		fundsTab = tabLayout.newTab().setCustomView(getTabView(R.string.funds)).setTag("funds");
+		managersTab = tabLayout.newTab().setCustomView(getTabView(R.string.managers)).setTag("managers");
 
-		super.onDestroy();
-	}
+		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-	private void initRecyclerViews() {
-		RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
-
-		programsRecyclerView.setRecycledViewPool(viewPool);
-		programsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-		programsAdapter = new ProgramsListAdapter();
-		programsAdapter.setHasStableIds(true);
-		programsRecyclerView.setAdapter(programsAdapter);
-		programsRecyclerView.setNestedScrollingEnabled(false);
-		programsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
+		tabSelectedListener = new TabLayout.OnTabSelectedListener()
 		{
 			@Override
-			public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-				checkIfLastItemVisible();
+			public void onTabSelected(TabLayout.Tab tab) {
+				viewPager.setCurrentItem(tab.getPosition());
+				if (tab.getCustomView() != null && tab.getCustomView().getClass().equals(CustomTabView.class)) {
+					((CustomTabView) tab.getCustomView()).setSelectedState(true);
+				}
 			}
-		});
+
+			@Override
+			public void onTabUnselected(TabLayout.Tab tab) {
+				if (tab.getCustomView() != null && tab.getCustomView().getClass().equals(CustomTabView.class)) {
+					((CustomTabView) tab.getCustomView()).setSelectedState(false);
+				}
+			}
+
+			@Override
+			public void onTabReselected(TabLayout.Tab tab) {
+				if (tab.getCustomView() != null && tab.getCustomView().getClass().equals(CustomTabView.class)) {
+					((CustomTabView) tab.getCustomView()).setSelectedState(true);
+				}
+			}
+		};
+
+		tabLayout.addOnTabSelectedListener(tabSelectedListener);
+
+		addPage(programsTab, true);
+		addPage(fundsTab, false);
+		addPage(managersTab, false);
 	}
 
-	private void checkIfLastItemVisible() {
-		LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(programsRecyclerView.getLayoutManager());
-		int totalItemCount = layoutManager.getItemCount();
-		lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
-		if (lastVisible < 0)
+	private View getTabView(int textResId) {
+		CustomTabView view = new CustomTabView(this);
+		view.setData(0, textResId);
+		return view;
+	}
+
+	private void addPage(TabLayout.Tab tab, boolean selected) {
+		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION)
 			return;
 
-		boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
-		if (totalItemCount > 0 && endHasBeenReached) {
-			searchPresenter.onLastListItemVisible();
-		}
+		tabLayout.addTab(tab, selected);
+		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 16);
+		if (pagerAdapter != null)
+			pagerAdapter.notifyDataSetChanged();
+	}
+
+	private void initViewPager() {
+		pagerAdapter = new SearchPagerAdapter(getSupportFragmentManager(), tabLayout);
+		viewPager.setAdapter(pagerAdapter);
+		viewPager.setOffscreenPageLimit(3);
+
+		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
+		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
 	}
 
 	private void showBackgroundBlack() {
@@ -193,14 +222,10 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 	}
 
 	@Override
-	public void setInvestmentPrograms(List<ProgramDetails> programs) {
-		programsAdapter.setInvestmentPrograms(programs);
-		programsRecyclerView.scrollToPosition(0);
-	}
-
-	@Override
-	public void addInvestmentPrograms(List<ProgramDetails> programs) {
-		programsAdapter.addInvestmentPrograms(programs);
+	public void sendSearchAction(String text) {
+		resultsGroup.setVisibility(View.VISIBLE);
+//		if (pagerAdapter != null)
+//			pagerAdapter.sendSearchResults(text);
 	}
 
 	@Override
@@ -213,36 +238,17 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 	@Override
 	public void showNoInternet(boolean show) {
 		noInternetGroup.setVisibility(show ? View.VISIBLE : View.GONE);
-		programsRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
 	}
 
 	@Override
 	public void showProgressBar(boolean show) {
 		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-		if (show)
-			programsRecyclerView.scrollToPosition(0);
-	}
-
-	@Override
-	public void showEmptyList(boolean show) {
-		emptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);
-		programsRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
 	}
 
 	@Override
 	public void finishActivity() {
 		finish();
 		overridePendingTransition(R.anim.hold, R.anim.fragment_fade_out);
-	}
-
-	@Override
-	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
-		programsAdapter.changeProgramIsFavorite(programId, isFavorite);
-	}
-
-	@Override
-	public void setResultsCount(String count) {
-//		resultsCount.setText(String.format(Locale.getDefault(), "%s: %s", getString(R.string.results), count));
 	}
 
 	@Override
