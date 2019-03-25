@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +16,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.ManagerProfile;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.ManagerDetailsModel;
+import vision.genesis.clientapp.model.events.ShowManagerDetailsEvent;
+import vision.genesis.clientapp.ui.AvatarView;
+import vision.genesis.clientapp.utils.DateTimeUtil;
 
 /**
  * GenesisVisionAndroid
@@ -29,7 +33,7 @@ public class ManagersListAdapter extends RecyclerView.Adapter<ManagersListAdapte
 	@NonNull
 	@Override
 	public ManagerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_fund, parent, false);
+		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_manager, parent, false);
 		return new ManagerViewHolder(itemView);
 	}
 
@@ -62,10 +66,13 @@ public class ManagersListAdapter extends RecyclerView.Adapter<ManagersListAdapte
 	static class ManagerViewHolder extends RecyclerView.ViewHolder
 	{
 		@BindView(R.id.manager_avatar)
-		public SimpleDraweeView avatar;
+		public AvatarView managerAvatar;
 
 		@BindView(R.id.manager_name)
 		public TextView managerName;
+
+		@BindView(R.id.manager_date)
+		public TextView managerDate;
 
 		private ManagerProfile manager;
 
@@ -78,7 +85,12 @@ public class ManagersListAdapter extends RecyclerView.Adapter<ManagersListAdapte
 
 			itemView.setOnClickListener(v -> {
 				if (manager != null) {
-
+					ManagerDetailsModel model = new ManagerDetailsModel(
+							manager.getId(),
+							manager.getAvatar(),
+							manager.getUsername(),
+							manager.getRegDate());
+					EventBus.getDefault().post(new ShowManagerDetailsEvent(model));
 				}
 			});
 		}
@@ -93,8 +105,9 @@ public class ManagersListAdapter extends RecyclerView.Adapter<ManagersListAdapte
 		}
 
 		private void updateData() {
-
-
+			managerAvatar.setImage(manager.getAvatar(), 100, 100);
+			managerName.setText(manager.getUsername());
+			managerDate.setText(DateTimeUtil.formatShortDate(manager.getRegDate()));
 		}
 	}
 }

@@ -19,6 +19,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import java.util.List;
 import java.util.UUID;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -41,15 +42,15 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class FundsListFragment extends BaseFragment implements FundsListView
 {
-	public static String LOCATION_ASSETS = "location_assets";
+	public static final String LOCATION_ASSETS = "location_assets";
 
-	public static String LOCATION_SEARCH = "location_search";
+	public static final String LOCATION_SEARCH = "location_search";
 
-	public static String LOCATION_MANAGER = "location_manager";
+	public static final String LOCATION_MANAGER = "location_manager";
 
-	private static String EXTRA_LOCATION = "extra_location";
+	private static final String EXTRA_LOCATION = "extra_location";
 
-	private static String EXTRA_MANAGER_ID = "extra_manager_id";
+	private static final String EXTRA_MANAGER_ID = "extra_manager_id";
 
 	public static FundsListFragment with(String location, UUID managerId) {
 		FundsListFragment programListFragment = new FundsListFragment();
@@ -59,6 +60,9 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 		programListFragment.setArguments(arguments);
 		return programListFragment;
 	}
+
+	@BindView(R.id.root)
+	public ViewGroup root;
 
 	@BindView(R.id.refresh_layout)
 	public SwipeRefreshLayout refreshLayout;
@@ -87,8 +91,16 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
+	@BindDimen(R.dimen.assets_filters_margin_bottom)
+	public int assetsFiltersMarginBottom;
+
+	@BindDimen(R.dimen.date_range_margin_bottom)
+	public int dateRangeMarginBottom;
+
 	@InjectPresenter
 	FundsListPresenter fundsListPresenter;
+
+	private int filtersMarginBottom;
 
 	private int lastVisible = 0;
 
@@ -122,8 +134,22 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 			String location = getArguments().getString(EXTRA_LOCATION);
 			UUID managerId = (UUID) getArguments().getSerializable(EXTRA_MANAGER_ID);
 
-			if (location != null && location.equals(LOCATION_SEARCH)) {
-				filters.setVisibility(View.GONE);
+			if (location != null) {
+				switch (location) {
+					case LOCATION_ASSETS:
+						filtersMarginBottom = assetsFiltersMarginBottom;
+						break;
+					case LOCATION_MANAGER:
+						filtersMarginBottom = dateRangeMarginBottom;
+						break;
+					case LOCATION_SEARCH:
+						filters.setVisibility(View.GONE);
+						refreshLayout.setEnabled(false);
+						break;
+					default:
+						filtersMarginBottom = assetsFiltersMarginBottom;
+						break;
+				}
 			}
 
 			fundsListPresenter.setData(location, managerId);
@@ -273,5 +299,10 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 	public void showSearchResults(FundsList result) {
 		if (fundsListPresenter != null)
 			fundsListPresenter.showSearchResults(result);
+	}
+
+	public void onOffsetChanged(int verticalOffset) {
+		if (filters != null)
+			filters.setY(root.getHeight() - verticalOffset - filters.getHeight() - filtersMarginBottom);
 	}
 }

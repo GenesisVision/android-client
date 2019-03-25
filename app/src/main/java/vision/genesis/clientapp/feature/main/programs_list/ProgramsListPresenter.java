@@ -115,6 +115,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 	}
 
 	void showSearchResults(ProgramsList result) {
+		skip = 0;
 		handleGetProgramsList(result);
 	}
 
@@ -194,7 +195,8 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		getViewState().showEmptyList(false);
 		getViewState().showBottomProgress(false);
 
-		getProgramsSubscription.unsubscribe();
+		if (getProgramsSubscription != null)
+			getProgramsSubscription.unsubscribe();
 
 		programsToAdd = response.getPrograms();
 

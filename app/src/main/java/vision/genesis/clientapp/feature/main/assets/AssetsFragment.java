@@ -86,6 +86,9 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 		initViewPager();
 		initTabs();
+
+		appBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) ->
+				pagerAdapter.onOffsetChanged(appBarLayout.getHeight() + verticalOffset - tabLayout.getHeight()));
 	}
 
 	@Override
@@ -220,7 +223,7 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 			return;
 
 		tabLayout.addTab(tab, selected);
-		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 16);
+		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 10);
 		if (pagerAdapter != null)
 			pagerAdapter.notifyDataSetChanged();
 	}

@@ -116,6 +116,7 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 	}
 
 	void showSearchResults(FundsList result) {
+		skip = 0;
 		handleGetFundsList(result);
 	}
 
@@ -195,7 +196,8 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 		getViewState().showEmptyList(false);
 		getViewState().showBottomProgress(false);
 
-		getFundsSubscription.unsubscribe();
+		if (getFundsSubscription != null)
+			getFundsSubscription.unsubscribe();
 
 		fundsToAdd = response.getFunds();
 

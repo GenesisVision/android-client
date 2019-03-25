@@ -104,6 +104,7 @@ public class ManagersListPresenter extends MvpPresenter<ManagersListView> implem
 	}
 
 	void showSearchResults(ManagersList result) {
+		skip = 0;
 		handleGetManagersList(result);
 	}
 
@@ -180,7 +181,8 @@ public class ManagersListPresenter extends MvpPresenter<ManagersListView> implem
 		getViewState().showNoInternet(false);
 		getViewState().showEmptyList(false);
 
-		getManagersSubscription.unsubscribe();
+		if (getManagersSubscription != null)
+			getManagersSubscription.unsubscribe();
 
 		managersToAdd = response.getManagers();
 

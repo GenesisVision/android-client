@@ -34,6 +34,7 @@ import vision.genesis.clientapp.model.events.ShowBottomNavigationEvent;
 import vision.genesis.clientapp.model.events.ShowDisableTfaActivityEvent;
 import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowLockScreenEvent;
+import vision.genesis.clientapp.model.events.ShowManagerDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
 import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
@@ -340,5 +341,10 @@ public class MainPresenter extends MvpPresenter<MainView>
 		getViewState().showTransactionDetails(event.getTransactionId(),
 				event.getTransactionType(),
 				event.getTransactionDate());
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowManagerDetailsEvent event) {
+		getViewState().showManagerDetails(event.getModel());
 	}
 }

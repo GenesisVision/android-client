@@ -9,6 +9,7 @@ import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ManagerApi;
 import io.swagger.client.api.ProgramsApi;
 import io.swagger.client.api.RateApi;
+import io.swagger.client.api.SearchApi;
 import io.swagger.client.api.WalletApi;
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.managers.InvestorDashboardManager;
@@ -16,6 +17,7 @@ import vision.genesis.clientapp.managers.ManagerDashboardManager;
 import vision.genesis.clientapp.managers.ManagersManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.RateManager;
+import vision.genesis.clientapp.managers.SearchManager;
 import vision.genesis.clientapp.managers.WalletManager;
 
 /**
@@ -66,5 +68,11 @@ public class AssetsModule
 	@Singleton
 	public RateManager provideRateManager(RateApi rateApi) {
 		return new RateManager(rateApi);
+	}
+
+	@Provides
+	@Singleton
+	public SearchManager provideSearchManager(SearchApi searchApi) {
+		return new SearchManager(searchApi);
 	}
 }

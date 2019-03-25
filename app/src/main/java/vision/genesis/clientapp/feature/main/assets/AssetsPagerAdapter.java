@@ -66,4 +66,9 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 	public void setFundsFacets(List<FundFacet> fundsFacets) {
 		fundsFragment.setFacets(fundsFacets);
 	}
+
+	public void onOffsetChanged(int verticalOffset) {
+		programsFragment.onOffsetChanged(verticalOffset);
+		fundsFragment.onOffsetChanged(verticalOffset);
+	}
 }

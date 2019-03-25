@@ -122,4 +122,5 @@
     <dimen name="icon_wallet_list_size">40dp</dimen>
 
     <dimen name="specific_wallet_appbar_background_height">400dp</dimen>
+    <dimen name="assets_filters_margin_bottom">70dp</dimen>
 </resources>

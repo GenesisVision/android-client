@@ -373,7 +373,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/tabs_height"
                     android:background="?attr/colorCard"
-                    android:paddingStart="@dimen/program_details_padding"
                     app:layout_collapseMode="pin"
                     tools:visibility="visible">
 

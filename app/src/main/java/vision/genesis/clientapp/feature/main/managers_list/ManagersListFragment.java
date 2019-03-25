@@ -40,9 +40,9 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class ManagersListFragment extends BaseFragment implements ManagersListView
 {
-	public static String LOCATION_SEARCH = "location_search";
+	public static final String LOCATION_SEARCH = "location_search";
 
-	private static String EXTRA_LOCATION = "extra_location";
+	private static final String EXTRA_LOCATION = "extra_location";
 
 	public static ManagersListFragment with(String location) {
 		ManagersListFragment programListFragment = new ManagersListFragment();
@@ -115,6 +115,7 @@ public class ManagersListFragment extends BaseFragment implements ManagersListVi
 
 			if (location != null && location.equals(LOCATION_SEARCH)) {
 				filters.setVisibility(View.GONE);
+				refreshLayout.setEnabled(false);
 			}
 
 			managersListPresenter.setData(location);

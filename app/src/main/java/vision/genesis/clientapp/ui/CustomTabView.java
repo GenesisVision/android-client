@@ -2,9 +2,11 @@ package vision.genesis.clientapp.ui;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,6 +34,9 @@ public class CustomTabView extends RelativeLayout
 
 	@BindView(R.id.count)
 	public TextView count;
+
+	@BindView(R.id.background_count)
+	public ViewGroup countBackground;
 
 	private Unbinder unbinder;
 
@@ -91,11 +96,12 @@ public class CustomTabView extends RelativeLayout
 	public void setSelectedState(boolean selected) {
 		icon.setColorFilter(ThemeUtil.getColorByAttrId(getContext(), selected ? R.attr.colorTextPrimary : R.attr.colorTextSecondary));
 		text.setTextColor(ThemeUtil.getColorByAttrId(getContext(), selected ? R.attr.colorTextPrimary : R.attr.colorTextSecondary));
-		count.setTextColor(ThemeUtil.getColorByAttrId(getContext(), selected ? R.attr.colorTextPrimary : R.attr.colorTextSecondary));
+		count.setTextColor(ThemeUtil.getColorByAttrId(getContext(), selected ? R.attr.colorPrimary : R.attr.colorTextSecondary));
+		countBackground.setBackground(ContextCompat.getDrawable(getContext(), selected ? R.drawable.background_count_active : R.drawable.background_count_inactive));
 	}
 
 	public void setCount(int count) {
 		this.count.setText(StringFormatUtil.formatAmount(count, 0, 0));
-		this.count.setVisibility(View.VISIBLE);
+		this.countBackground.setVisibility(View.VISIBLE);
 	}
 }

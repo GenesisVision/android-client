@@ -33,6 +33,7 @@ import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsActivity;
+import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
@@ -43,6 +44,7 @@ import vision.genesis.clientapp.feature.two_factor.disable.DisableTfaActivity;
 import vision.genesis.clientapp.feature.two_factor.setup.SetupTfaActivity;
 import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.FundDetailsModel;
+import vision.genesis.clientapp.model.ManagerDetailsModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.WalletModel;
@@ -349,6 +351,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void showTransactionDetails(UUID transactionId, String transactionType, DateTime transactionDate) {
 		TransactionDetailsActivity.startWith(this, transactionId, transactionType, transactionDate);
+	}
+
+	@Override
+	public void showManagerDetails(ManagerDetailsModel model) {
+		ManagerDetailsActivity.startWith(this, model);
 	}
 
 	@Override

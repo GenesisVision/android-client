@@ -21,12 +21,14 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.jakewharton.rxbinding.widget.RxTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.OnFocusChange;
+import io.swagger.client.model.SearchViewModel;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.ui.CustomTabView;
 import vision.genesis.clientapp.utils.TabLayoutUtil;
@@ -126,6 +128,13 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 		initViewPager();
 
 		showSoftKeyboard();
+
+		setTextListener();
+	}
+
+	private void setTextListener() {
+		RxTextView.textChanges(searchEditText)
+				.subscribe(charSequence -> searchPresenter.onMaskChanged(charSequence.toString()));
 	}
 
 	private void initTabs() {
@@ -178,7 +187,7 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 			return;
 
 		tabLayout.addTab(tab, selected);
-		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 16);
+		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 10);
 		if (pagerAdapter != null)
 			pagerAdapter.notifyDataSetChanged();
 	}
@@ -222,10 +231,14 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 	}
 
 	@Override
-	public void sendSearchAction(String text) {
+	public void sendSearchResults(SearchViewModel results) {
 		resultsGroup.setVisibility(View.VISIBLE);
-//		if (pagerAdapter != null)
-//			pagerAdapter.sendSearchResults(text);
+		if (pagerAdapter != null) {
+			pagerAdapter.sendSearchResults(results);
+			((CustomTabView) programsTab.getCustomView()).setCount(results.getPrograms().getTotal());
+			((CustomTabView) fundsTab.getCustomView()).setCount(results.getFunds().getTotal());
+			((CustomTabView) managersTab.getCustomView()).setCount(results.getManagers().getTotal());
+		}
 	}
 
 	@Override

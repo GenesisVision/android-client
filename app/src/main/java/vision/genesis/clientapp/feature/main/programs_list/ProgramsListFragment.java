@@ -20,6 +20,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import java.util.List;
 import java.util.UUID;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -42,15 +43,15 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class ProgramsListFragment extends BaseFragment implements ProgramsListView
 {
-	public static String LOCATION_ASSETS = "location_assets";
+	public static final String LOCATION_ASSETS = "location_assets";
 
-	public static String LOCATION_SEARCH = "location_search";
+	public static final String LOCATION_SEARCH = "location_search";
 
-	public static String LOCATION_MANAGER = "location_manager";
+	public static final String LOCATION_MANAGER = "location_manager";
 
-	private static String EXTRA_LOCATION = "extra_location";
+	private static final String EXTRA_LOCATION = "extra_location";
 
-	private static String EXTRA_MANAGER_ID = "extra_manager_id";
+	private static final String EXTRA_MANAGER_ID = "extra_manager_id";
 
 	public static ProgramsListFragment with(@NonNull String location, UUID managerId) {
 		ProgramsListFragment programListFragment = new ProgramsListFragment();
@@ -60,6 +61,9 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		programListFragment.setArguments(arguments);
 		return programListFragment;
 	}
+
+	@BindView(R.id.root)
+	public ViewGroup root;
 
 	@BindView(R.id.refresh_layout)
 	public SwipeRefreshLayout refreshLayout;
@@ -88,8 +92,16 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
+	@BindDimen(R.dimen.assets_filters_margin_bottom)
+	public int assetsFiltersMarginBottom;
+
+	@BindDimen(R.dimen.date_range_margin_bottom)
+	public int dateRangeMarginBottom;
+
 	@InjectPresenter
 	ProgramsListPresenter programsListPresenter;
+
+	private int filtersMarginBottom;
 
 	private int lastVisible = 0;
 
@@ -123,8 +135,22 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 			String location = getArguments().getString(EXTRA_LOCATION);
 			UUID managerId = (UUID) getArguments().getSerializable(EXTRA_MANAGER_ID);
 
-			if (location != null && location.equals(LOCATION_SEARCH)) {
-				filters.setVisibility(View.GONE);
+			if (location != null) {
+				switch (location) {
+					case LOCATION_ASSETS:
+						filtersMarginBottom = assetsFiltersMarginBottom;
+						break;
+					case LOCATION_MANAGER:
+						filtersMarginBottom = dateRangeMarginBottom;
+						break;
+					case LOCATION_SEARCH:
+						filters.setVisibility(View.GONE);
+						refreshLayout.setEnabled(false);
+						break;
+					default:
+						filtersMarginBottom = assetsFiltersMarginBottom;
+						break;
+				}
 			}
 
 			programsListPresenter.setData(location, managerId);
@@ -275,5 +301,10 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	public void showSearchResults(ProgramsList result) {
 		if (programsListPresenter != null)
 			programsListPresenter.showSearchResults(result);
+	}
+
+	public void onOffsetChanged(int verticalOffset) {
+		if (filters != null)
+			filters.setY(root.getHeight() - verticalOffset - filters.getHeight() - filtersMarginBottom);
 	}
 }

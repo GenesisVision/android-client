@@ -84,7 +84,7 @@ public class ManagerDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	public void onOffsetChanged(int verticalOffset) {
 		managerProfitFragment.onOffsetChanged(verticalOffset);
-//		managerProgramsFragment.onOffsetChanged(verticalOffset);
-//		managerFundsFragment.onOffsetChanged(verticalOffset);
+		managerProgramsFragment.onOffsetChanged(verticalOffset);
+		managerFundsFragment.onOffsetChanged(verticalOffset);
 	}
 }
