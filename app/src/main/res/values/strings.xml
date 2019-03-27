@@ -579,5 +579,6 @@
     <string name="copy_address">Copy address</string>
     <string name="available_to_invest_in_program">Available to invest in program</string>
     <string name="managers">Managers</string>
+    <string name="stop_out">Stop out</string>
 
 </resources>

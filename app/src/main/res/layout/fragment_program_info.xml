@@ -360,6 +360,33 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/group_stop_out"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/stop_out"
+                            style="@style/program_info_invest_value"
+                            tools:text="30%"/>
+
+                        <TextView
+                            android:id="@+id/label_stop_out"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/stop_out"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
                         android:id="@+id/group_entry_fee"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

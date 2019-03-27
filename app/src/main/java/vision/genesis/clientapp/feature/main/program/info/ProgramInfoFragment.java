@@ -124,6 +124,12 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	@BindView(R.id.available_to_invest)
 	public TextView availableToInvest;
 
+	@BindView(R.id.stop_out)
+	public TextView stopOut;
+
+	@BindView(R.id.label_stop_out)
+	public TextView stopOutLabel;
+
 	@BindView(R.id.entry_fee)
 	public TextView entryFee;
 
@@ -265,10 +271,12 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 		labelInvestNow.setTypeface(TypefaceUtil.semibold());
 		availableToInvest.setTypeface(TypefaceUtil.semibold());
+		stopOut.setTypeface(TypefaceUtil.semibold());
 		entryFee.setTypeface(TypefaceUtil.semibold());
 		successFee.setTypeface(TypefaceUtil.semibold());
 
 		investedLabel.setText(investedLabel.getText().toString().toLowerCase());
+		stopOutLabel.setText(stopOutLabel.getText().toString().toLowerCase());
 		profitLabel.setText(profitLabel.getText().toString().toLowerCase());
 		entryFeeLabel.setText(entryFeeLabel.getText().toString().toLowerCase());
 	}
@@ -319,12 +327,16 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 				StringFormatUtil.getShortenedAmount(programDetails.getAvailableInvestmentBase()).toString(),
 				programDetails.getCurrency().getValue()));
 
-		if (programDetails.getLevel() < Constants.MIN_PROGRAM_LEVEL_ENTRY_FEE)
+		stopOut.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getStopOutLevel(), 0, 2)));
+
+		if (programDetails.getLevel() < Constants.MIN_PROGRAM_LEVEL_ENTRY_FEE) {
 			entryFee.setText(String.format(Locale.getDefault(), "%s%% (%s%%)",
 					StringFormatUtil.formatAmount(programDetails.getEntryFeeCurrent(), 0, 4),
 					StringFormatUtil.formatAmount(programDetails.getEntryFeeSelected(), 0, 4)));
-		else
+		}
+		else {
 			entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getEntryFeeCurrent(), 0, 4)));
+		}
 		successFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getSuccessFee(), 0, 4)));
 
 		investButton.setEnabled(programDetails.getAvailableInvestment() > 0);
