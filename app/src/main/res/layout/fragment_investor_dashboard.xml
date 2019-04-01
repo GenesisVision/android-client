@@ -117,8 +117,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="36dp"
                                 android:minHeight="?attr/actionBarSize"
-                                android:paddingLeft="24dp"
-                                android:paddingRight="24dp"
                                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                                 app:tabGravity="fill"
                                 app:tabIndicatorColor="?attr/colorAccent"
@@ -217,8 +215,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:background="?attr/colorBackground"
-                    android:paddingLeft="24dp"
-                    android:paddingRight="24dp"
                     app:layout_collapseMode="pin">
 
                     <android.support.design.widget.TabLayout

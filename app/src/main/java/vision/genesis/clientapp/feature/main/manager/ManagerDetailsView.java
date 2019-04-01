@@ -33,4 +33,8 @@ interface ManagerDetailsView extends MvpView
 	void showProgress(boolean show);
 
 	void setRefreshing(boolean refreshing);
+
+	void setProgramsCount(Integer programsCount);
+
+	void setFundsCount(Integer fundsCount);
 }

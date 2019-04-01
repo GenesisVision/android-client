@@ -5,6 +5,8 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -22,6 +24,8 @@ import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFr
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.PortfolioEvent;
+import vision.genesis.clientapp.model.events.SetFundDetailsEventsCountEvent;
+import vision.genesis.clientapp.model.events.SetProgramDetailsEventsCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 import vision.genesis.clientapp.utils.DateTimeUtil;
@@ -56,6 +60,8 @@ public class ProgramEventsPresenter extends MvpPresenter<ProgramEventsView> impl
 
 	private List<PortfolioEvent> newPreparedEvents = new ArrayList<>();
 
+	private String location;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -77,7 +83,8 @@ public class ProgramEventsPresenter extends MvpPresenter<ProgramEventsView> impl
 		super.onDestroy();
 	}
 
-	void setProgramId(UUID programId) {
+	void setData(String location, UUID programId) {
+		this.location = location;
 		this.programId = programId;
 		if (programsManager != null)
 			getEvents(true);
@@ -132,6 +139,11 @@ public class ProgramEventsPresenter extends MvpPresenter<ProgramEventsView> impl
 			events.clear();
 			sections.clear();
 		}
+
+		if (location.equals(ProgramEventsFragment.LOCATION_PROGRAM))
+			EventBus.getDefault().post(new SetProgramDetailsEventsCountEvent(response.getTotal()));
+		else if (location.equals(ProgramEventsFragment.LOCATION_FUND))
+			EventBus.getDefault().post(new SetFundDetailsEventsCountEvent(response.getTotal()));
 
 		List<DashboardPortfolioEvent> newEvents = response.getEvents();
 

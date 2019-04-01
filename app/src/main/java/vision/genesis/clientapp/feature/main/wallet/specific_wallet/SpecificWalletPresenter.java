@@ -3,6 +3,9 @@ package vision.genesis.clientapp.feature.main.wallet.specific_wallet;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -16,6 +19,8 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.model.events.SetSpecificWalletDepositsWithdrawalsCountEvent;
+import vision.genesis.clientapp.model.events.SetSpecificWalletTransactionsCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -48,6 +53,8 @@ public class SpecificWalletPresenter extends MvpPresenter<SpecificWalletView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		EventBus.getDefault().register(this);
+
 		getViewState().showProgress(true);
 
 		subscribeToBaseCurrency();
@@ -59,6 +66,8 @@ public class SpecificWalletPresenter extends MvpPresenter<SpecificWalletView>
 			baseCurrencySubscription.unsubscribe();
 		if (walletSubscription != null)
 			walletSubscription.unsubscribe();
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -121,5 +130,15 @@ public class SpecificWalletPresenter extends MvpPresenter<SpecificWalletView>
 
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));
+	}
+
+	@Subscribe
+	public void onEventMainThread(SetSpecificWalletTransactionsCountEvent event) {
+		getViewState().setTransactionsCount(event.getTransactionsCount());
+	}
+
+	@Subscribe
+	public void onEventMainThread(SetSpecificWalletDepositsWithdrawalsCountEvent event) {
+		getViewState().setDepositsWithdrawalsCount(event.getDepositsWithdrawalsCount());
 	}
 }

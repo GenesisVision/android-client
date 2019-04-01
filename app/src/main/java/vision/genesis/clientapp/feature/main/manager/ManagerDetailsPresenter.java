@@ -5,6 +5,9 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -18,6 +21,8 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ManagersManager;
 import vision.genesis.clientapp.model.User;
+import vision.genesis.clientapp.model.events.SetManagerDetailsFundsCountEvent;
+import vision.genesis.clientapp.model.events.SetManagerDetailsProgramsCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -51,6 +56,8 @@ public class ManagerDetailsPresenter extends MvpPresenter<ManagerDetailsView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		EventBus.getDefault().register(this);
+
 		subscribeToUser();
 	}
 
@@ -61,6 +68,8 @@ public class ManagerDetailsPresenter extends MvpPresenter<ManagerDetailsView>
 
 		if (managerDetailsSubscription != null)
 			managerDetailsSubscription.unsubscribe();
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -143,5 +152,15 @@ public class ManagerDetailsPresenter extends MvpPresenter<ManagerDetailsView>
 
 	private void handleUserError(Throwable throwable) {
 		userLoggedOff();
+	}
+
+	@Subscribe
+	public void onEventMainThread(SetManagerDetailsProgramsCountEvent event) {
+		getViewState().setProgramsCount(event.getProgramsCount());
+	}
+
+	@Subscribe
+	public void onEventMainThread(SetManagerDetailsFundsCountEvent event) {
+		getViewState().setFundsCount(event.getFundsCount());
 	}
 }

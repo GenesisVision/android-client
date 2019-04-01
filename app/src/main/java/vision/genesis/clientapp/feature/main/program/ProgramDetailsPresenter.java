@@ -24,6 +24,9 @@ import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
+import vision.genesis.clientapp.model.events.SetProgramDetailsEventsCountEvent;
+import vision.genesis.clientapp.model.events.SetProgramDetailsOpenPositionsCountEvent;
+import vision.genesis.clientapp.model.events.SetProgramDetailsTradesCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -188,5 +191,20 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	@Subscribe
 	public void onEventMainThread(NewInvestmentSuccessEvent event) {
 		getViewState().finishActivity();
+	}
+
+	@Subscribe
+	public void onEventMainThread(SetProgramDetailsOpenPositionsCountEvent event) {
+		getViewState().setOpenPositionsCount(event.getOpenPositionsCount());
+	}
+
+	@Subscribe
+	public void onEventMainThread(SetProgramDetailsTradesCountEvent event) {
+		getViewState().setTradesCount(event.getTradesCount());
+	}
+
+	@Subscribe
+	public void onEventMainThread(SetProgramDetailsEventsCountEvent event) {
+		getViewState().setEventsCount(event.getEventsCount());
 	}
 }

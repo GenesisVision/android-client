@@ -25,7 +25,7 @@ interface WalletView extends MvpView
 
 	void showSnackbarMessage(String message);
 
-//	void setTransactions(List<WalletTransaction> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
-//
-//	void addTransactions(List<WalletTransaction> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
+	void setTransactionsCount(Integer transactionsCount);
+
+	void setDepositsWithdrawalsCount(Integer depositsWithdrawalsCount);
 }

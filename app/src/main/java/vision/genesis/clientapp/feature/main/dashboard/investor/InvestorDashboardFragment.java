@@ -207,6 +207,10 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 	private Boolean assetsBottomSheetShowing = false;
 
+	private TabLayout.Tab programsTab;
+
+	private TabLayout.Tab fundsTab;
+
 	@OnClick(R.id.group_notifications)
 	public void onNotificationsClicked() {
 		if (getActivity() != null)
@@ -394,7 +398,7 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 			return;
 
 		tabLayout.addTab(tab, selected);
-		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 0, 10);
+		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 10);
 		if (pagerAdapter != null)
 			pagerAdapter.notifyDataSetChanged();
 	}
@@ -406,6 +410,9 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	}
 
 	private void initAssetsTabs() {
+		programsTab = tabLayoutAssets.newTab().setCustomView(getTabView(R.string.programs)).setTag("programs");
+		fundsTab = tabLayoutAssets.newTab().setCustomView(getTabView(R.string.funds)).setTag("funds");
+
 		assetsTabSelectedListener = new TabLayout.OnTabSelectedListener()
 		{
 			@Override
@@ -433,10 +440,8 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 		tabLayoutAssets.addOnTabSelectedListener(assetsTabSelectedListener);
 
-		addTab(tabLayoutAssets, assetsPagerAdapter,
-				tabLayoutAssets.newTab().setCustomView(getTabView(R.string.programs)).setTag("programs"), true);
-		addTab(tabLayoutAssets, assetsPagerAdapter,
-				tabLayoutAssets.newTab().setCustomView(getTabView(R.string.funds)).setTag("funds"), false);
+		addTab(tabLayoutAssets, assetsPagerAdapter, programsTab, true);
+		addTab(tabLayoutAssets, assetsPagerAdapter, fundsTab, false);
 
 	}
 
@@ -498,11 +503,6 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	@Override
 	public void showSnackbarMessage(String message) {
 		showSnackbar(message, viewPagerAssets);
-	}
-
-	@Override
-	public void setAssetsCount(Integer programsCount, Integer fundsCount) {
-
 	}
 
 	@Override
@@ -599,6 +599,16 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	@Override
 	public void onAssetsListsUpdate() {
 		assetsPagerAdapter.onAssetsListsUpdate();
+	}
+
+	@Override
+	public void setProgramsCount(Integer programsCount) {
+		((CustomTabView) programsTab.getCustomView()).setCount(programsCount);
+	}
+
+	@Override
+	public void setFundsCount(Integer fundsCount) {
+		((CustomTabView) fundsTab.getCustomView()).setCount(fundsCount);
 	}
 
 	@Override

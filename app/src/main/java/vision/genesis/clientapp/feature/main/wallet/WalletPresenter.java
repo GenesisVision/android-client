@@ -5,6 +5,9 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import javax.inject.Inject;
 
 import io.swagger.client.model.WalletMultiSummary;
@@ -16,6 +19,8 @@ import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.model.events.SetWalletDepositsWithdrawalsCountEvent;
+import vision.genesis.clientapp.model.events.SetWalletTransactionsCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -47,6 +52,8 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements SelectC
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		EventBus.getDefault().register(this);
+
 		getViewState().showProgress(true);
 
 		subscribeToBaseCurrency();
@@ -58,6 +65,8 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements SelectC
 			baseCurrencySubscription.unsubscribe();
 		if (balanceSubscription != null)
 			balanceSubscription.unsubscribe();
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -119,5 +128,15 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements SelectC
 	@Override
 	public void onCurrencyChanged(CurrencyEnum currency) {
 		settingsManager.saveBaseCurrency(currency);
+	}
+
+	@Subscribe
+	public void onEventMainThread(SetWalletTransactionsCountEvent event) {
+		getViewState().setTransactionsCount(event.getTransactionsCount());
+	}
+
+	@Subscribe
+	public void onEventMainThread(SetWalletDepositsWithdrawalsCountEvent event) {
+		getViewState().setDepositsWithdrawalsCount(event.getDepositsWithdrawalsCount());
 	}
 }

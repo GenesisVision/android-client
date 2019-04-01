@@ -31,8 +31,8 @@ public class SpecificWalletPagerAdapter extends FragmentStatePagerAdapter
 	SpecificWalletPagerAdapter(FragmentManager fm, TabLayout tabLayout, String walletCurrency) {
 		super(fm);
 		this.tabLayout = tabLayout;
-		transactionsFragment = TransactionsFragment.with(walletCurrency);
-		externalTransactionsFragment = ExternalTransactionsFragment.with(walletCurrency);
+		transactionsFragment = TransactionsFragment.with(TransactionsFragment.LOCATION_SPECIFIC_WALLET, walletCurrency);
+		externalTransactionsFragment = ExternalTransactionsFragment.with(ExternalTransactionsFragment.LOCATION_SPECIFIC_WALLET, walletCurrency);
 	}
 
 	@Override

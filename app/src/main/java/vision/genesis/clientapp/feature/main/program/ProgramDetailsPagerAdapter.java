@@ -49,7 +49,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		openPositionsFragment = OpenPositionsFragment.with(programId);
 		programProfitFragment = ProgramProfitFragment.with(programId);
 		programBalanceFragment = ProgramBalanceFragment.with(programId);
-		programEventsFragment = ProgramEventsFragment.with(programId);
+		programEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_PROGRAM, programId);
 		programTradesFragment = ProgramTradesFragment.with(programId);
 	}
 

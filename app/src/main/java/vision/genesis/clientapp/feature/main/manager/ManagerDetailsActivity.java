@@ -308,6 +308,7 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 	private void initViewPager(UUID programId) {
 		pagerAdapter = new ManagerDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, programId);
 		viewPager.setAdapter(pagerAdapter);
+		viewPager.setOffscreenPageLimit(4);
 
 		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
 		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
@@ -419,5 +420,15 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 	@Override
 	public void setRefreshing(boolean refreshing) {
 		refreshLayout.setRefreshing(refreshing);
+	}
+
+	@Override
+	public void setProgramsCount(Integer programsCount) {
+		((DetailsTabView) programsTab.getCustomView()).setCount(programsCount);
+	}
+
+	@Override
+	public void setFundsCount(Integer fundsCount) {
+		((DetailsTabView) fundsTab.getCustomView()).setCount(fundsCount);
 	}
 }

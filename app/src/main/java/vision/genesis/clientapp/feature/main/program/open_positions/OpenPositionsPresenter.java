@@ -23,6 +23,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.events.OnOpenPositionClickedEvent;
+import vision.genesis.clientapp.model.events.SetProgramDetailsOpenPositionsCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 import vision.genesis.clientapp.utils.DateTimeUtil;
@@ -104,6 +105,8 @@ public class OpenPositionsPresenter extends MvpPresenter<OpenPositionsView>
 		getViewState().showProgress(false);
 
 		sections.clear();
+
+		EventBus.getDefault().post(new SetProgramDetailsOpenPositionsCountEvent(model.getTotal()));
 
 		List<OrderModel> newTrades = model.getTrades();
 

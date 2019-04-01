@@ -277,11 +277,6 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	}
 
 	@Override
-	public void setProgramsCount(String count) {
-
-	}
-
-	@Override
 	public void showBottomProgress(boolean show) {
 
 	}

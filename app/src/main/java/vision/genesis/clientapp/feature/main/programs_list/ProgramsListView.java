@@ -38,7 +38,5 @@ interface ProgramsListView extends MvpView
 
 	void changeProgramIsFavorite(UUID programId, boolean isFavorite);
 
-	void setProgramsCount(String count);
-
 	void showBottomProgress(boolean show);
 }

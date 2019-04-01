@@ -33,8 +33,6 @@ interface InvestorDashboardView extends MvpView
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showSnackbarMessage(String message);
 
-	void setAssetsCount(Integer programsCount, Integer fundsCount);
-
 	void setDateRange(DateRange dateRange);
 
 	void setHaveNewNotifications(boolean have);
@@ -52,4 +50,8 @@ interface InvestorDashboardView extends MvpView
 	void showProgramRequests(UUID programId);
 
 	void onAssetsListsUpdate();
+
+	void setProgramsCount(Integer programsCount);
+
+	void setFundsCount(Integer fundsCount);
 }

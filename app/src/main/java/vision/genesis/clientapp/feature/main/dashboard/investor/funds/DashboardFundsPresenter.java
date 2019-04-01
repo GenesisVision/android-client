@@ -23,6 +23,7 @@ import vision.genesis.clientapp.model.SortingEnum;
 import vision.genesis.clientapp.model.events.OnBrowseFundsClickedEvent;
 import vision.genesis.clientapp.model.events.OnDashboardFundFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.OnFundFavoriteChangedEvent;
+import vision.genesis.clientapp.model.events.SetDashboardFundsCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -135,6 +136,7 @@ public class DashboardFundsPresenter extends MvpPresenter<DashboardFundsView>
 		getViewState().showProgressBar(false);
 
 		getViewState().setFunds(response.getFunds());
+		EventBus.getDefault().post(new SetDashboardFundsCountEvent(response.getTotal()));
 //		getViewState().setTotalPortfolioValue(dashboard.getTotalPortfolioAmount());
 	}
 

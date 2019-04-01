@@ -26,6 +26,7 @@ import vision.genesis.clientapp.model.events.OnDashboardProgramsUpdateEvent;
 import vision.genesis.clientapp.model.events.OnDashboardReinvestClickedEvent;
 import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.OnProgramReinvestChangedEvent;
+import vision.genesis.clientapp.model.events.SetDashboardProgramsCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -149,6 +150,7 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 		getViewState().showProgressBar(false);
 
 		getViewState().setPrograms(response.getPrograms());
+		EventBus.getDefault().post(new SetDashboardProgramsCountEvent(response.getTotal()));
 //		getViewState().setTotalPortfolioValue(dashboard.getTotalPortfolioAmount());
 	}
 

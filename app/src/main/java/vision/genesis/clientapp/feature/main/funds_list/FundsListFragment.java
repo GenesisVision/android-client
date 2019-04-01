@@ -271,10 +271,6 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 	}
 
 	@Override
-	public void setFundsCount(String count) {
-	}
-
-	@Override
 	public void showFiltersActivity(ProgramsFilter filter) {
 		FiltersActivity.startFromFragment(this, filter, FiltersActivity.FUND_FILTER);
 	}

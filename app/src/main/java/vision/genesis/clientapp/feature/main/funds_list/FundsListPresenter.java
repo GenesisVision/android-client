@@ -31,8 +31,8 @@ import vision.genesis.clientapp.model.events.OnFundFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.OnListFundFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersClearedEvent;
+import vision.genesis.clientapp.model.events.SetManagerDetailsFundsCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
-import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVisionAndroid
@@ -201,7 +201,8 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 
 		fundsToAdd = response.getFunds();
 
-		getViewState().setFundsCount(StringFormatUtil.formatAmount(response.getTotal(), 0, 0));
+		if (location.equals(FundsListFragment.LOCATION_MANAGER))
+			EventBus.getDefault().post(new SetManagerDetailsFundsCountEvent(response.getTotal()));
 
 		if (fundsToAdd.size() == 0) {
 			if (skip == 0)

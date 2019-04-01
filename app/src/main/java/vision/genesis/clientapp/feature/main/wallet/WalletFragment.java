@@ -316,4 +316,14 @@ public class WalletFragment extends BaseFragment implements WalletView
 	public void showSnackbarMessage(String message) {
 		showSnackbar(message, appBarLayout);
 	}
+
+	@Override
+	public void setTransactionsCount(Integer transactionsCount) {
+		((DetailsTabView) transactionsTab.getCustomView()).setCount(transactionsCount);
+	}
+
+	@Override
+	public void setDepositsWithdrawalsCount(Integer depositsWithdrawalsCount) {
+		((DetailsTabView) depositsWithdrawalsTab.getCustomView()).setCount(depositsWithdrawalsCount);
+	}
 }

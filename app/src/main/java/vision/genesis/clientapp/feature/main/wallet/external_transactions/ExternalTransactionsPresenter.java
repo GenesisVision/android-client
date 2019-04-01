@@ -5,6 +5,8 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,8 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.TransactionsFilter;
+import vision.genesis.clientapp.model.events.SetSpecificWalletDepositsWithdrawalsCountEvent;
+import vision.genesis.clientapp.model.events.SetWalletDepositsWithdrawalsCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 import vision.genesis.clientapp.utils.DateTimeUtil;
@@ -49,6 +53,8 @@ public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransact
 
 	private List<SimpleSectionedRecyclerViewAdapter.Section> sections = new ArrayList<>();
 
+	private String location;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -67,7 +73,8 @@ public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransact
 		super.onDestroy();
 	}
 
-	void setWalletCurrency(String walletCurrency) {
+	void setData(String location, String walletCurrency) {
+		this.location = location;
 		filter = new TransactionsFilter();
 		filter.setWalletCurrency(walletCurrency);
 		filter.setSkip(0);
@@ -115,6 +122,11 @@ public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransact
 			transactions.clear();
 			sections.clear();
 		}
+
+		if (location.equals(ExternalTransactionsFragment.LOCATION_WALLET))
+			EventBus.getDefault().post(new SetWalletDepositsWithdrawalsCountEvent(model.getTotal()));
+		else if (location.equals(ExternalTransactionsFragment.LOCATION_SPECIFIC_WALLET))
+			EventBus.getDefault().post(new SetSpecificWalletDepositsWithdrawalsCountEvent(model.getTotal()));
 
 		List<MultiWalletExternalTransaction> newTransactions = model.getTransactions();
 

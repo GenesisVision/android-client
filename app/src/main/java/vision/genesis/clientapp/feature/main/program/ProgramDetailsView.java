@@ -35,4 +35,10 @@ interface ProgramDetailsView extends MvpView
 	void showTrades();
 
 	void setRefreshing(boolean refreshing);
+
+	void setOpenPositionsCount(Integer openPositionsCount);
+
+	void setTradesCount(Integer tradesCount);
+
+	void setEventsCount(Integer eventsCount);
 }

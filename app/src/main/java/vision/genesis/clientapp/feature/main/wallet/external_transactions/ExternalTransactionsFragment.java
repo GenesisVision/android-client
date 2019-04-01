@@ -1,6 +1,7 @@
 package vision.genesis.clientapp.feature.main.wallet.external_transactions;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,11 +33,18 @@ import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 
 public class ExternalTransactionsFragment extends BaseFragment implements ExternalTransactionsView, WalletPagerAdapter.OnPageVisibilityChanged
 {
+	public static final String LOCATION_WALLET = "location_wallet";
+
+	public static final String LOCATION_SPECIFIC_WALLET = "location_specific_wallet";
+
+	private static final String EXTRA_LOCATION = "extra_location";
+
 	private static final String EXTRA_WALLET_CURRENCY = "extra_wallet_currency";
 
-	public static ExternalTransactionsFragment with(@Nullable String walletCurrency) {
+	public static ExternalTransactionsFragment with(@NonNull String location, @Nullable String walletCurrency) {
 		ExternalTransactionsFragment externalTransactionsFragment = new ExternalTransactionsFragment();
-		Bundle arguments = new Bundle(1);
+		Bundle arguments = new Bundle(2);
+		arguments.putSerializable(EXTRA_LOCATION, location);
 		arguments.putSerializable(EXTRA_WALLET_CURRENCY, walletCurrency);
 		externalTransactionsFragment.setArguments(arguments);
 		return externalTransactionsFragment;
@@ -84,7 +92,9 @@ public class ExternalTransactionsFragment extends BaseFragment implements Extern
 		setFonts();
 
 		if (getArguments() != null) {
-			externalTransactionsPresenter.setWalletCurrency(getArguments().getString(EXTRA_WALLET_CURRENCY));
+			String location = getArguments().getString(EXTRA_LOCATION);
+			String walletCurrency = getArguments().getString(EXTRA_WALLET_CURRENCY);
+			externalTransactionsPresenter.setData(location, walletCurrency);
 
 			initRecyclerView();
 		}

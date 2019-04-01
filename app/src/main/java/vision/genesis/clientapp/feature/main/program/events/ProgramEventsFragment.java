@@ -1,6 +1,7 @@
 package vision.genesis.clientapp.feature.main.program.events;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,11 +38,18 @@ import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 
 public class ProgramEventsFragment extends BaseFragment implements ProgramEventsView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
 {
+	public static final String LOCATION_PROGRAM = "location_program";
+
+	public static final String LOCATION_FUND = "location_fund";
+
+	private static final String EXTRA_LOCATION = "extra_location";
+
 	private static final String EXTRA_PROGRAM_ID = "extra_program_id";
 
-	public static ProgramEventsFragment with(UUID programId) {
+	public static ProgramEventsFragment with(@NonNull String location, UUID programId) {
 		ProgramEventsFragment programEventsFragment = new ProgramEventsFragment();
-		Bundle arguments = new Bundle(1);
+		Bundle arguments = new Bundle(2);
+		arguments.putSerializable(EXTRA_LOCATION, location);
 		arguments.putSerializable(EXTRA_PROGRAM_ID, programId);
 		programEventsFragment.setArguments(arguments);
 		return programEventsFragment;
@@ -98,11 +106,13 @@ public class ProgramEventsFragment extends BaseFragment implements ProgramEvents
 
 		unbinder = ButterKnife.bind(this, view);
 
-		initRecyclerView();
-		setFonts();
-
 		if (getArguments() != null) {
-			programEventsPresenter.setProgramId((UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID));
+			String location = getArguments().getString(EXTRA_LOCATION);
+			UUID programId = (UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID);
+			programEventsPresenter.setData(location, programId);
+
+			initRecyclerView();
+			setFonts();
 		}
 		else {
 			Timber.e("Passed empty programId to ProgramEventsFragment");

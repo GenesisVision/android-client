@@ -5,6 +5,8 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +23,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.events.SetProgramDetailsTradesCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 import vision.genesis.clientapp.utils.DateTimeUtil;
@@ -118,6 +121,8 @@ public class ProgramTradesPresenter extends MvpPresenter<ProgramTradesView> impl
 			trades.clear();
 			sections.clear();
 		}
+
+		EventBus.getDefault().post(new SetProgramDetailsTradesCountEvent(model.getTotal()));
 
 		List<OrderModel> newTrades = model.getTrades();
 

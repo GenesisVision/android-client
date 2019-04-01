@@ -383,6 +383,16 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 		showSnackbar(message, appBarLayout);
 	}
 
+	@Override
+	public void setTransactionsCount(Integer transactionsCount) {
+		((DetailsTabView) transactionsTab.getCustomView()).setCount(transactionsCount);
+	}
+
+	@Override
+	public void setDepositsWithdrawalsCount(Integer depositsWithdrawalsCount) {
+		((DetailsTabView) depositsWithdrawalsTab.getCustomView()).setCount(depositsWithdrawalsCount);
+	}
+
 	private void finishActivity() {
 		finish();
 		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);

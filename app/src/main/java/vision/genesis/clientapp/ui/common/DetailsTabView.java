@@ -2,8 +2,10 @@ package vision.genesis.clientapp.ui.common;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -11,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -22,6 +25,12 @@ public class DetailsTabView extends RelativeLayout
 {
 	@BindView(R.id.text)
 	public TextView text;
+
+	@BindView(R.id.count)
+	public TextView count;
+
+	@BindView(R.id.background_count)
+	public ViewGroup countBackground;
 
 	private Unbinder unbinder;
 
@@ -53,6 +62,7 @@ public class DetailsTabView extends RelativeLayout
 		unbinder = ButterKnife.bind(this);
 
 		text.setTypeface(TypefaceUtil.semibold());
+		count.setTypeface(TypefaceUtil.semibold());
 	}
 
 	public void setData(int textResId) {
@@ -70,5 +80,13 @@ public class DetailsTabView extends RelativeLayout
 				selected
 						? R.attr.colorTextPrimary
 						: R.attr.colorTextSecondary));
+
+		count.setTextColor(ThemeUtil.getColorByAttrId(getContext(), selected ? R.attr.colorPrimary : R.attr.colorTextSecondary));
+		countBackground.setBackground(ContextCompat.getDrawable(getContext(), selected ? R.drawable.background_count_active : R.drawable.background_count_inactive));
+	}
+
+	public void setCount(int count) {
+		this.count.setText(StringFormatUtil.formatAmount(count, 0, 0));
+		this.countBackground.setVisibility(View.VISIBLE);
 	}
 }

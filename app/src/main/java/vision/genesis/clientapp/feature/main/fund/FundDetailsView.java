@@ -33,4 +33,6 @@ interface FundDetailsView extends MvpView
 	void showProgress(boolean show);
 
 	void setRefreshing(boolean refreshing);
+
+	void setEventsCount(Integer eventsCount);
 }

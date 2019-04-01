@@ -474,4 +474,19 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	public void setRefreshing(boolean refreshing) {
 		refreshLayout.setRefreshing(refreshing);
 	}
+
+	@Override
+	public void setOpenPositionsCount(Integer openPositionsCount) {
+		((DetailsTabView) openPositionsTab.getCustomView()).setCount(openPositionsCount);
+	}
+
+	@Override
+	public void setTradesCount(Integer tradesCount) {
+		((DetailsTabView) tradesTab.getCustomView()).setCount(tradesCount);
+	}
+
+	@Override
+	public void setEventsCount(Integer eventsCount) {
+		((DetailsTabView) eventsTab.getCustomView()).setCount(eventsCount);
+	}
 }

@@ -30,8 +30,8 @@ import vision.genesis.clientapp.model.events.OnListProgramFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersClearedEvent;
+import vision.genesis.clientapp.model.events.SetManagerDetailsProgramsCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
-import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVision
@@ -200,7 +200,8 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 
 		programsToAdd = response.getPrograms();
 
-		getViewState().setProgramsCount(StringFormatUtil.formatAmount(response.getTotal(), 0, 0));
+		if (location.equals(ProgramsListFragment.LOCATION_MANAGER))
+			EventBus.getDefault().post(new SetManagerDetailsProgramsCountEvent(response.getTotal()));
 
 		if (programsToAdd.size() == 0) {
 			if (skip == 0)

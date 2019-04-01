@@ -38,6 +38,8 @@ import vision.genesis.clientapp.model.events.OnInRequestsClickedEvent;
 import vision.genesis.clientapp.model.events.OnPortfolioAssetsChangedEvent;
 import vision.genesis.clientapp.model.events.OnPortfolioChartViewModeChangedEvent;
 import vision.genesis.clientapp.model.events.OnRequestCancelledEvent;
+import vision.genesis.clientapp.model.events.SetDashboardFundsCountEvent;
+import vision.genesis.clientapp.model.events.SetDashboardProgramsCountEvent;
 import vision.genesis.clientapp.model.events.ShowProgramRequestsEvent;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -233,7 +235,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 		getViewState().setChartData(response.getChart());
 		getViewState().setInRequests(response.getRequests().getTotalValue(), response.getChart().getRate());
 		getViewState().setPortfolioEvents(newPreparedEvents);
-		getViewState().setAssetsCount(response.getProgramsCount(), response.getFundsCount());
+//		getViewState().setAssetsCount(response.getProgramsCount(), response.getFundsCount());
 
 	}
 
@@ -276,5 +278,15 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	@Subscribe
 	public void onEventMainThread(ShowProgramRequestsEvent event) {
 		getViewState().showProgramRequests(event.getProgramId());
+	}
+
+	@Subscribe
+	public void onEventMainThread(SetDashboardProgramsCountEvent event) {
+		getViewState().setProgramsCount(event.getProgramsCount());
+	}
+
+	@Subscribe
+	public void onEventMainThread(SetDashboardFundsCountEvent event) {
+		getViewState().setFundsCount(event.getFundsCount());
 	}
 }

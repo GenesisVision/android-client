@@ -46,7 +46,7 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 		fundStructureFragment = FundStructureFragment.with(fundId);
 		fundProfitFragment = FundProfitFragment.with(fundId);
 		fundBalanceFragment = FundBalanceFragment.with(fundId);
-		fundEventsFragment = ProgramEventsFragment.with(fundId);
+		fundEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_FUND, fundId);
 	}
 
 	@Override

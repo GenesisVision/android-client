@@ -35,8 +35,8 @@ public class WalletPagerAdapter extends FragmentStatePagerAdapter
 		super(fm);
 		this.tabLayout = tabLayout;
 		myWalletsFragment = new MyWalletsFragment();
-		transactionsFragment = TransactionsFragment.with(null);
-		externalTransactionsFragment = ExternalTransactionsFragment.with(null);
+		transactionsFragment = TransactionsFragment.with(TransactionsFragment.LOCATION_WALLET, null);
+		externalTransactionsFragment = ExternalTransactionsFragment.with(ExternalTransactionsFragment.LOCATION_WALLET, null);
 	}
 
 	@Override
