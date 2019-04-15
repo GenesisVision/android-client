@@ -115,17 +115,13 @@ public class SettingsManager
 	public Observable<PlatformInfo> getPlatformInfo() {
 		if (platformInfoBehaviorSubject == null) {
 			platformInfoBehaviorSubject = BehaviorSubject.create();
-			getPlatformInfoSubscription = platformStatus()
+			getPlatformInfoSubscription = platformApi.v10PlatformInfoGet()
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetPlatformInfoSuccess,
 							this::handleGetPlatformInfoError);
 		}
 		return platformInfoBehaviorSubject;
-	}
-
-	private Observable<PlatformInfo> platformStatus() {
-		return platformApi.v10PlatformInfoGet();
 	}
 
 	private void handleGetPlatformInfoSuccess(PlatformInfo response) {

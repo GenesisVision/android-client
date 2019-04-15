@@ -11,6 +11,7 @@ import vision.genesis.clientapp.feature.main.funds_list.FundsListFragment;
 import vision.genesis.clientapp.feature.main.manager.info.ManagerInfoFragment;
 import vision.genesis.clientapp.feature.main.manager.profit.ManagerProfitFragment;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListFragment;
+import vision.genesis.clientapp.model.ProgramsFilter;
 
 /**
  * GenesisVisionAndroid
@@ -39,10 +40,18 @@ public class ManagerDetailsPagerAdapter extends FragmentStatePagerAdapter
 	ManagerDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, UUID managerId) {
 		super(fm);
 		this.tabLayout = tabLayout;
+
 		managerInfoFragment = ManagerInfoFragment.with(managerId);
+
 		managerProfitFragment = ManagerProfitFragment.with(managerId);
-		managerProgramsFragment = ProgramsListFragment.with(ProgramsListFragment.LOCATION_MANAGER, managerId);
-		managerFundsFragment = FundsListFragment.with(FundsListFragment.LOCATION_MANAGER, managerId);
+
+		ProgramsFilter programsFilter = new ProgramsFilter();
+		programsFilter.setManagerId(managerId);
+		managerProgramsFragment = ProgramsListFragment.with(ProgramsListFragment.LOCATION_MANAGER, programsFilter);
+
+		ProgramsFilter fundsFilter = new ProgramsFilter();
+		fundsFilter.setManagerId(managerId);
+		managerFundsFragment = FundsListFragment.with(FundsListFragment.LOCATION_MANAGER, fundsFilter);
 	}
 
 	@Override

@@ -155,7 +155,7 @@ public class ProfitSmallChartView extends com.github.mikephil.charting.charts.Li
 //	}
 
 	public void setChart(List<ChartSimple> charts) {
-		if (charts.size() <= 1) {
+		if (charts == null || charts.size() <= 1) {
 			this.clear();
 			return;
 		}

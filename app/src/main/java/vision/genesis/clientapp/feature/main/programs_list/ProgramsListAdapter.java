@@ -20,8 +20,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.ProgramDetails;
+import io.swagger.client.model.ProgramFacet;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.common.facet.ProgramFacetView;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.OnListProgramFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
@@ -38,30 +40,58 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 1/25/18.
  */
 
-public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapter.InvestmentProgramViewHolder>
+public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+	private static final int TYPE_FACET = 0;
+
+	private static final int TYPE_CARD = 1;
+
 	private List<ProgramDetails> investmentPrograms = new ArrayList<>();
+
+	private List<ProgramFacet> facets = new ArrayList<>();
+
+	@Override
+	public int getItemViewType(int position) {
+		return position == 0 ? TYPE_FACET : TYPE_CARD;
+	}
 
 	@NonNull
 	@Override
-	public InvestmentProgramViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_investment_program, parent, false);
-		return new InvestmentProgramViewHolder(itemView);
+	public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+		switch (viewType) {
+			case TYPE_FACET:
+				return new FacetsViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_facets, parent, false));
+			case TYPE_CARD:
+			default:
+				return new InvestmentProgramViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_investment_program, parent, false));
+		}
 	}
 
 	@Override
-	public void onBindViewHolder(@NonNull InvestmentProgramViewHolder holder, int position) {
-		holder.setProgram(investmentPrograms.get(position));
+	public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+		switch (holder.getItemViewType()) {
+			case TYPE_FACET:
+				((FacetsViewHolder) holder).setFacets(facets);
+				break;
+			case TYPE_CARD:
+				((InvestmentProgramViewHolder) holder).setProgram(investmentPrograms.get(position - 1));
+				break;
+		}
 	}
 
 	@Override
 	public long getItemId(int position) {
-		return investmentPrograms.get(position).hashCode();
+		return position == 0 ? 0 : investmentPrograms.get(position - 1).hashCode();
 	}
 
 	@Override
 	public int getItemCount() {
-		return investmentPrograms.size();
+		return investmentPrograms.size() + 1;
+	}
+
+	public void setFacets(List<ProgramFacet> facets) {
+		this.facets = facets;
+		notifyDataSetChanged();
 	}
 
 	public void setInvestmentPrograms(List<ProgramDetails> investmentPrograms) {
@@ -93,6 +123,34 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 				investmentPrograms.remove(i);
 				notifyItemRemoved(i);
 				break;
+			}
+		}
+	}
+
+	static class FacetsViewHolder extends RecyclerView.ViewHolder
+	{
+		@BindView(R.id.group_facets)
+		public ViewGroup facetsGroup;
+
+		private List<ProgramFacet> facets;
+
+		FacetsViewHolder(View itemView) {
+			super(itemView);
+
+			ButterKnife.bind(this, itemView);
+		}
+
+		void setFacets(List<ProgramFacet> facets) {
+			this.facets = facets;
+			updateView();
+		}
+
+		private void updateView() {
+			facetsGroup.removeAllViews();
+			for (ProgramFacet facet : facets) {
+				ProgramFacetView view = new ProgramFacetView(itemView.getContext());
+				view.setData(facet);
+				facetsGroup.addView(view);
 			}
 		}
 	}

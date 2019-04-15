@@ -61,7 +61,6 @@ public class ProgramsFilter implements Parcelable
 	private List<String> tags;
 
 	public ProgramsFilter() {
-
 	}
 
 	public ProgramsFilter(ProgramsFilter filter) {

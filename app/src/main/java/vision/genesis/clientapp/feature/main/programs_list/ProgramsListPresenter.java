@@ -25,7 +25,6 @@ import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.ProgramsFilter;
-import vision.genesis.clientapp.model.SortingEnum;
 import vision.genesis.clientapp.model.events.OnListProgramFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
@@ -66,8 +65,6 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 
 	private List<ProgramDetails> programsToAdd = new ArrayList<>();
 
-	private UUID managerId;
-
 	private Boolean isDataSet = false;
 
 	private String location = "";
@@ -83,7 +80,6 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		EventBus.getDefault().register(this);
 
 		subscribeToUser();
-		createFilter();
 		getViewState().setRefreshing(true);
 		getProgramsList(true);
 	}
@@ -102,12 +98,9 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		super.onDestroy();
 	}
 
-	void setData(String location, UUID managerId) {
+	void setData(String location, ProgramsFilter filter) {
 		this.location = location;
-		this.managerId = managerId;
-		if (filter != null) {
-			filter.setManagerId(managerId);
-		}
+		createFilter(filter);
 		if (!location.equals(ProgramsListFragment.LOCATION_SEARCH)) {
 			isDataSet = true;
 			getProgramsList(true);
@@ -144,13 +137,13 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		getProgramsList(true);
 	}
 
-	private void createFilter() {
-		filter = new ProgramsFilter();
-		filter.setSkip(0);
-		filter.setTake(TAKE);
-		filter.setManagerId(managerId);
-		filter.setDateRange(dateRange);
-		filter.setSorting(SortingEnum.BYPROFITDESC);
+	private void createFilter(ProgramsFilter filter) {
+		if (filter == null)
+			filter = new ProgramsFilter();
+		this.filter = filter;
+		this.filter.setSkip(0);
+		this.filter.setTake(TAKE);
+		this.filter.setDateRange(dateRange);
 //		filter.setEquityChartLength(10);
 	}
 

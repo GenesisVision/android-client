@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,15 +50,17 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	public static final String LOCATION_MANAGER = "location_manager";
 
+	public static final String LOCATION_FACET = "location_facet";
+
 	private static final String EXTRA_LOCATION = "extra_location";
 
-	private static final String EXTRA_MANAGER_ID = "extra_manager_id";
+	private static final String EXTRA_FILTER = "extra_filter";
 
-	public static ProgramsListFragment with(@NonNull String location, UUID managerId) {
+	public static ProgramsListFragment with(@NonNull String location, ProgramsFilter filter) {
 		ProgramsListFragment programListFragment = new ProgramsListFragment();
 		Bundle arguments = new Bundle(2);
 		arguments.putSerializable(EXTRA_LOCATION, location);
-		arguments.putSerializable(EXTRA_MANAGER_ID, managerId);
+		arguments.putParcelable(EXTRA_FILTER, filter);
 		programListFragment.setArguments(arguments);
 		return programListFragment;
 	}
@@ -109,6 +112,8 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	private Unbinder unbinder;
 
+	private List<ProgramFacet> facets = new ArrayList<>();
+
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
 		programsListPresenter.onTryAgainClicked();
@@ -133,7 +138,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 		if (getArguments() != null) {
 			String location = getArguments().getString(EXTRA_LOCATION);
-			UUID managerId = (UUID) getArguments().getSerializable(EXTRA_MANAGER_ID);
+			ProgramsFilter filter = getArguments().getParcelable(EXTRA_FILTER);
 
 			if (location != null) {
 				switch (location) {
@@ -147,13 +152,16 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 						filters.setVisibility(View.GONE);
 						refreshLayout.setEnabled(false);
 						break;
+					case LOCATION_FACET:
+						filters.setVisibility(View.GONE);
+						break;
 					default:
 						filtersMarginBottom = assetsFiltersMarginBottom;
 						break;
 				}
 			}
 
-			programsListPresenter.setData(location, managerId);
+			programsListPresenter.setData(location, filter);
 
 			setFonts();
 			initRefreshLayout();
@@ -195,6 +203,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		recyclerView.setLayoutManager(layoutManager);
 		programsListAdapter = new ProgramsListAdapter();
 		programsListAdapter.setHasStableIds(true);
+		programsListAdapter.setFacets(facets);
 		recyclerView.setAdapter(programsListAdapter);
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
 		{
@@ -219,7 +228,9 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	}
 
 	public void setFacets(List<ProgramFacet> facets) {
-
+		this.facets = facets;
+		if (programsListAdapter != null)
+			programsListAdapter.setFacets(facets);
 	}
 
 	@Override

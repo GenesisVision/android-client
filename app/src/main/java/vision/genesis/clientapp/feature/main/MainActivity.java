@@ -27,11 +27,15 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.FundFacet;
+import io.swagger.client.model.ProgramFacet;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
+import vision.genesis.clientapp.feature.main.facet.funds.FundsFacetActivity;
+import vision.genesis.clientapp.feature.main.facet.programs.ProgramsFacetActivity;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsActivity;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
@@ -356,6 +360,16 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void showManagerDetails(ManagerDetailsModel model) {
 		ManagerDetailsActivity.startWith(this, model);
+	}
+
+	@Override
+	public void showProgramFacet(ProgramFacet facet) {
+		ProgramsFacetActivity.startWith(this, facet);
+	}
+
+	@Override
+	public void showFundFacet(FundFacet facet) {
+		FundsFacetActivity.startWith(this, facet);
 	}
 
 	@Override

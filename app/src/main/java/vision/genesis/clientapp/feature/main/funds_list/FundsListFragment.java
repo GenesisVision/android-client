@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,15 +49,17 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 
 	public static final String LOCATION_MANAGER = "location_manager";
 
+	public static final String LOCATION_FACET = "location_facet";
+
 	private static final String EXTRA_LOCATION = "extra_location";
 
-	private static final String EXTRA_MANAGER_ID = "extra_manager_id";
+	private static final String EXTRA_FILTER = "extra_filter";
 
-	public static FundsListFragment with(String location, UUID managerId) {
+	public static FundsListFragment with(String location, ProgramsFilter filter) {
 		FundsListFragment programListFragment = new FundsListFragment();
 		Bundle arguments = new Bundle(2);
 		arguments.putSerializable(EXTRA_LOCATION, location);
-		arguments.putSerializable(EXTRA_MANAGER_ID, managerId);
+		arguments.putParcelable(EXTRA_FILTER, filter);
 		programListFragment.setArguments(arguments);
 		return programListFragment;
 	}
@@ -108,6 +111,8 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 
 	private Unbinder unbinder;
 
+	private List<FundFacet> facets = new ArrayList<>();
+
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
 		fundsListPresenter.onTryAgainClicked();
@@ -132,7 +137,7 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 
 		if (getArguments() != null) {
 			String location = getArguments().getString(EXTRA_LOCATION);
-			UUID managerId = (UUID) getArguments().getSerializable(EXTRA_MANAGER_ID);
+			ProgramsFilter filter = getArguments().getParcelable(EXTRA_FILTER);
 
 			if (location != null) {
 				switch (location) {
@@ -146,13 +151,16 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 						filters.setVisibility(View.GONE);
 						refreshLayout.setEnabled(false);
 						break;
+					case LOCATION_FACET:
+						filters.setVisibility(View.GONE);
+						break;
 					default:
 						filtersMarginBottom = assetsFiltersMarginBottom;
 						break;
 				}
 			}
 
-			fundsListPresenter.setData(location, managerId);
+			fundsListPresenter.setData(location, filter);
 
 			setFonts();
 			initRefreshLayout();
@@ -194,6 +202,7 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 		recyclerView.setLayoutManager(layoutManager);
 		fundsListAdapter = new FundsListAdapter();
 		fundsListAdapter.setHasStableIds(true);
+		fundsListAdapter.setFacets(facets);
 		recyclerView.setAdapter(fundsListAdapter);
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
 		{
@@ -218,7 +227,9 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 	}
 
 	public void setFacets(List<FundFacet> facets) {
-
+		this.facets = facets;
+		if (fundsListAdapter != null)
+			fundsListAdapter.setFacets(facets);
 	}
 
 	@Override

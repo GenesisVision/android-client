@@ -29,6 +29,8 @@ import vision.genesis.clientapp.model.events.HideBottomNavigationEvent;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 import vision.genesis.clientapp.model.events.OnBrowseFundsClickedEvent;
 import vision.genesis.clientapp.model.events.OnBrowseProgramsClickedEvent;
+import vision.genesis.clientapp.model.events.OnFundFacetClickedEvent;
+import vision.genesis.clientapp.model.events.OnProgramFacetClickedEvent;
 import vision.genesis.clientapp.model.events.OnThemeChangedEvent;
 import vision.genesis.clientapp.model.events.ShowBottomNavigationEvent;
 import vision.genesis.clientapp.model.events.ShowDisableTfaActivityEvent;
@@ -346,5 +348,15 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowManagerDetailsEvent event) {
 		getViewState().showManagerDetails(event.getModel());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnProgramFacetClickedEvent event) {
+		getViewState().showProgramFacet(event.getFacet());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnFundFacetClickedEvent event) {
+		getViewState().showFundFacet(event.getFacet());
 	}
 }

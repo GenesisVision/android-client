@@ -47,6 +47,10 @@ public class DateRange implements Parcelable
 		return dateRange;
 	}
 
+	public static DateRange createFromString(String dateRangeString) {
+		return createFromEnum(DateRangeEnum.fromValue(dateRangeString));
+	}
+
 	private DateTime from = DateTime.now().minusDays(1);
 
 	private DateTime to = DateTime.now();
@@ -211,7 +215,7 @@ public class DateRange implements Parcelable
 					return b;
 				}
 			}
-			return null;
+			return MONTH;
 		}
 
 		private String value;

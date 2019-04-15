@@ -26,7 +26,6 @@ import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.ProgramsFilter;
-import vision.genesis.clientapp.model.SortingEnum;
 import vision.genesis.clientapp.model.events.OnFundFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.OnListFundFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
@@ -84,7 +83,6 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 		EventBus.getDefault().register(this);
 
 		subscribeToUser();
-		createFilter();
 		getViewState().setRefreshing(true);
 		getFundsList(true);
 	}
@@ -103,12 +101,9 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 		super.onDestroy();
 	}
 
-	void setData(String location, UUID managerId) {
+	void setData(String location, ProgramsFilter filter) {
 		this.location = location;
-		this.managerId = managerId;
-		if (filter != null) {
-			filter.setManagerId(managerId);
-		}
+		createFilter(filter);
 		if (!location.equals(FundsListFragment.LOCATION_SEARCH)) {
 			isDataSet = true;
 			getFundsList(true);
@@ -150,13 +145,13 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 		getFundsList(true);
 	}
 
-	private void createFilter() {
-		filter = new ProgramsFilter();
-		filter.setSkip(0);
-		filter.setTake(TAKE);
-		filter.setManagerId(managerId);
-		filter.setDateRange(dateRange);
-		filter.setSorting(SortingEnum.BYPROFITDESC);
+	private void createFilter(ProgramsFilter filter) {
+		if (filter == null)
+			filter = new ProgramsFilter();
+		this.filter = filter;
+		this.filter.setSkip(0);
+		this.filter.setTake(TAKE);
+		this.filter.setDateRange(dateRange);
 //		filter.setEquityChartLength(10);
 	}
 

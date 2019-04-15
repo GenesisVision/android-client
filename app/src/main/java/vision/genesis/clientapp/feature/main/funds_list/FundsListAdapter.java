@@ -23,9 +23,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.FundAssetPercent;
 import io.swagger.client.model.FundDetails;
+import io.swagger.client.model.FundFacet;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.common.facet.FundFacetView;
 import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.events.OnListFundFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
@@ -41,30 +43,58 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 24/10/2018.
  */
 
-public class FundsListAdapter extends RecyclerView.Adapter<FundsListAdapter.FundViewHolder>
+public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+	private static final int TYPE_FACET = 0;
+
+	private static final int TYPE_CARD = 1;
+
 	private List<FundDetails> funds = new ArrayList<>();
+
+	private List<FundFacet> facets = new ArrayList<>();
+
+	@Override
+	public int getItemViewType(int position) {
+		return position == 0 ? TYPE_FACET : TYPE_CARD;
+	}
 
 	@NonNull
 	@Override
-	public FundViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_fund, parent, false);
-		return new FundViewHolder(itemView);
+	public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+		switch (viewType) {
+			case TYPE_FACET:
+				return new FacetsViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_facets, parent, false));
+			case TYPE_CARD:
+			default:
+				return new FundViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_fund, parent, false));
+		}
 	}
 
 	@Override
-	public void onBindViewHolder(@NonNull FundViewHolder holder, int position) {
-		holder.setFund(funds.get(position));
+	public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+		switch (holder.getItemViewType()) {
+			case TYPE_FACET:
+				((FacetsViewHolder) holder).setFacets(facets);
+				break;
+			case TYPE_CARD:
+				((FundViewHolder) holder).setFund(funds.get(position - 1));
+				break;
+		}
 	}
 
 	@Override
 	public long getItemId(int position) {
-		return funds.get(position).hashCode();
+		return position == 0 ? 0 : funds.get(position - 1).hashCode();
 	}
 
 	@Override
 	public int getItemCount() {
-		return funds.size();
+		return funds.size() + 1;
+	}
+
+	public void setFacets(List<FundFacet> facets) {
+		this.facets = facets;
+		notifyDataSetChanged();
 	}
 
 	public void setFunds(List<FundDetails> funds) {
@@ -96,6 +126,34 @@ public class FundsListAdapter extends RecyclerView.Adapter<FundsListAdapter.Fund
 				funds.remove(i);
 				notifyItemRemoved(i);
 				break;
+			}
+		}
+	}
+
+	static class FacetsViewHolder extends RecyclerView.ViewHolder
+	{
+		@BindView(R.id.group_facets)
+		public ViewGroup facetsGroup;
+
+		private List<FundFacet> facets;
+
+		FacetsViewHolder(View itemView) {
+			super(itemView);
+
+			ButterKnife.bind(this, itemView);
+		}
+
+		void setFacets(List<FundFacet> facets) {
+			this.facets = facets;
+			updateView();
+		}
+
+		private void updateView() {
+			facetsGroup.removeAllViews();
+			for (FundFacet facet : facets) {
+				FundFacetView view = new FundFacetView(itemView.getContext());
+				view.setData(facet);
+				facetsGroup.addView(view);
 			}
 		}
 	}

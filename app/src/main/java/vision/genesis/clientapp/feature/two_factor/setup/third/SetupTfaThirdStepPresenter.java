@@ -16,9 +16,9 @@ import vision.genesis.clientapp.utils.Constants;
 @InjectViewState
 public class SetupTfaThirdStepPresenter extends MvpPresenter<SetupTfaThirdStepView>
 {
-	private String password;
+	private String password = "";
 
-	private String code;
+	private String code = "";
 
 	public void onPasswordChanged(String password) {
 		this.password = password;

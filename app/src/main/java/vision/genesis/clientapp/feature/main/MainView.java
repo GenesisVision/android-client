@@ -6,6 +6,8 @@ import org.joda.time.DateTime;
 
 import java.util.UUID;
 
+import io.swagger.client.model.FundFacet;
+import io.swagger.client.model.ProgramFacet;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.model.AppUpdateModel;
@@ -69,4 +71,8 @@ public interface MainView extends MvpView
 	void showTransactionDetails(UUID transactionId, String transactionType, DateTime transactionDate);
 
 	void showManagerDetails(ManagerDetailsModel model);
+
+	void showProgramFacet(ProgramFacet facet);
+
+	void showFundFacet(FundFacet facet);
 }
