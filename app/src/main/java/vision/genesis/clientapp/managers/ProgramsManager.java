@@ -5,6 +5,7 @@ import java.util.UUID;
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ProgramsApi;
 import io.swagger.client.model.DashboardPortfolioEvents;
+import io.swagger.client.model.LevelUpSummary;
 import io.swagger.client.model.ProgramBalanceChart;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramInvestInfo;
@@ -41,9 +42,10 @@ public class ProgramsManager
 	public Observable<ProgramsList> getProgramsList(ProgramsFilter filter) {
 		return programsApi.v10ProgramsGet(AuthManager.token.getValue(),
 				filter.getLevelMin(), filter.getLevelMax(), filter.getProfitAvgMin(), filter.getProfitAvgMax(),
-				filter.getSorting().getValue(), filter.getCurrency() != null ? filter.getCurrency().getValue() : null, null,
-				filter.getLevelUpFrom(), filter.getTags(), null, filter.getDateRange().getFrom(), filter.getDateRange().getTo(), 10,
-				filter.getMask(), filter.getFacetId() != null ? filter.getFacetId().toString() : null, filter.getIsFavorite(), filter.getIsEnabled(),
+				filter.getSorting() != null ? filter.getSorting().getValue() : null, filter.getCurrency() != null ? filter.getCurrency().getValue() : null, null,
+				filter.getLevelUpFrom(), filter.getTags(), null,
+				filter.getDateRange() != null ? filter.getDateRange().getFrom() : null, filter.getDateRange() != null ? filter.getDateRange().getTo() : null,
+				filter.getChartPointsCount(), filter.getMask(), filter.getFacetId() != null ? filter.getFacetId().toString() : null, filter.getIsFavorite(), filter.getIsEnabled(),
 				filter.getIds(), filter.getManagerId() != null ? filter.getManagerId().toString() : null, null, filter.getSkip(), filter.getTake());
 	}
 
@@ -103,6 +105,10 @@ public class ProgramsManager
 		return reinvest
 				? investorApi.v10InvestorProgramsByIdReinvestOnPost(programId, AuthManager.token.getValue())
 				: investorApi.v10InvestorProgramsByIdReinvestOffPost(programId, AuthManager.token.getValue());
+	}
+
+	public Observable<LevelUpSummary> getRatingInfo() {
+		return programsApi.v10ProgramsLevelupSummaryGet(AuthManager.token.getValue());
 	}
 
 	//	public Observable<Void> withdraw(ProgramRequest withdrawalRequest) {

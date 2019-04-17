@@ -15,6 +15,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.assets.AssetsFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.InvestorDashboardFragment;
 import vision.genesis.clientapp.feature.main.dashboard.manager.ManagerDashboardFragment;
@@ -352,7 +353,10 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	@Subscribe
 	public void onEventMainThread(OnProgramFacetClickedEvent event) {
-		getViewState().showProgramFacet(event.getFacet());
+		if (event.getFacet().getTitle().toLowerCase().equals(context.getString(R.string.rating).toLowerCase()))
+			getViewState().showProgramsRating();
+		else
+			getViewState().showProgramFacet(event.getFacet());
 	}
 
 	@Subscribe

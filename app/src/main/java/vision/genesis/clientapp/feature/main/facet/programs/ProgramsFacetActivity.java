@@ -71,10 +71,12 @@ public class ProgramsFacetActivity extends BaseSwipeBackActivity implements Prog
 				ProgramsFilter filter = new ProgramsFilter();
 				filter.setFacetId(model.getId());
 				filter.setDateRange(DateRange.createFromString(model.getTimeFrame()));
+				Bundle data = new Bundle();
+				data.putParcelable(ProgramsListFragment.EXTRA_FILTER, filter);
 
 				getSupportFragmentManager()
 						.beginTransaction()
-						.add(R.id.content, ProgramsListFragment.with(ProgramsListFragment.LOCATION_FACET, filter))
+						.add(R.id.content, ProgramsListFragment.with(ProgramsListFragment.LOCATION_FACET, data))
 						.disallowAddToBackStack()
 						.commit();
 			}

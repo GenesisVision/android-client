@@ -101,6 +101,11 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 	void setData(String location, ProgramsFilter filter) {
 		this.location = location;
 		createFilter(filter);
+		if (location.equals(ProgramsListFragment.LOCATION_RATING)) {
+			this.filter.setDateRange(null);
+			this.filter.setSorting(null);
+			this.filter.setChartPointsCount(null);
+		}
 		if (!location.equals(ProgramsListFragment.LOCATION_SEARCH)) {
 			isDataSet = true;
 			getProgramsList(true);
@@ -144,7 +149,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		this.filter.setSkip(0);
 		this.filter.setTake(TAKE);
 		this.filter.setDateRange(dateRange);
-//		filter.setEquityChartLength(10);
+		this.filter.setChartPointsCount(10);
 	}
 
 	private void subscribeToUser() {

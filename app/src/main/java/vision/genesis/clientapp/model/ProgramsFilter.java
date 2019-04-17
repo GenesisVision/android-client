@@ -60,6 +60,8 @@ public class ProgramsFilter implements Parcelable
 
 	private List<String> tags;
 
+	private Integer chartPointsCount;
+
 	public ProgramsFilter() {
 	}
 
@@ -81,6 +83,8 @@ public class ProgramsFilter implements Parcelable
 			this.managerId = filter.getManagerId();
 			this.skip = filter.getSkip();
 			this.take = filter.getTake();
+			this.tags = filter.getTags();
+			this.chartPointsCount = filter.getChartPointsCount();
 		}
 	}
 
@@ -146,6 +150,12 @@ public class ProgramsFilter implements Parcelable
 			take = in.readInt();
 		}
 		in.readList(tags, String.class.getClassLoader());
+		if (in.readByte() == 0) {
+			chartPointsCount = null;
+		}
+		else {
+			chartPointsCount = in.readInt();
+		}
 	}
 
 	public SortingEnum getSorting() {
@@ -284,6 +294,14 @@ public class ProgramsFilter implements Parcelable
 		this.tags = tags;
 	}
 
+	public Integer getChartPointsCount() {
+		return chartPointsCount;
+	}
+
+	public void setChartPointsCount(Integer chartPointsCount) {
+		this.chartPointsCount = chartPointsCount;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -359,6 +377,13 @@ public class ProgramsFilter implements Parcelable
 			dest.writeInt(take);
 		}
 		dest.writeList(tags);
+		if (chartPointsCount == null) {
+			dest.writeByte((byte) 0);
+		}
+		else {
+			dest.writeByte((byte) 1);
+			dest.writeInt(chartPointsCount);
+		}
 	}
 
 	@Override
@@ -386,6 +411,7 @@ public class ProgramsFilter implements Parcelable
 				Objects.equals(getManagerId(), filter.getManagerId()) &&
 				Objects.equals(getSkip(), filter.getSkip()) &&
 				Objects.equals(getTake(), filter.getTake()) &&
-				Objects.equals(getTags(), filter.getTags());
+				Objects.equals(getTags(), filter.getTags()) &&
+				Objects.equals(getChartPointsCount(), filter.getChartPointsCount());
 	}
 }

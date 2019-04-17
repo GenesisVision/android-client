@@ -75,6 +75,16 @@ public class DetailsTabView extends RelativeLayout
 		}
 	}
 
+	public void setData(String text) {
+		if (text != null && !text.isEmpty()) {
+			this.text.setText(text);
+			this.text.setVisibility(View.VISIBLE);
+		}
+		else {
+			this.text.setVisibility(View.GONE);
+		}
+	}
+
 	public void setSelectedState(boolean selected) {
 		text.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
 				selected

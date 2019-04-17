@@ -41,6 +41,7 @@ import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
+import vision.genesis.clientapp.feature.main.rating.ProgramsRatingActivity;
 import vision.genesis.clientapp.feature.main.wallet.specific_wallet.SpecificWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.transaction_details.TransactionDetailsActivity;
 import vision.genesis.clientapp.feature.pin.check.CheckPinActivity;
@@ -360,6 +361,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void showManagerDetails(ManagerDetailsModel model) {
 		ManagerDetailsActivity.startWith(this, model);
+	}
+
+	@Override
+	public void showProgramsRating() {
+		ProgramsRatingActivity.startWith(this);
 	}
 
 	@Override

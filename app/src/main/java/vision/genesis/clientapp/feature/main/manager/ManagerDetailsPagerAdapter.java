@@ -1,5 +1,6 @@
 package vision.genesis.clientapp.feature.main.manager;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -47,7 +48,9 @@ public class ManagerDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 		ProgramsFilter programsFilter = new ProgramsFilter();
 		programsFilter.setManagerId(managerId);
-		managerProgramsFragment = ProgramsListFragment.with(ProgramsListFragment.LOCATION_MANAGER, programsFilter);
+		Bundle data = new Bundle();
+		data.putParcelable(ProgramsListFragment.EXTRA_FILTER, programsFilter);
+		managerProgramsFragment = ProgramsListFragment.with(ProgramsListFragment.LOCATION_MANAGER, data);
 
 		ProgramsFilter fundsFilter = new ProgramsFilter();
 		fundsFilter.setManagerId(managerId);

@@ -19,6 +19,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindDimen;
@@ -35,6 +36,8 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.filters.FiltersActivity;
 import vision.genesis.clientapp.model.ProgramsFilter;
+import vision.genesis.clientapp.model.RatingInfo;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -52,15 +55,21 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	public static final String LOCATION_FACET = "location_facet";
 
+	public static final String LOCATION_RATING = "location_rating";
+
+	public static final String EXTRA_FILTER = "extra_filter";
+
+	public static final String EXTRA_RATING_INFO = "extra_rating_info";
+
 	private static final String EXTRA_LOCATION = "extra_location";
 
-	private static final String EXTRA_FILTER = "extra_filter";
+	private static final String EXTRA_DATA = "extra_data";
 
-	public static ProgramsListFragment with(@NonNull String location, ProgramsFilter filter) {
+	public static ProgramsListFragment with(@NonNull String location, Bundle data) {
 		ProgramsListFragment programListFragment = new ProgramsListFragment();
 		Bundle arguments = new Bundle(2);
-		arguments.putSerializable(EXTRA_LOCATION, location);
-		arguments.putParcelable(EXTRA_FILTER, filter);
+		arguments.putString(EXTRA_LOCATION, location);
+		arguments.putBundle(EXTRA_DATA, data);
 		programListFragment.setArguments(arguments);
 		return programListFragment;
 	}
@@ -76,6 +85,18 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	@BindView(R.id.group_no_internet)
 	public ViewGroup noInternetGroup;
+
+	@BindView(R.id.group_rating_info)
+	public ViewGroup ratingInfoGroup;
+
+	@BindView(R.id.rating_total)
+	public TextView ratingTotal;
+
+	@BindView(R.id.rating_quota)
+	public TextView ratingQuota;
+
+	@BindView(R.id.rating_target_profit)
+	public TextView ratingTargetProfit;
 
 	@BindView(R.id.filters)
 	public ViewGroup filters;
@@ -106,8 +127,6 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	private int filtersMarginBottom;
 
-	private int lastVisible = 0;
-
 	private ProgramsListAdapter programsListAdapter;
 
 	private Unbinder unbinder;
@@ -137,8 +156,15 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		unbinder = ButterKnife.bind(this, view);
 
 		if (getArguments() != null) {
+			Bundle data = getArguments().getBundle(EXTRA_DATA);
 			String location = getArguments().getString(EXTRA_LOCATION);
-			ProgramsFilter filter = getArguments().getParcelable(EXTRA_FILTER);
+
+			ProgramsFilter filter = null;
+			RatingInfo ratingInfo;
+
+			setFonts();
+			initRefreshLayout();
+			initRecyclerView();
 
 			if (location != null) {
 				switch (location) {
@@ -147,6 +173,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 						break;
 					case LOCATION_MANAGER:
 						filtersMarginBottom = dateRangeMarginBottom;
+						filter = data != null ? data.getParcelable(EXTRA_FILTER) : null;
 						break;
 					case LOCATION_SEARCH:
 						filters.setVisibility(View.GONE);
@@ -154,6 +181,16 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 						break;
 					case LOCATION_FACET:
 						filters.setVisibility(View.GONE);
+						filter = data != null ? data.getParcelable(EXTRA_FILTER) : null;
+						break;
+					case LOCATION_RATING:
+						filters.setVisibility(View.GONE);
+						filter = data != null ? data.getParcelable(EXTRA_FILTER) : null;
+						ratingInfo = data != null ? data.getParcelable(EXTRA_RATING_INFO) : null;
+						if (ratingInfo != null) {
+							this.ratingInfoGroup.setVisibility(View.VISIBLE);
+							updateRatingInfo(ratingInfo);
+						}
 						break;
 					default:
 						filtersMarginBottom = assetsFiltersMarginBottom;
@@ -162,10 +199,6 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 			}
 
 			programsListPresenter.setData(location, filter);
-
-			setFonts();
-			initRefreshLayout();
-			initRecyclerView();
 		}
 		else {
 			Timber.e("Passed empty arguments to ProgramsListFragment");
@@ -188,6 +221,9 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	private void setFonts() {
 		filtersText.setTypeface(TypefaceUtil.semibold());
+		ratingTotal.setTypeface(TypefaceUtil.semibold());
+		ratingQuota.setTypeface(TypefaceUtil.semibold());
+		ratingTargetProfit.setTypeface(TypefaceUtil.semibold());
 	}
 
 	private void initRefreshLayout() {
@@ -208,7 +244,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
 		{
 			@Override
-			public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+			public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
 				checkIfLastItemVisible();
 			}
 		});
@@ -217,7 +253,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	private void checkIfLastItemVisible() {
 		LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
 		int totalItemCount = layoutManager.getItemCount();
-		lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
+		int lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
 		if (lastVisible < 0)
 			return;
 
@@ -231,6 +267,13 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		this.facets = facets;
 		if (programsListAdapter != null)
 			programsListAdapter.setFacets(facets);
+	}
+
+	private void updateRatingInfo(RatingInfo ratingInfo) {
+		this.ratingTotal.setText(String.valueOf(ratingInfo.getTotal()));
+		this.ratingQuota.setText(String.valueOf(ratingInfo.getQuota()));
+		this.ratingTargetProfit.setText(String.format(Locale.getDefault(), "%s%%",
+				StringFormatUtil.formatAmount(ratingInfo.getTargetProfit(), 0, 2)));
 	}
 
 	@Override
