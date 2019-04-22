@@ -3,6 +3,7 @@ package vision.genesis.clientapp.managers;
 
 import io.swagger.client.api.PlatformApi;
 import io.swagger.client.model.PlatformInfo;
+import io.swagger.client.model.ProgramsLevelsInfo;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -180,5 +181,7 @@ public class SettingsManager
 		baseCurrencySubject.onNext(currency);
 	}
 
-
+	public Observable<ProgramsLevelsInfo> getLevelsInfo(String currency) {
+		return platformApi.v10PlatformLevelsGet(currency);
+	}
 }

@@ -18,6 +18,7 @@ import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.MainPresenter;
+import vision.genesis.clientapp.feature.main.about_levels.AboutLevelsPresenter;
 import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
 import vision.genesis.clientapp.feature.main.assets.AssetsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.investor.InvestorDashboardPresenter;
@@ -251,4 +252,6 @@ public interface AppComponent
 	void inject(ManagersListPresenter managersListPresenter);
 
 	void inject(ProgramsRatingPresenter programsRatingPresenter);
+
+	void inject(AboutLevelsPresenter aboutLevelsPresenter);
 }

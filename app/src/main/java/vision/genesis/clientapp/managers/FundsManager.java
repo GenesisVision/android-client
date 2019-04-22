@@ -87,7 +87,7 @@ public class FundsManager
 	}
 
 	public Observable<Void> invest(FundRequest fundRequest) {
-		return investorApi.v10InvestorFundsByIdInvestByAmountPost(fundRequest.getFundId(), fundRequest.getAmount(), AuthManager.token.getValue(), null);
+		return investorApi.v10InvestorFundsByIdInvestByAmountPost(fundRequest.getFundId(), fundRequest.getAmount(), AuthManager.token.getValue(), fundRequest.getWalletCurrency());
 	}
 
 	public Observable<Void> withdraw(FundRequest fundRequest) {

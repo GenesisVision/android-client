@@ -19,6 +19,7 @@ import butterknife.OnClick;
 import io.swagger.client.model.LevelUpData;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.about_levels.AboutLevelsActivity;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
 import vision.genesis.clientapp.utils.TabLayoutUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -58,6 +59,11 @@ public class ProgramsRatingActivity extends BaseSwipeBackActivity implements Pro
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		finishActivity();
+	}
+
+	@OnClick(R.id.button_info)
+	public void onInfoClicked() {
+		AboutLevelsActivity.startWith(this, null);
 	}
 
 	@Override
