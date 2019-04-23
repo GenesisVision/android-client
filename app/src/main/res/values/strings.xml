@@ -595,5 +595,9 @@
     <string name="levels_limits">Levels limits</string>
     <string name="show_in">Show in</string>
     <string name="invest_limit">Invest limit</string>
+    <string name="level_up">Level Up</string>
+    <string name="top_10">Top 10%</string>
+    <string name="genesis_level_shows">Genesis level shows the experience and reliability of the Manager</string>
+    <string name="genesis_level">Genesis Level</string>
 
 </resources>

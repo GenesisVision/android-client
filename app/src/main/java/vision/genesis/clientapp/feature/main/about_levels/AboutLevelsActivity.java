@@ -128,8 +128,8 @@ public class AboutLevelsActivity extends BaseSwipeBackActivity implements AboutL
 
 		if (getIntent().getExtras() != null) {
 			selectedCurrency = getIntent().getExtras().getString(EXTRA_CURRENCY, "GVT");
-//			aboutLevelsPresenter.onCurrencyChanged(CurrencyEnum.fromValue(selectedCurrency));
-			aboutLevelsPresenter.onCurrencyChanged(CurrencyEnum.fromValue("GVT"));
+			aboutLevelsPresenter.onCurrencyChanged(CurrencyEnum.fromValue(selectedCurrency));
+//			aboutLevelsPresenter.onCurrencyChanged(CurrencyEnum.fromValue("GVT"));
 
 			setFonts();
 		}
@@ -172,7 +172,7 @@ public class AboutLevelsActivity extends BaseSwipeBackActivity implements AboutL
 		String limitText;
 		for (LevelInfo info : levelsInfo) {
 			limitText = String.format(Locale.getDefault(), "%s %s",
-					StringFormatUtil.formatAmount(info.getInvestmentLimit(), 0, 0), selectedCurrency);
+					StringFormatUtil.formatAmount(info.getInvestmentLimit(), 0, 2), selectedCurrency);
 			switch (info.getLevel()) {
 				case 1:
 					limit1.setText(limitText);

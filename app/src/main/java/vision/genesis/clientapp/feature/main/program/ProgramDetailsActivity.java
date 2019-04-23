@@ -37,6 +37,7 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.notifications.program.ProgramNotificationsSettingsActivity;
+import vision.genesis.clientapp.feature.main.program.level.ProgramLevelBottomSheetDialog;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.ui.CurrencyView;
 import vision.genesis.clientapp.ui.ProgramLogoView;
@@ -159,6 +160,15 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
 		programDetailsPresenter.onTryAgainClicked();
+	}
+
+	@OnClick(R.id.level)
+	public void onLevelClicked() {
+		if (programDetails != null) {
+			ProgramLevelBottomSheetDialog dialog = new ProgramLevelBottomSheetDialog();
+			dialog.show(getSupportFragmentManager(), dialog.getTag());
+			dialog.setData(programDetails.getLevel(), programDetails.getRating().isCanLevelUp(), programDetails.getCurrency().getValue());
+		}
 	}
 
 	@OnClick(R.id.button_notifications)

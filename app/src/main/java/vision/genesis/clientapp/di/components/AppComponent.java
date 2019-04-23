@@ -41,7 +41,6 @@ import vision.genesis.clientapp.feature.main.manager.ManagerDetailsPresenter;
 import vision.genesis.clientapp.feature.main.manager.info.ManagerInfoPresenter;
 import vision.genesis.clientapp.feature.main.manager.profit.ManagerProfitPresenter;
 import vision.genesis.clientapp.feature.main.managers_list.ManagersListPresenter;
-import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.notifications.NotificationsPresenter;
 import vision.genesis.clientapp.feature.main.notifications.create.CreateCustomNotificationSettingPresenter;
 import vision.genesis.clientapp.feature.main.notifications.fund.FundNotificationsSettingsPresenter;
@@ -60,6 +59,7 @@ import vision.genesis.clientapp.feature.main.program.events.ProgramEventsPresent
 import vision.genesis.clientapp.feature.main.program.info.ProgramInfoPresenter;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramPresenter;
 import vision.genesis.clientapp.feature.main.program.invest.confirm.ConfirmProgramInvestBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.program.level.ProgramLevelBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.open_positions.OpenPositionsPresenter;
 import vision.genesis.clientapp.feature.main.program.profit.ProgramProfitPresenter;
 import vision.genesis.clientapp.feature.main.program.trades.ProgramTradesPresenter;
@@ -128,8 +128,6 @@ public interface AppComponent
 	void inject(TransactionsPresenter transactionsPresenter);
 
 	void inject(ImageCropActivity imageCropActivity);
-
-	void inject(MessageBottomSheetDialog messageBottomSheetDialog);
 
 	void inject(ProgramTradesPresenter programTradesPresenter);
 
@@ -254,4 +252,6 @@ public interface AppComponent
 	void inject(ProgramsRatingPresenter programsRatingPresenter);
 
 	void inject(AboutLevelsPresenter aboutLevelsPresenter);
+
+	void inject(ProgramLevelBottomSheetDialog programLevelBottomSheetDialog);
 }
