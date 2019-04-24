@@ -547,7 +547,11 @@ public class WalletTransaction
 
 		BLOCKCHAIN("Blockchain"),
 
-		GENESISVISIONPLATFORM("GenesisVisionPlatform");
+		GENESISVISIONPLATFORM("GenesisVisionPlatform"),
+
+		SIGNALMASTERSETTING("SignalMasterSetting"),
+
+		SIGNALTRADINGACCOUNT("SignalTradingAccount");
 
 		public static SourceTypeEnum fromValue(String text) {
 			for (SourceTypeEnum b : SourceTypeEnum.values()) {
@@ -595,17 +599,17 @@ public class WalletTransaction
 	@JsonAdapter(SourceCurrencyEnum.Adapter.class)
 	public enum SourceCurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 
@@ -680,13 +684,19 @@ public class WalletTransaction
 
 		PROGRAMREFUNDCLOSE("ProgramRefundClose"),
 
+		PROGRAMREFUNDSTOPOUT("ProgramRefundStopOut"),
+
 		PROGRAMREQUESTINVEST("ProgramRequestInvest"),
 
 		PROGRAMREQUESTWITHDRAWAL("ProgramRequestWithdrawal"),
 
 		PROGRAMREQUESTCANCEL("ProgramRequestCancel"),
 
-		PAYINGFEE("PayingFee");
+		PAYINGFEE("PayingFee"),
+
+		SIGNALSLAVESUBSCRIBE("SignalSlaveSubscribe"),
+
+		SIGNALMASTERRECEIVESUBSCRIPTION("SignalMasterReceiveSubscription");
 
 		public static ActionEnum fromValue(String text) {
 			for (ActionEnum b : ActionEnum.values()) {
@@ -750,7 +760,11 @@ public class WalletTransaction
 
 		BLOCKCHAIN("Blockchain"),
 
-		GENESISVISIONPLATFORM("GenesisVisionPlatform");
+		GENESISVISIONPLATFORM("GenesisVisionPlatform"),
+
+		SIGNALMASTERSETTING("SignalMasterSetting"),
+
+		SIGNALTRADINGACCOUNT("SignalTradingAccount");
 
 		public static DestinationTypeEnum fromValue(String text) {
 			for (DestinationTypeEnum b : DestinationTypeEnum.values()) {
@@ -797,17 +811,17 @@ public class WalletTransaction
 	@JsonAdapter(DestinationCurrencyEnum.Adapter.class)
 	public enum DestinationCurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 

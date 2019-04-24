@@ -52,6 +52,18 @@ public class ProfileHeaderViewModel
 	@SerializedName("favoritesCount")
 	private Integer favoritesCount = null;
 
+	@SerializedName("kycConfirmed")
+	private Boolean kycConfirmed = null;
+
+	@SerializedName("allowForex")
+	private Boolean allowForex = null;
+
+	@SerializedName("isTwoFactorEnabled")
+	private Boolean isTwoFactorEnabled = null;
+
+	@SerializedName("isNewUser")
+	private Boolean isNewUser = null;
+
 	@SerializedName("totalBalanceGvt")
 	private Double totalBalanceGvt = null;
 
@@ -72,18 +84,6 @@ public class ProfileHeaderViewModel
 
 	@SerializedName("pending")
 	private Double pending = null;
-
-	@SerializedName("kycConfirmed")
-	private Boolean kycConfirmed = null;
-
-	@SerializedName("allowForex")
-	private Boolean allowForex = null;
-
-	@SerializedName("isTwoFactorEnabled")
-	private Boolean isTwoFactorEnabled = null;
-
-	@SerializedName("isNewUser")
-	private Boolean isNewUser = null;
 
 	public ProfileHeaderViewModel id(UUID id) {
 		this.id = id;
@@ -216,6 +216,82 @@ public class ProfileHeaderViewModel
 
 	public void setFavoritesCount(Integer favoritesCount) {
 		this.favoritesCount = favoritesCount;
+	}
+
+	public ProfileHeaderViewModel kycConfirmed(Boolean kycConfirmed) {
+		this.kycConfirmed = kycConfirmed;
+		return this;
+	}
+
+	/**
+	 * Get kycConfirmed
+	 *
+	 * @return kycConfirmed
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isKycConfirmed() {
+		return kycConfirmed;
+	}
+
+	public void setKycConfirmed(Boolean kycConfirmed) {
+		this.kycConfirmed = kycConfirmed;
+	}
+
+	public ProfileHeaderViewModel allowForex(Boolean allowForex) {
+		this.allowForex = allowForex;
+		return this;
+	}
+
+	/**
+	 * Get allowForex
+	 *
+	 * @return allowForex
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isAllowForex() {
+		return allowForex;
+	}
+
+	public void setAllowForex(Boolean allowForex) {
+		this.allowForex = allowForex;
+	}
+
+	public ProfileHeaderViewModel isTwoFactorEnabled(Boolean isTwoFactorEnabled) {
+		this.isTwoFactorEnabled = isTwoFactorEnabled;
+		return this;
+	}
+
+	/**
+	 * Get isTwoFactorEnabled
+	 *
+	 * @return isTwoFactorEnabled
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsTwoFactorEnabled() {
+		return isTwoFactorEnabled;
+	}
+
+	public void setIsTwoFactorEnabled(Boolean isTwoFactorEnabled) {
+		this.isTwoFactorEnabled = isTwoFactorEnabled;
+	}
+
+	public ProfileHeaderViewModel isNewUser(Boolean isNewUser) {
+		this.isNewUser = isNewUser;
+		return this;
+	}
+
+	/**
+	 * Get isNewUser
+	 *
+	 * @return isNewUser
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsNewUser() {
+		return isNewUser;
+	}
+
+	public void setIsNewUser(Boolean isNewUser) {
+		this.isNewUser = isNewUser;
 	}
 
 	public ProfileHeaderViewModel totalBalanceGvt(Double totalBalanceGvt) {
@@ -351,82 +427,6 @@ public class ProfileHeaderViewModel
 		this.pending = pending;
 	}
 
-	public ProfileHeaderViewModel kycConfirmed(Boolean kycConfirmed) {
-		this.kycConfirmed = kycConfirmed;
-		return this;
-	}
-
-	/**
-	 * Get kycConfirmed
-	 *
-	 * @return kycConfirmed
-	 **/
-	@ApiModelProperty(value = "")
-	public Boolean isKycConfirmed() {
-		return kycConfirmed;
-	}
-
-	public void setKycConfirmed(Boolean kycConfirmed) {
-		this.kycConfirmed = kycConfirmed;
-	}
-
-	public ProfileHeaderViewModel allowForex(Boolean allowForex) {
-		this.allowForex = allowForex;
-		return this;
-	}
-
-	/**
-	 * Get allowForex
-	 *
-	 * @return allowForex
-	 **/
-	@ApiModelProperty(value = "")
-	public Boolean isAllowForex() {
-		return allowForex;
-	}
-
-	public void setAllowForex(Boolean allowForex) {
-		this.allowForex = allowForex;
-	}
-
-	public ProfileHeaderViewModel isTwoFactorEnabled(Boolean isTwoFactorEnabled) {
-		this.isTwoFactorEnabled = isTwoFactorEnabled;
-		return this;
-	}
-
-	/**
-	 * Get isTwoFactorEnabled
-	 *
-	 * @return isTwoFactorEnabled
-	 **/
-	@ApiModelProperty(value = "")
-	public Boolean isIsTwoFactorEnabled() {
-		return isTwoFactorEnabled;
-	}
-
-	public void setIsTwoFactorEnabled(Boolean isTwoFactorEnabled) {
-		this.isTwoFactorEnabled = isTwoFactorEnabled;
-	}
-
-	public ProfileHeaderViewModel isNewUser(Boolean isNewUser) {
-		this.isNewUser = isNewUser;
-		return this;
-	}
-
-	/**
-	 * Get isNewUser
-	 *
-	 * @return isNewUser
-	 **/
-	@ApiModelProperty(value = "")
-	public Boolean isIsNewUser() {
-		return isNewUser;
-	}
-
-	public void setIsNewUser(Boolean isNewUser) {
-		this.isNewUser = isNewUser;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -443,22 +443,22 @@ public class ProfileHeaderViewModel
 				Objects.equals(this.userType, profileHeaderViewModel.userType) &&
 				Objects.equals(this.notificationsCount, profileHeaderViewModel.notificationsCount) &&
 				Objects.equals(this.favoritesCount, profileHeaderViewModel.favoritesCount) &&
+				Objects.equals(this.kycConfirmed, profileHeaderViewModel.kycConfirmed) &&
+				Objects.equals(this.allowForex, profileHeaderViewModel.allowForex) &&
+				Objects.equals(this.isTwoFactorEnabled, profileHeaderViewModel.isTwoFactorEnabled) &&
+				Objects.equals(this.isNewUser, profileHeaderViewModel.isNewUser) &&
 				Objects.equals(this.totalBalanceGvt, profileHeaderViewModel.totalBalanceGvt) &&
 				Objects.equals(this.investedGvt, profileHeaderViewModel.investedGvt) &&
 				Objects.equals(this.availableGvt, profileHeaderViewModel.availableGvt) &&
 				Objects.equals(this.totalBalance, profileHeaderViewModel.totalBalance) &&
 				Objects.equals(this.invested, profileHeaderViewModel.invested) &&
 				Objects.equals(this.available, profileHeaderViewModel.available) &&
-				Objects.equals(this.pending, profileHeaderViewModel.pending) &&
-				Objects.equals(this.kycConfirmed, profileHeaderViewModel.kycConfirmed) &&
-				Objects.equals(this.allowForex, profileHeaderViewModel.allowForex) &&
-				Objects.equals(this.isTwoFactorEnabled, profileHeaderViewModel.isTwoFactorEnabled) &&
-				Objects.equals(this.isNewUser, profileHeaderViewModel.isNewUser);
+				Objects.equals(this.pending, profileHeaderViewModel.pending);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, email, avatar, userType, notificationsCount, favoritesCount, totalBalanceGvt, investedGvt, availableGvt, totalBalance, invested, available, pending, kycConfirmed, allowForex, isTwoFactorEnabled, isNewUser);
+		return Objects.hash(id, name, email, avatar, userType, notificationsCount, favoritesCount, kycConfirmed, allowForex, isTwoFactorEnabled, isNewUser, totalBalanceGvt, investedGvt, availableGvt, totalBalance, invested, available, pending);
 	}
 
 	@Override
@@ -473,6 +473,10 @@ public class ProfileHeaderViewModel
 		sb.append("    userType: ").append(toIndentedString(userType)).append("\n");
 		sb.append("    notificationsCount: ").append(toIndentedString(notificationsCount)).append("\n");
 		sb.append("    favoritesCount: ").append(toIndentedString(favoritesCount)).append("\n");
+		sb.append("    kycConfirmed: ").append(toIndentedString(kycConfirmed)).append("\n");
+		sb.append("    allowForex: ").append(toIndentedString(allowForex)).append("\n");
+		sb.append("    isTwoFactorEnabled: ").append(toIndentedString(isTwoFactorEnabled)).append("\n");
+		sb.append("    isNewUser: ").append(toIndentedString(isNewUser)).append("\n");
 		sb.append("    totalBalanceGvt: ").append(toIndentedString(totalBalanceGvt)).append("\n");
 		sb.append("    investedGvt: ").append(toIndentedString(investedGvt)).append("\n");
 		sb.append("    availableGvt: ").append(toIndentedString(availableGvt)).append("\n");
@@ -480,10 +484,6 @@ public class ProfileHeaderViewModel
 		sb.append("    invested: ").append(toIndentedString(invested)).append("\n");
 		sb.append("    available: ").append(toIndentedString(available)).append("\n");
 		sb.append("    pending: ").append(toIndentedString(pending)).append("\n");
-		sb.append("    kycConfirmed: ").append(toIndentedString(kycConfirmed)).append("\n");
-		sb.append("    allowForex: ").append(toIndentedString(allowForex)).append("\n");
-		sb.append("    isTwoFactorEnabled: ").append(toIndentedString(isTwoFactorEnabled)).append("\n");
-		sb.append("    isNewUser: ").append(toIndentedString(isNewUser)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

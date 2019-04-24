@@ -69,6 +69,9 @@ public class ManagerPortfolioEvent
 	@SerializedName("description")
 	private String description = null;
 
+	@SerializedName("url")
+	private String url = null;
+
 	@SerializedName("periodNumber")
 	private Integer periodNumber = null;
 
@@ -300,6 +303,25 @@ public class ManagerPortfolioEvent
 		this.description = description;
 	}
 
+	public ManagerPortfolioEvent url(String url) {
+		this.url = url;
+		return this;
+	}
+
+	/**
+	 * Get url
+	 *
+	 * @return url
+	 **/
+	@ApiModelProperty(value = "")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	public ManagerPortfolioEvent periodNumber(Integer periodNumber) {
 		this.periodNumber = periodNumber;
 		return this;
@@ -340,12 +362,13 @@ public class ManagerPortfolioEvent
 				Objects.equals(this.logo, managerPortfolioEvent.logo) &&
 				Objects.equals(this.color, managerPortfolioEvent.color) &&
 				Objects.equals(this.description, managerPortfolioEvent.description) &&
+				Objects.equals(this.url, managerPortfolioEvent.url) &&
 				Objects.equals(this.periodNumber, managerPortfolioEvent.periodNumber);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assetId, date, title, value, feeValue, profitPercent, currency, type, programType, logo, color, description, periodNumber);
+		return Objects.hash(assetId, date, title, value, feeValue, profitPercent, currency, type, programType, logo, color, description, url, periodNumber);
 	}
 
 	@Override
@@ -365,6 +388,7 @@ public class ManagerPortfolioEvent
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    periodNumber: ").append(toIndentedString(periodNumber)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -387,17 +411,17 @@ public class ManagerPortfolioEvent
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 
@@ -481,7 +505,11 @@ public class ManagerPortfolioEvent
 
 		EXITFEE("ExitFee"),
 
-		PROGRAMSTOPOUT("ProgramStopOut");
+		PROGRAMSTOPOUT("ProgramStopOut"),
+
+		PROGRAMMANAGERTRADINGFEEACCRUAL("ProgramManagerTradingFeeAccrual"),
+
+		PROGRAMSIGNALSUBSCRIBE("ProgramSignalSubscribe");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {

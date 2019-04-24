@@ -60,6 +60,9 @@ public class Broker
 	@SerializedName("isSignalsAvailable")
 	private Boolean isSignalsAvailable = null;
 
+	@SerializedName("tags")
+	private List<ProgramTag> tags = null;
+
 	public Broker name(String name) {
 		this.name = name;
 		return this;
@@ -259,6 +262,33 @@ public class Broker
 		this.isSignalsAvailable = isSignalsAvailable;
 	}
 
+	public Broker tags(List<ProgramTag> tags) {
+		this.tags = tags;
+		return this;
+	}
+
+	public Broker addTagsItem(ProgramTag tagsItem) {
+		if (this.tags == null) {
+			this.tags = new ArrayList<ProgramTag>();
+		}
+		this.tags.add(tagsItem);
+		return this;
+	}
+
+	/**
+	 * Get tags
+	 *
+	 * @return tags
+	 **/
+	@ApiModelProperty(value = "")
+	public List<ProgramTag> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<ProgramTag> tags) {
+		this.tags = tags;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -279,12 +309,13 @@ public class Broker
 				Objects.equals(this.leverageMax, broker.leverageMax) &&
 				Objects.equals(this.accountTypes, broker.accountTypes) &&
 				Objects.equals(this.isForex, broker.isForex) &&
-				Objects.equals(this.isSignalsAvailable, broker.isSignalsAvailable);
+				Objects.equals(this.isSignalsAvailable, broker.isSignalsAvailable) &&
+				Objects.equals(this.tags, broker.tags);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, description, logo, terms, assets, fee, leverageMin, leverageMax, accountTypes, isForex, isSignalsAvailable);
+		return Objects.hash(name, description, logo, terms, assets, fee, leverageMin, leverageMax, accountTypes, isForex, isSignalsAvailable, tags);
 	}
 
 
@@ -304,6 +335,7 @@ public class Broker
 		sb.append("    accountTypes: ").append(toIndentedString(accountTypes)).append("\n");
 		sb.append("    isForex: ").append(toIndentedString(isForex)).append("\n");
 		sb.append("    isSignalsAvailable: ").append(toIndentedString(isSignalsAvailable)).append("\n");
+		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

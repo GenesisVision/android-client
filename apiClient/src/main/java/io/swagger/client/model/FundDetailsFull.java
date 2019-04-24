@@ -19,6 +19,8 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
+import org.joda.time.DateTime;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +73,9 @@ public class FundDetailsFull
 
 	@SerializedName("ipfsHash")
 	private String ipfsHash = null;
+
+	@SerializedName("creationDate")
+	private DateTime creationDate = null;
 
 	@SerializedName("status")
 	private StatusEnum status = null;
@@ -333,6 +338,25 @@ public class FundDetailsFull
 		this.ipfsHash = ipfsHash;
 	}
 
+	public FundDetailsFull creationDate(DateTime creationDate) {
+		this.creationDate = creationDate;
+		return this;
+	}
+
+	/**
+	 * Get creationDate
+	 *
+	 * @return creationDate
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(DateTime creationDate) {
+		this.creationDate = creationDate;
+	}
+
 	public FundDetailsFull status(StatusEnum status) {
 		this.status = status;
 		return this;
@@ -393,13 +417,14 @@ public class FundDetailsFull
 				Objects.equals(this.description, fundDetailsFull.description) &&
 				Objects.equals(this.title, fundDetailsFull.title) &&
 				Objects.equals(this.ipfsHash, fundDetailsFull.ipfsHash) &&
+				Objects.equals(this.creationDate, fundDetailsFull.creationDate) &&
 				Objects.equals(this.status, fundDetailsFull.status) &&
 				Objects.equals(this.manager, fundDetailsFull.manager);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(entryFee, exitFee, managementFee, currentAssets, statistic, personalFundDetails, id, logo, url, color, description, title, ipfsHash, status, manager);
+		return Objects.hash(entryFee, exitFee, managementFee, currentAssets, statistic, personalFundDetails, id, logo, url, color, description, title, ipfsHash, creationDate, status, manager);
 	}
 
 	@Override
@@ -420,6 +445,7 @@ public class FundDetailsFull
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    ipfsHash: ").append(toIndentedString(ipfsHash)).append("\n");
+		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("}");

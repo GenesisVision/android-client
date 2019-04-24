@@ -42,6 +42,9 @@ public class DashboardPortfolioEvent
 	@SerializedName("title")
 	private String title = null;
 
+	@SerializedName("url")
+	private String url = null;
+
 	@SerializedName("value")
 	private Double value = null;
 
@@ -136,6 +139,25 @@ public class DashboardPortfolioEvent
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public DashboardPortfolioEvent url(String url) {
+		this.url = url;
+		return this;
+	}
+
+	/**
+	 * Get url
+	 *
+	 * @return url
+	 **/
+	@ApiModelProperty(value = "")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public DashboardPortfolioEvent value(Double value) {
@@ -397,6 +419,7 @@ public class DashboardPortfolioEvent
 		return Objects.equals(this.assetId, dashboardPortfolioEvent.assetId) &&
 				Objects.equals(this.date, dashboardPortfolioEvent.date) &&
 				Objects.equals(this.title, dashboardPortfolioEvent.title) &&
+				Objects.equals(this.url, dashboardPortfolioEvent.url) &&
 				Objects.equals(this.value, dashboardPortfolioEvent.value) &&
 				Objects.equals(this.valueTotal, dashboardPortfolioEvent.valueTotal) &&
 				Objects.equals(this.feeSuccessManager, dashboardPortfolioEvent.feeSuccessManager) &&
@@ -414,7 +437,7 @@ public class DashboardPortfolioEvent
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assetId, date, title, value, valueTotal, feeSuccessManager, feeSuccessManagerCurrency, feeSuccessPlatform, feeSuccessPlatformCurrency, profitPercent, currency, type, logo, color, description, assetType);
+		return Objects.hash(assetId, date, title, url, value, valueTotal, feeSuccessManager, feeSuccessManagerCurrency, feeSuccessPlatform, feeSuccessPlatformCurrency, profitPercent, currency, type, logo, color, description, assetType);
 	}
 
 	@Override
@@ -425,6 +448,7 @@ public class DashboardPortfolioEvent
 		sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("    valueTotal: ").append(toIndentedString(valueTotal)).append("\n");
 		sb.append("    feeSuccessManager: ").append(toIndentedString(feeSuccessManager)).append("\n");
@@ -459,17 +483,17 @@ public class DashboardPortfolioEvent
 	@JsonAdapter(FeeSuccessManagerCurrencyEnum.Adapter.class)
 	public enum FeeSuccessManagerCurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 
@@ -531,17 +555,17 @@ public class DashboardPortfolioEvent
 	@JsonAdapter(FeeSuccessPlatformCurrencyEnum.Adapter.class)
 	public enum FeeSuccessPlatformCurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 
@@ -602,17 +626,17 @@ public class DashboardPortfolioEvent
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 

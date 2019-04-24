@@ -19,6 +19,8 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
+import org.joda.time.DateTime;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +70,9 @@ public class FundDetails
 
 	@SerializedName("status")
 	private StatusEnum status = null;
+
+	@SerializedName("creationDate")
+	private DateTime creationDate = null;
 
 	@SerializedName("manager")
 	private ProfilePublic manager = null;
@@ -311,6 +316,25 @@ public class FundDetails
 		this.status = status;
 	}
 
+	public FundDetails creationDate(DateTime creationDate) {
+		this.creationDate = creationDate;
+		return this;
+	}
+
+	/**
+	 * Get creationDate
+	 *
+	 * @return creationDate
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(DateTime creationDate) {
+		this.creationDate = creationDate;
+	}
+
 	public FundDetails manager(ProfilePublic manager) {
 		this.manager = manager;
 		return this;
@@ -378,13 +402,14 @@ public class FundDetails
 				Objects.equals(this.title, fundDetails.title) &&
 				Objects.equals(this.description, fundDetails.description) &&
 				Objects.equals(this.status, fundDetails.status) &&
+				Objects.equals(this.creationDate, fundDetails.creationDate) &&
 				Objects.equals(this.manager, fundDetails.manager) &&
 				Objects.equals(this.chart, fundDetails.chart);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(totalAssetsCount, topFundAssets, statistic, personalDetails, dashboardAssetsDetails, id, logo, url, color, title, description, status, manager, chart);
+		return Objects.hash(totalAssetsCount, topFundAssets, statistic, personalDetails, dashboardAssetsDetails, id, logo, url, color, title, description, status, creationDate, manager, chart);
 	}
 
 	@Override
@@ -404,6 +429,7 @@ public class FundDetails
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
+		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("}");

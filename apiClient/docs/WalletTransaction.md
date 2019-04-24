@@ -38,18 +38,20 @@ WITHDRAWALREQUEST | &quot;WithdrawalRequest&quot;
 PAYMENTTRANSACTION | &quot;PaymentTransaction&quot;
 BLOCKCHAIN | &quot;Blockchain&quot;
 GENESISVISIONPLATFORM | &quot;GenesisVisionPlatform&quot;
+SIGNALMASTERSETTING | &quot;SignalMasterSetting&quot;
+SIGNALTRADINGACCOUNT | &quot;SignalTradingAccount&quot;
 
 
 <a name="SourceCurrencyEnum"></a>
 ## Enum: SourceCurrencyEnum
 Name | Value
 ---- | -----
-BTC | &quot;BTC&quot;
-ETH | &quot;ETH&quot;
-USDT | &quot;USDT&quot;
-GVT | &quot;GVT&quot;
 UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
+USDT | &quot;USDT&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
@@ -70,10 +72,13 @@ PROGRAMINVEST | &quot;ProgramInvest&quot;
 PROGRAMWITHDRAWAL | &quot;ProgramWithdrawal&quot;
 PROGRAMREFUNDPARTIALEXECUTION | &quot;ProgramRefundPartialExecution&quot;
 PROGRAMREFUNDCLOSE | &quot;ProgramRefundClose&quot;
+PROGRAMREFUNDSTOPOUT | &quot;ProgramRefundStopOut&quot;
 PROGRAMREQUESTINVEST | &quot;ProgramRequestInvest&quot;
 PROGRAMREQUESTWITHDRAWAL | &quot;ProgramRequestWithdrawal&quot;
 PROGRAMREQUESTCANCEL | &quot;ProgramRequestCancel&quot;
 PAYINGFEE | &quot;PayingFee&quot;
+SIGNALSLAVESUBSCRIBE | &quot;SignalSlaveSubscribe&quot;
+SIGNALMASTERRECEIVESUBSCRIPTION | &quot;SignalMasterReceiveSubscription&quot;
 
 
 <a name="DestinationTypeEnum"></a>
@@ -89,18 +94,20 @@ WITHDRAWALREQUEST | &quot;WithdrawalRequest&quot;
 PAYMENTTRANSACTION | &quot;PaymentTransaction&quot;
 BLOCKCHAIN | &quot;Blockchain&quot;
 GENESISVISIONPLATFORM | &quot;GenesisVisionPlatform&quot;
+SIGNALMASTERSETTING | &quot;SignalMasterSetting&quot;
+SIGNALTRADINGACCOUNT | &quot;SignalTradingAccount&quot;
 
 
 <a name="DestinationCurrencyEnum"></a>
 ## Enum: DestinationCurrencyEnum
 Name | Value
 ---- | -----
-BTC | &quot;BTC&quot;
-ETH | &quot;ETH&quot;
-USDT | &quot;USDT&quot;
-GVT | &quot;GVT&quot;
 UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
+USDT | &quot;USDT&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;

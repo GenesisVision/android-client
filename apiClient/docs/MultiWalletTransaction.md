@@ -21,12 +21,12 @@ Name | Type | Description | Notes
 ## Enum: CurrencyFromEnum
 Name | Value
 ---- | -----
-BTC | &quot;BTC&quot;
-ETH | &quot;ETH&quot;
-USDT | &quot;USDT&quot;
-GVT | &quot;GVT&quot;
 UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
+USDT | &quot;USDT&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
@@ -40,12 +40,12 @@ EUR | &quot;EUR&quot;
 ## Enum: CurrencyToEnum
 Name | Value
 ---- | -----
-BTC | &quot;BTC&quot;
-ETH | &quot;ETH&quot;
-USDT | &quot;USDT&quot;
-GVT | &quot;GVT&quot;
 UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
+USDT | &quot;USDT&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
@@ -67,6 +67,10 @@ CLOSE | &quot;Close&quot;
 OPEN | &quot;Open&quot;
 FEE | &quot;Fee&quot;
 PROFITS | &quot;Profits&quot;
+SUBSCRIBESIGNAL | &quot;SubscribeSignal&quot;
+RECEIVESIGNAL | &quot;ReceiveSignal&quot;
+DEPOSITSIGNAL | &quot;DepositSignal&quot;
+WITHDRAWALSIGNAL | &quot;WithdrawalSignal&quot;
 
 
 <a name="StatusEnum"></a>

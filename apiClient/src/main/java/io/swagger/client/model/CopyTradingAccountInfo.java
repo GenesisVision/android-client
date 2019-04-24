@@ -21,6 +21,7 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.UUID;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -30,8 +31,17 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class CopyTradingAccountInfo
 {
+	@SerializedName("id")
+	private UUID id = null;
+
 	@SerializedName("currency")
 	private CurrencyEnum currency = null;
+
+	@SerializedName("logo")
+	private String logo = null;
+
+	@SerializedName("title")
+	private String title = null;
 
 	@SerializedName("balance")
 	private Double balance = null;
@@ -41,6 +51,31 @@ public class CopyTradingAccountInfo
 
 	@SerializedName("freeMargin")
 	private Double freeMargin = null;
+
+	@SerializedName("marginLevel")
+	private Double marginLevel = null;
+
+	@SerializedName("available")
+	private Double available = null;
+
+	public CopyTradingAccountInfo id(UUID id) {
+		this.id = id;
+		return this;
+	}
+
+	/**
+	 * Get id
+	 *
+	 * @return id
+	 **/
+	@ApiModelProperty(value = "")
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
 	public CopyTradingAccountInfo currency(CurrencyEnum currency) {
 		this.currency = currency;
@@ -59,6 +94,44 @@ public class CopyTradingAccountInfo
 
 	public void setCurrency(CurrencyEnum currency) {
 		this.currency = currency;
+	}
+
+	public CopyTradingAccountInfo logo(String logo) {
+		this.logo = logo;
+		return this;
+	}
+
+	/**
+	 * Get logo
+	 *
+	 * @return logo
+	 **/
+	@ApiModelProperty(value = "")
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public CopyTradingAccountInfo title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@ApiModelProperty(value = "")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public CopyTradingAccountInfo balance(Double balance) {
@@ -118,6 +191,35 @@ public class CopyTradingAccountInfo
 		this.freeMargin = freeMargin;
 	}
 
+	public CopyTradingAccountInfo marginLevel(Double marginLevel) {
+		this.marginLevel = marginLevel;
+		return this;
+	}
+
+	/**
+	 * Get marginLevel
+	 *
+	 * @return marginLevel
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getMarginLevel() {
+		return marginLevel;
+	}
+
+	public void setMarginLevel(Double marginLevel) {
+		this.marginLevel = marginLevel;
+	}
+
+	/**
+	 * Get available
+	 *
+	 * @return available
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getAvailable() {
+		return available;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -127,15 +229,20 @@ public class CopyTradingAccountInfo
 			return false;
 		}
 		CopyTradingAccountInfo copyTradingAccountInfo = (CopyTradingAccountInfo) o;
-		return Objects.equals(this.currency, copyTradingAccountInfo.currency) &&
+		return Objects.equals(this.id, copyTradingAccountInfo.id) &&
+				Objects.equals(this.currency, copyTradingAccountInfo.currency) &&
+				Objects.equals(this.logo, copyTradingAccountInfo.logo) &&
+				Objects.equals(this.title, copyTradingAccountInfo.title) &&
 				Objects.equals(this.balance, copyTradingAccountInfo.balance) &&
 				Objects.equals(this.equity, copyTradingAccountInfo.equity) &&
-				Objects.equals(this.freeMargin, copyTradingAccountInfo.freeMargin);
+				Objects.equals(this.freeMargin, copyTradingAccountInfo.freeMargin) &&
+				Objects.equals(this.marginLevel, copyTradingAccountInfo.marginLevel) &&
+				Objects.equals(this.available, copyTradingAccountInfo.available);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, balance, equity, freeMargin);
+		return Objects.hash(id, currency, logo, title, balance, equity, freeMargin, marginLevel, available);
 	}
 
 	@Override
@@ -143,10 +250,15 @@ public class CopyTradingAccountInfo
 		StringBuilder sb = new StringBuilder();
 		sb.append("class CopyTradingAccountInfo {\n");
 
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("    equity: ").append(toIndentedString(equity)).append("\n");
 		sb.append("    freeMargin: ").append(toIndentedString(freeMargin)).append("\n");
+		sb.append("    marginLevel: ").append(toIndentedString(marginLevel)).append("\n");
+		sb.append("    available: ").append(toIndentedString(available)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -168,17 +280,17 @@ public class CopyTradingAccountInfo
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 

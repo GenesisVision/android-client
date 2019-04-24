@@ -106,26 +106,29 @@ public interface FundsApi
 	/**
 	 * Funds list
 	 *
-	 * @param authorization     (optional)
-	 * @param sorting           (optional)
-	 * @param currencySecondary (optional)
-	 * @param statisticDateFrom (optional)
-	 * @param statisticDateTo   (optional)
-	 * @param chartPointsCount  (optional)
-	 * @param mask              (optional)
-	 * @param facetId           (optional)
-	 * @param isFavorite        (optional)
-	 * @param isEnabled         (optional)
-	 * @param ids               (optional)
-	 * @param managerId         (optional)
-	 * @param programManagerId  (optional)
-	 * @param skip              (optional)
-	 * @param take              (optional)
+	 * @param authorization         (optional)
+	 * @param sorting               (optional)
+	 * @param currencySecondary     (optional)
+	 * @param statisticDateFrom     (optional)
+	 * @param statisticDateTo       (optional)
+	 * @param chartPointsCount      (optional)
+	 * @param mask                  (optional)
+	 * @param facetId               (optional)
+	 * @param isFavorite            (optional)
+	 * @param isEnabled             (optional)
+	 * @param hasInvestorsForAll    (optional)
+	 * @param hasInvestorsForClosed (optional)
+	 * @param ids                   (optional)
+	 * @param managerId             (optional)
+	 * @param programManagerId      (optional)
+	 * @param status                (optional)
+	 * @param skip                  (optional)
+	 * @param take                  (optional)
 	 * @return Call&lt;FundsList&gt;
 	 */
 	@GET("v1.0/funds")
 	Observable<FundsList> v10FundsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("StatisticDateFrom") DateTime statisticDateFrom, @retrofit2.http.Query("StatisticDateTo") DateTime statisticDateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("IsFavorite") Boolean isFavorite, @retrofit2.http.Query("IsEnabled") Boolean isEnabled, @retrofit2.http.Query("Ids") List<UUID> ids, @retrofit2.http.Query("ManagerId") String managerId, @retrofit2.http.Query("ProgramManagerId") UUID programManagerId, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("StatisticDateFrom") DateTime statisticDateFrom, @retrofit2.http.Query("StatisticDateTo") DateTime statisticDateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("IsFavorite") Boolean isFavorite, @retrofit2.http.Query("IsEnabled") Boolean isEnabled, @retrofit2.http.Query("HasInvestorsForAll") Boolean hasInvestorsForAll, @retrofit2.http.Query("HasInvestorsForClosed") Boolean hasInvestorsForClosed, @retrofit2.http.Query("Ids") List<UUID> ids, @retrofit2.http.Query("ManagerId") String managerId, @retrofit2.http.Query("ProgramManagerId") UUID programManagerId, @retrofit2.http.Query("Status") List<String> status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

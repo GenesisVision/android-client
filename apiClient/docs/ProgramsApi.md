@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**v10ProgramsByIdFavoriteAddPost**](ProgramsApi.md#v10ProgramsByIdFavoriteAddPost) | **POST** v1.0/programs/{id}/favorite/add | Add to favorites
 [**v10ProgramsByIdFavoriteRemovePost**](ProgramsApi.md#v10ProgramsByIdFavoriteRemovePost) | **POST** v1.0/programs/{id}/favorite/remove | Remove from favorites
 [**v10ProgramsByIdGet**](ProgramsApi.md#v10ProgramsByIdGet) | **GET** v1.0/programs/{id} | Program details
+[**v10ProgramsByIdPeriodsGet**](ProgramsApi.md#v10ProgramsByIdPeriodsGet) | **GET** v1.0/programs/{id}/periods | Program periods
 [**v10ProgramsByIdTradesGet**](ProgramsApi.md#v10ProgramsByIdTradesGet) | **GET** v1.0/programs/{id}/trades | Trade history
 [**v10ProgramsByIdTradesOpenGet**](ProgramsApi.md#v10ProgramsByIdTradesOpenGet) | **GET** v1.0/programs/{id}/trades/open | Open positions
 [**v10ProgramsGet**](ProgramsApi.md#v10ProgramsGet) | **GET** v1.0/programs | Programs list
@@ -236,7 +237,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  |
  **authorization** | **String**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -251,9 +252,66 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="v10ProgramsByIdPeriodsGet"></a>
+# **v10ProgramsByIdPeriodsGet**
+> ProgramPeriodsViewModel v10ProgramsByIdPeriodsGet(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take)
+
+Program periods
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ProgramsApi;
+
+
+ProgramsApi apiInstance = new ProgramsApi();
+String id = "id_example"; // String | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer numberMin = 56; // Integer | 
+Integer numberMax = 56; // Integer | 
+String status = "status_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    ProgramPeriodsViewModel result = apiInstance.v10ProgramsByIdPeriodsGet(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProgramsApi#v10ProgramsByIdPeriodsGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **numberMin** | **Integer**|  | [optional]
+ **numberMax** | **Integer**|  | [optional]
+ **status** | **String**|  | [optional] [enum: Planned, InProccess, Closed]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**ProgramPeriodsViewModel**](ProgramPeriodsViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="v10ProgramsByIdTradesGet"></a>
 # **v10ProgramsByIdTradesGet**
-> TradesViewModel v10ProgramsByIdTradesGet(id, dateFrom, dateTo, symbol, sorting, skip, take)
+> TradesViewModel v10ProgramsByIdTradesGet(id, dateFrom, dateTo, symbol, sorting, accountId, skip, take)
 
 Trade history
 
@@ -270,10 +328,11 @@ DateTime dateFrom = new DateTime(); // DateTime |
 DateTime dateTo = new DateTime(); // DateTime | 
 String symbol = "symbol_example"; // String | 
 String sorting = "sorting_example"; // String | 
+UUID accountId = new UUID(); // UUID | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    TradesViewModel result = apiInstance.v10ProgramsByIdTradesGet(id, dateFrom, dateTo, symbol, sorting, skip, take);
+    TradesViewModel result = apiInstance.v10ProgramsByIdTradesGet(id, dateFrom, dateTo, symbol, sorting, accountId, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#v10ProgramsByIdTradesGet");
@@ -290,6 +349,7 @@ Name | Type | Description  | Notes
  **dateTo** | **DateTime**|  | [optional]
  **symbol** | **String**|  | [optional]
  **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc]
+ **accountId** | [**UUID**](.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -308,7 +368,7 @@ No authorization required
 
 <a name="v10ProgramsByIdTradesOpenGet"></a>
 # **v10ProgramsByIdTradesOpenGet**
-> TradesViewModel v10ProgramsByIdTradesOpenGet(id, sorting, skip, take)
+> TradesViewModel v10ProgramsByIdTradesOpenGet(id, sorting, symbol, accountId, skip, take)
 
 Open positions
 
@@ -322,10 +382,12 @@ Open positions
 ProgramsApi apiInstance = new ProgramsApi();
 UUID id = new UUID(); // UUID | 
 String sorting = "sorting_example"; // String | 
+String symbol = "symbol_example"; // String | 
+UUID accountId = new UUID(); // UUID | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    TradesViewModel result = apiInstance.v10ProgramsByIdTradesOpenGet(id, sorting, skip, take);
+    TradesViewModel result = apiInstance.v10ProgramsByIdTradesOpenGet(id, sorting, symbol, accountId, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#v10ProgramsByIdTradesOpenGet");
@@ -339,6 +401,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
  **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc]
+ **symbol** | **String**|  | [optional]
+ **accountId** | [**UUID**](.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -357,7 +421,7 @@ No authorization required
 
 <a name="v10ProgramsGet"></a>
 # **v10ProgramsGet**
-> ProgramsList v10ProgramsGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, sorting, programCurrency, currencySecondary, levelUpFrom, tags, isSignal, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, ids, managerId, programManagerId, skip, take)
+> ProgramsList v10ProgramsGet(authorization, levelMin, levelMax, levelsSet, profitAvgMin, profitAvgMax, sorting, programCurrency, currencySecondary, levelUpFrom, tags, isSignal, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, hasInvestorsForAll, hasInvestorsForClosed, ids, managerId, programManagerId, status, skip, take)
 
 Programs list
 
@@ -372,6 +436,7 @@ ProgramsApi apiInstance = new ProgramsApi();
 String authorization = "authorization_example"; // String | 
 Integer levelMin = 56; // Integer | 
 Integer levelMax = 56; // Integer | 
+List<Integer> levelsSet = Arrays.asList(56); // List<Integer> | 
 Double profitAvgMin = 3.4D; // Double | 
 Double profitAvgMax = 3.4D; // Double | 
 String sorting = "sorting_example"; // String | 
@@ -387,13 +452,16 @@ String mask = "mask_example"; // String |
 String facetId = "facetId_example"; // String | 
 Boolean isFavorite = true; // Boolean | 
 Boolean isEnabled = true; // Boolean | 
+Boolean hasInvestorsForAll = true; // Boolean | 
+Boolean hasInvestorsForClosed = true; // Boolean | 
 List<UUID> ids = Arrays.asList(new UUID()); // List<UUID> | 
 String managerId = "managerId_example"; // String | 
 UUID programManagerId = new UUID(); // UUID | 
+List<String> status = Arrays.asList("status_example"); // List<String> | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ProgramsList result = apiInstance.v10ProgramsGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, sorting, programCurrency, currencySecondary, levelUpFrom, tags, isSignal, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, ids, managerId, programManagerId, skip, take);
+    ProgramsList result = apiInstance.v10ProgramsGet(authorization, levelMin, levelMax, levelsSet, profitAvgMin, profitAvgMax, sorting, programCurrency, currencySecondary, levelUpFrom, tags, isSignal, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, hasInvestorsForAll, hasInvestorsForClosed, ids, managerId, programManagerId, status, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#v10ProgramsGet");
@@ -408,11 +476,12 @@ Name | Type | Description  | Notes
  **authorization** | **String**|  | [optional]
  **levelMin** | **Integer**|  | [optional]
  **levelMax** | **Integer**|  | [optional]
+ **levelsSet** | [**List&lt;Integer&gt;**](Integer.md)|  | [optional]
  **profitAvgMin** | **Double**|  | [optional]
  **profitAvgMax** | **Double**|  | [optional]
  **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByTradesAsc, ByTradesDesc, ByInvestorsAsc, ByInvestorsDesc, ByNewDesc, ByNewAsc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc, ByCurrDesc, ByCurrAsc]
- **programCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
- **currencySecondary** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **programCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **levelUpFrom** | **Integer**|  | [optional]
  **tags** | [**List&lt;String&gt;**](String.md)|  | [optional]
  **isSignal** | **Boolean**|  | [optional]
@@ -423,9 +492,12 @@ Name | Type | Description  | Notes
  **facetId** | **String**|  | [optional]
  **isFavorite** | **Boolean**|  | [optional]
  **isEnabled** | **Boolean**|  | [optional]
+ **hasInvestorsForAll** | **Boolean**|  | [optional]
+ **hasInvestorsForClosed** | **Boolean**|  | [optional]
  **ids** | [**List&lt;UUID&gt;**](UUID.md)|  | [optional]
  **managerId** | **String**|  | [optional]
  **programManagerId** | [**UUID**](.md)|  | [optional]
+ **status** | [**List&lt;String&gt;**](String.md)|  | [optional] [enum: None, Pending, ErrorCreating, Active, Closed, Archived, ClosedDueToInactivity]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

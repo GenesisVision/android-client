@@ -27,11 +27,55 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class TradesViewModel
 {
+	@SerializedName("showSwaps")
+	private Boolean showSwaps = null;
+
+	@SerializedName("showTickets")
+	private Boolean showTickets = null;
+
 	@SerializedName("trades")
 	private List<OrderModel> trades = null;
 
 	@SerializedName("total")
 	private Integer total = null;
+
+	public TradesViewModel showSwaps(Boolean showSwaps) {
+		this.showSwaps = showSwaps;
+		return this;
+	}
+
+	/**
+	 * Get showSwaps
+	 *
+	 * @return showSwaps
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isShowSwaps() {
+		return showSwaps;
+	}
+
+	public void setShowSwaps(Boolean showSwaps) {
+		this.showSwaps = showSwaps;
+	}
+
+	public TradesViewModel showTickets(Boolean showTickets) {
+		this.showTickets = showTickets;
+		return this;
+	}
+
+	/**
+	 * Get showTickets
+	 *
+	 * @return showTickets
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isShowTickets() {
+		return showTickets;
+	}
+
+	public void setShowTickets(Boolean showTickets) {
+		this.showTickets = showTickets;
+	}
 
 	public TradesViewModel trades(List<OrderModel> trades) {
 		this.trades = trades;
@@ -89,13 +133,15 @@ public class TradesViewModel
 			return false;
 		}
 		TradesViewModel tradesViewModel = (TradesViewModel) o;
-		return Objects.equals(this.trades, tradesViewModel.trades) &&
+		return Objects.equals(this.showSwaps, tradesViewModel.showSwaps) &&
+				Objects.equals(this.showTickets, tradesViewModel.showTickets) &&
+				Objects.equals(this.trades, tradesViewModel.trades) &&
 				Objects.equals(this.total, tradesViewModel.total);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(trades, total);
+		return Objects.hash(showSwaps, showTickets, trades, total);
 	}
 
 
@@ -104,6 +150,8 @@ public class TradesViewModel
 		StringBuilder sb = new StringBuilder();
 		sb.append("class TradesViewModel {\n");
 
+		sb.append("    showSwaps: ").append(toIndentedString(showSwaps)).append("\n");
+		sb.append("    showTickets: ").append(toIndentedString(showTickets)).append("\n");
 		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
 		sb.append("    total: ").append(toIndentedString(total)).append("\n");
 		sb.append("}");

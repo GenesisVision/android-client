@@ -14,14 +14,17 @@ import io.swagger.client.model.ManagerFundWithdrawInfo;
 import io.swagger.client.model.ManagerPortfolioEvents;
 import io.swagger.client.model.ManagerProfile;
 import io.swagger.client.model.ManagerProfileDetails;
+import io.swagger.client.model.ManagerProgramCreateResult;
 import io.swagger.client.model.ManagerProgramWithdrawInfo;
 import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.NewProgramRequest;
 import io.swagger.client.model.ProgramInvestInfo;
 import io.swagger.client.model.ProgramMinimumDeposit;
+import io.swagger.client.model.ProgramPwdUpdate;
 import io.swagger.client.model.ProgramRequests;
 import io.swagger.client.model.ProgramUpdate;
 import io.swagger.client.model.ProgramsList;
+import io.swagger.client.model.TwoFactorAuthenticator;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -217,13 +220,14 @@ public interface ManagerApi
 	 * @param to                (optional)
 	 * @param chartPointsCount  (optional)
 	 * @param currencySecondary (optional)
+	 * @param actionStatus      (optional)
 	 * @param skip              (optional)
 	 * @param take              (optional)
 	 * @return Call&lt;FundsList&gt;
 	 */
 	@GET("v1.0/manager/funds")
 	Observable<FundsList> v10ManagerFundsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("ActionStatus") String actionStatus, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -268,6 +272,31 @@ public interface ManagerApi
 	);
 
 	/**
+	 * Confirm 2FA for program if required (for brokers like Huobi)
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param programId     (optional)
+	 * @param code          (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v1.0/manager/programs/2fa/confirm")
+	Observable<Void> v10ManagerPrograms2faConfirmPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("programId") UUID programId, @retrofit2.http.Query("code") String code
+	);
+
+	/**
+	 * Get 2FA for program if needed
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param programId     (optional)
+	 * @return Call&lt;TwoFactorAuthenticator&gt;
+	 */
+	@GET("v1.0/manager/programs/2fa/get")
+	Observable<TwoFactorAuthenticator> v10ManagerPrograms2faGetGet(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("programId") UUID programId
+	);
+
+	/**
 	 * Close existing investment program
 	 *
 	 * @param id            (required)
@@ -305,6 +334,22 @@ public interface ManagerApi
 	@GET("v1.0/manager/programs/{id}/invest/info/{currency}")
 	Observable<ProgramInvestInfo> v10ManagerProgramsByIdInvestInfoByCurrencyGet(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("currency") String currency, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Change program password
+	 *
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v1.0/manager/programs/{id}/password/change")
+	Observable<Void> v10ManagerProgramsByIdPasswordChangePost(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ProgramPwdUpdate model
 	);
 
 	/**
@@ -350,7 +395,7 @@ public interface ManagerApi
 	);
 
 	/**
-	 * [Obsolete] Withdraw from investment program in GVT
+	 * Withdraw from investment program in GVT
 	 *
 	 * @param id            (required)
 	 * @param amount        (required)
@@ -393,13 +438,13 @@ public interface ManagerApi
 	 *
 	 * @param authorization JWT access token (required)
 	 * @param request       (optional)
-	 * @return Call&lt;Void&gt;
+	 * @return Call&lt;ManagerProgramCreateResult&gt;
 	 */
 	@Headers({
 			"Content-Type:application/json"
 	})
 	@POST("v1.0/manager/programs/create")
-	Observable<Void> v10ManagerProgramsCreatePost(
+	Observable<ManagerProgramCreateResult> v10ManagerProgramsCreatePost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body NewProgramRequest request
 	);
 
@@ -412,13 +457,14 @@ public interface ManagerApi
 	 * @param to                (optional)
 	 * @param chartPointsCount  (optional)
 	 * @param currencySecondary (optional)
+	 * @param actionStatus      (optional)
 	 * @param skip              (optional)
 	 * @param take              (optional)
 	 * @return Call&lt;ProgramsList&gt;
 	 */
 	@GET("v1.0/manager/programs")
 	Observable<ProgramsList> v10ManagerProgramsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("ActionStatus") String actionStatus, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -468,6 +514,20 @@ public interface ManagerApi
 	 */
 	@POST("v1.0/manager/signal/create")
 	Observable<Void> v10ManagerSignalCreatePost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("ProgramId") UUID programId, @retrofit2.http.Query("SubscriptionFee") Double subscriptionFee, @retrofit2.http.Query("SuccessFee") Double successFee
+	);
+
+	/**
+	 * Make manager&#39;s program signal provider
+	 *
+	 * @param authorization   JWT access token (required)
+	 * @param programId       (optional)
+	 * @param subscriptionFee (optional)
+	 * @param successFee      (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v1.0/manager/signal/edit")
+	Observable<Void> v10ManagerSignalEditPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("ProgramId") UUID programId, @retrofit2.http.Query("SubscriptionFee") Double subscriptionFee, @retrofit2.http.Query("SuccessFee") Double successFee
 	);
 

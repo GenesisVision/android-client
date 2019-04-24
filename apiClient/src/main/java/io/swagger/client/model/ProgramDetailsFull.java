@@ -116,6 +116,9 @@ public class ProgramDetailsFull
 	@SerializedName("ipfsHash")
 	private String ipfsHash = null;
 
+	@SerializedName("creationDate")
+	private DateTime creationDate = null;
+
 	@SerializedName("status")
 	private StatusEnum status = null;
 
@@ -643,6 +646,25 @@ public class ProgramDetailsFull
 		this.ipfsHash = ipfsHash;
 	}
 
+	public ProgramDetailsFull creationDate(DateTime creationDate) {
+		this.creationDate = creationDate;
+		return this;
+	}
+
+	/**
+	 * Get creationDate
+	 *
+	 * @return creationDate
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(DateTime creationDate) {
+		this.creationDate = creationDate;
+	}
+
 	public ProgramDetailsFull status(StatusEnum status) {
 		this.status = status;
 		return this;
@@ -717,13 +739,14 @@ public class ProgramDetailsFull
 				Objects.equals(this.description, programDetailsFull.description) &&
 				Objects.equals(this.title, programDetailsFull.title) &&
 				Objects.equals(this.ipfsHash, programDetailsFull.ipfsHash) &&
+				Objects.equals(this.creationDate, programDetailsFull.creationDate) &&
 				Objects.equals(this.status, programDetailsFull.status) &&
 				Objects.equals(this.manager, programDetailsFull.manager);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, entryFee, entryFeeSelected, entryFeeCurrent, successFee, stopOutLevel, isReinvesting, isSignalProgram, signalSuccessFee, signalSubscriptionFee, availableInvestment, availableInvestmentBase, statistic, rating, personalProgramDetails, tags, id, logo, url, color, description, title, ipfsHash, status, manager);
+		return Objects.hash(currency, level, periodDuration, periodStarts, periodEnds, entryFee, entryFeeSelected, entryFeeCurrent, successFee, stopOutLevel, isReinvesting, isSignalProgram, signalSuccessFee, signalSubscriptionFee, availableInvestment, availableInvestmentBase, statistic, rating, personalProgramDetails, tags, id, logo, url, color, description, title, ipfsHash, creationDate, status, manager);
 	}
 
 	@Override
@@ -758,6 +781,7 @@ public class ProgramDetailsFull
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    ipfsHash: ").append(toIndentedString(ipfsHash)).append("\n");
+		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("}");
@@ -782,17 +806,17 @@ public class ProgramDetailsFull
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 

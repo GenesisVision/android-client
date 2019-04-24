@@ -57,6 +57,9 @@ public class NotificationViewModel
 	@SerializedName("url")
 	private String url = null;
 
+	@SerializedName("color")
+	private String color = null;
+
 	@SerializedName("isUnread")
 	private Boolean isUnread = null;
 
@@ -215,6 +218,25 @@ public class NotificationViewModel
 		this.url = url;
 	}
 
+	public NotificationViewModel color(String color) {
+		this.color = color;
+		return this;
+	}
+
+	/**
+	 * Get color
+	 *
+	 * @return color
+	 **/
+	@ApiModelProperty(value = "")
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 	public NotificationViewModel isUnread(Boolean isUnread) {
 		this.isUnread = isUnread;
 		return this;
@@ -270,13 +292,14 @@ public class NotificationViewModel
 				Objects.equals(this.managerId, notificationViewModel.managerId) &&
 				Objects.equals(this.logo, notificationViewModel.logo) &&
 				Objects.equals(this.url, notificationViewModel.url) &&
+				Objects.equals(this.color, notificationViewModel.color) &&
 				Objects.equals(this.isUnread, notificationViewModel.isUnread) &&
 				Objects.equals(this.assetType, notificationViewModel.assetType);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, text, date, type, assetId, managerId, logo, url, isUnread, assetType);
+		return Objects.hash(id, text, date, type, assetId, managerId, logo, url, color, isUnread, assetType);
 	}
 
 	@Override
@@ -292,6 +315,7 @@ public class NotificationViewModel
 		sb.append("    managerId: ").append(toIndentedString(managerId)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
+		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    isUnread: ").append(toIndentedString(isUnread)).append("\n");
 		sb.append("    assetType: ").append(toIndentedString(assetType)).append("\n");
 		sb.append("}");
@@ -332,6 +356,8 @@ public class NotificationViewModel
 
 		PROFILESECURITY("ProfileSecurity"),
 
+		TRADINGACCOUNTPWDUPDATED("TradingAccountPwdUpdated"),
+
 		PROGRAMNEWSANDUPDATES("ProgramNewsAndUpdates"),
 
 		PROGRAMENDOFPERIOD("ProgramEndOfPeriod"),
@@ -344,7 +370,9 @@ public class NotificationViewModel
 
 		FUNDREBALANCING("FundRebalancing"),
 
-		MANAGERNEWPROGRAM("ManagerNewProgram");
+		MANAGERNEWPROGRAM("ManagerNewProgram"),
+
+		SIGNALS("Signals");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {

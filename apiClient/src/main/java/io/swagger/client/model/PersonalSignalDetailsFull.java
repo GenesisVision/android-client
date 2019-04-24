@@ -27,70 +27,70 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class PersonalSignalDetailsFull
 {
-	@SerializedName("subscribeDate")
-	private DateTime subscribeDate = null;
+	@SerializedName("subscriptionDate")
+	private DateTime subscriptionDate = null;
 
-	@SerializedName("investorProfit")
-	private Double investorProfit = null;
+	@SerializedName("tradesCount")
+	private Integer tradesCount = null;
 
-	@SerializedName("investorTrades")
-	private Integer investorTrades = null;
+	@SerializedName("signalSubscription")
+	private SignalSubscription signalSubscription = null;
 
-	public PersonalSignalDetailsFull subscribeDate(DateTime subscribeDate) {
-		this.subscribeDate = subscribeDate;
+	public PersonalSignalDetailsFull subscriptionDate(DateTime subscriptionDate) {
+		this.subscriptionDate = subscriptionDate;
 		return this;
 	}
 
 	/**
-	 * Get subscribeDate
+	 * Get subscriptionDate
 	 *
-	 * @return subscribeDate
+	 * @return subscriptionDate
 	 **/
 	@ApiModelProperty(value = "")
-	public DateTime getSubscribeDate() {
-		return subscribeDate;
+	public DateTime getSubscriptionDate() {
+		return subscriptionDate;
 	}
 
-	public void setSubscribeDate(DateTime subscribeDate) {
-		this.subscribeDate = subscribeDate;
+	public void setSubscriptionDate(DateTime subscriptionDate) {
+		this.subscriptionDate = subscriptionDate;
 	}
 
-	public PersonalSignalDetailsFull investorProfit(Double investorProfit) {
-		this.investorProfit = investorProfit;
+	public PersonalSignalDetailsFull tradesCount(Integer tradesCount) {
+		this.tradesCount = tradesCount;
 		return this;
 	}
 
 	/**
-	 * Get investorProfit
+	 * Get tradesCount
 	 *
-	 * @return investorProfit
+	 * @return tradesCount
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getInvestorProfit() {
-		return investorProfit;
+	public Integer getTradesCount() {
+		return tradesCount;
 	}
 
-	public void setInvestorProfit(Double investorProfit) {
-		this.investorProfit = investorProfit;
+	public void setTradesCount(Integer tradesCount) {
+		this.tradesCount = tradesCount;
 	}
 
-	public PersonalSignalDetailsFull investorTrades(Integer investorTrades) {
-		this.investorTrades = investorTrades;
+	public PersonalSignalDetailsFull signalSubscription(SignalSubscription signalSubscription) {
+		this.signalSubscription = signalSubscription;
 		return this;
 	}
 
 	/**
-	 * Get investorTrades
+	 * Get signalSubscription
 	 *
-	 * @return investorTrades
+	 * @return signalSubscription
 	 **/
 	@ApiModelProperty(value = "")
-	public Integer getInvestorTrades() {
-		return investorTrades;
+	public SignalSubscription getSignalSubscription() {
+		return signalSubscription;
 	}
 
-	public void setInvestorTrades(Integer investorTrades) {
-		this.investorTrades = investorTrades;
+	public void setSignalSubscription(SignalSubscription signalSubscription) {
+		this.signalSubscription = signalSubscription;
 	}
 
 
@@ -103,14 +103,14 @@ public class PersonalSignalDetailsFull
 			return false;
 		}
 		PersonalSignalDetailsFull personalSignalDetailsFull = (PersonalSignalDetailsFull) o;
-		return Objects.equals(this.subscribeDate, personalSignalDetailsFull.subscribeDate) &&
-				Objects.equals(this.investorProfit, personalSignalDetailsFull.investorProfit) &&
-				Objects.equals(this.investorTrades, personalSignalDetailsFull.investorTrades);
+		return Objects.equals(this.subscriptionDate, personalSignalDetailsFull.subscriptionDate) &&
+				Objects.equals(this.tradesCount, personalSignalDetailsFull.tradesCount) &&
+				Objects.equals(this.signalSubscription, personalSignalDetailsFull.signalSubscription);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(subscribeDate, investorProfit, investorTrades);
+		return Objects.hash(subscriptionDate, tradesCount, signalSubscription);
 	}
 
 
@@ -119,9 +119,9 @@ public class PersonalSignalDetailsFull
 		StringBuilder sb = new StringBuilder();
 		sb.append("class PersonalSignalDetailsFull {\n");
 
-		sb.append("    subscribeDate: ").append(toIndentedString(subscribeDate)).append("\n");
-		sb.append("    investorProfit: ").append(toIndentedString(investorProfit)).append("\n");
-		sb.append("    investorTrades: ").append(toIndentedString(investorTrades)).append("\n");
+		sb.append("    subscriptionDate: ").append(toIndentedString(subscriptionDate)).append("\n");
+		sb.append("    tradesCount: ").append(toIndentedString(tradesCount)).append("\n");
+		sb.append("    signalSubscription: ").append(toIndentedString(signalSubscription)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

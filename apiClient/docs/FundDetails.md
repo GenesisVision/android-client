@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **title** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
+**creationDate** | [**DateTime**](DateTime.md) |  |  [optional]
 **manager** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 **chart** | [**List&lt;ChartSimple&gt;**](ChartSimple.md) |  |  [optional]
 

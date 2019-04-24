@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **logo** | **String** |  |  [optional]
 **color** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
+**url** | **String** |  |  [optional]
 **periodNumber** | **Integer** |  |  [optional]
 
 
@@ -23,12 +24,12 @@ Name | Type | Description | Notes
 ## Enum: CurrencyEnum
 Name | Value
 ---- | -----
-BTC | &quot;BTC&quot;
-ETH | &quot;ETH&quot;
-USDT | &quot;USDT&quot;
-GVT | &quot;GVT&quot;
 UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
+USDT | &quot;USDT&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
@@ -54,6 +55,8 @@ ASSETFINISHED | &quot;AssetFinished&quot;
 ENTRANCEFEE | &quot;EntranceFee&quot;
 EXITFEE | &quot;ExitFee&quot;
 PROGRAMSTOPOUT | &quot;ProgramStopOut&quot;
+PROGRAMMANAGERTRADINGFEEACCRUAL | &quot;ProgramManagerTradingFeeAccrual&quot;
+PROGRAMSIGNALSUBSCRIBE | &quot;ProgramSignalSubscribe&quot;
 
 
 <a name="ProgramTypeEnum"></a>

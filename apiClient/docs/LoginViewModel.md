@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **twoFactorCode** | **String** |  |  [optional]
 **recoveryCode** | **String** |  |  [optional]
 **client** | **String** |  |  [optional]
+**captchaCheckResult** | [**CaptchaCheckResult**](CaptchaCheckResult.md) |  |  [optional]
 
 
 

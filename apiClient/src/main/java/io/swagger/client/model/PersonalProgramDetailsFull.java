@@ -36,6 +36,15 @@ public class PersonalProgramDetailsFull
 	@SerializedName("gvtValue")
 	private Double gvtValue = null;
 
+	@SerializedName("showTwoFactorButton")
+	private Boolean showTwoFactorButton = null;
+
+	@SerializedName("signalSubscription")
+	private SignalSubscription signalSubscription = null;
+
+	@SerializedName("login")
+	private String login = null;
+
 	@SerializedName("isFavorite")
 	private Boolean isFavorite = null;
 
@@ -123,6 +132,63 @@ public class PersonalProgramDetailsFull
 
 	public void setGvtValue(Double gvtValue) {
 		this.gvtValue = gvtValue;
+	}
+
+	public PersonalProgramDetailsFull showTwoFactorButton(Boolean showTwoFactorButton) {
+		this.showTwoFactorButton = showTwoFactorButton;
+		return this;
+	}
+
+	/**
+	 * Get showTwoFactorButton
+	 *
+	 * @return showTwoFactorButton
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isShowTwoFactorButton() {
+		return showTwoFactorButton;
+	}
+
+	public void setShowTwoFactorButton(Boolean showTwoFactorButton) {
+		this.showTwoFactorButton = showTwoFactorButton;
+	}
+
+	public PersonalProgramDetailsFull signalSubscription(SignalSubscription signalSubscription) {
+		this.signalSubscription = signalSubscription;
+		return this;
+	}
+
+	/**
+	 * Get signalSubscription
+	 *
+	 * @return signalSubscription
+	 **/
+	@ApiModelProperty(value = "")
+	public SignalSubscription getSignalSubscription() {
+		return signalSubscription;
+	}
+
+	public void setSignalSubscription(SignalSubscription signalSubscription) {
+		this.signalSubscription = signalSubscription;
+	}
+
+	public PersonalProgramDetailsFull login(String login) {
+		this.login = login;
+		return this;
+	}
+
+	/**
+	 * Get login
+	 *
+	 * @return login
+	 **/
+	@ApiModelProperty(value = "")
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 	public PersonalProgramDetailsFull isFavorite(Boolean isFavorite) {
@@ -459,6 +525,9 @@ public class PersonalProgramDetailsFull
 		PersonalProgramDetailsFull personalProgramDetailsFull = (PersonalProgramDetailsFull) o;
 		return Objects.equals(this.isReinvest, personalProgramDetailsFull.isReinvest) &&
 				Objects.equals(this.gvtValue, personalProgramDetailsFull.gvtValue) &&
+				Objects.equals(this.showTwoFactorButton, personalProgramDetailsFull.showTwoFactorButton) &&
+				Objects.equals(this.signalSubscription, personalProgramDetailsFull.signalSubscription) &&
+				Objects.equals(this.login, personalProgramDetailsFull.login) &&
 				Objects.equals(this.isFavorite, personalProgramDetailsFull.isFavorite) &&
 				Objects.equals(this.isInvested, personalProgramDetailsFull.isInvested) &&
 				Objects.equals(this.isOwnProgram, personalProgramDetailsFull.isOwnProgram) &&
@@ -480,7 +549,7 @@ public class PersonalProgramDetailsFull
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isReinvest, gvtValue, isFavorite, isInvested, isOwnProgram, canCloseProgram, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status, isFollowSignals, canMakeSignalProvider);
+		return Objects.hash(isReinvest, gvtValue, showTwoFactorButton, signalSubscription, login, isFavorite, isInvested, isOwnProgram, canCloseProgram, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status, isFollowSignals, canMakeSignalProvider);
 	}
 
 	@Override
@@ -490,6 +559,9 @@ public class PersonalProgramDetailsFull
 
 		sb.append("    isReinvest: ").append(toIndentedString(isReinvest)).append("\n");
 		sb.append("    gvtValue: ").append(toIndentedString(gvtValue)).append("\n");
+		sb.append("    showTwoFactorButton: ").append(toIndentedString(showTwoFactorButton)).append("\n");
+		sb.append("    signalSubscription: ").append(toIndentedString(signalSubscription)).append("\n");
+		sb.append("    login: ").append(toIndentedString(login)).append("\n");
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
 		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");

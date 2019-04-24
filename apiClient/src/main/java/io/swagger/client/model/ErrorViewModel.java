@@ -134,7 +134,9 @@ public class ErrorViewModel
 
 		VALIDATIONERROR("ValidationError"),
 
-		REQUIRESTWOFACTOR("RequiresTwoFactor");
+		REQUIRESTWOFACTOR("RequiresTwoFactor"),
+
+		WRONGCAPTCHA("WrongCaptcha");
 
 		public static CodeEnum fromValue(String text) {
 			for (CodeEnum b : CodeEnum.values()) {

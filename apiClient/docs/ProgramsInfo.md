@@ -13,6 +13,10 @@ Name | Type | Description | Notes
 **managerMaxSuccessFee** | **Double** |  |  [optional]
 **managerFundInvestment** | **Double** |  |  [optional]
 **managerMaxExitFee** | **Double** |  |  [optional]
+**managerMaxSignalSubscriptionFee** | **Double** |  |  [optional]
+**managerMinSignalSubscriptionFee** | **Double** |  |  [optional]
+**managerMaxSignalSuccessFee** | **Double** |  |  [optional]
+**managerMinSignalSuccessFee** | **Double** |  |  [optional]
 **periods** | **List&lt;Integer&gt;** |  |  [optional]
 
 

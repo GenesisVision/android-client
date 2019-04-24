@@ -41,12 +41,13 @@ public class ProgramsManager
 
 	public Observable<ProgramsList> getProgramsList(ProgramsFilter filter) {
 		return programsApi.v10ProgramsGet(AuthManager.token.getValue(),
-				filter.getLevelMin(), filter.getLevelMax(), filter.getProfitAvgMin(), filter.getProfitAvgMax(),
+				filter.getLevelMin(), filter.getLevelMax(), null, filter.getProfitAvgMin(), filter.getProfitAvgMax(),
 				filter.getSorting() != null ? filter.getSorting().getValue() : null, filter.getCurrency() != null ? filter.getCurrency().getValue() : null, null,
 				filter.getLevelUpFrom(), filter.getTags(), null,
 				filter.getDateRange() != null ? filter.getDateRange().getFrom() : null, filter.getDateRange() != null ? filter.getDateRange().getTo() : null,
 				filter.getChartPointsCount(), filter.getMask(), filter.getFacetId() != null ? filter.getFacetId().toString() : null, filter.getIsFavorite(), filter.getIsEnabled(),
-				filter.getIds(), filter.getManagerId() != null ? filter.getManagerId().toString() : null, null, filter.getSkip(), filter.getTake());
+				null, null,
+				filter.getIds(), filter.getManagerId() != null ? filter.getManagerId().toString() : null, null, null, filter.getSkip(), filter.getTake());
 	}
 
 	public Observable<Void> setProgramFavorite(UUID programId, boolean isFavorite) {
@@ -66,7 +67,7 @@ public class ProgramsManager
 	}
 
 	public Observable<TradesViewModel> getProgramOpenPositions(UUID programId) {
-		return programsApi.v10ProgramsByIdTradesOpenGet(programId, "ByDateDesc", 0, 1000);
+		return programsApi.v10ProgramsByIdTradesOpenGet(programId, "ByDateDesc", null, null, 0, 1000);
 	}
 
 	public Observable<ProgramProfitChart> getProfitChart(UUID programId, DateRange dateRange, Integer maxPointCount) {
@@ -78,7 +79,7 @@ public class ProgramsManager
 	}
 
 	public Observable<TradesViewModel> getProgramTrades(UUID programId, DateRange dateRange, Integer skip, Integer take) {
-		return programsApi.v10ProgramsByIdTradesGet(programId, dateRange.getFrom(), dateRange.getTo(), null, null, skip, take);
+		return programsApi.v10ProgramsByIdTradesGet(programId, dateRange.getFrom(), dateRange.getTo(), null, null, null, skip, take);
 	}
 
 	public Observable<DashboardPortfolioEvents> getProgramHistory(UUID programId, DateRange dateRange, Integer skip, Integer take) {

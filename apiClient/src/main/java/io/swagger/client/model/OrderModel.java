@@ -66,6 +66,27 @@ public class OrderModel
 	@SerializedName("entry")
 	private EntryEnum entry = null;
 
+	@SerializedName("baseVolume")
+	private Double baseVolume = null;
+
+	@SerializedName("originalCommission")
+	private Double originalCommission = null;
+
+	@SerializedName("originalCommissionCurrency")
+	private String originalCommissionCurrency = null;
+
+	@SerializedName("commission")
+	private Double commission = null;
+
+	@SerializedName("swap")
+	private Double swap = null;
+
+	@SerializedName("showOriginalCommission")
+	private Boolean showOriginalCommission = null;
+
+	@SerializedName("masterLogin")
+	private String masterLogin = null;
+
 	public OrderModel id(UUID id) {
 		this.id = id;
 		return this;
@@ -275,6 +296,139 @@ public class OrderModel
 		this.entry = entry;
 	}
 
+	public OrderModel baseVolume(Double baseVolume) {
+		this.baseVolume = baseVolume;
+		return this;
+	}
+
+	/**
+	 * Volume in account currency. Only filled when trade have zero commission (for paying fees with GVT)
+	 *
+	 * @return baseVolume
+	 **/
+	@ApiModelProperty(value = "Volume in account currency. Only filled when trade have zero commission (for paying fees with GVT)")
+	public Double getBaseVolume() {
+		return baseVolume;
+	}
+
+	public void setBaseVolume(Double baseVolume) {
+		this.baseVolume = baseVolume;
+	}
+
+	public OrderModel originalCommission(Double originalCommission) {
+		this.originalCommission = originalCommission;
+		return this;
+	}
+
+	/**
+	 * Huobi: sell - quote currency (right), buy - base symbol currency (left)
+	 *
+	 * @return originalCommission
+	 **/
+	@ApiModelProperty(value = "Huobi: sell - quote currency (right), buy - base symbol currency (left)")
+	public Double getOriginalCommission() {
+		return originalCommission;
+	}
+
+	public void setOriginalCommission(Double originalCommission) {
+		this.originalCommission = originalCommission;
+	}
+
+	public OrderModel originalCommissionCurrency(String originalCommissionCurrency) {
+		this.originalCommissionCurrency = originalCommissionCurrency;
+		return this;
+	}
+
+	/**
+	 * Get originalCommissionCurrency
+	 *
+	 * @return originalCommissionCurrency
+	 **/
+	@ApiModelProperty(value = "")
+	public String getOriginalCommissionCurrency() {
+		return originalCommissionCurrency;
+	}
+
+	public void setOriginalCommissionCurrency(String originalCommissionCurrency) {
+		this.originalCommissionCurrency = originalCommissionCurrency;
+	}
+
+	public OrderModel commission(Double commission) {
+		this.commission = commission;
+		return this;
+	}
+
+	/**
+	 * In account currency
+	 *
+	 * @return commission
+	 **/
+	@ApiModelProperty(value = "In account currency")
+	public Double getCommission() {
+		return commission;
+	}
+
+	public void setCommission(Double commission) {
+		this.commission = commission;
+	}
+
+	public OrderModel swap(Double swap) {
+		this.swap = swap;
+		return this;
+	}
+
+	/**
+	 * Get swap
+	 *
+	 * @return swap
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getSwap() {
+		return swap;
+	}
+
+	public void setSwap(Double swap) {
+		this.swap = swap;
+	}
+
+	public OrderModel showOriginalCommission(Boolean showOriginalCommission) {
+		this.showOriginalCommission = showOriginalCommission;
+		return this;
+	}
+
+	/**
+	 * Get showOriginalCommission
+	 *
+	 * @return showOriginalCommission
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isShowOriginalCommission() {
+		return showOriginalCommission;
+	}
+
+	public void setShowOriginalCommission(Boolean showOriginalCommission) {
+		this.showOriginalCommission = showOriginalCommission;
+	}
+
+	public OrderModel masterLogin(String masterLogin) {
+		this.masterLogin = masterLogin;
+		return this;
+	}
+
+	/**
+	 * For signals
+	 *
+	 * @return masterLogin
+	 **/
+	@ApiModelProperty(value = "For signals")
+	public String getMasterLogin() {
+		return masterLogin;
+	}
+
+	public void setMasterLogin(String masterLogin) {
+		this.masterLogin = masterLogin;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -294,12 +448,19 @@ public class OrderModel
 				Objects.equals(this.date, orderModel.date) &&
 				Objects.equals(this.price, orderModel.price) &&
 				Objects.equals(this.priceCurrent, orderModel.priceCurrent) &&
-				Objects.equals(this.entry, orderModel.entry);
+				Objects.equals(this.entry, orderModel.entry) &&
+				Objects.equals(this.baseVolume, orderModel.baseVolume) &&
+				Objects.equals(this.originalCommission, orderModel.originalCommission) &&
+				Objects.equals(this.originalCommissionCurrency, orderModel.originalCommissionCurrency) &&
+				Objects.equals(this.commission, orderModel.commission) &&
+				Objects.equals(this.swap, orderModel.swap) &&
+				Objects.equals(this.showOriginalCommission, orderModel.showOriginalCommission) &&
+				Objects.equals(this.masterLogin, orderModel.masterLogin);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, login, ticket, symbol, volume, profit, direction, date, price, priceCurrent, entry);
+		return Objects.hash(id, login, ticket, symbol, volume, profit, direction, date, price, priceCurrent, entry, baseVolume, originalCommission, originalCommissionCurrency, commission, swap, showOriginalCommission, masterLogin);
 	}
 
 	@Override
@@ -318,6 +479,13 @@ public class OrderModel
 		sb.append("    price: ").append(toIndentedString(price)).append("\n");
 		sb.append("    priceCurrent: ").append(toIndentedString(priceCurrent)).append("\n");
 		sb.append("    entry: ").append(toIndentedString(entry)).append("\n");
+		sb.append("    baseVolume: ").append(toIndentedString(baseVolume)).append("\n");
+		sb.append("    originalCommission: ").append(toIndentedString(originalCommission)).append("\n");
+		sb.append("    originalCommissionCurrency: ").append(toIndentedString(originalCommissionCurrency)).append("\n");
+		sb.append("    commission: ").append(toIndentedString(commission)).append("\n");
+		sb.append("    swap: ").append(toIndentedString(swap)).append("\n");
+		sb.append("    showOriginalCommission: ").append(toIndentedString(showOriginalCommission)).append("\n");
+		sb.append("    masterLogin: ").append(toIndentedString(masterLogin)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

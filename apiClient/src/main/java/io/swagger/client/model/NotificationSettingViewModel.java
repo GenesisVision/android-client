@@ -258,6 +258,8 @@ public class NotificationSettingViewModel
 
 		PROFILESECURITY("ProfileSecurity"),
 
+		TRADINGACCOUNTPWDUPDATED("TradingAccountPwdUpdated"),
+
 		PROGRAMNEWSANDUPDATES("ProgramNewsAndUpdates"),
 
 		PROGRAMENDOFPERIOD("ProgramEndOfPeriod"),
@@ -270,7 +272,9 @@ public class NotificationSettingViewModel
 
 		FUNDREBALANCING("FundRebalancing"),
 
-		MANAGERNEWPROGRAM("ManagerNewProgram");
+		MANAGERNEWPROGRAM("ManagerNewProgram"),
+
+		SIGNALS("Signals");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {
@@ -321,7 +325,9 @@ public class NotificationSettingViewModel
 
 		PROFIT("Profit"),
 
-		LEVEL("Level");
+		LEVEL("Level"),
+
+		AVAILABLETOINVEST("AvailableToInvest");
 
 		public static ConditionTypeEnum fromValue(String text) {
 			for (ConditionTypeEnum b : ConditionTypeEnum.values()) {

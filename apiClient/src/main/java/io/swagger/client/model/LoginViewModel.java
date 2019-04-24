@@ -43,6 +43,9 @@ public class LoginViewModel
 	@SerializedName("client")
 	private String client = null;
 
+	@SerializedName("captchaCheckResult")
+	private CaptchaCheckResult captchaCheckResult = null;
+
 	public LoginViewModel email(String email) {
 		this.email = email;
 		return this;
@@ -157,6 +160,25 @@ public class LoginViewModel
 		this.client = client;
 	}
 
+	public LoginViewModel captchaCheckResult(CaptchaCheckResult captchaCheckResult) {
+		this.captchaCheckResult = captchaCheckResult;
+		return this;
+	}
+
+	/**
+	 * Get captchaCheckResult
+	 *
+	 * @return captchaCheckResult
+	 **/
+	@ApiModelProperty(value = "")
+	public CaptchaCheckResult getCaptchaCheckResult() {
+		return captchaCheckResult;
+	}
+
+	public void setCaptchaCheckResult(CaptchaCheckResult captchaCheckResult) {
+		this.captchaCheckResult = captchaCheckResult;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -172,12 +194,13 @@ public class LoginViewModel
 				Objects.equals(this.rememberMe, loginViewModel.rememberMe) &&
 				Objects.equals(this.twoFactorCode, loginViewModel.twoFactorCode) &&
 				Objects.equals(this.recoveryCode, loginViewModel.recoveryCode) &&
-				Objects.equals(this.client, loginViewModel.client);
+				Objects.equals(this.client, loginViewModel.client) &&
+				Objects.equals(this.captchaCheckResult, loginViewModel.captchaCheckResult);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, password, rememberMe, twoFactorCode, recoveryCode, client);
+		return Objects.hash(email, password, rememberMe, twoFactorCode, recoveryCode, client, captchaCheckResult);
 	}
 
 
@@ -192,6 +215,7 @@ public class LoginViewModel
 		sb.append("    twoFactorCode: ").append(toIndentedString(twoFactorCode)).append("\n");
 		sb.append("    recoveryCode: ").append(toIndentedString(recoveryCode)).append("\n");
 		sb.append("    client: ").append(toIndentedString(client)).append("\n");
+		sb.append("    captchaCheckResult: ").append(toIndentedString(captchaCheckResult)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

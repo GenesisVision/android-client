@@ -6,6 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **isReinvest** | **Boolean** |  |  [optional]
 **gvtValue** | **Double** |  |  [optional]
+**showTwoFactorButton** | **Boolean** |  |  [optional]
+**signalSubscription** | [**SignalSubscription**](SignalSubscription.md) |  |  [optional]
+**login** | **String** |  |  [optional]
 **isFavorite** | **Boolean** |  |  [optional]
 **isInvested** | **Boolean** |  |  [optional]
 **isOwnProgram** | **Boolean** |  |  [optional]

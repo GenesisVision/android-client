@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **assetId** | [**UUID**](UUID.md) |  |  [optional]
 **date** | [**DateTime**](DateTime.md) |  |  [optional]
 **title** | **String** |  |  [optional]
+**url** | **String** |  |  [optional]
 **value** | **Double** |  |  [optional]
 **valueTotal** | **Double** |  |  [optional]
 **feeSuccessManager** | **Double** |  |  [optional]
@@ -26,12 +27,12 @@ Name | Type | Description | Notes
 ## Enum: FeeSuccessManagerCurrencyEnum
 Name | Value
 ---- | -----
-BTC | &quot;BTC&quot;
-ETH | &quot;ETH&quot;
-USDT | &quot;USDT&quot;
-GVT | &quot;GVT&quot;
 UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
+USDT | &quot;USDT&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
@@ -45,12 +46,12 @@ EUR | &quot;EUR&quot;
 ## Enum: FeeSuccessPlatformCurrencyEnum
 Name | Value
 ---- | -----
-BTC | &quot;BTC&quot;
-ETH | &quot;ETH&quot;
-USDT | &quot;USDT&quot;
-GVT | &quot;GVT&quot;
 UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
+USDT | &quot;USDT&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
@@ -64,12 +65,12 @@ EUR | &quot;EUR&quot;
 ## Enum: CurrencyEnum
 Name | Value
 ---- | -----
-BTC | &quot;BTC&quot;
-ETH | &quot;ETH&quot;
-USDT | &quot;USDT&quot;
-GVT | &quot;GVT&quot;
 UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
+USDT | &quot;USDT&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;

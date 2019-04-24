@@ -5,12 +5,13 @@ All URIs are relative to *https://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**v10SignalAccountsGet**](SignalApi.md#v10SignalAccountsGet) | **GET** v1.0/signal/accounts | Get copytrading accounts
+[**v10SignalAttachByIdInfoGet**](SignalApi.md#v10SignalAttachByIdInfoGet) | **GET** v1.0/signal/attach/{id}/info | Get subscribe to programs signals info
 [**v10SignalAttachByIdPost**](SignalApi.md#v10SignalAttachByIdPost) | **POST** v1.0/signal/attach/{id} | Subscribe to programs signals
+[**v10SignalByIdUpdatePost**](SignalApi.md#v10SignalByIdUpdatePost) | **POST** v1.0/signal/{id}/update | Update signal subscription settings
 [**v10SignalDetachByIdPost**](SignalApi.md#v10SignalDetachByIdPost) | **POST** v1.0/signal/detach/{id} | Unsubscribe from program signals
 [**v10SignalTradesByIdClosePost**](SignalApi.md#v10SignalTradesByIdClosePost) | **POST** v1.0/signal/trades/{id}/close | Close signal trade
 [**v10SignalTradesGet**](SignalApi.md#v10SignalTradesGet) | **GET** v1.0/signal/trades | Get investors signals trades history
 [**v10SignalTradesOpenGet**](SignalApi.md#v10SignalTradesOpenGet) | **GET** v1.0/signal/trades/open | Get investors signals open trades
-[**v10SignalUpdatePost**](SignalApi.md#v10SignalUpdatePost) | **POST** v1.0/signal/update | Update signal subscription settings
 
 
 <a name="v10SignalAccountsGet"></a>
@@ -46,6 +47,51 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**CopyTradingAccountsList**](CopyTradingAccountsList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10SignalAttachByIdInfoGet"></a>
+# **v10SignalAttachByIdInfoGet**
+> AttachToSignalProviderInfo v10SignalAttachByIdInfoGet(id, authorization)
+
+Get subscribe to programs signals info
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.SignalApi;
+
+
+SignalApi apiInstance = new SignalApi();
+UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    AttachToSignalProviderInfo result = apiInstance.v10SignalAttachByIdInfoGet(id, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SignalApi#v10SignalAttachByIdInfoGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**AttachToSignalProviderInfo**](AttachToSignalProviderInfo.md)
 
 ### Authorization
 
@@ -98,8 +144,67 @@ Name | Type | Description  | Notes
  **percent** | **Double**|  | [optional]
  **openTolerancePercent** | **Double**|  | [optional]
  **fixedVolume** | **Double**|  | [optional]
- **fixedCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
- **initialDepositCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **fixedCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **initialDepositCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **initialDepositAmount** | **Double**|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10SignalByIdUpdatePost"></a>
+# **v10SignalByIdUpdatePost**
+> Void v10SignalByIdUpdatePost(id, authorization, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency, initialDepositCurrency, initialDepositAmount)
+
+Update signal subscription settings
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.SignalApi;
+
+
+SignalApi apiInstance = new SignalApi();
+UUID id = new UUID(); // UUID | Program id
+String authorization = "authorization_example"; // String | JWT access token
+String mode = "mode_example"; // String | 
+Double percent = 3.4D; // Double | 
+Double openTolerancePercent = 3.4D; // Double | 
+Double fixedVolume = 3.4D; // Double | 
+String fixedCurrency = "fixedCurrency_example"; // String | 
+String initialDepositCurrency = "initialDepositCurrency_example"; // String | 
+Double initialDepositAmount = 3.4D; // Double | 
+try {
+    Void result = apiInstance.v10SignalByIdUpdatePost(id, authorization, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency, initialDepositCurrency, initialDepositAmount);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SignalApi#v10SignalByIdUpdatePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)| Program id |
+ **authorization** | **String**| JWT access token |
+ **mode** | **String**|  | [optional] [enum: ByBalance, Percent, Fixed]
+ **percent** | **Double**|  | [optional]
+ **openTolerancePercent** | **Double**|  | [optional]
+ **fixedVolume** | **Double**|  | [optional]
+ **fixedCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **initialDepositCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **initialDepositAmount** | **Double**|  | [optional]
 
 ### Return type
@@ -207,7 +312,7 @@ No authorization required
 
 <a name="v10SignalTradesGet"></a>
 # **v10SignalTradesGet**
-> TradesHistorySignalSlaveViewModel v10SignalTradesGet(authorization, dateFrom, dateTo, symbol, sorting, skip, take)
+> TradesSignalViewModel v10SignalTradesGet(authorization, dateFrom, dateTo, symbol, sorting, accountId, skip, take)
 
 Get investors signals trades history
 
@@ -224,10 +329,11 @@ DateTime dateFrom = new DateTime(); // DateTime |
 DateTime dateTo = new DateTime(); // DateTime | 
 String symbol = "symbol_example"; // String | 
 String sorting = "sorting_example"; // String | 
+UUID accountId = new UUID(); // UUID | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    TradesHistorySignalSlaveViewModel result = apiInstance.v10SignalTradesGet(authorization, dateFrom, dateTo, symbol, sorting, skip, take);
+    TradesSignalViewModel result = apiInstance.v10SignalTradesGet(authorization, dateFrom, dateTo, symbol, sorting, accountId, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling SignalApi#v10SignalTradesGet");
@@ -244,12 +350,13 @@ Name | Type | Description  | Notes
  **dateTo** | **DateTime**|  | [optional]
  **symbol** | **String**|  | [optional]
  **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc]
+ **accountId** | [**UUID**](.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
 ### Return type
 
-[**TradesHistorySignalSlaveViewModel**](TradesHistorySignalSlaveViewModel.md)
+[**TradesSignalViewModel**](TradesSignalViewModel.md)
 
 ### Authorization
 
@@ -262,7 +369,7 @@ No authorization required
 
 <a name="v10SignalTradesOpenGet"></a>
 # **v10SignalTradesOpenGet**
-> TradesOpenSignalSlaveViewModel v10SignalTradesOpenGet(authorization, sorting, skip, take)
+> TradesSignalViewModel v10SignalTradesOpenGet(authorization, sorting, symbol, accountId, skip, take)
 
 Get investors signals open trades
 
@@ -276,10 +383,12 @@ Get investors signals open trades
 SignalApi apiInstance = new SignalApi();
 String authorization = "authorization_example"; // String | JWT access token
 String sorting = "sorting_example"; // String | 
+String symbol = "symbol_example"; // String | 
+UUID accountId = new UUID(); // UUID | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    TradesOpenSignalSlaveViewModel result = apiInstance.v10SignalTradesOpenGet(authorization, sorting, skip, take);
+    TradesSignalViewModel result = apiInstance.v10SignalTradesOpenGet(authorization, sorting, symbol, accountId, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling SignalApi#v10SignalTradesOpenGet");
@@ -293,71 +402,14 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
  **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc]
+ **symbol** | **String**|  | [optional]
+ **accountId** | [**UUID**](.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
 ### Return type
 
-[**TradesOpenSignalSlaveViewModel**](TradesOpenSignalSlaveViewModel.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10SignalUpdatePost"></a>
-# **v10SignalUpdatePost**
-> Void v10SignalUpdatePost(authorization, id, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency, initialDepositCurrency, initialDepositAmount)
-
-Update signal subscription settings
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.SignalApi;
-
-
-SignalApi apiInstance = new SignalApi();
-String authorization = "authorization_example"; // String | JWT access token
-UUID id = new UUID(); // UUID | Program id
-String mode = "mode_example"; // String | 
-Double percent = 3.4D; // Double | 
-Double openTolerancePercent = 3.4D; // Double | 
-Double fixedVolume = 3.4D; // Double | 
-String fixedCurrency = "fixedCurrency_example"; // String | 
-String initialDepositCurrency = "initialDepositCurrency_example"; // String | 
-Double initialDepositAmount = 3.4D; // Double | 
-try {
-    Void result = apiInstance.v10SignalUpdatePost(authorization, id, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency, initialDepositCurrency, initialDepositAmount);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#v10SignalUpdatePost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **id** | [**UUID**](.md)| Program id | [optional]
- **mode** | **String**|  | [optional] [enum: ByBalance, Percent, Fixed]
- **percent** | **Double**|  | [optional]
- **openTolerancePercent** | **Double**|  | [optional]
- **fixedVolume** | **Double**|  | [optional]
- **fixedCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
- **initialDepositCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
- **initialDepositAmount** | **Double**|  | [optional]
-
-### Return type
-
-[**Void**](.md)
+[**TradesSignalViewModel**](TradesSignalViewModel.md)
 
 ### Authorization
 

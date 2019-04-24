@@ -11,6 +11,7 @@ import io.swagger.client.model.MultiWalletTransactionsViewModel;
 import io.swagger.client.model.TransactionDetails;
 import io.swagger.client.model.UserCommissionData;
 import io.swagger.client.model.WalletInfo;
+import io.swagger.client.model.WalletMultiAvailable;
 import io.swagger.client.model.WalletMultiSummary;
 import io.swagger.client.model.WalletSummary;
 import io.swagger.client.model.WalletTransactionsViewModel;
@@ -24,6 +25,8 @@ import rx.Observable;
 public interface WalletApi
 {
 	/**
+	 * Get user addresses
+	 *
 	 * @param currency      (required)
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;WalletInfo&gt;
@@ -34,6 +37,8 @@ public interface WalletApi
 	);
 
 	/**
+	 * Get user addresses
+	 *
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;WalletsInfo&gt;
 	 */
@@ -63,6 +68,18 @@ public interface WalletApi
 	@GET("v1.0/wallet/fee/gvtholding")
 	Observable<UserCommissionData> v10WalletFeeGvtholdingGet(
 			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Multi wallet available
+	 *
+	 * @param currency      (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;WalletMultiAvailable&gt;
+	 */
+	@GET("v1.0/wallet/multi/{currency}/available")
+	Observable<WalletMultiAvailable> v10WalletMultiByCurrencyAvailableGet(
+			@retrofit2.http.Path("currency") String currency, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**

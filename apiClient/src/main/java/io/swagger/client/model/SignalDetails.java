@@ -19,6 +19,8 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
+import org.joda.time.DateTime;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +73,9 @@ public class SignalDetails
 
 	@SerializedName("status")
 	private StatusEnum status = null;
+
+	@SerializedName("creationDate")
+	private DateTime creationDate = null;
 
 	@SerializedName("manager")
 	private ProfilePublic manager = null;
@@ -333,6 +338,25 @@ public class SignalDetails
 		this.status = status;
 	}
 
+	public SignalDetails creationDate(DateTime creationDate) {
+		this.creationDate = creationDate;
+		return this;
+	}
+
+	/**
+	 * Get creationDate
+	 *
+	 * @return creationDate
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(DateTime creationDate) {
+		this.creationDate = creationDate;
+	}
+
 	public SignalDetails manager(ProfilePublic manager) {
 		this.manager = manager;
 		return this;
@@ -401,13 +425,14 @@ public class SignalDetails
 				Objects.equals(this.title, signalDetails.title) &&
 				Objects.equals(this.description, signalDetails.description) &&
 				Objects.equals(this.status, signalDetails.status) &&
+				Objects.equals(this.creationDate, signalDetails.creationDate) &&
 				Objects.equals(this.manager, signalDetails.manager) &&
 				Objects.equals(this.chart, signalDetails.chart);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(statistic, personalDetails, currency, level, tags, subscribers, id, logo, url, color, title, description, status, manager, chart);
+		return Objects.hash(statistic, personalDetails, currency, level, tags, subscribers, id, logo, url, color, title, description, status, creationDate, manager, chart);
 	}
 
 	@Override
@@ -428,6 +453,7 @@ public class SignalDetails
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
+		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("}");
@@ -452,17 +478,17 @@ public class SignalDetails
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 

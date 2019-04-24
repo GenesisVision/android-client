@@ -30,6 +30,9 @@ public class CopyTradingAccountsList
 	@SerializedName("accounts")
 	private List<CopyTradingAccountInfo> accounts = null;
 
+	@SerializedName("total")
+	private Integer total = null;
+
 	public CopyTradingAccountsList accounts(List<CopyTradingAccountInfo> accounts) {
 		this.accounts = accounts;
 		return this;
@@ -57,6 +60,25 @@ public class CopyTradingAccountsList
 		this.accounts = accounts;
 	}
 
+	public CopyTradingAccountsList total(Integer total) {
+		this.total = total;
+		return this;
+	}
+
+	/**
+	 * Get total
+	 *
+	 * @return total
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getTotal() {
+		return total;
+	}
+
+	public void setTotal(Integer total) {
+		this.total = total;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -67,12 +89,13 @@ public class CopyTradingAccountsList
 			return false;
 		}
 		CopyTradingAccountsList copyTradingAccountsList = (CopyTradingAccountsList) o;
-		return Objects.equals(this.accounts, copyTradingAccountsList.accounts);
+		return Objects.equals(this.accounts, copyTradingAccountsList.accounts) &&
+				Objects.equals(this.total, copyTradingAccountsList.total);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(accounts);
+		return Objects.hash(accounts, total);
 	}
 
 
@@ -82,6 +105,7 @@ public class CopyTradingAccountsList
 		sb.append("class CopyTradingAccountsList {\n");
 
 		sb.append("    accounts: ").append(toIndentedString(accounts)).append("\n");
+		sb.append("    total: ").append(toIndentedString(total)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

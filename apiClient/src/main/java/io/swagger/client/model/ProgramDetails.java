@@ -95,6 +95,9 @@ public class ProgramDetails
 	@SerializedName("status")
 	private StatusEnum status = null;
 
+	@SerializedName("creationDate")
+	private DateTime creationDate = null;
+
 	@SerializedName("manager")
 	private ProfilePublic manager = null;
 
@@ -489,6 +492,25 @@ public class ProgramDetails
 		this.status = status;
 	}
 
+	public ProgramDetails creationDate(DateTime creationDate) {
+		this.creationDate = creationDate;
+		return this;
+	}
+
+	/**
+	 * Get creationDate
+	 *
+	 * @return creationDate
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(DateTime creationDate) {
+		this.creationDate = creationDate;
+	}
+
 	public ProgramDetails manager(ProfilePublic manager) {
 		this.manager = manager;
 		return this;
@@ -564,13 +586,14 @@ public class ProgramDetails
 				Objects.equals(this.title, programDetails.title) &&
 				Objects.equals(this.description, programDetails.description) &&
 				Objects.equals(this.status, programDetails.status) &&
+				Objects.equals(this.creationDate, programDetails.creationDate) &&
 				Objects.equals(this.manager, programDetails.manager) &&
 				Objects.equals(this.chart, programDetails.chart);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, level, periodDuration, stopOutLevel, periodStarts, periodEnds, availableInvestment, availableInvestmentBase, dashboardAssetsDetails, statistic, rating, personalDetails, tags, id, logo, url, color, title, description, status, manager, chart);
+		return Objects.hash(currency, level, periodDuration, stopOutLevel, periodStarts, periodEnds, availableInvestment, availableInvestmentBase, dashboardAssetsDetails, statistic, rating, personalDetails, tags, id, logo, url, color, title, description, status, creationDate, manager, chart);
 	}
 
 	@Override
@@ -598,6 +621,7 @@ public class ProgramDetails
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
+		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("}");
@@ -622,17 +646,17 @@ public class ProgramDetails
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 

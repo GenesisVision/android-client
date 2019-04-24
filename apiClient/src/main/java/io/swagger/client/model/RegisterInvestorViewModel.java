@@ -37,6 +37,9 @@ public class RegisterInvestorViewModel
 	@SerializedName("refCode")
 	private String refCode = null;
 
+	@SerializedName("isAuto")
+	private Boolean isAuto = null;
+
 	public RegisterInvestorViewModel email(String email) {
 		this.email = email;
 		return this;
@@ -113,6 +116,25 @@ public class RegisterInvestorViewModel
 		this.refCode = refCode;
 	}
 
+	public RegisterInvestorViewModel isAuto(Boolean isAuto) {
+		this.isAuto = isAuto;
+		return this;
+	}
+
+	/**
+	 * Get isAuto
+	 *
+	 * @return isAuto
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsAuto() {
+		return isAuto;
+	}
+
+	public void setIsAuto(Boolean isAuto) {
+		this.isAuto = isAuto;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -126,12 +148,13 @@ public class RegisterInvestorViewModel
 		return Objects.equals(this.email, registerInvestorViewModel.email) &&
 				Objects.equals(this.password, registerInvestorViewModel.password) &&
 				Objects.equals(this.confirmPassword, registerInvestorViewModel.confirmPassword) &&
-				Objects.equals(this.refCode, registerInvestorViewModel.refCode);
+				Objects.equals(this.refCode, registerInvestorViewModel.refCode) &&
+				Objects.equals(this.isAuto, registerInvestorViewModel.isAuto);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, password, confirmPassword, refCode);
+		return Objects.hash(email, password, confirmPassword, refCode, isAuto);
 	}
 
 
@@ -144,6 +167,7 @@ public class RegisterInvestorViewModel
 		sb.append("    password: ").append(toIndentedString(password)).append("\n");
 		sb.append("    confirmPassword: ").append(toIndentedString(confirmPassword)).append("\n");
 		sb.append("    refCode: ").append(toIndentedString(refCode)).append("\n");
+		sb.append("    isAuto: ").append(toIndentedString(isAuto)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

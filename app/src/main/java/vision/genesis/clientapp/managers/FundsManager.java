@@ -43,7 +43,8 @@ public class FundsManager
 				filter.getSorting().getValue(), filter.getCurrency() != null ? filter.getCurrency().getValue() : null,
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(), 10,
 				filter.getMask(), filter.getFacetId() != null ? filter.getFacetId().toString() : null, filter.getIsFavorite(), filter.getIsEnabled(),
-				filter.getIds(), filter.getManagerId() != null ? filter.getManagerId().toString() : null, null, filter.getSkip(), filter.getTake());
+				null, null,
+				filter.getIds(), filter.getManagerId() != null ? filter.getManagerId().toString() : null, null, null, filter.getSkip(), filter.getTake());
 	}
 
 	public Observable<Void> setFundFavorite(UUID fundId, boolean isFavorite) {

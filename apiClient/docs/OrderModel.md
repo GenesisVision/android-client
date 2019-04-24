@@ -15,6 +15,13 @@ Name | Type | Description | Notes
 **price** | **Double** |  |  [optional]
 **priceCurrent** | **Double** |  |  [optional]
 **entry** | [**EntryEnum**](#EntryEnum) |  |  [optional]
+**baseVolume** | **Double** | Volume in account currency. Only filled when trade have zero commission (for paying fees with GVT) |  [optional]
+**originalCommission** | **Double** | Huobi: sell - quote currency (right), buy - base symbol currency (left) |  [optional]
+**originalCommissionCurrency** | **String** |  |  [optional]
+**commission** | **Double** | In account currency |  [optional]
+**swap** | **Double** |  |  [optional]
+**showOriginalCommission** | **Boolean** |  |  [optional]
+**masterLogin** | **String** | For signals |  [optional]
 
 
 <a name="DirectionEnum"></a>

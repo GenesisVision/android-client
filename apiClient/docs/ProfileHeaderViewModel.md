@@ -11,6 +11,10 @@ Name | Type | Description | Notes
 **userType** | [**UserTypeEnum**](#UserTypeEnum) |  |  [optional]
 **notificationsCount** | **Integer** |  |  [optional]
 **favoritesCount** | **Integer** |  |  [optional]
+**kycConfirmed** | **Boolean** |  |  [optional]
+**allowForex** | **Boolean** |  |  [optional]
+**isTwoFactorEnabled** | **Boolean** |  |  [optional]
+**isNewUser** | **Boolean** |  |  [optional]
 **totalBalanceGvt** | **Double** |  |  [optional]
 **investedGvt** | **Double** |  |  [optional]
 **availableGvt** | **Double** |  |  [optional]
@@ -18,10 +22,6 @@ Name | Type | Description | Notes
 **invested** | **Double** |  |  [optional]
 **available** | **Double** |  |  [optional]
 **pending** | **Double** |  |  [optional]
-**kycConfirmed** | **Boolean** |  |  [optional]
-**allowForex** | **Boolean** |  |  [optional]
-**isTwoFactorEnabled** | **Boolean** |  |  [optional]
-**isNewUser** | **Boolean** |  |  [optional]
 
 
 <a name="UserTypeEnum"></a>

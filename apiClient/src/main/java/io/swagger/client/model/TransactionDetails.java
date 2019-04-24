@@ -377,7 +377,15 @@ public class TransactionDetails
 
 		PROFIT("Profit"),
 
-		PLATFORMFEE("PlatformFee");
+		PLATFORMFEE("PlatformFee"),
+
+		SUBSCRIBESIGNAL("SubscribeSignal"),
+
+		RECEIVESIGNAL("ReceiveSignal"),
+
+		DEPOSITSIGNAL("DepositSignal"),
+
+		WITHDRAWALSIGNAL("WithdrawalSignal");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {
@@ -478,17 +486,17 @@ public class TransactionDetails
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 
@@ -549,17 +557,17 @@ public class TransactionDetails
 	@JsonAdapter(GvCommissionCurrencyEnum.Adapter.class)
 	public enum GvCommissionCurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 

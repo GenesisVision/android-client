@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **description** | **String** |  |  [optional]
 **title** | **String** |  |  [optional]
 **ipfsHash** | **String** |  |  [optional]
+**creationDate** | [**DateTime**](DateTime.md) |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
 **manager** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 

@@ -4,10 +4,11 @@ All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v10WalletAddressesByCurrencyGet**](WalletApi.md#v10WalletAddressesByCurrencyGet) | **GET** v1.0/wallet/addresses/{currency} | 
-[**v10WalletAddressesGet**](WalletApi.md#v10WalletAddressesGet) | **GET** v1.0/wallet/addresses | 
+[**v10WalletAddressesByCurrencyGet**](WalletApi.md#v10WalletAddressesByCurrencyGet) | **GET** v1.0/wallet/addresses/{currency} | Get user addresses
+[**v10WalletAddressesGet**](WalletApi.md#v10WalletAddressesGet) | **GET** v1.0/wallet/addresses | Get user addresses
 [**v10WalletByCurrencyGet**](WalletApi.md#v10WalletByCurrencyGet) | **GET** v1.0/wallet/{currency} | Wallet summary
 [**v10WalletFeeGvtholdingGet**](WalletApi.md#v10WalletFeeGvtholdingGet) | **GET** v1.0/wallet/fee/gvtholding | GenesisMarkets commission data
+[**v10WalletMultiByCurrencyAvailableGet**](WalletApi.md#v10WalletMultiByCurrencyAvailableGet) | **GET** v1.0/wallet/multi/{currency}/available | Multi wallet available
 [**v10WalletMultiByCurrencyGet**](WalletApi.md#v10WalletMultiByCurrencyGet) | **GET** v1.0/wallet/multi/{currency} | Multi wallet summary
 [**v10WalletMultiTransactionsExternalGet**](WalletApi.md#v10WalletMultiTransactionsExternalGet) | **GET** v1.0/wallet/multi/transactions/external | Wallet pending transactions
 [**v10WalletMultiTransactionsGet**](WalletApi.md#v10WalletMultiTransactionsGet) | **GET** v1.0/wallet/multi/transactions | Multi wallet transactions
@@ -27,7 +28,7 @@ Method | HTTP request | Description
 # **v10WalletAddressesByCurrencyGet**
 > WalletInfo v10WalletAddressesByCurrencyGet(currency, authorization)
 
-
+Get user addresses
 
 ### Example
 ```java
@@ -52,7 +53,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -72,7 +73,7 @@ No authorization required
 # **v10WalletAddressesGet**
 > WalletsInfo v10WalletAddressesGet(authorization)
 
-
+Get user addresses
 
 ### Example
 ```java
@@ -140,7 +141,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -199,6 +200,51 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="v10WalletMultiByCurrencyAvailableGet"></a>
+# **v10WalletMultiByCurrencyAvailableGet**
+> WalletMultiAvailable v10WalletMultiByCurrencyAvailableGet(currency, authorization)
+
+Multi wallet available
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.WalletApi;
+
+
+WalletApi apiInstance = new WalletApi();
+String currency = "currency_example"; // String | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    WalletMultiAvailable result = apiInstance.v10WalletMultiByCurrencyAvailableGet(currency, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling WalletApi#v10WalletMultiByCurrencyAvailableGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**WalletMultiAvailable**](WalletMultiAvailable.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="v10WalletMultiByCurrencyGet"></a>
 # **v10WalletMultiByCurrencyGet**
 > WalletMultiSummary v10WalletMultiByCurrencyGet(currency, authorization)
@@ -228,7 +274,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -282,7 +328,7 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **type** | **String**|  | [optional] [enum: All, Deposit, Withdrawal]
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -336,8 +382,8 @@ Name | Type | Description  | Notes
  **authorization** | **String**| JWT access token |
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
- **type** | **String**|  | [optional] [enum: All, Investment, Converting, Withdrawal, Close, Open, Fee, Profits]
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **type** | **String**|  | [optional] [enum: All, Investment, Converting, Withdrawal, Close, Open, Fee, Profits, SubscribeSignal, ReceiveSignal, DepositSignal, WithdrawalSignal]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -526,8 +572,8 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
- **txAction** | **String**|  | [optional] [enum: Transfer, ProgramOpen, ProgramProfit, ProgramInvest, ProgramWithdrawal, ProgramRefundPartialExecution, ProgramRefundClose, ProgramRequestInvest, ProgramRequestWithdrawal, ProgramRequestCancel, PayingFee]
- **wallet** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **txAction** | **String**|  | [optional] [enum: Transfer, ProgramOpen, ProgramProfit, ProgramInvest, ProgramWithdrawal, ProgramRefundPartialExecution, ProgramRefundClose, ProgramRefundStopOut, ProgramRequestInvest, ProgramRequestWithdrawal, ProgramRequestCancel, PayingFee, SignalSlaveSubscribe, SignalMasterReceiveSubscription]
+ **wallet** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
