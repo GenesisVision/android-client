@@ -11,9 +11,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.content.res.AppCompatResources;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,14 +35,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.ProgramTag;
 import timber.log.Timber;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.notifications.program.ProgramNotificationsSettingsActivity;
 import vision.genesis.clientapp.feature.main.program.level.ProgramLevelBottomSheetDialog;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
-import vision.genesis.clientapp.ui.CurrencyView;
 import vision.genesis.clientapp.ui.ProgramLogoView;
+import vision.genesis.clientapp.ui.TagView;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.TabLayoutUtil;
@@ -97,8 +101,11 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@BindView(R.id.program_name)
 	public TextView programName;
 
-	@BindView(R.id.program_currency)
-	public CurrencyView programCurrency;
+	@BindView(R.id.group_tags)
+	public LinearLayout tagsGroup;
+
+//	@BindView(R.id.program_currency)
+//	public CurrencyView programCurrency;
 
 	@BindView(R.id.app_bar_layout)
 	public AppBarLayout appBarLayout;
@@ -297,10 +304,37 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		programName.setText(model.getProgramName());
 		toolbarProgramName.setText(model.getProgramName());
 
-		programCurrency.setCurrency(model.getCurrency());
+//		programCurrency.setCurrency(model.getCurrency());
+
+		setTags();
 
 		setNotificationsButtonImage(model.isHasNotifications());
 		setFavoriteButtonImage(model.isFavorite());
+	}
+
+	private void setTags() {
+		if (programDetails != null && tagsGroup != null) {
+			for (ProgramTag tag : programDetails.getTags()) {
+				addTag(createTagView(tag), tagsGroup);
+			}
+		}
+	}
+
+	private TagView createTagView(ProgramTag tag) {
+		TagView view = new TagView(this);
+		view.setTag(tag);
+		return view;
+	}
+
+	private void addTag(TagView tagView, LinearLayout tagsGroup) {
+		tagsGroup.addView(tagView);
+		LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) tagView.getLayoutParams();
+		lp.setMargins(0,
+				0,
+				(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10,
+						GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics()),
+				0);
+		tagView.setLayoutParams(lp);
 	}
 
 	private void initTabs() {

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/tag_height">
+
+    <View
+        android:id="@+id/background"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignEnd="@+id/name"
+        android:layout_alignStart="@+id/name"
+        android:alpha="0.2"
+        android:background="@drawable/background_tag"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingEnd="12dp"
+        android:paddingStart="12dp"
+        android:textSize="14sp"
+        tools:text="CRYPTO"
+        tools:textColor="?attr/colorPrimary"/>
+
+</RelativeLayout>

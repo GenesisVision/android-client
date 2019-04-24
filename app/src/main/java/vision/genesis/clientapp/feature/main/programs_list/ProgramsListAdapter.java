@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.ProgramDetails;
 import io.swagger.client.model.ProgramFacet;
+import io.swagger.client.model.ProgramTag;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.facet.ProgramFacetView;
@@ -30,6 +31,7 @@ import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
 import vision.genesis.clientapp.ui.CurrencyView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProgramLogoView;
+import vision.genesis.clientapp.ui.TagView;
 import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -199,6 +201,15 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		@BindView(R.id.period_label)
 		public TextView periodLabel;
 
+		@BindView(R.id.tag_1)
+		public TagView tag1;
+
+		@BindView(R.id.tag_2)
+		public TagView tag2;
+
+		@BindView(R.id.tags_left)
+		public TagView tagsLeft;
+
 		private ProgramDetails program;
 
 		InvestmentProgramViewHolder(View itemView) {
@@ -299,6 +310,33 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 					StringFormatUtil.getShortenedAmount(program.getAvailableInvestmentBase()),
 					program.getCurrency().getValue()));
 
+			List<ProgramTag> tags = program.getTags();
+			ProgramTag tagLeft = null;
+			if (tags != null) {
+				showTagMaybe(tag1, tags.get(0));
+				showTagMaybe(tag2, tags.get(1));
+				if (tags.size() > 2) {
+					tagLeft = new ProgramTag();
+					tagLeft.setName(String.format(Locale.getDefault(), "+%d", tags.size() - 2));
+					tagLeft.setColor("#787d82");
+				}
+				showTagMaybe(tagsLeft, tagLeft);
+			}
+			else {
+				tag1.setVisibility(View.GONE);
+				tag2.setVisibility(View.GONE);
+				tagsLeft.setVisibility(View.GONE);
+			}
+		}
+
+		private void showTagMaybe(TagView tagView, ProgramTag tag) {
+			if (tag != null) {
+				tagView.setTag(tag);
+				tagView.setVisibility(View.VISIBLE);
+			}
+			else {
+				tagView.setVisibility(View.GONE);
+			}
 		}
 
 //		private Double getProfitPercent() {

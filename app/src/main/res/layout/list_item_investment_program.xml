@@ -22,7 +22,6 @@
             android:id="@+id/program_logo"
             android:layout_width="@dimen/dashboard_program_logo_width"
             android:layout_height="@dimen/dashboard_program_logo_height"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"/>
 
@@ -30,11 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@+id/program_logo"
-            android:layout_toLeftOf="@+id/favorite"
-            android:layout_toRightOf="@+id/program_logo"
             android:layout_toStartOf="@+id/favorite"
             android:orientation="vertical">
 
@@ -66,10 +62,8 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:alpha="0.3"
             android:paddingBottom="24dp"
-            android:paddingLeft="24dp"
             android:tint="?attr/colorTextPrimary"
             app:srcCompat="@drawable/icon_favorite"/>
 
@@ -87,14 +81,12 @@
             android:layout_height="50dp"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:layout_weight="20"/>
 
         <LinearLayout
             android:id="@+id/group_profit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_weight="12"
             android:gravity="center_vertical"
@@ -192,6 +184,31 @@
                 android:text="@string/period"/>
 
         </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tag_height"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <vision.genesis.clientapp.ui.TagView
+            android:id="@+id/tag_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"/>
+
+        <vision.genesis.clientapp.ui.TagView
+            android:id="@+id/tag_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"/>
+
+        <vision.genesis.clientapp.ui.TagView
+            android:id="@+id/tags_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

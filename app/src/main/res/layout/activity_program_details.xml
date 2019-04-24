@@ -85,22 +85,39 @@
                         android:layout_gravity="bottom"
                         android:background="@drawable/shadow_up_card_light"
                         android:orientation="vertical"
-                        android:padding="@dimen/program_details_padding"
                         app:layout_collapseMode="pin">
 
                         <TextView
                             android:id="@+id/program_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/program_details_padding"
+                            android:layout_marginStart="@dimen/program_details_padding"
                             android:textColor="?attr/colorTextPrimary"
                             android:textSize="26sp"
                             tools:text="Intellectual Ventures"/>
 
-                        <vision.genesis.clientapp.ui.CurrencyView
-                            android:id="@+id/program_currency"
-                            android:layout_width="wrap_content"
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"/>
+                            android:layout_marginTop="16dp"
+                            android:scrollbars="none">
+
+                            <LinearLayout
+                                android:id="@+id/group_tags"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/tag_height"
+                                android:orientation="horizontal"
+                                android:paddingEnd="0dp"
+                                android:paddingStart="@dimen/program_details_padding"/>
+
+                        </HorizontalScrollView>
+
+                        <!--<vision.genesis.clientapp.ui.CurrencyView-->
+                        <!--android:id="@+id/program_currency"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="16dp"/>-->
 
                     </LinearLayout>
 

@@ -23,7 +23,7 @@
     <dimen name="email_verification_text_width">250dp</dimen>
 
     <dimen name="item_dashboard_program_height">310dp</dimen>
-    <dimen name="item_list_program_height">250dp</dimen>
+    <dimen name="item_list_program_height">280dp</dimen>
     <dimen name="item_list_fund_height">300dp</dimen>
 
     <dimen name="wallet_image_width">50dp</dimen>
@@ -125,4 +125,5 @@
     <dimen name="assets_filters_margin_bottom">70dp</dimen>
     <dimen name="facet_width">158dp</dimen>
     <dimen name="facet_height">140dp</dimen>
+    <dimen name="tag_height">28dp</dimen>
 </resources>
