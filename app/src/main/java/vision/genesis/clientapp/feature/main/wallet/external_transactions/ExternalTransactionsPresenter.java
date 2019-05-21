@@ -6,6 +6,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.TransactionsFilter;
+import vision.genesis.clientapp.model.events.OnTransactionCanceledEvent;
 import vision.genesis.clientapp.model.events.SetSpecificWalletDepositsWithdrawalsCountEvent;
 import vision.genesis.clientapp.model.events.SetWalletDepositsWithdrawalsCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -61,6 +63,8 @@ public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransact
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		EventBus.getDefault().register(this);
+
 		getViewState().showProgress(true);
 		getTransactions(true);
 	}
@@ -69,6 +73,8 @@ public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransact
 	public void onDestroy() {
 		if (transactionsSubscription != null)
 			transactionsSubscription.unsubscribe();
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -161,5 +167,10 @@ public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransact
 		if (ApiErrorResolver.isNetworkError(error)) {
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnTransactionCanceledEvent event) {
+		getViewState().setStatusCanceled(event.getTransactionId());
 	}
 }

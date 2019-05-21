@@ -13,6 +13,8 @@ interface TransactionDetailsView extends MvpView
 {
 	void setDetails(TransactionDetails transactionDetails);
 
+	void setEmailResent();
+
 	void showProgress(boolean show);
 
 	void showSnackbarMessage(String message);

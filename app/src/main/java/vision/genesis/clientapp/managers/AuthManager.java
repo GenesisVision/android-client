@@ -14,6 +14,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import io.swagger.client.api.AuthApi;
+import io.swagger.client.api.PlatformApi;
+import io.swagger.client.model.CaptchaCheckResult;
+import io.swagger.client.model.CaptchaDetails;
 import io.swagger.client.model.ChangePasswordViewModel;
 import io.swagger.client.model.ForgotPasswordViewModel;
 import io.swagger.client.model.LoginViewModel;
@@ -61,14 +64,17 @@ public class AuthManager
 
 	private AuthApi authApi;
 
+	private PlatformApi platformApi;
+
 	private SharedPreferencesUtil sharedPreferencesUtil;
 
 	private SettingsManager settingsManager;
 
 	private Subscription getTwoFactorStatusSubscription;
 
-	public AuthManager(AuthApi authApi, SharedPreferencesUtil sharedPreferencesUtil, SettingsManager settingsManager) {
+	public AuthManager(AuthApi authApi, PlatformApi platformApi, SharedPreferencesUtil sharedPreferencesUtil, SettingsManager settingsManager) {
 		this.authApi = authApi;
+		this.platformApi = platformApi;
 		this.sharedPreferencesUtil = sharedPreferencesUtil;
 		this.settingsManager = settingsManager;
 
@@ -92,7 +98,7 @@ public class AuthManager
 		}
 	}
 
-	public Observable<String> login(String email, String password, String tfaCode, boolean useRecoveryCode) {
+	public Observable<String> login(String email, String password, String tfaCode, boolean useRecoveryCode, CaptchaCheckResult captchaCheckResult) {
 		LoginViewModel model = new LoginViewModel();
 		model.setEmail(email);
 		model.setPassword(password);
@@ -102,6 +108,7 @@ public class AuthManager
 			model.setTwoFactorCode(tfaCode);
 		model.rememberMe(true);
 		model.setClient("Android");
+		model.setCaptchaCheckResult(captchaCheckResult);
 
 		getToken(getLoginApiObservable(model));
 		return getTokenResponseSubject;
@@ -219,6 +226,10 @@ public class AuthManager
 		return Constants.IS_INVESTOR
 				? authApi.v10AuthSigninInvestorPost(model)
 				: authApi.v10AuthSigninManagerPost(model);
+	}
+
+	public Observable<CaptchaDetails> checkRiskControl(String route) {
+		return platformApi.v10PlatformRiskcontrolGet(route, "Android", BuildConfig.VERSION_NAME);
 	}
 
 	public void logout() {

@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
+import java.util.UUID;
 
 import butterknife.BindDimen;
 import butterknife.BindView;
@@ -176,6 +177,11 @@ public class ExternalTransactionsFragment extends BaseFragment implements Extern
 	public void addTransactions(List<MultiWalletExternalTransaction> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
 		sectionedAdapter.setSections(sections);
 		depositsWithdrawalsListAdapter.addTransactions(transactions);
+	}
+
+	@Override
+	public void setStatusCanceled(UUID transactionId) {
+		depositsWithdrawalsListAdapter.setStatusCanceled(transactionId);
 	}
 
 	@Override

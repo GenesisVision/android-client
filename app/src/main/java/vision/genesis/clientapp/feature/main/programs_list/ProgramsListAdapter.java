@@ -310,17 +310,23 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 					StringFormatUtil.getShortenedAmount(program.getAvailableInvestmentBase()),
 					program.getCurrency().getValue()));
 
-			List<ProgramTag> tags = program.getTags();
-			ProgramTag tagLeft = null;
+			updateTags(program.getTags());
+		}
+
+		private void updateTags(List<ProgramTag> tags) {
 			if (tags != null) {
-				showTagMaybe(tag1, tags.get(0));
-				showTagMaybe(tag2, tags.get(1));
+				showTagMaybe(tag1, tags, 0);
+				showTagMaybe(tag2, tags, 1);
 				if (tags.size() > 2) {
-					tagLeft = new ProgramTag();
+					ProgramTag tagLeft = new ProgramTag();
 					tagLeft.setName(String.format(Locale.getDefault(), "+%d", tags.size() - 2));
 					tagLeft.setColor("#787d82");
+					tagsLeft.setTag(tagLeft);
+					tagsLeft.setVisibility(View.VISIBLE);
 				}
-				showTagMaybe(tagsLeft, tagLeft);
+				else {
+					tagsLeft.setVisibility(View.GONE);
+				}
 			}
 			else {
 				tag1.setVisibility(View.GONE);
@@ -329,9 +335,9 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			}
 		}
 
-		private void showTagMaybe(TagView tagView, ProgramTag tag) {
-			if (tag != null) {
-				tagView.setTag(tag);
+		private void showTagMaybe(TagView tagView, List<ProgramTag> tags, Integer position) {
+			if (tags != null && tags.size() > position) {
+				tagView.setTag(tags.get(position));
 				tagView.setVisibility(View.VISIBLE);
 			}
 			else {

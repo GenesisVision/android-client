@@ -25,6 +25,7 @@ import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.wallet.transaction_details.views.ButtonsView;
 import vision.genesis.clientapp.feature.main.wallet.transaction_details.views.ExternalAddressView;
 import vision.genesis.clientapp.feature.main.wallet.transaction_details.views.ProgramView;
 import vision.genesis.clientapp.feature.main.wallet.transaction_details.views.RateView;
@@ -77,6 +78,8 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 	TransactionDetailsPresenter transactionDetailsPresenter;
 
 	private TransactionDetails details;
+
+	private ButtonsView buttonsView;
 
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
@@ -156,6 +159,12 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 		addEmptyView();
 	}
 
+	@Override
+	public void setEmailResent() {
+		if (buttonsView != null)
+			buttonsView.onEmailResent();
+	}
+
 	private void createProgramInvestingDetails() {
 		addWallet(getString(R.string.from), details.getCurrencyLogo(), details.getCurrencyName());
 		addWrittenOffWallet();
@@ -217,6 +226,8 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 		addAmount();
 		addExternalAddress(getString(R.string.to_external_address), details.getExternalTransactionDetails().getFromAddress());
 		addStatus();
+		if (details.getExternalTransactionDetails().isIsEnableActions())
+			addButtons();
 	}
 
 	private void createExternalDepositDetails() {
@@ -334,8 +345,17 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 
 	private void addStatus() {
 		StatusView view = new StatusView(this);
-		view.setData(details.getStatus());
+		boolean needEmailConfirmation = false;
+		if (details.getExternalTransactionDetails() != null)
+			needEmailConfirmation = details.getExternalTransactionDetails().isIsEnableActions();
+		view.setData(details.getStatus(), needEmailConfirmation);
 		addView(view);
+	}
+
+	private void addButtons() {
+		buttonsView = new ButtonsView(this);
+		buttonsView.setListener(transactionDetailsPresenter);
+		addView(buttonsView);
 	}
 
 	private void addEmptyView() {

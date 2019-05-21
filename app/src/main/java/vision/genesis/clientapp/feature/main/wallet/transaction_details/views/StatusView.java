@@ -46,7 +46,7 @@ public class StatusView extends RelativeLayout
 		ButterKnife.bind(this);
 	}
 
-	public void setData(TransactionDetails.StatusEnum status) {
+	public void setData(TransactionDetails.StatusEnum status, boolean needEmailConfirmation) {
 		switch (status) {
 			case DONE:
 				this.status.setText(getContext().getString(R.string.status_done));
@@ -54,7 +54,9 @@ public class StatusView extends RelativeLayout
 						R.drawable.icon_status_done));
 				break;
 			case PENDING:
-				this.status.setText(getContext().getString(R.string.status_pending));
+				this.status.setText(getContext().getString(needEmailConfirmation
+						? R.string.need_email_confirmation
+						: R.string.status_pending));
 				this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
 						R.drawable.icon_status_pending));
 				break;

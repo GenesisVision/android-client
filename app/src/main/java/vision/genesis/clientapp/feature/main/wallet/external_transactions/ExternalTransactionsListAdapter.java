@@ -16,10 +16,12 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.MultiWalletExternalTransaction;
+import io.swagger.client.model.TransactionDetails;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowTransactionDetailsEvent;
@@ -64,6 +66,16 @@ public class ExternalTransactionsListAdapter extends RecyclerView.Adapter<Extern
 	void addTransactions(List<MultiWalletExternalTransaction> transactions) {
 		this.transactions.addAll(transactions);
 		notifyDataSetChanged();
+	}
+
+	public void setStatusCanceled(UUID transactionId) {
+		for (MultiWalletExternalTransaction transaction : transactions) {
+			if (transaction.getId().equals(transactionId)) {
+				transaction.setStatus(TransactionDetails.StatusEnum.CANCELED.getValue());
+				notifyItemChanged(transactions.indexOf(transaction));
+				break;
+			}
+		}
 	}
 
 	static class TransactionViewHolder extends RecyclerView.ViewHolder
@@ -135,7 +147,9 @@ public class ExternalTransactionsListAdapter extends RecyclerView.Adapter<Extern
 							R.drawable.icon_status_done));
 					break;
 				case "pending":
-					this.status.setText(itemView.getContext().getString(R.string.status_pending));
+					this.status.setText(itemView.getContext().getString(transaction.isIsEnableActions()
+							? R.string.need_email_confirmation
+							: R.string.status_pending));
 					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
 							R.drawable.icon_status_pending));
 					break;

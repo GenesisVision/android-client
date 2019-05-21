@@ -128,17 +128,19 @@ public class CustomNotificationsListAdapter extends RecyclerView.Adapter<CustomN
 		}
 
 		private void updateData() {
-			switch (setting.getConditionType()) {
-				case PROFIT:
-					this.type.setText(itemView.getContext().getString(R.string.profit));
-					this.value.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(setting.getConditionAmount(), 0, 4)));
-					break;
-				case LEVEL:
-					this.type.setText(itemView.getContext().getString(R.string.level));
-					this.value.setText(StringFormatUtil.formatAmount(setting.getConditionAmount(), 0, 0));
-					break;
+			if (setting != null) {
+				switch (setting.getConditionType()) {
+					case PROFIT:
+						this.type.setText(itemView.getContext().getString(R.string.profit));
+						this.value.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(setting.getConditionAmount(), 0, 4)));
+						break;
+					case LEVEL:
+						this.type.setText(itemView.getContext().getString(R.string.level));
+						this.value.setText(StringFormatUtil.formatAmount(setting.getConditionAmount(), 0, 0));
+						break;
+				}
+				this.checkBox.setChecked(setting.isIsEnabled());
 			}
-			this.checkBox.setChecked(setting.isIsEnabled());
 		}
 	}
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="45dp"
+              android:orientation="horizontal"
+              android:paddingEnd="20dp"
+              android:paddingStart="20dp">
+
+    <vision.genesis.clientapp.ui.PrimaryButton
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="20dp"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:text="@string/cancel"
+        tools:visibility="visible"/>
+
+    <RelativeLayout
+        android:id="@+id/group_email"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <vision.genesis.clientapp.ui.PrimaryButton
+            android:id="@+id/resend_email"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:text="@string/resend_email"
+            tools:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/text_email_sent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/email_sent"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+</LinearLayout>

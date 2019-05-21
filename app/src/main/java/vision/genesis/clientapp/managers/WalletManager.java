@@ -142,4 +142,12 @@ public class WalletManager
 	public Observable<TransactionDetails> getTransaction(UUID transactionId) {
 		return walletApi.v10WalletTransactionByIdGet(transactionId, AuthManager.token.getValue());
 	}
+
+	public Observable<Void> cancelWithdrawRequest(UUID transactionId) {
+		return walletApi.v10WalletWithdrawRequestCancelByTxIdPost(transactionId, AuthManager.token.getValue());
+	}
+
+	public Observable<Void> resendConfirmationEmail(UUID transactionId) {
+		return walletApi.v10WalletWithdrawRequestResendByTxIdPost(transactionId, AuthManager.token.getValue());
+	}
 }

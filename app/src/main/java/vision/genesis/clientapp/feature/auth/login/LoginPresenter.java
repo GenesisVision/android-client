@@ -12,7 +12,10 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.CaptchaCheckResult;
+import io.swagger.client.model.CaptchaDetails;
 import io.swagger.client.model.ErrorViewModel;
+import rx.Single;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -26,6 +29,7 @@ import vision.genesis.clientapp.model.events.OnCheckTfaErrorEvent;
 import vision.genesis.clientapp.model.events.OnCheckTfaSuccessEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
+import vision.genesis.clientapp.utils.CaptchaUtils;
 
 /**
  * GenesisVision
@@ -41,6 +45,8 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 	@Inject
 	public AuthManager authManager;
 
+	private Subscription riskControlSubscription;
+
 	private Subscription loginSubscription;
 
 	private String email;
@@ -48,6 +54,12 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 	private String password;
 
 	private boolean tfaEnabled;
+
+	private String tfaCode;
+
+	private boolean useRecoveryCode;
+
+	private CaptchaCheckResult captchaCheckResult;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -60,6 +72,8 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 
 	@Override
 	public void onDestroy() {
+		if (riskControlSubscription != null)
+			riskControlSubscription.unsubscribe();
 		if (loginSubscription != null)
 			loginSubscription.unsubscribe();
 
@@ -73,15 +87,58 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 	}
 
 	void onSignInClicked(String email, String password) {
+		getViewState().showProgress();
 		this.email = email;
 		this.password = password;
-		login(null, false);
+		checkRiskControl(email);
 	}
 
-	private void login(String tfaCode, boolean useRecoveryCode) {
+	private void checkRiskControl(String route) {
+		riskControlSubscription = authManager.checkRiskControl(route)
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.io())
+				.subscribe(this::handleRiskControlSuccess,
+						this::handleRiskControlError);
+	}
+
+	private void handleRiskControlSuccess(CaptchaDetails captchaDetails) {
+		riskControlSubscription.unsubscribe();
+
+		switch (captchaDetails.getCaptchaType()) {
+			case NONE:
+				login();
+				break;
+			case POW:
+				performPowCaptcha(captchaDetails);
+				break;
+			case GEETEST:
+				getViewState().hideProgress();
+				break;
+		}
+	}
+
+	private void handleRiskControlError(Throwable throwable) {
+		riskControlSubscription.unsubscribe();
+		getViewState().hideProgress();
+
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void performPowCaptcha(CaptchaDetails captchaDetails) {
+		Single.fromCallable(() -> CaptchaUtils.findPowPrefix(captchaDetails))
+				.subscribeOn(Schedulers.computation())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(captchaCheckResult -> {
+					this.captchaCheckResult = captchaCheckResult;
+					login();
+				});
+	}
+
+	private void login() {
 		getViewState().clearErrors();
 		getViewState().showProgress();
-		loginSubscription = authManager.login(email, password, tfaCode, useRecoveryCode)
+		loginSubscription = authManager.login(email, password, tfaCode, useRecoveryCode, captchaCheckResult)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::onLoginResponse,
@@ -98,6 +155,7 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 
 	private void onLoginError(Throwable throwable) {
 		loginSubscription.unsubscribe();
+		getViewState().hideProgress();
 
 		if (ApiErrorResolver.isNetworkError(throwable)) {
 			if (tfaEnabled)
@@ -145,6 +203,8 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 	@Subscribe
 	public void onEventMainThread(OnCheckTfaConfirmClickedEvent event) {
 		tfaEnabled = true;
-		login(event.getCode(), event.isUseRecoveryCode());
+		this.tfaCode = event.getCode();
+		this.useRecoveryCode = event.isUseRecoveryCode();
+		login();
 	}
 }

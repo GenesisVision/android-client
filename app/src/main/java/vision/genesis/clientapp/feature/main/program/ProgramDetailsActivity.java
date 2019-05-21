@@ -314,6 +314,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	private void setTags() {
 		if (programDetails != null && tagsGroup != null) {
+			tagsGroup.removeAllViews();
 			for (ProgramTag tag : programDetails.getTags()) {
 				addTag(createTagView(tag), tagsGroup);
 			}

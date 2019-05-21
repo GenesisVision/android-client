@@ -487,7 +487,7 @@
     <string name="transaction_opening_template">Opening %s</string>
     <string name="transaction_profit_template">Profit from %s</string>
     <string name="i_accept_the">I accept the</string>
-    <string name="email_sent">Email sent</string>
+    <string name="email_sent">Email sent successfully</string>
     <string name="available_to_withdraw">Available to withdraw</string>
     <string name="payout_date">Payout date</string>
     <string name="remaining_investment">Remaining investment</string>
@@ -599,5 +599,7 @@
     <string name="top_10">Top 10%</string>
     <string name="genesis_level_shows">Genesis level shows the experience and reliability of the Manager</string>
     <string name="genesis_level">Genesis Level</string>
+    <string name="resend_email">Resend email</string>
+    <string name="need_email_confirmation">Need email confirmation</string>
 
 </resources>

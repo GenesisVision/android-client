@@ -3,6 +3,7 @@ package vision.genesis.clientapp.feature.main.wallet.external_transactions;
 import com.arellomobile.mvp.MvpView;
 
 import java.util.List;
+import java.util.UUID;
 
 import io.swagger.client.model.MultiWalletExternalTransaction;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
@@ -19,6 +20,8 @@ interface ExternalTransactionsView extends MvpView
 	void setTransactions(List<MultiWalletExternalTransaction> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
 
 	void addTransactions(List<MultiWalletExternalTransaction> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
+
+	void setStatusCanceled(UUID transactionId);
 
 	void showSnackbarMessage(String message);
 }
