@@ -35,6 +35,7 @@ SUBSCRIBESIGNAL | &quot;SubscribeSignal&quot;
 RECEIVESIGNAL | &quot;ReceiveSignal&quot;
 DEPOSITSIGNAL | &quot;DepositSignal&quot;
 WITHDRAWALSIGNAL | &quot;WithdrawalSignal&quot;
+PLATFORM | &quot;Platform&quot;
 
 
 <a name="StatusEnum"></a>
@@ -51,12 +52,12 @@ ERROR | &quot;Error&quot;
 ## Enum: CurrencyEnum
 Name | Value
 ---- | -----
-UNDEFINED | &quot;Undefined&quot;
-GVT | &quot;GVT&quot;
-ETH | &quot;ETH&quot;
 BTC | &quot;BTC&quot;
-ADA | &quot;ADA&quot;
+ETH | &quot;ETH&quot;
 USDT | &quot;USDT&quot;
+GVT | &quot;GVT&quot;
+UNDEFINED | &quot;Undefined&quot;
+ADA | &quot;ADA&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
@@ -70,12 +71,12 @@ EUR | &quot;EUR&quot;
 ## Enum: GvCommissionCurrencyEnum
 Name | Value
 ---- | -----
-UNDEFINED | &quot;Undefined&quot;
-GVT | &quot;GVT&quot;
-ETH | &quot;ETH&quot;
 BTC | &quot;BTC&quot;
-ADA | &quot;ADA&quot;
+ETH | &quot;ETH&quot;
 USDT | &quot;USDT&quot;
+GVT | &quot;GVT&quot;
+UNDEFINED | &quot;Undefined&quot;
+ADA | &quot;ADA&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;

@@ -356,7 +356,7 @@ Name | Type | Description  | Notes
  **id** | [**UUID**](.md)|  |
  **amount** | **Double**|  |
  **authorization** | **String**| JWT access token |
- **currency** | **String**|  | [optional] [default to 100] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [optional] [default to 100] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -402,7 +402,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -548,7 +548,7 @@ Name | Type | Description  | Notes
  **id** | [**UUID**](.md)|  |
  **percent** | **Double**|  |
  **authorization** | **String**| JWT access token |
- **currency** | **String**|  | [optional] [default to 100] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [optional] [default to 100] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -594,7 +594,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -657,7 +657,7 @@ No authorization required
 
 <a name="v10ManagerFundsGet"></a>
 # **v10ManagerFundsGet**
-> FundsList v10ManagerFundsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, actionStatus, skip, take)
+> FundsList v10ManagerFundsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, actionStatus, dashboardActionStatus, skip, take)
 
 Manager funds
 
@@ -676,10 +676,11 @@ DateTime to = new DateTime(); // DateTime |
 Integer chartPointsCount = 56; // Integer | 
 String currencySecondary = "currencySecondary_example"; // String | 
 String actionStatus = "actionStatus_example"; // String | 
+String dashboardActionStatus = "dashboardActionStatus_example"; // String | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    FundsList result = apiInstance.v10ManagerFundsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, actionStatus, skip, take);
+    FundsList result = apiInstance.v10ManagerFundsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, actionStatus, dashboardActionStatus, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ManagerApi#v10ManagerFundsGet");
@@ -696,8 +697,9 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **actionStatus** | **String**|  | [optional] [enum: Pending, Active, Investing, Withdrawing, Ended]
+ **dashboardActionStatus** | **String**|  | [optional] [enum: All, Active]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -1032,7 +1034,7 @@ Name | Type | Description  | Notes
  **id** | [**UUID**](.md)|  |
  **amount** | **Double**|  |
  **authorization** | **String**| JWT access token |
- **currency** | **String**|  | [optional] [default to 100] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [optional] [default to 100] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -1078,7 +1080,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -1360,7 +1362,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -1470,7 +1472,7 @@ No authorization required
 
 <a name="v10ManagerProgramsGet"></a>
 # **v10ManagerProgramsGet**
-> ProgramsList v10ManagerProgramsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, actionStatus, skip, take)
+> ProgramsList v10ManagerProgramsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, actionStatus, dashboardActionStatus, skip, take)
 
 Manager programs
 
@@ -1489,10 +1491,11 @@ DateTime to = new DateTime(); // DateTime |
 Integer chartPointsCount = 56; // Integer | 
 String currencySecondary = "currencySecondary_example"; // String | 
 String actionStatus = "actionStatus_example"; // String | 
+String dashboardActionStatus = "dashboardActionStatus_example"; // String | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ProgramsList result = apiInstance.v10ManagerProgramsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, actionStatus, skip, take);
+    ProgramsList result = apiInstance.v10ManagerProgramsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, actionStatus, dashboardActionStatus, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ManagerApi#v10ManagerProgramsGet");
@@ -1509,8 +1512,9 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **actionStatus** | **String**|  | [optional] [enum: Pending, Active, Investing, Withdrawing, Ended]
+ **dashboardActionStatus** | **String**|  | [optional] [enum: All, Active]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -1529,7 +1533,7 @@ No authorization required
 
 <a name="v10ManagerProgramsInvestmentAmountGet"></a>
 # **v10ManagerProgramsInvestmentAmountGet**
-> ProgramMinimumDeposit v10ManagerProgramsInvestmentAmountGet(authorization)
+> ProgramMinimumDeposit v10ManagerProgramsInvestmentAmountGet(authorization, brokerTradingAccount)
 
 Get investment amount to create program
 
@@ -1542,8 +1546,9 @@ Get investment amount to create program
 
 ManagerApi apiInstance = new ManagerApi();
 String authorization = "authorization_example"; // String | JWT access token
+UUID brokerTradingAccount = new UUID(); // UUID | 
 try {
-    ProgramMinimumDeposit result = apiInstance.v10ManagerProgramsInvestmentAmountGet(authorization);
+    ProgramMinimumDeposit result = apiInstance.v10ManagerProgramsInvestmentAmountGet(authorization, brokerTradingAccount);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ManagerApi#v10ManagerProgramsInvestmentAmountGet");
@@ -1556,6 +1561,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
+ **brokerTradingAccount** | [**UUID**](.md)|  | [optional]
 
 ### Return type
 
@@ -1664,7 +1670,7 @@ No authorization required
 
 <a name="v10ManagerSignalCreatePost"></a>
 # **v10ManagerSignalCreatePost**
-> Void v10ManagerSignalCreatePost(authorization, programId, subscriptionFee, successFee)
+> Void v10ManagerSignalCreatePost(authorization, programId, volumeFee, successFee)
 
 Make manager&#39;s program signal provider
 
@@ -1678,10 +1684,10 @@ Make manager&#39;s program signal provider
 ManagerApi apiInstance = new ManagerApi();
 String authorization = "authorization_example"; // String | JWT access token
 UUID programId = new UUID(); // UUID | 
-Double subscriptionFee = 3.4D; // Double | 
+Double volumeFee = 3.4D; // Double | 
 Double successFee = 3.4D; // Double | 
 try {
-    Void result = apiInstance.v10ManagerSignalCreatePost(authorization, programId, subscriptionFee, successFee);
+    Void result = apiInstance.v10ManagerSignalCreatePost(authorization, programId, volumeFee, successFee);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ManagerApi#v10ManagerSignalCreatePost");
@@ -1695,7 +1701,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
  **programId** | [**UUID**](.md)|  | [optional]
- **subscriptionFee** | **Double**|  | [optional]
+ **volumeFee** | **Double**|  | [optional]
  **successFee** | **Double**|  | [optional]
 
 ### Return type
@@ -1713,7 +1719,7 @@ No authorization required
 
 <a name="v10ManagerSignalEditPost"></a>
 # **v10ManagerSignalEditPost**
-> Void v10ManagerSignalEditPost(authorization, programId, subscriptionFee, successFee)
+> Void v10ManagerSignalEditPost(authorization, programId, volumeFee, successFee)
 
 Make manager&#39;s program signal provider
 
@@ -1727,10 +1733,10 @@ Make manager&#39;s program signal provider
 ManagerApi apiInstance = new ManagerApi();
 String authorization = "authorization_example"; // String | JWT access token
 UUID programId = new UUID(); // UUID | 
-Double subscriptionFee = 3.4D; // Double | 
+Double volumeFee = 3.4D; // Double | 
 Double successFee = 3.4D; // Double | 
 try {
-    Void result = apiInstance.v10ManagerSignalEditPost(authorization, programId, subscriptionFee, successFee);
+    Void result = apiInstance.v10ManagerSignalEditPost(authorization, programId, volumeFee, successFee);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ManagerApi#v10ManagerSignalEditPost");
@@ -1744,7 +1750,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
  **programId** | [**UUID**](.md)|  | [optional]
- **subscriptionFee** | **Double**|  | [optional]
+ **volumeFee** | **Double**|  | [optional]
  **successFee** | **Double**|  | [optional]
 
 ### Return type

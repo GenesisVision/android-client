@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **commission** | **Double** | In account currency |  [optional]
 **swap** | **Double** |  |  [optional]
 **showOriginalCommission** | **Boolean** |  |  [optional]
-**masterLogin** | **String** | For signals |  [optional]
+**signalData** | [**OrderModelSignalData**](OrderModelSignalData.md) | For signals |  [optional]
 
 
 <a name="DirectionEnum"></a>

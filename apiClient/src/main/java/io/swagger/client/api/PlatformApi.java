@@ -5,10 +5,20 @@ import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.PlatformStatistic;
 import io.swagger.client.model.ProgramsLevelsInfo;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import rx.Observable;
 
 public interface PlatformApi
 {
+	/**
+	 * Server date
+	 *
+	 * @return Call&lt;String&gt;
+	 */
+	@POST("v1.0/platform/date")
+	Observable<String> v10PlatformDatePost();
+
+
 	/**
 	 * Platform info
 	 *

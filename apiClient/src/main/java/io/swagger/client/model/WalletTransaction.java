@@ -599,17 +599,17 @@ public class WalletTransaction
 	@JsonAdapter(SourceCurrencyEnum.Adapter.class)
 	public enum SourceCurrencyEnum
 	{
-		UNDEFINED("Undefined"),
-
-		GVT("GVT"),
+		BTC("BTC"),
 
 		ETH("ETH"),
 
-		BTC("BTC"),
+		USDT("USDT"),
+
+		GVT("GVT"),
+
+		UNDEFINED("Undefined"),
 
 		ADA("ADA"),
-
-		USDT("USDT"),
 
 		XRP("XRP"),
 
@@ -692,11 +692,11 @@ public class WalletTransaction
 
 		PROGRAMREQUESTCANCEL("ProgramRequestCancel"),
 
-		PAYINGFEE("PayingFee"),
+		PAYINGTRADINGFEE("PayingTradingFee"),
 
-		SIGNALSLAVESUBSCRIBE("SignalSlaveSubscribe"),
+		SIGNALSUBSCRIBERPAYINGFEE("SignalSubscriberPayingFee"),
 
-		SIGNALMASTERRECEIVESUBSCRIPTION("SignalMasterReceiveSubscription");
+		SIGNALPROVIDERRECEIVEFEE("SignalProviderReceiveFee");
 
 		public static ActionEnum fromValue(String text) {
 			for (ActionEnum b : ActionEnum.values()) {
@@ -811,17 +811,17 @@ public class WalletTransaction
 	@JsonAdapter(DestinationCurrencyEnum.Adapter.class)
 	public enum DestinationCurrencyEnum
 	{
-		UNDEFINED("Undefined"),
-
-		GVT("GVT"),
+		BTC("BTC"),
 
 		ETH("ETH"),
 
-		BTC("BTC"),
+		USDT("USDT"),
+
+		GVT("GVT"),
+
+		UNDEFINED("Undefined"),
 
 		ADA("ADA"),
-
-		USDT("USDT"),
 
 		XRP("XRP"),
 

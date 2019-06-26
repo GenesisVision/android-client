@@ -104,7 +104,7 @@ No authorization required
 
 <a name="v10SignalAttachByIdPost"></a>
 # **v10SignalAttachByIdPost**
-> Void v10SignalAttachByIdPost(id, authorization, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency, initialDepositCurrency, initialDepositAmount)
+> Void v10SignalAttachByIdPost(id, authorization, model)
 
 Subscribe to programs signals
 
@@ -118,15 +118,9 @@ Subscribe to programs signals
 SignalApi apiInstance = new SignalApi();
 UUID id = new UUID(); // UUID | Program Id
 String authorization = "authorization_example"; // String | JWT access token
-String mode = "mode_example"; // String | 
-Double percent = 3.4D; // Double | 
-Double openTolerancePercent = 3.4D; // Double | 
-Double fixedVolume = 3.4D; // Double | 
-String fixedCurrency = "fixedCurrency_example"; // String | 
-String initialDepositCurrency = "initialDepositCurrency_example"; // String | 
-Double initialDepositAmount = 3.4D; // Double | 
+AttachToSignalProvider model = new AttachToSignalProvider(); // AttachToSignalProvider | Subscription settings
 try {
-    Void result = apiInstance.v10SignalAttachByIdPost(id, authorization, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency, initialDepositCurrency, initialDepositAmount);
+    Void result = apiInstance.v10SignalAttachByIdPost(id, authorization, model);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling SignalApi#v10SignalAttachByIdPost");
@@ -140,13 +134,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)| Program Id |
  **authorization** | **String**| JWT access token |
- **mode** | **String**|  | [optional] [enum: ByBalance, Percent, Fixed]
- **percent** | **Double**|  | [optional]
- **openTolerancePercent** | **Double**|  | [optional]
- **fixedVolume** | **Double**|  | [optional]
- **fixedCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
- **initialDepositCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
- **initialDepositAmount** | **Double**|  | [optional]
+ **model** | [**AttachToSignalProvider**](AttachToSignalProvider.md)| Subscription settings | [optional]
 
 ### Return type
 
@@ -158,12 +146,12 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="v10SignalByIdUpdatePost"></a>
 # **v10SignalByIdUpdatePost**
-> Void v10SignalByIdUpdatePost(id, authorization, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency, initialDepositCurrency, initialDepositAmount)
+> Void v10SignalByIdUpdatePost(id, authorization, model)
 
 Update signal subscription settings
 
@@ -177,15 +165,9 @@ Update signal subscription settings
 SignalApi apiInstance = new SignalApi();
 UUID id = new UUID(); // UUID | Program id
 String authorization = "authorization_example"; // String | JWT access token
-String mode = "mode_example"; // String | 
-Double percent = 3.4D; // Double | 
-Double openTolerancePercent = 3.4D; // Double | 
-Double fixedVolume = 3.4D; // Double | 
-String fixedCurrency = "fixedCurrency_example"; // String | 
-String initialDepositCurrency = "initialDepositCurrency_example"; // String | 
-Double initialDepositAmount = 3.4D; // Double | 
+AttachToSignalProvider model = new AttachToSignalProvider(); // AttachToSignalProvider | Subscription settings
 try {
-    Void result = apiInstance.v10SignalByIdUpdatePost(id, authorization, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency, initialDepositCurrency, initialDepositAmount);
+    Void result = apiInstance.v10SignalByIdUpdatePost(id, authorization, model);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling SignalApi#v10SignalByIdUpdatePost");
@@ -199,13 +181,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)| Program id |
  **authorization** | **String**| JWT access token |
- **mode** | **String**|  | [optional] [enum: ByBalance, Percent, Fixed]
- **percent** | **Double**|  | [optional]
- **openTolerancePercent** | **Double**|  | [optional]
- **fixedVolume** | **Double**|  | [optional]
- **fixedCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
- **initialDepositCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
- **initialDepositAmount** | **Double**|  | [optional]
+ **model** | [**AttachToSignalProvider**](AttachToSignalProvider.md)| Subscription settings | [optional]
 
 ### Return type
 
@@ -217,12 +193,12 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="v10SignalDetachByIdPost"></a>
 # **v10SignalDetachByIdPost**
-> Void v10SignalDetachByIdPost(id, authorization)
+> Void v10SignalDetachByIdPost(id, authorization, model)
 
 Unsubscribe from program signals
 
@@ -234,10 +210,11 @@ Unsubscribe from program signals
 
 
 SignalApi apiInstance = new SignalApi();
-UUID id = new UUID(); // UUID | Program id
+UUID id = new UUID(); // UUID | 
 String authorization = "authorization_example"; // String | JWT access token
+DetachFromSignalProvider model = new DetachFromSignalProvider(); // DetachFromSignalProvider | 
 try {
-    Void result = apiInstance.v10SignalDetachByIdPost(id, authorization);
+    Void result = apiInstance.v10SignalDetachByIdPost(id, authorization, model);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling SignalApi#v10SignalDetachByIdPost");
@@ -249,8 +226,9 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)| Program id |
+ **id** | [**UUID**](.md)|  |
  **authorization** | **String**| JWT access token |
+ **model** | [**DetachFromSignalProvider**](DetachFromSignalProvider.md)|  | [optional]
 
 ### Return type
 
@@ -262,12 +240,12 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="v10SignalTradesByIdClosePost"></a>
 # **v10SignalTradesByIdClosePost**
-> Void v10SignalTradesByIdClosePost(id, authorization)
+> Void v10SignalTradesByIdClosePost(id, authorization, programId)
 
 Close signal trade
 
@@ -281,8 +259,9 @@ Close signal trade
 SignalApi apiInstance = new SignalApi();
 UUID id = new UUID(); // UUID | Trade id
 String authorization = "authorization_example"; // String | JWT access token
+UUID programId = new UUID(); // UUID | Provider program id
 try {
-    Void result = apiInstance.v10SignalTradesByIdClosePost(id, authorization);
+    Void result = apiInstance.v10SignalTradesByIdClosePost(id, authorization, programId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling SignalApi#v10SignalTradesByIdClosePost");
@@ -296,6 +275,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)| Trade id |
  **authorization** | **String**| JWT access token |
+ **programId** | [**UUID**](.md)| Provider program id | [optional]
 
 ### Return type
 
@@ -349,7 +329,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **symbol** | **String**|  | [optional]
- **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc]
+ **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
  **accountId** | [**UUID**](.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
@@ -401,7 +381,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc]
+ **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
  **symbol** | **String**|  | [optional]
  **accountId** | [**UUID**](.md)|  | [optional]
  **skip** | **Integer**|  | [optional]

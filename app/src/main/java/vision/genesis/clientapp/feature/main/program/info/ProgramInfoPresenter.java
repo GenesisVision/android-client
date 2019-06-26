@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.AttachToSignalProviderInfo;
 import io.swagger.client.model.PersonalProgramDetailsFull;
 import io.swagger.client.model.ProgramDetailsFull;
 import rx.Subscription;
@@ -17,8 +18,10 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
+import vision.genesis.clientapp.managers.SignalsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.OnProgramReinvestChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -38,9 +41,14 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	@Inject
 	public ProgramsManager programsManager;
 
+	@Inject
+	public SignalsManager signalsManager;
+
 	private Subscription userSubscription;
 
 	private Subscription programDetailsSubscription;
+
+	private Subscription signalsInfoSubscription;
 
 	private Subscription reinvestSubscription;
 
@@ -49,6 +57,8 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	private Boolean userLoggedOn;
 
 	private ProgramDetailsFull programDetails;
+
+	private AttachToSignalProviderInfo signalsInfo;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -68,6 +78,9 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 		if (programDetailsSubscription != null)
 			programDetailsSubscription.unsubscribe();
+
+		if (signalsInfoSubscription != null)
+			signalsInfoSubscription.unsubscribe();
 
 		if (reinvestSubscription != null)
 			reinvestSubscription.unsubscribe();
@@ -116,11 +129,38 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		this.programDetails = programDetails;
 
 		getViewState().setProgramDetails(programDetails);
+
+		if (programDetails.isIsSignalProgram())
+			getSignalsInfo();
 	}
 
 	private void handleInvestmentProgramDetailsError(Throwable throwable) {
 		programDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
+	}
+
+	private void getSignalsInfo() {
+		if (programId != null && signalsManager != null) {
+			signalsInfoSubscription = signalsManager.getSignalsInfo(programId)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleSignalsInfoResponse,
+							this::handleSignalsInfoError);
+		}
+	}
+
+	private void handleSignalsInfoResponse(AttachToSignalProviderInfo response) {
+		signalsInfoSubscription.unsubscribe();
+		getViewState().showSignalsProgress(false);
+
+		this.signalsInfo = response;
+	}
+
+	private void handleSignalsInfoError(Throwable throwable) {
+		signalsInfoSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
 	}
 
 	private void setReinvest(boolean reinvest) {
@@ -219,5 +259,30 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		request.setManagerName(programDetails.getManager().getUsername());
 
 		getViewState().showWithdrawProgramActivity(request);
+	}
+
+	public void onFollowTradesClicked() {
+		if (!userLoggedOn) {
+			getViewState().showLoginActivity();
+			return;
+		}
+
+		if (signalsInfo != null) {
+			if (!signalsInfo.isHasSignalAccount())
+				getViewState().showCreateCopytradingAccountActivity(signalsInfo.getMinDepositCurrency().getValue(), signalsInfo.getMinDeposit());
+			else {
+				SubscriptionSettingsModel model = new SubscriptionSettingsModel();
+
+				model.setMode(programDetails.getPersonalProgramDetails().getSignalSubscription().getMode().getValue());
+				model.setPercent(programDetails.getPersonalProgramDetails().getSignalSubscription().getPercent());
+				model.setOpenTolerancePercent(programDetails.getPersonalProgramDetails().getSignalSubscription().getOpenTolerancePercent());
+				model.setFixedVolume(programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedVolume());
+				model.setFixedCurrency(programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedCurrency().getValue());
+				model.setProgramName(programDetails.getTitle());
+				model.setProgramId(programDetails.getId());
+
+				getViewState().showSubscriptionSettings(model);
+			}
+		}
 	}
 }

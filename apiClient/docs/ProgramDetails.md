@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **level** | **Integer** |  |  [optional]
+**levelProgress** | **Double** |  |  [optional]
 **periodDuration** | **Integer** |  |  [optional]
 **stopOutLevel** | **Double** |  |  [optional]
 **periodStarts** | [**DateTime**](DateTime.md) |  |  [optional]
@@ -33,12 +34,12 @@ Name | Type | Description | Notes
 ## Enum: CurrencyEnum
 Name | Value
 ---- | -----
-UNDEFINED | &quot;Undefined&quot;
-GVT | &quot;GVT&quot;
-ETH | &quot;ETH&quot;
 BTC | &quot;BTC&quot;
-ADA | &quot;ADA&quot;
+ETH | &quot;ETH&quot;
 USDT | &quot;USDT&quot;
+GVT | &quot;GVT&quot;
+UNDEFINED | &quot;Undefined&quot;
+ADA | &quot;ADA&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;

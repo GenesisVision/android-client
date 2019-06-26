@@ -49,15 +49,6 @@ public class InternalTransferRequest
 	@SerializedName("transferAll")
 	private Boolean transferAll = null;
 
-	@SerializedName("walletToWallet")
-	private Boolean walletToWallet = null;
-
-	@SerializedName("walletToCopyTradingAccount")
-	private Boolean walletToCopyTradingAccount = null;
-
-	@SerializedName("copyTradingAccountToWallet")
-	private Boolean copyTradingAccountToWallet = null;
-
 	public InternalTransferRequest sourceId(UUID sourceId) {
 		this.sourceId = sourceId;
 		return this;
@@ -172,36 +163,6 @@ public class InternalTransferRequest
 		this.transferAll = transferAll;
 	}
 
-	/**
-	 * Get walletToWallet
-	 *
-	 * @return walletToWallet
-	 **/
-	@ApiModelProperty(value = "")
-	public Boolean isWalletToWallet() {
-		return walletToWallet;
-	}
-
-	/**
-	 * Get walletToCopyTradingAccount
-	 *
-	 * @return walletToCopyTradingAccount
-	 **/
-	@ApiModelProperty(value = "")
-	public Boolean isWalletToCopyTradingAccount() {
-		return walletToCopyTradingAccount;
-	}
-
-	/**
-	 * Get copyTradingAccountToWallet
-	 *
-	 * @return copyTradingAccountToWallet
-	 **/
-	@ApiModelProperty(value = "")
-	public Boolean isCopyTradingAccountToWallet() {
-		return copyTradingAccountToWallet;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -216,15 +177,12 @@ public class InternalTransferRequest
 				Objects.equals(this.destinationId, internalTransferRequest.destinationId) &&
 				Objects.equals(this.destinationType, internalTransferRequest.destinationType) &&
 				Objects.equals(this.amount, internalTransferRequest.amount) &&
-				Objects.equals(this.transferAll, internalTransferRequest.transferAll) &&
-				Objects.equals(this.walletToWallet, internalTransferRequest.walletToWallet) &&
-				Objects.equals(this.walletToCopyTradingAccount, internalTransferRequest.walletToCopyTradingAccount) &&
-				Objects.equals(this.copyTradingAccountToWallet, internalTransferRequest.copyTradingAccountToWallet);
+				Objects.equals(this.transferAll, internalTransferRequest.transferAll);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(sourceId, sourceType, destinationId, destinationType, amount, transferAll, walletToWallet, walletToCopyTradingAccount, copyTradingAccountToWallet);
+		return Objects.hash(sourceId, sourceType, destinationId, destinationType, amount, transferAll);
 	}
 
 	@Override
@@ -238,9 +196,6 @@ public class InternalTransferRequest
 		sb.append("    destinationType: ").append(toIndentedString(destinationType)).append("\n");
 		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
 		sb.append("    transferAll: ").append(toIndentedString(transferAll)).append("\n");
-		sb.append("    walletToWallet: ").append(toIndentedString(walletToWallet)).append("\n");
-		sb.append("    walletToCopyTradingAccount: ").append(toIndentedString(walletToCopyTradingAccount)).append("\n");
-		sb.append("    copyTradingAccountToWallet: ").append(toIndentedString(copyTradingAccountToWallet)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -267,7 +222,11 @@ public class InternalTransferRequest
 
 		WALLET("Wallet"),
 
-		COPYTRADINGACCOUNT("CopyTradingAccount");
+		COPYTRADINGACCOUNT("CopyTradingAccount"),
+
+		GENESISVISIONPLATFORM("GenesisVisionPlatform"),
+
+		SIGNALPROVIDERSETTINGS("SignalProviderSettings");
 
 		public static SourceTypeEnum fromValue(String text) {
 			for (SourceTypeEnum b : SourceTypeEnum.values()) {
@@ -318,7 +277,11 @@ public class InternalTransferRequest
 
 		WALLET("Wallet"),
 
-		COPYTRADINGACCOUNT("CopyTradingAccount");
+		COPYTRADINGACCOUNT("CopyTradingAccount"),
+
+		GENESISVISIONPLATFORM("GenesisVisionPlatform"),
+
+		SIGNALPROVIDERSETTINGS("SignalProviderSettings");
 
 		public static DestinationTypeEnum fromValue(String text) {
 			for (DestinationTypeEnum b : DestinationTypeEnum.values()) {

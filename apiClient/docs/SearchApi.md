@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 <a name="v10SearchGet"></a>
 # **v10SearchGet**
-> SearchViewModel v10SearchGet(mask, take)
+> SearchViewModel v10SearchGet(authorization, mask, take)
 
 Program / fund / manager search
 
@@ -21,10 +21,11 @@ Program / fund / manager search
 
 
 SearchApi apiInstance = new SearchApi();
+String authorization = "authorization_example"; // String | 
 String mask = "mask_example"; // String | 
 Integer take = 56; // Integer | 
 try {
-    SearchViewModel result = apiInstance.v10SearchGet(mask, take);
+    SearchViewModel result = apiInstance.v10SearchGet(authorization, mask, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling SearchApi#v10SearchGet");
@@ -36,6 +37,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **authorization** | **String**|  | [optional]
  **mask** | **String**|  | [optional]
  **take** | **Integer**|  | [optional]
 

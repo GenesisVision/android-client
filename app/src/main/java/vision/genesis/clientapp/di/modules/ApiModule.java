@@ -17,6 +17,7 @@ import io.swagger.client.api.ProfileApi;
 import io.swagger.client.api.ProgramsApi;
 import io.swagger.client.api.RateApi;
 import io.swagger.client.api.SearchApi;
+import io.swagger.client.api.SignalApi;
 import io.swagger.client.api.WalletApi;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -132,5 +133,11 @@ public class ApiModule
 	@Singleton
 	public SearchApi provideSearchApi(ApiClient apiClient) {
 		return apiClient.createService(SearchApi.class);
+	}
+
+	@Provides
+	@Singleton
+	public SignalApi provideSignalApi(ApiClient apiClient) {
+		return apiClient.createService(SignalApi.class);
 	}
 }

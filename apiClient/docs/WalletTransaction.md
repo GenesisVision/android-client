@@ -46,12 +46,12 @@ SIGNALTRADINGACCOUNT | &quot;SignalTradingAccount&quot;
 ## Enum: SourceCurrencyEnum
 Name | Value
 ---- | -----
-UNDEFINED | &quot;Undefined&quot;
-GVT | &quot;GVT&quot;
-ETH | &quot;ETH&quot;
 BTC | &quot;BTC&quot;
-ADA | &quot;ADA&quot;
+ETH | &quot;ETH&quot;
 USDT | &quot;USDT&quot;
+GVT | &quot;GVT&quot;
+UNDEFINED | &quot;Undefined&quot;
+ADA | &quot;ADA&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
@@ -76,9 +76,9 @@ PROGRAMREFUNDSTOPOUT | &quot;ProgramRefundStopOut&quot;
 PROGRAMREQUESTINVEST | &quot;ProgramRequestInvest&quot;
 PROGRAMREQUESTWITHDRAWAL | &quot;ProgramRequestWithdrawal&quot;
 PROGRAMREQUESTCANCEL | &quot;ProgramRequestCancel&quot;
-PAYINGFEE | &quot;PayingFee&quot;
-SIGNALSLAVESUBSCRIBE | &quot;SignalSlaveSubscribe&quot;
-SIGNALMASTERRECEIVESUBSCRIPTION | &quot;SignalMasterReceiveSubscription&quot;
+PAYINGTRADINGFEE | &quot;PayingTradingFee&quot;
+SIGNALSUBSCRIBERPAYINGFEE | &quot;SignalSubscriberPayingFee&quot;
+SIGNALPROVIDERRECEIVEFEE | &quot;SignalProviderReceiveFee&quot;
 
 
 <a name="DestinationTypeEnum"></a>
@@ -102,12 +102,12 @@ SIGNALTRADINGACCOUNT | &quot;SignalTradingAccount&quot;
 ## Enum: DestinationCurrencyEnum
 Name | Value
 ---- | -----
-UNDEFINED | &quot;Undefined&quot;
-GVT | &quot;GVT&quot;
-ETH | &quot;ETH&quot;
 BTC | &quot;BTC&quot;
-ADA | &quot;ADA&quot;
+ETH | &quot;ETH&quot;
 USDT | &quot;USDT&quot;
+GVT | &quot;GVT&quot;
+UNDEFINED | &quot;Undefined&quot;
+ADA | &quot;ADA&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;

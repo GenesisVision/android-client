@@ -40,6 +40,9 @@ public class ProgramTransactionDetails
 	@SerializedName("programType")
 	private ProgramTypeEnum programType = null;
 
+	@SerializedName("successFeeCurrency")
+	private SuccessFeeCurrencyEnum successFeeCurrency = null;
+
 	@SerializedName("logo")
 	private String logo = null;
 
@@ -60,6 +63,9 @@ public class ProgramTransactionDetails
 
 	@SerializedName("level")
 	private Integer level = null;
+
+	@SerializedName("levelProgress")
+	private Double levelProgress = null;
 
 	@SerializedName("exitFee")
 	private Double exitFee = null;
@@ -125,6 +131,25 @@ public class ProgramTransactionDetails
 
 	public void setProgramType(ProgramTypeEnum programType) {
 		this.programType = programType;
+	}
+
+	public ProgramTransactionDetails successFeeCurrency(SuccessFeeCurrencyEnum successFeeCurrency) {
+		this.successFeeCurrency = successFeeCurrency;
+		return this;
+	}
+
+	/**
+	 * Get successFeeCurrency
+	 *
+	 * @return successFeeCurrency
+	 **/
+	@ApiModelProperty(value = "")
+	public SuccessFeeCurrencyEnum getSuccessFeeCurrency() {
+		return successFeeCurrency;
+	}
+
+	public void setSuccessFeeCurrency(SuccessFeeCurrencyEnum successFeeCurrency) {
+		this.successFeeCurrency = successFeeCurrency;
 	}
 
 	public ProgramTransactionDetails logo(String logo) {
@@ -260,6 +285,25 @@ public class ProgramTransactionDetails
 		this.level = level;
 	}
 
+	public ProgramTransactionDetails levelProgress(Double levelProgress) {
+		this.levelProgress = levelProgress;
+		return this;
+	}
+
+	/**
+	 * Get levelProgress
+	 *
+	 * @return levelProgress
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getLevelProgress() {
+		return levelProgress;
+	}
+
+	public void setLevelProgress(Double levelProgress) {
+		this.levelProgress = levelProgress;
+	}
+
 	public ProgramTransactionDetails exitFee(Double exitFee) {
 		this.exitFee = exitFee;
 		return this;
@@ -329,6 +373,7 @@ public class ProgramTransactionDetails
 		return Objects.equals(this.id, programTransactionDetails.id) &&
 				Objects.equals(this.managerName, programTransactionDetails.managerName) &&
 				Objects.equals(this.programType, programTransactionDetails.programType) &&
+				Objects.equals(this.successFeeCurrency, programTransactionDetails.successFeeCurrency) &&
 				Objects.equals(this.logo, programTransactionDetails.logo) &&
 				Objects.equals(this.title, programTransactionDetails.title) &&
 				Objects.equals(this.entryFee, programTransactionDetails.entryFee) &&
@@ -336,6 +381,7 @@ public class ProgramTransactionDetails
 				Objects.equals(this.successFee, programTransactionDetails.successFee) &&
 				Objects.equals(this.successFeePercent, programTransactionDetails.successFeePercent) &&
 				Objects.equals(this.level, programTransactionDetails.level) &&
+				Objects.equals(this.levelProgress, programTransactionDetails.levelProgress) &&
 				Objects.equals(this.exitFee, programTransactionDetails.exitFee) &&
 				Objects.equals(this.exitFeePercent, programTransactionDetails.exitFeePercent) &&
 				Objects.equals(this.color, programTransactionDetails.color);
@@ -343,7 +389,7 @@ public class ProgramTransactionDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, managerName, programType, logo, title, entryFee, entryFeePercent, successFee, successFeePercent, level, exitFee, exitFeePercent, color);
+		return Objects.hash(id, managerName, programType, successFeeCurrency, logo, title, entryFee, entryFeePercent, successFee, successFeePercent, level, levelProgress, exitFee, exitFeePercent, color);
 	}
 
 	@Override
@@ -354,6 +400,7 @@ public class ProgramTransactionDetails
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    managerName: ").append(toIndentedString(managerName)).append("\n");
 		sb.append("    programType: ").append(toIndentedString(programType)).append("\n");
+		sb.append("    successFeeCurrency: ").append(toIndentedString(successFeeCurrency)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
@@ -361,6 +408,7 @@ public class ProgramTransactionDetails
 		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("    successFeePercent: ").append(toIndentedString(successFeePercent)).append("\n");
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
+		sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
 		sb.append("    exitFee: ").append(toIndentedString(exitFee)).append("\n");
 		sb.append("    exitFeePercent: ").append(toIndentedString(exitFeePercent)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
@@ -378,6 +426,7 @@ public class ProgramTransactionDetails
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
+
 
 	/**
 	 * Gets or Sets programType
@@ -424,6 +473,77 @@ public class ProgramTransactionDetails
 			public ProgramTypeEnum read(final JsonReader jsonReader) throws IOException {
 				String value = jsonReader.nextString();
 				return ProgramTypeEnum.fromValue(String.valueOf(value));
+			}
+		}
+	}
+
+	/**
+	 * Gets or Sets successFeeCurrency
+	 */
+	@JsonAdapter(SuccessFeeCurrencyEnum.Adapter.class)
+	public enum SuccessFeeCurrencyEnum
+	{
+		BTC("BTC"),
+
+		ETH("ETH"),
+
+		USDT("USDT"),
+
+		GVT("GVT"),
+
+		UNDEFINED("Undefined"),
+
+		ADA("ADA"),
+
+		XRP("XRP"),
+
+		BCH("BCH"),
+
+		LTC("LTC"),
+
+		DOGE("DOGE"),
+
+		BNB("BNB"),
+
+		USD("USD"),
+
+		EUR("EUR");
+
+		public static SuccessFeeCurrencyEnum fromValue(String text) {
+			for (SuccessFeeCurrencyEnum b : SuccessFeeCurrencyEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		SuccessFeeCurrencyEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<SuccessFeeCurrencyEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final SuccessFeeCurrencyEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public SuccessFeeCurrencyEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return SuccessFeeCurrencyEnum.fromValue(String.valueOf(value));
 			}
 		}
 	}

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **regDate** | [**DateTime**](DateTime.md) |  |  [optional]
 **assets** | **List&lt;String&gt;** |  |  [optional]
 **url** | **String** |  |  [optional]
+**socialLinks** | [**List&lt;SocialLinkViewModel&gt;**](SocialLinkViewModel.md) |  |  [optional]
 
 
 

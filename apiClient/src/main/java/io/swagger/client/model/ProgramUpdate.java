@@ -37,6 +37,9 @@ public class ProgramUpdate
 	@SerializedName("stopOutLevel")
 	private Double stopOutLevel = null;
 
+	@SerializedName("investmentLimit")
+	private Double investmentLimit = null;
+
 	public ProgramUpdate title(String title) {
 		this.title = title;
 		return this;
@@ -113,6 +116,25 @@ public class ProgramUpdate
 		this.stopOutLevel = stopOutLevel;
 	}
 
+	public ProgramUpdate investmentLimit(Double investmentLimit) {
+		this.investmentLimit = investmentLimit;
+		return this;
+	}
+
+	/**
+	 * Get investmentLimit
+	 *
+	 * @return investmentLimit
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getInvestmentLimit() {
+		return investmentLimit;
+	}
+
+	public void setInvestmentLimit(Double investmentLimit) {
+		this.investmentLimit = investmentLimit;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -126,12 +148,13 @@ public class ProgramUpdate
 		return Objects.equals(this.title, programUpdate.title) &&
 				Objects.equals(this.description, programUpdate.description) &&
 				Objects.equals(this.logo, programUpdate.logo) &&
-				Objects.equals(this.stopOutLevel, programUpdate.stopOutLevel);
+				Objects.equals(this.stopOutLevel, programUpdate.stopOutLevel) &&
+				Objects.equals(this.investmentLimit, programUpdate.investmentLimit);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, description, logo, stopOutLevel);
+		return Objects.hash(title, description, logo, stopOutLevel, investmentLimit);
 	}
 
 
@@ -144,6 +167,7 @@ public class ProgramUpdate
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
+		sb.append("    investmentLimit: ").append(toIndentedString(investmentLimit)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

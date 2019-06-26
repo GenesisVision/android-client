@@ -4,6 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**tradingFee** | [**OrderTradingFee**](OrderTradingFee.md) |  |  [optional]
 **providers** | [**List&lt;OrderSignalProgramInfo&gt;**](OrderSignalProgramInfo.md) |  |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **login** | **String** |  |  [optional]
@@ -22,7 +23,7 @@ Name | Type | Description | Notes
 **commission** | **Double** | In account currency |  [optional]
 **swap** | **Double** |  |  [optional]
 **showOriginalCommission** | **Boolean** |  |  [optional]
-**masterLogin** | **String** | For signals |  [optional]
+**signalData** | [**OrderModelSignalData**](OrderModelSignalData.md) | For signals |  [optional]
 
 
 <a name="DirectionEnum"></a>

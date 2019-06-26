@@ -84,8 +84,8 @@ public class OrderModel
 	@SerializedName("showOriginalCommission")
 	private Boolean showOriginalCommission = null;
 
-	@SerializedName("masterLogin")
-	private String masterLogin = null;
+	@SerializedName("signalData")
+	private OrderModelSignalData signalData = null;
 
 	public OrderModel id(UUID id) {
 		this.id = id;
@@ -410,23 +410,23 @@ public class OrderModel
 		this.showOriginalCommission = showOriginalCommission;
 	}
 
-	public OrderModel masterLogin(String masterLogin) {
-		this.masterLogin = masterLogin;
+	public OrderModel signalData(OrderModelSignalData signalData) {
+		this.signalData = signalData;
 		return this;
 	}
 
 	/**
 	 * For signals
 	 *
-	 * @return masterLogin
+	 * @return signalData
 	 **/
 	@ApiModelProperty(value = "For signals")
-	public String getMasterLogin() {
-		return masterLogin;
+	public OrderModelSignalData getSignalData() {
+		return signalData;
 	}
 
-	public void setMasterLogin(String masterLogin) {
-		this.masterLogin = masterLogin;
+	public void setSignalData(OrderModelSignalData signalData) {
+		this.signalData = signalData;
 	}
 
 	@Override
@@ -455,12 +455,12 @@ public class OrderModel
 				Objects.equals(this.commission, orderModel.commission) &&
 				Objects.equals(this.swap, orderModel.swap) &&
 				Objects.equals(this.showOriginalCommission, orderModel.showOriginalCommission) &&
-				Objects.equals(this.masterLogin, orderModel.masterLogin);
+				Objects.equals(this.signalData, orderModel.signalData);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, login, ticket, symbol, volume, profit, direction, date, price, priceCurrent, entry, baseVolume, originalCommission, originalCommissionCurrency, commission, swap, showOriginalCommission, masterLogin);
+		return Objects.hash(id, login, ticket, symbol, volume, profit, direction, date, price, priceCurrent, entry, baseVolume, originalCommission, originalCommissionCurrency, commission, swap, showOriginalCommission, signalData);
 	}
 
 	@Override
@@ -485,7 +485,7 @@ public class OrderModel
 		sb.append("    commission: ").append(toIndentedString(commission)).append("\n");
 		sb.append("    swap: ").append(toIndentedString(swap)).append("\n");
 		sb.append("    showOriginalCommission: ").append(toIndentedString(showOriginalCommission)).append("\n");
-		sb.append("    masterLogin: ").append(toIndentedString(masterLogin)).append("\n");
+		sb.append("    signalData: ").append(toIndentedString(signalData)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **level** | **Integer** |  |  [optional]
+**levelProgress** | **Double** |  |  [optional]
 **periodDuration** | **Integer** |  |  [optional]
 **periodStarts** | [**DateTime**](DateTime.md) |  |  [optional]
 **periodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
@@ -17,7 +18,8 @@ Name | Type | Description | Notes
 **isReinvesting** | **Boolean** |  |  [optional]
 **isSignalProgram** | **Boolean** |  |  [optional]
 **signalSuccessFee** | **Double** |  |  [optional]
-**signalSubscriptionFee** | **Double** |  |  [optional]
+**signalVolumeFee** | **Double** |  |  [optional]
+**isForex** | **Boolean** |  |  [optional]
 **availableInvestment** | **Double** | In GVT |  [optional]
 **availableInvestmentBase** | **Double** | In account currency |  [optional]
 **statistic** | [**ProgramStatistic**](ProgramStatistic.md) |  |  [optional]
@@ -40,12 +42,12 @@ Name | Type | Description | Notes
 ## Enum: CurrencyEnum
 Name | Value
 ---- | -----
-UNDEFINED | &quot;Undefined&quot;
-GVT | &quot;GVT&quot;
-ETH | &quot;ETH&quot;
 BTC | &quot;BTC&quot;
-ADA | &quot;ADA&quot;
+ETH | &quot;ETH&quot;
 USDT | &quot;USDT&quot;
+GVT | &quot;GVT&quot;
+UNDEFINED | &quot;Undefined&quot;
+ADA | &quot;ADA&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;

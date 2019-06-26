@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **isInvested** | **Boolean** |  |  [optional]
 **isOwnProgram** | **Boolean** |  |  [optional]
 **canCloseProgram** | **Boolean** |  |  [optional]
+**canCloseAsset** | **Boolean** |  |  [optional]
 **isFinishing** | **Boolean** |  |  [optional]
 **canInvest** | **Boolean** |  |  [optional]
 **canWithdraw** | **Boolean** |  |  [optional]
@@ -22,8 +23,6 @@ Name | Type | Description | Notes
 **pendingInput** | **Double** |  |  [optional]
 **pendingOutput** | **Double** |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
-**isFollowSignals** | **Boolean** |  |  [optional]
-**canMakeSignalProvider** | **Boolean** |  |  [optional]
 
 
 <a name="StatusEnum"></a>

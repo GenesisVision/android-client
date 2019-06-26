@@ -54,11 +54,11 @@ public class ProgramsInfo
 	@SerializedName("managerMaxExitFee")
 	private Double managerMaxExitFee = null;
 
-	@SerializedName("managerMaxSignalSubscriptionFee")
-	private Double managerMaxSignalSubscriptionFee = null;
+	@SerializedName("managerMaxSignalVolumeFee")
+	private Double managerMaxSignalVolumeFee = null;
 
-	@SerializedName("managerMinSignalSubscriptionFee")
-	private Double managerMinSignalSubscriptionFee = null;
+	@SerializedName("managerMinSignalVolumeFee")
+	private Double managerMinSignalVolumeFee = null;
 
 	@SerializedName("managerMaxSignalSuccessFee")
 	private Double managerMaxSignalSuccessFee = null;
@@ -240,42 +240,42 @@ public class ProgramsInfo
 		this.managerMaxExitFee = managerMaxExitFee;
 	}
 
-	public ProgramsInfo managerMaxSignalSubscriptionFee(Double managerMaxSignalSubscriptionFee) {
-		this.managerMaxSignalSubscriptionFee = managerMaxSignalSubscriptionFee;
+	public ProgramsInfo managerMaxSignalVolumeFee(Double managerMaxSignalVolumeFee) {
+		this.managerMaxSignalVolumeFee = managerMaxSignalVolumeFee;
 		return this;
 	}
 
 	/**
-	 * Get managerMaxSignalSubscriptionFee
+	 * Get managerMaxSignalVolumeFee
 	 *
-	 * @return managerMaxSignalSubscriptionFee
+	 * @return managerMaxSignalVolumeFee
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getManagerMaxSignalSubscriptionFee() {
-		return managerMaxSignalSubscriptionFee;
+	public Double getManagerMaxSignalVolumeFee() {
+		return managerMaxSignalVolumeFee;
 	}
 
-	public void setManagerMaxSignalSubscriptionFee(Double managerMaxSignalSubscriptionFee) {
-		this.managerMaxSignalSubscriptionFee = managerMaxSignalSubscriptionFee;
+	public void setManagerMaxSignalVolumeFee(Double managerMaxSignalVolumeFee) {
+		this.managerMaxSignalVolumeFee = managerMaxSignalVolumeFee;
 	}
 
-	public ProgramsInfo managerMinSignalSubscriptionFee(Double managerMinSignalSubscriptionFee) {
-		this.managerMinSignalSubscriptionFee = managerMinSignalSubscriptionFee;
+	public ProgramsInfo managerMinSignalVolumeFee(Double managerMinSignalVolumeFee) {
+		this.managerMinSignalVolumeFee = managerMinSignalVolumeFee;
 		return this;
 	}
 
 	/**
-	 * Get managerMinSignalSubscriptionFee
+	 * Get managerMinSignalVolumeFee
 	 *
-	 * @return managerMinSignalSubscriptionFee
+	 * @return managerMinSignalVolumeFee
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getManagerMinSignalSubscriptionFee() {
-		return managerMinSignalSubscriptionFee;
+	public Double getManagerMinSignalVolumeFee() {
+		return managerMinSignalVolumeFee;
 	}
 
-	public void setManagerMinSignalSubscriptionFee(Double managerMinSignalSubscriptionFee) {
-		this.managerMinSignalSubscriptionFee = managerMinSignalSubscriptionFee;
+	public void setManagerMinSignalVolumeFee(Double managerMinSignalVolumeFee) {
+		this.managerMinSignalVolumeFee = managerMinSignalVolumeFee;
 	}
 
 	public ProgramsInfo managerMaxSignalSuccessFee(Double managerMaxSignalSuccessFee) {
@@ -362,8 +362,8 @@ public class ProgramsInfo
 				Objects.equals(this.managerMaxSuccessFee, programsInfo.managerMaxSuccessFee) &&
 				Objects.equals(this.managerFundInvestment, programsInfo.managerFundInvestment) &&
 				Objects.equals(this.managerMaxExitFee, programsInfo.managerMaxExitFee) &&
-				Objects.equals(this.managerMaxSignalSubscriptionFee, programsInfo.managerMaxSignalSubscriptionFee) &&
-				Objects.equals(this.managerMinSignalSubscriptionFee, programsInfo.managerMinSignalSubscriptionFee) &&
+				Objects.equals(this.managerMaxSignalVolumeFee, programsInfo.managerMaxSignalVolumeFee) &&
+				Objects.equals(this.managerMinSignalVolumeFee, programsInfo.managerMinSignalVolumeFee) &&
 				Objects.equals(this.managerMaxSignalSuccessFee, programsInfo.managerMaxSignalSuccessFee) &&
 				Objects.equals(this.managerMinSignalSuccessFee, programsInfo.managerMinSignalSuccessFee) &&
 				Objects.equals(this.periods, programsInfo.periods);
@@ -371,7 +371,7 @@ public class ProgramsInfo
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(managerProgramInvestment, managerProgramInvestmentUSD, managerProgramInvestmentUSDT, managerProgramInvestmentBTC, managerProgramInvestmentETH, managerMaxEntryFee, managerMaxSuccessFee, managerFundInvestment, managerMaxExitFee, managerMaxSignalSubscriptionFee, managerMinSignalSubscriptionFee, managerMaxSignalSuccessFee, managerMinSignalSuccessFee, periods);
+		return Objects.hash(managerProgramInvestment, managerProgramInvestmentUSD, managerProgramInvestmentUSDT, managerProgramInvestmentBTC, managerProgramInvestmentETH, managerMaxEntryFee, managerMaxSuccessFee, managerFundInvestment, managerMaxExitFee, managerMaxSignalVolumeFee, managerMinSignalVolumeFee, managerMaxSignalSuccessFee, managerMinSignalSuccessFee, periods);
 	}
 
 
@@ -389,8 +389,8 @@ public class ProgramsInfo
 		sb.append("    managerMaxSuccessFee: ").append(toIndentedString(managerMaxSuccessFee)).append("\n");
 		sb.append("    managerFundInvestment: ").append(toIndentedString(managerFundInvestment)).append("\n");
 		sb.append("    managerMaxExitFee: ").append(toIndentedString(managerMaxExitFee)).append("\n");
-		sb.append("    managerMaxSignalSubscriptionFee: ").append(toIndentedString(managerMaxSignalSubscriptionFee)).append("\n");
-		sb.append("    managerMinSignalSubscriptionFee: ").append(toIndentedString(managerMinSignalSubscriptionFee)).append("\n");
+		sb.append("    managerMaxSignalVolumeFee: ").append(toIndentedString(managerMaxSignalVolumeFee)).append("\n");
+		sb.append("    managerMinSignalVolumeFee: ").append(toIndentedString(managerMinSignalVolumeFee)).append("\n");
 		sb.append("    managerMaxSignalSuccessFee: ").append(toIndentedString(managerMaxSignalSuccessFee)).append("\n");
 		sb.append("    managerMinSignalSuccessFee: ").append(toIndentedString(managerMinSignalSuccessFee)).append("\n");
 		sb.append("    periods: ").append(toIndentedString(periods)).append("\n");

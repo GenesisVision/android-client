@@ -47,6 +47,9 @@ public class SignalDetails
 	@SerializedName("level")
 	private Integer level = null;
 
+	@SerializedName("levelProgress")
+	private Double levelProgress = null;
+
 	@SerializedName("tags")
 	private List<ProgramTag> tags = null;
 
@@ -157,6 +160,25 @@ public class SignalDetails
 
 	public void setLevel(Integer level) {
 		this.level = level;
+	}
+
+	public SignalDetails levelProgress(Double levelProgress) {
+		this.levelProgress = levelProgress;
+		return this;
+	}
+
+	/**
+	 * Get levelProgress
+	 *
+	 * @return levelProgress
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getLevelProgress() {
+		return levelProgress;
+	}
+
+	public void setLevelProgress(Double levelProgress) {
+		this.levelProgress = levelProgress;
 	}
 
 	public SignalDetails tags(List<ProgramTag> tags) {
@@ -416,6 +438,7 @@ public class SignalDetails
 				Objects.equals(this.personalDetails, signalDetails.personalDetails) &&
 				Objects.equals(this.currency, signalDetails.currency) &&
 				Objects.equals(this.level, signalDetails.level) &&
+				Objects.equals(this.levelProgress, signalDetails.levelProgress) &&
 				Objects.equals(this.tags, signalDetails.tags) &&
 				Objects.equals(this.subscribers, signalDetails.subscribers) &&
 				Objects.equals(this.id, signalDetails.id) &&
@@ -432,7 +455,7 @@ public class SignalDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(statistic, personalDetails, currency, level, tags, subscribers, id, logo, url, color, title, description, status, creationDate, manager, chart);
+		return Objects.hash(statistic, personalDetails, currency, level, levelProgress, tags, subscribers, id, logo, url, color, title, description, status, creationDate, manager, chart);
 	}
 
 	@Override
@@ -444,6 +467,7 @@ public class SignalDetails
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
+		sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
 		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
 		sb.append("    subscribers: ").append(toIndentedString(subscribers)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
@@ -478,17 +502,17 @@ public class SignalDetails
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		UNDEFINED("Undefined"),
-
-		GVT("GVT"),
+		BTC("BTC"),
 
 		ETH("ETH"),
 
-		BTC("BTC"),
+		USDT("USDT"),
+
+		GVT("GVT"),
+
+		UNDEFINED("Undefined"),
 
 		ADA("ADA"),
-
-		USDT("USDT"),
 
 		XRP("XRP"),
 

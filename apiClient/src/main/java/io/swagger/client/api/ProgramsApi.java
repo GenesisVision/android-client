@@ -12,6 +12,7 @@ import io.swagger.client.model.ProgramPeriodsViewModel;
 import io.swagger.client.model.ProgramProfitChart;
 import io.swagger.client.model.ProgramSets;
 import io.swagger.client.model.ProgramsList;
+import io.swagger.client.model.SignalProviderSubscribers;
 import io.swagger.client.model.TradesViewModel;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -100,6 +101,21 @@ public interface ProgramsApi
 	@GET("v1.0/programs/{id}/periods")
 	Observable<ProgramPeriodsViewModel> v10ProgramsByIdPeriodsGet(
 			@retrofit2.http.Path("id") String id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("NumberMin") Integer numberMin, @retrofit2.http.Query("NumberMax") Integer numberMax, @retrofit2.http.Query("Status") String status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Signal subscribers
+	 *
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @param status        (optional)
+	 * @param skip          (optional)
+	 * @param take          (optional)
+	 * @return Call&lt;SignalProviderSubscribers&gt;
+	 */
+	@GET("v1.0/programs/{id}/subscribers")
+	Observable<SignalProviderSubscribers> v10ProgramsByIdSubscribersGet(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Status") String status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

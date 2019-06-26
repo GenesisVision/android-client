@@ -3,8 +3,10 @@ package io.swagger.client.api;
 import io.swagger.client.model.FcmTokenViewModel;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.ProfileHeaderViewModel;
+import io.swagger.client.model.SocialLinksViewModel;
 import io.swagger.client.model.UpdatePersonalDetailViewModel;
 import io.swagger.client.model.UpdateProfileViewModel;
+import io.swagger.client.model.UpdateSocialLinkViewModel;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -83,6 +85,32 @@ public interface ProfileApi
 	@POST("v1.0/profile/push/token")
 	Observable<Void> v10ProfilePushTokenPost(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body FcmTokenViewModel token
+	);
+
+	/**
+	 * Get social links
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;SocialLinksViewModel&gt;
+	 */
+	@GET("v1.0/profile/sociallinks")
+	Observable<SocialLinksViewModel> v10ProfileSociallinksGet(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Add or update social links
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v1.0/profile/sociallinks/update")
+	Observable<Void> v10ProfileSociallinksUpdatePost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body UpdateSocialLinkViewModel model
 	);
 
 	/**

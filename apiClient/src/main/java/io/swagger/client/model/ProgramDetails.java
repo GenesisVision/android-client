@@ -41,6 +41,9 @@ public class ProgramDetails
 	@SerializedName("level")
 	private Integer level = null;
 
+	@SerializedName("levelProgress")
+	private Double levelProgress = null;
+
 	@SerializedName("periodDuration")
 	private Integer periodDuration = null;
 
@@ -140,6 +143,25 @@ public class ProgramDetails
 
 	public void setLevel(Integer level) {
 		this.level = level;
+	}
+
+	public ProgramDetails levelProgress(Double levelProgress) {
+		this.levelProgress = levelProgress;
+		return this;
+	}
+
+	/**
+	 * Get levelProgress
+	 *
+	 * @return levelProgress
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getLevelProgress() {
+		return levelProgress;
+	}
+
+	public void setLevelProgress(Double levelProgress) {
+		this.levelProgress = levelProgress;
 	}
 
 	public ProgramDetails periodDuration(Integer periodDuration) {
@@ -568,6 +590,7 @@ public class ProgramDetails
 		ProgramDetails programDetails = (ProgramDetails) o;
 		return Objects.equals(this.currency, programDetails.currency) &&
 				Objects.equals(this.level, programDetails.level) &&
+				Objects.equals(this.levelProgress, programDetails.levelProgress) &&
 				Objects.equals(this.periodDuration, programDetails.periodDuration) &&
 				Objects.equals(this.stopOutLevel, programDetails.stopOutLevel) &&
 				Objects.equals(this.periodStarts, programDetails.periodStarts) &&
@@ -593,7 +616,7 @@ public class ProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, level, periodDuration, stopOutLevel, periodStarts, periodEnds, availableInvestment, availableInvestmentBase, dashboardAssetsDetails, statistic, rating, personalDetails, tags, id, logo, url, color, title, description, status, creationDate, manager, chart);
+		return Objects.hash(currency, level, levelProgress, periodDuration, stopOutLevel, periodStarts, periodEnds, availableInvestment, availableInvestmentBase, dashboardAssetsDetails, statistic, rating, personalDetails, tags, id, logo, url, color, title, description, status, creationDate, manager, chart);
 	}
 
 	@Override
@@ -603,6 +626,7 @@ public class ProgramDetails
 
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
+		sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
 		sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
 		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
 		sb.append("    periodStarts: ").append(toIndentedString(periodStarts)).append("\n");
@@ -646,17 +670,17 @@ public class ProgramDetails
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		UNDEFINED("Undefined"),
-
-		GVT("GVT"),
+		BTC("BTC"),
 
 		ETH("ETH"),
 
-		BTC("BTC"),
+		USDT("USDT"),
+
+		GVT("GVT"),
+
+		UNDEFINED("Undefined"),
 
 		ADA("ADA"),
-
-		USDT("USDT"),
 
 		XRP("XRP"),
 

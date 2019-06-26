@@ -21,7 +21,9 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -50,6 +52,9 @@ public class BrokerAccountType
 
 	@SerializedName("currencies")
 	private List<String> currencies = null;
+
+	@SerializedName("minimumDepositsAmount")
+	private Map<String, Double> minimumDepositsAmount = null;
 
 	@SerializedName("isForex")
 	private Boolean isForex = null;
@@ -187,6 +192,33 @@ public class BrokerAccountType
 		this.currencies = currencies;
 	}
 
+	public BrokerAccountType minimumDepositsAmount(Map<String, Double> minimumDepositsAmount) {
+		this.minimumDepositsAmount = minimumDepositsAmount;
+		return this;
+	}
+
+	public BrokerAccountType putMinimumDepositsAmountItem(String key, Double minimumDepositsAmountItem) {
+		if (this.minimumDepositsAmount == null) {
+			this.minimumDepositsAmount = new HashMap<String, Double>();
+		}
+		this.minimumDepositsAmount.put(key, minimumDepositsAmountItem);
+		return this;
+	}
+
+	/**
+	 * Get minimumDepositsAmount
+	 *
+	 * @return minimumDepositsAmount
+	 **/
+	@ApiModelProperty(value = "")
+	public Map<String, Double> getMinimumDepositsAmount() {
+		return minimumDepositsAmount;
+	}
+
+	public void setMinimumDepositsAmount(Map<String, Double> minimumDepositsAmount) {
+		this.minimumDepositsAmount = minimumDepositsAmount;
+	}
+
 	public BrokerAccountType isForex(Boolean isForex) {
 		this.isForex = isForex;
 		return this;
@@ -240,13 +272,14 @@ public class BrokerAccountType
 				Objects.equals(this.type, brokerAccountType.type) &&
 				Objects.equals(this.leverages, brokerAccountType.leverages) &&
 				Objects.equals(this.currencies, brokerAccountType.currencies) &&
+				Objects.equals(this.minimumDepositsAmount, brokerAccountType.minimumDepositsAmount) &&
 				Objects.equals(this.isForex, brokerAccountType.isForex) &&
 				Objects.equals(this.isSignalsAvailable, brokerAccountType.isSignalsAvailable);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, description, type, leverages, currencies, isForex, isSignalsAvailable);
+		return Objects.hash(id, name, description, type, leverages, currencies, minimumDepositsAmount, isForex, isSignalsAvailable);
 	}
 
 	@Override
@@ -260,6 +293,7 @@ public class BrokerAccountType
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    leverages: ").append(toIndentedString(leverages)).append("\n");
 		sb.append("    currencies: ").append(toIndentedString(currencies)).append("\n");
+		sb.append("    minimumDepositsAmount: ").append(toIndentedString(minimumDepositsAmount)).append("\n");
 		sb.append("    isForex: ").append(toIndentedString(isForex)).append("\n");
 		sb.append("    isSignalsAvailable: ").append(toIndentedString(isSignalsAvailable)).append("\n");
 		sb.append("}");

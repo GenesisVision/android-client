@@ -13,10 +13,15 @@
 
 package io.swagger.client.model;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
 import org.joda.time.DateTime;
 
+import java.io.IOException;
 import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -35,6 +40,21 @@ public class PersonalSignalDetailsFull
 
 	@SerializedName("signalSubscription")
 	private SignalSubscription signalSubscription = null;
+
+	@SerializedName("profit")
+	private Double profit = null;
+
+	@SerializedName("volume")
+	private Double volume = null;
+
+	@SerializedName("isFavorite")
+	private Boolean isFavorite = null;
+
+	@SerializedName("isInvested")
+	private Boolean isInvested = null;
+
+	@SerializedName("status")
+	private StatusEnum status = null;
 
 	public PersonalSignalDetailsFull subscriptionDate(DateTime subscriptionDate) {
 		this.subscriptionDate = subscriptionDate;
@@ -93,6 +113,100 @@ public class PersonalSignalDetailsFull
 		this.signalSubscription = signalSubscription;
 	}
 
+	public PersonalSignalDetailsFull profit(Double profit) {
+		this.profit = profit;
+		return this;
+	}
+
+	/**
+	 * Get profit
+	 *
+	 * @return profit
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProfit() {
+		return profit;
+	}
+
+	public void setProfit(Double profit) {
+		this.profit = profit;
+	}
+
+	public PersonalSignalDetailsFull volume(Double volume) {
+		this.volume = volume;
+		return this;
+	}
+
+	/**
+	 * Get volume
+	 *
+	 * @return volume
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getVolume() {
+		return volume;
+	}
+
+	public void setVolume(Double volume) {
+		this.volume = volume;
+	}
+
+	public PersonalSignalDetailsFull isFavorite(Boolean isFavorite) {
+		this.isFavorite = isFavorite;
+		return this;
+	}
+
+	/**
+	 * Get isFavorite
+	 *
+	 * @return isFavorite
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsFavorite() {
+		return isFavorite;
+	}
+
+	public void setIsFavorite(Boolean isFavorite) {
+		this.isFavorite = isFavorite;
+	}
+
+	public PersonalSignalDetailsFull isInvested(Boolean isInvested) {
+		this.isInvested = isInvested;
+		return this;
+	}
+
+	/**
+	 * Get isInvested
+	 *
+	 * @return isInvested
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsInvested() {
+		return isInvested;
+	}
+
+	public void setIsInvested(Boolean isInvested) {
+		this.isInvested = isInvested;
+	}
+
+	public PersonalSignalDetailsFull status(StatusEnum status) {
+		this.status = status;
+		return this;
+	}
+
+	/**
+	 * Get status
+	 *
+	 * @return status
+	 **/
+	@ApiModelProperty(value = "")
+	public StatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusEnum status) {
+		this.status = status;
+	}
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -105,14 +219,18 @@ public class PersonalSignalDetailsFull
 		PersonalSignalDetailsFull personalSignalDetailsFull = (PersonalSignalDetailsFull) o;
 		return Objects.equals(this.subscriptionDate, personalSignalDetailsFull.subscriptionDate) &&
 				Objects.equals(this.tradesCount, personalSignalDetailsFull.tradesCount) &&
-				Objects.equals(this.signalSubscription, personalSignalDetailsFull.signalSubscription);
+				Objects.equals(this.signalSubscription, personalSignalDetailsFull.signalSubscription) &&
+				Objects.equals(this.profit, personalSignalDetailsFull.profit) &&
+				Objects.equals(this.volume, personalSignalDetailsFull.volume) &&
+				Objects.equals(this.isFavorite, personalSignalDetailsFull.isFavorite) &&
+				Objects.equals(this.isInvested, personalSignalDetailsFull.isInvested) &&
+				Objects.equals(this.status, personalSignalDetailsFull.status);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(subscriptionDate, tradesCount, signalSubscription);
+		return Objects.hash(subscriptionDate, tradesCount, signalSubscription, profit, volume, isFavorite, isInvested, status);
 	}
-
 
 	@Override
 	public String toString() {
@@ -122,6 +240,11 @@ public class PersonalSignalDetailsFull
 		sb.append("    subscriptionDate: ").append(toIndentedString(subscriptionDate)).append("\n");
 		sb.append("    tradesCount: ").append(toIndentedString(tradesCount)).append("\n");
 		sb.append("    signalSubscription: ").append(toIndentedString(signalSubscription)).append("\n");
+		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
+		sb.append("    volume: ").append(toIndentedString(volume)).append("\n");
+		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
+		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
+		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -135,6 +258,55 @@ public class PersonalSignalDetailsFull
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	/**
+	 * Gets or Sets status
+	 */
+	@JsonAdapter(StatusEnum.Adapter.class)
+	public enum StatusEnum
+	{
+		ACTIVE("Active"),
+
+		ENDED("Ended");
+
+		public static StatusEnum fromValue(String text) {
+			for (StatusEnum b : StatusEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		StatusEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<StatusEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public StatusEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return StatusEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 }

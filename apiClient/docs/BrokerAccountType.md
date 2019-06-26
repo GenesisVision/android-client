@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
 **leverages** | **List&lt;Integer&gt;** |  |  [optional]
 **currencies** | **List&lt;String&gt;** |  |  [optional]
+**minimumDepositsAmount** | **Map&lt;String, Double&gt;** |  |  [optional]
 **isForex** | **Boolean** |  |  [optional]
 **isSignalsAvailable** | **Boolean** |  |  [optional]
 

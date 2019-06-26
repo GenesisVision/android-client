@@ -27,11 +27,55 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class TradesSignalViewModel
 {
+	@SerializedName("showSwaps")
+	private Boolean showSwaps = null;
+
+	@SerializedName("showTickets")
+	private Boolean showTickets = null;
+
 	@SerializedName("trades")
 	private List<OrderSignalModel> trades = null;
 
 	@SerializedName("total")
 	private Integer total = null;
+
+	public TradesSignalViewModel showSwaps(Boolean showSwaps) {
+		this.showSwaps = showSwaps;
+		return this;
+	}
+
+	/**
+	 * Get showSwaps
+	 *
+	 * @return showSwaps
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isShowSwaps() {
+		return showSwaps;
+	}
+
+	public void setShowSwaps(Boolean showSwaps) {
+		this.showSwaps = showSwaps;
+	}
+
+	public TradesSignalViewModel showTickets(Boolean showTickets) {
+		this.showTickets = showTickets;
+		return this;
+	}
+
+	/**
+	 * Get showTickets
+	 *
+	 * @return showTickets
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isShowTickets() {
+		return showTickets;
+	}
+
+	public void setShowTickets(Boolean showTickets) {
+		this.showTickets = showTickets;
+	}
 
 	public TradesSignalViewModel trades(List<OrderSignalModel> trades) {
 		this.trades = trades;
@@ -89,13 +133,15 @@ public class TradesSignalViewModel
 			return false;
 		}
 		TradesSignalViewModel tradesSignalViewModel = (TradesSignalViewModel) o;
-		return Objects.equals(this.trades, tradesSignalViewModel.trades) &&
+		return Objects.equals(this.showSwaps, tradesSignalViewModel.showSwaps) &&
+				Objects.equals(this.showTickets, tradesSignalViewModel.showTickets) &&
+				Objects.equals(this.trades, tradesSignalViewModel.trades) &&
 				Objects.equals(this.total, tradesSignalViewModel.total);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(trades, total);
+		return Objects.hash(showSwaps, showTickets, trades, total);
 	}
 
 
@@ -104,6 +150,8 @@ public class TradesSignalViewModel
 		StringBuilder sb = new StringBuilder();
 		sb.append("class TradesSignalViewModel {\n");
 
+		sb.append("    showSwaps: ").append(toIndentedString(showSwaps)).append("\n");
+		sb.append("    showTickets: ").append(toIndentedString(showTickets)).append("\n");
 		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
 		sb.append("    total: ").append(toIndentedString(total)).append("\n");
 		sb.append("}");

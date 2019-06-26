@@ -15,6 +15,10 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.joda.time.DateTime;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -37,6 +41,15 @@ public class OrderSignalProgramInfo
 
 	@SerializedName("volume")
 	private Double volume = null;
+
+	@SerializedName("priceCurrent")
+	private Double priceCurrent = null;
+
+	@SerializedName("firstOrderDate")
+	private DateTime firstOrderDate = null;
+
+	@SerializedName("fees")
+	private List<OrderSignalFee> fees = null;
 
 	public OrderSignalProgramInfo manager(ProfilePublic manager) {
 		this.manager = manager;
@@ -114,6 +127,71 @@ public class OrderSignalProgramInfo
 		this.volume = volume;
 	}
 
+	public OrderSignalProgramInfo priceCurrent(Double priceCurrent) {
+		this.priceCurrent = priceCurrent;
+		return this;
+	}
+
+	/**
+	 * Get priceCurrent
+	 *
+	 * @return priceCurrent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getPriceCurrent() {
+		return priceCurrent;
+	}
+
+	public void setPriceCurrent(Double priceCurrent) {
+		this.priceCurrent = priceCurrent;
+	}
+
+	public OrderSignalProgramInfo firstOrderDate(DateTime firstOrderDate) {
+		this.firstOrderDate = firstOrderDate;
+		return this;
+	}
+
+	/**
+	 * Get firstOrderDate
+	 *
+	 * @return firstOrderDate
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getFirstOrderDate() {
+		return firstOrderDate;
+	}
+
+	public void setFirstOrderDate(DateTime firstOrderDate) {
+		this.firstOrderDate = firstOrderDate;
+	}
+
+	public OrderSignalProgramInfo fees(List<OrderSignalFee> fees) {
+		this.fees = fees;
+		return this;
+	}
+
+	public OrderSignalProgramInfo addFeesItem(OrderSignalFee feesItem) {
+		if (this.fees == null) {
+			this.fees = new ArrayList<OrderSignalFee>();
+		}
+		this.fees.add(feesItem);
+		return this;
+	}
+
+	/**
+	 * Get fees
+	 *
+	 * @return fees
+	 **/
+	@ApiModelProperty(value = "")
+	public List<OrderSignalFee> getFees() {
+		return fees;
+	}
+
+	public void setFees(List<OrderSignalFee> fees) {
+		this.fees = fees;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -127,12 +205,15 @@ public class OrderSignalProgramInfo
 		return Objects.equals(this.manager, orderSignalProgramInfo.manager) &&
 				Objects.equals(this.program, orderSignalProgramInfo.program) &&
 				Objects.equals(this.programId, orderSignalProgramInfo.programId) &&
-				Objects.equals(this.volume, orderSignalProgramInfo.volume);
+				Objects.equals(this.volume, orderSignalProgramInfo.volume) &&
+				Objects.equals(this.priceCurrent, orderSignalProgramInfo.priceCurrent) &&
+				Objects.equals(this.firstOrderDate, orderSignalProgramInfo.firstOrderDate) &&
+				Objects.equals(this.fees, orderSignalProgramInfo.fees);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(manager, program, programId, volume);
+		return Objects.hash(manager, program, programId, volume, priceCurrent, firstOrderDate, fees);
 	}
 
 
@@ -145,6 +226,9 @@ public class OrderSignalProgramInfo
 		sb.append("    program: ").append(toIndentedString(program)).append("\n");
 		sb.append("    programId: ").append(toIndentedString(programId)).append("\n");
 		sb.append("    volume: ").append(toIndentedString(volume)).append("\n");
+		sb.append("    priceCurrent: ").append(toIndentedString(priceCurrent)).append("\n");
+		sb.append("    firstOrderDate: ").append(toIndentedString(firstOrderDate)).append("\n");
+		sb.append("    fees: ").append(toIndentedString(fees)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

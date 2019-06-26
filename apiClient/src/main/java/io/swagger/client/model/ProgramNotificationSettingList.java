@@ -31,6 +31,9 @@ public class ProgramNotificationSettingList
 	@SerializedName("level")
 	private Integer level = null;
 
+	@SerializedName("levelProgress")
+	private Double levelProgress = null;
+
 	@SerializedName("settingsCustom")
 	private List<NotificationSettingViewModel> settingsCustom = null;
 
@@ -69,6 +72,25 @@ public class ProgramNotificationSettingList
 
 	public void setLevel(Integer level) {
 		this.level = level;
+	}
+
+	public ProgramNotificationSettingList levelProgress(Double levelProgress) {
+		this.levelProgress = levelProgress;
+		return this;
+	}
+
+	/**
+	 * Get levelProgress
+	 *
+	 * @return levelProgress
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getLevelProgress() {
+		return levelProgress;
+	}
+
+	public void setLevelProgress(Double levelProgress) {
+		this.levelProgress = levelProgress;
 	}
 
 	public ProgramNotificationSettingList settingsCustom(List<NotificationSettingViewModel> settingsCustom) {
@@ -231,6 +253,7 @@ public class ProgramNotificationSettingList
 		}
 		ProgramNotificationSettingList programNotificationSettingList = (ProgramNotificationSettingList) o;
 		return Objects.equals(this.level, programNotificationSettingList.level) &&
+				Objects.equals(this.levelProgress, programNotificationSettingList.levelProgress) &&
 				Objects.equals(this.settingsCustom, programNotificationSettingList.settingsCustom) &&
 				Objects.equals(this.assetId, programNotificationSettingList.assetId) &&
 				Objects.equals(this.title, programNotificationSettingList.title) &&
@@ -242,7 +265,7 @@ public class ProgramNotificationSettingList
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(level, settingsCustom, assetId, title, url, logo, color, settingsGeneral);
+		return Objects.hash(level, levelProgress, settingsCustom, assetId, title, url, logo, color, settingsGeneral);
 	}
 
 
@@ -252,6 +275,7 @@ public class ProgramNotificationSettingList
 		sb.append("class ProgramNotificationSettingList {\n");
 
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
+		sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
 		sb.append("    settingsCustom: ").append(toIndentedString(settingsCustom)).append("\n");
 		sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");

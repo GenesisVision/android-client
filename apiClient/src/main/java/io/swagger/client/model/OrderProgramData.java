@@ -31,6 +31,9 @@ public class OrderProgramData
 	@SerializedName("level")
 	private Integer level = null;
 
+	@SerializedName("levelProgress")
+	private Double levelProgress = null;
+
 	@SerializedName("color")
 	private String color = null;
 
@@ -76,6 +79,25 @@ public class OrderProgramData
 
 	public void setLevel(Integer level) {
 		this.level = level;
+	}
+
+	public OrderProgramData levelProgress(Double levelProgress) {
+		this.levelProgress = levelProgress;
+		return this;
+	}
+
+	/**
+	 * Get levelProgress
+	 *
+	 * @return levelProgress
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getLevelProgress() {
+		return levelProgress;
+	}
+
+	public void setLevelProgress(Double levelProgress) {
+		this.levelProgress = levelProgress;
 	}
 
 	public OrderProgramData color(String color) {
@@ -147,6 +169,7 @@ public class OrderProgramData
 		OrderProgramData orderProgramData = (OrderProgramData) o;
 		return Objects.equals(this.title, orderProgramData.title) &&
 				Objects.equals(this.level, orderProgramData.level) &&
+				Objects.equals(this.levelProgress, orderProgramData.levelProgress) &&
 				Objects.equals(this.color, orderProgramData.color) &&
 				Objects.equals(this.url, orderProgramData.url) &&
 				Objects.equals(this.logo, orderProgramData.logo);
@@ -154,7 +177,7 @@ public class OrderProgramData
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, level, color, url, logo);
+		return Objects.hash(title, level, levelProgress, color, url, logo);
 	}
 
 
@@ -165,6 +188,7 @@ public class OrderProgramData
 
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
+		sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");

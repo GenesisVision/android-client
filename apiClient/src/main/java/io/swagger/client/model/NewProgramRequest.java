@@ -52,8 +52,8 @@ public class NewProgramRequest
 	@SerializedName("signalSuccessFee")
 	private Double signalSuccessFee = null;
 
-	@SerializedName("signalSubscriptionFee")
-	private Double signalSubscriptionFee = null;
+	@SerializedName("signalVolumeFee")
+	private Double signalVolumeFee = null;
 
 	@SerializedName("isSignalProgram")
 	private Boolean isSignalProgram = null;
@@ -209,23 +209,23 @@ public class NewProgramRequest
 		this.signalSuccessFee = signalSuccessFee;
 	}
 
-	public NewProgramRequest signalSubscriptionFee(Double signalSubscriptionFee) {
-		this.signalSubscriptionFee = signalSubscriptionFee;
+	public NewProgramRequest signalVolumeFee(Double signalVolumeFee) {
+		this.signalVolumeFee = signalVolumeFee;
 		return this;
 	}
 
 	/**
-	 * Get signalSubscriptionFee
+	 * Get signalVolumeFee
 	 *
-	 * @return signalSubscriptionFee
+	 * @return signalVolumeFee
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getSignalSubscriptionFee() {
-		return signalSubscriptionFee;
+	public Double getSignalVolumeFee() {
+		return signalVolumeFee;
 	}
 
-	public void setSignalSubscriptionFee(Double signalSubscriptionFee) {
-		this.signalSubscriptionFee = signalSubscriptionFee;
+	public void setSignalVolumeFee(Double signalVolumeFee) {
+		this.signalVolumeFee = signalVolumeFee;
 	}
 
 	public NewProgramRequest isSignalProgram(Boolean isSignalProgram) {
@@ -377,7 +377,7 @@ public class NewProgramRequest
 				Objects.equals(this.leverage, newProgramRequest.leverage) &&
 				Objects.equals(this.brokerAccountTypeId, newProgramRequest.brokerAccountTypeId) &&
 				Objects.equals(this.signalSuccessFee, newProgramRequest.signalSuccessFee) &&
-				Objects.equals(this.signalSubscriptionFee, newProgramRequest.signalSubscriptionFee) &&
+				Objects.equals(this.signalVolumeFee, newProgramRequest.signalVolumeFee) &&
 				Objects.equals(this.isSignalProgram, newProgramRequest.isSignalProgram) &&
 				Objects.equals(this.title, newProgramRequest.title) &&
 				Objects.equals(this.description, newProgramRequest.description) &&
@@ -389,7 +389,7 @@ public class NewProgramRequest
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, periodLength, successFee, stopOutLevel, leverage, brokerAccountTypeId, signalSuccessFee, signalSubscriptionFee, isSignalProgram, title, description, logo, entryFee, depositAmount, depositWalletId);
+		return Objects.hash(currency, periodLength, successFee, stopOutLevel, leverage, brokerAccountTypeId, signalSuccessFee, signalVolumeFee, isSignalProgram, title, description, logo, entryFee, depositAmount, depositWalletId);
 	}
 
 	@Override
@@ -404,7 +404,7 @@ public class NewProgramRequest
 		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
 		sb.append("    brokerAccountTypeId: ").append(toIndentedString(brokerAccountTypeId)).append("\n");
 		sb.append("    signalSuccessFee: ").append(toIndentedString(signalSuccessFee)).append("\n");
-		sb.append("    signalSubscriptionFee: ").append(toIndentedString(signalSubscriptionFee)).append("\n");
+		sb.append("    signalVolumeFee: ").append(toIndentedString(signalVolumeFee)).append("\n");
 		sb.append("    isSignalProgram: ").append(toIndentedString(isSignalProgram)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
@@ -433,17 +433,17 @@ public class NewProgramRequest
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		UNDEFINED("Undefined"),
-
-		GVT("GVT"),
+		BTC("BTC"),
 
 		ETH("ETH"),
 
-		BTC("BTC"),
+		USDT("USDT"),
+
+		GVT("GVT"),
+
+		UNDEFINED("Undefined"),
 
 		ADA("ADA"),
-
-		USDT("USDT"),
 
 		XRP("XRP"),
 

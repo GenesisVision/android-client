@@ -36,11 +36,8 @@ public class AttachToSignalProviderInfo
 	@SerializedName("hasActiveSubscription")
 	private Boolean hasActiveSubscription = null;
 
-	@SerializedName("subscriptionFee")
-	private Double subscriptionFee = null;
-
-	@SerializedName("subscriptionFeeCurrency")
-	private SubscriptionFeeCurrencyEnum subscriptionFeeCurrency = null;
+	@SerializedName("volumeFee")
+	private Double volumeFee = null;
 
 	@SerializedName("minDeposit")
 	private Double minDeposit = null;
@@ -86,42 +83,23 @@ public class AttachToSignalProviderInfo
 		this.hasActiveSubscription = hasActiveSubscription;
 	}
 
-	public AttachToSignalProviderInfo subscriptionFee(Double subscriptionFee) {
-		this.subscriptionFee = subscriptionFee;
+	public AttachToSignalProviderInfo volumeFee(Double volumeFee) {
+		this.volumeFee = volumeFee;
 		return this;
 	}
 
 	/**
-	 * Get subscriptionFee
+	 * Get volumeFee
 	 *
-	 * @return subscriptionFee
+	 * @return volumeFee
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getSubscriptionFee() {
-		return subscriptionFee;
+	public Double getVolumeFee() {
+		return volumeFee;
 	}
 
-	public void setSubscriptionFee(Double subscriptionFee) {
-		this.subscriptionFee = subscriptionFee;
-	}
-
-	public AttachToSignalProviderInfo subscriptionFeeCurrency(SubscriptionFeeCurrencyEnum subscriptionFeeCurrency) {
-		this.subscriptionFeeCurrency = subscriptionFeeCurrency;
-		return this;
-	}
-
-	/**
-	 * Get subscriptionFeeCurrency
-	 *
-	 * @return subscriptionFeeCurrency
-	 **/
-	@ApiModelProperty(value = "")
-	public SubscriptionFeeCurrencyEnum getSubscriptionFeeCurrency() {
-		return subscriptionFeeCurrency;
-	}
-
-	public void setSubscriptionFeeCurrency(SubscriptionFeeCurrencyEnum subscriptionFeeCurrency) {
-		this.subscriptionFeeCurrency = subscriptionFeeCurrency;
+	public void setVolumeFee(Double volumeFee) {
+		this.volumeFee = volumeFee;
 	}
 
 	public AttachToSignalProviderInfo minDeposit(Double minDeposit) {
@@ -173,15 +151,14 @@ public class AttachToSignalProviderInfo
 		AttachToSignalProviderInfo attachToSignalProviderInfo = (AttachToSignalProviderInfo) o;
 		return Objects.equals(this.hasSignalAccount, attachToSignalProviderInfo.hasSignalAccount) &&
 				Objects.equals(this.hasActiveSubscription, attachToSignalProviderInfo.hasActiveSubscription) &&
-				Objects.equals(this.subscriptionFee, attachToSignalProviderInfo.subscriptionFee) &&
-				Objects.equals(this.subscriptionFeeCurrency, attachToSignalProviderInfo.subscriptionFeeCurrency) &&
+				Objects.equals(this.volumeFee, attachToSignalProviderInfo.volumeFee) &&
 				Objects.equals(this.minDeposit, attachToSignalProviderInfo.minDeposit) &&
 				Objects.equals(this.minDepositCurrency, attachToSignalProviderInfo.minDepositCurrency);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(hasSignalAccount, hasActiveSubscription, subscriptionFee, subscriptionFeeCurrency, minDeposit, minDepositCurrency);
+		return Objects.hash(hasSignalAccount, hasActiveSubscription, volumeFee, minDeposit, minDepositCurrency);
 	}
 
 	@Override
@@ -191,8 +168,7 @@ public class AttachToSignalProviderInfo
 
 		sb.append("    hasSignalAccount: ").append(toIndentedString(hasSignalAccount)).append("\n");
 		sb.append("    hasActiveSubscription: ").append(toIndentedString(hasActiveSubscription)).append("\n");
-		sb.append("    subscriptionFee: ").append(toIndentedString(subscriptionFee)).append("\n");
-		sb.append("    subscriptionFeeCurrency: ").append(toIndentedString(subscriptionFeeCurrency)).append("\n");
+		sb.append("    volumeFee: ").append(toIndentedString(volumeFee)).append("\n");
 		sb.append("    minDeposit: ").append(toIndentedString(minDeposit)).append("\n");
 		sb.append("    minDepositCurrency: ").append(toIndentedString(minDepositCurrency)).append("\n");
 		sb.append("}");
@@ -210,95 +186,23 @@ public class AttachToSignalProviderInfo
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
-	/**
-	 * Gets or Sets subscriptionFeeCurrency
-	 */
-	@JsonAdapter(SubscriptionFeeCurrencyEnum.Adapter.class)
-	public enum SubscriptionFeeCurrencyEnum
-	{
-		UNDEFINED("Undefined"),
-
-		GVT("GVT"),
-
-		ETH("ETH"),
-
-		BTC("BTC"),
-
-		ADA("ADA"),
-
-		USDT("USDT"),
-
-		XRP("XRP"),
-
-		BCH("BCH"),
-
-		LTC("LTC"),
-
-		DOGE("DOGE"),
-
-		BNB("BNB"),
-
-		USD("USD"),
-
-		EUR("EUR");
-
-		public static SubscriptionFeeCurrencyEnum fromValue(String text) {
-			for (SubscriptionFeeCurrencyEnum b : SubscriptionFeeCurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		SubscriptionFeeCurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<SubscriptionFeeCurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final SubscriptionFeeCurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public SubscriptionFeeCurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return SubscriptionFeeCurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
-	}
-
 	/**
 	 * Gets or Sets minDepositCurrency
 	 */
 	@JsonAdapter(MinDepositCurrencyEnum.Adapter.class)
 	public enum MinDepositCurrencyEnum
 	{
-		UNDEFINED("Undefined"),
-
-		GVT("GVT"),
+		BTC("BTC"),
 
 		ETH("ETH"),
 
-		BTC("BTC"),
+		USDT("USDT"),
+
+		GVT("GVT"),
+
+		UNDEFINED("Undefined"),
 
 		ADA("ADA"),
-
-		USDT("USDT"),
 
 		XRP("XRP"),
 

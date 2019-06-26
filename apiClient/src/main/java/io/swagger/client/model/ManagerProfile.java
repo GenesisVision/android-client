@@ -51,6 +51,9 @@ public class ManagerProfile
 	@SerializedName("url")
 	private String url = null;
 
+	@SerializedName("socialLinks")
+	private List<SocialLinkViewModel> socialLinks = null;
+
 	public ManagerProfile id(UUID id) {
 		this.id = id;
 		return this;
@@ -192,6 +195,33 @@ public class ManagerProfile
 		this.url = url;
 	}
 
+	public ManagerProfile socialLinks(List<SocialLinkViewModel> socialLinks) {
+		this.socialLinks = socialLinks;
+		return this;
+	}
+
+	public ManagerProfile addSocialLinksItem(SocialLinkViewModel socialLinksItem) {
+		if (this.socialLinks == null) {
+			this.socialLinks = new ArrayList<SocialLinkViewModel>();
+		}
+		this.socialLinks.add(socialLinksItem);
+		return this;
+	}
+
+	/**
+	 * Get socialLinks
+	 *
+	 * @return socialLinks
+	 **/
+	@ApiModelProperty(value = "")
+	public List<SocialLinkViewModel> getSocialLinks() {
+		return socialLinks;
+	}
+
+	public void setSocialLinks(List<SocialLinkViewModel> socialLinks) {
+		this.socialLinks = socialLinks;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -208,12 +238,13 @@ public class ManagerProfile
 				Objects.equals(this.avatar, managerProfile.avatar) &&
 				Objects.equals(this.regDate, managerProfile.regDate) &&
 				Objects.equals(this.assets, managerProfile.assets) &&
-				Objects.equals(this.url, managerProfile.url);
+				Objects.equals(this.url, managerProfile.url) &&
+				Objects.equals(this.socialLinks, managerProfile.socialLinks);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, username, about, avatar, regDate, assets, url);
+		return Objects.hash(id, username, about, avatar, regDate, assets, url, socialLinks);
 	}
 
 
@@ -229,6 +260,7 @@ public class ManagerProfile
 		sb.append("    regDate: ").append(toIndentedString(regDate)).append("\n");
 		sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
+		sb.append("    socialLinks: ").append(toIndentedString(socialLinks)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

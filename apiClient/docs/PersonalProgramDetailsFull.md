@@ -9,10 +9,14 @@ Name | Type | Description | Notes
 **showTwoFactorButton** | **Boolean** |  |  [optional]
 **signalSubscription** | [**SignalSubscription**](SignalSubscription.md) |  |  [optional]
 **login** | **String** |  |  [optional]
+**notificationAvailableToInvestId** | [**UUID**](UUID.md) |  |  [optional]
+**canMakeSignalProvider** | **Boolean** |  |  [optional]
+**canChangePassword** | **Boolean** |  |  [optional]
 **isFavorite** | **Boolean** |  |  [optional]
 **isInvested** | **Boolean** |  |  [optional]
 **isOwnProgram** | **Boolean** |  |  [optional]
 **canCloseProgram** | **Boolean** |  |  [optional]
+**canCloseAsset** | **Boolean** |  |  [optional]
 **isFinishing** | **Boolean** |  |  [optional]
 **canInvest** | **Boolean** |  |  [optional]
 **canWithdraw** | **Boolean** |  |  [optional]
@@ -24,8 +28,6 @@ Name | Type | Description | Notes
 **pendingInput** | **Double** |  |  [optional]
 **pendingOutput** | **Double** |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
-**isFollowSignals** | **Boolean** |  |  [optional]
-**canMakeSignalProvider** | **Boolean** |  |  [optional]
 
 
 <a name="StatusEnum"></a>

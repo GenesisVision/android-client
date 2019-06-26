@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **description** | **String** |  |  [optional]
 **logo** | **String** |  |  [optional]
 **stopOutLevel** | **Double** |  |  [optional]
+**investmentLimit** | **Double** |  |  [optional]
 
 
 

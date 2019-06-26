@@ -21,6 +21,8 @@ import vision.genesis.clientapp.feature.main.MainPresenter;
 import vision.genesis.clientapp.feature.main.about_levels.AboutLevelsPresenter;
 import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
 import vision.genesis.clientapp.feature.main.assets.AssetsPresenter;
+import vision.genesis.clientapp.feature.main.copytrading.create_account.CreateCopytradingAccountPresenter;
+import vision.genesis.clientapp.feature.main.copytrading.subscription_settings.SubscriptionSettingsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.investor.InvestorDashboardPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.investor.funds.DashboardFundsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.investor.header.InvestorDashboardHeaderPortfolioPresenter;
@@ -254,4 +256,8 @@ public interface AppComponent
 	void inject(AboutLevelsPresenter aboutLevelsPresenter);
 
 	void inject(ProgramLevelBottomSheetDialog programLevelBottomSheetDialog);
+
+	void inject(CreateCopytradingAccountPresenter createCopytradingAccountPresenter);
+
+	void inject(SubscriptionSettingsPresenter subscriptionSettingsPresenter);
 }

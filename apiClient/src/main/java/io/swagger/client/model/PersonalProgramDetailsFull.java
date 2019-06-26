@@ -21,6 +21,7 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.UUID;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -45,6 +46,15 @@ public class PersonalProgramDetailsFull
 	@SerializedName("login")
 	private String login = null;
 
+	@SerializedName("notificationAvailableToInvestId")
+	private UUID notificationAvailableToInvestId = null;
+
+	@SerializedName("canMakeSignalProvider")
+	private Boolean canMakeSignalProvider = null;
+
+	@SerializedName("canChangePassword")
+	private Boolean canChangePassword = null;
+
 	@SerializedName("isFavorite")
 	private Boolean isFavorite = null;
 
@@ -56,6 +66,9 @@ public class PersonalProgramDetailsFull
 
 	@SerializedName("canCloseProgram")
 	private Boolean canCloseProgram = null;
+
+	@SerializedName("canCloseAsset")
+	private Boolean canCloseAsset = null;
 
 	@SerializedName("isFinishing")
 	private Boolean isFinishing = null;
@@ -89,12 +102,6 @@ public class PersonalProgramDetailsFull
 
 	@SerializedName("status")
 	private StatusEnum status = null;
-
-	@SerializedName("isFollowSignals")
-	private Boolean isFollowSignals = null;
-
-	@SerializedName("canMakeSignalProvider")
-	private Boolean canMakeSignalProvider = null;
 
 	public PersonalProgramDetailsFull isReinvest(Boolean isReinvest) {
 		this.isReinvest = isReinvest;
@@ -191,6 +198,63 @@ public class PersonalProgramDetailsFull
 		this.login = login;
 	}
 
+	public PersonalProgramDetailsFull notificationAvailableToInvestId(UUID notificationAvailableToInvestId) {
+		this.notificationAvailableToInvestId = notificationAvailableToInvestId;
+		return this;
+	}
+
+	/**
+	 * Get notificationAvailableToInvestId
+	 *
+	 * @return notificationAvailableToInvestId
+	 **/
+	@ApiModelProperty(value = "")
+	public UUID getNotificationAvailableToInvestId() {
+		return notificationAvailableToInvestId;
+	}
+
+	public void setNotificationAvailableToInvestId(UUID notificationAvailableToInvestId) {
+		this.notificationAvailableToInvestId = notificationAvailableToInvestId;
+	}
+
+	public PersonalProgramDetailsFull canMakeSignalProvider(Boolean canMakeSignalProvider) {
+		this.canMakeSignalProvider = canMakeSignalProvider;
+		return this;
+	}
+
+	/**
+	 * Get canMakeSignalProvider
+	 *
+	 * @return canMakeSignalProvider
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isCanMakeSignalProvider() {
+		return canMakeSignalProvider;
+	}
+
+	public void setCanMakeSignalProvider(Boolean canMakeSignalProvider) {
+		this.canMakeSignalProvider = canMakeSignalProvider;
+	}
+
+	public PersonalProgramDetailsFull canChangePassword(Boolean canChangePassword) {
+		this.canChangePassword = canChangePassword;
+		return this;
+	}
+
+	/**
+	 * Get canChangePassword
+	 *
+	 * @return canChangePassword
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isCanChangePassword() {
+		return canChangePassword;
+	}
+
+	public void setCanChangePassword(Boolean canChangePassword) {
+		this.canChangePassword = canChangePassword;
+	}
+
 	public PersonalProgramDetailsFull isFavorite(Boolean isFavorite) {
 		this.isFavorite = isFavorite;
 		return this;
@@ -248,11 +312,6 @@ public class PersonalProgramDetailsFull
 		this.isOwnProgram = isOwnProgram;
 	}
 
-	public PersonalProgramDetailsFull canCloseProgram(Boolean canCloseProgram) {
-		this.canCloseProgram = canCloseProgram;
-		return this;
-	}
-
 	/**
 	 * Get canCloseProgram
 	 *
@@ -263,8 +322,23 @@ public class PersonalProgramDetailsFull
 		return canCloseProgram;
 	}
 
-	public void setCanCloseProgram(Boolean canCloseProgram) {
-		this.canCloseProgram = canCloseProgram;
+	public PersonalProgramDetailsFull canCloseAsset(Boolean canCloseAsset) {
+		this.canCloseAsset = canCloseAsset;
+		return this;
+	}
+
+	/**
+	 * Get canCloseAsset
+	 *
+	 * @return canCloseAsset
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isCanCloseAsset() {
+		return canCloseAsset;
+	}
+
+	public void setCanCloseAsset(Boolean canCloseAsset) {
+		this.canCloseAsset = canCloseAsset;
 	}
 
 	public PersonalProgramDetailsFull isFinishing(Boolean isFinishing) {
@@ -476,44 +550,6 @@ public class PersonalProgramDetailsFull
 		this.status = status;
 	}
 
-	public PersonalProgramDetailsFull isFollowSignals(Boolean isFollowSignals) {
-		this.isFollowSignals = isFollowSignals;
-		return this;
-	}
-
-	/**
-	 * Get isFollowSignals
-	 *
-	 * @return isFollowSignals
-	 **/
-	@ApiModelProperty(value = "")
-	public Boolean isIsFollowSignals() {
-		return isFollowSignals;
-	}
-
-	public void setIsFollowSignals(Boolean isFollowSignals) {
-		this.isFollowSignals = isFollowSignals;
-	}
-
-	public PersonalProgramDetailsFull canMakeSignalProvider(Boolean canMakeSignalProvider) {
-		this.canMakeSignalProvider = canMakeSignalProvider;
-		return this;
-	}
-
-	/**
-	 * Get canMakeSignalProvider
-	 *
-	 * @return canMakeSignalProvider
-	 **/
-	@ApiModelProperty(value = "")
-	public Boolean isCanMakeSignalProvider() {
-		return canMakeSignalProvider;
-	}
-
-	public void setCanMakeSignalProvider(Boolean canMakeSignalProvider) {
-		this.canMakeSignalProvider = canMakeSignalProvider;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -528,10 +564,14 @@ public class PersonalProgramDetailsFull
 				Objects.equals(this.showTwoFactorButton, personalProgramDetailsFull.showTwoFactorButton) &&
 				Objects.equals(this.signalSubscription, personalProgramDetailsFull.signalSubscription) &&
 				Objects.equals(this.login, personalProgramDetailsFull.login) &&
+				Objects.equals(this.notificationAvailableToInvestId, personalProgramDetailsFull.notificationAvailableToInvestId) &&
+				Objects.equals(this.canMakeSignalProvider, personalProgramDetailsFull.canMakeSignalProvider) &&
+				Objects.equals(this.canChangePassword, personalProgramDetailsFull.canChangePassword) &&
 				Objects.equals(this.isFavorite, personalProgramDetailsFull.isFavorite) &&
 				Objects.equals(this.isInvested, personalProgramDetailsFull.isInvested) &&
 				Objects.equals(this.isOwnProgram, personalProgramDetailsFull.isOwnProgram) &&
 				Objects.equals(this.canCloseProgram, personalProgramDetailsFull.canCloseProgram) &&
+				Objects.equals(this.canCloseAsset, personalProgramDetailsFull.canCloseAsset) &&
 				Objects.equals(this.isFinishing, personalProgramDetailsFull.isFinishing) &&
 				Objects.equals(this.canInvest, personalProgramDetailsFull.canInvest) &&
 				Objects.equals(this.canWithdraw, personalProgramDetailsFull.canWithdraw) &&
@@ -542,14 +582,12 @@ public class PersonalProgramDetailsFull
 				Objects.equals(this.invested, personalProgramDetailsFull.invested) &&
 				Objects.equals(this.pendingInput, personalProgramDetailsFull.pendingInput) &&
 				Objects.equals(this.pendingOutput, personalProgramDetailsFull.pendingOutput) &&
-				Objects.equals(this.status, personalProgramDetailsFull.status) &&
-				Objects.equals(this.isFollowSignals, personalProgramDetailsFull.isFollowSignals) &&
-				Objects.equals(this.canMakeSignalProvider, personalProgramDetailsFull.canMakeSignalProvider);
+				Objects.equals(this.status, personalProgramDetailsFull.status);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isReinvest, gvtValue, showTwoFactorButton, signalSubscription, login, isFavorite, isInvested, isOwnProgram, canCloseProgram, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status, isFollowSignals, canMakeSignalProvider);
+		return Objects.hash(isReinvest, gvtValue, showTwoFactorButton, signalSubscription, login, notificationAvailableToInvestId, canMakeSignalProvider, canChangePassword, isFavorite, isInvested, isOwnProgram, canCloseProgram, canCloseAsset, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status);
 	}
 
 	@Override
@@ -562,10 +600,14 @@ public class PersonalProgramDetailsFull
 		sb.append("    showTwoFactorButton: ").append(toIndentedString(showTwoFactorButton)).append("\n");
 		sb.append("    signalSubscription: ").append(toIndentedString(signalSubscription)).append("\n");
 		sb.append("    login: ").append(toIndentedString(login)).append("\n");
+		sb.append("    notificationAvailableToInvestId: ").append(toIndentedString(notificationAvailableToInvestId)).append("\n");
+		sb.append("    canMakeSignalProvider: ").append(toIndentedString(canMakeSignalProvider)).append("\n");
+		sb.append("    canChangePassword: ").append(toIndentedString(canChangePassword)).append("\n");
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
 		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
 		sb.append("    canCloseProgram: ").append(toIndentedString(canCloseProgram)).append("\n");
+		sb.append("    canCloseAsset: ").append(toIndentedString(canCloseAsset)).append("\n");
 		sb.append("    isFinishing: ").append(toIndentedString(isFinishing)).append("\n");
 		sb.append("    canInvest: ").append(toIndentedString(canInvest)).append("\n");
 		sb.append("    canWithdraw: ").append(toIndentedString(canWithdraw)).append("\n");
@@ -577,8 +619,6 @@ public class PersonalProgramDetailsFull
 		sb.append("    pendingInput: ").append(toIndentedString(pendingInput)).append("\n");
 		sb.append("    pendingOutput: ").append(toIndentedString(pendingOutput)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
-		sb.append("    isFollowSignals: ").append(toIndentedString(isFollowSignals)).append("\n");
-		sb.append("    canMakeSignalProvider: ").append(toIndentedString(canMakeSignalProvider)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

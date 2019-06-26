@@ -29,6 +29,9 @@ public class ManagerSimpleProgram
 	@SerializedName("level")
 	private Integer level = null;
 
+	@SerializedName("levelProgress")
+	private Double levelProgress = null;
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -61,6 +64,25 @@ public class ManagerSimpleProgram
 
 	public void setLevel(Integer level) {
 		this.level = level;
+	}
+
+	public ManagerSimpleProgram levelProgress(Double levelProgress) {
+		this.levelProgress = levelProgress;
+		return this;
+	}
+
+	/**
+	 * Get levelProgress
+	 *
+	 * @return levelProgress
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getLevelProgress() {
+		return levelProgress;
+	}
+
+	public void setLevelProgress(Double levelProgress) {
+		this.levelProgress = levelProgress;
 	}
 
 	public ManagerSimpleProgram id(UUID id) {
@@ -169,6 +191,7 @@ public class ManagerSimpleProgram
 		}
 		ManagerSimpleProgram managerSimpleProgram = (ManagerSimpleProgram) o;
 		return Objects.equals(this.level, managerSimpleProgram.level) &&
+				Objects.equals(this.levelProgress, managerSimpleProgram.levelProgress) &&
 				Objects.equals(this.id, managerSimpleProgram.id) &&
 				Objects.equals(this.title, managerSimpleProgram.title) &&
 				Objects.equals(this.color, managerSimpleProgram.color) &&
@@ -178,7 +201,7 @@ public class ManagerSimpleProgram
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(level, id, title, color, logo, url);
+		return Objects.hash(level, levelProgress, id, title, color, logo, url);
 	}
 
 
@@ -188,6 +211,7 @@ public class ManagerSimpleProgram
 		sb.append("class ManagerSimpleProgram {\n");
 
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
+		sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");

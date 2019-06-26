@@ -601,5 +601,26 @@
     <string name="genesis_level">Genesis Level</string>
     <string name="resend_email">Resend email</string>
     <string name="need_email_confirmation">Need email confirmation</string>
+    <string name="subscription">Subscription</string>
+    <string name="volume_fee">Volume fee</string>
+    <string name="follow_trades">Follow trades</string>
+    <string name="edit_subscription">Edit subscription</string>
+    <string name="unfollow_trades">Unfollow trades</string>
+    <string name="account_creation">Account creation</string>
+    <string name="amount_to_deposit">Amount to deposit</string>
+    <string name="create_account">Create account</string>
+    <string name="by_balance">By balance</string>
+    <string name="percentage">Percentage</string>
+    <string name="fixed">Fixed</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="volume_percentage">Volume percentage</string>
+    <string name="subscription_settings">Subscription settings</string>
+    <string name="equivalent">equivalent</string>
+    <string name="tolerance_percentage">Tolerance percentage</string>
+    <string name="select_subscription_type">Select subscription type</string>
+
+    <string name="type_description_by_balance">The volume of the opened positions is proportional to the balance of the signal provider and an investor.</string>
+    <string name="type_description_percentage">Positions are opened according to the percentage of the volume of positions opened by the signal provider.</string>
+    <string name="type_description_fixed">Each new position is opened at a fixed amount.</string>
 
 </resources>

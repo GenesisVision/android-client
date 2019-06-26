@@ -35,6 +35,9 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class OrderSignalModel
 {
+	@SerializedName("tradingFee")
+	private OrderTradingFee tradingFee = null;
+
 	@SerializedName("providers")
 	private List<OrderSignalProgramInfo> providers = null;
 
@@ -89,8 +92,27 @@ public class OrderSignalModel
 	@SerializedName("showOriginalCommission")
 	private Boolean showOriginalCommission = null;
 
-	@SerializedName("masterLogin")
-	private String masterLogin = null;
+	@SerializedName("signalData")
+	private OrderModelSignalData signalData = null;
+
+	public OrderSignalModel tradingFee(OrderTradingFee tradingFee) {
+		this.tradingFee = tradingFee;
+		return this;
+	}
+
+	/**
+	 * Get tradingFee
+	 *
+	 * @return tradingFee
+	 **/
+	@ApiModelProperty(value = "")
+	public OrderTradingFee getTradingFee() {
+		return tradingFee;
+	}
+
+	public void setTradingFee(OrderTradingFee tradingFee) {
+		this.tradingFee = tradingFee;
+	}
 
 	public OrderSignalModel providers(List<OrderSignalProgramInfo> providers) {
 		this.providers = providers;
@@ -442,23 +464,23 @@ public class OrderSignalModel
 		this.showOriginalCommission = showOriginalCommission;
 	}
 
-	public OrderSignalModel masterLogin(String masterLogin) {
-		this.masterLogin = masterLogin;
+	public OrderSignalModel signalData(OrderModelSignalData signalData) {
+		this.signalData = signalData;
 		return this;
 	}
 
 	/**
 	 * For signals
 	 *
-	 * @return masterLogin
+	 * @return signalData
 	 **/
 	@ApiModelProperty(value = "For signals")
-	public String getMasterLogin() {
-		return masterLogin;
+	public OrderModelSignalData getSignalData() {
+		return signalData;
 	}
 
-	public void setMasterLogin(String masterLogin) {
-		this.masterLogin = masterLogin;
+	public void setSignalData(OrderModelSignalData signalData) {
+		this.signalData = signalData;
 	}
 
 	@Override
@@ -470,7 +492,8 @@ public class OrderSignalModel
 			return false;
 		}
 		OrderSignalModel orderSignalModel = (OrderSignalModel) o;
-		return Objects.equals(this.providers, orderSignalModel.providers) &&
+		return Objects.equals(this.tradingFee, orderSignalModel.tradingFee) &&
+				Objects.equals(this.providers, orderSignalModel.providers) &&
 				Objects.equals(this.id, orderSignalModel.id) &&
 				Objects.equals(this.login, orderSignalModel.login) &&
 				Objects.equals(this.ticket, orderSignalModel.ticket) &&
@@ -488,12 +511,12 @@ public class OrderSignalModel
 				Objects.equals(this.commission, orderSignalModel.commission) &&
 				Objects.equals(this.swap, orderSignalModel.swap) &&
 				Objects.equals(this.showOriginalCommission, orderSignalModel.showOriginalCommission) &&
-				Objects.equals(this.masterLogin, orderSignalModel.masterLogin);
+				Objects.equals(this.signalData, orderSignalModel.signalData);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(providers, id, login, ticket, symbol, volume, profit, direction, date, price, priceCurrent, entry, baseVolume, originalCommission, originalCommissionCurrency, commission, swap, showOriginalCommission, masterLogin);
+		return Objects.hash(tradingFee, providers, id, login, ticket, symbol, volume, profit, direction, date, price, priceCurrent, entry, baseVolume, originalCommission, originalCommissionCurrency, commission, swap, showOriginalCommission, signalData);
 	}
 
 	@Override
@@ -501,6 +524,7 @@ public class OrderSignalModel
 		StringBuilder sb = new StringBuilder();
 		sb.append("class OrderSignalModel {\n");
 
+		sb.append("    tradingFee: ").append(toIndentedString(tradingFee)).append("\n");
 		sb.append("    providers: ").append(toIndentedString(providers)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    login: ").append(toIndentedString(login)).append("\n");
@@ -519,7 +543,7 @@ public class OrderSignalModel
 		sb.append("    commission: ").append(toIndentedString(commission)).append("\n");
 		sb.append("    swap: ").append(toIndentedString(swap)).append("\n");
 		sb.append("    showOriginalCommission: ").append(toIndentedString(showOriginalCommission)).append("\n");
-		sb.append("    masterLogin: ").append(toIndentedString(masterLogin)).append("\n");
+		sb.append("    signalData: ").append(toIndentedString(signalData)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

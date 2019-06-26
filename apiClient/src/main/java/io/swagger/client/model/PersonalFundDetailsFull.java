@@ -53,6 +53,9 @@ public class PersonalFundDetailsFull
 	@SerializedName("canCloseProgram")
 	private Boolean canCloseProgram = null;
 
+	@SerializedName("canCloseAsset")
+	private Boolean canCloseAsset = null;
+
 	@SerializedName("isFinishing")
 	private Boolean isFinishing = null;
 
@@ -85,12 +88,6 @@ public class PersonalFundDetailsFull
 
 	@SerializedName("status")
 	private StatusEnum status = null;
-
-	@SerializedName("isFollowSignals")
-	private Boolean isFollowSignals = null;
-
-	@SerializedName("canMakeSignalProvider")
-	private Boolean canMakeSignalProvider = null;
 
 	public PersonalFundDetailsFull withdrawPercent(Double withdrawPercent) {
 		this.withdrawPercent = withdrawPercent;
@@ -206,11 +203,6 @@ public class PersonalFundDetailsFull
 		this.isOwnProgram = isOwnProgram;
 	}
 
-	public PersonalFundDetailsFull canCloseProgram(Boolean canCloseProgram) {
-		this.canCloseProgram = canCloseProgram;
-		return this;
-	}
-
 	/**
 	 * Get canCloseProgram
 	 *
@@ -221,8 +213,23 @@ public class PersonalFundDetailsFull
 		return canCloseProgram;
 	}
 
-	public void setCanCloseProgram(Boolean canCloseProgram) {
-		this.canCloseProgram = canCloseProgram;
+	public PersonalFundDetailsFull canCloseAsset(Boolean canCloseAsset) {
+		this.canCloseAsset = canCloseAsset;
+		return this;
+	}
+
+	/**
+	 * Get canCloseAsset
+	 *
+	 * @return canCloseAsset
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isCanCloseAsset() {
+		return canCloseAsset;
+	}
+
+	public void setCanCloseAsset(Boolean canCloseAsset) {
+		this.canCloseAsset = canCloseAsset;
 	}
 
 	public PersonalFundDetailsFull isFinishing(Boolean isFinishing) {
@@ -434,44 +441,6 @@ public class PersonalFundDetailsFull
 		this.status = status;
 	}
 
-	public PersonalFundDetailsFull isFollowSignals(Boolean isFollowSignals) {
-		this.isFollowSignals = isFollowSignals;
-		return this;
-	}
-
-	/**
-	 * Get isFollowSignals
-	 *
-	 * @return isFollowSignals
-	 **/
-	@ApiModelProperty(value = "")
-	public Boolean isIsFollowSignals() {
-		return isFollowSignals;
-	}
-
-	public void setIsFollowSignals(Boolean isFollowSignals) {
-		this.isFollowSignals = isFollowSignals;
-	}
-
-	public PersonalFundDetailsFull canMakeSignalProvider(Boolean canMakeSignalProvider) {
-		this.canMakeSignalProvider = canMakeSignalProvider;
-		return this;
-	}
-
-	/**
-	 * Get canMakeSignalProvider
-	 *
-	 * @return canMakeSignalProvider
-	 **/
-	@ApiModelProperty(value = "")
-	public Boolean isCanMakeSignalProvider() {
-		return canMakeSignalProvider;
-	}
-
-	public void setCanMakeSignalProvider(Boolean canMakeSignalProvider) {
-		this.canMakeSignalProvider = canMakeSignalProvider;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -488,6 +457,7 @@ public class PersonalFundDetailsFull
 				Objects.equals(this.isInvested, personalFundDetailsFull.isInvested) &&
 				Objects.equals(this.isOwnProgram, personalFundDetailsFull.isOwnProgram) &&
 				Objects.equals(this.canCloseProgram, personalFundDetailsFull.canCloseProgram) &&
+				Objects.equals(this.canCloseAsset, personalFundDetailsFull.canCloseAsset) &&
 				Objects.equals(this.isFinishing, personalFundDetailsFull.isFinishing) &&
 				Objects.equals(this.canInvest, personalFundDetailsFull.canInvest) &&
 				Objects.equals(this.canWithdraw, personalFundDetailsFull.canWithdraw) &&
@@ -498,14 +468,12 @@ public class PersonalFundDetailsFull
 				Objects.equals(this.invested, personalFundDetailsFull.invested) &&
 				Objects.equals(this.pendingInput, personalFundDetailsFull.pendingInput) &&
 				Objects.equals(this.pendingOutput, personalFundDetailsFull.pendingOutput) &&
-				Objects.equals(this.status, personalFundDetailsFull.status) &&
-				Objects.equals(this.isFollowSignals, personalFundDetailsFull.isFollowSignals) &&
-				Objects.equals(this.canMakeSignalProvider, personalFundDetailsFull.canMakeSignalProvider);
+				Objects.equals(this.status, personalFundDetailsFull.status);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(withdrawPercent, canReallocate, possibleReallocationTime, isFavorite, isInvested, isOwnProgram, canCloseProgram, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status, isFollowSignals, canMakeSignalProvider);
+		return Objects.hash(withdrawPercent, canReallocate, possibleReallocationTime, isFavorite, isInvested, isOwnProgram, canCloseProgram, canCloseAsset, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status);
 	}
 
 	@Override
@@ -520,6 +488,7 @@ public class PersonalFundDetailsFull
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
 		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
 		sb.append("    canCloseProgram: ").append(toIndentedString(canCloseProgram)).append("\n");
+		sb.append("    canCloseAsset: ").append(toIndentedString(canCloseAsset)).append("\n");
 		sb.append("    isFinishing: ").append(toIndentedString(isFinishing)).append("\n");
 		sb.append("    canInvest: ").append(toIndentedString(canInvest)).append("\n");
 		sb.append("    canWithdraw: ").append(toIndentedString(canWithdraw)).append("\n");
@@ -531,8 +500,6 @@ public class PersonalFundDetailsFull
 		sb.append("    pendingInput: ").append(toIndentedString(pendingInput)).append("\n");
 		sb.append("    pendingOutput: ").append(toIndentedString(pendingOutput)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
-		sb.append("    isFollowSignals: ").append(toIndentedString(isFollowSignals)).append("\n");
-		sb.append("    canMakeSignalProvider: ").append(toIndentedString(canMakeSignalProvider)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

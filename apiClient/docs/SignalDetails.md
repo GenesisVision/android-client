@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **personalDetails** | [**PersonalSignalDetailsFull**](PersonalSignalDetailsFull.md) |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **level** | **Integer** |  |  [optional]
+**levelProgress** | **Double** |  |  [optional]
 **tags** | [**List&lt;ProgramTag&gt;**](ProgramTag.md) |  |  [optional]
 **subscribers** | **Integer** |  |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
@@ -26,12 +27,12 @@ Name | Type | Description | Notes
 ## Enum: CurrencyEnum
 Name | Value
 ---- | -----
-UNDEFINED | &quot;Undefined&quot;
-GVT | &quot;GVT&quot;
-ETH | &quot;ETH&quot;
 BTC | &quot;BTC&quot;
-ADA | &quot;ADA&quot;
+ETH | &quot;ETH&quot;
 USDT | &quot;USDT&quot;
+GVT | &quot;GVT&quot;
+UNDEFINED | &quot;Undefined&quot;
+ADA | &quot;ADA&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;

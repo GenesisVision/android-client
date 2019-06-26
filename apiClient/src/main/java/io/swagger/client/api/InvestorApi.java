@@ -92,20 +92,21 @@ public interface InvestorApi
 	/**
 	 * Dashboard funds list
 	 *
-	 * @param authorization     JWT access token (required)
-	 * @param sorting           (optional)
-	 * @param from              (optional)
-	 * @param to                (optional)
-	 * @param chartPointsCount  (optional)
-	 * @param currencySecondary (optional)
-	 * @param actionStatus      (optional)
-	 * @param skip              (optional)
-	 * @param take              (optional)
+	 * @param authorization         JWT access token (required)
+	 * @param sorting               (optional)
+	 * @param from                  (optional)
+	 * @param to                    (optional)
+	 * @param chartPointsCount      (optional)
+	 * @param currencySecondary     (optional)
+	 * @param actionStatus          (optional)
+	 * @param dashboardActionStatus (optional)
+	 * @param skip                  (optional)
+	 * @param take                  (optional)
 	 * @return Call&lt;FundsList&gt;
 	 */
 	@GET("v1.0/investor/funds")
 	Observable<FundsList> v10InvestorFundsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("ActionStatus") String actionStatus, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("ActionStatus") String actionStatus, @retrofit2.http.Query("DashboardActionStatus") String dashboardActionStatus, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -268,20 +269,21 @@ public interface InvestorApi
 	/**
 	 * Dashboard program list
 	 *
-	 * @param authorization     JWT access token (required)
-	 * @param sorting           (optional)
-	 * @param from              (optional)
-	 * @param to                (optional)
-	 * @param chartPointsCount  (optional)
-	 * @param currencySecondary (optional)
-	 * @param actionStatus      (optional)
-	 * @param skip              (optional)
-	 * @param take              (optional)
+	 * @param authorization         JWT access token (required)
+	 * @param sorting               (optional)
+	 * @param from                  (optional)
+	 * @param to                    (optional)
+	 * @param chartPointsCount      (optional)
+	 * @param currencySecondary     (optional)
+	 * @param actionStatus          (optional)
+	 * @param dashboardActionStatus (optional)
+	 * @param skip                  (optional)
+	 * @param take                  (optional)
 	 * @return Call&lt;ProgramsList&gt;
 	 */
 	@GET("v1.0/investor/programs")
 	Observable<ProgramsList> v10InvestorProgramsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("ActionStatus") String actionStatus, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("ActionStatus") String actionStatus, @retrofit2.http.Query("DashboardActionStatus") String dashboardActionStatus, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -312,20 +314,22 @@ public interface InvestorApi
 	/**
 	 * Dashboard signal providers list
 	 *
-	 * @param authorization     JWT access token (required)
-	 * @param sorting           (optional)
-	 * @param from              (optional)
-	 * @param to                (optional)
-	 * @param chartPointsCount  (optional)
-	 * @param currencySecondary (optional)
-	 * @param actionStatus      (optional)
-	 * @param skip              (optional)
-	 * @param take              (optional)
+	 * @param authorization         JWT access token (required)
+	 * @param status                (optional)
+	 * @param sorting               (optional)
+	 * @param from                  (optional)
+	 * @param to                    (optional)
+	 * @param chartPointsCount      (optional)
+	 * @param currencySecondary     (optional)
+	 * @param actionStatus          (optional)
+	 * @param dashboardActionStatus (optional)
+	 * @param skip                  (optional)
+	 * @param take                  (optional)
 	 * @return Call&lt;SignalsList&gt;
 	 */
 	@GET("v1.0/investor/signals")
 	Observable<SignalsList> v10InvestorSignalsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("ActionStatus") String actionStatus, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Status") String status, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("ActionStatus") String actionStatus, @retrofit2.http.Query("DashboardActionStatus") String dashboardActionStatus, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 }

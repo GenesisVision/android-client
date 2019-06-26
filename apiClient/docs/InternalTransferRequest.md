@@ -10,9 +10,6 @@ Name | Type | Description | Notes
 **destinationType** | [**DestinationTypeEnum**](#DestinationTypeEnum) |  |  [optional]
 **amount** | **Double** |  |  [optional]
 **transferAll** | **Boolean** |  |  [optional]
-**walletToWallet** | **Boolean** |  |  [optional]
-**walletToCopyTradingAccount** | **Boolean** |  |  [optional]
-**copyTradingAccountToWallet** | **Boolean** |  |  [optional]
 
 
 <a name="SourceTypeEnum"></a>
@@ -22,6 +19,8 @@ Name | Value
 UNDEFINED | &quot;Undefined&quot;
 WALLET | &quot;Wallet&quot;
 COPYTRADINGACCOUNT | &quot;CopyTradingAccount&quot;
+GENESISVISIONPLATFORM | &quot;GenesisVisionPlatform&quot;
+SIGNALPROVIDERSETTINGS | &quot;SignalProviderSettings&quot;
 
 
 <a name="DestinationTypeEnum"></a>
@@ -31,6 +30,8 @@ Name | Value
 UNDEFINED | &quot;Undefined&quot;
 WALLET | &quot;Wallet&quot;
 COPYTRADINGACCOUNT | &quot;CopyTradingAccount&quot;
+GENESISVISIONPLATFORM | &quot;GenesisVisionPlatform&quot;
+SIGNALPROVIDERSETTINGS | &quot;SignalProviderSettings&quot;
 
 
 

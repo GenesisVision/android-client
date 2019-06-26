@@ -9,13 +9,14 @@ public interface SearchApi
 	/**
 	 * Program / fund / manager search
 	 *
-	 * @param mask (optional)
-	 * @param take (optional)
+	 * @param authorization (optional)
+	 * @param mask          (optional)
+	 * @param take          (optional)
 	 * @return Call&lt;SearchViewModel&gt;
 	 */
 	@GET("v1.0/search")
 	Observable<SearchViewModel> v10SearchGet(
-			@retrofit2.http.Query("mask") String mask, @retrofit2.http.Query("take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("mask") String mask, @retrofit2.http.Query("take") Integer take
 	);
 
 }

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **leverage** | **Integer** |  |  [optional]
 **brokerAccountTypeId** | [**UUID**](UUID.md) |  |  [optional]
 **signalSuccessFee** | **Double** |  |  [optional]
-**signalSubscriptionFee** | **Double** |  |  [optional]
+**signalVolumeFee** | **Double** |  |  [optional]
 **isSignalProgram** | **Boolean** |  |  [optional]
 **title** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
@@ -25,12 +25,12 @@ Name | Type | Description | Notes
 ## Enum: CurrencyEnum
 Name | Value
 ---- | -----
-UNDEFINED | &quot;Undefined&quot;
-GVT | &quot;GVT&quot;
-ETH | &quot;ETH&quot;
 BTC | &quot;BTC&quot;
-ADA | &quot;ADA&quot;
+ETH | &quot;ETH&quot;
 USDT | &quot;USDT&quot;
+GVT | &quot;GVT&quot;
+UNDEFINED | &quot;Undefined&quot;
+ADA | &quot;ADA&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;

@@ -445,6 +445,119 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/group_subscription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="?attr/colorBackground"
+                android:orientation="vertical"
+                android:paddingBottom="24dp"
+                android:paddingLeft="@dimen/program_details_padding"
+                android:paddingRight="@dimen/program_details_padding"
+                android:paddingTop="24dp">
+
+                <TextView
+                    android:id="@+id/label_subscription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/subscription"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="20sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/subscription_success_fee"
+                            style="@style/program_info_invest_value"
+                            tools:text="1%"/>
+
+                        <TextView
+                            android:id="@+id/label_subscription_success_fee"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/success_fee"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/group_volume_fee"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/subscription_volume_fee"
+                            style="@style/program_info_invest_value"
+                            tools:text="0.01%"/>
+
+                        <TextView
+                            android:id="@+id/label_subscription_volume_fee"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/volume_fee"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/group_subscription_buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <vision.genesis.clientapp.ui.PrimaryButton
+                        android:id="@+id/button_follow_trades"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/button_height"
+                        android:layout_marginTop="32dp"
+                        android:text="@string/follow_trades"
+                        android:visibility="visible"
+                        tools:visibility="gone"/>
+
+                    <vision.genesis.clientapp.ui.PrimaryButton
+                        android:id="@+id/button_edit_subscription"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/button_height"
+                        android:layout_marginTop="32dp"
+                        android:text="@string/edit_subscription"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
+
+                    <vision.genesis.clientapp.ui.PrimaryButton
+                        android:id="@+id/button_unfollow_trades"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/button_height"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/unfollow_trades"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
+
+                </RelativeLayout>
+
+                <ProgressBar
+                    android:id="@+id/signals_progress_bar"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="20dp"
+                    android:visibility="visible"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

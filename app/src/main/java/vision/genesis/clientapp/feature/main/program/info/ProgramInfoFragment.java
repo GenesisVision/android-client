@@ -30,6 +30,8 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.copytrading.create_account.CreateCopytradingAccountActivity;
+import vision.genesis.clientapp.feature.main.copytrading.subscription_settings.SubscriptionSettingsActivity;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
@@ -37,6 +39,7 @@ import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivit
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.model.ManagerDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PeriodLeftDetailsView;
@@ -69,6 +72,12 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
+
+	@BindView(R.id.signals_progress_bar)
+	public ProgressBar signalsProgressBar;
+
+	@BindView(R.id.group_subscription_buttons)
+	public ViewGroup subscriptionButtonsGroup;
 
 	@BindView(R.id.manager_avatar)
 	public AvatarView managerAvatar;
@@ -144,6 +153,33 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@BindView(R.id.invest_info)
 	public TextView investInfo;
+
+	@BindView(R.id.group_subscription)
+	public ViewGroup subscriptionGroup;
+
+	@BindView(R.id.label_subscription)
+	public TextView labelSubscription;
+
+	@BindView(R.id.subscription_success_fee)
+	public TextView subscriptionSuccessFee;
+
+	@BindView(R.id.label_subscription_success_fee)
+	public TextView subscriptionSuccessFeeLabel;
+
+	@BindView(R.id.subscription_volume_fee)
+	public TextView subscriptionVolumeFee;
+
+	@BindView(R.id.label_subscription_volume_fee)
+	public TextView subscriptionVolumeFeeLabel;
+
+	@BindView(R.id.button_follow_trades)
+	public PrimaryButton followTradesButton;
+
+	@BindView(R.id.button_edit_subscription)
+	public PrimaryButton editSubscriptionButton;
+
+	@BindView(R.id.button_unfollow_trades)
+	public PrimaryButton unfollowTradesButton;
 
 	@InjectPresenter
 	public ProgramInfoPresenter programInfoPresenter;
@@ -233,6 +269,11 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		programInfoPresenter.onReinvestClicked();
 	}
 
+	@OnClick(R.id.button_follow_trades)
+	public void onFollowTradesClicked() {
+		programInfoPresenter.onFollowTradesClicked();
+	}
+
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -275,6 +316,10 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		entryFee.setTypeface(TypefaceUtil.semibold());
 		successFee.setTypeface(TypefaceUtil.semibold());
 
+		labelSubscription.setTypeface(TypefaceUtil.semibold());
+		subscriptionSuccessFee.setTypeface(TypefaceUtil.semibold());
+		subscriptionVolumeFee.setTypeface(TypefaceUtil.semibold());
+
 		investedLabel.setText(investedLabel.getText().toString().toLowerCase());
 		stopOutLabel.setText(stopOutLabel.getText().toString().toLowerCase());
 		profitLabel.setText(profitLabel.getText().toString().toLowerCase());
@@ -287,6 +332,13 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 		scrollView.setVisibility(View.VISIBLE);
 
+		updateProgramInfo(programDetails);
+		updateYourInvestment(programDetails);
+		updateInvestNow(programDetails);
+		updateSubscription(programDetails);
+	}
+
+	private void updateProgramInfo(ProgramDetailsFull programDetails) {
 		managerAvatar.setImage(programDetails.getManager().getAvatar(), 100, 100);
 		managerName.setText(programDetails.getManager().getUsername());
 		managerDate.setText(DateTimeUtil.formatShortDate(programDetails.getManager().getRegistrationDate()));
@@ -299,29 +351,10 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 		periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds(), true, true);
 
-		PersonalProgramDetailsFull personalDetails = programDetails.getPersonalProgramDetails();
-		if (personalDetails != null && personalDetails.isIsInvested() && !personalDetails.getStatus().equals(PersonalProgramDetailsFull.StatusEnum.ENDED)) {
-			yourInvestmentGroup.setVisibility(View.VISIBLE);
-			status.setStatus(personalDetails.getStatus().getValue());
-			invested.setText(String.format(Locale.getDefault(), "%s %s",
-					StringFormatUtil.formatAmount(personalDetails.getInvested(), 0,
-							StringFormatUtil.getCurrencyMaxFraction(programDetails.getCurrency().getValue())),
-					programDetails.getCurrency().getValue()));
-			value.setText(String.format(Locale.getDefault(), "%s %s",
-					StringFormatUtil.formatAmount(personalDetails.getValue(), 0,
-							StringFormatUtil.getCurrencyMaxFraction(programDetails.getCurrency().getValue())),
-					programDetails.getCurrency().getValue()));
-			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(getProfitPercent(), 0, 4)));
-			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
-					personalDetails.getValue() < personalDetails.getInvested()
-							? R.attr.colorRed
-							: R.attr.colorGreen));
+	}
 
-			reinvestSwitch.setChecked(personalDetails.isIsReinvest());
-		}
-		else {
-			yourInvestmentGroup.setVisibility(View.GONE);
-		}
+	private void updateInvestNow(ProgramDetailsFull programDetails) {
+		PersonalProgramDetailsFull personalDetails = programDetails.getPersonalProgramDetails();
 
 		availableToInvest.setText(String.format(Locale.getDefault(), "%s %s",
 				StringFormatUtil.getShortenedAmount(programDetails.getAvailableInvestmentBase()).toString(),
@@ -347,6 +380,52 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		}
 
 		investInfo.setText(String.format(Locale.getDefault(), getString(R.string.request_info_template), DateTimeUtil.formatShortDateTime(programDetails.getPeriodEnds())));
+	}
+
+	private void updateYourInvestment(ProgramDetailsFull programDetails) {
+		PersonalProgramDetailsFull personalDetails = programDetails.getPersonalProgramDetails();
+
+		if (personalDetails != null && personalDetails.isIsInvested() && !personalDetails.getStatus().equals(PersonalProgramDetailsFull.StatusEnum.ENDED)) {
+			yourInvestmentGroup.setVisibility(View.VISIBLE);
+			status.setStatus(personalDetails.getStatus().getValue());
+			invested.setText(String.format(Locale.getDefault(), "%s %s",
+					StringFormatUtil.formatAmount(personalDetails.getInvested(), 0,
+							StringFormatUtil.getCurrencyMaxFraction(this.programDetails.getCurrency().getValue())),
+					this.programDetails.getCurrency().getValue()));
+			value.setText(String.format(Locale.getDefault(), "%s %s",
+					StringFormatUtil.formatAmount(personalDetails.getValue(), 0,
+							StringFormatUtil.getCurrencyMaxFraction(this.programDetails.getCurrency().getValue())),
+					this.programDetails.getCurrency().getValue()));
+			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(getProfitPercent(), 0, 4)));
+			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
+					personalDetails.getValue() < personalDetails.getInvested()
+							? R.attr.colorRed
+							: R.attr.colorGreen));
+
+			reinvestSwitch.setChecked(personalDetails.isIsReinvest());
+		}
+		else {
+			yourInvestmentGroup.setVisibility(View.GONE);
+		}
+	}
+
+	private void updateSubscription(ProgramDetailsFull programDetails) {
+		if (programDetails != null && programDetails.isIsSignalProgram()) {
+			subscriptionGroup.setVisibility(View.VISIBLE);
+
+			subscriptionSuccessFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getSignalSuccessFee(), 0, 2)));
+			subscriptionVolumeFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getSignalVolumeFee(), 0, 2)));
+
+			boolean hasSubscription = programDetails.getPersonalProgramDetails() != null
+					&& programDetails.getPersonalProgramDetails().getSignalSubscription() != null
+					&& programDetails.getPersonalProgramDetails().getSignalSubscription().isHasActiveSubscription();
+			followTradesButton.setVisibility(!hasSubscription ? View.VISIBLE : View.GONE);
+			editSubscriptionButton.setVisibility(hasSubscription ? View.VISIBLE : View.GONE);
+			unfollowTradesButton.setVisibility(hasSubscription ? View.VISIBLE : View.GONE);
+		}
+		else {
+			subscriptionGroup.setVisibility(View.GONE);
+		}
 	}
 
 	private Double getProfitPercent() {
@@ -388,6 +467,12 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	}
 
 	@Override
+	public void showSignalsProgress(Boolean show) {
+		signalsProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+		subscriptionButtonsGroup.setVisibility(!show ? View.VISIBLE : View.GONE);
+	}
+
+	@Override
 	public void setReinvest(Boolean isReinvest) {
 		reinvestSwitch.setChecked(isReinvest);
 	}
@@ -410,5 +495,17 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	public void showLoginActivity() {
 		if (getActivity() != null)
 			LoginActivity.startFrom(getActivity());
+	}
+
+	@Override
+	public void showCreateCopytradingAccountActivity(String accountCurrency, Double minDeposit) {
+		if (getActivity() != null)
+			CreateCopytradingAccountActivity.startWith(getActivity(), accountCurrency, minDeposit);
+	}
+
+	@Override
+	public void showSubscriptionSettings(SubscriptionSettingsModel model) {
+		if (getActivity() != null)
+			SubscriptionSettingsActivity.startWith(getActivity(), model);
 	}
 }

@@ -214,20 +214,21 @@ public interface ManagerApi
 	/**
 	 * Manager funds
 	 *
-	 * @param authorization     JWT access token (required)
-	 * @param sorting           (optional)
-	 * @param from              (optional)
-	 * @param to                (optional)
-	 * @param chartPointsCount  (optional)
-	 * @param currencySecondary (optional)
-	 * @param actionStatus      (optional)
-	 * @param skip              (optional)
-	 * @param take              (optional)
+	 * @param authorization         JWT access token (required)
+	 * @param sorting               (optional)
+	 * @param from                  (optional)
+	 * @param to                    (optional)
+	 * @param chartPointsCount      (optional)
+	 * @param currencySecondary     (optional)
+	 * @param actionStatus          (optional)
+	 * @param dashboardActionStatus (optional)
+	 * @param skip                  (optional)
+	 * @param take                  (optional)
 	 * @return Call&lt;FundsList&gt;
 	 */
 	@GET("v1.0/manager/funds")
 	Observable<FundsList> v10ManagerFundsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("ActionStatus") String actionStatus, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("ActionStatus") String actionStatus, @retrofit2.http.Query("DashboardActionStatus") String dashboardActionStatus, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -451,31 +452,33 @@ public interface ManagerApi
 	/**
 	 * Manager programs
 	 *
-	 * @param authorization     JWT access token (required)
-	 * @param sorting           (optional)
-	 * @param from              (optional)
-	 * @param to                (optional)
-	 * @param chartPointsCount  (optional)
-	 * @param currencySecondary (optional)
-	 * @param actionStatus      (optional)
-	 * @param skip              (optional)
-	 * @param take              (optional)
+	 * @param authorization         JWT access token (required)
+	 * @param sorting               (optional)
+	 * @param from                  (optional)
+	 * @param to                    (optional)
+	 * @param chartPointsCount      (optional)
+	 * @param currencySecondary     (optional)
+	 * @param actionStatus          (optional)
+	 * @param dashboardActionStatus (optional)
+	 * @param skip                  (optional)
+	 * @param take                  (optional)
 	 * @return Call&lt;ProgramsList&gt;
 	 */
 	@GET("v1.0/manager/programs")
 	Observable<ProgramsList> v10ManagerProgramsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("ActionStatus") String actionStatus, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("ActionStatus") String actionStatus, @retrofit2.http.Query("DashboardActionStatus") String dashboardActionStatus, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
 	 * Get investment amount to create program
 	 *
-	 * @param authorization JWT access token (required)
+	 * @param authorization        JWT access token (required)
+	 * @param brokerTradingAccount (optional)
 	 * @return Call&lt;ProgramMinimumDeposit&gt;
 	 */
 	@GET("v1.0/manager/programs/investment/amount")
 	Observable<ProgramMinimumDeposit> v10ManagerProgramsInvestmentAmountGet(
-			@retrofit2.http.Header("Authorization") String authorization
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("brokerTradingAccount") UUID brokerTradingAccount
 	);
 
 	/**
@@ -506,29 +509,29 @@ public interface ManagerApi
 	/**
 	 * Make manager&#39;s program signal provider
 	 *
-	 * @param authorization   JWT access token (required)
-	 * @param programId       (optional)
-	 * @param subscriptionFee (optional)
-	 * @param successFee      (optional)
+	 * @param authorization JWT access token (required)
+	 * @param programId     (optional)
+	 * @param volumeFee     (optional)
+	 * @param successFee    (optional)
 	 * @return Call&lt;Void&gt;
 	 */
 	@POST("v1.0/manager/signal/create")
 	Observable<Void> v10ManagerSignalCreatePost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("ProgramId") UUID programId, @retrofit2.http.Query("SubscriptionFee") Double subscriptionFee, @retrofit2.http.Query("SuccessFee") Double successFee
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("ProgramId") UUID programId, @retrofit2.http.Query("VolumeFee") Double volumeFee, @retrofit2.http.Query("SuccessFee") Double successFee
 	);
 
 	/**
 	 * Make manager&#39;s program signal provider
 	 *
-	 * @param authorization   JWT access token (required)
-	 * @param programId       (optional)
-	 * @param subscriptionFee (optional)
-	 * @param successFee      (optional)
+	 * @param authorization JWT access token (required)
+	 * @param programId     (optional)
+	 * @param volumeFee     (optional)
+	 * @param successFee    (optional)
 	 * @return Call&lt;Void&gt;
 	 */
 	@POST("v1.0/manager/signal/edit")
 	Observable<Void> v10ManagerSignalEditPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("ProgramId") UUID programId, @retrofit2.http.Query("SubscriptionFee") Double subscriptionFee, @retrofit2.http.Query("SuccessFee") Double successFee
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("ProgramId") UUID programId, @retrofit2.http.Query("VolumeFee") Double volumeFee, @retrofit2.http.Query("SuccessFee") Double successFee
 	);
 
 }
