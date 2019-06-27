@@ -223,11 +223,11 @@
         </LinearLayout>
 
         <vision.genesis.clientapp.ui.PrimaryButton
-            android:id="@+id/button_create_account"
+            android:id="@+id/button_next"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height"
             android:layout_alignParentBottom="true"
-            android:text="@string/create_account"/>
+            android:text="@string/next"/>
 
     </RelativeLayout>
 

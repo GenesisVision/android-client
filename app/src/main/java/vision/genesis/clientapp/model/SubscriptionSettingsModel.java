@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import java.util.UUID;
 
 import io.swagger.client.model.AttachToSignalProvider;
+import io.swagger.client.model.AttachToSignalProviderInfo;
 
 /**
  * GenesisVisionAndroid
@@ -17,7 +18,7 @@ public class SubscriptionSettingsModel implements Parcelable
 
 	public static final Double VOLUME_PERCENTAGE_MAX = 999.0;
 
-	public static final Double EQUIVALENT_MIN = 0.0;
+	public static final Double EQUIVALENT_MIN = 0.1;
 
 	public static final Double EQUIVALENT_MAX = 99999.0;
 
@@ -42,21 +43,25 @@ public class SubscriptionSettingsModel implements Parcelable
 
 	private String mode = AttachToSignalProvider.ModeEnum.BYBALANCE.getValue();
 
-	private Double percent = 10.0;
+	private Double percent = 0.0;
 
-	private Double openTolerancePercent = 0.5;
+	private Double openTolerancePercent = 0.0;
 
-	private Double fixedVolume;
+	private Double fixedVolume = 0.0;
 
 	private String fixedCurrency = AttachToSignalProvider.FixedCurrencyEnum.USD.getValue();
 
 	private String initialDepositCurrency = AttachToSignalProvider.FixedCurrencyEnum.GVT.getValue();
 
-	private Double initialDepositAmount;
+	private Double initialDepositAmount = 0.0;
 
 	private String programName;
 
 	private UUID programId;
+
+	private String minDepositCurrency = AttachToSignalProviderInfo.MinDepositCurrencyEnum.GVT.getValue();
+
+	private Double minDeposit = 0.0;
 
 	public SubscriptionSettingsModel() {
 
@@ -92,6 +97,13 @@ public class SubscriptionSettingsModel implements Parcelable
 		}
 		programName = in.readString();
 		programId = (UUID) in.readSerializable();
+		minDepositCurrency = in.readString();
+		if (in.readByte() == 0) {
+			minDeposit = null;
+		}
+		else {
+			minDeposit = in.readDouble();
+		}
 	}
 
 	public String getMode() {
@@ -150,6 +162,38 @@ public class SubscriptionSettingsModel implements Parcelable
 		this.initialDepositAmount = initialDepositAmount;
 	}
 
+	public String getProgramName() {
+		return programName;
+	}
+
+	public void setProgramName(String programName) {
+		this.programName = programName;
+	}
+
+	public UUID getProgramId() {
+		return programId;
+	}
+
+	public void setProgramId(UUID programId) {
+		this.programId = programId;
+	}
+
+	public String getMinDepositCurrency() {
+		return minDepositCurrency;
+	}
+
+	public void setMinDepositCurrency(String minDepositCurrency) {
+		this.minDepositCurrency = minDepositCurrency;
+	}
+
+	public Double getMinDeposit() {
+		return minDeposit;
+	}
+
+	public void setMinDeposit(Double minDeposit) {
+		this.minDeposit = minDeposit;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -190,22 +234,14 @@ public class SubscriptionSettingsModel implements Parcelable
 		}
 		parcel.writeString(programName);
 		parcel.writeSerializable(programId);
-	}
-
-	public String getProgramName() {
-		return programName;
-	}
-
-	public void setProgramName(String programName) {
-		this.programName = programName;
-	}
-
-	public UUID getProgramId() {
-		return programId;
-	}
-
-	public void setProgramId(UUID programId) {
-		this.programId = programId;
+		parcel.writeString(minDepositCurrency);
+		if (minDeposit == null) {
+			parcel.writeByte((byte) 0);
+		}
+		else {
+			parcel.writeByte((byte) 1);
+			parcel.writeDouble(minDeposit);
+		}
 	}
 
 	public AttachToSignalProvider getApiModel() {
@@ -219,4 +255,5 @@ public class SubscriptionSettingsModel implements Parcelable
 		model.setInitialDepositAmount(getInitialDepositAmount());
 		return model;
 	}
+
 }

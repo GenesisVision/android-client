@@ -41,7 +41,7 @@ interface ProgramInfoView extends MvpView
 
 	void showLoginActivity();
 
-	void showCreateCopytradingAccountActivity(String accountCurrency, Double minDeposit);
+	void showCreateCopytradingAccountActivity(SubscriptionSettingsModel model);
 
-	void showSubscriptionSettings(SubscriptionSettingsModel model);
+	void showSubscriptionSettings(SubscriptionSettingsModel model, boolean isEdit);
 }

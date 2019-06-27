@@ -39,9 +39,12 @@ public class SubscriptionSettingsActivity extends BaseSwipeBackActivity implemen
 {
 	private static final String EXTRA_MODEL = "extra_model";
 
-	public static void startWith(Activity activity, SubscriptionSettingsModel model) {
+	private static final String EXTRA_IS_EDIT = "extra_is_edit";
+
+	public static void startWith(Activity activity, SubscriptionSettingsModel model, boolean isEdit) {
 		Intent intent = new Intent(activity.getApplicationContext(), SubscriptionSettingsActivity.class);
 		intent.putExtra(EXTRA_MODEL, model);
+		intent.putExtra(EXTRA_IS_EDIT, isEdit);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.slide_from_bottom, R.anim.hold);
 	}
@@ -137,6 +140,21 @@ public class SubscriptionSettingsActivity extends BaseSwipeBackActivity implemen
 		showSoftKeyboard(volumePercentage);
 	}
 
+	@OnClick(R.id.label_volume_percentage)
+	public void onLabelVolumePercentageClicked() {
+		subscriptionSettingsPresenter.onLabelVolumePercentageClicked();
+	}
+
+	@OnClick(R.id.label_equivalent)
+	public void onLabelEquivalentClicked() {
+		subscriptionSettingsPresenter.onLabelEquivalentClicked();
+	}
+
+	@OnClick(R.id.label_tolerance_percentage)
+	public void onLabelTolerancePercentageClicked() {
+		subscriptionSettingsPresenter.onLabelTolerancePercentageClicked();
+	}
+
 	@OnClick(R.id.max_volume_percentage)
 	public void onVolumePercentageMaxClicked() {
 		subscriptionSettingsPresenter.onVolumePercentageMaxClicked();
@@ -168,9 +186,12 @@ public class SubscriptionSettingsActivity extends BaseSwipeBackActivity implemen
 
 		if (getIntent().getExtras() != null) {
 			model = getIntent().getExtras().getParcelable(EXTRA_MODEL);
+			boolean isEdit = getIntent().getExtras().getBoolean(EXTRA_IS_EDIT);
 			if (model != null) {
-				subscriptionSettingsPresenter.setModel(model);
+				subscriptionSettingsPresenter.setData(model, isEdit);
 
+				if (isEdit)
+					button.setText(getString(R.string.update_subscription));
 				setProgramName(model.getProgramName());
 				setLabels();
 				setFonts();
@@ -282,9 +303,7 @@ public class SubscriptionSettingsActivity extends BaseSwipeBackActivity implemen
 	@Override
 	public void showProgress(boolean show) {
 		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-		if (!show) {
-			content.setVisibility(View.VISIBLE);
-		}
+		button.setVisibility(!show ? View.VISIBLE : View.GONE);
 	}
 
 	@Override

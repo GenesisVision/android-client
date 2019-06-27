@@ -27,4 +27,8 @@ public class SignalsManager
 	public Observable<Void> subscribeToProgram(SubscriptionSettingsModel model) {
 		return signalApi.v10SignalAttachByIdPost(model.getProgramId(), AuthManager.token.getValue(), model.getApiModel());
 	}
+
+	public Observable<Void> updateSubscription(SubscriptionSettingsModel model) {
+		return signalApi.v10SignalByIdUpdatePost(model.getProgramId(), AuthManager.token.getValue(), model.getApiModel());
+	}
 }

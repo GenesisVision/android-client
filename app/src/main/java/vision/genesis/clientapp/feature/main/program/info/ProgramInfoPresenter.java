@@ -261,27 +261,38 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		getViewState().showWithdrawProgramActivity(request);
 	}
 
-	public void onFollowTradesClicked() {
+	public void onShowSubscriptionSettingsClicked(boolean isEdit) {
 		if (!userLoggedOn) {
 			getViewState().showLoginActivity();
 			return;
 		}
 
 		if (signalsInfo != null) {
+			SubscriptionSettingsModel model = new SubscriptionSettingsModel();
+
+			try {
+				if (programDetails.getPersonalProgramDetails().getSignalSubscription().getMode() != null)
+					model.setMode(programDetails.getPersonalProgramDetails().getSignalSubscription().getMode().getValue());
+				if (programDetails.getPersonalProgramDetails().getSignalSubscription().getPercent() != null)
+					model.setPercent(programDetails.getPersonalProgramDetails().getSignalSubscription().getPercent());
+				if (programDetails.getPersonalProgramDetails().getSignalSubscription().getOpenTolerancePercent() != null)
+					model.setOpenTolerancePercent(programDetails.getPersonalProgramDetails().getSignalSubscription().getOpenTolerancePercent());
+				if (programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedVolume() != null)
+					model.setFixedVolume(programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedVolume());
+				if (programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedCurrency() != null)
+					model.setFixedCurrency(programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedCurrency().getValue());
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+			}
+			model.setProgramName(programDetails.getTitle());
+			model.setProgramId(programDetails.getId());
+			model.setMinDepositCurrency(signalsInfo.getMinDepositCurrency().getValue());
+			model.setMinDeposit(signalsInfo.getMinDeposit());
+
 			if (!signalsInfo.isHasSignalAccount())
-				getViewState().showCreateCopytradingAccountActivity(signalsInfo.getMinDepositCurrency().getValue(), signalsInfo.getMinDeposit());
+				getViewState().showCreateCopytradingAccountActivity(model);
 			else {
-				SubscriptionSettingsModel model = new SubscriptionSettingsModel();
-
-				model.setMode(programDetails.getPersonalProgramDetails().getSignalSubscription().getMode().getValue());
-				model.setPercent(programDetails.getPersonalProgramDetails().getSignalSubscription().getPercent());
-				model.setOpenTolerancePercent(programDetails.getPersonalProgramDetails().getSignalSubscription().getOpenTolerancePercent());
-				model.setFixedVolume(programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedVolume());
-				model.setFixedCurrency(programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedCurrency().getValue());
-				model.setProgramName(programDetails.getTitle());
-				model.setProgramId(programDetails.getId());
-
-				getViewState().showSubscriptionSettings(model);
+				getViewState().showSubscriptionSettings(model, isEdit);
 			}
 		}
 	}

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AttachToSignalProvider;
+import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -43,13 +44,13 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 
 	private SubscriptionSettingsModel model;
 
+	private boolean isEdit;
+
+	private ArrayList<String> typeOptions;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
-
-		GenesisVisionApplication.getComponent().inject(this);
-
-		initTypeOptions();
 	}
 
 	@Override
@@ -61,29 +62,70 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 	}
 
 	private void initTypeOptions() {
-		ArrayList<String> typeOptions = new ArrayList<>();
+		typeOptions = new ArrayList<>();
 		typeOptions.add(context.getString(R.string.by_balance));
 		typeOptions.add(context.getString(R.string.percentage));
 		typeOptions.add(context.getString(R.string.fixed));
 		getViewState().setTypeOptions(typeOptions);
-		onOptionSelected(0, typeOptions.get(0));
 	}
 
-	void setModel(SubscriptionSettingsModel model) {
+	void setData(SubscriptionSettingsModel model, boolean isEdit) {
 		this.model = model;
+		this.isEdit = isEdit;
+
+		GenesisVisionApplication.getComponent().inject(this);
+
+		initTypeOptions();
+		updateData();
 	}
 
+	private void updateData() {
+		if (model != null && typeOptions != null) {
+			AttachToSignalProvider.ModeEnum[] enums = AttachToSignalProvider.ModeEnum.values();
+			int selectedOptionPosition = 0;
+			for (int i = 0; i < enums.length; i++) {
+				if (enums[i].getValue().equals(model.getMode())) {
+					selectedOptionPosition = i;
+					break;
+				}
+			}
+			onOptionSelected(selectedOptionPosition, typeOptions.get(selectedOptionPosition));
+
+//			for (String typeOption : typeOptions) {
+//				if (typeOption.equals(model.getMode())) {
+//					onOptionSelected(typeOptions.indexOf(typeOption), typeOption);
+//					break;
+//				}
+//			}
+
+			getViewState().setVolumePercentage(StringFormatUtil.formatAmount(model.getPercent(), 0, 2));
+			getViewState().setEquivalent(StringFormatUtil.formatAmountWithoutGrouping(model.getFixedVolume()));
+			getViewState().setTolerancePercentage(StringFormatUtil.formatAmount(model.getOpenTolerancePercent(), 0, 2));
+		}
+	}
+
+	public void onLabelVolumePercentageClicked() {
+		getViewState().setVolumePercentage(StringFormatUtil.formatAmount(SubscriptionSettingsModel.VOLUME_PERCENTAGE_MIN, 0, 2));
+	}
+
+	public void onLabelEquivalentClicked() {
+		getViewState().setEquivalent(StringFormatUtil.formatAmountWithoutGrouping(SubscriptionSettingsModel.EQUIVALENT_MIN));
+	}
+
+	public void onLabelTolerancePercentageClicked() {
+		getViewState().setTolerancePercentage(StringFormatUtil.formatAmount(SubscriptionSettingsModel.TOLERANCE_PERCENTAGE_MIN, 0, 2));
+	}
 
 	public void onVolumePercentageMaxClicked() {
-		getViewState().setVolumePercentage(StringFormatUtil.formatAmount(SubscriptionSettingsModel.VOLUME_PERCENTAGE_MAX, 0, 0));
+		getViewState().setVolumePercentage(StringFormatUtil.formatAmount(SubscriptionSettingsModel.VOLUME_PERCENTAGE_MAX, 0, 2));
 	}
 
 	public void onEquivalentMaxClicked() {
-		getViewState().setEquivalent(StringFormatUtil.formatCurrencyAmount(SubscriptionSettingsModel.EQUIVALENT_MAX, SubscriptionSettingsModel.EQUIVALENT_CURRENCY));
+		getViewState().setEquivalent(StringFormatUtil.formatAmountWithoutGrouping(SubscriptionSettingsModel.EQUIVALENT_MAX));
 	}
 
 	public void onTolerancePercentageMaxClicked() {
-		getViewState().setTolerancePercentage(StringFormatUtil.formatAmount(SubscriptionSettingsModel.TOLERANCE_PERCENTAGE_MAX, 0, 0));
+		getViewState().setTolerancePercentage(StringFormatUtil.formatAmount(SubscriptionSettingsModel.TOLERANCE_PERCENTAGE_MAX, 0, 2));
 	}
 
 	public void onVolumePercentageChanged(String newValueString) {
@@ -113,7 +155,7 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 		}
 
 		if (newValue > SubscriptionSettingsModel.EQUIVALENT_MAX) {
-			getViewState().setEquivalent(SubscriptionSettingsModel.EQUIVALENT_MAX.toString());
+			getViewState().setEquivalent(StringFormatUtil.formatAmountWithoutGrouping(SubscriptionSettingsModel.EQUIVALENT_MAX));
 			return;
 		}
 
@@ -159,29 +201,42 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 	}
 
 	void onButtonClicked() {
-		subscribeToSignals();
+		if (isEdit)
+			updateSubscription();
+		else
+			subscribeToSignals();
+	}
+
+	private void updateSubscription() {
+		performRequest(signalsManager.updateSubscription(model));
 	}
 
 	private void subscribeToSignals() {
+		performRequest(signalsManager.subscribeToProgram(model));
+	}
+
+	private void performRequest(Observable<Void> request) {
 		if (signalsManager != null && model != null) {
 			if (signalSubscription != null)
 				signalSubscription.unsubscribe();
-			signalSubscription = signalsManager.subscribeToProgram(model)
+			getViewState().showProgress(true);
+			signalSubscription = request
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleSubscribeSuccess,
-							this::handleSubscribeError);
+					.subscribe(this::handleSubscriptionSuccess,
+							this::handleSubscriptionError);
 		}
 	}
 
-	private void handleSubscribeSuccess(Void response) {
+	private void handleSubscriptionSuccess(Void response) {
 		signalSubscription.unsubscribe();
 		EventBus.getDefault().post(new OnSubscribedToProgramEvent());
 		getViewState().finishActivity();
 	}
 
-	private void handleSubscribeError(Throwable throwable) {
+	private void handleSubscriptionError(Throwable throwable) {
 		signalSubscription.unsubscribe();
+		getViewState().showProgress(false);
 
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));

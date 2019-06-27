@@ -271,7 +271,12 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@OnClick(R.id.button_follow_trades)
 	public void onFollowTradesClicked() {
-		programInfoPresenter.onFollowTradesClicked();
+		programInfoPresenter.onShowSubscriptionSettingsClicked(false);
+	}
+
+	@OnClick(R.id.button_edit_subscription)
+	public void onEditSubscriptionClicked() {
+		programInfoPresenter.onShowSubscriptionSettingsClicked(true);
 	}
 
 	@Nullable
@@ -498,14 +503,14 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	}
 
 	@Override
-	public void showCreateCopytradingAccountActivity(String accountCurrency, Double minDeposit) {
+	public void showCreateCopytradingAccountActivity(SubscriptionSettingsModel model) {
 		if (getActivity() != null)
-			CreateCopytradingAccountActivity.startWith(getActivity(), accountCurrency, minDeposit);
+			CreateCopytradingAccountActivity.startWith(getActivity(), model);
 	}
 
 	@Override
-	public void showSubscriptionSettings(SubscriptionSettingsModel model) {
+	public void showSubscriptionSettings(SubscriptionSettingsModel model, boolean isEdit) {
 		if (getActivity() != null)
-			SubscriptionSettingsActivity.startWith(getActivity(), model);
+			SubscriptionSettingsActivity.startWith(getActivity(), model, isEdit);
 	}
 }

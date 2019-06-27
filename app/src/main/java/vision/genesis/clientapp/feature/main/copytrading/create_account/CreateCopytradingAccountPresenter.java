@@ -52,7 +52,7 @@ public class CreateCopytradingAccountPresenter extends MvpPresenter<CreateCopytr
 
 	private Subscription walletsSubscription;
 
-	private String accountCurrency;
+	private SubscriptionSettingsModel model = new SubscriptionSettingsModel();
 
 	private Double amount;
 
@@ -61,8 +61,6 @@ public class CreateCopytradingAccountPresenter extends MvpPresenter<CreateCopytr
 	private WalletData selectedWalletFrom;
 
 	private Double rate = 0.0;
-
-	private Double minDeposit;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -85,9 +83,8 @@ public class CreateCopytradingAccountPresenter extends MvpPresenter<CreateCopytr
 		super.onDestroy();
 	}
 
-	void setAccountCurrency(String accountCurrency, Double minDeposit) {
-		this.accountCurrency = accountCurrency;
-		this.minDeposit = minDeposit;
+	void setModel(SubscriptionSettingsModel model) {
+		this.model = model;
 		subscribeToWallets();
 	}
 
@@ -98,44 +95,45 @@ public class CreateCopytradingAccountPresenter extends MvpPresenter<CreateCopytr
 		} catch (NumberFormatException e) {
 			amount = 0.0;
 		}
-//		double fractionalPart = NumberFormatUtil.roundDouble(amount - ((long) amount.doubleValue()), StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()));
-//		if (String.valueOf(fractionalPart).length() > StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()) + 2) {
-//			getViewState().setAmount(newAmount.substring(0, newAmount.length() - 1));
-//		}
 		if (selectedWalletFrom != null && rate != 0) {
 			if (amount > selectedWalletFrom.getAvailable()) {
-				getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(selectedWalletFrom.getAvailable(), selectedWalletFrom.getCurrency().getValue()));
+				getViewState().setAmount(StringFormatUtil.formatAmountWithoutGrouping(selectedWalletFrom.getAvailable()));
 				return;
 			}
 
 			amountBase = amount / rate;
 
 			getViewState().setAmountBase(getAmountBaseString());
-			getViewState().setNextButtonEnabled(amount >= minDeposit * rate
+			getViewState().setNextButtonEnabled(amount >= model.getMinDeposit() * rate
 					&& amount <= selectedWalletFrom.getAvailable());
 		}
 	}
 
 	private String getAmountBaseString() {
 		return String.format(Locale.getDefault(), "≈ %s",
-				StringFormatUtil.getValueString(amountBase, accountCurrency));
+				StringFormatUtil.getValueString(amountBase, model.getMinDepositCurrency()));
+	}
+
+	void onAmountToDepositLabelClicked() {
+		if (model != null) {
+			getViewState().setAmount(StringFormatUtil.formatAmountWithoutGrouping(model.getMinDeposit() * rate));
+		}
 	}
 
 	void onMaxClicked() {
 		if (selectedWalletFrom != null) {
-			getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(selectedWalletFrom.getAvailable(), selectedWalletFrom.getCurrency().getValue()));
+			getViewState().setAmount(StringFormatUtil.formatAmountWithoutGrouping(selectedWalletFrom.getAvailable()));
 		}
 	}
 
 	void onNextClicked() {
-		SubscriptionSettingsModel model = new SubscriptionSettingsModel();
 		model.setInitialDepositAmount(amount);
 		model.setInitialDepositCurrency(selectedWalletFrom.getCurrency().getValue());
 		getViewState().showSubscriptionSettings(model);
 	}
 
 	private void subscribeToWallets() {
-		if (walletManager != null && accountCurrency != null) {
+		if (walletManager != null && model != null) {
 			if (walletsSubscription != null)
 				walletsSubscription.unsubscribe();
 			walletsSubscription = walletManager.getWallets(CurrencyEnum.GVT.getValue(), false)
@@ -150,7 +148,17 @@ public class CreateCopytradingAccountPresenter extends MvpPresenter<CreateCopytr
 		List<WalletData> wallets = response.getWallets();
 
 		getViewState().setWalletsFrom(wallets);
-		onWalletSelected(wallets.get(0));
+
+		int selectedWalletPosition = 0;
+		int index = 0;
+		for (WalletData wallet : wallets) {
+			if (wallet.getCurrency().getValue().equals(model.getMinDepositCurrency())) {
+				selectedWalletPosition = index;
+				break;
+			}
+			index++;
+		}
+		onWalletSelected(wallets.get(selectedWalletPosition));
 	}
 
 	private void handleWalletUpdateError(Throwable throwable) {
@@ -159,10 +167,10 @@ public class CreateCopytradingAccountPresenter extends MvpPresenter<CreateCopytr
 	}
 
 	private void updateRate() {
-		if (accountCurrency != null && selectedWalletFrom != null && rateManager != null) {
+		if (selectedWalletFrom != null && rateManager != null) {
 			getViewState().showAmountProgress(true);
 			getViewState().setNextButtonEnabled(false);
-			rateManager.getRate(accountCurrency, selectedWalletFrom.getCurrency().getValue())
+			rateManager.getRate(model.getMinDepositCurrency(), selectedWalletFrom.getCurrency().getValue())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetRateSuccess,
@@ -176,7 +184,7 @@ public class CreateCopytradingAccountPresenter extends MvpPresenter<CreateCopytr
 
 		this.rate = rate;
 
-		getViewState().setMinDepositAmount(minDeposit * rate, selectedWalletFrom.getCurrency().getValue());
+		getViewState().setMinDepositAmount(model.getMinDeposit() * rate, selectedWalletFrom.getCurrency().getValue());
 		getViewState().setAmount("");
 	}
 
@@ -196,5 +204,4 @@ public class CreateCopytradingAccountPresenter extends MvpPresenter<CreateCopytr
 	public void onEventMainThread(OnSubscribedToProgramEvent event) {
 		getViewState().finishActivity();
 	}
-
 }

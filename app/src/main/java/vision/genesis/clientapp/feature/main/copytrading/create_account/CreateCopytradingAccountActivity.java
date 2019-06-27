@@ -41,14 +41,11 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class CreateCopytradingAccountActivity extends BaseSwipeBackActivity implements CreateCopytradingAccountView
 {
-	private static final String EXTRA_ACCOUNT_CURRENCY = "extra_account_currency";
+	private static final String EXTRA_MODEL = "extra_model";
 
-	private static final String EXTRA_MIN_DEPOSIT = "extra_min_deposit";
-
-	public static void startWith(Activity activity, String accountCurrency, Double minDeposit) {
+	public static void startWith(Activity activity, SubscriptionSettingsModel model) {
 		Intent intent = new Intent(activity.getApplicationContext(), CreateCopytradingAccountActivity.class);
-		intent.putExtra(EXTRA_ACCOUNT_CURRENCY, accountCurrency);
-		intent.putExtra(EXTRA_MIN_DEPOSIT, minDeposit);
+		intent.putExtra(EXTRA_MODEL, model);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.slide_from_bottom, R.anim.hold);
 	}
@@ -101,9 +98,9 @@ public class CreateCopytradingAccountActivity extends BaseSwipeBackActivity impl
 	@InjectPresenter
 	CreateCopytradingAccountPresenter createCopytradingAccountPresenter;
 
-	private List<WalletData> walletsFrom;
+	private SubscriptionSettingsModel model;
 
-	private String accountCurrency;
+	private List<WalletData> walletsFrom;
 
 	@OnClick(R.id.button_close)
 	public void onCloseClicked() {
@@ -116,6 +113,11 @@ public class CreateCopytradingAccountActivity extends BaseSwipeBackActivity impl
 		fragment.setData(getString(R.string.select_wallet_currency), walletsFrom);
 		fragment.setListener(createCopytradingAccountPresenter);
 		fragment.show(getSupportFragmentManager(), fragment.getTag());
+	}
+
+	@OnClick(R.id.amount_to_deposit_label)
+	public void onAmountToDepositLabelClicked() {
+		createCopytradingAccountPresenter.onAmountToDepositLabelClicked();
 	}
 
 	@OnClick(R.id.group_edittext_amount)
@@ -143,19 +145,18 @@ public class CreateCopytradingAccountActivity extends BaseSwipeBackActivity impl
 		ButterKnife.bind(this);
 
 		if (getIntent().getExtras() != null) {
-			accountCurrency = getIntent().getExtras().getString(EXTRA_ACCOUNT_CURRENCY);
-			Double minDeposit = getIntent().getExtras().getDouble(EXTRA_MIN_DEPOSIT);
-			if (accountCurrency != null) {
-				createCopytradingAccountPresenter.setAccountCurrency(accountCurrency, minDeposit);
+			model = getIntent().getExtras().getParcelable(EXTRA_MODEL);
+			if (model != null) {
+				createCopytradingAccountPresenter.setModel(model);
 
-				setAccountCurrency(accountCurrency);
+				setAccountCurrency(model.getMinDepositCurrency());
 				setFonts();
 
 				setTextListener();
 				return;
 			}
 		}
-		Timber.e("Passed empty accountCurrency to %s", getClass().getSimpleName());
+		Timber.e("Passed empty model to %s", getClass().getSimpleName());
 		onBackPressed();
 	}
 
@@ -187,7 +188,7 @@ public class CreateCopytradingAccountActivity extends BaseSwipeBackActivity impl
 				StringFormatUtil.getValueString(wallet.getAvailable(), wallet.getCurrency().getValue())));
 		this.amountCurrency.setText(wallet.getCurrency().getValue());
 		this.baseCurrencyAmount.setVisibility(
-				wallet.getCurrency().getValue().equals(accountCurrency)
+				wallet.getCurrency().getValue().equals(model.getMinDepositCurrency())
 						? View.GONE
 						: View.VISIBLE);
 	}
@@ -201,7 +202,7 @@ public class CreateCopytradingAccountActivity extends BaseSwipeBackActivity impl
 	@Override
 	public void setAmount(String amountText) {
 		this.amount.setText(amountText);
-		this.amount.setSelection(amountText.length(), amountText.length());
+		this.amount.setSelection(this.amount.getText().length(), this.amount.getText().length());
 	}
 
 	@Override
@@ -216,7 +217,7 @@ public class CreateCopytradingAccountActivity extends BaseSwipeBackActivity impl
 
 	@Override
 	public void showSubscriptionSettings(SubscriptionSettingsModel model) {
-		SubscriptionSettingsActivity.startWith(this, model);
+		SubscriptionSettingsActivity.startWith(this, model, false);
 	}
 
 	@Override

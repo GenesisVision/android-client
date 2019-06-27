@@ -622,5 +622,6 @@
     <string name="type_description_by_balance">The volume of the opened positions is proportional to the balance of the signal provider and an investor.</string>
     <string name="type_description_percentage">Positions are opened according to the percentage of the volume of positions opened by the signal provider.</string>
     <string name="type_description_fixed">Each new position is opened at a fixed amount.</string>
+    <string name="update_subscription">Update subscription</string>
 
 </resources>

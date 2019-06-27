@@ -449,6 +449,7 @@
                 android:id="@+id/group_subscription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
                 android:layout_marginTop="24dp"
                 android:background="?attr/colorBackground"
                 android:orientation="vertical"
@@ -511,26 +512,29 @@
 
                 </LinearLayout>
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/group_subscription_buttons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone">
+                    android:layout_marginTop="32dp"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
                     <vision.genesis.clientapp.ui.PrimaryButton
                         android:id="@+id/button_follow_trades"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/button_height"
-                        android:layout_marginTop="32dp"
+                        android:layout_marginBottom="16dp"
                         android:text="@string/follow_trades"
                         android:visibility="visible"
-                        tools:visibility="gone"/>
+                        tools:visibility="visible"/>
 
                     <vision.genesis.clientapp.ui.PrimaryButton
                         android:id="@+id/button_edit_subscription"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/button_height"
-                        android:layout_marginTop="32dp"
+                        android:layout_marginBottom="16dp"
                         android:text="@string/edit_subscription"
                         android:visibility="gone"
                         tools:visibility="visible"/>
@@ -539,12 +543,11 @@
                         android:id="@+id/button_unfollow_trades"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/button_height"
-                        android:layout_marginTop="16dp"
                         android:text="@string/unfollow_trades"
                         android:visibility="gone"
                         tools:visibility="visible"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
                 <ProgressBar
                     android:id="@+id/signals_progress_bar"
