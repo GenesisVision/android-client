@@ -114,7 +114,7 @@
             android:alpha="0.4"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="12sp"
-            tools:text="@string/type_description_by_balance"/>
+            tools:text="@string/type_description_subscribe_by_balance"/>
 
         <LinearLayout
             android:id="@+id/group_volume_percentage"

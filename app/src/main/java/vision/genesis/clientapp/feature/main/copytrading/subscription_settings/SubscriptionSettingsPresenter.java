@@ -101,6 +101,8 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 			getViewState().setVolumePercentage(StringFormatUtil.formatAmount(model.getPercent(), 0, 2));
 			getViewState().setEquivalent(StringFormatUtil.formatAmountWithoutGrouping(model.getFixedVolume()));
 			getViewState().setTolerancePercentage(StringFormatUtil.formatAmount(model.getOpenTolerancePercent(), 0, 2));
+
+			updateButtonEnabled();
 		}
 	}
 
@@ -250,17 +252,17 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 			case 0:
 				this.model.setMode(AttachToSignalProvider.ModeEnum.BYBALANCE.getValue());
 				getViewState().showByBalanceFields();
-				typeDescription = context.getString(R.string.type_description_by_balance);
+				typeDescription = context.getString(R.string.type_description_subscribe_by_balance);
 				break;
 			case 1:
 				this.model.setMode(AttachToSignalProvider.ModeEnum.PERCENT.getValue());
 				getViewState().showPercentageFields();
-				typeDescription = context.getString(R.string.type_description_percentage);
+				typeDescription = context.getString(R.string.type_description_subscribe_percentage);
 				break;
 			case 2:
 				this.model.setMode(AttachToSignalProvider.ModeEnum.FIXED.getValue());
 				getViewState().showFixedFields();
-				typeDescription = context.getString(R.string.type_description_fixed);
+				typeDescription = context.getString(R.string.type_description_subscribe_fixed);
 				break;
 		}
 		getViewState().setType(text, position);

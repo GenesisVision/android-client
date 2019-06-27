@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import io.swagger.client.api.SignalApi;
 import io.swagger.client.model.AttachToSignalProviderInfo;
+import io.swagger.client.model.DetachFromSignalProvider;
 import rx.Observable;
 import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 
@@ -30,5 +31,11 @@ public class SignalsManager
 
 	public Observable<Void> updateSubscription(SubscriptionSettingsModel model) {
 		return signalApi.v10SignalByIdUpdatePost(model.getProgramId(), AuthManager.token.getValue(), model.getApiModel());
+	}
+
+	public Observable<Void> unsubscribeFromProgram(UUID programId, DetachFromSignalProvider.ModeEnum unsubscriptionType) {
+		DetachFromSignalProvider model = new DetachFromSignalProvider();
+		model.setMode(unsubscriptionType);
+		return signalApi.v10SignalDetachByIdPost(programId, AuthManager.token.getValue(), model);
 	}
 }

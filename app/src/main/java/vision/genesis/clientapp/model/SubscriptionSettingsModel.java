@@ -10,7 +10,7 @@ import io.swagger.client.model.AttachToSignalProviderInfo;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 26/06/2019.
+ * Created by Vitaly on 27/06/2019.
  */
 public class SubscriptionSettingsModel implements Parcelable
 {

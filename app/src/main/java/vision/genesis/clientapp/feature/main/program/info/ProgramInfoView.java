@@ -5,6 +5,8 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import java.util.UUID;
+
 import io.swagger.client.model.ProgramDetailsFull;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.SubscriptionSettingsModel;
@@ -44,4 +46,6 @@ interface ProgramInfoView extends MvpView
 	void showCreateCopytradingAccountActivity(SubscriptionSettingsModel model);
 
 	void showSubscriptionSettings(SubscriptionSettingsModel model, boolean isEdit);
+
+	void showUnfollowTradesActivity(UUID programId, String programName);
 }

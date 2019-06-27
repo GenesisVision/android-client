@@ -110,6 +110,92 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		setReinvest(!programDetails.getPersonalProgramDetails().isIsReinvest());
 	}
 
+	void onInvestClicked() {
+		if (!userLoggedOn) {
+			getViewState().showLoginActivity();
+			return;
+		}
+
+		if (programDetails == null || programDetails.getAvailableInvestment() == 0)
+			return;
+
+		ProgramRequest request = new ProgramRequest();
+
+		request.setProgramId(programDetails.getId());
+		request.setProgramLogo(programDetails.getLogo());
+		request.setProgramColor(programDetails.getColor());
+		request.setProgramCurrency(programDetails.getCurrency().getValue());
+		request.setLevel(programDetails.getLevel());
+		request.setProgramName(programDetails.getTitle());
+		request.setManagerName(programDetails.getManager().getUsername());
+
+		getViewState().showInvestProgramActivity(request);
+	}
+
+	void onWithdrawClicked() {
+		if (!userLoggedOn) {
+			getViewState().showLoginActivity();
+			return;
+		}
+
+		if (programDetails == null)
+			return;
+
+		ProgramRequest request = new ProgramRequest();
+
+		request.setProgramId(programDetails.getId());
+		request.setProgramLogo(programDetails.getLogo());
+		request.setProgramColor(programDetails.getColor());
+		request.setProgramCurrency(programDetails.getCurrency().getValue());
+		request.setLevel(programDetails.getLevel());
+		request.setProgramName(programDetails.getTitle());
+		request.setManagerName(programDetails.getManager().getUsername());
+
+		getViewState().showWithdrawProgramActivity(request);
+	}
+
+	void onShowSubscriptionSettingsClicked(boolean isEdit) {
+		if (!userLoggedOn) {
+			getViewState().showLoginActivity();
+			return;
+		}
+
+		if (signalsInfo != null) {
+			SubscriptionSettingsModel model = new SubscriptionSettingsModel();
+
+			try {
+				if (programDetails.getPersonalProgramDetails().getSignalSubscription().isHasActiveSubscription()) {
+					if (programDetails.getPersonalProgramDetails().getSignalSubscription().getMode() != null)
+						model.setMode(programDetails.getPersonalProgramDetails().getSignalSubscription().getMode().getValue());
+					if (programDetails.getPersonalProgramDetails().getSignalSubscription().getPercent() != null)
+						model.setPercent(programDetails.getPersonalProgramDetails().getSignalSubscription().getPercent());
+					if (programDetails.getPersonalProgramDetails().getSignalSubscription().getOpenTolerancePercent() != null)
+						model.setOpenTolerancePercent(programDetails.getPersonalProgramDetails().getSignalSubscription().getOpenTolerancePercent());
+					if (programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedVolume() != null)
+						model.setFixedVolume(programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedVolume());
+					if (programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedCurrency() != null)
+						model.setFixedCurrency(programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedCurrency().getValue());
+				}
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+			}
+			model.setProgramName(programDetails.getTitle());
+			model.setProgramId(programDetails.getId());
+			model.setMinDepositCurrency(signalsInfo.getMinDepositCurrency().getValue());
+			model.setMinDeposit(signalsInfo.getMinDeposit());
+
+			if (!signalsInfo.isHasSignalAccount())
+				getViewState().showCreateCopytradingAccountActivity(model);
+			else {
+				getViewState().showSubscriptionSettings(model, isEdit);
+			}
+		}
+	}
+
+	void onUnfollowTradesClicked() {
+		getViewState().showUnfollowTradesActivity(programId, programDetails.getTitle());
+	}
+
 	private void getProgramDetails() {
 		if (programId != null && programsManager != null) {
 			if (programDetailsSubscription != null)
@@ -215,85 +301,5 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 	private void handleUserError(Throwable throwable) {
 		userLoggedOff();
-	}
-
-	public void onInvestClicked() {
-		if (!userLoggedOn) {
-			getViewState().showLoginActivity();
-			return;
-		}
-
-		if (programDetails == null || programDetails.getAvailableInvestment() == 0)
-			return;
-
-		ProgramRequest request = new ProgramRequest();
-
-		request.setProgramId(programDetails.getId());
-		request.setProgramLogo(programDetails.getLogo());
-		request.setProgramColor(programDetails.getColor());
-		request.setProgramCurrency(programDetails.getCurrency().getValue());
-		request.setLevel(programDetails.getLevel());
-		request.setProgramName(programDetails.getTitle());
-		request.setManagerName(programDetails.getManager().getUsername());
-
-		getViewState().showInvestProgramActivity(request);
-	}
-
-	public void onWithdrawClicked() {
-		if (!userLoggedOn) {
-			getViewState().showLoginActivity();
-			return;
-		}
-
-		if (programDetails == null)
-			return;
-
-		ProgramRequest request = new ProgramRequest();
-
-		request.setProgramId(programDetails.getId());
-		request.setProgramLogo(programDetails.getLogo());
-		request.setProgramColor(programDetails.getColor());
-		request.setProgramCurrency(programDetails.getCurrency().getValue());
-		request.setLevel(programDetails.getLevel());
-		request.setProgramName(programDetails.getTitle());
-		request.setManagerName(programDetails.getManager().getUsername());
-
-		getViewState().showWithdrawProgramActivity(request);
-	}
-
-	public void onShowSubscriptionSettingsClicked(boolean isEdit) {
-		if (!userLoggedOn) {
-			getViewState().showLoginActivity();
-			return;
-		}
-
-		if (signalsInfo != null) {
-			SubscriptionSettingsModel model = new SubscriptionSettingsModel();
-
-			try {
-				if (programDetails.getPersonalProgramDetails().getSignalSubscription().getMode() != null)
-					model.setMode(programDetails.getPersonalProgramDetails().getSignalSubscription().getMode().getValue());
-				if (programDetails.getPersonalProgramDetails().getSignalSubscription().getPercent() != null)
-					model.setPercent(programDetails.getPersonalProgramDetails().getSignalSubscription().getPercent());
-				if (programDetails.getPersonalProgramDetails().getSignalSubscription().getOpenTolerancePercent() != null)
-					model.setOpenTolerancePercent(programDetails.getPersonalProgramDetails().getSignalSubscription().getOpenTolerancePercent());
-				if (programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedVolume() != null)
-					model.setFixedVolume(programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedVolume());
-				if (programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedCurrency() != null)
-					model.setFixedCurrency(programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedCurrency().getValue());
-			} catch (NullPointerException e) {
-				e.printStackTrace();
-			}
-			model.setProgramName(programDetails.getTitle());
-			model.setProgramId(programDetails.getId());
-			model.setMinDepositCurrency(signalsInfo.getMinDepositCurrency().getValue());
-			model.setMinDeposit(signalsInfo.getMinDeposit());
-
-			if (!signalsInfo.isHasSignalAccount())
-				getViewState().showCreateCopytradingAccountActivity(model);
-			else {
-				getViewState().showSubscriptionSettings(model, isEdit);
-			}
-		}
 	}
 }

@@ -32,6 +32,7 @@ import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.copytrading.create_account.CreateCopytradingAccountActivity;
 import vision.genesis.clientapp.feature.main.copytrading.subscription_settings.SubscriptionSettingsActivity;
+import vision.genesis.clientapp.feature.main.copytrading.unfollow_trades.UnfollowTradesActivity;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
@@ -279,6 +280,11 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		programInfoPresenter.onShowSubscriptionSettingsClicked(true);
 	}
 
+	@OnClick(R.id.button_unfollow_trades)
+	public void onUnfollowTradesClicked() {
+		programInfoPresenter.onUnfollowTradesClicked();
+	}
+
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -512,5 +518,11 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	public void showSubscriptionSettings(SubscriptionSettingsModel model, boolean isEdit) {
 		if (getActivity() != null)
 			SubscriptionSettingsActivity.startWith(getActivity(), model, isEdit);
+	}
+
+	@Override
+	public void showUnfollowTradesActivity(UUID programId, String programName) {
+		if (getActivity() != null)
+			UnfollowTradesActivity.startWith(getActivity(), programId, programName);
 	}
 }
