@@ -632,5 +632,6 @@
     <string name="type_description_unsubscribe_manual">An investor at any time can perform a manual closing of all of the opened positions.</string>
     <string name="type_description_unsubscribe_close_only">New trades do not open, open positions are closed as the manager closes them.</string>
     <string name="type_description_unsubscribe_close_immediately">Instant closing of all open positions.</string>
+    <string name="text_unsupported_transaction_type">Unfortunately, this transaction type is not yet supported by this version of the application. It will be added in a future release.</string>
 
 </resources>

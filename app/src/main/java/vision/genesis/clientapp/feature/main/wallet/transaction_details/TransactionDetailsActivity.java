@@ -27,6 +27,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.wallet.transaction_details.views.ButtonsView;
 import vision.genesis.clientapp.feature.main.wallet.transaction_details.views.ExternalAddressView;
+import vision.genesis.clientapp.feature.main.wallet.transaction_details.views.LabelView;
 import vision.genesis.clientapp.feature.main.wallet.transaction_details.views.ProgramView;
 import vision.genesis.clientapp.feature.main.wallet.transaction_details.views.RateView;
 import vision.genesis.clientapp.feature.main.wallet.transaction_details.views.StatusView;
@@ -155,6 +156,19 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 				break;
 			case PLATFORMFEE:
 				break;
+//			case SUBSCRIBESIGNAL:
+//				break;
+//			case RECEIVESIGNAL:
+//				break;
+//			case DEPOSITSIGNAL:
+//				break;
+//			case WITHDRAWALSIGNAL:
+//				break;
+//			case PLATFORM:
+//				break;
+			default:
+				createUnsupportedTransactionType();
+				break;
 		}
 		addEmptyView();
 	}
@@ -235,6 +249,12 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 		addAmount();
 		addWallet(getString(R.string.to), details.getCurrencyLogo(), details.getCurrencyName());
 		addStatus();
+	}
+
+	private void createUnsupportedTransactionType() {
+		LabelView view = new LabelView(this);
+		view.setData(getString(R.string.text_unsupported_transaction_type));
+		addView(view);
 	}
 
 	private void addWallet(String label, String logo, String name) {
