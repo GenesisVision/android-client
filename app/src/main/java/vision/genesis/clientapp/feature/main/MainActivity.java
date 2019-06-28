@@ -42,12 +42,14 @@ import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.rating.ProgramsRatingActivity;
+import vision.genesis.clientapp.feature.main.wallet.copytrading_account_details.CopytradingAccountDetailsActivity;
 import vision.genesis.clientapp.feature.main.wallet.specific_wallet.SpecificWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.transaction_details.TransactionDetailsActivity;
 import vision.genesis.clientapp.feature.pin.check.CheckPinActivity;
 import vision.genesis.clientapp.feature.two_factor.disable.DisableTfaActivity;
 import vision.genesis.clientapp.feature.two_factor.setup.SetupTfaActivity;
 import vision.genesis.clientapp.model.AppUpdateModel;
+import vision.genesis.clientapp.model.CopytradingAccountModel;
 import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.ManagerDetailsModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
@@ -351,6 +353,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void showSpecificWallet(WalletModel walletModel) {
 		SpecificWalletActivity.startWith(this, walletModel);
+	}
+
+	@Override
+	public void showCopytradingAccountDetails(CopytradingAccountModel model) {
+		CopytradingAccountDetailsActivity.startWith(this, model);
 	}
 
 	@Override

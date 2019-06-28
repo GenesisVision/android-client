@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import vision.genesis.clientapp.feature.main.wallet.copytrading_accounts.CopytradingAccountsFragment;
 import vision.genesis.clientapp.feature.main.wallet.external_transactions.ExternalTransactionsFragment;
 import vision.genesis.clientapp.feature.main.wallet.my_wallets.MyWalletsFragment;
 import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsFragment;
@@ -25,6 +26,8 @@ public class WalletPagerAdapter extends FragmentStatePagerAdapter
 
 	private MyWalletsFragment myWalletsFragment;
 
+	private CopytradingAccountsFragment copytradingAccountsFragment;
+
 	private TransactionsFragment transactionsFragment;
 
 	private ExternalTransactionsFragment externalTransactionsFragment;
@@ -35,6 +38,7 @@ public class WalletPagerAdapter extends FragmentStatePagerAdapter
 		super(fm);
 		this.tabLayout = tabLayout;
 		myWalletsFragment = new MyWalletsFragment();
+		copytradingAccountsFragment = new CopytradingAccountsFragment();
 		transactionsFragment = TransactionsFragment.with(TransactionsFragment.LOCATION_WALLET, null);
 		externalTransactionsFragment = ExternalTransactionsFragment.with(ExternalTransactionsFragment.LOCATION_WALLET, null);
 	}
@@ -44,6 +48,8 @@ public class WalletPagerAdapter extends FragmentStatePagerAdapter
 		switch (tabLayout.getTabAt(position).getTag().toString()) {
 			case "my_wallets":
 				return myWalletsFragment;
+			case "copytrading_accounts":
+				return copytradingAccountsFragment;
 			case "transactions":
 				return transactionsFragment;
 			case "deposits_withdrawals":
@@ -63,12 +69,14 @@ public class WalletPagerAdapter extends FragmentStatePagerAdapter
 
 	public void sendUpdate() {
 		myWalletsFragment.pagerShow();
+		copytradingAccountsFragment.pagerShow();
 		transactionsFragment.pagerShow();
 		externalTransactionsFragment.pagerShow();
 	}
 
 	public void sendSwipeRefresh() {
 		myWalletsFragment.onSwipeRefresh();
+		copytradingAccountsFragment.onSwipeRefresh();
 		transactionsFragment.onSwipeRefresh();
 		externalTransactionsFragment.onSwipeRefresh();
 	}

@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.wallet.specific_wallet;
+package vision.genesis.clientapp.feature.main.wallet.copytrading_account_details;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,14 +20,10 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.WalletData;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
-import vision.genesis.clientapp.feature.main.wallet.transfer.TransferWalletActivity;
-import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
-import vision.genesis.clientapp.model.WalletModel;
+import vision.genesis.clientapp.model.CopytradingAccountModel;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -37,15 +33,15 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 19/02/2019.
+ * Created by Vitaly on 28/06/2019.
  */
 
-public class SpecificWalletActivity extends BaseSwipeBackActivity implements SpecificWalletView
+public class CopytradingAccountDetailsActivity extends BaseSwipeBackActivity implements CopytradingAccountDetailsView
 {
 	private static String EXTRA_MODEL = "extra_model";
 
-	public static void startWith(Activity activity, WalletModel model) {
-		Intent intent = new Intent(activity.getApplicationContext(), SpecificWalletActivity.class);
+	public static void startWith(Activity activity, CopytradingAccountModel model) {
+		Intent intent = new Intent(activity.getApplicationContext(), CopytradingAccountDetailsActivity.class);
 		intent.putExtra(EXTRA_MODEL, model);
 		intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
 		activity.startActivity(intent);
@@ -61,16 +57,16 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 	@BindView(R.id.group_tabs)
 	public ViewGroup tabsGroup;
 
-	@BindView(R.id.wallet_icon)
-	public SimpleDraweeView walletIcon;
+	@BindView(R.id.account_icon)
+	public SimpleDraweeView accountIcon;
 
-	@BindView(R.id.wallet_name)
-	public TextView walletName;
+	@BindView(R.id.account_name)
+	public TextView accountName;
 
 	@BindView(R.id.tab_layout)
 	public TabLayout tabLayout;
 
-	@BindView(R.id.view_pager_specific_wallet)
+	@BindView(R.id.view_pager_copytrading_account_details)
 	public ViewPager viewPager;
 
 	@BindView(R.id.label_balance)
@@ -115,9 +111,6 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 	@BindView(R.id.add_funds)
 	public ViewGroup addFunds;
 
-	@BindView(R.id.label_transfer)
-	public TextView transferLabel;
-
 	@BindView(R.id.label_add_funds)
 	public TextView addFundsLabel;
 
@@ -125,38 +118,33 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 	public ProgressBar progressBar;
 
 	@InjectPresenter
-	SpecificWalletPresenter specificWalletPresenter;
+	CopytradingAccountDetailsPresenter copytradingAccountDetailsPresenter;
 
 	private TabLayout.OnTabSelectedListener tabSelectedListener;
 
 	private TabLayout.TabLayoutOnPageChangeListener tabLayoutOnPageChangeListener;
 
-	private TabLayout.Tab transactionsTab;
+	private TabLayout.Tab openTradesTab;
 
-	private TabLayout.Tab depositsWithdrawalsTab;
+	private TabLayout.Tab tradesHistoryTab;
 
-	private SpecificWalletPagerAdapter pagerAdapter;
+	private CopytradingAccountDetailsPagerAdapter pagerAdapter;
 
-	private WalletModel model;
+	private CopytradingAccountModel model;
 
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
 	}
 
-	@OnClick(R.id.transfer)
-	public void onTransferButtonClicked() {
-		TransferWalletActivity.startWith(this, model);
-	}
-
 	@OnClick(R.id.withdraw)
 	public void onWithdrawButtonClicked() {
-		WithdrawWalletActivity.startWith(this, model);
+//		WithdrawWalletActivity.startWith(this, model);
 	}
 
 	@OnClick(R.id.add_funds)
 	public void onAddFundsButtonClicked() {
-		DepositWalletActivity.startWith(this, model);
+//		DepositWalletActivity.startWith(this, model);
 	}
 
 	@Override
@@ -164,43 +152,41 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_specific_wallet);
+		setContentView(R.layout.activity_copytrading_account_details);
 
 		ButterKnife.bind(this);
 
-		setFonts();
-
-		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
+		if (getIntent().getExtras() != null) {
 			model = getIntent().getExtras().getParcelable(EXTRA_MODEL);
+			if (model != null) {
+				updateHeader(model);
+				setAccountData(model);
 
-			updateHeader(model);
+				setFonts();
 
-			setFonts();
-
-			initRefreshLayout();
-			initButtons();
-			setOffsetListener();
-			initTabs();
-			initViewPager(model.getCurrency());
-
-			specificWalletPresenter.setWalletId(model.getId());
+				initRefreshLayout();
+				initButtons();
+				setOffsetListener();
+				initTabs();
+				initViewPager(model.getCurrency());
+				return;
+			}
 		}
-		else {
-			Timber.e("Passed empty model to SpecificWalletActivity");
-			onBackPressed();
-		}
+		Timber.e("Passed empty model to %s", getClass().getSimpleName());
+		onBackPressed();
 	}
 
-	private void updateHeader(WalletModel model) {
-		walletIcon.setImageURI(ImageUtils.getImageUri(model.getLogo()));
-		walletName.setText(model.getTitle());
+	private void updateHeader(CopytradingAccountModel model) {
+		accountIcon.setImageURI(ImageUtils.getImageUri(model.getLogo()));
+		accountName.setText(model.getTitle());
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
 
-		specificWalletPresenter.onResume();
+		if (pagerAdapter != null)
+			pagerAdapter.sendUpdate();
 	}
 
 	@Override
@@ -210,7 +196,6 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 
 	@Override
 	public void onDestroy() {
-
 		if (pagerAdapter != null)
 			pagerAdapter.destroy();
 
@@ -228,7 +213,7 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 	}
 
 	private void setFonts() {
-		walletName.setTypeface(TypefaceUtil.semibold());
+		accountName.setTypeface(TypefaceUtil.semibold());
 
 		balanceLabel.setTypeface(TypefaceUtil.semibold());
 		balance.setTypeface(TypefaceUtil.semibold());
@@ -243,7 +228,6 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 
 		withdrawLabel.setTypeface(TypefaceUtil.semibold());
 		addFundsLabel.setTypeface(TypefaceUtil.semibold());
-		transferLabel.setTypeface(TypefaceUtil.semibold());
 	}
 
 	private void initRefreshLayout() {
@@ -252,17 +236,12 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary),
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextSecondary));
 		refreshLayout.setOnRefreshListener(() -> {
-			specificWalletPresenter.onSwipeRefresh();
 			if (pagerAdapter != null)
 				pagerAdapter.sendSwipeRefresh();
 		});
 	}
 
 	private void initButtons() {
-//		withdraw.setEmpty();
-//		transfer.setEmpty();
-
-
 	}
 
 	private void setOffsetListener() {
@@ -270,8 +249,8 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 	}
 
 	private void initTabs() {
-		transactionsTab = tabLayout.newTab().setCustomView(getTabView(R.string.transactions)).setTag("transactions");
-		depositsWithdrawalsTab = tabLayout.newTab().setCustomView(getTabView(R.string.deposits_withdrawals)).setTag("deposits_withdrawals");
+		openTradesTab = tabLayout.newTab().setCustomView(getTabView(R.string.open_trades)).setTag("open_trades");
+		tradesHistoryTab = tabLayout.newTab().setCustomView(getTabView(R.string.trades_history)).setTag("trades_history");
 
 		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -302,8 +281,8 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 
 		tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
-		addPage(transactionsTab, true);
-		addPage(depositsWithdrawalsTab, false);
+		addPage(openTradesTab, true);
+		addPage(tradesHistoryTab, false);
 	}
 
 	private View getTabView(int textResId) {
@@ -323,7 +302,7 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 	}
 
 	private void initViewPager(String walletCurrency) {
-		pagerAdapter = new SpecificWalletPagerAdapter(getSupportFragmentManager(), tabLayout, walletCurrency);
+		pagerAdapter = new CopytradingAccountDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, walletCurrency);
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOffscreenPageLimit(2);
 
@@ -332,31 +311,26 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 	}
 
 	@Override
-	public void setWalletData(WalletData data) {
-		String currency = data.getCurrency().getValue();
+	public void setAccountData(CopytradingAccountModel data) {
+		String currency = data.getCurrency();
 
-		this.balance.setText(StringFormatUtil.getValueString(data.getTotal(), data.getCurrency().getValue()));
-//		this.balanceBase.setText(StringFormatUtil.getValueString(data.getTotalCcy(), data.getCurrencyCcy().getValue()));
+		this.balance.setText(StringFormatUtil.getValueString(data.getBalance(), data.getCurrency()));
 
-		Integer availablePercent = (int) Math.round(data.getAvailable() * 100 / data.getTotal());
+		Integer availablePercent = (int) Math.round(data.getAvailable() * 100 / data.getBalance());
 		this.availableShare.setProgress(availablePercent);
 		this.availablePercent.setText(String.format(Locale.getDefault(), "%d%%", availablePercent));
 		this.available.setText(StringFormatUtil.getValueString(data.getAvailable(), currency));
-//		this.availableBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getAvailableCcy(), baseCurrency.getValue()));
 
-		Integer investedPercent = (int) Math.round(data.getInvested() * 100 / data.getTotal());
-		this.investedShare.setProgress(investedPercent);
-		this.investedPercent.setText(String.format(Locale.getDefault(), "%d%%", investedPercent));
-		this.invested.setText(StringFormatUtil.getValueString(data.getInvested(), currency));
-//		this.investedBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getInvestedCcy(), baseCurrency.getValue()));
-
-		Integer pendingPercent = (int) Math.round(data.getPending() * 100 / data.getTotal());
-		this.pendingShare.setProgress(pendingPercent);
-		this.pendingPercent.setText(String.format(Locale.getDefault(), "%d%%", pendingPercent));
-		this.pending.setText(StringFormatUtil.getValueString(data.getPending(), currency));
-
-		this.addFunds.setVisibility(data.isIsDepositEnabled() ? View.VISIBLE : View.GONE);
-		this.withdraw.setVisibility(data.isIsWithdrawalEnabled() ? View.VISIBLE : View.GONE);
+//		Integer investedPercent = (int) Math.round(data.getInvested() * 100 / data.getTotal());
+//		this.investedShare.setProgress(investedPercent);
+//		this.investedPercent.setText(String.format(Locale.getDefault(), "%d%%", investedPercent));
+//		this.invested.setText(StringFormatUtil.getValueString(data.getInvested(), currency));
+////		this.investedBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getInvestedCcy(), baseCurrency.getValue()));
+//
+//		Integer pendingPercent = (int) Math.round(data.getPending() * 100 / data.getTotal());
+//		this.pendingShare.setProgress(pendingPercent);
+//		this.pendingPercent.setText(String.format(Locale.getDefault(), "%d%%", pendingPercent));
+//		this.pending.setText(StringFormatUtil.getValueString(data.getPending(), currency));
 	}
 
 	@Override
@@ -378,13 +352,13 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 	}
 
 	@Override
-	public void setTransactionsCount(Integer transactionsCount) {
-		((DetailsTabView) transactionsTab.getCustomView()).setCount(transactionsCount);
+	public void setOpenTradesCount(Integer openTradesCount) {
+		((DetailsTabView) openTradesTab.getCustomView()).setCount(openTradesCount);
 	}
 
 	@Override
-	public void setDepositsWithdrawalsCount(Integer depositsWithdrawalsCount) {
-		((DetailsTabView) depositsWithdrawalsTab.getCustomView()).setCount(depositsWithdrawalsCount);
+	public void setTradesHistoryCount(Integer tradesHistoryCount) {
+		((DetailsTabView) tradesHistoryTab.getCustomView()).setCount(tradesHistoryCount);
 	}
 
 	private void finishActivity() {

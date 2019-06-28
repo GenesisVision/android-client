@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.wallet.my_wallets;
+package vision.genesis.clientapp.feature.main.wallet.copytrading_accounts;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,17 +16,17 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.swagger.client.model.WalletData;
+import io.swagger.client.model.CopyTradingAccountInfo;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 17/02/2019.
+ * Created by Vitaly on 28/06/2019.
  */
 
-public class MyWalletsFragment extends BaseFragment implements MyWalletsView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
+public class CopytradingAccountsFragment extends BaseFragment implements CopytradingAccountsView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
 {
 	@BindView(R.id.root)
 	public ViewGroup root;
@@ -38,16 +38,16 @@ public class MyWalletsFragment extends BaseFragment implements MyWalletsView, Pr
 	public RecyclerView recyclerView;
 
 	@InjectPresenter
-	public MyWalletsPresenter myWalletsPresenter;
+	public CopytradingAccountsPresenter copytradingAccountsPresenter;
 
-	private MyWalletsListAdapter myWalletsListAdapter;
+	private CopytradingAccountsListAdapter copytradingAccountsListAdapter;
 
 	private Unbinder unbinder;
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_my_wallets, container, false);
+		return inflater.inflate(R.layout.fragment_copytrading_accounts, container, false);
 	}
 
 	@Override
@@ -76,8 +76,8 @@ public class MyWalletsFragment extends BaseFragment implements MyWalletsView, Pr
 	private void initRecyclerView() {
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
-		myWalletsListAdapter = new MyWalletsListAdapter();
-		recyclerView.setAdapter(myWalletsListAdapter);
+		copytradingAccountsListAdapter = new CopytradingAccountsListAdapter();
+		recyclerView.setAdapter(copytradingAccountsListAdapter);
 	}
 
 	@Override
@@ -90,13 +90,13 @@ public class MyWalletsFragment extends BaseFragment implements MyWalletsView, Pr
 
 
 	@Override
-	public void setWallets(List<WalletData> wallets) {
-		if (wallets.isEmpty()) {
+	public void setAccounts(List<CopyTradingAccountInfo> accounts) {
+		if (accounts.isEmpty()) {
 			recyclerView.setVisibility(View.GONE);
 			return;
 		}
 
-		myWalletsListAdapter.setWallets(wallets);
+		copytradingAccountsListAdapter.setAccounts(accounts);
 		recyclerView.setVisibility(View.VISIBLE);
 	}
 
@@ -107,8 +107,8 @@ public class MyWalletsFragment extends BaseFragment implements MyWalletsView, Pr
 
 	@Override
 	public void pagerShow() {
-		if (myWalletsPresenter != null)
-			myWalletsPresenter.onShow();
+		if (copytradingAccountsPresenter != null)
+			copytradingAccountsPresenter.onShow();
 	}
 
 	@Override
@@ -116,7 +116,7 @@ public class MyWalletsFragment extends BaseFragment implements MyWalletsView, Pr
 	}
 
 	public void onSwipeRefresh() {
-		if (myWalletsPresenter != null)
-			myWalletsPresenter.onSwipeRefresh();
+		if (copytradingAccountsPresenter != null)
+			copytradingAccountsPresenter.onSwipeRefresh();
 	}
 }

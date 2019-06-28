@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import io.swagger.client.api.SignalApi;
 import io.swagger.client.model.AttachToSignalProviderInfo;
+import io.swagger.client.model.CopyTradingAccountsList;
 import io.swagger.client.model.DetachFromSignalProvider;
 import rx.Observable;
 import vision.genesis.clientapp.model.SubscriptionSettingsModel;
@@ -37,5 +38,9 @@ public class SignalsManager
 		DetachFromSignalProvider model = new DetachFromSignalProvider();
 		model.setMode(unsubscriptionType);
 		return signalApi.v10SignalDetachByIdPost(programId, AuthManager.token.getValue(), model);
+	}
+
+	public Observable<CopyTradingAccountsList> getAccounts() {
+		return signalApi.v10SignalAccountsGet(AuthManager.token.getValue());
 	}
 }

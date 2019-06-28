@@ -633,5 +633,8 @@
     <string name="type_description_unsubscribe_close_only">New trades do not open, open positions are closed as the manager closes them.</string>
     <string name="type_description_unsubscribe_close_immediately">Instant closing of all open positions.</string>
     <string name="text_unsupported_transaction_type">Unfortunately, this transaction type is not yet supported by this version of the application. It will be added in a future release.</string>
+    <string name="copytrading_accounts">Copytrading accounts</string>
+    <string name="open_trades">Open trades</string>
+    <string name="trades_history">Trades history</string>
 
 </resources>

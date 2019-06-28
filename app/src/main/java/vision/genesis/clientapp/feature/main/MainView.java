@@ -11,6 +11,7 @@ import io.swagger.client.model.ProgramFacet;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.model.AppUpdateModel;
+import vision.genesis.clientapp.model.CopytradingAccountModel;
 import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.ManagerDetailsModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
@@ -67,6 +68,8 @@ public interface MainView extends MvpView
 	void changeThemeWithAnim();
 
 	void showSpecificWallet(WalletModel walletModel);
+
+	void showCopytradingAccountDetails(CopytradingAccountModel model);
 
 	void showTransactionDetails(UUID transactionId, String transactionType, DateTime transactionDate);
 

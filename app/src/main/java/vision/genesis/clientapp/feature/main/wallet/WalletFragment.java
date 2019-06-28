@@ -106,6 +106,8 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 	private TabLayout.Tab myWalletsTab;
 
+	private TabLayout.Tab copytradingAccountsTab;
+
 	private TabLayout.Tab transactionsTab;
 
 	private TabLayout.Tab depositsWithdrawalsTab;
@@ -204,6 +206,7 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 	private void initTabs() {
 		myWalletsTab = tabLayout.newTab().setCustomView(getTabView(R.string.my_wallets)).setTag("my_wallets");
+		copytradingAccountsTab = tabLayout.newTab().setCustomView(getTabView(R.string.copytrading_accounts)).setTag("copytrading_accounts");
 		transactionsTab = tabLayout.newTab().setCustomView(getTabView(R.string.transactions)).setTag("transactions");
 		depositsWithdrawalsTab = tabLayout.newTab().setCustomView(getTabView(R.string.deposits_withdrawals)).setTag("deposits_withdrawals");
 
@@ -237,6 +240,7 @@ public class WalletFragment extends BaseFragment implements WalletView
 		tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
 		addPage(myWalletsTab, true);
+		addPage(copytradingAccountsTab, false);
 		addPage(transactionsTab, false);
 		addPage(depositsWithdrawalsTab, false);
 	}
