@@ -211,6 +211,8 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 	private TabLayout.Tab fundsTab;
 
+	private TabLayout.Tab copytradingTab;
+
 	@OnClick(R.id.group_notifications)
 	public void onNotificationsClicked() {
 		if (getActivity() != null)
@@ -412,6 +414,7 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	private void initAssetsTabs() {
 		programsTab = tabLayoutAssets.newTab().setCustomView(getTabView(R.string.programs)).setTag("programs");
 		fundsTab = tabLayoutAssets.newTab().setCustomView(getTabView(R.string.funds)).setTag("funds");
+		copytradingTab = tabLayoutAssets.newTab().setCustomView(getTabView(R.string.copytrading)).setTag("copytrading");
 
 		assetsTabSelectedListener = new TabLayout.OnTabSelectedListener()
 		{
@@ -442,12 +445,14 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 		addTab(tabLayoutAssets, assetsPagerAdapter, programsTab, true);
 		addTab(tabLayoutAssets, assetsPagerAdapter, fundsTab, false);
+		addTab(tabLayoutAssets, assetsPagerAdapter, copytradingTab, false);
 
 	}
 
 	private void initAssetsViewPager() {
 		assetsPagerAdapter = new DashboardPagerAdapter(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), tabLayoutAssets);
 		viewPagerAssets.setAdapter(assetsPagerAdapter);
+		viewPagerAssets.setOffscreenPageLimit(5);
 
 		tabLayoutAssetsOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayoutAssets);
 		viewPagerAssets.addOnPageChangeListener(tabLayoutAssetsOnPageChangeListener);
@@ -609,6 +614,11 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	@Override
 	public void setFundsCount(Integer fundsCount) {
 		((CustomTabView) fundsTab.getCustomView()).setCount(fundsCount);
+	}
+
+	@Override
+	public void setSignalsCount(Integer signalsCount) {
+		((CustomTabView) copytradingTab.getCustomView()).setCount(signalsCount);
 	}
 
 	@Override

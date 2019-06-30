@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/item_dashboard_signal_height"
+              android:layout_marginBottom="@dimen/dashboard_padding"
+              android:layout_marginEnd="@dimen/dashboard_padding"
+              android:layout_marginLeft="@dimen/dashboard_padding"
+              android:layout_marginRight="@dimen/dashboard_padding"
+              android:layout_marginStart="@dimen/dashboard_padding"
+              android:background="@drawable/program_list_item_background"
+              android:gravity="center_vertical"
+              android:orientation="vertical"
+              android:padding="@dimen/dashboard_padding">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <vision.genesis.clientapp.ui.ProgramLogoView
+            android:id="@+id/program_logo"
+            android:layout_width="@dimen/dashboard_program_logo_width"
+            android:layout_height="@dimen/dashboard_program_logo_height"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/program_logo"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/program_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="16sp"
+                tools:text="Janus Capital Group"/>
+
+            <TextView
+                android:id="@+id/manager_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="?attr/colorAccent"
+                android:textSize="14sp"
+                tools:text="Eddie Carr"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:gravity="bottom">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/currency"
+                style="@style/text_value"
+                tools:text="BTC"/>
+
+            <TextView
+                android:id="@+id/currency_label"
+                style="@style/text_label"
+                android:layout_marginTop="4dp"
+                android:text="@string/currency"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/trades"
+                style="@style/text_value"
+                tools:text="1,934"/>
+
+            <TextView
+                android:id="@+id/trades_label"
+                style="@style/text_label"
+                android:layout_marginTop="4dp"
+                android:text="@string/trades"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/profit"
+                style="@style/text_value"
+                android:textColor="?attr/colorGreen"
+                tools:text="+124.6 GVT"/>
+
+            <TextView
+                android:id="@+id/profit_label"
+                style="@style/text_label"
+                android:layout_marginTop="4dp"
+                android:text="@string/profit"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical">
+
+        <vision.genesis.clientapp.ui.InvestmentStatusView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"/>
+
+        <LinearLayout
+            android:id="@+id/group_date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/date"
+                style="@style/text_value"
+                tools:text="30 Jun 2019, 03:18 PM"/>
+
+            <TextView
+                android:id="@+id/date_label"
+                style="@style/text_label"
+                android:layout_marginTop="4dp"
+                android:text="@string/subscription_date"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

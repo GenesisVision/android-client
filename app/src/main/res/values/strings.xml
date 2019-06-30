@@ -636,5 +636,8 @@
     <string name="copytrading_accounts">Copytrading accounts</string>
     <string name="open_trades">Open trades</string>
     <string name="trades_history">Trades history</string>
+    <string name="copytrading">Copytrading</string>
+    <string name="dashboard_copytrading_empty">You have not yet subscribed\nto any program</string>
+    <string name="subscription_date">Subscription date</string>
 
 </resources>

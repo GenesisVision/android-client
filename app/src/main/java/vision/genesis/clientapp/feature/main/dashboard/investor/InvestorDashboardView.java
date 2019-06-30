@@ -54,4 +54,6 @@ interface InvestorDashboardView extends MvpView
 	void setProgramsCount(Integer programsCount);
 
 	void setFundsCount(Integer fundsCount);
+
+	void setSignalsCount(Integer signalsCount);
 }

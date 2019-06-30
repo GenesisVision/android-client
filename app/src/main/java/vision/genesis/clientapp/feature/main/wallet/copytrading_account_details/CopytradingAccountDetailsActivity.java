@@ -321,13 +321,13 @@ public class CopytradingAccountDetailsActivity extends BaseSwipeBackActivity imp
 		this.availablePercent.setText(String.format(Locale.getDefault(), "%d%%", availablePercent));
 		this.available.setText(StringFormatUtil.getValueString(data.getAvailable(), currency));
 
-//		Integer investedPercent = (int) Math.round(data.getInvested() * 100 / data.getTotal());
+//		Integer investedPercent = (int) Math.round(data.getInvested() * 100 / data.getSignalsCount());
 //		this.investedShare.setProgress(investedPercent);
 //		this.investedPercent.setText(String.format(Locale.getDefault(), "%d%%", investedPercent));
 //		this.invested.setText(StringFormatUtil.getValueString(data.getInvested(), currency));
 ////		this.investedBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getInvestedCcy(), baseCurrency.getValue()));
 //
-//		Integer pendingPercent = (int) Math.round(data.getPending() * 100 / data.getTotal());
+//		Integer pendingPercent = (int) Math.round(data.getPending() * 100 / data.getSignalsCount());
 //		this.pendingShare.setProgress(pendingPercent);
 //		this.pendingPercent.setText(String.format(Locale.getDefault(), "%d%%", pendingPercent));
 //		this.pending.setText(StringFormatUtil.getValueString(data.getPending(), currency));

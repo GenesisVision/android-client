@@ -40,6 +40,7 @@ import vision.genesis.clientapp.model.events.OnPortfolioChartViewModeChangedEven
 import vision.genesis.clientapp.model.events.OnRequestCancelledEvent;
 import vision.genesis.clientapp.model.events.SetDashboardFundsCountEvent;
 import vision.genesis.clientapp.model.events.SetDashboardProgramsCountEvent;
+import vision.genesis.clientapp.model.events.SetDashboardSignalsCountEvent;
 import vision.genesis.clientapp.model.events.ShowProgramRequestsEvent;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -288,5 +289,10 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	@Subscribe
 	public void onEventMainThread(SetDashboardFundsCountEvent event) {
 		getViewState().setFundsCount(event.getFundsCount());
+	}
+
+	@Subscribe
+	public void onEventMainThread(SetDashboardSignalsCountEvent event) {
+		getViewState().setSignalsCount(event.getSignalsCount());
 	}
 }

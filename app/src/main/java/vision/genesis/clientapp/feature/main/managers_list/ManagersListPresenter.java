@@ -186,7 +186,7 @@ public class ManagersListPresenter extends MvpPresenter<ManagersListView> implem
 
 		managersToAdd = response.getManagers();
 
-//		getViewState().setFundsCount(StringFormatUtil.formatAmount(response.getTotal(), 0, 0));
+//		getViewState().setFundsCount(StringFormatUtil.formatAmount(response.getSignalsCount(), 0, 0));
 
 		if (managersToAdd.size() == 0) {
 			if (skip == 0)

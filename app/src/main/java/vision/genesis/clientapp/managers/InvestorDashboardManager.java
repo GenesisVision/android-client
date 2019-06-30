@@ -10,6 +10,7 @@ import io.swagger.client.model.DashboardSummary;
 import io.swagger.client.model.FundsList;
 import io.swagger.client.model.ProgramRequests;
 import io.swagger.client.model.ProgramsList;
+import io.swagger.client.model.SignalsList;
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.model.DateRange;
@@ -44,6 +45,15 @@ public class InvestorDashboardManager
 
 	public Observable<FundsList> getFunds(String sorting, DateRange dateRange, Integer skip, Integer take) {
 		return investorApi.v10InvestorFundsGet(AuthManager.token.getValue(), sorting,
+				dateRange.getFrom(), dateRange.getTo(),
+				10, null,
+				null, null,
+				skip, take);
+	}
+
+	public Observable<SignalsList> getSignalProviders(String status, String sorting, DateRange dateRange, Integer skip, Integer take) {
+		return investorApi.v10InvestorSignalsGet(AuthManager.token.getValue(),
+				status, sorting,
 				dateRange.getFrom(), dateRange.getTo(),
 				10, null,
 				null, null,
