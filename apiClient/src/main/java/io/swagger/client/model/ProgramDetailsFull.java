@@ -65,8 +65,20 @@ public class ProgramDetailsFull
 	@SerializedName("successFee")
 	private Double successFee = null;
 
+	@SerializedName("successFeeSelected")
+	private Double successFeeSelected = null;
+
+	@SerializedName("successFeeCurrent")
+	private Double successFeeCurrent = null;
+
 	@SerializedName("stopOutLevel")
 	private Double stopOutLevel = null;
+
+	@SerializedName("stopOutLevelSelected")
+	private Double stopOutLevelSelected = null;
+
+	@SerializedName("stopOutLevelCurrent")
+	private Double stopOutLevelCurrent = null;
 
 	@SerializedName("isReinvesting")
 	private Boolean isReinvesting = null;
@@ -80,14 +92,38 @@ public class ProgramDetailsFull
 	@SerializedName("signalVolumeFee")
 	private Double signalVolumeFee = null;
 
-	@SerializedName("isForex")
-	private Boolean isForex = null;
+	@SerializedName("leverageMin")
+	private Integer leverageMin = null;
+
+	@SerializedName("leverageMax")
+	private Integer leverageMax = null;
+
+	@SerializedName("ageDays")
+	private Double ageDays = null;
+
+	@SerializedName("genesisRatio")
+	private Double genesisRatio = null;
+
+	@SerializedName("investmentScale")
+	private Double investmentScale = null;
+
+	@SerializedName("volumeScale")
+	private Double volumeScale = null;
 
 	@SerializedName("availableInvestment")
 	private Double availableInvestment = null;
 
 	@SerializedName("availableInvestmentBase")
 	private Double availableInvestmentBase = null;
+
+	@SerializedName("availableInvestmentLimit")
+	private Double availableInvestmentLimit = null;
+
+	@SerializedName("totalAvailableInvestment")
+	private Double totalAvailableInvestment = null;
+
+	@SerializedName("brokerDetails")
+	private BrokerDetails brokerDetails = null;
 
 	@SerializedName("statistic")
 	private ProgramStatistic statistic = null;
@@ -321,6 +357,44 @@ public class ProgramDetailsFull
 		this.successFee = successFee;
 	}
 
+	public ProgramDetailsFull successFeeSelected(Double successFeeSelected) {
+		this.successFeeSelected = successFeeSelected;
+		return this;
+	}
+
+	/**
+	 * Get successFeeSelected
+	 *
+	 * @return successFeeSelected
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getSuccessFeeSelected() {
+		return successFeeSelected;
+	}
+
+	public void setSuccessFeeSelected(Double successFeeSelected) {
+		this.successFeeSelected = successFeeSelected;
+	}
+
+	public ProgramDetailsFull successFeeCurrent(Double successFeeCurrent) {
+		this.successFeeCurrent = successFeeCurrent;
+		return this;
+	}
+
+	/**
+	 * Get successFeeCurrent
+	 *
+	 * @return successFeeCurrent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getSuccessFeeCurrent() {
+		return successFeeCurrent;
+	}
+
+	public void setSuccessFeeCurrent(Double successFeeCurrent) {
+		this.successFeeCurrent = successFeeCurrent;
+	}
+
 	public ProgramDetailsFull stopOutLevel(Double stopOutLevel) {
 		this.stopOutLevel = stopOutLevel;
 		return this;
@@ -338,6 +412,44 @@ public class ProgramDetailsFull
 
 	public void setStopOutLevel(Double stopOutLevel) {
 		this.stopOutLevel = stopOutLevel;
+	}
+
+	public ProgramDetailsFull stopOutLevelSelected(Double stopOutLevelSelected) {
+		this.stopOutLevelSelected = stopOutLevelSelected;
+		return this;
+	}
+
+	/**
+	 * Get stopOutLevelSelected
+	 *
+	 * @return stopOutLevelSelected
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getStopOutLevelSelected() {
+		return stopOutLevelSelected;
+	}
+
+	public void setStopOutLevelSelected(Double stopOutLevelSelected) {
+		this.stopOutLevelSelected = stopOutLevelSelected;
+	}
+
+	public ProgramDetailsFull stopOutLevelCurrent(Double stopOutLevelCurrent) {
+		this.stopOutLevelCurrent = stopOutLevelCurrent;
+		return this;
+	}
+
+	/**
+	 * Get stopOutLevelCurrent
+	 *
+	 * @return stopOutLevelCurrent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getStopOutLevelCurrent() {
+		return stopOutLevelCurrent;
+	}
+
+	public void setStopOutLevelCurrent(Double stopOutLevelCurrent) {
+		this.stopOutLevelCurrent = stopOutLevelCurrent;
 	}
 
 	public ProgramDetailsFull isReinvesting(Boolean isReinvesting) {
@@ -416,23 +528,118 @@ public class ProgramDetailsFull
 		this.signalVolumeFee = signalVolumeFee;
 	}
 
-	public ProgramDetailsFull isForex(Boolean isForex) {
-		this.isForex = isForex;
+	public ProgramDetailsFull leverageMin(Integer leverageMin) {
+		this.leverageMin = leverageMin;
 		return this;
 	}
 
 	/**
-	 * Get isForex
+	 * Get leverageMin
 	 *
-	 * @return isForex
+	 * @return leverageMin
 	 **/
 	@ApiModelProperty(value = "")
-	public Boolean isIsForex() {
-		return isForex;
+	public Integer getLeverageMin() {
+		return leverageMin;
 	}
 
-	public void setIsForex(Boolean isForex) {
-		this.isForex = isForex;
+	public void setLeverageMin(Integer leverageMin) {
+		this.leverageMin = leverageMin;
+	}
+
+	public ProgramDetailsFull leverageMax(Integer leverageMax) {
+		this.leverageMax = leverageMax;
+		return this;
+	}
+
+	/**
+	 * Get leverageMax
+	 *
+	 * @return leverageMax
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getLeverageMax() {
+		return leverageMax;
+	}
+
+	public void setLeverageMax(Integer leverageMax) {
+		this.leverageMax = leverageMax;
+	}
+
+	public ProgramDetailsFull ageDays(Double ageDays) {
+		this.ageDays = ageDays;
+		return this;
+	}
+
+	/**
+	 * Get ageDays
+	 *
+	 * @return ageDays
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getAgeDays() {
+		return ageDays;
+	}
+
+	public void setAgeDays(Double ageDays) {
+		this.ageDays = ageDays;
+	}
+
+	public ProgramDetailsFull genesisRatio(Double genesisRatio) {
+		this.genesisRatio = genesisRatio;
+		return this;
+	}
+
+	/**
+	 * Get genesisRatio
+	 *
+	 * @return genesisRatio
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getGenesisRatio() {
+		return genesisRatio;
+	}
+
+	public void setGenesisRatio(Double genesisRatio) {
+		this.genesisRatio = genesisRatio;
+	}
+
+	public ProgramDetailsFull investmentScale(Double investmentScale) {
+		this.investmentScale = investmentScale;
+		return this;
+	}
+
+	/**
+	 * Get investmentScale
+	 *
+	 * @return investmentScale
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getInvestmentScale() {
+		return investmentScale;
+	}
+
+	public void setInvestmentScale(Double investmentScale) {
+		this.investmentScale = investmentScale;
+	}
+
+	public ProgramDetailsFull volumeScale(Double volumeScale) {
+		this.volumeScale = volumeScale;
+		return this;
+	}
+
+	/**
+	 * Get volumeScale
+	 *
+	 * @return volumeScale
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getVolumeScale() {
+		return volumeScale;
+	}
+
+	public void setVolumeScale(Double volumeScale) {
+		this.volumeScale = volumeScale;
 	}
 
 	public ProgramDetailsFull availableInvestment(Double availableInvestment) {
@@ -471,6 +678,63 @@ public class ProgramDetailsFull
 
 	public void setAvailableInvestmentBase(Double availableInvestmentBase) {
 		this.availableInvestmentBase = availableInvestmentBase;
+	}
+
+	public ProgramDetailsFull availableInvestmentLimit(Double availableInvestmentLimit) {
+		this.availableInvestmentLimit = availableInvestmentLimit;
+		return this;
+	}
+
+	/**
+	 * Get availableInvestmentLimit
+	 *
+	 * @return availableInvestmentLimit
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getAvailableInvestmentLimit() {
+		return availableInvestmentLimit;
+	}
+
+	public void setAvailableInvestmentLimit(Double availableInvestmentLimit) {
+		this.availableInvestmentLimit = availableInvestmentLimit;
+	}
+
+	public ProgramDetailsFull totalAvailableInvestment(Double totalAvailableInvestment) {
+		this.totalAvailableInvestment = totalAvailableInvestment;
+		return this;
+	}
+
+	/**
+	 * Get totalAvailableInvestment
+	 *
+	 * @return totalAvailableInvestment
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getTotalAvailableInvestment() {
+		return totalAvailableInvestment;
+	}
+
+	public void setTotalAvailableInvestment(Double totalAvailableInvestment) {
+		this.totalAvailableInvestment = totalAvailableInvestment;
+	}
+
+	public ProgramDetailsFull brokerDetails(BrokerDetails brokerDetails) {
+		this.brokerDetails = brokerDetails;
+		return this;
+	}
+
+	/**
+	 * Get brokerDetails
+	 *
+	 * @return brokerDetails
+	 **/
+	@ApiModelProperty(value = "")
+	public BrokerDetails getBrokerDetails() {
+		return brokerDetails;
+	}
+
+	public void setBrokerDetails(BrokerDetails brokerDetails) {
+		this.brokerDetails = brokerDetails;
 	}
 
 	public ProgramDetailsFull statistic(ProgramStatistic statistic) {
@@ -766,14 +1030,26 @@ public class ProgramDetailsFull
 				Objects.equals(this.entryFeeSelected, programDetailsFull.entryFeeSelected) &&
 				Objects.equals(this.entryFeeCurrent, programDetailsFull.entryFeeCurrent) &&
 				Objects.equals(this.successFee, programDetailsFull.successFee) &&
+				Objects.equals(this.successFeeSelected, programDetailsFull.successFeeSelected) &&
+				Objects.equals(this.successFeeCurrent, programDetailsFull.successFeeCurrent) &&
 				Objects.equals(this.stopOutLevel, programDetailsFull.stopOutLevel) &&
+				Objects.equals(this.stopOutLevelSelected, programDetailsFull.stopOutLevelSelected) &&
+				Objects.equals(this.stopOutLevelCurrent, programDetailsFull.stopOutLevelCurrent) &&
 				Objects.equals(this.isReinvesting, programDetailsFull.isReinvesting) &&
 				Objects.equals(this.isSignalProgram, programDetailsFull.isSignalProgram) &&
 				Objects.equals(this.signalSuccessFee, programDetailsFull.signalSuccessFee) &&
 				Objects.equals(this.signalVolumeFee, programDetailsFull.signalVolumeFee) &&
-				Objects.equals(this.isForex, programDetailsFull.isForex) &&
+				Objects.equals(this.leverageMin, programDetailsFull.leverageMin) &&
+				Objects.equals(this.leverageMax, programDetailsFull.leverageMax) &&
+				Objects.equals(this.ageDays, programDetailsFull.ageDays) &&
+				Objects.equals(this.genesisRatio, programDetailsFull.genesisRatio) &&
+				Objects.equals(this.investmentScale, programDetailsFull.investmentScale) &&
+				Objects.equals(this.volumeScale, programDetailsFull.volumeScale) &&
 				Objects.equals(this.availableInvestment, programDetailsFull.availableInvestment) &&
 				Objects.equals(this.availableInvestmentBase, programDetailsFull.availableInvestmentBase) &&
+				Objects.equals(this.availableInvestmentLimit, programDetailsFull.availableInvestmentLimit) &&
+				Objects.equals(this.totalAvailableInvestment, programDetailsFull.totalAvailableInvestment) &&
+				Objects.equals(this.brokerDetails, programDetailsFull.brokerDetails) &&
 				Objects.equals(this.statistic, programDetailsFull.statistic) &&
 				Objects.equals(this.rating, programDetailsFull.rating) &&
 				Objects.equals(this.personalProgramDetails, programDetailsFull.personalProgramDetails) &&
@@ -792,7 +1068,7 @@ public class ProgramDetailsFull
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, level, levelProgress, periodDuration, periodStarts, periodEnds, entryFee, entryFeeSelected, entryFeeCurrent, successFee, stopOutLevel, isReinvesting, isSignalProgram, signalSuccessFee, signalVolumeFee, isForex, availableInvestment, availableInvestmentBase, statistic, rating, personalProgramDetails, tags, id, logo, url, color, description, title, ipfsHash, creationDate, status, manager);
+		return Objects.hash(currency, level, levelProgress, periodDuration, periodStarts, periodEnds, entryFee, entryFeeSelected, entryFeeCurrent, successFee, successFeeSelected, successFeeCurrent, stopOutLevel, stopOutLevelSelected, stopOutLevelCurrent, isReinvesting, isSignalProgram, signalSuccessFee, signalVolumeFee, leverageMin, leverageMax, ageDays, genesisRatio, investmentScale, volumeScale, availableInvestment, availableInvestmentBase, availableInvestmentLimit, totalAvailableInvestment, brokerDetails, statistic, rating, personalProgramDetails, tags, id, logo, url, color, description, title, ipfsHash, creationDate, status, manager);
 	}
 
 	@Override
@@ -810,14 +1086,26 @@ public class ProgramDetailsFull
 		sb.append("    entryFeeSelected: ").append(toIndentedString(entryFeeSelected)).append("\n");
 		sb.append("    entryFeeCurrent: ").append(toIndentedString(entryFeeCurrent)).append("\n");
 		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
+		sb.append("    successFeeSelected: ").append(toIndentedString(successFeeSelected)).append("\n");
+		sb.append("    successFeeCurrent: ").append(toIndentedString(successFeeCurrent)).append("\n");
 		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
+		sb.append("    stopOutLevelSelected: ").append(toIndentedString(stopOutLevelSelected)).append("\n");
+		sb.append("    stopOutLevelCurrent: ").append(toIndentedString(stopOutLevelCurrent)).append("\n");
 		sb.append("    isReinvesting: ").append(toIndentedString(isReinvesting)).append("\n");
 		sb.append("    isSignalProgram: ").append(toIndentedString(isSignalProgram)).append("\n");
 		sb.append("    signalSuccessFee: ").append(toIndentedString(signalSuccessFee)).append("\n");
 		sb.append("    signalVolumeFee: ").append(toIndentedString(signalVolumeFee)).append("\n");
-		sb.append("    isForex: ").append(toIndentedString(isForex)).append("\n");
+		sb.append("    leverageMin: ").append(toIndentedString(leverageMin)).append("\n");
+		sb.append("    leverageMax: ").append(toIndentedString(leverageMax)).append("\n");
+		sb.append("    ageDays: ").append(toIndentedString(ageDays)).append("\n");
+		sb.append("    genesisRatio: ").append(toIndentedString(genesisRatio)).append("\n");
+		sb.append("    investmentScale: ").append(toIndentedString(investmentScale)).append("\n");
+		sb.append("    volumeScale: ").append(toIndentedString(volumeScale)).append("\n");
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
 		sb.append("    availableInvestmentBase: ").append(toIndentedString(availableInvestmentBase)).append("\n");
+		sb.append("    availableInvestmentLimit: ").append(toIndentedString(availableInvestmentLimit)).append("\n");
+		sb.append("    totalAvailableInvestment: ").append(toIndentedString(totalAvailableInvestment)).append("\n");
+		sb.append("    brokerDetails: ").append(toIndentedString(brokerDetails)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    rating: ").append(toIndentedString(rating)).append("\n");
 		sb.append("    personalProgramDetails: ").append(toIndentedString(personalProgramDetails)).append("\n");
@@ -854,17 +1142,17 @@ public class ProgramDetailsFull
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 

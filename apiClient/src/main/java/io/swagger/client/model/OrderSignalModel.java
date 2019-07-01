@@ -35,11 +35,20 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class OrderSignalModel
 {
-	@SerializedName("tradingFee")
-	private OrderTradingFee tradingFee = null;
-
 	@SerializedName("providers")
 	private List<OrderSignalProgramInfo> providers = null;
+
+	@SerializedName("totalCommission")
+	private Double totalCommission = null;
+
+	@SerializedName("totalCommissionByType")
+	private List<TotalCommission> totalCommissionByType = null;
+
+	@SerializedName("tradingAccountId")
+	private UUID tradingAccountId = null;
+
+	@SerializedName("currency")
+	private CurrencyEnum currency = null;
 
 	@SerializedName("id")
 	private UUID id = null;
@@ -95,25 +104,6 @@ public class OrderSignalModel
 	@SerializedName("signalData")
 	private OrderModelSignalData signalData = null;
 
-	public OrderSignalModel tradingFee(OrderTradingFee tradingFee) {
-		this.tradingFee = tradingFee;
-		return this;
-	}
-
-	/**
-	 * Get tradingFee
-	 *
-	 * @return tradingFee
-	 **/
-	@ApiModelProperty(value = "")
-	public OrderTradingFee getTradingFee() {
-		return tradingFee;
-	}
-
-	public void setTradingFee(OrderTradingFee tradingFee) {
-		this.tradingFee = tradingFee;
-	}
-
 	public OrderSignalModel providers(List<OrderSignalProgramInfo> providers) {
 		this.providers = providers;
 		return this;
@@ -139,6 +129,90 @@ public class OrderSignalModel
 
 	public void setProviders(List<OrderSignalProgramInfo> providers) {
 		this.providers = providers;
+	}
+
+	public OrderSignalModel totalCommission(Double totalCommission) {
+		this.totalCommission = totalCommission;
+		return this;
+	}
+
+	/**
+	 * Get totalCommission
+	 *
+	 * @return totalCommission
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getTotalCommission() {
+		return totalCommission;
+	}
+
+	public void setTotalCommission(Double totalCommission) {
+		this.totalCommission = totalCommission;
+	}
+
+	public OrderSignalModel totalCommissionByType(List<TotalCommission> totalCommissionByType) {
+		this.totalCommissionByType = totalCommissionByType;
+		return this;
+	}
+
+	public OrderSignalModel addTotalCommissionByTypeItem(TotalCommission totalCommissionByTypeItem) {
+		if (this.totalCommissionByType == null) {
+			this.totalCommissionByType = new ArrayList<TotalCommission>();
+		}
+		this.totalCommissionByType.add(totalCommissionByTypeItem);
+		return this;
+	}
+
+	/**
+	 * Get totalCommissionByType
+	 *
+	 * @return totalCommissionByType
+	 **/
+	@ApiModelProperty(value = "")
+	public List<TotalCommission> getTotalCommissionByType() {
+		return totalCommissionByType;
+	}
+
+	public void setTotalCommissionByType(List<TotalCommission> totalCommissionByType) {
+		this.totalCommissionByType = totalCommissionByType;
+	}
+
+	public OrderSignalModel tradingAccountId(UUID tradingAccountId) {
+		this.tradingAccountId = tradingAccountId;
+		return this;
+	}
+
+	/**
+	 * Get tradingAccountId
+	 *
+	 * @return tradingAccountId
+	 **/
+	@ApiModelProperty(value = "")
+	public UUID getTradingAccountId() {
+		return tradingAccountId;
+	}
+
+	public void setTradingAccountId(UUID tradingAccountId) {
+		this.tradingAccountId = tradingAccountId;
+	}
+
+	public OrderSignalModel currency(CurrencyEnum currency) {
+		this.currency = currency;
+		return this;
+	}
+
+	/**
+	 * Get currency
+	 *
+	 * @return currency
+	 **/
+	@ApiModelProperty(value = "")
+	public CurrencyEnum getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(CurrencyEnum currency) {
+		this.currency = currency;
 	}
 
 	public OrderSignalModel id(UUID id) {
@@ -492,8 +566,11 @@ public class OrderSignalModel
 			return false;
 		}
 		OrderSignalModel orderSignalModel = (OrderSignalModel) o;
-		return Objects.equals(this.tradingFee, orderSignalModel.tradingFee) &&
-				Objects.equals(this.providers, orderSignalModel.providers) &&
+		return Objects.equals(this.providers, orderSignalModel.providers) &&
+				Objects.equals(this.totalCommission, orderSignalModel.totalCommission) &&
+				Objects.equals(this.totalCommissionByType, orderSignalModel.totalCommissionByType) &&
+				Objects.equals(this.tradingAccountId, orderSignalModel.tradingAccountId) &&
+				Objects.equals(this.currency, orderSignalModel.currency) &&
 				Objects.equals(this.id, orderSignalModel.id) &&
 				Objects.equals(this.login, orderSignalModel.login) &&
 				Objects.equals(this.ticket, orderSignalModel.ticket) &&
@@ -516,7 +593,7 @@ public class OrderSignalModel
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(tradingFee, providers, id, login, ticket, symbol, volume, profit, direction, date, price, priceCurrent, entry, baseVolume, originalCommission, originalCommissionCurrency, commission, swap, showOriginalCommission, signalData);
+		return Objects.hash(providers, totalCommission, totalCommissionByType, tradingAccountId, currency, id, login, ticket, symbol, volume, profit, direction, date, price, priceCurrent, entry, baseVolume, originalCommission, originalCommissionCurrency, commission, swap, showOriginalCommission, signalData);
 	}
 
 	@Override
@@ -524,8 +601,11 @@ public class OrderSignalModel
 		StringBuilder sb = new StringBuilder();
 		sb.append("class OrderSignalModel {\n");
 
-		sb.append("    tradingFee: ").append(toIndentedString(tradingFee)).append("\n");
 		sb.append("    providers: ").append(toIndentedString(providers)).append("\n");
+		sb.append("    totalCommission: ").append(toIndentedString(totalCommission)).append("\n");
+		sb.append("    totalCommissionByType: ").append(toIndentedString(totalCommissionByType)).append("\n");
+		sb.append("    tradingAccountId: ").append(toIndentedString(tradingAccountId)).append("\n");
+		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    login: ").append(toIndentedString(login)).append("\n");
 		sb.append("    ticket: ").append(toIndentedString(ticket)).append("\n");
@@ -557,6 +637,77 @@ public class OrderSignalModel
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	/**
+	 * Gets or Sets currency
+	 */
+	@JsonAdapter(CurrencyEnum.Adapter.class)
+	public enum CurrencyEnum
+	{
+		UNDEFINED("Undefined"),
+
+		GVT("GVT"),
+
+		ETH("ETH"),
+
+		BTC("BTC"),
+
+		ADA("ADA"),
+
+		USDT("USDT"),
+
+		XRP("XRP"),
+
+		BCH("BCH"),
+
+		LTC("LTC"),
+
+		DOGE("DOGE"),
+
+		BNB("BNB"),
+
+		USD("USD"),
+
+		EUR("EUR");
+
+		public static CurrencyEnum fromValue(String text) {
+			for (CurrencyEnum b : CurrencyEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		CurrencyEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<CurrencyEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return CurrencyEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 

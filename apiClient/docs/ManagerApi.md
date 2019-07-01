@@ -1,6 +1,6 @@
 # ManagerApi
 
-All URIs are relative to *https://localhost*
+All URIs are relative to *https://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -23,9 +23,12 @@ Method | HTTP request | Description
 [**v10ManagerGet**](ManagerApi.md#v10ManagerGet) | **GET** v1.0/manager | Manager dashboard
 [**v10ManagerPrograms2faConfirmPost**](ManagerApi.md#v10ManagerPrograms2faConfirmPost) | **POST** v1.0/manager/programs/2fa/confirm | Confirm 2FA for program if required (for brokers like Huobi)
 [**v10ManagerPrograms2faGetGet**](ManagerApi.md#v10ManagerPrograms2faGetGet) | **GET** v1.0/manager/programs/2fa/get | Get 2FA for program if needed
+[**v10ManagerProgramsBrokerChangeCancelPost**](ManagerApi.md#v10ManagerProgramsBrokerChangeCancelPost) | **POST** v1.0/manager/programs/broker/change/cancel | Cancel changing broker in existing program
+[**v10ManagerProgramsBrokerChangePost**](ManagerApi.md#v10ManagerProgramsBrokerChangePost) | **POST** v1.0/manager/programs/broker/change | Change broker in existing program
 [**v10ManagerProgramsByIdClosePost**](ManagerApi.md#v10ManagerProgramsByIdClosePost) | **POST** v1.0/manager/programs/{id}/close | Close existing investment program
 [**v10ManagerProgramsByIdInvestByAmountPost**](ManagerApi.md#v10ManagerProgramsByIdInvestByAmountPost) | **POST** v1.0/manager/programs/{id}/invest/{amount} | Deposit  Invest in GVT if currency is empty
 [**v10ManagerProgramsByIdInvestInfoByCurrencyGet**](ManagerApi.md#v10ManagerProgramsByIdInvestInfoByCurrencyGet) | **GET** v1.0/manager/programs/{id}/invest/info/{currency} | Data for investing into the program
+[**v10ManagerProgramsByIdLevelsInfoGet**](ManagerApi.md#v10ManagerProgramsByIdLevelsInfoGet) | **GET** v1.0/manager/programs/{id}/levels/info | Get program data for levels calculator
 [**v10ManagerProgramsByIdPasswordChangePost**](ManagerApi.md#v10ManagerProgramsByIdPasswordChangePost) | **POST** v1.0/manager/programs/{id}/password/change | Change program password
 [**v10ManagerProgramsByIdPeriodClosePost**](ManagerApi.md#v10ManagerProgramsByIdPeriodClosePost) | **POST** v1.0/manager/programs/{id}/period/close | Close current period
 [**v10ManagerProgramsByIdRequestsBySkipByTakeGet**](ManagerApi.md#v10ManagerProgramsByIdRequestsBySkipByTakeGet) | **GET** v1.0/manager/programs/{id}/requests/{skip}/{take} | Get investment program/fund requests
@@ -210,7 +213,7 @@ Name | Type | Description  | Notes
  **assetId** | [**UUID**](.md)|  | [optional]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
- **type** | **String**|  | [optional] [enum: All, AssetStarted, ProgramPeriodStarts, ProgramPeriodEnds, InvestorInvest, InvestorWithdraw, ManagerInvest, ManagerWithdraw, AssetFinished, EntranceFee, ExitFee, ProgramStopOut, ProgramManagerTradingFeeAccrual, ProgramSignalSubscribe]
+ **type** | **String**|  | [optional] [enum: All, AssetStarted, ProgramPeriodStarts, ProgramPeriodEnds, InvestorInvest, InvestorWithdraw, ManagerInvest, ManagerWithdraw, AssetFinished, EntranceFee, ExitFee, ProgramStopOut, ProgramManagerTradingFeeAccrual, ProgramSignalSubscribe, ProgramBrokerChanged]
  **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
@@ -356,7 +359,7 @@ Name | Type | Description  | Notes
  **id** | [**UUID**](.md)|  |
  **amount** | **Double**|  |
  **authorization** | **String**| JWT access token |
- **currency** | **String**|  | [optional] [default to 100] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [optional] [default to 100] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -402,7 +405,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -548,7 +551,7 @@ Name | Type | Description  | Notes
  **id** | [**UUID**](.md)|  |
  **percent** | **Double**|  |
  **authorization** | **String**| JWT access token |
- **currency** | **String**|  | [optional] [default to 100] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [optional] [default to 100] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -594,7 +597,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -697,7 +700,7 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **actionStatus** | **String**|  | [optional] [enum: Pending, Active, Investing, Withdrawing, Ended]
  **dashboardActionStatus** | **String**|  | [optional] [enum: All, Active]
  **skip** | **Integer**|  | [optional]
@@ -843,7 +846,7 @@ Name | Type | Description  | Notes
  **assetId** | [**UUID**](.md)|  | [optional]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
- **type** | **String**|  | [optional] [enum: All, AssetStarted, ProgramPeriodStarts, ProgramPeriodEnds, InvestorInvest, InvestorWithdraw, ManagerInvest, ManagerWithdraw, AssetFinished, EntranceFee, ExitFee, ProgramStopOut, ProgramManagerTradingFeeAccrual, ProgramSignalSubscribe]
+ **type** | **String**|  | [optional] [enum: All, AssetStarted, ProgramPeriodStarts, ProgramPeriodEnds, InvestorInvest, InvestorWithdraw, ManagerInvest, ManagerWithdraw, AssetFinished, EntranceFee, ExitFee, ProgramStopOut, ProgramManagerTradingFeeAccrual, ProgramSignalSubscribe, ProgramBrokerChanged]
  **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
@@ -953,6 +956,96 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="v10ManagerProgramsBrokerChangeCancelPost"></a>
+# **v10ManagerProgramsBrokerChangeCancelPost**
+> Void v10ManagerProgramsBrokerChangeCancelPost(authorization, programId)
+
+Cancel changing broker in existing program
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+String authorization = "authorization_example"; // String | JWT access token
+UUID programId = new UUID(); // UUID | 
+try {
+    Void result = apiInstance.v10ManagerProgramsBrokerChangeCancelPost(authorization, programId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#v10ManagerProgramsBrokerChangeCancelPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **programId** | [**UUID**](.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ManagerProgramsBrokerChangePost"></a>
+# **v10ManagerProgramsBrokerChangePost**
+> Void v10ManagerProgramsBrokerChangePost(authorization, request)
+
+Change broker in existing program
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+String authorization = "authorization_example"; // String | JWT access token
+ChangeBrokerProgramRequest request = new ChangeBrokerProgramRequest(); // ChangeBrokerProgramRequest | 
+try {
+    Void result = apiInstance.v10ManagerProgramsBrokerChangePost(authorization, request);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#v10ManagerProgramsBrokerChangePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **request** | [**ChangeBrokerProgramRequest**](ChangeBrokerProgramRequest.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="v10ManagerProgramsByIdClosePost"></a>
 # **v10ManagerProgramsByIdClosePost**
 > Void v10ManagerProgramsByIdClosePost(id, authorization, twoFactorCode)
@@ -1034,7 +1127,7 @@ Name | Type | Description  | Notes
  **id** | [**UUID**](.md)|  |
  **amount** | **Double**|  |
  **authorization** | **String**| JWT access token |
- **currency** | **String**|  | [optional] [default to 100] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [optional] [default to 100] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -1080,12 +1173,57 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
 
 [**ProgramInvestInfo**](ProgramInvestInfo.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ManagerProgramsByIdLevelsInfoGet"></a>
+# **v10ManagerProgramsByIdLevelsInfoGet**
+> ProgramLevelInfo v10ManagerProgramsByIdLevelsInfoGet(id, authorization)
+
+Get program data for levels calculator
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    ProgramLevelInfo result = apiInstance.v10ManagerProgramsByIdLevelsInfoGet(id, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#v10ManagerProgramsByIdLevelsInfoGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**ProgramLevelInfo**](ProgramLevelInfo.md)
 
 ### Authorization
 
@@ -1362,7 +1500,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -1508,11 +1646,11 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByTradesAsc, ByTradesDesc, ByInvestorsAsc, ByInvestorsDesc, ByNewDesc, ByNewAsc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc, ByCurrDesc, ByCurrAsc]
+ **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByTradesAsc, ByTradesDesc, ByInvestorsAsc, ByInvestorsDesc, ByNewDesc, ByNewAsc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc, ByCurrDesc, ByCurrAsc, ByLevelProgressDesc, ByLevelProgressAsc]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **actionStatus** | **String**|  | [optional] [enum: Pending, Active, Investing, Withdrawing, Ended]
  **dashboardActionStatus** | **String**|  | [optional] [enum: All, Active]
  **skip** | **Integer**|  | [optional]

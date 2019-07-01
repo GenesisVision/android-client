@@ -364,6 +364,8 @@ public class NotificationViewModel
 
 		PROGRAMCONDITION("ProgramCondition"),
 
+		PROGRAMEXCEEDINVESTMENTLIMIT("ProgramExceedInvestmentLimit"),
+
 		FUNDNEWSANDUPDATES("FundNewsAndUpdates"),
 
 		FUNDENDOFPERIOD("FundEndOfPeriod"),

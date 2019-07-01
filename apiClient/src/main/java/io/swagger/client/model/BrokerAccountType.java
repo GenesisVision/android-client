@@ -331,9 +331,9 @@ public class BrokerAccountType
 
 		METASTOCK("Metastock"),
 
-		IDEX("IDEX"),
+		HUOBI("Huobi"),
 
-		HUOBI("Huobi");
+		EXANTE("Exante");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {

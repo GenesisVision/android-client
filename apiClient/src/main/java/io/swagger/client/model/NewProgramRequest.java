@@ -58,6 +58,9 @@ public class NewProgramRequest
 	@SerializedName("isSignalProgram")
 	private Boolean isSignalProgram = null;
 
+	@SerializedName("investmentLimit")
+	private Double investmentLimit = null;
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -247,6 +250,25 @@ public class NewProgramRequest
 		this.isSignalProgram = isSignalProgram;
 	}
 
+	public NewProgramRequest investmentLimit(Double investmentLimit) {
+		this.investmentLimit = investmentLimit;
+		return this;
+	}
+
+	/**
+	 * Get investmentLimit
+	 *
+	 * @return investmentLimit
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getInvestmentLimit() {
+		return investmentLimit;
+	}
+
+	public void setInvestmentLimit(Double investmentLimit) {
+		this.investmentLimit = investmentLimit;
+	}
+
 	public NewProgramRequest title(String title) {
 		this.title = title;
 		return this;
@@ -379,6 +401,7 @@ public class NewProgramRequest
 				Objects.equals(this.signalSuccessFee, newProgramRequest.signalSuccessFee) &&
 				Objects.equals(this.signalVolumeFee, newProgramRequest.signalVolumeFee) &&
 				Objects.equals(this.isSignalProgram, newProgramRequest.isSignalProgram) &&
+				Objects.equals(this.investmentLimit, newProgramRequest.investmentLimit) &&
 				Objects.equals(this.title, newProgramRequest.title) &&
 				Objects.equals(this.description, newProgramRequest.description) &&
 				Objects.equals(this.logo, newProgramRequest.logo) &&
@@ -389,7 +412,7 @@ public class NewProgramRequest
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, periodLength, successFee, stopOutLevel, leverage, brokerAccountTypeId, signalSuccessFee, signalVolumeFee, isSignalProgram, title, description, logo, entryFee, depositAmount, depositWalletId);
+		return Objects.hash(currency, periodLength, successFee, stopOutLevel, leverage, brokerAccountTypeId, signalSuccessFee, signalVolumeFee, isSignalProgram, investmentLimit, title, description, logo, entryFee, depositAmount, depositWalletId);
 	}
 
 	@Override
@@ -406,6 +429,7 @@ public class NewProgramRequest
 		sb.append("    signalSuccessFee: ").append(toIndentedString(signalSuccessFee)).append("\n");
 		sb.append("    signalVolumeFee: ").append(toIndentedString(signalVolumeFee)).append("\n");
 		sb.append("    isSignalProgram: ").append(toIndentedString(isSignalProgram)).append("\n");
+		sb.append("    investmentLimit: ").append(toIndentedString(investmentLimit)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
@@ -433,17 +457,17 @@ public class NewProgramRequest
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 

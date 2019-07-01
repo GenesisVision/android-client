@@ -55,6 +55,9 @@ public class PersonalProgramDetailsFull
 	@SerializedName("canChangePassword")
 	private Boolean canChangePassword = null;
 
+	@SerializedName("migration")
+	private MigrationRequest migration = null;
+
 	@SerializedName("isFavorite")
 	private Boolean isFavorite = null;
 
@@ -99,6 +102,9 @@ public class PersonalProgramDetailsFull
 
 	@SerializedName("pendingOutput")
 	private Double pendingOutput = null;
+
+	@SerializedName("pendingOutputIsWithdrawAll")
+	private Boolean pendingOutputIsWithdrawAll = null;
 
 	@SerializedName("status")
 	private StatusEnum status = null;
@@ -253,6 +259,25 @@ public class PersonalProgramDetailsFull
 
 	public void setCanChangePassword(Boolean canChangePassword) {
 		this.canChangePassword = canChangePassword;
+	}
+
+	public PersonalProgramDetailsFull migration(MigrationRequest migration) {
+		this.migration = migration;
+		return this;
+	}
+
+	/**
+	 * Get migration
+	 *
+	 * @return migration
+	 **/
+	@ApiModelProperty(value = "")
+	public MigrationRequest getMigration() {
+		return migration;
+	}
+
+	public void setMigration(MigrationRequest migration) {
+		this.migration = migration;
 	}
 
 	public PersonalProgramDetailsFull isFavorite(Boolean isFavorite) {
@@ -531,6 +556,25 @@ public class PersonalProgramDetailsFull
 		this.pendingOutput = pendingOutput;
 	}
 
+	public PersonalProgramDetailsFull pendingOutputIsWithdrawAll(Boolean pendingOutputIsWithdrawAll) {
+		this.pendingOutputIsWithdrawAll = pendingOutputIsWithdrawAll;
+		return this;
+	}
+
+	/**
+	 * Get pendingOutputIsWithdrawAll
+	 *
+	 * @return pendingOutputIsWithdrawAll
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isPendingOutputIsWithdrawAll() {
+		return pendingOutputIsWithdrawAll;
+	}
+
+	public void setPendingOutputIsWithdrawAll(Boolean pendingOutputIsWithdrawAll) {
+		this.pendingOutputIsWithdrawAll = pendingOutputIsWithdrawAll;
+	}
+
 	public PersonalProgramDetailsFull status(StatusEnum status) {
 		this.status = status;
 		return this;
@@ -567,6 +611,7 @@ public class PersonalProgramDetailsFull
 				Objects.equals(this.notificationAvailableToInvestId, personalProgramDetailsFull.notificationAvailableToInvestId) &&
 				Objects.equals(this.canMakeSignalProvider, personalProgramDetailsFull.canMakeSignalProvider) &&
 				Objects.equals(this.canChangePassword, personalProgramDetailsFull.canChangePassword) &&
+				Objects.equals(this.migration, personalProgramDetailsFull.migration) &&
 				Objects.equals(this.isFavorite, personalProgramDetailsFull.isFavorite) &&
 				Objects.equals(this.isInvested, personalProgramDetailsFull.isInvested) &&
 				Objects.equals(this.isOwnProgram, personalProgramDetailsFull.isOwnProgram) &&
@@ -582,12 +627,13 @@ public class PersonalProgramDetailsFull
 				Objects.equals(this.invested, personalProgramDetailsFull.invested) &&
 				Objects.equals(this.pendingInput, personalProgramDetailsFull.pendingInput) &&
 				Objects.equals(this.pendingOutput, personalProgramDetailsFull.pendingOutput) &&
+				Objects.equals(this.pendingOutputIsWithdrawAll, personalProgramDetailsFull.pendingOutputIsWithdrawAll) &&
 				Objects.equals(this.status, personalProgramDetailsFull.status);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isReinvest, gvtValue, showTwoFactorButton, signalSubscription, login, notificationAvailableToInvestId, canMakeSignalProvider, canChangePassword, isFavorite, isInvested, isOwnProgram, canCloseProgram, canCloseAsset, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status);
+		return Objects.hash(isReinvest, gvtValue, showTwoFactorButton, signalSubscription, login, notificationAvailableToInvestId, canMakeSignalProvider, canChangePassword, migration, isFavorite, isInvested, isOwnProgram, canCloseProgram, canCloseAsset, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, pendingOutputIsWithdrawAll, status);
 	}
 
 	@Override
@@ -603,6 +649,7 @@ public class PersonalProgramDetailsFull
 		sb.append("    notificationAvailableToInvestId: ").append(toIndentedString(notificationAvailableToInvestId)).append("\n");
 		sb.append("    canMakeSignalProvider: ").append(toIndentedString(canMakeSignalProvider)).append("\n");
 		sb.append("    canChangePassword: ").append(toIndentedString(canChangePassword)).append("\n");
+		sb.append("    migration: ").append(toIndentedString(migration)).append("\n");
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
 		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
@@ -618,6 +665,7 @@ public class PersonalProgramDetailsFull
 		sb.append("    invested: ").append(toIndentedString(invested)).append("\n");
 		sb.append("    pendingInput: ").append(toIndentedString(pendingInput)).append("\n");
 		sb.append("    pendingOutput: ").append(toIndentedString(pendingOutput)).append("\n");
+		sb.append("    pendingOutputIsWithdrawAll: ").append(toIndentedString(pendingOutputIsWithdrawAll)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("}");
 		return sb.toString();

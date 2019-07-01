@@ -14,14 +14,26 @@ Name | Type | Description | Notes
 **entryFeeSelected** | **Double** |  |  [optional]
 **entryFeeCurrent** | **Double** |  |  [optional]
 **successFee** | **Double** |  |  [optional]
+**successFeeSelected** | **Double** |  |  [optional]
+**successFeeCurrent** | **Double** |  |  [optional]
 **stopOutLevel** | **Double** |  |  [optional]
+**stopOutLevelSelected** | **Double** |  |  [optional]
+**stopOutLevelCurrent** | **Double** |  |  [optional]
 **isReinvesting** | **Boolean** |  |  [optional]
 **isSignalProgram** | **Boolean** |  |  [optional]
 **signalSuccessFee** | **Double** |  |  [optional]
 **signalVolumeFee** | **Double** |  |  [optional]
-**isForex** | **Boolean** |  |  [optional]
+**leverageMin** | **Integer** |  |  [optional]
+**leverageMax** | **Integer** |  |  [optional]
+**ageDays** | **Double** |  |  [optional]
+**genesisRatio** | **Double** |  |  [optional]
+**investmentScale** | **Double** |  |  [optional]
+**volumeScale** | **Double** |  |  [optional]
 **availableInvestment** | **Double** | In GVT |  [optional]
 **availableInvestmentBase** | **Double** | In account currency |  [optional]
+**availableInvestmentLimit** | **Double** |  |  [optional]
+**totalAvailableInvestment** | **Double** |  |  [optional]
+**brokerDetails** | [**BrokerDetails**](BrokerDetails.md) |  |  [optional]
 **statistic** | [**ProgramStatistic**](ProgramStatistic.md) |  |  [optional]
 **rating** | [**ProgramDetailsRating**](ProgramDetailsRating.md) |  |  [optional]
 **personalProgramDetails** | [**PersonalProgramDetailsFull**](PersonalProgramDetailsFull.md) | Fields for authorized user |  [optional]
@@ -42,12 +54,12 @@ Name | Type | Description | Notes
 ## Enum: CurrencyEnum
 Name | Value
 ---- | -----
-BTC | &quot;BTC&quot;
-ETH | &quot;ETH&quot;
-USDT | &quot;USDT&quot;
-GVT | &quot;GVT&quot;
 UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
+USDT | &quot;USDT&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;

@@ -7,7 +7,10 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.CaptchaCheckResult;
+import io.swagger.client.model.CaptchaDetails;
 import rx.Observable;
+import rx.Single;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -18,6 +21,7 @@ import vision.genesis.clientapp.model.api.Error;
 import vision.genesis.clientapp.model.api.ErrorResponse;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
+import vision.genesis.clientapp.utils.CaptchaUtils;
 import vision.genesis.clientapp.utils.Constants;
 
 /**
@@ -34,6 +38,8 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 	@Inject
 	public AuthManager authManager;
 
+	private Subscription riskControlSubscription;
+
 	private Subscription registrationSubscription;
 
 	private boolean privacyPolicyAccepted;
@@ -41,6 +47,14 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 	private boolean termsConditionsAccepted;
 
 	private boolean notUsResidentChecked;
+
+	private String email;
+
+	private String password;
+
+	private String confirmPassword;
+
+	private CaptchaCheckResult captchaCheckResult;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -51,6 +65,8 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 
 	@Override
 	public void onDestroy() {
+		if (riskControlSubscription != null)
+			riskControlSubscription.unsubscribe();
 		if (registrationSubscription != null)
 			registrationSubscription.unsubscribe();
 
@@ -83,22 +99,72 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 	//	void onSignUpClicked(String userName, String email, String password, String confirmPassword) {
 	void onSignUpClicked(String email, String password, String confirmPassword) {
 		if (privacyPolicyAccepted && termsConditionsAccepted && notUsResidentChecked) {
-			getViewState().clearErrors();
-			getViewState().showProgress(true);
+			this.email = email.trim();
+			this.password = password;
+			this.confirmPassword = confirmPassword;
 
-//		registrationSubscription = getRegisterObservable(userName, email, password, confirmPassword)
-			registrationSubscription = getRegisterObservable(null, email, password, confirmPassword)
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-					.subscribe(this::onRegisterResponse,
-							this::onRegisterError);
+			checkRiskControl(email);
 		}
 	}
 
-	private Observable<Void> getRegisterObservable(String userName, String email, String password, String confirmPassword) {
+	private void checkRiskControl(String route) {
+		riskControlSubscription = authManager.checkRiskControl(route)
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.io())
+				.subscribe(this::handleRiskControlSuccess,
+						this::handleRiskControlError);
+	}
+
+	private void handleRiskControlSuccess(CaptchaDetails captchaDetails) {
+		riskControlSubscription.unsubscribe();
+
+		switch (captchaDetails.getCaptchaType()) {
+			case NONE:
+				register();
+				break;
+			case POW:
+				performPowCaptcha(captchaDetails);
+				break;
+			case GEETEST:
+				getViewState().showProgress(false);
+				break;
+		}
+	}
+
+	private void handleRiskControlError(Throwable throwable) {
+		riskControlSubscription.unsubscribe();
+		getViewState().showProgress(false);
+
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void performPowCaptcha(CaptchaDetails captchaDetails) {
+		Single.fromCallable(() -> CaptchaUtils.findPowPrefix(captchaDetails))
+				.subscribeOn(Schedulers.computation())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(captchaCheckResult -> {
+					this.captchaCheckResult = captchaCheckResult;
+					register();
+				});
+	}
+
+	private void register() {
+		getViewState().clearErrors();
+		getViewState().showProgress(true);
+
+//		registrationSubscription = getRegisterObservable(userName, email, password, confirmPassword)
+		registrationSubscription = getRegisterObservable(null, email, password, confirmPassword, captchaCheckResult)
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.io())
+				.subscribe(this::onRegisterResponse,
+						this::onRegisterError);
+	}
+
+	private Observable<Void> getRegisterObservable(String userName, String email, String password, String confirmPassword, CaptchaCheckResult captchaCheckResult) {
 		return (Constants.IS_INVESTOR)
-				? authManager.registerInvestor(email, password, confirmPassword)
-				: authManager.registerManager(userName, email, password, confirmPassword);
+				? authManager.registerInvestor(email, password, confirmPassword, captchaCheckResult)
+				: authManager.registerManager(userName, email, password, confirmPassword, captchaCheckResult);
 	}
 
 	private void onRegisterResponse(Void response) {

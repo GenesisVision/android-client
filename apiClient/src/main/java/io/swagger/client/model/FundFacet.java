@@ -343,7 +343,9 @@ public class FundFacet
 
 		POPULAR("Popular"),
 
-		TOLEVELUP("ToLevelUp");
+		TOLEVELUP("ToLevelUp"),
+
+		MOSTRELIABLE("MostReliable");
 
 		public static SortTypeEnum fromValue(String text) {
 			for (SortTypeEnum b : SortTypeEnum.values()) {

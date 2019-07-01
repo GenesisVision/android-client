@@ -1,12 +1,13 @@
 # PlatformApi
 
-All URIs are relative to *https://localhost*
+All URIs are relative to *https://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**v10PlatformDatePost**](PlatformApi.md#v10PlatformDatePost) | **POST** v1.0/platform/date | Server date
 [**v10PlatformInfoGet**](PlatformApi.md#v10PlatformInfoGet) | **GET** v1.0/platform/info | Platform info
 [**v10PlatformLevelsGet**](PlatformApi.md#v10PlatformLevelsGet) | **GET** v1.0/platform/levels | Investment programs levels
+[**v10PlatformLevelsParametersGet**](PlatformApi.md#v10PlatformLevelsParametersGet) | **GET** v1.0/platform/levels/parameters | Investment programs levels parameters
 [**v10PlatformRiskcontrolGet**](PlatformApi.md#v10PlatformRiskcontrolGet) | **GET** v1.0/platform/riskcontrol | Platform captcha details.
 [**v10PlatformStatisticGet**](PlatformApi.md#v10PlatformStatisticGet) | **GET** v1.0/platform/statistic | Platform statistic
 
@@ -117,11 +118,54 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [optional] [default to 100] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [optional] [default to 100] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
 [**ProgramsLevelsInfo**](ProgramsLevelsInfo.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10PlatformLevelsParametersGet"></a>
+# **v10PlatformLevelsParametersGet**
+> LevelsParamsInfo v10PlatformLevelsParametersGet(currency)
+
+Investment programs levels parameters
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.PlatformApi;
+
+
+PlatformApi apiInstance = new PlatformApi();
+String currency = "104"; // String | 
+try {
+    LevelsParamsInfo result = apiInstance.v10PlatformLevelsParametersGet(currency);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling PlatformApi#v10PlatformLevelsParametersGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **currency** | **String**|  | [optional] [default to 104] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+
+### Return type
+
+[**LevelsParamsInfo**](LevelsParamsInfo.md)
 
 ### Authorization
 

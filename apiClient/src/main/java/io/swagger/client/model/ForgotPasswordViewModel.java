@@ -28,6 +28,9 @@ public class ForgotPasswordViewModel
 	@SerializedName("email")
 	private String email = null;
 
+	@SerializedName("captchaCheckResult")
+	private CaptchaCheckResult captchaCheckResult = null;
+
 	public ForgotPasswordViewModel email(String email) {
 		this.email = email;
 		return this;
@@ -47,6 +50,25 @@ public class ForgotPasswordViewModel
 		this.email = email;
 	}
 
+	public ForgotPasswordViewModel captchaCheckResult(CaptchaCheckResult captchaCheckResult) {
+		this.captchaCheckResult = captchaCheckResult;
+		return this;
+	}
+
+	/**
+	 * Get captchaCheckResult
+	 *
+	 * @return captchaCheckResult
+	 **/
+	@ApiModelProperty(value = "")
+	public CaptchaCheckResult getCaptchaCheckResult() {
+		return captchaCheckResult;
+	}
+
+	public void setCaptchaCheckResult(CaptchaCheckResult captchaCheckResult) {
+		this.captchaCheckResult = captchaCheckResult;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -57,12 +79,13 @@ public class ForgotPasswordViewModel
 			return false;
 		}
 		ForgotPasswordViewModel forgotPasswordViewModel = (ForgotPasswordViewModel) o;
-		return Objects.equals(this.email, forgotPasswordViewModel.email);
+		return Objects.equals(this.email, forgotPasswordViewModel.email) &&
+				Objects.equals(this.captchaCheckResult, forgotPasswordViewModel.captchaCheckResult);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email);
+		return Objects.hash(email, captchaCheckResult);
 	}
 
 
@@ -72,6 +95,7 @@ public class ForgotPasswordViewModel
 		sb.append("class ForgotPasswordViewModel {\n");
 
 		sb.append("    email: ").append(toIndentedString(email)).append("\n");
+		sb.append("    captchaCheckResult: ").append(toIndentedString(captchaCheckResult)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

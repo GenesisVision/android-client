@@ -67,7 +67,7 @@ public class ProgramsManager
 	}
 
 	public Observable<TradesViewModel> getProgramOpenPositions(UUID programId) {
-		return programsApi.v10ProgramsByIdTradesOpenGet(programId, "ByDateDesc", null, null, 0, 1000);
+		return programsApi.v10ProgramsByIdTradesOpenGet(programId, "ByDateDesc", null, null, null, 0, 1000);
 	}
 
 	public Observable<ProgramProfitChart> getProfitChart(UUID programId, DateRange dateRange, Integer maxPointCount) {
@@ -79,7 +79,7 @@ public class ProgramsManager
 	}
 
 	public Observable<TradesViewModel> getProgramTrades(UUID programId, DateRange dateRange, Integer skip, Integer take) {
-		return programsApi.v10ProgramsByIdTradesGet(programId, dateRange.getFrom(), dateRange.getTo(), null, null, null, skip, take);
+		return programsApi.v10ProgramsByIdTradesGet(programId, dateRange.getFrom(), dateRange.getTo(), null, null, null, null, skip, take);
 	}
 
 	public Observable<DashboardPortfolioEvents> getProgramHistory(UUID programId, DateRange dateRange, Integer skip, Integer take) {

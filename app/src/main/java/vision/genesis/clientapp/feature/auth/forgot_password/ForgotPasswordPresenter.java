@@ -7,6 +7,9 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.CaptchaCheckResult;
+import io.swagger.client.model.CaptchaDetails;
+import rx.Single;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -17,6 +20,7 @@ import vision.genesis.clientapp.model.api.Error;
 import vision.genesis.clientapp.model.api.ErrorResponse;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
+import vision.genesis.clientapp.utils.CaptchaUtils;
 import vision.genesis.clientapp.utils.ValidatorUtil;
 
 /**
@@ -35,6 +39,12 @@ public class ForgotPasswordPresenter extends MvpPresenter<ForgotPasswordView>
 
 	private Subscription forgotPasswordSubscription;
 
+	private String email;
+
+	private CaptchaCheckResult captchaCheckResult;
+
+	private Subscription riskControlSubscription;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -44,6 +54,8 @@ public class ForgotPasswordPresenter extends MvpPresenter<ForgotPasswordView>
 
 	@Override
 	public void onDestroy() {
+		if (riskControlSubscription != null)
+			riskControlSubscription.unsubscribe();
 		if (forgotPasswordSubscription != null)
 			forgotPasswordSubscription.unsubscribe();
 
@@ -55,16 +67,58 @@ public class ForgotPasswordPresenter extends MvpPresenter<ForgotPasswordView>
 	}
 
 	void onResetPasswordClicked(String email) {
-		email = email.trim();
-		if (ValidatorUtil.isEmailValid(email))
-			sendForgotPassword(email);
+		this.email = email.trim();
+		if (ValidatorUtil.isEmailValid(this.email))
+			checkRiskControl(this.email);
 		else
 			getViewState().setEmailError(context.getString(R.string.enter_valid_email));
 	}
 
-	private void sendForgotPassword(String email) {
+	private void checkRiskControl(String route) {
+		riskControlSubscription = authManager.checkRiskControl(route)
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.io())
+				.subscribe(this::handleRiskControlSuccess,
+						this::handleRiskControlError);
+	}
+
+	private void handleRiskControlSuccess(CaptchaDetails captchaDetails) {
+		riskControlSubscription.unsubscribe();
+
+		switch (captchaDetails.getCaptchaType()) {
+			case NONE:
+				sendForgotPassword();
+				break;
+			case POW:
+				performPowCaptcha(captchaDetails);
+				break;
+			case GEETEST:
+				getViewState().showProgressBar(false);
+				break;
+		}
+	}
+
+	private void handleRiskControlError(Throwable throwable) {
+		riskControlSubscription.unsubscribe();
+		getViewState().showProgressBar(false);
+
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void performPowCaptcha(CaptchaDetails captchaDetails) {
+		Single.fromCallable(() -> CaptchaUtils.findPowPrefix(captchaDetails))
+				.subscribeOn(Schedulers.computation())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(captchaCheckResult -> {
+					this.captchaCheckResult = captchaCheckResult;
+					sendForgotPassword();
+				});
+	}
+
+	private void sendForgotPassword() {
 		getViewState().showProgressBar(true);
-		forgotPasswordSubscription = authManager.sendForgotPassword(email)
+		forgotPasswordSubscription = authManager.sendForgotPassword(email, captchaCheckResult)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleForgotPasswordResponse,

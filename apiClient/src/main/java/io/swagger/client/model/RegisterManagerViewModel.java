@@ -28,9 +28,6 @@ public class RegisterManagerViewModel
 	@SerializedName("userName")
 	private String userName = null;
 
-	@SerializedName("email")
-	private String email = null;
-
 	@SerializedName("password")
 	private String password = null;
 
@@ -42,6 +39,12 @@ public class RegisterManagerViewModel
 
 	@SerializedName("isAuto")
 	private Boolean isAuto = null;
+
+	@SerializedName("email")
+	private String email = null;
+
+	@SerializedName("captchaCheckResult")
+	private CaptchaCheckResult captchaCheckResult = null;
 
 	public RegisterManagerViewModel userName(String userName) {
 		this.userName = userName;
@@ -60,25 +63,6 @@ public class RegisterManagerViewModel
 
 	public void setUserName(String userName) {
 		this.userName = userName;
-	}
-
-	public RegisterManagerViewModel email(String email) {
-		this.email = email;
-		return this;
-	}
-
-	/**
-	 * Get email
-	 *
-	 * @return email
-	 **/
-	@ApiModelProperty(required = true, value = "")
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public RegisterManagerViewModel password(String password) {
@@ -157,6 +141,44 @@ public class RegisterManagerViewModel
 		this.isAuto = isAuto;
 	}
 
+	public RegisterManagerViewModel email(String email) {
+		this.email = email;
+		return this;
+	}
+
+	/**
+	 * Get email
+	 *
+	 * @return email
+	 **/
+	@ApiModelProperty(required = true, value = "")
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public RegisterManagerViewModel captchaCheckResult(CaptchaCheckResult captchaCheckResult) {
+		this.captchaCheckResult = captchaCheckResult;
+		return this;
+	}
+
+	/**
+	 * Get captchaCheckResult
+	 *
+	 * @return captchaCheckResult
+	 **/
+	@ApiModelProperty(value = "")
+	public CaptchaCheckResult getCaptchaCheckResult() {
+		return captchaCheckResult;
+	}
+
+	public void setCaptchaCheckResult(CaptchaCheckResult captchaCheckResult) {
+		this.captchaCheckResult = captchaCheckResult;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -168,16 +190,17 @@ public class RegisterManagerViewModel
 		}
 		RegisterManagerViewModel registerManagerViewModel = (RegisterManagerViewModel) o;
 		return Objects.equals(this.userName, registerManagerViewModel.userName) &&
-				Objects.equals(this.email, registerManagerViewModel.email) &&
 				Objects.equals(this.password, registerManagerViewModel.password) &&
 				Objects.equals(this.confirmPassword, registerManagerViewModel.confirmPassword) &&
 				Objects.equals(this.refCode, registerManagerViewModel.refCode) &&
-				Objects.equals(this.isAuto, registerManagerViewModel.isAuto);
+				Objects.equals(this.isAuto, registerManagerViewModel.isAuto) &&
+				Objects.equals(this.email, registerManagerViewModel.email) &&
+				Objects.equals(this.captchaCheckResult, registerManagerViewModel.captchaCheckResult);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userName, email, password, confirmPassword, refCode, isAuto);
+		return Objects.hash(userName, password, confirmPassword, refCode, isAuto, email, captchaCheckResult);
 	}
 
 
@@ -187,11 +210,12 @@ public class RegisterManagerViewModel
 		sb.append("class RegisterManagerViewModel {\n");
 
 		sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
-		sb.append("    email: ").append(toIndentedString(email)).append("\n");
 		sb.append("    password: ").append(toIndentedString(password)).append("\n");
 		sb.append("    confirmPassword: ").append(toIndentedString(confirmPassword)).append("\n");
 		sb.append("    refCode: ").append(toIndentedString(refCode)).append("\n");
 		sb.append("    isAuto: ").append(toIndentedString(isAuto)).append("\n");
+		sb.append("    email: ").append(toIndentedString(email)).append("\n");
+		sb.append("    captchaCheckResult: ").append(toIndentedString(captchaCheckResult)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

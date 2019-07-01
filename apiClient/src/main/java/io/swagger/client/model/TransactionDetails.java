@@ -20,6 +20,8 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -44,6 +46,9 @@ public class TransactionDetails
 
 	@SerializedName("status")
 	private StatusEnum status = null;
+
+	@SerializedName("signalFees")
+	private List<SignalFee> signalFees = null;
 
 	@SerializedName("currency")
 	private CurrencyEnum currency = null;
@@ -159,6 +164,33 @@ public class TransactionDetails
 
 	public void setStatus(StatusEnum status) {
 		this.status = status;
+	}
+
+	public TransactionDetails signalFees(List<SignalFee> signalFees) {
+		this.signalFees = signalFees;
+		return this;
+	}
+
+	public TransactionDetails addSignalFeesItem(SignalFee signalFeesItem) {
+		if (this.signalFees == null) {
+			this.signalFees = new ArrayList<SignalFee>();
+		}
+		this.signalFees.add(signalFeesItem);
+		return this;
+	}
+
+	/**
+	 * Get signalFees
+	 *
+	 * @return signalFees
+	 **/
+	@ApiModelProperty(value = "")
+	public List<SignalFee> getSignalFees() {
+		return signalFees;
+	}
+
+	public void setSignalFees(List<SignalFee> signalFees) {
+		this.signalFees = signalFees;
 	}
 
 	public TransactionDetails currency(CurrencyEnum currency) {
@@ -308,6 +340,7 @@ public class TransactionDetails
 				Objects.equals(this.convertingDetails, transactionDetails.convertingDetails) &&
 				Objects.equals(this.externalTransactionDetails, transactionDetails.externalTransactionDetails) &&
 				Objects.equals(this.status, transactionDetails.status) &&
+				Objects.equals(this.signalFees, transactionDetails.signalFees) &&
 				Objects.equals(this.currency, transactionDetails.currency) &&
 				Objects.equals(this.currencyName, transactionDetails.currencyName) &&
 				Objects.equals(this.currencyLogo, transactionDetails.currencyLogo) &&
@@ -319,7 +352,7 @@ public class TransactionDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(type, programDetails, convertingDetails, externalTransactionDetails, status, currency, currencyName, currencyLogo, gvCommission, gvCommissionCurrency, gvCommissionPercent, amount);
+		return Objects.hash(type, programDetails, convertingDetails, externalTransactionDetails, status, signalFees, currency, currencyName, currencyLogo, gvCommission, gvCommissionCurrency, gvCommissionPercent, amount);
 	}
 
 	@Override
@@ -332,6 +365,7 @@ public class TransactionDetails
 		sb.append("    convertingDetails: ").append(toIndentedString(convertingDetails)).append("\n");
 		sb.append("    externalTransactionDetails: ").append(toIndentedString(externalTransactionDetails)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
+		sb.append("    signalFees: ").append(toIndentedString(signalFees)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    currencyName: ").append(toIndentedString(currencyName)).append("\n");
 		sb.append("    currencyLogo: ").append(toIndentedString(currencyLogo)).append("\n");
@@ -488,17 +522,17 @@ public class TransactionDetails
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 
@@ -559,17 +593,17 @@ public class TransactionDetails
 	@JsonAdapter(GvCommissionCurrencyEnum.Adapter.class)
 	public enum GvCommissionCurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 

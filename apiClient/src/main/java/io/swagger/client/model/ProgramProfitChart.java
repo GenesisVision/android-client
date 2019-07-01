@@ -64,6 +64,9 @@ public class ProgramProfitChart
 	@SerializedName("lastPeriodEnds")
 	private DateTime lastPeriodEnds = null;
 
+	@SerializedName("tradingVolume")
+	private Double tradingVolume = null;
+
 	@SerializedName("equityChart")
 	private List<ChartSimple> equityChart = null;
 
@@ -303,6 +306,25 @@ public class ProgramProfitChart
 		this.lastPeriodEnds = lastPeriodEnds;
 	}
 
+	public ProgramProfitChart tradingVolume(Double tradingVolume) {
+		this.tradingVolume = tradingVolume;
+		return this;
+	}
+
+	/**
+	 * Get tradingVolume
+	 *
+	 * @return tradingVolume
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getTradingVolume() {
+		return tradingVolume;
+	}
+
+	public void setTradingVolume(Double tradingVolume) {
+		this.tradingVolume = tradingVolume;
+	}
+
 	public ProgramProfitChart equityChart(List<ChartSimple> equityChart) {
 		this.equityChart = equityChart;
 		return this;
@@ -539,6 +561,7 @@ public class ProgramProfitChart
 				Objects.equals(this.periods, programProfitChart.periods) &&
 				Objects.equals(this.lastPeriodStarts, programProfitChart.lastPeriodStarts) &&
 				Objects.equals(this.lastPeriodEnds, programProfitChart.lastPeriodEnds) &&
+				Objects.equals(this.tradingVolume, programProfitChart.tradingVolume) &&
 				Objects.equals(this.equityChart, programProfitChart.equityChart) &&
 				Objects.equals(this.balance, programProfitChart.balance) &&
 				Objects.equals(this.investors, programProfitChart.investors) &&
@@ -554,7 +577,7 @@ public class ProgramProfitChart
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(totalProgramCurrencyProfit, timeframeProgramCurrencyProfit, programCurrency, trades, successTradesPercent, profitFactor, pnLChart, periods, lastPeriodStarts, lastPeriodEnds, equityChart, balance, investors, profitChangePercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, totalGvtProfit, timeframeGvtProfit, rate);
+		return Objects.hash(totalProgramCurrencyProfit, timeframeProgramCurrencyProfit, programCurrency, trades, successTradesPercent, profitFactor, pnLChart, periods, lastPeriodStarts, lastPeriodEnds, tradingVolume, equityChart, balance, investors, profitChangePercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, totalGvtProfit, timeframeGvtProfit, rate);
 	}
 
 	@Override
@@ -572,6 +595,7 @@ public class ProgramProfitChart
 		sb.append("    periods: ").append(toIndentedString(periods)).append("\n");
 		sb.append("    lastPeriodStarts: ").append(toIndentedString(lastPeriodStarts)).append("\n");
 		sb.append("    lastPeriodEnds: ").append(toIndentedString(lastPeriodEnds)).append("\n");
+		sb.append("    tradingVolume: ").append(toIndentedString(tradingVolume)).append("\n");
 		sb.append("    equityChart: ").append(toIndentedString(equityChart)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("    investors: ").append(toIndentedString(investors)).append("\n");
@@ -604,17 +628,17 @@ public class ProgramProfitChart
 	@JsonAdapter(ProgramCurrencyEnum.Adapter.class)
 	public enum ProgramCurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 

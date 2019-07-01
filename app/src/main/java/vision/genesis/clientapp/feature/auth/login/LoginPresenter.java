@@ -88,7 +88,7 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 
 	void onSignInClicked(String email, String password) {
 		getViewState().showProgress();
-		this.email = email;
+		this.email = email.trim();
 		this.password = password;
 		checkRiskControl(email);
 	}

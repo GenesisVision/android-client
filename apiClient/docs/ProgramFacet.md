@@ -38,6 +38,8 @@ BYBALANCEASC | &quot;ByBalanceAsc&quot;
 BYBALANCEDESC | &quot;ByBalanceDesc&quot;
 BYCURRDESC | &quot;ByCurrDesc&quot;
 BYCURRASC | &quot;ByCurrAsc&quot;
+BYLEVELPROGRESSDESC | &quot;ByLevelProgressDesc&quot;
+BYLEVELPROGRESSASC | &quot;ByLevelProgressAsc&quot;
 
 
 <a name="SortTypeEnum"></a>
@@ -49,6 +51,7 @@ TOP | &quot;Top&quot;
 WEEKLYTOP | &quot;WeeklyTop&quot;
 POPULAR | &quot;Popular&quot;
 TOLEVELUP | &quot;ToLevelUp&quot;
+MOSTRELIABLE | &quot;MostReliable&quot;
 
 
 <a name="TimeframeEnum"></a>

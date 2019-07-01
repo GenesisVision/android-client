@@ -33,6 +33,7 @@ TRADINGACCOUNTPWDUPDATED | &quot;TradingAccountPwdUpdated&quot;
 PROGRAMNEWSANDUPDATES | &quot;ProgramNewsAndUpdates&quot;
 PROGRAMENDOFPERIOD | &quot;ProgramEndOfPeriod&quot;
 PROGRAMCONDITION | &quot;ProgramCondition&quot;
+PROGRAMEXCEEDINVESTMENTLIMIT | &quot;ProgramExceedInvestmentLimit&quot;
 FUNDNEWSANDUPDATES | &quot;FundNewsAndUpdates&quot;
 FUNDENDOFPERIOD | &quot;FundEndOfPeriod&quot;
 FUNDREBALANCING | &quot;FundRebalancing&quot;

@@ -25,9 +25,6 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class RegisterInvestorViewModel
 {
-	@SerializedName("email")
-	private String email = null;
-
 	@SerializedName("password")
 	private String password = null;
 
@@ -40,24 +37,11 @@ public class RegisterInvestorViewModel
 	@SerializedName("isAuto")
 	private Boolean isAuto = null;
 
-	public RegisterInvestorViewModel email(String email) {
-		this.email = email;
-		return this;
-	}
+	@SerializedName("email")
+	private String email = null;
 
-	/**
-	 * Get email
-	 *
-	 * @return email
-	 **/
-	@ApiModelProperty(required = true, value = "")
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	@SerializedName("captchaCheckResult")
+	private CaptchaCheckResult captchaCheckResult = null;
 
 	public RegisterInvestorViewModel password(String password) {
 		this.password = password;
@@ -135,6 +119,44 @@ public class RegisterInvestorViewModel
 		this.isAuto = isAuto;
 	}
 
+	public RegisterInvestorViewModel email(String email) {
+		this.email = email;
+		return this;
+	}
+
+	/**
+	 * Get email
+	 *
+	 * @return email
+	 **/
+	@ApiModelProperty(required = true, value = "")
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public RegisterInvestorViewModel captchaCheckResult(CaptchaCheckResult captchaCheckResult) {
+		this.captchaCheckResult = captchaCheckResult;
+		return this;
+	}
+
+	/**
+	 * Get captchaCheckResult
+	 *
+	 * @return captchaCheckResult
+	 **/
+	@ApiModelProperty(value = "")
+	public CaptchaCheckResult getCaptchaCheckResult() {
+		return captchaCheckResult;
+	}
+
+	public void setCaptchaCheckResult(CaptchaCheckResult captchaCheckResult) {
+		this.captchaCheckResult = captchaCheckResult;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -145,16 +167,17 @@ public class RegisterInvestorViewModel
 			return false;
 		}
 		RegisterInvestorViewModel registerInvestorViewModel = (RegisterInvestorViewModel) o;
-		return Objects.equals(this.email, registerInvestorViewModel.email) &&
-				Objects.equals(this.password, registerInvestorViewModel.password) &&
+		return Objects.equals(this.password, registerInvestorViewModel.password) &&
 				Objects.equals(this.confirmPassword, registerInvestorViewModel.confirmPassword) &&
 				Objects.equals(this.refCode, registerInvestorViewModel.refCode) &&
-				Objects.equals(this.isAuto, registerInvestorViewModel.isAuto);
+				Objects.equals(this.isAuto, registerInvestorViewModel.isAuto) &&
+				Objects.equals(this.email, registerInvestorViewModel.email) &&
+				Objects.equals(this.captchaCheckResult, registerInvestorViewModel.captchaCheckResult);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, password, confirmPassword, refCode, isAuto);
+		return Objects.hash(password, confirmPassword, refCode, isAuto, email, captchaCheckResult);
 	}
 
 
@@ -163,11 +186,12 @@ public class RegisterInvestorViewModel
 		StringBuilder sb = new StringBuilder();
 		sb.append("class RegisterInvestorViewModel {\n");
 
-		sb.append("    email: ").append(toIndentedString(email)).append("\n");
 		sb.append("    password: ").append(toIndentedString(password)).append("\n");
 		sb.append("    confirmPassword: ").append(toIndentedString(confirmPassword)).append("\n");
 		sb.append("    refCode: ").append(toIndentedString(refCode)).append("\n");
 		sb.append("    isAuto: ").append(toIndentedString(isAuto)).append("\n");
+		sb.append("    email: ").append(toIndentedString(email)).append("\n");
+		sb.append("    captchaCheckResult: ").append(toIndentedString(captchaCheckResult)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

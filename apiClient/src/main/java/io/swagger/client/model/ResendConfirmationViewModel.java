@@ -28,6 +28,9 @@ public class ResendConfirmationViewModel
 	@SerializedName("email")
 	private String email = null;
 
+	@SerializedName("captchaCheckResult")
+	private CaptchaCheckResult captchaCheckResult = null;
+
 	public ResendConfirmationViewModel email(String email) {
 		this.email = email;
 		return this;
@@ -47,6 +50,25 @@ public class ResendConfirmationViewModel
 		this.email = email;
 	}
 
+	public ResendConfirmationViewModel captchaCheckResult(CaptchaCheckResult captchaCheckResult) {
+		this.captchaCheckResult = captchaCheckResult;
+		return this;
+	}
+
+	/**
+	 * Get captchaCheckResult
+	 *
+	 * @return captchaCheckResult
+	 **/
+	@ApiModelProperty(value = "")
+	public CaptchaCheckResult getCaptchaCheckResult() {
+		return captchaCheckResult;
+	}
+
+	public void setCaptchaCheckResult(CaptchaCheckResult captchaCheckResult) {
+		this.captchaCheckResult = captchaCheckResult;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -57,12 +79,13 @@ public class ResendConfirmationViewModel
 			return false;
 		}
 		ResendConfirmationViewModel resendConfirmationViewModel = (ResendConfirmationViewModel) o;
-		return Objects.equals(this.email, resendConfirmationViewModel.email);
+		return Objects.equals(this.email, resendConfirmationViewModel.email) &&
+				Objects.equals(this.captchaCheckResult, resendConfirmationViewModel.captchaCheckResult);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email);
+		return Objects.hash(email, captchaCheckResult);
 	}
 
 
@@ -72,6 +95,7 @@ public class ResendConfirmationViewModel
 		sb.append("class ResendConfirmationViewModel {\n");
 
 		sb.append("    email: ").append(toIndentedString(email)).append("\n");
+		sb.append("    captchaCheckResult: ").append(toIndentedString(captchaCheckResult)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

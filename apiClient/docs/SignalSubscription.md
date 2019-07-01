@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **openTolerancePercent** | **Double** |  |  [optional]
 **fixedVolume** | **Double** |  |  [optional]
 **fixedCurrency** | [**FixedCurrencyEnum**](#FixedCurrencyEnum) |  |  [optional]
+**totalProfit** | **Double** |  |  [optional]
+**totalVolume** | **Double** |  |  [optional]
 
 
 <a name="ModeEnum"></a>
@@ -26,12 +28,12 @@ FIXED | &quot;Fixed&quot;
 ## Enum: FixedCurrencyEnum
 Name | Value
 ---- | -----
-BTC | &quot;BTC&quot;
-ETH | &quot;ETH&quot;
-USDT | &quot;USDT&quot;
-GVT | &quot;GVT&quot;
 UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
+USDT | &quot;USDT&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;

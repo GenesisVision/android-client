@@ -189,26 +189,29 @@ public class AuthManager
 		return authApi.v10Auth2faDisablePost(AuthManager.token.getValue(), model);
 	}
 
-	public Observable<Void> registerInvestor(String email, String password, String confirmPassword) {
+	public Observable<Void> registerInvestor(String email, String password, String confirmPassword, CaptchaCheckResult captchaCheckResult) {
 		RegisterInvestorViewModel model = new RegisterInvestorViewModel();
 		model.setEmail(email);
 		model.setPassword(password);
 		model.setConfirmPassword(confirmPassword);
+		model.setCaptchaCheckResult(captchaCheckResult);
 		return authApi.v10AuthSignupInvestorPost(model);
 	}
 
-	public Observable<Void> registerManager(String userName, String email, String password, String confirmPassword) {
+	public Observable<Void> registerManager(String userName, String email, String password, String confirmPassword, CaptchaCheckResult captchaCheckResult) {
 		RegisterManagerViewModel model = new RegisterManagerViewModel();
 		model.setUserName(userName);
 		model.setEmail(email);
 		model.setPassword(password);
 		model.setConfirmPassword(confirmPassword);
+		model.setCaptchaCheckResult(captchaCheckResult);
 		return authApi.v10AuthSignupManagerPost(model);
 	}
 
-	public Observable<Void> sendForgotPassword(String email) {
+	public Observable<Void> sendForgotPassword(String email, CaptchaCheckResult captchaCheckResult) {
 		ForgotPasswordViewModel model = new ForgotPasswordViewModel();
 		model.setEmail(email);
+		model.setCaptchaCheckResult(captchaCheckResult);
 		return Constants.IS_INVESTOR
 				? authApi.v10AuthPasswordForgotInvestorPost(model)
 				: authApi.v10AuthPasswordForgotManagerPost(model);

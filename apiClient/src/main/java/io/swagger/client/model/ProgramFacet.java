@@ -303,7 +303,11 @@ public class ProgramFacet
 
 		BYCURRDESC("ByCurrDesc"),
 
-		BYCURRASC("ByCurrAsc");
+		BYCURRASC("ByCurrAsc"),
+
+		BYLEVELPROGRESSDESC("ByLevelProgressDesc"),
+
+		BYLEVELPROGRESSASC("ByLevelProgressAsc");
 
 		public static SortingEnum fromValue(String text) {
 			for (SortingEnum b : SortingEnum.values()) {
@@ -359,7 +363,9 @@ public class ProgramFacet
 
 		POPULAR("Popular"),
 
-		TOLEVELUP("ToLevelUp");
+		TOLEVELUP("ToLevelUp"),
+
+		MOSTRELIABLE("MostReliable");
 
 		public static SortTypeEnum fromValue(String text) {
 			for (SortTypeEnum b : SortTypeEnum.values()) {

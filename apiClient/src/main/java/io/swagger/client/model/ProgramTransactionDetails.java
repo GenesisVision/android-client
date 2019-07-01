@@ -483,17 +483,17 @@ public class ProgramTransactionDetails
 	@JsonAdapter(SuccessFeeCurrencyEnum.Adapter.class)
 	public enum SuccessFeeCurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 

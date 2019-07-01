@@ -88,19 +88,20 @@ public interface ProgramsApi
 	/**
 	 * Program periods
 	 *
-	 * @param id        (required)
-	 * @param dateFrom  (optional)
-	 * @param dateTo    (optional)
-	 * @param numberMin (optional)
-	 * @param numberMax (optional)
-	 * @param status    (optional)
-	 * @param skip      (optional)
-	 * @param take      (optional)
+	 * @param id            (required)
+	 * @param authorization (optional)
+	 * @param dateFrom      (optional)
+	 * @param dateTo        (optional)
+	 * @param numberMin     (optional)
+	 * @param numberMax     (optional)
+	 * @param status        (optional)
+	 * @param skip          (optional)
+	 * @param take          (optional)
 	 * @return Call&lt;ProgramPeriodsViewModel&gt;
 	 */
 	@GET("v1.0/programs/{id}/periods")
 	Observable<ProgramPeriodsViewModel> v10ProgramsByIdPeriodsGet(
-			@retrofit2.http.Path("id") String id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("NumberMin") Integer numberMin, @retrofit2.http.Query("NumberMax") Integer numberMax, @retrofit2.http.Query("Status") String status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Path("id") String id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("NumberMin") Integer numberMin, @retrofit2.http.Query("NumberMax") Integer numberMax, @retrofit2.http.Query("Status") String status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -121,35 +122,50 @@ public interface ProgramsApi
 	/**
 	 * Trade history
 	 *
-	 * @param id        (required)
-	 * @param dateFrom  (optional)
-	 * @param dateTo    (optional)
-	 * @param symbol    (optional)
-	 * @param sorting   (optional)
-	 * @param accountId (optional)
-	 * @param skip      (optional)
-	 * @param take      (optional)
+	 * @param id              (required)
+	 * @param dateFrom        (optional)
+	 * @param dateTo          (optional)
+	 * @param symbol          (optional)
+	 * @param sorting         (optional)
+	 * @param accountId       (optional)
+	 * @param accountCurrency (optional)
+	 * @param skip            (optional)
+	 * @param take            (optional)
 	 * @return Call&lt;TradesViewModel&gt;
 	 */
 	@GET("v1.0/programs/{id}/trades")
 	Observable<TradesViewModel> v10ProgramsByIdTradesGet(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
 	 * Open positions
 	 *
-	 * @param id        (required)
-	 * @param sorting   (optional)
-	 * @param symbol    (optional)
-	 * @param accountId (optional)
-	 * @param skip      (optional)
-	 * @param take      (optional)
+	 * @param id              (required)
+	 * @param sorting         (optional)
+	 * @param symbol          (optional)
+	 * @param accountId       (optional)
+	 * @param accountCurrency (optional)
+	 * @param skip            (optional)
+	 * @param take            (optional)
 	 * @return Call&lt;TradesViewModel&gt;
 	 */
 	@GET("v1.0/programs/{id}/trades/open")
 	Observable<TradesViewModel> v10ProgramsByIdTradesOpenGet(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Export trades
+	 *
+	 * @param programId (required)
+	 * @param start     (optional)
+	 * @param end       (optional)
+	 * @return Call&lt;byte[]&gt;
+	 */
+	@GET("v1.0/programs/{programId}/trades/export")
+	Observable<byte[]> v10ProgramsByProgramIdTradesExportGet(
+			@retrofit2.http.Path("programId") UUID programId, @retrofit2.http.Query("start") DateTime start, @retrofit2.http.Query("end") DateTime end
 	);
 
 	/**

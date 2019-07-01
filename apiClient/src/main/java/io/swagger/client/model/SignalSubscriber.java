@@ -53,6 +53,24 @@ public class SignalSubscriber
 	@SerializedName("status")
 	private StatusEnum status = null;
 
+	@SerializedName("totalCommissionAmount")
+	private Double totalCommissionAmount = null;
+
+	@SerializedName("totalCommissionCurrency")
+	private TotalCommissionCurrencyEnum totalCommissionCurrency = null;
+
+	@SerializedName("totalSuccessFeeAmount")
+	private Double totalSuccessFeeAmount = null;
+
+	@SerializedName("totalSuccessFeeCurrency")
+	private TotalSuccessFeeCurrencyEnum totalSuccessFeeCurrency = null;
+
+	@SerializedName("totalVolumeFeeAmount")
+	private Double totalVolumeFeeAmount = null;
+
+	@SerializedName("totalVolumeFeeCurrency")
+	private TotalVolumeFeeCurrencyEnum totalVolumeFeeCurrency = null;
+
 	public SignalSubscriber number(Integer number) {
 		this.number = number;
 		return this;
@@ -186,6 +204,120 @@ public class SignalSubscriber
 		this.status = status;
 	}
 
+	public SignalSubscriber totalCommissionAmount(Double totalCommissionAmount) {
+		this.totalCommissionAmount = totalCommissionAmount;
+		return this;
+	}
+
+	/**
+	 * Get totalCommissionAmount
+	 *
+	 * @return totalCommissionAmount
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getTotalCommissionAmount() {
+		return totalCommissionAmount;
+	}
+
+	public void setTotalCommissionAmount(Double totalCommissionAmount) {
+		this.totalCommissionAmount = totalCommissionAmount;
+	}
+
+	public SignalSubscriber totalCommissionCurrency(TotalCommissionCurrencyEnum totalCommissionCurrency) {
+		this.totalCommissionCurrency = totalCommissionCurrency;
+		return this;
+	}
+
+	/**
+	 * Get totalCommissionCurrency
+	 *
+	 * @return totalCommissionCurrency
+	 **/
+	@ApiModelProperty(value = "")
+	public TotalCommissionCurrencyEnum getTotalCommissionCurrency() {
+		return totalCommissionCurrency;
+	}
+
+	public void setTotalCommissionCurrency(TotalCommissionCurrencyEnum totalCommissionCurrency) {
+		this.totalCommissionCurrency = totalCommissionCurrency;
+	}
+
+	public SignalSubscriber totalSuccessFeeAmount(Double totalSuccessFeeAmount) {
+		this.totalSuccessFeeAmount = totalSuccessFeeAmount;
+		return this;
+	}
+
+	/**
+	 * Get totalSuccessFeeAmount
+	 *
+	 * @return totalSuccessFeeAmount
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getTotalSuccessFeeAmount() {
+		return totalSuccessFeeAmount;
+	}
+
+	public void setTotalSuccessFeeAmount(Double totalSuccessFeeAmount) {
+		this.totalSuccessFeeAmount = totalSuccessFeeAmount;
+	}
+
+	public SignalSubscriber totalSuccessFeeCurrency(TotalSuccessFeeCurrencyEnum totalSuccessFeeCurrency) {
+		this.totalSuccessFeeCurrency = totalSuccessFeeCurrency;
+		return this;
+	}
+
+	/**
+	 * Get totalSuccessFeeCurrency
+	 *
+	 * @return totalSuccessFeeCurrency
+	 **/
+	@ApiModelProperty(value = "")
+	public TotalSuccessFeeCurrencyEnum getTotalSuccessFeeCurrency() {
+		return totalSuccessFeeCurrency;
+	}
+
+	public void setTotalSuccessFeeCurrency(TotalSuccessFeeCurrencyEnum totalSuccessFeeCurrency) {
+		this.totalSuccessFeeCurrency = totalSuccessFeeCurrency;
+	}
+
+	public SignalSubscriber totalVolumeFeeAmount(Double totalVolumeFeeAmount) {
+		this.totalVolumeFeeAmount = totalVolumeFeeAmount;
+		return this;
+	}
+
+	/**
+	 * Get totalVolumeFeeAmount
+	 *
+	 * @return totalVolumeFeeAmount
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getTotalVolumeFeeAmount() {
+		return totalVolumeFeeAmount;
+	}
+
+	public void setTotalVolumeFeeAmount(Double totalVolumeFeeAmount) {
+		this.totalVolumeFeeAmount = totalVolumeFeeAmount;
+	}
+
+	public SignalSubscriber totalVolumeFeeCurrency(TotalVolumeFeeCurrencyEnum totalVolumeFeeCurrency) {
+		this.totalVolumeFeeCurrency = totalVolumeFeeCurrency;
+		return this;
+	}
+
+	/**
+	 * Get totalVolumeFeeCurrency
+	 *
+	 * @return totalVolumeFeeCurrency
+	 **/
+	@ApiModelProperty(value = "")
+	public TotalVolumeFeeCurrencyEnum getTotalVolumeFeeCurrency() {
+		return totalVolumeFeeCurrency;
+	}
+
+	public void setTotalVolumeFeeCurrency(TotalVolumeFeeCurrencyEnum totalVolumeFeeCurrency) {
+		this.totalVolumeFeeCurrency = totalVolumeFeeCurrency;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -201,12 +333,18 @@ public class SignalSubscriber
 				Objects.equals(this.volume, signalSubscriber.volume) &&
 				Objects.equals(this.subscriptionDate, signalSubscriber.subscriptionDate) &&
 				Objects.equals(this.unsubscriptionDate, signalSubscriber.unsubscriptionDate) &&
-				Objects.equals(this.status, signalSubscriber.status);
+				Objects.equals(this.status, signalSubscriber.status) &&
+				Objects.equals(this.totalCommissionAmount, signalSubscriber.totalCommissionAmount) &&
+				Objects.equals(this.totalCommissionCurrency, signalSubscriber.totalCommissionCurrency) &&
+				Objects.equals(this.totalSuccessFeeAmount, signalSubscriber.totalSuccessFeeAmount) &&
+				Objects.equals(this.totalSuccessFeeCurrency, signalSubscriber.totalSuccessFeeCurrency) &&
+				Objects.equals(this.totalVolumeFeeAmount, signalSubscriber.totalVolumeFeeAmount) &&
+				Objects.equals(this.totalVolumeFeeCurrency, signalSubscriber.totalVolumeFeeCurrency);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(number, trades, profit, volume, subscriptionDate, unsubscriptionDate, status);
+		return Objects.hash(number, trades, profit, volume, subscriptionDate, unsubscriptionDate, status, totalCommissionAmount, totalCommissionCurrency, totalSuccessFeeAmount, totalSuccessFeeCurrency, totalVolumeFeeAmount, totalVolumeFeeCurrency);
 	}
 
 	@Override
@@ -221,6 +359,12 @@ public class SignalSubscriber
 		sb.append("    subscriptionDate: ").append(toIndentedString(subscriptionDate)).append("\n");
 		sb.append("    unsubscriptionDate: ").append(toIndentedString(unsubscriptionDate)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
+		sb.append("    totalCommissionAmount: ").append(toIndentedString(totalCommissionAmount)).append("\n");
+		sb.append("    totalCommissionCurrency: ").append(toIndentedString(totalCommissionCurrency)).append("\n");
+		sb.append("    totalSuccessFeeAmount: ").append(toIndentedString(totalSuccessFeeAmount)).append("\n");
+		sb.append("    totalSuccessFeeCurrency: ").append(toIndentedString(totalSuccessFeeCurrency)).append("\n");
+		sb.append("    totalVolumeFeeAmount: ").append(toIndentedString(totalVolumeFeeAmount)).append("\n");
+		sb.append("    totalVolumeFeeCurrency: ").append(toIndentedString(totalVolumeFeeCurrency)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -235,6 +379,7 @@ public class SignalSubscriber
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
+
 
 	/**
 	 * Gets or Sets status
@@ -281,6 +426,220 @@ public class SignalSubscriber
 			public StatusEnum read(final JsonReader jsonReader) throws IOException {
 				String value = jsonReader.nextString();
 				return StatusEnum.fromValue(String.valueOf(value));
+			}
+		}
+	}
+
+	/**
+	 * Gets or Sets totalCommissionCurrency
+	 */
+	@JsonAdapter(TotalCommissionCurrencyEnum.Adapter.class)
+	public enum TotalCommissionCurrencyEnum
+	{
+		UNDEFINED("Undefined"),
+
+		GVT("GVT"),
+
+		ETH("ETH"),
+
+		BTC("BTC"),
+
+		ADA("ADA"),
+
+		USDT("USDT"),
+
+		XRP("XRP"),
+
+		BCH("BCH"),
+
+		LTC("LTC"),
+
+		DOGE("DOGE"),
+
+		BNB("BNB"),
+
+		USD("USD"),
+
+		EUR("EUR");
+
+		public static TotalCommissionCurrencyEnum fromValue(String text) {
+			for (TotalCommissionCurrencyEnum b : TotalCommissionCurrencyEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		TotalCommissionCurrencyEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<TotalCommissionCurrencyEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final TotalCommissionCurrencyEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public TotalCommissionCurrencyEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return TotalCommissionCurrencyEnum.fromValue(String.valueOf(value));
+			}
+		}
+	}
+
+
+	/**
+	 * Gets or Sets totalSuccessFeeCurrency
+	 */
+	@JsonAdapter(TotalSuccessFeeCurrencyEnum.Adapter.class)
+	public enum TotalSuccessFeeCurrencyEnum
+	{
+		UNDEFINED("Undefined"),
+
+		GVT("GVT"),
+
+		ETH("ETH"),
+
+		BTC("BTC"),
+
+		ADA("ADA"),
+
+		USDT("USDT"),
+
+		XRP("XRP"),
+
+		BCH("BCH"),
+
+		LTC("LTC"),
+
+		DOGE("DOGE"),
+
+		BNB("BNB"),
+
+		USD("USD"),
+
+		EUR("EUR");
+
+		public static TotalSuccessFeeCurrencyEnum fromValue(String text) {
+			for (TotalSuccessFeeCurrencyEnum b : TotalSuccessFeeCurrencyEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		TotalSuccessFeeCurrencyEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<TotalSuccessFeeCurrencyEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final TotalSuccessFeeCurrencyEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public TotalSuccessFeeCurrencyEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return TotalSuccessFeeCurrencyEnum.fromValue(String.valueOf(value));
+			}
+		}
+	}
+
+	/**
+	 * Gets or Sets totalVolumeFeeCurrency
+	 */
+	@JsonAdapter(TotalVolumeFeeCurrencyEnum.Adapter.class)
+	public enum TotalVolumeFeeCurrencyEnum
+	{
+		UNDEFINED("Undefined"),
+
+		GVT("GVT"),
+
+		ETH("ETH"),
+
+		BTC("BTC"),
+
+		ADA("ADA"),
+
+		USDT("USDT"),
+
+		XRP("XRP"),
+
+		BCH("BCH"),
+
+		LTC("LTC"),
+
+		DOGE("DOGE"),
+
+		BNB("BNB"),
+
+		USD("USD"),
+
+		EUR("EUR");
+
+		public static TotalVolumeFeeCurrencyEnum fromValue(String text) {
+			for (TotalVolumeFeeCurrencyEnum b : TotalVolumeFeeCurrencyEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		TotalVolumeFeeCurrencyEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<TotalVolumeFeeCurrencyEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final TotalVolumeFeeCurrencyEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public TotalVolumeFeeCurrencyEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return TotalVolumeFeeCurrencyEnum.fromValue(String.valueOf(value));
 			}
 		}
 	}

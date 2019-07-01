@@ -52,8 +52,7 @@ public class InvestorDashboardManager
 	}
 
 	public Observable<SignalsList> getSignalProviders(String status, String sorting, DateRange dateRange, Integer skip, Integer take) {
-		return investorApi.v10InvestorSignalsGet(AuthManager.token.getValue(),
-				status, sorting,
+		return investorApi.v10InvestorSignalsGet(AuthManager.token.getValue(), sorting,
 				dateRange.getFrom(), dateRange.getTo(),
 				10, null,
 				null, null,

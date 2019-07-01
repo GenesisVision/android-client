@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **invested** | **Double** |  |  [optional]
 **pendingInput** | **Double** |  |  [optional]
 **pendingOutput** | **Double** |  |  [optional]
+**pendingOutputIsWithdrawAll** | **Boolean** |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
 
 

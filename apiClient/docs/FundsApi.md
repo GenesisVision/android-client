@@ -1,6 +1,6 @@
 # FundsApi
 
-All URIs are relative to *https://localhost*
+All URIs are relative to *https://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**v10FundsByIdFavoriteAddPost**](FundsApi.md#v10FundsByIdFavoriteAddPost) | **POST** v1.0/funds/{id}/favorite/add | Add to favorites
 [**v10FundsByIdFavoriteRemovePost**](FundsApi.md#v10FundsByIdFavoriteRemovePost) | **POST** v1.0/funds/{id}/favorite/remove | Remove from favorites
 [**v10FundsByIdGet**](FundsApi.md#v10FundsByIdGet) | **GET** v1.0/funds/{id} | Funds details
+[**v10FundsByIdReallocationsGet**](FundsApi.md#v10FundsByIdReallocationsGet) | **GET** v1.0/funds/{id}/reallocations | Get history of asset part update requests.
 [**v10FundsGet**](FundsApi.md#v10FundsGet) | **GET** v1.0/funds | Funds list
 [**v10FundsSetsGet**](FundsApi.md#v10FundsSetsGet) | **GET** v1.0/funds/sets | Fund sets
 
@@ -317,7 +318,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  |
  **authorization** | **String**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -332,9 +333,60 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="v10FundsByIdReallocationsGet"></a>
+# **v10FundsByIdReallocationsGet**
+> Void v10FundsByIdReallocationsGet(id, dateFrom, dateTo, skip, take)
+
+Get history of asset part update requests.
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.FundsApi;
+
+
+FundsApi apiInstance = new FundsApi();
+UUID id = new UUID(); // UUID | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    Void result = apiInstance.v10FundsByIdReallocationsGet(id, dateFrom, dateTo, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FundsApi#v10FundsByIdReallocationsGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="v10FundsGet"></a>
 # **v10FundsGet**
-> FundsList v10FundsGet(authorization, sorting, currencySecondary, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, hasInvestorsForAll, hasInvestorsForClosed, ids, managerId, programManagerId, status, skip, take)
+> FundsList v10FundsGet(authorization, sorting, currencySecondary, assets, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, hasInvestorsForAll, hasInvestorsForClosed, ids, managerId, programManagerId, status, skip, take)
 
 Funds list
 
@@ -349,6 +401,7 @@ FundsApi apiInstance = new FundsApi();
 String authorization = "authorization_example"; // String | 
 String sorting = "sorting_example"; // String | 
 String currencySecondary = "currencySecondary_example"; // String | 
+List<String> assets = Arrays.asList("assets_example"); // List<String> | 
 DateTime statisticDateFrom = new DateTime(); // DateTime | 
 DateTime statisticDateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
@@ -365,7 +418,7 @@ List<String> status = Arrays.asList("status_example"); // List<String> |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    FundsList result = apiInstance.v10FundsGet(authorization, sorting, currencySecondary, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, hasInvestorsForAll, hasInvestorsForClosed, ids, managerId, programManagerId, status, skip, take);
+    FundsList result = apiInstance.v10FundsGet(authorization, sorting, currencySecondary, assets, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, hasInvestorsForAll, hasInvestorsForClosed, ids, managerId, programManagerId, status, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#v10FundsGet");
@@ -379,7 +432,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**|  | [optional]
  **sorting** | **String**|  | [optional] [enum: ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByInvestorsAsc, ByInvestorsDesc, ByNewAsc, ByNewDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc]
- **currencySecondary** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **assets** | [**List&lt;String&gt;**](String.md)|  | [optional]
  **statisticDateFrom** | **DateTime**|  | [optional]
  **statisticDateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]

@@ -411,17 +411,17 @@ public class ManagerPortfolioEvent
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 
@@ -509,7 +509,9 @@ public class ManagerPortfolioEvent
 
 		PROGRAMMANAGERTRADINGFEEACCRUAL("ProgramManagerTradingFeeAccrual"),
 
-		PROGRAMSIGNALSUBSCRIBE("ProgramSignalSubscribe");
+		PROGRAMSIGNALSUBSCRIBE("ProgramSignalSubscribe"),
+
+		PROGRAMBROKERCHANGED("ProgramBrokerChanged");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {

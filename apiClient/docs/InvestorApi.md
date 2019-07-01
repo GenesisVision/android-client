@@ -1,6 +1,6 @@
 # InvestorApi
 
-All URIs are relative to *https://localhost*
+All URIs are relative to *https://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -21,6 +21,7 @@ Method | HTTP request | Description
 [**v10InvestorProgramsByIdWithdrawByAmountPost**](InvestorApi.md#v10InvestorProgramsByIdWithdrawByAmountPost) | **POST** v1.0/investor/programs/{id}/withdraw/{amount} | Withdraw from investment program in GVT
 [**v10InvestorProgramsByIdWithdrawInfoByCurrencyGet**](InvestorApi.md#v10InvestorProgramsByIdWithdrawInfoByCurrencyGet) | **GET** v1.0/investor/programs/{id}/withdraw/info/{currency} | Data for withdrawal from investment program
 [**v10InvestorProgramsByIdWithdrawMultiByAmountPost**](InvestorApi.md#v10InvestorProgramsByIdWithdrawMultiByAmountPost) | **POST** v1.0/investor/programs/{id}/withdraw/multi/{amount} | Withdraw from investment program in program currency
+[**v10InvestorProgramsByIdWithdrawMultiPost**](InvestorApi.md#v10InvestorProgramsByIdWithdrawMultiPost) | **POST** v1.0/investor/programs/{id}/withdraw/multi | Withdraw from investment program in program currency
 [**v10InvestorProgramsGet**](InvestorApi.md#v10InvestorProgramsGet) | **GET** v1.0/investor/programs | Dashboard program list
 [**v10InvestorProgramsRequestsByIdCancelPost**](InvestorApi.md#v10InvestorProgramsRequestsByIdCancelPost) | **POST** v1.0/investor/programs/requests/{id}/cancel | Cancel investment program request
 [**v10InvestorRequestsBySkipByTakeGet**](InvestorApi.md#v10InvestorRequestsBySkipByTakeGet) | **GET** v1.0/investor/requests/{skip}/{take} | Get all requests
@@ -61,7 +62,7 @@ Name | Type | Description  | Notes
  **id** | [**UUID**](.md)|  |
  **amount** | **Double**|  |
  **authorization** | **String**| JWT access token |
- **currency** | **String**|  | [optional] [default to 100] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [optional] [default to 100] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -107,7 +108,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -206,7 +207,7 @@ Name | Type | Description  | Notes
  **id** | [**UUID**](.md)|  |
  **percent** | **Double**|  |
  **authorization** | **String**| JWT access token |
- **currency** | **String**|  | [optional] [default to 100] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [optional] [default to 100] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -252,7 +253,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -310,7 +311,7 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **actionStatus** | **String**|  | [optional] [enum: Pending, Active, Investing, Withdrawing, Ended]
  **dashboardActionStatus** | **String**|  | [optional] [enum: All, Active]
  **skip** | **Integer**|  | [optional]
@@ -366,7 +367,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **chartCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **chartCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **balancePoints** | **Integer**|  | [optional]
@@ -422,7 +423,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **balancePoints** | **Integer**|  | [optional]
@@ -532,7 +533,7 @@ Name | Type | Description  | Notes
  **id** | [**UUID**](.md)|  |
  **amount** | **Double**|  |
  **authorization** | **String**| JWT access token |
- **currency** | **String**|  | [optional] [default to 100] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [optional] [default to 100] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -578,7 +579,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -811,7 +812,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **currency** | **String**|  | [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **authorization** | **String**| JWT access token |
 
 ### Return type
@@ -829,7 +830,7 @@ No authorization required
 
 <a name="v10InvestorProgramsByIdWithdrawMultiByAmountPost"></a>
 # **v10InvestorProgramsByIdWithdrawMultiByAmountPost**
-> Void v10InvestorProgramsByIdWithdrawMultiByAmountPost(id, amount, authorization)
+> Void v10InvestorProgramsByIdWithdrawMultiByAmountPost(id, amount, authorization, withdrawAll)
 
 Withdraw from investment program in program currency
 
@@ -844,8 +845,9 @@ InvestorApi apiInstance = new InvestorApi();
 UUID id = new UUID(); // UUID | 
 Double amount = 3.4D; // Double | 
 String authorization = "authorization_example"; // String | JWT access token
+Boolean withdrawAll = false; // Boolean | 
 try {
-    Void result = apiInstance.v10InvestorProgramsByIdWithdrawMultiByAmountPost(id, amount, authorization);
+    Void result = apiInstance.v10InvestorProgramsByIdWithdrawMultiByAmountPost(id, amount, authorization, withdrawAll);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestorApi#v10InvestorProgramsByIdWithdrawMultiByAmountPost");
@@ -860,6 +862,56 @@ Name | Type | Description  | Notes
  **id** | [**UUID**](.md)|  |
  **amount** | **Double**|  |
  **authorization** | **String**| JWT access token |
+ **withdrawAll** | **Boolean**|  | [optional] [default to false]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10InvestorProgramsByIdWithdrawMultiPost"></a>
+# **v10InvestorProgramsByIdWithdrawMultiPost**
+> Void v10InvestorProgramsByIdWithdrawMultiPost(id, authorization, amount, withdrawAll)
+
+Withdraw from investment program in program currency
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+Double amount = 3.4D; // Double | 
+Boolean withdrawAll = false; // Boolean | 
+try {
+    Void result = apiInstance.v10InvestorProgramsByIdWithdrawMultiPost(id, authorization, amount, withdrawAll);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#v10InvestorProgramsByIdWithdrawMultiPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+ **amount** | **Double**|  | [optional]
+ **withdrawAll** | **Boolean**|  | [optional] [default to false]
 
 ### Return type
 
@@ -912,11 +964,11 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByTradesAsc, ByTradesDesc, ByInvestorsAsc, ByInvestorsDesc, ByNewDesc, ByNewAsc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc, ByCurrDesc, ByCurrAsc]
+ **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByTradesAsc, ByTradesDesc, ByInvestorsAsc, ByInvestorsDesc, ByNewDesc, ByNewAsc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc, ByCurrDesc, ByCurrAsc, ByLevelProgressDesc, ByLevelProgressAsc]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **actionStatus** | **String**|  | [optional] [enum: Pending, Active, Investing, Withdrawing, Ended]
  **dashboardActionStatus** | **String**|  | [optional] [enum: All, Active]
  **skip** | **Integer**|  | [optional]
@@ -1029,7 +1081,7 @@ No authorization required
 
 <a name="v10InvestorSignalsGet"></a>
 # **v10InvestorSignalsGet**
-> SignalsList v10InvestorSignalsGet(authorization, status, sorting, from, to, chartPointsCount, currencySecondary, actionStatus, dashboardActionStatus, skip, take)
+> SignalsList v10InvestorSignalsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, actionStatus, dashboardActionStatus, skip, take)
 
 Dashboard signal providers list
 
@@ -1042,7 +1094,6 @@ Dashboard signal providers list
 
 InvestorApi apiInstance = new InvestorApi();
 String authorization = "authorization_example"; // String | JWT access token
-String status = "status_example"; // String | 
 String sorting = "sorting_example"; // String | 
 DateTime from = new DateTime(); // DateTime | 
 DateTime to = new DateTime(); // DateTime | 
@@ -1053,7 +1104,7 @@ String dashboardActionStatus = "dashboardActionStatus_example"; // String |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    SignalsList result = apiInstance.v10InvestorSignalsGet(authorization, status, sorting, from, to, chartPointsCount, currencySecondary, actionStatus, dashboardActionStatus, skip, take);
+    SignalsList result = apiInstance.v10InvestorSignalsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, actionStatus, dashboardActionStatus, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestorApi#v10InvestorSignalsGet");
@@ -1066,12 +1117,11 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **status** | **String**|  | [optional] [enum: All, Active]
- **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByTradesAsc, ByTradesDesc, ByInvestorsAsc, ByInvestorsDesc, ByNewDesc, ByNewAsc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc, ByCurrDesc, ByCurrAsc]
+ **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByTradesAsc, ByTradesDesc, ByInvestorsAsc, ByInvestorsDesc, ByNewDesc, ByNewAsc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc, ByCurrDesc, ByCurrAsc, ByLevelProgressDesc, ByLevelProgressAsc]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **actionStatus** | **String**|  | [optional] [enum: Pending, Active, Investing, Withdrawing, Ended]
  **dashboardActionStatus** | **String**|  | [optional] [enum: All, Active]
  **skip** | **Integer**|  | [optional]

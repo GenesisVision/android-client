@@ -1,6 +1,6 @@
 # ProgramsApi
 
-All URIs are relative to *https://localhost*
+All URIs are relative to *https://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**v10ProgramsByIdSubscribersGet**](ProgramsApi.md#v10ProgramsByIdSubscribersGet) | **GET** v1.0/programs/{id}/subscribers | Signal subscribers
 [**v10ProgramsByIdTradesGet**](ProgramsApi.md#v10ProgramsByIdTradesGet) | **GET** v1.0/programs/{id}/trades | Trade history
 [**v10ProgramsByIdTradesOpenGet**](ProgramsApi.md#v10ProgramsByIdTradesOpenGet) | **GET** v1.0/programs/{id}/trades/open | Open positions
+[**v10ProgramsByProgramIdTradesExportGet**](ProgramsApi.md#v10ProgramsByProgramIdTradesExportGet) | **GET** v1.0/programs/{programId}/trades/export | Export trades
 [**v10ProgramsGet**](ProgramsApi.md#v10ProgramsGet) | **GET** v1.0/programs | Programs list
 [**v10ProgramsLevelupSummaryGet**](ProgramsApi.md#v10ProgramsLevelupSummaryGet) | **GET** v1.0/programs/levelup/summary | Level up summary
 [**v10ProgramsSetsGet**](ProgramsApi.md#v10ProgramsSetsGet) | **GET** v1.0/programs/sets | Programs sets
@@ -238,7 +239,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  |
  **authorization** | **String**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -255,7 +256,7 @@ No authorization required
 
 <a name="v10ProgramsByIdPeriodsGet"></a>
 # **v10ProgramsByIdPeriodsGet**
-> ProgramPeriodsViewModel v10ProgramsByIdPeriodsGet(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take)
+> ProgramPeriodsViewModel v10ProgramsByIdPeriodsGet(id, authorization, dateFrom, dateTo, numberMin, numberMax, status, skip, take)
 
 Program periods
 
@@ -268,6 +269,7 @@ Program periods
 
 ProgramsApi apiInstance = new ProgramsApi();
 String id = "id_example"; // String | 
+String authorization = "authorization_example"; // String | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer numberMin = 56; // Integer | 
@@ -276,7 +278,7 @@ String status = "status_example"; // String |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ProgramPeriodsViewModel result = apiInstance.v10ProgramsByIdPeriodsGet(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take);
+    ProgramPeriodsViewModel result = apiInstance.v10ProgramsByIdPeriodsGet(id, authorization, dateFrom, dateTo, numberMin, numberMax, status, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#v10ProgramsByIdPeriodsGet");
@@ -289,6 +291,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  |
+ **authorization** | **String**|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **numberMin** | **Integer**|  | [optional]
@@ -363,7 +366,7 @@ No authorization required
 
 <a name="v10ProgramsByIdTradesGet"></a>
 # **v10ProgramsByIdTradesGet**
-> TradesViewModel v10ProgramsByIdTradesGet(id, dateFrom, dateTo, symbol, sorting, accountId, skip, take)
+> TradesViewModel v10ProgramsByIdTradesGet(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take)
 
 Trade history
 
@@ -381,10 +384,11 @@ DateTime dateTo = new DateTime(); // DateTime |
 String symbol = "symbol_example"; // String | 
 String sorting = "sorting_example"; // String | 
 UUID accountId = new UUID(); // UUID | 
+String accountCurrency = "accountCurrency_example"; // String | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    TradesViewModel result = apiInstance.v10ProgramsByIdTradesGet(id, dateFrom, dateTo, symbol, sorting, accountId, skip, take);
+    TradesViewModel result = apiInstance.v10ProgramsByIdTradesGet(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#v10ProgramsByIdTradesGet");
@@ -402,6 +406,7 @@ Name | Type | Description  | Notes
  **symbol** | **String**|  | [optional]
  **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
  **accountId** | [**UUID**](.md)|  | [optional]
+ **accountCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -420,7 +425,7 @@ No authorization required
 
 <a name="v10ProgramsByIdTradesOpenGet"></a>
 # **v10ProgramsByIdTradesOpenGet**
-> TradesViewModel v10ProgramsByIdTradesOpenGet(id, sorting, symbol, accountId, skip, take)
+> TradesViewModel v10ProgramsByIdTradesOpenGet(id, sorting, symbol, accountId, accountCurrency, skip, take)
 
 Open positions
 
@@ -436,10 +441,11 @@ UUID id = new UUID(); // UUID |
 String sorting = "sorting_example"; // String | 
 String symbol = "symbol_example"; // String | 
 UUID accountId = new UUID(); // UUID | 
+String accountCurrency = "accountCurrency_example"; // String | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    TradesViewModel result = apiInstance.v10ProgramsByIdTradesOpenGet(id, sorting, symbol, accountId, skip, take);
+    TradesViewModel result = apiInstance.v10ProgramsByIdTradesOpenGet(id, sorting, symbol, accountId, accountCurrency, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#v10ProgramsByIdTradesOpenGet");
@@ -455,12 +461,60 @@ Name | Type | Description  | Notes
  **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
  **symbol** | **String**|  | [optional]
  **accountId** | [**UUID**](.md)|  | [optional]
+ **accountCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
 ### Return type
 
 [**TradesViewModel**](TradesViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ProgramsByProgramIdTradesExportGet"></a>
+# **v10ProgramsByProgramIdTradesExportGet**
+> byte[] v10ProgramsByProgramIdTradesExportGet(programId, start, end)
+
+Export trades
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ProgramsApi;
+
+
+ProgramsApi apiInstance = new ProgramsApi();
+UUID programId = new UUID(); // UUID | 
+DateTime start = new DateTime(); // DateTime | 
+DateTime end = new DateTime(); // DateTime | 
+try {
+    byte[] result = apiInstance.v10ProgramsByProgramIdTradesExportGet(programId, start, end);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProgramsApi#v10ProgramsByProgramIdTradesExportGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **programId** | [**UUID**](.md)|  |
+ **start** | **DateTime**|  | [optional]
+ **end** | **DateTime**|  | [optional]
+
+### Return type
+
+**byte[]**
 
 ### Authorization
 
@@ -531,9 +585,9 @@ Name | Type | Description  | Notes
  **levelsSet** | [**List&lt;Integer&gt;**](Integer.md)|  | [optional]
  **profitAvgMin** | **Double**|  | [optional]
  **profitAvgMax** | **Double**|  | [optional]
- **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByTradesAsc, ByTradesDesc, ByInvestorsAsc, ByInvestorsDesc, ByNewDesc, ByNewAsc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc, ByCurrDesc, ByCurrAsc]
- **programCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
- **currencySecondary** | **String**|  | [optional] [enum: BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **sorting** | **String**|  | [optional] [enum: ByLevelAsc, ByLevelDesc, ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByTradesAsc, ByTradesDesc, ByInvestorsAsc, ByInvestorsDesc, ByNewDesc, ByNewAsc, ByEndOfPeriodAsc, ByEndOfPeriodDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc, ByCurrDesc, ByCurrAsc, ByLevelProgressDesc, ByLevelProgressAsc]
+ **programCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **levelUpFrom** | **Integer**|  | [optional]
  **tags** | [**List&lt;String&gt;**](String.md)|  | [optional]
  **isSignal** | **Boolean**|  | [optional]

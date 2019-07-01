@@ -25,9 +25,6 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class LoginViewModel
 {
-	@SerializedName("email")
-	private String email = null;
-
 	@SerializedName("password")
 	private String password = null;
 
@@ -43,27 +40,11 @@ public class LoginViewModel
 	@SerializedName("client")
 	private String client = null;
 
+	@SerializedName("email")
+	private String email = null;
+
 	@SerializedName("captchaCheckResult")
 	private CaptchaCheckResult captchaCheckResult = null;
-
-	public LoginViewModel email(String email) {
-		this.email = email;
-		return this;
-	}
-
-	/**
-	 * Get email
-	 *
-	 * @return email
-	 **/
-	@ApiModelProperty(required = true, value = "")
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	public LoginViewModel password(String password) {
 		this.password = password;
@@ -160,6 +141,25 @@ public class LoginViewModel
 		this.client = client;
 	}
 
+	public LoginViewModel email(String email) {
+		this.email = email;
+		return this;
+	}
+
+	/**
+	 * Get email
+	 *
+	 * @return email
+	 **/
+	@ApiModelProperty(required = true, value = "")
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public LoginViewModel captchaCheckResult(CaptchaCheckResult captchaCheckResult) {
 		this.captchaCheckResult = captchaCheckResult;
 		return this;
@@ -189,18 +189,18 @@ public class LoginViewModel
 			return false;
 		}
 		LoginViewModel loginViewModel = (LoginViewModel) o;
-		return Objects.equals(this.email, loginViewModel.email) &&
-				Objects.equals(this.password, loginViewModel.password) &&
+		return Objects.equals(this.password, loginViewModel.password) &&
 				Objects.equals(this.rememberMe, loginViewModel.rememberMe) &&
 				Objects.equals(this.twoFactorCode, loginViewModel.twoFactorCode) &&
 				Objects.equals(this.recoveryCode, loginViewModel.recoveryCode) &&
 				Objects.equals(this.client, loginViewModel.client) &&
+				Objects.equals(this.email, loginViewModel.email) &&
 				Objects.equals(this.captchaCheckResult, loginViewModel.captchaCheckResult);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, password, rememberMe, twoFactorCode, recoveryCode, client, captchaCheckResult);
+		return Objects.hash(password, rememberMe, twoFactorCode, recoveryCode, client, email, captchaCheckResult);
 	}
 
 
@@ -209,12 +209,12 @@ public class LoginViewModel
 		StringBuilder sb = new StringBuilder();
 		sb.append("class LoginViewModel {\n");
 
-		sb.append("    email: ").append(toIndentedString(email)).append("\n");
 		sb.append("    password: ").append(toIndentedString(password)).append("\n");
 		sb.append("    rememberMe: ").append(toIndentedString(rememberMe)).append("\n");
 		sb.append("    twoFactorCode: ").append(toIndentedString(twoFactorCode)).append("\n");
 		sb.append("    recoveryCode: ").append(toIndentedString(recoveryCode)).append("\n");
 		sb.append("    client: ").append(toIndentedString(client)).append("\n");
+		sb.append("    email: ").append(toIndentedString(email)).append("\n");
 		sb.append("    captchaCheckResult: ").append(toIndentedString(captchaCheckResult)).append("\n");
 		sb.append("}");
 		return sb.toString();

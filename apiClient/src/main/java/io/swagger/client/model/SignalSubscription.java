@@ -51,6 +51,12 @@ public class SignalSubscription
 	@SerializedName("fixedCurrency")
 	private FixedCurrencyEnum fixedCurrency = null;
 
+	@SerializedName("totalProfit")
+	private Double totalProfit = null;
+
+	@SerializedName("totalVolume")
+	private Double totalVolume = null;
+
 	public SignalSubscription hasSignalAccount(Boolean hasSignalAccount) {
 		this.hasSignalAccount = hasSignalAccount;
 		return this;
@@ -184,6 +190,44 @@ public class SignalSubscription
 		this.fixedCurrency = fixedCurrency;
 	}
 
+	public SignalSubscription totalProfit(Double totalProfit) {
+		this.totalProfit = totalProfit;
+		return this;
+	}
+
+	/**
+	 * Get totalProfit
+	 *
+	 * @return totalProfit
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getTotalProfit() {
+		return totalProfit;
+	}
+
+	public void setTotalProfit(Double totalProfit) {
+		this.totalProfit = totalProfit;
+	}
+
+	public SignalSubscription totalVolume(Double totalVolume) {
+		this.totalVolume = totalVolume;
+		return this;
+	}
+
+	/**
+	 * Get totalVolume
+	 *
+	 * @return totalVolume
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getTotalVolume() {
+		return totalVolume;
+	}
+
+	public void setTotalVolume(Double totalVolume) {
+		this.totalVolume = totalVolume;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -199,12 +243,14 @@ public class SignalSubscription
 				Objects.equals(this.percent, signalSubscription.percent) &&
 				Objects.equals(this.openTolerancePercent, signalSubscription.openTolerancePercent) &&
 				Objects.equals(this.fixedVolume, signalSubscription.fixedVolume) &&
-				Objects.equals(this.fixedCurrency, signalSubscription.fixedCurrency);
+				Objects.equals(this.fixedCurrency, signalSubscription.fixedCurrency) &&
+				Objects.equals(this.totalProfit, signalSubscription.totalProfit) &&
+				Objects.equals(this.totalVolume, signalSubscription.totalVolume);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(hasSignalAccount, hasActiveSubscription, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency);
+		return Objects.hash(hasSignalAccount, hasActiveSubscription, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency, totalProfit, totalVolume);
 	}
 
 	@Override
@@ -219,6 +265,8 @@ public class SignalSubscription
 		sb.append("    openTolerancePercent: ").append(toIndentedString(openTolerancePercent)).append("\n");
 		sb.append("    fixedVolume: ").append(toIndentedString(fixedVolume)).append("\n");
 		sb.append("    fixedCurrency: ").append(toIndentedString(fixedCurrency)).append("\n");
+		sb.append("    totalProfit: ").append(toIndentedString(totalProfit)).append("\n");
+		sb.append("    totalVolume: ").append(toIndentedString(totalVolume)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -292,17 +340,17 @@ public class SignalSubscription
 	@JsonAdapter(FixedCurrencyEnum.Adapter.class)
 	public enum FixedCurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 

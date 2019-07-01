@@ -17,6 +17,8 @@ import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -42,6 +44,9 @@ public class ProfilePublic
 
 	@SerializedName("url")
 	private String url = null;
+
+	@SerializedName("socialLinks")
+	private List<SocialLinkViewModel> socialLinks = null;
 
 	public ProfilePublic id(UUID id) {
 		this.id = id;
@@ -138,6 +143,33 @@ public class ProfilePublic
 		this.url = url;
 	}
 
+	public ProfilePublic socialLinks(List<SocialLinkViewModel> socialLinks) {
+		this.socialLinks = socialLinks;
+		return this;
+	}
+
+	public ProfilePublic addSocialLinksItem(SocialLinkViewModel socialLinksItem) {
+		if (this.socialLinks == null) {
+			this.socialLinks = new ArrayList<SocialLinkViewModel>();
+		}
+		this.socialLinks.add(socialLinksItem);
+		return this;
+	}
+
+	/**
+	 * Get socialLinks
+	 *
+	 * @return socialLinks
+	 **/
+	@ApiModelProperty(value = "")
+	public List<SocialLinkViewModel> getSocialLinks() {
+		return socialLinks;
+	}
+
+	public void setSocialLinks(List<SocialLinkViewModel> socialLinks) {
+		this.socialLinks = socialLinks;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -152,12 +184,13 @@ public class ProfilePublic
 				Objects.equals(this.username, profilePublic.username) &&
 				Objects.equals(this.avatar, profilePublic.avatar) &&
 				Objects.equals(this.registrationDate, profilePublic.registrationDate) &&
-				Objects.equals(this.url, profilePublic.url);
+				Objects.equals(this.url, profilePublic.url) &&
+				Objects.equals(this.socialLinks, profilePublic.socialLinks);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, username, avatar, registrationDate, url);
+		return Objects.hash(id, username, avatar, registrationDate, url, socialLinks);
 	}
 
 
@@ -171,6 +204,7 @@ public class ProfilePublic
 		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
 		sb.append("    registrationDate: ").append(toIndentedString(registrationDate)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
+		sb.append("    socialLinks: ").append(toIndentedString(socialLinks)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

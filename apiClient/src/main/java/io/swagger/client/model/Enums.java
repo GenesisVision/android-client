@@ -31,6 +31,9 @@ public class Enums
 	@SerializedName("program")
 	private ProgramFilters program = null;
 
+	@SerializedName("fund")
+	private FundFilters fund = null;
+
 	public Enums multiWallet(MultiWalletFilters multiWallet) {
 		this.multiWallet = multiWallet;
 		return this;
@@ -69,6 +72,25 @@ public class Enums
 		this.program = program;
 	}
 
+	public Enums fund(FundFilters fund) {
+		this.fund = fund;
+		return this;
+	}
+
+	/**
+	 * Get fund
+	 *
+	 * @return fund
+	 **/
+	@ApiModelProperty(value = "")
+	public FundFilters getFund() {
+		return fund;
+	}
+
+	public void setFund(FundFilters fund) {
+		this.fund = fund;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -80,12 +102,13 @@ public class Enums
 		}
 		Enums enums = (Enums) o;
 		return Objects.equals(this.multiWallet, enums.multiWallet) &&
-				Objects.equals(this.program, enums.program);
+				Objects.equals(this.program, enums.program) &&
+				Objects.equals(this.fund, enums.fund);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(multiWallet, program);
+		return Objects.hash(multiWallet, program, fund);
 	}
 
 
@@ -96,6 +119,7 @@ public class Enums
 
 		sb.append("    multiWallet: ").append(toIndentedString(multiWallet)).append("\n");
 		sb.append("    program: ").append(toIndentedString(program)).append("\n");
+		sb.append("    fund: ").append(toIndentedString(fund)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

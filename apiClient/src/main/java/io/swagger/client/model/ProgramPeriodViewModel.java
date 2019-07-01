@@ -47,6 +47,15 @@ public class ProgramPeriodViewModel
 	@SerializedName("profit")
 	private Double profit = null;
 
+	@SerializedName("balance")
+	private Double balance = null;
+
+	@SerializedName("investors")
+	private Integer investors = null;
+
+	@SerializedName("managerStatistic")
+	private FinancialStatistic managerStatistic = null;
+
 	public ProgramPeriodViewModel dateFrom(DateTime dateFrom) {
 		this.dateFrom = dateFrom;
 		return this;
@@ -142,6 +151,63 @@ public class ProgramPeriodViewModel
 		this.profit = profit;
 	}
 
+	public ProgramPeriodViewModel balance(Double balance) {
+		this.balance = balance;
+		return this;
+	}
+
+	/**
+	 * Get balance
+	 *
+	 * @return balance
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Double balance) {
+		this.balance = balance;
+	}
+
+	public ProgramPeriodViewModel investors(Integer investors) {
+		this.investors = investors;
+		return this;
+	}
+
+	/**
+	 * Get investors
+	 *
+	 * @return investors
+	 **/
+	@ApiModelProperty(value = "")
+	public Integer getInvestors() {
+		return investors;
+	}
+
+	public void setInvestors(Integer investors) {
+		this.investors = investors;
+	}
+
+	public ProgramPeriodViewModel managerStatistic(FinancialStatistic managerStatistic) {
+		this.managerStatistic = managerStatistic;
+		return this;
+	}
+
+	/**
+	 * Get managerStatistic
+	 *
+	 * @return managerStatistic
+	 **/
+	@ApiModelProperty(value = "")
+	public FinancialStatistic getManagerStatistic() {
+		return managerStatistic;
+	}
+
+	public void setManagerStatistic(FinancialStatistic managerStatistic) {
+		this.managerStatistic = managerStatistic;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -155,12 +221,15 @@ public class ProgramPeriodViewModel
 				Objects.equals(this.dateTo, programPeriodViewModel.dateTo) &&
 				Objects.equals(this.status, programPeriodViewModel.status) &&
 				Objects.equals(this.number, programPeriodViewModel.number) &&
-				Objects.equals(this.profit, programPeriodViewModel.profit);
+				Objects.equals(this.profit, programPeriodViewModel.profit) &&
+				Objects.equals(this.balance, programPeriodViewModel.balance) &&
+				Objects.equals(this.investors, programPeriodViewModel.investors) &&
+				Objects.equals(this.managerStatistic, programPeriodViewModel.managerStatistic);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(dateFrom, dateTo, status, number, profit);
+		return Objects.hash(dateFrom, dateTo, status, number, profit, balance, investors, managerStatistic);
 	}
 
 	@Override
@@ -173,6 +242,9 @@ public class ProgramPeriodViewModel
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    number: ").append(toIndentedString(number)).append("\n");
 		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
+		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+		sb.append("    investors: ").append(toIndentedString(investors)).append("\n");
+		sb.append("    managerStatistic: ").append(toIndentedString(managerStatistic)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

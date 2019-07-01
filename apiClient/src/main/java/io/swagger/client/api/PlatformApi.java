@@ -1,6 +1,7 @@
 package io.swagger.client.api;
 
 import io.swagger.client.model.CaptchaDetails;
+import io.swagger.client.model.LevelsParamsInfo;
 import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.PlatformStatistic;
 import io.swagger.client.model.ProgramsLevelsInfo;
@@ -36,6 +37,17 @@ public interface PlatformApi
 	 */
 	@GET("v1.0/platform/levels")
 	Observable<ProgramsLevelsInfo> v10PlatformLevelsGet(
+			@retrofit2.http.Query("currency") String currency
+	);
+
+	/**
+	 * Investment programs levels parameters
+	 *
+	 * @param currency (optional, default to 104)
+	 * @return Call&lt;LevelsParamsInfo&gt;
+	 */
+	@GET("v1.0/platform/levels/parameters")
+	Observable<LevelsParamsInfo> v10PlatformLevelsParametersGet(
 			@retrofit2.http.Query("currency") String currency
 	);
 

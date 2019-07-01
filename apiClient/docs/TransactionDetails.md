@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **convertingDetails** | [**ConvertingDetails**](ConvertingDetails.md) |  |  [optional]
 **externalTransactionDetails** | [**ExternalTransactionDetails**](ExternalTransactionDetails.md) |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
+**signalFees** | [**List&lt;SignalFee&gt;**](SignalFee.md) |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **currencyName** | **String** |  |  [optional]
 **currencyLogo** | **String** |  |  [optional]
@@ -52,12 +53,12 @@ ERROR | &quot;Error&quot;
 ## Enum: CurrencyEnum
 Name | Value
 ---- | -----
-BTC | &quot;BTC&quot;
-ETH | &quot;ETH&quot;
-USDT | &quot;USDT&quot;
-GVT | &quot;GVT&quot;
 UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
+USDT | &quot;USDT&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;
@@ -71,12 +72,12 @@ EUR | &quot;EUR&quot;
 ## Enum: GvCommissionCurrencyEnum
 Name | Value
 ---- | -----
-BTC | &quot;BTC&quot;
-ETH | &quot;ETH&quot;
-USDT | &quot;USDT&quot;
-GVT | &quot;GVT&quot;
 UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
+USDT | &quot;USDT&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;

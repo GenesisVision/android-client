@@ -48,6 +48,9 @@ public class ProgramRequest
 	@SerializedName("valueGvt")
 	private Double valueGvt = null;
 
+	@SerializedName("withdrawAll")
+	private Boolean withdrawAll = null;
+
 	@SerializedName("feeEntry")
 	private Double feeEntry = null;
 
@@ -174,6 +177,25 @@ public class ProgramRequest
 
 	public void setValueGvt(Double valueGvt) {
 		this.valueGvt = valueGvt;
+	}
+
+	public ProgramRequest withdrawAll(Boolean withdrawAll) {
+		this.withdrawAll = withdrawAll;
+		return this;
+	}
+
+	/**
+	 * Get withdrawAll
+	 *
+	 * @return withdrawAll
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isWithdrawAll() {
+		return withdrawAll;
+	}
+
+	public void setWithdrawAll(Boolean withdrawAll) {
+		this.withdrawAll = withdrawAll;
 	}
 
 	public ProgramRequest feeEntry(Double feeEntry) {
@@ -399,6 +421,7 @@ public class ProgramRequest
 				Objects.equals(this.date, programRequest.date) &&
 				Objects.equals(this.value, programRequest.value) &&
 				Objects.equals(this.valueGvt, programRequest.valueGvt) &&
+				Objects.equals(this.withdrawAll, programRequest.withdrawAll) &&
 				Objects.equals(this.feeEntry, programRequest.feeEntry) &&
 				Objects.equals(this.feeExit, programRequest.feeExit) &&
 				Objects.equals(this.currency, programRequest.currency) &&
@@ -414,7 +437,7 @@ public class ProgramRequest
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, programId, date, value, valueGvt, feeEntry, feeExit, currency, fundWithdrawPercent, type, status, logo, title, color, canCancelRequest, programType);
+		return Objects.hash(id, programId, date, value, valueGvt, withdrawAll, feeEntry, feeExit, currency, fundWithdrawPercent, type, status, logo, title, color, canCancelRequest, programType);
 	}
 
 	@Override
@@ -427,6 +450,7 @@ public class ProgramRequest
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("    valueGvt: ").append(toIndentedString(valueGvt)).append("\n");
+		sb.append("    withdrawAll: ").append(toIndentedString(withdrawAll)).append("\n");
 		sb.append("    feeEntry: ").append(toIndentedString(feeEntry)).append("\n");
 		sb.append("    feeExit: ").append(toIndentedString(feeExit)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
@@ -460,17 +484,17 @@ public class ProgramRequest
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 

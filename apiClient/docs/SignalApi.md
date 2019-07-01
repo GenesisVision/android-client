@@ -1,6 +1,6 @@
 # SignalApi
 
-All URIs are relative to *https://localhost*
+All URIs are relative to *https://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**v10SignalDetachByIdPost**](SignalApi.md#v10SignalDetachByIdPost) | **POST** v1.0/signal/detach/{id} | Unsubscribe from program signals
 [**v10SignalTradesByIdClosePost**](SignalApi.md#v10SignalTradesByIdClosePost) | **POST** v1.0/signal/trades/{id}/close | Close signal trade
 [**v10SignalTradesGet**](SignalApi.md#v10SignalTradesGet) | **GET** v1.0/signal/trades | Get investors signals trades history
+[**v10SignalTradesLogGet**](SignalApi.md#v10SignalTradesLogGet) | **GET** v1.0/signal/trades/log | Get investors signals trading log
 [**v10SignalTradesOpenGet**](SignalApi.md#v10SignalTradesOpenGet) | **GET** v1.0/signal/trades/open | Get investors signals open trades
 
 
@@ -292,7 +293,7 @@ No authorization required
 
 <a name="v10SignalTradesGet"></a>
 # **v10SignalTradesGet**
-> TradesSignalViewModel v10SignalTradesGet(authorization, dateFrom, dateTo, symbol, sorting, accountId, skip, take)
+> TradesSignalViewModel v10SignalTradesGet(authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take)
 
 Get investors signals trades history
 
@@ -310,10 +311,11 @@ DateTime dateTo = new DateTime(); // DateTime |
 String symbol = "symbol_example"; // String | 
 String sorting = "sorting_example"; // String | 
 UUID accountId = new UUID(); // UUID | 
+String accountCurrency = "accountCurrency_example"; // String | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    TradesSignalViewModel result = apiInstance.v10SignalTradesGet(authorization, dateFrom, dateTo, symbol, sorting, accountId, skip, take);
+    TradesSignalViewModel result = apiInstance.v10SignalTradesGet(authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling SignalApi#v10SignalTradesGet");
@@ -331,6 +333,7 @@ Name | Type | Description  | Notes
  **symbol** | **String**|  | [optional]
  **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
  **accountId** | [**UUID**](.md)|  | [optional]
+ **accountCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -347,9 +350,60 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="v10SignalTradesLogGet"></a>
+# **v10SignalTradesLogGet**
+> SignalTradingEvents v10SignalTradesLogGet(authorization, accountId, accountCurrency, skip, take)
+
+Get investors signals trading log
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.SignalApi;
+
+
+SignalApi apiInstance = new SignalApi();
+String authorization = "authorization_example"; // String | JWT access token
+UUID accountId = new UUID(); // UUID | 
+String accountCurrency = "accountCurrency_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    SignalTradingEvents result = apiInstance.v10SignalTradesLogGet(authorization, accountId, accountCurrency, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SignalApi#v10SignalTradesLogGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **accountId** | [**UUID**](.md)|  | [optional]
+ **accountCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**SignalTradingEvents**](SignalTradingEvents.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="v10SignalTradesOpenGet"></a>
 # **v10SignalTradesOpenGet**
-> TradesSignalViewModel v10SignalTradesOpenGet(authorization, sorting, symbol, accountId, skip, take)
+> TradesSignalViewModel v10SignalTradesOpenGet(authorization, sorting, symbol, accountId, accountCurrency, skip, take)
 
 Get investors signals open trades
 
@@ -365,10 +419,11 @@ String authorization = "authorization_example"; // String | JWT access token
 String sorting = "sorting_example"; // String | 
 String symbol = "symbol_example"; // String | 
 UUID accountId = new UUID(); // UUID | 
+String accountCurrency = "accountCurrency_example"; // String | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    TradesSignalViewModel result = apiInstance.v10SignalTradesOpenGet(authorization, sorting, symbol, accountId, skip, take);
+    TradesSignalViewModel result = apiInstance.v10SignalTradesOpenGet(authorization, sorting, symbol, accountId, accountCurrency, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling SignalApi#v10SignalTradesOpenGet");
@@ -384,6 +439,7 @@ Name | Type | Description  | Notes
  **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
  **symbol** | **String**|  | [optional]
  **accountId** | [**UUID**](.md)|  | [optional]
+ **accountCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

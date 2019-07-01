@@ -45,7 +45,7 @@ public class SignalsManager
 		return signalApi.v10SignalAccountsGet(AuthManager.token.getValue());
 	}
 
-	public Observable<TradesSignalViewModel> getOpenTrades(String sorting, String symbol, UUID accountId, Integer skip, Integer take) {
-		return signalApi.v10SignalTradesOpenGet(AuthManager.token.getValue(), sorting, symbol, accountId, skip, take);
+	public Observable<TradesSignalViewModel> getOpenTrades(String sorting, String symbol, UUID accountId, String accountCurrency, Integer skip, Integer take) {
+		return signalApi.v10SignalTradesOpenGet(AuthManager.token.getValue(), sorting, symbol, accountId, accountCurrency, skip, take);
 	}
 }

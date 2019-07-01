@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **periodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
 **availableInvestment** | **Double** | In GVT |  [optional]
 **availableInvestmentBase** | **Double** | In account currency |  [optional]
+**availableInvestmentLimit** | **Double** |  |  [optional]
 **dashboardAssetsDetails** | [**DashboardProgramDetails**](DashboardProgramDetails.md) | Fields for dashboard |  [optional]
 **statistic** | [**ProgramDetailsListStatistic**](ProgramDetailsListStatistic.md) |  |  [optional]
 **rating** | [**ProgramDetailsRating**](ProgramDetailsRating.md) |  |  [optional]
@@ -34,12 +35,12 @@ Name | Type | Description | Notes
 ## Enum: CurrencyEnum
 Name | Value
 ---- | -----
-BTC | &quot;BTC&quot;
-ETH | &quot;ETH&quot;
-USDT | &quot;USDT&quot;
-GVT | &quot;GVT&quot;
 UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
 ADA | &quot;ADA&quot;
+USDT | &quot;USDT&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;

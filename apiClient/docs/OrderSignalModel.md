@@ -4,8 +4,11 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tradingFee** | [**OrderTradingFee**](OrderTradingFee.md) |  |  [optional]
 **providers** | [**List&lt;OrderSignalProgramInfo&gt;**](OrderSignalProgramInfo.md) |  |  [optional]
+**totalCommission** | **Double** |  |  [optional]
+**totalCommissionByType** | [**List&lt;TotalCommission&gt;**](TotalCommission.md) |  |  [optional]
+**tradingAccountId** | [**UUID**](UUID.md) |  |  [optional]
+**currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **login** | **String** |  |  [optional]
 **ticket** | **String** |  |  [optional]
@@ -24,6 +27,25 @@ Name | Type | Description | Notes
 **swap** | **Double** |  |  [optional]
 **showOriginalCommission** | **Boolean** |  |  [optional]
 **signalData** | [**OrderModelSignalData**](OrderModelSignalData.md) | For signals |  [optional]
+
+
+<a name="CurrencyEnum"></a>
+## Enum: CurrencyEnum
+Name | Value
+---- | -----
+UNDEFINED | &quot;Undefined&quot;
+GVT | &quot;GVT&quot;
+ETH | &quot;ETH&quot;
+BTC | &quot;BTC&quot;
+ADA | &quot;ADA&quot;
+USDT | &quot;USDT&quot;
+XRP | &quot;XRP&quot;
+BCH | &quot;BCH&quot;
+LTC | &quot;LTC&quot;
+DOGE | &quot;DOGE&quot;
+BNB | &quot;BNB&quot;
+USD | &quot;USD&quot;
+EUR | &quot;EUR&quot;
 
 
 <a name="DirectionEnum"></a>

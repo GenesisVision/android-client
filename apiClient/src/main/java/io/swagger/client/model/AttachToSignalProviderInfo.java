@@ -192,17 +192,17 @@ public class AttachToSignalProviderInfo
 	@JsonAdapter(MinDepositCurrencyEnum.Adapter.class)
 	public enum MinDepositCurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 

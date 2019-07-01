@@ -62,6 +62,9 @@ public class ProgramDetails
 	@SerializedName("availableInvestmentBase")
 	private Double availableInvestmentBase = null;
 
+	@SerializedName("availableInvestmentLimit")
+	private Double availableInvestmentLimit = null;
+
 	@SerializedName("dashboardAssetsDetails")
 	private DashboardProgramDetails dashboardAssetsDetails = null;
 
@@ -276,6 +279,25 @@ public class ProgramDetails
 
 	public void setAvailableInvestmentBase(Double availableInvestmentBase) {
 		this.availableInvestmentBase = availableInvestmentBase;
+	}
+
+	public ProgramDetails availableInvestmentLimit(Double availableInvestmentLimit) {
+		this.availableInvestmentLimit = availableInvestmentLimit;
+		return this;
+	}
+
+	/**
+	 * Get availableInvestmentLimit
+	 *
+	 * @return availableInvestmentLimit
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getAvailableInvestmentLimit() {
+		return availableInvestmentLimit;
+	}
+
+	public void setAvailableInvestmentLimit(Double availableInvestmentLimit) {
+		this.availableInvestmentLimit = availableInvestmentLimit;
 	}
 
 	public ProgramDetails dashboardAssetsDetails(DashboardProgramDetails dashboardAssetsDetails) {
@@ -597,6 +619,7 @@ public class ProgramDetails
 				Objects.equals(this.periodEnds, programDetails.periodEnds) &&
 				Objects.equals(this.availableInvestment, programDetails.availableInvestment) &&
 				Objects.equals(this.availableInvestmentBase, programDetails.availableInvestmentBase) &&
+				Objects.equals(this.availableInvestmentLimit, programDetails.availableInvestmentLimit) &&
 				Objects.equals(this.dashboardAssetsDetails, programDetails.dashboardAssetsDetails) &&
 				Objects.equals(this.statistic, programDetails.statistic) &&
 				Objects.equals(this.rating, programDetails.rating) &&
@@ -616,7 +639,7 @@ public class ProgramDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, level, levelProgress, periodDuration, stopOutLevel, periodStarts, periodEnds, availableInvestment, availableInvestmentBase, dashboardAssetsDetails, statistic, rating, personalDetails, tags, id, logo, url, color, title, description, status, creationDate, manager, chart);
+		return Objects.hash(currency, level, levelProgress, periodDuration, stopOutLevel, periodStarts, periodEnds, availableInvestment, availableInvestmentBase, availableInvestmentLimit, dashboardAssetsDetails, statistic, rating, personalDetails, tags, id, logo, url, color, title, description, status, creationDate, manager, chart);
 	}
 
 	@Override
@@ -633,6 +656,7 @@ public class ProgramDetails
 		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
 		sb.append("    availableInvestment: ").append(toIndentedString(availableInvestment)).append("\n");
 		sb.append("    availableInvestmentBase: ").append(toIndentedString(availableInvestmentBase)).append("\n");
+		sb.append("    availableInvestmentLimit: ").append(toIndentedString(availableInvestmentLimit)).append("\n");
 		sb.append("    dashboardAssetsDetails: ").append(toIndentedString(dashboardAssetsDetails)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    rating: ").append(toIndentedString(rating)).append("\n");
@@ -670,17 +694,17 @@ public class ProgramDetails
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		BTC("BTC"),
-
-		ETH("ETH"),
-
-		USDT("USDT"),
+		UNDEFINED("Undefined"),
 
 		GVT("GVT"),
 
-		UNDEFINED("Undefined"),
+		ETH("ETH"),
+
+		BTC("BTC"),
 
 		ADA("ADA"),
+
+		USDT("USDT"),
 
 		XRP("XRP"),
 

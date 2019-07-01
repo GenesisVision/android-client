@@ -42,8 +42,11 @@ public class OrderSignalProgramInfo
 	@SerializedName("volume")
 	private Double volume = null;
 
-	@SerializedName("priceCurrent")
-	private Double priceCurrent = null;
+	@SerializedName("priceOpenAvg")
+	private Double priceOpenAvg = null;
+
+	@SerializedName("profit")
+	private Double profit = null;
 
 	@SerializedName("firstOrderDate")
 	private DateTime firstOrderDate = null;
@@ -127,23 +130,42 @@ public class OrderSignalProgramInfo
 		this.volume = volume;
 	}
 
-	public OrderSignalProgramInfo priceCurrent(Double priceCurrent) {
-		this.priceCurrent = priceCurrent;
+	public OrderSignalProgramInfo priceOpenAvg(Double priceOpenAvg) {
+		this.priceOpenAvg = priceOpenAvg;
 		return this;
 	}
 
 	/**
-	 * Get priceCurrent
+	 * Get priceOpenAvg
 	 *
-	 * @return priceCurrent
+	 * @return priceOpenAvg
 	 **/
 	@ApiModelProperty(value = "")
-	public Double getPriceCurrent() {
-		return priceCurrent;
+	public Double getPriceOpenAvg() {
+		return priceOpenAvg;
 	}
 
-	public void setPriceCurrent(Double priceCurrent) {
-		this.priceCurrent = priceCurrent;
+	public void setPriceOpenAvg(Double priceOpenAvg) {
+		this.priceOpenAvg = priceOpenAvg;
+	}
+
+	public OrderSignalProgramInfo profit(Double profit) {
+		this.profit = profit;
+		return this;
+	}
+
+	/**
+	 * Get profit
+	 *
+	 * @return profit
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProfit() {
+		return profit;
+	}
+
+	public void setProfit(Double profit) {
+		this.profit = profit;
 	}
 
 	public OrderSignalProgramInfo firstOrderDate(DateTime firstOrderDate) {
@@ -206,14 +228,15 @@ public class OrderSignalProgramInfo
 				Objects.equals(this.program, orderSignalProgramInfo.program) &&
 				Objects.equals(this.programId, orderSignalProgramInfo.programId) &&
 				Objects.equals(this.volume, orderSignalProgramInfo.volume) &&
-				Objects.equals(this.priceCurrent, orderSignalProgramInfo.priceCurrent) &&
+				Objects.equals(this.priceOpenAvg, orderSignalProgramInfo.priceOpenAvg) &&
+				Objects.equals(this.profit, orderSignalProgramInfo.profit) &&
 				Objects.equals(this.firstOrderDate, orderSignalProgramInfo.firstOrderDate) &&
 				Objects.equals(this.fees, orderSignalProgramInfo.fees);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(manager, program, programId, volume, priceCurrent, firstOrderDate, fees);
+		return Objects.hash(manager, program, programId, volume, priceOpenAvg, profit, firstOrderDate, fees);
 	}
 
 
@@ -226,7 +249,8 @@ public class OrderSignalProgramInfo
 		sb.append("    program: ").append(toIndentedString(program)).append("\n");
 		sb.append("    programId: ").append(toIndentedString(programId)).append("\n");
 		sb.append("    volume: ").append(toIndentedString(volume)).append("\n");
-		sb.append("    priceCurrent: ").append(toIndentedString(priceCurrent)).append("\n");
+		sb.append("    priceOpenAvg: ").append(toIndentedString(priceOpenAvg)).append("\n");
+		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
 		sb.append("    firstOrderDate: ").append(toIndentedString(firstOrderDate)).append("\n");
 		sb.append("    fees: ").append(toIndentedString(fees)).append("\n");
 		sb.append("}");

@@ -50,7 +50,7 @@ public class DashboardOpenTradesPresenter extends MvpPresenter<DashboardOpenTrad
 
 	private void getSignalProviders() {
 		if (signalsManager != null)
-			getOpenTradesSubscription = signalsManager.getOpenTrades("", "", null, 0, 100)
+			getOpenTradesSubscription = signalsManager.getOpenTrades("", "", null, null, 0, 100)
 					.subscribeOn(Schedulers.computation())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handleGetOpenTradesSuccess,

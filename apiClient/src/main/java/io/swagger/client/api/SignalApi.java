@@ -8,6 +8,7 @@ import io.swagger.client.model.AttachToSignalProvider;
 import io.swagger.client.model.AttachToSignalProviderInfo;
 import io.swagger.client.model.CopyTradingAccountsList;
 import io.swagger.client.model.DetachFromSignalProvider;
+import io.swagger.client.model.SignalTradingEvents;
 import io.swagger.client.model.TradesSignalViewModel;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -103,35 +104,52 @@ public interface SignalApi
 	/**
 	 * Get investors signals trades history
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param dateFrom      (optional)
-	 * @param dateTo        (optional)
-	 * @param symbol        (optional)
-	 * @param sorting       (optional)
-	 * @param accountId     (optional)
-	 * @param skip          (optional)
-	 * @param take          (optional)
+	 * @param authorization   JWT access token (required)
+	 * @param dateFrom        (optional)
+	 * @param dateTo          (optional)
+	 * @param symbol          (optional)
+	 * @param sorting         (optional)
+	 * @param accountId       (optional)
+	 * @param accountCurrency (optional)
+	 * @param skip            (optional)
+	 * @param take            (optional)
 	 * @return Call&lt;TradesSignalViewModel&gt;
 	 */
 	@GET("v1.0/signal/trades")
 	Observable<TradesSignalViewModel> v10SignalTradesGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Get investors signals trading log
+	 *
+	 * @param authorization   JWT access token (required)
+	 * @param accountId       (optional)
+	 * @param accountCurrency (optional)
+	 * @param skip            (optional)
+	 * @param take            (optional)
+	 * @return Call&lt;SignalTradingEvents&gt;
+	 */
+	@GET("v1.0/signal/trades/log")
+	Observable<SignalTradingEvents> v10SignalTradesLogGet(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
 	 * Get investors signals open trades
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param sorting       (optional)
-	 * @param symbol        (optional)
-	 * @param accountId     (optional)
-	 * @param skip          (optional)
-	 * @param take          (optional)
+	 * @param authorization   JWT access token (required)
+	 * @param sorting         (optional)
+	 * @param symbol          (optional)
+	 * @param accountId       (optional)
+	 * @param accountCurrency (optional)
+	 * @param skip            (optional)
+	 * @param take            (optional)
 	 * @return Call&lt;TradesSignalViewModel&gt;
 	 */
 	@GET("v1.0/signal/trades/open")
 	Observable<TradesSignalViewModel> v10SignalTradesOpenGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 }

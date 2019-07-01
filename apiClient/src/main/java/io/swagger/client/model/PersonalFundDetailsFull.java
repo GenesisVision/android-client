@@ -86,6 +86,9 @@ public class PersonalFundDetailsFull
 	@SerializedName("pendingOutput")
 	private Double pendingOutput = null;
 
+	@SerializedName("pendingOutputIsWithdrawAll")
+	private Boolean pendingOutputIsWithdrawAll = null;
+
 	@SerializedName("status")
 	private StatusEnum status = null;
 
@@ -422,6 +425,25 @@ public class PersonalFundDetailsFull
 		this.pendingOutput = pendingOutput;
 	}
 
+	public PersonalFundDetailsFull pendingOutputIsWithdrawAll(Boolean pendingOutputIsWithdrawAll) {
+		this.pendingOutputIsWithdrawAll = pendingOutputIsWithdrawAll;
+		return this;
+	}
+
+	/**
+	 * Get pendingOutputIsWithdrawAll
+	 *
+	 * @return pendingOutputIsWithdrawAll
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isPendingOutputIsWithdrawAll() {
+		return pendingOutputIsWithdrawAll;
+	}
+
+	public void setPendingOutputIsWithdrawAll(Boolean pendingOutputIsWithdrawAll) {
+		this.pendingOutputIsWithdrawAll = pendingOutputIsWithdrawAll;
+	}
+
 	public PersonalFundDetailsFull status(StatusEnum status) {
 		this.status = status;
 		return this;
@@ -468,12 +490,13 @@ public class PersonalFundDetailsFull
 				Objects.equals(this.invested, personalFundDetailsFull.invested) &&
 				Objects.equals(this.pendingInput, personalFundDetailsFull.pendingInput) &&
 				Objects.equals(this.pendingOutput, personalFundDetailsFull.pendingOutput) &&
+				Objects.equals(this.pendingOutputIsWithdrawAll, personalFundDetailsFull.pendingOutputIsWithdrawAll) &&
 				Objects.equals(this.status, personalFundDetailsFull.status);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(withdrawPercent, canReallocate, possibleReallocationTime, isFavorite, isInvested, isOwnProgram, canCloseProgram, canCloseAsset, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, status);
+		return Objects.hash(withdrawPercent, canReallocate, possibleReallocationTime, isFavorite, isInvested, isOwnProgram, canCloseProgram, canCloseAsset, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, pendingOutputIsWithdrawAll, status);
 	}
 
 	@Override
@@ -499,6 +522,7 @@ public class PersonalFundDetailsFull
 		sb.append("    invested: ").append(toIndentedString(invested)).append("\n");
 		sb.append("    pendingInput: ").append(toIndentedString(pendingInput)).append("\n");
 		sb.append("    pendingOutput: ").append(toIndentedString(pendingOutput)).append("\n");
+		sb.append("    pendingOutputIsWithdrawAll: ").append(toIndentedString(pendingOutputIsWithdrawAll)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("}");
 		return sb.toString();

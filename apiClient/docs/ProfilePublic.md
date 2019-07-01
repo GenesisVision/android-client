@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **avatar** | **String** |  |  [optional]
 **registrationDate** | [**DateTime**](DateTime.md) |  |  [optional]
 **url** | **String** |  |  [optional]
+**socialLinks** | [**List&lt;SocialLinkViewModel&gt;**](SocialLinkViewModel.md) |  |  [optional]
 
 
 

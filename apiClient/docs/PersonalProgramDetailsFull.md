@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **notificationAvailableToInvestId** | [**UUID**](UUID.md) |  |  [optional]
 **canMakeSignalProvider** | **Boolean** |  |  [optional]
 **canChangePassword** | **Boolean** |  |  [optional]
+**migration** | [**MigrationRequest**](MigrationRequest.md) |  |  [optional]
 **isFavorite** | **Boolean** |  |  [optional]
 **isInvested** | **Boolean** |  |  [optional]
 **isOwnProgram** | **Boolean** |  |  [optional]
@@ -27,6 +28,7 @@ Name | Type | Description | Notes
 **invested** | **Double** |  |  [optional]
 **pendingInput** | **Double** |  |  [optional]
 **pendingOutput** | **Double** |  |  [optional]
+**pendingOutputIsWithdrawAll** | **Boolean** |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
 
 

@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import java.util.List;
 import java.util.UUID;
 
+import io.swagger.client.model.ChangeBrokerProgramRequest;
 import io.swagger.client.model.FundAssetPart;
 import io.swagger.client.model.FundInvestInfo;
 import io.swagger.client.model.FundsList;
@@ -19,6 +20,7 @@ import io.swagger.client.model.ManagerProgramWithdrawInfo;
 import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.NewProgramRequest;
 import io.swagger.client.model.ProgramInvestInfo;
+import io.swagger.client.model.ProgramLevelInfo;
 import io.swagger.client.model.ProgramMinimumDeposit;
 import io.swagger.client.model.ProgramPwdUpdate;
 import io.swagger.client.model.ProgramRequests;
@@ -298,6 +300,33 @@ public interface ManagerApi
 	);
 
 	/**
+	 * Cancel changing broker in existing program
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param programId     (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v1.0/manager/programs/broker/change/cancel")
+	Observable<Void> v10ManagerProgramsBrokerChangeCancelPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("programId") UUID programId
+	);
+
+	/**
+	 * Change broker in existing program
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param request       (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v1.0/manager/programs/broker/change")
+	Observable<Void> v10ManagerProgramsBrokerChangePost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ChangeBrokerProgramRequest request
+	);
+
+	/**
 	 * Close existing investment program
 	 *
 	 * @param id            (required)
@@ -335,6 +364,18 @@ public interface ManagerApi
 	@GET("v1.0/manager/programs/{id}/invest/info/{currency}")
 	Observable<ProgramInvestInfo> v10ManagerProgramsByIdInvestInfoByCurrencyGet(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("currency") String currency, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Get program data for levels calculator
+	 *
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;ProgramLevelInfo&gt;
+	 */
+	@GET("v1.0/manager/programs/{id}/levels/info")
+	Observable<ProgramLevelInfo> v10ManagerProgramsByIdLevelsInfoGet(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**

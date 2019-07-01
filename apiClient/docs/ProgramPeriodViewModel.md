@@ -9,6 +9,9 @@ Name | Type | Description | Notes
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
 **number** | **Integer** |  |  [optional]
 **profit** | **Double** |  |  [optional]
+**balance** | **Double** |  |  [optional]
+**investors** | **Integer** |  |  [optional]
+**managerStatistic** | [**FinancialStatistic**](FinancialStatistic.md) |  |  [optional]
 
 
 <a name="StatusEnum"></a>
