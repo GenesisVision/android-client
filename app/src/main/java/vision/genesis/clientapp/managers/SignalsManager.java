@@ -6,6 +6,7 @@ import io.swagger.client.api.SignalApi;
 import io.swagger.client.model.AttachToSignalProviderInfo;
 import io.swagger.client.model.CopyTradingAccountsList;
 import io.swagger.client.model.DetachFromSignalProvider;
+import io.swagger.client.model.TradesSignalViewModel;
 import rx.Observable;
 import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 
@@ -42,5 +43,9 @@ public class SignalsManager
 
 	public Observable<CopyTradingAccountsList> getAccounts() {
 		return signalApi.v10SignalAccountsGet(AuthManager.token.getValue());
+	}
+
+	public Observable<TradesSignalViewModel> getOpenTrades(String sorting, String symbol, UUID accountId, Integer skip, Integer take) {
+		return signalApi.v10SignalTradesOpenGet(AuthManager.token.getValue(), sorting, symbol, accountId, skip, take);
 	}
 }

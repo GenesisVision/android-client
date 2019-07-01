@@ -28,7 +28,9 @@ import vision.genesis.clientapp.feature.main.dashboard.investor.InvestorDashboar
 import vision.genesis.clientapp.feature.main.dashboard.investor.copytrading.DashboardCopytradingPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.investor.funds.DashboardFundsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.investor.header.InvestorDashboardHeaderPortfolioPresenter;
+import vision.genesis.clientapp.feature.main.dashboard.investor.open_trades.DashboardOpenTradesPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.investor.programs.DashboardProgramsPresenter;
+import vision.genesis.clientapp.feature.main.dashboard.investor.trades_history.DashboardTradesHistoryPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.manager.ManagerDashboardPresenter;
 import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsPresenter;
@@ -272,4 +274,8 @@ public interface AppComponent
 	void inject(CopytradingAccountDetailsPresenter copytradingAccountDetailsPresenter);
 
 	void inject(DashboardCopytradingPresenter dashboardCopytradingPresenter);
+
+	void inject(DashboardOpenTradesPresenter dashboardOpenTradesPresenter);
+
+	void inject(DashboardTradesHistoryPresenter dashboardTradesHistoryPresenter);
 }

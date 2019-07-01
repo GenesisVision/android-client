@@ -213,6 +213,10 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 	private TabLayout.Tab copytradingTab;
 
+	private TabLayout.Tab openTradesTab;
+
+	private TabLayout.Tab tradesHistoryTab;
+
 	@OnClick(R.id.group_notifications)
 	public void onNotificationsClicked() {
 		if (getActivity() != null)
@@ -415,6 +419,8 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 		programsTab = tabLayoutAssets.newTab().setCustomView(getTabView(R.string.programs)).setTag("programs");
 		fundsTab = tabLayoutAssets.newTab().setCustomView(getTabView(R.string.funds)).setTag("funds");
 		copytradingTab = tabLayoutAssets.newTab().setCustomView(getTabView(R.string.copytrading)).setTag("copytrading");
+		openTradesTab = tabLayoutAssets.newTab().setCustomView(getTabView(R.string.open_trades)).setTag("open_trades");
+		tradesHistoryTab = tabLayoutAssets.newTab().setCustomView(getTabView(R.string.trades_history)).setTag("trades_history");
 
 		assetsTabSelectedListener = new TabLayout.OnTabSelectedListener()
 		{
@@ -446,6 +452,8 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 		addTab(tabLayoutAssets, assetsPagerAdapter, programsTab, true);
 		addTab(tabLayoutAssets, assetsPagerAdapter, fundsTab, false);
 		addTab(tabLayoutAssets, assetsPagerAdapter, copytradingTab, false);
+		addTab(tabLayoutAssets, assetsPagerAdapter, openTradesTab, false);
+		addTab(tabLayoutAssets, assetsPagerAdapter, tradesHistoryTab, false);
 
 	}
 
