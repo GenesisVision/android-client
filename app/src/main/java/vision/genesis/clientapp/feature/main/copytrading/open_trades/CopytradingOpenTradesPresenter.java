@@ -13,6 +13,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.SignalsManager;
+import vision.genesis.clientapp.model.events.SetCopytradingAccountOpenTradesCountEvent;
 import vision.genesis.clientapp.model.events.SetDashboardOpenTradesCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -29,6 +30,10 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 
 	private Subscription getOpenTradesSubscription;
 
+	private String location;
+
+	private String accountCurrency;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -44,13 +49,20 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 		super.onDestroy();
 	}
 
+	void setData(String location, String accountCurrency) {
+		this.location = location;
+		this.accountCurrency = accountCurrency;
+
+		getOpenTrades();
+	}
+
 	void onShow() {
 		getOpenTrades();
 	}
 
 	private void getOpenTrades() {
-		if (signalsManager != null)
-			getOpenTradesSubscription = signalsManager.getOpenTrades("", "", null, null, 0, 100)
+		if (signalsManager != null && location != null)
+			getOpenTradesSubscription = signalsManager.getOpenTrades("", "", null, accountCurrency, 0, 1000)
 					.subscribeOn(Schedulers.computation())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handleGetOpenTradesSuccess,
@@ -63,7 +75,11 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 		getViewState().showProgressBar(false);
 
 		getViewState().setOpenTrades(response.getTrades());
-		EventBus.getDefault().post(new SetDashboardOpenTradesCountEvent(response.getTotal()));
+
+		if (location.equals(CopytradingOpenTradesFragment.LOCATION_DASHBOARD))
+			EventBus.getDefault().post(new SetDashboardOpenTradesCountEvent(response.getTotal()));
+		else if (location.equals(CopytradingOpenTradesFragment.LOCATION_COPYTRADING_ACCOUNT))
+			EventBus.getDefault().post(new SetCopytradingAccountOpenTradesCountEvent(response.getTotal()));
 	}
 
 	private void handleGetOpenTradesError(Throwable throwable) {

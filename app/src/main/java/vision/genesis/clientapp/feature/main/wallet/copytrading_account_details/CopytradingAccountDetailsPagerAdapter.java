@@ -5,8 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import vision.genesis.clientapp.feature.main.wallet.external_transactions.ExternalTransactionsFragment;
-import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsFragment;
+import vision.genesis.clientapp.feature.main.copytrading.open_trades.CopytradingOpenTradesFragment;
+import vision.genesis.clientapp.feature.main.copytrading.trades_history.CopytradingTradesHistoryFragment;
 
 /**
  * GenesisVisionAndroid
@@ -22,17 +22,17 @@ public class CopytradingAccountDetailsPagerAdapter extends FragmentStatePagerAda
 		void pagerHide();
 	}
 
-	private TransactionsFragment openTradesFragment;
+	private CopytradingOpenTradesFragment openTradesFragment;
 
-	private ExternalTransactionsFragment tradesHistoryFragment;
+	private CopytradingTradesHistoryFragment tradesHistoryFragment;
 
 	private TabLayout tabLayout;
 
-	CopytradingAccountDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, String accountId) {
+	CopytradingAccountDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, String accountCurrency) {
 		super(fm);
 		this.tabLayout = tabLayout;
-		openTradesFragment = TransactionsFragment.with(TransactionsFragment.LOCATION_SPECIFIC_WALLET, accountId);
-		tradesHistoryFragment = ExternalTransactionsFragment.with(ExternalTransactionsFragment.LOCATION_SPECIFIC_WALLET, accountId);
+		openTradesFragment = CopytradingOpenTradesFragment.with(CopytradingOpenTradesFragment.LOCATION_COPYTRADING_ACCOUNT, accountCurrency);
+		tradesHistoryFragment = CopytradingTradesHistoryFragment.with(CopytradingTradesHistoryFragment.LOCATION_COPYTRADING_ACCOUNT, accountCurrency);
 	}
 
 	@Override
@@ -61,12 +61,11 @@ public class CopytradingAccountDetailsPagerAdapter extends FragmentStatePagerAda
 	}
 
 	public void sendSwipeRefresh() {
-		openTradesFragment.onSwipeRefresh();
 		tradesHistoryFragment.onSwipeRefresh();
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
-		openTradesFragment.onOffsetChanged(verticalOffset);
-		tradesHistoryFragment.onOffsetChanged(verticalOffset);
+//		openTradesFragment.onOffsetChanged(verticalOffset);
+//		tradesHistoryFragment.onOffsetChanged(verticalOffset);
 	}
 }

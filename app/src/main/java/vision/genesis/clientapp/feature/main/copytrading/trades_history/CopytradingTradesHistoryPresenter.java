@@ -19,6 +19,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.managers.SignalsManager;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.events.SetCopytradingAccountTradesHistoryCountEvent;
 import vision.genesis.clientapp.model.events.SetDashboardTradesHistoryCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -48,6 +49,10 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 
 	private List<OrderSignalModel> trades = new ArrayList<>();
 
+	private String location;
+
+	private String accountCurrency;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -65,6 +70,13 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 			getTradesHistorySubscription.unsubscribe();
 
 		super.onDestroy();
+	}
+
+	void setData(String location, String accountCurrency) {
+		this.location = location;
+		this.accountCurrency = accountCurrency;
+
+		getTradesHistory(true);
 	}
 
 	void onShow() {
@@ -98,7 +110,7 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 			if (forceUpdate) {
 				skip = 0;
 			}
-			getTradesHistorySubscription = signalsManager.getTradesHistory(dateRange, "", "", null, null, skip, TAKE)
+			getTradesHistorySubscription = signalsManager.getTradesHistory(dateRange, "", "", null, accountCurrency, skip, TAKE)
 					.subscribeOn(Schedulers.computation())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handleGetTradesHistorySuccess,
@@ -114,7 +126,10 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 			trades.clear();
 		}
 
-		EventBus.getDefault().post(new SetDashboardTradesHistoryCountEvent(response.getTotal()));
+		if (location.equals(CopytradingTradesHistoryFragment.LOCATION_DASHBOARD))
+			EventBus.getDefault().post(new SetDashboardTradesHistoryCountEvent(response.getTotal()));
+		else if (location.equals(CopytradingTradesHistoryFragment.LOCATION_COPYTRADING_ACCOUNT))
+			EventBus.getDefault().post(new SetCopytradingAccountTradesHistoryCountEvent(response.getTotal()));
 
 		List<OrderSignalModel> newTrades = response.getTrades();
 		trades.addAll(newTrades);

@@ -301,8 +301,8 @@ public class CopytradingAccountDetailsActivity extends BaseSwipeBackActivity imp
 			pagerAdapter.notifyDataSetChanged();
 	}
 
-	private void initViewPager(String walletCurrency) {
-		pagerAdapter = new CopytradingAccountDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, walletCurrency);
+	private void initViewPager(String accountCurrency) {
+		pagerAdapter = new CopytradingAccountDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, accountCurrency);
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOffscreenPageLimit(2);
 

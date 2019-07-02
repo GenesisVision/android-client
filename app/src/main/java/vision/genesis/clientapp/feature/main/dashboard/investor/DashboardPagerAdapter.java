@@ -43,8 +43,8 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 		programsFragment = DashboardProgramsFragment.with();
 		fundsFragment = DashboardFundsFragment.with();
 		copytradingFragment = DashboardCopytradingFragment.with();
-		openTradesFragment = CopytradingOpenTradesFragment.with();
-		tradesHistoryFragment = CopytradingTradesHistoryFragment.with();
+		openTradesFragment = CopytradingOpenTradesFragment.with(CopytradingOpenTradesFragment.LOCATION_DASHBOARD, null);
+		tradesHistoryFragment = CopytradingTradesHistoryFragment.with(CopytradingTradesHistoryFragment.LOCATION_DASHBOARD, null);
 	}
 
 	@Override

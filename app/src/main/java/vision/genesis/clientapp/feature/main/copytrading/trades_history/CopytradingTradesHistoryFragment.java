@@ -2,6 +2,7 @@ package vision.genesis.clientapp.feature.main.copytrading.trades_history;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.OrderSignalModel;
+import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.DashboardPagerAdapter;
@@ -28,9 +30,19 @@ import vision.genesis.clientapp.feature.main.dashboard.investor.DashboardPagerAd
 
 public class CopytradingTradesHistoryFragment extends BaseFragment implements CopytradingTradesHistoryView, DashboardPagerAdapter.OnPageVisibilityChanged
 {
-	public static CopytradingTradesHistoryFragment with() {
+	public static final String LOCATION_COPYTRADING_ACCOUNT = "location_copytrading_account";
+
+	public static final String LOCATION_DASHBOARD = "location_dashboard";
+
+	private static final String EXTRA_LOCATION = "extra_location";
+
+	private static final String EXTRA_ACCOUNT_CURRENCY = "extra_account_currency";
+
+	public static CopytradingTradesHistoryFragment with(@NonNull String location, @Nullable String accountCurrency) {
 		CopytradingTradesHistoryFragment copytradingTradesHistoryFragment = new CopytradingTradesHistoryFragment();
-		Bundle arguments = new Bundle(1);
+		Bundle arguments = new Bundle(2);
+		arguments.putString(EXTRA_LOCATION, location);
+		arguments.putString(EXTRA_ACCOUNT_CURRENCY, accountCurrency);
 		copytradingTradesHistoryFragment.setArguments(arguments);
 		return copytradingTradesHistoryFragment;
 	}
@@ -65,7 +77,17 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 			emptyGroup.setNestedScrollingEnabled(true);
 		}
 
-		initRecyclerView();
+		if (getArguments() != null) {
+			String location = getArguments().getString(EXTRA_LOCATION);
+			String accountCurrency = getArguments().getString(EXTRA_ACCOUNT_CURRENCY);
+			copytradingTradesHistoryPresenter.setData(location, accountCurrency);
+
+			initRecyclerView();
+		}
+		else {
+			Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
+			onBackPressed();
+		}
 	}
 
 	@Override
