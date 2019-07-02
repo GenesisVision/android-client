@@ -5,11 +5,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import vision.genesis.clientapp.feature.main.copytrading.open_trades.CopytradingOpenTradesFragment;
+import vision.genesis.clientapp.feature.main.copytrading.trades_history.CopytradingTradesHistoryFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.copytrading.DashboardCopytradingFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.funds.DashboardFundsFragment;
-import vision.genesis.clientapp.feature.main.dashboard.investor.open_trades.DashboardOpenTradesFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.programs.DashboardProgramsFragment;
-import vision.genesis.clientapp.feature.main.dashboard.investor.trades_history.DashboardTradesHistoryFragment;
 
 /**
  * GenesisVision
@@ -31,9 +31,9 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 
 	private DashboardCopytradingFragment copytradingFragment;
 
-	private DashboardOpenTradesFragment openTradesFragment;
+	private CopytradingOpenTradesFragment openTradesFragment;
 
-	private DashboardTradesHistoryFragment tradesHistoryFragment;
+	private CopytradingTradesHistoryFragment tradesHistoryFragment;
 
 	private TabLayout tabLayout;
 
@@ -43,8 +43,8 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 		programsFragment = DashboardProgramsFragment.with();
 		fundsFragment = DashboardFundsFragment.with();
 		copytradingFragment = DashboardCopytradingFragment.with();
-		openTradesFragment = DashboardOpenTradesFragment.with();
-		tradesHistoryFragment = DashboardTradesHistoryFragment.with();
+		openTradesFragment = CopytradingOpenTradesFragment.with();
+		tradesHistoryFragment = CopytradingTradesHistoryFragment.with();
 	}
 
 	@Override
@@ -87,7 +87,6 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 		copytradingFragment.showEmpty(show);
 		openTradesFragment.showEmpty(show);
 		tradesHistoryFragment.showEmpty(show);
-
 	}
 
 	public void onAssetsListsUpdate() {
@@ -95,6 +94,6 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 		fundsFragment.pagerShow();
 		copytradingFragment.pagerShow();
 		openTradesFragment.pagerShow();
-		tradesHistoryFragment.pagerShow();
+		tradesHistoryFragment.onSwipeRefresh();
 	}
 }

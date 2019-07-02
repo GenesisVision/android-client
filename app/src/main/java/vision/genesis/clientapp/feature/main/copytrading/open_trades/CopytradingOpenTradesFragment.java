@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.dashboard.investor.trades_history;
+package vision.genesis.clientapp.feature.main.copytrading.open_trades;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -16,8 +16,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import io.swagger.client.model.SignalDetails;
+import io.swagger.client.model.OrderSignalModel;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.DashboardPagerAdapter;
@@ -27,13 +26,13 @@ import vision.genesis.clientapp.feature.main.dashboard.investor.DashboardPagerAd
  * Created by Vitaly on 30/06/2019.
  */
 
-public class DashboardTradesHistoryFragment extends BaseFragment implements DashboardTradesHistoryView, DashboardPagerAdapter.OnPageVisibilityChanged
+public class CopytradingOpenTradesFragment extends BaseFragment implements CopytradingOpenTradesView, DashboardPagerAdapter.OnPageVisibilityChanged
 {
-	public static DashboardTradesHistoryFragment with() {
-		DashboardTradesHistoryFragment dashboardTradesHistoryFragment = new DashboardTradesHistoryFragment();
+	public static CopytradingOpenTradesFragment with() {
+		CopytradingOpenTradesFragment copytradingOpenTradesFragment = new CopytradingOpenTradesFragment();
 		Bundle arguments = new Bundle(1);
-		dashboardTradesHistoryFragment.setArguments(arguments);
-		return dashboardTradesHistoryFragment;
+		copytradingOpenTradesFragment.setArguments(arguments);
+		return copytradingOpenTradesFragment;
 	}
 
 	@BindView(R.id.recycler_view)
@@ -46,19 +45,14 @@ public class DashboardTradesHistoryFragment extends BaseFragment implements Dash
 	public ViewGroup emptyGroup;
 
 	@InjectPresenter
-	public DashboardTradesHistoryPresenter dashboardTradesHistoryPresenter;
+	public CopytradingOpenTradesPresenter copytradingOpenTradesPresenter;
 
-	private DashboardTradesHistoryAdapter dashboardTradesHistoryAdapter;
-
-	@OnClick(R.id.button_browse_programs)
-	public void onStartInvestingClicked() {
-		dashboardTradesHistoryPresenter.onStartInvestingClicked();
-	}
+	private CopytradingOpenTradesAdapter copytradingOpenTradesAdapter;
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_dashboard_copytrading, container, false);
+		return inflater.inflate(R.layout.fragment_dashboard_open_trades, container, false);
 	}
 
 	@Override
@@ -78,23 +72,23 @@ public class DashboardTradesHistoryFragment extends BaseFragment implements Dash
 	public void onResume() {
 		super.onResume();
 
-		dashboardTradesHistoryPresenter.onShow();
+		copytradingOpenTradesPresenter.onShow();
 	}
 
 	private void initRecyclerView() {
 		recyclerView.setHasFixedSize(true);
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
-		dashboardTradesHistoryAdapter = new DashboardTradesHistoryAdapter();
-		dashboardTradesHistoryAdapter.setHasStableIds(true);
-		recyclerView.setAdapter(dashboardTradesHistoryAdapter);
+		copytradingOpenTradesAdapter = new CopytradingOpenTradesAdapter();
+		copytradingOpenTradesAdapter.setHasStableIds(true);
+		recyclerView.setAdapter(copytradingOpenTradesAdapter);
 	}
 
 	@Override
-	public void setSignals(List<SignalDetails> signals) {
-		dashboardTradesHistoryAdapter.setSignals(signals);
+	public void setOpenTrades(List<OrderSignalModel> trades) {
+		copytradingOpenTradesAdapter.setTrades(trades);
 
-		showEmpty(signals.size() == 0);
+		showEmpty(trades.size() == 0);
 	}
 
 	@Override
@@ -116,11 +110,10 @@ public class DashboardTradesHistoryFragment extends BaseFragment implements Dash
 		showSnackbar(message, recyclerView);
 	}
 
-
 	@Override
 	public void pagerShow() {
-		if (dashboardTradesHistoryPresenter != null)
-			dashboardTradesHistoryPresenter.onShow();
+		if (copytradingOpenTradesPresenter != null)
+			copytradingOpenTradesPresenter.onShow();
 	}
 
 	@Override

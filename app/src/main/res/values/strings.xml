@@ -639,5 +639,8 @@
     <string name="copytrading">Copytrading</string>
     <string name="dashboard_copytrading_empty">You have not yet subscribed\nto any program</string>
     <string name="subscription_date">Subscription date</string>
+    <string name="commission">Commission</string>
+    <string name="dashboard_open_trades_empty">You have no open trades at the moment.</string>
+    <string name="dashboard_trades_history_empty">No trades history for the selected period.</string>
 
 </resources>

@@ -630,6 +630,16 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	}
 
 	@Override
+	public void setOpenTradesCount(Integer openTradesCount) {
+		((CustomTabView) openTradesTab.getCustomView()).setCount(openTradesCount);
+	}
+
+	@Override
+	public void setTradesHistoryCount(Integer tradesHistoryCount) {
+		((CustomTabView) tradesHistoryTab.getCustomView()).setCount(tradesHistoryCount);
+	}
+
+	@Override
 	public void setChartData(DashboardChartValue chart) {
 		dashboardHeaderPagerAdapter.setPortfolioChart(chart, dateRange);
 	}

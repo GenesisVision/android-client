@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.dashboard.investor.open_trades;
+package vision.genesis.clientapp.feature.main.copytrading.open_trades;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -22,7 +22,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class DashboardOpenTradesPresenter extends MvpPresenter<DashboardOpenTradesView>
+public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpenTradesView>
 {
 	@Inject
 	public SignalsManager signalsManager;
@@ -45,10 +45,10 @@ public class DashboardOpenTradesPresenter extends MvpPresenter<DashboardOpenTrad
 	}
 
 	void onShow() {
-		getSignalProviders();
+		getOpenTrades();
 	}
 
-	private void getSignalProviders() {
+	private void getOpenTrades() {
 		if (signalsManager != null)
 			getOpenTradesSubscription = signalsManager.getOpenTrades("", "", null, null, 0, 100)
 					.subscribeOn(Schedulers.computation())

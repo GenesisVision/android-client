@@ -1,6 +1,5 @@
-package vision.genesis.clientapp.feature.main.dashboard.investor.open_trades;
+package vision.genesis.clientapp.feature.main.copytrading.open_trades;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +8,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,6 +18,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -25,7 +26,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 30/06/2019.
  */
 
-public class DashboardOpenTradesAdapter extends RecyclerView.Adapter<DashboardOpenTradesAdapter.OpenTradeViewHolder>
+public class CopytradingOpenTradesAdapter extends RecyclerView.Adapter<CopytradingOpenTradesAdapter.OpenTradeViewHolder>
 {
 	private List<OrderSignalModel> trades = new ArrayList<>();
 
@@ -108,14 +109,10 @@ public class DashboardOpenTradesAdapter extends RecyclerView.Adapter<DashboardOp
 
 		private OrderSignalModel trade;
 
-		private Context context;
-
 		OpenTradeViewHolder(View itemView) {
 			super(itemView);
 
 			ButterKnife.bind(this, itemView);
-
-			this.context = itemView.getContext();
 
 			programLogo.setLevelBackground(R.attr.colorCard);
 
@@ -146,6 +143,13 @@ public class DashboardOpenTradesAdapter extends RecyclerView.Adapter<DashboardOp
 			priceOpen.setTypeface(TypefaceUtil.semibold());
 			price.setTypeface(TypefaceUtil.semibold());
 			profit.setTypeface(TypefaceUtil.semibold());
+
+			symbolLabel.setText(symbolLabel.getText().toString().toLowerCase());
+			volumeLabel.setText(volumeLabel.getText().toString().toLowerCase());
+			dirLabel.setText(dirLabel.getText().toString().toLowerCase());
+			priceOpenLabel.setText(priceOpenLabel.getText().toString().toLowerCase());
+			priceLabel.setText(priceLabel.getText().toString().toLowerCase());
+			profitLabel.setText(profitLabel.getText().toString().toLowerCase());
 		}
 
 		void setTrade(OrderSignalModel trade) {
@@ -164,16 +168,39 @@ public class DashboardOpenTradesAdapter extends RecyclerView.Adapter<DashboardOp
 				this.date.setText(DateTimeUtil.formatEventDateTime(trade.getDate()));
 
 				this.symbol.setText(trade.getSymbol());
-
 				this.volume.setText(StringFormatUtil.formatAmount(trade.getVolume(), 0, 8));
+				updateDirection();
 
-				Double profitValue = trade.getProfit();
-//				this.profit.setText(String.format(Locale.getDefault(), "%s%s %s",
-//						profitValue > 0 ? "+" : "",
-//						StringFormatUtil.formatCurrencyAmount(profitValue, trade.getProviders().get(0).getProgram().get.getValue()),
-//						trade.getCurrency().getValue()));
-
+				this.priceOpen.setText(StringFormatUtil.formatAmount(trade.getPrice(), 2, 8));
+				this.price.setText(StringFormatUtil.formatAmount(trade.getPriceCurrent(), 2, 8));
+				updateProfit();
 			}
+		}
+
+		private void updateDirection() {
+			int dirColor;
+			switch (trade.getDirection()) {
+				case BUY:
+					dirColor = R.attr.colorGreen;
+					break;
+				case SELL:
+					dirColor = R.attr.colorRed;
+					break;
+				default:
+					dirColor = R.attr.colorGreen;
+					break;
+			}
+			this.dir.setText(trade.getDirection().getValue());
+			this.dir.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), dirColor));
+		}
+
+		private void updateProfit() {
+			Double profitValue = trade.getProfit();
+			this.profit.setText(String.format(Locale.getDefault(), "%s%s",
+					profitValue > 0 ? "+" : "",
+					StringFormatUtil.formatAmount(profitValue, 2, 8)));
+			this.profit.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
+					profitValue >= 0 ? R.attr.colorGreen : R.attr.colorRed));
 		}
 	}
 }

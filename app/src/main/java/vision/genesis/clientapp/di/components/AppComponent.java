@@ -22,15 +22,15 @@ import vision.genesis.clientapp.feature.main.about_levels.AboutLevelsPresenter;
 import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
 import vision.genesis.clientapp.feature.main.assets.AssetsPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.create_account.CreateCopytradingAccountPresenter;
+import vision.genesis.clientapp.feature.main.copytrading.open_trades.CopytradingOpenTradesPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.subscription_settings.SubscriptionSettingsPresenter;
+import vision.genesis.clientapp.feature.main.copytrading.trades_history.CopytradingTradesHistoryPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.unfollow_trades.UnfollowTradesPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.investor.InvestorDashboardPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.investor.copytrading.DashboardCopytradingPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.investor.funds.DashboardFundsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.investor.header.InvestorDashboardHeaderPortfolioPresenter;
-import vision.genesis.clientapp.feature.main.dashboard.investor.open_trades.DashboardOpenTradesPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.investor.programs.DashboardProgramsPresenter;
-import vision.genesis.clientapp.feature.main.dashboard.investor.trades_history.DashboardTradesHistoryPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.manager.ManagerDashboardPresenter;
 import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsPresenter;
@@ -275,7 +275,7 @@ public interface AppComponent
 
 	void inject(DashboardCopytradingPresenter dashboardCopytradingPresenter);
 
-	void inject(DashboardOpenTradesPresenter dashboardOpenTradesPresenter);
+	void inject(CopytradingOpenTradesPresenter dashboardOpenTradesPresenter);
 
-	void inject(DashboardTradesHistoryPresenter dashboardTradesHistoryPresenter);
+	void inject(CopytradingTradesHistoryPresenter dashboardTradesHistoryPresenter);
 }

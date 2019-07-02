@@ -1,23 +1,23 @@
-package vision.genesis.clientapp.feature.main.dashboard.investor.trades_history;
+package vision.genesis.clientapp.feature.main.copytrading.open_trades;
 
 import com.arellomobile.mvp.MvpView;
 
 import java.util.List;
 
-import io.swagger.client.model.SignalDetails;
+import io.swagger.client.model.OrderSignalModel;
 
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 30/06/2019.
  */
 
-interface DashboardTradesHistoryView extends MvpView
+interface CopytradingOpenTradesView extends MvpView
 {
 	void showProgressBar(boolean show);
 
 	void showEmpty(boolean show);
 
-	void setSignals(List<SignalDetails> programs);
-
 	void showSnackbarMessage(String message);
+
+	void setOpenTrades(List<OrderSignalModel> trades);
 }

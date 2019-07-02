@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.dashboard.investor.open_trades;
+package vision.genesis.clientapp.feature.main.copytrading.trades_history;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -26,13 +26,13 @@ import vision.genesis.clientapp.feature.main.dashboard.investor.DashboardPagerAd
  * Created by Vitaly on 30/06/2019.
  */
 
-public class DashboardOpenTradesFragment extends BaseFragment implements DashboardOpenTradesView, DashboardPagerAdapter.OnPageVisibilityChanged
+public class CopytradingTradesHistoryFragment extends BaseFragment implements CopytradingTradesHistoryView, DashboardPagerAdapter.OnPageVisibilityChanged
 {
-	public static DashboardOpenTradesFragment with() {
-		DashboardOpenTradesFragment dashboardOpenTradesFragment = new DashboardOpenTradesFragment();
+	public static CopytradingTradesHistoryFragment with() {
+		CopytradingTradesHistoryFragment copytradingTradesHistoryFragment = new CopytradingTradesHistoryFragment();
 		Bundle arguments = new Bundle(1);
-		dashboardOpenTradesFragment.setArguments(arguments);
-		return dashboardOpenTradesFragment;
+		copytradingTradesHistoryFragment.setArguments(arguments);
+		return copytradingTradesHistoryFragment;
 	}
 
 	@BindView(R.id.recycler_view)
@@ -45,14 +45,14 @@ public class DashboardOpenTradesFragment extends BaseFragment implements Dashboa
 	public ViewGroup emptyGroup;
 
 	@InjectPresenter
-	public DashboardOpenTradesPresenter dashboardOpenTradesPresenter;
+	public CopytradingTradesHistoryPresenter copytradingTradesHistoryPresenter;
 
-	private DashboardOpenTradesAdapter dashboardOpenTradesAdapter;
+	private CopytradingTradesHistoryAdapter copytradingTradesHistoryAdapter;
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_dashboard_copytrading, container, false);
+		return inflater.inflate(R.layout.fragment_dashboard_trades_history, container, false);
 	}
 
 	@Override
@@ -72,23 +72,43 @@ public class DashboardOpenTradesFragment extends BaseFragment implements Dashboa
 	public void onResume() {
 		super.onResume();
 
-		dashboardOpenTradesPresenter.onShow();
+		copytradingTradesHistoryPresenter.onShow();
 	}
 
 	private void initRecyclerView() {
 		recyclerView.setHasFixedSize(true);
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
-		dashboardOpenTradesAdapter = new DashboardOpenTradesAdapter();
-		dashboardOpenTradesAdapter.setHasStableIds(true);
-		recyclerView.setAdapter(dashboardOpenTradesAdapter);
+		copytradingTradesHistoryAdapter = new CopytradingTradesHistoryAdapter();
+		copytradingTradesHistoryAdapter.setHasStableIds(true);
+		recyclerView.setAdapter(copytradingTradesHistoryAdapter);
+
+		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
+		{
+			@Override
+			public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+				LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+				int totalItemCount = layoutManager.getItemCount();
+				int lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
+
+				boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
+				if (totalItemCount > 0 && endHasBeenReached) {
+					copytradingTradesHistoryPresenter.onLastListItemVisible();
+				}
+			}
+		});
 	}
 
 	@Override
-	public void setOpenTrades(List<OrderSignalModel> trades) {
-		dashboardOpenTradesAdapter.setTrades(trades);
+	public void setTrades(List<OrderSignalModel> trades) {
+		copytradingTradesHistoryAdapter.setTrades(trades);
 
 		showEmpty(trades.size() == 0);
+	}
+
+	@Override
+	public void addTrades(List<OrderSignalModel> newTrades) {
+		copytradingTradesHistoryAdapter.addTrades(newTrades);
 	}
 
 	@Override
@@ -110,13 +130,19 @@ public class DashboardOpenTradesFragment extends BaseFragment implements Dashboa
 		showSnackbar(message, recyclerView);
 	}
 
+
 	@Override
 	public void pagerShow() {
-		if (dashboardOpenTradesPresenter != null)
-			dashboardOpenTradesPresenter.onShow();
+		if (copytradingTradesHistoryPresenter != null)
+			copytradingTradesHistoryPresenter.onShow();
 	}
 
 	@Override
 	public void pagerHide() {
+	}
+
+	public void onSwipeRefresh() {
+		if (copytradingTradesHistoryPresenter != null)
+			copytradingTradesHistoryPresenter.onSwipeRefresh();
 	}
 }
