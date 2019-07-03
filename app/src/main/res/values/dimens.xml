@@ -128,4 +128,5 @@
     <dimen name="tag_height">28dp</dimen>
     <dimen name="copytrading_account_details_appbar_background_height">220dp</dimen>
     <dimen name="item_dashboard_signal_height">220dp</dimen>
+    <dimen name="item_open_trade_provider_height">155dp</dimen>
 </resources>

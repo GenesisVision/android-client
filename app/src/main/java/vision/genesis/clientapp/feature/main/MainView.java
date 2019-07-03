@@ -14,6 +14,7 @@ import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.CopytradingAccountModel;
 import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.ManagerDetailsModel;
+import vision.genesis.clientapp.model.OpenTradeModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.WalletModel;
@@ -80,4 +81,6 @@ public interface MainView extends MvpView
 	void showProgramFacet(ProgramFacet facet);
 
 	void showFundFacet(FundFacet facet);
+
+	void showOpenTradeDetails(OpenTradeModel model);
 }

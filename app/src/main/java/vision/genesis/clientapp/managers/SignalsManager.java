@@ -53,4 +53,8 @@ public class SignalsManager
 	public Observable<TradesSignalViewModel> getTradesHistory(DateRange dateRange, String sorting, String symbol, UUID accountId, String accountCurrency, Integer skip, Integer take) {
 		return signalApi.v10SignalTradesGet(AuthManager.token.getValue(), dateRange.getFrom(), dateRange.getTo(), symbol, sorting, accountId, accountCurrency, skip, take);
 	}
+
+	public Observable<Void> closeTrade(UUID tradeId, UUID programId) {
+		return signalApi.v10SignalTradesByIdClosePost(tradeId, AuthManager.token.getValue(), programId);
+	}
 }

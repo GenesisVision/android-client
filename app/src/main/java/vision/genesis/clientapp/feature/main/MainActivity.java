@@ -34,6 +34,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
+import vision.genesis.clientapp.feature.main.copytrading.open_trade_details.OpenTradeDetailsActivity;
 import vision.genesis.clientapp.feature.main.facet.funds.FundsFacetActivity;
 import vision.genesis.clientapp.feature.main.facet.programs.ProgramsFacetActivity;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsActivity;
@@ -52,6 +53,7 @@ import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.CopytradingAccountModel;
 import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.ManagerDetailsModel;
+import vision.genesis.clientapp.model.OpenTradeModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.WalletModel;
@@ -383,6 +385,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void showFundFacet(FundFacet facet) {
 		FundsFacetActivity.startWith(this, facet);
+	}
+
+	@Override
+	public void showOpenTradeDetails(OpenTradeModel model) {
+		OpenTradeDetailsActivity.startWith(this, model);
 	}
 
 	@Override

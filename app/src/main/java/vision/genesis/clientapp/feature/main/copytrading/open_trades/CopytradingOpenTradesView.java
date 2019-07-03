@@ -3,6 +3,7 @@ package vision.genesis.clientapp.feature.main.copytrading.open_trades;
 import com.arellomobile.mvp.MvpView;
 
 import java.util.List;
+import java.util.UUID;
 
 import io.swagger.client.model.OrderSignalModel;
 
@@ -20,4 +21,8 @@ interface CopytradingOpenTradesView extends MvpView
 	void showSnackbarMessage(String message);
 
 	void setOpenTrades(List<OrderSignalModel> trades);
+
+	void removeOpenTrade(int position, boolean isListEmpty);
+
+	void askCloseTrade(UUID tradeId, String symbol, Double volume);
 }

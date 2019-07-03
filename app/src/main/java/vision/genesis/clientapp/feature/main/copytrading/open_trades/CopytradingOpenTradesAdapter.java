@@ -6,15 +6,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.swagger.client.model.OrderProgramData;
 import io.swagger.client.model.OrderSignalModel;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.OpenTradeModel;
+import vision.genesis.clientapp.model.events.OnOpenTradeWholeCloseClickedEvent;
+import vision.genesis.clientapp.model.events.ShowOpenTradeDetailsEvent;
 import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -60,8 +66,16 @@ public class CopytradingOpenTradesAdapter extends RecyclerView.Adapter<Copytradi
 		notifyDataSetChanged();
 	}
 
+	public void deleteTrade(int position) {
+		trades.remove(position);
+		notifyItemRemoved(position);
+	}
+
 	static class OpenTradeViewHolder extends RecyclerView.ViewHolder
 	{
+		@BindView(R.id.providers_count)
+		public TextView providersCount;
+
 		@BindView(R.id.program_logo)
 		public ProgramLogoView programLogo;
 
@@ -120,21 +134,21 @@ public class CopytradingOpenTradesAdapter extends RecyclerView.Adapter<Copytradi
 
 			itemView.setOnClickListener(v -> {
 				if (trade != null) {
-//					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(trade.getId(),
-//							trade.getLogo(),
-//							trade.getColor(),
-//							trade.getLevel(),
-//							trade.getTitle(),
-//							trade.getManager().getUsername(),
-//							trade.getCurrency().getValue(),
-//							trade.getPersonalDetails().isIsFavorite(),
-//							false);
-//					EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
+					if (trade.getProviders().size() <= 1)
+						return;
+					OpenTradeModel model = OpenTradeModel.createFrom(trade);
+					EventBus.getDefault().post(new ShowOpenTradeDetailsEvent(model));
 				}
 			});
 		}
 
+		@OnClick(R.id.button_close)
+		public void onCloseClicked() {
+			EventBus.getDefault().post(new OnOpenTradeWholeCloseClickedEvent(trade.getId(), trade.getSymbol(), trade.getVolume()));
+		}
+
 		private void setFonts() {
+			providersCount.setTypeface(TypefaceUtil.semibold());
 			programName.setTypeface(TypefaceUtil.semibold());
 			date.setTypeface(TypefaceUtil.semibold());
 			symbol.setTypeface(TypefaceUtil.semibold());
@@ -161,6 +175,8 @@ public class CopytradingOpenTradesAdapter extends RecyclerView.Adapter<Copytradi
 			if (trade.getProviders().size() > 0) {
 				OrderProgramData program = trade.getProviders().get(0).getProgram();
 
+				updateProvidersCount();
+
 				this.programLogo.setImage(program.getLogo(), program.getColor(), 100, 100);
 				this.programLogo.setLevel(program.getLevel());
 
@@ -175,6 +191,12 @@ public class CopytradingOpenTradesAdapter extends RecyclerView.Adapter<Copytradi
 				this.price.setText(StringFormatUtil.formatAmount(trade.getPriceCurrent(), 2, 8));
 				updateProfit();
 			}
+		}
+
+		private void updateProvidersCount() {
+			int count = trade.getProviders().size() - 1;
+			this.providersCount.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
+			this.providersCount.setText(String.format(Locale.getDefault(), "+%d", count));
 		}
 
 		private void updateDirection() {

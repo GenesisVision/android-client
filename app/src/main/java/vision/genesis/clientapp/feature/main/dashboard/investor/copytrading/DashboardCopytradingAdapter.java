@@ -23,6 +23,7 @@ import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -159,15 +160,20 @@ public class DashboardCopytradingAdapter extends RecyclerView.Adapter<DashboardC
 
 			this.trades.setText(StringFormatUtil.formatAmount(signal.getPersonalDetails().getTradesCount(), 0, 0));
 
-			Double profitValue = signal.getPersonalDetails().getProfit();
-			this.profit.setText(String.format(Locale.getDefault(), "%s%s %s",
-					profitValue > 0 ? "+" : "",
-					StringFormatUtil.formatCurrencyAmount(profitValue, signal.getCurrency().getValue()),
-					signal.getCurrency().getValue()));
+			updateProfit();
 
 			this.status.setStatus(signal.getPersonalDetails().getStatus().getValue());
 
 			this.date.setText(DateTimeUtil.formatEventDateTime(signal.getPersonalDetails().getSubscriptionDate()));
+		}
+
+		private void updateProfit() {
+			Double profitValue = signal.getPersonalDetails().getProfit();
+			this.profit.setText(String.format(Locale.getDefault(), "%s%s",
+					profitValue > 0 ? "+" : "",
+					StringFormatUtil.formatAmount(profitValue, 2, 8)));
+			this.profit.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
+					profitValue >= 0 ? R.attr.colorGreen : R.attr.colorRed));
 		}
 	}
 }

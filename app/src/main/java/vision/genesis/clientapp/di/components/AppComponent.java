@@ -22,6 +22,7 @@ import vision.genesis.clientapp.feature.main.about_levels.AboutLevelsPresenter;
 import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
 import vision.genesis.clientapp.feature.main.assets.AssetsPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.create_account.CreateCopytradingAccountPresenter;
+import vision.genesis.clientapp.feature.main.copytrading.open_trade_details.OpenTradeDetailsPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.open_trades.CopytradingOpenTradesPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.subscription_settings.SubscriptionSettingsPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.trades_history.CopytradingTradesHistoryPresenter;
@@ -278,4 +279,6 @@ public interface AppComponent
 	void inject(CopytradingOpenTradesPresenter dashboardOpenTradesPresenter);
 
 	void inject(CopytradingTradesHistoryPresenter dashboardTradesHistoryPresenter);
+
+	void inject(OpenTradeDetailsPresenter openTradeDetailsPresenter);
 }

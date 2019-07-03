@@ -40,6 +40,7 @@ import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowLockScreenEvent;
 import vision.genesis.clientapp.model.events.ShowManagerDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
+import vision.genesis.clientapp.model.events.ShowOpenTradeDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.model.events.ShowSpecificWalletEvent;
@@ -368,5 +369,10 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(OnFundFacetClickedEvent event) {
 		getViewState().showFundFacet(event.getFacet());
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowOpenTradeDetailsEvent event) {
+		getViewState().showOpenTradeDetails(event.getModel());
 	}
 }

@@ -1,9 +1,11 @@
 package vision.genesis.clientapp.feature.main.copytrading.open_trades;
 
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +16,8 @@ import android.widget.ProgressBar;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +26,8 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.DashboardPagerAdapter;
+import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
 
 /**
  * GenesisVisionAndroid
@@ -111,6 +117,28 @@ public class CopytradingOpenTradesFragment extends BaseFragment implements Copyt
 		copytradingOpenTradesAdapter.setTrades(trades);
 
 		showEmpty(trades.size() == 0);
+	}
+
+	@Override
+	public void removeOpenTrade(int position, boolean isListEmpty) {
+		copytradingOpenTradesAdapter.deleteTrade(position);
+		showEmpty(isListEmpty);
+	}
+
+	@Override
+	public void askCloseTrade(UUID tradeId, String symbol, Double volume) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+		builder.setMessage(String.format(Locale.getDefault(), getString(R.string.close_trade_template),
+				StringFormatUtil.formatAmount(volume),
+				symbol));
+		builder.setPositiveButton(getString(R.string.close_order), (dialogInterface, i) -> copytradingOpenTradesPresenter.closeTrade(tradeId));
+		builder.setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> dialogInterface.cancel());
+
+		AlertDialog dialog = builder.create();
+		dialog.show();
+
+		dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorAccent));
+		dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorAccent));
 	}
 
 	@Override

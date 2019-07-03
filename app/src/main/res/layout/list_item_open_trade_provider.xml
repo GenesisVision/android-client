@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
-              android:layout_height="@dimen/item_dashboard_signal_height"
+              android:layout_height="@dimen/item_open_trade_provider_height"
               android:layout_marginBottom="@dimen/dashboard_padding"
               android:layout_marginEnd="@dimen/dashboard_padding"
               android:layout_marginLeft="@dimen/dashboard_padding"
@@ -22,24 +22,7 @@
             android:layout_width="@dimen/dashboard_program_logo_width"
             android:layout_height="@dimen/dashboard_program_logo_height"
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="4dp"/>
-
-        <TextView
-            android:id="@+id/providers_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/button_close"
-            android:background="@drawable/background_providers_count"
-            android:paddingBottom="2dp"
-            android:paddingEnd="8dp"
-            android:paddingStart="8dp"
-            android:paddingTop="2dp"
-            android:textColor="?attr/colorTextPrimary"
-            android:textSize="13sp"
-            android:visibility="gone"
-            tools:text="+1"
-            tools:visibility="visible"/>
+            android:layout_centerVertical="true"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -92,27 +75,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.5"
-            android:gravity="bottom"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/symbol"
-                style="@style/text_value"
-                tools:text="BTCETH"/>
-
-            <TextView
-                android:id="@+id/symbol_label"
-                style="@style/text_label"
-                android:layout_marginTop="4dp"
-                android:text="@string/symbol"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.5"
+            android:layout_weight="1"
             android:gravity="bottom"
             android:orientation="vertical">
 
@@ -137,34 +100,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/dir"
-                style="@style/text_value"
-                android:textColor="?attr/colorRed"
-                tools:text="Sell"/>
-
-            <TextView
-                android:id="@+id/dir_label"
-                style="@style/text_label"
-                android:layout_marginTop="4dp"
-                android:text="@string/direction"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:gravity="bottom">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.5"
-            android:gravity="bottom"
-            android:orientation="vertical">
-
-            <TextView
                 android:id="@+id/price_open"
                 style="@style/text_value"
                 tools:text="0.032313"/>
@@ -174,26 +109,6 @@
                 style="@style/text_label"
                 android:layout_marginTop="4dp"
                 android:text="@string/price_open"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.5"
-            android:gravity="bottom"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/price"
-                style="@style/text_value"
-                tools:text="0.032387"/>
-
-            <TextView
-                android:id="@+id/price_label"
-                style="@style/text_label"
-                android:layout_marginTop="4dp"
-                android:text="@string/price"/>
 
         </LinearLayout>
 
