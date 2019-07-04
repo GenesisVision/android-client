@@ -26,26 +26,19 @@
         android:layout_toEndOf="@+id/icon"
         android:layout_toStartOf="@+id/value"
         android:ellipsize="end"
+        android:maxLines="2"
         android:textColor="?attr/colorTextPrimary"
         android:textSize="16sp"
         tools:text="Bitcoin"/>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:gravity="end"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/colorTextPrimary"
-            android:textSize="14sp"
-            tools:text="0.14252564 BTC"/>
-
-    </LinearLayout>
+        android:textColor="?attr/colorTextPrimary"
+        android:textSize="14sp"
+        tools:text="0.14252564 BTC"/>
 
 </RelativeLayout>

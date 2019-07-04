@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.wallet.transfer;
+package vision.genesis.clientapp.feature.main.wallet.transfer_wallet;
 
 import android.app.Activity;
 import android.content.Context;
@@ -95,11 +95,14 @@ public class TransferWalletActivity extends BaseSwipeBackActivity implements Tra
 	@BindView(R.id.button_confirm)
 	public PrimaryButton confirmButton;
 
+	@BindView(R.id.progress_bar)
+	public ProgressBar progressBar;
+
 	@BindView(R.id.rate_progress_bar)
 	public ProgressBar rateProgress;
 
-	@BindView(R.id.progress_bar)
-	public ProgressBar progressBar;
+	@BindView(R.id.button_progress_bar)
+	public ProgressBar buttonProgress;
 
 	@InjectPresenter
 	TransferWalletPresenter transferWalletPresenter;
@@ -114,7 +117,7 @@ public class TransferWalletActivity extends BaseSwipeBackActivity implements Tra
 	@OnClick(R.id.group_wallet)
 	public void onWalletClicked() {
 		SelectWalletBottomSheetFragment fragment = new SelectWalletBottomSheetFragment();
-		fragment.setData(getString(R.string.select_wallet_currency), walletsTo);
+		fragment.setData(getString(R.string.select_wallet), walletsTo);
 		fragment.setListener(transferWalletPresenter);
 		fragment.show(getSupportFragmentManager(), fragment.getTag());
 	}
@@ -221,6 +224,12 @@ public class TransferWalletActivity extends BaseSwipeBackActivity implements Tra
 		rate.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
 		finalAmountGroup.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
 		rateProgress.setVisibility(!show ? View.INVISIBLE : View.VISIBLE);
+	}
+
+	@Override
+	public void showButtonProgress(boolean show) {
+		buttonProgress.setVisibility(show ? View.VISIBLE : View.GONE);
+		confirmButton.setVisibility(!show ? View.VISIBLE : View.GONE);
 	}
 
 	@Override

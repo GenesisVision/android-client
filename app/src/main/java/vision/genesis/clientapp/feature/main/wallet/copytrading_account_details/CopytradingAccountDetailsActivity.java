@@ -23,6 +23,7 @@ import butterknife.OnClick;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.wallet.transfer_copytrading_account.TransferCopytradingAccountActivity;
 import vision.genesis.clientapp.model.CopytradingAccountModel;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -139,12 +140,12 @@ public class CopytradingAccountDetailsActivity extends BaseSwipeBackActivity imp
 
 	@OnClick(R.id.withdraw)
 	public void onWithdrawButtonClicked() {
-//		WithdrawWalletActivity.startWith(this, model);
+		TransferCopytradingAccountActivity.startWith(this, model, TransferCopytradingAccountActivity.OPERATION_WITHDRAW);
 	}
 
 	@OnClick(R.id.add_funds)
 	public void onAddFundsButtonClicked() {
-//		DepositWalletActivity.startWith(this, model);
+		TransferCopytradingAccountActivity.startWith(this, model, TransferCopytradingAccountActivity.OPERATION_DEPOSIT);
 	}
 
 	@Override
@@ -238,6 +239,7 @@ public class CopytradingAccountDetailsActivity extends BaseSwipeBackActivity imp
 		refreshLayout.setOnRefreshListener(() -> {
 			if (pagerAdapter != null)
 				pagerAdapter.sendSwipeRefresh();
+			refreshLayout.setRefreshing(false);
 		});
 	}
 

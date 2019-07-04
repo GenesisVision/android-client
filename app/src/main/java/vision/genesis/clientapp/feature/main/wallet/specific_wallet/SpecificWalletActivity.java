@@ -25,7 +25,7 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
-import vision.genesis.clientapp.feature.main.wallet.transfer.TransferWalletActivity;
+import vision.genesis.clientapp.feature.main.wallet.transfer_wallet.TransferWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
 import vision.genesis.clientapp.model.WalletModel;
 import vision.genesis.clientapp.ui.common.DetailsTabView;

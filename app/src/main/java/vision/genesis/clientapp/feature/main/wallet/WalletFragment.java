@@ -148,6 +148,8 @@ public class WalletFragment extends BaseFragment implements WalletView
 		super.onResume();
 
 		walletPresenter.onResume();
+		if (pagerAdapter != null)
+			pagerAdapter.sendUpdate();
 	}
 
 	@Override

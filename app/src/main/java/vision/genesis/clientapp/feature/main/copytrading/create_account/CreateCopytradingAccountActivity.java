@@ -110,7 +110,7 @@ public class CreateCopytradingAccountActivity extends BaseSwipeBackActivity impl
 	@OnClick(R.id.group_wallet)
 	public void onWalletClicked() {
 		SelectWalletBottomSheetFragment fragment = new SelectWalletBottomSheetFragment();
-		fragment.setData(getString(R.string.select_wallet_currency), walletsFrom);
+		fragment.setData(getString(R.string.select_wallet), walletsFrom);
 		fragment.setListener(createCopytradingAccountPresenter);
 		fragment.show(getSupportFragmentManager(), fragment.getTag());
 	}

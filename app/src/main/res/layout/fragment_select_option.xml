@@ -28,7 +28,7 @@
             android:paddingRight="24dp"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="18sp"
-            tools:text="@string/select_wallet_currency"/>
+            tools:text="@string/select_wallet"/>
 
         <LinearLayout
             android:id="@+id/group_options"

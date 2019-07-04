@@ -61,6 +61,7 @@ public class CopytradingAccountDetailsPagerAdapter extends FragmentStatePagerAda
 	}
 
 	public void sendSwipeRefresh() {
+		openTradesFragment.pagerShow();
 		tradesHistoryFragment.onSwipeRefresh();
 	}
 

@@ -125,7 +125,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	@OnClick(R.id.group_wallet)
 	public void onWalletClicked() {
 		SelectWalletBottomSheetFragment fragment = new SelectWalletBottomSheetFragment();
-		fragment.setData(getString(R.string.select_wallet_currency), walletsFrom);
+		fragment.setData(getString(R.string.select_wallet), walletsFrom);
 		fragment.setListener(investProgramPresenter);
 		fragment.show(getSupportFragmentManager(), fragment.getTag());
 	}

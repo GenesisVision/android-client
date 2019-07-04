@@ -463,7 +463,7 @@
     <string name="show_all">Show all</string>
     <string name="transactions_history">Transactions history</string>
     <string name="you_will_send">You will send</string>
-    <string name="select_wallet_currency">Select a wallet currency</string>
+    <string name="select_wallet">Select a wallet</string>
     <string name="available_in_wallet">Available in wallet</string>
     <string name="fee_amount">Fee amount</string>
     <string name="scan_qr">Scan QR</string>

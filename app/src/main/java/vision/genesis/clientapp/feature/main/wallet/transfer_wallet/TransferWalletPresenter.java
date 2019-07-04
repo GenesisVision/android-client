@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.wallet.transfer;
+package vision.genesis.clientapp.feature.main.wallet.transfer_wallet;
 
 import android.content.Context;
 
@@ -211,6 +211,8 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 		request.setDestinationType(InternalTransferRequest.DestinationTypeEnum.WALLET);
 		request.setTransferAll(false);
 
+		getViewState().showButtonProgress(true);
+
 		transferSubscription = walletManager.transfer(request)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
@@ -226,6 +228,7 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 
 	private void handleTransferError(Throwable throwable) {
 		transferSubscription.unsubscribe();
+		getViewState().showButtonProgress(false);
 
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));

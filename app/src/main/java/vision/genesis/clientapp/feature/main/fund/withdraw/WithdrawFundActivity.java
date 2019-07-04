@@ -119,7 +119,7 @@ public class WithdrawFundActivity extends BaseSwipeBackActivity implements Withd
 	@OnClick(R.id.group_wallet)
 	public void onWalletClicked() {
 		SelectWalletBottomSheetFragment fragment = new SelectWalletBottomSheetFragment();
-		fragment.setData(getString(R.string.select_wallet_currency), walletsTo);
+		fragment.setData(getString(R.string.select_wallet), walletsTo);
 		fragment.setListener(withdrawFundPresenter);
 		fragment.show(getSupportFragmentManager(), fragment.getTag());
 	}

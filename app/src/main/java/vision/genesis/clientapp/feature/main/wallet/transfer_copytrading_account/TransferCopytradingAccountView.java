@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.wallet.transfer;
+package vision.genesis.clientapp.feature.main.wallet.transfer_copytrading_account;
 
 import com.arellomobile.mvp.MvpView;
 
@@ -11,13 +11,11 @@ import io.swagger.client.model.WalletData;
  * Created by Vitaly on 27/02/2019.
  */
 
-interface TransferWalletView extends MvpView
+interface TransferCopytradingAccountView extends MvpView
 {
-	void setWalletInfo(WalletData selectedWallet);
+	void setWallets(List<WalletData> walletsTo);
 
-	void setWalletsTo(List<WalletData> walletsTo);
-
-	void setWalletTo(WalletData walletTo);
+	void setSelectedWallet(WalletData walletTo);
 
 	void setAmount(String amountString);
 
@@ -30,6 +28,8 @@ interface TransferWalletView extends MvpView
 	void showProgress(boolean show);
 
 	void showRateProgress(boolean show);
+
+	void showButtonProgress(boolean show);
 
 	void showSnackbarMessage(String message);
 

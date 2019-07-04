@@ -254,7 +254,7 @@
             android:windowSoftInputMode="adjustPan"/>
 
         <activity
-            android:name=".feature.main.wallet.transfer.TransferWalletActivity"
+            android:name=".feature.main.wallet.transfer_wallet.TransferWalletActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
@@ -315,6 +315,12 @@
 
         <activity
             android:name=".feature.main.copytrading.open_trade_details.OpenTradeDetailsActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+
+        <activity
+            android:name=".feature.main.wallet.transfer_copytrading_account.TransferCopytradingAccountActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>

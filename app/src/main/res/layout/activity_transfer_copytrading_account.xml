@@ -60,22 +60,22 @@
                     android:orientation="vertical">
 
                     <com.facebook.drawee.view.SimpleDraweeView
-                        android:id="@+id/wallet_icon"
+                        android:id="@+id/account_icon"
                         android:layout_width="64dp"
                         android:layout_height="64dp"/>
 
                     <TextView
-                        android:id="@+id/wallet_name"
+                        android:id="@+id/account_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:layout_marginTop="12dp"
                         android:textColor="?attr/colorTextPrimary"
                         android:textSize="17sp"
-                        tools:text="Bitcoin"/>
+                        tools:text="Signal account BTC"/>
 
                     <TextView
-                        android:id="@+id/wallet_balance"
+                        android:id="@+id/account_balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.4"
@@ -84,6 +84,7 @@
                         tools:text="1.00238473 BTC"/>
 
                 </LinearLayout>
+
 
             </RelativeLayout>
 
@@ -98,12 +99,12 @@
                 android:padding="20dp">
 
                 <RelativeLayout
-                    android:id="@+id/group_to"
+                    android:id="@+id/group_from_to"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/label_to"
+                        android:id="@+id/label_from_to"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.4"
@@ -115,22 +116,22 @@
                         android:id="@+id/group_wallet"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_below="@+id/label_to"
+                        android:layout_below="@+id/label_from_to"
                         android:background="?attr/selectableItemBackground">
 
                         <com.facebook.drawee.view.SimpleDraweeView
-                            android:id="@+id/icon_to"
+                            android:id="@+id/icon_from_to"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_centerVertical="true"/>
 
                         <TextView
-                            android:id="@+id/wallet_to"
+                            android:id="@+id/wallet_from_to"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="16dp"
-                            android:layout_toEndOf="@+id/icon_to"
+                            android:layout_toEndOf="@+id/icon_from_to"
                             android:layout_toStartOf="@+id/arrow"
                             android:textColor="?attr/colorTextPrimary"
                             android:textColorHint="?attr/colorTextPrimary"
@@ -160,7 +161,7 @@
                     </RelativeLayout>
 
                     <TextView
-                        android:id="@+id/available_to"
+                        android:id="@+id/available_from_to"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/group_wallet"
@@ -280,6 +281,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/text_funds_converted"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
@@ -311,13 +313,27 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/arrow_down"
                 android:layout_width="54dp"
                 android:layout_height="12dp"
                 android:layout_below="@+id/group_top"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="-1dp"
                 android:src="@drawable/triangle_down"
-                android:tint="?attr/colorBackground"/>
+                android:tint="?attr/colorBackground"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+            <ImageView
+                android:id="@+id/arrow_up"
+                android:layout_width="54dp"
+                android:layout_height="12dp"
+                android:layout_above="@+id/group_bottom"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="-1dp"
+                android:src="@drawable/triangle_up"
+                android:tint="?attr/colorCard"
+                android:visibility="gone"/>
 
         </RelativeLayout>
 

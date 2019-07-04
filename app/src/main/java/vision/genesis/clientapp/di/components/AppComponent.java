@@ -87,7 +87,8 @@ import vision.genesis.clientapp.feature.main.wallet.my_wallets.MyWalletsPresente
 import vision.genesis.clientapp.feature.main.wallet.specific_wallet.SpecificWalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.transaction_details.TransactionDetailsPresenter;
 import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsPresenter;
-import vision.genesis.clientapp.feature.main.wallet.transfer.TransferWalletPresenter;
+import vision.genesis.clientapp.feature.main.wallet.transfer_copytrading_account.TransferCopytradingAccountPresenter;
+import vision.genesis.clientapp.feature.main.wallet.transfer_wallet.TransferWalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.confirm.ConfirmWalletWithdrawBottomSheetFragment;
 import vision.genesis.clientapp.feature.pin.check.CheckPinPresenter;
@@ -281,4 +282,6 @@ public interface AppComponent
 	void inject(CopytradingTradesHistoryPresenter dashboardTradesHistoryPresenter);
 
 	void inject(OpenTradeDetailsPresenter openTradeDetailsPresenter);
+
+	void inject(TransferCopytradingAccountPresenter transferCopytradingAccountPresenter);
 }
