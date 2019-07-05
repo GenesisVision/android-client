@@ -645,5 +645,10 @@
     <string name="open_trade_details">Open trade details</string>
     <string name="close_trade_template">Are you sure you want to close your %s %s order?</string>
     <string name="close_order">Close order</string>
+    <string name="commissions">Commissions</string>
+    <string name="total">Total</string>
+    <string name="trading_fee">Trading fee</string>
+    <string name="manager_success_fee">Manager Success fee</string>
+    <string name="platform_success_fee">Platform Success fee</string>
 
 </resources>

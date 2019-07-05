@@ -4,6 +4,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ import vision.genesis.clientapp.managers.SignalsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.SetCopytradingAccountTradesHistoryCountEvent;
 import vision.genesis.clientapp.model.events.SetDashboardTradesHistoryCountEvent;
+import vision.genesis.clientapp.model.events.ShowCopytradingCommissionsEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -53,11 +55,15 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 
 	private String accountCurrency;
 
+	private boolean isFragmentActive;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
+
+		EventBus.getDefault().register(this);
 
 		subscribeToDateRange();
 	}
@@ -68,6 +74,8 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 			dateRangeSubscription.unsubscribe();
 		if (getTradesHistorySubscription != null)
 			getTradesHistorySubscription.unsubscribe();
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -80,7 +88,11 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 	}
 
 	void onShow() {
+		isFragmentActive = true;
+	}
 
+	void onHide() {
+		isFragmentActive = false;
 	}
 
 	void onSwipeRefresh() {
@@ -152,5 +164,11 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowCopytradingCommissionsEvent event) {
+		if (isFragmentActive)
+			getViewState().showCommissions(event.getTrade());
 	}
 }

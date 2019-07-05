@@ -97,6 +97,13 @@ public class CopytradingOpenTradesFragment extends BaseFragment implements Copyt
 	}
 
 	@Override
+	public void onPause() {
+		super.onPause();
+
+		copytradingOpenTradesPresenter.onHide();
+	}
+
+	@Override
 	public void onResume() {
 		super.onResume();
 

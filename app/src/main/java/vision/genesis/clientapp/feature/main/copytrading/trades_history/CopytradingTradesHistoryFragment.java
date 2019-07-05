@@ -21,6 +21,7 @@ import io.swagger.client.model.OrderSignalModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.copytrading.commissions.CommissionsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.DashboardPagerAdapter;
 
 /**
@@ -91,9 +92,14 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 	}
 
 	@Override
+	public void onPause() {
+		super.onPause();
+		copytradingTradesHistoryPresenter.onHide();
+	}
+
+	@Override
 	public void onResume() {
 		super.onResume();
-
 		copytradingTradesHistoryPresenter.onShow();
 	}
 
@@ -137,6 +143,15 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 	public void showEmpty(boolean show) {
 		if (emptyGroup != null) {
 			emptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+		}
+	}
+
+	@Override
+	public void showCommissions(OrderSignalModel trade) {
+		if (getActivity() != null) {
+			CommissionsBottomSheetFragment fragment = new CommissionsBottomSheetFragment();
+			fragment.setData(trade);
+			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
 		}
 	}
 

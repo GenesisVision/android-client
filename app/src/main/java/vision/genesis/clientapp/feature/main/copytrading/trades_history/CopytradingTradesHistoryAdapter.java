@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -15,6 +17,7 @@ import butterknife.ButterKnife;
 import io.swagger.client.model.OrderProgramData;
 import io.swagger.client.model.OrderSignalModel;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.events.ShowCopytradingCommissionsEvent;
 import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -134,7 +137,7 @@ public class CopytradingTradesHistoryAdapter extends RecyclerView.Adapter<Copytr
 //							trade.getCurrency().getValue(),
 //							trade.getPersonalDetails().isIsFavorite(),
 //							false);
-//					EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
+					EventBus.getDefault().post(new ShowCopytradingCommissionsEvent(trade));
 				}
 			});
 		}
@@ -176,7 +179,7 @@ public class CopytradingTradesHistoryAdapter extends RecyclerView.Adapter<Copytr
 				this.volume.setText(StringFormatUtil.formatAmount(trade.getVolume(), 0, 8));
 				updateDirection();
 
-				this.commission.setText(StringFormatUtil.formatAmount(trade.getCommission(), 2, 8));
+				this.commission.setText(StringFormatUtil.formatAmount(trade.getTotalCommission(), 2, 8));
 				this.price.setText(StringFormatUtil.formatAmount(trade.getPrice(), 2, 8));
 				updateProfit();
 			}

@@ -47,6 +47,8 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 
 	private Integer totalTradesCount = 0;
 
+	private boolean isFragmentActive;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -75,7 +77,12 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 		getOpenTrades();
 	}
 
+	void onHide() {
+		isFragmentActive = false;
+	}
+
 	void onShow() {
+		isFragmentActive = true;
 		getOpenTrades();
 	}
 
@@ -155,6 +162,7 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 
 	@Subscribe
 	public void onEventMainThread(OnOpenTradeWholeCloseClickedEvent event) {
-		getViewState().askCloseTrade(event.getTradeId(), event.getSymbol(), event.getVolume());
+		if (isFragmentActive)
+			getViewState().askCloseTrade(event.getTradeId(), event.getSymbol(), event.getVolume());
 	}
 }

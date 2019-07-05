@@ -17,6 +17,8 @@ interface CopytradingTradesHistoryView extends MvpView
 
 	void addTrades(List<OrderSignalModel> newTrades);
 
+	void showCommissions(OrderSignalModel trade);
+
 	void showProgressBar(boolean show);
 
 	void showEmpty(boolean show);
