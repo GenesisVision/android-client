@@ -14,12 +14,14 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import org.joda.time.DateTime;
 
 import java.util.Locale;
+import java.util.Objects;
 import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.ProgramTransactionDetails;
+import io.swagger.client.model.SignalFee;
 import io.swagger.client.model.TransactionDetails;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
@@ -98,13 +100,13 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 
 		if (getIntent().getExtras() != null) {
 			transactionDetailsPresenter.setTransactionId((UUID) getIntent().getExtras().getSerializable(EXTRA_TRANSACTION_ID));
-			setTransactionType(getIntent().getExtras().getString(EXTRA_TRANSACTION_TYPE));
+			setTransactionType(Objects.requireNonNull(getIntent().getExtras().getString(EXTRA_TRANSACTION_TYPE)));
 			setDate((DateTime) getIntent().getExtras().getSerializable(EXTRA_TRANSACTION_DATE));
 
 			setFonts();
 		}
 		else {
-			Timber.e("Passed empty params to TransactionDetailsActivity");
+			Timber.e("Passed empty params to %s", getClass().getSimpleName());
 			onBackPressed();
 		}
 	}
@@ -114,7 +116,16 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 	}
 
 	private void setTransactionType(String type) {
-		this.type.setText(type);
+		if (type.equals(TransactionDetails.TypeEnum.SUBSCRIBESIGNAL.getValue()))
+			this.type.setText(getString(R.string.paying_signal_fee));
+		else if (type.equals(TransactionDetails.TypeEnum.PLATFORM.getValue()))
+			this.type.setText(getString(R.string.platform_fee));
+		else if (type.equals(TransactionDetails.TypeEnum.DEPOSITSIGNAL.getValue()))
+			this.type.setText(getString(R.string.deposit_to_signal_account));
+		else if (type.equals(TransactionDetails.TypeEnum.WITHDRAWALSIGNAL.getValue()))
+			this.type.setText(getString(R.string.withdrawal_from_signal_account));
+		else
+			this.type.setText(type);
 	}
 
 	private void setFonts() {
@@ -146,26 +157,29 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 			case CONVERTING:
 				createConvertingDetails();
 				break;
-			case OPEN:
-				break;
 			case CLOSE:
 				createProgramCloseDetails();
 				break;
 			case PROFIT:
 				createProgramProfitDetails();
 				break;
-			case PLATFORMFEE:
+			case SUBSCRIBESIGNAL:
+				createSubscribeSignalProviderDetails();
 				break;
-//			case SUBSCRIBESIGNAL:
-//				break;
-//			case RECEIVESIGNAL:
-//				break;
-//			case DEPOSITSIGNAL:
-//				break;
-//			case WITHDRAWALSIGNAL:
-//				break;
-//			case PLATFORM:
-//				break;
+			case DEPOSITSIGNAL:
+				createDepositSignalDetails();
+				break;
+			case WITHDRAWALSIGNAL:
+				createWithdrawalSignalDetails();
+				break;
+			case PLATFORM:
+				createPlatformDetails();
+				break;
+			case PLATFORMFEE:
+				createPlatformFeeDetails();
+				break;
+			case OPEN:
+			case RECEIVESIGNAL:
 			default:
 				createUnsupportedTransactionType();
 				break;
@@ -222,6 +236,37 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 		addProgramView(getString(R.string.program));
 		addSuccessFee();
 		addGvCommission();
+		addStatus();
+		addAmount();
+	}
+
+	private void createSubscribeSignalProviderDetails() {
+		addProgramView(getString(R.string.program));
+		addSignalFees();
+		addStatus();
+		addAmount();
+	}
+
+	private void createDepositSignalDetails() {
+		addWallet(getString(R.string.to), details.getCurrencyLogo(), details.getCurrencyName());
+		addStatus();
+		addAmount();
+	}
+
+	private void createWithdrawalSignalDetails() {
+		addWallet(getString(R.string.from), details.getCurrencyLogo(), details.getCurrencyName());
+		addStatus();
+		addAmount();
+	}
+
+	private void createPlatformDetails() {
+		addWallet(getString(R.string.from), details.getCurrencyLogo(), details.getCurrencyName());
+		addStatus();
+		addAmount();
+	}
+
+	private void createPlatformFeeDetails() {
+		addWallet(getString(R.string.from), details.getCurrencyLogo(), details.getCurrencyName());
 		addStatus();
 		addAmount();
 	}
@@ -302,7 +347,7 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 		ValueView view = new ValueView(this);
 		String value = String.format(Locale.getDefault(), "%s%% (%s)",
 				StringFormatUtil.formatAmount(details.getProgramDetails().getSuccessFeePercent(), 0, 2),
-				StringFormatUtil.getValueString(details.getProgramDetails().getSuccessFee(), details.getCurrency().getValue()));
+				StringFormatUtil.getValueString(details.getProgramDetails().getSuccessFee(), details.getProgramDetails().getSuccessFeeCurrency().getValue()));
 		view.setData(StringFormatUtil.capitalize(getString(R.string.success_fee)), value);
 		addView(view);
 	}
@@ -313,6 +358,31 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 				StringFormatUtil.formatAmount(details.getGvCommissionPercent(), 0, 2),
 				StringFormatUtil.getValueString(details.getGvCommission(), details.getGvCommissionCurrency().getValue()));
 		view.setData(getString(R.string.gv_commission), value);
+		addView(view);
+	}
+
+	private void addSignalFees() {
+		for (SignalFee fee : details.getSignalFees()) {
+			addSignalFee(fee);
+		}
+	}
+
+	private void addSignalFee(SignalFee fee) {
+		int titleResId = 0;
+		String value = String.format(Locale.getDefault(), "%s%s",
+				StringFormatUtil.formatCurrencyAmount(fee.getValue(), fee.getCurrency().getValue()),
+				fee.getCurrency().getValue());
+		if (fee.getType().equals(SignalFee.TypeEnum.MANAGERSIGNALMASTERVOLUMEFEE)) {
+			titleResId = R.string.manager_volume_fee;
+		}
+		else if (fee.getType().equals(SignalFee.TypeEnum.MANAGERSIGNALMASTERSUCCESSFEE)) {
+			titleResId = R.string.manager_success_fee;
+		}
+		else if (fee.getType().equals(SignalFee.TypeEnum.GVSIGNALSUCCESSFEE)) {
+			titleResId = R.string.platform_success_fee;
+		}
+		ValueView view = new ValueView(this);
+		view.setData(getString(titleResId), value);
 		addView(view);
 	}
 
