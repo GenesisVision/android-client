@@ -160,7 +160,7 @@ public class ConfirmProgramWithdrawBottomSheetFragment extends BottomSheetDialog
 			periodText.setText(programRequest.getPeriodEndsText());
 
 			programLogo.setImage(programRequest.getProgramLogo(), programRequest.getProgramColor(), 50, 50);
-			programLogo.setLevel(programRequest.getLevel());
+			programLogo.setLevel(programRequest.getLevel(), programRequest.getLevelProgress());
 
 			programName.setText(programRequest.getProgramName());
 			managerName.setText(programRequest.getManagerName());

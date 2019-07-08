@@ -96,7 +96,7 @@ public class ProgramsNotificationsListAdapter extends RecyclerView.Adapter<Progr
 			this.settings = settings;
 
 			programLogo.setImage(settings.getLogo(), "#ffffff", 50, 50);
-			programLogo.setLevel(settings.getLevel());
+			programLogo.setLevel(settings.getLevel(), settings.getLevelProgress());
 			programName.setText(settings.getTitle());
 //			managerName.setText(settings.getManagerName());
 			count.setText(String.valueOf(settings.getSettingsGeneral().size() + settings.getSettingsCustom().size()));

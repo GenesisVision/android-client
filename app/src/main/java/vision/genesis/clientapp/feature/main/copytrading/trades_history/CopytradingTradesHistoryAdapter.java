@@ -170,7 +170,7 @@ public class CopytradingTradesHistoryAdapter extends RecyclerView.Adapter<Copytr
 				OrderProgramData program = trade.getProviders().get(0).getProgram();
 
 				this.programLogo.setImage(program.getLogo(), program.getColor(), 100, 100);
-				this.programLogo.setLevel(program.getLevel());
+				this.programLogo.setLevel(program.getLevel(), program.getLevelProgress());
 
 				this.programName.setText(program.getTitle());
 				this.date.setText(DateTimeUtil.formatEventDateTime(trade.getDate()));

@@ -126,6 +126,7 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		request.setProgramColor(programDetails.getColor());
 		request.setProgramCurrency(programDetails.getCurrency().getValue());
 		request.setLevel(programDetails.getLevel());
+		request.setLevelProgress(programDetails.getLevelProgress());
 		request.setProgramName(programDetails.getTitle());
 		request.setManagerName(programDetails.getManager().getUsername());
 
@@ -148,6 +149,7 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		request.setProgramColor(programDetails.getColor());
 		request.setProgramCurrency(programDetails.getCurrency().getValue());
 		request.setLevel(programDetails.getLevel());
+		request.setLevelProgress(programDetails.getLevelProgress());
 		request.setProgramName(programDetails.getTitle());
 		request.setManagerName(programDetails.getManager().getUsername());
 

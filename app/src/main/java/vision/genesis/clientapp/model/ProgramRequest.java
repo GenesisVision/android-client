@@ -45,6 +45,9 @@ public class ProgramRequest implements Parcelable
 	@SerializedName("level")
 	private Integer level = 1;
 
+	@SerializedName("level_progress")
+	private Double levelProgress = 0.0;
+
 	@SerializedName("period_ends_text")
 	private String periodEndsText;
 
@@ -78,6 +81,7 @@ public class ProgramRequest implements Parcelable
 		programColor = in.readString();
 		programCurrency = in.readString();
 		level = in.readInt();
+		levelProgress = in.readDouble();
 		periodEndsText = in.readString();
 		amountTopText = in.readString();
 		infoMiddleText = in.readString();
@@ -100,6 +104,7 @@ public class ProgramRequest implements Parcelable
 		dest.writeString(programColor);
 		dest.writeString(programCurrency);
 		dest.writeInt(level);
+		dest.writeDouble(levelProgress);
 		dest.writeString(periodEndsText);
 		dest.writeString(amountTopText);
 		dest.writeString(infoMiddleText);
@@ -162,6 +167,14 @@ public class ProgramRequest implements Parcelable
 
 	public void setLevel(Integer level) {
 		this.level = level;
+	}
+
+	public Double getLevelProgress() {
+		return levelProgress;
+	}
+
+	public void setLevelProgress(Double levelProgress) {
+		this.levelProgress = levelProgress;
 	}
 
 	public String getPeriodEndsText() {

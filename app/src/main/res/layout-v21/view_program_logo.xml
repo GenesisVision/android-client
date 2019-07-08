@@ -32,6 +32,19 @@
             android:src="@drawable/circle_white"
             android:tint="?attr/colorBackground"/>
 
+        <ProgressBar
+            android:id="@+id/level_progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerInParent="true"
+            android:background="@android:color/transparent"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            tools:max="100"
+            tools:min="1"
+            tools:progress="25"/>
+
         <ImageView
             android:id="@+id/level_color"
             android:layout_width="24dp"

@@ -178,7 +178,7 @@ public class CopytradingOpenTradesAdapter extends RecyclerView.Adapter<Copytradi
 				updateProvidersCount();
 
 				this.programLogo.setImage(program.getLogo(), program.getColor(), 100, 100);
-				this.programLogo.setLevel(program.getLevel());
+				this.programLogo.setLevel(program.getLevel(), program.getLevelProgress());
 
 				this.programName.setText(program.getTitle());
 				this.date.setText(DateTimeUtil.formatEventDateTime(trade.getDate()));

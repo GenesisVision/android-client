@@ -35,6 +35,7 @@ public class OpenTradeProviderModel implements Parcelable
 		model.programName = info.getProgram().getTitle();
 		model.programLogo = info.getProgram().getLogo();
 		model.programLevel = info.getProgram().getLevel();
+		model.programLevelProgress = info.getProgram().getLevelProgress();
 		model.programColor = info.getProgram().getColor();
 
 		model.volume = info.getVolume();
@@ -53,6 +54,8 @@ public class OpenTradeProviderModel implements Parcelable
 	private String programLogo;
 
 	private Integer programLevel;
+
+	private Double programLevelProgress;
 
 	private String programColor;
 
@@ -75,6 +78,12 @@ public class OpenTradeProviderModel implements Parcelable
 		}
 		else {
 			programLevel = in.readInt();
+		}
+		if (in.readByte() == 0) {
+			programLevelProgress = null;
+		}
+		else {
+			programLevelProgress = in.readDouble();
 		}
 		programColor = in.readString();
 		if (in.readByte() == 0) {
@@ -118,6 +127,10 @@ public class OpenTradeProviderModel implements Parcelable
 		return programLevel;
 	}
 
+	public Double getProgramLevelProgress() {
+		return programLevelProgress;
+	}
+
 	public String getProgramColor() {
 		return programColor;
 	}
@@ -158,6 +171,13 @@ public class OpenTradeProviderModel implements Parcelable
 		else {
 			parcel.writeByte((byte) 1);
 			parcel.writeInt(programLevel);
+		}
+		if (programLevelProgress == null) {
+			parcel.writeByte((byte) 0);
+		}
+		else {
+			parcel.writeByte((byte) 1);
+			parcel.writeDouble(programLevelProgress);
 		}
 		parcel.writeString(programColor);
 		if (volume == null) {

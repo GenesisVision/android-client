@@ -125,6 +125,7 @@ public class DashboardCopytradingAdapter extends RecyclerView.Adapter<DashboardC
 							signal.getLogo(),
 							signal.getColor(),
 							signal.getLevel(),
+							signal.getLevelProgress(),
 							signal.getTitle(),
 							signal.getManager().getUsername(),
 							signal.getCurrency().getValue(),
@@ -151,7 +152,7 @@ public class DashboardCopytradingAdapter extends RecyclerView.Adapter<DashboardC
 
 		private void updateData() {
 			this.programLogo.setImage(signal.getLogo(), signal.getColor(), 100, 100);
-			this.programLogo.setLevel(signal.getLevel());
+			this.programLogo.setLevel(signal.getLevel(), signal.getLevelProgress());
 
 			this.programName.setText(signal.getTitle());
 			this.managerName.setText(signal.getManager().getUsername());

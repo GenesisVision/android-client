@@ -320,6 +320,7 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 				details.getProgramDetails().getLogo(),
 				details.getProgramDetails().getColor(),
 				details.getProgramDetails().getLevel(),
+				details.getProgramDetails().getLevelProgress(),
 				details.getProgramDetails().getTitle(),
 				details.getProgramDetails().getManagerName());
 		addView(view);

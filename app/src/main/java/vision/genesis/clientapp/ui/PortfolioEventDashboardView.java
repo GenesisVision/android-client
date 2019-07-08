@@ -89,6 +89,7 @@ public class PortfolioEventDashboardView extends RelativeLayout
 							event.getLogoUrl(),
 							event.getAssetColor(),
 							0,
+							0.0,
 							event.getAssetName(),
 							"",
 							event.getProgramCurrency(),

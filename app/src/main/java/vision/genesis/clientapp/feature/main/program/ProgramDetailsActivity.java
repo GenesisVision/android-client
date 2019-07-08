@@ -92,6 +92,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@BindView(R.id.program_logo)
 	public SimpleDraweeView programLogo;
 
+	@BindView(R.id.level_progress_bar)
+	public ProgressBar levelProgress;
+
 	@BindView(R.id.level)
 	public TextView level;
 
@@ -299,6 +302,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 				level = levelColors.length;
 			}
 			levelColor.setColorFilter(levelColors[level - 1]);
+			levelProgress.setProgress(model.getLevelProgress().intValue());
 		}
 
 		programName.setText(model.getProgramName());

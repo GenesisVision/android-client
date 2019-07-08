@@ -120,6 +120,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 								request.getLogo(),
 								request.getColor(),
 								0,
+								0.0,
 								request.getTitle(),
 								"",
 								request.getCurrency().getValue(),

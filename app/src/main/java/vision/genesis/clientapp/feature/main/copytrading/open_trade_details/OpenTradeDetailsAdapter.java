@@ -133,7 +133,7 @@ public class OpenTradeDetailsAdapter extends RecyclerView.Adapter<OpenTradeDetai
 
 		private void updateData() {
 			this.programLogo.setImage(trade.getProgramLogo(), trade.getProgramColor(), 100, 100);
-			this.programLogo.setLevel(trade.getProgramLevel());
+			this.programLogo.setLevel(trade.getProgramLevel(), trade.getProgramLevelProgress());
 
 			this.programName.setText(trade.getProgramName());
 			this.date.setText(DateTimeUtil.formatEventDateTime(trade.getDate()));

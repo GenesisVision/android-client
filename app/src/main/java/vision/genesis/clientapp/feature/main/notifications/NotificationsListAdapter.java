@@ -108,6 +108,7 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<Notifications
 										notification.getLogo(),
 										"#131e26",
 										0,
+										0.0,
 										"",
 										"",
 										"",

@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -44,6 +45,9 @@ public class ProgramLogoView extends RelativeLayout
 
 	@BindView(R.id.level_color)
 	public ImageView levelColor;
+
+	@BindView(R.id.level_progress_bar)
+	public ProgressBar levelProgress;
 
 	@BindView(R.id.group_level)
 	public ViewGroup groupLevel;
@@ -92,7 +96,7 @@ public class ProgramLogoView extends RelativeLayout
 		image.setController(controller);
 	}
 
-	public void setLevel(int level) {
+	public void setLevel(int level, Double levelProgress) {
 		this.level.setText(String.valueOf(level));
 
 		if (level > 0) {
@@ -101,6 +105,8 @@ public class ProgramLogoView extends RelativeLayout
 				level = levelColors.length;
 			}
 			levelColor.setColorFilter(levelColors[level - 1]);
+
+			this.levelProgress.setProgress(levelProgress.intValue());
 		}
 	}
 

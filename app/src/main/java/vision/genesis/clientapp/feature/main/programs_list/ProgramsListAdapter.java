@@ -227,6 +227,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 							program.getLogo(),
 							program.getColor(),
 							program.getLevel(),
+							program.getLevelProgress(),
 							program.getTitle(),
 							program.getManager().getUsername(),
 							program.getCurrency().getValue(),
@@ -269,7 +270,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 		private void updateData() {
 			programLogo.setImage(program.getLogo(), program.getColor(), 100, 100);
-			programLogo.setLevel(program.getLevel());
+			programLogo.setLevel(program.getLevel(), program.getLevelProgress());
 
 			if (program.getPersonalDetails() != null) {
 				favorite.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, program.getPersonalDetails().isIsFavorite()

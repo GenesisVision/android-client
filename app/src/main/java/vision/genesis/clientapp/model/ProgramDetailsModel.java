@@ -34,6 +34,8 @@ public class ProgramDetailsModel implements Parcelable
 
 	private Integer level;
 
+	private Double levelProgress;
+
 	private String programName;
 
 	private String managerName;
@@ -44,12 +46,13 @@ public class ProgramDetailsModel implements Parcelable
 
 	private boolean hasNotifications;
 
-	public ProgramDetailsModel(UUID programId, String avatar, String programColor, Integer level,
+	public ProgramDetailsModel(UUID programId, String avatar, String programColor, Integer level, Double levelProgress,
 	                           String programName, String managerName, String currency, boolean isFavorite, boolean hasNotifications) {
 		this.programId = programId;
 		this.avatar = avatar;
 		this.programColor = programColor;
 		this.level = level;
+		this.levelProgress = levelProgress;
 		this.programName = programName;
 		this.managerName = managerName;
 		this.currency = currency;
@@ -62,6 +65,7 @@ public class ProgramDetailsModel implements Parcelable
 		avatar = in.readString();
 		programColor = in.readString();
 		level = in.readInt();
+		levelProgress = in.readDouble();
 		programName = in.readString();
 		managerName = in.readString();
 		currency = in.readString();
@@ -83,6 +87,10 @@ public class ProgramDetailsModel implements Parcelable
 
 	public Integer getLevel() {
 		return level;
+	}
+
+	public Double getLevelProgress() {
+		return levelProgress;
 	}
 
 	public String getProgramName() {
@@ -116,6 +124,7 @@ public class ProgramDetailsModel implements Parcelable
 		dest.writeString(avatar);
 		dest.writeString(programColor);
 		dest.writeInt(level);
+		dest.writeDouble(levelProgress);
 		dest.writeString(programName);
 		dest.writeString(managerName);
 		dest.writeString(currency);
@@ -128,6 +137,7 @@ public class ProgramDetailsModel implements Parcelable
 		this.avatar = programDetails.getLogo();
 		this.programColor = programDetails.getColor();
 		this.level = programDetails.getLevel();
+		this.levelProgress = programDetails.getLevelProgress();
 		this.programName = programDetails.getTitle();
 		this.managerName = programDetails.getManager().getUsername();
 		this.currency = programDetails.getCurrency().getValue();

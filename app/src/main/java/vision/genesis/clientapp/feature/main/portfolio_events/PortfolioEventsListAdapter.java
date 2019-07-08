@@ -106,6 +106,7 @@ public class PortfolioEventsListAdapter extends RecyclerView.Adapter<PortfolioEv
 								event.getLogoUrl(),
 								event.getAssetColor(),
 								0,
+								0.0,
 								event.getAssetName(),
 								"",
 								event.getProgramCurrency(),

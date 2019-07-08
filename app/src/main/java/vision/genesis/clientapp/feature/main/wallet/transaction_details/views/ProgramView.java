@@ -57,11 +57,11 @@ public class ProgramView extends RelativeLayout
 
 	}
 
-	public void setData(String label, String logo, String color, Integer level, String programName, String managerName) {
+	public void setData(String label, String logo, String color, Integer level, Double levelProgress, String programName, String managerName) {
 		this.label.setText(label);
 		this.programLogo.setImage(logo, color, 50, 50);
 		if (level > 0)
-			this.programLogo.setLevel(level);
+			this.programLogo.setLevel(level, levelProgress);
 		else {
 			this.programLogo.hideLevel();
 			ViewGroup.LayoutParams lp = this.programLogo.getLayoutParams();

@@ -171,6 +171,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 							program.getLogo(),
 							program.getColor(),
 							program.getLevel(),
+							program.getLevelProgress(),
 							program.getTitle(),
 							program.getManager().getUsername(),
 							program.getCurrency().getValue(),
@@ -225,7 +226,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 		private void updateData() {
 			this.programLogo.setImage(program.getLogo(), program.getColor(), 100, 100);
-			this.programLogo.setLevel(program.getLevel());
+			this.programLogo.setLevel(program.getLevel(), program.getLevelProgress());
 
 			this.programName.setText(program.getTitle());
 			this.managerName.setText(program.getManager().getUsername());
