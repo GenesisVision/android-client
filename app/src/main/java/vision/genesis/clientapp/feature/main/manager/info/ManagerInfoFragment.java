@@ -30,6 +30,7 @@ import io.swagger.client.model.ManagerProfileDetails;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
+import vision.genesis.clientapp.ui.SocialLinksView;
 import vision.genesis.clientapp.utils.ThemeUtil;
 
 /**
@@ -54,6 +55,9 @@ public class ManagerInfoFragment extends BaseFragment implements ManagerInfoView
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
+
+	@BindView(R.id.social_links)
+	public SocialLinksView socialLinks;
 
 	@BindView(R.id.assets_type)
 	public TextView assetsType;
@@ -146,6 +150,8 @@ public class ManagerInfoFragment extends BaseFragment implements ManagerInfoView
 		this.managerDetails = managerDetails;
 
 		scrollView.setVisibility(View.VISIBLE);
+
+		socialLinks.setData(managerDetails.getManagerProfile().getSocialLinks());
 
 		String assetsString = "";
 		int index = 0;

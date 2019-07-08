@@ -45,6 +45,7 @@ import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PeriodLeftDetailsView;
 import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.ui.SocialLinksView;
 import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -88,6 +89,9 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@BindView(R.id.manager_date)
 	public TextView managerDate;
+
+	@BindView(R.id.social_links)
+	public SocialLinksView socialLinks;
 
 	@BindView(R.id.strategy)
 	public TextView strategy;
@@ -353,6 +357,8 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		managerAvatar.setImage(programDetails.getManager().getAvatar(), 100, 100);
 		managerName.setText(programDetails.getManager().getUsername());
 		managerDate.setText(DateTimeUtil.formatShortDate(programDetails.getManager().getRegistrationDate()));
+
+		socialLinks.setData(programDetails.getManager().getSocialLinks());
 
 		strategy.setText(programDetails.getDescription());
 		new Handler().postDelayed(() -> {
