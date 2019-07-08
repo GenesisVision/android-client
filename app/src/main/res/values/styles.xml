@@ -468,7 +468,7 @@
     <style name="about_levels_point_text">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:alpha">0.4</item>
+        <item name="android:alpha">0.8</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">?attr/colorTextPrimary</item>
         <item name="android:lineSpacingMultiplier">1.4</item>

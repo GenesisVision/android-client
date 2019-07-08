@@ -1,10 +1,18 @@
 package vision.genesis.clientapp.utils;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
+import android.view.View;
+import android.widget.TextView;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -135,5 +143,33 @@ public class StringFormatUtil
 
 	public static String getApproxSymbolIfNeeded(Double amount) {
 		return amount != 0 ? "≈" : "";
+	}
+
+	public static void setClickableSpan(Context context, TextView textView, String completeString, String clickablePart, String url, boolean needUnderline) {
+		int startPosition = completeString.indexOf(clickablePart);
+		int endPosition = completeString.lastIndexOf(clickablePart) + clickablePart.length();
+
+		final SpannableString spannable = new SpannableString(completeString);
+		spannable.setSpan(new ClickableSpan()
+		                  {
+			                  @Override
+			                  public void onClick(View view) {
+				                  Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+				                  context.startActivity(browserIntent);
+			                  }
+
+			                  @Override
+			                  public void updateDrawState(TextPaint ds) {
+				                  super.updateDrawState(ds);
+				                  int linkColor = ContextCompat.getColor(context, R.color.accent);
+				                  ds.setColor(linkColor);
+				                  ds.setUnderlineText(needUnderline);
+			                  }
+		                  },
+				startPosition,
+				endPosition,
+				Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+		textView.setText(spannable);
+		textView.setMovementMethod(LinkMovementMethod.getInstance());
 	}
 }

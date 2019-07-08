@@ -57,6 +57,33 @@ public class AboutLevelsActivity extends BaseSwipeBackActivity implements AboutL
 	@BindView(R.id.levels_title)
 	public TextView levelsTitle;
 
+	@BindView(R.id.formula)
+	public TextView formula;
+
+	@BindView(R.id.point_1)
+	public TextView point1;
+
+	@BindView(R.id.title_1)
+	public TextView title1;
+
+	@BindView(R.id.point_2)
+	public TextView point2;
+
+	@BindView(R.id.title_2)
+	public TextView title2;
+
+	@BindView(R.id.point_3)
+	public TextView point3;
+
+	@BindView(R.id.title_3)
+	public TextView title3;
+
+	@BindView(R.id.notes)
+	public TextView notes;
+
+	@BindView(R.id.more)
+	public TextView more;
+
 	@BindView(R.id.level_1)
 	public TextView level1;
 
@@ -129,9 +156,9 @@ public class AboutLevelsActivity extends BaseSwipeBackActivity implements AboutL
 		if (getIntent().getExtras() != null) {
 			selectedCurrency = getIntent().getExtras().getString(EXTRA_CURRENCY, "GVT");
 			aboutLevelsPresenter.onCurrencyChanged(CurrencyEnum.fromValue(selectedCurrency));
-//			aboutLevelsPresenter.onCurrencyChanged(CurrencyEnum.fromValue("GVT"));
 
 			setFonts();
+			setMore();
 		}
 		else {
 			Timber.e("Passed empty model to AboutLevelsActivity");
@@ -142,7 +169,16 @@ public class AboutLevelsActivity extends BaseSwipeBackActivity implements AboutL
 	private void setFonts() {
 		title.setTypeface(TypefaceUtil.semibold());
 		levelsTitle.setTypeface(TypefaceUtil.semibold());
+		formula.setTypeface(TypefaceUtil.bold());
 		currency.setTypeface(TypefaceUtil.semibold());
+
+		point1.setTypeface(TypefaceUtil.semibold());
+		point2.setTypeface(TypefaceUtil.semibold());
+		point3.setTypeface(TypefaceUtil.semibold());
+		title1.setTypeface(TypefaceUtil.semibold());
+		title2.setTypeface(TypefaceUtil.semibold());
+		title3.setTypeface(TypefaceUtil.semibold());
+		notes.setTypeface(TypefaceUtil.semibold());
 
 		level1.setTypeface(TypefaceUtil.semibold());
 		level2.setTypeface(TypefaceUtil.semibold());
@@ -159,6 +195,15 @@ public class AboutLevelsActivity extends BaseSwipeBackActivity implements AboutL
 		limit5.setTypeface(TypefaceUtil.semibold());
 		limit6.setTypeface(TypefaceUtil.semibold());
 		limit7.setTypeface(TypefaceUtil.semibold());
+	}
+
+	private void setMore() {
+		String moreString = getString(R.string.about_levels_more);
+		String articleString = getString(R.string.about_levels_article);
+		String url = getString(R.string.about_levels_more_link);
+		String completeString = moreString.concat(" ").concat(articleString);
+
+		StringFormatUtil.setClickableSpan(this, more, completeString, articleString, url, false);
 	}
 
 	@Override
