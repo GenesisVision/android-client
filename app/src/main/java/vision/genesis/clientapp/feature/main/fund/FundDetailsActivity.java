@@ -139,6 +139,10 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 
 	private FundDetailsModel model;
 
+	private boolean isPagerDragging;
+
+	private int verticalOffset = 0;
+
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
@@ -207,6 +211,7 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 
 	private void setAnimations() {
 		appBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+			this.verticalOffset = verticalOffset;
 			double toolbarStartOffset = Math.abs((float) appBarLayout.getTotalScrollRange() * 0.15);
 			float alphaPercent = ((float) Math.abs(verticalOffset) / ((float) appBarLayout.getTotalScrollRange() - 100));
 			collapsingToolbarScreen.setAlpha(alphaPercent);
@@ -218,10 +223,14 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 			toolbarFundLogo.setAlpha(1 - toolbarAlphaPercent);
 			toolbarFundName.setAlpha(1 - toolbarAlphaPercent);
 
-			refreshLayout.setEnabled(verticalOffset == 0);
+			updateRefreshLayoutEnabled();
 
 			pagerAdapter.onOffsetChanged(appBarLayout.getHeight() + verticalOffset - tabLayout.getHeight() - toolbar.getHeight());
 		});
+	}
+
+	private void updateRefreshLayoutEnabled() {
+		refreshLayout.setEnabled(verticalOffset == 0 && !isPagerDragging);
 	}
 
 	@Override
@@ -393,7 +402,8 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 
 	@Override
 	public void onPageScrollStateChanged(int state) {
-
+		isPagerDragging = state == ViewPager.SCROLL_STATE_DRAGGING;
+		updateRefreshLayoutEnabled();
 	}
 
 	@Override

@@ -135,6 +135,10 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 
 	private ManagerDetailsModel model;
 
+	private boolean isPagerDragging;
+
+	private int verticalOffset = 0;
+
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
@@ -208,10 +212,14 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 			toolbarManagerAvatar.setAlpha(1 - toolbarAlphaPercent);
 			toolbarManagerName.setAlpha(1 - toolbarAlphaPercent);
 
-			refreshLayout.setEnabled(verticalOffset == 0);
+			updateRefreshLayoutEnabled();
 
 			pagerAdapter.onOffsetChanged(appBarLayout.getHeight() + verticalOffset - tabLayout.getHeight() - toolbar.getHeight());
 		});
+	}
+
+	private void updateRefreshLayoutEnabled() {
+		refreshLayout.setEnabled(verticalOffset == 0 && !isPagerDragging);
 	}
 
 	@Override
@@ -362,7 +370,8 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 
 	@Override
 	public void onPageScrollStateChanged(int state) {
-
+		isPagerDragging = state == ViewPager.SCROLL_STATE_DRAGGING;
+		updateRefreshLayoutEnabled();
 	}
 
 //	public void onChartTouch() {

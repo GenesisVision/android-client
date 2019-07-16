@@ -162,6 +162,10 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	private ProgramDetailsModel model;
 
+	private boolean isPagerDragging;
+
+	private int verticalOffset = 0;
+
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
@@ -238,6 +242,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	private void setAnimations() {
 		appBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+			this.verticalOffset = verticalOffset;
 			double toolbarStartOffset = Math.abs((float) appBarLayout.getTotalScrollRange() * 0.15);
 			float alphaPercent = ((float) Math.abs(verticalOffset) / ((float) appBarLayout.getTotalScrollRange() - 100));
 			collapsingToolbarScreen.setAlpha(alphaPercent);
@@ -249,10 +254,14 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			toolbarProgramLogo.setAlpha(1 - toolbarAlphaPercent);
 			toolbarProgramName.setAlpha(1 - toolbarAlphaPercent);
 
-			refreshLayout.setEnabled(verticalOffset == 0);
+			updateRefreshLayoutEnabled();
 
 			pagerAdapter.onOffsetChanged(appBarLayout.getHeight() + verticalOffset - tabLayout.getHeight() - toolbar.getHeight());
 		});
+	}
+
+	private void updateRefreshLayoutEnabled() {
+		refreshLayout.setEnabled(verticalOffset == 0 && !isPagerDragging);
 	}
 
 	@Override
@@ -468,7 +477,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	@Override
 	public void onPageScrollStateChanged(int state) {
-
+		isPagerDragging = state == ViewPager.SCROLL_STATE_DRAGGING;
+		updateRefreshLayoutEnabled();
 	}
 
 	@Override
