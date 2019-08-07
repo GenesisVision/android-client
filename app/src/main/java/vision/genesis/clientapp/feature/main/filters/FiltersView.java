@@ -2,7 +2,8 @@ package vision.genesis.clientapp.feature.main.filters;
 
 import com.arellomobile.mvp.MvpView;
 
-import vision.genesis.clientapp.model.ProgramsFilter;
+import vision.genesis.clientapp.model.filter.FilterOption;
+import vision.genesis.clientapp.model.filter.UserFilter;
 
 /**
  * GenesisVisionAndroid
@@ -11,7 +12,9 @@ import vision.genesis.clientapp.model.ProgramsFilter;
 
 interface FiltersView extends MvpView
 {
-	void filterUpdated(ProgramsFilter filter);
+	void filterUpdated(UserFilter filter);
 
 	void setApplyButtonEnabled(boolean enabled);
+
+	void showSingleValueChooser(FilterOption filterOption);
 }

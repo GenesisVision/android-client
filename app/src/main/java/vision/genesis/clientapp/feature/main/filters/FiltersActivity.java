@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.content.res.AppCompatResources;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
-import java.util.Locale;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindInt;
 import butterknife.BindView;
@@ -20,8 +22,10 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.feature.main.filters.sorting.SortingBottomSheetFragment;
-import vision.genesis.clientapp.model.ProgramsFilter;
+import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.filters.sorting.SortingDialogFragment;
+import vision.genesis.clientapp.model.filter.FilterOption;
+import vision.genesis.clientapp.model.filter.UserFilter;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -34,19 +38,12 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class FiltersActivity extends BaseSwipeBackActivity implements FiltersView
 {
-	public static final int PROGRAM_FILTER = 100;
-
-	public static final int FUND_FILTER = 101;
-
 	private static final String EXTRA_FILTER = "extra_filter";
 
-	private static final String EXTRA_REQUEST_CODE = "extra_request_code";
-
-	public static void startFromFragment(Fragment fragment, ProgramsFilter filter, int requestCode) {
+	public static void startFromFragment(Fragment fragment, UserFilter filter) {
 		Intent intent = new Intent(fragment.getContext(), FiltersActivity.class);
 		intent.putExtra(EXTRA_FILTER, filter);
-		intent.putExtra(EXTRA_REQUEST_CODE, requestCode);
-		fragment.startActivityForResult(intent, requestCode);
+		fragment.startActivityForResult(intent, filter.getType());
 		if (fragment.getActivity() != null)
 			fragment.getActivity().overridePendingTransition(R.anim.slide_from_bottom, R.anim.hold);
 	}
@@ -57,11 +54,14 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 	@BindView(R.id.button_reset)
 	public TextView resetButton;
 
-	@BindView(R.id.levels_value)
-	public TextView levelsValue;
+	@BindView(R.id.group_filters)
+	public ViewGroup filtersGroup;
 
-	@BindView(R.id.currency_value)
-	public TextView currencyValue;
+	@BindView(R.id.date_range)
+	public ViewGroup dateRange;
+
+	@BindView(R.id.sorting)
+	public ViewGroup sorting;
 
 	@BindView(R.id.date_range_value)
 	public TextView dateRangeValue;
@@ -84,13 +84,13 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 	@InjectPresenter
 	FiltersPresenter filtersPresenter;
 
-	private ProgramsFilter filter;
+	private UserFilter filter;
 
 	private String currentSortingName = "";
 
 	private String currentSortingDirection = "";
 
-	private int requestCode;
+	private List<FilterOptionView> filterOptionViewList = new ArrayList<>();
 
 	@OnClick(R.id.button_close)
 	public void onCloseClicked() {
@@ -107,16 +107,16 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 		finish(Activity.RESULT_OK);
 	}
 
-	@OnClick(R.id.button_sorting)
+	@OnClick(R.id.sorting)
 	public void onSortingClicked() {
-		SortingBottomSheetFragment bottomSheetDialog = new SortingBottomSheetFragment();
+		SortingDialogFragment bottomSheetDialog = new SortingDialogFragment();
 		bottomSheetDialog.show(getSupportFragmentManager(), bottomSheetDialog.getTag());
 		bottomSheetDialog.setCurrentSorting(currentSortingName, currentSortingDirection);
-		bottomSheetDialog.setAssetType(requestCode == PROGRAM_FILTER ? "program" : "fund");
+		bottomSheetDialog.setAssetType(filter.getType());
 		bottomSheetDialog.setListener(filtersPresenter);
 	}
 
-	@OnClick(R.id.button_date_range)
+	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
 		DateRangeBottomSheetFragment bottomSheetDialog = new DateRangeBottomSheetFragment();
 		bottomSheetDialog.show(getSupportFragmentManager(), bottomSheetDialog.getTag());
@@ -135,66 +135,48 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 
 		setFonts();
 
-
 		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
 			filtersPresenter.setFilter(getIntent().getExtras().getParcelable(EXTRA_FILTER));
-			requestCode = getIntent().getExtras().getInt(EXTRA_REQUEST_CODE);
+			filter = getIntent().getExtras().getParcelable(EXTRA_FILTER);
+
+			setupFilterOptions();
 		}
 		else {
-			Timber.e("Passed empty filter to FiltersActivity");
+			Timber.e("Passed empty filter to %s", getClass().getSimpleName());
 			onBackPressed();
 		}
 	}
 
-	@Override
-	public void filterUpdated(ProgramsFilter filter) {
-		this.filter = filter;
-
-		setRangeFilterValue(levelsValue, filter.getLevelMin(), filter.getLevelMax());
-		setSingleFilterValue(currencyValue, filter.getCurrency() != null ? filter.getCurrency().getValue() : null);
+	private void setupFilterOptions() {
+		filterOptionViewList.clear();
+		filtersGroup.removeAllViews();
+		for (FilterOption filterOption : filter.getOptions()) {
+			FilterOptionView view = getFilterOptionView(filterOption);
+			filterOptionViewList.add(view);
+			filtersGroup.addView(view);
+		}
 
 		this.dateRangeValue.setText(filter.getDateRange().toString());
 		updateSortingFromFilter();
 	}
 
-	private void setRangeFilterValue(TextView filterValueView, Integer minValue, Integer maxValue) {
-		if (minValue == null && maxValue == null) {
-			filterValueView.setAlpha(0.4f);
-			filterValueView.setTextColor(ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary));
-
-			filterValueView.setText(getString(R.string.all));
-		}
-		else {
-			filterValueView.setAlpha(1f);
-			filterValueView.setTextColor(ThemeUtil.getColorByAttrId(this, R.attr.colorAccent));
-
-			if (minValue == null)
-				minValue = defaultLevelMinLevel;
-			if (maxValue == null)
-				maxValue = defaultLevelMaxLevel;
-
-			if (maxValue - minValue == 1)
-				filterValueView.setText(String.format(Locale.getDefault(), "%d, %d", minValue, maxValue));
-			else if (minValue.equals(maxValue))
-				filterValueView.setText(String.format(Locale.getDefault(), "%d", minValue));
-			else
-				filterValueView.setText(String.format(Locale.getDefault(), "%d-%d", minValue, maxValue));
-		}
+	private FilterOptionView getFilterOptionView(FilterOption filterOption) {
+		FilterOptionView view = new FilterOptionView(this);
+		view.setFilterOption(filterOption);
+		view.setClickListener(filtersPresenter);
+		return view;
 	}
 
-	private void setSingleFilterValue(TextView filterValueView, String value) {
-		if (value == null) {
-			filterValueView.setAlpha(0.4f);
-			filterValueView.setTextColor(ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary));
+	@Override
+	public void filterUpdated(UserFilter filter) {
+		this.filter = filter;
 
-			filterValueView.setText(getString(R.string.all));
+		for (int i = 0; i < filter.getOptions().size(); i++) {
+			filterOptionViewList.get(i).setFilterOption(filter.getOptions().get(i));
 		}
-		else {
-			filterValueView.setAlpha(1f);
-			filterValueView.setTextColor(ThemeUtil.getColorByAttrId(this, R.attr.colorAccent));
 
-			filterValueView.setText(value);
-		}
+		this.dateRangeValue.setText(filter.getDateRange().toString());
+		updateSortingFromFilter();
 	}
 
 	private void updateSortingFromFilter() {
@@ -259,6 +241,16 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 	@Override
 	public void setApplyButtonEnabled(boolean enabled) {
 		applyButton.setEnabled(enabled);
+		if (enabled)
+			Timber.d("stop");
+	}
+
+	@Override
+	public void showSingleValueChooser(FilterOption filterOption) {
+		SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+				filterOption.getName(), filterOption.getValues(), filterOption.getSelectedPosition());
+		fragment.setListener(filtersPresenter);
+		fragment.show(getSupportFragmentManager(), fragment.getTag());
 	}
 
 	private void setFonts() {

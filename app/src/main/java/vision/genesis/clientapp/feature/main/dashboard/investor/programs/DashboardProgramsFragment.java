@@ -1,5 +1,7 @@
 package vision.genesis.clientapp.feature.main.dashboard.investor.programs;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +17,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import java.util.List;
 import java.util.UUID;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -23,6 +26,10 @@ import io.swagger.client.model.ProgramDetails;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.DashboardPagerAdapter;
+import vision.genesis.clientapp.feature.main.filters.FiltersActivity;
+import vision.genesis.clientapp.model.filter.DashboardFilter;
+import vision.genesis.clientapp.model.filter.UserFilter;
+import vision.genesis.clientapp.ui.FiltersView;
 
 /**
  * GenesisVision
@@ -38,8 +45,14 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 		return dashboardProgramsFragment;
 	}
 
+	@BindView(R.id.root)
+	public ViewGroup root;
+
 	@BindView(R.id.recycler_view)
 	public RecyclerView recyclerView;
+
+	@BindView(R.id.filters)
+	public FiltersView filters;
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
@@ -50,6 +63,12 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 	@InjectPresenter
 	public DashboardProgramsPresenter dashboardProgramsPresenter;
 
+	@BindDimen(R.dimen.filters_margin_bottom)
+	public int filtersMarginBottom;
+
+	@BindDimen(R.dimen.filters_margin_top)
+	public int filtersMarginTop;
+
 	private DashboardProgramsAdapter dashboardProgramsAdapter;
 
 	private Unbinder unbinder;
@@ -57,6 +76,11 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 	@OnClick(R.id.button_browse_programs)
 	public void onStartInvestingClicked() {
 		dashboardProgramsPresenter.onStartInvestingClicked();
+	}
+
+	@OnClick(R.id.filters)
+	public void onFiltersClicked() {
+		dashboardProgramsPresenter.onFiltersClicked();
 	}
 
 	@Nullable
@@ -125,6 +149,11 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 	}
 
 	@Override
+	public void showFiltersActivity(DashboardFilter filter) {
+		FiltersActivity.startFromFragment(this, filter.getUserFilter(UserFilter.TYPE_DASHBOARD_PROGRAMS_FILTER));
+	}
+
+	@Override
 	public void showEmpty(boolean show) {
 		if (emptyGroup != null) {
 			emptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);
@@ -136,6 +165,10 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 		if (progressBar != null) {
 			progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
 		}
+		if (!show) {
+			filters.setVisibility(View.VISIBLE);
+			recyclerView.setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override
@@ -146,5 +179,26 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 
 	@Override
 	public void pagerHide() {
+	}
+
+	public void onOffsetChanged(int verticalOffset) {
+		if (filters != null) {
+			float newY = root.getHeight() - verticalOffset - filters.getHeight() - filtersMarginBottom;
+			if (newY < filtersMarginTop)
+				newY = filtersMarginTop;
+			filters.setY(newY);
+		}
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == UserFilter.TYPE_DASHBOARD_PROGRAMS_FILTER && resultCode == Activity.RESULT_OK) {
+			UserFilter userFilter = data.getParcelableExtra("filter");
+			if (userFilter != null)
+				dashboardProgramsPresenter.onFilterUpdated(userFilter);
+		}
+		else {
+			super.onActivityResult(requestCode, resultCode, data);
+		}
 	}
 }

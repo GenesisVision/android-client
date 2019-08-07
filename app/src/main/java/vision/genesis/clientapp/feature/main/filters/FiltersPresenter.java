@@ -4,10 +4,12 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.feature.main.filters.sorting.SortingBottomSheetFragment;
+import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.filters.sorting.SortingDialogFragment;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.model.ProgramsFilter;
 import vision.genesis.clientapp.model.SortingEnum;
+import vision.genesis.clientapp.model.filter.FilterOption;
+import vision.genesis.clientapp.model.filter.UserFilter;
 
 /**
  * GenesisVisionAndroid
@@ -15,11 +17,13 @@ import vision.genesis.clientapp.model.SortingEnum;
  */
 
 @InjectViewState
-public class FiltersPresenter extends MvpPresenter<FiltersView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener, SortingBottomSheetFragment.OnSortingChangedListener
+public class FiltersPresenter extends MvpPresenter<FiltersView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener, SortingDialogFragment.OnSortingChangedListener, FilterOptionView.ClickListener, SelectOptionBottomSheetFragment.OnOptionSelectedListener
 {
-	private ProgramsFilter oldFilter;
+	private UserFilter oldFilter;
 
-	private ProgramsFilter filter;
+	private UserFilter filter;
+
+	private FilterOption selectedFilterOption;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -27,9 +31,9 @@ public class FiltersPresenter extends MvpPresenter<FiltersView> implements DateR
 
 	}
 
-	void setFilter(ProgramsFilter filter) {
+	void setFilter(UserFilter filter) {
 		this.oldFilter = filter;
-		this.filter = new ProgramsFilter(filter);
+		this.filter = new UserFilter(filter);
 
 		onFilterUpdated();
 	}
@@ -40,11 +44,11 @@ public class FiltersPresenter extends MvpPresenter<FiltersView> implements DateR
 	}
 
 	void onResetClicked() {
-		filter.setLevelMin(null);
-		filter.setLevelMax(null);
-		filter.setCurrency(null);
+		for (FilterOption filterOption : filter.getOptions()) {
+			filterOption.resetToDefaultValue();
+		}
 
-		filter.setDateRange(DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK));
+		filter.setDateRange(DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH));
 		filter.setSorting(SortingEnum.BYPROFITDESC);
 
 		onFilterUpdated();
@@ -98,5 +102,26 @@ public class FiltersPresenter extends MvpPresenter<FiltersView> implements DateR
 
 		filter.setSorting(sortingEnum);
 		onFilterUpdated();
+	}
+
+	@Override
+	public void onClick(FilterOption filterOption) {
+		switch (filterOption.getType()) {
+			case FilterOption.TYPE_SINGLE_VALUE:
+				selectedFilterOption = filterOption;
+				getViewState().showSingleValueChooser(filterOption);
+				break;
+			case FilterOption.TYPE_RANGE:
+//				getViewState().showRangeValueChooser(filterOption);
+				break;
+		}
+	}
+
+	@Override
+	public void onOptionSelected(Integer position, String text) {
+		if (selectedFilterOption != null) {
+			selectedFilterOption.setSelectedPosition(position);
+			onFilterUpdated();
+		}
 	}
 }

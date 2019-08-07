@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.MinMaxFilterModel;
-import vision.genesis.clientapp.model.ProgramsFilter;
+import vision.genesis.clientapp.model.filter.ProgramsFilter;
 import vision.genesis.clientapp.utils.NumberFormatUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;

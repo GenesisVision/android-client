@@ -25,12 +25,12 @@ import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButto
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.model.ProgramsFilter;
 import vision.genesis.clientapp.model.events.OnFundFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.OnListFundFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersClearedEvent;
 import vision.genesis.clientapp.model.events.SetManagerDetailsFundsCountEvent;
+import vision.genesis.clientapp.model.filter.ProgramsFilter;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**

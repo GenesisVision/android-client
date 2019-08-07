@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.filter.UserFilter;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -23,7 +24,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 26/03/2018.
  */
 
-public class SortingBottomSheetFragment extends AppCompatDialogFragment
+public class SortingDialogFragment extends AppCompatDialogFragment
 {
 	public interface OnSortingChangedListener
 	{
@@ -85,7 +86,7 @@ public class SortingBottomSheetFragment extends AppCompatDialogFragment
 
 	private String oldDirection;
 
-	private String assetType;
+	private int assetType;
 
 	@OnClick(R.id.group_direction)
 	public void onDirectionClicked() {
@@ -162,14 +163,14 @@ public class SortingBottomSheetFragment extends AppCompatDialogFragment
 			updateSelections();
 	}
 
-	public void setAssetType(String type) {
+	public void setAssetType(int type) {
 		this.assetType = type;
 		updateAvailableOptions();
 	}
 
 	private void updateAvailableOptions() {
-		if (profit != null && assetType != null) {
-			if (assetType.equals("program")) {
+		if (profit != null) {
+			if (assetType == UserFilter.TYPE_PROGRAMS_LIST_FILTER) {
 				profit.setVisibility(View.VISIBLE);
 				profitDelimiter.setVisibility(View.VISIBLE);
 				level.setVisibility(View.VISIBLE);
@@ -181,7 +182,7 @@ public class SortingBottomSheetFragment extends AppCompatDialogFragment
 				title.setVisibility(View.VISIBLE);
 				titleDelimiter.setVisibility(View.VISIBLE);
 			}
-			else {
+			else if (assetType == UserFilter.TYPE_FUNDS_LIST_FILTER) {
 				profit.setVisibility(View.VISIBLE);
 				profitDelimiter.setVisibility(View.VISIBLE);
 				level.setVisibility(View.GONE);

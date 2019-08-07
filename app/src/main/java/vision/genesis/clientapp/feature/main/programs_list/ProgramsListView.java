@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.model.ProgramDetails;
-import vision.genesis.clientapp.model.ProgramsFilter;
+import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 /**
  * GenesisVision

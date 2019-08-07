@@ -1,5 +1,7 @@
 package vision.genesis.clientapp.feature.main.dashboard.investor.copytrading;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +16,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -21,6 +24,10 @@ import io.swagger.client.model.SignalDetails;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.DashboardPagerAdapter;
+import vision.genesis.clientapp.feature.main.filters.FiltersActivity;
+import vision.genesis.clientapp.model.filter.DashboardFilter;
+import vision.genesis.clientapp.model.filter.UserFilter;
+import vision.genesis.clientapp.ui.FiltersView;
 
 /**
  * GenesisVisionAndroid
@@ -36,8 +43,14 @@ public class DashboardCopytradingFragment extends BaseFragment implements Dashbo
 		return dashboardCopytradingFragment;
 	}
 
+	@BindView(R.id.root)
+	public ViewGroup root;
+
 	@BindView(R.id.recycler_view)
 	public RecyclerView recyclerView;
+
+	@BindView(R.id.filters)
+	public FiltersView filters;
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
@@ -48,11 +61,22 @@ public class DashboardCopytradingFragment extends BaseFragment implements Dashbo
 	@InjectPresenter
 	public DashboardCopytradingPresenter dashboardCopytradingPresenter;
 
+	@BindDimen(R.dimen.filters_margin_bottom)
+	public int filtersMarginBottom;
+
+	@BindDimen(R.dimen.filters_margin_top)
+	public int filtersMarginTop;
+
 	private DashboardCopytradingAdapter dashboardCopytradingAdapter;
 
 	@OnClick(R.id.button_browse_programs)
 	public void onStartInvestingClicked() {
 		dashboardCopytradingPresenter.onStartInvestingClicked();
+	}
+
+	@OnClick(R.id.filters)
+	public void onFiltersClicked() {
+		dashboardCopytradingPresenter.onFiltersClicked();
 	}
 
 	@Nullable
@@ -98,6 +122,11 @@ public class DashboardCopytradingFragment extends BaseFragment implements Dashbo
 	}
 
 	@Override
+	public void showFiltersActivity(DashboardFilter filter) {
+		FiltersActivity.startFromFragment(this, filter.getUserFilter(UserFilter.TYPE_DASHBOARD_SIGNALS_FILTER));
+	}
+
+	@Override
 	public void showEmpty(boolean show) {
 		if (emptyGroup != null) {
 			emptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);
@@ -125,5 +154,26 @@ public class DashboardCopytradingFragment extends BaseFragment implements Dashbo
 
 	@Override
 	public void pagerHide() {
+	}
+
+	public void onOffsetChanged(int verticalOffset) {
+		if (filters != null) {
+			float newY = root.getHeight() - verticalOffset - filters.getHeight() - filtersMarginBottom;
+			if (newY < filtersMarginTop)
+				newY = filtersMarginTop;
+			filters.setY(newY);
+		}
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == UserFilter.TYPE_DASHBOARD_SIGNALS_FILTER && resultCode == Activity.RESULT_OK) {
+			UserFilter userFilter = data.getParcelableExtra("filter");
+			if (userFilter != null)
+				dashboardCopytradingPresenter.onFilterUpdated(userFilter);
+		}
+		else {
+			super.onActivityResult(requestCode, resultCode, data);
+		}
 	}
 }

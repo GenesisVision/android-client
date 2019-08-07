@@ -12,7 +12,6 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.feature.main.dashboard.investor.DashboardActionStatus;
 import vision.genesis.clientapp.managers.InvestorDashboardManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.DateRange;
@@ -20,6 +19,8 @@ import vision.genesis.clientapp.model.SortingEnum;
 import vision.genesis.clientapp.model.events.OnBrowseProgramsClickedEvent;
 import vision.genesis.clientapp.model.events.OnDashboardProgramsUpdateEvent;
 import vision.genesis.clientapp.model.events.SetDashboardSignalsCountEvent;
+import vision.genesis.clientapp.model.filter.DashboardFilter;
+import vision.genesis.clientapp.model.filter.UserFilter;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -36,11 +37,9 @@ public class DashboardCopytradingPresenter extends MvpPresenter<DashboardCopytra
 	@Inject
 	public SettingsManager settingsManager;
 
-	private Subscription dateRangeSubscription;
-
 	private Subscription getSignalProvidersSubscription;
 
-	private DateRange dateRange;
+	private DashboardFilter filter;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -48,17 +47,25 @@ public class DashboardCopytradingPresenter extends MvpPresenter<DashboardCopytra
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		subscribeToDateRange();
+		createFilter();
 	}
 
 	@Override
 	public void onDestroy() {
-		if (dateRangeSubscription != null)
-			dateRangeSubscription.unsubscribe();
 		if (getSignalProvidersSubscription != null)
 			getSignalProvidersSubscription.unsubscribe();
 
 		super.onDestroy();
+	}
+
+	private void createFilter() {
+		if (filter == null)
+			filter = new DashboardFilter();
+		this.filter.setSkip(0);
+		this.filter.setTake(1000);
+		this.filter.setDateRange(DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH));
+		this.filter.setChartPointsCount(10);
+		filter.setSorting(SortingEnum.BYTITLEASC);
 	}
 
 	void onShow() {
@@ -74,22 +81,19 @@ public class DashboardCopytradingPresenter extends MvpPresenter<DashboardCopytra
 		EventBus.getDefault().post(new OnDashboardProgramsUpdateEvent());
 	}
 
-	private void subscribeToDateRange() {
-		dateRangeSubscription = settingsManager.getDateRange()
-				.subscribeOn(Schedulers.newThread())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::dateRangeChangedHandler);
+	void onFiltersClicked() {
+		getViewState().showFiltersActivity(filter);
 	}
 
-	private void dateRangeChangedHandler(DateRange dateRange) {
-		this.dateRange = dateRange;
+	void onFilterUpdated(UserFilter userFilter) {
+		this.filter.updateWithUserFilter(userFilter);
+		getViewState().showProgressBar(true);
 		getSignalProviders();
 	}
 
 	private void getSignalProviders() {
-		if (dateRange != null)
-			getSignalProvidersSubscription = dashboardManager.getSignalProviders(DashboardActionStatus.ALL.getValue(),
-					SortingEnum.BYPROFITDESC.toString(), dateRange, 0, 100)
+		if (filter != null)
+			getSignalProvidersSubscription = dashboardManager.getSignalProviders(filter)
 					.subscribeOn(Schedulers.computation())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handleGetSignalsSuccess,

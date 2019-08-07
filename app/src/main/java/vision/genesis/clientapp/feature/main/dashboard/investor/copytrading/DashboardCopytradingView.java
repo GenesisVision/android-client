@@ -5,6 +5,7 @@ import com.arellomobile.mvp.MvpView;
 import java.util.List;
 
 import io.swagger.client.model.SignalDetails;
+import vision.genesis.clientapp.model.filter.DashboardFilter;
 
 /**
  * GenesisVisionAndroid
@@ -20,4 +21,6 @@ interface DashboardCopytradingView extends MvpView
 	void setSignals(List<SignalDetails> programs);
 
 	void showSnackbarMessage(String message);
+
+	void showFiltersActivity(DashboardFilter filter);
 }

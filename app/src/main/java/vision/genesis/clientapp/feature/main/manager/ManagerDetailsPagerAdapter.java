@@ -12,7 +12,7 @@ import vision.genesis.clientapp.feature.main.funds_list.FundsListFragment;
 import vision.genesis.clientapp.feature.main.manager.info.ManagerInfoFragment;
 import vision.genesis.clientapp.feature.main.manager.profit.ManagerProfitFragment;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListFragment;
-import vision.genesis.clientapp.model.ProgramsFilter;
+import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 /**
  * GenesisVisionAndroid

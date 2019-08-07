@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.model.ProgramDetails;
+import vision.genesis.clientapp.model.filter.DashboardFilter;
 
 /**
  * GenesisVision
@@ -23,4 +24,6 @@ interface DashboardProgramsView extends MvpView
 	void setProgramReinvest(UUID programId, Boolean reinvest);
 
 	void setProgramFavorite(UUID programId, Boolean favorite);
+
+	void showFiltersActivity(DashboardFilter filter);
 }

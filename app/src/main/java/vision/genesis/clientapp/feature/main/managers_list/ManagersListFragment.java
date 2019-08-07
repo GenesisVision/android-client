@@ -1,6 +1,5 @@
 package vision.genesis.clientapp.feature.main.managers_list;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,8 +28,7 @@ import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.main.filters.FiltersActivity;
-import vision.genesis.clientapp.model.ProgramsFilter;
+import vision.genesis.clientapp.model.filter.ProgramsFilter;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -229,19 +227,19 @@ public class ManagersListFragment extends BaseFragment implements ManagersListVi
 
 	@Override
 	public void showFiltersActivity(ProgramsFilter filter) {
-		FiltersActivity.startFromFragment(this, filter, FiltersActivity.FUND_FILTER);
+//		FiltersActivity.startFromFragment(this, filter.getUserFilter(), FiltersActivity.FUNDS_LIST_FILTER);
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == FiltersActivity.FUND_FILTER && resultCode == Activity.RESULT_OK) {
-			ProgramsFilter newFilter = data.getParcelableExtra("filter");
-			if (newFilter != null)
-				managersListPresenter.onFilterUpdated(newFilter);
-		}
-		else {
-			super.onActivityResult(requestCode, resultCode, data);
-		}
+//		if (requestCode == FiltersActivity.FUNDS_LIST_FILTER && resultCode == Activity.RESULT_OK) {
+//			ProgramsFilter newFilter = data.getParcelableExtra("filter");
+//			if (newFilter != null)
+//				managersListPresenter.onFilterUpdated(newFilter);
+//		}
+//		else {
+//			super.onActivityResult(requestCode, resultCode, data);
+//		}
 	}
 
 	public void showSearchResults(ManagersList result) {

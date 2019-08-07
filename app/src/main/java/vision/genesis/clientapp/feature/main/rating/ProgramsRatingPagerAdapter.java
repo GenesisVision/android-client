@@ -11,8 +11,8 @@ import java.util.List;
 
 import io.swagger.client.model.LevelUpData;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListFragment;
-import vision.genesis.clientapp.model.ProgramsFilter;
 import vision.genesis.clientapp.model.RatingInfo;
+import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 /**
  * GenesisVisionAndroid

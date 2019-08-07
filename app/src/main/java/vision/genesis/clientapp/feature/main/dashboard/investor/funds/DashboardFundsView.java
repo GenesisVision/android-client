@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.model.FundDetails;
+import vision.genesis.clientapp.model.filter.DashboardFilter;
 
 /**
  * GenesisVisionAndroid
@@ -21,4 +22,6 @@ interface DashboardFundsView extends MvpView
 	void showEmpty(boolean show);
 
 	void showProgressBar(boolean show);
+
+	void showFiltersActivity(DashboardFilter filter);
 }

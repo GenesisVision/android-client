@@ -32,8 +32,8 @@ import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.main.filters.FiltersActivity;
-import vision.genesis.clientapp.model.ProgramsFilter;
+import vision.genesis.clientapp.model.filter.ProgramsFilter;
+import vision.genesis.clientapp.model.filter.UserFilter;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -283,7 +283,7 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 
 	@Override
 	public void showFiltersActivity(ProgramsFilter filter) {
-		FiltersActivity.startFromFragment(this, filter, FiltersActivity.FUND_FILTER);
+//		FiltersActivity.startFromFragment(this, filter, FiltersActivity.FUNDS_LIST_FILTER);
 	}
 
 	@Override
@@ -293,7 +293,7 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == FiltersActivity.FUND_FILTER && resultCode == Activity.RESULT_OK) {
+		if (requestCode == UserFilter.TYPE_FUNDS_LIST_FILTER && resultCode == Activity.RESULT_OK) {
 			ProgramsFilter newFilter = data.getParcelableExtra("filter");
 			if (newFilter != null)
 				fundsListPresenter.onFilterUpdated(newFilter);

@@ -1,10 +1,8 @@
 package vision.genesis.clientapp.managers;
 
-import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.api.InvestorApi;
-import io.swagger.client.model.DashboardPortfolioEvent;
 import io.swagger.client.model.DashboardPortfolioEvents;
 import io.swagger.client.model.DashboardSummary;
 import io.swagger.client.model.FundsList;
@@ -12,8 +10,8 @@ import io.swagger.client.model.ProgramRequests;
 import io.swagger.client.model.ProgramsList;
 import io.swagger.client.model.SignalsList;
 import rx.Observable;
-import rx.subjects.BehaviorSubject;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.filter.DashboardFilter;
 
 /**
  * GenesisVisionAndroid
@@ -24,8 +22,6 @@ public class InvestorDashboardManager
 {
 	private InvestorApi investorApi;
 
-	private BehaviorSubject<List<DashboardPortfolioEvent>> portfolioEventsSubject = BehaviorSubject.create();
-
 	public InvestorDashboardManager(InvestorApi investorApi) {
 		this.investorApi = investorApi;
 	}
@@ -35,28 +31,28 @@ public class InvestorDashboardManager
 				null, null, 10, 0, 100);
 	}
 
-	public Observable<ProgramsList> getPrograms(String sorting, DateRange dateRange, Integer skip, Integer take) {
-		return investorApi.v10InvestorProgramsGet(AuthManager.token.getValue(), sorting,
-				dateRange.getFrom(), dateRange.getTo(),
-				10, null,
-				null, null,
-				skip, take);
+	public Observable<ProgramsList> getPrograms(DashboardFilter filter) {
+		return investorApi.v10InvestorProgramsGet(AuthManager.token.getValue(), filter.getSorting().getValue(),
+				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
+				filter.getChartPointsCount(), filter.getCurrencySecondary() != null ? filter.getCurrencySecondary().getValue() : null,
+				filter.getActionStatus(), filter.getDashboardActionStatus() != null ? filter.getDashboardActionStatus().toLowerCase() : null,
+				filter.getSkip(), filter.getTake());
 	}
 
-	public Observable<FundsList> getFunds(String sorting, DateRange dateRange, Integer skip, Integer take) {
-		return investorApi.v10InvestorFundsGet(AuthManager.token.getValue(), sorting,
-				dateRange.getFrom(), dateRange.getTo(),
-				10, null,
-				null, null,
-				skip, take);
+	public Observable<FundsList> getFunds(DashboardFilter filter) {
+		return investorApi.v10InvestorFundsGet(AuthManager.token.getValue(), filter.getSorting().getValue(),
+				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
+				filter.getChartPointsCount(), filter.getCurrencySecondary() != null ? filter.getCurrencySecondary().getValue() : null,
+				filter.getActionStatus(), filter.getDashboardActionStatus() != null ? filter.getDashboardActionStatus().toLowerCase() : null,
+				filter.getSkip(), filter.getTake());
 	}
 
-	public Observable<SignalsList> getSignalProviders(String status, String sorting, DateRange dateRange, Integer skip, Integer take) {
-		return investorApi.v10InvestorSignalsGet(AuthManager.token.getValue(), sorting,
-				dateRange.getFrom(), dateRange.getTo(),
-				10, null,
-				null, null,
-				skip, take);
+	public Observable<SignalsList> getSignalProviders(DashboardFilter filter) {
+		return investorApi.v10InvestorSignalsGet(AuthManager.token.getValue(), filter.getSorting().getValue(),
+				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
+				filter.getChartPointsCount(), filter.getCurrencySecondary() != null ? filter.getCurrencySecondary().getValue() : null,
+				filter.getActionStatus(), filter.getDashboardActionStatus() != null ? filter.getDashboardActionStatus().toLowerCase() : null,
+				filter.getSkip(), filter.getTake());
 	}
 
 	public Observable<DashboardPortfolioEvents> getPortfolioEvents(DateRange dateRange, Integer skip, Integer take) {

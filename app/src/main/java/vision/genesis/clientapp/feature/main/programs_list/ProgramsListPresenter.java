@@ -24,12 +24,13 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.model.ProgramsFilter;
 import vision.genesis.clientapp.model.events.OnListProgramFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersClearedEvent;
 import vision.genesis.clientapp.model.events.SetManagerDetailsProgramsCountEvent;
+import vision.genesis.clientapp.model.filter.ProgramsFilter;
+import vision.genesis.clientapp.model.filter.UserFilter;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -136,8 +137,8 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		getProgramsList(false);
 	}
 
-	void onFilterUpdated(ProgramsFilter filter) {
-		this.filter = filter;
+	void onFilterUpdated(UserFilter userFilter) {
+		this.filter.updateWithUserFilter(userFilter);
 		getViewState().setRefreshing(true);
 		getProgramsList(true);
 	}

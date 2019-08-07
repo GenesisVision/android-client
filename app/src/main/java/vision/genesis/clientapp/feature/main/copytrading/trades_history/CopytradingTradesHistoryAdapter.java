@@ -134,7 +134,7 @@ public class CopytradingTradesHistoryAdapter extends RecyclerView.Adapter<Copytr
 //							trade.getLevel(),
 //							trade.getTitle(),
 //							trade.getManager().getUsername(),
-//							trade.getCurrency().getValue(),
+//							trade.getCurrencySecondary().getValue(),
 //							trade.getPersonalDetails().isIsFavorite(),
 //							false);
 					EventBus.getDefault().post(new ShowCopytradingCommissionsEvent(trade));

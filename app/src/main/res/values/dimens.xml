@@ -131,4 +131,6 @@
     <dimen name="item_open_trade_provider_height">155dp</dimen>
     <dimen name="commission_height">40dp</dimen>
     <dimen name="social_link_image_size">32dp</dimen>
+    <dimen name="filters_margin_bottom">130dp</dimen>
+    <dimen name="filters_margin_top">100dp</dimen>
 </resources>

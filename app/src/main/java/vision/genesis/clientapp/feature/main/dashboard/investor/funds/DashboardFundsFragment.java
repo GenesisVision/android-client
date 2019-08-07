@@ -1,5 +1,7 @@
 package vision.genesis.clientapp.feature.main.dashboard.investor.funds;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +17,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import java.util.List;
 import java.util.UUID;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -23,6 +26,10 @@ import io.swagger.client.model.FundDetails;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.DashboardPagerAdapter;
+import vision.genesis.clientapp.feature.main.filters.FiltersActivity;
+import vision.genesis.clientapp.model.filter.DashboardFilter;
+import vision.genesis.clientapp.model.filter.UserFilter;
+import vision.genesis.clientapp.ui.FiltersView;
 
 /**
  * GenesisVisionAndroid
@@ -38,8 +45,14 @@ public class DashboardFundsFragment extends BaseFragment implements DashboardFun
 		return dashboardProgramsFragment;
 	}
 
+	@BindView(R.id.root)
+	public ViewGroup root;
+
 	@BindView(R.id.recycler_view)
 	public RecyclerView recyclerView;
+
+	@BindView(R.id.filters)
+	public FiltersView filters;
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
@@ -50,6 +63,12 @@ public class DashboardFundsFragment extends BaseFragment implements DashboardFun
 	@InjectPresenter
 	public DashboardFundsPresenter dashboardFundsPresenter;
 
+	@BindDimen(R.dimen.filters_margin_bottom)
+	public int filtersMarginBottom;
+
+	@BindDimen(R.dimen.filters_margin_top)
+	public int filtersMarginTop;
+
 	private DashboardFundsAdapter dashboardFundsAdapter;
 
 	private Unbinder unbinder;
@@ -57,6 +76,11 @@ public class DashboardFundsFragment extends BaseFragment implements DashboardFun
 	@OnClick(R.id.button_browse_funds)
 	public void onBrowseFundsClicked() {
 		dashboardFundsPresenter.onBrowseFundsClicked();
+	}
+
+	@OnClick(R.id.filters)
+	public void onFiltersClicked() {
+		dashboardFundsPresenter.onFiltersClicked();
 	}
 
 	@Nullable
@@ -127,6 +151,11 @@ public class DashboardFundsFragment extends BaseFragment implements DashboardFun
 	}
 
 	@Override
+	public void showFiltersActivity(DashboardFilter filter) {
+		FiltersActivity.startFromFragment(this, filter.getUserFilter(UserFilter.TYPE_DASHBOARD_FUNDS_FILTER));
+	}
+
+	@Override
 	public void pagerShow() {
 		if (dashboardFundsPresenter != null)
 			dashboardFundsPresenter.onShow();
@@ -134,5 +163,26 @@ public class DashboardFundsFragment extends BaseFragment implements DashboardFun
 
 	@Override
 	public void pagerHide() {
+	}
+
+	public void onOffsetChanged(int verticalOffset) {
+		if (filters != null) {
+			float newY = root.getHeight() - verticalOffset - filters.getHeight() - filtersMarginBottom;
+			if (newY < filtersMarginTop)
+				newY = filtersMarginTop;
+			filters.setY(newY);
+		}
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == UserFilter.TYPE_DASHBOARD_FUNDS_FILTER && resultCode == Activity.RESULT_OK) {
+			UserFilter userFilter = data.getParcelableExtra("filter");
+			if (userFilter != null)
+				dashboardFundsPresenter.onFilterUpdated(userFilter);
+		}
+		else {
+			super.onActivityResult(requestCode, resultCode, data);
+		}
 	}
 }

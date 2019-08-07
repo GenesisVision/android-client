@@ -190,8 +190,8 @@ public class DateRange implements Parcelable
 			return false;
 		}
 		DateRange dateRange = (DateRange) o;
-		return getFrom().getMillis() == dateRange.getFrom().getMillis() &&
-				getTo().getMillis() == dateRange.getTo().getMillis() &&
+		return getFrom().getMillis() / 1000 == dateRange.getFrom().getMillis() / 1000 &&
+				getTo().getMillis() / 1000 == dateRange.getTo().getMillis() / 1000 &&
 				getSelectedRange().equals(dateRange.getSelectedRange());
 	}
 

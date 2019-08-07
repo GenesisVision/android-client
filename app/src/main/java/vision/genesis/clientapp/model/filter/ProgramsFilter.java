@@ -1,11 +1,19 @@
-package vision.genesis.clientapp.model;
+package vision.genesis.clientapp.model.filter;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+
+import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.SortingEnum;
+import vision.genesis.clientapp.utils.Constants;
 
 /**
  * GenesisVisionAndroid
@@ -413,5 +421,50 @@ public class ProgramsFilter implements Parcelable
 				Objects.equals(getTake(), filter.getTake()) &&
 				Objects.equals(getTags(), filter.getTags()) &&
 				Objects.equals(getChartPointsCount(), filter.getChartPointsCount());
+	}
+
+	public UserFilter getUserFilter(int type) {
+		UserFilter userFilter = new UserFilter();
+		userFilter.setType(type);
+		userFilter.setDateRange(this.getDateRange());
+		userFilter.setSorting(this.getSorting());
+
+		List<FilterOption> filterOptionList = new ArrayList<>();
+		filterOptionList.add(getCurrencyFilterOption());
+		userFilter.setOptions(filterOptionList);
+		return userFilter;
+	}
+
+	private FilterOption getCurrencyFilterOption() {
+		ArrayList<String> values = new ArrayList<>();
+		int selectedPosition = 0;
+		boolean selectedFound = false;
+		for (String currency : Constants.getCurrenciesForProgramsListFilter()) {
+			values.add(currency);
+			if (this.getCurrency() != null && this.getCurrency().getValue().equals(currency)) {
+				selectedFound = true;
+			}
+			if (!selectedFound)
+				selectedPosition++;
+		}
+		if (!selectedFound)
+			selectedPosition = 0;
+		return new FilterOption(FilterOption.TYPE_SINGLE_VALUE, GenesisVisionApplication.INSTANCE.getString(R.string.currency), values, selectedPosition);
+	}
+
+	public void updateWithUserFilter(UserFilter userFilter) {
+		setDateRange(userFilter.getDateRange());
+		setSorting(userFilter.getSorting());
+
+		for (FilterOption filterOption : userFilter.getOptions()) {
+			switch (filterOption.getName().toLowerCase()) {
+				case "currency":
+					this.setCurrency(filterOption.getSelectedPosition() > 0
+							? CurrencyEnum.fromValue(filterOption.getSelectedValue())
+							: null);
+					break;
+			}
+		}
+
 	}
 }

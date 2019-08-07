@@ -35,8 +35,9 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.filters.FiltersActivity;
-import vision.genesis.clientapp.model.ProgramsFilter;
 import vision.genesis.clientapp.model.RatingInfo;
+import vision.genesis.clientapp.model.filter.ProgramsFilter;
+import vision.genesis.clientapp.model.filter.UserFilter;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -327,7 +328,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	@Override
 	public void showFiltersActivity(ProgramsFilter filter) {
-		FiltersActivity.startFromFragment(this, filter, FiltersActivity.PROGRAM_FILTER);
+		FiltersActivity.startFromFragment(this, filter.getUserFilter(UserFilter.TYPE_PROGRAMS_LIST_FILTER));
 	}
 
 	@Override
@@ -337,10 +338,10 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == FiltersActivity.PROGRAM_FILTER && resultCode == Activity.RESULT_OK) {
-			ProgramsFilter newFilter = data.getParcelableExtra("filter");
-			if (newFilter != null)
-				programsListPresenter.onFilterUpdated(newFilter);
+		if (requestCode == UserFilter.TYPE_PROGRAMS_LIST_FILTER && resultCode == Activity.RESULT_OK) {
+			UserFilter userFilter = data.getParcelableExtra("filter");
+			if (userFilter != null)
+				programsListPresenter.onFilterUpdated(userFilter);
 		}
 		else {
 			super.onActivityResult(requestCode, resultCode, data);

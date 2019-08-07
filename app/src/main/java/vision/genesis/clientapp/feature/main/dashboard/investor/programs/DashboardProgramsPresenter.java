@@ -27,6 +27,8 @@ import vision.genesis.clientapp.model.events.OnDashboardReinvestClickedEvent;
 import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.OnProgramReinvestChangedEvent;
 import vision.genesis.clientapp.model.events.SetDashboardProgramsCountEvent;
+import vision.genesis.clientapp.model.filter.DashboardFilter;
+import vision.genesis.clientapp.model.filter.UserFilter;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -46,15 +48,13 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 	@Inject
 	public SettingsManager settingsManager;
 
-	private Subscription dateRangeSubscription;
-
 	private Subscription getProgramsSubscription;
 
 	private Subscription reinvestSubscription;
 
 	private Subscription favoriteSubscription;
 
-	private DateRange dateRange;
+	private DashboardFilter filter;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -64,13 +64,11 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 
 		EventBus.getDefault().register(this);
 
-		subscribeToDateRange();
+		createFilter();
 	}
 
 	@Override
 	public void onDestroy() {
-		if (dateRangeSubscription != null)
-			dateRangeSubscription.unsubscribe();
 		if (getProgramsSubscription != null)
 			getProgramsSubscription.unsubscribe();
 		if (reinvestSubscription != null)
@@ -79,6 +77,16 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
+	}
+
+	private void createFilter() {
+		if (filter == null)
+			filter = new DashboardFilter();
+		this.filter.setSkip(0);
+		this.filter.setTake(1000);
+		this.filter.setDateRange(DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH));
+		this.filter.setChartPointsCount(10);
+		filter.setSorting(SortingEnum.BYTITLEASC);
 	}
 
 	void onShow() {
@@ -94,54 +102,23 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 		EventBus.getDefault().post(new OnDashboardProgramsUpdateEvent());
 	}
 
-	private void subscribeToDateRange() {
-		dateRangeSubscription = settingsManager.getDateRange()
-				.subscribeOn(Schedulers.newThread())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::dateRangeChangedHandler);
+	void onFiltersClicked() {
+		getViewState().showFiltersActivity(filter);
 	}
 
-	private void dateRangeChangedHandler(DateRange dateRange) {
-		this.dateRange = dateRange;
+	void onFilterUpdated(UserFilter userFilter) {
+		this.filter.updateWithUserFilter(userFilter);
+		getViewState().showProgressBar(true);
 		getPrograms();
 	}
 
 	private void getPrograms() {
-		if (dateRange != null)
-			getProgramsSubscription = dashboardManager.getPrograms(SortingEnum.BYPROFITDESC.toString(), dateRange, 0, 100)
+		if (filter != null)
+			getProgramsSubscription = dashboardManager.getPrograms(filter)
 					.subscribeOn(Schedulers.computation())
-					.map(this::prepareData)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handleGetProgramsSuccess,
 							this::handleGetProgramsError);
-	}
-
-	private ProgramsList prepareData(ProgramsList dashboard) {
-//		List<InvestmentProgramDashboardInvestor> programs = dashboard.getInvestmentPrograms();
-//		programs = new ArrayList<>();
-//		archivedPrograms = new ArrayList<>();
-//
-//		for (InvestmentProgramDashboardInvestor program : programs) {
-//			InvestmentProgramDashboardExtended programExtended = new InvestmentProgramDashboardExtended(program);
-//
-//			programExtended.setTokens(StringFormatUtil.formatAmount(program.getInvestedTokens(), 0,
-//					Constants.TOKENS_MAX_DECIMAL_POINT_DIGITS));
-//			double tokensFiatValue = program.getInvestedTokens() * program.getToken().getInitialPrice();
-//			programExtended.setTokensFiat(String.format(Locale.getDefault(), "($%.2f)", tokensFiatValue));
-//
-//			programExtended.setProfitShort(StringFormatUtil.formatAmount(program.getProfitFromProgram(), 0, 2));
-//			programExtended.setProfitFull(StringFormatUtil.formatAmount(program.getProfitFromProgram(), 2,
-//					StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.toString())));
-//
-//			programExtended.setEquityChart(ProfitSmallChartView.getPreparedEquityChart(program.getEquityChart()));
-//
-//			if (!program.isIsArchived())
-//				programs.add(programExtended);
-//			else
-//				archivedPrograms.add(programExtended);
-//		}
-
-		return dashboard;
 	}
 
 	private void handleGetProgramsSuccess(ProgramsList response) {
@@ -151,7 +128,6 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 
 		getViewState().setPrograms(response.getPrograms());
 		EventBus.getDefault().post(new SetDashboardProgramsCountEvent(response.getTotal()));
-//		getViewState().setTotalPortfolioValue(dashboard.getTotalPortfolioAmount());
 	}
 
 	private void handleGetProgramsError(Throwable throwable) {

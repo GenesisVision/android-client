@@ -56,8 +56,8 @@ public class WalletView extends RelativeLayout
 		this.icon.setImageURI(ImageUtils.getImageUri(logo));
 		this.walletName.setText(walletName);
 //		this.walletAvailable.setText(String.format(Locale.getDefault(), "%s %s",
-//				StringFormatUtil.formatCurrencyAmount(wallet.getAvailable(), wallet.getCurrency().getValue()),
-//				wallet.getCurrency().getValue()));
+//				StringFormatUtil.formatCurrencyAmount(wallet.getAvailable(), wallet.getCurrencySecondary().getValue()),
+//				wallet.getCurrencySecondary().getValue()));
 //		this.walletAvailable.setText(walletAvailable);
 	}
 }

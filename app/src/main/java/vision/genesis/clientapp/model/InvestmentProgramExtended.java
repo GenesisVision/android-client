@@ -57,7 +57,7 @@ public class InvestmentProgramExtended
 //		this.setBalanceTextFull(
 //				StringFormatUtil.getDecimalSpannable(StringFormatUtil.formatAmount(program.getBalance(), 0, 8)));
 //
-//		this.setBalanceCurrency(program.getCurrency().toString());
+//		this.setBalanceCurrency(program.getCurrencySecondary().toString());
 //
 //		this.setInvestorsText(String.valueOf(program.getInvestorsCount()));
 //
@@ -76,7 +76,7 @@ public class InvestmentProgramExtended
 //		this.setBalanceTextFull(
 //				StringFormatUtil.getDecimalSpannable(StringFormatUtil.formatAmount(program.getBalance(), 0, 8)));
 //
-//		this.setBalanceCurrency(program.getCurrency().toString());
+//		this.setBalanceCurrency(program.getCurrencySecondary().toString());
 //
 //		this.setInvestorsText(String.valueOf(program.getInvestorsCount()));
 //

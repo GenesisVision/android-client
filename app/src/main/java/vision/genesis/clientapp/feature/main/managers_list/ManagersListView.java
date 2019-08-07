@@ -7,7 +7,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import java.util.List;
 
 import io.swagger.client.model.ManagerProfile;
-import vision.genesis.clientapp.model.ProgramsFilter;
+import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 /**
  * GenesisVisionAndroid

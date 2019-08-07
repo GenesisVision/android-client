@@ -485,7 +485,10 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	}
 
 	private void setOffsetListener() {
-		appBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> refreshLayout.setEnabled(!assetsBottomSheetShowing && verticalOffset == 0));
+		appBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+			refreshLayout.setEnabled(!assetsBottomSheetShowing && verticalOffset == 0);
+			assetsPagerAdapter.onOffsetChanged(appBarLayout.getHeight() + verticalOffset - tabLayoutAssets.getHeight() - header.getHeight());
+		});
 	}
 
 	private void setScrollable(View bottomSheet, RecyclerView recyclerView) {

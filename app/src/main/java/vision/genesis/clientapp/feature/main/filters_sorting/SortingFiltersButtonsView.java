@@ -14,9 +14,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.feature.main.filters.sorting.SortingBottomSheetFragment;
-import vision.genesis.clientapp.model.ProgramsFilter;
+import vision.genesis.clientapp.feature.main.filters.sorting.SortingDialogFragment;
 import vision.genesis.clientapp.model.SortingEnum;
+import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 /**
  * GenesisVisionAndroid
@@ -76,7 +76,7 @@ public class SortingFiltersButtonsView extends RelativeLayout
 	@OnClick(R.id.button_sorting)
 	public void onSortingClicked() {
 		if (activity != null) {
-			SortingBottomSheetFragment bottomSheetDialog = new SortingBottomSheetFragment();
+			SortingDialogFragment bottomSheetDialog = new SortingDialogFragment();
 			bottomSheetDialog.show(activity.getSupportFragmentManager(), bottomSheetDialog.getTag());
 			bottomSheetDialog.setCurrentSorting(currentSortingName, currentSortingDirection);
 			bottomSheetDialog.setListener(this::updateSorting);

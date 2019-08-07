@@ -23,9 +23,9 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
-import vision.genesis.clientapp.model.ProgramsFilter;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
+import vision.genesis.clientapp.model.filter.ProgramsFilter;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 

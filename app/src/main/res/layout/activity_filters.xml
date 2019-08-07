@@ -56,75 +56,25 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/button_levels"
+            <LinearLayout
+                android:id="@+id/group_filters"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/filter_option_height"
-                android:background="?attr/selectableItemBackground"
-                android:paddingStart="20dp"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/levels_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/levels"
-                    android:textColor="?attr/colorTextPrimary"
-                    android:textSize="14sp"/>
-
-                <TextView
-                    android:id="@+id/levels_value"
-                    style="@style/filter_option_value"
-                    android:layout_toEndOf="@+id/levels_label"
-                    tools:text="All"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:alpha="0.5"
-                    android:background="?attr/colorDelimiterLight"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/button_currency"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/filter_option_height"
-                android:background="?attr/selectableItemBackground"
-                android:paddingStart="20dp"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/currency_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/currency"
-                    android:textColor="?attr/colorTextPrimary"
-                    android:textSize="14sp"/>
-
-                <TextView
-                    android:id="@+id/currency_value"
-                    style="@style/filter_option_value"
-                    android:layout_toEndOf="@+id/currency_label"
-                    tools:text="All"/>
-
-            </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:background="?attr/colorBackgroundDark"
-                android:visibility="gone"/>
+                android:visibility="visible"/>
 
 
             <RelativeLayout
-                android:id="@+id/button_date_range"
+                android:id="@+id/date_range"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/filter_option_height"
                 android:background="?attr/selectableItemBackground"
+                android:paddingEnd="20dp"
                 android:paddingStart="20dp">
 
                 <TextView
@@ -155,10 +105,11 @@
 
 
             <RelativeLayout
-                android:id="@+id/button_sorting"
+                android:id="@+id/sorting"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/filter_option_height"
                 android:background="?attr/selectableItemBackground"
+                android:paddingEnd="20dp"
                 android:paddingStart="20dp">
 
                 <TextView

@@ -17,7 +17,7 @@ import rx.Observable;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.ProgramRequest;
-import vision.genesis.clientapp.model.ProgramsFilter;
+import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 /**
  * GenesisVision

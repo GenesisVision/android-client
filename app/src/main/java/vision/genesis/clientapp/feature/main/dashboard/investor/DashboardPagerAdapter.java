@@ -96,4 +96,10 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 		openTradesFragment.pagerShow();
 		tradesHistoryFragment.onSwipeRefresh();
 	}
+
+	public void onOffsetChanged(int verticalOffset) {
+		programsFragment.onOffsetChanged(verticalOffset);
+		fundsFragment.onOffsetChanged(verticalOffset);
+		copytradingFragment.onOffsetChanged(verticalOffset);
+	}
 }

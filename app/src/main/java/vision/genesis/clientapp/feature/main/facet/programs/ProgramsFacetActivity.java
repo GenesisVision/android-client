@@ -19,7 +19,7 @@ import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListFragment;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.FacetModel;
-import vision.genesis.clientapp.model.ProgramsFilter;
+import vision.genesis.clientapp.model.filter.ProgramsFilter;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 

@@ -317,7 +317,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		programName.setText(model.getProgramName());
 		toolbarProgramName.setText(model.getProgramName());
 
-//		programCurrency.setCurrency(model.getCurrency());
+//		programCurrency.setCurrencySecondary(model.getCurrencySecondary());
 
 		setTags();
 
