@@ -127,6 +127,7 @@ public class DashboardFundsFragment extends BaseFragment implements DashboardFun
 	@Override
 	public void setFunds(List<FundDetails> funds) {
 		dashboardFundsAdapter.setFunds(funds);
+		recyclerView.scrollToPosition(0);
 
 		showEmpty(funds.size() == 0);
 	}

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.content.res.AppCompatResources;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -156,6 +157,8 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 			filtersGroup.addView(view);
 		}
 
+		dateRange.setVisibility(filter.isDateRangeEnabled() ? View.VISIBLE : View.GONE);
+		sorting.setVisibility(filter.isSortingEnabled() ? View.VISIBLE : View.GONE);
 		this.dateRangeValue.setText(filter.getDateRange().toString());
 		updateSortingFromFilter();
 	}

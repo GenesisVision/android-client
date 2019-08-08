@@ -18,6 +18,10 @@ public enum SortingEnum
 
 	BYLEVELDESC("ByLevelDesc"),
 
+	BYLEVELPROGRESSASC("ByLevelProgressAsc"),
+
+	BYLEVELPROGRESSDESC("ByLevelProgressDesc"),
+
 	BYPROFITASC("ByProfitAsc"),
 
 	BYPROFITDESC("ByProfitDesc"),

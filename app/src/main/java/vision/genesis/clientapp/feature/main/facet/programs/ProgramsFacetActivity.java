@@ -19,6 +19,7 @@ import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListFragment;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.FacetModel;
+import vision.genesis.clientapp.model.SortingEnum;
 import vision.genesis.clientapp.model.filter.ProgramsFilter;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -34,7 +35,7 @@ public class ProgramsFacetActivity extends BaseSwipeBackActivity implements Prog
 
 	public static void startWith(Activity activity, ProgramFacet facet) {
 		Intent intent = new Intent(activity.getApplicationContext(), ProgramsFacetActivity.class);
-		FacetModel model = new FacetModel(facet.getId(), facet.getTitle(), facet.getTimeframe().toString());
+		FacetModel model = new FacetModel(facet.getId(), facet.getTitle(), facet.getTimeframe().toString(), facet.getSorting().getValue());
 		intent.putExtra(EXTRA_MODEL, model);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.slide_from_right, R.anim.hold);
@@ -71,6 +72,7 @@ public class ProgramsFacetActivity extends BaseSwipeBackActivity implements Prog
 				ProgramsFilter filter = new ProgramsFilter();
 				filter.setFacetId(model.getId());
 				filter.setDateRange(DateRange.createFromString(model.getTimeFrame()));
+				filter.setSorting(SortingEnum.fromValue(model.getSorting()));
 				Bundle data = new Bundle();
 				data.putParcelable(ProgramsListFragment.EXTRA_FILTER, filter);
 

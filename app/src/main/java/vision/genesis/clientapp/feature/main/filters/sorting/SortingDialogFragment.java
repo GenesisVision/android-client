@@ -191,8 +191,8 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 				endOfPeriodDelimiter.setVisibility(View.GONE);
 				balance.setVisibility(View.VISIBLE);
 				balanceDelimiter.setVisibility(View.VISIBLE);
-				title.setVisibility(View.VISIBLE);
-				titleDelimiter.setVisibility(View.VISIBLE);
+				title.setVisibility(View.GONE);
+				titleDelimiter.setVisibility(View.GONE);
 			}
 		}
 	}

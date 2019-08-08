@@ -21,7 +21,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.model.DateRange;
@@ -31,6 +30,7 @@ import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersClearedEvent;
 import vision.genesis.clientapp.model.events.SetManagerDetailsFundsCountEvent;
 import vision.genesis.clientapp.model.filter.ProgramsFilter;
+import vision.genesis.clientapp.model.filter.UserFilter;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -39,7 +39,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class FundsListPresenter extends MvpPresenter<FundsListView> implements SortingFiltersButtonsView.OnFilterUpdatedListener
+public class FundsListPresenter extends MvpPresenter<FundsListView>
 {
 	private static int TAKE = 20;
 
@@ -155,8 +155,8 @@ public class FundsListPresenter extends MvpPresenter<FundsListView> implements S
 //		filter.setEquityChartLength(10);
 	}
 
-	public void onFilterUpdated(ProgramsFilter filter) {
-		this.filter = filter;
+	public void onFilterUpdated(UserFilter userFilter) {
+		this.filter.updateWithUserFilter(userFilter);
 		getViewState().setRefreshing(true);
 		getFundsList(true);
 	}

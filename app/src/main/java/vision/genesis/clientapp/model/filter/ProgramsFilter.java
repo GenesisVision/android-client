@@ -430,7 +430,11 @@ public class ProgramsFilter implements Parcelable
 		userFilter.setSorting(this.getSorting());
 
 		List<FilterOption> filterOptionList = new ArrayList<>();
-		filterOptionList.add(getCurrencyFilterOption());
+		switch (type) {
+			case UserFilter.TYPE_PROGRAMS_LIST_FILTER:
+				filterOptionList.add(getCurrencyFilterOption());
+				break;
+		}
 		userFilter.setOptions(filterOptionList);
 		return userFilter;
 	}

@@ -134,6 +134,7 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 	@Override
 	public void setPrograms(List<ProgramDetails> programs) {
 		dashboardProgramsAdapter.setPrograms(programs);
+		recyclerView.scrollToPosition(0);
 
 		showEmpty(programs.size() == 0);
 	}

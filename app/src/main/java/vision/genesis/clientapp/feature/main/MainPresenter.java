@@ -11,10 +11,12 @@ import org.greenrobot.eventbus.Subscribe;
 import javax.inject.Inject;
 
 import io.swagger.client.model.PlatformInfo;
+import io.swagger.client.model.ProgramFacet;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.assets.AssetsFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.InvestorDashboardFragment;
 import vision.genesis.clientapp.feature.main.dashboard.manager.ManagerDashboardFragment;
@@ -359,9 +361,9 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	@Subscribe
 	public void onEventMainThread(OnProgramFacetClickedEvent event) {
-//		if (event.getFacet().getTitle().toLowerCase().equals(context.getString(R.string.rating).toLowerCase()))
-//			getViewState().showProgramsRating();
-//		else
+		if (event.getFacet().getTitle().toLowerCase().equals(context.getString(R.string.rating).toLowerCase())) {
+			event.getFacet().setSorting(ProgramFacet.SortingEnum.BYLEVELPROGRESSDESC);
+		}
 		getViewState().showProgramFacet(event.getFacet());
 	}
 

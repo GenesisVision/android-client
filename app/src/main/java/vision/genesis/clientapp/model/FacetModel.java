@@ -9,6 +9,7 @@ import java.util.UUID;
  * GenesisVisionAndroid
  * Created by Vitaly on 15/04/2019.
  */
+
 public class FacetModel implements Parcelable
 {
 	public static final Creator<FacetModel> CREATOR = new Creator<FacetModel>()
@@ -30,16 +31,20 @@ public class FacetModel implements Parcelable
 
 	private String timeFrame;
 
-	public FacetModel(UUID id, String title, String timeFrame) {
+	private String sorting;
+
+	public FacetModel(UUID id, String title, String timeFrame, String sorting) {
 		this.id = id;
 		this.title = title;
 		this.timeFrame = timeFrame;
+		this.sorting = sorting;
 	}
 
 	protected FacetModel(Parcel in) {
 		id = (UUID) in.readSerializable();
 		title = in.readString();
 		timeFrame = in.readString();
+		sorting = in.readString();
 	}
 
 	public UUID getId() {
@@ -54,6 +59,10 @@ public class FacetModel implements Parcelable
 		return timeFrame;
 	}
 
+	public String getSorting() {
+		return sorting;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -64,5 +73,6 @@ public class FacetModel implements Parcelable
 		parcel.writeSerializable(id);
 		parcel.writeString(title);
 		parcel.writeString(timeFrame);
+		parcel.writeString(sorting);
 	}
 }

@@ -58,6 +58,7 @@ public class DashboardFundsPresenter extends MvpPresenter<DashboardFundsView>
 		GenesisVisionApplication.getComponent().inject(this);
 
 		createFilter();
+		getFunds();
 	}
 
 	@Override
@@ -81,6 +82,8 @@ public class DashboardFundsPresenter extends MvpPresenter<DashboardFundsView>
 	}
 
 	void onShow() {
+		if (getFundsSubscription != null && !getFundsSubscription.isUnsubscribed())
+			return;
 		getFunds();
 	}
 

@@ -34,7 +34,7 @@ public class FundsFacetActivity extends BaseSwipeBackActivity implements FundsFa
 
 	public static void startWith(Activity activity, FundFacet facet) {
 		Intent intent = new Intent(activity.getApplicationContext(), FundsFacetActivity.class);
-		FacetModel model = new FacetModel(facet.getId(), facet.getTitle(), facet.getTimeframe().toString());
+		FacetModel model = new FacetModel(facet.getId(), facet.getTitle(), facet.getTimeframe().toString(), facet.getSorting().getValue());
 		intent.putExtra(EXTRA_MODEL, model);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.slide_from_right, R.anim.hold);

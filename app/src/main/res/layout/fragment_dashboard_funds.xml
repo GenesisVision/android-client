@@ -14,15 +14,6 @@
         android:paddingBottom="120dp"
         android:paddingTop="16dp"/>
 
-    <vision.genesis.clientapp.ui.FiltersView
-        android:id="@+id/filters"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/date_range_margin_bottom"
-        android:visibility="visible"/>
-
     <ScrollView
         android:id="@+id/group_empty"
         android:layout_width="match_parent"
@@ -62,6 +53,15 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <vision.genesis.clientapp.ui.FiltersView
+        android:id="@+id/filters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/date_range_margin_bottom"
+        android:visibility="visible"/>
 
     <ProgressBar
         android:id="@+id/progress_bar"

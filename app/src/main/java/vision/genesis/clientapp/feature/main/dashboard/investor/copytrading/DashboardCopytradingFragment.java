@@ -117,6 +117,7 @@ public class DashboardCopytradingFragment extends BaseFragment implements Dashbo
 	@Override
 	public void setSignals(List<SignalDetails> signals) {
 		dashboardCopytradingAdapter.setSignals(signals);
+		recyclerView.scrollToPosition(0);
 
 		showEmpty(signals.size() == 0);
 	}

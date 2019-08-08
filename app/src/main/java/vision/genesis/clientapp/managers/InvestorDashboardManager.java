@@ -32,7 +32,7 @@ public class InvestorDashboardManager
 	}
 
 	public Observable<ProgramsList> getPrograms(DashboardFilter filter) {
-		return investorApi.v10InvestorProgramsGet(AuthManager.token.getValue(), filter.getSorting().getValue(),
+		return investorApi.v10InvestorProgramsGet(AuthManager.token.getValue(), filter.getSorting() != null ? filter.getSorting().getValue() : null,
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(), filter.getCurrencySecondary() != null ? filter.getCurrencySecondary().getValue() : null,
 				filter.getActionStatus(), filter.getDashboardActionStatus() != null ? filter.getDashboardActionStatus().toLowerCase() : null,
@@ -40,7 +40,7 @@ public class InvestorDashboardManager
 	}
 
 	public Observable<FundsList> getFunds(DashboardFilter filter) {
-		return investorApi.v10InvestorFundsGet(AuthManager.token.getValue(), filter.getSorting().getValue(),
+		return investorApi.v10InvestorFundsGet(AuthManager.token.getValue(), filter.getSorting() != null ? filter.getSorting().getValue() : null,
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(), filter.getCurrencySecondary() != null ? filter.getCurrencySecondary().getValue() : null,
 				filter.getActionStatus(), filter.getDashboardActionStatus() != null ? filter.getDashboardActionStatus().toLowerCase() : null,
@@ -48,7 +48,7 @@ public class InvestorDashboardManager
 	}
 
 	public Observable<SignalsList> getSignalProviders(DashboardFilter filter) {
-		return investorApi.v10InvestorSignalsGet(AuthManager.token.getValue(), filter.getSorting().getValue(),
+		return investorApi.v10InvestorSignalsGet(AuthManager.token.getValue(), filter.getSorting() != null ? filter.getSorting().getValue() : null,
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(), filter.getCurrencySecondary() != null ? filter.getCurrencySecondary().getValue() : null,
 				filter.getActionStatus(), filter.getDashboardActionStatus() != null ? filter.getDashboardActionStatus().toLowerCase() : null,

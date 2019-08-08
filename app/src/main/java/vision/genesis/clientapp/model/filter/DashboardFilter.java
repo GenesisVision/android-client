@@ -41,7 +41,7 @@ public class DashboardFilter implements Parcelable
 
 	private String actionStatus;
 
-	private String dashboardActionStatus;
+	private String dashboardActionStatus = "Active";
 
 	private Integer skip;
 
@@ -231,7 +231,7 @@ public class DashboardFilter implements Parcelable
 		UserFilter userFilter = new UserFilter();
 		userFilter.setType(type);
 		userFilter.setDateRange(this.getDateRange());
-		userFilter.setSorting(this.getSorting());
+		userFilter.setSortingEnabled(false);
 
 		List<FilterOption> filterOptionList = new ArrayList<>();
 		filterOptionList.add(getStatusFilterOption());

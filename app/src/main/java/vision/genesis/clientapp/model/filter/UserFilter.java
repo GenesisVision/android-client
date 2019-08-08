@@ -48,6 +48,10 @@ public class UserFilter implements Parcelable
 
 	private SortingEnum sorting;
 
+	private boolean isDateRangeEnabled = true;
+
+	private boolean isSortingEnabled = true;
+
 	public UserFilter() {
 
 	}
@@ -66,6 +70,8 @@ public class UserFilter implements Parcelable
 		dateRange = in.readParcelable(DateRange.class.getClassLoader());
 		in.readTypedList(options, FilterOption.CREATOR);
 		sorting = (SortingEnum) in.readSerializable();
+		isDateRangeEnabled = in.readByte() != 0;
+		isSortingEnabled = in.readByte() != 0;
 	}
 
 	@Override
@@ -79,6 +85,8 @@ public class UserFilter implements Parcelable
 		parcel.writeParcelable(dateRange, i);
 		parcel.writeTypedList(options);
 		parcel.writeSerializable(sorting);
+		parcel.writeByte((byte) (isDateRangeEnabled ? 1 : 0));
+		parcel.writeByte((byte) (isSortingEnabled ? 1 : 0));
 	}
 
 	public DateRange getDateRange() {
@@ -111,6 +119,22 @@ public class UserFilter implements Parcelable
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+	public boolean isDateRangeEnabled() {
+		return isDateRangeEnabled;
+	}
+
+	public void setDateRangeEnabled(boolean dateRangeEnabled) {
+		isDateRangeEnabled = dateRangeEnabled;
+	}
+
+	public boolean isSortingEnabled() {
+		return isSortingEnabled;
+	}
+
+	public void setSortingEnabled(boolean sortingEnabled) {
+		isSortingEnabled = sortingEnabled;
 	}
 
 	@Override
