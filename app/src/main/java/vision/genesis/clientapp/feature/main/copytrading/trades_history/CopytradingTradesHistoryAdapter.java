@@ -179,7 +179,7 @@ public class CopytradingTradesHistoryAdapter extends RecyclerView.Adapter<Copytr
 				this.volume.setText(StringFormatUtil.formatAmount(trade.getVolume(), 0, 8));
 				updateDirection();
 
-				this.commission.setText(StringFormatUtil.formatAmount(trade.getTotalCommission(), 2, 8));
+				this.commission.setText(StringFormatUtil.formatCurrencyAmount(trade.getTotalCommission(), trade.getCurrency().getValue()));
 				this.price.setText(StringFormatUtil.formatAmount(trade.getPrice(), 2, 8));
 				updateProfit();
 			}
@@ -204,9 +204,10 @@ public class CopytradingTradesHistoryAdapter extends RecyclerView.Adapter<Copytr
 
 		private void updateProfit() {
 			Double profitValue = trade.getProfit();
-			this.profit.setText(String.format(Locale.getDefault(), "%s%s",
+			this.profit.setText(String.format(Locale.getDefault(), "%s%s %s",
 					profitValue > 0 ? "+" : "",
-					StringFormatUtil.formatAmount(profitValue, 2, 8)));
+					StringFormatUtil.formatCurrencyAmount(profitValue, trade.getCurrency().getValue()),
+					trade.getCurrency().getValue()));
 			this.profit.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
 					profitValue >= 0 ? R.attr.colorGreen : R.attr.colorRed));
 		}

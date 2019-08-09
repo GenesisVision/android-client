@@ -146,9 +146,10 @@ public class OpenTradeDetailsAdapter extends RecyclerView.Adapter<OpenTradeDetai
 
 		private void updateProfit() {
 			Double profitValue = trade.getProfit();
-			this.profit.setText(String.format(Locale.getDefault(), "%s%s",
+			this.profit.setText(String.format(Locale.getDefault(), "%s%s %s",
 					profitValue > 0 ? "+" : "",
-					StringFormatUtil.formatAmount(profitValue, 2, 8)));
+					StringFormatUtil.formatCurrencyAmount(profitValue, trade.getCurrency()),
+					trade.getCurrency()));
 			this.profit.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
 					profitValue >= 0 ? R.attr.colorGreen : R.attr.colorRed));
 		}

@@ -117,7 +117,7 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 
 	private void setTransactionType(String type) {
 		if (type.equals(TransactionDetails.TypeEnum.SUBSCRIBESIGNAL.getValue()))
-			this.type.setText(getString(R.string.paying_signal_fee));
+			this.type.setText(getString(R.string.signal_fee_payment));
 		else if (type.equals(TransactionDetails.TypeEnum.PLATFORM.getValue()))
 			this.type.setText(getString(R.string.platform_fee));
 		else if (type.equals(TransactionDetails.TypeEnum.DEPOSITSIGNAL.getValue()))
@@ -241,7 +241,7 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 	}
 
 	private void createSubscribeSignalProviderDetails() {
-		addProgramView(getString(R.string.program));
+		addProgramView(getString(R.string.to_the_signal_provider));
 		addSignalFees();
 		addStatus();
 		addAmount();
@@ -330,7 +330,8 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 		ValueView view = new ValueView(this);
 		String value = String.format(Locale.getDefault(), "%s%% (%s)",
 				StringFormatUtil.formatAmount(details.getProgramDetails().getEntryFeePercent(), 0, 2),
-				StringFormatUtil.getValueString(details.getProgramDetails().getEntryFee(), details.getCurrency().getValue()));
+				StringFormatUtil.getValueString(details.getProgramDetails().getEntryFee(),
+						details.getCurrency() != null ? details.getCurrency().getValue() : ""));
 		view.setData(getString(R.string.entry_fee), value);
 		addView(view);
 	}
@@ -339,7 +340,8 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 		ValueView view = new ValueView(this);
 		String value = String.format(Locale.getDefault(), "%s%% (%s)",
 				StringFormatUtil.formatAmount(details.getProgramDetails().getExitFeePercent(), 0, 2),
-				StringFormatUtil.getValueString(details.getProgramDetails().getExitFee(), details.getCurrency().getValue()));
+				StringFormatUtil.getValueString(details.getProgramDetails().getExitFee(),
+						details.getCurrency() != null ? details.getCurrency().getValue() : ""));
 		view.setData(getString(R.string.exit_fee), value);
 		addView(view);
 	}
@@ -348,7 +350,8 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 		ValueView view = new ValueView(this);
 		String value = String.format(Locale.getDefault(), "%s%% (%s)",
 				StringFormatUtil.formatAmount(details.getProgramDetails().getSuccessFeePercent(), 0, 2),
-				StringFormatUtil.getValueString(details.getProgramDetails().getSuccessFee(), details.getProgramDetails().getSuccessFeeCurrency().getValue()));
+				StringFormatUtil.getValueString(details.getProgramDetails().getSuccessFee(),
+						details.getProgramDetails().getSuccessFeeCurrency() != null ? details.getProgramDetails().getSuccessFeeCurrency().getValue() : ""));
 		view.setData(StringFormatUtil.capitalize(getString(R.string.success_fee)), value);
 		addView(view);
 	}
@@ -357,7 +360,7 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 		ValueView view = new ValueView(this);
 		String value = String.format(Locale.getDefault(), "%s%% (%s)",
 				StringFormatUtil.formatAmount(details.getGvCommissionPercent(), 0, 2),
-				StringFormatUtil.getValueString(details.getGvCommission(), details.getGvCommissionCurrency().getValue()));
+				StringFormatUtil.getValueString(details.getGvCommission(), details.getGvCommissionCurrency() != null ? details.getGvCommissionCurrency().getValue() : ""));
 		view.setData(getString(R.string.gv_commission), value);
 		addView(view);
 	}
@@ -371,7 +374,8 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 	private void addSignalFee(SignalFee fee) {
 		int titleResId = 0;
 		String value = String.format(Locale.getDefault(), "%s%s",
-				StringFormatUtil.formatCurrencyAmount(fee.getValue(), fee.getCurrency().getValue()),
+				StringFormatUtil.formatCurrencyAmount(fee.getValue(),
+						fee.getCurrency() != null ? fee.getCurrency().getValue() : ""),
 				fee.getCurrency().getValue());
 		if (fee.getType().equals(SignalFee.TypeEnum.MANAGERSIGNALMASTERVOLUMEFEE)) {
 			titleResId = R.string.manager_volume_fee;

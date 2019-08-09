@@ -39,7 +39,7 @@ public class OpenTradeModel implements Parcelable
 
 		List<OpenTradeProviderModel> providers = new ArrayList<>();
 		for (OrderSignalProgramInfo info : trade.getProviders()) {
-			providers.add(OpenTradeProviderModel.createFrom(info, trade.getSymbol()));
+			providers.add(OpenTradeProviderModel.createFrom(info, trade.getSymbol(), trade.getCurrency().getValue()));
 		}
 		model.providers = providers;
 

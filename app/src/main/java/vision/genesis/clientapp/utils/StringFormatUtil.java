@@ -89,6 +89,9 @@ public class StringFormatUtil
 				currency.equals(CurrencyEnum.EUR.toString())) {
 			return 2;
 		}
+		if (currency.equals(CurrencyEnum.USDT.toString())) {
+			return 8;
+		}
 		if (currency.equals(CurrencyEnum.GVT.toString())) {
 			return 8;
 		}

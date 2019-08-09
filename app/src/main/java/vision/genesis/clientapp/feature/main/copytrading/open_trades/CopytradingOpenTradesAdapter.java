@@ -218,9 +218,10 @@ public class CopytradingOpenTradesAdapter extends RecyclerView.Adapter<Copytradi
 
 		private void updateProfit() {
 			Double profitValue = trade.getProfit();
-			this.profit.setText(String.format(Locale.getDefault(), "%s%s",
+			this.profit.setText(String.format(Locale.getDefault(), "%s%s %s",
 					profitValue > 0 ? "+" : "",
-					StringFormatUtil.formatAmount(profitValue, 2, 8)));
+					StringFormatUtil.formatCurrencyAmount(profitValue, trade.getCurrency().getValue()),
+					trade.getCurrency().getValue()));
 			this.profit.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
 					profitValue >= 0 ? R.attr.colorGreen : R.attr.colorRed));
 		}

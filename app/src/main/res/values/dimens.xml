@@ -127,7 +127,7 @@
     <dimen name="facet_height">140dp</dimen>
     <dimen name="tag_height">28dp</dimen>
     <dimen name="copytrading_account_details_appbar_background_height">220dp</dimen>
-    <dimen name="item_dashboard_signal_height">220dp</dimen>
+    <dimen name="item_dashboard_signal_height">280dp</dimen>
     <dimen name="item_open_trade_provider_height">155dp</dimen>
     <dimen name="commission_height">40dp</dimen>
     <dimen name="social_link_image_size">32dp</dimen>

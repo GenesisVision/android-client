@@ -19,6 +19,7 @@ import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
@@ -56,6 +57,11 @@ public class OpenTradeDetailsActivity extends BaseSwipeBackActivity implements O
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
+
+	@OnClick(R.id.button_back)
+	public void onBackClicked() {
+		onBackPressed();
+	}
 
 	@InjectPresenter
 	public OpenTradeDetailsPresenter openTradeDetailsPresenter;

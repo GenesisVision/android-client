@@ -28,7 +28,7 @@ public class OpenTradeProviderModel implements Parcelable
 		}
 	};
 
-	public static OpenTradeProviderModel createFrom(OrderSignalProgramInfo info, String symbol) {
+	public static OpenTradeProviderModel createFrom(OrderSignalProgramInfo info, String symbol, String currency) {
 		OpenTradeProviderModel model = new OpenTradeProviderModel();
 
 		model.programId = info.getProgramId();
@@ -43,6 +43,7 @@ public class OpenTradeProviderModel implements Parcelable
 		model.profit = info.getProfit();
 		model.date = info.getFirstOrderDate();
 		model.symbol = symbol;
+		model.currency = currency;
 
 		return model;
 	}
@@ -68,6 +69,8 @@ public class OpenTradeProviderModel implements Parcelable
 	private DateTime date;
 
 	private String symbol;
+
+	private String currency;
 
 	protected OpenTradeProviderModel(Parcel in) {
 		programId = (UUID) in.readSerializable();
@@ -105,6 +108,7 @@ public class OpenTradeProviderModel implements Parcelable
 			profit = in.readDouble();
 		}
 		symbol = in.readString();
+		currency = in.readString();
 	}
 
 	public OpenTradeProviderModel() {
@@ -155,6 +159,10 @@ public class OpenTradeProviderModel implements Parcelable
 		return symbol;
 	}
 
+	public String getCurrency() {
+		return currency;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -202,5 +210,6 @@ public class OpenTradeProviderModel implements Parcelable
 			parcel.writeDouble(profit);
 		}
 		parcel.writeString(symbol);
+		parcel.writeString(currency);
 	}
 }

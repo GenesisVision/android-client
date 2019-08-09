@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -23,28 +24,34 @@
             tools:min="1"
             tools:progress="25"/>
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/period_length"
             style="@style/text_value"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@+id/period_progress_bar"
-            android:layout_toRightOf="@+id/period_progress_bar"
+            android:lines="1"
+            app:autoSizeMaxTextSize="16sp"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeStepGranularity="2sp"
+            app:autoSizeTextType="uniform"
             tools:text="14 days"/>
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/period_left"
             style="@style/text_value"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@+id/period_progress_bar"
-            android:layout_toRightOf="@+id/period_progress_bar"
+            android:lines="1"
+            app:autoSizeMaxTextSize="16sp"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeStepGranularity="2sp"
+            app:autoSizeTextType="uniform"
             tools:text="23 days"
             tools:visibility="gone"/>
 

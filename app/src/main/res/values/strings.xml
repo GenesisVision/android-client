@@ -658,10 +658,11 @@
     <string name="trading_fee">Trading fee</string>
     <string name="manager_success_fee">Manager Success fee</string>
     <string name="platform_success_fee">Platform Success fee</string>
-    <string name="paying_signal_fee">Paying signal fee</string>
+    <string name="signal_fee_payment">Signal fee payment</string>
     <string name="manager_volume_fee">Manager volume fee</string>
     <string name="platform_fee">Platform fee</string>
     <string name="withdrawal_from_signal_account">Withdrawal from signal account</string>
     <string name="deposit_to_signal_account">Deposit to signal account</string>
+    <string name="to_the_signal_provider">To the signal provider</string>
 
 </resources>
