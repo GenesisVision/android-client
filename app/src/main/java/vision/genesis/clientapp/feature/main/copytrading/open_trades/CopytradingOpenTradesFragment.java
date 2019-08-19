@@ -135,10 +135,11 @@ public class CopytradingOpenTradesFragment extends BaseFragment implements Copyt
 	@Override
 	public void askCloseTrade(UUID tradeId, String symbol, Double volume) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+		builder.setTitle(getString(R.string.closing_the_trade));
 		builder.setMessage(String.format(Locale.getDefault(), getString(R.string.close_trade_template),
-				StringFormatUtil.formatAmount(volume),
-				symbol));
-		builder.setPositiveButton(getString(R.string.close_order), (dialogInterface, i) -> copytradingOpenTradesPresenter.closeTrade(tradeId));
+				symbol,
+				StringFormatUtil.formatAmount(volume)));
+		builder.setPositiveButton(getString(R.string.close_trade), (dialogInterface, i) -> copytradingOpenTradesPresenter.closeTrade(tradeId));
 		builder.setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> dialogInterface.cancel());
 
 		AlertDialog dialog = builder.create();

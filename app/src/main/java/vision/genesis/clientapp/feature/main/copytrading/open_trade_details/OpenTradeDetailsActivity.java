@@ -138,7 +138,7 @@ public class OpenTradeDetailsActivity extends BaseSwipeBackActivity implements O
 		builder.setMessage(String.format(Locale.getDefault(), getString(R.string.close_trade_template),
 				StringFormatUtil.formatAmount(volume),
 				symbol));
-		builder.setPositiveButton(getString(R.string.close_order), (dialogInterface, i) -> openTradeDetailsPresenter.closeTrade(programId));
+		builder.setPositiveButton(getString(R.string.close_trade), (dialogInterface, i) -> openTradeDetailsPresenter.closeTrade(programId));
 		builder.setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> dialogInterface.cancel());
 
 		AlertDialog dialog = builder.create();

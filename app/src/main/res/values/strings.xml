@@ -651,8 +651,9 @@
     <string name="dashboard_open_trades_empty">You have no open trades at the moment.</string>
     <string name="dashboard_trades_history_empty">No trades history for the selected period.</string>
     <string name="open_trade_details">Open trade details</string>
-    <string name="close_trade_template">Are you sure you want to close your %s %s order?</string>
-    <string name="close_order">Close order</string>
+    <string name="closing_the_trade">Closing the trade</string>
+    <string name="close_trade_template">Are you sure you want to close %s trade in volume %s?</string>
+    <string name="close_trade">Close trade</string>
     <string name="commissions">Commissions</string>
     <string name="total">Total</string>
     <string name="trading_fee">Trading fee</string>
