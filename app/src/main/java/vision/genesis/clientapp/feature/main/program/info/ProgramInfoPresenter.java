@@ -299,6 +299,7 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	private void userLoggedOff() {
 		userLoggedOn = false;
 		getViewState().showInvestWithdrawButtons(false);
+		getViewState().showSignalsProgress(false);
 	}
 
 	private void handleUserError(Throwable throwable) {
