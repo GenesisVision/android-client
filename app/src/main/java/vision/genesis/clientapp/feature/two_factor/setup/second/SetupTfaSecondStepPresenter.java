@@ -19,11 +19,11 @@ import vision.genesis.clientapp.utils.ThemeUtil;
 @InjectViewState
 public class SetupTfaSecondStepPresenter extends MvpPresenter<SetupTfaSecondStepView>
 {
-	public void onSetKey(Context context, String sharedKey, String authenticatorUri) {
+	void onSetKey(Context context, String sharedKey, String authenticatorUri) {
 		getViewState().setKey(sharedKey);
 		getViewState().setQrCode(QRCode.from(authenticatorUri)
-				.withColor(ThemeUtil.getColorByAttrId(context, R.attr.colorTextPrimary),
-						ThemeUtil.getColorByAttrId(context, R.attr.colorBackground))
+				.withColor(ThemeUtil.getColorByAttrId(context, R.attr.colorBackground),
+						ThemeUtil.getColorByAttrId(context, R.attr.colorTextPrimary))
 				.withSize(1000, 1000)
 				.withErrorCorrection(ErrorCorrectionLevel.H)
 				.bitmap());
