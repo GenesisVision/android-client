@@ -181,7 +181,10 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		if (programDetails != null) {
 			ProgramLevelBottomSheetDialog dialog = new ProgramLevelBottomSheetDialog();
 			dialog.show(getSupportFragmentManager(), dialog.getTag());
-			dialog.setData(programDetails.getLevel(), programDetails.getRating().isCanLevelUp(), programDetails.getCurrency().getValue());
+			dialog.setData(programDetails.getLevel(),
+					programDetails.getRating().isCanLevelUp(),
+					programDetails.getCurrency().getValue(),
+					programDetails.getTotalAvailableInvestment());
 		}
 	}
 

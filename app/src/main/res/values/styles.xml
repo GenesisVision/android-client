@@ -498,7 +498,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:alpha">0.3</item>
-        <item name="android:text">@string/invest_limit</item>
+        <item name="android:text">@string/total_invest_limit</item>
         <item name="android:textColor">?attr/colorTextPrimary</item>
         <item name="android:textSize">13sp</item>
     </style>

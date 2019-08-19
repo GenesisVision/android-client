@@ -601,7 +601,7 @@
     <string name="about_levels_more_link">https://blog.genesis.vision/genesis-vision-update-a-level-up-d01ef51c42a</string>
     <string name="levels_limits">Levels limits</string>
     <string name="show_in">Show in</string>
-    <string name="invest_limit">Invest limit</string>
+    <string name="total_invest_limit">Total invest limit</string>
     <string name="level_up">Level Up</string>
     <string name="top_10">Top 10%</string>
     <string name="genesis_level_shows">Genesis level shows the experience and reliability of the Manager</string>

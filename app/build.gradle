@@ -105,11 +105,6 @@ android {
     }
 }
 
-ext {
-    support_version = "28.0.0"
-    moxy_version = "1.5.5"
-}
-
 dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -126,11 +121,7 @@ dependencies {
 
     implementation "com.aurelhubert:ahbottomnavigation:2.1.0"
 
-//    implementation "com.arello-mobile:moxy:$moxy_version"
-//    implementation "com.arello-mobile:moxy-android:$moxy_version"
-//    implementation "com.arello-mobile:moxy-app-compat:$moxy_version"
     implementation 'tech.schoolhelper:moxy-x:1.7.0'
-//    implementation 'tech.schoolhelper:moxy-x-app-compat:1.7.0'
     implementation "tech.schoolhelper:moxy-x-androidx:1.7.0"
     implementation 'tech.schoolhelper:moxy-x-material:1.7.0'
     annotationProcessor 'tech.schoolhelper:moxy-x-compiler:1.7.0'
@@ -185,9 +176,7 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:10.1.0"
     annotationProcessor "com.google.dagger:dagger-compiler:2.11"
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.1.0"
-//    annotationProcessor "com.arello-mobile:moxy-compiler:$moxy_version"
 
-//    compileOnly "com.arello-mobile:moxy-compiler:$moxy_version"
     implementation project(path: ":apiClient")
 }
 

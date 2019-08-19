@@ -62,17 +62,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.4"
-                    android:text="@string/invest_limit"
+                    android:text="@string/total_invest_limit"
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="14sp"/>
-
-                <ProgressBar
-                    android:id="@+id/progress_bar"
-                    style="?android:attr/progressBarStyleSmall"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"/>
 
                 <TextView
                     android:id="@+id/invest_limit"
@@ -81,9 +73,7 @@
                     android:layout_marginStart="8dp"
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="14sp"
-                    android:visibility="gone"
-                    tools:text="2 919 USD"
-                    tools:visibility="visible"/>
+                    tools:text="2 919 USD"/>
 
             </LinearLayout>
 
