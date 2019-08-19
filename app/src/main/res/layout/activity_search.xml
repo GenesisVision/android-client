@@ -126,7 +126,7 @@
         android:visibility="invisible"
         tools:visibility="visible">
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/tabs_height"
@@ -138,7 +138,7 @@
             app:tabSelectedTextColor="?attr/colorTextPrimary"
             app:tabTextColor="?attr/colorTextSecondary"/>
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

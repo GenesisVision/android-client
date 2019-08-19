@@ -7,7 +7,7 @@
                 android:background="?attr/colorBackgroundDark"
                 android:orientation="vertical">
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -290,7 +290,7 @@
                         android:visibility="invisible"
                         app:srcCompat="@drawable/icon_tooltip_2"/>
 
-                    <android.support.v7.widget.SwitchCompat
+                    <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/switch_reinvest"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -569,7 +569,7 @@
 
         </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <ProgressBar
         android:id="@+id/progress_bar"

@@ -2,14 +2,15 @@ package vision.genesis.clientapp.feature.main.filters_sorting;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
 import java.util.Locale;
 
+import androidx.fragment.app.FragmentActivity;
 import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;

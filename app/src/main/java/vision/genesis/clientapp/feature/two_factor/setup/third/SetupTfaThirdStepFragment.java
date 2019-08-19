@@ -1,8 +1,6 @@
 package vision.genesis.clientapp.feature.two_factor.setup.third;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +9,10 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.google.android.material.textfield.TextInputLayout;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

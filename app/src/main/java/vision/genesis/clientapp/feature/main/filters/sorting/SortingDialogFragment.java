@@ -4,13 +4,13 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatDialogFragment;
-import android.support.v7.content.res.AppCompatResources;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.appcompat.content.res.AppCompatResources;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

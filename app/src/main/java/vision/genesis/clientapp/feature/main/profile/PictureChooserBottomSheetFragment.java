@@ -1,8 +1,9 @@
 package vision.genesis.clientapp.feature.main.profile;
 
 import android.app.Dialog;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.View;
+
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import org.greenrobot.eventbus.EventBus;
 

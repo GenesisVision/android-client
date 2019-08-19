@@ -3,8 +3,6 @@ package vision.genesis.clientapp.feature.main.filters;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.content.res.AppCompatResources;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,6 +13,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.fragment.app.Fragment;
 import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -24,7 +24,7 @@
             tools:min="1"
             tools:progress="25"/>
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/period_length"
             style="@style/text_value"
             android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
             app:autoSizeTextType="uniform"
             tools:text="14 days"/>
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/period_left"
             style="@style/text_value"
             android:layout_width="wrap_content"

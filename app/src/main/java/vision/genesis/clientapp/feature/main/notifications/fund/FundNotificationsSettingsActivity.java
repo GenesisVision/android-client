@@ -3,7 +3,6 @@ package vision.genesis.clientapp.feature.main.notifications.fund;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -13,6 +12,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.UUID;
 
+import androidx.appcompat.widget.SwitchCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

@@ -7,12 +7,12 @@ import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.CancellationSignal;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 import io.swagger.client.api.AuthApi;
 import io.swagger.client.api.PlatformApi;
 import io.swagger.client.model.CaptchaCheckResult;

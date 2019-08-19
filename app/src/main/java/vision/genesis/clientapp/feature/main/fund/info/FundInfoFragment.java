@@ -3,8 +3,6 @@ package vision.genesis.clientapp.feature.main.fund.info;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.NestedScrollView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +15,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import java.util.Locale;
 import java.util.UUID;
 
+import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;

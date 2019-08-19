@@ -3,8 +3,6 @@ package vision.genesis.clientapp.feature.main.app_update;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatDialog;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
@@ -12,6 +10,8 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import androidx.appcompat.app.AppCompatDialog;
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;

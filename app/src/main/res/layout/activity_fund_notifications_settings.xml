@@ -90,7 +90,7 @@
                         android:textColor="?attr/colorTextPrimary"
                         android:textSize="14sp"/>
 
-                    <android.support.v7.widget.SwitchCompat
+                    <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/switch_news"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                         android:textColor="?attr/colorTextPrimary"
                         android:textSize="14sp"/>
 
-                    <android.support.v7.widget.SwitchCompat
+                    <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/switch_structure"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -262,6 +262,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 		getViewState().setNavigationItemSelected(1);
 		getViewState().showSignInButton();
 		getViewState().hideBottomNavigation();
+
 	}
 
 	private void handleUserError(Throwable throwable) {

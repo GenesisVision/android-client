@@ -1,7 +1,6 @@
 package vision.genesis.clientapp.net;
 
-import android.support.annotation.NonNull;
-
+import androidx.annotation.NonNull;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.api.Error;

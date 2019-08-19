@@ -3,13 +3,13 @@ package vision.genesis.clientapp.feature.main.filters_sorting;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.Locale;

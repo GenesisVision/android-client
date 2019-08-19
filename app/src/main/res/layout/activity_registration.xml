@@ -82,7 +82,7 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/logo_green_white"/>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/email_input_layout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/login_field_height"
@@ -90,16 +90,16 @@
                     android:gravity="bottom"
                     android:textColorHint="?attr/colorTextSecondary">
 
-                    <android.support.design.widget.TextInputEditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/email"
                         style="@style/edittext"
                         android:hint="@string/email"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"/>
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/password_input_layout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/login_field_height"
@@ -107,16 +107,16 @@
                     android:gravity="bottom"
                     android:textColorHint="?attr/colorTextSecondary">
 
-                    <android.support.design.widget.TextInputEditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/password"
                         style="@style/edittext"
                         android:hint="@string/password"
                         android:imeOptions="actionNext"
                         android:inputType="textPassword"/>
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/confirm_password_input_layout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/login_field_height"
@@ -124,14 +124,14 @@
                     android:gravity="bottom"
                     android:textColorHint="?attr/colorTextSecondary">
 
-                    <android.support.design.widget.TextInputEditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/confirm_password"
                         style="@style/edittext"
                         android:hint="@string/confirm_password"
                         android:imeOptions="actionDone"
                         android:inputType="textPassword"/>
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"

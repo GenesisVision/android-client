@@ -3,14 +3,15 @@ package vision.genesis.clientapp.feature.main.program.withdraw.confirm;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import javax.inject.Inject;
 
@@ -100,7 +101,7 @@ public class ConfirmProgramWithdrawBottomSheetFragment extends BottomSheetDialog
 
 		getDialog().setOnShowListener(dialog1 -> {
 			BottomSheetDialog d = (BottomSheetDialog) dialog1;
-			View bottomSheetInternal = d.findViewById(android.support.design.R.id.design_bottom_sheet);
+			View bottomSheetInternal = d.findViewById(com.google.android.material.R.id.design_bottom_sheet);
 			if (bottomSheetInternal != null)
 				BottomSheetBehavior.from(bottomSheetInternal).setState(BottomSheetBehavior.STATE_EXPANDED);
 		});

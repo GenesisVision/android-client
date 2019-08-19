@@ -1,10 +1,10 @@
 package vision.genesis.clientapp.ui;
 
 import android.content.Context;
-import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -14,7 +14,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 16/03/2018.
  */
 
-public class PrimaryButton extends android.support.v7.widget.AppCompatButton
+public class PrimaryButton extends androidx.appcompat.widget.AppCompatButton
 {
 	public PrimaryButton(Context context) {
 		super(context);

@@ -1,12 +1,12 @@
 package vision.genesis.clientapp.feature.main.fund;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.UUID;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import vision.genesis.clientapp.feature.main.fund.balance.FundBalanceFragment;
 import vision.genesis.clientapp.feature.main.fund.info.FundInfoFragment;
 import vision.genesis.clientapp.feature.main.fund.profit.FundProfitFragment;

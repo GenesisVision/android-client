@@ -17,7 +17,7 @@ import vision.genesis.clientapp.utils.StringFormatUtil;
  * Created by Vitaly on 2/22/18.
  */
 
-public class AmountEditText extends android.support.v7.widget.AppCompatEditText
+public class AmountEditText extends androidx.appcompat.widget.AppCompatEditText
 {
 	public interface AmountChangeListener
 	{

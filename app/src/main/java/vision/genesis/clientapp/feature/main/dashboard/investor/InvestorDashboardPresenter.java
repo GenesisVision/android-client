@@ -1,7 +1,6 @@
 package vision.genesis.clientapp.feature.main.dashboard.investor;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -15,6 +14,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import androidx.core.content.ContextCompat;
 import io.swagger.client.model.AssetsValue;
 import io.swagger.client.model.DashboardPortfolioEvent;
 import io.swagger.client.model.DashboardSummary;

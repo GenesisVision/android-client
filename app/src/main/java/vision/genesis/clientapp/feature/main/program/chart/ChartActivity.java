@@ -3,7 +3,6 @@ package vision.genesis.clientapp.feature.main.program.chart;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -25,6 +24,7 @@ import org.joda.time.DateTime;
 
 import java.util.UUID;
 
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

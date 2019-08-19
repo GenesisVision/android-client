@@ -14,7 +14,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 2/22/18.
  */
 
-public class AmountTextView extends android.support.v7.widget.AppCompatTextView
+public class AmountTextView extends androidx.appcompat.widget.AppCompatTextView
 {
 	public interface AmountChangeListener
 	{

@@ -1,7 +1,5 @@
 package vision.genesis.clientapp.feature.main.program.chart;
 
-import android.support.v4.content.ContextCompat;
-
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.github.mikephil.charting.data.Entry;
@@ -15,6 +13,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import androidx.core.content.ContextCompat;
 import rx.Subscription;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;

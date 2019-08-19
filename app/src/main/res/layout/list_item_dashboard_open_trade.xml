@@ -145,7 +145,7 @@
             android:gravity="bottom"
             android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/price_open"
                 style="@style/text_value"
                 app:autoSizeMaxTextSize="16sp"
@@ -169,7 +169,7 @@
             android:gravity="bottom"
             android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/price"
                 style="@style/text_value"
                 app:autoSizeMaxTextSize="16sp"
@@ -200,7 +200,7 @@
             android:gravity="bottom"
             android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/volume"
                 style="@style/text_value"
                 app:autoSizeMaxTextSize="16sp"
@@ -224,7 +224,7 @@
             android:gravity="bottom"
             android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/profit"
                 style="@style/text_value"
                 android:textColor="?attr/colorGreen"

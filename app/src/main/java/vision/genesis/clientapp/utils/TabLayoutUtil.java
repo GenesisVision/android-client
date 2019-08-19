@@ -2,10 +2,11 @@ package vision.genesis.clientapp.utils;
 
 import android.content.res.Resources;
 import android.os.Build;
-import android.support.design.widget.TabLayout;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.tabs.TabLayout;
 
 /**
  * GenesisVisionAndroid

@@ -45,7 +45,7 @@
             android:paddingLeft="@dimen/settings_padding"
             android:paddingRight="@dimen/settings_padding">
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/password_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/login_field_height"
@@ -53,16 +53,16 @@
                 android:gravity="bottom"
                 android:textColorHint="?attr/colorTextSecondary">
 
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_text_password"
                     style="@style/edittext"
                     android:hint="@string/your_password"
                     android:imeOptions="actionNext"
                     android:inputType="textPassword"/>
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/code_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/login_field_height"
@@ -70,7 +70,7 @@
                 android:gravity="bottom"
                 android:textColorHint="?attr/colorTextSecondary">
 
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_text_code"
                     style="@style/edittext"
                     android:hint="@string/tfa_code"
@@ -78,7 +78,7 @@
                     android:inputType="number"
                     android:maxLines="1"/>
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 

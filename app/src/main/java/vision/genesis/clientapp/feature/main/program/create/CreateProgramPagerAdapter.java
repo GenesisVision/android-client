@@ -1,9 +1,8 @@
 package vision.genesis.clientapp.feature.main.program.create;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import vision.genesis.clientapp.feature.main.program.create.first.CreateProgramFirstStepFragment;
 import vision.genesis.clientapp.feature.main.program.create.second.CreateProgramSecondStepFragment;
 import vision.genesis.clientapp.feature.main.program.create.third.CreateProgramThirdStepFragment;

@@ -1,7 +1,6 @@
 package vision.genesis.clientapp.ui.common;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 import java.util.Arrays;
 import java.util.List;
 
+import androidx.recyclerview.widget.RecyclerView;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
