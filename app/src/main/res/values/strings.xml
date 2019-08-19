@@ -664,5 +664,6 @@
     <string name="withdrawal_from_signal_account">Withdrawal from signal account</string>
     <string name="deposit_to_signal_account">Deposit to signal account</string>
     <string name="to_the_signal_provider">To the signal provider</string>
+    <string name="reinvest_profit">Reinvest profit</string>
 
 </resources>

@@ -144,6 +144,9 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		@BindView(R.id.status)
 		public InvestmentStatusView status;
 
+		@BindView(R.id.group_reinvest)
+		public ViewGroup reinvestGroup;
+
 		@BindView(R.id.label_reinvest)
 		public TextView reinvestLabel;
 
@@ -265,6 +268,9 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			this.status.setStatus(program.getPersonalDetails().getStatus().getValue());
 
 			this.reinvest.setChecked(program.getPersonalDetails().isIsReinvest());
+			this.reinvestGroup.setVisibility(program.getStatus().equals(ProgramDetails.StatusEnum.ACTIVE)
+					? View.VISIBLE
+					: View.GONE);
 		}
 
 		private Double getProfitPercent() {

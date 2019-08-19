@@ -273,7 +273,7 @@
                         android:layout_marginEnd="12dp"
                         android:layout_marginRight="12dp"
                         android:alpha="0.9"
-                        android:text="@string/auto_reinvest"
+                        android:text="@string/reinvest_profit"
                         android:textColor="?attr/colorTextPrimary"
                         android:textSize="16sp"/>
 
