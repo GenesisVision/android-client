@@ -201,6 +201,7 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 
 	private void setAnimations() {
 		appBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+			this.verticalOffset = verticalOffset;
 			double toolbarStartOffset = Math.abs((float) appBarLayout.getTotalScrollRange() * 0.15);
 			float alphaPercent = ((float) Math.abs(verticalOffset) / ((float) appBarLayout.getTotalScrollRange() - 100));
 			collapsingToolbarScreen.setAlpha(alphaPercent);

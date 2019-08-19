@@ -18,7 +18,7 @@ interface FundProfitView extends MvpView
 {
 	void setChartData(List<ChartSimple> equityChart);
 
-	void setValue(String value);
+	void setValue(boolean isNegative, String value);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);

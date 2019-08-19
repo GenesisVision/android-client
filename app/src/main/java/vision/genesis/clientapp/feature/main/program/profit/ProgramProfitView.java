@@ -21,7 +21,9 @@ interface ProgramProfitView extends MvpView
 
 	void setAmount(String gvtAmount, String baseAmount);
 
-	void setChange(Boolean isChangeNegative, String changePercent, String changeValue, String baseChangeValue);
+	void setChange(Boolean isChangeNegative, String changePercent);
+
+	void setChangeVisibility(boolean visible);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);

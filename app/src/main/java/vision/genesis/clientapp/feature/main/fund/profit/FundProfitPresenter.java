@@ -113,7 +113,7 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 		if (first == null || selected == null)
 			return;
 
-		getViewState().setValue(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(selected, 0, 4)));
+		getViewState().setValue(selected < 0, String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(selected, 0, 4)));
 		getViewState().setStatisticsData(chartData.getRebalances(), chartData.getSharpeRatio(), chartData.getSortinoRatio(),
 				chartData.getCalmarRatio(), chartData.getMaxDrawdown());
 	}

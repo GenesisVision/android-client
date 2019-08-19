@@ -48,7 +48,7 @@
                             style="@style/dashboard_header_title"
                             android:layout_height="24dp"
                             android:gravity="bottom"
-                            android:text="@string/amount"/>
+                            android:text="@string/value"/>
 
                         <TextView
                             android:id="@+id/amount_value"
@@ -80,22 +80,12 @@
                                 style="@style/dashboard_header_title"
                                 android:text="@string/change"/>
 
-                            <TextView
-                                android:id="@+id/change_percent"
-                                style="@style/dashboard_header_change_percent"
-                                tools:text="5.4%"/>
-
                         </LinearLayout>
 
                         <TextView
                             android:id="@+id/change_value"
                             style="@style/dashboard_header_value"
-                            tools:text="+120.2301 GVT"/>
-
-                        <TextView
-                            android:id="@+id/change_value_secondary"
-                            style="@style/dashboard_header_secondary_value"
-                            tools:text="0.00928124 BTC"/>
+                            tools:text="48.27%"/>
 
                     </LinearLayout>
 

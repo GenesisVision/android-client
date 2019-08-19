@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -68,6 +69,12 @@ public class ProfitChartView extends RelativeLayout
 
 	@BindView(R.id.highlight_circle)
 	public View highlightCircle;
+
+	@BindView(R.id.highlight_line)
+	public View highlightLine;
+
+	@BindView(R.id.highlight_area)
+	public View highlightArea;
 
 	@BindView(R.id.min_value)
 	public TextView minValue;
@@ -237,7 +244,7 @@ public class ProfitChartView extends RelativeLayout
 
 		CombinedData combinedData = new CombinedData();
 		combinedData.setData(getLineData(lineEntries));
-		combinedData.setData(getBarData(barEntries));
+//		combinedData.setData(getBarData(barEntries));
 		chart.setData(combinedData);
 		chart.invalidate();
 	}
@@ -394,20 +401,28 @@ public class ProfitChartView extends RelativeLayout
 		if (highlight == null)
 			return;
 		highlightCircle.setVisibility(View.VISIBLE);
+		highlightLine.setVisibility(View.VISIBLE);
+		highlightArea.setVisibility(View.VISIBLE);
 //		chart.highlightValue(highlight, false);
-		moveHighlightCircle(highlight);
+		moveHighlight(highlight);
 	}
 
-	private void moveHighlightCircle(Highlight highlight) {
-		float x = highlight.getXPx() - highlightCircle.getWidth() / 2;
-		float y = highlight.getYPx() - highlightCircle.getHeight() / 2 + chart.getY();
+	private void moveHighlight(Highlight highlight) {
+		float x = highlight.getXPx();
+		float y = highlight.getYPx() + chart.getY();
 
-		highlightCircle.setX(x);
-		highlightCircle.setY(y);
+		highlightCircle.setX(x - highlightCircle.getWidth() / 2);
+		highlightCircle.setY(y - highlightCircle.getHeight() / 2);
+		highlightLine.setX(x);
+		ViewGroup.LayoutParams lp = highlightArea.getLayoutParams();
+		lp.width = (int) x;
+		highlightArea.setLayoutParams(lp);
 	}
 
 	public void hideHighlight() {
 		highlightCircle.setVisibility(View.INVISIBLE);
+		highlightLine.setVisibility(View.INVISIBLE);
+		highlightArea.setVisibility(View.INVISIBLE);
 		chart.highlightValue(null, false);
 	}
 

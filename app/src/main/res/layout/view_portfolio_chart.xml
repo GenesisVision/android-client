@@ -4,6 +4,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+    <View
+        android:id="@+id/highlight_area"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="?attr/colorDelimiterLight"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
     <com.github.mikephil.charting.charts.CombinedChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
@@ -42,6 +50,14 @@
         android:layout_width="11dp"
         android:layout_height="11dp"
         android:background="@drawable/chart_highlight_circle"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <View
+        android:id="@+id/highlight_line"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="?attr/colorTextPrimary"
         android:visibility="gone"
         tools:visibility="visible"/>
 

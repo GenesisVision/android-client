@@ -110,7 +110,8 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 			ProgramBalanceChartElement firstElement = chartData.getBalanceChart().get(0);
 			ProgramBalanceChartElement lastElement = chartData.getBalanceChart().get(chartData.getBalanceChart().size() - 1);
 			first = firstElement.getInvestorsFunds() + firstElement.getManagerFunds() + firstElement.getProfit();
-			selected = lastElement.getInvestorsFunds() + lastElement.getManagerFunds() + lastElement.getProfit();
+//			selected = lastElement.getInvestorsFunds() + lastElement.getManagerFunds() + lastElement.getProfit();
+			selected = chartData.getGvtBalance();
 		}
 		updateValues();
 	}
@@ -119,9 +120,9 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 		if (first == null || selected == null)
 			return;
 
-		getViewState().setAmount(StringFormatUtil.getGvtValueString(chartData.getGvtBalance()), StringFormatUtil.getValueString(chartData.getProgramCurrencyBalance(), chartData.getProgramCurrency().getValue()));
+//		getViewState().setAmount(StringFormatUtil.getGvtValueString(chartData.getGvtBalance()), StringFormatUtil.getValueString(chartData.getProgramCurrencyBalance(), chartData.getProgramCurrency().getValue()));
 		//TODO: getValueString(selected * rate
-//		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getValueString(selected, chartData.getProgramCurrency().getValue()));
+		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getValueString(selected, chartData.getProgramCurrency().getValue()));
 //		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getValueString(selected * 7, baseCurrency.getValue()));
 
 		Double changeValue = selected - first;
@@ -132,10 +133,10 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 //				StringFormatUtil.getChangeValueString(chartData.getTimeframeGvtProfit()),
 //				StringFormatUtil.getValueString(chartData.getTimeframeProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
 		//TODO: getValueString(changeValue * rate
-//		getViewState().setChange(changeValue < 0,
-//				StringFormatUtil.getChangePercentString(first, selected),
-//				StringFormatUtil.getChangeValueString(changeValue),
-//				StringFormatUtil.getValueString(changeValue, chartData.getProgramCurrency().getValue()));
+		getViewState().setChange(changeValue < 0,
+				StringFormatUtil.getChangePercentString(first, selected),
+				StringFormatUtil.getChangeValueString(changeValue),
+				StringFormatUtil.getValueString(changeValue, chartData.getProgramCurrency().getValue()));
 	}
 
 	@Override

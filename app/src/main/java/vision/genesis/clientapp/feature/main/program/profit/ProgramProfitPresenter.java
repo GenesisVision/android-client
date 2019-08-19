@@ -79,7 +79,7 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 			if (chartDataSubscription != null)
 				chartDataSubscription.unsubscribe();
 			//TODO: calculate maxPointCount
-			chartDataSubscription = programsManager.getProfitChart(programId, chartDateRange, 30)
+			chartDataSubscription = programsManager.getProfitChart(programId, chartDateRange, 100)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetChartDataSuccess,
@@ -110,30 +110,30 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 			first = chartData.getEquityChart().get(0).getValue();
 			selected = chartData.getEquityChart().get(chartData.getEquityChart().size() - 1).getValue();
 		}
+		getViewState().setChangeVisibility(false);
 		updateValues();
 	}
 
 	private void updateValues() {
-		if (first == null || selected == null)
+		if (first == null || selected == null) {
+			getViewState().setChangeVisibility(false);
 			return;
+		}
 
-		getViewState().setAmount(StringFormatUtil.getGvtValueString(chartData.getTotalGvtProfit()), StringFormatUtil.getValueString(chartData.getTotalProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
+		getViewState().setAmount(StringFormatUtil.getGvtValueString(chartData.getTimeframeGvtProfit()), StringFormatUtil.getValueString(chartData.getTotalProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
 		//TODO: getValueString(selected * rate
 //		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getValueString(selected, chartData.getProgramCurrency().getValue()));
 //		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getValueString(selected * 7, baseCurrency.getValue()));
 
-		Double changeValue = selected - first;
+		Double changeValue = selected;
 //		getViewState().setChange(changeValue < 0, StringFormatUtil.getChangePercentString(first, selected),
 //				StringFormatUtil.getChangeValueString(changeValue), StringFormatUtil.getValueString(changeValue * chartData.get(), baseCurrency.getValue()));
-		getViewState().setChange(chartData.getProfitChangePercent() != null && chartData.getProfitChangePercent() < 0,
-				chartData.getProfitChangePercent() == null ? "∞" : String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(chartData.getProfitChangePercent(), 0, 2)),
-				StringFormatUtil.getChangeValueString(chartData.getTimeframeGvtProfit()),
-				StringFormatUtil.getValueString(chartData.getTimeframeProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
-		//TODO: getValueString(changeValue * rate
-//		getViewState().setChange(changeValue < 0,
-//				StringFormatUtil.getChangePercentString(first, selected),
-//				StringFormatUtil.getChangeValueString(changeValue),
-//				StringFormatUtil.getValueString(changeValue, chartData.getProgramCurrency().getValue()));
+//		getViewState().setChange(chartData.getProfitChangePercent() != null && chartData.getProfitChangePercent() < 0,
+//				chartData.getProfitChangePercent() == null ? "∞" : String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(chartData.getProfitChangePercent(), 0, 2)),
+//				StringFormatUtil.getChangeValueString(chartData.getTimeframeGvtProfit()),
+//				StringFormatUtil.getValueString(chartData.getTimeframeProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
+
+		getViewState().setChange(changeValue < 0, String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(changeValue, 0, 4)));
 
 		getViewState().setStatisticsData(chartData.getTrades(), chartData.getSuccessTradesPercent(),
 				chartData.getProfitFactor(), chartData.getSharpeRatio(), chartData.getSortinoRatio(),
@@ -151,6 +151,7 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 	@Override
 	public void onTouch(float value) {
 		selected = (double) value;
+		getViewState().setChangeVisibility(true);
 		updateValues();
 	}
 

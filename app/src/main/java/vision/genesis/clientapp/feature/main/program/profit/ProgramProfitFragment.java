@@ -65,20 +65,20 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 	@BindView(R.id.profit_chart)
 	public ProfitChartView profitChart;
 
+	@BindView(R.id.amount_title)
+	public TextView amountTitle;
+
 	@BindView(R.id.amount_value)
 	public TextView amountValue;
 
 	@BindView(R.id.amount_value_secondary)
 	public TextView amountValueSecondary;
 
+	@BindView(R.id.group_change)
+	public ViewGroup changeGroup;
+
 	@BindView(R.id.change_value)
 	public TextView changeValue;
-
-	@BindView(R.id.change_percent)
-	public TextView changePercent;
-
-	@BindView(R.id.change_value_secondary)
-	public TextView changeValueSecondary;
 
 	@BindView(R.id.label_statistics)
 	public TextView statisticsLabel;
@@ -169,11 +169,10 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 	}
 
 	private void setFonts() {
+		amountTitle.setText(StringFormatUtil.capitalize(getString(R.string.value)));
 		amountValue.setTypeface(TypefaceUtil.semibold());
 		changeValue.setTypeface(TypefaceUtil.semibold());
-		changePercent.setTypeface(TypefaceUtil.semibold());
 		amountValueSecondary.setTypeface(TypefaceUtil.medium());
-		changeValueSecondary.setTypeface(TypefaceUtil.medium());
 
 		statisticsLabel.setTypeface(TypefaceUtil.semibold());
 		startDay.setTypeface(TypefaceUtil.semibold());
@@ -201,14 +200,17 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 	}
 
 	@Override
-	public void setChange(Boolean isChangeNegative, String changePercent, String changeValue, String baseChangeValue) {
-		this.changePercent.setTextColor(isChangeNegative
+	public void setChange(Boolean isChangeNegative, String changePercent) {
+		this.changeValue.setTextColor(isChangeNegative
 				? ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed)
 				: ThemeUtil.getColorByAttrId(getContext(), R.attr.colorGreen));
 
-		this.changePercent.setText(changePercent);
-		this.changeValue.setText(changeValue);
-		this.changeValueSecondary.setText(baseChangeValue);
+		this.changeValue.setText(changePercent);
+	}
+
+	@Override
+	public void setChangeVisibility(boolean visible) {
+		this.changeGroup.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
 	}
 
 	@Override

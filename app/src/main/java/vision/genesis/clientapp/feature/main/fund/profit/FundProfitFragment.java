@@ -29,6 +29,7 @@ import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
 import vision.genesis.clientapp.ui.chart.ProfitChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -157,8 +158,11 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 	}
 
 	@Override
-	public void setValue(String value) {
+	public void setValue(boolean isNegative, String value) {
 		this.value.setText(value);
+		this.value.setTextColor(isNegative
+				? ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed)
+				: ThemeUtil.getColorByAttrId(getContext(), R.attr.colorGreen));
 	}
 
 	@Override
