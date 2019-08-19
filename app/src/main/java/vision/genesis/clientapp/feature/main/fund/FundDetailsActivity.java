@@ -361,7 +361,7 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 	public void setFund(FundDetailsFull fundDetails) {
 		this.fundDetails = fundDetails;
 
-		if (fundDetails.getPersonalFundDetails() != null)
+		if (fundDetails.getPersonalFundDetails() != null && fundDetails.getPersonalFundDetails().isIsInvested())
 			addPage(eventsTab, false);
 
 		model.update(fundDetails);

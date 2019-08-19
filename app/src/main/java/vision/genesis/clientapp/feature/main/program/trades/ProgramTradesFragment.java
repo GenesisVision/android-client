@@ -208,7 +208,7 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
-		if (dateRangeView != null)
+		if (dateRangeView != null && root.getHeight() != 0)
 			dateRangeView.setY(root.getHeight() - verticalOffset - dateRangeView.getHeight() - dateRangeMarginBottom);
 	}
 }

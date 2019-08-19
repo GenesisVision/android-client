@@ -34,7 +34,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private ProgramProfitFragment programProfitFragment;
 
-	private ProgramBalanceFragment programBalanceFragment;
+	private ProgramBalanceFragment programEquityFragment;
 
 	private ProgramTradesFragment programTradesFragment;
 
@@ -48,7 +48,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		programInfoFragment = ProgramInfoFragment.with(programId);
 		openPositionsFragment = OpenPositionsFragment.with(programId);
 		programProfitFragment = ProgramProfitFragment.with(programId);
-		programBalanceFragment = ProgramBalanceFragment.with(programId);
+		programEquityFragment = ProgramBalanceFragment.with(programId);
 		programEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_PROGRAM, programId);
 		programTradesFragment = ProgramTradesFragment.with(programId);
 	}
@@ -62,8 +62,8 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 				return openPositionsFragment;
 			case "profit":
 				return programProfitFragment;
-			case "balance":
-				return programBalanceFragment;
+			case "equity":
+				return programEquityFragment;
 			case "trades":
 				return programTradesFragment;
 			case "events":
@@ -85,7 +85,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		programInfoFragment.pagerShow();
 		openPositionsFragment.pagerShow();
 		programProfitFragment.pagerShow();
-		programBalanceFragment.pagerShow();
+		programEquityFragment.pagerShow();
 		programTradesFragment.pagerShow();
 		programEventsFragment.pagerShow();
 	}
@@ -98,7 +98,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	public void onOffsetChanged(int verticalOffset) {
 		programProfitFragment.onOffsetChanged(verticalOffset);
-		programBalanceFragment.onOffsetChanged(verticalOffset);
+		programEquityFragment.onOffsetChanged(verticalOffset);
 		programTradesFragment.onOffsetChanged(verticalOffset);
 		programEventsFragment.onOffsetChanged(verticalOffset);
 	}

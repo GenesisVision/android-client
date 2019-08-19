@@ -152,7 +152,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	private TabLayout.Tab profitTab;
 
-	private TabLayout.Tab balanceTab;
+	private TabLayout.Tab equityTab;
 
 	private TabLayout.Tab tradesTab;
 
@@ -353,9 +353,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	private void initTabs() {
 		infoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("info");
-		openPositionsTab = tabLayout.newTab().setCustomView(getTabView(R.string.open_positions)).setTag("open_positions");
 		profitTab = tabLayout.newTab().setCustomView(getTabView(R.string.profit)).setTag("profit");
-		balanceTab = tabLayout.newTab().setCustomView(getTabView(R.string.equity)).setTag("balance");
+		equityTab = tabLayout.newTab().setCustomView(getTabView(R.string.equity)).setTag("equity");
+		openPositionsTab = tabLayout.newTab().setCustomView(getTabView(R.string.open_positions)).setTag("open_positions");
 		tradesTab = tabLayout.newTab().setCustomView(getTabView(R.string.trades)).setTag("trades");
 		eventsTab = tabLayout.newTab().setCustomView(getTabView(R.string.events)).setTag("events");
 
@@ -389,9 +389,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
 		addPage(infoTab, true);
-		addPage(openPositionsTab, false);
 		addPage(profitTab, false);
-		addPage(balanceTab, false);
+		addPage(equityTab, false);
+		addPage(openPositionsTab, false);
 		addPage(tradesTab, false);
 	}
 
@@ -436,7 +436,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	public void setProgram(ProgramDetailsFull programDetails) {
 		this.programDetails = programDetails;
 
-		if (programDetails.getPersonalProgramDetails() != null)
+		if (programDetails.getPersonalProgramDetails() != null && programDetails.getPersonalProgramDetails().isIsInvested())
 			addPage(eventsTab, false);
 
 		model.update(programDetails);
