@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -177,21 +178,21 @@ public class ProfitChartView extends RelativeLayout
 
 		chart.setOnTouchListener((v, me) -> {
 			v.getParent().requestDisallowInterceptTouchEvent(true);
-//			if (me.getAction() == MotionEvent.ACTION_DOWN || me.getAction() == MotionEvent.ACTION_MOVE) {
-//				Highlight highlight = chart.getHighlightByTouchPoint(me.getX(), me.getY());
-//				if (highlight != null) {
-//					showHighlight(highlight);
-//					if (touchListener != null) {
-//						touchListener.onTouch(highlight.getY());
-//					}
-//				}
-//			}
-//			else if (me.getAction() == MotionEvent.ACTION_UP || me.getAction() == MotionEvent.ACTION_CANCEL) {
-//				hideHighlight();
-//				if (touchListener != null)
-//					touchListener.onStop();
-//				v.getParent().requestDisallowInterceptTouchEvent(false);
-//			}
+			if (me.getAction() == MotionEvent.ACTION_DOWN || me.getAction() == MotionEvent.ACTION_MOVE) {
+				Highlight highlight = chart.getHighlightByTouchPoint(me.getX(), me.getY());
+				if (highlight != null) {
+					showHighlight(highlight);
+					if (touchListener != null) {
+						touchListener.onTouch(highlight.getY());
+					}
+				}
+			}
+			else if (me.getAction() == MotionEvent.ACTION_UP || me.getAction() == MotionEvent.ACTION_CANCEL) {
+				hideHighlight();
+				if (touchListener != null)
+					touchListener.onStop();
+				v.getParent().requestDisallowInterceptTouchEvent(false);
+			}
 			return true;
 		});
 	}
@@ -251,7 +252,7 @@ public class ProfitChartView extends RelativeLayout
 //			xAxis.setAxisMinimum(dateRange.getFrom().getMillis() / 1000 / 60);
 //		}
 //		else {
-			xAxis.resetAxisMinimum();
+		xAxis.resetAxisMinimum();
 //		}
 		switch (dateRange.getSelectedRange()) {
 			case DAY:

@@ -15,7 +15,6 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.FundsManager;
-import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.chart.ProfitChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -114,24 +113,7 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 		if (first == null || selected == null)
 			return;
 
-		getViewState().setAmount(StringFormatUtil.getGvtValueString(chartData.getTotalGvtProfit()), StringFormatUtil.getValueString(chartData.getTotalUsdProfit(), CurrencyEnum.USD.getValue()));
-		//TODO: getValueString(selected * rate
-//		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getValueString(selected, CurrencyEnum.USD.getValue()));
-//		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getValueString(selected * 7, baseCurrency.getValue()));
-
-		Double changeValue = selected - first;
-//		getViewState().setChange(changeValue < 0, StringFormatUtil.getChangePercentString(first, selected),
-//				StringFormatUtil.getChangeValueString(changeValue), StringFormatUtil.getValueString(changeValue * chartData.get(), baseCurrency.getValue()));
-		getViewState().setChange(chartData.getProfitChangePercent() != null && chartData.getProfitChangePercent() < 0,
-				chartData.getProfitChangePercent() == null ? "∞" : String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(chartData.getProfitChangePercent(), 0, 2)),
-				StringFormatUtil.getChangeValueString(chartData.getTimeframeGvtProfit()),
-				StringFormatUtil.getValueString(chartData.getTimeframeUsdProfit(), CurrencyEnum.USD.getValue()));
-		//TODO: getValueString(changeValue * rate
-//		getViewState().setChange(changeValue < 0,
-//				StringFormatUtil.getChangePercentString(first, selected),
-//				StringFormatUtil.getChangeValueString(changeValue),
-//				StringFormatUtil.getValueString(changeValue, CurrencyEnum.USD.getValue()));
-
+		getViewState().setValue(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(selected, 0, 4)));
 		getViewState().setStatisticsData(chartData.getRebalances(), chartData.getSharpeRatio(), chartData.getSortinoRatio(),
 				chartData.getCalmarRatio(), chartData.getMaxDrawdown());
 	}

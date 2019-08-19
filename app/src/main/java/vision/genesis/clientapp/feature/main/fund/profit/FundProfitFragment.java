@@ -29,7 +29,6 @@ import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
 import vision.genesis.clientapp.ui.chart.ProfitChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
-import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -64,20 +63,11 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 	@BindView(R.id.profit_chart)
 	public ProfitChartView profitChart;
 
-	@BindView(R.id.amount_value)
-	public TextView amountValue;
+	@BindView(R.id.value_title)
+	public TextView valueTitle;
 
-	@BindView(R.id.amount_value_secondary)
-	public TextView amountValueSecondary;
-
-	@BindView(R.id.change_value)
-	public TextView changeValue;
-
-	@BindView(R.id.change_percent)
-	public TextView changePercent;
-
-	@BindView(R.id.change_value_secondary)
-	public TextView changeValueSecondary;
+	@BindView(R.id.value)
+	public TextView value;
 
 	@BindView(R.id.label_statistics)
 	public TextView statisticsLabel;
@@ -150,11 +140,8 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 	}
 
 	private void setFonts() {
-		amountValue.setTypeface(TypefaceUtil.semibold());
-		changeValue.setTypeface(TypefaceUtil.semibold());
-		changePercent.setTypeface(TypefaceUtil.semibold());
-		amountValueSecondary.setTypeface(TypefaceUtil.medium());
-		changeValueSecondary.setTypeface(TypefaceUtil.medium());
+		valueTitle.setText(StringFormatUtil.capitalize(getString(R.string.value)));
+		value.setTypeface(TypefaceUtil.semibold());
 
 		statisticsLabel.setTypeface(TypefaceUtil.semibold());
 		rebalances.setTypeface(TypefaceUtil.semibold());
@@ -170,20 +157,8 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 	}
 
 	@Override
-	public void setAmount(String gvtAmount, String baseAmount) {
-		amountValue.setText(gvtAmount);
-		amountValueSecondary.setText(baseAmount);
-	}
-
-	@Override
-	public void setChange(Boolean isChangeNegative, String changePercent, String changeValue, String baseChangeValue) {
-		this.changePercent.setTextColor(isChangeNegative
-				? ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed)
-				: ThemeUtil.getColorByAttrId(getContext(), R.attr.colorGreen));
-
-		this.changePercent.setText(changePercent);
-		this.changeValue.setText(changeValue);
-		this.changeValueSecondary.setText(baseChangeValue);
+	public void setValue(String value) {
+		this.value.setText(value);
 	}
 
 	@Override
