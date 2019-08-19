@@ -26,20 +26,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:padding="32dp"
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <TextView
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
+            android:alpha="0.3"
             android:gravity="center"
-            android:lineSpacingMultiplier="1.2"
             android:text="@string/cannot_find_anything"
-            android:textColor="?attr/colorTextSecondary"
-            android:textSize="24sp"/>
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="16sp"/>
 
     </LinearLayout>
 
