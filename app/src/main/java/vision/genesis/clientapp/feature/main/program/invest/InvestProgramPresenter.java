@@ -119,8 +119,8 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 			amountBase = amount / rate;
 
 			entryFee = amountBase * (investInfo.getEntryFee() / 100);
-			gvCommission = amountBase * (investInfo.getGvCommission() / 100);
-			investmentAmount = amountBase - entryFee - gvCommission;
+			gvCommission = amount * (investInfo.getGvCommission() / 100);
+			investmentAmount = amountBase - entryFee - gvCommission / rate;
 
 			getViewState().setAmountBase(getAmountBaseString());
 			getViewState().setEntryFee(getEntryFeeString());
@@ -137,36 +137,40 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 	}
 
 	private String getAmountToInvestString() {
-		return String.format(Locale.getDefault(), "%s (≈%s)",
-				StringFormatUtil.getValueString(amount, selectedWalletFrom.getCurrency().getValue()),
+		String approxAmount = String.format(Locale.getDefault(), "(≈%s)",
 				StringFormatUtil.getValueString(amountBase, programRequest.getProgramCurrency()));
+		String result = StringFormatUtil.getValueString(amount, selectedWalletFrom.getCurrency().getValue());
+		if (!selectedWalletFrom.getCurrency().getValue().equals(programRequest.getProgramCurrency()))
+			result = result.concat(" " + approxAmount);
+		return result;
 	}
 
 	private String getEntryFeeString() {
 		return String.format(Locale.getDefault(), "%s%% (%s%s)",
 				StringFormatUtil.formatAmount(investInfo.getEntryFee(), 0, 2),
-				StringFormatUtil.getApproxSymbolIfNeeded(entryFee),
+				selectedWalletFrom.getCurrency().getValue().equals(programRequest.getProgramCurrency()) ? "" : StringFormatUtil.getApproxSymbolIfNeeded(entryFee),
 				StringFormatUtil.getValueString(entryFee, programRequest.getProgramCurrency()));
 	}
 
 	private String getGvCommissionString() {
-		return String.format(Locale.getDefault(), "%s%% (%s%s)",
+		return String.format(Locale.getDefault(), "%s%% (%s)",
 				StringFormatUtil.formatAmount(investInfo.getGvCommission(), 0, 5),
-				StringFormatUtil.getApproxSymbolIfNeeded(gvCommission),
-				StringFormatUtil.getValueString(gvCommission, programRequest.getProgramCurrency()));
+				StringFormatUtil.getValueString(gvCommission, selectedWalletFrom.getCurrency().getValue()));
 	}
 
 	private String getInvestmentAmountString() {
 		return String.format(Locale.getDefault(), "%s%s",
-				StringFormatUtil.getApproxSymbolIfNeeded(investmentAmount),
+				selectedWalletFrom.getCurrency().getValue().equals(programRequest.getProgramCurrency()) ? "" : StringFormatUtil.getApproxSymbolIfNeeded(investmentAmount),
 				StringFormatUtil.getValueString(investmentAmount, programRequest.getProgramCurrency()));
 	}
 
 	private String getFeesAndCommissionsString() {
-		return String.format(Locale.getDefault(), "%s%% (%s%s)",
-				StringFormatUtil.formatAmount(investInfo.getEntryFee() + investInfo.getGvCommission(), 0, 5),
-				StringFormatUtil.getApproxSymbolIfNeeded(entryFee + gvCommission),
-				StringFormatUtil.getValueString(entryFee + gvCommission, programRequest.getProgramCurrency()));
+		return String.format(Locale.getDefault(), "%s%% (%s%s)\n%s%% (%s)",
+				StringFormatUtil.formatAmount(investInfo.getEntryFee(), 0, 5),
+				selectedWalletFrom.getCurrency().getValue().equals(programRequest.getProgramCurrency()) ? "" : StringFormatUtil.getApproxSymbolIfNeeded(entryFee),
+				StringFormatUtil.getValueString(entryFee, programRequest.getProgramCurrency()),
+				StringFormatUtil.formatAmount(investInfo.getGvCommission(), 0, 5),
+				StringFormatUtil.getValueString(gvCommission, selectedWalletFrom.getCurrency().getValue()));
 	}
 
 	void onMaxClicked() {
@@ -182,8 +186,12 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 		programRequest.setInfoMiddleText(getFeesAndCommissionsString());
 		programRequest.setAmountBottomText(getInvestmentAmountString());
 		programRequest.setPeriodEndsText(String.format(Locale.getDefault(),
-				context.getString(R.string.program_invest_warning_template),
-				programRequest.getProgramCurrency(), programRequest.getProgramCurrency()));
+				context.getString(R.string.template_program_invest_accrual),
+				selectedWalletFrom.getCurrency().getValue().equals(programRequest.getProgramCurrency()) ? "" :
+						String.format(Locale.getDefault(),
+								context.getString(R.string.template_program_invest_convert),
+								selectedWalletFrom.getCurrency().getValue(), programRequest.getProgramCurrency()),
+				programRequest.getProgramCurrency()));
 		getViewState().showConfirmDialog(programRequest);
 	}
 
