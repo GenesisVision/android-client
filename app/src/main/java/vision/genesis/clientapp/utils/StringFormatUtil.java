@@ -124,7 +124,7 @@ public class StringFormatUtil
 	}
 
 	public static String getChangePercentString(Double first, Double last) {
-		return first == 0 ? "∞" : String.format(Locale.getDefault(), "%s%%",
+		return first == 0 ? "" : String.format(Locale.getDefault(), "%s%%",
 				StringFormatUtil.formatAmount(Math.abs(first != 0 ? 100 / first * (first - last) : 0), 0, 2));
 	}
 
