@@ -17,7 +17,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.SignalsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.SetCopytradingAccountTradesHistoryCountEvent;
@@ -31,21 +31,16 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingTradesHistoryView>
+public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingTradesHistoryView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener
 {
 	private static int TAKE = 20;
 
 	@Inject
 	public SignalsManager signalsManager;
 
-	@Inject
-	public SettingsManager settingsManager;
-
-	private Subscription dateRangeSubscription;
-
 	private Subscription getTradesHistorySubscription;
 
-	private DateRange dateRange;
+	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
 	private int skip;
 
@@ -65,13 +60,14 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 
 		EventBus.getDefault().register(this);
 
-		subscribeToDateRange();
+		getViewState().showProgress(true);
+		getViewState().setDateRange(dateRange);
+
+		getTradesHistory(true);
 	}
 
 	@Override
 	public void onDestroy() {
-		if (dateRangeSubscription != null)
-			dateRangeSubscription.unsubscribe();
 		if (getTradesHistorySubscription != null)
 			getTradesHistorySubscription.unsubscribe();
 
@@ -96,25 +92,13 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 	}
 
 	void onSwipeRefresh() {
-		getViewState().showProgressBar(true);
+		getViewState().showProgress(true);
 		getTradesHistory(true);
 	}
 
 	void onLastListItemVisible() {
-		getViewState().showProgressBar(true);
+		getViewState().showProgress(true);
 		getTradesHistory(false);
-	}
-
-	private void subscribeToDateRange() {
-		dateRangeSubscription = settingsManager.getDateRange()
-				.subscribeOn(Schedulers.newThread())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::dateRangeChangedHandler);
-	}
-
-	private void dateRangeChangedHandler(DateRange dateRange) {
-		this.dateRange = dateRange;
-		getTradesHistory(true);
 	}
 
 	private void getTradesHistory(boolean forceUpdate) {
@@ -132,7 +116,7 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 
 	private void handleGetTradesHistorySuccess(TradesSignalViewModel response) {
 		getTradesHistorySubscription.unsubscribe();
-		getViewState().showProgressBar(false);
+		getViewState().showProgress(false);
 
 		if (skip == 0) {
 			trades.clear();
@@ -159,7 +143,7 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 	private void handleGetTradesHistoryError(Throwable throwable) {
 		getTradesHistorySubscription.unsubscribe();
 
-		getViewState().showProgressBar(false);
+		getViewState().showProgress(false);
 		getViewState().showEmpty(false);
 
 		ApiErrorResolver.resolveErrors(throwable,
@@ -170,5 +154,13 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 	public void onEventMainThread(ShowCopytradingCommissionsEvent event) {
 		if (isFragmentActive)
 			getViewState().showCommissions(event.getTrade());
+	}
+
+	@Override
+	public void onDateRangeChanged(DateRange dateRange) {
+		this.dateRange = dateRange;
+		getViewState().setDateRange(dateRange);
+		getViewState().showProgress(true);
+		getTradesHistory(true);
 	}
 }

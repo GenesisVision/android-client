@@ -6,6 +6,7 @@ import io.swagger.client.api.SignalApi;
 import io.swagger.client.model.AttachToSignalProviderInfo;
 import io.swagger.client.model.CopyTradingAccountsList;
 import io.swagger.client.model.DetachFromSignalProvider;
+import io.swagger.client.model.SignalTradingEvents;
 import io.swagger.client.model.TradesSignalViewModel;
 import rx.Observable;
 import vision.genesis.clientapp.model.DateRange;
@@ -56,5 +57,9 @@ public class SignalsManager
 
 	public Observable<Void> closeTrade(UUID tradeId, UUID programId) {
 		return signalApi.v10SignalTradesByIdClosePost(tradeId, AuthManager.token.getValue(), programId);
+	}
+
+	public Observable<SignalTradingEvents> getTradingLog(String accountCurrency, Integer skip, Integer take) {
+		return signalApi.v10SignalTradesLogGet(AuthManager.token.getValue(), null, accountCurrency, skip, take);
 	}
 }

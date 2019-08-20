@@ -217,6 +217,8 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 	private TabLayout.Tab tradesHistoryTab;
 
+	private TabLayout.Tab tradingLogTab;
+
 	@OnClick(R.id.group_notifications)
 	public void onNotificationsClicked() {
 		if (getActivity() != null)
@@ -421,6 +423,7 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 		copytradingTab = tabLayoutAssets.newTab().setCustomView(getTabView(R.string.copytrading)).setTag("copytrading");
 		openTradesTab = tabLayoutAssets.newTab().setCustomView(getTabView(R.string.open_trades)).setTag("open_trades");
 		tradesHistoryTab = tabLayoutAssets.newTab().setCustomView(getTabView(R.string.trades_history)).setTag("trades_history");
+		tradingLogTab = tabLayoutAssets.newTab().setCustomView(getTabView(R.string.trading_log)).setTag("trading_log");
 
 		assetsTabSelectedListener = new TabLayout.OnTabSelectedListener()
 		{
@@ -454,6 +457,7 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 		addTab(tabLayoutAssets, assetsPagerAdapter, copytradingTab, false);
 		addTab(tabLayoutAssets, assetsPagerAdapter, openTradesTab, false);
 		addTab(tabLayoutAssets, assetsPagerAdapter, tradesHistoryTab, false);
+		addTab(tabLayoutAssets, assetsPagerAdapter, tradingLogTab, false);
 
 	}
 
@@ -640,6 +644,11 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	@Override
 	public void setTradesHistoryCount(Integer tradesHistoryCount) {
 		((CustomTabView) tradesHistoryTab.getCustomView()).setCount(tradesHistoryCount);
+	}
+
+	@Override
+	public void setTradingLogCount(Integer eventsCount) {
+		((CustomTabView) tradingLogTab.getCustomView()).setCount(eventsCount);
 	}
 
 	@Override

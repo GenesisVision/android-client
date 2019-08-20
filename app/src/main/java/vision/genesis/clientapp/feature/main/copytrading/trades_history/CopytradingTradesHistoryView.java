@@ -5,6 +5,7 @@ import com.arellomobile.mvp.MvpView;
 import java.util.List;
 
 import io.swagger.client.model.OrderSignalModel;
+import vision.genesis.clientapp.model.DateRange;
 
 /**
  * GenesisVisionAndroid
@@ -19,9 +20,11 @@ interface CopytradingTradesHistoryView extends MvpView
 
 	void showCommissions(OrderSignalModel trade);
 
-	void showProgressBar(boolean show);
+	void showProgress(boolean show);
 
 	void showEmpty(boolean show);
 
 	void showSnackbarMessage(String message);
+
+	void setDateRange(DateRange dateRange);
 }

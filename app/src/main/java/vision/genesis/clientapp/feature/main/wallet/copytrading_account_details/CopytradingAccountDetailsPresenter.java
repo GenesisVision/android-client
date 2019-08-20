@@ -9,6 +9,7 @@ import org.greenrobot.eventbus.Subscribe;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.model.events.SetCopytradingAccountOpenTradesCountEvent;
 import vision.genesis.clientapp.model.events.SetCopytradingAccountTradesHistoryCountEvent;
+import vision.genesis.clientapp.model.events.SetCopytradingAccountTradingLogCountEvent;
 
 /**
  * GenesisVisionAndroid
@@ -42,5 +43,10 @@ public class CopytradingAccountDetailsPresenter extends MvpPresenter<Copytrading
 	@Subscribe
 	public void onEventMainThread(SetCopytradingAccountTradesHistoryCountEvent event) {
 		getViewState().setTradesHistoryCount(event.getTradesHistoryCount());
+	}
+
+	@Subscribe
+	public void onEventMainThread(SetCopytradingAccountTradingLogCountEvent event) {
+		getViewState().setTradingLogCount(event.getEventsCount());
 	}
 }

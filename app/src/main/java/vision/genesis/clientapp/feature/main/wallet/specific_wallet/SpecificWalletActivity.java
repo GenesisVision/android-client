@@ -40,7 +40,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 19/02/2019.
  */
 
-public class SpecificWalletActivity extends BaseSwipeBackActivity implements SpecificWalletView
+public class SpecificWalletActivity extends BaseSwipeBackActivity implements SpecificWalletView, ViewPager.OnPageChangeListener
 {
 	private static String EXTRA_MODEL = "extra_model";
 
@@ -139,6 +139,10 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 
 	private WalletModel model;
 
+	private boolean isPagerDragging;
+
+	private int verticalOffset;
+
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
@@ -178,7 +182,6 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 			setFonts();
 
 			initRefreshLayout();
-			initButtons();
 			setOffsetListener();
 			initTabs();
 			initViewPager(model.getCurrency());
@@ -258,15 +261,16 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 		});
 	}
 
-	private void initButtons() {
-//		withdraw.setEmpty();
-//		transfer.setEmpty();
-
-
+	private void setOffsetListener() {
+		appBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+			this.verticalOffset = verticalOffset;
+			updateRefreshLayoutEnabled();
+			pagerAdapter.onOffsetChanged(appBarLayout.getHeight() + verticalOffset - tabLayout.getHeight());
+		});
 	}
 
-	private void setOffsetListener() {
-		appBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> refreshLayout.setEnabled(verticalOffset == 0));
+	private void updateRefreshLayoutEnabled() {
+		refreshLayout.setEnabled(verticalOffset == 0 && !isPagerDragging);
 	}
 
 	private void initTabs() {
@@ -329,6 +333,7 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 
 		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
 		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
+		viewPager.addOnPageChangeListener(this);
 	}
 
 	@Override
@@ -338,19 +343,19 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 		this.balance.setText(StringFormatUtil.getValueString(data.getTotal(), data.getCurrency().getValue()));
 //		this.balanceBase.setText(StringFormatUtil.getValueString(data.getTotalCcy(), data.getCurrencyCcy().getValue()));
 
-		Integer availablePercent = (int) Math.round(data.getAvailable() * 100 / data.getTotal());
+		int availablePercent = (int) Math.round(data.getAvailable() * 100 / data.getTotal());
 		this.availableShare.setProgress(availablePercent);
 		this.availablePercent.setText(String.format(Locale.getDefault(), "%d%%", availablePercent));
 		this.available.setText(StringFormatUtil.getValueString(data.getAvailable(), currency));
 //		this.availableBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getAvailableCcy(), baseCurrency.getValue()));
 
-		Integer investedPercent = (int) Math.round(data.getInvested() * 100 / data.getTotal());
+		int investedPercent = (int) Math.round(data.getInvested() * 100 / data.getTotal());
 		this.investedShare.setProgress(investedPercent);
 		this.investedPercent.setText(String.format(Locale.getDefault(), "%d%%", investedPercent));
 		this.invested.setText(StringFormatUtil.getValueString(data.getInvested(), currency));
 //		this.investedBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getInvestedCcy(), baseCurrency.getValue()));
 
-		Integer pendingPercent = (int) Math.round(data.getPending() * 100 / data.getTotal());
+		int pendingPercent = (int) Math.round(data.getPending() * 100 / data.getTotal());
 		this.pendingShare.setProgress(pendingPercent);
 		this.pendingPercent.setText(String.format(Locale.getDefault(), "%d%%", pendingPercent));
 		this.pending.setText(StringFormatUtil.getValueString(data.getPending(), currency));
@@ -390,5 +395,21 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 	private void finishActivity() {
 		finish();
 		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
+	}
+
+	@Override
+	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+	}
+
+	@Override
+	public void onPageSelected(int position) {
+
+	}
+
+	@Override
+	public void onPageScrollStateChanged(int state) {
+		isPagerDragging = state == ViewPager.SCROLL_STATE_DRAGGING;
+		updateRefreshLayoutEnabled();
 	}
 }

@@ -26,6 +26,7 @@ import vision.genesis.clientapp.feature.main.copytrading.open_trade_details.Open
 import vision.genesis.clientapp.feature.main.copytrading.open_trades.CopytradingOpenTradesPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.subscription_settings.SubscriptionSettingsPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.trades_history.CopytradingTradesHistoryPresenter;
+import vision.genesis.clientapp.feature.main.copytrading.trading_log.TradingLogPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.unfollow_trades.UnfollowTradesPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.investor.InvestorDashboardPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.investor.copytrading.DashboardCopytradingPresenter;
@@ -284,4 +285,6 @@ public interface AppComponent
 	void inject(OpenTradeDetailsPresenter openTradeDetailsPresenter);
 
 	void inject(TransferCopytradingAccountPresenter transferCopytradingAccountPresenter);
+
+	void inject(TradingLogPresenter tradingLogPresenter);
 }

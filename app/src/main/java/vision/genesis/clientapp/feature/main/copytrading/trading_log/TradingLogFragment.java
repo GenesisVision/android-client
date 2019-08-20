@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.copytrading.trades_history;
+package vision.genesis.clientapp.feature.main.copytrading.trading_log;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -19,22 +19,22 @@ import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.OrderSignalModel;
+import io.swagger.client.model.SignalTradingEvent;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.feature.main.copytrading.commissions.CommissionsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.DashboardPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
+import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 30/06/2019.
+ * Created by Vitaly on 20/08/2019.
  */
 
-public class CopytradingTradesHistoryFragment extends BaseFragment implements CopytradingTradesHistoryView, DashboardPagerAdapter.OnPageVisibilityChanged
+public class TradingLogFragment extends BaseFragment implements TradingLogView, DashboardPagerAdapter.OnPageVisibilityChanged
 {
 	public static final String LOCATION_COPYTRADING_ACCOUNT = "location_copytrading_account";
 
@@ -44,13 +44,13 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 
 	private static final String EXTRA_ACCOUNT_CURRENCY = "extra_account_currency";
 
-	public static CopytradingTradesHistoryFragment with(@NonNull String location, @Nullable String accountCurrency) {
-		CopytradingTradesHistoryFragment copytradingTradesHistoryFragment = new CopytradingTradesHistoryFragment();
+	public static TradingLogFragment with(@NonNull String location, @Nullable String accountCurrency) {
+		TradingLogFragment tradingLogFragment = new TradingLogFragment();
 		Bundle arguments = new Bundle(2);
 		arguments.putString(EXTRA_LOCATION, location);
 		arguments.putString(EXTRA_ACCOUNT_CURRENCY, accountCurrency);
-		copytradingTradesHistoryFragment.setArguments(arguments);
-		return copytradingTradesHistoryFragment;
+		tradingLogFragment.setArguments(arguments);
+		return tradingLogFragment;
 	}
 
 	@BindView(R.id.root)
@@ -78,11 +78,13 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 	public int filtersMarginTop;
 
 	@InjectPresenter
-	public CopytradingTradesHistoryPresenter copytradingTradesHistoryPresenter;
+	public TradingLogPresenter tradingLogPresenter;
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
-	private CopytradingTradesHistoryAdapter copytradingTradesHistoryAdapter;
+	private TradingLogListAdapter tradingLogListAdapter;
+
+	private SimpleSectionedRecyclerViewAdapter sectionedAdapter;
 
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
@@ -90,14 +92,14 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 			DateRangeBottomSheetFragment bottomSheetDialog = new DateRangeBottomSheetFragment();
 			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
 			bottomSheetDialog.setDateRange(dateRange);
-			bottomSheetDialog.setListener(copytradingTradesHistoryPresenter);
+			bottomSheetDialog.setListener(tradingLogPresenter);
 		}
 	}
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_dashboard_trades_history, container, false);
+		return inflater.inflate(R.layout.fragment_trading_log, container, false);
 	}
 
 	@Override
@@ -113,7 +115,7 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 		if (getArguments() != null) {
 			String location = getArguments().getString(EXTRA_LOCATION);
 			String accountCurrency = getArguments().getString(EXTRA_ACCOUNT_CURRENCY);
-			copytradingTradesHistoryPresenter.setData(location, accountCurrency);
+			tradingLogPresenter.setData(location, accountCurrency);
 
 			initRecyclerView();
 		}
@@ -123,25 +125,12 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 		}
 	}
 
-	@Override
-	public void onPause() {
-		super.onPause();
-		copytradingTradesHistoryPresenter.onHide();
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-		copytradingTradesHistoryPresenter.onShow();
-	}
-
 	private void initRecyclerView() {
-		recyclerView.setHasFixedSize(true);
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
-		copytradingTradesHistoryAdapter = new CopytradingTradesHistoryAdapter();
-		copytradingTradesHistoryAdapter.setHasStableIds(true);
-		recyclerView.setAdapter(copytradingTradesHistoryAdapter);
+		tradingLogListAdapter = new TradingLogListAdapter();
+		sectionedAdapter = new SimpleSectionedRecyclerViewAdapter(getContext(), R.layout.list_item_trades_date_section, R.id.text, tradingLogListAdapter);
+		recyclerView.setAdapter(sectionedAdapter);
 
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
 		{
@@ -153,22 +142,30 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 
 				boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
 				if (totalItemCount > 0 && endHasBeenReached) {
-					copytradingTradesHistoryPresenter.onLastListItemVisible();
+					tradingLogPresenter.onLastListItemVisible();
 				}
 			}
 		});
 	}
 
 	@Override
-	public void setTrades(List<OrderSignalModel> trades) {
-		copytradingTradesHistoryAdapter.setTrades(trades);
+	public void setEvents(List<SignalTradingEvent> events, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+		if (events.isEmpty()) {
+			emptyGroup.setVisibility(View.VISIBLE);
+			recyclerView.setVisibility(View.GONE);
+			return;
+		}
 
-		showEmpty(trades.size() == 0);
+		sectionedAdapter.setSections(sections);
+		tradingLogListAdapter.setEvents(events);
+		emptyGroup.setVisibility(View.GONE);
+		recyclerView.setVisibility(View.VISIBLE);
 	}
 
 	@Override
-	public void addTrades(List<OrderSignalModel> newTrades) {
-		copytradingTradesHistoryAdapter.addTrades(newTrades);
+	public void addEvents(List<SignalTradingEvent> event, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+		sectionedAdapter.setSections(sections);
+		tradingLogListAdapter.addEvents(event);
 	}
 
 	@Override
@@ -179,20 +176,11 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 	}
 
 	@Override
-	public void showCommissions(OrderSignalModel trade) {
-		if (getActivity() != null) {
-			CommissionsBottomSheetFragment fragment = new CommissionsBottomSheetFragment();
-			fragment.setData(trade);
-			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
-		}
-	}
-
-	@Override
 	public void showProgress(boolean show) {
 		if (progressBar != null) {
 			progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
 			if (!show) {
-				dateRangeView.setVisibility(View.VISIBLE);
+//				dateRangeView.setVisibility(View.VISIBLE);
 				recyclerView.setVisibility(View.VISIBLE);
 			}
 		}
@@ -211,8 +199,6 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 
 	@Override
 	public void pagerShow() {
-		if (copytradingTradesHistoryPresenter != null)
-			copytradingTradesHistoryPresenter.onShow();
 	}
 
 	@Override
@@ -220,8 +206,8 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 	}
 
 	public void onSwipeRefresh() {
-		if (copytradingTradesHistoryPresenter != null)
-			copytradingTradesHistoryPresenter.onSwipeRefresh();
+		if (tradingLogPresenter != null)
+			tradingLogPresenter.onSwipeRefresh();
 	}
 
 	public void onOffsetChanged(int verticalOffset) {

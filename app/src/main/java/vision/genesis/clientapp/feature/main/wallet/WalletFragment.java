@@ -37,7 +37,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 1/19/18.
  */
 
-public class WalletFragment extends BaseFragment implements WalletView
+public class WalletFragment extends BaseFragment implements WalletView, ViewPager.OnPageChangeListener
 {
 	@BindView(R.id.swipe_refresh)
 	public SwipeRefreshLayout refreshLayout;
@@ -113,6 +113,10 @@ public class WalletFragment extends BaseFragment implements WalletView
 	private TabLayout.Tab depositsWithdrawalsTab;
 
 	private WalletPagerAdapter pagerAdapter;
+
+	private int verticalOffset;
+
+	private boolean isPagerDragging;
 
 	@OnClick(R.id.group_currency)
 	public void onCurrencyClicked() {
@@ -203,7 +207,15 @@ public class WalletFragment extends BaseFragment implements WalletView
 	}
 
 	private void setOffsetListener() {
-		appBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> refreshLayout.setEnabled(verticalOffset == 0));
+		appBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+			this.verticalOffset = verticalOffset;
+			updateRefreshLayoutEnabled();
+			pagerAdapter.onOffsetChanged(appBarLayout.getHeight() + verticalOffset - tabLayout.getHeight());
+		});
+	}
+
+	private void updateRefreshLayoutEnabled() {
+		refreshLayout.setEnabled(verticalOffset == 0 && !isPagerDragging);
 	}
 
 	private void initTabs() {
@@ -271,6 +283,7 @@ public class WalletFragment extends BaseFragment implements WalletView
 
 			tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
 			viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
+			viewPager.addOnPageChangeListener(this);
 		}
 	}
 
@@ -287,19 +300,19 @@ public class WalletFragment extends BaseFragment implements WalletView
 		this.balance.setText(StringFormatUtil.getValueString(data.getGrandTotal().getTotalCcy(), currency));
 //		this.balanceBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getTotalCcy(), baseCurrency.getValue()));
 
-		Integer availablePercent = (int) Math.round(data.getGrandTotal().getAvailableCcy() * 100 / data.getGrandTotal().getTotalCcy());
+		int availablePercent = (int) Math.round(data.getGrandTotal().getAvailableCcy() * 100 / data.getGrandTotal().getTotalCcy());
 		this.availableShare.setProgress(availablePercent);
 		this.availablePercent.setText(String.format(Locale.getDefault(), "%d%%", availablePercent));
 		this.available.setText(StringFormatUtil.getValueString(data.getGrandTotal().getAvailableCcy(), currency));
 //		this.availableBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getAvailableCcy(), baseCurrency.getValue()));
 
-		Integer investedPercent = (int) Math.round(data.getGrandTotal().getInvestedCcy() * 100 / data.getGrandTotal().getTotalCcy());
+		int investedPercent = (int) Math.round(data.getGrandTotal().getInvestedCcy() * 100 / data.getGrandTotal().getTotalCcy());
 		this.investedShare.setProgress(investedPercent);
 		this.investedPercent.setText(String.format(Locale.getDefault(), "%d%%", investedPercent));
 		this.invested.setText(StringFormatUtil.getValueString(data.getGrandTotal().getInvestedCcy(), currency));
 //		this.investedBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getInvestedCcy(), baseCurrency.getValue()));
 
-		Integer pendingPercent = (int) Math.round(data.getGrandTotal().getPendingCcy() * 100 / data.getGrandTotal().getTotalCcy());
+		int pendingPercent = (int) Math.round(data.getGrandTotal().getPendingCcy() * 100 / data.getGrandTotal().getTotalCcy());
 		this.pendingShare.setProgress(pendingPercent);
 		this.pendingPercent.setText(String.format(Locale.getDefault(), "%d%%", pendingPercent));
 		this.pending.setText(StringFormatUtil.getValueString(data.getGrandTotal().getPendingCcy(), currency));
@@ -331,5 +344,21 @@ public class WalletFragment extends BaseFragment implements WalletView
 	@Override
 	public void setDepositsWithdrawalsCount(Integer depositsWithdrawalsCount) {
 		((DetailsTabView) depositsWithdrawalsTab.getCustomView()).setCount(depositsWithdrawalsCount);
+	}
+
+	@Override
+	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+	}
+
+	@Override
+	public void onPageSelected(int position) {
+
+	}
+
+	@Override
+	public void onPageScrollStateChanged(int state) {
+		isPagerDragging = state == ViewPager.SCROLL_STATE_DRAGGING;
+		updateRefreshLayoutEnabled();
 	}
 }

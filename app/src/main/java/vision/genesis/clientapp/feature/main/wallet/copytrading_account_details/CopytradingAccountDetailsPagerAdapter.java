@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import vision.genesis.clientapp.feature.main.copytrading.open_trades.CopytradingOpenTradesFragment;
 import vision.genesis.clientapp.feature.main.copytrading.trades_history.CopytradingTradesHistoryFragment;
+import vision.genesis.clientapp.feature.main.copytrading.trading_log.TradingLogFragment;
 
 /**
  * GenesisVisionAndroid
@@ -26,6 +27,8 @@ public class CopytradingAccountDetailsPagerAdapter extends FragmentStatePagerAda
 
 	private CopytradingTradesHistoryFragment tradesHistoryFragment;
 
+	private TradingLogFragment tradingLogFragment;
+
 	private TabLayout tabLayout;
 
 	CopytradingAccountDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, String accountCurrency) {
@@ -33,6 +36,7 @@ public class CopytradingAccountDetailsPagerAdapter extends FragmentStatePagerAda
 		this.tabLayout = tabLayout;
 		openTradesFragment = CopytradingOpenTradesFragment.with(CopytradingOpenTradesFragment.LOCATION_COPYTRADING_ACCOUNT, accountCurrency);
 		tradesHistoryFragment = CopytradingTradesHistoryFragment.with(CopytradingTradesHistoryFragment.LOCATION_COPYTRADING_ACCOUNT, accountCurrency);
+		tradingLogFragment = TradingLogFragment.with(CopytradingTradesHistoryFragment.LOCATION_COPYTRADING_ACCOUNT, accountCurrency);
 	}
 
 	@Override
@@ -42,6 +46,8 @@ public class CopytradingAccountDetailsPagerAdapter extends FragmentStatePagerAda
 				return openTradesFragment;
 			case "trades_history":
 				return tradesHistoryFragment;
+			case "trading_log":
+				return tradingLogFragment;
 			default:
 				return null;
 		}
@@ -58,15 +64,17 @@ public class CopytradingAccountDetailsPagerAdapter extends FragmentStatePagerAda
 	public void sendUpdate() {
 		openTradesFragment.pagerShow();
 		tradesHistoryFragment.pagerShow();
+		tradingLogFragment.pagerShow();
 	}
 
 	public void sendSwipeRefresh() {
 		openTradesFragment.pagerShow();
 		tradesHistoryFragment.onSwipeRefresh();
+		tradingLogFragment.onSwipeRefresh();
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
-//		openTradesFragment.onOffsetChanged(verticalOffset);
-//		tradesHistoryFragment.onOffsetChanged(verticalOffset);
+		tradesHistoryFragment.onOffsetChanged(verticalOffset);
+		tradingLogFragment.onOffsetChanged(verticalOffset);
 	}
 }

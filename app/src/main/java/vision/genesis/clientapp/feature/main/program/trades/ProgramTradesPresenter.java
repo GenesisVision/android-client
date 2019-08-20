@@ -169,7 +169,6 @@ public class ProgramTradesPresenter extends MvpPresenter<ProgramTradesView> impl
 		}
 	}
 
-
 	@Override
 	public void onDateRangeChanged(DateRange dateRange) {
 		this.dateRange = dateRange;

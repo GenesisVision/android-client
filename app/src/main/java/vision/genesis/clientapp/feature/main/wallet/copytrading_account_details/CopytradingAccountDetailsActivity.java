@@ -37,7 +37,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 28/06/2019.
  */
 
-public class CopytradingAccountDetailsActivity extends BaseSwipeBackActivity implements CopytradingAccountDetailsView
+public class CopytradingAccountDetailsActivity extends BaseSwipeBackActivity implements CopytradingAccountDetailsView, ViewPager.OnPageChangeListener
 {
 	private static String EXTRA_MODEL = "extra_model";
 
@@ -48,6 +48,9 @@ public class CopytradingAccountDetailsActivity extends BaseSwipeBackActivity imp
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
+
+	@BindView(R.id.toolbar)
+	public ViewGroup toolbar;
 
 	@BindView(R.id.swipe_refresh)
 	public SwipeRefreshLayout refreshLayout;
@@ -129,9 +132,15 @@ public class CopytradingAccountDetailsActivity extends BaseSwipeBackActivity imp
 
 	private TabLayout.Tab tradesHistoryTab;
 
+	private TabLayout.Tab tradingLogTab;
+
 	private CopytradingAccountDetailsPagerAdapter pagerAdapter;
 
 	private CopytradingAccountModel model;
+
+	private int verticalOffset;
+
+	private boolean isPagerDragging = false;
 
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
@@ -247,12 +256,21 @@ public class CopytradingAccountDetailsActivity extends BaseSwipeBackActivity imp
 	}
 
 	private void setOffsetListener() {
-		appBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> refreshLayout.setEnabled(verticalOffset == 0));
+		appBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+			this.verticalOffset = verticalOffset;
+			updateRefreshLayoutEnabled();
+			pagerAdapter.onOffsetChanged(appBarLayout.getHeight() + verticalOffset - tabLayout.getHeight());
+		});
+	}
+
+	private void updateRefreshLayoutEnabled() {
+		refreshLayout.setEnabled(verticalOffset == 0 && !isPagerDragging);
 	}
 
 	private void initTabs() {
 		openTradesTab = tabLayout.newTab().setCustomView(getTabView(R.string.open_trades)).setTag("open_trades");
 		tradesHistoryTab = tabLayout.newTab().setCustomView(getTabView(R.string.trades_history)).setTag("trades_history");
+		tradingLogTab = tabLayout.newTab().setCustomView(getTabView(R.string.trading_log)).setTag("trading_log");
 
 		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -285,6 +303,7 @@ public class CopytradingAccountDetailsActivity extends BaseSwipeBackActivity imp
 
 		addPage(openTradesTab, true);
 		addPage(tradesHistoryTab, false);
+		addPage(tradingLogTab, false);
 	}
 
 	private View getTabView(int textResId) {
@@ -306,10 +325,11 @@ public class CopytradingAccountDetailsActivity extends BaseSwipeBackActivity imp
 	private void initViewPager(String accountCurrency) {
 		pagerAdapter = new CopytradingAccountDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, accountCurrency);
 		viewPager.setAdapter(pagerAdapter);
-		viewPager.setOffscreenPageLimit(2);
+		viewPager.setOffscreenPageLimit(3);
 
 		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
 		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
+		viewPager.addOnPageChangeListener(this);
 	}
 
 	@Override
@@ -363,8 +383,29 @@ public class CopytradingAccountDetailsActivity extends BaseSwipeBackActivity imp
 		((DetailsTabView) tradesHistoryTab.getCustomView()).setCount(tradesHistoryCount);
 	}
 
+	@Override
+	public void setTradingLogCount(Integer eventsCount) {
+		((DetailsTabView) tradingLogTab.getCustomView()).setCount(eventsCount);
+	}
+
 	private void finishActivity() {
 		finish();
 		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
+	}
+
+	@Override
+	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+	}
+
+	@Override
+	public void onPageSelected(int position) {
+
+	}
+
+	@Override
+	public void onPageScrollStateChanged(int state) {
+		isPagerDragging = state == ViewPager.SCROLL_STATE_DRAGGING;
+		updateRefreshLayoutEnabled();
 	}
 }

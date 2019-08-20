@@ -43,6 +43,7 @@ import vision.genesis.clientapp.model.events.SetDashboardOpenTradesCountEvent;
 import vision.genesis.clientapp.model.events.SetDashboardProgramsCountEvent;
 import vision.genesis.clientapp.model.events.SetDashboardSignalsCountEvent;
 import vision.genesis.clientapp.model.events.SetDashboardTradesHistoryCountEvent;
+import vision.genesis.clientapp.model.events.SetDashboardTradingLogCountEvent;
 import vision.genesis.clientapp.model.events.ShowProgramRequestsEvent;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -306,5 +307,10 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	@Subscribe
 	public void onEventMainThread(SetDashboardTradesHistoryCountEvent event) {
 		getViewState().setTradesHistoryCount(event.getTradesHistoryCount());
+	}
+
+	@Subscribe
+	public void onEventMainThread(SetDashboardTradingLogCountEvent event) {
+		getViewState().setTradingLogCount(event.getEventsCount());
 	}
 }

@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import vision.genesis.clientapp.feature.main.copytrading.open_trades.CopytradingOpenTradesFragment;
 import vision.genesis.clientapp.feature.main.copytrading.trades_history.CopytradingTradesHistoryFragment;
+import vision.genesis.clientapp.feature.main.copytrading.trading_log.TradingLogFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.copytrading.DashboardCopytradingFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.funds.DashboardFundsFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.programs.DashboardProgramsFragment;
@@ -35,6 +36,8 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 
 	private CopytradingTradesHistoryFragment tradesHistoryFragment;
 
+	private TradingLogFragment tradingLogFragment;
+
 	private TabLayout tabLayout;
 
 	DashboardPagerAdapter(FragmentManager fm, TabLayout tabLayout) {
@@ -45,6 +48,7 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 		copytradingFragment = DashboardCopytradingFragment.with();
 		openTradesFragment = CopytradingOpenTradesFragment.with(CopytradingOpenTradesFragment.LOCATION_DASHBOARD, null);
 		tradesHistoryFragment = CopytradingTradesHistoryFragment.with(CopytradingTradesHistoryFragment.LOCATION_DASHBOARD, null);
+		tradingLogFragment = TradingLogFragment.with(CopytradingTradesHistoryFragment.LOCATION_DASHBOARD, null);
 	}
 
 	@Override
@@ -60,6 +64,8 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 				return openTradesFragment;
 			case "trades_history":
 				return tradesHistoryFragment;
+			case "trading_log":
+				return tradingLogFragment;
 			default:
 				return null;
 		}
@@ -78,15 +84,8 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 		fundsFragment.showProgressBar(show);
 		copytradingFragment.showProgressBar(show);
 		openTradesFragment.showProgressBar(show);
-		tradesHistoryFragment.showProgressBar(show);
-	}
-
-	public void showEmpty(boolean show) {
-		programsFragment.showEmpty(show);
-		fundsFragment.showEmpty(show);
-		copytradingFragment.showEmpty(show);
-		openTradesFragment.showEmpty(show);
-		tradesHistoryFragment.showEmpty(show);
+		tradesHistoryFragment.showProgress(show);
+		tradingLogFragment.showProgress(show);
 	}
 
 	public void onAssetsListsUpdate() {
@@ -95,11 +94,14 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 		copytradingFragment.pagerShow();
 		openTradesFragment.pagerShow();
 		tradesHistoryFragment.onSwipeRefresh();
+		tradingLogFragment.onSwipeRefresh();
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
 		programsFragment.onOffsetChanged(verticalOffset);
 		fundsFragment.onOffsetChanged(verticalOffset);
 		copytradingFragment.onOffsetChanged(verticalOffset);
+		tradesHistoryFragment.onDashboardOffsetChanged(verticalOffset);
+		tradingLogFragment.onDashboardOffsetChanged(verticalOffset);
 	}
 }

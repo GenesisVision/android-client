@@ -25,4 +25,6 @@ interface CopytradingAccountDetailsView extends MvpView
 	void setOpenTradesCount(Integer transactionsCount);
 
 	void setTradesHistoryCount(Integer depositsWithdrawalsCount);
+
+	void setTradingLogCount(Integer eventsCount);
 }

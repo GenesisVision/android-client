@@ -669,5 +669,6 @@
     <string name="reinvest_profit">Reinvest profit</string>
     <string name="ticket">Ticket</string>
     <string name="swap">Swap</string>
+    <string name="trading_log">Trading log</string>
 
 </resources>
