@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,7 @@ import butterknife.ButterKnife;
 import io.swagger.client.model.OrderModel;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.events.OnTradeClickedEvent;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -69,8 +72,11 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 		@BindView(R.id.direction)
 		public TextView direction;
 
-		@BindView(R.id.balance)
-		public TextView balance;
+		@BindView(R.id.volume)
+		public TextView volume;
+
+		@BindView(R.id.price)
+		public TextView price;
 
 		@BindView(R.id.profit)
 		public TextView profit;
@@ -78,21 +84,30 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 		@BindView(R.id.date)
 		public TextView date;
 
+		private OrderModel trade;
+
 		TradeViewHolder(View itemView) {
 			super(itemView);
 
 			ButterKnife.bind(this, itemView);
 
 			setFonts();
+			itemView.setOnClickListener(view -> {
+				if (trade != null)
+					EventBus.getDefault().post(new OnTradeClickedEvent(trade));
+			});
 		}
 
 		private void setFonts() {
 			direction.setTypeface(TypefaceUtil.semibold());
-			balance.setTypeface(TypefaceUtil.semibold());
+			volume.setTypeface(TypefaceUtil.semibold());
+			price.setTypeface(TypefaceUtil.semibold());
 			profit.setTypeface(TypefaceUtil.semibold());
 		}
 
 		void setTrade(OrderModel trade) {
+			this.trade = trade;
+
 			int entryResId = R.drawable.icon_red_arrow_up;
 			switch (trade.getDirection()) {
 				case BUY:
@@ -109,9 +124,8 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 
 			symbol.setText(trade.getSymbol());
 			direction.setText(trade.getDirection().getValue());
-			balance.setText(StringFormatUtil.formatAmountWithoutGrouping(trade.getPrice()));
-//			balance.setText("120.2301");
-//			time.setText(DateTimeUtil.formatShortDateTime(trade.getDate()));
+			volume.setText(StringFormatUtil.formatAmount(trade.getVolume(), 2, 8));
+			price.setText(StringFormatUtil.formatAmountWithoutGrouping(trade.getPrice()));
 
 			setProfit(trade);
 		}

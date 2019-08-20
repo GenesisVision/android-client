@@ -193,6 +193,15 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 	}
 
 	@Override
+	public void showTradeDetails(OrderModel trade, Boolean showSwaps, Boolean showTickets) {
+		if (getActivity() != null) {
+			TradeDetailsDialog dialog = new TradeDetailsDialog();
+			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
+			dialog.setData(trade, showSwaps, showTickets);
+		}
+	}
+
+	@Override
 	public void pagerShow() {
 		if (programTradesPresenter != null)
 			programTradesPresenter.onShow();

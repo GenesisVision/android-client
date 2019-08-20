@@ -70,8 +70,8 @@ public class OpenPositionsListAdapter extends RecyclerView.Adapter<OpenPositions
 		@BindView(R.id.volume)
 		public TextView volume;
 
-		@BindView(R.id.balance)
-		public TextView balance;
+		@BindView(R.id.price)
+		public TextView price;
 
 		@BindView(R.id.profit)
 		public TextView profit;
@@ -97,7 +97,7 @@ public class OpenPositionsListAdapter extends RecyclerView.Adapter<OpenPositions
 		private void setFonts() {
 			direction.setTypeface(TypefaceUtil.semibold());
 			volume.setTypeface(TypefaceUtil.semibold());
-			balance.setTypeface(TypefaceUtil.semibold());
+			price.setTypeface(TypefaceUtil.semibold());
 			profit.setTypeface(TypefaceUtil.semibold());
 		}
 
@@ -120,7 +120,7 @@ public class OpenPositionsListAdapter extends RecyclerView.Adapter<OpenPositions
 			symbol.setText(trade.getSymbol());
 			direction.setText(trade.getDirection().getValue());
 			volume.setText(StringFormatUtil.formatAmount(trade.getVolume(), 2, 8));
-			balance.setText(StringFormatUtil.formatAmountWithoutGrouping(trade.getPrice()));
+			price.setText(StringFormatUtil.formatAmountWithoutGrouping(trade.getPrice()));
 //			balance.setText("120.2301");
 //			time.setText(DateTimeUtil.formatShortDateTime(trade.getDate()));
 

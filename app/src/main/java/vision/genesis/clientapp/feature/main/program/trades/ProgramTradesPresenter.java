@@ -6,6 +6,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.events.OnTradeClickedEvent;
 import vision.genesis.clientapp.model.events.SetProgramDetailsTradesCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
@@ -56,11 +58,17 @@ public class ProgramTradesPresenter extends MvpPresenter<ProgramTradesView> impl
 
 	private List<SimpleSectionedRecyclerViewAdapter.Section> sections = new ArrayList<>();
 
+	private Boolean showSwaps = false;
+
+	private Boolean showTickets = false;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
+
+		EventBus.getDefault().register(this);
 
 		getViewState().showProgress(true);
 		getViewState().setDateRange(dateRange);
@@ -73,6 +81,8 @@ public class ProgramTradesPresenter extends MvpPresenter<ProgramTradesView> impl
 	public void onDestroy() {
 		if (tradesSubscription != null)
 			tradesSubscription.unsubscribe();
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -122,6 +132,9 @@ public class ProgramTradesPresenter extends MvpPresenter<ProgramTradesView> impl
 			sections.clear();
 		}
 
+		showSwaps = model.isShowSwaps();
+		showTickets = model.isShowSwaps();
+
 		EventBus.getDefault().post(new SetProgramDetailsTradesCountEvent(model.getTotal()));
 
 		List<OrderModel> newTrades = model.getTrades();
@@ -163,5 +176,10 @@ public class ProgramTradesPresenter extends MvpPresenter<ProgramTradesView> impl
 		getViewState().setDateRange(dateRange);
 		getViewState().showProgress(true);
 		getTrades(true);
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnTradeClickedEvent event) {
+		getViewState().showTradeDetails(event.getTrade(), showSwaps, showTickets);
 	}
 }

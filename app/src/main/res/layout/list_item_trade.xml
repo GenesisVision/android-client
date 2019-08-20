@@ -3,7 +3,8 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_trades_height"
-                android:paddingLeft="@dimen/program_details_padding">
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/program_details_padding">
 
     <ImageView
         android:id="@+id/entry"
@@ -17,10 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
         android:layout_toEndOf="@+id/entry"
-        android:layout_toRightOf="@+id/entry"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
@@ -32,15 +31,32 @@
             android:textSize="16sp"
             tools:text="BTCUSD"/>
 
-        <TextView
-            android:id="@+id/direction"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:alpha="0.3"
-            android:textColor="?attr/colorTextPrimary"
-            android:textSize="14sp"
-            tools:text="@string/sell"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/direction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.3"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="14sp"
+                tools:text="@string/sell"/>
+
+            <TextView
+                android:id="@+id/volume"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:alpha="0.3"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="14sp"
+                tools:text="1.0"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -62,17 +78,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/program_details_padding"
-        android:layout_marginRight="@dimen/program_details_padding"
         android:layout_toEndOf="@+id/group_left"
-        android:layout_toRightOf="@+id/group_left"
         android:gravity="center_vertical|end"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/balance"
+            android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="?attr/colorTextPrimary"

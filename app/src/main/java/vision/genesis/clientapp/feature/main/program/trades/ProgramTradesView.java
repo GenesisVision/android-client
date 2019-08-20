@@ -27,4 +27,6 @@ interface ProgramTradesView extends MvpView
 	void addTrades(List<OrderModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
 
 	void showSnackbarMessage(String message);
+
+	void showTradeDetails(OrderModel trade, Boolean showSwaps, Boolean showTickets);
 }

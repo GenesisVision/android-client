@@ -667,5 +667,7 @@
     <string name="deposit_to_signal_account">Deposit to signal account</string>
     <string name="to_the_signal_provider">To the signal provider</string>
     <string name="reinvest_profit">Reinvest profit</string>
+    <string name="ticket">Ticket</string>
+    <string name="swap">Swap</string>
 
 </resources>

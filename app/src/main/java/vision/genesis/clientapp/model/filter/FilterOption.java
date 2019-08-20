@@ -9,8 +9,8 @@ import java.util.Objects;
 import timber.log.Timber;
 
 /**
- * BABB
- * Created on 06/08/2019.
+ * GenesisVisionAndroid
+ * Created by Vitaly on 06/08/2018.
  */
 
 public class FilterOption implements Parcelable
