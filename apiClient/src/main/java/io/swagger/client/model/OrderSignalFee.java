@@ -222,6 +222,8 @@ public class OrderSignalFee
 
 		GVPROGRAMSUCCESS("GvProgramSuccess"),
 
+		GVPROGRAMSUCCESSSUM("GvProgramSuccessSum"),
+
 		GVFUNDENTRY("GvFundEntry"),
 
 		GVGMGVTHOLDERFEE("GvGmGvtHolderFee"),
@@ -229,6 +231,8 @@ public class OrderSignalFee
 		MANAGERPROGRAMENTRY("ManagerProgramEntry"),
 
 		MANAGERPROGRAMSUCCESS("ManagerProgramSuccess"),
+
+		MANAGERPROGRAMSUCCESSSUM("ManagerProgramSuccessSum"),
 
 		MANAGERFUNDENTRY("ManagerFundEntry"),
 

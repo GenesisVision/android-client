@@ -61,15 +61,6 @@ public class NewProgramRequest
 	@SerializedName("investmentLimit")
 	private Double investmentLimit = null;
 
-	@SerializedName("title")
-	private String title = null;
-
-	@SerializedName("description")
-	private String description = null;
-
-	@SerializedName("logo")
-	private String logo = null;
-
 	@SerializedName("entryFee")
 	private Double entryFee = null;
 
@@ -78,6 +69,15 @@ public class NewProgramRequest
 
 	@SerializedName("depositWalletId")
 	private UUID depositWalletId = null;
+
+	@SerializedName("title")
+	private String title = null;
+
+	@SerializedName("description")
+	private String description = null;
+
+	@SerializedName("logo")
+	private String logo = null;
 
 	public NewProgramRequest currency(CurrencyEnum currency) {
 		this.currency = currency;
@@ -269,63 +269,6 @@ public class NewProgramRequest
 		this.investmentLimit = investmentLimit;
 	}
 
-	public NewProgramRequest title(String title) {
-		this.title = title;
-		return this;
-	}
-
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@ApiModelProperty(value = "")
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public NewProgramRequest description(String description) {
-		this.description = description;
-		return this;
-	}
-
-	/**
-	 * Get description
-	 *
-	 * @return description
-	 **/
-	@ApiModelProperty(value = "")
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public NewProgramRequest logo(String logo) {
-		this.logo = logo;
-		return this;
-	}
-
-	/**
-	 * Get logo
-	 *
-	 * @return logo
-	 **/
-	@ApiModelProperty(value = "")
-	public String getLogo() {
-		return logo;
-	}
-
-	public void setLogo(String logo) {
-		this.logo = logo;
-	}
-
 	public NewProgramRequest entryFee(Double entryFee) {
 		this.entryFee = entryFee;
 		return this;
@@ -383,6 +326,63 @@ public class NewProgramRequest
 		this.depositWalletId = depositWalletId;
 	}
 
+	public NewProgramRequest title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@ApiModelProperty(value = "")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public NewProgramRequest description(String description) {
+		this.description = description;
+		return this;
+	}
+
+	/**
+	 * Get description
+	 *
+	 * @return description
+	 **/
+	@ApiModelProperty(value = "")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public NewProgramRequest logo(String logo) {
+		this.logo = logo;
+		return this;
+	}
+
+	/**
+	 * Get logo
+	 *
+	 * @return logo
+	 **/
+	@ApiModelProperty(value = "")
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -402,17 +402,17 @@ public class NewProgramRequest
 				Objects.equals(this.signalVolumeFee, newProgramRequest.signalVolumeFee) &&
 				Objects.equals(this.isSignalProgram, newProgramRequest.isSignalProgram) &&
 				Objects.equals(this.investmentLimit, newProgramRequest.investmentLimit) &&
-				Objects.equals(this.title, newProgramRequest.title) &&
-				Objects.equals(this.description, newProgramRequest.description) &&
-				Objects.equals(this.logo, newProgramRequest.logo) &&
 				Objects.equals(this.entryFee, newProgramRequest.entryFee) &&
 				Objects.equals(this.depositAmount, newProgramRequest.depositAmount) &&
-				Objects.equals(this.depositWalletId, newProgramRequest.depositWalletId);
+				Objects.equals(this.depositWalletId, newProgramRequest.depositWalletId) &&
+				Objects.equals(this.title, newProgramRequest.title) &&
+				Objects.equals(this.description, newProgramRequest.description) &&
+				Objects.equals(this.logo, newProgramRequest.logo);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, periodLength, successFee, stopOutLevel, leverage, brokerAccountTypeId, signalSuccessFee, signalVolumeFee, isSignalProgram, investmentLimit, title, description, logo, entryFee, depositAmount, depositWalletId);
+		return Objects.hash(currency, periodLength, successFee, stopOutLevel, leverage, brokerAccountTypeId, signalSuccessFee, signalVolumeFee, isSignalProgram, investmentLimit, entryFee, depositAmount, depositWalletId, title, description, logo);
 	}
 
 	@Override
@@ -430,12 +430,12 @@ public class NewProgramRequest
 		sb.append("    signalVolumeFee: ").append(toIndentedString(signalVolumeFee)).append("\n");
 		sb.append("    isSignalProgram: ").append(toIndentedString(isSignalProgram)).append("\n");
 		sb.append("    investmentLimit: ").append(toIndentedString(investmentLimit)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    description: ").append(toIndentedString(description)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
 		sb.append("    depositAmount: ").append(toIndentedString(depositAmount)).append("\n");
 		sb.append("    depositWalletId: ").append(toIndentedString(depositWalletId)).append("\n");
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

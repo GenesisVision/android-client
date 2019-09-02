@@ -23,8 +23,6 @@ public class NotificationsApiTest
 
 	/**
 	 *
-	 *
-	 *
 	 */
 	@Test
 	public void v10NotificationsGetTest() {
@@ -38,8 +36,6 @@ public class NotificationsApiTest
 
 	/**
 	 *
-	 *
-	 *
 	 */
 	@Test
 	public void v10NotificationsNewGetTest() {
@@ -51,8 +47,6 @@ public class NotificationsApiTest
 
 	/**
 	 *
-	 *
-	 *
 	 */
 	@Test
 	public void v10NotificationsSettingsGetTest() {
@@ -63,8 +57,6 @@ public class NotificationsApiTest
 	}
 
 	/**
-	 *
-	 *
 	 *
 	 */
 	@Test
@@ -79,8 +71,6 @@ public class NotificationsApiTest
 
 	/**
 	 *
-	 *
-	 *
 	 */
 	@Test
 	public void v10NotificationsSettingsProgramByIdGetTest() {
@@ -92,8 +82,6 @@ public class NotificationsApiTest
 	}
 
 	/**
-	 *
-	 *
 	 *
 	 */
 	@Test
@@ -107,8 +95,6 @@ public class NotificationsApiTest
 	}
 
 	/**
-	 *
-	 *
 	 *
 	 */
 	@Test

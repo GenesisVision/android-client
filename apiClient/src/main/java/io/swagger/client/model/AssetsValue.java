@@ -269,7 +269,9 @@ public class AssetsValue
 
 		PROGRAM("Program"),
 
-		FUND("Fund");
+		FUND("Fund"),
+
+		SIGNAL("Signal");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {

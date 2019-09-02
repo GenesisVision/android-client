@@ -670,5 +670,7 @@
     <string name="ticket">Ticket</string>
     <string name="swap">Swap</string>
     <string name="trading_log">Trading log</string>
+    <string name="period_history">Period history</string>
+    <string name="started">started</string>
 
 </resources>

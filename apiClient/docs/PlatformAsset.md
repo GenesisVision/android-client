@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **description** | **String** |  |  [optional]
 **icon** | **String** |  |  [optional]
 **color** | **String** |  |  [optional]
+**mandatoryFundPercent** | **Double** |  |  [optional]
 
 
 

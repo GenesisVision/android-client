@@ -43,6 +43,9 @@ public class FinancialStatistic
 	@SerializedName("profit")
 	private Double profit = null;
 
+	@SerializedName("balance")
+	private Double balance = null;
+
 	public FinancialStatistic deposit(Double deposit) {
 		this.deposit = deposit;
 		return this;
@@ -157,6 +160,25 @@ public class FinancialStatistic
 		this.profit = profit;
 	}
 
+	public FinancialStatistic balance(Double balance) {
+		this.balance = balance;
+		return this;
+	}
+
+	/**
+	 * Get balance
+	 *
+	 * @return balance
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Double balance) {
+		this.balance = balance;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -172,12 +194,13 @@ public class FinancialStatistic
 				Objects.equals(this.commissionRebate, financialStatistic.commissionRebate) &&
 				Objects.equals(this.successFee, financialStatistic.successFee) &&
 				Objects.equals(this.entryFee, financialStatistic.entryFee) &&
-				Objects.equals(this.profit, financialStatistic.profit);
+				Objects.equals(this.profit, financialStatistic.profit) &&
+				Objects.equals(this.balance, financialStatistic.balance);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(deposit, withdraw, commissionRebate, successFee, entryFee, profit);
+		return Objects.hash(deposit, withdraw, commissionRebate, successFee, entryFee, profit, balance);
 	}
 
 
@@ -192,6 +215,7 @@ public class FinancialStatistic
 		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
 		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
+		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

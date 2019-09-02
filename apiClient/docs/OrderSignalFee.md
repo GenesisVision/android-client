@@ -35,10 +35,12 @@ Name | Value
 UNDEFINED | &quot;Undefined&quot;
 GVPROGRAMENTRY | &quot;GvProgramEntry&quot;
 GVPROGRAMSUCCESS | &quot;GvProgramSuccess&quot;
+GVPROGRAMSUCCESSSUM | &quot;GvProgramSuccessSum&quot;
 GVFUNDENTRY | &quot;GvFundEntry&quot;
 GVGMGVTHOLDERFEE | &quot;GvGmGvtHolderFee&quot;
 MANAGERPROGRAMENTRY | &quot;ManagerProgramEntry&quot;
 MANAGERPROGRAMSUCCESS | &quot;ManagerProgramSuccess&quot;
+MANAGERPROGRAMSUCCESSSUM | &quot;ManagerProgramSuccessSum&quot;
 MANAGERFUNDENTRY | &quot;ManagerFundEntry&quot;
 MANAGERFUNDEXIT | &quot;ManagerFundExit&quot;
 GVWITHDRAWAL | &quot;GvWithdrawal&quot;

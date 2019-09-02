@@ -571,7 +571,7 @@ Name | Type | Description  | Notes
  **assetId** | [**UUID**](.md)|  | [optional]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
- **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
+ **assetType** | **String**|  | [optional] [enum: All, Program, Fund, Signal]
  **txAction** | **String**|  | [optional] [enum: Transfer, ProgramOpen, ProgramProfit, ProgramInvest, ProgramWithdrawal, ProgramRefundPartialExecution, ProgramRefundClose, ProgramRefundStopOut, ProgramRequestInvest, ProgramRequestWithdrawal, ProgramRequestCancel, PayingTradingFee, SignalSubscriberPayingFee, SignalProviderReceiveFee]
  **wallet** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **skip** | **Integer**|  | [optional]

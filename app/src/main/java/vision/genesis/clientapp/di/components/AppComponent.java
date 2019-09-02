@@ -69,6 +69,7 @@ import vision.genesis.clientapp.feature.main.program.invest.InvestProgramPresent
 import vision.genesis.clientapp.feature.main.program.invest.confirm.ConfirmProgramInvestBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.program.level.ProgramLevelBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.open_positions.OpenPositionsPresenter;
+import vision.genesis.clientapp.feature.main.program.period_history.PeriodHistoryPresenter;
 import vision.genesis.clientapp.feature.main.program.profit.ProgramProfitPresenter;
 import vision.genesis.clientapp.feature.main.program.trades.ProgramTradesPresenter;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramPresenter;
@@ -287,4 +288,6 @@ public interface AppComponent
 	void inject(TransferCopytradingAccountPresenter transferCopytradingAccountPresenter);
 
 	void inject(TradingLogPresenter tradingLogPresenter);
+
+	void inject(PeriodHistoryPresenter periodHistoryPresenter);
 }

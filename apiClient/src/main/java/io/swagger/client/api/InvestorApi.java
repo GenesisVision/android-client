@@ -10,6 +10,7 @@ import io.swagger.client.model.DashboardSummary;
 import io.swagger.client.model.FundInvestInfo;
 import io.swagger.client.model.FundWithdrawInfo;
 import io.swagger.client.model.FundsList;
+import io.swagger.client.model.InvestmentEventViewModels;
 import io.swagger.client.model.ProgramInvestInfo;
 import io.swagger.client.model.ProgramRequests;
 import io.swagger.client.model.ProgramWithdrawInfo;
@@ -94,6 +95,7 @@ public interface InvestorApi
 	 *
 	 * @param authorization         JWT access token (required)
 	 * @param sorting               (optional)
+	 * @param currency              (optional)
 	 * @param from                  (optional)
 	 * @param to                    (optional)
 	 * @param chartPointsCount      (optional)
@@ -106,7 +108,7 @@ public interface InvestorApi
 	 */
 	@GET("v1.0/investor/funds")
 	Observable<FundsList> v10InvestorFundsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("ActionStatus") String actionStatus, @retrofit2.http.Query("DashboardActionStatus") String dashboardActionStatus, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("ActionStatus") String actionStatus, @retrofit2.http.Query("DashboardActionStatus") String dashboardActionStatus, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -126,6 +128,25 @@ public interface InvestorApi
 	@GET("v1.0/investor")
 	Observable<DashboardSummary> v10InvestorGet(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("chartCurrency") String chartCurrency, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("BalancePoints") Integer balancePoints, @retrofit2.http.Query("ProgramsPoints") Integer programsPoints, @retrofit2.http.Query("eventsTake") Integer eventsTake, @retrofit2.http.Query("requestsSkip") Integer requestsSkip, @retrofit2.http.Query("requestsTake") Integer requestsTake
+	);
+
+	/**
+	 * Events
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param eventLocation (optional)
+	 * @param assetId       (optional)
+	 * @param from          (optional)
+	 * @param to            (optional)
+	 * @param eventType     (optional)
+	 * @param assetType     (optional)
+	 * @param skip          (optional)
+	 * @param take          (optional)
+	 * @return Call&lt;InvestmentEventViewModels&gt;
+	 */
+	@GET("v1.0/investor/investments/events")
+	Observable<InvestmentEventViewModels> v10InvestorInvestmentsEventsGet(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("EventLocation") String eventLocation, @retrofit2.http.Query("AssetId") UUID assetId, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("EventType") String eventType, @retrofit2.http.Query("AssetType") String assetType, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

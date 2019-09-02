@@ -21,8 +21,6 @@ public class KycApiTest
 
 	/**
 	 *
-	 *
-	 *
 	 */
 	@Test
 	public void v10KycCallbackPostTest() {

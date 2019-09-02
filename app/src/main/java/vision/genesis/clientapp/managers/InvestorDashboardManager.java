@@ -41,6 +41,7 @@ public class InvestorDashboardManager
 
 	public Observable<FundsList> getFunds(DashboardFilter filter) {
 		return investorApi.v10InvestorFundsGet(AuthManager.token.getValue(), filter.getSorting() != null ? filter.getSorting().getValue() : null,
+				null,
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(), filter.getCurrencySecondary() != null ? filter.getCurrencySecondary().getValue() : null,
 				filter.getActionStatus(), filter.getDashboardActionStatus() != null ? filter.getDashboardActionStatus().toLowerCase() : null,

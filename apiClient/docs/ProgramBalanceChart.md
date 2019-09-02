@@ -4,10 +4,10 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**gvtBalance** | **Double** |  |  [optional]
 **programCurrencyBalance** | **Double** |  |  [optional]
 **programCurrency** | [**ProgramCurrencyEnum**](#ProgramCurrencyEnum) |  |  [optional]
 **balanceChart** | [**List&lt;ProgramBalanceChartElement&gt;**](ProgramBalanceChartElement.md) |  |  [optional]
-**gvtBalance** | **Double** |  |  [optional]
 
 
 <a name="ProgramCurrencyEnum"></a>

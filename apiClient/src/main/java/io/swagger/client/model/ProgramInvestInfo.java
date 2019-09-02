@@ -45,6 +45,9 @@ public class ProgramInvestInfo
 	@SerializedName("minInvestmentAmount")
 	private Double minInvestmentAmount = null;
 
+	@SerializedName("programCurrencyMinInvestment")
+	private Double programCurrencyMinInvestment = null;
+
 	@SerializedName("entryFee")
 	private Double entryFee = null;
 
@@ -171,6 +174,25 @@ public class ProgramInvestInfo
 		this.minInvestmentAmount = minInvestmentAmount;
 	}
 
+	public ProgramInvestInfo programCurrencyMinInvestment(Double programCurrencyMinInvestment) {
+		this.programCurrencyMinInvestment = programCurrencyMinInvestment;
+		return this;
+	}
+
+	/**
+	 * Get programCurrencyMinInvestment
+	 *
+	 * @return programCurrencyMinInvestment
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProgramCurrencyMinInvestment() {
+		return programCurrencyMinInvestment;
+	}
+
+	public void setProgramCurrencyMinInvestment(Double programCurrencyMinInvestment) {
+		this.programCurrencyMinInvestment = programCurrencyMinInvestment;
+	}
+
 	public ProgramInvestInfo entryFee(Double entryFee) {
 		this.entryFee = entryFee;
 		return this;
@@ -263,6 +285,7 @@ public class ProgramInvestInfo
 				Objects.equals(this.title, programInvestInfo.title) &&
 				Objects.equals(this.availableInWallet, programInvestInfo.availableInWallet) &&
 				Objects.equals(this.minInvestmentAmount, programInvestInfo.minInvestmentAmount) &&
+				Objects.equals(this.programCurrencyMinInvestment, programInvestInfo.programCurrencyMinInvestment) &&
 				Objects.equals(this.entryFee, programInvestInfo.entryFee) &&
 				Objects.equals(this.gvCommission, programInvestInfo.gvCommission) &&
 				Objects.equals(this.rate, programInvestInfo.rate) &&
@@ -271,7 +294,7 @@ public class ProgramInvestInfo
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(periodEnds, availableToInvest, availableToInvestBase, title, availableInWallet, minInvestmentAmount, entryFee, gvCommission, rate, isOwnProgram);
+		return Objects.hash(periodEnds, availableToInvest, availableToInvestBase, title, availableInWallet, minInvestmentAmount, programCurrencyMinInvestment, entryFee, gvCommission, rate, isOwnProgram);
 	}
 
 
@@ -286,6 +309,7 @@ public class ProgramInvestInfo
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    availableInWallet: ").append(toIndentedString(availableInWallet)).append("\n");
 		sb.append("    minInvestmentAmount: ").append(toIndentedString(minInvestmentAmount)).append("\n");
+		sb.append("    programCurrencyMinInvestment: ").append(toIndentedString(programCurrencyMinInvestment)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
 		sb.append("    gvCommission: ").append(toIndentedString(gvCommission)).append("\n");
 		sb.append("    rate: ").append(toIndentedString(rate)).append("\n");

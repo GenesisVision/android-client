@@ -42,7 +42,7 @@ public class OrderSignalModel
 	private Double totalCommission = null;
 
 	@SerializedName("totalCommissionByType")
-	private List<TotalCommission> totalCommissionByType = null;
+	private List<FeeDetails> totalCommissionByType = null;
 
 	@SerializedName("tradingAccountId")
 	private UUID tradingAccountId = null;
@@ -150,14 +150,14 @@ public class OrderSignalModel
 		this.totalCommission = totalCommission;
 	}
 
-	public OrderSignalModel totalCommissionByType(List<TotalCommission> totalCommissionByType) {
+	public OrderSignalModel totalCommissionByType(List<FeeDetails> totalCommissionByType) {
 		this.totalCommissionByType = totalCommissionByType;
 		return this;
 	}
 
-	public OrderSignalModel addTotalCommissionByTypeItem(TotalCommission totalCommissionByTypeItem) {
+	public OrderSignalModel addTotalCommissionByTypeItem(FeeDetails totalCommissionByTypeItem) {
 		if (this.totalCommissionByType == null) {
-			this.totalCommissionByType = new ArrayList<TotalCommission>();
+			this.totalCommissionByType = new ArrayList<FeeDetails>();
 		}
 		this.totalCommissionByType.add(totalCommissionByTypeItem);
 		return this;
@@ -169,11 +169,11 @@ public class OrderSignalModel
 	 * @return totalCommissionByType
 	 **/
 	@ApiModelProperty(value = "")
-	public List<TotalCommission> getTotalCommissionByType() {
+	public List<FeeDetails> getTotalCommissionByType() {
 		return totalCommissionByType;
 	}
 
-	public void setTotalCommissionByType(List<TotalCommission> totalCommissionByType) {
+	public void setTotalCommissionByType(List<FeeDetails> totalCommissionByType) {
 		this.totalCommissionByType = totalCommissionByType;
 	}
 
@@ -725,7 +725,9 @@ public class OrderSignalModel
 
 		CREDIT("Credit"),
 
-		UNDEFINED("Undefined");
+		UNDEFINED("Undefined"),
+
+		MANUALBALANCING("ManualBalancing");
 
 		public static DirectionEnum fromValue(String text) {
 			for (DirectionEnum b : DirectionEnum.values()) {

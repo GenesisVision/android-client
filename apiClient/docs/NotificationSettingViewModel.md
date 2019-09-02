@@ -34,7 +34,10 @@ FUNDNEWSANDUPDATES | &quot;FundNewsAndUpdates&quot;
 FUNDENDOFPERIOD | &quot;FundEndOfPeriod&quot;
 FUNDREBALANCING | &quot;FundRebalancing&quot;
 MANAGERNEWPROGRAM | &quot;ManagerNewProgram&quot;
+MANAGERNEWFUND | &quot;ManagerNewFund&quot;
+MANAGERNEWEXTERNALSIGNALACCOUNT | &quot;ManagerNewExternalSignalAccount&quot;
 SIGNALS | &quot;Signals&quot;
+EXTERNALSIGNALS | &quot;ExternalSignals&quot;
 
 
 <a name="ConditionTypeEnum"></a>

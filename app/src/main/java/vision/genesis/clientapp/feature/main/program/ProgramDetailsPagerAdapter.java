@@ -1,16 +1,18 @@
 package vision.genesis.clientapp.feature.main.program;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.UUID;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import vision.genesis.clientapp.feature.main.program.balance.ProgramBalanceFragment;
 import vision.genesis.clientapp.feature.main.program.events.ProgramEventsFragment;
 import vision.genesis.clientapp.feature.main.program.info.ProgramInfoFragment;
 import vision.genesis.clientapp.feature.main.program.open_positions.OpenPositionsFragment;
+import vision.genesis.clientapp.feature.main.program.period_history.PeriodHistoryFragment;
 import vision.genesis.clientapp.feature.main.program.profit.ProgramProfitFragment;
 import vision.genesis.clientapp.feature.main.program.trades.ProgramTradesFragment;
 
@@ -38,19 +40,22 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private ProgramTradesFragment programTradesFragment;
 
+	private PeriodHistoryFragment periodHistoryFragment;
+
 	private ProgramEventsFragment programEventsFragment;
 
 	private TabLayout tabLayout;
 
-	ProgramDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, UUID programId) {
+	ProgramDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, UUID programId, String programCurrency) {
 		super(fm);
 		this.tabLayout = tabLayout;
 		programInfoFragment = ProgramInfoFragment.with(programId);
 		openPositionsFragment = OpenPositionsFragment.with(programId);
 		programProfitFragment = ProgramProfitFragment.with(programId);
 		programEquityFragment = ProgramBalanceFragment.with(programId);
-		programEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_PROGRAM, programId);
 		programTradesFragment = ProgramTradesFragment.with(programId);
+		periodHistoryFragment = PeriodHistoryFragment.with(programId, programCurrency);
+		programEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_PROGRAM, programId);
 	}
 
 	@Override
@@ -66,6 +71,8 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 				return programEquityFragment;
 			case "trades":
 				return programTradesFragment;
+			case "period_history":
+				return periodHistoryFragment;
 			case "events":
 				return programEventsFragment;
 			default:
@@ -87,12 +94,14 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		programProfitFragment.pagerShow();
 		programEquityFragment.pagerShow();
 		programTradesFragment.pagerShow();
+		periodHistoryFragment.pagerShow();
 		programEventsFragment.pagerShow();
 	}
 
 	public void sendSwipeRefresh() {
 		openPositionsFragment.onSwipeRefresh();
 		programTradesFragment.onSwipeRefresh();
+		periodHistoryFragment.onSwipeRefresh();
 		programEventsFragment.onSwipeRefresh();
 	}
 
@@ -100,6 +109,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		programProfitFragment.onOffsetChanged(verticalOffset);
 		programEquityFragment.onOffsetChanged(verticalOffset);
 		programTradesFragment.onOffsetChanged(verticalOffset);
+		periodHistoryFragment.onOffsetChanged(verticalOffset);
 		programEventsFragment.onOffsetChanged(verticalOffset);
 	}
 }

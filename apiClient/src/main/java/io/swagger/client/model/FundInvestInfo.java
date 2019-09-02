@@ -34,6 +34,9 @@ public class FundInvestInfo
 	@SerializedName("minInvestmentAmount")
 	private Double minInvestmentAmount = null;
 
+	@SerializedName("programCurrencyMinInvestment")
+	private Double programCurrencyMinInvestment = null;
+
 	@SerializedName("entryFee")
 	private Double entryFee = null;
 
@@ -101,6 +104,25 @@ public class FundInvestInfo
 
 	public void setMinInvestmentAmount(Double minInvestmentAmount) {
 		this.minInvestmentAmount = minInvestmentAmount;
+	}
+
+	public FundInvestInfo programCurrencyMinInvestment(Double programCurrencyMinInvestment) {
+		this.programCurrencyMinInvestment = programCurrencyMinInvestment;
+		return this;
+	}
+
+	/**
+	 * Get programCurrencyMinInvestment
+	 *
+	 * @return programCurrencyMinInvestment
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getProgramCurrencyMinInvestment() {
+		return programCurrencyMinInvestment;
+	}
+
+	public void setProgramCurrencyMinInvestment(Double programCurrencyMinInvestment) {
+		this.programCurrencyMinInvestment = programCurrencyMinInvestment;
 	}
 
 	public FundInvestInfo entryFee(Double entryFee) {
@@ -192,6 +214,7 @@ public class FundInvestInfo
 		return Objects.equals(this.title, fundInvestInfo.title) &&
 				Objects.equals(this.availableInWallet, fundInvestInfo.availableInWallet) &&
 				Objects.equals(this.minInvestmentAmount, fundInvestInfo.minInvestmentAmount) &&
+				Objects.equals(this.programCurrencyMinInvestment, fundInvestInfo.programCurrencyMinInvestment) &&
 				Objects.equals(this.entryFee, fundInvestInfo.entryFee) &&
 				Objects.equals(this.gvCommission, fundInvestInfo.gvCommission) &&
 				Objects.equals(this.rate, fundInvestInfo.rate) &&
@@ -200,7 +223,7 @@ public class FundInvestInfo
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, availableInWallet, minInvestmentAmount, entryFee, gvCommission, rate, isOwnProgram);
+		return Objects.hash(title, availableInWallet, minInvestmentAmount, programCurrencyMinInvestment, entryFee, gvCommission, rate, isOwnProgram);
 	}
 
 
@@ -212,6 +235,7 @@ public class FundInvestInfo
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    availableInWallet: ").append(toIndentedString(availableInWallet)).append("\n");
 		sb.append("    minInvestmentAmount: ").append(toIndentedString(minInvestmentAmount)).append("\n");
+		sb.append("    programCurrencyMinInvestment: ").append(toIndentedString(programCurrencyMinInvestment)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
 		sb.append("    gvCommission: ").append(toIndentedString(gvCommission)).append("\n");
 		sb.append("    rate: ").append(toIndentedString(rate)).append("\n");

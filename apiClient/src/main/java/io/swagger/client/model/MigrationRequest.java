@@ -18,7 +18,6 @@ import com.google.gson.annotations.SerializedName;
 import org.joda.time.DateTime;
 
 import java.util.Objects;
-import java.util.UUID;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -34,17 +33,8 @@ public class MigrationRequest
 	@SerializedName("newLeverage")
 	private Integer newLeverage = null;
 
-	@SerializedName("brokerTradingAccountId")
-	private UUID brokerTradingAccountId = null;
-
-	@SerializedName("brokerTradingAccountName")
-	private String brokerTradingAccountName = null;
-
-	@SerializedName("brokerName")
-	private String brokerName = null;
-
-	@SerializedName("brokerLogo")
-	private String brokerLogo = null;
+	@SerializedName("newBroker")
+	private Broker newBroker = null;
 
 	public MigrationRequest dateCreate(DateTime dateCreate) {
 		this.dateCreate = dateCreate;
@@ -84,80 +74,23 @@ public class MigrationRequest
 		this.newLeverage = newLeverage;
 	}
 
-	public MigrationRequest brokerTradingAccountId(UUID brokerTradingAccountId) {
-		this.brokerTradingAccountId = brokerTradingAccountId;
+	public MigrationRequest newBroker(Broker newBroker) {
+		this.newBroker = newBroker;
 		return this;
 	}
 
 	/**
-	 * Get brokerTradingAccountId
+	 * Get newBroker
 	 *
-	 * @return brokerTradingAccountId
+	 * @return newBroker
 	 **/
 	@ApiModelProperty(value = "")
-	public UUID getBrokerTradingAccountId() {
-		return brokerTradingAccountId;
+	public Broker getNewBroker() {
+		return newBroker;
 	}
 
-	public void setBrokerTradingAccountId(UUID brokerTradingAccountId) {
-		this.brokerTradingAccountId = brokerTradingAccountId;
-	}
-
-	public MigrationRequest brokerTradingAccountName(String brokerTradingAccountName) {
-		this.brokerTradingAccountName = brokerTradingAccountName;
-		return this;
-	}
-
-	/**
-	 * Get brokerTradingAccountName
-	 *
-	 * @return brokerTradingAccountName
-	 **/
-	@ApiModelProperty(value = "")
-	public String getBrokerTradingAccountName() {
-		return brokerTradingAccountName;
-	}
-
-	public void setBrokerTradingAccountName(String brokerTradingAccountName) {
-		this.brokerTradingAccountName = brokerTradingAccountName;
-	}
-
-	public MigrationRequest brokerName(String brokerName) {
-		this.brokerName = brokerName;
-		return this;
-	}
-
-	/**
-	 * Get brokerName
-	 *
-	 * @return brokerName
-	 **/
-	@ApiModelProperty(value = "")
-	public String getBrokerName() {
-		return brokerName;
-	}
-
-	public void setBrokerName(String brokerName) {
-		this.brokerName = brokerName;
-	}
-
-	public MigrationRequest brokerLogo(String brokerLogo) {
-		this.brokerLogo = brokerLogo;
-		return this;
-	}
-
-	/**
-	 * Get brokerLogo
-	 *
-	 * @return brokerLogo
-	 **/
-	@ApiModelProperty(value = "")
-	public String getBrokerLogo() {
-		return brokerLogo;
-	}
-
-	public void setBrokerLogo(String brokerLogo) {
-		this.brokerLogo = brokerLogo;
+	public void setNewBroker(Broker newBroker) {
+		this.newBroker = newBroker;
 	}
 
 
@@ -172,15 +105,12 @@ public class MigrationRequest
 		MigrationRequest migrationRequest = (MigrationRequest) o;
 		return Objects.equals(this.dateCreate, migrationRequest.dateCreate) &&
 				Objects.equals(this.newLeverage, migrationRequest.newLeverage) &&
-				Objects.equals(this.brokerTradingAccountId, migrationRequest.brokerTradingAccountId) &&
-				Objects.equals(this.brokerTradingAccountName, migrationRequest.brokerTradingAccountName) &&
-				Objects.equals(this.brokerName, migrationRequest.brokerName) &&
-				Objects.equals(this.brokerLogo, migrationRequest.brokerLogo);
+				Objects.equals(this.newBroker, migrationRequest.newBroker);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(dateCreate, newLeverage, brokerTradingAccountId, brokerTradingAccountName, brokerName, brokerLogo);
+		return Objects.hash(dateCreate, newLeverage, newBroker);
 	}
 
 
@@ -191,10 +121,7 @@ public class MigrationRequest
 
 		sb.append("    dateCreate: ").append(toIndentedString(dateCreate)).append("\n");
 		sb.append("    newLeverage: ").append(toIndentedString(newLeverage)).append("\n");
-		sb.append("    brokerTradingAccountId: ").append(toIndentedString(brokerTradingAccountId)).append("\n");
-		sb.append("    brokerTradingAccountName: ").append(toIndentedString(brokerTradingAccountName)).append("\n");
-		sb.append("    brokerName: ").append(toIndentedString(brokerName)).append("\n");
-		sb.append("    brokerLogo: ").append(toIndentedString(brokerLogo)).append("\n");
+		sb.append("    newBroker: ").append(toIndentedString(newBroker)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

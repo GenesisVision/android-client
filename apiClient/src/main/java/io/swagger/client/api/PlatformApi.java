@@ -71,6 +71,6 @@ public interface PlatformApi
 	 */
 	@GET("v1.0/platform/statistic")
 	Observable<PlatformStatistic> v10PlatformStatisticGet();
-
+    
 
 }

@@ -15,6 +15,8 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -33,6 +35,12 @@ public class Enums
 
 	@SerializedName("fund")
 	private FundFilters fund = null;
+
+	@SerializedName("event")
+	private EventFilters event = null;
+
+	@SerializedName("assetTypes")
+	private List<String> assetTypes = null;
 
 	public Enums multiWallet(MultiWalletFilters multiWallet) {
 		this.multiWallet = multiWallet;
@@ -91,6 +99,52 @@ public class Enums
 		this.fund = fund;
 	}
 
+	public Enums event(EventFilters event) {
+		this.event = event;
+		return this;
+	}
+
+	/**
+	 * Get event
+	 *
+	 * @return event
+	 **/
+	@ApiModelProperty(value = "")
+	public EventFilters getEvent() {
+		return event;
+	}
+
+	public void setEvent(EventFilters event) {
+		this.event = event;
+	}
+
+	public Enums assetTypes(List<String> assetTypes) {
+		this.assetTypes = assetTypes;
+		return this;
+	}
+
+	public Enums addAssetTypesItem(String assetTypesItem) {
+		if (this.assetTypes == null) {
+			this.assetTypes = new ArrayList<String>();
+		}
+		this.assetTypes.add(assetTypesItem);
+		return this;
+	}
+
+	/**
+	 * Get assetTypes
+	 *
+	 * @return assetTypes
+	 **/
+	@ApiModelProperty(value = "")
+	public List<String> getAssetTypes() {
+		return assetTypes;
+	}
+
+	public void setAssetTypes(List<String> assetTypes) {
+		this.assetTypes = assetTypes;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -103,12 +157,14 @@ public class Enums
 		Enums enums = (Enums) o;
 		return Objects.equals(this.multiWallet, enums.multiWallet) &&
 				Objects.equals(this.program, enums.program) &&
-				Objects.equals(this.fund, enums.fund);
+				Objects.equals(this.fund, enums.fund) &&
+				Objects.equals(this.event, enums.event) &&
+				Objects.equals(this.assetTypes, enums.assetTypes);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(multiWallet, program, fund);
+		return Objects.hash(multiWallet, program, fund, event, assetTypes);
 	}
 
 
@@ -120,6 +176,8 @@ public class Enums
 		sb.append("    multiWallet: ").append(toIndentedString(multiWallet)).append("\n");
 		sb.append("    program: ").append(toIndentedString(program)).append("\n");
 		sb.append("    fund: ").append(toIndentedString(fund)).append("\n");
+		sb.append("    event: ").append(toIndentedString(event)).append("\n");
+		sb.append("    assetTypes: ").append(toIndentedString(assetTypes)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -106,8 +106,9 @@ public class ApiClient
 		okBuilder = new OkHttpClient.Builder();
 
 		String baseUrl = "https://localhost/api";
-		if (!baseUrl.endsWith("/"))
+		if (!baseUrl.endsWith("/")) {
 			baseUrl = baseUrl + "/";
+		}
 
 		adapterBuilder = new Retrofit
 				.Builder()
@@ -347,7 +348,7 @@ class GsonResponseBodyConverterToString<T> implements Converter<ResponseBody, T>
 
 	@Override
 	public T convert(ResponseBody value) throws IOException {
-		String returned = value.string();
+    String returned = value.string();
 		try {
 			return gson.fromJson(returned, type);
 		} catch (JsonParseException e) {
@@ -367,22 +368,25 @@ class GsonCustomConverterFactory extends Converter.Factory
 	private final GsonConverterFactory gsonConverterFactory;
 
 	private GsonCustomConverterFactory(Gson gson) {
-		if (gson == null)
+		if (gson == null) {
 			throw new NullPointerException("gson == null");
+		}
 		this.gson = gson;
 		this.gsonConverterFactory = GsonConverterFactory.create(gson);
 	}
 
 	@Override
 	public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-		if (type.equals(String.class))
+		if (type.equals(String.class)) {
 			return new GsonResponseBodyConverterToString<Object>(gson, type);
-		else
+		}
+		else {
 			return gsonConverterFactory.responseBodyConverter(type, annotations, retrofit);
+		}
 	}
 
 	@Override
 	public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-		return gsonConverterFactory.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
-	}
+    return gsonConverterFactory.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
+  }
 }

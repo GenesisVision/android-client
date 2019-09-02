@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**v10InvestorFundsByIdWithdrawInfoByCurrencyGet**](InvestorApi.md#v10InvestorFundsByIdWithdrawInfoByCurrencyGet) | **GET** v1.0/investor/funds/{id}/withdraw/info/{currency} | Data for withdrawal from fund
 [**v10InvestorFundsGet**](InvestorApi.md#v10InvestorFundsGet) | **GET** v1.0/investor/funds | Dashboard funds list
 [**v10InvestorGet**](InvestorApi.md#v10InvestorGet) | **GET** v1.0/investor | Summary dashboard info
+[**v10InvestorInvestmentsEventsGet**](InvestorApi.md#v10InvestorInvestmentsEventsGet) | **GET** v1.0/investor/investments/events | Events
 [**v10InvestorPortfolioChartGet**](InvestorApi.md#v10InvestorPortfolioChartGet) | **GET** v1.0/investor/portfolio/chart | Portfolio charts
 [**v10InvestorPortfolioEventsGet**](InvestorApi.md#v10InvestorPortfolioEventsGet) | **GET** v1.0/investor/portfolio/events | Portfolio events
 [**v10InvestorProgramsByIdInvestByAmountPost**](InvestorApi.md#v10InvestorProgramsByIdInvestByAmountPost) | **POST** v1.0/investor/programs/{id}/invest/{amount} | Investing into the program.  Invest in GVT if currency is empty
@@ -271,7 +272,7 @@ No authorization required
 
 <a name="v10InvestorFundsGet"></a>
 # **v10InvestorFundsGet**
-> FundsList v10InvestorFundsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, actionStatus, dashboardActionStatus, skip, take)
+> FundsList v10InvestorFundsGet(authorization, sorting, currency, from, to, chartPointsCount, currencySecondary, actionStatus, dashboardActionStatus, skip, take)
 
 Dashboard funds list
 
@@ -285,6 +286,7 @@ Dashboard funds list
 InvestorApi apiInstance = new InvestorApi();
 String authorization = "authorization_example"; // String | JWT access token
 String sorting = "sorting_example"; // String | 
+String currency = "currency_example"; // String | 
 DateTime from = new DateTime(); // DateTime | 
 DateTime to = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
@@ -294,7 +296,7 @@ String dashboardActionStatus = "dashboardActionStatus_example"; // String |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    FundsList result = apiInstance.v10InvestorFundsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, actionStatus, dashboardActionStatus, skip, take);
+    FundsList result = apiInstance.v10InvestorFundsGet(authorization, sorting, currency, from, to, chartPointsCount, currencySecondary, actionStatus, dashboardActionStatus, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestorApi#v10InvestorFundsGet");
@@ -308,6 +310,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
  **sorting** | **String**|  | [optional] [enum: ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByInvestorsAsc, ByInvestorsDesc, ByNewAsc, ByNewDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
@@ -379,6 +382,65 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DashboardSummary**](DashboardSummary.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10InvestorInvestmentsEventsGet"></a>
+# **v10InvestorInvestmentsEventsGet**
+> InvestmentEventViewModels v10InvestorInvestmentsEventsGet(authorization, eventLocation, assetId, from, to, eventType, assetType, skip, take)
+
+Events
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.InvestorApi;
+
+
+InvestorApi apiInstance = new InvestorApi();
+String authorization = "authorization_example"; // String | JWT access token
+String eventLocation = "eventLocation_example"; // String | 
+UUID assetId = new UUID(); // UUID | 
+DateTime from = new DateTime(); // DateTime | 
+DateTime to = new DateTime(); // DateTime | 
+String eventType = "eventType_example"; // String | 
+String assetType = "assetType_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    InvestmentEventViewModels result = apiInstance.v10InvestorInvestmentsEventsGet(authorization, eventLocation, assetId, from, to, eventType, assetType, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestorApi#v10InvestorInvestmentsEventsGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **eventLocation** | **String**|  | [optional] [enum: Asset, Dashboard, EventsAll]
+ **assetId** | [**UUID**](.md)|  | [optional]
+ **from** | **DateTime**|  | [optional]
+ **to** | **DateTime**|  | [optional]
+ **eventType** | **String**|  | [optional] [enum: All, AssetStarted, AssetFinished, AssetPeriodStarted, AssetPeriodEnded, AssetPeriodEndedDueToStopOut, AssetBrokerChanged, AssetInvestByInvestor, AssetWithdrawalByInvestor, AssetInvestByManager, AssetWithdrawalByManager, AssetPeriodProcessed, AssetReallocation, AssetSubscribeByInvestor, AssetUnsubscribeByInvestor, AssetTradeOpen, AssetTradeClosed, AssetSubscriptionEdit, AssetEnterInvestment]
+ **assetType** | **String**|  | [optional] [enum: All, Program, Fund, Signal]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**InvestmentEventViewModels**](InvestmentEventViewModels.md)
 
 ### Authorization
 
@@ -482,7 +544,7 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **type** | **String**|  | [optional] [enum: All, Invest, Withdraw, Profit, Loss, Reinvest, Canceled, Ended, WithdrawByStopOut]
- **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
+ **assetType** | **String**|  | [optional] [enum: All, Program, Fund, Signal]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

@@ -9,11 +9,13 @@ Method | HTTP request | Description
 [**v10ProgramsByIdFavoriteAddPost**](ProgramsApi.md#v10ProgramsByIdFavoriteAddPost) | **POST** v1.0/programs/{id}/favorite/add | Add to favorites
 [**v10ProgramsByIdFavoriteRemovePost**](ProgramsApi.md#v10ProgramsByIdFavoriteRemovePost) | **POST** v1.0/programs/{id}/favorite/remove | Remove from favorites
 [**v10ProgramsByIdGet**](ProgramsApi.md#v10ProgramsByIdGet) | **GET** v1.0/programs/{id} | Program details
+[**v10ProgramsByIdPeriodsExportGet**](ProgramsApi.md#v10ProgramsByIdPeriodsExportGet) | **GET** v1.0/programs/{id}/periods/export | Export periods
+[**v10ProgramsByIdPeriodsExportStatisticGet**](ProgramsApi.md#v10ProgramsByIdPeriodsExportStatisticGet) | **GET** v1.0/programs/{id}/periods/export/statistic | Export period financial statistic
 [**v10ProgramsByIdPeriodsGet**](ProgramsApi.md#v10ProgramsByIdPeriodsGet) | **GET** v1.0/programs/{id}/periods | Program periods
 [**v10ProgramsByIdSubscribersGet**](ProgramsApi.md#v10ProgramsByIdSubscribersGet) | **GET** v1.0/programs/{id}/subscribers | Signal subscribers
+[**v10ProgramsByIdTradesExportGet**](ProgramsApi.md#v10ProgramsByIdTradesExportGet) | **GET** v1.0/programs/{id}/trades/export | Export trades
 [**v10ProgramsByIdTradesGet**](ProgramsApi.md#v10ProgramsByIdTradesGet) | **GET** v1.0/programs/{id}/trades | Trade history
 [**v10ProgramsByIdTradesOpenGet**](ProgramsApi.md#v10ProgramsByIdTradesOpenGet) | **GET** v1.0/programs/{id}/trades/open | Open positions
-[**v10ProgramsByProgramIdTradesExportGet**](ProgramsApi.md#v10ProgramsByProgramIdTradesExportGet) | **GET** v1.0/programs/{programId}/trades/export | Export trades
 [**v10ProgramsGet**](ProgramsApi.md#v10ProgramsGet) | **GET** v1.0/programs | Programs list
 [**v10ProgramsLevelupSummaryGet**](ProgramsApi.md#v10ProgramsLevelupSummaryGet) | **GET** v1.0/programs/levelup/summary | Level up summary
 [**v10ProgramsSetsGet**](ProgramsApi.md#v10ProgramsSetsGet) | **GET** v1.0/programs/sets | Programs sets
@@ -21,7 +23,7 @@ Method | HTTP request | Description
 
 <a name="v10ProgramsByIdChartsBalanceGet"></a>
 # **v10ProgramsByIdChartsBalanceGet**
-> ProgramBalanceChart v10ProgramsByIdChartsBalanceGet(id, dateFrom, dateTo, maxPointCount)
+> ProgramBalanceChart v10ProgramsByIdChartsBalanceGet(id, dateFrom, dateTo, maxPointCount, currency)
 
 Program balance chart
 
@@ -37,8 +39,9 @@ UUID id = new UUID(); // UUID |
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
+String currency = "currency_example"; // String | 
 try {
-    ProgramBalanceChart result = apiInstance.v10ProgramsByIdChartsBalanceGet(id, dateFrom, dateTo, maxPointCount);
+    ProgramBalanceChart result = apiInstance.v10ProgramsByIdChartsBalanceGet(id, dateFrom, dateTo, maxPointCount, currency);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#v10ProgramsByIdChartsBalanceGet");
@@ -54,6 +57,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -70,7 +74,7 @@ No authorization required
 
 <a name="v10ProgramsByIdChartsProfitGet"></a>
 # **v10ProgramsByIdChartsProfitGet**
-> ProgramProfitChart v10ProgramsByIdChartsProfitGet(id, dateFrom, dateTo, maxPointCount)
+> ProgramProfitChart v10ProgramsByIdChartsProfitGet(id, dateFrom, dateTo, maxPointCount, currency)
 
 Program profit chart
 
@@ -86,8 +90,9 @@ UUID id = new UUID(); // UUID |
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
+String currency = "currency_example"; // String | 
 try {
-    ProgramProfitChart result = apiInstance.v10ProgramsByIdChartsProfitGet(id, dateFrom, dateTo, maxPointCount);
+    ProgramProfitChart result = apiInstance.v10ProgramsByIdChartsProfitGet(id, dateFrom, dateTo, maxPointCount, currency);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#v10ProgramsByIdChartsProfitGet");
@@ -103,6 +108,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -254,6 +260,122 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="v10ProgramsByIdPeriodsExportGet"></a>
+# **v10ProgramsByIdPeriodsExportGet**
+> byte[] v10ProgramsByIdPeriodsExportGet(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take)
+
+Export periods
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ProgramsApi;
+
+
+ProgramsApi apiInstance = new ProgramsApi();
+String id = "id_example"; // String | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer numberMin = 56; // Integer | 
+Integer numberMax = 56; // Integer | 
+String status = "status_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    byte[] result = apiInstance.v10ProgramsByIdPeriodsExportGet(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProgramsApi#v10ProgramsByIdPeriodsExportGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **numberMin** | **Integer**|  | [optional]
+ **numberMax** | **Integer**|  | [optional]
+ **status** | **String**|  | [optional] [enum: Planned, InProccess, Closed]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+**byte[]**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ProgramsByIdPeriodsExportStatisticGet"></a>
+# **v10ProgramsByIdPeriodsExportStatisticGet**
+> byte[] v10ProgramsByIdPeriodsExportStatisticGet(id, authorization, dateFrom, dateTo, numberMin, numberMax, status, skip, take)
+
+Export period financial statistic
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ProgramsApi;
+
+
+ProgramsApi apiInstance = new ProgramsApi();
+String id = "id_example"; // String | 
+String authorization = "authorization_example"; // String | JWT access token
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer numberMin = 56; // Integer | 
+Integer numberMax = 56; // Integer | 
+String status = "status_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    byte[] result = apiInstance.v10ProgramsByIdPeriodsExportStatisticGet(id, authorization, dateFrom, dateTo, numberMin, numberMax, status, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProgramsApi#v10ProgramsByIdPeriodsExportStatisticGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  |
+ **authorization** | **String**| JWT access token |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **numberMin** | **Integer**|  | [optional]
+ **numberMax** | **Integer**|  | [optional]
+ **status** | **String**|  | [optional] [enum: Planned, InProccess, Closed]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+**byte[]**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="v10ProgramsByIdPeriodsGet"></a>
 # **v10ProgramsByIdPeriodsGet**
 > ProgramPeriodsViewModel v10ProgramsByIdPeriodsGet(id, authorization, dateFrom, dateTo, numberMin, numberMax, status, skip, take)
@@ -354,6 +476,65 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SignalProviderSubscribers**](SignalProviderSubscribers.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ProgramsByIdTradesExportGet"></a>
+# **v10ProgramsByIdTradesExportGet**
+> byte[] v10ProgramsByIdTradesExportGet(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take)
+
+Export trades
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ProgramsApi;
+
+
+ProgramsApi apiInstance = new ProgramsApi();
+UUID id = new UUID(); // UUID | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+String symbol = "symbol_example"; // String | 
+String sorting = "sorting_example"; // String | 
+UUID accountId = new UUID(); // UUID | 
+String accountCurrency = "accountCurrency_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    byte[] result = apiInstance.v10ProgramsByIdTradesExportGet(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProgramsApi#v10ProgramsByIdTradesExportGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **symbol** | **String**|  | [optional]
+ **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
+ **accountId** | [**UUID**](.md)|  | [optional]
+ **accountCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+**byte[]**
 
 ### Authorization
 
@@ -478,56 +659,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10ProgramsByProgramIdTradesExportGet"></a>
-# **v10ProgramsByProgramIdTradesExportGet**
-> byte[] v10ProgramsByProgramIdTradesExportGet(programId, start, end)
-
-Export trades
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.ProgramsApi;
-
-
-ProgramsApi apiInstance = new ProgramsApi();
-UUID programId = new UUID(); // UUID | 
-DateTime start = new DateTime(); // DateTime | 
-DateTime end = new DateTime(); // DateTime | 
-try {
-    byte[] result = apiInstance.v10ProgramsByProgramIdTradesExportGet(programId, start, end);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling ProgramsApi#v10ProgramsByProgramIdTradesExportGet");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **programId** | [**UUID**](.md)|  |
- **start** | **DateTime**|  | [optional]
- **end** | **DateTime**|  | [optional]
-
-### Return type
-
-**byte[]**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
 <a name="v10ProgramsGet"></a>
 # **v10ProgramsGet**
-> ProgramsList v10ProgramsGet(authorization, levelMin, levelMax, levelsSet, profitAvgMin, profitAvgMax, sorting, programCurrency, currencySecondary, levelUpFrom, tags, isSignal, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, hasInvestorsForAll, hasInvestorsForClosed, ids, managerId, programManagerId, status, skip, take)
+> ProgramsList v10ProgramsGet(authorization, levelMin, levelMax, levelsSet, profitAvgMin, profitAvgMax, sorting, programCurrency, currencySecondary, levelUpFrom, tags, isSignal, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, hasInvestorsForAll, hasInvestorsForClosed, ids, forceUseIdsList, managerId, programManagerId, status, skip, take)
 
 Programs list
 
@@ -561,13 +695,14 @@ Boolean isEnabled = true; // Boolean |
 Boolean hasInvestorsForAll = true; // Boolean | 
 Boolean hasInvestorsForClosed = true; // Boolean | 
 List<UUID> ids = Arrays.asList(new UUID()); // List<UUID> | 
+Boolean forceUseIdsList = true; // Boolean | 
 String managerId = "managerId_example"; // String | 
 UUID programManagerId = new UUID(); // UUID | 
 List<String> status = Arrays.asList("status_example"); // List<String> | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ProgramsList result = apiInstance.v10ProgramsGet(authorization, levelMin, levelMax, levelsSet, profitAvgMin, profitAvgMax, sorting, programCurrency, currencySecondary, levelUpFrom, tags, isSignal, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, hasInvestorsForAll, hasInvestorsForClosed, ids, managerId, programManagerId, status, skip, take);
+    ProgramsList result = apiInstance.v10ProgramsGet(authorization, levelMin, levelMax, levelsSet, profitAvgMin, profitAvgMax, sorting, programCurrency, currencySecondary, levelUpFrom, tags, isSignal, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, hasInvestorsForAll, hasInvestorsForClosed, ids, forceUseIdsList, managerId, programManagerId, status, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#v10ProgramsGet");
@@ -601,6 +736,7 @@ Name | Type | Description  | Notes
  **hasInvestorsForAll** | **Boolean**|  | [optional]
  **hasInvestorsForClosed** | **Boolean**|  | [optional]
  **ids** | [**List&lt;UUID&gt;**](UUID.md)|  | [optional]
+ **forceUseIdsList** | **Boolean**|  | [optional]
  **managerId** | **String**|  | [optional]
  **programManagerId** | [**UUID**](.md)|  | [optional]
  **status** | [**List&lt;String&gt;**](String.md)|  | [optional] [enum: None, Pending, ErrorCreating, Active, Closed, Archived, ClosedDueToInactivity]

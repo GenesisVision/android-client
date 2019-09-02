@@ -33,6 +33,9 @@ public class FundStatistic
 	@SerializedName("balanceSecondary")
 	private AmountWithCurrency balanceSecondary = null;
 
+	@SerializedName("balance")
+	private AmountWithCurrency balance = null;
+
 	@SerializedName("profitPercent")
 	private Double profitPercent = null;
 
@@ -90,6 +93,25 @@ public class FundStatistic
 
 	public void setBalanceSecondary(AmountWithCurrency balanceSecondary) {
 		this.balanceSecondary = balanceSecondary;
+	}
+
+	public FundStatistic balance(AmountWithCurrency balance) {
+		this.balance = balance;
+		return this;
+	}
+
+	/**
+	 * Get balance
+	 *
+	 * @return balance
+	 **/
+	@ApiModelProperty(value = "")
+	public AmountWithCurrency getBalance() {
+		return balance;
+	}
+
+	public void setBalance(AmountWithCurrency balance) {
+		this.balance = balance;
 	}
 
 	public FundStatistic profitPercent(Double profitPercent) {
@@ -237,6 +259,7 @@ public class FundStatistic
 		FundStatistic fundStatistic = (FundStatistic) o;
 		return Objects.equals(this.balanceGVT, fundStatistic.balanceGVT) &&
 				Objects.equals(this.balanceSecondary, fundStatistic.balanceSecondary) &&
+				Objects.equals(this.balance, fundStatistic.balance) &&
 				Objects.equals(this.profitPercent, fundStatistic.profitPercent) &&
 				Objects.equals(this.drawdownPercent, fundStatistic.drawdownPercent) &&
 				Objects.equals(this.investorsCount, fundStatistic.investorsCount) &&
@@ -248,7 +271,7 @@ public class FundStatistic
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(balanceGVT, balanceSecondary, profitPercent, drawdownPercent, investorsCount, startDate, startBalance, investedAmount, rebalancingCount);
+		return Objects.hash(balanceGVT, balanceSecondary, balance, profitPercent, drawdownPercent, investorsCount, startDate, startBalance, investedAmount, rebalancingCount);
 	}
 
 
@@ -259,6 +282,7 @@ public class FundStatistic
 
 		sb.append("    balanceGVT: ").append(toIndentedString(balanceGVT)).append("\n");
 		sb.append("    balanceSecondary: ").append(toIndentedString(balanceSecondary)).append("\n");
+		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
 		sb.append("    drawdownPercent: ").append(toIndentedString(drawdownPercent)).append("\n");
 		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");

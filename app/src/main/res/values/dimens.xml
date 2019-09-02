@@ -133,4 +133,5 @@
     <dimen name="social_link_image_size">32dp</dimen>
     <dimen name="filters_margin_bottom">130dp</dimen>
     <dimen name="filters_margin_top">100dp</dimen>
+    <dimen name="item_period_history_height">120dp</dimen>
 </resources>

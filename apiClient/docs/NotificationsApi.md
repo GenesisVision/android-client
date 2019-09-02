@@ -187,7 +187,7 @@ Name | Type | Description  | Notes
  **authorization** | **String**| JWT access token |
  **assetId** | [**UUID**](.md)|  | [optional]
  **managerId** | [**UUID**](.md)|  | [optional]
- **type** | **String**|  | [optional] [enum: PlatformNewsAndUpdates, PlatformEmergency, PlatformOther, ProfileUpdated, ProfilePwdUpdated, ProfileVerification, Profile2FA, ProfileSecurity, TradingAccountPwdUpdated, ProgramNewsAndUpdates, ProgramEndOfPeriod, ProgramCondition, ProgramExceedInvestmentLimit, FundNewsAndUpdates, FundEndOfPeriod, FundRebalancing, ManagerNewProgram, Signals]
+ **type** | **String**|  | [optional] [enum: PlatformNewsAndUpdates, PlatformEmergency, PlatformOther, ProfileUpdated, ProfilePwdUpdated, ProfileVerification, Profile2FA, ProfileSecurity, TradingAccountPwdUpdated, ProgramNewsAndUpdates, ProgramEndOfPeriod, ProgramCondition, ProgramExceedInvestmentLimit, FundNewsAndUpdates, FundEndOfPeriod, FundRebalancing, ManagerNewProgram, ManagerNewFund, ManagerNewExternalSignalAccount, Signals, ExternalSignals]
  **conditionType** | **String**|  | [optional] [enum: Empty, Profit, Level, AvailableToInvest]
  **conditionAmount** | **Double**|  | [optional]
 

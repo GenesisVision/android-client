@@ -21,8 +21,6 @@ public class DexchangeApiTest
 
 	/**
 	 *
-	 *
-	 *
 	 */
 	@Test
 	public void v10DexchangeNodePostTest() {

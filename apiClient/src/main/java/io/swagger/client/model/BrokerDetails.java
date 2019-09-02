@@ -25,11 +25,14 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class BrokerDetails
 {
-	@SerializedName("isForex")
-	private Boolean isForex = null;
-
 	@SerializedName("logo")
 	private String logo = null;
+
+	@SerializedName("name")
+	private String name = null;
+
+	@SerializedName("isForex")
+	private Boolean isForex = null;
 
 	@SerializedName("showSwaps")
 	private Boolean showSwaps = null;
@@ -37,27 +40,20 @@ public class BrokerDetails
 	@SerializedName("showTickets")
 	private Boolean showTickets = null;
 
-	@SerializedName("name")
-	private String name = null;
+	@SerializedName("showCommissionRebate")
+	private Boolean showCommissionRebate = null;
 
-	public BrokerDetails isForex(Boolean isForex) {
-		this.isForex = isForex;
-		return this;
-	}
+	@SerializedName("isForexSometime")
+	private Boolean isForexSometime = null;
 
-	/**
-	 * Get isForex
-	 *
-	 * @return isForex
-	 **/
-	@ApiModelProperty(value = "")
-	public Boolean isIsForex() {
-		return isForex;
-	}
+	@SerializedName("showSwapsSometime")
+	private Boolean showSwapsSometime = null;
 
-	public void setIsForex(Boolean isForex) {
-		this.isForex = isForex;
-	}
+	@SerializedName("showTicketsSometime")
+	private Boolean showTicketsSometime = null;
+
+	@SerializedName("showCommissionRebateSometime")
+	private Boolean showCommissionRebateSometime = null;
 
 	public BrokerDetails logo(String logo) {
 		this.logo = logo;
@@ -76,6 +72,44 @@ public class BrokerDetails
 
 	public void setLogo(String logo) {
 		this.logo = logo;
+	}
+
+	public BrokerDetails name(String name) {
+		this.name = name;
+		return this;
+	}
+
+	/**
+	 * Get name
+	 *
+	 * @return name
+	 **/
+	@ApiModelProperty(value = "")
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public BrokerDetails isForex(Boolean isForex) {
+		this.isForex = isForex;
+		return this;
+	}
+
+	/**
+	 * Get isForex
+	 *
+	 * @return isForex
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsForex() {
+		return isForex;
+	}
+
+	public void setIsForex(Boolean isForex) {
+		this.isForex = isForex;
 	}
 
 	public BrokerDetails showSwaps(Boolean showSwaps) {
@@ -116,23 +150,99 @@ public class BrokerDetails
 		this.showTickets = showTickets;
 	}
 
-	public BrokerDetails name(String name) {
-		this.name = name;
+	public BrokerDetails showCommissionRebate(Boolean showCommissionRebate) {
+		this.showCommissionRebate = showCommissionRebate;
 		return this;
 	}
 
 	/**
-	 * Get name
+	 * Get showCommissionRebate
 	 *
-	 * @return name
+	 * @return showCommissionRebate
 	 **/
 	@ApiModelProperty(value = "")
-	public String getName() {
-		return name;
+	public Boolean isShowCommissionRebate() {
+		return showCommissionRebate;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setShowCommissionRebate(Boolean showCommissionRebate) {
+		this.showCommissionRebate = showCommissionRebate;
+	}
+
+	public BrokerDetails isForexSometime(Boolean isForexSometime) {
+		this.isForexSometime = isForexSometime;
+		return this;
+	}
+
+	/**
+	 * Get isForexSometime
+	 *
+	 * @return isForexSometime
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isIsForexSometime() {
+		return isForexSometime;
+	}
+
+	public void setIsForexSometime(Boolean isForexSometime) {
+		this.isForexSometime = isForexSometime;
+	}
+
+	public BrokerDetails showSwapsSometime(Boolean showSwapsSometime) {
+		this.showSwapsSometime = showSwapsSometime;
+		return this;
+	}
+
+	/**
+	 * Get showSwapsSometime
+	 *
+	 * @return showSwapsSometime
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isShowSwapsSometime() {
+		return showSwapsSometime;
+	}
+
+	public void setShowSwapsSometime(Boolean showSwapsSometime) {
+		this.showSwapsSometime = showSwapsSometime;
+	}
+
+	public BrokerDetails showTicketsSometime(Boolean showTicketsSometime) {
+		this.showTicketsSometime = showTicketsSometime;
+		return this;
+	}
+
+	/**
+	 * Get showTicketsSometime
+	 *
+	 * @return showTicketsSometime
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isShowTicketsSometime() {
+		return showTicketsSometime;
+	}
+
+	public void setShowTicketsSometime(Boolean showTicketsSometime) {
+		this.showTicketsSometime = showTicketsSometime;
+	}
+
+	public BrokerDetails showCommissionRebateSometime(Boolean showCommissionRebateSometime) {
+		this.showCommissionRebateSometime = showCommissionRebateSometime;
+		return this;
+	}
+
+	/**
+	 * Get showCommissionRebateSometime
+	 *
+	 * @return showCommissionRebateSometime
+	 **/
+	@ApiModelProperty(value = "")
+	public Boolean isShowCommissionRebateSometime() {
+		return showCommissionRebateSometime;
+	}
+
+	public void setShowCommissionRebateSometime(Boolean showCommissionRebateSometime) {
+		this.showCommissionRebateSometime = showCommissionRebateSometime;
 	}
 
 
@@ -145,16 +255,21 @@ public class BrokerDetails
 			return false;
 		}
 		BrokerDetails brokerDetails = (BrokerDetails) o;
-		return Objects.equals(this.isForex, brokerDetails.isForex) &&
-				Objects.equals(this.logo, brokerDetails.logo) &&
+		return Objects.equals(this.logo, brokerDetails.logo) &&
+				Objects.equals(this.name, brokerDetails.name) &&
+				Objects.equals(this.isForex, brokerDetails.isForex) &&
 				Objects.equals(this.showSwaps, brokerDetails.showSwaps) &&
 				Objects.equals(this.showTickets, brokerDetails.showTickets) &&
-				Objects.equals(this.name, brokerDetails.name);
+				Objects.equals(this.showCommissionRebate, brokerDetails.showCommissionRebate) &&
+				Objects.equals(this.isForexSometime, brokerDetails.isForexSometime) &&
+				Objects.equals(this.showSwapsSometime, brokerDetails.showSwapsSometime) &&
+				Objects.equals(this.showTicketsSometime, brokerDetails.showTicketsSometime) &&
+				Objects.equals(this.showCommissionRebateSometime, brokerDetails.showCommissionRebateSometime);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isForex, logo, showSwaps, showTickets, name);
+		return Objects.hash(logo, name, isForex, showSwaps, showTickets, showCommissionRebate, isForexSometime, showSwapsSometime, showTicketsSometime, showCommissionRebateSometime);
 	}
 
 
@@ -163,11 +278,16 @@ public class BrokerDetails
 		StringBuilder sb = new StringBuilder();
 		sb.append("class BrokerDetails {\n");
 
-		sb.append("    isForex: ").append(toIndentedString(isForex)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    name: ").append(toIndentedString(name)).append("\n");
+		sb.append("    isForex: ").append(toIndentedString(isForex)).append("\n");
 		sb.append("    showSwaps: ").append(toIndentedString(showSwaps)).append("\n");
 		sb.append("    showTickets: ").append(toIndentedString(showTickets)).append("\n");
-		sb.append("    name: ").append(toIndentedString(name)).append("\n");
+		sb.append("    showCommissionRebate: ").append(toIndentedString(showCommissionRebate)).append("\n");
+		sb.append("    isForexSometime: ").append(toIndentedString(isForexSometime)).append("\n");
+		sb.append("    showSwapsSometime: ").append(toIndentedString(showSwapsSometime)).append("\n");
+		sb.append("    showTicketsSometime: ").append(toIndentedString(showTicketsSometime)).append("\n");
+		sb.append("    showCommissionRebateSometime: ").append(toIndentedString(showCommissionRebateSometime)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

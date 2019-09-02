@@ -35,9 +35,6 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class SignalDetails
 {
-	@SerializedName("statistic")
-	private ProgramDetailsListStatistic statistic = null;
-
 	@SerializedName("personalDetails")
 	private PersonalSignalDetailsFull personalDetails = null;
 
@@ -85,25 +82,6 @@ public class SignalDetails
 
 	@SerializedName("chart")
 	private List<ChartSimple> chart = null;
-
-	public SignalDetails statistic(ProgramDetailsListStatistic statistic) {
-		this.statistic = statistic;
-		return this;
-	}
-
-	/**
-	 * Get statistic
-	 *
-	 * @return statistic
-	 **/
-	@ApiModelProperty(value = "")
-	public ProgramDetailsListStatistic getStatistic() {
-		return statistic;
-	}
-
-	public void setStatistic(ProgramDetailsListStatistic statistic) {
-		this.statistic = statistic;
-	}
 
 	public SignalDetails personalDetails(PersonalSignalDetailsFull personalDetails) {
 		this.personalDetails = personalDetails;
@@ -434,8 +412,7 @@ public class SignalDetails
 			return false;
 		}
 		SignalDetails signalDetails = (SignalDetails) o;
-		return Objects.equals(this.statistic, signalDetails.statistic) &&
-				Objects.equals(this.personalDetails, signalDetails.personalDetails) &&
+		return Objects.equals(this.personalDetails, signalDetails.personalDetails) &&
 				Objects.equals(this.currency, signalDetails.currency) &&
 				Objects.equals(this.level, signalDetails.level) &&
 				Objects.equals(this.levelProgress, signalDetails.levelProgress) &&
@@ -455,7 +432,7 @@ public class SignalDetails
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(statistic, personalDetails, currency, level, levelProgress, tags, subscribers, id, logo, url, color, title, description, status, creationDate, manager, chart);
+		return Objects.hash(personalDetails, currency, level, levelProgress, tags, subscribers, id, logo, url, color, title, description, status, creationDate, manager, chart);
 	}
 
 	@Override
@@ -463,7 +440,6 @@ public class SignalDetails
 		StringBuilder sb = new StringBuilder();
 		sb.append("class SignalDetails {\n");
 
-		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");

@@ -6,7 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **withdrawPercent** | **Double** |  |  [optional]
 **canReallocate** | **Boolean** |  |  [optional]
-**possibleReallocationTime** | [**DateTime**](DateTime.md) |  |  [optional]
+**availableReallocationPercents** | **Integer** |  |  [optional]
+**nextReallocationPercents** | [**DateTime**](DateTime.md) |  |  [optional]
 **isFavorite** | **Boolean** |  |  [optional]
 **isInvested** | **Boolean** |  |  [optional]
 **isOwnProgram** | **Boolean** |  |  [optional]

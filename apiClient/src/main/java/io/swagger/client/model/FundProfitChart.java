@@ -38,6 +38,12 @@ public class FundProfitChart
 	@SerializedName("rebalances")
 	private Integer rebalances = null;
 
+	@SerializedName("totalGvtProfit")
+	private Double totalGvtProfit = null;
+
+	@SerializedName("timeframeGvtProfit")
+	private Double timeframeGvtProfit = null;
+
 	@SerializedName("creationDate")
 	private DateTime creationDate = null;
 
@@ -45,7 +51,7 @@ public class FundProfitChart
 	private Double profitPercent = null;
 
 	@SerializedName("equityChart")
-	private List<ChartSimple> equityChart = null;
+	private List<FundEquityChartElement> equityChart = null;
 
 	@SerializedName("balance")
 	private Double balance = null;
@@ -67,12 +73,6 @@ public class FundProfitChart
 
 	@SerializedName("maxDrawdown")
 	private Double maxDrawdown = null;
-
-	@SerializedName("totalGvtProfit")
-	private Double totalGvtProfit = null;
-
-	@SerializedName("timeframeGvtProfit")
-	private Double timeframeGvtProfit = null;
 
 	@SerializedName("rate")
 	private Double rate = null;
@@ -134,6 +134,44 @@ public class FundProfitChart
 		this.rebalances = rebalances;
 	}
 
+	public FundProfitChart totalGvtProfit(Double totalGvtProfit) {
+		this.totalGvtProfit = totalGvtProfit;
+		return this;
+	}
+
+	/**
+	 * Get totalGvtProfit
+	 *
+	 * @return totalGvtProfit
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getTotalGvtProfit() {
+		return totalGvtProfit;
+	}
+
+	public void setTotalGvtProfit(Double totalGvtProfit) {
+		this.totalGvtProfit = totalGvtProfit;
+	}
+
+	public FundProfitChart timeframeGvtProfit(Double timeframeGvtProfit) {
+		this.timeframeGvtProfit = timeframeGvtProfit;
+		return this;
+	}
+
+	/**
+	 * Get timeframeGvtProfit
+	 *
+	 * @return timeframeGvtProfit
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getTimeframeGvtProfit() {
+		return timeframeGvtProfit;
+	}
+
+	public void setTimeframeGvtProfit(Double timeframeGvtProfit) {
+		this.timeframeGvtProfit = timeframeGvtProfit;
+	}
+
 	public FundProfitChart creationDate(DateTime creationDate) {
 		this.creationDate = creationDate;
 		return this;
@@ -172,14 +210,14 @@ public class FundProfitChart
 		this.profitPercent = profitPercent;
 	}
 
-	public FundProfitChart equityChart(List<ChartSimple> equityChart) {
+	public FundProfitChart equityChart(List<FundEquityChartElement> equityChart) {
 		this.equityChart = equityChart;
 		return this;
 	}
 
-	public FundProfitChart addEquityChartItem(ChartSimple equityChartItem) {
+	public FundProfitChart addEquityChartItem(FundEquityChartElement equityChartItem) {
 		if (this.equityChart == null) {
-			this.equityChart = new ArrayList<ChartSimple>();
+			this.equityChart = new ArrayList<FundEquityChartElement>();
 		}
 		this.equityChart.add(equityChartItem);
 		return this;
@@ -191,11 +229,11 @@ public class FundProfitChart
 	 * @return equityChart
 	 **/
 	@ApiModelProperty(value = "")
-	public List<ChartSimple> getEquityChart() {
+	public List<FundEquityChartElement> getEquityChart() {
 		return equityChart;
 	}
 
-	public void setEquityChart(List<ChartSimple> equityChart) {
+	public void setEquityChart(List<FundEquityChartElement> equityChart) {
 		this.equityChart = equityChart;
 	}
 
@@ -332,44 +370,6 @@ public class FundProfitChart
 		this.maxDrawdown = maxDrawdown;
 	}
 
-	public FundProfitChart totalGvtProfit(Double totalGvtProfit) {
-		this.totalGvtProfit = totalGvtProfit;
-		return this;
-	}
-
-	/**
-	 * Get totalGvtProfit
-	 *
-	 * @return totalGvtProfit
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getTotalGvtProfit() {
-		return totalGvtProfit;
-	}
-
-	public void setTotalGvtProfit(Double totalGvtProfit) {
-		this.totalGvtProfit = totalGvtProfit;
-	}
-
-	public FundProfitChart timeframeGvtProfit(Double timeframeGvtProfit) {
-		this.timeframeGvtProfit = timeframeGvtProfit;
-		return this;
-	}
-
-	/**
-	 * Get timeframeGvtProfit
-	 *
-	 * @return timeframeGvtProfit
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getTimeframeGvtProfit() {
-		return timeframeGvtProfit;
-	}
-
-	public void setTimeframeGvtProfit(Double timeframeGvtProfit) {
-		this.timeframeGvtProfit = timeframeGvtProfit;
-	}
-
 	public FundProfitChart rate(Double rate) {
 		this.rate = rate;
 		return this;
@@ -402,6 +402,8 @@ public class FundProfitChart
 		return Objects.equals(this.totalUsdProfit, fundProfitChart.totalUsdProfit) &&
 				Objects.equals(this.timeframeUsdProfit, fundProfitChart.timeframeUsdProfit) &&
 				Objects.equals(this.rebalances, fundProfitChart.rebalances) &&
+				Objects.equals(this.totalGvtProfit, fundProfitChart.totalGvtProfit) &&
+				Objects.equals(this.timeframeGvtProfit, fundProfitChart.timeframeGvtProfit) &&
 				Objects.equals(this.creationDate, fundProfitChart.creationDate) &&
 				Objects.equals(this.profitPercent, fundProfitChart.profitPercent) &&
 				Objects.equals(this.equityChart, fundProfitChart.equityChart) &&
@@ -412,14 +414,12 @@ public class FundProfitChart
 				Objects.equals(this.sortinoRatio, fundProfitChart.sortinoRatio) &&
 				Objects.equals(this.calmarRatio, fundProfitChart.calmarRatio) &&
 				Objects.equals(this.maxDrawdown, fundProfitChart.maxDrawdown) &&
-				Objects.equals(this.totalGvtProfit, fundProfitChart.totalGvtProfit) &&
-				Objects.equals(this.timeframeGvtProfit, fundProfitChart.timeframeGvtProfit) &&
 				Objects.equals(this.rate, fundProfitChart.rate);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(totalUsdProfit, timeframeUsdProfit, rebalances, creationDate, profitPercent, equityChart, balance, investors, profitChangePercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, totalGvtProfit, timeframeGvtProfit, rate);
+		return Objects.hash(totalUsdProfit, timeframeUsdProfit, rebalances, totalGvtProfit, timeframeGvtProfit, creationDate, profitPercent, equityChart, balance, investors, profitChangePercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, rate);
 	}
 
 
@@ -431,6 +431,8 @@ public class FundProfitChart
 		sb.append("    totalUsdProfit: ").append(toIndentedString(totalUsdProfit)).append("\n");
 		sb.append("    timeframeUsdProfit: ").append(toIndentedString(timeframeUsdProfit)).append("\n");
 		sb.append("    rebalances: ").append(toIndentedString(rebalances)).append("\n");
+		sb.append("    totalGvtProfit: ").append(toIndentedString(totalGvtProfit)).append("\n");
+		sb.append("    timeframeGvtProfit: ").append(toIndentedString(timeframeGvtProfit)).append("\n");
 		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
 		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
 		sb.append("    equityChart: ").append(toIndentedString(equityChart)).append("\n");
@@ -441,8 +443,6 @@ public class FundProfitChart
 		sb.append("    sortinoRatio: ").append(toIndentedString(sortinoRatio)).append("\n");
 		sb.append("    calmarRatio: ").append(toIndentedString(calmarRatio)).append("\n");
 		sb.append("    maxDrawdown: ").append(toIndentedString(maxDrawdown)).append("\n");
-		sb.append("    totalGvtProfit: ").append(toIndentedString(totalGvtProfit)).append("\n");
-		sb.append("    timeframeGvtProfit: ").append(toIndentedString(timeframeGvtProfit)).append("\n");
 		sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
 		sb.append("}");
 		return sb.toString();

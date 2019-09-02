@@ -516,7 +516,9 @@ public class OrderModel
 
 		CREDIT("Credit"),
 
-		UNDEFINED("Undefined");
+		UNDEFINED("Undefined"),
+
+		MANUALBALANCING("ManualBalancing");
 
 		public static DirectionEnum fromValue(String text) {
 			for (DirectionEnum b : DirectionEnum.values()) {

@@ -1,6 +1,9 @@
 package io.swagger.client.api;
 
+import io.swagger.client.model.ExternalKeyAddViewModel;
+import io.swagger.client.model.ExternalKeysViewModel;
 import io.swagger.client.model.FcmTokenViewModel;
+import io.swagger.client.model.IdModel;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.ProfileHeaderViewModel;
 import io.swagger.client.model.SocialLinksViewModel;
@@ -56,6 +59,47 @@ public interface ProfileApi
 	 */
 	@GET("v1.0/profile/header")
 	Observable<ProfileHeaderViewModel> v10ProfileHeaderGet(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Add external exchange key
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v1.0/profile/keys/add")
+	Observable<Void> v10ProfileKeysAddPost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ExternalKeyAddViewModel model
+	);
+
+	/**
+	 * Delete external exchange key
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v1.0/profile/keys/delete")
+	Observable<Void> v10ProfileKeysDeletePost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body IdModel model
+	);
+
+	/**
+	 * Get external exchange keys
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;ExternalKeysViewModel&gt;
+	 */
+	@GET("v1.0/profile/keys")
+	Observable<ExternalKeysViewModel> v10ProfileKeysGet(
 			@retrofit2.http.Header("Authorization") String authorization
 	);
 

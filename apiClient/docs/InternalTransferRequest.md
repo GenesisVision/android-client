@@ -21,6 +21,8 @@ WALLET | &quot;Wallet&quot;
 COPYTRADINGACCOUNT | &quot;CopyTradingAccount&quot;
 GENESISVISIONPLATFORM | &quot;GenesisVisionPlatform&quot;
 SIGNALPROVIDERSETTINGS | &quot;SignalProviderSettings&quot;
+PROGRAM | &quot;Program&quot;
+FUND | &quot;Fund&quot;
 
 
 <a name="DestinationTypeEnum"></a>
@@ -32,6 +34,8 @@ WALLET | &quot;Wallet&quot;
 COPYTRADINGACCOUNT | &quot;CopyTradingAccount&quot;
 GENESISVISIONPLATFORM | &quot;GenesisVisionPlatform&quot;
 SIGNALPROVIDERSETTINGS | &quot;SignalProviderSettings&quot;
+PROGRAM | &quot;Program&quot;
+FUND | &quot;Fund&quot;
 
 
 

@@ -23,6 +23,7 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.UUID;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -55,6 +56,9 @@ public class PersonalSignalDetailsFull
 
 	@SerializedName("status")
 	private StatusEnum status = null;
+
+	@SerializedName("signalSettingsId")
+	private UUID signalSettingsId = null;
 
 	public PersonalSignalDetailsFull subscriptionDate(DateTime subscriptionDate) {
 		this.subscriptionDate = subscriptionDate;
@@ -208,6 +212,25 @@ public class PersonalSignalDetailsFull
 		this.status = status;
 	}
 
+	public PersonalSignalDetailsFull signalSettingsId(UUID signalSettingsId) {
+		this.signalSettingsId = signalSettingsId;
+		return this;
+	}
+
+	/**
+	 * Get signalSettingsId
+	 *
+	 * @return signalSettingsId
+	 **/
+	@ApiModelProperty(value = "")
+	public UUID getSignalSettingsId() {
+		return signalSettingsId;
+	}
+
+	public void setSignalSettingsId(UUID signalSettingsId) {
+		this.signalSettingsId = signalSettingsId;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -224,12 +247,13 @@ public class PersonalSignalDetailsFull
 				Objects.equals(this.volume, personalSignalDetailsFull.volume) &&
 				Objects.equals(this.isFavorite, personalSignalDetailsFull.isFavorite) &&
 				Objects.equals(this.isInvested, personalSignalDetailsFull.isInvested) &&
-				Objects.equals(this.status, personalSignalDetailsFull.status);
+				Objects.equals(this.status, personalSignalDetailsFull.status) &&
+				Objects.equals(this.signalSettingsId, personalSignalDetailsFull.signalSettingsId);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(subscriptionDate, tradesCount, signalSubscription, profit, volume, isFavorite, isInvested, status);
+		return Objects.hash(subscriptionDate, tradesCount, signalSubscription, profit, volume, isFavorite, isInvested, status, signalSettingsId);
 	}
 
 	@Override
@@ -245,6 +269,7 @@ public class PersonalSignalDetailsFull
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
+		sb.append("    signalSettingsId: ").append(toIndentedString(signalSettingsId)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

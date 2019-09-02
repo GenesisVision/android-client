@@ -2,11 +2,14 @@ package vision.genesis.clientapp.utils;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.joda.time.Duration;
 import org.joda.time.Hours;
 import org.joda.time.Minutes;
 import org.joda.time.Seconds;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
 
 import java.util.Locale;
 
@@ -79,5 +82,18 @@ public class DateTimeUtil
 
 	public static int getSecondsToDate(DateTime date) {
 		return Seconds.secondsBetween(DateTime.now(), date).getSeconds();
+	}
+
+	public static String getHumanReadablePeriod(long milliseconds) {
+		PeriodFormatter formatter = new PeriodFormatterBuilder()
+				.appendDays()
+				.appendSuffix("d")
+				.appendHours()
+				.appendSuffix("h")
+				.appendMinutes()
+				.appendSuffix("m")
+				.toFormatter();
+		Duration duration = new Duration(milliseconds);
+		return formatter.print(duration.toPeriod());
 	}
 }

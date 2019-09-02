@@ -14,12 +14,12 @@ Name | Type | Description | Notes
 **signalVolumeFee** | **Double** |  |  [optional]
 **isSignalProgram** | **Boolean** |  |  [optional]
 **investmentLimit** | **Double** |  |  [optional]
-**title** | **String** |  |  [optional]
-**description** | **String** |  |  [optional]
-**logo** | **String** |  |  [optional]
 **entryFee** | **Double** |  |  [optional]
 **depositAmount** | **Double** |  |  [optional]
 **depositWalletId** | [**UUID**](UUID.md) |  |  [optional]
+**title** | **String** |  |  [optional]
+**description** | **String** |  |  [optional]
+**logo** | **String** |  |  [optional]
 
 
 <a name="CurrencyEnum"></a>

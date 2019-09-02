@@ -21,6 +21,7 @@ Method | HTTP request | Description
 [**v10ManagerFundsInvestmentAmountGet**](ManagerApi.md#v10ManagerFundsInvestmentAmountGet) | **GET** v1.0/manager/funds/investment/amount | Get GVT investment to create fund
 [**v10ManagerFundsRequestsByIdCancelPost**](ManagerApi.md#v10ManagerFundsRequestsByIdCancelPost) | **POST** v1.0/manager/funds/requests/{id}/cancel | Cancel investment program/fund request
 [**v10ManagerGet**](ManagerApi.md#v10ManagerGet) | **GET** v1.0/manager | Manager dashboard
+[**v10ManagerInvestmentsEventsGet**](ManagerApi.md#v10ManagerInvestmentsEventsGet) | **GET** v1.0/manager/investments/events | Events
 [**v10ManagerPrograms2faConfirmPost**](ManagerApi.md#v10ManagerPrograms2faConfirmPost) | **POST** v1.0/manager/programs/2fa/confirm | Confirm 2FA for program if required (for brokers like Huobi)
 [**v10ManagerPrograms2faGetGet**](ManagerApi.md#v10ManagerPrograms2faGetGet) | **GET** v1.0/manager/programs/2fa/get | Get 2FA for program if needed
 [**v10ManagerProgramsBrokerChangeCancelPost**](ManagerApi.md#v10ManagerProgramsBrokerChangeCancelPost) | **POST** v1.0/manager/programs/broker/change/cancel | Cancel changing broker in existing program
@@ -214,7 +215,7 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **type** | **String**|  | [optional] [enum: All, AssetStarted, ProgramPeriodStarts, ProgramPeriodEnds, InvestorInvest, InvestorWithdraw, ManagerInvest, ManagerWithdraw, AssetFinished, EntranceFee, ExitFee, ProgramStopOut, ProgramManagerTradingFeeAccrual, ProgramSignalSubscribe, ProgramBrokerChanged]
- **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
+ **assetType** | **String**|  | [optional] [enum: All, Program, Fund, Signal]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -660,7 +661,7 @@ No authorization required
 
 <a name="v10ManagerFundsGet"></a>
 # **v10ManagerFundsGet**
-> FundsList v10ManagerFundsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, actionStatus, dashboardActionStatus, skip, take)
+> FundsList v10ManagerFundsGet(authorization, sorting, currency, from, to, chartPointsCount, currencySecondary, actionStatus, dashboardActionStatus, skip, take)
 
 Manager funds
 
@@ -674,6 +675,7 @@ Manager funds
 ManagerApi apiInstance = new ManagerApi();
 String authorization = "authorization_example"; // String | JWT access token
 String sorting = "sorting_example"; // String | 
+String currency = "currency_example"; // String | 
 DateTime from = new DateTime(); // DateTime | 
 DateTime to = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
@@ -683,7 +685,7 @@ String dashboardActionStatus = "dashboardActionStatus_example"; // String |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    FundsList result = apiInstance.v10ManagerFundsGet(authorization, sorting, from, to, chartPointsCount, currencySecondary, actionStatus, dashboardActionStatus, skip, take);
+    FundsList result = apiInstance.v10ManagerFundsGet(authorization, sorting, currency, from, to, chartPointsCount, currencySecondary, actionStatus, dashboardActionStatus, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ManagerApi#v10ManagerFundsGet");
@@ -697,6 +699,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
  **sorting** | **String**|  | [optional] [enum: ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByInvestorsAsc, ByInvestorsDesc, ByNewAsc, ByNewDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
@@ -847,13 +850,72 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **type** | **String**|  | [optional] [enum: All, AssetStarted, ProgramPeriodStarts, ProgramPeriodEnds, InvestorInvest, InvestorWithdraw, ManagerInvest, ManagerWithdraw, AssetFinished, EntranceFee, ExitFee, ProgramStopOut, ProgramManagerTradingFeeAccrual, ProgramSignalSubscribe, ProgramBrokerChanged]
- **assetType** | **String**|  | [optional] [enum: All, Program, Fund]
+ **assetType** | **String**|  | [optional] [enum: All, Program, Fund, Signal]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
 ### Return type
 
 [**ManagerDashboard**](ManagerDashboard.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ManagerInvestmentsEventsGet"></a>
+# **v10ManagerInvestmentsEventsGet**
+> InvestmentEventViewModels v10ManagerInvestmentsEventsGet(authorization, eventLocation, assetId, from, to, eventType, assetType, skip, take)
+
+Events
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ManagerApi;
+
+
+ManagerApi apiInstance = new ManagerApi();
+String authorization = "authorization_example"; // String | JWT access token
+String eventLocation = "eventLocation_example"; // String | 
+UUID assetId = new UUID(); // UUID | 
+DateTime from = new DateTime(); // DateTime | 
+DateTime to = new DateTime(); // DateTime | 
+String eventType = "eventType_example"; // String | 
+String assetType = "assetType_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    InvestmentEventViewModels result = apiInstance.v10ManagerInvestmentsEventsGet(authorization, eventLocation, assetId, from, to, eventType, assetType, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ManagerApi#v10ManagerInvestmentsEventsGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **eventLocation** | **String**|  | [optional] [enum: Asset, Dashboard, EventsAll]
+ **assetId** | [**UUID**](.md)|  | [optional]
+ **from** | **DateTime**|  | [optional]
+ **to** | **DateTime**|  | [optional]
+ **eventType** | **String**|  | [optional] [enum: All, AssetStarted, AssetFinished, AssetPeriodStarted, AssetPeriodEnded, AssetPeriodEndedDueToStopOut, AssetBrokerChanged, AssetInvestByInvestor, AssetWithdrawalByInvestor, AssetInvestByManager, AssetWithdrawalByManager, AssetPeriodProcessed, AssetReallocation, AssetSubscribeByInvestor, AssetUnsubscribeByInvestor, AssetTradeOpen, AssetTradeClosed, AssetSubscriptionEdit, AssetEnterInvestment]
+ **assetType** | **String**|  | [optional] [enum: All, Program, Fund, Signal]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**InvestmentEventViewModels**](InvestmentEventViewModels.md)
 
 ### Authorization
 
@@ -1761,7 +1823,7 @@ No authorization required
 
 <a name="v10ManagerRequestsBySkipByTakeGet"></a>
 # **v10ManagerRequestsBySkipByTakeGet**
-> ProgramRequests v10ManagerRequestsBySkipByTakeGet(skip, take, authorization)
+> ProgramRequests v10ManagerRequestsBySkipByTakeGet(skip, take, authorization, assetType)
 
 Get all requests
 
@@ -1776,8 +1838,9 @@ ManagerApi apiInstance = new ManagerApi();
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 String authorization = "authorization_example"; // String | JWT access token
+String assetType = "assetType_example"; // String | 
 try {
-    ProgramRequests result = apiInstance.v10ManagerRequestsBySkipByTakeGet(skip, take, authorization);
+    ProgramRequests result = apiInstance.v10ManagerRequestsBySkipByTakeGet(skip, take, authorization, assetType);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ManagerApi#v10ManagerRequestsBySkipByTakeGet");
@@ -1792,6 +1855,7 @@ Name | Type | Description  | Notes
  **skip** | **Integer**|  |
  **take** | **Integer**|  |
  **authorization** | **String**| JWT access token |
+ **assetType** | **String**|  | [optional] [enum: All, Program, Fund, Signal]
 
 ### Return type
 

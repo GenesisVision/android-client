@@ -32,6 +32,9 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ProgramBalanceChart
 {
+	@SerializedName("gvtBalance")
+	private Double gvtBalance = null;
+
 	@SerializedName("programCurrencyBalance")
 	private Double programCurrencyBalance = null;
 
@@ -41,8 +44,24 @@ public class ProgramBalanceChart
 	@SerializedName("balanceChart")
 	private List<ProgramBalanceChartElement> balanceChart = null;
 
-	@SerializedName("gvtBalance")
-	private Double gvtBalance = null;
+	public ProgramBalanceChart gvtBalance(Double gvtBalance) {
+		this.gvtBalance = gvtBalance;
+		return this;
+	}
+
+	/**
+	 * Get gvtBalance
+	 *
+	 * @return gvtBalance
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getGvtBalance() {
+		return gvtBalance;
+	}
+
+	public void setGvtBalance(Double gvtBalance) {
+		this.gvtBalance = gvtBalance;
+	}
 
 	public ProgramBalanceChart programCurrencyBalance(Double programCurrencyBalance) {
 		this.programCurrencyBalance = programCurrencyBalance;
@@ -109,25 +128,6 @@ public class ProgramBalanceChart
 		this.balanceChart = balanceChart;
 	}
 
-	public ProgramBalanceChart gvtBalance(Double gvtBalance) {
-		this.gvtBalance = gvtBalance;
-		return this;
-	}
-
-	/**
-	 * Get gvtBalance
-	 *
-	 * @return gvtBalance
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getGvtBalance() {
-		return gvtBalance;
-	}
-
-	public void setGvtBalance(Double gvtBalance) {
-		this.gvtBalance = gvtBalance;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -137,15 +137,15 @@ public class ProgramBalanceChart
 			return false;
 		}
 		ProgramBalanceChart programBalanceChart = (ProgramBalanceChart) o;
-		return Objects.equals(this.programCurrencyBalance, programBalanceChart.programCurrencyBalance) &&
+		return Objects.equals(this.gvtBalance, programBalanceChart.gvtBalance) &&
+				Objects.equals(this.programCurrencyBalance, programBalanceChart.programCurrencyBalance) &&
 				Objects.equals(this.programCurrency, programBalanceChart.programCurrency) &&
-				Objects.equals(this.balanceChart, programBalanceChart.balanceChart) &&
-				Objects.equals(this.gvtBalance, programBalanceChart.gvtBalance);
+				Objects.equals(this.balanceChart, programBalanceChart.balanceChart);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(programCurrencyBalance, programCurrency, balanceChart, gvtBalance);
+		return Objects.hash(gvtBalance, programCurrencyBalance, programCurrency, balanceChart);
 	}
 
 	@Override
@@ -153,10 +153,10 @@ public class ProgramBalanceChart
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ProgramBalanceChart {\n");
 
+		sb.append("    gvtBalance: ").append(toIndentedString(gvtBalance)).append("\n");
 		sb.append("    programCurrencyBalance: ").append(toIndentedString(programCurrencyBalance)).append("\n");
 		sb.append("    programCurrency: ").append(toIndentedString(programCurrency)).append("\n");
 		sb.append("    balanceChart: ").append(toIndentedString(balanceChart)).append("\n");
-		sb.append("    gvtBalance: ").append(toIndentedString(gvtBalance)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

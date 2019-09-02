@@ -15,6 +15,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.viewpager.widget.ViewPager;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
@@ -28,9 +32,6 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.UUID;
 
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -156,6 +157,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	private TabLayout.Tab tradesTab;
 
+	private TabLayout.Tab periodHistoryTab;
+
 	private TabLayout.Tab eventsTab;
 
 	private ProgramDetailsPagerAdapter pagerAdapter;
@@ -218,7 +221,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 			initRefreshLayout();
 			initTabs();
-			initViewPager(model.getProgramId());
+			initViewPager(model.getProgramId(), model.getCurrency());
 			updateHeader();
 
 			programDetailsPresenter.setProgramId(model.getProgramId());
@@ -360,6 +363,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		equityTab = tabLayout.newTab().setCustomView(getTabView(R.string.equity)).setTag("equity");
 		openPositionsTab = tabLayout.newTab().setCustomView(getTabView(R.string.open_positions)).setTag("open_positions");
 		tradesTab = tabLayout.newTab().setCustomView(getTabView(R.string.trades)).setTag("trades");
+		periodHistoryTab = tabLayout.newTab().setCustomView(getTabView(R.string.period_history)).setTag("period_history");
 		eventsTab = tabLayout.newTab().setCustomView(getTabView(R.string.events)).setTag("events");
 
 		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -396,6 +400,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		addPage(equityTab, false);
 		addPage(openPositionsTab, false);
 		addPage(tradesTab, false);
+		addPage(periodHistoryTab, false);
 	}
 
 	private View getTabView(int textResId) {
@@ -414,8 +419,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			pagerAdapter.notifyDataSetChanged();
 	}
 
-	private void initViewPager(UUID programId) {
-		pagerAdapter = new ProgramDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, programId);
+	private void initViewPager(UUID programId, String programCurrency) {
+		pagerAdapter = new ProgramDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, programId, programCurrency);
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOffscreenPageLimit(5);
 
@@ -545,6 +550,11 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@Override
 	public void setTradesCount(Integer tradesCount) {
 		((DetailsTabView) tradesTab.getCustomView()).setCount(tradesCount);
+	}
+
+	@Override
+	public void setPeriodHistoryCount(Integer periodHistoryCount) {
+		((DetailsTabView) periodHistoryTab.getCustomView()).setCount(periodHistoryCount);
 	}
 
 	@Override

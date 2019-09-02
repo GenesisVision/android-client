@@ -30,6 +30,12 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class AttachToSignalProvider
 {
+	@SerializedName("initialDepositCurrency")
+	private InitialDepositCurrencyEnum initialDepositCurrency = null;
+
+	@SerializedName("initialDepositAmount")
+	private Double initialDepositAmount = null;
+
 	@SerializedName("mode")
 	private ModeEnum mode = null;
 
@@ -45,11 +51,43 @@ public class AttachToSignalProvider
 	@SerializedName("fixedCurrency")
 	private FixedCurrencyEnum fixedCurrency = null;
 
-	@SerializedName("initialDepositCurrency")
-	private InitialDepositCurrencyEnum initialDepositCurrency = null;
+	public AttachToSignalProvider initialDepositCurrency(InitialDepositCurrencyEnum initialDepositCurrency) {
+		this.initialDepositCurrency = initialDepositCurrency;
+		return this;
+	}
 
-	@SerializedName("initialDepositAmount")
-	private Double initialDepositAmount = null;
+	/**
+	 * Get initialDepositCurrency
+	 *
+	 * @return initialDepositCurrency
+	 **/
+	@ApiModelProperty(value = "")
+	public InitialDepositCurrencyEnum getInitialDepositCurrency() {
+		return initialDepositCurrency;
+	}
+
+	public void setInitialDepositCurrency(InitialDepositCurrencyEnum initialDepositCurrency) {
+		this.initialDepositCurrency = initialDepositCurrency;
+	}
+
+	public AttachToSignalProvider initialDepositAmount(Double initialDepositAmount) {
+		this.initialDepositAmount = initialDepositAmount;
+		return this;
+	}
+
+	/**
+	 * Get initialDepositAmount
+	 *
+	 * @return initialDepositAmount
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getInitialDepositAmount() {
+		return initialDepositAmount;
+	}
+
+	public void setInitialDepositAmount(Double initialDepositAmount) {
+		this.initialDepositAmount = initialDepositAmount;
+	}
 
 	public AttachToSignalProvider mode(ModeEnum mode) {
 		this.mode = mode;
@@ -146,44 +184,6 @@ public class AttachToSignalProvider
 		this.fixedCurrency = fixedCurrency;
 	}
 
-	public AttachToSignalProvider initialDepositCurrency(InitialDepositCurrencyEnum initialDepositCurrency) {
-		this.initialDepositCurrency = initialDepositCurrency;
-		return this;
-	}
-
-	/**
-	 * Get initialDepositCurrency
-	 *
-	 * @return initialDepositCurrency
-	 **/
-	@ApiModelProperty(value = "")
-	public InitialDepositCurrencyEnum getInitialDepositCurrency() {
-		return initialDepositCurrency;
-	}
-
-	public void setInitialDepositCurrency(InitialDepositCurrencyEnum initialDepositCurrency) {
-		this.initialDepositCurrency = initialDepositCurrency;
-	}
-
-	public AttachToSignalProvider initialDepositAmount(Double initialDepositAmount) {
-		this.initialDepositAmount = initialDepositAmount;
-		return this;
-	}
-
-	/**
-	 * Get initialDepositAmount
-	 *
-	 * @return initialDepositAmount
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getInitialDepositAmount() {
-		return initialDepositAmount;
-	}
-
-	public void setInitialDepositAmount(Double initialDepositAmount) {
-		this.initialDepositAmount = initialDepositAmount;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -193,18 +193,18 @@ public class AttachToSignalProvider
 			return false;
 		}
 		AttachToSignalProvider attachToSignalProvider = (AttachToSignalProvider) o;
-		return Objects.equals(this.mode, attachToSignalProvider.mode) &&
+		return Objects.equals(this.initialDepositCurrency, attachToSignalProvider.initialDepositCurrency) &&
+				Objects.equals(this.initialDepositAmount, attachToSignalProvider.initialDepositAmount) &&
+				Objects.equals(this.mode, attachToSignalProvider.mode) &&
 				Objects.equals(this.percent, attachToSignalProvider.percent) &&
 				Objects.equals(this.openTolerancePercent, attachToSignalProvider.openTolerancePercent) &&
 				Objects.equals(this.fixedVolume, attachToSignalProvider.fixedVolume) &&
-				Objects.equals(this.fixedCurrency, attachToSignalProvider.fixedCurrency) &&
-				Objects.equals(this.initialDepositCurrency, attachToSignalProvider.initialDepositCurrency) &&
-				Objects.equals(this.initialDepositAmount, attachToSignalProvider.initialDepositAmount);
+				Objects.equals(this.fixedCurrency, attachToSignalProvider.fixedCurrency);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(mode, percent, openTolerancePercent, fixedVolume, fixedCurrency, initialDepositCurrency, initialDepositAmount);
+		return Objects.hash(initialDepositCurrency, initialDepositAmount, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency);
 	}
 
 	@Override
@@ -212,13 +212,13 @@ public class AttachToSignalProvider
 		StringBuilder sb = new StringBuilder();
 		sb.append("class AttachToSignalProvider {\n");
 
+		sb.append("    initialDepositCurrency: ").append(toIndentedString(initialDepositCurrency)).append("\n");
+		sb.append("    initialDepositAmount: ").append(toIndentedString(initialDepositAmount)).append("\n");
 		sb.append("    mode: ").append(toIndentedString(mode)).append("\n");
 		sb.append("    percent: ").append(toIndentedString(percent)).append("\n");
 		sb.append("    openTolerancePercent: ").append(toIndentedString(openTolerancePercent)).append("\n");
 		sb.append("    fixedVolume: ").append(toIndentedString(fixedVolume)).append("\n");
 		sb.append("    fixedCurrency: ").append(toIndentedString(fixedCurrency)).append("\n");
-		sb.append("    initialDepositCurrency: ").append(toIndentedString(initialDepositCurrency)).append("\n");
-		sb.append("    initialDepositAmount: ").append(toIndentedString(initialDepositAmount)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -232,129 +232,6 @@ public class AttachToSignalProvider
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
-	}
-
-	/**
-	 * Gets or Sets mode
-	 */
-	@JsonAdapter(ModeEnum.Adapter.class)
-	public enum ModeEnum
-	{
-		BYBALANCE("ByBalance"),
-
-		PERCENT("Percent"),
-
-		FIXED("Fixed");
-
-		public static ModeEnum fromValue(String text) {
-			for (ModeEnum b : ModeEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		ModeEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<ModeEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final ModeEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public ModeEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return ModeEnum.fromValue(String.valueOf(value));
-			}
-		}
-	}
-
-
-	/**
-	 * Gets or Sets fixedCurrency
-	 */
-	@JsonAdapter(FixedCurrencyEnum.Adapter.class)
-	public enum FixedCurrencyEnum
-	{
-		UNDEFINED("Undefined"),
-
-		GVT("GVT"),
-
-		ETH("ETH"),
-
-		BTC("BTC"),
-
-		ADA("ADA"),
-
-		USDT("USDT"),
-
-		XRP("XRP"),
-
-		BCH("BCH"),
-
-		LTC("LTC"),
-
-		DOGE("DOGE"),
-
-		BNB("BNB"),
-
-		USD("USD"),
-
-		EUR("EUR");
-
-		public static FixedCurrencyEnum fromValue(String text) {
-			for (FixedCurrencyEnum b : FixedCurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		FixedCurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<FixedCurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final FixedCurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public FixedCurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return FixedCurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 
 	/**
@@ -424,6 +301,129 @@ public class AttachToSignalProvider
 			public InitialDepositCurrencyEnum read(final JsonReader jsonReader) throws IOException {
 				String value = jsonReader.nextString();
 				return InitialDepositCurrencyEnum.fromValue(String.valueOf(value));
+			}
+		}
+	}
+
+
+	/**
+	 * Gets or Sets mode
+	 */
+	@JsonAdapter(ModeEnum.Adapter.class)
+	public enum ModeEnum
+	{
+		BYBALANCE("ByBalance"),
+
+		PERCENT("Percent"),
+
+		FIXED("Fixed");
+
+		public static ModeEnum fromValue(String text) {
+			for (ModeEnum b : ModeEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		ModeEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<ModeEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final ModeEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public ModeEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return ModeEnum.fromValue(String.valueOf(value));
+			}
+		}
+	}
+
+	/**
+	 * Gets or Sets fixedCurrency
+	 */
+	@JsonAdapter(FixedCurrencyEnum.Adapter.class)
+	public enum FixedCurrencyEnum
+	{
+		UNDEFINED("Undefined"),
+
+		GVT("GVT"),
+
+		ETH("ETH"),
+
+		BTC("BTC"),
+
+		ADA("ADA"),
+
+		USDT("USDT"),
+
+		XRP("XRP"),
+
+		BCH("BCH"),
+
+		LTC("LTC"),
+
+		DOGE("DOGE"),
+
+		BNB("BNB"),
+
+		USD("USD"),
+
+		EUR("EUR");
+
+		public static FixedCurrencyEnum fromValue(String text) {
+			for (FixedCurrencyEnum b : FixedCurrencyEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		FixedCurrencyEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<FixedCurrencyEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final FixedCurrencyEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public FixedCurrencyEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return FixedCurrencyEnum.fromValue(String.valueOf(value));
 			}
 		}
 	}

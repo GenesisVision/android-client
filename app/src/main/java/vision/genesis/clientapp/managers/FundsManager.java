@@ -40,12 +40,12 @@ public class FundsManager
 
 	public Observable<FundsList> getFundsList(ProgramsFilter filter) {
 		return fundsApi.v10FundsGet(AuthManager.token.getValue(),
-				filter.getSorting().getValue(), filter.getCurrency() != null ? filter.getCurrency().getValue() : null,
+				filter.getSorting().getValue(), null, filter.getCurrency() != null ? filter.getCurrency().getValue() : null,
 				null,
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(), 10,
 				filter.getMask(), filter.getFacetId() != null ? filter.getFacetId().toString() : null, filter.getIsFavorite(), filter.getIsEnabled(),
 				null, null,
-				filter.getIds(), filter.getManagerId() != null ? filter.getManagerId().toString() : null, null, null, filter.getSkip(), filter.getTake());
+				filter.getIds(), null, filter.getManagerId() != null ? filter.getManagerId().toString() : null, null, null, filter.getSkip(), filter.getTake());
 	}
 
 	public Observable<Void> setFundFavorite(UUID fundId, boolean isFavorite) {
@@ -69,11 +69,11 @@ public class FundsManager
 	}
 
 	public Observable<FundProfitChart> getProfitChart(UUID fundId, DateRange dateRange, Integer maxPointCount) {
-		return fundsApi.v10FundsByIdChartsProfitGet(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount);
+		return fundsApi.v10FundsByIdChartsProfitGet(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null);
 	}
 
 	public Observable<FundBalanceChart> getBalanceChart(UUID fundId, DateRange dateRange, Integer maxPointCount) {
-		return fundsApi.v10FundsByIdChartsBalanceGet(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount);
+		return fundsApi.v10FundsByIdChartsBalanceGet(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null);
 	}
 
 	public Observable<DashboardPortfolioEvents> getFundHistory(UUID fundId, DateRange dateRange, Integer skip, Integer take) {

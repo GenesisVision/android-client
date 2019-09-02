@@ -8,6 +8,9 @@ Method | HTTP request | Description
 [**v10ProfileAvatarUpdateByFileIdPost**](ProfileApi.md#v10ProfileAvatarUpdateByFileIdPost) | **POST** v1.0/profile/avatar/update/{fileId} | Update avatar
 [**v10ProfileGet**](ProfileApi.md#v10ProfileGet) | **GET** v1.0/profile | Get full profile
 [**v10ProfileHeaderGet**](ProfileApi.md#v10ProfileHeaderGet) | **GET** v1.0/profile/header | Get header profile
+[**v10ProfileKeysAddPost**](ProfileApi.md#v10ProfileKeysAddPost) | **POST** v1.0/profile/keys/add | Add external exchange key
+[**v10ProfileKeysDeletePost**](ProfileApi.md#v10ProfileKeysDeletePost) | **POST** v1.0/profile/keys/delete | Delete external exchange key
+[**v10ProfileKeysGet**](ProfileApi.md#v10ProfileKeysGet) | **GET** v1.0/profile/keys | Get external exchange keys
 [**v10ProfilePersonalUpdatePost**](ProfileApi.md#v10ProfilePersonalUpdatePost) | **POST** v1.0/profile/personal/update | Update user personal details
 [**v10ProfilePushTokenPost**](ProfileApi.md#v10ProfilePushTokenPost) | **POST** v1.0/profile/push/token | 
 [**v10ProfileSociallinksGet**](ProfileApi.md#v10ProfileSociallinksGet) | **GET** v1.0/profile/sociallinks | Get social links
@@ -180,6 +183,139 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ProfileHeaderViewModel**](ProfileHeaderViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ProfileKeysAddPost"></a>
+# **v10ProfileKeysAddPost**
+> Void v10ProfileKeysAddPost(authorization, model)
+
+Add external exchange key
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ProfileApi;
+
+
+ProfileApi apiInstance = new ProfileApi();
+String authorization = "authorization_example"; // String | JWT access token
+ExternalKeyAddViewModel model = new ExternalKeyAddViewModel(); // ExternalKeyAddViewModel | 
+try {
+    Void result = apiInstance.v10ProfileKeysAddPost(authorization, model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProfileApi#v10ProfileKeysAddPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **model** | [**ExternalKeyAddViewModel**](ExternalKeyAddViewModel.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ProfileKeysDeletePost"></a>
+# **v10ProfileKeysDeletePost**
+> Void v10ProfileKeysDeletePost(authorization, model)
+
+Delete external exchange key
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ProfileApi;
+
+
+ProfileApi apiInstance = new ProfileApi();
+String authorization = "authorization_example"; // String | JWT access token
+IdModel model = new IdModel(); // IdModel | 
+try {
+    Void result = apiInstance.v10ProfileKeysDeletePost(authorization, model);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProfileApi#v10ProfileKeysDeletePost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **model** | [**IdModel**](IdModel.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="v10ProfileKeysGet"></a>
+# **v10ProfileKeysGet**
+> ExternalKeysViewModel v10ProfileKeysGet(authorization)
+
+Get external exchange keys
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ProfileApi;
+
+
+ProfileApi apiInstance = new ProfileApi();
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    ExternalKeysViewModel result = apiInstance.v10ProfileKeysGet(authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProfileApi#v10ProfileKeysGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**ExternalKeysViewModel**](ExternalKeysViewModel.md)
 
 ### Authorization
 

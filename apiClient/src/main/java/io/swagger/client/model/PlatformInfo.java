@@ -45,6 +45,9 @@ public class PlatformInfo
 	@SerializedName("currencies")
 	private List<String> currencies = null;
 
+	@SerializedName("programCurrencies")
+	private List<String> programCurrencies = null;
+
 	@SerializedName("platformCurrencies")
 	private List<PlatformCurrency> platformCurrencies = null;
 
@@ -189,6 +192,33 @@ public class PlatformInfo
 		this.currencies = currencies;
 	}
 
+	public PlatformInfo programCurrencies(List<String> programCurrencies) {
+		this.programCurrencies = programCurrencies;
+		return this;
+	}
+
+	public PlatformInfo addProgramCurrenciesItem(String programCurrenciesItem) {
+		if (this.programCurrencies == null) {
+			this.programCurrencies = new ArrayList<String>();
+		}
+		this.programCurrencies.add(programCurrenciesItem);
+		return this;
+	}
+
+	/**
+	 * Get programCurrencies
+	 *
+	 * @return programCurrencies
+	 **/
+	@ApiModelProperty(value = "")
+	public List<String> getProgramCurrencies() {
+		return programCurrencies;
+	}
+
+	public void setProgramCurrencies(List<String> programCurrencies) {
+		this.programCurrencies = programCurrencies;
+	}
+
 	public PlatformInfo platformCurrencies(List<PlatformCurrency> platformCurrencies) {
 		this.platformCurrencies = platformCurrencies;
 		return this;
@@ -251,13 +281,14 @@ public class PlatformInfo
 				Objects.equals(this.fundsFacets, platformInfo.fundsFacets) &&
 				Objects.equals(this.programsInfo, platformInfo.programsInfo) &&
 				Objects.equals(this.currencies, platformInfo.currencies) &&
+				Objects.equals(this.programCurrencies, platformInfo.programCurrencies) &&
 				Objects.equals(this.platformCurrencies, platformInfo.platformCurrencies) &&
 				Objects.equals(this.enums, platformInfo.enums);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(iOSVersion, androidVersion, programsFacets, fundsFacets, programsInfo, currencies, platformCurrencies, enums);
+		return Objects.hash(iOSVersion, androidVersion, programsFacets, fundsFacets, programsInfo, currencies, programCurrencies, platformCurrencies, enums);
 	}
 
 
@@ -272,6 +303,7 @@ public class PlatformInfo
 		sb.append("    fundsFacets: ").append(toIndentedString(fundsFacets)).append("\n");
 		sb.append("    programsInfo: ").append(toIndentedString(programsInfo)).append("\n");
 		sb.append("    currencies: ").append(toIndentedString(currencies)).append("\n");
+		sb.append("    programCurrencies: ").append(toIndentedString(programCurrencies)).append("\n");
 		sb.append("    platformCurrencies: ").append(toIndentedString(platformCurrencies)).append("\n");
 		sb.append("    enums: ").append(toIndentedString(enums)).append("\n");
 		sb.append("}");

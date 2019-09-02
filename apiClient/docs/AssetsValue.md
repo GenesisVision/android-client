@@ -21,6 +21,7 @@ Name | Value
 ALL | &quot;All&quot;
 PROGRAM | &quot;Program&quot;
 FUND | &quot;Fund&quot;
+SIGNAL | &quot;Signal&quot;
 
 
 

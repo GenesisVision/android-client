@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **providers** | [**List&lt;OrderSignalProgramInfo&gt;**](OrderSignalProgramInfo.md) |  |  [optional]
 **totalCommission** | **Double** |  |  [optional]
-**totalCommissionByType** | [**List&lt;TotalCommission&gt;**](TotalCommission.md) |  |  [optional]
+**totalCommissionByType** | [**List&lt;FeeDetails&gt;**](FeeDetails.md) |  |  [optional]
 **tradingAccountId** | [**UUID**](UUID.md) |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
@@ -57,6 +57,7 @@ SELL | &quot;Sell&quot;
 BALANCE | &quot;Balance&quot;
 CREDIT | &quot;Credit&quot;
 UNDEFINED | &quot;Undefined&quot;
+MANUALBALANCING | &quot;ManualBalancing&quot;
 
 
 <a name="EntryEnum"></a>

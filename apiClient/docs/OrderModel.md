@@ -33,6 +33,7 @@ SELL | &quot;Sell&quot;
 BALANCE | &quot;Balance&quot;
 CREDIT | &quot;Credit&quot;
 UNDEFINED | &quot;Undefined&quot;
+MANUALBALANCING | &quot;ManualBalancing&quot;
 
 
 <a name="EntryEnum"></a>

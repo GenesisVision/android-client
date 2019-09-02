@@ -31,6 +31,9 @@ public class PlatformCurrency
 	@SerializedName("rateToGvt")
 	private Double rateToGvt = null;
 
+	@SerializedName("color")
+	private String color = null;
+
 	public PlatformCurrency name(String name) {
 		this.name = name;
 		return this;
@@ -69,6 +72,25 @@ public class PlatformCurrency
 		this.rateToGvt = rateToGvt;
 	}
 
+	public PlatformCurrency color(String color) {
+		this.color = color;
+		return this;
+	}
+
+	/**
+	 * Get color
+	 *
+	 * @return color
+	 **/
+	@ApiModelProperty(value = "")
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -80,12 +102,13 @@ public class PlatformCurrency
 		}
 		PlatformCurrency platformCurrency = (PlatformCurrency) o;
 		return Objects.equals(this.name, platformCurrency.name) &&
-				Objects.equals(this.rateToGvt, platformCurrency.rateToGvt);
+				Objects.equals(this.rateToGvt, platformCurrency.rateToGvt) &&
+				Objects.equals(this.color, platformCurrency.color);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, rateToGvt);
+		return Objects.hash(name, rateToGvt, color);
 	}
 
 
@@ -96,6 +119,7 @@ public class PlatformCurrency
 
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    rateToGvt: ").append(toIndentedString(rateToGvt)).append("\n");
+		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -44,6 +44,9 @@ public class PlatformAsset
 	@SerializedName("color")
 	private String color = null;
 
+	@SerializedName("mandatoryFundPercent")
+	private Double mandatoryFundPercent = null;
+
 	public PlatformAsset id(UUID id) {
 		this.id = id;
 		return this;
@@ -158,6 +161,25 @@ public class PlatformAsset
 		this.color = color;
 	}
 
+	public PlatformAsset mandatoryFundPercent(Double mandatoryFundPercent) {
+		this.mandatoryFundPercent = mandatoryFundPercent;
+		return this;
+	}
+
+	/**
+	 * Get mandatoryFundPercent
+	 *
+	 * @return mandatoryFundPercent
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getMandatoryFundPercent() {
+		return mandatoryFundPercent;
+	}
+
+	public void setMandatoryFundPercent(Double mandatoryFundPercent) {
+		this.mandatoryFundPercent = mandatoryFundPercent;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -173,12 +195,13 @@ public class PlatformAsset
 				Objects.equals(this.asset, platformAsset.asset) &&
 				Objects.equals(this.description, platformAsset.description) &&
 				Objects.equals(this.icon, platformAsset.icon) &&
-				Objects.equals(this.color, platformAsset.color);
+				Objects.equals(this.color, platformAsset.color) &&
+				Objects.equals(this.mandatoryFundPercent, platformAsset.mandatoryFundPercent);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, asset, description, icon, color);
+		return Objects.hash(id, name, asset, description, icon, color, mandatoryFundPercent);
 	}
 
 
@@ -193,6 +216,7 @@ public class PlatformAsset
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
+		sb.append("    mandatoryFundPercent: ").append(toIndentedString(mandatoryFundPercent)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -2,12 +2,17 @@ package io.swagger.client.api;
 
 import org.joda.time.DateTime;
 
+import java.util.List;
 import java.util.UUID;
 
+import io.swagger.client.model.AttachToExternalSignalProviderExt;
 import io.swagger.client.model.AttachToSignalProvider;
 import io.swagger.client.model.AttachToSignalProviderInfo;
 import io.swagger.client.model.CopyTradingAccountsList;
 import io.swagger.client.model.DetachFromSignalProvider;
+import io.swagger.client.model.ManagerProgramCreateResult;
+import io.swagger.client.model.NewExternalSignalAccountRequest;
+import io.swagger.client.model.SignalAccountsList;
 import io.swagger.client.model.SignalTradingEvents;
 import io.swagger.client.model.TradesSignalViewModel;
 import retrofit2.http.GET;
@@ -86,6 +91,66 @@ public interface SignalApi
 	@POST("v1.0/signal/detach/{id}")
 	Observable<Void> v10SignalDetachByIdPost(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body DetachFromSignalProvider model
+	);
+
+	/**
+	 * Subscribe to external signal account
+	 *
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @param model         (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v1.0/signal/external/attach/{id}/external")
+	Observable<Void> v10SignalExternalAttachByIdExternalPost(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body AttachToExternalSignalProviderExt model
+	);
+
+	/**
+	 * Create external signal account
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param request       (optional)
+	 * @return Call&lt;ManagerProgramCreateResult&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v1.0/signal/external/create")
+	Observable<ManagerProgramCreateResult> v10SignalExternalCreatePost(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body NewExternalSignalAccountRequest request
+	);
+
+	/**
+	 * Accounts list
+	 *
+	 * @param authorization         (optional)
+	 * @param tags                  (optional)
+	 * @param sorting               (optional)
+	 * @param statisticDateFrom     (optional)
+	 * @param statisticDateTo       (optional)
+	 * @param chartPointsCount      (optional)
+	 * @param mask                  (optional)
+	 * @param facetId               (optional)
+	 * @param isFavorite            (optional)
+	 * @param isEnabled             (optional)
+	 * @param hasInvestorsForAll    (optional)
+	 * @param hasInvestorsForClosed (optional)
+	 * @param ids                   (optional)
+	 * @param forceUseIdsList       (optional)
+	 * @param managerId             (optional)
+	 * @param programManagerId      (optional)
+	 * @param status                (optional)
+	 * @param skip                  (optional)
+	 * @param take                  (optional)
+	 * @return Call&lt;SignalAccountsList&gt;
+	 */
+	@GET("v1.0/signal/external")
+	Observable<SignalAccountsList> v10SignalExternalGet(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Tags") List<String> tags, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("StatisticDateFrom") DateTime statisticDateFrom, @retrofit2.http.Query("StatisticDateTo") DateTime statisticDateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("IsFavorite") Boolean isFavorite, @retrofit2.http.Query("IsEnabled") Boolean isEnabled, @retrofit2.http.Query("HasInvestorsForAll") Boolean hasInvestorsForAll, @retrofit2.http.Query("HasInvestorsForClosed") Boolean hasInvestorsForClosed, @retrofit2.http.Query("Ids") List<UUID> ids, @retrofit2.http.Query("ForceUseIdsList") Boolean forceUseIdsList, @retrofit2.http.Query("ManagerId") String managerId, @retrofit2.http.Query("ProgramManagerId") UUID programManagerId, @retrofit2.http.Query("Status") List<String> status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

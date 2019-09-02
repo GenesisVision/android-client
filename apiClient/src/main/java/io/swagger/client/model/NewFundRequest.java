@@ -37,15 +37,6 @@ public class NewFundRequest
 	@SerializedName("assets")
 	private List<FundAssetPart> assets = null;
 
-	@SerializedName("title")
-	private String title = null;
-
-	@SerializedName("description")
-	private String description = null;
-
-	@SerializedName("logo")
-	private String logo = null;
-
 	@SerializedName("entryFee")
 	private Double entryFee = null;
 
@@ -54,6 +45,15 @@ public class NewFundRequest
 
 	@SerializedName("depositWalletId")
 	private UUID depositWalletId = null;
+
+	@SerializedName("title")
+	private String title = null;
+
+	@SerializedName("description")
+	private String description = null;
+
+	@SerializedName("logo")
+	private String logo = null;
 
 	public NewFundRequest exitFee(Double exitFee) {
 		this.exitFee = exitFee;
@@ -120,63 +120,6 @@ public class NewFundRequest
 		this.assets = assets;
 	}
 
-	public NewFundRequest title(String title) {
-		this.title = title;
-		return this;
-	}
-
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@ApiModelProperty(value = "")
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public NewFundRequest description(String description) {
-		this.description = description;
-		return this;
-	}
-
-	/**
-	 * Get description
-	 *
-	 * @return description
-	 **/
-	@ApiModelProperty(value = "")
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public NewFundRequest logo(String logo) {
-		this.logo = logo;
-		return this;
-	}
-
-	/**
-	 * Get logo
-	 *
-	 * @return logo
-	 **/
-	@ApiModelProperty(value = "")
-	public String getLogo() {
-		return logo;
-	}
-
-	public void setLogo(String logo) {
-		this.logo = logo;
-	}
-
 	public NewFundRequest entryFee(Double entryFee) {
 		this.entryFee = entryFee;
 		return this;
@@ -234,6 +177,63 @@ public class NewFundRequest
 		this.depositWalletId = depositWalletId;
 	}
 
+	public NewFundRequest title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@ApiModelProperty(value = "")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public NewFundRequest description(String description) {
+		this.description = description;
+		return this;
+	}
+
+	/**
+	 * Get description
+	 *
+	 * @return description
+	 **/
+	@ApiModelProperty(value = "")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public NewFundRequest logo(String logo) {
+		this.logo = logo;
+		return this;
+	}
+
+	/**
+	 * Get logo
+	 *
+	 * @return logo
+	 **/
+	@ApiModelProperty(value = "")
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -247,17 +247,17 @@ public class NewFundRequest
 		return Objects.equals(this.exitFee, newFundRequest.exitFee) &&
 				Objects.equals(this.managementFee, newFundRequest.managementFee) &&
 				Objects.equals(this.assets, newFundRequest.assets) &&
-				Objects.equals(this.title, newFundRequest.title) &&
-				Objects.equals(this.description, newFundRequest.description) &&
-				Objects.equals(this.logo, newFundRequest.logo) &&
 				Objects.equals(this.entryFee, newFundRequest.entryFee) &&
 				Objects.equals(this.depositAmount, newFundRequest.depositAmount) &&
-				Objects.equals(this.depositWalletId, newFundRequest.depositWalletId);
+				Objects.equals(this.depositWalletId, newFundRequest.depositWalletId) &&
+				Objects.equals(this.title, newFundRequest.title) &&
+				Objects.equals(this.description, newFundRequest.description) &&
+				Objects.equals(this.logo, newFundRequest.logo);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(exitFee, managementFee, assets, title, description, logo, entryFee, depositAmount, depositWalletId);
+		return Objects.hash(exitFee, managementFee, assets, entryFee, depositAmount, depositWalletId, title, description, logo);
 	}
 
 
@@ -269,12 +269,12 @@ public class NewFundRequest
 		sb.append("    exitFee: ").append(toIndentedString(exitFee)).append("\n");
 		sb.append("    managementFee: ").append(toIndentedString(managementFee)).append("\n");
 		sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    description: ").append(toIndentedString(description)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
 		sb.append("    depositAmount: ").append(toIndentedString(depositAmount)).append("\n");
 		sb.append("    depositWalletId: ").append(toIndentedString(depositWalletId)).append("\n");
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

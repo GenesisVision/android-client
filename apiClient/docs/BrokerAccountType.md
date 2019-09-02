@@ -26,8 +26,10 @@ NINJATRADER | &quot;NinjaTrader&quot;
 CTRADER | &quot;cTrader&quot;
 RUMUS | &quot;Rumus&quot;
 METASTOCK | &quot;Metastock&quot;
+IDEX | &quot;IDEX&quot;
 HUOBI | &quot;Huobi&quot;
 EXANTE | &quot;Exante&quot;
+BINANCEEXCHANGE | &quot;BinanceExchange&quot;
 
 
 

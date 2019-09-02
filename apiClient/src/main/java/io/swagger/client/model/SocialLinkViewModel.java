@@ -200,13 +200,13 @@ public class SocialLinkViewModel
 
 		FACEBOOK("Facebook"),
 
+		LINKEDIN("LinkedIn"),
+
 		YOUTUBE("Youtube"),
 
 		WECHAT("WeChat"),
 
-		EMAIL("Email"),
-
-		LINKEDIN("LinkedIn");
+		EMAIL("Email");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {

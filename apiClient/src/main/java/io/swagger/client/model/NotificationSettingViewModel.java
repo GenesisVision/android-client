@@ -276,7 +276,13 @@ public class NotificationSettingViewModel
 
 		MANAGERNEWPROGRAM("ManagerNewProgram"),
 
-		SIGNALS("Signals");
+		MANAGERNEWFUND("ManagerNewFund"),
+
+		MANAGERNEWEXTERNALSIGNALACCOUNT("ManagerNewExternalSignalAccount"),
+
+		SIGNALS("Signals"),
+
+		EXTERNALSIGNALS("ExternalSignals");
 
 		public static TypeEnum fromValue(String text) {
 			for (TypeEnum b : TypeEnum.values()) {

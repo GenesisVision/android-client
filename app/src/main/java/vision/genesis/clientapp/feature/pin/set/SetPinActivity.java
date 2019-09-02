@@ -47,12 +47,6 @@ public class SetPinActivity extends BaseSwipeBackActivity implements SetPinView
 	@BindView(R.id.text)
 	public TextView text;
 
-	@BindView(R.id.group_pins)
-	public ViewGroup pinsGroup;
-
-	@BindView(R.id.group_pin)
-	public ViewGroup pinGroup;
-
 	@BindView(R.id.view_pin_code)
 	public PinCodeView pinCodeView;
 
@@ -104,8 +98,9 @@ public class SetPinActivity extends BaseSwipeBackActivity implements SetPinView
 	@Override
 	protected void onStart() {
 		super.onStart();
-		if (firstStart)
+		if (firstStart) {
 			startAnimations();
+		}
 		firstStart = false;
 	}
 

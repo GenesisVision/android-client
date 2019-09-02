@@ -27,14 +27,36 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class FundBalanceChart
 {
+	@SerializedName("gvtBalance")
+	private Double gvtBalance = null;
+
 	@SerializedName("usdBalance")
 	private Double usdBalance = null;
+
+	@SerializedName("balance")
+	private Double balance = null;
 
 	@SerializedName("balanceChart")
 	private List<BalanceChartElement> balanceChart = null;
 
-	@SerializedName("gvtBalance")
-	private Double gvtBalance = null;
+	public FundBalanceChart gvtBalance(Double gvtBalance) {
+		this.gvtBalance = gvtBalance;
+		return this;
+	}
+
+	/**
+	 * Get gvtBalance
+	 *
+	 * @return gvtBalance
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getGvtBalance() {
+		return gvtBalance;
+	}
+
+	public void setGvtBalance(Double gvtBalance) {
+		this.gvtBalance = gvtBalance;
+	}
 
 	public FundBalanceChart usdBalance(Double usdBalance) {
 		this.usdBalance = usdBalance;
@@ -53,6 +75,25 @@ public class FundBalanceChart
 
 	public void setUsdBalance(Double usdBalance) {
 		this.usdBalance = usdBalance;
+	}
+
+	public FundBalanceChart balance(Double balance) {
+		this.balance = balance;
+		return this;
+	}
+
+	/**
+	 * Get balance
+	 *
+	 * @return balance
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Double balance) {
+		this.balance = balance;
 	}
 
 	public FundBalanceChart balanceChart(List<BalanceChartElement> balanceChart) {
@@ -82,25 +123,6 @@ public class FundBalanceChart
 		this.balanceChart = balanceChart;
 	}
 
-	public FundBalanceChart gvtBalance(Double gvtBalance) {
-		this.gvtBalance = gvtBalance;
-		return this;
-	}
-
-	/**
-	 * Get gvtBalance
-	 *
-	 * @return gvtBalance
-	 **/
-	@ApiModelProperty(value = "")
-	public Double getGvtBalance() {
-		return gvtBalance;
-	}
-
-	public void setGvtBalance(Double gvtBalance) {
-		this.gvtBalance = gvtBalance;
-	}
-
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -111,14 +133,15 @@ public class FundBalanceChart
 			return false;
 		}
 		FundBalanceChart fundBalanceChart = (FundBalanceChart) o;
-		return Objects.equals(this.usdBalance, fundBalanceChart.usdBalance) &&
-				Objects.equals(this.balanceChart, fundBalanceChart.balanceChart) &&
-				Objects.equals(this.gvtBalance, fundBalanceChart.gvtBalance);
+		return Objects.equals(this.gvtBalance, fundBalanceChart.gvtBalance) &&
+				Objects.equals(this.usdBalance, fundBalanceChart.usdBalance) &&
+				Objects.equals(this.balance, fundBalanceChart.balance) &&
+				Objects.equals(this.balanceChart, fundBalanceChart.balanceChart);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(usdBalance, balanceChart, gvtBalance);
+		return Objects.hash(gvtBalance, usdBalance, balance, balanceChart);
 	}
 
 
@@ -127,9 +150,10 @@ public class FundBalanceChart
 		StringBuilder sb = new StringBuilder();
 		sb.append("class FundBalanceChart {\n");
 
-		sb.append("    usdBalance: ").append(toIndentedString(usdBalance)).append("\n");
-		sb.append("    balanceChart: ").append(toIndentedString(balanceChart)).append("\n");
 		sb.append("    gvtBalance: ").append(toIndentedString(gvtBalance)).append("\n");
+		sb.append("    usdBalance: ").append(toIndentedString(usdBalance)).append("\n");
+		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+		sb.append("    balanceChart: ").append(toIndentedString(balanceChart)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

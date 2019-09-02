@@ -38,8 +38,11 @@ public class PersonalFundDetailsFull
 	@SerializedName("canReallocate")
 	private Boolean canReallocate = null;
 
-	@SerializedName("possibleReallocationTime")
-	private DateTime possibleReallocationTime = null;
+	@SerializedName("availableReallocationPercents")
+	private Integer availableReallocationPercents = null;
+
+	@SerializedName("nextReallocationPercents")
+	private DateTime nextReallocationPercents = null;
 
 	@SerializedName("isFavorite")
 	private Boolean isFavorite = null;
@@ -130,23 +133,42 @@ public class PersonalFundDetailsFull
 		this.canReallocate = canReallocate;
 	}
 
-	public PersonalFundDetailsFull possibleReallocationTime(DateTime possibleReallocationTime) {
-		this.possibleReallocationTime = possibleReallocationTime;
+	public PersonalFundDetailsFull availableReallocationPercents(Integer availableReallocationPercents) {
+		this.availableReallocationPercents = availableReallocationPercents;
 		return this;
 	}
 
 	/**
-	 * Get possibleReallocationTime
+	 * Get availableReallocationPercents
 	 *
-	 * @return possibleReallocationTime
+	 * @return availableReallocationPercents
 	 **/
 	@ApiModelProperty(value = "")
-	public DateTime getPossibleReallocationTime() {
-		return possibleReallocationTime;
+	public Integer getAvailableReallocationPercents() {
+		return availableReallocationPercents;
 	}
 
-	public void setPossibleReallocationTime(DateTime possibleReallocationTime) {
-		this.possibleReallocationTime = possibleReallocationTime;
+	public void setAvailableReallocationPercents(Integer availableReallocationPercents) {
+		this.availableReallocationPercents = availableReallocationPercents;
+	}
+
+	public PersonalFundDetailsFull nextReallocationPercents(DateTime nextReallocationPercents) {
+		this.nextReallocationPercents = nextReallocationPercents;
+		return this;
+	}
+
+	/**
+	 * Get nextReallocationPercents
+	 *
+	 * @return nextReallocationPercents
+	 **/
+	@ApiModelProperty(value = "")
+	public DateTime getNextReallocationPercents() {
+		return nextReallocationPercents;
+	}
+
+	public void setNextReallocationPercents(DateTime nextReallocationPercents) {
+		this.nextReallocationPercents = nextReallocationPercents;
 	}
 
 	public PersonalFundDetailsFull isFavorite(Boolean isFavorite) {
@@ -474,7 +496,8 @@ public class PersonalFundDetailsFull
 		PersonalFundDetailsFull personalFundDetailsFull = (PersonalFundDetailsFull) o;
 		return Objects.equals(this.withdrawPercent, personalFundDetailsFull.withdrawPercent) &&
 				Objects.equals(this.canReallocate, personalFundDetailsFull.canReallocate) &&
-				Objects.equals(this.possibleReallocationTime, personalFundDetailsFull.possibleReallocationTime) &&
+				Objects.equals(this.availableReallocationPercents, personalFundDetailsFull.availableReallocationPercents) &&
+				Objects.equals(this.nextReallocationPercents, personalFundDetailsFull.nextReallocationPercents) &&
 				Objects.equals(this.isFavorite, personalFundDetailsFull.isFavorite) &&
 				Objects.equals(this.isInvested, personalFundDetailsFull.isInvested) &&
 				Objects.equals(this.isOwnProgram, personalFundDetailsFull.isOwnProgram) &&
@@ -496,7 +519,7 @@ public class PersonalFundDetailsFull
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(withdrawPercent, canReallocate, possibleReallocationTime, isFavorite, isInvested, isOwnProgram, canCloseProgram, canCloseAsset, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, pendingOutputIsWithdrawAll, status);
+		return Objects.hash(withdrawPercent, canReallocate, availableReallocationPercents, nextReallocationPercents, isFavorite, isInvested, isOwnProgram, canCloseProgram, canCloseAsset, isFinishing, canInvest, canWithdraw, canClosePeriod, hasNotifications, value, profit, invested, pendingInput, pendingOutput, pendingOutputIsWithdrawAll, status);
 	}
 
 	@Override
@@ -506,7 +529,8 @@ public class PersonalFundDetailsFull
 
 		sb.append("    withdrawPercent: ").append(toIndentedString(withdrawPercent)).append("\n");
 		sb.append("    canReallocate: ").append(toIndentedString(canReallocate)).append("\n");
-		sb.append("    possibleReallocationTime: ").append(toIndentedString(possibleReallocationTime)).append("\n");
+		sb.append("    availableReallocationPercents: ").append(toIndentedString(availableReallocationPercents)).append("\n");
+		sb.append("    nextReallocationPercents: ").append(toIndentedString(nextReallocationPercents)).append("\n");
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
 		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");

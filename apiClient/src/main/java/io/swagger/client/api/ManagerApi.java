@@ -9,6 +9,7 @@ import io.swagger.client.model.ChangeBrokerProgramRequest;
 import io.swagger.client.model.FundAssetPart;
 import io.swagger.client.model.FundInvestInfo;
 import io.swagger.client.model.FundsList;
+import io.swagger.client.model.InvestmentEventViewModels;
 import io.swagger.client.model.ManagerAssets;
 import io.swagger.client.model.ManagerDashboard;
 import io.swagger.client.model.ManagerFundWithdrawInfo;
@@ -218,6 +219,7 @@ public interface ManagerApi
 	 *
 	 * @param authorization         JWT access token (required)
 	 * @param sorting               (optional)
+	 * @param currency              (optional)
 	 * @param from                  (optional)
 	 * @param to                    (optional)
 	 * @param chartPointsCount      (optional)
@@ -230,7 +232,7 @@ public interface ManagerApi
 	 */
 	@GET("v1.0/manager/funds")
 	Observable<FundsList> v10ManagerFundsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("ActionStatus") String actionStatus, @retrofit2.http.Query("DashboardActionStatus") String dashboardActionStatus, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("ActionStatus") String actionStatus, @retrofit2.http.Query("DashboardActionStatus") String dashboardActionStatus, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -272,6 +274,25 @@ public interface ManagerApi
 	@GET("v1.0/manager")
 	Observable<ManagerDashboard> v10ManagerGet(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("AssetId") UUID assetId, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("Type") String type, @retrofit2.http.Query("AssetType") String assetType, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Events
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param eventLocation (optional)
+	 * @param assetId       (optional)
+	 * @param from          (optional)
+	 * @param to            (optional)
+	 * @param eventType     (optional)
+	 * @param assetType     (optional)
+	 * @param skip          (optional)
+	 * @param take          (optional)
+	 * @return Call&lt;InvestmentEventViewModels&gt;
+	 */
+	@GET("v1.0/manager/investments/events")
+	Observable<InvestmentEventViewModels> v10ManagerInvestmentsEventsGet(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("EventLocation") String eventLocation, @retrofit2.http.Query("AssetId") UUID assetId, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("EventType") String eventType, @retrofit2.http.Query("AssetType") String assetType, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -540,11 +561,12 @@ public interface ManagerApi
 	 * @param skip          (required)
 	 * @param take          (required)
 	 * @param authorization JWT access token (required)
+	 * @param assetType     (optional)
 	 * @return Call&lt;ProgramRequests&gt;
 	 */
 	@GET("v1.0/manager/requests/{skip}/{take}")
 	Observable<ProgramRequests> v10ManagerRequestsBySkipByTakeGet(
-			@retrofit2.http.Path("skip") Integer skip, @retrofit2.http.Path("take") Integer take, @retrofit2.http.Header("Authorization") String authorization
+			@retrofit2.http.Path("skip") Integer skip, @retrofit2.http.Path("take") Integer take, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("assetType") String assetType
 	);
 
 	/**

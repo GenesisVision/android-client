@@ -7,6 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
@@ -14,9 +18,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -268,7 +269,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			this.status.setStatus(program.getPersonalDetails().getStatus().getValue());
 
 			this.reinvest.setChecked(program.getPersonalDetails().isIsReinvest());
-			this.reinvestGroup.setVisibility(program.getStatus().equals(ProgramDetails.StatusEnum.ACTIVE)
+			this.reinvestGroup.setVisibility(!program.getPersonalDetails().getStatus().equals(PersonalProgramDetailsFull.StatusEnum.ENDED)
 					? View.VISIBLE
 					: View.GONE);
 		}

@@ -27,11 +27,12 @@ public interface ProgramsApi
 	 * @param dateFrom      (optional)
 	 * @param dateTo        (optional)
 	 * @param maxPointCount (optional)
+	 * @param currency      (optional)
 	 * @return Call&lt;ProgramBalanceChart&gt;
 	 */
 	@GET("v1.0/programs/{id}/charts/balance")
 	Observable<ProgramBalanceChart> v10ProgramsByIdChartsBalanceGet(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency
 	);
 
 	/**
@@ -41,11 +42,12 @@ public interface ProgramsApi
 	 * @param dateFrom      (optional)
 	 * @param dateTo        (optional)
 	 * @param maxPointCount (optional)
+	 * @param currency      (optional)
 	 * @return Call&lt;ProgramProfitChart&gt;
 	 */
 	@GET("v1.0/programs/{id}/charts/profit")
 	Observable<ProgramProfitChart> v10ProgramsByIdChartsProfitGet(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency
 	);
 
 	/**
@@ -86,6 +88,43 @@ public interface ProgramsApi
 	);
 
 	/**
+	 * Export periods
+	 *
+	 * @param id        (required)
+	 * @param dateFrom  (optional)
+	 * @param dateTo    (optional)
+	 * @param numberMin (optional)
+	 * @param numberMax (optional)
+	 * @param status    (optional)
+	 * @param skip      (optional)
+	 * @param take      (optional)
+	 * @return Call&lt;byte[]&gt;
+	 */
+	@GET("v1.0/programs/{id}/periods/export")
+	Observable<byte[]> v10ProgramsByIdPeriodsExportGet(
+			@retrofit2.http.Path("id") String id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("NumberMin") Integer numberMin, @retrofit2.http.Query("NumberMax") Integer numberMax, @retrofit2.http.Query("Status") String status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Export period financial statistic
+	 *
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @param dateFrom      (optional)
+	 * @param dateTo        (optional)
+	 * @param numberMin     (optional)
+	 * @param numberMax     (optional)
+	 * @param status        (optional)
+	 * @param skip          (optional)
+	 * @param take          (optional)
+	 * @return Call&lt;byte[]&gt;
+	 */
+	@GET("v1.0/programs/{id}/periods/export/statistic")
+	Observable<byte[]> v10ProgramsByIdPeriodsExportStatisticGet(
+			@retrofit2.http.Path("id") String id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("NumberMin") Integer numberMin, @retrofit2.http.Query("NumberMax") Integer numberMax, @retrofit2.http.Query("Status") String status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
 	 * Program periods
 	 *
 	 * @param id            (required)
@@ -117,6 +156,25 @@ public interface ProgramsApi
 	@GET("v1.0/programs/{id}/subscribers")
 	Observable<SignalProviderSubscribers> v10ProgramsByIdSubscribersGet(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Status") String status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Export trades
+	 *
+	 * @param id              (required)
+	 * @param dateFrom        (optional)
+	 * @param dateTo          (optional)
+	 * @param symbol          (optional)
+	 * @param sorting         (optional)
+	 * @param accountId       (optional)
+	 * @param accountCurrency (optional)
+	 * @param skip            (optional)
+	 * @param take            (optional)
+	 * @return Call&lt;byte[]&gt;
+	 */
+	@GET("v1.0/programs/{id}/trades/export")
+	Observable<byte[]> v10ProgramsByIdTradesExportGet(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -156,19 +214,6 @@ public interface ProgramsApi
 	);
 
 	/**
-	 * Export trades
-	 *
-	 * @param programId (required)
-	 * @param start     (optional)
-	 * @param end       (optional)
-	 * @return Call&lt;byte[]&gt;
-	 */
-	@GET("v1.0/programs/{programId}/trades/export")
-	Observable<byte[]> v10ProgramsByProgramIdTradesExportGet(
-			@retrofit2.http.Path("programId") UUID programId, @retrofit2.http.Query("start") DateTime start, @retrofit2.http.Query("end") DateTime end
-	);
-
-	/**
 	 * Programs list
 	 *
 	 * @param authorization         (optional)
@@ -193,6 +238,7 @@ public interface ProgramsApi
 	 * @param hasInvestorsForAll    (optional)
 	 * @param hasInvestorsForClosed (optional)
 	 * @param ids                   (optional)
+	 * @param forceUseIdsList       (optional)
 	 * @param managerId             (optional)
 	 * @param programManagerId      (optional)
 	 * @param status                (optional)
@@ -202,7 +248,7 @@ public interface ProgramsApi
 	 */
 	@GET("v1.0/programs")
 	Observable<ProgramsList> v10ProgramsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("LevelMin") Integer levelMin, @retrofit2.http.Query("LevelMax") Integer levelMax, @retrofit2.http.Query("LevelsSet") List<Integer> levelsSet, @retrofit2.http.Query("ProfitAvgMin") Double profitAvgMin, @retrofit2.http.Query("ProfitAvgMax") Double profitAvgMax, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("ProgramCurrency") String programCurrency, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("LevelUpFrom") Integer levelUpFrom, @retrofit2.http.Query("Tags") List<String> tags, @retrofit2.http.Query("IsSignal") Boolean isSignal, @retrofit2.http.Query("StatisticDateFrom") DateTime statisticDateFrom, @retrofit2.http.Query("StatisticDateTo") DateTime statisticDateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("IsFavorite") Boolean isFavorite, @retrofit2.http.Query("IsEnabled") Boolean isEnabled, @retrofit2.http.Query("HasInvestorsForAll") Boolean hasInvestorsForAll, @retrofit2.http.Query("HasInvestorsForClosed") Boolean hasInvestorsForClosed, @retrofit2.http.Query("Ids") List<UUID> ids, @retrofit2.http.Query("ManagerId") String managerId, @retrofit2.http.Query("ProgramManagerId") UUID programManagerId, @retrofit2.http.Query("Status") List<String> status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("LevelMin") Integer levelMin, @retrofit2.http.Query("LevelMax") Integer levelMax, @retrofit2.http.Query("LevelsSet") List<Integer> levelsSet, @retrofit2.http.Query("ProfitAvgMin") Double profitAvgMin, @retrofit2.http.Query("ProfitAvgMax") Double profitAvgMax, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("ProgramCurrency") String programCurrency, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("LevelUpFrom") Integer levelUpFrom, @retrofit2.http.Query("Tags") List<String> tags, @retrofit2.http.Query("IsSignal") Boolean isSignal, @retrofit2.http.Query("StatisticDateFrom") DateTime statisticDateFrom, @retrofit2.http.Query("StatisticDateTo") DateTime statisticDateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("IsFavorite") Boolean isFavorite, @retrofit2.http.Query("IsEnabled") Boolean isEnabled, @retrofit2.http.Query("HasInvestorsForAll") Boolean hasInvestorsForAll, @retrofit2.http.Query("HasInvestorsForClosed") Boolean hasInvestorsForClosed, @retrofit2.http.Query("Ids") List<UUID> ids, @retrofit2.http.Query("ForceUseIdsList") Boolean forceUseIdsList, @retrofit2.http.Query("ManagerId") String managerId, @retrofit2.http.Query("ProgramManagerId") UUID programManagerId, @retrofit2.http.Query("Status") List<String> status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

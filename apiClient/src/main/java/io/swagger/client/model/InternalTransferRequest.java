@@ -226,7 +226,11 @@ public class InternalTransferRequest
 
 		GENESISVISIONPLATFORM("GenesisVisionPlatform"),
 
-		SIGNALPROVIDERSETTINGS("SignalProviderSettings");
+		SIGNALPROVIDERSETTINGS("SignalProviderSettings"),
+
+		PROGRAM("Program"),
+
+		FUND("Fund");
 
 		public static SourceTypeEnum fromValue(String text) {
 			for (SourceTypeEnum b : SourceTypeEnum.values()) {
@@ -281,7 +285,11 @@ public class InternalTransferRequest
 
 		GENESISVISIONPLATFORM("GenesisVisionPlatform"),
 
-		SIGNALPROVIDERSETTINGS("SignalProviderSettings");
+		SIGNALPROVIDERSETTINGS("SignalProviderSettings"),
+
+		PROGRAM("Program"),
+
+		FUND("Fund");
 
 		public static DestinationTypeEnum fromValue(String text) {
 			for (DestinationTypeEnum b : DestinationTypeEnum.values()) {

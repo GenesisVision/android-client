@@ -9,6 +9,7 @@ import io.swagger.client.model.LevelUpSummary;
 import io.swagger.client.model.ProgramBalanceChart;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramInvestInfo;
+import io.swagger.client.model.ProgramPeriodsViewModel;
 import io.swagger.client.model.ProgramProfitChart;
 import io.swagger.client.model.ProgramWithdrawInfo;
 import io.swagger.client.model.ProgramsList;
@@ -41,13 +42,21 @@ public class ProgramsManager
 
 	public Observable<ProgramsList> getProgramsList(ProgramsFilter filter) {
 		return programsApi.v10ProgramsGet(AuthManager.token.getValue(),
-				filter.getLevelMin(), filter.getLevelMax(), null, filter.getProfitAvgMin(), filter.getProfitAvgMax(),
-				filter.getSorting() != null ? filter.getSorting().getValue() : null, filter.getCurrency() != null ? filter.getCurrency().getValue() : null, null,
+				filter.getLevelMin(), filter.getLevelMax(), null,
+				filter.getProfitAvgMin(), filter.getProfitAvgMax(),
+				filter.getSorting() != null ? filter.getSorting().getValue() : null,
+				filter.getCurrency() != null ? filter.getCurrency().getValue() : null, null,
 				filter.getLevelUpFrom(), filter.getTags(), null,
-				filter.getDateRange() != null ? filter.getDateRange().getFrom() : null, filter.getDateRange() != null ? filter.getDateRange().getTo() : null,
-				filter.getChartPointsCount(), filter.getMask(), filter.getFacetId() != null ? filter.getFacetId().toString() : null, filter.getIsFavorite(), filter.getIsEnabled(),
+				filter.getDateRange() != null ? filter.getDateRange().getFrom() : null,
+				filter.getDateRange() != null ? filter.getDateRange().getTo() : null,
+				filter.getChartPointsCount(), filter.getMask(),
+				filter.getFacetId() != null ? filter.getFacetId().toString() : null,
+				filter.getIsFavorite(), filter.getIsEnabled(),
 				null, null,
-				filter.getIds(), filter.getManagerId() != null ? filter.getManagerId().toString() : null, null, null, filter.getSkip(), filter.getTake());
+				filter.getIds(), null,
+				filter.getManagerId() != null ? filter.getManagerId().toString() : null, null,
+				null,
+				filter.getSkip(), filter.getTake());
 	}
 
 	public Observable<Void> setProgramFavorite(UUID programId, boolean isFavorite) {
@@ -71,11 +80,11 @@ public class ProgramsManager
 	}
 
 	public Observable<ProgramProfitChart> getProfitChart(UUID programId, DateRange dateRange, Integer maxPointCount) {
-		return programsApi.v10ProgramsByIdChartsProfitGet(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount);
+		return programsApi.v10ProgramsByIdChartsProfitGet(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null);
 	}
 
 	public Observable<ProgramBalanceChart> getBalanceChart(UUID programId, DateRange dateRange, Integer maxPointCount) {
-		return programsApi.v10ProgramsByIdChartsBalanceGet(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount);
+		return programsApi.v10ProgramsByIdChartsBalanceGet(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null);
 	}
 
 	public Observable<TradesViewModel> getProgramTrades(UUID programId, DateRange dateRange, Integer skip, Integer take) {
@@ -112,23 +121,10 @@ public class ProgramsManager
 		return programsApi.v10ProgramsLevelupSummaryGet(AuthManager.token.getValue());
 	}
 
-	//	public Observable<Void> withdraw(ProgramRequest withdrawalRequest) {
-//		Invest model = new Invest();
-//		model.setInvestmentProgramId(withdrawalRequest.programId);
-//		model.setAmount(withdrawalRequest.amount);
-//		return investorApi.apiInvestorInvestmentProgramsWithdrawPost(AuthManager.token.getValue(), model);
-//	}
-//
-//
-//	public Observable<InvestmentProgramRequests> getInvestmentProgramRequests(InvestmentProgramRequestsFilter filter) {
-//		return investorApi.apiInvestorInvestmentProgramRequestsPost(AuthManager.token.getValue(), filter);
-//	}
-//
-//	public Observable<BrokersViewModel> getDataToCreateProgram() {
-//		return managerApi.apiManagerBrokersPost(new BrokersFilter());
-//	}
-//
-//	public Observable<UUID> sendCreateProgramRequest(NewInvestmentRequest request) {
-//		return managerApi.apiManagerAccountNewInvestmentRequestPost(AuthManager.token.getValue(), request);
-//	}
+	public Observable<ProgramPeriodsViewModel> getPeriodHistory(UUID programId, DateRange dateRange, int skip, int take) {
+		return programsApi.v10ProgramsByIdPeriodsGet(programId.toString(), AuthManager.token.getValue(),
+				dateRange.getFrom(), dateRange.getTo(),
+				null, null, null,
+				skip, take);
+	}
 }

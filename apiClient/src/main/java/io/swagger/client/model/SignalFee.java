@@ -175,6 +175,8 @@ public class SignalFee
 
 		GVPROGRAMSUCCESS("GvProgramSuccess"),
 
+		GVPROGRAMSUCCESSSUM("GvProgramSuccessSum"),
+
 		GVFUNDENTRY("GvFundEntry"),
 
 		GVGMGVTHOLDERFEE("GvGmGvtHolderFee"),
@@ -182,6 +184,8 @@ public class SignalFee
 		MANAGERPROGRAMENTRY("ManagerProgramEntry"),
 
 		MANAGERPROGRAMSUCCESS("ManagerProgramSuccess"),
+
+		MANAGERPROGRAMSUCCESSSUM("ManagerProgramSuccessSum"),
 
 		MANAGERFUNDENTRY("ManagerFundEntry"),
 

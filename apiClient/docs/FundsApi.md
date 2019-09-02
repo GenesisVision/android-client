@@ -100,7 +100,7 @@ No authorization required
 
 <a name="v10FundsByIdChartsBalanceGet"></a>
 # **v10FundsByIdChartsBalanceGet**
-> FundBalanceChart v10FundsByIdChartsBalanceGet(id, dateFrom, dateTo, maxPointCount)
+> FundBalanceChart v10FundsByIdChartsBalanceGet(id, dateFrom, dateTo, maxPointCount, currency)
 
 Fund balance chart
 
@@ -116,8 +116,9 @@ UUID id = new UUID(); // UUID |
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
+String currency = "currency_example"; // String | 
 try {
-    FundBalanceChart result = apiInstance.v10FundsByIdChartsBalanceGet(id, dateFrom, dateTo, maxPointCount);
+    FundBalanceChart result = apiInstance.v10FundsByIdChartsBalanceGet(id, dateFrom, dateTo, maxPointCount, currency);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#v10FundsByIdChartsBalanceGet");
@@ -133,6 +134,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -149,7 +151,7 @@ No authorization required
 
 <a name="v10FundsByIdChartsProfitGet"></a>
 # **v10FundsByIdChartsProfitGet**
-> FundProfitChart v10FundsByIdChartsProfitGet(id, dateFrom, dateTo, maxPointCount)
+> FundProfitChart v10FundsByIdChartsProfitGet(id, dateFrom, dateTo, maxPointCount, currency, chartAssetsCount)
 
 Fund profit chart
 
@@ -165,8 +167,10 @@ UUID id = new UUID(); // UUID |
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
+String currency = "currency_example"; // String | 
+Integer chartAssetsCount = 3; // Integer | 
 try {
-    FundProfitChart result = apiInstance.v10FundsByIdChartsProfitGet(id, dateFrom, dateTo, maxPointCount);
+    FundProfitChart result = apiInstance.v10FundsByIdChartsProfitGet(id, dateFrom, dateTo, maxPointCount, currency, chartAssetsCount);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#v10FundsByIdChartsProfitGet");
@@ -182,6 +186,8 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **chartAssetsCount** | **Integer**|  | [optional] [default to 3]
 
 ### Return type
 
@@ -288,7 +294,7 @@ No authorization required
 
 <a name="v10FundsByIdGet"></a>
 # **v10FundsByIdGet**
-> FundDetailsFull v10FundsByIdGet(id, authorization, currencySecondary)
+> FundDetailsFull v10FundsByIdGet(id, authorization, currency)
 
 Funds details
 
@@ -302,9 +308,9 @@ Funds details
 FundsApi apiInstance = new FundsApi();
 String id = "id_example"; // String | 
 String authorization = "authorization_example"; // String | 
-String currencySecondary = "currencySecondary_example"; // String | 
+String currency = "currency_example"; // String | 
 try {
-    FundDetailsFull result = apiInstance.v10FundsByIdGet(id, authorization, currencySecondary);
+    FundDetailsFull result = apiInstance.v10FundsByIdGet(id, authorization, currency);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#v10FundsByIdGet");
@@ -318,7 +324,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  |
  **authorization** | **String**|  | [optional]
- **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -335,7 +341,7 @@ No authorization required
 
 <a name="v10FundsByIdReallocationsGet"></a>
 # **v10FundsByIdReallocationsGet**
-> Void v10FundsByIdReallocationsGet(id, dateFrom, dateTo, skip, take)
+> ReallocationsViewModel v10FundsByIdReallocationsGet(id, dateFrom, dateTo, skip, take)
 
 Get history of asset part update requests.
 
@@ -353,7 +359,7 @@ DateTime dateTo = new DateTime(); // DateTime |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    Void result = apiInstance.v10FundsByIdReallocationsGet(id, dateFrom, dateTo, skip, take);
+    ReallocationsViewModel result = apiInstance.v10FundsByIdReallocationsGet(id, dateFrom, dateTo, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#v10FundsByIdReallocationsGet");
@@ -373,7 +379,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Void**](.md)
+[**ReallocationsViewModel**](ReallocationsViewModel.md)
 
 ### Authorization
 
@@ -386,7 +392,7 @@ No authorization required
 
 <a name="v10FundsGet"></a>
 # **v10FundsGet**
-> FundsList v10FundsGet(authorization, sorting, currencySecondary, assets, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, hasInvestorsForAll, hasInvestorsForClosed, ids, managerId, programManagerId, status, skip, take)
+> FundsList v10FundsGet(authorization, sorting, currencySecondary, currency, assets, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, hasInvestorsForAll, hasInvestorsForClosed, ids, forceUseIdsList, managerId, programManagerId, status, skip, take)
 
 Funds list
 
@@ -401,6 +407,7 @@ FundsApi apiInstance = new FundsApi();
 String authorization = "authorization_example"; // String | 
 String sorting = "sorting_example"; // String | 
 String currencySecondary = "currencySecondary_example"; // String | 
+String currency = "currency_example"; // String | 
 List<String> assets = Arrays.asList("assets_example"); // List<String> | 
 DateTime statisticDateFrom = new DateTime(); // DateTime | 
 DateTime statisticDateTo = new DateTime(); // DateTime | 
@@ -412,13 +419,14 @@ Boolean isEnabled = true; // Boolean |
 Boolean hasInvestorsForAll = true; // Boolean | 
 Boolean hasInvestorsForClosed = true; // Boolean | 
 List<UUID> ids = Arrays.asList(new UUID()); // List<UUID> | 
+Boolean forceUseIdsList = true; // Boolean | 
 String managerId = "managerId_example"; // String | 
 UUID programManagerId = new UUID(); // UUID | 
 List<String> status = Arrays.asList("status_example"); // List<String> | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    FundsList result = apiInstance.v10FundsGet(authorization, sorting, currencySecondary, assets, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, hasInvestorsForAll, hasInvestorsForClosed, ids, managerId, programManagerId, status, skip, take);
+    FundsList result = apiInstance.v10FundsGet(authorization, sorting, currencySecondary, currency, assets, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, hasInvestorsForAll, hasInvestorsForClosed, ids, forceUseIdsList, managerId, programManagerId, status, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#v10FundsGet");
@@ -433,6 +441,7 @@ Name | Type | Description  | Notes
  **authorization** | **String**|  | [optional]
  **sorting** | **String**|  | [optional] [enum: ByProfitAsc, ByProfitDesc, ByDrawdownAsc, ByDrawdownDesc, ByInvestorsAsc, ByInvestorsDesc, ByNewAsc, ByNewDesc, ByTitleAsc, ByTitleDesc, ByBalanceAsc, ByBalanceDesc]
  **currencySecondary** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **assets** | [**List&lt;String&gt;**](String.md)|  | [optional]
  **statisticDateFrom** | **DateTime**|  | [optional]
  **statisticDateTo** | **DateTime**|  | [optional]
@@ -444,6 +453,7 @@ Name | Type | Description  | Notes
  **hasInvestorsForAll** | **Boolean**|  | [optional]
  **hasInvestorsForClosed** | **Boolean**|  | [optional]
  **ids** | [**List&lt;UUID&gt;**](UUID.md)|  | [optional]
+ **forceUseIdsList** | **Boolean**|  | [optional]
  **managerId** | **String**|  | [optional]
  **programManagerId** | [**UUID**](.md)|  | [optional]
  **status** | [**List&lt;String&gt;**](String.md)|  | [optional] [enum: None, Pending, ErrorCreating, Active, Closed, Archived, ClosedDueToInactivity]

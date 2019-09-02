@@ -12,6 +12,7 @@ import io.swagger.client.model.FundProfitChart;
 import io.swagger.client.model.FundSets;
 import io.swagger.client.model.FundsList;
 import io.swagger.client.model.PlatformAssets;
+import io.swagger.client.model.ReallocationsViewModel;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import rx.Observable;
@@ -45,25 +46,28 @@ public interface FundsApi
 	 * @param dateFrom      (optional)
 	 * @param dateTo        (optional)
 	 * @param maxPointCount (optional)
+	 * @param currency      (optional)
 	 * @return Call&lt;FundBalanceChart&gt;
 	 */
 	@GET("v1.0/funds/{id}/charts/balance")
 	Observable<FundBalanceChart> v10FundsByIdChartsBalanceGet(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency
 	);
 
 	/**
 	 * Fund profit chart
 	 *
-	 * @param id            (required)
-	 * @param dateFrom      (optional)
-	 * @param dateTo        (optional)
-	 * @param maxPointCount (optional)
+	 * @param id               (required)
+	 * @param dateFrom         (optional)
+	 * @param dateTo           (optional)
+	 * @param maxPointCount    (optional)
+	 * @param currency         (optional)
+	 * @param chartAssetsCount (optional, default to 3)
 	 * @return Call&lt;FundProfitChart&gt;
 	 */
 	@GET("v1.0/funds/{id}/charts/profit")
 	Observable<FundProfitChart> v10FundsByIdChartsProfitGet(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("chartAssetsCount") Integer chartAssetsCount
 	);
 
 	/**
@@ -93,14 +97,14 @@ public interface FundsApi
 	/**
 	 * Funds details
 	 *
-	 * @param id                (required)
-	 * @param authorization     (optional)
-	 * @param currencySecondary (optional)
+	 * @param id            (required)
+	 * @param authorization (optional)
+	 * @param currency      (optional)
 	 * @return Call&lt;FundDetailsFull&gt;
 	 */
 	@GET("v1.0/funds/{id}")
 	Observable<FundDetailsFull> v10FundsByIdGet(
-			@retrofit2.http.Path("id") String id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currencySecondary") String currencySecondary
+			@retrofit2.http.Path("id") String id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currency") String currency
 	);
 
 	/**
@@ -111,10 +115,10 @@ public interface FundsApi
 	 * @param dateTo   (optional)
 	 * @param skip     (optional)
 	 * @param take     (optional)
-	 * @return Call&lt;Void&gt;
+	 * @return Call&lt;ReallocationsViewModel&gt;
 	 */
 	@GET("v1.0/funds/{id}/reallocations")
-	Observable<Void> v10FundsByIdReallocationsGet(
+	Observable<ReallocationsViewModel> v10FundsByIdReallocationsGet(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
@@ -124,6 +128,7 @@ public interface FundsApi
 	 * @param authorization         (optional)
 	 * @param sorting               (optional)
 	 * @param currencySecondary     (optional)
+	 * @param currency              (optional)
 	 * @param assets                (optional)
 	 * @param statisticDateFrom     (optional)
 	 * @param statisticDateTo       (optional)
@@ -135,6 +140,7 @@ public interface FundsApi
 	 * @param hasInvestorsForAll    (optional)
 	 * @param hasInvestorsForClosed (optional)
 	 * @param ids                   (optional)
+	 * @param forceUseIdsList       (optional)
 	 * @param managerId             (optional)
 	 * @param programManagerId      (optional)
 	 * @param status                (optional)
@@ -144,7 +150,7 @@ public interface FundsApi
 	 */
 	@GET("v1.0/funds")
 	Observable<FundsList> v10FundsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("Assets") List<String> assets, @retrofit2.http.Query("StatisticDateFrom") DateTime statisticDateFrom, @retrofit2.http.Query("StatisticDateTo") DateTime statisticDateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("IsFavorite") Boolean isFavorite, @retrofit2.http.Query("IsEnabled") Boolean isEnabled, @retrofit2.http.Query("HasInvestorsForAll") Boolean hasInvestorsForAll, @retrofit2.http.Query("HasInvestorsForClosed") Boolean hasInvestorsForClosed, @retrofit2.http.Query("Ids") List<UUID> ids, @retrofit2.http.Query("ManagerId") String managerId, @retrofit2.http.Query("ProgramManagerId") UUID programManagerId, @retrofit2.http.Query("Status") List<String> status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("CurrencySecondary") String currencySecondary, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("Assets") List<String> assets, @retrofit2.http.Query("StatisticDateFrom") DateTime statisticDateFrom, @retrofit2.http.Query("StatisticDateTo") DateTime statisticDateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("IsFavorite") Boolean isFavorite, @retrofit2.http.Query("IsEnabled") Boolean isEnabled, @retrofit2.http.Query("HasInvestorsForAll") Boolean hasInvestorsForAll, @retrofit2.http.Query("HasInvestorsForClosed") Boolean hasInvestorsForClosed, @retrofit2.http.Query("Ids") List<UUID> ids, @retrofit2.http.Query("ForceUseIdsList") Boolean forceUseIdsList, @retrofit2.http.Query("ManagerId") String managerId, @retrofit2.http.Query("ProgramManagerId") UUID programManagerId, @retrofit2.http.Query("Status") List<String> status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

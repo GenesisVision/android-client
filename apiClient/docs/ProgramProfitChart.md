@@ -4,6 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**equityChart** | [**List&lt;ChartSimple&gt;**](ChartSimple.md) |  |  [optional]
 **totalProgramCurrencyProfit** | **Double** |  |  [optional]
 **timeframeProgramCurrencyProfit** | **Double** |  |  [optional]
 **programCurrency** | [**ProgramCurrencyEnum**](#ProgramCurrencyEnum) |  |  [optional]
@@ -15,7 +16,8 @@ Name | Type | Description | Notes
 **lastPeriodStarts** | [**DateTime**](DateTime.md) |  |  [optional]
 **lastPeriodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
 **tradingVolume** | **Double** |  |  [optional]
-**equityChart** | [**List&lt;ChartSimple&gt;**](ChartSimple.md) |  |  [optional]
+**totalGvtProfit** | **Double** |  |  [optional]
+**timeframeGvtProfit** | **Double** |  |  [optional]
 **balance** | **Double** |  |  [optional]
 **investors** | **Integer** |  |  [optional]
 **profitChangePercent** | **Double** |  |  [optional]
@@ -23,8 +25,6 @@ Name | Type | Description | Notes
 **sortinoRatio** | **Double** |  |  [optional]
 **calmarRatio** | **Double** |  |  [optional]
 **maxDrawdown** | **Double** |  |  [optional]
-**totalGvtProfit** | **Double** |  |  [optional]
-**timeframeGvtProfit** | **Double** |  |  [optional]
 **rate** | **Double** |  |  [optional]
 
 

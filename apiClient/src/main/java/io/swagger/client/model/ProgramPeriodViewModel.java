@@ -38,6 +38,9 @@ public class ProgramPeriodViewModel
 	@SerializedName("dateTo")
 	private DateTime dateTo = null;
 
+	@SerializedName("periodLength")
+	private Double periodLength = null;
+
 	@SerializedName("status")
 	private StatusEnum status = null;
 
@@ -53,8 +56,29 @@ public class ProgramPeriodViewModel
 	@SerializedName("investors")
 	private Integer investors = null;
 
+	@SerializedName("managerDeposit")
+	private Double managerDeposit = null;
+
+	@SerializedName("managerWithdraw")
+	private Double managerWithdraw = null;
+
+	@SerializedName("managerCommissionRebate")
+	private Double managerCommissionRebate = null;
+
+	@SerializedName("investorsDeposit")
+	private Double investorsDeposit = null;
+
+	@SerializedName("investorsWithdraw")
+	private Double investorsWithdraw = null;
+
+	@SerializedName("investorsProfitWithdraw")
+	private Double investorsProfitWithdraw = null;
+
+	@SerializedName("platformSuccessFee")
+	private Double platformSuccessFee = null;
+
 	@SerializedName("managerStatistic")
-	private FinancialStatistic managerStatistic = null;
+	private ManagerFinancialStatistic managerStatistic = null;
 
 	public ProgramPeriodViewModel dateFrom(DateTime dateFrom) {
 		this.dateFrom = dateFrom;
@@ -92,6 +116,25 @@ public class ProgramPeriodViewModel
 
 	public void setDateTo(DateTime dateTo) {
 		this.dateTo = dateTo;
+	}
+
+	public ProgramPeriodViewModel periodLength(Double periodLength) {
+		this.periodLength = periodLength;
+		return this;
+	}
+
+	/**
+	 * Get periodLength
+	 *
+	 * @return periodLength
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getPeriodLength() {
+		return periodLength;
+	}
+
+	public void setPeriodLength(Double periodLength) {
+		this.periodLength = periodLength;
 	}
 
 	public ProgramPeriodViewModel status(StatusEnum status) {
@@ -189,7 +232,140 @@ public class ProgramPeriodViewModel
 		this.investors = investors;
 	}
 
-	public ProgramPeriodViewModel managerStatistic(FinancialStatistic managerStatistic) {
+	public ProgramPeriodViewModel managerDeposit(Double managerDeposit) {
+		this.managerDeposit = managerDeposit;
+		return this;
+	}
+
+	/**
+	 * Get managerDeposit
+	 *
+	 * @return managerDeposit
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getManagerDeposit() {
+		return managerDeposit;
+	}
+
+	public void setManagerDeposit(Double managerDeposit) {
+		this.managerDeposit = managerDeposit;
+	}
+
+	public ProgramPeriodViewModel managerWithdraw(Double managerWithdraw) {
+		this.managerWithdraw = managerWithdraw;
+		return this;
+	}
+
+	/**
+	 * Get managerWithdraw
+	 *
+	 * @return managerWithdraw
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getManagerWithdraw() {
+		return managerWithdraw;
+	}
+
+	public void setManagerWithdraw(Double managerWithdraw) {
+		this.managerWithdraw = managerWithdraw;
+	}
+
+	public ProgramPeriodViewModel managerCommissionRebate(Double managerCommissionRebate) {
+		this.managerCommissionRebate = managerCommissionRebate;
+		return this;
+	}
+
+	/**
+	 * Get managerCommissionRebate
+	 *
+	 * @return managerCommissionRebate
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getManagerCommissionRebate() {
+		return managerCommissionRebate;
+	}
+
+	public void setManagerCommissionRebate(Double managerCommissionRebate) {
+		this.managerCommissionRebate = managerCommissionRebate;
+	}
+
+	public ProgramPeriodViewModel investorsDeposit(Double investorsDeposit) {
+		this.investorsDeposit = investorsDeposit;
+		return this;
+	}
+
+	/**
+	 * Get investorsDeposit
+	 *
+	 * @return investorsDeposit
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getInvestorsDeposit() {
+		return investorsDeposit;
+	}
+
+	public void setInvestorsDeposit(Double investorsDeposit) {
+		this.investorsDeposit = investorsDeposit;
+	}
+
+	public ProgramPeriodViewModel investorsWithdraw(Double investorsWithdraw) {
+		this.investorsWithdraw = investorsWithdraw;
+		return this;
+	}
+
+	/**
+	 * Get investorsWithdraw
+	 *
+	 * @return investorsWithdraw
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getInvestorsWithdraw() {
+		return investorsWithdraw;
+	}
+
+	public void setInvestorsWithdraw(Double investorsWithdraw) {
+		this.investorsWithdraw = investorsWithdraw;
+	}
+
+	public ProgramPeriodViewModel investorsProfitWithdraw(Double investorsProfitWithdraw) {
+		this.investorsProfitWithdraw = investorsProfitWithdraw;
+		return this;
+	}
+
+	/**
+	 * Get investorsProfitWithdraw
+	 *
+	 * @return investorsProfitWithdraw
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getInvestorsProfitWithdraw() {
+		return investorsProfitWithdraw;
+	}
+
+	public void setInvestorsProfitWithdraw(Double investorsProfitWithdraw) {
+		this.investorsProfitWithdraw = investorsProfitWithdraw;
+	}
+
+	public ProgramPeriodViewModel platformSuccessFee(Double platformSuccessFee) {
+		this.platformSuccessFee = platformSuccessFee;
+		return this;
+	}
+
+	/**
+	 * Get platformSuccessFee
+	 *
+	 * @return platformSuccessFee
+	 **/
+	@ApiModelProperty(value = "")
+	public Double getPlatformSuccessFee() {
+		return platformSuccessFee;
+	}
+
+	public void setPlatformSuccessFee(Double platformSuccessFee) {
+		this.platformSuccessFee = platformSuccessFee;
+	}
+
+	public ProgramPeriodViewModel managerStatistic(ManagerFinancialStatistic managerStatistic) {
 		this.managerStatistic = managerStatistic;
 		return this;
 	}
@@ -200,11 +376,11 @@ public class ProgramPeriodViewModel
 	 * @return managerStatistic
 	 **/
 	@ApiModelProperty(value = "")
-	public FinancialStatistic getManagerStatistic() {
+	public ManagerFinancialStatistic getManagerStatistic() {
 		return managerStatistic;
 	}
 
-	public void setManagerStatistic(FinancialStatistic managerStatistic) {
+	public void setManagerStatistic(ManagerFinancialStatistic managerStatistic) {
 		this.managerStatistic = managerStatistic;
 	}
 
@@ -219,17 +395,25 @@ public class ProgramPeriodViewModel
 		ProgramPeriodViewModel programPeriodViewModel = (ProgramPeriodViewModel) o;
 		return Objects.equals(this.dateFrom, programPeriodViewModel.dateFrom) &&
 				Objects.equals(this.dateTo, programPeriodViewModel.dateTo) &&
+				Objects.equals(this.periodLength, programPeriodViewModel.periodLength) &&
 				Objects.equals(this.status, programPeriodViewModel.status) &&
 				Objects.equals(this.number, programPeriodViewModel.number) &&
 				Objects.equals(this.profit, programPeriodViewModel.profit) &&
 				Objects.equals(this.balance, programPeriodViewModel.balance) &&
 				Objects.equals(this.investors, programPeriodViewModel.investors) &&
+				Objects.equals(this.managerDeposit, programPeriodViewModel.managerDeposit) &&
+				Objects.equals(this.managerWithdraw, programPeriodViewModel.managerWithdraw) &&
+				Objects.equals(this.managerCommissionRebate, programPeriodViewModel.managerCommissionRebate) &&
+				Objects.equals(this.investorsDeposit, programPeriodViewModel.investorsDeposit) &&
+				Objects.equals(this.investorsWithdraw, programPeriodViewModel.investorsWithdraw) &&
+				Objects.equals(this.investorsProfitWithdraw, programPeriodViewModel.investorsProfitWithdraw) &&
+				Objects.equals(this.platformSuccessFee, programPeriodViewModel.platformSuccessFee) &&
 				Objects.equals(this.managerStatistic, programPeriodViewModel.managerStatistic);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(dateFrom, dateTo, status, number, profit, balance, investors, managerStatistic);
+		return Objects.hash(dateFrom, dateTo, periodLength, status, number, profit, balance, investors, managerDeposit, managerWithdraw, managerCommissionRebate, investorsDeposit, investorsWithdraw, investorsProfitWithdraw, platformSuccessFee, managerStatistic);
 	}
 
 	@Override
@@ -239,11 +423,19 @@ public class ProgramPeriodViewModel
 
 		sb.append("    dateFrom: ").append(toIndentedString(dateFrom)).append("\n");
 		sb.append("    dateTo: ").append(toIndentedString(dateTo)).append("\n");
+		sb.append("    periodLength: ").append(toIndentedString(periodLength)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    number: ").append(toIndentedString(number)).append("\n");
 		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("    investors: ").append(toIndentedString(investors)).append("\n");
+		sb.append("    managerDeposit: ").append(toIndentedString(managerDeposit)).append("\n");
+		sb.append("    managerWithdraw: ").append(toIndentedString(managerWithdraw)).append("\n");
+		sb.append("    managerCommissionRebate: ").append(toIndentedString(managerCommissionRebate)).append("\n");
+		sb.append("    investorsDeposit: ").append(toIndentedString(investorsDeposit)).append("\n");
+		sb.append("    investorsWithdraw: ").append(toIndentedString(investorsWithdraw)).append("\n");
+		sb.append("    investorsProfitWithdraw: ").append(toIndentedString(investorsProfitWithdraw)).append("\n");
+		sb.append("    platformSuccessFee: ").append(toIndentedString(platformSuccessFee)).append("\n");
 		sb.append("    managerStatistic: ").append(toIndentedString(managerStatistic)).append("\n");
 		sb.append("}");
 		return sb.toString();

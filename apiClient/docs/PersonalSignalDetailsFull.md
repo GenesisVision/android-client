@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **isFavorite** | **Boolean** |  |  [optional]
 **isInvested** | **Boolean** |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
+**signalSettingsId** | [**UUID**](UUID.md) |  |  [optional]
 
 
 <a name="StatusEnum"></a>
