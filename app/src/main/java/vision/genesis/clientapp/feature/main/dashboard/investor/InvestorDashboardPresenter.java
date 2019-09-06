@@ -2,6 +2,8 @@ package vision.genesis.clientapp.feature.main.dashboard.investor;
 
 import android.content.Context;
 
+import androidx.core.content.ContextCompat;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
@@ -14,10 +16,9 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-import androidx.core.content.ContextCompat;
 import io.swagger.client.model.AssetsValue;
-import io.swagger.client.model.DashboardPortfolioEvent;
 import io.swagger.client.model.DashboardSummary;
+import io.swagger.client.model.InvestmentEventViewModels;
 import io.swagger.client.model.OtherAssetsValue;
 import io.swagger.client.model.ProgramRequest;
 import io.swagger.client.model.ValueChartBar;
@@ -33,7 +34,6 @@ import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.PortfolioAssetData;
-import vision.genesis.clientapp.model.PortfolioEvent;
 import vision.genesis.clientapp.model.events.OnInRequestsClickedEvent;
 import vision.genesis.clientapp.model.events.OnPortfolioAssetsChangedEvent;
 import vision.genesis.clientapp.model.events.OnPortfolioChartViewModeChangedEvent;
@@ -45,6 +45,7 @@ import vision.genesis.clientapp.model.events.SetDashboardSignalsCountEvent;
 import vision.genesis.clientapp.model.events.SetDashboardTradesHistoryCountEvent;
 import vision.genesis.clientapp.model.events.SetDashboardTradingLogCountEvent;
 import vision.genesis.clientapp.model.events.ShowProgramRequestsEvent;
+import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
@@ -70,6 +71,8 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 	private Subscription dashboardSubscription;
 
+	private Subscription eventsSubscription;
+
 	private DateRange dateRange;
 
 	private CurrencyEnum baseCurrency;
@@ -78,7 +81,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 	private List<ProgramRequest> requests = new ArrayList<>();
 
-	private List<PortfolioEvent> newPreparedEvents;
+//	private List<PortfolioEvent> newPreparedEvents;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -94,12 +97,18 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 	@Override
 	public void onDestroy() {
-		if (baseCurrencySubscription != null)
+		if (baseCurrencySubscription != null) {
 			baseCurrencySubscription.unsubscribe();
-		if (dateRangeSubscription != null)
+		}
+		if (dateRangeSubscription != null) {
 			dateRangeSubscription.unsubscribe();
-		if (dashboardSubscription != null)
+		}
+		if (dashboardSubscription != null) {
 			dashboardSubscription.unsubscribe();
+		}
+		if (eventsSubscription != null) {
+			eventsSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -149,8 +158,10 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	}
 
 	private void getDashboard() {
-		if (dashboardSubscription != null)
+		getEvents();
+		if (dashboardSubscription != null) {
 			dashboardSubscription.unsubscribe();
+		}
 		if (baseCurrency != null && dateRange != null) {
 			updateDateRange();
 			dashboardSubscription = dashboardManager.getDashboard(dateRange, baseCurrency.getValue())
@@ -190,8 +201,9 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 										0, StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()))));
 				portfolioAssetDataList.add(portfolioAssetData);
 
-				if (++colorIndex == colors.length)
+				if (++colorIndex == colors.length) {
 					colorIndex = 0;
+				}
 			}
 			OtherAssetsValue other = valueChartBar.getOtherAssetsValue();
 			if (other != null) {
@@ -215,10 +227,10 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 			portfolioAssetsDataList.add(portfolioAssetDataList);
 		}
 
-		newPreparedEvents = new ArrayList<>();
-		for (DashboardPortfolioEvent event : dashboardSummary.getEvents().getEvents()) {
-			newPreparedEvents.add(PortfolioEvent.createFrom(event));
-		}
+//		newPreparedEvents = new ArrayList<>();
+//		for (DashboardPortfolioEvent event : dashboardSummary.getEvents().getEvents()) {
+//			newPreparedEvents.add(PortfolioEvent.createFrom(event));
+//		}
 
 		return dashboardSummary;
 	}
@@ -238,7 +250,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 		getViewState().setHaveNewNotifications(response.getProfileHeader().getNotificationsCount() > 0);
 		getViewState().setChartData(response.getChart());
 		getViewState().setInRequests(response.getRequests().getTotalValue(), response.getChart().getRate());
-		getViewState().setPortfolioEvents(newPreparedEvents);
+//		getViewState().setPortfolioEvents(newPreparedEvents);
 //		getViewState().setAssetsCount(response.getProgramsCount(), response.getFundsCount());
 
 	}
@@ -246,6 +258,33 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	private void handleGetDashboardError(Throwable throwable) {
 		dashboardSubscription.unsubscribe();
 		getViewState().setRefreshing(false);
+	}
+
+	private void getEvents() {
+		if (eventsSubscription != null) {
+			eventsSubscription.unsubscribe();
+		}
+		eventsSubscription = dashboardManager.getEvents("Dashboard", null,
+				DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME), null, null,
+				0, 5)
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.io())
+				.subscribe(this::handleGetEventsResponse,
+						this::handleGetEventsError);
+	}
+
+	private void handleGetEventsResponse(InvestmentEventViewModels response) {
+		eventsSubscription.unsubscribe();
+
+		getViewState().setPortfolioEvents(response.getEvents());
+	}
+
+	private void handleGetEventsError(Throwable error) {
+		eventsSubscription.unsubscribe();
+
+		if (ApiErrorResolver.isNetworkError(error)) {
+			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
+		}
 	}
 
 	@Override
@@ -265,8 +304,9 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 	@Subscribe
 	public void onEventMainThread(OnPortfolioAssetsChangedEvent event) {
-		if (event.getIndex() < portfolioAssetsDataList.size())
+		if (event.getIndex() < portfolioAssetsDataList.size()) {
 			getViewState().setPortfolioAssets(portfolioAssetsDataList.get(event.getIndex()));
+		}
 	}
 
 	@Subscribe

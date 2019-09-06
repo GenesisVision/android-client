@@ -37,6 +37,7 @@ import vision.genesis.clientapp.model.events.OnThemeChangedEvent;
 import vision.genesis.clientapp.model.events.ShowBottomNavigationEvent;
 import vision.genesis.clientapp.model.events.ShowCopytradingAccountDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowDisableTfaActivityEvent;
+import vision.genesis.clientapp.model.events.ShowEventDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowLockScreenEvent;
 import vision.genesis.clientapp.model.events.ShowManagerDetailsEvent;
@@ -82,6 +83,8 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	private boolean firstCheckPin = true;
 
+	private boolean isActive = false;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -102,14 +105,24 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	@Override
 	public void onDestroy() {
-		if (userSubscription != null)
+		if (userSubscription != null) {
 			userSubscription.unsubscribe();
-		if (platformStatusSubscription != null)
+		}
+		if (platformStatusSubscription != null) {
 			platformStatusSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
+	}
+
+	void onResume() {
+		isActive = true;
+	}
+
+	void onPause() {
+		isActive = false;
 	}
 
 	void onCheckPinPassed() {
@@ -138,10 +151,12 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	private void showDashboard() {
-		if (Constants.IS_INVESTOR)
+		if (Constants.IS_INVESTOR) {
 			showInvestorDashboard();
-		else
+		}
+		else {
 			showManagerDashboard();
+		}
 	}
 
 	private void showInvestorDashboard() {
@@ -224,8 +239,9 @@ public class MainPresenter extends MvpPresenter<MainView>
 	private void onPlatformStatusSuccess(AppUpdateModel model) {
 		platformStatusSubscription.unsubscribe();
 
-		if (model.needUpdate)
+		if (model.needUpdate) {
 			getViewState().showAppUpdateDialog(model);
+		}
 	}
 
 	private void onPlatformStatusError(Throwable error) {
@@ -241,8 +257,9 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	private void userUpdated(User user) {
 		getViewState().hideSplashScreen();
-		if (user == null)
+		if (user == null) {
 			userLoggedOff();
+		}
 		else {
 			userLoggedOn();
 			if (authManager.isNeedShowEnableTwoFactor()) {
@@ -376,5 +393,12 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowOpenTradeDetailsEvent event) {
 		getViewState().showOpenTradeDetails(event.getModel());
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowEventDetailsEvent event) {
+		if (isActive) {
+			getViewState().showEventDetails(event.getEvent());
+		}
 	}
 }

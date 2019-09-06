@@ -5,6 +5,7 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.ProgramDetailsFull;
 
 /**
@@ -43,4 +44,6 @@ interface ProgramDetailsView extends MvpView
 	void setPeriodHistoryCount(Integer periodHistoryCount);
 
 	void setEventsCount(Integer eventsCount);
+
+	void showEventDetails(InvestmentEventViewModel event);
 }

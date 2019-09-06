@@ -8,21 +8,23 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.InvestmentEventViewModel;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.portfolio_events.details.EventDetailsBottomSheetFragment;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.model.PortfolioEvent;
 import vision.genesis.clientapp.ui.DateRangeView;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -97,10 +99,25 @@ public class PortfolioEventsActivity extends BaseSwipeBackActivity implements Po
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		if (portfolioEventsPresenter != null) {
+			portfolioEventsPresenter.onResume();
+		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (portfolioEventsPresenter != null) {
+			portfolioEventsPresenter.onPause();
+		}
+	}
+
+	@Override
 	public void onBackPressed() {
 		finishActivity();
 	}
-
 
 	private void setFonts() {
 		title.setTypeface(TypefaceUtil.semibold());
@@ -156,7 +173,7 @@ public class PortfolioEventsActivity extends BaseSwipeBackActivity implements Po
 	}
 
 	@Override
-	public void setEvents(List<PortfolioEvent> events, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+	public void setEvents(List<InvestmentEventViewModel> events, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
 		if (events.isEmpty()) {
 			groupNoEvents.setVisibility(View.VISIBLE);
 			recyclerView.setVisibility(View.GONE);
@@ -170,9 +187,16 @@ public class PortfolioEventsActivity extends BaseSwipeBackActivity implements Po
 	}
 
 	@Override
-	public void addEvents(List<PortfolioEvent> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+	public void addEvents(List<InvestmentEventViewModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
 		sectionedAdapter.setSections(sections);
 		eventsListAdapter.addEvents(trades);
+	}
+
+	@Override
+	public void showEventDetails(InvestmentEventViewModel event) {
+		EventDetailsBottomSheetFragment fragment = new EventDetailsBottomSheetFragment();
+		fragment.setData(event);
+		fragment.show(getSupportFragmentManager(), fragment.getTag());
 	}
 
 	@Override

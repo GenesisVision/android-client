@@ -69,7 +69,7 @@ public class FundsManager
 	}
 
 	public Observable<FundProfitChart> getProfitChart(UUID fundId, DateRange dateRange, Integer maxPointCount) {
-		return fundsApi.v10FundsByIdChartsProfitGet(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null);
+		return fundsApi.v10FundsByIdChartsProfitGet(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null, null);
 	}
 
 	public Observable<FundBalanceChart> getBalanceChart(UUID fundId, DateRange dateRange, Integer maxPointCount) {

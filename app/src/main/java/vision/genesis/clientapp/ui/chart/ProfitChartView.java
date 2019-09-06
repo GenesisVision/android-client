@@ -13,6 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.charts.CombinedChart.DrawOrder;
 import com.github.mikephil.charting.components.LimitLine;
@@ -33,11 +35,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.swagger.client.model.ChartSimple;
+import io.swagger.client.model.FundEquityChartElement;
 import io.swagger.client.model.PeriodDate;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -196,8 +198,9 @@ public class ProfitChartView extends RelativeLayout
 			}
 			else if (me.getAction() == MotionEvent.ACTION_UP || me.getAction() == MotionEvent.ACTION_CANCEL) {
 				hideHighlight();
-				if (touchListener != null)
+				if (touchListener != null) {
 					touchListener.onStop();
+				}
 				v.getParent().requestDisallowInterceptTouchEvent(false);
 			}
 			return true;
@@ -221,10 +224,12 @@ public class ProfitChartView extends RelativeLayout
 
 		for (ChartSimple chart : equityChart) {
 			lineEntries.add(new Entry(chart.getDate().getMillis() / 1000 / 60, chart.getValue().floatValue()));
-			if (min > chart.getValue().floatValue())
+			if (min > chart.getValue().floatValue()) {
 				min = chart.getValue().floatValue();
-			if (max < chart.getValue().floatValue())
+			}
+			if (max < chart.getValue().floatValue()) {
 				max = chart.getValue().floatValue();
+			}
 		}
 
 		List<BarEntry> barEntries = new ArrayList<>();
@@ -236,8 +241,9 @@ public class ProfitChartView extends RelativeLayout
 		maxValue.setText(StringFormatUtil.formatAmount(max, 2, 4));
 
 		setLimitLines(min, max);
-		if (periods.size() <= MAX_PERIODS_COUNT)
+		if (periods.size() <= MAX_PERIODS_COUNT) {
 			setPeriodLines(periods);
+		}
 
 //		chart.getAxisLeft().setAxisMaximum(max);
 //		chart.getAxisLeft().setAxisMinimum(min);
@@ -249,8 +255,8 @@ public class ProfitChartView extends RelativeLayout
 		chart.invalidate();
 	}
 
-	public void setFundChartData(List<ChartSimple> equityChart, DateRange dateRange) {
-		setChartData(equityChart, new ArrayList<>(), new ArrayList<>(), dateRange);
+	public void setFundChartData(List<FundEquityChartElement> equityChart, DateRange dateRange) {
+//		setChartData(equityChart, new ArrayList<>(), new ArrayList<>(), dateRange);
 	}
 
 	private void updateXAxis(DateRange dateRange) {
@@ -398,8 +404,9 @@ public class ProfitChartView extends RelativeLayout
 	}
 
 	private void showHighlight(Highlight highlight) {
-		if (highlight == null)
+		if (highlight == null) {
 			return;
+		}
 		highlightCircle.setVisibility(View.VISIBLE);
 		highlightLine.setVisibility(View.VISIBLE);
 		highlightArea.setVisibility(View.VISIBLE);

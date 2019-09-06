@@ -10,6 +10,11 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -20,14 +25,11 @@ import org.joda.time.DateTime;
 
 import java.util.UUID;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.FundFacet;
+import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.ProgramFacet;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
@@ -40,6 +42,7 @@ import vision.genesis.clientapp.feature.main.facet.programs.ProgramsFacetActivit
 import vision.genesis.clientapp.feature.main.fund.FundDetailsActivity;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
+import vision.genesis.clientapp.feature.main.portfolio_events.details.EventDetailsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.rating.ProgramsRatingActivity;
@@ -114,10 +117,25 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		if (mainPresenter != null) {
+			mainPresenter.onResume();
+		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (mainPresenter != null) {
+			mainPresenter.onPause();
+		}
+	}
+
+	@Override
 	public void onBackPressed() {
 		Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content);
-		if (fragment == null
-				|| !(fragment instanceof BackButtonListener)
+		if (!(fragment instanceof BackButtonListener)
 				|| !((BackButtonListener) fragment).onBackPressed()) {
 			super.onBackPressed();
 		}
@@ -125,10 +143,12 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 
 	@Override
 	public void addFragmentToBackstack(BaseFragment fragment) {
-		if (fragmentIsAlreadyRoot(fragment))
+		if (fragmentIsAlreadyRoot(fragment)) {
 			return;
-		if (currentFragment != null)
+		}
+		if (currentFragment != null) {
 			hideFragment(currentFragment);
+		}
 		currentFragment = fragment;
 		getSupportFragmentManager()
 				.beginTransaction()
@@ -144,8 +164,9 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 
 	@Override
 	public void showFragment(BaseFragment fragment) {
-		if (currentFragment != null)
+		if (currentFragment != null) {
 			hideFragment(currentFragment);
+		}
 		getSupportFragmentManager()
 				.beginTransaction()
 				.setCustomAnimations(R.anim.fragment_fade_in, R.anim.fragment_fade_out)
@@ -158,8 +179,9 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void hideFragment(BaseFragment fragment) {
 		BaseFragment previousFragment = getPreviousFragment();
-		if (previousFragment != null)
+		if (previousFragment != null) {
 			currentFragment = previousFragment;
+		}
 		getSupportFragmentManager()
 				.beginTransaction()
 				.setCustomAnimations(R.anim.fragment_fade_in, R.anim.fragment_fade_out)
@@ -172,8 +194,9 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	public void removeFragmentFromBackstack() {
 		currentFragment.onHide();
 		BaseFragment previousFragment = getPreviousFragment();
-		if (previousFragment != null)
+		if (previousFragment != null) {
 			currentFragment = previousFragment;
+		}
 		getSupportFragmentManager().popBackStack();
 	}
 
@@ -390,6 +413,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void showOpenTradeDetails(OpenTradeModel model) {
 		OpenTradeDetailsActivity.startWith(this, model);
+	}
+
+	@Override
+	public void showEventDetails(InvestmentEventViewModel event) {
+		EventDetailsBottomSheetFragment fragment = new EventDetailsBottomSheetFragment();
+		fragment.setData(event);
+		fragment.show(getSupportFragmentManager(), fragment.getTag());
 	}
 
 	@Override

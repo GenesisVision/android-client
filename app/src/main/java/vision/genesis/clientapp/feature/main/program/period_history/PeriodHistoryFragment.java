@@ -131,9 +131,8 @@ public class PeriodHistoryFragment extends BaseFragment implements PeriodHistory
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
 
-		periodHistoryAdapter = new PeriodHistoryAdapter();
+		periodHistoryAdapter = new PeriodHistoryAdapter(programCurrency);
 		recyclerView.setAdapter(periodHistoryAdapter);
-		periodHistoryAdapter.setCurrency(programCurrency);
 
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
 		{

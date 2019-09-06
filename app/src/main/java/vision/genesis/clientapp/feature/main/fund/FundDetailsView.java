@@ -6,6 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import io.swagger.client.model.FundDetailsFull;
+import io.swagger.client.model.InvestmentEventViewModel;
 
 /**
  * GenesisVisionAndroid
@@ -35,4 +36,6 @@ interface FundDetailsView extends MvpView
 	void setRefreshing(boolean refreshing);
 
 	void setEventsCount(Integer eventsCount);
+
+	void showEventDetails(InvestmentEventViewModel event);
 }

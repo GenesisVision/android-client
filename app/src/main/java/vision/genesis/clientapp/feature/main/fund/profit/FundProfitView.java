@@ -6,7 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
-import io.swagger.client.model.ChartSimple;
+import io.swagger.client.model.FundEquityChartElement;
 import vision.genesis.clientapp.model.DateRange;
 
 /**
@@ -16,7 +16,7 @@ import vision.genesis.clientapp.model.DateRange;
 
 interface FundProfitView extends MvpView
 {
-	void setChartData(List<ChartSimple> equityChart);
+	void setChartData(List<FundEquityChartElement> equityChart);
 
 	void setValue(boolean isNegative, String value);
 

@@ -54,7 +54,7 @@ public class SettingsManager
 		ThemeUtil.setTheme(settingsModel.getTheme());
 	}
 
-	public void setTwoFactorEnabled(boolean enabled) {
+	void setTwoFactorEnabled(boolean enabled) {
 		sharedPreferencesUtil.setTwoFactorEnabled(enabled);
 		SettingsModel settingsModel = settingsSubject.getValue();
 		settingsModel.setTwoFactorEnabled(enabled);
@@ -138,7 +138,7 @@ public class SettingsManager
 		}
 	}
 
-	public void logout() {
+	void logout() {
 		settingsSubject.onNext(new SettingsModel());
 		sharedPreferencesUtil.setTwoFactorEnabled(false);
 		sharedPreferencesUtil.setPinCodeEnabled(false);
@@ -171,8 +171,9 @@ public class SettingsManager
 	}
 
 	public BehaviorSubject<CurrencyEnum> getBaseCurrency() {
-		if (baseCurrencySubject.getValue() == null)
+		if (baseCurrencySubject.getValue() == null) {
 			baseCurrencySubject.onNext(CurrencyEnum.fromValue(sharedPreferencesUtil.getCurrency()));
+		}
 		return baseCurrencySubject;
 	}
 

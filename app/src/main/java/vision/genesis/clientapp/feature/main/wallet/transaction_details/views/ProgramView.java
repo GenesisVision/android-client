@@ -3,6 +3,7 @@ package vision.genesis.clientapp.feature.main.wallet.transaction_details.views;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -60,8 +61,9 @@ public class ProgramView extends RelativeLayout
 	public void setData(String label, String logo, String color, Integer level, Double levelProgress, String programName, String managerName) {
 		this.label.setText(label);
 		this.programLogo.setImage(logo, color, 50, 50);
-		if (level > 0)
+		if (level > 0) {
 			this.programLogo.setLevel(level, levelProgress);
+		}
 		else {
 			this.programLogo.hideLevel();
 			ViewGroup.LayoutParams lp = this.programLogo.getLayoutParams();
@@ -70,5 +72,6 @@ public class ProgramView extends RelativeLayout
 		}
 		this.programName.setText(programName);
 		this.managerName.setText(managerName);
+		this.managerName.setVisibility(managerName.isEmpty() ? View.GONE : View.VISIBLE);
 	}
 }

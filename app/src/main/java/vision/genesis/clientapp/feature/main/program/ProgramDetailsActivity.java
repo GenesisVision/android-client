@@ -35,6 +35,7 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramTag;
 import timber.log.Timber;
@@ -42,6 +43,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.notifications.program.ProgramNotificationsSettingsActivity;
+import vision.genesis.clientapp.feature.main.portfolio_events.details.EventDetailsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.program.level.ProgramLevelBottomSheetDialog;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.ui.ProgramLogoView;
@@ -221,7 +223,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 			initRefreshLayout();
 			initTabs();
-			initViewPager(model.getProgramId(), model.getCurrency());
+//			initViewPager(model.getProgramId(), model.getCurrency());
 			updateHeader();
 
 			programDetailsPresenter.setProgramId(model.getProgramId());
@@ -234,6 +236,22 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		}
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (programDetailsPresenter != null) {
+			programDetailsPresenter.onResume();
+		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (programDetailsPresenter != null) {
+			programDetailsPresenter.onPause();
+		}
+	}
+
 	private void initRefreshLayout() {
 		refreshLayout.setColorSchemeColors(
 				ThemeUtil.getColorByAttrId(this, R.attr.colorAccent),
@@ -241,8 +259,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextSecondary));
 		refreshLayout.setOnRefreshListener(() -> {
 			programDetailsPresenter.onSwipeRefresh();
-			if (pagerAdapter != null)
+			if (pagerAdapter != null) {
 				pagerAdapter.sendSwipeRefresh();
+			}
 		});
 	}
 
@@ -262,7 +281,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 			updateRefreshLayoutEnabled();
 
-			pagerAdapter.onOffsetChanged(appBarLayout.getHeight() + verticalOffset - tabLayout.getHeight() - toolbar.getHeight());
+			if (pagerAdapter != null) {
+				pagerAdapter.onOffsetChanged(appBarLayout.getHeight() + verticalOffset - tabLayout.getHeight() - toolbar.getHeight());
+			}
 		});
 	}
 
@@ -272,17 +293,21 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	@Override
 	protected void onDestroy() {
-		if (pagerAdapter != null)
+		if (pagerAdapter != null) {
 			pagerAdapter.destroy();
+		}
 
-		if (tabSelectedListener != null)
+		if (tabSelectedListener != null) {
 			tabLayout.removeOnTabSelectedListener(tabSelectedListener);
+		}
 
-		if (tabLayoutOnPageChangeListener != null)
+		if (tabLayoutOnPageChangeListener != null) {
 			viewPager.removeOnPageChangeListener(tabLayoutOnPageChangeListener);
+		}
 
-		if (viewPager != null)
+		if (viewPager != null) {
 			viewPager.clearOnPageChangeListeners();
+		}
 
 		super.onDestroy();
 	}
@@ -410,13 +435,15 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	private void addPage(TabLayout.Tab tab, boolean selected) {
-		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION)
+		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION) {
 			return;
+		}
 
 		tabLayout.addTab(tab, selected);
 		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 10);
-		if (pagerAdapter != null)
+		if (pagerAdapter != null) {
 			pagerAdapter.notifyDataSetChanged();
+		}
 	}
 
 	private void initViewPager(UUID programId, String programCurrency) {
@@ -430,12 +457,6 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	@Override
-	protected void onResume() {
-		super.onResume();
-		programDetailsPresenter.onResume();
-	}
-
-	@Override
 	public void onBackPressed() {
 		finishActivity();
 	}
@@ -444,8 +465,11 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	public void setProgram(ProgramDetailsFull programDetails) {
 		this.programDetails = programDetails;
 
-		if (programDetails.getPersonalProgramDetails() != null && programDetails.getPersonalProgramDetails().isIsInvested())
+		initViewPager(programDetails.getId(), programDetails.getCurrency().getValue());
+
+		if (programDetails.getPersonalProgramDetails() != null && programDetails.getPersonalProgramDetails().isIsInvested()) {
 			addPage(eventsTab, false);
+		}
 
 		model.update(programDetails);
 		updateHeader();
@@ -560,5 +584,12 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@Override
 	public void setEventsCount(Integer eventsCount) {
 		((DetailsTabView) eventsTab.getCustomView()).setCount(eventsCount);
+	}
+
+	@Override
+	public void showEventDetails(InvestmentEventViewModel event) {
+		EventDetailsBottomSheetFragment fragment = new EventDetailsBottomSheetFragment();
+		fragment.setData(event);
+		fragment.show(getSupportFragmentManager(), fragment.getTag());
 	}
 }

@@ -12,16 +12,6 @@ import android.widget.HorizontalScrollView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.tabs.TabLayout;
-
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -32,11 +22,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
+import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.tabs.TabLayout;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.DashboardChartValue;
+import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.ProgramRequest;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -49,7 +51,6 @@ import vision.genesis.clientapp.feature.main.portfolio_events.PortfolioEventsAct
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.PortfolioAssetData;
-import vision.genesis.clientapp.model.PortfolioEvent;
 import vision.genesis.clientapp.model.events.HideBottomNavigationEvent;
 import vision.genesis.clientapp.model.events.ShowBottomNavigationEvent;
 import vision.genesis.clientapp.ui.CustomTabView;
@@ -657,9 +658,9 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	}
 
 	@Override
-	public void setPortfolioEvents(List<PortfolioEvent> events) {
+	public void setPortfolioEvents(List<InvestmentEventViewModel> events) {
 		eventsGroup.removeAllViews();
-		for (PortfolioEvent event : events) {
+		for (InvestmentEventViewModel event : events) {
 			PortfolioEventDashboardView eventView = new PortfolioEventDashboardView(getContext());
 			eventView.setEvent(event);
 			eventsGroup.addView(eventView);

@@ -21,7 +21,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 28/02/2019.
+ * Created by Vitaly on 05/07/2019.
  */
 
 public class CommissionsBottomSheetFragment extends BottomSheetDialogFragment

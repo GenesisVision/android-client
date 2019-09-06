@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 import java.util.UUID;
 
 import io.swagger.client.model.FundFacet;
+import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.ProgramFacet;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
@@ -83,4 +84,6 @@ public interface MainView extends MvpView
 	void showFundFacet(FundFacet facet);
 
 	void showOpenTradeDetails(OpenTradeModel model);
+
+	void showEventDetails(InvestmentEventViewModel event);
 }

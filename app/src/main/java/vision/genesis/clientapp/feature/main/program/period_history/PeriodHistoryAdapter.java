@@ -32,6 +32,10 @@ public class PeriodHistoryAdapter extends RecyclerView.Adapter<PeriodHistoryAdap
 
 	private String programCurrency;
 
+	PeriodHistoryAdapter(String programCurrency) {
+		this.programCurrency = programCurrency;
+	}
+
 	@NonNull
 	@Override
 	public PeriodHistoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -60,10 +64,6 @@ public class PeriodHistoryAdapter extends RecyclerView.Adapter<PeriodHistoryAdap
 	void addPeriod(List<ProgramPeriodViewModel> periods) {
 		this.periods.addAll(periods);
 		notifyDataSetChanged();
-	}
-
-	public void setCurrency(String programCurrency) {
-		this.programCurrency = programCurrency;
 	}
 
 	static class PeriodHistoryViewHolder extends RecyclerView.ViewHolder
@@ -136,11 +136,17 @@ public class PeriodHistoryAdapter extends RecyclerView.Adapter<PeriodHistoryAdap
 			dateStarted.setText(DateTimeUtil.formatEventDateTime(period.getDateFrom()));
 			periodLength.setText(String.format(Locale.getDefault(), "(%s)", DateTimeUtil.getHumanReadablePeriod(period.getPeriodLength().longValue())));
 
-			balance.setText(StringFormatUtil.getValueString(period.getBalance(), programCurrency));
-			investors.setText(String.valueOf(period.getInvestors()));
-			profit.setText(StringFormatUtil.getValueString(period.getProfit(), programCurrency));
-			profit.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
-					period.getProfit() >= 0 ? R.attr.colorGreen : R.attr.colorRed));
+			if (period.getBalance() != null) {
+				balance.setText(StringFormatUtil.getValueString(period.getBalance(), programCurrency));
+			}
+			if (period.getInvestors() != null) {
+				investors.setText(String.valueOf(period.getInvestors()));
+			}
+			if (period.getProfit() != null) {
+				profit.setText(StringFormatUtil.getValueString(period.getProfit(), programCurrency));
+				profit.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
+						period.getProfit() >= 0 ? R.attr.colorGreen : R.attr.colorRed));
+			}
 		}
 	}
 }

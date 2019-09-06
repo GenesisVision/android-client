@@ -6,8 +6,8 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
+import io.swagger.client.model.InvestmentEventViewModel;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.model.PortfolioEvent;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 
 /**
@@ -22,9 +22,9 @@ interface ProgramEventsView extends MvpView
 
 	void setDateRange(DateRange dateRange);
 
-	void setEvents(List<PortfolioEvent> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
+	void setEvents(List<InvestmentEventViewModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
 
-	void addEvents(List<PortfolioEvent> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
+	void addEvents(List<InvestmentEventViewModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
 
 	void showSnackbarMessage(String message);
 }

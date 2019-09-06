@@ -24,8 +24,8 @@
                 android:id="@+id/action"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
                 app:roundAsCircle="true"/>
 
             <ImageView
@@ -46,15 +46,31 @@
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/value"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:lines="1"
-            android:textColor="?attr/colorGreen"
-            android:textSize="16sp"
-            tools:text="+42.1294 GVT"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:textColor="?attr/colorGreen"
+                android:textSize="16sp"
+                tools:text="+42.1294 GVT"/>
+
+            <TextView
+                android:id="@+id/value_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="14sp"
+                tools:text="Balance"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

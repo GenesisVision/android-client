@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.model.DashboardChartValue;
+import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.ProgramRequest;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.PortfolioAssetData;
-import vision.genesis.clientapp.model.PortfolioEvent;
 
 
 /**
@@ -24,7 +24,7 @@ interface InvestorDashboardView extends MvpView
 {
 	void setChartData(DashboardChartValue chart);
 
-	void setPortfolioEvents(List<PortfolioEvent> events);
+	void setPortfolioEvents(List<InvestmentEventViewModel> events);
 
 	void setRefreshing(boolean show);
 

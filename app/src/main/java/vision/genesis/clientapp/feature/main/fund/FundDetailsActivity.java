@@ -13,6 +13,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.viewpager.widget.ViewPager;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
@@ -26,17 +30,16 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.UUID;
 
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.FundDetailsFull;
+import io.swagger.client.model.InvestmentEventViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.notifications.fund.FundNotificationsSettingsActivity;
+import vision.genesis.clientapp.feature.main.portfolio_events.details.EventDetailsBottomSheetFragment;
 import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
@@ -196,6 +199,20 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 		}
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		fundDetailsPresenter.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (fundDetailsPresenter != null) {
+			fundDetailsPresenter.onPause();
+		}
+	}
+
 	private void initRefreshLayout() {
 //		refreshLayout.setBackgroundColor(ThemeUtil.getColorByAttrId(this, R.attr.colorAccent));
 		refreshLayout.setColorSchemeColors(
@@ -204,8 +221,9 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextSecondary));
 		refreshLayout.setOnRefreshListener(() -> {
 			fundDetailsPresenter.onSwipeRefresh();
-			if (pagerAdapter != null)
+			if (pagerAdapter != null) {
 				pagerAdapter.sendSwipeRefresh();
+			}
 		});
 	}
 
@@ -235,17 +253,21 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 
 	@Override
 	protected void onDestroy() {
-		if (pagerAdapter != null)
+		if (pagerAdapter != null) {
 			pagerAdapter.destroy();
+		}
 
-		if (tabSelectedListener != null)
+		if (tabSelectedListener != null) {
 			tabLayout.removeOnTabSelectedListener(tabSelectedListener);
+		}
 
-		if (tabLayoutOnPageChangeListener != null)
+		if (tabLayoutOnPageChangeListener != null) {
 			viewPager.removeOnPageChangeListener(tabLayoutOnPageChangeListener);
+		}
 
-		if (viewPager != null)
+		if (viewPager != null) {
 			viewPager.clearOnPageChangeListeners();
+		}
 
 		super.onDestroy();
 	}
@@ -327,13 +349,15 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 	}
 
 	private void addPage(TabLayout.Tab tab, boolean selected) {
-		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION)
+		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION) {
 			return;
+		}
 
 		tabLayout.addTab(tab, selected);
 		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 10);
-		if (pagerAdapter != null)
+		if (pagerAdapter != null) {
 			pagerAdapter.notifyDataSetChanged();
+		}
 	}
 
 	private void initViewPager(UUID fundId) {
@@ -347,12 +371,6 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 	}
 
 	@Override
-	protected void onResume() {
-		super.onResume();
-		fundDetailsPresenter.onResume();
-	}
-
-	@Override
 	public void onBackPressed() {
 		finishActivity();
 	}
@@ -361,8 +379,9 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 	public void setFund(FundDetailsFull fundDetails) {
 		this.fundDetails = fundDetails;
 
-		if (fundDetails.getPersonalFundDetails() != null && fundDetails.getPersonalFundDetails().isIsInvested())
+		if (fundDetails.getPersonalFundDetails() != null && fundDetails.getPersonalFundDetails().isIsInvested()) {
 			addPage(eventsTab, false);
+		}
 
 		model.update(fundDetails);
 		updateHeader();
@@ -457,5 +476,12 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 	@Override
 	public void setEventsCount(Integer eventsCount) {
 		((DetailsTabView) eventsTab.getCustomView()).setCount(eventsCount);
+	}
+
+	@Override
+	public void showEventDetails(InvestmentEventViewModel event) {
+		EventDetailsBottomSheetFragment fragment = new EventDetailsBottomSheetFragment();
+		fragment.setData(event);
+		fragment.show(getSupportFragmentManager(), fragment.getTag());
 	}
 }

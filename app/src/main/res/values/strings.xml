@@ -672,5 +672,7 @@
     <string name="trading_log">Trading log</string>
     <string name="period_history">Period history</string>
     <string name="started">started</string>
+    <string name="signal_provider">Signal provider</string>
+    <string name="fund">Fund</string>
 
 </resources>

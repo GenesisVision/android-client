@@ -28,6 +28,7 @@ import vision.genesis.clientapp.model.events.SetProgramDetailsEventsCountEvent;
 import vision.genesis.clientapp.model.events.SetProgramDetailsOpenPositionsCountEvent;
 import vision.genesis.clientapp.model.events.SetProgramDetailsPeriodHistoryCountEvent;
 import vision.genesis.clientapp.model.events.SetProgramDetailsTradesCountEvent;
+import vision.genesis.clientapp.model.events.ShowEventDetailsEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -57,6 +58,8 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 
 	private ProgramDetailsFull programDetails;
 
+	private boolean isActive = false;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -70,17 +73,29 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 
 	@Override
 	public void onDestroy() {
-		if (userSubscription != null)
+		if (userSubscription != null) {
 			userSubscription.unsubscribe();
+		}
 
-		if (programDetailsSubscription != null)
+		if (programDetailsSubscription != null) {
 			programDetailsSubscription.unsubscribe();
+		}
 
-		if (setProgramFavoriteSubscription != null)
+		if (setProgramFavoriteSubscription != null) {
 			setProgramFavoriteSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 		super.onDestroy();
+	}
+
+	void onResume() {
+		isActive = true;
+		getProgramDetails();
+	}
+
+	void onPause() {
+		isActive = false;
 	}
 
 	void setProgramId(UUID programId) {
@@ -89,10 +104,6 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 
 	void onFavoriteButtonClicked(boolean isFavorite) {
 		setProgramFavorite(isFavorite);
-	}
-
-	void onResume() {
-		getProgramDetails();
 	}
 
 	void onSwipeRefresh() {
@@ -106,12 +117,13 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	}
 
 	private void getProgramDetails() {
-		if (programId != null && programsManager != null)
+		if (programId != null && programsManager != null) {
 			programDetailsSubscription = programsManager.getProgramDetails(programId, CurrencyEnum.GVT)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleInvestmentProgramDetailsSuccess,
 							this::handleInvestmentProgramDetailsError);
+		}
 	}
 
 	private void handleInvestmentProgramDetailsSuccess(ProgramDetailsFull programDetails) {
@@ -158,8 +170,9 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	private void handleSetProgramFavoriteError(Throwable throwable) {
 		setProgramFavoriteSubscription.unsubscribe();
 
-		if (programDetails == null)
+		if (programDetails == null) {
 			getViewState().setProgram(programDetails);
+		}
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showToast(message));
 	}
 
@@ -171,10 +184,12 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	}
 
 	private void userUpdated(User user) {
-		if (user == null)
+		if (user == null) {
 			userLoggedOff();
-		else
+		}
+		else {
 			userLoggedOn();
+		}
 	}
 
 	private void userLoggedOn() {
@@ -212,5 +227,12 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	@Subscribe
 	public void onEventMainThread(SetProgramDetailsEventsCountEvent event) {
 		getViewState().setEventsCount(event.getEventsCount());
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowEventDetailsEvent event) {
+		if (isActive) {
+			getViewState().showEventDetails(event.getEvent());
+		}
 	}
 }

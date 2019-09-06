@@ -6,20 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 import java.util.UUID;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.InvestmentEventViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -27,7 +29,6 @@ import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFr
 import vision.genesis.clientapp.feature.main.portfolio_events.PortfolioEventsListAdapter;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.model.PortfolioEvent;
 import vision.genesis.clientapp.ui.DateRangeView;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 
@@ -173,7 +174,7 @@ public class ProgramEventsFragment extends BaseFragment implements ProgramEvents
 	}
 
 	@Override
-	public void setEvents(List<PortfolioEvent> events, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+	public void setEvents(List<InvestmentEventViewModel> events, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
 		if (events.isEmpty()) {
 			groupNoEvents.setVisibility(View.VISIBLE);
 			recyclerView.setVisibility(View.GONE);
@@ -187,7 +188,7 @@ public class ProgramEventsFragment extends BaseFragment implements ProgramEvents
 	}
 
 	@Override
-	public void addEvents(List<PortfolioEvent> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+	public void addEvents(List<InvestmentEventViewModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
 		sectionedAdapter.setSections(sections);
 		eventsListAdapter.addEvents(trades);
 	}
@@ -199,8 +200,9 @@ public class ProgramEventsFragment extends BaseFragment implements ProgramEvents
 
 	@Override
 	public void pagerShow() {
-		if (programEventsPresenter != null)
+		if (programEventsPresenter != null) {
 			programEventsPresenter.onShow();
+		}
 	}
 
 	@Override
@@ -208,12 +210,14 @@ public class ProgramEventsFragment extends BaseFragment implements ProgramEvents
 	}
 
 	public void onSwipeRefresh() {
-		if (programEventsPresenter != null)
+		if (programEventsPresenter != null) {
 			programEventsPresenter.onSwipeRefresh();
+		}
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
-		if (dateRangeView != null)
+		if (dateRangeView != null) {
 			dateRangeView.setY(root.getHeight() - verticalOffset - dateRangeView.getHeight() - dateRangeMarginBottom);
+		}
 	}
 }

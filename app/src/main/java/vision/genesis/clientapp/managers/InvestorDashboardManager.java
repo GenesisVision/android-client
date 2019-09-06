@@ -6,6 +6,7 @@ import io.swagger.client.api.InvestorApi;
 import io.swagger.client.model.DashboardPortfolioEvents;
 import io.swagger.client.model.DashboardSummary;
 import io.swagger.client.model.FundsList;
+import io.swagger.client.model.InvestmentEventViewModels;
 import io.swagger.client.model.ProgramRequests;
 import io.swagger.client.model.ProgramsList;
 import io.swagger.client.model.SignalsList;
@@ -66,5 +67,12 @@ public class InvestorDashboardManager
 
 	public Observable<ProgramRequests> getRequests(UUID assetId) {
 		return investorApi.v10InvestorProgramsByIdRequestsBySkipByTakeGet(assetId, 0, 100, AuthManager.token.getValue());
+	}
+
+	public Observable<InvestmentEventViewModels> getEvents(String eventLocation, UUID assetId, DateRange dateRange, String eventType, String assetType, Integer skip, Integer take) {
+		return investorApi.v10InvestorInvestmentsEventsGet(AuthManager.token.getValue(), eventLocation, assetId,
+				dateRange.getFrom(), dateRange.getTo(),
+				eventType, assetType,
+				skip, take);
 	}
 }

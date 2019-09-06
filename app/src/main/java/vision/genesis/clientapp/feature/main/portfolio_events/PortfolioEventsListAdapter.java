@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -15,18 +17,15 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.swagger.client.model.DashboardPortfolioEvent;
+import io.swagger.client.model.AssetDetails;
+import io.swagger.client.model.InvestmentEventViewModel;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.FundDetailsModel;
-import vision.genesis.clientapp.model.PortfolioEvent;
-import vision.genesis.clientapp.model.ProgramDetailsModel;
-import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
-import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowEventDetailsEvent;
+import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.ImageUtils;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -37,7 +36,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class PortfolioEventsListAdapter extends RecyclerView.Adapter<PortfolioEventsListAdapter.PortfolioEventViewHolder>
 {
-	private List<PortfolioEvent> events = new ArrayList<>();
+	private List<InvestmentEventViewModel> events = new ArrayList<>();
 
 	@Override
 	public PortfolioEventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -47,8 +46,9 @@ public class PortfolioEventsListAdapter extends RecyclerView.Adapter<PortfolioEv
 
 	@Override
 	public void onBindViewHolder(PortfolioEventViewHolder holder, int position) {
-		if (events.get(position) != null)
+		if (events.get(position) != null) {
 			holder.setEvent(events.get(position));
+		}
 	}
 
 	@Override
@@ -63,13 +63,13 @@ public class PortfolioEventsListAdapter extends RecyclerView.Adapter<PortfolioEv
 				: RecyclerView.NO_ID;
 	}
 
-	public void setEvents(List<PortfolioEvent> events) {
+	public void setEvents(List<InvestmentEventViewModel> events) {
 		this.events.clear();
 		this.events.addAll(events);
 		notifyDataSetChanged();
 	}
 
-	public void addEvents(List<PortfolioEvent> events) {
+	public void addEvents(List<InvestmentEventViewModel> events) {
 		this.events.addAll(events);
 		notifyDataSetChanged();
 	}
@@ -91,7 +91,7 @@ public class PortfolioEventsListAdapter extends RecyclerView.Adapter<PortfolioEv
 		@BindView(R.id.value)
 		public TextView value;
 
-		private PortfolioEvent event;
+		private InvestmentEventViewModel event;
 
 		PortfolioEventViewHolder(View itemView) {
 			super(itemView);
@@ -101,29 +101,7 @@ public class PortfolioEventsListAdapter extends RecyclerView.Adapter<PortfolioEv
 			setFonts();
 			itemView.setOnClickListener(v -> {
 				if (event != null) {
-					if (event.getAssetType().equals(DashboardPortfolioEvent.AssetTypeEnum.PROGRAM)) {
-						ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(event.getAssetId(),
-								event.getLogoUrl(),
-								event.getAssetColor(),
-								0,
-								0.0,
-								event.getAssetName(),
-								"",
-								event.getProgramCurrency(),
-								false,
-								false);
-						EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
-					}
-					else if (event.getAssetType().equals(DashboardPortfolioEvent.AssetTypeEnum.FUND)) {
-						FundDetailsModel fundDetailsModel = new FundDetailsModel(event.getAssetId(),
-								event.getLogoUrl(),
-								event.getAssetColor(),
-								event.getAssetName(),
-								"",
-								false,
-								false);
-						EventBus.getDefault().post(new ShowFundDetailsEvent(fundDetailsModel));
-					}
+					EventBus.getDefault().post(new ShowEventDetailsEvent(event));
 				}
 			});
 		}
@@ -133,25 +111,39 @@ public class PortfolioEventsListAdapter extends RecyclerView.Adapter<PortfolioEv
 			value.setTypeface(TypefaceUtil.semibold());
 		}
 
-		void setEvent(PortfolioEvent event) {
+		void setEvent(InvestmentEventViewModel event) {
 			this.event = event;
 
-			if (event.getLogoUrl() == null || event.getLogoUrl().isEmpty()) {
-				GenericDraweeHierarchy hierarchy = subject.getHierarchy();
-				hierarchy.setBackgroundImage(new ColorDrawable(Color.parseColor(event.getAssetColor())));
-				subject.setHierarchy(hierarchy);
-				subject.setImageURI("");
-			}
-			else {
-				subject.setImageURI(ImageUtils.getImageUri(event.getLogoUrl()));
+			AssetDetails details = event.getAssetDetails();
+			if (details != null) {
+				if (details.getLogo() == null || details.getLogo().isEmpty()) {
+					GenericDraweeHierarchy hierarchy = subject.getHierarchy();
+					hierarchy.setBackgroundImage(new ColorDrawable(Color.parseColor(details.getColor())));
+					subject.setHierarchy(hierarchy);
+					subject.setImageURI("");
+				}
+				else {
+					subject.setImageURI(ImageUtils.getImageUri(details.getLogo()));
+				}
 			}
 
-			action.getHierarchy().setPlaceholderImage(AppCompatResources.getDrawable(itemView.getContext(), event.getActionResId()));
-			text.setText(event.getText());
-			time.setText(event.getTime());
-			value.setText(event.getValue());
+			action.setImageURI(ImageUtils.getImageUri(event.getIcon()));
+			text.setText(event.getTitle());
+			time.setText(DateTimeUtil.formatShortTime(event.getDate()));
+			value.setText(StringFormatUtil.getValueString(event.getAmount(), event.getCurrency().getValue()));
 
-			this.value.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), event.getValueColorResId()));
+			int valueColorAttrId = R.attr.colorTextPrimary;
+			switch (event.getChangeState()) {
+				case INCREASED:
+					valueColorAttrId = R.attr.colorGreen;
+					break;
+				case DECREASED:
+					valueColorAttrId = R.attr.colorRed;
+					break;
+				case NOTCHANGED:
+					break;
+			}
+			this.value.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), valueColorAttrId));
 		}
 	}
 }

@@ -25,6 +25,7 @@ import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 import vision.genesis.clientapp.model.events.OnFundFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.SetFundDetailsEventsCountEvent;
+import vision.genesis.clientapp.model.events.ShowEventDetailsEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -54,6 +55,8 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 
 	private FundDetailsFull fundDetails;
 
+	private boolean isActive = false;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -67,14 +70,17 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 
 	@Override
 	public void onDestroy() {
-		if (userSubscription != null)
+		if (userSubscription != null) {
 			userSubscription.unsubscribe();
+		}
 
-		if (fundDetailsSubscription != null)
+		if (fundDetailsSubscription != null) {
 			fundDetailsSubscription.unsubscribe();
+		}
 
-		if (setFundFavoriteSubscription != null)
+		if (setFundFavoriteSubscription != null) {
 			setFundFavoriteSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 		super.onDestroy();
@@ -89,7 +95,12 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 	}
 
 	void onResume() {
+		isActive = true;
 		getFundDetails();
+	}
+
+	void onPause() {
+		isActive = false;
 	}
 
 	void onSwipeRefresh() {
@@ -103,12 +114,13 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 	}
 
 	private void getFundDetails() {
-		if (fundId != null && fundsManager != null)
+		if (fundId != null && fundsManager != null) {
 			fundDetailsSubscription = fundsManager.getFundDetails(fundId, CurrencyEnum.GVT)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleFundDetailsSuccess,
 							this::handleFundDetailsError);
+		}
 	}
 
 	private void handleFundDetailsSuccess(FundDetailsFull fundDetails) {
@@ -155,8 +167,9 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 	private void handleSetFundFavoriteError(Throwable throwable) {
 		setFundFavoriteSubscription.unsubscribe();
 
-		if (fundDetails == null)
+		if (fundDetails == null) {
 			getViewState().setFund(fundDetails);
+		}
 		getViewState().showToast(context.getString(R.string.error_occurred_performing_operation));
 	}
 
@@ -168,10 +181,12 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 	}
 
 	private void userUpdated(User user) {
-		if (user == null)
+		if (user == null) {
 			userLoggedOff();
-		else
+		}
+		else {
 			userLoggedOn();
+		}
 	}
 
 	private void userLoggedOn() {
@@ -194,5 +209,12 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 	@Subscribe
 	public void onEventMainThread(SetFundDetailsEventsCountEvent event) {
 		getViewState().setEventsCount(event.getEventsCount());
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowEventDetailsEvent event) {
+		if (isActive) {
+			getViewState().showEventDetails(event.getEvent());
+		}
 	}
 }

@@ -13,17 +13,16 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.DashboardPortfolioEvent;
-import io.swagger.client.model.DashboardPortfolioEvents;
+import io.swagger.client.model.InvestmentEventViewModel;
+import io.swagger.client.model.InvestmentEventViewModels;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.managers.ProgramsManager;
+import vision.genesis.clientapp.managers.InvestorDashboardManager;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.model.PortfolioEvent;
 import vision.genesis.clientapp.model.events.SetFundDetailsEventsCountEvent;
 import vision.genesis.clientapp.model.events.SetProgramDetailsEventsCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -44,7 +43,7 @@ public class ProgramEventsPresenter extends MvpPresenter<ProgramEventsView> impl
 	public Context context;
 
 	@Inject
-	public ProgramsManager programsManager;
+	public InvestorDashboardManager investorManager;
 
 	private Subscription eventsSubscription;
 
@@ -54,11 +53,9 @@ public class ProgramEventsPresenter extends MvpPresenter<ProgramEventsView> impl
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
-	private List<DashboardPortfolioEvent> events = new ArrayList<>();
+	private List<InvestmentEventViewModel> events = new ArrayList<>();
 
 	private List<SimpleSectionedRecyclerViewAdapter.Section> sections = new ArrayList<>();
-
-	private List<PortfolioEvent> newPreparedEvents = new ArrayList<>();
 
 	private String location;
 
@@ -71,14 +68,16 @@ public class ProgramEventsPresenter extends MvpPresenter<ProgramEventsView> impl
 		getViewState().showProgress(true);
 		getViewState().setDateRange(dateRange);
 
-		if (programId != null)
+		if (programId != null) {
 			getEvents(true);
+		}
 	}
 
 	@Override
 	public void onDestroy() {
-		if (eventsSubscription != null)
+		if (eventsSubscription != null) {
 			eventsSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -86,12 +85,13 @@ public class ProgramEventsPresenter extends MvpPresenter<ProgramEventsView> impl
 	void setData(String location, UUID programId) {
 		this.location = location;
 		this.programId = programId;
-		if (programsManager != null)
+		if (investorManager != null) {
 			getEvents(true);
+		}
 	}
 
 	void onShow() {
-		getEvents(false);
+//		getEvents(false);
 	}
 
 	void onSwipeRefresh() {
@@ -110,28 +110,29 @@ public class ProgramEventsPresenter extends MvpPresenter<ProgramEventsView> impl
 				skip = 0;
 			}
 
-			if (eventsSubscription != null)
+			if (eventsSubscription != null) {
 				eventsSubscription.unsubscribe();
-			eventsSubscription = programsManager.getProgramHistory(programId, dateRange, skip, TAKE)
+			}
+			eventsSubscription = investorManager.getEvents("Asset", programId, dateRange, null, null, skip, TAKE)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
-					.map(this::prepareData)
+//					.map(this::prepareData)
 					.subscribe(this::handleGetEventsResponse,
 							this::handleGetEventsError);
 		}
 	}
 
-	private DashboardPortfolioEvents prepareData(DashboardPortfolioEvents dashboardPortfolioEvents) {
-		newPreparedEvents = new ArrayList<>();
+//	private DashboardPortfolioEvents prepareData(InvestmentEventViewModels response) {
+//		newPreparedEvents = new ArrayList<>();
+//
+//		for (InvestmentEventViewModel event : response.getEvents()) {
+//			newPreparedEvents.add(PortfolioEvent.createFrom(event));
+//		}
+//
+//		return dashboardPortfolioEvents;
+//	}
 
-		for (DashboardPortfolioEvent event : dashboardPortfolioEvents.getEvents()) {
-			newPreparedEvents.add(PortfolioEvent.createFrom(event));
-		}
-
-		return dashboardPortfolioEvents;
-	}
-
-	private void handleGetEventsResponse(DashboardPortfolioEvents response) {
+	private void handleGetEventsResponse(InvestmentEventViewModels response) {
 		eventsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
@@ -140,29 +141,32 @@ public class ProgramEventsPresenter extends MvpPresenter<ProgramEventsView> impl
 			sections.clear();
 		}
 
-		if (location.equals(ProgramEventsFragment.LOCATION_PROGRAM))
+		if (location.equals(ProgramEventsFragment.LOCATION_PROGRAM)) {
 			EventBus.getDefault().post(new SetProgramDetailsEventsCountEvent(response.getTotal()));
-		else if (location.equals(ProgramEventsFragment.LOCATION_FUND))
+		}
+		else if (location.equals(ProgramEventsFragment.LOCATION_FUND)) {
 			EventBus.getDefault().post(new SetFundDetailsEventsCountEvent(response.getTotal()));
+		}
 
-		List<DashboardPortfolioEvent> newEvents = response.getEvents();
+		List<InvestmentEventViewModel> newEvents = response.getEvents();
 
 		int index = events.size();
-		for (DashboardPortfolioEvent newEvent : newEvents) {
+		for (InvestmentEventViewModel newEvent : newEvents) {
 			String dateString = DateTimeUtil.formatShortDate(newEvent.getDate());
 			String lastSectionDate = sections.isEmpty() ? "" : sections.get(sections.size() - 1).getTitle().toString();
-			if (!lastSectionDate.equals(dateString))
+			if (!lastSectionDate.equals(dateString)) {
 				sections.add(new SimpleSectionedRecyclerViewAdapter.Section(index, dateString));
+			}
 			index++;
 		}
 
 		events.addAll(newEvents);
 
 		if (skip == 0) {
-			getViewState().setEvents(newPreparedEvents, sections);
+			getViewState().setEvents(newEvents, sections);
 		}
 		else {
-			getViewState().addEvents(newPreparedEvents, sections);
+			getViewState().addEvents(newEvents, sections);
 		}
 
 		skip += TAKE;

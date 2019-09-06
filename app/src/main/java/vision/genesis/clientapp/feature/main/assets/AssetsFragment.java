@@ -8,13 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -49,8 +50,6 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 	private TabLayout.OnTabSelectedListener tabSelectedListener;
 
 	private TabLayout.TabLayoutOnPageChangeListener tabLayoutOnPageChangeListener;
-
-	private TabLayout.Tab favoritesTab;
 
 	private TabLayout.Tab programsTab;
 
@@ -93,17 +92,21 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 	@Override
 	public void onDestroyView() {
-		if (pagerAdapter != null)
+		if (pagerAdapter != null) {
 			pagerAdapter.destroy();
+		}
 
-		if (tabSelectedListener != null)
+		if (tabSelectedListener != null) {
 			tabLayout.removeOnTabSelectedListener(tabSelectedListener);
+		}
 
-		if (tabLayoutOnPageChangeListener != null)
+		if (tabLayoutOnPageChangeListener != null) {
 			viewPager.removeOnPageChangeListener(tabLayoutOnPageChangeListener);
+		}
 
-		if (viewPager != null)
+		if (viewPager != null) {
 			viewPager.clearOnPageChangeListeners();
+		}
 
 		if (unbinder != null) {
 			unbinder.unbind();
@@ -114,7 +117,6 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 	}
 
 	private void initTabs() {
-		favoritesTab = tabLayout.newTab().setCustomView(getFavoritesTabView()).setTag("favorites");
 		programsTab = tabLayout.newTab().setCustomView(getProgramsTabView()).setTag("programs");
 		fundsTab = tabLayout.newTab().setCustomView(getFundsTabView()).setTag("funds");
 
@@ -145,65 +147,8 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 		tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
-//		addPage(favoritesTab, false);
 		addPage(programsTab, true);
 		addPage(fundsTab, false);
-
-//		tabLayout.post(this::setTabsIndicator);
-	}
-
-//	private void setTabsIndicator() {
-//		for (int i = 0; i < tabLayout.getTabCount(); i++) {
-//			TabLayout.Tab tab = tabLayout.getTabAt(i);
-//			if (tab != null) {
-//				View customView = tab.getCustomView();
-//				if (customView != null) {
-//					View targetViewToApplyMargin = (View) customView.getParent();
-//					ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) targetViewToApplyMargin.getLayoutParams();
-//
-//					layoutParams.rightMargin = 200;
-//					targetViewToApplyMargin.setLayoutParams(layoutParams);
-//				}
-//			}
-//		}
-//
-//		Class<?> tabLayoutClass = tabLayout.getClass();
-//		Field tabStrip = null;
-//		try {
-//			tabStrip = tabLayoutClass.getDeclaredField("mTabStrip");
-//		} catch (NoSuchFieldException e) {
-//			e.printStackTrace();
-//		}
-//
-//		tabStrip.setAccessible(true);
-//		LinearLayout llTab = null;
-//		try {
-//			llTab = (LinearLayout) tabStrip.get(tabLayout);
-//		} catch (IllegalAccessException e) {
-//			e.printStackTrace();
-//		}
-//
-//		int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32, Resources.getSystem().getDisplayMetrics());
-//		int right = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, Resources.getSystem().getDisplayMetrics());
-//
-//		ViewGroup.LayoutParams lp = llTab.getLayoutParams();
-//		lp.width = width;
-//		llTab.setLayoutParams(lp);
-//		for (int i = 0; i < llTab.getChildCount(); i++) {
-//			View child = llTab.getChildAt(i);
-//			child.setPadding(0, 0, 0, 0);
-//			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1);
-//			params.leftMargin = left;
-//			params.rightMargin = right;
-//			child.setLayoutParams(params);
-//			child.invalidate();
-//		}
-//	}
-
-	private View getFavoritesTabView() {
-		CustomTabView view = new CustomTabView(getContext());
-		view.setData(R.drawable.ic_star_border_black_24dp, 0);
-		return view;
 	}
 
 	private View getProgramsTabView() {
@@ -219,13 +164,15 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 	}
 
 	private void addPage(TabLayout.Tab tab, boolean selected) {
-		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION)
+		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION) {
 			return;
+		}
 
 		tabLayout.addTab(tab, selected);
 		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 10);
-		if (pagerAdapter != null)
+		if (pagerAdapter != null) {
 			pagerAdapter.notifyDataSetChanged();
+		}
 	}
 
 	private void initViewPager() {
@@ -245,8 +192,9 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 	@Override
 	public void onPageSelected(int position) {
-		if (currentFragment != null && currentFragment instanceof AssetsPagerAdapter.OnPageVisibilityChanged)
+		if (currentFragment != null && currentFragment instanceof AssetsPagerAdapter.OnPageVisibilityChanged) {
 			((AssetsPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerHide();
+		}
 		currentFragment = pagerAdapter.getItem(position);
 		if (pagerAdapter.getItem(position) instanceof AssetsPagerAdapter.OnPageVisibilityChanged) {
 			((AssetsPagerAdapter.OnPageVisibilityChanged) pagerAdapter.getItem(position)).pagerShow();
@@ -275,11 +223,6 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 	@Override
 	public void onPlatformInfoUpdated(PlatformInfo platformInfo) {
-//		if (platformInfo.isIsTournamentActive() && !isTournamentAlreadyAdded) {
-//			addPage(tournamentTab, false);
-//			pagerAdapter.setTournamentData(platformInfo.getTournamentCurrentRound(), platformInfo.getTournamentTotalRounds());
-//			isTournamentAlreadyAdded = true;
-//		}
 		pagerAdapter.setProgramsFacets(platformInfo.getProgramsFacets());
 		pagerAdapter.setFundsFacets(platformInfo.getFundsFacets());
 	}
