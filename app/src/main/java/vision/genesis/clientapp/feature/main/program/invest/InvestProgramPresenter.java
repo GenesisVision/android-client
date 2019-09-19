@@ -86,10 +86,12 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 	@Override
 	public void onDestroy() {
-		if (walletsSubscription != null)
+		if (walletsSubscription != null) {
 			walletsSubscription.unsubscribe();
-		if (investInfoSubscription != null)
+		}
+		if (investInfoSubscription != null) {
 			investInfoSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -126,7 +128,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 			getViewState().setEntryFee(getEntryFeeString());
 			getViewState().setGvCommission(getGvCommissionString());
 			getViewState().setInvestmentAmount(getInvestmentAmountString());
-			getViewState().setContinueButtonEnabled(amount >= investInfo.getMinInvestmentAmount()
+			getViewState().setContinueButtonEnabled(amount >= investInfo.getProgramCurrencyMinInvestment() * rate
 					&& amount <= availableToInvest);
 		}
 	}
@@ -140,8 +142,9 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 		String approxAmount = String.format(Locale.getDefault(), "(≈%s)",
 				StringFormatUtil.getValueString(amountBase, programRequest.getProgramCurrency()));
 		String result = StringFormatUtil.getValueString(amount, selectedWalletFrom.getCurrency().getValue());
-		if (!selectedWalletFrom.getCurrency().getValue().equals(programRequest.getProgramCurrency()))
+		if (!selectedWalletFrom.getCurrency().getValue().equals(programRequest.getProgramCurrency())) {
 			result = result.concat(" " + approxAmount);
+		}
 		return result;
 	}
 
@@ -197,8 +200,9 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 	private void subscribeToWallets() {
 		if (walletManager != null && programRequest != null) {
-			if (walletsSubscription != null)
+			if (walletsSubscription != null) {
 				walletsSubscription.unsubscribe();
+			}
 			walletsSubscription = walletManager.getWallets(CurrencyEnum.GVT.getValue(), false)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
@@ -271,7 +275,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 				? investInfo.getAvailableToInvestBase() * rate
 				: selectedWalletFrom.getAvailable();
 
-		getViewState().setMinInvestmentAmount(investInfo.getMinInvestmentAmount());
+		getViewState().setMinInvestmentAmount(investInfo.getProgramCurrencyMinInvestment() * rate);
 		getViewState().setAmount("");
 	}
 

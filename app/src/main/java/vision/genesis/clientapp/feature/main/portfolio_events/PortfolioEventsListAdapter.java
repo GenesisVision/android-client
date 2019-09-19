@@ -20,6 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.AssetDetails;
+import io.swagger.client.model.InvestmentEventItemViewModel;
 import io.swagger.client.model.InvestmentEventViewModel;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowEventDetailsEvent;
@@ -130,7 +131,18 @@ public class PortfolioEventsListAdapter extends RecyclerView.Adapter<PortfolioEv
 			action.setImageURI(ImageUtils.getImageUri(event.getIcon()));
 			text.setText(event.getTitle());
 			time.setText(DateTimeUtil.formatShortTime(event.getDate()));
-			value.setText(StringFormatUtil.getValueString(event.getAmount(), event.getCurrency().getValue()));
+
+			value.setVisibility(View.VISIBLE);
+			if (event.getExtendedInfo() != null && event.getExtendedInfo().size() > 0) {
+				InvestmentEventItemViewModel info = event.getExtendedInfo().get(0);
+				value.setText(StringFormatUtil.getValueString(info.getAmount(), info.getCurrency().getValue()));
+			}
+			else if (event.getAmount() != null) {
+				value.setText(StringFormatUtil.getValueString(event.getAmount(), event.getCurrency().getValue()));
+			}
+			else {
+				value.setVisibility(View.GONE);
+			}
 
 			int valueColorAttrId = R.attr.colorTextPrimary;
 			switch (event.getChangeState()) {

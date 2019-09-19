@@ -4,8 +4,8 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/program_details_padding"
                 android:layout_marginStart="@dimen/program_details_padding"
+                android:layout_marginLeft="@dimen/program_details_padding"
                 android:paddingTop="@dimen/program_details_padding">
 
     <RelativeLayout
@@ -17,8 +17,8 @@
             android:id="@+id/action"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             app:roundAsCircle="true"/>
 
         <ImageView
@@ -44,7 +44,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/group_icons"
-        android:layout_toRightOf="@+id/group_icons"
         android:orientation="vertical"
         android:paddingLeft="@dimen/program_details_padding"
         android:paddingRight="@dimen/program_details_padding">
@@ -77,11 +76,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:lines="1"
                 android:textColor="?attr/colorGreen"
                 android:textSize="14sp"
-                tools:text="42.1294 GVT"/>
+                android:visibility="gone"
+                tools:text="42.1294 GVT"
+                tools:visibility="visible"/>
 
         </RelativeLayout>
 
@@ -90,10 +90,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_alignLeft="@+id/group_right"
-        android:layout_alignStart="@+id/group_right"
         android:layout_below="@+id/group_right"
-        android:layout_marginLeft="@dimen/program_details_padding"
+        android:layout_alignStart="@+id/group_right"
         android:layout_marginStart="@dimen/program_details_padding"
         android:layout_marginTop="16dp"
         android:alpha="0.5"

@@ -141,7 +141,7 @@ public class EventDetailsBottomSheetFragment extends BottomSheetDialogFragment
 				valuesGroup.addView(createAmountView(value));
 			}
 		}
-		else {
+		else if (event.getAmount() != null) {
 			valuesGroup.addView(createAmountView(event.getAmount(), event.getCurrency().getValue()));
 		}
 
