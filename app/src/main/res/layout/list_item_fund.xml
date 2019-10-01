@@ -319,8 +319,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:alpha="0.4"
-                android:textColor="?attr/colorTextPrimary"
+                android:textColor="?attr/colorTextSecondary"
                 android:textSize="14sp"
                 tools:text="+99"/>
 

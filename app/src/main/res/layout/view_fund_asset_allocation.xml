@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="@dimen/view_fund_asset_allocation_width"
+                android:layout_height="@dimen/view_fund_asset_allocation_height">
+
+    <View
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.02"
+        android:background="@drawable/fund_asset_background"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:orientation="horizontal">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="14sp"
+            tools:text="99%"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

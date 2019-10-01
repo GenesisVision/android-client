@@ -674,5 +674,14 @@
     <string name="started">started</string>
     <string name="signal_provider">Signal provider</string>
     <string name="fund">Fund</string>
+    <string name="no_periods_for_selected_period">No program periods for the selected period.</string>
+    <string name="no_reallocates_for_selected_period">No reallocates for the selected period.</string>
+    <string name="reallocate_history">Reallocate history</string>
+
+    <plurals name="assets">
+        <item quantity="one">asset</item>
+        <item quantity="two">assets</item>
+        <item quantity="other">assets</item>
+    </plurals>
 
 </resources>

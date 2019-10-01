@@ -28,7 +28,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class PeriodHistoryAdapter extends RecyclerView.Adapter<PeriodHistoryAdapter.PeriodHistoryViewHolder>
 {
-	public List<ProgramPeriodViewModel> periods = new ArrayList<>();
+	private List<ProgramPeriodViewModel> periods = new ArrayList<>();
 
 	private String programCurrency;
 

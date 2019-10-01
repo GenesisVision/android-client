@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.period_history;
+package vision.genesis.clientapp.feature.main.fund.reallocate_history;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,31 +20,29 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.ProgramPeriodViewModel;
+import io.swagger.client.model.ReallocationModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.fund.reallocate_history.details.FundReallocationDetailsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 21/08/2019.
+ * Created by Vitaly on 27/09/2019.
  */
 
-public class PeriodHistoryFragment extends BaseFragment implements PeriodHistoryView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
+public class ReallocateHistoryFragment extends BaseFragment implements ReallocateHistoryView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
 {
-	private static final String EXTRA_PROGRAM_ID = "extra_program_id";
+	private static final String EXTRA_FUND_ID = "extra_fund_id";
 
-	private static final String EXTRA_PROGRAM_CURRENCY = "extra_program_currency";
-
-	public static PeriodHistoryFragment with(UUID programId, String programCurrency) {
-		PeriodHistoryFragment periodHistoryFragment = new PeriodHistoryFragment();
-		Bundle arguments = new Bundle(2);
-		arguments.putSerializable(EXTRA_PROGRAM_ID, programId);
-		arguments.putString(EXTRA_PROGRAM_CURRENCY, programCurrency);
+	public static ReallocateHistoryFragment with(UUID fundId) {
+		ReallocateHistoryFragment periodHistoryFragment = new ReallocateHistoryFragment();
+		Bundle arguments = new Bundle(1);
+		arguments.putSerializable(EXTRA_FUND_ID, fundId);
 		periodHistoryFragment.setArguments(arguments);
 		return periodHistoryFragment;
 	}
@@ -58,8 +56,8 @@ public class PeriodHistoryFragment extends BaseFragment implements PeriodHistory
 	@BindView(R.id.date_range)
 	public DateRangeView dateRangeView;
 
-	@BindView(R.id.group_no_periods)
-	public View groupNoTransactions;
+	@BindView(R.id.group_no_reallocates)
+	public View groupNoReallocates;
 
 	@BindView(R.id.recycler_view)
 	public RecyclerView recyclerView;
@@ -68,15 +66,13 @@ public class PeriodHistoryFragment extends BaseFragment implements PeriodHistory
 	public int dateRangeMarginBottom;
 
 	@InjectPresenter
-	public PeriodHistoryPresenter periodHistoryPresenter;
+	public ReallocateHistoryPresenter reallocateHistoryPresenter;
 
-	private PeriodHistoryAdapter periodHistoryAdapter;
+	private ReallocateHistoryAdapter reallocateHistoryAdapter;
 
 	private Unbinder unbinder;
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
-
-	private String programCurrency;
 
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
@@ -84,14 +80,14 @@ public class PeriodHistoryFragment extends BaseFragment implements PeriodHistory
 			DateRangeBottomSheetFragment bottomSheetDialog = new DateRangeBottomSheetFragment();
 			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
 			bottomSheetDialog.setDateRange(dateRange);
-			bottomSheetDialog.setListener(periodHistoryPresenter);
+			bottomSheetDialog.setListener(reallocateHistoryPresenter);
 		}
 	}
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_period_history, container, false);
+		return inflater.inflate(R.layout.fragment_reallocate_history, container, false);
 	}
 
 	@Override
@@ -103,13 +99,12 @@ public class PeriodHistoryFragment extends BaseFragment implements PeriodHistory
 		setFonts();
 
 		if (getArguments() != null) {
-			periodHistoryPresenter.setProgramId((UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID));
-			programCurrency = getArguments().getString(EXTRA_PROGRAM_CURRENCY);
+			reallocateHistoryPresenter.setFundId((UUID) getArguments().getSerializable(EXTRA_FUND_ID));
 
 			initRecyclerView();
 		}
 		else {
-			Timber.e("Passed empty programId to TradesFragment");
+			Timber.e("Passed empty fundId to %s", getClass().getSimpleName());
 			onBackPressed();
 		}
 	}
@@ -131,8 +126,8 @@ public class PeriodHistoryFragment extends BaseFragment implements PeriodHistory
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
 
-		periodHistoryAdapter = new PeriodHistoryAdapter(programCurrency);
-		recyclerView.setAdapter(periodHistoryAdapter);
+		reallocateHistoryAdapter = new ReallocateHistoryAdapter();
+		recyclerView.setAdapter(reallocateHistoryAdapter);
 
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
 		{
@@ -144,28 +139,37 @@ public class PeriodHistoryFragment extends BaseFragment implements PeriodHistory
 
 				boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
 				if (totalItemCount > 0 && endHasBeenReached) {
-					periodHistoryPresenter.onLastListItemVisible();
+					reallocateHistoryPresenter.onLastListItemVisible();
 				}
 			}
 		});
 	}
 
 	@Override
-	public void setPeriods(List<ProgramPeriodViewModel> periods) {
-		if (periods.isEmpty()) {
-			groupNoTransactions.setVisibility(View.VISIBLE);
+	public void setReallocates(List<ReallocationModel> reallocates) {
+		if (reallocates.isEmpty()) {
+			groupNoReallocates.setVisibility(View.VISIBLE);
 			recyclerView.setVisibility(View.GONE);
 			return;
 		}
 
-		periodHistoryAdapter.setPeriod(periods);
-		groupNoTransactions.setVisibility(View.GONE);
+		reallocateHistoryAdapter.setReallocates(reallocates);
+		groupNoReallocates.setVisibility(View.GONE);
 		recyclerView.setVisibility(View.VISIBLE);
 	}
 
 	@Override
-	public void addPeriods(List<ProgramPeriodViewModel> periods) {
-		periodHistoryAdapter.addPeriod(periods);
+	public void addReallocates(List<ReallocationModel> reallocates) {
+		reallocateHistoryAdapter.addReallocates(reallocates);
+	}
+
+	@Override
+	public void showReallocationDetails(ReallocationModel reallocation) {
+		if (getActivity() != null) {
+			FundReallocationDetailsBottomSheetFragment bottomSheetFragment = new FundReallocationDetailsBottomSheetFragment();
+			bottomSheetFragment.show(getActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
+			bottomSheetFragment.setData(reallocation);
+		}
 	}
 
 	@Override
@@ -190,8 +194,8 @@ public class PeriodHistoryFragment extends BaseFragment implements PeriodHistory
 
 	@Override
 	public void pagerShow() {
-		if (periodHistoryPresenter != null) {
-			periodHistoryPresenter.onShow();
+		if (reallocateHistoryPresenter != null) {
+			reallocateHistoryPresenter.onShow();
 		}
 	}
 
@@ -200,8 +204,8 @@ public class PeriodHistoryFragment extends BaseFragment implements PeriodHistory
 	}
 
 	public void onSwipeRefresh() {
-		if (periodHistoryPresenter != null) {
-			periodHistoryPresenter.onSwipeRefresh();
+		if (reallocateHistoryPresenter != null) {
+			reallocateHistoryPresenter.onSwipeRefresh();
 		}
 	}
 

@@ -132,6 +132,8 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 
 	private TabLayout.Tab structureTab;
 
+	private TabLayout.Tab reallocateHistoryTab;
+
 	private TabLayout.Tab profitTab;
 
 	private TabLayout.Tab balanceTab;
@@ -303,6 +305,7 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 	private void initTabs() {
 		infoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("info");
 		structureTab = tabLayout.newTab().setCustomView(getTabView(R.string.structure)).setTag("structure");
+		reallocateHistoryTab = tabLayout.newTab().setCustomView(getTabView(R.string.reallocate_history)).setTag("reallocate_history");
 		profitTab = tabLayout.newTab().setCustomView(getTabView(R.string.profit)).setTag("profit");
 		balanceTab = tabLayout.newTab().setCustomView(getTabView(R.string.balance)).setTag("balance");
 		eventsTab = tabLayout.newTab().setCustomView(getTabView(R.string.events)).setTag("events");
@@ -338,6 +341,7 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 
 		addPage(infoTab, true);
 		addPage(structureTab, false);
+		addPage(reallocateHistoryTab, false);
 		addPage(profitTab, false);
 		addPage(balanceTab, false);
 	}
@@ -471,6 +475,11 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 	@Override
 	public void setRefreshing(boolean refreshing) {
 		refreshLayout.setRefreshing(refreshing);
+	}
+
+	@Override
+	public void setReallocatesCount(Integer count) {
+		((DetailsTabView) reallocateHistoryTab.getCustomView()).setCount(count);
 	}
 
 	@Override

@@ -25,6 +25,7 @@ import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 import vision.genesis.clientapp.model.events.OnFundFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.SetFundDetailsEventsCountEvent;
+import vision.genesis.clientapp.model.events.SetFundDetailsReallocatesCountEvent;
 import vision.genesis.clientapp.model.events.ShowEventDetailsEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -206,6 +207,10 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 		getViewState().finishActivity();
 	}
 
+	@Subscribe
+	public void onEventMainThread(SetFundDetailsReallocatesCountEvent event) {
+		getViewState().setReallocatesCount(event.getCount());
+	}
 	@Subscribe
 	public void onEventMainThread(SetFundDetailsEventsCountEvent event) {
 		getViewState().setEventsCount(event.getEventsCount());

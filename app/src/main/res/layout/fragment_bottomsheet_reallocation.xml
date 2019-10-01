@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_bottomsheet"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="45dp"
+            android:layout_height="3dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/line_bottomsheet"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp">
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="14sp"
+                tools:text="16 Aug, 2019 04:20pm"/>
+
+            <TextView
+                android:id="@+id/count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="14sp"
+                tools:text="32 assets"/>
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingBottom="32dp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

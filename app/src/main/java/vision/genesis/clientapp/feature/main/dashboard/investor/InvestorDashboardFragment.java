@@ -222,8 +222,9 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 	@OnClick(R.id.group_notifications)
 	public void onNotificationsClicked() {
-		if (getActivity() != null)
+		if (getActivity() != null) {
 			NotificationsActivity.startWith(getActivity());
+		}
 	}
 
 	@OnClick(R.id.group_currency)
@@ -247,8 +248,9 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 	@OnClick(R.id.show_all_events)
 	public void onShowAllEventsClicked() {
-		if (getActivity() != null)
+		if (getActivity() != null) {
 			PortfolioEventsActivity.startWith(getActivity());
+		}
 	}
 
 	@Nullable
@@ -284,26 +286,33 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 	@Override
 	public void onDestroyView() {
-		if (assetsPagerAdapter != null)
+		if (assetsPagerAdapter != null) {
 			assetsPagerAdapter.destroy();
+		}
 
-		if (headerTabSelectedListener != null)
+		if (headerTabSelectedListener != null) {
 			tabLayoutHeader.removeOnTabSelectedListener(headerTabSelectedListener);
+		}
 
-		if (assetsTabSelectedListener != null)
+		if (assetsTabSelectedListener != null) {
 			tabLayoutAssets.removeOnTabSelectedListener(assetsTabSelectedListener);
+		}
 
-		if (tabLayoutChartOnPageChangeListener != null)
+		if (tabLayoutChartOnPageChangeListener != null) {
 			headerViewPager.removeOnPageChangeListener(tabLayoutChartOnPageChangeListener);
+		}
 
-		if (tabLayoutAssetsOnPageChangeListener != null)
+		if (tabLayoutAssetsOnPageChangeListener != null) {
 			viewPagerAssets.removeOnPageChangeListener(tabLayoutAssetsOnPageChangeListener);
+		}
 
-		if (headerViewPager != null)
+		if (headerViewPager != null) {
 			headerViewPager.clearOnPageChangeListeners();
+		}
 
-		if (viewPagerAssets != null)
+		if (viewPagerAssets != null) {
 			viewPagerAssets.clearOnPageChangeListeners();
+		}
 
 		if (unbinder != null) {
 			unbinder.unbind();
@@ -403,13 +412,15 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	}
 
 	private void addTab(TabLayout tabLayout, PagerAdapter pagerAdapter, TabLayout.Tab tab, boolean selected) {
-		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION)
+		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION) {
 			return;
+		}
 
 		tabLayout.addTab(tab, selected);
 		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 10);
-		if (pagerAdapter != null)
+		if (pagerAdapter != null) {
 			pagerAdapter.notifyDataSetChanged();
+		}
 	}
 
 	private View getTabView(int textResId) {
@@ -501,8 +512,9 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 		if (params instanceof CoordinatorLayout.LayoutParams) {
 			CoordinatorLayout.LayoutParams coordinatorLayoutParams = (CoordinatorLayout.LayoutParams) params;
 			CoordinatorLayout.Behavior behavior = coordinatorLayoutParams.getBehavior();
-			if (behavior != null && behavior instanceof CustomBottomSheetBehavior)
+			if (behavior instanceof CustomBottomSheetBehavior) {
 				((CustomBottomSheetBehavior) behavior).setNestedScrollingChildRef(recyclerView);
+			}
 		}
 	}
 
@@ -517,8 +529,9 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 	@Override
 	public void setRefreshing(boolean refreshing) {
-		if (refreshLayout != null)
+		if (refreshLayout != null) {
 			refreshLayout.setRefreshing(refreshing);
+		}
 	}
 
 	@Override
@@ -680,8 +693,9 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 
 	@Override
 	public void onPageSelected(int position) {
-		if (currentFragment != null && currentFragment instanceof DashboardPagerAdapter.OnPageVisibilityChanged)
+		if (currentFragment != null && currentFragment instanceof DashboardPagerAdapter.OnPageVisibilityChanged) {
 			((DashboardPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerHide();
+		}
 		currentFragment = assetsPagerAdapter.getItem(position);
 		if (assetsPagerAdapter.getItem(position) instanceof DashboardPagerAdapter.OnPageVisibilityChanged) {
 			((DashboardPagerAdapter.OnPageVisibilityChanged) assetsPagerAdapter.getItem(position)).pagerShow();

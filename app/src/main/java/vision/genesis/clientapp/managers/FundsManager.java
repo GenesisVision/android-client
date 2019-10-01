@@ -12,6 +12,7 @@ import io.swagger.client.model.FundInvestInfo;
 import io.swagger.client.model.FundProfitChart;
 import io.swagger.client.model.FundWithdrawInfo;
 import io.swagger.client.model.FundsList;
+import io.swagger.client.model.ReallocationsViewModel;
 import rx.Observable;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
@@ -94,6 +95,10 @@ public class FundsManager
 
 	public Observable<Void> withdraw(FundRequest fundRequest) {
 		return investorApi.v10InvestorFundsByIdWithdrawByPercentPost(fundRequest.getFundId(), fundRequest.getAmount(), AuthManager.token.getValue(), fundRequest.getWalletCurrency());
+	}
+
+	public Observable<ReallocationsViewModel> getReallocateHistory(UUID fundId, DateRange dateRange, int skip, int take) {
+		return fundsApi.v10FundsByIdReallocationsGet(fundId, dateRange.getFrom(), dateRange.getTo(), skip, take);
 	}
 
 	//	public Observable<Void> withdraw(ProgramRequest withdrawalRequest) {

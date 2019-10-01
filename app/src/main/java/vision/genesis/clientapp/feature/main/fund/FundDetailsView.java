@@ -35,6 +35,8 @@ interface FundDetailsView extends MvpView
 
 	void setRefreshing(boolean refreshing);
 
+	void setReallocatesCount(Integer count);
+
 	void setEventsCount(Integer eventsCount);
 
 	void showEventDetails(InvestmentEventViewModel event);

@@ -6,14 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 import java.util.UUID;
 
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -86,7 +87,6 @@ public class FundStructureFragment extends BaseFragment implements FundStructure
 
 	private void setFonts() {
 	}
-
 
 	private void initRecyclerView() {
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
