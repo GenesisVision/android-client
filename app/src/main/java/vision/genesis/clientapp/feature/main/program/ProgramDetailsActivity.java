@@ -465,7 +465,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	public void setProgram(ProgramDetailsFull programDetails) {
 		this.programDetails = programDetails;
 
-		initViewPager(programDetails.getId(), programDetails.getCurrency().getValue(), programDetails.getPeriodDuration());
+		if (pagerAdapter == null) {
+			initViewPager(programDetails.getId(), programDetails.getCurrency().getValue(), programDetails.getPeriodDuration());
+		}
 
 		if (programDetails.getPersonalProgramDetails() != null && programDetails.getPersonalProgramDetails().isIsInvested()) {
 			addPage(eventsTab, false);
