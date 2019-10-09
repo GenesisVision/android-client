@@ -108,7 +108,11 @@ public class ProgramsManager
 	}
 
 	public Observable<Void> withdraw(ProgramRequest withdrawRequest) {
-		return investorApi.v10InvestorProgramsByIdWithdrawByAmountPost(withdrawRequest.getProgramId(), withdrawRequest.getAmount(), AuthManager.token.getValue());
+		return investorApi.v10InvestorProgramsByIdWithdrawMultiByAmountPost(
+				withdrawRequest.getProgramId(),
+				withdrawRequest.getAmount(),
+				AuthManager.token.getValue(),
+				withdrawRequest.isWithdrawAll());
 	}
 
 	public Observable<Void> setReinvest(UUID programId, boolean reinvest) {

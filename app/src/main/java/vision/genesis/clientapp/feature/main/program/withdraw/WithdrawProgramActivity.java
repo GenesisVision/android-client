@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.SwitchCompat;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
@@ -51,14 +53,17 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	@BindView(R.id.available_to_withdraw)
 	public TextView availableToWithdraw;
 
+	@BindView(R.id.group_amount_to_withdraw)
+	public ViewGroup amountToWithdrawGroup;
+
 	@BindView(R.id.edittext_amount)
 	public EditText amount;
 
 	@BindView(R.id.currency)
 	public TextView currency;
 
-	@BindView(R.id.max)
-	public TextView max;
+	@BindView(R.id.withdraw_all_switch)
+	public SwitchCompat withdrawAllSwitch;
 
 	@BindView(R.id.base_currency_amount)
 	public TextView baseCurrencyAmount;
@@ -85,18 +90,16 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 
 	@OnClick(R.id.group_amount)
 	public void onAmountClicked() {
-		showSoftKeyboard();
+		if (amount.isEnabled()) {
+			showSoftKeyboard();
+		}
 	}
 
 	@OnClick(R.id.available_to_withdraw)
 	public void onAvailableClicked() {
-		withdrawProgramPresenter.onMaxClicked();
+		withdrawProgramPresenter.onAvailableToWithdrawClicked();
 	}
 
-	@OnClick(R.id.max)
-	public void onMaxClicked() {
-		withdrawProgramPresenter.onMaxClicked();
-	}
 
 	@OnClick(R.id.button_continue)
 	public void onContinueClicked() {
@@ -117,22 +120,25 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 
 			setFonts();
 
-			setTextListener();
+			setListeners();
 		}
 		else {
-			Timber.e("Passed empty request to WithdrawProgramActivity");
+			Timber.e("Passed empty request to %s", getClass().getSimpleName());
 			onBackPressed();
 		}
 	}
 
-	private void setTextListener() {
+	private void setListeners() {
 		RxTextView.textChanges(amount)
 				.subscribe(charSequence -> withdrawProgramPresenter.onAmountChanged(charSequence.toString()));
+
+		withdrawAllSwitch.setOnCheckedChangeListener((view, checked) -> {
+			withdrawProgramPresenter.onWithdrawAllCheckedChanged(checked);
+		});
 	}
 
 	private void setFonts() {
 		title.setTypeface(TypefaceUtil.semibold());
-		max.setTypeface(TypefaceUtil.semibold());
 	}
 
 	@Override
@@ -201,6 +207,17 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 		bottomSheetDialog.show(getSupportFragmentManager(), bottomSheetDialog.getTag());
 		bottomSheetDialog.setData(programRequest);
 		bottomSheetDialog.setListener(withdrawProgramPresenter);
+	}
+
+	@Override
+	public void setAmountEnabled(boolean enabled) {
+		amountToWithdrawGroup.setAlpha(enabled ? 1 : 0.5f);
+		amount.setEnabled(enabled);
+	}
+
+	@Override
+	public void setWithdrawAllChecked(boolean checked) {
+		withdrawAllSwitch.setChecked(checked);
 	}
 
 	private void showSoftKeyboard() {

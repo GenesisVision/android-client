@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.daimajia.swipe.SwipeLayout;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -17,8 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -144,8 +145,9 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 
 		@OnClick(R.id.button_cancel)
 		public void onCancelClicked() {
-			if (request.isCanCancelRequest())
+			if (request.isCanCancelRequest()) {
 				EventBus.getDefault().post(new OnCancelRequestClickedEvent(request.getId()));
+			}
 		}
 
 		void setRequest(ProgramRequest request) {
@@ -159,6 +161,9 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 			if (request.getFundWithdrawPercent() != null) {
 				this.value.setText(String.format(Locale.getDefault(), "%s%% (≈ %s GVT)", StringFormatUtil.formatAmount(request.getFundWithdrawPercent(), 0, 2),
 						StringFormatUtil.formatCurrencyAmount(request.getValue(), CurrencyEnum.GVT.getValue())));
+			}
+			else if (request.getType().equals(ProgramRequest.TypeEnum.WITHDRAWAL) && request.isWithdrawAll()) {
+				this.value.setText(itemView.getContext().getString(R.string.withdraw_all));
 			}
 			else {
 				this.value.setText(String.format(Locale.getDefault(), "%s %s %s", request.getType().equals(ProgramRequest.TypeEnum.INVEST) ? "+" : "-",

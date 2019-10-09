@@ -687,6 +687,7 @@
     <string name="manager_investment_withdrawal">Manager Investment/Withdrawal</string>
     <string name="investors_withdrawal_profit">Investors Withdrawal Profit</string>
     <string name="gv_commission_rebate">GV commission rebate</string>
+    <string name="withdraw_all">Withdraw all</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

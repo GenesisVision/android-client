@@ -27,6 +27,10 @@ interface WithdrawProgramView extends MvpView
 
 	void showConfirmDialog(ProgramRequest programRequest);
 
+	void setAmountEnabled(boolean enabled);
+
+	void setWithdrawAllChecked(boolean checked);
+
 	void showProgress(boolean show);
 
 	void showSnackbarMessage(String message);
