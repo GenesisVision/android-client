@@ -136,8 +136,18 @@ public class SubscriptionSettingsActivity extends BaseSwipeBackActivity implemen
 	}
 
 	@OnClick(R.id.group_edittext_volume_percentage)
-	public void onAmountClicked() {
+	public void onVolumePercentageClicked() {
 		showSoftKeyboard(volumePercentage);
+	}
+
+	@OnClick(R.id.group_edittext_tolerance_percentage)
+	public void onTolerancePercentageClicked() {
+		showSoftKeyboard(tolerancePercentage);
+	}
+
+	@OnClick(R.id.group_equivalent)
+	public void onEquivalentClicked() {
+		showSoftKeyboard(equivalent);
 	}
 
 	@OnClick(R.id.label_volume_percentage)
@@ -190,8 +200,9 @@ public class SubscriptionSettingsActivity extends BaseSwipeBackActivity implemen
 			if (model != null) {
 				subscriptionSettingsPresenter.setData(model, isEdit);
 
-				if (isEdit)
+				if (isEdit) {
 					button.setText(getString(R.string.update_subscription));
+				}
 				setProgramName(model.getProgramName());
 				setLabels();
 				setFonts();
