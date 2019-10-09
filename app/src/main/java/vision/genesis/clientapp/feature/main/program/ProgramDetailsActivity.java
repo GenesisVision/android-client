@@ -446,8 +446,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		}
 	}
 
-	private void initViewPager(UUID programId, String programCurrency) {
-		pagerAdapter = new ProgramDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, programId, programCurrency);
+	private void initViewPager(UUID programId, String programCurrency, Integer periodDurationDays) {
+		pagerAdapter = new ProgramDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, programId, programCurrency, periodDurationDays);
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOffscreenPageLimit(5);
 
@@ -465,7 +465,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	public void setProgram(ProgramDetailsFull programDetails) {
 		this.programDetails = programDetails;
 
-		initViewPager(programDetails.getId(), programDetails.getCurrency().getValue());
+		initViewPager(programDetails.getId(), programDetails.getCurrency().getValue(), programDetails.getPeriodDuration());
 
 		if (programDetails.getPersonalProgramDetails() != null && programDetails.getPersonalProgramDetails().isIsInvested()) {
 			addPage(eventsTab, false);

@@ -2,9 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/item_period_history_height"
-                android:orientation="vertical">
-
+                android:layout_height="@dimen/item_period_history_height">
 
     <LinearLayout
         android:id="@+id/group_main"
@@ -20,7 +18,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-
             <TextView
                 android:id="@+id/number"
                 android:layout_width="wrap_content"
@@ -29,30 +26,17 @@
                 android:textSize="14sp"
                 tools:text="#32"/>
 
-            <!--            <TextView-->
-            <!--                style="@style/text_label"-->
-            <!--                android:text="@string/started"/>-->
-
             <TextView
-                android:id="@+id/date_started"
+                android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:textColor="?attr/colorTextPrimary"
+                android:layout_marginStart="12dp"
+                android:textColor="?attr/colorGreen"
                 android:textSize="14sp"
-                tools:text="16 Aug, 2019 04:20pm"/>
-
-
-            <TextView
-                android:id="@+id/period_length"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:textColor="?attr/colorTextSecondary"
-                android:textSize="12sp"
-                tools:text="(12d 7h 32min)"/>
+                tools:text="Active"/>
 
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -95,20 +79,70 @@
 
                 <TextView
                     android:id="@+id/investors"
-                    style="@style/text_value"
+                    style="@style/period_text_value"
                     tools:text="164"/>
 
                 <TextView
                     android:id="@+id/balance"
-                    style="@style/text_value"
+                    style="@style/period_text_value"
                     tools:text="235k GVT"/>
 
                 <TextView
                     android:id="@+id/profit"
-                    style="@style/text_value"
+                    style="@style/period_text_value"
                     tools:text="12k GVT"/>
 
             </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/group_main"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="end"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/date_started"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="14sp"
+            tools:text="16 Aug, 2019 04:20pm"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/period_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="12sp"
+                tools:text="12d 7h 32m"/>
+
+            <ProgressBar
+                android:id="@+id/period_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/circle_shape"
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                tools:max="100"
+                tools:min="1"
+                tools:progress="25"/>
 
         </LinearLayout>
 

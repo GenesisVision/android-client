@@ -1,5 +1,6 @@
 package vision.genesis.clientapp.ui;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -83,8 +85,12 @@ public class SocialLinksView extends RelativeLayout
 		SimpleDraweeView view = new SimpleDraweeView(getContext());
 		view.setImageURI(ImageUtils.getImageUri(data.getLogo()));
 		view.setOnClickListener(view1 -> {
-			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.getUrl().concat(data.getValue())));
-			getContext().startActivity(browserIntent);
+			try {
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.getUrl().concat(data.getValue())));
+				getContext().startActivity(browserIntent);
+			} catch (ActivityNotFoundException e) {
+				Snackbar.make(this, getContext().getString(R.string.social_link_no_app_error), Snackbar.LENGTH_LONG).show();
+			}
 		});
 		return view;
 	}

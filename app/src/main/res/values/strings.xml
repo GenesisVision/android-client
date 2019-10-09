@@ -677,6 +677,16 @@
     <string name="no_periods_for_selected_period">No program periods for the selected period.</string>
     <string name="no_reallocates_for_selected_period">No reallocates for the selected period.</string>
     <string name="reallocate_history">Reallocate history</string>
+    <string name="social_link_no_app_error">Cannot find an appropriate application on the device to open this link</string>
+    <string name="planned">Planned</string>
+    <string name="closed">Closed</string>
+    <string name="period_number">Period number</string>
+    <string name="date_start">Date start</string>
+    <string name="investors_invest">Investors Invest</string>
+    <string name="investors_withdrawal">Investors Withdrawal</string>
+    <string name="manager_investment_withdrawal">Manager Investment/Withdrawal</string>
+    <string name="investors_withdrawal_profit">Investors Withdrawal Profit</string>
+    <string name="gv_commission_rebate">GV commission rebate</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

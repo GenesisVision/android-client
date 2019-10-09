@@ -26,6 +26,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
+import vision.genesis.clientapp.feature.main.program.period_history.details.PeriodDetailsBottomSheetFragment;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
 
@@ -40,11 +41,14 @@ public class PeriodHistoryFragment extends BaseFragment implements PeriodHistory
 
 	private static final String EXTRA_PROGRAM_CURRENCY = "extra_program_currency";
 
-	public static PeriodHistoryFragment with(UUID programId, String programCurrency) {
+	private static final String EXTRA_PROGRAM_PERIOD_DURATION_DAYS = "extra_program_period_duration_days";
+
+	public static PeriodHistoryFragment with(UUID programId, String programCurrency, Integer periodDurationDays) {
 		PeriodHistoryFragment periodHistoryFragment = new PeriodHistoryFragment();
 		Bundle arguments = new Bundle(2);
 		arguments.putSerializable(EXTRA_PROGRAM_ID, programId);
 		arguments.putString(EXTRA_PROGRAM_CURRENCY, programCurrency);
+		arguments.putInt(EXTRA_PROGRAM_PERIOD_DURATION_DAYS, periodDurationDays);
 		periodHistoryFragment.setArguments(arguments);
 		return periodHistoryFragment;
 	}
@@ -78,6 +82,8 @@ public class PeriodHistoryFragment extends BaseFragment implements PeriodHistory
 
 	private String programCurrency;
 
+	private int periodDurationDays;
+
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
 		if (getActivity() != null) {
@@ -105,6 +111,7 @@ public class PeriodHistoryFragment extends BaseFragment implements PeriodHistory
 		if (getArguments() != null) {
 			periodHistoryPresenter.setProgramId((UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID));
 			programCurrency = getArguments().getString(EXTRA_PROGRAM_CURRENCY);
+			periodDurationDays = getArguments().getInt(EXTRA_PROGRAM_PERIOD_DURATION_DAYS);
 
 			initRecyclerView();
 		}
@@ -131,7 +138,7 @@ public class PeriodHistoryFragment extends BaseFragment implements PeriodHistory
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
 
-		periodHistoryAdapter = new PeriodHistoryAdapter(programCurrency);
+		periodHistoryAdapter = new PeriodHistoryAdapter(programCurrency, periodDurationDays);
 		recyclerView.setAdapter(periodHistoryAdapter);
 
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
@@ -166,6 +173,15 @@ public class PeriodHistoryFragment extends BaseFragment implements PeriodHistory
 	@Override
 	public void addPeriods(List<ProgramPeriodViewModel> periods) {
 		periodHistoryAdapter.addPeriod(periods);
+	}
+
+	@Override
+	public void showPeriodDetails(ProgramPeriodViewModel period) {
+		if (getActivity() != null) {
+			PeriodDetailsBottomSheetFragment bottomSheetFragment = new PeriodDetailsBottomSheetFragment();
+			bottomSheetFragment.show(getActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
+			bottomSheetFragment.setData(period, programCurrency);
+		}
 	}
 
 	@Override

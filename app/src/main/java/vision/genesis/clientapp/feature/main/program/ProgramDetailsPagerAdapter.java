@@ -46,7 +46,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private TabLayout tabLayout;
 
-	ProgramDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, UUID programId, String programCurrency) {
+	ProgramDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, UUID programId, String programCurrency, Integer periodDurationDays) {
 		super(fm);
 		this.tabLayout = tabLayout;
 		programInfoFragment = ProgramInfoFragment.with(programId);
@@ -54,7 +54,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		programProfitFragment = ProgramProfitFragment.with(programId);
 		programEquityFragment = ProgramBalanceFragment.with(programId);
 		programTradesFragment = ProgramTradesFragment.with(programId);
-		periodHistoryFragment = PeriodHistoryFragment.with(programId, programCurrency);
+		periodHistoryFragment = PeriodHistoryFragment.with(programId, programCurrency, periodDurationDays);
 		programEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_PROGRAM, programId);
 	}
 

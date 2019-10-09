@@ -3,10 +3,15 @@ package vision.genesis.clientapp.feature.main.program.period_history;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.joda.time.DateTime;
+import org.joda.time.Seconds;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.ProgramPeriodViewModel;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.events.ShowPeriodDetailsEvent;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -32,8 +38,11 @@ public class PeriodHistoryAdapter extends RecyclerView.Adapter<PeriodHistoryAdap
 
 	private String programCurrency;
 
-	PeriodHistoryAdapter(String programCurrency) {
+	private int periodDurationDays;
+
+	PeriodHistoryAdapter(String programCurrency, int periodDurationDays) {
 		this.programCurrency = programCurrency;
+		this.periodDurationDays = periodDurationDays;
 	}
 
 	@NonNull
@@ -41,7 +50,7 @@ public class PeriodHistoryAdapter extends RecyclerView.Adapter<PeriodHistoryAdap
 	public PeriodHistoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_period_history, parent, false);
 		PeriodHistoryViewHolder viewHolder = new PeriodHistoryViewHolder(itemView);
-		viewHolder.setCurrency(programCurrency);
+		viewHolder.setData(programCurrency, periodDurationDays);
 		return viewHolder;
 	}
 
@@ -71,11 +80,17 @@ public class PeriodHistoryAdapter extends RecyclerView.Adapter<PeriodHistoryAdap
 		@BindView(R.id.number)
 		public TextView number;
 
+		@BindView(R.id.status)
+		public TextView status;
+
 		@BindView(R.id.date_started)
 		public TextView dateStarted;
 
 		@BindView(R.id.period_length)
 		public TextView periodLength;
+
+		@BindView(R.id.period_progress)
+		public ProgressBar periodProgress;
 
 		@BindView(R.id.balance)
 		public TextView balance;
@@ -85,9 +100,6 @@ public class PeriodHistoryAdapter extends RecyclerView.Adapter<PeriodHistoryAdap
 
 		@BindView(R.id.profit)
 		public TextView profit;
-
-		@BindView(R.id.period_length_label)
-		public TextView periodLengthLabel;
 
 		@BindView(R.id.balance_label)
 		public TextView balanceLabel;
@@ -102,31 +114,35 @@ public class PeriodHistoryAdapter extends RecyclerView.Adapter<PeriodHistoryAdap
 
 		private String programCurrency;
 
+		private int periodDurationDays;
+
 		PeriodHistoryViewHolder(View itemView) {
 			super(itemView);
 
 			ButterKnife.bind(this, itemView);
 
 			setFonts();
+
+			itemView.setOnClickListener(view -> EventBus.getDefault().post(new ShowPeriodDetailsEvent(period)));
 		}
 
 		private void setFonts() {
 			number.setTypeface(TypefaceUtil.semibold());
+			status.setTypeface(TypefaceUtil.semibold());
 			dateStarted.setTypeface(TypefaceUtil.semibold());
-			periodLength.setTypeface(TypefaceUtil.semibold());
+//			periodLength.setTypeface(TypefaceUtil.semibold());
 			balance.setTypeface(TypefaceUtil.semibold());
 			investors.setTypeface(TypefaceUtil.semibold());
 			profit.setTypeface(TypefaceUtil.semibold());
 
-			periodLengthLabel.setText(itemView.getContext().getString(R.string.period_length).toLowerCase());
 			balanceLabel.setText(itemView.getContext().getString(R.string.balance).toLowerCase());
 			investorsLabel.setText(itemView.getContext().getString(R.string.investors).toLowerCase());
 			profitLabel.setText(itemView.getContext().getString(R.string.profit).toLowerCase());
 		}
 
-		private void setCurrency(String programCurrency) {
-
+		private void setData(String programCurrency, int periodDurationDays) {
 			this.programCurrency = programCurrency;
+			this.periodDurationDays = periodDurationDays;
 		}
 
 		private void setPeriod(ProgramPeriodViewModel period) {
@@ -134,7 +150,6 @@ public class PeriodHistoryAdapter extends RecyclerView.Adapter<PeriodHistoryAdap
 
 			number.setText(String.format(Locale.getDefault(), "#%d", period.getNumber()));
 			dateStarted.setText(DateTimeUtil.formatEventDateTime(period.getDateFrom()));
-			periodLength.setText(String.format(Locale.getDefault(), "(%s)", DateTimeUtil.getHumanReadablePeriod(period.getPeriodLength().longValue())));
 
 			if (period.getBalance() != null) {
 				balance.setText(StringFormatUtil.getValueString(period.getBalance(), programCurrency));
@@ -143,10 +158,47 @@ public class PeriodHistoryAdapter extends RecyclerView.Adapter<PeriodHistoryAdap
 				investors.setText(String.valueOf(period.getInvestors()));
 			}
 			if (period.getProfit() != null) {
-				profit.setText(StringFormatUtil.getValueString(period.getProfit(), programCurrency));
+				String profitValue = StringFormatUtil.getValueString(period.getProfit(), programCurrency);
+				String profitPercent = StringFormatUtil.formatAmount(100 / period.getBalance() * period.getProfit(), 0, 2);
+				profit.setText(String.format(Locale.getDefault(), "%s (%s%%)", profitValue, profitPercent));
 				profit.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
-						period.getProfit() >= 0 ? R.attr.colorGreen : R.attr.colorRed));
+						period.getProfit() >= 0 ? (period.getProfit() == 0 ? R.attr.colorTextPrimary : R.attr.colorGreen) : R.attr.colorRed));
 			}
+
+			switch (period.getStatus()) {
+				case PLANNED:
+					this.status.setText(itemView.getContext().getString(R.string.planned));
+					this.status.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorPending));
+					break;
+				case INPROCCESS:
+					this.status.setText(itemView.getContext().getString(R.string.active));
+					this.status.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorGreen));
+					break;
+				case CLOSED:
+					this.status.setText(itemView.getContext().getString(R.string.closed));
+					this.status.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorRed));
+					break;
+			}
+
+			updateProgress();
+		}
+
+		private void updateProgress() {
+			long periodLength = period.getPeriodLength().longValue();
+//			periodProgress.setMax(Seconds.secondsBetween(period.getDateFrom(), period.getDateTo()).getSeconds());
+			periodProgress.setMax(periodDurationDays * 24 * 60 * 60);
+			switch (period.getStatus()) {
+				case PLANNED:
+					periodLength = 0;
+					break;
+				case INPROCCESS:
+					periodLength = Seconds.secondsBetween(period.getDateFrom(), DateTime.now()).getSeconds() * 1000;
+					break;
+				case CLOSED:
+					break;
+			}
+			periodProgress.setProgress((int) (periodLength / 1000));
+			this.periodLength.setText(String.format(Locale.getDefault(), "%s", DateTimeUtil.getHumanReadablePeriod(periodLength)));
 		}
 	}
 }

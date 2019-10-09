@@ -6,6 +6,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFr
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.SetProgramDetailsPeriodHistoryCountEvent;
+import vision.genesis.clientapp.model.events.ShowPeriodDetailsEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -58,6 +60,8 @@ public class PeriodHistoryPresenter extends MvpPresenter<PeriodHistoryView> impl
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		EventBus.getDefault().register(this);
+
 		getViewState().showProgress(true);
 		getViewState().setDateRange(dateRange);
 
@@ -71,6 +75,8 @@ public class PeriodHistoryPresenter extends MvpPresenter<PeriodHistoryView> impl
 		if (historySubscription != null) {
 			historySubscription.unsubscribe();
 		}
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -152,5 +158,10 @@ public class PeriodHistoryPresenter extends MvpPresenter<PeriodHistoryView> impl
 		getViewState().setDateRange(dateRange);
 		getViewState().showProgress(true);
 		getHistory(true);
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowPeriodDetailsEvent event) {
+		getViewState().showPeriodDetails(event.getPeriod());
 	}
 }

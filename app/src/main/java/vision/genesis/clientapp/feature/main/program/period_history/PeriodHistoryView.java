@@ -20,6 +20,8 @@ interface PeriodHistoryView extends MvpView
 
 	void addPeriods(List<ProgramPeriodViewModel> periods);
 
+	void showPeriodDetails(ProgramPeriodViewModel period);
+
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);
 
