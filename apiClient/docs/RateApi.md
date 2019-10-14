@@ -1,19 +1,63 @@
 # RateApi
 
-All URIs are relative to *https://localhost/api*
+All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v10RateByExchangeByFromByToGet**](RateApi.md#v10RateByExchangeByFromByToGet) | **GET** v1.0/rate/{exchange}/{from}/{to} | Get rate
-[**v10RateByFromByToGet**](RateApi.md#v10RateByFromByToGet) | **GET** v1.0/rate/{from}/{to} | Get rate
-[**v10RateGet**](RateApi.md#v10RateGet) | **GET** v1.0/rate | Get rates
+[**getRate**](RateApi.md#getRate) | **GET** v2.0/rate/{from}/{to} | Get rate
+[**getRateExchange**](RateApi.md#getRateExchange) | **GET** v2.0/rate/{exchange}/{from}/{to} | Get rate by exchange
+[**getRates**](RateApi.md#getRates) | **GET** v2.0/rate | Get rates
 
-
-<a name="v10RateByExchangeByFromByToGet"></a>
-# **v10RateByExchangeByFromByToGet**
-> Double v10RateByExchangeByFromByToGet(exchange, from, to)
+<a name="getRate"></a>
+# **getRate**
+> RateModel getRate(from, to)
 
 Get rate
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.RateApi;
+
+
+RateApi apiInstance = new RateApi();
+String from = "from_example"; // String | 
+String to = "to_example"; // String | 
+try {
+    RateModel result = apiInstance.getRate(from, to);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling RateApi#getRate");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **from** | **String**|  |
+ **to** | **String**|  |
+
+### Return type
+
+[**RateModel**](RateModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getRateExchange"></a>
+# **getRateExchange**
+> RateModel getRateExchange(exchange, from, to)
+
+Get rate by exchange
 
 ### Example
 ```java
@@ -27,10 +71,10 @@ String exchange = "exchange_example"; // String |
 String from = "from_example"; // String | 
 String to = "to_example"; // String | 
 try {
-    Double result = apiInstance.v10RateByExchangeByFromByToGet(exchange, from, to);
+    RateModel result = apiInstance.getRateExchange(exchange, from, to);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling RateApi#v10RateByExchangeByFromByToGet");
+    System.err.println("Exception when calling RateApi#getRateExchange");
     e.printStackTrace();
 }
 ```
@@ -45,7 +89,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Double**
+[**RateModel**](RateModel.md)
 
 ### Authorization
 
@@ -56,54 +100,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10RateByFromByToGet"></a>
-# **v10RateByFromByToGet**
-> Double v10RateByFromByToGet(from, to)
-
-Get rate
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.RateApi;
-
-
-RateApi apiInstance = new RateApi();
-String from = "from_example"; // String | 
-String to = "to_example"; // String | 
-try {
-    Double result = apiInstance.v10RateByFromByToGet(from, to);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling RateApi#v10RateByFromByToGet");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **from** | **String**|  |
- **to** | **String**|  |
-
-### Return type
-
-**Double**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10RateGet"></a>
-# **v10RateGet**
-> RatesModel v10RateGet(from, to)
+<a name="getRates"></a>
+# **getRates**
+> RatesModel getRates(from, to)
 
 Get rates
 
@@ -118,10 +117,10 @@ RateApi apiInstance = new RateApi();
 List<String> from = Arrays.asList("from_example"); // List<String> | 
 List<String> to = Arrays.asList("to_example"); // List<String> | 
 try {
-    RatesModel result = apiInstance.v10RateGet(from, to);
+    RatesModel result = apiInstance.getRates(from, to);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling RateApi#v10RateGet");
+    System.err.println("Exception when calling RateApi#getRates");
     e.printStackTrace();
 }
 ```

@@ -3,7 +3,6 @@ package io.swagger.client.api;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Map;
 import java.util.UUID;
 
 import io.swagger.client.ApiClient;
@@ -21,86 +20,127 @@ public class NotificationsApiTest
 		api = new ApiClient().createService(NotificationsApi.class);
 	}
 
+
 	/**
-	 *
+	 * Add new setting
 	 */
 	@Test
-	public void v10NotificationsGetTest() {
+	public void addNotificationsSettingsTest() {
+		String authorization = null;
+		UUID assetId = null;
+		UUID managerId = null;
+		String type = null;
+		String conditionType = null;
+		Double conditionAmount = null;
+		// UUID response = api.addNotificationsSettings(authorization, assetId, managerId, type, conditionType, conditionAmount);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Unread notifications count
+	 */
+	@Test
+	public void getNewNotificationsCountTest() {
+		String authorization = null;
+		// Integer response = api.getNewNotificationsCount(authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * User notifications
+	 */
+	@Test
+	public void getNotificationsTest() {
 		String authorization = null;
 		Integer skip = null;
 		Integer take = null;
-		// Void response = api.v10NotificationsGet(authorization, skip, take);
+		// NotificationList response = api.getNotifications(authorization, skip, take);
 
 		// TODO: test validations
 	}
 
 	/**
-	 *
+	 * User settings for fund
 	 */
 	@Test
-	public void v10NotificationsNewGetTest() {
+	public void getNotificationsFundSettingsTest() {
+		String id = null;
 		String authorization = null;
-		// Integer response = api.v10NotificationsNewGet(authorization);
+		// FundNotificationSettingList response = api.getNotificationsFundSettings(id, authorization);
 
 		// TODO: test validations
 	}
 
 	/**
-	 *
+	 * User settings for manager
 	 */
 	@Test
-	public void v10NotificationsSettingsGetTest() {
+	public void getNotificationsManagerSettingsTest() {
+		String id = null;
 		String authorization = null;
-		// Void response = api.v10NotificationsSettingsGet(authorization);
+		// ManagerNotificationSettingList response = api.getNotificationsManagerSettings(id, authorization);
 
 		// TODO: test validations
 	}
 
 	/**
-	 *
+	 * User settings for program
 	 */
 	@Test
-	public void v10NotificationsSettingsProgramByIdAddPostTest() {
+	public void getNotificationsProgramSettingsTest() {
+		String id = null;
+		String authorization = null;
+		// ProgramNotificationSettingList response = api.getNotificationsProgramSettings(id, authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * User settings
+	 */
+	@Test
+	public void getNotificationsSettingsTest() {
+		String authorization = null;
+		// NotificationSettingList response = api.getNotificationsSettings(authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Read notification
+	 */
+	@Test
+	public void readNotificationTest() {
 		UUID id = null;
 		String authorization = null;
-		Map<String, String> model = null;
-		// Void response = api.v10NotificationsSettingsProgramByIdAddPost(id, authorization, model);
+		// Void response = api.readNotification(id, authorization);
 
 		// TODO: test validations
 	}
 
 	/**
-	 *
+	 * Remove setting
 	 */
 	@Test
-	public void v10NotificationsSettingsProgramByIdGetTest() {
+	public void removeNotificationsSettingsTest() {
 		UUID id = null;
 		String authorization = null;
-		// Void response = api.v10NotificationsSettingsProgramByIdGet(id, authorization);
+		// Void response = api.removeNotificationsSettings(id, authorization);
 
 		// TODO: test validations
 	}
 
 	/**
-	 *
+	 * Enable/disable setting
 	 */
 	@Test
-	public void v10NotificationsSettingsProgramByIdRemoveByNtfIdPostTest() {
+	public void toggleNotificationSettingsTest() {
 		UUID id = null;
-		UUID ntfId = null;
+		Boolean enable = null;
 		String authorization = null;
-		// Void response = api.v10NotificationsSettingsProgramByIdRemoveByNtfIdPost(id, ntfId, authorization);
-
-		// TODO: test validations
-	}
-
-	/**
-	 *
-	 */
-	@Test
-	public void v10NotificationsSettingsUpdatePostTest() {
-		String authorization = null;
-		// Void response = api.v10NotificationsSettingsUpdatePost(authorization);
+		// UUID response = api.toggleNotificationSettings(id, enable, authorization);
 
 		// TODO: test validations
 	}

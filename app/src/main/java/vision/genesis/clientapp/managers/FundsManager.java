@@ -2,8 +2,8 @@ package vision.genesis.clientapp.managers;
 
 import java.util.UUID;
 
+import io.swagger.client.api.DashboardApi;
 import io.swagger.client.api.FundsApi;
-import io.swagger.client.api.InvestorApi;
 import io.swagger.client.model.DashboardPortfolioEvents;
 import io.swagger.client.model.FundAssetsListInfo;
 import io.swagger.client.model.FundBalanceChart;
@@ -26,16 +26,12 @@ import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 public class FundsManager
 {
-	private InvestorApi investorApi;
-
-//	private ManagerApi managerApi;
+	private DashboardApi dashboardApi;
 
 	private FundsApi fundsApi;
 
-	//	public FundsManager(InvestorApi investorApi, ManagerApi managerApi, ProgramApi programsApi) {
-	public FundsManager(InvestorApi investorApi, FundsApi fundsApi) {
-		this.investorApi = investorApi;
-//		this.managerApi = managerApi;
+	public FundsManager(DashboardApi dashboardApi, FundsApi fundsApi) {
+		this.dashboardApi = dashboardApi;
 		this.fundsApi = fundsApi;
 	}
 
@@ -70,7 +66,7 @@ public class FundsManager
 	}
 
 	public Observable<FundProfitChart> getProfitChart(UUID fundId, DateRange dateRange, Integer maxPointCount) {
-		return fundsApi.v10FundsByIdChartsProfitGet(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null, null);
+		return fundsApi.getFundProfitChart(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null, null);
 	}
 
 	public Observable<FundBalanceChart> getBalanceChart(UUID fundId, DateRange dateRange, Integer maxPointCount) {
@@ -78,23 +74,23 @@ public class FundsManager
 	}
 
 	public Observable<DashboardPortfolioEvents> getFundHistory(UUID fundId, DateRange dateRange, Integer skip, Integer take) {
-		return investorApi.v10InvestorPortfolioEventsGet(AuthManager.token.getValue(), fundId, dateRange.getFrom(), dateRange.getTo(), null, null, skip, take);
+		return dashboardApi.v10InvestorPortfolioEventsGet(AuthManager.token.getValue(), fundId, dateRange.getFrom(), dateRange.getTo(), null, null, skip, take);
 	}
 
 	public Observable<FundInvestInfo> getInvestInfo(UUID programId, String baseCurrency) {
-		return investorApi.v10InvestorFundsByIdInvestInfoByCurrencyGet(programId, baseCurrency, AuthManager.token.getValue());
+		return dashboardApi.v10InvestorFundsByIdInvestInfoByCurrencyGet(programId, baseCurrency, AuthManager.token.getValue());
 	}
 
 	public Observable<FundWithdrawInfo> getWithdrawInfo(UUID programId, String baseCurrency) {
-		return investorApi.v10InvestorFundsByIdWithdrawInfoByCurrencyGet(programId, baseCurrency, AuthManager.token.getValue());
+		return dashboardApi.v10InvestorFundsByIdWithdrawInfoByCurrencyGet(programId, baseCurrency, AuthManager.token.getValue());
 	}
 
 	public Observable<Void> invest(FundRequest fundRequest) {
-		return investorApi.v10InvestorFundsByIdInvestByAmountPost(fundRequest.getFundId(), fundRequest.getAmount(), AuthManager.token.getValue(), fundRequest.getWalletCurrency());
+		return dashboardApi.v10InvestorFundsByIdInvestByAmountPost(fundRequest.getFundId(), fundRequest.getAmount(), AuthManager.token.getValue(), fundRequest.getWalletCurrency());
 	}
 
 	public Observable<Void> withdraw(FundRequest fundRequest) {
-		return investorApi.v10InvestorFundsByIdWithdrawByPercentPost(fundRequest.getFundId(), fundRequest.getAmount(), AuthManager.token.getValue(), fundRequest.getWalletCurrency());
+		return dashboardApi.v10InvestorFundsByIdWithdrawByPercentPost(fundRequest.getFundId(), fundRequest.getAmount(), AuthManager.token.getValue(), fundRequest.getWalletCurrency());
 	}
 
 	public Observable<ReallocationsViewModel> getReallocateHistory(UUID fundId, DateRange dateRange, int skip, int take) {
@@ -105,12 +101,12 @@ public class FundsManager
 //		Invest model = new Invest();
 //		model.setInvestmentProgramId(withdrawalRequest.programId);
 //		model.setAmount(withdrawalRequest.amount);
-//		return investorApi.apiInvestorInvestmentProgramsWithdrawPost(AuthManager.token.getValue(), model);
+//		return dashboardApi.apiInvestorInvestmentProgramsWithdrawPost(AuthManager.token.getValue(), model);
 //	}
 //
 //
 //	public Observable<InvestmentProgramRequests> getInvestmentProgramRequests(InvestmentProgramRequestsFilter filter) {
-//		return investorApi.apiInvestorInvestmentProgramRequestsPost(AuthManager.token.getValue(), filter);
+//		return dashboardApi.apiInvestorInvestmentProgramRequestsPost(AuthManager.token.getValue(), filter);
 //	}
 //
 //	public Observable<BrokersViewModel> getDataToCreateProgram() {

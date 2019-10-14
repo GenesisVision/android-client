@@ -62,11 +62,11 @@ public class ProfileManager
 	}
 
 	private Observable<ProfileFullViewModel> getProfileFullApiObservable() {
-		return profileApi.v10ProfileGet(AuthManager.token.getValue());
+		return profileApi.getProfileFull(AuthManager.token.getValue());
 	}
 
 	private Observable<Void> getUpdateProfileApiObservable(ProfileFullViewModel newProfileModel) {
-		return profileApi.v10ProfileUpdatePost(AuthManager.token.getValue(), getUpdateProfileViewModel(newProfileModel));
+		return profileApi.updateProfile(AuthManager.token.getValue(), getUpdateProfileViewModel(newProfileModel));
 	}
 
 	private UpdateProfileViewModel getUpdateProfileViewModel(ProfileFullViewModel newProfileModel) {

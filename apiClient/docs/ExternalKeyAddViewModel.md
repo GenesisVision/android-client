@@ -1,4 +1,3 @@
-
 # ExternalKeyAddViewModel
 
 ## Properties
@@ -8,6 +7,3 @@ Name | Type | Description | Notes
 **exchangeId** | [**UUID**](UUID.md) |  | 
 **key** | **String** |  | 
 **secret** | **String** |  |  [optional]
-
-
-

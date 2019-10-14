@@ -1,4 +1,3 @@
-
 # AttachToSignalProviderInfo
 
 ## Properties
@@ -9,7 +8,6 @@ Name | Type | Description | Notes
 **volumeFee** | **Double** |  |  [optional]
 **minDeposit** | **Double** |  |  [optional]
 **minDepositCurrency** | [**MinDepositCurrencyEnum**](#MinDepositCurrencyEnum) |  |  [optional]
-
 
 <a name="MinDepositCurrencyEnum"></a>
 ## Enum: MinDepositCurrencyEnum
@@ -28,6 +26,3 @@ DOGE | &quot;DOGE&quot;
 BNB | &quot;BNB&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
-
-
-

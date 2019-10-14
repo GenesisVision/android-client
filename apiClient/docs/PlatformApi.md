@@ -1,20 +1,18 @@
 # PlatformApi
 
-All URIs are relative to *https://localhost/api*
+All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v10PlatformDatePost**](PlatformApi.md#v10PlatformDatePost) | **POST** v1.0/platform/date | Server date
-[**v10PlatformInfoGet**](PlatformApi.md#v10PlatformInfoGet) | **GET** v1.0/platform/info | Platform info
-[**v10PlatformLevelsGet**](PlatformApi.md#v10PlatformLevelsGet) | **GET** v1.0/platform/levels | Investment programs levels
-[**v10PlatformLevelsParametersGet**](PlatformApi.md#v10PlatformLevelsParametersGet) | **GET** v1.0/platform/levels/parameters | Investment programs levels parameters
-[**v10PlatformRiskcontrolGet**](PlatformApi.md#v10PlatformRiskcontrolGet) | **GET** v1.0/platform/riskcontrol | Platform captcha details.
-[**v10PlatformStatisticGet**](PlatformApi.md#v10PlatformStatisticGet) | **GET** v1.0/platform/statistic | Platform statistic
+[**getPlatformDate**](PlatformApi.md#getPlatformDate) | **POST** v2.0/platform/date | Server date
+[**getPlatformInfo**](PlatformApi.md#getPlatformInfo) | **GET** v2.0/platform/info | Platform info
+[**getProgramLevels**](PlatformApi.md#getProgramLevels) | **GET** v2.0/platform/levels | Investment programs levels
+[**getProgramLevelsParams**](PlatformApi.md#getProgramLevelsParams) | **GET** v2.0/platform/levels/parameters | Investment programs levels parameters
+[**getRiskControlInfo**](PlatformApi.md#getRiskControlInfo) | **GET** v2.0/platform/riskcontrol | Risk control
 
-
-<a name="v10PlatformDatePost"></a>
-# **v10PlatformDatePost**
-> String v10PlatformDatePost()
+<a name="getPlatformDate"></a>
+# **getPlatformDate**
+> String getPlatformDate()
 
 Server date
 
@@ -27,10 +25,10 @@ Server date
 
 PlatformApi apiInstance = new PlatformApi();
 try {
-    String result = apiInstance.v10PlatformDatePost();
+    String result = apiInstance.getPlatformDate();
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling PlatformApi#v10PlatformDatePost");
+    System.err.println("Exception when calling PlatformApi#getPlatformDate");
     e.printStackTrace();
 }
 ```
@@ -51,9 +49,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10PlatformInfoGet"></a>
-# **v10PlatformInfoGet**
-> PlatformInfo v10PlatformInfoGet()
+<a name="getPlatformInfo"></a>
+# **getPlatformInfo**
+> PlatformInfo getPlatformInfo()
 
 Platform info
 
@@ -66,10 +64,10 @@ Platform info
 
 PlatformApi apiInstance = new PlatformApi();
 try {
-    PlatformInfo result = apiInstance.v10PlatformInfoGet();
+    PlatformInfo result = apiInstance.getPlatformInfo();
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling PlatformApi#v10PlatformInfoGet");
+    System.err.println("Exception when calling PlatformApi#getPlatformInfo");
     e.printStackTrace();
 }
 ```
@@ -90,9 +88,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10PlatformLevelsGet"></a>
-# **v10PlatformLevelsGet**
-> ProgramsLevelsInfo v10PlatformLevelsGet(currency)
+<a name="getProgramLevels"></a>
+# **getProgramLevels**
+> ProgramsLevelsInfo getProgramLevels(currency)
 
 Investment programs levels
 
@@ -104,12 +102,12 @@ Investment programs levels
 
 
 PlatformApi apiInstance = new PlatformApi();
-String currency = "100"; // String | 
+String currency = "currency_example"; // String | 
 try {
-    ProgramsLevelsInfo result = apiInstance.v10PlatformLevelsGet(currency);
+    ProgramsLevelsInfo result = apiInstance.getProgramLevels(currency);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling PlatformApi#v10PlatformLevelsGet");
+    System.err.println("Exception when calling PlatformApi#getProgramLevels");
     e.printStackTrace();
 }
 ```
@@ -118,7 +116,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [optional] [default to 100] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -133,9 +131,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10PlatformLevelsParametersGet"></a>
-# **v10PlatformLevelsParametersGet**
-> LevelsParamsInfo v10PlatformLevelsParametersGet(currency)
+<a name="getProgramLevelsParams"></a>
+# **getProgramLevelsParams**
+> LevelsParamsInfo getProgramLevelsParams(currency)
 
 Investment programs levels parameters
 
@@ -147,12 +145,12 @@ Investment programs levels parameters
 
 
 PlatformApi apiInstance = new PlatformApi();
-String currency = "104"; // String | 
+String currency = "currency_example"; // String | 
 try {
-    LevelsParamsInfo result = apiInstance.v10PlatformLevelsParametersGet(currency);
+    LevelsParamsInfo result = apiInstance.getProgramLevelsParams(currency);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling PlatformApi#v10PlatformLevelsParametersGet");
+    System.err.println("Exception when calling PlatformApi#getProgramLevelsParams");
     e.printStackTrace();
 }
 ```
@@ -161,7 +159,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [optional] [default to 104] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
 
 ### Return type
 
@@ -176,11 +174,11 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10PlatformRiskcontrolGet"></a>
-# **v10PlatformRiskcontrolGet**
-> CaptchaDetails v10PlatformRiskcontrolGet(route, client, version)
+<a name="getRiskControlInfo"></a>
+# **getRiskControlInfo**
+> CaptchaDetails getRiskControlInfo(route, client, version)
 
-Platform captcha details.
+Risk control
 
 ### Example
 ```java
@@ -194,10 +192,10 @@ String route = "route_example"; // String |
 String client = "client_example"; // String | 
 String version = "version_example"; // String | 
 try {
-    CaptchaDetails result = apiInstance.v10PlatformRiskcontrolGet(route, client, version);
+    CaptchaDetails result = apiInstance.getRiskControlInfo(route, client, version);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling PlatformApi#v10PlatformRiskcontrolGet");
+    System.err.println("Exception when calling PlatformApi#getRiskControlInfo");
     e.printStackTrace();
 }
 ```
@@ -213,45 +211,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**CaptchaDetails**](CaptchaDetails.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10PlatformStatisticGet"></a>
-# **v10PlatformStatisticGet**
-> PlatformStatistic v10PlatformStatisticGet()
-
-Platform statistic
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.PlatformApi;
-
-
-PlatformApi apiInstance = new PlatformApi();
-try {
-    PlatformStatistic result = apiInstance.v10PlatformStatisticGet();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling PlatformApi#v10PlatformStatisticGet");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**PlatformStatistic**](PlatformStatistic.md)
 
 ### Authorization
 

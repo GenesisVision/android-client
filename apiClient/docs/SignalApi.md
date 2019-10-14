@@ -1,26 +1,259 @@
 # SignalApi
 
-All URIs are relative to *https://localhost/api*
+All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v10SignalAccountsGet**](SignalApi.md#v10SignalAccountsGet) | **GET** v1.0/signal/accounts | Get copytrading accounts
-[**v10SignalAttachByIdInfoGet**](SignalApi.md#v10SignalAttachByIdInfoGet) | **GET** v1.0/signal/attach/{id}/info | Get subscribe to programs signals info
-[**v10SignalAttachByIdPost**](SignalApi.md#v10SignalAttachByIdPost) | **POST** v1.0/signal/attach/{id} | Subscribe to programs signals
-[**v10SignalByIdUpdatePost**](SignalApi.md#v10SignalByIdUpdatePost) | **POST** v1.0/signal/{id}/update | Update signal subscription settings
-[**v10SignalDetachByIdPost**](SignalApi.md#v10SignalDetachByIdPost) | **POST** v1.0/signal/detach/{id} | Unsubscribe from program signals
-[**v10SignalExternalAttachByIdExternalPost**](SignalApi.md#v10SignalExternalAttachByIdExternalPost) | **POST** v1.0/signal/external/attach/{id}/external | Subscribe to external signal account
-[**v10SignalExternalCreatePost**](SignalApi.md#v10SignalExternalCreatePost) | **POST** v1.0/signal/external/create | Create external signal account
-[**v10SignalExternalGet**](SignalApi.md#v10SignalExternalGet) | **GET** v1.0/signal/external | Accounts list
-[**v10SignalTradesByIdClosePost**](SignalApi.md#v10SignalTradesByIdClosePost) | **POST** v1.0/signal/trades/{id}/close | Close signal trade
-[**v10SignalTradesGet**](SignalApi.md#v10SignalTradesGet) | **GET** v1.0/signal/trades | Get investors signals trades history
-[**v10SignalTradesLogGet**](SignalApi.md#v10SignalTradesLogGet) | **GET** v1.0/signal/trades/log | Get investors signals trading log
-[**v10SignalTradesOpenGet**](SignalApi.md#v10SignalTradesOpenGet) | **GET** v1.0/signal/trades/open | Get investors signals open trades
+[**attachSlaveToMaster**](SignalApi.md#attachSlaveToMaster) | **POST** v2.0/signal/attach/{id} | Subscribe to programs signals
+[**attachSlaveToMaster_0**](SignalApi.md#attachSlaveToMaster_0) | **POST** v2.0/signal/external/attach/{id}/external | Subscribe to external signal account
+[**closeTrade**](SignalApi.md#closeTrade) | **POST** v2.0/signal/trades/{id}/close | Close signal trade
+[**createExternalSignalAccount**](SignalApi.md#createExternalSignalAccount) | **POST** v2.0/signal/external/create | Create external signal account
+[**detachSlaveFromMaster**](SignalApi.md#detachSlaveFromMaster) | **POST** v2.0/signal/detach/{id} | Unsubscribe from program signals
+[**getCopytradingAccounts**](SignalApi.md#getCopytradingAccounts) | **GET** v2.0/signal/accounts | Get copytrading accounts
+[**getExternalSignalTradingLog**](SignalApi.md#getExternalSignalTradingLog) | **GET** v2.0/signal/external/trades/log | Get investors signals trading log
+[**getOpenSignalTrades**](SignalApi.md#getOpenSignalTrades) | **GET** v2.0/signal/trades/open | Get investors signals open trades
+[**getSignalAccounts**](SignalApi.md#getSignalAccounts) | **GET** v2.0/signal/external | Accounts list
+[**getSignalTrades**](SignalApi.md#getSignalTrades) | **GET** v2.0/signal/trades | Get investors signals trades history
+[**getSignalTradingLog**](SignalApi.md#getSignalTradingLog) | **GET** v2.0/signal/trades/log | Get investors signals trading log
+[**getSlaveAttachInfo**](SignalApi.md#getSlaveAttachInfo) | **GET** v2.0/signal/attach/{id}/info | Get subscribe to programs signals info
+[**updateSubscriptionSettings**](SignalApi.md#updateSubscriptionSettings) | **POST** v2.0/signal/{id}/update | Update signal subscription settings
+
+<a name="attachSlaveToMaster"></a>
+# **attachSlaveToMaster**
+> Void attachSlaveToMaster(authorization, id, body)
+
+Subscribe to programs signals
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.SignalApi;
 
 
-<a name="v10SignalAccountsGet"></a>
-# **v10SignalAccountsGet**
-> CopyTradingAccountsList v10SignalAccountsGet(authorization)
+SignalApi apiInstance = new SignalApi();
+String authorization = "authorization_example"; // String | JWT access token
+UUID id = new UUID(); // UUID | Program Id
+AttachToSignalProvider body = new AttachToSignalProvider(); // AttachToSignalProvider | Subscription settings
+try {
+    Void result = apiInstance.attachSlaveToMaster(authorization, id, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SignalApi#attachSlaveToMaster");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **id** | [**UUID**](.md)| Program Id |
+ **body** | [**AttachToSignalProvider**](AttachToSignalProvider.md)| Subscription settings | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="attachSlaveToMaster_0"></a>
+# **attachSlaveToMaster_0**
+> Void attachSlaveToMaster_0(authorization, id, body)
+
+Subscribe to external signal account
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.SignalApi;
+
+
+SignalApi apiInstance = new SignalApi();
+String authorization = "authorization_example"; // String | JWT access token
+UUID id = new UUID(); // UUID | 
+AttachToExternalSignalProviderExt body = new AttachToExternalSignalProviderExt(); // AttachToExternalSignalProviderExt | 
+try {
+    Void result = apiInstance.attachSlaveToMaster_0(authorization, id, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SignalApi#attachSlaveToMaster_0");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **id** | [**UUID**](.md)|  |
+ **body** | [**AttachToExternalSignalProviderExt**](AttachToExternalSignalProviderExt.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="closeTrade"></a>
+# **closeTrade**
+> Void closeTrade(id, authorization, programId)
+
+Close signal trade
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.SignalApi;
+
+
+SignalApi apiInstance = new SignalApi();
+UUID id = new UUID(); // UUID | Trade id
+String authorization = "authorization_example"; // String | JWT access token
+UUID programId = new UUID(); // UUID | Provider program id
+try {
+    Void result = apiInstance.closeTrade(id, authorization, programId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SignalApi#closeTrade");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)| Trade id |
+ **authorization** | **String**| JWT access token |
+ **programId** | [**UUID**](.md)| Provider program id | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="createExternalSignalAccount"></a>
+# **createExternalSignalAccount**
+> ManagerProgramCreateResult createExternalSignalAccount(authorization, body)
+
+Create external signal account
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.SignalApi;
+
+
+SignalApi apiInstance = new SignalApi();
+String authorization = "authorization_example"; // String | JWT access token
+NewExternalSignalAccountRequest body = new NewExternalSignalAccountRequest(); // NewExternalSignalAccountRequest | 
+try {
+    ManagerProgramCreateResult result = apiInstance.createExternalSignalAccount(authorization, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SignalApi#createExternalSignalAccount");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **body** | [**NewExternalSignalAccountRequest**](NewExternalSignalAccountRequest.md)|  | [optional]
+
+### Return type
+
+[**ManagerProgramCreateResult**](ManagerProgramCreateResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="detachSlaveFromMaster"></a>
+# **detachSlaveFromMaster**
+> Void detachSlaveFromMaster(authorization, id, body)
+
+Unsubscribe from program signals
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.SignalApi;
+
+
+SignalApi apiInstance = new SignalApi();
+String authorization = "authorization_example"; // String | JWT access token
+UUID id = new UUID(); // UUID | 
+DetachFromSignalProvider body = new DetachFromSignalProvider(); // DetachFromSignalProvider | 
+try {
+    Void result = apiInstance.detachSlaveFromMaster(authorization, id, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SignalApi#detachSlaveFromMaster");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **id** | [**UUID**](.md)|  |
+ **body** | [**DetachFromSignalProvider**](DetachFromSignalProvider.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getCopytradingAccounts"></a>
+# **getCopytradingAccounts**
+> CopyTradingAccountsList getCopytradingAccounts(authorization)
 
 Get copytrading accounts
 
@@ -34,10 +267,10 @@ Get copytrading accounts
 SignalApi apiInstance = new SignalApi();
 String authorization = "authorization_example"; // String | JWT access token
 try {
-    CopyTradingAccountsList result = apiInstance.v10SignalAccountsGet(authorization);
+    CopyTradingAccountsList result = apiInstance.getCopytradingAccounts(authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#v10SignalAccountsGet");
+    System.err.println("Exception when calling SignalApi#getCopytradingAccounts");
     e.printStackTrace();
 }
 ```
@@ -61,11 +294,11 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10SignalAttachByIdInfoGet"></a>
-# **v10SignalAttachByIdInfoGet**
-> AttachToSignalProviderInfo v10SignalAttachByIdInfoGet(id, authorization)
+<a name="getExternalSignalTradingLog"></a>
+# **getExternalSignalTradingLog**
+> SignalTradingEvents getExternalSignalTradingLog(authorization, accountId, accountCurrency, skip, take)
 
-Get subscribe to programs signals info
+Get investors signals trading log
 
 ### Example
 ```java
@@ -75,13 +308,16 @@ Get subscribe to programs signals info
 
 
 SignalApi apiInstance = new SignalApi();
-UUID id = new UUID(); // UUID | 
 String authorization = "authorization_example"; // String | JWT access token
+UUID accountId = new UUID(); // UUID | 
+String accountCurrency = "accountCurrency_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
 try {
-    AttachToSignalProviderInfo result = apiInstance.v10SignalAttachByIdInfoGet(id, authorization);
+    SignalTradingEvents result = apiInstance.getExternalSignalTradingLog(authorization, accountId, accountCurrency, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#v10SignalAttachByIdInfoGet");
+    System.err.println("Exception when calling SignalApi#getExternalSignalTradingLog");
     e.printStackTrace();
 }
 ```
@@ -90,12 +326,15 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)|  |
  **authorization** | **String**| JWT access token |
+ **accountId** | [**UUID**](.md)|  | [optional]
+ **accountCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
 
 ### Return type
 
-[**AttachToSignalProviderInfo**](AttachToSignalProviderInfo.md)
+[**SignalTradingEvents**](SignalTradingEvents.md)
 
 ### Authorization
 
@@ -106,199 +345,11 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10SignalAttachByIdPost"></a>
-# **v10SignalAttachByIdPost**
-> Void v10SignalAttachByIdPost(id, authorization, model)
+<a name="getOpenSignalTrades"></a>
+# **getOpenSignalTrades**
+> TradesSignalViewModel getOpenSignalTrades(authorization, sorting, symbol, accountId, accountCurrency, skip, take)
 
-Subscribe to programs signals
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.SignalApi;
-
-
-SignalApi apiInstance = new SignalApi();
-UUID id = new UUID(); // UUID | Program Id
-String authorization = "authorization_example"; // String | JWT access token
-AttachToSignalProvider model = new AttachToSignalProvider(); // AttachToSignalProvider | Subscription settings
-try {
-    Void result = apiInstance.v10SignalAttachByIdPost(id, authorization, model);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#v10SignalAttachByIdPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)| Program Id |
- **authorization** | **String**| JWT access token |
- **model** | [**AttachToSignalProvider**](AttachToSignalProvider.md)| Subscription settings | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10SignalByIdUpdatePost"></a>
-# **v10SignalByIdUpdatePost**
-> Void v10SignalByIdUpdatePost(id, authorization, model)
-
-Update signal subscription settings
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.SignalApi;
-
-
-SignalApi apiInstance = new SignalApi();
-UUID id = new UUID(); // UUID | Program id
-String authorization = "authorization_example"; // String | JWT access token
-AttachToSignalProvider model = new AttachToSignalProvider(); // AttachToSignalProvider | Subscription settings
-try {
-    Void result = apiInstance.v10SignalByIdUpdatePost(id, authorization, model);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#v10SignalByIdUpdatePost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)| Program id |
- **authorization** | **String**| JWT access token |
- **model** | [**AttachToSignalProvider**](AttachToSignalProvider.md)| Subscription settings | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10SignalDetachByIdPost"></a>
-# **v10SignalDetachByIdPost**
-> Void v10SignalDetachByIdPost(id, authorization, model)
-
-Unsubscribe from program signals
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.SignalApi;
-
-
-SignalApi apiInstance = new SignalApi();
-UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
-DetachFromSignalProvider model = new DetachFromSignalProvider(); // DetachFromSignalProvider | 
-try {
-    Void result = apiInstance.v10SignalDetachByIdPost(id, authorization, model);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#v10SignalDetachByIdPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
- **model** | [**DetachFromSignalProvider**](DetachFromSignalProvider.md)|  | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10SignalExternalAttachByIdExternalPost"></a>
-# **v10SignalExternalAttachByIdExternalPost**
-> Void v10SignalExternalAttachByIdExternalPost(id, authorization, model)
-
-Subscribe to external signal account
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.SignalApi;
-
-
-SignalApi apiInstance = new SignalApi();
-UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
-AttachToExternalSignalProviderExt model = new AttachToExternalSignalProviderExt(); // AttachToExternalSignalProviderExt | 
-try {
-    Void result = apiInstance.v10SignalExternalAttachByIdExternalPost(id, authorization, model);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#v10SignalExternalAttachByIdExternalPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
- **model** | [**AttachToExternalSignalProviderExt**](AttachToExternalSignalProviderExt.md)|  | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10SignalExternalCreatePost"></a>
-# **v10SignalExternalCreatePost**
-> ManagerProgramCreateResult v10SignalExternalCreatePost(authorization, request)
-
-Create external signal account
+Get investors signals open trades
 
 ### Example
 ```java
@@ -309,12 +360,17 @@ Create external signal account
 
 SignalApi apiInstance = new SignalApi();
 String authorization = "authorization_example"; // String | JWT access token
-NewExternalSignalAccountRequest request = new NewExternalSignalAccountRequest(); // NewExternalSignalAccountRequest | 
+String sorting = "sorting_example"; // String | 
+String symbol = "symbol_example"; // String | 
+UUID accountId = new UUID(); // UUID | 
+String accountCurrency = "accountCurrency_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
 try {
-    ManagerProgramCreateResult result = apiInstance.v10SignalExternalCreatePost(authorization, request);
+    TradesSignalViewModel result = apiInstance.getOpenSignalTrades(authorization, sorting, symbol, accountId, accountCurrency, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#v10SignalExternalCreatePost");
+    System.err.println("Exception when calling SignalApi#getOpenSignalTrades");
     e.printStackTrace();
 }
 ```
@@ -324,11 +380,16 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **request** | [**NewExternalSignalAccountRequest**](NewExternalSignalAccountRequest.md)|  | [optional]
+ **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
+ **symbol** | **String**|  | [optional]
+ **accountId** | [**UUID**](.md)|  | [optional]
+ **accountCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
 
 ### Return type
 
-[**ManagerProgramCreateResult**](ManagerProgramCreateResult.md)
+[**TradesSignalViewModel**](TradesSignalViewModel.md)
 
 ### Authorization
 
@@ -336,12 +397,12 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10SignalExternalGet"></a>
-# **v10SignalExternalGet**
-> SignalAccountsList v10SignalExternalGet(authorization, tags, sorting, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, hasInvestorsForAll, hasInvestorsForClosed, ids, forceUseIdsList, managerId, programManagerId, status, skip, take)
+<a name="getSignalAccounts"></a>
+# **getSignalAccounts**
+> SignalAccountsList getSignalAccounts(authorization, tags, sorting, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, hasInvestorsForAll, hasInvestorsForClosed, ids, forceUseIdsList, managerId, programManagerId, status, skip, take)
 
 Accounts list
 
@@ -373,10 +434,10 @@ List<String> status = Arrays.asList("status_example"); // List<String> |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    SignalAccountsList result = apiInstance.v10SignalExternalGet(authorization, tags, sorting, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, hasInvestorsForAll, hasInvestorsForClosed, ids, forceUseIdsList, managerId, programManagerId, status, skip, take);
+    SignalAccountsList result = apiInstance.getSignalAccounts(authorization, tags, sorting, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, hasInvestorsForAll, hasInvestorsForClosed, ids, forceUseIdsList, managerId, programManagerId, status, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#v10SignalExternalGet");
+    System.err.println("Exception when calling SignalApi#getSignalAccounts");
     e.printStackTrace();
 }
 ```
@@ -418,56 +479,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10SignalTradesByIdClosePost"></a>
-# **v10SignalTradesByIdClosePost**
-> Void v10SignalTradesByIdClosePost(id, authorization, programId)
-
-Close signal trade
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.SignalApi;
-
-
-SignalApi apiInstance = new SignalApi();
-UUID id = new UUID(); // UUID | Trade id
-String authorization = "authorization_example"; // String | JWT access token
-UUID programId = new UUID(); // UUID | Provider program id
-try {
-    Void result = apiInstance.v10SignalTradesByIdClosePost(id, authorization, programId);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#v10SignalTradesByIdClosePost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)| Trade id |
- **authorization** | **String**| JWT access token |
- **programId** | [**UUID**](.md)| Provider program id | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10SignalTradesGet"></a>
-# **v10SignalTradesGet**
-> TradesSignalViewModel v10SignalTradesGet(authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take)
+<a name="getSignalTrades"></a>
+# **getSignalTrades**
+> TradesSignalViewModel getSignalTrades(authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take)
 
 Get investors signals trades history
 
@@ -489,10 +503,10 @@ String accountCurrency = "accountCurrency_example"; // String |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    TradesSignalViewModel result = apiInstance.v10SignalTradesGet(authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take);
+    TradesSignalViewModel result = apiInstance.getSignalTrades(authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#v10SignalTradesGet");
+    System.err.println("Exception when calling SignalApi#getSignalTrades");
     e.printStackTrace();
 }
 ```
@@ -524,9 +538,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10SignalTradesLogGet"></a>
-# **v10SignalTradesLogGet**
-> SignalTradingEvents v10SignalTradesLogGet(authorization, accountId, accountCurrency, skip, take)
+<a name="getSignalTradingLog"></a>
+# **getSignalTradingLog**
+> SignalTradingEvents getSignalTradingLog(authorization, accountId, accountCurrency, skip, take)
 
 Get investors signals trading log
 
@@ -544,10 +558,10 @@ String accountCurrency = "accountCurrency_example"; // String |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    SignalTradingEvents result = apiInstance.v10SignalTradesLogGet(authorization, accountId, accountCurrency, skip, take);
+    SignalTradingEvents result = apiInstance.getSignalTradingLog(authorization, accountId, accountCurrency, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#v10SignalTradesLogGet");
+    System.err.println("Exception when calling SignalApi#getSignalTradingLog");
     e.printStackTrace();
 }
 ```
@@ -575,11 +589,56 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10SignalTradesOpenGet"></a>
-# **v10SignalTradesOpenGet**
-> TradesSignalViewModel v10SignalTradesOpenGet(authorization, sorting, symbol, accountId, accountCurrency, skip, take)
+<a name="getSlaveAttachInfo"></a>
+# **getSlaveAttachInfo**
+> AttachToSignalProviderInfo getSlaveAttachInfo(id, authorization)
 
-Get investors signals open trades
+Get subscribe to programs signals info
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.SignalApi;
+
+
+SignalApi apiInstance = new SignalApi();
+UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    AttachToSignalProviderInfo result = apiInstance.getSlaveAttachInfo(id, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SignalApi#getSlaveAttachInfo");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**AttachToSignalProviderInfo**](AttachToSignalProviderInfo.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="updateSubscriptionSettings"></a>
+# **updateSubscriptionSettings**
+> Void updateSubscriptionSettings(authorization, id, body)
+
+Update signal subscription settings
 
 ### Example
 ```java
@@ -590,17 +649,13 @@ Get investors signals open trades
 
 SignalApi apiInstance = new SignalApi();
 String authorization = "authorization_example"; // String | JWT access token
-String sorting = "sorting_example"; // String | 
-String symbol = "symbol_example"; // String | 
-UUID accountId = new UUID(); // UUID | 
-String accountCurrency = "accountCurrency_example"; // String | 
-Integer skip = 56; // Integer | 
-Integer take = 56; // Integer | 
+UUID id = new UUID(); // UUID | Program id
+AttachToSignalProvider body = new AttachToSignalProvider(); // AttachToSignalProvider | Subscription settings
 try {
-    TradesSignalViewModel result = apiInstance.v10SignalTradesOpenGet(authorization, sorting, symbol, accountId, accountCurrency, skip, take);
+    Void result = apiInstance.updateSubscriptionSettings(authorization, id, body);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#v10SignalTradesOpenGet");
+    System.err.println("Exception when calling SignalApi#updateSubscriptionSettings");
     e.printStackTrace();
 }
 ```
@@ -610,16 +665,12 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
- **symbol** | **String**|  | [optional]
- **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
- **skip** | **Integer**|  | [optional]
- **take** | **Integer**|  | [optional]
+ **id** | [**UUID**](.md)| Program id |
+ **body** | [**AttachToSignalProvider**](AttachToSignalProvider.md)| Subscription settings | [optional]
 
 ### Return type
 
-[**TradesSignalViewModel**](TradesSignalViewModel.md)
+[**Void**](.md)
 
 ### Authorization
 
@@ -627,6 +678,6 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 

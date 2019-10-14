@@ -16,34 +16,21 @@ public interface FileApi
 	 * @param id (required)
 	 * @return Call&lt;Void&gt;
 	 */
-	@GET("v1.0/file/{id}")
-	Observable<Void> v10FileByIdGet(
+	@GET("v2.0/file/{id}")
+	Observable<Void> getFile(
 			@retrofit2.http.Path("id") UUID id
-	);
-
-	/**
-	 * Upload document
-	 *
-	 * @param authorization JWT access token (required)
-	 * @param uploadedFile  Upload File (required)
-	 * @return Call&lt;UploadResult&gt;
-	 */
-	@retrofit2.http.Multipart
-	@POST("v1.0/file/document/upload")
-	Observable<UploadResult> v10FileDocumentUploadPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Part("uploadedFile\"; filename=\"uploadedFile") RequestBody uploadedFile
 	);
 
 	/**
 	 * Upload file
 	 *
-	 * @param uploadedFile  Upload File (required)
+	 * @param uploadedFile  (required)
 	 * @param authorization (optional)
 	 * @return Call&lt;UploadResult&gt;
 	 */
 	@retrofit2.http.Multipart
-	@POST("v1.0/file/upload")
-	Observable<UploadResult> v10FileUploadPost(
+	@POST("v2.0/file/upload")
+	Observable<UploadResult> uploadFile(
 			@retrofit2.http.Part("uploadedFile\"; filename=\"uploadedFile") RequestBody uploadedFile, @retrofit2.http.Header("Authorization") String authorization
 	);
 

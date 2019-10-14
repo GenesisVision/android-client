@@ -26,40 +26,40 @@ public class SignalsManager
 	}
 
 	public Observable<AttachToSignalProviderInfo> getSignalsInfo(UUID programId) {
-		return signalApi.v10SignalAttachByIdInfoGet(programId, AuthManager.token.getValue());
+		return signalApi.getSlaveAttachInfo(programId, AuthManager.token.getValue());
 	}
 
 	public Observable<Void> subscribeToProgram(SubscriptionSettingsModel model) {
-		return signalApi.v10SignalAttachByIdPost(model.getProgramId(), AuthManager.token.getValue(), model.getApiModel());
+		return signalApi.attachSlaveToMaster(AuthManager.token.getValue(), model.getProgramId(), model.getApiModel());
 	}
 
 	public Observable<Void> updateSubscription(SubscriptionSettingsModel model) {
-		return signalApi.v10SignalByIdUpdatePost(model.getProgramId(), AuthManager.token.getValue(), model.getApiModel());
+		return signalApi.updateSubscriptionSettings(AuthManager.token.getValue(), model.getProgramId(), model.getApiModel());
 	}
 
 	public Observable<Void> unsubscribeFromProgram(UUID programId, DetachFromSignalProvider.ModeEnum unsubscriptionType) {
 		DetachFromSignalProvider model = new DetachFromSignalProvider();
 		model.setMode(unsubscriptionType);
-		return signalApi.v10SignalDetachByIdPost(programId, AuthManager.token.getValue(), model);
+		return signalApi.detachSlaveFromMaster(AuthManager.token.getValue(), programId, model);
 	}
 
 	public Observable<CopyTradingAccountsList> getAccounts() {
-		return signalApi.v10SignalAccountsGet(AuthManager.token.getValue());
+		return signalApi.getCopytradingAccounts(AuthManager.token.getValue());
 	}
 
 	public Observable<TradesSignalViewModel> getOpenTrades(String sorting, String symbol, UUID accountId, String accountCurrency, Integer skip, Integer take) {
-		return signalApi.v10SignalTradesOpenGet(AuthManager.token.getValue(), sorting, symbol, accountId, accountCurrency, skip, take);
+		return signalApi.getOpenSignalTrades(AuthManager.token.getValue(), sorting, symbol, accountId, accountCurrency, skip, take);
 	}
 
 	public Observable<TradesSignalViewModel> getTradesHistory(DateRange dateRange, String sorting, String symbol, UUID accountId, String accountCurrency, Integer skip, Integer take) {
-		return signalApi.v10SignalTradesGet(AuthManager.token.getValue(), dateRange.getFrom(), dateRange.getTo(), symbol, sorting, accountId, accountCurrency, skip, take);
+		return signalApi.getSignalTrades(AuthManager.token.getValue(), dateRange.getFrom(), dateRange.getTo(), symbol, sorting, accountId, accountCurrency, skip, take);
 	}
 
 	public Observable<Void> closeTrade(UUID tradeId, UUID programId) {
-		return signalApi.v10SignalTradesByIdClosePost(tradeId, AuthManager.token.getValue(), programId);
+		return signalApi.closeTrade(tradeId, AuthManager.token.getValue(), programId);
 	}
 
 	public Observable<SignalTradingEvents> getTradingLog(String accountCurrency, Integer skip, Integer take) {
-		return signalApi.v10SignalTradesLogGet(AuthManager.token.getValue(), null, accountCurrency, skip, take);
+		return signalApi.getSignalTradingLog(AuthManager.token.getValue(), null, accountCurrency, skip, take);
 	}
 }

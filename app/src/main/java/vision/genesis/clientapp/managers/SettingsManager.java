@@ -116,7 +116,7 @@ public class SettingsManager
 	public Observable<PlatformInfo> getPlatformInfo() {
 		if (platformInfoBehaviorSubject == null) {
 			platformInfoBehaviorSubject = BehaviorSubject.create();
-			getPlatformInfoSubscription = platformApi.v10PlatformInfoGet()
+			getPlatformInfoSubscription = platformApi.getPlatformInfo()
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetPlatformInfoSuccess,
@@ -183,6 +183,6 @@ public class SettingsManager
 	}
 
 	public Observable<ProgramsLevelsInfo> getLevelsInfo(String currency) {
-		return platformApi.v10PlatformLevelsGet(currency);
+		return platformApi.getProgramLevels(currency);
 	}
 }

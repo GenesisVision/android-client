@@ -1,4 +1,3 @@
-
 # BrokerAccountType
 
 ## Properties
@@ -11,9 +10,8 @@ Name | Type | Description | Notes
 **leverages** | **List&lt;Integer&gt;** |  |  [optional]
 **currencies** | **List&lt;String&gt;** |  |  [optional]
 **minimumDepositsAmount** | **Map&lt;String, Double&gt;** |  |  [optional]
-**isForex** | **Boolean** |  |  [optional]
+**isKycRequired** | **Boolean** |  |  [optional]
 **isSignalsAvailable** | **Boolean** |  |  [optional]
-
 
 <a name="TypeEnum"></a>
 ## Enum: TypeEnum
@@ -30,6 +28,3 @@ IDEX | &quot;IDEX&quot;
 HUOBI | &quot;Huobi&quot;
 EXANTE | &quot;Exante&quot;
 BINANCEEXCHANGE | &quot;BinanceExchange&quot;
-
-
-

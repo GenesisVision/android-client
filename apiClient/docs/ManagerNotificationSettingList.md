@@ -1,4 +1,3 @@
-
 # ManagerNotificationSettingList
 
 ## Properties
@@ -10,6 +9,3 @@ Name | Type | Description | Notes
 **avatar** | **String** |  |  [optional]
 **about** | **String** |  |  [optional]
 **settingsGeneral** | [**List&lt;NotificationSettingViewModel&gt;**](NotificationSettingViewModel.md) |  |  [optional]
-
-
-

@@ -1,4 +1,3 @@
-
 # AmountWithCurrency
 
 ## Properties
@@ -6,7 +5,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **amount** | **Double** |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
-
 
 <a name="CurrencyEnum"></a>
 ## Enum: CurrencyEnum
@@ -25,6 +23,3 @@ DOGE | &quot;DOGE&quot;
 BNB | &quot;BNB&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
-
-
-

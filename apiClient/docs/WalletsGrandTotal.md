@@ -1,4 +1,3 @@
-
 # WalletsGrandTotal
 
 ## Properties
@@ -14,7 +13,6 @@ Name | Type | Description | Notes
 **investedCcy** | **Double** |  |  [optional]
 **pendingCcy** | **Double** |  |  [optional]
 **totalCcy** | **Double** |  |  [optional]
-
 
 <a name="CurrencyEnum"></a>
 ## Enum: CurrencyEnum
@@ -34,7 +32,6 @@ BNB | &quot;BNB&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
 
-
 <a name="CurrencyCcyEnum"></a>
 ## Enum: CurrencyCcyEnum
 Name | Value
@@ -52,6 +49,3 @@ DOGE | &quot;DOGE&quot;
 BNB | &quot;BNB&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
-
-
-

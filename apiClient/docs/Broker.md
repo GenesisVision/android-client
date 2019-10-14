@@ -1,4 +1,3 @@
-
 # Broker
 
 ## Properties
@@ -13,9 +12,4 @@ Name | Type | Description | Notes
 **leverageMin** | **Integer** |  |  [optional]
 **leverageMax** | **Integer** |  |  [optional]
 **accountTypes** | [**List&lt;BrokerAccountType&gt;**](BrokerAccountType.md) |  |  [optional]
-**isForex** | **Boolean** |  |  [optional]
-**isSignalsAvailable** | **Boolean** |  |  [optional]
 **tags** | [**List&lt;ProgramTag&gt;**](ProgramTag.md) |  |  [optional]
-
-
-

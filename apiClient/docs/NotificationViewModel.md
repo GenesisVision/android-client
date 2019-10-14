@@ -1,4 +1,3 @@
-
 # NotificationViewModel
 
 ## Properties
@@ -15,7 +14,6 @@ Name | Type | Description | Notes
 **color** | **String** |  |  [optional]
 **isUnread** | **Boolean** |  |  [optional]
 **assetType** | [**AssetTypeEnum**](#AssetTypeEnum) |  |  [optional]
-
 
 <a name="TypeEnum"></a>
 ## Enum: TypeEnum
@@ -43,13 +41,9 @@ MANAGERNEWEXTERNALSIGNALACCOUNT | &quot;ManagerNewExternalSignalAccount&quot;
 SIGNALS | &quot;Signals&quot;
 EXTERNALSIGNALS | &quot;ExternalSignals&quot;
 
-
 <a name="AssetTypeEnum"></a>
 ## Enum: AssetTypeEnum
 Name | Value
 ---- | -----
 PROGRAM | &quot;Program&quot;
 FUND | &quot;Fund&quot;
-
-
-

@@ -1,4 +1,3 @@
-
 # SocialLinkViewModel
 
 ## Properties
@@ -9,7 +8,6 @@ Name | Type | Description | Notes
 **name** | **String** |  |  [optional]
 **value** | **String** |  |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
-
 
 <a name="TypeEnum"></a>
 ## Enum: TypeEnum
@@ -23,6 +21,3 @@ LINKEDIN | &quot;LinkedIn&quot;
 YOUTUBE | &quot;Youtube&quot;
 WECHAT | &quot;WeChat&quot;
 EMAIL | &quot;Email&quot;
-
-
-

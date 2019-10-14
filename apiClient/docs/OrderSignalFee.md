@@ -1,4 +1,3 @@
-
 # OrderSignalFee
 
 ## Properties
@@ -7,7 +6,6 @@ Name | Type | Description | Notes
 **amount** | **Double** |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
-
 
 <a name="CurrencyEnum"></a>
 ## Enum: CurrencyEnum
@@ -26,7 +24,6 @@ DOGE | &quot;DOGE&quot;
 BNB | &quot;BNB&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
-
 
 <a name="TypeEnum"></a>
 ## Enum: TypeEnum
@@ -47,6 +44,4 @@ GVWITHDRAWAL | &quot;GvWithdrawal&quot;
 MANAGERSIGNALMASTERSUCCESSFEE | &quot;ManagerSignalMasterSuccessFee&quot;
 MANAGERSIGNALMASTERVOLUMEFEE | &quot;ManagerSignalMasterVolumeFee&quot;
 GVSIGNALSUCCESSFEE | &quot;GvSignalSuccessFee&quot;
-
-
-
+GVFUNDTRADE | &quot;GvFundTrade&quot;

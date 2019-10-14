@@ -1,4 +1,3 @@
-
 # PowDetails
 
 ## Properties
@@ -8,12 +7,8 @@ Name | Type | Description | Notes
 **difficulty** | **Integer** |  |  [optional]
 **nonce** | **String** |  |  [optional]
 
-
 <a name="SecureAlgorithmEnum"></a>
 ## Enum: SecureAlgorithmEnum
 Name | Value
 ---- | -----
 SHA256 | &quot;Sha256&quot;
-
-
-

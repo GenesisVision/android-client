@@ -1,4 +1,3 @@
-
 # AttachToSignalProvider
 
 ## Properties
@@ -11,7 +10,6 @@ Name | Type | Description | Notes
 **openTolerancePercent** | **Double** |  |  [optional]
 **fixedVolume** | **Double** |  |  [optional]
 **fixedCurrency** | [**FixedCurrencyEnum**](#FixedCurrencyEnum) |  |  [optional]
-
 
 <a name="InitialDepositCurrencyEnum"></a>
 ## Enum: InitialDepositCurrencyEnum
@@ -31,7 +29,6 @@ BNB | &quot;BNB&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
 
-
 <a name="ModeEnum"></a>
 ## Enum: ModeEnum
 Name | Value
@@ -39,7 +36,6 @@ Name | Value
 BYBALANCE | &quot;ByBalance&quot;
 PERCENT | &quot;Percent&quot;
 FIXED | &quot;Fixed&quot;
-
 
 <a name="FixedCurrencyEnum"></a>
 ## Enum: FixedCurrencyEnum
@@ -58,6 +54,3 @@ DOGE | &quot;DOGE&quot;
 BNB | &quot;BNB&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
-
-
-

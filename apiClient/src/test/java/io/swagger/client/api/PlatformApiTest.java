@@ -18,12 +18,26 @@ public class PlatformApiTest
 		api = new ApiClient().createService(PlatformApi.class);
 	}
 
+
+	/**
+	 * Platform captcha details
+	 */
+	@Test
+	public void getCaptchaModelTest() {
+		String route = null;
+		String client = null;
+		String version = null;
+		// CaptchaDetails response = api.getCaptchaModel(route, client, version);
+
+		// TODO: test validations
+	}
+
 	/**
 	 * Platform info
 	 */
 	@Test
-	public void v10PlatformInfoGetTest() {
-		// PlatformInfo response = api.v10PlatformInfoGet();
+	public void getPlatformInfoTest() {
+		// PlatformInfo response = api.getPlatformInfo();
 
 		// TODO: test validations
 	}

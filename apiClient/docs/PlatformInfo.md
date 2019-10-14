@@ -1,18 +1,8 @@
-
 # PlatformInfo
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**iOSVersion** | [**IOsAppVersion**](IOsAppVersion.md) |  |  [optional]
-**androidVersion** | [**AndroidAppVersion**](AndroidAppVersion.md) |  |  [optional]
-**programsFacets** | [**List&lt;ProgramFacet&gt;**](ProgramFacet.md) |  |  [optional]
-**fundsFacets** | [**List&lt;FundFacet&gt;**](FundFacet.md) |  |  [optional]
-**programsInfo** | [**ProgramsInfo**](ProgramsInfo.md) |  |  [optional]
-**currencies** | **List&lt;String&gt;** |  |  [optional]
-**programCurrencies** | **List&lt;String&gt;** |  |  [optional]
-**platformCurrencies** | [**List&lt;PlatformCurrency&gt;**](PlatformCurrency.md) |  |  [optional]
-**enums** | [**Enums**](Enums.md) |  |  [optional]
-
-
-
+**appVersionInfo** | [**AppVersion**](AppVersion.md) |  |  [optional]
+**filters** | [**FilterInfo**](FilterInfo.md) |  |  [optional]
+**assetInfo** | [**AssetPlatformInfo**](AssetPlatformInfo.md) |  |  [optional]

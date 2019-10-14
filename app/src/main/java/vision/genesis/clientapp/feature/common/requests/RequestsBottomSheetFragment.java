@@ -9,6 +9,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -20,9 +24,6 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.ProgramRequest;
@@ -32,7 +33,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.managers.InvestorDashboardManager;
+import vision.genesis.clientapp.managers.DashboardManager;
 import vision.genesis.clientapp.model.events.OnCancelRequestClickedEvent;
 import vision.genesis.clientapp.model.events.OnRequestCancelledEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -47,7 +48,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 {
 	@Inject
-	public InvestorDashboardManager investorDashboardManager;
+	public DashboardManager dashboardManager;
 
 	@BindView(R.id.title)
 	public TextView title;
@@ -172,8 +173,8 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 	}
 
 	private void getRequests(UUID assetId) {
-		if (investorDashboardManager != null && assetId != null) {
-			getRequestsSubscription = investorDashboardManager.getRequests(assetId)
+		if (dashboardManager != null && assetId != null) {
+			getRequestsSubscription = dashboardManager.getRequests(assetId)
 					.subscribeOn(Schedulers.io())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handleGetRequests,
@@ -196,7 +197,7 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 	}
 
 	private void cancelRequest(UUID requestId) {
-		cancelRequestSubscription = investorDashboardManager.cancelRequest(requestId)
+		cancelRequestSubscription = dashboardManager.cancelRequest(requestId)
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(response -> handleCancelRequestSuccess(requestId),

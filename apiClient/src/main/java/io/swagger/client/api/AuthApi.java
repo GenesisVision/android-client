@@ -5,8 +5,7 @@ import io.swagger.client.model.ForgotPasswordViewModel;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.PasswordModel;
 import io.swagger.client.model.RecoveryCodesViewModel;
-import io.swagger.client.model.RegisterInvestorViewModel;
-import io.swagger.client.model.RegisterManagerViewModel;
+import io.swagger.client.model.RegisterViewModel;
 import io.swagger.client.model.ResendConfirmationViewModel;
 import io.swagger.client.model.ResetPasswordViewModel;
 import io.swagger.client.model.TwoFactorAuthenticator;
@@ -21,18 +20,59 @@ import rx.Observable;
 public interface AuthApi
 {
 	/**
+	 * Authorize
+	 *
+	 * @param body (optional)
+	 * @return Call&lt;String&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/auth/signin")
+	Observable<String> authorize(
+			@retrofit2.http.Body LoginViewModel body
+	);
+
+	/**
+	 * Change password
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param body          (optional)
+	 * @return Call&lt;String&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/auth/password/change")
+	Observable<String> changePassword(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ChangePasswordViewModel body
+	);
+
+	/**
+	 * Confirm email after registration
+	 *
+	 * @param userId (optional)
+	 * @param code   (optional)
+	 * @return Call&lt;String&gt;
+	 */
+	@POST("v2.0/auth/signup/confirm")
+	Observable<String> confirmEmail(
+			@retrofit2.http.Query("userId") String userId, @retrofit2.http.Query("code") String code
+	);
+
+	/**
 	 * 2FA confirm
 	 *
 	 * @param authorization JWT access token (required)
-	 * @param model         (optional)
+	 * @param body          (optional)
 	 * @return Call&lt;RecoveryCodesViewModel&gt;
 	 */
 	@Headers({
 			"Content-Type:application/json"
 	})
-	@POST("v1.0/auth/2fa/confirm")
-	Observable<RecoveryCodesViewModel> v10Auth2faConfirmPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body TwoFactorAuthenticatorConfirm model
+	@POST("v2.0/auth/2fa/confirm")
+	Observable<RecoveryCodesViewModel> confirmTwoStepAuth(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body TwoFactorAuthenticatorConfirm body
 	);
 
 	/**
@@ -41,24 +81,68 @@ public interface AuthApi
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;TwoFactorAuthenticator&gt;
 	 */
-	@POST("v1.0/auth/2fa/create")
-	Observable<TwoFactorAuthenticator> v10Auth2faCreatePost(
+	@POST("v2.0/auth/2fa/create")
+	Observable<TwoFactorAuthenticator> createTwoStepAuth(
 			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * 2FA generate new recovery codes
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param body          (optional)
+	 * @return Call&lt;RecoveryCodesViewModel&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/auth/2fa/recoverycodes/new")
+	Observable<RecoveryCodesViewModel> createTwoStepAuthRecoveryCodes(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body PasswordModel body
 	);
 
 	/**
 	 * 2FA disable
 	 *
 	 * @param authorization JWT access token (required)
-	 * @param model         (optional)
+	 * @param body          (optional)
 	 * @return Call&lt;Void&gt;
 	 */
 	@Headers({
 			"Content-Type:application/json"
 	})
-	@POST("v1.0/auth/2fa/disable")
-	Observable<Void> v10Auth2faDisablePost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body TwoFactorCodeModel model
+	@POST("v2.0/auth/2fa/disable")
+	Observable<Void> disableTwoStepAuth(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body TwoFactorCodeModel body
+	);
+
+	/**
+	 * Forgot password for investor
+	 *
+	 * @param body (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/auth/password/forgot")
+	Observable<Void> forgotPassword(
+			@retrofit2.http.Body ForgotPasswordViewModel body
+	);
+
+	/**
+	 * 2FA recovery codes
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param body          (optional)
+	 * @return Call&lt;RecoveryCodesViewModel&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/auth/2fa/recoverycodes")
+	Observable<RecoveryCodesViewModel> getTwoStepAuthRecoveryCodes(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body PasswordModel body
 	);
 
 	/**
@@ -67,96 +151,34 @@ public interface AuthApi
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;TwoFactorStatus&gt;
 	 */
-	@GET("v1.0/auth/2fa")
-	Observable<TwoFactorStatus> v10Auth2faGet(
+	@GET("v2.0/auth/2fa")
+	Observable<TwoFactorStatus> getTwoStepAuthStatus(
 			@retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
-	 * 2FA generate new recovery codes
+	 * Logout from another devices
 	 *
 	 * @param authorization JWT access token (required)
-	 * @param model         (optional)
-	 * @return Call&lt;RecoveryCodesViewModel&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("v1.0/auth/2fa/recoverycodes/new")
-	Observable<RecoveryCodesViewModel> v10Auth2faRecoverycodesNewPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body PasswordModel model
-	);
-
-	/**
-	 * 2FA recovery codes
-	 *
-	 * @param authorization JWT access token (required)
-	 * @param model         (optional)
-	 * @return Call&lt;RecoveryCodesViewModel&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("v1.0/auth/2fa/recoverycodes")
-	Observable<RecoveryCodesViewModel> v10Auth2faRecoverycodesPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body PasswordModel model
-	);
-
-	/**
-	 * Change password
-	 *
-	 * @param authorization JWT access token (required)
-	 * @param model         (optional)
 	 * @return Call&lt;String&gt;
 	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("v1.0/auth/password/change")
-	Observable<String> v10AuthPasswordChangePost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ChangePasswordViewModel model
+	@POST("v2.0/auth/token/devices/logout")
+	Observable<String> logoutFromAnotherDevices(
+			@retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
-	 * Forgot password for investor
+	 * New registration
 	 *
-	 * @param model (optional)
+	 * @param body (optional)
 	 * @return Call&lt;Void&gt;
 	 */
 	@Headers({
 			"Content-Type:application/json"
 	})
-	@POST("v1.0/auth/password/forgot/investor")
-	Observable<Void> v10AuthPasswordForgotInvestorPost(
-			@retrofit2.http.Body ForgotPasswordViewModel model
-	);
-
-	/**
-	 * Forgot password for manager
-	 *
-	 * @param model (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("v1.0/auth/password/forgot/manager")
-	Observable<Void> v10AuthPasswordForgotManagerPost(
-			@retrofit2.http.Body ForgotPasswordViewModel model
-	);
-
-	/**
-	 * Reset password
-	 *
-	 * @param model (optional)
-	 * @return Call&lt;String&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("v1.0/auth/password/reset")
-	Observable<String> v10AuthPasswordResetPost(
-			@retrofit2.http.Body ResetPasswordViewModel model
+	@POST("v2.0/auth/signup")
+	Observable<Void> register(
+			@retrofit2.http.Body RegisterViewModel body
 	);
 
 	/**
@@ -165,8 +187,47 @@ public interface AuthApi
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;Integer&gt;
 	 */
-	@POST("v1.0/auth/phone/code")
-	Observable<Integer> v10AuthPhoneCodePost(
+	@POST("v2.0/auth/phone/code")
+	Observable<Integer> requestPhoneNumberVerificationCode(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Resend Confirmation Link
+	 *
+	 * @param body (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/auth/resendconfirmationlink")
+	Observable<Void> resendConfirmationLink(
+			@retrofit2.http.Body ResendConfirmationViewModel body
+	);
+
+	/**
+	 * Reset password
+	 *
+	 * @param body (optional)
+	 * @return Call&lt;String&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/auth/password/reset")
+	Observable<String> resetPassword(
+			@retrofit2.http.Body ResetPasswordViewModel body
+	);
+
+	/**
+	 * Update auth token
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;String&gt;
+	 */
+	@POST("v2.0/auth/token/update")
+	Observable<String> updateAuthToken(
 			@retrofit2.http.Header("Authorization") String authorization
 	);
 
@@ -177,113 +238,9 @@ public interface AuthApi
 	 * @param code          (optional)
 	 * @return Call&lt;Void&gt;
 	 */
-	@POST("v1.0/auth/phone/verify")
-	Observable<Void> v10AuthPhoneVerifyPost(
+	@POST("v2.0/auth/phone/verify")
+	Observable<Void> validatePhoneNumber(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("code") String code
-	);
-
-	/**
-	 * Resend Confirmation Link
-	 *
-	 * @param model (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("v1.0/auth/resendconfirmationlink")
-	Observable<Void> v10AuthResendconfirmationlinkPost(
-			@retrofit2.http.Body ResendConfirmationViewModel model
-	);
-
-	/**
-	 * Authorize
-	 *
-	 * @param model (optional)
-	 * @return Call&lt;String&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("v1.0/auth/signin/investor")
-	Observable<String> v10AuthSigninInvestorPost(
-			@retrofit2.http.Body LoginViewModel model
-	);
-
-	/**
-	 * Authorize
-	 *
-	 * @param model (optional)
-	 * @return Call&lt;String&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("v1.0/auth/signin/manager")
-	Observable<String> v10AuthSigninManagerPost(
-			@retrofit2.http.Body LoginViewModel model
-	);
-
-	/**
-	 * Confirm email after registration
-	 *
-	 * @param userId (optional)
-	 * @param code   (optional)
-	 * @return Call&lt;String&gt;
-	 */
-	@POST("v1.0/auth/signup/confirm")
-	Observable<String> v10AuthSignupConfirmPost(
-			@retrofit2.http.Query("userId") String userId, @retrofit2.http.Query("code") String code
-	);
-
-	/**
-	 * New investor registration
-	 *
-	 * @param model (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("v1.0/auth/signup/investor")
-	Observable<Void> v10AuthSignupInvestorPost(
-			@retrofit2.http.Body RegisterInvestorViewModel model
-	);
-
-	/**
-	 * New manager registration
-	 *
-	 * @param model (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("v1.0/auth/signup/manager")
-	Observable<Void> v10AuthSignupManagerPost(
-			@retrofit2.http.Body RegisterManagerViewModel model
-	);
-
-	/**
-	 * Logout from another devices
-	 *
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;String&gt;
-	 */
-	@POST("v1.0/auth/token/devices/logout")
-	Observable<String> v10AuthTokenDevicesLogoutPost(
-			@retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
-	 * Update auth token
-	 *
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;String&gt;
-	 */
-	@POST("v1.0/auth/token/update")
-	Observable<String> v10AuthTokenUpdatePost(
-			@retrofit2.http.Header("Authorization") String authorization
 	);
 
 }

@@ -23,105 +23,122 @@ import rx.Observable;
 public interface SignalApi
 {
 	/**
-	 * Get copytrading accounts
-	 *
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;CopyTradingAccountsList&gt;
-	 */
-	@GET("v1.0/signal/accounts")
-	Observable<CopyTradingAccountsList> v10SignalAccountsGet(
-			@retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
-	 * Get subscribe to programs signals info
-	 *
-	 * @param id            (required)
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;AttachToSignalProviderInfo&gt;
-	 */
-	@GET("v1.0/signal/attach/{id}/info")
-	Observable<AttachToSignalProviderInfo> v10SignalAttachByIdInfoGet(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
 	 * Subscribe to programs signals
 	 *
+	 * @param authorization JWT access token (required)
 	 * @param id            Program Id (required)
-	 * @param authorization JWT access token (required)
-	 * @param model         Subscription settings (optional)
+	 * @param body          Subscription settings (optional)
 	 * @return Call&lt;Void&gt;
 	 */
 	@Headers({
 			"Content-Type:application/json"
 	})
-	@POST("v1.0/signal/attach/{id}")
-	Observable<Void> v10SignalAttachByIdPost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body AttachToSignalProvider model
-	);
-
-	/**
-	 * Update signal subscription settings
-	 *
-	 * @param id            Program id (required)
-	 * @param authorization JWT access token (required)
-	 * @param model         Subscription settings (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("v1.0/signal/{id}/update")
-	Observable<Void> v10SignalByIdUpdatePost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body AttachToSignalProvider model
-	);
-
-	/**
-	 * Unsubscribe from program signals
-	 *
-	 * @param id            (required)
-	 * @param authorization JWT access token (required)
-	 * @param model         (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("v1.0/signal/detach/{id}")
-	Observable<Void> v10SignalDetachByIdPost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body DetachFromSignalProvider model
+	@POST("v2.0/signal/attach/{id}")
+	Observable<Void> attachSlaveToMaster(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body AttachToSignalProvider body
 	);
 
 	/**
 	 * Subscribe to external signal account
 	 *
-	 * @param id            (required)
 	 * @param authorization JWT access token (required)
-	 * @param model         (optional)
+	 * @param id            (required)
+	 * @param body          (optional)
 	 * @return Call&lt;Void&gt;
 	 */
 	@Headers({
 			"Content-Type:application/json"
 	})
-	@POST("v1.0/signal/external/attach/{id}/external")
-	Observable<Void> v10SignalExternalAttachByIdExternalPost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body AttachToExternalSignalProviderExt model
+	@POST("v2.0/signal/external/attach/{id}/external")
+	Observable<Void> attachSlaveToMaster_0(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body AttachToExternalSignalProviderExt body
+	);
+
+	/**
+	 * Close signal trade
+	 *
+	 * @param id            Trade id (required)
+	 * @param authorization JWT access token (required)
+	 * @param programId     Provider program id (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v2.0/signal/trades/{id}/close")
+	Observable<Void> closeTrade(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("programId") UUID programId
 	);
 
 	/**
 	 * Create external signal account
 	 *
 	 * @param authorization JWT access token (required)
-	 * @param request       (optional)
+	 * @param body          (optional)
 	 * @return Call&lt;ManagerProgramCreateResult&gt;
 	 */
 	@Headers({
 			"Content-Type:application/json"
 	})
-	@POST("v1.0/signal/external/create")
-	Observable<ManagerProgramCreateResult> v10SignalExternalCreatePost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body NewExternalSignalAccountRequest request
+	@POST("v2.0/signal/external/create")
+	Observable<ManagerProgramCreateResult> createExternalSignalAccount(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body NewExternalSignalAccountRequest body
+	);
+
+	/**
+	 * Unsubscribe from program signals
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param id            (required)
+	 * @param body          (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/signal/detach/{id}")
+	Observable<Void> detachSlaveFromMaster(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body DetachFromSignalProvider body
+	);
+
+	/**
+	 * Get copytrading accounts
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;CopyTradingAccountsList&gt;
+	 */
+	@GET("v2.0/signal/accounts")
+	Observable<CopyTradingAccountsList> getCopytradingAccounts(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Get investors signals trading log
+	 *
+	 * @param authorization   JWT access token (required)
+	 * @param accountId       (optional)
+	 * @param accountCurrency (optional)
+	 * @param skip            (optional)
+	 * @param take            (optional)
+	 * @return Call&lt;SignalTradingEvents&gt;
+	 */
+	@GET("v2.0/signal/external/trades/log")
+	Observable<SignalTradingEvents> getExternalSignalTradingLog(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Get investors signals open trades
+	 *
+	 * @param authorization   JWT access token (required)
+	 * @param sorting         (optional)
+	 * @param symbol          (optional)
+	 * @param accountId       (optional)
+	 * @param accountCurrency (optional)
+	 * @param skip            (optional)
+	 * @param take            (optional)
+	 * @return Call&lt;TradesSignalViewModel&gt;
+	 */
+	@GET("v2.0/signal/trades/open")
+	Observable<TradesSignalViewModel> getOpenSignalTrades(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -148,22 +165,9 @@ public interface SignalApi
 	 * @param take                  (optional)
 	 * @return Call&lt;SignalAccountsList&gt;
 	 */
-	@GET("v1.0/signal/external")
-	Observable<SignalAccountsList> v10SignalExternalGet(
+	@GET("v2.0/signal/external")
+	Observable<SignalAccountsList> getSignalAccounts(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Tags") List<String> tags, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("StatisticDateFrom") DateTime statisticDateFrom, @retrofit2.http.Query("StatisticDateTo") DateTime statisticDateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("IsFavorite") Boolean isFavorite, @retrofit2.http.Query("IsEnabled") Boolean isEnabled, @retrofit2.http.Query("HasInvestorsForAll") Boolean hasInvestorsForAll, @retrofit2.http.Query("HasInvestorsForClosed") Boolean hasInvestorsForClosed, @retrofit2.http.Query("Ids") List<UUID> ids, @retrofit2.http.Query("ForceUseIdsList") Boolean forceUseIdsList, @retrofit2.http.Query("ManagerId") String managerId, @retrofit2.http.Query("ProgramManagerId") UUID programManagerId, @retrofit2.http.Query("Status") List<String> status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
-	);
-
-	/**
-	 * Close signal trade
-	 *
-	 * @param id            Trade id (required)
-	 * @param authorization JWT access token (required)
-	 * @param programId     Provider program id (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@POST("v1.0/signal/trades/{id}/close")
-	Observable<Void> v10SignalTradesByIdClosePost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("programId") UUID programId
 	);
 
 	/**
@@ -180,8 +184,8 @@ public interface SignalApi
 	 * @param take            (optional)
 	 * @return Call&lt;TradesSignalViewModel&gt;
 	 */
-	@GET("v1.0/signal/trades")
-	Observable<TradesSignalViewModel> v10SignalTradesGet(
+	@GET("v2.0/signal/trades")
+	Observable<TradesSignalViewModel> getSignalTrades(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
@@ -195,26 +199,37 @@ public interface SignalApi
 	 * @param take            (optional)
 	 * @return Call&lt;SignalTradingEvents&gt;
 	 */
-	@GET("v1.0/signal/trades/log")
-	Observable<SignalTradingEvents> v10SignalTradesLogGet(
+	@GET("v2.0/signal/trades/log")
+	Observable<SignalTradingEvents> getSignalTradingLog(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
-	 * Get investors signals open trades
+	 * Get subscribe to programs signals info
 	 *
-	 * @param authorization   JWT access token (required)
-	 * @param sorting         (optional)
-	 * @param symbol          (optional)
-	 * @param accountId       (optional)
-	 * @param accountCurrency (optional)
-	 * @param skip            (optional)
-	 * @param take            (optional)
-	 * @return Call&lt;TradesSignalViewModel&gt;
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;AttachToSignalProviderInfo&gt;
 	 */
-	@GET("v1.0/signal/trades/open")
-	Observable<TradesSignalViewModel> v10SignalTradesOpenGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	@GET("v2.0/signal/attach/{id}/info")
+	Observable<AttachToSignalProviderInfo> getSlaveAttachInfo(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Update signal subscription settings
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param id            Program id (required)
+	 * @param body          Subscription settings (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/signal/{id}/update")
+	Observable<Void> updateSubscriptionSettings(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body AttachToSignalProvider body
 	);
 
 }

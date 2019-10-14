@@ -1,4 +1,3 @@
-
 # ProgramFacet
 
 ## Properties
@@ -12,7 +11,6 @@ Name | Type | Description | Notes
 **url** | **String** |  |  [optional]
 **sortType** | [**SortTypeEnum**](#SortTypeEnum) |  |  [optional]
 **timeframe** | [**TimeframeEnum**](#TimeframeEnum) |  |  [optional]
-
 
 <a name="SortingEnum"></a>
 ## Enum: SortingEnum
@@ -41,7 +39,6 @@ BYCURRASC | &quot;ByCurrAsc&quot;
 BYLEVELPROGRESSDESC | &quot;ByLevelProgressDesc&quot;
 BYLEVELPROGRESSASC | &quot;ByLevelProgressAsc&quot;
 
-
 <a name="SortTypeEnum"></a>
 ## Enum: SortTypeEnum
 Name | Value
@@ -53,7 +50,6 @@ POPULAR | &quot;Popular&quot;
 TOLEVELUP | &quot;ToLevelUp&quot;
 MOSTRELIABLE | &quot;MostReliable&quot;
 
-
 <a name="TimeframeEnum"></a>
 ## Enum: TimeframeEnum
 Name | Value
@@ -64,6 +60,3 @@ MONTH | &quot;Month&quot;
 THREEMONTHS | &quot;ThreeMonths&quot;
 YEAR | &quot;Year&quot;
 ALLTIME | &quot;AllTime&quot;
-
-
-

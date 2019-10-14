@@ -1,4 +1,3 @@
-
 # CaptchaDetails
 
 ## Properties
@@ -10,7 +9,6 @@ Name | Type | Description | Notes
 **pow** | [**PowDetails**](PowDetails.md) |  |  [optional]
 **geeTest** | [**GeeTestDetails**](GeeTestDetails.md) |  |  [optional]
 
-
 <a name="CaptchaTypeEnum"></a>
 ## Enum: CaptchaTypeEnum
 Name | Value
@@ -18,6 +16,3 @@ Name | Value
 NONE | &quot;None&quot;
 POW | &quot;Pow&quot;
 GEETEST | &quot;GeeTest&quot;
-
-
-

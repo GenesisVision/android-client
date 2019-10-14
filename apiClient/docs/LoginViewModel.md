@@ -1,4 +1,3 @@
-
 # LoginViewModel
 
 ## Properties
@@ -11,6 +10,3 @@ Name | Type | Description | Notes
 **client** | **String** |  |  [optional]
 **email** | **String** |  | 
 **captchaCheckResult** | [**CaptchaCheckResult**](CaptchaCheckResult.md) |  |  [optional]
-
-
-

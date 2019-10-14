@@ -12,14 +12,11 @@ import io.swagger.client.model.MultiWalletExternalTransactionsViewModel;
 import io.swagger.client.model.MultiWalletTransactionsViewModel;
 import io.swagger.client.model.TransactionDetails;
 import io.swagger.client.model.WalletMultiSummary;
-import io.swagger.client.model.WalletSummary;
-import io.swagger.client.model.WalletsInfo;
 import io.swagger.client.model.WithdrawalSummary;
 import rx.Observable;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
-import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.TransactionsFilter;
 import vision.genesis.clientapp.model.WithdrawalRequest;
 import vision.genesis.clientapp.model.events.OnUnauthorizedResponseGetEvent;
@@ -74,12 +71,12 @@ public class WalletManager
 //	}
 //
 
-	public Observable<WalletsInfo> getWalletAddress() {
-		return walletApi.v10WalletAddressesGet(AuthManager.token.getValue());
-	}
+//	public Observable<WalletsInfo> getWalletAddress() {
+//		return walletApi.v10WalletAddressesGet(AuthManager.token.getValue());
+//	}
 
 	public Observable<WithdrawalSummary> getWalletWithdrawInfo() {
-		return walletApi.v10WalletWithdrawInfoGet(AuthManager.token.getValue());
+		return walletApi.getUserWithdrawalSummary(AuthManager.token.getValue());
 	}
 
 	public Observable<Void> withdraw(WithdrawalRequest request) {
@@ -88,17 +85,14 @@ public class WalletManager
 		requestModel.setCurrency(CreateWithdrawalRequestModel.CurrencyEnum.fromValue(request.getCurrency()));
 		requestModel.setAddress(request.getAddress());
 		requestModel.setTwoFactorCode(request.getTfaCode());
-		return walletApi.v10WalletWithdrawRequestNewPost(AuthManager.token.getValue(), requestModel);
-	}
-
-	public Observable<WalletSummary> getWallet(CurrencyEnum currency) {
-		return walletApi.v10WalletByCurrencyGet(currency.getValue(), AuthManager.token.getValue());
+		return walletApi.createWithdrawalRequest(AuthManager.token.getValue(), requestModel);
 	}
 
 	public BehaviorSubject<WalletMultiSummary> getWallets(String currency, Boolean forceUpdate) {
-		if (forceUpdate)
+		if (forceUpdate) {
 			walletsSubject = BehaviorSubject.create();
-		getWalletsSubscription = walletApi.v10WalletMultiByCurrencyGet(currency, AuthManager.token.getValue())
+		}
+		getWalletsSubscription = walletApi.getWalletSummary(currency, AuthManager.token.getValue())
 				.observeOn(Schedulers.io())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleGetWalletsSuccess,
@@ -136,7 +130,7 @@ public class WalletManager
 	}
 
 	public Observable<Void> transfer(InternalTransferRequest request) {
-		return walletApi.v10WalletTransferPost(AuthManager.token.getValue(), request);
+		return walletApi.transfer(AuthManager.token.getValue(), request);
 	}
 
 	public Observable<TransactionDetails> getTransaction(UUID transactionId) {
@@ -144,10 +138,10 @@ public class WalletManager
 	}
 
 	public Observable<Void> cancelWithdrawRequest(UUID transactionId) {
-		return walletApi.v10WalletWithdrawRequestCancelByTxIdPost(transactionId, AuthManager.token.getValue());
+		return walletApi.cancelWithdrawalRequest(transactionId, AuthManager.token.getValue());
 	}
 
 	public Observable<Void> resendConfirmationEmail(UUID transactionId) {
-		return walletApi.v10WalletWithdrawRequestResendByTxIdPost(transactionId, AuthManager.token.getValue());
+		return walletApi.resendWithdrawalRequestEmail(transactionId, AuthManager.token.getValue());
 	}
 }

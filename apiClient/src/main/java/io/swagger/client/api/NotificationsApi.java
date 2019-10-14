@@ -14,42 +14,6 @@ import rx.Observable;
 public interface NotificationsApi
 {
 	/**
-	 * Read notification
-	 *
-	 * @param id            (required)
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;Void&gt;
-	 */
-	@POST("v1.0/notifications/{id}/read")
-	Observable<Void> v10NotificationsByIdReadPost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
-	 * User notifications
-	 *
-	 * @param authorization JWT access token (required)
-	 * @param skip          (optional)
-	 * @param take          (optional)
-	 * @return Call&lt;NotificationList&gt;
-	 */
-	@GET("v1.0/notifications")
-	Observable<NotificationList> v10NotificationsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("skip") Integer skip, @retrofit2.http.Query("take") Integer take
-	);
-
-	/**
-	 * Unread notifications count
-	 *
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;Integer&gt;
-	 */
-	@GET("v1.0/notifications/new")
-	Observable<Integer> v10NotificationsNewGet(
-			@retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
 	 * Add new setting
 	 *
 	 * @param authorization   JWT access token (required)
@@ -60,22 +24,33 @@ public interface NotificationsApi
 	 * @param conditionAmount (optional)
 	 * @return Call&lt;UUID&gt;
 	 */
-	@POST("v1.0/notifications/settings/add")
-	Observable<UUID> v10NotificationsSettingsAddPost(
+	@POST("v2.0/notifications/settings/add")
+	Observable<UUID> addNotificationsSettings(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("AssetId") UUID assetId, @retrofit2.http.Query("ManagerId") UUID managerId, @retrofit2.http.Query("Type") String type, @retrofit2.http.Query("ConditionType") String conditionType, @retrofit2.http.Query("ConditionAmount") Double conditionAmount
 	);
 
 	/**
-	 * Enable/disable setting
+	 * Unread notifications count
 	 *
-	 * @param id            (required)
-	 * @param enable        (required)
 	 * @param authorization JWT access token (required)
-	 * @return Call&lt;UUID&gt;
+	 * @return Call&lt;Integer&gt;
 	 */
-	@POST("v1.0/notifications/settings/{id}/{enable}")
-	Observable<UUID> v10NotificationsSettingsByIdByEnablePost(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("enable") Boolean enable, @retrofit2.http.Header("Authorization") String authorization
+	@GET("v2.0/notifications/new")
+	Observable<Integer> getNewNotificationsCount(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * User notifications
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param skip          (optional)
+	 * @param take          (optional)
+	 * @return Call&lt;NotificationList&gt;
+	 */
+	@GET("v2.0/notifications")
+	Observable<NotificationList> getNotifications(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("skip") Integer skip, @retrofit2.http.Query("take") Integer take
 	);
 
 	/**
@@ -85,20 +60,9 @@ public interface NotificationsApi
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;FundNotificationSettingList&gt;
 	 */
-	@GET("v1.0/notifications/settings/funds/{id}")
-	Observable<FundNotificationSettingList> v10NotificationsSettingsFundsByIdGet(
+	@GET("v2.0/notifications/settings/funds/{id}")
+	Observable<FundNotificationSettingList> getNotificationsFundSettings(
 			@retrofit2.http.Path("id") String id, @retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
-	 * User settings
-	 *
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;NotificationSettingList&gt;
-	 */
-	@GET("v1.0/notifications/settings")
-	Observable<NotificationSettingList> v10NotificationsSettingsGet(
-			@retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
@@ -108,8 +72,8 @@ public interface NotificationsApi
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;ManagerNotificationSettingList&gt;
 	 */
-	@GET("v1.0/notifications/settings/managers/{id}")
-	Observable<ManagerNotificationSettingList> v10NotificationsSettingsManagersByIdGet(
+	@GET("v2.0/notifications/settings/managers/{id}")
+	Observable<ManagerNotificationSettingList> getNotificationsManagerSettings(
 			@retrofit2.http.Path("id") String id, @retrofit2.http.Header("Authorization") String authorization
 	);
 
@@ -120,9 +84,32 @@ public interface NotificationsApi
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;ProgramNotificationSettingList&gt;
 	 */
-	@GET("v1.0/notifications/settings/programs/{id}")
-	Observable<ProgramNotificationSettingList> v10NotificationsSettingsProgramsByIdGet(
+	@GET("v2.0/notifications/settings/programs/{id}")
+	Observable<ProgramNotificationSettingList> getNotificationsProgramSettings(
 			@retrofit2.http.Path("id") String id, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * User settings
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;NotificationSettingList&gt;
+	 */
+	@GET("v2.0/notifications/settings")
+	Observable<NotificationSettingList> getNotificationsSettings(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Read notification
+	 *
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v2.0/notifications/{id}/read")
+	Observable<Void> readNotification(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
@@ -132,9 +119,22 @@ public interface NotificationsApi
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;Void&gt;
 	 */
-	@POST("v1.0/notifications/settings/remove/{id}")
-	Observable<Void> v10NotificationsSettingsRemoveByIdPost(
+	@POST("v2.0/notifications/settings/remove/{id}")
+	Observable<Void> removeNotificationsSettings(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Enable/disable setting
+	 *
+	 * @param id            (required)
+	 * @param enable        (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;UUID&gt;
+	 */
+	@POST("v2.0/notifications/settings/{id}/{enable}")
+	Observable<UUID> toggleNotificationSettings(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("enable") Boolean enable, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 }

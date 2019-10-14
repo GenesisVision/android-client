@@ -7,10 +7,9 @@ import dagger.Provides;
 import io.swagger.client.ApiClient;
 import io.swagger.client.JSON;
 import io.swagger.client.api.AuthApi;
+import io.swagger.client.api.DashboardApi;
 import io.swagger.client.api.FileApi;
 import io.swagger.client.api.FundsApi;
-import io.swagger.client.api.InvestorApi;
-import io.swagger.client.api.ManagerApi;
 import io.swagger.client.api.NotificationsApi;
 import io.swagger.client.api.PlatformApi;
 import io.swagger.client.api.ProfileApi;
@@ -83,14 +82,8 @@ public class ApiModule
 
 	@Provides
 	@Singleton
-	public InvestorApi provideInvestorApi(ApiClient apiClient) {
-		return apiClient.createService(InvestorApi.class);
-	}
-
-	@Provides
-	@Singleton
-	public ManagerApi provideManagersApi(ApiClient apiClient) {
-		return apiClient.createService(ManagerApi.class);
+	public DashboardApi provideDashboardApi(ApiClient apiClient) {
+		return apiClient.createService(DashboardApi.class);
 	}
 
 	@Provides

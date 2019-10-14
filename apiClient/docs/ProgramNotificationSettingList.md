@@ -1,4 +1,3 @@
-
 # ProgramNotificationSettingList
 
 ## Properties
@@ -13,6 +12,3 @@ Name | Type | Description | Notes
 **logo** | **String** |  |  [optional]
 **color** | **String** |  |  [optional]
 **settingsGeneral** | [**List&lt;NotificationSettingViewModel&gt;**](NotificationSettingViewModel.md) |  |  [optional]
-
-
-

@@ -1,4 +1,3 @@
-
 # PersonalProgramDetailsFull
 
 ## Properties
@@ -13,10 +12,10 @@ Name | Type | Description | Notes
 **canMakeSignalProvider** | **Boolean** |  |  [optional]
 **canChangePassword** | **Boolean** |  |  [optional]
 **migration** | [**MigrationRequest**](MigrationRequest.md) |  |  [optional]
+**successFeePersonal** | **Double** |  |  [optional]
 **isFavorite** | **Boolean** |  |  [optional]
 **isInvested** | **Boolean** |  |  [optional]
 **isOwnProgram** | **Boolean** |  |  [optional]
-**canCloseProgram** | **Boolean** |  |  [optional]
 **canCloseAsset** | **Boolean** |  |  [optional]
 **isFinishing** | **Boolean** |  |  [optional]
 **canInvest** | **Boolean** |  |  [optional]
@@ -31,7 +30,6 @@ Name | Type | Description | Notes
 **pendingOutputIsWithdrawAll** | **Boolean** |  |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
 
-
 <a name="StatusEnum"></a>
 ## Enum: StatusEnum
 Name | Value
@@ -41,6 +39,3 @@ ACTIVE | &quot;Active&quot;
 INVESTING | &quot;Investing&quot;
 WITHDRAWING | &quot;Withdrawing&quot;
 ENDED | &quot;Ended&quot;
-
-
-

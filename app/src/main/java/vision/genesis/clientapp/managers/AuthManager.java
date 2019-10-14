@@ -8,11 +8,12 @@ import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.CancellationSignal;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityCompat;
 import io.swagger.client.api.AuthApi;
 import io.swagger.client.api.PlatformApi;
 import io.swagger.client.model.CaptchaCheckResult;
@@ -21,8 +22,7 @@ import io.swagger.client.model.ChangePasswordViewModel;
 import io.swagger.client.model.ForgotPasswordViewModel;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.RecoveryCodesViewModel;
-import io.swagger.client.model.RegisterInvestorViewModel;
-import io.swagger.client.model.RegisterManagerViewModel;
+import io.swagger.client.model.RegisterViewModel;
 import io.swagger.client.model.TwoFactorAuthenticator;
 import io.swagger.client.model.TwoFactorAuthenticatorConfirm;
 import io.swagger.client.model.TwoFactorCodeModel;
@@ -36,7 +36,6 @@ import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.OnUnauthorizedResponseGetEvent;
-import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.SharedPreferencesUtil;
 import vision.genesis.clientapp.utils.fingerprint.FingerprintHandler;
 import vision.genesis.clientapp.utils.fingerprint.GenerateKeyCipher;
@@ -102,10 +101,12 @@ public class AuthManager
 		LoginViewModel model = new LoginViewModel();
 		model.setEmail(email);
 		model.setPassword(password);
-		if (useRecoveryCode)
+		if (useRecoveryCode) {
 			model.setRecoveryCode(tfaCode);
-		else
+		}
+		else {
 			model.setTwoFactorCode(tfaCode);
+		}
 		model.rememberMe(true);
 		model.setClient("Android");
 		model.setCaptchaCheckResult(captchaCheckResult);
@@ -167,11 +168,11 @@ public class AuthManager
 	}
 
 	private Observable<TwoFactorStatus> twoFactorStatus() {
-		return authApi.v10Auth2faGet(AuthManager.token.getValue());
+		return authApi.getTwoStepAuthStatus(AuthManager.token.getValue());
 	}
 
 	public Observable<TwoFactorAuthenticator> createTfaKey() {
-		return authApi.v10Auth2faCreatePost(AuthManager.token.getValue());
+		return authApi.createTwoStepAuth(AuthManager.token.getValue());
 	}
 
 	public Observable<RecoveryCodesViewModel> confirmTfa(String sharedKey, String password, String code) {
@@ -179,42 +180,30 @@ public class AuthManager
 		model.setSharedKey(sharedKey);
 		model.setPassword(password);
 		model.setCode(code);
-		return authApi.v10Auth2faConfirmPost(AuthManager.token.getValue(), model);
+		return authApi.confirmTwoStepAuth(AuthManager.token.getValue(), model);
 	}
 
 	public Observable<Void> disableTfa(String password, String code) {
 		TwoFactorCodeModel model = new TwoFactorCodeModel();
 		model.setPassword(password);
 		model.setTwoFactorCode(code);
-		return authApi.v10Auth2faDisablePost(AuthManager.token.getValue(), model);
+		return authApi.disableTwoStepAuth(AuthManager.token.getValue(), model);
 	}
 
-	public Observable<Void> registerInvestor(String email, String password, String confirmPassword, CaptchaCheckResult captchaCheckResult) {
-		RegisterInvestorViewModel model = new RegisterInvestorViewModel();
+	public Observable<Void> register(String email, String password, String confirmPassword, CaptchaCheckResult captchaCheckResult) {
+		RegisterViewModel model = new RegisterViewModel();
 		model.setEmail(email);
 		model.setPassword(password);
 		model.setConfirmPassword(confirmPassword);
 		model.setCaptchaCheckResult(captchaCheckResult);
-		return authApi.v10AuthSignupInvestorPost(model);
-	}
-
-	public Observable<Void> registerManager(String userName, String email, String password, String confirmPassword, CaptchaCheckResult captchaCheckResult) {
-		RegisterManagerViewModel model = new RegisterManagerViewModel();
-		model.setUserName(userName);
-		model.setEmail(email);
-		model.setPassword(password);
-		model.setConfirmPassword(confirmPassword);
-		model.setCaptchaCheckResult(captchaCheckResult);
-		return authApi.v10AuthSignupManagerPost(model);
+		return authApi.register(model);
 	}
 
 	public Observable<Void> sendForgotPassword(String email, CaptchaCheckResult captchaCheckResult) {
 		ForgotPasswordViewModel model = new ForgotPasswordViewModel();
 		model.setEmail(email);
 		model.setCaptchaCheckResult(captchaCheckResult);
-		return Constants.IS_INVESTOR
-				? authApi.v10AuthPasswordForgotInvestorPost(model)
-				: authApi.v10AuthPasswordForgotManagerPost(model);
+		return authApi.forgotPassword(model);
 	}
 
 	public Observable<String> sendChangePassword(String oldPassword, String newPassword, String confirmPassword) {
@@ -222,17 +211,15 @@ public class AuthManager
 		model.setOldPassword(oldPassword);
 		model.setPassword(newPassword);
 		model.setConfirmPassword(confirmPassword);
-		return authApi.v10AuthPasswordChangePost(AuthManager.token.getValue(), model);
+		return authApi.changePassword(AuthManager.token.getValue(), model);
 	}
 
 	private Observable<String> getLoginApiObservable(LoginViewModel model) {
-		return Constants.IS_INVESTOR
-				? authApi.v10AuthSigninInvestorPost(model)
-				: authApi.v10AuthSigninManagerPost(model);
+		return authApi.authorize(model);
 	}
 
 	public Observable<CaptchaDetails> checkRiskControl(String route) {
-		return platformApi.v10PlatformRiskcontrolGet(route, "Android", BuildConfig.VERSION_NAME);
+		return platformApi.getCaptchaModel(route, "Android", BuildConfig.VERSION_NAME);
 	}
 
 	public void logout() {

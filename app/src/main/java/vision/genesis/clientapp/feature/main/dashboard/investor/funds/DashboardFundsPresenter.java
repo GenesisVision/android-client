@@ -15,8 +15,8 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.managers.DashboardManager;
 import vision.genesis.clientapp.managers.FundsManager;
-import vision.genesis.clientapp.managers.InvestorDashboardManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.SortingEnum;
@@ -37,7 +37,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 public class DashboardFundsPresenter extends MvpPresenter<DashboardFundsView>
 {
 	@Inject
-	public InvestorDashboardManager dashboardManager;
+	public DashboardManager dashboardManager;
 
 	@Inject
 	public FundsManager fundsManager;

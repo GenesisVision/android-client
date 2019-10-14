@@ -21,7 +21,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.managers.InvestorDashboardManager;
+import vision.genesis.clientapp.managers.DashboardManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.SetFundDetailsEventsCountEvent;
 import vision.genesis.clientapp.model.events.SetProgramDetailsEventsCountEvent;
@@ -43,7 +43,7 @@ public class ProgramEventsPresenter extends MvpPresenter<ProgramEventsView> impl
 	public Context context;
 
 	@Inject
-	public InvestorDashboardManager investorManager;
+	public DashboardManager investorManager;
 
 	private Subscription eventsSubscription;
 

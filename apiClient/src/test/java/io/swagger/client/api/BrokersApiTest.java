@@ -3,6 +3,8 @@ package io.swagger.client.api;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.UUID;
+
 import io.swagger.client.ApiClient;
 
 /**
@@ -18,12 +20,24 @@ public class BrokersApiTest
 		api = new ApiClient().createService(BrokersApi.class);
 	}
 
+
 	/**
-	 * Get all trade servers
+	 * Get brokers
 	 */
 	@Test
-	public void v10BrokersGetTest() {
-		// BrokersInfo response = api.v10BrokersGet();
+	public void getBrokersTest() {
+		// BrokersInfo response = api.getBrokers();
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Get brokers for program
+	 */
+	@Test
+	public void getBrokersForProgramTest() {
+		UUID programId = null;
+		// BrokersProgramInfo response = api.getBrokersForProgram(programId);
 
 		// TODO: test validations
 	}

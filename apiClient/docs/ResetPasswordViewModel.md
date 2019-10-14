@@ -1,4 +1,3 @@
-
 # ResetPasswordViewModel
 
 ## Properties
@@ -8,6 +7,3 @@ Name | Type | Description | Notes
 **code** | **String** |  | 
 **password** | **String** |  | 
 **confirmPassword** | **String** |  |  [optional]
-
-
-

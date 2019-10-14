@@ -1,4 +1,3 @@
-
 # BrokerDetails
 
 ## Properties
@@ -14,6 +13,3 @@ Name | Type | Description | Notes
 **showSwapsSometime** | **Boolean** |  |  [optional]
 **showTicketsSometime** | **Boolean** |  |  [optional]
 **showCommissionRebateSometime** | **Boolean** |  |  [optional]
-
-
-

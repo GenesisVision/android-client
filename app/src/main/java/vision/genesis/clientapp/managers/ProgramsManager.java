@@ -2,6 +2,7 @@ package vision.genesis.clientapp.managers;
 
 import java.util.UUID;
 
+import io.swagger.client.api.DashboardApi;
 import io.swagger.client.api.InvestorApi;
 import io.swagger.client.api.ProgramsApi;
 import io.swagger.client.model.DashboardPortfolioEvents;
@@ -34,7 +35,7 @@ public class ProgramsManager
 	private ProgramsApi programsApi;
 
 	//	public ProgramsManager(InvestorApi investorApi, ManagerApi managerApi, ProgramApi programsApi) {
-	public ProgramsManager(InvestorApi investorApi, ProgramsApi programsApi) {
+	public ProgramsManager(DashboardApi investorApi, ProgramsApi programsApi) {
 		this.investorApi = investorApi;
 //		this.managerApi = managerApi;
 		this.programsApi = programsApi;

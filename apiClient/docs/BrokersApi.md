@@ -1,18 +1,56 @@
 # BrokersApi
 
-All URIs are relative to *https://localhost/api*
+All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v10BrokersByProgramIdGet**](BrokersApi.md#v10BrokersByProgramIdGet) | **GET** v1.0/brokers/{programId} | Get trade servers for program
-[**v10BrokersGet**](BrokersApi.md#v10BrokersGet) | **GET** v1.0/brokers | Get all trade servers
+[**getBrokers**](BrokersApi.md#getBrokers) | **GET** v2.0/brokers | Get brokers
+[**getBrokersForProgram**](BrokersApi.md#getBrokersForProgram) | **GET** v2.0/brokers/{programId} | Get brokers for program
+
+<a name="getBrokers"></a>
+# **getBrokers**
+> BrokersInfo getBrokers()
+
+Get brokers
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.BrokersApi;
 
 
-<a name="v10BrokersByProgramIdGet"></a>
-# **v10BrokersByProgramIdGet**
-> BrokersProgramInfo v10BrokersByProgramIdGet(programId)
+BrokersApi apiInstance = new BrokersApi();
+try {
+    BrokersInfo result = apiInstance.getBrokers();
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling BrokersApi#getBrokers");
+    e.printStackTrace();
+}
+```
 
-Get trade servers for program
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**BrokersInfo**](BrokersInfo.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getBrokersForProgram"></a>
+# **getBrokersForProgram**
+> BrokersProgramInfo getBrokersForProgram(programId)
+
+Get brokers for program
 
 ### Example
 ```java
@@ -24,10 +62,10 @@ Get trade servers for program
 BrokersApi apiInstance = new BrokersApi();
 UUID programId = new UUID(); // UUID | 
 try {
-    BrokersProgramInfo result = apiInstance.v10BrokersByProgramIdGet(programId);
+    BrokersProgramInfo result = apiInstance.getBrokersForProgram(programId);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling BrokersApi#v10BrokersByProgramIdGet");
+    System.err.println("Exception when calling BrokersApi#getBrokersForProgram");
     e.printStackTrace();
 }
 ```
@@ -41,45 +79,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**BrokersProgramInfo**](BrokersProgramInfo.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10BrokersGet"></a>
-# **v10BrokersGet**
-> BrokersInfo v10BrokersGet()
-
-Get all trade servers
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.BrokersApi;
-
-
-BrokersApi apiInstance = new BrokersApi();
-try {
-    BrokersInfo result = apiInstance.v10BrokersGet();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling BrokersApi#v10BrokersGet");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**BrokersInfo**](BrokersInfo.md)
 
 ### Authorization
 

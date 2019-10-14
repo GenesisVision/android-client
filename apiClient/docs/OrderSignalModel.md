@@ -1,4 +1,3 @@
-
 # OrderSignalModel
 
 ## Properties
@@ -26,8 +25,7 @@ Name | Type | Description | Notes
 **commission** | **Double** | In account currency |  [optional]
 **swap** | **Double** |  |  [optional]
 **showOriginalCommission** | **Boolean** |  |  [optional]
-**signalData** | [**OrderModelSignalData**](OrderModelSignalData.md) | For signals |  [optional]
-
+**signalData** | [**OrderModelSignalData**](OrderModelSignalData.md) |  |  [optional]
 
 <a name="CurrencyEnum"></a>
 ## Enum: CurrencyEnum
@@ -47,7 +45,6 @@ BNB | &quot;BNB&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
 
-
 <a name="DirectionEnum"></a>
 ## Enum: DirectionEnum
 Name | Value
@@ -59,7 +56,6 @@ CREDIT | &quot;Credit&quot;
 UNDEFINED | &quot;Undefined&quot;
 MANUALBALANCING | &quot;ManualBalancing&quot;
 
-
 <a name="EntryEnum"></a>
 ## Enum: EntryEnum
 Name | Value
@@ -68,6 +64,3 @@ IN | &quot;In&quot;
 OUT | &quot;Out&quot;
 INOUT | &quot;InOut&quot;
 OUTBY | &quot;OutBy&quot;
-
-
-

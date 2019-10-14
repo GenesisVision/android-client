@@ -1,14 +1,11 @@
-
 # ProgramBalanceChart
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**gvtBalance** | **Double** |  |  [optional]
-**programCurrencyBalance** | **Double** |  |  [optional]
+**balance** | **Double** |  |  [optional]
 **programCurrency** | [**ProgramCurrencyEnum**](#ProgramCurrencyEnum) |  |  [optional]
-**balanceChart** | [**List&lt;ProgramBalanceChartElement&gt;**](ProgramBalanceChartElement.md) |  |  [optional]
-
+**chart** | [**List&lt;BalanceChartPoint&gt;**](BalanceChartPoint.md) |  |  [optional]
 
 <a name="ProgramCurrencyEnum"></a>
 ## Enum: ProgramCurrencyEnum
@@ -27,6 +24,3 @@ DOGE | &quot;DOGE&quot;
 BNB | &quot;BNB&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
-
-
-

@@ -20,7 +20,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.managers.InvestorDashboardManager;
+import vision.genesis.clientapp.managers.DashboardManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.ShowEventDetailsEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -41,7 +41,7 @@ public class PortfolioEventsPresenter extends MvpPresenter<PortfolioEventsView> 
 	public Context context;
 
 	@Inject
-	public InvestorDashboardManager investorDashboardManager;
+	public DashboardManager dashboardManager;
 
 	private Subscription eventsSubscription;
 
@@ -108,7 +108,7 @@ public class PortfolioEventsPresenter extends MvpPresenter<PortfolioEventsView> 
 			if (eventsSubscription != null) {
 				eventsSubscription.unsubscribe();
 			}
-			eventsSubscription = investorDashboardManager.getEvents("EventsAll", null, dateRange, null, null, skip, TAKE)
+			eventsSubscription = dashboardManager.getEvents("EventsAll", null, dateRange, null, null, skip, TAKE)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 //					.map(this::prepareData)

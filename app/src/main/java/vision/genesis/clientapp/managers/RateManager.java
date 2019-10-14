@@ -9,6 +9,7 @@ import java.util.List;
 
 import io.swagger.client.api.RateApi;
 import io.swagger.client.model.RateItem;
+import io.swagger.client.model.RateModel;
 import io.swagger.client.model.RatesModel;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
@@ -47,7 +48,7 @@ public class RateManager
 	public BehaviorSubject<Double> getRate(String from, String to) {
 		BehaviorSubject<Double> rateSubject = getRateSubject(from, to);
 
-		rateSubscription = rateApi.v10RateByFromByToGet(from, to)
+		rateSubscription = rateApi.getRate(from, to)
 				.observeOn(Schedulers.io())
 				.subscribeOn(Schedulers.io())
 				.subscribe(response -> handleGetRateResponse(response, rateSubject),
@@ -60,7 +61,7 @@ public class RateManager
 		List<String> from = new ArrayList<>();
 		from.add(CurrencyEnum.GVT.getValue());
 
-		baseRatesSubscription = rateApi.v10RateGet(from, baseCurrenciesList)
+		baseRatesSubscription = rateApi.getRates(from, baseCurrenciesList)
 				.observeOn(Schedulers.io())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleGetBaseRatesResponse,
@@ -69,9 +70,9 @@ public class RateManager
 		return baseRatesSubject;
 	}
 
-	private void handleGetRateResponse(Double rate, BehaviorSubject<Double> rateSubject) {
+	private void handleGetRateResponse(RateModel response, BehaviorSubject<Double> rateSubject) {
 		rateSubscription.unsubscribe();
-		rateSubject.onNext(rate);
+		rateSubject.onNext(response.getRate());
 	}
 
 	private void handleGetRateError(Throwable error) {

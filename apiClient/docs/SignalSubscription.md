@@ -1,4 +1,3 @@
-
 # SignalSubscription
 
 ## Properties
@@ -14,7 +13,6 @@ Name | Type | Description | Notes
 **totalProfit** | **Double** |  |  [optional]
 **totalVolume** | **Double** |  |  [optional]
 
-
 <a name="ModeEnum"></a>
 ## Enum: ModeEnum
 Name | Value
@@ -22,7 +20,6 @@ Name | Value
 BYBALANCE | &quot;ByBalance&quot;
 PERCENT | &quot;Percent&quot;
 FIXED | &quot;Fixed&quot;
-
 
 <a name="FixedCurrencyEnum"></a>
 ## Enum: FixedCurrencyEnum
@@ -41,6 +38,3 @@ DOGE | &quot;DOGE&quot;
 BNB | &quot;BNB&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
-
-
-

@@ -1,4 +1,3 @@
-
 # NotificationSettingViewModel
 
 ## Properties
@@ -11,7 +10,6 @@ Name | Type | Description | Notes
 **type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
 **conditionType** | [**ConditionTypeEnum**](#ConditionTypeEnum) |  |  [optional]
 **conditionAmount** | **Double** |  |  [optional]
-
 
 <a name="TypeEnum"></a>
 ## Enum: TypeEnum
@@ -39,7 +37,6 @@ MANAGERNEWEXTERNALSIGNALACCOUNT | &quot;ManagerNewExternalSignalAccount&quot;
 SIGNALS | &quot;Signals&quot;
 EXTERNALSIGNALS | &quot;ExternalSignals&quot;
 
-
 <a name="ConditionTypeEnum"></a>
 ## Enum: ConditionTypeEnum
 Name | Value
@@ -48,6 +45,3 @@ EMPTY | &quot;Empty&quot;
 PROFIT | &quot;Profit&quot;
 LEVEL | &quot;Level&quot;
 AVAILABLETOINVEST | &quot;AvailableToInvest&quot;
-
-
-

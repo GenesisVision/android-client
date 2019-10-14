@@ -22,7 +22,6 @@ import vision.genesis.clientapp.model.api.ErrorResponse;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
 import vision.genesis.clientapp.utils.CaptchaUtils;
-import vision.genesis.clientapp.utils.Constants;
 
 /**
  * GenesisVision
@@ -65,10 +64,12 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 
 	@Override
 	public void onDestroy() {
-		if (riskControlSubscription != null)
+		if (riskControlSubscription != null) {
 			riskControlSubscription.unsubscribe();
-		if (registrationSubscription != null)
+		}
+		if (registrationSubscription != null) {
 			registrationSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -162,9 +163,7 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 	}
 
 	private Observable<Void> getRegisterObservable(String userName, String email, String password, String confirmPassword, CaptchaCheckResult captchaCheckResult) {
-		return (Constants.IS_INVESTOR)
-				? authManager.registerInvestor(email, password, confirmPassword, captchaCheckResult)
-				: authManager.registerManager(userName, email, password, confirmPassword, captchaCheckResult);
+		return authManager.register(email, password, confirmPassword, captchaCheckResult);
 	}
 
 	private void onRegisterResponse(Void response) {

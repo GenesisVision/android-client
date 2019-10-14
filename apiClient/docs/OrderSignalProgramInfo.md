@@ -1,4 +1,3 @@
-
 # OrderSignalProgramInfo
 
 ## Properties
@@ -12,6 +11,3 @@ Name | Type | Description | Notes
 **profit** | **Double** |  |  [optional]
 **firstOrderDate** | [**DateTime**](DateTime.md) |  |  [optional]
 **fees** | [**List&lt;OrderSignalFee&gt;**](OrderSignalFee.md) |  |  [optional]
-
-
-

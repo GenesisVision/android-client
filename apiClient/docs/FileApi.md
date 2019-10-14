@@ -1,17 +1,15 @@
 # FileApi
 
-All URIs are relative to *https://localhost/api*
+All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v10FileByIdGet**](FileApi.md#v10FileByIdGet) | **GET** v1.0/file/{id} | Download file
-[**v10FileDocumentUploadPost**](FileApi.md#v10FileDocumentUploadPost) | **POST** v1.0/file/document/upload | Upload document
-[**v10FileUploadPost**](FileApi.md#v10FileUploadPost) | **POST** v1.0/file/upload | Upload file
+[**getFile**](FileApi.md#getFile) | **GET** v2.0/file/{id} | Download file
+[**uploadFile**](FileApi.md#uploadFile) | **POST** v2.0/file/upload | Upload file
 
-
-<a name="v10FileByIdGet"></a>
-# **v10FileByIdGet**
-> Void v10FileByIdGet(id)
+<a name="getFile"></a>
+# **getFile**
+> Void getFile(id)
 
 Download file
 
@@ -25,10 +23,10 @@ Download file
 FileApi apiInstance = new FileApi();
 UUID id = new UUID(); // UUID | 
 try {
-    Void result = apiInstance.v10FileByIdGet(id);
+    Void result = apiInstance.getFile(id);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling FileApi#v10FileByIdGet");
+    System.err.println("Exception when calling FileApi#getFile");
     e.printStackTrace();
 }
 ```
@@ -52,54 +50,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a name="v10FileDocumentUploadPost"></a>
-# **v10FileDocumentUploadPost**
-> UploadResult v10FileDocumentUploadPost(authorization, uploadedFile)
-
-Upload document
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.FileApi;
-
-
-FileApi apiInstance = new FileApi();
-String authorization = "authorization_example"; // String | JWT access token
-File uploadedFile = new File("/path/to/file.txt"); // File | Upload File
-try {
-    UploadResult result = apiInstance.v10FileDocumentUploadPost(authorization, uploadedFile);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling FileApi#v10FileDocumentUploadPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **uploadedFile** | **File**| Upload File |
-
-### Return type
-
-[**UploadResult**](UploadResult.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: multipart/form-data
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10FileUploadPost"></a>
-# **v10FileUploadPost**
-> UploadResult v10FileUploadPost(uploadedFile, authorization)
+<a name="uploadFile"></a>
+# **uploadFile**
+> UploadResult uploadFile(uploadedFile, authorization)
 
 Upload file
 
@@ -111,13 +64,13 @@ Upload file
 
 
 FileApi apiInstance = new FileApi();
-File uploadedFile = new File("/path/to/file.txt"); // File | Upload File
+File uploadedFile = new File("uploadedFile_example"); // File | 
 String authorization = "authorization_example"; // String | 
 try {
-    UploadResult result = apiInstance.v10FileUploadPost(uploadedFile, authorization);
+    UploadResult result = apiInstance.uploadFile(uploadedFile, authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling FileApi#v10FileUploadPost");
+    System.err.println("Exception when calling FileApi#uploadFile");
     e.printStackTrace();
 }
 ```
@@ -126,7 +79,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **uploadedFile** | **File**| Upload File |
+ **uploadedFile** | **File**|  |
  **authorization** | **String**|  | [optional]
 
 ### Return type

@@ -1,21 +1,13 @@
 package io.swagger.client.api;
 
-import org.joda.time.DateTime;
-
 import java.util.UUID;
 
 import io.swagger.client.model.CreateWithdrawalRequestModel;
 import io.swagger.client.model.InternalTransferRequest;
-import io.swagger.client.model.MultiWalletExternalTransactionsViewModel;
-import io.swagger.client.model.MultiWalletTransactionsViewModel;
-import io.swagger.client.model.TransactionDetails;
 import io.swagger.client.model.UserCommissionData;
-import io.swagger.client.model.WalletInfo;
+import io.swagger.client.model.WalletDepositSummary;
 import io.swagger.client.model.WalletMultiAvailable;
 import io.swagger.client.model.WalletMultiSummary;
-import io.swagger.client.model.WalletSummary;
-import io.swagger.client.model.WalletTransactionsViewModel;
-import io.swagger.client.model.WalletsInfo;
 import io.swagger.client.model.WithdrawalSummary;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -25,38 +17,36 @@ import rx.Observable;
 public interface WalletApi
 {
 	/**
-	 * Get user addresses
-	 *
-	 * @param currency      (required)
+	 * @param txId          (required)
 	 * @param authorization JWT access token (required)
-	 * @return Call&lt;WalletInfo&gt;
+	 * @return Call&lt;Void&gt;
 	 */
-	@GET("v1.0/wallet/addresses/{currency}")
-	Observable<WalletInfo> v10WalletAddressesByCurrencyGet(
-			@retrofit2.http.Path("currency") String currency, @retrofit2.http.Header("Authorization") String authorization
+	@POST("v2.0/wallet/withdraw/request/cancel/{txId}")
+	Observable<Void> cancelWithdrawalRequest(
+			@retrofit2.http.Path("txId") UUID txId, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
-	 * Get user addresses
-	 *
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;WalletsInfo&gt;
+	 * @param requestId (optional)
+	 * @param code      (optional)
+	 * @return Call&lt;Void&gt;
 	 */
-	@GET("v1.0/wallet/addresses")
-	Observable<WalletsInfo> v10WalletAddressesGet(
-			@retrofit2.http.Header("Authorization") String authorization
+	@POST("v2.0/wallet/withdraw/request/confirm")
+	Observable<Void> confirmWithdrawalRequestByCode(
+			@retrofit2.http.Query("requestId") UUID requestId, @retrofit2.http.Query("code") String code
 	);
 
 	/**
-	 * Wallet summary
-	 *
-	 * @param currency      (required)
 	 * @param authorization JWT access token (required)
-	 * @return Call&lt;WalletSummary&gt;
+	 * @param body          (optional)
+	 * @return Call&lt;Void&gt;
 	 */
-	@GET("v1.0/wallet/{currency}")
-	Observable<WalletSummary> v10WalletByCurrencyGet(
-			@retrofit2.http.Path("currency") String currency, @retrofit2.http.Header("Authorization") String authorization
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/wallet/withdraw/request/new")
+	Observable<Void> createWithdrawalRequest(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body CreateWithdrawalRequestModel body
 	);
 
 	/**
@@ -65,67 +55,52 @@ public interface WalletApi
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;UserCommissionData&gt;
 	 */
-	@GET("v1.0/wallet/fee/gvtholding")
-	Observable<UserCommissionData> v10WalletFeeGvtholdingGet(
+	@GET("v2.0/wallet/fee/gvtholding")
+	Observable<UserCommissionData> getGMCommissionData(
 			@retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
-	 * Multi wallet available
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;WithdrawalSummary&gt;
+	 */
+	@GET("v2.0/wallet/withdraw/info")
+	Observable<WithdrawalSummary> getUserWithdrawalSummary(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Wallet available
 	 *
 	 * @param currency      (required)
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;WalletMultiAvailable&gt;
 	 */
-	@GET("v1.0/wallet/multi/{currency}/available")
-	Observable<WalletMultiAvailable> v10WalletMultiByCurrencyAvailableGet(
+	@GET("v2.0/wallet/{currency}/available")
+	Observable<WalletMultiAvailable> getWalletAvailable(
 			@retrofit2.http.Path("currency") String currency, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
-	 * Multi wallet summary
+	 * Wallet summary
 	 *
 	 * @param currency      (required)
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;WalletMultiSummary&gt;
 	 */
-	@GET("v1.0/wallet/multi/{currency}")
-	Observable<WalletMultiSummary> v10WalletMultiByCurrencyGet(
+	@GET("v2.0/wallet/{currency}")
+	Observable<WalletMultiSummary> getWalletSummary(
 			@retrofit2.http.Path("currency") String currency, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
-	 * Wallet pending transactions
-	 *
+	 * @param txId          (required)
 	 * @param authorization JWT access token (required)
-	 * @param from          (optional)
-	 * @param to            (optional)
-	 * @param type          (optional)
-	 * @param currency      (optional)
-	 * @param skip          (optional)
-	 * @param take          (optional)
-	 * @return Call&lt;MultiWalletExternalTransactionsViewModel&gt;
+	 * @return Call&lt;Void&gt;
 	 */
-	@GET("v1.0/wallet/multi/transactions/external")
-	Observable<MultiWalletExternalTransactionsViewModel> v10WalletMultiTransactionsExternalGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("Type") String type, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
-	);
-
-	/**
-	 * Multi wallet transactions
-	 *
-	 * @param authorization JWT access token (required)
-	 * @param from          (optional)
-	 * @param to            (optional)
-	 * @param type          (optional)
-	 * @param currency      (optional)
-	 * @param skip          (optional)
-	 * @param take          (optional)
-	 * @return Call&lt;MultiWalletTransactionsViewModel&gt;
-	 */
-	@GET("v1.0/wallet/multi/transactions")
-	Observable<MultiWalletTransactionsViewModel> v10WalletMultiTransactionsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("Type") String type, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	@POST("v2.0/wallet/withdraw/request/resend/{txId}")
+	Observable<Void> resendWithdrawalRequestEmail(
+			@retrofit2.http.Path("txId") UUID txId, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
@@ -134,8 +109,8 @@ public interface WalletApi
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;Void&gt;
 	 */
-	@POST("v1.0/wallet/paygvtfee/off")
-	Observable<Void> v10WalletPaygvtfeeOffPost(
+	@POST("v2.0/wallet/paygvtfee/off")
+	Observable<Void> switchPayFeeInGvtOff(
 			@retrofit2.http.Header("Authorization") String authorization
 	);
 
@@ -145,107 +120,35 @@ public interface WalletApi
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;Void&gt;
 	 */
-	@POST("v1.0/wallet/paygvtfee/on")
-	Observable<Void> v10WalletPaygvtfeeOnPost(
+	@POST("v2.0/wallet/paygvtfee/on")
+	Observable<Void> switchPayFeeInGvtOn(
 			@retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
-	 * Get transaction details
-	 *
-	 * @param id            (required)
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;TransactionDetails&gt;
-	 */
-	@GET("v1.0/wallet/transaction/{id}")
-	Observable<TransactionDetails> v10WalletTransactionByIdGet(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
-	 * Wallet transactions
-	 *
-	 * @param authorization JWT access token (required)
-	 * @param assetId       (optional)
-	 * @param from          (optional)
-	 * @param to            (optional)
-	 * @param assetType     (optional)
-	 * @param txAction      (optional)
-	 * @param wallet        (optional)
-	 * @param skip          (optional)
-	 * @param take          (optional)
-	 * @return Call&lt;WalletTransactionsViewModel&gt;
-	 */
-	@GET("v1.0/wallet/transactions")
-	Observable<WalletTransactionsViewModel> v10WalletTransactionsGet(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("AssetId") UUID assetId, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("AssetType") String assetType, @retrofit2.http.Query("TxAction") String txAction, @retrofit2.http.Query("Wallet") String wallet, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
 	 * Transfer money
 	 *
 	 * @param authorization JWT access token (required)
-	 * @param request       (optional)
+	 * @param body          (optional)
 	 * @return Call&lt;Void&gt;
 	 */
 	@Headers({
 			"Content-Type:application/json"
 	})
-	@POST("v1.0/wallet/transfer")
-	Observable<Void> v10WalletTransferPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body InternalTransferRequest request
+	@POST("v2.0/wallet/transfer")
+	Observable<Void> transfer(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body InternalTransferRequest body
 	);
 
 	/**
+	 * Update deposit wallets
+	 *
 	 * @param authorization JWT access token (required)
-	 * @return Call&lt;WithdrawalSummary&gt;
+	 * @return Call&lt;WalletDepositSummary&gt;
 	 */
-	@GET("v1.0/wallet/withdraw/info")
-	Observable<WithdrawalSummary> v10WalletWithdrawInfoGet(
+	@POST("v2.0/wallet/deposit/update")
+	Observable<WalletDepositSummary> updateDepositWallets(
 			@retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
-	 * @param txId          (required)
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;Void&gt;
-	 */
-	@POST("v1.0/wallet/withdraw/request/cancel/{txId}")
-	Observable<Void> v10WalletWithdrawRequestCancelByTxIdPost(
-			@retrofit2.http.Path("txId") UUID txId, @retrofit2.http.Header("Authorization") String authorization
-	);
-
-	/**
-	 * @param requestId (optional)
-	 * @param code      (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@POST("v1.0/wallet/withdraw/request/confirm")
-	Observable<Void> v10WalletWithdrawRequestConfirmPost(
-			@retrofit2.http.Query("requestId") UUID requestId, @retrofit2.http.Query("code") String code
-	);
-
-	/**
-	 * @param authorization JWT access token (required)
-	 * @param model         (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("v1.0/wallet/withdraw/request/new")
-	Observable<Void> v10WalletWithdrawRequestNewPost(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body CreateWithdrawalRequestModel model
-	);
-
-	/**
-	 * @param txId          (required)
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;Void&gt;
-	 */
-	@POST("v1.0/wallet/withdraw/request/resend/{txId}")
-	Observable<Void> v10WalletWithdrawRequestResendByTxIdPost(
-			@retrofit2.http.Path("txId") UUID txId, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 }

@@ -8,8 +8,8 @@ import io.swagger.client.model.ChangePasswordViewModel;
 import io.swagger.client.model.ForgotPasswordViewModel;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.PasswordModel;
-import io.swagger.client.model.RegisterInvestorViewModel;
-import io.swagger.client.model.RegisterManagerViewModel;
+import io.swagger.client.model.RegisterViewModel;
+import io.swagger.client.model.ResendConfirmationViewModel;
 import io.swagger.client.model.ResetPasswordViewModel;
 import io.swagger.client.model.TwoFactorAuthenticatorConfirm;
 import io.swagger.client.model.TwoFactorCodeModel;
@@ -27,72 +27,14 @@ public class AuthApiTest
 		api = new ApiClient().createService(AuthApi.class);
 	}
 
-	/**
-	 * 2FA confirm
-	 */
-	@Test
-	public void v10Auth2faConfirmPostTest() {
-		String authorization = null;
-		TwoFactorAuthenticatorConfirm model = null;
-		// RecoveryCodesViewModel response = api.v10Auth2faConfirmPost(authorization, model);
-
-		// TODO: test validations
-	}
 
 	/**
-	 * 2FA create
+	 * Authorize
 	 */
 	@Test
-	public void v10Auth2faCreatePostTest() {
-		String authorization = null;
-		// TwoFactorAuthenticator response = api.v10Auth2faCreatePost(authorization);
-
-		// TODO: test validations
-	}
-
-	/**
-	 * 2FA disable
-	 */
-	@Test
-	public void v10Auth2faDisablePostTest() {
-		String authorization = null;
-		TwoFactorCodeModel model = null;
-		// Void response = api.v10Auth2faDisablePost(authorization, model);
-
-		// TODO: test validations
-	}
-
-	/**
-	 * 2FA status
-	 */
-	@Test
-	public void v10Auth2faGetTest() {
-		String authorization = null;
-		// TwoFactorStatus response = api.v10Auth2faGet(authorization);
-
-		// TODO: test validations
-	}
-
-	/**
-	 * 2FA generate new recovery codes
-	 */
-	@Test
-	public void v10Auth2faRecoverycodesNewPostTest() {
-		String authorization = null;
-		PasswordModel model = null;
-		// RecoveryCodesViewModel response = api.v10Auth2faRecoverycodesNewPost(authorization, model);
-
-		// TODO: test validations
-	}
-
-	/**
-	 * 2FA recovery codes
-	 */
-	@Test
-	public void v10Auth2faRecoverycodesPostTest() {
-		String authorization = null;
-		PasswordModel model = null;
-		// RecoveryCodesViewModel response = api.v10Auth2faRecoverycodesPost(authorization, model);
+	public void authorizeTest() {
+		LoginViewModel body = null;
+		// String response = api.authorize(body);
 
 		// TODO: test validations
 	}
@@ -101,76 +43,10 @@ public class AuthApiTest
 	 * Change password
 	 */
 	@Test
-	public void v10AuthPasswordChangePostTest() {
+	public void changePasswordTest() {
 		String authorization = null;
-		ChangePasswordViewModel model = null;
-		// Void response = api.v10AuthPasswordChangePost(authorization, model);
-
-		// TODO: test validations
-	}
-
-	/**
-	 * Forgot password for investor
-	 */
-	@Test
-	public void v10AuthPasswordForgotInvestorPostTest() {
-		ForgotPasswordViewModel model = null;
-		// Void response = api.v10AuthPasswordForgotInvestorPost(model);
-
-		// TODO: test validations
-	}
-
-	/**
-	 * Forgot password for manager
-	 */
-	@Test
-	public void v10AuthPasswordForgotManagerPostTest() {
-		ForgotPasswordViewModel model = null;
-		// Void response = api.v10AuthPasswordForgotManagerPost(model);
-
-		// TODO: test validations
-	}
-
-	/**
-	 * Reset password
-	 */
-	@Test
-	public void v10AuthPasswordResetPostTest() {
-		ResetPasswordViewModel model = null;
-		// String response = api.v10AuthPasswordResetPost(model);
-
-		// TODO: test validations
-	}
-
-	/**
-	 * Authorize
-	 */
-	@Test
-	public void v10AuthSigninBrokerPostTest() {
-		LoginViewModel model = null;
-		// String response = api.v10AuthSigninBrokerPost(model);
-
-		// TODO: test validations
-	}
-
-	/**
-	 * Authorize
-	 */
-	@Test
-	public void v10AuthSigninInvestorPostTest() {
-		LoginViewModel model = null;
-		// String response = api.v10AuthSigninInvestorPost(model);
-
-		// TODO: test validations
-	}
-
-	/**
-	 * Authorize
-	 */
-	@Test
-	public void v10AuthSigninManagerPostTest() {
-		LoginViewModel model = null;
-		// String response = api.v10AuthSigninManagerPost(model);
+		ChangePasswordViewModel body = null;
+		// String response = api.changePassword(authorization, body);
 
 		// TODO: test validations
 	}
@@ -179,32 +55,146 @@ public class AuthApiTest
 	 * Confirm email after registration
 	 */
 	@Test
-	public void v10AuthSignupConfirmPostTest() {
+	public void confirmEmailTest() {
 		String userId = null;
 		String code = null;
-		// String response = api.v10AuthSignupConfirmPost(userId, code);
+		// String response = api.confirmEmail(userId, code);
 
 		// TODO: test validations
 	}
 
 	/**
-	 * New investor registration
+	 * 2FA confirm
 	 */
 	@Test
-	public void v10AuthSignupInvestorPostTest() {
-		RegisterInvestorViewModel model = null;
-		// Void response = api.v10AuthSignupInvestorPost(model);
+	public void confirmTwoStepAuthTest() {
+		String authorization = null;
+		TwoFactorAuthenticatorConfirm body = null;
+		// RecoveryCodesViewModel response = api.confirmTwoStepAuth(authorization, body);
 
 		// TODO: test validations
 	}
 
 	/**
-	 * New manager registration
+	 * 2FA create
 	 */
 	@Test
-	public void v10AuthSignupManagerPostTest() {
-		RegisterManagerViewModel model = null;
-		// Void response = api.v10AuthSignupManagerPost(model);
+	public void createTwoStepAuthTest() {
+		String authorization = null;
+		// TwoFactorAuthenticator response = api.createTwoStepAuth(authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * 2FA generate new recovery codes
+	 */
+	@Test
+	public void createTwoStepAuthRecoveryCodesTest() {
+		String authorization = null;
+		PasswordModel body = null;
+		// RecoveryCodesViewModel response = api.createTwoStepAuthRecoveryCodes(authorization, body);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * 2FA disable
+	 */
+	@Test
+	public void disableTwoStepAuthTest() {
+		String authorization = null;
+		TwoFactorCodeModel body = null;
+		// Void response = api.disableTwoStepAuth(authorization, body);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Forgot password for investor
+	 */
+	@Test
+	public void forgotPasswordTest() {
+		ForgotPasswordViewModel body = null;
+		// Void response = api.forgotPassword(body);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * 2FA recovery codes
+	 */
+	@Test
+	public void getTwoStepAuthRecoveryCodesTest() {
+		String authorization = null;
+		PasswordModel body = null;
+		// RecoveryCodesViewModel response = api.getTwoStepAuthRecoveryCodes(authorization, body);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * 2FA status
+	 */
+	@Test
+	public void getTwoStepAuthStatusTest() {
+		String authorization = null;
+		// TwoFactorStatus response = api.getTwoStepAuthStatus(authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Logout from another devices
+	 */
+	@Test
+	public void logoutFromAnotherDevicesTest() {
+		String authorization = null;
+		// String response = api.logoutFromAnotherDevices(authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * New registration
+	 */
+	@Test
+	public void registerTest() {
+		RegisterViewModel body = null;
+		// Void response = api.register(body);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Get phone number verification code
+	 */
+	@Test
+	public void requestPhoneNumberVerificationCodeTest() {
+		String authorization = null;
+		// Integer response = api.requestPhoneNumberVerificationCode(authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Resend Confirmation Link
+	 */
+	@Test
+	public void resendConfirmationLinkTest() {
+		ResendConfirmationViewModel body = null;
+		// Void response = api.resendConfirmationLink(body);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Reset password
+	 */
+	@Test
+	public void resetPasswordTest() {
+		ResetPasswordViewModel body = null;
+		// String response = api.resetPassword(body);
 
 		// TODO: test validations
 	}
@@ -213,9 +203,21 @@ public class AuthApiTest
 	 * Update auth token
 	 */
 	@Test
-	public void v10AuthTokenUpdatePostTest() {
+	public void updateAuthTokenTest() {
 		String authorization = null;
-		// String response = api.v10AuthTokenUpdatePost(authorization);
+		// String response = api.updateAuthToken(authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Verify phone number
+	 */
+	@Test
+	public void validatePhoneNumberTest() {
+		String authorization = null;
+		String code = null;
+		// Void response = api.validatePhoneNumber(authorization, code);
 
 		// TODO: test validations
 	}

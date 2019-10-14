@@ -1,4 +1,3 @@
-
 # ProfilePublic
 
 ## Properties
@@ -10,6 +9,3 @@ Name | Type | Description | Notes
 **registrationDate** | [**DateTime**](DateTime.md) |  |  [optional]
 **url** | **String** |  |  [optional]
 **socialLinks** | [**List&lt;SocialLinkViewModel&gt;**](SocialLinkViewModel.md) |  |  [optional]
-
-
-

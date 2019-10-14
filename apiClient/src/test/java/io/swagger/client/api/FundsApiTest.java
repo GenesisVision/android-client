@@ -22,23 +22,35 @@ public class FundsApiTest
 		api = new ApiClient().createService(FundsApi.class);
 	}
 
+
 	/**
-	 * Funds list
+	 * Fund balance chart
 	 */
 	@Test
-	public void v10FundsGetTest() {
-		String authorization = null;
-		String sorting = null;
-		DateTime statisticDateFrom = null;
-		DateTime statisticDateTo = null;
-		Integer chartPointsCount = null;
-		String mask = null;
-		UUID facetId = null;
-		Boolean isFavorite = null;
-		List<UUID> ids = null;
-		Integer skip = null;
-		Integer take = null;
-		// ProgramsList response = api.v10FundsGet(authorization, sorting, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, ids, skip, take);
+	public void getFundBalanceChartTest() {
+		UUID id = null;
+		DateTime dateFrom = null;
+		DateTime dateTo = null;
+		Integer maxPointCount = null;
+		String currency = null;
+		// FundBalanceChart response = api.getFundBalanceChart(id, dateFrom, dateTo, maxPointCount, currency);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Fund profit chart
+	 */
+	@Test
+	public void getFundProfitChartTest() {
+		UUID id = null;
+		DateTime dateFrom = null;
+		DateTime dateTo = null;
+		Integer maxPointCount = null;
+		String currency = null;
+		List<String> currencies = null;
+		Integer chartAssetsCount = null;
+		// FundProfitCharts response = api.getFundProfitChart(id, dateFrom, dateTo, maxPointCount, currency, currencies, chartAssetsCount);
 
 		// TODO: test validations
 	}

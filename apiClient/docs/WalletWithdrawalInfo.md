@@ -1,4 +1,3 @@
-
 # WalletWithdrawalInfo
 
 ## Properties
@@ -10,7 +9,6 @@ Name | Type | Description | Notes
 **commission** | **Double** |  |  [optional]
 **rateToGvt** | **Double** |  |  [optional]
 **availableToWithdrawal** | **Double** |  |  [optional]
-
 
 <a name="CurrencyEnum"></a>
 ## Enum: CurrencyEnum
@@ -29,6 +27,3 @@ DOGE | &quot;DOGE&quot;
 BNB | &quot;BNB&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
-
-
-

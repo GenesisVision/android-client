@@ -1,4 +1,3 @@
-
 # UserCommissionData
 
 ## Properties
@@ -9,6 +8,3 @@ Name | Type | Description | Notes
 **gvtHolderDiscount** | **Double** |  |  [optional]
 **regularTradingFee** | **Double** |  |  [optional]
 **regularDiscount** | **Double** |  |  [optional]
-
-
-

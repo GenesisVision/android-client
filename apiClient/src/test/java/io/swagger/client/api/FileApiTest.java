@@ -3,7 +3,7 @@ package io.swagger.client.api;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Map;
+import java.io.File;
 import java.util.UUID;
 
 import io.swagger.client.ApiClient;
@@ -21,13 +21,14 @@ public class FileApiTest
 		api = new ApiClient().createService(FileApi.class);
 	}
 
+
 	/**
 	 * Download file
 	 */
 	@Test
-	public void v10FileByIdGetTest() {
+	public void getFileTest() {
 		UUID id = null;
-		// Void response = api.v10FileByIdGet(id);
+		// Void response = api.getFile(id);
 
 		// TODO: test validations
 	}
@@ -36,14 +37,10 @@ public class FileApiTest
 	 * Upload file
 	 */
 	@Test
-	public void v10FileUploadPostTest() {
-		String contentType = null;
-		String contentDisposition = null;
-		Map<String, String> headers = null;
-		Long length = null;
-		String name = null;
-		String fileName = null;
-		// UploadResult response = api.v10FileUploadPost(contentType, contentDisposition, headers, length, name, fileName);
+	public void uploadFileTest() {
+		File uploadedFile = null;
+		String authorization = null;
+		// UploadResult response = api.uploadFile(uploadedFile, authorization);
 
 		// TODO: test validations
 	}

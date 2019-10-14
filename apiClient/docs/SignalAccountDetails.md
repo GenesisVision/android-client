@@ -1,4 +1,3 @@
-
 # SignalAccountDetails
 
 ## Properties
@@ -16,7 +15,6 @@ Name | Type | Description | Notes
 **manager** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 **chart** | [**List&lt;ChartSimple&gt;**](ChartSimple.md) |  |  [optional]
 
-
 <a name="StatusEnum"></a>
 ## Enum: StatusEnum
 Name | Value
@@ -28,6 +26,3 @@ ACTIVE | &quot;Active&quot;
 CLOSED | &quot;Closed&quot;
 ARCHIVED | &quot;Archived&quot;
 CLOSEDDUETOINACTIVITY | &quot;ClosedDueToInactivity&quot;
-
-
-

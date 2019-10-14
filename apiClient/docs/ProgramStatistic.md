@@ -1,4 +1,3 @@
-
 # ProgramStatistic
 
 ## Properties
@@ -23,7 +22,6 @@ Name | Type | Description | Notes
 **profitFactorPercent** | **Double** |  |  [optional]
 **sharpeRatioPercent** | **Double** |  |  [optional]
 
-
 <a name="StartCurrencyEnum"></a>
 ## Enum: StartCurrencyEnum
 Name | Value
@@ -42,7 +40,6 @@ BNB | &quot;BNB&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
 
-
 <a name="InvestedCurrencyEnum"></a>
 ## Enum: InvestedCurrencyEnum
 Name | Value
@@ -60,6 +57,3 @@ DOGE | &quot;DOGE&quot;
 BNB | &quot;BNB&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
-
-
-

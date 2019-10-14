@@ -22,39 +22,18 @@ public class ProgramsApiTest
 		api = new ApiClient().createService(ProgramsApi.class);
 	}
 
-	/**
-	 * Program chart
-	 */
-	@Test
-	public void v10ProgramsByIdChartGetTest() {
-		UUID id = null;
-		DateTime chartDateFrom = null;
-		DateTime chartDateTo = null;
-		// ProgramChart response = api.v10ProgramsByIdChartGet(id, chartDateFrom, chartDateTo);
-
-		// TODO: test validations
-	}
 
 	/**
-	 * Add to favorites
+	 * Program balance chart
 	 */
 	@Test
-	public void v10ProgramsByIdFavoriteAddPostTest() {
+	public void getProgramBalanceChartTest() {
 		UUID id = null;
-		String authorization = null;
-		// Void response = api.v10ProgramsByIdFavoriteAddPost(id, authorization);
-
-		// TODO: test validations
-	}
-
-	/**
-	 * Remove from favorites
-	 */
-	@Test
-	public void v10ProgramsByIdFavoriteRemovePostTest() {
-		UUID id = null;
-		String authorization = null;
-		// Void response = api.v10ProgramsByIdFavoriteRemovePost(id, authorization);
+		DateTime dateFrom = null;
+		DateTime dateTo = null;
+		Integer maxPointCount = null;
+		String currency = null;
+		// ProgramBalanceChart response = api.getProgramBalanceChart(id, dateFrom, dateTo, maxPointCount, currency);
 
 		// TODO: test validations
 	}
@@ -63,27 +42,26 @@ public class ProgramsApiTest
 	 * Program details
 	 */
 	@Test
-	public void v10ProgramsByIdGetTest() {
-		UUID id = null;
+	public void getProgramDetailsTest() {
+		String id = null;
 		String authorization = null;
-		// ProgramDetailsFull response = api.v10ProgramsByIdGet(id, authorization);
+		// ProgramDetailsFullOld response = api.getProgramDetails(id, authorization);
 
 		// TODO: test validations
 	}
 
 	/**
-	 * Trade history
+	 * Program profit chart
 	 */
 	@Test
-	public void v10ProgramsByIdTradesGetTest() {
+	public void getProgramProfitChartTest() {
 		UUID id = null;
 		DateTime dateFrom = null;
 		DateTime dateTo = null;
-		String symbol = null;
-		String sorting = null;
-		Integer skip = null;
-		Integer take = null;
-		// TradesViewModel response = api.v10ProgramsByIdTradesGet(id, dateFrom, dateTo, symbol, sorting, skip, take);
+		Integer maxPointCount = null;
+		String currency = null;
+		List<String> currencies = null;
+		// ProgramProfitCharts response = api.getProgramProfitChart(id, dateFrom, dateTo, maxPointCount, currency, currencies);
 
 		// TODO: test validations
 	}
@@ -92,33 +70,11 @@ public class ProgramsApiTest
 	 * Programs list
 	 */
 	@Test
-	public void v10ProgramsGetTest() {
+	public void getProgramsTest() {
 		String authorization = null;
-		Integer levelMin = null;
-		Integer levelMax = null;
-		Double profitAvgMin = null;
-		Double profitAvgMax = null;
-		DateTime statisticDateFrom = null;
-		DateTime statisticDateTo = null;
-		String sorting = null;
-		String mask = null;
-		UUID facetId = null;
-		Boolean isFavorite = null;
-		String currency = null;
-		List<UUID> ids = null;
 		Integer skip = null;
 		Integer take = null;
-		// ProgramsList response = api.v10ProgramsGet(authorization, levelMin, levelMax, profitAvgMin, profitAvgMax, statisticDateFrom, statisticDateTo, sorting, mask, facetId, isFavorite, currency, ids, skip, take);
-
-		// TODO: test validations
-	}
-
-	/**
-	 * Programs sets
-	 */
-	@Test
-	public void v10ProgramsSetsGetTest() {
-		// ProgramSets response = api.v10ProgramsSetsGet();
+		// ItemsViewModelProgramDetailsList response = api.getPrograms(authorization, skip, take);
 
 		// TODO: test validations
 	}

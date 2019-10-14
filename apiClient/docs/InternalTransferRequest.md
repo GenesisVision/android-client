@@ -1,4 +1,3 @@
-
 # InternalTransferRequest
 
 ## Properties
@@ -11,7 +10,6 @@ Name | Type | Description | Notes
 **amount** | **Double** |  |  [optional]
 **transferAll** | **Boolean** |  |  [optional]
 
-
 <a name="SourceTypeEnum"></a>
 ## Enum: SourceTypeEnum
 Name | Value
@@ -23,7 +21,7 @@ GENESISVISIONPLATFORM | &quot;GenesisVisionPlatform&quot;
 SIGNALPROVIDERSETTINGS | &quot;SignalProviderSettings&quot;
 PROGRAM | &quot;Program&quot;
 FUND | &quot;Fund&quot;
-
+PAYMENTTRANSACTION | &quot;PaymentTransaction&quot;
 
 <a name="DestinationTypeEnum"></a>
 ## Enum: DestinationTypeEnum
@@ -36,6 +34,4 @@ GENESISVISIONPLATFORM | &quot;GenesisVisionPlatform&quot;
 SIGNALPROVIDERSETTINGS | &quot;SignalProviderSettings&quot;
 PROGRAM | &quot;Program&quot;
 FUND | &quot;Fund&quot;
-
-
-
+PAYMENTTRANSACTION | &quot;PaymentTransaction&quot;

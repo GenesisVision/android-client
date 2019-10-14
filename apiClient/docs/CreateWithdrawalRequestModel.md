@@ -1,4 +1,3 @@
-
 # CreateWithdrawalRequestModel
 
 ## Properties
@@ -8,7 +7,6 @@ Name | Type | Description | Notes
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **address** | **String** |  |  [optional]
 **twoFactorCode** | **String** |  |  [optional]
-
 
 <a name="CurrencyEnum"></a>
 ## Enum: CurrencyEnum
@@ -27,6 +25,3 @@ DOGE | &quot;DOGE&quot;
 BNB | &quot;BNB&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
-
-
-

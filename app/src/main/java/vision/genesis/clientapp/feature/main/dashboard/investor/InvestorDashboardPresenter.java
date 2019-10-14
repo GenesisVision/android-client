@@ -29,7 +29,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.managers.InvestorDashboardManager;
+import vision.genesis.clientapp.managers.DashboardManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
@@ -60,7 +60,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	public Context context;
 
 	@Inject
-	public InvestorDashboardManager dashboardManager;
+	public DashboardManager dashboardManager;
 
 	@Inject
 	public SettingsManager settingsManager;

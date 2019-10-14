@@ -1,4 +1,3 @@
-
 # ExternalKeyViewModel
 
 ## Properties
@@ -8,6 +7,3 @@ Name | Type | Description | Notes
 **title** | **String** |  |  [optional]
 **dateAdd** | [**DateTime**](DateTime.md) |  |  [optional]
 **exchangeName** | **String** |  |  [optional]
-
-
-

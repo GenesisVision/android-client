@@ -24,30 +24,30 @@ public class NotificationsManager
 	}
 
 	public Observable<NotificationList> getNotifications(Integer skip, Integer take) {
-		return notificationsApi.v10NotificationsGet(AuthManager.token.getValue(), skip, take);
+		return notificationsApi.getNotifications(AuthManager.token.getValue(), skip, take);
 	}
 
 	public Observable<NotificationSettingList> getNotificationsSettings() {
-		return notificationsApi.v10NotificationsSettingsGet(AuthManager.token.getValue());
+		return notificationsApi.getNotificationsSettings(AuthManager.token.getValue());
 	}
 
 	public Observable<UUID> addNotificationSetting(UUID assetId, UUID managerId, String settingType, String conditionType, Double conditionAmount) {
-		return notificationsApi.v10NotificationsSettingsAddPost(AuthManager.token.getValue(), assetId, managerId, settingType, conditionType, conditionAmount);
+		return notificationsApi.addNotificationsSettings(AuthManager.token.getValue(), assetId, managerId, settingType, conditionType, conditionAmount);
 	}
 
 	public Observable<Void> removeNotificationSetting(UUID settingId) {
-		return notificationsApi.v10NotificationsSettingsRemoveByIdPost(settingId, AuthManager.token.getValue());
+		return notificationsApi.removeNotificationsSettings(settingId, AuthManager.token.getValue());
 	}
 
 	public Observable<ProgramNotificationSettingList> getProgramNotificationsSettings(UUID programId) {
-		return notificationsApi.v10NotificationsSettingsProgramsByIdGet(programId.toString(), AuthManager.token.getValue());
+		return notificationsApi.getNotificationsProgramSettings(programId.toString(), AuthManager.token.getValue());
 	}
 
 	public Observable<FundNotificationSettingList> getFundNotificationsSettings(UUID fundId) {
-		return notificationsApi.v10NotificationsSettingsFundsByIdGet(fundId.toString(), AuthManager.token.getValue());
+		return notificationsApi.getNotificationsFundSettings(fundId.toString(), AuthManager.token.getValue());
 	}
 
 	public Observable<UUID> setEnabledNotificationSetting(UUID settingId, Boolean enabled) {
-		return notificationsApi.v10NotificationsSettingsByIdByEnablePost(settingId, enabled, AuthManager.token.getValue());
+		return notificationsApi.toggleNotificationSettings(settingId, enabled, AuthManager.token.getValue());
 	}
 }

@@ -1,4 +1,3 @@
-
 # LevelsParamsInfo
 
 ## Properties
@@ -17,6 +16,3 @@ Name | Type | Description | Notes
 **investmentScaleMin** | **Double** |  |  [optional]
 **investmentScaleMax** | **Double** |  |  [optional]
 **investmentScaleHighRisk** | **Double** |  |  [optional]
-
-
-

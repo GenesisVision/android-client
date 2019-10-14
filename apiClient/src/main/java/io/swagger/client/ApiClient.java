@@ -105,7 +105,7 @@ public class ApiClient
 		json = new JSON();
 		okBuilder = new OkHttpClient.Builder();
 
-		String baseUrl = "https://localhost/api";
+		String baseUrl = "/api";
 		if (!baseUrl.endsWith("/")) {
 			baseUrl = baseUrl + "/";
 		}
@@ -338,8 +338,7 @@ public class ApiClient
 class GsonResponseBodyConverterToString<T> implements Converter<ResponseBody, T>
 {
 	private final Gson gson;
-
-	private final Type type;
+  private final Type type;
 
 	GsonResponseBodyConverterToString(Gson gson, Type type) {
 		this.gson = gson;
@@ -383,10 +382,10 @@ class GsonCustomConverterFactory extends Converter.Factory
 		else {
 			return gsonConverterFactory.responseBodyConverter(type, annotations, retrofit);
 		}
-	}
+  }
 
-	@Override
-	public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
+  @Override
+  public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
     return gsonConverterFactory.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
   }
 }

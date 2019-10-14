@@ -1,36 +1,32 @@
 # AuthApi
 
-All URIs are relative to *https://localhost/api*
+All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v10Auth2faConfirmPost**](AuthApi.md#v10Auth2faConfirmPost) | **POST** v1.0/auth/2fa/confirm | 2FA confirm
-[**v10Auth2faCreatePost**](AuthApi.md#v10Auth2faCreatePost) | **POST** v1.0/auth/2fa/create | 2FA create
-[**v10Auth2faDisablePost**](AuthApi.md#v10Auth2faDisablePost) | **POST** v1.0/auth/2fa/disable | 2FA disable
-[**v10Auth2faGet**](AuthApi.md#v10Auth2faGet) | **GET** v1.0/auth/2fa | 2FA status
-[**v10Auth2faRecoverycodesNewPost**](AuthApi.md#v10Auth2faRecoverycodesNewPost) | **POST** v1.0/auth/2fa/recoverycodes/new | 2FA generate new recovery codes
-[**v10Auth2faRecoverycodesPost**](AuthApi.md#v10Auth2faRecoverycodesPost) | **POST** v1.0/auth/2fa/recoverycodes | 2FA recovery codes
-[**v10AuthPasswordChangePost**](AuthApi.md#v10AuthPasswordChangePost) | **POST** v1.0/auth/password/change | Change password
-[**v10AuthPasswordForgotInvestorPost**](AuthApi.md#v10AuthPasswordForgotInvestorPost) | **POST** v1.0/auth/password/forgot/investor | Forgot password for investor
-[**v10AuthPasswordForgotManagerPost**](AuthApi.md#v10AuthPasswordForgotManagerPost) | **POST** v1.0/auth/password/forgot/manager | Forgot password for manager
-[**v10AuthPasswordResetPost**](AuthApi.md#v10AuthPasswordResetPost) | **POST** v1.0/auth/password/reset | Reset password
-[**v10AuthPhoneCodePost**](AuthApi.md#v10AuthPhoneCodePost) | **POST** v1.0/auth/phone/code | Get phone number verification code
-[**v10AuthPhoneVerifyPost**](AuthApi.md#v10AuthPhoneVerifyPost) | **POST** v1.0/auth/phone/verify | Verify phone number
-[**v10AuthResendconfirmationlinkPost**](AuthApi.md#v10AuthResendconfirmationlinkPost) | **POST** v1.0/auth/resendconfirmationlink | Resend Confirmation Link
-[**v10AuthSigninInvestorPost**](AuthApi.md#v10AuthSigninInvestorPost) | **POST** v1.0/auth/signin/investor | Authorize
-[**v10AuthSigninManagerPost**](AuthApi.md#v10AuthSigninManagerPost) | **POST** v1.0/auth/signin/manager | Authorize
-[**v10AuthSignupConfirmPost**](AuthApi.md#v10AuthSignupConfirmPost) | **POST** v1.0/auth/signup/confirm | Confirm email after registration
-[**v10AuthSignupInvestorPost**](AuthApi.md#v10AuthSignupInvestorPost) | **POST** v1.0/auth/signup/investor | New investor registration
-[**v10AuthSignupManagerPost**](AuthApi.md#v10AuthSignupManagerPost) | **POST** v1.0/auth/signup/manager | New manager registration
-[**v10AuthTokenDevicesLogoutPost**](AuthApi.md#v10AuthTokenDevicesLogoutPost) | **POST** v1.0/auth/token/devices/logout | Logout from another devices
-[**v10AuthTokenUpdatePost**](AuthApi.md#v10AuthTokenUpdatePost) | **POST** v1.0/auth/token/update | Update auth token
+[**authorize**](AuthApi.md#authorize) | **POST** v2.0/auth/signin | Authorize
+[**changePassword**](AuthApi.md#changePassword) | **POST** v2.0/auth/password/change | Change password
+[**confirmEmail**](AuthApi.md#confirmEmail) | **POST** v2.0/auth/signup/confirm | Confirm email after registration
+[**confirmTwoStepAuth**](AuthApi.md#confirmTwoStepAuth) | **POST** v2.0/auth/2fa/confirm | 2FA confirm
+[**createTwoStepAuth**](AuthApi.md#createTwoStepAuth) | **POST** v2.0/auth/2fa/create | 2FA create
+[**createTwoStepAuthRecoveryCodes**](AuthApi.md#createTwoStepAuthRecoveryCodes) | **POST** v2.0/auth/2fa/recoverycodes/new | 2FA generate new recovery codes
+[**disableTwoStepAuth**](AuthApi.md#disableTwoStepAuth) | **POST** v2.0/auth/2fa/disable | 2FA disable
+[**forgotPassword**](AuthApi.md#forgotPassword) | **POST** v2.0/auth/password/forgot | Forgot password for investor
+[**getTwoStepAuthRecoveryCodes**](AuthApi.md#getTwoStepAuthRecoveryCodes) | **POST** v2.0/auth/2fa/recoverycodes | 2FA recovery codes
+[**getTwoStepAuthStatus**](AuthApi.md#getTwoStepAuthStatus) | **GET** v2.0/auth/2fa | 2FA status
+[**logoutFromAnotherDevices**](AuthApi.md#logoutFromAnotherDevices) | **POST** v2.0/auth/token/devices/logout | Logout from another devices
+[**register**](AuthApi.md#register) | **POST** v2.0/auth/signup | New registration
+[**requestPhoneNumberVerificationCode**](AuthApi.md#requestPhoneNumberVerificationCode) | **POST** v2.0/auth/phone/code | Get phone number verification code
+[**resendConfirmationLink**](AuthApi.md#resendConfirmationLink) | **POST** v2.0/auth/resendconfirmationlink | Resend Confirmation Link
+[**resetPassword**](AuthApi.md#resetPassword) | **POST** v2.0/auth/password/reset | Reset password
+[**updateAuthToken**](AuthApi.md#updateAuthToken) | **POST** v2.0/auth/token/update | Update auth token
+[**validatePhoneNumber**](AuthApi.md#validatePhoneNumber) | **POST** v2.0/auth/phone/verify | Verify phone number
 
+<a name="authorize"></a>
+# **authorize**
+> String authorize(body)
 
-<a name="v10Auth2faConfirmPost"></a>
-# **v10Auth2faConfirmPost**
-> RecoveryCodesViewModel v10Auth2faConfirmPost(authorization, model)
-
-2FA confirm
+Authorize
 
 ### Example
 ```java
@@ -40,13 +36,12 @@ Method | HTTP request | Description
 
 
 AuthApi apiInstance = new AuthApi();
-String authorization = "authorization_example"; // String | JWT access token
-TwoFactorAuthenticatorConfirm model = new TwoFactorAuthenticatorConfirm(); // TwoFactorAuthenticatorConfirm | 
+LoginViewModel body = new LoginViewModel(); // LoginViewModel | 
 try {
-    RecoveryCodesViewModel result = apiInstance.v10Auth2faConfirmPost(authorization, model);
+    String result = apiInstance.authorize(body);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10Auth2faConfirmPost");
+    System.err.println("Exception when calling AuthApi#authorize");
     e.printStackTrace();
 }
 ```
@@ -55,12 +50,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **model** | [**TwoFactorAuthenticatorConfirm**](TwoFactorAuthenticatorConfirm.md)|  | [optional]
+ **body** | [**LoginViewModel**](LoginViewModel.md)|  | [optional]
 
 ### Return type
 
-[**RecoveryCodesViewModel**](RecoveryCodesViewModel.md)
+**String**
 
 ### Authorization
 
@@ -71,230 +65,9 @@ No authorization required
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10Auth2faCreatePost"></a>
-# **v10Auth2faCreatePost**
-> TwoFactorAuthenticator v10Auth2faCreatePost(authorization)
-
-2FA create
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.AuthApi;
-
-
-AuthApi apiInstance = new AuthApi();
-String authorization = "authorization_example"; // String | JWT access token
-try {
-    TwoFactorAuthenticator result = apiInstance.v10Auth2faCreatePost(authorization);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10Auth2faCreatePost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
-
-### Return type
-
-[**TwoFactorAuthenticator**](TwoFactorAuthenticator.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10Auth2faDisablePost"></a>
-# **v10Auth2faDisablePost**
-> Void v10Auth2faDisablePost(authorization, model)
-
-2FA disable
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.AuthApi;
-
-
-AuthApi apiInstance = new AuthApi();
-String authorization = "authorization_example"; // String | JWT access token
-TwoFactorCodeModel model = new TwoFactorCodeModel(); // TwoFactorCodeModel | 
-try {
-    Void result = apiInstance.v10Auth2faDisablePost(authorization, model);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10Auth2faDisablePost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **model** | [**TwoFactorCodeModel**](TwoFactorCodeModel.md)|  | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10Auth2faGet"></a>
-# **v10Auth2faGet**
-> TwoFactorStatus v10Auth2faGet(authorization)
-
-2FA status
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.AuthApi;
-
-
-AuthApi apiInstance = new AuthApi();
-String authorization = "authorization_example"; // String | JWT access token
-try {
-    TwoFactorStatus result = apiInstance.v10Auth2faGet(authorization);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10Auth2faGet");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
-
-### Return type
-
-[**TwoFactorStatus**](TwoFactorStatus.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10Auth2faRecoverycodesNewPost"></a>
-# **v10Auth2faRecoverycodesNewPost**
-> RecoveryCodesViewModel v10Auth2faRecoverycodesNewPost(authorization, model)
-
-2FA generate new recovery codes
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.AuthApi;
-
-
-AuthApi apiInstance = new AuthApi();
-String authorization = "authorization_example"; // String | JWT access token
-PasswordModel model = new PasswordModel(); // PasswordModel | 
-try {
-    RecoveryCodesViewModel result = apiInstance.v10Auth2faRecoverycodesNewPost(authorization, model);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10Auth2faRecoverycodesNewPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **model** | [**PasswordModel**](PasswordModel.md)|  | [optional]
-
-### Return type
-
-[**RecoveryCodesViewModel**](RecoveryCodesViewModel.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10Auth2faRecoverycodesPost"></a>
-# **v10Auth2faRecoverycodesPost**
-> RecoveryCodesViewModel v10Auth2faRecoverycodesPost(authorization, model)
-
-2FA recovery codes
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.AuthApi;
-
-
-AuthApi apiInstance = new AuthApi();
-String authorization = "authorization_example"; // String | JWT access token
-PasswordModel model = new PasswordModel(); // PasswordModel | 
-try {
-    RecoveryCodesViewModel result = apiInstance.v10Auth2faRecoverycodesPost(authorization, model);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10Auth2faRecoverycodesPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **model** | [**PasswordModel**](PasswordModel.md)|  | [optional]
-
-### Return type
-
-[**RecoveryCodesViewModel**](RecoveryCodesViewModel.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10AuthPasswordChangePost"></a>
-# **v10AuthPasswordChangePost**
-> String v10AuthPasswordChangePost(authorization, model)
+<a name="changePassword"></a>
+# **changePassword**
+> String changePassword(authorization, body)
 
 Change password
 
@@ -307,12 +80,12 @@ Change password
 
 AuthApi apiInstance = new AuthApi();
 String authorization = "authorization_example"; // String | JWT access token
-ChangePasswordViewModel model = new ChangePasswordViewModel(); // ChangePasswordViewModel | 
+ChangePasswordViewModel body = new ChangePasswordViewModel(); // ChangePasswordViewModel | 
 try {
-    String result = apiInstance.v10AuthPasswordChangePost(authorization, model);
+    String result = apiInstance.changePassword(authorization, body);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10AuthPasswordChangePost");
+    System.err.println("Exception when calling AuthApi#changePassword");
     e.printStackTrace();
 }
 ```
@@ -322,7 +95,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **model** | [**ChangePasswordViewModel**](ChangePasswordViewModel.md)|  | [optional]
+ **body** | [**ChangePasswordViewModel**](ChangePasswordViewModel.md)|  | [optional]
 
 ### Return type
 
@@ -337,355 +110,9 @@ No authorization required
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10AuthPasswordForgotInvestorPost"></a>
-# **v10AuthPasswordForgotInvestorPost**
-> Void v10AuthPasswordForgotInvestorPost(model)
-
-Forgot password for investor
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.AuthApi;
-
-
-AuthApi apiInstance = new AuthApi();
-ForgotPasswordViewModel model = new ForgotPasswordViewModel(); // ForgotPasswordViewModel | 
-try {
-    Void result = apiInstance.v10AuthPasswordForgotInvestorPost(model);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10AuthPasswordForgotInvestorPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **model** | [**ForgotPasswordViewModel**](ForgotPasswordViewModel.md)|  | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10AuthPasswordForgotManagerPost"></a>
-# **v10AuthPasswordForgotManagerPost**
-> Void v10AuthPasswordForgotManagerPost(model)
-
-Forgot password for manager
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.AuthApi;
-
-
-AuthApi apiInstance = new AuthApi();
-ForgotPasswordViewModel model = new ForgotPasswordViewModel(); // ForgotPasswordViewModel | 
-try {
-    Void result = apiInstance.v10AuthPasswordForgotManagerPost(model);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10AuthPasswordForgotManagerPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **model** | [**ForgotPasswordViewModel**](ForgotPasswordViewModel.md)|  | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10AuthPasswordResetPost"></a>
-# **v10AuthPasswordResetPost**
-> String v10AuthPasswordResetPost(model)
-
-Reset password
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.AuthApi;
-
-
-AuthApi apiInstance = new AuthApi();
-ResetPasswordViewModel model = new ResetPasswordViewModel(); // ResetPasswordViewModel | 
-try {
-    String result = apiInstance.v10AuthPasswordResetPost(model);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10AuthPasswordResetPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **model** | [**ResetPasswordViewModel**](ResetPasswordViewModel.md)|  | [optional]
-
-### Return type
-
-**String**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10AuthPhoneCodePost"></a>
-# **v10AuthPhoneCodePost**
-> Integer v10AuthPhoneCodePost(authorization)
-
-Get phone number verification code
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.AuthApi;
-
-
-AuthApi apiInstance = new AuthApi();
-String authorization = "authorization_example"; // String | JWT access token
-try {
-    Integer result = apiInstance.v10AuthPhoneCodePost(authorization);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10AuthPhoneCodePost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
-
-### Return type
-
-**Integer**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10AuthPhoneVerifyPost"></a>
-# **v10AuthPhoneVerifyPost**
-> Void v10AuthPhoneVerifyPost(authorization, code)
-
-Verify phone number
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.AuthApi;
-
-
-AuthApi apiInstance = new AuthApi();
-String authorization = "authorization_example"; // String | JWT access token
-String code = "code_example"; // String | 
-try {
-    Void result = apiInstance.v10AuthPhoneVerifyPost(authorization, code);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10AuthPhoneVerifyPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **code** | **String**|  | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10AuthResendconfirmationlinkPost"></a>
-# **v10AuthResendconfirmationlinkPost**
-> Void v10AuthResendconfirmationlinkPost(model)
-
-Resend Confirmation Link
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.AuthApi;
-
-
-AuthApi apiInstance = new AuthApi();
-ResendConfirmationViewModel model = new ResendConfirmationViewModel(); // ResendConfirmationViewModel | 
-try {
-    Void result = apiInstance.v10AuthResendconfirmationlinkPost(model);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10AuthResendconfirmationlinkPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **model** | [**ResendConfirmationViewModel**](ResendConfirmationViewModel.md)|  | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10AuthSigninInvestorPost"></a>
-# **v10AuthSigninInvestorPost**
-> String v10AuthSigninInvestorPost(model)
-
-Authorize
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.AuthApi;
-
-
-AuthApi apiInstance = new AuthApi();
-LoginViewModel model = new LoginViewModel(); // LoginViewModel | 
-try {
-    String result = apiInstance.v10AuthSigninInvestorPost(model);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10AuthSigninInvestorPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **model** | [**LoginViewModel**](LoginViewModel.md)|  | [optional]
-
-### Return type
-
-**String**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10AuthSigninManagerPost"></a>
-# **v10AuthSigninManagerPost**
-> String v10AuthSigninManagerPost(model)
-
-Authorize
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.AuthApi;
-
-
-AuthApi apiInstance = new AuthApi();
-LoginViewModel model = new LoginViewModel(); // LoginViewModel | 
-try {
-    String result = apiInstance.v10AuthSigninManagerPost(model);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10AuthSigninManagerPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **model** | [**LoginViewModel**](LoginViewModel.md)|  | [optional]
-
-### Return type
-
-**String**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="v10AuthSignupConfirmPost"></a>
-# **v10AuthSignupConfirmPost**
-> String v10AuthSignupConfirmPost(userId, code)
+<a name="confirmEmail"></a>
+# **confirmEmail**
+> String confirmEmail(userId, code)
 
 Confirm email after registration
 
@@ -700,10 +127,10 @@ AuthApi apiInstance = new AuthApi();
 String userId = "userId_example"; // String | 
 String code = "code_example"; // String | 
 try {
-    String result = apiInstance.v10AuthSignupConfirmPost(userId, code);
+    String result = apiInstance.confirmEmail(userId, code);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10AuthSignupConfirmPost");
+    System.err.println("Exception when calling AuthApi#confirmEmail");
     e.printStackTrace();
 }
 ```
@@ -728,11 +155,11 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10AuthSignupInvestorPost"></a>
-# **v10AuthSignupInvestorPost**
-> Void v10AuthSignupInvestorPost(model)
+<a name="confirmTwoStepAuth"></a>
+# **confirmTwoStepAuth**
+> RecoveryCodesViewModel confirmTwoStepAuth(authorization, body)
 
-New investor registration
+2FA confirm
 
 ### Example
 ```java
@@ -742,12 +169,13 @@ New investor registration
 
 
 AuthApi apiInstance = new AuthApi();
-RegisterInvestorViewModel model = new RegisterInvestorViewModel(); // RegisterInvestorViewModel | 
+String authorization = "authorization_example"; // String | JWT access token
+TwoFactorAuthenticatorConfirm body = new TwoFactorAuthenticatorConfirm(); // TwoFactorAuthenticatorConfirm | 
 try {
-    Void result = apiInstance.v10AuthSignupInvestorPost(model);
+    RecoveryCodesViewModel result = apiInstance.confirmTwoStepAuth(authorization, body);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10AuthSignupInvestorPost");
+    System.err.println("Exception when calling AuthApi#confirmTwoStepAuth");
     e.printStackTrace();
 }
 ```
@@ -756,7 +184,141 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **model** | [**RegisterInvestorViewModel**](RegisterInvestorViewModel.md)|  | [optional]
+ **authorization** | **String**| JWT access token |
+ **body** | [**TwoFactorAuthenticatorConfirm**](TwoFactorAuthenticatorConfirm.md)|  | [optional]
+
+### Return type
+
+[**RecoveryCodesViewModel**](RecoveryCodesViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="createTwoStepAuth"></a>
+# **createTwoStepAuth**
+> TwoFactorAuthenticator createTwoStepAuth(authorization)
+
+2FA create
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.AuthApi;
+
+
+AuthApi apiInstance = new AuthApi();
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    TwoFactorAuthenticator result = apiInstance.createTwoStepAuth(authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AuthApi#createTwoStepAuth");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**TwoFactorAuthenticator**](TwoFactorAuthenticator.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="createTwoStepAuthRecoveryCodes"></a>
+# **createTwoStepAuthRecoveryCodes**
+> RecoveryCodesViewModel createTwoStepAuthRecoveryCodes(authorization, body)
+
+2FA generate new recovery codes
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.AuthApi;
+
+
+AuthApi apiInstance = new AuthApi();
+String authorization = "authorization_example"; // String | JWT access token
+PasswordModel body = new PasswordModel(); // PasswordModel | 
+try {
+    RecoveryCodesViewModel result = apiInstance.createTwoStepAuthRecoveryCodes(authorization, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AuthApi#createTwoStepAuthRecoveryCodes");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **body** | [**PasswordModel**](PasswordModel.md)|  | [optional]
+
+### Return type
+
+[**RecoveryCodesViewModel**](RecoveryCodesViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="disableTwoStepAuth"></a>
+# **disableTwoStepAuth**
+> Void disableTwoStepAuth(authorization, body)
+
+2FA disable
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.AuthApi;
+
+
+AuthApi apiInstance = new AuthApi();
+String authorization = "authorization_example"; // String | JWT access token
+TwoFactorCodeModel body = new TwoFactorCodeModel(); // TwoFactorCodeModel | 
+try {
+    Void result = apiInstance.disableTwoStepAuth(authorization, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AuthApi#disableTwoStepAuth");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **body** | [**TwoFactorCodeModel**](TwoFactorCodeModel.md)|  | [optional]
 
 ### Return type
 
@@ -771,11 +333,11 @@ No authorization required
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10AuthSignupManagerPost"></a>
-# **v10AuthSignupManagerPost**
-> Void v10AuthSignupManagerPost(model)
+<a name="forgotPassword"></a>
+# **forgotPassword**
+> Void forgotPassword(body)
 
-New manager registration
+Forgot password for investor
 
 ### Example
 ```java
@@ -785,12 +347,12 @@ New manager registration
 
 
 AuthApi apiInstance = new AuthApi();
-RegisterManagerViewModel model = new RegisterManagerViewModel(); // RegisterManagerViewModel | 
+ForgotPasswordViewModel body = new ForgotPasswordViewModel(); // ForgotPasswordViewModel | 
 try {
-    Void result = apiInstance.v10AuthSignupManagerPost(model);
+    Void result = apiInstance.forgotPassword(body);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10AuthSignupManagerPost");
+    System.err.println("Exception when calling AuthApi#forgotPassword");
     e.printStackTrace();
 }
 ```
@@ -799,7 +361,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **model** | [**RegisterManagerViewModel**](RegisterManagerViewModel.md)|  | [optional]
+ **body** | [**ForgotPasswordViewModel**](ForgotPasswordViewModel.md)|  | [optional]
 
 ### Return type
 
@@ -814,9 +376,97 @@ No authorization required
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10AuthTokenDevicesLogoutPost"></a>
-# **v10AuthTokenDevicesLogoutPost**
-> String v10AuthTokenDevicesLogoutPost(authorization)
+<a name="getTwoStepAuthRecoveryCodes"></a>
+# **getTwoStepAuthRecoveryCodes**
+> RecoveryCodesViewModel getTwoStepAuthRecoveryCodes(authorization, body)
+
+2FA recovery codes
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.AuthApi;
+
+
+AuthApi apiInstance = new AuthApi();
+String authorization = "authorization_example"; // String | JWT access token
+PasswordModel body = new PasswordModel(); // PasswordModel | 
+try {
+    RecoveryCodesViewModel result = apiInstance.getTwoStepAuthRecoveryCodes(authorization, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AuthApi#getTwoStepAuthRecoveryCodes");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **body** | [**PasswordModel**](PasswordModel.md)|  | [optional]
+
+### Return type
+
+[**RecoveryCodesViewModel**](RecoveryCodesViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getTwoStepAuthStatus"></a>
+# **getTwoStepAuthStatus**
+> TwoFactorStatus getTwoStepAuthStatus(authorization)
+
+2FA status
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.AuthApi;
+
+
+AuthApi apiInstance = new AuthApi();
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    TwoFactorStatus result = apiInstance.getTwoStepAuthStatus(authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AuthApi#getTwoStepAuthStatus");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**TwoFactorStatus**](TwoFactorStatus.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="logoutFromAnotherDevices"></a>
+# **logoutFromAnotherDevices**
+> String logoutFromAnotherDevices(authorization)
 
 Logout from another devices
 
@@ -830,10 +480,10 @@ Logout from another devices
 AuthApi apiInstance = new AuthApi();
 String authorization = "authorization_example"; // String | JWT access token
 try {
-    String result = apiInstance.v10AuthTokenDevicesLogoutPost(authorization);
+    String result = apiInstance.logoutFromAnotherDevices(authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10AuthTokenDevicesLogoutPost");
+    System.err.println("Exception when calling AuthApi#logoutFromAnotherDevices");
     e.printStackTrace();
 }
 ```
@@ -857,9 +507,181 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="v10AuthTokenUpdatePost"></a>
-# **v10AuthTokenUpdatePost**
-> String v10AuthTokenUpdatePost(authorization)
+<a name="register"></a>
+# **register**
+> Void register(body)
+
+New registration
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.AuthApi;
+
+
+AuthApi apiInstance = new AuthApi();
+RegisterViewModel body = new RegisterViewModel(); // RegisterViewModel | 
+try {
+    Void result = apiInstance.register(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AuthApi#register");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**RegisterViewModel**](RegisterViewModel.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="requestPhoneNumberVerificationCode"></a>
+# **requestPhoneNumberVerificationCode**
+> Integer requestPhoneNumberVerificationCode(authorization)
+
+Get phone number verification code
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.AuthApi;
+
+
+AuthApi apiInstance = new AuthApi();
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Integer result = apiInstance.requestPhoneNumberVerificationCode(authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AuthApi#requestPhoneNumberVerificationCode");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+**Integer**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="resendConfirmationLink"></a>
+# **resendConfirmationLink**
+> Void resendConfirmationLink(body)
+
+Resend Confirmation Link
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.AuthApi;
+
+
+AuthApi apiInstance = new AuthApi();
+ResendConfirmationViewModel body = new ResendConfirmationViewModel(); // ResendConfirmationViewModel | 
+try {
+    Void result = apiInstance.resendConfirmationLink(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AuthApi#resendConfirmationLink");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**ResendConfirmationViewModel**](ResendConfirmationViewModel.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="resetPassword"></a>
+# **resetPassword**
+> String resetPassword(body)
+
+Reset password
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.AuthApi;
+
+
+AuthApi apiInstance = new AuthApi();
+ResetPasswordViewModel body = new ResetPasswordViewModel(); // ResetPasswordViewModel | 
+try {
+    String result = apiInstance.resetPassword(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AuthApi#resetPassword");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**ResetPasswordViewModel**](ResetPasswordViewModel.md)|  | [optional]
+
+### Return type
+
+**String**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="updateAuthToken"></a>
+# **updateAuthToken**
+> String updateAuthToken(authorization)
 
 Update auth token
 
@@ -873,10 +695,10 @@ Update auth token
 AuthApi apiInstance = new AuthApi();
 String authorization = "authorization_example"; // String | JWT access token
 try {
-    String result = apiInstance.v10AuthTokenUpdatePost(authorization);
+    String result = apiInstance.updateAuthToken(authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#v10AuthTokenUpdatePost");
+    System.err.println("Exception when calling AuthApi#updateAuthToken");
     e.printStackTrace();
 }
 ```
@@ -890,6 +712,51 @@ Name | Type | Description  | Notes
 ### Return type
 
 **String**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="validatePhoneNumber"></a>
+# **validatePhoneNumber**
+> Void validatePhoneNumber(authorization, code)
+
+Verify phone number
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.AuthApi;
+
+
+AuthApi apiInstance = new AuthApi();
+String authorization = "authorization_example"; // String | JWT access token
+String code = "code_example"; // String | 
+try {
+    Void result = apiInstance.validatePhoneNumber(authorization, code);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AuthApi#validatePhoneNumber");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **code** | **String**|  | [optional]
+
+### Return type
+
+[**Void**](.md)
 
 ### Authorization
 
