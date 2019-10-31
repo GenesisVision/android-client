@@ -13,6 +13,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.material.textfield.TextInputLayout;
@@ -20,8 +23,6 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.io.File;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -261,17 +262,17 @@ public class CreateProgramFirstStepFragment extends BaseFragment implements Crea
 
 	@OnShowRationale({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void showRationaleForStorage(PermissionRequest request) {
-		showRationaleDialog(getString(R.string.permission_logo_rationale), request);
+//		showRationaleDialog(getString(R.string.permission_picture_rationale), request);
 	}
 
 	@OnPermissionDenied({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void onStorageDenied() {
-		showMessageDialog(getString(R.string.permission_logo_denied));
+		showMessageDialog(getString(R.string.permission_picture_denied));
 	}
 
 	@OnNeverAskAgain({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void onStorageNeverAskAgain() {
-		showMessageDialog(getString(R.string.permission_logo_never_ask_again));
+		showMessageDialog(getString(R.string.permission_picture_never_ask_again));
 	}
 
 	@Override

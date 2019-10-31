@@ -24,6 +24,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.profile.ImageCropActivity;
 import vision.genesis.clientapp.ui.NonSwipeableViewPager;
 import vision.genesis.clientapp.ui.common.ActivityResultListener;
+import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -151,7 +152,7 @@ public class CreateProgramActivity extends MvpAppCompatActivity implements Creat
 
 	public void startImageCropActivity(ActivityResultListener listener, String imageUri) {
 		resultListener = listener;
-		ImageCropActivity.startForResult(this, imageUri);
+		ImageCropActivity.startForResult(this, imageUri, Constants.MIN_LOGO_WIDTH, Constants.MIN_LOGO_HEIGHT);
 	}
 
 	@Override

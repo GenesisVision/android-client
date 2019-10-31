@@ -50,8 +50,8 @@ public class AssetsModule
 
 	@Provides
 	@Singleton
-	public FundsManager provideFundsManager(InvestorApi investorApi, FundsApi fundsApi) {
-		return new FundsManager(investorApi, fundsApi);
+	public FundsManager provideFundsManager(InvestorApi investorApi, ManagerApi managerApi, FundsApi fundsApi) {
+		return new FundsManager(investorApi, managerApi, fundsApi);
 	}
 
 	@Provides

@@ -96,7 +96,7 @@
     <string name="permission_avatar_rationale">Please grant the Storage permission in order to be able to change your avatar</string>
     <string name="permission_avatar_denied">The app is not able to change your avatar until you grant the Storage permission</string>
     <string name="permission_avatar_never_ask_again"><![CDATA[The app is not able to change your avatar until you grant the Storage permission in Settings -> Apps]]></string>
-    <string name="select_photo">Select a photo</string>
+    <string name="select_photo">Select from gallery</string>
     <string name="take_photo">Take a photo</string>
     <string name="successfully_updated">Successfully updated</string>
     <string name="allow">Allow</string>
@@ -374,9 +374,10 @@
     <string name="program_title">Program Title</string>
     <string name="add_program_logo">Add program logo</string>
 
-    <string name="permission_logo_rationale">Please grant the Storage permission in order to be able to choose the program logo</string>
-    <string name="permission_logo_denied">The app is not able to set the program\'s logo until you grant the Storage permission</string>
-    <string name="permission_logo_never_ask_again"><![CDATA[The app is not able to set the program\'s logo until you grant the Storage permission in Settings -> Apps]]></string>
+    <string name="permission_picture_rationale">Please grant the Storage permission in order to be able to choose the picture</string>
+    <string name="permission_picture_denied">The app is not able to set the picture until you grant the Storage permission</string>
+    <string name="permission_picture_never_ask_again"><![CDATA[The app is not able to set the picture until you grant the Storage permission in Settings -> Apps]]></string>
+
     <string name="broker_server">Broker Server</string>
     <string name="trading_account_password">Trading Account Password</string>
     <string name="confirm_trading_account_password">Confirm Trading Account Password</string>
@@ -451,7 +452,7 @@
     <string name="av_to_invest">av. to invest</string>
     <string name="entry_fee">Entry fee</string>
     <string name="auto_reinvest">Auto reinvest</string>
-    <string name="request_info_template">Your request will be processed at the end of the reporting period  %s</string>
+    <string name="request_info_template">Your request will be processed at the end of the reporting period %s</string>
     <string name="your_investment">Your investment</string>
     <string name="value">value</string>
     <string name="program_info_withdraw_info">You can withdraw only the invested funds, the profit will be withdrawn to your account at the end of the period automatically.</string>
@@ -688,6 +689,30 @@
     <string name="investors_withdrawal_profit">Investors Withdrawal Profit</string>
     <string name="gv_commission_rebate">GV commission rebate</string>
     <string name="withdraw_all">Withdraw all</string>
+
+    <string name="create_fund">Create Fund</string>
+    <string name="main_settings">Main settings</string>
+    <string name="fund_name">Fund name</string>
+    <string name="assets_selection">Assets selection</string>
+    <string name="deposit_details">Deposit details</string>
+    <string name="fees_settings">Fees settings</string>
+    <string name="description">Description</string>
+    <string name="fund_logo">Fund logo</string>
+    <string name="fund_logo_requirements">At least 300 x 300px PNG or JPG file.\nThe maximum file size is 2MB.</string>
+    <string name="upload_fund_logo">Upload fund logo</string>
+    <string name="template_minimum_symbols">Minimum %d symbols</string>
+    <string name="template_create_fund_deposit_first_notification">Please note that in order to create a fund you must deposit the equivalent of %s GVT at the end of the creation process.</string>
+    <string name="template_create_fund_deposit_second_notification">You must deposit at least the equivalent of %s GVT to create a fund.</string>
+    <string name="create_fund_assets_notification">The total share of all assets should be equal to 100%.</string>
+    <string name="template_create_fund_asset_mandatory">There is a mandatory %s%% %s allocation per Fund.</string>
+    <string name="plus_add_asset">+ Add asset</string>
+    <string name="add_asset">Add asset</string>
+    <string name="no_assets_found">No assets found with your request</string>
+    <string name="add_to_fund">Add to fund</string>
+    <string name="free_space_in_fund">Free space in the fund</string>
+    <string name="tip_create_fund_asset_long_tap">Tip: Long tap on an asset above to change its share</string>
+    <string name="template_create_fund_entry_fee_description">An entry fee is a fee charged to investors upon their investment to a GV fund. The maximum entry fee is %s%%</string>
+    <string name="template_create_fund_exit_fee_description">An exit fee is a fee charged to investors when they redeem shares from a GV fund. The maximum exit fee is %s%%</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

@@ -6,7 +6,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.TypedValue;
+
+import androidx.fragment.app.Fragment;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.google.android.material.snackbar.Snackbar;
@@ -16,11 +17,12 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.ui.ToolbarView;
 import vision.genesis.clientapp.utils.ImageUtils;
+import vision.genesis.clientapp.utils.ThemeUtil;
 
 /**
  * GenesisVisionAndroid
@@ -31,10 +33,24 @@ public class ImageCropActivity extends MvpAppCompatActivity
 {
 	private static String EXTRA_IMAGE_URI = "extra_image_uri";
 
-	public static void startForResult(Activity activity, String imageUri) {
+	private static String EXTRA_MIN_WIDTH = "extra_min_width";
+
+	private static String EXTRA_MIN_HEIGHT = "extra_min_height";
+
+	public static void startForResult(Activity activity, String imageUri, int minWidth, int minHeight) {
 		Intent intent = new Intent(activity, ImageCropActivity.class);
 		intent.putExtra(EXTRA_IMAGE_URI, imageUri);
+		intent.putExtra(EXTRA_MIN_WIDTH, minWidth);
+		intent.putExtra(EXTRA_MIN_HEIGHT, minHeight);
 		activity.startActivityForResult(intent, ImageUtils.CROP_REQUEST_CODE);
+	}
+
+	public static void startForResult(Fragment fragment, String imageUri, int minWidth, int minHeight) {
+		Intent intent = new Intent(fragment.getContext(), ImageCropActivity.class);
+		intent.putExtra(EXTRA_IMAGE_URI, imageUri);
+		intent.putExtra(EXTRA_MIN_WIDTH, minWidth);
+		intent.putExtra(EXTRA_MIN_HEIGHT, minHeight);
+		fragment.startActivityForResult(intent, ImageUtils.CROP_REQUEST_CODE);
 	}
 
 	@Inject
@@ -43,16 +59,24 @@ public class ImageCropActivity extends MvpAppCompatActivity
 	@Inject
 	public ImageUtils imageUtils;
 
-	@BindView(R.id.toolbar)
-	public ToolbarView toolbar;
-
 	@BindView(R.id.crop_image_view)
 	public CropImageView cropImageView;
 
 	private String imageUri;
 
+	@OnClick(R.id.button_close)
+	public void onCloseClicked() {
+		finishActivity(Activity.RESULT_CANCELED);
+	}
+
+	@OnClick(R.id.button_ok)
+	public void onOkClicked() {
+		saveImage();
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_image_crop);
@@ -61,11 +85,11 @@ public class ImageCropActivity extends MvpAppCompatActivity
 
 		ButterKnife.bind(this);
 
-		initToolbar();
-		initCropImageView();
 
-		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
-			setImageUri(getIntent().getExtras().getString(EXTRA_IMAGE_URI));
+		Bundle extras = getIntent().getExtras();
+		if (extras != null && !extras.isEmpty()) {
+			initCropImageView(extras.getInt(EXTRA_MIN_WIDTH), extras.getInt(EXTRA_MIN_HEIGHT));
+			setImageUri(extras.getString(EXTRA_IMAGE_URI));
 		}
 		else {
 			Timber.e("Passed empty imageUri to ImageCropActivity");
@@ -73,16 +97,10 @@ public class ImageCropActivity extends MvpAppCompatActivity
 		}
 	}
 
-	private void initToolbar() {
-		toolbar.addLeftButton(R.drawable.ic_check_black_24dp, this::saveImage);
-		toolbar.addRightButton(R.drawable.ic_close_black_24dp, () -> finishActivity(Activity.RESULT_CANCELED));
-		toolbar.setLeftButtonPadding((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getResources().getDisplayMetrics()));
-		toolbar.setRightButtonPadding((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getResources().getDisplayMetrics()));
-	}
-
-	private void initCropImageView() {
+	private void initCropImageView(int minWidth, int minHeight) {
 		cropImageView.setAspectRatio(1, 1);
 		cropImageView.setFixedAspectRatio(true);
+		cropImageView.setMinCropResultSize(minWidth, minHeight);
 		cropImageView.setCropShape(CropImageView.CropShape.RECTANGLE);
 		cropImageView.setScaleType(CropImageView.ScaleType.FIT_CENTER);
 	}
@@ -99,7 +117,7 @@ public class ImageCropActivity extends MvpAppCompatActivity
 			finishActivity(Activity.RESULT_OK);
 		}
 		else {
-			Snackbar.make(toolbar, "Cannot save the image. Please try again later or contact support", Snackbar.LENGTH_LONG).show();
+			Snackbar.make(cropImageView, "Cannot save the image. Please try again later or contact support", Snackbar.LENGTH_LONG).show();
 		}
 	}
 

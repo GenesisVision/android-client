@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import io.swagger.client.api.FundsApi;
 import io.swagger.client.api.InvestorApi;
+import io.swagger.client.api.ManagerApi;
 import io.swagger.client.model.DashboardPortfolioEvents;
 import io.swagger.client.model.FundAssetsListInfo;
 import io.swagger.client.model.FundBalanceChart;
@@ -12,6 +13,7 @@ import io.swagger.client.model.FundInvestInfo;
 import io.swagger.client.model.FundProfitChart;
 import io.swagger.client.model.FundWithdrawInfo;
 import io.swagger.client.model.FundsList;
+import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.ReallocationsViewModel;
 import rx.Observable;
 import vision.genesis.clientapp.model.CurrencyEnum;
@@ -28,14 +30,13 @@ public class FundsManager
 {
 	private InvestorApi investorApi;
 
-//	private ManagerApi managerApi;
+	private ManagerApi managerApi;
 
 	private FundsApi fundsApi;
 
-	//	public FundsManager(InvestorApi investorApi, ManagerApi managerApi, ProgramApi programsApi) {
-	public FundsManager(InvestorApi investorApi, FundsApi fundsApi) {
+	public FundsManager(InvestorApi investorApi, ManagerApi managerApi, FundsApi fundsApi) {
 		this.investorApi = investorApi;
-//		this.managerApi = managerApi;
+		this.managerApi = managerApi;
 		this.fundsApi = fundsApi;
 	}
 
@@ -99,6 +100,14 @@ public class FundsManager
 
 	public Observable<ReallocationsViewModel> getReallocateHistory(UUID fundId, DateRange dateRange, int skip, int take) {
 		return fundsApi.v10FundsByIdReallocationsGet(fundId, dateRange.getFrom(), dateRange.getTo(), skip, take);
+	}
+
+	public Observable<Double> getMinDepositAmountToCreate() {
+		return managerApi.v10ManagerFundsInvestmentAmountGet(AuthManager.token.getValue());
+	}
+
+	public Observable<Void> sendCreateFundRequest(NewFundRequest request) {
+		return managerApi.v10ManagerFundsCreatePost(AuthManager.token.getValue(), request);
 	}
 
 	//	public Observable<Void> withdraw(ProgramRequest withdrawalRequest) {

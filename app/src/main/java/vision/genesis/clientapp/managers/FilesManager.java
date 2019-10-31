@@ -4,6 +4,8 @@ import java.io.File;
 
 import io.swagger.client.api.FileApi;
 import io.swagger.client.model.UploadResult;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import rx.Observable;
 
 /**
@@ -20,8 +22,6 @@ public class FilesManager
 	}
 
 	public Observable<UploadResult> uploadFile(File file) {
-		//TODO: fix
-//		return fileApi.v10FileUploadPost(RequestBody.create(MediaType.parse("multipart/form-data"), file));
-		return null;
+		return fileApi.v10FileUploadPost(RequestBody.create(MediaType.parse("multipart/form-data"), file), AuthManager.token.getValue());
 	}
 }

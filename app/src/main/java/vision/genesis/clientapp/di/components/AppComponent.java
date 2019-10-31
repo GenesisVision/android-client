@@ -36,7 +36,13 @@ import vision.genesis.clientapp.feature.main.dashboard.investor.programs.Dashboa
 import vision.genesis.clientapp.feature.main.dashboard.manager.ManagerDashboardPresenter;
 import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsPresenter;
+import vision.genesis.clientapp.feature.main.fund.add_asset.AddAssetPresenter;
 import vision.genesis.clientapp.feature.main.fund.balance.FundBalancePresenter;
+import vision.genesis.clientapp.feature.main.fund.create.CreateFundPresenter;
+import vision.genesis.clientapp.feature.main.fund.create.assets.CreateFundAssetsPresenter;
+import vision.genesis.clientapp.feature.main.fund.create.deposit.CreateFundDepositPresenter;
+import vision.genesis.clientapp.feature.main.fund.create.fees.CreateFundFeesPresenter;
+import vision.genesis.clientapp.feature.main.fund.create.main.CreateFundMainPresenter;
 import vision.genesis.clientapp.feature.main.fund.info.FundInfoPresenter;
 import vision.genesis.clientapp.feature.main.fund.invest.InvestFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.invest.confirm.ConfirmFundInvestBottomSheetFragment;
@@ -293,4 +299,16 @@ public interface AppComponent
 	void inject(PeriodHistoryPresenter periodHistoryPresenter);
 
 	void inject(ReallocateHistoryPresenter reallocateHistoryPresenter);
+
+	void inject(CreateFundPresenter createFundPresenter);
+
+	void inject(CreateFundMainPresenter createFundMainPresenter);
+
+	void inject(CreateFundAssetsPresenter createFundAssetsPresenter);
+
+	void inject(CreateFundDepositPresenter createFundDepositPresenter);
+
+	void inject(AddAssetPresenter addAssetPresenter);
+
+	void inject(CreateFundFeesPresenter createFundFeesPresenter);
 }

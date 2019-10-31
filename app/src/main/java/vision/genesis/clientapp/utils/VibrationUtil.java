@@ -7,6 +7,7 @@ import android.os.Vibrator;
  * GenesisVisionAndroid
  * Created by Vitaly on 18/06/2018.
  */
+
 public class VibrationUtil
 {
 	public static void vibrateRightPin(Context context) {
@@ -19,6 +20,10 @@ public class VibrationUtil
 
 	public static void vibrateResetPin(Context context) {
 		vibrateOnce(context, 700);
+	}
+
+	public static void vibrateShort(Context context) {
+		vibrateOnce(context, 100);
 	}
 
 	private static void vibrateOnce(Context context, int millis) {

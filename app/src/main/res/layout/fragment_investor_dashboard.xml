@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@+id/root"
-                xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/root"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?attr/colorBackground">
@@ -35,9 +35,9 @@
                 android:id="@+id/notifications_dot"
                 android:layout_width="@dimen/toolbar_dot_width"
                 android:layout_height="@dimen/toolbar_dot_height"
+                android:layout_alignTop="@+id/icon_notifications"
                 android:layout_alignEnd="@+id/icon_notifications"
                 android:layout_alignRight="@+id/icon_notifications"
-                android:layout_alignTop="@+id/icon_notifications"
                 android:layout_marginEnd="4dp"
                 android:layout_marginRight="4dp"
                 android:visibility="gone"
@@ -129,8 +129,8 @@
                                 android:id="@+id/investor_dashboard_header_view_pager"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dashboard_pager_header_height"
-                                android:layout_marginBottom="16dp"
-                                android:layout_marginTop="8dp"/>
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="16dp"/>
 
 
                             <vision.genesis.clientapp.ui.DateRangeView
@@ -170,8 +170,8 @@
                                 android:background="?attr/selectableItemBackgroundBorderless"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal"
-                                android:paddingBottom="10dp"
-                                android:paddingTop="10dp">
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp">
 
                                 <TextView
                                     android:id="@+id/label_show_all"
@@ -184,8 +184,8 @@
                                 <ImageView
                                     android:layout_width="6dp"
                                     android:layout_height="6dp"
-                                    android:layout_marginLeft="6dp"
                                     android:layout_marginStart="6dp"
+                                    android:layout_marginLeft="6dp"
                                     android:alpha="0.4"
                                     android:tint="?attr/colorTextPrimary"
                                     app:srcCompat="@drawable/icon_arrow_right"/>
@@ -200,8 +200,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/group_events_header"
-                            android:layout_marginBottom="32dp"
                             android:layout_marginTop="16dp"
+                            android:layout_marginBottom="32dp"
                             android:clipToPadding="false"
                             android:paddingLeft="16dp"
                             android:paddingRight="16dp"
@@ -270,10 +270,10 @@
                     android:id="@+id/bottomsheet_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="24dp"
+                    android:layout_marginBottom="12dp"
                     android:text="@string/assets"
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="20sp"/>
@@ -302,5 +302,15 @@
         android:indeterminate="true"
         android:scaleY="4"
         android:visibility="visible"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="70dp"
+        android:src="@drawable/ic_add_black_24dp"/>
 
 </RelativeLayout>

@@ -9,6 +9,10 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -19,9 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
 import timber.log.Timber;
 import vision.genesis.clientapp.BuildConfig;
 
@@ -112,6 +113,14 @@ public class ImageUtils
 		activity.startActivityForResult(openGalleryIntent, GALLERY_REQUEST_CODE);
 	}
 
+	public void openGalleryFrom(Fragment fragment) {
+		Intent openGalleryIntent = new Intent(
+				Intent.ACTION_PICK,
+				android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+		fragment.startActivityForResult(openGalleryIntent, GALLERY_REQUEST_CODE);
+	}
+
 	public void openCameraFrom(Activity activity, @NonNull File imageFile) {
 		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
@@ -122,12 +131,17 @@ public class ImageUtils
 		}
 	}
 
-	public void openGalleryFrom(Fragment fragment) {
-		Intent openGalleryIntent = new Intent(
-				Intent.ACTION_PICK,
-				android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-		fragment.startActivityForResult(openGalleryIntent, GALLERY_REQUEST_CODE);
+	public void openCameraFrom(Fragment fragment, @NonNull File imageFile) {
+		Activity activity = fragment.getActivity();
+		if (activity != null) {
+			Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+			if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
+				takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+						FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID + ".provider", imageFile));
+				takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+				fragment.startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
+			}
+		}
 	}
 
 	public String getImagePath(Context context, Uri data) {

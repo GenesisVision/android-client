@@ -46,6 +46,7 @@ import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.fund.create.CreateFundActivity;
 import vision.genesis.clientapp.feature.main.notifications.NotificationsActivity;
 import vision.genesis.clientapp.feature.main.portfolio_events.PortfolioEventsActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
@@ -250,6 +251,13 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 	public void onShowAllEventsClicked() {
 		if (getActivity() != null) {
 			PortfolioEventsActivity.startWith(getActivity());
+		}
+	}
+
+	@OnClick(R.id.button_create)
+	public void onCreateClicked() {
+		if (getActivity() != null) {
+			CreateFundActivity.startFrom(getActivity());
 		}
 	}
 
