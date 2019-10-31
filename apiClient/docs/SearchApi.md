@@ -1,15 +1,14 @@
 # SearchApi
 
-All URIs are relative to *https://localhost/api*
+All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v10SearchGet**](SearchApi.md#v10SearchGet) | **GET** v1.0/search | Program / fund / manager search
+[**search**](SearchApi.md#search) | **GET** v2.0/search | Program / fund / manager search
 
-
-<a name="v10SearchGet"></a>
-# **v10SearchGet**
-> SearchViewModel v10SearchGet(authorization, mask, take)
+<a name="search"></a>
+# **search**
+> SearchViewModel search(authorization, mask, take)
 
 Program / fund / manager search
 
@@ -25,10 +24,10 @@ String authorization = "authorization_example"; // String |
 String mask = "mask_example"; // String | 
 Integer take = 56; // Integer | 
 try {
-    SearchViewModel result = apiInstance.v10SearchGet(authorization, mask, take);
+    SearchViewModel result = apiInstance.search(authorization, mask, take);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling SearchApi#v10SearchGet");
+    System.err.println("Exception when calling SearchApi#search");
     e.printStackTrace();
 }
 ```

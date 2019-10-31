@@ -38,9 +38,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.swagger.client.model.ChartSimple;
-import io.swagger.client.model.FundEquityChartElement;
-import io.swagger.client.model.PeriodDate;
+import io.swagger.client.model.SimpleChartPoint;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.DateRange;
@@ -207,43 +205,35 @@ public class ProfitChartView extends RelativeLayout
 		});
 	}
 
-	public void setChartData(List<ChartSimple> equityChart, List<ChartSimple> pnLChart, List<PeriodDate> periods, DateRange dateRange) {
+	public void setChartData(List<SimpleChartPoint> chart, DateRange dateRange) {
 		showProgress(false);
 
-		if (equityChart.size() <= 1) {
-			chart.clear();
+		if (chart.size() <= 1) {
+			this.chart.clear();
 			return;
 		}
 
 		updateXAxis(dateRange);
 
-		float min = equityChart.get(0).getValue().floatValue();
-		float max = equityChart.get(0).getValue().floatValue();
+		float min = chart.get(0).getValue().floatValue();
+		float max = chart.get(0).getValue().floatValue();
 
 		List<Entry> lineEntries = new ArrayList<>();
 
-		for (ChartSimple chart : equityChart) {
-			lineEntries.add(new Entry(chart.getDate().getMillis() / 1000 / 60, chart.getValue().floatValue()));
-			if (min > chart.getValue().floatValue()) {
-				min = chart.getValue().floatValue();
+		for (SimpleChartPoint point : chart) {
+			lineEntries.add(new Entry(point.getDate().getMillis() / 1000 / 60, point.getValue().floatValue()));
+			if (min > point.getValue().floatValue()) {
+				min = point.getValue().floatValue();
 			}
-			if (max < chart.getValue().floatValue()) {
-				max = chart.getValue().floatValue();
+			if (max < point.getValue().floatValue()) {
+				max = point.getValue().floatValue();
 			}
-		}
-
-		List<BarEntry> barEntries = new ArrayList<>();
-		for (ChartSimple bar : pnLChart) {
-			barEntries.add(new BarEntry(bar.getDate().getMillis() / 1000 / 60, bar.getValue().floatValue()));
 		}
 
 		minValue.setText(StringFormatUtil.formatAmount(min, 2, 4));
 		maxValue.setText(StringFormatUtil.formatAmount(max, 2, 4));
 
 		setLimitLines(min, max);
-		if (periods.size() <= MAX_PERIODS_COUNT) {
-			setPeriodLines(periods);
-		}
 
 //		chart.getAxisLeft().setAxisMaximum(max);
 //		chart.getAxisLeft().setAxisMinimum(min);
@@ -251,12 +241,8 @@ public class ProfitChartView extends RelativeLayout
 		CombinedData combinedData = new CombinedData();
 		combinedData.setData(getLineData(lineEntries));
 //		combinedData.setData(getBarData(barEntries));
-		chart.setData(combinedData);
-		chart.invalidate();
-	}
-
-	public void setFundChartData(List<FundEquityChartElement> equityChart, DateRange dateRange) {
-//		setChartData(equityChart, new ArrayList<>(), new ArrayList<>(), dateRange);
+		this.chart.setData(combinedData);
+		this.chart.invalidate();
 	}
 
 	private void updateXAxis(DateRange dateRange) {
@@ -305,16 +291,16 @@ public class ProfitChartView extends RelativeLayout
 		yAxis.addLimitLine(createLimitLine(max));
 	}
 
-	private void setPeriodLines(List<PeriodDate> periods) {
-		XAxis xAxis = chart.getXAxis();
-		xAxis.setDrawLimitLinesBehindData(true);
-
-		xAxis.removeAllLimitLines();
-		for (PeriodDate period : periods) {
-			xAxis.addLimitLine(createPeriodLine(period.getDateFrom().getMillis() / 1000 / 60));
-			xAxis.addLimitLine(createPeriodLine(period.getDateTo().getMillis() / 1000 / 60));
-		}
-	}
+//	private void setPeriodLines(List<PeriodDate> periods) {
+//		XAxis xAxis = chart.getXAxis();
+//		xAxis.setDrawLimitLinesBehindData(true);
+//
+//		xAxis.removeAllLimitLines();
+//		for (PeriodDate period : periods) {
+//			xAxis.addLimitLine(createPeriodLine(period.getDateFrom().getMillis() / 1000 / 60));
+//			xAxis.addLimitLine(createPeriodLine(period.getDateTo().getMillis() / 1000 / 60));
+//		}
+//	}
 
 	private LimitLine createLimitLine(float limit) {
 		LimitLine ll = new LimitLine(limit, "");

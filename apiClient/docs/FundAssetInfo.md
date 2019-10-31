@@ -1,4 +1,3 @@
-
 # FundAssetInfo
 
 ## Properties
@@ -9,6 +8,3 @@ Name | Type | Description | Notes
 **icon** | **String** |  |  [optional]
 **target** | **Double** |  |  [optional]
 **current** | **Double** |  |  [optional]
-
-
-

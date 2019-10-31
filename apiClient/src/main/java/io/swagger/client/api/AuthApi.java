@@ -10,7 +10,7 @@ import io.swagger.client.model.ResendConfirmationViewModel;
 import io.swagger.client.model.ResetPasswordViewModel;
 import io.swagger.client.model.TwoFactorAuthenticator;
 import io.swagger.client.model.TwoFactorAuthenticatorConfirm;
-import io.swagger.client.model.TwoFactorCodeModel;
+import io.swagger.client.model.TwoFactorCodeWithPassword;
 import io.swagger.client.model.TwoFactorStatus;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -113,7 +113,7 @@ public interface AuthApi
 	})
 	@POST("v2.0/auth/2fa/disable")
 	Observable<Void> disableTwoStepAuth(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body TwoFactorCodeModel body
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body TwoFactorCodeWithPassword body
 	);
 
 	/**

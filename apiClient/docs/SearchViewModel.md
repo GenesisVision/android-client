@@ -1,12 +1,8 @@
-
 # SearchViewModel
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**programs** | [**ProgramsList**](ProgramsList.md) |  |  [optional]
-**funds** | [**FundsList**](FundsList.md) |  |  [optional]
-**managers** | [**ManagersList**](ManagersList.md) |  |  [optional]
-
-
-
+**programs** | [**ItemsViewModelProgramDetailsList**](ItemsViewModelProgramDetailsList.md) |  |  [optional]
+**funds** | [**ItemsViewModelFundDetailsList**](ItemsViewModelFundDetailsList.md) |  |  [optional]
+**managers** | [**ItemsViewModelPublicProfile**](ItemsViewModelPublicProfile.md) |  |  [optional]

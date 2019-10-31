@@ -21,7 +21,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.managers.DashboardManager;
+import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.SetFundDetailsEventsCountEvent;
 import vision.genesis.clientapp.model.events.SetProgramDetailsEventsCountEvent;
@@ -43,7 +43,7 @@ public class ProgramEventsPresenter extends MvpPresenter<ProgramEventsView> impl
 	public Context context;
 
 	@Inject
-	public DashboardManager investorManager;
+	public ProgramsManager programsManager;
 
 	private Subscription eventsSubscription;
 
@@ -85,7 +85,7 @@ public class ProgramEventsPresenter extends MvpPresenter<ProgramEventsView> impl
 	void setData(String location, UUID programId) {
 		this.location = location;
 		this.programId = programId;
-		if (investorManager != null) {
+		if (programsManager != null) {
 			getEvents(true);
 		}
 	}
@@ -113,7 +113,7 @@ public class ProgramEventsPresenter extends MvpPresenter<ProgramEventsView> impl
 			if (eventsSubscription != null) {
 				eventsSubscription.unsubscribe();
 			}
-			eventsSubscription = investorManager.getEvents("Asset", programId, dateRange, null, null, skip, TAKE)
+			eventsSubscription = programsManager.getEvents(programId, dateRange, skip, TAKE)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 //					.map(this::prepareData)

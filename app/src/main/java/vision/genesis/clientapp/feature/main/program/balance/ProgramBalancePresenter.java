@@ -7,8 +7,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.BalanceChartPoint;
 import io.swagger.client.model.ProgramBalanceChart;
-import io.swagger.client.model.ProgramBalanceChartElement;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -59,8 +59,9 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 
 	@Override
 	public void onDestroy() {
-		if (chartDataSubscription != null)
+		if (chartDataSubscription != null) {
 			chartDataSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -76,8 +77,9 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 
 	private void getChartData() {
 		if (programId != null && programsManager != null) {
-			if (chartDataSubscription != null)
+			if (chartDataSubscription != null) {
 				chartDataSubscription.unsubscribe();
+			}
 			//TODO: calculate maxPointCount
 			chartDataSubscription = programsManager.getBalanceChart(programId, chartDateRange, 30)
 					.observeOn(AndroidSchedulers.mainThread())
@@ -93,7 +95,7 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 
 		this.chartData = response;
 
-		getViewState().setChartData(chartData.getBalanceChart());
+		getViewState().setChartData(chartData.getChart());
 
 		resetValuesSelection();
 	}
@@ -106,19 +108,20 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 	private void resetValuesSelection() {
 		first = 0.0;
 		selected = 0.0;
-		if (chartData != null && chartData.getBalanceChart() != null && !chartData.getBalanceChart().isEmpty()) {
-			ProgramBalanceChartElement firstElement = chartData.getBalanceChart().get(0);
-			ProgramBalanceChartElement lastElement = chartData.getBalanceChart().get(chartData.getBalanceChart().size() - 1);
-			first = firstElement.getInvestorsFunds() + firstElement.getManagerFunds() + firstElement.getProfit();
+		if (chartData != null && chartData.getChart() != null && !chartData.getChart().isEmpty()) {
+			BalanceChartPoint firstElement = chartData.getChart().get(0);
+			BalanceChartPoint lastElement = chartData.getChart().get(chartData.getChart().size() - 1);
+			first = firstElement.getInvestorsFunds() + firstElement.getManagerFunds();
 //			selected = lastElement.getInvestorsFunds() + lastElement.getManagerFunds() + lastElement.getProfit();
-			selected = chartData.getGvtBalance();
+			selected = chartData.getBalance();
 		}
 		updateValues();
 	}
 
 	private void updateValues() {
-		if (first == null || selected == null)
+		if (first == null || selected == null) {
 			return;
+		}
 
 //		getViewState().setAmount(StringFormatUtil.getGvtValueString(chartData.getGvtBalance()), StringFormatUtil.getValueString(chartData.getProgramCurrencyBalance(), chartData.getProgramCurrency().getValue()));
 		//TODO: getValueString(selected * rate

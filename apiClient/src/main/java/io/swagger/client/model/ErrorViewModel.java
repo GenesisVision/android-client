@@ -15,13 +15,8 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -49,14 +44,14 @@ public class ErrorViewModel implements Parcelable
 	private List<ErrorMessage> errors = null;
 
 	@SerializedName("code")
-	private CodeEnum code = null;
+	private ErrorCodes code = null;
 
 	public ErrorViewModel() {
 	}
 
 	ErrorViewModel(Parcel in) {
 		errors = (List<ErrorMessage>) in.readValue(ErrorMessage.class.getClassLoader());
-		code = (CodeEnum) in.readValue(null);
+		code = (ErrorCodes) in.readValue(ErrorCodes.class.getClassLoader());
 	}
 
 	public ErrorViewModel errors(List<ErrorMessage> errors) {
@@ -86,7 +81,7 @@ public class ErrorViewModel implements Parcelable
 		this.errors = errors;
 	}
 
-	public ErrorViewModel code(CodeEnum code) {
+	public ErrorViewModel code(ErrorCodes code) {
 		this.code = code;
 		return this;
 	}
@@ -97,11 +92,11 @@ public class ErrorViewModel implements Parcelable
 	 * @return code
 	 **/
 	@Schema(description = "")
-	public CodeEnum getCode() {
+	public ErrorCodes getCode() {
 		return code;
 	}
 
-	public void setCode(CodeEnum code) {
+	public void setCode(ErrorCodes code) {
 		this.code = code;
 	}
 
@@ -152,55 +147,5 @@ public class ErrorViewModel implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets code
-	 */
-	@JsonAdapter(CodeEnum.Adapter.class)
-	public enum CodeEnum
-	{
-		INTERNALSERVERERROR("InternalServerError"),
-		VALIDATIONERROR("ValidationError"),
-		REQUIRESTWOFACTOR("RequiresTwoFactor"),
-		WRONGCAPTCHA("WrongCaptcha");
-
-		public static CodeEnum fromValue(String text) {
-			for (CodeEnum b : CodeEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		CodeEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<CodeEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final CodeEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public CodeEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return CodeEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

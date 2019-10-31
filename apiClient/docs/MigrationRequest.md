@@ -5,4 +5,4 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **dateCreate** | [**DateTime**](DateTime.md) |  |  [optional]
 **newLeverage** | **Integer** |  |  [optional]
-**newBroker** | [**BrokerOld**](BrokerOld.md) |  |  [optional]
+**newBroker** | [**Broker**](Broker.md) |  |  [optional]

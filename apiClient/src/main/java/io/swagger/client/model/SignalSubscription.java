@@ -50,7 +50,7 @@ public class SignalSubscription implements Parcelable
 	private Boolean hasActiveSubscription = null;
 
 	@SerializedName("mode")
-	private ModeEnum mode = null;
+	private SubscriptionMode mode = null;
 
 	@SerializedName("percent")
 	private Double percent = null;
@@ -76,7 +76,7 @@ public class SignalSubscription implements Parcelable
 	SignalSubscription(Parcel in) {
 		hasSignalAccount = (Boolean) in.readValue(null);
 		hasActiveSubscription = (Boolean) in.readValue(null);
-		mode = (ModeEnum) in.readValue(null);
+		mode = (SubscriptionMode) in.readValue(SubscriptionMode.class.getClassLoader());
 		percent = (Double) in.readValue(null);
 		openTolerancePercent = (Double) in.readValue(null);
 		fixedVolume = (Double) in.readValue(null);
@@ -123,7 +123,7 @@ public class SignalSubscription implements Parcelable
 		this.hasActiveSubscription = hasActiveSubscription;
 	}
 
-	public SignalSubscription mode(ModeEnum mode) {
+	public SignalSubscription mode(SubscriptionMode mode) {
 		this.mode = mode;
 		return this;
 	}
@@ -134,11 +134,11 @@ public class SignalSubscription implements Parcelable
 	 * @return mode
 	 **/
 	@Schema(description = "")
-	public ModeEnum getMode() {
+	public SubscriptionMode getMode() {
 		return mode;
 	}
 
-	public void setMode(ModeEnum mode) {
+	public void setMode(SubscriptionMode mode) {
 		this.mode = mode;
 	}
 
@@ -256,7 +256,6 @@ public class SignalSubscription implements Parcelable
 		this.totalVolume = totalVolume;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -281,7 +280,6 @@ public class SignalSubscription implements Parcelable
 	public int hashCode() {
 		return Objects.hash(hasSignalAccount, hasActiveSubscription, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency, totalProfit, totalVolume);
 	}
-
 
 	@Override
 	public String toString() {
@@ -312,7 +310,6 @@ public class SignalSubscription implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(hasSignalAccount);
 		out.writeValue(hasActiveSubscription);
@@ -327,55 +324,6 @@ public class SignalSubscription implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets mode
-	 */
-	@JsonAdapter(ModeEnum.Adapter.class)
-	public enum ModeEnum
-	{
-		BYBALANCE("ByBalance"),
-		PERCENT("Percent"),
-		FIXED("Fixed");
-
-		public static ModeEnum fromValue(String text) {
-			for (ModeEnum b : ModeEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		ModeEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<ModeEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final ModeEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public ModeEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return ModeEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 
 	/**

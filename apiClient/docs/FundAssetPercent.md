@@ -1,4 +1,3 @@
-
 # FundAssetPercent
 
 ## Properties
@@ -8,6 +7,3 @@ Name | Type | Description | Notes
 **name** | **String** |  |  [optional]
 **percent** | **Double** |  |  [optional]
 **icon** | **String** |  |  [optional]
-
-
-

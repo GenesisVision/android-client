@@ -10,7 +10,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.DetachFromSignalProvider;
+import io.swagger.client.model.SignalDetachMode;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -39,7 +39,7 @@ public class UnfollowTradesPresenter extends MvpPresenter<UnfollowTradesView> im
 
 	private UUID programId;
 
-	private DetachFromSignalProvider.ModeEnum unsubscribeType = DetachFromSignalProvider.ModeEnum.NONE;
+	private SignalDetachMode unsubscribeType = SignalDetachMode.NONE;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -106,15 +106,15 @@ public class UnfollowTradesPresenter extends MvpPresenter<UnfollowTradesView> im
 		String typeDescription = "";
 		switch (position) {
 			case 0:
-				unsubscribeType = DetachFromSignalProvider.ModeEnum.NONE;
+				unsubscribeType = SignalDetachMode.NONE;
 				typeDescription = context.getString(R.string.type_description_unsubscribe_manual);
 				break;
 			case 1:
-				unsubscribeType = DetachFromSignalProvider.ModeEnum.PROVIDERCLOSEONLY;
+				unsubscribeType = SignalDetachMode.PROVIDERCLOSEONLY;
 				typeDescription = context.getString(R.string.type_description_unsubscribe_close_only);
 				break;
 			case 2:
-				unsubscribeType = DetachFromSignalProvider.ModeEnum.CLOSEALLIMMEDIATELY;
+				unsubscribeType = SignalDetachMode.CLOSEALLIMMEDIATELY;
 				typeDescription = context.getString(R.string.type_description_unsubscribe_close_immediately);
 				break;
 		}

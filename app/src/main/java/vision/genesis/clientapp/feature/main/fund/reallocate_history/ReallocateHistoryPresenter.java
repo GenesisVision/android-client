@@ -14,8 +14,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.ItemsViewModelReallocationModel;
 import io.swagger.client.model.ReallocationModel;
-import io.swagger.client.model.ReallocationsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -119,7 +119,7 @@ public class ReallocateHistoryPresenter extends MvpPresenter<ReallocateHistoryVi
 		}
 	}
 
-	private void handleGetHistoryResponse(ReallocationsViewModel response) {
+	private void handleGetHistoryResponse(ItemsViewModelReallocationModel response) {
 		historySubscription.unsubscribe();
 		getViewState().showProgress(false);
 
@@ -129,7 +129,7 @@ public class ReallocateHistoryPresenter extends MvpPresenter<ReallocateHistoryVi
 
 		EventBus.getDefault().post(new SetFundDetailsReallocatesCountEvent(response.getTotal()));
 
-		List<ReallocationModel> newReallocates = response.getReallocations();
+		List<ReallocationModel> newReallocates = response.getItems();
 
 		reallocates.addAll(newReallocates);
 

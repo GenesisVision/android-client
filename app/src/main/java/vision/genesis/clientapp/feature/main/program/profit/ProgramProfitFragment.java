@@ -7,21 +7,21 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.ChartSimple;
-import io.swagger.client.model.PeriodDate;
+import io.swagger.client.model.SimpleChartPoint;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
@@ -189,8 +189,8 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 	}
 
 	@Override
-	public void setChartData(List<ChartSimple> equityChart, List<ChartSimple> pnLChart, List<PeriodDate> periods) {
-		profitChart.setChartData(equityChart, pnLChart, periods, dateRange);
+	public void setChartData(List<SimpleChartPoint> chart) {
+		profitChart.setChartData(chart, dateRange);
 	}
 
 	@Override
@@ -241,8 +241,9 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 
 	@Override
 	public void pagerShow() {
-		if (programProfitPresenter != null)
+		if (programProfitPresenter != null) {
 			programProfitPresenter.onShow();
+		}
 	}
 
 	@Override
@@ -250,7 +251,8 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
-		if (dateRangeView != null)
+		if (dateRangeView != null) {
 			dateRangeView.setY(root.getHeight() - verticalOffset - dateRangeView.getHeight() - dateRangeMarginBottom);
+		}
 	}
 }

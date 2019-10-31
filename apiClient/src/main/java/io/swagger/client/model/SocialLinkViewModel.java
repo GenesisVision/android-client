@@ -15,13 +15,8 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -56,7 +51,7 @@ public class SocialLinkViewModel implements Parcelable
 	private String value = null;
 
 	@SerializedName("type")
-	private TypeEnum type = null;
+	private SocialLinkType type = null;
 
 	public SocialLinkViewModel() {
 	}
@@ -66,7 +61,7 @@ public class SocialLinkViewModel implements Parcelable
 		logo = (String) in.readValue(null);
 		name = (String) in.readValue(null);
 		value = (String) in.readValue(null);
-		type = (TypeEnum) in.readValue(null);
+		type = (SocialLinkType) in.readValue(SocialLinkType.class.getClassLoader());
 	}
 
 	public SocialLinkViewModel url(String url) {
@@ -145,7 +140,7 @@ public class SocialLinkViewModel implements Parcelable
 		this.value = value;
 	}
 
-	public SocialLinkViewModel type(TypeEnum type) {
+	public SocialLinkViewModel type(SocialLinkType type) {
 		this.type = type;
 		return this;
 	}
@@ -156,11 +151,11 @@ public class SocialLinkViewModel implements Parcelable
 	 * @return type
 	 **/
 	@Schema(description = "")
-	public TypeEnum getType() {
+	public SocialLinkType getType() {
 		return type;
 	}
 
-	public void setType(TypeEnum type) {
+	public void setType(SocialLinkType type) {
 		this.type = type;
 	}
 
@@ -220,59 +215,5 @@ public class SocialLinkViewModel implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets type
-	 */
-	@JsonAdapter(TypeEnum.Adapter.class)
-	public enum TypeEnum
-	{
-		UNDEFINED("Undefined"),
-		TWITTER("Twitter"),
-		TELEGRAM("Telegram"),
-		FACEBOOK("Facebook"),
-		LINKEDIN("LinkedIn"),
-		YOUTUBE("Youtube"),
-		WECHAT("WeChat"),
-		EMAIL("Email");
-
-		public static TypeEnum fromValue(String text) {
-			for (TypeEnum b : TypeEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		TypeEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<TypeEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public TypeEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return TypeEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

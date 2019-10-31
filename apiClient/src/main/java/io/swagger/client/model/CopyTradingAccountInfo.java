@@ -15,13 +15,8 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -48,7 +43,7 @@ public class CopyTradingAccountInfo implements Parcelable
 	private UUID id = null;
 
 	@SerializedName("currency")
-	private CurrencyEnum currency = null;
+	private Currency currency = null;
 
 	@SerializedName("logo")
 	private String logo = null;
@@ -71,12 +66,15 @@ public class CopyTradingAccountInfo implements Parcelable
 	@SerializedName("available")
 	private Double available = null;
 
+	@SerializedName("personalInfo")
+	private PersonalCopyTradingAccountInfo personalInfo = null;
+
 	public CopyTradingAccountInfo() {
 	}
 
 	CopyTradingAccountInfo(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		currency = (CurrencyEnum) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		logo = (String) in.readValue(null);
 		title = (String) in.readValue(null);
 		balance = (Double) in.readValue(null);
@@ -84,6 +82,7 @@ public class CopyTradingAccountInfo implements Parcelable
 		freeMargin = (Double) in.readValue(null);
 		marginLevel = (Double) in.readValue(null);
 		available = (Double) in.readValue(null);
+		personalInfo = (PersonalCopyTradingAccountInfo) in.readValue(PersonalCopyTradingAccountInfo.class.getClassLoader());
 	}
 
 	public CopyTradingAccountInfo id(UUID id) {
@@ -105,7 +104,7 @@ public class CopyTradingAccountInfo implements Parcelable
 		this.id = id;
 	}
 
-	public CopyTradingAccountInfo currency(CurrencyEnum currency) {
+	public CopyTradingAccountInfo currency(Currency currency) {
 		this.currency = currency;
 		return this;
 	}
@@ -116,11 +115,11 @@ public class CopyTradingAccountInfo implements Parcelable
 	 * @return currency
 	 **/
 	@Schema(description = "")
-	public CurrencyEnum getCurrency() {
+	public Currency getCurrency() {
 		return currency;
 	}
 
-	public void setCurrency(CurrencyEnum currency) {
+	public void setCurrency(Currency currency) {
 		this.currency = currency;
 	}
 
@@ -248,6 +247,25 @@ public class CopyTradingAccountInfo implements Parcelable
 		return available;
 	}
 
+	public CopyTradingAccountInfo personalInfo(PersonalCopyTradingAccountInfo personalInfo) {
+		this.personalInfo = personalInfo;
+		return this;
+	}
+
+	/**
+	 * Get personalInfo
+	 *
+	 * @return personalInfo
+	 **/
+	@Schema(description = "")
+	public PersonalCopyTradingAccountInfo getPersonalInfo() {
+		return personalInfo;
+	}
+
+	public void setPersonalInfo(PersonalCopyTradingAccountInfo personalInfo) {
+		this.personalInfo = personalInfo;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -265,12 +283,13 @@ public class CopyTradingAccountInfo implements Parcelable
 				Objects.equals(this.equity, copyTradingAccountInfo.equity) &&
 				Objects.equals(this.freeMargin, copyTradingAccountInfo.freeMargin) &&
 				Objects.equals(this.marginLevel, copyTradingAccountInfo.marginLevel) &&
-				Objects.equals(this.available, copyTradingAccountInfo.available);
+				Objects.equals(this.available, copyTradingAccountInfo.available) &&
+				Objects.equals(this.personalInfo, copyTradingAccountInfo.personalInfo);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, currency, logo, title, balance, equity, freeMargin, marginLevel, available);
+		return Objects.hash(id, currency, logo, title, balance, equity, freeMargin, marginLevel, available, personalInfo);
 	}
 
 	@Override
@@ -287,6 +306,7 @@ public class CopyTradingAccountInfo implements Parcelable
 		sb.append("    freeMargin: ").append(toIndentedString(freeMargin)).append("\n");
 		sb.append("    marginLevel: ").append(toIndentedString(marginLevel)).append("\n");
 		sb.append("    available: ").append(toIndentedString(available)).append("\n");
+		sb.append("    personalInfo: ").append(toIndentedString(personalInfo)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -312,68 +332,10 @@ public class CopyTradingAccountInfo implements Parcelable
 		out.writeValue(freeMargin);
 		out.writeValue(marginLevel);
 		out.writeValue(available);
+		out.writeValue(personalInfo);
 	}
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets currency
-	 */
-	@JsonAdapter(CurrencyEnum.Adapter.class)
-	public enum CurrencyEnum
-	{
-		UNDEFINED("Undefined"),
-		GVT("GVT"),
-		ETH("ETH"),
-		BTC("BTC"),
-		ADA("ADA"),
-		USDT("USDT"),
-		XRP("XRP"),
-		BCH("BCH"),
-		LTC("LTC"),
-		DOGE("DOGE"),
-		BNB("BNB"),
-		USD("USD"),
-		EUR("EUR");
-
-		public static CurrencyEnum fromValue(String text) {
-			for (CurrencyEnum b : CurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		CurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<CurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return CurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

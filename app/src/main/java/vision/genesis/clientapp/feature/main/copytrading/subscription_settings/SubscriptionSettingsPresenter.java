@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.AttachToSignalProvider;
+import io.swagger.client.model.SubscriptionMode;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -55,8 +55,9 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 
 	@Override
 	public void onDestroy() {
-		if (signalSubscription != null)
+		if (signalSubscription != null) {
 			signalSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -81,10 +82,10 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 
 	private void updateData() {
 		if (model != null && typeOptions != null) {
-			AttachToSignalProvider.ModeEnum[] enums = AttachToSignalProvider.ModeEnum.values();
+			SubscriptionMode[] modes = SubscriptionMode.values();
 			int selectedOptionPosition = 0;
-			for (int i = 0; i < enums.length; i++) {
-				if (enums[i].getValue().equals(model.getMode())) {
+			for (int i = 0; i < modes.length; i++) {
+				if (modes[i].getValue().equals(model.getMode())) {
 					selectedOptionPosition = i;
 					break;
 				}
@@ -184,15 +185,17 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 	}
 
 	private boolean isDataOk() {
-		if (model.getMode().equals(AttachToSignalProvider.ModeEnum.PERCENT.getValue())) {
+		if (model.getMode().equals(SubscriptionMode.PERCENT.getValue())) {
 			if (!(model.getPercent() >= SubscriptionSettingsModel.VOLUME_PERCENTAGE_MIN
-					&& model.getPercent() <= SubscriptionSettingsModel.VOLUME_PERCENTAGE_MAX))
+					&& model.getPercent() <= SubscriptionSettingsModel.VOLUME_PERCENTAGE_MAX)) {
 				return false;
+			}
 		}
-		if (model.getMode().equals(AttachToSignalProvider.ModeEnum.FIXED.getValue())) {
+		if (model.getMode().equals(SubscriptionMode.FIXED.getValue())) {
 			if (!(model.getFixedVolume() >= SubscriptionSettingsModel.EQUIVALENT_MIN
-					&& model.getFixedVolume() <= SubscriptionSettingsModel.EQUIVALENT_MAX))
+					&& model.getFixedVolume() <= SubscriptionSettingsModel.EQUIVALENT_MAX)) {
 				return false;
+			}
 		}
 		return model.getOpenTolerancePercent() >= SubscriptionSettingsModel.TOLERANCE_PERCENTAGE_MIN
 				&& model.getOpenTolerancePercent() <= SubscriptionSettingsModel.TOLERANCE_PERCENTAGE_MAX;
@@ -203,10 +206,12 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 	}
 
 	void onButtonClicked() {
-		if (isEdit)
+		if (isEdit) {
 			updateSubscription();
-		else
+		}
+		else {
 			subscribeToSignals();
+		}
 	}
 
 	private void updateSubscription() {
@@ -219,8 +224,9 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 
 	private void performRequest(Observable<Void> request) {
 		if (signalsManager != null && model != null) {
-			if (signalSubscription != null)
+			if (signalSubscription != null) {
 				signalSubscription.unsubscribe();
+			}
 			getViewState().showProgress(true);
 			signalSubscription = request
 					.observeOn(AndroidSchedulers.mainThread())
@@ -250,17 +256,17 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 		String typeDescription = "";
 		switch (position) {
 			case 0:
-				this.model.setMode(AttachToSignalProvider.ModeEnum.BYBALANCE.getValue());
+				this.model.setMode(SubscriptionMode.BYBALANCE.getValue());
 				getViewState().showByBalanceFields();
 				typeDescription = context.getString(R.string.type_description_subscribe_by_balance);
 				break;
 			case 1:
-				this.model.setMode(AttachToSignalProvider.ModeEnum.PERCENT.getValue());
+				this.model.setMode(SubscriptionMode.PERCENT.getValue());
 				getViewState().showPercentageFields();
 				typeDescription = context.getString(R.string.type_description_subscribe_percentage);
 				break;
 			case 2:
-				this.model.setMode(AttachToSignalProvider.ModeEnum.FIXED.getValue());
+				this.model.setMode(SubscriptionMode.FIXED.getValue());
 				getViewState().showFixedFields();
 				typeDescription = context.getString(R.string.type_description_subscribe_fixed);
 				break;

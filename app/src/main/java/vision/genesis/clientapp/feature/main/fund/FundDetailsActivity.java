@@ -165,10 +165,10 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 
 	@OnClick(R.id.button_favorite)
 	public void onFavoriteClicked() {
-		if (fundDetails != null && fundDetails.getPersonalFundDetails() != null) {
-			fundDetails.getPersonalFundDetails().setIsFavorite(!fundDetails.getPersonalFundDetails().isIsFavorite());
-			setFavoriteButtonImage(fundDetails.getPersonalFundDetails().isIsFavorite());
-			fundDetailsPresenter.onFavoriteButtonClicked(fundDetails.getPersonalFundDetails().isIsFavorite());
+		if (fundDetails != null && fundDetails.getPersonalDetails() != null) {
+			fundDetails.getPersonalDetails().setIsFavorite(!fundDetails.getPersonalDetails().isIsFavorite());
+			setFavoriteButtonImage(fundDetails.getPersonalDetails().isIsFavorite());
+			fundDetailsPresenter.onFavoriteButtonClicked(fundDetails.getPersonalDetails().isIsFavorite());
 		}
 	}
 
@@ -383,9 +383,10 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 	public void setFund(FundDetailsFull fundDetails) {
 		this.fundDetails = fundDetails;
 
-		if (fundDetails.getPersonalFundDetails() != null && fundDetails.getPersonalFundDetails().isIsInvested()) {
+		if (fundDetails.getPersonalDetails() != null && fundDetails.getPersonalDetails().isIsInvested()) {
 			addPage(eventsTab, false);
 		}
+		pagerAdapter.setAssets(fundDetails.getAssetsStructure());
 
 		model.update(fundDetails);
 		updateHeader();

@@ -15,22 +15,16 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
 import org.joda.time.DateTime;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * ProgramDetailsList
  */
@@ -68,7 +62,7 @@ public class ProgramDetailsList implements Parcelable
 	private DateTime creationDate = null;
 
 	@SerializedName("currency")
-	private CurrencyEnum currency = null;
+	private Currency currency = null;
 
 	@SerializedName("level")
 	private Integer level = null;
@@ -82,11 +76,14 @@ public class ProgramDetailsList implements Parcelable
 	@SerializedName("availableToInvest")
 	private Double availableToInvest = null;
 
-	@SerializedName("chart")
-	private List<SimpleChartPoint> chart = null;
+	@SerializedName("personalDetails")
+	private PersonalProgramDetailsList personalDetails = null;
 
 	@SerializedName("tags")
 	private List<ProgramTag> tags = null;
+
+	@SerializedName("chart")
+	private ProfitChart chart = null;
 
 	public ProgramDetailsList() {
 	}
@@ -98,13 +95,14 @@ public class ProgramDetailsList implements Parcelable
 		color = (String) in.readValue(null);
 		title = (String) in.readValue(null);
 		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		currency = (CurrencyEnum) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		level = (Integer) in.readValue(null);
 		levelProgress = (Double) in.readValue(null);
 		periodDuration = (Integer) in.readValue(null);
 		availableToInvest = (Double) in.readValue(null);
-		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
+		personalDetails = (PersonalProgramDetailsList) in.readValue(PersonalProgramDetailsList.class.getClassLoader());
 		tags = (List<ProgramTag>) in.readValue(ProgramTag.class.getClassLoader());
+		chart = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
 	}
 
 	public ProgramDetailsList id(UUID id) {
@@ -221,7 +219,7 @@ public class ProgramDetailsList implements Parcelable
 		this.creationDate = creationDate;
 	}
 
-	public ProgramDetailsList currency(CurrencyEnum currency) {
+	public ProgramDetailsList currency(Currency currency) {
 		this.currency = currency;
 		return this;
 	}
@@ -232,11 +230,11 @@ public class ProgramDetailsList implements Parcelable
 	 * @return currency
 	 **/
 	@Schema(description = "")
-	public CurrencyEnum getCurrency() {
+	public Currency getCurrency() {
 		return currency;
 	}
 
-	public void setCurrency(CurrencyEnum currency) {
+	public void setCurrency(Currency currency) {
 		this.currency = currency;
 	}
 
@@ -316,31 +314,23 @@ public class ProgramDetailsList implements Parcelable
 		this.availableToInvest = availableToInvest;
 	}
 
-	public ProgramDetailsList chart(List<SimpleChartPoint> chart) {
-		this.chart = chart;
-		return this;
-	}
-
-	public ProgramDetailsList addChartItem(SimpleChartPoint chartItem) {
-		if (this.chart == null) {
-			this.chart = new ArrayList<SimpleChartPoint>();
-		}
-		this.chart.add(chartItem);
+	public ProgramDetailsList personalDetails(PersonalProgramDetailsList personalDetails) {
+		this.personalDetails = personalDetails;
 		return this;
 	}
 
 	/**
-	 * Get chart
+	 * Get personalDetails
 	 *
-	 * @return chart
+	 * @return personalDetails
 	 **/
 	@Schema(description = "")
-	public List<SimpleChartPoint> getChart() {
-		return chart;
+	public PersonalProgramDetailsList getPersonalDetails() {
+		return personalDetails;
 	}
 
-	public void setChart(List<SimpleChartPoint> chart) {
-		this.chart = chart;
+	public void setPersonalDetails(PersonalProgramDetailsList personalDetails) {
+		this.personalDetails = personalDetails;
 	}
 
 	public ProgramDetailsList tags(List<ProgramTag> tags) {
@@ -370,6 +360,25 @@ public class ProgramDetailsList implements Parcelable
 		this.tags = tags;
 	}
 
+	public ProgramDetailsList chart(ProfitChart chart) {
+		this.chart = chart;
+		return this;
+	}
+
+	/**
+	 * Get chart
+	 *
+	 * @return chart
+	 **/
+	@Schema(description = "")
+	public ProfitChart getChart() {
+		return chart;
+	}
+
+	public void setChart(ProfitChart chart) {
+		this.chart = chart;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -390,13 +399,14 @@ public class ProgramDetailsList implements Parcelable
 				Objects.equals(this.levelProgress, programDetailsList.levelProgress) &&
 				Objects.equals(this.periodDuration, programDetailsList.periodDuration) &&
 				Objects.equals(this.availableToInvest, programDetailsList.availableToInvest) &&
-				Objects.equals(this.chart, programDetailsList.chart) &&
-				Objects.equals(this.tags, programDetailsList.tags);
+				Objects.equals(this.personalDetails, programDetailsList.personalDetails) &&
+				Objects.equals(this.tags, programDetailsList.tags) &&
+				Objects.equals(this.chart, programDetailsList.chart);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, url, color, title, creationDate, currency, level, levelProgress, periodDuration, availableToInvest, chart, tags);
+		return Objects.hash(id, logo, url, color, title, creationDate, currency, level, levelProgress, periodDuration, availableToInvest, personalDetails, tags, chart);
 	}
 
 	@Override
@@ -415,8 +425,9 @@ public class ProgramDetailsList implements Parcelable
 		sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
 		sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
 		sb.append("    availableToInvest: ").append(toIndentedString(availableToInvest)).append("\n");
-		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -444,70 +455,12 @@ public class ProgramDetailsList implements Parcelable
 		out.writeValue(levelProgress);
 		out.writeValue(periodDuration);
 		out.writeValue(availableToInvest);
-		out.writeValue(chart);
+		out.writeValue(personalDetails);
 		out.writeValue(tags);
+		out.writeValue(chart);
 	}
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets currency
-	 */
-	@JsonAdapter(CurrencyEnum.Adapter.class)
-	public enum CurrencyEnum
-	{
-		UNDEFINED("Undefined"),
-		GVT("GVT"),
-		ETH("ETH"),
-		BTC("BTC"),
-		ADA("ADA"),
-		USDT("USDT"),
-		XRP("XRP"),
-		BCH("BCH"),
-		LTC("LTC"),
-		DOGE("DOGE"),
-		BNB("BNB"),
-		USD("USD"),
-		EUR("EUR");
-
-		public static CurrencyEnum fromValue(String text) {
-			for (CurrencyEnum b : CurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		CurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<CurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return CurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

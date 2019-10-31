@@ -23,6 +23,7 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 /**
@@ -43,14 +44,11 @@ public class AttachToSignalProvider implements Parcelable
 		}
 	};
 
-	@SerializedName("initialDepositCurrency")
-	private InitialDepositCurrencyEnum initialDepositCurrency = null;
-
-	@SerializedName("initialDepositAmount")
-	private Double initialDepositAmount = null;
+	@SerializedName("tradingAccountId")
+	private UUID tradingAccountId = null;
 
 	@SerializedName("mode")
-	private ModeEnum mode = null;
+	private SubscriptionMode mode = null;
 
 	@SerializedName("percent")
 	private Double percent = null;
@@ -68,54 +66,34 @@ public class AttachToSignalProvider implements Parcelable
 	}
 
 	AttachToSignalProvider(Parcel in) {
-		initialDepositCurrency = (InitialDepositCurrencyEnum) in.readValue(null);
-		initialDepositAmount = (Double) in.readValue(null);
-		mode = (ModeEnum) in.readValue(null);
+		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
+		mode = (SubscriptionMode) in.readValue(SubscriptionMode.class.getClassLoader());
 		percent = (Double) in.readValue(null);
 		openTolerancePercent = (Double) in.readValue(null);
 		fixedVolume = (Double) in.readValue(null);
 		fixedCurrency = (FixedCurrencyEnum) in.readValue(null);
 	}
 
-	public AttachToSignalProvider initialDepositCurrency(InitialDepositCurrencyEnum initialDepositCurrency) {
-		this.initialDepositCurrency = initialDepositCurrency;
+	public AttachToSignalProvider tradingAccountId(UUID tradingAccountId) {
+		this.tradingAccountId = tradingAccountId;
 		return this;
 	}
 
 	/**
-	 * Get initialDepositCurrency
+	 * Get tradingAccountId
 	 *
-	 * @return initialDepositCurrency
+	 * @return tradingAccountId
 	 **/
 	@Schema(description = "")
-	public InitialDepositCurrencyEnum getInitialDepositCurrency() {
-		return initialDepositCurrency;
+	public UUID getTradingAccountId() {
+		return tradingAccountId;
 	}
 
-	public void setInitialDepositCurrency(InitialDepositCurrencyEnum initialDepositCurrency) {
-		this.initialDepositCurrency = initialDepositCurrency;
+	public void setTradingAccountId(UUID tradingAccountId) {
+		this.tradingAccountId = tradingAccountId;
 	}
 
-	public AttachToSignalProvider initialDepositAmount(Double initialDepositAmount) {
-		this.initialDepositAmount = initialDepositAmount;
-		return this;
-	}
-
-	/**
-	 * Get initialDepositAmount
-	 *
-	 * @return initialDepositAmount
-	 **/
-	@Schema(description = "")
-	public Double getInitialDepositAmount() {
-		return initialDepositAmount;
-	}
-
-	public void setInitialDepositAmount(Double initialDepositAmount) {
-		this.initialDepositAmount = initialDepositAmount;
-	}
-
-	public AttachToSignalProvider mode(ModeEnum mode) {
+	public AttachToSignalProvider mode(SubscriptionMode mode) {
 		this.mode = mode;
 		return this;
 	}
@@ -126,11 +104,11 @@ public class AttachToSignalProvider implements Parcelable
 	 * @return mode
 	 **/
 	@Schema(description = "")
-	public ModeEnum getMode() {
+	public SubscriptionMode getMode() {
 		return mode;
 	}
 
-	public void setMode(ModeEnum mode) {
+	public void setMode(SubscriptionMode mode) {
 		this.mode = mode;
 	}
 
@@ -219,8 +197,7 @@ public class AttachToSignalProvider implements Parcelable
 			return false;
 		}
 		AttachToSignalProvider attachToSignalProvider = (AttachToSignalProvider) o;
-		return Objects.equals(this.initialDepositCurrency, attachToSignalProvider.initialDepositCurrency) &&
-				Objects.equals(this.initialDepositAmount, attachToSignalProvider.initialDepositAmount) &&
+		return Objects.equals(this.tradingAccountId, attachToSignalProvider.tradingAccountId) &&
 				Objects.equals(this.mode, attachToSignalProvider.mode) &&
 				Objects.equals(this.percent, attachToSignalProvider.percent) &&
 				Objects.equals(this.openTolerancePercent, attachToSignalProvider.openTolerancePercent) &&
@@ -230,7 +207,7 @@ public class AttachToSignalProvider implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(initialDepositCurrency, initialDepositAmount, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency);
+		return Objects.hash(tradingAccountId, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency);
 	}
 
 	@Override
@@ -238,8 +215,7 @@ public class AttachToSignalProvider implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class AttachToSignalProvider {\n");
 
-		sb.append("    initialDepositCurrency: ").append(toIndentedString(initialDepositCurrency)).append("\n");
-		sb.append("    initialDepositAmount: ").append(toIndentedString(initialDepositAmount)).append("\n");
+		sb.append("    tradingAccountId: ").append(toIndentedString(tradingAccountId)).append("\n");
 		sb.append("    mode: ").append(toIndentedString(mode)).append("\n");
 		sb.append("    percent: ").append(toIndentedString(percent)).append("\n");
 		sb.append("    openTolerancePercent: ").append(toIndentedString(openTolerancePercent)).append("\n");
@@ -261,8 +237,7 @@ public class AttachToSignalProvider implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(initialDepositCurrency);
-		out.writeValue(initialDepositAmount);
+		out.writeValue(tradingAccountId);
 		out.writeValue(mode);
 		out.writeValue(percent);
 		out.writeValue(openTolerancePercent);
@@ -272,114 +247,6 @@ public class AttachToSignalProvider implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets initialDepositCurrency
-	 */
-	@JsonAdapter(InitialDepositCurrencyEnum.Adapter.class)
-	public enum InitialDepositCurrencyEnum
-	{
-		UNDEFINED("Undefined"),
-		GVT("GVT"),
-		ETH("ETH"),
-		BTC("BTC"),
-		ADA("ADA"),
-		USDT("USDT"),
-		XRP("XRP"),
-		BCH("BCH"),
-		LTC("LTC"),
-		DOGE("DOGE"),
-		BNB("BNB"),
-		USD("USD"),
-		EUR("EUR");
-
-		public static InitialDepositCurrencyEnum fromValue(String text) {
-			for (InitialDepositCurrencyEnum b : InitialDepositCurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		InitialDepositCurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<InitialDepositCurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final InitialDepositCurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public InitialDepositCurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return InitialDepositCurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
-	}
-
-	/**
-	 * Gets or Sets mode
-	 */
-	@JsonAdapter(ModeEnum.Adapter.class)
-	public enum ModeEnum
-	{
-		BYBALANCE("ByBalance"),
-		PERCENT("Percent"),
-		FIXED("Fixed");
-
-		public static ModeEnum fromValue(String text) {
-			for (ModeEnum b : ModeEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		ModeEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<ModeEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final ModeEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public ModeEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return ModeEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 
 	/**

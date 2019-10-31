@@ -15,13 +15,8 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -33,365 +28,245 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class NotificationSettingViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<NotificationSettingViewModel> CREATOR = new Parcelable.Creator<NotificationSettingViewModel>()
-	{
-		public NotificationSettingViewModel createFromParcel(Parcel in) {
-			return new NotificationSettingViewModel(in);
-		}
+  public static final Parcelable.Creator<NotificationSettingViewModel> CREATOR = new Parcelable.Creator<NotificationSettingViewModel>()
+  {
+    public NotificationSettingViewModel createFromParcel(Parcel in) {
+      return new NotificationSettingViewModel(in);
+    }
 
-		public NotificationSettingViewModel[] newArray(int size) {
-			return new NotificationSettingViewModel[size];
-		}
-	};
+    public NotificationSettingViewModel[] newArray(int size) {
+      return new NotificationSettingViewModel[size];
+    }
+  };
 
-	@SerializedName("id")
-	private UUID id = null;
+  @SerializedName("id")
+  private UUID id = null;
 
-	@SerializedName("isEnabled")
-	private Boolean isEnabled = null;
+  @SerializedName("isEnabled")
+  private Boolean isEnabled = null;
 
-	@SerializedName("assetId")
-	private UUID assetId = null;
+  @SerializedName("assetId")
+  private UUID assetId = null;
 
-	@SerializedName("managerId")
-	private UUID managerId = null;
+  @SerializedName("managerId")
+  private UUID managerId = null;
 
-	@SerializedName("type")
-	private TypeEnum type = null;
+  @SerializedName("type")
+  private NotificationType type = null;
 
-	@SerializedName("conditionType")
-	private ConditionTypeEnum conditionType = null;
+  @SerializedName("conditionType")
+  private NotificationSettingConditionType conditionType = null;
 
-	@SerializedName("conditionAmount")
-	private Double conditionAmount = null;
+  @SerializedName("conditionAmount")
+  private Double conditionAmount = null;
 
-	public NotificationSettingViewModel() {
-	}
+  public NotificationSettingViewModel() {
+  }
 
-	NotificationSettingViewModel(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		isEnabled = (Boolean) in.readValue(null);
-		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
-		managerId = (UUID) in.readValue(UUID.class.getClassLoader());
-		type = (TypeEnum) in.readValue(null);
-		conditionType = (ConditionTypeEnum) in.readValue(null);
-		conditionAmount = (Double) in.readValue(null);
-	}
+  NotificationSettingViewModel(Parcel in) {
+    id = (UUID) in.readValue(UUID.class.getClassLoader());
+    isEnabled = (Boolean) in.readValue(null);
+    assetId = (UUID) in.readValue(UUID.class.getClassLoader());
+    managerId = (UUID) in.readValue(UUID.class.getClassLoader());
+    type = (NotificationType) in.readValue(NotificationType.class.getClassLoader());
+    conditionType = (NotificationSettingConditionType) in.readValue(NotificationSettingConditionType.class.getClassLoader());
+    conditionAmount = (Double) in.readValue(null);
+  }
 
-	public NotificationSettingViewModel id(UUID id) {
-		this.id = id;
-		return this;
-	}
+  public NotificationSettingViewModel id(UUID id) {
+    this.id = id;
+    return this;
+  }
 
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@Schema(description = "")
-	public UUID getId() {
-		return id;
-	}
+  /**
+   * Get id
+   *
+   * @return id
+   **/
+  @Schema(description = "")
+  public UUID getId() {
+    return id;
+  }
 
-	public void setId(UUID id) {
-		this.id = id;
-	}
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
-	public NotificationSettingViewModel isEnabled(Boolean isEnabled) {
-		this.isEnabled = isEnabled;
-		return this;
-	}
+  public NotificationSettingViewModel isEnabled(Boolean isEnabled) {
+    this.isEnabled = isEnabled;
+    return this;
+  }
 
-	/**
-	 * Get isEnabled
-	 *
-	 * @return isEnabled
-	 **/
-	@Schema(description = "")
-	public Boolean isIsEnabled() {
-		return isEnabled;
-	}
+  /**
+   * Get isEnabled
+   *
+   * @return isEnabled
+   **/
+  @Schema(description = "")
+  public Boolean isIsEnabled() {
+    return isEnabled;
+  }
 
-	public void setIsEnabled(Boolean isEnabled) {
-		this.isEnabled = isEnabled;
-	}
+  public void setIsEnabled(Boolean isEnabled) {
+    this.isEnabled = isEnabled;
+  }
 
-	public NotificationSettingViewModel assetId(UUID assetId) {
-		this.assetId = assetId;
-		return this;
-	}
+  public NotificationSettingViewModel assetId(UUID assetId) {
+    this.assetId = assetId;
+    return this;
+  }
 
-	/**
-	 * Get assetId
-	 *
-	 * @return assetId
-	 **/
-	@Schema(description = "")
-	public UUID getAssetId() {
-		return assetId;
-	}
+  /**
+   * Get assetId
+   *
+   * @return assetId
+   **/
+  @Schema(description = "")
+  public UUID getAssetId() {
+    return assetId;
+  }
 
-	public void setAssetId(UUID assetId) {
-		this.assetId = assetId;
-	}
+  public void setAssetId(UUID assetId) {
+    this.assetId = assetId;
+  }
 
-	public NotificationSettingViewModel managerId(UUID managerId) {
-		this.managerId = managerId;
-		return this;
-	}
+  public NotificationSettingViewModel managerId(UUID managerId) {
+    this.managerId = managerId;
+    return this;
+  }
 
-	/**
-	 * Get managerId
-	 *
-	 * @return managerId
-	 **/
-	@Schema(description = "")
-	public UUID getManagerId() {
-		return managerId;
-	}
+  /**
+   * Get managerId
+   *
+   * @return managerId
+   **/
+  @Schema(description = "")
+  public UUID getManagerId() {
+    return managerId;
+  }
 
-	public void setManagerId(UUID managerId) {
-		this.managerId = managerId;
-	}
+  public void setManagerId(UUID managerId) {
+    this.managerId = managerId;
+  }
 
-	public NotificationSettingViewModel type(TypeEnum type) {
-		this.type = type;
-		return this;
-	}
+  public NotificationSettingViewModel type(NotificationType type) {
+    this.type = type;
+    return this;
+  }
 
-	/**
-	 * Get type
-	 *
-	 * @return type
-	 **/
-	@Schema(description = "")
-	public TypeEnum getType() {
-		return type;
-	}
+  /**
+   * Get type
+   *
+   * @return type
+   **/
+  @Schema(description = "")
+  public NotificationType getType() {
+    return type;
+  }
 
-	public void setType(TypeEnum type) {
-		this.type = type;
-	}
+  public void setType(NotificationType type) {
+    this.type = type;
+  }
 
-	public NotificationSettingViewModel conditionType(ConditionTypeEnum conditionType) {
-		this.conditionType = conditionType;
-		return this;
-	}
+  public NotificationSettingViewModel conditionType(NotificationSettingConditionType conditionType) {
+    this.conditionType = conditionType;
+    return this;
+  }
 
-	/**
-	 * Get conditionType
-	 *
-	 * @return conditionType
-	 **/
-	@Schema(description = "")
-	public ConditionTypeEnum getConditionType() {
-		return conditionType;
-	}
+  /**
+   * Get conditionType
+   *
+   * @return conditionType
+   **/
+  @Schema(description = "")
+  public NotificationSettingConditionType getConditionType() {
+    return conditionType;
+  }
 
-	public void setConditionType(ConditionTypeEnum conditionType) {
-		this.conditionType = conditionType;
-	}
+  public void setConditionType(NotificationSettingConditionType conditionType) {
+    this.conditionType = conditionType;
+  }
 
-	public NotificationSettingViewModel conditionAmount(Double conditionAmount) {
-		this.conditionAmount = conditionAmount;
-		return this;
-	}
+  public NotificationSettingViewModel conditionAmount(Double conditionAmount) {
+    this.conditionAmount = conditionAmount;
+    return this;
+  }
 
-	/**
-	 * Get conditionAmount
-	 *
-	 * @return conditionAmount
-	 **/
-	@Schema(description = "")
-	public Double getConditionAmount() {
-		return conditionAmount;
-	}
+  /**
+   * Get conditionAmount
+   *
+   * @return conditionAmount
+   **/
+  @Schema(description = "")
+  public Double getConditionAmount() {
+    return conditionAmount;
+  }
 
-	public void setConditionAmount(Double conditionAmount) {
-		this.conditionAmount = conditionAmount;
-	}
+  public void setConditionAmount(Double conditionAmount) {
+    this.conditionAmount = conditionAmount;
+  }
 
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    NotificationSettingViewModel notificationSettingViewModel = (NotificationSettingViewModel) o;
+    return Objects.equals(this.id, notificationSettingViewModel.id) &&
+            Objects.equals(this.isEnabled, notificationSettingViewModel.isEnabled) &&
+            Objects.equals(this.assetId, notificationSettingViewModel.assetId) &&
+            Objects.equals(this.managerId, notificationSettingViewModel.managerId) &&
+            Objects.equals(this.type, notificationSettingViewModel.type) &&
+            Objects.equals(this.conditionType, notificationSettingViewModel.conditionType) &&
+            Objects.equals(this.conditionAmount, notificationSettingViewModel.conditionAmount);
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		NotificationSettingViewModel notificationSettingViewModel = (NotificationSettingViewModel) o;
-		return Objects.equals(this.id, notificationSettingViewModel.id) &&
-				Objects.equals(this.isEnabled, notificationSettingViewModel.isEnabled) &&
-				Objects.equals(this.assetId, notificationSettingViewModel.assetId) &&
-				Objects.equals(this.managerId, notificationSettingViewModel.managerId) &&
-				Objects.equals(this.type, notificationSettingViewModel.type) &&
-				Objects.equals(this.conditionType, notificationSettingViewModel.conditionType) &&
-				Objects.equals(this.conditionAmount, notificationSettingViewModel.conditionAmount);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, isEnabled, assetId, managerId, type, conditionType, conditionAmount);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, isEnabled, assetId, managerId, type, conditionType, conditionAmount);
-	}
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class NotificationSettingViewModel {\n");
 
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
+    sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
+    sb.append("    managerId: ").append(toIndentedString(managerId)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    conditionType: ").append(toIndentedString(conditionType)).append("\n");
+    sb.append("    conditionAmount: ").append(toIndentedString(conditionAmount)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class NotificationSettingViewModel {\n");
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
-		sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
-		sb.append("    managerId: ").append(toIndentedString(managerId)).append("\n");
-		sb.append("    type: ").append(toIndentedString(type)).append("\n");
-		sb.append("    conditionType: ").append(toIndentedString(conditionType)).append("\n");
-		sb.append("    conditionAmount: ").append(toIndentedString(conditionAmount)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(id);
+    out.writeValue(isEnabled);
+    out.writeValue(assetId);
+    out.writeValue(managerId);
+    out.writeValue(type);
+    out.writeValue(conditionType);
+    out.writeValue(conditionAmount);
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
-
-
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(id);
-		out.writeValue(isEnabled);
-		out.writeValue(assetId);
-		out.writeValue(managerId);
-		out.writeValue(type);
-		out.writeValue(conditionType);
-		out.writeValue(conditionAmount);
-	}
-
-	public int describeContents() {
-		return 0;
-	}
-
-	/**
-	 * Gets or Sets type
-	 */
-	@JsonAdapter(TypeEnum.Adapter.class)
-	public enum TypeEnum
-	{
-		PLATFORMNEWSANDUPDATES("PlatformNewsAndUpdates"),
-		PLATFORMEMERGENCY("PlatformEmergency"),
-		PLATFORMOTHER("PlatformOther"),
-		PROFILEUPDATED("ProfileUpdated"),
-		PROFILEPWDUPDATED("ProfilePwdUpdated"),
-		PROFILEVERIFICATION("ProfileVerification"),
-		PROFILE2FA("Profile2FA"),
-		PROFILESECURITY("ProfileSecurity"),
-		TRADINGACCOUNTPWDUPDATED("TradingAccountPwdUpdated"),
-		PROGRAMNEWSANDUPDATES("ProgramNewsAndUpdates"),
-		PROGRAMENDOFPERIOD("ProgramEndOfPeriod"),
-		PROGRAMCONDITION("ProgramCondition"),
-		PROGRAMEXCEEDINVESTMENTLIMIT("ProgramExceedInvestmentLimit"),
-		FUNDNEWSANDUPDATES("FundNewsAndUpdates"),
-		FUNDENDOFPERIOD("FundEndOfPeriod"),
-		FUNDREBALANCING("FundRebalancing"),
-		MANAGERNEWPROGRAM("ManagerNewProgram"),
-		MANAGERNEWFUND("ManagerNewFund"),
-		MANAGERNEWEXTERNALSIGNALACCOUNT("ManagerNewExternalSignalAccount"),
-		SIGNALS("Signals"),
-		EXTERNALSIGNALS("ExternalSignals");
-
-		public static TypeEnum fromValue(String text) {
-			for (TypeEnum b : TypeEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		TypeEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<TypeEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public TypeEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return TypeEnum.fromValue(String.valueOf(value));
-			}
-		}
-	}
-
-	/**
-	 * Gets or Sets conditionType
-	 */
-	@JsonAdapter(ConditionTypeEnum.Adapter.class)
-	public enum ConditionTypeEnum
-	{
-		EMPTY("Empty"),
-		PROFIT("Profit"),
-		LEVEL("Level"),
-		AVAILABLETOINVEST("AvailableToInvest");
-
-		public static ConditionTypeEnum fromValue(String text) {
-			for (ConditionTypeEnum b : ConditionTypeEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		ConditionTypeEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<ConditionTypeEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final ConditionTypeEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public ConditionTypeEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return ConditionTypeEnum.fromValue(String.valueOf(value));
-			}
-		}
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

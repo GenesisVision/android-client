@@ -15,13 +15,8 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -44,7 +39,7 @@ public class PowDetails implements Parcelable
 	};
 
 	@SerializedName("secureAlgorithm")
-	private SecureAlgorithmEnum secureAlgorithm = null;
+	private SecureAlgorithm secureAlgorithm = null;
 
 	@SerializedName("difficulty")
 	private Integer difficulty = null;
@@ -56,12 +51,12 @@ public class PowDetails implements Parcelable
 	}
 
 	PowDetails(Parcel in) {
-		secureAlgorithm = (SecureAlgorithmEnum) in.readValue(null);
+		secureAlgorithm = (SecureAlgorithm) in.readValue(SecureAlgorithm.class.getClassLoader());
 		difficulty = (Integer) in.readValue(null);
 		nonce = (String) in.readValue(null);
 	}
 
-	public PowDetails secureAlgorithm(SecureAlgorithmEnum secureAlgorithm) {
+	public PowDetails secureAlgorithm(SecureAlgorithm secureAlgorithm) {
 		this.secureAlgorithm = secureAlgorithm;
 		return this;
 	}
@@ -72,11 +67,11 @@ public class PowDetails implements Parcelable
 	 * @return secureAlgorithm
 	 **/
 	@Schema(description = "")
-	public SecureAlgorithmEnum getSecureAlgorithm() {
+	public SecureAlgorithm getSecureAlgorithm() {
 		return secureAlgorithm;
 	}
 
-	public void setSecureAlgorithm(SecureAlgorithmEnum secureAlgorithm) {
+	public void setSecureAlgorithm(SecureAlgorithm secureAlgorithm) {
 		this.secureAlgorithm = secureAlgorithm;
 	}
 
@@ -168,52 +163,5 @@ public class PowDetails implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets secureAlgorithm
-	 */
-	@JsonAdapter(SecureAlgorithmEnum.Adapter.class)
-	public enum SecureAlgorithmEnum
-	{
-		SHA256("Sha256");
-
-		public static SecureAlgorithmEnum fromValue(String text) {
-			for (SecureAlgorithmEnum b : SecureAlgorithmEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		SecureAlgorithmEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<SecureAlgorithmEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final SecureAlgorithmEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public SecureAlgorithmEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return SecureAlgorithmEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

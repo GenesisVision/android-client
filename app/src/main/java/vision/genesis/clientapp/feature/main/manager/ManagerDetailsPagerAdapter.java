@@ -2,16 +2,16 @@ package vision.genesis.clientapp.feature.main.manager;
 
 import android.os.Bundle;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.UUID;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import vision.genesis.clientapp.feature.main.funds_list.FundsListFragment;
 import vision.genesis.clientapp.feature.main.manager.info.ManagerInfoFragment;
-import vision.genesis.clientapp.feature.main.manager.profit.ManagerProfitFragment;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListFragment;
 import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
@@ -31,8 +31,6 @@ public class ManagerDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private ManagerInfoFragment managerInfoFragment;
 
-	private ManagerProfitFragment managerProfitFragment;
-
 	private ProgramsListFragment managerProgramsFragment;
 
 	private FundsListFragment managerFundsFragment;
@@ -44,8 +42,6 @@ public class ManagerDetailsPagerAdapter extends FragmentStatePagerAdapter
 		this.tabLayout = tabLayout;
 
 		managerInfoFragment = ManagerInfoFragment.with(managerId);
-
-		managerProfitFragment = ManagerProfitFragment.with(managerId);
 
 		ProgramsFilter programsFilter = new ProgramsFilter();
 		programsFilter.setManagerId(managerId);
@@ -63,8 +59,6 @@ public class ManagerDetailsPagerAdapter extends FragmentStatePagerAdapter
 		switch (tabLayout.getTabAt(position).getTag().toString()) {
 			case "info":
 				return managerInfoFragment;
-			case "profit":
-				return managerProfitFragment;
 			case "programs":
 				return managerProgramsFragment;
 			case "funds":
@@ -84,19 +78,12 @@ public class ManagerDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	public void sendUpdate() {
 		managerInfoFragment.pagerShow();
-		managerProfitFragment.pagerShow();
-//		programBalanceFragment.pagerShow();
-//		managerProgramsFragment.pagerShow();
-//		managerFundsFragment.pagerShow();
 	}
 
 	public void sendSwipeRefresh() {
-//		managerProgramsFragment.onAssetsListsUpdate();
-//		managerFundsFragment.onAssetsListsUpdate();
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
-		managerProfitFragment.onOffsetChanged(verticalOffset);
 		managerProgramsFragment.onOffsetChanged(verticalOffset);
 		managerFundsFragment.onOffsetChanged(verticalOffset);
 	}

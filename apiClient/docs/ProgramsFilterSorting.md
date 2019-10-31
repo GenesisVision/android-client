@@ -1,0 +1,26 @@
+# ProgramsFilterSorting
+
+## Enum
+
+* `BYLEVELASC` (value: `"ByLevelAsc"`)
+* `BYLEVELDESC` (value: `"ByLevelDesc"`)
+* `BYPROFITASC` (value: `"ByProfitAsc"`)
+* `BYPROFITDESC` (value: `"ByProfitDesc"`)
+* `BYDRAWDOWNASC` (value: `"ByDrawdownAsc"`)
+* `BYDRAWDOWNDESC` (value: `"ByDrawdownDesc"`)
+* `BYTRADESASC` (value: `"ByTradesAsc"`)
+* `BYTRADESDESC` (value: `"ByTradesDesc"`)
+* `BYINVESTORSASC` (value: `"ByInvestorsAsc"`)
+* `BYINVESTORSDESC` (value: `"ByInvestorsDesc"`)
+* `BYNEWDESC` (value: `"ByNewDesc"`)
+* `BYNEWASC` (value: `"ByNewAsc"`)
+* `BYENDOFPERIODASC` (value: `"ByEndOfPeriodAsc"`)
+* `BYENDOFPERIODDESC` (value: `"ByEndOfPeriodDesc"`)
+* `BYTITLEASC` (value: `"ByTitleAsc"`)
+* `BYTITLEDESC` (value: `"ByTitleDesc"`)
+* `BYBALANCEASC` (value: `"ByBalanceAsc"`)
+* `BYBALANCEDESC` (value: `"ByBalanceDesc"`)
+* `BYCURRDESC` (value: `"ByCurrDesc"`)
+* `BYCURRASC` (value: `"ByCurrAsc"`)
+* `BYLEVELPROGRESSDESC` (value: `"ByLevelProgressDesc"`)
+* `BYLEVELPROGRESSASC` (value: `"ByLevelProgressAsc"`)

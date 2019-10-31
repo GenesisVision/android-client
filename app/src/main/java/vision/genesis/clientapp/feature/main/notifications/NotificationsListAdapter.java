@@ -5,6 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -13,10 +16,9 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.swagger.client.model.InvestmentProgramType;
 import io.swagger.client.model.NotificationViewModel;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.FundDetailsModel;
@@ -44,8 +46,9 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<Notifications
 
 	@Override
 	public void onBindViewHolder(NotificationViewHolder holder, int position) {
-		if (notifications.get(position) != null)
+		if (notifications.get(position) != null) {
 			holder.setNotification(notifications.get(position));
+		}
 	}
 
 	@Override
@@ -103,10 +106,10 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<Notifications
 					case PROGRAMCONDITION:
 					case MANAGERNEWPROGRAM:
 						if (notification.getAssetType() != null) {
-							if (notification.getAssetType().equals(NotificationViewModel.AssetTypeEnum.PROGRAM)) {
+							if (notification.getAssetType().equals(InvestmentProgramType.PROGRAM)) {
 								ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(notification.getAssetId(),
 										notification.getLogo(),
-										"#131e26",
+										notification.getColor(),
 										0,
 										0.0,
 										"",
@@ -116,10 +119,10 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<Notifications
 										false);
 								EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 							}
-							else if (notification.getAssetType().equals(NotificationViewModel.AssetTypeEnum.PROGRAM)) {
+							else if (notification.getAssetType().equals(InvestmentProgramType.FUND)) {
 								FundDetailsModel fundDetailsModel = new FundDetailsModel(notification.getAssetId(),
 										notification.getLogo(),
-										"#131e26",
+										notification.getColor(),
 										"",
 										"",
 										false,

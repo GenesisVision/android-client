@@ -7,41 +7,6 @@ Name | Type | Description | Notes
 **isEnabled** | **Boolean** |  |  [optional]
 **assetId** | [**UUID**](UUID.md) |  |  [optional]
 **managerId** | [**UUID**](UUID.md) |  |  [optional]
-**type** | [**TypeEnum**](#TypeEnum) |  |  [optional]
-**conditionType** | [**ConditionTypeEnum**](#ConditionTypeEnum) |  |  [optional]
+**type** | [**NotificationType**](NotificationType.md) |  |  [optional]
+**conditionType** | [**NotificationSettingConditionType**](NotificationSettingConditionType.md) |  |  [optional]
 **conditionAmount** | **Double** |  |  [optional]
-
-<a name="TypeEnum"></a>
-## Enum: TypeEnum
-Name | Value
----- | -----
-PLATFORMNEWSANDUPDATES | &quot;PlatformNewsAndUpdates&quot;
-PLATFORMEMERGENCY | &quot;PlatformEmergency&quot;
-PLATFORMOTHER | &quot;PlatformOther&quot;
-PROFILEUPDATED | &quot;ProfileUpdated&quot;
-PROFILEPWDUPDATED | &quot;ProfilePwdUpdated&quot;
-PROFILEVERIFICATION | &quot;ProfileVerification&quot;
-PROFILE2FA | &quot;Profile2FA&quot;
-PROFILESECURITY | &quot;ProfileSecurity&quot;
-TRADINGACCOUNTPWDUPDATED | &quot;TradingAccountPwdUpdated&quot;
-PROGRAMNEWSANDUPDATES | &quot;ProgramNewsAndUpdates&quot;
-PROGRAMENDOFPERIOD | &quot;ProgramEndOfPeriod&quot;
-PROGRAMCONDITION | &quot;ProgramCondition&quot;
-PROGRAMEXCEEDINVESTMENTLIMIT | &quot;ProgramExceedInvestmentLimit&quot;
-FUNDNEWSANDUPDATES | &quot;FundNewsAndUpdates&quot;
-FUNDENDOFPERIOD | &quot;FundEndOfPeriod&quot;
-FUNDREBALANCING | &quot;FundRebalancing&quot;
-MANAGERNEWPROGRAM | &quot;ManagerNewProgram&quot;
-MANAGERNEWFUND | &quot;ManagerNewFund&quot;
-MANAGERNEWEXTERNALSIGNALACCOUNT | &quot;ManagerNewExternalSignalAccount&quot;
-SIGNALS | &quot;Signals&quot;
-EXTERNALSIGNALS | &quot;ExternalSignals&quot;
-
-<a name="ConditionTypeEnum"></a>
-## Enum: ConditionTypeEnum
-Name | Value
----- | -----
-EMPTY | &quot;Empty&quot;
-PROFIT | &quot;Profit&quot;
-LEVEL | &quot;Level&quot;
-AVAILABLETOINVEST | &quot;AvailableToInvest&quot;

@@ -6,6 +6,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -15,14 +19,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.FundAssetPercent;
-import io.swagger.client.model.FundDetails;
+import io.swagger.client.model.FundDetailsList;
 import io.swagger.client.model.FundFacet;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
@@ -49,7 +50,7 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 	private static final int TYPE_CARD = 1;
 
-	private List<FundDetails> funds = new ArrayList<>();
+	private List<FundDetailsList> funds = new ArrayList<FundDetailsList>();
 
 	private List<FundFacet> facets = new ArrayList<>();
 
@@ -97,19 +98,19 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 		notifyDataSetChanged();
 	}
 
-	public void setFunds(List<FundDetails> funds) {
+	public void setFunds(List<FundDetailsList> funds) {
 		this.funds.clear();
 		this.funds.addAll(funds);
 		notifyDataSetChanged();
 	}
 
-	public void addFunds(List<FundDetails> funds) {
+	public void addFunds(List<FundDetailsList> funds) {
 		this.funds.addAll(funds);
 		notifyDataSetChanged();
 	}
 
 	public void setFundFavorite(UUID fundId, Boolean favorite) {
-		for (FundDetails fund : funds) {
+		for (FundDetailsList fund : funds) {
 			if (fund.getId().equals(fundId)) {
 				if (fund.getPersonalDetails() != null && !fund.getPersonalDetails().isIsFavorite().equals(favorite)) {
 					fund.getPersonalDetails().setIsFavorite(favorite);
@@ -229,7 +230,7 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 		@BindView(R.id.text_assets_left)
 		public TextView assetsLeft;
 
-		private FundDetails fund;
+		private FundDetailsList fund;
 
 		FundViewHolder(View itemView) {
 			super(itemView);
@@ -285,7 +286,7 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 			assetsLeft.setTypeface(TypefaceUtil.semibold());
 		}
 
-		void setFund(FundDetails fund) {
+		void setFund(FundDetailsList fund) {
 			this.fund = fund;
 			updateData();
 		}
@@ -349,8 +350,9 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 		private void updateAssetsLeft() {
 			int assetsLeft = fund.getTotalAssetsCount();
-			if (fund.getTopFundAssets() != null)
+			if (fund.getTopFundAssets() != null) {
 				assetsLeft -= fund.getTopFundAssets().size();
+			}
 
 			if (assetsLeft > 0) {
 				groupAssetsLeft.setVisibility(View.VISIBLE);

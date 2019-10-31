@@ -1,0 +1,26 @@
+# NotificationType
+
+## Enum
+
+* `PLATFORMNEWSANDUPDATES` (value: `"PlatformNewsAndUpdates"`)
+* `PLATFORMEMERGENCY` (value: `"PlatformEmergency"`)
+* `PLATFORMOTHER` (value: `"PlatformOther"`)
+* `PROFILEUPDATED` (value: `"ProfileUpdated"`)
+* `PROFILEPWDUPDATED` (value: `"ProfilePwdUpdated"`)
+* `PROFILEVERIFICATION` (value: `"ProfileVerification"`)
+* `PROFILE2FA` (value: `"Profile2FA"`)
+* `PROFILESECURITY` (value: `"ProfileSecurity"`)
+* `TRADINGACCOUNTPWDUPDATED` (value: `"TradingAccountPwdUpdated"`)
+* `PROGRAMNEWSANDUPDATES` (value: `"ProgramNewsAndUpdates"`)
+* `PROGRAMENDOFPERIOD` (value: `"ProgramEndOfPeriod"`)
+* `PROGRAMCONDITION` (value: `"ProgramCondition"`)
+* `PROGRAMEXCEEDINVESTMENTLIMIT` (value: `"ProgramExceedInvestmentLimit"`)
+* `FUNDNEWSANDUPDATES` (value: `"FundNewsAndUpdates"`)
+* `FUNDENDOFPERIOD` (value: `"FundEndOfPeriod"`)
+* `FUNDREBALANCING` (value: `"FundRebalancing"`)
+* `MANAGERNEWPROGRAM` (value: `"ManagerNewProgram"`)
+* `MANAGERNEWFUND` (value: `"ManagerNewFund"`)
+* `MANAGERNEWEXTERNALSIGNALACCOUNT` (value: `"ManagerNewExternalSignalAccount"`)
+* `MANAGERNEWSIGNALPROVIDER` (value: `"ManagerNewSignalProvider"`)
+* `SIGNALS` (value: `"Signals"`)
+* `EXTERNALSIGNALS` (value: `"ExternalSignals"`)

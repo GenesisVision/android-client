@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
-import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,21 +20,17 @@ import butterknife.Unbinder;
 import io.swagger.client.model.FundAssetInfo;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.main.fund.FundDetailsPagerAdapter;
 
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 25/10/2018.
  */
 
-public class FundStructureFragment extends BaseFragment implements FundStructureView, FundDetailsPagerAdapter.OnPageVisibilityChanged
+public class FundStructureFragment extends BaseFragment implements FundStructureView
 {
-	private static String EXTRA_FUND_ID = "extra_fund_id";
-
-	public static FundStructureFragment with(UUID fundID) {
+	public static FundStructureFragment with() {
 		FundStructureFragment fundStructureFragment = new FundStructureFragment();
 		Bundle arguments = new Bundle(1);
-		arguments.putSerializable(EXTRA_FUND_ID, fundID);
 		fundStructureFragment.setArguments(arguments);
 		return fundStructureFragment;
 	}
@@ -50,11 +45,13 @@ public class FundStructureFragment extends BaseFragment implements FundStructure
 	public ProgressBar progressBar;
 
 	@InjectPresenter
-	public FundStructurePresenter fundStructurePresenter;
+	public FundStructurePresenter presenter;
 
 	private Unbinder unbinder;
 
 	private FundStructureAdapter fundStructureAdapter;
+
+	private List<FundAssetInfo> assets;
 
 	@Nullable
 	@Override
@@ -68,11 +65,12 @@ public class FundStructureFragment extends BaseFragment implements FundStructure
 
 		unbinder = ButterKnife.bind(this, view);
 
-		fundStructurePresenter.setFundId((UUID) getArguments().getSerializable(EXTRA_FUND_ID));
-
 		setFonts();
 		initRecyclerView();
 
+		if (assets != null) {
+			presenter.setAssets(assets);
+		}
 	}
 
 	@Override
@@ -96,7 +94,7 @@ public class FundStructureFragment extends BaseFragment implements FundStructure
 	}
 
 	@Override
-	public void setAssets(List<FundAssetInfo> assets) {
+	public void setAssetsToAdapter(List<FundAssetInfo> assets) {
 		fundStructureAdapter.setAssets(assets);
 	}
 
@@ -109,18 +107,10 @@ public class FundStructureFragment extends BaseFragment implements FundStructure
 		}
 	}
 
-	@Override
-	public void pagerShow() {
-		if (fundStructurePresenter != null)
-			fundStructurePresenter.onShow();
-	}
-
-	@Override
-	public void pagerHide() {
-	}
-
-	public void onSwipeRefresh() {
-		if (fundStructurePresenter != null)
-			fundStructurePresenter.onSwipeRefresh();
+	public void setAssets(List<FundAssetInfo> assets) {
+		this.assets = assets;
+		if (presenter != null) {
+			presenter.setAssets(assets);
+		}
 	}
 }

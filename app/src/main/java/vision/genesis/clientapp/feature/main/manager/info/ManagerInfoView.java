@@ -4,7 +4,7 @@ import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
-import io.swagger.client.model.ManagerProfileDetails;
+import io.swagger.client.model.PublicProfile;
 
 /**
  * GenesisVisionAndroid
@@ -14,7 +14,7 @@ import io.swagger.client.model.ManagerProfileDetails;
 interface ManagerInfoView extends MvpView
 {
 	@StateStrategyType(AddToEndSingleStrategy.class)
-	void setManagerDetails(ManagerProfileDetails managerDetails);
+	void setManagerDetails(PublicProfile managerDetails);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);

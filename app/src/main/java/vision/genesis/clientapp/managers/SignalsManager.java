@@ -6,6 +6,7 @@ import io.swagger.client.api.SignalApi;
 import io.swagger.client.model.AttachToSignalProviderInfo;
 import io.swagger.client.model.CopyTradingAccountsList;
 import io.swagger.client.model.DetachFromSignalProvider;
+import io.swagger.client.model.SignalDetachMode;
 import io.swagger.client.model.SignalTradingEvents;
 import io.swagger.client.model.TradesSignalViewModel;
 import rx.Observable;
@@ -37,7 +38,7 @@ public class SignalsManager
 		return signalApi.updateSubscriptionSettings(AuthManager.token.getValue(), model.getProgramId(), model.getApiModel());
 	}
 
-	public Observable<Void> unsubscribeFromProgram(UUID programId, DetachFromSignalProvider.ModeEnum unsubscriptionType) {
+	public Observable<Void> unsubscribeFromProgram(UUID programId, SignalDetachMode unsubscriptionType) {
 		DetachFromSignalProvider model = new DetachFromSignalProvider();
 		model.setMode(unsubscriptionType);
 		return signalApi.detachSlaveFromMaster(AuthManager.token.getValue(), programId, model);

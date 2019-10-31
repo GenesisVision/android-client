@@ -61,6 +61,17 @@ public class ProfileApiTest
 	}
 
 	/**
+	 * Public profile
+	 */
+	@Test
+	public void getManagerProfileTest() {
+		String id = null;
+		// PublicProfile response = api.getManagerProfile(id);
+
+		// TODO: test validations
+	}
+
+	/**
 	 * Get full profile
 	 */
 	@Test

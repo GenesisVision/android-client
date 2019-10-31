@@ -19,7 +19,7 @@ interface FundInfoView extends MvpView
 	void setFundDetails(FundDetailsFull fundDetails);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
-	void showInvestWithdrawButtons(boolean show);
+	void showInvestWithdrawButtons();
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);

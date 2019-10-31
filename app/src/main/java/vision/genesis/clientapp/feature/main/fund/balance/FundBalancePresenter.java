@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.BalanceChartElement;
+import io.swagger.client.model.BalanceChartPoint;
 import io.swagger.client.model.FundBalanceChart;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -60,8 +60,9 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 
 	@Override
 	public void onDestroy() {
-		if (chartDataSubscription != null)
+		if (chartDataSubscription != null) {
 			chartDataSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -77,8 +78,9 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 
 	private void getChartData() {
 		if (fundId != null && fundsManager != null) {
-			if (chartDataSubscription != null)
+			if (chartDataSubscription != null) {
 				chartDataSubscription.unsubscribe();
+			}
 			//TODO: calculate maxPointCount
 			chartDataSubscription = fundsManager.getBalanceChart(fundId, chartDateRange, 30)
 					.observeOn(AndroidSchedulers.mainThread())
@@ -94,7 +96,7 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 
 		this.chartData = response;
 
-		getViewState().setChartData(chartData.getBalanceChart());
+		getViewState().setChartData(chartData.getChart());
 
 		resetValuesSelection();
 	}
@@ -107,9 +109,9 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 	private void resetValuesSelection() {
 		first = 0.0;
 		selected = 0.0;
-		if (chartData != null && chartData.getBalanceChart() != null && !chartData.getBalanceChart().isEmpty()) {
-			BalanceChartElement firstElement = chartData.getBalanceChart().get(0);
-			BalanceChartElement lastElement = chartData.getBalanceChart().get(chartData.getBalanceChart().size() - 1);
+		if (chartData != null && chartData.getChart() != null && !chartData.getChart().isEmpty()) {
+			BalanceChartPoint firstElement = chartData.getChart().get(0);
+			BalanceChartPoint lastElement = chartData.getChart().get(chartData.getChart().size() - 1);
 			first = firstElement.getInvestorsFunds() + firstElement.getManagerFunds();
 			selected = lastElement.getInvestorsFunds() + lastElement.getManagerFunds();
 		}
@@ -117,8 +119,9 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 	}
 
 	private void updateValues() {
-		if (first == null || selected == null)
+		if (first == null || selected == null) {
 			return;
+		}
 
 		//TODO: getValueString(selected * rate
 		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getValueString(selected, CurrencyEnum.USD.getValue()));

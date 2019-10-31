@@ -2,17 +2,13 @@ package io.swagger.client.api;
 
 import org.joda.time.DateTime;
 
-import java.util.List;
 import java.util.UUID;
 
+import io.swagger.client.model.AttachToExternalSignalProviderCommon;
 import io.swagger.client.model.AttachToExternalSignalProviderExt;
 import io.swagger.client.model.AttachToSignalProvider;
-import io.swagger.client.model.AttachToSignalProviderInfo;
-import io.swagger.client.model.CopyTradingAccountsList;
 import io.swagger.client.model.DetachFromSignalProvider;
-import io.swagger.client.model.ManagerProgramCreateResult;
 import io.swagger.client.model.NewExternalSignalAccountRequest;
-import io.swagger.client.model.SignalAccountsList;
 import io.swagger.client.model.SignalTradingEvents;
 import io.swagger.client.model.TradesSignalViewModel;
 import retrofit2.http.GET;
@@ -23,11 +19,27 @@ import rx.Observable;
 public interface SignalApi
 {
 	/**
-	 * Subscribe to programs signals
+	 * Subscribe to external signal using common account
 	 *
 	 * @param authorization JWT access token (required)
-	 * @param id            Program Id (required)
-	 * @param body          Subscription settings (optional)
+	 * @param id            (required)
+	 * @param body          (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/signal/external/attach/{id}/common")
+	Observable<Void> attachSlaveCommonToMaster(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body AttachToExternalSignalProviderCommon body
+	);
+
+	/**
+	 * Subscribe to signal provider
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param id            (required)
+	 * @param body          (optional)
 	 * @return Call&lt;Void&gt;
 	 */
 	@Headers({
@@ -59,12 +71,12 @@ public interface SignalApi
 	 *
 	 * @param id            Trade id (required)
 	 * @param authorization JWT access token (required)
-	 * @param programId     Provider program id (optional)
+	 * @param assetId       Provider asset id (optional)
 	 * @return Call&lt;Void&gt;
 	 */
 	@POST("v2.0/signal/trades/{id}/close")
 	Observable<Void> closeTrade(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("programId") UUID programId
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("assetId") UUID assetId
 	);
 
 	/**
@@ -72,18 +84,18 @@ public interface SignalApi
 	 *
 	 * @param authorization JWT access token (required)
 	 * @param body          (optional)
-	 * @return Call&lt;ManagerProgramCreateResult&gt;
+	 * @return Call&lt;Void&gt;
 	 */
 	@Headers({
 			"Content-Type:application/json"
 	})
 	@POST("v2.0/signal/external/create")
-	Observable<ManagerProgramCreateResult> createExternalSignalAccount(
+	Observable<Void> createExternalSignalAccount(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body NewExternalSignalAccountRequest body
 	);
 
 	/**
-	 * Unsubscribe from program signals
+	 * Unsubscribe from signal provider
 	 *
 	 * @param authorization JWT access token (required)
 	 * @param id            (required)
@@ -96,17 +108,6 @@ public interface SignalApi
 	@POST("v2.0/signal/detach/{id}")
 	Observable<Void> detachSlaveFromMaster(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body DetachFromSignalProvider body
-	);
-
-	/**
-	 * Get copytrading accounts
-	 *
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;CopyTradingAccountsList&gt;
-	 */
-	@GET("v2.0/signal/accounts")
-	Observable<CopyTradingAccountsList> getCopytradingAccounts(
-			@retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**
@@ -139,35 +140,6 @@ public interface SignalApi
 	@GET("v2.0/signal/trades/open")
 	Observable<TradesSignalViewModel> getOpenSignalTrades(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
-	);
-
-	/**
-	 * Accounts list
-	 *
-	 * @param authorization         (optional)
-	 * @param tags                  (optional)
-	 * @param sorting               (optional)
-	 * @param statisticDateFrom     (optional)
-	 * @param statisticDateTo       (optional)
-	 * @param chartPointsCount      (optional)
-	 * @param mask                  (optional)
-	 * @param facetId               (optional)
-	 * @param isFavorite            (optional)
-	 * @param isEnabled             (optional)
-	 * @param hasInvestorsForAll    (optional)
-	 * @param hasInvestorsForClosed (optional)
-	 * @param ids                   (optional)
-	 * @param forceUseIdsList       (optional)
-	 * @param managerId             (optional)
-	 * @param programManagerId      (optional)
-	 * @param status                (optional)
-	 * @param skip                  (optional)
-	 * @param take                  (optional)
-	 * @return Call&lt;SignalAccountsList&gt;
-	 */
-	@GET("v2.0/signal/external")
-	Observable<SignalAccountsList> getSignalAccounts(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Tags") List<String> tags, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("StatisticDateFrom") DateTime statisticDateFrom, @retrofit2.http.Query("StatisticDateTo") DateTime statisticDateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("IsFavorite") Boolean isFavorite, @retrofit2.http.Query("IsEnabled") Boolean isEnabled, @retrofit2.http.Query("HasInvestorsForAll") Boolean hasInvestorsForAll, @retrofit2.http.Query("HasInvestorsForClosed") Boolean hasInvestorsForClosed, @retrofit2.http.Query("Ids") List<UUID> ids, @retrofit2.http.Query("ForceUseIdsList") Boolean forceUseIdsList, @retrofit2.http.Query("ManagerId") String managerId, @retrofit2.http.Query("ProgramManagerId") UUID programManagerId, @retrofit2.http.Query("Status") List<String> status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -205,14 +177,14 @@ public interface SignalApi
 	);
 
 	/**
-	 * Get subscribe to programs signals info
+	 * Get subscriber accounts for subscribe to signal provider
 	 *
 	 * @param id            (required)
 	 * @param authorization JWT access token (required)
-	 * @return Call&lt;AttachToSignalProviderInfo&gt;
+	 * @return Call&lt;Void&gt;
 	 */
-	@GET("v2.0/signal/attach/{id}/info")
-	Observable<AttachToSignalProviderInfo> getSlaveAttachInfo(
+	@GET("v2.0/signal/attach/{id}/accounts")
+	Observable<Void> getSubscriberAccountsForAsset(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
 	);
 
@@ -220,7 +192,7 @@ public interface SignalApi
 	 * Update signal subscription settings
 	 *
 	 * @param authorization JWT access token (required)
-	 * @param id            Program id (required)
+	 * @param id            Asset id (required)
 	 * @param body          Subscription settings (optional)
 	 * @return Call&lt;Void&gt;
 	 */

@@ -12,14 +12,14 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ManagerProfileDetails;
+import io.swagger.client.model.PublicProfile;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
-import vision.genesis.clientapp.managers.ManagersManager;
+import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.SetManagerDetailsFundsCountEvent;
 import vision.genesis.clientapp.model.events.SetManagerDetailsProgramsCountEvent;
@@ -40,7 +40,7 @@ public class ManagerDetailsPresenter extends MvpPresenter<ManagerDetailsView>
 	public AuthManager authManager;
 
 	@Inject
-	public ManagersManager managersManager;
+	public ProfileManager profileManager;
 
 	private Subscription userSubscription;
 
@@ -48,7 +48,7 @@ public class ManagerDetailsPresenter extends MvpPresenter<ManagerDetailsView>
 
 	private UUID managerId;
 
-	private ManagerProfileDetails managerDetails;
+	private PublicProfile managerDetails;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -63,11 +63,13 @@ public class ManagerDetailsPresenter extends MvpPresenter<ManagerDetailsView>
 
 	@Override
 	public void onDestroy() {
-		if (userSubscription != null)
+		if (userSubscription != null) {
 			userSubscription.unsubscribe();
+		}
 
-		if (managerDetailsSubscription != null)
+		if (managerDetailsSubscription != null) {
 			managerDetailsSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -93,15 +95,16 @@ public class ManagerDetailsPresenter extends MvpPresenter<ManagerDetailsView>
 	}
 
 	private void getManagerDetails() {
-		if (managerId != null && managersManager != null)
-			managerDetailsSubscription = managersManager.getManagerDetails(managerId)
+		if (managerId != null && profileManager != null) {
+			managerDetailsSubscription = profileManager.getProfilePublic(managerId.toString())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleManagerDetailsSuccess,
 							this::handleManagerDetailsError);
+		}
 	}
 
-	private void handleManagerDetailsSuccess(ManagerProfileDetails managerDetails) {
+	private void handleManagerDetailsSuccess(PublicProfile managerDetails) {
 		managerDetailsSubscription.unsubscribe();
 		getViewState().showNoInternet(false);
 		getViewState().showNoInternetProgress(false);
@@ -136,10 +139,12 @@ public class ManagerDetailsPresenter extends MvpPresenter<ManagerDetailsView>
 	}
 
 	private void userUpdated(User user) {
-		if (user == null)
+		if (user == null) {
 			userLoggedOff();
-		else
+		}
+		else {
 			userLoggedOn();
+		}
 	}
 
 	private void userLoggedOn() {

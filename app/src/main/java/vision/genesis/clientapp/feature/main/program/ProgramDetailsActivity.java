@@ -187,7 +187,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			ProgramLevelBottomSheetDialog dialog = new ProgramLevelBottomSheetDialog();
 			dialog.show(getSupportFragmentManager(), dialog.getTag());
 			dialog.setData(programDetails.getLevel(),
-					programDetails.getRating().isCanLevelUp(),
+					false,
 					programDetails.getCurrency().getValue(),
 					programDetails.getTotalAvailableInvestment());
 		}
@@ -201,9 +201,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@OnClick(R.id.button_favorite)
 	public void onFavoriteClicked() {
 		if (programDetails != null) {
-			programDetails.getPersonalProgramDetails().setIsFavorite(!programDetails.getPersonalProgramDetails().isIsFavorite());
-			setFavoriteButtonImage(programDetails.getPersonalProgramDetails().isIsFavorite());
-			programDetailsPresenter.onFavoriteButtonClicked(programDetails.getPersonalProgramDetails().isIsFavorite());
+			programDetails.getPersonalDetails().setIsFavorite(!programDetails.getPersonalDetails().isIsFavorite());
+			setFavoriteButtonImage(programDetails.getPersonalDetails().isIsFavorite());
+			programDetailsPresenter.onFavoriteButtonClicked(programDetails.getPersonalDetails().isIsFavorite());
 		}
 	}
 
@@ -469,7 +469,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			initViewPager(programDetails.getId(), programDetails.getCurrency().getValue(), programDetails.getPeriodDuration());
 		}
 
-		if (programDetails.getPersonalProgramDetails() != null && programDetails.getPersonalProgramDetails().isIsInvested()) {
+		if (programDetails.getPersonalDetails() != null && programDetails.getPersonalDetails().isIsInvested()) {
 			addPage(eventsTab, false);
 		}
 

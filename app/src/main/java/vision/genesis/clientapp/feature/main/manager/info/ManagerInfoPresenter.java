@@ -7,13 +7,13 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ManagerProfileDetails;
+import io.swagger.client.model.PublicProfile;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
-import vision.genesis.clientapp.managers.ManagersManager;
+import vision.genesis.clientapp.managers.ProfileManager;
 
 /**
  * GenesisVisionAndroid
@@ -27,7 +27,7 @@ public class ManagerInfoPresenter extends MvpPresenter<ManagerInfoView>
 	public AuthManager authManager;
 
 	@Inject
-	public ManagersManager managersManager;
+	public ProfileManager profileManager;
 
 	private Subscription managersDetailsSubscription;
 
@@ -61,10 +61,10 @@ public class ManagerInfoPresenter extends MvpPresenter<ManagerInfoView>
 	}
 
 	private void getManagerDetails() {
-		if (managerId != null && managersManager != null) {
+		if (managerId != null && profileManager != null) {
 			if (managersDetailsSubscription != null)
 				managersDetailsSubscription.unsubscribe();
-			managersDetailsSubscription = managersManager.getManagerDetails(managerId)
+			managersDetailsSubscription = profileManager.getProfilePublic(managerId.toString())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleManagerDetailsSuccess,
@@ -72,7 +72,7 @@ public class ManagerInfoPresenter extends MvpPresenter<ManagerInfoView>
 		}
 	}
 
-	private void handleManagerDetailsSuccess(ManagerProfileDetails managerDetails) {
+	private void handleManagerDetailsSuccess(PublicProfile managerDetails) {
 		managersDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 

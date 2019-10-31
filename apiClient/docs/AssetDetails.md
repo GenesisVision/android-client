@@ -1,4 +1,3 @@
-
 # AssetDetails
 
 ## Properties
@@ -9,17 +8,5 @@ Name | Type | Description | Notes
 **color** | **String** |  |  [optional]
 **title** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
-**assetType** | [**AssetTypeEnum**](#AssetTypeEnum) |  |  [optional]
-
-
-<a name="AssetTypeEnum"></a>
-## Enum: AssetTypeEnum
-Name | Value
----- | -----
-NONE | &quot;None&quot;
-PROGRAMS | &quot;Programs&quot;
-FUNDS | &quot;Funds&quot;
-SIGNALS | &quot;Signals&quot;
-
-
-
+**assetType** | [**AssetType**](AssetType.md) |  |  [optional]
+**programDetails** | [**ProgramAssetDetails**](ProgramAssetDetails.md) |  |  [optional]

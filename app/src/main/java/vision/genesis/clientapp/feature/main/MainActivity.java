@@ -45,7 +45,6 @@ import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.portfolio_events.details.EventDetailsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
-import vision.genesis.clientapp.feature.main.rating.ProgramsRatingActivity;
 import vision.genesis.clientapp.feature.main.wallet.copytrading_account_details.CopytradingAccountDetailsActivity;
 import vision.genesis.clientapp.feature.main.wallet.specific_wallet.SpecificWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.transaction_details.TransactionDetailsActivity;
@@ -397,7 +396,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 
 	@Override
 	public void showProgramsRating() {
-		ProgramsRatingActivity.startWith(this);
+//		ProgramsRatingActivity.startWith(this);
 	}
 
 	@Override

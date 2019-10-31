@@ -1,4 +1,3 @@
-
 # ProgramPeriodViewModel
 
 ## Properties
@@ -7,7 +6,7 @@ Name | Type | Description | Notes
 **dateFrom** | [**DateTime**](DateTime.md) |  |  [optional]
 **dateTo** | [**DateTime**](DateTime.md) |  |  [optional]
 **periodLength** | **Double** |  |  [optional]
-**status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
+**status** | [**PeriodStatus**](PeriodStatus.md) |  |  [optional]
 **number** | **Integer** |  |  [optional]
 **profit** | **Double** |  |  [optional]
 **balance** | **Double** |  |  [optional]
@@ -20,15 +19,3 @@ Name | Type | Description | Notes
 **investorsProfitWithdraw** | **Double** |  |  [optional]
 **platformSuccessFee** | **Double** |  |  [optional]
 **managerStatistic** | [**ManagerFinancialStatistic**](ManagerFinancialStatistic.md) |  |  [optional]
-
-
-<a name="StatusEnum"></a>
-## Enum: StatusEnum
-Name | Value
----- | -----
-PLANNED | &quot;Planned&quot;
-INPROCCESS | &quot;InProccess&quot;
-CLOSED | &quot;Closed&quot;
-
-
-

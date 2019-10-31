@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 import io.swagger.client.model.NotificationSettingList;
 import io.swagger.client.model.NotificationSettingViewModel;
+import io.swagger.client.model.NotificationType;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -58,10 +59,12 @@ public class NotificationsSettingsPresenter extends MvpPresenter<NotificationsSe
 
 	@Override
 	public void onDestroy() {
-		if (settingsSubscription != null)
+		if (settingsSubscription != null) {
 			settingsSubscription.unsubscribe();
-		if (settingSwitchSubscription != null)
+		}
+		if (settingSwitchSubscription != null) {
 			settingSwitchSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -74,17 +77,18 @@ public class NotificationsSettingsPresenter extends MvpPresenter<NotificationsSe
 
 	private void initSettings() {
 		newsSetting = new NotificationSettingViewModel();
-		newsSetting.setType(NotificationSettingViewModel.TypeEnum.PLATFORMNEWSANDUPDATES);
+		newsSetting.setType(NotificationType.PLATFORMNEWSANDUPDATES);
 		newsSetting.setIsEnabled(false);
 
 		emergencySetting = new NotificationSettingViewModel();
-		emergencySetting.setType(NotificationSettingViewModel.TypeEnum.PLATFORMEMERGENCY);
+		emergencySetting.setType(NotificationType.PLATFORMEMERGENCY);
 		emergencySetting.setIsEnabled(false);
 	}
 
 	private void getSettings() {
-		if (settingsSubscription != null)
+		if (settingsSubscription != null) {
 			settingsSubscription.unsubscribe();
+		}
 		settingsSubscription = notificationsManager.getNotificationsSettings()
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.newThread())
@@ -133,8 +137,9 @@ public class NotificationsSettingsPresenter extends MvpPresenter<NotificationsSe
 
 	private void switchSetting(NotificationSettingViewModel setting) {
 		if (setting != null) {
-			if (settingSwitchSubscription != null)
+			if (settingSwitchSubscription != null) {
 				settingSwitchSubscription.unsubscribe();
+			}
 			if (!setting.isIsEnabled()) {
 				settingSwitchSubscription = notificationsManager.addNotificationSetting(null, null, setting.getType().getValue(), null, null)
 						.observeOn(AndroidSchedulers.mainThread())

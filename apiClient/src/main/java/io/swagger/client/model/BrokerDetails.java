@@ -44,8 +44,8 @@ public class BrokerDetails implements Parcelable
 	@SerializedName("name")
 	private String name = null;
 
-	@SerializedName("isForex")
-	private Boolean isForex = null;
+	@SerializedName("isKycRequired")
+	private Boolean isKycRequired = null;
 
 	@SerializedName("showSwaps")
 	private Boolean showSwaps = null;
@@ -56,8 +56,8 @@ public class BrokerDetails implements Parcelable
 	@SerializedName("showCommissionRebate")
 	private Boolean showCommissionRebate = null;
 
-	@SerializedName("isForexSometime")
-	private Boolean isForexSometime = null;
+	@SerializedName("isKycRequiredSometime")
+	private Boolean isKycRequiredSometime = null;
 
 	@SerializedName("showSwapsSometime")
 	private Boolean showSwapsSometime = null;
@@ -74,11 +74,11 @@ public class BrokerDetails implements Parcelable
 	BrokerDetails(Parcel in) {
 		logo = (String) in.readValue(null);
 		name = (String) in.readValue(null);
-		isForex = (Boolean) in.readValue(null);
+		isKycRequired = (Boolean) in.readValue(null);
 		showSwaps = (Boolean) in.readValue(null);
 		showTickets = (Boolean) in.readValue(null);
 		showCommissionRebate = (Boolean) in.readValue(null);
-		isForexSometime = (Boolean) in.readValue(null);
+		isKycRequiredSometime = (Boolean) in.readValue(null);
 		showSwapsSometime = (Boolean) in.readValue(null);
 		showTicketsSometime = (Boolean) in.readValue(null);
 		showCommissionRebateSometime = (Boolean) in.readValue(null);
@@ -122,23 +122,23 @@ public class BrokerDetails implements Parcelable
 		this.name = name;
 	}
 
-	public BrokerDetails isForex(Boolean isForex) {
-		this.isForex = isForex;
+	public BrokerDetails isKycRequired(Boolean isKycRequired) {
+		this.isKycRequired = isKycRequired;
 		return this;
 	}
 
 	/**
-	 * Get isForex
+	 * Get isKycRequired
 	 *
-	 * @return isForex
+	 * @return isKycRequired
 	 **/
 	@Schema(description = "")
-	public Boolean isIsForex() {
-		return isForex;
+	public Boolean isIsKycRequired() {
+		return isKycRequired;
 	}
 
-	public void setIsForex(Boolean isForex) {
-		this.isForex = isForex;
+	public void setIsKycRequired(Boolean isKycRequired) {
+		this.isKycRequired = isKycRequired;
 	}
 
 	public BrokerDetails showSwaps(Boolean showSwaps) {
@@ -198,23 +198,23 @@ public class BrokerDetails implements Parcelable
 		this.showCommissionRebate = showCommissionRebate;
 	}
 
-	public BrokerDetails isForexSometime(Boolean isForexSometime) {
-		this.isForexSometime = isForexSometime;
+	public BrokerDetails isKycRequiredSometime(Boolean isKycRequiredSometime) {
+		this.isKycRequiredSometime = isKycRequiredSometime;
 		return this;
 	}
 
 	/**
-	 * Get isForexSometime
+	 * Get isKycRequiredSometime
 	 *
-	 * @return isForexSometime
+	 * @return isKycRequiredSometime
 	 **/
 	@Schema(description = "")
-	public Boolean isIsForexSometime() {
-		return isForexSometime;
+	public Boolean isIsKycRequiredSometime() {
+		return isKycRequiredSometime;
 	}
 
-	public void setIsForexSometime(Boolean isForexSometime) {
-		this.isForexSometime = isForexSometime;
+	public void setIsKycRequiredSometime(Boolean isKycRequiredSometime) {
+		this.isKycRequiredSometime = isKycRequiredSometime;
 	}
 
 	public BrokerDetails showSwapsSometime(Boolean showSwapsSometime) {
@@ -285,11 +285,11 @@ public class BrokerDetails implements Parcelable
 		BrokerDetails brokerDetails = (BrokerDetails) o;
 		return Objects.equals(this.logo, brokerDetails.logo) &&
 				Objects.equals(this.name, brokerDetails.name) &&
-				Objects.equals(this.isForex, brokerDetails.isForex) &&
+				Objects.equals(this.isKycRequired, brokerDetails.isKycRequired) &&
 				Objects.equals(this.showSwaps, brokerDetails.showSwaps) &&
 				Objects.equals(this.showTickets, brokerDetails.showTickets) &&
 				Objects.equals(this.showCommissionRebate, brokerDetails.showCommissionRebate) &&
-				Objects.equals(this.isForexSometime, brokerDetails.isForexSometime) &&
+				Objects.equals(this.isKycRequiredSometime, brokerDetails.isKycRequiredSometime) &&
 				Objects.equals(this.showSwapsSometime, brokerDetails.showSwapsSometime) &&
 				Objects.equals(this.showTicketsSometime, brokerDetails.showTicketsSometime) &&
 				Objects.equals(this.showCommissionRebateSometime, brokerDetails.showCommissionRebateSometime);
@@ -297,7 +297,7 @@ public class BrokerDetails implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(logo, name, isForex, showSwaps, showTickets, showCommissionRebate, isForexSometime, showSwapsSometime, showTicketsSometime, showCommissionRebateSometime);
+		return Objects.hash(logo, name, isKycRequired, showSwaps, showTickets, showCommissionRebate, isKycRequiredSometime, showSwapsSometime, showTicketsSometime, showCommissionRebateSometime);
 	}
 
 	@Override
@@ -307,11 +307,11 @@ public class BrokerDetails implements Parcelable
 
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
-		sb.append("    isForex: ").append(toIndentedString(isForex)).append("\n");
+		sb.append("    isKycRequired: ").append(toIndentedString(isKycRequired)).append("\n");
 		sb.append("    showSwaps: ").append(toIndentedString(showSwaps)).append("\n");
 		sb.append("    showTickets: ").append(toIndentedString(showTickets)).append("\n");
 		sb.append("    showCommissionRebate: ").append(toIndentedString(showCommissionRebate)).append("\n");
-		sb.append("    isForexSometime: ").append(toIndentedString(isForexSometime)).append("\n");
+		sb.append("    isKycRequiredSometime: ").append(toIndentedString(isKycRequiredSometime)).append("\n");
 		sb.append("    showSwapsSometime: ").append(toIndentedString(showSwapsSometime)).append("\n");
 		sb.append("    showTicketsSometime: ").append(toIndentedString(showTicketsSometime)).append("\n");
 		sb.append("    showCommissionRebateSometime: ").append(toIndentedString(showCommissionRebateSometime)).append("\n");
@@ -333,11 +333,11 @@ public class BrokerDetails implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(logo);
 		out.writeValue(name);
-		out.writeValue(isForex);
+		out.writeValue(isKycRequired);
 		out.writeValue(showSwaps);
 		out.writeValue(showTickets);
 		out.writeValue(showCommissionRebate);
-		out.writeValue(isForexSometime);
+		out.writeValue(isKycRequiredSometime);
 		out.writeValue(showSwapsSometime);
 		out.writeValue(showTicketsSometime);
 		out.writeValue(showCommissionRebateSometime);

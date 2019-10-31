@@ -8,22 +8,23 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.arellomobile.mvp.presenter.InjectPresenter;
-
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.arellomobile.mvp.presenter.InjectPresenter;
+
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.ManagerProfile;
-import io.swagger.client.model.ManagersList;
+import io.swagger.client.model.ItemsViewModelPublicProfile;
+import io.swagger.client.model.PublicProfile;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -130,8 +131,9 @@ public class ManagersListFragment extends BaseFragment implements ManagersListVi
 
 	@Override
 	public void onDestroyView() {
-		if (recyclerView != null)
+		if (recyclerView != null) {
 			recyclerView.setAdapter(null);
+		}
 
 		if (unbinder != null) {
 			unbinder.unbind();
@@ -172,8 +174,9 @@ public class ManagersListFragment extends BaseFragment implements ManagersListVi
 		LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
 		int totalItemCount = layoutManager.getItemCount();
 		lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
-		if (lastVisible < 0)
+		if (lastVisible < 0) {
 			return;
+		}
 
 		boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
 		if (totalItemCount > 0 && endHasBeenReached) {
@@ -182,13 +185,13 @@ public class ManagersListFragment extends BaseFragment implements ManagersListVi
 	}
 
 	@Override
-	public void setManagers(List<ManagerProfile> managers) {
+	public void setManagers(List<PublicProfile> managers) {
 		managersListAdapter.setManagers(managers);
 		recyclerView.scrollToPosition(0);
 	}
 
 	@Override
-	public void addManagers(List<ManagerProfile> managers) {
+	public void addManagers(List<PublicProfile> managers) {
 		managersListAdapter.addManagers(managers);
 	}
 
@@ -242,8 +245,9 @@ public class ManagersListFragment extends BaseFragment implements ManagersListVi
 //		}
 	}
 
-	public void showSearchResults(ManagersList result) {
-		if (managersListPresenter != null)
+	public void showSearchResults(ItemsViewModelPublicProfile result) {
+		if (managersListPresenter != null) {
 			managersListPresenter.showSearchResults(result);
+		}
 	}
 }

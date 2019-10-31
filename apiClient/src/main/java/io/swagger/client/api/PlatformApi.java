@@ -2,6 +2,7 @@ package io.swagger.client.api;
 
 import io.swagger.client.model.CaptchaDetails;
 import io.swagger.client.model.LevelsParamsInfo;
+import io.swagger.client.model.PlatformAssets;
 import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.ProgramsLevelsInfo;
 import retrofit2.http.GET;
@@ -10,6 +11,15 @@ import rx.Observable;
 
 public interface PlatformApi
 {
+	/**
+	 * Get all supported assets for funds
+	 *
+	 * @return Call&lt;PlatformAssets&gt;
+	 */
+	@GET("v2.0/platform/assets")
+	Observable<PlatformAssets> getAllPlatformAssets();
+
+
 	/**
 	 * Server date
 	 *

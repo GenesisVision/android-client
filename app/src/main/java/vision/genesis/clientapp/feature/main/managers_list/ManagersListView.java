@@ -6,7 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
-import io.swagger.client.model.ManagerProfile;
+import io.swagger.client.model.PublicProfile;
 import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 /**
@@ -16,9 +16,9 @@ import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 interface ManagersListView extends MvpView
 {
-	void setManagers(List<ManagerProfile> managers);
+	void setManagers(List<PublicProfile> managers);
 
-	void addManagers(List<ManagerProfile> managers);
+	void addManagers(List<PublicProfile> managers);
 
 	void setRefreshing(boolean refreshing);
 

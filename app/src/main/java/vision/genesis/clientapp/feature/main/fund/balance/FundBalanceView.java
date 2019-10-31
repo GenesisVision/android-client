@@ -6,7 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
-import io.swagger.client.model.BalanceChartElement;
+import io.swagger.client.model.BalanceChartPoint;
 import vision.genesis.clientapp.model.DateRange;
 
 /**
@@ -16,7 +16,7 @@ import vision.genesis.clientapp.model.DateRange;
 
 interface FundBalanceView extends MvpView
 {
-	void setChartData(List<BalanceChartElement> balanceChart);
+	void setChartData(List<BalanceChartPoint> balanceChart);
 
 	void setAmount(String gvtAmount, String baseAmount);
 

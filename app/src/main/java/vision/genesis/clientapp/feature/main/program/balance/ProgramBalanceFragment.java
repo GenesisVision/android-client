@@ -7,19 +7,20 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 import java.util.UUID;
 
-import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.ProgramBalanceChartElement;
+import io.swagger.client.model.BalanceChartPoint;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
@@ -138,8 +139,8 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 	}
 
 	@Override
-	public void setChartData(List<ProgramBalanceChartElement> balanceChart) {
-		this.balanceChart.setProgramChartData(balanceChart, dateRange);
+	public void setChartData(List<BalanceChartPoint> balanceChart) {
+		this.balanceChart.setChart(balanceChart, dateRange);
 	}
 
 	@Override
@@ -176,8 +177,9 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 
 	@Override
 	public void pagerShow() {
-		if (programBalancePresenter != null)
+		if (programBalancePresenter != null) {
 			programBalancePresenter.onShow();
+		}
 	}
 
 	@Override
@@ -185,7 +187,8 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
-		if (dateRangeView != null)
+		if (dateRangeView != null) {
 			dateRangeView.setY(root.getHeight() - verticalOffset - dateRangeView.getHeight() - dateRangeMarginBottom);
+		}
 	}
 }

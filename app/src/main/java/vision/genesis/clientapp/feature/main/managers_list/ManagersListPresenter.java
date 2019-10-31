@@ -13,8 +13,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ManagerProfile;
-import io.swagger.client.model.ManagersList;
+import io.swagger.client.model.ItemsViewModelPublicProfile;
+import io.swagger.client.model.PublicProfile;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -52,13 +52,13 @@ public class ManagersListPresenter extends MvpPresenter<ManagersListView> implem
 
 	private Subscription favoriteSubscription;
 
-	private List<ManagerProfile> managersList = new ArrayList<>();
+	private List<PublicProfile> managersList = new ArrayList<>();
 
 	private int skip = 0;
 
 //	private ProgramsFilter filter;
 
-	private List<ManagerProfile> managersToAdd = new ArrayList<>();
+	private List<PublicProfile> managersToAdd = new ArrayList<>();
 
 	private Boolean isDataSet = false;
 
@@ -82,12 +82,15 @@ public class ManagersListPresenter extends MvpPresenter<ManagersListView> implem
 
 	@Override
 	public void onDestroy() {
-		if (userSubscription != null)
+		if (userSubscription != null) {
 			userSubscription.unsubscribe();
-		if (getManagersSubscription != null)
+		}
+		if (getManagersSubscription != null) {
 			getManagersSubscription.unsubscribe();
-		if (favoriteSubscription != null)
+		}
+		if (favoriteSubscription != null) {
 			favoriteSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -103,7 +106,7 @@ public class ManagersListPresenter extends MvpPresenter<ManagersListView> implem
 		}
 	}
 
-	void showSearchResults(ManagersList result) {
+	void showSearchResults(ItemsViewModelPublicProfile result) {
 		skip = 0;
 		handleGetManagersList(result);
 	}
@@ -175,22 +178,24 @@ public class ManagersListPresenter extends MvpPresenter<ManagersListView> implem
 //		return model;
 //	}
 
-	private void handleGetManagersList(ManagersList response) {
+	private void handleGetManagersList(ItemsViewModelPublicProfile response) {
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);
 		getViewState().showEmptyList(false);
 
-		if (getManagersSubscription != null)
+		if (getManagersSubscription != null) {
 			getManagersSubscription.unsubscribe();
+		}
 
-		managersToAdd = response.getManagers();
+		managersToAdd = response.getItems();
 
 //		getViewState().setFundsCount(StringFormatUtil.formatAmount(response.getSignalsCount(), 0, 0));
 
 		if (managersToAdd.size() == 0) {
-			if (skip == 0)
+			if (skip == 0) {
 				getViewState().showEmptyList(true);
+			}
 			return;
 		}
 

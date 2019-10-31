@@ -7,19 +7,20 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.arellomobile.mvp.presenter.InjectPresenter;
-
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.arellomobile.mvp.presenter.InjectPresenter;
+
+import java.util.List;
+
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.swagger.client.model.MultiWalletTransaction;
+import io.swagger.client.model.TransactionViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -159,7 +160,7 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 	}
 
 	@Override
-	public void setTransactions(List<MultiWalletTransaction> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+	public void setTransactions(List<TransactionViewModel> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
 		if (transactions.isEmpty()) {
 			groupNoTransactions.setVisibility(View.VISIBLE);
 			recyclerView.setVisibility(View.GONE);
@@ -173,7 +174,7 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 	}
 
 	@Override
-	public void addTransactions(List<MultiWalletTransaction> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+	public void addTransactions(List<TransactionViewModel> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
 		sectionedAdapter.setSections(sections);
 		transactionsListAdapter.addTransactions(transactions);
 	}
@@ -185,8 +186,9 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 
 	@Override
 	public void pagerShow() {
-		if (transactionsPresenter != null)
+		if (transactionsPresenter != null) {
 			transactionsPresenter.onShow();
+		}
 	}
 
 	@Override
@@ -194,12 +196,14 @@ public class TransactionsFragment extends BaseFragment implements TransactionsVi
 	}
 
 	public void onSwipeRefresh() {
-		if (transactionsPresenter != null)
+		if (transactionsPresenter != null) {
 			transactionsPresenter.onSwipeRefresh();
+		}
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
-		if (filtersView != null)
+		if (filtersView != null) {
 			filtersView.setY(root.getHeight() - verticalOffset - filtersView.getHeight() - filtersMarginBottom);
+		}
 	}
 }

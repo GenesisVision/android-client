@@ -14,8 +14,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ProgramDetails;
-import io.swagger.client.model.ProgramsList;
+import io.swagger.client.model.ItemsViewModelProgramDetailsList;
+import io.swagger.client.model.ProgramDetailsList;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -58,13 +58,13 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 
 	private Subscription favoriteSubscription;
 
-	private List<ProgramDetails> investmentProgramsList = new ArrayList<ProgramDetails>();
+	private List<ProgramDetailsList> investmentProgramsList = new ArrayList<ProgramDetailsList>();
 
 	private int skip = 0;
 
 	private ProgramsFilter filter;
 
-	private List<ProgramDetails> programsToAdd = new ArrayList<>();
+	private List<ProgramDetailsList> programsToAdd = new ArrayList<>();
 
 	private Boolean isDataSet = false;
 
@@ -87,12 +87,15 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 
 	@Override
 	public void onDestroy() {
-		if (userSubscription != null)
+		if (userSubscription != null) {
 			userSubscription.unsubscribe();
-		if (getProgramsSubscription != null)
+		}
+		if (getProgramsSubscription != null) {
 			getProgramsSubscription.unsubscribe();
-		if (favoriteSubscription != null)
+		}
+		if (favoriteSubscription != null) {
 			favoriteSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -113,7 +116,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		}
 	}
 
-	void showSearchResults(ProgramsList result) {
+	void showSearchResults(ItemsViewModelProgramDetailsList result) {
 		skip = 0;
 		handleGetProgramsList(result);
 	}
@@ -144,8 +147,9 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 	}
 
 	private void createFilter(ProgramsFilter filter) {
-		if (filter == null)
+		if (filter == null) {
 			filter = new ProgramsFilter();
+		}
 		this.filter = filter;
 		this.filter.setSkip(0);
 		this.filter.setTake(TAKE);
@@ -171,8 +175,9 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 				filter.setSkip(skip);
 			}
 
-			if (getProgramsSubscription != null)
+			if (getProgramsSubscription != null) {
 				getProgramsSubscription.unsubscribe();
+			}
 			getProgramsSubscription = programsManager.getProgramsList(filter)
 					.subscribeOn(Schedulers.computation())
 //				.map(this::prepareData)
@@ -187,24 +192,27 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 //		return model;
 //	}
 
-	private void handleGetProgramsList(ProgramsList response) {
+	private void handleGetProgramsList(ItemsViewModelProgramDetailsList response) {
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);
 		getViewState().showEmptyList(false);
 		getViewState().showBottomProgress(false);
 
-		if (getProgramsSubscription != null)
+		if (getProgramsSubscription != null) {
 			getProgramsSubscription.unsubscribe();
+		}
 
-		programsToAdd = response.getPrograms();
+		programsToAdd = response.getItems();
 
-		if (location.equals(ProgramsListFragment.LOCATION_MANAGER))
+		if (location.equals(ProgramsListFragment.LOCATION_MANAGER)) {
 			EventBus.getDefault().post(new SetManagerDetailsProgramsCountEvent(response.getTotal()));
+		}
 
 		if (programsToAdd.size() == 0) {
-			if (skip == 0)
+			if (skip == 0) {
 				getViewState().showEmptyList(true);
+			}
 			return;
 		}
 
@@ -238,8 +246,9 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 
 	private void setFavorite(UUID programId, boolean favorite) {
 		if (programsManager != null) {
-			if (favoriteSubscription != null)
+			if (favoriteSubscription != null) {
 				favoriteSubscription.unsubscribe();
+			}
 			favoriteSubscription = programsManager.setProgramFavorite(programId, favorite)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())

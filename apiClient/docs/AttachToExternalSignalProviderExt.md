@@ -4,19 +4,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **externalKeyId** | [**UUID**](UUID.md) |  |  [optional]
-**mode** | [**ModeEnum**](#ModeEnum) |  |  [optional]
+**mode** | [**SubscriptionMode**](SubscriptionMode.md) |  |  [optional]
 **percent** | **Double** |  |  [optional]
 **openTolerancePercent** | **Double** |  |  [optional]
 **fixedVolume** | **Double** |  |  [optional]
 **fixedCurrency** | [**FixedCurrencyEnum**](#FixedCurrencyEnum) |  |  [optional]
-
-<a name="ModeEnum"></a>
-## Enum: ModeEnum
-Name | Value
----- | -----
-BYBALANCE | &quot;ByBalance&quot;
-PERCENT | &quot;Percent&quot;
-FIXED | &quot;Fixed&quot;
 
 <a name="FixedCurrencyEnum"></a>
 ## Enum: FixedCurrencyEnum

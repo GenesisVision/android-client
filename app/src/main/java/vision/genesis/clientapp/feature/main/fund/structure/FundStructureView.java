@@ -15,7 +15,7 @@ import io.swagger.client.model.FundAssetInfo;
 
 interface FundStructureView extends MvpView
 {
-	void setAssets(List<FundAssetInfo> assets);
+	void setAssetsToAdapter(List<FundAssetInfo> assets);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);

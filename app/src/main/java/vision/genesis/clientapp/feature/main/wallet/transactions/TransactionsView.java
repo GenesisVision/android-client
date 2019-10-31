@@ -4,7 +4,7 @@ import com.arellomobile.mvp.MvpView;
 
 import java.util.List;
 
-import io.swagger.client.model.MultiWalletTransaction;
+import io.swagger.client.model.TransactionViewModel;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 
 /**
@@ -16,9 +16,9 @@ interface TransactionsView extends MvpView
 {
 	void showProgress(boolean show);
 
-	void setTransactions(List<MultiWalletTransaction> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
+	void setTransactions(List<TransactionViewModel> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
 
-	void addTransactions(List<MultiWalletTransaction> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
+	void addTransactions(List<TransactionViewModel> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
 
 	void showSnackbarMessage(String message);
 }

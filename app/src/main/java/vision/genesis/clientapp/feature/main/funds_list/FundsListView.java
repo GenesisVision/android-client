@@ -7,7 +7,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import java.util.List;
 import java.util.UUID;
 
-import io.swagger.client.model.FundDetails;
+import io.swagger.client.model.FundDetailsList;
 import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 /**
@@ -17,9 +17,9 @@ import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 interface FundsListView extends MvpView
 {
-	void setFunds(List<FundDetails> funds);
+	void setFunds(List<FundDetailsList> funds);
 
-	void addFunds(List<FundDetails> funds);
+	void addFunds(List<FundDetailsList> funds);
 
 	void setRefreshing(boolean refreshing);
 

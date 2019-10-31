@@ -10,20 +10,22 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.Locale;
 import java.util.UUID;
 
-import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.AssetInvestmentStatus;
 import io.swagger.client.model.FundDetailsFull;
-import io.swagger.client.model.PersonalFundDetailsFull;
+import io.swagger.client.model.PersonalFundDetails;
 import io.swagger.client.model.ProfilePublic;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -177,8 +179,9 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 		ValueAnimator animator = ValueAnimator.ofInt(strategy.getHeight(), strategyMaxHeight);
 		animator.addUpdateListener(animation -> {
 			strategy.setHeight((int) animator.getAnimatedValue());
-			if (!animation.isRunning())
+			if (!animation.isRunning()) {
 				strategy.setMaxHeight(strategyMaxHeight);
+			}
 		});
 		animator.setDuration(200);
 		animator.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -259,12 +262,13 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 
 		strategy.setText(fundDetails.getDescription());
 		new Handler().postDelayed(() -> {
-			if (strategyShadow != null && strategy != null)
+			if (strategyShadow != null && strategy != null) {
 				strategyShadow.setVisibility(strategy.getHeight() < strategyMaxHeight ? View.INVISIBLE : View.VISIBLE);
+			}
 		}, 300);
 
-		PersonalFundDetailsFull personalDetails = fundDetails.getPersonalFundDetails();
-		if (personalDetails != null && !personalDetails.getStatus().equals(PersonalFundDetailsFull.StatusEnum.ENDED)) {
+		PersonalFundDetails personalDetails = fundDetails.getPersonalDetails();
+		if (personalDetails != null && !personalDetails.getStatus().equals(AssetInvestmentStatus.ENDED)) {
 			yourInvestmentGroup.setVisibility(View.VISIBLE);
 			status.setStatus(personalDetails.getStatus().getValue());
 //		invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(fundDetails.getPersonalProgramDetails().getInvested()).toString()));
@@ -273,7 +277,8 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 //			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(personalDetails.getProfit(), 0, 4)));
 			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(getProfitPercent(personalDetails), 0, 4)));
 			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(), personalDetails.getProfit() < 0 ? R.attr.colorRed : R.attr.colorGreen));
-		} else {
+		}
+		else {
 			yourInvestmentGroup.setVisibility(View.GONE);
 		}
 
@@ -288,7 +293,7 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 //		investInfo.setText(String.format(Locale.getDefault(), getString(R.string.request_info_template), DateTimeUtil.formatShortDateTime(fundDetails.getPeriodEnds())));
 	}
 
-	private Double getProfitPercent(PersonalFundDetailsFull personalDetails) {
+	private Double getProfitPercent(PersonalFundDetails personalDetails) {
 		Double first = personalDetails.getInvested();
 		Double last = personalDetails.getValue();
 
@@ -296,7 +301,7 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 	}
 
 	@Override
-	public void showInvestWithdrawButtons(boolean show) {
+	public void showInvestWithdrawButtons() {
 //		buttonsGroup.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 
@@ -307,8 +312,9 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 
 	@Override
 	public void pagerShow() {
-		if (fundInfoPresenter != null)
+		if (fundInfoPresenter != null) {
 			fundInfoPresenter.onShow();
+		}
 	}
 
 	@Override
@@ -317,20 +323,23 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 
 	@Override
 	public void showInvestFundActivity(FundRequest request) {
-		if (getActivity() != null)
+		if (getActivity() != null) {
 			InvestFundActivity.startWith(getActivity(), request);
+		}
 	}
 
 	@Override
 	public void showWithdrawFundActivity(FundRequest request) {
-		if (getActivity() != null)
+		if (getActivity() != null) {
 			WithdrawFundActivity.startWith(getActivity(), request);
+		}
 	}
 
 	@Override
 	public void showLoginActivity() {
-		if (getActivity() != null)
+		if (getActivity() != null) {
 			LoginActivity.startFrom(getActivity());
+		}
 	}
 
 	@Override

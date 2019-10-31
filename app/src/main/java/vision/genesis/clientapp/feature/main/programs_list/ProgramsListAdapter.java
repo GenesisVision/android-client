@@ -6,6 +6,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
@@ -13,13 +17,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.ProgramDetails;
+import io.swagger.client.model.ProgramDetailsList;
 import io.swagger.client.model.ProgramFacet;
 import io.swagger.client.model.ProgramTag;
 import vision.genesis.clientapp.GenesisVisionApplication;
@@ -48,7 +49,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 	private static final int TYPE_CARD = 1;
 
-	private List<ProgramDetails> investmentPrograms = new ArrayList<>();
+	private List<ProgramDetailsList> investmentPrograms = new ArrayList<ProgramDetailsList>();
 
 	private List<ProgramFacet> facets = new ArrayList<>();
 
@@ -96,19 +97,19 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		notifyDataSetChanged();
 	}
 
-	public void setInvestmentPrograms(List<ProgramDetails> investmentPrograms) {
+	public void setInvestmentPrograms(List<ProgramDetailsList> investmentPrograms) {
 		this.investmentPrograms.clear();
 		this.investmentPrograms.addAll(investmentPrograms);
 		notifyDataSetChanged();
 	}
 
-	public void addInvestmentPrograms(List<ProgramDetails> investmentPrograms) {
+	public void addInvestmentPrograms(List<ProgramDetailsList> investmentPrograms) {
 		this.investmentPrograms.addAll(investmentPrograms);
 		notifyDataSetChanged();
 	}
 
 	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
-		for (ProgramDetails program : investmentPrograms) {
+		for (ProgramDetailsList program : investmentPrograms) {
 			if (program.getId().equals(programId)) {
 				if (program.getPersonalDetails() != null && !program.getPersonalDetails().isIsFavorite().equals(isFavorite)) {
 					program.getPersonalDetails().setIsFavorite(isFavorite);
@@ -210,7 +211,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		@BindView(R.id.tags_left)
 		public TagView tagsLeft;
 
-		private ProgramDetails program;
+		private ProgramDetailsList program;
 
 		InvestmentProgramViewHolder(View itemView) {
 			super(itemView);
@@ -263,7 +264,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			periodLabel.setText(periodLabel.getText().toString().toLowerCase());
 		}
 
-		void setProgram(ProgramDetails program) {
+		void setProgram(ProgramDetailsList program) {
 			this.program = program;
 			updateData();
 		}

@@ -6,6 +6,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -14,12 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.MultiWalletTransaction;
+import io.swagger.client.model.TransactionViewModel;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowTransactionDetailsEvent;
@@ -35,7 +37,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsListAdapter.TransactionViewHolder>
 {
-	public List<MultiWalletTransaction> transactions = new ArrayList<>();
+	public List<TransactionViewModel> transactions = new ArrayList<>();
 
 	@NonNull
 	@Override
@@ -46,8 +48,9 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 
 	@Override
 	public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
-		if (transactions.get(position) != null)
+		if (transactions.get(position) != null) {
 			holder.setTransaction(transactions.get(position));
+		}
 	}
 
 	@Override
@@ -55,13 +58,13 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 		return transactions.size();
 	}
 
-	void setTransactions(List<MultiWalletTransaction> transactions) {
+	void setTransactions(List<TransactionViewModel> transactions) {
 		this.transactions.clear();
 		this.transactions.addAll(transactions);
 		notifyDataSetChanged();
 	}
 
-	void addTransactions(List<MultiWalletTransaction> transactions) {
+	void addTransactions(List<TransactionViewModel> transactions) {
 		this.transactions.addAll(transactions);
 		notifyDataSetChanged();
 	}
@@ -83,7 +86,7 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 		@BindView(R.id.icon_status)
 		public ImageView statusIcon;
 
-		private MultiWalletTransaction transaction;
+		private TransactionViewModel transaction;
 
 		TransactionViewHolder(View itemView) {
 			super(itemView);
@@ -93,8 +96,9 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 			setFonts();
 
 			itemView.setOnClickListener(v -> {
-				if (transaction != null)
+				if (transaction != null) {
 					EventBus.getDefault().post(new ShowTransactionDetailsEvent(transaction.getId(), transaction.getType().getValue(), transaction.getDate()));
+				}
 			});
 		}
 
@@ -103,7 +107,7 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 			status.setTypeface(TypefaceUtil.semibold());
 		}
 
-		void setTransaction(MultiWalletTransaction transaction) {
+		void setTransaction(TransactionViewModel transaction) {
 			this.transaction = transaction;
 			updateData();
 		}

@@ -15,13 +15,8 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -49,7 +44,7 @@ public class ProgramBalanceChart implements Parcelable
 	private Double balance = null;
 
 	@SerializedName("programCurrency")
-	private ProgramCurrencyEnum programCurrency = null;
+	private Currency programCurrency = null;
 
 	@SerializedName("chart")
 	private List<BalanceChartPoint> chart = null;
@@ -59,7 +54,7 @@ public class ProgramBalanceChart implements Parcelable
 
 	ProgramBalanceChart(Parcel in) {
 		balance = (Double) in.readValue(null);
-		programCurrency = (ProgramCurrencyEnum) in.readValue(null);
+		programCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
 		chart = (List<BalanceChartPoint>) in.readValue(BalanceChartPoint.class.getClassLoader());
 	}
 
@@ -82,7 +77,7 @@ public class ProgramBalanceChart implements Parcelable
 		this.balance = balance;
 	}
 
-	public ProgramBalanceChart programCurrency(ProgramCurrencyEnum programCurrency) {
+	public ProgramBalanceChart programCurrency(Currency programCurrency) {
 		this.programCurrency = programCurrency;
 		return this;
 	}
@@ -93,11 +88,11 @@ public class ProgramBalanceChart implements Parcelable
 	 * @return programCurrency
 	 **/
 	@Schema(description = "")
-	public ProgramCurrencyEnum getProgramCurrency() {
+	public Currency getProgramCurrency() {
 		return programCurrency;
 	}
 
-	public void setProgramCurrency(ProgramCurrencyEnum programCurrency) {
+	public void setProgramCurrency(Currency programCurrency) {
 		this.programCurrency = programCurrency;
 	}
 
@@ -178,64 +173,5 @@ public class ProgramBalanceChart implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets programCurrency
-	 */
-	@JsonAdapter(ProgramCurrencyEnum.Adapter.class)
-	public enum ProgramCurrencyEnum
-	{
-		UNDEFINED("Undefined"),
-		GVT("GVT"),
-		ETH("ETH"),
-		BTC("BTC"),
-		ADA("ADA"),
-		USDT("USDT"),
-		XRP("XRP"),
-		BCH("BCH"),
-		LTC("LTC"),
-		DOGE("DOGE"),
-		BNB("BNB"),
-		USD("USD"),
-		EUR("EUR");
-
-		public static ProgramCurrencyEnum fromValue(String text) {
-			for (ProgramCurrencyEnum b : ProgramCurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		ProgramCurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<ProgramCurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final ProgramCurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public ProgramCurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return ProgramCurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

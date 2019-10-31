@@ -15,13 +15,8 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -50,13 +45,13 @@ public class FeeDetails implements Parcelable
 	private String description = null;
 
 	@SerializedName("type")
-	private TypeEnum type = null;
+	private FeeType type = null;
 
 	@SerializedName("amount")
 	private Double amount = null;
 
 	@SerializedName("currency")
-	private CurrencyEnum currency = null;
+	private Currency currency = null;
 
 	public FeeDetails() {
 	}
@@ -64,9 +59,9 @@ public class FeeDetails implements Parcelable
 	FeeDetails(Parcel in) {
 		title = (String) in.readValue(null);
 		description = (String) in.readValue(null);
-		type = (TypeEnum) in.readValue(null);
+		type = (FeeType) in.readValue(FeeType.class.getClassLoader());
 		amount = (Double) in.readValue(null);
-		currency = (CurrencyEnum) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 	}
 
 	public FeeDetails title(String title) {
@@ -107,7 +102,7 @@ public class FeeDetails implements Parcelable
 		this.description = description;
 	}
 
-	public FeeDetails type(TypeEnum type) {
+	public FeeDetails type(FeeType type) {
 		this.type = type;
 		return this;
 	}
@@ -118,11 +113,11 @@ public class FeeDetails implements Parcelable
 	 * @return type
 	 **/
 	@Schema(description = "")
-	public TypeEnum getType() {
+	public FeeType getType() {
 		return type;
 	}
 
-	public void setType(TypeEnum type) {
+	public void setType(FeeType type) {
 		this.type = type;
 	}
 
@@ -145,7 +140,7 @@ public class FeeDetails implements Parcelable
 		this.amount = amount;
 	}
 
-	public FeeDetails currency(CurrencyEnum currency) {
+	public FeeDetails currency(Currency currency) {
 		this.currency = currency;
 		return this;
 	}
@@ -156,14 +151,13 @@ public class FeeDetails implements Parcelable
 	 * @return currency
 	 **/
 	@Schema(description = "")
-	public CurrencyEnum getCurrency() {
+	public Currency getCurrency() {
 		return currency;
 	}
 
-	public void setCurrency(CurrencyEnum currency) {
+	public void setCurrency(Currency currency) {
 		this.currency = currency;
 	}
-
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -185,7 +179,6 @@ public class FeeDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, description, type, amount, currency);
 	}
-
 
 	@Override
 	public String toString() {
@@ -212,7 +205,6 @@ public class FeeDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(description);
@@ -223,126 +215,5 @@ public class FeeDetails implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets type
-	 */
-	@JsonAdapter(TypeEnum.Adapter.class)
-	public enum TypeEnum
-	{
-		UNDEFINED("Undefined"),
-		GVPROGRAMENTRY("GvProgramEntry"),
-		GVPROGRAMSUCCESS("GvProgramSuccess"),
-		GVPROGRAMSUCCESSSUM("GvProgramSuccessSum"),
-		GVFUNDENTRY("GvFundEntry"),
-		GVGMGVTHOLDERFEE("GvGmGvtHolderFee"),
-		MANAGERPROGRAMENTRY("ManagerProgramEntry"),
-		MANAGERPROGRAMSUCCESS("ManagerProgramSuccess"),
-		MANAGERPROGRAMSUCCESSSUM("ManagerProgramSuccessSum"),
-		MANAGERFUNDENTRY("ManagerFundEntry"),
-		MANAGERFUNDEXIT("ManagerFundExit"),
-		GVWITHDRAWAL("GvWithdrawal"),
-		MANAGERSIGNALMASTERSUCCESSFEE("ManagerSignalMasterSuccessFee"),
-		MANAGERSIGNALMASTERVOLUMEFEE("ManagerSignalMasterVolumeFee"),
-		GVSIGNALSUCCESSFEE("GvSignalSuccessFee"),
-		GVFUNDTRADE("GvFundTrade");
-
-		public static TypeEnum fromValue(String text) {
-			for (TypeEnum b : TypeEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		TypeEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<TypeEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public TypeEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return TypeEnum.fromValue(String.valueOf(value));
-			}
-		}
-	}
-
-	/**
-	 * Gets or Sets currency
-	 */
-	@JsonAdapter(CurrencyEnum.Adapter.class)
-	public enum CurrencyEnum
-	{
-		UNDEFINED("Undefined"),
-		GVT("GVT"),
-		ETH("ETH"),
-		BTC("BTC"),
-		ADA("ADA"),
-		USDT("USDT"),
-		XRP("XRP"),
-		BCH("BCH"),
-		LTC("LTC"),
-		DOGE("DOGE"),
-		BNB("BNB"),
-		USD("USD"),
-		EUR("EUR");
-
-		public static CurrencyEnum fromValue(String text) {
-			for (CurrencyEnum b : CurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		CurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<CurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return CurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

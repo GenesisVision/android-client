@@ -15,15 +15,10 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
 import org.joda.time.DateTime;
 
-import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -101,7 +96,7 @@ public class ProfileFullViewModel implements Parcelable
 	private String refUrl = null;
 
 	@SerializedName("verificationStatus")
-	private VerificationStatusEnum verificationStatus = null;
+	private UserVerificationStatus verificationStatus = null;
 
 	public ProfileFullViewModel() {
 	}
@@ -125,7 +120,7 @@ public class ProfileFullViewModel implements Parcelable
 		index = (String) in.readValue(null);
 		citizenship = (String) in.readValue(null);
 		refUrl = (String) in.readValue(null);
-		verificationStatus = (VerificationStatusEnum) in.readValue(null);
+		verificationStatus = (UserVerificationStatus) in.readValue(UserVerificationStatus.class.getClassLoader());
 	}
 
 	public ProfileFullViewModel id(UUID id) {
@@ -470,7 +465,7 @@ public class ProfileFullViewModel implements Parcelable
 		this.refUrl = refUrl;
 	}
 
-	public ProfileFullViewModel verificationStatus(VerificationStatusEnum verificationStatus) {
+	public ProfileFullViewModel verificationStatus(UserVerificationStatus verificationStatus) {
 		this.verificationStatus = verificationStatus;
 		return this;
 	}
@@ -481,11 +476,11 @@ public class ProfileFullViewModel implements Parcelable
 	 * @return verificationStatus
 	 **/
 	@Schema(description = "")
-	public VerificationStatusEnum getVerificationStatus() {
+	public UserVerificationStatus getVerificationStatus() {
 		return verificationStatus;
 	}
 
-	public void setVerificationStatus(VerificationStatusEnum verificationStatus) {
+	public void setVerificationStatus(UserVerificationStatus verificationStatus) {
 		this.verificationStatus = verificationStatus;
 	}
 
@@ -587,55 +582,5 @@ public class ProfileFullViewModel implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets verificationStatus
-	 */
-	@JsonAdapter(VerificationStatusEnum.Adapter.class)
-	public enum VerificationStatusEnum
-	{
-		NOTVERIFIED("NotVerified"),
-		VERIFIED("Verified"),
-		UNDERREVIEW("UnderReview"),
-		REJECTED("Rejected");
-
-		public static VerificationStatusEnum fromValue(String text) {
-			for (VerificationStatusEnum b : VerificationStatusEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		VerificationStatusEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<VerificationStatusEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final VerificationStatusEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public VerificationStatusEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return VerificationStatusEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

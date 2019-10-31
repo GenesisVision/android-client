@@ -7,7 +7,7 @@ import org.joda.time.DateTime;
 
 import java.util.UUID;
 
-import io.swagger.client.model.ManagerProfileDetails;
+import io.swagger.client.model.PublicProfile;
 
 /**
  * GenesisVisionAndroid
@@ -84,10 +84,10 @@ public class ManagerDetailsModel implements Parcelable
 		}
 	}
 
-	public void update(ManagerProfileDetails managerDetails) {
-		this.managerId = managerDetails.getManagerProfile().getId();
-		this.avatar = managerDetails.getManagerProfile().getAvatar();
-		this.managerName = managerDetails.getManagerProfile().getUsername();
-		this.managerDate = managerDetails.getManagerProfile().getRegDate();
+	public void update(PublicProfile managerDetails) {
+		this.managerId = managerDetails.getId();
+		this.avatar = managerDetails.getAvatar();
+		this.managerName = managerDetails.getUsername();
+		this.managerDate = managerDetails.getRegDate();
 	}
 }

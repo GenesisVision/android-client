@@ -41,15 +41,11 @@ public class TwoFactorCodeModel implements Parcelable
 	@SerializedName("twoFactorCode")
 	private String twoFactorCode = null;
 
-	@SerializedName("password")
-	private String password = null;
-
 	public TwoFactorCodeModel() {
 	}
 
 	TwoFactorCodeModel(Parcel in) {
 		twoFactorCode = (String) in.readValue(null);
-		password = (String) in.readValue(null);
 	}
 
 	public TwoFactorCodeModel twoFactorCode(String twoFactorCode) {
@@ -62,32 +58,13 @@ public class TwoFactorCodeModel implements Parcelable
 	 *
 	 * @return twoFactorCode
 	 **/
-	@Schema(required = true, description = "")
+	@Schema(description = "")
 	public String getTwoFactorCode() {
 		return twoFactorCode;
 	}
 
 	public void setTwoFactorCode(String twoFactorCode) {
 		this.twoFactorCode = twoFactorCode;
-	}
-
-	public TwoFactorCodeModel password(String password) {
-		this.password = password;
-		return this;
-	}
-
-	/**
-	 * Get password
-	 *
-	 * @return password
-	 **/
-	@Schema(required = true, description = "")
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	@Override
@@ -99,13 +76,12 @@ public class TwoFactorCodeModel implements Parcelable
 			return false;
 		}
 		TwoFactorCodeModel twoFactorCodeModel = (TwoFactorCodeModel) o;
-		return Objects.equals(this.twoFactorCode, twoFactorCodeModel.twoFactorCode) &&
-				Objects.equals(this.password, twoFactorCodeModel.password);
+		return Objects.equals(this.twoFactorCode, twoFactorCodeModel.twoFactorCode);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(twoFactorCode, password);
+		return Objects.hash(twoFactorCode);
 	}
 
 	@Override
@@ -114,7 +90,6 @@ public class TwoFactorCodeModel implements Parcelable
 		sb.append("class TwoFactorCodeModel {\n");
 
 		sb.append("    twoFactorCode: ").append(toIndentedString(twoFactorCode)).append("\n");
-		sb.append("    password: ").append(toIndentedString(password)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -132,7 +107,6 @@ public class TwoFactorCodeModel implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(twoFactorCode);
-		out.writeValue(password);
 	}
 
 	public int describeContents() {

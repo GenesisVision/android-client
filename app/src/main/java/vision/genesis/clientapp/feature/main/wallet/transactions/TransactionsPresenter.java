@@ -12,8 +12,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.MultiWalletTransaction;
-import io.swagger.client.model.MultiWalletTransactionsViewModel;
+import io.swagger.client.model.TransactionViewModel;
+import io.swagger.client.model.TransactionsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -49,7 +49,7 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 
 	private TransactionsFilter filter;
 
-	private List<MultiWalletTransaction> transactions = new ArrayList<>();
+	private List<TransactionViewModel> transactions = new ArrayList<TransactionViewModel>();
 
 	private List<SimpleSectionedRecyclerViewAdapter.Section> sections = new ArrayList<>();
 
@@ -67,8 +67,9 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 
 	@Override
 	public void onDestroy() {
-		if (transactionsSubscription != null)
+		if (transactionsSubscription != null) {
 			transactionsSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -104,8 +105,9 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 				filter.setSkip(skip);
 			}
 
-			if (transactionsSubscription != null)
+			if (transactionsSubscription != null) {
 				transactionsSubscription.unsubscribe();
+			}
 			transactionsSubscription = walletManager.getTransactions(filter)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
@@ -114,7 +116,7 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 		}
 	}
 
-	private void handleGetTransactionsResponse(MultiWalletTransactionsViewModel model) {
+	private void handleGetTransactionsResponse(TransactionsViewModel model) {
 		transactionsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
@@ -123,19 +125,22 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 			sections.clear();
 		}
 
-		if (location.equals(TransactionsFragment.LOCATION_WALLET))
+		if (location.equals(TransactionsFragment.LOCATION_WALLET)) {
 			EventBus.getDefault().post(new SetWalletTransactionsCountEvent(model.getTotal()));
-		else if (location.equals(TransactionsFragment.LOCATION_SPECIFIC_WALLET))
+		}
+		else if (location.equals(TransactionsFragment.LOCATION_SPECIFIC_WALLET)) {
 			EventBus.getDefault().post(new SetSpecificWalletTransactionsCountEvent(model.getTotal()));
+		}
 
-		List<MultiWalletTransaction> newTransactions = model.getTransactions();
+		List<TransactionViewModel> newTransactions = model.getTransactions();
 
 		int index = transactions.size();
-		for (MultiWalletTransaction newTransaction : newTransactions) {
+		for (TransactionViewModel newTransaction : newTransactions) {
 			String dateString = DateTimeUtil.formatShortDate(newTransaction.getDate());
 			String lastSectionDate = sections.isEmpty() ? "" : sections.get(sections.size() - 1).getTitle().toString();
-			if (!lastSectionDate.equals(dateString))
+			if (!lastSectionDate.equals(dateString)) {
 				sections.add(new SimpleSectionedRecyclerViewAdapter.Section(index, dateString));
+			}
 			index++;
 		}
 

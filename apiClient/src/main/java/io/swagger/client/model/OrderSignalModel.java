@@ -15,15 +15,10 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
 import org.joda.time.DateTime;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -61,7 +56,7 @@ public class OrderSignalModel implements Parcelable
 	private UUID tradingAccountId = null;
 
 	@SerializedName("currency")
-	private CurrencyEnum currency = null;
+	private Currency currency = null;
 
 	@SerializedName("id")
 	private UUID id = null;
@@ -82,7 +77,7 @@ public class OrderSignalModel implements Parcelable
 	private Double profit = null;
 
 	@SerializedName("direction")
-	private DirectionEnum direction = null;
+	private TradeDirectionType direction = null;
 
 	@SerializedName("date")
 	private DateTime date = null;
@@ -94,7 +89,7 @@ public class OrderSignalModel implements Parcelable
 	private Double priceCurrent = null;
 
 	@SerializedName("entry")
-	private EntryEnum entry = null;
+	private TradeEntryType entry = null;
 
 	@SerializedName("baseVolume")
 	private Double baseVolume = null;
@@ -125,18 +120,18 @@ public class OrderSignalModel implements Parcelable
 		totalCommission = (Double) in.readValue(null);
 		totalCommissionByType = (List<FeeDetails>) in.readValue(FeeDetails.class.getClassLoader());
 		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
-		currency = (CurrencyEnum) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		login = (String) in.readValue(null);
 		ticket = (String) in.readValue(null);
 		symbol = (String) in.readValue(null);
 		volume = (Double) in.readValue(null);
 		profit = (Double) in.readValue(null);
-		direction = (DirectionEnum) in.readValue(null);
+		direction = (TradeDirectionType) in.readValue(TradeDirectionType.class.getClassLoader());
 		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		price = (Double) in.readValue(null);
 		priceCurrent = (Double) in.readValue(null);
-		entry = (EntryEnum) in.readValue(null);
+		entry = (TradeEntryType) in.readValue(TradeEntryType.class.getClassLoader());
 		baseVolume = (Double) in.readValue(null);
 		originalCommission = (Double) in.readValue(null);
 		originalCommissionCurrency = (String) in.readValue(null);
@@ -238,7 +233,7 @@ public class OrderSignalModel implements Parcelable
 		this.tradingAccountId = tradingAccountId;
 	}
 
-	public OrderSignalModel currency(CurrencyEnum currency) {
+	public OrderSignalModel currency(Currency currency) {
 		this.currency = currency;
 		return this;
 	}
@@ -249,11 +244,11 @@ public class OrderSignalModel implements Parcelable
 	 * @return currency
 	 **/
 	@Schema(description = "")
-	public CurrencyEnum getCurrency() {
+	public Currency getCurrency() {
 		return currency;
 	}
 
-	public void setCurrency(CurrencyEnum currency) {
+	public void setCurrency(Currency currency) {
 		this.currency = currency;
 	}
 
@@ -371,7 +366,7 @@ public class OrderSignalModel implements Parcelable
 		this.profit = profit;
 	}
 
-	public OrderSignalModel direction(DirectionEnum direction) {
+	public OrderSignalModel direction(TradeDirectionType direction) {
 		this.direction = direction;
 		return this;
 	}
@@ -382,11 +377,11 @@ public class OrderSignalModel implements Parcelable
 	 * @return direction
 	 **/
 	@Schema(description = "")
-	public DirectionEnum getDirection() {
+	public TradeDirectionType getDirection() {
 		return direction;
 	}
 
-	public void setDirection(DirectionEnum direction) {
+	public void setDirection(TradeDirectionType direction) {
 		this.direction = direction;
 	}
 
@@ -447,7 +442,7 @@ public class OrderSignalModel implements Parcelable
 		this.priceCurrent = priceCurrent;
 	}
 
-	public OrderSignalModel entry(EntryEnum entry) {
+	public OrderSignalModel entry(TradeEntryType entry) {
 		this.entry = entry;
 		return this;
 	}
@@ -458,11 +453,11 @@ public class OrderSignalModel implements Parcelable
 	 * @return entry
 	 **/
 	@Schema(description = "")
-	public EntryEnum getEntry() {
+	public TradeEntryType getEntry() {
 		return entry;
 	}
 
-	public void setEntry(EntryEnum entry) {
+	public void setEntry(TradeEntryType entry) {
 		this.entry = entry;
 	}
 
@@ -709,166 +704,5 @@ public class OrderSignalModel implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets currency
-	 */
-	@JsonAdapter(CurrencyEnum.Adapter.class)
-	public enum CurrencyEnum
-	{
-		UNDEFINED("Undefined"),
-		GVT("GVT"),
-		ETH("ETH"),
-		BTC("BTC"),
-		ADA("ADA"),
-		USDT("USDT"),
-		XRP("XRP"),
-		BCH("BCH"),
-		LTC("LTC"),
-		DOGE("DOGE"),
-		BNB("BNB"),
-		USD("USD"),
-		EUR("EUR");
-
-		public static CurrencyEnum fromValue(String text) {
-			for (CurrencyEnum b : CurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		CurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<CurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return CurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
-	}
-
-	/**
-	 * Gets or Sets direction
-	 */
-	@JsonAdapter(DirectionEnum.Adapter.class)
-	public enum DirectionEnum
-	{
-		BUY("Buy"),
-		SELL("Sell"),
-		BALANCE("Balance"),
-		CREDIT("Credit"),
-		UNDEFINED("Undefined"),
-		MANUALBALANCING("ManualBalancing");
-
-		public static DirectionEnum fromValue(String text) {
-			for (DirectionEnum b : DirectionEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		DirectionEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<DirectionEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final DirectionEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public DirectionEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return DirectionEnum.fromValue(String.valueOf(value));
-			}
-		}
-	}
-
-	/**
-	 * Gets or Sets entry
-	 */
-	@JsonAdapter(EntryEnum.Adapter.class)
-	public enum EntryEnum
-	{
-		IN("In"),
-		OUT("Out"),
-		INOUT("InOut"),
-		OUTBY("OutBy");
-
-		public static EntryEnum fromValue(String text) {
-			for (EntryEnum b : EntryEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		EntryEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<EntryEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final EntryEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public EntryEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return EntryEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

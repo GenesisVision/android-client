@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -19,8 +22,6 @@ import org.joda.time.DateTime;
 import java.io.File;
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -35,6 +36,7 @@ import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.common.image_crop.ImageCropActivity;
 import vision.genesis.clientapp.ui.ProfileDataView;
 import vision.genesis.clientapp.ui.SpinnerView;
 import vision.genesis.clientapp.ui.ToolbarView;

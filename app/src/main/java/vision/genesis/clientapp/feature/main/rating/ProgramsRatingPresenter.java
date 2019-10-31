@@ -5,13 +5,9 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.LevelUpSummary;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.ProgramsManager;
-import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
  * GenesisVisionAndroid
@@ -32,34 +28,35 @@ public class ProgramsRatingPresenter extends MvpPresenter<ProgramsRatingView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		getRatingInfo();
+//		getRatingInfo();
 	}
 
 	@Override
 	public void onDestroy() {
-		if (ratingInfoSubscription != null)
+		if (ratingInfoSubscription != null) {
 			ratingInfoSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
 
-	private void getRatingInfo() {
-		ratingInfoSubscription = programsManager.getRatingInfo()
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleGetRatingInfoSuccess,
-						this::handleGetRatingInfoError);
-	}
-
-	private void handleGetRatingInfoSuccess(LevelUpSummary response) {
-		ratingInfoSubscription.unsubscribe();
-
-		getViewState().setData(response.getLevelData());
-	}
-
-	private void handleGetRatingInfoError(Throwable throwable) {
-		ratingInfoSubscription.unsubscribe();
-
-		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
-	}
+//	private void getRatingInfo() {
+//		ratingInfoSubscription = programsManager.getRatingInfo()
+//				.observeOn(AndroidSchedulers.mainThread())
+//				.subscribeOn(Schedulers.io())
+//				.subscribe(this::handleGetRatingInfoSuccess,
+//						this::handleGetRatingInfoError);
+//	}
+//
+//	private void handleGetRatingInfoSuccess(LevelUpSummary response) {
+//		ratingInfoSubscription.unsubscribe();
+//
+//		getViewState().setData(response.getLevelData());
+//	}
+//
+//	private void handleGetRatingInfoError(Throwable throwable) {
+//		ratingInfoSubscription.unsubscribe();
+//
+//		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+//	}
 }

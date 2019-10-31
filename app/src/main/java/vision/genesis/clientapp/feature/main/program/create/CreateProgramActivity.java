@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.feature.main.profile.ImageCropActivity;
+import vision.genesis.clientapp.feature.common.image_crop.ImageCropActivity;
 import vision.genesis.clientapp.ui.NonSwipeableViewPager;
 import vision.genesis.clientapp.ui.common.ActivityResultListener;
 import vision.genesis.clientapp.utils.ImageUtils;

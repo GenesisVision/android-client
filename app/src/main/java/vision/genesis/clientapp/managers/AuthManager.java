@@ -25,7 +25,7 @@ import io.swagger.client.model.RecoveryCodesViewModel;
 import io.swagger.client.model.RegisterViewModel;
 import io.swagger.client.model.TwoFactorAuthenticator;
 import io.swagger.client.model.TwoFactorAuthenticatorConfirm;
-import io.swagger.client.model.TwoFactorCodeModel;
+import io.swagger.client.model.TwoFactorCodeWithPassword;
 import io.swagger.client.model.TwoFactorStatus;
 import rx.Observable;
 import rx.Subscription;
@@ -184,7 +184,7 @@ public class AuthManager
 	}
 
 	public Observable<Void> disableTfa(String password, String code) {
-		TwoFactorCodeModel model = new TwoFactorCodeModel();
+		TwoFactorCodeWithPassword model = new TwoFactorCodeWithPassword();
 		model.setPassword(password);
 		model.setTwoFactorCode(code);
 		return authApi.disableTwoStepAuth(AuthManager.token.getValue(), model);
@@ -219,7 +219,7 @@ public class AuthManager
 	}
 
 	public Observable<CaptchaDetails> checkRiskControl(String route) {
-		return platformApi.getCaptchaModel(route, "Android", BuildConfig.VERSION_NAME);
+		return platformApi.getRiskControlInfo(route, "Android", BuildConfig.VERSION_NAME);
 	}
 
 	public void logout() {

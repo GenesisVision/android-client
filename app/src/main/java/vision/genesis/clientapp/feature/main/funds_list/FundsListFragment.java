@@ -9,25 +9,26 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.FundDetails;
+import io.swagger.client.model.FundDetailsList;
 import io.swagger.client.model.FundFacet;
-import io.swagger.client.model.FundsList;
+import io.swagger.client.model.ItemsViewModelFundDetailsList;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -175,8 +176,9 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 
 	@Override
 	public void onDestroyView() {
-		if (recyclerView != null)
+		if (recyclerView != null) {
 			recyclerView.setAdapter(null);
+		}
 
 		if (unbinder != null) {
 			unbinder.unbind();
@@ -218,8 +220,9 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 		LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
 		int totalItemCount = layoutManager.getItemCount();
 		lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
-		if (lastVisible < 0)
+		if (lastVisible < 0) {
 			return;
+		}
 
 		boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
 		if (totalItemCount > 0 && endHasBeenReached) {
@@ -229,18 +232,19 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 
 	public void setFacets(List<FundFacet> facets) {
 		this.facets = facets;
-		if (fundsListAdapter != null)
+		if (fundsListAdapter != null) {
 			fundsListAdapter.setFacets(facets);
+		}
 	}
 
 	@Override
-	public void setFunds(List<FundDetails> funds) {
+	public void setFunds(List<FundDetailsList> funds) {
 		fundsListAdapter.setFunds(funds);
 		recyclerView.scrollToPosition(0);
 	}
 
 	@Override
-	public void addFunds(List<FundDetails> funds) {
+	public void addFunds(List<FundDetailsList> funds) {
 		fundsListAdapter.addFunds(funds);
 	}
 
@@ -296,21 +300,24 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == UserFilter.TYPE_FUNDS_LIST_FILTER && resultCode == Activity.RESULT_OK) {
 			UserFilter userFilter = data.getParcelableExtra("filter");
-			if (userFilter != null)
+			if (userFilter != null) {
 				fundsListPresenter.onFilterUpdated(userFilter);
+			}
 		}
 		else {
 			super.onActivityResult(requestCode, resultCode, data);
 		}
 	}
 
-	public void showSearchResults(FundsList result) {
-		if (fundsListPresenter != null)
+	public void showSearchResults(ItemsViewModelFundDetailsList result) {
+		if (fundsListPresenter != null) {
 			fundsListPresenter.showSearchResults(result);
+		}
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
-		if (filters != null)
+		if (filters != null) {
 			filters.setY(root.getHeight() - verticalOffset - filters.getHeight() - filtersMarginBottom);
+		}
 	}
 }

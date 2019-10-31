@@ -15,19 +15,13 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * ProgramMinInvestAmount
  */
@@ -47,7 +41,7 @@ public class ProgramMinInvestAmount implements Parcelable
 	};
 
 	@SerializedName("serverType")
-	private ServerTypeEnum serverType = null;
+	private BrokerTradeServerType serverType = null;
 
 	@SerializedName("minInvestAmountOwnProgram")
 	private List<AmountWithCurrency> minInvestAmountOwnProgram = null;
@@ -59,12 +53,12 @@ public class ProgramMinInvestAmount implements Parcelable
 	}
 
 	ProgramMinInvestAmount(Parcel in) {
-		serverType = (ServerTypeEnum) in.readValue(null);
+		serverType = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
 		minInvestAmountOwnProgram = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
 		minInvestAmountSomeoneProgram = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
 	}
 
-	public ProgramMinInvestAmount serverType(ServerTypeEnum serverType) {
+	public ProgramMinInvestAmount serverType(BrokerTradeServerType serverType) {
 		this.serverType = serverType;
 		return this;
 	}
@@ -75,11 +69,11 @@ public class ProgramMinInvestAmount implements Parcelable
 	 * @return serverType
 	 **/
 	@Schema(description = "")
-	public ServerTypeEnum getServerType() {
+	public BrokerTradeServerType getServerType() {
 		return serverType;
 	}
 
-	public void setServerType(ServerTypeEnum serverType) {
+	public void setServerType(BrokerTradeServerType serverType) {
 		this.serverType = serverType;
 	}
 
@@ -187,62 +181,5 @@ public class ProgramMinInvestAmount implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets serverType
-	 */
-	@JsonAdapter(ServerTypeEnum.Adapter.class)
-	public enum ServerTypeEnum
-	{
-		UNDEFINED("Undefined"),
-		METATRADER4("MetaTrader4"),
-		METATRADER5("MetaTrader5"),
-		NINJATRADER("NinjaTrader"),
-		CTRADER("cTrader"),
-		RUMUS("Rumus"),
-		METASTOCK("Metastock"),
-		IDEX("IDEX"),
-		HUOBI("Huobi"),
-		EXANTE("Exante"),
-		BINANCEEXCHANGE("BinanceExchange");
-
-		public static ServerTypeEnum fromValue(String text) {
-			for (ServerTypeEnum b : ServerTypeEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		ServerTypeEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<ServerTypeEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final ServerTypeEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public ServerTypeEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return ServerTypeEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

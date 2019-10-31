@@ -20,14 +20,21 @@ public class PlatformApiTest
 
 
 	/**
-	 * Platform captcha details
+	 * Get all supported assets for funds
 	 */
 	@Test
-	public void getCaptchaModelTest() {
-		String route = null;
-		String client = null;
-		String version = null;
-		// CaptchaDetails response = api.getCaptchaModel(route, client, version);
+	public void getAllPlatformAssetsTest() {
+		// PlatformAssets response = api.getAllPlatformAssets();
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Server date
+	 */
+	@Test
+	public void getPlatformDateTest() {
+		// String response = api.getPlatformDate();
 
 		// TODO: test validations
 	}
@@ -38,6 +45,41 @@ public class PlatformApiTest
 	@Test
 	public void getPlatformInfoTest() {
 		// PlatformInfo response = api.getPlatformInfo();
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Investment programs levels
+	 */
+	@Test
+	public void getProgramLevelsTest() {
+		String currency = null;
+		// ProgramsLevelsInfo response = api.getProgramLevels(currency);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Investment programs levels parameters
+	 */
+	@Test
+	public void getProgramLevelsParamsTest() {
+		String currency = null;
+		// LevelsParamsInfo response = api.getProgramLevelsParams(currency);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Risk control
+	 */
+	@Test
+	public void getRiskControlInfoTest() {
+		String route = null;
+		String client = null;
+		String version = null;
+		// CaptchaDetails response = api.getRiskControlInfo(route, client, version);
 
 		// TODO: test validations
 	}

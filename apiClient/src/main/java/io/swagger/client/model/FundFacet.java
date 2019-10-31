@@ -15,13 +15,8 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -45,7 +40,7 @@ public class FundFacet implements Parcelable
 	};
 
 	@SerializedName("sorting")
-	private SortingEnum sorting = null;
+	private FundsFilterSorting sorting = null;
 
 	@SerializedName("id")
 	private UUID id = null;
@@ -63,26 +58,26 @@ public class FundFacet implements Parcelable
 	private String url = null;
 
 	@SerializedName("sortType")
-	private SortTypeEnum sortType = null;
+	private FacetSortType sortType = null;
 
 	@SerializedName("timeframe")
-	private TimeframeEnum timeframe = null;
+	private Timeframe timeframe = null;
 
 	public FundFacet() {
 	}
 
 	FundFacet(Parcel in) {
-		sorting = (SortingEnum) in.readValue(null);
+		sorting = (FundsFilterSorting) in.readValue(FundsFilterSorting.class.getClassLoader());
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		title = (String) in.readValue(null);
 		description = (String) in.readValue(null);
 		logo = (String) in.readValue(null);
 		url = (String) in.readValue(null);
-		sortType = (SortTypeEnum) in.readValue(null);
-		timeframe = (TimeframeEnum) in.readValue(null);
+		sortType = (FacetSortType) in.readValue(FacetSortType.class.getClassLoader());
+		timeframe = (Timeframe) in.readValue(Timeframe.class.getClassLoader());
 	}
 
-	public FundFacet sorting(SortingEnum sorting) {
+	public FundFacet sorting(FundsFilterSorting sorting) {
 		this.sorting = sorting;
 		return this;
 	}
@@ -93,11 +88,11 @@ public class FundFacet implements Parcelable
 	 * @return sorting
 	 **/
 	@Schema(description = "")
-	public SortingEnum getSorting() {
+	public FundsFilterSorting getSorting() {
 		return sorting;
 	}
 
-	public void setSorting(SortingEnum sorting) {
+	public void setSorting(FundsFilterSorting sorting) {
 		this.sorting = sorting;
 	}
 
@@ -196,7 +191,7 @@ public class FundFacet implements Parcelable
 		this.url = url;
 	}
 
-	public FundFacet sortType(SortTypeEnum sortType) {
+	public FundFacet sortType(FacetSortType sortType) {
 		this.sortType = sortType;
 		return this;
 	}
@@ -207,15 +202,15 @@ public class FundFacet implements Parcelable
 	 * @return sortType
 	 **/
 	@Schema(description = "")
-	public SortTypeEnum getSortType() {
+	public FacetSortType getSortType() {
 		return sortType;
 	}
 
-	public void setSortType(SortTypeEnum sortType) {
+	public void setSortType(FacetSortType sortType) {
 		this.sortType = sortType;
 	}
 
-	public FundFacet timeframe(TimeframeEnum timeframe) {
+	public FundFacet timeframe(Timeframe timeframe) {
 		this.timeframe = timeframe;
 		return this;
 	}
@@ -226,11 +221,11 @@ public class FundFacet implements Parcelable
 	 * @return timeframe
 	 **/
 	@Schema(description = "")
-	public TimeframeEnum getTimeframe() {
+	public Timeframe getTimeframe() {
 		return timeframe;
 	}
 
-	public void setTimeframe(TimeframeEnum timeframe) {
+	public void setTimeframe(Timeframe timeframe) {
 		this.timeframe = timeframe;
 	}
 
@@ -299,167 +294,5 @@ public class FundFacet implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets sorting
-	 */
-	@JsonAdapter(SortingEnum.Adapter.class)
-	public enum SortingEnum
-	{
-		BYPROFITASC("ByProfitAsc"),
-		BYPROFITDESC("ByProfitDesc"),
-		BYDRAWDOWNASC("ByDrawdownAsc"),
-		BYDRAWDOWNDESC("ByDrawdownDesc"),
-		BYINVESTORSASC("ByInvestorsAsc"),
-		BYINVESTORSDESC("ByInvestorsDesc"),
-		BYNEWASC("ByNewAsc"),
-		BYNEWDESC("ByNewDesc"),
-		BYTITLEASC("ByTitleAsc"),
-		BYTITLEDESC("ByTitleDesc"),
-		BYBALANCEASC("ByBalanceAsc"),
-		BYBALANCEDESC("ByBalanceDesc");
-
-		public static SortingEnum fromValue(String text) {
-			for (SortingEnum b : SortingEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		SortingEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<SortingEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final SortingEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public SortingEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return SortingEnum.fromValue(String.valueOf(value));
-			}
-		}
-	}
-
-	/**
-	 * Gets or Sets sortType
-	 */
-	@JsonAdapter(SortTypeEnum.Adapter.class)
-	public enum SortTypeEnum
-	{
-		NEW("New"),
-		TOP("Top"),
-		WEEKLYTOP("WeeklyTop"),
-		POPULAR("Popular"),
-		TOLEVELUP("ToLevelUp"),
-		MOSTRELIABLE("MostReliable");
-
-		public static SortTypeEnum fromValue(String text) {
-			for (SortTypeEnum b : SortTypeEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		SortTypeEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<SortTypeEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final SortTypeEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public SortTypeEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return SortTypeEnum.fromValue(String.valueOf(value));
-			}
-		}
-	}
-
-	/**
-	 * Gets or Sets timeframe
-	 */
-	@JsonAdapter(TimeframeEnum.Adapter.class)
-	public enum TimeframeEnum
-	{
-		DAY("Day"),
-		WEEK("Week"),
-		MONTH("Month"),
-		THREEMONTHS("ThreeMonths"),
-		YEAR("Year"),
-		ALLTIME("AllTime");
-
-		public static TimeframeEnum fromValue(String text) {
-			for (TimeframeEnum b : TimeframeEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		TimeframeEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<TimeframeEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final TimeframeEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public TimeframeEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return TimeframeEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

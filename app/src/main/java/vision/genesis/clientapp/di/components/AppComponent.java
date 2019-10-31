@@ -15,6 +15,7 @@ import vision.genesis.clientapp.feature.auth.forgot_password.ForgotPasswordPrese
 import vision.genesis.clientapp.feature.auth.login.LoginPresenter;
 import vision.genesis.clientapp.feature.auth.registration.RegistrationPresenter;
 import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
+import vision.genesis.clientapp.feature.common.image_crop.ImageCropActivity;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.MainPresenter;
@@ -42,7 +43,6 @@ import vision.genesis.clientapp.feature.main.fund.invest.InvestFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.invest.confirm.ConfirmFundInvestBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.fund.profit.FundProfitPresenter;
 import vision.genesis.clientapp.feature.main.fund.reallocate_history.ReallocateHistoryPresenter;
-import vision.genesis.clientapp.feature.main.fund.structure.FundStructurePresenter;
 import vision.genesis.clientapp.feature.main.fund.withdraw.WithdrawFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.withdraw.confirm.ConfirmFundWithdrawBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.funds_list.FundsListPresenter;
@@ -56,7 +56,6 @@ import vision.genesis.clientapp.feature.main.notifications.fund.FundNotification
 import vision.genesis.clientapp.feature.main.notifications.program.ProgramNotificationsSettingsPresenter;
 import vision.genesis.clientapp.feature.main.notifications.settings.NotificationsSettingsPresenter;
 import vision.genesis.clientapp.feature.main.portfolio_events.PortfolioEventsPresenter;
-import vision.genesis.clientapp.feature.main.profile.ImageCropActivity;
 import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPresenter;
 import vision.genesis.clientapp.feature.main.program.balance.ProgramBalancePresenter;
@@ -227,8 +226,6 @@ public interface AppComponent
 	void inject(FundDetailsPresenter fundDetailsPresenter);
 
 	void inject(FundInfoPresenter fundInfoPresenter);
-
-	void inject(FundStructurePresenter fundStructurePresenter);
 
 	void inject(FundProfitPresenter fundProfitPresenter);
 

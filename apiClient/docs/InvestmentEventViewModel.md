@@ -1,4 +1,3 @@
-
 # InvestmentEventViewModel
 
 ## Properties
@@ -10,12 +9,11 @@ Name | Type | Description | Notes
 **assetDetails** | [**AssetDetails**](AssetDetails.md) |  |  [optional]
 **amount** | **Double** |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
-**changeState** | [**ChangeStateEnum**](#ChangeStateEnum) |  |  [optional]
+**changeState** | [**ChangeState**](ChangeState.md) |  |  [optional]
 **extendedInfo** | [**List&lt;InvestmentEventItemViewModel&gt;**](InvestmentEventItemViewModel.md) |  |  [optional]
 **feesInfo** | [**List&lt;FeeDetails&gt;**](FeeDetails.md) |  |  [optional]
 **totalFeesAmount** | **Double** |  |  [optional]
 **totalFeesCurrency** | [**TotalFeesCurrencyEnum**](#TotalFeesCurrencyEnum) |  |  [optional]
-
 
 <a name="CurrencyEnum"></a>
 ## Enum: CurrencyEnum
@@ -35,16 +33,6 @@ BNB | &quot;BNB&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
 
-
-<a name="ChangeStateEnum"></a>
-## Enum: ChangeStateEnum
-Name | Value
----- | -----
-INCREASED | &quot;Increased&quot;
-DECREASED | &quot;Decreased&quot;
-NOTCHANGED | &quot;NotChanged&quot;
-
-
 <a name="TotalFeesCurrencyEnum"></a>
 ## Enum: TotalFeesCurrencyEnum
 Name | Value
@@ -62,6 +50,3 @@ DOGE | &quot;DOGE&quot;
 BNB | &quot;BNB&quot;
 USD | &quot;USD&quot;
 EUR | &quot;EUR&quot;
-
-
-

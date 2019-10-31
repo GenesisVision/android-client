@@ -2,17 +2,17 @@ package vision.genesis.clientapp.managers;
 
 import java.util.UUID;
 
-import io.swagger.client.api.DashboardApi;
+import io.swagger.client.api.EventsApi;
 import io.swagger.client.api.FundsApi;
-import io.swagger.client.model.DashboardPortfolioEvents;
-import io.swagger.client.model.FundAssetsListInfo;
+import io.swagger.client.api.InvestmentsApi;
 import io.swagger.client.model.FundBalanceChart;
 import io.swagger.client.model.FundDetailsFull;
-import io.swagger.client.model.FundInvestInfo;
-import io.swagger.client.model.FundProfitChart;
+import io.swagger.client.model.FundProfitCharts;
 import io.swagger.client.model.FundWithdrawInfo;
-import io.swagger.client.model.FundsList;
-import io.swagger.client.model.ReallocationsViewModel;
+import io.swagger.client.model.InvestmentEventLocation;
+import io.swagger.client.model.InvestmentEventViewModels;
+import io.swagger.client.model.ItemsViewModelFundDetailsList;
+import io.swagger.client.model.ItemsViewModelReallocationModel;
 import rx.Observable;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
@@ -26,23 +26,24 @@ import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 public class FundsManager
 {
-	private DashboardApi dashboardApi;
+	private final FundsApi fundsApi;
 
-	private FundsApi fundsApi;
+	private final InvestmentsApi investmentsApi;
 
-	public FundsManager(DashboardApi dashboardApi, FundsApi fundsApi) {
-		this.dashboardApi = dashboardApi;
+	private final EventsApi eventsApi;
+
+	public FundsManager(FundsApi fundsApi, InvestmentsApi investmentsApi, EventsApi eventsApi) {
 		this.fundsApi = fundsApi;
+		this.investmentsApi = investmentsApi;
+		this.eventsApi = eventsApi;
 	}
 
-	public Observable<FundsList> getFundsList(ProgramsFilter filter) {
-		return fundsApi.v10FundsGet(AuthManager.token.getValue(),
-				filter.getSorting().getValue(), null, filter.getCurrency() != null ? filter.getCurrency().getValue() : null,
-				null,
-				filter.getDateRange().getFrom(), filter.getDateRange().getTo(), 10,
-				filter.getMask(), filter.getFacetId() != null ? filter.getFacetId().toString() : null, filter.getIsFavorite(), filter.getIsEnabled(),
-				null, null,
-				filter.getIds(), null, filter.getManagerId() != null ? filter.getManagerId().toString() : null, null, null, filter.getSkip(), filter.getTake());
+	public Observable<ItemsViewModelFundDetailsList> getFundsList(ProgramsFilter filter) {
+		return fundsApi.getFunds(AuthManager.token.getValue(),
+				null, null, null,
+				filter.getChartPointsCount(), null,
+				filter.getFacetId().toString(), filter.getMask(),
+				filter.getSkip(), filter.getTake());
 	}
 
 	public Observable<Void> setFundFavorite(UUID fundId, boolean isFavorite) {
@@ -50,70 +51,50 @@ public class FundsManager
 	}
 
 	private Observable<Void> fundFavoritesAdd(UUID fundId) {
-		return fundsApi.v10FundsByIdFavoriteAddPost(fundId, AuthManager.token.getValue());
+		return fundsApi.addToFavorites(fundId, AuthManager.token.getValue());
 	}
 
 	private Observable<Void> fundFavoritesRemove(UUID fundId) {
-		return fundsApi.v10FundsByIdFavoriteRemovePost(fundId, AuthManager.token.getValue());
+		return fundsApi.removeFromFavorites(fundId, AuthManager.token.getValue());
 	}
 
 	public Observable<FundDetailsFull> getFundDetails(UUID fundId, CurrencyEnum baseCurrency) {
-		return fundsApi.v10FundsByIdGet(fundId.toString(), AuthManager.token.getValue(), baseCurrency.getValue());
+		return fundsApi.getFundDetails(fundId.toString(), AuthManager.token.getValue(), baseCurrency.getValue());
 	}
 
-	public Observable<FundAssetsListInfo> getFundAssets(UUID fundId) {
-		return fundsApi.v10FundsByIdAssetsGet(fundId);
-	}
+//	public Observable<FundAssetsListInfo> getFundAssets(UUID fundId) {
+//		return fundsApi.v10FundsByIdAssetsGet(fundId);
+//	}
 
-	public Observable<FundProfitChart> getProfitChart(UUID fundId, DateRange dateRange, Integer maxPointCount) {
-		return fundsApi.getFundProfitChart(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null, null);
+	public Observable<FundProfitCharts> getProfitChart(UUID fundId, DateRange dateRange, Integer maxPointCount) {
+		return fundsApi.getFundProfitChart(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null, null, null);
 	}
 
 	public Observable<FundBalanceChart> getBalanceChart(UUID fundId, DateRange dateRange, Integer maxPointCount) {
-		return fundsApi.v10FundsByIdChartsBalanceGet(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null);
+		return fundsApi.getFundBalanceChart(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null);
 	}
 
-	public Observable<DashboardPortfolioEvents> getFundHistory(UUID fundId, DateRange dateRange, Integer skip, Integer take) {
-		return dashboardApi.v10InvestorPortfolioEventsGet(AuthManager.token.getValue(), fundId, dateRange.getFrom(), dateRange.getTo(), null, null, skip, take);
+	public Observable<InvestmentEventViewModels> getEvents(UUID fundId, DateRange dateRange, Integer skip, Integer take) {
+		return eventsApi.getEvents(AuthManager.token.getValue(), InvestmentEventLocation.ASSET.getValue(), fundId, dateRange.getFrom(), dateRange.getTo(), null, null, skip, take);
 	}
 
-	public Observable<FundInvestInfo> getInvestInfo(UUID programId, String baseCurrency) {
-		return dashboardApi.v10InvestorFundsByIdInvestInfoByCurrencyGet(programId, baseCurrency, AuthManager.token.getValue());
-	}
+//	public Observable<FundInvestInfo> getInvestInfo(UUID programId, String baseCurrency) {
+//		return investmentsApi.v10InvestorFundsByIdInvestInfoByCurrencyGet(programId, baseCurrency, AuthManager.token.getValue());
+//	}
 
 	public Observable<FundWithdrawInfo> getWithdrawInfo(UUID programId, String baseCurrency) {
-		return dashboardApi.v10InvestorFundsByIdWithdrawInfoByCurrencyGet(programId, baseCurrency, AuthManager.token.getValue());
+		return investmentsApi.getFundWithdrawInfo(programId, baseCurrency, AuthManager.token.getValue());
 	}
 
 	public Observable<Void> invest(FundRequest fundRequest) {
-		return dashboardApi.v10InvestorFundsByIdInvestByAmountPost(fundRequest.getFundId(), fundRequest.getAmount(), AuthManager.token.getValue(), fundRequest.getWalletCurrency());
+		return investmentsApi.investIntoFund(fundRequest.getFundId(), AuthManager.token.getValue(), fundRequest.getAmount(), fundRequest.getWalletId());
 	}
 
 	public Observable<Void> withdraw(FundRequest fundRequest) {
-		return dashboardApi.v10InvestorFundsByIdWithdrawByPercentPost(fundRequest.getFundId(), fundRequest.getAmount(), AuthManager.token.getValue(), fundRequest.getWalletCurrency());
+		return investmentsApi.withdrawFromFund(fundRequest.getFundId(), AuthManager.token.getValue(), fundRequest.getAmount(), fundRequest.getWalletCurrency());
 	}
 
-	public Observable<ReallocationsViewModel> getReallocateHistory(UUID fundId, DateRange dateRange, int skip, int take) {
-		return fundsApi.v10FundsByIdReallocationsGet(fundId, dateRange.getFrom(), dateRange.getTo(), skip, take);
+	public Observable<ItemsViewModelReallocationModel> getReallocateHistory(UUID fundId, DateRange dateRange, int skip, int take) {
+		return fundsApi.getReallocatingHistory(fundId, dateRange.getFrom(), dateRange.getTo(), skip, take);
 	}
-
-	//	public Observable<Void> withdraw(ProgramRequest withdrawalRequest) {
-//		Invest model = new Invest();
-//		model.setInvestmentProgramId(withdrawalRequest.programId);
-//		model.setAmount(withdrawalRequest.amount);
-//		return dashboardApi.apiInvestorInvestmentProgramsWithdrawPost(AuthManager.token.getValue(), model);
-//	}
-//
-//
-//	public Observable<InvestmentProgramRequests> getInvestmentProgramRequests(InvestmentProgramRequestsFilter filter) {
-//		return dashboardApi.apiInvestorInvestmentProgramRequestsPost(AuthManager.token.getValue(), filter);
-//	}
-//
-//	public Observable<BrokersViewModel> getDataToCreateProgram() {
-//		return managerApi.apiManagerBrokersPost(new BrokersFilter());
-//	}
-//
-//	public Observable<UUID> sendCreateProgramRequest(NewInvestmentRequest request) {
-//		return managerApi.apiManagerAccountNewInvestmentRequestPost(AuthManager.token.getValue(), request);
-//	}
 }

@@ -10,20 +10,22 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.widget.NestedScrollView;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.Locale;
 import java.util.UUID;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.widget.NestedScrollView;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.PersonalProgramDetailsFull;
+import io.swagger.client.model.AssetInvestmentStatus;
+import io.swagger.client.model.PersonalProgramDetails;
 import io.swagger.client.model.ProfilePublic;
 import io.swagger.client.model.ProgramDetailsFull;
 import vision.genesis.clientapp.R;
@@ -244,8 +246,9 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		ValueAnimator animator = ValueAnimator.ofInt(strategy.getHeight(), strategyMaxHeight);
 		animator.addUpdateListener(animation -> {
 			strategy.setHeight((int) animator.getAnimatedValue());
-			if (!animation.isRunning())
+			if (!animation.isRunning()) {
 				strategy.setMaxHeight(strategyMaxHeight);
+			}
 		});
 		animator.setDuration(200);
 		animator.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -362,8 +365,9 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 		strategy.setText(programDetails.getDescription());
 		new Handler().postDelayed(() -> {
-			if (strategyShadow != null && strategy != null)
+			if (strategyShadow != null && strategy != null) {
 				strategyShadow.setVisibility(strategy.getHeight() < strategyMaxHeight ? View.INVISIBLE : View.VISIBLE);
+			}
 		}, 300);
 
 		periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds(), true, true);
@@ -371,7 +375,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	}
 
 	private void updateInvestNow(ProgramDetailsFull programDetails) {
-		PersonalProgramDetailsFull personalDetails = programDetails.getPersonalProgramDetails();
+		PersonalProgramDetails personalDetails = programDetails.getPersonalDetails();
 
 		availableToInvest.setText(String.format(Locale.getDefault(), "%s %s",
 				StringFormatUtil.getShortenedAmount(programDetails.getAvailableInvestmentBase()).toString(),
@@ -400,9 +404,9 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	}
 
 	private void updateYourInvestment(ProgramDetailsFull programDetails) {
-		PersonalProgramDetailsFull personalDetails = programDetails.getPersonalProgramDetails();
+		PersonalProgramDetails personalDetails = programDetails.getPersonalDetails();
 
-		if (personalDetails != null && personalDetails.isIsInvested() && !personalDetails.getStatus().equals(PersonalProgramDetailsFull.StatusEnum.ENDED)) {
+		if (personalDetails != null && personalDetails.isIsInvested() && !personalDetails.getStatus().equals(AssetInvestmentStatus.ENDED)) {
 			yourInvestmentGroup.setVisibility(View.VISIBLE);
 			status.setStatus(personalDetails.getStatus().getValue());
 			invested.setText(String.format(Locale.getDefault(), "%s %s",
@@ -430,12 +434,14 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		if (programDetails != null && programDetails.isIsSignalProgram()) {
 			subscriptionGroup.setVisibility(View.VISIBLE);
 
-			subscriptionSuccessFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getSignalSuccessFee(), 0, 2)));
-			subscriptionVolumeFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getSignalVolumeFee(), 0, 2)));
+			subscriptionSuccessFee.setText(String.format(Locale.getDefault(), "%s%%",
+					StringFormatUtil.formatAmount(programDetails.getSignalSettings().getSignalSuccessFee(), 0, 2)));
+			subscriptionVolumeFee.setText(String.format(Locale.getDefault(), "%s%%",
+					StringFormatUtil.formatAmount(programDetails.getSignalSettings().getSignalVolumeFee(), 0, 2)));
 
-			boolean hasSubscription = programDetails.getPersonalProgramDetails() != null
-					&& programDetails.getPersonalProgramDetails().getSignalSubscription() != null
-					&& programDetails.getPersonalProgramDetails().getSignalSubscription().isHasActiveSubscription();
+			boolean hasSubscription = programDetails.getPersonalDetails() != null
+					&& programDetails.getPersonalDetails().getSignalSubscription() != null
+					&& programDetails.getPersonalDetails().getSignalSubscription().isHasActiveSubscription();
 			followTradesButton.setVisibility(!hasSubscription ? View.VISIBLE : View.GONE);
 			editSubscriptionButton.setVisibility(hasSubscription ? View.VISIBLE : View.GONE);
 			unfollowTradesButton.setVisibility(hasSubscription ? View.VISIBLE : View.GONE);
@@ -446,13 +452,13 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	}
 
 	private Double getProfitPercent() {
-		Double invested = programDetails.getPersonalProgramDetails().getInvested();
-		Double value = programDetails.getPersonalProgramDetails().getValue();
+		Double invested = programDetails.getPersonalDetails().getInvested();
+		Double value = programDetails.getPersonalDetails().getValue();
 		return Math.abs(invested != 0 ? 100 / invested * (invested - value) : 0);
 	}
 
 	@Override
-	public void showInvestWithdrawButtons(boolean show) {
+	public void showInvestWithdrawButtons() {
 //		buttonsGroup.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 
@@ -463,8 +469,9 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@Override
 	public void pagerShow() {
-		if (programInfoPresenter != null)
+		if (programInfoPresenter != null) {
 			programInfoPresenter.onShow();
+		}
 	}
 
 	@Override
@@ -473,14 +480,16 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@Override
 	public void showInvestProgramActivity(ProgramRequest request) {
-		if (getActivity() != null)
+		if (getActivity() != null) {
 			InvestProgramActivity.startWith(getActivity(), request);
+		}
 	}
 
 	@Override
 	public void showWithdrawProgramActivity(ProgramRequest request) {
-		if (getActivity() != null)
+		if (getActivity() != null) {
 			WithdrawProgramActivity.startWith(getActivity(), request);
+		}
 	}
 
 	@Override
@@ -510,25 +519,29 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@Override
 	public void showLoginActivity() {
-		if (getActivity() != null)
+		if (getActivity() != null) {
 			LoginActivity.startFrom(getActivity());
+		}
 	}
 
 	@Override
 	public void showCreateCopytradingAccountActivity(SubscriptionSettingsModel model) {
-		if (getActivity() != null)
+		if (getActivity() != null) {
 			CreateCopytradingAccountActivity.startWith(getActivity(), model);
+		}
 	}
 
 	@Override
 	public void showSubscriptionSettings(SubscriptionSettingsModel model, boolean isEdit) {
-		if (getActivity() != null)
+		if (getActivity() != null) {
 			SubscriptionSettingsActivity.startWith(getActivity(), model, isEdit);
+		}
 	}
 
 	@Override
 	public void showUnfollowTradesActivity(UUID programId, String programName) {
-		if (getActivity() != null)
+		if (getActivity() != null) {
 			UnfollowTradesActivity.startWith(getActivity(), programId, programName);
+		}
 	}
 }

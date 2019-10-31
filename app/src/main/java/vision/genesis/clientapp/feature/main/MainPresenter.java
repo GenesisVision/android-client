@@ -11,7 +11,7 @@ import org.greenrobot.eventbus.Subscribe;
 import javax.inject.Inject;
 
 import io.swagger.client.model.PlatformInfo;
-import io.swagger.client.model.ProgramFacet;
+import io.swagger.client.model.ProgramsFilterSorting;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -48,7 +48,6 @@ import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.model.events.ShowSpecificWalletEvent;
 import vision.genesis.clientapp.model.events.ShowTransactionDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawProgramEvent;
-import vision.genesis.clientapp.utils.Constants;
 
 /**
  * GenesisVision
@@ -151,31 +150,12 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	private void showDashboard() {
-		if (Constants.IS_INVESTOR) {
-			showInvestorDashboard();
-		}
-		else {
-			showManagerDashboard();
-		}
-	}
-
-	private void showInvestorDashboard() {
 		if (investorDashboardFragment == null) {
 			investorDashboardFragment = new InvestorDashboardFragment();
 			getViewState().addFragmentToBackstack(investorDashboardFragment);
 		}
 		else {
 			getViewState().showFragment(investorDashboardFragment);
-		}
-	}
-
-	private void showManagerDashboard() {
-		if (managerDashboardFragment == null) {
-			managerDashboardFragment = new ManagerDashboardFragment();
-			getViewState().addFragmentToBackstack(managerDashboardFragment);
-		}
-		else {
-			getViewState().showFragment(managerDashboardFragment);
 		}
 	}
 
@@ -224,9 +204,9 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	private AppUpdateModel checkIfNeedUpdate(PlatformInfo response) {
-		AppUpdateModel model = new AppUpdateModel(response.getAndroidVersion().getLastVersion().getVersionName());
+		AppUpdateModel model = new AppUpdateModel(response.getAppVersionInfo().getAndroid().getLastVersion().getVersionName());
 		try {
-			int lastVersionCode = Integer.parseInt(response.getAndroidVersion().getLastVersion().getVersionCode());
+			int lastVersionCode = Integer.parseInt(response.getAppVersionInfo().getAndroid().getLastVersion().getVersionCode());
 			model.setVersionCode(lastVersionCode);
 			if (authManager.haveUpdate(lastVersionCode)) {
 				model.needUpdate = true;
@@ -380,7 +360,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(OnProgramFacetClickedEvent event) {
 		if (event.getFacet().getTitle().toLowerCase().equals(context.getString(R.string.rating).toLowerCase())) {
-			event.getFacet().setSorting(ProgramFacet.SortingEnum.BYLEVELPROGRESSDESC);
+			event.getFacet().setSorting(ProgramsFilterSorting.BYLEVELPROGRESSDESC);
 		}
 		getViewState().showProgramFacet(event.getFacet());
 	}

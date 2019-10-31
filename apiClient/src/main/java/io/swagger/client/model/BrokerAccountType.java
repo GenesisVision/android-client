@@ -15,13 +15,8 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,7 +53,7 @@ public class BrokerAccountType implements Parcelable
 	private String description = null;
 
 	@SerializedName("type")
-	private TypeEnum type = null;
+	private BrokerTradeServerType type = null;
 
 	@SerializedName("leverages")
 	private List<Integer> leverages = null;
@@ -82,7 +77,7 @@ public class BrokerAccountType implements Parcelable
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		name = (String) in.readValue(null);
 		description = (String) in.readValue(null);
-		type = (TypeEnum) in.readValue(null);
+		type = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
 		leverages = (List<Integer>) in.readValue(null);
 		currencies = (List<String>) in.readValue(null);
 		minimumDepositsAmount = (Map<String, Double>) in.readValue(null);
@@ -147,7 +142,7 @@ public class BrokerAccountType implements Parcelable
 		this.description = description;
 	}
 
-	public BrokerAccountType type(TypeEnum type) {
+	public BrokerAccountType type(BrokerTradeServerType type) {
 		this.type = type;
 		return this;
 	}
@@ -158,11 +153,11 @@ public class BrokerAccountType implements Parcelable
 	 * @return type
 	 **/
 	@Schema(description = "")
-	public TypeEnum getType() {
+	public BrokerTradeServerType getType() {
 		return type;
 	}
 
-	public void setType(TypeEnum type) {
+	public void setType(BrokerTradeServerType type) {
 		this.type = type;
 	}
 
@@ -353,62 +348,5 @@ public class BrokerAccountType implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets type
-	 */
-	@JsonAdapter(TypeEnum.Adapter.class)
-	public enum TypeEnum
-	{
-		UNDEFINED("Undefined"),
-		METATRADER4("MetaTrader4"),
-		METATRADER5("MetaTrader5"),
-		NINJATRADER("NinjaTrader"),
-		CTRADER("cTrader"),
-		RUMUS("Rumus"),
-		METASTOCK("Metastock"),
-		IDEX("IDEX"),
-		HUOBI("Huobi"),
-		EXANTE("Exante"),
-		BINANCEEXCHANGE("BinanceExchange");
-
-		public static TypeEnum fromValue(String text) {
-			for (TypeEnum b : TypeEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		TypeEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<TypeEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public TypeEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return TypeEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

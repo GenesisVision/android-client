@@ -11,6 +11,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import io.swagger.client.model.InternalTransferRequest;
+import io.swagger.client.model.TransferRequestType;
 import io.swagger.client.model.WalletData;
 import io.swagger.client.model.WalletMultiSummary;
 import rx.Subscription;
@@ -80,8 +81,9 @@ public class TransferCopytradingAccountPresenter extends MvpPresenter<TransferCo
 
 	@Override
 	public void onDestroy() {
-		if (walletsSubscription != null)
+		if (walletsSubscription != null) {
 			walletsSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -89,10 +91,12 @@ public class TransferCopytradingAccountPresenter extends MvpPresenter<TransferCo
 	public void setData(CopytradingAccountModel model, String operation) {
 		this.account = model;
 		this.operation = operation;
-		if (operation.equals(TransferCopytradingAccountActivity.OPERATION_DEPOSIT))
+		if (operation.equals(TransferCopytradingAccountActivity.OPERATION_DEPOSIT)) {
 			this.destinationCurrency = account.getCurrency();
-		if (operation.equals(TransferCopytradingAccountActivity.OPERATION_WITHDRAW))
+		}
+		if (operation.equals(TransferCopytradingAccountActivity.OPERATION_WITHDRAW)) {
 			this.sourceCurrency = account.getCurrency();
+		}
 		subscribeToWallets();
 	}
 
@@ -146,8 +150,9 @@ public class TransferCopytradingAccountPresenter extends MvpPresenter<TransferCo
 
 	private void subscribeToWallets() {
 		if (walletManager != null && account != null) {
-			if (walletsSubscription != null)
+			if (walletsSubscription != null) {
 				walletsSubscription.unsubscribe();
+			}
 			walletsSubscription = walletManager.getWallets(account.getCurrency(), false)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
@@ -204,14 +209,14 @@ public class TransferCopytradingAccountPresenter extends MvpPresenter<TransferCo
 			case TransferCopytradingAccountActivity.OPERATION_DEPOSIT:
 				request.setSourceId(selectedWallet.getId());
 				request.setDestinationId(account.getId());
-				request.setSourceType(InternalTransferRequest.SourceTypeEnum.WALLET);
-				request.setDestinationType(InternalTransferRequest.DestinationTypeEnum.COPYTRADINGACCOUNT);
+				request.setSourceType(TransferRequestType.WALLET);
+				request.setDestinationType(TransferRequestType.TRADINGACCOUNT);
 				break;
 			case TransferCopytradingAccountActivity.OPERATION_WITHDRAW:
 				request.setSourceId(account.getId());
 				request.setDestinationId(selectedWallet.getId());
-				request.setSourceType(InternalTransferRequest.SourceTypeEnum.COPYTRADINGACCOUNT);
-				request.setDestinationType(InternalTransferRequest.DestinationTypeEnum.WALLET);
+				request.setSourceType(TransferRequestType.TRADINGACCOUNT);
+				request.setDestinationType(TransferRequestType.WALLET);
 				break;
 		}
 		request.setTransferAll(false);
@@ -245,10 +250,12 @@ public class TransferCopytradingAccountPresenter extends MvpPresenter<TransferCo
 		available = operation.equals(TransferCopytradingAccountActivity.OPERATION_DEPOSIT)
 				? selectedWallet.getAvailable()
 				: account.getAvailable();
-		if (operation.equals(TransferCopytradingAccountActivity.OPERATION_WITHDRAW))
+		if (operation.equals(TransferCopytradingAccountActivity.OPERATION_WITHDRAW)) {
 			this.destinationCurrency = selectedWallet.getCurrency().getValue();
-		if (operation.equals(TransferCopytradingAccountActivity.OPERATION_DEPOSIT))
+		}
+		if (operation.equals(TransferCopytradingAccountActivity.OPERATION_DEPOSIT)) {
 			this.sourceCurrency = selectedWallet.getCurrency().getValue();
+		}
 		getViewState().setSelectedWallet(selectedWallet);
 		getViewState().setAmount("");
 		updateRate();

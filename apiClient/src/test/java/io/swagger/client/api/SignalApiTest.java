@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.ApiClient;
+import io.swagger.client.model.AttachToExternalSignalProviderCommon;
 import io.swagger.client.model.AttachToExternalSignalProviderExt;
 import io.swagger.client.model.AttachToSignalProvider;
 import io.swagger.client.model.DetachFromSignalProvider;
@@ -26,6 +27,19 @@ public class SignalApiTest
 		api = new ApiClient().createService(SignalApi.class);
 	}
 
+
+	/**
+	 * Subscribe to external signal using common account
+	 */
+	@Test
+	public void attachSlaveCommonToMasterTest() {
+		String authorization = null;
+		UUID id = null;
+		AttachToExternalSignalProviderCommon body = null;
+		// Void response = api.attachSlaveCommonToMaster(authorization, id, body);
+
+		// TODO: test validations
+	}
 
 	/**
 	 * Subscribe to programs signals
@@ -73,7 +87,7 @@ public class SignalApiTest
 	public void createExternalSignalAccountTest() {
 		String authorization = null;
 		NewExternalSignalAccountRequest body = null;
-		// ManagerProgramCreateResult response = api.createExternalSignalAccount(authorization, body);
+		// ProgramCreateResult response = api.createExternalSignalAccount(authorization, body);
 
 		// TODO: test validations
 	}
@@ -92,12 +106,27 @@ public class SignalApiTest
 	}
 
 	/**
-	 * Get copytrading accounts
+	 * Get copytrading slaves accounts
 	 */
 	@Test
 	public void getCopytradingAccountsTest() {
 		String authorization = null;
 		// CopyTradingAccountsList response = api.getCopytradingAccounts(authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Get investors signals trading log
+	 */
+	@Test
+	public void getExternalSignalTradingLogTest() {
+		String authorization = null;
+		UUID accountId = null;
+		String accountCurrency = null;
+		Integer skip = null;
+		Integer take = null;
+		// SignalTradingEvents response = api.getExternalSignalTradingLog(authorization, accountId, accountCurrency, skip, take);
 
 		// TODO: test validations
 	}
@@ -115,35 +144,6 @@ public class SignalApiTest
 		Integer skip = null;
 		Integer take = null;
 		// TradesSignalViewModel response = api.getOpenSignalTrades(authorization, sorting, symbol, accountId, accountCurrency, skip, take);
-
-		// TODO: test validations
-	}
-
-	/**
-	 * Accounts list
-	 */
-	@Test
-	public void getSignalAccountsTest() {
-		String authorization = null;
-		List<String> tags = null;
-		String sorting = null;
-		DateTime statisticDateFrom = null;
-		DateTime statisticDateTo = null;
-		Integer chartPointsCount = null;
-		String mask = null;
-		String facetId = null;
-		Boolean isFavorite = null;
-		Boolean isEnabled = null;
-		Boolean hasInvestorsForAll = null;
-		Boolean hasInvestorsForClosed = null;
-		List<UUID> ids = null;
-		Boolean forceUseIdsList = null;
-		String managerId = null;
-		UUID programManagerId = null;
-		List<String> status = null;
-		Integer skip = null;
-		Integer take = null;
-		// SignalAccountsList response = api.getSignalAccounts(authorization, tags, sorting, statisticDateFrom, statisticDateTo, chartPointsCount, mask, facetId, isFavorite, isEnabled, hasInvestorsForAll, hasInvestorsForClosed, ids, forceUseIdsList, managerId, programManagerId, status, skip, take);
 
 		// TODO: test validations
 	}
@@ -178,6 +178,26 @@ public class SignalApiTest
 		Integer skip = null;
 		Integer take = null;
 		// SignalTradingEvents response = api.getSignalTradingLog(authorization, accountId, accountCurrency, skip, take);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Get copytrading masters list
+	 */
+	@Test
+	public void getSignalsTest() {
+		String authorization = null;
+		List<String> tags = null;
+		DateTime statisticDateFrom = null;
+		DateTime statisticDateTo = null;
+		Integer chartPointsCount = null;
+		String chartCurrency = null;
+		String facetId = null;
+		String mask = null;
+		Integer skip = null;
+		Integer take = null;
+		// ItemsViewModelCopyTradingAccountInfo response = api.getSignals(authorization, tags, statisticDateFrom, statisticDateTo, chartPointsCount, chartCurrency, facetId, mask, skip, take);
 
 		// TODO: test validations
 	}

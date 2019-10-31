@@ -1,9 +1,12 @@
 package io.swagger.client.api;
 
+import org.joda.time.DateTime;
+
 import java.util.UUID;
 
 import io.swagger.client.model.CreateWithdrawalRequestModel;
 import io.swagger.client.model.InternalTransferRequest;
+import io.swagger.client.model.TransactionsViewModel;
 import io.swagger.client.model.UserCommissionData;
 import io.swagger.client.model.WalletDepositSummary;
 import io.swagger.client.model.WalletMultiAvailable;
@@ -58,6 +61,22 @@ public interface WalletApi
 	@GET("v2.0/wallet/fee/gvtholding")
 	Observable<UserCommissionData> getGMCommissionData(
 			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Multi wallet transactions
+	 *
+	 * @param authorization         JWT access token (required)
+	 * @param dateFrom              (optional)
+	 * @param dateTo                (optional)
+	 * @param transactionFilterType (optional)
+	 * @param skip                  (optional)
+	 * @param take                  (optional)
+	 * @return Call&lt;TransactionsViewModel&gt;
+	 */
+	@GET("v2.0/wallet/transactions")
+	Observable<TransactionsViewModel> getTransactions(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("TransactionFilterType") String transactionFilterType, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

@@ -7,8 +7,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.AssetInvestmentStatus;
 import io.swagger.client.model.FundDetailsFull;
-import io.swagger.client.model.PersonalFundDetailsFull;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -18,7 +18,6 @@ import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.FundRequest;
 import vision.genesis.clientapp.model.User;
-import vision.genesis.clientapp.utils.Constants;
 
 /**
  * GenesisVisionAndroid
@@ -57,11 +56,13 @@ public class FundInfoPresenter extends MvpPresenter<FundInfoView>
 
 	@Override
 	public void onDestroy() {
-		if (userSubscription != null)
+		if (userSubscription != null) {
 			userSubscription.unsubscribe();
+		}
 
-		if (fundDetailsSubscription != null)
+		if (fundDetailsSubscription != null) {
 			fundDetailsSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -77,8 +78,9 @@ public class FundInfoPresenter extends MvpPresenter<FundInfoView>
 
 	private void getFundDetails() {
 		if (fundId != null && fundsManager != null) {
-			if (fundDetailsSubscription != null)
+			if (fundDetailsSubscription != null) {
 				fundDetailsSubscription.unsubscribe();
+			}
 			fundDetailsSubscription = fundsManager.getFundDetails(fundId, CurrencyEnum.GVT)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
@@ -109,20 +111,22 @@ public class FundInfoPresenter extends MvpPresenter<FundInfoView>
 	}
 
 	private void userUpdated(User user) {
-		if (user == null)
+		if (user == null) {
 			userLoggedOff();
-		else
+		}
+		else {
 			userLoggedOn();
+		}
 	}
 
 	private void userLoggedOn() {
 		userLoggedOn = true;
-		getViewState().showInvestWithdrawButtons(Constants.IS_INVESTOR);
+		getViewState().showInvestWithdrawButtons();
 	}
 
 	private void userLoggedOff() {
 		userLoggedOn = false;
-		getViewState().showInvestWithdrawButtons(false);
+		getViewState().showInvestWithdrawButtons();
 	}
 
 	private void handleUserError(Throwable throwable) {
@@ -130,9 +134,9 @@ public class FundInfoPresenter extends MvpPresenter<FundInfoView>
 	}
 
 	void onStatusClicked() {
-		if (fundDetails != null && fundDetails.getPersonalFundDetails() != null) {
-			if (fundDetails.getPersonalFundDetails().getStatus().equals(PersonalFundDetailsFull.StatusEnum.INVESTING) ||
-					(fundDetails.getPersonalFundDetails().getStatus().equals(PersonalFundDetailsFull.StatusEnum.WITHDRAWING))) {
+		if (fundDetails != null && fundDetails.getPersonalDetails() != null) {
+			if (fundDetails.getPersonalDetails().getStatus().equals(AssetInvestmentStatus.INVESTING) ||
+					(fundDetails.getPersonalDetails().getStatus().equals(AssetInvestmentStatus.WITHDRAWING))) {
 				getViewState().showRequestsBottomSheet();
 			}
 		}
@@ -144,8 +148,9 @@ public class FundInfoPresenter extends MvpPresenter<FundInfoView>
 			return;
 		}
 
-		if (fundDetails == null)
+		if (fundDetails == null) {
 			return;
+		}
 
 		FundRequest request = new FundRequest();
 
@@ -164,8 +169,9 @@ public class FundInfoPresenter extends MvpPresenter<FundInfoView>
 			return;
 		}
 
-		if (fundDetails == null)
+		if (fundDetails == null) {
 			return;
+		}
 
 		FundRequest request = new FundRequest();
 

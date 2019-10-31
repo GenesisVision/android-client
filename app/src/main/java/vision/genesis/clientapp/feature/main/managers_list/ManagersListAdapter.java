@@ -5,16 +5,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.swagger.client.model.ManagerProfile;
+import io.swagger.client.model.PublicProfile;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ManagerDetailsModel;
 import vision.genesis.clientapp.model.events.ShowManagerDetailsEvent;
@@ -28,7 +29,7 @@ import vision.genesis.clientapp.utils.DateTimeUtil;
 
 public class ManagersListAdapter extends RecyclerView.Adapter<ManagersListAdapter.ManagerViewHolder>
 {
-	private List<ManagerProfile> managers = new ArrayList<>();
+	private List<PublicProfile> managers = new ArrayList<>();
 
 	@NonNull
 	@Override
@@ -52,13 +53,13 @@ public class ManagersListAdapter extends RecyclerView.Adapter<ManagersListAdapte
 		return managers.size();
 	}
 
-	public void setManagers(List<ManagerProfile> funds) {
+	public void setManagers(List<PublicProfile> funds) {
 		this.managers.clear();
 		this.managers.addAll(funds);
 		notifyDataSetChanged();
 	}
 
-	public void addManagers(List<ManagerProfile> funds) {
+	public void addManagers(List<PublicProfile> funds) {
 		this.managers.addAll(funds);
 		notifyDataSetChanged();
 	}
@@ -74,7 +75,7 @@ public class ManagersListAdapter extends RecyclerView.Adapter<ManagersListAdapte
 		@BindView(R.id.manager_date)
 		public TextView managerDate;
 
-		private ManagerProfile manager;
+		private PublicProfile manager;
 
 		ManagerViewHolder(View itemView) {
 			super(itemView);
@@ -99,7 +100,7 @@ public class ManagersListAdapter extends RecyclerView.Adapter<ManagersListAdapte
 //			fundName.setTypeface(TypefaceUtil.semibold());
 		}
 
-		void setManager(ManagerProfile manager) {
+		void setManager(PublicProfile manager) {
 			this.manager = manager;
 			updateData();
 		}

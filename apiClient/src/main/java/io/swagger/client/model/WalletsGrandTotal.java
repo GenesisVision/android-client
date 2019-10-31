@@ -15,13 +15,8 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -44,7 +39,7 @@ public class WalletsGrandTotal implements Parcelable
 	};
 
 	@SerializedName("currency")
-	private CurrencyEnum currency = null;
+	private Currency currency = null;
 
 	@SerializedName("available")
 	private Double available = null;
@@ -59,7 +54,7 @@ public class WalletsGrandTotal implements Parcelable
 	private Double total = null;
 
 	@SerializedName("currencyCcy")
-	private CurrencyCcyEnum currencyCcy = null;
+	private Currency currencyCcy = null;
 
 	@SerializedName("availableCcy")
 	private Double availableCcy = null;
@@ -77,19 +72,19 @@ public class WalletsGrandTotal implements Parcelable
 	}
 
 	WalletsGrandTotal(Parcel in) {
-		currency = (CurrencyEnum) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		available = (Double) in.readValue(null);
 		invested = (Double) in.readValue(null);
 		pending = (Double) in.readValue(null);
 		total = (Double) in.readValue(null);
-		currencyCcy = (CurrencyCcyEnum) in.readValue(null);
+		currencyCcy = (Currency) in.readValue(Currency.class.getClassLoader());
 		availableCcy = (Double) in.readValue(null);
 		investedCcy = (Double) in.readValue(null);
 		pendingCcy = (Double) in.readValue(null);
 		totalCcy = (Double) in.readValue(null);
 	}
 
-	public WalletsGrandTotal currency(CurrencyEnum currency) {
+	public WalletsGrandTotal currency(Currency currency) {
 		this.currency = currency;
 		return this;
 	}
@@ -100,11 +95,11 @@ public class WalletsGrandTotal implements Parcelable
 	 * @return currency
 	 **/
 	@Schema(description = "")
-	public CurrencyEnum getCurrency() {
+	public Currency getCurrency() {
 		return currency;
 	}
 
-	public void setCurrency(CurrencyEnum currency) {
+	public void setCurrency(Currency currency) {
 		this.currency = currency;
 	}
 
@@ -175,7 +170,7 @@ public class WalletsGrandTotal implements Parcelable
 		return total;
 	}
 
-	public WalletsGrandTotal currencyCcy(CurrencyCcyEnum currencyCcy) {
+	public WalletsGrandTotal currencyCcy(Currency currencyCcy) {
 		this.currencyCcy = currencyCcy;
 		return this;
 	}
@@ -186,11 +181,11 @@ public class WalletsGrandTotal implements Parcelable
 	 * @return currencyCcy
 	 **/
 	@Schema(description = "")
-	public CurrencyCcyEnum getCurrencyCcy() {
+	public Currency getCurrencyCcy() {
 		return currencyCcy;
 	}
 
-	public void setCurrencyCcy(CurrencyCcyEnum currencyCcy) {
+	public void setCurrencyCcy(Currency currencyCcy) {
 		this.currencyCcy = currencyCcy;
 	}
 
@@ -261,7 +256,6 @@ public class WalletsGrandTotal implements Parcelable
 		return totalCcy;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -287,7 +281,6 @@ public class WalletsGrandTotal implements Parcelable
 	public int hashCode() {
 		return Objects.hash(currency, available, invested, pending, total, currencyCcy, availableCcy, investedCcy, pendingCcy, totalCcy);
 	}
-
 
 	@Override
 	public String toString() {
@@ -319,7 +312,6 @@ public class WalletsGrandTotal implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(currency);
 		out.writeValue(available);
@@ -335,123 +327,5 @@ public class WalletsGrandTotal implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets currency
-	 */
-	@JsonAdapter(CurrencyEnum.Adapter.class)
-	public enum CurrencyEnum
-	{
-		UNDEFINED("Undefined"),
-		GVT("GVT"),
-		ETH("ETH"),
-		BTC("BTC"),
-		ADA("ADA"),
-		USDT("USDT"),
-		XRP("XRP"),
-		BCH("BCH"),
-		LTC("LTC"),
-		DOGE("DOGE"),
-		BNB("BNB"),
-		USD("USD"),
-		EUR("EUR");
-
-		public static CurrencyEnum fromValue(String text) {
-			for (CurrencyEnum b : CurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		CurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<CurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return CurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
-	}
-
-	/**
-	 * Gets or Sets currencyCcy
-	 */
-	@JsonAdapter(CurrencyCcyEnum.Adapter.class)
-	public enum CurrencyCcyEnum
-	{
-		UNDEFINED("Undefined"),
-		GVT("GVT"),
-		ETH("ETH"),
-		BTC("BTC"),
-		ADA("ADA"),
-		USDT("USDT"),
-		XRP("XRP"),
-		BCH("BCH"),
-		LTC("LTC"),
-		DOGE("DOGE"),
-		BNB("BNB"),
-		USD("USD"),
-		EUR("EUR");
-
-		public static CurrencyCcyEnum fromValue(String text) {
-			for (CurrencyCcyEnum b : CurrencyCcyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		CurrencyCcyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<CurrencyCcyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final CurrencyCcyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public CurrencyCcyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return CurrencyCcyEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

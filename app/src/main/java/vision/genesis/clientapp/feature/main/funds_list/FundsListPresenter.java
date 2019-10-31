@@ -14,8 +14,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.FundDetails;
-import io.swagger.client.model.FundsList;
+import io.swagger.client.model.FundDetailsList;
+import io.swagger.client.model.ItemsViewModelFundDetailsList;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -58,13 +58,13 @@ public class FundsListPresenter extends MvpPresenter<FundsListView>
 
 	private Subscription favoriteSubscription;
 
-	private List<FundDetails> fundsList = new ArrayList<>();
+	private List<FundDetailsList> fundsList = new ArrayList<FundDetailsList>();
 
 	private int skip = 0;
 
 	private ProgramsFilter filter;
 
-	private List<FundDetails> fundsToAdd = new ArrayList<>();
+	private List<FundDetailsList> fundsToAdd = new ArrayList<>();
 
 	private UUID managerId;
 
@@ -89,12 +89,15 @@ public class FundsListPresenter extends MvpPresenter<FundsListView>
 
 	@Override
 	public void onDestroy() {
-		if (userSubscription != null)
+		if (userSubscription != null) {
 			userSubscription.unsubscribe();
-		if (getFundsSubscription != null)
+		}
+		if (getFundsSubscription != null) {
 			getFundsSubscription.unsubscribe();
-		if (favoriteSubscription != null)
+		}
+		if (favoriteSubscription != null) {
 			favoriteSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -110,7 +113,7 @@ public class FundsListPresenter extends MvpPresenter<FundsListView>
 		}
 	}
 
-	void showSearchResults(FundsList result) {
+	void showSearchResults(ItemsViewModelFundDetailsList result) {
 		skip = 0;
 		handleGetFundsList(result);
 	}
@@ -146,8 +149,9 @@ public class FundsListPresenter extends MvpPresenter<FundsListView>
 	}
 
 	private void createFilter(ProgramsFilter filter) {
-		if (filter == null)
+		if (filter == null) {
 			filter = new ProgramsFilter();
+		}
 		this.filter = filter;
 		this.filter.setSkip(0);
 		this.filter.setTake(TAKE);
@@ -168,8 +172,9 @@ public class FundsListPresenter extends MvpPresenter<FundsListView>
 				filter.setSkip(skip);
 			}
 
-			if (getFundsSubscription != null)
+			if (getFundsSubscription != null) {
 				getFundsSubscription.unsubscribe();
+			}
 			getFundsSubscription = fundsManager.getFundsList(filter)
 					.subscribeOn(Schedulers.computation())
 //				.map(this::prepareData)
@@ -184,24 +189,27 @@ public class FundsListPresenter extends MvpPresenter<FundsListView>
 //		return model;
 //	}
 
-	private void handleGetFundsList(FundsList response) {
+	private void handleGetFundsList(ItemsViewModelFundDetailsList response) {
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);
 		getViewState().showEmptyList(false);
 		getViewState().showBottomProgress(false);
 
-		if (getFundsSubscription != null)
+		if (getFundsSubscription != null) {
 			getFundsSubscription.unsubscribe();
+		}
 
-		fundsToAdd = response.getFunds();
+		fundsToAdd = response.getItems();
 
-		if (location.equals(FundsListFragment.LOCATION_MANAGER))
+		if (location.equals(FundsListFragment.LOCATION_MANAGER)) {
 			EventBus.getDefault().post(new SetManagerDetailsFundsCountEvent(response.getTotal()));
+		}
 
 		if (fundsToAdd.size() == 0) {
-			if (skip == 0)
+			if (skip == 0) {
 				getViewState().showEmptyList(true);
+			}
 			return;
 		}
 
@@ -235,8 +243,9 @@ public class FundsListPresenter extends MvpPresenter<FundsListView>
 
 	private void setFavorite(UUID fundId, boolean favorite) {
 		if (fundsManager != null) {
-			if (favoriteSubscription != null)
+			if (favoriteSubscription != null) {
 				favoriteSubscription.unsubscribe();
+			}
 			favoriteSubscription = fundsManager.setFundFavorite(fundId, favorite)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())

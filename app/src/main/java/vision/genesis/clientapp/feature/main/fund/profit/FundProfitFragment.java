@@ -21,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.FundEquityChartElement;
+import io.swagger.client.model.SimpleChartPoint;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
@@ -154,8 +154,8 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 	}
 
 	@Override
-	public void setChartData(List<FundEquityChartElement> equityChart) {
-		profitChart.setFundChartData(equityChart, dateRange);
+	public void setChartData(List<SimpleChartPoint> chart) {
+		profitChart.setChartData(chart, dateRange);
 	}
 
 	@Override
@@ -182,8 +182,7 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 	}
 
 	@Override
-	public void setStatisticsData(Integer rebalances, Double sharpeRatio, Double sortinoRatio, Double calmarRatio, Double maxDrawdown) {
-		this.rebalances.setText(String.valueOf(rebalances));
+	public void setStatisticsData(Double sharpeRatio, Double sortinoRatio, Double calmarRatio, Double maxDrawdown) {
 		this.sharpeRatio.setText(StringFormatUtil.formatAmount(sharpeRatio, 0, 4));
 		this.sortinoRatio.setText(StringFormatUtil.formatAmount(sortinoRatio, 0, 4));
 		this.calmarRatio.setText(StringFormatUtil.formatAmount(calmarRatio, 0, 4));
@@ -192,8 +191,9 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 
 	@Override
 	public void pagerShow() {
-		if (fundProfitPresenter != null)
+		if (fundProfitPresenter != null) {
 			fundProfitPresenter.onShow();
+		}
 	}
 
 	@Override
@@ -201,7 +201,8 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
-		if (dateRangeView != null)
+		if (dateRangeView != null) {
 			dateRangeView.setY(root.getHeight() - verticalOffset - dateRangeView.getHeight() - dateRangeMarginBottom);
+		}
 	}
 }

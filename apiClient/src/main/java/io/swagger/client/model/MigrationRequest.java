@@ -47,7 +47,7 @@ public class MigrationRequest implements Parcelable
 	private Integer newLeverage = null;
 
 	@SerializedName("newBroker")
-	private BrokerOld newBroker = null;
+	private Broker newBroker = null;
 
 	public MigrationRequest() {
 	}
@@ -55,7 +55,7 @@ public class MigrationRequest implements Parcelable
 	MigrationRequest(Parcel in) {
 		dateCreate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		newLeverage = (Integer) in.readValue(null);
-		newBroker = (BrokerOld) in.readValue(BrokerOld.class.getClassLoader());
+		newBroker = (Broker) in.readValue(Broker.class.getClassLoader());
 	}
 
 	public MigrationRequest dateCreate(DateTime dateCreate) {
@@ -96,7 +96,7 @@ public class MigrationRequest implements Parcelable
 		this.newLeverage = newLeverage;
 	}
 
-	public MigrationRequest newBroker(BrokerOld newBroker) {
+	public MigrationRequest newBroker(Broker newBroker) {
 		this.newBroker = newBroker;
 		return this;
 	}
@@ -107,11 +107,11 @@ public class MigrationRequest implements Parcelable
 	 * @return newBroker
 	 **/
 	@Schema(description = "")
-	public BrokerOld getNewBroker() {
+	public Broker getNewBroker() {
 		return newBroker;
 	}
 
-	public void setNewBroker(BrokerOld newBroker) {
+	public void setNewBroker(Broker newBroker) {
 		this.newBroker = newBroker;
 	}
 

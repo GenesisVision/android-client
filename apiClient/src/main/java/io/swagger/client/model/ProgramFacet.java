@@ -15,13 +15,8 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -33,443 +28,271 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramFacet implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramFacet> CREATOR = new Parcelable.Creator<ProgramFacet>()
-	{
-		public ProgramFacet createFromParcel(Parcel in) {
-			return new ProgramFacet(in);
-		}
-
-		public ProgramFacet[] newArray(int size) {
-			return new ProgramFacet[size];
-		}
-	};
-
-	@SerializedName("sorting")
-	private SortingEnum sorting = null;
-
-	@SerializedName("id")
-	private UUID id = null;
-
-	@SerializedName("title")
-	private String title = null;
-
-	@SerializedName("description")
-	private String description = null;
-
-	@SerializedName("logo")
-	private String logo = null;
-
-	@SerializedName("url")
-	private String url = null;
-
-	@SerializedName("sortType")
-	private SortTypeEnum sortType = null;
-
-	@SerializedName("timeframe")
-	private TimeframeEnum timeframe = null;
-
-	public ProgramFacet() {
-	}
-
-	ProgramFacet(Parcel in) {
-		sorting = (SortingEnum) in.readValue(null);
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		title = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		sortType = (SortTypeEnum) in.readValue(null);
-		timeframe = (TimeframeEnum) in.readValue(null);
-	}
-
-	public ProgramFacet sorting(SortingEnum sorting) {
-		this.sorting = sorting;
-		return this;
-	}
-
-	/**
-	 * Get sorting
-	 *
-	 * @return sorting
-	 **/
-	@Schema(description = "")
-	public SortingEnum getSorting() {
-		return sorting;
-	}
-
-	public void setSorting(SortingEnum sorting) {
-		this.sorting = sorting;
-	}
-
-	public ProgramFacet id(UUID id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@Schema(description = "")
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public ProgramFacet title(String title) {
-		this.title = title;
-		return this;
-	}
-
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@Schema(description = "")
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public ProgramFacet description(String description) {
-		this.description = description;
-		return this;
-	}
-
-	/**
-	 * Get description
-	 *
-	 * @return description
-	 **/
-	@Schema(description = "")
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public ProgramFacet logo(String logo) {
-		this.logo = logo;
-		return this;
-	}
-
-	/**
-	 * Get logo
-	 *
-	 * @return logo
-	 **/
-	@Schema(description = "")
-	public String getLogo() {
-		return logo;
-	}
-
-	public void setLogo(String logo) {
-		this.logo = logo;
-	}
-
-	public ProgramFacet url(String url) {
-		this.url = url;
-		return this;
-	}
-
-	/**
-	 * Get url
-	 *
-	 * @return url
-	 **/
-	@Schema(description = "")
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public ProgramFacet sortType(SortTypeEnum sortType) {
-		this.sortType = sortType;
-		return this;
-	}
-
-	/**
-	 * Get sortType
-	 *
-	 * @return sortType
-	 **/
-	@Schema(description = "")
-	public SortTypeEnum getSortType() {
-		return sortType;
-	}
-
-	public void setSortType(SortTypeEnum sortType) {
-		this.sortType = sortType;
-	}
-
-	public ProgramFacet timeframe(TimeframeEnum timeframe) {
-		this.timeframe = timeframe;
-		return this;
-	}
-
-	/**
-	 * Get timeframe
-	 *
-	 * @return timeframe
-	 **/
-	@Schema(description = "")
-	public TimeframeEnum getTimeframe() {
-		return timeframe;
-	}
-
-	public void setTimeframe(TimeframeEnum timeframe) {
-		this.timeframe = timeframe;
-	}
-
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		ProgramFacet programFacet = (ProgramFacet) o;
-		return Objects.equals(this.sorting, programFacet.sorting) &&
-				Objects.equals(this.id, programFacet.id) &&
-				Objects.equals(this.title, programFacet.title) &&
-				Objects.equals(this.description, programFacet.description) &&
-				Objects.equals(this.logo, programFacet.logo) &&
-				Objects.equals(this.url, programFacet.url) &&
-				Objects.equals(this.sortType, programFacet.sortType) &&
-				Objects.equals(this.timeframe, programFacet.timeframe);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(sorting, id, title, description, logo, url, sortType, timeframe);
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ProgramFacet {\n");
-
-		sb.append("    sorting: ").append(toIndentedString(sorting)).append("\n");
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    description: ").append(toIndentedString(description)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
-		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("    sortType: ").append(toIndentedString(sortType)).append("\n");
-		sb.append("    timeframe: ").append(toIndentedString(timeframe)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
-
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
-
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(sorting);
-		out.writeValue(id);
-		out.writeValue(title);
-		out.writeValue(description);
-		out.writeValue(logo);
-		out.writeValue(url);
-		out.writeValue(sortType);
-		out.writeValue(timeframe);
-	}
-
-	public int describeContents() {
-		return 0;
-	}
-
-	/**
-	 * Gets or Sets sorting
-	 */
-	@JsonAdapter(SortingEnum.Adapter.class)
-	public enum SortingEnum
-	{
-		BYLEVELASC("ByLevelAsc"),
-		BYLEVELDESC("ByLevelDesc"),
-		BYPROFITASC("ByProfitAsc"),
-		BYPROFITDESC("ByProfitDesc"),
-		BYDRAWDOWNASC("ByDrawdownAsc"),
-		BYDRAWDOWNDESC("ByDrawdownDesc"),
-		BYTRADESASC("ByTradesAsc"),
-		BYTRADESDESC("ByTradesDesc"),
-		BYINVESTORSASC("ByInvestorsAsc"),
-		BYINVESTORSDESC("ByInvestorsDesc"),
-		BYNEWDESC("ByNewDesc"),
-		BYNEWASC("ByNewAsc"),
-		BYENDOFPERIODASC("ByEndOfPeriodAsc"),
-		BYENDOFPERIODDESC("ByEndOfPeriodDesc"),
-		BYTITLEASC("ByTitleAsc"),
-		BYTITLEDESC("ByTitleDesc"),
-		BYBALANCEASC("ByBalanceAsc"),
-		BYBALANCEDESC("ByBalanceDesc"),
-		BYCURRDESC("ByCurrDesc"),
-		BYCURRASC("ByCurrAsc"),
-		BYLEVELPROGRESSDESC("ByLevelProgressDesc"),
-		BYLEVELPROGRESSASC("ByLevelProgressAsc");
-
-		public static SortingEnum fromValue(String text) {
-			for (SortingEnum b : SortingEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		SortingEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<SortingEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final SortingEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public SortingEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return SortingEnum.fromValue(String.valueOf(value));
-			}
-		}
-	}
-
-	/**
-	 * Gets or Sets sortType
-	 */
-	@JsonAdapter(SortTypeEnum.Adapter.class)
-	public enum SortTypeEnum
-	{
-		NEW("New"),
-		TOP("Top"),
-		WEEKLYTOP("WeeklyTop"),
-		POPULAR("Popular"),
-		TOLEVELUP("ToLevelUp"),
-		MOSTRELIABLE("MostReliable");
-
-		public static SortTypeEnum fromValue(String text) {
-			for (SortTypeEnum b : SortTypeEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		SortTypeEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<SortTypeEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final SortTypeEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public SortTypeEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return SortTypeEnum.fromValue(String.valueOf(value));
-			}
-		}
-	}
-
-	/**
-	 * Gets or Sets timeframe
-	 */
-	@JsonAdapter(TimeframeEnum.Adapter.class)
-	public enum TimeframeEnum
-	{
-		DAY("Day"),
-		WEEK("Week"),
-		MONTH("Month"),
-		THREEMONTHS("ThreeMonths"),
-		YEAR("Year"),
-		ALLTIME("AllTime");
-
-		public static TimeframeEnum fromValue(String text) {
-			for (TimeframeEnum b : TimeframeEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		TimeframeEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<TimeframeEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final TimeframeEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public TimeframeEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return TimeframeEnum.fromValue(String.valueOf(value));
-			}
-		}
-	}
+  public static final Parcelable.Creator<ProgramFacet> CREATOR = new Parcelable.Creator<ProgramFacet>()
+  {
+    public ProgramFacet createFromParcel(Parcel in) {
+      return new ProgramFacet(in);
+    }
+
+    public ProgramFacet[] newArray(int size) {
+      return new ProgramFacet[size];
+    }
+  };
+
+  @SerializedName("sorting")
+  private ProgramsFilterSorting sorting = null;
+
+  @SerializedName("id")
+  private UUID id = null;
+
+  @SerializedName("title")
+  private String title = null;
+
+  @SerializedName("description")
+  private String description = null;
+
+  @SerializedName("logo")
+  private String logo = null;
+
+  @SerializedName("url")
+  private String url = null;
+
+  @SerializedName("sortType")
+  private FacetSortType sortType = null;
+
+  @SerializedName("timeframe")
+  private Timeframe timeframe = null;
+
+  public ProgramFacet() {
+  }
+
+  ProgramFacet(Parcel in) {
+    sorting = (ProgramsFilterSorting) in.readValue(ProgramsFilterSorting.class.getClassLoader());
+    id = (UUID) in.readValue(UUID.class.getClassLoader());
+    title = (String) in.readValue(null);
+    description = (String) in.readValue(null);
+    logo = (String) in.readValue(null);
+    url = (String) in.readValue(null);
+    sortType = (FacetSortType) in.readValue(FacetSortType.class.getClassLoader());
+    timeframe = (Timeframe) in.readValue(Timeframe.class.getClassLoader());
+  }
+
+  public ProgramFacet sorting(ProgramsFilterSorting sorting) {
+    this.sorting = sorting;
+    return this;
+  }
+
+  /**
+   * Get sorting
+   *
+   * @return sorting
+   **/
+  @Schema(description = "")
+  public ProgramsFilterSorting getSorting() {
+    return sorting;
+  }
+
+  public void setSorting(ProgramsFilterSorting sorting) {
+    this.sorting = sorting;
+  }
+
+  public ProgramFacet id(UUID id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   *
+   * @return id
+   **/
+  @Schema(description = "")
+  public UUID getId() {
+    return id;
+  }
+
+  public void setId(UUID id) {
+    this.id = id;
+  }
+
+  public ProgramFacet title(String title) {
+    this.title = title;
+    return this;
+  }
+
+  /**
+   * Get title
+   *
+   * @return title
+   **/
+  @Schema(description = "")
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public ProgramFacet description(String description) {
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   *
+   * @return description
+   **/
+  @Schema(description = "")
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public ProgramFacet logo(String logo) {
+    this.logo = logo;
+    return this;
+  }
+
+  /**
+   * Get logo
+   *
+   * @return logo
+   **/
+  @Schema(description = "")
+  public String getLogo() {
+    return logo;
+  }
+
+  public void setLogo(String logo) {
+    this.logo = logo;
+  }
+
+  public ProgramFacet url(String url) {
+    this.url = url;
+    return this;
+  }
+
+  /**
+   * Get url
+   *
+   * @return url
+   **/
+  @Schema(description = "")
+  public String getUrl() {
+    return url;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
+  }
+
+  public ProgramFacet sortType(FacetSortType sortType) {
+    this.sortType = sortType;
+    return this;
+  }
+
+  /**
+   * Get sortType
+   *
+   * @return sortType
+   **/
+  @Schema(description = "")
+  public FacetSortType getSortType() {
+    return sortType;
+  }
+
+  public void setSortType(FacetSortType sortType) {
+    this.sortType = sortType;
+  }
+
+  public ProgramFacet timeframe(Timeframe timeframe) {
+    this.timeframe = timeframe;
+    return this;
+  }
+
+  /**
+   * Get timeframe
+   *
+   * @return timeframe
+   **/
+  @Schema(description = "")
+  public Timeframe getTimeframe() {
+    return timeframe;
+  }
+
+  public void setTimeframe(Timeframe timeframe) {
+    this.timeframe = timeframe;
+  }
+
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ProgramFacet programFacet = (ProgramFacet) o;
+    return Objects.equals(this.sorting, programFacet.sorting) &&
+            Objects.equals(this.id, programFacet.id) &&
+            Objects.equals(this.title, programFacet.title) &&
+            Objects.equals(this.description, programFacet.description) &&
+            Objects.equals(this.logo, programFacet.logo) &&
+            Objects.equals(this.url, programFacet.url) &&
+            Objects.equals(this.sortType, programFacet.sortType) &&
+            Objects.equals(this.timeframe, programFacet.timeframe);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(sorting, id, title, description, logo, url, sortType, timeframe);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProgramFacet {\n");
+
+    sb.append("    sorting: ").append(toIndentedString(sorting)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+    sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("    sortType: ").append(toIndentedString(sortType)).append("\n");
+    sb.append("    timeframe: ").append(toIndentedString(timeframe)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(sorting);
+    out.writeValue(id);
+    out.writeValue(title);
+    out.writeValue(description);
+    out.writeValue(logo);
+    out.writeValue(url);
+    out.writeValue(sortType);
+    out.writeValue(timeframe);
+  }
+
+  public int describeContents() {
+    return 0;
+  }
 }

@@ -1,6 +1,6 @@
-<manifest package="vision.genesis.clientapp"
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="vision.genesis.clientapp">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -93,7 +93,7 @@
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
-            android:name=".feature.main.profile.ImageCropActivity"
+            android:name=".feature.common.image_crop.ImageCropActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
@@ -104,13 +104,6 @@
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateVisible|adjustResize"/>
-
-        <activity
-            android:name=".feature.main.program.chart.ChartActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="landscape"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
             android:name=".feature.main.tooltip.TooltipActivity"

@@ -12,7 +12,7 @@ import io.swagger.client.model.RegisterViewModel;
 import io.swagger.client.model.ResendConfirmationViewModel;
 import io.swagger.client.model.ResetPasswordViewModel;
 import io.swagger.client.model.TwoFactorAuthenticatorConfirm;
-import io.swagger.client.model.TwoFactorCodeModel;
+import io.swagger.client.model.TwoFactorCodeWithPassword;
 
 /**
  * API tests for AuthApi
@@ -104,7 +104,7 @@ public class AuthApiTest
 	@Test
 	public void disableTwoStepAuthTest() {
 		String authorization = null;
-		TwoFactorCodeModel body = null;
+		TwoFactorCodeWithPassword body = null;
 		// Void response = api.disableTwoStepAuth(authorization, body);
 
 		// TODO: test validations

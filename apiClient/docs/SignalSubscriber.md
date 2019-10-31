@@ -1,4 +1,3 @@
-
 # SignalSubscriber
 
 ## Properties
@@ -10,78 +9,10 @@ Name | Type | Description | Notes
 **volume** | **Double** |  |  [optional]
 **subscriptionDate** | [**DateTime**](DateTime.md) |  |  [optional]
 **unsubscriptionDate** | [**DateTime**](DateTime.md) |  |  [optional]
-**status** | [**StatusEnum**](#StatusEnum) |  |  [optional]
+**status** | [**SignalSubscriberStatus**](SignalSubscriberStatus.md) |  |  [optional]
 **totalCommissionAmount** | **Double** |  |  [optional]
-**totalCommissionCurrency** | [**TotalCommissionCurrencyEnum**](#TotalCommissionCurrencyEnum) |  |  [optional]
+**totalCommissionCurrency** | [**Currency**](Currency.md) |  |  [optional]
 **totalSuccessFeeAmount** | **Double** |  |  [optional]
-**totalSuccessFeeCurrency** | [**TotalSuccessFeeCurrencyEnum**](#TotalSuccessFeeCurrencyEnum) |  |  [optional]
+**totalSuccessFeeCurrency** | [**Currency**](Currency.md) |  |  [optional]
 **totalVolumeFeeAmount** | **Double** |  |  [optional]
-**totalVolumeFeeCurrency** | [**TotalVolumeFeeCurrencyEnum**](#TotalVolumeFeeCurrencyEnum) |  |  [optional]
-
-
-<a name="StatusEnum"></a>
-## Enum: StatusEnum
-Name | Value
----- | -----
-ACTIVE | &quot;Active&quot;
-ENDED | &quot;Ended&quot;
-
-
-<a name="TotalCommissionCurrencyEnum"></a>
-## Enum: TotalCommissionCurrencyEnum
-Name | Value
----- | -----
-UNDEFINED | &quot;Undefined&quot;
-GVT | &quot;GVT&quot;
-ETH | &quot;ETH&quot;
-BTC | &quot;BTC&quot;
-ADA | &quot;ADA&quot;
-USDT | &quot;USDT&quot;
-XRP | &quot;XRP&quot;
-BCH | &quot;BCH&quot;
-LTC | &quot;LTC&quot;
-DOGE | &quot;DOGE&quot;
-BNB | &quot;BNB&quot;
-USD | &quot;USD&quot;
-EUR | &quot;EUR&quot;
-
-
-<a name="TotalSuccessFeeCurrencyEnum"></a>
-## Enum: TotalSuccessFeeCurrencyEnum
-Name | Value
----- | -----
-UNDEFINED | &quot;Undefined&quot;
-GVT | &quot;GVT&quot;
-ETH | &quot;ETH&quot;
-BTC | &quot;BTC&quot;
-ADA | &quot;ADA&quot;
-USDT | &quot;USDT&quot;
-XRP | &quot;XRP&quot;
-BCH | &quot;BCH&quot;
-LTC | &quot;LTC&quot;
-DOGE | &quot;DOGE&quot;
-BNB | &quot;BNB&quot;
-USD | &quot;USD&quot;
-EUR | &quot;EUR&quot;
-
-
-<a name="TotalVolumeFeeCurrencyEnum"></a>
-## Enum: TotalVolumeFeeCurrencyEnum
-Name | Value
----- | -----
-UNDEFINED | &quot;Undefined&quot;
-GVT | &quot;GVT&quot;
-ETH | &quot;ETH&quot;
-BTC | &quot;BTC&quot;
-ADA | &quot;ADA&quot;
-USDT | &quot;USDT&quot;
-XRP | &quot;XRP&quot;
-BCH | &quot;BCH&quot;
-LTC | &quot;LTC&quot;
-DOGE | &quot;DOGE&quot;
-BNB | &quot;BNB&quot;
-USD | &quot;USD&quot;
-EUR | &quot;EUR&quot;
-
-
-
+**totalVolumeFeeCurrency** | [**Currency**](Currency.md) |  |  [optional]

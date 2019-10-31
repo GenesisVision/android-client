@@ -9,9 +9,10 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.AssetInvestmentStatus;
 import io.swagger.client.model.AttachToSignalProviderInfo;
-import io.swagger.client.model.PersonalProgramDetailsFull;
 import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.SignalSubscription;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -19,13 +20,11 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.SignalsManager;
-import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.OnProgramReinvestChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
-import vision.genesis.clientapp.utils.Constants;
 
 /**
  * GenesisVisionAndroid
@@ -73,17 +72,21 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 	@Override
 	public void onDestroy() {
-		if (userSubscription != null)
+		if (userSubscription != null) {
 			userSubscription.unsubscribe();
+		}
 
-		if (programDetailsSubscription != null)
+		if (programDetailsSubscription != null) {
 			programDetailsSubscription.unsubscribe();
+		}
 
-		if (signalsInfoSubscription != null)
+		if (signalsInfoSubscription != null) {
 			signalsInfoSubscription.unsubscribe();
+		}
 
-		if (reinvestSubscription != null)
+		if (reinvestSubscription != null) {
 			reinvestSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -98,16 +101,16 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	}
 
 	void onStatusClicked() {
-		if (programDetails != null && programDetails.getPersonalProgramDetails() != null) {
-			if (programDetails.getPersonalProgramDetails().getStatus().equals(PersonalProgramDetailsFull.StatusEnum.INVESTING) ||
-					(programDetails.getPersonalProgramDetails().getStatus().equals(PersonalProgramDetailsFull.StatusEnum.WITHDRAWING))) {
+		if (programDetails != null && programDetails.getPersonalDetails() != null) {
+			if (programDetails.getPersonalDetails().getStatus().equals(AssetInvestmentStatus.INVESTING) ||
+					(programDetails.getPersonalDetails().getStatus().equals(AssetInvestmentStatus.WITHDRAWING))) {
 				getViewState().showRequestsBottomSheet();
 			}
 		}
 	}
 
 	void onReinvestClicked() {
-		setReinvest(!programDetails.getPersonalProgramDetails().isIsReinvest());
+		setReinvest(!programDetails.getPersonalDetails().isIsReinvest());
 	}
 
 	void onInvestClicked() {
@@ -116,8 +119,9 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 			return;
 		}
 
-		if (programDetails == null || programDetails.getAvailableInvestment() == 0)
+		if (programDetails == null || programDetails.getAvailableInvestment() == 0) {
 			return;
+		}
 
 		ProgramRequest request = new ProgramRequest();
 
@@ -139,8 +143,9 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 			return;
 		}
 
-		if (programDetails == null)
+		if (programDetails == null) {
 			return;
+		}
 
 		ProgramRequest request = new ProgramRequest();
 
@@ -165,18 +170,24 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		if (signalsInfo != null) {
 			SubscriptionSettingsModel model = new SubscriptionSettingsModel();
 
+			SignalSubscription signalSubscription = programDetails.getPersonalDetails().getSignalSubscription();
 			try {
-				if (programDetails.getPersonalProgramDetails().getSignalSubscription().isHasActiveSubscription()) {
-					if (programDetails.getPersonalProgramDetails().getSignalSubscription().getMode() != null)
-						model.setMode(programDetails.getPersonalProgramDetails().getSignalSubscription().getMode().getValue());
-					if (programDetails.getPersonalProgramDetails().getSignalSubscription().getPercent() != null)
-						model.setPercent(programDetails.getPersonalProgramDetails().getSignalSubscription().getPercent());
-					if (programDetails.getPersonalProgramDetails().getSignalSubscription().getOpenTolerancePercent() != null)
-						model.setOpenTolerancePercent(programDetails.getPersonalProgramDetails().getSignalSubscription().getOpenTolerancePercent());
-					if (programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedVolume() != null)
-						model.setFixedVolume(programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedVolume());
-					if (programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedCurrency() != null)
-						model.setFixedCurrency(programDetails.getPersonalProgramDetails().getSignalSubscription().getFixedCurrency().getValue());
+				if (signalSubscription.isHasActiveSubscription()) {
+					if (signalSubscription.getMode() != null) {
+						model.setMode(signalSubscription.getMode().getValue());
+					}
+					if (signalSubscription.getPercent() != null) {
+						model.setPercent(signalSubscription.getPercent());
+					}
+					if (signalSubscription.getOpenTolerancePercent() != null) {
+						model.setOpenTolerancePercent(signalSubscription.getOpenTolerancePercent());
+					}
+					if (signalSubscription.getFixedVolume() != null) {
+						model.setFixedVolume(signalSubscription.getFixedVolume());
+					}
+					if (signalSubscription.getFixedCurrency() != null) {
+						model.setFixedCurrency(signalSubscription.getFixedCurrency().getValue());
+					}
 				}
 			} catch (NullPointerException e) {
 				e.printStackTrace();
@@ -186,8 +197,9 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 			model.setMinDepositCurrency(signalsInfo.getMinDepositCurrency().getValue());
 			model.setMinDeposit(signalsInfo.getMinDeposit());
 
-			if (!signalsInfo.isHasSignalAccount())
+			if (!signalsInfo.isHasSignalAccount()) {
 				getViewState().showCreateCopytradingAccountActivity(model);
+			}
 			else {
 				getViewState().showSubscriptionSettings(model, isEdit);
 			}
@@ -200,9 +212,10 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 	private void getProgramDetails() {
 		if (programId != null && programsManager != null) {
-			if (programDetailsSubscription != null)
+			if (programDetailsSubscription != null) {
 				programDetailsSubscription.unsubscribe();
-			programDetailsSubscription = programsManager.getProgramDetails(programId, CurrencyEnum.GVT)
+			}
+			programDetailsSubscription = programsManager.getProgramDetails(programId)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleInvestmentProgramDetailsSuccess,
@@ -218,8 +231,9 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 		getViewState().setProgramDetails(programDetails);
 
-		if (programDetails.isIsSignalProgram())
+		if (programDetails.isIsSignalProgram()) {
 			getSignalsInfo();
+		}
 	}
 
 	private void handleInvestmentProgramDetailsError(Throwable throwable) {
@@ -253,8 +267,9 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 	private void setReinvest(boolean reinvest) {
 		if (programId != null && programsManager != null) {
-			if (reinvestSubscription != null)
+			if (reinvestSubscription != null) {
 				reinvestSubscription.unsubscribe();
+			}
 			reinvestSubscription = programsManager.setReinvest(programId, reinvest)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
@@ -265,14 +280,14 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 	private void handleReinvestSuccess(Boolean reinvest) {
 		reinvestSubscription.unsubscribe();
-		programDetails.getPersonalProgramDetails().setIsReinvest(reinvest);
+		programDetails.getPersonalDetails().setIsReinvest(reinvest);
 
 		EventBus.getDefault().post(new OnProgramReinvestChangedEvent(programId, reinvest));
 	}
 
 	private void handleReinvestError(Throwable throwable) {
 		reinvestSubscription.unsubscribe();
-		getViewState().setReinvest(programDetails.getPersonalProgramDetails().isIsReinvest());
+		getViewState().setReinvest(programDetails.getPersonalDetails().isIsReinvest());
 
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
@@ -285,20 +300,22 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	}
 
 	private void userUpdated(User user) {
-		if (user == null)
+		if (user == null) {
 			userLoggedOff();
-		else
+		}
+		else {
 			userLoggedOn();
+		}
 	}
 
 	private void userLoggedOn() {
 		userLoggedOn = true;
-		getViewState().showInvestWithdrawButtons(Constants.IS_INVESTOR);
+		getViewState().showInvestWithdrawButtons();
 	}
 
 	private void userLoggedOff() {
 		userLoggedOn = false;
-		getViewState().showInvestWithdrawButtons(false);
+		getViewState().showInvestWithdrawButtons();
 		getViewState().showSignalsProgress(false);
 	}
 

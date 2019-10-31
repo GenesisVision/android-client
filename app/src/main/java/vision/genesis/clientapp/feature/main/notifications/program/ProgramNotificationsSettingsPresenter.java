@@ -11,6 +11,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.NotificationSettingViewModel;
+import io.swagger.client.model.NotificationType;
 import io.swagger.client.model.ProgramNotificationSettingList;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -62,14 +63,18 @@ public class ProgramNotificationsSettingsPresenter extends MvpPresenter<ProgramN
 
 	@Override
 	public void onDestroy() {
-		if (settingsSubscription != null)
+		if (settingsSubscription != null) {
 			settingsSubscription.unsubscribe();
-		if (settingSwitchSubscription != null)
+		}
+		if (settingSwitchSubscription != null) {
 			settingSwitchSubscription.unsubscribe();
-		if (deleteSettingSubscription != null)
+		}
+		if (deleteSettingSubscription != null) {
 			deleteSettingSubscription.unsubscribe();
-		if (setEnabledSettingSubscription != null)
+		}
+		if (setEnabledSettingSubscription != null) {
 			setEnabledSettingSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -87,18 +92,19 @@ public class ProgramNotificationsSettingsPresenter extends MvpPresenter<ProgramN
 
 	private void initSettings() {
 		newsSetting = new NotificationSettingViewModel();
-		newsSetting.setType(NotificationSettingViewModel.TypeEnum.PROGRAMNEWSANDUPDATES);
+		newsSetting.setType(NotificationType.PROGRAMNEWSANDUPDATES);
 		newsSetting.setIsEnabled(false);
 
 		periodSetting = new NotificationSettingViewModel();
-		periodSetting.setType(NotificationSettingViewModel.TypeEnum.PROGRAMENDOFPERIOD);
+		periodSetting.setType(NotificationType.PROGRAMENDOFPERIOD);
 		periodSetting.setIsEnabled(false);
 	}
 
 	private void getSettings() {
 		if (programId != null && notificationsManager != null) {
-			if (settingsSubscription != null)
+			if (settingsSubscription != null) {
 				settingsSubscription.unsubscribe();
+			}
 			settingsSubscription = notificationsManager.getProgramNotificationsSettings(programId)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.newThread())
@@ -145,8 +151,9 @@ public class ProgramNotificationsSettingsPresenter extends MvpPresenter<ProgramN
 
 	private void switchSetting(NotificationSettingViewModel setting) {
 		if (setting != null) {
-			if (settingSwitchSubscription != null)
+			if (settingSwitchSubscription != null) {
 				settingSwitchSubscription.unsubscribe();
+			}
 			if (!setting.isIsEnabled()) {
 				settingSwitchSubscription = notificationsManager.addNotificationSetting(programId, null, setting.getType().getValue(), null, null)
 						.observeOn(AndroidSchedulers.mainThread())
@@ -186,8 +193,9 @@ public class ProgramNotificationsSettingsPresenter extends MvpPresenter<ProgramN
 	}
 
 	private void deleteCustomNotificationSetting(UUID settingId) {
-		if (deleteSettingSubscription != null)
+		if (deleteSettingSubscription != null) {
 			deleteSettingSubscription.unsubscribe();
+		}
 		deleteSettingSubscription = notificationsManager.removeNotificationSetting(settingId)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.newThread())
@@ -209,8 +217,9 @@ public class ProgramNotificationsSettingsPresenter extends MvpPresenter<ProgramN
 	}
 
 	private void setCustomNotificationSettingEnabled(UUID settingId, Boolean enabled) {
-		if (setEnabledSettingSubscription != null)
+		if (setEnabledSettingSubscription != null) {
 			setEnabledSettingSubscription.unsubscribe();
+		}
 		setEnabledSettingSubscription = notificationsManager.setEnabledNotificationSetting(settingId, enabled)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.newThread())

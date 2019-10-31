@@ -14,6 +14,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
@@ -29,13 +32,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.swagger.client.model.BalanceChartElement;
-import io.swagger.client.model.ProgramBalanceChartElement;
+import io.swagger.client.model.BalanceChartPoint;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.DateRange;
@@ -193,7 +193,38 @@ public class BalanceChartView extends RelativeLayout
 		});
 	}
 
-	public void setProgramChartData(List<ProgramBalanceChartElement> balanceChart, DateRange dateRange) {
+//	public void setProgramChartData(List<ProgramBalanceChartElement> balanceChart, DateRange dateRange) {
+//		if (balanceChart.size() <= 1) {
+//			chart.clear();
+//			return;
+//		}
+//
+//		float min = 0;
+//		float max = 0;
+//
+//		List<Entry> managerEntries = new ArrayList<>();
+//		List<Entry> investorsEntries = new ArrayList<>();
+//		List<Entry> profitEntries = new ArrayList<>();
+//
+//		for (ProgramBalanceChartElement element : balanceChart) {
+//			float managerValue = element.getManagerFunds().floatValue();
+//			float investorsValue = managerValue + element.getInvestorsFunds().floatValue();
+//			float profitValue = investorsValue + element.getProfit().floatValue();
+//
+//			managerEntries.add(new Entry(element.getDate().getMillis() / 1000 / 60, managerValue));
+//			investorsEntries.add(new Entry(element.getDate().getMillis() / 1000 / 60, investorsValue));
+//			profitEntries.add(new Entry(element.getDate().getMillis() / 1000 / 60, profitValue));
+//
+//			if (min > profitValue)
+//				min = profitValue;
+//			if (max < profitValue)
+//				max = profitValue;
+//		}
+//
+//		setChartData(managerEntries, investorsEntries, profitEntries, min, max, dateRange);
+//	}
+
+	public void setChart(List<BalanceChartPoint> balanceChart, DateRange dateRange) {
 		if (balanceChart.size() <= 1) {
 			chart.clear();
 			return;
@@ -206,38 +237,7 @@ public class BalanceChartView extends RelativeLayout
 		List<Entry> investorsEntries = new ArrayList<>();
 		List<Entry> profitEntries = new ArrayList<>();
 
-		for (ProgramBalanceChartElement element : balanceChart) {
-			float managerValue = element.getManagerFunds().floatValue();
-			float investorsValue = managerValue + element.getInvestorsFunds().floatValue();
-			float profitValue = investorsValue + element.getProfit().floatValue();
-
-			managerEntries.add(new Entry(element.getDate().getMillis() / 1000 / 60, managerValue));
-			investorsEntries.add(new Entry(element.getDate().getMillis() / 1000 / 60, investorsValue));
-			profitEntries.add(new Entry(element.getDate().getMillis() / 1000 / 60, profitValue));
-
-			if (min > profitValue)
-				min = profitValue;
-			if (max < profitValue)
-				max = profitValue;
-		}
-
-		setChartData(managerEntries, investorsEntries, profitEntries, min, max, dateRange);
-	}
-
-	public void setFundChartData(List<BalanceChartElement> balanceChart, DateRange dateRange) {
-		if (balanceChart.size() <= 1) {
-			chart.clear();
-			return;
-		}
-
-		float min = 0;
-		float max = 0;
-
-		List<Entry> managerEntries = new ArrayList<>();
-		List<Entry> investorsEntries = new ArrayList<>();
-		List<Entry> profitEntries = new ArrayList<>();
-
-		for (BalanceChartElement element : balanceChart) {
+		for (BalanceChartPoint element : balanceChart) {
 			float managerValue = element.getManagerFunds().floatValue();
 			float investorsValue = managerValue + element.getInvestorsFunds().floatValue();
 

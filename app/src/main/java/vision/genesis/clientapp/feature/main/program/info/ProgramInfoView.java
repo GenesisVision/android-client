@@ -22,7 +22,7 @@ interface ProgramInfoView extends MvpView
 	void setProgramDetails(ProgramDetailsFull programDetails);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
-	void showInvestWithdrawButtons(boolean show);
+	void showInvestWithdrawButtons();
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);

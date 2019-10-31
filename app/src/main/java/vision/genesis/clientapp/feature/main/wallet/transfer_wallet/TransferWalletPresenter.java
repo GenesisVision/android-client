@@ -12,6 +12,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import io.swagger.client.model.InternalTransferRequest;
+import io.swagger.client.model.TransferRequestType;
 import io.swagger.client.model.WalletData;
 import io.swagger.client.model.WalletMultiSummary;
 import rx.Subscription;
@@ -75,8 +76,9 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 
 	@Override
 	public void onDestroy() {
-		if (walletsSubscription != null)
+		if (walletsSubscription != null) {
 			walletsSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -136,8 +138,9 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 
 	private void subscribeToWallets() {
 		if (walletManager != null && model != null) {
-			if (walletsSubscription != null)
+			if (walletsSubscription != null) {
 				walletsSubscription.unsubscribe();
+			}
 			walletsSubscription = walletManager.getWallets(model.getCurrency(), false)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
@@ -171,8 +174,9 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 		List<WalletData> walletsTo = new ArrayList<>();
 
 		for (WalletData wallet : wallets) {
-			if (wallet.getCurrency().getValue().equals(model.getCurrency()))
+			if (wallet.getCurrency().getValue().equals(model.getCurrency())) {
 				continue;
+			}
 			walletsTo.add(wallet);
 		}
 		getViewState().setWalletsTo(walletsTo);
@@ -207,8 +211,8 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 		request.setAmount(amount);
 		request.setSourceId(walletInfo.getId());
 		request.setDestinationId(selectedWalletTo.getId());
-		request.setSourceType(InternalTransferRequest.SourceTypeEnum.WALLET);
-		request.setDestinationType(InternalTransferRequest.DestinationTypeEnum.WALLET);
+		request.setSourceType(TransferRequestType.WALLET);
+		request.setDestinationType(TransferRequestType.WALLET);
 		request.setTransferAll(false);
 
 		getViewState().showButtonProgress(true);

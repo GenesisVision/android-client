@@ -15,13 +15,8 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -45,7 +40,7 @@ public class CaptchaDetails implements Parcelable
 	};
 
 	@SerializedName("captchaType")
-	private CaptchaTypeEnum captchaType = null;
+	private CaptchaType captchaType = null;
 
 	@SerializedName("id")
 	private UUID id = null;
@@ -63,14 +58,14 @@ public class CaptchaDetails implements Parcelable
 	}
 
 	CaptchaDetails(Parcel in) {
-		captchaType = (CaptchaTypeEnum) in.readValue(null);
+		captchaType = (CaptchaType) in.readValue(CaptchaType.class.getClassLoader());
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		route = (String) in.readValue(null);
 		pow = (PowDetails) in.readValue(PowDetails.class.getClassLoader());
 		geeTest = (GeeTestDetails) in.readValue(GeeTestDetails.class.getClassLoader());
 	}
 
-	public CaptchaDetails captchaType(CaptchaTypeEnum captchaType) {
+	public CaptchaDetails captchaType(CaptchaType captchaType) {
 		this.captchaType = captchaType;
 		return this;
 	}
@@ -81,11 +76,11 @@ public class CaptchaDetails implements Parcelable
 	 * @return captchaType
 	 **/
 	@Schema(description = "")
-	public CaptchaTypeEnum getCaptchaType() {
+	public CaptchaType getCaptchaType() {
 		return captchaType;
 	}
 
-	public void setCaptchaType(CaptchaTypeEnum captchaType) {
+	public void setCaptchaType(CaptchaType captchaType) {
 		this.captchaType = captchaType;
 	}
 
@@ -221,54 +216,5 @@ public class CaptchaDetails implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets captchaType
-	 */
-	@JsonAdapter(CaptchaTypeEnum.Adapter.class)
-	public enum CaptchaTypeEnum
-	{
-		NONE("None"),
-		POW("Pow"),
-		GEETEST("GeeTest");
-
-		public static CaptchaTypeEnum fromValue(String text) {
-			for (CaptchaTypeEnum b : CaptchaTypeEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		CaptchaTypeEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<CaptchaTypeEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final CaptchaTypeEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public CaptchaTypeEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return CaptchaTypeEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

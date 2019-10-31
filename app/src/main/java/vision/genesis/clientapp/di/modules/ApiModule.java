@@ -6,10 +6,15 @@ import dagger.Module;
 import dagger.Provides;
 import io.swagger.client.ApiClient;
 import io.swagger.client.JSON;
+import io.swagger.client.api.AssetsApi;
 import io.swagger.client.api.AuthApi;
+import io.swagger.client.api.BrokersApi;
+import io.swagger.client.api.CopytradingApi;
 import io.swagger.client.api.DashboardApi;
+import io.swagger.client.api.EventsApi;
 import io.swagger.client.api.FileApi;
 import io.swagger.client.api.FundsApi;
+import io.swagger.client.api.InvestmentsApi;
 import io.swagger.client.api.NotificationsApi;
 import io.swagger.client.api.PlatformApi;
 import io.swagger.client.api.ProfileApi;
@@ -64,8 +69,38 @@ public class ApiModule
 
 	@Provides
 	@Singleton
+	public AssetsApi provideAssetsApi(ApiClient apiClient) {
+		return apiClient.createService(AssetsApi.class);
+	}
+
+	@Provides
+	@Singleton
 	public AuthApi provideAuthApi(ApiClient apiClient) {
 		return apiClient.createService(AuthApi.class);
+	}
+
+	@Provides
+	@Singleton
+	public BrokersApi provideBrokersApi(ApiClient apiClient) {
+		return apiClient.createService(BrokersApi.class);
+	}
+
+	@Provides
+	@Singleton
+	public CopytradingApi provideCopytradingApi(ApiClient apiClient) {
+		return apiClient.createService(CopytradingApi.class);
+	}
+
+	@Provides
+	@Singleton
+	public DashboardApi provideDashboardApi(ApiClient apiClient) {
+		return apiClient.createService(DashboardApi.class);
+	}
+
+	@Provides
+	@Singleton
+	public EventsApi provideEventsApi(ApiClient apiClient) {
+		return apiClient.createService(EventsApi.class);
 	}
 
 	@Provides
@@ -82,8 +117,8 @@ public class ApiModule
 
 	@Provides
 	@Singleton
-	public DashboardApi provideDashboardApi(ApiClient apiClient) {
-		return apiClient.createService(DashboardApi.class);
+	public InvestmentsApi provideInvestmentsApi(ApiClient apiClient) {
+		return apiClient.createService(InvestmentsApi.class);
 	}
 
 	@Provides
@@ -118,12 +153,6 @@ public class ApiModule
 
 	@Provides
 	@Singleton
-	public WalletApi provideWalletApi(ApiClient apiClient) {
-		return apiClient.createService(WalletApi.class);
-	}
-
-	@Provides
-	@Singleton
 	public SearchApi provideSearchApi(ApiClient apiClient) {
 		return apiClient.createService(SearchApi.class);
 	}
@@ -132,5 +161,11 @@ public class ApiModule
 	@Singleton
 	public SignalApi provideSignalApi(ApiClient apiClient) {
 		return apiClient.createService(SignalApi.class);
+	}
+
+	@Provides
+	@Singleton
+	public WalletApi provideWalletApi(ApiClient apiClient) {
+		return apiClient.createService(WalletApi.class);
 	}
 }

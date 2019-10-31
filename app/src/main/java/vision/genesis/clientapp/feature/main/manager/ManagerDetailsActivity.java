@@ -10,6 +10,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.viewpager.widget.ViewPager;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.material.appbar.AppBarLayout;
@@ -18,14 +23,10 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.Locale;
 import java.util.UUID;
 
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.ManagerProfileDetails;
+import io.swagger.client.model.PublicProfile;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
@@ -115,15 +116,13 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 	@InjectPresenter
 	ManagerDetailsPresenter managerDetailsPresenter;
 
-	private ManagerProfileDetails managerDetails;
+	private PublicProfile managerDetails;
 
 	private TabLayout.OnTabSelectedListener tabSelectedListener;
 
 	private TabLayout.TabLayoutOnPageChangeListener tabLayoutOnPageChangeListener;
 
 	private TabLayout.Tab infoTab;
-
-	private TabLayout.Tab profitTab;
 
 	private TabLayout.Tab programsTab;
 
@@ -194,8 +193,9 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextSecondary));
 		refreshLayout.setOnRefreshListener(() -> {
 			managerDetailsPresenter.onSwipeRefresh();
-			if (pagerAdapter != null)
+			if (pagerAdapter != null) {
 				pagerAdapter.sendSwipeRefresh();
+			}
 		});
 	}
 
@@ -225,17 +225,21 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 
 	@Override
 	protected void onDestroy() {
-		if (pagerAdapter != null)
+		if (pagerAdapter != null) {
 			pagerAdapter.destroy();
+		}
 
-		if (tabSelectedListener != null)
+		if (tabSelectedListener != null) {
 			tabLayout.removeOnTabSelectedListener(tabSelectedListener);
+		}
 
-		if (tabLayoutOnPageChangeListener != null)
+		if (tabLayoutOnPageChangeListener != null) {
 			viewPager.removeOnPageChangeListener(tabLayoutOnPageChangeListener);
+		}
 
-		if (viewPager != null)
+		if (viewPager != null) {
 			viewPager.clearOnPageChangeListeners();
+		}
 
 		super.onDestroy();
 	}
@@ -259,7 +263,6 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 
 	private void initTabs() {
 		infoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("info");
-		profitTab = tabLayout.newTab().setCustomView(getTabView(R.string.profit)).setTag("profit");
 		programsTab = tabLayout.newTab().setCustomView(getTabView(R.string.programs)).setTag("programs");
 		fundsTab = tabLayout.newTab().setCustomView(getTabView(R.string.funds)).setTag("funds");
 
@@ -293,7 +296,6 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 		tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
 		addPage(infoTab, true);
-//		addPage(profitTab, false);
 		addPage(programsTab, false);
 		addPage(fundsTab, false);
 	}
@@ -305,13 +307,15 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 	}
 
 	private void addPage(TabLayout.Tab tab, boolean selected) {
-		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION)
+		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION) {
 			return;
+		}
 
 		tabLayout.addTab(tab, selected);
 		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 0, 10);
-		if (pagerAdapter != null)
+		if (pagerAdapter != null) {
 			pagerAdapter.notifyDataSetChanged();
+		}
 	}
 
 	private void initViewPager(UUID programId) {
@@ -336,7 +340,7 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 	}
 
 	@Override
-	public void setManagerDetails(ManagerProfileDetails managerDetails) {
+	public void setManagerDetails(PublicProfile managerDetails) {
 		this.managerDetails = managerDetails;
 
 		model.update(managerDetails);
@@ -361,8 +365,9 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 
 	@Override
 	public void onPageSelected(int position) {
-		if (currentFragment != null && currentFragment instanceof ManagerDetailsPagerAdapter.OnPageVisibilityChanged)
+		if (currentFragment != null && currentFragment instanceof ManagerDetailsPagerAdapter.OnPageVisibilityChanged) {
 			((ManagerDetailsPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerHide();
+		}
 		currentFragment = pagerAdapter.getItem(position);
 		if (pagerAdapter.getItem(position) instanceof ManagerDetailsPagerAdapter.OnPageVisibilityChanged) {
 			((ManagerDetailsPagerAdapter.OnPageVisibilityChanged) pagerAdapter.getItem(position)).pagerShow();
@@ -374,15 +379,6 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 		isPagerDragging = state == ViewPager.SCROLL_STATE_DRAGGING;
 		updateRefreshLayoutEnabled();
 	}
-
-//	public void onChartTouch() {
-//		viewPager.requestDisallowInterceptTouchEvent(true);
-//	}
-//
-//	public void onChartTouchEnd() {
-//		viewPager.requestDisallowInterceptTouchEvent(false);
-//
-//	}
 
 	@Override
 	public void finishActivity() {

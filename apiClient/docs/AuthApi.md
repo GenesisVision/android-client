@@ -303,7 +303,7 @@ No authorization required
 
 AuthApi apiInstance = new AuthApi();
 String authorization = "authorization_example"; // String | JWT access token
-TwoFactorCodeModel body = new TwoFactorCodeModel(); // TwoFactorCodeModel | 
+TwoFactorCodeWithPassword body = new TwoFactorCodeWithPassword(); // TwoFactorCodeWithPassword | 
 try {
     Void result = apiInstance.disableTwoStepAuth(authorization, body);
     System.out.println(result);
@@ -318,7 +318,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **body** | [**TwoFactorCodeModel**](TwoFactorCodeModel.md)|  | [optional]
+ **body** | [**TwoFactorCodeWithPassword**](TwoFactorCodeWithPassword.md)|  | [optional]
 
 ### Return type
 

@@ -4,7 +4,7 @@ import com.arellomobile.mvp.MvpView;
 
 import java.util.List;
 
-import io.swagger.client.model.LevelUpData;
+import io.swagger.client.model.LevelInfo;
 
 /**
  * GenesisVisionAndroid
@@ -13,7 +13,7 @@ import io.swagger.client.model.LevelUpData;
 
 interface ProgramsRatingView extends MvpView
 {
-	void setData(List<LevelUpData> levelData);
+	void setData(List<LevelInfo> levelData);
 
 	void showSnackbarMessage(String message);
 }

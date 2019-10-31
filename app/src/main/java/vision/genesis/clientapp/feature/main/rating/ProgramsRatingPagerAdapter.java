@@ -2,17 +2,17 @@ package vision.genesis.clientapp.feature.main.rating;
 
 import android.os.Bundle;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import io.swagger.client.model.LevelUpData;
+import io.swagger.client.model.LevelInfo;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListFragment;
-import vision.genesis.clientapp.model.RatingInfo;
 import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 /**
@@ -33,19 +33,19 @@ public class ProgramsRatingPagerAdapter extends FragmentStatePagerAdapter
 
 	private TabLayout tabLayout;
 
-	ProgramsRatingPagerAdapter(FragmentManager fm, TabLayout tabLayout, List<LevelUpData> levelUpData) {
+	ProgramsRatingPagerAdapter(FragmentManager fm, TabLayout tabLayout, List<LevelInfo> levelUpData) {
 		super(fm);
 		this.tabLayout = tabLayout;
 
-		for (LevelUpData data : levelUpData) {
+		for (LevelInfo data : levelUpData) {
 			ProgramsFilter filter = new ProgramsFilter();
 			filter.setLevelUpFrom(data.getLevel());
 			Bundle bundle = new Bundle();
 			bundle.putParcelable(ProgramsListFragment.EXTRA_FILTER, filter);
 
-			RatingInfo ratingInfo = new RatingInfo(data.getLevel(), data.getTotal(), data.getQuota(), data.getTargetProfit());
-			bundle.putParcelable(ProgramsListFragment.EXTRA_RATING_INFO, ratingInfo);
-			fragments.add(ProgramsListFragment.with(ProgramsListFragment.LOCATION_RATING, bundle));
+//			RatingInfo ratingInfo = new RatingInfo(data.getLevel(), data.getTotal(), data.getQuota(), data.getTargetProfit());
+//			bundle.putParcelable(ProgramsListFragment.EXTRA_RATING_INFO, ratingInfo);
+//			fragments.add(ProgramsListFragment.with(ProgramsListFragment.LOCATION_RATING, bundle));
 		}
 	}
 

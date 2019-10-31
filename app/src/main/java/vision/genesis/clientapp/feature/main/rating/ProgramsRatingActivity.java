@@ -6,17 +6,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.viewpager.widget.ViewPager;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
 import java.util.Locale;
 
-import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.LevelUpData;
+import io.swagger.client.model.LevelInfo;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.about_levels.AboutLevelsActivity;
@@ -83,12 +84,12 @@ public class ProgramsRatingActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	@Override
-	public void setData(List<LevelUpData> levelData) {
+	public void setData(List<LevelInfo> levelData) {
 		initTabs(levelData);
 		initViewPager(levelData);
 	}
 
-	private void initTabs(List<LevelUpData> levelData) {
+	private void initTabs(List<LevelInfo> levelData) {
 		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
 		tabSelectedListener = new TabLayout.OnTabSelectedListener()
@@ -119,7 +120,7 @@ public class ProgramsRatingActivity extends BaseSwipeBackActivity implements Pro
 		tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
 		int index = 0;
-		for (LevelUpData data : levelData) {
+		for (LevelInfo data : levelData) {
 			TabLayout.Tab newTab = tabLayout.newTab().setCustomView(getTabView(data.getLevel())).setTag(data.getLevel());
 			addPage(newTab, index == 0);
 			index++;
@@ -133,16 +134,18 @@ public class ProgramsRatingActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	private void addPage(TabLayout.Tab tab, boolean selected) {
-		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION)
+		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION) {
 			return;
+		}
 
 		tabLayout.addTab(tab, selected);
 		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 10);
-		if (pagerAdapter != null)
+		if (pagerAdapter != null) {
 			pagerAdapter.notifyDataSetChanged();
+		}
 	}
 
-	private void initViewPager(List<LevelUpData> levelData) {
+	private void initViewPager(List<LevelInfo> levelData) {
 		pagerAdapter = new ProgramsRatingPagerAdapter(getSupportFragmentManager(), tabLayout, levelData);
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOffscreenPageLimit(5);

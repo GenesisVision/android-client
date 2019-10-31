@@ -3,12 +3,14 @@ package vision.genesis.clientapp.feature.main.program.profit;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ProgramProfitChart;
+import io.swagger.client.model.ProgramProfitCharts;
+import io.swagger.client.model.SimpleChart;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -42,7 +44,7 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 
 	private Double selected;
 
-	private ProgramProfitChart chartData;
+	private ProgramProfitCharts chartData;
 
 	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
@@ -59,8 +61,9 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 
 	@Override
 	public void onDestroy() {
-		if (chartDataSubscription != null)
+		if (chartDataSubscription != null) {
 			chartDataSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -76,8 +79,9 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 
 	private void getChartData() {
 		if (programId != null && programsManager != null) {
-			if (chartDataSubscription != null)
+			if (chartDataSubscription != null) {
 				chartDataSubscription.unsubscribe();
+			}
 			//TODO: calculate maxPointCount
 			chartDataSubscription = programsManager.getProfitChart(programId, chartDateRange, 100)
 					.observeOn(AndroidSchedulers.mainThread())
@@ -87,15 +91,19 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 		}
 	}
 
-	private void handleGetChartDataSuccess(ProgramProfitChart response) {
+	private void handleGetChartDataSuccess(ProgramProfitCharts response) {
 		chartDataSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
 		this.chartData = response;
 
-		getViewState().setChartData(chartData.getEquityChart(), chartData.getPnLChart(), chartData.getPeriods());
-
-		resetValuesSelection();
+		List<SimpleChart> charts = chartData.getCharts();
+		if (charts != null && !charts.isEmpty()) {
+			if (charts.get(0) != null) {
+				getViewState().setChartData(charts.get(0).getChart());
+				resetValuesSelection();
+			}
+		}
 	}
 
 	private void handleGetChartDataError(Throwable throwable) {
@@ -106,10 +114,14 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 	private void resetValuesSelection() {
 		first = 0.0;
 		selected = 0.0;
-		if (chartData.getEquityChart() != null && !chartData.getEquityChart().isEmpty()) {
-			first = chartData.getEquityChart().get(0).getValue();
-			selected = chartData.getEquityChart().get(chartData.getEquityChart().size() - 1).getValue();
+		List<SimpleChart> charts = chartData.getCharts();
+		if (charts != null && !charts.isEmpty()) {
+			if (charts.get(0) != null) {
+				first = charts.get(0).getChart().get(0).getValue();
+				selected = charts.get(0).getChart().get(chartData.getCharts().size() - 1).getValue();
+			}
 		}
+
 		getViewState().setChangeVisibility(false);
 		updateValues();
 	}
@@ -120,7 +132,7 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 			return;
 		}
 
-		getViewState().setAmount(StringFormatUtil.getGvtValueString(chartData.getTimeframeGvtProfit()), StringFormatUtil.getValueString(chartData.getTotalProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
+//		getViewState().setAmount(StringFormatUtil.getGvtValueString(chartData.getTimeframeGvtProfit()), StringFormatUtil.getValueString(chartData.getTotalProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
 		//TODO: getValueString(selected * rate
 //		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getValueString(selected, chartData.getProgramCurrency().getValue()));
 //		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getValueString(selected * 7, baseCurrency.getValue()));
@@ -135,9 +147,9 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 
 		getViewState().setChange(changeValue < 0, String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(changeValue, 0, 4)));
 
-		getViewState().setStatisticsData(chartData.getTrades(), chartData.getSuccessTradesPercent(),
-				chartData.getProfitFactor(), chartData.getSharpeRatio(), chartData.getSortinoRatio(),
-				chartData.getCalmarRatio(), chartData.getMaxDrawdown());
+		getViewState().setStatisticsData(chartData.getStatistic().getTrades(), chartData.getStatistic().getSuccessTradesPercent(),
+				chartData.getStatistic().getProfitFactor(), chartData.getStatistic().getSharpeRatio(), chartData.getStatistic().getSortinoRatio(),
+				chartData.getStatistic().getCalmarRatio(), chartData.getStatistic().getMaxDrawdown());
 	}
 
 	@Override

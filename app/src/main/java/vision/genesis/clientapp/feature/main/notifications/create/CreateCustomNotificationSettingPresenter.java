@@ -10,7 +10,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.NotificationSettingViewModel;
+import io.swagger.client.model.NotificationSettingConditionType;
+import io.swagger.client.model.NotificationType;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -38,7 +39,7 @@ public class CreateCustomNotificationSettingPresenter extends MvpPresenter<Creat
 
 	private UUID programId;
 
-	private NotificationSettingViewModel.ConditionTypeEnum type;
+	private NotificationSettingConditionType type;
 
 	private Double amount;
 
@@ -61,8 +62,9 @@ public class CreateCustomNotificationSettingPresenter extends MvpPresenter<Creat
 
 	@Override
 	public void onDestroy() {
-		if (createSubscription != null)
+		if (createSubscription != null) {
 			createSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -96,11 +98,12 @@ public class CreateCustomNotificationSettingPresenter extends MvpPresenter<Creat
 
 	private void createNotificationSetting() {
 		if (programId != null && type != null && amount != null) {
-			if (createSubscription != null)
+			if (createSubscription != null) {
 				createSubscription.unsubscribe();
+			}
 			getViewState().showProgress(true);
 			createSubscription = notificationsManager.addNotificationSetting(programId, null,
-					NotificationSettingViewModel.TypeEnum.PROGRAMCONDITION.getValue(), type.getValue(), amount)
+					NotificationType.PROGRAMCONDITION.getValue(), type.getValue(), amount)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.newThread())
 					.subscribe(this::handleCreateCustomNotificationSuccess,
@@ -125,11 +128,11 @@ public class CreateCustomNotificationSettingPresenter extends MvpPresenter<Creat
 	@Override
 	public void onOptionSelected(Integer position, String text) {
 		if (text.equals(context.getString(R.string.profit))) {
-			this.type = NotificationSettingViewModel.ConditionTypeEnum.PROFIT;
+			this.type = NotificationSettingConditionType.PROFIT;
 			getViewState().showProfitInput();
 		}
 		else if (text.equals(context.getString(R.string.level))) {
-			this.type = NotificationSettingViewModel.ConditionTypeEnum.LEVEL;
+			this.type = NotificationSettingConditionType.LEVEL;
 			getViewState().showLevelInput();
 		}
 		getViewState().setType(text, position);

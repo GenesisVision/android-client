@@ -48,7 +48,7 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 	private UUID externalKeyId = null;
 
 	@SerializedName("mode")
-	private ModeEnum mode = null;
+	private SubscriptionMode mode = null;
 
 	@SerializedName("percent")
 	private Double percent = null;
@@ -67,7 +67,7 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 
 	AttachToExternalSignalProviderExt(Parcel in) {
 		externalKeyId = (UUID) in.readValue(UUID.class.getClassLoader());
-		mode = (ModeEnum) in.readValue(null);
+		mode = (SubscriptionMode) in.readValue(SubscriptionMode.class.getClassLoader());
 		percent = (Double) in.readValue(null);
 		openTolerancePercent = (Double) in.readValue(null);
 		fixedVolume = (Double) in.readValue(null);
@@ -93,7 +93,7 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 		this.externalKeyId = externalKeyId;
 	}
 
-	public AttachToExternalSignalProviderExt mode(ModeEnum mode) {
+	public AttachToExternalSignalProviderExt mode(SubscriptionMode mode) {
 		this.mode = mode;
 		return this;
 	}
@@ -104,11 +104,11 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 	 * @return mode
 	 **/
 	@Schema(description = "")
-	public ModeEnum getMode() {
+	public SubscriptionMode getMode() {
 		return mode;
 	}
 
-	public void setMode(ModeEnum mode) {
+	public void setMode(SubscriptionMode mode) {
 		this.mode = mode;
 	}
 
@@ -188,7 +188,6 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 		this.fixedCurrency = fixedCurrency;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -210,7 +209,6 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 	public int hashCode() {
 		return Objects.hash(externalKeyId, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency);
 	}
-
 
 	@Override
 	public String toString() {
@@ -238,7 +236,6 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(externalKeyId);
 		out.writeValue(mode);
@@ -250,55 +247,6 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets mode
-	 */
-	@JsonAdapter(ModeEnum.Adapter.class)
-	public enum ModeEnum
-	{
-		BYBALANCE("ByBalance"),
-		PERCENT("Percent"),
-		FIXED("Fixed");
-
-		public static ModeEnum fromValue(String text) {
-			for (ModeEnum b : ModeEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		ModeEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<ModeEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final ModeEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public ModeEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return ModeEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 
 	/**

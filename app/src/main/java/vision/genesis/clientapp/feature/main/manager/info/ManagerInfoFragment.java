@@ -13,20 +13,21 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.ManagerProfileDetails;
+import io.swagger.client.model.PublicProfile;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
@@ -76,7 +77,7 @@ public class ManagerInfoFragment extends BaseFragment implements ManagerInfoView
 
 	private UUID managerId;
 
-	private ManagerProfileDetails managerDetails;
+	private PublicProfile managerDetails;
 
 	private Unbinder unbinder;
 
@@ -104,8 +105,9 @@ public class ManagerInfoFragment extends BaseFragment implements ManagerInfoView
 		ValueAnimator animator = ValueAnimator.ofInt(about.getHeight(), strategyMaxHeight);
 		animator.addUpdateListener(animation -> {
 			about.setHeight((int) animator.getAnimatedValue());
-			if (!animation.isRunning())
+			if (!animation.isRunning()) {
 				about.setMaxHeight(strategyMaxHeight);
+			}
 		});
 		animator.setDuration(200);
 		animator.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -146,19 +148,19 @@ public class ManagerInfoFragment extends BaseFragment implements ManagerInfoView
 	}
 
 	@Override
-	public void setManagerDetails(ManagerProfileDetails managerDetails) {
+	public void setManagerDetails(PublicProfile managerDetails) {
 		this.managerDetails = managerDetails;
 
 		scrollView.setVisibility(View.VISIBLE);
 
-		socialLinks.setData(managerDetails.getManagerProfile().getSocialLinks());
+		socialLinks.setData(managerDetails.getSocialLinks());
 
 		String assetsString = "";
 		int index = 0;
 		List<Integer> spanIndexes = new ArrayList<>();
-		for (String asset : managerDetails.getManagerProfile().getAssets()) {
+		for (String asset : managerDetails.getAssets()) {
 			assetsString = assetsString.concat(asset);
-			if (index < managerDetails.getManagerProfile().getAssets().size() - 1) {
+			if (index < managerDetails.getAssets().size() - 1) {
 				assetsString = assetsString.concat("  |  ");
 				spanIndexes.add(assetsString.length() - 3);
 			}
@@ -170,10 +172,11 @@ public class ManagerInfoFragment extends BaseFragment implements ManagerInfoView
 		}
 		assetsType.setText(spannableString);
 
-		about.setText(managerDetails.getManagerProfile().getAbout());
+		about.setText(managerDetails.getAbout());
 		new Handler().postDelayed(() -> {
-			if (aboutShadow != null && about != null)
+			if (aboutShadow != null && about != null) {
 				aboutShadow.setVisibility(about.getHeight() < strategyMaxHeight ? View.INVISIBLE : View.VISIBLE);
+			}
 		}, 300);
 
 	}
@@ -185,8 +188,9 @@ public class ManagerInfoFragment extends BaseFragment implements ManagerInfoView
 
 	@Override
 	public void pagerShow() {
-		if (managerInfoPresenter != null)
+		if (managerInfoPresenter != null) {
 			managerInfoPresenter.onShow();
+		}
 	}
 
 	@Override

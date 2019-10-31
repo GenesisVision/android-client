@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.AssetDetails;
+import io.swagger.client.model.AssetType;
 import io.swagger.client.model.FeeDetails;
 import io.swagger.client.model.InvestmentEventItemViewModel;
 import io.swagger.client.model.InvestmentEventViewModel;
@@ -64,7 +65,7 @@ public class EventDetailsBottomSheetFragment extends BottomSheetDialogFragment
 	public void onAssetClicked() {
 		if (event != null && event.getAssetDetails() != null) {
 			AssetDetails details = event.getAssetDetails();
-			if (details.getAssetType().equals(AssetDetails.AssetTypeEnum.PROGRAMS) || details.getAssetType().equals(AssetDetails.AssetTypeEnum.SIGNALS)) {
+			if (details.getAssetType().equals(AssetType.PROGRAMS) || details.getAssetType().equals(AssetType.SIGNALS)) {
 				ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(details.getId(),
 						details.getLogo(),
 						details.getColor(),
@@ -77,7 +78,7 @@ public class EventDetailsBottomSheetFragment extends BottomSheetDialogFragment
 						false);
 				EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 			}
-			else if (details.getAssetType().equals(AssetDetails.AssetTypeEnum.FUNDS)) {
+			else if (details.getAssetType().equals(AssetType.FUNDS)) {
 				FundDetailsModel fundDetailsModel = new FundDetailsModel(details.getId(),
 						details.getLogo(),
 						details.getColor(),
@@ -160,7 +161,7 @@ public class EventDetailsBottomSheetFragment extends BottomSheetDialogFragment
 		}
 	}
 
-	private String getAssetType(AssetDetails.AssetTypeEnum assetType) {
+	private String getAssetType(AssetType assetType) {
 		String result = "";
 		switch (assetType) {
 			case NONE:

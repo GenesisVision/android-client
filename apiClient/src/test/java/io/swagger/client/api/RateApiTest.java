@@ -28,7 +28,7 @@ public class RateApiTest
 	public void getRateTest() {
 		String from = null;
 		String to = null;
-		// Double response = api.getRate(from, to);
+		// RateModel response = api.getRate(from, to);
 
 		// TODO: test validations
 	}
@@ -41,7 +41,7 @@ public class RateApiTest
 		String exchange = null;
 		String from = null;
 		String to = null;
-		// Double response = api.getRateExchange(exchange, from, to);
+		// RateModel response = api.getRateExchange(exchange, from, to);
 
 		// TODO: test validations
 	}

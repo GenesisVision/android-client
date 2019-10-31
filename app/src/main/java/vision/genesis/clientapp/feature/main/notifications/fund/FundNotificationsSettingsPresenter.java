@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import io.swagger.client.model.FundNotificationSettingList;
 import io.swagger.client.model.NotificationSettingViewModel;
+import io.swagger.client.model.NotificationType;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -51,10 +52,12 @@ public class FundNotificationsSettingsPresenter extends MvpPresenter<FundNotific
 
 	@Override
 	public void onDestroy() {
-		if (settingsSubscription != null)
+		if (settingsSubscription != null) {
 			settingsSubscription.unsubscribe();
-		if (settingSwitchSubscription != null)
+		}
+		if (settingSwitchSubscription != null) {
 			settingSwitchSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -70,18 +73,19 @@ public class FundNotificationsSettingsPresenter extends MvpPresenter<FundNotific
 
 	private void initSettings() {
 		newsSetting = new NotificationSettingViewModel();
-		newsSetting.setType(NotificationSettingViewModel.TypeEnum.FUNDNEWSANDUPDATES);
+		newsSetting.setType(NotificationType.FUNDNEWSANDUPDATES);
 		newsSetting.setIsEnabled(false);
 
 		structureSetting = new NotificationSettingViewModel();
-		structureSetting.setType(NotificationSettingViewModel.TypeEnum.FUNDREBALANCING);
+		structureSetting.setType(NotificationType.FUNDREBALANCING);
 		structureSetting.setIsEnabled(false);
 	}
 
 	private void getSettings() {
 		if (fundId != null && notificationsManager != null) {
-			if (settingsSubscription != null)
+			if (settingsSubscription != null) {
 				settingsSubscription.unsubscribe();
+			}
 			settingsSubscription = notificationsManager.getFundNotificationsSettings(fundId)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.newThread())
@@ -126,8 +130,9 @@ public class FundNotificationsSettingsPresenter extends MvpPresenter<FundNotific
 
 	private void switchSetting(NotificationSettingViewModel setting) {
 		if (setting != null) {
-			if (settingSwitchSubscription != null)
+			if (settingSwitchSubscription != null) {
 				settingSwitchSubscription.unsubscribe();
+			}
 			if (!setting.isIsEnabled()) {
 				settingSwitchSubscription = notificationsManager.addNotificationSetting(fundId, null, setting.getType().getValue(), null, null)
 						.observeOn(AndroidSchedulers.mainThread())

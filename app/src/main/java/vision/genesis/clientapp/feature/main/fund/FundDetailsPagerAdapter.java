@@ -6,8 +6,10 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.List;
 import java.util.UUID;
 
+import io.swagger.client.model.FundAssetInfo;
 import vision.genesis.clientapp.feature.main.fund.balance.FundBalanceFragment;
 import vision.genesis.clientapp.feature.main.fund.info.FundInfoFragment;
 import vision.genesis.clientapp.feature.main.fund.profit.FundProfitFragment;
@@ -47,7 +49,7 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 		super(fm);
 		this.tabLayout = tabLayout;
 		fundInfoFragment = FundInfoFragment.with(fundId);
-		fundStructureFragment = FundStructureFragment.with(fundId);
+		fundStructureFragment = FundStructureFragment.with();
 		reallocateHistoryFragment = ReallocateHistoryFragment.with(fundId);
 		fundProfitFragment = FundProfitFragment.with(fundId);
 		fundBalanceFragment = FundBalanceFragment.with(fundId);
@@ -82,9 +84,12 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 	public void destroy() {
 	}
 
+	public void setAssets(List<FundAssetInfo> assets) {
+		fundStructureFragment.setAssets(assets);
+	}
+
 	public void sendUpdate() {
 		fundInfoFragment.pagerShow();
-		fundStructureFragment.pagerShow();
 		reallocateHistoryFragment.pagerShow();
 		fundProfitFragment.pagerShow();
 		fundBalanceFragment.pagerShow();
@@ -92,7 +97,6 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	public void sendSwipeRefresh() {
-		fundStructureFragment.onSwipeRefresh();
 		reallocateHistoryFragment.onSwipeRefresh();
 		fundEventsFragment.onSwipeRefresh();
 	}

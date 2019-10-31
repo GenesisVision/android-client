@@ -15,14 +15,10 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.Objects;
+import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 /**
@@ -43,17 +39,40 @@ public class DetachFromSignalProvider implements Parcelable
 		}
 	};
 
+	@SerializedName("tradingAccountId")
+	private UUID tradingAccountId = null;
+
 	@SerializedName("mode")
-	private ModeEnum mode = null;
+	private SignalDetachMode mode = null;
 
 	public DetachFromSignalProvider() {
 	}
 
 	DetachFromSignalProvider(Parcel in) {
-		mode = (ModeEnum) in.readValue(null);
+		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
+		mode = (SignalDetachMode) in.readValue(SignalDetachMode.class.getClassLoader());
 	}
 
-	public DetachFromSignalProvider mode(ModeEnum mode) {
+	public DetachFromSignalProvider tradingAccountId(UUID tradingAccountId) {
+		this.tradingAccountId = tradingAccountId;
+		return this;
+	}
+
+	/**
+	 * Get tradingAccountId
+	 *
+	 * @return tradingAccountId
+	 **/
+	@Schema(description = "")
+	public UUID getTradingAccountId() {
+		return tradingAccountId;
+	}
+
+	public void setTradingAccountId(UUID tradingAccountId) {
+		this.tradingAccountId = tradingAccountId;
+	}
+
+	public DetachFromSignalProvider mode(SignalDetachMode mode) {
 		this.mode = mode;
 		return this;
 	}
@@ -64,11 +83,11 @@ public class DetachFromSignalProvider implements Parcelable
 	 * @return mode
 	 **/
 	@Schema(description = "")
-	public ModeEnum getMode() {
+	public SignalDetachMode getMode() {
 		return mode;
 	}
 
-	public void setMode(ModeEnum mode) {
+	public void setMode(SignalDetachMode mode) {
 		this.mode = mode;
 	}
 
@@ -81,12 +100,13 @@ public class DetachFromSignalProvider implements Parcelable
 			return false;
 		}
 		DetachFromSignalProvider detachFromSignalProvider = (DetachFromSignalProvider) o;
-		return Objects.equals(this.mode, detachFromSignalProvider.mode);
+		return Objects.equals(this.tradingAccountId, detachFromSignalProvider.tradingAccountId) &&
+				Objects.equals(this.mode, detachFromSignalProvider.mode);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(mode);
+		return Objects.hash(tradingAccountId, mode);
 	}
 
 	@Override
@@ -94,6 +114,7 @@ public class DetachFromSignalProvider implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class DetachFromSignalProvider {\n");
 
+		sb.append("    tradingAccountId: ").append(toIndentedString(tradingAccountId)).append("\n");
 		sb.append("    mode: ").append(toIndentedString(mode)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -111,59 +132,11 @@ public class DetachFromSignalProvider implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(tradingAccountId);
 		out.writeValue(mode);
 	}
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets mode
-	 */
-	@JsonAdapter(ModeEnum.Adapter.class)
-	public enum ModeEnum
-	{
-		NONE("None"),
-		PROVIDERCLOSEONLY("ProviderCloseOnly"),
-		CLOSEALLIMMEDIATELY("CloseAllImmediately");
-
-		public static ModeEnum fromValue(String text) {
-			for (ModeEnum b : ModeEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		ModeEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<ModeEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final ModeEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public ModeEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return ModeEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

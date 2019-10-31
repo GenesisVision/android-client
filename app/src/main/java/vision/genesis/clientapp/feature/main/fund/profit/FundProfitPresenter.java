@@ -3,12 +3,14 @@ package vision.genesis.clientapp.feature.main.fund.profit;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.FundProfitChart;
+import io.swagger.client.model.FundProfitCharts;
+import io.swagger.client.model.SimpleChart;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -38,7 +40,7 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 
 	private Double selected;
 
-	private FundProfitChart chartData;
+	private FundProfitCharts chartData;
 
 	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
@@ -55,8 +57,9 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 
 	@Override
 	public void onDestroy() {
-		if (chartDataSubscription != null)
+		if (chartDataSubscription != null) {
 			chartDataSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -72,8 +75,9 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 
 	private void getChartData() {
 		if (fundId != null && fundsManager != null) {
-			if (chartDataSubscription != null)
+			if (chartDataSubscription != null) {
 				chartDataSubscription.unsubscribe();
+			}
 			//TODO: calculate maxPointCount
 			chartDataSubscription = fundsManager.getProfitChart(fundId, chartDateRange, 30)
 					.observeOn(AndroidSchedulers.mainThread())
@@ -83,15 +87,19 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 		}
 	}
 
-	private void handleGetChartDataSuccess(FundProfitChart response) {
+	private void handleGetChartDataSuccess(FundProfitCharts response) {
 		chartDataSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
 		this.chartData = response;
 
-		getViewState().setChartData(chartData.getEquityChart());
-
-		resetValuesSelection();
+		List<SimpleChart> charts = chartData.getCharts();
+		if (charts != null && !charts.isEmpty()) {
+			if (charts.get(0) != null) {
+				getViewState().setChartData(charts.get(0).getChart());
+				resetValuesSelection();
+			}
+		}
 	}
 
 	private void handleGetChartDataError(Throwable throwable) {
@@ -102,20 +110,24 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 	private void resetValuesSelection() {
 		first = 0.0;
 		selected = 0.0;
-		if (chartData.getEquityChart() != null && !chartData.getEquityChart().isEmpty()) {
-			first = chartData.getEquityChart().get(0).getValue();
-			selected = chartData.getEquityChart().get(chartData.getEquityChart().size() - 1).getValue();
+		List<SimpleChart> charts = chartData.getCharts();
+		if (charts != null && !charts.isEmpty()) {
+			if (charts.get(0) != null) {
+				first = charts.get(0).getChart().get(0).getValue();
+				selected = charts.get(0).getChart().get(chartData.getCharts().size() - 1).getValue();
+			}
 		}
 		updateValues();
 	}
 
 	private void updateValues() {
-		if (first == null || selected == null)
+		if (first == null || selected == null) {
 			return;
+		}
 
 		getViewState().setValue(selected < 0, String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(selected, 0, 4)));
-		getViewState().setStatisticsData(chartData.getRebalances(), chartData.getSharpeRatio(), chartData.getSortinoRatio(),
-				chartData.getCalmarRatio(), chartData.getMaxDrawdown());
+		getViewState().setStatisticsData(chartData.getStatistic().getSharpeRatio(), chartData.getStatistic().getSortinoRatio(),
+				chartData.getStatistic().getCalmarRatio(), chartData.getStatistic().getMaxDrawdown());
 	}
 
 	@Override

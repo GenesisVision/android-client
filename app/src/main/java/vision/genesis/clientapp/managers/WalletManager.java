@@ -7,10 +7,9 @@ import java.util.UUID;
 
 import io.swagger.client.api.WalletApi;
 import io.swagger.client.model.CreateWithdrawalRequestModel;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.InternalTransferRequest;
-import io.swagger.client.model.MultiWalletExternalTransactionsViewModel;
-import io.swagger.client.model.MultiWalletTransactionsViewModel;
-import io.swagger.client.model.TransactionDetails;
+import io.swagger.client.model.TransactionsViewModel;
 import io.swagger.client.model.WalletMultiSummary;
 import io.swagger.client.model.WithdrawalSummary;
 import rx.Observable;
@@ -82,7 +81,7 @@ public class WalletManager
 	public Observable<Void> withdraw(WithdrawalRequest request) {
 		CreateWithdrawalRequestModel requestModel = new CreateWithdrawalRequestModel();
 		requestModel.setAmount(request.getAmount());
-		requestModel.setCurrency(CreateWithdrawalRequestModel.CurrencyEnum.fromValue(request.getCurrency()));
+		requestModel.setCurrency(Currency.fromValue(request.getCurrency()));
 		requestModel.setAddress(request.getAddress());
 		requestModel.setTwoFactorCode(request.getTfaCode());
 		return walletApi.createWithdrawalRequest(AuthManager.token.getValue(), requestModel);
@@ -110,19 +109,19 @@ public class WalletManager
 		getWalletsSubscription.unsubscribe();
 	}
 
-	public Observable<MultiWalletTransactionsViewModel> getTransactions(TransactionsFilter filter) {
-		return walletApi.v10WalletMultiTransactionsGet(AuthManager.token.getValue(),
+	public Observable<TransactionsViewModel> getTransactions(TransactionsFilter filter) {
+		return walletApi.getTransactions(AuthManager.token.getValue(),
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
-				null, filter.getWalletCurrency(),
+				null,
 				filter.getSkip(), filter.getTake());
 	}
 
-	public Observable<MultiWalletExternalTransactionsViewModel> getExternalTransactions(TransactionsFilter filter) {
-		return walletApi.v10WalletMultiTransactionsExternalGet(AuthManager.token.getValue(),
-				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
-				null, filter.getWalletCurrency(),
-				filter.getSkip(), filter.getTake());
-	}
+//	public Observable<MultiWalletExternalTransactionsViewModel> getExternalTransactions(TransactionsFilter filter) {
+//		return walletApi.get(AuthManager.token.getValue(),
+//				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
+//				null, filter.getWalletCurrency(),
+//				filter.getSkip(), filter.getTake());
+//	}
 
 	@Subscribe
 	public void onEventMainThread(OnUnauthorizedResponseGetEvent event) {
@@ -133,9 +132,9 @@ public class WalletManager
 		return walletApi.transfer(AuthManager.token.getValue(), request);
 	}
 
-	public Observable<TransactionDetails> getTransaction(UUID transactionId) {
-		return walletApi.v10WalletTransactionByIdGet(transactionId, AuthManager.token.getValue());
-	}
+//	public Observable<TransactionDetails> getTransaction(UUID transactionId) {
+//		return walletApi.v10WalletTransactionByIdGet(transactionId, AuthManager.token.getValue());
+//	}
 
 	public Observable<Void> cancelWithdrawRequest(UUID transactionId) {
 		return walletApi.cancelWithdrawalRequest(transactionId, AuthManager.token.getValue());

@@ -15,13 +15,8 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -56,7 +51,7 @@ public class AttachToSignalProviderInfo implements Parcelable
 	private Double minDeposit = null;
 
 	@SerializedName("minDepositCurrency")
-	private MinDepositCurrencyEnum minDepositCurrency = null;
+	private Currency minDepositCurrency = null;
 
 	public AttachToSignalProviderInfo() {
 	}
@@ -66,7 +61,7 @@ public class AttachToSignalProviderInfo implements Parcelable
 		hasActiveSubscription = (Boolean) in.readValue(null);
 		volumeFee = (Double) in.readValue(null);
 		minDeposit = (Double) in.readValue(null);
-		minDepositCurrency = (MinDepositCurrencyEnum) in.readValue(null);
+		minDepositCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
 	}
 
 	public AttachToSignalProviderInfo hasSignalAccount(Boolean hasSignalAccount) {
@@ -145,7 +140,7 @@ public class AttachToSignalProviderInfo implements Parcelable
 		this.minDeposit = minDeposit;
 	}
 
-	public AttachToSignalProviderInfo minDepositCurrency(MinDepositCurrencyEnum minDepositCurrency) {
+	public AttachToSignalProviderInfo minDepositCurrency(Currency minDepositCurrency) {
 		this.minDepositCurrency = minDepositCurrency;
 		return this;
 	}
@@ -156,11 +151,11 @@ public class AttachToSignalProviderInfo implements Parcelable
 	 * @return minDepositCurrency
 	 **/
 	@Schema(description = "")
-	public MinDepositCurrencyEnum getMinDepositCurrency() {
+	public Currency getMinDepositCurrency() {
 		return minDepositCurrency;
 	}
 
-	public void setMinDepositCurrency(MinDepositCurrencyEnum minDepositCurrency) {
+	public void setMinDepositCurrency(Currency minDepositCurrency) {
 		this.minDepositCurrency = minDepositCurrency;
 	}
 
@@ -220,64 +215,5 @@ public class AttachToSignalProviderInfo implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets minDepositCurrency
-	 */
-	@JsonAdapter(MinDepositCurrencyEnum.Adapter.class)
-	public enum MinDepositCurrencyEnum
-	{
-		UNDEFINED("Undefined"),
-		GVT("GVT"),
-		ETH("ETH"),
-		BTC("BTC"),
-		ADA("ADA"),
-		USDT("USDT"),
-		XRP("XRP"),
-		BCH("BCH"),
-		LTC("LTC"),
-		DOGE("DOGE"),
-		BNB("BNB"),
-		USD("USD"),
-		EUR("EUR");
-
-		public static MinDepositCurrencyEnum fromValue(String text) {
-			for (MinDepositCurrencyEnum b : MinDepositCurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		MinDepositCurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<MinDepositCurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final MinDepositCurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public MinDepositCurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return MinDepositCurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

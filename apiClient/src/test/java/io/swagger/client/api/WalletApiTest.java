@@ -1,5 +1,6 @@
 package io.swagger.client.api;
 
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -66,6 +67,22 @@ public class WalletApiTest
 	public void getGMCommissionDataTest() {
 		String authorization = null;
 		// UserCommissionData response = api.getGMCommissionData(authorization);
+
+		// TODO: test validations
+	}
+
+	/**
+	 * Multi wallet transactions
+	 */
+	@Test
+	public void getTransactionsTest() {
+		String authorization = null;
+		DateTime dateFrom = null;
+		DateTime dateTo = null;
+		String transactionFilterType = null;
+		Integer skip = null;
+		Integer take = null;
+		// TransactionsViewModel response = api.getTransactions(authorization, dateFrom, dateTo, transactionFilterType, skip, take);
 
 		// TODO: test validations
 	}

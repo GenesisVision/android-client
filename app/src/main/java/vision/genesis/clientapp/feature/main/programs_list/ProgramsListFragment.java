@@ -9,6 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.ArrayList;
@@ -16,20 +23,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.ProgramDetails;
+import io.swagger.client.model.ItemsViewModelProgramDetailsList;
+import io.swagger.client.model.ProgramDetailsList;
 import io.swagger.client.model.ProgramFacet;
-import io.swagger.client.model.ProgramsList;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -209,8 +210,9 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	@Override
 	public void onDestroyView() {
-		if (recyclerView != null)
+		if (recyclerView != null) {
 			recyclerView.setAdapter(null);
+		}
 
 		if (unbinder != null) {
 			unbinder.unbind();
@@ -255,8 +257,9 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
 		int totalItemCount = layoutManager.getItemCount();
 		int lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
-		if (lastVisible < 0)
+		if (lastVisible < 0) {
 			return;
+		}
 
 		boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
 		if (totalItemCount > 0 && endHasBeenReached) {
@@ -266,8 +269,9 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	public void setFacets(List<ProgramFacet> facets) {
 		this.facets = facets;
-		if (programsListAdapter != null)
+		if (programsListAdapter != null) {
 			programsListAdapter.setFacets(facets);
+		}
 	}
 
 	private void updateRatingInfo(RatingInfo ratingInfo) {
@@ -278,13 +282,13 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	}
 
 	@Override
-	public void setInvestmentPrograms(List<ProgramDetails> programs) {
+	public void setInvestmentPrograms(List<ProgramDetailsList> programs) {
 		programsListAdapter.setInvestmentPrograms(programs);
 		recyclerView.scrollToPosition(0);
 	}
 
 	@Override
-	public void addInvestmentPrograms(List<ProgramDetails> programs) {
+	public void addInvestmentPrograms(List<ProgramDetailsList> programs) {
 		programsListAdapter.addInvestmentPrograms(programs);
 	}
 
@@ -340,21 +344,24 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == UserFilter.TYPE_PROGRAMS_LIST_FILTER && resultCode == Activity.RESULT_OK) {
 			UserFilter userFilter = data.getParcelableExtra("filter");
-			if (userFilter != null)
+			if (userFilter != null) {
 				programsListPresenter.onFilterUpdated(userFilter);
+			}
 		}
 		else {
 			super.onActivityResult(requestCode, resultCode, data);
 		}
 	}
 
-	public void showSearchResults(ProgramsList result) {
-		if (programsListPresenter != null)
+	public void showSearchResults(ItemsViewModelProgramDetailsList result) {
+		if (programsListPresenter != null) {
 			programsListPresenter.showSearchResults(result);
+		}
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
-		if (filters != null)
+		if (filters != null) {
 			filters.setY(root.getHeight() - verticalOffset - filters.getHeight() - filtersMarginBottom);
+		}
 	}
 }

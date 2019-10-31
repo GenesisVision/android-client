@@ -18,6 +18,6 @@ public class SearchManager
 	}
 
 	public Observable<SearchViewModel> search(String mask, Integer take) {
-		return searchApi.v10SearchGet(AuthManager.token.getValue(), mask, take);
+		return searchApi.search(AuthManager.token.getValue(), mask, take);
 	}
 }

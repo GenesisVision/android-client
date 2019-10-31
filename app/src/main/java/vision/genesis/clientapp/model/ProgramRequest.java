@@ -72,6 +72,9 @@ public class ProgramRequest implements Parcelable
 	@SerializedName("withdraw_all")
 	private Boolean withdrawAll = false;
 
+	@SerializedName("wallet_id")
+	private UUID walletId;
+
 	public ProgramRequest() {
 
 	}
@@ -92,6 +95,7 @@ public class ProgramRequest implements Parcelable
 		amount = in.readDouble();
 		walletCurrency = in.readString();
 		withdrawAll = in.readByte() != 0;
+		walletId = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 
 	@Override
@@ -116,6 +120,7 @@ public class ProgramRequest implements Parcelable
 		dest.writeDouble(amount);
 		dest.writeString(walletCurrency);
 		dest.writeByte((byte) (withdrawAll ? 1 : 0));
+		dest.writeValue(walletId);
 	}
 
 	public UUID getProgramId() {
@@ -236,5 +241,13 @@ public class ProgramRequest implements Parcelable
 
 	public void setWithdrawAll(Boolean withdrawAll) {
 		this.withdrawAll = withdrawAll;
+	}
+
+	public UUID getWalletId() {
+		return walletId;
+	}
+
+	public void setWalletId(UUID walletId) {
+		this.walletId = walletId;
 	}
 }

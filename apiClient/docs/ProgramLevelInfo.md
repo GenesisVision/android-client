@@ -1,4 +1,3 @@
-
 # ProgramLevelInfo
 
 ## Properties
@@ -13,6 +12,3 @@ Name | Type | Description | Notes
 **managerBalance** | **Double** |  |  [optional]
 **investmentScale** | **Double** |  |  [optional]
 **totalAvailableToInvest** | **Double** |  |  [optional]
-
-
-

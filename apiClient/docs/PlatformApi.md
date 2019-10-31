@@ -4,11 +4,51 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**getAllPlatformAssets**](PlatformApi.md#getAllPlatformAssets) | **GET** v2.0/platform/assets | Get all supported assets for funds
 [**getPlatformDate**](PlatformApi.md#getPlatformDate) | **POST** v2.0/platform/date | Server date
 [**getPlatformInfo**](PlatformApi.md#getPlatformInfo) | **GET** v2.0/platform/info | Platform info
 [**getProgramLevels**](PlatformApi.md#getProgramLevels) | **GET** v2.0/platform/levels | Investment programs levels
 [**getProgramLevelsParams**](PlatformApi.md#getProgramLevelsParams) | **GET** v2.0/platform/levels/parameters | Investment programs levels parameters
 [**getRiskControlInfo**](PlatformApi.md#getRiskControlInfo) | **GET** v2.0/platform/riskcontrol | Risk control
+
+<a name="getAllPlatformAssets"></a>
+# **getAllPlatformAssets**
+> PlatformAssets getAllPlatformAssets()
+
+Get all supported assets for funds
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.PlatformApi;
+
+
+PlatformApi apiInstance = new PlatformApi();
+try {
+    PlatformAssets result = apiInstance.getAllPlatformAssets();
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling PlatformApi#getAllPlatformAssets");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**PlatformAssets**](PlatformAssets.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 <a name="getPlatformDate"></a>
 # **getPlatformDate**

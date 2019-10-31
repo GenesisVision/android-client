@@ -27,45 +27,31 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class RatesModel implements Parcelable
 {
-  public static final Parcelable.Creator<RatesModel> CREATOR = new Parcelable.Creator<RatesModel>()
-  {
-    public RatesModel createFromParcel(Parcel in) {
-      return new RatesModel(in);
-    }
-
-    public RatesModel[] newArray(int size) {
-      return new RatesModel[size];
-    }
-  };
-
   @SerializedName("rates")
   private Object rates = null;
 
   public RatesModel() {
   }
-
-  RatesModel(Parcel in) {
-    rates = (Object) in.readValue(null);
-  }
-
   public RatesModel rates(Object rates) {
     this.rates = rates;
     return this;
   }
 
-  /**
-   * Get rates
-   *
-   * @return rates
-   **/
-  @Schema(description = "")
-  public Object getRates() {
-    return rates;
-  }
+	public static final Parcelable.Creator<RatesModel> CREATOR = new Parcelable.Creator<RatesModel>()
+	{
+		public RatesModel createFromParcel(Parcel in) {
+			return new RatesModel(in);
+		}
+
+		public RatesModel[] newArray(int size) {
+			return new RatesModel[size];
+		}
+	};
 
   public void setRates(Object rates) {
     this.rates = rates;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -84,14 +70,9 @@ public class RatesModel implements Parcelable
     return Objects.hash(rates);
   }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RatesModel {\n");
 
-    sb.append("    rates: ").append(toIndentedString(rates)).append("\n");
-    sb.append("}");
-    return sb.toString();
+	RatesModel(Parcel in) {
+		rates = (Object) in.readValue(null);
   }
 
   /**
@@ -105,11 +86,32 @@ public class RatesModel implements Parcelable
     return o.toString().replace("\n", "\n    ");
   }
 
+
   public void writeToParcel(Parcel out, int flags) {
     out.writeValue(rates);
   }
 
-  public int describeContents() {
-    return 0;
-  }
+	/**
+	 * Get rates
+	 *
+	 * @return rates
+	 **/
+	@Schema(description = "")
+	public Object getRates() {
+		return rates;
+	}
+
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class RatesModel {\n");
+
+		sb.append("    rates: ").append(toIndentedString(rates)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
 }

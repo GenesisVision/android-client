@@ -223,8 +223,8 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 	@Override
 	public void onPlatformInfoUpdated(PlatformInfo platformInfo) {
-		pagerAdapter.setProgramsFacets(platformInfo.getProgramsFacets());
-		pagerAdapter.setFundsFacets(platformInfo.getFundsFacets());
+		pagerAdapter.setProgramsFacets(platformInfo.getAssetInfo().getProgramInfo().getFacets());
+		pagerAdapter.setFundsFacets(platformInfo.getAssetInfo().getFundInfo().getFacets());
 	}
 
 	@Override
