@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * PlatformCommonInfo
  */
@@ -41,6 +40,9 @@ public class PlatformCommonInfo implements Parcelable
 		}
 	};
 
+	@SerializedName("platformCommission")
+	private PlatformCommissionInfo platformCommission = null;
+
 	@SerializedName("platformCurrencies")
 	private List<PlatformCurrencyInfo> platformCurrencies = null;
 
@@ -48,7 +50,27 @@ public class PlatformCommonInfo implements Parcelable
 	}
 
 	PlatformCommonInfo(Parcel in) {
+		platformCommission = (PlatformCommissionInfo) in.readValue(PlatformCommissionInfo.class.getClassLoader());
 		platformCurrencies = (List<PlatformCurrencyInfo>) in.readValue(PlatformCurrencyInfo.class.getClassLoader());
+	}
+
+	public PlatformCommonInfo platformCommission(PlatformCommissionInfo platformCommission) {
+		this.platformCommission = platformCommission;
+		return this;
+	}
+
+	/**
+	 * Get platformCommission
+	 *
+	 * @return platformCommission
+	 **/
+	@Schema(description = "")
+	public PlatformCommissionInfo getPlatformCommission() {
+		return platformCommission;
+	}
+
+	public void setPlatformCommission(PlatformCommissionInfo platformCommission) {
+		this.platformCommission = platformCommission;
 	}
 
 	public PlatformCommonInfo platformCurrencies(List<PlatformCurrencyInfo> platformCurrencies) {
@@ -87,12 +109,13 @@ public class PlatformCommonInfo implements Parcelable
 			return false;
 		}
 		PlatformCommonInfo platformCommonInfo = (PlatformCommonInfo) o;
-		return Objects.equals(this.platformCurrencies, platformCommonInfo.platformCurrencies);
+		return Objects.equals(this.platformCommission, platformCommonInfo.platformCommission) &&
+				Objects.equals(this.platformCurrencies, platformCommonInfo.platformCurrencies);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(platformCurrencies);
+		return Objects.hash(platformCommission, platformCurrencies);
 	}
 
 	@Override
@@ -100,6 +123,7 @@ public class PlatformCommonInfo implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class PlatformCommonInfo {\n");
 
+		sb.append("    platformCommission: ").append(toIndentedString(platformCommission)).append("\n");
 		sb.append("    platformCurrencies: ").append(toIndentedString(platformCurrencies)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -117,6 +141,7 @@ public class PlatformCommonInfo implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(platformCommission);
 		out.writeValue(platformCurrencies);
 	}
 

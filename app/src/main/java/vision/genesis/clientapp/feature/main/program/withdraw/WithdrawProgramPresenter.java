@@ -173,7 +173,7 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 
 	private void getWithdrawInfo() {
 		if (programsManager != null && programRequest != null && baseCurrency != null) {
-			withdrawInfoSubscription = programsManager.getWithdrawInfo(programRequest.getProgramId(), baseCurrency)
+			withdrawInfoSubscription = programsManager.getWithdrawInfo(programRequest.getProgramId())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleWithdrawInfoResponse,

@@ -64,6 +64,9 @@ public class FundDetailsFull implements Parcelable
 	@SerializedName("creationDate")
 	private DateTime creationDate = null;
 
+	@SerializedName("status")
+	private String status = null;
+
 	@SerializedName("entryFeeSelected")
 	private Double entryFeeSelected = null;
 
@@ -96,6 +99,7 @@ public class FundDetailsFull implements Parcelable
 		title = (String) in.readValue(null);
 		description = (String) in.readValue(null);
 		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		status = (String) in.readValue(null);
 		entryFeeSelected = (Double) in.readValue(null);
 		entryFeeCurrent = (Double) in.readValue(null);
 		exitFeeSelected = (Double) in.readValue(null);
@@ -236,6 +240,25 @@ public class FundDetailsFull implements Parcelable
 
 	public void setCreationDate(DateTime creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public FundDetailsFull status(String status) {
+		this.status = status;
+		return this;
+	}
+
+	/**
+	 * Get status
+	 *
+	 * @return status
+	 **/
+	@Schema(description = "")
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public FundDetailsFull entryFeeSelected(Double entryFeeSelected) {
@@ -395,6 +418,7 @@ public class FundDetailsFull implements Parcelable
 				Objects.equals(this.title, fundDetailsFull.title) &&
 				Objects.equals(this.description, fundDetailsFull.description) &&
 				Objects.equals(this.creationDate, fundDetailsFull.creationDate) &&
+				Objects.equals(this.status, fundDetailsFull.status) &&
 				Objects.equals(this.entryFeeSelected, fundDetailsFull.entryFeeSelected) &&
 				Objects.equals(this.entryFeeCurrent, fundDetailsFull.entryFeeCurrent) &&
 				Objects.equals(this.exitFeeSelected, fundDetailsFull.exitFeeSelected) &&
@@ -406,7 +430,7 @@ public class FundDetailsFull implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, url, color, title, description, creationDate, entryFeeSelected, entryFeeCurrent, exitFeeSelected, exitFeeCurrent, assetsStructure, personalDetails, manager);
+		return Objects.hash(id, logo, url, color, title, description, creationDate, status, entryFeeSelected, entryFeeCurrent, exitFeeSelected, exitFeeCurrent, assetsStructure, personalDetails, manager);
 	}
 
 	@Override
@@ -421,6 +445,7 @@ public class FundDetailsFull implements Parcelable
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
+		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    entryFeeSelected: ").append(toIndentedString(entryFeeSelected)).append("\n");
 		sb.append("    entryFeeCurrent: ").append(toIndentedString(entryFeeCurrent)).append("\n");
 		sb.append("    exitFeeSelected: ").append(toIndentedString(exitFeeSelected)).append("\n");
@@ -451,6 +476,7 @@ public class FundDetailsFull implements Parcelable
 		out.writeValue(title);
 		out.writeValue(description);
 		out.writeValue(creationDate);
+		out.writeValue(status);
 		out.writeValue(entryFeeSelected);
 		out.writeValue(entryFeeCurrent);
 		out.writeValue(exitFeeSelected);

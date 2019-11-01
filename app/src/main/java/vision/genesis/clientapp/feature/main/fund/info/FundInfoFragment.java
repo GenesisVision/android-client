@@ -282,8 +282,8 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 			yourInvestmentGroup.setVisibility(View.GONE);
 		}
 
-		entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(fundDetails.getEntryFee(), 0, 4)));
-		exitFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(fundDetails.getExitFee(), 0, 4)));
+		updateCurrentSelectedField(entryFee, fundDetails.getEntryFeeCurrent(), fundDetails.getEntryFeeSelected());
+		updateCurrentSelectedField(exitFee, fundDetails.getExitFeeCurrent(), fundDetails.getExitFeeSelected());
 
 		if (personalDetails != null) {
 			investButton.setEnabled(personalDetails.isCanInvest());
@@ -291,6 +291,14 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 		}
 
 //		investInfo.setText(String.format(Locale.getDefault(), getString(R.string.request_info_template), DateTimeUtil.formatShortDateTime(fundDetails.getPeriodEnds())));
+	}
+
+	private void updateCurrentSelectedField(TextView textView, Double current, Double selected) {
+		textView.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(current, 0, 4)));
+		if (!selected.equals(current)) {
+			textView.setText(textView.getText().toString().concat(
+					String.format(Locale.getDefault(), " (%s%%)", StringFormatUtil.formatAmount(selected, 0, 4))));
+		}
 	}
 
 	private Double getProfitPercent(PersonalFundDetails personalDetails) {

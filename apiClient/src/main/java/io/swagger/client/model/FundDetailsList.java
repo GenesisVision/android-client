@@ -67,11 +67,17 @@ public class FundDetailsList implements Parcelable
 	@SerializedName("investorsCount")
 	private Integer investorsCount = null;
 
+	@SerializedName("status")
+	private String status = null;
+
 	@SerializedName("totalAssetsCount")
 	private Integer totalAssetsCount = null;
 
 	@SerializedName("topFundAssets")
 	private List<FundAssetPercent> topFundAssets = null;
+
+	@SerializedName("owner")
+	private ProfilePublicShort owner = null;
 
 	@SerializedName("chart")
 	private ProfitChart chart = null;
@@ -94,8 +100,10 @@ public class FundDetailsList implements Parcelable
 		description = (String) in.readValue(null);
 		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		investorsCount = (Integer) in.readValue(null);
+		status = (String) in.readValue(null);
 		totalAssetsCount = (Integer) in.readValue(null);
 		topFundAssets = (List<FundAssetPercent>) in.readValue(FundAssetPercent.class.getClassLoader());
+		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
 		chart = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
 		personalDetails = (PersonalFundDetailsList) in.readValue(PersonalFundDetailsList.class.getClassLoader());
 		balance = (AmountWithCurrency) in.readValue(AmountWithCurrency.class.getClassLoader());
@@ -253,6 +261,25 @@ public class FundDetailsList implements Parcelable
 		this.investorsCount = investorsCount;
 	}
 
+	public FundDetailsList status(String status) {
+		this.status = status;
+		return this;
+	}
+
+	/**
+	 * Get status
+	 *
+	 * @return status
+	 **/
+	@Schema(description = "")
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public FundDetailsList totalAssetsCount(Integer totalAssetsCount) {
 		this.totalAssetsCount = totalAssetsCount;
 		return this;
@@ -297,6 +324,25 @@ public class FundDetailsList implements Parcelable
 
 	public void setTopFundAssets(List<FundAssetPercent> topFundAssets) {
 		this.topFundAssets = topFundAssets;
+	}
+
+	public FundDetailsList owner(ProfilePublicShort owner) {
+		this.owner = owner;
+		return this;
+	}
+
+	/**
+	 * Get owner
+	 *
+	 * @return owner
+	 **/
+	@Schema(description = "")
+	public ProfilePublicShort getOwner() {
+		return owner;
+	}
+
+	public void setOwner(ProfilePublicShort owner) {
+		this.owner = owner;
 	}
 
 	public FundDetailsList chart(ProfitChart chart) {
@@ -373,8 +419,10 @@ public class FundDetailsList implements Parcelable
 				Objects.equals(this.description, fundDetailsList.description) &&
 				Objects.equals(this.creationDate, fundDetailsList.creationDate) &&
 				Objects.equals(this.investorsCount, fundDetailsList.investorsCount) &&
+				Objects.equals(this.status, fundDetailsList.status) &&
 				Objects.equals(this.totalAssetsCount, fundDetailsList.totalAssetsCount) &&
 				Objects.equals(this.topFundAssets, fundDetailsList.topFundAssets) &&
+				Objects.equals(this.owner, fundDetailsList.owner) &&
 				Objects.equals(this.chart, fundDetailsList.chart) &&
 				Objects.equals(this.personalDetails, fundDetailsList.personalDetails) &&
 				Objects.equals(this.balance, fundDetailsList.balance);
@@ -382,7 +430,7 @@ public class FundDetailsList implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, url, color, title, description, creationDate, investorsCount, totalAssetsCount, topFundAssets, chart, personalDetails, balance);
+		return Objects.hash(id, logo, url, color, title, description, creationDate, investorsCount, status, totalAssetsCount, topFundAssets, owner, chart, personalDetails, balance);
 	}
 
 	@Override
@@ -398,8 +446,10 @@ public class FundDetailsList implements Parcelable
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
 		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
+		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    totalAssetsCount: ").append(toIndentedString(totalAssetsCount)).append("\n");
 		sb.append("    topFundAssets: ").append(toIndentedString(topFundAssets)).append("\n");
+		sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
@@ -427,8 +477,10 @@ public class FundDetailsList implements Parcelable
 		out.writeValue(description);
 		out.writeValue(creationDate);
 		out.writeValue(investorsCount);
+		out.writeValue(status);
 		out.writeValue(totalAssetsCount);
 		out.writeValue(topFundAssets);
+		out.writeValue(owner);
 		out.writeValue(chart);
 		out.writeValue(personalDetails);
 		out.writeValue(balance);

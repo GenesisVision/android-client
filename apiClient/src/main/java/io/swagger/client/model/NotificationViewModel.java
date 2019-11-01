@@ -66,11 +66,6 @@ public class NotificationViewModel implements Parcelable
   public NotificationViewModel() {
   }
 
-	public NotificationViewModel id(UUID id) {
-		this.id = id;
-		return this;
-	}
-
 	public static final Parcelable.Creator<NotificationViewModel> CREATOR = new Parcelable.Creator<NotificationViewModel>()
 	{
 		public NotificationViewModel createFromParcel(Parcel in) {
@@ -81,15 +76,6 @@ public class NotificationViewModel implements Parcelable
 			return new NotificationViewModel[size];
 		}
 	};
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public NotificationViewModel text(String text) {
-		this.text = text;
-		return this;
-	}
 
   NotificationViewModel(Parcel in) {
 	  id = (UUID) in.readValue(UUID.class.getClassLoader());
@@ -105,12 +91,8 @@ public class NotificationViewModel implements Parcelable
 	  assetType = (InvestmentProgramType) in.readValue(InvestmentProgramType.class.getClassLoader());
   }
 
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	public NotificationViewModel date(DateTime date) {
-		this.date = date;
+	public NotificationViewModel id(UUID id) {
+		this.id = id;
     return this;
   }
 
@@ -123,12 +105,12 @@ public class NotificationViewModel implements Parcelable
     return id;
   }
 
-	public void setDate(DateTime date) {
-		this.date = date;
+	public void setId(UUID id) {
+		this.id = id;
   }
 
-	public NotificationViewModel type(NotificationType type) {
-		this.type = type;
+	public NotificationViewModel text(String text) {
+		this.text = text;
     return this;
   }
 
@@ -141,12 +123,12 @@ public class NotificationViewModel implements Parcelable
     return text;
   }
 
-	public void setType(NotificationType type) {
-		this.type = type;
+	public void setText(String text) {
+		this.text = text;
   }
 
-	public NotificationViewModel assetId(UUID assetId) {
-		this.assetId = assetId;
+	public NotificationViewModel date(DateTime date) {
+		this.date = date;
     return this;
   }
 
@@ -159,12 +141,12 @@ public class NotificationViewModel implements Parcelable
     return date;
   }
 
-	public void setAssetId(UUID assetId) {
-		this.assetId = assetId;
+	public void setDate(DateTime date) {
+		this.date = date;
   }
 
-	public NotificationViewModel managerId(UUID managerId) {
-		this.managerId = managerId;
+	public NotificationViewModel type(NotificationType type) {
+		this.type = type;
     return this;
   }
 
@@ -177,12 +159,12 @@ public class NotificationViewModel implements Parcelable
     return type;
   }
 
-	public void setManagerId(UUID managerId) {
-		this.managerId = managerId;
+	public void setType(NotificationType type) {
+		this.type = type;
   }
 
-	public NotificationViewModel logo(String logo) {
-		this.logo = logo;
+	public NotificationViewModel assetId(UUID assetId) {
+		this.assetId = assetId;
     return this;
   }
 
@@ -195,12 +177,12 @@ public class NotificationViewModel implements Parcelable
     return assetId;
   }
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setAssetId(UUID assetId) {
+		this.assetId = assetId;
   }
 
-	public NotificationViewModel url(String url) {
-		this.url = url;
+	public NotificationViewModel managerId(UUID managerId) {
+		this.managerId = managerId;
     return this;
   }
 
@@ -213,12 +195,12 @@ public class NotificationViewModel implements Parcelable
     return managerId;
   }
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setManagerId(UUID managerId) {
+		this.managerId = managerId;
   }
 
-	public NotificationViewModel color(String color) {
-		this.color = color;
+	public NotificationViewModel logo(String logo) {
+		this.logo = logo;
     return this;
   }
 
@@ -231,12 +213,12 @@ public class NotificationViewModel implements Parcelable
     return logo;
   }
 
-	public void setColor(String color) {
-		this.color = color;
+	public void setLogo(String logo) {
+		this.logo = logo;
   }
 
-	public NotificationViewModel isUnread(Boolean isUnread) {
-		this.isUnread = isUnread;
+	public NotificationViewModel url(String url) {
+		this.url = url;
     return this;
   }
 
@@ -249,12 +231,12 @@ public class NotificationViewModel implements Parcelable
     return url;
   }
 
-	public void setIsUnread(Boolean isUnread) {
-		this.isUnread = isUnread;
+	public void setUrl(String url) {
+		this.url = url;
   }
 
-	public NotificationViewModel assetType(InvestmentProgramType assetType) {
-		this.assetType = assetType;
+	public NotificationViewModel color(String color) {
+		this.color = color;
     return this;
   }
 
@@ -267,8 +249,13 @@ public class NotificationViewModel implements Parcelable
     return color;
   }
 
-	public void setAssetType(InvestmentProgramType assetType) {
-		this.assetType = assetType;
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public NotificationViewModel isUnread(Boolean isUnread) {
+		this.isUnread = isUnread;
+		return this;
   }
 
 	/**
@@ -280,9 +267,13 @@ public class NotificationViewModel implements Parcelable
     return isUnread;
   }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, text, date, type, assetId, managerId, logo, url, color, isUnread, assetType);
+	public void setIsUnread(Boolean isUnread) {
+		this.isUnread = isUnread;
+	}
+
+	public NotificationViewModel assetType(InvestmentProgramType assetType) {
+		this.assetType = assetType;
+		return this;
   }
 
 	/**
@@ -294,30 +285,8 @@ public class NotificationViewModel implements Parcelable
     return assetType;
   }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
-
-
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(id);
-		out.writeValue(text);
-		out.writeValue(date);
-		out.writeValue(type);
-		out.writeValue(assetId);
-		out.writeValue(managerId);
-		out.writeValue(logo);
-		out.writeValue(url);
-		out.writeValue(color);
-		out.writeValue(isUnread);
-		out.writeValue(assetType);
+	public void setAssetType(InvestmentProgramType assetType) {
+		this.assetType = assetType;
   }
 
   @Override
@@ -342,8 +311,9 @@ public class NotificationViewModel implements Parcelable
 		    Objects.equals(this.assetType, notificationViewModel.assetType);
   }
 
-	public int describeContents() {
-		return 0;
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, text, date, type, assetId, managerId, logo, url, color, isUnread, assetType);
   }
 
   @Override
@@ -365,4 +335,33 @@ public class NotificationViewModel implements Parcelable
     sb.append("}");
     return sb.toString();
   }
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(id);
+		out.writeValue(text);
+		out.writeValue(date);
+		out.writeValue(type);
+		out.writeValue(assetId);
+		out.writeValue(managerId);
+		out.writeValue(logo);
+		out.writeValue(url);
+		out.writeValue(color);
+		out.writeValue(isUnread);
+		out.writeValue(assetType);
+	}
+
+	public int describeContents() {
+		return 0;
+	}
 }

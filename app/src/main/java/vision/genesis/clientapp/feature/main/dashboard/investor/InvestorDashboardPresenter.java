@@ -16,11 +16,11 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.AssetInvestmentRequest;
 import io.swagger.client.model.AssetsValue;
 import io.swagger.client.model.DashboardSummary;
 import io.swagger.client.model.InvestmentEventViewModels;
 import io.swagger.client.model.OtherAssetsValue;
-import io.swagger.client.model.ProgramRequest;
 import io.swagger.client.model.ValueChartBar;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -79,7 +79,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 	private List<List<PortfolioAssetData>> portfolioAssetsDataList = new ArrayList<>();
 
-	private List<ProgramRequest> requests = new ArrayList<>();
+	private List<AssetInvestmentRequest> requests = new ArrayList<>();
 
 //	private List<PortfolioEvent> newPreparedEvents;
 

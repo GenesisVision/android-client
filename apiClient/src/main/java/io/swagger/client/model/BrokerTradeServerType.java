@@ -25,53 +25,53 @@ import java.io.IOException;
 @JsonAdapter(BrokerTradeServerType.Adapter.class)
 public enum BrokerTradeServerType
 {
-	UNDEFINED("Undefined"),
-	METATRADER4("MetaTrader4"),
-	METATRADER5("MetaTrader5"),
-	NINJATRADER("NinjaTrader"),
-	CTRADER("cTrader"),
-	RUMUS("Rumus"),
-	METASTOCK("Metastock"),
-	IDEX("IDEX"),
-	HUOBI("Huobi"),
-	EXANTE("Exante"),
-	BINANCEEXCHANGE("BinanceExchange");
+  UNDEFINED("Undefined"),
+  METATRADER4("MetaTrader4"),
+  METATRADER5("MetaTrader5"),
+  NINJATRADER("NinjaTrader"),
+  CTRADER("cTrader"),
+  RUMUS("Rumus"),
+  METASTOCK("Metastock"),
+  IDEX("IDEX"),
+  HUOBI("Huobi"),
+  EXANTE("Exante"),
+  BINANCEEXCHANGE("BinanceExchange");
 
-	public static BrokerTradeServerType fromValue(String text) {
-		for (BrokerTradeServerType b : BrokerTradeServerType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
+  public static BrokerTradeServerType fromValue(String text) {
+    for (BrokerTradeServerType b : BrokerTradeServerType.values()) {
+      if (String.valueOf(b.value).equals(text)) {
+        return b;
+      }
+    }
+    return null;
+  }
 
-	private String value;
+  private String value;
 
-	BrokerTradeServerType(String value) {
-		this.value = value;
-	}
+  BrokerTradeServerType(String value) {
+    this.value = value;
+  }
 
-	public String getValue() {
-		return value;
-	}
+  public String getValue() {
+    return value;
+  }
 
-	@Override
-	public String toString() {
-		return String.valueOf(value);
-	}
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-	public static class Adapter extends TypeAdapter<BrokerTradeServerType>
-	{
-		@Override
-		public void write(final JsonWriter jsonWriter, final BrokerTradeServerType enumeration) throws IOException {
-			jsonWriter.value(enumeration.getValue());
-		}
+  public static class Adapter extends TypeAdapter<BrokerTradeServerType>
+  {
+    @Override
+    public void write(final JsonWriter jsonWriter, final BrokerTradeServerType enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
 
-		@Override
-		public BrokerTradeServerType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
-			return BrokerTradeServerType.fromValue(String.valueOf(value));
-		}
-	}
+    @Override
+    public BrokerTradeServerType read(final JsonReader jsonReader) throws IOException {
+      String value = jsonReader.nextString();
+      return BrokerTradeServerType.fromValue(String.valueOf(value));
+    }
+  }
 }

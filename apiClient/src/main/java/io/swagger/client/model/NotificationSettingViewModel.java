@@ -52,11 +52,6 @@ public class NotificationSettingViewModel implements Parcelable
   public NotificationSettingViewModel() {
   }
 
-	public NotificationSettingViewModel id(UUID id) {
-		this.id = id;
-		return this;
-	}
-
 	public static final Parcelable.Creator<NotificationSettingViewModel> CREATOR = new Parcelable.Creator<NotificationSettingViewModel>()
 	{
 		public NotificationSettingViewModel createFromParcel(Parcel in) {
@@ -68,15 +63,6 @@ public class NotificationSettingViewModel implements Parcelable
 		}
 	};
 
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public NotificationSettingViewModel isEnabled(Boolean isEnabled) {
-		this.isEnabled = isEnabled;
-		return this;
-	}
-
   NotificationSettingViewModel(Parcel in) {
 	  id = (UUID) in.readValue(UUID.class.getClassLoader());
 	  isEnabled = (Boolean) in.readValue(null);
@@ -87,12 +73,8 @@ public class NotificationSettingViewModel implements Parcelable
 	  conditionAmount = (Double) in.readValue(null);
   }
 
-	public void setIsEnabled(Boolean isEnabled) {
-		this.isEnabled = isEnabled;
-	}
-
-	public NotificationSettingViewModel assetId(UUID assetId) {
-		this.assetId = assetId;
+	public NotificationSettingViewModel id(UUID id) {
+		this.id = id;
     return this;
   }
 
@@ -105,12 +87,12 @@ public class NotificationSettingViewModel implements Parcelable
     return id;
   }
 
-	public void setAssetId(UUID assetId) {
-		this.assetId = assetId;
+	public void setId(UUID id) {
+		this.id = id;
   }
 
-	public NotificationSettingViewModel managerId(UUID managerId) {
-		this.managerId = managerId;
+	public NotificationSettingViewModel isEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
     return this;
   }
 
@@ -123,12 +105,12 @@ public class NotificationSettingViewModel implements Parcelable
     return isEnabled;
   }
 
-	public void setManagerId(UUID managerId) {
-		this.managerId = managerId;
+	public void setIsEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
   }
 
-	public NotificationSettingViewModel type(NotificationType type) {
-		this.type = type;
+	public NotificationSettingViewModel assetId(UUID assetId) {
+		this.assetId = assetId;
     return this;
   }
 
@@ -141,12 +123,12 @@ public class NotificationSettingViewModel implements Parcelable
     return assetId;
   }
 
-	public void setType(NotificationType type) {
-		this.type = type;
+	public void setAssetId(UUID assetId) {
+		this.assetId = assetId;
   }
 
-	public NotificationSettingViewModel conditionType(NotificationSettingConditionType conditionType) {
-		this.conditionType = conditionType;
+	public NotificationSettingViewModel managerId(UUID managerId) {
+		this.managerId = managerId;
     return this;
   }
 
@@ -159,12 +141,12 @@ public class NotificationSettingViewModel implements Parcelable
     return managerId;
   }
 
-	public void setConditionType(NotificationSettingConditionType conditionType) {
-		this.conditionType = conditionType;
+	public void setManagerId(UUID managerId) {
+		this.managerId = managerId;
   }
 
-	public NotificationSettingViewModel conditionAmount(Double conditionAmount) {
-		this.conditionAmount = conditionAmount;
+	public NotificationSettingViewModel type(NotificationType type) {
+		this.type = type;
     return this;
   }
 
@@ -177,8 +159,13 @@ public class NotificationSettingViewModel implements Parcelable
     return type;
   }
 
-	public void setConditionAmount(Double conditionAmount) {
-		this.conditionAmount = conditionAmount;
+	public void setType(NotificationType type) {
+		this.type = type;
+	}
+
+	public NotificationSettingViewModel conditionType(NotificationSettingConditionType conditionType) {
+		this.conditionType = conditionType;
+		return this;
   }
 
 	/**
@@ -190,9 +177,13 @@ public class NotificationSettingViewModel implements Parcelable
     return conditionType;
   }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, isEnabled, assetId, managerId, type, conditionType, conditionAmount);
+	public void setConditionType(NotificationSettingConditionType conditionType) {
+		this.conditionType = conditionType;
+	}
+
+	public NotificationSettingViewModel conditionAmount(Double conditionAmount) {
+		this.conditionAmount = conditionAmount;
+		return this;
   }
 
 	/**
@@ -204,26 +195,8 @@ public class NotificationSettingViewModel implements Parcelable
     return conditionAmount;
   }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
-
-
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(id);
-		out.writeValue(isEnabled);
-		out.writeValue(assetId);
-		out.writeValue(managerId);
-		out.writeValue(type);
-		out.writeValue(conditionType);
-		out.writeValue(conditionAmount);
+	public void setConditionAmount(Double conditionAmount) {
+		this.conditionAmount = conditionAmount;
   }
 
   @Override
@@ -244,8 +217,9 @@ public class NotificationSettingViewModel implements Parcelable
 		    Objects.equals(this.conditionAmount, notificationSettingViewModel.conditionAmount);
   }
 
-	public int describeContents() {
-		return 0;
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, isEnabled, assetId, managerId, type, conditionType, conditionAmount);
   }
 
   @Override
@@ -263,4 +237,29 @@ public class NotificationSettingViewModel implements Parcelable
     sb.append("}");
     return sb.toString();
   }
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(id);
+		out.writeValue(isEnabled);
+		out.writeValue(assetId);
+		out.writeValue(managerId);
+		out.writeValue(type);
+		out.writeValue(conditionType);
+		out.writeValue(conditionAmount);
+	}
+
+	public int describeContents() {
+		return 0;
+	}
 }

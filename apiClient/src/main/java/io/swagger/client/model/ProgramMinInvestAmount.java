@@ -43,19 +43,19 @@ public class ProgramMinInvestAmount implements Parcelable
 	@SerializedName("serverType")
 	private BrokerTradeServerType serverType = null;
 
-	@SerializedName("minInvestAmountOwnProgram")
-	private List<AmountWithCurrency> minInvestAmountOwnProgram = null;
+	@SerializedName("minDepositCreateAsset")
+	private List<AmountWithCurrency> minDepositCreateAsset = null;
 
-	@SerializedName("minInvestAmountSomeoneProgram")
-	private List<AmountWithCurrency> minInvestAmountSomeoneProgram = null;
+	@SerializedName("minInvestAmountIntoProgram")
+	private List<AmountWithCurrency> minInvestAmountIntoProgram = null;
 
 	public ProgramMinInvestAmount() {
 	}
 
 	ProgramMinInvestAmount(Parcel in) {
 		serverType = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
-		minInvestAmountOwnProgram = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
-		minInvestAmountSomeoneProgram = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
+		minDepositCreateAsset = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
+		minInvestAmountIntoProgram = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
 	}
 
 	public ProgramMinInvestAmount serverType(BrokerTradeServerType serverType) {
@@ -77,58 +77,58 @@ public class ProgramMinInvestAmount implements Parcelable
 		this.serverType = serverType;
 	}
 
-	public ProgramMinInvestAmount minInvestAmountOwnProgram(List<AmountWithCurrency> minInvestAmountOwnProgram) {
-		this.minInvestAmountOwnProgram = minInvestAmountOwnProgram;
+	public ProgramMinInvestAmount minDepositCreateAsset(List<AmountWithCurrency> minDepositCreateAsset) {
+		this.minDepositCreateAsset = minDepositCreateAsset;
 		return this;
 	}
 
-	public ProgramMinInvestAmount addMinInvestAmountOwnProgramItem(AmountWithCurrency minInvestAmountOwnProgramItem) {
-		if (this.minInvestAmountOwnProgram == null) {
-			this.minInvestAmountOwnProgram = new ArrayList<AmountWithCurrency>();
+	public ProgramMinInvestAmount addMinDepositCreateAssetItem(AmountWithCurrency minDepositCreateAssetItem) {
+		if (this.minDepositCreateAsset == null) {
+			this.minDepositCreateAsset = new ArrayList<AmountWithCurrency>();
 		}
-		this.minInvestAmountOwnProgram.add(minInvestAmountOwnProgramItem);
+		this.minDepositCreateAsset.add(minDepositCreateAssetItem);
 		return this;
 	}
 
 	/**
-	 * Get minInvestAmountOwnProgram
+	 * Get minDepositCreateAsset
 	 *
-	 * @return minInvestAmountOwnProgram
+	 * @return minDepositCreateAsset
 	 **/
 	@Schema(description = "")
-	public List<AmountWithCurrency> getMinInvestAmountOwnProgram() {
-		return minInvestAmountOwnProgram;
+	public List<AmountWithCurrency> getMinDepositCreateAsset() {
+		return minDepositCreateAsset;
 	}
 
-	public void setMinInvestAmountOwnProgram(List<AmountWithCurrency> minInvestAmountOwnProgram) {
-		this.minInvestAmountOwnProgram = minInvestAmountOwnProgram;
+	public void setMinDepositCreateAsset(List<AmountWithCurrency> minDepositCreateAsset) {
+		this.minDepositCreateAsset = minDepositCreateAsset;
 	}
 
-	public ProgramMinInvestAmount minInvestAmountSomeoneProgram(List<AmountWithCurrency> minInvestAmountSomeoneProgram) {
-		this.minInvestAmountSomeoneProgram = minInvestAmountSomeoneProgram;
+	public ProgramMinInvestAmount minInvestAmountIntoProgram(List<AmountWithCurrency> minInvestAmountIntoProgram) {
+		this.minInvestAmountIntoProgram = minInvestAmountIntoProgram;
 		return this;
 	}
 
-	public ProgramMinInvestAmount addMinInvestAmountSomeoneProgramItem(AmountWithCurrency minInvestAmountSomeoneProgramItem) {
-		if (this.minInvestAmountSomeoneProgram == null) {
-			this.minInvestAmountSomeoneProgram = new ArrayList<AmountWithCurrency>();
+	public ProgramMinInvestAmount addMinInvestAmountIntoProgramItem(AmountWithCurrency minInvestAmountIntoProgramItem) {
+		if (this.minInvestAmountIntoProgram == null) {
+			this.minInvestAmountIntoProgram = new ArrayList<AmountWithCurrency>();
 		}
-		this.minInvestAmountSomeoneProgram.add(minInvestAmountSomeoneProgramItem);
+		this.minInvestAmountIntoProgram.add(minInvestAmountIntoProgramItem);
 		return this;
 	}
 
 	/**
-	 * Get minInvestAmountSomeoneProgram
+	 * Get minInvestAmountIntoProgram
 	 *
-	 * @return minInvestAmountSomeoneProgram
+	 * @return minInvestAmountIntoProgram
 	 **/
 	@Schema(description = "")
-	public List<AmountWithCurrency> getMinInvestAmountSomeoneProgram() {
-		return minInvestAmountSomeoneProgram;
+	public List<AmountWithCurrency> getMinInvestAmountIntoProgram() {
+		return minInvestAmountIntoProgram;
 	}
 
-	public void setMinInvestAmountSomeoneProgram(List<AmountWithCurrency> minInvestAmountSomeoneProgram) {
-		this.minInvestAmountSomeoneProgram = minInvestAmountSomeoneProgram;
+	public void setMinInvestAmountIntoProgram(List<AmountWithCurrency> minInvestAmountIntoProgram) {
+		this.minInvestAmountIntoProgram = minInvestAmountIntoProgram;
 	}
 
 	@Override
@@ -141,13 +141,13 @@ public class ProgramMinInvestAmount implements Parcelable
 		}
 		ProgramMinInvestAmount programMinInvestAmount = (ProgramMinInvestAmount) o;
 		return Objects.equals(this.serverType, programMinInvestAmount.serverType) &&
-				Objects.equals(this.minInvestAmountOwnProgram, programMinInvestAmount.minInvestAmountOwnProgram) &&
-				Objects.equals(this.minInvestAmountSomeoneProgram, programMinInvestAmount.minInvestAmountSomeoneProgram);
+				Objects.equals(this.minDepositCreateAsset, programMinInvestAmount.minDepositCreateAsset) &&
+				Objects.equals(this.minInvestAmountIntoProgram, programMinInvestAmount.minInvestAmountIntoProgram);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(serverType, minInvestAmountOwnProgram, minInvestAmountSomeoneProgram);
+		return Objects.hash(serverType, minDepositCreateAsset, minInvestAmountIntoProgram);
 	}
 
 	@Override
@@ -156,8 +156,8 @@ public class ProgramMinInvestAmount implements Parcelable
 		sb.append("class ProgramMinInvestAmount {\n");
 
 		sb.append("    serverType: ").append(toIndentedString(serverType)).append("\n");
-		sb.append("    minInvestAmountOwnProgram: ").append(toIndentedString(minInvestAmountOwnProgram)).append("\n");
-		sb.append("    minInvestAmountSomeoneProgram: ").append(toIndentedString(minInvestAmountSomeoneProgram)).append("\n");
+		sb.append("    minDepositCreateAsset: ").append(toIndentedString(minDepositCreateAsset)).append("\n");
+		sb.append("    minInvestAmountIntoProgram: ").append(toIndentedString(minInvestAmountIntoProgram)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -175,8 +175,8 @@ public class ProgramMinInvestAmount implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(serverType);
-		out.writeValue(minInvestAmountOwnProgram);
-		out.writeValue(minInvestAmountSomeoneProgram);
+		out.writeValue(minDepositCreateAsset);
+		out.writeValue(minInvestAmountIntoProgram);
 	}
 
 	public int describeContents() {

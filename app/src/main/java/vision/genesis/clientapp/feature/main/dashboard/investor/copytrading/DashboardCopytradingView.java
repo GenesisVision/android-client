@@ -4,7 +4,7 @@ import com.arellomobile.mvp.MvpView;
 
 import java.util.List;
 
-import io.swagger.client.model.SignalDetails;
+import io.swagger.client.model.CopyTradingAccountInfo;
 import vision.genesis.clientapp.model.filter.DashboardFilter;
 
 /**
@@ -18,7 +18,7 @@ interface DashboardCopytradingView extends MvpView
 
 	void showEmpty(boolean show);
 
-	void setSignals(List<SignalDetails> programs);
+	void setSignals(List<CopyTradingAccountInfo> programs);
 
 	void showSnackbarMessage(String message);
 

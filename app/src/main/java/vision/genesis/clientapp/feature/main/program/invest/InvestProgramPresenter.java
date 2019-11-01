@@ -10,7 +10,9 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ProgramInvestInfo;
+import io.swagger.client.model.AmountWithCurrency;
+import io.swagger.client.model.PlatformInfo;
+import io.swagger.client.model.ProgramMinInvestAmount;
 import io.swagger.client.model.WalletData;
 import io.swagger.client.model.WalletMultiSummary;
 import rx.Subscription;
@@ -22,6 +24,7 @@ import vision.genesis.clientapp.feature.common.select_wallet.SelectWalletBottomS
 import vision.genesis.clientapp.feature.main.program.invest.confirm.ConfirmProgramInvestBottomSheetFragment;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.RateManager;
+import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.ProgramRequest;
@@ -44,6 +47,10 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 	@Inject
 	public WalletManager walletManager;
 
+
+	@Inject
+	public SettingsManager settingsManager;
+
 	@Inject
 	public RateManager rateManager;
 
@@ -52,15 +59,13 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 	private Subscription walletsSubscription;
 
-	private Subscription investInfoSubscription;
+	private Subscription platformInfoSubscription;
 
 	private ProgramRequest programRequest;
 
 	private Double amount;
 
 	private Double amountBase;
-
-	private ProgramInvestInfo investInfo;
 
 	private Double availableToInvest;
 
@@ -74,6 +79,12 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 	private Double rate = 0.0;
 
+	private PlatformInfo info;
+
+	private Double programCurrencyMinInvestment = 0.0;
+
+	private Double gvCommissionPercent = 0.0;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -81,7 +92,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 		GenesisVisionApplication.getComponent().inject(this);
 
 		subscribeToWallets();
-		getInvestInfo();
+		getPlatformInfo();
 	}
 
 	@Override
@@ -89,8 +100,8 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 		if (walletsSubscription != null) {
 			walletsSubscription.unsubscribe();
 		}
-		if (investInfoSubscription != null) {
-			investInfoSubscription.unsubscribe();
+		if (platformInfoSubscription != null) {
+			platformInfoSubscription.unsubscribe();
 		}
 
 		super.onDestroy();
@@ -99,6 +110,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 	void setProgramRequest(ProgramRequest programRequest) {
 		this.programRequest = programRequest;
 		subscribeToWallets();
+		getPlatformInfo();
 	}
 
 	void onAmountChanged(String newAmount) {
@@ -108,27 +120,23 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 		} catch (NumberFormatException e) {
 			amount = 0.0;
 		}
-//		double fractionalPart = NumberFormatUtil.roundDouble(amount - ((long) amount.doubleValue()), StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()));
-//		if (String.valueOf(fractionalPart).length() > StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()) + 2) {
-//			getViewState().setAmount(newAmount.substring(0, newAmount.length() - 1));
-//		}
-		if (investInfo != null) {
+		if (info != null && programRequest != null) {
 			if (amount > availableToInvest) {
-				getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableToInvest, selectedWalletFrom.getCurrency().getValue()));
+				getViewState().setAmount(StringFormatUtil.formatAmountWithoutGrouping(availableToInvest));
 				return;
 			}
 
 			amountBase = amount / rate;
 
-			entryFee = amountBase * (investInfo.getEntryFee() / 100);
-			gvCommission = amount * (investInfo.getGvCommission() / 100);
+			entryFee = amountBase * (programRequest.getEntryFee() / 100);
+			gvCommission = amount * (gvCommissionPercent / 100);
 			investmentAmount = amountBase - entryFee - gvCommission / rate;
 
 			getViewState().setAmountBase(getAmountBaseString());
 			getViewState().setEntryFee(getEntryFeeString());
 			getViewState().setGvCommission(getGvCommissionString());
 			getViewState().setInvestmentAmount(getInvestmentAmountString());
-			getViewState().setContinueButtonEnabled(amount >= investInfo.getProgramCurrencyMinInvestment() * rate
+			getViewState().setContinueButtonEnabled(amount >= programCurrencyMinInvestment * rate
 					&& amount <= availableToInvest);
 		}
 	}
@@ -150,14 +158,14 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 	private String getEntryFeeString() {
 		return String.format(Locale.getDefault(), "%s%% (%s%s)",
-				StringFormatUtil.formatAmount(investInfo.getEntryFee(), 0, 2),
+				StringFormatUtil.formatAmount(programRequest.getEntryFee(), 0, 2),
 				selectedWalletFrom.getCurrency().getValue().equals(programRequest.getProgramCurrency()) ? "" : StringFormatUtil.getApproxSymbolIfNeeded(entryFee),
 				StringFormatUtil.getValueString(entryFee, programRequest.getProgramCurrency()));
 	}
 
 	private String getGvCommissionString() {
 		return String.format(Locale.getDefault(), "%s%% (%s)",
-				StringFormatUtil.formatAmount(investInfo.getGvCommission(), 0, 5),
+				StringFormatUtil.formatAmount(gvCommissionPercent, 0, 5),
 				StringFormatUtil.getValueString(gvCommission, selectedWalletFrom.getCurrency().getValue()));
 	}
 
@@ -169,15 +177,15 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 	private String getFeesAndCommissionsString() {
 		return String.format(Locale.getDefault(), "%s%% (%s%s)\n%s%% (%s)",
-				StringFormatUtil.formatAmount(investInfo.getEntryFee(), 0, 5),
+				StringFormatUtil.formatAmount(programRequest.getEntryFee(), 0, 5),
 				selectedWalletFrom.getCurrency().getValue().equals(programRequest.getProgramCurrency()) ? "" : StringFormatUtil.getApproxSymbolIfNeeded(entryFee),
 				StringFormatUtil.getValueString(entryFee, programRequest.getProgramCurrency()),
-				StringFormatUtil.formatAmount(investInfo.getGvCommission(), 0, 5),
+				StringFormatUtil.formatAmount(gvCommissionPercent, 0, 5),
 				StringFormatUtil.getValueString(gvCommission, selectedWalletFrom.getCurrency().getValue()));
 	}
 
 	void onMaxClicked() {
-		if (investInfo != null) {
+		if (info != null) {
 			getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableToInvest, CurrencyEnum.GVT.getValue()));
 		}
 	}
@@ -237,7 +245,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 	private void handleGetRateSuccess(Double rate) {
 		this.rate = rate;
-		getInvestInfo();
+		getPlatformInfo();
 	}
 
 	private void handleGetRateError(Throwable throwable) {
@@ -245,42 +253,54 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 				message -> getViewState().showSnackbarMessage(message));
 	}
 
-	private void getInvestInfo() {
-		if (programsManager != null && programRequest != null && selectedWalletFrom != null) {
-			investInfoSubscription = programsManager.getInvestInfo(programRequest.getProgramId(), selectedWalletFrom.getCurrency().getValue())
+	private void getPlatformInfo() {
+		if (settingsManager != null && programRequest != null && selectedWalletFrom != null) {
+			platformInfoSubscription = settingsManager.getPlatformInfo()
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleInvestInfoResponse,
-							this::handleInvestInfoError);
+					.subscribe(this::handlePlatformInfoResponse,
+							this::handlePlatformInfoError);
 		}
 	}
 
-	private void handleInvestInfoResponse(ProgramInvestInfo response) {
-		investInfoSubscription.unsubscribe();
+	private void handlePlatformInfoResponse(PlatformInfo response) {
+		platformInfoSubscription.unsubscribe();
 
 		getViewState().showProgress(false);
 		getViewState().showAmountProgress(false);
 
-		investInfo = response;
+		info = response;
+		gvCommissionPercent = info.getCommonInfo().getPlatformCommission().getInvestment();
+
+		for (ProgramMinInvestAmount model : info.getAssetInfo().getProgramInfo().getMinInvestAmounts()) {
+			if (model.getServerType().equals(programRequest.getBrokerType())) {
+				for (AmountWithCurrency amountWithCurrency : model.getMinInvestAmountIntoProgram()) {
+					if (amountWithCurrency.getCurrency().getValue().equals(programRequest.getProgramCurrency())) {
+						programCurrencyMinInvestment = amountWithCurrency.getAmount();
+						break;
+					}
+				}
+			}
+		}
 
 //		double maxAmount = investInfo.getAvailableInWallet() / (1 + investInfo.getEntryFee() / 100);
 //		availableToInvest = investInfo.getAvailableToInvest() < maxAmount
 //				? investInfo.getAvailableToInvest()
 //				: maxAmount;
 		getViewState().setAvailableToInvest(StringFormatUtil.getValueString(
-				investInfo.getAvailableToInvestBase(),
+				programRequest.getAvailableInvestment(),
 				programRequest.getProgramCurrency()));
 
-		availableToInvest = investInfo.getAvailableToInvestBase() < selectedWalletFrom.getAvailable() / rate
-				? investInfo.getAvailableToInvestBase() * rate
+		availableToInvest = programRequest.getAvailableInvestment() < selectedWalletFrom.getAvailable() / rate
+				? programRequest.getAvailableInvestment() * rate
 				: selectedWalletFrom.getAvailable();
 
-		getViewState().setMinInvestmentAmount(investInfo.getProgramCurrencyMinInvestment() * rate);
+		getViewState().setMinInvestmentAmount(programCurrencyMinInvestment * rate);
 		getViewState().setAmount("");
 	}
 
-	private void handleInvestInfoError(Throwable throwable) {
-		investInfoSubscription.unsubscribe();
+	private void handlePlatformInfoError(Throwable throwable) {
+		platformInfoSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
 		ApiErrorResolver.resolveErrors(throwable,

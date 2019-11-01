@@ -27,6 +27,19 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class WalletRowCell implements Parcelable
 {
+  @SerializedName("first")
+  private CurrencyItem first = null;
+
+  @SerializedName("second")
+  private CurrencyItem second = null;
+
+  public WalletRowCell() {
+  }
+  public WalletRowCell first(CurrencyItem first) {
+    this.first = first;
+    return this;
+  }
+
   public static final Parcelable.Creator<WalletRowCell> CREATOR = new Parcelable.Creator<WalletRowCell>()
   {
     public WalletRowCell createFromParcel(Parcel in) {
@@ -38,13 +51,13 @@ public class WalletRowCell implements Parcelable
     }
   };
 
-  @SerializedName("first")
-  private CurrencyItem first = null;
+  public void setFirst(CurrencyItem first) {
+    this.first = first;
+  }
 
-  @SerializedName("second")
-  private CurrencyItem second = null;
-
-  public WalletRowCell() {
+  public WalletRowCell second(CurrencyItem second) {
+    this.second = second;
+    return this;
   }
 
   WalletRowCell(Parcel in) {
@@ -52,9 +65,8 @@ public class WalletRowCell implements Parcelable
     second = (CurrencyItem) in.readValue(CurrencyItem.class.getClassLoader());
   }
 
-  public WalletRowCell first(CurrencyItem first) {
-    this.first = first;
-    return this;
+  public void setSecond(CurrencyItem second) {
+    this.second = second;
   }
 
   /**
@@ -67,27 +79,35 @@ public class WalletRowCell implements Parcelable
     return first;
   }
 
-  public void setFirst(CurrencyItem first) {
-    this.first = first;
-  }
-
-  public WalletRowCell second(CurrencyItem second) {
-    this.second = second;
-    return this;
+  @Override
+  public int hashCode() {
+    return Objects.hash(first, second);
   }
 
   /**
    * Get second
-   *
    * @return second
-   **/
+  **/
   @Schema(description = "")
   public CurrencyItem getSecond() {
     return second;
   }
 
-  public void setSecond(CurrencyItem second) {
-    this.second = second;
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(first);
+    out.writeValue(second);
   }
 
   @Override
@@ -103,9 +123,8 @@ public class WalletRowCell implements Parcelable
             Objects.equals(this.second, walletRowCell.second);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(first, second);
+  public int describeContents() {
+    return 0;
   }
 
   @Override
@@ -117,25 +136,5 @@ public class WalletRowCell implements Parcelable
     sb.append("    second: ").append(toIndentedString(second)).append("\n");
     sb.append("}");
     return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(first);
-    out.writeValue(second);
-  }
-
-  public int describeContents() {
-    return 0;
   }
 }

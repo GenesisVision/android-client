@@ -5,6 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **logo** | **String** |  |  [optional]
 **name** | **String** |  |  [optional]
+**type** | [**BrokerTradeServerType**](BrokerTradeServerType.md) |  |  [optional]
 **isKycRequired** | **Boolean** |  |  [optional]
 **showSwaps** | **Boolean** |  |  [optional]
 **showTickets** | **Boolean** |  |  [optional]

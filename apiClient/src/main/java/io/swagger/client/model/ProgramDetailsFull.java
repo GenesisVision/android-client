@@ -32,17 +32,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramDetailsFull implements Parcelable
 {
-  public static final Parcelable.Creator<ProgramDetailsFull> CREATOR = new Parcelable.Creator<ProgramDetailsFull>()
-  {
-    public ProgramDetailsFull createFromParcel(Parcel in) {
-      return new ProgramDetailsFull(in);
-    }
-
-    public ProgramDetailsFull[] newArray(int size) {
-      return new ProgramDetailsFull[size];
-    }
-  };
-
   @SerializedName("id")
   private UUID id = null;
 
@@ -84,6 +73,17 @@ public class ProgramDetailsFull implements Parcelable
 
   @SerializedName("tradesDelay")
   private TradesDelay tradesDelay = null;
+
+  public static final Parcelable.Creator<ProgramDetailsFull> CREATOR = new Parcelable.Creator<ProgramDetailsFull>()
+  {
+    public ProgramDetailsFull createFromParcel(Parcel in) {
+      return new ProgramDetailsFull(in);
+    }
+
+    public ProgramDetailsFull[] newArray(int size) {
+      return new ProgramDetailsFull[size];
+    }
+  };
 
   @SerializedName("login")
   private String login = null;
@@ -151,6 +151,23 @@ public class ProgramDetailsFull implements Parcelable
   public ProgramDetailsFull() {
   }
 
+  public ProgramDetailsFull id(UUID id) {
+    this.id = id;
+    return this;
+  }
+
+  @SerializedName("status")
+  private String status = null;
+
+  public void setId(UUID id) {
+    this.id = id;
+  }
+
+  public ProgramDetailsFull logo(String logo) {
+    this.logo = logo;
+    return this;
+  }
+
   ProgramDetailsFull(Parcel in) {
     id = (UUID) in.readValue(UUID.class.getClassLoader());
     logo = (String) in.readValue(null);
@@ -166,6 +183,7 @@ public class ProgramDetailsFull implements Parcelable
     periodStarts = (DateTime) in.readValue(DateTime.class.getClassLoader());
     periodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
     tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
+    status = (String) in.readValue(null);
     login = (String) in.readValue(null);
     ageDays = (Double) in.readValue(null);
     leverageMin = (Integer) in.readValue(null);
@@ -189,40 +207,6 @@ public class ProgramDetailsFull implements Parcelable
     tags = (List<ProgramTag>) in.readValue(ProgramTag.class.getClassLoader());
   }
 
-  public ProgramDetailsFull id(UUID id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   *
-   * @return id
-   **/
-  @Schema(description = "")
-  public UUID getId() {
-    return id;
-  }
-
-  public void setId(UUID id) {
-    this.id = id;
-  }
-
-  public ProgramDetailsFull logo(String logo) {
-    this.logo = logo;
-    return this;
-  }
-
-  /**
-   * Get logo
-   *
-   * @return logo
-   **/
-  @Schema(description = "")
-  public String getLogo() {
-    return logo;
-  }
-
   public void setLogo(String logo) {
     this.logo = logo;
   }
@@ -233,13 +217,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get url
-   *
-   * @return url
+   * Get id
+   * @return id
    **/
   @Schema(description = "")
-  public String getUrl() {
-    return url;
+  public UUID getId() {
+    return id;
   }
 
   public void setUrl(String url) {
@@ -252,13 +235,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get color
-   *
-   * @return color
+   * Get logo
+   * @return logo
    **/
   @Schema(description = "")
-  public String getColor() {
-    return color;
+  public String getLogo() {
+    return logo;
   }
 
   public void setColor(String color) {
@@ -271,13 +253,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get title
-   *
-   * @return title
+   * Get url
+   * @return url
    **/
   @Schema(description = "")
-  public String getTitle() {
-    return title;
+  public String getUrl() {
+    return url;
   }
 
   public void setTitle(String title) {
@@ -290,13 +271,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get description
-   *
-   * @return description
+   * Get color
+   * @return color
    **/
   @Schema(description = "")
-  public String getDescription() {
-    return description;
+  public String getColor() {
+    return color;
   }
 
   public void setDescription(String description) {
@@ -309,13 +289,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get creationDate
-   *
-   * @return creationDate
+   * Get title
+   * @return title
    **/
   @Schema(description = "")
-  public DateTime getCreationDate() {
-    return creationDate;
+  public String getTitle() {
+    return title;
   }
 
   public void setCreationDate(DateTime creationDate) {
@@ -328,13 +307,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get currency
-   *
-   * @return currency
+   * Get description
+   * @return description
    **/
   @Schema(description = "")
-  public Currency getCurrency() {
-    return currency;
+  public String getDescription() {
+    return description;
   }
 
   public void setCurrency(Currency currency) {
@@ -347,13 +325,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get level
-   *
-   * @return level
+   * Get creationDate
+   * @return creationDate
    **/
   @Schema(description = "")
-  public Integer getLevel() {
-    return level;
+  public DateTime getCreationDate() {
+    return creationDate;
   }
 
   public void setLevel(Integer level) {
@@ -366,13 +343,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get levelProgress
-   *
-   * @return levelProgress
+   * Get currency
+   * @return currency
    **/
   @Schema(description = "")
-  public Double getLevelProgress() {
-    return levelProgress;
+  public Currency getCurrency() {
+    return currency;
   }
 
   public void setLevelProgress(Double levelProgress) {
@@ -385,13 +361,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get periodDuration
-   *
-   * @return periodDuration
+   * Get level
+   * @return level
    **/
   @Schema(description = "")
-  public Integer getPeriodDuration() {
-    return periodDuration;
+  public Integer getLevel() {
+    return level;
   }
 
   public void setPeriodDuration(Integer periodDuration) {
@@ -404,13 +379,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get periodStarts
-   *
-   * @return periodStarts
+   * Get levelProgress
+   * @return levelProgress
    **/
   @Schema(description = "")
-  public DateTime getPeriodStarts() {
-    return periodStarts;
+  public Double getLevelProgress() {
+    return levelProgress;
   }
 
   public void setPeriodStarts(DateTime periodStarts) {
@@ -423,13 +397,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get periodEnds
-   *
-   * @return periodEnds
+   * Get periodDuration
+   * @return periodDuration
    **/
   @Schema(description = "")
-  public DateTime getPeriodEnds() {
-    return periodEnds;
+  public Integer getPeriodDuration() {
+    return periodDuration;
   }
 
   public void setPeriodEnds(DateTime periodEnds) {
@@ -442,8 +415,29 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
+   * Get periodStarts
+   * @return periodStarts
+   **/
+  @Schema(description = "")
+  public DateTime getPeriodStarts() {
+    return periodStarts;
+  }
+
+  public void setTradesDelay(TradesDelay tradesDelay) {
+    this.tradesDelay = tradesDelay;
+  }
+
+  /**
+   * Get periodEnds
+   * @return periodEnds
+   **/
+  @Schema(description = "")
+  public DateTime getPeriodEnds() {
+    return periodEnds;
+  }
+
+  /**
    * Get tradesDelay
-   *
    * @return tradesDelay
    **/
   @Schema(description = "")
@@ -451,8 +445,9 @@ public class ProgramDetailsFull implements Parcelable
     return tradesDelay;
   }
 
-  public void setTradesDelay(TradesDelay tradesDelay) {
-    this.tradesDelay = tradesDelay;
+  public ProgramDetailsFull status(String status) {
+    this.status = status;
+    return this;
   }
 
   public ProgramDetailsFull login(String login) {
@@ -461,13 +456,13 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get login
+   * Get status
    *
-   * @return login
+   * @return status
    **/
   @Schema(description = "")
-  public String getLogin() {
-    return login;
+  public String getStatus() {
+    return status;
   }
 
   public void setLogin(String login) {
@@ -479,14 +474,8 @@ public class ProgramDetailsFull implements Parcelable
     return this;
   }
 
-  /**
-   * Get ageDays
-   *
-   * @return ageDays
-   **/
-  @Schema(description = "")
-  public Double getAgeDays() {
-    return ageDays;
+  public void setStatus(String status) {
+    this.status = status;
   }
 
   public void setAgeDays(Double ageDays) {
@@ -499,13 +488,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get leverageMin
-   *
-   * @return leverageMin
-   **/
+   * Get login
+   * @return login
+  **/
   @Schema(description = "")
-  public Integer getLeverageMin() {
-    return leverageMin;
+  public String getLogin() {
+    return login;
   }
 
   public void setLeverageMin(Integer leverageMin) {
@@ -518,13 +506,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get leverageMax
-   *
-   * @return leverageMax
-   **/
+   * Get ageDays
+   * @return ageDays
+  **/
   @Schema(description = "")
-  public Integer getLeverageMax() {
-    return leverageMax;
+  public Double getAgeDays() {
+    return ageDays;
   }
 
   public void setLeverageMax(Integer leverageMax) {
@@ -537,13 +524,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get genesisRatio
-   *
-   * @return genesisRatio
-   **/
+   * Get leverageMin
+   * @return leverageMin
+  **/
   @Schema(description = "")
-  public Double getGenesisRatio() {
-    return genesisRatio;
+  public Integer getLeverageMin() {
+    return leverageMin;
   }
 
   public void setGenesisRatio(Double genesisRatio) {
@@ -556,13 +542,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get investmentScale
-   *
-   * @return investmentScale
-   **/
+   * Get leverageMax
+   * @return leverageMax
+  **/
   @Schema(description = "")
-  public Double getInvestmentScale() {
-    return investmentScale;
+  public Integer getLeverageMax() {
+    return leverageMax;
   }
 
   public void setInvestmentScale(Double investmentScale) {
@@ -575,13 +560,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get volumeScale
-   *
-   * @return volumeScale
-   **/
+   * Get genesisRatio
+   * @return genesisRatio
+  **/
   @Schema(description = "")
-  public Double getVolumeScale() {
-    return volumeScale;
+  public Double getGenesisRatio() {
+    return genesisRatio;
   }
 
   public void setVolumeScale(Double volumeScale) {
@@ -594,13 +578,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get entryFeeSelected
-   *
-   * @return entryFeeSelected
-   **/
+   * Get investmentScale
+   * @return investmentScale
+  **/
   @Schema(description = "")
-  public Double getEntryFeeSelected() {
-    return entryFeeSelected;
+  public Double getInvestmentScale() {
+    return investmentScale;
   }
 
   public void setEntryFeeSelected(Double entryFeeSelected) {
@@ -613,13 +596,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get entryFeeCurrent
-   *
-   * @return entryFeeCurrent
-   **/
+   * Get volumeScale
+   * @return volumeScale
+  **/
   @Schema(description = "")
-  public Double getEntryFeeCurrent() {
-    return entryFeeCurrent;
+  public Double getVolumeScale() {
+    return volumeScale;
   }
 
   public void setEntryFeeCurrent(Double entryFeeCurrent) {
@@ -632,13 +614,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get successFeeSelected
-   *
-   * @return successFeeSelected
-   **/
+   * Get entryFeeSelected
+   * @return entryFeeSelected
+  **/
   @Schema(description = "")
-  public Double getSuccessFeeSelected() {
-    return successFeeSelected;
+  public Double getEntryFeeSelected() {
+    return entryFeeSelected;
   }
 
   public void setSuccessFeeSelected(Double successFeeSelected) {
@@ -651,13 +632,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get successFeeCurrent
-   *
-   * @return successFeeCurrent
-   **/
+   * Get entryFeeCurrent
+   * @return entryFeeCurrent
+  **/
   @Schema(description = "")
-  public Double getSuccessFeeCurrent() {
-    return successFeeCurrent;
+  public Double getEntryFeeCurrent() {
+    return entryFeeCurrent;
   }
 
   public void setSuccessFeeCurrent(Double successFeeCurrent) {
@@ -670,13 +650,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get stopOutLevelSelected
-   *
-   * @return stopOutLevelSelected
-   **/
+   * Get successFeeSelected
+   * @return successFeeSelected
+  **/
   @Schema(description = "")
-  public Double getStopOutLevelSelected() {
-    return stopOutLevelSelected;
+  public Double getSuccessFeeSelected() {
+    return successFeeSelected;
   }
 
   public void setStopOutLevelSelected(Double stopOutLevelSelected) {
@@ -689,13 +668,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get stopOutLevelCurrent
-   *
-   * @return stopOutLevelCurrent
-   **/
+   * Get successFeeCurrent
+   * @return successFeeCurrent
+  **/
   @Schema(description = "")
-  public Double getStopOutLevelCurrent() {
-    return stopOutLevelCurrent;
+  public Double getSuccessFeeCurrent() {
+    return successFeeCurrent;
   }
 
   public void setStopOutLevelCurrent(Double stopOutLevelCurrent) {
@@ -708,13 +686,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get availableInvestmentBase
-   *
-   * @return availableInvestmentBase
-   **/
+   * Get stopOutLevelSelected
+   * @return stopOutLevelSelected
+  **/
   @Schema(description = "")
-  public Double getAvailableInvestmentBase() {
-    return availableInvestmentBase;
+  public Double getStopOutLevelSelected() {
+    return stopOutLevelSelected;
   }
 
   public void setAvailableInvestmentBase(Double availableInvestmentBase) {
@@ -727,13 +704,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get availableInvestmentLimit
-   *
-   * @return availableInvestmentLimit
-   **/
+   * Get stopOutLevelCurrent
+   * @return stopOutLevelCurrent
+  **/
   @Schema(description = "")
-  public Double getAvailableInvestmentLimit() {
-    return availableInvestmentLimit;
+  public Double getStopOutLevelCurrent() {
+    return stopOutLevelCurrent;
   }
 
   public void setAvailableInvestmentLimit(Double availableInvestmentLimit) {
@@ -746,13 +722,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get totalAvailableInvestment
-   *
-   * @return totalAvailableInvestment
-   **/
+   * Get availableInvestmentBase
+   * @return availableInvestmentBase
+  **/
   @Schema(description = "")
-  public Double getTotalAvailableInvestment() {
-    return totalAvailableInvestment;
+  public Double getAvailableInvestmentBase() {
+    return availableInvestmentBase;
   }
 
   public void setTotalAvailableInvestment(Double totalAvailableInvestment) {
@@ -765,13 +740,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get manager
-   *
-   * @return manager
-   **/
+   * Get availableInvestmentLimit
+   * @return availableInvestmentLimit
+  **/
   @Schema(description = "")
-  public ProfilePublic getManager() {
-    return manager;
+  public Double getAvailableInvestmentLimit() {
+    return availableInvestmentLimit;
   }
 
   public void setManager(ProfilePublic manager) {
@@ -784,13 +758,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get brokerDetails
-   *
-   * @return brokerDetails
-   **/
+   * Get totalAvailableInvestment
+   * @return totalAvailableInvestment
+  **/
   @Schema(description = "")
-  public BrokerDetails getBrokerDetails() {
-    return brokerDetails;
+  public Double getTotalAvailableInvestment() {
+    return totalAvailableInvestment;
   }
 
   public void setBrokerDetails(BrokerDetails brokerDetails) {
@@ -803,13 +776,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get signalSettings
-   *
-   * @return signalSettings
-   **/
+   * Get manager
+   * @return manager
+  **/
   @Schema(description = "")
-  public AssetSignalSettings getSignalSettings() {
-    return signalSettings;
+  public ProfilePublic getManager() {
+    return manager;
   }
 
   public void setSignalSettings(AssetSignalSettings signalSettings) {
@@ -822,13 +794,12 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get personalDetails
-   *
-   * @return personalDetails
-   **/
+   * Get brokerDetails
+   * @return brokerDetails
+  **/
   @Schema(description = "")
-  public PersonalProgramDetails getPersonalDetails() {
-    return personalDetails;
+  public BrokerDetails getBrokerDetails() {
+    return brokerDetails;
   }
 
   public void setPersonalDetails(PersonalProgramDetails personalDetails) {
@@ -849,17 +820,36 @@ public class ProgramDetailsFull implements Parcelable
   }
 
   /**
-   * Get tags
+   * Get signalSettings
    *
-   * @return tags
+   * @return signalSettings
    **/
   @Schema(description = "")
-  public List<ProgramTag> getTags() {
-    return tags;
+  public AssetSignalSettings getSignalSettings() {
+    return signalSettings;
   }
 
   public void setTags(List<ProgramTag> tags) {
     this.tags = tags;
+  }
+
+  /**
+   * Get personalDetails
+   *
+   * @return personalDetails
+   **/
+  @Schema(description = "")
+  public PersonalProgramDetails getPersonalDetails() {
+    return personalDetails;
+  }
+
+  /**
+   * Get tags
+   * @return tags
+  **/
+  @Schema(description = "")
+  public List<ProgramTag> getTags() {
+    return tags;
   }
 
   @Override
@@ -885,6 +875,7 @@ public class ProgramDetailsFull implements Parcelable
             Objects.equals(this.periodStarts, programDetailsFull.periodStarts) &&
             Objects.equals(this.periodEnds, programDetailsFull.periodEnds) &&
             Objects.equals(this.tradesDelay, programDetailsFull.tradesDelay) &&
+            Objects.equals(this.status, programDetailsFull.status) &&
             Objects.equals(this.login, programDetailsFull.login) &&
             Objects.equals(this.ageDays, programDetailsFull.ageDays) &&
             Objects.equals(this.leverageMin, programDetailsFull.leverageMin) &&
@@ -908,9 +899,20 @@ public class ProgramDetailsFull implements Parcelable
             Objects.equals(this.tags, programDetailsFull.tags);
   }
 
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
   @Override
   public int hashCode() {
-    return Objects.hash(id, logo, url, color, title, description, creationDate, currency, level, levelProgress, periodDuration, periodStarts, periodEnds, tradesDelay, login, ageDays, leverageMin, leverageMax, genesisRatio, investmentScale, volumeScale, entryFeeSelected, entryFeeCurrent, successFeeSelected, successFeeCurrent, stopOutLevelSelected, stopOutLevelCurrent, availableInvestmentBase, availableInvestmentLimit, totalAvailableInvestment, manager, brokerDetails, signalSettings, personalDetails, tags);
+    return Objects.hash(id, logo, url, color, title, description, creationDate, currency, level, levelProgress, periodDuration, periodStarts, periodEnds, tradesDelay, status, login, ageDays, leverageMin, leverageMax, genesisRatio, investmentScale, volumeScale, entryFeeSelected, entryFeeCurrent, successFeeSelected, successFeeCurrent, stopOutLevelSelected, stopOutLevelCurrent, availableInvestmentBase, availableInvestmentLimit, totalAvailableInvestment, manager, brokerDetails, signalSettings, personalDetails, tags);
   }
 
   @Override
@@ -932,6 +934,7 @@ public class ProgramDetailsFull implements Parcelable
     sb.append("    periodStarts: ").append(toIndentedString(periodStarts)).append("\n");
     sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
     sb.append("    tradesDelay: ").append(toIndentedString(tradesDelay)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    login: ").append(toIndentedString(login)).append("\n");
     sb.append("    ageDays: ").append(toIndentedString(ageDays)).append("\n");
     sb.append("    leverageMin: ").append(toIndentedString(leverageMin)).append("\n");
@@ -957,15 +960,8 @@ public class ProgramDetailsFull implements Parcelable
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+  public int describeContents() {
+    return 0;
   }
 
   public void writeToParcel(Parcel out, int flags) {
@@ -983,6 +979,7 @@ public class ProgramDetailsFull implements Parcelable
     out.writeValue(periodStarts);
     out.writeValue(periodEnds);
     out.writeValue(tradesDelay);
+    out.writeValue(status);
     out.writeValue(login);
     out.writeValue(ageDays);
     out.writeValue(leverageMin);
@@ -1004,9 +1001,5 @@ public class ProgramDetailsFull implements Parcelable
     out.writeValue(signalSettings);
     out.writeValue(personalDetails);
     out.writeValue(tags);
-  }
-
-  public int describeContents() {
-    return 0;
   }
 }

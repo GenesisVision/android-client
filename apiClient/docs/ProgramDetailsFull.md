@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **periodStarts** | [**DateTime**](DateTime.md) |  |  [optional]
 **periodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
 **tradesDelay** | [**TradesDelay**](TradesDelay.md) |  |  [optional]
+**status** | **String** |  |  [optional]
 **login** | **String** |  |  [optional]
 **ageDays** | **Double** |  |  [optional]
 **leverageMin** | **Integer** |  |  [optional]

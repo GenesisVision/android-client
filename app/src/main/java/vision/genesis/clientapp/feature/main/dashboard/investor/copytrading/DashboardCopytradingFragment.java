@@ -9,18 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.SignalDetails;
+import io.swagger.client.model.CopyTradingAccountInfo;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.DashboardPagerAdapter;
@@ -115,7 +116,7 @@ public class DashboardCopytradingFragment extends BaseFragment implements Dashbo
 	}
 
 	@Override
-	public void setSignals(List<SignalDetails> signals) {
+	public void setSignals(List<CopyTradingAccountInfo> signals) {
 		dashboardCopytradingAdapter.setSignals(signals);
 		recyclerView.scrollToPosition(0);
 

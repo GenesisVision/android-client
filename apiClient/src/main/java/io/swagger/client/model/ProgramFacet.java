@@ -55,11 +55,6 @@ public class ProgramFacet implements Parcelable
   public ProgramFacet() {
   }
 
-	public ProgramFacet sorting(ProgramsFilterSorting sorting) {
-		this.sorting = sorting;
-		return this;
-	}
-
 	public static final Parcelable.Creator<ProgramFacet> CREATOR = new Parcelable.Creator<ProgramFacet>()
 	{
 		public ProgramFacet createFromParcel(Parcel in) {
@@ -70,15 +65,6 @@ public class ProgramFacet implements Parcelable
 			return new ProgramFacet[size];
 		}
 	};
-
-	public void setSorting(ProgramsFilterSorting sorting) {
-		this.sorting = sorting;
-	}
-
-	public ProgramFacet id(UUID id) {
-		this.id = id;
-		return this;
-	}
 
   ProgramFacet(Parcel in) {
 	  sorting = (ProgramsFilterSorting) in.readValue(ProgramsFilterSorting.class.getClassLoader());
@@ -91,12 +77,8 @@ public class ProgramFacet implements Parcelable
 	  timeframe = (Timeframe) in.readValue(Timeframe.class.getClassLoader());
   }
 
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public ProgramFacet title(String title) {
-		this.title = title;
+	public ProgramFacet sorting(ProgramsFilterSorting sorting) {
+		this.sorting = sorting;
     return this;
   }
 
@@ -109,12 +91,12 @@ public class ProgramFacet implements Parcelable
     return sorting;
   }
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setSorting(ProgramsFilterSorting sorting) {
+		this.sorting = sorting;
   }
 
-	public ProgramFacet description(String description) {
-		this.description = description;
+	public ProgramFacet id(UUID id) {
+		this.id = id;
     return this;
   }
 
@@ -127,12 +109,12 @@ public class ProgramFacet implements Parcelable
     return id;
   }
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setId(UUID id) {
+		this.id = id;
   }
 
-	public ProgramFacet logo(String logo) {
-		this.logo = logo;
+	public ProgramFacet title(String title) {
+		this.title = title;
     return this;
   }
 
@@ -145,12 +127,12 @@ public class ProgramFacet implements Parcelable
     return title;
   }
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setTitle(String title) {
+		this.title = title;
   }
 
-	public ProgramFacet url(String url) {
-		this.url = url;
+	public ProgramFacet description(String description) {
+		this.description = description;
     return this;
   }
 
@@ -163,12 +145,12 @@ public class ProgramFacet implements Parcelable
     return description;
   }
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setDescription(String description) {
+		this.description = description;
   }
 
-	public ProgramFacet sortType(FacetSortType sortType) {
-		this.sortType = sortType;
+	public ProgramFacet logo(String logo) {
+		this.logo = logo;
     return this;
   }
 
@@ -181,12 +163,12 @@ public class ProgramFacet implements Parcelable
     return logo;
   }
 
-	public void setSortType(FacetSortType sortType) {
-		this.sortType = sortType;
+	public void setLogo(String logo) {
+		this.logo = logo;
   }
 
-	public ProgramFacet timeframe(Timeframe timeframe) {
-		this.timeframe = timeframe;
+	public ProgramFacet url(String url) {
+		this.url = url;
     return this;
   }
 
@@ -199,8 +181,13 @@ public class ProgramFacet implements Parcelable
     return url;
   }
 
-	public void setTimeframe(Timeframe timeframe) {
-		this.timeframe = timeframe;
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public ProgramFacet sortType(FacetSortType sortType) {
+		this.sortType = sortType;
+		return this;
   }
 
 	/**
@@ -212,9 +199,13 @@ public class ProgramFacet implements Parcelable
     return sortType;
   }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(sorting, id, title, description, logo, url, sortType, timeframe);
+	public void setSortType(FacetSortType sortType) {
+		this.sortType = sortType;
+	}
+
+	public ProgramFacet timeframe(Timeframe timeframe) {
+		this.timeframe = timeframe;
+		return this;
   }
 
 	/**
@@ -226,27 +217,8 @@ public class ProgramFacet implements Parcelable
     return timeframe;
   }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
-
-
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(sorting);
-		out.writeValue(id);
-		out.writeValue(title);
-		out.writeValue(description);
-		out.writeValue(logo);
-		out.writeValue(url);
-		out.writeValue(sortType);
-		out.writeValue(timeframe);
+	public void setTimeframe(Timeframe timeframe) {
+		this.timeframe = timeframe;
   }
 
   @Override
@@ -268,8 +240,9 @@ public class ProgramFacet implements Parcelable
 		    Objects.equals(this.timeframe, programFacet.timeframe);
   }
 
-	public int describeContents() {
-		return 0;
+	@Override
+	public int hashCode() {
+		return Objects.hash(sorting, id, title, description, logo, url, sortType, timeframe);
   }
 
   @Override
@@ -288,4 +261,30 @@ public class ProgramFacet implements Parcelable
     sb.append("}");
     return sb.toString();
   }
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(sorting);
+		out.writeValue(id);
+		out.writeValue(title);
+		out.writeValue(description);
+		out.writeValue(logo);
+		out.writeValue(url);
+		out.writeValue(sortType);
+		out.writeValue(timeframe);
+	}
+
+	public int describeContents() {
+		return 0;
+	}
 }

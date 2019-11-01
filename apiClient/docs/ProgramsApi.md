@@ -613,7 +613,7 @@ No authorization required
 
 <a name="getPrograms"></a>
 # **getPrograms**
-> ItemsViewModelProgramDetailsList getPrograms(authorization, tags, programCurrency, levelMin, levelMax, showIn, statisticDateFrom, statisticDateTo, chartPointsCount, facetId, mask, skip, take)
+> ItemsViewModelProgramDetailsList getPrograms(authorization, showIn, tags, programCurrency, levelMin, levelMax, statisticDateFrom, statisticDateTo, chartPointsCount, facetId, mask, showFavorites, skip, take)
 
 Programs list
 
@@ -626,20 +626,21 @@ Programs list
 
 ProgramsApi apiInstance = new ProgramsApi();
 String authorization = "authorization_example"; // String | 
+String showIn = "showIn_example"; // String | 
 List<String> tags = Arrays.asList("tags_example"); // List<String> | 
 String programCurrency = "programCurrency_example"; // String | 
 Integer levelMin = 56; // Integer | 
 Integer levelMax = 56; // Integer | 
-String showIn = "showIn_example"; // String | 
 DateTime statisticDateFrom = new DateTime(); // DateTime | 
 DateTime statisticDateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
 String facetId = "facetId_example"; // String | 
 String mask = "mask_example"; // String | 
+Boolean showFavorites = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelProgramDetailsList result = apiInstance.getPrograms(authorization, tags, programCurrency, levelMin, levelMax, showIn, statisticDateFrom, statisticDateTo, chartPointsCount, facetId, mask, skip, take);
+    ItemsViewModelProgramDetailsList result = apiInstance.getPrograms(authorization, showIn, tags, programCurrency, levelMin, levelMax, statisticDateFrom, statisticDateTo, chartPointsCount, facetId, mask, showFavorites, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#getPrograms");
@@ -652,16 +653,17 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**|  | [optional]
+ **showIn** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **tags** | [**List&lt;String&gt;**](String.md)|  | [optional]
  **programCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **levelMin** | **Integer**|  | [optional]
  **levelMax** | **Integer**|  | [optional]
- **showIn** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **statisticDateFrom** | **DateTime**|  | [optional]
  **statisticDateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
  **facetId** | **String**|  | [optional]
  **mask** | **String**|  | [optional]
+ **showFavorites** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

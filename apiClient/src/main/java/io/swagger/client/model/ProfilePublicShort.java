@@ -18,60 +18,85 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
- * ButtonAction
+ * ProfilePublicShort
  */
 
 
-public class ButtonAction implements Parcelable
+public class ProfilePublicShort implements Parcelable
 {
-	public static final Parcelable.Creator<ButtonAction> CREATOR = new Parcelable.Creator<ButtonAction>()
+	public static final Parcelable.Creator<ProfilePublicShort> CREATOR = new Parcelable.Creator<ProfilePublicShort>()
 	{
-		public ButtonAction createFromParcel(Parcel in) {
-			return new ButtonAction(in);
+		public ProfilePublicShort createFromParcel(Parcel in) {
+			return new ProfilePublicShort(in);
 		}
 
-		public ButtonAction[] newArray(int size) {
-			return new ButtonAction[size];
+		public ProfilePublicShort[] newArray(int size) {
+			return new ProfilePublicShort[size];
 		}
 	};
 
-	@SerializedName("title")
-	private String title = null;
+	@SerializedName("id")
+	private UUID id = null;
+
+	@SerializedName("username")
+	private String username = null;
 
 	@SerializedName("url")
 	private String url = null;
 
-	public ButtonAction() {
+	public ProfilePublicShort() {
 	}
 
-	ButtonAction(Parcel in) {
-		title = (String) in.readValue(null);
+	ProfilePublicShort(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		username = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 	}
 
-	public ButtonAction title(String title) {
-		this.title = title;
+	public ProfilePublicShort id(UUID id) {
+		this.id = id;
 		return this;
 	}
 
 	/**
-	 * Get title
+	 * Get id
 	 *
-	 * @return title
+	 * @return id
 	 **/
 	@Schema(description = "")
-	public String getTitle() {
-		return title;
+	public UUID getId() {
+		return id;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
-	public ButtonAction url(String url) {
+	public ProfilePublicShort username(String username) {
+		this.username = username;
+		return this;
+	}
+
+	/**
+	 * Get username
+	 *
+	 * @return username
+	 **/
+	@Schema(description = "")
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public ProfilePublicShort url(String url) {
 		this.url = url;
 		return this;
 	}
@@ -98,22 +123,24 @@ public class ButtonAction implements Parcelable
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		ButtonAction buttonAction = (ButtonAction) o;
-		return Objects.equals(this.title, buttonAction.title) &&
-				Objects.equals(this.url, buttonAction.url);
+		ProfilePublicShort profilePublicShort = (ProfilePublicShort) o;
+		return Objects.equals(this.id, profilePublicShort.id) &&
+				Objects.equals(this.username, profilePublicShort.username) &&
+				Objects.equals(this.url, profilePublicShort.url);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, url);
+		return Objects.hash(id, username, url);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class ButtonAction {\n");
+		sb.append("class ProfilePublicShort {\n");
 
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    username: ").append(toIndentedString(username)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -131,7 +158,8 @@ public class ButtonAction implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(title);
+		out.writeValue(id);
+		out.writeValue(username);
 		out.writeValue(url);
 	}
 

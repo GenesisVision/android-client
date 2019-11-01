@@ -49,11 +49,6 @@ public class InternalTransferRequest implements Parcelable
   public InternalTransferRequest() {
   }
 
-	public InternalTransferRequest sourceId(UUID sourceId) {
-		this.sourceId = sourceId;
-		return this;
-	}
-
 	public static final Parcelable.Creator<InternalTransferRequest> CREATOR = new Parcelable.Creator<InternalTransferRequest>()
 	{
 		public InternalTransferRequest createFromParcel(Parcel in) {
@@ -65,15 +60,6 @@ public class InternalTransferRequest implements Parcelable
 		}
 	};
 
-	public void setSourceId(UUID sourceId) {
-		this.sourceId = sourceId;
-	}
-
-	public InternalTransferRequest sourceType(TransferRequestType sourceType) {
-		this.sourceType = sourceType;
-		return this;
-	}
-
   InternalTransferRequest(Parcel in) {
 	  sourceId = (UUID) in.readValue(UUID.class.getClassLoader());
 	  sourceType = (TransferRequestType) in.readValue(TransferRequestType.class.getClassLoader());
@@ -83,12 +69,8 @@ public class InternalTransferRequest implements Parcelable
 	  transferAll = (Boolean) in.readValue(null);
   }
 
-	public void setSourceType(TransferRequestType sourceType) {
-		this.sourceType = sourceType;
-	}
-
-	public InternalTransferRequest destinationId(UUID destinationId) {
-		this.destinationId = destinationId;
+	public InternalTransferRequest sourceId(UUID sourceId) {
+		this.sourceId = sourceId;
     return this;
   }
 
@@ -101,12 +83,12 @@ public class InternalTransferRequest implements Parcelable
     return sourceId;
   }
 
-	public void setDestinationId(UUID destinationId) {
-		this.destinationId = destinationId;
+	public void setSourceId(UUID sourceId) {
+		this.sourceId = sourceId;
   }
 
-	public InternalTransferRequest destinationType(TransferRequestType destinationType) {
-		this.destinationType = destinationType;
+	public InternalTransferRequest sourceType(TransferRequestType sourceType) {
+		this.sourceType = sourceType;
     return this;
   }
 
@@ -119,12 +101,12 @@ public class InternalTransferRequest implements Parcelable
     return sourceType;
   }
 
-	public void setDestinationType(TransferRequestType destinationType) {
-		this.destinationType = destinationType;
+	public void setSourceType(TransferRequestType sourceType) {
+		this.sourceType = sourceType;
   }
 
-	public InternalTransferRequest amount(Double amount) {
-		this.amount = amount;
+	public InternalTransferRequest destinationId(UUID destinationId) {
+		this.destinationId = destinationId;
     return this;
   }
 
@@ -137,12 +119,12 @@ public class InternalTransferRequest implements Parcelable
     return destinationId;
   }
 
-	public void setAmount(Double amount) {
-		this.amount = amount;
+	public void setDestinationId(UUID destinationId) {
+		this.destinationId = destinationId;
   }
 
-	public InternalTransferRequest transferAll(Boolean transferAll) {
-		this.transferAll = transferAll;
+	public InternalTransferRequest destinationType(TransferRequestType destinationType) {
+		this.destinationType = destinationType;
     return this;
   }
 
@@ -155,8 +137,13 @@ public class InternalTransferRequest implements Parcelable
     return destinationType;
   }
 
-	public void setTransferAll(Boolean transferAll) {
-		this.transferAll = transferAll;
+	public void setDestinationType(TransferRequestType destinationType) {
+		this.destinationType = destinationType;
+	}
+
+	public InternalTransferRequest amount(Double amount) {
+		this.amount = amount;
+		return this;
   }
 
 	/**
@@ -168,9 +155,13 @@ public class InternalTransferRequest implements Parcelable
     return amount;
   }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(sourceId, sourceType, destinationId, destinationType, amount, transferAll);
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+
+	public InternalTransferRequest transferAll(Boolean transferAll) {
+		this.transferAll = transferAll;
+		return this;
   }
 
 	/**
@@ -182,25 +173,8 @@ public class InternalTransferRequest implements Parcelable
     return transferAll;
   }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
-
-
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(sourceId);
-		out.writeValue(sourceType);
-		out.writeValue(destinationId);
-		out.writeValue(destinationType);
-		out.writeValue(amount);
-		out.writeValue(transferAll);
+	public void setTransferAll(Boolean transferAll) {
+		this.transferAll = transferAll;
   }
 
   @Override
@@ -220,8 +194,9 @@ public class InternalTransferRequest implements Parcelable
 		    Objects.equals(this.transferAll, internalTransferRequest.transferAll);
   }
 
-	public int describeContents() {
-		return 0;
+	@Override
+	public int hashCode() {
+		return Objects.hash(sourceId, sourceType, destinationId, destinationType, amount, transferAll);
   }
 
   @Override
@@ -238,4 +213,28 @@ public class InternalTransferRequest implements Parcelable
     sb.append("}");
     return sb.toString();
   }
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(sourceId);
+		out.writeValue(sourceType);
+		out.writeValue(destinationId);
+		out.writeValue(destinationType);
+		out.writeValue(amount);
+		out.writeValue(transferAll);
+	}
+
+	public int describeContents() {
+		return 0;
+	}
 }

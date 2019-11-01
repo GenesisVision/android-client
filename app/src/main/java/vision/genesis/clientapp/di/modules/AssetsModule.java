@@ -39,8 +39,8 @@ public class AssetsModule
 
 	@Provides
 	@Singleton
-	public DashboardManager provideDashboardManager(DashboardApi dashboardApi) {
-		return new DashboardManager(dashboardApi);
+	public DashboardManager provideDashboardManager(DashboardApi dashboardApi, InvestmentsApi investmentsApi) {
+		return new DashboardManager(dashboardApi, investmentsApi);
 	}
 
 	@Provides

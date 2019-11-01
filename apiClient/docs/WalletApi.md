@@ -198,7 +198,7 @@ No authorization required
 
 <a name="getTransactions"></a>
 # **getTransactions**
-> TransactionsViewModel getTransactions(authorization, dateFrom, dateTo, transactionFilterType, skip, take)
+> ItemsViewModelTransactionViewModel getTransactions(authorization, dateFrom, dateTo, transactionFilter, skip, take)
 
 Multi wallet transactions
 
@@ -213,11 +213,11 @@ WalletApi apiInstance = new WalletApi();
 String authorization = "authorization_example"; // String | JWT access token
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
-String transactionFilterType = "transactionFilterType_example"; // String | 
+String transactionFilter = "transactionFilter_example"; // String | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    TransactionsViewModel result = apiInstance.getTransactions(authorization, dateFrom, dateTo, transactionFilterType, skip, take);
+    ItemsViewModelTransactionViewModel result = apiInstance.getTransactions(authorization, dateFrom, dateTo, transactionFilter, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling WalletApi#getTransactions");
@@ -232,13 +232,13 @@ Name | Type | Description  | Notes
  **authorization** | **String**| JWT access token |
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
- **transactionFilterType** | **String**|  | [optional] [enum: All, Investment, Withdrawal, Deposit, Conversion, Commission, Programs, Funds, Signals, TradingAccounts, AgentRewards, Externals, Platform]
+ **transactionFilter** | **String**|  | [optional] [enum: All, Investment, Withdrawal, Deposit, Conversion, Commission, Programs, Funds, Signals, TradingAccounts, AgentRewards, Externals, Platform]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
 ### Return type
 
-[**TransactionsViewModel**](TransactionsViewModel.md)
+[**ItemsViewModelTransactionViewModel**](ItemsViewModelTransactionViewModel.md)
 
 ### Authorization
 

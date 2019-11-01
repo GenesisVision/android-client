@@ -7,6 +7,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.UUID;
 
+import io.swagger.client.model.BrokerTradeServerType;
+
 /**
  * GenesisVision
  * Created by Vitaly on 2/22/18.
@@ -75,6 +77,15 @@ public class ProgramRequest implements Parcelable
 	@SerializedName("wallet_id")
 	private UUID walletId;
 
+	@SerializedName("broker_type")
+	private BrokerTradeServerType brokerType;
+
+	@SerializedName("available_investment")
+	private Double availableInvestment;
+
+	@SerializedName("entry_fee")
+	private Double entryFee;
+
 	public ProgramRequest() {
 
 	}
@@ -96,6 +107,9 @@ public class ProgramRequest implements Parcelable
 		walletCurrency = in.readString();
 		withdrawAll = in.readByte() != 0;
 		walletId = (UUID) in.readValue(UUID.class.getClassLoader());
+		brokerType = BrokerTradeServerType.fromValue(in.readString());
+		availableInvestment = in.readDouble();
+		entryFee = in.readDouble();
 	}
 
 	@Override
@@ -121,6 +135,9 @@ public class ProgramRequest implements Parcelable
 		dest.writeString(walletCurrency);
 		dest.writeByte((byte) (withdrawAll ? 1 : 0));
 		dest.writeValue(walletId);
+		dest.writeString(brokerType.getValue());
+		dest.writeDouble(availableInvestment);
+		dest.writeDouble(entryFee);
 	}
 
 	public UUID getProgramId() {
@@ -249,5 +266,29 @@ public class ProgramRequest implements Parcelable
 
 	public void setWalletId(UUID walletId) {
 		this.walletId = walletId;
+	}
+
+	public BrokerTradeServerType getBrokerType() {
+		return brokerType;
+	}
+
+	public void setBrokerType(BrokerTradeServerType brokerType) {
+		this.brokerType = brokerType;
+	}
+
+	public Double getAvailableInvestment() {
+		return availableInvestment;
+	}
+
+	public void setAvailableInvestment(Double availableInvestment) {
+		this.availableInvestment = availableInvestment;
+	}
+
+	public Double getEntryFee() {
+		return entryFee;
+	}
+
+	public void setEntryFee(Double entryFee) {
+		this.entryFee = entryFee;
 	}
 }

@@ -26,8 +26,8 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.swagger.client.model.ProgramRequest;
-import io.swagger.client.model.ProgramRequests;
+import io.swagger.client.model.AssetInvestmentRequest;
+import io.swagger.client.model.ItemsViewModelAssetInvestmentRequest;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -62,7 +62,7 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
-	private List<ProgramRequest> requests = new ArrayList<>();
+	private List<AssetInvestmentRequest> requests = new ArrayList<>();
 
 	private RequestsAdapter requestsAdapter;
 
@@ -89,16 +89,19 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 
 		initRecyclerView();
 
-		if (assetId != null)
+		if (assetId != null) {
 			getRequests(assetId);
+		}
 	}
 
 	@Override
 	public void onDestroyView() {
-		if (cancelRequestSubscription != null)
+		if (cancelRequestSubscription != null) {
 			cancelRequestSubscription.unsubscribe();
-		if (getRequestsSubscription != null)
+		}
+		if (getRequestsSubscription != null) {
 			getRequestsSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 		super.onDestroyView();
@@ -131,13 +134,14 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 		title.setTypeface(TypefaceUtil.semibold());
 	}
 
-	public void setRequests(List<ProgramRequest> requests) {
+	public void setRequests(List<AssetInvestmentRequest> requests) {
 		this.requests = requests;
 		if (progressBar != null) {
 			progressBar.setVisibility(View.GONE);
 			showEmpty(requests.isEmpty());
-			if (requestsAdapter != null)
+			if (requestsAdapter != null) {
 				requestsAdapter.setRequests(requests);
+			}
 		}
 	}
 
@@ -155,7 +159,7 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 
 	private void deleteRequest(UUID requestId) {
 		int position = 0;
-		for (ProgramRequest request : requests) {
+		for (AssetInvestmentRequest request : requests) {
 			if (request.getId().equals(requestId)) {
 				requests.remove(request);
 				break;
@@ -182,10 +186,10 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 		}
 	}
 
-	private void handleGetRequests(ProgramRequests programRequests) {
+	private void handleGetRequests(ItemsViewModelAssetInvestmentRequest programRequests) {
 		getRequestsSubscription.unsubscribe();
 
-		setRequests(programRequests.getRequests());
+		setRequests(programRequests.getItems());
 	}
 
 	private void handleGetRequestsError(Throwable throwable) {

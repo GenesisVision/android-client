@@ -40,9 +40,10 @@ public class FundsManager
 
 	public Observable<ItemsViewModelFundDetailsList> getFundsList(ProgramsFilter filter) {
 		return fundsApi.getFunds(AuthManager.token.getValue(),
-				null, null, null,
-				filter.getChartPointsCount(), null,
-				filter.getFacetId().toString(), filter.getMask(),
+				null, null,
+				null, null,
+				filter.getChartPointsCount(), filter.getFacetId().toString(),
+				filter.getMask(), filter.getIsFavorite(),
 				filter.getSkip(), filter.getTake());
 	}
 
@@ -75,7 +76,11 @@ public class FundsManager
 	}
 
 	public Observable<InvestmentEventViewModels> getEvents(UUID fundId, DateRange dateRange, Integer skip, Integer take) {
-		return eventsApi.getEvents(AuthManager.token.getValue(), InvestmentEventLocation.ASSET.getValue(), fundId, dateRange.getFrom(), dateRange.getTo(), null, null, skip, take);
+		return eventsApi.getEvents(AuthManager.token.getValue(), InvestmentEventLocation.ASSET.getValue(), fundId,
+				dateRange.getFrom(), dateRange.getTo(),
+				null, null,
+				null, null,
+				skip, take);
 	}
 
 //	public Observable<FundInvestInfo> getInvestInfo(UUID programId, String baseCurrency) {

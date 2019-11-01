@@ -119,7 +119,7 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 			return;
 		}
 
-		if (programDetails == null || programDetails.getAvailableInvestment() == 0) {
+		if (programDetails == null || programDetails.getAvailableInvestmentBase() == 0) {
 			return;
 		}
 
@@ -133,6 +133,9 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		request.setLevelProgress(programDetails.getLevelProgress());
 		request.setProgramName(programDetails.getTitle());
 		request.setManagerName(programDetails.getManager().getUsername());
+		request.setAvailableInvestment(programDetails.getAvailableInvestmentBase());
+		request.setEntryFee(programDetails.getEntryFeeCurrent());
+		request.setBrokerType(programDetails.getBrokerDetails().getType());
 
 		getViewState().showInvestProgramActivity(request);
 	}
@@ -231,9 +234,9 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 		getViewState().setProgramDetails(programDetails);
 
-		if (programDetails.isIsSignalProgram()) {
-			getSignalsInfo();
-		}
+//		if (programDetails.isIsSignalProgram()) {
+//			getSignalsInfo();
+//		}
 	}
 
 	private void handleInvestmentProgramDetailsError(Throwable throwable) {

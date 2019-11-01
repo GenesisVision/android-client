@@ -260,7 +260,6 @@
         Total profit is the total all-time manager’s profit.\n\nAvg. profit is the average profit for the period in relation to the starting balance.\n\nBalance is the amount of funds on a trading account.\n\nInvestors is a number of investors who already invested in the manager.
     </string>
 
-    <string name="tooltip_tournament">A tournament program is a program that participates in a tournament. You can freely invest in this program and take profit from it, like any other program.</string>
     <string name="tooltip_period_duration">Period duration is a period that is defined by a manager, at the end of which all trading positions are closed, with a subsequent profit distribution. Also, during this period investors can join or leave the investment program, additional investment amounts are made, and the commission is paid to the manager.</string>
     <string name="tooltip_managers_funds_share">Manager\’s funds share is a percentage, showing the proportion of funds, belonging to the manager.</string>
     <string name="tooltip_trades">Trades is a history of financial operations, conducted by the manager.</string>

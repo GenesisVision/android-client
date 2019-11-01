@@ -31,17 +31,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TransactionViewModel implements Parcelable
 {
-  public static final Parcelable.Creator<TransactionViewModel> CREATOR = new Parcelable.Creator<TransactionViewModel>()
-  {
-    public TransactionViewModel createFromParcel(Parcel in) {
-      return new TransactionViewModel(in);
-    }
-
-    public TransactionViewModel[] newArray(int size) {
-      return new TransactionViewModel[size];
-    }
-  };
-
   @SerializedName("wallet")
   private WalletRowCell wallet = null;
 
@@ -72,6 +61,31 @@ public class TransactionViewModel implements Parcelable
   public TransactionViewModel() {
   }
 
+  public TransactionViewModel wallet(WalletRowCell wallet) {
+    this.wallet = wallet;
+    return this;
+  }
+
+  public static final Parcelable.Creator<TransactionViewModel> CREATOR = new Parcelable.Creator<TransactionViewModel>()
+  {
+    public TransactionViewModel createFromParcel(Parcel in) {
+      return new TransactionViewModel(in);
+    }
+
+    public TransactionViewModel[] newArray(int size) {
+      return new TransactionViewModel[size];
+    }
+  };
+
+  public void setWallet(WalletRowCell wallet) {
+    this.wallet = wallet;
+  }
+
+  public TransactionViewModel date(DateTime date) {
+    this.date = date;
+    return this;
+  }
+
   TransactionViewModel(Parcel in) {
     wallet = (WalletRowCell) in.readValue(WalletRowCell.class.getClassLoader());
     date = (DateTime) in.readValue(DateTime.class.getClassLoader());
@@ -84,40 +98,6 @@ public class TransactionViewModel implements Parcelable
     details = (List<TransactionDetail>) in.readValue(TransactionDetail.class.getClassLoader());
   }
 
-  public TransactionViewModel wallet(WalletRowCell wallet) {
-    this.wallet = wallet;
-    return this;
-  }
-
-  /**
-   * Get wallet
-   *
-   * @return wallet
-   **/
-  @Schema(description = "")
-  public WalletRowCell getWallet() {
-    return wallet;
-  }
-
-  public void setWallet(WalletRowCell wallet) {
-    this.wallet = wallet;
-  }
-
-  public TransactionViewModel date(DateTime date) {
-    this.date = date;
-    return this;
-  }
-
-  /**
-   * Get date
-   *
-   * @return date
-   **/
-  @Schema(description = "")
-  public DateTime getDate() {
-    return date;
-  }
-
   public void setDate(DateTime date) {
     this.date = date;
   }
@@ -128,13 +108,12 @@ public class TransactionViewModel implements Parcelable
   }
 
   /**
-   * Get status
-   *
-   * @return status
+   * Get wallet
+   * @return wallet
    **/
   @Schema(description = "")
-  public MultiWalletTransactionStatus getStatus() {
-    return status;
+  public WalletRowCell getWallet() {
+    return wallet;
   }
 
   public void setStatus(MultiWalletTransactionStatus status) {
@@ -143,6 +122,42 @@ public class TransactionViewModel implements Parcelable
 
   public TransactionViewModel description(String description) {
     this.description = description;
+    return this;
+  }
+
+  /**
+   * Get date
+   * @return date
+   **/
+  @Schema(description = "")
+  public DateTime getDate() {
+    return date;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public TransactionViewModel amount(AmountRowCell amount) {
+    this.amount = amount;
+    return this;
+  }
+
+  /**
+   * Get status
+   * @return status
+   **/
+  @Schema(description = "")
+  public MultiWalletTransactionStatus getStatus() {
+    return status;
+  }
+
+  public void setAmount(AmountRowCell amount) {
+    this.amount = amount;
+  }
+
+  public TransactionViewModel asset(AssetDetails asset) {
+    this.asset = asset;
     return this;
   }
 
@@ -156,44 +171,6 @@ public class TransactionViewModel implements Parcelable
     return description;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public TransactionViewModel amount(AmountRowCell amount) {
-    this.amount = amount;
-    return this;
-  }
-
-  /**
-   * Get amount
-   *
-   * @return amount
-   **/
-  @Schema(description = "")
-  public AmountRowCell getAmount() {
-    return amount;
-  }
-
-  public void setAmount(AmountRowCell amount) {
-    this.amount = amount;
-  }
-
-  public TransactionViewModel asset(AssetDetails asset) {
-    this.asset = asset;
-    return this;
-  }
-
-  /**
-   * Get asset
-   *
-   * @return asset
-   **/
-  @Schema(description = "")
-  public AssetDetails getAsset() {
-    return asset;
-  }
-
   public void setAsset(AssetDetails asset) {
     this.asset = asset;
   }
@@ -204,13 +181,12 @@ public class TransactionViewModel implements Parcelable
   }
 
   /**
-   * Get external
-   *
-   * @return external
-   **/
+   * Get amount
+   * @return amount
+  **/
   @Schema(description = "")
-  public ExternalDetails getExternal() {
-    return external;
+  public AmountRowCell getAmount() {
+    return amount;
   }
 
   public void setExternal(ExternalDetails external) {
@@ -231,13 +207,12 @@ public class TransactionViewModel implements Parcelable
   }
 
   /**
-   * Get buttons
-   *
-   * @return buttons
-   **/
+   * Get asset
+   * @return asset
+  **/
   @Schema(description = "")
-  public List<ButtonAction> getButtons() {
-    return buttons;
+  public AssetDetails getAsset() {
+    return asset;
   }
 
   public void setButtons(List<ButtonAction> buttons) {
@@ -258,17 +233,65 @@ public class TransactionViewModel implements Parcelable
   }
 
   /**
-   * Get details
+   * Get external
    *
-   * @return details
+   * @return external
    **/
+  @Schema(description = "")
+  public ExternalDetails getExternal() {
+    return external;
+  }
+
+  public void setDetails(List<TransactionDetail> details) {
+    this.details = details;
+  }
+
+  /**
+   * Get buttons
+   *
+   * @return buttons
+   **/
+  @Schema(description = "")
+  public List<ButtonAction> getButtons() {
+    return buttons;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(wallet, date, status, description, amount, asset, external, buttons, details);
+  }
+
+  /**
+   * Get details
+   * @return details
+  **/
   @Schema(description = "")
   public List<TransactionDetail> getDetails() {
     return details;
   }
 
-  public void setDetails(List<TransactionDetail> details) {
-    this.details = details;
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(wallet);
+    out.writeValue(date);
+    out.writeValue(status);
+    out.writeValue(description);
+    out.writeValue(amount);
+    out.writeValue(asset);
+    out.writeValue(external);
+    out.writeValue(buttons);
+    out.writeValue(details);
   }
 
   @Override
@@ -291,9 +314,8 @@ public class TransactionViewModel implements Parcelable
             Objects.equals(this.details, transactionViewModel.details);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(wallet, date, status, description, amount, asset, external, buttons, details);
+  public int describeContents() {
+    return 0;
   }
 
   @Override
@@ -312,32 +334,5 @@ public class TransactionViewModel implements Parcelable
     sb.append("    details: ").append(toIndentedString(details)).append("\n");
     sb.append("}");
     return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(wallet);
-    out.writeValue(date);
-    out.writeValue(status);
-    out.writeValue(description);
-    out.writeValue(amount);
-    out.writeValue(asset);
-    out.writeValue(external);
-    out.writeValue(buttons);
-    out.writeValue(details);
-  }
-
-  public int describeContents() {
-    return 0;
   }
 }

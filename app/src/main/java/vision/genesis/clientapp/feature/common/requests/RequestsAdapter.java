@@ -23,7 +23,10 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.ProgramRequest;
+import io.swagger.client.model.AssetDetails;
+import io.swagger.client.model.AssetInvestmentRequest;
+import io.swagger.client.model.AssetType;
+import io.swagger.client.model.InvestmentRequestType;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.CurrencyEnum;
@@ -44,7 +47,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.RequestViewHolder>
 {
-	public List<ProgramRequest> requests = new ArrayList<>();
+	public List<AssetInvestmentRequest> requests = new ArrayList<>();
 
 	@Override
 	public RequestViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -62,7 +65,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 		return requests.size();
 	}
 
-	public void setRequests(List<ProgramRequest> requests) {
+	public void setRequests(List<AssetInvestmentRequest> requests) {
 		this.requests.clear();
 		this.requests.addAll(requests);
 		notifyDataSetChanged();
@@ -102,7 +105,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 		@BindView(R.id.button_cancel)
 		public TextView cancelText;
 
-		private ProgramRequest request;
+		private AssetInvestmentRequest request;
 
 		RequestViewHolder(View itemView) {
 			super(itemView);
@@ -116,28 +119,33 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 
 			surfaceView.setOnClickListener(v -> {
 				if (request != null) {
-					if (request.getProgramType().equals(ProgramRequest.ProgramTypeEnum.PROGRAM)) {
-						ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(request.getProgramId(),
-								request.getLogo(),
-								request.getColor(),
-								0,
-								0.0,
-								request.getTitle(),
-								"",
-								request.getCurrency().getValue(),
-								false,
-								false);
-						EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
-					}
-					else if (request.getProgramType().equals(ProgramRequest.ProgramTypeEnum.FUND)) {
-						FundDetailsModel fundDetailsModel = new FundDetailsModel(request.getProgramId(),
-								request.getLogo(),
-								request.getColor(),
-								request.getTitle(),
-								"",
-								false,
-								false);
-						EventBus.getDefault().post(new ShowFundDetailsEvent(fundDetailsModel));
+					AssetDetails details = request.getAssetDetails();
+					if (details != null) {
+						if (details.getAssetType().equals(AssetType.PROGRAMS)) {
+							ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(
+									details.getId(),
+									details.getLogo(),
+									details.getColor(),
+									details.getProgramDetails().getLevel(),
+									details.getProgramDetails().getLevelProgress(),
+									details.getTitle(),
+									"",
+									request.getCurrency().getValue(),
+									false,
+									false);
+							EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
+						}
+						else if (details.getAssetType().equals(AssetType.FUNDS)) {
+							FundDetailsModel fundDetailsModel = new FundDetailsModel(
+									details.getId(),
+									details.getLogo(),
+									details.getColor(),
+									details.getTitle(),
+									"",
+									false,
+									false);
+							EventBus.getDefault().post(new ShowFundDetailsEvent(fundDetailsModel));
+						}
 					}
 				}
 			});
@@ -150,35 +158,50 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 			}
 		}
 
-		void setRequest(ProgramRequest request) {
+		void setRequest(AssetInvestmentRequest request) {
 			this.request = request;
 			updateData();
 		}
 
 		private void updateData() {
-			this.name.setText(request.getTitle());
-			this.type.setText(request.getType().getValue());
-			if (request.getFundWithdrawPercent() != null) {
-				this.value.setText(String.format(Locale.getDefault(), "%s%% (≈ %s GVT)", StringFormatUtil.formatAmount(request.getFundWithdrawPercent(), 0, 2),
-						StringFormatUtil.formatCurrencyAmount(request.getValue(), CurrencyEnum.GVT.getValue())));
+			AssetDetails details = request.getAssetDetails();
+			if (details != null) {
+				this.name.setText(details.getTitle());
+				this.type.setText(request.getType().getValue());
+
+				if (details.getAssetType().equals(AssetType.PROGRAMS)) {
+					if (request.getType().equals(InvestmentRequestType.WITHDRAWAL) && request.getProgramRequestDetails().isIsWithdrawAll()) {
+						this.value.setText(itemView.getContext().getString(R.string.withdraw_all));
+					}
+					else {
+						this.value.setText(String.format(Locale.getDefault(), "%s %s %s", request.getType().equals(InvestmentRequestType.INVEST) ? "+" : "-",
+								StringFormatUtil.formatCurrencyAmount(request.getAmount(), request.getCurrency().getValue()), request.getCurrency().getValue()));
+					}
+				}
+				else if (details.getAssetType().equals(AssetType.FUNDS)) {
+					if (request.getType().equals(InvestmentRequestType.WITHDRAWAL)) {
+						this.value.setText(String.format(Locale.getDefault(), "%s%% (≈ %s GVT)",
+								StringFormatUtil.formatAmount(request.getFundRequestDetails().getWithdrawPercent(), 0, 2),
+								StringFormatUtil.formatCurrencyAmount(request.getAmount(), CurrencyEnum.GVT.getValue())));
+					}
+					else {
+						this.value.setText(String.format(Locale.getDefault(), "+ %s %s",
+								StringFormatUtil.formatCurrencyAmount(request.getAmount(), request.getCurrency().getValue()),
+								request.getCurrency().getValue()));
+					}
+				}
 			}
-			else if (request.getType().equals(ProgramRequest.TypeEnum.WITHDRAWAL) && request.isWithdrawAll()) {
-				this.value.setText(itemView.getContext().getString(R.string.withdraw_all));
-			}
-			else {
-				this.value.setText(String.format(Locale.getDefault(), "%s %s %s", request.getType().equals(ProgramRequest.TypeEnum.INVEST) ? "+" : "-",
-						StringFormatUtil.formatCurrencyAmount(request.getValue(), request.getCurrency().getValue()), request.getCurrency().getValue()));
-			}
+
 			this.date.setText(DateTimeUtil.formatRequestDate(request.getDate()));
 
-			if (request.getLogo() == null || request.getLogo().isEmpty()) {
+			if (details.getLogo() == null || details.getLogo().isEmpty()) {
 				GenericDraweeHierarchy hierarchy = subject.getHierarchy();
-				hierarchy.setBackgroundImage(new ColorDrawable(Color.parseColor(request.getColor())));
+				hierarchy.setBackgroundImage(new ColorDrawable(Color.parseColor(details.getColor())));
 				subject.setHierarchy(hierarchy);
 				subject.setImageURI("");
 			}
 			else {
-				subject.setImageURI(ImageUtils.getImageUri(request.getLogo()));
+				subject.setImageURI(ImageUtils.getImageUri(details.getLogo()));
 			}
 
 			int actionResId = 0;

@@ -17,6 +17,8 @@ Name | Type | Description | Notes
 **investorsCount** | **Integer** |  |  [optional]
 **periodStarts** | [**DateTime**](DateTime.md) |  |  [optional]
 **periodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
+**status** | **String** |  |  [optional]
+**owner** | [**ProfilePublicShort**](ProfilePublicShort.md) |  |  [optional]
 **personalDetails** | [**PersonalProgramDetailsList**](PersonalProgramDetailsList.md) |  |  [optional]
 **tags** | [**List&lt;ProgramTag&gt;**](ProgramTag.md) |  |  [optional]
 **chart** | [**ProfitChart**](ProfitChart.md) |  |  [optional]

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **title** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
 **creationDate** | [**DateTime**](DateTime.md) |  |  [optional]
+**status** | **String** |  |  [optional]
 **entryFeeSelected** | **Double** |  |  [optional]
 **entryFeeCurrent** | **Double** |  |  [optional]
 **exitFeeSelected** | **Double** |  |  [optional]

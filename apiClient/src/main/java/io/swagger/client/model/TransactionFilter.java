@@ -20,18 +20,27 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 /**
- * Gets or Sets AssetType
+ * Gets or Sets TransactionFilter
  */
-@JsonAdapter(AssetType.Adapter.class)
-public enum AssetType
+@JsonAdapter(TransactionFilter.Adapter.class)
+public enum TransactionFilter
 {
-	NONE("None"),
+	ALL("All"),
+	INVESTMENT("Investment"),
+	WITHDRAWAL("Withdrawal"),
+	DEPOSIT("Deposit"),
+	CONVERSION("Conversion"),
+	COMMISSION("Commission"),
 	PROGRAMS("Programs"),
 	FUNDS("Funds"),
-	COPYTRADING("CopyTrading");
+	SIGNALS("Signals"),
+	TRADINGACCOUNTS("TradingAccounts"),
+	AGENTREWARDS("AgentRewards"),
+	EXTERNALS("Externals"),
+	PLATFORM("Platform");
 
-	public static AssetType fromValue(String text) {
-		for (AssetType b : AssetType.values()) {
+	public static TransactionFilter fromValue(String text) {
+		for (TransactionFilter b : TransactionFilter.values()) {
 			if (String.valueOf(b.value).equals(text)) {
 				return b;
 			}
@@ -41,7 +50,7 @@ public enum AssetType
 
 	private String value;
 
-	AssetType(String value) {
+	TransactionFilter(String value) {
 		this.value = value;
 	}
 
@@ -54,17 +63,17 @@ public enum AssetType
 		return String.valueOf(value);
 	}
 
-	public static class Adapter extends TypeAdapter<AssetType>
+	public static class Adapter extends TypeAdapter<TransactionFilter>
 	{
 		@Override
-		public void write(final JsonWriter jsonWriter, final AssetType enumeration) throws IOException {
+		public void write(final JsonWriter jsonWriter, final TransactionFilter enumeration) throws IOException {
 			jsonWriter.value(enumeration.getValue());
 		}
 
 		@Override
-		public AssetType read(final JsonReader jsonReader) throws IOException {
+		public TransactionFilter read(final JsonReader jsonReader) throws IOException {
 			String value = jsonReader.nextString();
-			return AssetType.fromValue(String.valueOf(value));
+			return TransactionFilter.fromValue(String.valueOf(value));
 		}
 	}
 }

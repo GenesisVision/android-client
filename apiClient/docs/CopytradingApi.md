@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 <a name="getSignalAssets"></a>
 # **getSignalAssets**
-> ItemsViewModelCopyTradingAccountInfo getSignalAssets(authorization, tags, showIn, statisticDateFrom, statisticDateTo, chartPointsCount, facetId, mask, skip, take)
+> ItemsViewModelCopyTradingAccountInfo getSignalAssets(authorization, tags, statisticDateFrom, statisticDateTo, chartPointsCount, facetId, mask, showFavorites, skip, take)
 
 Get GV Follow assets
 
@@ -22,16 +22,16 @@ Get GV Follow assets
 CopytradingApi apiInstance = new CopytradingApi();
 String authorization = "authorization_example"; // String | 
 List<String> tags = Arrays.asList("tags_example"); // List<String> | 
-String showIn = "showIn_example"; // String | 
 DateTime statisticDateFrom = new DateTime(); // DateTime | 
 DateTime statisticDateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
 String facetId = "facetId_example"; // String | 
 String mask = "mask_example"; // String | 
+Boolean showFavorites = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelCopyTradingAccountInfo result = apiInstance.getSignalAssets(authorization, tags, showIn, statisticDateFrom, statisticDateTo, chartPointsCount, facetId, mask, skip, take);
+    ItemsViewModelCopyTradingAccountInfo result = apiInstance.getSignalAssets(authorization, tags, statisticDateFrom, statisticDateTo, chartPointsCount, facetId, mask, showFavorites, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling CopytradingApi#getSignalAssets");
@@ -45,12 +45,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**|  | [optional]
  **tags** | [**List&lt;String&gt;**](String.md)|  | [optional]
- **showIn** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **statisticDateFrom** | **DateTime**|  | [optional]
  **statisticDateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
  **facetId** | **String**|  | [optional]
  **mask** | **String**|  | [optional]
+ **showFavorites** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

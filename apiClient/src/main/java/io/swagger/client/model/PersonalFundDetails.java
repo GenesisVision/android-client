@@ -49,17 +49,14 @@ public class PersonalFundDetails implements Parcelable
 	@SerializedName("isInvested")
 	private Boolean isInvested = null;
 
-	@SerializedName("canClose")
-	private Boolean canClose = null;
-
-	@SerializedName("canReallocate")
-	private Boolean canReallocate = null;
-
 	@SerializedName("canInvest")
 	private Boolean canInvest = null;
 
 	@SerializedName("canWithdraw")
 	private Boolean canWithdraw = null;
+
+	@SerializedName("ownerActions")
+	private FundOwnerActions ownerActions = null;
 
 	@SerializedName("hasNotifications")
 	private Boolean hasNotifications = null;
@@ -95,10 +92,9 @@ public class PersonalFundDetails implements Parcelable
 		isOwnAsset = (Boolean) in.readValue(null);
 		isFavorite = (Boolean) in.readValue(null);
 		isInvested = (Boolean) in.readValue(null);
-		canClose = (Boolean) in.readValue(null);
-		canReallocate = (Boolean) in.readValue(null);
 		canInvest = (Boolean) in.readValue(null);
 		canWithdraw = (Boolean) in.readValue(null);
+		ownerActions = (FundOwnerActions) in.readValue(FundOwnerActions.class.getClassLoader());
 		hasNotifications = (Boolean) in.readValue(null);
 		value = (Double) in.readValue(null);
 		status = (AssetInvestmentStatus) in.readValue(AssetInvestmentStatus.class.getClassLoader());
@@ -167,44 +163,6 @@ public class PersonalFundDetails implements Parcelable
 		this.isInvested = isInvested;
 	}
 
-	public PersonalFundDetails canClose(Boolean canClose) {
-		this.canClose = canClose;
-		return this;
-	}
-
-	/**
-	 * Get canClose
-	 *
-	 * @return canClose
-	 **/
-	@Schema(description = "")
-	public Boolean isCanClose() {
-		return canClose;
-	}
-
-	public void setCanClose(Boolean canClose) {
-		this.canClose = canClose;
-	}
-
-	public PersonalFundDetails canReallocate(Boolean canReallocate) {
-		this.canReallocate = canReallocate;
-		return this;
-	}
-
-	/**
-	 * Get canReallocate
-	 *
-	 * @return canReallocate
-	 **/
-	@Schema(description = "")
-	public Boolean isCanReallocate() {
-		return canReallocate;
-	}
-
-	public void setCanReallocate(Boolean canReallocate) {
-		this.canReallocate = canReallocate;
-	}
-
 	public PersonalFundDetails canInvest(Boolean canInvest) {
 		this.canInvest = canInvest;
 		return this;
@@ -241,6 +199,25 @@ public class PersonalFundDetails implements Parcelable
 
 	public void setCanWithdraw(Boolean canWithdraw) {
 		this.canWithdraw = canWithdraw;
+	}
+
+	public PersonalFundDetails ownerActions(FundOwnerActions ownerActions) {
+		this.ownerActions = ownerActions;
+		return this;
+	}
+
+	/**
+	 * Get ownerActions
+	 *
+	 * @return ownerActions
+	 **/
+	@Schema(description = "")
+	public FundOwnerActions getOwnerActions() {
+		return ownerActions;
+	}
+
+	public void setOwnerActions(FundOwnerActions ownerActions) {
+		this.ownerActions = ownerActions;
 	}
 
 	public PersonalFundDetails hasNotifications(Boolean hasNotifications) {
@@ -426,10 +403,9 @@ public class PersonalFundDetails implements Parcelable
 		return Objects.equals(this.isOwnAsset, personalFundDetails.isOwnAsset) &&
 				Objects.equals(this.isFavorite, personalFundDetails.isFavorite) &&
 				Objects.equals(this.isInvested, personalFundDetails.isInvested) &&
-				Objects.equals(this.canClose, personalFundDetails.canClose) &&
-				Objects.equals(this.canReallocate, personalFundDetails.canReallocate) &&
 				Objects.equals(this.canInvest, personalFundDetails.canInvest) &&
 				Objects.equals(this.canWithdraw, personalFundDetails.canWithdraw) &&
+				Objects.equals(this.ownerActions, personalFundDetails.ownerActions) &&
 				Objects.equals(this.hasNotifications, personalFundDetails.hasNotifications) &&
 				Objects.equals(this.value, personalFundDetails.value) &&
 				Objects.equals(this.status, personalFundDetails.status) &&
@@ -443,7 +419,7 @@ public class PersonalFundDetails implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isOwnAsset, isFavorite, isInvested, canClose, canReallocate, canInvest, canWithdraw, hasNotifications, value, status, pendingInput, pendingOutput, withdrawPercent, availableReallocationPercents, nextReallocationPercents, exitFeePersonal);
+		return Objects.hash(isOwnAsset, isFavorite, isInvested, canInvest, canWithdraw, ownerActions, hasNotifications, value, status, pendingInput, pendingOutput, withdrawPercent, availableReallocationPercents, nextReallocationPercents, exitFeePersonal);
 	}
 
 	@Override
@@ -454,10 +430,9 @@ public class PersonalFundDetails implements Parcelable
 		sb.append("    isOwnAsset: ").append(toIndentedString(isOwnAsset)).append("\n");
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
-		sb.append("    canClose: ").append(toIndentedString(canClose)).append("\n");
-		sb.append("    canReallocate: ").append(toIndentedString(canReallocate)).append("\n");
 		sb.append("    canInvest: ").append(toIndentedString(canInvest)).append("\n");
 		sb.append("    canWithdraw: ").append(toIndentedString(canWithdraw)).append("\n");
+		sb.append("    ownerActions: ").append(toIndentedString(ownerActions)).append("\n");
 		sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
@@ -486,10 +461,9 @@ public class PersonalFundDetails implements Parcelable
 		out.writeValue(isOwnAsset);
 		out.writeValue(isFavorite);
 		out.writeValue(isInvested);
-		out.writeValue(canClose);
-		out.writeValue(canReallocate);
 		out.writeValue(canInvest);
 		out.writeValue(canWithdraw);
+		out.writeValue(ownerActions);
 		out.writeValue(hasNotifications);
 		out.writeValue(value);
 		out.writeValue(status);

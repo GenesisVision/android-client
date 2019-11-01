@@ -44,6 +44,9 @@ public class BrokerDetails implements Parcelable
 	@SerializedName("name")
 	private String name = null;
 
+	@SerializedName("type")
+	private BrokerTradeServerType type = null;
+
 	@SerializedName("isKycRequired")
 	private Boolean isKycRequired = null;
 
@@ -74,6 +77,7 @@ public class BrokerDetails implements Parcelable
 	BrokerDetails(Parcel in) {
 		logo = (String) in.readValue(null);
 		name = (String) in.readValue(null);
+		type = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
 		isKycRequired = (Boolean) in.readValue(null);
 		showSwaps = (Boolean) in.readValue(null);
 		showTickets = (Boolean) in.readValue(null);
@@ -120,6 +124,25 @@ public class BrokerDetails implements Parcelable
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public BrokerDetails type(BrokerTradeServerType type) {
+		this.type = type;
+		return this;
+	}
+
+	/**
+	 * Get type
+	 *
+	 * @return type
+	 **/
+	@Schema(description = "")
+	public BrokerTradeServerType getType() {
+		return type;
+	}
+
+	public void setType(BrokerTradeServerType type) {
+		this.type = type;
 	}
 
 	public BrokerDetails isKycRequired(Boolean isKycRequired) {
@@ -285,6 +308,7 @@ public class BrokerDetails implements Parcelable
 		BrokerDetails brokerDetails = (BrokerDetails) o;
 		return Objects.equals(this.logo, brokerDetails.logo) &&
 				Objects.equals(this.name, brokerDetails.name) &&
+				Objects.equals(this.type, brokerDetails.type) &&
 				Objects.equals(this.isKycRequired, brokerDetails.isKycRequired) &&
 				Objects.equals(this.showSwaps, brokerDetails.showSwaps) &&
 				Objects.equals(this.showTickets, brokerDetails.showTickets) &&
@@ -297,7 +321,7 @@ public class BrokerDetails implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(logo, name, isKycRequired, showSwaps, showTickets, showCommissionRebate, isKycRequiredSometime, showSwapsSometime, showTicketsSometime, showCommissionRebateSometime);
+		return Objects.hash(logo, name, type, isKycRequired, showSwaps, showTickets, showCommissionRebate, isKycRequiredSometime, showSwapsSometime, showTicketsSometime, showCommissionRebateSometime);
 	}
 
 	@Override
@@ -307,6 +331,7 @@ public class BrokerDetails implements Parcelable
 
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    isKycRequired: ").append(toIndentedString(isKycRequired)).append("\n");
 		sb.append("    showSwaps: ").append(toIndentedString(showSwaps)).append("\n");
 		sb.append("    showTickets: ").append(toIndentedString(showTickets)).append("\n");
@@ -333,6 +358,7 @@ public class BrokerDetails implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(logo);
 		out.writeValue(name);
+		out.writeValue(type);
 		out.writeValue(isKycRequired);
 		out.writeValue(showSwaps);
 		out.writeValue(showTickets);

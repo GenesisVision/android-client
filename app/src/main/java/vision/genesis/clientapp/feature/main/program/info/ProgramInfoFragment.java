@@ -381,26 +381,26 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 				StringFormatUtil.getShortenedAmount(programDetails.getAvailableInvestmentBase()).toString(),
 				programDetails.getCurrency().getValue()));
 
-		stopOut.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getStopOutLevel(), 0, 2)));
+		updateCurrentSelectedField(stopOut, programDetails.getStopOutLevelCurrent(), programDetails.getStopOutLevelSelected());
+		updateCurrentSelectedField(entryFee, programDetails.getEntryFeeCurrent(), programDetails.getEntryFeeSelected());
+		updateCurrentSelectedField(successFee, programDetails.getSuccessFeeCurrent(), programDetails.getSuccessFeeSelected());
 
-		if (programDetails.getLevel() < Constants.MIN_PROGRAM_LEVEL_ENTRY_FEE) {
-			entryFee.setText(String.format(Locale.getDefault(), "%s%% (%s%%)",
-					StringFormatUtil.formatAmount(programDetails.getEntryFeeCurrent(), 0, 4),
-					StringFormatUtil.formatAmount(programDetails.getEntryFeeSelected(), 0, 4)));
-		}
-		else {
-			entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getEntryFeeCurrent(), 0, 4)));
-		}
-		successFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getSuccessFee(), 0, 4)));
-
-		investButton.setEnabled(programDetails.getAvailableInvestment() > 0);
+		investButton.setEnabled(programDetails.getAvailableInvestmentBase() > 0);
 
 		if (personalDetails != null) {
-			investButton.setEnabled(programDetails.getAvailableInvestment() > 0 && personalDetails.isCanInvest());
+			investButton.setEnabled(programDetails.getAvailableInvestmentBase() > 0 && personalDetails.isCanInvest());
 			withdrawButton.setEnabled(personalDetails.isCanWithdraw());
 		}
 
 		investInfo.setText(String.format(Locale.getDefault(), getString(R.string.request_info_template), DateTimeUtil.formatShortDateTime(programDetails.getPeriodEnds())));
+	}
+
+	private void updateCurrentSelectedField(TextView textView, Double current, Double selected) {
+		textView.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(current, 0, 2)));
+		if (!selected.equals(current)) {
+			textView.setText(textView.getText().toString().concat(
+					String.format(Locale.getDefault(), " (%s%%)", StringFormatUtil.formatAmount(selected, 0, 2))));
+		}
 	}
 
 	private void updateYourInvestment(ProgramDetailsFull programDetails) {
@@ -431,7 +431,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	}
 
 	private void updateSubscription(ProgramDetailsFull programDetails) {
-		if (programDetails != null && programDetails.isIsSignalProgram()) {
+		if (programDetails != null && programDetails.getSignalSettings() != null) {
 			subscriptionGroup.setVisibility(View.VISIBLE);
 
 			subscriptionSuccessFee.setText(String.format(Locale.getDefault(), "%s%%",

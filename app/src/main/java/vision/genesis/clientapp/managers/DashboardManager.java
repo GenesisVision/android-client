@@ -3,11 +3,12 @@ package vision.genesis.clientapp.managers;
 import java.util.UUID;
 
 import io.swagger.client.api.DashboardApi;
+import io.swagger.client.api.InvestmentsApi;
 import io.swagger.client.model.DashboardPortfolioEvents;
 import io.swagger.client.model.DashboardSummary;
 import io.swagger.client.model.FundsList;
 import io.swagger.client.model.InvestmentEventViewModels;
-import io.swagger.client.model.ProgramRequests;
+import io.swagger.client.model.ItemsViewModelAssetInvestmentRequest;
 import io.swagger.client.model.ProgramsList;
 import io.swagger.client.model.SignalsList;
 import rx.Observable;
@@ -23,8 +24,11 @@ public class DashboardManager
 {
 	private DashboardApi dashboardApi;
 
-	public DashboardManager(DashboardApi dashboardApi) {
+	private final InvestmentsApi investmentsApi;
+
+	public DashboardManager(DashboardApi dashboardApi, InvestmentsApi investmentsApi) {
 		this.dashboardApi = dashboardApi;
+		this.investmentsApi = investmentsApi;
 	}
 
 	public Observable<DashboardSummary> getDashboard(DateRange dateRange, String baseCurrency) {
@@ -65,8 +69,8 @@ public class DashboardManager
 		return dashboardApi.v10InvestorProgramsRequestsByIdCancelPost(requestId, AuthManager.token.getValue());
 	}
 
-	public Observable<ProgramRequests> getRequests(UUID assetId) {
-		return dashboardApi.v10InvestorProgramsByIdRequestsBySkipByTakeGet(assetId, 0, 100, AuthManager.token.getValue());
+	public Observable<ItemsViewModelAssetInvestmentRequest> getRequests(UUID assetId) {
+		return investmentsApi.getRequestsByProgram(assetId, 0, 100, AuthManager.token.getValue());
 	}
 
 	public Observable<InvestmentEventViewModels> getEvents(String eventLocation, UUID assetId, DateRange dateRange, String eventType, String assetType, Integer skip, Integer take) {

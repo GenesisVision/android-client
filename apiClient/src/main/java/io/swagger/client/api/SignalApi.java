@@ -7,6 +7,7 @@ import java.util.UUID;
 import io.swagger.client.model.AttachToExternalSignalProviderCommon;
 import io.swagger.client.model.AttachToExternalSignalProviderExt;
 import io.swagger.client.model.AttachToSignalProvider;
+import io.swagger.client.model.DetachFromExternalSignalProvider;
 import io.swagger.client.model.DetachFromSignalProvider;
 import io.swagger.client.model.NewExternalSignalAccountRequest;
 import io.swagger.client.model.SignalTradingEvents;
@@ -108,6 +109,20 @@ public interface SignalApi
 	@POST("v2.0/signal/detach/{id}")
 	Observable<Void> detachSlaveFromMaster(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body DetachFromSignalProvider body
+	);
+
+	/**
+	 * @param authorization JWT access token (required)
+	 * @param id            (required)
+	 * @param body          (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/signal/external/detach/{id}")
+	Observable<Void> detachSlaveFromMaster_0(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body DetachFromExternalSignalProvider body
 	);
 
 	/**

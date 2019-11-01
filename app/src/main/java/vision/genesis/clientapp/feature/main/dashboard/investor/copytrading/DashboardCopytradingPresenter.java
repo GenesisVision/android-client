@@ -7,7 +7,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.SignalsList;
+import io.swagger.client.model.ItemsViewModelCopyTradingAccountInfo;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -100,12 +100,12 @@ public class DashboardCopytradingPresenter extends MvpPresenter<DashboardCopytra
 							this::handleGetSignalsError);
 	}
 
-	private void handleGetSignalsSuccess(SignalsList response) {
+	private void handleGetSignalsSuccess(ItemsViewModelCopyTradingAccountInfo response) {
 		getSignalProvidersSubscription.unsubscribe();
 
 		getViewState().showProgressBar(false);
 
-		getViewState().setSignals(response.getPrograms());
+		getViewState().setSignals(response.getItems());
 		EventBus.getDefault().post(new SetDashboardSignalsCountEvent(response.getTotal()));
 	}
 

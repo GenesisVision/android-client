@@ -141,11 +141,11 @@ public class ProgramDetailsModel implements Parcelable
 		this.programName = programDetails.getTitle();
 		this.managerName = programDetails.getManager().getUsername();
 		this.currency = programDetails.getCurrency().getValue();
-		this.favorite = programDetails.getPersonalProgramDetails() != null
-				? programDetails.getPersonalProgramDetails().isIsFavorite()
+		this.favorite = programDetails.getPersonalDetails() != null
+				? programDetails.getPersonalDetails().isIsFavorite()
 				: false;
-		this.hasNotifications = programDetails.getPersonalProgramDetails() != null
-				? programDetails.getPersonalProgramDetails().isHasNotifications()
+		this.hasNotifications = programDetails.getPersonalDetails() != null
+				? programDetails.getPersonalDetails().isHasNotifications()
 				: false;
 	}
 }

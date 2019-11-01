@@ -6,16 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.swagger.client.model.SignalDetails;
+import io.swagger.client.model.CopyTradingAccountInfo;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
@@ -33,7 +34,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class DashboardCopytradingAdapter extends RecyclerView.Adapter<DashboardCopytradingAdapter.SignalViewHolder>
 {
-	private List<SignalDetails> signals = new ArrayList<>();
+	private List<CopyTradingAccountInfo> signals = new ArrayList<>();
 
 	@Override
 	public SignalViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,8 +44,9 @@ public class DashboardCopytradingAdapter extends RecyclerView.Adapter<DashboardC
 
 	@Override
 	public void onBindViewHolder(SignalViewHolder holder, int position) {
-		if (signals.get(position) != null)
+		if (signals.get(position) != null) {
 			holder.setSignal(signals.get(position));
+		}
 	}
 
 	@Override
@@ -59,7 +61,7 @@ public class DashboardCopytradingAdapter extends RecyclerView.Adapter<DashboardC
 				: RecyclerView.NO_ID;
 	}
 
-	void setSignals(List<SignalDetails> signals) {
+	void setSignals(List<CopyTradingAccountInfo> signals) {
 		this.signals.clear();
 		this.signals.addAll(signals);
 		notifyDataSetChanged();
@@ -104,7 +106,7 @@ public class DashboardCopytradingAdapter extends RecyclerView.Adapter<DashboardC
 		public InvestmentStatusView status;
 
 
-		private SignalDetails signal;
+		private CopyTradingAccountInfo signal;
 
 		private Context context;
 
@@ -145,7 +147,7 @@ public class DashboardCopytradingAdapter extends RecyclerView.Adapter<DashboardC
 			date.setTypeface(TypefaceUtil.semibold());
 		}
 
-		void setSignal(SignalDetails signal) {
+		void setSignal(CopyTradingAccountInfo signal) {
 			this.signal = signal;
 			updateData();
 		}
