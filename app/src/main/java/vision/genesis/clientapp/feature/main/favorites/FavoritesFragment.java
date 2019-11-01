@@ -6,21 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.arellomobile.mvp.presenter.InjectPresenter;
-
-import java.util.List;
-import java.util.UUID;
-
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.arellomobile.mvp.presenter.InjectPresenter;
+
+import java.util.List;
+import java.util.UUID;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.ProgramDetails;
+import io.swagger.client.model.ProgramDetailsList;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -93,8 +94,9 @@ public class FavoritesFragment extends BaseFragment implements FavoritesView
 
 	@Override
 	public void onDestroyView() {
-		if (programsRecyclerView != null)
+		if (programsRecyclerView != null) {
 			programsRecyclerView.setAdapter(null);
+		}
 
 //		if (tournamentRecyclerView != null)
 //			tournamentRecyclerView.setAdapter(null);
@@ -134,7 +136,7 @@ public class FavoritesFragment extends BaseFragment implements FavoritesView
 	}
 
 	@Override
-	public void setInvestmentPrograms(List<ProgramDetails> programs) {
+	public void setInvestmentPrograms(List<ProgramDetailsList> programs) {
 //		programsText.setVisibility(!programs.isEmpty() ? View.VISIBLE : View.GONE);
 		programsAdapter.setInvestmentPrograms(programs);
 	}

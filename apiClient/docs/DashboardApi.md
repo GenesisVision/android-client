@@ -102,7 +102,7 @@ No authorization required
 
 <a name="getInvestingDetails"></a>
 # **getInvestingDetails**
-> DashboardInvestingDetails getInvestingDetails(authorization, currency)
+> DashboardInvestingDetails getInvestingDetails(authorization, currency, eventsTake)
 
 
 
@@ -116,8 +116,9 @@ No authorization required
 DashboardApi apiInstance = new DashboardApi();
 String authorization = "authorization_example"; // String | JWT access token
 String currency = "currency_example"; // String | 
+Integer eventsTake = 56; // Integer | 
 try {
-    DashboardInvestingDetails result = apiInstance.getInvestingDetails(authorization, currency);
+    DashboardInvestingDetails result = apiInstance.getInvestingDetails(authorization, currency, eventsTake);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getInvestingDetails");
@@ -131,6 +132,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
  **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **eventsTake** | **Integer**|  | [optional]
 
 ### Return type
 
@@ -280,7 +282,7 @@ No authorization required
 
 <a name="getTradingDetails"></a>
 # **getTradingDetails**
-> DashboardTradingDetails getTradingDetails(authorization, currency)
+> DashboardTradingDetails getTradingDetails(authorization, currency, eventsTake)
 
 
 
@@ -294,8 +296,9 @@ No authorization required
 DashboardApi apiInstance = new DashboardApi();
 String authorization = "authorization_example"; // String | JWT access token
 String currency = "currency_example"; // String | 
+Integer eventsTake = 56; // Integer | 
 try {
-    DashboardTradingDetails result = apiInstance.getTradingDetails(authorization, currency);
+    DashboardTradingDetails result = apiInstance.getTradingDetails(authorization, currency, eventsTake);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getTradingDetails");
@@ -309,6 +312,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
  **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **eventsTake** | **Integer**|  | [optional]
 
 ### Return type
 

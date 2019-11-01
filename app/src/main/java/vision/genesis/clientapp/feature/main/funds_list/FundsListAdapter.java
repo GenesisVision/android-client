@@ -306,7 +306,7 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 			this.fundName.setText(fund.getTitle());
 			this.managerName.setText(fund.getManager().getUsername());
 
-			this.chart.setChart(fund.getChart());
+			this.chart.setChart(fund.getChart().getChart());
 
 //			Double profitPercent = getProfitPercent();
 			Double profitPercent = fund.getStatistic().getProfitPercent();

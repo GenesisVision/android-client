@@ -12,6 +12,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.charts.CombinedChart.DrawOrder;
 import com.github.mikephil.charting.components.LimitLine;
@@ -32,8 +35,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -209,26 +210,30 @@ public class PortfolioChartView extends RelativeLayout
 	private void selectBarByIndex(int index) {
 		BarDataSet barDataSet = (BarDataSet) chart.getCombinedData().getBarData().getDataSetByIndex(index);
 		barDataSet.setColors(getResources().getIntArray(R.array.assetsColors));
-		if (selectedBarDataSet != null && !selectedBarDataSet.equals(barDataSet))
+		if (selectedBarDataSet != null && !selectedBarDataSet.equals(barDataSet)) {
 			selectedBarDataSet.setColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextPrimary));
+		}
 		selectedBarDataSet = barDataSet;
 		chart.invalidate();
 	}
 
 	private void deselectBarDataSet() {
-		if (selectedBarDataSet != null)
+		if (selectedBarDataSet != null) {
 			selectedBarDataSet.setColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextPrimary));
+		}
 	}
 
 	private int findBarSetIndex(float date) {
 		float datesGap = (dateRange.getTo().getMillis() - dateRange.getFrom().getMillis()) / 2 / 1000 / 60;
-		if (chartData.getInvestedProgramsInfo().size() >= 2)
+		if (chartData.getInvestedProgramsInfo().size() >= 2) {
 			datesGap = (chartData.getInvestedProgramsInfo().get(1).getDate().getMillis() - chartData.getInvestedProgramsInfo().get(0).getDate().getMillis()) / 1000 / 60;
+		}
 		int index = 0;
 		for (ValueChartBar valueChartBar : chartData.getInvestedProgramsInfo()) {
 			if (date >= valueChartBar.getDate().getMillis() / 1000 / 60 - datesGap
-					&& date < valueChartBar.getDate().getMillis() / 1000 / 60 + datesGap)
+					&& date < valueChartBar.getDate().getMillis() / 1000 / 60 + datesGap) {
 				break;
+			}
 			index++;
 		}
 		return index;
@@ -256,10 +261,12 @@ public class PortfolioChartView extends RelativeLayout
 			lineEntries.add(new Entry((int) (chart.getDate().getMillis() / 1000 / 60), chart.getValue().floatValue()));
 //			lineEntries.add(new Entry(index, chart.getValue().floatValue()));
 //			lineEntries.add(new Entry(index, Math.abs(chart.getValue().floatValue())));
-			if (min > chart.getValue().floatValue())
+			if (min > chart.getValue().floatValue()) {
 				min = chart.getValue().floatValue();
-			if (max < chart.getValue().floatValue())
+			}
+			if (max < chart.getValue().floatValue()) {
 				max = chart.getValue().floatValue();
+			}
 			index++;
 		}
 
@@ -270,8 +277,9 @@ public class PortfolioChartView extends RelativeLayout
 			for (AssetsValue assetsValue : bar.getTopAssets()) {
 				vals.add(assetsValue.getValue().floatValue());
 			}
-			if (bar.getOtherAssetsValue() != null && bar.getOtherAssetsValue().getValue() != null)
+			if (bar.getOtherAssetsValue() != null && bar.getOtherAssetsValue().getValue() != null) {
 				vals.add(bar.getOtherAssetsValue().getValue().floatValue());
+			}
 //			Collections.reverse(vals);
 //			barEntries.add(new BarEntry((int) (bar.getDate().getMillis() / 1000 / 60), bar.getValue().floatValue()));
 			float[] valsArray = new float[vals.size()];
@@ -394,8 +402,9 @@ public class PortfolioChartView extends RelativeLayout
 			dataList.add(entry);
 			barData.addDataSet(createBarDataSet(dataList));
 		}
-		if (!data.isEmpty())
+		if (!data.isEmpty()) {
 			barData.setBarWidth((dateRange.getTo().getMillis() / 1000 / 60 - data.get(0).getX()) / data.size() * 0.2f);
+		}
 		barData.setHighlightEnabled(false);
 
 		return barData;
@@ -422,8 +431,9 @@ public class PortfolioChartView extends RelativeLayout
 	}
 
 	private void showHighlight(Highlight highlight) {
-		if (highlight == null)
+		if (highlight == null) {
 			return;
+		}
 		highlightCircle.setVisibility(View.VISIBLE);
 //		chart.highlightValue(highlight, false);
 		moveHighlightCircle(highlight);

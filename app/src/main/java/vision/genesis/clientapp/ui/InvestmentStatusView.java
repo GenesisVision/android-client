@@ -10,7 +10,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.swagger.client.model.PersonalProgramDetailsFull;
+import io.swagger.client.model.AssetInvestmentStatus;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -63,7 +63,7 @@ public class InvestmentStatusView extends RelativeLayout
 	}
 
 	public void setStatus(String status) {
-		PersonalProgramDetailsFull.StatusEnum statusEnum = PersonalProgramDetailsFull.StatusEnum.fromValue(status);
+		AssetInvestmentStatus statusEnum = AssetInvestmentStatus.fromValue(status);
 		if (statusEnum != null) {
 			this.status.setText(status);
 

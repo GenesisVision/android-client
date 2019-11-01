@@ -21,9 +21,6 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import org.greenrobot.eventbus.EventBus;
-import org.joda.time.DateTime;
-
-import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +28,7 @@ import butterknife.OnClick;
 import io.swagger.client.model.FundFacet;
 import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.ProgramFacet;
+import io.swagger.client.model.TransactionViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -385,8 +383,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	}
 
 	@Override
-	public void showTransactionDetails(UUID transactionId, String transactionType, DateTime transactionDate) {
-		TransactionDetailsActivity.startWith(this, transactionId, transactionType, transactionDate);
+	public void showTransactionDetails(TransactionViewModel transaction) {
+		TransactionDetailsActivity.startWith(this, transaction);
 	}
 
 	@Override

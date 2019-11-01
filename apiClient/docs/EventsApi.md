@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 <a name="getEvents"></a>
 # **getEvents**
-> InvestmentEventViewModels getEvents(authorization, eventLocation, assetId, from, to, eventType, assetType, skip, take)
+> InvestmentEventViewModels getEvents(authorization, eventLocation, assetId, from, to, eventType, assetType, assetsIds, forceFilterByIds, skip, take)
 
 Events
 
@@ -27,10 +27,12 @@ DateTime from = new DateTime(); // DateTime |
 DateTime to = new DateTime(); // DateTime | 
 String eventType = "eventType_example"; // String | 
 String assetType = "assetType_example"; // String | 
+List<UUID> assetsIds = Arrays.asList(new UUID()); // List<UUID> | 
+Boolean forceFilterByIds = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    InvestmentEventViewModels result = apiInstance.getEvents(authorization, eventLocation, assetId, from, to, eventType, assetType, skip, take);
+    InvestmentEventViewModels result = apiInstance.getEvents(authorization, eventLocation, assetId, from, to, eventType, assetType, assetsIds, forceFilterByIds, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling EventsApi#getEvents");
@@ -49,6 +51,8 @@ Name | Type | Description  | Notes
  **to** | **DateTime**|  | [optional]
  **eventType** | **String**|  | [optional] [enum: All, AssetStarted, AssetFinished, AssetPeriodStarted, AssetPeriodEnded, AssetPeriodEndedDueToStopOut, AssetBrokerChanged, AssetInvestByInvestor, AssetWithdrawalByInvestor, AssetInvestByManager, AssetWithdrawalByManager, AssetPeriodProcessed, AssetReallocation, AssetSubscribeByInvestor, AssetUnsubscribeByInvestor, AssetTradeOpen, AssetTradeClosed, AssetSubscriptionEdit, AssetEnterInvestment]
  **assetType** | **String**|  | [optional] [enum: All, Program, Fund, Signal]
+ **assetsIds** | [**List&lt;UUID&gt;**](UUID.md)|  | [optional]
+ **forceFilterByIds** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

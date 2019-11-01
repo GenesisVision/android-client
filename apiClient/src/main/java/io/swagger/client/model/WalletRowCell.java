@@ -20,7 +20,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * WalletRowCell
  */
@@ -28,115 +27,115 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class WalletRowCell implements Parcelable
 {
-	public static final Parcelable.Creator<WalletRowCell> CREATOR = new Parcelable.Creator<WalletRowCell>()
-	{
-		public WalletRowCell createFromParcel(Parcel in) {
-			return new WalletRowCell(in);
-		}
+  public static final Parcelable.Creator<WalletRowCell> CREATOR = new Parcelable.Creator<WalletRowCell>()
+  {
+    public WalletRowCell createFromParcel(Parcel in) {
+      return new WalletRowCell(in);
+    }
 
-		public WalletRowCell[] newArray(int size) {
-			return new WalletRowCell[size];
-		}
-	};
+    public WalletRowCell[] newArray(int size) {
+      return new WalletRowCell[size];
+    }
+  };
 
-	@SerializedName("first")
-	private CurrencyItem first = null;
+  @SerializedName("first")
+  private CurrencyItem first = null;
 
-	@SerializedName("second")
-	private CurrencyItem second = null;
+  @SerializedName("second")
+  private CurrencyItem second = null;
 
-	public WalletRowCell() {
-	}
+  public WalletRowCell() {
+  }
 
-	WalletRowCell(Parcel in) {
-		first = (CurrencyItem) in.readValue(CurrencyItem.class.getClassLoader());
-		second = (CurrencyItem) in.readValue(CurrencyItem.class.getClassLoader());
-	}
+  WalletRowCell(Parcel in) {
+    first = (CurrencyItem) in.readValue(CurrencyItem.class.getClassLoader());
+    second = (CurrencyItem) in.readValue(CurrencyItem.class.getClassLoader());
+  }
 
-	public WalletRowCell first(CurrencyItem first) {
-		this.first = first;
-		return this;
-	}
+  public WalletRowCell first(CurrencyItem first) {
+    this.first = first;
+    return this;
+  }
 
-	/**
-	 * Get first
-	 *
-	 * @return first
-	 **/
-	@Schema(description = "")
-	public CurrencyItem getFirst() {
-		return first;
-	}
+  /**
+   * Get first
+   *
+   * @return first
+   **/
+  @Schema(description = "")
+  public CurrencyItem getFirst() {
+    return first;
+  }
 
-	public void setFirst(CurrencyItem first) {
-		this.first = first;
-	}
+  public void setFirst(CurrencyItem first) {
+    this.first = first;
+  }
 
-	public WalletRowCell second(CurrencyItem second) {
-		this.second = second;
-		return this;
-	}
+  public WalletRowCell second(CurrencyItem second) {
+    this.second = second;
+    return this;
+  }
 
-	/**
-	 * Get second
-	 *
-	 * @return second
-	 **/
-	@Schema(description = "")
-	public CurrencyItem getSecond() {
-		return second;
-	}
+  /**
+   * Get second
+   *
+   * @return second
+   **/
+  @Schema(description = "")
+  public CurrencyItem getSecond() {
+    return second;
+  }
 
-	public void setSecond(CurrencyItem second) {
-		this.second = second;
-	}
+  public void setSecond(CurrencyItem second) {
+    this.second = second;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		WalletRowCell walletRowCell = (WalletRowCell) o;
-		return Objects.equals(this.first, walletRowCell.first) &&
-				Objects.equals(this.second, walletRowCell.second);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    WalletRowCell walletRowCell = (WalletRowCell) o;
+    return Objects.equals(this.first, walletRowCell.first) &&
+            Objects.equals(this.second, walletRowCell.second);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(first, second);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(first, second);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class WalletRowCell {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class WalletRowCell {\n");
 
-		sb.append("    first: ").append(toIndentedString(first)).append("\n");
-		sb.append("    second: ").append(toIndentedString(second)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    first: ").append(toIndentedString(first)).append("\n");
+    sb.append("    second: ").append(toIndentedString(second)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(first);
-		out.writeValue(second);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(first);
+    out.writeValue(second);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

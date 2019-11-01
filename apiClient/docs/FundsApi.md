@@ -212,7 +212,7 @@ No authorization required
 
 <a name="getFunds"></a>
 # **getFunds**
-> ItemsViewModelFundDetailsList getFunds(authorization, assets, statisticDateFrom, statisticDateTo, chartPointsCount, chartCurrency, facetId, mask, skip, take)
+> ItemsViewModelFundDetailsList getFunds(authorization, assets, showIn, statisticDateFrom, statisticDateTo, chartPointsCount, facetId, mask, skip, take)
 
 Funds list
 
@@ -226,16 +226,16 @@ Funds list
 FundsApi apiInstance = new FundsApi();
 String authorization = "authorization_example"; // String | 
 List<String> assets = Arrays.asList("assets_example"); // List<String> | 
+String showIn = "showIn_example"; // String | 
 DateTime statisticDateFrom = new DateTime(); // DateTime | 
 DateTime statisticDateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
-String chartCurrency = "chartCurrency_example"; // String | 
 String facetId = "facetId_example"; // String | 
 String mask = "mask_example"; // String | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelFundDetailsList result = apiInstance.getFunds(authorization, assets, statisticDateFrom, statisticDateTo, chartPointsCount, chartCurrency, facetId, mask, skip, take);
+    ItemsViewModelFundDetailsList result = apiInstance.getFunds(authorization, assets, showIn, statisticDateFrom, statisticDateTo, chartPointsCount, facetId, mask, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#getFunds");
@@ -249,10 +249,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**|  | [optional]
  **assets** | [**List&lt;String&gt;**](String.md)|  | [optional]
+ **showIn** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **statisticDateFrom** | **DateTime**|  | [optional]
  **statisticDateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **chartCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **facetId** | **String**|  | [optional]
  **mask** | **String**|  | [optional]
  **skip** | **Integer**|  | [optional]

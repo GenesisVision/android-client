@@ -101,10 +101,6 @@ public class RatesModel implements Parcelable
 		return rates;
 	}
 
-	public int describeContents() {
-		return 0;
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -113,5 +109,9 @@ public class RatesModel implements Parcelable
 		sb.append("    rates: ").append(toIndentedString(rates)).append("\n");
 		sb.append("}");
 		return sb.toString();
+	}
+
+	public int describeContents() {
+		return 0;
 	}
 }

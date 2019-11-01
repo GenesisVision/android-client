@@ -66,9 +66,6 @@ public class CopyTradingAccountInfo implements Parcelable
 	@SerializedName("available")
 	private Double available = null;
 
-	@SerializedName("personalInfo")
-	private PersonalCopyTradingAccountInfo personalInfo = null;
-
 	public CopyTradingAccountInfo() {
 	}
 
@@ -82,7 +79,6 @@ public class CopyTradingAccountInfo implements Parcelable
 		freeMargin = (Double) in.readValue(null);
 		marginLevel = (Double) in.readValue(null);
 		available = (Double) in.readValue(null);
-		personalInfo = (PersonalCopyTradingAccountInfo) in.readValue(PersonalCopyTradingAccountInfo.class.getClassLoader());
 	}
 
 	public CopyTradingAccountInfo id(UUID id) {
@@ -247,25 +243,6 @@ public class CopyTradingAccountInfo implements Parcelable
 		return available;
 	}
 
-	public CopyTradingAccountInfo personalInfo(PersonalCopyTradingAccountInfo personalInfo) {
-		this.personalInfo = personalInfo;
-		return this;
-	}
-
-	/**
-	 * Get personalInfo
-	 *
-	 * @return personalInfo
-	 **/
-	@Schema(description = "")
-	public PersonalCopyTradingAccountInfo getPersonalInfo() {
-		return personalInfo;
-	}
-
-	public void setPersonalInfo(PersonalCopyTradingAccountInfo personalInfo) {
-		this.personalInfo = personalInfo;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -283,13 +260,12 @@ public class CopyTradingAccountInfo implements Parcelable
 				Objects.equals(this.equity, copyTradingAccountInfo.equity) &&
 				Objects.equals(this.freeMargin, copyTradingAccountInfo.freeMargin) &&
 				Objects.equals(this.marginLevel, copyTradingAccountInfo.marginLevel) &&
-				Objects.equals(this.available, copyTradingAccountInfo.available) &&
-				Objects.equals(this.personalInfo, copyTradingAccountInfo.personalInfo);
+				Objects.equals(this.available, copyTradingAccountInfo.available);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, currency, logo, title, balance, equity, freeMargin, marginLevel, available, personalInfo);
+		return Objects.hash(id, currency, logo, title, balance, equity, freeMargin, marginLevel, available);
 	}
 
 	@Override
@@ -306,7 +282,6 @@ public class CopyTradingAccountInfo implements Parcelable
 		sb.append("    freeMargin: ").append(toIndentedString(freeMargin)).append("\n");
 		sb.append("    marginLevel: ").append(toIndentedString(marginLevel)).append("\n");
 		sb.append("    available: ").append(toIndentedString(available)).append("\n");
-		sb.append("    personalInfo: ").append(toIndentedString(personalInfo)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -332,7 +307,6 @@ public class CopyTradingAccountInfo implements Parcelable
 		out.writeValue(freeMargin);
 		out.writeValue(marginLevel);
 		out.writeValue(available);
-		out.writeValue(personalInfo);
 	}
 
 	public int describeContents() {

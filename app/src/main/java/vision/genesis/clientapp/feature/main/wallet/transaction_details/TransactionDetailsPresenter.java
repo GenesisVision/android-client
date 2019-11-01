@@ -9,7 +9,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.TransactionDetails;
+import io.swagger.client.model.TransactionViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -38,7 +38,7 @@ public class TransactionDetailsPresenter extends MvpPresenter<TransactionDetails
 
 	private Subscription resendEmailSubscription;
 
-	private TransactionDetails transactionDetails;
+	private TransactionViewModel transaction;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -46,57 +46,32 @@ public class TransactionDetailsPresenter extends MvpPresenter<TransactionDetails
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		getViewState().showProgress(true);
-
-		getTransactionDetails();
 	}
 
 	@Override
 	public void onDestroy() {
-		if (detailsSubscription != null)
+		if (detailsSubscription != null) {
 			detailsSubscription.unsubscribe();
-		if (cancelSubscription != null)
+		}
+		if (cancelSubscription != null) {
 			cancelSubscription.unsubscribe();
-		if (resendEmailSubscription != null)
+		}
+		if (resendEmailSubscription != null) {
 			resendEmailSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
 
-	void setTransactionId(UUID transactionId) {
-		this.transactionId = transactionId;
-		getTransactionDetails();
-	}
-
-	private void getTransactionDetails() {
-		if (walletManager != null && transactionId != null) {
-			if (detailsSubscription != null)
-				detailsSubscription.unsubscribe();
-			detailsSubscription = walletManager.getTransaction(transactionId)
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleWalletUpdateSuccess,
-							this::handleWalletUpdateError);
-		}
-	}
-
-	private void handleWalletUpdateSuccess(TransactionDetails response) {
-		getViewState().showProgress(false);
-
-		transactionDetails = response;
-
-		getViewState().setDetails(transactionDetails);
-	}
-
-	private void handleWalletUpdateError(Throwable throwable) {
-		ApiErrorResolver.resolveErrors(throwable,
-				message -> getViewState().showSnackbarMessage(message));
+	void setTransaction(TransactionViewModel transaction) {
+		this.transaction = transaction;
 	}
 
 	private void cancelWithdrawRequest() {
 		if (walletManager != null && transactionId != null) {
-			if (cancelSubscription != null)
+			if (cancelSubscription != null) {
 				cancelSubscription.unsubscribe();
+			}
 			cancelSubscription = walletManager.cancelWithdrawRequest(transactionId)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
@@ -118,8 +93,9 @@ public class TransactionDetailsPresenter extends MvpPresenter<TransactionDetails
 
 	private void resendEmail() {
 		if (walletManager != null && transactionId != null) {
-			if (resendEmailSubscription != null)
+			if (resendEmailSubscription != null) {
 				resendEmailSubscription.unsubscribe();
+			}
 			resendEmailSubscription = walletManager.resendConfirmationEmail(transactionId)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())

@@ -12,4 +12,3 @@ Name | Type | Description | Notes
 **freeMargin** | **Double** |  |  [optional]
 **marginLevel** | **Double** |  |  [optional]
 **available** | **Double** |  |  [optional]
-**personalInfo** | [**PersonalCopyTradingAccountInfo**](PersonalCopyTradingAccountInfo.md) |  |  [optional]

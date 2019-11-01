@@ -284,7 +284,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			this.programName.setText(program.getTitle());
 			this.managerName.setText(program.getManager().getUsername());
 
-			this.chart.setChart(program.getChart());
+			this.chart.setChart(program.getChart().getChart());
 
 //			Double profitPercent = getProfitPercent();
 			Double profitPercent = program.getStatistic().getProfitPercent();
@@ -309,7 +309,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 					StringFormatUtil.getShortenedAmount(program.getStatistic().getBalanceGVT().getAmount())));
 
 			this.availableToInvest.setText(String.format(Locale.getDefault(), "%s %s",
-					StringFormatUtil.getShortenedAmount(program.getAvailableInvestmentBase()),
+					StringFormatUtil.getShortenedAmount(program.getAvailableToInvest()),
 					program.getCurrency().getValue()));
 
 			updateTags(program.getTags());

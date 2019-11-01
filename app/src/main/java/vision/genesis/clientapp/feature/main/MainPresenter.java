@@ -347,9 +347,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	@Subscribe
 	public void onEventMainThread(ShowTransactionDetailsEvent event) {
-		getViewState().showTransactionDetails(event.getTransactionId(),
-				event.getTransactionType(),
-				event.getTransactionDate());
+		getViewState().showTransactionDetails(event.getTransaction());
 	}
 
 	@Subscribe

@@ -48,7 +48,6 @@ import vision.genesis.clientapp.feature.main.fund.withdraw.confirm.ConfirmFundWi
 import vision.genesis.clientapp.feature.main.funds_list.FundsListPresenter;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsPresenter;
 import vision.genesis.clientapp.feature.main.manager.info.ManagerInfoPresenter;
-import vision.genesis.clientapp.feature.main.manager.profit.ManagerProfitPresenter;
 import vision.genesis.clientapp.feature.main.managers_list.ManagersListPresenter;
 import vision.genesis.clientapp.feature.main.notifications.NotificationsPresenter;
 import vision.genesis.clientapp.feature.main.notifications.create.CreateCustomNotificationSettingPresenter;
@@ -59,7 +58,6 @@ import vision.genesis.clientapp.feature.main.portfolio_events.PortfolioEventsPre
 import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPresenter;
 import vision.genesis.clientapp.feature.main.program.balance.ProgramBalancePresenter;
-import vision.genesis.clientapp.feature.main.program.chart.ChartPresenter;
 import vision.genesis.clientapp.feature.main.program.create.CreateProgramPresenter;
 import vision.genesis.clientapp.feature.main.program.create.first.CreateProgramFirstStepPresenter;
 import vision.genesis.clientapp.feature.main.program.create.third.CreateProgramThirdStepPresenter;
@@ -149,8 +147,6 @@ public interface AppComponent
 
 	void inject(ProgramDataView programDataView);
 
-	void inject(ChartPresenter chartPresenter);
-
 	void inject(ProgramInfoPresenter programInfoPresenter);
 
 	void inject(AssetsPresenter assetsPresenter);
@@ -210,8 +206,6 @@ public interface AppComponent
 	void inject(ManagerDetailsPresenter managerDetailsPresenter);
 
 	void inject(ManagerInfoPresenter managerInfoPresenter);
-
-	void inject(ManagerProfitPresenter managerProfitPresenter);
 
 	void inject(ProgramBalancePresenter programBalancePresenter);
 

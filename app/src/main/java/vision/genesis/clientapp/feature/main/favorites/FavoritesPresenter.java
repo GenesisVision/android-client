@@ -14,8 +14,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ProgramDetails;
-import io.swagger.client.model.ProgramsList;
+import io.swagger.client.model.ItemsViewModelProgramDetailsList;
+import io.swagger.client.model.ProgramDetailsList;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -54,13 +54,7 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 
 	private Subscription getProgramsSubscription;
 
-	private Subscription getTournamentProgramsSubscription;
-
-	private List<ProgramDetails> programsToAdd = new ArrayList<>();
-
-	private List<ProgramDetails> investmentProgramsList = new ArrayList<>();
-
-	private List<ProgramDetails> tournamentProgramsList = new ArrayList<>();
+	private List<ProgramDetailsList> investmentProgramsList = new ArrayList<>();
 
 	private int groupsLoaded = 0;
 
@@ -78,13 +72,12 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 
 	@Override
 	public void onDestroy() {
-		if (userSubscription != null)
+		if (userSubscription != null) {
 			userSubscription.unsubscribe();
-		if (getProgramsSubscription != null)
+		}
+		if (getProgramsSubscription != null) {
 			getProgramsSubscription.unsubscribe();
-
-		if (getTournamentProgramsSubscription != null)
-			getTournamentProgramsSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -118,10 +111,12 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 	}
 
 	private void userUpdated(User user) {
-		if (user == null)
+		if (user == null) {
 			userLoggedOff();
-		else
+		}
+		else {
 			userLoggedOn();
+		}
 	}
 
 	private void userLoggedOn() {
@@ -152,8 +147,9 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 	}
 
 	private void getPrograms() {
-		if (getProgramsSubscription != null)
+		if (getProgramsSubscription != null) {
 			getProgramsSubscription.unsubscribe();
+		}
 
 		ProgramsFilter filter = createFilter();
 		filter.setIsFavorite(true);
@@ -171,7 +167,7 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 //		return model;
 //	}
 
-	private void handleGetProgramsList(ProgramsList response) {
+	private void handleGetProgramsList(ItemsViewModelProgramDetailsList response) {
 		getProgramsSubscription.unsubscribe();
 
 		getViewState().showNoInternet(false);
@@ -179,9 +175,10 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 		groupsLoaded++;
 
 //		investmentProgramsList = programsToAdd;
-		investmentProgramsList = response.getPrograms();
-		if (!investmentProgramsList.isEmpty())
+		investmentProgramsList = response.getItems();
+		if (!investmentProgramsList.isEmpty()) {
 			getViewState().showEmptyList(false);
+		}
 
 		getViewState().setInvestmentPrograms(investmentProgramsList);
 		onLoadingFinishedMaybe();
@@ -230,7 +227,7 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 
 	private void setFavoritesCount() {
 		getViewState().setFavoritesCount(StringFormatUtil.formatAmount(
-				investmentProgramsList.size() + tournamentProgramsList.size(), 0, 0));
+				investmentProgramsList.size(), 0, 0));
 	}
 
 	private void onLoadingFinishedMaybe() {
@@ -238,7 +235,7 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 			getViewState().setRefreshing(false);
 			getViewState().showProgressBar(false);
 
-			if (investmentProgramsList.isEmpty() && tournamentProgramsList.isEmpty()) {
+			if (investmentProgramsList.isEmpty()) {
 				getViewState().showEmptyList(true);
 			}
 		}
@@ -252,23 +249,19 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 				break;
 			}
 		}
-		for (int i = 0; i < tournamentProgramsList.size(); i++) {
-			if (tournamentProgramsList.get(i).getId().equals(programId)) {
-				tournamentProgramsList.remove(i);
-				break;
-			}
-		}
 
-		if (investmentProgramsList.isEmpty() && tournamentProgramsList.isEmpty())
+		if (investmentProgramsList.isEmpty()) {
 			getViewState().showEmptyList(true);
+		}
 
 		setFavoritesCount();
 	}
 
 	@Subscribe
 	public void onEventMainThread(OnProgramFavoriteChangedEvent event) {
-		if (event.isFavorite())
+		if (event.isFavorite()) {
 			getFavorites();
+		}
 		else {
 			removeProgram(event.getProgramId());
 			getViewState().removeProgram(event.getProgramId());

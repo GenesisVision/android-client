@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**isOwnProgram** | **Boolean** |  |  [optional]
+**isOwnAsset** | **Boolean** |  |  [optional]
 **isFavorite** | **Boolean** |  |  [optional]
 **isReinvest** | **Boolean** |  |  [optional]
 **isInvested** | **Boolean** |  |  [optional]

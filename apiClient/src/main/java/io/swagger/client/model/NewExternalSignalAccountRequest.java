@@ -17,8 +17,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.joda.time.DateTime;
-
 import java.util.Objects;
 import java.util.UUID;
 
@@ -50,12 +48,6 @@ public class NewExternalSignalAccountRequest implements Parcelable
 	@SerializedName("monthlySubscriptionFee")
 	private Double monthlySubscriptionFee = null;
 
-	@SerializedName("loadTrades")
-	private Boolean loadTrades = null;
-
-	@SerializedName("tradesFrom")
-	private DateTime tradesFrom = null;
-
 	@SerializedName("title")
 	private String title = null;
 
@@ -72,8 +64,6 @@ public class NewExternalSignalAccountRequest implements Parcelable
 		externalKeyId = (UUID) in.readValue(UUID.class.getClassLoader());
 		volumeFee = (Double) in.readValue(null);
 		monthlySubscriptionFee = (Double) in.readValue(null);
-		loadTrades = (Boolean) in.readValue(null);
-		tradesFrom = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		title = (String) in.readValue(null);
 		description = (String) in.readValue(null);
 		logo = (String) in.readValue(null);
@@ -134,44 +124,6 @@ public class NewExternalSignalAccountRequest implements Parcelable
 
 	public void setMonthlySubscriptionFee(Double monthlySubscriptionFee) {
 		this.monthlySubscriptionFee = monthlySubscriptionFee;
-	}
-
-	public NewExternalSignalAccountRequest loadTrades(Boolean loadTrades) {
-		this.loadTrades = loadTrades;
-		return this;
-	}
-
-	/**
-	 * Get loadTrades
-	 *
-	 * @return loadTrades
-	 **/
-	@Schema(description = "")
-	public Boolean isLoadTrades() {
-		return loadTrades;
-	}
-
-	public void setLoadTrades(Boolean loadTrades) {
-		this.loadTrades = loadTrades;
-	}
-
-	public NewExternalSignalAccountRequest tradesFrom(DateTime tradesFrom) {
-		this.tradesFrom = tradesFrom;
-		return this;
-	}
-
-	/**
-	 * Get tradesFrom
-	 *
-	 * @return tradesFrom
-	 **/
-	@Schema(description = "")
-	public DateTime getTradesFrom() {
-		return tradesFrom;
-	}
-
-	public void setTradesFrom(DateTime tradesFrom) {
-		this.tradesFrom = tradesFrom;
 	}
 
 	public NewExternalSignalAccountRequest title(String title) {
@@ -243,8 +195,6 @@ public class NewExternalSignalAccountRequest implements Parcelable
 		return Objects.equals(this.externalKeyId, newExternalSignalAccountRequest.externalKeyId) &&
 				Objects.equals(this.volumeFee, newExternalSignalAccountRequest.volumeFee) &&
 				Objects.equals(this.monthlySubscriptionFee, newExternalSignalAccountRequest.monthlySubscriptionFee) &&
-				Objects.equals(this.loadTrades, newExternalSignalAccountRequest.loadTrades) &&
-				Objects.equals(this.tradesFrom, newExternalSignalAccountRequest.tradesFrom) &&
 				Objects.equals(this.title, newExternalSignalAccountRequest.title) &&
 				Objects.equals(this.description, newExternalSignalAccountRequest.description) &&
 				Objects.equals(this.logo, newExternalSignalAccountRequest.logo);
@@ -252,7 +202,7 @@ public class NewExternalSignalAccountRequest implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(externalKeyId, volumeFee, monthlySubscriptionFee, loadTrades, tradesFrom, title, description, logo);
+		return Objects.hash(externalKeyId, volumeFee, monthlySubscriptionFee, title, description, logo);
 	}
 
 	@Override
@@ -263,8 +213,6 @@ public class NewExternalSignalAccountRequest implements Parcelable
 		sb.append("    externalKeyId: ").append(toIndentedString(externalKeyId)).append("\n");
 		sb.append("    volumeFee: ").append(toIndentedString(volumeFee)).append("\n");
 		sb.append("    monthlySubscriptionFee: ").append(toIndentedString(monthlySubscriptionFee)).append("\n");
-		sb.append("    loadTrades: ").append(toIndentedString(loadTrades)).append("\n");
-		sb.append("    tradesFrom: ").append(toIndentedString(tradesFrom)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
@@ -287,8 +235,6 @@ public class NewExternalSignalAccountRequest implements Parcelable
 		out.writeValue(externalKeyId);
 		out.writeValue(volumeFee);
 		out.writeValue(monthlySubscriptionFee);
-		out.writeValue(loadTrades);
-		out.writeValue(tradesFrom);
 		out.writeValue(title);
 		out.writeValue(description);
 		out.writeValue(logo);

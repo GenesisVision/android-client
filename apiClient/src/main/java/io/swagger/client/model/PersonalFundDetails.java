@@ -22,7 +22,6 @@ import org.joda.time.DateTime;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * PersonalFundDetails
  */
@@ -41,8 +40,8 @@ public class PersonalFundDetails implements Parcelable
 		}
 	};
 
-	@SerializedName("isOwnProgram")
-	private Boolean isOwnProgram = null;
+	@SerializedName("isOwnAsset")
+	private Boolean isOwnAsset = null;
 
 	@SerializedName("isFavorite")
 	private Boolean isFavorite = null;
@@ -93,7 +92,7 @@ public class PersonalFundDetails implements Parcelable
 	}
 
 	PersonalFundDetails(Parcel in) {
-		isOwnProgram = (Boolean) in.readValue(null);
+		isOwnAsset = (Boolean) in.readValue(null);
 		isFavorite = (Boolean) in.readValue(null);
 		isInvested = (Boolean) in.readValue(null);
 		canClose = (Boolean) in.readValue(null);
@@ -111,23 +110,23 @@ public class PersonalFundDetails implements Parcelable
 		exitFeePersonal = (Double) in.readValue(null);
 	}
 
-	public PersonalFundDetails isOwnProgram(Boolean isOwnProgram) {
-		this.isOwnProgram = isOwnProgram;
+	public PersonalFundDetails isOwnAsset(Boolean isOwnAsset) {
+		this.isOwnAsset = isOwnAsset;
 		return this;
 	}
 
 	/**
-	 * Get isOwnProgram
+	 * Get isOwnAsset
 	 *
-	 * @return isOwnProgram
+	 * @return isOwnAsset
 	 **/
 	@Schema(description = "")
-	public Boolean isIsOwnProgram() {
-		return isOwnProgram;
+	public Boolean isIsOwnAsset() {
+		return isOwnAsset;
 	}
 
-	public void setIsOwnProgram(Boolean isOwnProgram) {
-		this.isOwnProgram = isOwnProgram;
+	public void setIsOwnAsset(Boolean isOwnAsset) {
+		this.isOwnAsset = isOwnAsset;
 	}
 
 	public PersonalFundDetails isFavorite(Boolean isFavorite) {
@@ -424,7 +423,7 @@ public class PersonalFundDetails implements Parcelable
 			return false;
 		}
 		PersonalFundDetails personalFundDetails = (PersonalFundDetails) o;
-		return Objects.equals(this.isOwnProgram, personalFundDetails.isOwnProgram) &&
+		return Objects.equals(this.isOwnAsset, personalFundDetails.isOwnAsset) &&
 				Objects.equals(this.isFavorite, personalFundDetails.isFavorite) &&
 				Objects.equals(this.isInvested, personalFundDetails.isInvested) &&
 				Objects.equals(this.canClose, personalFundDetails.canClose) &&
@@ -444,7 +443,7 @@ public class PersonalFundDetails implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isOwnProgram, isFavorite, isInvested, canClose, canReallocate, canInvest, canWithdraw, hasNotifications, value, status, pendingInput, pendingOutput, withdrawPercent, availableReallocationPercents, nextReallocationPercents, exitFeePersonal);
+		return Objects.hash(isOwnAsset, isFavorite, isInvested, canClose, canReallocate, canInvest, canWithdraw, hasNotifications, value, status, pendingInput, pendingOutput, withdrawPercent, availableReallocationPercents, nextReallocationPercents, exitFeePersonal);
 	}
 
 	@Override
@@ -452,7 +451,7 @@ public class PersonalFundDetails implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class PersonalFundDetails {\n");
 
-		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
+		sb.append("    isOwnAsset: ").append(toIndentedString(isOwnAsset)).append("\n");
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
 		sb.append("    canClose: ").append(toIndentedString(canClose)).append("\n");
@@ -484,7 +483,7 @@ public class PersonalFundDetails implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(isOwnProgram);
+		out.writeValue(isOwnAsset);
 		out.writeValue(isFavorite);
 		out.writeValue(isInvested);
 		out.writeValue(canClose);

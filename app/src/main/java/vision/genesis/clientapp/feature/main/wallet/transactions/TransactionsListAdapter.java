@@ -97,7 +97,7 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 
 			itemView.setOnClickListener(v -> {
 				if (transaction != null) {
-					EventBus.getDefault().post(new ShowTransactionDetailsEvent(transaction.getId(), transaction.getType().getValue(), transaction.getDate()));
+					EventBus.getDefault().post(new ShowTransactionDetailsEvent(transaction));
 				}
 			});
 		}

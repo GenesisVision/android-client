@@ -20,7 +20,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * PersonalProgramDetails
  */
@@ -28,635 +27,635 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PersonalProgramDetails implements Parcelable
 {
-	public static final Parcelable.Creator<PersonalProgramDetails> CREATOR = new Parcelable.Creator<PersonalProgramDetails>()
-	{
-		public PersonalProgramDetails createFromParcel(Parcel in) {
-			return new PersonalProgramDetails(in);
-		}
-
-		public PersonalProgramDetails[] newArray(int size) {
-			return new PersonalProgramDetails[size];
-		}
-	};
-
-	@SerializedName("isOwnProgram")
-	private Boolean isOwnProgram = null;
-
-	@SerializedName("isFavorite")
-	private Boolean isFavorite = null;
-
-	@SerializedName("isReinvest")
-	private Boolean isReinvest = null;
-
-	@SerializedName("isInvested")
-	private Boolean isInvested = null;
-
-	@SerializedName("canClose")
-	private Boolean canClose = null;
-
-	@SerializedName("canClosePeriod")
-	private Boolean canClosePeriod = null;
-
-	@SerializedName("canInvest")
-	private Boolean canInvest = null;
-
-	@SerializedName("canWithdraw")
-	private Boolean canWithdraw = null;
-
-	@SerializedName("canMakeSignalProvider")
-	private Boolean canMakeSignalProvider = null;
-
-	@SerializedName("canChangePassword")
-	private Boolean canChangePassword = null;
-
-	@SerializedName("hasNotifications")
-	private Boolean hasNotifications = null;
-
-	@SerializedName("showTwoFactorButton")
-	private Boolean showTwoFactorButton = null;
-
-	@SerializedName("value")
-	private Double value = null;
-
-	@SerializedName("profit")
-	private Double profit = null;
-
-	@SerializedName("invested")
-	private Double invested = null;
-
-	@SerializedName("pendingInput")
-	private Double pendingInput = null;
-
-	@SerializedName("pendingOutput")
-	private Double pendingOutput = null;
-
-	@SerializedName("pendingOutputIsWithdrawAll")
-	private Boolean pendingOutputIsWithdrawAll = null;
-
-	@SerializedName("status")
-	private AssetInvestmentStatus status = null;
-
-	@SerializedName("successFeePersonal")
-	private Double successFeePersonal = null;
-
-	@SerializedName("migration")
-	private MigrationRequest migration = null;
-
-	@SerializedName("signalSubscription")
-	private SignalSubscription signalSubscription = null;
-
-	public PersonalProgramDetails() {
-	}
-
-	PersonalProgramDetails(Parcel in) {
-		isOwnProgram = (Boolean) in.readValue(null);
-		isFavorite = (Boolean) in.readValue(null);
-		isReinvest = (Boolean) in.readValue(null);
-		isInvested = (Boolean) in.readValue(null);
-		canClose = (Boolean) in.readValue(null);
-		canClosePeriod = (Boolean) in.readValue(null);
-		canInvest = (Boolean) in.readValue(null);
-		canWithdraw = (Boolean) in.readValue(null);
-		canMakeSignalProvider = (Boolean) in.readValue(null);
-		canChangePassword = (Boolean) in.readValue(null);
-		hasNotifications = (Boolean) in.readValue(null);
-		showTwoFactorButton = (Boolean) in.readValue(null);
-		value = (Double) in.readValue(null);
-		profit = (Double) in.readValue(null);
-		invested = (Double) in.readValue(null);
-		pendingInput = (Double) in.readValue(null);
-		pendingOutput = (Double) in.readValue(null);
-		pendingOutputIsWithdrawAll = (Boolean) in.readValue(null);
-		status = (AssetInvestmentStatus) in.readValue(AssetInvestmentStatus.class.getClassLoader());
-		successFeePersonal = (Double) in.readValue(null);
-		migration = (MigrationRequest) in.readValue(MigrationRequest.class.getClassLoader());
-		signalSubscription = (SignalSubscription) in.readValue(SignalSubscription.class.getClassLoader());
-	}
-
-	public PersonalProgramDetails isOwnProgram(Boolean isOwnProgram) {
-		this.isOwnProgram = isOwnProgram;
-		return this;
-	}
-
-	/**
-	 * Get isOwnProgram
-	 *
-	 * @return isOwnProgram
-	 **/
-	@Schema(description = "")
-	public Boolean isIsOwnProgram() {
-		return isOwnProgram;
-	}
-
-	public void setIsOwnProgram(Boolean isOwnProgram) {
-		this.isOwnProgram = isOwnProgram;
-	}
-
-	public PersonalProgramDetails isFavorite(Boolean isFavorite) {
-		this.isFavorite = isFavorite;
-		return this;
-	}
-
-	/**
-	 * Get isFavorite
-	 *
-	 * @return isFavorite
-	 **/
-	@Schema(description = "")
-	public Boolean isIsFavorite() {
-		return isFavorite;
-	}
-
-	public void setIsFavorite(Boolean isFavorite) {
-		this.isFavorite = isFavorite;
-	}
-
-	public PersonalProgramDetails isReinvest(Boolean isReinvest) {
-		this.isReinvest = isReinvest;
-		return this;
-	}
-
-	/**
-	 * Get isReinvest
-	 *
-	 * @return isReinvest
-	 **/
-	@Schema(description = "")
-	public Boolean isIsReinvest() {
-		return isReinvest;
-	}
-
-	public void setIsReinvest(Boolean isReinvest) {
-		this.isReinvest = isReinvest;
-	}
-
-	public PersonalProgramDetails isInvested(Boolean isInvested) {
-		this.isInvested = isInvested;
-		return this;
-	}
-
-	/**
-	 * Get isInvested
-	 *
-	 * @return isInvested
-	 **/
-	@Schema(description = "")
-	public Boolean isIsInvested() {
-		return isInvested;
-	}
-
-	public void setIsInvested(Boolean isInvested) {
-		this.isInvested = isInvested;
-	}
-
-	public PersonalProgramDetails canClose(Boolean canClose) {
-		this.canClose = canClose;
-		return this;
-	}
-
-	/**
-	 * Get canClose
-	 *
-	 * @return canClose
-	 **/
-	@Schema(description = "")
-	public Boolean isCanClose() {
-		return canClose;
-	}
-
-	public void setCanClose(Boolean canClose) {
-		this.canClose = canClose;
-	}
-
-	public PersonalProgramDetails canClosePeriod(Boolean canClosePeriod) {
-		this.canClosePeriod = canClosePeriod;
-		return this;
-	}
-
-	/**
-	 * Get canClosePeriod
-	 *
-	 * @return canClosePeriod
-	 **/
-	@Schema(description = "")
-	public Boolean isCanClosePeriod() {
-		return canClosePeriod;
-	}
-
-	public void setCanClosePeriod(Boolean canClosePeriod) {
-		this.canClosePeriod = canClosePeriod;
-	}
-
-	public PersonalProgramDetails canInvest(Boolean canInvest) {
-		this.canInvest = canInvest;
-		return this;
-	}
-
-	/**
-	 * Get canInvest
-	 *
-	 * @return canInvest
-	 **/
-	@Schema(description = "")
-	public Boolean isCanInvest() {
-		return canInvest;
-	}
-
-	public void setCanInvest(Boolean canInvest) {
-		this.canInvest = canInvest;
-	}
-
-	public PersonalProgramDetails canWithdraw(Boolean canWithdraw) {
-		this.canWithdraw = canWithdraw;
-		return this;
-	}
-
-	/**
-	 * Get canWithdraw
-	 *
-	 * @return canWithdraw
-	 **/
-	@Schema(description = "")
-	public Boolean isCanWithdraw() {
-		return canWithdraw;
-	}
-
-	public void setCanWithdraw(Boolean canWithdraw) {
-		this.canWithdraw = canWithdraw;
-	}
-
-	public PersonalProgramDetails canMakeSignalProvider(Boolean canMakeSignalProvider) {
-		this.canMakeSignalProvider = canMakeSignalProvider;
-		return this;
-	}
-
-	/**
-	 * Get canMakeSignalProvider
-	 *
-	 * @return canMakeSignalProvider
-	 **/
-	@Schema(description = "")
-	public Boolean isCanMakeSignalProvider() {
-		return canMakeSignalProvider;
-	}
-
-	public void setCanMakeSignalProvider(Boolean canMakeSignalProvider) {
-		this.canMakeSignalProvider = canMakeSignalProvider;
-	}
-
-	public PersonalProgramDetails canChangePassword(Boolean canChangePassword) {
-		this.canChangePassword = canChangePassword;
-		return this;
-	}
-
-	/**
-	 * Get canChangePassword
-	 *
-	 * @return canChangePassword
-	 **/
-	@Schema(description = "")
-	public Boolean isCanChangePassword() {
-		return canChangePassword;
-	}
-
-	public void setCanChangePassword(Boolean canChangePassword) {
-		this.canChangePassword = canChangePassword;
-	}
-
-	public PersonalProgramDetails hasNotifications(Boolean hasNotifications) {
-		this.hasNotifications = hasNotifications;
-		return this;
-	}
-
-	/**
-	 * Get hasNotifications
-	 *
-	 * @return hasNotifications
-	 **/
-	@Schema(description = "")
-	public Boolean isHasNotifications() {
-		return hasNotifications;
-	}
-
-	public void setHasNotifications(Boolean hasNotifications) {
-		this.hasNotifications = hasNotifications;
-	}
-
-	public PersonalProgramDetails showTwoFactorButton(Boolean showTwoFactorButton) {
-		this.showTwoFactorButton = showTwoFactorButton;
-		return this;
-	}
-
-	/**
-	 * Get showTwoFactorButton
-	 *
-	 * @return showTwoFactorButton
-	 **/
-	@Schema(description = "")
-	public Boolean isShowTwoFactorButton() {
-		return showTwoFactorButton;
-	}
-
-	public void setShowTwoFactorButton(Boolean showTwoFactorButton) {
-		this.showTwoFactorButton = showTwoFactorButton;
-	}
-
-	public PersonalProgramDetails value(Double value) {
-		this.value = value;
-		return this;
-	}
-
-	/**
-	 * Get value
-	 *
-	 * @return value
-	 **/
-	@Schema(description = "")
-	public Double getValue() {
-		return value;
-	}
-
-	public void setValue(Double value) {
-		this.value = value;
-	}
-
-	public PersonalProgramDetails profit(Double profit) {
-		this.profit = profit;
-		return this;
-	}
-
-	/**
-	 * Get profit
-	 *
-	 * @return profit
-	 **/
-	@Schema(description = "")
-	public Double getProfit() {
-		return profit;
-	}
-
-	public void setProfit(Double profit) {
-		this.profit = profit;
-	}
-
-	public PersonalProgramDetails invested(Double invested) {
-		this.invested = invested;
-		return this;
-	}
-
-	/**
-	 * Get invested
-	 *
-	 * @return invested
-	 **/
-	@Schema(description = "")
-	public Double getInvested() {
-		return invested;
-	}
-
-	public void setInvested(Double invested) {
-		this.invested = invested;
-	}
-
-	public PersonalProgramDetails pendingInput(Double pendingInput) {
-		this.pendingInput = pendingInput;
-		return this;
-	}
-
-	/**
-	 * Get pendingInput
-	 *
-	 * @return pendingInput
-	 **/
-	@Schema(description = "")
-	public Double getPendingInput() {
-		return pendingInput;
-	}
-
-	public void setPendingInput(Double pendingInput) {
-		this.pendingInput = pendingInput;
-	}
-
-	public PersonalProgramDetails pendingOutput(Double pendingOutput) {
-		this.pendingOutput = pendingOutput;
-		return this;
-	}
-
-	/**
-	 * Get pendingOutput
-	 *
-	 * @return pendingOutput
-	 **/
-	@Schema(description = "")
-	public Double getPendingOutput() {
-		return pendingOutput;
-	}
-
-	public void setPendingOutput(Double pendingOutput) {
-		this.pendingOutput = pendingOutput;
-	}
-
-	public PersonalProgramDetails pendingOutputIsWithdrawAll(Boolean pendingOutputIsWithdrawAll) {
-		this.pendingOutputIsWithdrawAll = pendingOutputIsWithdrawAll;
-		return this;
-	}
-
-	/**
-	 * Get pendingOutputIsWithdrawAll
-	 *
-	 * @return pendingOutputIsWithdrawAll
-	 **/
-	@Schema(description = "")
-	public Boolean isPendingOutputIsWithdrawAll() {
-		return pendingOutputIsWithdrawAll;
-	}
-
-	public void setPendingOutputIsWithdrawAll(Boolean pendingOutputIsWithdrawAll) {
-		this.pendingOutputIsWithdrawAll = pendingOutputIsWithdrawAll;
-	}
-
-	public PersonalProgramDetails status(AssetInvestmentStatus status) {
-		this.status = status;
-		return this;
-	}
-
-	/**
-	 * Get status
-	 *
-	 * @return status
-	 **/
-	@Schema(description = "")
-	public AssetInvestmentStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(AssetInvestmentStatus status) {
-		this.status = status;
-	}
-
-	public PersonalProgramDetails successFeePersonal(Double successFeePersonal) {
-		this.successFeePersonal = successFeePersonal;
-		return this;
-	}
-
-	/**
-	 * Get successFeePersonal
-	 *
-	 * @return successFeePersonal
-	 **/
-	@Schema(description = "")
-	public Double getSuccessFeePersonal() {
-		return successFeePersonal;
-	}
-
-	public void setSuccessFeePersonal(Double successFeePersonal) {
-		this.successFeePersonal = successFeePersonal;
-	}
-
-	public PersonalProgramDetails migration(MigrationRequest migration) {
-		this.migration = migration;
-		return this;
-	}
-
-	/**
-	 * Get migration
-	 *
-	 * @return migration
-	 **/
-	@Schema(description = "")
-	public MigrationRequest getMigration() {
-		return migration;
-	}
-
-	public void setMigration(MigrationRequest migration) {
-		this.migration = migration;
-	}
-
-	public PersonalProgramDetails signalSubscription(SignalSubscription signalSubscription) {
-		this.signalSubscription = signalSubscription;
-		return this;
-	}
-
-	/**
-	 * Get signalSubscription
-	 *
-	 * @return signalSubscription
-	 **/
-	@Schema(description = "")
-	public SignalSubscription getSignalSubscription() {
-		return signalSubscription;
-	}
-
-	public void setSignalSubscription(SignalSubscription signalSubscription) {
-		this.signalSubscription = signalSubscription;
-	}
-
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		PersonalProgramDetails personalProgramDetails = (PersonalProgramDetails) o;
-		return Objects.equals(this.isOwnProgram, personalProgramDetails.isOwnProgram) &&
-				Objects.equals(this.isFavorite, personalProgramDetails.isFavorite) &&
-				Objects.equals(this.isReinvest, personalProgramDetails.isReinvest) &&
-				Objects.equals(this.isInvested, personalProgramDetails.isInvested) &&
-				Objects.equals(this.canClose, personalProgramDetails.canClose) &&
-				Objects.equals(this.canClosePeriod, personalProgramDetails.canClosePeriod) &&
-				Objects.equals(this.canInvest, personalProgramDetails.canInvest) &&
-				Objects.equals(this.canWithdraw, personalProgramDetails.canWithdraw) &&
-				Objects.equals(this.canMakeSignalProvider, personalProgramDetails.canMakeSignalProvider) &&
-				Objects.equals(this.canChangePassword, personalProgramDetails.canChangePassword) &&
-				Objects.equals(this.hasNotifications, personalProgramDetails.hasNotifications) &&
-				Objects.equals(this.showTwoFactorButton, personalProgramDetails.showTwoFactorButton) &&
-				Objects.equals(this.value, personalProgramDetails.value) &&
-				Objects.equals(this.profit, personalProgramDetails.profit) &&
-				Objects.equals(this.invested, personalProgramDetails.invested) &&
-				Objects.equals(this.pendingInput, personalProgramDetails.pendingInput) &&
-				Objects.equals(this.pendingOutput, personalProgramDetails.pendingOutput) &&
-				Objects.equals(this.pendingOutputIsWithdrawAll, personalProgramDetails.pendingOutputIsWithdrawAll) &&
-				Objects.equals(this.status, personalProgramDetails.status) &&
-				Objects.equals(this.successFeePersonal, personalProgramDetails.successFeePersonal) &&
-				Objects.equals(this.migration, personalProgramDetails.migration) &&
-				Objects.equals(this.signalSubscription, personalProgramDetails.signalSubscription);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(isOwnProgram, isFavorite, isReinvest, isInvested, canClose, canClosePeriod, canInvest, canWithdraw, canMakeSignalProvider, canChangePassword, hasNotifications, showTwoFactorButton, value, profit, invested, pendingInput, pendingOutput, pendingOutputIsWithdrawAll, status, successFeePersonal, migration, signalSubscription);
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class PersonalProgramDetails {\n");
-
-		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
-		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
-		sb.append("    isReinvest: ").append(toIndentedString(isReinvest)).append("\n");
-		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
-		sb.append("    canClose: ").append(toIndentedString(canClose)).append("\n");
-		sb.append("    canClosePeriod: ").append(toIndentedString(canClosePeriod)).append("\n");
-		sb.append("    canInvest: ").append(toIndentedString(canInvest)).append("\n");
-		sb.append("    canWithdraw: ").append(toIndentedString(canWithdraw)).append("\n");
-		sb.append("    canMakeSignalProvider: ").append(toIndentedString(canMakeSignalProvider)).append("\n");
-		sb.append("    canChangePassword: ").append(toIndentedString(canChangePassword)).append("\n");
-		sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
-		sb.append("    showTwoFactorButton: ").append(toIndentedString(showTwoFactorButton)).append("\n");
-		sb.append("    value: ").append(toIndentedString(value)).append("\n");
-		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
-		sb.append("    invested: ").append(toIndentedString(invested)).append("\n");
-		sb.append("    pendingInput: ").append(toIndentedString(pendingInput)).append("\n");
-		sb.append("    pendingOutput: ").append(toIndentedString(pendingOutput)).append("\n");
-		sb.append("    pendingOutputIsWithdrawAll: ").append(toIndentedString(pendingOutputIsWithdrawAll)).append("\n");
-		sb.append("    status: ").append(toIndentedString(status)).append("\n");
-		sb.append("    successFeePersonal: ").append(toIndentedString(successFeePersonal)).append("\n");
-		sb.append("    migration: ").append(toIndentedString(migration)).append("\n");
-		sb.append("    signalSubscription: ").append(toIndentedString(signalSubscription)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
-
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
-
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(isOwnProgram);
-		out.writeValue(isFavorite);
-		out.writeValue(isReinvest);
-		out.writeValue(isInvested);
-		out.writeValue(canClose);
-		out.writeValue(canClosePeriod);
-		out.writeValue(canInvest);
-		out.writeValue(canWithdraw);
-		out.writeValue(canMakeSignalProvider);
-		out.writeValue(canChangePassword);
-		out.writeValue(hasNotifications);
-		out.writeValue(showTwoFactorButton);
-		out.writeValue(value);
-		out.writeValue(profit);
-		out.writeValue(invested);
-		out.writeValue(pendingInput);
-		out.writeValue(pendingOutput);
-		out.writeValue(pendingOutputIsWithdrawAll);
-		out.writeValue(status);
-		out.writeValue(successFeePersonal);
-		out.writeValue(migration);
-		out.writeValue(signalSubscription);
-	}
-
-	public int describeContents() {
-		return 0;
-	}
+  public static final Parcelable.Creator<PersonalProgramDetails> CREATOR = new Parcelable.Creator<PersonalProgramDetails>()
+  {
+    public PersonalProgramDetails createFromParcel(Parcel in) {
+      return new PersonalProgramDetails(in);
+    }
+
+    public PersonalProgramDetails[] newArray(int size) {
+      return new PersonalProgramDetails[size];
+    }
+  };
+
+  @SerializedName("isOwnAsset")
+  private Boolean isOwnAsset = null;
+
+  @SerializedName("isFavorite")
+  private Boolean isFavorite = null;
+
+  @SerializedName("isReinvest")
+  private Boolean isReinvest = null;
+
+  @SerializedName("isInvested")
+  private Boolean isInvested = null;
+
+  @SerializedName("canClose")
+  private Boolean canClose = null;
+
+  @SerializedName("canClosePeriod")
+  private Boolean canClosePeriod = null;
+
+  @SerializedName("canInvest")
+  private Boolean canInvest = null;
+
+  @SerializedName("canWithdraw")
+  private Boolean canWithdraw = null;
+
+  @SerializedName("canMakeSignalProvider")
+  private Boolean canMakeSignalProvider = null;
+
+  @SerializedName("canChangePassword")
+  private Boolean canChangePassword = null;
+
+  @SerializedName("hasNotifications")
+  private Boolean hasNotifications = null;
+
+  @SerializedName("showTwoFactorButton")
+  private Boolean showTwoFactorButton = null;
+
+  @SerializedName("value")
+  private Double value = null;
+
+  @SerializedName("profit")
+  private Double profit = null;
+
+  @SerializedName("invested")
+  private Double invested = null;
+
+  @SerializedName("pendingInput")
+  private Double pendingInput = null;
+
+  @SerializedName("pendingOutput")
+  private Double pendingOutput = null;
+
+  @SerializedName("pendingOutputIsWithdrawAll")
+  private Boolean pendingOutputIsWithdrawAll = null;
+
+  @SerializedName("status")
+  private AssetInvestmentStatus status = null;
+
+  @SerializedName("successFeePersonal")
+  private Double successFeePersonal = null;
+
+  @SerializedName("migration")
+  private MigrationRequest migration = null;
+
+  @SerializedName("signalSubscription")
+  private SignalSubscription signalSubscription = null;
+
+  public PersonalProgramDetails() {
+  }
+
+  PersonalProgramDetails(Parcel in) {
+    isOwnAsset = (Boolean) in.readValue(null);
+    isFavorite = (Boolean) in.readValue(null);
+    isReinvest = (Boolean) in.readValue(null);
+    isInvested = (Boolean) in.readValue(null);
+    canClose = (Boolean) in.readValue(null);
+    canClosePeriod = (Boolean) in.readValue(null);
+    canInvest = (Boolean) in.readValue(null);
+    canWithdraw = (Boolean) in.readValue(null);
+    canMakeSignalProvider = (Boolean) in.readValue(null);
+    canChangePassword = (Boolean) in.readValue(null);
+    hasNotifications = (Boolean) in.readValue(null);
+    showTwoFactorButton = (Boolean) in.readValue(null);
+    value = (Double) in.readValue(null);
+    profit = (Double) in.readValue(null);
+    invested = (Double) in.readValue(null);
+    pendingInput = (Double) in.readValue(null);
+    pendingOutput = (Double) in.readValue(null);
+    pendingOutputIsWithdrawAll = (Boolean) in.readValue(null);
+    status = (AssetInvestmentStatus) in.readValue(AssetInvestmentStatus.class.getClassLoader());
+    successFeePersonal = (Double) in.readValue(null);
+    migration = (MigrationRequest) in.readValue(MigrationRequest.class.getClassLoader());
+    signalSubscription = (SignalSubscription) in.readValue(SignalSubscription.class.getClassLoader());
+  }
+
+  public PersonalProgramDetails isOwnAsset(Boolean isOwnAsset) {
+    this.isOwnAsset = isOwnAsset;
+    return this;
+  }
+
+  /**
+   * Get isOwnAsset
+   *
+   * @return isOwnAsset
+   **/
+  @Schema(description = "")
+  public Boolean isIsOwnAsset() {
+    return isOwnAsset;
+  }
+
+  public void setIsOwnAsset(Boolean isOwnAsset) {
+    this.isOwnAsset = isOwnAsset;
+  }
+
+  public PersonalProgramDetails isFavorite(Boolean isFavorite) {
+    this.isFavorite = isFavorite;
+    return this;
+  }
+
+  /**
+   * Get isFavorite
+   *
+   * @return isFavorite
+   **/
+  @Schema(description = "")
+  public Boolean isIsFavorite() {
+    return isFavorite;
+  }
+
+  public void setIsFavorite(Boolean isFavorite) {
+    this.isFavorite = isFavorite;
+  }
+
+  public PersonalProgramDetails isReinvest(Boolean isReinvest) {
+    this.isReinvest = isReinvest;
+    return this;
+  }
+
+  /**
+   * Get isReinvest
+   *
+   * @return isReinvest
+   **/
+  @Schema(description = "")
+  public Boolean isIsReinvest() {
+    return isReinvest;
+  }
+
+  public void setIsReinvest(Boolean isReinvest) {
+    this.isReinvest = isReinvest;
+  }
+
+  public PersonalProgramDetails isInvested(Boolean isInvested) {
+    this.isInvested = isInvested;
+    return this;
+  }
+
+  /**
+   * Get isInvested
+   *
+   * @return isInvested
+   **/
+  @Schema(description = "")
+  public Boolean isIsInvested() {
+    return isInvested;
+  }
+
+  public void setIsInvested(Boolean isInvested) {
+    this.isInvested = isInvested;
+  }
+
+  public PersonalProgramDetails canClose(Boolean canClose) {
+    this.canClose = canClose;
+    return this;
+  }
+
+  /**
+   * Get canClose
+   *
+   * @return canClose
+   **/
+  @Schema(description = "")
+  public Boolean isCanClose() {
+    return canClose;
+  }
+
+  public void setCanClose(Boolean canClose) {
+    this.canClose = canClose;
+  }
+
+  public PersonalProgramDetails canClosePeriod(Boolean canClosePeriod) {
+    this.canClosePeriod = canClosePeriod;
+    return this;
+  }
+
+  /**
+   * Get canClosePeriod
+   *
+   * @return canClosePeriod
+   **/
+  @Schema(description = "")
+  public Boolean isCanClosePeriod() {
+    return canClosePeriod;
+  }
+
+  public void setCanClosePeriod(Boolean canClosePeriod) {
+    this.canClosePeriod = canClosePeriod;
+  }
+
+  public PersonalProgramDetails canInvest(Boolean canInvest) {
+    this.canInvest = canInvest;
+    return this;
+  }
+
+  /**
+   * Get canInvest
+   *
+   * @return canInvest
+   **/
+  @Schema(description = "")
+  public Boolean isCanInvest() {
+    return canInvest;
+  }
+
+  public void setCanInvest(Boolean canInvest) {
+    this.canInvest = canInvest;
+  }
+
+  public PersonalProgramDetails canWithdraw(Boolean canWithdraw) {
+    this.canWithdraw = canWithdraw;
+    return this;
+  }
+
+  /**
+   * Get canWithdraw
+   *
+   * @return canWithdraw
+   **/
+  @Schema(description = "")
+  public Boolean isCanWithdraw() {
+    return canWithdraw;
+  }
+
+  public void setCanWithdraw(Boolean canWithdraw) {
+    this.canWithdraw = canWithdraw;
+  }
+
+  public PersonalProgramDetails canMakeSignalProvider(Boolean canMakeSignalProvider) {
+    this.canMakeSignalProvider = canMakeSignalProvider;
+    return this;
+  }
+
+  /**
+   * Get canMakeSignalProvider
+   *
+   * @return canMakeSignalProvider
+   **/
+  @Schema(description = "")
+  public Boolean isCanMakeSignalProvider() {
+    return canMakeSignalProvider;
+  }
+
+  public void setCanMakeSignalProvider(Boolean canMakeSignalProvider) {
+    this.canMakeSignalProvider = canMakeSignalProvider;
+  }
+
+  public PersonalProgramDetails canChangePassword(Boolean canChangePassword) {
+    this.canChangePassword = canChangePassword;
+    return this;
+  }
+
+  /**
+   * Get canChangePassword
+   *
+   * @return canChangePassword
+   **/
+  @Schema(description = "")
+  public Boolean isCanChangePassword() {
+    return canChangePassword;
+  }
+
+  public void setCanChangePassword(Boolean canChangePassword) {
+    this.canChangePassword = canChangePassword;
+  }
+
+  public PersonalProgramDetails hasNotifications(Boolean hasNotifications) {
+    this.hasNotifications = hasNotifications;
+    return this;
+  }
+
+  /**
+   * Get hasNotifications
+   *
+   * @return hasNotifications
+   **/
+  @Schema(description = "")
+  public Boolean isHasNotifications() {
+    return hasNotifications;
+  }
+
+  public void setHasNotifications(Boolean hasNotifications) {
+    this.hasNotifications = hasNotifications;
+  }
+
+  public PersonalProgramDetails showTwoFactorButton(Boolean showTwoFactorButton) {
+    this.showTwoFactorButton = showTwoFactorButton;
+    return this;
+  }
+
+  /**
+   * Get showTwoFactorButton
+   *
+   * @return showTwoFactorButton
+   **/
+  @Schema(description = "")
+  public Boolean isShowTwoFactorButton() {
+    return showTwoFactorButton;
+  }
+
+  public void setShowTwoFactorButton(Boolean showTwoFactorButton) {
+    this.showTwoFactorButton = showTwoFactorButton;
+  }
+
+  public PersonalProgramDetails value(Double value) {
+    this.value = value;
+    return this;
+  }
+
+  /**
+   * Get value
+   *
+   * @return value
+   **/
+  @Schema(description = "")
+  public Double getValue() {
+    return value;
+  }
+
+  public void setValue(Double value) {
+    this.value = value;
+  }
+
+  public PersonalProgramDetails profit(Double profit) {
+    this.profit = profit;
+    return this;
+  }
+
+  /**
+   * Get profit
+   *
+   * @return profit
+   **/
+  @Schema(description = "")
+  public Double getProfit() {
+    return profit;
+  }
+
+  public void setProfit(Double profit) {
+    this.profit = profit;
+  }
+
+  public PersonalProgramDetails invested(Double invested) {
+    this.invested = invested;
+    return this;
+  }
+
+  /**
+   * Get invested
+   *
+   * @return invested
+   **/
+  @Schema(description = "")
+  public Double getInvested() {
+    return invested;
+  }
+
+  public void setInvested(Double invested) {
+    this.invested = invested;
+  }
+
+  public PersonalProgramDetails pendingInput(Double pendingInput) {
+    this.pendingInput = pendingInput;
+    return this;
+  }
+
+  /**
+   * Get pendingInput
+   *
+   * @return pendingInput
+   **/
+  @Schema(description = "")
+  public Double getPendingInput() {
+    return pendingInput;
+  }
+
+  public void setPendingInput(Double pendingInput) {
+    this.pendingInput = pendingInput;
+  }
+
+  public PersonalProgramDetails pendingOutput(Double pendingOutput) {
+    this.pendingOutput = pendingOutput;
+    return this;
+  }
+
+  /**
+   * Get pendingOutput
+   *
+   * @return pendingOutput
+   **/
+  @Schema(description = "")
+  public Double getPendingOutput() {
+    return pendingOutput;
+  }
+
+  public void setPendingOutput(Double pendingOutput) {
+    this.pendingOutput = pendingOutput;
+  }
+
+  public PersonalProgramDetails pendingOutputIsWithdrawAll(Boolean pendingOutputIsWithdrawAll) {
+    this.pendingOutputIsWithdrawAll = pendingOutputIsWithdrawAll;
+    return this;
+  }
+
+  /**
+   * Get pendingOutputIsWithdrawAll
+   *
+   * @return pendingOutputIsWithdrawAll
+   **/
+  @Schema(description = "")
+  public Boolean isPendingOutputIsWithdrawAll() {
+    return pendingOutputIsWithdrawAll;
+  }
+
+  public void setPendingOutputIsWithdrawAll(Boolean pendingOutputIsWithdrawAll) {
+    this.pendingOutputIsWithdrawAll = pendingOutputIsWithdrawAll;
+  }
+
+  public PersonalProgramDetails status(AssetInvestmentStatus status) {
+    this.status = status;
+    return this;
+  }
+
+  /**
+   * Get status
+   *
+   * @return status
+   **/
+  @Schema(description = "")
+  public AssetInvestmentStatus getStatus() {
+    return status;
+  }
+
+  public void setStatus(AssetInvestmentStatus status) {
+    this.status = status;
+  }
+
+  public PersonalProgramDetails successFeePersonal(Double successFeePersonal) {
+    this.successFeePersonal = successFeePersonal;
+    return this;
+  }
+
+  /**
+   * Get successFeePersonal
+   *
+   * @return successFeePersonal
+   **/
+  @Schema(description = "")
+  public Double getSuccessFeePersonal() {
+    return successFeePersonal;
+  }
+
+  public void setSuccessFeePersonal(Double successFeePersonal) {
+    this.successFeePersonal = successFeePersonal;
+  }
+
+  public PersonalProgramDetails migration(MigrationRequest migration) {
+    this.migration = migration;
+    return this;
+  }
+
+  /**
+   * Get migration
+   *
+   * @return migration
+   **/
+  @Schema(description = "")
+  public MigrationRequest getMigration() {
+    return migration;
+  }
+
+  public void setMigration(MigrationRequest migration) {
+    this.migration = migration;
+  }
+
+  public PersonalProgramDetails signalSubscription(SignalSubscription signalSubscription) {
+    this.signalSubscription = signalSubscription;
+    return this;
+  }
+
+  /**
+   * Get signalSubscription
+   *
+   * @return signalSubscription
+   **/
+  @Schema(description = "")
+  public SignalSubscription getSignalSubscription() {
+    return signalSubscription;
+  }
+
+  public void setSignalSubscription(SignalSubscription signalSubscription) {
+    this.signalSubscription = signalSubscription;
+  }
+
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PersonalProgramDetails personalProgramDetails = (PersonalProgramDetails) o;
+    return Objects.equals(this.isOwnAsset, personalProgramDetails.isOwnAsset) &&
+            Objects.equals(this.isFavorite, personalProgramDetails.isFavorite) &&
+            Objects.equals(this.isReinvest, personalProgramDetails.isReinvest) &&
+            Objects.equals(this.isInvested, personalProgramDetails.isInvested) &&
+            Objects.equals(this.canClose, personalProgramDetails.canClose) &&
+            Objects.equals(this.canClosePeriod, personalProgramDetails.canClosePeriod) &&
+            Objects.equals(this.canInvest, personalProgramDetails.canInvest) &&
+            Objects.equals(this.canWithdraw, personalProgramDetails.canWithdraw) &&
+            Objects.equals(this.canMakeSignalProvider, personalProgramDetails.canMakeSignalProvider) &&
+            Objects.equals(this.canChangePassword, personalProgramDetails.canChangePassword) &&
+            Objects.equals(this.hasNotifications, personalProgramDetails.hasNotifications) &&
+            Objects.equals(this.showTwoFactorButton, personalProgramDetails.showTwoFactorButton) &&
+            Objects.equals(this.value, personalProgramDetails.value) &&
+            Objects.equals(this.profit, personalProgramDetails.profit) &&
+            Objects.equals(this.invested, personalProgramDetails.invested) &&
+            Objects.equals(this.pendingInput, personalProgramDetails.pendingInput) &&
+            Objects.equals(this.pendingOutput, personalProgramDetails.pendingOutput) &&
+            Objects.equals(this.pendingOutputIsWithdrawAll, personalProgramDetails.pendingOutputIsWithdrawAll) &&
+            Objects.equals(this.status, personalProgramDetails.status) &&
+            Objects.equals(this.successFeePersonal, personalProgramDetails.successFeePersonal) &&
+            Objects.equals(this.migration, personalProgramDetails.migration) &&
+            Objects.equals(this.signalSubscription, personalProgramDetails.signalSubscription);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(isOwnAsset, isFavorite, isReinvest, isInvested, canClose, canClosePeriod, canInvest, canWithdraw, canMakeSignalProvider, canChangePassword, hasNotifications, showTwoFactorButton, value, profit, invested, pendingInput, pendingOutput, pendingOutputIsWithdrawAll, status, successFeePersonal, migration, signalSubscription);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PersonalProgramDetails {\n");
+
+    sb.append("    isOwnAsset: ").append(toIndentedString(isOwnAsset)).append("\n");
+    sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
+    sb.append("    isReinvest: ").append(toIndentedString(isReinvest)).append("\n");
+    sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
+    sb.append("    canClose: ").append(toIndentedString(canClose)).append("\n");
+    sb.append("    canClosePeriod: ").append(toIndentedString(canClosePeriod)).append("\n");
+    sb.append("    canInvest: ").append(toIndentedString(canInvest)).append("\n");
+    sb.append("    canWithdraw: ").append(toIndentedString(canWithdraw)).append("\n");
+    sb.append("    canMakeSignalProvider: ").append(toIndentedString(canMakeSignalProvider)).append("\n");
+    sb.append("    canChangePassword: ").append(toIndentedString(canChangePassword)).append("\n");
+    sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
+    sb.append("    showTwoFactorButton: ").append(toIndentedString(showTwoFactorButton)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
+    sb.append("    invested: ").append(toIndentedString(invested)).append("\n");
+    sb.append("    pendingInput: ").append(toIndentedString(pendingInput)).append("\n");
+    sb.append("    pendingOutput: ").append(toIndentedString(pendingOutput)).append("\n");
+    sb.append("    pendingOutputIsWithdrawAll: ").append(toIndentedString(pendingOutputIsWithdrawAll)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    successFeePersonal: ").append(toIndentedString(successFeePersonal)).append("\n");
+    sb.append("    migration: ").append(toIndentedString(migration)).append("\n");
+    sb.append("    signalSubscription: ").append(toIndentedString(signalSubscription)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(isOwnAsset);
+    out.writeValue(isFavorite);
+    out.writeValue(isReinvest);
+    out.writeValue(isInvested);
+    out.writeValue(canClose);
+    out.writeValue(canClosePeriod);
+    out.writeValue(canInvest);
+    out.writeValue(canWithdraw);
+    out.writeValue(canMakeSignalProvider);
+    out.writeValue(canChangePassword);
+    out.writeValue(hasNotifications);
+    out.writeValue(showTwoFactorButton);
+    out.writeValue(value);
+    out.writeValue(profit);
+    out.writeValue(invested);
+    out.writeValue(pendingInput);
+    out.writeValue(pendingOutput);
+    out.writeValue(pendingOutputIsWithdrawAll);
+    out.writeValue(status);
+    out.writeValue(successFeePersonal);
+    out.writeValue(migration);
+    out.writeValue(signalSubscription);
+  }
+
+  public int describeContents() {
+    return 0;
+  }
 }

@@ -20,39 +20,40 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
- * TransactionDetail
+ * ButtonAction
  */
 
 
-public class TransactionDetail implements Parcelable
+public class ButtonAction implements Parcelable
 {
-	public static final Parcelable.Creator<TransactionDetail> CREATOR = new Parcelable.Creator<TransactionDetail>()
+	public static final Parcelable.Creator<ButtonAction> CREATOR = new Parcelable.Creator<ButtonAction>()
 	{
-		public TransactionDetail createFromParcel(Parcel in) {
-			return new TransactionDetail(in);
+		public ButtonAction createFromParcel(Parcel in) {
+			return new ButtonAction(in);
 		}
 
-		public TransactionDetail[] newArray(int size) {
-			return new TransactionDetail[size];
+		public ButtonAction[] newArray(int size) {
+			return new ButtonAction[size];
 		}
 	};
 
 	@SerializedName("title")
 	private String title = null;
 
-	@SerializedName("details")
-	private String details = null;
+	@SerializedName("url")
+	private String url = null;
 
-	public TransactionDetail() {
+	public ButtonAction() {
 	}
 
-	TransactionDetail(Parcel in) {
+	ButtonAction(Parcel in) {
 		title = (String) in.readValue(null);
-		details = (String) in.readValue(null);
+		url = (String) in.readValue(null);
 	}
 
-	public TransactionDetail title(String title) {
+	public ButtonAction title(String title) {
 		this.title = title;
 		return this;
 	}
@@ -71,23 +72,23 @@ public class TransactionDetail implements Parcelable
 		this.title = title;
 	}
 
-	public TransactionDetail details(String details) {
-		this.details = details;
+	public ButtonAction url(String url) {
+		this.url = url;
 		return this;
 	}
 
 	/**
-	 * Get details
+	 * Get url
 	 *
-	 * @return details
+	 * @return url
 	 **/
 	@Schema(description = "")
-	public String getDetails() {
-		return details;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setDetails(String details) {
-		this.details = details;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	@Override
@@ -98,23 +99,23 @@ public class TransactionDetail implements Parcelable
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		TransactionDetail transactionDetail = (TransactionDetail) o;
-		return Objects.equals(this.title, transactionDetail.title) &&
-				Objects.equals(this.details, transactionDetail.details);
+		ButtonAction buttonAction = (ButtonAction) o;
+		return Objects.equals(this.title, buttonAction.title) &&
+				Objects.equals(this.url, buttonAction.url);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, details);
+		return Objects.hash(title, url);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class TransactionDetail {\n");
+		sb.append("class ButtonAction {\n");
 
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    details: ").append(toIndentedString(details)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -132,7 +133,7 @@ public class TransactionDetail implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
-		out.writeValue(details);
+		out.writeValue(url);
 	}
 
 	public int describeContents() {

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import io.swagger.client.model.ChartSimple;
+import io.swagger.client.model.SimpleChartPoint;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -154,15 +154,15 @@ public class ProfitSmallChartView extends com.github.mikephil.charting.charts.Li
 //		this.invalidate();
 //	}
 
-	public void setChart(List<ChartSimple> charts) {
-		if (charts == null || charts.size() <= 1) {
+	public void setChart(List<SimpleChartPoint> chart) {
+		if (chart == null || chart.size() <= 1) {
 			this.clear();
 			return;
 		}
 		List<Entry> lineEntries = new ArrayList<>();
 		float index = 0;
-		for (ChartSimple chart : charts) {
-			lineEntries.add(new Entry(index, chart.getValue().floatValue()));
+		for (SimpleChartPoint point : chart) {
+			lineEntries.add(new Entry(index, point.getValue().floatValue()));
 			index++;
 		}
 

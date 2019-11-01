@@ -2,13 +2,10 @@ package vision.genesis.clientapp.feature.main;
 
 import com.arellomobile.mvp.MvpView;
 
-import org.joda.time.DateTime;
-
-import java.util.UUID;
-
 import io.swagger.client.model.FundFacet;
 import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.ProgramFacet;
+import io.swagger.client.model.TransactionViewModel;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.model.AppUpdateModel;
@@ -73,7 +70,7 @@ public interface MainView extends MvpView
 
 	void showCopytradingAccountDetails(CopytradingAccountModel model);
 
-	void showTransactionDetails(UUID transactionId, String transactionType, DateTime transactionDate);
+	void showTransactionDetails(TransactionViewModel transaction);
 
 	void showManagerDetails(ManagerDetailsModel model);
 

@@ -9,4 +9,6 @@ Name | Type | Description | Notes
 **description** | **String** |  |  [optional]
 **amount** | [**AmountRowCell**](AmountRowCell.md) |  |  [optional]
 **asset** | [**AssetDetails**](AssetDetails.md) |  |  [optional]
+**external** | [**ExternalDetails**](ExternalDetails.md) |  |  [optional]
+**buttons** | [**List&lt;ButtonAction&gt;**](ButtonAction.md) |  |  [optional]
 **details** | [**List&lt;TransactionDetail&gt;**](TransactionDetail.md) |  |  [optional]

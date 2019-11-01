@@ -1,8 +1,6 @@
 package vision.genesis.clientapp.model.events;
 
-import org.joda.time.DateTime;
-
-import java.util.UUID;
+import io.swagger.client.model.TransactionViewModel;
 
 /**
  * GenesisVisionAndroid
@@ -10,27 +8,13 @@ import java.util.UUID;
  */
 public class ShowTransactionDetailsEvent
 {
-	private final UUID transactionId;
+	private final TransactionViewModel transaction;
 
-	private final String transactionType;
-
-	private DateTime transactionDate;
-
-	public ShowTransactionDetailsEvent(UUID transactionId, String transactionType, DateTime transactionDate) {
-		this.transactionId = transactionId;
-		this.transactionType = transactionType;
-		this.transactionDate = transactionDate;
+	public ShowTransactionDetailsEvent(TransactionViewModel transaction) {
+		this.transaction = transaction;
 	}
 
-	public UUID getTransactionId() {
-		return transactionId;
-	}
-
-	public String getTransactionType() {
-		return transactionType;
-	}
-
-	public DateTime getTransactionDate() {
-		return transactionDate;
+	public TransactionViewModel getTransaction() {
+		return transaction;
 	}
 }

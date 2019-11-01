@@ -47,6 +47,9 @@ public class PlatformInfo implements Parcelable
 	@SerializedName("assetInfo")
 	private AssetPlatformInfo assetInfo = null;
 
+	@SerializedName("commonInfo")
+	private PlatformCommonInfo commonInfo = null;
+
 	public PlatformInfo() {
 	}
 
@@ -54,6 +57,7 @@ public class PlatformInfo implements Parcelable
 		appVersionInfo = (AppVersion) in.readValue(AppVersion.class.getClassLoader());
 		filters = (FilterInfo) in.readValue(FilterInfo.class.getClassLoader());
 		assetInfo = (AssetPlatformInfo) in.readValue(AssetPlatformInfo.class.getClassLoader());
+		commonInfo = (PlatformCommonInfo) in.readValue(PlatformCommonInfo.class.getClassLoader());
 	}
 
 	public PlatformInfo appVersionInfo(AppVersion appVersionInfo) {
@@ -113,6 +117,25 @@ public class PlatformInfo implements Parcelable
 		this.assetInfo = assetInfo;
 	}
 
+	public PlatformInfo commonInfo(PlatformCommonInfo commonInfo) {
+		this.commonInfo = commonInfo;
+		return this;
+	}
+
+	/**
+	 * Get commonInfo
+	 *
+	 * @return commonInfo
+	 **/
+	@Schema(description = "")
+	public PlatformCommonInfo getCommonInfo() {
+		return commonInfo;
+	}
+
+	public void setCommonInfo(PlatformCommonInfo commonInfo) {
+		this.commonInfo = commonInfo;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -124,12 +147,13 @@ public class PlatformInfo implements Parcelable
 		PlatformInfo platformInfo = (PlatformInfo) o;
 		return Objects.equals(this.appVersionInfo, platformInfo.appVersionInfo) &&
 				Objects.equals(this.filters, platformInfo.filters) &&
-				Objects.equals(this.assetInfo, platformInfo.assetInfo);
+				Objects.equals(this.assetInfo, platformInfo.assetInfo) &&
+				Objects.equals(this.commonInfo, platformInfo.commonInfo);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(appVersionInfo, filters, assetInfo);
+		return Objects.hash(appVersionInfo, filters, assetInfo, commonInfo);
 	}
 
 	@Override
@@ -140,6 +164,7 @@ public class PlatformInfo implements Parcelable
 		sb.append("    appVersionInfo: ").append(toIndentedString(appVersionInfo)).append("\n");
 		sb.append("    filters: ").append(toIndentedString(filters)).append("\n");
 		sb.append("    assetInfo: ").append(toIndentedString(assetInfo)).append("\n");
+		sb.append("    commonInfo: ").append(toIndentedString(commonInfo)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -159,6 +184,7 @@ public class PlatformInfo implements Parcelable
 		out.writeValue(appVersionInfo);
 		out.writeValue(filters);
 		out.writeValue(assetInfo);
+		out.writeValue(commonInfo);
 	}
 
 	public int describeContents() {

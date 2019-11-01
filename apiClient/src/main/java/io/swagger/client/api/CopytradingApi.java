@@ -15,10 +15,10 @@ public interface CopytradingApi
 	 *
 	 * @param authorization     (optional)
 	 * @param tags              (optional)
+	 * @param showIn            (optional)
 	 * @param statisticDateFrom (optional)
 	 * @param statisticDateTo   (optional)
 	 * @param chartPointsCount  (optional)
-	 * @param chartCurrency     (optional)
 	 * @param facetId           (optional)
 	 * @param mask              (optional)
 	 * @param skip              (optional)
@@ -27,7 +27,7 @@ public interface CopytradingApi
 	 */
 	@GET("v2.0/copytrading")
 	Observable<ItemsViewModelCopyTradingAccountInfo> getSignalAssets(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Tags") List<String> tags, @retrofit2.http.Query("StatisticDateFrom") DateTime statisticDateFrom, @retrofit2.http.Query("StatisticDateTo") DateTime statisticDateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("ChartCurrency") String chartCurrency, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Tags") List<String> tags, @retrofit2.http.Query("ShowIn") String showIn, @retrofit2.http.Query("StatisticDateFrom") DateTime statisticDateFrom, @retrofit2.http.Query("StatisticDateTo") DateTime statisticDateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 }

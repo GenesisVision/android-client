@@ -6,6 +6,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -15,13 +19,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.swagger.client.model.MultiWalletExternalTransaction;
-import io.swagger.client.model.TransactionDetails;
+import io.swagger.client.model.MultiWalletTransactionStatus;
+import io.swagger.client.model.TransactionViewModel;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowTransactionDetailsEvent;
@@ -37,7 +38,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class ExternalTransactionsListAdapter extends RecyclerView.Adapter<ExternalTransactionsListAdapter.TransactionViewHolder>
 {
-	public List<MultiWalletExternalTransaction> transactions = new ArrayList<>();
+	public List<TransactionViewModel> transactions = new ArrayList<>();
 
 	@NonNull
 	@Override
@@ -57,21 +58,21 @@ public class ExternalTransactionsListAdapter extends RecyclerView.Adapter<Extern
 		return transactions.size();
 	}
 
-	void setTransactions(List<MultiWalletExternalTransaction> transactions) {
+	void setTransactions(List<TransactionViewModel> transactions) {
 		this.transactions.clear();
 		this.transactions.addAll(transactions);
 		notifyDataSetChanged();
 	}
 
-	void addTransactions(List<MultiWalletExternalTransaction> transactions) {
+	void addTransactions(List<TransactionViewModel> transactions) {
 		this.transactions.addAll(transactions);
 		notifyDataSetChanged();
 	}
 
 	public void setStatusCanceled(UUID transactionId) {
-		for (MultiWalletExternalTransaction transaction : transactions) {
+		for (TransactionViewModel transaction : transactions) {
 			if (transaction.getId().equals(transactionId)) {
-				transaction.setStatus(TransactionDetails.StatusEnum.CANCELED.getValue());
+				transaction.setStatus(MultiWalletTransactionStatus.CANCELED);
 				notifyItemChanged(transactions.indexOf(transaction));
 				break;
 			}
@@ -95,7 +96,7 @@ public class ExternalTransactionsListAdapter extends RecyclerView.Adapter<Extern
 		@BindView(R.id.icon_status)
 		public ImageView statusIcon;
 
-		private MultiWalletExternalTransaction transaction;
+		private TransactionViewModel transaction;
 
 		TransactionViewHolder(View itemView) {
 			super(itemView);
@@ -105,8 +106,9 @@ public class ExternalTransactionsListAdapter extends RecyclerView.Adapter<Extern
 			setFonts();
 
 			itemView.setOnClickListener(v -> {
-				if (transaction != null)
-					EventBus.getDefault().post(new ShowTransactionDetailsEvent(transaction.getId(), transaction.getType().getValue(), transaction.getDate()));
+				if (transaction != null) {
+					EventBus.getDefault().post(new ShowTransactionDetailsEvent(transaction));
+				}
 			});
 		}
 
@@ -115,7 +117,7 @@ public class ExternalTransactionsListAdapter extends RecyclerView.Adapter<Extern
 			status.setTypeface(TypefaceUtil.semibold());
 		}
 
-		void setTransaction(MultiWalletExternalTransaction transaction) {
+		void setTransaction(TransactionViewModel transaction) {
 			this.transaction = transaction;
 			updateData();
 		}

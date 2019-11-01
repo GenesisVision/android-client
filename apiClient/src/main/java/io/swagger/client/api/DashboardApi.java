@@ -33,11 +33,12 @@ public interface DashboardApi
 	/**
 	 * @param authorization JWT access token (required)
 	 * @param currency      (optional)
+	 * @param eventsTake    (optional)
 	 * @return Call&lt;DashboardInvestingDetails&gt;
 	 */
 	@GET("v2.0/dashboard/investing")
 	Observable<DashboardInvestingDetails> getInvestingDetails(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currency") String currency
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currency") String currency, @retrofit2.http.Query("eventsTake") Integer eventsTake
 	);
 
 	/**
@@ -76,11 +77,12 @@ public interface DashboardApi
 	/**
 	 * @param authorization JWT access token (required)
 	 * @param currency      (optional)
+	 * @param eventsTake    (optional)
 	 * @return Call&lt;DashboardTradingDetails&gt;
 	 */
 	@GET("v2.0/dashboard/trading")
 	Observable<DashboardTradingDetails> getTradingDetails(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currency") String currency
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currency") String currency, @retrofit2.http.Query("eventsTake") Integer eventsTake
 	);
 
 }

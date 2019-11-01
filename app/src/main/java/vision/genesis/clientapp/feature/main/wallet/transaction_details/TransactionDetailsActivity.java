@@ -15,7 +15,6 @@ import org.joda.time.DateTime;
 
 import java.util.Locale;
 import java.util.Objects;
-import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +22,7 @@ import butterknife.OnClick;
 import io.swagger.client.model.ProgramTransactionDetails;
 import io.swagger.client.model.SignalFee;
 import io.swagger.client.model.TransactionDetails;
+import io.swagger.client.model.TransactionViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -47,17 +47,11 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class TransactionDetailsActivity extends BaseSwipeBackActivity implements TransactionDetailsView
 {
-	private static final String EXTRA_TRANSACTION_ID = "extra_transaction_id";
+	private static final String EXTRA_TRANSACTION = "extra_transaction";
 
-	private static final String EXTRA_TRANSACTION_TYPE = "extra_transaction_type";
-
-	private static final String EXTRA_TRANSACTION_DATE = "extra_transaction_date";
-
-	public static void startWith(Activity activity, UUID transactionId, String transactionType, DateTime transactionDate) {
+	public static void startWith(Activity activity, TransactionViewModel transaction) {
 		Intent intent = new Intent(activity.getApplicationContext(), TransactionDetailsActivity.class);
-		intent.putExtra(EXTRA_TRANSACTION_ID, transactionId);
-		intent.putExtra(EXTRA_TRANSACTION_TYPE, transactionType);
-		intent.putExtra(EXTRA_TRANSACTION_DATE, transactionDate);
+		intent.putExtra(EXTRA_TRANSACTION, transaction);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
@@ -80,7 +74,7 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 	@InjectPresenter
 	TransactionDetailsPresenter transactionDetailsPresenter;
 
-	private TransactionDetails details;
+	private TransactionViewModel transaction;
 
 	private ButtonsView buttonsView;
 
@@ -99,7 +93,7 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 		ButterKnife.bind(this);
 
 		if (getIntent().getExtras() != null) {
-			transactionDetailsPresenter.setTransactionId((UUID) getIntent().getExtras().getSerializable(EXTRA_TRANSACTION_ID));
+			transactionDetailsPresenter.setTransaction(getIntent().getExtras().getParcelable(EXTRA_TRANSACTION));
 			setTransactionType(Objects.requireNonNull(getIntent().getExtras().getString(EXTRA_TRANSACTION_TYPE)));
 			setDate((DateTime) getIntent().getExtras().getSerializable(EXTRA_TRANSACTION_DATE));
 
@@ -133,7 +127,7 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 	}
 
 	@Override
-	public void setDetails(TransactionDetails details) {
+	public void setDetails(TransactionViewModel details) {
 		this.details = details;
 		switch (details.getType()) {
 			case INVESTING:

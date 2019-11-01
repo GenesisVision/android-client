@@ -20,7 +20,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * PersonalProgramDetailsList
  */
@@ -39,8 +38,8 @@ public class PersonalProgramDetailsList implements Parcelable
 		}
 	};
 
-	@SerializedName("isOwnProgram")
-	private Boolean isOwnProgram = null;
+	@SerializedName("isOwnAsset")
+	private Boolean isOwnAsset = null;
 
 	@SerializedName("isFavorite")
 	private Boolean isFavorite = null;
@@ -49,27 +48,27 @@ public class PersonalProgramDetailsList implements Parcelable
 	}
 
 	PersonalProgramDetailsList(Parcel in) {
-		isOwnProgram = (Boolean) in.readValue(null);
+		isOwnAsset = (Boolean) in.readValue(null);
 		isFavorite = (Boolean) in.readValue(null);
 	}
 
-	public PersonalProgramDetailsList isOwnProgram(Boolean isOwnProgram) {
-		this.isOwnProgram = isOwnProgram;
+	public PersonalProgramDetailsList isOwnAsset(Boolean isOwnAsset) {
+		this.isOwnAsset = isOwnAsset;
 		return this;
 	}
 
 	/**
-	 * Get isOwnProgram
+	 * Get isOwnAsset
 	 *
-	 * @return isOwnProgram
+	 * @return isOwnAsset
 	 **/
 	@Schema(description = "")
-	public Boolean isIsOwnProgram() {
-		return isOwnProgram;
+	public Boolean isIsOwnAsset() {
+		return isOwnAsset;
 	}
 
-	public void setIsOwnProgram(Boolean isOwnProgram) {
-		this.isOwnProgram = isOwnProgram;
+	public void setIsOwnAsset(Boolean isOwnAsset) {
+		this.isOwnAsset = isOwnAsset;
 	}
 
 	public PersonalProgramDetailsList isFavorite(Boolean isFavorite) {
@@ -100,13 +99,13 @@ public class PersonalProgramDetailsList implements Parcelable
 			return false;
 		}
 		PersonalProgramDetailsList personalProgramDetailsList = (PersonalProgramDetailsList) o;
-		return Objects.equals(this.isOwnProgram, personalProgramDetailsList.isOwnProgram) &&
+		return Objects.equals(this.isOwnAsset, personalProgramDetailsList.isOwnAsset) &&
 				Objects.equals(this.isFavorite, personalProgramDetailsList.isFavorite);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isOwnProgram, isFavorite);
+		return Objects.hash(isOwnAsset, isFavorite);
 	}
 
 	@Override
@@ -114,7 +113,7 @@ public class PersonalProgramDetailsList implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class PersonalProgramDetailsList {\n");
 
-		sb.append("    isOwnProgram: ").append(toIndentedString(isOwnProgram)).append("\n");
+		sb.append("    isOwnAsset: ").append(toIndentedString(isOwnAsset)).append("\n");
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -132,7 +131,7 @@ public class PersonalProgramDetailsList implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(isOwnProgram);
+		out.writeValue(isOwnAsset);
 		out.writeValue(isFavorite);
 	}
 

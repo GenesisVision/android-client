@@ -32,435 +32,539 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramDetailsList implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramDetailsList> CREATOR = new Parcelable.Creator<ProgramDetailsList>()
-	{
-		public ProgramDetailsList createFromParcel(Parcel in) {
-			return new ProgramDetailsList(in);
-		}
-
-		public ProgramDetailsList[] newArray(int size) {
-			return new ProgramDetailsList[size];
-		}
-	};
-
-	@SerializedName("id")
-	private UUID id = null;
-
-	@SerializedName("logo")
-	private String logo = null;
-
-	@SerializedName("url")
-	private String url = null;
-
-	@SerializedName("color")
-	private String color = null;
-
-	@SerializedName("title")
-	private String title = null;
-
-	@SerializedName("creationDate")
-	private DateTime creationDate = null;
-
-	@SerializedName("currency")
-	private Currency currency = null;
-
-	@SerializedName("level")
-	private Integer level = null;
-
-	@SerializedName("levelProgress")
-	private Double levelProgress = null;
-
-	@SerializedName("periodDuration")
-	private Integer periodDuration = null;
-
-	@SerializedName("availableToInvest")
-	private Double availableToInvest = null;
-
-	@SerializedName("personalDetails")
-	private PersonalProgramDetailsList personalDetails = null;
-
-	@SerializedName("tags")
-	private List<ProgramTag> tags = null;
-
-	@SerializedName("chart")
-	private ProfitChart chart = null;
-
-	public ProgramDetailsList() {
-	}
-
-	ProgramDetailsList(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		logo = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		title = (String) in.readValue(null);
-		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		level = (Integer) in.readValue(null);
-		levelProgress = (Double) in.readValue(null);
-		periodDuration = (Integer) in.readValue(null);
-		availableToInvest = (Double) in.readValue(null);
-		personalDetails = (PersonalProgramDetailsList) in.readValue(PersonalProgramDetailsList.class.getClassLoader());
-		tags = (List<ProgramTag>) in.readValue(ProgramTag.class.getClassLoader());
-		chart = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
-	}
-
-	public ProgramDetailsList id(UUID id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@Schema(description = "")
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public ProgramDetailsList logo(String logo) {
-		this.logo = logo;
-		return this;
-	}
-
-	/**
-	 * Get logo
-	 *
-	 * @return logo
-	 **/
-	@Schema(description = "")
-	public String getLogo() {
-		return logo;
-	}
-
-	public void setLogo(String logo) {
-		this.logo = logo;
-	}
-
-	public ProgramDetailsList url(String url) {
-		this.url = url;
-		return this;
-	}
-
-	/**
-	 * Get url
-	 *
-	 * @return url
-	 **/
-	@Schema(description = "")
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public ProgramDetailsList color(String color) {
-		this.color = color;
-		return this;
-	}
-
-	/**
-	 * Get color
-	 *
-	 * @return color
-	 **/
-	@Schema(description = "")
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-	public ProgramDetailsList title(String title) {
-		this.title = title;
-		return this;
-	}
-
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@Schema(description = "")
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public ProgramDetailsList creationDate(DateTime creationDate) {
-		this.creationDate = creationDate;
-		return this;
-	}
-
-	/**
-	 * Get creationDate
-	 *
-	 * @return creationDate
-	 **/
-	@Schema(description = "")
-	public DateTime getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(DateTime creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public ProgramDetailsList currency(Currency currency) {
-		this.currency = currency;
-		return this;
-	}
-
-	/**
-	 * Get currency
-	 *
-	 * @return currency
-	 **/
-	@Schema(description = "")
-	public Currency getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(Currency currency) {
-		this.currency = currency;
-	}
-
-	public ProgramDetailsList level(Integer level) {
-		this.level = level;
-		return this;
-	}
-
-	/**
-	 * Get level
-	 *
-	 * @return level
-	 **/
-	@Schema(description = "")
-	public Integer getLevel() {
-		return level;
-	}
-
-	public void setLevel(Integer level) {
-		this.level = level;
-	}
-
-	public ProgramDetailsList levelProgress(Double levelProgress) {
-		this.levelProgress = levelProgress;
-		return this;
-	}
-
-	/**
-	 * Get levelProgress
-	 *
-	 * @return levelProgress
-	 **/
-	@Schema(description = "")
-	public Double getLevelProgress() {
-		return levelProgress;
-	}
-
-	public void setLevelProgress(Double levelProgress) {
-		this.levelProgress = levelProgress;
-	}
-
-	public ProgramDetailsList periodDuration(Integer periodDuration) {
-		this.periodDuration = periodDuration;
-		return this;
-	}
-
-	/**
-	 * Get periodDuration
-	 *
-	 * @return periodDuration
-	 **/
-	@Schema(description = "")
-	public Integer getPeriodDuration() {
-		return periodDuration;
-	}
-
-	public void setPeriodDuration(Integer periodDuration) {
-		this.periodDuration = periodDuration;
-	}
-
-	public ProgramDetailsList availableToInvest(Double availableToInvest) {
-		this.availableToInvest = availableToInvest;
-		return this;
-	}
-
-	/**
-	 * Get availableToInvest
-	 *
-	 * @return availableToInvest
-	 **/
-	@Schema(description = "")
-	public Double getAvailableToInvest() {
-		return availableToInvest;
-	}
-
-	public void setAvailableToInvest(Double availableToInvest) {
-		this.availableToInvest = availableToInvest;
-	}
-
-	public ProgramDetailsList personalDetails(PersonalProgramDetailsList personalDetails) {
-		this.personalDetails = personalDetails;
-		return this;
-	}
-
-	/**
-	 * Get personalDetails
-	 *
-	 * @return personalDetails
-	 **/
-	@Schema(description = "")
-	public PersonalProgramDetailsList getPersonalDetails() {
-		return personalDetails;
-	}
-
-	public void setPersonalDetails(PersonalProgramDetailsList personalDetails) {
-		this.personalDetails = personalDetails;
-	}
-
-	public ProgramDetailsList tags(List<ProgramTag> tags) {
-		this.tags = tags;
-		return this;
-	}
-
-	public ProgramDetailsList addTagsItem(ProgramTag tagsItem) {
-		if (this.tags == null) {
-			this.tags = new ArrayList<ProgramTag>();
-		}
-		this.tags.add(tagsItem);
-		return this;
-	}
-
-	/**
-	 * Get tags
-	 *
-	 * @return tags
-	 **/
-	@Schema(description = "")
-	public List<ProgramTag> getTags() {
-		return tags;
-	}
-
-	public void setTags(List<ProgramTag> tags) {
-		this.tags = tags;
-	}
-
-	public ProgramDetailsList chart(ProfitChart chart) {
-		this.chart = chart;
-		return this;
-	}
-
-	/**
-	 * Get chart
-	 *
-	 * @return chart
-	 **/
-	@Schema(description = "")
-	public ProfitChart getChart() {
-		return chart;
-	}
-
-	public void setChart(ProfitChart chart) {
-		this.chart = chart;
-	}
-
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		ProgramDetailsList programDetailsList = (ProgramDetailsList) o;
-		return Objects.equals(this.id, programDetailsList.id) &&
-				Objects.equals(this.logo, programDetailsList.logo) &&
-				Objects.equals(this.url, programDetailsList.url) &&
-				Objects.equals(this.color, programDetailsList.color) &&
-				Objects.equals(this.title, programDetailsList.title) &&
-				Objects.equals(this.creationDate, programDetailsList.creationDate) &&
-				Objects.equals(this.currency, programDetailsList.currency) &&
-				Objects.equals(this.level, programDetailsList.level) &&
-				Objects.equals(this.levelProgress, programDetailsList.levelProgress) &&
-				Objects.equals(this.periodDuration, programDetailsList.periodDuration) &&
-				Objects.equals(this.availableToInvest, programDetailsList.availableToInvest) &&
-				Objects.equals(this.personalDetails, programDetailsList.personalDetails) &&
-				Objects.equals(this.tags, programDetailsList.tags) &&
-				Objects.equals(this.chart, programDetailsList.chart);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, logo, url, color, title, creationDate, currency, level, levelProgress, periodDuration, availableToInvest, personalDetails, tags, chart);
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ProgramDetailsList {\n");
-
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
-		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("    color: ").append(toIndentedString(color)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
-		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-		sb.append("    level: ").append(toIndentedString(level)).append("\n");
-		sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
-		sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
-		sb.append("    availableToInvest: ").append(toIndentedString(availableToInvest)).append("\n");
-		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
-		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
-		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
-
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
-
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(id);
-		out.writeValue(logo);
-		out.writeValue(url);
-		out.writeValue(color);
-		out.writeValue(title);
-		out.writeValue(creationDate);
-		out.writeValue(currency);
-		out.writeValue(level);
-		out.writeValue(levelProgress);
-		out.writeValue(periodDuration);
-		out.writeValue(availableToInvest);
-		out.writeValue(personalDetails);
-		out.writeValue(tags);
-		out.writeValue(chart);
-	}
-
-	public int describeContents() {
-		return 0;
-	}
+  public static final Parcelable.Creator<ProgramDetailsList> CREATOR = new Parcelable.Creator<ProgramDetailsList>()
+  {
+    public ProgramDetailsList createFromParcel(Parcel in) {
+      return new ProgramDetailsList(in);
+    }
+
+    public ProgramDetailsList[] newArray(int size) {
+      return new ProgramDetailsList[size];
+    }
+  };
+
+  @SerializedName("id")
+  private UUID id = null;
+
+  @SerializedName("logo")
+  private String logo = null;
+
+  @SerializedName("url")
+  private String url = null;
+
+  @SerializedName("color")
+  private String color = null;
+
+  @SerializedName("title")
+  private String title = null;
+
+  @SerializedName("creationDate")
+  private DateTime creationDate = null;
+
+  @SerializedName("currency")
+  private Currency currency = null;
+
+  @SerializedName("level")
+  private Integer level = null;
+
+  @SerializedName("levelProgress")
+  private Double levelProgress = null;
+
+  @SerializedName("periodDuration")
+  private Integer periodDuration = null;
+
+  @SerializedName("availableToInvest")
+  private Double availableToInvest = null;
+
+  @SerializedName("investorsCount")
+  private Integer investorsCount = null;
+
+  @SerializedName("periodStarts")
+  private DateTime periodStarts = null;
+
+  @SerializedName("periodEnds")
+  private DateTime periodEnds = null;
+
+  @SerializedName("personalDetails")
+  private PersonalProgramDetailsList personalDetails = null;
+
+  @SerializedName("tags")
+  private List<ProgramTag> tags = null;
+
+  @SerializedName("chart")
+  private ProfitChart chart = null;
+
+  @SerializedName("balance")
+  private AmountWithCurrency balance = null;
+
+  public ProgramDetailsList() {
+  }
+
+  ProgramDetailsList(Parcel in) {
+    id = (UUID) in.readValue(UUID.class.getClassLoader());
+    logo = (String) in.readValue(null);
+    url = (String) in.readValue(null);
+    color = (String) in.readValue(null);
+    title = (String) in.readValue(null);
+    creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+    currency = (Currency) in.readValue(Currency.class.getClassLoader());
+    level = (Integer) in.readValue(null);
+    levelProgress = (Double) in.readValue(null);
+    periodDuration = (Integer) in.readValue(null);
+    availableToInvest = (Double) in.readValue(null);
+    investorsCount = (Integer) in.readValue(null);
+    periodStarts = (DateTime) in.readValue(DateTime.class.getClassLoader());
+    periodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
+    personalDetails = (PersonalProgramDetailsList) in.readValue(PersonalProgramDetailsList.class.getClassLoader());
+    tags = (List<ProgramTag>) in.readValue(ProgramTag.class.getClassLoader());
+    chart = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
+    balance = (AmountWithCurrency) in.readValue(AmountWithCurrency.class.getClassLoader());
+  }
+
+  public ProgramDetailsList id(UUID id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   *
+   * @return id
+   **/
+  @Schema(description = "")
+  public UUID getId() {
+    return id;
+  }
+
+  public void setId(UUID id) {
+    this.id = id;
+  }
+
+  public ProgramDetailsList logo(String logo) {
+    this.logo = logo;
+    return this;
+  }
+
+  /**
+   * Get logo
+   *
+   * @return logo
+   **/
+  @Schema(description = "")
+  public String getLogo() {
+    return logo;
+  }
+
+  public void setLogo(String logo) {
+    this.logo = logo;
+  }
+
+  public ProgramDetailsList url(String url) {
+    this.url = url;
+    return this;
+  }
+
+  /**
+   * Get url
+   *
+   * @return url
+   **/
+  @Schema(description = "")
+  public String getUrl() {
+    return url;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
+  }
+
+  public ProgramDetailsList color(String color) {
+    this.color = color;
+    return this;
+  }
+
+  /**
+   * Get color
+   *
+   * @return color
+   **/
+  @Schema(description = "")
+  public String getColor() {
+    return color;
+  }
+
+  public void setColor(String color) {
+    this.color = color;
+  }
+
+  public ProgramDetailsList title(String title) {
+    this.title = title;
+    return this;
+  }
+
+  /**
+   * Get title
+   *
+   * @return title
+   **/
+  @Schema(description = "")
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public ProgramDetailsList creationDate(DateTime creationDate) {
+    this.creationDate = creationDate;
+    return this;
+  }
+
+  /**
+   * Get creationDate
+   *
+   * @return creationDate
+   **/
+  @Schema(description = "")
+  public DateTime getCreationDate() {
+    return creationDate;
+  }
+
+  public void setCreationDate(DateTime creationDate) {
+    this.creationDate = creationDate;
+  }
+
+  public ProgramDetailsList currency(Currency currency) {
+    this.currency = currency;
+    return this;
+  }
+
+  /**
+   * Get currency
+   *
+   * @return currency
+   **/
+  @Schema(description = "")
+  public Currency getCurrency() {
+    return currency;
+  }
+
+  public void setCurrency(Currency currency) {
+    this.currency = currency;
+  }
+
+  public ProgramDetailsList level(Integer level) {
+    this.level = level;
+    return this;
+  }
+
+  /**
+   * Get level
+   *
+   * @return level
+   **/
+  @Schema(description = "")
+  public Integer getLevel() {
+    return level;
+  }
+
+  public void setLevel(Integer level) {
+    this.level = level;
+  }
+
+  public ProgramDetailsList levelProgress(Double levelProgress) {
+    this.levelProgress = levelProgress;
+    return this;
+  }
+
+  /**
+   * Get levelProgress
+   *
+   * @return levelProgress
+   **/
+  @Schema(description = "")
+  public Double getLevelProgress() {
+    return levelProgress;
+  }
+
+  public void setLevelProgress(Double levelProgress) {
+    this.levelProgress = levelProgress;
+  }
+
+  public ProgramDetailsList periodDuration(Integer periodDuration) {
+    this.periodDuration = periodDuration;
+    return this;
+  }
+
+  /**
+   * Get periodDuration
+   *
+   * @return periodDuration
+   **/
+  @Schema(description = "")
+  public Integer getPeriodDuration() {
+    return periodDuration;
+  }
+
+  public void setPeriodDuration(Integer periodDuration) {
+    this.periodDuration = periodDuration;
+  }
+
+  public ProgramDetailsList availableToInvest(Double availableToInvest) {
+    this.availableToInvest = availableToInvest;
+    return this;
+  }
+
+  /**
+   * Get availableToInvest
+   *
+   * @return availableToInvest
+   **/
+  @Schema(description = "")
+  public Double getAvailableToInvest() {
+    return availableToInvest;
+  }
+
+  public void setAvailableToInvest(Double availableToInvest) {
+    this.availableToInvest = availableToInvest;
+  }
+
+  public ProgramDetailsList investorsCount(Integer investorsCount) {
+    this.investorsCount = investorsCount;
+    return this;
+  }
+
+  /**
+   * Get investorsCount
+   *
+   * @return investorsCount
+   **/
+  @Schema(description = "")
+  public Integer getInvestorsCount() {
+    return investorsCount;
+  }
+
+  public void setInvestorsCount(Integer investorsCount) {
+    this.investorsCount = investorsCount;
+  }
+
+  public ProgramDetailsList periodStarts(DateTime periodStarts) {
+    this.periodStarts = periodStarts;
+    return this;
+  }
+
+  /**
+   * Get periodStarts
+   *
+   * @return periodStarts
+   **/
+  @Schema(description = "")
+  public DateTime getPeriodStarts() {
+    return periodStarts;
+  }
+
+  public void setPeriodStarts(DateTime periodStarts) {
+    this.periodStarts = periodStarts;
+  }
+
+  public ProgramDetailsList periodEnds(DateTime periodEnds) {
+    this.periodEnds = periodEnds;
+    return this;
+  }
+
+  /**
+   * Get periodEnds
+   *
+   * @return periodEnds
+   **/
+  @Schema(description = "")
+  public DateTime getPeriodEnds() {
+    return periodEnds;
+  }
+
+  public void setPeriodEnds(DateTime periodEnds) {
+    this.periodEnds = periodEnds;
+  }
+
+  public ProgramDetailsList personalDetails(PersonalProgramDetailsList personalDetails) {
+    this.personalDetails = personalDetails;
+    return this;
+  }
+
+  /**
+   * Get personalDetails
+   *
+   * @return personalDetails
+   **/
+  @Schema(description = "")
+  public PersonalProgramDetailsList getPersonalDetails() {
+    return personalDetails;
+  }
+
+  public void setPersonalDetails(PersonalProgramDetailsList personalDetails) {
+    this.personalDetails = personalDetails;
+  }
+
+  public ProgramDetailsList tags(List<ProgramTag> tags) {
+    this.tags = tags;
+    return this;
+  }
+
+  public ProgramDetailsList addTagsItem(ProgramTag tagsItem) {
+    if (this.tags == null) {
+      this.tags = new ArrayList<ProgramTag>();
+    }
+    this.tags.add(tagsItem);
+    return this;
+  }
+
+  /**
+   * Get tags
+   *
+   * @return tags
+   **/
+  @Schema(description = "")
+  public List<ProgramTag> getTags() {
+    return tags;
+  }
+
+  public void setTags(List<ProgramTag> tags) {
+    this.tags = tags;
+  }
+
+  public ProgramDetailsList chart(ProfitChart chart) {
+    this.chart = chart;
+    return this;
+  }
+
+  /**
+   * Get chart
+   *
+   * @return chart
+   **/
+  @Schema(description = "")
+  public ProfitChart getChart() {
+    return chart;
+  }
+
+  public void setChart(ProfitChart chart) {
+    this.chart = chart;
+  }
+
+  public ProgramDetailsList balance(AmountWithCurrency balance) {
+    this.balance = balance;
+    return this;
+  }
+
+  /**
+   * Get balance
+   *
+   * @return balance
+   **/
+  @Schema(description = "")
+  public AmountWithCurrency getBalance() {
+    return balance;
+  }
+
+  public void setBalance(AmountWithCurrency balance) {
+    this.balance = balance;
+  }
+
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ProgramDetailsList programDetailsList = (ProgramDetailsList) o;
+    return Objects.equals(this.id, programDetailsList.id) &&
+            Objects.equals(this.logo, programDetailsList.logo) &&
+            Objects.equals(this.url, programDetailsList.url) &&
+            Objects.equals(this.color, programDetailsList.color) &&
+            Objects.equals(this.title, programDetailsList.title) &&
+            Objects.equals(this.creationDate, programDetailsList.creationDate) &&
+            Objects.equals(this.currency, programDetailsList.currency) &&
+            Objects.equals(this.level, programDetailsList.level) &&
+            Objects.equals(this.levelProgress, programDetailsList.levelProgress) &&
+            Objects.equals(this.periodDuration, programDetailsList.periodDuration) &&
+            Objects.equals(this.availableToInvest, programDetailsList.availableToInvest) &&
+            Objects.equals(this.investorsCount, programDetailsList.investorsCount) &&
+            Objects.equals(this.periodStarts, programDetailsList.periodStarts) &&
+            Objects.equals(this.periodEnds, programDetailsList.periodEnds) &&
+            Objects.equals(this.personalDetails, programDetailsList.personalDetails) &&
+            Objects.equals(this.tags, programDetailsList.tags) &&
+            Objects.equals(this.chart, programDetailsList.chart) &&
+            Objects.equals(this.balance, programDetailsList.balance);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, logo, url, color, title, creationDate, currency, level, levelProgress, periodDuration, availableToInvest, investorsCount, periodStarts, periodEnds, personalDetails, tags, chart, balance);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProgramDetailsList {\n");
+
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+    sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("    color: ").append(toIndentedString(color)).append("\n");
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
+    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+    sb.append("    level: ").append(toIndentedString(level)).append("\n");
+    sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
+    sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
+    sb.append("    availableToInvest: ").append(toIndentedString(availableToInvest)).append("\n");
+    sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
+    sb.append("    periodStarts: ").append(toIndentedString(periodStarts)).append("\n");
+    sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
+    sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+    sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+    sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(id);
+    out.writeValue(logo);
+    out.writeValue(url);
+    out.writeValue(color);
+    out.writeValue(title);
+    out.writeValue(creationDate);
+    out.writeValue(currency);
+    out.writeValue(level);
+    out.writeValue(levelProgress);
+    out.writeValue(periodDuration);
+    out.writeValue(availableToInvest);
+    out.writeValue(investorsCount);
+    out.writeValue(periodStarts);
+    out.writeValue(periodEnds);
+    out.writeValue(personalDetails);
+    out.writeValue(tags);
+    out.writeValue(chart);
+    out.writeValue(balance);
+  }
+
+  public int describeContents() {
+    return 0;
+  }
 }
