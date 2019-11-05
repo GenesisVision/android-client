@@ -13,8 +13,6 @@ import javax.inject.Inject;
 import io.swagger.client.model.CopyTradingAccountInfo;
 import io.swagger.client.model.CopyTradingAccountsList;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.SignalsManager;
@@ -51,8 +49,9 @@ public class CopytradingAccountsPresenter extends MvpPresenter<CopytradingAccoun
 
 	@Override
 	public void onDestroy() {
-		if (accountsSubscription != null)
+		if (accountsSubscription != null) {
 			accountsSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -67,15 +66,16 @@ public class CopytradingAccountsPresenter extends MvpPresenter<CopytradingAccoun
 	}
 
 	private void getCopytradingAccounts() {
-		if (signalsManager != null) {
-			if (accountsSubscription != null)
-				accountsSubscription.unsubscribe();
-			accountsSubscription = signalsManager.getAccounts()
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleGetAccountsResponse,
-							this::handleGetAccountsError);
-		}
+//		if (signalsManager != null) {
+//			if (accountsSubscription != null) {
+//				accountsSubscription.unsubscribe();
+//			}
+//			accountsSubscription = signalsManager.getAccounts()
+//					.observeOn(AndroidSchedulers.mainThread())
+//					.subscribeOn(Schedulers.io())
+//					.subscribe(this::handleGetAccountsResponse,
+//							this::handleGetAccountsError);
+//		}
 	}
 
 	private void handleGetAccountsResponse(CopyTradingAccountsList response) {

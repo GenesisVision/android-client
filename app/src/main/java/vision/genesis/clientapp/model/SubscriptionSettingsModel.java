@@ -6,7 +6,8 @@ import android.os.Parcelable;
 import java.util.UUID;
 
 import io.swagger.client.model.AttachToSignalProvider;
-import io.swagger.client.model.AttachToSignalProviderInfo;
+import io.swagger.client.model.Currency;
+import io.swagger.client.model.SubscriptionMode;
 
 /**
  * GenesisVisionAndroid
@@ -41,7 +42,7 @@ public class SubscriptionSettingsModel implements Parcelable
 		}
 	};
 
-	private String mode = AttachToSignalProvider.ModeEnum.BYBALANCE.getValue();
+	private String mode = SubscriptionMode.BYBALANCE.getValue();
 
 	private Double percent = 0.0;
 
@@ -59,7 +60,7 @@ public class SubscriptionSettingsModel implements Parcelable
 
 	private UUID programId;
 
-	private String minDepositCurrency = AttachToSignalProviderInfo.MinDepositCurrencyEnum.GVT.getValue();
+	private String minDepositCurrency = Currency.GVT.getValue();
 
 	private Double minDeposit = 0.0;
 
@@ -246,13 +247,13 @@ public class SubscriptionSettingsModel implements Parcelable
 
 	public AttachToSignalProvider getApiModel() {
 		AttachToSignalProvider model = new AttachToSignalProvider();
-		model.setMode(AttachToSignalProvider.ModeEnum.fromValue(getMode()));
+		model.setMode(SubscriptionMode.fromValue(getMode()));
 		model.setPercent(getPercent());
 		model.setOpenTolerancePercent(getOpenTolerancePercent());
 		model.setFixedVolume(getFixedVolume());
 		model.setFixedCurrency(AttachToSignalProvider.FixedCurrencyEnum.fromValue(getFixedCurrency()));
-		model.setInitialDepositCurrency(AttachToSignalProvider.InitialDepositCurrencyEnum.fromValue(getInitialDepositCurrency()));
-		model.setInitialDepositAmount(getInitialDepositAmount());
+//		model.setInitialDepositCurrency(AttachToSignalProvider.InitialDepositCurrencyEnum.fromValue(getInitialDepositCurrency()));
+//		model.setInitialDepositAmount(getInitialDepositAmount());
 		return model;
 	}
 

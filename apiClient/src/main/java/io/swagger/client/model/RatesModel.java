@@ -20,6 +20,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * RatesModel
  */
@@ -27,16 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class RatesModel implements Parcelable
 {
-  @SerializedName("rates")
-  private Object rates = null;
-
-  public RatesModel() {
-  }
-  public RatesModel rates(Object rates) {
-    this.rates = rates;
-    return this;
-  }
-
 	public static final Parcelable.Creator<RatesModel> CREATOR = new Parcelable.Creator<RatesModel>()
 	{
 		public RatesModel createFromParcel(Parcel in) {
@@ -48,48 +39,20 @@ public class RatesModel implements Parcelable
 		}
 	};
 
-  public void setRates(Object rates) {
-    this.rates = rates;
-  }
+	@SerializedName("rates")
+	private Object rates = null;
 
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    RatesModel ratesModel = (RatesModel) o;
-    return Objects.equals(this.rates, ratesModel.rates);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(rates);
-  }
-
+	public RatesModel() {
+	}
 
 	RatesModel(Parcel in) {
 		rates = (Object) in.readValue(null);
-  }
+	}
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(rates);
-  }
+	public RatesModel rates(Object rates) {
+		this.rates = rates;
+		return this;
+	}
 
 	/**
 	 * Get rates
@@ -101,6 +64,27 @@ public class RatesModel implements Parcelable
 		return rates;
 	}
 
+	public void setRates(Object rates) {
+		this.rates = rates;
+	}
+
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		RatesModel ratesModel = (RatesModel) o;
+		return Objects.equals(this.rates, ratesModel.rates);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(rates);
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -109,6 +93,21 @@ public class RatesModel implements Parcelable
 		sb.append("    rates: ").append(toIndentedString(rates)).append("\n");
 		sb.append("}");
 		return sb.toString();
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(rates);
 	}
 
 	public int describeContents() {

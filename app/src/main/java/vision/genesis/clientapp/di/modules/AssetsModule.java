@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import io.swagger.client.api.AssetsApi;
+import io.swagger.client.api.CopytradingApi;
 import io.swagger.client.api.DashboardApi;
 import io.swagger.client.api.EventsApi;
 import io.swagger.client.api.FundsApi;
@@ -39,8 +40,8 @@ public class AssetsModule
 
 	@Provides
 	@Singleton
-	public DashboardManager provideDashboardManager(DashboardApi dashboardApi, InvestmentsApi investmentsApi) {
-		return new DashboardManager(dashboardApi, investmentsApi);
+	public DashboardManager provideDashboardManager(DashboardApi dashboardApi, InvestmentsApi investmentsApi, CopytradingApi copytradingApi) {
+		return new DashboardManager(dashboardApi, investmentsApi, copytradingApi);
 	}
 
 	@Provides
@@ -69,8 +70,8 @@ public class AssetsModule
 
 	@Provides
 	@Singleton
-	public SignalsManager provideSignalsManager(SignalApi signalApi) {
-		return new SignalsManager(signalApi);
+	public SignalsManager provideSignalsManager(SignalApi signalApi, CopytradingApi copytradingApi) {
+		return new SignalsManager(signalApi, copytradingApi);
 	}
 
 	@Provides

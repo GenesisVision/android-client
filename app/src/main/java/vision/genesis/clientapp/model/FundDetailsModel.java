@@ -110,11 +110,11 @@ public class FundDetailsModel implements Parcelable
 		this.fundColor = fundDetails.getColor();
 		this.fundName = fundDetails.getTitle();
 		this.managerName = fundDetails.getManager().getUsername();
-		this.favorite = fundDetails.getPersonalFundDetails() != null
-				? fundDetails.getPersonalFundDetails().isIsFavorite()
+		this.favorite = fundDetails.getPersonalDetails() != null
+				? fundDetails.getPersonalDetails().isIsFavorite()
 				: false;
-		this.hasNotifications = fundDetails.getPersonalFundDetails() != null
-				? fundDetails.getPersonalFundDetails().isHasNotifications()
+		this.hasNotifications = fundDetails.getPersonalDetails() != null
+				? fundDetails.getPersonalDetails().isHasNotifications()
 				: false;
 	}
 }

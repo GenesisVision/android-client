@@ -9,20 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.arellomobile.mvp.presenter.InjectPresenter;
-
-import java.util.List;
-import java.util.UUID;
-
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.arellomobile.mvp.presenter.InjectPresenter;
+
+import java.util.UUID;
+
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.ProgramDetails;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.DashboardPagerAdapter;
@@ -131,13 +130,13 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 		recyclerView.setAdapter(dashboardProgramsAdapter);
 	}
 
-	@Override
-	public void setPrograms(List<ProgramDetails> programs) {
-		dashboardProgramsAdapter.setPrograms(programs);
-		recyclerView.scrollToPosition(0);
-
-		showEmpty(programs.size() == 0);
-	}
+//	@Override
+//	public void setPrograms(List<ProgramDetails> programs) {
+//		dashboardProgramsAdapter.setPrograms(programs);
+//		recyclerView.scrollToPosition(0);
+//
+//		showEmpty(programs.size() == 0);
+//	}
 
 	@Override
 	public void setProgramReinvest(UUID programId, Boolean reinvest) {

@@ -23,7 +23,6 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -38,16 +37,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.swagger.client.model.AssetsValue;
-import io.swagger.client.model.ChartSimple;
-import io.swagger.client.model.DashboardChartValue;
-import io.swagger.client.model.ValueChartBar;
-import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.utils.DateValueFormatter;
-import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TimeValueFormatter;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -91,7 +84,7 @@ public class PortfolioChartView extends RelativeLayout
 
 	private IAxisValueFormatter xAxisTimeValueFormatter = new TimeValueFormatter();
 
-	private DashboardChartValue chartData;
+//	private DashboardChartValue chartData;
 
 	private DateRange dateRange;
 
@@ -190,10 +183,10 @@ public class PortfolioChartView extends RelativeLayout
 				if (highlight != null) {
 					showHighlight(highlight);
 					if (touchListener != null) {
-						int barIndex = findBarSetIndex(highlight.getX());
-						Timber.d("TEST_CHART %d", barIndex);
-						touchListener.onTouch(chart.getLineData().getDataSetByIndex(0).getEntryIndex(entry), barIndex);
-						selectBarByIndex(barIndex);
+//						int barIndex = findBarSetIndex(highlight.getX());
+//						Timber.d("TEST_CHART %d", barIndex);
+//						touchListener.onTouch(chart.getLineData().getDataSetByIndex(0).getEntryIndex(entry), barIndex);
+//						selectBarByIndex(barIndex);
 					}
 				}
 			}
@@ -223,88 +216,88 @@ public class PortfolioChartView extends RelativeLayout
 		}
 	}
 
-	private int findBarSetIndex(float date) {
-		float datesGap = (dateRange.getTo().getMillis() - dateRange.getFrom().getMillis()) / 2 / 1000 / 60;
-		if (chartData.getInvestedProgramsInfo().size() >= 2) {
-			datesGap = (chartData.getInvestedProgramsInfo().get(1).getDate().getMillis() - chartData.getInvestedProgramsInfo().get(0).getDate().getMillis()) / 1000 / 60;
-		}
-		int index = 0;
-		for (ValueChartBar valueChartBar : chartData.getInvestedProgramsInfo()) {
-			if (date >= valueChartBar.getDate().getMillis() / 1000 / 60 - datesGap
-					&& date < valueChartBar.getDate().getMillis() / 1000 / 60 + datesGap) {
-				break;
-			}
-			index++;
-		}
-		return index;
-	}
-
-	public void setChart(DashboardChartValue chartData, DateRange dateRange) {
-		showProgress(false);
-		this.chartData = chartData;
-		this.dateRange = dateRange;
-
-		if (chartData.getBalanceChart().size() <= 1) {
-			chart.clear();
-			return;
-		}
-
-		updateXAxis(dateRange);
-
-		float min = chartData.getBalanceChart().get(0).getValue().floatValue();
-		float max = chartData.getBalanceChart().get(0).getValue().floatValue();
-
-		List<Entry> lineEntries = new ArrayList<>();
-
-		int index = 0;
-		for (ChartSimple chart : chartData.getBalanceChart()) {
-			lineEntries.add(new Entry((int) (chart.getDate().getMillis() / 1000 / 60), chart.getValue().floatValue()));
-//			lineEntries.add(new Entry(index, chart.getValue().floatValue()));
-//			lineEntries.add(new Entry(index, Math.abs(chart.getValue().floatValue())));
-			if (min > chart.getValue().floatValue()) {
-				min = chart.getValue().floatValue();
-			}
-			if (max < chart.getValue().floatValue()) {
-				max = chart.getValue().floatValue();
-			}
-			index++;
-		}
-
-		List<BarEntry> barEntries = new ArrayList<>();
-		index = 0;
-		for (ValueChartBar bar : chartData.getInvestedProgramsInfo()) {
-			List<Float> vals = new ArrayList<>();
-			for (AssetsValue assetsValue : bar.getTopAssets()) {
-				vals.add(assetsValue.getValue().floatValue());
-			}
-			if (bar.getOtherAssetsValue() != null && bar.getOtherAssetsValue().getValue() != null) {
-				vals.add(bar.getOtherAssetsValue().getValue().floatValue());
-			}
-//			Collections.reverse(vals);
-//			barEntries.add(new BarEntry((int) (bar.getDate().getMillis() / 1000 / 60), bar.getValue().floatValue()));
-			float[] valsArray = new float[vals.size()];
-			for (int i = 0; i < vals.size(); i++) {
-				valsArray[i] = vals.get(i);
-			}
-			barEntries.add(new BarEntry((int) (bar.getDate().getMillis() / 1000 / 60), valsArray));
-//			barEntries.add(new BarEntry(index, bar.getValue().floatValue()));
-			index++;
-		}
-
-		minValue.setText(StringFormatUtil.formatAmount(min, 2, 4));
-		maxValue.setText(StringFormatUtil.formatAmount(max, 2, 4));
-
-		setLimitLines(min, max);
-
-//		chart.getAxisLeft().setAxisMaximum(max);
-//		chart.getAxisLeft().setAxisMinimum(min);
-
-		CombinedData combinedData = new CombinedData();
-		combinedData.setData(getLineData(lineEntries));
-		combinedData.setData(getBarData(barEntries, dateRange));
-		chart.setData(combinedData);
-		chart.invalidate();
-	}
+//	private int findBarSetIndex(float date) {
+//		float datesGap = (dateRange.getTo().getMillis() - dateRange.getFrom().getMillis()) / 2 / 1000 / 60;
+//		if (chartData.getInvestedProgramsInfo().size() >= 2) {
+//			datesGap = (chartData.getInvestedProgramsInfo().get(1).getDate().getMillis() - chartData.getInvestedProgramsInfo().get(0).getDate().getMillis()) / 1000 / 60;
+//		}
+//		int index = 0;
+//		for (ValueChartBar valueChartBar : chartData.getInvestedProgramsInfo()) {
+//			if (date >= valueChartBar.getDate().getMillis() / 1000 / 60 - datesGap
+//					&& date < valueChartBar.getDate().getMillis() / 1000 / 60 + datesGap) {
+//				break;
+//			}
+//			index++;
+//		}
+//		return index;
+//	}
+//
+//	public void setChart(DashboardChartValue chartData, DateRange dateRange) {
+//		showProgress(false);
+//		this.chartData = chartData;
+//		this.dateRange = dateRange;
+//
+//		if (chartData.getBalanceChart().size() <= 1) {
+//			chart.clear();
+//			return;
+//		}
+//
+//		updateXAxis(dateRange);
+//
+//		float min = chartData.getBalanceChart().get(0).getValue().floatValue();
+//		float max = chartData.getBalanceChart().get(0).getValue().floatValue();
+//
+//		List<Entry> lineEntries = new ArrayList<>();
+//
+//		int index = 0;
+//		for (ChartSimple chart : chartData.getBalanceChart()) {
+//			lineEntries.add(new Entry((int) (chart.getDate().getMillis() / 1000 / 60), chart.getValue().floatValue()));
+////			lineEntries.add(new Entry(index, chart.getValue().floatValue()));
+////			lineEntries.add(new Entry(index, Math.abs(chart.getValue().floatValue())));
+//			if (min > chart.getValue().floatValue()) {
+//				min = chart.getValue().floatValue();
+//			}
+//			if (max < chart.getValue().floatValue()) {
+//				max = chart.getValue().floatValue();
+//			}
+//			index++;
+//		}
+//
+//		List<BarEntry> barEntries = new ArrayList<>();
+//		index = 0;
+//		for (ValueChartBar bar : chartData.getInvestedProgramsInfo()) {
+//			List<Float> vals = new ArrayList<>();
+//			for (AssetsValue assetsValue : bar.getTopAssets()) {
+//				vals.add(assetsValue.getValue().floatValue());
+//			}
+//			if (bar.getOtherAssetsValue() != null && bar.getOtherAssetsValue().getValue() != null) {
+//				vals.add(bar.getOtherAssetsValue().getValue().floatValue());
+//			}
+////			Collections.reverse(vals);
+////			barEntries.add(new BarEntry((int) (bar.getDate().getMillis() / 1000 / 60), bar.getValue().floatValue()));
+//			float[] valsArray = new float[vals.size()];
+//			for (int i = 0; i < vals.size(); i++) {
+//				valsArray[i] = vals.get(i);
+//			}
+//			barEntries.add(new BarEntry((int) (bar.getDate().getMillis() / 1000 / 60), valsArray));
+////			barEntries.add(new BarEntry(index, bar.getValue().floatValue()));
+//			index++;
+//		}
+//
+//		minValue.setText(StringFormatUtil.formatAmount(min, 2, 4));
+//		maxValue.setText(StringFormatUtil.formatAmount(max, 2, 4));
+//
+//		setLimitLines(min, max);
+//
+////		chart.getAxisLeft().setAxisMaximum(max);
+////		chart.getAxisLeft().setAxisMinimum(min);
+//
+//		CombinedData combinedData = new CombinedData();
+//		combinedData.setData(getLineData(lineEntries));
+//		combinedData.setData(getBarData(barEntries, dateRange));
+//		chart.setData(combinedData);
+//		chart.invalidate();
+//	}
 
 	private void updateXAxis(DateRange dateRange) {
 		XAxis xAxis = chart.getXAxis();

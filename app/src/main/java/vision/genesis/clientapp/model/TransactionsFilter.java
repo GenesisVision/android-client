@@ -1,5 +1,7 @@
 package vision.genesis.clientapp.model;
 
+import io.swagger.client.model.TransactionFilter;
+
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 18/02/2019.
@@ -13,6 +15,8 @@ public class TransactionsFilter
 	private Integer skip;
 
 	private Integer take;
+
+	private TransactionFilter type;
 
 	public String getWalletCurrency() {
 		return walletCurrency;
@@ -44,5 +48,13 @@ public class TransactionsFilter
 
 	public void setSkip(Integer skip) {
 		this.skip = skip;
+	}
+
+	public TransactionFilter getType() {
+		return type;
+	}
+
+	public void setType(TransactionFilter type) {
+		this.type = type;
 	}
 }

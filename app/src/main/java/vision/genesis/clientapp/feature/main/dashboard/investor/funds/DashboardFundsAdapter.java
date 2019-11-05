@@ -6,34 +6,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.FundAssetPercent;
-import io.swagger.client.model.FundDetails;
-import timber.log.Timber;
-import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.CurrencyEnum;
-import vision.genesis.clientapp.model.FundDetailsModel;
-import vision.genesis.clientapp.model.events.OnDashboardFundFavoriteClickedEvent;
-import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
 import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
-import vision.genesis.clientapp.utils.ImageUtils;
-import vision.genesis.clientapp.utils.StringFormatUtil;
-import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -43,7 +27,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class DashboardFundsAdapter extends RecyclerView.Adapter<DashboardFundsAdapter.FundViewHolder>
 {
-	private List<FundDetails> funds = new ArrayList<>();
+//	private List<FundDetails> funds = new ArrayList<>();
 
 	@Override
 	public FundViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -53,38 +37,39 @@ public class DashboardFundsAdapter extends RecyclerView.Adapter<DashboardFundsAd
 
 	@Override
 	public void onBindViewHolder(FundViewHolder holder, int position) {
-		if (funds.get(position) != null)
-			holder.setFund(funds.get(position));
+//		if (funds.get(position) != null)
+//			holder.setFund(funds.get(position));
 	}
 
 	@Override
 	public int getItemCount() {
-		return funds.size();
+//		return funds.size();
+		return 0;
 	}
 
-	@Override
-	public long getItemId(int position) {
-		return funds.get(position) != null
-				? funds.get(position).hashCode()
-				: RecyclerView.NO_ID;
-	}
+//	@Override
+//	public long getItemId(int position) {
+//		return funds.get(position) != null
+//				? funds.get(position).hashCode()
+//				: RecyclerView.NO_ID;
+//	}
 
-	void setFunds(List<FundDetails> funds) {
-		this.funds.clear();
-		this.funds.addAll(funds);
-		notifyDataSetChanged();
-	}
+//	void setFunds(List<FundDetails> funds) {
+//		this.funds.clear();
+//		this.funds.addAll(funds);
+//		notifyDataSetChanged();
+//	}
 
 	public void setFundFavorite(UUID fundId, Boolean favorite) {
-		for (FundDetails fund : funds) {
-			if (fund.getId().equals(fundId)) {
-				if (fund.getPersonalDetails() != null && !fund.getPersonalDetails().isIsFavorite().equals(favorite)) {
-					fund.getPersonalDetails().setIsFavorite(favorite);
-					notifyItemChanged(funds.indexOf(fund));
-				}
-				break;
-			}
-		}
+//		for (FundDetails fund : funds) {
+//			if (fund.getId().equals(fundId)) {
+//				if (fund.getPersonalDetails() != null && !fund.getPersonalDetails().isIsFavorite().equals(favorite)) {
+//					fund.getPersonalDetails().setIsFavorite(favorite);
+//					notifyItemChanged(funds.indexOf(fund));
+//				}
+//				break;
+//			}
+//		}
 	}
 
 	static class FundViewHolder extends RecyclerView.ViewHolder
@@ -158,7 +143,7 @@ public class DashboardFundsAdapter extends RecyclerView.Adapter<DashboardFundsAd
 		@BindView(R.id.text_assets_left)
 		public TextView assetsLeft;
 
-		private FundDetails fund;
+//		private FundDetails fund;
 
 		FundViewHolder(View itemView) {
 			super(itemView);
@@ -170,30 +155,30 @@ public class DashboardFundsAdapter extends RecyclerView.Adapter<DashboardFundsAd
 			setFonts();
 
 			itemView.setOnClickListener(v -> {
-				if (fund != null) {
-					FundDetailsModel fundDetailsModel = new FundDetailsModel(fund.getId(),
-							fund.getLogo(),
-							fund.getColor(),
-							fund.getTitle(),
-							fund.getManager().getUsername(),
-							fund.getPersonalDetails() != null ?
-									fund.getPersonalDetails().isIsFavorite()
-									: false,
-							fund.getPersonalDetails() != null ?
-									fund.getPersonalDetails().isHasNotifications()
-									: false);
-					EventBus.getDefault().post(new ShowFundDetailsEvent(fundDetailsModel));
-				}
+//				if (fund != null) {
+//					FundDetailsModel fundDetailsModel = new FundDetailsModel(fund.getId(),
+//							fund.getLogo(),
+//							fund.getColor(),
+//							fund.getTitle(),
+//							fund.getManager().getUsername(),
+//							fund.getPersonalDetails() != null ?
+//									fund.getPersonalDetails().isIsFavorite()
+//									: false,
+//							fund.getPersonalDetails() != null ?
+//									fund.getPersonalDetails().isHasNotifications()
+//									: false);
+//					EventBus.getDefault().post(new ShowFundDetailsEvent(fundDetailsModel));
+//				}
 			});
 		}
 
 		@OnClick(R.id.favorite)
 		public void onFavoriteClicked() {
-			if (fund != null && fund.getPersonalDetails() != null) {
-				fund.getPersonalDetails().setIsFavorite(!fund.getPersonalDetails().isIsFavorite());
-				updateData();
-				EventBus.getDefault().post(new OnDashboardFundFavoriteClickedEvent(fund.getId(), fund.getPersonalDetails().isIsFavorite()));
-			}
+//			if (fund != null && fund.getPersonalDetails() != null) {
+//				fund.getPersonalDetails().setIsFavorite(!fund.getPersonalDetails().isIsFavorite());
+//				updateData();
+//				EventBus.getDefault().post(new OnDashboardFundFavoriteClickedEvent(fund.getId(), fund.getPersonalDetails().isIsFavorite()));
+//			}
 		}
 
 		private void setFonts() {
@@ -214,82 +199,82 @@ public class DashboardFundsAdapter extends RecyclerView.Adapter<DashboardFundsAd
 			assetsLeft.setTypeface(TypefaceUtil.semibold());
 		}
 
-		void setFund(FundDetails fund) {
-			this.fund = fund;
-			updateData();
-		}
+//		void setFund(FundDetails fund) {
+//			this.fund = fund;
+//			updateData();
+//		}
 
-		private void updateData() {
-			fundLogo.setImage(fund.getLogo(), fund.getColor(), 100, 100);
-			fundLogo.hideLevel();
-
-			if (fund.getPersonalDetails() != null) {
-				favorite.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, fund.getPersonalDetails().isIsFavorite()
-						? R.drawable.icon_favorite_fill
-						: R.drawable.icon_favorite));
-				favorite.setAlpha(fund.getPersonalDetails().isIsFavorite() ? 1f : 0.3f);
-			}
-
-			this.fundName.setText(fund.getTitle());
-			this.managerName.setText(fund.getManager().getUsername());
-
-			this.chart.setChart(fund.getChart());
-
-			Double profitPercent = fund.getStatistic().getProfitPercent();
-
-			this.profitPercent.setText(String.format(Locale.getDefault(), "%s%%",
-					StringFormatUtil.formatAmount(profitPercent, 0, 2)));
-			this.profitPercent.setTextColor(profitPercent >= 0
-					? ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorGreen)
-					: ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorRed));
-
-			this.value.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(fund.getPersonalDetails().getValue(), CurrencyEnum.GVT.toString())));
-
-			this.investors.setText(String.format(Locale.getDefault(), "%s",
-					StringFormatUtil.getShortenedAmount(fund.getStatistic().getInvestorsCount())));
-
-			this.drawdown.setText(String.format(Locale.getDefault(), "%s%%",
-					StringFormatUtil.formatAmount(fund.getStatistic().getDrawdownPercent(), 0, 2)));
-
-			updateAssets();
-
-		}
-
-		private void updateAssets() {
-			groupAsset1.setVisibility(View.INVISIBLE);
-			groupAsset2.setVisibility(View.INVISIBLE);
-			groupAsset3.setVisibility(View.INVISIBLE);
-			groupAssetsLeft.setVisibility(View.INVISIBLE);
-
-			try {
-				updateAsset(groupAsset1, iconAsset1, nameAsset1, fund.getTopFundAssets().get(0));
-				updateAsset(groupAsset2, iconAsset2, nameAsset2, fund.getTopFundAssets().get(1));
-				updateAsset(groupAsset3, iconAsset3, nameAsset3, fund.getTopFundAssets().get(2));
-				updateAssetsLeft();
-			} catch (IndexOutOfBoundsException e) {
-				Timber.d(e.getMessage());
-			} catch (NullPointerException e) {
-				Timber.e(e.getMessage());
-			}
-		}
-
-		private void updateAssetsLeft() {
-			int assetsLeft = fund.getTotalAssetsCount();
-			if (fund.getTopFundAssets() != null)
-				assetsLeft -= fund.getTopFundAssets().size();
-
-			if (assetsLeft > 0) {
-				groupAssetsLeft.setVisibility(View.VISIBLE);
-				this.assetsLeft.setText(String.format(Locale.getDefault(), "+%d", assetsLeft));
-
-			}
-		}
-
-		private void updateAsset(ViewGroup groupAsset, SimpleDraweeView iconAsset, TextView nameAsset, FundAssetPercent fundAsset) {
-			groupAsset.setVisibility(View.VISIBLE);
-			iconAsset.setImageURI(ImageUtils.getImageUri(fundAsset.getIcon()));
-			nameAsset.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(fundAsset.getPercent(), 0, 0)));
-		}
+//		private void updateData() {
+//			fundLogo.setImage(fund.getLogo(), fund.getColor(), 100, 100);
+//			fundLogo.hideLevel();
+//
+//			if (fund.getPersonalDetails() != null) {
+//				favorite.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, fund.getPersonalDetails().isIsFavorite()
+//						? R.drawable.icon_favorite_fill
+//						: R.drawable.icon_favorite));
+//				favorite.setAlpha(fund.getPersonalDetails().isIsFavorite() ? 1f : 0.3f);
+//			}
+//
+//			this.fundName.setText(fund.getTitle());
+//			this.managerName.setText(fund.getManager().getUsername());
+//
+//			this.chart.setChart(fund.getChart());
+//
+//			Double profitPercent = fund.getStatistic().getProfitPercent();
+//
+//			this.profitPercent.setText(String.format(Locale.getDefault(), "%s%%",
+//					StringFormatUtil.formatAmount(profitPercent, 0, 2)));
+//			this.profitPercent.setTextColor(profitPercent >= 0
+//					? ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorGreen)
+//					: ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorRed));
+//
+//			this.value.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(fund.getPersonalDetails().getValue(), CurrencyEnum.GVT.toString())));
+//
+//			this.investors.setText(String.format(Locale.getDefault(), "%s",
+//					StringFormatUtil.getShortenedAmount(fund.getStatistic().getInvestorsCount())));
+//
+//			this.drawdown.setText(String.format(Locale.getDefault(), "%s%%",
+//					StringFormatUtil.formatAmount(fund.getStatistic().getDrawdownPercent(), 0, 2)));
+//
+//			updateAssets();
+//
+//		}
+//
+//		private void updateAssets() {
+//			groupAsset1.setVisibility(View.INVISIBLE);
+//			groupAsset2.setVisibility(View.INVISIBLE);
+//			groupAsset3.setVisibility(View.INVISIBLE);
+//			groupAssetsLeft.setVisibility(View.INVISIBLE);
+//
+//			try {
+//				updateAsset(groupAsset1, iconAsset1, nameAsset1, fund.getTopFundAssets().get(0));
+//				updateAsset(groupAsset2, iconAsset2, nameAsset2, fund.getTopFundAssets().get(1));
+//				updateAsset(groupAsset3, iconAsset3, nameAsset3, fund.getTopFundAssets().get(2));
+//				updateAssetsLeft();
+//			} catch (IndexOutOfBoundsException e) {
+//				Timber.d(e.getMessage());
+//			} catch (NullPointerException e) {
+//				Timber.e(e.getMessage());
+//			}
+//		}
+//
+//		private void updateAssetsLeft() {
+//			int assetsLeft = fund.getTotalAssetsCount();
+//			if (fund.getTopFundAssets() != null)
+//				assetsLeft -= fund.getTopFundAssets().size();
+//
+//			if (assetsLeft > 0) {
+//				groupAssetsLeft.setVisibility(View.VISIBLE);
+//				this.assetsLeft.setText(String.format(Locale.getDefault(), "+%d", assetsLeft));
+//
+//			}
+//		}
+//
+//		private void updateAsset(ViewGroup groupAsset, SimpleDraweeView iconAsset, TextView nameAsset, FundAssetPercent fundAsset) {
+//			groupAsset.setVisibility(View.VISIBLE);
+//			iconAsset.setImageURI(ImageUtils.getImageUri(fundAsset.getIcon()));
+//			nameAsset.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(fundAsset.getPercent(), 0, 0)));
+//		}
 
 //		private Double getProfitPercent() {
 //			Double first = fund.getChart().get(0).getValue();

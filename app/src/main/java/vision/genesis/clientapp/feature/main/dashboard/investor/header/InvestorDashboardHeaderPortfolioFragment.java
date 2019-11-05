@@ -11,16 +11,16 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 
-import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.DashboardChartValue;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -89,7 +89,7 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 
 	private Float initialChartY;
 
-	private DashboardChartValue chartData;
+//	private DashboardChartValue chartData;
 
 	private Double inRequestsTotalValue;
 
@@ -121,9 +121,9 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 			investorDashboardHeaderPortfolioPresenter.onPortfolioChartTouch(lineIndex, barIndex, chartBottomY);
 		});
 
-		if (chartData != null) {
-			setData(chartData, dateRange);
-		}
+//		if (chartData != null) {
+//			setData(chartData, dateRange);
+//		}
 		if (inRequestsTotalValue != null && inRequestsRate != null) {
 			setInRequestsData(inRequestsTotalValue, inRequestsRate);
 		}
@@ -159,14 +159,14 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 		requestsValueSecondary.setTypeface(TypefaceUtil.medium());
 	}
 
-	public void setData(DashboardChartValue chartValue, DateRange dateRange) {
-		this.chartData = chartValue;
-		this.dateRange = dateRange;
-		if (investorDashboardHeaderPortfolioPresenter != null) {
-			investorDashboardHeaderPortfolioPresenter.setData(chartValue);
-			chart.setChart(chartValue, dateRange);
-		}
-	}
+//	public void setData(DashboardChartValue chartValue, DateRange dateRange) {
+//		this.chartData = chartValue;
+//		this.dateRange = dateRange;
+//		if (investorDashboardHeaderPortfolioPresenter != null) {
+//			investorDashboardHeaderPortfolioPresenter.setData(chartValue);
+//			chart.setChart(chartValue, dateRange);
+//		}
+//	}
 
 	@Override
 	public void hideRequests() {
@@ -189,8 +189,9 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 		animation.setFillAfter(true);
 		requestsGroup.startAnimation(animation);
 
-		if (initialChartY == null)
+		if (initialChartY == null) {
 			initialChartY = chart.getY();
+		}
 		ObjectAnimator chartAnim = ObjectAnimator.ofFloat(chart, "y", initialChartY - chartYDelta);
 		chartAnim.setInterpolator(new DecelerateInterpolator());
 		chartAnim.setDuration(400);
@@ -259,7 +260,8 @@ public class InvestorDashboardHeaderPortfolioFragment extends BaseFragment imple
 	public void setInRequestsData(Double totalValue, Double rate) {
 		inRequestsTotalValue = totalValue;
 		inRequestsRate = rate;
-		if (investorDashboardHeaderPortfolioPresenter != null)
+		if (investorDashboardHeaderPortfolioPresenter != null) {
 			investorDashboardHeaderPortfolioPresenter.setInRequestsData(totalValue, rate);
+		}
 	}
 }

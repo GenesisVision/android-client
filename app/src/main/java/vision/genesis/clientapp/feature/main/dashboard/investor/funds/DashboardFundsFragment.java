@@ -9,20 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.arellomobile.mvp.presenter.InjectPresenter;
-
-import java.util.List;
-import java.util.UUID;
-
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.arellomobile.mvp.presenter.InjectPresenter;
+
+import java.util.UUID;
+
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.FundDetails;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investor.DashboardPagerAdapter;
@@ -124,13 +123,13 @@ public class DashboardFundsFragment extends BaseFragment implements DashboardFun
 		recyclerView.setAdapter(dashboardFundsAdapter);
 	}
 
-	@Override
-	public void setFunds(List<FundDetails> funds) {
-		dashboardFundsAdapter.setFunds(funds);
-		recyclerView.scrollToPosition(0);
-
-		showEmpty(funds.size() == 0);
-	}
+//	@Override
+//	public void setFunds(List<FundDetails> funds) {
+//		dashboardFundsAdapter.setFunds(funds);
+//		recyclerView.scrollToPosition(0);
+//
+//		showEmpty(funds.size() == 0);
+//	}
 
 	@Override
 	public void setFundFavorite(UUID fundId, Boolean favorite) {

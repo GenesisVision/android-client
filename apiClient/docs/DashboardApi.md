@@ -4,17 +4,114 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getAssets**](DashboardApi.md#getAssets) | **GET** v2.0/dashboard/assets | 
 [**getChart**](DashboardApi.md#getChart) | **GET** v2.0/dashboard/chart | 
+[**getChartAssets**](DashboardApi.md#getChartAssets) | **GET** v2.0/dashboard/chart/assets | Active assets for chart
+[**getHoldings**](DashboardApi.md#getHoldings) | **GET** v2.0/dashboard/holdings | 
 [**getInvestingDetails**](DashboardApi.md#getInvestingDetails) | **GET** v2.0/dashboard/investing | 
 [**getPortfolio**](DashboardApi.md#getPortfolio) | **GET** v2.0/dashboard/portfolio | Money distribution in percents. Empty list if no money at all
 [**getRecommendations**](DashboardApi.md#getRecommendations) | **GET** v2.0/dashboard/recommendations | Recommended assets to invest (programs, funds and signals). Funds in passed currency
 [**getSummary**](DashboardApi.md#getSummary) | **GET** v2.0/dashboard/summary | 
 [**getTradingDetails**](DashboardApi.md#getTradingDetails) | **GET** v2.0/dashboard/trading | 
 
-<a name="getAssets"></a>
-# **getAssets**
-> DashboardAssets getAssets(authorization, topAssetsCount)
+<a name="getChart"></a>
+# **getChart**
+> DashboardChart getChart(authorization, statisticDateFrom, statisticDateTo, chartPointsCount, showIn, assets)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.DashboardApi;
+
+
+DashboardApi apiInstance = new DashboardApi();
+String authorization = "authorization_example"; // String | JWT access token
+DateTime statisticDateFrom = new DateTime(); // DateTime | 
+DateTime statisticDateTo = new DateTime(); // DateTime | 
+Integer chartPointsCount = 56; // Integer | 
+String showIn = "showIn_example"; // String | 
+List<UUID> assets = Arrays.asList(new UUID()); // List<UUID> | 
+try {
+    DashboardChart result = apiInstance.getChart(authorization, statisticDateFrom, statisticDateTo, chartPointsCount, showIn, assets);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DashboardApi#getChart");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **statisticDateFrom** | **DateTime**|  | [optional]
+ **statisticDateTo** | **DateTime**|  | [optional]
+ **chartPointsCount** | **Integer**|  | [optional]
+ **showIn** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **assets** | [**List&lt;UUID&gt;**](UUID.md)|  | [optional]
+
+### Return type
+
+[**DashboardChart**](DashboardChart.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getChartAssets"></a>
+# **getChartAssets**
+> DashboardChartAssets getChartAssets(authorization)
+
+Active assets for chart
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.DashboardApi;
+
+
+DashboardApi apiInstance = new DashboardApi();
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    DashboardChartAssets result = apiInstance.getChartAssets(authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DashboardApi#getChartAssets");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**DashboardChartAssets**](DashboardChartAssets.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getHoldings"></a>
+# **getHoldings**
+> DashboardAssets getHoldings(authorization, topAssetsCount)
 
 
 
@@ -29,10 +126,10 @@ DashboardApi apiInstance = new DashboardApi();
 String authorization = "authorization_example"; // String | JWT access token
 Integer topAssetsCount = 56; // Integer | 
 try {
-    DashboardAssets result = apiInstance.getAssets(authorization, topAssetsCount);
+    DashboardAssets result = apiInstance.getHoldings(authorization, topAssetsCount);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling DashboardApi#getAssets");
+    System.err.println("Exception when calling DashboardApi#getHoldings");
     e.printStackTrace();
 }
 ```
@@ -47,49 +144,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DashboardAssets**](DashboardAssets.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="getChart"></a>
-# **getChart**
-> Void getChart(authorization)
-
-
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.DashboardApi;
-
-
-DashboardApi apiInstance = new DashboardApi();
-String authorization = "authorization_example"; // String | JWT access token
-try {
-    Void result = apiInstance.getChart(authorization);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DashboardApi#getChart");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
-
-### Return type
-
-[**Void**](.md)
 
 ### Authorization
 

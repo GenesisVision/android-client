@@ -12,7 +12,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,9 +21,6 @@ import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.ProgramLogoView;
-import vision.genesis.clientapp.utils.DateTimeUtil;
-import vision.genesis.clientapp.utils.StringFormatUtil;
-import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -125,13 +121,18 @@ public class DashboardCopytradingAdapter extends RecyclerView.Adapter<DashboardC
 				if (signal != null) {
 					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(signal.getId(),
 							signal.getLogo(),
-							signal.getColor(),
-							signal.getLevel(),
-							signal.getLevelProgress(),
+//							signal.getColor(),
+//							signal.getLevel(),
+//							signal.getLevelProgress(),
+							"",
+							0,
+							0.0,
 							signal.getTitle(),
-							signal.getManager().getUsername(),
+//							signal.getManager().getUsername(),
+							"",
 							signal.getCurrency().getValue(),
-							signal.getPersonalDetails().isIsFavorite(),
+//							signal.getPersonalDetails().isIsFavorite(),
+							false,
 							false);
 					EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 				}
@@ -153,30 +154,31 @@ public class DashboardCopytradingAdapter extends RecyclerView.Adapter<DashboardC
 		}
 
 		private void updateData() {
-			this.programLogo.setImage(signal.getLogo(), signal.getColor(), 100, 100);
-			this.programLogo.setLevel(signal.getLevel(), signal.getLevelProgress());
+//			this.programLogo.setImage(signal.getLogo(), signal.getColor(), 100, 100);
+			this.programLogo.setImage(signal.getLogo(), "", 100, 100);
+//			this.programLogo.setLevel(signal.getLevel(), signal.getLevelProgress());
 
 			this.programName.setText(signal.getTitle());
-			this.managerName.setText(signal.getManager().getUsername());
+//			this.managerName.setText(signal.getManager().getUsername());
 
 			this.currency.setText(signal.getCurrency().getValue());
 
-			this.trades.setText(StringFormatUtil.formatAmount(signal.getPersonalDetails().getTradesCount(), 0, 0));
+//			this.trades.setText(StringFormatUtil.formatAmount(signal.getPersonalDetails().getTradesCount(), 0, 0));
 
 			updateProfit();
 
-			this.status.setStatus(signal.getPersonalDetails().getStatus().getValue());
+//			this.status.setStatus(signal.getPersonalDetails().getStatus().getValue());
 
-			this.date.setText(DateTimeUtil.formatEventDateTime(signal.getPersonalDetails().getSubscriptionDate()));
+//			this.date.setText(DateTimeUtil.formatEventDateTime(signal.getPersonalDetails().getSubscriptionDate()));
 		}
 
 		private void updateProfit() {
-			Double profitValue = signal.getPersonalDetails().getProfit();
-			this.profit.setText(String.format(Locale.getDefault(), "%s%s",
-					profitValue > 0 ? "+" : "",
-					StringFormatUtil.formatAmount(profitValue, 2, 8)));
-			this.profit.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
-					profitValue >= 0 ? R.attr.colorGreen : R.attr.colorRed));
+//			Double profitValue = signal.getPersonalDetails().getProfit();
+//			this.profit.setText(String.format(Locale.getDefault(), "%s%s",
+//					profitValue > 0 ? "+" : "",
+//					StringFormatUtil.formatAmount(profitValue, 2, 8)));
+//			this.profit.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
+//					profitValue >= 0 ? R.attr.colorGreen : R.attr.colorRed));
 		}
 	}
 }

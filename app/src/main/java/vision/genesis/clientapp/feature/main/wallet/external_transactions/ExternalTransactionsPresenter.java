@@ -13,8 +13,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.MultiWalletExternalTransaction;
-import io.swagger.client.model.MultiWalletExternalTransactionsViewModel;
+import io.swagger.client.model.ItemsViewModelTransactionViewModel;
+import io.swagger.client.model.TransactionFilter;
+import io.swagger.client.model.TransactionViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -51,7 +52,7 @@ public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransact
 
 	private TransactionsFilter filter;
 
-	private List<MultiWalletExternalTransaction> transactions = new ArrayList<>();
+	private List<TransactionViewModel> transactions = new ArrayList<TransactionViewModel>();
 
 	private List<SimpleSectionedRecyclerViewAdapter.Section> sections = new ArrayList<>();
 
@@ -83,6 +84,7 @@ public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransact
 		this.location = location;
 		filter = new TransactionsFilter();
 		filter.setWalletCurrency(walletCurrency);
+		filter.setType(TransactionFilter.EXTERNALS);
 		filter.setSkip(0);
 		filter.setTake(TAKE);
 		getTransactions(true);
@@ -112,7 +114,7 @@ public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransact
 
 			if (transactionsSubscription != null)
 				transactionsSubscription.unsubscribe();
-			transactionsSubscription = walletManager.getExternalTransactions(filter)
+			transactionsSubscription = walletManager.getTransactions(filter)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetTransactionsResponse,
@@ -120,7 +122,7 @@ public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransact
 		}
 	}
 
-	private void handleGetTransactionsResponse(MultiWalletExternalTransactionsViewModel model) {
+	private void handleGetTransactionsResponse(ItemsViewModelTransactionViewModel model) {
 		transactionsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
@@ -134,10 +136,10 @@ public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransact
 		else if (location.equals(ExternalTransactionsFragment.LOCATION_SPECIFIC_WALLET))
 			EventBus.getDefault().post(new SetSpecificWalletDepositsWithdrawalsCountEvent(model.getTotal()));
 
-		List<MultiWalletExternalTransaction> newTransactions = model.getTransactions();
+		List<TransactionViewModel> newTransactions = model.getItems();
 
 		int index = transactions.size();
-		for (MultiWalletExternalTransaction newTransaction : newTransactions) {
+		for (TransactionViewModel newTransaction : newTransactions) {
 			String dateString = DateTimeUtil.formatShortDate(newTransaction.getDate());
 			String lastSectionDate = sections.isEmpty() ? "" : sections.get(sections.size() - 1).getTitle().toString();
 			if (!lastSectionDate.equals(dateString))

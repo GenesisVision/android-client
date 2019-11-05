@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * TransactionViewModel
  */
@@ -31,308 +32,313 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TransactionViewModel implements Parcelable
 {
-  @SerializedName("wallet")
-  private WalletRowCell wallet = null;
+	public static final Parcelable.Creator<TransactionViewModel> CREATOR = new Parcelable.Creator<TransactionViewModel>()
+	{
+		public TransactionViewModel createFromParcel(Parcel in) {
+			return new TransactionViewModel(in);
+		}
 
-  @SerializedName("date")
-  private DateTime date = null;
+		public TransactionViewModel[] newArray(int size) {
+			return new TransactionViewModel[size];
+		}
+	};
 
-  @SerializedName("status")
-  private MultiWalletTransactionStatus status = null;
+	@SerializedName("wallet")
+	private WalletRowCell wallet = null;
 
-  @SerializedName("description")
-  private String description = null;
+	@SerializedName("date")
+	private DateTime date = null;
 
-  @SerializedName("amount")
-  private AmountRowCell amount = null;
+	@SerializedName("status")
+	private MultiWalletTransactionStatus status = null;
 
-  @SerializedName("asset")
-  private AssetDetails asset = null;
+	@SerializedName("description")
+	private String description = null;
 
-  @SerializedName("external")
-  private ExternalDetails external = null;
+	@SerializedName("amount")
+	private AmountRowCell amount = null;
 
-  @SerializedName("buttons")
-  private List<ButtonAction> buttons = null;
+	@SerializedName("asset")
+	private AssetDetails asset = null;
 
-  @SerializedName("details")
-  private List<TransactionDetail> details = null;
+	@SerializedName("external")
+	private ExternalDetails external = null;
 
-  public TransactionViewModel() {
-  }
+	@SerializedName("buttons")
+	private List<ButtonAction> buttons = null;
 
-  public TransactionViewModel wallet(WalletRowCell wallet) {
-    this.wallet = wallet;
-    return this;
-  }
+	@SerializedName("details")
+	private List<TransactionDetail> details = null;
 
-  public static final Parcelable.Creator<TransactionViewModel> CREATOR = new Parcelable.Creator<TransactionViewModel>()
-  {
-    public TransactionViewModel createFromParcel(Parcel in) {
-      return new TransactionViewModel(in);
-    }
+	public TransactionViewModel() {
+	}
 
-    public TransactionViewModel[] newArray(int size) {
-      return new TransactionViewModel[size];
-    }
-  };
+	TransactionViewModel(Parcel in) {
+		wallet = (WalletRowCell) in.readValue(WalletRowCell.class.getClassLoader());
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		status = (MultiWalletTransactionStatus) in.readValue(MultiWalletTransactionStatus.class.getClassLoader());
+		description = (String) in.readValue(null);
+		amount = (AmountRowCell) in.readValue(AmountRowCell.class.getClassLoader());
+		asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
+		external = (ExternalDetails) in.readValue(ExternalDetails.class.getClassLoader());
+		buttons = (List<ButtonAction>) in.readValue(ButtonAction.class.getClassLoader());
+		details = (List<TransactionDetail>) in.readValue(TransactionDetail.class.getClassLoader());
+	}
 
-  public void setWallet(WalletRowCell wallet) {
-    this.wallet = wallet;
-  }
+	public TransactionViewModel wallet(WalletRowCell wallet) {
+		this.wallet = wallet;
+		return this;
+	}
 
-  public TransactionViewModel date(DateTime date) {
-    this.date = date;
-    return this;
-  }
+	/**
+	 * Get wallet
+	 *
+	 * @return wallet
+	 **/
+	@Schema(description = "")
+	public WalletRowCell getWallet() {
+		return wallet;
+	}
 
-  TransactionViewModel(Parcel in) {
-    wallet = (WalletRowCell) in.readValue(WalletRowCell.class.getClassLoader());
-    date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-    status = (MultiWalletTransactionStatus) in.readValue(MultiWalletTransactionStatus.class.getClassLoader());
-    description = (String) in.readValue(null);
-    amount = (AmountRowCell) in.readValue(AmountRowCell.class.getClassLoader());
-    asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
-    external = (ExternalDetails) in.readValue(ExternalDetails.class.getClassLoader());
-    buttons = (List<ButtonAction>) in.readValue(ButtonAction.class.getClassLoader());
-    details = (List<TransactionDetail>) in.readValue(TransactionDetail.class.getClassLoader());
-  }
+	public void setWallet(WalletRowCell wallet) {
+		this.wallet = wallet;
+	}
 
-  public void setDate(DateTime date) {
-    this.date = date;
-  }
+	public TransactionViewModel date(DateTime date) {
+		this.date = date;
+		return this;
+	}
 
-  public TransactionViewModel status(MultiWalletTransactionStatus status) {
-    this.status = status;
-    return this;
-  }
+	/**
+	 * Get date
+	 *
+	 * @return date
+	 **/
+	@Schema(description = "")
+	public DateTime getDate() {
+		return date;
+	}
 
-  /**
-   * Get wallet
-   * @return wallet
-   **/
-  @Schema(description = "")
-  public WalletRowCell getWallet() {
-    return wallet;
-  }
+	public void setDate(DateTime date) {
+		this.date = date;
+	}
 
-  public void setStatus(MultiWalletTransactionStatus status) {
-    this.status = status;
-  }
+	public TransactionViewModel status(MultiWalletTransactionStatus status) {
+		this.status = status;
+		return this;
+	}
 
-  public TransactionViewModel description(String description) {
-    this.description = description;
-    return this;
-  }
+	/**
+	 * Get status
+	 *
+	 * @return status
+	 **/
+	@Schema(description = "")
+	public MultiWalletTransactionStatus getStatus() {
+		return status;
+	}
 
-  /**
-   * Get date
-   * @return date
-   **/
-  @Schema(description = "")
-  public DateTime getDate() {
-    return date;
-  }
+	public void setStatus(MultiWalletTransactionStatus status) {
+		this.status = status;
+	}
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+	public TransactionViewModel description(String description) {
+		this.description = description;
+		return this;
+	}
 
-  public TransactionViewModel amount(AmountRowCell amount) {
-    this.amount = amount;
-    return this;
-  }
+	/**
+	 * Get description
+	 *
+	 * @return description
+	 **/
+	@Schema(description = "")
+	public String getDescription() {
+		return description;
+	}
 
-  /**
-   * Get status
-   * @return status
-   **/
-  @Schema(description = "")
-  public MultiWalletTransactionStatus getStatus() {
-    return status;
-  }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-  public void setAmount(AmountRowCell amount) {
-    this.amount = amount;
-  }
+	public TransactionViewModel amount(AmountRowCell amount) {
+		this.amount = amount;
+		return this;
+	}
 
-  public TransactionViewModel asset(AssetDetails asset) {
-    this.asset = asset;
-    return this;
-  }
+	/**
+	 * Get amount
+	 *
+	 * @return amount
+	 **/
+	@Schema(description = "")
+	public AmountRowCell getAmount() {
+		return amount;
+	}
 
-  /**
-   * Get description
-   *
-   * @return description
-   **/
-  @Schema(description = "")
-  public String getDescription() {
-    return description;
-  }
+	public void setAmount(AmountRowCell amount) {
+		this.amount = amount;
+	}
 
-  public void setAsset(AssetDetails asset) {
-    this.asset = asset;
-  }
+	public TransactionViewModel asset(AssetDetails asset) {
+		this.asset = asset;
+		return this;
+	}
 
-  public TransactionViewModel external(ExternalDetails external) {
-    this.external = external;
-    return this;
-  }
+	/**
+	 * Get asset
+	 *
+	 * @return asset
+	 **/
+	@Schema(description = "")
+	public AssetDetails getAsset() {
+		return asset;
+	}
 
-  /**
-   * Get amount
-   * @return amount
-  **/
-  @Schema(description = "")
-  public AmountRowCell getAmount() {
-    return amount;
-  }
+	public void setAsset(AssetDetails asset) {
+		this.asset = asset;
+	}
 
-  public void setExternal(ExternalDetails external) {
-    this.external = external;
-  }
+	public TransactionViewModel external(ExternalDetails external) {
+		this.external = external;
+		return this;
+	}
 
-  public TransactionViewModel buttons(List<ButtonAction> buttons) {
-    this.buttons = buttons;
-    return this;
-  }
+	/**
+	 * Get external
+	 *
+	 * @return external
+	 **/
+	@Schema(description = "")
+	public ExternalDetails getExternal() {
+		return external;
+	}
 
-  public TransactionViewModel addButtonsItem(ButtonAction buttonsItem) {
-    if (this.buttons == null) {
-      this.buttons = new ArrayList<ButtonAction>();
-    }
-    this.buttons.add(buttonsItem);
-    return this;
-  }
+	public void setExternal(ExternalDetails external) {
+		this.external = external;
+	}
 
-  /**
-   * Get asset
-   * @return asset
-  **/
-  @Schema(description = "")
-  public AssetDetails getAsset() {
-    return asset;
-  }
+	public TransactionViewModel buttons(List<ButtonAction> buttons) {
+		this.buttons = buttons;
+		return this;
+	}
 
-  public void setButtons(List<ButtonAction> buttons) {
-    this.buttons = buttons;
-  }
+	public TransactionViewModel addButtonsItem(ButtonAction buttonsItem) {
+		if (this.buttons == null) {
+			this.buttons = new ArrayList<ButtonAction>();
+		}
+		this.buttons.add(buttonsItem);
+		return this;
+	}
 
-  public TransactionViewModel details(List<TransactionDetail> details) {
-    this.details = details;
-    return this;
-  }
+	/**
+	 * Get buttons
+	 *
+	 * @return buttons
+	 **/
+	@Schema(description = "")
+	public List<ButtonAction> getButtons() {
+		return buttons;
+	}
 
-  public TransactionViewModel addDetailsItem(TransactionDetail detailsItem) {
-    if (this.details == null) {
-      this.details = new ArrayList<TransactionDetail>();
-    }
-    this.details.add(detailsItem);
-    return this;
-  }
+	public void setButtons(List<ButtonAction> buttons) {
+		this.buttons = buttons;
+	}
 
-  /**
-   * Get external
-   *
-   * @return external
-   **/
-  @Schema(description = "")
-  public ExternalDetails getExternal() {
-    return external;
-  }
+	public TransactionViewModel details(List<TransactionDetail> details) {
+		this.details = details;
+		return this;
+	}
 
-  public void setDetails(List<TransactionDetail> details) {
-    this.details = details;
-  }
+	public TransactionViewModel addDetailsItem(TransactionDetail detailsItem) {
+		if (this.details == null) {
+			this.details = new ArrayList<TransactionDetail>();
+		}
+		this.details.add(detailsItem);
+		return this;
+	}
 
-  /**
-   * Get buttons
-   *
-   * @return buttons
-   **/
-  @Schema(description = "")
-  public List<ButtonAction> getButtons() {
-    return buttons;
-  }
+	/**
+	 * Get details
+	 *
+	 * @return details
+	 **/
+	@Schema(description = "")
+	public List<TransactionDetail> getDetails() {
+		return details;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(wallet, date, status, description, amount, asset, external, buttons, details);
-  }
+	public void setDetails(List<TransactionDetail> details) {
+		this.details = details;
+	}
 
-  /**
-   * Get details
-   * @return details
-  **/
-  @Schema(description = "")
-  public List<TransactionDetail> getDetails() {
-    return details;
-  }
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		TransactionViewModel transactionViewModel = (TransactionViewModel) o;
+		return Objects.equals(this.wallet, transactionViewModel.wallet) &&
+				Objects.equals(this.date, transactionViewModel.date) &&
+				Objects.equals(this.status, transactionViewModel.status) &&
+				Objects.equals(this.description, transactionViewModel.description) &&
+				Objects.equals(this.amount, transactionViewModel.amount) &&
+				Objects.equals(this.asset, transactionViewModel.asset) &&
+				Objects.equals(this.external, transactionViewModel.external) &&
+				Objects.equals(this.buttons, transactionViewModel.buttons) &&
+				Objects.equals(this.details, transactionViewModel.details);
+	}
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(wallet, date, status, description, amount, asset, external, buttons, details);
+	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class TransactionViewModel {\n");
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(wallet);
-    out.writeValue(date);
-    out.writeValue(status);
-    out.writeValue(description);
-    out.writeValue(amount);
-    out.writeValue(asset);
-    out.writeValue(external);
-    out.writeValue(buttons);
-    out.writeValue(details);
-  }
+		sb.append("    wallet: ").append(toIndentedString(wallet)).append("\n");
+		sb.append("    date: ").append(toIndentedString(date)).append("\n");
+		sb.append("    status: ").append(toIndentedString(status)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
+		sb.append("    external: ").append(toIndentedString(external)).append("\n");
+		sb.append("    buttons: ").append(toIndentedString(buttons)).append("\n");
+		sb.append("    details: ").append(toIndentedString(details)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    TransactionViewModel transactionViewModel = (TransactionViewModel) o;
-    return Objects.equals(this.wallet, transactionViewModel.wallet) &&
-            Objects.equals(this.date, transactionViewModel.date) &&
-            Objects.equals(this.status, transactionViewModel.status) &&
-            Objects.equals(this.description, transactionViewModel.description) &&
-            Objects.equals(this.amount, transactionViewModel.amount) &&
-            Objects.equals(this.asset, transactionViewModel.asset) &&
-            Objects.equals(this.external, transactionViewModel.external) &&
-            Objects.equals(this.buttons, transactionViewModel.buttons) &&
-            Objects.equals(this.details, transactionViewModel.details);
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(wallet);
+		out.writeValue(date);
+		out.writeValue(status);
+		out.writeValue(description);
+		out.writeValue(amount);
+		out.writeValue(asset);
+		out.writeValue(external);
+		out.writeValue(buttons);
+		out.writeValue(details);
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class TransactionViewModel {\n");
-
-    sb.append("    wallet: ").append(toIndentedString(wallet)).append("\n");
-    sb.append("    date: ").append(toIndentedString(date)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
-    sb.append("    external: ").append(toIndentedString(external)).append("\n");
-    sb.append("    buttons: ").append(toIndentedString(buttons)).append("\n");
-    sb.append("    details: ").append(toIndentedString(details)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

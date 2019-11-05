@@ -1,6 +1,13 @@
 package io.swagger.client.api;
 
+import org.joda.time.DateTime;
+
+import java.util.List;
+import java.util.UUID;
+
 import io.swagger.client.model.DashboardAssets;
+import io.swagger.client.model.DashboardChart;
+import io.swagger.client.model.DashboardChartAssets;
 import io.swagger.client.model.DashboardInvestingDetails;
 import io.swagger.client.model.DashboardPortfolio;
 import io.swagger.client.model.DashboardRecommendations;
@@ -12,22 +19,38 @@ import rx.Observable;
 public interface DashboardApi
 {
 	/**
+	 * @param authorization     JWT access token (required)
+	 * @param statisticDateFrom (optional)
+	 * @param statisticDateTo   (optional)
+	 * @param chartPointsCount  (optional)
+	 * @param showIn            (optional)
+	 * @param assets            (optional)
+	 * @return Call&lt;DashboardChart&gt;
+	 */
+	@GET("v2.0/dashboard/chart")
+	Observable<DashboardChart> getChart(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("StatisticDateFrom") DateTime statisticDateFrom, @retrofit2.http.Query("StatisticDateTo") DateTime statisticDateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("ShowIn") String showIn, @retrofit2.http.Query("Assets") List<UUID> assets
+	);
+
+	/**
+	 * Active assets for chart
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;DashboardChartAssets&gt;
+	 */
+	@GET("v2.0/dashboard/chart/assets")
+	Observable<DashboardChartAssets> getChartAssets(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
 	 * @param authorization  JWT access token (required)
 	 * @param topAssetsCount (optional)
 	 * @return Call&lt;DashboardAssets&gt;
 	 */
-	@GET("v2.0/dashboard/assets")
-	Observable<DashboardAssets> getAssets(
+	@GET("v2.0/dashboard/holdings")
+	Observable<DashboardAssets> getHoldings(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("topAssetsCount") Integer topAssetsCount
-	);
-
-	/**
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;Void&gt;
-	 */
-	@GET("v2.0/dashboard/chart")
-	Observable<Void> getChart(
-			@retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**

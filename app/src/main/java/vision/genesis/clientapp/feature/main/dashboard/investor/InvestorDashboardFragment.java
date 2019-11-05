@@ -37,9 +37,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.DashboardChartValue;
 import io.swagger.client.model.InvestmentEventViewModel;
-import io.swagger.client.model.ProgramRequest;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -612,14 +610,14 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 		dashboardHeaderPagerAdapter.setInRequests(totalValue, rate);
 	}
 
-	@Override
-	public void showInRequests(List<ProgramRequest> requests) {
-		if (getActivity() != null) {
-			RequestsBottomSheetFragment bottomSheetDialog = new RequestsBottomSheetFragment();
-			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
-			bottomSheetDialog.setRequests(requests);
-		}
-	}
+//	@Override
+//	public void showInRequests(List<ProgramRequest> requests) {
+//		if (getActivity() != null) {
+//			RequestsBottomSheetFragment bottomSheetDialog = new RequestsBottomSheetFragment();
+//			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
+//			bottomSheetDialog.setRequests(requests);
+//		}
+//	}
 
 	@Override
 	public void showProgramRequests(UUID programId) {
@@ -665,10 +663,10 @@ public class InvestorDashboardFragment extends BaseFragment implements InvestorD
 		((CustomTabView) tradingLogTab.getCustomView()).setCount(eventsCount);
 	}
 
-	@Override
-	public void setChartData(DashboardChartValue chart) {
-		dashboardHeaderPagerAdapter.setPortfolioChart(chart, dateRange);
-	}
+//	@Override
+//	public void setChartData(DashboardChartValue chart) {
+//		dashboardHeaderPagerAdapter.setPortfolioChart(chart, dateRange);
+//	}
 
 	@Override
 	public void setPortfolioEvents(List<InvestmentEventViewModel> events) {

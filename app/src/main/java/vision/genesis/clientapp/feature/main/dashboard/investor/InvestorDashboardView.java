@@ -7,9 +7,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import java.util.List;
 import java.util.UUID;
 
-import io.swagger.client.model.DashboardChartValue;
 import io.swagger.client.model.InvestmentEventViewModel;
-import io.swagger.client.model.ProgramRequest;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.PortfolioAssetData;
@@ -22,7 +20,7 @@ import vision.genesis.clientapp.model.PortfolioAssetData;
 
 interface InvestorDashboardView extends MvpView
 {
-	void setChartData(DashboardChartValue chart);
+//	void setChartData(DashboardChartValue chart);
 
 	void setPortfolioEvents(List<InvestmentEventViewModel> events);
 
@@ -45,7 +43,7 @@ interface InvestorDashboardView extends MvpView
 
 	void setInRequests(Double totalValue, Double rate);
 
-	void showInRequests(List<ProgramRequest> requests);
+//	void showInRequests(List<ProgramRequest> requests);
 
 	void showProgramRequests(UUID programId);
 

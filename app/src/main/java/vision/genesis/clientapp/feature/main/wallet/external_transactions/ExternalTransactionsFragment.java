@@ -7,20 +7,21 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 import java.util.UUID;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.swagger.client.model.MultiWalletExternalTransaction;
+import io.swagger.client.model.TransactionViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -160,7 +161,7 @@ public class ExternalTransactionsFragment extends BaseFragment implements Extern
 	}
 
 	@Override
-	public void setTransactions(List<MultiWalletExternalTransaction> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+	public void setTransactions(List<TransactionViewModel> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
 		if (transactions.isEmpty()) {
 			groupNoTransactions.setVisibility(View.VISIBLE);
 			recyclerView.setVisibility(View.GONE);
@@ -174,7 +175,7 @@ public class ExternalTransactionsFragment extends BaseFragment implements Extern
 	}
 
 	@Override
-	public void addTransactions(List<MultiWalletExternalTransaction> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+	public void addTransactions(List<TransactionViewModel> transactions, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
 		sectionedAdapter.setSections(sections);
 		depositsWithdrawalsListAdapter.addTransactions(transactions);
 	}
@@ -191,8 +192,9 @@ public class ExternalTransactionsFragment extends BaseFragment implements Extern
 
 	@Override
 	public void pagerShow() {
-		if (externalTransactionsPresenter != null)
+		if (externalTransactionsPresenter != null) {
 			externalTransactionsPresenter.onShow();
+		}
 	}
 
 	@Override
@@ -200,12 +202,14 @@ public class ExternalTransactionsFragment extends BaseFragment implements Extern
 	}
 
 	public void onSwipeRefresh() {
-		if (externalTransactionsPresenter != null)
+		if (externalTransactionsPresenter != null) {
 			externalTransactionsPresenter.onSwipeRefresh();
+		}
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
-		if (filtersView != null)
+		if (filtersView != null) {
 			filtersView.setY(root.getHeight() - verticalOffset - filtersView.getHeight() - filtersMarginBottom);
+		}
 	}
 }

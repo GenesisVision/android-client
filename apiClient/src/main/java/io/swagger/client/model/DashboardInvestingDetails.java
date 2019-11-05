@@ -20,6 +20,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * DashboardInvestingDetails
  */
@@ -51,7 +52,7 @@ public class DashboardInvestingDetails implements Parcelable
 	private DashboardProfits profits = null;
 
 	@SerializedName("events")
-	private InvestmentEventViewModels events = null;
+	private ItemsViewModelInvestmentEventViewModel events = null;
 
 	public DashboardInvestingDetails() {
 	}
@@ -61,7 +62,7 @@ public class DashboardInvestingDetails implements Parcelable
 		programsCount = (Integer) in.readValue(null);
 		fundsCount = (Integer) in.readValue(null);
 		profits = (DashboardProfits) in.readValue(DashboardProfits.class.getClassLoader());
-		events = (InvestmentEventViewModels) in.readValue(InvestmentEventViewModels.class.getClassLoader());
+		events = (ItemsViewModelInvestmentEventViewModel) in.readValue(ItemsViewModelInvestmentEventViewModel.class.getClassLoader());
 	}
 
 	public DashboardInvestingDetails equity(Double equity) {
@@ -140,7 +141,7 @@ public class DashboardInvestingDetails implements Parcelable
 		this.profits = profits;
 	}
 
-	public DashboardInvestingDetails events(InvestmentEventViewModels events) {
+	public DashboardInvestingDetails events(ItemsViewModelInvestmentEventViewModel events) {
 		this.events = events;
 		return this;
 	}
@@ -151,11 +152,11 @@ public class DashboardInvestingDetails implements Parcelable
 	 * @return events
 	 **/
 	@Schema(description = "")
-	public InvestmentEventViewModels getEvents() {
+	public ItemsViewModelInvestmentEventViewModel getEvents() {
 		return events;
 	}
 
-	public void setEvents(InvestmentEventViewModels events) {
+	public void setEvents(ItemsViewModelInvestmentEventViewModel events) {
 		this.events = events;
 	}
 

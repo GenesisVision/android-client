@@ -119,8 +119,12 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 	}
 
 	private String getAmountBaseString() {
+		//TODO:
+//		return String.format(Locale.getDefault(), "= %s %s",
+//				StringFormatUtil.formatCurrencyAmount(amount * withdrawInfo.getRate(), baseCurrency.getValue()),
+//				baseCurrency.getValue());
 		return String.format(Locale.getDefault(), "= %s %s",
-				StringFormatUtil.formatCurrencyAmount(amount * withdrawInfo.getRate(), baseCurrency.getValue()),
+				StringFormatUtil.formatCurrencyAmount(amount * 2, baseCurrency.getValue()),
 				baseCurrency.getValue());
 	}
 

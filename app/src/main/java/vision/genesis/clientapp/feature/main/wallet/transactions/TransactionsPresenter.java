@@ -12,8 +12,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.ItemsViewModelTransactionViewModel;
 import io.swagger.client.model.TransactionViewModel;
-import io.swagger.client.model.TransactionsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -116,7 +116,7 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 		}
 	}
 
-	private void handleGetTransactionsResponse(TransactionsViewModel model) {
+	private void handleGetTransactionsResponse(ItemsViewModelTransactionViewModel model) {
 		transactionsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
@@ -132,7 +132,7 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 			EventBus.getDefault().post(new SetSpecificWalletTransactionsCountEvent(model.getTotal()));
 		}
 
-		List<TransactionViewModel> newTransactions = model.getTransactions();
+		List<TransactionViewModel> newTransactions = model.getItems();
 
 		int index = transactions.size();
 		for (TransactionViewModel newTransaction : newTransactions) {

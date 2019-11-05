@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import io.swagger.client.api.RateApi;
-import io.swagger.client.model.RateItem;
 import io.swagger.client.model.RateModel;
 import io.swagger.client.model.RatesModel;
 import rx.Subscription;
@@ -83,10 +82,11 @@ public class RateManager
 		baseRatesSubscription.unsubscribe();
 
 		HashMap<CurrencyEnum, Double> responseMap = new HashMap<>();
-		for (RateItem rateItem : response.getRates().getGVT()) {
-			getRateSubject(CurrencyEnum.GVT.getValue(), rateItem.getCurrency().getValue()).onNext(rateItem.getRate());
-			responseMap.put(CurrencyEnum.fromValue(rateItem.getCurrency().toString()), rateItem.getRate());
-		}
+		//TODO:
+//		for (RateItem rateItem : response.getRates().getGVT()) {
+//			getRateSubject(CurrencyEnum.GVT.getValue(), rateItem.getCurrency().getValue()).onNext(rateItem.getRate());
+//			responseMap.put(CurrencyEnum.fromValue(rateItem.getCurrency().toString()), rateItem.getRate());
+//		}
 		baseRatesSubject.onNext(responseMap);
 	}
 

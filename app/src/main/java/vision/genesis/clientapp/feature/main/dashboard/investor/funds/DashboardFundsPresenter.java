@@ -10,7 +10,6 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.FundsList;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -23,7 +22,6 @@ import vision.genesis.clientapp.model.SortingEnum;
 import vision.genesis.clientapp.model.events.OnBrowseFundsClickedEvent;
 import vision.genesis.clientapp.model.events.OnDashboardFundFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.OnFundFavoriteChangedEvent;
-import vision.genesis.clientapp.model.events.SetDashboardFundsCountEvent;
 import vision.genesis.clientapp.model.filter.DashboardFilter;
 import vision.genesis.clientapp.model.filter.UserFilter;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -63,17 +61,20 @@ public class DashboardFundsPresenter extends MvpPresenter<DashboardFundsView>
 
 	@Override
 	public void onDestroy() {
-		if (getFundsSubscription != null)
+		if (getFundsSubscription != null) {
 			getFundsSubscription.unsubscribe();
-		if (favoriteSubscription != null)
+		}
+		if (favoriteSubscription != null) {
 			favoriteSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
 
 	private void createFilter() {
-		if (filter == null)
+		if (filter == null) {
 			filter = new DashboardFilter();
+		}
 		this.filter.setSkip(0);
 		this.filter.setTake(1000);
 		this.filter.setDateRange(DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH));
@@ -82,8 +83,9 @@ public class DashboardFundsPresenter extends MvpPresenter<DashboardFundsView>
 	}
 
 	void onShow() {
-		if (getFundsSubscription != null && !getFundsSubscription.isUnsubscribed())
+		if (getFundsSubscription != null && !getFundsSubscription.isUnsubscribed()) {
 			return;
+		}
 		getFunds();
 	}
 
@@ -102,22 +104,22 @@ public class DashboardFundsPresenter extends MvpPresenter<DashboardFundsView>
 	}
 
 	private void getFunds() {
-		if (filter != null)
-			getFundsSubscription = dashboardManager.getFunds(filter)
-					.subscribeOn(Schedulers.computation())
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(this::handleGetFundsSuccess,
-							this::handleGetFundsError);
+//		if (filter != null)
+//			getFundsSubscription = dashboardManager.getFunds(filter)
+//					.subscribeOn(Schedulers.computation())
+//					.observeOn(AndroidSchedulers.mainThread())
+//					.subscribe(this::handleGetFundsSuccess,
+//							this::handleGetFundsError);
 	}
 
-	private void handleGetFundsSuccess(FundsList response) {
-		getFundsSubscription.unsubscribe();
-
-		getViewState().showProgressBar(false);
-
-		getViewState().setFunds(response.getFunds());
-		EventBus.getDefault().post(new SetDashboardFundsCountEvent(response.getTotal()));
-	}
+//	private void handleGetFundsSuccess(FundsList response) {
+//		getFundsSubscription.unsubscribe();
+//
+//		getViewState().showProgressBar(false);
+//
+//		getViewState().setFunds(response.getFunds());
+//		EventBus.getDefault().post(new SetDashboardFundsCountEvent(response.getTotal()));
+//	}
 
 	private void handleGetFundsError(Throwable throwable) {
 		getFundsSubscription.unsubscribe();
@@ -131,8 +133,9 @@ public class DashboardFundsPresenter extends MvpPresenter<DashboardFundsView>
 
 	private void setFavorite(UUID fundId, boolean favorite) {
 		if (fundsManager != null) {
-			if (favoriteSubscription != null)
+			if (favoriteSubscription != null) {
 				favoriteSubscription.unsubscribe();
+			}
 			favoriteSubscription = fundsManager.setFundFavorite(fundId, favorite)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())

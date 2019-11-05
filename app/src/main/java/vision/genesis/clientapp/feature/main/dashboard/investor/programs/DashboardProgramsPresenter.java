@@ -10,7 +10,6 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ProgramsList;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -26,10 +25,8 @@ import vision.genesis.clientapp.model.events.OnDashboardProgramsUpdateEvent;
 import vision.genesis.clientapp.model.events.OnDashboardReinvestClickedEvent;
 import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.OnProgramReinvestChangedEvent;
-import vision.genesis.clientapp.model.events.SetDashboardProgramsCountEvent;
 import vision.genesis.clientapp.model.filter.DashboardFilter;
 import vision.genesis.clientapp.model.filter.UserFilter;
-import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
  * GenesisVision
@@ -69,10 +66,12 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 
 	@Override
 	public void onDestroy() {
-		if (getProgramsSubscription != null)
+		if (getProgramsSubscription != null) {
 			getProgramsSubscription.unsubscribe();
-		if (reinvestSubscription != null)
+		}
+		if (reinvestSubscription != null) {
 			reinvestSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -80,8 +79,9 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 	}
 
 	private void createFilter() {
-		if (filter == null)
+		if (filter == null) {
 			filter = new DashboardFilter();
+		}
 		this.filter.setSkip(0);
 		this.filter.setTake(1000);
 		this.filter.setDateRange(DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH));
@@ -113,39 +113,38 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 	}
 
 	private void getPrograms() {
-		if (filter != null)
-			getProgramsSubscription = dashboardManager.getPrograms(filter)
-					.subscribeOn(Schedulers.computation())
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(this::handleGetProgramsSuccess,
-							this::handleGetProgramsError);
+//		if (filter != null)
+//			getProgramsSubscription = dashboardManager.getPrograms(filter)
+//					.subscribeOn(Schedulers.computation())
+//					.observeOn(AndroidSchedulers.mainThread())
+//					.subscribe(this::handleGetProgramsSuccess,
+//							this::handleGetProgramsError);
 	}
 
-	private void handleGetProgramsSuccess(ProgramsList response) {
-		getProgramsSubscription.unsubscribe();
-
-		getViewState().showProgressBar(false);
-
-		getViewState().setPrograms(response.getPrograms());
-		EventBus.getDefault().post(new SetDashboardProgramsCountEvent(response.getTotal()));
-	}
-
-	private void handleGetProgramsError(Throwable throwable) {
-		getProgramsSubscription.unsubscribe();
-
-		getViewState().showProgressBar(false);
-		getViewState().showEmpty(false);
-
-		if (ApiErrorResolver.isNetworkError(throwable)) {
-//			if (programs.size() == 0)
-//			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
-		}
-	}
+//	private void handleGetProgramsSuccess(ProgramsList response) {
+//		getProgramsSubscription.unsubscribe();
+//
+//		getViewState().showProgressBar(false);
+//
+//		getViewState().setPrograms(response.getPrograms());
+//		EventBus.getDefault().post(new SetDashboardProgramsCountEvent(response.getTotal()));
+//	}
+//
+//	private void handleGetProgramsError(Throwable throwable) {
+//		getProgramsSubscription.unsubscribe();
+//
+//		getViewState().showProgressBar(false);
+//		getViewState().showEmpty(false);
+//
+//		if (ApiErrorResolver.isNetworkError(throwable)) {
+//		}
+//	}
 
 	private void setReinvest(UUID programId, boolean reinvest) {
 		if (programsManager != null) {
-			if (reinvestSubscription != null)
+			if (reinvestSubscription != null) {
 				reinvestSubscription.unsubscribe();
+			}
 			reinvestSubscription = programsManager.setReinvest(programId, reinvest)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
@@ -169,8 +168,9 @@ public class DashboardProgramsPresenter extends MvpPresenter<DashboardProgramsVi
 
 	private void setFavorite(UUID programId, boolean favorite) {
 		if (programsManager != null) {
-			if (favoriteSubscription != null)
+			if (favoriteSubscription != null) {
 				favoriteSubscription.unsubscribe();
+			}
 			favoriteSubscription = programsManager.setProgramFavorite(programId, favorite)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())

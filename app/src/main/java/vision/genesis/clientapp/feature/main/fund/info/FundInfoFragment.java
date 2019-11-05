@@ -43,7 +43,6 @@ import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
-import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -272,11 +271,11 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 			yourInvestmentGroup.setVisibility(View.VISIBLE);
 			status.setStatus(personalDetails.getStatus().getValue());
 //		invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(fundDetails.getPersonalProgramDetails().getInvested()).toString()));
-			invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(personalDetails.getInvested(), CurrencyEnum.GVT.toString())));
+//			invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(personalDetails.getInvested(), CurrencyEnum.GVT.toString())));
 			value.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(personalDetails.getValue(), CurrencyEnum.GVT.toString())));
 //			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(personalDetails.getProfit(), 0, 4)));
 			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(getProfitPercent(personalDetails), 0, 4)));
-			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(), personalDetails.getProfit() < 0 ? R.attr.colorRed : R.attr.colorGreen));
+//			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(), personalDetails.getProfit() < 0 ? R.attr.colorRed : R.attr.colorGreen));
 		}
 		else {
 			yourInvestmentGroup.setVisibility(View.GONE);
@@ -302,7 +301,8 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 	}
 
 	private Double getProfitPercent(PersonalFundDetails personalDetails) {
-		Double first = personalDetails.getInvested();
+//		Double first = personalDetails.getInvested();
+		Double first = personalDetails.getValue();
 		Double last = personalDetails.getValue();
 
 		return Math.abs(first != 0 ? 100 / first * (first - last) : 0);

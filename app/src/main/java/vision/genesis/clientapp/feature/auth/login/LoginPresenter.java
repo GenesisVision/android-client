@@ -14,7 +14,7 @@ import javax.inject.Inject;
 
 import io.swagger.client.model.CaptchaCheckResult;
 import io.swagger.client.model.CaptchaDetails;
-import io.swagger.client.model.ErrorViewModel;
+import io.swagger.client.model.ErrorCodes;
 import rx.Single;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -72,10 +72,12 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 
 	@Override
 	public void onDestroy() {
-		if (riskControlSubscription != null)
+		if (riskControlSubscription != null) {
 			riskControlSubscription.unsubscribe();
-		if (loginSubscription != null)
+		}
+		if (loginSubscription != null) {
 			loginSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -149,8 +151,9 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 		loginSubscription.unsubscribe();
 
 		getViewState().finishActivity(false);
-		if (tfaEnabled)
+		if (tfaEnabled) {
 			EventBus.getDefault().post(new OnCheckTfaSuccessEvent());
+		}
 	}
 
 	private void onLoginError(Throwable throwable) {
@@ -158,26 +161,30 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 		getViewState().hideProgress();
 
 		if (ApiErrorResolver.isNetworkError(throwable)) {
-			if (tfaEnabled)
+			if (tfaEnabled) {
 				EventBus.getDefault().post(new OnCheckTfaErrorEvent(context.getResources().getString(R.string.network_error)));
-			else
+			}
+			else {
 				getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
+			}
 			getViewState().hideProgress();
 		}
 		else {
 			ErrorResponse response = ErrorResponseConverter.createFromThrowable(throwable);
 			if (response != null) {
-				if (response.code.equals(ErrorViewModel.CodeEnum.REQUIRESTWOFACTOR.toString())) {
+				if (response.code.equals(ErrorCodes.REQUIRESTWOFACTOR.toString())) {
 					String action = String.format(Locale.getDefault(), "%s %s", context.getString(R.string.sign_in_as), email);
 					getViewState().startCheckTfaActivity(action);
 				}
 				else {
 					for (Error error : response.errors) {
 						if (error.property == null || error.property.isEmpty()) {
-							if (tfaEnabled)
+							if (tfaEnabled) {
 								EventBus.getDefault().post(new OnCheckTfaErrorEvent(error.message));
-							else
+							}
+							else {
 								getViewState().showSnackbarMessage(error.message);
+							}
 						}
 						else {
 							switch (error.property.toLowerCase()) {

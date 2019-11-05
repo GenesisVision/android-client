@@ -105,6 +105,10 @@ android {
     }
 }
 
+ext {
+    retrofit_version = "2.5.0"
+}
+
 dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -118,6 +122,12 @@ dependencies {
     implementation "com.google.firebase:firebase-core:17.1.0"
     implementation "com.google.firebase:firebase-crash:16.2.1"
     implementation "com.crashlytics.sdk.android:crashlytics:2.10.1"
+
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava:$retrofit_version"
 
     implementation "com.aurelhubert:ahbottomnavigation:2.1.0"
 

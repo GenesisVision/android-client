@@ -40,11 +40,12 @@ public class ProgramsManager
 
 	public Observable<ItemsViewModelProgramDetailsList> getProgramsList(ProgramsFilter filter) {
 		return programsApi.getPrograms(AuthManager.token.getValue(),
-				filter.getTags(), filter.getCurrency().getValue(),
+				null,
+				filter.getTags(), filter.getCurrency() == null ? null : filter.getCurrency().getValue(),
 				filter.getLevelMin(), filter.getLevelMax(),
 				null, null,
-				filter.getChartPointsCount(), null,
-				filter.getFacetId().toString(), filter.getMask(),
+				filter.getChartPointsCount(), filter.getFacetId() == null ? null : filter.getFacetId().toString(),
+				filter.getMask(), false,
 				filter.getSkip(), filter.getTake());
 	}
 
@@ -81,7 +82,12 @@ public class ProgramsManager
 	}
 
 	public Observable<InvestmentEventViewModels> getEvents(UUID programId, DateRange dateRange, Integer skip, Integer take) {
-		return eventsApi.getEvents(AuthManager.token.getValue(), InvestmentEventLocation.ASSET.getValue(), programId, dateRange.getFrom(), dateRange.getTo(), null, null, skip, take);
+		return eventsApi.getEvents(AuthManager.token.getValue(),
+				InvestmentEventLocation.ASSET.getValue(), programId,
+				dateRange.getFrom(), dateRange.getTo(),
+				null, null,
+				null, null,
+				skip, take);
 	}
 
 //	public Observable<ProgramInvestInfo> getInvestInfo(UUID programId, String baseCurrency) {

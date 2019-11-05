@@ -7,35 +7,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.PersonalProgramDetailsFull;
-import io.swagger.client.model.ProgramDetails;
-import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.ProgramDetailsModel;
-import vision.genesis.clientapp.model.events.OnDashboardProgramFavoriteClickedEvent;
-import vision.genesis.clientapp.model.events.OnDashboardReinvestClickedEvent;
-import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
-import vision.genesis.clientapp.model.events.ShowProgramRequestsEvent;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PeriodLeftView;
 import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
-import vision.genesis.clientapp.utils.StringFormatUtil;
-import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -45,7 +29,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProgramsAdapter.ProgramViewHolder>
 {
-	private List<ProgramDetails> programs = new ArrayList<>();
+//	private List<ProgramDetails> programs = new ArrayList<>();
 
 	@Override
 	public ProgramViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -55,50 +39,51 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 
 	@Override
 	public void onBindViewHolder(ProgramViewHolder holder, int position) {
-		if (programs.get(position) != null)
-			holder.setProgram(programs.get(position));
+//		if (programs.get(position) != null)
+//			holder.setProgram(programs.get(position));
 	}
 
 	@Override
 	public int getItemCount() {
-		return programs.size();
+//		return programs.size();
+		return 0;
 	}
 
-	@Override
-	public long getItemId(int position) {
-		return programs.get(position) != null
-				? programs.get(position).hashCode()
-				: RecyclerView.NO_ID;
-	}
+//	@Override
+//	public long getItemId(int position) {
+//		return programs.get(position) != null
+//				? programs.get(position).hashCode()
+//				: RecyclerView.NO_ID;
+//	}
 
-	void setPrograms(List<ProgramDetails> programs) {
-		this.programs.clear();
-		this.programs.addAll(programs);
-		notifyDataSetChanged();
-	}
+//	void setPrograms(List<ProgramDetails> programs) {
+//		this.programs.clear();
+//		this.programs.addAll(programs);
+//		notifyDataSetChanged();
+//	}
 
 	public void setProgramReinvest(UUID programId, Boolean reinvest) {
-		for (ProgramDetails program : programs) {
-			if (program.getId().equals(programId)) {
-				if (program.getPersonalDetails() != null && !program.getPersonalDetails().isIsReinvest().equals(reinvest)) {
-					program.getPersonalDetails().setIsReinvest(reinvest);
-					notifyItemChanged(programs.indexOf(program));
-				}
-				break;
-			}
-		}
+//		for (ProgramDetails program : programs) {
+//			if (program.getId().equals(programId)) {
+//				if (program.getPersonalDetails() != null && !program.getPersonalDetails().isIsReinvest().equals(reinvest)) {
+//					program.getPersonalDetails().setIsReinvest(reinvest);
+//					notifyItemChanged(programs.indexOf(program));
+//				}
+//				break;
+//			}
+//		}
 	}
 
 	public void setProgramFavorite(UUID programId, Boolean favorite) {
-		for (ProgramDetails program : programs) {
-			if (program.getId().equals(programId)) {
-				if (program.getPersonalDetails() != null && !program.getPersonalDetails().isIsFavorite().equals(favorite)) {
-					program.getPersonalDetails().setIsFavorite(favorite);
-					notifyItemChanged(programs.indexOf(program));
-				}
-				break;
-			}
-		}
+//		for (ProgramDetails program : programs) {
+//			if (program.getId().equals(programId)) {
+//				if (program.getPersonalDetails() != null && !program.getPersonalDetails().isIsFavorite().equals(favorite)) {
+//					program.getPersonalDetails().setIsFavorite(favorite);
+//					notifyItemChanged(programs.indexOf(program));
+//				}
+//				break;
+//			}
+//		}
 	}
 
 	static class ProgramViewHolder extends RecyclerView.ViewHolder
@@ -154,7 +139,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 		@BindView(R.id.switch_reinvest)
 		public SwitchCompat reinvest;
 
-		private ProgramDetails program;
+//		private ProgramDetails program;
 
 		private Context context;
 
@@ -170,48 +155,48 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			setFonts();
 
 			itemView.setOnClickListener(v -> {
-				if (program != null) {
-					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(program.getId(),
-							program.getLogo(),
-							program.getColor(),
-							program.getLevel(),
-							program.getLevelProgress(),
-							program.getTitle(),
-							program.getManager().getUsername(),
-							program.getCurrency().getValue(),
-							program.getPersonalDetails().isIsFavorite(),
-							program.getPersonalDetails().isHasNotifications());
-					EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
-				}
+//				if (program != null) {
+//					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(program.getId(),
+//							program.getLogo(),
+//							program.getColor(),
+//							program.getLevel(),
+//							program.getLevelProgress(),
+//							program.getTitle(),
+//							program.getManager().getUsername(),
+//							program.getCurrency().getValue(),
+//							program.getPersonalDetails().isIsFavorite(),
+//							program.getPersonalDetails().isHasNotifications());
+//					EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
+//				}
 			});
 		}
 
 		@OnClick(R.id.switch_reinvest)
 		public void onReinvestClicked() {
-			if (program != null) {
-				program.getPersonalDetails().setIsReinvest(!program.getPersonalDetails().isIsReinvest());
-//				updateData();
-				EventBus.getDefault().post(new OnDashboardReinvestClickedEvent(program.getId(), program.getPersonalDetails().isIsReinvest()));
-			}
+//			if (program != null) {
+//				program.getPersonalDetails().setIsReinvest(!program.getPersonalDetails().isIsReinvest());
+////				updateData();
+//				EventBus.getDefault().post(new OnDashboardReinvestClickedEvent(program.getId(), program.getPersonalDetails().isIsReinvest()));
+//			}
 		}
 
 		@OnClick(R.id.favorite)
 		public void onFavoriteClicked() {
-			if (program != null && program.getPersonalDetails() != null) {
-				program.getPersonalDetails().setIsFavorite(!program.getPersonalDetails().isIsFavorite());
-				updateData();
-				EventBus.getDefault().post(new OnDashboardProgramFavoriteClickedEvent(program.getId(), program.getPersonalDetails().isIsFavorite()));
-			}
+//			if (program != null && program.getPersonalDetails() != null) {
+//				program.getPersonalDetails().setIsFavorite(!program.getPersonalDetails().isIsFavorite());
+//				updateData();
+//				EventBus.getDefault().post(new OnDashboardProgramFavoriteClickedEvent(program.getId(), program.getPersonalDetails().isIsFavorite()));
+//			}
 		}
 
 		@OnClick(R.id.status)
 		public void onStatusClicked() {
-			if (program != null && program.getPersonalDetails() != null) {
-				if (program.getPersonalDetails().getStatus().equals(PersonalProgramDetailsFull.StatusEnum.INVESTING) ||
-						(program.getPersonalDetails().getStatus().equals(PersonalProgramDetailsFull.StatusEnum.WITHDRAWING))) {
-					EventBus.getDefault().post(new ShowProgramRequestsEvent(program.getId()));
-				}
-			}
+//			if (program != null && program.getPersonalDetails() != null) {
+//				if (program.getPersonalDetails().getStatus().equals(PersonalProgramDetailsFull.StatusEnum.INVESTING) ||
+//						(program.getPersonalDetails().getStatus().equals(PersonalProgramDetailsFull.StatusEnum.WITHDRAWING))) {
+//					EventBus.getDefault().post(new ShowProgramRequestsEvent(program.getId()));
+//				}
+//			}
 		}
 
 		private void setFonts() {
@@ -223,69 +208,69 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			reinvestLabel.setTypeface(TypefaceUtil.semibold());
 		}
 
-		void setProgram(ProgramDetails program) {
-			this.program = program;
-			updateData();
-		}
-
-		private void updateData() {
-			this.programLogo.setImage(program.getLogo(), program.getColor(), 100, 100);
-			this.programLogo.setLevel(program.getLevel(), program.getLevelProgress());
-
-			this.programName.setText(program.getTitle());
-			this.managerName.setText(program.getManager().getUsername());
-
-			favorite.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, program.getPersonalDetails().isIsFavorite()
-					? R.drawable.icon_favorite_fill
-					: R.drawable.icon_favorite));
-			favorite.setAlpha(program.getPersonalDetails().isIsFavorite() ? 1f : 0.3f);
-
-			this.chart.setChart(program.getChart());
-
-//			Double profitPercent = getProfitPercent();
-			Double profitPercent = program.getStatistic().getProfitPercent();
-//			Double profitValue = getProfitValue();
-			Double profitValue = program.getStatistic().getProfitValue();
-			this.profitPercent.setText(String.format(Locale.getDefault(), "%s%%",
-					StringFormatUtil.formatAmount(profitPercent, 0, 2)));
-			this.profitPercent.setTextColor(profitPercent >= 0
-					? ThemeUtil.getColorByAttrId(context, R.attr.colorGreen)
-					: ThemeUtil.getColorByAttrId(context, R.attr.colorRed));
-
-			this.profitValue.setText(String.format(Locale.getDefault(), "%s%s GVT",
-					profitValue > 0 ? "+" : "",
-					StringFormatUtil.formatAmount(profitValue, 0, 4)));
-
-			this.share.setText(String.format(Locale.getDefault(), "%s%%",
-					StringFormatUtil.formatAmount(program.getDashboardAssetsDetails().getShare(), 0, 2)));
-
-			this.currentValue.setText(String.format(Locale.getDefault(), "%s %s",
-					StringFormatUtil.formatAmount(program.getPersonalDetails().getValue(), 0,
-							StringFormatUtil.getCurrencyMaxFraction(program.getCurrency().getValue())),
-					program.getCurrency().getValue()));
-
-			this.timeLeft.setData(program.getPeriodDuration(), program.getPeriodStarts(), program.getPeriodEnds(), false, true);
-
-			this.status.setStatus(program.getPersonalDetails().getStatus().getValue());
-
-			this.reinvest.setChecked(program.getPersonalDetails().isIsReinvest());
-			this.reinvestGroup.setVisibility(!program.getPersonalDetails().getStatus().equals(PersonalProgramDetailsFull.StatusEnum.ENDED)
-					? View.VISIBLE
-					: View.GONE);
-		}
-
-		private Double getProfitPercent() {
-			Double first = program.getChart().get(0).getValue();
-			Double last = program.getChart().get(program.getChart().size() - 1).getValue();
-
-			return Math.abs(first != 0 ? 100 / first * (first - last) : 0);
-		}
-
-		private Double getProfitValue() {
-			Double first = program.getChart().get(0).getValue();
-			Double last = program.getChart().get(program.getChart().size() - 1).getValue();
-
-			return last - first;
-		}
+//		void setProgram(ProgramDetails program) {
+//			this.program = program;
+//			updateData();
+//		}
+//
+//		private void updateData() {
+//			this.programLogo.setImage(program.getLogo(), program.getColor(), 100, 100);
+//			this.programLogo.setLevel(program.getLevel(), program.getLevelProgress());
+//
+//			this.programName.setText(program.getTitle());
+//			this.managerName.setText(program.getManager().getUsername());
+//
+//			favorite.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, program.getPersonalDetails().isIsFavorite()
+//					? R.drawable.icon_favorite_fill
+//					: R.drawable.icon_favorite));
+//			favorite.setAlpha(program.getPersonalDetails().isIsFavorite() ? 1f : 0.3f);
+//
+//			this.chart.setChart(program.getChart());
+//
+////			Double profitPercent = getProfitPercent();
+//			Double profitPercent = program.getStatistic().getProfitPercent();
+////			Double profitValue = getProfitValue();
+//			Double profitValue = program.getStatistic().getProfitValue();
+//			this.profitPercent.setText(String.format(Locale.getDefault(), "%s%%",
+//					StringFormatUtil.formatAmount(profitPercent, 0, 2)));
+//			this.profitPercent.setTextColor(profitPercent >= 0
+//					? ThemeUtil.getColorByAttrId(context, R.attr.colorGreen)
+//					: ThemeUtil.getColorByAttrId(context, R.attr.colorRed));
+//
+//			this.profitValue.setText(String.format(Locale.getDefault(), "%s%s GVT",
+//					profitValue > 0 ? "+" : "",
+//					StringFormatUtil.formatAmount(profitValue, 0, 4)));
+//
+//			this.share.setText(String.format(Locale.getDefault(), "%s%%",
+//					StringFormatUtil.formatAmount(program.getDashboardAssetsDetails().getShare(), 0, 2)));
+//
+//			this.currentValue.setText(String.format(Locale.getDefault(), "%s %s",
+//					StringFormatUtil.formatAmount(program.getPersonalDetails().getValue(), 0,
+//							StringFormatUtil.getCurrencyMaxFraction(program.getCurrency().getValue())),
+//					program.getCurrency().getValue()));
+//
+//			this.timeLeft.setData(program.getPeriodDuration(), program.getPeriodStarts(), program.getPeriodEnds(), false, true);
+//
+//			this.status.setStatus(program.getPersonalDetails().getStatus().getValue());
+//
+//			this.reinvest.setChecked(program.getPersonalDetails().isIsReinvest());
+//			this.reinvestGroup.setVisibility(!program.getPersonalDetails().getStatus().equals(PersonalProgramDetailsFull.StatusEnum.ENDED)
+//					? View.VISIBLE
+//					: View.GONE);
+//		}
+//
+//		private Double getProfitPercent() {
+//			Double first = program.getChart().get(0).getValue();
+//			Double last = program.getChart().get(program.getChart().size() - 1).getValue();
+//
+//			return Math.abs(first != 0 ? 100 / first * (first - last) : 0);
+//		}
+//
+//		private Double getProfitValue() {
+//			Double first = program.getChart().get(0).getValue();
+//			Double last = program.getChart().get(program.getChart().size() - 1).getValue();
+//
+//			return last - first;
+//		}
 	}
 }

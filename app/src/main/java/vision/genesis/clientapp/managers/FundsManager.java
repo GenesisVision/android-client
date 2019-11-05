@@ -42,7 +42,7 @@ public class FundsManager
 		return fundsApi.getFunds(AuthManager.token.getValue(),
 				null, null,
 				null, null,
-				filter.getChartPointsCount(), filter.getFacetId().toString(),
+				filter.getChartPointsCount(), filter.getFacetId() == null ? null : filter.getFacetId().toString(),
 				filter.getMask(), filter.getIsFavorite(),
 				filter.getSkip(), filter.getTake());
 	}

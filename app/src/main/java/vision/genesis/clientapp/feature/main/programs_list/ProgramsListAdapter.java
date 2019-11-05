@@ -230,14 +230,16 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 							program.getLevel(),
 							program.getLevelProgress(),
 							program.getTitle(),
-							program.getManager().getUsername(),
+							program.getOwner().getUsername(),
 							program.getCurrency().getValue(),
 							program.getPersonalDetails() != null ?
 									program.getPersonalDetails().isIsFavorite()
 									: false,
-							program.getPersonalDetails() != null ?
-									program.getPersonalDetails().isHasNotifications()
-									: false);
+//TODO:
+//							program.getPersonalDetails() != null ?
+//									program.getPersonalDetails().isHasNotifications()
+//									: false);
+							false);
 					EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 				}
 			});
@@ -282,14 +284,18 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			favorite.setVisibility(program.getPersonalDetails() != null ? View.VISIBLE : View.INVISIBLE);
 
 			this.programName.setText(program.getTitle());
-			this.managerName.setText(program.getManager().getUsername());
+			this.managerName.setText(program.getOwner().getUsername());
 
 			this.chart.setChart(program.getChart().getChart());
 
 //			Double profitPercent = getProfitPercent();
-			Double profitPercent = program.getStatistic().getProfitPercent();
+			//TODO:
+//			Double profitPercent = program.getStatistic().getProfitPercent();
+			double profitPercent = 0.0;
 //			Double profitValue = getProfitValue();
-			Double profitValue = program.getStatistic().getProfitValue();
+			//TODO:
+//			Double profitValue = program.getStatistic().getProfitValue();
+			double profitValue = 0.0;
 
 			this.programCurrency.setCurrency(program.getCurrency().getValue());
 
@@ -306,7 +312,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			this.period.setData(program.getPeriodDuration(), program.getPeriodStarts(), program.getPeriodEnds(), true, false);
 
 			this.balance.setText(String.format(Locale.getDefault(), "%s GVT",
-					StringFormatUtil.getShortenedAmount(program.getStatistic().getBalanceGVT().getAmount())));
+					StringFormatUtil.getShortenedAmount(program.getBalance().getAmount())));
 
 			this.availableToInvest.setText(String.format(Locale.getDefault(), "%s %s",
 					StringFormatUtil.getShortenedAmount(program.getAvailableToInvest()),

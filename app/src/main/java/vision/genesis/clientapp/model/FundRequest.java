@@ -61,7 +61,7 @@ public class FundRequest implements Parcelable
 	private UUID walletId;
 
 	@SerializedName("entry_fee")
-	private Double entryFee;
+	private double entryFee;
 
 	public FundRequest() {
 

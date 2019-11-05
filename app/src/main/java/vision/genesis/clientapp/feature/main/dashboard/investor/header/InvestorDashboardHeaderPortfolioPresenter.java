@@ -9,14 +9,12 @@ import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.DashboardChartValue;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
-import vision.genesis.clientapp.model.events.OnPortfolioAssetsChangedEvent;
 import vision.genesis.clientapp.model.events.OnPortfolioChartViewModeChangedEvent;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -36,7 +34,7 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 
 	private Subscription baseCurrencySubscription;
 
-	private DashboardChartValue chartValue;
+//	private DashboardChartValue chartValue;
 
 	private Boolean isViewMode = false;
 
@@ -57,8 +55,9 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 
 	@Override
 	public void onDestroy() {
-		if (baseCurrencySubscription != null)
+		if (baseCurrencySubscription != null) {
 			baseCurrencySubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -66,21 +65,21 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 	void onShow() {
 	}
 
-	void setData(DashboardChartValue chartValue) {
-		this.chartValue = chartValue;
-		resetValuesSelection();
-	}
+//	void setData(DashboardChartValue chartValue) {
+//		this.chartValue = chartValue;
+//		resetValuesSelection();
+//	}
 
 	private void resetValuesSelection() {
-		selected = chartValue.getValue();
-		if (!chartValue.getBalanceChart().isEmpty()) {
-			first = chartValue.getBalanceChart().get(0).getValue();
-		}
-		else {
-			first = selected;
-		}
-		getViewState().hideHighlight();
-		updateValues();
+//		selected = chartValue.getValue();
+//		if (!chartValue.getBalanceChart().isEmpty()) {
+//			first = chartValue.getBalanceChart().get(0).getValue();
+//		}
+//		else {
+//			first = selected;
+//		}
+//		getViewState().hideHighlight();
+//		updateValues();
 	}
 
 	private void subscribeToBaseCurrency() {
@@ -97,31 +96,31 @@ public class InvestorDashboardHeaderPortfolioPresenter extends MvpPresenter<Inve
 	}
 
 	public void onPortfolioChartTouch(int lineIndex, int barIndex, float chartBottomY) {
-		if (!isViewMode) {
-			isViewMode = true;
-			getViewState().hideRequests();
-			EventBus.getDefault().post(new OnPortfolioChartViewModeChangedEvent(isViewMode, chartBottomY));
-		}
-
-		EventBus.getDefault().post(new OnPortfolioAssetsChangedEvent(barIndex));
-
-		selected = chartValue.getBalanceChart().get(lineIndex).getValue();
-
-		updateValues();
+//		if (!isViewMode) {
+//			isViewMode = true;
+//			getViewState().hideRequests();
+//			EventBus.getDefault().post(new OnPortfolioChartViewModeChangedEvent(isViewMode, chartBottomY));
+//		}
+//
+//		EventBus.getDefault().post(new OnPortfolioAssetsChangedEvent(barIndex));
+//
+//		selected = chartValue.getBalanceChart().get(lineIndex).getValue();
+//
+//		updateValues();
 	}
 
 	private void updateValues() {
-		if (first == null || selected == null)
-			return;
-
-		getViewState().setBalance(StringFormatUtil.getGvtValueString(selected),
-				StringFormatUtil.getValueString(selected * chartValue.getRate(), baseCurrency.getValue()));
-
-		Double changeValue = selected - first;
-		getViewState().setChange(changeValue < 0,
-				StringFormatUtil.getChangePercentString(first, selected),
-				StringFormatUtil.getChangeValueString(changeValue),
-				StringFormatUtil.getValueString(changeValue * chartValue.getRate(), baseCurrency.getValue()));
+//		if (first == null || selected == null)
+//			return;
+//
+//		getViewState().setBalance(StringFormatUtil.getGvtValueString(selected),
+//				StringFormatUtil.getValueString(selected * chartValue.getRate(), baseCurrency.getValue()));
+//
+//		Double changeValue = selected - first;
+//		getViewState().setChange(changeValue < 0,
+//				StringFormatUtil.getChangePercentString(first, selected),
+//				StringFormatUtil.getChangeValueString(changeValue),
+//				StringFormatUtil.getValueString(changeValue * chartValue.getRate(), baseCurrency.getValue()));
 	}
 
 	public void chartViewModeTurnOff() {

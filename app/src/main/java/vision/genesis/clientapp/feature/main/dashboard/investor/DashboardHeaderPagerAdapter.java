@@ -1,13 +1,12 @@
 package vision.genesis.clientapp.feature.main.dashboard.investor;
 
-import com.google.android.material.tabs.TabLayout;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import io.swagger.client.model.DashboardChartValue;
+
+import com.google.android.material.tabs.TabLayout;
+
 import vision.genesis.clientapp.feature.main.dashboard.investor.header.InvestorDashboardHeaderPortfolioFragment;
-import vision.genesis.clientapp.model.DateRange;
 
 /**
  * GenesisVisionAndroid
@@ -45,10 +44,11 @@ public class DashboardHeaderPagerAdapter extends FragmentStatePagerAdapter
 		return tabLayout.getTabCount();
 	}
 
-	public void setPortfolioChart(DashboardChartValue chart, DateRange dateRange) {
-		if (portfolioFragment != null)
-			portfolioFragment.setData(chart, dateRange);
-	}
+//	public void setPortfolioChart(DashboardChartValue chart, DateRange dateRange) {
+//		if (portfolioFragment != null) {
+//			portfolioFragment.setData(chart, dateRange);
+//		}
+//	}
 
 	public void setInRequests(Double totalValue, Double rate) {
 		portfolioFragment.setInRequestsData(totalValue, rate);

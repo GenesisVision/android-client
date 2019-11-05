@@ -21,6 +21,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * ProgramFacet
  */
@@ -28,33 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramFacet implements Parcelable
 {
-  @SerializedName("sorting")
-  private ProgramsFilterSorting sorting = null;
-
-  @SerializedName("id")
-  private UUID id = null;
-
-  @SerializedName("title")
-  private String title = null;
-
-  @SerializedName("description")
-  private String description = null;
-
-  @SerializedName("logo")
-  private String logo = null;
-
-  @SerializedName("url")
-  private String url = null;
-
-  @SerializedName("sortType")
-  private FacetSortType sortType = null;
-
-  @SerializedName("timeframe")
-  private Timeframe timeframe = null;
-
-  public ProgramFacet() {
-  }
-
 	public static final Parcelable.Creator<ProgramFacet> CREATOR = new Parcelable.Creator<ProgramFacet>()
 	{
 		public ProgramFacet createFromParcel(Parcel in) {
@@ -66,120 +40,153 @@ public class ProgramFacet implements Parcelable
 		}
 	};
 
-  ProgramFacet(Parcel in) {
-	  sorting = (ProgramsFilterSorting) in.readValue(ProgramsFilterSorting.class.getClassLoader());
-	  id = (UUID) in.readValue(UUID.class.getClassLoader());
-	  title = (String) in.readValue(null);
-	  description = (String) in.readValue(null);
-	  logo = (String) in.readValue(null);
-	  url = (String) in.readValue(null);
-	  sortType = (FacetSortType) in.readValue(FacetSortType.class.getClassLoader());
-	  timeframe = (Timeframe) in.readValue(Timeframe.class.getClassLoader());
-  }
+	@SerializedName("sorting")
+	private ProgramsFilterSorting sorting = null;
+
+	@SerializedName("id")
+	private UUID id = null;
+
+	@SerializedName("title")
+	private String title = null;
+
+	@SerializedName("description")
+	private String description = null;
+
+	@SerializedName("logo")
+	private String logo = null;
+
+	@SerializedName("url")
+	private String url = null;
+
+	@SerializedName("sortType")
+	private FacetSortType sortType = null;
+
+	@SerializedName("timeframe")
+	private Timeframe timeframe = null;
+
+	public ProgramFacet() {
+	}
+
+	ProgramFacet(Parcel in) {
+		sorting = (ProgramsFilterSorting) in.readValue(ProgramsFilterSorting.class.getClassLoader());
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		title = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logo = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		sortType = (FacetSortType) in.readValue(FacetSortType.class.getClassLoader());
+		timeframe = (Timeframe) in.readValue(Timeframe.class.getClassLoader());
+	}
 
 	public ProgramFacet sorting(ProgramsFilterSorting sorting) {
 		this.sorting = sorting;
-    return this;
-  }
+		return this;
+	}
 
 	/**
-   * Get sorting
-   * @return sorting
+	 * Get sorting
+	 *
+	 * @return sorting
 	 **/
-  @Schema(description = "")
-  public ProgramsFilterSorting getSorting() {
-    return sorting;
-  }
+	@Schema(description = "")
+	public ProgramsFilterSorting getSorting() {
+		return sorting;
+	}
 
 	public void setSorting(ProgramsFilterSorting sorting) {
 		this.sorting = sorting;
-  }
+	}
 
 	public ProgramFacet id(UUID id) {
 		this.id = id;
-    return this;
-  }
+		return this;
+	}
 
 	/**
-   * Get id
-   * @return id
+	 * Get id
+	 *
+	 * @return id
 	 **/
-  @Schema(description = "")
-  public UUID getId() {
-    return id;
-  }
+	@Schema(description = "")
+	public UUID getId() {
+		return id;
+	}
 
 	public void setId(UUID id) {
 		this.id = id;
-  }
+	}
 
 	public ProgramFacet title(String title) {
 		this.title = title;
-    return this;
-  }
+		return this;
+	}
 
 	/**
-   * Get title
-   * @return title
+	 * Get title
+	 *
+	 * @return title
 	 **/
-  @Schema(description = "")
-  public String getTitle() {
-    return title;
-  }
+	@Schema(description = "")
+	public String getTitle() {
+		return title;
+	}
 
 	public void setTitle(String title) {
 		this.title = title;
-  }
+	}
 
 	public ProgramFacet description(String description) {
 		this.description = description;
-    return this;
-  }
+		return this;
+	}
 
 	/**
-   * Get description
-   * @return description
+	 * Get description
+	 *
+	 * @return description
 	 **/
-  @Schema(description = "")
-  public String getDescription() {
-    return description;
-  }
+	@Schema(description = "")
+	public String getDescription() {
+		return description;
+	}
 
 	public void setDescription(String description) {
 		this.description = description;
-  }
+	}
 
 	public ProgramFacet logo(String logo) {
 		this.logo = logo;
-    return this;
-  }
+		return this;
+	}
 
 	/**
-   * Get logo
-   * @return logo
+	 * Get logo
+	 *
+	 * @return logo
 	 **/
-  @Schema(description = "")
-  public String getLogo() {
-    return logo;
-  }
+	@Schema(description = "")
+	public String getLogo() {
+		return logo;
+	}
 
 	public void setLogo(String logo) {
 		this.logo = logo;
-  }
+	}
 
 	public ProgramFacet url(String url) {
 		this.url = url;
-    return this;
-  }
+		return this;
+	}
 
 	/**
-   * Get url
-   * @return url
+	 * Get url
+	 *
+	 * @return url
 	 **/
-  @Schema(description = "")
-  public String getUrl() {
-    return url;
-  }
+	@Schema(description = "")
+	public String getUrl() {
+		return url;
+	}
 
 	public void setUrl(String url) {
 		this.url = url;
@@ -188,16 +195,17 @@ public class ProgramFacet implements Parcelable
 	public ProgramFacet sortType(FacetSortType sortType) {
 		this.sortType = sortType;
 		return this;
-  }
+	}
 
 	/**
-   * Get sortType
-   * @return sortType
+	 * Get sortType
+	 *
+	 * @return sortType
 	 **/
-  @Schema(description = "")
-  public FacetSortType getSortType() {
-    return sortType;
-  }
+	@Schema(description = "")
+	public FacetSortType getSortType() {
+		return sortType;
+	}
 
 	public void setSortType(FacetSortType sortType) {
 		this.sortType = sortType;
@@ -206,61 +214,62 @@ public class ProgramFacet implements Parcelable
 	public ProgramFacet timeframe(Timeframe timeframe) {
 		this.timeframe = timeframe;
 		return this;
-  }
+	}
 
 	/**
-   * Get timeframe
-   * @return timeframe
+	 * Get timeframe
+	 *
+	 * @return timeframe
 	 **/
-  @Schema(description = "")
-  public Timeframe getTimeframe() {
-    return timeframe;
-  }
+	@Schema(description = "")
+	public Timeframe getTimeframe() {
+		return timeframe;
+	}
 
 	public void setTimeframe(Timeframe timeframe) {
 		this.timeframe = timeframe;
-  }
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ProgramFacet programFacet = (ProgramFacet) o;
-    return Objects.equals(this.sorting, programFacet.sorting) &&
-		    Objects.equals(this.id, programFacet.id) &&
-		    Objects.equals(this.title, programFacet.title) &&
-		    Objects.equals(this.description, programFacet.description) &&
-		    Objects.equals(this.logo, programFacet.logo) &&
-		    Objects.equals(this.url, programFacet.url) &&
-		    Objects.equals(this.sortType, programFacet.sortType) &&
-		    Objects.equals(this.timeframe, programFacet.timeframe);
-  }
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		ProgramFacet programFacet = (ProgramFacet) o;
+		return Objects.equals(this.sorting, programFacet.sorting) &&
+				Objects.equals(this.id, programFacet.id) &&
+				Objects.equals(this.title, programFacet.title) &&
+				Objects.equals(this.description, programFacet.description) &&
+				Objects.equals(this.logo, programFacet.logo) &&
+				Objects.equals(this.url, programFacet.url) &&
+				Objects.equals(this.sortType, programFacet.sortType) &&
+				Objects.equals(this.timeframe, programFacet.timeframe);
+	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(sorting, id, title, description, logo, url, sortType, timeframe);
-  }
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ProgramFacet {\n");
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class ProgramFacet {\n");
 
-    sb.append("    sorting: ").append(toIndentedString(sorting)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
-    sb.append("    url: ").append(toIndentedString(url)).append("\n");
-    sb.append("    sortType: ").append(toIndentedString(sortType)).append("\n");
-    sb.append("    timeframe: ").append(toIndentedString(timeframe)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+		sb.append("    sorting: ").append(toIndentedString(sorting)).append("\n");
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
+		sb.append("    sortType: ").append(toIndentedString(sortType)).append("\n");
+		sb.append("    timeframe: ").append(toIndentedString(timeframe)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
 
 	/**
 	 * Convert the given object to string with each line indented by 4 spaces

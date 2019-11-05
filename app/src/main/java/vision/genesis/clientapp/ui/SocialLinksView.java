@@ -17,6 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.swagger.client.model.SocialLinkType;
 import io.swagger.client.model.SocialLinkViewModel;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -66,8 +67,9 @@ public class SocialLinksView extends RelativeLayout
 		if (group != null) {
 			group.removeAllViews();
 			for (SocialLinkViewModel socialLink : socialLinks) {
-				if (!socialLink.getType().equals(SocialLinkViewModel.TypeEnum.UNDEFINED))
+				if (!socialLink.getType().equals(SocialLinkType.UNDEFINED)) {
 					addViewToGroup(createSocialLinkView(socialLink));
+				}
 			}
 		}
 	}

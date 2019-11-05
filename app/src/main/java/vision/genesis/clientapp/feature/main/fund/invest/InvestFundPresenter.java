@@ -10,6 +10,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.AmountWithCurrency;
 import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.WalletData;
 import io.swagger.client.model.WalletMultiSummary;
@@ -272,6 +273,14 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 
 		info = response;
 		gvCommissionPercent = info.getCommonInfo().getPlatformCommission().getInvestment();
+
+		//TODO:
+		for (AmountWithCurrency amountWithCurrency : info.getAssetInfo().getFundInfo().getMinInvestAmountIntoFund()) {
+			if (amountWithCurrency.getCurrency().getValue().equals(baseCurrency.getValue())) {
+				minInvestment = amountWithCurrency.getAmount();
+				break;
+			}
+		}
 
 		getViewState().setMinInvestmentAmount(minInvestment);
 		getViewState().setAmount("");

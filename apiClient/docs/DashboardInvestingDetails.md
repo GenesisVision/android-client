@@ -7,4 +7,4 @@ Name | Type | Description | Notes
 **programsCount** | **Integer** |  |  [optional]
 **fundsCount** | **Integer** |  |  [optional]
 **profits** | [**DashboardProfits**](DashboardProfits.md) |  |  [optional]
-**events** | [**InvestmentEventViewModels**](InvestmentEventViewModels.md) |  |  [optional]
+**events** | [**ItemsViewModelInvestmentEventViewModel**](ItemsViewModelInvestmentEventViewModel.md) |  |  [optional]

@@ -2,9 +2,9 @@ package vision.genesis.clientapp.managers;
 
 import java.util.UUID;
 
+import io.swagger.client.api.CopytradingApi;
 import io.swagger.client.api.SignalApi;
 import io.swagger.client.model.AttachToSignalProviderInfo;
-import io.swagger.client.model.CopyTradingAccountsList;
 import io.swagger.client.model.DetachFromSignalProvider;
 import io.swagger.client.model.SignalDetachMode;
 import io.swagger.client.model.SignalTradingEvents;
@@ -20,14 +20,18 @@ import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 
 public class SignalsManager
 {
-	private SignalApi signalApi;
+	private final SignalApi signalApi;
 
-	public SignalsManager(SignalApi signalApi) {
+	private final CopytradingApi copytradingApi;
+
+	public SignalsManager(SignalApi signalApi, CopytradingApi copytradingApi) {
 		this.signalApi = signalApi;
+		this.copytradingApi = copytradingApi;
 	}
 
 	public Observable<AttachToSignalProviderInfo> getSignalsInfo(UUID programId) {
-		return signalApi.getSlaveAttachInfo(programId, AuthManager.token.getValue());
+//		return signalApi.getSlaveAttachInfo(programId, AuthManager.token.getValue());
+		return null;
 	}
 
 	public Observable<Void> subscribeToProgram(SubscriptionSettingsModel model) {
@@ -44,9 +48,9 @@ public class SignalsManager
 		return signalApi.detachSlaveFromMaster(AuthManager.token.getValue(), programId, model);
 	}
 
-	public Observable<CopyTradingAccountsList> getAccounts() {
-		return signalApi.getCopytradingAccounts(AuthManager.token.getValue());
-	}
+//	public Observable<CopyTradingAccountsList> getAccounts() {
+//		return copytradingApi.getSignalAssets(AuthManager.token.getValue());
+//	}
 
 	public Observable<TradesSignalViewModel> getOpenTrades(String sorting, String symbol, UUID accountId, String accountCurrency, Integer skip, Integer take) {
 		return signalApi.getOpenSignalTrades(AuthManager.token.getValue(), sorting, symbol, accountId, accountCurrency, skip, take);

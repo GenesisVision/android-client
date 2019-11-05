@@ -14,6 +14,10 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
+
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -23,18 +27,13 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.EntryXComparator;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.swagger.client.model.ChartSimple;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ChartZoomEnum;
@@ -215,24 +214,24 @@ public class ProfitDetailsChartView extends RelativeLayout
 		});
 	}
 
-	public void setChart(List<ChartSimple> charts) {
-		showProgress(false);
-
-		if (charts.size() <= 1) {
-			chart.clear();
-			return;
-		}
-
-		List<Entry> lineEntries = new ArrayList<>();
-		for (ChartSimple chart : charts) {
-			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getValue().floatValue()));
-		}
-
-		chart.setData(getLineData(lineEntries));
-		chart.invalidate();
-
-		updateChangeText(charts);
-	}
+//	public void setChart(List<ChartSimple> charts) {
+//		showProgress(false);
+//
+//		if (charts.size() <= 1) {
+//			chart.clear();
+//			return;
+//		}
+//
+//		List<Entry> lineEntries = new ArrayList<>();
+//		for (ChartSimple chart : charts) {
+//			lineEntries.add(new Entry(chart.getDate().getMillis(), chart.getValue().floatValue()));
+//		}
+//
+//		chart.setData(getLineData(lineEntries));
+//		chart.invalidate();
+//
+//		updateChangeText(charts);
+//	}
 
 	private LineData getLineData(List<Entry> data) {
 		Collections.sort(data, new EntryXComparator());
@@ -264,39 +263,39 @@ public class ProfitDetailsChartView extends RelativeLayout
 		return dataSet;
 	}
 
-	private void updateChangeText(List<ChartSimple> charts) {
-		double first = charts.get(0).getValue();
-		double last = charts.get(charts.size() - 1).getValue();
-
-		double changeValue = last - first;
-		String directionSymbol = "";
-		String percentSign = "";
-		int textColorResId;
-		if (changeValue > 0) {
-			directionSymbol = "\u2191";
-			percentSign = "+";
-			textColorResId = R.color.transactionGreen;
-		}
-		else if (changeValue < 0) {
-			directionSymbol = "\u2193";
-			percentSign = "-";
-			textColorResId = R.color.transactionRed;
-		}
-		else {
-			textColorResId = R.color.colorMedium;
-		}
-		String changeValueString = String.format(Locale.getDefault(),
-				"%s%s%%", directionSymbol, StringFormatUtil.formatAmount(Math.abs(changeValue), 0, 2));
-
-		String changePercentString = "";
-		if (first != 0) {
-			changePercentString = String.format(Locale.getDefault(), " (%s%s%%)", percentSign,
-					StringFormatUtil.formatAmount(Math.abs(100 / first * (first - last)), 0, 2));
-		}
-
-		changeText.setText(changeValueString.concat(changePercentString));
-		changeText.setTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, textColorResId));
-	}
+//	private void updateChangeText(List<ChartSimple> charts) {
+//		double first = charts.get(0).getValue();
+//		double last = charts.get(charts.size() - 1).getValue();
+//
+//		double changeValue = last - first;
+//		String directionSymbol = "";
+//		String percentSign = "";
+//		int textColorResId;
+//		if (changeValue > 0) {
+//			directionSymbol = "\u2191";
+//			percentSign = "+";
+//			textColorResId = R.color.transactionGreen;
+//		}
+//		else if (changeValue < 0) {
+//			directionSymbol = "\u2193";
+//			percentSign = "-";
+//			textColorResId = R.color.transactionRed;
+//		}
+//		else {
+//			textColorResId = R.color.colorMedium;
+//		}
+//		String changeValueString = String.format(Locale.getDefault(),
+//				"%s%s%%", directionSymbol, StringFormatUtil.formatAmount(Math.abs(changeValue), 0, 2));
+//
+//		String changePercentString = "";
+//		if (first != 0) {
+//			changePercentString = String.format(Locale.getDefault(), " (%s%s%%)", percentSign,
+//					StringFormatUtil.formatAmount(Math.abs(100 / first * (first - last)), 0, 2));
+//		}
+//
+//		changeText.setText(changeValueString.concat(changePercentString));
+//		changeText.setTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, textColorResId));
+//	}
 
 	public void onDestroy() {
 		chart.invalidate();

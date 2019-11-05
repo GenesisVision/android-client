@@ -16,8 +16,6 @@ import javax.inject.Inject;
 import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.InvestmentEventViewModels;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.DashboardManager;
@@ -100,21 +98,21 @@ public class PortfolioEventsPresenter extends MvpPresenter<PortfolioEventsView> 
 	}
 
 	private void getEvents(boolean forceUpdate) {
-		if (dateRange != null) {
-			if (forceUpdate) {
-				skip = 0;
-			}
-
-			if (eventsSubscription != null) {
-				eventsSubscription.unsubscribe();
-			}
-			eventsSubscription = dashboardManager.getEvents("EventsAll", null, dateRange, null, null, skip, TAKE)
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-//					.map(this::prepareData)
-					.subscribe(this::handleGetEventsResponse,
-							this::handleGetEventsError);
-		}
+//		if (dateRange != null) {
+//			if (forceUpdate) {
+//				skip = 0;
+//			}
+//
+//			if (eventsSubscription != null) {
+//				eventsSubscription.unsubscribe();
+//			}
+//			eventsSubscription = dashboardManager.getEvents("EventsAll", null, dateRange, null, null, skip, TAKE)
+//					.observeOn(AndroidSchedulers.mainThread())
+//					.subscribeOn(Schedulers.io())
+////					.map(this::prepareData)
+//					.subscribe(this::handleGetEventsResponse,
+//							this::handleGetEventsError);
+//		}
 	}
 
 //	private DashboardPortfolioEvents prepareData(DashboardPortfolioEvents dashboardPortfolioEvents) {

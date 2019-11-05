@@ -2,8 +2,6 @@ package vision.genesis.clientapp.feature.main.dashboard.investor;
 
 import android.content.Context;
 
-import androidx.core.content.ContextCompat;
-
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
@@ -12,16 +10,12 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import javax.inject.Inject;
 
 import io.swagger.client.model.AssetInvestmentRequest;
-import io.swagger.client.model.AssetsValue;
 import io.swagger.client.model.DashboardSummary;
 import io.swagger.client.model.InvestmentEventViewModels;
-import io.swagger.client.model.OtherAssetsValue;
-import io.swagger.client.model.ValueChartBar;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -46,7 +40,6 @@ import vision.genesis.clientapp.model.events.SetDashboardTradesHistoryCountEvent
 import vision.genesis.clientapp.model.events.SetDashboardTradingLogCountEvent;
 import vision.genesis.clientapp.model.events.ShowProgramRequestsEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
-import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVision
@@ -158,74 +151,74 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	}
 
 	private void getDashboard() {
-		getEvents();
-		if (dashboardSubscription != null) {
-			dashboardSubscription.unsubscribe();
-		}
-		if (baseCurrency != null && dateRange != null) {
-			updateDateRange();
-			dashboardSubscription = dashboardManager.getDashboard(dateRange, baseCurrency.getValue())
-					.subscribeOn(Schedulers.newThread())
-					.map(this::prepareData)
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(this::handleGetDashboardSuccess,
-							this::handleGetDashboardError);
-		}
+//		getEvents();
+//		if (dashboardSubscription != null) {
+//			dashboardSubscription.unsubscribe();
+//		}
+//		if (baseCurrency != null && dateRange != null) {
+//			updateDateRange();
+//			dashboardSubscription = dashboardManager.getDashboard(dateRange, baseCurrency.getValue())
+//					.subscribeOn(Schedulers.newThread())
+//					.map(this::prepareData)
+//					.observeOn(AndroidSchedulers.mainThread())
+//					.subscribe(this::handleGetDashboardSuccess,
+//							this::handleGetDashboardError);
+//		}
 	}
 
 	private DashboardSummary prepareData(DashboardSummary dashboardSummary) {
-		portfolioAssetsDataList.clear();
-		int colorRed = ContextCompat.getColor(context, R.color.red);
-		int colorGreen = ContextCompat.getColor(context, R.color.green);
-		int[] colors = context.getResources().getIntArray(R.array.assetsColors);
-		int colorIndex;
-		for (ValueChartBar valueChartBar : dashboardSummary.getChart().getInvestedProgramsInfo()) {
-			List<PortfolioAssetData> portfolioAssetDataList = new ArrayList<>();
-			colorIndex = 0;
-			//TODO: add other assets
-			for (AssetsValue assetsValue : valueChartBar.getTopAssets()) {
-				PortfolioAssetData portfolioAssetData = new PortfolioAssetData(
-						colors[colorIndex],
-						assetsValue.getTitle(),
-						String.format(Locale.getDefault(), "%s GVT",
-								StringFormatUtil.formatAmount(assetsValue.getValue(),
-										0, StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()))),
-						assetsValue.getChangePercent() == null
-								? "-"
-								: String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(Math.abs(assetsValue.getChangePercent()), 0, 2)),
-						assetsValue.getChangePercent() != null
-								? assetsValue.getChangePercent() < 0 ? colorRed : colorGreen
-								: colorGreen,
-						String.format(Locale.getDefault(), "%s%s GVT", assetsValue.getChangeValue() > 0 ? "+" : "",
-								StringFormatUtil.formatAmount(assetsValue.getChangeValue(),
-										0, StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()))));
-				portfolioAssetDataList.add(portfolioAssetData);
-
-				if (++colorIndex == colors.length) {
-					colorIndex = 0;
-				}
-			}
-			OtherAssetsValue other = valueChartBar.getOtherAssetsValue();
-			if (other != null) {
-				PortfolioAssetData portfolioAssetData = new PortfolioAssetData(
-						colors[colorIndex],
-						context.getString(R.string.other),
-						String.format(Locale.getDefault(), "%s GVT",
-								StringFormatUtil.formatAmount(other.getValue(),
-										0, StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()))),
-						other.getChangePercent() == null
-								? "-"
-								: String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(Math.abs(other.getChangePercent()), 0, 2)),
-						other.getChangePercent() != null
-								? other.getChangePercent() < 0 ? colorRed : colorGreen
-								: colorGreen,
-						String.format(Locale.getDefault(), "%s%s GVT", other.getChangeValue() > 0 ? "+" : "",
-								StringFormatUtil.formatAmount(other.getChangeValue(),
-										0, StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()))));
-				portfolioAssetDataList.add(portfolioAssetData);
-			}
-			portfolioAssetsDataList.add(portfolioAssetDataList);
-		}
+//		portfolioAssetsDataList.clear();
+//		int colorRed = ContextCompat.getColor(context, R.color.red);
+//		int colorGreen = ContextCompat.getColor(context, R.color.green);
+//		int[] colors = context.getResources().getIntArray(R.array.assetsColors);
+//		int colorIndex;
+//		for (ValueChartBar valueChartBar : dashboardSummary.getChart().getInvestedProgramsInfo()) {
+//			List<PortfolioAssetData> portfolioAssetDataList = new ArrayList<>();
+//			colorIndex = 0;
+//			//TODO: add other assets
+//			for (AssetsValue assetsValue : valueChartBar.getTopAssets()) {
+//				PortfolioAssetData portfolioAssetData = new PortfolioAssetData(
+//						colors[colorIndex],
+//						assetsValue.getTitle(),
+//						String.format(Locale.getDefault(), "%s GVT",
+//								StringFormatUtil.formatAmount(assetsValue.getValue(),
+//										0, StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()))),
+//						assetsValue.getChangePercent() == null
+//								? "-"
+//								: String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(Math.abs(assetsValue.getChangePercent()), 0, 2)),
+//						assetsValue.getChangePercent() != null
+//								? assetsValue.getChangePercent() < 0 ? colorRed : colorGreen
+//								: colorGreen,
+//						String.format(Locale.getDefault(), "%s%s GVT", assetsValue.getChangeValue() > 0 ? "+" : "",
+//								StringFormatUtil.formatAmount(assetsValue.getChangeValue(),
+//										0, StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()))));
+//				portfolioAssetDataList.add(portfolioAssetData);
+//
+//				if (++colorIndex == colors.length) {
+//					colorIndex = 0;
+//				}
+//			}
+//			OtherAssetsValue other = valueChartBar.getOtherAssetsValue();
+//			if (other != null) {
+//				PortfolioAssetData portfolioAssetData = new PortfolioAssetData(
+//						colors[colorIndex],
+//						context.getString(R.string.other),
+//						String.format(Locale.getDefault(), "%s GVT",
+//								StringFormatUtil.formatAmount(other.getValue(),
+//										0, StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()))),
+//						other.getChangePercent() == null
+//								? "-"
+//								: String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(Math.abs(other.getChangePercent()), 0, 2)),
+//						other.getChangePercent() != null
+//								? other.getChangePercent() < 0 ? colorRed : colorGreen
+//								: colorGreen,
+//						String.format(Locale.getDefault(), "%s%s GVT", other.getChangeValue() > 0 ? "+" : "",
+//								StringFormatUtil.formatAmount(other.getChangeValue(),
+//										0, StringFormatUtil.getCurrencyMaxFraction(CurrencyEnum.GVT.getValue()))));
+//				portfolioAssetDataList.add(portfolioAssetData);
+//			}
+//			portfolioAssetsDataList.add(portfolioAssetDataList);
+//		}
 
 //		newPreparedEvents = new ArrayList<>();
 //		for (DashboardPortfolioEvent event : dashboardSummary.getEvents().getEvents()) {
@@ -241,17 +234,15 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	}
 
 	private void handleGetDashboardSuccess(DashboardSummary response) {
-		dashboardSubscription.unsubscribe();
-		getViewState().setRefreshing(false);
-		getViewState().showProgressBar(false);
-
-		this.requests = response.getRequests().getRequests();
-
-		getViewState().setHaveNewNotifications(response.getProfileHeader().getNotificationsCount() > 0);
-		getViewState().setChartData(response.getChart());
-		getViewState().setInRequests(response.getRequests().getTotalValue(), response.getChart().getRate());
-//		getViewState().setPortfolioEvents(newPreparedEvents);
-//		getViewState().setAssetsCount(response.getProgramsCount(), response.getFundsCount());
+//		dashboardSubscription.unsubscribe();
+//		getViewState().setRefreshing(false);
+//		getViewState().showProgressBar(false);
+//
+//		this.requests = response.getRequests().getRequests();
+//
+//		getViewState().setHaveNewNotifications(response.getProfileHeader().getNotificationsCount() > 0);
+//		getViewState().setChartData(response.getChart());
+//		getViewState().setInRequests(response.getRequests().getTotalValue(), response.getChart().getRate());
 
 	}
 
@@ -261,16 +252,16 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 	}
 
 	private void getEvents() {
-		if (eventsSubscription != null) {
-			eventsSubscription.unsubscribe();
-		}
-		eventsSubscription = dashboardManager.getEvents("Dashboard", null,
-				DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME), null, null,
-				0, 5)
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleGetEventsResponse,
-						this::handleGetEventsError);
+//		if (eventsSubscription != null) {
+//			eventsSubscription.unsubscribe();
+//		}
+//		eventsSubscription = dashboardManager.getEvents("Dashboard", null,
+//				DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME), null, null,
+//				0, 5)
+//				.observeOn(AndroidSchedulers.mainThread())
+//				.subscribeOn(Schedulers.io())
+//				.subscribe(this::handleGetEventsResponse,
+//						this::handleGetEventsError);
 	}
 
 	private void handleGetEventsResponse(InvestmentEventViewModels response) {
@@ -311,7 +302,7 @@ public class InvestorDashboardPresenter extends MvpPresenter<InvestorDashboardVi
 
 	@Subscribe
 	public void onEventMainThread(OnInRequestsClickedEvent event) {
-		getViewState().showInRequests(requests);
+//		getViewState().showInRequests(requests);
 	}
 
 	@Subscribe

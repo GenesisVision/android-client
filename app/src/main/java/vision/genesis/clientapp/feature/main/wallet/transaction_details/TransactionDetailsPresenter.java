@@ -107,7 +107,7 @@ public class TransactionDetailsPresenter extends MvpPresenter<TransactionDetails
 	private void handleResendEmailSuccess(Void response) {
 		resendEmailSubscription.unsubscribe();
 
-		getViewState().setEmailResent();
+//		getViewState().setEmailResent();
 	}
 
 	private void handleResendEmailError(Throwable throwable) {

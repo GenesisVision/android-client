@@ -5,13 +5,9 @@ import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.swagger.client.model.TransactionDetails;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVisionAndroid
@@ -43,10 +39,10 @@ public class RateView extends RelativeLayout
 		ButterKnife.bind(this);
 	}
 
-	public void setData(TransactionDetails details) {
-		this.value.setText(String.format(Locale.getDefault(), "1 %s = %s",
-				details.getCurrency().getValue(),
-				StringFormatUtil.getValueString(details.getConvertingDetails().getRateValue(),
-						details.getConvertingDetails().getCurrencyTo().getValue())));
-	}
+//	public void setData(TransactionDetails details) {
+//		this.value.setText(String.format(Locale.getDefault(), "1 %s = %s",
+//				details.getCurrency().getValue(),
+//				StringFormatUtil.getValueString(details.getConvertingDetails().getRateValue(),
+//						details.getConvertingDetails().getCurrencyTo().getValue())));
+//	}
 }

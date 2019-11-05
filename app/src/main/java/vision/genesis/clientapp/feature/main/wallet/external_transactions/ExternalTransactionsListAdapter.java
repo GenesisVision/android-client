@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -16,19 +15,13 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.swagger.client.model.MultiWalletTransactionStatus;
 import io.swagger.client.model.TransactionViewModel;
-import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowTransactionDetailsEvent;
-import vision.genesis.clientapp.utils.ImageUtils;
-import vision.genesis.clientapp.utils.StringFormatUtil;
-import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -49,8 +42,9 @@ public class ExternalTransactionsListAdapter extends RecyclerView.Adapter<Extern
 
 	@Override
 	public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
-		if (transactions.get(position) != null)
+		if (transactions.get(position) != null) {
 			holder.setTransaction(transactions.get(position));
+		}
 	}
 
 	@Override
@@ -70,13 +64,14 @@ public class ExternalTransactionsListAdapter extends RecyclerView.Adapter<Extern
 	}
 
 	public void setStatusCanceled(UUID transactionId) {
-		for (TransactionViewModel transaction : transactions) {
-			if (transaction.getId().equals(transactionId)) {
-				transaction.setStatus(MultiWalletTransactionStatus.CANCELED);
-				notifyItemChanged(transactions.indexOf(transaction));
-				break;
-			}
-		}
+		//TODO:
+//		for (TransactionViewModel transaction : transactions) {
+//			if (transaction.getId().equals(transactionId)) {
+//				transaction.setStatus(MultiWalletTransactionStatus.CANCELED);
+//				notifyItemChanged(transactions.indexOf(transaction));
+//				break;
+//			}
+//		}
 	}
 
 	static class TransactionViewHolder extends RecyclerView.ViewHolder
@@ -127,40 +122,43 @@ public class ExternalTransactionsListAdapter extends RecyclerView.Adapter<Extern
 		}
 
 		private void setType() {
-			logo.setImageURI(ImageUtils.getImageUri(transaction.getLogo()));
-			description.setText(transaction.getType().getValue());
-			value.setText(String.format(Locale.getDefault(), "%s %s %s",
-					transaction.getAmount() < 0 ? "-" : "+",
-					StringFormatUtil.formatCurrencyAmount(Math.abs(transaction.getAmount()), transaction.getCurrency().getValue()), transaction.getCurrency().getValue()));
-			value.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
-					transaction.getAmount() >= 0
-							? R.attr.colorGreen
-							: R.attr.colorRed));
-
-//			status.setText(String.format(Locale.getDefault(), "%s / %s", transaction.));
-			setStatus(transaction.getStatus());
+			//TODO:
+//			logo.setImageURI(ImageUtils.getImageUri(transaction.getLogo()));
+//			description.setText(transaction.getType().getValue());
+//			value.setText(String.format(Locale.getDefault(), "%s %s %s",
+//					transaction.getAmount() < 0 ? "-" : "+",
+//					StringFormatUtil.formatCurrencyAmount(Math.abs(transaction.getAmount()), transaction.getCurrency().getValue()), transaction.getCurrency().getValue()));
+//			value.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
+//					transaction.getAmount() >= 0
+//							? R.attr.colorGreen
+//							: R.attr.colorRed));
+//
+////			status.setText(String.format(Locale.getDefault(), "%s / %s", transaction.));
+//			setStatus(transaction.getStatus());
 		}
 
 		private void setStatus(String status) {
-			switch (status.toLowerCase()) {
-				case "done":
-					this.status.setText(itemView.getContext().getString(R.string.status_done));
-					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
-							R.drawable.icon_status_done));
-					break;
-				case "pending":
-					this.status.setText(itemView.getContext().getString(transaction.isIsEnableActions()
-							? R.string.need_email_confirmation
-							: R.string.status_pending));
-					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
-							R.drawable.icon_status_pending));
-					break;
-				case "canceled":
-					this.status.setText(itemView.getContext().getString(R.string.status_canceled));
-					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
-							R.drawable.icon_status_canceled));
-					break;
-			}
+			//TODO:
 		}
+//			switch (status.toLowerCase()) {
+//				case "done":
+//					this.status.setText(itemView.getContext().getString(R.string.status_done));
+//					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
+//							R.drawable.icon_status_done));
+//					break;
+//				case "pending":
+//					this.status.setText(itemView.getContext().getString(transaction.isIsEnableActions()
+//							? R.string.need_email_confirmation
+//							: R.string.status_pending));
+//					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
+//							R.drawable.icon_status_pending));
+//					break;
+//				case "canceled":
+//					this.status.setText(itemView.getContext().getString(R.string.status_canceled));
+//					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
+//							R.drawable.icon_status_canceled));
+//					break;
+//			}
+//		}
 	}
 }

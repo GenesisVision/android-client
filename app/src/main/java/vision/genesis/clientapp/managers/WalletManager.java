@@ -9,7 +9,7 @@ import io.swagger.client.api.WalletApi;
 import io.swagger.client.model.CreateWithdrawalRequestModel;
 import io.swagger.client.model.Currency;
 import io.swagger.client.model.InternalTransferRequest;
-import io.swagger.client.model.TransactionsViewModel;
+import io.swagger.client.model.ItemsViewModelTransactionViewModel;
 import io.swagger.client.model.WalletMultiSummary;
 import io.swagger.client.model.WithdrawalSummary;
 import rx.Observable;
@@ -109,10 +109,11 @@ public class WalletManager
 		getWalletsSubscription.unsubscribe();
 	}
 
-	public Observable<TransactionsViewModel> getTransactions(TransactionsFilter filter) {
+	public Observable<ItemsViewModelTransactionViewModel> getTransactions(TransactionsFilter filter) {
 		return walletApi.getTransactions(AuthManager.token.getValue(),
-				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
-				null,
+				filter.getDateRange() == null ? null : filter.getDateRange().getFrom(),
+				filter.getDateRange() == null ? null : filter.getDateRange().getTo(),
+				filter.getType() == null ? null : filter.getType().getValue(),
 				filter.getSkip(), filter.getTake());
 	}
 

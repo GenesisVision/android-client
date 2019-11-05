@@ -247,13 +247,15 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 							fund.getLogo(),
 							fund.getColor(),
 							fund.getTitle(),
-							fund.getManager().getUsername(),
+							fund.getOwner().getUsername(),
 							fund.getPersonalDetails() != null ?
 									fund.getPersonalDetails().isIsFavorite()
 									: false,
-							fund.getPersonalDetails() != null ?
-									fund.getPersonalDetails().isHasNotifications()
-									: false);
+//TODO:
+//							fund.getPersonalDetails() != null ?
+//									fund.getPersonalDetails().isHasNotifications()
+//									: false);
+							false);
 					EventBus.getDefault().post(new ShowFundDetailsEvent(fundDetailsModel));
 				}
 			});
@@ -304,12 +306,15 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 			favorite.setVisibility(fund.getPersonalDetails() != null ? View.VISIBLE : View.INVISIBLE);
 
 			this.fundName.setText(fund.getTitle());
-			this.managerName.setText(fund.getManager().getUsername());
+			this.managerName.setText(fund.getOwner().getUsername());
 
 			this.chart.setChart(fund.getChart().getChart());
 
 //			Double profitPercent = getProfitPercent();
-			Double profitPercent = fund.getStatistic().getProfitPercent();
+
+			//TODO:
+//			Double profitPercent = fund.getStatistic().getProfitPercent();
+			double profitPercent = 0.0;
 
 			this.profitPercent.setText(String.format(Locale.getDefault(), "%s%%",
 					StringFormatUtil.formatAmount(profitPercent, 0, 2)));
@@ -317,14 +322,15 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 					? ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorGreen)
 					: ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorRed));
 
-			this.balance.setText(String.format(Locale.getDefault(), "%s GVT",
-					StringFormatUtil.getShortenedAmount(fund.getStatistic().getBalanceGVT().getAmount())));
+			this.balance.setText(String.format(Locale.getDefault(), "%s %s",
+					StringFormatUtil.getShortenedAmount(fund.getBalance().getAmount()), fund.getBalance().getCurrency().getValue()));
 
 			this.investors.setText(String.format(Locale.getDefault(), "%s",
-					StringFormatUtil.getShortenedAmount(fund.getStatistic().getInvestorsCount())));
+					StringFormatUtil.getShortenedAmount(fund.getInvestorsCount())));
 
-			this.drawdown.setText(String.format(Locale.getDefault(), "%s%%",
-					StringFormatUtil.formatAmount(fund.getStatistic().getDrawdownPercent(), 0, 2)));
+			//TODO:
+//			this.drawdown.setText(String.format(Locale.getDefault(), "%s%%",
+//					StringFormatUtil.formatAmount(fund.getDrawdown(), 0, 2)));
 
 			updateAssets();
 

@@ -75,10 +75,12 @@ public class WithdrawFundPresenter extends MvpPresenter<WithdrawFundView> implem
 
 	@Override
 	public void onDestroy() {
-		if (walletsSubscription != null)
+		if (walletsSubscription != null) {
 			walletsSubscription.unsubscribe();
-		if (withdrawInfoSubscription != null)
+		}
+		if (withdrawInfoSubscription != null) {
 			withdrawInfoSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -117,7 +119,9 @@ public class WithdrawFundPresenter extends MvpPresenter<WithdrawFundView> implem
 	}
 
 	private Double getEstimatedAmount() {
-		return withdrawInfo.getAvailableToWithdraw() * withdrawInfo.getRate() * amount / 100;
+		//TODO:
+//		return withdrawInfo.getAvailableToWithdraw() * withdrawInfo.getRate() * amount / 100;
+		return withdrawInfo.getAvailableToWithdraw() * 2 * amount / 100;
 	}
 
 	private Double getEstimatedExitFee() {
@@ -167,8 +171,9 @@ public class WithdrawFundPresenter extends MvpPresenter<WithdrawFundView> implem
 
 	private void subscribeToWallets() {
 		if (walletManager != null && fundRequest != null) {
-			if (walletsSubscription != null)
+			if (walletsSubscription != null) {
 				walletsSubscription.unsubscribe();
+			}
 			walletsSubscription = walletManager.getWallets(CurrencyEnum.GVT.getValue(), false)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
@@ -208,10 +213,10 @@ public class WithdrawFundPresenter extends MvpPresenter<WithdrawFundView> implem
 		getViewState().showAmountProgress(false);
 
 		withdrawInfo = response;
-
-		getViewState().setAvailableToWithdraw(StringFormatUtil.getValueString(
-				withdrawInfo.getAvailableToWithdraw() * withdrawInfo.getRate(),
-				selectedWalletTo.getCurrency().getValue()));
+//TODO:
+//		getViewState().setAvailableToWithdraw(StringFormatUtil.getValueString(
+//				withdrawInfo.getAvailableToWithdraw() * withdrawInfo.getRate(),
+//				selectedWalletTo.getCurrency().getValue()));
 		updateAmounts();
 	}
 
