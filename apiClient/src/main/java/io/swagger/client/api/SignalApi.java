@@ -9,8 +9,9 @@ import io.swagger.client.model.AttachToExternalSignalProviderExt;
 import io.swagger.client.model.AttachToSignalProvider;
 import io.swagger.client.model.DetachFromExternalSignalProvider;
 import io.swagger.client.model.DetachFromSignalProvider;
+import io.swagger.client.model.ItemsViewModelSignalTradingEvent;
+import io.swagger.client.model.ItemsViewModelTradingAccountDetails;
 import io.swagger.client.model.NewExternalSignalAccountRequest;
-import io.swagger.client.model.SignalTradingEvents;
 import io.swagger.client.model.TradesSignalViewModel;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -81,7 +82,7 @@ public interface SignalApi
 	);
 
 	/**
-	 * Create external signal account
+	 * Create external signal provider account
 	 *
 	 * @param authorization JWT access token (required)
 	 * @param body          (optional)
@@ -91,7 +92,7 @@ public interface SignalApi
 			"Content-Type:application/json"
 	})
 	@POST("v2.0/signal/external/create")
-	Observable<Void> createExternalSignalAccount(
+	Observable<Void> createExternalSignalProviderAccount(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body NewExternalSignalAccountRequest body
 	);
 
@@ -123,21 +124,6 @@ public interface SignalApi
 	@POST("v2.0/signal/external/detach/{id}")
 	Observable<Void> detachSlaveFromMaster_0(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body DetachFromExternalSignalProvider body
-	);
-
-	/**
-	 * Get investors signals trading log
-	 *
-	 * @param authorization   JWT access token (required)
-	 * @param accountId       (optional)
-	 * @param accountCurrency (optional)
-	 * @param skip            (optional)
-	 * @param take            (optional)
-	 * @return Call&lt;SignalTradingEvents&gt;
-	 */
-	@GET("v2.0/signal/external/trades/log")
-	Observable<SignalTradingEvents> getExternalSignalTradingLog(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -184,22 +170,22 @@ public interface SignalApi
 	 * @param accountCurrency (optional)
 	 * @param skip            (optional)
 	 * @param take            (optional)
-	 * @return Call&lt;SignalTradingEvents&gt;
+	 * @return Call&lt;ItemsViewModelSignalTradingEvent&gt;
 	 */
 	@GET("v2.0/signal/trades/log")
-	Observable<SignalTradingEvents> getSignalTradingLog(
+	Observable<ItemsViewModelSignalTradingEvent> getSignalTradingLog(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
-	 * Get subscriber accounts for subscribe to signal provider
+	 * Get subscriber accounts for subscribe to signal provider (common method for all signals)
 	 *
 	 * @param id            (required)
 	 * @param authorization JWT access token (required)
-	 * @return Call&lt;Void&gt;
+	 * @return Call&lt;ItemsViewModelTradingAccountDetails&gt;
 	 */
 	@GET("v2.0/signal/attach/{id}/accounts")
-	Observable<Void> getSubscriberAccountsForAsset(
+	Observable<ItemsViewModelTradingAccountDetails> getSubscriberAccountsForAsset(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
 	);
 

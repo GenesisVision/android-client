@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * FundAssetsState
  */
@@ -41,6 +40,9 @@ public class FundAssetsState implements Parcelable
 		}
 	};
 
+	@SerializedName("date")
+	private Long date = null;
+
 	@SerializedName("assets")
 	private List<FundAssetPartWithIcon> assets = null;
 
@@ -51,8 +53,28 @@ public class FundAssetsState implements Parcelable
 	}
 
 	FundAssetsState(Parcel in) {
+		date = (Long) in.readValue(null);
 		assets = (List<FundAssetPartWithIcon>) in.readValue(FundAssetPartWithIcon.class.getClassLoader());
 		otherPercent = (Double) in.readValue(null);
+	}
+
+	public FundAssetsState date(Long date) {
+		this.date = date;
+		return this;
+	}
+
+	/**
+	 * Get date
+	 *
+	 * @return date
+	 **/
+	@Schema(description = "")
+	public Long getDate() {
+		return date;
+	}
+
+	public void setDate(Long date) {
+		this.date = date;
 	}
 
 	public FundAssetsState assets(List<FundAssetPartWithIcon> assets) {
@@ -110,13 +132,14 @@ public class FundAssetsState implements Parcelable
 			return false;
 		}
 		FundAssetsState fundAssetsState = (FundAssetsState) o;
-		return Objects.equals(this.assets, fundAssetsState.assets) &&
+		return Objects.equals(this.date, fundAssetsState.date) &&
+				Objects.equals(this.assets, fundAssetsState.assets) &&
 				Objects.equals(this.otherPercent, fundAssetsState.otherPercent);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assets, otherPercent);
+		return Objects.hash(date, assets, otherPercent);
 	}
 
 	@Override
@@ -124,6 +147,7 @@ public class FundAssetsState implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class FundAssetsState {\n");
 
+		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
 		sb.append("    otherPercent: ").append(toIndentedString(otherPercent)).append("\n");
 		sb.append("}");
@@ -142,6 +166,7 @@ public class FundAssetsState implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(date);
 		out.writeValue(assets);
 		out.writeValue(otherPercent);
 	}

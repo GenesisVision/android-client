@@ -25,28 +25,22 @@ import java.io.IOException;
 @JsonAdapter(ProgramsFilterSorting.Adapter.class)
 public enum ProgramsFilterSorting
 {
-	BYLEVELASC("ByLevelAsc"),
-	BYLEVELDESC("ByLevelDesc"),
-	BYPROFITASC("ByProfitAsc"),
-	BYPROFITDESC("ByProfitDesc"),
-	BYDRAWDOWNASC("ByDrawdownAsc"),
-	BYDRAWDOWNDESC("ByDrawdownDesc"),
-	BYTRADESASC("ByTradesAsc"),
-	BYTRADESDESC("ByTradesDesc"),
-	BYINVESTORSASC("ByInvestorsAsc"),
-	BYINVESTORSDESC("ByInvestorsDesc"),
-	BYNEWDESC("ByNewDesc"),
-	BYNEWASC("ByNewAsc"),
-	BYENDOFPERIODASC("ByEndOfPeriodAsc"),
-	BYENDOFPERIODDESC("ByEndOfPeriodDesc"),
 	BYTITLEASC("ByTitleAsc"),
 	BYTITLEDESC("ByTitleDesc"),
-	BYBALANCEASC("ByBalanceAsc"),
-	BYBALANCEDESC("ByBalanceDesc"),
-	BYCURRDESC("ByCurrDesc"),
-	BYCURRASC("ByCurrAsc"),
-	BYLEVELPROGRESSDESC("ByLevelProgressDesc"),
-	BYLEVELPROGRESSASC("ByLevelProgressAsc");
+	BYEQUITYASC("ByEquityAsc"),
+	BYEQUITYDESC("ByEquityDesc"),
+	BYINVESTORSASC("ByInvestorsAsc"),
+	BYINVESTORSDESC("ByInvestorsDesc"),
+	BYPERIODASC("ByPeriodAsc"),
+	BYPERIODDESC("ByPeriodDesc"),
+	BYDRAWDOWNASC("ByDrawdownAsc"),
+	BYDRAWDOWNDESC("ByDrawdownDesc"),
+	BYPROFITASC("ByProfitAsc"),
+	BYPROFITDESC("ByProfitDesc"),
+	BYNEWASC("ByNewAsc"),
+	BYNEWDESC("ByNewDesc"),
+	BYLEVELPROGRESSASC("ByLevelProgressAsc"),
+	BYLEVELPROGRESSDESC("ByLevelProgressDesc");
 
 	public static ProgramsFilterSorting fromValue(String text) {
 		for (ProgramsFilterSorting b : ProgramsFilterSorting.values()) {

@@ -121,7 +121,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 				if (request != null) {
 					AssetDetails details = request.getAssetDetails();
 					if (details != null) {
-						if (details.getAssetType().equals(AssetType.PROGRAMS)) {
+						if (details.getAssetType().equals(AssetType.PROGRAM)) {
 							ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(
 									details.getId(),
 									details.getLogo(),
@@ -135,7 +135,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 									false);
 							EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 						}
-						else if (details.getAssetType().equals(AssetType.FUNDS)) {
+						else if (details.getAssetType().equals(AssetType.FUND)) {
 							FundDetailsModel fundDetailsModel = new FundDetailsModel(
 									details.getId(),
 									details.getLogo(),
@@ -169,7 +169,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 				this.name.setText(details.getTitle());
 				this.type.setText(request.getType().getValue());
 
-				if (details.getAssetType().equals(AssetType.PROGRAMS)) {
+				if (details.getAssetType().equals(AssetType.PROGRAM)) {
 					if (request.getType().equals(InvestmentRequestType.WITHDRAWAL) && request.getProgramRequestDetails().isIsWithdrawAll()) {
 						this.value.setText(itemView.getContext().getString(R.string.withdraw_all));
 					}
@@ -178,7 +178,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 								StringFormatUtil.formatCurrencyAmount(request.getAmount(), request.getCurrency().getValue()), request.getCurrency().getValue()));
 					}
 				}
-				else if (details.getAssetType().equals(AssetType.FUNDS)) {
+				else if (details.getAssetType().equals(AssetType.FUND)) {
 					if (request.getType().equals(InvestmentRequestType.WITHDRAWAL)) {
 						this.value.setText(String.format(Locale.getDefault(), "%s%% (≈ %s GVT)",
 								StringFormatUtil.formatAmount(request.getFundRequestDetails().getWithdrawPercent(), 0, 2),

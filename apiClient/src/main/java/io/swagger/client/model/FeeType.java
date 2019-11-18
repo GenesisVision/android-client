@@ -41,6 +41,7 @@ public enum FeeType
 	MANAGERSIGNALMASTERSUCCESSFEE("ManagerSignalMasterSuccessFee"),
 	MANAGERSIGNALMASTERVOLUMEFEE("ManagerSignalMasterVolumeFee"),
 	GVSIGNALSUCCESSFEE("GvSignalSuccessFee"),
+	GVSIGNALVOLUMEFEE("GvSignalVolumeFee"),
 	GVFUNDTRADE("GvFundTrade");
 
 	public static FeeType fromValue(String text) {

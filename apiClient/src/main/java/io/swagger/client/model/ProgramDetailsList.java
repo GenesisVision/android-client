@@ -25,7 +25,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * ProgramDetailsList
  */
@@ -52,6 +51,9 @@ public class ProgramDetailsList implements Parcelable
 
 	@SerializedName("url")
 	private String url = null;
+
+	@SerializedName("description")
+	private String description = null;
 
 	@SerializedName("color")
 	private String color = null;
@@ -98,8 +100,8 @@ public class ProgramDetailsList implements Parcelable
 	@SerializedName("tags")
 	private List<ProgramTag> tags = null;
 
-	@SerializedName("chart")
-	private ProfitChart chart = null;
+	@SerializedName("statistic")
+	private ProfitChart statistic = null;
 
 	@SerializedName("balance")
 	private AmountWithCurrency balance = null;
@@ -111,6 +113,7 @@ public class ProgramDetailsList implements Parcelable
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		logo = (String) in.readValue(null);
 		url = (String) in.readValue(null);
+		description = (String) in.readValue(null);
 		color = (String) in.readValue(null);
 		title = (String) in.readValue(null);
 		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
@@ -126,7 +129,7 @@ public class ProgramDetailsList implements Parcelable
 		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
 		personalDetails = (PersonalProgramDetailsList) in.readValue(PersonalProgramDetailsList.class.getClassLoader());
 		tags = (List<ProgramTag>) in.readValue(ProgramTag.class.getClassLoader());
-		chart = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
+		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
 		balance = (AmountWithCurrency) in.readValue(AmountWithCurrency.class.getClassLoader());
 	}
 
@@ -185,6 +188,25 @@ public class ProgramDetailsList implements Parcelable
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public ProgramDetailsList description(String description) {
+		this.description = description;
+		return this;
+	}
+
+	/**
+	 * Get description
+	 *
+	 * @return description
+	 **/
+	@Schema(description = "")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public ProgramDetailsList color(String color) {
@@ -480,23 +502,23 @@ public class ProgramDetailsList implements Parcelable
 		this.tags = tags;
 	}
 
-	public ProgramDetailsList chart(ProfitChart chart) {
-		this.chart = chart;
+	public ProgramDetailsList statistic(ProfitChart statistic) {
+		this.statistic = statistic;
 		return this;
 	}
 
 	/**
-	 * Get chart
+	 * Get statistic
 	 *
-	 * @return chart
+	 * @return statistic
 	 **/
 	@Schema(description = "")
-	public ProfitChart getChart() {
-		return chart;
+	public ProfitChart getStatistic() {
+		return statistic;
 	}
 
-	public void setChart(ProfitChart chart) {
-		this.chart = chart;
+	public void setStatistic(ProfitChart statistic) {
+		this.statistic = statistic;
 	}
 
 	public ProgramDetailsList balance(AmountWithCurrency balance) {
@@ -530,6 +552,7 @@ public class ProgramDetailsList implements Parcelable
 		return Objects.equals(this.id, programDetailsList.id) &&
 				Objects.equals(this.logo, programDetailsList.logo) &&
 				Objects.equals(this.url, programDetailsList.url) &&
+				Objects.equals(this.description, programDetailsList.description) &&
 				Objects.equals(this.color, programDetailsList.color) &&
 				Objects.equals(this.title, programDetailsList.title) &&
 				Objects.equals(this.creationDate, programDetailsList.creationDate) &&
@@ -545,13 +568,13 @@ public class ProgramDetailsList implements Parcelable
 				Objects.equals(this.owner, programDetailsList.owner) &&
 				Objects.equals(this.personalDetails, programDetailsList.personalDetails) &&
 				Objects.equals(this.tags, programDetailsList.tags) &&
-				Objects.equals(this.chart, programDetailsList.chart) &&
+				Objects.equals(this.statistic, programDetailsList.statistic) &&
 				Objects.equals(this.balance, programDetailsList.balance);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, url, color, title, creationDate, currency, level, levelProgress, periodDuration, availableToInvest, investorsCount, periodStarts, periodEnds, status, owner, personalDetails, tags, chart, balance);
+		return Objects.hash(id, logo, url, description, color, title, creationDate, currency, level, levelProgress, periodDuration, availableToInvest, investorsCount, periodStarts, periodEnds, status, owner, personalDetails, tags, statistic, balance);
 	}
 
 	@Override
@@ -562,6 +585,7 @@ public class ProgramDetailsList implements Parcelable
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
@@ -577,7 +601,7 @@ public class ProgramDetailsList implements Parcelable
 		sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
-		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -598,6 +622,7 @@ public class ProgramDetailsList implements Parcelable
 		out.writeValue(id);
 		out.writeValue(logo);
 		out.writeValue(url);
+		out.writeValue(description);
 		out.writeValue(color);
 		out.writeValue(title);
 		out.writeValue(creationDate);
@@ -613,7 +638,7 @@ public class ProgramDetailsList implements Parcelable
 		out.writeValue(owner);
 		out.writeValue(personalDetails);
 		out.writeValue(tags);
-		out.writeValue(chart);
+		out.writeValue(statistic);
 		out.writeValue(balance);
 	}
 

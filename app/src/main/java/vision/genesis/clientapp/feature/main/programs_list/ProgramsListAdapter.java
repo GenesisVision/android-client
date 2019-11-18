@@ -20,8 +20,8 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.AssetFacet;
 import io.swagger.client.model.ProgramDetailsList;
-import io.swagger.client.model.ProgramFacet;
 import io.swagger.client.model.ProgramTag;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -51,7 +51,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 	private List<ProgramDetailsList> investmentPrograms = new ArrayList<ProgramDetailsList>();
 
-	private List<ProgramFacet> facets = new ArrayList<>();
+	private List<AssetFacet> facets = new ArrayList<>();
 
 	@Override
 	public int getItemViewType(int position) {
@@ -92,7 +92,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		return investmentPrograms.size() + 1;
 	}
 
-	public void setFacets(List<ProgramFacet> facets) {
+	public void setFacets(List<AssetFacet> facets) {
 		this.facets = facets;
 		notifyDataSetChanged();
 	}
@@ -135,7 +135,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		@BindView(R.id.group_facets)
 		public ViewGroup facetsGroup;
 
-		private List<ProgramFacet> facets;
+		private List<AssetFacet> facets;
 
 		FacetsViewHolder(View itemView) {
 			super(itemView);
@@ -143,14 +143,14 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			ButterKnife.bind(this, itemView);
 		}
 
-		void setFacets(List<ProgramFacet> facets) {
+		void setFacets(List<AssetFacet> facets) {
 			this.facets = facets;
 			updateView();
 		}
 
 		private void updateView() {
 			facetsGroup.removeAllViews();
-			for (ProgramFacet facet : facets) {
+			for (AssetFacet facet : facets) {
 				ProgramFacetView view = new ProgramFacetView(itemView.getContext());
 				view.setData(facet);
 				facetsGroup.addView(view);
@@ -286,7 +286,10 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			this.programName.setText(program.getTitle());
 			this.managerName.setText(program.getOwner().getUsername());
 
-			this.chart.setChart(program.getChart().getChart());
+			//TODO:
+//			if (program.getChart() != null) {
+//				this.chart.setChart(program.getChart().getChart());
+//			}
 
 //			Double profitPercent = getProfitPercent();
 			//TODO:

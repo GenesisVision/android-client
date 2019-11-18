@@ -110,11 +110,13 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 	private void resetValuesSelection() {
 		first = 0.0;
 		selected = 0.0;
-		List<SimpleChart> charts = chartData.getCharts();
-		if (charts != null && !charts.isEmpty()) {
-			if (charts.get(0) != null) {
-				first = charts.get(0).getChart().get(0).getValue();
-				selected = charts.get(0).getChart().get(chartData.getCharts().size() - 1).getValue();
+		if (chartData != null && chartData.getCharts() != null) {
+			List<SimpleChart> charts = chartData.getCharts();
+			if (charts != null && !charts.isEmpty()) {
+				if (charts.get(0) != null) {
+					first = charts.get(0).getChart().get(0).getValue();
+					selected = charts.get(0).getChart().get(chartData.getCharts().size() - 1).getValue();
+				}
 			}
 		}
 		updateValues();
@@ -126,8 +128,10 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 		}
 
 		getViewState().setValue(selected < 0, String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(selected, 0, 4)));
-		getViewState().setStatisticsData(chartData.getStatistic().getSharpeRatio(), chartData.getStatistic().getSortinoRatio(),
-				chartData.getStatistic().getCalmarRatio(), chartData.getStatistic().getMaxDrawdown());
+		if (chartData != null && chartData.getStatistic() != null) {
+			getViewState().setStatisticsData(chartData.getStatistic().getSharpeRatio(), chartData.getStatistic().getSortinoRatio(),
+					chartData.getStatistic().getCalmarRatio(), chartData.getStatistic().getMaxDrawdown());
+		}
 	}
 
 	@Override

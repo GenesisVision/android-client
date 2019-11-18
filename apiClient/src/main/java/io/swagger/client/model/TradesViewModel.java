@@ -17,12 +17,10 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * TradesViewModel
  */
@@ -47,11 +45,11 @@ public class TradesViewModel implements Parcelable
 	@SerializedName("showTickets")
 	private Boolean showTickets = null;
 
-	@SerializedName("trades")
-	private List<OrderModel> trades = null;
-
 	@SerializedName("tradesDelay")
 	private TradesDelay tradesDelay = null;
+
+	@SerializedName("items")
+	private List<OrderModel> items = null;
 
 	@SerializedName("total")
 	private Integer total = null;
@@ -62,8 +60,8 @@ public class TradesViewModel implements Parcelable
 	TradesViewModel(Parcel in) {
 		showSwaps = (Boolean) in.readValue(null);
 		showTickets = (Boolean) in.readValue(null);
-		trades = (List<OrderModel>) in.readValue(OrderModel.class.getClassLoader());
 		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
+		items = (List<OrderModel>) in.readValue(OrderModel.class.getClassLoader());
 		total = (Integer) in.readValue(null);
 	}
 
@@ -105,33 +103,6 @@ public class TradesViewModel implements Parcelable
 		this.showTickets = showTickets;
 	}
 
-	public TradesViewModel trades(List<OrderModel> trades) {
-		this.trades = trades;
-		return this;
-	}
-
-	public TradesViewModel addTradesItem(OrderModel tradesItem) {
-		if (this.trades == null) {
-			this.trades = new ArrayList<OrderModel>();
-		}
-		this.trades.add(tradesItem);
-		return this;
-	}
-
-	/**
-	 * Get trades
-	 *
-	 * @return trades
-	 **/
-	@Schema(description = "")
-	public List<OrderModel> getTrades() {
-		return trades;
-	}
-
-	public void setTrades(List<OrderModel> trades) {
-		this.trades = trades;
-	}
-
 	public TradesViewModel tradesDelay(TradesDelay tradesDelay) {
 		this.tradesDelay = tradesDelay;
 		return this;
@@ -151,9 +122,14 @@ public class TradesViewModel implements Parcelable
 		this.tradesDelay = tradesDelay;
 	}
 
-	public TradesViewModel total(Integer total) {
-		this.total = total;
-		return this;
+	/**
+	 * Get items
+	 *
+	 * @return items
+	 **/
+	@Schema(description = "")
+	public List<OrderModel> getItems() {
+		return items;
 	}
 
 	/**
@@ -164,10 +140,6 @@ public class TradesViewModel implements Parcelable
 	@Schema(description = "")
 	public Integer getTotal() {
 		return total;
-	}
-
-	public void setTotal(Integer total) {
-		this.total = total;
 	}
 
 	@Override
@@ -181,14 +153,14 @@ public class TradesViewModel implements Parcelable
 		TradesViewModel tradesViewModel = (TradesViewModel) o;
 		return Objects.equals(this.showSwaps, tradesViewModel.showSwaps) &&
 				Objects.equals(this.showTickets, tradesViewModel.showTickets) &&
-				Objects.equals(this.trades, tradesViewModel.trades) &&
 				Objects.equals(this.tradesDelay, tradesViewModel.tradesDelay) &&
+				Objects.equals(this.items, tradesViewModel.items) &&
 				Objects.equals(this.total, tradesViewModel.total);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(showSwaps, showTickets, trades, tradesDelay, total);
+		return Objects.hash(showSwaps, showTickets, tradesDelay, items, total);
 	}
 
 	@Override
@@ -198,8 +170,8 @@ public class TradesViewModel implements Parcelable
 
 		sb.append("    showSwaps: ").append(toIndentedString(showSwaps)).append("\n");
 		sb.append("    showTickets: ").append(toIndentedString(showTickets)).append("\n");
-		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
 		sb.append("    tradesDelay: ").append(toIndentedString(tradesDelay)).append("\n");
+		sb.append("    items: ").append(toIndentedString(items)).append("\n");
 		sb.append("    total: ").append(toIndentedString(total)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -219,8 +191,8 @@ public class TradesViewModel implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(showSwaps);
 		out.writeValue(showTickets);
-		out.writeValue(trades);
 		out.writeValue(tradesDelay);
+		out.writeValue(items);
 		out.writeValue(total);
 	}
 

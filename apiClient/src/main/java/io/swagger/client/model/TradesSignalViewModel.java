@@ -17,12 +17,10 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * TradesSignalViewModel
  */
@@ -47,8 +45,8 @@ public class TradesSignalViewModel implements Parcelable
 	@SerializedName("showTickets")
 	private Boolean showTickets = null;
 
-	@SerializedName("trades")
-	private List<OrderSignalModel> trades = null;
+	@SerializedName("items")
+	private List<OrderSignalModel> items = null;
 
 	@SerializedName("total")
 	private Integer total = null;
@@ -59,7 +57,7 @@ public class TradesSignalViewModel implements Parcelable
 	TradesSignalViewModel(Parcel in) {
 		showSwaps = (Boolean) in.readValue(null);
 		showTickets = (Boolean) in.readValue(null);
-		trades = (List<OrderSignalModel>) in.readValue(OrderSignalModel.class.getClassLoader());
+		items = (List<OrderSignalModel>) in.readValue(OrderSignalModel.class.getClassLoader());
 		total = (Integer) in.readValue(null);
 	}
 
@@ -101,36 +99,14 @@ public class TradesSignalViewModel implements Parcelable
 		this.showTickets = showTickets;
 	}
 
-	public TradesSignalViewModel trades(List<OrderSignalModel> trades) {
-		this.trades = trades;
-		return this;
-	}
-
-	public TradesSignalViewModel addTradesItem(OrderSignalModel tradesItem) {
-		if (this.trades == null) {
-			this.trades = new ArrayList<OrderSignalModel>();
-		}
-		this.trades.add(tradesItem);
-		return this;
-	}
-
 	/**
-	 * Get trades
+	 * Get items
 	 *
-	 * @return trades
+	 * @return items
 	 **/
 	@Schema(description = "")
-	public List<OrderSignalModel> getTrades() {
-		return trades;
-	}
-
-	public void setTrades(List<OrderSignalModel> trades) {
-		this.trades = trades;
-	}
-
-	public TradesSignalViewModel total(Integer total) {
-		this.total = total;
-		return this;
+	public List<OrderSignalModel> getItems() {
+		return items;
 	}
 
 	/**
@@ -141,10 +117,6 @@ public class TradesSignalViewModel implements Parcelable
 	@Schema(description = "")
 	public Integer getTotal() {
 		return total;
-	}
-
-	public void setTotal(Integer total) {
-		this.total = total;
 	}
 
 	@Override
@@ -158,13 +130,13 @@ public class TradesSignalViewModel implements Parcelable
 		TradesSignalViewModel tradesSignalViewModel = (TradesSignalViewModel) o;
 		return Objects.equals(this.showSwaps, tradesSignalViewModel.showSwaps) &&
 				Objects.equals(this.showTickets, tradesSignalViewModel.showTickets) &&
-				Objects.equals(this.trades, tradesSignalViewModel.trades) &&
+				Objects.equals(this.items, tradesSignalViewModel.items) &&
 				Objects.equals(this.total, tradesSignalViewModel.total);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(showSwaps, showTickets, trades, total);
+		return Objects.hash(showSwaps, showTickets, items, total);
 	}
 
 	@Override
@@ -174,7 +146,7 @@ public class TradesSignalViewModel implements Parcelable
 
 		sb.append("    showSwaps: ").append(toIndentedString(showSwaps)).append("\n");
 		sb.append("    showTickets: ").append(toIndentedString(showTickets)).append("\n");
-		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
+		sb.append("    items: ").append(toIndentedString(items)).append("\n");
 		sb.append("    total: ").append(toIndentedString(total)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -194,7 +166,7 @@ public class TradesSignalViewModel implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(showSwaps);
 		out.writeValue(showTickets);
-		out.writeValue(trades);
+		out.writeValue(items);
 		out.writeValue(total);
 	}
 

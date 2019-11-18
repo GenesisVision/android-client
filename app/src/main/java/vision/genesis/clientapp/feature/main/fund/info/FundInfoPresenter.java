@@ -158,7 +158,7 @@ public class FundInfoPresenter extends MvpPresenter<FundInfoView>
 		request.setFundLogo(fundDetails.getLogo());
 		request.setFundColor(fundDetails.getColor());
 		request.setFundName(fundDetails.getTitle());
-		request.setManagerName(fundDetails.getManager().getUsername());
+		request.setManagerName(fundDetails.getOwner().getUsername());
 
 		getViewState().showInvestFundActivity(request);
 	}
@@ -179,7 +179,7 @@ public class FundInfoPresenter extends MvpPresenter<FundInfoView>
 		request.setFundLogo(fundDetails.getLogo());
 		request.setFundColor(fundDetails.getColor());
 		request.setFundName(fundDetails.getTitle());
-		request.setManagerName(fundDetails.getManager().getUsername());
+		request.setManagerName(fundDetails.getOwner().getUsername());
 
 		getViewState().showWithdrawFundActivity(request);
 	}

@@ -4,153 +4,19 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**addExternalKey**](ProfileApi.md#addExternalKey) | **POST** v2.0/profile/keys/add | Add external exchange key
-[**deleteExternalKey**](ProfileApi.md#deleteExternalKey) | **POST** v2.0/profile/keys/delete | Delete external exchange key
-[**getExternalKey**](ProfileApi.md#getExternalKey) | **GET** v2.0/profile/keys | Get external exchange keys
 [**getManagerProfile**](ProfileApi.md#getManagerProfile) | **GET** v2.0/profile/{id}/public | Public profile
 [**getProfileFull**](ProfileApi.md#getProfileFull) | **GET** v2.0/profile | Get full profile
 [**getProfileHeader**](ProfileApi.md#getProfileHeader) | **GET** v2.0/profile/header | Get header profile
 [**getSocialLinks**](ProfileApi.md#getSocialLinks) | **GET** v2.0/profile/sociallinks | Get social links
 [**getVerificationToken**](ProfileApi.md#getVerificationToken) | **POST** v2.0/profile/verification/token | 
 [**removeAvatar**](ProfileApi.md#removeAvatar) | **POST** v2.0/profile/avatar/remove | Remove avatar
+[**switchPublicInvestorOff**](ProfileApi.md#switchPublicInvestorOff) | **POST** v2.0/profile/investor/public/off | Disable public investor profile
+[**switchPublicInvestorOn**](ProfileApi.md#switchPublicInvestorOn) | **POST** v2.0/profile/investor/public/on | Enable public investor profile
 [**updateAvatar**](ProfileApi.md#updateAvatar) | **POST** v2.0/profile/avatar/update/{fileId} | Update avatar
 [**updateFcmToken**](ProfileApi.md#updateFcmToken) | **POST** v2.0/profile/push/token | 
 [**updatePersonalDetails**](ProfileApi.md#updatePersonalDetails) | **POST** v2.0/profile/personal/update | Update user personal details
 [**updateProfile**](ProfileApi.md#updateProfile) | **POST** v2.0/profile/update | Update profile
 [**updateSocialLinks**](ProfileApi.md#updateSocialLinks) | **POST** v2.0/profile/sociallinks/update | Add or update social links
-
-<a name="addExternalKey"></a>
-# **addExternalKey**
-> Void addExternalKey(authorization, body)
-
-Add external exchange key
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.ProfileApi;
-
-
-ProfileApi apiInstance = new ProfileApi();
-String authorization = "authorization_example"; // String | JWT access token
-ExternalKeyAddViewModel body = new ExternalKeyAddViewModel(); // ExternalKeyAddViewModel | 
-try {
-    Void result = apiInstance.addExternalKey(authorization, body);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling ProfileApi#addExternalKey");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **body** | [**ExternalKeyAddViewModel**](ExternalKeyAddViewModel.md)|  | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="deleteExternalKey"></a>
-# **deleteExternalKey**
-> Void deleteExternalKey(authorization, body)
-
-Delete external exchange key
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.ProfileApi;
-
-
-ProfileApi apiInstance = new ProfileApi();
-String authorization = "authorization_example"; // String | JWT access token
-IdModel body = new IdModel(); // IdModel | 
-try {
-    Void result = apiInstance.deleteExternalKey(authorization, body);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling ProfileApi#deleteExternalKey");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **body** | [**IdModel**](IdModel.md)|  | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="getExternalKey"></a>
-# **getExternalKey**
-> ExternalKeysViewModel getExternalKey(authorization)
-
-Get external exchange keys
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.ProfileApi;
-
-
-ProfileApi apiInstance = new ProfileApi();
-String authorization = "authorization_example"; // String | JWT access token
-try {
-    ExternalKeysViewModel result = apiInstance.getExternalKey(authorization);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling ProfileApi#getExternalKey");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
-
-### Return type
-
-[**ExternalKeysViewModel**](ExternalKeysViewModel.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
 
 <a name="getManagerProfile"></a>
 # **getManagerProfile**
@@ -387,6 +253,92 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProfileApi#removeAvatar");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="switchPublicInvestorOff"></a>
+# **switchPublicInvestorOff**
+> Void switchPublicInvestorOff(authorization)
+
+Disable public investor profile
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ProfileApi;
+
+
+ProfileApi apiInstance = new ProfileApi();
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.switchPublicInvestorOff(authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProfileApi#switchPublicInvestorOff");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="switchPublicInvestorOn"></a>
+# **switchPublicInvestorOn**
+> Void switchPublicInvestorOn(authorization)
+
+Enable public investor profile
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ProfileApi;
+
+
+ProfileApi apiInstance = new ProfileApi();
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.switchPublicInvestorOn(authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProfileApi#switchPublicInvestorOn");
     e.printStackTrace();
 }
 ```

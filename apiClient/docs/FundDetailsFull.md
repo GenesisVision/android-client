@@ -17,4 +17,4 @@ Name | Type | Description | Notes
 **exitFeeCurrent** | **Double** |  |  [optional]
 **assetsStructure** | [**List&lt;FundAssetInfo&gt;**](FundAssetInfo.md) |  |  [optional]
 **personalDetails** | [**PersonalFundDetails**](PersonalFundDetails.md) |  |  [optional]
-**manager** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
+**owner** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]

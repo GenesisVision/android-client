@@ -18,8 +18,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.assets.AssetsFragment;
-import vision.genesis.clientapp.feature.main.dashboard.investor.InvestorDashboardFragment;
-import vision.genesis.clientapp.feature.main.dashboard.manager.ManagerDashboardFragment;
+import vision.genesis.clientapp.feature.main.dashboard.DashboardFragment;
 import vision.genesis.clientapp.feature.main.settings.SettingsFragment;
 import vision.genesis.clientapp.feature.main.wallet.WalletFragment;
 import vision.genesis.clientapp.managers.AuthManager;
@@ -70,9 +69,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	private Subscription platformStatusSubscription;
 
-	private InvestorDashboardFragment investorDashboardFragment;
-
-	private ManagerDashboardFragment managerDashboardFragment;
+	private DashboardFragment dashboardFragment;
 
 	private AssetsFragment assetsFragment;
 
@@ -150,12 +147,12 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	private void showDashboard() {
-		if (investorDashboardFragment == null) {
-			investorDashboardFragment = new InvestorDashboardFragment();
-			getViewState().addFragmentToBackstack(investorDashboardFragment);
+		if (dashboardFragment == null) {
+			dashboardFragment = new DashboardFragment();
+			getViewState().addFragmentToBackstack(dashboardFragment);
 		}
 		else {
-			getViewState().showFragment(investorDashboardFragment);
+			getViewState().showFragment(dashboardFragment);
 		}
 	}
 
@@ -358,7 +355,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(OnProgramFacetClickedEvent event) {
 		if (event.getFacet().getTitle().toLowerCase().equals(context.getString(R.string.rating).toLowerCase())) {
-			event.getFacet().setSorting(ProgramsFilterSorting.BYLEVELPROGRESSDESC);
+			event.getFacet().setSorting(ProgramsFilterSorting.BYLEVELPROGRESSDESC.getValue());
 		}
 		getViewState().showProgramFacet(event.getFacet());
 	}

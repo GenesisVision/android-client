@@ -114,14 +114,15 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 	private void resetValuesSelection() {
 		first = 0.0;
 		selected = 0.0;
-		List<SimpleChart> charts = chartData.getCharts();
-		if (charts != null && !charts.isEmpty()) {
-			if (charts.get(0) != null) {
-				first = charts.get(0).getChart().get(0).getValue();
-				selected = charts.get(0).getChart().get(chartData.getCharts().size() - 1).getValue();
+		if (chartData != null && chartData.getCharts() != null) {
+			List<SimpleChart> charts = chartData.getCharts();
+			if (charts != null && !charts.isEmpty()) {
+				if (charts.get(0) != null) {
+					first = charts.get(0).getChart().get(0).getValue();
+					selected = charts.get(0).getChart().get(chartData.getCharts().size() - 1).getValue();
+				}
 			}
 		}
-
 		getViewState().setChangeVisibility(false);
 		updateValues();
 	}
@@ -147,9 +148,11 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 
 		getViewState().setChange(changeValue < 0, String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(changeValue, 0, 4)));
 
-		getViewState().setStatisticsData(chartData.getStatistic().getTrades(), chartData.getStatistic().getSuccessTradesPercent(),
-				chartData.getStatistic().getProfitFactor(), chartData.getStatistic().getSharpeRatio(), chartData.getStatistic().getSortinoRatio(),
-				chartData.getStatistic().getCalmarRatio(), chartData.getStatistic().getMaxDrawdown());
+		if (chartData != null & chartData.getStatistic() != null) {
+			getViewState().setStatisticsData(chartData.getStatistic().getTrades(), chartData.getStatistic().getSuccessTradesPercent(),
+					chartData.getStatistic().getProfitFactor(), chartData.getStatistic().getSharpeRatio(), chartData.getStatistic().getSortinoRatio(),
+					chartData.getStatistic().getCalmarRatio(), chartData.getStatistic().getMaxDrawdown());
+		}
 	}
 
 	@Override

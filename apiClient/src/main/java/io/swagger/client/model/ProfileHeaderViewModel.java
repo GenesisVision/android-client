@@ -21,7 +21,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * ProfileHeaderViewModel
  */
@@ -58,20 +57,20 @@ public class ProfileHeaderViewModel implements Parcelable
 	@SerializedName("notificationsCount")
 	private Integer notificationsCount = null;
 
-	@SerializedName("favoritesCount")
-	private Integer favoritesCount = null;
+	@SerializedName("isKycConfirmed")
+	private Boolean isKycConfirmed = null;
 
-	@SerializedName("kycConfirmed")
-	private Boolean kycConfirmed = null;
-
-	@SerializedName("allowForex")
-	private Boolean allowForex = null;
+	@SerializedName("isForexAllowed")
+	private Boolean isForexAllowed = null;
 
 	@SerializedName("isTwoFactorEnabled")
 	private Boolean isTwoFactorEnabled = null;
 
 	@SerializedName("isNewUser")
 	private Boolean isNewUser = null;
+
+	@SerializedName("isPublicInvestor")
+	private Boolean isPublicInvestor = null;
 
 	public ProfileHeaderViewModel() {
 	}
@@ -83,11 +82,11 @@ public class ProfileHeaderViewModel implements Parcelable
 		avatar = (String) in.readValue(null);
 		countryCode = (String) in.readValue(null);
 		notificationsCount = (Integer) in.readValue(null);
-		favoritesCount = (Integer) in.readValue(null);
-		kycConfirmed = (Boolean) in.readValue(null);
-		allowForex = (Boolean) in.readValue(null);
+		isKycConfirmed = (Boolean) in.readValue(null);
+		isForexAllowed = (Boolean) in.readValue(null);
 		isTwoFactorEnabled = (Boolean) in.readValue(null);
 		isNewUser = (Boolean) in.readValue(null);
+		isPublicInvestor = (Boolean) in.readValue(null);
 	}
 
 	public ProfileHeaderViewModel id(UUID id) {
@@ -204,61 +203,42 @@ public class ProfileHeaderViewModel implements Parcelable
 		this.notificationsCount = notificationsCount;
 	}
 
-	public ProfileHeaderViewModel favoritesCount(Integer favoritesCount) {
-		this.favoritesCount = favoritesCount;
+	public ProfileHeaderViewModel isKycConfirmed(Boolean isKycConfirmed) {
+		this.isKycConfirmed = isKycConfirmed;
 		return this;
 	}
 
 	/**
-	 * Get favoritesCount
+	 * Get isKycConfirmed
 	 *
-	 * @return favoritesCount
+	 * @return isKycConfirmed
 	 **/
 	@Schema(description = "")
-	public Integer getFavoritesCount() {
-		return favoritesCount;
+	public Boolean isIsKycConfirmed() {
+		return isKycConfirmed;
 	}
 
-	public void setFavoritesCount(Integer favoritesCount) {
-		this.favoritesCount = favoritesCount;
+	public void setIsKycConfirmed(Boolean isKycConfirmed) {
+		this.isKycConfirmed = isKycConfirmed;
 	}
 
-	public ProfileHeaderViewModel kycConfirmed(Boolean kycConfirmed) {
-		this.kycConfirmed = kycConfirmed;
+	public ProfileHeaderViewModel isForexAllowed(Boolean isForexAllowed) {
+		this.isForexAllowed = isForexAllowed;
 		return this;
 	}
 
 	/**
-	 * Get kycConfirmed
+	 * Get isForexAllowed
 	 *
-	 * @return kycConfirmed
+	 * @return isForexAllowed
 	 **/
 	@Schema(description = "")
-	public Boolean isKycConfirmed() {
-		return kycConfirmed;
+	public Boolean isIsForexAllowed() {
+		return isForexAllowed;
 	}
 
-	public void setKycConfirmed(Boolean kycConfirmed) {
-		this.kycConfirmed = kycConfirmed;
-	}
-
-	public ProfileHeaderViewModel allowForex(Boolean allowForex) {
-		this.allowForex = allowForex;
-		return this;
-	}
-
-	/**
-	 * Get allowForex
-	 *
-	 * @return allowForex
-	 **/
-	@Schema(description = "")
-	public Boolean isAllowForex() {
-		return allowForex;
-	}
-
-	public void setAllowForex(Boolean allowForex) {
-		this.allowForex = allowForex;
+	public void setIsForexAllowed(Boolean isForexAllowed) {
+		this.isForexAllowed = isForexAllowed;
 	}
 
 	public ProfileHeaderViewModel isTwoFactorEnabled(Boolean isTwoFactorEnabled) {
@@ -299,6 +279,25 @@ public class ProfileHeaderViewModel implements Parcelable
 		this.isNewUser = isNewUser;
 	}
 
+	public ProfileHeaderViewModel isPublicInvestor(Boolean isPublicInvestor) {
+		this.isPublicInvestor = isPublicInvestor;
+		return this;
+	}
+
+	/**
+	 * Get isPublicInvestor
+	 *
+	 * @return isPublicInvestor
+	 **/
+	@Schema(description = "")
+	public Boolean isIsPublicInvestor() {
+		return isPublicInvestor;
+	}
+
+	public void setIsPublicInvestor(Boolean isPublicInvestor) {
+		this.isPublicInvestor = isPublicInvestor;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -314,16 +313,16 @@ public class ProfileHeaderViewModel implements Parcelable
 				Objects.equals(this.avatar, profileHeaderViewModel.avatar) &&
 				Objects.equals(this.countryCode, profileHeaderViewModel.countryCode) &&
 				Objects.equals(this.notificationsCount, profileHeaderViewModel.notificationsCount) &&
-				Objects.equals(this.favoritesCount, profileHeaderViewModel.favoritesCount) &&
-				Objects.equals(this.kycConfirmed, profileHeaderViewModel.kycConfirmed) &&
-				Objects.equals(this.allowForex, profileHeaderViewModel.allowForex) &&
+				Objects.equals(this.isKycConfirmed, profileHeaderViewModel.isKycConfirmed) &&
+				Objects.equals(this.isForexAllowed, profileHeaderViewModel.isForexAllowed) &&
 				Objects.equals(this.isTwoFactorEnabled, profileHeaderViewModel.isTwoFactorEnabled) &&
-				Objects.equals(this.isNewUser, profileHeaderViewModel.isNewUser);
+				Objects.equals(this.isNewUser, profileHeaderViewModel.isNewUser) &&
+				Objects.equals(this.isPublicInvestor, profileHeaderViewModel.isPublicInvestor);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, email, avatar, countryCode, notificationsCount, favoritesCount, kycConfirmed, allowForex, isTwoFactorEnabled, isNewUser);
+		return Objects.hash(id, name, email, avatar, countryCode, notificationsCount, isKycConfirmed, isForexAllowed, isTwoFactorEnabled, isNewUser, isPublicInvestor);
 	}
 
 	@Override
@@ -337,11 +336,11 @@ public class ProfileHeaderViewModel implements Parcelable
 		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
 		sb.append("    countryCode: ").append(toIndentedString(countryCode)).append("\n");
 		sb.append("    notificationsCount: ").append(toIndentedString(notificationsCount)).append("\n");
-		sb.append("    favoritesCount: ").append(toIndentedString(favoritesCount)).append("\n");
-		sb.append("    kycConfirmed: ").append(toIndentedString(kycConfirmed)).append("\n");
-		sb.append("    allowForex: ").append(toIndentedString(allowForex)).append("\n");
+		sb.append("    isKycConfirmed: ").append(toIndentedString(isKycConfirmed)).append("\n");
+		sb.append("    isForexAllowed: ").append(toIndentedString(isForexAllowed)).append("\n");
 		sb.append("    isTwoFactorEnabled: ").append(toIndentedString(isTwoFactorEnabled)).append("\n");
 		sb.append("    isNewUser: ").append(toIndentedString(isNewUser)).append("\n");
+		sb.append("    isPublicInvestor: ").append(toIndentedString(isPublicInvestor)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -364,11 +363,11 @@ public class ProfileHeaderViewModel implements Parcelable
 		out.writeValue(avatar);
 		out.writeValue(countryCode);
 		out.writeValue(notificationsCount);
-		out.writeValue(favoritesCount);
-		out.writeValue(kycConfirmed);
-		out.writeValue(allowForex);
+		out.writeValue(isKycConfirmed);
+		out.writeValue(isForexAllowed);
 		out.writeValue(isTwoFactorEnabled);
 		out.writeValue(isNewUser);
+		out.writeValue(isPublicInvestor);
 	}
 
 	public int describeContents() {

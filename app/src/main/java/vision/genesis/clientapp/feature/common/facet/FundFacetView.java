@@ -11,7 +11,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.swagger.client.model.FundFacet;
+import io.swagger.client.model.AssetFacet;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.OnFundFacetClickedEvent;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -32,7 +32,7 @@ public class FundFacetView extends RelativeLayout
 	@BindView(R.id.description)
 	public TextView description;
 
-	private FundFacet facet;
+	private AssetFacet facet;
 
 	public FundFacetView(Context context) {
 		super(context);
@@ -59,7 +59,7 @@ public class FundFacetView extends RelativeLayout
 		this.setOnClickListener(view -> EventBus.getDefault().post(new OnFundFacetClickedEvent(facet)));
 	}
 
-	public void setData(FundFacet facet) {
+	public void setData(AssetFacet facet) {
 		this.facet = facet;
 		this.image.setImageURI(ImageUtils.getImageUri(facet.getLogo()));
 		this.name.setText(facet.getTitle());

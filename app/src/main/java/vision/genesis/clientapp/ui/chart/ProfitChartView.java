@@ -221,7 +221,7 @@ public class ProfitChartView extends RelativeLayout
 		List<Entry> lineEntries = new ArrayList<>();
 
 		for (SimpleChartPoint point : chart) {
-			lineEntries.add(new Entry(point.getDate().getMillis() / 1000 / 60, point.getValue().floatValue()));
+			lineEntries.add(new Entry(point.getDate() / 1000 / 60, point.getValue().floatValue()));
 			if (min > point.getValue().floatValue()) {
 				min = point.getValue().floatValue();
 			}

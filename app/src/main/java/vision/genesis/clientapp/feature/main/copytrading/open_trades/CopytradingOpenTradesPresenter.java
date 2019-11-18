@@ -60,10 +60,12 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 
 	@Override
 	public void onDestroy() {
-		if (getOpenTradesSubscription != null)
+		if (getOpenTradesSubscription != null) {
 			getOpenTradesSubscription.unsubscribe();
-		if (closeTradeSubscription != null)
+		}
+		if (closeTradeSubscription != null) {
 			closeTradeSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -87,12 +89,13 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 	}
 
 	private void getOpenTrades() {
-		if (signalsManager != null && location != null)
+		if (signalsManager != null && location != null) {
 			getOpenTradesSubscription = signalsManager.getOpenTrades("", "", null, accountCurrency, 0, 1000)
 					.subscribeOn(Schedulers.computation())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handleGetOpenTradesSuccess,
 							this::handleGetOpenTradesError);
+		}
 	}
 
 	private void handleGetOpenTradesSuccess(TradesSignalViewModel response) {
@@ -100,7 +103,7 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 
 		getViewState().showProgressBar(false);
 
-		openTrades = response.getTrades();
+		openTrades = response.getItems();
 		getViewState().setOpenTrades(openTrades);
 
 		totalTradesCount = response.getTotal();
@@ -108,10 +111,12 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 	}
 
 	private void updateCounter() {
-		if (location.equals(CopytradingOpenTradesFragment.LOCATION_DASHBOARD))
+		if (location.equals(CopytradingOpenTradesFragment.LOCATION_DASHBOARD)) {
 			EventBus.getDefault().post(new SetDashboardOpenTradesCountEvent(totalTradesCount));
-		else if (location.equals(CopytradingOpenTradesFragment.LOCATION_COPYTRADING_ACCOUNT))
+		}
+		else if (location.equals(CopytradingOpenTradesFragment.LOCATION_COPYTRADING_ACCOUNT)) {
 			EventBus.getDefault().post(new SetCopytradingAccountOpenTradesCountEvent(totalTradesCount));
+		}
 	}
 
 	private void handleGetOpenTradesError(Throwable throwable) {
@@ -125,12 +130,13 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 	}
 
 	void closeTrade(UUID tradeId) {
-		if (signalsManager != null && tradeId != null)
+		if (signalsManager != null && tradeId != null) {
 			closeTradeSubscription = signalsManager.closeTrade(tradeId, null)
 					.subscribeOn(Schedulers.computation())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(response -> handleCloseTradeSuccess(response, tradeId),
 							this::handleCloseTradeError);
+		}
 	}
 
 	private void handleCloseTradeSuccess(Void response, UUID tradeId) {
@@ -148,8 +154,9 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 		getViewState().removeOpenTrade(position, openTrades.isEmpty());
 
 		totalTradesCount--;
-		if (totalTradesCount < 0)
+		if (totalTradesCount < 0) {
 			totalTradesCount = 0;
+		}
 		updateCounter();
 	}
 
@@ -162,7 +169,8 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 
 	@Subscribe
 	public void onEventMainThread(OnOpenTradeWholeCloseClickedEvent event) {
-		if (isFragmentActive)
+		if (isFragmentActive) {
 			getViewState().askCloseTrade(event.getTradeId(), event.getSymbol(), event.getVolume());
+		}
 	}
 }

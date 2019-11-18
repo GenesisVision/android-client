@@ -83,7 +83,7 @@ public class PortfolioEventDashboardView extends RelativeLayout
 		unbinder = ButterKnife.bind(this);
 
 		value.setTypeface(TypefaceUtil.semibold());
-		date.setTypeface(TypefaceUtil.semibold());
+//		date.setTypeface(TypefaceUtil.semibold());
 
 		setOnClickListener(v -> {
 			if (event != null) {

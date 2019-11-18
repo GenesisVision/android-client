@@ -109,7 +109,7 @@ public class FundDetailsModel implements Parcelable
 		this.logo = fundDetails.getLogo();
 		this.fundColor = fundDetails.getColor();
 		this.fundName = fundDetails.getTitle();
-		this.managerName = fundDetails.getManager().getUsername();
+		this.managerName = fundDetails.getOwner().getUsername();
 		this.favorite = fundDetails.getPersonalDetails() != null
 				? fundDetails.getPersonalDetails().isIsFavorite()
 				: false;

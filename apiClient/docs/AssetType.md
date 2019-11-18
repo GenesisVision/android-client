@@ -3,6 +3,6 @@
 ## Enum
 
 * `NONE` (value: `"None"`)
-* `PROGRAMS` (value: `"Programs"`)
-* `FUNDS` (value: `"Funds"`)
-* `COPYTRADING` (value: `"CopyTrading"`)
+* `PROGRAM` (value: `"Program"`)
+* `FUND` (value: `"Fund"`)
+* `FOLLOW` (value: `"Follow"`)

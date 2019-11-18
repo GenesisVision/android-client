@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorBackgroundDark">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="?attr/colorBackground"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
+
+        <RelativeLayout
+            android:id="@+id/group_notifications"
+            android:layout_width="62dp"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <ImageView
+                android:id="@+id/icon_notifications"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_centerInParent="true"
+                android:tint="?attr/colorTextPrimary"
+                app:srcCompat="@drawable/icon_notifications"/>
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/notifications_dot"
+                android:layout_width="@dimen/toolbar_dot_width"
+                android:layout_height="@dimen/toolbar_dot_height"
+                android:layout_alignTop="@+id/icon_notifications"
+                android:layout_alignEnd="@+id/icon_notifications"
+                android:layout_marginEnd="4dp"
+                android:visibility="gone"
+                app:placeholderImage="?attr/colorRed"
+                app:roundAsCircle="true"
+                tools:visibility="visible"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <!--        <androidx.coordinatorlayout.widget.CoordinatorLayout-->
+        <!--            android:id="@+id/coordinator_layout"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent">-->
+
+        <!--            <com.google.android.material.appbar.AppBarLayout-->
+        <!--                android:id="@+id/appBarLayout"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:background="?attr/colorBackground"-->
+        <!--                app:elevation="0dp">-->
+
+        <!--                <com.google.android.material.appbar.CollapsingToolbarLayout-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    app:layout_scrollFlags="scroll|enterAlwaysCollapsed|exitUntilCollapsed">-->
+
+        <!--                    -->
+
+        <!--                </com.google.android.material.appbar.CollapsingToolbarLayout>-->
+
+        <!--            </com.google.android.material.appbar.AppBarLayout>-->
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="100dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/colorBackground"
+                    android:paddingBottom="@dimen/dashboard_padding"
+                    app:layout_collapseMode="pin">
+
+                    <TextView
+                        android:id="@+id/total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="6dp"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textSize="30sp"
+                        tools:text="$1 861 150.46"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total"
+                        android:layout_marginStart="@dimen/dashboard_padding"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="@dimen/dashboard_padding"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/profit_day_value"
+                                style="@style/dashboard_top_profits_value"
+                                tools:text="-0.24%"
+                                tools:textColor="?attr/colorRed"/>
+
+                            <TextView
+                                android:id="@+id/profit_day_label"
+                                style="@style/dashboard_top_profits_label"
+                                android:text="@string/day"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/profit_week_value"
+                                style="@style/dashboard_top_profits_value"
+                                tools:text="0.64%"
+                                tools:textColor="?attr/colorGreen"/>
+
+                            <TextView
+                                android:id="@+id/profit_week_label"
+                                style="@style/dashboard_top_profits_label"
+                                android:text="@string/week"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/profit_month_value"
+                                style="@style/dashboard_top_profits_value"
+                                tools:text="1.53%"
+                                tools:textColor="?attr/colorGreen"/>
+
+                            <TextView
+                                android:id="@+id/profit_month_label"
+                                style="@style/dashboard_top_profits_label"
+                                android:text="@string/month"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <vision.genesis.clientapp.feature.main.dashboard.investments.DashboardInvestmentsView
+                    android:id="@+id/investments_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"/>
+
+                <vision.genesis.clientapp.feature.main.dashboard.trading.DashboardTradingView
+                    android:id="@+id/trading_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <!--        </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/header"
+        android:indeterminate="true"
+        android:scaleY="4"
+        android:visibility="invisible"/>
+
+</RelativeLayout>

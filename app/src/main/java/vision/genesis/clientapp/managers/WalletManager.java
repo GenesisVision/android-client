@@ -109,11 +109,19 @@ public class WalletManager
 		getWalletsSubscription.unsubscribe();
 	}
 
-	public Observable<ItemsViewModelTransactionViewModel> getTransactions(TransactionsFilter filter) {
-		return walletApi.getTransactions(AuthManager.token.getValue(),
+	public Observable<ItemsViewModelTransactionViewModel> getTransactionsInternal(TransactionsFilter filter) {
+		return walletApi.getTransactionsInternal(AuthManager.token.getValue(),
+				filter.getType() == null ? null : filter.getType().getValue(),
 				filter.getDateRange() == null ? null : filter.getDateRange().getFrom(),
 				filter.getDateRange() == null ? null : filter.getDateRange().getTo(),
+				filter.getSkip(), filter.getTake());
+	}
+
+	public Observable<ItemsViewModelTransactionViewModel> getTransactionsExternal(TransactionsFilter filter) {
+		return walletApi.getTransactionsExternal(AuthManager.token.getValue(),
 				filter.getType() == null ? null : filter.getType().getValue(),
+				filter.getDateRange() == null ? null : filter.getDateRange().getFrom(),
+				filter.getDateRange() == null ? null : filter.getDateRange().getTo(),
 				filter.getSkip(), filter.getTake());
 	}
 

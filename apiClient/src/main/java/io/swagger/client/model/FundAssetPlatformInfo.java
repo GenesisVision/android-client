@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * FundAssetPlatformInfo
  */
@@ -42,7 +41,7 @@ public class FundAssetPlatformInfo implements Parcelable
 	};
 
 	@SerializedName("facets")
-	private List<FundFacet> facets = null;
+	private List<AssetFacet> facets = null;
 
 	@SerializedName("assets")
 	private List<PlatformAsset> assets = null;
@@ -50,23 +49,27 @@ public class FundAssetPlatformInfo implements Parcelable
 	@SerializedName("minInvestAmountIntoFund")
 	private List<AmountWithCurrency> minInvestAmountIntoFund = null;
 
+	@SerializedName("createFundInfo")
+	private FundCreateAssetPlatformInfo createFundInfo = null;
+
 	public FundAssetPlatformInfo() {
 	}
 
 	FundAssetPlatformInfo(Parcel in) {
-		facets = (List<FundFacet>) in.readValue(FundFacet.class.getClassLoader());
+		facets = (List<AssetFacet>) in.readValue(AssetFacet.class.getClassLoader());
 		assets = (List<PlatformAsset>) in.readValue(PlatformAsset.class.getClassLoader());
 		minInvestAmountIntoFund = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
+		createFundInfo = (FundCreateAssetPlatformInfo) in.readValue(FundCreateAssetPlatformInfo.class.getClassLoader());
 	}
 
-	public FundAssetPlatformInfo facets(List<FundFacet> facets) {
+	public FundAssetPlatformInfo facets(List<AssetFacet> facets) {
 		this.facets = facets;
 		return this;
 	}
 
-	public FundAssetPlatformInfo addFacetsItem(FundFacet facetsItem) {
+	public FundAssetPlatformInfo addFacetsItem(AssetFacet facetsItem) {
 		if (this.facets == null) {
-			this.facets = new ArrayList<FundFacet>();
+			this.facets = new ArrayList<AssetFacet>();
 		}
 		this.facets.add(facetsItem);
 		return this;
@@ -78,11 +81,11 @@ public class FundAssetPlatformInfo implements Parcelable
 	 * @return facets
 	 **/
 	@Schema(description = "")
-	public List<FundFacet> getFacets() {
+	public List<AssetFacet> getFacets() {
 		return facets;
 	}
 
-	public void setFacets(List<FundFacet> facets) {
+	public void setFacets(List<AssetFacet> facets) {
 		this.facets = facets;
 	}
 
@@ -140,6 +143,25 @@ public class FundAssetPlatformInfo implements Parcelable
 		this.minInvestAmountIntoFund = minInvestAmountIntoFund;
 	}
 
+	public FundAssetPlatformInfo createFundInfo(FundCreateAssetPlatformInfo createFundInfo) {
+		this.createFundInfo = createFundInfo;
+		return this;
+	}
+
+	/**
+	 * Get createFundInfo
+	 *
+	 * @return createFundInfo
+	 **/
+	@Schema(description = "")
+	public FundCreateAssetPlatformInfo getCreateFundInfo() {
+		return createFundInfo;
+	}
+
+	public void setCreateFundInfo(FundCreateAssetPlatformInfo createFundInfo) {
+		this.createFundInfo = createFundInfo;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -151,12 +173,13 @@ public class FundAssetPlatformInfo implements Parcelable
 		FundAssetPlatformInfo fundAssetPlatformInfo = (FundAssetPlatformInfo) o;
 		return Objects.equals(this.facets, fundAssetPlatformInfo.facets) &&
 				Objects.equals(this.assets, fundAssetPlatformInfo.assets) &&
-				Objects.equals(this.minInvestAmountIntoFund, fundAssetPlatformInfo.minInvestAmountIntoFund);
+				Objects.equals(this.minInvestAmountIntoFund, fundAssetPlatformInfo.minInvestAmountIntoFund) &&
+				Objects.equals(this.createFundInfo, fundAssetPlatformInfo.createFundInfo);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(facets, assets, minInvestAmountIntoFund);
+		return Objects.hash(facets, assets, minInvestAmountIntoFund, createFundInfo);
 	}
 
 	@Override
@@ -167,6 +190,7 @@ public class FundAssetPlatformInfo implements Parcelable
 		sb.append("    facets: ").append(toIndentedString(facets)).append("\n");
 		sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
 		sb.append("    minInvestAmountIntoFund: ").append(toIndentedString(minInvestAmountIntoFund)).append("\n");
+		sb.append("    createFundInfo: ").append(toIndentedString(createFundInfo)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -186,6 +210,7 @@ public class FundAssetPlatformInfo implements Parcelable
 		out.writeValue(facets);
 		out.writeValue(assets);
 		out.writeValue(minInvestAmountIntoFund);
+		out.writeValue(createFundInfo);
 	}
 
 	public int describeContents() {

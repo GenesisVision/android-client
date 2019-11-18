@@ -22,9 +22,9 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.AssetFacet;
 import io.swagger.client.model.FundAssetPercent;
 import io.swagger.client.model.FundDetailsList;
-import io.swagger.client.model.FundFacet;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -52,7 +52,7 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 	private List<FundDetailsList> funds = new ArrayList<FundDetailsList>();
 
-	private List<FundFacet> facets = new ArrayList<>();
+	private List<AssetFacet> facets = new ArrayList<>();
 
 	@Override
 	public int getItemViewType(int position) {
@@ -93,7 +93,7 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 		return funds.size() + 1;
 	}
 
-	public void setFacets(List<FundFacet> facets) {
+	public void setFacets(List<AssetFacet> facets) {
 		this.facets = facets;
 		notifyDataSetChanged();
 	}
@@ -136,7 +136,7 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 		@BindView(R.id.group_facets)
 		public ViewGroup facetsGroup;
 
-		private List<FundFacet> facets;
+		private List<AssetFacet> facets;
 
 		FacetsViewHolder(View itemView) {
 			super(itemView);
@@ -144,14 +144,14 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 			ButterKnife.bind(this, itemView);
 		}
 
-		void setFacets(List<FundFacet> facets) {
+		void setFacets(List<AssetFacet> facets) {
 			this.facets = facets;
 			updateView();
 		}
 
 		private void updateView() {
 			facetsGroup.removeAllViews();
-			for (FundFacet facet : facets) {
+			for (AssetFacet facet : facets) {
 				FundFacetView view = new FundFacetView(itemView.getContext());
 				view.setData(facet);
 				facetsGroup.addView(view);
@@ -308,7 +308,10 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 			this.fundName.setText(fund.getTitle());
 			this.managerName.setText(fund.getOwner().getUsername());
 
-			this.chart.setChart(fund.getChart().getChart());
+			//TODO:
+//			if (fund.getChart() != null) {
+//				this.chart.setChart(fund.getChart().getChart());
+//			}
 
 //			Double profitPercent = getProfitPercent();
 

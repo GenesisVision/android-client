@@ -65,7 +65,7 @@ public class EventDetailsBottomSheetFragment extends BottomSheetDialogFragment
 	public void onAssetClicked() {
 		if (event != null && event.getAssetDetails() != null) {
 			AssetDetails details = event.getAssetDetails();
-			if (details.getAssetType().equals(AssetType.PROGRAMS) || details.getAssetType().equals(AssetType.COPYTRADING)) {
+			if (details.getAssetType().equals(AssetType.PROGRAM) || details.getAssetType().equals(AssetType.FOLLOW)) {
 				ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(details.getId(),
 						details.getLogo(),
 						details.getColor(),
@@ -78,7 +78,7 @@ public class EventDetailsBottomSheetFragment extends BottomSheetDialogFragment
 						false);
 				EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 			}
-			else if (details.getAssetType().equals(AssetType.FUNDS)) {
+			else if (details.getAssetType().equals(AssetType.FUND)) {
 				FundDetailsModel fundDetailsModel = new FundDetailsModel(details.getId(),
 						details.getLogo(),
 						details.getColor(),
@@ -166,13 +166,13 @@ public class EventDetailsBottomSheetFragment extends BottomSheetDialogFragment
 		switch (assetType) {
 			case NONE:
 				break;
-			case PROGRAMS:
+			case PROGRAM:
 				result = getString(R.string.program);
 				break;
-			case FUNDS:
+			case FUND:
 				result = getString(R.string.fund);
 				break;
-			case COPYTRADING:
+			case FOLLOW:
 				result = getString(R.string.signal_provider);
 				break;
 		}

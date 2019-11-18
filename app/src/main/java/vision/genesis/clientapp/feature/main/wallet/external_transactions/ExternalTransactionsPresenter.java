@@ -114,7 +114,7 @@ public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransact
 
 			if (transactionsSubscription != null)
 				transactionsSubscription.unsubscribe();
-			transactionsSubscription = walletManager.getTransactions(filter)
+			transactionsSubscription = walletManager.getTransactionsExternal(filter)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetTransactionsResponse,

@@ -44,7 +44,7 @@ public class ProgramsFilter implements Parcelable
 
 	private Double profitAvgMax;
 
-	private DateRange dateRange;
+	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
 	private String mask;
 
@@ -448,11 +448,13 @@ public class ProgramsFilter implements Parcelable
 			if (this.getCurrency() != null && this.getCurrency().getValue().equals(currency)) {
 				selectedFound = true;
 			}
-			if (!selectedFound)
+			if (!selectedFound) {
 				selectedPosition++;
+			}
 		}
-		if (!selectedFound)
+		if (!selectedFound) {
 			selectedPosition = 0;
+		}
 		return new FilterOption(FilterOption.TYPE_SINGLE_VALUE, GenesisVisionApplication.INSTANCE.getString(R.string.currency), values, selectedPosition);
 	}
 

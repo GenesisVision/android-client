@@ -20,7 +20,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * DashboardProfits
  */
@@ -39,79 +38,79 @@ public class DashboardProfits implements Parcelable
 		}
 	};
 
-	@SerializedName("dayProfit")
-	private DashboardTimeframeProfit dayProfit = null;
+	@SerializedName("day")
+	private DashboardTimeframeProfit day = null;
 
-	@SerializedName("weekProfit")
-	private DashboardTimeframeProfit weekProfit = null;
+	@SerializedName("week")
+	private DashboardTimeframeProfit week = null;
 
-	@SerializedName("monthProfit")
-	private DashboardTimeframeProfit monthProfit = null;
+	@SerializedName("month")
+	private DashboardTimeframeProfit month = null;
 
 	public DashboardProfits() {
 	}
 
 	DashboardProfits(Parcel in) {
-		dayProfit = (DashboardTimeframeProfit) in.readValue(DashboardTimeframeProfit.class.getClassLoader());
-		weekProfit = (DashboardTimeframeProfit) in.readValue(DashboardTimeframeProfit.class.getClassLoader());
-		monthProfit = (DashboardTimeframeProfit) in.readValue(DashboardTimeframeProfit.class.getClassLoader());
+		day = (DashboardTimeframeProfit) in.readValue(DashboardTimeframeProfit.class.getClassLoader());
+		week = (DashboardTimeframeProfit) in.readValue(DashboardTimeframeProfit.class.getClassLoader());
+		month = (DashboardTimeframeProfit) in.readValue(DashboardTimeframeProfit.class.getClassLoader());
 	}
 
-	public DashboardProfits dayProfit(DashboardTimeframeProfit dayProfit) {
-		this.dayProfit = dayProfit;
+	public DashboardProfits day(DashboardTimeframeProfit day) {
+		this.day = day;
 		return this;
 	}
 
 	/**
-	 * Get dayProfit
+	 * Get day
 	 *
-	 * @return dayProfit
+	 * @return day
 	 **/
 	@Schema(description = "")
-	public DashboardTimeframeProfit getDayProfit() {
-		return dayProfit;
+	public DashboardTimeframeProfit getDay() {
+		return day;
 	}
 
-	public void setDayProfit(DashboardTimeframeProfit dayProfit) {
-		this.dayProfit = dayProfit;
+	public void setDay(DashboardTimeframeProfit day) {
+		this.day = day;
 	}
 
-	public DashboardProfits weekProfit(DashboardTimeframeProfit weekProfit) {
-		this.weekProfit = weekProfit;
+	public DashboardProfits week(DashboardTimeframeProfit week) {
+		this.week = week;
 		return this;
 	}
 
 	/**
-	 * Get weekProfit
+	 * Get week
 	 *
-	 * @return weekProfit
+	 * @return week
 	 **/
 	@Schema(description = "")
-	public DashboardTimeframeProfit getWeekProfit() {
-		return weekProfit;
+	public DashboardTimeframeProfit getWeek() {
+		return week;
 	}
 
-	public void setWeekProfit(DashboardTimeframeProfit weekProfit) {
-		this.weekProfit = weekProfit;
+	public void setWeek(DashboardTimeframeProfit week) {
+		this.week = week;
 	}
 
-	public DashboardProfits monthProfit(DashboardTimeframeProfit monthProfit) {
-		this.monthProfit = monthProfit;
+	public DashboardProfits month(DashboardTimeframeProfit month) {
+		this.month = month;
 		return this;
 	}
 
 	/**
-	 * Get monthProfit
+	 * Get month
 	 *
-	 * @return monthProfit
+	 * @return month
 	 **/
 	@Schema(description = "")
-	public DashboardTimeframeProfit getMonthProfit() {
-		return monthProfit;
+	public DashboardTimeframeProfit getMonth() {
+		return month;
 	}
 
-	public void setMonthProfit(DashboardTimeframeProfit monthProfit) {
-		this.monthProfit = monthProfit;
+	public void setMonth(DashboardTimeframeProfit month) {
+		this.month = month;
 	}
 
 	@Override
@@ -123,14 +122,14 @@ public class DashboardProfits implements Parcelable
 			return false;
 		}
 		DashboardProfits dashboardProfits = (DashboardProfits) o;
-		return Objects.equals(this.dayProfit, dashboardProfits.dayProfit) &&
-				Objects.equals(this.weekProfit, dashboardProfits.weekProfit) &&
-				Objects.equals(this.monthProfit, dashboardProfits.monthProfit);
+		return Objects.equals(this.day, dashboardProfits.day) &&
+				Objects.equals(this.week, dashboardProfits.week) &&
+				Objects.equals(this.month, dashboardProfits.month);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(dayProfit, weekProfit, monthProfit);
+		return Objects.hash(day, week, month);
 	}
 
 	@Override
@@ -138,9 +137,9 @@ public class DashboardProfits implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class DashboardProfits {\n");
 
-		sb.append("    dayProfit: ").append(toIndentedString(dayProfit)).append("\n");
-		sb.append("    weekProfit: ").append(toIndentedString(weekProfit)).append("\n");
-		sb.append("    monthProfit: ").append(toIndentedString(monthProfit)).append("\n");
+		sb.append("    day: ").append(toIndentedString(day)).append("\n");
+		sb.append("    week: ").append(toIndentedString(week)).append("\n");
+		sb.append("    month: ").append(toIndentedString(month)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -157,9 +156,9 @@ public class DashboardProfits implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(dayProfit);
-		out.writeValue(weekProfit);
-		out.writeValue(monthProfit);
+		out.writeValue(day);
+		out.writeValue(week);
+		out.writeValue(month);
 	}
 
 	public int describeContents() {

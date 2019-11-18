@@ -10,8 +10,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.ItemsViewModelSignalTradingEvent;
 import io.swagger.client.model.SignalTradingEvent;
-import io.swagger.client.model.SignalTradingEvents;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -66,8 +66,9 @@ public class TradingLogPresenter extends MvpPresenter<TradingLogView> implements
 
 	@Override
 	public void onDestroy() {
-		if (getTradingLogSubscription != null)
+		if (getTradingLogSubscription != null) {
 			getTradingLogSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -102,7 +103,7 @@ public class TradingLogPresenter extends MvpPresenter<TradingLogView> implements
 		}
 	}
 
-	private void handleGetTradingLogSuccess(SignalTradingEvents response) {
+	private void handleGetTradingLogSuccess(ItemsViewModelSignalTradingEvent response) {
 		getTradingLogSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
@@ -110,19 +111,22 @@ public class TradingLogPresenter extends MvpPresenter<TradingLogView> implements
 			events.clear();
 		}
 
-		if (location.equals(TradingLogFragment.LOCATION_DASHBOARD))
+		if (location.equals(TradingLogFragment.LOCATION_DASHBOARD)) {
 			EventBus.getDefault().post(new SetDashboardTradingLogCountEvent(response.getTotal()));
-		else if (location.equals(TradingLogFragment.LOCATION_COPYTRADING_ACCOUNT))
+		}
+		else if (location.equals(TradingLogFragment.LOCATION_COPYTRADING_ACCOUNT)) {
 			EventBus.getDefault().post(new SetCopytradingAccountTradingLogCountEvent(response.getTotal()));
+		}
 
-		List<SignalTradingEvent> newEvents = response.getEvents();
+		List<SignalTradingEvent> newEvents = response.getItems();
 
 		int index = events.size();
 		for (SignalTradingEvent newEvent : newEvents) {
 			String dateString = DateTimeUtil.formatShortDate(newEvent.getDate());
 			String lastSectionDate = sections.isEmpty() ? "" : sections.get(sections.size() - 1).getTitle().toString();
-			if (!lastSectionDate.equals(dateString))
+			if (!lastSectionDate.equals(dateString)) {
 				sections.add(new SimpleSectionedRecyclerViewAdapter.Section(index, dateString));
+			}
 			index++;
 		}
 

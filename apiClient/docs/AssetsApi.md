@@ -6,17 +6,19 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**cancelChangeBroker**](AssetsApi.md#cancelChangeBroker) | **POST** v2.0/assets/programs/{id}/broker/change/cancel | Cancel changing broker in existing program
 [**changeBroker**](AssetsApi.md#changeBroker) | **POST** v2.0/assets/programs/{id}/broker/change | Change broker in existing program
-[**changeProgramPassword**](AssetsApi.md#changeProgramPassword) | **POST** v2.0/assets/tradingaccounts/{id}/password/change | Change trading account password
+[**changeTradingAccountPassword**](AssetsApi.md#changeTradingAccountPassword) | **POST** v2.0/assets/tradingaccounts/{id}/password/change | Change trading account password
 [**closeCurrentPeriod**](AssetsApi.md#closeCurrentPeriod) | **POST** v2.0/assets/programs/{id}/period/close | Close current period
 [**closeFund**](AssetsApi.md#closeFund) | **POST** v2.0/assets/funds/{id}/close | Close existing fund
 [**closeInvestmentProgram**](AssetsApi.md#closeInvestmentProgram) | **POST** v2.0/assets/programs/{id}/close | Close existing investment program
 [**confirmProgram2FA**](AssetsApi.md#confirmProgram2FA) | **POST** v2.0/assets/programs/{id}/2fa/confirm | Confirm 2FA for program if required (for brokers like Huobi)
+[**createExternalTradingAccount**](AssetsApi.md#createExternalTradingAccount) | **POST** v2.0/assets/tradingaccounts/external/create | Create external trading account
 [**createFund**](AssetsApi.md#createFund) | **POST** v2.0/assets/funds/create | Create fund
 [**createTradingAccount**](AssetsApi.md#createTradingAccount) | **POST** v2.0/assets/tradingaccounts/create | Create trading account
 [**getLevelsCalculator**](AssetsApi.md#getLevelsCalculator) | **GET** v2.0/assets/programs/{id}/levels/info | Get program data for levels calculator
 [**getProgram2FA**](AssetsApi.md#getProgram2FA) | **GET** v2.0/assets/programs/{id}/2fa/get | Get 2FA for program if needed
 [**makeAccountProgram**](AssetsApi.md#makeAccountProgram) | **POST** v2.0/assets/programs/fromaccount/create | Create an investment program
 [**makeAccountSignalProvider**](AssetsApi.md#makeAccountSignalProvider) | **POST** v2.0/assets/signal/create | Make account signal provider
+[**makeExternalAccountSignalProvider**](AssetsApi.md#makeExternalAccountSignalProvider) | **POST** v2.0/assets/tradingaccounts/external/fromaccount/create | Make external trading account signal provider
 [**makeSignalProviderProgram**](AssetsApi.md#makeSignalProviderProgram) | **POST** v2.0/assets/programs/fromsignalprovider/create | Create an investment program
 [**updateAsset**](AssetsApi.md#updateAsset) | **POST** v2.0/assets/funds/{id}/update | Update investment program/fund details
 [**updateAsset_0**](AssetsApi.md#updateAsset_0) | **POST** v2.0/assets/programs/{id}/update | Update investment program/fund details
@@ -115,9 +117,9 @@ No authorization required
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
-<a name="changeProgramPassword"></a>
-# **changeProgramPassword**
-> Void changeProgramPassword(authorization, id, body)
+<a name="changeTradingAccountPassword"></a>
+# **changeTradingAccountPassword**
+> Void changeTradingAccountPassword(authorization, id, body)
 
 Change trading account password
 
@@ -133,10 +135,10 @@ String authorization = "authorization_example"; // String | JWT access token
 UUID id = new UUID(); // UUID | 
 TradingAccountPwdUpdate body = new TradingAccountPwdUpdate(); // TradingAccountPwdUpdate | 
 try {
-    Void result = apiInstance.changeProgramPassword(authorization, id, body);
+    Void result = apiInstance.changeTradingAccountPassword(authorization, id, body);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling AssetsApi#changeProgramPassword");
+    System.err.println("Exception when calling AssetsApi#changeTradingAccountPassword");
     e.printStackTrace();
 }
 ```
@@ -338,6 +340,51 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="createExternalTradingAccount"></a>
+# **createExternalTradingAccount**
+> TradingAccountCreateResult createExternalTradingAccount(authorization, body)
+
+Create external trading account
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.AssetsApi;
+
+
+AssetsApi apiInstance = new AssetsApi();
+String authorization = "authorization_example"; // String | JWT access token
+NewExternalTradingAccountRequest body = new NewExternalTradingAccountRequest(); // NewExternalTradingAccountRequest | 
+try {
+    TradingAccountCreateResult result = apiInstance.createExternalTradingAccount(authorization, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AssetsApi#createExternalTradingAccount");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **body** | [**NewExternalTradingAccountRequest**](NewExternalTradingAccountRequest.md)|  | [optional]
+
+### Return type
+
+[**TradingAccountCreateResult**](TradingAccountCreateResult.md)
 
 ### Authorization
 
@@ -594,6 +641,51 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#makeAccountSignalProvider");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **body** | [**MakeTradingAccountSignalProvider**](MakeTradingAccountSignalProvider.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="makeExternalAccountSignalProvider"></a>
+# **makeExternalAccountSignalProvider**
+> Void makeExternalAccountSignalProvider(authorization, body)
+
+Make external trading account signal provider
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.AssetsApi;
+
+
+AssetsApi apiInstance = new AssetsApi();
+String authorization = "authorization_example"; // String | JWT access token
+MakeTradingAccountSignalProvider body = new MakeTradingAccountSignalProvider(); // MakeTradingAccountSignalProvider | 
+try {
+    Void result = apiInstance.makeExternalAccountSignalProvider(authorization, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AssetsApi#makeExternalAccountSignalProvider");
     e.printStackTrace();
 }
 ```

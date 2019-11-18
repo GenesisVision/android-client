@@ -25,18 +25,18 @@ import java.io.IOException;
 @JsonAdapter(FundsFilterSorting.Adapter.class)
 public enum FundsFilterSorting
 {
-	BYPROFITASC("ByProfitAsc"),
-	BYPROFITDESC("ByProfitDesc"),
-	BYDRAWDOWNASC("ByDrawdownAsc"),
-	BYDRAWDOWNDESC("ByDrawdownDesc"),
-	BYINVESTORSASC("ByInvestorsAsc"),
-	BYINVESTORSDESC("ByInvestorsDesc"),
-	BYNEWASC("ByNewAsc"),
-	BYNEWDESC("ByNewDesc"),
 	BYTITLEASC("ByTitleAsc"),
 	BYTITLEDESC("ByTitleDesc"),
-	BYBALANCEASC("ByBalanceAsc"),
-	BYBALANCEDESC("ByBalanceDesc");
+	BYSIZEASC("BySizeAsc"),
+	BYSIZEDESC("BySizeDesc"),
+	BYINVESTORSASC("ByInvestorsAsc"),
+	BYINVESTORSDESC("ByInvestorsDesc"),
+	BYDRAWDOWNASC("ByDrawdownAsc"),
+	BYDRAWDOWNDESC("ByDrawdownDesc"),
+	BYPROFITASC("ByProfitAsc"),
+	BYPROFITDESC("ByProfitDesc"),
+	BYNEWASC("ByNewAsc"),
+	BYNEWDESC("ByNewDesc");
 
 	public static FundsFilterSorting fromValue(String text) {
 		for (FundsFilterSorting b : FundsFilterSorting.values()) {

@@ -1,6 +1,6 @@
 package vision.genesis.clientapp.model.events;
 
-import io.swagger.client.model.ProgramFacet;
+import io.swagger.client.model.AssetFacet;
 
 /**
  * GenesisVisionAndroid
@@ -8,13 +8,13 @@ import io.swagger.client.model.ProgramFacet;
  */
 public class OnProgramFacetClickedEvent
 {
-	private final ProgramFacet facet;
+	private final AssetFacet facet;
 
-	public OnProgramFacetClickedEvent(ProgramFacet facet) {
+	public OnProgramFacetClickedEvent(AssetFacet facet) {
 		this.facet = facet;
 	}
 
-	public ProgramFacet getFacet() {
+	public AssetFacet getFacet() {
 		return facet;
 	}
 }

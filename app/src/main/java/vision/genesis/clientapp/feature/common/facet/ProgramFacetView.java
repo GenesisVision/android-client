@@ -11,7 +11,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.swagger.client.model.ProgramFacet;
+import io.swagger.client.model.AssetFacet;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.OnProgramFacetClickedEvent;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -32,7 +32,7 @@ public class ProgramFacetView extends RelativeLayout
 	@BindView(R.id.description)
 	public TextView description;
 
-	private ProgramFacet facet;
+	private AssetFacet facet;
 
 	public ProgramFacetView(Context context) {
 		super(context);
@@ -59,7 +59,7 @@ public class ProgramFacetView extends RelativeLayout
 		this.setOnClickListener(view -> EventBus.getDefault().post(new OnProgramFacetClickedEvent(facet)));
 	}
 
-	public void setData(ProgramFacet facet) {
+	public void setData(AssetFacet facet) {
 		this.facet = facet;
 		this.image.setImageURI(ImageUtils.getImageUri(facet.getLogo()));
 		this.name.setText(facet.getTitle());

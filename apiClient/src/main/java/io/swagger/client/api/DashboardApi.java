@@ -13,23 +13,24 @@ import io.swagger.client.model.DashboardPortfolio;
 import io.swagger.client.model.DashboardRecommendations;
 import io.swagger.client.model.DashboardSummary;
 import io.swagger.client.model.DashboardTradingDetails;
+import io.swagger.client.model.ItemsViewModelDashboardTradingAsset;
 import retrofit2.http.GET;
 import rx.Observable;
 
 public interface DashboardApi
 {
 	/**
-	 * @param authorization     JWT access token (required)
-	 * @param statisticDateFrom (optional)
-	 * @param statisticDateTo   (optional)
-	 * @param chartPointsCount  (optional)
-	 * @param showIn            (optional)
-	 * @param assets            (optional)
+	 * @param authorization    JWT access token (required)
+	 * @param assets           (optional)
+	 * @param dateFrom         (optional)
+	 * @param dateTo           (optional)
+	 * @param chartPointsCount (optional)
+	 * @param showIn           (optional)
 	 * @return Call&lt;DashboardChart&gt;
 	 */
 	@GET("v2.0/dashboard/chart")
 	Observable<DashboardChart> getChart(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("StatisticDateFrom") DateTime statisticDateFrom, @retrofit2.http.Query("StatisticDateTo") DateTime statisticDateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("ShowIn") String showIn, @retrofit2.http.Query("Assets") List<UUID> assets
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Assets") List<UUID> assets, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("ShowIn") String showIn
 	);
 
 	/**
@@ -73,6 +74,38 @@ public interface DashboardApi
 	@GET("v2.0/dashboard/portfolio")
 	Observable<DashboardPortfolio> getPortfolio(
 			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * @param authorization    JWT access token (required)
+	 * @param dateFrom         (optional)
+	 * @param dateTo           (optional)
+	 * @param chartPointsCount (optional)
+	 * @param showIn           (optional)
+	 * @param status           (optional)
+	 * @param skip             (optional)
+	 * @param take             (optional)
+	 * @return Call&lt;ItemsViewModelDashboardTradingAsset&gt;
+	 */
+	@GET("v2.0/dashboard/trading/private")
+	Observable<ItemsViewModelDashboardTradingAsset> getPrivateTradingAssets(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("ShowIn") String showIn, @retrofit2.http.Query("Status") String status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * @param authorization    JWT access token (required)
+	 * @param dateFrom         (optional)
+	 * @param dateTo           (optional)
+	 * @param chartPointsCount (optional)
+	 * @param showIn           (optional)
+	 * @param status           (optional)
+	 * @param skip             (optional)
+	 * @param take             (optional)
+	 * @return Call&lt;ItemsViewModelDashboardTradingAsset&gt;
+	 */
+	@GET("v2.0/dashboard/trading/public")
+	Observable<ItemsViewModelDashboardTradingAsset> getPublicTradingAssets(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("ShowIn") String showIn, @retrofit2.http.Query("Status") String status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

@@ -40,10 +40,10 @@ public class ProgramsManager
 
 	public Observable<ItemsViewModelProgramDetailsList> getProgramsList(ProgramsFilter filter) {
 		return programsApi.getPrograms(AuthManager.token.getValue(),
-				null,
+				null, null,
 				filter.getTags(), filter.getCurrency() == null ? null : filter.getCurrency().getValue(),
 				filter.getLevelMin(), filter.getLevelMax(),
-				null, null,
+				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(), filter.getFacetId() == null ? null : filter.getFacetId().toString(),
 				filter.getMask(), false,
 				filter.getSkip(), filter.getTake());

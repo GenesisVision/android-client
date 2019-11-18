@@ -68,8 +68,9 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 
 	@Override
 	public void onDestroy() {
-		if (getTradesHistorySubscription != null)
+		if (getTradesHistorySubscription != null) {
 			getTradesHistorySubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -122,12 +123,14 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 			trades.clear();
 		}
 
-		if (location.equals(CopytradingTradesHistoryFragment.LOCATION_DASHBOARD))
+		if (location.equals(CopytradingTradesHistoryFragment.LOCATION_DASHBOARD)) {
 			EventBus.getDefault().post(new SetDashboardTradesHistoryCountEvent(response.getTotal()));
-		else if (location.equals(CopytradingTradesHistoryFragment.LOCATION_COPYTRADING_ACCOUNT))
+		}
+		else if (location.equals(CopytradingTradesHistoryFragment.LOCATION_COPYTRADING_ACCOUNT)) {
 			EventBus.getDefault().post(new SetCopytradingAccountTradesHistoryCountEvent(response.getTotal()));
+		}
 
-		List<OrderSignalModel> newTrades = response.getTrades();
+		List<OrderSignalModel> newTrades = response.getItems();
 		trades.addAll(newTrades);
 
 		if (skip == 0) {
@@ -152,8 +155,9 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 
 	@Subscribe
 	public void onEventMainThread(ShowCopytradingCommissionsEvent event) {
-		if (isFragmentActive)
+		if (isFragmentActive) {
 			getViewState().showCommissions(event.getTrade());
+		}
 	}
 
 	@Override

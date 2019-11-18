@@ -108,7 +108,7 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 			if (transactionsSubscription != null) {
 				transactionsSubscription.unsubscribe();
 			}
-			transactionsSubscription = walletManager.getTransactions(filter)
+			transactionsSubscription = walletManager.getTransactionsInternal(filter)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetTransactionsResponse,

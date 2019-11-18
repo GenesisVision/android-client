@@ -12,4 +12,4 @@
 * `IDEX` (value: `"IDEX"`)
 * `HUOBI` (value: `"Huobi"`)
 * `EXANTE` (value: `"Exante"`)
-* `BINANCEEXCHANGE` (value: `"BinanceExchange"`)
+* `BINANCEFOLLOW` (value: `"BinanceFollow"`)

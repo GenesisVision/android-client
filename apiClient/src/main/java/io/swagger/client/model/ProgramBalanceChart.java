@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * ProgramBalanceChart
  */
@@ -47,6 +46,9 @@ public class ProgramBalanceChart implements Parcelable
 	@SerializedName("programCurrency")
 	private Currency programCurrency = null;
 
+	@SerializedName("color")
+	private String color = null;
+
 	@SerializedName("chart")
 	private List<BalanceChartPoint> chart = null;
 
@@ -56,6 +58,7 @@ public class ProgramBalanceChart implements Parcelable
 	ProgramBalanceChart(Parcel in) {
 		balance = (Double) in.readValue(null);
 		programCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		color = (String) in.readValue(null);
 		chart = (List<BalanceChartPoint>) in.readValue(BalanceChartPoint.class.getClassLoader());
 	}
 
@@ -97,6 +100,25 @@ public class ProgramBalanceChart implements Parcelable
 		this.programCurrency = programCurrency;
 	}
 
+	public ProgramBalanceChart color(String color) {
+		this.color = color;
+		return this;
+	}
+
+	/**
+	 * Get color
+	 *
+	 * @return color
+	 **/
+	@Schema(description = "")
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 	public ProgramBalanceChart chart(List<BalanceChartPoint> chart) {
 		this.chart = chart;
 		return this;
@@ -135,12 +157,13 @@ public class ProgramBalanceChart implements Parcelable
 		ProgramBalanceChart programBalanceChart = (ProgramBalanceChart) o;
 		return Objects.equals(this.balance, programBalanceChart.balance) &&
 				Objects.equals(this.programCurrency, programBalanceChart.programCurrency) &&
+				Objects.equals(this.color, programBalanceChart.color) &&
 				Objects.equals(this.chart, programBalanceChart.chart);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(balance, programCurrency, chart);
+		return Objects.hash(balance, programCurrency, color, chart);
 	}
 
 	@Override
@@ -150,6 +173,7 @@ public class ProgramBalanceChart implements Parcelable
 
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("    programCurrency: ").append(toIndentedString(programCurrency)).append("\n");
+		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -169,6 +193,7 @@ public class ProgramBalanceChart implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(balance);
 		out.writeValue(programCurrency);
+		out.writeValue(color);
 		out.writeValue(chart);
 	}
 

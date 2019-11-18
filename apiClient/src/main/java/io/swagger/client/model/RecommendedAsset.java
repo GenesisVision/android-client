@@ -21,7 +21,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * RecommendedAsset
  */
@@ -40,8 +39,14 @@ public class RecommendedAsset implements Parcelable
 		}
 	};
 
-	@SerializedName("chart")
-	private ProfitChart chart = null;
+	@SerializedName("currency")
+	private Currency currency = null;
+
+	@SerializedName("statistic")
+	private ProfitChart statistic = null;
+
+	@SerializedName("broker")
+	private DashboardTradingAssetBrokerDetails broker = null;
 
 	@SerializedName("id")
 	private UUID id = null;
@@ -68,7 +73,9 @@ public class RecommendedAsset implements Parcelable
 	}
 
 	RecommendedAsset(Parcel in) {
-		chart = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
+		broker = (DashboardTradingAssetBrokerDetails) in.readValue(DashboardTradingAssetBrokerDetails.class.getClassLoader());
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		logo = (String) in.readValue(null);
 		color = (String) in.readValue(null);
@@ -78,23 +85,61 @@ public class RecommendedAsset implements Parcelable
 		programDetails = (ProgramAssetDetails) in.readValue(ProgramAssetDetails.class.getClassLoader());
 	}
 
-	public RecommendedAsset chart(ProfitChart chart) {
-		this.chart = chart;
+	public RecommendedAsset currency(Currency currency) {
+		this.currency = currency;
 		return this;
 	}
 
 	/**
-	 * Get chart
+	 * Get currency
 	 *
-	 * @return chart
+	 * @return currency
 	 **/
 	@Schema(description = "")
-	public ProfitChart getChart() {
-		return chart;
+	public Currency getCurrency() {
+		return currency;
 	}
 
-	public void setChart(ProfitChart chart) {
-		this.chart = chart;
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
+	}
+
+	public RecommendedAsset statistic(ProfitChart statistic) {
+		this.statistic = statistic;
+		return this;
+	}
+
+	/**
+	 * Get statistic
+	 *
+	 * @return statistic
+	 **/
+	@Schema(description = "")
+	public ProfitChart getStatistic() {
+		return statistic;
+	}
+
+	public void setStatistic(ProfitChart statistic) {
+		this.statistic = statistic;
+	}
+
+	public RecommendedAsset broker(DashboardTradingAssetBrokerDetails broker) {
+		this.broker = broker;
+		return this;
+	}
+
+	/**
+	 * Get broker
+	 *
+	 * @return broker
+	 **/
+	@Schema(description = "")
+	public DashboardTradingAssetBrokerDetails getBroker() {
+		return broker;
+	}
+
+	public void setBroker(DashboardTradingAssetBrokerDetails broker) {
+		this.broker = broker;
 	}
 
 	public RecommendedAsset id(UUID id) {
@@ -239,7 +284,9 @@ public class RecommendedAsset implements Parcelable
 			return false;
 		}
 		RecommendedAsset recommendedAsset = (RecommendedAsset) o;
-		return Objects.equals(this.chart, recommendedAsset.chart) &&
+		return Objects.equals(this.currency, recommendedAsset.currency) &&
+				Objects.equals(this.statistic, recommendedAsset.statistic) &&
+				Objects.equals(this.broker, recommendedAsset.broker) &&
 				Objects.equals(this.id, recommendedAsset.id) &&
 				Objects.equals(this.logo, recommendedAsset.logo) &&
 				Objects.equals(this.color, recommendedAsset.color) &&
@@ -251,7 +298,7 @@ public class RecommendedAsset implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(chart, id, logo, color, title, url, assetType, programDetails);
+		return Objects.hash(currency, statistic, broker, id, logo, color, title, url, assetType, programDetails);
 	}
 
 	@Override
@@ -259,7 +306,9 @@ public class RecommendedAsset implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class RecommendedAsset {\n");
 
-		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
+		sb.append("    broker: ").append(toIndentedString(broker)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
@@ -283,7 +332,9 @@ public class RecommendedAsset implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(chart);
+		out.writeValue(currency);
+		out.writeValue(statistic);
+		out.writeValue(broker);
 		out.writeValue(id);
 		out.writeValue(logo);
 		out.writeValue(color);

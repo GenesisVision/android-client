@@ -64,19 +64,35 @@ public interface WalletApi
 	);
 
 	/**
-	 * Multi wallet transactions
+	 * External transactions
 	 *
-	 * @param authorization     JWT access token (required)
-	 * @param dateFrom          (optional)
-	 * @param dateTo            (optional)
-	 * @param transactionFilter (optional)
-	 * @param skip              (optional)
-	 * @param take              (optional)
+	 * @param authorization   JWT access token (required)
+	 * @param transactionType (optional)
+	 * @param dateFrom        (optional)
+	 * @param dateTo          (optional)
+	 * @param skip            (optional)
+	 * @param take            (optional)
 	 * @return Call&lt;ItemsViewModelTransactionViewModel&gt;
 	 */
-	@GET("v2.0/wallet/transactions")
-	Observable<ItemsViewModelTransactionViewModel> getTransactions(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("TransactionFilter") String transactionFilter, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	@GET("v2.0/wallet/transactions/external")
+	Observable<ItemsViewModelTransactionViewModel> getTransactionsExternal(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("TransactionType") String transactionType, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Internal transactions
+	 *
+	 * @param authorization   JWT access token (required)
+	 * @param transactionType (optional)
+	 * @param dateFrom        (optional)
+	 * @param dateTo          (optional)
+	 * @param skip            (optional)
+	 * @param take            (optional)
+	 * @return Call&lt;ItemsViewModelTransactionViewModel&gt;
+	 */
+	@GET("v2.0/wallet/transactions/internal")
+	Observable<ItemsViewModelTransactionViewModel> getTransactionsInternal(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("TransactionType") String transactionType, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

@@ -20,7 +20,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * AmountItem
  */
@@ -48,6 +47,9 @@ public class AmountItem implements Parcelable
 	@SerializedName("color")
 	private String color = null;
 
+	@SerializedName("title")
+	private String title = null;
+
 	public AmountItem() {
 	}
 
@@ -55,6 +57,7 @@ public class AmountItem implements Parcelable
 		amount = (Double) in.readValue(null);
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		color = (String) in.readValue(null);
+		title = (String) in.readValue(null);
 	}
 
 	public AmountItem amount(Double amount) {
@@ -114,6 +117,25 @@ public class AmountItem implements Parcelable
 		this.color = color;
 	}
 
+	public AmountItem title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@Schema(description = "")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -125,12 +147,13 @@ public class AmountItem implements Parcelable
 		AmountItem amountItem = (AmountItem) o;
 		return Objects.equals(this.amount, amountItem.amount) &&
 				Objects.equals(this.currency, amountItem.currency) &&
-				Objects.equals(this.color, amountItem.color);
+				Objects.equals(this.color, amountItem.color) &&
+				Objects.equals(this.title, amountItem.title);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, currency, color);
+		return Objects.hash(amount, currency, color, title);
 	}
 
 	@Override
@@ -141,6 +164,7 @@ public class AmountItem implements Parcelable
 		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -160,6 +184,7 @@ public class AmountItem implements Parcelable
 		out.writeValue(amount);
 		out.writeValue(currency);
 		out.writeValue(color);
+		out.writeValue(title);
 	}
 
 	public int describeContents() {

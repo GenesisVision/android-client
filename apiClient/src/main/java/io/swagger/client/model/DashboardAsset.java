@@ -20,7 +20,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * DashboardAsset
  */
@@ -39,8 +38,8 @@ public class DashboardAsset implements Parcelable
 		}
 	};
 
-	@SerializedName("asset")
-	private String asset = null;
+	@SerializedName("name")
+	private String name = null;
 
 	@SerializedName("color")
 	private String color = null;
@@ -52,28 +51,28 @@ public class DashboardAsset implements Parcelable
 	}
 
 	DashboardAsset(Parcel in) {
-		asset = (String) in.readValue(null);
+		name = (String) in.readValue(null);
 		color = (String) in.readValue(null);
 		percent = (Double) in.readValue(null);
 	}
 
-	public DashboardAsset asset(String asset) {
-		this.asset = asset;
+	public DashboardAsset name(String name) {
+		this.name = name;
 		return this;
 	}
 
 	/**
-	 * Get asset
+	 * Get name
 	 *
-	 * @return asset
+	 * @return name
 	 **/
 	@Schema(description = "")
-	public String getAsset() {
-		return asset;
+	public String getName() {
+		return name;
 	}
 
-	public void setAsset(String asset) {
-		this.asset = asset;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public DashboardAsset color(String color) {
@@ -123,14 +122,14 @@ public class DashboardAsset implements Parcelable
 			return false;
 		}
 		DashboardAsset dashboardAsset = (DashboardAsset) o;
-		return Objects.equals(this.asset, dashboardAsset.asset) &&
+		return Objects.equals(this.name, dashboardAsset.name) &&
 				Objects.equals(this.color, dashboardAsset.color) &&
 				Objects.equals(this.percent, dashboardAsset.percent);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(asset, color, percent);
+		return Objects.hash(name, color, percent);
 	}
 
 	@Override
@@ -138,7 +137,7 @@ public class DashboardAsset implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class DashboardAsset {\n");
 
-		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
+		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    percent: ").append(toIndentedString(percent)).append("\n");
 		sb.append("}");
@@ -157,7 +156,7 @@ public class DashboardAsset implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(asset);
+		out.writeValue(name);
 		out.writeValue(color);
 		out.writeValue(percent);
 	}

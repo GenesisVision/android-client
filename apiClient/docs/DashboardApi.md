@@ -9,13 +9,15 @@ Method | HTTP request | Description
 [**getHoldings**](DashboardApi.md#getHoldings) | **GET** v2.0/dashboard/holdings | 
 [**getInvestingDetails**](DashboardApi.md#getInvestingDetails) | **GET** v2.0/dashboard/investing | 
 [**getPortfolio**](DashboardApi.md#getPortfolio) | **GET** v2.0/dashboard/portfolio | Money distribution in percents. Empty list if no money at all
+[**getPrivateTradingAssets**](DashboardApi.md#getPrivateTradingAssets) | **GET** v2.0/dashboard/trading/private | 
+[**getPublicTradingAssets**](DashboardApi.md#getPublicTradingAssets) | **GET** v2.0/dashboard/trading/public | 
 [**getRecommendations**](DashboardApi.md#getRecommendations) | **GET** v2.0/dashboard/recommendations | Recommended assets to invest (programs, funds and signals). Funds in passed currency
 [**getSummary**](DashboardApi.md#getSummary) | **GET** v2.0/dashboard/summary | 
 [**getTradingDetails**](DashboardApi.md#getTradingDetails) | **GET** v2.0/dashboard/trading | 
 
 <a name="getChart"></a>
 # **getChart**
-> DashboardChart getChart(authorization, statisticDateFrom, statisticDateTo, chartPointsCount, showIn, assets)
+> DashboardChart getChart(authorization, assets, dateFrom, dateTo, chartPointsCount, showIn)
 
 
 
@@ -28,13 +30,13 @@ Method | HTTP request | Description
 
 DashboardApi apiInstance = new DashboardApi();
 String authorization = "authorization_example"; // String | JWT access token
-DateTime statisticDateFrom = new DateTime(); // DateTime | 
-DateTime statisticDateTo = new DateTime(); // DateTime | 
+List<UUID> assets = Arrays.asList(new UUID()); // List<UUID> | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
 String showIn = "showIn_example"; // String | 
-List<UUID> assets = Arrays.asList(new UUID()); // List<UUID> | 
 try {
-    DashboardChart result = apiInstance.getChart(authorization, statisticDateFrom, statisticDateTo, chartPointsCount, showIn, assets);
+    DashboardChart result = apiInstance.getChart(authorization, assets, dateFrom, dateTo, chartPointsCount, showIn);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getChart");
@@ -47,11 +49,11 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **statisticDateFrom** | **DateTime**|  | [optional]
- **statisticDateTo** | **DateTime**|  | [optional]
+ **assets** | [**List&lt;UUID&gt;**](UUID.md)|  | [optional]
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
  **showIn** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
- **assets** | [**List&lt;UUID&gt;**](UUID.md)|  | [optional]
 
 ### Return type
 
@@ -234,6 +236,120 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DashboardPortfolio**](DashboardPortfolio.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getPrivateTradingAssets"></a>
+# **getPrivateTradingAssets**
+> ItemsViewModelDashboardTradingAsset getPrivateTradingAssets(authorization, dateFrom, dateTo, chartPointsCount, showIn, status, skip, take)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.DashboardApi;
+
+
+DashboardApi apiInstance = new DashboardApi();
+String authorization = "authorization_example"; // String | JWT access token
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer chartPointsCount = 56; // Integer | 
+String showIn = "showIn_example"; // String | 
+String status = "status_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    ItemsViewModelDashboardTradingAsset result = apiInstance.getPrivateTradingAssets(authorization, dateFrom, dateTo, chartPointsCount, showIn, status, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DashboardApi#getPrivateTradingAssets");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **chartPointsCount** | **Integer**|  | [optional]
+ **showIn** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **status** | **String**|  | [optional] [enum: All, Active]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**ItemsViewModelDashboardTradingAsset**](ItemsViewModelDashboardTradingAsset.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getPublicTradingAssets"></a>
+# **getPublicTradingAssets**
+> ItemsViewModelDashboardTradingAsset getPublicTradingAssets(authorization, dateFrom, dateTo, chartPointsCount, showIn, status, skip, take)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.DashboardApi;
+
+
+DashboardApi apiInstance = new DashboardApi();
+String authorization = "authorization_example"; // String | JWT access token
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer chartPointsCount = 56; // Integer | 
+String showIn = "showIn_example"; // String | 
+String status = "status_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    ItemsViewModelDashboardTradingAsset result = apiInstance.getPublicTradingAssets(authorization, dateFrom, dateTo, chartPointsCount, showIn, status, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DashboardApi#getPublicTradingAssets");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **chartPointsCount** | **Integer**|  | [optional]
+ **showIn** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **status** | **String**|  | [optional] [enum: All, Active]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**ItemsViewModelDashboardTradingAsset**](ItemsViewModelDashboardTradingAsset.md)
 
 ### Authorization
 

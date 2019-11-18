@@ -688,6 +688,10 @@
     <string name="gv_commission_rebate">GV commission rebate</string>
     <string name="withdraw_all">Withdraw all</string>
 
+    <string name="investments">Investments</string>
+    <string name="trading">Trading</string>
+    <string name="aum">AUM</string>
+
     <plurals name="assets">
         <item quantity="one">asset</item>
         <item quantity="two">assets</item>

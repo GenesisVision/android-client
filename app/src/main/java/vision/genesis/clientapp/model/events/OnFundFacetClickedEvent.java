@@ -1,6 +1,6 @@
 package vision.genesis.clientapp.model.events;
 
-import io.swagger.client.model.FundFacet;
+import io.swagger.client.model.AssetFacet;
 
 /**
  * GenesisVisionAndroid
@@ -8,13 +8,13 @@ import io.swagger.client.model.FundFacet;
  */
 public class OnFundFacetClickedEvent
 {
-	private final FundFacet facet;
+	private final AssetFacet facet;
 
-	public OnFundFacetClickedEvent(FundFacet facet) {
+	public OnFundFacetClickedEvent(AssetFacet facet) {
 		this.facet = facet;
 	}
 
-	public FundFacet getFacet() {
+	public AssetFacet getFacet() {
 		return facet;
 	}
 }

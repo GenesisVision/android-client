@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * DashboardAssets
  */
@@ -44,15 +43,11 @@ public class DashboardAssets implements Parcelable
 	@SerializedName("assets")
 	private List<DashboardAsset> assets = null;
 
-	@SerializedName("othersPercent")
-	private Double othersPercent = null;
-
 	public DashboardAssets() {
 	}
 
 	DashboardAssets(Parcel in) {
 		assets = (List<DashboardAsset>) in.readValue(DashboardAsset.class.getClassLoader());
-		othersPercent = (Double) in.readValue(null);
 	}
 
 	public DashboardAssets assets(List<DashboardAsset> assets) {
@@ -82,25 +77,6 @@ public class DashboardAssets implements Parcelable
 		this.assets = assets;
 	}
 
-	public DashboardAssets othersPercent(Double othersPercent) {
-		this.othersPercent = othersPercent;
-		return this;
-	}
-
-	/**
-	 * Get othersPercent
-	 *
-	 * @return othersPercent
-	 **/
-	@Schema(description = "")
-	public Double getOthersPercent() {
-		return othersPercent;
-	}
-
-	public void setOthersPercent(Double othersPercent) {
-		this.othersPercent = othersPercent;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -110,13 +86,12 @@ public class DashboardAssets implements Parcelable
 			return false;
 		}
 		DashboardAssets dashboardAssets = (DashboardAssets) o;
-		return Objects.equals(this.assets, dashboardAssets.assets) &&
-				Objects.equals(this.othersPercent, dashboardAssets.othersPercent);
+		return Objects.equals(this.assets, dashboardAssets.assets);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assets, othersPercent);
+		return Objects.hash(assets);
 	}
 
 	@Override
@@ -125,7 +100,6 @@ public class DashboardAssets implements Parcelable
 		sb.append("class DashboardAssets {\n");
 
 		sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
-		sb.append("    othersPercent: ").append(toIndentedString(othersPercent)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -143,7 +117,6 @@ public class DashboardAssets implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(assets);
-		out.writeValue(othersPercent);
 	}
 
 	public int describeContents() {

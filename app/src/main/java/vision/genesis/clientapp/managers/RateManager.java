@@ -2,6 +2,8 @@ package vision.genesis.clientapp.managers;
 
 import android.util.Pair;
 
+import com.google.gson.internal.LinkedTreeMap;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -82,11 +84,12 @@ public class RateManager
 		baseRatesSubscription.unsubscribe();
 
 		HashMap<CurrencyEnum, Double> responseMap = new HashMap<>();
+		LinkedTreeMap rates = (LinkedTreeMap) response.getRates();
 		//TODO:
-//		for (RateItem rateItem : response.getRates().getGVT()) {
-//			getRateSubject(CurrencyEnum.GVT.getValue(), rateItem.getCurrency().getValue()).onNext(rateItem.getRate());
-//			responseMap.put(CurrencyEnum.fromValue(rateItem.getCurrency().toString()), rateItem.getRate());
-//		}
+		for (LinkedTreeMap rateItem : (List<LinkedTreeMap>) rates.get("GVT")) {
+			getRateSubject(CurrencyEnum.GVT.getValue(), (String) rateItem.get("currency")).onNext((Double) rateItem.get("rate"));
+			responseMap.put(CurrencyEnum.fromValue((String) rateItem.get("currency")), (Double) rateItem.get("rate"));
+		}
 		baseRatesSubject.onNext(responseMap);
 	}
 

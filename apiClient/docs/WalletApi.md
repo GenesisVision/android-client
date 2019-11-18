@@ -8,7 +8,8 @@ Method | HTTP request | Description
 [**confirmWithdrawalRequestByCode**](WalletApi.md#confirmWithdrawalRequestByCode) | **POST** v2.0/wallet/withdraw/request/confirm | 
 [**createWithdrawalRequest**](WalletApi.md#createWithdrawalRequest) | **POST** v2.0/wallet/withdraw/request/new | 
 [**getGMCommissionData**](WalletApi.md#getGMCommissionData) | **GET** v2.0/wallet/fee/gvtholding | GenesisMarkets commission data
-[**getTransactions**](WalletApi.md#getTransactions) | **GET** v2.0/wallet/transactions | Multi wallet transactions
+[**getTransactionsExternal**](WalletApi.md#getTransactionsExternal) | **GET** v2.0/wallet/transactions/external | External transactions
+[**getTransactionsInternal**](WalletApi.md#getTransactionsInternal) | **GET** v2.0/wallet/transactions/internal | Internal transactions
 [**getUserWithdrawalSummary**](WalletApi.md#getUserWithdrawalSummary) | **GET** v2.0/wallet/withdraw/info | 
 [**getWalletAvailable**](WalletApi.md#getWalletAvailable) | **GET** v2.0/wallet/{currency}/available | Wallet available
 [**getWalletSummary**](WalletApi.md#getWalletSummary) | **GET** v2.0/wallet/{currency} | Wallet summary
@@ -196,11 +197,11 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="getTransactions"></a>
-# **getTransactions**
-> ItemsViewModelTransactionViewModel getTransactions(authorization, dateFrom, dateTo, transactionFilter, skip, take)
+<a name="getTransactionsExternal"></a>
+# **getTransactionsExternal**
+> ItemsViewModelTransactionViewModel getTransactionsExternal(authorization, transactionType, dateFrom, dateTo, skip, take)
 
-Multi wallet transactions
+External transactions
 
 ### Example
 ```java
@@ -211,16 +212,16 @@ Multi wallet transactions
 
 WalletApi apiInstance = new WalletApi();
 String authorization = "authorization_example"; // String | JWT access token
+String transactionType = "transactionType_example"; // String | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
-String transactionFilter = "transactionFilter_example"; // String | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelTransactionViewModel result = apiInstance.getTransactions(authorization, dateFrom, dateTo, transactionFilter, skip, take);
+    ItemsViewModelTransactionViewModel result = apiInstance.getTransactionsExternal(authorization, transactionType, dateFrom, dateTo, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling WalletApi#getTransactions");
+    System.err.println("Exception when calling WalletApi#getTransactionsExternal");
     e.printStackTrace();
 }
 ```
@@ -230,9 +231,62 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
+ **transactionType** | **String**|  | [optional] [enum: All, Withdrawal, Deposit, Platform]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
- **transactionFilter** | **String**|  | [optional] [enum: All, Investment, Withdrawal, Deposit, Conversion, Commission, Programs, Funds, Signals, TradingAccounts, AgentRewards, Externals, Platform]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**ItemsViewModelTransactionViewModel**](ItemsViewModelTransactionViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getTransactionsInternal"></a>
+# **getTransactionsInternal**
+> ItemsViewModelTransactionViewModel getTransactionsInternal(authorization, transactionType, dateFrom, dateTo, skip, take)
+
+Internal transactions
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.WalletApi;
+
+
+WalletApi apiInstance = new WalletApi();
+String authorization = "authorization_example"; // String | JWT access token
+String transactionType = "transactionType_example"; // String | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    ItemsViewModelTransactionViewModel result = apiInstance.getTransactionsInternal(authorization, transactionType, dateFrom, dateTo, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling WalletApi#getTransactionsInternal");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **transactionType** | **String**|  | [optional] [enum: All, Investment, Withdrawal, Deposit, Conversion, Commission, Program, Fund, Follow, TradingAccounts, AgentReward, Platform]
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

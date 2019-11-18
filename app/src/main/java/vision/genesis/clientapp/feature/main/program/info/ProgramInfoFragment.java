@@ -203,7 +203,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	@OnClick(R.id.group_manager)
 	public void onManagerClicked() {
 		if (getActivity() != null) {
-			ProfilePublic manager = programDetails.getManager();
+			ProfilePublic manager = programDetails.getOwner();
 			ManagerDetailsModel model = new ManagerDetailsModel(
 					manager.getId(),
 					manager.getAvatar(),
@@ -357,11 +357,11 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	}
 
 	private void updateProgramInfo(ProgramDetailsFull programDetails) {
-		managerAvatar.setImage(programDetails.getManager().getAvatar(), 100, 100);
-		managerName.setText(programDetails.getManager().getUsername());
-		managerDate.setText(DateTimeUtil.formatShortDate(programDetails.getManager().getRegistrationDate()));
+		managerAvatar.setImage(programDetails.getOwner().getAvatar(), 100, 100);
+		managerName.setText(programDetails.getOwner().getUsername());
+		managerDate.setText(DateTimeUtil.formatShortDate(programDetails.getOwner().getRegistrationDate()));
 
-		socialLinks.setData(programDetails.getManager().getSocialLinks());
+		socialLinks.setData(programDetails.getOwner().getSocialLinks());
 
 		strategy.setText(programDetails.getDescription());
 		new Handler().postDelayed(() -> {

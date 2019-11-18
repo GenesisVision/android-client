@@ -18,4 +18,5 @@
 * `MANAGERSIGNALMASTERSUCCESSFEE` (value: `"ManagerSignalMasterSuccessFee"`)
 * `MANAGERSIGNALMASTERVOLUMEFEE` (value: `"ManagerSignalMasterVolumeFee"`)
 * `GVSIGNALSUCCESSFEE` (value: `"GvSignalSuccessFee"`)
+* `GVSIGNALVOLUMEFEE` (value: `"GvSignalVolumeFee"`)
 * `GVFUNDTRADE` (value: `"GvFundTrade"`)

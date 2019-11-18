@@ -58,14 +58,16 @@ public class OpenPositionsPresenter extends MvpPresenter<OpenPositionsView>
 
 		getViewState().showProgress(true);
 
-		if (programId != null)
+		if (programId != null) {
 			getOpenPositions();
+		}
 	}
 
 	@Override
 	public void onDestroy() {
-		if (positionsSubscription != null)
+		if (positionsSubscription != null) {
 			positionsSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -74,8 +76,9 @@ public class OpenPositionsPresenter extends MvpPresenter<OpenPositionsView>
 
 	void setProgramId(UUID programId) {
 		this.programId = programId;
-		if (programsManager != null)
+		if (programsManager != null) {
 			getOpenPositions();
+		}
 	}
 
 	void onShow() {
@@ -90,8 +93,9 @@ public class OpenPositionsPresenter extends MvpPresenter<OpenPositionsView>
 	private void getOpenPositions() {
 		if (programId != null) {
 
-			if (positionsSubscription != null)
+			if (positionsSubscription != null) {
 				positionsSubscription.unsubscribe();
+			}
 			positionsSubscription = programsManager.getProgramOpenPositions(programId)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
@@ -108,14 +112,15 @@ public class OpenPositionsPresenter extends MvpPresenter<OpenPositionsView>
 
 		EventBus.getDefault().post(new SetProgramDetailsOpenPositionsCountEvent(model.getTotal()));
 
-		List<OrderModel> newTrades = model.getTrades();
+		List<OrderModel> newTrades = model.getItems();
 
 		int index = 0;
 		for (OrderModel newTrade : newTrades) {
 			String dateString = DateTimeUtil.formatShortDate(newTrade.getDate());
 			String lastSectionDate = sections.isEmpty() ? "" : sections.get(sections.size() - 1).getTitle().toString();
-			if (!lastSectionDate.equals(dateString))
+			if (!lastSectionDate.equals(dateString)) {
 				sections.add(new SimpleSectionedRecyclerViewAdapter.Section(index, dateString));
+			}
 			index++;
 		}
 

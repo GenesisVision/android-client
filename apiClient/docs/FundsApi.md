@@ -212,7 +212,7 @@ No authorization required
 
 <a name="getFunds"></a>
 # **getFunds**
-> ItemsViewModelFundDetailsList getFunds(authorization, showIn, assets, statisticDateFrom, statisticDateTo, chartPointsCount, facetId, mask, showFavorites, skip, take)
+> ItemsViewModelFundDetailsList getFunds(authorization, sorting, showIn, assets, dateFrom, dateTo, chartPointsCount, facetId, mask, showFavorites, skip, take)
 
 Funds list
 
@@ -225,10 +225,11 @@ Funds list
 
 FundsApi apiInstance = new FundsApi();
 String authorization = "authorization_example"; // String | 
+String sorting = "sorting_example"; // String | 
 String showIn = "showIn_example"; // String | 
 List<String> assets = Arrays.asList("assets_example"); // List<String> | 
-DateTime statisticDateFrom = new DateTime(); // DateTime | 
-DateTime statisticDateTo = new DateTime(); // DateTime | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
 String facetId = "facetId_example"; // String | 
 String mask = "mask_example"; // String | 
@@ -236,7 +237,7 @@ Boolean showFavorites = true; // Boolean |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelFundDetailsList result = apiInstance.getFunds(authorization, showIn, assets, statisticDateFrom, statisticDateTo, chartPointsCount, facetId, mask, showFavorites, skip, take);
+    ItemsViewModelFundDetailsList result = apiInstance.getFunds(authorization, sorting, showIn, assets, dateFrom, dateTo, chartPointsCount, facetId, mask, showFavorites, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#getFunds");
@@ -249,10 +250,11 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**|  | [optional]
+ **sorting** | **String**|  | [optional] [enum: ByTitleAsc, ByTitleDesc, BySizeAsc, BySizeDesc, ByInvestorsAsc, ByInvestorsDesc, ByDrawdownAsc, ByDrawdownDesc, ByProfitAsc, ByProfitDesc, ByNewAsc, ByNewDesc]
  **showIn** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **assets** | [**List&lt;String&gt;**](String.md)|  | [optional]
- **statisticDateFrom** | **DateTime**|  | [optional]
- **statisticDateTo** | **DateTime**|  | [optional]
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
  **facetId** | **String**|  | [optional]
  **mask** | **String**|  | [optional]

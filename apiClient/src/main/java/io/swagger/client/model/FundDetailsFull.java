@@ -25,7 +25,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * FundDetailsFull
  */
@@ -86,8 +85,8 @@ public class FundDetailsFull implements Parcelable
 	@SerializedName("personalDetails")
 	private PersonalFundDetails personalDetails = null;
 
-	@SerializedName("manager")
-	private ProfilePublic manager = null;
+	@SerializedName("owner")
+	private ProfilePublic owner = null;
 
 	public FundDetailsFull() {
 	}
@@ -107,7 +106,7 @@ public class FundDetailsFull implements Parcelable
 		exitFeeCurrent = (Double) in.readValue(null);
 		assetsStructure = (List<FundAssetInfo>) in.readValue(FundAssetInfo.class.getClassLoader());
 		personalDetails = (PersonalFundDetails) in.readValue(PersonalFundDetails.class.getClassLoader());
-		manager = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
+		owner = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
 	}
 
 	public FundDetailsFull id(UUID id) {
@@ -384,23 +383,23 @@ public class FundDetailsFull implements Parcelable
 		this.personalDetails = personalDetails;
 	}
 
-	public FundDetailsFull manager(ProfilePublic manager) {
-		this.manager = manager;
+	public FundDetailsFull owner(ProfilePublic owner) {
+		this.owner = owner;
 		return this;
 	}
 
 	/**
-	 * Get manager
+	 * Get owner
 	 *
-	 * @return manager
+	 * @return owner
 	 **/
 	@Schema(description = "")
-	public ProfilePublic getManager() {
-		return manager;
+	public ProfilePublic getOwner() {
+		return owner;
 	}
 
-	public void setManager(ProfilePublic manager) {
-		this.manager = manager;
+	public void setOwner(ProfilePublic owner) {
+		this.owner = owner;
 	}
 
 	@Override
@@ -426,12 +425,12 @@ public class FundDetailsFull implements Parcelable
 				Objects.equals(this.exitFeeCurrent, fundDetailsFull.exitFeeCurrent) &&
 				Objects.equals(this.assetsStructure, fundDetailsFull.assetsStructure) &&
 				Objects.equals(this.personalDetails, fundDetailsFull.personalDetails) &&
-				Objects.equals(this.manager, fundDetailsFull.manager);
+				Objects.equals(this.owner, fundDetailsFull.owner);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, url, color, title, description, creationDate, status, entryFeeSelected, entryFeeCurrent, exitFeeSelected, exitFeeCurrent, assetsStructure, personalDetails, manager);
+		return Objects.hash(id, logo, url, color, title, description, creationDate, status, entryFeeSelected, entryFeeCurrent, exitFeeSelected, exitFeeCurrent, assetsStructure, personalDetails, owner);
 	}
 
 	@Override
@@ -453,7 +452,7 @@ public class FundDetailsFull implements Parcelable
 		sb.append("    exitFeeCurrent: ").append(toIndentedString(exitFeeCurrent)).append("\n");
 		sb.append("    assetsStructure: ").append(toIndentedString(assetsStructure)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
-		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
+		sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -484,7 +483,7 @@ public class FundDetailsFull implements Parcelable
 		out.writeValue(exitFeeCurrent);
 		out.writeValue(assetsStructure);
 		out.writeValue(personalDetails);
-		out.writeValue(manager);
+		out.writeValue(owner);
 	}
 
 	public int describeContents() {

@@ -22,7 +22,6 @@ import org.joda.time.DateTime;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * ReferralFriend
  */

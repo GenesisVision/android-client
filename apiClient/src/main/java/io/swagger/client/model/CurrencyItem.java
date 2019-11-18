@@ -20,7 +20,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * CurrencyItem
  */
@@ -45,12 +44,16 @@ public class CurrencyItem implements Parcelable
 	@SerializedName("currency")
 	private Currency currency = null;
 
+	@SerializedName("title")
+	private String title = null;
+
 	public CurrencyItem() {
 	}
 
 	CurrencyItem(Parcel in) {
 		logo = (String) in.readValue(null);
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		title = (String) in.readValue(null);
 	}
 
 	public CurrencyItem logo(String logo) {
@@ -91,6 +94,25 @@ public class CurrencyItem implements Parcelable
 		this.currency = currency;
 	}
 
+	public CurrencyItem title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@Schema(description = "")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -101,12 +123,13 @@ public class CurrencyItem implements Parcelable
 		}
 		CurrencyItem currencyItem = (CurrencyItem) o;
 		return Objects.equals(this.logo, currencyItem.logo) &&
-				Objects.equals(this.currency, currencyItem.currency);
+				Objects.equals(this.currency, currencyItem.currency) &&
+				Objects.equals(this.title, currencyItem.title);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(logo, currency);
+		return Objects.hash(logo, currency, title);
 	}
 
 	@Override
@@ -116,6 +139,7 @@ public class CurrencyItem implements Parcelable
 
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -134,6 +158,7 @@ public class CurrencyItem implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(logo);
 		out.writeValue(currency);
+		out.writeValue(title);
 	}
 
 	public int describeContents() {

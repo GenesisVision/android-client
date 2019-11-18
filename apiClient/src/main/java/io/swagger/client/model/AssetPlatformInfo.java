@@ -20,7 +20,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * AssetPlatformInfo
  */
@@ -42,15 +41,23 @@ public class AssetPlatformInfo implements Parcelable
 	@SerializedName("programInfo")
 	private ProgramAssetPlatformInfo programInfo = null;
 
+	@SerializedName("tradingAccountInfo")
+	private TradingAccountAssetPlatformInfo tradingAccountInfo = null;
+
 	@SerializedName("fundInfo")
 	private FundAssetPlatformInfo fundInfo = null;
+
+	@SerializedName("followInfo")
+	private FollowAssetPlatformInfo followInfo = null;
 
 	public AssetPlatformInfo() {
 	}
 
 	AssetPlatformInfo(Parcel in) {
 		programInfo = (ProgramAssetPlatformInfo) in.readValue(ProgramAssetPlatformInfo.class.getClassLoader());
+		tradingAccountInfo = (TradingAccountAssetPlatformInfo) in.readValue(TradingAccountAssetPlatformInfo.class.getClassLoader());
 		fundInfo = (FundAssetPlatformInfo) in.readValue(FundAssetPlatformInfo.class.getClassLoader());
+		followInfo = (FollowAssetPlatformInfo) in.readValue(FollowAssetPlatformInfo.class.getClassLoader());
 	}
 
 	public AssetPlatformInfo programInfo(ProgramAssetPlatformInfo programInfo) {
@@ -72,6 +79,25 @@ public class AssetPlatformInfo implements Parcelable
 		this.programInfo = programInfo;
 	}
 
+	public AssetPlatformInfo tradingAccountInfo(TradingAccountAssetPlatformInfo tradingAccountInfo) {
+		this.tradingAccountInfo = tradingAccountInfo;
+		return this;
+	}
+
+	/**
+	 * Get tradingAccountInfo
+	 *
+	 * @return tradingAccountInfo
+	 **/
+	@Schema(description = "")
+	public TradingAccountAssetPlatformInfo getTradingAccountInfo() {
+		return tradingAccountInfo;
+	}
+
+	public void setTradingAccountInfo(TradingAccountAssetPlatformInfo tradingAccountInfo) {
+		this.tradingAccountInfo = tradingAccountInfo;
+	}
+
 	public AssetPlatformInfo fundInfo(FundAssetPlatformInfo fundInfo) {
 		this.fundInfo = fundInfo;
 		return this;
@@ -91,6 +117,25 @@ public class AssetPlatformInfo implements Parcelable
 		this.fundInfo = fundInfo;
 	}
 
+	public AssetPlatformInfo followInfo(FollowAssetPlatformInfo followInfo) {
+		this.followInfo = followInfo;
+		return this;
+	}
+
+	/**
+	 * Get followInfo
+	 *
+	 * @return followInfo
+	 **/
+	@Schema(description = "")
+	public FollowAssetPlatformInfo getFollowInfo() {
+		return followInfo;
+	}
+
+	public void setFollowInfo(FollowAssetPlatformInfo followInfo) {
+		this.followInfo = followInfo;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -101,12 +146,14 @@ public class AssetPlatformInfo implements Parcelable
 		}
 		AssetPlatformInfo assetPlatformInfo = (AssetPlatformInfo) o;
 		return Objects.equals(this.programInfo, assetPlatformInfo.programInfo) &&
-				Objects.equals(this.fundInfo, assetPlatformInfo.fundInfo);
+				Objects.equals(this.tradingAccountInfo, assetPlatformInfo.tradingAccountInfo) &&
+				Objects.equals(this.fundInfo, assetPlatformInfo.fundInfo) &&
+				Objects.equals(this.followInfo, assetPlatformInfo.followInfo);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(programInfo, fundInfo);
+		return Objects.hash(programInfo, tradingAccountInfo, fundInfo, followInfo);
 	}
 
 	@Override
@@ -115,7 +162,9 @@ public class AssetPlatformInfo implements Parcelable
 		sb.append("class AssetPlatformInfo {\n");
 
 		sb.append("    programInfo: ").append(toIndentedString(programInfo)).append("\n");
+		sb.append("    tradingAccountInfo: ").append(toIndentedString(tradingAccountInfo)).append("\n");
 		sb.append("    fundInfo: ").append(toIndentedString(fundInfo)).append("\n");
+		sb.append("    followInfo: ").append(toIndentedString(followInfo)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -133,7 +182,9 @@ public class AssetPlatformInfo implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(programInfo);
+		out.writeValue(tradingAccountInfo);
 		out.writeValue(fundInfo);
+		out.writeValue(followInfo);
 	}
 
 	public int describeContents() {

@@ -28,9 +28,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.AssetFacet;
 import io.swagger.client.model.ItemsViewModelProgramDetailsList;
 import io.swagger.client.model.ProgramDetailsList;
-import io.swagger.client.model.ProgramFacet;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -133,7 +133,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	private Unbinder unbinder;
 
-	private List<ProgramFacet> facets = new ArrayList<>();
+	private List<AssetFacet> facets = new ArrayList<>();
 
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
@@ -267,7 +267,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		}
 	}
 
-	public void setFacets(List<ProgramFacet> facets) {
+	public void setFacets(List<AssetFacet> facets) {
 		this.facets = facets;
 		if (programsListAdapter != null) {
 			programsListAdapter.setFacets(facets);

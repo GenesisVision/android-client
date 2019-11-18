@@ -3,7 +3,9 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**chart** | [**ProfitChart**](ProfitChart.md) |  |  [optional]
+**currency** | [**Currency**](Currency.md) |  |  [optional]
+**statistic** | [**ProfitChart**](ProfitChart.md) |  |  [optional]
+**broker** | [**DashboardTradingAssetBrokerDetails**](DashboardTradingAssetBrokerDetails.md) |  |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **logo** | **String** |  |  [optional]
 **color** | **String** |  |  [optional]

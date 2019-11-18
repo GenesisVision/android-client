@@ -26,9 +26,9 @@ import java.io.IOException;
 public enum AssetType
 {
 	NONE("None"),
-	PROGRAMS("Programs"),
-	FUNDS("Funds"),
-	COPYTRADING("CopyTrading");
+	PROGRAM("Program"),
+	FUND("Fund"),
+	FOLLOW("Follow");
 
 	public static AssetType fromValue(String text) {
 		for (AssetType b : AssetType.values()) {

@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * FundBalanceChart
  */
@@ -44,6 +43,9 @@ public class FundBalanceChart implements Parcelable
 	@SerializedName("balance")
 	private Double balance = null;
 
+	@SerializedName("color")
+	private String color = null;
+
 	@SerializedName("chart")
 	private List<BalanceChartPoint> chart = null;
 
@@ -52,6 +54,7 @@ public class FundBalanceChart implements Parcelable
 
 	FundBalanceChart(Parcel in) {
 		balance = (Double) in.readValue(null);
+		color = (String) in.readValue(null);
 		chart = (List<BalanceChartPoint>) in.readValue(BalanceChartPoint.class.getClassLoader());
 	}
 
@@ -72,6 +75,25 @@ public class FundBalanceChart implements Parcelable
 
 	public void setBalance(Double balance) {
 		this.balance = balance;
+	}
+
+	public FundBalanceChart color(String color) {
+		this.color = color;
+		return this;
+	}
+
+	/**
+	 * Get color
+	 *
+	 * @return color
+	 **/
+	@Schema(description = "")
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	public FundBalanceChart chart(List<BalanceChartPoint> chart) {
@@ -111,12 +133,13 @@ public class FundBalanceChart implements Parcelable
 		}
 		FundBalanceChart fundBalanceChart = (FundBalanceChart) o;
 		return Objects.equals(this.balance, fundBalanceChart.balance) &&
+				Objects.equals(this.color, fundBalanceChart.color) &&
 				Objects.equals(this.chart, fundBalanceChart.chart);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(balance, chart);
+		return Objects.hash(balance, color, chart);
 	}
 
 	@Override
@@ -125,6 +148,7 @@ public class FundBalanceChart implements Parcelable
 		sb.append("class FundBalanceChart {\n");
 
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -143,6 +167,7 @@ public class FundBalanceChart implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(balance);
+		out.writeValue(color);
 		out.writeValue(chart);
 	}
 

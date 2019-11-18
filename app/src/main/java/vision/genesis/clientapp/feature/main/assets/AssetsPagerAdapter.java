@@ -1,14 +1,14 @@
 package vision.genesis.clientapp.feature.main.assets;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import io.swagger.client.model.FundFacet;
-import io.swagger.client.model.ProgramFacet;
+import io.swagger.client.model.AssetFacet;
 import vision.genesis.clientapp.feature.main.funds_list.FundsListFragment;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListFragment;
 
@@ -59,11 +59,11 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 	public void destroy() {
 	}
 
-	public void setProgramsFacets(List<ProgramFacet> programsFacets) {
+	public void setProgramsFacets(List<AssetFacet> programsFacets) {
 		programsFragment.setFacets(programsFacets);
 	}
 
-	public void setFundsFacets(List<FundFacet> fundsFacets) {
+	public void setFundsFacets(List<AssetFacet> fundsFacets) {
 		fundsFragment.setFacets(fundsFacets);
 	}
 

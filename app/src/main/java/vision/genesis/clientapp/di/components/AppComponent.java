@@ -29,12 +29,13 @@ import vision.genesis.clientapp.feature.main.copytrading.subscription_settings.S
 import vision.genesis.clientapp.feature.main.copytrading.trades_history.CopytradingTradesHistoryPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.trading_log.TradingLogPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.unfollow_trades.UnfollowTradesPresenter;
-import vision.genesis.clientapp.feature.main.dashboard.investor.InvestorDashboardPresenter;
-import vision.genesis.clientapp.feature.main.dashboard.investor.copytrading.DashboardCopytradingPresenter;
-import vision.genesis.clientapp.feature.main.dashboard.investor.funds.DashboardFundsPresenter;
-import vision.genesis.clientapp.feature.main.dashboard.investor.header.InvestorDashboardHeaderPortfolioPresenter;
-import vision.genesis.clientapp.feature.main.dashboard.investor.programs.DashboardProgramsPresenter;
-import vision.genesis.clientapp.feature.main.dashboard.manager.ManagerDashboardPresenter;
+import vision.genesis.clientapp.feature.main.dashboard.DashboardPresenter;
+import vision.genesis.clientapp.feature.main.dashboard.investments.DashboardInvestmentsView;
+import vision.genesis.clientapp.feature.main.dashboard.old.investor.copytrading.DashboardCopytradingPresenter;
+import vision.genesis.clientapp.feature.main.dashboard.old.investor.funds.DashboardFundsPresenter;
+import vision.genesis.clientapp.feature.main.dashboard.old.investor.header.InvestorDashboardHeaderPortfolioPresenter;
+import vision.genesis.clientapp.feature.main.dashboard.old.investor.programs.DashboardProgramsPresenter;
+import vision.genesis.clientapp.feature.main.dashboard.trading.DashboardTradingView;
 import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsPresenter;
 import vision.genesis.clientapp.feature.main.fund.balance.FundBalancePresenter;
@@ -117,7 +118,7 @@ public interface AppComponent
 
 	void inject(RegistrationPresenter registrationPresenter);
 
-	void inject(InvestorDashboardPresenter investorDashboardPresenter);
+	void inject(DashboardPresenter dashboardPresenter);
 
 	void inject(ProgramsListPresenter programsListPresenter);
 
@@ -170,8 +171,6 @@ public interface AppComponent
 	void inject(AppLifecycleTracker appLifecycleTracker);
 
 	void inject(VerifyFingerprintPresenter verifyFingerprintPresenter);
-
-	void inject(ManagerDashboardPresenter managerDashboardPresenter);
 
 	void inject(CreateProgramPresenter createProgramPresenter);
 
@@ -284,4 +283,8 @@ public interface AppComponent
 	void inject(PeriodHistoryPresenter periodHistoryPresenter);
 
 	void inject(ReallocateHistoryPresenter reallocateHistoryPresenter);
+
+	void inject(DashboardInvestmentsView dashboardInvestmentsView);
+
+	void inject(DashboardTradingView dashboardTradingView);
 }

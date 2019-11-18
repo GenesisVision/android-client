@@ -22,9 +22,9 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * TransactionViewModel
  */
@@ -43,6 +43,9 @@ public class TransactionViewModel implements Parcelable
 		}
 	};
 
+	@SerializedName("id")
+	private UUID id = null;
+
 	@SerializedName("wallet")
 	private WalletRowCell wallet = null;
 
@@ -59,30 +62,46 @@ public class TransactionViewModel implements Parcelable
 	private AmountRowCell amount = null;
 
 	@SerializedName("asset")
-	private AssetDetails asset = null;
-
-	@SerializedName("external")
-	private ExternalDetails external = null;
-
-	@SerializedName("buttons")
-	private List<ButtonAction> buttons = null;
+	private ManagerAssetDetails asset = null;
 
 	@SerializedName("details")
-	private List<TransactionDetail> details = null;
+	private List<TransactionDetailItem> details = null;
+
+	@SerializedName("actions")
+	private TransactionDetailsActions actions = null;
 
 	public TransactionViewModel() {
 	}
 
 	TransactionViewModel(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		wallet = (WalletRowCell) in.readValue(WalletRowCell.class.getClassLoader());
 		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		status = (MultiWalletTransactionStatus) in.readValue(MultiWalletTransactionStatus.class.getClassLoader());
 		description = (String) in.readValue(null);
 		amount = (AmountRowCell) in.readValue(AmountRowCell.class.getClassLoader());
-		asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
-		external = (ExternalDetails) in.readValue(ExternalDetails.class.getClassLoader());
-		buttons = (List<ButtonAction>) in.readValue(ButtonAction.class.getClassLoader());
-		details = (List<TransactionDetail>) in.readValue(TransactionDetail.class.getClassLoader());
+		asset = (ManagerAssetDetails) in.readValue(ManagerAssetDetails.class.getClassLoader());
+		details = (List<TransactionDetailItem>) in.readValue(TransactionDetailItem.class.getClassLoader());
+		actions = (TransactionDetailsActions) in.readValue(TransactionDetailsActions.class.getClassLoader());
+	}
+
+	public TransactionViewModel id(UUID id) {
+		this.id = id;
+		return this;
+	}
+
+	/**
+	 * Get id
+	 *
+	 * @return id
+	 **/
+	@Schema(description = "")
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
 	public TransactionViewModel wallet(WalletRowCell wallet) {
@@ -180,7 +199,7 @@ public class TransactionViewModel implements Parcelable
 		this.amount = amount;
 	}
 
-	public TransactionViewModel asset(AssetDetails asset) {
+	public TransactionViewModel asset(ManagerAssetDetails asset) {
 		this.asset = asset;
 		return this;
 	}
@@ -191,68 +210,22 @@ public class TransactionViewModel implements Parcelable
 	 * @return asset
 	 **/
 	@Schema(description = "")
-	public AssetDetails getAsset() {
+	public ManagerAssetDetails getAsset() {
 		return asset;
 	}
 
-	public void setAsset(AssetDetails asset) {
+	public void setAsset(ManagerAssetDetails asset) {
 		this.asset = asset;
 	}
 
-	public TransactionViewModel external(ExternalDetails external) {
-		this.external = external;
-		return this;
-	}
-
-	/**
-	 * Get external
-	 *
-	 * @return external
-	 **/
-	@Schema(description = "")
-	public ExternalDetails getExternal() {
-		return external;
-	}
-
-	public void setExternal(ExternalDetails external) {
-		this.external = external;
-	}
-
-	public TransactionViewModel buttons(List<ButtonAction> buttons) {
-		this.buttons = buttons;
-		return this;
-	}
-
-	public TransactionViewModel addButtonsItem(ButtonAction buttonsItem) {
-		if (this.buttons == null) {
-			this.buttons = new ArrayList<ButtonAction>();
-		}
-		this.buttons.add(buttonsItem);
-		return this;
-	}
-
-	/**
-	 * Get buttons
-	 *
-	 * @return buttons
-	 **/
-	@Schema(description = "")
-	public List<ButtonAction> getButtons() {
-		return buttons;
-	}
-
-	public void setButtons(List<ButtonAction> buttons) {
-		this.buttons = buttons;
-	}
-
-	public TransactionViewModel details(List<TransactionDetail> details) {
+	public TransactionViewModel details(List<TransactionDetailItem> details) {
 		this.details = details;
 		return this;
 	}
 
-	public TransactionViewModel addDetailsItem(TransactionDetail detailsItem) {
+	public TransactionViewModel addDetailsItem(TransactionDetailItem detailsItem) {
 		if (this.details == null) {
-			this.details = new ArrayList<TransactionDetail>();
+			this.details = new ArrayList<TransactionDetailItem>();
 		}
 		this.details.add(detailsItem);
 		return this;
@@ -264,12 +237,31 @@ public class TransactionViewModel implements Parcelable
 	 * @return details
 	 **/
 	@Schema(description = "")
-	public List<TransactionDetail> getDetails() {
+	public List<TransactionDetailItem> getDetails() {
 		return details;
 	}
 
-	public void setDetails(List<TransactionDetail> details) {
+	public void setDetails(List<TransactionDetailItem> details) {
 		this.details = details;
+	}
+
+	public TransactionViewModel actions(TransactionDetailsActions actions) {
+		this.actions = actions;
+		return this;
+	}
+
+	/**
+	 * Get actions
+	 *
+	 * @return actions
+	 **/
+	@Schema(description = "")
+	public TransactionDetailsActions getActions() {
+		return actions;
+	}
+
+	public void setActions(TransactionDetailsActions actions) {
+		this.actions = actions;
 	}
 
 	@Override
@@ -281,20 +273,20 @@ public class TransactionViewModel implements Parcelable
 			return false;
 		}
 		TransactionViewModel transactionViewModel = (TransactionViewModel) o;
-		return Objects.equals(this.wallet, transactionViewModel.wallet) &&
+		return Objects.equals(this.id, transactionViewModel.id) &&
+				Objects.equals(this.wallet, transactionViewModel.wallet) &&
 				Objects.equals(this.date, transactionViewModel.date) &&
 				Objects.equals(this.status, transactionViewModel.status) &&
 				Objects.equals(this.description, transactionViewModel.description) &&
 				Objects.equals(this.amount, transactionViewModel.amount) &&
 				Objects.equals(this.asset, transactionViewModel.asset) &&
-				Objects.equals(this.external, transactionViewModel.external) &&
-				Objects.equals(this.buttons, transactionViewModel.buttons) &&
-				Objects.equals(this.details, transactionViewModel.details);
+				Objects.equals(this.details, transactionViewModel.details) &&
+				Objects.equals(this.actions, transactionViewModel.actions);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(wallet, date, status, description, amount, asset, external, buttons, details);
+		return Objects.hash(id, wallet, date, status, description, amount, asset, details, actions);
 	}
 
 	@Override
@@ -302,15 +294,15 @@ public class TransactionViewModel implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class TransactionViewModel {\n");
 
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    wallet: ").append(toIndentedString(wallet)).append("\n");
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
 		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
-		sb.append("    external: ").append(toIndentedString(external)).append("\n");
-		sb.append("    buttons: ").append(toIndentedString(buttons)).append("\n");
 		sb.append("    details: ").append(toIndentedString(details)).append("\n");
+		sb.append("    actions: ").append(toIndentedString(actions)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -327,15 +319,15 @@ public class TransactionViewModel implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(id);
 		out.writeValue(wallet);
 		out.writeValue(date);
 		out.writeValue(status);
 		out.writeValue(description);
 		out.writeValue(amount);
 		out.writeValue(asset);
-		out.writeValue(external);
-		out.writeValue(buttons);
 		out.writeValue(details);
+		out.writeValue(actions);
 	}
 
 	public int describeContents() {

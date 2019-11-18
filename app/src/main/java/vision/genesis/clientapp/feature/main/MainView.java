@@ -2,9 +2,8 @@ package vision.genesis.clientapp.feature.main;
 
 import com.arellomobile.mvp.MvpView;
 
-import io.swagger.client.model.FundFacet;
+import io.swagger.client.model.AssetFacet;
 import io.swagger.client.model.InvestmentEventViewModel;
-import io.swagger.client.model.ProgramFacet;
 import io.swagger.client.model.TransactionViewModel;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
@@ -76,9 +75,9 @@ public interface MainView extends MvpView
 
 	void showProgramsRating();
 
-	void showProgramFacet(ProgramFacet facet);
+	void showProgramFacet(AssetFacet facet);
 
-	void showFundFacet(FundFacet facet);
+	void showFundFacet(AssetFacet facet);
 
 	void showOpenTradeDetails(OpenTradeModel model);
 

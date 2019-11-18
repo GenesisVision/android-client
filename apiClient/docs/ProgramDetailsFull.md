@@ -34,7 +34,7 @@ Name | Type | Description | Notes
 **availableInvestmentBase** | **Double** |  |  [optional]
 **availableInvestmentLimit** | **Double** |  |  [optional]
 **totalAvailableInvestment** | **Double** |  |  [optional]
-**manager** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
+**owner** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 **brokerDetails** | [**BrokerDetails**](BrokerDetails.md) |  |  [optional]
 **signalSettings** | [**AssetSignalSettings**](AssetSignalSettings.md) |  |  [optional]
 **personalDetails** | [**PersonalProgramDetails**](PersonalProgramDetails.md) |  |  [optional]

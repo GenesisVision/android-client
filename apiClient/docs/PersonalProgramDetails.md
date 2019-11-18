@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **isInvested** | **Boolean** |  |  [optional]
 **canInvest** | **Boolean** |  |  [optional]
 **canWithdraw** | **Boolean** |  |  [optional]
-**ownerActions** | [**TradingAccountOwnerActions**](TradingAccountOwnerActions.md) |  |  [optional]
+**ownerActions** | [**ProgramOwnerActions**](ProgramOwnerActions.md) |  |  [optional]
 **hasNotifications** | **Boolean** |  |  [optional]
 **showTwoFactorButton** | **Boolean** |  |  [optional]
 **value** | **Double** |  |  [optional]

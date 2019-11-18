@@ -132,7 +132,7 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		request.setLevel(programDetails.getLevel());
 		request.setLevelProgress(programDetails.getLevelProgress());
 		request.setProgramName(programDetails.getTitle());
-		request.setManagerName(programDetails.getManager().getUsername());
+		request.setManagerName(programDetails.getOwner().getUsername());
 		request.setAvailableInvestment(programDetails.getAvailableInvestmentBase());
 		request.setEntryFee(programDetails.getEntryFeeCurrent());
 		request.setBrokerType(programDetails.getBrokerDetails().getType());
@@ -159,7 +159,7 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		request.setLevel(programDetails.getLevel());
 		request.setLevelProgress(programDetails.getLevelProgress());
 		request.setProgramName(programDetails.getTitle());
-		request.setManagerName(programDetails.getManager().getUsername());
+		request.setManagerName(programDetails.getOwner().getUsername());
 
 		getViewState().showWithdrawProgramActivity(request);
 	}

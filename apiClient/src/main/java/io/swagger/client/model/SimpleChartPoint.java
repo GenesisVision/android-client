@@ -17,12 +17,9 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.joda.time.DateTime;
-
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * SimpleChartPoint
  */
@@ -42,7 +39,7 @@ public class SimpleChartPoint implements Parcelable
 	};
 
 	@SerializedName("date")
-	private DateTime date = null;
+	private Long date = null;
 
 	@SerializedName("value")
 	private Double value = null;
@@ -51,11 +48,11 @@ public class SimpleChartPoint implements Parcelable
 	}
 
 	SimpleChartPoint(Parcel in) {
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		date = (Long) in.readValue(null);
 		value = (Double) in.readValue(null);
 	}
 
-	public SimpleChartPoint date(DateTime date) {
+	public SimpleChartPoint date(Long date) {
 		this.date = date;
 		return this;
 	}
@@ -66,11 +63,11 @@ public class SimpleChartPoint implements Parcelable
 	 * @return date
 	 **/
 	@Schema(description = "")
-	public DateTime getDate() {
+	public Long getDate() {
 		return date;
 	}
 
-	public void setDate(DateTime date) {
+	public void setDate(Long date) {
 		this.date = date;
 	}
 

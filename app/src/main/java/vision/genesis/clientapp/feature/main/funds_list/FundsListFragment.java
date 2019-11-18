@@ -26,8 +26,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.AssetFacet;
 import io.swagger.client.model.FundDetailsList;
-import io.swagger.client.model.FundFacet;
 import io.swagger.client.model.ItemsViewModelFundDetailsList;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
@@ -113,7 +113,7 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 
 	private Unbinder unbinder;
 
-	private List<FundFacet> facets = new ArrayList<>();
+	private List<AssetFacet> facets = new ArrayList<>();
 
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
@@ -230,7 +230,7 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 		}
 	}
 
-	public void setFacets(List<FundFacet> facets) {
+	public void setFacets(List<AssetFacet> facets) {
 		this.facets = facets;
 		if (fundsListAdapter != null) {
 			fundsListAdapter.setFacets(facets);

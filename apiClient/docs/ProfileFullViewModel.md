@@ -22,3 +22,4 @@ Name | Type | Description | Notes
 **citizenship** | **String** |  |  [optional]
 **refUrl** | **String** |  |  [optional]
 **verificationStatus** | [**UserVerificationStatus**](UserVerificationStatus.md) |  |  [optional]
+**isPublicInvestor** | **Boolean** |  |  [optional]

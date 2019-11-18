@@ -20,7 +20,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * PersonalProgramDetails
  */
@@ -58,7 +57,7 @@ public class PersonalProgramDetails implements Parcelable
 	private Boolean canWithdraw = null;
 
 	@SerializedName("ownerActions")
-	private TradingAccountOwnerActions ownerActions = null;
+	private ProgramOwnerActions ownerActions = null;
 
 	@SerializedName("hasNotifications")
 	private Boolean hasNotifications = null;
@@ -106,7 +105,7 @@ public class PersonalProgramDetails implements Parcelable
 		isInvested = (Boolean) in.readValue(null);
 		canInvest = (Boolean) in.readValue(null);
 		canWithdraw = (Boolean) in.readValue(null);
-		ownerActions = (TradingAccountOwnerActions) in.readValue(TradingAccountOwnerActions.class.getClassLoader());
+		ownerActions = (ProgramOwnerActions) in.readValue(ProgramOwnerActions.class.getClassLoader());
 		hasNotifications = (Boolean) in.readValue(null);
 		showTwoFactorButton = (Boolean) in.readValue(null);
 		value = (Double) in.readValue(null);
@@ -235,7 +234,7 @@ public class PersonalProgramDetails implements Parcelable
 		this.canWithdraw = canWithdraw;
 	}
 
-	public PersonalProgramDetails ownerActions(TradingAccountOwnerActions ownerActions) {
+	public PersonalProgramDetails ownerActions(ProgramOwnerActions ownerActions) {
 		this.ownerActions = ownerActions;
 		return this;
 	}
@@ -246,11 +245,11 @@ public class PersonalProgramDetails implements Parcelable
 	 * @return ownerActions
 	 **/
 	@Schema(description = "")
-	public TradingAccountOwnerActions getOwnerActions() {
+	public ProgramOwnerActions getOwnerActions() {
 		return ownerActions;
 	}
 
-	public void setOwnerActions(TradingAccountOwnerActions ownerActions) {
+	public void setOwnerActions(ProgramOwnerActions ownerActions) {
 		this.ownerActions = ownerActions;
 	}
 

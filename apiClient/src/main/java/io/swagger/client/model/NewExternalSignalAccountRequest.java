@@ -21,7 +21,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * NewExternalSignalAccountRequest
  */
@@ -46,8 +45,8 @@ public class NewExternalSignalAccountRequest implements Parcelable
 	@SerializedName("volumeFee")
 	private Double volumeFee = null;
 
-	@SerializedName("monthlySubscriptionFee")
-	private Double monthlySubscriptionFee = null;
+	@SerializedName("successFee")
+	private Double successFee = null;
 
 	@SerializedName("title")
 	private String title = null;
@@ -64,7 +63,7 @@ public class NewExternalSignalAccountRequest implements Parcelable
 	NewExternalSignalAccountRequest(Parcel in) {
 		externalKeyId = (UUID) in.readValue(UUID.class.getClassLoader());
 		volumeFee = (Double) in.readValue(null);
-		monthlySubscriptionFee = (Double) in.readValue(null);
+		successFee = (Double) in.readValue(null);
 		title = (String) in.readValue(null);
 		description = (String) in.readValue(null);
 		logo = (String) in.readValue(null);
@@ -108,23 +107,23 @@ public class NewExternalSignalAccountRequest implements Parcelable
 		this.volumeFee = volumeFee;
 	}
 
-	public NewExternalSignalAccountRequest monthlySubscriptionFee(Double monthlySubscriptionFee) {
-		this.monthlySubscriptionFee = monthlySubscriptionFee;
+	public NewExternalSignalAccountRequest successFee(Double successFee) {
+		this.successFee = successFee;
 		return this;
 	}
 
 	/**
-	 * Get monthlySubscriptionFee
+	 * Get successFee
 	 *
-	 * @return monthlySubscriptionFee
+	 * @return successFee
 	 **/
 	@Schema(description = "")
-	public Double getMonthlySubscriptionFee() {
-		return monthlySubscriptionFee;
+	public Double getSuccessFee() {
+		return successFee;
 	}
 
-	public void setMonthlySubscriptionFee(Double monthlySubscriptionFee) {
-		this.monthlySubscriptionFee = monthlySubscriptionFee;
+	public void setSuccessFee(Double successFee) {
+		this.successFee = successFee;
 	}
 
 	public NewExternalSignalAccountRequest title(String title) {
@@ -195,7 +194,7 @@ public class NewExternalSignalAccountRequest implements Parcelable
 		NewExternalSignalAccountRequest newExternalSignalAccountRequest = (NewExternalSignalAccountRequest) o;
 		return Objects.equals(this.externalKeyId, newExternalSignalAccountRequest.externalKeyId) &&
 				Objects.equals(this.volumeFee, newExternalSignalAccountRequest.volumeFee) &&
-				Objects.equals(this.monthlySubscriptionFee, newExternalSignalAccountRequest.monthlySubscriptionFee) &&
+				Objects.equals(this.successFee, newExternalSignalAccountRequest.successFee) &&
 				Objects.equals(this.title, newExternalSignalAccountRequest.title) &&
 				Objects.equals(this.description, newExternalSignalAccountRequest.description) &&
 				Objects.equals(this.logo, newExternalSignalAccountRequest.logo);
@@ -203,7 +202,7 @@ public class NewExternalSignalAccountRequest implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(externalKeyId, volumeFee, monthlySubscriptionFee, title, description, logo);
+		return Objects.hash(externalKeyId, volumeFee, successFee, title, description, logo);
 	}
 
 	@Override
@@ -213,7 +212,7 @@ public class NewExternalSignalAccountRequest implements Parcelable
 
 		sb.append("    externalKeyId: ").append(toIndentedString(externalKeyId)).append("\n");
 		sb.append("    volumeFee: ").append(toIndentedString(volumeFee)).append("\n");
-		sb.append("    monthlySubscriptionFee: ").append(toIndentedString(monthlySubscriptionFee)).append("\n");
+		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
@@ -235,7 +234,7 @@ public class NewExternalSignalAccountRequest implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(externalKeyId);
 		out.writeValue(volumeFee);
-		out.writeValue(monthlySubscriptionFee);
+		out.writeValue(successFee);
 		out.writeValue(title);
 		out.writeValue(description);
 		out.writeValue(logo);

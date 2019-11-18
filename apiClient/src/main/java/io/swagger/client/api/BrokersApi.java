@@ -10,12 +10,21 @@ import rx.Observable;
 public interface BrokersApi
 {
 	/**
-	 * Get brokers
+	 * Get brokers for creating trading accounts
 	 *
 	 * @return Call&lt;BrokersInfo&gt;
 	 */
 	@GET("v2.0/brokers")
 	Observable<BrokersInfo> getBrokers();
+
+
+	/**
+	 * Get brokers for creating external trading accounts
+	 *
+	 * @return Call&lt;BrokersInfo&gt;
+	 */
+	@GET("v2.0/brokers/external")
+	Observable<BrokersInfo> getBrokersExternal();
 
 
 	/**

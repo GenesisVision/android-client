@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * SimpleChart
  */
@@ -44,6 +43,9 @@ public class SimpleChart implements Parcelable
 	@SerializedName("currency")
 	private Currency currency = null;
 
+	@SerializedName("color")
+	private String color = null;
+
 	@SerializedName("chart")
 	private List<SimpleChartPoint> chart = null;
 
@@ -52,6 +54,7 @@ public class SimpleChart implements Parcelable
 
 	SimpleChart(Parcel in) {
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		color = (String) in.readValue(null);
 		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
 	}
 
@@ -72,6 +75,25 @@ public class SimpleChart implements Parcelable
 
 	public void setCurrency(Currency currency) {
 		this.currency = currency;
+	}
+
+	public SimpleChart color(String color) {
+		this.color = color;
+		return this;
+	}
+
+	/**
+	 * Get color
+	 *
+	 * @return color
+	 **/
+	@Schema(description = "")
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	public SimpleChart chart(List<SimpleChartPoint> chart) {
@@ -111,12 +133,13 @@ public class SimpleChart implements Parcelable
 		}
 		SimpleChart simpleChart = (SimpleChart) o;
 		return Objects.equals(this.currency, simpleChart.currency) &&
+				Objects.equals(this.color, simpleChart.color) &&
 				Objects.equals(this.chart, simpleChart.chart);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, chart);
+		return Objects.hash(currency, color, chart);
 	}
 
 	@Override
@@ -125,6 +148,7 @@ public class SimpleChart implements Parcelable
 		sb.append("class SimpleChart {\n");
 
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -143,6 +167,7 @@ public class SimpleChart implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(currency);
+		out.writeValue(color);
 		out.writeValue(chart);
 	}
 

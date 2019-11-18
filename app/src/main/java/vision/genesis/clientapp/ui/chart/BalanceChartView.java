@@ -241,9 +241,9 @@ public class BalanceChartView extends RelativeLayout
 			float managerValue = element.getManagerFunds().floatValue();
 			float investorsValue = managerValue + element.getInvestorsFunds().floatValue();
 
-			managerEntries.add(new Entry(element.getDate().getMillis() / 1000 / 60, managerValue));
-			investorsEntries.add(new Entry(element.getDate().getMillis() / 1000 / 60, investorsValue));
-			profitEntries.add(new Entry(element.getDate().getMillis() / 1000 / 60, investorsValue));
+			managerEntries.add(new Entry(element.getDate() / 1000 / 60, managerValue));
+			investorsEntries.add(new Entry(element.getDate() / 1000 / 60, investorsValue));
+			profitEntries.add(new Entry(element.getDate() / 1000 / 60, investorsValue));
 
 			if (min > investorsValue)
 				min = investorsValue;

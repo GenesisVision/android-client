@@ -12,7 +12,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.ProgramFacet;
+import io.swagger.client.model.AssetFacet;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
@@ -33,9 +33,9 @@ public class ProgramsFacetActivity extends BaseSwipeBackActivity implements Prog
 {
 	private static final String EXTRA_MODEL = "extra_model";
 
-	public static void startWith(Activity activity, ProgramFacet facet) {
+	public static void startWith(Activity activity, AssetFacet facet) {
 		Intent intent = new Intent(activity.getApplicationContext(), ProgramsFacetActivity.class);
-		FacetModel model = new FacetModel(facet.getId(), facet.getTitle(), facet.getTimeframe().toString(), facet.getSorting().getValue());
+		FacetModel model = new FacetModel(facet.getId(), facet.getTitle(), facet.getTimeframe().toString(), facet.getSorting());
 		intent.putExtra(EXTRA_MODEL, model);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.slide_from_right, R.anim.hold);

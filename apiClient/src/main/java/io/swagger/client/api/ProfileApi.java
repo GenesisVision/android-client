@@ -1,9 +1,6 @@
 package io.swagger.client.api;
 
-import io.swagger.client.model.ExternalKeyAddViewModel;
-import io.swagger.client.model.ExternalKeysViewModel;
 import io.swagger.client.model.FcmTokenViewModel;
-import io.swagger.client.model.IdModel;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.ProfileHeaderViewModel;
 import io.swagger.client.model.PublicProfile;
@@ -18,47 +15,6 @@ import rx.Observable;
 
 public interface ProfileApi
 {
-	/**
-	 * Add external exchange key
-	 *
-	 * @param authorization JWT access token (required)
-	 * @param body          (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("v2.0/profile/keys/add")
-	Observable<Void> addExternalKey(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ExternalKeyAddViewModel body
-	);
-
-	/**
-	 * Delete external exchange key
-	 *
-	 * @param authorization JWT access token (required)
-	 * @param body          (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("v2.0/profile/keys/delete")
-	Observable<Void> deleteExternalKey(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body IdModel body
-	);
-
-	/**
-	 * Get external exchange keys
-	 *
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;ExternalKeysViewModel&gt;
-	 */
-	@GET("v2.0/profile/keys")
-	Observable<ExternalKeysViewModel> getExternalKey(
-			@retrofit2.http.Header("Authorization") String authorization
-	);
-
 	/**
 	 * Public profile
 	 *
@@ -120,6 +76,28 @@ public interface ProfileApi
 	 */
 	@POST("v2.0/profile/avatar/remove")
 	Observable<Void> removeAvatar(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Disable public investor profile
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v2.0/profile/investor/public/off")
+	Observable<Void> switchPublicInvestorOff(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Enable public investor profile
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v2.0/profile/investor/public/on")
+	Observable<Void> switchPublicInvestorOn(
 			@retrofit2.http.Header("Authorization") String authorization
 	);
 

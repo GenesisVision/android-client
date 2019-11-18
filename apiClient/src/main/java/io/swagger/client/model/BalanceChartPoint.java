@@ -17,12 +17,9 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.joda.time.DateTime;
-
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * BalanceChartPoint
  */
@@ -42,7 +39,7 @@ public class BalanceChartPoint implements Parcelable
 	};
 
 	@SerializedName("date")
-	private DateTime date = null;
+	private Long date = null;
 
 	@SerializedName("managerFunds")
 	private Double managerFunds = null;
@@ -54,12 +51,12 @@ public class BalanceChartPoint implements Parcelable
 	}
 
 	BalanceChartPoint(Parcel in) {
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		date = (Long) in.readValue(null);
 		managerFunds = (Double) in.readValue(null);
 		investorsFunds = (Double) in.readValue(null);
 	}
 
-	public BalanceChartPoint date(DateTime date) {
+	public BalanceChartPoint date(Long date) {
 		this.date = date;
 		return this;
 	}
@@ -70,11 +67,11 @@ public class BalanceChartPoint implements Parcelable
 	 * @return date
 	 **/
 	@Schema(description = "")
-	public DateTime getDate() {
+	public Long getDate() {
 		return date;
 	}
 
-	public void setDate(DateTime date) {
+	public void setDate(Long date) {
 		this.date = date;
 	}
 

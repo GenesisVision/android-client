@@ -73,14 +73,16 @@ public class ProgramTradesPresenter extends MvpPresenter<ProgramTradesView> impl
 		getViewState().showProgress(true);
 		getViewState().setDateRange(dateRange);
 
-		if (programId != null)
+		if (programId != null) {
 			getTrades(true);
+		}
 	}
 
 	@Override
 	public void onDestroy() {
-		if (tradesSubscription != null)
+		if (tradesSubscription != null) {
 			tradesSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -89,8 +91,9 @@ public class ProgramTradesPresenter extends MvpPresenter<ProgramTradesView> impl
 
 	void setProgramId(UUID programId) {
 		this.programId = programId;
-		if (programsManager != null)
+		if (programsManager != null) {
 			getTrades(true);
+		}
 	}
 
 	void onShow() {
@@ -113,8 +116,9 @@ public class ProgramTradesPresenter extends MvpPresenter<ProgramTradesView> impl
 				skip = 0;
 			}
 
-			if (tradesSubscription != null)
+			if (tradesSubscription != null) {
 				tradesSubscription.unsubscribe();
+			}
 			tradesSubscription = programsManager.getProgramTrades(programId, dateRange, skip, TAKE)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
@@ -137,14 +141,15 @@ public class ProgramTradesPresenter extends MvpPresenter<ProgramTradesView> impl
 
 		EventBus.getDefault().post(new SetProgramDetailsTradesCountEvent(model.getTotal()));
 
-		List<OrderModel> newTrades = model.getTrades();
+		List<OrderModel> newTrades = model.getItems();
 
 		int index = trades.size();
 		for (OrderModel newTrade : newTrades) {
 			String dateString = DateTimeUtil.formatShortDate(newTrade.getDate());
 			String lastSectionDate = sections.isEmpty() ? "" : sections.get(sections.size() - 1).getTitle().toString();
-			if (!lastSectionDate.equals(dateString))
+			if (!lastSectionDate.equals(dateString)) {
 				sections.add(new SimpleSectionedRecyclerViewAdapter.Section(index, dateString));
+			}
 			index++;
 		}
 

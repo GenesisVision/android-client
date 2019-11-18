@@ -9,6 +9,7 @@ import io.swagger.client.model.FundAssetPart;
 import io.swagger.client.model.MakeSignalProviderProgram;
 import io.swagger.client.model.MakeTradingAccountProgram;
 import io.swagger.client.model.MakeTradingAccountSignalProvider;
+import io.swagger.client.model.NewExternalTradingAccountRequest;
 import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.NewTradingAccountRequest;
 import io.swagger.client.model.ProgramLevelInfo;
@@ -64,7 +65,7 @@ public interface AssetsApi
 			"Content-Type:application/json"
 	})
 	@POST("v2.0/assets/tradingaccounts/{id}/password/change")
-	Observable<Void> changeProgramPassword(
+	Observable<Void> changeTradingAccountPassword(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body TradingAccountPwdUpdate body
 	);
 
@@ -126,6 +127,21 @@ public interface AssetsApi
 	@POST("v2.0/assets/programs/{id}/2fa/confirm")
 	Observable<Void> confirmProgram2FA(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body TwoFactorCodeModel body
+	);
+
+	/**
+	 * Create external trading account
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param body          (optional)
+	 * @return Call&lt;TradingAccountCreateResult&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/assets/tradingaccounts/external/create")
+	Observable<TradingAccountCreateResult> createExternalTradingAccount(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body NewExternalTradingAccountRequest body
 	);
 
 	/**
@@ -209,6 +225,21 @@ public interface AssetsApi
 	})
 	@POST("v2.0/assets/signal/create")
 	Observable<Void> makeAccountSignalProvider(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body MakeTradingAccountSignalProvider body
+	);
+
+	/**
+	 * Make external trading account signal provider
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param body          (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/assets/tradingaccounts/external/fromaccount/create")
+	Observable<Void> makeExternalAccountSignalProvider(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body MakeTradingAccountSignalProvider body
 	);
 

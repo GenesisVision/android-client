@@ -25,9 +25,8 @@ import org.greenrobot.eventbus.EventBus;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.FundFacet;
+import io.swagger.client.model.AssetFacet;
 import io.swagger.client.model.InvestmentEventViewModel;
-import io.swagger.client.model.ProgramFacet;
 import io.swagger.client.model.TransactionViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
@@ -398,12 +397,12 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	}
 
 	@Override
-	public void showProgramFacet(ProgramFacet facet) {
+	public void showProgramFacet(AssetFacet facet) {
 		ProgramsFacetActivity.startWith(this, facet);
 	}
 
 	@Override
-	public void showFundFacet(FundFacet facet) {
+	public void showFundFacet(AssetFacet facet) {
 		FundsFacetActivity.startWith(this, facet);
 	}
 

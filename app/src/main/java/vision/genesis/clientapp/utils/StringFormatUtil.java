@@ -13,13 +13,15 @@ import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
-import androidx.core.content.ContextCompat;
+import io.swagger.client.model.Currency;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.CurrencyEnum;
@@ -103,9 +105,10 @@ public class StringFormatUtil
 	public static SpannableString getDecimalSpannable(String value) {
 		boolean isNegative = value.startsWith("-");
 		final SpannableString text = new SpannableString(value);
-		if (isNegative)
+		if (isNegative) {
 			text.setSpan(new ForegroundColorSpan(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.transactionRed)),
 					0, value.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+		}
 		if (value.contains(".")) {
 			text.setSpan(new RelativeSizeSpan(0.7f), value.indexOf(".") + 1, value.length(),
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -120,6 +123,12 @@ public class StringFormatUtil
 	}
 
 	public static String getValueString(Double baseValue, String currency) {
+		if (currency.equals(Currency.USD.getValue())) {
+			return String.format(Locale.getDefault(), "%s $", StringFormatUtil.formatCurrencyAmount(baseValue, currency));
+		}
+		else if (currency.equals(Currency.EUR.getValue())) {
+			return String.format(Locale.getDefault(), "%s €", StringFormatUtil.formatCurrencyAmount(baseValue, currency));
+		}
 		return String.format(Locale.getDefault(), "%s %s", StringFormatUtil.formatCurrencyAmount(baseValue, currency), currency);
 	}
 
@@ -135,13 +144,16 @@ public class StringFormatUtil
 
 	public static String capitalize(String string) {
 		if (string != null && !string.isEmpty()) {
-			if (string.length() > 1)
+			if (string.length() > 1) {
 				return Character.toUpperCase(string.charAt(0)) + string.substring(1).toLowerCase();
-			else
+			}
+			else {
 				return string.toUpperCase();
+			}
 		}
-		else
+		else {
 			return "";
+		}
 	}
 
 	public static String getApproxSymbolIfNeeded(Double amount) {

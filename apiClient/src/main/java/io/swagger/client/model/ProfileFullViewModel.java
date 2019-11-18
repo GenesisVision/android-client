@@ -23,7 +23,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * ProfileFullViewModel
  */
@@ -99,6 +98,9 @@ public class ProfileFullViewModel implements Parcelable
 	@SerializedName("verificationStatus")
 	private UserVerificationStatus verificationStatus = null;
 
+	@SerializedName("isPublicInvestor")
+	private Boolean isPublicInvestor = null;
+
 	public ProfileFullViewModel() {
 	}
 
@@ -122,6 +124,7 @@ public class ProfileFullViewModel implements Parcelable
 		citizenship = (String) in.readValue(null);
 		refUrl = (String) in.readValue(null);
 		verificationStatus = (UserVerificationStatus) in.readValue(UserVerificationStatus.class.getClassLoader());
+		isPublicInvestor = (Boolean) in.readValue(null);
 	}
 
 	public ProfileFullViewModel id(UUID id) {
@@ -485,6 +488,25 @@ public class ProfileFullViewModel implements Parcelable
 		this.verificationStatus = verificationStatus;
 	}
 
+	public ProfileFullViewModel isPublicInvestor(Boolean isPublicInvestor) {
+		this.isPublicInvestor = isPublicInvestor;
+		return this;
+	}
+
+	/**
+	 * Get isPublicInvestor
+	 *
+	 * @return isPublicInvestor
+	 **/
+	@Schema(description = "")
+	public Boolean isIsPublicInvestor() {
+		return isPublicInvestor;
+	}
+
+	public void setIsPublicInvestor(Boolean isPublicInvestor) {
+		this.isPublicInvestor = isPublicInvestor;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -512,12 +534,13 @@ public class ProfileFullViewModel implements Parcelable
 				Objects.equals(this.index, profileFullViewModel.index) &&
 				Objects.equals(this.citizenship, profileFullViewModel.citizenship) &&
 				Objects.equals(this.refUrl, profileFullViewModel.refUrl) &&
-				Objects.equals(this.verificationStatus, profileFullViewModel.verificationStatus);
+				Objects.equals(this.verificationStatus, profileFullViewModel.verificationStatus) &&
+				Objects.equals(this.isPublicInvestor, profileFullViewModel.isPublicInvestor);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, email, firstName, middleName, lastName, country, city, address, phone, phoneNumberConfirmed, birthday, gender, avatar, about, userName, index, citizenship, refUrl, verificationStatus);
+		return Objects.hash(id, email, firstName, middleName, lastName, country, city, address, phone, phoneNumberConfirmed, birthday, gender, avatar, about, userName, index, citizenship, refUrl, verificationStatus, isPublicInvestor);
 	}
 
 	@Override
@@ -544,6 +567,7 @@ public class ProfileFullViewModel implements Parcelable
 		sb.append("    citizenship: ").append(toIndentedString(citizenship)).append("\n");
 		sb.append("    refUrl: ").append(toIndentedString(refUrl)).append("\n");
 		sb.append("    verificationStatus: ").append(toIndentedString(verificationStatus)).append("\n");
+		sb.append("    isPublicInvestor: ").append(toIndentedString(isPublicInvestor)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -579,6 +603,7 @@ public class ProfileFullViewModel implements Parcelable
 		out.writeValue(citizenship);
 		out.writeValue(refUrl);
 		out.writeValue(verificationStatus);
+		out.writeValue(isPublicInvestor);
 	}
 
 	public int describeContents() {

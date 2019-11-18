@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * ProgramAssetPlatformInfo
  */
@@ -42,7 +41,7 @@ public class ProgramAssetPlatformInfo implements Parcelable
 	};
 
 	@SerializedName("facets")
-	private List<ProgramFacet> facets = null;
+	private List<AssetFacet> facets = null;
 
 	@SerializedName("tags")
 	private List<ProgramTag> tags = null;
@@ -53,24 +52,32 @@ public class ProgramAssetPlatformInfo implements Parcelable
 	@SerializedName("minInvestAmounts")
 	private List<ProgramMinInvestAmount> minInvestAmounts = null;
 
+	@SerializedName("periods")
+	private List<Integer> periods = null;
+
+	@SerializedName("createProgramInfo")
+	private ProgramCreateAssetPlatformInfo createProgramInfo = null;
+
 	public ProgramAssetPlatformInfo() {
 	}
 
 	ProgramAssetPlatformInfo(Parcel in) {
-		facets = (List<ProgramFacet>) in.readValue(ProgramFacet.class.getClassLoader());
+		facets = (List<AssetFacet>) in.readValue(AssetFacet.class.getClassLoader());
 		tags = (List<ProgramTag>) in.readValue(ProgramTag.class.getClassLoader());
 		availableProgramCurrencies = (List<String>) in.readValue(null);
 		minInvestAmounts = (List<ProgramMinInvestAmount>) in.readValue(ProgramMinInvestAmount.class.getClassLoader());
+		periods = (List<Integer>) in.readValue(null);
+		createProgramInfo = (ProgramCreateAssetPlatformInfo) in.readValue(ProgramCreateAssetPlatformInfo.class.getClassLoader());
 	}
 
-	public ProgramAssetPlatformInfo facets(List<ProgramFacet> facets) {
+	public ProgramAssetPlatformInfo facets(List<AssetFacet> facets) {
 		this.facets = facets;
 		return this;
 	}
 
-	public ProgramAssetPlatformInfo addFacetsItem(ProgramFacet facetsItem) {
+	public ProgramAssetPlatformInfo addFacetsItem(AssetFacet facetsItem) {
 		if (this.facets == null) {
-			this.facets = new ArrayList<ProgramFacet>();
+			this.facets = new ArrayList<AssetFacet>();
 		}
 		this.facets.add(facetsItem);
 		return this;
@@ -82,11 +89,11 @@ public class ProgramAssetPlatformInfo implements Parcelable
 	 * @return facets
 	 **/
 	@Schema(description = "")
-	public List<ProgramFacet> getFacets() {
+	public List<AssetFacet> getFacets() {
 		return facets;
 	}
 
-	public void setFacets(List<ProgramFacet> facets) {
+	public void setFacets(List<AssetFacet> facets) {
 		this.facets = facets;
 	}
 
@@ -171,6 +178,52 @@ public class ProgramAssetPlatformInfo implements Parcelable
 		this.minInvestAmounts = minInvestAmounts;
 	}
 
+	public ProgramAssetPlatformInfo periods(List<Integer> periods) {
+		this.periods = periods;
+		return this;
+	}
+
+	public ProgramAssetPlatformInfo addPeriodsItem(Integer periodsItem) {
+		if (this.periods == null) {
+			this.periods = new ArrayList<Integer>();
+		}
+		this.periods.add(periodsItem);
+		return this;
+	}
+
+	/**
+	 * Get periods
+	 *
+	 * @return periods
+	 **/
+	@Schema(description = "")
+	public List<Integer> getPeriods() {
+		return periods;
+	}
+
+	public void setPeriods(List<Integer> periods) {
+		this.periods = periods;
+	}
+
+	public ProgramAssetPlatformInfo createProgramInfo(ProgramCreateAssetPlatformInfo createProgramInfo) {
+		this.createProgramInfo = createProgramInfo;
+		return this;
+	}
+
+	/**
+	 * Get createProgramInfo
+	 *
+	 * @return createProgramInfo
+	 **/
+	@Schema(description = "")
+	public ProgramCreateAssetPlatformInfo getCreateProgramInfo() {
+		return createProgramInfo;
+	}
+
+	public void setCreateProgramInfo(ProgramCreateAssetPlatformInfo createProgramInfo) {
+		this.createProgramInfo = createProgramInfo;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -183,12 +236,14 @@ public class ProgramAssetPlatformInfo implements Parcelable
 		return Objects.equals(this.facets, programAssetPlatformInfo.facets) &&
 				Objects.equals(this.tags, programAssetPlatformInfo.tags) &&
 				Objects.equals(this.availableProgramCurrencies, programAssetPlatformInfo.availableProgramCurrencies) &&
-				Objects.equals(this.minInvestAmounts, programAssetPlatformInfo.minInvestAmounts);
+				Objects.equals(this.minInvestAmounts, programAssetPlatformInfo.minInvestAmounts) &&
+				Objects.equals(this.periods, programAssetPlatformInfo.periods) &&
+				Objects.equals(this.createProgramInfo, programAssetPlatformInfo.createProgramInfo);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(facets, tags, availableProgramCurrencies, minInvestAmounts);
+		return Objects.hash(facets, tags, availableProgramCurrencies, minInvestAmounts, periods, createProgramInfo);
 	}
 
 	@Override
@@ -200,6 +255,8 @@ public class ProgramAssetPlatformInfo implements Parcelable
 		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
 		sb.append("    availableProgramCurrencies: ").append(toIndentedString(availableProgramCurrencies)).append("\n");
 		sb.append("    minInvestAmounts: ").append(toIndentedString(minInvestAmounts)).append("\n");
+		sb.append("    periods: ").append(toIndentedString(periods)).append("\n");
+		sb.append("    createProgramInfo: ").append(toIndentedString(createProgramInfo)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -220,6 +277,8 @@ public class ProgramAssetPlatformInfo implements Parcelable
 		out.writeValue(tags);
 		out.writeValue(availableProgramCurrencies);
 		out.writeValue(minInvestAmounts);
+		out.writeValue(periods);
+		out.writeValue(createProgramInfo);
 	}
 
 	public int describeContents() {

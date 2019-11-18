@@ -20,7 +20,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * MoneyLocation
  */
@@ -39,37 +38,41 @@ public class MoneyLocation implements Parcelable
 		}
 	};
 
-	@SerializedName("type")
-	private MoneyLocationType type = null;
+	@SerializedName("name")
+	private MoneyLocationType name = null;
 
 	@SerializedName("percent")
 	private Double percent = null;
+
+	@SerializedName("color")
+	private String color = null;
 
 	public MoneyLocation() {
 	}
 
 	MoneyLocation(Parcel in) {
-		type = (MoneyLocationType) in.readValue(MoneyLocationType.class.getClassLoader());
+		name = (MoneyLocationType) in.readValue(MoneyLocationType.class.getClassLoader());
 		percent = (Double) in.readValue(null);
+		color = (String) in.readValue(null);
 	}
 
-	public MoneyLocation type(MoneyLocationType type) {
-		this.type = type;
+	public MoneyLocation name(MoneyLocationType name) {
+		this.name = name;
 		return this;
 	}
 
 	/**
-	 * Get type
+	 * Get name
 	 *
-	 * @return type
+	 * @return name
 	 **/
 	@Schema(description = "")
-	public MoneyLocationType getType() {
-		return type;
+	public MoneyLocationType getName() {
+		return name;
 	}
 
-	public void setType(MoneyLocationType type) {
-		this.type = type;
+	public void setName(MoneyLocationType name) {
+		this.name = name;
 	}
 
 	public MoneyLocation percent(Double percent) {
@@ -91,6 +94,25 @@ public class MoneyLocation implements Parcelable
 		this.percent = percent;
 	}
 
+	public MoneyLocation color(String color) {
+		this.color = color;
+		return this;
+	}
+
+	/**
+	 * Get color
+	 *
+	 * @return color
+	 **/
+	@Schema(description = "")
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -100,13 +122,14 @@ public class MoneyLocation implements Parcelable
 			return false;
 		}
 		MoneyLocation moneyLocation = (MoneyLocation) o;
-		return Objects.equals(this.type, moneyLocation.type) &&
-				Objects.equals(this.percent, moneyLocation.percent);
+		return Objects.equals(this.name, moneyLocation.name) &&
+				Objects.equals(this.percent, moneyLocation.percent) &&
+				Objects.equals(this.color, moneyLocation.color);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(type, percent);
+		return Objects.hash(name, percent, color);
 	}
 
 	@Override
@@ -114,8 +137,9 @@ public class MoneyLocation implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class MoneyLocation {\n");
 
-		sb.append("    type: ").append(toIndentedString(type)).append("\n");
+		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    percent: ").append(toIndentedString(percent)).append("\n");
+		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -132,8 +156,9 @@ public class MoneyLocation implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(type);
+		out.writeValue(name);
 		out.writeValue(percent);
+		out.writeValue(color);
 	}
 
 	public int describeContents() {
