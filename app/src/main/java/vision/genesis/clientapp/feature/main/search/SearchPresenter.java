@@ -53,6 +53,14 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 		super.onDestroy();
 	}
 
+	void onMaskChanged(String mask) {
+		if (mask != null && !mask.trim().isEmpty() && searchHandler != null) {
+			searchHandler.removeCallbacks(searchRunnable);
+			this.mask = mask;
+			searchHandler.postDelayed(searchRunnable, 200);
+		}
+	}
+
 	void onSearchClicked(String mask) {
 		getViewState().showProgressBar(true);
 		performSearch(mask);
@@ -80,13 +88,5 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 		getViewState().showProgressBar(false);
 
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
-	}
-
-	public void onMaskChanged(String mask) {
-		if (mask != null && !mask.trim().isEmpty() && searchHandler != null) {
-			searchHandler.removeCallbacks(searchRunnable);
-			this.mask = mask;
-			searchHandler.postDelayed(searchRunnable, 200);
-		}
 	}
 }

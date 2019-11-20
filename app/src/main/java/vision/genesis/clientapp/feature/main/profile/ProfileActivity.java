@@ -40,6 +40,7 @@ import vision.genesis.clientapp.feature.common.image_crop.ImageCropActivity;
 import vision.genesis.clientapp.ui.ProfileDataView;
 import vision.genesis.clientapp.ui.SpinnerView;
 import vision.genesis.clientapp.ui.ToolbarView;
+import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.ImageUtils;
 
@@ -339,7 +340,7 @@ public class ProfileActivity extends BaseSwipeBackActivity implements ProfileVie
 
 	@Override
 	public void startImageCropActivity(String imageUri) {
-		ImageCropActivity.startForResult(this, imageUri);
+		ImageCropActivity.startForResult(this, imageUri, Constants.MIN_LOGO_WIDTH, Constants.MIN_LOGO_HEIGHT);
 	}
 
 	@Override
@@ -394,17 +395,17 @@ public class ProfileActivity extends BaseSwipeBackActivity implements ProfileVie
 
 	@OnShowRationale({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void showRationaleForStorage(PermissionRequest request) {
-		showRationaleDialog(getString(R.string.permission_logo_rationale), request);
+		showRationaleDialog(getString(R.string.permission_picture_rationale), request);
 	}
 
 	@OnPermissionDenied({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void onStorageDenied() {
-		showMessageDialog(getString(R.string.permission_logo_denied));
+		showMessageDialog(getString(R.string.permission_picture_denied));
 	}
 
 	@OnNeverAskAgain({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void onStorageNeverAskAgain() {
-		showMessageDialog(getString(R.string.permission_logo_never_ask_again));
+		showMessageDialog(getString(R.string.permission_picture_never_ask_again));
 	}
 
 	@Override

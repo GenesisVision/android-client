@@ -8,13 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.fragment.app.Fragment;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.fragment.app.Fragment;
 import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -110,11 +111,11 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 
 	@OnClick(R.id.sorting)
 	public void onSortingClicked() {
-		SortingDialogFragment bottomSheetDialog = new SortingDialogFragment();
-		bottomSheetDialog.show(getSupportFragmentManager(), bottomSheetDialog.getTag());
-		bottomSheetDialog.setCurrentSorting(currentSortingName, currentSortingDirection);
-		bottomSheetDialog.setAssetType(filter.getType());
-		bottomSheetDialog.setListener(filtersPresenter);
+		SortingDialogFragment dialog = new SortingDialogFragment();
+		dialog.show(getSupportFragmentManager(), dialog.getTag());
+		dialog.setCurrentSorting(currentSortingName, currentSortingDirection);
+		dialog.setAssetType(filter.getType());
+		dialog.setListener(filtersPresenter);
 	}
 
 	@OnClick(R.id.date_range)

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/padding">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/step_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="01"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/step_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="@string/main_settings"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="18sp"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
+
+            <TextView
+                android:id="@+id/deposit_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/template_create_fund_deposit_first_notification"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="12sp"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <ProgressBar
+                android:id="@+id/deposit_notification_progress"
+                android:layout_width="16dp"
+                android:layout_height="16dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="bottom"
+                android:textColor="?attr/colorTextPrimary"
+                android:textColorHint="?attr/colorTextSecondary"
+                app:counterEnabled="true"
+                app:counterMaxLength="20"
+                app:counterOverflowTextAppearance="@style/TextLimitError"
+                app:counterTextAppearance="@style/TextLimitStyle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name"
+                    style="@style/edittext"
+                    android:hint="@string/fund_name"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/name_minimum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/text_input_name"
+                android:layout_marginStart="4dp"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="12sp"
+                tools:text="Minimum 4 symbols"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="bottom"
+                android:minHeight="@dimen/text_input_layout_height"
+                android:textColor="?attr/colorTextPrimary"
+                android:textColorHint="?attr/colorTextSecondary"
+                app:counterEnabled="true"
+                app:counterMaxLength="500"
+                app:counterOverflowTextAppearance="@style/TextLimitError"
+                app:counterTextAppearance="@style/TextLimitStyle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/description"
+                    android:imeOptions="actionDone"
+                    android:inputType="textMultiLine"
+                    android:minHeight="60dp"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="16sp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/description_minimum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/text_input_description"
+                android:layout_marginStart="4dp"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="12sp"
+                tools:text="Minimum 20 symbols"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/fund_logo_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/fund_logo"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/fund_logo_requirements"
+            android:textColor="?attr/colorTextSecondary"
+            android:textSize="12sp"/>
+
+        <RelativeLayout
+            android:id="@+id/group_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <RelativeLayout
+                android:id="@+id/group_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/logo"
+                    android:layout_width="@dimen/logo_upload_size"
+                    android:layout_height="@dimen/logo_upload_size"
+                    app:placeholderImage="?attr/colorCard"
+                    app:roundedCornerRadius="16dp"/>
+
+                <ProgressBar
+                    android:id="@+id/logo_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"/>
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/button_remove_logo"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="-12dp"
+                android:layout_toEndOf="@+id/group_logo"
+                android:background="@drawable/circle_white"
+                android:backgroundTint="?attr/colorAccent"
+                android:padding="4dp"
+                app:srcCompat="@drawable/ic_close_black_24dp"/>
+
+        </RelativeLayout>
+
+        <vision.genesis.clientapp.ui.PrimaryButton
+            android:id="@+id/button_upload_logo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="20dp"
+            android:text="@string/upload_fund_logo"/>
+
+        <vision.genesis.clientapp.ui.PrimaryButton
+            android:id="@+id/button_next"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="32dp"
+            android:text="@string/next"/>
+
+    </LinearLayout>
+
+</ScrollView>

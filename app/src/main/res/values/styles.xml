@@ -85,6 +85,16 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <style name="TextLimitStyle" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">?attr/colorTextSecondary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextLimitError" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">?attr/colorRed</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="item_investment_program_footer_title">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
