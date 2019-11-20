@@ -5,6 +5,8 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
 import io.swagger.client.model.DashboardTradingDetails;
@@ -13,6 +15,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.DashboardManager;
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
@@ -68,6 +71,7 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		initCreateOptions();
 		getViewState().showProgress(true);
 		subscribeToBaseCurrency();
 	}
@@ -90,9 +94,44 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView>
 		super.onDestroy();
 	}
 
+	void onResume() {
+		updateAll();
+	}
+
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
 		updateAll();
+	}
+
+	void onCreatePrivateOptionSelected(Integer position, String optionName) {
+		switch (position) {
+			case 0:
+				getViewState().showCreateTradingAccountActivity();
+				break;
+			case 1:
+				getViewState().showAttachAccountActivity();
+				break;
+		}
+	}
+
+	void onCreatePublicOptionSelected(Integer position, String optionName) {
+		switch (position) {
+			case 0:
+				getViewState().showCreateFundActivity();
+				break;
+		}
+	}
+
+	private void initCreateOptions() {
+		ArrayList<String> createPrivateOptions = new ArrayList<>();
+		ArrayList<String> createPublicOptions = new ArrayList<>();
+
+		createPrivateOptions.add(context.getString(R.string.create_trading_account));
+		createPrivateOptions.add(context.getString(R.string.attach_external_account));
+
+		createPublicOptions.add(context.getString(R.string.create_fund));
+
+		getViewState().setCreateOptions(createPrivateOptions, createPublicOptions);
 	}
 
 	private void subscribeToBaseCurrency() {
@@ -145,22 +184,24 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView>
 	}
 
 	private void getPrivate() {
-		if (privateSubscription != null) {
-			privateSubscription.unsubscribe();
-		}
+		if (dashboardManager != null && baseCurrency != null) {
+			if (privateSubscription != null) {
+				privateSubscription.unsubscribe();
+			}
 
-		privateSubscription = dashboardManager.getPrivate(dateRange, baseCurrency.getValue(), 0, TAKE)
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.newThread())
-				.subscribe(this::handleGetPrivateResponse,
-						this::handleGetPrivateError);
+			privateSubscription = dashboardManager.getPrivate(dateRange, baseCurrency.getValue(), 0, TAKE)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetPrivateResponse,
+							this::handleGetPrivateError);
+		}
 	}
 
 	private void handleGetPrivateResponse(ItemsViewModelDashboardTradingAsset response) {
 		privateSubscription.unsubscribe();
 		getViewState().hidePrivateProgress();
-		getViewState().setPrivateCount(response.getTotal());
 
+		getViewState().setPrivateCount(response.getTotal());
 		getViewState().setPrivate(response.getItems());
 	}
 
@@ -173,21 +214,24 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView>
 	}
 
 	private void getPublic() {
-		if (publicSubscription != null) {
-			publicSubscription.unsubscribe();
-		}
+		if (dashboardManager != null && baseCurrency != null) {
+			if (publicSubscription != null) {
+				publicSubscription.unsubscribe();
+			}
 
-		publicSubscription = dashboardManager.getPublic(dateRange, baseCurrency.getValue(), 0, TAKE)
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.newThread())
-				.subscribe(this::handleGetPublicResponse,
-						this::handleGetPublicError);
+			publicSubscription = dashboardManager.getPublic(dateRange, baseCurrency.getValue(), 0, TAKE)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetPublicResponse,
+							this::handleGetPublicError);
+		}
 	}
 
 	private void handleGetPublicResponse(ItemsViewModelDashboardTradingAsset response) {
 		publicSubscription.unsubscribe();
 		getViewState().hidePublicProgress();
 
+		getViewState().setPublicCount(response.getTotal());
 		getViewState().setPublic(response.getItems());
 	}
 

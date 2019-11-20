@@ -12,12 +12,16 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.AmountWithCurrency;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.NewFundRequest;
+import io.swagger.client.model.PlatformInfo;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.FundsManager;
+import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.events.OnCreateFundCreateButtonClickedEvent;
 import vision.genesis.clientapp.model.events.OnCreateFundNextButtonClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -34,11 +38,14 @@ public class CreateFundPresenter extends MvpPresenter<CreateFundView>
 	public Context context;
 
 	@Inject
+	public SettingsManager settingsManager;
+
+	@Inject
 	public FundsManager fundsManager;
 
 	private NewFundRequest request = new NewFundRequest();
 
-	private Subscription minDepositAmountSubscription;
+	private Subscription platformInfoSubscription;
 
 	private Subscription createFundSubscription;
 
@@ -53,13 +60,13 @@ public class CreateFundPresenter extends MvpPresenter<CreateFundView>
 		request.setAssets(new ArrayList<>());
 		getViewState().setRequestObjectToFragments(request);
 
-		getMinDepositAmount();
+		getPlatformInfo();
 	}
 
 	@Override
 	public void onDestroy() {
-		if (minDepositAmountSubscription != null) {
-			minDepositAmountSubscription.unsubscribe();
+		if (platformInfoSubscription != null) {
+			platformInfoSubscription.unsubscribe();
 		}
 		if (createFundSubscription != null) {
 			createFundSubscription.unsubscribe();
@@ -70,21 +77,29 @@ public class CreateFundPresenter extends MvpPresenter<CreateFundView>
 		super.onDestroy();
 	}
 
-	private void getMinDepositAmount() {
-		minDepositAmountSubscription = fundsManager.getMinDepositAmountToCreate()
-				.subscribeOn(Schedulers.io())
+	private void getPlatformInfo() {
+		platformInfoSubscription = settingsManager.getPlatformInfo()
 				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::handleGetMinDepositAmountSuccess,
-						this::handleGetMinDepositAmountError);
+				.subscribeOn(Schedulers.newThread())
+				.subscribe(this::handleGetPlatformInfoSuccess,
+						this::handleGetPlatformInfoError);
 	}
 
-	private void handleGetMinDepositAmountSuccess(Double minDepositAmount) {
-		minDepositAmountSubscription.unsubscribe();
-		getViewState().setMinDepositAmount(minDepositAmount);
+	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
+		platformInfoSubscription.unsubscribe();
+		Double minDeposit = 0.0;
+		for (AmountWithCurrency info : platformInfo.getAssetInfo().getFundInfo().getMinInvestAmountIntoFund()) {
+			if (info.getCurrency().equals(Currency.GVT)) {
+				minDeposit = info.getAmount();
+				break;
+			}
+		}
+		getViewState().setMinDepositAmount(minDeposit);
 	}
 
-	private void handleGetMinDepositAmountError(Throwable throwable) {
-		minDepositAmountSubscription.unsubscribe();
+	private void handleGetPlatformInfoError(Throwable throwable) {
+		platformInfoSubscription.unsubscribe();
+
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
 

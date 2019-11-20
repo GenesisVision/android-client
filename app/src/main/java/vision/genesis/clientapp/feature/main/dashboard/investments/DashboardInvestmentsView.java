@@ -74,8 +74,8 @@ public class DashboardInvestmentsView extends RelativeLayout
 	@BindView(R.id.funds_label)
 	public TextView fundsLabel;
 
-	@BindView(R.id.label_events)
-	public TextView eventsLabel;
+//	@BindView(R.id.label_events)
+//	public TextView eventsLabel;
 
 	@BindView(R.id.group_events)
 	public ViewGroup eventsGroup;
@@ -93,8 +93,8 @@ public class DashboardInvestmentsView extends RelativeLayout
 	@BindView(R.id.group_programs_funds)
 	public ViewGroup programsFundsGroup;
 
-	@BindView(R.id.group_events_header)
-	public ViewGroup eventsHeaderGroup;
+//	@BindView(R.id.group_events_header)
+//	public ViewGroup eventsHeaderGroup;
 
 	@BindView(R.id.scroll_view_events)
 	public HorizontalScrollView eventsScrollView;
@@ -156,7 +156,7 @@ public class DashboardInvestmentsView extends RelativeLayout
 		funds.setTypeface(TypefaceUtil.semibold());
 		equity.setTypeface(TypefaceUtil.semibold());
 		sharePercent.setTypeface(TypefaceUtil.semibold());
-		eventsLabel.setTypeface(TypefaceUtil.semibold());
+//		eventsLabel.setTypeface(TypefaceUtil.semibold());
 
 		programsLabel.setText(getContext().getString(R.string.programs).toLowerCase());
 		fundsLabel.setText(getContext().getString(R.string.funds).toLowerCase());
@@ -202,7 +202,7 @@ public class DashboardInvestmentsView extends RelativeLayout
 		equityGroup.setVisibility(View.VISIBLE);
 		shareGroup.setVisibility(View.VISIBLE);
 		programsFundsGroup.setVisibility(View.VISIBLE);
-		eventsHeaderGroup.setVisibility(View.VISIBLE);
+//		eventsHeaderGroup.setVisibility(View.VISIBLE);
 		eventsScrollView.setVisibility(View.VISIBLE);
 	}
 

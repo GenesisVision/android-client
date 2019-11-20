@@ -92,6 +92,10 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 		super.onDestroy();
 	}
 
+	void onResume() {
+		updateAll();
+	}
+
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
 		updateAll();

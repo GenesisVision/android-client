@@ -6,7 +6,7 @@
                 android:layout_height="@dimen/dashboard_portfolio_events_height"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/program_list_item_background"
-                android:padding="@dimen/dashboard_padding">
+                android:padding="16dp">
 
     <LinearLayout
         android:id="@+id/group_top"
@@ -58,8 +58,8 @@
                 android:layout_height="wrap_content"
                 android:lines="1"
                 android:textColor="?attr/colorGreen"
-                android:textSize="16sp"
-                tools:text="+42.1294 GVT"/>
+                android:textSize="14sp"
+                tools:text="+942.12345678 GVT"/>
 
             <TextView
                 android:id="@+id/value_label"
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:lines="1"
                 android:textColor="?attr/colorTextSecondary"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 tools:text="Balance"/>
 
         </LinearLayout>
@@ -79,11 +79,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/group_top"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:maxLines="2"
         android:textColor="?attr/colorTextPrimary"
-        android:textSize="16sp"
+        android:textSize="14sp"
         tools:text="BlockChainTrader invest request added"/>
 
     <TextView
@@ -93,7 +93,7 @@
         android:layout_alignParentBottom="true"
         android:alpha="0.3"
         android:textColor="?attr/colorTextPrimary"
-        android:textSize="14sp"
+        android:textSize="12sp"
         tools:text="1 aug 2018, 10:30am"/>
 
 </RelativeLayout>

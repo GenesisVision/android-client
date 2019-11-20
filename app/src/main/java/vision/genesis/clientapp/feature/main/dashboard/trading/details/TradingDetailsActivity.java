@@ -13,6 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -25,6 +26,8 @@ import io.swagger.client.model.DashboardTradingDetails;
 import io.swagger.client.model.InvestmentEventViewModel;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.fund.create.CreateFundActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.ui.PortfolioEventDashboardView;
 import vision.genesis.clientapp.ui.TradingAssetDashboardShortView;
@@ -132,9 +135,49 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 
 	private DashboardTradingDetails details;
 
+	private ArrayList<String> createPrivateOptions;
+
+	private ArrayList<String> createPublicOptions;
+
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
+	}
+
+	@OnClick(R.id.button_create_trading_account)
+	public void onCreateTradingAccountClicked() {
+		showCreateTradingAccountActivity();
+	}
+
+	@OnClick(R.id.button_attach_external_account)
+	public void onAttachExternalAccountClicked() {
+		showAttachAccountActivity();
+	}
+
+	@OnClick(R.id.button_create_fund)
+	public void onCreateFundClicked() {
+		showCreateFundActivity();
+	}
+
+	@OnClick(R.id.button_create_private)
+	public void onCreatePrivateClicked() {
+		if (createPrivateOptions != null) {
+			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+					"", createPrivateOptions, -1);
+			fragment.setListener((position, text) -> presenter.onCreatePrivateOptionSelected(position, text));
+			fragment.show(getSupportFragmentManager(), fragment.getTag());
+		}
+	}
+
+
+	@OnClick(R.id.button_create_public)
+	public void onCreatePublicClicked() {
+		if (createPublicOptions != null) {
+			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+					"", createPublicOptions, -1);
+			fragment.setListener((position, text) -> presenter.onCreatePublicOptionSelected(position, text));
+			fragment.show(getSupportFragmentManager(), fragment.getTag());
+		}
 	}
 
 	@Override
@@ -191,8 +234,20 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		presenter.onResume();
+	}
+
+	@Override
 	public void onBackPressed() {
 		finishActivity();
+	}
+
+	@Override
+	public void setCreateOptions(ArrayList<String> createPrivateOptions, ArrayList<String> createPublicOptions) {
+		this.createPrivateOptions = createPrivateOptions;
+		this.createPublicOptions = createPublicOptions;
 	}
 
 	@Override
@@ -255,10 +310,15 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 	public void setPublic(List<DashboardTradingAsset> items) {
 		if (baseCurrency != null) {
 			publicAssetsGroup.removeAllViews();
+			int index = 0;
 			for (DashboardTradingAsset asset : items) {
 				TradingAssetDashboardShortView assetView = new TradingAssetDashboardShortView(this);
 				assetView.setData(asset, baseCurrency.getValue());
 				publicAssetsGroup.addView(assetView);
+				if (index == items.size() - 1) {
+					assetView.removeDelimiter();
+				}
+				index++;
 			}
 			showPublicEmpty(items.isEmpty());
 		}
@@ -282,7 +342,7 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 	public void setPublicCount(int count) {
 		if (count > 0) {
 			publicActionsGroup.setVisibility(View.VISIBLE);
-			privateCount.setText(String.valueOf(count));
+			publicCount.setText(String.valueOf(count));
 			hidePublicProgress();
 		}
 	}
@@ -295,6 +355,21 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 	@Override
 	public void hidePublicProgress() {
 		publicProgressBar.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void showCreateTradingAccountActivity() {
+
+	}
+
+	@Override
+	public void showAttachAccountActivity() {
+
+	}
+
+	@Override
+	public void showCreateFundActivity() {
+		CreateFundActivity.startFrom(this);
 	}
 
 	@Override

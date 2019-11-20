@@ -88,7 +88,7 @@ public class CreateFundAssetsPresenter extends MvpPresenter<CreateFundAssetsView
 
 	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
 		platformInfoSubscription.unsubscribe();
-		assets = platformInfo.getEnums().getFund().getAssets();
+		assets = platformInfo.getAssetInfo().getFundInfo().getAssets();
 
 		List<PlatformAsset> mandatoryAssets = new ArrayList<>();
 		for (PlatformAsset asset : assets) {

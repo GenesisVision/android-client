@@ -7,13 +7,14 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
@@ -100,6 +101,9 @@ public class SelectOptionBottomSheetFragment extends BottomSheetDialogFragment
 
 	private void setData(String title, @NonNull List<String> options, @NonNull Integer selectedPosition) {
 		this.title.setText(title);
+		if (title == null || title.isEmpty()) {
+			this.title.setVisibility(View.GONE);
+		}
 		Integer position = 0;
 		for (String option : options) {
 			optionsGroup.addView(createOptionView(option, position, position.equals(selectedPosition)));
@@ -111,15 +115,17 @@ public class SelectOptionBottomSheetFragment extends BottomSheetDialogFragment
 		OptionView view = new OptionView(getContext());
 		view.setData(option);
 		view.setSelected(isSelected);
-		if (isSelected)
+		if (isSelected) {
 			selectedOption = view;
+		}
 		view.setOnClickListener(v -> selectOption(view, position, option));
 		return view;
 	}
 
 	private void selectOption(OptionView newOption, Integer position, String option) {
-		if (selectedOption != null)
+		if (selectedOption != null) {
 			selectedOption.setSelected(false);
+		}
 		newOption.setSelected(true);
 
 		listener.onOptionSelected(position, option);

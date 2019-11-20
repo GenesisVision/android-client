@@ -103,7 +103,7 @@ public class AddAssetPresenter extends MvpPresenter<AddAssetView>
 	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
 		platformInfoSubscription.unsubscribe();
 		getViewState().showProgress(false);
-		allAssets = platformInfo.getEnums().getFund().getAssets();
+		allAssets = platformInfo.getAssetInfo().getFundInfo().getAssets();
 		getViewState().setAssets(allAssets);
 	}
 

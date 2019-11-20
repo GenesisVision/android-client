@@ -68,8 +68,8 @@ public class DashboardTradingView extends RelativeLayout
 	@BindView(R.id.aum_label)
 	public TextView aumLabel;
 
-	@BindView(R.id.label_events)
-	public TextView eventsLabel;
+//	@BindView(R.id.label_events)
+//	public TextView eventsLabel;
 
 	@BindView(R.id.group_events)
 	public ViewGroup eventsGroup;
@@ -87,8 +87,8 @@ public class DashboardTradingView extends RelativeLayout
 	@BindView(R.id.group_values)
 	public ViewGroup valuesGroup;
 
-	@BindView(R.id.group_events_header)
-	public ViewGroup eventsHeaderGroup;
+//	@BindView(R.id.group_events_header)
+//	public ViewGroup eventsHeaderGroup;
 
 	@BindView(R.id.scroll_view_events)
 	public HorizontalScrollView eventsScrollView;
@@ -149,7 +149,7 @@ public class DashboardTradingView extends RelativeLayout
 		aum.setTypeface(TypefaceUtil.semibold());
 		equity.setTypeface(TypefaceUtil.semibold());
 		sharePercent.setTypeface(TypefaceUtil.semibold());
-		eventsLabel.setTypeface(TypefaceUtil.semibold());
+//		eventsLabel.setTypeface(TypefaceUtil.semibold());
 	}
 
 	public void update() {
@@ -191,7 +191,7 @@ public class DashboardTradingView extends RelativeLayout
 		equityGroup.setVisibility(View.VISIBLE);
 		shareGroup.setVisibility(View.VISIBLE);
 		valuesGroup.setVisibility(View.VISIBLE);
-		eventsHeaderGroup.setVisibility(View.VISIBLE);
+//		eventsHeaderGroup.setVisibility(View.VISIBLE);
 		eventsScrollView.setVisibility(View.VISIBLE);
 	}
 

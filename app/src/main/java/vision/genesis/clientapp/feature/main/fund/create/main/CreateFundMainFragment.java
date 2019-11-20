@@ -40,7 +40,7 @@ import rx.Subscription;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.main.profile.ImageCropActivity;
+import vision.genesis.clientapp.feature.common.image_crop.ImageCropActivity;
 import vision.genesis.clientapp.feature.main.profile.PictureChooserBottomSheetFragment;
 import vision.genesis.clientapp.model.events.OnCreateFundNextButtonClickedEvent;
 import vision.genesis.clientapp.ui.PrimaryButton;

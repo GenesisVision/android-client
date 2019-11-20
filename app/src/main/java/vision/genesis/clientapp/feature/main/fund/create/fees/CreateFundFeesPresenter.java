@@ -5,9 +5,9 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.FundCreateAssetPlatformInfo;
 import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.PlatformInfo;
-import io.swagger.client.model.ProgramsInfo;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -110,9 +110,9 @@ public class CreateFundFeesPresenter extends MvpPresenter<CreateFundFeesView>
 
 	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
 		platformInfoSubscription.unsubscribe();
-		ProgramsInfo info = platformInfo.getProgramsInfo();
-		maxEntryFee = info.getManagerMaxEntryFee();
-		maxExitFee = info.getManagerMaxExitFee();
+		FundCreateAssetPlatformInfo info = platformInfo.getAssetInfo().getFundInfo().getCreateFundInfo();
+		maxEntryFee = info.getMaxEntryFee();
+		maxExitFee = info.getMaxExitFee();
 		getViewState().updateEntryFeeDescription(maxEntryFee);
 		getViewState().updateExitFeeDescription(maxExitFee);
 	}

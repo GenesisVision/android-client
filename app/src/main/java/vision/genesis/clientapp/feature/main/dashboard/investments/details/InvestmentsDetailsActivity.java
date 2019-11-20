@@ -187,6 +187,12 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 		super.onDestroy();
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		presenter.onResume();
+	}
+
 	private void finishActivity() {
 		finish();
 		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);

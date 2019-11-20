@@ -4,6 +4,7 @@ import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.swagger.client.model.DashboardTradingAsset;
@@ -18,6 +19,8 @@ import vision.genesis.clientapp.model.CurrencyEnum;
 
 interface TradingDetailsView extends MvpView
 {
+	void setCreateOptions(ArrayList<String> createPrivateOptions, ArrayList<String> createPublicOptions);
+
 	void setBaseCurrency(CurrencyEnum baseCurrency);
 
 	void setTrading(DashboardTradingDetails details);
@@ -35,6 +38,12 @@ interface TradingDetailsView extends MvpView
 	void hidePrivateProgress();
 
 	void hidePublicProgress();
+
+	void showCreateTradingAccountActivity();
+
+	void showAttachAccountActivity();
+
+	void showCreateFundActivity();
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);

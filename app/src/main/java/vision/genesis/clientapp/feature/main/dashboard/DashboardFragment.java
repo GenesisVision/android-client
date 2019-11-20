@@ -88,7 +88,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	@BindView(R.id.notifications_dot)
 	public View notificationsDot;
 
-	@BindView(R.id.progress_bar)
+	@BindView(R.id.dashboard_progress_bar)
 	public ProgressBar progressBar;
 
 	@InjectPresenter

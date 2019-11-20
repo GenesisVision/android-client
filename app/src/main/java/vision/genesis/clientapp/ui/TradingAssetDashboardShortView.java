@@ -2,6 +2,9 @@ package vision.genesis.clientapp.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -11,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.swagger.client.model.DashboardTradingAsset;
+import io.swagger.client.model.DashboardTradingAssetStatus;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -34,6 +38,21 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 
 	@BindView(R.id.change)
 	public TextView change;
+
+	@BindView(R.id.status)
+	public TextView status;
+
+	@BindView(R.id.status_progress)
+	public ProgressBar statusProgress;
+
+	@BindView(R.id.group_value)
+	public ViewGroup valueGroup;
+
+	@BindView(R.id.group_status)
+	public ViewGroup statusGroup;
+
+	@BindView(R.id.delimiter)
+	public View delimiter;
 
 	private Unbinder unbinder;
 
@@ -89,8 +108,26 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 		double value = Math.random() * 100;
 		double change = asset.getStatistic().getProfit();
 
-		this.value.setText(StringFormatUtil.getValueString(asset.getAccountInfo().getBalance(), asset.getAccountInfo().getCurrency().getValue()));
-		updateChangeText(value, change);
+		if (asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.ACTIVE)) {
+			this.value.setText(StringFormatUtil.getValueString(asset.getAccountInfo().getBalance(), asset.getAccountInfo().getCurrency().getValue()));
+			updateChangeText(value, change);
+			valueGroup.setVisibility(ViewGroup.VISIBLE);
+			statusGroup.setVisibility(ViewGroup.GONE);
+		}
+		else {
+			if ((asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.PENDING))) {
+				this.status.setText(getContext().getString(R.string.pending));
+				this.status.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorPending));
+				this.statusProgress.setVisibility(View.VISIBLE);
+			}
+			else if ((asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.DISABLED))) {
+				this.status.setText(getContext().getString(R.string.disabled));
+				this.status.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed));
+				this.statusProgress.setVisibility(View.GONE);
+			}
+			statusGroup.setVisibility(ViewGroup.VISIBLE);
+			valueGroup.setVisibility(ViewGroup.GONE);
+		}
 	}
 
 	private void updateChangeText(double value, double profit) {
@@ -106,5 +143,9 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 						: profit < 0
 						? R.attr.colorRed
 						: R.attr.colorTextPrimary));
+	}
+
+	public void removeDelimiter() {
+		delimiter.setVisibility(View.INVISIBLE);
 	}
 }

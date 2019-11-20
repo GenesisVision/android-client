@@ -1,6 +1,6 @@
 package vision.genesis.clientapp.feature.main.fund.create;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -28,9 +28,10 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class CreateFundActivity extends BaseSwipeBackActivity implements CreateFundView
 {
-	public static void startFrom(Context context) {
-		Intent activityIntent = new Intent(context, CreateFundActivity.class);
-		context.startActivity(activityIntent);
+	public static void startFrom(Activity activity) {
+		Intent intent = new Intent(activity.getApplicationContext(), CreateFundActivity.class);
+		activity.startActivity(intent);
+		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
 
 	@BindView(R.id.title)
