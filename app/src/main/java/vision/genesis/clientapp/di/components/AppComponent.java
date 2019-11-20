@@ -31,11 +31,13 @@ import vision.genesis.clientapp.feature.main.copytrading.trading_log.TradingLogP
 import vision.genesis.clientapp.feature.main.copytrading.unfollow_trades.UnfollowTradesPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.investments.DashboardInvestmentsView;
+import vision.genesis.clientapp.feature.main.dashboard.investments.details.InvestmentsDetailsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.old.investor.copytrading.DashboardCopytradingPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.old.investor.funds.DashboardFundsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.old.investor.header.InvestorDashboardHeaderPortfolioPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.old.investor.programs.DashboardProgramsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.trading.DashboardTradingView;
+import vision.genesis.clientapp.feature.main.dashboard.trading.details.TradingDetailsPresenter;
 import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsPresenter;
 import vision.genesis.clientapp.feature.main.fund.balance.FundBalancePresenter;
@@ -287,4 +289,8 @@ public interface AppComponent
 	void inject(DashboardInvestmentsView dashboardInvestmentsView);
 
 	void inject(DashboardTradingView dashboardTradingView);
+
+	void inject(InvestmentsDetailsPresenter investmentsDetailsPresenter);
+
+	void inject(TradingDetailsPresenter tradingDetailsPresenter);
 }

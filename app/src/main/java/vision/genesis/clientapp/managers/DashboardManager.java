@@ -9,7 +9,9 @@ import io.swagger.client.model.DashboardInvestingDetails;
 import io.swagger.client.model.DashboardSummary;
 import io.swagger.client.model.DashboardTradingDetails;
 import io.swagger.client.model.ItemsViewModelAssetInvestmentRequest;
+import io.swagger.client.model.ItemsViewModelDashboardTradingAsset;
 import rx.Observable;
+import vision.genesis.clientapp.model.DateRange;
 
 /**
  * GenesisVisionAndroid
@@ -46,11 +48,17 @@ public class DashboardManager
 		return investmentsApi.getRequestsByProgram(assetId, 0, 100, AuthManager.token.getValue());
 	}
 
-//	public Observable<ItemsViewModelCopyTradingAccountInfo> getSignalProviders(DashboardFilter filter) {
-//		return copytradingApi.getSignalAssets(AuthManager.token.getValue(), null,
-//				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
-//				filter.getChartPointsCount(), null,
-//				null, null,
-//				filter.getSkip(), filter.getTake());
-//	}
+	public Observable<ItemsViewModelDashboardTradingAsset> getPrivate(DateRange dateRange, String baseCurrency, int skip, int take) {
+		return dashboardApi.getPrivateTradingAssets(AuthManager.token.getValue(),
+				dateRange != null ? dateRange.getFrom() : null, dateRange != null ? dateRange.getTo() : null,
+				10, baseCurrency, null,
+				skip, take);
+	}
+
+	public Observable<ItemsViewModelDashboardTradingAsset> getPublic(DateRange dateRange, String baseCurrency, int skip, int take) {
+		return dashboardApi.getPublicTradingAssets(AuthManager.token.getValue(),
+				dateRange != null ? dateRange.getFrom() : null, dateRange != null ? dateRange.getTo() : null,
+				10, baseCurrency, null,
+				skip, take);
+	}
 }

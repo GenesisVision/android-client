@@ -138,4 +138,6 @@
     <dimen name="view_fund_asset_allocation_height">40dp</dimen>
     <dimen name="view_fund_asset_allocation_margin">8dp</dimen>
     <dimen name="view_additional_count_width">48dp</dimen>
+
+    <dimen name="item_dashboard_short_program_height">70dp</dimen>
 </resources>

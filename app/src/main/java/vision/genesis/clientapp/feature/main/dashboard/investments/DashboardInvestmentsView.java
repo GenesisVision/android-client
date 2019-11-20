@@ -29,6 +29,7 @@ import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.ui.PortfolioEventDashboardView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -208,11 +209,17 @@ public class DashboardInvestmentsView extends RelativeLayout
 	private void updateChangeText() {
 		double profit = 120756.45;
 		double profitPercent = 12.87;
-		String sign = profit > 0 ? "+" : profit < 0 ? "-" : "";
+		String sign = profit > 0 ? "+" : "";
 		change.setText(String.format(Locale.getDefault(), "%s%s (%s%%)",
 				sign,
 				StringFormatUtil.getValueString(profit, baseCurrency.getValue()),
-				profitPercent));
+				StringFormatUtil.formatAmount(profitPercent, 0, 2)));
+		this.change.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
+				profitPercent > 0
+						? R.attr.colorGreen
+						: profitPercent < 0
+						? R.attr.colorRed
+						: R.attr.colorTextPrimary));
 	}
 
 	private void setEvents(List<InvestmentEventViewModel> events) {

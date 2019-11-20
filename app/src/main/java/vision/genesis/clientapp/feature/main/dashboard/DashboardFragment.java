@@ -27,7 +27,9 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.dashboard.investments.DashboardInvestmentsView;
+import vision.genesis.clientapp.feature.main.dashboard.investments.details.InvestmentsDetailsActivity;
 import vision.genesis.clientapp.feature.main.dashboard.trading.DashboardTradingView;
+import vision.genesis.clientapp.feature.main.dashboard.trading.details.TradingDetailsActivity;
 import vision.genesis.clientapp.feature.main.notifications.NotificationsActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -96,6 +98,20 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 
 	private CurrencyEnum baseCurrency;
 
+	@OnClick(R.id.investments_view)
+	public void onInvestmentsClicked() {
+		if (getActivity() != null) {
+			InvestmentsDetailsActivity.startWith(getActivity());
+		}
+	}
+
+	@OnClick(R.id.trading_view)
+	public void onTradingClicked() {
+		if (getActivity() != null) {
+			TradingDetailsActivity.startWith(getActivity());
+		}
+	}
+
 //	private AppBarLayout.OnOffsetChangedListener appBarLayoutOffsetChangedListener = new AppBarLayout.OnOffsetChangedListener()
 //	{
 //		Integer previousOffset;
@@ -110,7 +126,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 //	};
 
 //	private Boolean assetsBottomSheetShowing = false;
-
 
 	@OnClick(R.id.group_notifications)
 	public void onNotificationsClicked() {

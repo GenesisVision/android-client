@@ -691,6 +691,14 @@
     <string name="investments">Investments</string>
     <string name="trading">Trading</string>
     <string name="aum">AUM</string>
+    <string name="public_title">Public</string>
+    <string name="private_title">Private</string>
+    <string name="private_assets_empty_text">You have no trading accounts yet. Let\'s fix this.</string>
+    <string name="public_assets_empty_text">You have no public assets yet. You can make one of your private accounts a program or a GV Follow.\n Or you can create your own GV Fund.</string>
+    <string name="create_fund">Create GV Fund</string>
+    <string name="create_trading_account">Create trading account</string>
+    <string name="attach_external_account">Attach external account</string>
+    <string name="or">or</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

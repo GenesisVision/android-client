@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorBackgroundDark">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="?attr/colorBackground">
+
+        <ImageView
+            android:id="@+id/button_back"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="20dp"
+            android:tint="?attr/colorTextPrimary"
+            app:srcCompat="@drawable/icon_back"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/investments"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="100dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/colorBackground"
+                    android:paddingBottom="@dimen/dashboard_padding">
+
+                    <TextView
+                        android:id="@+id/total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="6dp"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textSize="30sp"
+                        tools:text="$1 861 150.46"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total"
+                        android:layout_marginStart="@dimen/dashboard_padding"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="@dimen/dashboard_padding"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/profit_day_value"
+                                style="@style/dashboard_top_profits_value"
+                                tools:text="-0.24%"
+                                tools:textColor="?attr/colorRed"/>
+
+                            <TextView
+                                android:id="@+id/profit_day_label"
+                                style="@style/dashboard_top_profits_label"
+                                android:text="@string/day"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/profit_week_value"
+                                style="@style/dashboard_top_profits_value"
+                                tools:text="0.64%"
+                                tools:textColor="?attr/colorGreen"/>
+
+                            <TextView
+                                android:id="@+id/profit_week_label"
+                                style="@style/dashboard_top_profits_label"
+                                android:text="@string/week"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/profit_month_value"
+                                style="@style/dashboard_top_profits_value"
+                                tools:text="1.53%"
+                                tools:textColor="?attr/colorGreen"/>
+
+                            <TextView
+                                android:id="@+id/profit_month_label"
+                                style="@style/dashboard_top_profits_label"
+                                android:text="@string/month"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/group_events"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="?attr/colorBackground"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/group_events_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:paddingLeft="@dimen/dashboard_padding"
+                        android:paddingRight="@dimen/dashboard_padding">
+
+                        <TextView
+                            android:id="@+id/label_events"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/events"
+                            android:textColor="?attr/colorTextPrimary"
+                            android:textSize="16sp"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:tint="?attr/colorTextPrimary"
+                            app:srcCompat="@drawable/ic_chevron_right_black_24dp"/>
+
+                    </RelativeLayout>
+
+                    <HorizontalScrollView
+                        android:id="@+id/scroll_view_events"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:clipToPadding="false"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:id="@+id/events"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"/>
+
+                    </HorizontalScrollView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/group_programs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="?attr/colorBackground"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp">
+
+                        <TextView
+                            android:id="@+id/label_programs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/programs"
+                            android:textColor="?attr/colorTextPrimary"
+                            android:textSize="16sp"/>
+
+                        <RelativeLayout
+                            android:id="@+id/programs_count_background"
+                            android:layout_width="wrap_content"
+                            android:layout_height="24dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="16dp"
+                            android:layout_toEndOf="@+id/label_programs"
+                            android:background="@drawable/background_count_active"
+                            android:visibility="gone"
+                            tools:visibility="visible">
+
+                            <TextView
+                                android:id="@+id/programs_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:paddingStart="6dp"
+                                android:paddingEnd="6dp"
+                                android:textColor="?attr/colorAccent"
+                                android:textSize="16sp"
+                                tools:text="28"/>
+
+                        </RelativeLayout>
+
+                        <ProgressBar
+                            android:id="@+id/programs_progress_bar"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="16dp"
+                            android:layout_toEndOf="@+id/label_programs"
+                            android:indeterminate="true"/>
+
+                        <ImageView
+                            android:id="@+id/programs_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:tint="?attr/colorTextPrimary"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/ic_chevron_right_black_24dp"
+                            tools:visibility="visible"/>
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/programs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/group_funds"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="?attr/colorBackground"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp">
+
+                        <TextView
+                            android:id="@+id/label_funds"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/funds"
+                            android:textColor="?attr/colorTextPrimary"
+                            android:textSize="16sp"/>
+
+                        <RelativeLayout
+                            android:id="@+id/funds_count_background"
+                            android:layout_width="wrap_content"
+                            android:layout_height="24dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="16dp"
+                            android:layout_toEndOf="@+id/label_funds"
+                            android:background="@drawable/background_count_active"
+                            android:visibility="gone"
+                            tools:visibility="visible">
+
+                            <TextView
+                                android:id="@+id/funds_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:paddingStart="6dp"
+                                android:paddingEnd="6dp"
+                                android:textColor="?attr/colorAccent"
+                                android:textSize="16sp"
+                                tools:text="12"/>
+
+                        </RelativeLayout>
+
+                        <ProgressBar
+                            android:id="@+id/funds_progress_bar"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="16dp"
+                            android:layout_toEndOf="@+id/label_funds"
+                            android:indeterminate="true"
+                            android:visibility="visible"/>
+
+                        <ImageView
+                            android:id="@+id/funds_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:tint="?attr/colorTextPrimary"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/ic_chevron_right_black_24dp"
+                            tools:visibility="visible"/>
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/funds"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/toolbar"
+        android:indeterminate="true"
+        android:scaleY="4"
+        android:visibility="invisible"/>
+
+</RelativeLayout>

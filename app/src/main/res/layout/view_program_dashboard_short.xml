@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_dashboard_short_program_height"
+                android:background="?attr/selectableItemBackground">
+
+    <vision.genesis.clientapp.ui.ProgramLogoView
+        android:id="@+id/program_logo"
+        android:layout_width="70dp"
+        android:layout_height="45dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_toStartOf="@+id/group_value"
+        android:layout_toEndOf="@+id/program_logo"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/program_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.9"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="14sp"
+            tools:text="Janus Capital Group"/>
+
+        <vision.genesis.clientapp.ui.PeriodLeftShortView
+            android:id="@+id/time_left"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="2dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/group_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="end"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="14sp"
+            tools:text="100.12345678 BTC"/>
+
+        <TextView
+            android:id="@+id/change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="?attr/colorGreen"
+            android:textSize="12sp"
+            tools:text="+ 12.12345678 BTC (12.54%)"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="80dp"
+        android:alpha="0.05"
+        android:background="?attr/colorTextPrimary"/>
+
+</RelativeLayout>
