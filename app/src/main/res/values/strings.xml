@@ -677,7 +677,7 @@
     <string name="no_periods_for_selected_period">No program periods for the selected period.</string>
     <string name="no_reallocates_for_selected_period">No reallocates for the selected period.</string>
     <string name="reallocate_history">Reallocate history</string>
-    <string name="social_link_no_app_error">Cannot find an appropriate application on the device to open this link</string>
+    <string name="error_cannot_open_link">Cannot find an appropriate application on the device to open this link</string>
     <string name="planned">Planned</string>
     <string name="closed">Closed</string>
     <string name="period_number">Period number</string>
@@ -724,6 +724,11 @@
     <string name="attach_external_account">Attach external account</string>
     <string name="or">or</string>
     <string name="disabled">Disabled</string>
+    <string name="select_broker">Select broker</string>
+    <string name="account_type">Account type</string>
+    <string name="trading_platform">Trading platform</string>
+    <string name="read_terms">Read Terms</string>
+    <string name="template_create_trading_account_deposit_notification">You must deposit at least the equivalent of %s to create a trading account.</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

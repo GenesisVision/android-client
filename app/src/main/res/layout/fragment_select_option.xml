@@ -14,29 +14,37 @@
             android:layout_width="45dp"
             android:layout_height="3dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/line_bottomsheet"/>
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
             android:paddingLeft="24dp"
             android:paddingRight="24dp"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="18sp"
             tools:text="@string/select_wallet"/>
 
-        <LinearLayout
-            android:id="@+id/group_options"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="8dp"
-            android:orientation="vertical"/>
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="true"
+            android:paddingBottom="20dp">
+
+            <LinearLayout
+                android:id="@+id/group_options"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"/>
+
+        </ScrollView>
 
     </LinearLayout>
 

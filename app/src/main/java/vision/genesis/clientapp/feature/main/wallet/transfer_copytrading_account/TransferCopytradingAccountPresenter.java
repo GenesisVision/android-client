@@ -123,7 +123,7 @@ public class TransferCopytradingAccountPresenter extends MvpPresenter<TransferCo
 				return;
 			}
 
-			updateRate();
+//			updateRate();
 			updateFinalAmount();
 
 			getViewState().setConfirmButtonEnabled(finalAmount > 0 && amount <= available);

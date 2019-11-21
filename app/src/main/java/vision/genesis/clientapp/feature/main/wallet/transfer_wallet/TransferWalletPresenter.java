@@ -111,7 +111,7 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 				return;
 			}
 
-			updateRate();
+//			updateRate();
 			updateFinalAmount();
 
 			getViewState().setConfirmButtonEnabled(finalAmount > 0 && amount <= availableInWallet);

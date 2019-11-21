@@ -87,6 +87,10 @@ import vision.genesis.clientapp.feature.main.search.SearchPresenter;
 import vision.genesis.clientapp.feature.main.settings.SettingsPresenter;
 import vision.genesis.clientapp.feature.main.settings.security.SecurityPresenter;
 import vision.genesis.clientapp.feature.main.settings.security.change_password.ChangePasswordPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.create.CreateAccountPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.create.broker.CreateAccountBrokerPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.create.deposit.CreateAccountDepositPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.create.settings.CreateAccountSettingsPresenter;
 import vision.genesis.clientapp.feature.main.wallet.WalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.copytrading_account_details.CopytradingAccountDetailsPresenter;
 import vision.genesis.clientapp.feature.main.wallet.copytrading_accounts.CopytradingAccountsPresenter;
@@ -311,4 +315,12 @@ public interface AppComponent
 	void inject(InvestmentsDetailsPresenter investmentsDetailsPresenter);
 
 	void inject(TradingDetailsPresenter tradingDetailsPresenter);
+
+	void inject(CreateAccountPresenter createAccountPresenter);
+
+	void inject(CreateAccountBrokerPresenter createAccountBrokerPresenter);
+
+	void inject(CreateAccountSettingsPresenter createAccountSettingsPresenter);
+
+	void inject(CreateAccountDepositPresenter createAccountDepositPresenter);
 }

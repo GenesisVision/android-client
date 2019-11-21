@@ -16,7 +16,6 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.DashboardManager;
 import vision.genesis.clientapp.managers.FundsManager;
-import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
@@ -43,9 +42,6 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 
 	@Inject
 	public SettingsManager settingsManager;
-
-	@Inject
-	public ProgramsManager programsManager;
 
 	@Inject
 	public FundsManager fundsManager;
@@ -161,11 +157,11 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 		filter.setTake(TAKE);
 		filter.setDateRange(dateRange);
 		filter.setChartPointsCount(10);
-		programsSubscription = programsManager.getProgramsList(filter)
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.newThread())
-				.subscribe(this::handleGetProgramsResponse,
-						this::handleGetProgramsError);
+//		programsSubscription = dashboardManager.getPrograms(filter)
+//				.observeOn(AndroidSchedulers.mainThread())
+//				.subscribeOn(Schedulers.newThread())
+//				.subscribe(this::handleGetProgramsResponse,
+//						this::handleGetProgramsError);
 	}
 
 	private void handleGetProgramsResponse(ItemsViewModelProgramDetailsList response) {

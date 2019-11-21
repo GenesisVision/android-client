@@ -28,6 +28,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.fund.create.CreateFundActivity;
+import vision.genesis.clientapp.feature.main.trading_account.create.CreateAccountActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.ui.PortfolioEventDashboardView;
 import vision.genesis.clientapp.ui.TradingAssetDashboardShortView;
@@ -292,10 +293,15 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 	public void setPrivate(List<DashboardTradingAsset> items) {
 		if (baseCurrency != null) {
 			privateAssetsGroup.removeAllViews();
+			int index = 0;
 			for (DashboardTradingAsset asset : items) {
 				TradingAssetDashboardShortView assetView = new TradingAssetDashboardShortView(this);
 				assetView.setData(asset, baseCurrency.getValue());
 				privateAssetsGroup.addView(assetView);
+				if (index == items.size() - 1) {
+					assetView.removeDelimiter();
+				}
+				index++;
 			}
 			showPrivateEmpty(items.isEmpty());
 		}
@@ -359,7 +365,7 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 
 	@Override
 	public void showCreateTradingAccountActivity() {
-
+		CreateAccountActivity.startFrom(this);
 	}
 
 	@Override

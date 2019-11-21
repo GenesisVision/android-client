@@ -20,7 +20,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.managers.FundsManager;
+import vision.genesis.clientapp.managers.AssetsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.events.OnCreateFundCreateButtonClickedEvent;
 import vision.genesis.clientapp.model.events.OnCreateFundNextButtonClickedEvent;
@@ -41,7 +41,7 @@ public class CreateFundPresenter extends MvpPresenter<CreateFundView>
 	public SettingsManager settingsManager;
 
 	@Inject
-	public FundsManager fundsManager;
+	public AssetsManager assetsManager;
 
 	private NewFundRequest request = new NewFundRequest();
 
@@ -106,7 +106,7 @@ public class CreateFundPresenter extends MvpPresenter<CreateFundView>
 	private void sendCreateFundRequest() {
 		getViewState().showProgress(true);
 
-		createFundSubscription = fundsManager.sendCreateFundRequest(request)
+		createFundSubscription = assetsManager.createFund(request)
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(this::handleCreateFundSuccess, this::handleCreateFundError);

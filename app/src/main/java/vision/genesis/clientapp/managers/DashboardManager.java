@@ -61,4 +61,8 @@ public class DashboardManager
 				10, baseCurrency, null,
 				skip, take);
 	}
+
+//	public Observable<Object> getPrograms(ProgramsFilter filter) {
+//		return null;
+//	}
 }

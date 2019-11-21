@@ -91,7 +91,7 @@ public class SocialLinksView extends RelativeLayout
 				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.getUrl().concat(data.getValue())));
 				getContext().startActivity(browserIntent);
 			} catch (ActivityNotFoundException e) {
-				Snackbar.make(this, getContext().getString(R.string.social_link_no_app_error), Snackbar.LENGTH_LONG).show();
+				Snackbar.make(this, getContext().getString(R.string.error_cannot_open_link), Snackbar.LENGTH_LONG).show();
 			}
 		});
 		return view;

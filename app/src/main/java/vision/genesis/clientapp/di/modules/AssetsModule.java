@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import io.swagger.client.api.AssetsApi;
+import io.swagger.client.api.BrokersApi;
 import io.swagger.client.api.CopytradingApi;
 import io.swagger.client.api.DashboardApi;
 import io.swagger.client.api.EventsApi;
@@ -16,6 +17,7 @@ import io.swagger.client.api.SearchApi;
 import io.swagger.client.api.SignalApi;
 import io.swagger.client.api.WalletApi;
 import vision.genesis.clientapp.managers.AssetsManager;
+import vision.genesis.clientapp.managers.BrokersManager;
 import vision.genesis.clientapp.managers.DashboardManager;
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
@@ -42,6 +44,12 @@ public class AssetsModule
 	@Singleton
 	public DashboardManager provideDashboardManager(DashboardApi dashboardApi, InvestmentsApi investmentsApi, CopytradingApi copytradingApi) {
 		return new DashboardManager(dashboardApi, investmentsApi, copytradingApi);
+	}
+
+	@Provides
+	@Singleton
+	public BrokersManager provideBrokersManager(BrokersApi brokersApi) {
+		return new BrokersManager(brokersApi);
 	}
 
 	@Provides

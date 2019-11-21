@@ -13,6 +13,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.swagger.client.model.AssetType;
 import io.swagger.client.model.DashboardTradingAsset;
 import io.swagger.client.model.DashboardTradingAssetStatus;
 import vision.genesis.clientapp.R;
@@ -101,32 +102,45 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 		this.asset = asset;
 		this.baseCurrency = baseCurrency;
 
-		this.logo.setImage(asset.getPublicInfo().getLogo(), asset.getPublicInfo().getColor(), 50, 50);
-		this.logo.hideLevel();
-		this.name.setText(asset.getPublicInfo().getTitle());
-
-		double value = Math.random() * 100;
-		double change = asset.getStatistic().getProfit();
-
-		if (asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.ACTIVE)) {
+		if (asset.getAssetType().equals(AssetType.NONE)) {
+			this.logo.setImage(asset.getBroker().getLogo(), "", 50, 50);
+			this.logo.hideLevel();
+			this.name.setText(asset.getAccountInfo().getLogin());
 			this.value.setText(StringFormatUtil.getValueString(asset.getAccountInfo().getBalance(), asset.getAccountInfo().getCurrency().getValue()));
-			updateChangeText(value, change);
+
 			valueGroup.setVisibility(ViewGroup.VISIBLE);
 			statusGroup.setVisibility(ViewGroup.GONE);
 		}
 		else {
-			if ((asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.PENDING))) {
-				this.status.setText(getContext().getString(R.string.pending));
-				this.status.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorPending));
-				this.statusProgress.setVisibility(View.VISIBLE);
+			this.logo.setImage(asset.getPublicInfo().getLogo(), asset.getPublicInfo().getColor(), 50, 50);
+			this.logo.hideLevel();
+			this.name.setText(asset.getPublicInfo().getTitle());
+
+			double value = Math.random() * 100;
+			double change = asset.getStatistic().getProfit();
+
+			if (asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.ACTIVE)) {
+				if (asset.getAccountInfo().getBalance() != null) {
+					this.value.setText(StringFormatUtil.getValueString(asset.getAccountInfo().getBalance(), asset.getAccountInfo().getCurrency().getValue()));
+					updateChangeText(value, change);
+				}
+				valueGroup.setVisibility(ViewGroup.VISIBLE);
+				statusGroup.setVisibility(ViewGroup.GONE);
 			}
-			else if ((asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.DISABLED))) {
-				this.status.setText(getContext().getString(R.string.disabled));
-				this.status.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed));
-				this.statusProgress.setVisibility(View.GONE);
+			else {
+				if ((asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.PENDING))) {
+					this.status.setText(getContext().getString(R.string.pending));
+					this.status.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorPending));
+					this.statusProgress.setVisibility(View.VISIBLE);
+				}
+				else if ((asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.DISABLED))) {
+					this.status.setText(getContext().getString(R.string.disabled));
+					this.status.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed));
+					this.statusProgress.setVisibility(View.GONE);
+				}
+				statusGroup.setVisibility(ViewGroup.VISIBLE);
+				valueGroup.setVisibility(ViewGroup.GONE);
 			}
-			statusGroup.setVisibility(ViewGroup.VISIBLE);
-			valueGroup.setVisibility(ViewGroup.GONE);
 		}
 	}
 

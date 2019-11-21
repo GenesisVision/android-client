@@ -180,7 +180,7 @@
                         android:id="@+id/scroll_view_events"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="16dp"
                         android:clipToPadding="false"
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
@@ -289,6 +289,7 @@
                         android:id="@+id/private_assets"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
                         android:orientation="vertical"/>
 
                     <LinearLayout

@@ -14,7 +14,6 @@ import io.swagger.client.model.InvestmentEventLocation;
 import io.swagger.client.model.InvestmentEventViewModels;
 import io.swagger.client.model.ItemsViewModelFundDetailsList;
 import io.swagger.client.model.ItemsViewModelReallocationModel;
-import io.swagger.client.model.NewFundRequest;
 import rx.Observable;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
@@ -106,9 +105,5 @@ public class FundsManager
 
 	public Observable<ItemsViewModelReallocationModel> getReallocateHistory(UUID fundId, DateRange dateRange, int skip, int take) {
 		return fundsApi.getReallocatingHistory(fundId, dateRange.getFrom(), dateRange.getTo(), skip, take);
-	}
-
-	public Observable<Void> sendCreateFundRequest(NewFundRequest request) {
-		return assetsApi.createFund(AuthManager.token.getValue(), request);
 	}
 }
