@@ -57,6 +57,9 @@ public class TradingAccountDetails implements Parcelable
 	@SerializedName("apiKey")
 	private String apiKey = null;
 
+	@SerializedName("asset")
+	private AssetDetails asset = null;
+
 	public TradingAccountDetails() {
 	}
 
@@ -65,6 +68,7 @@ public class TradingAccountDetails implements Parcelable
 		currency = (CurrencyEnum) in.readValue(null);
 		login = (String) in.readValue(null);
 		apiKey = (String) in.readValue(null);
+		asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
 	}
 
 	public TradingAccountDetails id(UUID id) {
@@ -143,6 +147,25 @@ public class TradingAccountDetails implements Parcelable
 		this.apiKey = apiKey;
 	}
 
+	public TradingAccountDetails asset(AssetDetails asset) {
+		this.asset = asset;
+		return this;
+	}
+
+	/**
+	 * Get asset
+	 *
+	 * @return asset
+	 **/
+	@Schema(description = "")
+	public AssetDetails getAsset() {
+		return asset;
+	}
+
+	public void setAsset(AssetDetails asset) {
+		this.asset = asset;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -155,12 +178,13 @@ public class TradingAccountDetails implements Parcelable
 		return Objects.equals(this.id, tradingAccountDetails.id) &&
 				Objects.equals(this.currency, tradingAccountDetails.currency) &&
 				Objects.equals(this.login, tradingAccountDetails.login) &&
-				Objects.equals(this.apiKey, tradingAccountDetails.apiKey);
+				Objects.equals(this.apiKey, tradingAccountDetails.apiKey) &&
+				Objects.equals(this.asset, tradingAccountDetails.asset);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, currency, login, apiKey);
+		return Objects.hash(id, currency, login, apiKey, asset);
 	}
 
 	@Override
@@ -172,6 +196,7 @@ public class TradingAccountDetails implements Parcelable
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    login: ").append(toIndentedString(login)).append("\n");
 		sb.append("    apiKey: ").append(toIndentedString(apiKey)).append("\n");
+		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -192,6 +217,7 @@ public class TradingAccountDetails implements Parcelable
 		out.writeValue(currency);
 		out.writeValue(login);
 		out.writeValue(apiKey);
+		out.writeValue(asset);
 	}
 
 	public int describeContents() {

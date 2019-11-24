@@ -35,7 +35,7 @@ public class SignalsManager
 	}
 
 	public Observable<Void> subscribeToProgram(SubscriptionSettingsModel model) {
-		return signalApi.attachSlaveToMaster(AuthManager.token.getValue(), model.getProgramId(), model.getApiModel());
+		return signalApi.attachSlaveToMasterInternal(AuthManager.token.getValue(), model.getProgramId(), model.getApiModel());
 	}
 
 	public Observable<Void> updateSubscription(SubscriptionSettingsModel model) {
@@ -45,7 +45,7 @@ public class SignalsManager
 	public Observable<Void> unsubscribeFromProgram(UUID programId, SignalDetachMode unsubscriptionType) {
 		DetachFromSignalProvider model = new DetachFromSignalProvider();
 		model.setMode(unsubscriptionType);
-		return signalApi.detachSlaveFromMaster(AuthManager.token.getValue(), programId, model);
+		return signalApi.detachSlaveFromMasterInternal(AuthManager.token.getValue(), programId, model);
 	}
 
 //	public Observable<CopyTradingAccountsList> getAccounts() {
@@ -61,7 +61,7 @@ public class SignalsManager
 	}
 
 	public Observable<Void> closeTrade(UUID tradeId, UUID programId) {
-		return signalApi.closeTrade(tradeId, AuthManager.token.getValue(), programId);
+		return signalApi.closeTradeInternal(tradeId, AuthManager.token.getValue(), programId);
 	}
 
 	public Observable<ItemsViewModelSignalTradingEvent> getTradingLog(String accountCurrency, Integer skip, Integer take) {

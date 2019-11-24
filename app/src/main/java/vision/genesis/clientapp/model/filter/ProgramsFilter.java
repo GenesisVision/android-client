@@ -70,6 +70,8 @@ public class ProgramsFilter implements Parcelable
 
 	private Integer chartPointsCount;
 
+	private String status;
+
 	public ProgramsFilter() {
 	}
 
@@ -164,6 +166,7 @@ public class ProgramsFilter implements Parcelable
 		else {
 			chartPointsCount = in.readInt();
 		}
+		status = in.readString();
 	}
 
 	public SortingEnum getSorting() {
@@ -310,6 +313,14 @@ public class ProgramsFilter implements Parcelable
 		this.chartPointsCount = chartPointsCount;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -392,6 +403,7 @@ public class ProgramsFilter implements Parcelable
 			dest.writeByte((byte) 1);
 			dest.writeInt(chartPointsCount);
 		}
+		dest.writeString(status);
 	}
 
 	@Override

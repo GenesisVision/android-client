@@ -12,8 +12,6 @@ import javax.inject.Inject;
 import io.swagger.client.model.ProgramProfitCharts;
 import io.swagger.client.model.SimpleChart;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.ProgramsManager;
@@ -83,11 +81,11 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 				chartDataSubscription.unsubscribe();
 			}
 			//TODO: calculate maxPointCount
-			chartDataSubscription = programsManager.getProfitChart(programId, chartDateRange, 100)
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleGetChartDataSuccess,
-							this::handleGetChartDataError);
+//			chartDataSubscription = programsManager.getProfitChart(programId, chartDateRange, 100)
+//					.observeOn(AndroidSchedulers.mainThread())
+//					.subscribeOn(Schedulers.io())
+//					.subscribe(this::handleGetChartDataSuccess,
+//							this::handleGetChartDataError);
 		}
 	}
 

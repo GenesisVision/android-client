@@ -8,11 +8,12 @@ Method | HTTP request | Description
 [**exportProgramPeriods**](ProgramsApi.md#exportProgramPeriods) | **GET** v2.0/programs/{id}/periods/export | Export periods
 [**exportProgramPeriodsFinStatistic**](ProgramsApi.md#exportProgramPeriodsFinStatistic) | **GET** v2.0/programs/{id}/periods/export/statistic | Export period financial statistic
 [**exportProgramTrades**](ProgramsApi.md#exportProgramTrades) | **GET** v2.0/programs/{id}/trades/export | Export trade history
+[**getProgramAbsoluteProfitChart**](ProgramsApi.md#getProgramAbsoluteProfitChart) | **GET** v2.0/programs/{id}/charts/profit/absolute | Program absolute profit chart
 [**getProgramBalanceChart**](ProgramsApi.md#getProgramBalanceChart) | **GET** v2.0/programs/{id}/charts/balance | Program balance chart
 [**getProgramDetails**](ProgramsApi.md#getProgramDetails) | **GET** v2.0/programs/{id} | Program details
 [**getProgramOpenTrades**](ProgramsApi.md#getProgramOpenTrades) | **GET** v2.0/programs/{id}/trades/open | Open positions
 [**getProgramPeriods**](ProgramsApi.md#getProgramPeriods) | **GET** v2.0/programs/{id}/periods | Program periods
-[**getProgramProfitChart**](ProgramsApi.md#getProgramProfitChart) | **GET** v2.0/programs/{id}/charts/profit | Program profit chart
+[**getProgramProfitPercentCharts**](ProgramsApi.md#getProgramProfitPercentCharts) | **GET** v2.0/programs/{id}/charts/profit/percent | Program profit percent charts
 [**getProgramSubscribers**](ProgramsApi.md#getProgramSubscribers) | **GET** v2.0/programs/{id}/subscribers | Signal subscribers
 [**getProgramTrades**](ProgramsApi.md#getProgramTrades) | **GET** v2.0/programs/{id}/trades | Trade history
 [**getPrograms**](ProgramsApi.md#getPrograms) | **GET** v2.0/programs | Programs list
@@ -238,6 +239,57 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="getProgramAbsoluteProfitChart"></a>
+# **getProgramAbsoluteProfitChart**
+> AbsoluteProfitChart getProgramAbsoluteProfitChart(id, dateFrom, dateTo, maxPointCount, currency)
+
+Program absolute profit chart
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ProgramsApi;
+
+
+ProgramsApi apiInstance = new ProgramsApi();
+UUID id = new UUID(); // UUID | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer maxPointCount = 56; // Integer | 
+String currency = "currency_example"; // String | 
+try {
+    AbsoluteProfitChart result = apiInstance.getProgramAbsoluteProfitChart(id, dateFrom, dateTo, maxPointCount, currency);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProgramsApi#getProgramAbsoluteProfitChart");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **maxPointCount** | **Integer**|  | [optional]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+
+### Return type
+
+[**AbsoluteProfitChart**](AbsoluteProfitChart.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="getProgramBalanceChart"></a>
 # **getProgramBalanceChart**
 > ProgramBalanceChart getProgramBalanceChart(id, dateFrom, dateTo, maxPointCount, currency)
@@ -448,11 +500,11 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="getProgramProfitChart"></a>
-# **getProgramProfitChart**
-> ProgramProfitCharts getProgramProfitChart(id, dateFrom, dateTo, maxPointCount, currency, currencies)
+<a name="getProgramProfitPercentCharts"></a>
+# **getProgramProfitPercentCharts**
+> ProgramProfitPercentCharts getProgramProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies)
 
-Program profit chart
+Program profit percent charts
 
 ### Example
 ```java
@@ -469,10 +521,10 @@ Integer maxPointCount = 56; // Integer |
 String currency = "currency_example"; // String | 
 List<Object> currencies = null; // List<Object> | 
 try {
-    ProgramProfitCharts result = apiInstance.getProgramProfitChart(id, dateFrom, dateTo, maxPointCount, currency, currencies);
+    ProgramProfitPercentCharts result = apiInstance.getProgramProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling ProgramsApi#getProgramProfitChart");
+    System.err.println("Exception when calling ProgramsApi#getProgramProfitPercentCharts");
     e.printStackTrace();
 }
 ```
@@ -490,7 +542,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProgramProfitCharts**](ProgramProfitCharts.md)
+[**ProgramProfitPercentCharts**](ProgramProfitPercentCharts.md)
 
 ### Authorization
 
@@ -613,7 +665,7 @@ No authorization required
 
 <a name="getPrograms"></a>
 # **getPrograms**
-> ItemsViewModelProgramDetailsList getPrograms(authorization, sorting, showIn, tags, programCurrency, levelMin, levelMax, dateFrom, dateTo, chartPointsCount, facetId, mask, showFavorites, skip, take)
+> ItemsViewModelProgramDetailsList getPrograms(authorization, sorting, showIn, tags, programCurrency, levelMin, levelMax, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
 
 Programs list
 
@@ -637,11 +689,12 @@ DateTime dateTo = new DateTime(); // DateTime |
 Integer chartPointsCount = 56; // Integer | 
 String facetId = "facetId_example"; // String | 
 String mask = "mask_example"; // String | 
+UUID ownerId = new UUID(); // UUID | 
 Boolean showFavorites = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelProgramDetailsList result = apiInstance.getPrograms(authorization, sorting, showIn, tags, programCurrency, levelMin, levelMax, dateFrom, dateTo, chartPointsCount, facetId, mask, showFavorites, skip, take);
+    ItemsViewModelProgramDetailsList result = apiInstance.getPrograms(authorization, sorting, showIn, tags, programCurrency, levelMin, levelMax, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#getPrograms");
@@ -654,7 +707,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**|  | [optional]
- **sorting** | **String**|  | [optional] [enum: ByTitleAsc, ByTitleDesc, ByEquityAsc, ByEquityDesc, ByInvestorsAsc, ByInvestorsDesc, ByPeriodAsc, ByPeriodDesc, ByDrawdownAsc, ByDrawdownDesc, ByProfitAsc, ByProfitDesc, ByNewAsc, ByNewDesc, ByLevelProgressAsc, ByLevelProgressDesc]
+ **sorting** | **String**|  | [optional] [enum: ByTitleAsc, ByTitleDesc, ByEquityAsc, ByEquityDesc, ByInvestorsAsc, ByInvestorsDesc, ByPeriodAsc, ByPeriodDesc, ByDrawdownAsc, ByDrawdownDesc, ByProfitAsc, ByProfitDesc, ByNewAsc, ByNewDesc, ByLevelProgressAsc, ByLevelProgressDesc, ByLevelAsc, ByLevelDesc, ByValueAsc, ByValueDesc]
  **showIn** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **tags** | [**List&lt;String&gt;**](String.md)|  | [optional]
  **programCurrency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
@@ -665,6 +718,7 @@ Name | Type | Description  | Notes
  **chartPointsCount** | **Integer**|  | [optional]
  **facetId** | **String**|  | [optional]
  **mask** | **String**|  | [optional]
+ **ownerId** | [**UUID**](.md)|  | [optional]
  **showFavorites** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]

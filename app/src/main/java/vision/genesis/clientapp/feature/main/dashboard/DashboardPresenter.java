@@ -81,6 +81,7 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 		getSummary();
 		getViewState().updateInvesting();
 		getViewState().updateTrading();
+		getViewState().updateWallet();
 	}
 
 	private void subscribeToBaseCurrency() {
@@ -117,11 +118,11 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 
 		getViewState().setSummary(response);
 
-//		this.requests = response.getRequests().getRequests();
+//		this.requests = response.getRequestsByAsset().getRequestsByAsset();
 //
 //		getViewState().setHaveNewNotifications(response.getProfileHeader().getNotificationsCount() > 0);
 //		getViewState().setChartData(response.getChart());
-//		getViewState().setInRequests(response.getRequests().getTotalValue(), response.getChart().getRate());
+//		getViewState().setInRequests(response.getRequestsByAsset().getTotalValue(), response.getChart().getRate());
 
 	}
 

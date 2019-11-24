@@ -178,7 +178,7 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 
 	private void getRequests(UUID assetId) {
 		if (dashboardManager != null && assetId != null) {
-			getRequestsSubscription = dashboardManager.getRequests(assetId)
+			getRequestsSubscription = dashboardManager.getRequestsByAsset(assetId)
 					.subscribeOn(Schedulers.io())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handleGetRequests,

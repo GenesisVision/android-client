@@ -8,6 +8,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -17,6 +19,10 @@ import io.swagger.client.model.AssetType;
 import io.swagger.client.model.DashboardTradingAsset;
 import io.swagger.client.model.DashboardTradingAssetStatus;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.FundDetailsModel;
+import vision.genesis.clientapp.model.ProgramDetailsModel;
+import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -93,7 +99,35 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 
 		setOnClickListener(v -> {
 			if (asset != null) {
-//				EventBus.getDefault().post(new ShowEventDetailsEvent(event));
+				switch (asset.getAssetType()) {
+					case NONE:
+						break;
+					case PROGRAM:
+						ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(asset.getId(),
+								asset.getPublicInfo().getLogo(),
+								asset.getPublicInfo().getColor(),
+								0,
+								0.0,
+								asset.getPublicInfo().getTitle(),
+								"",
+								asset.getAccountInfo().getCurrency().getValue(),
+								false,
+								false);
+						EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
+						break;
+					case FUND:
+						FundDetailsModel fundDetailsModel = new FundDetailsModel(asset.getId(),
+								asset.getPublicInfo().getLogo(),
+								asset.getPublicInfo().getColor(),
+								asset.getPublicInfo().getTitle(),
+								"",
+								false,
+								false);
+						EventBus.getDefault().post(new ShowFundDetailsEvent(fundDetailsModel));
+						break;
+					case FOLLOW:
+						break;
+				}
 			}
 		});
 	}

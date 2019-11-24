@@ -51,6 +51,9 @@ public class PersonalFollowDetailsFull implements Parcelable
 	@SerializedName("ownerActions")
 	private FollowOwnerActions ownerActions = null;
 
+	@SerializedName("guestActions")
+	private AssetGuestActions guestActions = null;
+
 	@SerializedName("hasNotifications")
 	private Boolean hasNotifications = null;
 
@@ -62,6 +65,7 @@ public class PersonalFollowDetailsFull implements Parcelable
 		isFavorite = (Boolean) in.readValue(null);
 		signalSubscription = (SignalSubscription) in.readValue(SignalSubscription.class.getClassLoader());
 		ownerActions = (FollowOwnerActions) in.readValue(FollowOwnerActions.class.getClassLoader());
+		guestActions = (AssetGuestActions) in.readValue(AssetGuestActions.class.getClassLoader());
 		hasNotifications = (Boolean) in.readValue(null);
 	}
 
@@ -141,6 +145,25 @@ public class PersonalFollowDetailsFull implements Parcelable
 		this.ownerActions = ownerActions;
 	}
 
+	public PersonalFollowDetailsFull guestActions(AssetGuestActions guestActions) {
+		this.guestActions = guestActions;
+		return this;
+	}
+
+	/**
+	 * Get guestActions
+	 *
+	 * @return guestActions
+	 **/
+	@Schema(description = "")
+	public AssetGuestActions getGuestActions() {
+		return guestActions;
+	}
+
+	public void setGuestActions(AssetGuestActions guestActions) {
+		this.guestActions = guestActions;
+	}
+
 	public PersonalFollowDetailsFull hasNotifications(Boolean hasNotifications) {
 		this.hasNotifications = hasNotifications;
 		return this;
@@ -173,12 +196,13 @@ public class PersonalFollowDetailsFull implements Parcelable
 				Objects.equals(this.isFavorite, personalFollowDetailsFull.isFavorite) &&
 				Objects.equals(this.signalSubscription, personalFollowDetailsFull.signalSubscription) &&
 				Objects.equals(this.ownerActions, personalFollowDetailsFull.ownerActions) &&
+				Objects.equals(this.guestActions, personalFollowDetailsFull.guestActions) &&
 				Objects.equals(this.hasNotifications, personalFollowDetailsFull.hasNotifications);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isOwnAsset, isFavorite, signalSubscription, ownerActions, hasNotifications);
+		return Objects.hash(isOwnAsset, isFavorite, signalSubscription, ownerActions, guestActions, hasNotifications);
 	}
 
 	@Override
@@ -190,6 +214,7 @@ public class PersonalFollowDetailsFull implements Parcelable
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    signalSubscription: ").append(toIndentedString(signalSubscription)).append("\n");
 		sb.append("    ownerActions: ").append(toIndentedString(ownerActions)).append("\n");
+		sb.append("    guestActions: ").append(toIndentedString(guestActions)).append("\n");
 		sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -211,6 +236,7 @@ public class PersonalFollowDetailsFull implements Parcelable
 		out.writeValue(isFavorite);
 		out.writeValue(signalSubscription);
 		out.writeValue(ownerActions);
+		out.writeValue(guestActions);
 		out.writeValue(hasNotifications);
 	}
 

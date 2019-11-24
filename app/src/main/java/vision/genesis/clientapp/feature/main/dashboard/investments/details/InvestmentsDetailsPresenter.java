@@ -5,11 +5,17 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.UUID;
+
 import javax.inject.Inject;
 
 import io.swagger.client.model.DashboardInvestingDetails;
-import io.swagger.client.model.ItemsViewModelFundDetailsList;
-import io.swagger.client.model.ItemsViewModelProgramDetailsList;
+import io.swagger.client.model.ItemsViewModelAssetInvestmentRequest;
+import io.swagger.client.model.ItemsViewModelFundInvestingDetailsList;
+import io.swagger.client.model.ItemsViewModelProgramInvestingDetailsList;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -19,6 +25,7 @@ import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.events.OnCancelRequestClickedEvent;
 import vision.genesis.clientapp.model.filter.ProgramsFilter;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -48,11 +55,15 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 
 	private Subscription baseCurrencySubscription;
 
+	private Subscription getRequestsSubscription;
+
 	private Subscription getInvestingSubscription;
 
 	private Subscription programsSubscription;
 
 	private Subscription fundsSubscription;
+
+	private Subscription cancelRequestSubscription;
 
 	private CurrencyEnum baseCurrency;
 
@@ -66,6 +77,8 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		EventBus.getDefault().register(this);
+
 		getViewState().showProgress(true);
 		subscribeToBaseCurrency();
 	}
@@ -74,6 +87,9 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 	public void onDestroy() {
 		if (baseCurrencySubscription != null) {
 			baseCurrencySubscription.unsubscribe();
+		}
+		if (getRequestsSubscription != null) {
+			getRequestsSubscription.unsubscribe();
 		}
 		if (getInvestingSubscription != null) {
 			getInvestingSubscription.unsubscribe();
@@ -84,6 +100,11 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 		if (fundsSubscription != null) {
 			fundsSubscription.unsubscribe();
 		}
+		if (cancelRequestSubscription != null) {
+			cancelRequestSubscription.unsubscribe();
+		}
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -112,9 +133,32 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 	}
 
 	private void updateAll() {
+		getRequests();
 		getInvesting();
 		getPrograms();
 		getFunds();
+	}
+
+	private void getRequests() {
+		if (dashboardManager != null && baseCurrency != null) {
+			getRequestsSubscription = dashboardManager.getRequests(0, 100)
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleRequestsSuccess, this::handleRequestsError);
+		}
+	}
+
+	private void handleRequestsSuccess(ItemsViewModelAssetInvestmentRequest response) {
+		getRequestsSubscription.unsubscribe();
+
+		getViewState().setRequests(response);
+	}
+
+	private void handleRequestsError(Throwable throwable) {
+		getRequestsSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
 	}
 
 	private void getInvesting() {
@@ -147,24 +191,27 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 	}
 
 	private void getPrograms() {
-		if (programsSubscription != null) {
-			programsSubscription.unsubscribe();
-		}
+		if (dashboardManager != null && baseCurrency != null) {
+			if (programsSubscription != null) {
+				programsSubscription.unsubscribe();
+			}
 
-		//TODO: remove filter
-		ProgramsFilter filter = new ProgramsFilter();
-		filter.setSkip(0);
-		filter.setTake(TAKE);
-		filter.setDateRange(dateRange);
-		filter.setChartPointsCount(10);
-//		programsSubscription = dashboardManager.getPrograms(filter)
-//				.observeOn(AndroidSchedulers.mainThread())
-//				.subscribeOn(Schedulers.newThread())
-//				.subscribe(this::handleGetProgramsResponse,
-//						this::handleGetProgramsError);
+			ProgramsFilter filter = new ProgramsFilter();
+			filter.setSkip(0);
+			filter.setTake(TAKE);
+			filter.setStatus("Active");
+			filter.setDateRange(dateRange);
+			filter.setChartPointsCount(10);
+			filter.setCurrency(CurrencyEnum.fromValue(baseCurrency.getValue()));
+			programsSubscription = dashboardManager.getPrograms(filter)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetProgramsResponse,
+							this::handleGetProgramsError);
+		}
 	}
 
-	private void handleGetProgramsResponse(ItemsViewModelProgramDetailsList response) {
+	private void handleGetProgramsResponse(ItemsViewModelProgramInvestingDetailsList response) {
 		programsSubscription.unsubscribe();
 		getViewState().hideProgramsProgress();
 
@@ -180,24 +227,27 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 	}
 
 	private void getFunds() {
-		if (fundsSubscription != null) {
-			fundsSubscription.unsubscribe();
-		}
+		if (dashboardManager != null && baseCurrency != null) {
+			if (fundsSubscription != null) {
+				fundsSubscription.unsubscribe();
+			}
 
-		//TODO: remove filter
-		ProgramsFilter filter = new ProgramsFilter();
-		filter.setSkip(0);
-		filter.setTake(TAKE);
-		filter.setDateRange(dateRange);
-		filter.setChartPointsCount(10);
-		fundsSubscription = fundsManager.getFundsList(filter)
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.newThread())
-				.subscribe(this::handleGetFundsResponse,
-						this::handleGetFundsError);
+			ProgramsFilter filter = new ProgramsFilter();
+			filter.setSkip(0);
+			filter.setTake(TAKE);
+			filter.setStatus("Active");
+			filter.setDateRange(dateRange);
+			filter.setChartPointsCount(10);
+			filter.setCurrency(CurrencyEnum.fromValue(baseCurrency.getValue()));
+			fundsSubscription = dashboardManager.getFunds(filter)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetFundsResponse,
+							this::handleGetFundsError);
+		}
 	}
 
-	private void handleGetFundsResponse(ItemsViewModelFundDetailsList response) {
+	private void handleGetFundsResponse(ItemsViewModelFundInvestingDetailsList response) {
 		fundsSubscription.unsubscribe();
 		getViewState().hideFundsProgress();
 
@@ -212,9 +262,34 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 				message -> getViewState().showSnackbarMessage(message));
 	}
 
+	private void cancelRequest(UUID requestId) {
+		cancelRequestSubscription = dashboardManager.cancelRequest(requestId)
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(response -> handleCancelRequestSuccess(requestId),
+						this::handleCancelRequestError);
+	}
+
+	private void handleCancelRequestSuccess(UUID requestId) {
+		cancelRequestSubscription.unsubscribe();
+
+		getRequests();
+	}
+
+	private void handleCancelRequestError(Throwable throwable) {
+		cancelRequestSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnCancelRequestClickedEvent event) {
+		cancelRequest(event.getRequestId());
+	}
+
 //	@Subscribe
-//	public void onEventMainThread(ShowProgramDetailsEvent event) {
-//		getViewState().showProgramDetails(event.programDetailsModel);
+//	public void onEventMainThread(ShowDasboardProgramDetailsEvent event) {
+//		getViewState().showProgramDetails(event.getProgram());
 //	}
 
 //	@Subscribe

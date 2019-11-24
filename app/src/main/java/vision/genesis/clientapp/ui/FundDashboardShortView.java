@@ -2,16 +2,21 @@ package vision.genesis.clientapp.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.swagger.client.model.FundDetailsList;
+import io.swagger.client.model.FundInvestingDetailsList;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.FundDetailsModel;
+import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -38,9 +43,12 @@ public class FundDashboardShortView extends RelativeLayout
 	@BindView(R.id.change)
 	public TextView change;
 
+	@BindView(R.id.delimiter)
+	public View delimiter;
+
 	private Unbinder unbinder;
 
-	private FundDetailsList fund;
+	private FundInvestingDetailsList fund;
 
 	private String baseCurrency;
 
@@ -76,12 +84,29 @@ public class FundDashboardShortView extends RelativeLayout
 
 		setOnClickListener(v -> {
 			if (fund != null) {
-//				EventBus.getDefault().post(new ShowEventDetailsEvent(event));
+				FundDetailsModel fundDetailsModel = new FundDetailsModel(fund.getId(),
+						fund.getLogo(),
+						fund.getColor(),
+						fund.getTitle(),
+						fund.getOwner().getUsername(),
+						fund.getPersonalDetails() != null ?
+								fund.getPersonalDetails().isIsFavorite()
+								: false,
+//TODO:
+//							fund.getPersonalDetails() != null ?
+//									fund.getPersonalDetails().isHasNotifications()
+//									: false);
+						false);
+				EventBus.getDefault().post(new ShowFundDetailsEvent(fundDetailsModel));
 			}
 		});
 	}
 
-	public void setData(FundDetailsList fund, String baseCurrency) {
+	public void removeDelimiter() {
+		delimiter.setVisibility(View.INVISIBLE);
+	}
+
+	public void setData(FundInvestingDetailsList fund, String baseCurrency) {
 		this.fund = fund;
 		this.baseCurrency = baseCurrency;
 
@@ -90,11 +115,12 @@ public class FundDashboardShortView extends RelativeLayout
 		this.fundName.setText(fund.getTitle());
 		this.ownerName.setText(fund.getOwner().getUsername());
 
-		double value = Math.random() * 100;
-		double change = Math.random() * 10 - 5;
+//		double value = Math.random() * 100;
+		double value = fund.getPersonalDetails().getValue();
+//		double change = Math.random() * 10 - 5;
 
 		this.value.setText(StringFormatUtil.getValueString(value, baseCurrency));
-		updateChangeText(value, change);
+//		updateChangeText(value, change);
 	}
 
 	private void updateChangeText(double value, double profit) {

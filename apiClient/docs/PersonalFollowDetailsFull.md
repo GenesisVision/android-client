@@ -7,4 +7,5 @@ Name | Type | Description | Notes
 **isFavorite** | **Boolean** |  |  [optional]
 **signalSubscription** | [**SignalSubscription**](SignalSubscription.md) |  |  [optional]
 **ownerActions** | [**FollowOwnerActions**](FollowOwnerActions.md) |  |  [optional]
+**guestActions** | [**AssetGuestActions**](AssetGuestActions.md) |  |  [optional]
 **hasNotifications** | **Boolean** |  |  [optional]

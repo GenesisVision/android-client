@@ -5,11 +5,12 @@ import org.joda.time.DateTime;
 import java.util.List;
 import java.util.UUID;
 
+import io.swagger.client.model.AbsoluteProfitChart;
 import io.swagger.client.model.ItemsViewModelProgramDetailsList;
 import io.swagger.client.model.ProgramBalanceChart;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramPeriodsViewModel;
-import io.swagger.client.model.ProgramProfitCharts;
+import io.swagger.client.model.ProgramProfitPercentCharts;
 import io.swagger.client.model.SignalProviderSubscribers;
 import io.swagger.client.model.TradesViewModel;
 import retrofit2.http.GET;
@@ -87,6 +88,21 @@ public interface ProgramsApi
 	);
 
 	/**
+	 * Program absolute profit chart
+	 *
+	 * @param id            (required)
+	 * @param dateFrom      (optional)
+	 * @param dateTo        (optional)
+	 * @param maxPointCount (optional)
+	 * @param currency      (optional)
+	 * @return Call&lt;AbsoluteProfitChart&gt;
+	 */
+	@GET("v2.0/programs/{id}/charts/profit/absolute")
+	Observable<AbsoluteProfitChart> getProgramAbsoluteProfitChart(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency
+	);
+
+	/**
 	 * Program balance chart
 	 *
 	 * @param id            (required)
@@ -150,7 +166,7 @@ public interface ProgramsApi
 	);
 
 	/**
-	 * Program profit chart
+	 * Program profit percent charts
 	 *
 	 * @param id            (required)
 	 * @param dateFrom      (optional)
@@ -158,10 +174,10 @@ public interface ProgramsApi
 	 * @param maxPointCount (optional)
 	 * @param currency      (optional)
 	 * @param currencies    (optional)
-	 * @return Call&lt;ProgramProfitCharts&gt;
+	 * @return Call&lt;ProgramProfitPercentCharts&gt;
 	 */
-	@GET("v2.0/programs/{id}/charts/profit")
-	Observable<ProgramProfitCharts> getProgramProfitChart(
+	@GET("v2.0/programs/{id}/charts/profit/percent")
+	Observable<ProgramProfitPercentCharts> getProgramProfitPercentCharts(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("currencies") List<Object> currencies
 	);
 
@@ -214,6 +230,7 @@ public interface ProgramsApi
 	 * @param chartPointsCount (optional)
 	 * @param facetId          (optional)
 	 * @param mask             (optional)
+	 * @param ownerId          (optional)
 	 * @param showFavorites    (optional)
 	 * @param skip             (optional)
 	 * @param take             (optional)
@@ -221,7 +238,7 @@ public interface ProgramsApi
 	 */
 	@GET("v2.0/programs")
 	Observable<ItemsViewModelProgramDetailsList> getPrograms(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("ShowIn") String showIn, @retrofit2.http.Query("Tags") List<String> tags, @retrofit2.http.Query("ProgramCurrency") String programCurrency, @retrofit2.http.Query("LevelMin") Integer levelMin, @retrofit2.http.Query("LevelMax") Integer levelMax, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("ShowFavorites") Boolean showFavorites, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("ShowIn") String showIn, @retrofit2.http.Query("Tags") List<String> tags, @retrofit2.http.Query("ProgramCurrency") String programCurrency, @retrofit2.http.Query("LevelMin") Integer levelMin, @retrofit2.http.Query("LevelMax") Integer levelMax, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("OwnerId") UUID ownerId, @retrofit2.http.Query("ShowFavorites") Boolean showFavorites, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

@@ -24,13 +24,14 @@
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_toEndOf="@+id/icon"
-        android:layout_toStartOf="@+id/value"
+        android:layout_toStartOf="@+id/group_value"
         android:ellipsize="end"
         android:textColor="?attr/colorTextPrimary"
         android:textSize="16sp"
         tools:text="Bitcoin"/>
 
     <LinearLayout
+        android:id="@+id/group_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

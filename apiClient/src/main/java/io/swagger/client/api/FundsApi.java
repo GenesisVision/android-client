@@ -5,9 +5,10 @@ import org.joda.time.DateTime;
 import java.util.List;
 import java.util.UUID;
 
+import io.swagger.client.model.AbsoluteProfitChart;
 import io.swagger.client.model.FundBalanceChart;
 import io.swagger.client.model.FundDetailsFull;
-import io.swagger.client.model.FundProfitCharts;
+import io.swagger.client.model.FundProfitPercentCharts;
 import io.swagger.client.model.ItemsViewModelFundDetailsList;
 import io.swagger.client.model.ItemsViewModelReallocationModel;
 import retrofit2.http.GET;
@@ -26,6 +27,21 @@ public interface FundsApi
 	@POST("v2.0/funds/{id}/favorite/add")
 	Observable<Void> addToFavorites(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Fund absolute profit chart
+	 *
+	 * @param id            (required)
+	 * @param dateFrom      (optional)
+	 * @param dateTo        (optional)
+	 * @param maxPointCount (optional)
+	 * @param currency      (optional)
+	 * @return Call&lt;AbsoluteProfitChart&gt;
+	 */
+	@GET("v2.0/funds/{id}/charts/profit/absolute")
+	Observable<AbsoluteProfitChart> getFundAbsoluteProfitChart(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency
 	);
 
 	/**
@@ -57,7 +73,7 @@ public interface FundsApi
 	);
 
 	/**
-	 * Fund profit chart
+	 * Fund profit percent charts
 	 *
 	 * @param id               (required)
 	 * @param dateFrom         (optional)
@@ -66,10 +82,10 @@ public interface FundsApi
 	 * @param currency         (optional)
 	 * @param currencies       (optional)
 	 * @param chartAssetsCount (optional)
-	 * @return Call&lt;FundProfitCharts&gt;
+	 * @return Call&lt;FundProfitPercentCharts&gt;
 	 */
-	@GET("v2.0/funds/{id}/charts/profit")
-	Observable<FundProfitCharts> getFundProfitChart(
+	@GET("v2.0/funds/{id}/charts/profit/percent")
+	Observable<FundProfitPercentCharts> getFundProfitPercentCharts(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("currencies") List<Object> currencies, @retrofit2.http.Query("chartAssetsCount") Integer chartAssetsCount
 	);
 
@@ -85,6 +101,7 @@ public interface FundsApi
 	 * @param chartPointsCount (optional)
 	 * @param facetId          (optional)
 	 * @param mask             (optional)
+	 * @param ownerId          (optional)
 	 * @param showFavorites    (optional)
 	 * @param skip             (optional)
 	 * @param take             (optional)
@@ -92,7 +109,7 @@ public interface FundsApi
 	 */
 	@GET("v2.0/funds")
 	Observable<ItemsViewModelFundDetailsList> getFunds(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("ShowIn") String showIn, @retrofit2.http.Query("Assets") List<String> assets, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("ShowFavorites") Boolean showFavorites, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("ShowIn") String showIn, @retrofit2.http.Query("Assets") List<String> assets, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("OwnerId") UUID ownerId, @retrofit2.http.Query("ShowFavorites") Boolean showFavorites, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

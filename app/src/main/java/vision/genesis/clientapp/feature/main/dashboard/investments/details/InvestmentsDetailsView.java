@@ -7,9 +7,10 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import java.util.List;
 
 import io.swagger.client.model.DashboardInvestingDetails;
-import io.swagger.client.model.FundDetailsList;
+import io.swagger.client.model.FundInvestingDetailsList;
 import io.swagger.client.model.InvestmentEventViewModel;
-import io.swagger.client.model.ProgramDetailsList;
+import io.swagger.client.model.ItemsViewModelAssetInvestmentRequest;
+import io.swagger.client.model.ProgramInvestingDetailsList;
 import vision.genesis.clientapp.model.CurrencyEnum;
 
 /**
@@ -21,13 +22,15 @@ interface InvestmentsDetailsView extends MvpView
 {
 	void setBaseCurrency(CurrencyEnum baseCurrency);
 
+	void setRequests(ItemsViewModelAssetInvestmentRequest data);
+
 	void setInvesting(DashboardInvestingDetails details);
 
 	void setEvents(List<InvestmentEventViewModel> items);
 
-	void setPrograms(List<ProgramDetailsList> items);
+	void setPrograms(List<ProgramInvestingDetailsList> items);
 
-	void setFunds(List<FundDetailsList> items);
+	void setFunds(List<FundInvestingDetailsList> items);
 
 	void hideProgramsProgress();
 

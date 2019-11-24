@@ -8,6 +8,8 @@ Method | HTTP request | Description
 [**getChartAssets**](DashboardApi.md#getChartAssets) | **GET** v2.0/dashboard/chart/assets | Active assets for chart
 [**getHoldings**](DashboardApi.md#getHoldings) | **GET** v2.0/dashboard/holdings | 
 [**getInvestingDetails**](DashboardApi.md#getInvestingDetails) | **GET** v2.0/dashboard/investing | 
+[**getInvestingFunds**](DashboardApi.md#getInvestingFunds) | **GET** v2.0/dashboard/investing/funds | 
+[**getInvestingPrograms**](DashboardApi.md#getInvestingPrograms) | **GET** v2.0/dashboard/investing/programs | 
 [**getPortfolio**](DashboardApi.md#getPortfolio) | **GET** v2.0/dashboard/portfolio | Money distribution in percents. Empty list if no money at all
 [**getPrivateTradingAssets**](DashboardApi.md#getPrivateTradingAssets) | **GET** v2.0/dashboard/trading/private | 
 [**getPublicTradingAssets**](DashboardApi.md#getPublicTradingAssets) | **GET** v2.0/dashboard/trading/public | 
@@ -193,6 +195,140 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DashboardInvestingDetails**](DashboardInvestingDetails.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getInvestingFunds"></a>
+# **getInvestingFunds**
+> ItemsViewModelFundInvestingDetailsList getInvestingFunds(authorization, sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.DashboardApi;
+
+
+DashboardApi apiInstance = new DashboardApi();
+String authorization = "authorization_example"; // String | JWT access token
+String sorting = "sorting_example"; // String | 
+String showIn = "showIn_example"; // String | 
+String status = "status_example"; // String | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer chartPointsCount = 56; // Integer | 
+String facetId = "facetId_example"; // String | 
+String mask = "mask_example"; // String | 
+UUID ownerId = new UUID(); // UUID | 
+Boolean showFavorites = true; // Boolean | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    ItemsViewModelFundInvestingDetailsList result = apiInstance.getInvestingFunds(authorization, sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DashboardApi#getInvestingFunds");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **sorting** | **String**|  | [optional] [enum: ByTitleAsc, ByTitleDesc, BySizeAsc, BySizeDesc, ByInvestorsAsc, ByInvestorsDesc, ByDrawdownAsc, ByDrawdownDesc, ByProfitAsc, ByProfitDesc, ByNewAsc, ByNewDesc, ByValueAsc, ByValueDesc]
+ **showIn** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **status** | **String**|  | [optional] [enum: All, Active]
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **chartPointsCount** | **Integer**|  | [optional]
+ **facetId** | **String**|  | [optional]
+ **mask** | **String**|  | [optional]
+ **ownerId** | [**UUID**](.md)|  | [optional]
+ **showFavorites** | **Boolean**|  | [optional]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**ItemsViewModelFundInvestingDetailsList**](ItemsViewModelFundInvestingDetailsList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getInvestingPrograms"></a>
+# **getInvestingPrograms**
+> ItemsViewModelProgramInvestingDetailsList getInvestingPrograms(authorization, sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.DashboardApi;
+
+
+DashboardApi apiInstance = new DashboardApi();
+String authorization = "authorization_example"; // String | JWT access token
+String sorting = "sorting_example"; // String | 
+String showIn = "showIn_example"; // String | 
+String status = "status_example"; // String | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer chartPointsCount = 56; // Integer | 
+String facetId = "facetId_example"; // String | 
+String mask = "mask_example"; // String | 
+UUID ownerId = new UUID(); // UUID | 
+Boolean showFavorites = true; // Boolean | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    ItemsViewModelProgramInvestingDetailsList result = apiInstance.getInvestingPrograms(authorization, sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DashboardApi#getInvestingPrograms");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **sorting** | **String**|  | [optional] [enum: ByTitleAsc, ByTitleDesc, ByEquityAsc, ByEquityDesc, ByInvestorsAsc, ByInvestorsDesc, ByPeriodAsc, ByPeriodDesc, ByDrawdownAsc, ByDrawdownDesc, ByProfitAsc, ByProfitDesc, ByNewAsc, ByNewDesc, ByLevelProgressAsc, ByLevelProgressDesc, ByLevelAsc, ByLevelDesc, ByValueAsc, ByValueDesc]
+ **showIn** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **status** | **String**|  | [optional] [enum: All, Active]
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **chartPointsCount** | **Integer**|  | [optional]
+ **facetId** | **String**|  | [optional]
+ **mask** | **String**|  | [optional]
+ **ownerId** | [**UUID**](.md)|  | [optional]
+ **showFavorites** | **Boolean**|  | [optional]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**ItemsViewModelProgramInvestingDetailsList**](ItemsViewModelProgramInvestingDetailsList.md)
 
 ### Authorization
 

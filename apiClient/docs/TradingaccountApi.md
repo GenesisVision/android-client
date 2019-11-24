@@ -4,13 +4,171 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**getAbsoluteProfitChart**](TradingaccountApi.md#getAbsoluteProfitChart) | **GET** v2.0/tradingaccount/{id}/charts/profit/absolute | Trading account absolute profit chart
+[**getBalanceChart**](TradingaccountApi.md#getBalanceChart) | **GET** v2.0/tradingaccount/{id}/charts/balance | Trading account balance chart
+[**getProfitPercentCharts**](TradingaccountApi.md#getProfitPercentCharts) | **GET** v2.0/tradingaccount/{id}/charts/profit/percent | Trading account profit percent charts
 [**getProgramOpenTrades**](TradingaccountApi.md#getProgramOpenTrades) | **GET** v2.0/tradingaccount/{id}/trades/open | Trading account open positions
 [**getTradingAccountDetails**](TradingaccountApi.md#getTradingAccountDetails) | **GET** v2.0/tradingaccount/{id} | Trading account details
 [**getTradingAccountTrades**](TradingaccountApi.md#getTradingAccountTrades) | **GET** v2.0/tradingaccount/{id}/trades | Trading account trades
 
+<a name="getAbsoluteProfitChart"></a>
+# **getAbsoluteProfitChart**
+> AbsoluteProfitChart getAbsoluteProfitChart(id, dateFrom, dateTo, maxPointCount, currency)
+
+Trading account absolute profit chart
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.TradingaccountApi;
+
+
+TradingaccountApi apiInstance = new TradingaccountApi();
+UUID id = new UUID(); // UUID | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer maxPointCount = 56; // Integer | 
+String currency = "currency_example"; // String | 
+try {
+    AbsoluteProfitChart result = apiInstance.getAbsoluteProfitChart(id, dateFrom, dateTo, maxPointCount, currency);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling TradingaccountApi#getAbsoluteProfitChart");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **maxPointCount** | **Integer**|  | [optional]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+
+### Return type
+
+[**AbsoluteProfitChart**](AbsoluteProfitChart.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getBalanceChart"></a>
+# **getBalanceChart**
+> AccountBalanceChart getBalanceChart(id, dateFrom, dateTo, maxPointCount, currency)
+
+Trading account balance chart
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.TradingaccountApi;
+
+
+TradingaccountApi apiInstance = new TradingaccountApi();
+UUID id = new UUID(); // UUID | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer maxPointCount = 56; // Integer | 
+String currency = "currency_example"; // String | 
+try {
+    AccountBalanceChart result = apiInstance.getBalanceChart(id, dateFrom, dateTo, maxPointCount, currency);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling TradingaccountApi#getBalanceChart");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **maxPointCount** | **Integer**|  | [optional]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+
+### Return type
+
+[**AccountBalanceChart**](AccountBalanceChart.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getProfitPercentCharts"></a>
+# **getProfitPercentCharts**
+> AccountProfitPercentCharts getProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies)
+
+Trading account profit percent charts
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.TradingaccountApi;
+
+
+TradingaccountApi apiInstance = new TradingaccountApi();
+UUID id = new UUID(); // UUID | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer maxPointCount = 56; // Integer | 
+String currency = "currency_example"; // String | 
+List<Object> currencies = null; // List<Object> | 
+try {
+    AccountProfitPercentCharts result = apiInstance.getProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling TradingaccountApi#getProfitPercentCharts");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **maxPointCount** | **Integer**|  | [optional]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+ **currencies** | [**List&lt;Object&gt;**](Object.md)|  | [optional]
+
+### Return type
+
+[**AccountProfitPercentCharts**](AccountProfitPercentCharts.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="getProgramOpenTrades"></a>
 # **getProgramOpenTrades**
-> TradesViewModelOld getProgramOpenTrades(id, authorization, sorting, symbol, accountId, accountCurrency, skip, take)
+> TradesViewModel getProgramOpenTrades(id, authorization, sorting, symbol, accountId, accountCurrency, skip, take)
 
 Trading account open positions
 
@@ -31,7 +189,7 @@ String accountCurrency = "accountCurrency_example"; // String |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    TradesViewModelOld result = apiInstance.getProgramOpenTrades(id, authorization, sorting, symbol, accountId, accountCurrency, skip, take);
+    TradesViewModel result = apiInstance.getProgramOpenTrades(id, authorization, sorting, symbol, accountId, accountCurrency, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingaccountApi#getProgramOpenTrades");
@@ -54,7 +212,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TradesViewModelOld**](TradesViewModelOld.md)
+[**TradesViewModel**](TradesViewModel.md)
 
 ### Authorization
 
@@ -67,7 +225,7 @@ No authorization required
 
 <a name="getTradingAccountDetails"></a>
 # **getTradingAccountDetails**
-> FollowDetailsFull getTradingAccountDetails(id, authorization)
+> PrivateTradingAccountFull getTradingAccountDetails(id, authorization)
 
 Trading account details
 
@@ -82,7 +240,7 @@ TradingaccountApi apiInstance = new TradingaccountApi();
 UUID id = new UUID(); // UUID | 
 String authorization = "authorization_example"; // String | JWT access token
 try {
-    FollowDetailsFull result = apiInstance.getTradingAccountDetails(id, authorization);
+    PrivateTradingAccountFull result = apiInstance.getTradingAccountDetails(id, authorization);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingaccountApi#getTradingAccountDetails");
@@ -99,7 +257,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FollowDetailsFull**](FollowDetailsFull.md)
+[**PrivateTradingAccountFull**](PrivateTradingAccountFull.md)
 
 ### Authorization
 
@@ -112,7 +270,7 @@ No authorization required
 
 <a name="getTradingAccountTrades"></a>
 # **getTradingAccountTrades**
-> TradesViewModelOld getTradingAccountTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take)
+> TradesViewModel getTradingAccountTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take)
 
 Trading account trades
 
@@ -135,7 +293,7 @@ String accountCurrency = "accountCurrency_example"; // String |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    TradesViewModelOld result = apiInstance.getTradingAccountTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take);
+    TradesViewModel result = apiInstance.getTradingAccountTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingaccountApi#getTradingAccountTrades");
@@ -160,7 +318,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TradesViewModelOld**](TradesViewModelOld.md)
+[**TradesViewModel**](TradesViewModel.md)
 
 ### Authorization
 

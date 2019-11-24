@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginEnd="24dp"
-        android:scaleType="centerInside"
         app:actualImageScaleType="centerInside"
         app:placeholderImage="@drawable/icon_program_placeholder"
         app:placeholderImageScaleType="centerInside"

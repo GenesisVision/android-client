@@ -1,0 +1,103 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="?attr/colorBackground"
+              android:orientation="vertical"
+              android:paddingTop="24dp"
+              android:paddingBottom="24dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/program_details_padding"
+        android:paddingEnd="@dimen/program_details_padding">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wallet"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="20sp"/>
+
+        <LinearLayout
+            android:id="@+id/group_equity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@+id/group_share"
+            android:gravity="center_vertical|end"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/equity"
+                style="@style/program_info_invest_value"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="16sp"
+                tools:text="100.12345678 BTC"/>
+
+            <TextView
+                android:id="@+id/change"
+                style="@style/program_info_invest_value"
+                android:layout_marginTop="2dp"
+                android:textColor="?attr/colorGreen"
+                android:textSize="11sp"
+                tools:text="+12.49238675 BTC (12.56%)"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/group_share"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:visibility="invisible"
+            tools:visibility="visible">
+
+            <ProgressBar
+                android:id="@+id/share_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/circular_background_wallet_invested"
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/circular_progress_wallet_invested"
+                tools:max="100"
+                tools:min="1"
+                tools:progress="25"/>
+
+            <TextView
+                android:id="@+id/share_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"
+                tools:text="25%"/>
+
+        </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:indeterminate="true"
+            android:visibility="visible"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/group_wallets"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+</LinearLayout>

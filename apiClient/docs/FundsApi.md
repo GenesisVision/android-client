@@ -5,9 +5,10 @@ All URIs are relative to */api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addToFavorites**](FundsApi.md#addToFavorites) | **POST** v2.0/funds/{id}/favorite/add | Add to favorites
+[**getFundAbsoluteProfitChart**](FundsApi.md#getFundAbsoluteProfitChart) | **GET** v2.0/funds/{id}/charts/profit/absolute | Fund absolute profit chart
 [**getFundBalanceChart**](FundsApi.md#getFundBalanceChart) | **GET** v2.0/funds/{id}/charts/balance | Fund balance chart
 [**getFundDetails**](FundsApi.md#getFundDetails) | **GET** v2.0/funds/{id} | Fund details
-[**getFundProfitChart**](FundsApi.md#getFundProfitChart) | **GET** v2.0/funds/{id}/charts/profit | Fund profit chart
+[**getFundProfitPercentCharts**](FundsApi.md#getFundProfitPercentCharts) | **GET** v2.0/funds/{id}/charts/profit/percent | Fund profit percent charts
 [**getFunds**](FundsApi.md#getFunds) | **GET** v2.0/funds | Funds list
 [**getReallocatingHistory**](FundsApi.md#getReallocatingHistory) | **GET** v2.0/funds/{id}/reallocations | Get history of asset part update requests
 [**removeFromFavorites**](FundsApi.md#removeFromFavorites) | **POST** v2.0/funds/{id}/favorite/remove | Remove from favorites
@@ -47,6 +48,57 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getFundAbsoluteProfitChart"></a>
+# **getFundAbsoluteProfitChart**
+> AbsoluteProfitChart getFundAbsoluteProfitChart(id, dateFrom, dateTo, maxPointCount, currency)
+
+Fund absolute profit chart
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.FundsApi;
+
+
+FundsApi apiInstance = new FundsApi();
+UUID id = new UUID(); // UUID | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer maxPointCount = 56; // Integer | 
+String currency = "currency_example"; // String | 
+try {
+    AbsoluteProfitChart result = apiInstance.getFundAbsoluteProfitChart(id, dateFrom, dateTo, maxPointCount, currency);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FundsApi#getFundAbsoluteProfitChart");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **maxPointCount** | **Integer**|  | [optional]
+ **currency** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
+
+### Return type
+
+[**AbsoluteProfitChart**](AbsoluteProfitChart.md)
 
 ### Authorization
 
@@ -155,11 +207,11 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="getFundProfitChart"></a>
-# **getFundProfitChart**
-> FundProfitCharts getFundProfitChart(id, dateFrom, dateTo, maxPointCount, currency, currencies, chartAssetsCount)
+<a name="getFundProfitPercentCharts"></a>
+# **getFundProfitPercentCharts**
+> FundProfitPercentCharts getFundProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies, chartAssetsCount)
 
-Fund profit chart
+Fund profit percent charts
 
 ### Example
 ```java
@@ -177,10 +229,10 @@ String currency = "currency_example"; // String |
 List<Object> currencies = null; // List<Object> | 
 Integer chartAssetsCount = 56; // Integer | 
 try {
-    FundProfitCharts result = apiInstance.getFundProfitChart(id, dateFrom, dateTo, maxPointCount, currency, currencies, chartAssetsCount);
+    FundProfitPercentCharts result = apiInstance.getFundProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies, chartAssetsCount);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling FundsApi#getFundProfitChart");
+    System.err.println("Exception when calling FundsApi#getFundProfitPercentCharts");
     e.printStackTrace();
 }
 ```
@@ -199,7 +251,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FundProfitCharts**](FundProfitCharts.md)
+[**FundProfitPercentCharts**](FundProfitPercentCharts.md)
 
 ### Authorization
 
@@ -212,7 +264,7 @@ No authorization required
 
 <a name="getFunds"></a>
 # **getFunds**
-> ItemsViewModelFundDetailsList getFunds(authorization, sorting, showIn, assets, dateFrom, dateTo, chartPointsCount, facetId, mask, showFavorites, skip, take)
+> ItemsViewModelFundDetailsList getFunds(authorization, sorting, showIn, assets, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
 
 Funds list
 
@@ -233,11 +285,12 @@ DateTime dateTo = new DateTime(); // DateTime |
 Integer chartPointsCount = 56; // Integer | 
 String facetId = "facetId_example"; // String | 
 String mask = "mask_example"; // String | 
+UUID ownerId = new UUID(); // UUID | 
 Boolean showFavorites = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelFundDetailsList result = apiInstance.getFunds(authorization, sorting, showIn, assets, dateFrom, dateTo, chartPointsCount, facetId, mask, showFavorites, skip, take);
+    ItemsViewModelFundDetailsList result = apiInstance.getFunds(authorization, sorting, showIn, assets, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#getFunds");
@@ -250,7 +303,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**|  | [optional]
- **sorting** | **String**|  | [optional] [enum: ByTitleAsc, ByTitleDesc, BySizeAsc, BySizeDesc, ByInvestorsAsc, ByInvestorsDesc, ByDrawdownAsc, ByDrawdownDesc, ByProfitAsc, ByProfitDesc, ByNewAsc, ByNewDesc]
+ **sorting** | **String**|  | [optional] [enum: ByTitleAsc, ByTitleDesc, BySizeAsc, BySizeDesc, ByInvestorsAsc, ByInvestorsDesc, ByDrawdownAsc, ByDrawdownDesc, ByProfitAsc, ByProfitDesc, ByNewAsc, ByNewDesc, ByValueAsc, ByValueDesc]
  **showIn** | **String**|  | [optional] [enum: Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, USD, EUR]
  **assets** | [**List&lt;String&gt;**](String.md)|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
@@ -258,6 +311,7 @@ Name | Type | Description  | Notes
  **chartPointsCount** | **Integer**|  | [optional]
  **facetId** | **String**|  | [optional]
  **mask** | **String**|  | [optional]
+ **ownerId** | [**UUID**](.md)|  | [optional]
  **showFavorites** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]

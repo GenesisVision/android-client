@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **login** | **String** |  |  [optional]
 **apiKey** | **String** |  |  [optional]
+**asset** | [**AssetDetails**](AssetDetails.md) |  |  [optional]
 
 <a name="CurrencyEnum"></a>
 ## Enum: CurrencyEnum

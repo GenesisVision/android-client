@@ -3,12 +3,16 @@ package vision.genesis.clientapp.feature.main.dashboard.investments.details;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -21,12 +25,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.DashboardInvestingDetails;
 import io.swagger.client.model.DashboardTimeframeProfit;
-import io.swagger.client.model.FundDetailsList;
+import io.swagger.client.model.FundInvestingDetailsList;
 import io.swagger.client.model.InvestmentEventViewModel;
-import io.swagger.client.model.ProgramDetailsList;
+import io.swagger.client.model.ItemsViewModelAssetInvestmentRequest;
+import io.swagger.client.model.ProgramInvestingDetailsList;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.common.requests.RequestsAdapter;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.ui.DividerItemDecoration;
 import vision.genesis.clientapp.ui.FundDashboardShortView;
 import vision.genesis.clientapp.ui.PortfolioEventDashboardView;
 import vision.genesis.clientapp.ui.ProgramDashboardShortView;
@@ -77,6 +84,19 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 
 	@BindView(R.id.profit_month_label)
 	public TextView profitMonthLabel;
+
+
+	@BindView(R.id.group_requests)
+	public LinearLayout requestsGroup;
+
+	@BindView(R.id.requests_recycler_view)
+	public RecyclerView requestsRecyclerView;
+
+	@BindView(R.id.label_requests)
+	public TextView requestsLabel;
+
+	@BindView(R.id.requests_count)
+	public TextView requestsCount;
 
 
 	@BindView(R.id.group_events)
@@ -134,6 +154,8 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 
 	private DashboardInvestingDetails details;
 
+	private RequestsAdapter requestsAdapter;
+
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
@@ -151,6 +173,20 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 		setFonts();
 
 		initRefreshLayout();
+		initRequestsAdapter();
+	}
+
+	private void initRequestsAdapter() {
+		LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+		requestsRecyclerView.setLayoutManager(layoutManager);
+		int paddingLeft = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
+		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,
+				AppCompatResources.getDrawable(this, R.drawable.list_item_divider), paddingLeft, 0);
+		requestsRecyclerView.addItemDecoration(dividerItemDecoration);
+		requestsAdapter = new RequestsAdapter();
+		requestsAdapter.setHasStableIds(true);
+		requestsRecyclerView.setAdapter(requestsAdapter);
+		requestsRecyclerView.setNestedScrollingEnabled(false);
 	}
 
 	private void setFonts() {
@@ -166,10 +202,12 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 		profitWeekLabel.setText(getString(R.string.week).toLowerCase());
 		profitMonthLabel.setText(getString(R.string.month).toLowerCase());
 
+		requestsLabel.setTypeface(TypefaceUtil.semibold());
 		eventsLabel.setTypeface(TypefaceUtil.semibold());
 		programsLabel.setTypeface(TypefaceUtil.semibold());
 		fundsLabel.setTypeface(TypefaceUtil.semibold());
 
+		requestsCount.setTypeface(TypefaceUtil.semibold());
 		programsCount.setTypeface(TypefaceUtil.semibold());
 		fundsCount.setTypeface(TypefaceUtil.semibold());
 	}
@@ -209,6 +247,14 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 	}
 
 	@Override
+	public void setRequests(ItemsViewModelAssetInvestmentRequest data) {
+		requestsGroup.setVisibility(data.getTotal() > 0 ? View.VISIBLE : View.GONE);
+		requestsCount.setText(String.valueOf(data.getTotal()));
+
+		requestsAdapter.setRequests(data.getItems());
+	}
+
+	@Override
 	public void setInvesting(DashboardInvestingDetails details) {
 		this.details = details;
 		if (baseCurrency != null) {
@@ -217,8 +263,8 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 			setChangePercent(profitWeekValue, details.getProfits().getWeek());
 			setChangePercent(profitMonthValue, details.getProfits().getMonth());
 
-			programsCount.setText(String.valueOf(details.getProgramsCount()));
-			fundsCount.setText(String.valueOf(details.getFundsCount()));
+//			programsCount.setText(String.valueOf(details.getProgramsCount()));
+//			fundsCount.setText(String.valueOf(details.getFundsCount()));
 
 			showProgramsCountMaybe();
 			showFundsCountMaybe();
@@ -262,26 +308,40 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 	}
 
 	@Override
-	public void setPrograms(List<ProgramDetailsList> items) {
+	public void setPrograms(List<ProgramInvestingDetailsList> items) {
 		if (baseCurrency != null) {
 			programs.removeAllViews();
-			for (ProgramDetailsList program : items) {
+			int index = 0;
+			for (ProgramInvestingDetailsList program : items) {
 				ProgramDashboardShortView programView = new ProgramDashboardShortView(this);
 				programView.setData(program, baseCurrency.getValue());
 				programs.addView(programView);
+				if (index == items.size() - 1) {
+					programView.removeDelimiter();
+				}
+				index++;
 			}
+			programs.setVisibility(items.size() > 0 ? View.VISIBLE : View.GONE);
+			programsCount.setText(String.valueOf(items.size()));
 		}
 	}
 
 	@Override
-	public void setFunds(List<FundDetailsList> items) {
+	public void setFunds(List<FundInvestingDetailsList> items) {
 		if (baseCurrency != null) {
 			funds.removeAllViews();
-			for (FundDetailsList fund : items) {
+			int index = 0;
+			for (FundInvestingDetailsList fund : items) {
 				FundDashboardShortView fundView = new FundDashboardShortView(this);
 				fundView.setData(fund, baseCurrency.getValue());
 				funds.addView(fundView);
+				if (index == items.size() - 1) {
+					fundView.removeDelimiter();
+				}
+				index++;
 			}
+			funds.setVisibility(items.size() > 0 ? View.VISIBLE : View.GONE);
+			fundsCount.setText(String.valueOf(items.size()));
 		}
 	}
 

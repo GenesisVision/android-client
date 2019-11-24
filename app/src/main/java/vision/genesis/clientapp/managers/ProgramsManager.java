@@ -11,7 +11,6 @@ import io.swagger.client.model.ItemsViewModelProgramDetailsList;
 import io.swagger.client.model.ProgramBalanceChart;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramPeriodsViewModel;
-import io.swagger.client.model.ProgramProfitCharts;
 import io.swagger.client.model.ProgramWithdrawInfo;
 import io.swagger.client.model.TradesViewModel;
 import rx.Observable;
@@ -45,7 +44,7 @@ public class ProgramsManager
 				filter.getLevelMin(), filter.getLevelMax(),
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(), filter.getFacetId() == null ? null : filter.getFacetId().toString(),
-				filter.getMask(), false,
+				filter.getMask(), filter.getManagerId(), false,
 				filter.getSkip(), filter.getTake());
 	}
 
@@ -69,9 +68,9 @@ public class ProgramsManager
 		return programsApi.getProgramOpenTrades(programId, "ByDateDesc", null, null, null, 0, 1000);
 	}
 
-	public Observable<ProgramProfitCharts> getProfitChart(UUID programId, DateRange dateRange, Integer maxPointCount) {
-		return programsApi.getProgramProfitChart(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null, null);
-	}
+//	public Observable<ProgramProfitCharts> getProfitChart(UUID programId, DateRange dateRange, Integer maxPointCount) {
+//		return programsApi.getProgramProfitChart(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null, null);
+//	}
 
 	public Observable<ProgramBalanceChart> getBalanceChart(UUID programId, DateRange dateRange, Integer maxPointCount) {
 		return programsApi.getProgramBalanceChart(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null);

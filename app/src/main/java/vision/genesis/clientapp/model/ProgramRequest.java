@@ -98,18 +98,38 @@ public class ProgramRequest implements Parcelable
 		programColor = in.readString();
 		programCurrency = in.readString();
 		level = in.readInt();
-		levelProgress = in.readDouble();
+		if (in.readByte() == 0) {
+			levelProgress = null;
+		}
+		else {
+			levelProgress = in.readDouble();
+		}
 		periodEndsText = in.readString();
 		amountTopText = in.readString();
 		infoMiddleText = in.readString();
 		amountBottomText = in.readString();
-		amount = in.readDouble();
+		if (in.readByte() == 0) {
+			amount = null;
+		}
+		else {
+			amount = in.readDouble();
+		}
 		walletCurrency = in.readString();
 		withdrawAll = in.readByte() != 0;
 		walletId = (UUID) in.readValue(UUID.class.getClassLoader());
 		brokerType = BrokerTradeServerType.fromValue(in.readString());
-		availableInvestment = in.readDouble();
-		entryFee = in.readDouble();
+		if (in.readByte() == 0) {
+			availableInvestment = null;
+		}
+		else {
+			availableInvestment = in.readDouble();
+		}
+		if (in.readByte() == 0) {
+			entryFee = null;
+		}
+		else {
+			entryFee = in.readDouble();
+		}
 	}
 
 	@Override
@@ -126,18 +146,42 @@ public class ProgramRequest implements Parcelable
 		dest.writeString(programColor);
 		dest.writeString(programCurrency);
 		dest.writeInt(level);
-		dest.writeDouble(levelProgress);
+		if (levelProgress == null) {
+			dest.writeByte((byte) 0);
+		}
+		else {
+			dest.writeByte((byte) 1);
+			dest.writeDouble(levelProgress);
+		}
 		dest.writeString(periodEndsText);
 		dest.writeString(amountTopText);
 		dest.writeString(infoMiddleText);
 		dest.writeString(amountBottomText);
-		dest.writeDouble(amount);
+		if (amount == null) {
+			dest.writeByte((byte) 0);
+		}
+		else {
+			dest.writeByte((byte) 1);
+			dest.writeDouble(amount);
+		}
 		dest.writeString(walletCurrency);
 		dest.writeByte((byte) (withdrawAll ? 1 : 0));
 		dest.writeValue(walletId);
-		dest.writeString(brokerType.getValue());
-		dest.writeDouble(availableInvestment);
-		dest.writeDouble(entryFee);
+		dest.writeString(brokerType != null ? brokerType.getValue() : null);
+		if (availableInvestment == null) {
+			dest.writeByte((byte) 0);
+		}
+		else {
+			dest.writeByte((byte) 1);
+			dest.writeDouble(availableInvestment);
+		}
+		if (entryFee == null) {
+			dest.writeByte((byte) 0);
+		}
+		else {
+			dest.writeByte((byte) 1);
+			dest.writeDouble(entryFee);
+		}
 	}
 
 	public UUID getProgramId() {

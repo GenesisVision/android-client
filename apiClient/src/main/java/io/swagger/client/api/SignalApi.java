@@ -11,7 +11,6 @@ import io.swagger.client.model.DetachFromExternalSignalProvider;
 import io.swagger.client.model.DetachFromSignalProvider;
 import io.swagger.client.model.ItemsViewModelSignalTradingEvent;
 import io.swagger.client.model.ItemsViewModelTradingAccountDetails;
-import io.swagger.client.model.NewExternalSignalAccountRequest;
 import io.swagger.client.model.TradesSignalViewModel;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -32,8 +31,24 @@ public interface SignalApi
 			"Content-Type:application/json"
 	})
 	@POST("v2.0/signal/external/attach/{id}/common")
-	Observable<Void> attachSlaveCommonToMaster(
+	Observable<Void> attachSlaveToMasterExternalCommonAccount(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body AttachToExternalSignalProviderCommon body
+	);
+
+	/**
+	 * Subscribe to external signal account
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param id            (required)
+	 * @param body          (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/signal/external/attach/{id}/private")
+	Observable<Void> attachSlaveToMasterExternalPrivateAccount(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body AttachToExternalSignalProviderExt body
 	);
 
 	/**
@@ -48,24 +63,8 @@ public interface SignalApi
 			"Content-Type:application/json"
 	})
 	@POST("v2.0/signal/attach/{id}")
-	Observable<Void> attachSlaveToMaster(
+	Observable<Void> attachSlaveToMasterInternal(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body AttachToSignalProvider body
-	);
-
-	/**
-	 * Subscribe to external signal account
-	 *
-	 * @param authorization JWT access token (required)
-	 * @param id            (required)
-	 * @param body          (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("v2.0/signal/external/attach/{id}/external")
-	Observable<Void> attachSlaveToMaster_0(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body AttachToExternalSignalProviderExt body
 	);
 
 	/**
@@ -77,23 +76,22 @@ public interface SignalApi
 	 * @return Call&lt;Void&gt;
 	 */
 	@POST("v2.0/signal/trades/{id}/close")
-	Observable<Void> closeTrade(
+	Observable<Void> closeTradeInternal(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("assetId") UUID assetId
 	);
 
 	/**
-	 * Create external signal provider account
-	 *
 	 * @param authorization JWT access token (required)
+	 * @param id            (required)
 	 * @param body          (optional)
 	 * @return Call&lt;Void&gt;
 	 */
 	@Headers({
 			"Content-Type:application/json"
 	})
-	@POST("v2.0/signal/external/create")
-	Observable<Void> createExternalSignalProviderAccount(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body NewExternalSignalAccountRequest body
+	@POST("v2.0/signal/external/detach/{id}")
+	Observable<Void> detachSlaveFromMasterExternal(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body DetachFromExternalSignalProvider body
 	);
 
 	/**
@@ -108,22 +106,8 @@ public interface SignalApi
 			"Content-Type:application/json"
 	})
 	@POST("v2.0/signal/detach/{id}")
-	Observable<Void> detachSlaveFromMaster(
+	Observable<Void> detachSlaveFromMasterInternal(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body DetachFromSignalProvider body
-	);
-
-	/**
-	 * @param authorization JWT access token (required)
-	 * @param id            (required)
-	 * @param body          (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("v2.0/signal/external/detach/{id}")
-	Observable<Void> detachSlaveFromMaster_0(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body DetachFromExternalSignalProvider body
 	);
 
 	/**

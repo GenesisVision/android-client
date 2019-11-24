@@ -729,6 +729,7 @@
     <string name="trading_platform">Trading platform</string>
     <string name="read_terms">Read Terms</string>
     <string name="template_create_trading_account_deposit_notification">You must deposit at least the equivalent of %s to create a trading account.</string>
+    <string name="template_dashboard_header_change_period">for a %s</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

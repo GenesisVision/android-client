@@ -19,12 +19,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="24dp"
-            android:text="@string/in_requests"
+            android:text="@string/requests"
             android:textColor="?attr/colorTextPrimary"
-            android:textSize="20sp"/>
+            android:textSize="16sp"/>
 
         <ProgressBar
             android:id="@+id/progress_bar"

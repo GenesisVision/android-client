@@ -1,22 +1,29 @@
 package vision.genesis.clientapp.feature.main.dashboard;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.Locale;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -30,6 +37,7 @@ import vision.genesis.clientapp.feature.main.dashboard.investments.DashboardInve
 import vision.genesis.clientapp.feature.main.dashboard.investments.details.InvestmentsDetailsActivity;
 import vision.genesis.clientapp.feature.main.dashboard.trading.DashboardTradingView;
 import vision.genesis.clientapp.feature.main.dashboard.trading.details.TradingDetailsActivity;
+import vision.genesis.clientapp.feature.main.dashboard.wallet.DashboardWalletView;
 import vision.genesis.clientapp.feature.main.notifications.NotificationsActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -46,14 +54,28 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	@BindView(R.id.swipe_refresh)
 	public SwipeRefreshLayout refreshLayout;
 
-//	@BindView(R.id.appBarLayout)
-//	public AppBarLayout appBarLayout;
+	@BindView(R.id.scrollview)
+	public NestedScrollView scrollview;
 
 	@BindView(R.id.root)
 	public ViewGroup root;
 
 	@BindView(R.id.header)
 	public ViewGroup header;
+
+
+	@BindView(R.id.group_header_balance)
+	public ViewGroup headerBalanceGroup;
+
+	@BindView(R.id.header_total)
+	public TextView headerTotal;
+
+	@BindView(R.id.header_change_value)
+	public TextView headerChangeValue;
+
+	@BindView(R.id.header_change_period)
+	public TextView headerChangePeriod;
+
 
 	@BindView(R.id.total)
 	public TextView total;
@@ -85,11 +107,18 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	public DashboardTradingView tradingView;
 
 
+	@BindView(R.id.wallet_view)
+	public DashboardWalletView walletView;
+
+
 	@BindView(R.id.notifications_dot)
 	public View notificationsDot;
 
 	@BindView(R.id.dashboard_progress_bar)
 	public ProgressBar progressBar;
+
+	@BindDimen(R.dimen.toolbar_height)
+	public int toolbarHeight;
 
 	@InjectPresenter
 	DashboardPresenter dashboardPresenter;
@@ -97,6 +126,14 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	private Unbinder unbinder;
 
 	private CurrencyEnum baseCurrency;
+
+	private float headerBalanceGroupInitialY = 0;
+
+	private long headerBalanceGroupAnimationDuration = 300;
+
+	private boolean showAnimInProcess = false;
+
+	private boolean hideAnimInProcess = false;
 
 	@OnClick(R.id.investments_view)
 	public void onInvestmentsClicked() {
@@ -151,7 +188,9 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 		setFonts();
 
 		initRefreshLayout();
-		setOffsetListener();
+		setScrollListener();
+
+		new Handler().postDelayed(this::hideBalanceInHeader, 100);
 	}
 
 	@Override
@@ -172,6 +211,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 
 	private void setFonts() {
 		total.setTypeface(TypefaceUtil.semibold());
+		headerTotal.setTypeface(TypefaceUtil.semibold());
 
 		profitDayValue.setTypeface(TypefaceUtil.semibold());
 		profitWeekValue.setTypeface(TypefaceUtil.semibold());
@@ -192,20 +232,64 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	}
 
 
-	private void setOffsetListener() {
-//		appBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
-//			refreshLayout.setEnabled(verticalOffset == 0);
-////			assetsPagerAdapter.onOffsetChanged(appBarLayout.getHeight() + verticalOffset - tabLayoutAssets.getHeight() - header.getHeight());
-//		});
-//		ScrollView scrollView = new ScrollView(getContext());
-//		scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-//			@Override
-//			public void onScrollChanged() {
-//				int scrollY = rootScrollView.getScrollY(); // For ScrollView
-//				int scrollX = rootScrollView.getScrollX(); // For HorizontalScrollView
-//				// DO SOMETHING WITH THE SCROLL COORDINATES
-//			}
-//		});
+	private void setScrollListener() {
+		scrollview.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+			if (scrollY > 150 && !showAnimInProcess) {
+				showBalanceInHeader();
+			}
+			else if (scrollY < 100 && !hideAnimInProcess) {
+				hideBalanceInHeader();
+			}
+		});
+	}
+
+	private void showBalanceInHeader() {
+		showAnimInProcess = true;
+		hideAnimInProcess = false;
+		ValueAnimator yAnim = ValueAnimator.ofFloat(headerBalanceGroup.getY(), headerBalanceGroupInitialY);
+		ValueAnimator alphaAnim = ValueAnimator.ofFloat(headerBalanceGroup.getAlpha(), 1f);
+		yAnim.addUpdateListener(animation -> headerBalanceGroup.setY((float) yAnim.getAnimatedValue()));
+		alphaAnim.addUpdateListener(animation -> headerBalanceGroup.setAlpha((float) alphaAnim.getAnimatedValue()));
+		yAnim.setDuration(headerBalanceGroupAnimationDuration);
+		alphaAnim.setDuration(headerBalanceGroupAnimationDuration);
+		alphaAnim.addListener(new AnimatorListenerAdapter()
+		{
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				super.onAnimationEnd(animation);
+				showAnimInProcess = false;
+			}
+		});
+		yAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+		alphaAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+		yAnim.start();
+		alphaAnim.start();
+	}
+
+	private void hideBalanceInHeader() {
+		hideAnimInProcess = true;
+		showAnimInProcess = false;
+		if (headerBalanceGroupInitialY == 0) {
+			headerBalanceGroupInitialY = headerBalanceGroup.getY();
+		}
+		ValueAnimator yAnim = ValueAnimator.ofFloat(headerBalanceGroup.getY(), headerBalanceGroupInitialY + toolbarHeight);
+		ValueAnimator alphaAnim = ValueAnimator.ofFloat(headerBalanceGroup.getAlpha(), 0f);
+		yAnim.addUpdateListener(animation -> headerBalanceGroup.setY((float) yAnim.getAnimatedValue()));
+		alphaAnim.addUpdateListener(animation -> headerBalanceGroup.setAlpha((float) alphaAnim.getAnimatedValue()));
+		yAnim.setDuration(headerBalanceGroupAnimationDuration);
+		alphaAnim.setDuration(headerBalanceGroupAnimationDuration);
+		alphaAnim.addListener(new AnimatorListenerAdapter()
+		{
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				super.onAnimationEnd(animation);
+				hideAnimInProcess = false;
+			}
+		});
+		yAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+		alphaAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+		yAnim.start();
+		alphaAnim.start();
 	}
 //
 //	private void setScrollable(View bottomSheet, RecyclerView recyclerView) {
@@ -237,13 +321,36 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	public void setSummary(DashboardSummary summary) {
 		if (baseCurrency != null) {
 			total.setText(StringFormatUtil.getValueString(summary.getTotal(), baseCurrency.getValue()));
+			headerTotal.setText(StringFormatUtil.getValueString(summary.getTotal(), baseCurrency.getValue()));
+
+			setHeaderChange(summary.getProfits().getMonth(), getString(R.string.month));
+
 			setChangePercent(profitDayValue, summary.getProfits().getDay());
 			setChangePercent(profitWeekValue, summary.getProfits().getWeek());
 			setChangePercent(profitMonthValue, summary.getProfits().getMonth());
 
 			investmentsView.setShare((int) (summary.getInvested() / summary.getTotal() * 100));
 			tradingView.setShare((int) (summary.getPending() / summary.getTotal() * 100));
+			walletView.setShare((int) (summary.getAvailable() / summary.getTotal() * 100));
 		}
+	}
+
+	private void setHeaderChange(DashboardTimeframeProfit model, String periodName) {
+		String sign = model.getProfit() > 0 ? "+" : "";
+		headerChangeValue.setText(String.format(Locale.getDefault(), "%s%s (%s%%)",
+				sign,
+				StringFormatUtil.getValueString(model.getProfit(), baseCurrency.getValue()),
+				StringFormatUtil.formatAmount(model.getProfitPercent(), 0, 2)));
+		headerChangeValue.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
+				model.getProfitPercent() > 0
+						? R.attr.colorGreen
+						: model.getProfitPercent() < 0
+						? R.attr.colorRed
+						: R.attr.colorTextPrimary));
+
+		headerChangePeriod.setText(String.format(Locale.getDefault(),
+				getString(R.string.template_dashboard_header_change_period),
+				periodName.toLowerCase()));
 	}
 
 	private void setChangePercent(TextView view, DashboardTimeframeProfit model) {
@@ -285,6 +392,13 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	public void updateTrading() {
 		if (tradingView != null) {
 			tradingView.update();
+		}
+	}
+
+	@Override
+	public void updateWallet() {
+		if (walletView != null) {
+			walletView.update();
 		}
 	}
 

@@ -143,6 +143,62 @@
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:id="@+id/group_requests"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="?attr/colorCard"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp">
+
+                        <TextView
+                            android:id="@+id/label_requests"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/requests"
+                            android:textColor="?attr/colorTextPrimary"
+                            android:textSize="16sp"/>
+
+                        <RelativeLayout
+                            android:id="@+id/requests_count_background"
+                            android:layout_width="wrap_content"
+                            android:layout_height="24dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="16dp"
+                            android:layout_toEndOf="@+id/label_requests"
+                            android:background="@drawable/background_count_active">
+
+                            <TextView
+                                android:id="@+id/requests_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:paddingStart="6dp"
+                                android:paddingEnd="6dp"
+                                android:textColor="?attr/colorAccent"
+                                android:textSize="16sp"
+                                tools:text="28"/>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/requests_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/group_events"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -270,7 +326,10 @@
                         android:id="@+id/programs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"/>
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
 
                 </LinearLayout>
 
@@ -349,7 +408,10 @@
                         android:id="@+id/funds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"/>
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
 
                 </LinearLayout>
 

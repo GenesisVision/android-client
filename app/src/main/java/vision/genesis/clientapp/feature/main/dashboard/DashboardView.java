@@ -31,4 +31,6 @@ interface DashboardView extends MvpView
 	void updateInvesting();
 
 	void updateTrading();
+
+	void updateWallet();
 }

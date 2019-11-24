@@ -112,6 +112,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 
 			ButterKnife.bind(this, itemView);
 
+			name.setTypeface(TypefaceUtil.semibold());
 			cancelText.setTypeface(TypefaceUtil.semibold());
 			value.setTypeface(TypefaceUtil.semibold());
 

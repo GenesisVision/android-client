@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.daimajia.swipe.SwipeLayout android:id="@+id/swipe_layout"
-                                xmlns:android="http://schemas.android.com/apk/res/android"
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                 xmlns:app="http://schemas.android.com/apk/res-auto"
                                 xmlns:tools="http://schemas.android.com/tools"
+                                android:id="@+id/swipe_layout"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/item_request_height">
 
@@ -34,10 +34,10 @@
         android:layout_height="match_parent"
         android:background="?attr/colorCard"
         android:orientation="vertical"
-        android:paddingBottom="10dp"
         android:paddingLeft="20dp"
+        android:paddingTop="10dp"
         android:paddingRight="20dp"
-        android:paddingTop="10dp">
+        android:paddingBottom="10dp">
 
         <RelativeLayout
             android:id="@+id/group_icons"
@@ -48,8 +48,8 @@
                 android:id="@+id/action"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
                 app:roundAsCircle="true"/>
 
             <ImageView
@@ -76,8 +76,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
-            android:layout_toEndOf="@+id/group_icons"
             android:layout_toStartOf="@+id/group_right"
+            android:layout_toEndOf="@+id/group_icons"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
@@ -88,17 +88,17 @@
                 android:ellipsize="end"
                 android:lines="1"
                 android:textColor="?attr/colorTextPrimary"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 tools:text="Janus Capital Group"/>
 
             <TextView
                 android:id="@+id/type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="2dp"
                 android:alpha="0.3"
                 android:textColor="?attr/colorTextPrimary"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 tools:text="Invest"/>
 
         </LinearLayout>
@@ -117,16 +117,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?attr/colorTextPrimary"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 tools:text="+12.76 GVT"/>
 
             <TextView
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="2dp"
                 android:textColor="?attr/colorTextSecondary"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 tools:text="est. time 09 May"/>
 
         </LinearLayout>

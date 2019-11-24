@@ -12,8 +12,6 @@ import javax.inject.Inject;
 import io.swagger.client.model.FundProfitCharts;
 import io.swagger.client.model.SimpleChart;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.FundsManager;
@@ -79,11 +77,11 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 				chartDataSubscription.unsubscribe();
 			}
 			//TODO: calculate maxPointCount
-			chartDataSubscription = fundsManager.getProfitChart(fundId, chartDateRange, 30)
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleGetChartDataSuccess,
-							this::handleGetChartDataError);
+//			chartDataSubscription = fundsManager.getProfitChart(fundId, chartDateRange, 30)
+//					.observeOn(AndroidSchedulers.mainThread())
+//					.subscribeOn(Schedulers.io())
+//					.subscribe(this::handleGetChartDataSuccess,
+//							this::handleGetChartDataError);
 		}
 	}
 

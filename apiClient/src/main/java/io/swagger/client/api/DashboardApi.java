@@ -14,6 +14,8 @@ import io.swagger.client.model.DashboardRecommendations;
 import io.swagger.client.model.DashboardSummary;
 import io.swagger.client.model.DashboardTradingDetails;
 import io.swagger.client.model.ItemsViewModelDashboardTradingAsset;
+import io.swagger.client.model.ItemsViewModelFundInvestingDetailsList;
+import io.swagger.client.model.ItemsViewModelProgramInvestingDetailsList;
 import retrofit2.http.GET;
 import rx.Observable;
 
@@ -63,6 +65,48 @@ public interface DashboardApi
 	@GET("v2.0/dashboard/investing")
 	Observable<DashboardInvestingDetails> getInvestingDetails(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currency") String currency, @retrofit2.http.Query("eventsTake") Integer eventsTake
+	);
+
+	/**
+	 * @param authorization    JWT access token (required)
+	 * @param sorting          (optional)
+	 * @param showIn           (optional)
+	 * @param status           (optional)
+	 * @param dateFrom         (optional)
+	 * @param dateTo           (optional)
+	 * @param chartPointsCount (optional)
+	 * @param facetId          (optional)
+	 * @param mask             (optional)
+	 * @param ownerId          (optional)
+	 * @param showFavorites    (optional)
+	 * @param skip             (optional)
+	 * @param take             (optional)
+	 * @return Call&lt;ItemsViewModelFundInvestingDetailsList&gt;
+	 */
+	@GET("v2.0/dashboard/investing/funds")
+	Observable<ItemsViewModelFundInvestingDetailsList> getInvestingFunds(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("ShowIn") String showIn, @retrofit2.http.Query("Status") String status, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("OwnerId") UUID ownerId, @retrofit2.http.Query("ShowFavorites") Boolean showFavorites, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * @param authorization    JWT access token (required)
+	 * @param sorting          (optional)
+	 * @param showIn           (optional)
+	 * @param status           (optional)
+	 * @param dateFrom         (optional)
+	 * @param dateTo           (optional)
+	 * @param chartPointsCount (optional)
+	 * @param facetId          (optional)
+	 * @param mask             (optional)
+	 * @param ownerId          (optional)
+	 * @param showFavorites    (optional)
+	 * @param skip             (optional)
+	 * @param take             (optional)
+	 * @return Call&lt;ItemsViewModelProgramInvestingDetailsList&gt;
+	 */
+	@GET("v2.0/dashboard/investing/programs")
+	Observable<ItemsViewModelProgramInvestingDetailsList> getInvestingPrograms(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("ShowIn") String showIn, @retrofit2.http.Query("Status") String status, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("OwnerId") UUID ownerId, @retrofit2.http.Query("ShowFavorites") Boolean showFavorites, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

@@ -8,7 +8,6 @@ import io.swagger.client.api.FundsApi;
 import io.swagger.client.api.InvestmentsApi;
 import io.swagger.client.model.FundBalanceChart;
 import io.swagger.client.model.FundDetailsFull;
-import io.swagger.client.model.FundProfitCharts;
 import io.swagger.client.model.FundWithdrawInfo;
 import io.swagger.client.model.InvestmentEventLocation;
 import io.swagger.client.model.InvestmentEventViewModels;
@@ -47,7 +46,7 @@ public class FundsManager
 				null, null, null,
 				null, null,
 				filter.getChartPointsCount(), filter.getFacetId() == null ? null : filter.getFacetId().toString(),
-				filter.getMask(), filter.getIsFavorite(),
+				filter.getMask(), filter.getManagerId(), filter.getIsFavorite(),
 				filter.getSkip(), filter.getTake());
 	}
 
@@ -71,9 +70,9 @@ public class FundsManager
 //		return fundsApi.v10FundsByIdAssetsGet(fundId);
 //	}
 
-	public Observable<FundProfitCharts> getProfitChart(UUID fundId, DateRange dateRange, Integer maxPointCount) {
-		return fundsApi.getFundProfitChart(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null, null, null);
-	}
+//	public Observable<FundProfitCharts> getProfitChart(UUID fundId, DateRange dateRange, Integer maxPointCount) {
+//		return fundsApi.getFundProfitChart(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null, null, null);
+//	}
 
 	public Observable<FundBalanceChart> getBalanceChart(UUID fundId, DateRange dateRange, Integer maxPointCount) {
 		return fundsApi.getFundBalanceChart(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null);

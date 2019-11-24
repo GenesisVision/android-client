@@ -3,6 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**investors** | **Integer** |  |  [optional]
 **profit** | **Double** |  |  [optional]
 **tradingVolume** | **Double** |  |  [optional]
 **trades** | **Integer** |  |  [optional]
@@ -11,7 +12,6 @@ Name | Type | Description | Notes
 **lastPeriodStarts** | [**DateTime**](DateTime.md) |  |  [optional]
 **lastPeriodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
 **balance** | **Double** |  |  [optional]
-**investors** | **Integer** |  |  [optional]
 **sharpeRatio** | **Double** |  |  [optional]
 **sortinoRatio** | **Double** |  |  [optional]
 **calmarRatio** | **Double** |  |  [optional]

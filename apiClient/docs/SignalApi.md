@@ -4,22 +4,21 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**attachSlaveCommonToMaster**](SignalApi.md#attachSlaveCommonToMaster) | **POST** v2.0/signal/external/attach/{id}/common | Subscribe to external signal using common account
-[**attachSlaveToMaster**](SignalApi.md#attachSlaveToMaster) | **POST** v2.0/signal/attach/{id} | Subscribe to signal provider
-[**attachSlaveToMaster_0**](SignalApi.md#attachSlaveToMaster_0) | **POST** v2.0/signal/external/attach/{id}/external | Subscribe to external signal account
-[**closeTrade**](SignalApi.md#closeTrade) | **POST** v2.0/signal/trades/{id}/close | Close signal trade
-[**createExternalSignalProviderAccount**](SignalApi.md#createExternalSignalProviderAccount) | **POST** v2.0/signal/external/create | Create external signal provider account
-[**detachSlaveFromMaster**](SignalApi.md#detachSlaveFromMaster) | **POST** v2.0/signal/detach/{id} | Unsubscribe from signal provider
-[**detachSlaveFromMaster_0**](SignalApi.md#detachSlaveFromMaster_0) | **POST** v2.0/signal/external/detach/{id} | 
+[**attachSlaveToMasterExternalCommonAccount**](SignalApi.md#attachSlaveToMasterExternalCommonAccount) | **POST** v2.0/signal/external/attach/{id}/common | Subscribe to external signal using common account
+[**attachSlaveToMasterExternalPrivateAccount**](SignalApi.md#attachSlaveToMasterExternalPrivateAccount) | **POST** v2.0/signal/external/attach/{id}/private | Subscribe to external signal account
+[**attachSlaveToMasterInternal**](SignalApi.md#attachSlaveToMasterInternal) | **POST** v2.0/signal/attach/{id} | Subscribe to signal provider
+[**closeTradeInternal**](SignalApi.md#closeTradeInternal) | **POST** v2.0/signal/trades/{id}/close | Close signal trade
+[**detachSlaveFromMasterExternal**](SignalApi.md#detachSlaveFromMasterExternal) | **POST** v2.0/signal/external/detach/{id} | 
+[**detachSlaveFromMasterInternal**](SignalApi.md#detachSlaveFromMasterInternal) | **POST** v2.0/signal/detach/{id} | Unsubscribe from signal provider
 [**getOpenSignalTrades**](SignalApi.md#getOpenSignalTrades) | **GET** v2.0/signal/trades/open | Get investors signals open trades
 [**getSignalTrades**](SignalApi.md#getSignalTrades) | **GET** v2.0/signal/trades | Get investors signals trades history
 [**getSignalTradingLog**](SignalApi.md#getSignalTradingLog) | **GET** v2.0/signal/trades/log | Get investors signals trading log
 [**getSubscriberAccountsForAsset**](SignalApi.md#getSubscriberAccountsForAsset) | **GET** v2.0/signal/attach/{id}/accounts | Get subscriber accounts for subscribe to signal provider (common method for all signals)
 [**updateSubscriptionSettings**](SignalApi.md#updateSubscriptionSettings) | **POST** v2.0/signal/{id}/update | Update signal subscription settings
 
-<a name="attachSlaveCommonToMaster"></a>
-# **attachSlaveCommonToMaster**
-> Void attachSlaveCommonToMaster(authorization, id, body)
+<a name="attachSlaveToMasterExternalCommonAccount"></a>
+# **attachSlaveToMasterExternalCommonAccount**
+> Void attachSlaveToMasterExternalCommonAccount(authorization, id, body)
 
 Subscribe to external signal using common account
 
@@ -35,10 +34,10 @@ String authorization = "authorization_example"; // String | JWT access token
 UUID id = new UUID(); // UUID | 
 AttachToExternalSignalProviderCommon body = new AttachToExternalSignalProviderCommon(); // AttachToExternalSignalProviderCommon | 
 try {
-    Void result = apiInstance.attachSlaveCommonToMaster(authorization, id, body);
+    Void result = apiInstance.attachSlaveToMasterExternalCommonAccount(authorization, id, body);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#attachSlaveCommonToMaster");
+    System.err.println("Exception when calling SignalApi#attachSlaveToMasterExternalCommonAccount");
     e.printStackTrace();
 }
 ```
@@ -64,56 +63,9 @@ No authorization required
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
-<a name="attachSlaveToMaster"></a>
-# **attachSlaveToMaster**
-> Void attachSlaveToMaster(authorization, id, body)
-
-Subscribe to signal provider
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.SignalApi;
-
-
-SignalApi apiInstance = new SignalApi();
-String authorization = "authorization_example"; // String | JWT access token
-UUID id = new UUID(); // UUID | 
-AttachToSignalProvider body = new AttachToSignalProvider(); // AttachToSignalProvider | 
-try {
-    Void result = apiInstance.attachSlaveToMaster(authorization, id, body);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#attachSlaveToMaster");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **id** | [**UUID**](.md)|  |
- **body** | [**AttachToSignalProvider**](AttachToSignalProvider.md)|  | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="attachSlaveToMaster_0"></a>
-# **attachSlaveToMaster_0**
-> Void attachSlaveToMaster_0(authorization, id, body)
+<a name="attachSlaveToMasterExternalPrivateAccount"></a>
+# **attachSlaveToMasterExternalPrivateAccount**
+> Void attachSlaveToMasterExternalPrivateAccount(authorization, id, body)
 
 Subscribe to external signal account
 
@@ -129,10 +81,10 @@ String authorization = "authorization_example"; // String | JWT access token
 UUID id = new UUID(); // UUID | 
 AttachToExternalSignalProviderExt body = new AttachToExternalSignalProviderExt(); // AttachToExternalSignalProviderExt | 
 try {
-    Void result = apiInstance.attachSlaveToMaster_0(authorization, id, body);
+    Void result = apiInstance.attachSlaveToMasterExternalPrivateAccount(authorization, id, body);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#attachSlaveToMaster_0");
+    System.err.println("Exception when calling SignalApi#attachSlaveToMasterExternalPrivateAccount");
     e.printStackTrace();
 }
 ```
@@ -158,9 +110,56 @@ No authorization required
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
-<a name="closeTrade"></a>
-# **closeTrade**
-> Void closeTrade(id, authorization, assetId)
+<a name="attachSlaveToMasterInternal"></a>
+# **attachSlaveToMasterInternal**
+> Void attachSlaveToMasterInternal(authorization, id, body)
+
+Subscribe to signal provider
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.SignalApi;
+
+
+SignalApi apiInstance = new SignalApi();
+String authorization = "authorization_example"; // String | JWT access token
+UUID id = new UUID(); // UUID | 
+AttachToSignalProvider body = new AttachToSignalProvider(); // AttachToSignalProvider | 
+try {
+    Void result = apiInstance.attachSlaveToMasterInternal(authorization, id, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SignalApi#attachSlaveToMasterInternal");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **id** | [**UUID**](.md)|  |
+ **body** | [**AttachToSignalProvider**](AttachToSignalProvider.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="closeTradeInternal"></a>
+# **closeTradeInternal**
+> Void closeTradeInternal(id, authorization, assetId)
 
 Close signal trade
 
@@ -176,10 +175,10 @@ UUID id = new UUID(); // UUID | Trade id
 String authorization = "authorization_example"; // String | JWT access token
 UUID assetId = new UUID(); // UUID | Provider asset id
 try {
-    Void result = apiInstance.closeTrade(id, authorization, assetId);
+    Void result = apiInstance.closeTradeInternal(id, authorization, assetId);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#closeTrade");
+    System.err.println("Exception when calling SignalApi#closeTradeInternal");
     e.printStackTrace();
 }
 ```
@@ -205,101 +204,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="createExternalSignalProviderAccount"></a>
-# **createExternalSignalProviderAccount**
-> Void createExternalSignalProviderAccount(authorization, body)
-
-Create external signal provider account
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.SignalApi;
-
-
-SignalApi apiInstance = new SignalApi();
-String authorization = "authorization_example"; // String | JWT access token
-NewExternalSignalAccountRequest body = new NewExternalSignalAccountRequest(); // NewExternalSignalAccountRequest | 
-try {
-    Void result = apiInstance.createExternalSignalProviderAccount(authorization, body);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#createExternalSignalProviderAccount");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **body** | [**NewExternalSignalAccountRequest**](NewExternalSignalAccountRequest.md)|  | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="detachSlaveFromMaster"></a>
-# **detachSlaveFromMaster**
-> Void detachSlaveFromMaster(authorization, id, body)
-
-Unsubscribe from signal provider
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.SignalApi;
-
-
-SignalApi apiInstance = new SignalApi();
-String authorization = "authorization_example"; // String | JWT access token
-UUID id = new UUID(); // UUID | 
-DetachFromSignalProvider body = new DetachFromSignalProvider(); // DetachFromSignalProvider | 
-try {
-    Void result = apiInstance.detachSlaveFromMaster(authorization, id, body);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#detachSlaveFromMaster");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **id** | [**UUID**](.md)|  |
- **body** | [**DetachFromSignalProvider**](DetachFromSignalProvider.md)|  | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="detachSlaveFromMaster_0"></a>
-# **detachSlaveFromMaster_0**
-> Void detachSlaveFromMaster_0(authorization, id, body)
+<a name="detachSlaveFromMasterExternal"></a>
+# **detachSlaveFromMasterExternal**
+> Void detachSlaveFromMasterExternal(authorization, id, body)
 
 
 
@@ -315,10 +222,10 @@ String authorization = "authorization_example"; // String | JWT access token
 UUID id = new UUID(); // UUID | 
 DetachFromExternalSignalProvider body = new DetachFromExternalSignalProvider(); // DetachFromExternalSignalProvider | 
 try {
-    Void result = apiInstance.detachSlaveFromMaster_0(authorization, id, body);
+    Void result = apiInstance.detachSlaveFromMasterExternal(authorization, id, body);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#detachSlaveFromMaster_0");
+    System.err.println("Exception when calling SignalApi#detachSlaveFromMasterExternal");
     e.printStackTrace();
 }
 ```
@@ -330,6 +237,53 @@ Name | Type | Description  | Notes
  **authorization** | **String**| JWT access token |
  **id** | [**UUID**](.md)|  |
  **body** | [**DetachFromExternalSignalProvider**](DetachFromExternalSignalProvider.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="detachSlaveFromMasterInternal"></a>
+# **detachSlaveFromMasterInternal**
+> Void detachSlaveFromMasterInternal(authorization, id, body)
+
+Unsubscribe from signal provider
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.SignalApi;
+
+
+SignalApi apiInstance = new SignalApi();
+String authorization = "authorization_example"; // String | JWT access token
+UUID id = new UUID(); // UUID | 
+DetachFromSignalProvider body = new DetachFromSignalProvider(); // DetachFromSignalProvider | 
+try {
+    Void result = apiInstance.detachSlaveFromMasterInternal(authorization, id, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SignalApi#detachSlaveFromMasterInternal");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **id** | [**UUID**](.md)|  |
+ **body** | [**DetachFromSignalProvider**](DetachFromSignalProvider.md)|  | [optional]
 
 ### Return type
 
