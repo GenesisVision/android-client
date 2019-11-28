@@ -6,14 +6,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.OrderModel;
@@ -50,13 +51,13 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 		return trades.size();
 	}
 
-	void setTrades(List<OrderModel> trades) {
+	public void setTrades(List<OrderModel> trades) {
 		this.trades.clear();
 		this.trades.addAll(trades);
 		notifyDataSetChanged();
 	}
 
-	void addTrades(List<OrderModel> trades) {
+	public void addTrades(List<OrderModel> trades) {
 		this.trades.addAll(trades);
 		notifyDataSetChanged();
 	}
@@ -93,8 +94,9 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 
 			setFonts();
 			itemView.setOnClickListener(view -> {
-				if (trade != null)
+				if (trade != null) {
 					EventBus.getDefault().post(new OnTradeClickedEvent(trade));
+				}
 			});
 		}
 

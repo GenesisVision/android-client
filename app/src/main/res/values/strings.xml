@@ -549,7 +549,7 @@
     <string name="entry_fee_disabled_title">The entry fee is disabled for programs that have not reached level 3</string>
     <string name="entry_fee_disabled_message">It will be charged only for programs with level 3 or higher.</string>
     <string name="equity">Equity</string>
-    <string name="program_has_no_open_positions">There are currently no open positions in this program.</string>
+    <string name="program_has_no_open_positions">There are currently no open positions.</string>
     <string name="open_positions">Open positions</string>
     <string name="price_open">Price open</string>
     <string name="my_wallets">My wallets</string>

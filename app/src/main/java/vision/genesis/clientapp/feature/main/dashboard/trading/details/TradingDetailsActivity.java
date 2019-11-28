@@ -198,7 +198,7 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 	private void setFonts() {
 		title.setTypeface(TypefaceUtil.semibold());
 
-//		total.setTypeface(TypefaceUtil.semibold());
+		total.setTypeface(TypefaceUtil.semibold());
 
 		profitDayValue.setTypeface(TypefaceUtil.semibold());
 		profitWeekValue.setTypeface(TypefaceUtil.semibold());

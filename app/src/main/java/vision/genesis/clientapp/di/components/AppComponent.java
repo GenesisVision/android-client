@@ -91,10 +91,16 @@ import vision.genesis.clientapp.feature.main.search.SearchPresenter;
 import vision.genesis.clientapp.feature.main.settings.SettingsPresenter;
 import vision.genesis.clientapp.feature.main.settings.security.SecurityPresenter;
 import vision.genesis.clientapp.feature.main.settings.security.change_password.ChangePasswordPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.TradingAccountPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.balance.TradingAccountBalancePresenter;
 import vision.genesis.clientapp.feature.main.trading_account.create.CreateAccountPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.create.broker.CreateAccountBrokerPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.create.deposit.CreateAccountDepositPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.create.settings.CreateAccountSettingsPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.info.TradingAccountInfoPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.open_positions.TradingAccountOpenPositionsPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.profit.TradingAccountProfitPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.trades.TradingAccountTradesPresenter;
 import vision.genesis.clientapp.feature.main.wallet.WalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.copytrading_account_details.CopytradingAccountDetailsPresenter;
 import vision.genesis.clientapp.feature.main.wallet.copytrading_accounts.CopytradingAccountsPresenter;
@@ -335,4 +341,16 @@ public interface AppComponent
 	void inject(FollowInfoPresenter followInfoPresenter);
 
 	void inject(OwnerInfoPresenter ownerInfoPresenter);
+
+	void inject(TradingAccountPresenter tradingAccountPresenter);
+
+	void inject(TradingAccountInfoPresenter tradingAccountInfoPresenter);
+
+	void inject(TradingAccountOpenPositionsPresenter tradingAccountOpenPositionsPresenter);
+
+	void inject(TradingAccountProfitPresenter tradingAccountProfitPresenter);
+
+	void inject(TradingAccountBalancePresenter tradingAccountBalancePresenter);
+
+	void inject(TradingAccountTradesPresenter tradingAccountTradesPresenter);
 }

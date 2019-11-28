@@ -8,6 +8,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Locale;
@@ -21,8 +23,11 @@ import io.swagger.client.model.DashboardTradingAssetStatus;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
+import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowTradingAccountDetailsEvent;
+import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -36,6 +41,9 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 {
 	@BindView(R.id.logo)
 	public ProgramLogoView logo;
+
+	@BindView(R.id.broker_logo)
+	public SimpleDraweeView brokerLogo;
 
 	@BindView(R.id.name)
 	public TextView name;
@@ -98,12 +106,20 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 		value.setTypeface(TypefaceUtil.semibold());
 
 		setOnClickListener(v -> {
-			if (asset != null) {
+			if (asset != null && asset.getAccountInfo() != null &&
+					asset.getAccountInfo().getStatus() != DashboardTradingAssetStatus.PENDING) {
 				switch (asset.getAssetType()) {
 					case NONE:
+						TradingAccountDetailsModel tradingAccountDetailsModel = new TradingAccountDetailsModel(
+								asset.getId(),
+								asset.getAccountInfo() != null ? asset.getAccountInfo().getLogin() : null,
+								asset.getBroker() != null ? asset.getBroker().getLogo() : null
+						);
+						EventBus.getDefault().post(new ShowTradingAccountDetailsEvent(tradingAccountDetailsModel));
 						break;
 					case PROGRAM:
-						ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(asset.getId(),
+						ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(
+								asset.getId(),
 								asset.getPublicInfo().getLogo(),
 								asset.getPublicInfo().getColor(),
 								0,
@@ -117,7 +133,8 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 						EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 						break;
 					case FUND:
-						FundDetailsModel fundDetailsModel = new FundDetailsModel(asset.getId(),
+						FundDetailsModel fundDetailsModel = new FundDetailsModel(
+								asset.getId(),
 								asset.getPublicInfo().getLogo(),
 								asset.getPublicInfo().getColor(),
 								asset.getPublicInfo().getTitle(),
@@ -127,7 +144,8 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 						EventBus.getDefault().post(new ShowFundDetailsEvent(fundDetailsModel));
 						break;
 					case FOLLOW:
-						ProgramDetailsModel followDetailsModel = new ProgramDetailsModel(asset.getId(),
+						ProgramDetailsModel followDetailsModel = new ProgramDetailsModel(
+								asset.getId(),
 								asset.getPublicInfo().getLogo(),
 								asset.getPublicInfo().getColor(),
 								0,
@@ -150,17 +168,23 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 		this.baseCurrency = baseCurrency;
 
 		if (asset.getAssetType().equals(AssetType.NONE)) {
-			this.logo.setImage(asset.getBroker().getLogo(), "", 50, 50);
-			this.logo.hideLevel();
+			this.logo.setVisibility(View.GONE);
+			this.brokerLogo.setVisibility(View.VISIBLE);
+			this.brokerLogo.setImageURI(ImageUtils.getImageUri(asset.getBroker().getLogo()));
+
 			this.name.setText(asset.getAccountInfo().getLogin());
 			this.value.setText(StringFormatUtil.getValueString(asset.getAccountInfo().getBalance(), asset.getAccountInfo().getCurrency().getValue()));
 
 			valueGroup.setVisibility(ViewGroup.VISIBLE);
+			change.setVisibility(ViewGroup.GONE);
 			statusGroup.setVisibility(ViewGroup.GONE);
 		}
 		else {
+			this.brokerLogo.setVisibility(View.GONE);
+			this.logo.setVisibility(View.VISIBLE);
 			this.logo.setImage(asset.getPublicInfo().getLogo(), asset.getPublicInfo().getColor(), 50, 50);
 			this.logo.hideLevel();
+
 			this.name.setText(asset.getPublicInfo().getTitle());
 
 			double value = Math.random() * 100;

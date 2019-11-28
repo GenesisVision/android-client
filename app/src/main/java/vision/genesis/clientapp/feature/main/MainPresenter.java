@@ -45,6 +45,7 @@ import vision.genesis.clientapp.model.events.ShowOpenTradeDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.model.events.ShowSpecificWalletEvent;
+import vision.genesis.clientapp.model.events.ShowTradingAccountDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowTransactionDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawProgramEvent;
 
@@ -375,5 +376,10 @@ public class MainPresenter extends MvpPresenter<MainView>
 		if (isActive) {
 			getViewState().showEventDetails(event.getEvent());
 		}
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowTradingAccountDetailsEvent event) {
+		getViewState().showTradingAccountDetails(event.getTradingAccountDetailsModel());
 	}
 }

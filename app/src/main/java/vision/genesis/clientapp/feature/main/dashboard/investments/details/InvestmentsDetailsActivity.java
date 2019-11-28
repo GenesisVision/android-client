@@ -192,7 +192,7 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 	private void setFonts() {
 		title.setTypeface(TypefaceUtil.semibold());
 
-//		total.setTypeface(TypefaceUtil.semibold());
+		total.setTypeface(TypefaceUtil.semibold());
 
 		profitDayValue.setTypeface(TypefaceUtil.semibold());
 		profitWeekValue.setTypeface(TypefaceUtil.semibold());

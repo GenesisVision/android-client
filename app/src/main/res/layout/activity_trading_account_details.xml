@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorBackground"
+                android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="?attr/colorCard">
+
+        <ImageView
+            android:id="@+id/button_back"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_centerVertical="true"
+            android:padding="20dp"
+            android:tint="?attr/colorTextPrimary"
+            app:srcCompat="@drawable/icon_back"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/toolbar_broker_logo"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="4dp"
+            android:layout_toEndOf="@+id/button_back"
+            app:actualImageScaleType="centerInside"/>
+
+        <TextView
+            android:id="@+id/toolbar_account_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_toEndOf="@+id/toolbar_broker_logo"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:orientation="vertical"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="18sp"
+            tools:text="Super mega profit account"/>
+
+    </RelativeLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tabs_height"
+                android:background="?attr/colorCard"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:visibility="gone"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="?attr/colorAccent"
+                app:tabMaxWidth="0dp"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="?attr/colorTextPrimary"
+                app:tabTextColor="?attr/colorTextSecondary"
+                tools:visibility="visible"/>
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:indeterminate="true"
+                android:scaleY="4"
+                android:visibility="visible"/>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager_trading_account_details"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tab_layout"
+                android:visibility="gone"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:visibility="visible"/>
+
+        </RelativeLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/group_no_internet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/no_internet_image"
+            android:layout_width="@dimen/programs_no_internet_image_width"
+            android:layout_height="@dimen/programs_no_internet_image_height"
+            android:src="@drawable/no_internet"
+            android:tint="@color/colorFontLight"/>
+
+        <TextView
+            android:id="@+id/no_internet_text"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/network_error"
+            android:textColor="@color/black12"
+            android:textSize="18sp"/>
+
+        <FrameLayout
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp">
+
+            <vision.genesis.clientapp.ui.PrimaryButton
+                android:id="@+id/button_try_again"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/try_again"/>
+
+            <ProgressBar
+                android:id="@+id/progress_bar_no_internet"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

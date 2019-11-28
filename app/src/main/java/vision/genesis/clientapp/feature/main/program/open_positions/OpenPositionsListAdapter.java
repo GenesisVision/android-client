@@ -6,14 +6,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.OrderModel;
@@ -50,7 +51,7 @@ public class OpenPositionsListAdapter extends RecyclerView.Adapter<OpenPositions
 		return openPositions.size();
 	}
 
-	void setOpenPositions(List<OrderModel> trades) {
+	public void setOpenPositions(List<OrderModel> trades) {
 		this.openPositions.clear();
 		this.openPositions.addAll(trades);
 		notifyDataSetChanged();
@@ -87,8 +88,9 @@ public class OpenPositionsListAdapter extends RecyclerView.Adapter<OpenPositions
 			ButterKnife.bind(this, itemView);
 
 			itemView.setOnClickListener(view -> {
-				if (trade != null)
+				if (trade != null) {
 					EventBus.getDefault().post(new OnOpenPositionClickedEvent(trade));
+				}
 			});
 
 			setFonts();

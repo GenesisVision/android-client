@@ -36,6 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.swagger.client.model.BalanceChartPoint;
+import io.swagger.client.model.SimpleChartPoint;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.DateRange;
@@ -185,8 +186,9 @@ public class BalanceChartView extends RelativeLayout
 			}
 			else if (me.getAction() == MotionEvent.ACTION_UP || me.getAction() == MotionEvent.ACTION_CANCEL) {
 				hideHighlight();
-				if (touchListener != null)
+				if (touchListener != null) {
 					touchListener.onStop();
+				}
 				v.getParent().requestDisallowInterceptTouchEvent(false);
 			}
 			return true;
@@ -245,16 +247,48 @@ public class BalanceChartView extends RelativeLayout
 			investorsEntries.add(new Entry(element.getDate() / 1000 / 60, investorsValue));
 			profitEntries.add(new Entry(element.getDate() / 1000 / 60, investorsValue));
 
-			if (min > investorsValue)
+			if (min > investorsValue) {
 				min = investorsValue;
-			if (max < investorsValue)
+			}
+			if (max < investorsValue) {
 				max = investorsValue;
+			}
 		}
 
-		setChartData(managerEntries, investorsEntries, profitEntries, min, max, dateRange);
+		setChartData(managerEntries, investorsEntries, min, max, dateRange);
 	}
 
-	private void setChartData(List<Entry> managerEntries, List<Entry> investorsEntries, List<Entry> profitEntries, float min, float max, DateRange dateRange) {
+	public void setSimpleChart(List<SimpleChartPoint> balanceChart, DateRange dateRange) {
+		if (balanceChart.size() <= 1) {
+			chart.clear();
+			return;
+		}
+
+		float min = 0;
+		float max = 0;
+
+		List<Entry> managerEntries = new ArrayList<>();
+		List<Entry> investorsEntries = new ArrayList<>();
+
+		for (SimpleChartPoint element : balanceChart) {
+			float managerValue = element.getValue().floatValue();
+			float investorsValue = 0f;
+
+			managerEntries.add(new Entry(element.getDate() / 1000 / 60, managerValue));
+			investorsEntries.add(new Entry(element.getDate() / 1000 / 60, investorsValue));
+
+			if (min > investorsValue) {
+				min = investorsValue;
+			}
+			if (max < investorsValue) {
+				max = investorsValue;
+			}
+		}
+
+		setChartData(managerEntries, investorsEntries, min, max, dateRange);
+	}
+
+	private void setChartData(List<Entry> managerEntries, List<Entry> investorsEntries, float min, float max, DateRange dateRange) {
 		updateXAxis(dateRange);
 
 		minValue.setText(StringFormatUtil.formatAmount(min, 2, 4));
@@ -262,7 +296,7 @@ public class BalanceChartView extends RelativeLayout
 
 		setLimitLines(min, max);
 
-		chart.setData(getLineData(managerEntries, investorsEntries, profitEntries));
+		chart.setData(getLineData(managerEntries, investorsEntries));
 		chart.getXAxis().setAxisMaximum(chart.getData().getXMax() + 1f);
 		chart.invalidate();
 	}
@@ -325,14 +359,12 @@ public class BalanceChartView extends RelativeLayout
 		return ll;
 	}
 
-	private LineData getLineData(List<Entry> managerEntries, List<Entry> investorsEntries, List<Entry> profitEntries) {
+	private LineData getLineData(List<Entry> managerEntries, List<Entry> investorsEntries) {
 		Collections.sort(managerEntries, new EntryXComparator());
 		Collections.sort(investorsEntries, new EntryXComparator());
-		Collections.sort(profitEntries, new EntryXComparator());
 
 		LineData lineData = new LineData();
 
-		lineData.addDataSet(createLineDataSet(profitEntries, profitColor, true));
 		lineData.addDataSet(createLineDataSet(investorsEntries, investorsColor, false));
 		lineData.addDataSet(createLineDataSet(managerEntries, managerColor, false));
 
@@ -372,8 +404,9 @@ public class BalanceChartView extends RelativeLayout
 	}
 
 	private void showHighlight(Highlight highlight) {
-		if (highlight == null)
+		if (highlight == null) {
 			return;
+		}
 		highlightCircle.setVisibility(View.VISIBLE);
 		moveHighlightCircle(highlight);
 	}

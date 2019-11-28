@@ -42,6 +42,7 @@ import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.portfolio_events.details.EventDetailsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
+import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsActivity;
 import vision.genesis.clientapp.feature.main.wallet.copytrading_account_details.CopytradingAccountDetailsActivity;
 import vision.genesis.clientapp.feature.main.wallet.specific_wallet.SpecificWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.transaction_details.TransactionDetailsActivity;
@@ -55,6 +56,7 @@ import vision.genesis.clientapp.model.ManagerDetailsModel;
 import vision.genesis.clientapp.model.OpenTradeModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.WalletModel;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
@@ -416,6 +418,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 		EventDetailsBottomSheetFragment fragment = new EventDetailsBottomSheetFragment();
 		fragment.setData(event);
 		fragment.show(getSupportFragmentManager(), fragment.getTag());
+	}
+
+	@Override
+	public void showTradingAccountDetails(TradingAccountDetailsModel tradingAccountDetailsModel) {
+		TradingAccountDetailsActivity.startWith(this, tradingAccountDetailsModel);
 	}
 
 	@Override

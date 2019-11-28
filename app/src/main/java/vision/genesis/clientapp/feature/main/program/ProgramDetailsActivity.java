@@ -469,12 +469,14 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	public void showProgram(ProgramDetailsFull programDetails) {
 		this.programDetails = programDetails;
 
-		addPage(programInfoTab, true);
-		addPage(profitTab, false);
-		addPage(equityTab, false);
-		addPage(openPositionsTab, false);
-		addPage(tradesTab, false);
-		addPage(periodHistoryTab, false);
+		if (pagerAdapter == null) {
+			addPage(programInfoTab, true);
+			addPage(profitTab, false);
+			addPage(equityTab, false);
+			addPage(openPositionsTab, false);
+			addPage(tradesTab, false);
+			addPage(periodHistoryTab, false);
+		}
 
 		finishInit();
 	}
@@ -483,11 +485,13 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	public void showFollow(FollowDetailsFull followDetails) {
 		this.followDetails = followDetails;
 
-		addPage(followInfoTab, true);
-		addPage(profitTab, false);
-		addPage(equityTab, false);
-		addPage(openPositionsTab, false);
-		addPage(tradesTab, false);
+		if (pagerAdapter == null) {
+			addPage(followInfoTab, true);
+			addPage(profitTab, false);
+			addPage(equityTab, false);
+			addPage(openPositionsTab, false);
+			addPage(tradesTab, false);
+		}
 
 		finishInit();
 	}
@@ -497,22 +501,23 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		this.programDetails = programDetails;
 		this.followDetails = followDetails;
 
-		addPage(ownerInfoTab, true);
-		addPage(profitTab, false);
-		addPage(equityTab, false);
-		addPage(openPositionsTab, false);
-		addPage(tradesTab, false);
-		addPage(periodHistoryTab, false);
+		if (pagerAdapter == null) {
+			addPage(ownerInfoTab, true);
+			addPage(profitTab, false);
+			addPage(equityTab, false);
+			addPage(openPositionsTab, false);
+			addPage(tradesTab, false);
+			addPage(periodHistoryTab, false);
+		}
 
 		finishInit();
 	}
 
 	private void finishInit() {
-		if (programDetails != null && programDetails.getPersonalDetails() != null && programDetails.getPersonalDetails().isIsInvested()) {
-			addPage(eventsTab, false);
-		}
-
 		if (pagerAdapter == null) {
+			if (programDetails != null && programDetails.getPersonalDetails() != null && programDetails.getPersonalDetails().isIsInvested()) {
+				addPage(eventsTab, false);
+			}
 			initViewPager(programDetails, followDetails);
 		}
 

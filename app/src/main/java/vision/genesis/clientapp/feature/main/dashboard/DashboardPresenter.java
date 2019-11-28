@@ -129,7 +129,7 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 	private void handleGetSummaryError(Throwable throwable) {
 		summarySubscription.unsubscribe();
 		getViewState().setRefreshing(false);
-		getViewState().showProgressBar(false);
+//		getViewState().showProgressBar(false);
 
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}

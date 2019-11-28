@@ -16,6 +16,7 @@ import io.swagger.client.api.ProgramsApi;
 import io.swagger.client.api.RateApi;
 import io.swagger.client.api.SearchApi;
 import io.swagger.client.api.SignalApi;
+import io.swagger.client.api.TradingaccountApi;
 import io.swagger.client.api.UsersApi;
 import io.swagger.client.api.WalletApi;
 import vision.genesis.clientapp.managers.AssetsManager;
@@ -26,6 +27,7 @@ import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.RateManager;
 import vision.genesis.clientapp.managers.SearchManager;
+import vision.genesis.clientapp.managers.TradingAccountManager;
 import vision.genesis.clientapp.managers.UsersManager;
 import vision.genesis.clientapp.managers.WalletManager;
 
@@ -83,6 +85,12 @@ public class AssetsModule
 	@Singleton
 	public SearchManager provideSearchManager(SearchApi searchApi) {
 		return new SearchManager(searchApi);
+	}
+
+	@Provides
+	@Singleton
+	public TradingAccountManager provideTradingAccountManager(TradingaccountApi tradingAccountApi) {
+		return new TradingAccountManager(tradingAccountApi);
 	}
 
 	@Provides

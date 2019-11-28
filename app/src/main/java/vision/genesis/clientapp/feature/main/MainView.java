@@ -14,6 +14,7 @@ import vision.genesis.clientapp.model.ManagerDetailsModel;
 import vision.genesis.clientapp.model.OpenTradeModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.WalletModel;
 
 /**
@@ -82,4 +83,6 @@ public interface MainView extends MvpView
 	void showOpenTradeDetails(OpenTradeModel model);
 
 	void showEventDetails(InvestmentEventViewModel event);
+
+	void showTradingAccountDetails(TradingAccountDetailsModel tradingAccountDetailsModel);
 }
