@@ -4,7 +4,6 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getManagerProfile**](ProfileApi.md#getManagerProfile) | **GET** v2.0/profile/{id}/public | Public profile
 [**getProfileFull**](ProfileApi.md#getProfileFull) | **GET** v2.0/profile | Get full profile
 [**getProfileHeader**](ProfileApi.md#getProfileHeader) | **GET** v2.0/profile/header | Get header profile
 [**getSocialLinks**](ProfileApi.md#getSocialLinks) | **GET** v2.0/profile/sociallinks | Get social links
@@ -17,49 +16,6 @@ Method | HTTP request | Description
 [**updatePersonalDetails**](ProfileApi.md#updatePersonalDetails) | **POST** v2.0/profile/personal/update | Update user personal details
 [**updateProfile**](ProfileApi.md#updateProfile) | **POST** v2.0/profile/update | Update profile
 [**updateSocialLinks**](ProfileApi.md#updateSocialLinks) | **POST** v2.0/profile/sociallinks/update | Add or update social links
-
-<a name="getManagerProfile"></a>
-# **getManagerProfile**
-> PublicProfile getManagerProfile(id)
-
-Public profile
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.ProfileApi;
-
-
-ProfileApi apiInstance = new ProfileApi();
-String id = "id_example"; // String | 
-try {
-    PublicProfile result = apiInstance.getManagerProfile(id);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling ProfileApi#getManagerProfile");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  |
-
-### Return type
-
-[**PublicProfile**](PublicProfile.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
 
 <a name="getProfileFull"></a>
 # **getProfileFull**

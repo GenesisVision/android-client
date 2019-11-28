@@ -69,7 +69,7 @@ public class Broker implements Parcelable
 	private List<BrokerAccountType> accountTypes = null;
 
 	@SerializedName("tags")
-	private List<ProgramTag> tags = null;
+	private List<Tag> tags = null;
 
 	public Broker() {
 	}
@@ -84,7 +84,7 @@ public class Broker implements Parcelable
 		leverageMin = (Integer) in.readValue(null);
 		leverageMax = (Integer) in.readValue(null);
 		accountTypes = (List<BrokerAccountType>) in.readValue(BrokerAccountType.class.getClassLoader());
-		tags = (List<ProgramTag>) in.readValue(ProgramTag.class.getClassLoader());
+		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 	}
 
 	public Broker name(String name) {
@@ -248,14 +248,14 @@ public class Broker implements Parcelable
 		this.accountTypes = accountTypes;
 	}
 
-	public Broker tags(List<ProgramTag> tags) {
+	public Broker tags(List<Tag> tags) {
 		this.tags = tags;
 		return this;
 	}
 
-	public Broker addTagsItem(ProgramTag tagsItem) {
+	public Broker addTagsItem(Tag tagsItem) {
 		if (this.tags == null) {
-			this.tags = new ArrayList<ProgramTag>();
+			this.tags = new ArrayList<Tag>();
 		}
 		this.tags.add(tagsItem);
 		return this;
@@ -267,11 +267,11 @@ public class Broker implements Parcelable
 	 * @return tags
 	 **/
 	@Schema(description = "")
-	public List<ProgramTag> getTags() {
+	public List<Tag> getTags() {
 		return tags;
 	}
 
-	public void setTags(List<ProgramTag> tags) {
+	public void setTags(List<Tag> tags) {
 		this.tags = tags;
 	}
 

@@ -19,8 +19,9 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
-import vision.genesis.clientapp.managers.ProfileManager;
+import vision.genesis.clientapp.managers.UsersManager;
 import vision.genesis.clientapp.model.User;
+import vision.genesis.clientapp.model.events.SetManagerDetailsFollowsCountEvent;
 import vision.genesis.clientapp.model.events.SetManagerDetailsFundsCountEvent;
 import vision.genesis.clientapp.model.events.SetManagerDetailsProgramsCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -40,7 +41,7 @@ public class ManagerDetailsPresenter extends MvpPresenter<ManagerDetailsView>
 	public AuthManager authManager;
 
 	@Inject
-	public ProfileManager profileManager;
+	public UsersManager usersManager;
 
 	private Subscription userSubscription;
 
@@ -95,8 +96,8 @@ public class ManagerDetailsPresenter extends MvpPresenter<ManagerDetailsView>
 	}
 
 	private void getManagerDetails() {
-		if (managerId != null && profileManager != null) {
-			managerDetailsSubscription = profileManager.getProfilePublic(managerId.toString())
+		if (managerId != null && usersManager != null) {
+			managerDetailsSubscription = usersManager.getUser(managerId.toString())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleManagerDetailsSuccess,
@@ -167,5 +168,10 @@ public class ManagerDetailsPresenter extends MvpPresenter<ManagerDetailsView>
 	@Subscribe
 	public void onEventMainThread(SetManagerDetailsFundsCountEvent event) {
 		getViewState().setFundsCount(event.getFundsCount());
+	}
+
+	@Subscribe
+	public void onEventMainThread(SetManagerDetailsFollowsCountEvent event) {
+		getViewState().setFollowsCount(event.getFollowsCount());
 	}
 }

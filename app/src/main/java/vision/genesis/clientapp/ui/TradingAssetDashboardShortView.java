@@ -112,7 +112,8 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 								"",
 								asset.getAccountInfo().getCurrency().getValue(),
 								false,
-								false);
+								false,
+								AssetType.PROGRAM);
 						EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 						break;
 					case FUND:
@@ -126,6 +127,18 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 						EventBus.getDefault().post(new ShowFundDetailsEvent(fundDetailsModel));
 						break;
 					case FOLLOW:
+						ProgramDetailsModel followDetailsModel = new ProgramDetailsModel(asset.getId(),
+								asset.getPublicInfo().getLogo(),
+								asset.getPublicInfo().getColor(),
+								0,
+								0.0,
+								asset.getPublicInfo().getTitle(),
+								"",
+								asset.getAccountInfo().getCurrency().getValue(),
+								false,
+								false,
+								AssetType.FOLLOW);
+						EventBus.getDefault().post(new ShowProgramDetailsEvent(followDetailsModel));
 						break;
 				}
 			}

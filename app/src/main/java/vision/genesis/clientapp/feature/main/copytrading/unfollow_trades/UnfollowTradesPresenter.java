@@ -17,7 +17,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
-import vision.genesis.clientapp.managers.SignalsManager;
+import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -33,7 +33,7 @@ public class UnfollowTradesPresenter extends MvpPresenter<UnfollowTradesView> im
 	public Context context;
 
 	@Inject
-	public SignalsManager signalsManager;
+	public FollowsManager followsManager;
 
 	private Subscription signalSubscription;
 
@@ -76,11 +76,11 @@ public class UnfollowTradesPresenter extends MvpPresenter<UnfollowTradesView> im
 	}
 
 	private void performRequest() {
-		if (signalsManager != null && programId != null) {
+		if (followsManager != null && programId != null) {
 			if (signalSubscription != null)
 				signalSubscription.unsubscribe();
 			getViewState().showProgress(true);
-			signalSubscription = signalsManager.unsubscribeFromProgram(programId, unsubscribeType)
+			signalSubscription = followsManager.unsubscribeFromProgram(programId, unsubscribeType)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleSubscriptionSuccess,

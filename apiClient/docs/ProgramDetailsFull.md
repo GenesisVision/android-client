@@ -38,4 +38,4 @@ Name | Type | Description | Notes
 **brokerDetails** | [**BrokerDetails**](BrokerDetails.md) |  |  [optional]
 **signalSettings** | [**AssetSignalSettings**](AssetSignalSettings.md) |  |  [optional]
 **personalDetails** | [**PersonalProgramDetails**](PersonalProgramDetails.md) |  |  [optional]
-**tags** | [**List&lt;ProgramTag&gt;**](ProgramTag.md) |  |  [optional]
+**tags** | [**List&lt;Tag&gt;**](Tag.md) |  |  [optional]

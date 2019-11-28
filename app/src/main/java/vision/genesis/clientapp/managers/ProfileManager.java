@@ -5,7 +5,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 import io.swagger.client.api.ProfileApi;
 import io.swagger.client.model.ProfileFullViewModel;
-import io.swagger.client.model.PublicProfile;
 import io.swagger.client.model.UpdateProfileViewModel;
 import rx.Observable;
 import rx.Subscription;
@@ -31,10 +30,6 @@ public class ProfileManager
 		this.profileApi = profileApi;
 
 		EventBus.getDefault().register(this);
-	}
-
-	public Observable<PublicProfile> getProfilePublic(String userId) {
-		return profileApi.getManagerProfile(userId);
 	}
 
 	public BehaviorSubject<ProfileFullViewModel> getProfileFull() {

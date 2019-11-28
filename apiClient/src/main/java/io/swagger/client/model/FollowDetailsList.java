@@ -87,7 +87,7 @@ public class FollowDetailsList implements Parcelable
 	private PersonalFollowDetailsList personalDetails = null;
 
 	@SerializedName("tags")
-	private List<ProgramTag> tags = null;
+	private List<Tag> tags = null;
 
 	public FollowDetailsList() {
 	}
@@ -107,7 +107,7 @@ public class FollowDetailsList implements Parcelable
 		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
 		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
 		personalDetails = (PersonalFollowDetailsList) in.readValue(PersonalFollowDetailsList.class.getClassLoader());
-		tags = (List<ProgramTag>) in.readValue(ProgramTag.class.getClassLoader());
+		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 	}
 
 	public FollowDetailsList id(UUID id) {
@@ -376,14 +376,14 @@ public class FollowDetailsList implements Parcelable
 		this.personalDetails = personalDetails;
 	}
 
-	public FollowDetailsList tags(List<ProgramTag> tags) {
+	public FollowDetailsList tags(List<Tag> tags) {
 		this.tags = tags;
 		return this;
 	}
 
-	public FollowDetailsList addTagsItem(ProgramTag tagsItem) {
+	public FollowDetailsList addTagsItem(Tag tagsItem) {
 		if (this.tags == null) {
-			this.tags = new ArrayList<ProgramTag>();
+			this.tags = new ArrayList<Tag>();
 		}
 		this.tags.add(tagsItem);
 		return this;
@@ -395,11 +395,11 @@ public class FollowDetailsList implements Parcelable
 	 * @return tags
 	 **/
 	@Schema(description = "")
-	public List<ProgramTag> getTags() {
+	public List<Tag> getTags() {
 		return tags;
 	}
 
-	public void setTags(List<ProgramTag> tags) {
+	public void setTags(List<Tag> tags) {
 		this.tags = tags;
 	}
 

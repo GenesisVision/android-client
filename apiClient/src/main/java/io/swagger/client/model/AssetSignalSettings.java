@@ -45,12 +45,16 @@ public class AssetSignalSettings implements Parcelable
 	@SerializedName("signalVolumeFee")
 	private Double signalVolumeFee = null;
 
+	@SerializedName("isActive")
+	private Boolean isActive = null;
+
 	public AssetSignalSettings() {
 	}
 
 	AssetSignalSettings(Parcel in) {
 		signalSuccessFee = (Double) in.readValue(null);
 		signalVolumeFee = (Double) in.readValue(null);
+		isActive = (Boolean) in.readValue(null);
 	}
 
 	public AssetSignalSettings signalSuccessFee(Double signalSuccessFee) {
@@ -91,6 +95,25 @@ public class AssetSignalSettings implements Parcelable
 		this.signalVolumeFee = signalVolumeFee;
 	}
 
+	public AssetSignalSettings isActive(Boolean isActive) {
+		this.isActive = isActive;
+		return this;
+	}
+
+	/**
+	 * Get isActive
+	 *
+	 * @return isActive
+	 **/
+	@Schema(description = "")
+	public Boolean isIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -101,12 +124,13 @@ public class AssetSignalSettings implements Parcelable
 		}
 		AssetSignalSettings assetSignalSettings = (AssetSignalSettings) o;
 		return Objects.equals(this.signalSuccessFee, assetSignalSettings.signalSuccessFee) &&
-				Objects.equals(this.signalVolumeFee, assetSignalSettings.signalVolumeFee);
+				Objects.equals(this.signalVolumeFee, assetSignalSettings.signalVolumeFee) &&
+				Objects.equals(this.isActive, assetSignalSettings.isActive);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(signalSuccessFee, signalVolumeFee);
+		return Objects.hash(signalSuccessFee, signalVolumeFee, isActive);
 	}
 
 	@Override
@@ -116,6 +140,7 @@ public class AssetSignalSettings implements Parcelable
 
 		sb.append("    signalSuccessFee: ").append(toIndentedString(signalSuccessFee)).append("\n");
 		sb.append("    signalVolumeFee: ").append(toIndentedString(signalVolumeFee)).append("\n");
+		sb.append("    isActive: ").append(toIndentedString(isActive)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -134,6 +159,7 @@ public class AssetSignalSettings implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(signalSuccessFee);
 		out.writeValue(signalVolumeFee);
+		out.writeValue(isActive);
 	}
 
 	public int describeContents() {

@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import java.util.UUID;
 
+import io.swagger.client.model.AssetType;
+import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.ProgramDetailsFull;
 
 /**
@@ -46,8 +48,11 @@ public class ProgramDetailsModel implements Parcelable
 
 	private boolean hasNotifications;
 
+	private AssetType assetType;
+
 	public ProgramDetailsModel(UUID programId, String avatar, String programColor, Integer level, Double levelProgress,
-	                           String programName, String managerName, String currency, boolean isFavorite, boolean hasNotifications) {
+	                           String programName, String managerName, String currency, boolean isFavorite, boolean hasNotifications,
+	                           AssetType assetType) {
 		this.programId = programId;
 		this.avatar = avatar;
 		this.programColor = programColor;
@@ -58,6 +63,7 @@ public class ProgramDetailsModel implements Parcelable
 		this.currency = currency;
 		this.favorite = isFavorite;
 		this.hasNotifications = hasNotifications;
+		this.assetType = assetType;
 	}
 
 	protected ProgramDetailsModel(Parcel in) {
@@ -71,6 +77,7 @@ public class ProgramDetailsModel implements Parcelable
 		currency = in.readString();
 		favorite = in.readByte() != 0;
 		hasNotifications = in.readByte() != 0;
+		assetType = AssetType.fromValue(in.readString());
 	}
 
 	public UUID getProgramId() {
@@ -113,6 +120,10 @@ public class ProgramDetailsModel implements Parcelable
 		return hasNotifications;
 	}
 
+	public AssetType getAssetType() {
+		return assetType;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -130,6 +141,7 @@ public class ProgramDetailsModel implements Parcelable
 		dest.writeString(currency);
 		dest.writeByte((byte) (favorite ? 1 : 0));
 		dest.writeByte((byte) (hasNotifications ? 1 : 0));
+		dest.writeString(assetType.getValue());
 	}
 
 	public void update(ProgramDetailsFull programDetails) {
@@ -147,5 +159,24 @@ public class ProgramDetailsModel implements Parcelable
 		this.hasNotifications = programDetails.getPersonalDetails() != null
 				? programDetails.getPersonalDetails().isHasNotifications()
 				: false;
+		this.assetType = AssetType.PROGRAM;
+	}
+
+	public void update(FollowDetailsFull followDetails) {
+		this.programId = followDetails.getId();
+		this.avatar = followDetails.getLogo();
+		this.programColor = followDetails.getColor();
+		this.level = 0;
+		this.levelProgress = 0.0;
+		this.programName = followDetails.getTitle();
+		this.managerName = followDetails.getOwner().getUsername();
+		this.currency = followDetails.getCurrency().getValue();
+		this.favorite = followDetails.getPersonalDetails() != null
+				? followDetails.getPersonalDetails().isIsFavorite()
+				: false;
+		this.hasNotifications = followDetails.getPersonalDetails() != null
+				? followDetails.getPersonalDetails().isHasNotifications()
+				: false;
+		this.assetType = AssetType.FOLLOW;
 	}
 }

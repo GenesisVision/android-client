@@ -3,7 +3,6 @@ package io.swagger.client.api;
 import io.swagger.client.model.FcmTokenViewModel;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.ProfileHeaderViewModel;
-import io.swagger.client.model.PublicProfile;
 import io.swagger.client.model.SocialLinksViewModel;
 import io.swagger.client.model.UpdatePersonalDetailViewModel;
 import io.swagger.client.model.UpdateProfileViewModel;
@@ -15,17 +14,6 @@ import rx.Observable;
 
 public interface ProfileApi
 {
-	/**
-	 * Public profile
-	 *
-	 * @param id (required)
-	 * @return Call&lt;PublicProfile&gt;
-	 */
-	@GET("v2.0/profile/{id}/public")
-	Observable<PublicProfile> getManagerProfile(
-			@retrofit2.http.Path("id") String id
-	);
-
 	/**
 	 * Get full profile
 	 *

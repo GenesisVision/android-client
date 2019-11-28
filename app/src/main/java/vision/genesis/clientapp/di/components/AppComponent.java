@@ -40,6 +40,7 @@ import vision.genesis.clientapp.feature.main.dashboard.trading.DashboardTradingV
 import vision.genesis.clientapp.feature.main.dashboard.trading.details.TradingDetailsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.wallet.DashboardWalletView;
 import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
+import vision.genesis.clientapp.feature.main.follows_list.FollowsListPresenter;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsPresenter;
 import vision.genesis.clientapp.feature.main.fund.add_asset.AddAssetPresenter;
 import vision.genesis.clientapp.feature.main.fund.balance.FundBalancePresenter;
@@ -72,7 +73,9 @@ import vision.genesis.clientapp.feature.main.program.create.CreateProgramPresent
 import vision.genesis.clientapp.feature.main.program.create.first.CreateProgramFirstStepPresenter;
 import vision.genesis.clientapp.feature.main.program.create.third.CreateProgramThirdStepPresenter;
 import vision.genesis.clientapp.feature.main.program.events.ProgramEventsPresenter;
-import vision.genesis.clientapp.feature.main.program.info.ProgramInfoPresenter;
+import vision.genesis.clientapp.feature.main.program.info.follow.FollowInfoPresenter;
+import vision.genesis.clientapp.feature.main.program.info.owner.OwnerInfoPresenter;
+import vision.genesis.clientapp.feature.main.program.info.program.ProgramInfoPresenter;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramPresenter;
 import vision.genesis.clientapp.feature.main.program.invest.confirm.ConfirmProgramInvestBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.program.level.ProgramLevelBottomSheetDialog;
@@ -326,4 +329,10 @@ public interface AppComponent
 	void inject(CreateAccountSettingsPresenter createAccountSettingsPresenter);
 
 	void inject(CreateAccountDepositPresenter createAccountDepositPresenter);
+
+	void inject(FollowsListPresenter followsListPresenter);
+
+	void inject(FollowInfoPresenter followInfoPresenter);
+
+	void inject(OwnerInfoPresenter ownerInfoPresenter);
 }

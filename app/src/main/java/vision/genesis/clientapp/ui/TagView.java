@@ -9,10 +9,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.core.view.ViewCompat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.swagger.client.model.ProgramTag;
+import io.swagger.client.model.Tag;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -60,7 +61,7 @@ public class TagView extends RelativeLayout
 		name.setTypeface(TypefaceUtil.semibold());
 	}
 
-	public void setTag(ProgramTag tag) {
+	public void setTag(Tag tag) {
 		this.name.setText(tag.getName());
 
 		int tagColor = Color.parseColor(tag.getColor());

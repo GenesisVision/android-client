@@ -30,14 +30,13 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.UUID;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.ProgramDetailsFull;
-import io.swagger.client.model.ProgramTag;
+import io.swagger.client.model.Tag;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -95,6 +94,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@BindView(R.id.program_logo)
 	public SimpleDraweeView programLogo;
 
+	@BindView(R.id.group_level)
+	public ViewGroup levelGroup;
+
 	@BindView(R.id.level_progress_bar)
 	public ProgressBar levelProgress;
 
@@ -145,11 +147,17 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	private ProgramDetailsFull programDetails;
 
+	private FollowDetailsFull followDetails;
+
 	private TabLayout.OnTabSelectedListener tabSelectedListener;
 
 	private TabLayout.TabLayoutOnPageChangeListener tabLayoutOnPageChangeListener;
 
-	private TabLayout.Tab infoTab;
+	private TabLayout.Tab programInfoTab;
+
+	private TabLayout.Tab followInfoTab;
+
+	private TabLayout.Tab ownerInfoTab;
 
 	private TabLayout.Tab openPositionsTab;
 
@@ -223,10 +231,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 			initRefreshLayout();
 			initTabs();
-//			initViewPager(model.getProgramId(), model.getCurrency());
 			updateHeader();
 
-			programDetailsPresenter.setProgramId(model.getProgramId());
+			programDetailsPresenter.setData(model);
 
 			setAnimations();
 		}
@@ -336,6 +343,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 		int level = model.getLevel();
 		if (level > 0) {
+			this.levelGroup.setVisibility(View.VISIBLE);
 			this.level.setText(String.valueOf(level));
 			int[] levelColors = getResources().getIntArray(R.array.levelColors);
 			if (level > levelColors.length) {
@@ -344,11 +352,12 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			levelColor.setColorFilter(levelColors[level - 1]);
 			levelProgress.setProgress(model.getLevelProgress().intValue());
 		}
+		else {
+			this.levelGroup.setVisibility(View.GONE);
+		}
 
 		programName.setText(model.getProgramName());
 		toolbarProgramName.setText(model.getProgramName());
-
-//		programCurrency.setCurrencySecondary(model.getCurrencySecondary());
 
 		setTags();
 
@@ -359,13 +368,13 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	private void setTags() {
 		if (programDetails != null && tagsGroup != null) {
 			tagsGroup.removeAllViews();
-			for (ProgramTag tag : programDetails.getTags()) {
+			for (Tag tag : programDetails.getTags()) {
 				addTag(createTagView(tag), tagsGroup);
 			}
 		}
 	}
 
-	private TagView createTagView(ProgramTag tag) {
+	private TagView createTagView(Tag tag) {
 		TagView view = new TagView(this);
 		view.setTag(tag);
 		return view;
@@ -383,7 +392,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	private void initTabs() {
-		infoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("info");
+		programInfoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("program_info");
+		followInfoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("follow_info");
+		ownerInfoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("owner_info");
 		profitTab = tabLayout.newTab().setCustomView(getTabView(R.string.profit)).setTag("profit");
 		equityTab = tabLayout.newTab().setCustomView(getTabView(R.string.equity)).setTag("equity");
 		openPositionsTab = tabLayout.newTab().setCustomView(getTabView(R.string.open_positions)).setTag("open_positions");
@@ -419,13 +430,6 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		};
 
 		tabLayout.addOnTabSelectedListener(tabSelectedListener);
-
-		addPage(infoTab, true);
-		addPage(profitTab, false);
-		addPage(equityTab, false);
-		addPage(openPositionsTab, false);
-		addPage(tradesTab, false);
-		addPage(periodHistoryTab, false);
 	}
 
 	private View getTabView(int textResId) {
@@ -446,8 +450,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		}
 	}
 
-	private void initViewPager(UUID programId, String programCurrency, Integer periodDurationDays) {
-		pagerAdapter = new ProgramDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, programId, programCurrency, periodDurationDays);
+	private void initViewPager(ProgramDetailsFull programDetails, FollowDetailsFull followDetails) {
+		pagerAdapter = new ProgramDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, programDetails, followDetails);
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOffscreenPageLimit(5);
 
@@ -462,18 +466,63 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	@Override
-	public void setProgram(ProgramDetailsFull programDetails) {
+	public void showProgram(ProgramDetailsFull programDetails) {
 		this.programDetails = programDetails;
 
-		if (pagerAdapter == null) {
-			initViewPager(programDetails.getId(), programDetails.getCurrency().getValue(), programDetails.getPeriodDuration());
-		}
+		addPage(programInfoTab, true);
+		addPage(profitTab, false);
+		addPage(equityTab, false);
+		addPage(openPositionsTab, false);
+		addPage(tradesTab, false);
+		addPage(periodHistoryTab, false);
 
-		if (programDetails.getPersonalDetails() != null && programDetails.getPersonalDetails().isIsInvested()) {
+		finishInit();
+	}
+
+	@Override
+	public void showFollow(FollowDetailsFull followDetails) {
+		this.followDetails = followDetails;
+
+		addPage(followInfoTab, true);
+		addPage(profitTab, false);
+		addPage(equityTab, false);
+		addPage(openPositionsTab, false);
+		addPage(tradesTab, false);
+
+		finishInit();
+	}
+
+	@Override
+	public void showOwner(ProgramDetailsFull programDetails, FollowDetailsFull followDetails) {
+		this.programDetails = programDetails;
+		this.followDetails = followDetails;
+
+		addPage(ownerInfoTab, true);
+		addPage(profitTab, false);
+		addPage(equityTab, false);
+		addPage(openPositionsTab, false);
+		addPage(tradesTab, false);
+		addPage(periodHistoryTab, false);
+
+		finishInit();
+	}
+
+	private void finishInit() {
+		if (programDetails != null && programDetails.getPersonalDetails() != null && programDetails.getPersonalDetails().isIsInvested()) {
 			addPage(eventsTab, false);
 		}
 
-		model.update(programDetails);
+		if (pagerAdapter == null) {
+			initViewPager(programDetails, followDetails);
+		}
+
+		if (programDetails != null) {
+			model.update(programDetails);
+		}
+		else if (followDetails != null) {
+			model.update(followDetails);
+		}
+
 		updateHeader();
 
 		tabsGroup.setVisibility(View.VISIBLE);

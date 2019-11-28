@@ -9,21 +9,24 @@ import io.swagger.client.api.BrokersApi;
 import io.swagger.client.api.CopytradingApi;
 import io.swagger.client.api.DashboardApi;
 import io.swagger.client.api.EventsApi;
+import io.swagger.client.api.FollowApi;
 import io.swagger.client.api.FundsApi;
 import io.swagger.client.api.InvestmentsApi;
 import io.swagger.client.api.ProgramsApi;
 import io.swagger.client.api.RateApi;
 import io.swagger.client.api.SearchApi;
 import io.swagger.client.api.SignalApi;
+import io.swagger.client.api.UsersApi;
 import io.swagger.client.api.WalletApi;
 import vision.genesis.clientapp.managers.AssetsManager;
 import vision.genesis.clientapp.managers.BrokersManager;
 import vision.genesis.clientapp.managers.DashboardManager;
+import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.RateManager;
 import vision.genesis.clientapp.managers.SearchManager;
-import vision.genesis.clientapp.managers.SignalsManager;
+import vision.genesis.clientapp.managers.UsersManager;
 import vision.genesis.clientapp.managers.WalletManager;
 
 /**
@@ -54,6 +57,12 @@ public class AssetsModule
 
 	@Provides
 	@Singleton
+	public FollowsManager provideFollowsManager(SignalApi signalApi, FollowApi followApi) {
+		return new FollowsManager(signalApi, followApi);
+	}
+
+	@Provides
+	@Singleton
 	public FundsManager provideFundsManager(FundsApi fundsApi, InvestmentsApi investmentsApi, AssetsApi assetsApi, EventsApi eventsApi) {
 		return new FundsManager(fundsApi, investmentsApi, assetsApi, eventsApi);
 	}
@@ -78,8 +87,8 @@ public class AssetsModule
 
 	@Provides
 	@Singleton
-	public SignalsManager provideSignalsManager(SignalApi signalApi, CopytradingApi copytradingApi) {
-		return new SignalsManager(signalApi, copytradingApi);
+	public UsersManager provideUsersManager(UsersApi usersApi) {
+		return new UsersManager(usersApi);
 	}
 
 	@Provides

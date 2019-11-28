@@ -18,7 +18,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.managers.SignalsManager;
+import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.SetCopytradingAccountTradesHistoryCountEvent;
 import vision.genesis.clientapp.model.events.SetDashboardTradesHistoryCountEvent;
@@ -36,7 +36,7 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 	private static int TAKE = 20;
 
 	@Inject
-	public SignalsManager signalsManager;
+	public FollowsManager followsManager;
 
 	private Subscription getTradesHistorySubscription;
 
@@ -103,11 +103,11 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 	}
 
 	private void getTradesHistory(boolean forceUpdate) {
-		if (dateRange != null && signalsManager != null) {
+		if (dateRange != null && followsManager != null) {
 			if (forceUpdate) {
 				skip = 0;
 			}
-			getTradesHistorySubscription = signalsManager.getTradesHistory(dateRange, "", "", null, accountCurrency, skip, TAKE)
+			getTradesHistorySubscription = followsManager.getTradesHistory(dateRange, "", "", null, accountCurrency, skip, TAKE)
 					.subscribeOn(Schedulers.computation())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handleGetTradesHistorySuccess,

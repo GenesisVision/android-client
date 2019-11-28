@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.info;
+package vision.genesis.clientapp.feature.main.program.info.program;
 
 import android.animation.ValueAnimator;
 import android.os.Bundle;
@@ -17,7 +17,6 @@ import androidx.core.widget.NestedScrollView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.Locale;
-import java.util.UUID;
 
 import butterknife.BindDimen;
 import butterknife.BindView;
@@ -28,13 +27,11 @@ import io.swagger.client.model.AssetInvestmentStatus;
 import io.swagger.client.model.PersonalProgramDetails;
 import io.swagger.client.model.ProfilePublic;
 import io.swagger.client.model.ProgramDetailsFull;
+import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
-import vision.genesis.clientapp.feature.main.copytrading.create_account.CreateCopytradingAccountActivity;
-import vision.genesis.clientapp.feature.main.copytrading.subscription_settings.SubscriptionSettingsActivity;
-import vision.genesis.clientapp.feature.main.copytrading.unfollow_trades.UnfollowTradesActivity;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
@@ -42,7 +39,6 @@ import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivit
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.model.ManagerDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
-import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PeriodLeftDetailsView;
@@ -61,12 +57,12 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
 {
-	private static String EXTRA_PROGRAM_ID = "extra_program_id";
+	private static String EXTRA_DETAILS = "extra_details";
 
-	public static ProgramInfoFragment with(UUID programId) {
+	public static ProgramInfoFragment with(ProgramDetailsFull details) {
 		ProgramInfoFragment programInfoFragment = new ProgramInfoFragment();
 		Bundle arguments = new Bundle(1);
-		arguments.putSerializable(EXTRA_PROGRAM_ID, programId);
+		arguments.putParcelable(EXTRA_DETAILS, details);
 		programInfoFragment.setArguments(arguments);
 		return programInfoFragment;
 	}
@@ -76,12 +72,6 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
-
-	@BindView(R.id.signals_progress_bar)
-	public ProgressBar signalsProgressBar;
-
-	@BindView(R.id.group_subscription_buttons)
-	public ViewGroup subscriptionButtonsGroup;
 
 	@BindView(R.id.manager_avatar)
 	public AvatarView managerAvatar;
@@ -161,40 +151,11 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	@BindView(R.id.invest_info)
 	public TextView investInfo;
 
-	@BindView(R.id.group_subscription)
-	public ViewGroup subscriptionGroup;
-
-	@BindView(R.id.label_subscription)
-	public TextView labelSubscription;
-
-	@BindView(R.id.subscription_success_fee)
-	public TextView subscriptionSuccessFee;
-
-	@BindView(R.id.label_subscription_success_fee)
-	public TextView subscriptionSuccessFeeLabel;
-
-	@BindView(R.id.subscription_volume_fee)
-	public TextView subscriptionVolumeFee;
-
-	@BindView(R.id.label_subscription_volume_fee)
-	public TextView subscriptionVolumeFeeLabel;
-
-	@BindView(R.id.button_follow_trades)
-	public PrimaryButton followTradesButton;
-
-	@BindView(R.id.button_edit_subscription)
-	public PrimaryButton editSubscriptionButton;
-
-	@BindView(R.id.button_unfollow_trades)
-	public PrimaryButton unfollowTradesButton;
-
 	@InjectPresenter
-	public ProgramInfoPresenter programInfoPresenter;
+	public ProgramInfoPresenter presenter;
 
 	@BindDimen(R.dimen.program_info_strategy_max_height)
 	public int strategyMaxHeight;
-
-	private UUID programId;
 
 	private ProgramDetailsFull programDetails;
 
@@ -259,37 +220,22 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@OnClick(R.id.status)
 	public void onStatusClicked() {
-		programInfoPresenter.onStatusClicked();
+		presenter.onStatusClicked();
 	}
 
 	@OnClick(R.id.button_invest)
 	public void onInvestClicked() {
-		programInfoPresenter.onInvestClicked();
+		presenter.onInvestClicked();
 	}
 
 	@OnClick(R.id.button_withdraw)
 	public void onWithdrawClicked() {
-		programInfoPresenter.onWithdrawClicked();
+		presenter.onWithdrawClicked();
 	}
 
 	@OnClick(R.id.switch_reinvest)
 	public void onReinvestClicked() {
-		programInfoPresenter.onReinvestClicked();
-	}
-
-	@OnClick(R.id.button_follow_trades)
-	public void onFollowTradesClicked() {
-		programInfoPresenter.onShowSubscriptionSettingsClicked(false);
-	}
-
-	@OnClick(R.id.button_edit_subscription)
-	public void onEditSubscriptionClicked() {
-		programInfoPresenter.onShowSubscriptionSettingsClicked(true);
-	}
-
-	@OnClick(R.id.button_unfollow_trades)
-	public void onUnfollowTradesClicked() {
-		programInfoPresenter.onUnfollowTradesClicked();
+		presenter.onReinvestClicked();
 	}
 
 	@Nullable
@@ -304,12 +250,21 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 		unbinder = ButterKnife.bind(this, view);
 
-		programId = (UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID);
-		programInfoPresenter.setProgramId(programId);
+		if (getArguments() != null) {
+			programDetails = getArguments().getParcelable(EXTRA_DETAILS);
+			if (programDetails != null) {
+				presenter.setProgramDetails(programDetails);
+				setProgramDetails(programDetails);
 
-		setFonts();
+				setFonts();
 
-		withdrawButton.setEmpty();
+				withdrawButton.setEmpty();
+
+				return;
+			}
+		}
+		Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
+		onBackPressed();
 	}
 
 	@Override
@@ -334,10 +289,6 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		entryFee.setTypeface(TypefaceUtil.semibold());
 		successFee.setTypeface(TypefaceUtil.semibold());
 
-		labelSubscription.setTypeface(TypefaceUtil.semibold());
-		subscriptionSuccessFee.setTypeface(TypefaceUtil.semibold());
-		subscriptionVolumeFee.setTypeface(TypefaceUtil.semibold());
-
 		investedLabel.setText(investedLabel.getText().toString().toLowerCase());
 		stopOutLabel.setText(stopOutLabel.getText().toString().toLowerCase());
 		profitLabel.setText(profitLabel.getText().toString().toLowerCase());
@@ -353,7 +304,6 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		updateProgramInfo(programDetails);
 		updateYourInvestment(programDetails);
 		updateInvestNow(programDetails);
-		updateSubscription(programDetails);
 	}
 
 	private void updateProgramInfo(ProgramDetailsFull programDetails) {
@@ -430,27 +380,6 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		}
 	}
 
-	private void updateSubscription(ProgramDetailsFull programDetails) {
-		if (programDetails != null && programDetails.getSignalSettings() != null) {
-			subscriptionGroup.setVisibility(View.VISIBLE);
-
-			subscriptionSuccessFee.setText(String.format(Locale.getDefault(), "%s%%",
-					StringFormatUtil.formatAmount(programDetails.getSignalSettings().getSignalSuccessFee(), 0, 2)));
-			subscriptionVolumeFee.setText(String.format(Locale.getDefault(), "%s%%",
-					StringFormatUtil.formatAmount(programDetails.getSignalSettings().getSignalVolumeFee(), 0, 2)));
-
-			boolean hasSubscription = programDetails.getPersonalDetails() != null
-					&& programDetails.getPersonalDetails().getSignalSubscription() != null
-					&& programDetails.getPersonalDetails().getSignalSubscription().isHasActiveSubscription();
-			followTradesButton.setVisibility(!hasSubscription ? View.VISIBLE : View.GONE);
-			editSubscriptionButton.setVisibility(hasSubscription ? View.VISIBLE : View.GONE);
-			unfollowTradesButton.setVisibility(hasSubscription ? View.VISIBLE : View.GONE);
-		}
-		else {
-			subscriptionGroup.setVisibility(View.GONE);
-		}
-	}
-
 	private Double getProfitPercent() {
 		Double invested = programDetails.getPersonalDetails().getInvested();
 		Double value = programDetails.getPersonalDetails().getValue();
@@ -469,8 +398,8 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@Override
 	public void pagerShow() {
-		if (programInfoPresenter != null) {
-			programInfoPresenter.onShow();
+		if (presenter != null) {
+			presenter.onShow();
 		}
 	}
 
@@ -493,12 +422,6 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	}
 
 	@Override
-	public void showSignalsProgress(Boolean show) {
-		signalsProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-		subscriptionButtonsGroup.setVisibility(!show ? View.VISIBLE : View.GONE);
-	}
-
-	@Override
 	public void setReinvest(Boolean isReinvest) {
 		reinvestSwitch.setChecked(isReinvest);
 	}
@@ -508,7 +431,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		if (getActivity() != null) {
 			RequestsBottomSheetFragment bottomSheetDialog = new RequestsBottomSheetFragment();
 			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
-			bottomSheetDialog.setAssetId(programId);
+			bottomSheetDialog.setAssetId(programDetails.getId());
 		}
 	}
 
@@ -521,27 +444,6 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	public void showLoginActivity() {
 		if (getActivity() != null) {
 			LoginActivity.startFrom(getActivity());
-		}
-	}
-
-	@Override
-	public void showCreateCopytradingAccountActivity(SubscriptionSettingsModel model) {
-		if (getActivity() != null) {
-			CreateCopytradingAccountActivity.startWith(getActivity(), model);
-		}
-	}
-
-	@Override
-	public void showSubscriptionSettings(SubscriptionSettingsModel model, boolean isEdit) {
-		if (getActivity() != null) {
-			SubscriptionSettingsActivity.startWith(getActivity(), model, isEdit);
-		}
-	}
-
-	@Override
-	public void showUnfollowTradesActivity(UUID programId, String programName) {
-		if (getActivity() != null) {
-			UnfollowTradesActivity.startWith(getActivity(), programId, programName);
 		}
 	}
 }

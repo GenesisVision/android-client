@@ -128,6 +128,8 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 
 	private TabLayout.Tab fundsTab;
 
+	private TabLayout.Tab followsTab;
+
 	private ManagerDetailsPagerAdapter pagerAdapter;
 
 	private Fragment currentFragment;
@@ -265,6 +267,7 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 		infoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("info");
 		programsTab = tabLayout.newTab().setCustomView(getTabView(R.string.programs)).setTag("programs");
 		fundsTab = tabLayout.newTab().setCustomView(getTabView(R.string.funds)).setTag("funds");
+		followsTab = tabLayout.newTab().setCustomView(getTabView(R.string.follows)).setTag("follows");
 
 		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -298,6 +301,7 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 		addPage(infoTab, true);
 		addPage(programsTab, false);
 		addPage(fundsTab, false);
+		addPage(followsTab, false);
 	}
 
 	private View getTabView(int textResId) {
@@ -436,5 +440,10 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 	@Override
 	public void setFundsCount(Integer fundsCount) {
 		((DetailsTabView) fundsTab.getCustomView()).setCount(fundsCount);
+	}
+
+	@Override
+	public void setFollowsCount(Integer followsCount) {
+		((DetailsTabView) followsTab.getCustomView()).setCount(followsCount);
 	}
 }

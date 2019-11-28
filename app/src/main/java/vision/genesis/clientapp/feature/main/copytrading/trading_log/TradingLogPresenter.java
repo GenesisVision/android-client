@@ -17,7 +17,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.managers.SignalsManager;
+import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.SetCopytradingAccountTradingLogCountEvent;
 import vision.genesis.clientapp.model.events.SetDashboardTradingLogCountEvent;
@@ -36,7 +36,7 @@ public class TradingLogPresenter extends MvpPresenter<TradingLogView> implements
 	private static int TAKE = 20;
 
 	@Inject
-	public SignalsManager signalsManager;
+	public FollowsManager followsManager;
 
 	private Subscription getTradingLogSubscription;
 
@@ -91,11 +91,11 @@ public class TradingLogPresenter extends MvpPresenter<TradingLogView> implements
 	}
 
 	private void getTradingLog(boolean forceUpdate) {
-		if (dateRange != null && signalsManager != null) {
+		if (dateRange != null && followsManager != null) {
 			if (forceUpdate) {
 				skip = 0;
 			}
-			getTradingLogSubscription = signalsManager.getTradingLog(accountCurrency, skip, TAKE)
+			getTradingLogSubscription = followsManager.getTradingLog(accountCurrency, skip, TAKE)
 					.subscribeOn(Schedulers.computation())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handleGetTradingLogSuccess,

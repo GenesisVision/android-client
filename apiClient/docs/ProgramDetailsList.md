@@ -21,6 +21,6 @@ Name | Type | Description | Notes
 **status** | **String** |  |  [optional]
 **owner** | [**ProfilePublicShort**](ProfilePublicShort.md) |  |  [optional]
 **personalDetails** | [**PersonalProgramDetailsList**](PersonalProgramDetailsList.md) |  |  [optional]
-**tags** | [**List&lt;ProgramTag&gt;**](ProgramTag.md) |  |  [optional]
+**tags** | [**List&lt;Tag&gt;**](Tag.md) |  |  [optional]
 **statistic** | [**ProfitChart**](ProfitChart.md) |  |  [optional]
 **balance** | [**AmountWithCurrency**](AmountWithCurrency.md) |  |  [optional]

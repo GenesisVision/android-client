@@ -21,8 +21,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.AssetFacet;
+import io.swagger.client.model.AssetType;
 import io.swagger.client.model.ProgramDetailsList;
-import io.swagger.client.model.ProgramTag;
+import io.swagger.client.model.Tag;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.facet.ProgramFacetView;
@@ -239,7 +240,8 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 //							program.getPersonalDetails() != null ?
 //									program.getPersonalDetails().isHasNotifications()
 //									: false);
-							false);
+							false,
+							AssetType.PROGRAM);
 					EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 				}
 			});
@@ -286,15 +288,12 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			this.programName.setText(program.getTitle());
 			this.managerName.setText(program.getOwner().getUsername());
 
-			//TODO:
-//			if (program.getChart() != null) {
-//				this.chart.setChart(program.getChart().getChart());
-//			}
+			Double profitPercent = 0.0;
+			if (program.getStatistic() != null) {
+				this.chart.setChart(program.getStatistic().getChart());
+				profitPercent = program.getStatistic().getProfit();
+			}
 
-//			Double profitPercent = getProfitPercent();
-			//TODO:
-//			Double profitPercent = program.getStatistic().getProfitPercent();
-			double profitPercent = 0.0;
 //			Double profitValue = getProfitValue();
 			//TODO:
 //			Double profitValue = program.getStatistic().getProfitValue();
@@ -324,12 +323,12 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			updateTags(program.getTags());
 		}
 
-		private void updateTags(List<ProgramTag> tags) {
+		private void updateTags(List<Tag> tags) {
 			if (tags != null) {
 				showTagMaybe(tag1, tags, 0);
 				showTagMaybe(tag2, tags, 1);
 				if (tags.size() > 2) {
-					ProgramTag tagLeft = new ProgramTag();
+					Tag tagLeft = new Tag();
 					tagLeft.setName(String.format(Locale.getDefault(), "+%d", tags.size() - 2));
 					tagLeft.setColor("#787d82");
 					tagsLeft.setTag(tagLeft);
@@ -346,7 +345,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			}
 		}
 
-		private void showTagMaybe(TagView tagView, List<ProgramTag> tags, Integer position) {
+		private void showTagMaybe(TagView tagView, List<Tag> tags, Integer position) {
 			if (tags != null && tags.size() > position) {
 				tagView.setTag(tags.get(position));
 				tagView.setVisibility(View.VISIBLE);

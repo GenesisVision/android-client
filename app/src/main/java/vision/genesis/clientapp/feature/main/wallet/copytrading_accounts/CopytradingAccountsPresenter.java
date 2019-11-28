@@ -15,7 +15,7 @@ import io.swagger.client.model.CopyTradingAccountsList;
 import rx.Subscription;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.managers.SignalsManager;
+import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -30,7 +30,7 @@ public class CopytradingAccountsPresenter extends MvpPresenter<CopytradingAccoun
 	public Context context;
 
 	@Inject
-	public SignalsManager signalsManager;
+	public FollowsManager followsManager;
 
 	private Subscription accountsSubscription;
 

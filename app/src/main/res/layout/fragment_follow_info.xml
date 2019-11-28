@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorBackgroundDark"
+                android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:background="?attr/colorBackground"
+                android:orientation="vertical"
+                android:paddingTop="24dp"
+                android:paddingBottom="16dp">
+
+                <RelativeLayout
+                    android:id="@+id/group_manager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:paddingLeft="@dimen/program_details_padding"
+                    android:paddingTop="8dp"
+                    android:paddingRight="@dimen/program_details_padding"
+                    android:paddingBottom="8dp">
+
+                    <vision.genesis.clientapp.ui.AvatarView
+                        android:id="@+id/manager_avatar"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_centerVertical="true"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_toEndOf="@+id/manager_avatar"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/manager_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorTextPrimary"
+                            android:textSize="16sp"
+                            tools:text="Nicholas Barton"/>
+
+                        <TextView
+                            android:id="@+id/manager_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:alpha="0.4"
+                            android:textColor="?attr/colorTextPrimary"
+                            android:textSize="14sp"
+                            tools:text="10 Feb 2018"/>
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:alpha="0.4"
+                        android:tint="?attr/colorTextPrimary"
+                        app:srcCompat="@drawable/icon_arrow_right"/>
+
+                </RelativeLayout>
+
+                <vision.genesis.clientapp.ui.SocialLinksView
+                    android:id="@+id/social_links"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="@dimen/program_details_padding">
+
+                    <TextView
+                        android:id="@+id/label_strategy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.4"
+                        android:text="@string/strategy"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:id="@+id/strategy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/label_strategy"
+                        android:layout_marginTop="24dp"
+                        android:alpha="0.9"
+                        android:lineSpacingMultiplier="1.5"
+                        android:maxHeight="@dimen/program_info_strategy_max_height"
+                        android:text="@string/lorem_ipsum"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textSize="16sp"/>
+
+                    <View
+                        android:id="@+id/strategy_shadow"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/shadow_up_background"
+                        android:visibility="invisible"
+                        tools:visibility="visible"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/group_subscription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:background="?attr/colorBackground"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/program_details_padding"
+                android:paddingTop="24dp"
+                android:paddingRight="@dimen/program_details_padding"
+                android:paddingBottom="24dp">
+
+                <TextView
+                    android:id="@+id/label_subscription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/subscription"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="20sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/subscription_success_fee"
+                            style="@style/program_info_invest_value"
+                            tools:text="1%"/>
+
+                        <TextView
+                            android:id="@+id/label_subscription_success_fee"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/success_fee"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/group_volume_fee"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/subscription_volume_fee"
+                            style="@style/program_info_invest_value"
+                            tools:text="0.01%"/>
+
+                        <TextView
+                            android:id="@+id/label_subscription_volume_fee"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/volume_fee"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/group_subscription_buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <vision.genesis.clientapp.ui.PrimaryButton
+                        android:id="@+id/button_follow_trades"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/button_height"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/follow_trades"
+                        android:visibility="visible"
+                        tools:visibility="visible"/>
+
+                    <vision.genesis.clientapp.ui.PrimaryButton
+                        android:id="@+id/button_edit_subscription"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/button_height"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/edit_subscription"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
+
+                    <vision.genesis.clientapp.ui.PrimaryButton
+                        android:id="@+id/button_unfollow_trades"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/button_height"
+                        android:text="@string/unfollow_trades"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:indeterminate="true"
+        android:scaleY="4"
+        android:visibility="visible"/>
+
+</RelativeLayout>

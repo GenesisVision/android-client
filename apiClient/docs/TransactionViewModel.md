@@ -9,6 +9,6 @@ Name | Type | Description | Notes
 **status** | [**MultiWalletTransactionStatus**](MultiWalletTransactionStatus.md) |  |  [optional]
 **description** | **String** |  |  [optional]
 **amount** | [**AmountRowCell**](AmountRowCell.md) |  |  [optional]
-**asset** | [**ManagerAssetDetails**](ManagerAssetDetails.md) |  |  [optional]
+**asset** | [**TransactionAssetDetails**](TransactionAssetDetails.md) |  |  [optional]
 **details** | [**List&lt;TransactionDetailItem&gt;**](TransactionDetailItem.md) |  |  [optional]
 **actions** | [**TransactionDetailsActions**](TransactionDetailsActions.md) |  |  [optional]

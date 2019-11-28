@@ -10,6 +10,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.UUID;
 
+import vision.genesis.clientapp.feature.main.follows_list.FollowsListFragment;
 import vision.genesis.clientapp.feature.main.funds_list.FundsListFragment;
 import vision.genesis.clientapp.feature.main.manager.info.ManagerInfoFragment;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListFragment;
@@ -35,6 +36,8 @@ public class ManagerDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private FundsListFragment managerFundsFragment;
 
+	private FollowsListFragment managerFollowsFragment;
+
 	private TabLayout tabLayout;
 
 	ManagerDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, UUID managerId) {
@@ -45,13 +48,19 @@ public class ManagerDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 		ProgramsFilter programsFilter = new ProgramsFilter();
 		programsFilter.setManagerId(managerId);
-		Bundle data = new Bundle();
-		data.putParcelable(ProgramsListFragment.EXTRA_FILTER, programsFilter);
-		managerProgramsFragment = ProgramsListFragment.with(ProgramsListFragment.LOCATION_MANAGER, data);
+		Bundle dataPrograms = new Bundle();
+		dataPrograms.putParcelable(ProgramsListFragment.EXTRA_FILTER, programsFilter);
+		managerProgramsFragment = ProgramsListFragment.with(ProgramsListFragment.LOCATION_MANAGER, dataPrograms);
 
 		ProgramsFilter fundsFilter = new ProgramsFilter();
 		fundsFilter.setManagerId(managerId);
 		managerFundsFragment = FundsListFragment.with(FundsListFragment.LOCATION_MANAGER, fundsFilter);
+
+		ProgramsFilter followsFilter = new ProgramsFilter();
+		followsFilter.setManagerId(managerId);
+		Bundle dataFollows = new Bundle();
+		dataFollows.putParcelable(ProgramsListFragment.EXTRA_FILTER, programsFilter);
+		managerFollowsFragment = FollowsListFragment.with(FundsListFragment.LOCATION_MANAGER, dataFollows);
 	}
 
 	@Override
@@ -63,6 +72,8 @@ public class ManagerDetailsPagerAdapter extends FragmentStatePagerAdapter
 				return managerProgramsFragment;
 			case "funds":
 				return managerFundsFragment;
+			case "follows":
+				return managerFollowsFragment;
 			default:
 				return null;
 		}
@@ -86,5 +97,6 @@ public class ManagerDetailsPagerAdapter extends FragmentStatePagerAdapter
 	public void onOffsetChanged(int verticalOffset) {
 		managerProgramsFragment.onOffsetChanged(verticalOffset);
 		managerFundsFragment.onOffsetChanged(verticalOffset);
+		managerFollowsFragment.onOffsetChanged(verticalOffset);
 	}
 }

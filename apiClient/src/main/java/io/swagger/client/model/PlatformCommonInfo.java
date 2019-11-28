@@ -47,12 +47,16 @@ public class PlatformCommonInfo implements Parcelable
 	@SerializedName("platformCurrencies")
 	private List<PlatformCurrencyInfo> platformCurrencies = null;
 
+	@SerializedName("platformUrls")
+	private List<PlatformUrlInfo> platformUrls = null;
+
 	public PlatformCommonInfo() {
 	}
 
 	PlatformCommonInfo(Parcel in) {
 		platformCommission = (PlatformCommissionInfo) in.readValue(PlatformCommissionInfo.class.getClassLoader());
 		platformCurrencies = (List<PlatformCurrencyInfo>) in.readValue(PlatformCurrencyInfo.class.getClassLoader());
+		platformUrls = (List<PlatformUrlInfo>) in.readValue(PlatformUrlInfo.class.getClassLoader());
 	}
 
 	public PlatformCommonInfo platformCommission(PlatformCommissionInfo platformCommission) {
@@ -101,6 +105,33 @@ public class PlatformCommonInfo implements Parcelable
 		this.platformCurrencies = platformCurrencies;
 	}
 
+	public PlatformCommonInfo platformUrls(List<PlatformUrlInfo> platformUrls) {
+		this.platformUrls = platformUrls;
+		return this;
+	}
+
+	public PlatformCommonInfo addPlatformUrlsItem(PlatformUrlInfo platformUrlsItem) {
+		if (this.platformUrls == null) {
+			this.platformUrls = new ArrayList<PlatformUrlInfo>();
+		}
+		this.platformUrls.add(platformUrlsItem);
+		return this;
+	}
+
+	/**
+	 * Get platformUrls
+	 *
+	 * @return platformUrls
+	 **/
+	@Schema(description = "")
+	public List<PlatformUrlInfo> getPlatformUrls() {
+		return platformUrls;
+	}
+
+	public void setPlatformUrls(List<PlatformUrlInfo> platformUrls) {
+		this.platformUrls = platformUrls;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -111,12 +142,13 @@ public class PlatformCommonInfo implements Parcelable
 		}
 		PlatformCommonInfo platformCommonInfo = (PlatformCommonInfo) o;
 		return Objects.equals(this.platformCommission, platformCommonInfo.platformCommission) &&
-				Objects.equals(this.platformCurrencies, platformCommonInfo.platformCurrencies);
+				Objects.equals(this.platformCurrencies, platformCommonInfo.platformCurrencies) &&
+				Objects.equals(this.platformUrls, platformCommonInfo.platformUrls);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(platformCommission, platformCurrencies);
+		return Objects.hash(platformCommission, platformCurrencies, platformUrls);
 	}
 
 	@Override
@@ -126,6 +158,7 @@ public class PlatformCommonInfo implements Parcelable
 
 		sb.append("    platformCommission: ").append(toIndentedString(platformCommission)).append("\n");
 		sb.append("    platformCurrencies: ").append(toIndentedString(platformCurrencies)).append("\n");
+		sb.append("    platformUrls: ").append(toIndentedString(platformUrls)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -144,6 +177,7 @@ public class PlatformCommonInfo implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(platformCommission);
 		out.writeValue(platformCurrencies);
+		out.writeValue(platformUrls);
 	}
 
 	public int describeContents() {

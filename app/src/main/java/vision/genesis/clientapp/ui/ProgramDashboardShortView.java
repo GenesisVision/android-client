@@ -13,6 +13,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.swagger.client.model.AssetType;
 import io.swagger.client.model.ProgramInvestingDetailsList;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
@@ -99,7 +100,8 @@ public class ProgramDashboardShortView extends RelativeLayout
 //							program.getPersonalDetails() != null ?
 //									program.getPersonalDetails().isHasNotifications()
 //									: false);
-						false);
+						false,
+						AssetType.PROGRAM);
 				EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 			}
 		});

@@ -19,7 +19,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
-import vision.genesis.clientapp.managers.SignalsManager;
+import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 import vision.genesis.clientapp.model.events.OnSubscribedToProgramEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -38,7 +38,7 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 	public Context context;
 
 	@Inject
-	public SignalsManager signalsManager;
+	public FollowsManager followsManager;
 
 	private Subscription signalSubscription;
 
@@ -215,15 +215,15 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 	}
 
 	private void updateSubscription() {
-		performRequest(signalsManager.updateSubscription(model));
+		performRequest(followsManager.updateSubscription(model));
 	}
 
 	private void subscribeToSignals() {
-		performRequest(signalsManager.subscribeToProgram(model));
+		performRequest(followsManager.subscribeToProgram(model));
 	}
 
 	private void performRequest(Observable<Void> request) {
-		if (signalsManager != null && model != null) {
+		if (followsManager != null && model != null) {
 			if (signalSubscription != null) {
 				signalSubscription.unsubscribe();
 			}

@@ -133,7 +133,8 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 									"",
 									request.getCurrency().getValue(),
 									false,
-									false);
+									false,
+									AssetType.PROGRAM);
 							EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 						}
 						else if (details.getAssetType().equals(AssetType.FUND)) {

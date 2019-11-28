@@ -17,4 +17,4 @@ Name | Type | Description | Notes
 **owner** | [**ProfilePublicShort**](ProfilePublicShort.md) |  |  [optional]
 **statistic** | [**ProfitChart**](ProfitChart.md) |  |  [optional]
 **personalDetails** | [**PersonalFollowDetailsList**](PersonalFollowDetailsList.md) |  |  [optional]
-**tags** | [**List&lt;ProgramTag&gt;**](ProgramTag.md) |  |  [optional]
+**tags** | [**List&lt;Tag&gt;**](Tag.md) |  |  [optional]

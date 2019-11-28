@@ -18,7 +18,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.managers.SignalsManager;
+import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.model.events.OnOpenTradeWholeCloseClickedEvent;
 import vision.genesis.clientapp.model.events.SetCopytradingAccountOpenTradesCountEvent;
 import vision.genesis.clientapp.model.events.SetDashboardOpenTradesCountEvent;
@@ -33,7 +33,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpenTradesView>
 {
 	@Inject
-	public SignalsManager signalsManager;
+	public FollowsManager followsManager;
 
 	private Subscription getOpenTradesSubscription;
 
@@ -89,8 +89,8 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 	}
 
 	private void getOpenTrades() {
-		if (signalsManager != null && location != null) {
-			getOpenTradesSubscription = signalsManager.getOpenTrades("", "", null, accountCurrency, 0, 1000)
+		if (followsManager != null && location != null) {
+			getOpenTradesSubscription = followsManager.getOpenTrades("", "", null, accountCurrency, 0, 1000)
 					.subscribeOn(Schedulers.computation())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handleGetOpenTradesSuccess,
@@ -130,8 +130,8 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 	}
 
 	void closeTrade(UUID tradeId) {
-		if (signalsManager != null && tradeId != null) {
-			closeTradeSubscription = signalsManager.closeTrade(tradeId, null)
+		if (followsManager != null && tradeId != null) {
+			closeTradeSubscription = followsManager.closeTrade(tradeId, null)
 					.subscribeOn(Schedulers.computation())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(response -> handleCloseTradeSuccess(response, tradeId),

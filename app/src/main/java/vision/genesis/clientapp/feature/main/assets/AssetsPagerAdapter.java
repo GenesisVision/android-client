@@ -9,6 +9,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.List;
 
 import io.swagger.client.model.AssetFacet;
+import vision.genesis.clientapp.feature.main.follows_list.FollowsListFragment;
 import vision.genesis.clientapp.feature.main.funds_list.FundsListFragment;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListFragment;
 
@@ -30,6 +31,8 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 
 	private FundsListFragment fundsFragment;
 
+	private FollowsListFragment followsFragment;
+
 	private TabLayout tabLayout;
 
 	AssetsPagerAdapter(FragmentManager fm, TabLayout tabLayout) {
@@ -37,6 +40,7 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 		this.tabLayout = tabLayout;
 		programsFragment = ProgramsListFragment.with(ProgramsListFragment.LOCATION_ASSETS, null);
 		fundsFragment = FundsListFragment.with(FundsListFragment.LOCATION_ASSETS, null);
+		followsFragment = FollowsListFragment.with(FollowsListFragment.LOCATION_ASSETS, null);
 	}
 
 	@Override
@@ -46,6 +50,8 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 				return programsFragment;
 			case "funds":
 				return fundsFragment;
+			case "follows":
+				return followsFragment;
 			default:
 				return null;
 		}
@@ -70,5 +76,6 @@ public class AssetsPagerAdapter extends FragmentStatePagerAdapter
 	public void onOffsetChanged(int verticalOffset) {
 		programsFragment.onOffsetChanged(verticalOffset);
 		fundsFragment.onOffsetChanged(verticalOffset);
+		followsFragment.onOffsetChanged(verticalOffset);
 	}
 }

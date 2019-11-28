@@ -13,7 +13,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
-import vision.genesis.clientapp.managers.ProfileManager;
+import vision.genesis.clientapp.managers.UsersManager;
 
 /**
  * GenesisVisionAndroid
@@ -27,7 +27,7 @@ public class ManagerInfoPresenter extends MvpPresenter<ManagerInfoView>
 	public AuthManager authManager;
 
 	@Inject
-	public ProfileManager profileManager;
+	public UsersManager usersManager;
 
 	private Subscription managersDetailsSubscription;
 
@@ -45,8 +45,9 @@ public class ManagerInfoPresenter extends MvpPresenter<ManagerInfoView>
 
 	@Override
 	public void onDestroy() {
-		if (managersDetailsSubscription != null)
+		if (managersDetailsSubscription != null) {
 			managersDetailsSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -61,10 +62,11 @@ public class ManagerInfoPresenter extends MvpPresenter<ManagerInfoView>
 	}
 
 	private void getManagerDetails() {
-		if (managerId != null && profileManager != null) {
-			if (managersDetailsSubscription != null)
+		if (managerId != null && usersManager != null) {
+			if (managersDetailsSubscription != null) {
 				managersDetailsSubscription.unsubscribe();
-			managersDetailsSubscription = profileManager.getProfilePublic(managerId.toString())
+			}
+			managersDetailsSubscription = usersManager.getUser(managerId.toString())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleManagerDetailsSuccess,

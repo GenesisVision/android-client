@@ -12,6 +12,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.AssetType;
+import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.ProgramDetailsFull;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -19,7 +21,9 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
+import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
+import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
@@ -47,15 +51,22 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	@Inject
 	public ProgramsManager programsManager;
 
+	@Inject
+	public FollowsManager followsManager;
+
 	private Subscription userSubscription;
 
 	private Subscription programDetailsSubscription;
 
+	private Subscription followDetailsSubscription;
+
 	private Subscription setProgramFavoriteSubscription;
 
-	private UUID programId;
+	private ProgramDetailsModel model;
 
 	private ProgramDetailsFull programDetails;
+
+	private FollowDetailsFull followDetails;
 
 	private boolean isActive = false;
 
@@ -75,11 +86,12 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 		if (userSubscription != null) {
 			userSubscription.unsubscribe();
 		}
-
 		if (programDetailsSubscription != null) {
 			programDetailsSubscription.unsubscribe();
 		}
-
+		if (followDetailsSubscription != null) {
+			followDetailsSubscription.unsubscribe();
+		}
 		if (setProgramFavoriteSubscription != null) {
 			setProgramFavoriteSubscription.unsubscribe();
 		}
@@ -90,15 +102,15 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 
 	void onResume() {
 		isActive = true;
-		getProgramDetails();
+		getDetails();
 	}
 
 	void onPause() {
 		isActive = false;
 	}
 
-	void setProgramId(UUID programId) {
-		this.programId = programId;
+	void setData(ProgramDetailsModel model) {
+		this.model = model;
 	}
 
 	void onFavoriteButtonClicked(boolean isFavorite) {
@@ -107,36 +119,55 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
-		getProgramDetails();
+		getDetails();
 	}
 
 	void onTryAgainClicked() {
 		getViewState().showNoInternetProgress(true);
-		getProgramDetails();
+		getDetails();
 	}
 
-	private void getProgramDetails() {
-		if (programId != null && programsManager != null) {
-			programDetailsSubscription = programsManager.getProgramDetails(programId)
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleInvestmentProgramDetailsSuccess,
-							this::handleInvestmentProgramDetailsError);
+	private void getDetails() {
+		if (model != null) {
+			if (model.getAssetType().equals(AssetType.PROGRAM)) {
+				getProgramDetails();
+			}
+			else if (model.getAssetType().equals(AssetType.FOLLOW)) {
+				getFollowDetails();
+			}
 		}
 	}
 
-	private void handleInvestmentProgramDetailsSuccess(ProgramDetailsFull programDetails) {
-		programDetailsSubscription.unsubscribe();
-		getViewState().showNoInternet(false);
-		getViewState().showNoInternetProgress(false);
-		getViewState().showProgress(false);
-		getViewState().setRefreshing(false);
-
-		this.programDetails = programDetails;
-		getViewState().setProgram(programDetails);
+	private void getProgramDetails() {
+		if (model != null && programsManager != null) {
+			programDetailsSubscription = programsManager.getProgramDetails(model.getProgramId())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleProgramDetailsSuccess,
+							this::handleProgramDetailsError);
+		}
 	}
 
-	private void handleInvestmentProgramDetailsError(Throwable throwable) {
+	private void handleProgramDetailsSuccess(ProgramDetailsFull programDetails) {
+		programDetailsSubscription.unsubscribe();
+		this.programDetails = programDetails;
+
+		if (programDetails.getPersonalDetails() != null && programDetails.getPersonalDetails().isIsOwnAsset()) {
+			if (programDetails.getSignalSettings() != null && programDetails.getSignalSettings().isIsActive() && followDetails == null) {
+				getFollowDetails();
+			}
+			else {
+				hideProgress();
+				getViewState().showOwner(programDetails, followDetails);
+			}
+		}
+		else {
+			hideProgress();
+			getViewState().showProgram(programDetails);
+		}
+	}
+
+	private void handleProgramDetailsError(Throwable throwable) {
 		programDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 		getViewState().setRefreshing(false);
@@ -150,13 +181,71 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 				getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 			}
 		}
+		else {
+			ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+		}
+	}
+
+	private void hideProgress() {
+		getViewState().showNoInternet(false);
+		getViewState().showNoInternetProgress(false);
+		getViewState().showProgress(false);
+		getViewState().setRefreshing(false);
+	}
+
+	private void getFollowDetails() {
+		if (model != null && followsManager != null) {
+			followDetailsSubscription = followsManager.getFollowDetails(model.getProgramId().toString())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleFollowDetailsSuccess,
+							this::handleFollowDetailsError);
+		}
+	}
+
+	private void handleFollowDetailsSuccess(FollowDetailsFull followDetails) {
+		followDetailsSubscription.unsubscribe();
+		this.followDetails = followDetails;
+
+		if (followDetails.getPersonalDetails() != null && followDetails.getPersonalDetails().isIsOwnAsset()) {
+			if (followDetails.getPersonalDetails().isIsProgram() && programDetails == null) {
+				getProgramDetails();
+			}
+			else {
+				hideProgress();
+				getViewState().showOwner(programDetails, followDetails);
+			}
+		}
+		else {
+			hideProgress();
+			getViewState().showFollow(followDetails);
+		}
+	}
+
+	private void handleFollowDetailsError(Throwable throwable) {
+		followDetailsSubscription.unsubscribe();
+		getViewState().showProgress(false);
+		getViewState().setRefreshing(false);
+
+		if (ApiErrorResolver.isNetworkError(throwable)) {
+			if (programDetails == null) {
+				getViewState().showNoInternet(true);
+				getViewState().showNoInternetProgress(false);
+			}
+			else {
+				getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
+			}
+		}
+		else {
+			ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+		}
 	}
 
 	private void setProgramFavorite(boolean isFavorite) {
-		setProgramFavoriteSubscription = programsManager.setProgramFavorite(programId, isFavorite)
+		setProgramFavoriteSubscription = programsManager.setProgramFavorite(model.getProgramId(), isFavorite)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
-				.subscribe(response -> handleSetProgramFavoriteSuccess(programId, isFavorite),
+				.subscribe(response -> handleSetProgramFavoriteSuccess(model.getProgramId(), isFavorite),
 						this::handleSetProgramFavoriteError);
 	}
 
@@ -170,7 +259,7 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 		setProgramFavoriteSubscription.unsubscribe();
 
 		if (programDetails == null) {
-			getViewState().setProgram(programDetails);
+			getViewState().showProgram(programDetails);
 		}
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showToast(message));
 	}

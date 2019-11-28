@@ -16,13 +16,14 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.viewpager.widget.ViewPager;
+
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
-import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -81,16 +82,20 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 
 	private TabLayout.Tab fundsTab;
 
+	private TabLayout.Tab followsTab;
+
 	private TabLayout.Tab managersTab;
 
 	private SearchPagerAdapter pagerAdapter;
 
 	@OnClick(R.id.background_black)
 	public void onBackgroundBlackClicked() {
-		if (background.getVisibility() == View.VISIBLE)
+		if (background.getVisibility() == View.VISIBLE) {
 			hideSoftKeyboard();
-		else
+		}
+		else {
 			onBackPressed();
+		}
 	}
 
 	@OnClick(R.id.icon_close)
@@ -100,10 +105,12 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 
 	@OnFocusChange(R.id.edittext_search)
 	void onSearchFocusChange(View view, boolean hasFocus) {
-		if (hasFocus)
+		if (hasFocus) {
 			showBackgroundBlack();
-		else
+		}
+		else {
 			hideBackgroundBlack();
+		}
 	}
 
 	@OnEditorAction(R.id.edittext_search)
@@ -140,6 +147,7 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 	private void initTabs() {
 		programsTab = tabLayout.newTab().setCustomView(getTabView(R.string.programs)).setTag("programs");
 		fundsTab = tabLayout.newTab().setCustomView(getTabView(R.string.funds)).setTag("funds");
+		followsTab = tabLayout.newTab().setCustomView(getTabView(R.string.follows)).setTag("follows");
 		managersTab = tabLayout.newTab().setCustomView(getTabView(R.string.managers)).setTag("managers");
 
 		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -173,6 +181,7 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 
 		addPage(programsTab, true);
 		addPage(fundsTab, false);
+		addPage(followsTab, false);
 		addPage(managersTab, false);
 	}
 
@@ -183,13 +192,15 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 	}
 
 	private void addPage(TabLayout.Tab tab, boolean selected) {
-		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION)
+		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION) {
 			return;
+		}
 
 		tabLayout.addTab(tab, selected);
 		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 10);
-		if (pagerAdapter != null)
+		if (pagerAdapter != null) {
 			pagerAdapter.notifyDataSetChanged();
+		}
 	}
 
 	private void initViewPager() {
@@ -237,6 +248,7 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 			pagerAdapter.sendSearchResults(results);
 			((CustomTabView) programsTab.getCustomView()).setCount(results.getPrograms().getTotal());
 			((CustomTabView) fundsTab.getCustomView()).setCount(results.getFunds().getTotal());
+			((CustomTabView) followsTab.getCustomView()).setCount(results.getFollow().getTotal());
 			((CustomTabView) managersTab.getCustomView()).setCount(results.getManagers().getTotal());
 		}
 	}

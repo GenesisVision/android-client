@@ -5,6 +5,7 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.ProgramDetailsFull;
 
@@ -16,7 +17,13 @@ import io.swagger.client.model.ProgramDetailsFull;
 interface ProgramDetailsView extends MvpView
 {
 	@StateStrategyType(AddToEndSingleStrategy.class)
-	void setProgram(ProgramDetailsFull programDetails);
+	void showProgram(ProgramDetailsFull programDetails);
+
+	@StateStrategyType(AddToEndSingleStrategy.class)
+	void showFollow(FollowDetailsFull followDetails);
+
+	@StateStrategyType(AddToEndSingleStrategy.class)
+	void showOwner(ProgramDetailsFull programDetails, FollowDetailsFull followDetails);
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void finishActivity();

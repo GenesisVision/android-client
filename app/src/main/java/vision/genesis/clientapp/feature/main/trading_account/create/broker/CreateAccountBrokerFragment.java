@@ -30,7 +30,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.Broker;
 import io.swagger.client.model.BrokerAccountType;
-import io.swagger.client.model.ProgramTag;
+import io.swagger.client.model.Tag;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -220,14 +220,14 @@ public class CreateAccountBrokerFragment extends BaseFragment implements CreateA
 		}
 	}
 
-	private void setTags(List<ProgramTag> tags) {
+	private void setTags(List<Tag> tags) {
 		tagsFlexbox.removeAllViews();
-		for (ProgramTag tag : tags) {
+		for (Tag tag : tags) {
 			addTag(createTagView(tag), tagsFlexbox);
 		}
 	}
 
-	private TagView createTagView(ProgramTag tag) {
+	private TagView createTagView(Tag tag) {
 		TagView view = new TagView(getContext());
 		view.setTag(tag);
 		return view;

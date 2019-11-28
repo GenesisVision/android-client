@@ -12,4 +12,4 @@ Name | Type | Description | Notes
 **leverageMin** | **Integer** |  |  [optional]
 **leverageMax** | **Integer** |  |  [optional]
 **accountTypes** | [**List&lt;BrokerAccountType&gt;**](BrokerAccountType.md) |  |  [optional]
-**tags** | [**List&lt;ProgramTag&gt;**](ProgramTag.md) |  |  [optional]
+**tags** | [**List&lt;Tag&gt;**](Tag.md) |  |  [optional]

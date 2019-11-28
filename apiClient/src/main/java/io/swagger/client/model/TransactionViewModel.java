@@ -63,7 +63,7 @@ public class TransactionViewModel implements Parcelable
 	private AmountRowCell amount = null;
 
 	@SerializedName("asset")
-	private ManagerAssetDetails asset = null;
+	private TransactionAssetDetails asset = null;
 
 	@SerializedName("details")
 	private List<TransactionDetailItem> details = null;
@@ -81,7 +81,7 @@ public class TransactionViewModel implements Parcelable
 		status = (MultiWalletTransactionStatus) in.readValue(MultiWalletTransactionStatus.class.getClassLoader());
 		description = (String) in.readValue(null);
 		amount = (AmountRowCell) in.readValue(AmountRowCell.class.getClassLoader());
-		asset = (ManagerAssetDetails) in.readValue(ManagerAssetDetails.class.getClassLoader());
+		asset = (TransactionAssetDetails) in.readValue(TransactionAssetDetails.class.getClassLoader());
 		details = (List<TransactionDetailItem>) in.readValue(TransactionDetailItem.class.getClassLoader());
 		actions = (TransactionDetailsActions) in.readValue(TransactionDetailsActions.class.getClassLoader());
 	}
@@ -200,7 +200,7 @@ public class TransactionViewModel implements Parcelable
 		this.amount = amount;
 	}
 
-	public TransactionViewModel asset(ManagerAssetDetails asset) {
+	public TransactionViewModel asset(TransactionAssetDetails asset) {
 		this.asset = asset;
 		return this;
 	}
@@ -211,11 +211,11 @@ public class TransactionViewModel implements Parcelable
 	 * @return asset
 	 **/
 	@Schema(description = "")
-	public ManagerAssetDetails getAsset() {
+	public TransactionAssetDetails getAsset() {
 		return asset;
 	}
 
-	public void setAsset(ManagerAssetDetails asset) {
+	public void setAsset(TransactionAssetDetails asset) {
 		this.asset = asset;
 	}
 

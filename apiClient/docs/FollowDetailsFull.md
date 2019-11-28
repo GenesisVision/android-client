@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **brokerDetails** | [**BrokerDetails**](BrokerDetails.md) |  |  [optional]
 **owner** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 **personalDetails** | [**PersonalFollowDetailsFull**](PersonalFollowDetailsFull.md) |  |  [optional]
-**tags** | [**List&lt;ProgramTag&gt;**](ProgramTag.md) |  |  [optional]
+**tags** | [**List&lt;Tag&gt;**](Tag.md) |  |  [optional]
 
 <a name="CurrencyEnum"></a>
 ## Enum: CurrencyEnum

@@ -75,7 +75,8 @@ public class EventDetailsBottomSheetFragment extends BottomSheetDialogFragment
 						"",
 						null,
 						false,
-						false);
+						false,
+						details.getAssetType());
 				EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 			}
 			else if (details.getAssetType().equals(AssetType.FUND)) {

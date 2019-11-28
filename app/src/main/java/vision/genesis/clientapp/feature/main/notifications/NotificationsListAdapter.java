@@ -18,6 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.swagger.client.model.AssetType;
 import io.swagger.client.model.InvestmentProgramType;
 import io.swagger.client.model.NotificationViewModel;
 import vision.genesis.clientapp.R;
@@ -116,7 +117,9 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<Notifications
 										"",
 										"",
 										false,
-										false);
+										false,
+										//TODO: replace to notification.getAssetType()
+										AssetType.PROGRAM);
 								EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 							}
 							else if (notification.getAssetType().equals(InvestmentProgramType.FUND)) {

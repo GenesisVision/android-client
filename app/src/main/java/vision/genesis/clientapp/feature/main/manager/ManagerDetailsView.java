@@ -37,4 +37,6 @@ interface ManagerDetailsView extends MvpView
 	void setProgramsCount(Integer programsCount);
 
 	void setFundsCount(Integer fundsCount);
+
+	void setFollowsCount(Integer followsCount);
 }

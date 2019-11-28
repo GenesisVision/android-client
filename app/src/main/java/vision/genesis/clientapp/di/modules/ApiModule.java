@@ -13,6 +13,7 @@ import io.swagger.client.api.CopytradingApi;
 import io.swagger.client.api.DashboardApi;
 import io.swagger.client.api.EventsApi;
 import io.swagger.client.api.FileApi;
+import io.swagger.client.api.FollowApi;
 import io.swagger.client.api.FundsApi;
 import io.swagger.client.api.InvestmentsApi;
 import io.swagger.client.api.NotificationsApi;
@@ -22,6 +23,7 @@ import io.swagger.client.api.ProgramsApi;
 import io.swagger.client.api.RateApi;
 import io.swagger.client.api.SearchApi;
 import io.swagger.client.api.SignalApi;
+import io.swagger.client.api.UsersApi;
 import io.swagger.client.api.WalletApi;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -111,6 +113,12 @@ public class ApiModule
 
 	@Provides
 	@Singleton
+	public FollowApi provideFollowApi(ApiClient apiClient) {
+		return apiClient.createService(FollowApi.class);
+	}
+
+	@Provides
+	@Singleton
 	public FundsApi provideFundsApi(ApiClient apiClient) {
 		return apiClient.createService(FundsApi.class);
 	}
@@ -161,6 +169,12 @@ public class ApiModule
 	@Singleton
 	public SignalApi provideSignalApi(ApiClient apiClient) {
 		return apiClient.createService(SignalApi.class);
+	}
+
+	@Provides
+	@Singleton
+	public UsersApi provideUsersApi(ApiClient apiClient) {
+		return apiClient.createService(UsersApi.class);
 	}
 
 	@Provides

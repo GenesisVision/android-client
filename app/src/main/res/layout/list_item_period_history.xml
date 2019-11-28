@@ -51,23 +51,23 @@
 
                 <TextView
                     android:id="@+id/period_length_label"
-                    style="@style/text_label"
+                    style="@style/period_text_label"
                     android:text="@string/period_length"
                     android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/investors_label"
-                    style="@style/text_label"
+                    style="@style/period_text_label"
                     android:text="@string/investors"/>
 
                 <TextView
                     android:id="@+id/balance_label"
-                    style="@style/text_label"
+                    style="@style/period_text_label"
                     android:text="@string/balance"/>
 
                 <TextView
                     android:id="@+id/profit_label"
-                    style="@style/text_label"
+                    style="@style/period_text_label"
                     android:text="@string/profit"/>
 
             </LinearLayout>

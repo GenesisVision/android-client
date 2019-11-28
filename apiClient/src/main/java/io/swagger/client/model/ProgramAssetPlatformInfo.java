@@ -45,7 +45,7 @@ public class ProgramAssetPlatformInfo implements Parcelable
 	private List<AssetFacet> facets = null;
 
 	@SerializedName("tags")
-	private List<ProgramTag> tags = null;
+	private List<Tag> tags = null;
 
 	@SerializedName("availableProgramCurrencies")
 	private List<String> availableProgramCurrencies = null;
@@ -64,7 +64,7 @@ public class ProgramAssetPlatformInfo implements Parcelable
 
 	ProgramAssetPlatformInfo(Parcel in) {
 		facets = (List<AssetFacet>) in.readValue(AssetFacet.class.getClassLoader());
-		tags = (List<ProgramTag>) in.readValue(ProgramTag.class.getClassLoader());
+		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 		availableProgramCurrencies = (List<String>) in.readValue(null);
 		minInvestAmounts = (List<ProgramMinInvestAmount>) in.readValue(ProgramMinInvestAmount.class.getClassLoader());
 		periods = (List<Integer>) in.readValue(null);
@@ -98,14 +98,14 @@ public class ProgramAssetPlatformInfo implements Parcelable
 		this.facets = facets;
 	}
 
-	public ProgramAssetPlatformInfo tags(List<ProgramTag> tags) {
+	public ProgramAssetPlatformInfo tags(List<Tag> tags) {
 		this.tags = tags;
 		return this;
 	}
 
-	public ProgramAssetPlatformInfo addTagsItem(ProgramTag tagsItem) {
+	public ProgramAssetPlatformInfo addTagsItem(Tag tagsItem) {
 		if (this.tags == null) {
-			this.tags = new ArrayList<ProgramTag>();
+			this.tags = new ArrayList<Tag>();
 		}
 		this.tags.add(tagsItem);
 		return this;
@@ -117,11 +117,11 @@ public class ProgramAssetPlatformInfo implements Parcelable
 	 * @return tags
 	 **/
 	@Schema(description = "")
-	public List<ProgramTag> getTags() {
+	public List<Tag> getTags() {
 		return tags;
 	}
 
-	public void setTags(List<ProgramTag> tags) {
+	public void setTags(List<Tag> tags) {
 		this.tags = tags;
 	}
 

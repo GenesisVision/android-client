@@ -15,7 +15,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.managers.SignalsManager;
+import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.model.OpenTradeModel;
 import vision.genesis.clientapp.model.OpenTradeProviderModel;
 import vision.genesis.clientapp.model.events.OnOpenTradeCloseClickedEvent;
@@ -30,7 +30,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 public class OpenTradeDetailsPresenter extends MvpPresenter<OpenTradeDetailsView>
 {
 	@Inject
-	public SignalsManager signalsManager;
+	public FollowsManager followsManager;
 
 	private Subscription closeTradeSubscription;
 
@@ -61,9 +61,9 @@ public class OpenTradeDetailsPresenter extends MvpPresenter<OpenTradeDetailsView
 	}
 
 	void closeTrade(UUID programId) {
-		if (signalsManager != null && model != null && programId != null) {
+		if (followsManager != null && model != null && programId != null) {
 			getViewState().showProgress(true);
-			closeTradeSubscription = signalsManager.closeTrade(model.getId(), programId)
+			closeTradeSubscription = followsManager.closeTrade(model.getId(), programId)
 					.subscribeOn(Schedulers.computation())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(response -> handleCloseTradeSuccess(programId),

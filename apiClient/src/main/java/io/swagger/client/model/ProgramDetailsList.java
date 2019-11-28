@@ -99,7 +99,7 @@ public class ProgramDetailsList implements Parcelable
 	private PersonalProgramDetailsList personalDetails = null;
 
 	@SerializedName("tags")
-	private List<ProgramTag> tags = null;
+	private List<Tag> tags = null;
 
 	@SerializedName("statistic")
 	private ProfitChart statistic = null;
@@ -129,7 +129,7 @@ public class ProgramDetailsList implements Parcelable
 		status = (String) in.readValue(null);
 		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
 		personalDetails = (PersonalProgramDetailsList) in.readValue(PersonalProgramDetailsList.class.getClassLoader());
-		tags = (List<ProgramTag>) in.readValue(ProgramTag.class.getClassLoader());
+		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
 		balance = (AmountWithCurrency) in.readValue(AmountWithCurrency.class.getClassLoader());
 	}
@@ -476,14 +476,14 @@ public class ProgramDetailsList implements Parcelable
 		this.personalDetails = personalDetails;
 	}
 
-	public ProgramDetailsList tags(List<ProgramTag> tags) {
+	public ProgramDetailsList tags(List<Tag> tags) {
 		this.tags = tags;
 		return this;
 	}
 
-	public ProgramDetailsList addTagsItem(ProgramTag tagsItem) {
+	public ProgramDetailsList addTagsItem(Tag tagsItem) {
 		if (this.tags == null) {
-			this.tags = new ArrayList<ProgramTag>();
+			this.tags = new ArrayList<Tag>();
 		}
 		this.tags.add(tagsItem);
 		return this;
@@ -495,11 +495,11 @@ public class ProgramDetailsList implements Parcelable
 	 * @return tags
 	 **/
 	@Schema(description = "")
-	public List<ProgramTag> getTags() {
+	public List<Tag> getTags() {
 		return tags;
 	}
 
-	public void setTags(List<ProgramTag> tags) {
+	public void setTags(List<Tag> tags) {
 		this.tags = tags;
 	}
 

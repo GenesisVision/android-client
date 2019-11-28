@@ -1,15 +1,12 @@
-package vision.genesis.clientapp.feature.main.program.info;
+package vision.genesis.clientapp.feature.main.program.info.program;
 
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
-import java.util.UUID;
-
 import io.swagger.client.model.ProgramDetailsFull;
 import vision.genesis.clientapp.model.ProgramRequest;
-import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 
 /**
  * GenesisVisionAndroid
@@ -33,8 +30,6 @@ interface ProgramInfoView extends MvpView
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showWithdrawProgramActivity(ProgramRequest request);
 
-	void showSignalsProgress(Boolean show);
-
 	void setReinvest(Boolean isReinvest);
 
 	void showRequestsBottomSheet();
@@ -42,10 +37,4 @@ interface ProgramInfoView extends MvpView
 	void showSnackbarMessage(String message);
 
 	void showLoginActivity();
-
-	void showCreateCopytradingAccountActivity(SubscriptionSettingsModel model);
-
-	void showSubscriptionSettings(SubscriptionSettingsModel model, boolean isEdit);
-
-	void showUnfollowTradesActivity(UUID programId, String programName);
 }

@@ -454,7 +454,7 @@
     <string name="request_info_template">Your request will be processed at the end of the reporting period %s</string>
     <string name="your_investment">Your investment</string>
     <string name="value">value</string>
-    <string name="program_info_withdraw_info">You can withdraw only the invested funds, the profit will be withdrawn to your account at the end of the period automatically.</string>
+    <string name="program_info_withdraw_info">Your request will be processed at the end of the reporting period.</string>
     <string name="text_continue">Continue</string>
     <string name="investment_amount">Investment amount</string>
     <string name="amount_to_invest">Amount to invest</string>
@@ -730,6 +730,19 @@
     <string name="read_terms">Read Terms</string>
     <string name="template_create_trading_account_deposit_notification">You must deposit at least the equivalent of %s to create a trading account.</string>
     <string name="template_dashboard_header_change_period">for a %s</string>
+    <string name="follows">Follows</string>
+    <string name="subscribers">Subscribers</string>
+    <string name="public_info">Public info</string>
+    <string name="your_deposit">Your deposit</string>
+    <string name="follow">Follow</string>
+    <string name="make_signal_provider">Make a signal provider</string>
+    <string name="manage">Manage</string>
+    <string name="create_follow_text">Make your account a signal provider so that other users can copy your trades and bring you an extra income.</string>
+    <string name="create_program_text">Make your account an investment program so that you can attract investors to manage their funds. Earn on commissions.</string>
+    <string name="edit">Edit</string>
+    <string name="broker">broker</string>
+    <string name="account">Account</string>
+    <string name="age">age</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

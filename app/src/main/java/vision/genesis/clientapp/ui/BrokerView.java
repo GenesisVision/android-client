@@ -14,7 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.swagger.client.model.Broker;
-import io.swagger.client.model.ProgramTag;
+import io.swagger.client.model.Tag;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -70,10 +70,10 @@ public class BrokerView extends RelativeLayout
 
 		groupTags.removeAllViews();
 		int position = 0;
-		ProgramTag emptyTag = new ProgramTag();
+		Tag emptyTag = new Tag();
 		emptyTag.setName("...");
 		emptyTag.setColor("#00bdaf");
-		for (ProgramTag tag : broker.getTags()) {
+		for (Tag tag : broker.getTags()) {
 			if (position > 0) {
 				addTag(createTagView(emptyTag), groupTags);
 				break;
@@ -83,7 +83,7 @@ public class BrokerView extends RelativeLayout
 		}
 	}
 
-	private TagView createTagView(ProgramTag tag) {
+	private TagView createTagView(Tag tag) {
 		TagView view = new TagView(getContext());
 		view.setTag(tag);
 		return view;

@@ -2,36 +2,47 @@ package vision.genesis.clientapp.managers;
 
 import java.util.UUID;
 
-import io.swagger.client.api.CopytradingApi;
+import io.swagger.client.api.FollowApi;
 import io.swagger.client.api.SignalApi;
-import io.swagger.client.model.AttachToSignalProviderInfo;
 import io.swagger.client.model.DetachFromSignalProvider;
+import io.swagger.client.model.FollowDetailsFull;
+import io.swagger.client.model.ItemsViewModelFollowDetailsList;
 import io.swagger.client.model.ItemsViewModelSignalTradingEvent;
 import io.swagger.client.model.SignalDetachMode;
 import io.swagger.client.model.TradesSignalViewModel;
 import rx.Observable;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.SubscriptionSettingsModel;
+import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 26/06/2019.
+ * Created by Vitaly on 26/11/2019.
  */
 
-public class SignalsManager
+public class FollowsManager
 {
 	private final SignalApi signalApi;
 
-	private final CopytradingApi copytradingApi;
+	private final FollowApi followApi;
 
-	public SignalsManager(SignalApi signalApi, CopytradingApi copytradingApi) {
+	public FollowsManager(SignalApi signalApi, FollowApi followApi) {
 		this.signalApi = signalApi;
-		this.copytradingApi = copytradingApi;
+		this.followApi = followApi;
 	}
 
-	public Observable<AttachToSignalProviderInfo> getSignalsInfo(UUID programId) {
-//		return signalApi.getSlaveAttachInfo(programId, AuthManager.token.getValue());
-		return null;
+	public Observable<ItemsViewModelFollowDetailsList> getFollows(ProgramsFilter filter) {
+		return followApi.getFollowAssets(AuthManager.token.getValue(),
+				null, null,
+				filter.getTags(),
+				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
+				filter.getChartPointsCount(), filter.getFacetId() == null ? null : filter.getFacetId().toString(),
+				filter.getMask(), filter.getManagerId(), false,
+				filter.getSkip(), filter.getTake());
+	}
+
+	public Observable<FollowDetailsFull> getFollowDetails(String followId) {
+		return followApi.getFollowAssetDetails(followId, AuthManager.token.getValue());
 	}
 
 	public Observable<Void> subscribeToProgram(SubscriptionSettingsModel model) {

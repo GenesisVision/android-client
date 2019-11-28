@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_height="wrap_content">
+
+
+    <ProgressBar
+        android:id="@+id/age_progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/circle_shape"
+        android:indeterminate="false"
+        android:progressDrawable="@drawable/circular_progress_bar"
+        tools:max="100"
+        tools:min="1"
+        tools:progress="25"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@+id/age_progress_bar"
+        android:gravity="bottom"
+        android:lines="1"
+        android:textColor="?attr/colorTextPrimary"
+        android:textSize="16sp"
+        tools:text="14 days"/>
+
+</RelativeLayout>

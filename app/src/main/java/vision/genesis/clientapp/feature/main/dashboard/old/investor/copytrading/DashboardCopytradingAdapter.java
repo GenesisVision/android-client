@@ -15,6 +15,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.swagger.client.model.AssetType;
 import io.swagger.client.model.CopyTradingAccountInfo;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
@@ -133,7 +134,8 @@ public class DashboardCopytradingAdapter extends RecyclerView.Adapter<DashboardC
 							signal.getCurrency().getValue(),
 //							signal.getPersonalDetails().isIsFavorite(),
 							false,
-							false);
+							false,
+							AssetType.FOLLOW);
 					EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 				}
 			});

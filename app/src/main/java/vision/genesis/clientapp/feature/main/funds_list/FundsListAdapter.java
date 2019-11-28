@@ -308,16 +308,13 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 			this.fundName.setText(fund.getTitle());
 			this.managerName.setText(fund.getOwner().getUsername());
 
-			//TODO:
-//			if (fund.getChart() != null) {
-//				this.chart.setChart(fund.getChart().getChart());
-//			}
-
-//			Double profitPercent = getProfitPercent();
-
-			//TODO:
-//			Double profitPercent = fund.getStatistic().getProfitPercent();
-			double profitPercent = 0.0;
+			Double profitPercent = 0.0;
+			if (fund.getStatistic() != null) {
+				this.chart.setChart(fund.getStatistic().getChart());
+				profitPercent = fund.getStatistic().getProfit();
+				this.drawdown.setText(String.format(Locale.getDefault(), "%s%%",
+						StringFormatUtil.formatAmount(fund.getStatistic().getDrawdown(), 0, 2)));
+			}
 
 			this.profitPercent.setText(String.format(Locale.getDefault(), "%s%%",
 					StringFormatUtil.formatAmount(profitPercent, 0, 2)));
@@ -330,10 +327,6 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 			this.investors.setText(String.format(Locale.getDefault(), "%s",
 					StringFormatUtil.getShortenedAmount(fund.getInvestorsCount())));
-
-			//TODO:
-//			this.drawdown.setText(String.format(Locale.getDefault(), "%s%%",
-//					StringFormatUtil.formatAmount(fund.getDrawdown(), 0, 2)));
 
 			updateAssets();
 
