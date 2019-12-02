@@ -4,11 +4,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import java.util.Locale;
+
 import io.swagger.client.model.NewFundRequest;
+import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.common.public_info.PublicInfoFragment;
 import vision.genesis.clientapp.feature.main.fund.create.assets.CreateFundAssetsFragment;
 import vision.genesis.clientapp.feature.main.fund.create.deposit.CreateFundDepositFragment;
 import vision.genesis.clientapp.feature.main.fund.create.fees.CreateFundFeesFragment;
-import vision.genesis.clientapp.feature.main.fund.create.main.CreateFundMainFragment;
+import vision.genesis.clientapp.model.PublicInfoModel;
 
 /**
  * GenesisVisionAndroid
@@ -24,7 +29,7 @@ public class CreateFundPagerAdapter extends FragmentStatePagerAdapter
 		void pagerHide();
 	}
 
-	private CreateFundMainFragment mainFragment;
+	private PublicInfoFragment publicInfoFragment;
 
 	private CreateFundAssetsFragment assetsFragment;
 
@@ -39,7 +44,10 @@ public class CreateFundPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	private void createFragments() {
-		mainFragment = new CreateFundMainFragment();
+		publicInfoFragment = PublicInfoFragment.with(new PublicInfoModel(true, "01",
+				GenesisVisionApplication.INSTANCE.getString(R.string.public_info), true,
+				String.format(Locale.getDefault(), "%s (1/4)", GenesisVisionApplication.INSTANCE.getString(R.string.next)),
+				null, null, null));
 		assetsFragment = new CreateFundAssetsFragment();
 		feesFragment = new CreateFundFeesFragment();
 		depositFragment = new CreateFundDepositFragment();
@@ -56,7 +64,7 @@ public class CreateFundPagerAdapter extends FragmentStatePagerAdapter
 				return depositFragment;
 			case 0:
 			default:
-				return mainFragment;
+				return publicInfoFragment;
 		}
 	}
 
@@ -66,14 +74,13 @@ public class CreateFundPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	void setRequest(NewFundRequest request) {
-		mainFragment.setRequest(request);
 		assetsFragment.setRequest(request);
 		feesFragment.setRequest(request);
 		depositFragment.setRequest(request);
 	}
 
-	public void setMinDepositAmount(Double minDepositAmount) {
-		mainFragment.setMinDepositAmount(minDepositAmount);
+	public void setMinDepositAmount(Double minDepositAmount, String warningInfo) {
+		publicInfoFragment.setWarningInfo(warningInfo);
 		depositFragment.setMinDepositAmount(minDepositAmount);
 	}
 }

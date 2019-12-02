@@ -377,21 +377,10 @@
     <string name="permission_picture_denied">The app is not able to set the picture until you grant the Storage permission</string>
     <string name="permission_picture_never_ask_again"><![CDATA[The app is not able to set the picture until you grant the Storage permission in Settings -> Apps]]></string>
 
-    <string name="broker_server">Broker Server</string>
-    <string name="trading_account_password">Trading Account Password</string>
-    <string name="confirm_trading_account_password">Confirm Trading Account Password</string>
     <string name="leverages">Leverages</string>
     <string name="leverage">Leverage</string>
-    <string name="create_program">Create Program</string>
-    <string name="start_date">Start Date</string>
-    <string name="period_length">Period Length</string>
-    <string name="deposit_amount">Deposit Amount</string>
-    <string name="success_fee_percent">Success Fee, %</string>
-    <string name="management_fee_percent">Management Fee, %</string>
-    <string name="token_name">Token Name</string>
-    <string name="token_symbol">Token Symbol</string>
-    <string name="you_have">You have</string>
-    <string name="dark_theme">Dark theme</string>
+    <string name="create_program">Create program</string>
+    <string name="period_length">Period length</string>
 
 
     <string name="total_balance">Total balance</string>
@@ -743,6 +732,18 @@
     <string name="broker">broker</string>
     <string name="account">Account</string>
     <string name="age">age</string>
+    <string name="logo">Logo</string>
+    <string name="upload_logo">Upload logo</string>
+    <string name="stop_out_level">Stop out level</string>
+    <string name="program_settings_stop_out_description">Stop out is the maximum drawdown level for the reporting period at which the program is stopped, and all investments return to investors.</string>
+    <string name="program_settings_period_length_description"/>
+    <string name="investment_limit">Investment limit</string>
+    <string name="program_settings_investment_limit_description">At any time you can enter or cancel certain limitations on av. to invest, or even prohibit new investments if your Investment limit is 0. If the investment limit you\'ve entered is larger than the av. to invest value calculated for your current level, then you will only be able to attract the av. to invest value.</string>
+    <string name="template_program_settings_entry_fee_description">An entry fee is a fee charged to investors upon their investment to a program. The maximum entry fee is %s%%</string>
+    <string name="template_program_settings_success_fee_description">A fee charged upon the total profit made within the reporting period. The maximum success fee is %s%%</string>
+    <string name="error_stop_out_max">A new stop out level cannot be greater than the original value</string>
+    <string name="error_stop_out_min">A stop out level cannot be less than %s</string>
+    <string name="template_create_program_deposit">The minimal program deposit is %s. You must deposit additional %s (or the equivalent) to your trading account to satisfy this condition.</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

@@ -17,6 +17,7 @@ import vision.genesis.clientapp.feature.auth.registration.RegistrationPresenter;
 import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
 import vision.genesis.clientapp.feature.common.image_crop.ImageCropActivity;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
+import vision.genesis.clientapp.feature.common.public_info.PublicInfoPresenter;
 import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.MainPresenter;
 import vision.genesis.clientapp.feature.main.about_levels.AboutLevelsPresenter;
@@ -40,6 +41,7 @@ import vision.genesis.clientapp.feature.main.dashboard.trading.DashboardTradingV
 import vision.genesis.clientapp.feature.main.dashboard.trading.details.TradingDetailsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.wallet.DashboardWalletView;
 import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
+import vision.genesis.clientapp.feature.main.follow.create.settings.FollowSettingsPresenter;
 import vision.genesis.clientapp.feature.main.follows_list.FollowsListPresenter;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsPresenter;
 import vision.genesis.clientapp.feature.main.fund.add_asset.AddAssetPresenter;
@@ -48,7 +50,6 @@ import vision.genesis.clientapp.feature.main.fund.create.CreateFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.create.assets.CreateFundAssetsPresenter;
 import vision.genesis.clientapp.feature.main.fund.create.deposit.CreateFundDepositPresenter;
 import vision.genesis.clientapp.feature.main.fund.create.fees.CreateFundFeesPresenter;
-import vision.genesis.clientapp.feature.main.fund.create.main.CreateFundMainPresenter;
 import vision.genesis.clientapp.feature.main.fund.info.FundInfoPresenter;
 import vision.genesis.clientapp.feature.main.fund.invest.InvestFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.invest.confirm.ConfirmFundInvestBottomSheetFragment;
@@ -70,8 +71,8 @@ import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPresenter;
 import vision.genesis.clientapp.feature.main.program.balance.ProgramBalancePresenter;
 import vision.genesis.clientapp.feature.main.program.create.CreateProgramPresenter;
-import vision.genesis.clientapp.feature.main.program.create.first.CreateProgramFirstStepPresenter;
-import vision.genesis.clientapp.feature.main.program.create.third.CreateProgramThirdStepPresenter;
+import vision.genesis.clientapp.feature.main.program.create.deposit.CreateProgramDepositPresenter;
+import vision.genesis.clientapp.feature.main.program.create.settings.ProgramSettingsPresenter;
 import vision.genesis.clientapp.feature.main.program.events.ProgramEventsPresenter;
 import vision.genesis.clientapp.feature.main.program.info.follow.FollowInfoPresenter;
 import vision.genesis.clientapp.feature.main.program.info.owner.OwnerInfoPresenter;
@@ -194,12 +195,6 @@ public interface AppComponent
 
 	void inject(VerifyFingerprintPresenter verifyFingerprintPresenter);
 
-	void inject(CreateProgramPresenter createProgramPresenter);
-
-	void inject(CreateProgramFirstStepPresenter createProgramFirstStepPresenter);
-
-	void inject(CreateProgramThirdStepPresenter createProgramThirdStepPresenter);
-
 	void inject(InvestorDashboardHeaderPortfolioPresenter investorDashboardHeaderPortfolioPresenter);
 
 	void inject(DashboardProgramsPresenter dashboardProgramsPresenter);
@@ -308,7 +303,7 @@ public interface AppComponent
 
 	void inject(CreateFundPresenter createFundPresenter);
 
-	void inject(CreateFundMainPresenter createFundMainPresenter);
+	void inject(PublicInfoPresenter publicInfoPresenter);
 
 	void inject(CreateFundAssetsPresenter createFundAssetsPresenter);
 
@@ -353,4 +348,12 @@ public interface AppComponent
 	void inject(TradingAccountBalancePresenter tradingAccountBalancePresenter);
 
 	void inject(TradingAccountTradesPresenter tradingAccountTradesPresenter);
+
+	void inject(CreateProgramPresenter createProgramPresenter);
+
+	void inject(ProgramSettingsPresenter programSettingsPresenter);
+
+	void inject(CreateProgramDepositPresenter createProgramDepositPresenter);
+
+	void inject(FollowSettingsPresenter followSettingsPresenter);
 }

@@ -5,6 +5,7 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import io.swagger.client.model.PrivateTradingAccountFull;
+import vision.genesis.clientapp.model.CreateProgramModel;
 
 /**
  * GenesisVisionAndroid
@@ -18,6 +19,8 @@ interface TradingAccountInfoView extends MvpView
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);
+
+	void showCreateProgram(CreateProgramModel createProgramModel);
 
 	void showSnackbarMessage(String message);
 

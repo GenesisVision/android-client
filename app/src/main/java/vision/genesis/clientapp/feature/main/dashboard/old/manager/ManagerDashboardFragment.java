@@ -15,7 +15,6 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.main.program.create.CreateProgramActivity;
 import vision.genesis.clientapp.ui.ToolbarView;
 
 /**
@@ -35,7 +34,7 @@ public class ManagerDashboardFragment extends BaseFragment implements ManagerDas
 
 	@OnClick(R.id.fab)
 	public void onCreateProgramClicked() {
-		CreateProgramActivity.startFrom(getContext());
+//		CreateProgramActivity.startFrom(getContext());
 	}
 
 	@Nullable

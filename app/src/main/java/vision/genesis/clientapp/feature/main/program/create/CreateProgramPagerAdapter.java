@@ -3,13 +3,22 @@ package vision.genesis.clientapp.feature.main.program.create;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import vision.genesis.clientapp.feature.main.program.create.first.CreateProgramFirstStepFragment;
-import vision.genesis.clientapp.feature.main.program.create.second.CreateProgramSecondStepFragment;
-import vision.genesis.clientapp.feature.main.program.create.third.CreateProgramThirdStepFragment;
+
+import java.util.ArrayList;
+import java.util.Locale;
+
+import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.common.public_info.PublicInfoFragment;
+import vision.genesis.clientapp.feature.main.program.create.deposit.CreateProgramDepositFragment;
+import vision.genesis.clientapp.feature.main.program.create.settings.ProgramSettingsFragment;
+import vision.genesis.clientapp.model.CreateProgramModel;
+import vision.genesis.clientapp.model.ProgramSettingsModel;
+import vision.genesis.clientapp.model.PublicInfoModel;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 03/07/2018.
+ * Created by Vitaly on 28/11/2019.
  */
 
 public class CreateProgramPagerAdapter extends FragmentStatePagerAdapter
@@ -21,40 +30,81 @@ public class CreateProgramPagerAdapter extends FragmentStatePagerAdapter
 		void pagerHide();
 	}
 
-	private CreateProgramFirstStepFragment firstStepFragment;
+	private PublicInfoFragment publicInfoFragment;
 
-	private CreateProgramSecondStepFragment secondStepFragment;
+	private ProgramSettingsFragment programSettingsFragment;
 
-	private CreateProgramThirdStepFragment thirdStepFragment;
+	private CreateProgramDepositFragment depositFragment;
 
-	CreateProgramPagerAdapter(FragmentManager fm) {
+	private ArrayList<Fragment> fragments;
+
+	CreateProgramPagerAdapter(FragmentManager fm, Boolean needPublicInfo, Boolean needDeposit, CreateProgramModel model) {
 		super(fm);
 
-		createFragments();
-	}
+		int stepsCount = 1;
+		if (needPublicInfo) {
+			stepsCount++;
+		}
+		if (needDeposit) {
+			stepsCount++;
+		}
 
-	private void createFragments() {
-		firstStepFragment = new CreateProgramFirstStepFragment();
-		secondStepFragment = new CreateProgramSecondStepFragment();
-		thirdStepFragment = new CreateProgramThirdStepFragment();
-	}
+		fragments = new ArrayList<>();
 
-	@Override
-	public Fragment getItem(int position) {
-		switch (position) {
-			case 0:
-				return firstStepFragment;
-			case 1:
-				return secondStepFragment;
-			case 2:
-				return thirdStepFragment;
-			default:
-				return firstStepFragment;
+		if (needPublicInfo) {
+			publicInfoFragment = PublicInfoFragment.with(new PublicInfoModel(true, "01",
+					GenesisVisionApplication.INSTANCE.getString(R.string.public_info), false,
+					String.format(Locale.getDefault(), "%s (1/%d)", GenesisVisionApplication.INSTANCE.getString(R.string.next), stepsCount),
+					null, null, null));
+			fragments.add(publicInfoFragment);
+		}
+
+		String programSettingsButtonText = !needDeposit ? GenesisVisionApplication.INSTANCE.getString(R.string.create_program)
+				: String.format(Locale.getDefault(), "%s (%d/%d)",
+				GenesisVisionApplication.INSTANCE.getString(R.string.next),
+				needPublicInfo ? 2 : 1,
+				stepsCount);
+		programSettingsFragment = ProgramSettingsFragment.with(new ProgramSettingsModel(stepsCount > 1, needPublicInfo ? "02" : "01",
+				GenesisVisionApplication.INSTANCE.getString(R.string.main_settings), false,
+				programSettingsButtonText, model.getCurrency(),
+				null, null, null, null, null));
+		fragments.add(programSettingsFragment);
+
+		if (needDeposit) {
+			depositFragment = CreateProgramDepositFragment.with(needPublicInfo ? "03" : "02", model);
+			fragments.add(depositFragment);
 		}
 	}
 
 	@Override
+	public Fragment getItem(int position) {
+		return fragments.get(position);
+	}
+
+	@Override
 	public int getCount() {
-		return 3;
+		return fragments.size();
+	}
+
+	int getSettingsPosition() {
+		int pos = 0;
+		for (Fragment fragment : fragments) {
+			if (fragment.equals(programSettingsFragment)) {
+				break;
+			}
+			pos++;
+		}
+		return pos;
+	}
+
+	int getDepositPosition() {
+		int pos = 0;
+		for (Fragment fragment : fragments) {
+			if (fragment.equals(depositFragment)) {
+				break;
+			}
+			pos++;
+		}
+		return pos;
 	}
 }

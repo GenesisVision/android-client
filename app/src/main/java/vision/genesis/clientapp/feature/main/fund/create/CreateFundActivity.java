@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -18,6 +20,7 @@ import io.swagger.client.model.NewFundRequest;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.ui.NonSwipeableViewPager;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -118,7 +121,10 @@ public class CreateFundActivity extends BaseSwipeBackActivity implements CreateF
 	@Override
 	public void setMinDepositAmount(Double minDepositAmount) {
 		if (adapter != null) {
-			adapter.setMinDepositAmount(minDepositAmount);
+			adapter.setMinDepositAmount(minDepositAmount,
+					String.format(Locale.getDefault(),
+							getString(R.string.template_create_fund_deposit_first_notification),
+							StringFormatUtil.formatAmount(minDepositAmount, 0, 8)));
 		}
 	}
 

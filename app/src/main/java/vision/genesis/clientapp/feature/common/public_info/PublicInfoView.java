@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.fund.create.main;
+package vision.genesis.clientapp.feature.common.public_info;
 
 import com.arellomobile.mvp.MvpView;
 
@@ -11,8 +11,12 @@ import vision.genesis.clientapp.utils.ImageUtils;
  * Created by Vitaly on 14/10/2019.
  */
 
-interface CreateFundMainView extends MvpView
+interface PublicInfoView extends MvpView
 {
+	void setTitle(String title);
+
+	void setDescription(String description);
+
 	void openCamera(ImageUtils imageUtils, File newLogoFile);
 
 	void openGallery(ImageUtils imageUtils);
@@ -27,5 +31,5 @@ interface CreateFundMainView extends MvpView
 
 	void showSnackbarMessage(String message);
 
-	void setNextButtonEnabled(boolean enabled);
+	void setConfirmButtonEnabled(boolean enabled);
 }

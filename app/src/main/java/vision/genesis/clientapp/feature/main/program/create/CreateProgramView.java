@@ -2,22 +2,24 @@ package vision.genesis.clientapp.feature.main.program.create;
 
 import com.arellomobile.mvp.MvpView;
 
+import vision.genesis.clientapp.model.CreateProgramModel;
+
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 03/07/2018.
+ * Created by Vitaly on 28/11/2019.
  */
 
 public interface CreateProgramView extends MvpView
 {
-	void onBackPressed();
+	void initViewPager(Boolean needPublicInfo, Boolean needDeposit, CreateProgramModel model);
 
-	void showNextStep();
+	void showSettings();
+
+	void showDeposit();
 
 	void showProgress(boolean show);
 
-	void showSnackbar(String text);
+	void showSnackbarMessage(String message);
 
 	void finishActivity();
-
-	void hideKeyboard();
 }

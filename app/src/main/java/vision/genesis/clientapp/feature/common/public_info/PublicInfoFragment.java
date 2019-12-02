@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.fund.create.main;
+package vision.genesis.clientapp.feature.common.public_info;
 
 import android.Manifest;
 import android.app.Activity;
@@ -20,8 +20,6 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.io.File;
 import java.util.Locale;
 
@@ -29,7 +27,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.NewFundRequest;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;
@@ -42,11 +39,10 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.image_crop.ImageCropActivity;
 import vision.genesis.clientapp.feature.main.profile.PictureChooserBottomSheetFragment;
-import vision.genesis.clientapp.model.events.OnCreateFundNextButtonClickedEvent;
+import vision.genesis.clientapp.model.PublicInfoModel;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.ImageUtils;
-import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -55,40 +51,56 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  */
 
 @RuntimePermissions
-public class CreateFundMainFragment extends BaseFragment implements CreateFundMainView
+public class PublicInfoFragment extends BaseFragment implements PublicInfoView
 {
+	private static String EXTRA_MODEL = "extra_model";
+
+	public static PublicInfoFragment with(PublicInfoModel model) {
+		PublicInfoFragment fragment = new PublicInfoFragment();
+		Bundle arguments = new Bundle(1);
+		arguments.putParcelable(EXTRA_MODEL, model);
+		fragment.setArguments(arguments);
+		return fragment;
+	}
+
+	@BindView(R.id.group_step)
+	public ViewGroup stepGroup;
+
 	@BindView(R.id.step_number)
 	public TextView stepNumber;
 
 	@BindView(R.id.step_title)
 	public TextView stepTitle;
 
-	@BindView(R.id.deposit_notification)
-	public TextView depositNotification;
+	@BindView(R.id.group_warning_info)
+	public ViewGroup warningInfoGroup;
 
-	@BindView(R.id.deposit_notification_progress)
-	public ProgressBar depositNotificationProgress;
+	@BindView(R.id.warning_info)
+	public TextView warningInfo;
 
-	@BindView(R.id.text_input_name)
-	public TextInputLayout nameTextInput;
+	@BindView(R.id.warning_info_progress)
+	public ProgressBar warningInfoProgress;
+
+	@BindView(R.id.text_input_title)
+	public TextInputLayout titleTextInput;
 
 	@BindView(R.id.text_input_description)
 	public TextInputLayout descriptionTextInput;
 
-	@BindView(R.id.name)
-	public EditText name;
+	@BindView(R.id.title)
+	public EditText title;
 
 	@BindView(R.id.description)
 	public EditText description;
 
-	@BindView(R.id.name_minimum)
-	public TextView nameMinimum;
+	@BindView(R.id.title_minimum)
+	public TextView titleMinimum;
 
 	@BindView(R.id.description_minimum)
 	public TextView descriptionMinimum;
 
-	@BindView(R.id.fund_logo_label)
-	public TextView fundLogoLabel;
+	@BindView(R.id.logo_label)
+	public TextView logoLabel;
 
 	@BindView(R.id.group_upload)
 	public ViewGroup uploadGroup;
@@ -102,19 +114,21 @@ public class CreateFundMainFragment extends BaseFragment implements CreateFundMa
 	@BindView(R.id.button_upload_logo)
 	public PrimaryButton uploadLogoButton;
 
-	@BindView(R.id.button_next)
-	public PrimaryButton nextButton;
+	@BindView(R.id.button_confirm)
+	public PrimaryButton confirmButton;
 
 	@InjectPresenter
-	public CreateFundMainPresenter presenter;
+	public PublicInfoPresenter presenter;
 
 	private Unbinder unbinder;
 
-	private NewFundRequest request;
-
-	private Subscription nameTextChangeSubscription;
+	private Subscription titleTextChangeSubscription;
 
 	private Subscription descriptionTextChangeSubscription;
+
+	private PublicInfoModel model;
+
+	private String warningInfoText;
 
 	@OnClick(R.id.button_remove_logo)
 	public void onRemoveLogoClicked() {
@@ -123,19 +137,19 @@ public class CreateFundMainFragment extends BaseFragment implements CreateFundMa
 
 	@OnClick(R.id.button_upload_logo)
 	public void onUploadLogoClicked() {
-		CreateFundMainFragmentPermissionsDispatcher.showPictureChooserWithPermissionCheck(this);
+		PublicInfoFragmentPermissionsDispatcher.showPictureChooserWithPermissionCheck(this);
 	}
 
-	@OnClick(R.id.button_next)
-	public void onNextClicked() {
+	@OnClick(R.id.button_confirm)
+	public void onConfirmClicked() {
 		hideSoftKeyboard();
-		EventBus.getDefault().post(new OnCreateFundNextButtonClickedEvent());
+		presenter.onConfirmClicked();
 	}
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_create_fund_main, container, false);
+		return inflater.inflate(R.layout.fragment_public_info, container, false);
 	}
 
 	@Override
@@ -144,17 +158,36 @@ public class CreateFundMainFragment extends BaseFragment implements CreateFundMa
 
 		unbinder = ButterKnife.bind(this, view);
 
-		setFonts();
-		setLimits();
-		setTextListeners();
+		if (getArguments() != null) {
+			model = getArguments().getParcelable(EXTRA_MODEL);
+			if (model != null) {
+				setFonts();
+				setTextListeners();
+				updateView(model);
+				updateWarningInfo();
 
-		uploadLogoButton.setEmpty();
-		nextButton.setText(String.format(Locale.getDefault(), "%s (1/4)", getString(R.string.next)));
-		nextButton.setEnabled(false);
+				uploadLogoButton.setEmpty();
 
-		if (request != null) {
-			presenter.setRequest(request);
+				presenter.setModel(model);
+
+				return;
+			}
 		}
+		Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
+		onBackPressed();
+	}
+
+	private void updateView(PublicInfoModel model) {
+		setLimits();
+
+		stepGroup.setVisibility(model.isNeedStep() ? View.VISIBLE : View.GONE);
+		stepNumber.setText(model.getStepNumber());
+		stepTitle.setText(model.getStepTitle());
+
+		warningInfoGroup.setVisibility(model.isNeedWarningInfo() ? View.VISIBLE : View.GONE);
+
+		confirmButton.setText(model.getButtonText());
+		confirmButton.setEnabled(false);
 	}
 
 	@Override
@@ -163,8 +196,8 @@ public class CreateFundMainFragment extends BaseFragment implements CreateFundMa
 			unbinder.unbind();
 			unbinder = null;
 		}
-		if (nameTextChangeSubscription != null) {
-			nameTextChangeSubscription.unsubscribe();
+		if (titleTextChangeSubscription != null) {
+			titleTextChangeSubscription.unsubscribe();
 		}
 		if (descriptionTextChangeSubscription != null) {
 			descriptionTextChangeSubscription.unsubscribe();
@@ -176,21 +209,31 @@ public class CreateFundMainFragment extends BaseFragment implements CreateFundMa
 	private void setFonts() {
 		stepNumber.setTypeface(TypefaceUtil.semibold());
 		stepTitle.setTypeface(TypefaceUtil.semibold());
-		fundLogoLabel.setTypeface(TypefaceUtil.semibold());
+		logoLabel.setTypeface(TypefaceUtil.semibold());
 	}
 
 	private void setLimits() {
-		nameMinimum.setText(String.format(Locale.getDefault(), getString(R.string.template_minimum_symbols), Constants.MIN_FUND_NAME_LENGTH));
-		descriptionMinimum.setText(String.format(Locale.getDefault(), getString(R.string.template_minimum_symbols), Constants.MIN_FUND_DESCRIPTION_LENGTH));
-		nameTextInput.setCounterMaxLength(Constants.MAX_FUND_NAME_LENGTH);
-		descriptionTextInput.setCounterMaxLength(Constants.MAX_FUND_DESCRIPTION_LENGTH);
+		titleMinimum.setText(String.format(Locale.getDefault(), getString(R.string.template_minimum_symbols), Constants.MIN_ASSET_NAME_LENGTH));
+		descriptionMinimum.setText(String.format(Locale.getDefault(), getString(R.string.template_minimum_symbols), Constants.MIN_ASSET_DESCRIPTION_LENGTH));
+		titleTextInput.setCounterMaxLength(Constants.MAX_ASSET_NAME_LENGTH);
+		descriptionTextInput.setCounterMaxLength(Constants.MAX_ASSET_DESCRIPTION_LENGTH);
 	}
 
 	private void setTextListeners() {
-		nameTextChangeSubscription = RxTextView.textChanges(name)
-				.subscribe(text -> presenter.onNameChanged(text.toString()));
+		titleTextChangeSubscription = RxTextView.textChanges(title)
+				.subscribe(text -> presenter.onTitleChanged(text.toString()));
 		descriptionTextChangeSubscription = RxTextView.textChanges(description)
 				.subscribe(text -> presenter.onDescriptionChanged(text.toString()));
+	}
+
+	@Override
+	public void setTitle(String title) {
+		this.title.setText(title);
+	}
+
+	@Override
+	public void setDescription(String description) {
+		this.description.setText(description);
 	}
 
 	@Override
@@ -228,27 +271,25 @@ public class CreateFundMainFragment extends BaseFragment implements CreateFundMa
 
 	@Override
 	public void showSnackbarMessage(String message) {
-		showSnackbar(message, nextButton);
+		showSnackbar(message, confirmButton);
 	}
 
 	@Override
-	public void setNextButtonEnabled(boolean enabled) {
-		nextButton.setEnabled(enabled);
+	public void setConfirmButtonEnabled(boolean enabled) {
+		confirmButton.setEnabled(enabled);
 	}
 
-	public void setRequest(NewFundRequest request) {
-		this.request = request;
-		if (presenter != null) {
-			presenter.setRequest(request);
+	public void setWarningInfo(String warningInfo) {
+		this.warningInfoText = warningInfo;
+		updateWarningInfo();
+	}
+
+	private void updateWarningInfo() {
+		if (warningInfoText != null && warningInfo != null) {
+			this.warningInfo.setText(warningInfoText);
+			this.warningInfo.setVisibility(View.VISIBLE);
+			this.warningInfoProgress.setVisibility(View.GONE);
 		}
-	}
-
-	public void setMinDepositAmount(Double minDepositAmount) {
-		depositNotification.setText(String.format(Locale.getDefault(),
-				getString(R.string.template_create_fund_deposit_first_notification),
-				StringFormatUtil.formatAmount(minDepositAmount, 0, 8)));
-		depositNotification.setVisibility(View.VISIBLE);
-		depositNotificationProgress.setVisibility(View.GONE);
 	}
 
 	@Override
@@ -308,10 +349,10 @@ public class CreateFundMainFragment extends BaseFragment implements CreateFundMa
 	private void hideSoftKeyboard() {
 		if (getContext() != null) {
 			InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-			name.clearFocus();
+			title.clearFocus();
 			description.clearFocus();
 			if (imm != null) {
-				imm.hideSoftInputFromWindow(name.getWindowToken(), 0);
+				imm.hideSoftInputFromWindow(title.getWindowToken(), 0);
 			}
 		}
 	}

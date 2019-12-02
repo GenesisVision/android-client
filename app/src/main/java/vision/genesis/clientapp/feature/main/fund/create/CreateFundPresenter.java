@@ -24,6 +24,7 @@ import vision.genesis.clientapp.managers.AssetsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.events.OnCreateFundCreateButtonClickedEvent;
 import vision.genesis.clientapp.model.events.OnCreateFundNextButtonClickedEvent;
+import vision.genesis.clientapp.model.events.OnPublicInfoConfirmButtonClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -121,6 +122,17 @@ public class CreateFundPresenter extends MvpPresenter<CreateFundView>
 		createFundSubscription.unsubscribe();
 		getViewState().showProgress(false);
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnPublicInfoConfirmButtonClickedEvent event) {
+		if (request != null) {
+			request.setTitle(event.getTitle());
+			request.setDescription(event.getDescription());
+			request.setLogo(event.getLogo());
+
+			getViewState().showNextStep();
+		}
 	}
 
 	@Subscribe

@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.AssetType;
 import io.swagger.client.model.PrivateTradingAccountFull;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -14,6 +15,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.TradingAccountManager;
+import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -77,6 +79,11 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 	}
 
 	void onCreateProgramClicked() {
+		getViewState().showCreateProgram(new CreateProgramModel(accountDetails.getId(),
+				AssetType.NONE,
+				accountDetails.getBrokerDetails().getType(),
+				accountDetails.getBalance(),
+				accountDetails.getCurrency().getValue()));
 	}
 
 	private void getAccountDetails() {

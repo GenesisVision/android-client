@@ -1,119 +1,113 @@
 package vision.genesis.clientapp.feature.main.program.create;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
-import com.arellomobile.mvp.MvpAppCompatActivity;
-import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.google.android.material.snackbar.Snackbar;
-import com.shuhart.stepview.StepView;
+import androidx.annotation.Nullable;
 
-import java.io.File;
-import java.util.Locale;
+import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import vision.genesis.clientapp.BuildConfig;
+import timber.log.Timber;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.feature.common.image_crop.ImageCropActivity;
+import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.ui.NonSwipeableViewPager;
-import vision.genesis.clientapp.ui.common.ActivityResultListener;
-import vision.genesis.clientapp.utils.Constants;
-import vision.genesis.clientapp.utils.ImageUtils;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 03/07/2018.
+ * Created by Vitaly on 28/11/2019.
  */
 
-public class CreateProgramActivity extends MvpAppCompatActivity implements CreateProgramView
+public class CreateProgramActivity extends BaseSwipeBackActivity implements CreateProgramView
 {
-	public static void startFrom(Context context) {
-		Intent activityIntent = new Intent(context, CreateProgramActivity.class);
-		context.startActivity(activityIntent);
-	}
+	private static final String EXTRA_MODEL = "extra_model";
 
-	@BindView(R.id.version)
-	public TextView version;
+	public static void startFrom(Activity activity, CreateProgramModel model) {
+		Intent intent = new Intent(activity.getApplicationContext(), CreateProgramActivity.class);
+		intent.putExtra(EXTRA_MODEL, model);
+		activity.startActivity(intent);
+		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
+	}
 
 	@BindView(R.id.title)
 	public TextView title;
 
-	@BindView(R.id.step_view)
-	public StepView stepView;
-
 	@BindView(R.id.create_program_view_pager)
 	public NonSwipeableViewPager viewPager;
 
-	@BindView(R.id.group_progress_bar)
+	@BindView(R.id.progress_bar_group)
 	public ViewGroup progressBarGroup;
 
 	@InjectPresenter
-	CreateProgramPresenter createProgramPresenter;
+	CreateProgramPresenter presenter;
 
-	private CreateProgramPagerAdapter pagerAdapter;
+	private CreateProgramPagerAdapter adapter;
 
-	private int currentStepNumber = 0;
-
-	private ActivityResultListener resultListener;
-
-	@OnClick(R.id.button_close)
-	public void onCloseButtonClicked() {
-		finishActivity();
+	@OnClick(R.id.button_back)
+	public void onBackClicked() {
+		onBackPressed();
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_program);
 
 		ButterKnife.bind(this);
 
 		setFonts();
+		viewPager.setAllowSwipe(false);
 
-		version.setText(String.format(Locale.getDefault(), "%s (%d)", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
+		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
+			CreateProgramModel model = getIntent().getExtras().getParcelable(EXTRA_MODEL);
 
-		initViewPager();
+			presenter.setData(model);
+			return;
+		}
+		Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
+		onBackPressed();
 	}
 
 	private void setFonts() {
-		title.setTypeface(TypefaceUtil.bold());
-	}
-
-	private void initViewPager() {
-		pagerAdapter = new CreateProgramPagerAdapter(getSupportFragmentManager());
-		viewPager.setAdapter(pagerAdapter);
-		viewPager.setAllowSwipe(false);
-		viewPager.setOffscreenPageLimit(3);
-		setCurrentStep(0);
-	}
-
-	private void setCurrentStep(int newStepNumber) {
-		currentStepNumber = newStepNumber;
-		stepView.go(newStepNumber, true);
-		viewPager.setCurrentItem(newStepNumber);
+		title.setTypeface(TypefaceUtil.semibold());
 	}
 
 	@Override
 	public void onBackPressed() {
-		if (currentStepNumber == 0 || currentStepNumber == 3)
-			finish();
-		else {
-			setCurrentStep(currentStepNumber - 1);
+		if (viewPager.getCurrentItem() == 0) {
+			finishActivity();
 		}
-		hideKeyboard();
+		else {
+			viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+		}
 	}
 
 	@Override
-	public void showNextStep() {
-		setCurrentStep(currentStepNumber + 1);
+	public void initViewPager(Boolean needPublicInfo, Boolean needDeposit, CreateProgramModel model) {
+		this.adapter = new CreateProgramPagerAdapter(getSupportFragmentManager(), needPublicInfo, needDeposit, model);
+		viewPager.setAdapter(adapter);
+		viewPager.setEnabled(false);
+		viewPager.setOffscreenPageLimit(3);
+	}
+
+	@Override
+	public void showSettings() {
+		viewPager.setCurrentItem(adapter.getSettingsPosition());
+	}
+
+	@Override
+	public void showDeposit() {
+		viewPager.setCurrentItem(adapter.getDepositPosition());
 	}
 
 	@Override
@@ -122,42 +116,17 @@ public class CreateProgramActivity extends MvpAppCompatActivity implements Creat
 	}
 
 	@Override
-	public void showSnackbar(String text) {
-		Snackbar.make(stepView, text, Snackbar.LENGTH_LONG).show();
+	protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	@Override
+	public void showSnackbarMessage(String message) {
+		showSnackbar(message, viewPager);
+	}
+
 	public void finishActivity() {
 		finish();
-	}
-
-	@Override
-	public void hideKeyboard() {
-		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		stepView.clearFocus();
-		if (imm != null) {
-			imm.hideSoftInputFromWindow(stepView.getWindowToken(), 0);
-		}
-	}
-
-	public void openCamera(ActivityResultListener listener, ImageUtils imageUtils, File newAvatarFile) {
-		resultListener = listener;
-		imageUtils.openCameraFrom(this, newAvatarFile);
-	}
-
-	public void openGallery(ActivityResultListener listener, ImageUtils imageUtils) {
-		resultListener = listener;
-		imageUtils.openGalleryFrom(this);
-	}
-
-	public void startImageCropActivity(ActivityResultListener listener, String imageUri) {
-		resultListener = listener;
-		ImageCropActivity.startForResult(this, imageUri, Constants.MIN_LOGO_WIDTH, Constants.MIN_LOGO_HEIGHT);
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultListener != null)
-			resultListener.onResultPassedFromActivity(requestCode, resultCode, data);
+		overridePendingTransition(R.anim.hold, R.anim.slide_to_right);
 	}
 }

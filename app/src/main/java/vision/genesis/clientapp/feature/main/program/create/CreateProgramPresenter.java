@@ -8,27 +8,30 @@ import com.arellomobile.mvp.MvpPresenter;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.UUID;
-
 import javax.inject.Inject;
 
+import io.swagger.client.model.AmountWithCurrency;
+import io.swagger.client.model.AssetType;
+import io.swagger.client.model.MakeSignalProviderProgram;
+import io.swagger.client.model.MakeTradingAccountProgram;
+import io.swagger.client.model.PlatformInfo;
+import io.swagger.client.model.ProgramMinInvestAmount;
+import rx.Observable;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.managers.ProgramsManager;
-import vision.genesis.clientapp.model.CreateProgramData;
-import vision.genesis.clientapp.model.api.Error;
-import vision.genesis.clientapp.model.api.ErrorResponse;
-import vision.genesis.clientapp.model.events.CreateProgramConfirmButtonClickedEvent;
-import vision.genesis.clientapp.model.events.OnCreateProgramFirstStepPassedEvent;
-import vision.genesis.clientapp.model.events.OnCreateProgramSecondStepPassedEvent;
-import vision.genesis.clientapp.model.events.OnCreateProgramThirdStepPassedEvent;
+import vision.genesis.clientapp.managers.AssetsManager;
+import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.model.CreateProgramModel;
+import vision.genesis.clientapp.model.events.OnCreateProgramCreateButtonClickedEvent;
+import vision.genesis.clientapp.model.events.OnProgramSettingsConfirmEvent;
+import vision.genesis.clientapp.model.events.OnPublicInfoConfirmButtonClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
-import vision.genesis.clientapp.net.ErrorResponseConverter;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 03/07/2018.
+ * Created by Vitaly on 28/11/2019.
  */
 
 @InjectViewState
@@ -38,15 +41,36 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 	public Context context;
 
 	@Inject
-	public ProgramsManager programsManager;
+	public SettingsManager settingsManager;
 
-	private Subscription dataSubscription;
+	@Inject
+	public AssetsManager assetsManager;
 
-	private CreateProgramData createProgramData;
-
-//	private NewInvestmentRequest request = new NewInvestmentRequest();
+	private Subscription platformInfoSubscription;
 
 	private Subscription createProgramSubscription;
+
+	private CreateProgramModel model;
+
+	private String title;
+
+	private String description;
+
+	private String logo;
+
+	private Integer periodLength;
+
+	private Double stopOutLevel;
+
+	private Double investmentLimit;
+
+	private Double entryFee;
+
+	private Double successFee;
+
+	private boolean needPublicInfo;
+
+	private boolean needDeposit;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -56,64 +80,109 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 
 		EventBus.getDefault().register(this);
 
-		getDataToCreateProgram();
-	}
-
-	private void getDataToCreateProgram() {
-//		dataSubscription = programsManager.getDataToCreateProgram()
-//				.subscribeOn(Schedulers.io())
-//				.observeOn(AndroidSchedulers.mainThread())
-//				.subscribe(this::handleGetDataSuccess,
-//						this::handleGetDataError);
+		getPlatformInfo();
 	}
 
 	@Override
 	public void onDestroy() {
-		if (dataSubscription != null)
-			dataSubscription.unsubscribe();
-		if (createProgramSubscription != null)
+		if (platformInfoSubscription != null) {
+			platformInfoSubscription.unsubscribe();
+		}
+		if (createProgramSubscription != null) {
 			createProgramSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
 
-//	private void handleGetDataSuccess(BrokersViewModel model) {
-//		dataSubscription.unsubscribe();
-//
-//		createProgramData = new CreateProgramData();
-//		createProgramData.setBrokers(model.getBrokers());
-//
-//		EventBus.getDefault().postSticky(new SetCreateProgramDataEvent(createProgramData));
-//		getViewState().showProgress(false);
-//	}
+	void setData(CreateProgramModel model) {
+		this.model = model;
 
-	private void handleGetDataError(Throwable throwable) {
-		dataSubscription.unsubscribe();
-		getViewState().showProgress(false);
+		getPlatformInfo();
+	}
 
-		if (ApiErrorResolver.isNetworkError(throwable)) {
-			getViewState().showSnackbar(context.getResources().getString(R.string.network_error));
+	private void getPlatformInfo() {
+		if (settingsManager != null && model != null) {
+			platformInfoSubscription = settingsManager.getPlatformInfo()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetPlatformInfoSuccess,
+							this::handleGetPlatformInfoError);
 		}
-		else {
-			ErrorResponse response = ErrorResponseConverter.createFromThrowable(throwable);
-			if (response != null && response.errors != null && response.errors.get(0) != null) {
-				getViewState().showSnackbar(response.errors.get(0).message);
+	}
+
+	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
+		platformInfoSubscription.unsubscribe();
+
+		for (ProgramMinInvestAmount info : platformInfo.getAssetInfo().getProgramInfo().getMinInvestAmounts()) {
+			if (info.getServerType().equals(model.getServerType())) {
+				for (AmountWithCurrency amountWithCurrency : info.getMinDepositCreateAsset()) {
+					if (amountWithCurrency.getCurrency().getValue().equals(model.getCurrency())) {
+						Double minDeposit = amountWithCurrency.getAmount();
+						model.setMinDeposit(minDeposit);
+						needPublicInfo = model.getAssetType().equals(AssetType.NONE);
+						needDeposit = model.getCurrentBalance() < minDeposit;
+						getViewState().initViewPager(needPublicInfo, needDeposit, model);
+						break;
+					}
+				}
 			}
 		}
 	}
 
-	private void createProgram() {
-		getViewState().showProgress(true);
+	private void handleGetPlatformInfoError(Throwable throwable) {
+		platformInfoSubscription.unsubscribe();
 
-//		createProgramSubscription = programsManager.sendCreateProgramRequest(request)
-//				.subscribeOn(Schedulers.io())
-//				.observeOn(AndroidSchedulers.mainThread())
-//				.subscribe(this::handleCreateProgramSuccess, this::handleCreateProgramError);
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
 
-	private void handleCreateProgramSuccess(UUID programId) {
+	private void sendCreateProgramRequest() {
+		getViewState().showProgress(true);
+
+		Observable<Void> apiRequest = null;
+
+		if (model.getAssetType().equals(AssetType.NONE)) {
+			MakeTradingAccountProgram accountRequest = new MakeTradingAccountProgram();
+
+			accountRequest.setTradingAccountId(model.getAssetId());
+			accountRequest.setTitle(this.title);
+			accountRequest.setDescription(this.description);
+			accountRequest.setLogo(this.logo);
+
+			accountRequest.setPeriodLength(periodLength);
+			accountRequest.setStopOutLevel(stopOutLevel);
+			accountRequest.setInvestmentLimit(investmentLimit);
+			accountRequest.setEntryFee(entryFee);
+			accountRequest.setSuccessFee(successFee);
+
+			apiRequest = assetsManager.createProgramFromTradingAccount(accountRequest);
+		}
+		else if (model.getAssetType().equals(AssetType.FOLLOW)) {
+			MakeSignalProviderProgram followRequest = new MakeSignalProviderProgram();
+
+			followRequest.setAssetId(model.getAssetId());
+
+			followRequest.setPeriodLength(periodLength);
+			followRequest.setStopOutLevel(stopOutLevel);
+			followRequest.setInvestmentLimit(investmentLimit);
+			followRequest.setEntryFee(entryFee);
+			followRequest.setSuccessFee(successFee);
+
+			apiRequest = assetsManager.createProgramFromSignalProvider(followRequest);
+		}
+
+		if (apiRequest != null) {
+			createProgramSubscription = apiRequest
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleCreateProgramSuccess,
+							this::handleCreateProgramError);
+		}
+	}
+
+	private void handleCreateProgramSuccess(Void response) {
 		createProgramSubscription.unsubscribe();
 		getViewState().finishActivity();
 	}
@@ -121,59 +190,36 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 	private void handleCreateProgramError(Throwable throwable) {
 		createProgramSubscription.unsubscribe();
 		getViewState().showProgress(false);
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
 
-		if (ApiErrorResolver.isNetworkError(throwable)) {
-			getViewState().showSnackbar(context.getResources().getString(R.string.network_error));
+	@Subscribe
+	public void onEventMainThread(OnPublicInfoConfirmButtonClickedEvent event) {
+		this.title = event.getTitle();
+		this.description = event.getDescription();
+		this.logo = event.getLogo();
+
+		getViewState().showSettings();
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnProgramSettingsConfirmEvent event) {
+		this.periodLength = event.getModel().getPeriodLength();
+		this.stopOutLevel = event.getModel().getStopOutLevel();
+		this.investmentLimit = event.getModel().getInvestmentLimit();
+		this.entryFee = event.getModel().getEntryFee();
+		this.successFee = event.getModel().getSuccessFee();
+
+		if (needDeposit) {
+			getViewState().showDeposit();
 		}
 		else {
-			ErrorResponse response = ErrorResponseConverter.createFromThrowable(throwable);
-			if (response != null) {
-				for (Error error : response.errors) {
-//					if (error.property != null) {
-//						switch (error.property.toLowerCase()) {
-//							case "title":
-//								getViewState().setUserNameError(error.message);
-//								break;
-//							case "description":
-//								getViewState().setEmailError(error.message);
-//								break;
-//						}
-					getViewState().showSnackbar(error.message);
-				}
-			}
+			sendCreateProgramRequest();
 		}
 	}
 
 	@Subscribe
-	public void onEventMainThread(OnCreateProgramFirstStepPassedEvent event) {
-//		request.setLogo(event.getLogo());
-//		request.setTitle(event.getTitle());
-//		request.setDescription(event.getDescription());
-		getViewState().showNextStep();
-	}
-
-	@Subscribe
-	public void onEventMainThread(OnCreateProgramSecondStepPassedEvent event) {
-//		request.setBrokerTradeServerId(event.getBroker().getId());
-//		request.setLeverage(event.getLeverage());
-//		request.setTradePlatformPassword(event.getPassword());
-		getViewState().showNextStep();
-	}
-
-	@Subscribe
-	public void onEventMainThread(OnCreateProgramThirdStepPassedEvent event) {
-//		request.setPeriod(event.getPeriod());
-//		request.setDateFrom(event.getStartDate());
-//		request.setDepositAmount(event.getDeposit());
-//		request.setFeeSuccess(event.getSuccessFee());
-//		request.setFeeManagement(event.getManagementFee());
-//		request.setTokenSymbol(event.getTokenSymbol());
-//		request.setTokenName(event.getTokenName());
-		createProgram();
-	}
-
-	@Subscribe
-	public void onEventMainThread(CreateProgramConfirmButtonClickedEvent event) {
-//		confirmTfa(event.getPassword(), event.getCode());
+	public void onEventMainThread(OnCreateProgramCreateButtonClickedEvent event) {
+		sendCreateProgramRequest();
 	}
 }

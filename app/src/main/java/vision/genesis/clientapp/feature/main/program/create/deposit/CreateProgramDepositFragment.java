@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.fund.create.deposit;
+package vision.genesis.clientapp.feature.main.program.create.deposit;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -25,9 +25,11 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.WalletData;
+import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.select_wallet.SelectWalletBottomSheetFragment;
+import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -36,11 +38,24 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 14/10/2019.
+ * Created by Vitaly on 29/11/2019.
  */
 
-public class CreateFundDepositFragment extends BaseFragment implements CreateFundDepositView
+public class CreateProgramDepositFragment extends BaseFragment implements CreateProgramDepositView
 {
+	private static String EXTRA_STEP_NUMBER = "extra_step_number";
+
+	private static String EXTRA_MODEL = "extra_model";
+
+	public static CreateProgramDepositFragment with(String stepNumber, CreateProgramModel model) {
+		CreateProgramDepositFragment fragment = new CreateProgramDepositFragment();
+		Bundle arguments = new Bundle(2);
+		arguments.putString(EXTRA_STEP_NUMBER, stepNumber);
+		arguments.putParcelable(EXTRA_MODEL, model);
+		fragment.setArguments(arguments);
+		return fragment;
+	}
+
 	@BindView(R.id.step_number)
 	public TextView stepNumber;
 
@@ -80,14 +95,20 @@ public class CreateFundDepositFragment extends BaseFragment implements CreateFun
 	@BindView(R.id.base_currency_amount)
 	public TextView baseCurrencyAmount;
 
-	@BindView(R.id.button_create_fund)
-	public PrimaryButton createFundButton;
+	@BindView(R.id.button_confirm)
+	public PrimaryButton confirmButton;
+
+	@BindView(R.id.rate_progress_bar)
+	public ProgressBar rateProgressBar;
+
+	@BindView(R.id.button_progress_bar)
+	public ProgressBar buttonProgressBar;
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
 	@InjectPresenter
-	public CreateFundDepositPresenter presenter;
+	public CreateProgramDepositPresenter presenter;
 
 	private List<WalletData> wallets;
 
@@ -115,21 +136,20 @@ public class CreateFundDepositFragment extends BaseFragment implements CreateFun
 		presenter.onMinClicked();
 	}
 
-
 	@OnClick(R.id.max)
 	public void onMaxClicked() {
 		presenter.onMaxClicked();
 	}
 
-	@OnClick(R.id.button_create_fund)
-	public void onCreateFundClicked() {
-		presenter.onCreateFundClicked();
+	@OnClick(R.id.button_confirm)
+	public void onConfirmClicked() {
+		presenter.onConfirmClicked();
 	}
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_create_fund_deposit, container, false);
+		return inflater.inflate(R.layout.fragment_create_program_deposit, container, false);
 	}
 
 	@Override
@@ -138,20 +158,22 @@ public class CreateFundDepositFragment extends BaseFragment implements CreateFun
 
 		unbinder = ButterKnife.bind(this, view);
 
-		createFundButton.setEnabled(false);
+		confirmButton.setEnabled(false);
 
 		setFonts();
 
-		setTextListener();
-		updateDepositNotification();
-
-		if (request != null) {
-			presenter.setRequest(request);
+		if (getArguments() != null) {
+			CreateProgramModel model = getArguments().getParcelable(EXTRA_MODEL);
+			String stepNumber = getArguments().getString(EXTRA_STEP_NUMBER);
+			if (model != null) {
+				updateView(stepNumber, model);
+				setTextListener();
+				presenter.setModel(model);
+				return;
+			}
 		}
-
-		if (minDepositAmount != null) {
-			presenter.setMinDepositAmount(minDepositAmount);
-		}
+		Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
+		onBackPressed();
 	}
 
 	@Override
@@ -170,6 +192,15 @@ public class CreateFundDepositFragment extends BaseFragment implements CreateFun
 		max.setTypeface(TypefaceUtil.semibold());
 	}
 
+	private void updateView(String stepNumber, CreateProgramModel model) {
+		this.stepNumber.setText(stepNumber);
+		this.depositNotification.setText(String.format(Locale.getDefault(), getString(R.string.template_create_program_deposit),
+				StringFormatUtil.getValueString(model.getMinDeposit(), model.getCurrency()),
+				StringFormatUtil.getValueString(model.getMinDeposit() - model.getCurrentBalance(), model.getCurrency())));
+
+		confirmButton.setEnabled(false);
+	}
+
 	private void setTextListener() {
 		RxTextView.textChanges(amount)
 				.subscribe(charSequence -> presenter.onAmountChanged(charSequence.toString()));
@@ -184,7 +215,7 @@ public class CreateFundDepositFragment extends BaseFragment implements CreateFun
 	}
 
 	@Override
-	public void setMinDepositWalletCurrencyAmount(Double minDepositAmount) {
+	public void setMinDepositWalletCurrencyAmount(Double minDepositAmount, String currency) {
 		amountToDepositLabel.setText(String.format(Locale.getDefault(), "%s (min %s)",
 				getString(R.string.amount_to_deposit),
 				StringFormatUtil.formatAmount(minDepositAmount, 0, 8)));
@@ -221,8 +252,8 @@ public class CreateFundDepositFragment extends BaseFragment implements CreateFun
 	}
 
 	@Override
-	public void setCreateButtonEnabled(boolean enabled) {
-		this.createFundButton.setEnabled(enabled);
+	public void setConfirmButtonEnabled(boolean enabled) {
+		this.confirmButton.setEnabled(enabled);
 	}
 
 	@Override
@@ -230,27 +261,16 @@ public class CreateFundDepositFragment extends BaseFragment implements CreateFun
 		showSnackbar(message, stepNumber);
 	}
 
-	public void setRequest(NewFundRequest request) {
-		this.request = request;
-		if (presenter != null) {
-			presenter.setRequest(request);
-		}
+	@Override
+	public void showRateProgress(boolean show) {
+		rateProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+		amountGroup.setVisibility(!show ? View.VISIBLE : View.GONE);
 	}
 
-	public void setMinDepositAmount(Double minDepositAmount) {
-		this.minDepositAmount = minDepositAmount;
-		if (presenter != null) {
-			presenter.setMinDepositAmount(minDepositAmount);
-		}
-		updateDepositNotification();
-	}
-
-	private void updateDepositNotification() {
-		if (depositNotification != null && minDepositAmount != null) {
-			depositNotification.setText(String.format(Locale.getDefault(),
-					getString(R.string.template_create_fund_deposit_second_notification),
-					StringFormatUtil.formatAmount(minDepositAmount, 0, 8)));
-		}
+	@Override
+	public void showButtonProgress(boolean show) {
+		buttonProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+		confirmButton.setVisibility(!show ? View.VISIBLE : View.GONE);
 	}
 
 	private void showSoftKeyboard() {

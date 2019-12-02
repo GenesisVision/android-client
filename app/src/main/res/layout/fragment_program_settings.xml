@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding">
+
+            <LinearLayout
+                android:id="@+id/group_step"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/step_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="02"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/step_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="@string/main_settings"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="18sp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:alpha="0.4"
+                android:text="@string/period_length"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"/>
+
+            <RelativeLayout
+                android:id="@+id/group_period_length"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_input_height">
+
+                <TextView
+                    android:id="@+id/period_length"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_vertical"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextPrimary"
+                    android:textSize="18sp"
+                    tools:text="10 days"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
+                    android:alpha="0.3"
+                    android:gravity="center_vertical|end"
+                    android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+                    android:textSize="18sp"
+                    android:tint="?attr/colorTextPrimary"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.2"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/period_length_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/program_settings_period_length_description"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="12sp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:alpha="0.4"
+                    android:gravity="center_vertical"
+                    android:text="@string/investment_limit"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="12sp"/>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/investment_limit_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/group_investment_limit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_input_height"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <EditText
+                    android:id="@+id/investment_limit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:hint="0"
+                    android:inputType="numberDecimal"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextPrimary"
+                    android:textSize="18sp"
+                    tools:text="100.4353"/>
+
+                <TextView
+                    android:id="@+id/investment_limit_currency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@+id/investment_limit"
+                    android:alpha="0.4"
+                    android:gravity="center"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="18sp"
+                    tools:text="BTC"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.2"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/investment_limit_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/program_settings_investment_limit_description"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:alpha="0.4"
+                android:text="@string/stop_out_level"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"/>
+
+            <RelativeLayout
+                android:id="@+id/group_stop_out"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_input_height">
+
+                <EditText
+                    android:id="@+id/stop_out"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:hint="0"
+                    android:inputType="numberDecimal"
+                    android:text="100"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextPrimary"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@+id/stop_out"
+                    android:alpha="0.4"
+                    android:gravity="center"
+                    android:text="%"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="18sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.2"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/stop_out_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="?attr/colorRed"
+                android:textSize="12sp"
+                android:visibility="gone"
+                tools:text="@string/error_stop_out_max"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/stop_out_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/program_settings_stop_out_description"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:alpha="0.4"
+                android:text="@string/entry_fee"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"/>
+
+            <RelativeLayout
+                android:id="@+id/group_entry_fee"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_input_height">
+
+                <EditText
+                    android:id="@+id/entry_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:hint="0"
+                    android:inputType="numberDecimal"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextPrimary"
+                    android:textSize="18sp"
+                    tools:text="10"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@+id/entry_fee"
+                    android:alpha="0.4"
+                    android:gravity="center"
+                    android:text="%"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="18sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.2"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/entry_fee_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/template_create_fund_entry_fee_description"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/label_success_fee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:alpha="0.4"
+                android:text="@string/success_fee"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"/>
+
+            <RelativeLayout
+                android:id="@+id/group_success_fee"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_input_height">
+
+                <EditText
+                    android:id="@+id/success_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:hint="0"
+                    android:inputType="numberDecimal"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextPrimary"
+                    android:textSize="18sp"
+                    tools:text="10"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@+id/success_fee"
+                    android:alpha="0.4"
+                    android:gravity="center"
+                    android:text="%"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="18sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.2"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/success_fee_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/template_create_fund_exit_fee_description"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="12sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <vision.genesis.clientapp.ui.PrimaryButton
+        android:id="@+id/button_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/padding"
+        android:text="@string/confirm"/>
+
+</RelativeLayout>

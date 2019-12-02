@@ -15,6 +15,7 @@
         android:padding="@dimen/padding">
 
         <LinearLayout
+            android:id="@+id/group_step"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -39,22 +40,23 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/group_warning_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp">
 
             <TextView
-                android:id="@+id/deposit_notification"
+                android:id="@+id/warning_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/template_create_fund_deposit_first_notification"
                 android:textColor="?attr/colorTextSecondary"
                 android:textSize="12sp"
                 android:visibility="invisible"
+                tools:text="@string/template_create_fund_deposit_first_notification"
                 tools:visibility="visible"/>
 
             <ProgressBar
-                android:id="@+id/deposit_notification_progress"
+                android:id="@+id/warning_info_progress"
                 android:layout_width="16dp"
                 android:layout_height="16dp"/>
 
@@ -65,7 +67,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_input_name"
+                android:id="@+id/text_input_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -78,19 +80,19 @@
                 app:counterTextAppearance="@style/TextLimitStyle">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/name"
+                    android:id="@+id/title"
                     style="@style/edittext"
-                    android:hint="@string/fund_name"
+                    android:hint="@string/title"
                     android:imeOptions="actionNext"
                     android:inputType="text"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/name_minimum"
+                android:id="@+id/title_minimum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/text_input_name"
+                android:layout_alignBottom="@+id/text_input_title"
                 android:layout_marginStart="4dp"
                 android:textColor="?attr/colorTextSecondary"
                 android:textSize="12sp"
@@ -143,11 +145,11 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/fund_logo_label"
+            android:id="@+id/logo_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="@string/fund_logo"
+            android:text="@string/logo"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="18sp"/>
 
@@ -206,14 +208,14 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height"
             android:layout_marginTop="20dp"
-            android:text="@string/upload_fund_logo"/>
+            android:text="@string/upload_logo"/>
 
         <vision.genesis.clientapp.ui.PrimaryButton
-            android:id="@+id/button_next"
+            android:id="@+id/button_confirm"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height"
             android:layout_marginTop="32dp"
-            android:text="@string/next"/>
+            android:text="@string/confirm"/>
 
     </LinearLayout>
 

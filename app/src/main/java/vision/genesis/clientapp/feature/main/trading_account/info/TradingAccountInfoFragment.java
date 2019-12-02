@@ -28,7 +28,9 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
+import vision.genesis.clientapp.feature.main.program.create.CreateProgramActivity;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountPagerAdapter;
+import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.ui.AccountAgeView;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -236,6 +238,13 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 	@Override
 	public void showProgress(boolean show) {
 		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
+
+	@Override
+	public void showCreateProgram(CreateProgramModel createProgramModel) {
+		if (getActivity() != null) {
+			CreateProgramActivity.startFrom(getActivity(), createProgramModel);
+		}
 	}
 
 	@Override

@@ -25,13 +25,17 @@ public class Constants
 
 	public static final int MIN_LOGO_HEIGHT = 300;
 
-	public static final int MIN_FUND_NAME_LENGTH = 4;
+	public static final int MIN_ASSET_NAME_LENGTH = 4;
 
-	public static final int MAX_FUND_NAME_LENGTH = 20;
+	public static final int MAX_ASSET_NAME_LENGTH = 20;
 
-	public static final int MIN_FUND_DESCRIPTION_LENGTH = 20;
+	public static final int MIN_ASSET_DESCRIPTION_LENGTH = 20;
 
-	public static final int MAX_FUND_DESCRIPTION_LENGTH = 500;
+	public static final int MAX_ASSET_DESCRIPTION_LENGTH = 500;
+
+	public static final double MAX_STOP_OUT_LEVEL = 100.0;
+
+	public static final double MIN_STOP_OUT_LEVEL = 10.0;
 
 	public static ArrayList<String> getCurrenciesForProgramsListFilter() {
 		return new ArrayList<>(Arrays.asList("All", "ETH", "BTC", "USDT", "USD"));

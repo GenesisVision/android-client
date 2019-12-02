@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.create.first;
+package vision.genesis.clientapp.feature.common.public_info;
 
 import android.content.Context;
 import android.net.Uri;
@@ -19,51 +19,41 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.FilesManager;
-import vision.genesis.clientapp.managers.ProgramsManager;
-import vision.genesis.clientapp.model.CreateProgramData;
-import vision.genesis.clientapp.model.api.Error;
-import vision.genesis.clientapp.model.api.ErrorResponse;
-import vision.genesis.clientapp.model.events.OnCreateProgramFirstStepPassedEvent;
+import vision.genesis.clientapp.model.PublicInfoModel;
 import vision.genesis.clientapp.model.events.OnPictureChooserCameraClickedEvent;
 import vision.genesis.clientapp.model.events.OnPictureChooserGalleryClickedEvent;
-import vision.genesis.clientapp.model.events.SetCreateProgramDataEvent;
+import vision.genesis.clientapp.model.events.OnPublicInfoConfirmButtonClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
-import vision.genesis.clientapp.net.ErrorResponseConverter;
+import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.ImageUtils;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 04/07/2018.
+ * Created by Vitaly on 14/10/2019.
  */
 
 @InjectViewState
-public class CreateProgramFirstStepPresenter extends MvpPresenter<CreateProgramFirstStepView>
+public class PublicInfoPresenter extends MvpPresenter<PublicInfoView>
 {
 	@Inject
 	public Context context;
 
 	@Inject
-	public ImageUtils imageUtils;
-
-	@Inject
 	public FilesManager filesManager;
 
 	@Inject
-	public ProgramsManager programsManager;
+	public ImageUtils imageUtils;
 
 	private File newLogoFile;
 
-	private String logo;
-
-	private String title;
-
-	private String description;
-
 	private Subscription logoUploadSubscription;
 
-	private CreateProgramData createProgramData;
+	private String title = "";
+
+	private String description = "";
+
+	private String logo = null;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -76,36 +66,25 @@ public class CreateProgramFirstStepPresenter extends MvpPresenter<CreateProgramF
 
 	@Override
 	public void onDestroy() {
-		if (logoUploadSubscription != null)
+		if (logoUploadSubscription != null) {
 			logoUploadSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
 
-	private void checkNextButtonAvailability() {
-		if (createProgramData == null)
-			return;
-		String title = this.title.trim();
-		String description = this.description.trim();
-		boolean titleLengthOk = !title.isEmpty() && title.length() <= createProgramData.getMaxTitleLength();
-		boolean descriptionLengthOk = !description.isEmpty() && description.length() <= createProgramData.getMaxDescriptionLength();
-		getViewState().setNextButtonAvailability(titleLengthOk && descriptionLengthOk);
-	}
-
-	void onTitleChanged(String title) {
-		this.title = title;
-		checkNextButtonAvailability();
-	}
-
-	void onDescriptionChanged(String description) {
-		this.description = description;
-		checkNextButtonAvailability();
-	}
-
-	void onNextButtonClicked() {
-		EventBus.getDefault().post(new OnCreateProgramFirstStepPassedEvent(logo, title, description));
+	void setModel(PublicInfoModel model) {
+		if (model.getTitle() != null) {
+			getViewState().setTitle(model.getTitle());
+		}
+		if (model.getDescription() != null) {
+			getViewState().setDescription(model.getDescription());
+		}
+		if (model.getLogo() != null) {
+			getViewState().updateLogo(model.getLogo());
+		}
 	}
 
 	void handleCameraResult() {
@@ -137,16 +116,48 @@ public class CreateProgramFirstStepPresenter extends MvpPresenter<CreateProgramF
 		ImageUtils.deleteTempFile(newLogoFile);
 	}
 
+	void onRemoveLogoClicked() {
+		if (logoUploadSubscription != null) {
+			logoUploadSubscription.unsubscribe();
+		}
+		if (newLogoFile != null) {
+			ImageUtils.deleteTempFile(newLogoFile);
+		}
+		this.logo = null;
+		getViewState().removeLogo();
+	}
+
+	void onConfirmClicked() {
+		EventBus.getDefault().post(new OnPublicInfoConfirmButtonClickedEvent(title, description, logo));
+	}
+
+	void onTitleChanged(String title) {
+		this.title = title.trim();
+		checkButtonAvailability();
+	}
+
+	void onDescriptionChanged(String description) {
+		this.description = description.trim();
+		checkButtonAvailability();
+	}
+
+	private void checkButtonAvailability() {
+		getViewState().setConfirmButtonEnabled(this.title.length() >= Constants.MIN_ASSET_NAME_LENGTH
+				&& this.title.length() <= Constants.MAX_ASSET_NAME_LENGTH
+				&& this.description.length() >= Constants.MIN_ASSET_DESCRIPTION_LENGTH
+				&& this.description.length() <= Constants.MAX_ASSET_DESCRIPTION_LENGTH);
+	}
+
 	private void uploadLogo() {
 		getViewState().showLogoProgress(true);
 		logoUploadSubscription = filesManager.uploadFile(newLogoFile)
 				.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::handleUploadLogoResponse,
-						this::handleUploadLogoError);
+				.subscribe(this::handleUploadAvatarResponse,
+						this::handleUploadAvatarError);
 	}
 
-	private void handleUploadLogoResponse(UploadResult response) {
+	private void handleUploadAvatarResponse(UploadResult response) {
 		logoUploadSubscription.unsubscribe();
 		getViewState().showLogoProgress(false);
 		getViewState().updateLogo(response.getId().toString());
@@ -156,26 +167,16 @@ public class CreateProgramFirstStepPresenter extends MvpPresenter<CreateProgramF
 		ImageUtils.deleteTempFile(newLogoFile);
 	}
 
-	private void handleUploadLogoError(Throwable throwable) {
+	private void handleUploadAvatarError(Throwable throwable) {
 		logoUploadSubscription.unsubscribe();
 		getViewState().showLogoProgress(false);
 
 		ImageUtils.deleteTempFile(newLogoFile);
 
-		if (ApiErrorResolver.isNetworkError(throwable)) {
-			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
-		}
-		else {
-			ErrorResponse response = ErrorResponseConverter.createFromThrowable(throwable);
-			if (response != null) {
-				for (Error error : response.errors) {
-					if (error.message != null) {
-						getViewState().showSnackbarMessage(error.message);
-						break;
-					}
-				}
-			}
-		}
+		getViewState().removeLogo();
+
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
 	}
 
 	@Subscribe
@@ -198,11 +199,5 @@ public class CreateProgramFirstStepPresenter extends MvpPresenter<CreateProgramF
 			e.printStackTrace();
 			getViewState().showSnackbarMessage(e.getMessage());
 		}
-	}
-
-	@Subscribe
-	public void onEventMainThread(SetCreateProgramDataEvent event) {
-		this.createProgramData = event.getCreateProgramData();
-		getViewState().setLimits(createProgramData);
 	}
 }
