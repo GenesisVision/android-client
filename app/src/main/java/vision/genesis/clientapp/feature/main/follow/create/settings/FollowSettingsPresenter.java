@@ -3,16 +3,19 @@ package vision.genesis.clientapp.feature.main.follow.create.settings;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Inject;
 
+import io.swagger.client.model.FollowCreateAssetPlatformInfo;
 import io.swagger.client.model.PlatformInfo;
-import io.swagger.client.model.ProgramCreateAssetPlatformInfo;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.SettingsManager;
-import vision.genesis.clientapp.model.ProgramSettingsModel;
+import vision.genesis.clientapp.model.FollowSettingsModel;
+import vision.genesis.clientapp.model.events.OnFollowSettingsConfirmEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -28,21 +31,27 @@ public class FollowSettingsPresenter extends MvpPresenter<FollowSettingsView>
 
 	private Subscription platformInfoSubscription;
 
-	private double entryFee = 0;
+	private double volumeFee = 0;
 
 	private double successFee = 0;
 
-	private double maxEntryFee = 0;
+	private double minVolumeFee = 0;
+
+	private double minSuccessFee = 0;
+
+	private double maxVolumeFee = 0;
 
 	private double maxSuccessFee = 0;
 
-	private ProgramSettingsModel model;
+	private FollowSettingsModel model;
 
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
+
+		getPlatformInfo();
 	}
 
 	@Override
@@ -54,16 +63,11 @@ public class FollowSettingsPresenter extends MvpPresenter<FollowSettingsView>
 		super.onDestroy();
 	}
 
-	void setModel(ProgramSettingsModel model) {
+	void setModel(FollowSettingsModel model) {
 		this.model = model;
-//		if (model.getStopOutLevel() != null) {
-//			getViewState().setStopOutLevel(model.getStopOutLevel());
-//		}
-//		if (model.getInvestmentLimit() != null) {
-//			getViewState().setInvestmentLimit(model.getInvestmentLimit());
-//		}
-		if (model.getEntryFee() != null) {
-			getViewState().setEntryFee(model.getEntryFee());
+
+		if (model.getVolumeFee() != null) {
+			getViewState().setVolumeFee(model.getVolumeFee());
 		}
 		if (model.getSuccessFee() != null) {
 			getViewState().setSuccessFee(model.getSuccessFee());
@@ -71,14 +75,18 @@ public class FollowSettingsPresenter extends MvpPresenter<FollowSettingsView>
 		getPlatformInfo();
 	}
 
-	void onEntryFeeChanged(String entryFeeString) {
+	void onVolumeFeeChanged(String entryFeeString) {
 		try {
-			entryFee = Double.parseDouble(entryFeeString);
+			volumeFee = Double.parseDouble(entryFeeString);
 		} catch (NumberFormatException e) {
-			entryFee = 0;
+			volumeFee = 0;
 		}
-		if (entryFee > maxEntryFee) {
-			getViewState().setEntryFee(maxEntryFee);
+		if (volumeFee > maxVolumeFee) {
+			getViewState().setVolumeFee(maxVolumeFee);
+			return;
+		}
+		else if (volumeFee < minVolumeFee) {
+			getViewState().setVolumeFee(minVolumeFee);
 			return;
 		}
 
@@ -95,37 +103,42 @@ public class FollowSettingsPresenter extends MvpPresenter<FollowSettingsView>
 			getViewState().setSuccessFee(maxSuccessFee);
 			return;
 		}
+		else if (successFee < minSuccessFee) {
+			getViewState().setSuccessFee(minSuccessFee);
+			return;
+		}
 
 		updateConfirmButtonAvailability();
 	}
 
 	void onConfirmClicked() {
-
+		EventBus.getDefault().post(new OnFollowSettingsConfirmEvent(volumeFee, successFee));
 	}
 
 	private void updateConfirmButtonAvailability() {
-		getViewState().setConfirmButtonEnabled(entryFee <= maxEntryFee && successFee <= maxSuccessFee);
+		getViewState().setConfirmButtonEnabled(volumeFee >= minVolumeFee && successFee >= minSuccessFee
+				&& volumeFee <= maxVolumeFee && successFee <= maxSuccessFee);
 	}
 
 	private void getPlatformInfo() {
-		platformInfoSubscription = settingsManager.getPlatformInfo()
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.newThread())
-				.subscribe(this::handleGetPlatformInfoSuccess,
-						this::handleGetPlatformInfoError);
+		if (settingsManager != null) {
+			platformInfoSubscription = settingsManager.getPlatformInfo()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetPlatformInfoSuccess,
+							this::handleGetPlatformInfoError);
+		}
 	}
 
 	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
 		platformInfoSubscription.unsubscribe();
-		ProgramCreateAssetPlatformInfo info = platformInfo.getAssetInfo().getProgramInfo().getCreateProgramInfo();
-		maxEntryFee = info.getMaxEntryFee();
+		FollowCreateAssetPlatformInfo info = platformInfo.getAssetInfo().getFollowInfo().getCreateFollowInfo();
+		minVolumeFee = info.getMinVolumeFee();
+		minSuccessFee = info.getMinSuccessFee();
+		maxVolumeFee = info.getMaxVolumeFee();
 		maxSuccessFee = info.getMaxSuccessFee();
-		getViewState().updateEntryFeeDescription(maxEntryFee);
-		getViewState().updateSuccessFeeDescription(maxSuccessFee);
-
-//		if (model.getPeriodLength() != null) {
-//			getViewState().setPeriodLength(model.getPeriodLength());
-//		}
+		getViewState().updateVolumeFeeDescription(minVolumeFee, maxVolumeFee);
+		getViewState().updateSuccessFeeDescription(minSuccessFee, maxSuccessFee);
 	}
 
 	private void handleGetPlatformInfoError(Throwable throwable) {

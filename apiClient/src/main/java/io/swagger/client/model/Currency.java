@@ -25,18 +25,18 @@ import java.io.IOException;
 @JsonAdapter(Currency.Adapter.class)
 public enum Currency
 {
-	UNDEFINED("Undefined"),
-	GVT("GVT"),
-	ETH("ETH"),
+	USD("USD"),
 	BTC("BTC"),
-	ADA("ADA"),
+	ETH("ETH"),
 	USDT("USDT"),
+	GVT("GVT"),
+	UNDEFINED("Undefined"),
+	ADA("ADA"),
 	XRP("XRP"),
 	BCH("BCH"),
 	LTC("LTC"),
 	DOGE("DOGE"),
 	BNB("BNB"),
-	USD("USD"),
 	EUR("EUR");
 
 	public static Currency fromValue(String text) {

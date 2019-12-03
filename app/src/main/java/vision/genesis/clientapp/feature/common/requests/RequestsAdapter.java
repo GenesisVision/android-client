@@ -23,8 +23,8 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.AssetDetails;
 import io.swagger.client.model.AssetInvestmentRequest;
+import io.swagger.client.model.AssetRequestDetails;
 import io.swagger.client.model.AssetType;
 import io.swagger.client.model.InvestmentRequestType;
 import vision.genesis.clientapp.GenesisVisionApplication;
@@ -120,7 +120,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 
 			surfaceView.setOnClickListener(v -> {
 				if (request != null) {
-					AssetDetails details = request.getAssetDetails();
+					AssetRequestDetails details = request.getAssetDetails();
 					if (details != null) {
 						if (details.getAssetType().equals(AssetType.PROGRAM)) {
 							ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(
@@ -166,13 +166,13 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 		}
 
 		private void updateData() {
-			AssetDetails details = request.getAssetDetails();
+			AssetRequestDetails details = request.getAssetDetails();
 			if (details != null) {
 				this.name.setText(details.getTitle());
 				this.type.setText(request.getType().getValue());
 
 				if (details.getAssetType().equals(AssetType.PROGRAM)) {
-					if (request.getType().equals(InvestmentRequestType.WITHDRAWAL) && request.getProgramRequestDetails().isIsWithdrawAll()) {
+					if (request.getType().equals(InvestmentRequestType.WITHDRAWAL) && request.getAssetDetails().isIsWithdrawAll()) {
 						this.value.setText(itemView.getContext().getString(R.string.withdraw_all));
 					}
 					else {
@@ -183,7 +183,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 				else if (details.getAssetType().equals(AssetType.FUND)) {
 					if (request.getType().equals(InvestmentRequestType.WITHDRAWAL)) {
 						this.value.setText(String.format(Locale.getDefault(), "%s%% (≈ %s GVT)",
-								StringFormatUtil.formatAmount(request.getFundRequestDetails().getWithdrawPercent(), 0, 2),
+								StringFormatUtil.formatAmount(request.getAssetDetails().getWithdrawPercent(), 0, 2),
 								StringFormatUtil.formatCurrencyAmount(request.getAmount(), CurrencyEnum.GVT.getValue())));
 					}
 					else {

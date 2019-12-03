@@ -23,7 +23,7 @@ import butterknife.Unbinder;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.model.ProgramSettingsModel;
+import vision.genesis.clientapp.model.FollowSettingsModel;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -37,7 +37,7 @@ public class FollowSettingsFragment extends BaseFragment implements FollowSettin
 {
 	private static String EXTRA_MODEL = "extra_model";
 
-	public static FollowSettingsFragment with(ProgramSettingsModel model) {
+	public static FollowSettingsFragment with(FollowSettingsModel model) {
 		FollowSettingsFragment fragment = new FollowSettingsFragment();
 		Bundle arguments = new Bundle(1);
 		arguments.putParcelable(EXTRA_MODEL, model);
@@ -54,11 +54,11 @@ public class FollowSettingsFragment extends BaseFragment implements FollowSettin
 	@BindView(R.id.step_title)
 	public TextView stepTitle;
 
-	@BindView(R.id.entry_fee)
-	public EditText entryFee;
+	@BindView(R.id.volume_fee)
+	public EditText volumeFee;
 
-	@BindView(R.id.entry_fee_description)
-	public TextView entryFeeDescription;
+	@BindView(R.id.volume_fee_description)
+	public TextView volumeFeeDescription;
 
 	@BindView(R.id.success_fee)
 	public EditText successFee;
@@ -74,9 +74,9 @@ public class FollowSettingsFragment extends BaseFragment implements FollowSettin
 
 	private Unbinder unbinder;
 
-	@OnClick(R.id.group_entry_fee)
-	public void onEntryFeeClicked() {
-		showSoftKeyboard(entryFee);
+	@OnClick(R.id.group_volume_fee)
+	public void onVolumeFeeClicked() {
+		showSoftKeyboard(volumeFee);
 	}
 
 	@OnClick(R.id.group_success_fee)
@@ -88,13 +88,12 @@ public class FollowSettingsFragment extends BaseFragment implements FollowSettin
 	public void onConfirmClicked() {
 		hideSoftKeyboard();
 		presenter.onConfirmClicked();
-//		EventBus.getDefault().post(new OnProgramSettingsConfirmEvent());
 	}
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_program_settings, container, false);
+		return inflater.inflate(R.layout.fragment_follow_settings, container, false);
 	}
 
 	@Override
@@ -106,7 +105,7 @@ public class FollowSettingsFragment extends BaseFragment implements FollowSettin
 		setFonts();
 
 		if (getArguments() != null) {
-			ProgramSettingsModel model = getArguments().getParcelable(EXTRA_MODEL);
+			FollowSettingsModel model = getArguments().getParcelable(EXTRA_MODEL);
 			if (model != null) {
 				updateView(model);
 				setTextListeners();
@@ -128,18 +127,17 @@ public class FollowSettingsFragment extends BaseFragment implements FollowSettin
 		super.onDestroyView();
 	}
 
-	private void updateView(ProgramSettingsModel model) {
+	private void updateView(FollowSettingsModel model) {
 		stepGroup.setVisibility(model.isNeedStep() ? View.VISIBLE : View.GONE);
 		stepNumber.setText(model.getStepNumber());
 		stepTitle.setText(model.getStepTitle());
 
-		confirmButton.setText(model.getButtonText());
 		confirmButton.setEnabled(false);
 	}
 
 	private void setTextListeners() {
-		RxTextView.textChanges(entryFee)
-				.subscribe(charSequence -> presenter.onEntryFeeChanged(charSequence.toString()));
+		RxTextView.textChanges(volumeFee)
+				.subscribe(charSequence -> presenter.onVolumeFeeChanged(charSequence.toString()));
 		RxTextView.textChanges(successFee)
 				.subscribe(charSequence -> presenter.onSuccessFeeChanged(charSequence.toString()));
 	}
@@ -150,28 +148,30 @@ public class FollowSettingsFragment extends BaseFragment implements FollowSettin
 	}
 
 	@Override
-	public void updateEntryFeeDescription(Double managerMaxEntryFee) {
-		this.entryFeeDescription.setText(String.format(Locale.getDefault(),
-				getString(R.string.template_create_fund_entry_fee_description),
-				StringFormatUtil.formatAmount(managerMaxEntryFee, 0, 4)));
+	public void updateVolumeFeeDescription(Double minVolumeFee, Double maxVolumeFee) {
+		this.volumeFeeDescription.setText(String.format(Locale.getDefault(),
+				getString(R.string.template_create_follow_volume_fee_description),
+				StringFormatUtil.formatAmount(minVolumeFee, 0, 4),
+				StringFormatUtil.formatAmount(maxVolumeFee, 0, 4)));
 	}
 
 	@Override
-	public void updateSuccessFeeDescription(Double managerMaxExitFee) {
+	public void updateSuccessFeeDescription(Double minSuccessFee, Double maxSuccessFee) {
 		this.successFeeDescription.setText(String.format(Locale.getDefault(),
-				getString(R.string.template_create_fund_exit_fee_description),
-				StringFormatUtil.formatAmount(managerMaxExitFee, 0, 4)));
+				getString(R.string.template_create_follow_success_fee_description),
+				StringFormatUtil.formatAmount(minSuccessFee, 0, 4),
+				StringFormatUtil.formatAmount(maxSuccessFee, 0, 4)));
 	}
 
 	@Override
-	public void setEntryFee(Double entryFeeValue) {
-		String entryFeeText = StringFormatUtil.formatAmount(entryFeeValue, 0, 4);
-		if (entryFeeValue == 0) {
-			this.entryFee.setText("");
+	public void setVolumeFee(Double volumeFeeValue) {
+		String volumeFeeText = StringFormatUtil.formatAmount(volumeFeeValue, 0, 4);
+		if (volumeFeeValue == 0) {
+			this.volumeFee.setText("");
 		}
 		else {
-			this.entryFee.setText(entryFeeText);
-			this.entryFee.setSelection(entryFeeText.length(), entryFeeText.length());
+			this.volumeFee.setText(volumeFeeText);
+			this.volumeFee.setSelection(volumeFeeText.length(), volumeFeeText.length());
 		}
 	}
 
@@ -208,10 +208,10 @@ public class FollowSettingsFragment extends BaseFragment implements FollowSettin
 	private void hideSoftKeyboard() {
 		if (getContext() != null) {
 			InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-			entryFee.clearFocus();
+			volumeFee.clearFocus();
 			successFee.clearFocus();
 			if (imm != null) {
-				imm.hideSoftInputFromWindow(entryFee.getWindowToken(), 0);
+				imm.hideSoftInputFromWindow(volumeFee.getWindowToken(), 0);
 			}
 		}
 	}

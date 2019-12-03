@@ -4,7 +4,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**UUID**](UUID.md) |  |  [optional]
-**wallet** | [**WalletRowCell**](WalletRowCell.md) |  |  [optional]
 **date** | [**DateTime**](DateTime.md) |  |  [optional]
 **status** | [**MultiWalletTransactionStatus**](MultiWalletTransactionStatus.md) |  |  [optional]
 **description** | **String** |  |  [optional]

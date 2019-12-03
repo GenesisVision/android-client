@@ -48,6 +48,9 @@ public class AmountItem implements Parcelable
 	@SerializedName("color")
 	private String color = null;
 
+	@SerializedName("logo")
+	private String logo = null;
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -58,6 +61,7 @@ public class AmountItem implements Parcelable
 		amount = (Double) in.readValue(null);
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		color = (String) in.readValue(null);
+		logo = (String) in.readValue(null);
 		title = (String) in.readValue(null);
 	}
 
@@ -118,6 +122,25 @@ public class AmountItem implements Parcelable
 		this.color = color;
 	}
 
+	public AmountItem logo(String logo) {
+		this.logo = logo;
+		return this;
+	}
+
+	/**
+	 * Get logo
+	 *
+	 * @return logo
+	 **/
+	@Schema(description = "")
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
 	public AmountItem title(String title) {
 		this.title = title;
 		return this;
@@ -149,12 +172,13 @@ public class AmountItem implements Parcelable
 		return Objects.equals(this.amount, amountItem.amount) &&
 				Objects.equals(this.currency, amountItem.currency) &&
 				Objects.equals(this.color, amountItem.color) &&
+				Objects.equals(this.logo, amountItem.logo) &&
 				Objects.equals(this.title, amountItem.title);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, currency, color, title);
+		return Objects.hash(amount, currency, color, logo, title);
 	}
 
 	@Override
@@ -165,6 +189,7 @@ public class AmountItem implements Parcelable
 		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
+		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -185,6 +210,7 @@ public class AmountItem implements Parcelable
 		out.writeValue(amount);
 		out.writeValue(currency);
 		out.writeValue(color);
+		out.writeValue(logo);
 		out.writeValue(title);
 	}
 

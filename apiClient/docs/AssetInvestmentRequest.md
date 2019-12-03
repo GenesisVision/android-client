@@ -10,6 +10,4 @@ Name | Type | Description | Notes
 **type** | [**InvestmentRequestType**](InvestmentRequestType.md) |  |  [optional]
 **status** | [**InvestmentRequestStatus**](InvestmentRequestStatus.md) |  |  [optional]
 **canCancelRequest** | **Boolean** |  |  [optional]
-**assetDetails** | [**AssetDetails**](AssetDetails.md) |  |  [optional]
-**fundRequestDetails** | [**FundAssetInvestmentRequest**](FundAssetInvestmentRequest.md) |  |  [optional]
-**programRequestDetails** | [**ProgramAssetInvestmentRequest**](ProgramAssetInvestmentRequest.md) |  |  [optional]
+**assetDetails** | [**AssetRequestDetails**](AssetRequestDetails.md) |  |  [optional]

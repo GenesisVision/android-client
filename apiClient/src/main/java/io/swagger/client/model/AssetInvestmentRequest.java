@@ -64,13 +64,7 @@ public class AssetInvestmentRequest implements Parcelable
 	private Boolean canCancelRequest = null;
 
 	@SerializedName("assetDetails")
-	private AssetDetails assetDetails = null;
-
-	@SerializedName("fundRequestDetails")
-	private FundAssetInvestmentRequest fundRequestDetails = null;
-
-	@SerializedName("programRequestDetails")
-	private ProgramAssetInvestmentRequest programRequestDetails = null;
+	private AssetRequestDetails assetDetails = null;
 
 	public AssetInvestmentRequest() {
 	}
@@ -83,9 +77,7 @@ public class AssetInvestmentRequest implements Parcelable
 		type = (InvestmentRequestType) in.readValue(InvestmentRequestType.class.getClassLoader());
 		status = (InvestmentRequestStatus) in.readValue(InvestmentRequestStatus.class.getClassLoader());
 		canCancelRequest = (Boolean) in.readValue(null);
-		assetDetails = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
-		fundRequestDetails = (FundAssetInvestmentRequest) in.readValue(FundAssetInvestmentRequest.class.getClassLoader());
-		programRequestDetails = (ProgramAssetInvestmentRequest) in.readValue(ProgramAssetInvestmentRequest.class.getClassLoader());
+		assetDetails = (AssetRequestDetails) in.readValue(AssetRequestDetails.class.getClassLoader());
 	}
 
 	public AssetInvestmentRequest id(UUID id) {
@@ -221,7 +213,7 @@ public class AssetInvestmentRequest implements Parcelable
 		this.canCancelRequest = canCancelRequest;
 	}
 
-	public AssetInvestmentRequest assetDetails(AssetDetails assetDetails) {
+	public AssetInvestmentRequest assetDetails(AssetRequestDetails assetDetails) {
 		this.assetDetails = assetDetails;
 		return this;
 	}
@@ -232,50 +224,12 @@ public class AssetInvestmentRequest implements Parcelable
 	 * @return assetDetails
 	 **/
 	@Schema(description = "")
-	public AssetDetails getAssetDetails() {
+	public AssetRequestDetails getAssetDetails() {
 		return assetDetails;
 	}
 
-	public void setAssetDetails(AssetDetails assetDetails) {
+	public void setAssetDetails(AssetRequestDetails assetDetails) {
 		this.assetDetails = assetDetails;
-	}
-
-	public AssetInvestmentRequest fundRequestDetails(FundAssetInvestmentRequest fundRequestDetails) {
-		this.fundRequestDetails = fundRequestDetails;
-		return this;
-	}
-
-	/**
-	 * Get fundRequestDetails
-	 *
-	 * @return fundRequestDetails
-	 **/
-	@Schema(description = "")
-	public FundAssetInvestmentRequest getFundRequestDetails() {
-		return fundRequestDetails;
-	}
-
-	public void setFundRequestDetails(FundAssetInvestmentRequest fundRequestDetails) {
-		this.fundRequestDetails = fundRequestDetails;
-	}
-
-	public AssetInvestmentRequest programRequestDetails(ProgramAssetInvestmentRequest programRequestDetails) {
-		this.programRequestDetails = programRequestDetails;
-		return this;
-	}
-
-	/**
-	 * Get programRequestDetails
-	 *
-	 * @return programRequestDetails
-	 **/
-	@Schema(description = "")
-	public ProgramAssetInvestmentRequest getProgramRequestDetails() {
-		return programRequestDetails;
-	}
-
-	public void setProgramRequestDetails(ProgramAssetInvestmentRequest programRequestDetails) {
-		this.programRequestDetails = programRequestDetails;
 	}
 
 	@Override
@@ -294,14 +248,12 @@ public class AssetInvestmentRequest implements Parcelable
 				Objects.equals(this.type, assetInvestmentRequest.type) &&
 				Objects.equals(this.status, assetInvestmentRequest.status) &&
 				Objects.equals(this.canCancelRequest, assetInvestmentRequest.canCancelRequest) &&
-				Objects.equals(this.assetDetails, assetInvestmentRequest.assetDetails) &&
-				Objects.equals(this.fundRequestDetails, assetInvestmentRequest.fundRequestDetails) &&
-				Objects.equals(this.programRequestDetails, assetInvestmentRequest.programRequestDetails);
+				Objects.equals(this.assetDetails, assetInvestmentRequest.assetDetails);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, date, amount, currency, type, status, canCancelRequest, assetDetails, fundRequestDetails, programRequestDetails);
+		return Objects.hash(id, date, amount, currency, type, status, canCancelRequest, assetDetails);
 	}
 
 	@Override
@@ -317,8 +269,6 @@ public class AssetInvestmentRequest implements Parcelable
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    canCancelRequest: ").append(toIndentedString(canCancelRequest)).append("\n");
 		sb.append("    assetDetails: ").append(toIndentedString(assetDetails)).append("\n");
-		sb.append("    fundRequestDetails: ").append(toIndentedString(fundRequestDetails)).append("\n");
-		sb.append("    programRequestDetails: ").append(toIndentedString(programRequestDetails)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -343,8 +293,6 @@ public class AssetInvestmentRequest implements Parcelable
 		out.writeValue(status);
 		out.writeValue(canCancelRequest);
 		out.writeValue(assetDetails);
-		out.writeValue(fundRequestDetails);
-		out.writeValue(programRequestDetails);
 	}
 
 	public int describeContents() {

@@ -1,5 +1,6 @@
 package io.swagger.client.api;
 
+import io.swagger.client.model.AssetInfo;
 import io.swagger.client.model.CaptchaDetails;
 import io.swagger.client.model.LevelsParamsInfo;
 import io.swagger.client.model.PlatformAssets;
@@ -19,6 +20,17 @@ public interface PlatformApi
 	@GET("v2.0/platform/assets")
 	Observable<PlatformAssets> getAllPlatformAssets();
 
+
+	/**
+	 * Get asset description
+	 *
+	 * @param asset (required)
+	 * @return Call&lt;AssetInfo&gt;
+	 */
+	@GET("v2.0/platform/asset/{asset}")
+	Observable<AssetInfo> getPlatformAssetInfo(
+			@retrofit2.http.Path("asset") String asset
+	);
 
 	/**
 	 * Server date

@@ -11,7 +11,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import io.swagger.client.model.InternalTransferRequest;
-import io.swagger.client.model.TransferRequestType;
+import io.swagger.client.model.InternalTransferRequestType;
 import io.swagger.client.model.WalletData;
 import io.swagger.client.model.WalletMultiSummary;
 import rx.Subscription;
@@ -209,14 +209,14 @@ public class TransferCopytradingAccountPresenter extends MvpPresenter<TransferCo
 			case TransferCopytradingAccountActivity.OPERATION_DEPOSIT:
 				request.setSourceId(selectedWallet.getId());
 				request.setDestinationId(account.getId());
-				request.setSourceType(TransferRequestType.WALLET);
-				request.setDestinationType(TransferRequestType.TRADINGACCOUNT);
+				request.setSourceType(InternalTransferRequestType.WALLET);
+				request.setDestinationType(InternalTransferRequestType.PRIVATETRADINGACCOUNT);
 				break;
 			case TransferCopytradingAccountActivity.OPERATION_WITHDRAW:
 				request.setSourceId(account.getId());
 				request.setDestinationId(selectedWallet.getId());
-				request.setSourceType(TransferRequestType.TRADINGACCOUNT);
-				request.setDestinationType(TransferRequestType.WALLET);
+				request.setSourceType(InternalTransferRequestType.PRIVATETRADINGACCOUNT);
+				request.setDestinationType(InternalTransferRequestType.WALLET);
 				break;
 		}
 		request.setTransferAll(false);

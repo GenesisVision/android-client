@@ -9,11 +9,11 @@ import com.arellomobile.mvp.MvpView;
 
 interface FollowSettingsView extends MvpView
 {
-	void updateEntryFeeDescription(Double managerMaxEntryFee);
+	void updateVolumeFeeDescription(Double minVolumeFee, Double maxVolumeFee);
 
-	void updateSuccessFeeDescription(Double managerMaxExitFee);
+	void updateSuccessFeeDescription(Double minSuccessFee, Double maxSuccessFee);
 
-	void setEntryFee(Double entryFeeValue);
+	void setVolumeFee(Double entryFeeValue);
 
 	void setSuccessFee(Double exitFeeValue);
 

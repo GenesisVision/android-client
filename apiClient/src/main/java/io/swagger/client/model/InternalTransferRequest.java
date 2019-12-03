@@ -44,13 +44,13 @@ public class InternalTransferRequest implements Parcelable
 	private UUID sourceId = null;
 
 	@SerializedName("sourceType")
-	private TransferRequestType sourceType = null;
+	private InternalTransferRequestType sourceType = null;
 
 	@SerializedName("destinationId")
 	private UUID destinationId = null;
 
 	@SerializedName("destinationType")
-	private TransferRequestType destinationType = null;
+	private InternalTransferRequestType destinationType = null;
 
 	@SerializedName("amount")
 	private Double amount = null;
@@ -63,9 +63,9 @@ public class InternalTransferRequest implements Parcelable
 
 	InternalTransferRequest(Parcel in) {
 		sourceId = (UUID) in.readValue(UUID.class.getClassLoader());
-		sourceType = (TransferRequestType) in.readValue(TransferRequestType.class.getClassLoader());
+		sourceType = (InternalTransferRequestType) in.readValue(InternalTransferRequestType.class.getClassLoader());
 		destinationId = (UUID) in.readValue(UUID.class.getClassLoader());
-		destinationType = (TransferRequestType) in.readValue(TransferRequestType.class.getClassLoader());
+		destinationType = (InternalTransferRequestType) in.readValue(InternalTransferRequestType.class.getClassLoader());
 		amount = (Double) in.readValue(null);
 		transferAll = (Boolean) in.readValue(null);
 	}
@@ -89,7 +89,7 @@ public class InternalTransferRequest implements Parcelable
 		this.sourceId = sourceId;
 	}
 
-	public InternalTransferRequest sourceType(TransferRequestType sourceType) {
+	public InternalTransferRequest sourceType(InternalTransferRequestType sourceType) {
 		this.sourceType = sourceType;
 		return this;
 	}
@@ -100,11 +100,11 @@ public class InternalTransferRequest implements Parcelable
 	 * @return sourceType
 	 **/
 	@Schema(description = "")
-	public TransferRequestType getSourceType() {
+	public InternalTransferRequestType getSourceType() {
 		return sourceType;
 	}
 
-	public void setSourceType(TransferRequestType sourceType) {
+	public void setSourceType(InternalTransferRequestType sourceType) {
 		this.sourceType = sourceType;
 	}
 
@@ -127,7 +127,7 @@ public class InternalTransferRequest implements Parcelable
 		this.destinationId = destinationId;
 	}
 
-	public InternalTransferRequest destinationType(TransferRequestType destinationType) {
+	public InternalTransferRequest destinationType(InternalTransferRequestType destinationType) {
 		this.destinationType = destinationType;
 		return this;
 	}
@@ -138,11 +138,11 @@ public class InternalTransferRequest implements Parcelable
 	 * @return destinationType
 	 **/
 	@Schema(description = "")
-	public TransferRequestType getDestinationType() {
+	public InternalTransferRequestType getDestinationType() {
 		return destinationType;
 	}
 
-	public void setDestinationType(TransferRequestType destinationType) {
+	public void setDestinationType(InternalTransferRequestType destinationType) {
 		this.destinationType = destinationType;
 	}
 

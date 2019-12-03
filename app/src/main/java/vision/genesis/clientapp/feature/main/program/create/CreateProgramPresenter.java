@@ -25,6 +25,7 @@ import vision.genesis.clientapp.managers.AssetsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.events.OnCreateProgramCreateButtonClickedEvent;
+import vision.genesis.clientapp.model.events.OnCreateProgramSuccessEvent;
 import vision.genesis.clientapp.model.events.OnProgramSettingsConfirmEvent;
 import vision.genesis.clientapp.model.events.OnPublicInfoConfirmButtonClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -184,6 +185,7 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 
 	private void handleCreateProgramSuccess(Void response) {
 		createProgramSubscription.unsubscribe();
+		EventBus.getDefault().post(new OnCreateProgramSuccessEvent(model.getAssetId()));
 		getViewState().finishActivity();
 	}
 

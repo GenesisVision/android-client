@@ -28,6 +28,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.AssetInvestmentStatus;
 import io.swagger.client.model.FollowDetailsFull;
+import io.swagger.client.model.PersonalFollowDetailsFull;
 import io.swagger.client.model.PersonalProgramDetails;
 import io.swagger.client.model.ProgramDetailsFull;
 import timber.log.Timber;
@@ -440,10 +441,14 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 
 			scrollView.setVisibility(View.VISIBLE);
 
-			updatePublicInfo(followDetails.getDescription());
-			updateAccountInfo(followDetails.getBrokerDetails().getLogo(),
-					followDetails.getCurrency().getValue(), 1,
-					followDetails.getCreationDate());
+			if (programDetails == null) {
+				updatePublicInfo(followDetails.getDescription());
+				updateAccountInfo(followDetails.getBrokerDetails().getLogo(),
+						followDetails.getCurrency().getValue(), 1,
+						followDetails.getCreationDate());
+				updateYourDeposit(followDetails.getPersonalDetails());
+
+			}
 
 			followInfoGroup.setVisibility(View.VISIBLE);
 			manageFollowButton.setVisibility(View.VISIBLE);
@@ -468,8 +473,6 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 				strategyShadow.setVisibility(strategy.getHeight() < strategyMaxHeight ? View.INVISIBLE : View.VISIBLE);
 			}
 		}, 300);
-
-
 	}
 
 	private void updateCurrentSelectedField(TextView textView, Double current, Double selected) {
@@ -483,16 +486,33 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	private void updateYourDeposit(PersonalProgramDetails personalDetails) {
 		if (personalDetails != null && personalDetails.isIsInvested() && !personalDetails.getStatus().equals(AssetInvestmentStatus.ENDED)) {
 			yourDepositGroup.setVisibility(View.VISIBLE);
+			status.setVisibility(View.VISIBLE);
 			status.setStatus(personalDetails.getStatus().getValue());
 			value.setText(String.format(Locale.getDefault(), "%s %s",
 					StringFormatUtil.formatAmount(personalDetails.getValue(), 0,
 							StringFormatUtil.getCurrencyMaxFraction(this.programDetails.getCurrency().getValue())),
 					this.programDetails.getCurrency().getValue()));
+			profit.setVisibility(View.VISIBLE);
 			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(getProfitPercent(), 0, 4)));
 			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
 					personalDetails.getValue() < personalDetails.getInvested()
 							? R.attr.colorRed
 							: R.attr.colorGreen));
+		}
+		else {
+			yourDepositGroup.setVisibility(View.GONE);
+		}
+	}
+
+	private void updateYourDeposit(PersonalFollowDetailsFull personalDetails) {
+		if (personalDetails != null) {
+			yourDepositGroup.setVisibility(View.VISIBLE);
+			status.setVisibility(View.GONE);
+//			value.setText(String.format(Locale.getDefault(), "%s %s",
+//					StringFormatUtil.formatAmount(personalDetails.getValue(), 0,
+//							StringFormatUtil.getCurrencyMaxFraction(this.followDetails.getCurrency().getValue())),
+//					this.programDetails.getCurrency().getValue()));
+			profit.setVisibility(View.GONE);
 		}
 		else {
 			yourDepositGroup.setVisibility(View.GONE);

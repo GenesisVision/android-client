@@ -453,7 +453,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	private void initViewPager(ProgramDetailsFull programDetails, FollowDetailsFull followDetails) {
 		pagerAdapter = new ProgramDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, programDetails, followDetails);
 		viewPager.setAdapter(pagerAdapter);
-		viewPager.setOffscreenPageLimit(5);
+		viewPager.setOffscreenPageLimit(3);
 
 		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
 		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
@@ -507,7 +507,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			addPage(equityTab, false);
 			addPage(openPositionsTab, false);
 			addPage(tradesTab, false);
-			addPage(periodHistoryTab, false);
+			if (programDetails != null) {
+				addPage(periodHistoryTab, false);
+			}
 		}
 
 		finishInit();

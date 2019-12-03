@@ -26,24 +26,24 @@ import java.io.IOException;
 public enum InvestmentEventType
 {
 	ALL("All"),
-	ASSETSTARTED("AssetStarted"),
 	ASSETFINISHED("AssetFinished"),
 	ASSETPERIODSTARTED("AssetPeriodStarted"),
 	ASSETPERIODENDED("AssetPeriodEnded"),
 	ASSETPERIODENDEDDUETOSTOPOUT("AssetPeriodEndedDueToStopOut"),
 	ASSETBROKERCHANGED("AssetBrokerChanged"),
-	ASSETINVESTBYINVESTOR("AssetInvestByInvestor"),
-	ASSETWITHDRAWALBYINVESTOR("AssetWithdrawalByInvestor"),
-	ASSETINVESTBYMANAGER("AssetInvestByManager"),
-	ASSETWITHDRAWALBYMANAGER("AssetWithdrawalByManager"),
-	ASSETPERIODPROCESSED("AssetPeriodProcessed"),
-	ASSETREALLOCATION("AssetReallocation"),
-	ASSETSUBSCRIBEBYINVESTOR("AssetSubscribeByInvestor"),
-	ASSETUNSUBSCRIBEBYINVESTOR("AssetUnsubscribeByInvestor"),
+	ASSETENTERINVESTMENT("AssetEnterInvestment"),
 	ASSETTRADEOPEN("AssetTradeOpen"),
 	ASSETTRADECLOSED("AssetTradeClosed"),
 	ASSETSUBSCRIPTIONEDIT("AssetSubscriptionEdit"),
-	ASSETENTERINVESTMENT("AssetEnterInvestment");
+	ASSETINVESTBYINVESTOR("AssetInvestByInvestor"),
+	ASSETWITHDRAWALBYINVESTOR("AssetWithdrawalByInvestor"),
+	ASSETREALLOCATION("AssetReallocation"),
+	ASSETSTARTED("AssetStarted"),
+	ASSETPERIODPROCESSED("AssetPeriodProcessed"),
+	ASSETINVESTBYMANAGER("AssetInvestByManager"),
+	ASSETWITHDRAWALBYMANAGER("AssetWithdrawalByManager"),
+	ASSETSUBSCRIBEBYINVESTOR("AssetSubscribeByInvestor"),
+	ASSETUNSUBSCRIBEBYINVESTOR("AssetUnsubscribeByInvestor");
 
 	public static InvestmentEventType fromValue(String text) {
 		for (InvestmentEventType b : InvestmentEventType.values()) {

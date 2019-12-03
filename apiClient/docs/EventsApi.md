@@ -49,7 +49,7 @@ Name | Type | Description  | Notes
  **assetId** | [**UUID**](.md)|  | [optional]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
- **eventType** | **String**|  | [optional] [enum: All, AssetStarted, AssetFinished, AssetPeriodStarted, AssetPeriodEnded, AssetPeriodEndedDueToStopOut, AssetBrokerChanged, AssetInvestByInvestor, AssetWithdrawalByInvestor, AssetInvestByManager, AssetWithdrawalByManager, AssetPeriodProcessed, AssetReallocation, AssetSubscribeByInvestor, AssetUnsubscribeByInvestor, AssetTradeOpen, AssetTradeClosed, AssetSubscriptionEdit, AssetEnterInvestment]
+ **eventType** | **String**|  | [optional] [enum: All, AssetFinished, AssetPeriodStarted, AssetPeriodEnded, AssetPeriodEndedDueToStopOut, AssetBrokerChanged, AssetEnterInvestment, AssetTradeOpen, AssetTradeClosed, AssetSubscriptionEdit, AssetInvestByInvestor, AssetWithdrawalByInvestor, AssetReallocation, AssetStarted, AssetPeriodProcessed, AssetInvestByManager, AssetWithdrawalByManager, AssetSubscribeByInvestor, AssetUnsubscribeByInvestor]
  **assetType** | **String**|  | [optional] [enum: All, Program, Fund, Signal]
  **assetsIds** | [**List&lt;UUID&gt;**](UUID.md)|  | [optional]
  **forceFilterByIds** | **Boolean**|  | [optional]

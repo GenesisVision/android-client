@@ -22,6 +22,8 @@ interface TradingAccountInfoView extends MvpView
 
 	void showCreateProgram(CreateProgramModel createProgramModel);
 
+	void showCreateFollow(CreateProgramModel createProgramModel);
+
 	void showSnackbarMessage(String message);
 
 	void showLoginActivity();

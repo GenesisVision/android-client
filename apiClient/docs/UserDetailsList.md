@@ -13,4 +13,6 @@ Name | Type | Description | Notes
 **assetsUnderManagement** | **Double** |  |  [optional]
 **investorsCount** | **Integer** |  |  [optional]
 **followersCount** | **Integer** |  |  [optional]
-**profit** | **Double** |  |  [optional]
+**totalProfit** | **Double** |  |  [optional]
+**tradingProfit** | **Double** |  |  [optional]
+**investingProfit** | **Double** |  |  [optional]

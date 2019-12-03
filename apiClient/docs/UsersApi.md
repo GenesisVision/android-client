@@ -83,7 +83,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **facetId** | **String**|  | [optional]
- **sorting** | **String**|  | [optional] [enum: ByNameAsc, ByNameDesc, ByAgeAsc, ByAgeDesc, ByAumAsc, ByAumDesc, ByFollowersAsc, ByFollowersDesc, ByInvestorsAsc, ByInvestorsDesc, ByProfitAsc, ByProfitDesc]
+ **sorting** | **String**|  | [optional] [enum: ByNameAsc, ByNameDesc, ByAgeAsc, ByAgeDesc, ByAumAsc, ByAumDesc, ByFollowersAsc, ByFollowersDesc, ByInvestorsAsc, ByInvestorsDesc, ByPopularityAsc, ByPopularityDesc, ByProfitAsc, ByProfitDesc, ByTradingProfitAsc, ByTradingProfitDesc, ByInvestingProfitAsc, ByInvestingProfitDesc]
  **tags** | [**List&lt;String&gt;**](String.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]

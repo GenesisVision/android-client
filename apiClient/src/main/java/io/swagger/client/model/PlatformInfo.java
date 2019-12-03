@@ -48,6 +48,9 @@ public class PlatformInfo implements Parcelable
 	@SerializedName("assetInfo")
 	private AssetPlatformInfo assetInfo = null;
 
+	@SerializedName("usersInfo")
+	private UsersPlatformInfo usersInfo = null;
+
 	@SerializedName("commonInfo")
 	private PlatformCommonInfo commonInfo = null;
 
@@ -58,6 +61,7 @@ public class PlatformInfo implements Parcelable
 		appVersionInfo = (AppVersion) in.readValue(AppVersion.class.getClassLoader());
 		filters = (FilterInfo) in.readValue(FilterInfo.class.getClassLoader());
 		assetInfo = (AssetPlatformInfo) in.readValue(AssetPlatformInfo.class.getClassLoader());
+		usersInfo = (UsersPlatformInfo) in.readValue(UsersPlatformInfo.class.getClassLoader());
 		commonInfo = (PlatformCommonInfo) in.readValue(PlatformCommonInfo.class.getClassLoader());
 	}
 
@@ -118,6 +122,25 @@ public class PlatformInfo implements Parcelable
 		this.assetInfo = assetInfo;
 	}
 
+	public PlatformInfo usersInfo(UsersPlatformInfo usersInfo) {
+		this.usersInfo = usersInfo;
+		return this;
+	}
+
+	/**
+	 * Get usersInfo
+	 *
+	 * @return usersInfo
+	 **/
+	@Schema(description = "")
+	public UsersPlatformInfo getUsersInfo() {
+		return usersInfo;
+	}
+
+	public void setUsersInfo(UsersPlatformInfo usersInfo) {
+		this.usersInfo = usersInfo;
+	}
+
 	public PlatformInfo commonInfo(PlatformCommonInfo commonInfo) {
 		this.commonInfo = commonInfo;
 		return this;
@@ -149,12 +172,13 @@ public class PlatformInfo implements Parcelable
 		return Objects.equals(this.appVersionInfo, platformInfo.appVersionInfo) &&
 				Objects.equals(this.filters, platformInfo.filters) &&
 				Objects.equals(this.assetInfo, platformInfo.assetInfo) &&
+				Objects.equals(this.usersInfo, platformInfo.usersInfo) &&
 				Objects.equals(this.commonInfo, platformInfo.commonInfo);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(appVersionInfo, filters, assetInfo, commonInfo);
+		return Objects.hash(appVersionInfo, filters, assetInfo, usersInfo, commonInfo);
 	}
 
 	@Override
@@ -165,6 +189,7 @@ public class PlatformInfo implements Parcelable
 		sb.append("    appVersionInfo: ").append(toIndentedString(appVersionInfo)).append("\n");
 		sb.append("    filters: ").append(toIndentedString(filters)).append("\n");
 		sb.append("    assetInfo: ").append(toIndentedString(assetInfo)).append("\n");
+		sb.append("    usersInfo: ").append(toIndentedString(usersInfo)).append("\n");
 		sb.append("    commonInfo: ").append(toIndentedString(commonInfo)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -185,6 +210,7 @@ public class PlatformInfo implements Parcelable
 		out.writeValue(appVersionInfo);
 		out.writeValue(filters);
 		out.writeValue(assetInfo);
+		out.writeValue(usersInfo);
 		out.writeValue(commonInfo);
 	}
 

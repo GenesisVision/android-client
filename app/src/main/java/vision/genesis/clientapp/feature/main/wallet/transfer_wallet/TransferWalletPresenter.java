@@ -12,7 +12,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import io.swagger.client.model.InternalTransferRequest;
-import io.swagger.client.model.TransferRequestType;
+import io.swagger.client.model.InternalTransferRequestType;
 import io.swagger.client.model.WalletData;
 import io.swagger.client.model.WalletMultiSummary;
 import rx.Subscription;
@@ -211,8 +211,8 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 		request.setAmount(amount);
 		request.setSourceId(walletInfo.getId());
 		request.setDestinationId(selectedWalletTo.getId());
-		request.setSourceType(TransferRequestType.WALLET);
-		request.setDestinationType(TransferRequestType.WALLET);
+		request.setSourceType(InternalTransferRequestType.WALLET);
+		request.setDestinationType(InternalTransferRequestType.WALLET);
 		request.setTransferAll(false);
 
 		getViewState().showButtonProgress(true);

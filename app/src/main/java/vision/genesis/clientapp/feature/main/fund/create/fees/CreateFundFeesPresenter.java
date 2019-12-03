@@ -101,11 +101,13 @@ public class CreateFundFeesPresenter extends MvpPresenter<CreateFundFeesView>
 	}
 
 	private void getPlatformInfo() {
-		platformInfoSubscription = settingsManager.getPlatformInfo()
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.newThread())
-				.subscribe(this::handleGetPlatformInfoSuccess,
-						this::handleGetPlatformInfoError);
+		if (settingsManager != null) {
+			platformInfoSubscription = settingsManager.getPlatformInfo()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetPlatformInfoSuccess,
+							this::handleGetPlatformInfoError);
+		}
 	}
 
 	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {

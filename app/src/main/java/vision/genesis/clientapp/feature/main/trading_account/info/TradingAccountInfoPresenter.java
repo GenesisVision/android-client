@@ -75,11 +75,16 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 
 	}
 
-	void onCreateFollowClicked() {
-	}
-
 	void onCreateProgramClicked() {
 		getViewState().showCreateProgram(new CreateProgramModel(accountDetails.getId(),
+				AssetType.NONE,
+				accountDetails.getBrokerDetails().getType(),
+				accountDetails.getBalance(),
+				accountDetails.getCurrency().getValue()));
+	}
+
+	void onCreateFollowClicked() {
+		getViewState().showCreateFollow(new CreateProgramModel(accountDetails.getId(),
 				AssetType.NONE,
 				accountDetails.getBrokerDetails().getType(),
 				accountDetails.getBalance(),

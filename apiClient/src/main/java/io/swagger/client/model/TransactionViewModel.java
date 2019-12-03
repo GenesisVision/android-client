@@ -47,9 +47,6 @@ public class TransactionViewModel implements Parcelable
 	@SerializedName("id")
 	private UUID id = null;
 
-	@SerializedName("wallet")
-	private WalletRowCell wallet = null;
-
 	@SerializedName("date")
 	private DateTime date = null;
 
@@ -76,7 +73,6 @@ public class TransactionViewModel implements Parcelable
 
 	TransactionViewModel(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		wallet = (WalletRowCell) in.readValue(WalletRowCell.class.getClassLoader());
 		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		status = (MultiWalletTransactionStatus) in.readValue(MultiWalletTransactionStatus.class.getClassLoader());
 		description = (String) in.readValue(null);
@@ -103,25 +99,6 @@ public class TransactionViewModel implements Parcelable
 
 	public void setId(UUID id) {
 		this.id = id;
-	}
-
-	public TransactionViewModel wallet(WalletRowCell wallet) {
-		this.wallet = wallet;
-		return this;
-	}
-
-	/**
-	 * Get wallet
-	 *
-	 * @return wallet
-	 **/
-	@Schema(description = "")
-	public WalletRowCell getWallet() {
-		return wallet;
-	}
-
-	public void setWallet(WalletRowCell wallet) {
-		this.wallet = wallet;
 	}
 
 	public TransactionViewModel date(DateTime date) {
@@ -275,7 +252,6 @@ public class TransactionViewModel implements Parcelable
 		}
 		TransactionViewModel transactionViewModel = (TransactionViewModel) o;
 		return Objects.equals(this.id, transactionViewModel.id) &&
-				Objects.equals(this.wallet, transactionViewModel.wallet) &&
 				Objects.equals(this.date, transactionViewModel.date) &&
 				Objects.equals(this.status, transactionViewModel.status) &&
 				Objects.equals(this.description, transactionViewModel.description) &&
@@ -287,7 +263,7 @@ public class TransactionViewModel implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, wallet, date, status, description, amount, asset, details, actions);
+		return Objects.hash(id, date, status, description, amount, asset, details, actions);
 	}
 
 	@Override
@@ -296,7 +272,6 @@ public class TransactionViewModel implements Parcelable
 		sb.append("class TransactionViewModel {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    wallet: ").append(toIndentedString(wallet)).append("\n");
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
@@ -321,7 +296,6 @@ public class TransactionViewModel implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
-		out.writeValue(wallet);
 		out.writeValue(date);
 		out.writeValue(status);
 		out.writeValue(description);

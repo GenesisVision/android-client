@@ -62,13 +62,15 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 		if (programDetails != null && programDetails.getPersonalDetails() != null && programDetails.getPersonalDetails().isIsOwnAsset()
 				|| followDetails != null && followDetails.getPersonalDetails() != null && followDetails.getPersonalDetails().isIsOwnAsset()) {
-			assetId = programDetails.getId();
+			assetId = programDetails != null ? programDetails.getId() : followDetails.getId();
 			ownerInfoFragment = OwnerInfoFragment.with(programDetails, followDetails);
 			openPositionsFragment = OpenPositionsFragment.with(assetId);
 			programProfitFragment = ProgramProfitFragment.with(assetId);
 			programEquityFragment = ProgramBalanceFragment.with(assetId);
 			programTradesFragment = ProgramTradesFragment.with(assetId);
-			periodHistoryFragment = PeriodHistoryFragment.with(assetId, programDetails.getCurrency().getValue(), programDetails.getPeriodDuration());
+			if (programDetails != null) {
+				periodHistoryFragment = PeriodHistoryFragment.with(assetId, programDetails.getCurrency().getValue(), programDetails.getPeriodDuration());
+			}
 			programEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_PROGRAM, assetId);
 		}
 		else if (programDetails != null) {

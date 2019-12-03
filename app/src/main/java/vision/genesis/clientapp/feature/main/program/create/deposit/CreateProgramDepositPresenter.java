@@ -11,7 +11,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import io.swagger.client.model.InternalTransferRequest;
-import io.swagger.client.model.TransferRequestType;
+import io.swagger.client.model.InternalTransferRequestType;
 import io.swagger.client.model.WalletData;
 import io.swagger.client.model.WalletMultiSummary;
 import rx.Subscription;
@@ -195,9 +195,9 @@ public class CreateProgramDepositPresenter extends MvpPresenter<CreateProgramDep
 			InternalTransferRequest request = new InternalTransferRequest();
 			request.setAmount(amount);
 			request.setSourceId(selectedWallet.getId());
-			request.setSourceType(TransferRequestType.WALLET);
+			request.setSourceType(InternalTransferRequestType.WALLET);
 			request.setDestinationId(model.getAssetId());
-			request.setDestinationType(TransferRequestType.TRADINGACCOUNT);
+			request.setDestinationType(InternalTransferRequestType.PRIVATETRADINGACCOUNT);
 
 			depositSubscription = walletManager.transfer(request)
 					.observeOn(AndroidSchedulers.mainThread())

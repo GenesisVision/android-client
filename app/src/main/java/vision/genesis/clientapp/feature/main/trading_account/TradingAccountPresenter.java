@@ -19,6 +19,8 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.TradingAccountManager;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
+import vision.genesis.clientapp.model.events.OnCreateFollowSuccessEvent;
+import vision.genesis.clientapp.model.events.OnCreateProgramSuccessEvent;
 import vision.genesis.clientapp.model.events.SetTradingAccountDetailsOpenPositionsCountEvent;
 import vision.genesis.clientapp.model.events.SetTradingAccountDetailsTradesCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -142,5 +144,19 @@ public class TradingAccountPresenter extends MvpPresenter<TradingAccountDetailsV
 	@Subscribe
 	public void onEventMainThread(SetTradingAccountDetailsTradesCountEvent event) {
 		getViewState().setTradesCount(event.getTradesCount());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnCreateProgramSuccessEvent event) {
+		if (event.getAssetId().equals(model.getAccountId())) {
+			getViewState().finishActivity();
+		}
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnCreateFollowSuccessEvent event) {
+		if (event.getAssetId().equals(model.getAccountId())) {
+			getViewState().finishActivity();
+		}
 	}
 }

@@ -284,18 +284,18 @@ public class AttachToExternalSignalProviderCommon implements Parcelable
 	@JsonAdapter(InitialDepositCurrencyEnum.Adapter.class)
 	public enum InitialDepositCurrencyEnum
 	{
-		UNDEFINED("Undefined"),
-		GVT("GVT"),
-		ETH("ETH"),
+		USD("USD"),
 		BTC("BTC"),
-		ADA("ADA"),
+		ETH("ETH"),
 		USDT("USDT"),
+		GVT("GVT"),
+		UNDEFINED("Undefined"),
+		ADA("ADA"),
 		XRP("XRP"),
 		BCH("BCH"),
 		LTC("LTC"),
 		DOGE("DOGE"),
 		BNB("BNB"),
-		USD("USD"),
 		EUR("EUR");
 
 		public static InitialDepositCurrencyEnum fromValue(String text) {
@@ -343,18 +343,18 @@ public class AttachToExternalSignalProviderCommon implements Parcelable
 	@JsonAdapter(FixedCurrencyEnum.Adapter.class)
 	public enum FixedCurrencyEnum
 	{
-		UNDEFINED("Undefined"),
-		GVT("GVT"),
-		ETH("ETH"),
+		USD("USD"),
 		BTC("BTC"),
-		ADA("ADA"),
+		ETH("ETH"),
 		USDT("USDT"),
+		GVT("GVT"),
+		UNDEFINED("Undefined"),
+		ADA("ADA"),
 		XRP("XRP"),
 		BCH("BCH"),
 		LTC("LTC"),
 		DOGE("DOGE"),
 		BNB("BNB"),
-		USD("USD"),
 		EUR("EUR");
 
 		public static FixedCurrencyEnum fromValue(String text) {

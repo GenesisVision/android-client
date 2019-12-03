@@ -30,7 +30,10 @@ public enum FacetSortType
 	WEEKLYTOP("WeeklyTop"),
 	POPULAR("Popular"),
 	TOLEVELUP("ToLevelUp"),
-	MOSTRELIABLE("MostReliable");
+	MOSTRELIABLE("MostReliable"),
+	TRADING("Trading"),
+	INVESTING("Investing"),
+	AUM("AUM");
 
 	public static FacetSortType fromValue(String text) {
 		for (FacetSortType b : FacetSortType.values()) {

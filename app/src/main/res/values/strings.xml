@@ -744,6 +744,9 @@
     <string name="error_stop_out_max">A new stop out level cannot be greater than the original value</string>
     <string name="error_stop_out_min">A stop out level cannot be less than %s</string>
     <string name="template_create_program_deposit">The minimal program deposit is %s. You must deposit additional %s (or the equivalent) to your trading account to satisfy this condition.</string>
+    <string name="create_follow">Create Follow</string>
+    <string name="template_create_follow_volume_fee_description">A fee charged upon the total trade volume made by your subscribers. It should be set in a range of %s-%s%%</string>
+    <string name="template_create_follow_success_fee_description">A fee charged upon the total profit made by your subscribers. It should be set in a range of %s-%s%%</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

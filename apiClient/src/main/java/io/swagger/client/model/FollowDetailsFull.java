@@ -82,6 +82,9 @@ public class FollowDetailsFull implements Parcelable
 	@SerializedName("color")
 	private String color = null;
 
+	@SerializedName("leverage")
+	private Integer leverage = null;
+
 	@SerializedName("signalSettings")
 	private AssetSignalSettings signalSettings = null;
 
@@ -112,6 +115,7 @@ public class FollowDetailsFull implements Parcelable
 		status = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 		color = (String) in.readValue(null);
+		leverage = (Integer) in.readValue(null);
 		signalSettings = (AssetSignalSettings) in.readValue(AssetSignalSettings.class.getClassLoader());
 		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
 		owner = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
@@ -328,6 +332,25 @@ public class FollowDetailsFull implements Parcelable
 		this.color = color;
 	}
 
+	public FollowDetailsFull leverage(Integer leverage) {
+		this.leverage = leverage;
+		return this;
+	}
+
+	/**
+	 * Get leverage
+	 *
+	 * @return leverage
+	 **/
+	@Schema(description = "")
+	public Integer getLeverage() {
+		return leverage;
+	}
+
+	public void setLeverage(Integer leverage) {
+		this.leverage = leverage;
+	}
+
 	public FollowDetailsFull signalSettings(AssetSignalSettings signalSettings) {
 		this.signalSettings = signalSettings;
 		return this;
@@ -451,6 +474,7 @@ public class FollowDetailsFull implements Parcelable
 				Objects.equals(this.status, followDetailsFull.status) &&
 				Objects.equals(this.url, followDetailsFull.url) &&
 				Objects.equals(this.color, followDetailsFull.color) &&
+				Objects.equals(this.leverage, followDetailsFull.leverage) &&
 				Objects.equals(this.signalSettings, followDetailsFull.signalSettings) &&
 				Objects.equals(this.brokerDetails, followDetailsFull.brokerDetails) &&
 				Objects.equals(this.owner, followDetailsFull.owner) &&
@@ -460,7 +484,7 @@ public class FollowDetailsFull implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, logo, creationDate, currency, subscribersCount, tradesCount, status, url, color, signalSettings, brokerDetails, owner, personalDetails, tags);
+		return Objects.hash(id, title, description, logo, creationDate, currency, subscribersCount, tradesCount, status, url, color, leverage, signalSettings, brokerDetails, owner, personalDetails, tags);
 	}
 
 	@Override
@@ -479,6 +503,7 @@ public class FollowDetailsFull implements Parcelable
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
+		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
 		sb.append("    signalSettings: ").append(toIndentedString(signalSettings)).append("\n");
 		sb.append("    brokerDetails: ").append(toIndentedString(brokerDetails)).append("\n");
 		sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
@@ -511,6 +536,7 @@ public class FollowDetailsFull implements Parcelable
 		out.writeValue(status);
 		out.writeValue(url);
 		out.writeValue(color);
+		out.writeValue(leverage);
 		out.writeValue(signalSettings);
 		out.writeValue(brokerDetails);
 		out.writeValue(owner);
@@ -528,18 +554,18 @@ public class FollowDetailsFull implements Parcelable
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		UNDEFINED("Undefined"),
-		GVT("GVT"),
-		ETH("ETH"),
+		USD("USD"),
 		BTC("BTC"),
-		ADA("ADA"),
+		ETH("ETH"),
 		USDT("USDT"),
+		GVT("GVT"),
+		UNDEFINED("Undefined"),
+		ADA("ADA"),
 		XRP("XRP"),
 		BCH("BCH"),
 		LTC("LTC"),
 		DOGE("DOGE"),
 		BNB("BNB"),
-		USD("USD"),
 		EUR("EUR");
 
 		public static CurrencyEnum fromValue(String text) {

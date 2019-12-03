@@ -28,6 +28,7 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
+import vision.genesis.clientapp.feature.main.follow.create.CreateFollowActivity;
 import vision.genesis.clientapp.feature.main.program.create.CreateProgramActivity;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountPagerAdapter;
 import vision.genesis.clientapp.model.CreateProgramModel;
@@ -244,6 +245,13 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 	public void showCreateProgram(CreateProgramModel createProgramModel) {
 		if (getActivity() != null) {
 			CreateProgramActivity.startFrom(getActivity(), createProgramModel);
+		}
+	}
+
+	@Override
+	public void showCreateFollow(CreateProgramModel createProgramModel) {
+		if (getActivity() != null) {
+			CreateFollowActivity.startFrom(getActivity(), createProgramModel);
 		}
 	}
 

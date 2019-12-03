@@ -41,6 +41,7 @@ import vision.genesis.clientapp.feature.main.dashboard.trading.DashboardTradingV
 import vision.genesis.clientapp.feature.main.dashboard.trading.details.TradingDetailsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.wallet.DashboardWalletView;
 import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
+import vision.genesis.clientapp.feature.main.follow.create.CreateFollowPresenter;
 import vision.genesis.clientapp.feature.main.follow.create.settings.FollowSettingsPresenter;
 import vision.genesis.clientapp.feature.main.follows_list.FollowsListPresenter;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsPresenter;
@@ -354,6 +355,8 @@ public interface AppComponent
 	void inject(ProgramSettingsPresenter programSettingsPresenter);
 
 	void inject(CreateProgramDepositPresenter createProgramDepositPresenter);
+
+	void inject(CreateFollowPresenter createFollowPresenter);
 
 	void inject(FollowSettingsPresenter followSettingsPresenter);
 }

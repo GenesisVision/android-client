@@ -74,8 +74,14 @@ public class UserDetailsList implements Parcelable
 	@SerializedName("followersCount")
 	private Integer followersCount = null;
 
-	@SerializedName("profit")
-	private Double profit = null;
+	@SerializedName("totalProfit")
+	private Double totalProfit = null;
+
+	@SerializedName("tradingProfit")
+	private Double tradingProfit = null;
+
+	@SerializedName("investingProfit")
+	private Double investingProfit = null;
 
 	public UserDetailsList() {
 	}
@@ -91,7 +97,9 @@ public class UserDetailsList implements Parcelable
 		assetsUnderManagement = (Double) in.readValue(null);
 		investorsCount = (Integer) in.readValue(null);
 		followersCount = (Integer) in.readValue(null);
-		profit = (Double) in.readValue(null);
+		totalProfit = (Double) in.readValue(null);
+		tradingProfit = (Double) in.readValue(null);
+		investingProfit = (Double) in.readValue(null);
 	}
 
 	public UserDetailsList userId(UUID userId) {
@@ -300,23 +308,61 @@ public class UserDetailsList implements Parcelable
 		this.followersCount = followersCount;
 	}
 
-	public UserDetailsList profit(Double profit) {
-		this.profit = profit;
+	public UserDetailsList totalProfit(Double totalProfit) {
+		this.totalProfit = totalProfit;
 		return this;
 	}
 
 	/**
-	 * Get profit
+	 * Get totalProfit
 	 *
-	 * @return profit
+	 * @return totalProfit
 	 **/
 	@Schema(description = "")
-	public Double getProfit() {
-		return profit;
+	public Double getTotalProfit() {
+		return totalProfit;
 	}
 
-	public void setProfit(Double profit) {
-		this.profit = profit;
+	public void setTotalProfit(Double totalProfit) {
+		this.totalProfit = totalProfit;
+	}
+
+	public UserDetailsList tradingProfit(Double tradingProfit) {
+		this.tradingProfit = tradingProfit;
+		return this;
+	}
+
+	/**
+	 * Get tradingProfit
+	 *
+	 * @return tradingProfit
+	 **/
+	@Schema(description = "")
+	public Double getTradingProfit() {
+		return tradingProfit;
+	}
+
+	public void setTradingProfit(Double tradingProfit) {
+		this.tradingProfit = tradingProfit;
+	}
+
+	public UserDetailsList investingProfit(Double investingProfit) {
+		this.investingProfit = investingProfit;
+		return this;
+	}
+
+	/**
+	 * Get investingProfit
+	 *
+	 * @return investingProfit
+	 **/
+	@Schema(description = "")
+	public Double getInvestingProfit() {
+		return investingProfit;
+	}
+
+	public void setInvestingProfit(Double investingProfit) {
+		this.investingProfit = investingProfit;
 	}
 
 	@Override
@@ -338,12 +384,14 @@ public class UserDetailsList implements Parcelable
 				Objects.equals(this.assetsUnderManagement, userDetailsList.assetsUnderManagement) &&
 				Objects.equals(this.investorsCount, userDetailsList.investorsCount) &&
 				Objects.equals(this.followersCount, userDetailsList.followersCount) &&
-				Objects.equals(this.profit, userDetailsList.profit);
+				Objects.equals(this.totalProfit, userDetailsList.totalProfit) &&
+				Objects.equals(this.tradingProfit, userDetailsList.tradingProfit) &&
+				Objects.equals(this.investingProfit, userDetailsList.investingProfit);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userId, username, avatar, url, socialLinks, tags, regDate, assetsUnderManagement, investorsCount, followersCount, profit);
+		return Objects.hash(userId, username, avatar, url, socialLinks, tags, regDate, assetsUnderManagement, investorsCount, followersCount, totalProfit, tradingProfit, investingProfit);
 	}
 
 	@Override
@@ -361,7 +409,9 @@ public class UserDetailsList implements Parcelable
 		sb.append("    assetsUnderManagement: ").append(toIndentedString(assetsUnderManagement)).append("\n");
 		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
 		sb.append("    followersCount: ").append(toIndentedString(followersCount)).append("\n");
-		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
+		sb.append("    totalProfit: ").append(toIndentedString(totalProfit)).append("\n");
+		sb.append("    tradingProfit: ").append(toIndentedString(tradingProfit)).append("\n");
+		sb.append("    investingProfit: ").append(toIndentedString(investingProfit)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -388,7 +438,9 @@ public class UserDetailsList implements Parcelable
 		out.writeValue(assetsUnderManagement);
 		out.writeValue(investorsCount);
 		out.writeValue(followersCount);
-		out.writeValue(profit);
+		out.writeValue(totalProfit);
+		out.writeValue(tradingProfit);
+		out.writeValue(investingProfit);
 	}
 
 	public int describeContents() {

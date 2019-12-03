@@ -8,7 +8,6 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AssetInvestmentStatus;
-import io.swagger.client.model.AttachToSignalProviderInfo;
 import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.ProgramDetailsFull;
 import rx.Subscription;
@@ -20,6 +19,7 @@ import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.User;
+import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
  * GenesisVisionAndroid
@@ -42,17 +42,15 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 
 	private Subscription programDetailsSubscription;
 
-	private Subscription reinvestSubscription;
+	private Subscription followDetailsSubscription;
 
-	private UUID programId;
+	private UUID assetId;
 
 	private Boolean userLoggedOn;
 
 	private ProgramDetailsFull programDetails;
 
 	private FollowDetailsFull followDetails;
-
-	private AttachToSignalProviderInfo signalsInfo;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -62,7 +60,7 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 
 		subscribeToUser();
 		getViewState().showProgress(true);
-		getProgramDetails();
+		getDetails();
 	}
 
 	@Override
@@ -75,21 +73,21 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 			programDetailsSubscription.unsubscribe();
 		}
 
-		if (reinvestSubscription != null) {
-			reinvestSubscription.unsubscribe();
+		if (followDetailsSubscription != null) {
+			followDetailsSubscription.unsubscribe();
 		}
 
 		super.onDestroy();
 	}
 
 	void setDetails(ProgramDetailsFull programDetails, FollowDetailsFull followDetails) {
-		this.programId = programDetails != null ? programDetails.getId() : followDetails.getId();
+		this.assetId = programDetails != null ? programDetails.getId() : followDetails.getId();
 		this.programDetails = programDetails;
 		this.followDetails = followDetails;
 	}
 
 	void onShow() {
-		getProgramDetails();
+		getDetails();
 	}
 
 	void onEditPublicInfoClicked() {
@@ -168,41 +166,77 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 
 	}
 
-	void onCreateFollowClicked() {
-	}
-
 	void onCreateProgramClicked() {
 	}
 
-	private void getProgramDetails() {
-		if (programId != null && programsManager != null) {
-			if (programDetailsSubscription != null) {
-				programDetailsSubscription.unsubscribe();
-			}
-			programDetailsSubscription = programsManager.getProgramDetails(programId)
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleInvestmentProgramDetailsSuccess,
-							this::handleInvestmentProgramDetailsError);
+	void onCreateFollowClicked() {
+	}
+
+	private void getDetails() {
+		if (programDetails != null) {
+			getProgramDetails();
+		}
+		if (followDetails != null) {
+			getFollowDetails();
 		}
 	}
 
-	private void handleInvestmentProgramDetailsSuccess(ProgramDetailsFull programDetails) {
+	private void getProgramDetails() {
+		if (assetId != null && programsManager != null) {
+			if (programDetailsSubscription != null) {
+				programDetailsSubscription.unsubscribe();
+			}
+			programDetailsSubscription = programsManager.getProgramDetails(assetId)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleProgramDetailsSuccess,
+							this::handleProgramDetailsError);
+		}
+	}
+
+	private void handleProgramDetailsSuccess(ProgramDetailsFull programDetails) {
 		programDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
 		this.programDetails = programDetails;
 
 		getViewState().setProgramDetails(programDetails);
-
-//		if (programDetails.isIsSignalProgram()) {
-//			getSignalsInfo();
-//		}
 	}
 
-	private void handleInvestmentProgramDetailsError(Throwable throwable) {
+	private void handleProgramDetailsError(Throwable throwable) {
 		programDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void getFollowDetails() {
+		if (assetId != null && followsManager != null) {
+			if (followDetailsSubscription != null) {
+				followDetailsSubscription.unsubscribe();
+			}
+			followDetailsSubscription = followsManager.getFollowDetails(assetId.toString())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleFollowDetailsSuccess,
+							this::handleFollowDetailsError);
+		}
+	}
+
+	private void handleFollowDetailsSuccess(FollowDetailsFull followDetails) {
+		followDetailsSubscription.unsubscribe();
+		getViewState().showProgress(false);
+
+		this.followDetails = followDetails;
+
+		getViewState().setFollowDetails(followDetails);
+	}
+
+	private void handleFollowDetailsError(Throwable throwable) {
+		followDetailsSubscription.unsubscribe();
+		getViewState().showProgress(false);
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
 
 	private void subscribeToUser() {
