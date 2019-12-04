@@ -54,6 +54,9 @@ public class PlatformInfo implements Parcelable
 	@SerializedName("commonInfo")
 	private PlatformCommonInfo commonInfo = null;
 
+	@SerializedName("enums")
+	private Enums enums = null;
+
 	public PlatformInfo() {
 	}
 
@@ -63,6 +66,7 @@ public class PlatformInfo implements Parcelable
 		assetInfo = (AssetPlatformInfo) in.readValue(AssetPlatformInfo.class.getClassLoader());
 		usersInfo = (UsersPlatformInfo) in.readValue(UsersPlatformInfo.class.getClassLoader());
 		commonInfo = (PlatformCommonInfo) in.readValue(PlatformCommonInfo.class.getClassLoader());
+		enums = (Enums) in.readValue(Enums.class.getClassLoader());
 	}
 
 	public PlatformInfo appVersionInfo(AppVersion appVersionInfo) {
@@ -160,6 +164,25 @@ public class PlatformInfo implements Parcelable
 		this.commonInfo = commonInfo;
 	}
 
+	public PlatformInfo enums(Enums enums) {
+		this.enums = enums;
+		return this;
+	}
+
+	/**
+	 * Get enums
+	 *
+	 * @return enums
+	 **/
+	@Schema(description = "")
+	public Enums getEnums() {
+		return enums;
+	}
+
+	public void setEnums(Enums enums) {
+		this.enums = enums;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -173,12 +196,13 @@ public class PlatformInfo implements Parcelable
 				Objects.equals(this.filters, platformInfo.filters) &&
 				Objects.equals(this.assetInfo, platformInfo.assetInfo) &&
 				Objects.equals(this.usersInfo, platformInfo.usersInfo) &&
-				Objects.equals(this.commonInfo, platformInfo.commonInfo);
+				Objects.equals(this.commonInfo, platformInfo.commonInfo) &&
+				Objects.equals(this.enums, platformInfo.enums);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(appVersionInfo, filters, assetInfo, usersInfo, commonInfo);
+		return Objects.hash(appVersionInfo, filters, assetInfo, usersInfo, commonInfo, enums);
 	}
 
 	@Override
@@ -191,6 +215,7 @@ public class PlatformInfo implements Parcelable
 		sb.append("    assetInfo: ").append(toIndentedString(assetInfo)).append("\n");
 		sb.append("    usersInfo: ").append(toIndentedString(usersInfo)).append("\n");
 		sb.append("    commonInfo: ").append(toIndentedString(commonInfo)).append("\n");
+		sb.append("    enums: ").append(toIndentedString(enums)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -212,6 +237,7 @@ public class PlatformInfo implements Parcelable
 		out.writeValue(assetInfo);
 		out.writeValue(usersInfo);
 		out.writeValue(commonInfo);
+		out.writeValue(enums);
 	}
 
 	public int describeContents() {

@@ -1,6 +1,8 @@
 package vision.genesis.clientapp.managers;
 
 
+import java.util.UUID;
+
 import io.swagger.client.api.AssetsApi;
 import io.swagger.client.model.CreateSignalProvider;
 import io.swagger.client.model.MakeSignalProviderProgram;
@@ -8,6 +10,7 @@ import io.swagger.client.model.MakeTradingAccountProgram;
 import io.swagger.client.model.MakeTradingAccountSignalProvider;
 import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.NewTradingAccountRequest;
+import io.swagger.client.model.ProgramUpdate;
 import io.swagger.client.model.TradingAccountCreateResult;
 import rx.Observable;
 
@@ -46,5 +49,9 @@ public class AssetsManager
 
 	public Observable<Void> updateSignalProviderSettings(CreateSignalProvider request) {
 		return assetsApi.updateSignalProviderSettings(AuthManager.token.getValue(), request);
+	}
+
+	public Observable<Void> updatePublicInfo(UUID assetId, ProgramUpdate request) {
+		return assetsApi.updateAsset(AuthManager.token.getValue(), assetId, request);
 	}
 }

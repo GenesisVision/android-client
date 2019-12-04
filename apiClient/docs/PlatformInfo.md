@@ -8,3 +8,4 @@ Name | Type | Description | Notes
 **assetInfo** | [**AssetPlatformInfo**](AssetPlatformInfo.md) |  |  [optional]
 **usersInfo** | [**UsersPlatformInfo**](UsersPlatformInfo.md) |  |  [optional]
 **commonInfo** | [**PlatformCommonInfo**](PlatformCommonInfo.md) |  |  [optional]
+**enums** | [**Enums**](Enums.md) |  |  [optional]

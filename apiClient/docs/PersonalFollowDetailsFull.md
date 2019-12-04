@@ -10,3 +10,5 @@ Name | Type | Description | Notes
 **ownerActions** | [**FollowOwnerActions**](FollowOwnerActions.md) |  |  [optional]
 **guestActions** | [**AssetGuestActions**](AssetGuestActions.md) |  |  [optional]
 **hasNotifications** | **Boolean** |  |  [optional]
+**balance** | **Double** |  |  [optional]
+**leverage** | **Integer** |  |  [optional]

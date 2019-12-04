@@ -101,7 +101,7 @@ public class CreateFollowPresenter extends MvpPresenter<CreateFollowView>
 
 			apiRequest = assetsManager.createFollowFromTradingAccount(accountRequest);
 		}
-		else if (model.getAssetType().equals(AssetType.FOLLOW)) {
+		else if (model.getAssetType().equals(AssetType.FOLLOW) || model.getAssetType().equals(AssetType.PROGRAM)) {
 			CreateSignalProvider programRequest = new CreateSignalProvider();
 
 			programRequest.setAssetId(model.getAssetId());

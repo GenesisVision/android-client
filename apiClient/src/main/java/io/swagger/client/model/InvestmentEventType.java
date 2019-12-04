@@ -32,9 +32,6 @@ public enum InvestmentEventType
 	ASSETPERIODENDEDDUETOSTOPOUT("AssetPeriodEndedDueToStopOut"),
 	ASSETBROKERCHANGED("AssetBrokerChanged"),
 	ASSETENTERINVESTMENT("AssetEnterInvestment"),
-	ASSETTRADEOPEN("AssetTradeOpen"),
-	ASSETTRADECLOSED("AssetTradeClosed"),
-	ASSETSUBSCRIPTIONEDIT("AssetSubscriptionEdit"),
 	ASSETINVESTBYINVESTOR("AssetInvestByInvestor"),
 	ASSETWITHDRAWALBYINVESTOR("AssetWithdrawalByInvestor"),
 	ASSETREALLOCATION("AssetReallocation"),
@@ -43,7 +40,10 @@ public enum InvestmentEventType
 	ASSETINVESTBYMANAGER("AssetInvestByManager"),
 	ASSETWITHDRAWALBYMANAGER("AssetWithdrawalByManager"),
 	ASSETSUBSCRIBEBYINVESTOR("AssetSubscribeByInvestor"),
-	ASSETUNSUBSCRIBEBYINVESTOR("AssetUnsubscribeByInvestor");
+	ASSETUNSUBSCRIBEBYINVESTOR("AssetUnsubscribeByInvestor"),
+	ASSETTRADEOPEN("AssetTradeOpen"),
+	ASSETTRADECLOSED("AssetTradeClosed"),
+	ASSETSUBSCRIPTIONEDIT("AssetSubscriptionEdit");
 
 	public static InvestmentEventType fromValue(String text) {
 		for (InvestmentEventType b : InvestmentEventType.values()) {

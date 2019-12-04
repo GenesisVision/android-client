@@ -5,8 +5,12 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import java.util.UUID;
+
 import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.ProgramUpdate;
+import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 
 /**
@@ -39,4 +43,10 @@ interface OwnerInfoView extends MvpView
 	void showSnackbarMessage(String message);
 
 	void showLoginActivity();
+
+	void showCreateProgram(CreateProgramModel createProgramModel);
+
+	void showCreateFollow(CreateProgramModel createProgramModel);
+
+	void showEditPublicInfoActivity(UUID assetId, ProgramUpdate model);
 }

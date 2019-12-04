@@ -18,6 +18,7 @@ import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
 import vision.genesis.clientapp.feature.common.image_crop.ImageCropActivity;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.common.public_info.PublicInfoPresenter;
+import vision.genesis.clientapp.feature.common.public_info.edit.EditPublicInfoPresenter;
 import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.MainPresenter;
 import vision.genesis.clientapp.feature.main.about_levels.AboutLevelsPresenter;
@@ -359,4 +360,6 @@ public interface AppComponent
 	void inject(CreateFollowPresenter createFollowPresenter);
 
 	void inject(FollowSettingsPresenter followSettingsPresenter);
+
+	void inject(EditPublicInfoPresenter editPublicInfoPresenter);
 }

@@ -190,4 +190,10 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 			programEventsFragment.onOffsetChanged(verticalOffset);
 		}
 	}
+
+	public void updateOwnerInfo(ProgramDetailsFull programDetails, FollowDetailsFull followDetails) {
+		if (ownerInfoFragment != null) {
+			ownerInfoFragment.updateInfo(programDetails, followDetails);
+		}
+	}
 }

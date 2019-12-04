@@ -8,8 +8,10 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AssetInvestmentStatus;
+import io.swagger.client.model.AssetType;
 import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.ProgramUpdate;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -17,6 +19,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
+import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -91,7 +94,18 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 	}
 
 	void onEditPublicInfoClicked() {
-
+		ProgramUpdate model = new ProgramUpdate();
+		model.setTitle(programDetails != null ? programDetails.getTitle() : followDetails.getTitle());
+		model.setDescription(programDetails != null ? programDetails.getDescription() : followDetails.getDescription());
+		model.setLogo(programDetails != null ? programDetails.getLogo() : followDetails.getLogo());
+		if (programDetails != null) {
+			model.setEntryFee(programDetails.getEntryFeeCurrent());
+			model.setSuccessFee(programDetails.getSuccessFeeCurrent());
+			model.setInvestmentLimit(programDetails.getAvailableInvestmentLimit());
+			model.setStopOutLevel(programDetails.getStopOutLevelCurrent());
+			model.setTradesDelay(ProgramUpdate.TradesDelayEnum.fromValue(programDetails.getTradesDelay().getValue()));
+		}
+		getViewState().showEditPublicInfoActivity(assetId, model);
 	}
 
 	void onManageAccountClicked() {
@@ -167,9 +181,24 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 	}
 
 	void onCreateProgramClicked() {
+		if (followDetails != null) {
+			getViewState().showCreateProgram(new CreateProgramModel(assetId,
+					AssetType.FOLLOW,
+					followDetails.getBrokerDetails().getType(),
+//			followDetails.getBalance(),
+					0.0,
+					followDetails.getCurrency().getValue()));
+		}
 	}
 
 	void onCreateFollowClicked() {
+		if (programDetails != null) {
+			getViewState().showCreateFollow(new CreateProgramModel(assetId,
+					AssetType.PROGRAM,
+					programDetails.getBrokerDetails().getType(),
+					programDetails.getPersonalDetails().getInvested(),
+					programDetails.getCurrency().getValue()));
+		}
 	}
 
 	private void getDetails() {

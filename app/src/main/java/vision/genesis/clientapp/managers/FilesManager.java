@@ -24,4 +24,8 @@ public class FilesManager
 	public Observable<UploadResult> uploadFile(File file) {
 		return fileApi.uploadFile(RequestBody.create(MediaType.parse("multipart/form-data"), file), AuthManager.token.getValue());
 	}
+
+	public Observable<UploadResult> uploadImage(File file) {
+		return fileApi.uploadFile(RequestBody.create(MediaType.parse("image/jpeg"), file), AuthManager.token.getValue());
+	}
 }

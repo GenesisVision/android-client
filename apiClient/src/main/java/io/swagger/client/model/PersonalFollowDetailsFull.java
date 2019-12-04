@@ -60,6 +60,12 @@ public class PersonalFollowDetailsFull implements Parcelable
 	@SerializedName("hasNotifications")
 	private Boolean hasNotifications = null;
 
+	@SerializedName("balance")
+	private Double balance = null;
+
+	@SerializedName("leverage")
+	private Integer leverage = null;
+
 	public PersonalFollowDetailsFull() {
 	}
 
@@ -71,6 +77,8 @@ public class PersonalFollowDetailsFull implements Parcelable
 		ownerActions = (FollowOwnerActions) in.readValue(FollowOwnerActions.class.getClassLoader());
 		guestActions = (AssetGuestActions) in.readValue(AssetGuestActions.class.getClassLoader());
 		hasNotifications = (Boolean) in.readValue(null);
+		balance = (Double) in.readValue(null);
+		leverage = (Integer) in.readValue(null);
 	}
 
 	public PersonalFollowDetailsFull isOwnAsset(Boolean isOwnAsset) {
@@ -206,6 +214,44 @@ public class PersonalFollowDetailsFull implements Parcelable
 		this.hasNotifications = hasNotifications;
 	}
 
+	public PersonalFollowDetailsFull balance(Double balance) {
+		this.balance = balance;
+		return this;
+	}
+
+	/**
+	 * Get balance
+	 *
+	 * @return balance
+	 **/
+	@Schema(description = "")
+	public Double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Double balance) {
+		this.balance = balance;
+	}
+
+	public PersonalFollowDetailsFull leverage(Integer leverage) {
+		this.leverage = leverage;
+		return this;
+	}
+
+	/**
+	 * Get leverage
+	 *
+	 * @return leverage
+	 **/
+	@Schema(description = "")
+	public Integer getLeverage() {
+		return leverage;
+	}
+
+	public void setLeverage(Integer leverage) {
+		this.leverage = leverage;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -221,12 +267,14 @@ public class PersonalFollowDetailsFull implements Parcelable
 				Objects.equals(this.signalSubscription, personalFollowDetailsFull.signalSubscription) &&
 				Objects.equals(this.ownerActions, personalFollowDetailsFull.ownerActions) &&
 				Objects.equals(this.guestActions, personalFollowDetailsFull.guestActions) &&
-				Objects.equals(this.hasNotifications, personalFollowDetailsFull.hasNotifications);
+				Objects.equals(this.hasNotifications, personalFollowDetailsFull.hasNotifications) &&
+				Objects.equals(this.balance, personalFollowDetailsFull.balance) &&
+				Objects.equals(this.leverage, personalFollowDetailsFull.leverage);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isOwnAsset, isFavorite, isProgram, signalSubscription, ownerActions, guestActions, hasNotifications);
+		return Objects.hash(isOwnAsset, isFavorite, isProgram, signalSubscription, ownerActions, guestActions, hasNotifications, balance, leverage);
 	}
 
 	@Override
@@ -241,6 +289,8 @@ public class PersonalFollowDetailsFull implements Parcelable
 		sb.append("    ownerActions: ").append(toIndentedString(ownerActions)).append("\n");
 		sb.append("    guestActions: ").append(toIndentedString(guestActions)).append("\n");
 		sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
+		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -264,6 +314,8 @@ public class PersonalFollowDetailsFull implements Parcelable
 		out.writeValue(ownerActions);
 		out.writeValue(guestActions);
 		out.writeValue(hasNotifications);
+		out.writeValue(balance);
+		out.writeValue(leverage);
 	}
 
 	public int describeContents() {

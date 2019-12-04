@@ -83,6 +83,7 @@ public class PublicInfoPresenter extends MvpPresenter<PublicInfoView>
 			getViewState().setDescription(model.getDescription());
 		}
 		if (model.getLogo() != null) {
+			getViewState().showLogoProgress(false);
 			getViewState().updateLogo(model.getLogo());
 		}
 	}
@@ -150,7 +151,7 @@ public class PublicInfoPresenter extends MvpPresenter<PublicInfoView>
 
 	private void uploadLogo() {
 		getViewState().showLogoProgress(true);
-		logoUploadSubscription = filesManager.uploadFile(newLogoFile)
+		logoUploadSubscription = filesManager.uploadImage(newLogoFile)
 				.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(this::handleUploadAvatarResponse,

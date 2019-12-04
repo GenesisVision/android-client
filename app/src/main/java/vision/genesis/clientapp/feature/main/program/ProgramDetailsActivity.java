@@ -453,7 +453,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	private void initViewPager(ProgramDetailsFull programDetails, FollowDetailsFull followDetails) {
 		pagerAdapter = new ProgramDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, programDetails, followDetails);
 		viewPager.setAdapter(pagerAdapter);
-		viewPager.setOffscreenPageLimit(3);
+		viewPager.setOffscreenPageLimit(10);
 
 		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
 		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
@@ -501,26 +501,29 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		this.programDetails = programDetails;
 		this.followDetails = followDetails;
 
-		if (pagerAdapter == null) {
-			addPage(ownerInfoTab, true);
-			addPage(profitTab, false);
-			addPage(equityTab, false);
-			addPage(openPositionsTab, false);
-			addPage(tradesTab, false);
-			if (programDetails != null) {
-				addPage(periodHistoryTab, false);
-			}
+//		if (pagerAdapter == null) {
+		addPage(ownerInfoTab, true);
+		addPage(profitTab, false);
+		addPage(equityTab, false);
+		addPage(openPositionsTab, false);
+		addPage(tradesTab, false);
+		if (programDetails != null) {
+			addPage(periodHistoryTab, false);
 		}
+//		}
 
 		finishInit();
 	}
 
 	private void finishInit() {
+		if (programDetails != null && programDetails.getPersonalDetails() != null && programDetails.getPersonalDetails().isIsInvested()) {
+			addPage(eventsTab, false);
+		}
 		if (pagerAdapter == null) {
-			if (programDetails != null && programDetails.getPersonalDetails() != null && programDetails.getPersonalDetails().isIsInvested()) {
-				addPage(eventsTab, false);
-			}
 			initViewPager(programDetails, followDetails);
+		}
+		else {
+			pagerAdapter.updateOwnerInfo(programDetails, followDetails);
 		}
 
 		if (programDetails != null) {

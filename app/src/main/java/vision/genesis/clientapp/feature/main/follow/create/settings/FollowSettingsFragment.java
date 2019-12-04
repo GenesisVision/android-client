@@ -60,6 +60,9 @@ public class FollowSettingsFragment extends BaseFragment implements FollowSettin
 	@BindView(R.id.volume_fee_description)
 	public TextView volumeFeeDescription;
 
+	@BindView(R.id.label_success_fee)
+	public TextView successFeeLabel;
+
 	@BindView(R.id.success_fee)
 	public EditText successFee;
 
@@ -131,6 +134,8 @@ public class FollowSettingsFragment extends BaseFragment implements FollowSettin
 		stepGroup.setVisibility(model.isNeedStep() ? View.VISIBLE : View.GONE);
 		stepNumber.setText(model.getStepNumber());
 		stepTitle.setText(model.getStepTitle());
+
+		successFeeLabel.setText(StringFormatUtil.capitalize(successFeeLabel.getText().toString()));
 
 		confirmButton.setEnabled(false);
 	}

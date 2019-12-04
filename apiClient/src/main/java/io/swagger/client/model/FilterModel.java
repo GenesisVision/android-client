@@ -22,80 +22,57 @@ import java.util.Objects;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
- * AmountRowCell
+ * FilterModel
  */
 
 
-public class AmountRowCell implements Parcelable
+public class FilterModel implements Parcelable
 {
-	public static final Parcelable.Creator<AmountRowCell> CREATOR = new Parcelable.Creator<AmountRowCell>()
+	public static final Parcelable.Creator<FilterModel> CREATOR = new Parcelable.Creator<FilterModel>()
 	{
-		public AmountRowCell createFromParcel(Parcel in) {
-			return new AmountRowCell(in);
+		public FilterModel createFromParcel(Parcel in) {
+			return new FilterModel(in);
 		}
 
-		public AmountRowCell[] newArray(int size) {
-			return new AmountRowCell[size];
+		public FilterModel[] newArray(int size) {
+			return new FilterModel[size];
 		}
 	};
 
-	@SerializedName("first")
-	private AmountItem first = null;
-
-	@SerializedName("second")
-	private AmountItem second = null;
+	@SerializedName("key")
+	private String key = null;
 
 	@SerializedName("title")
 	private String title = null;
 
-	public AmountRowCell() {
+	public FilterModel() {
 	}
 
-	AmountRowCell(Parcel in) {
-		first = (AmountItem) in.readValue(AmountItem.class.getClassLoader());
-		second = (AmountItem) in.readValue(AmountItem.class.getClassLoader());
+	FilterModel(Parcel in) {
+		key = (String) in.readValue(null);
 		title = (String) in.readValue(null);
 	}
 
-	public AmountRowCell first(AmountItem first) {
-		this.first = first;
+	public FilterModel key(String key) {
+		this.key = key;
 		return this;
 	}
 
 	/**
-	 * Get first
+	 * Get key
 	 *
-	 * @return first
+	 * @return key
 	 **/
 	@Schema(description = "")
-	public AmountItem getFirst() {
-		return first;
+	public String getKey() {
+		return key;
 	}
 
-	public void setFirst(AmountItem first) {
-		this.first = first;
+	public void setKey(String key) {
+		this.key = key;
 	}
 
-	public AmountRowCell second(AmountItem second) {
-		this.second = second;
-		return this;
-	}
-
-	/**
-	 * Get second
-	 *
-	 * @return second
-	 **/
-	@Schema(description = "")
-	public AmountItem getSecond() {
-		return second;
-	}
-
-	public void setSecond(AmountItem second) {
-		this.second = second;
-	}
-
-	public AmountRowCell title(String title) {
+	public FilterModel title(String title) {
 		this.title = title;
 		return this;
 	}
@@ -122,24 +99,22 @@ public class AmountRowCell implements Parcelable
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		AmountRowCell amountRowCell = (AmountRowCell) o;
-		return Objects.equals(this.first, amountRowCell.first) &&
-				Objects.equals(this.second, amountRowCell.second) &&
-				Objects.equals(this.title, amountRowCell.title);
+		FilterModel filterModel = (FilterModel) o;
+		return Objects.equals(this.key, filterModel.key) &&
+				Objects.equals(this.title, filterModel.title);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(first, second, title);
+		return Objects.hash(key, title);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class AmountRowCell {\n");
+		sb.append("class FilterModel {\n");
 
-		sb.append("    first: ").append(toIndentedString(first)).append("\n");
-		sb.append("    second: ").append(toIndentedString(second)).append("\n");
+		sb.append("    key: ").append(toIndentedString(key)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -157,8 +132,7 @@ public class AmountRowCell implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(first);
-		out.writeValue(second);
+		out.writeValue(key);
 		out.writeValue(title);
 	}
 

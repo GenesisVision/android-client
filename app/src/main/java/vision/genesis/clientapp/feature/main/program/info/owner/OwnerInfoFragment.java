@@ -31,15 +31,20 @@ import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.PersonalFollowDetailsFull;
 import io.swagger.client.model.PersonalProgramDetails;
 import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.ProgramUpdate;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
+import vision.genesis.clientapp.feature.common.public_info.edit.EditPublicInfoActivity;
 import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.follow.create.CreateFollowActivity;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
+import vision.genesis.clientapp.feature.main.program.create.CreateProgramActivity;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
+import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.AccountAgeView;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
@@ -323,9 +328,7 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 			programDetails = getArguments().getParcelable(EXTRA_PROGRAM_DETAILS);
 			followDetails = getArguments().getParcelable(EXTRA_FOLLOW_DETAILS);
 			if (programDetails != null || followDetails != null) {
-				presenter.setDetails(programDetails, followDetails);
-				setProgramDetails(programDetails);
-				setFollowDetails(followDetails);
+				updateAll();
 
 				setFonts();
 
@@ -336,6 +339,12 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		}
 		Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
 		onBackPressed();
+	}
+
+	private void updateAll() {
+		presenter.setDetails(programDetails, followDetails);
+		setProgramDetails(programDetails);
+		setFollowDetails(followDetails);
 	}
 
 	@Override
@@ -579,5 +588,32 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		if (getActivity() != null) {
 			LoginActivity.startFrom(getActivity());
 		}
+	}
+
+	@Override
+	public void showCreateProgram(CreateProgramModel createProgramModel) {
+		if (getActivity() != null) {
+			CreateProgramActivity.startFrom(getActivity(), createProgramModel);
+		}
+	}
+
+	@Override
+	public void showCreateFollow(CreateProgramModel createProgramModel) {
+		if (getActivity() != null) {
+			CreateFollowActivity.startFrom(getActivity(), createProgramModel);
+		}
+	}
+
+	@Override
+	public void showEditPublicInfoActivity(UUID assetId, ProgramUpdate model) {
+		if (getActivity() != null) {
+			EditPublicInfoActivity.startFrom(getActivity(), assetId, model);
+		}
+	}
+
+	public void updateInfo(ProgramDetailsFull programDetails, FollowDetailsFull followDetails) {
+		this.programDetails = programDetails;
+		this.followDetails = followDetails;
+		updateAll();
 	}
 }

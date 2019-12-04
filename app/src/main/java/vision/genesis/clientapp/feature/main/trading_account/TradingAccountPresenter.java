@@ -10,7 +10,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.PrivateTradingAccountFull;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -44,8 +43,6 @@ public class TradingAccountPresenter extends MvpPresenter<TradingAccountDetailsV
 	private TradingAccountDetailsModel model;
 
 	private PrivateTradingAccountFull accountDetails;
-
-	private FollowDetailsFull followDetails;
 
 	private boolean isActive = false;
 

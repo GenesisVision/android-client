@@ -51,9 +51,6 @@ public class AmountItem implements Parcelable
 	@SerializedName("logo")
 	private String logo = null;
 
-	@SerializedName("title")
-	private String title = null;
-
 	public AmountItem() {
 	}
 
@@ -62,7 +59,6 @@ public class AmountItem implements Parcelable
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		color = (String) in.readValue(null);
 		logo = (String) in.readValue(null);
-		title = (String) in.readValue(null);
 	}
 
 	public AmountItem amount(Double amount) {
@@ -141,25 +137,6 @@ public class AmountItem implements Parcelable
 		this.logo = logo;
 	}
 
-	public AmountItem title(String title) {
-		this.title = title;
-		return this;
-	}
-
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@Schema(description = "")
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -172,13 +149,12 @@ public class AmountItem implements Parcelable
 		return Objects.equals(this.amount, amountItem.amount) &&
 				Objects.equals(this.currency, amountItem.currency) &&
 				Objects.equals(this.color, amountItem.color) &&
-				Objects.equals(this.logo, amountItem.logo) &&
-				Objects.equals(this.title, amountItem.title);
+				Objects.equals(this.logo, amountItem.logo);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, currency, color, logo, title);
+		return Objects.hash(amount, currency, color, logo);
 	}
 
 	@Override
@@ -190,7 +166,6 @@ public class AmountItem implements Parcelable
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -211,7 +186,6 @@ public class AmountItem implements Parcelable
 		out.writeValue(currency);
 		out.writeValue(color);
 		out.writeValue(logo);
-		out.writeValue(title);
 	}
 
 	public int describeContents() {

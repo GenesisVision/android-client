@@ -747,6 +747,7 @@
     <string name="create_follow">Create Follow</string>
     <string name="template_create_follow_volume_fee_description">A fee charged upon the total trade volume made by your subscribers. It should be set in a range of %s-%s%%</string>
     <string name="template_create_follow_success_fee_description">A fee charged upon the total profit made by your subscribers. It should be set in a range of %s-%s%%</string>
+    <string name="update_public_info">Update public info</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

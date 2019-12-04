@@ -7,4 +7,3 @@ Name | Type | Description | Notes
 **currency** | [**Currency**](Currency.md) |  |  [optional]
 **color** | **String** |  |  [optional]
 **logo** | **String** |  |  [optional]
-**title** | **String** |  |  [optional]
