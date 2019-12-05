@@ -24,11 +24,12 @@ import com.google.gson.stream.JsonWriter;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * PrivateTradingAccountFull
  */
@@ -74,6 +75,9 @@ public class PrivateTradingAccountFull implements Parcelable
 	@SerializedName("status")
 	private DashboardTradingAssetStatus status = null;
 
+	@SerializedName("signalSubscriptions")
+	private List<SignalSubscription> signalSubscriptions = null;
+
 	@SerializedName("brokerDetails")
 	private BrokerDetails brokerDetails = null;
 
@@ -93,6 +97,7 @@ public class PrivateTradingAccountFull implements Parcelable
 		balance = (Double) in.readValue(null);
 		type = (PrivateTradingAccountType) in.readValue(PrivateTradingAccountType.class.getClassLoader());
 		status = (DashboardTradingAssetStatus) in.readValue(DashboardTradingAssetStatus.class.getClassLoader());
+		signalSubscriptions = (List<SignalSubscription>) in.readValue(SignalSubscription.class.getClassLoader());
 		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
 		ownerActions = (PrivateTradingAccountOwnerActions) in.readValue(PrivateTradingAccountOwnerActions.class.getClassLoader());
 	}
@@ -268,6 +273,33 @@ public class PrivateTradingAccountFull implements Parcelable
 		this.status = status;
 	}
 
+	public PrivateTradingAccountFull signalSubscriptions(List<SignalSubscription> signalSubscriptions) {
+		this.signalSubscriptions = signalSubscriptions;
+		return this;
+	}
+
+	public PrivateTradingAccountFull addSignalSubscriptionsItem(SignalSubscription signalSubscriptionsItem) {
+		if (this.signalSubscriptions == null) {
+			this.signalSubscriptions = new ArrayList<SignalSubscription>();
+		}
+		this.signalSubscriptions.add(signalSubscriptionsItem);
+		return this;
+	}
+
+	/**
+	 * Get signalSubscriptions
+	 *
+	 * @return signalSubscriptions
+	 **/
+	@Schema(description = "")
+	public List<SignalSubscription> getSignalSubscriptions() {
+		return signalSubscriptions;
+	}
+
+	public void setSignalSubscriptions(List<SignalSubscription> signalSubscriptions) {
+		this.signalSubscriptions = signalSubscriptions;
+	}
+
 	public PrivateTradingAccountFull brokerDetails(BrokerDetails brokerDetails) {
 		this.brokerDetails = brokerDetails;
 		return this;
@@ -324,13 +356,14 @@ public class PrivateTradingAccountFull implements Parcelable
 				Objects.equals(this.balance, privateTradingAccountFull.balance) &&
 				Objects.equals(this.type, privateTradingAccountFull.type) &&
 				Objects.equals(this.status, privateTradingAccountFull.status) &&
+				Objects.equals(this.signalSubscriptions, privateTradingAccountFull.signalSubscriptions) &&
 				Objects.equals(this.brokerDetails, privateTradingAccountFull.brokerDetails) &&
 				Objects.equals(this.ownerActions, privateTradingAccountFull.ownerActions);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, creationDate, currency, leverage, apiKey, login, balance, type, status, brokerDetails, ownerActions);
+		return Objects.hash(id, creationDate, currency, leverage, apiKey, login, balance, type, status, signalSubscriptions, brokerDetails, ownerActions);
 	}
 
 	@Override
@@ -347,6 +380,7 @@ public class PrivateTradingAccountFull implements Parcelable
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
+		sb.append("    signalSubscriptions: ").append(toIndentedString(signalSubscriptions)).append("\n");
 		sb.append("    brokerDetails: ").append(toIndentedString(brokerDetails)).append("\n");
 		sb.append("    ownerActions: ").append(toIndentedString(ownerActions)).append("\n");
 		sb.append("}");
@@ -374,6 +408,7 @@ public class PrivateTradingAccountFull implements Parcelable
 		out.writeValue(balance);
 		out.writeValue(type);
 		out.writeValue(status);
+		out.writeValue(signalSubscriptions);
 		out.writeValue(brokerDetails);
 		out.writeValue(ownerActions);
 	}

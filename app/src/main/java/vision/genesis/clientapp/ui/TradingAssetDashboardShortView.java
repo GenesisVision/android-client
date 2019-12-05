@@ -167,6 +167,10 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 		this.asset = asset;
 		this.baseCurrency = baseCurrency;
 
+
+		double value = asset.getAccountInfo().getBalance();
+		double profitPercent = asset.getStatistic().getProfit();
+
 		if (asset.getAssetType().equals(AssetType.NONE)) {
 			this.logo.setVisibility(View.GONE);
 			this.brokerLogo.setVisibility(View.VISIBLE);
@@ -175,9 +179,21 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 			this.name.setText(asset.getAccountInfo().getLogin());
 			this.value.setText(StringFormatUtil.getValueString(asset.getAccountInfo().getBalance(), asset.getAccountInfo().getCurrency().getValue()));
 
-			valueGroup.setVisibility(ViewGroup.VISIBLE);
-			change.setVisibility(ViewGroup.GONE);
-			statusGroup.setVisibility(ViewGroup.GONE);
+			if ((asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.PENDING))) {
+				this.status.setText(getContext().getString(R.string.pending));
+				this.status.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorPending));
+				this.statusProgress.setVisibility(View.VISIBLE);
+
+				statusGroup.setVisibility(ViewGroup.VISIBLE);
+				valueGroup.setVisibility(ViewGroup.GONE);
+			}
+			else {
+
+				valueGroup.setVisibility(ViewGroup.VISIBLE);
+				statusGroup.setVisibility(ViewGroup.GONE);
+			}
+
+			this.change.setVisibility(ViewGroup.GONE);
 		}
 		else {
 			this.brokerLogo.setVisibility(View.GONE);
@@ -187,13 +203,10 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 
 			this.name.setText(asset.getPublicInfo().getTitle());
 
-			double value = Math.random() * 100;
-			double change = asset.getStatistic().getProfit();
-
 			if (asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.ACTIVE)) {
 				if (asset.getAccountInfo().getBalance() != null) {
-					this.value.setText(StringFormatUtil.getValueString(asset.getAccountInfo().getBalance(), asset.getAccountInfo().getCurrency().getValue()));
-					updateChangeText(value, change);
+					this.value.setText(StringFormatUtil.getValueString(value, asset.getAccountInfo().getCurrency().getValue()));
+					updateChangeText(value, profitPercent);
 				}
 				valueGroup.setVisibility(ViewGroup.VISIBLE);
 				statusGroup.setVisibility(ViewGroup.GONE);
@@ -215,17 +228,20 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 		}
 	}
 
-	private void updateChangeText(double value, double profit) {
-		double profitPercent = Math.abs(profit / (value - profit) * 100);
-		String sign = profit > 0 ? "+" : "";
-		this.change.setText(String.format(Locale.getDefault(), "%s%s (%s%%)",
+	private void updateChangeText(double value, double profitPercent) {
+//		double profitValue = value * profitPercent / 100 / (1 - profitPercent);
+		String sign = profitPercent > 0 ? "+" : "";
+//		this.change.setText(String.format(Locale.getDefault(), "%s%s (%s%%)",
+//				sign,
+//				StringFormatUtil.getValueString(profitValue, baseCurrency),
+//				StringFormatUtil.formatAmount(profitPercent, 0, 2)));
+		this.change.setText(String.format(Locale.getDefault(), "%s%s%%",
 				sign,
-				StringFormatUtil.getValueString(profit, baseCurrency),
 				StringFormatUtil.formatAmount(profitPercent, 0, 2)));
 		this.change.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
-				profit > 0
+				profitPercent > 0
 						? R.attr.colorGreen
-						: profit < 0
+						: profitPercent < 0
 						? R.attr.colorRed
 						: R.attr.colorTextPrimary));
 	}

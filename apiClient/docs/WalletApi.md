@@ -199,7 +199,7 @@ No authorization required
 
 <a name="getTransactionsExternal"></a>
 # **getTransactionsExternal**
-> ItemsViewModelTransactionViewModel getTransactionsExternal(authorization, transactionType, dateFrom, dateTo, skip, take)
+> ItemsViewModelTransactionViewModel getTransactionsExternal(authorization, transactionType, dateFrom, dateTo, currency, skip, take)
 
 External transactions
 
@@ -215,10 +215,11 @@ String authorization = "authorization_example"; // String | JWT access token
 String transactionType = "transactionType_example"; // String | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
+String currency = "currency_example"; // String | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelTransactionViewModel result = apiInstance.getTransactionsExternal(authorization, transactionType, dateFrom, dateTo, skip, take);
+    ItemsViewModelTransactionViewModel result = apiInstance.getTransactionsExternal(authorization, transactionType, dateFrom, dateTo, currency, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling WalletApi#getTransactionsExternal");
@@ -234,6 +235,7 @@ Name | Type | Description  | Notes
  **transactionType** | **String**|  | [optional] [enum: All, Withdrawal, Deposit, Platform]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
+ **currency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -252,7 +254,7 @@ No authorization required
 
 <a name="getTransactionsInternal"></a>
 # **getTransactionsInternal**
-> ItemsViewModelTransactionViewModel getTransactionsInternal(authorization, transactionType, dateFrom, dateTo, skip, take)
+> ItemsViewModelTransactionViewModel getTransactionsInternal(authorization, transactionType, dateFrom, dateTo, currency, skip, take)
 
 Internal transactions
 
@@ -268,10 +270,11 @@ String authorization = "authorization_example"; // String | JWT access token
 String transactionType = "transactionType_example"; // String | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
+String currency = "currency_example"; // String | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelTransactionViewModel result = apiInstance.getTransactionsInternal(authorization, transactionType, dateFrom, dateTo, skip, take);
+    ItemsViewModelTransactionViewModel result = apiInstance.getTransactionsInternal(authorization, transactionType, dateFrom, dateTo, currency, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling WalletApi#getTransactionsInternal");
@@ -284,9 +287,10 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **transactionType** | **String**|  | [optional] [enum: All, Investment, Withdrawal, Deposit, Conversion, Commission, Program, Fund, Follow, TradingAccounts, AgentReward, Platform]
+ **transactionType** | **String**|  | [optional] [enum: All, Investment, Withdrawal, Conversion, Commission, Program, Fund, Follow, TradingAccounts, AgentReward]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
+ **currency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

@@ -93,7 +93,7 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 		if (followDetails != null) {
 			SubscriptionSettingsModel model = new SubscriptionSettingsModel();
 
-			SignalSubscription signalSubscription = followDetails.getPersonalDetails().getSignalSubscription();
+			SignalSubscription signalSubscription = followDetails.getPersonalDetails().getSignalSubscriptions().get(0);
 			try {
 				if (signalSubscription.isHasActiveSubscription()) {
 					if (signalSubscription.getMode() != null) {

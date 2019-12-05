@@ -159,7 +159,7 @@ public class DashboardWalletView extends RelativeLayout
 		this.details = details;
 
 		equity.setText(StringFormatUtil.getValueString(details.getGrandTotal().getAvailableCcy(), baseCurrency.getValue()));
-		updateChangeText();
+//		updateChangeText();
 		setWallets(details.getWallets());
 
 		progressBar.setVisibility(View.GONE);

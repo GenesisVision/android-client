@@ -5,6 +5,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **total** | **Double** |  |  [optional]
 **invested** | **Double** |  |  [optional]
-**pending** | **Double** |  |  [optional]
+**trading** | **Double** |  |  [optional]
 **available** | **Double** |  |  [optional]
 **profits** | [**DashboardProfits**](DashboardProfits.md) |  |  [optional]

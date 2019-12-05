@@ -17,8 +17,10 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.swagger.client.model.DashboardTimeframeProfit;
 import io.swagger.client.model.DashboardTradingDetails;
 import io.swagger.client.model.InvestmentEventViewModel;
+import io.swagger.client.model.Timeframe;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -103,6 +105,8 @@ public class DashboardTradingView extends RelativeLayout
 
 	private DashboardTradingDetails details;
 
+	private Timeframe selectedTimeframe;
+
 	public DashboardTradingView(Context context) {
 		super(context);
 		initView();
@@ -183,9 +187,9 @@ public class DashboardTradingView extends RelativeLayout
 		this.details = details;
 
 		equity.setText(StringFormatUtil.getValueString(details.getEquity(), baseCurrency.getValue()));
-		updateChangeText();
 		aum.setText(StringFormatUtil.getValueString(details.getAssetsUnderManagement(), baseCurrency.getValue()));
 		setEvents(details.getEvents().getItems());
+		setTimeframe(selectedTimeframe);
 
 		progressBar.setVisibility(View.GONE);
 		equityGroup.setVisibility(View.VISIBLE);
@@ -195,9 +199,7 @@ public class DashboardTradingView extends RelativeLayout
 		eventsScrollView.setVisibility(View.VISIBLE);
 	}
 
-	private void updateChangeText() {
-		double profit = 120756.45;
-		double profitPercent = 12.87;
+	private void updateChangeText(double profit, double profitPercent) {
 		String sign = profit > 0 ? "+" : "";
 		change.setText(String.format(Locale.getDefault(), "%s%s (%s%%)",
 				sign,
@@ -227,5 +229,27 @@ public class DashboardTradingView extends RelativeLayout
 	public void setShare(int share) {
 		this.shareProgress.setProgress(share);
 		this.sharePercent.setText(String.format(Locale.getDefault(), "%d%%", share));
+	}
+
+	public void setTimeframe(Timeframe timeframe) {
+		if (timeframe != null) {
+			this.selectedTimeframe = timeframe;
+			if (details != null) {
+				DashboardTimeframeProfit model;
+				switch (timeframe) {
+					case WEEK:
+						model = details.getProfits().getWeek();
+						break;
+					case MONTH:
+						model = details.getProfits().getMonth();
+						break;
+					default:
+					case DAY:
+						model = details.getProfits().getDay();
+						break;
+				}
+				updateChangeText(model.getProfit(), model.getProfitPercent());
+			}
+		}
 	}
 }

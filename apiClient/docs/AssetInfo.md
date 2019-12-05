@@ -9,3 +9,4 @@ Name | Type | Description | Notes
 **description** | **String** |  |  [optional]
 **chartSymbol** | **String** |  |  [optional]
 **tags** | [**List&lt;Tag&gt;**](Tag.md) |  |  [optional]
+**socialLinks** | [**List&lt;SocialLinkViewModel&gt;**](SocialLinkViewModel.md) |  |  [optional]

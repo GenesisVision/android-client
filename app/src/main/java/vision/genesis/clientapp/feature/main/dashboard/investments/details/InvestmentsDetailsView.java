@@ -11,6 +11,7 @@ import io.swagger.client.model.FundInvestingDetailsList;
 import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.ItemsViewModelAssetInvestmentRequest;
 import io.swagger.client.model.ProgramInvestingDetailsList;
+import io.swagger.client.model.Timeframe;
 import vision.genesis.clientapp.model.CurrencyEnum;
 
 /**
@@ -21,6 +22,8 @@ import vision.genesis.clientapp.model.CurrencyEnum;
 interface InvestmentsDetailsView extends MvpView
 {
 	void setBaseCurrency(CurrencyEnum baseCurrency);
+
+	void setTimeframe(Timeframe timeframe);
 
 	void setRequests(ItemsViewModelAssetInvestmentRequest data);
 

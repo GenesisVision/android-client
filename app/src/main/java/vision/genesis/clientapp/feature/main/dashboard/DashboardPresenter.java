@@ -8,14 +8,15 @@ import com.arellomobile.mvp.MvpPresenter;
 import javax.inject.Inject;
 
 import io.swagger.client.model.DashboardSummary;
+import io.swagger.client.model.Timeframe;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitView;
 import vision.genesis.clientapp.managers.DashboardManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
-import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -24,7 +25,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class DashboardPresenter extends MvpPresenter<DashboardView>
+public class DashboardPresenter extends MvpPresenter<DashboardView> implements TimeframeProfitView.Listener
 {
 	@Inject
 	public Context context;
@@ -39,9 +40,9 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 
 	private Subscription summarySubscription;
 
-	private DateRange dateRange;
-
 	private CurrencyEnum baseCurrency;
+
+	private Timeframe selectedTimeframe = Timeframe.DAY;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -117,6 +118,7 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 		getViewState().showProgressBar(false);
 
 		getViewState().setSummary(response);
+		getViewState().setTimeframe(selectedTimeframe);
 
 //		this.requests = response.getRequestsByAsset().getRequestsByAsset();
 //
@@ -132,6 +134,12 @@ public class DashboardPresenter extends MvpPresenter<DashboardView>
 //		getViewState().showProgressBar(false);
 
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	@Override
+	public void onTimeframeSelected(Timeframe timeframe) {
+		this.selectedTimeframe = timeframe;
+		getViewState().setTimeframe(timeframe);
 	}
 
 //	@Override

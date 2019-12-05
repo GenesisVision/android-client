@@ -25,7 +25,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * ProgramInvestingDetailsList
  */
@@ -86,6 +85,9 @@ public class ProgramInvestingDetailsList implements Parcelable
 	@SerializedName("owner")
 	private ProfilePublicShort owner = null;
 
+	@SerializedName("brokerDetails")
+	private BrokerDetails brokerDetails = null;
+
 	@SerializedName("personalDetails")
 	private PersonalInvestingProgramDetailsList personalDetails = null;
 
@@ -116,6 +118,7 @@ public class ProgramInvestingDetailsList implements Parcelable
 		periodStarts = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		periodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
+		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
 		personalDetails = (PersonalInvestingProgramDetailsList) in.readValue(PersonalInvestingProgramDetailsList.class.getClassLoader());
 		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
@@ -388,6 +391,25 @@ public class ProgramInvestingDetailsList implements Parcelable
 		this.owner = owner;
 	}
 
+	public ProgramInvestingDetailsList brokerDetails(BrokerDetails brokerDetails) {
+		this.brokerDetails = brokerDetails;
+		return this;
+	}
+
+	/**
+	 * Get brokerDetails
+	 *
+	 * @return brokerDetails
+	 **/
+	@Schema(description = "")
+	public BrokerDetails getBrokerDetails() {
+		return brokerDetails;
+	}
+
+	public void setBrokerDetails(BrokerDetails brokerDetails) {
+		this.brokerDetails = brokerDetails;
+	}
+
 	public ProgramInvestingDetailsList personalDetails(PersonalInvestingProgramDetailsList personalDetails) {
 		this.personalDetails = personalDetails;
 		return this;
@@ -495,6 +517,7 @@ public class ProgramInvestingDetailsList implements Parcelable
 				Objects.equals(this.periodStarts, programInvestingDetailsList.periodStarts) &&
 				Objects.equals(this.periodEnds, programInvestingDetailsList.periodEnds) &&
 				Objects.equals(this.owner, programInvestingDetailsList.owner) &&
+				Objects.equals(this.brokerDetails, programInvestingDetailsList.brokerDetails) &&
 				Objects.equals(this.personalDetails, programInvestingDetailsList.personalDetails) &&
 				Objects.equals(this.tags, programInvestingDetailsList.tags) &&
 				Objects.equals(this.statistic, programInvestingDetailsList.statistic) &&
@@ -503,7 +526,7 @@ public class ProgramInvestingDetailsList implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, url, color, title, creationDate, currency, level, levelProgress, periodDuration, investorsCount, periodStarts, periodEnds, owner, personalDetails, tags, statistic, balance);
+		return Objects.hash(id, logo, url, color, title, creationDate, currency, level, levelProgress, periodDuration, investorsCount, periodStarts, periodEnds, owner, brokerDetails, personalDetails, tags, statistic, balance);
 	}
 
 	@Override
@@ -525,6 +548,7 @@ public class ProgramInvestingDetailsList implements Parcelable
 		sb.append("    periodStarts: ").append(toIndentedString(periodStarts)).append("\n");
 		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
 		sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
+		sb.append("    brokerDetails: ").append(toIndentedString(brokerDetails)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
@@ -559,6 +583,7 @@ public class ProgramInvestingDetailsList implements Parcelable
 		out.writeValue(periodStarts);
 		out.writeValue(periodEnds);
 		out.writeValue(owner);
+		out.writeValue(brokerDetails);
 		out.writeValue(personalDetails);
 		out.writeValue(tags);
 		out.writeValue(statistic);

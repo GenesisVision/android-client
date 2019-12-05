@@ -5,6 +5,7 @@ import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import io.swagger.client.model.DashboardSummary;
+import io.swagger.client.model.Timeframe;
 import vision.genesis.clientapp.model.CurrencyEnum;
 
 
@@ -27,6 +28,8 @@ interface DashboardView extends MvpView
 	void showSnackbarMessage(String message);
 
 	void setHaveNewNotifications(boolean have);
+
+	void setTimeframe(Timeframe timeframe);
 
 	void updateInvesting();
 

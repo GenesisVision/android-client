@@ -267,8 +267,10 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 					StringFormatUtil.formatAmount(followDetails.getSignalSettings().getSignalVolumeFee(), 0, 2)));
 
 			boolean hasSubscription = followDetails.getPersonalDetails() != null
-					&& followDetails.getPersonalDetails().getSignalSubscription() != null
-					&& followDetails.getPersonalDetails().getSignalSubscription().isHasActiveSubscription();
+					&& followDetails.getPersonalDetails().getSignalSubscriptions() != null
+					&& !followDetails.getPersonalDetails().getSignalSubscriptions().isEmpty()
+					&& followDetails.getPersonalDetails().getSignalSubscriptions().get(0) != null
+					&& followDetails.getPersonalDetails().getSignalSubscriptions().get(0).isHasActiveSubscription();
 
 			followTradesButton.setVisibility(!hasSubscription ? View.VISIBLE : View.GONE);
 			editSubscriptionButton.setVisibility(hasSubscription ? View.VISIBLE : View.GONE);

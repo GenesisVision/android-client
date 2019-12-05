@@ -30,7 +30,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * FollowDetailsFull
  */
@@ -51,6 +50,9 @@ public class FollowDetailsFull implements Parcelable
 
 	@SerializedName("id")
 	private UUID id = null;
+
+	@SerializedName("tradingAccountId")
+	private UUID tradingAccountId = null;
 
 	@SerializedName("title")
 	private String title = null;
@@ -105,6 +107,7 @@ public class FollowDetailsFull implements Parcelable
 
 	FollowDetailsFull(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
 		title = (String) in.readValue(null);
 		description = (String) in.readValue(null);
 		logo = (String) in.readValue(null);
@@ -140,6 +143,25 @@ public class FollowDetailsFull implements Parcelable
 
 	public void setId(UUID id) {
 		this.id = id;
+	}
+
+	public FollowDetailsFull tradingAccountId(UUID tradingAccountId) {
+		this.tradingAccountId = tradingAccountId;
+		return this;
+	}
+
+	/**
+	 * Get tradingAccountId
+	 *
+	 * @return tradingAccountId
+	 **/
+	@Schema(description = "")
+	public UUID getTradingAccountId() {
+		return tradingAccountId;
+	}
+
+	public void setTradingAccountId(UUID tradingAccountId) {
+		this.tradingAccountId = tradingAccountId;
 	}
 
 	public FollowDetailsFull title(String title) {
@@ -464,6 +486,7 @@ public class FollowDetailsFull implements Parcelable
 		}
 		FollowDetailsFull followDetailsFull = (FollowDetailsFull) o;
 		return Objects.equals(this.id, followDetailsFull.id) &&
+				Objects.equals(this.tradingAccountId, followDetailsFull.tradingAccountId) &&
 				Objects.equals(this.title, followDetailsFull.title) &&
 				Objects.equals(this.description, followDetailsFull.description) &&
 				Objects.equals(this.logo, followDetailsFull.logo) &&
@@ -484,7 +507,7 @@ public class FollowDetailsFull implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, logo, creationDate, currency, subscribersCount, tradesCount, status, url, color, leverage, signalSettings, brokerDetails, owner, personalDetails, tags);
+		return Objects.hash(id, tradingAccountId, title, description, logo, creationDate, currency, subscribersCount, tradesCount, status, url, color, leverage, signalSettings, brokerDetails, owner, personalDetails, tags);
 	}
 
 	@Override
@@ -493,6 +516,7 @@ public class FollowDetailsFull implements Parcelable
 		sb.append("class FollowDetailsFull {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    tradingAccountId: ").append(toIndentedString(tradingAccountId)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
@@ -526,6 +550,7 @@ public class FollowDetailsFull implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
+		out.writeValue(tradingAccountId);
 		out.writeValue(title);
 		out.writeValue(description);
 		out.writeValue(logo);

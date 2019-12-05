@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/selection"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:alpha="0"
+        android:background="@drawable/timeframe_selection"
+        tools:alpha="0.4"/>
+
+    <LinearLayout
+        android:id="@+id/group_timeframes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/group_day"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/day_value"
+                style="@style/dashboard_top_profits_value"
+                tools:text="-0.24%"
+                tools:textColor="?attr/colorRed"/>
+
+            <TextView
+                android:id="@+id/day_label"
+                style="@style/timeframe_profit_label"
+                android:text="@string/day"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/group_week"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/week_value"
+                style="@style/dashboard_top_profits_value"
+                tools:text="0.64%"
+                tools:textColor="?attr/colorGreen"/>
+
+            <TextView
+                android:id="@+id/week_label"
+                style="@style/timeframe_profit_label"
+                android:text="@string/week"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/group_month"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/month_value"
+                style="@style/dashboard_top_profits_value"
+                tools:text="1.53%"
+                tools:textColor="?attr/colorGreen"/>
+
+            <TextView
+                android:id="@+id/month_label"
+                style="@style/timeframe_profit_label"
+                android:text="@string/month"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

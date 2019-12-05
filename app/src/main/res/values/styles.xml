@@ -580,7 +580,7 @@
 
     </style>
 
-    <style name="dashboard_top_profits_label">
+    <style name="timeframe_profit_label">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">12sp</item>

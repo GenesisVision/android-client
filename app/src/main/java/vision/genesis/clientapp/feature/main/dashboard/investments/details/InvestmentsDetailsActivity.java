@@ -1,16 +1,22 @@
 package vision.genesis.clientapp.feature.main.dashboard.investments.details;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -20,6 +26,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import java.util.List;
 import java.util.Locale;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -29,9 +36,11 @@ import io.swagger.client.model.FundInvestingDetailsList;
 import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.ItemsViewModelAssetInvestmentRequest;
 import io.swagger.client.model.ProgramInvestingDetailsList;
+import io.swagger.client.model.Timeframe;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.requests.RequestsAdapter;
+import vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitView;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.ui.DividerItemDecoration;
 import vision.genesis.clientapp.ui.FundDashboardShortView;
@@ -63,27 +72,31 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 	@BindView(R.id.swipe_refresh)
 	public SwipeRefreshLayout refreshLayout;
 
+	@BindView(R.id.scrollview)
+	public NestedScrollView scrollview;
+
+
+	@BindView(R.id.group_header_balance)
+	public ViewGroup headerBalanceGroup;
+
+	@BindView(R.id.header_total)
+	public TextView headerTotal;
+
+	@BindView(R.id.header_change_value)
+	public TextView headerChangeValue;
+
+	@BindView(R.id.header_change_period)
+	public TextView headerChangePeriod;
+
 
 	@BindView(R.id.total)
 	public TextView total;
 
-	@BindView(R.id.profit_day_value)
-	public TextView profitDayValue;
+	@BindView(R.id.change)
+	public TextView change;
 
-	@BindView(R.id.profit_day_label)
-	public TextView profitDayLabel;
-
-	@BindView(R.id.profit_week_value)
-	public TextView profitWeekValue;
-
-	@BindView(R.id.profit_week_label)
-	public TextView profitWeekLabel;
-
-	@BindView(R.id.profit_month_value)
-	public TextView profitMonthValue;
-
-	@BindView(R.id.profit_month_label)
-	public TextView profitMonthLabel;
+	@BindView(R.id.view_timeframe_profit)
+	public TimeframeProfitView timeframeProfit;
 
 
 	@BindView(R.id.group_requests)
@@ -146,6 +159,9 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 	@BindView(R.id.funds)
 	public LinearLayout funds;
 
+	@BindDimen(R.dimen.toolbar_height)
+	public int toolbarHeight;
+
 
 	@InjectPresenter
 	InvestmentsDetailsPresenter presenter;
@@ -155,6 +171,16 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 	private DashboardInvestingDetails details;
 
 	private RequestsAdapter requestsAdapter;
+
+	private float titleInitialY = 0;
+
+	private float headerBalanceGroupInitialY = 0;
+
+	private long headerBalanceGroupAnimationDuration = 300;
+
+	private boolean showAnimInProcess = false;
+
+	private boolean hideAnimInProcess = false;
 
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
@@ -174,6 +200,10 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 
 		initRefreshLayout();
 		initRequestsAdapter();
+		setScrollListener();
+
+		timeframeProfit.setListener(presenter);
+		new Handler().postDelayed(this::hideBalanceInHeader, 100);
 	}
 
 	private void initRequestsAdapter() {
@@ -193,14 +223,7 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 		title.setTypeface(TypefaceUtil.semibold());
 
 		total.setTypeface(TypefaceUtil.semibold());
-
-		profitDayValue.setTypeface(TypefaceUtil.semibold());
-		profitWeekValue.setTypeface(TypefaceUtil.semibold());
-		profitMonthValue.setTypeface(TypefaceUtil.semibold());
-
-		profitDayLabel.setText(getString(R.string.day).toLowerCase());
-		profitWeekLabel.setText(getString(R.string.week).toLowerCase());
-		profitMonthLabel.setText(getString(R.string.month).toLowerCase());
+		headerTotal.setTypeface(TypefaceUtil.semibold());
 
 		requestsLabel.setTypeface(TypefaceUtil.semibold());
 		eventsLabel.setTypeface(TypefaceUtil.semibold());
@@ -218,6 +241,92 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary),
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextSecondary));
 		refreshLayout.setOnRefreshListener(presenter::onSwipeRefresh);
+	}
+
+	private void setScrollListener() {
+		scrollview.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+			if (scrollY > 150 && !showAnimInProcess) {
+				showBalanceInHeader();
+			}
+			else if (scrollY < 100 && !hideAnimInProcess) {
+				hideBalanceInHeader();
+			}
+		});
+	}
+
+	private void showBalanceInHeader() {
+		showAnimInProcess = true;
+		hideAnimInProcess = false;
+
+		ValueAnimator balanceYAnim = ValueAnimator.ofFloat(headerBalanceGroup.getY(), headerBalanceGroupInitialY);
+		ValueAnimator titleYAnim = ValueAnimator.ofFloat(title.getY(), titleInitialY - toolbarHeight);
+		ValueAnimator alphaAnim = ValueAnimator.ofFloat(headerBalanceGroup.getAlpha(), 1f);
+
+		balanceYAnim.addUpdateListener(animation -> headerBalanceGroup.setY((float) balanceYAnim.getAnimatedValue()));
+		titleYAnim.addUpdateListener(animation -> title.setY((float) titleYAnim.getAnimatedValue()));
+		alphaAnim.addUpdateListener(animation -> headerBalanceGroup.setAlpha((float) alphaAnim.getAnimatedValue()));
+
+		balanceYAnim.setDuration(headerBalanceGroupAnimationDuration);
+		titleYAnim.setDuration(headerBalanceGroupAnimationDuration);
+		alphaAnim.setDuration(headerBalanceGroupAnimationDuration);
+
+		alphaAnim.addListener(new AnimatorListenerAdapter()
+		{
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				super.onAnimationEnd(animation);
+				showAnimInProcess = false;
+			}
+		});
+
+		balanceYAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+		titleYAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+		alphaAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+
+		balanceYAnim.start();
+		titleYAnim.start();
+		alphaAnim.start();
+	}
+
+	private void hideBalanceInHeader() {
+		hideAnimInProcess = true;
+		showAnimInProcess = false;
+
+		if (titleInitialY == 0) {
+			titleInitialY = title.getY();
+		}
+		if (headerBalanceGroupInitialY == 0) {
+			headerBalanceGroupInitialY = headerBalanceGroup.getY();
+		}
+
+		ValueAnimator balanceYAnim = ValueAnimator.ofFloat(headerBalanceGroup.getY(), headerBalanceGroupInitialY + toolbarHeight);
+		ValueAnimator titleYAnim = ValueAnimator.ofFloat(title.getY(), titleInitialY);
+		ValueAnimator alphaAnim = ValueAnimator.ofFloat(headerBalanceGroup.getAlpha(), 0f);
+
+		balanceYAnim.addUpdateListener(animation -> headerBalanceGroup.setY((float) balanceYAnim.getAnimatedValue()));
+		titleYAnim.addUpdateListener(animation -> title.setY((float) titleYAnim.getAnimatedValue()));
+		alphaAnim.addUpdateListener(animation -> headerBalanceGroup.setAlpha((float) alphaAnim.getAnimatedValue()));
+
+		balanceYAnim.setDuration(headerBalanceGroupAnimationDuration);
+		titleYAnim.setDuration(headerBalanceGroupAnimationDuration);
+		alphaAnim.setDuration(headerBalanceGroupAnimationDuration);
+
+		alphaAnim.addListener(new AnimatorListenerAdapter()
+		{
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				super.onAnimationEnd(animation);
+				hideAnimInProcess = false;
+			}
+		});
+
+		balanceYAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+		titleYAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+		alphaAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+
+		balanceYAnim.start();
+		titleYAnim.start();
+		alphaAnim.start();
 	}
 
 	@Override
@@ -247,6 +356,24 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 	}
 
 	@Override
+	public void setTimeframe(Timeframe timeframe) {
+		if (details != null) {
+			switch (timeframe) {
+				case WEEK:
+					setChange(details.getProfits().getWeek(), getString(R.string.week));
+					break;
+				case MONTH:
+					setChange(details.getProfits().getMonth(), getString(R.string.month));
+					break;
+				default:
+				case DAY:
+					setChange(details.getProfits().getDay(), getString(R.string.day));
+					break;
+			}
+		}
+	}
+
+	@Override
 	public void setRequests(ItemsViewModelAssetInvestmentRequest data) {
 		requestsGroup.setVisibility(data.getTotal() > 0 ? View.VISIBLE : View.GONE);
 		requestsCount.setText(String.valueOf(data.getTotal()));
@@ -259,12 +386,9 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 		this.details = details;
 		if (baseCurrency != null) {
 			total.setText(StringFormatUtil.getValueString(details.getEquity(), baseCurrency.getValue()));
-			setChangePercent(profitDayValue, details.getProfits().getDay());
-			setChangePercent(profitWeekValue, details.getProfits().getWeek());
-			setChangePercent(profitMonthValue, details.getProfits().getMonth());
+			headerTotal.setText(StringFormatUtil.getValueString(details.getEquity(), baseCurrency.getValue()));
 
-//			programsCount.setText(String.valueOf(details.getProgramsCount()));
-//			fundsCount.setText(String.valueOf(details.getFundsCount()));
+			timeframeProfit.setData(details.getProfits());
 
 			showProgramsCountMaybe();
 			showFundsCountMaybe();
@@ -285,15 +409,29 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 		}
 	}
 
-	private void setChangePercent(TextView view, DashboardTimeframeProfit model) {
-		view.setText(String.format(Locale.getDefault(), "%s%%",
-				StringFormatUtil.formatAmount(model.getProfitPercent(), 0, 2)));
-		view.setTextColor(ThemeUtil.getColorByAttrId(this,
-				model.getProfitPercent() > 0
+	private void setChange(DashboardTimeframeProfit model, String periodName) {
+		String sign = model.getProfit() > 0 ? "+" : "";
+		int changeColor = ThemeUtil.getColorByAttrId(this,
+				model.getProfit() > 0
 						? R.attr.colorGreen
-						: model.getProfitPercent() < 0
+						: model.getProfit() < 0
 						? R.attr.colorRed
-						: R.attr.colorTextPrimary));
+						: R.attr.colorTextPrimary);
+		String changeValueText = String.format(Locale.getDefault(), "%s%s",
+				sign,
+				StringFormatUtil.getValueString(model.getProfit(), baseCurrency.getValue()));
+
+		headerChangeValue.setText(String.format(Locale.getDefault(), "%s (%s%%)",
+				changeValueText,
+				StringFormatUtil.formatAmount(model.getProfitPercent(), 0, 2)));
+		headerChangeValue.setTextColor(changeColor);
+
+		change.setText(changeValueText);
+		change.setTextColor(changeColor);
+
+		headerChangePeriod.setText(String.format(Locale.getDefault(),
+				getString(R.string.template_dashboard_header_change_period),
+				periodName.toLowerCase()));
 	}
 
 	@Override

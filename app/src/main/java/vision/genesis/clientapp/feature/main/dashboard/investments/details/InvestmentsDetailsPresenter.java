@@ -16,10 +16,12 @@ import io.swagger.client.model.DashboardInvestingDetails;
 import io.swagger.client.model.ItemsViewModelAssetInvestmentRequest;
 import io.swagger.client.model.ItemsViewModelFundInvestingDetailsList;
 import io.swagger.client.model.ItemsViewModelProgramInvestingDetailsList;
+import io.swagger.client.model.Timeframe;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitView;
 import vision.genesis.clientapp.managers.DashboardManager;
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
@@ -35,7 +37,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetailsView>
+public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetailsView> implements TimeframeProfitView.Listener
 {
 	private static final int TAKE = 20;
 
@@ -69,7 +71,9 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 
 	private DashboardInvestingDetails details;
 
-	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
+	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.DAY);
+
+	private Timeframe selectedTimeframe = Timeframe.DAY;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -178,6 +182,7 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 		this.details = details;
 
 		getViewState().setInvesting(details);
+		getViewState().setTimeframe(selectedTimeframe);
 		getViewState().setEvents(details.getEvents().getItems());
 	}
 
@@ -285,6 +290,15 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 	@Subscribe
 	public void onEventMainThread(OnCancelRequestClickedEvent event) {
 		cancelRequest(event.getRequestId());
+	}
+
+	@Override
+	public void onTimeframeSelected(Timeframe timeframe) {
+		this.selectedTimeframe = timeframe;
+		dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.fromValue(timeframe.getValue()));
+		getViewState().setTimeframe(timeframe);
+		getViewState().showProgress(true);
+		updateAll();
 	}
 
 //	@Subscribe

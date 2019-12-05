@@ -45,8 +45,8 @@ public class DashboardSummary implements Parcelable
 	@SerializedName("invested")
 	private Double invested = null;
 
-	@SerializedName("pending")
-	private Double pending = null;
+	@SerializedName("trading")
+	private Double trading = null;
 
 	@SerializedName("available")
 	private Double available = null;
@@ -60,7 +60,7 @@ public class DashboardSummary implements Parcelable
 	DashboardSummary(Parcel in) {
 		total = (Double) in.readValue(null);
 		invested = (Double) in.readValue(null);
-		pending = (Double) in.readValue(null);
+		trading = (Double) in.readValue(null);
 		available = (Double) in.readValue(null);
 		profits = (DashboardProfits) in.readValue(DashboardProfits.class.getClassLoader());
 	}
@@ -103,23 +103,23 @@ public class DashboardSummary implements Parcelable
 		this.invested = invested;
 	}
 
-	public DashboardSummary pending(Double pending) {
-		this.pending = pending;
+	public DashboardSummary trading(Double trading) {
+		this.trading = trading;
 		return this;
 	}
 
 	/**
-	 * Get pending
+	 * Get trading
 	 *
-	 * @return pending
+	 * @return trading
 	 **/
 	@Schema(description = "")
-	public Double getPending() {
-		return pending;
+	public Double getTrading() {
+		return trading;
 	}
 
-	public void setPending(Double pending) {
-		this.pending = pending;
+	public void setTrading(Double trading) {
+		this.trading = trading;
 	}
 
 	public DashboardSummary available(Double available) {
@@ -171,14 +171,14 @@ public class DashboardSummary implements Parcelable
 		DashboardSummary dashboardSummary = (DashboardSummary) o;
 		return Objects.equals(this.total, dashboardSummary.total) &&
 				Objects.equals(this.invested, dashboardSummary.invested) &&
-				Objects.equals(this.pending, dashboardSummary.pending) &&
+				Objects.equals(this.trading, dashboardSummary.trading) &&
 				Objects.equals(this.available, dashboardSummary.available) &&
 				Objects.equals(this.profits, dashboardSummary.profits);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(total, invested, pending, available, profits);
+		return Objects.hash(total, invested, trading, available, profits);
 	}
 
 	@Override
@@ -188,7 +188,7 @@ public class DashboardSummary implements Parcelable
 
 		sb.append("    total: ").append(toIndentedString(total)).append("\n");
 		sb.append("    invested: ").append(toIndentedString(invested)).append("\n");
-		sb.append("    pending: ").append(toIndentedString(pending)).append("\n");
+		sb.append("    trading: ").append(toIndentedString(trading)).append("\n");
 		sb.append("    available: ").append(toIndentedString(available)).append("\n");
 		sb.append("    profits: ").append(toIndentedString(profits)).append("\n");
 		sb.append("}");
@@ -209,7 +209,7 @@ public class DashboardSummary implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(total);
 		out.writeValue(invested);
-		out.writeValue(pending);
+		out.writeValue(trading);
 		out.writeValue(available);
 		out.writeValue(profits);
 	}

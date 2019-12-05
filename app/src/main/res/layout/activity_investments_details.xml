@@ -8,7 +8,7 @@
                 android:background="?attr/colorBackgroundDark">
 
     <RelativeLayout
-        android:id="@+id/toolbar"
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
         android:background="?attr/colorBackground">
@@ -32,17 +32,63 @@
             android:textColor="?attr/colorTextPrimary"
             android:textSize="18sp"/>
 
+        <LinearLayout
+            android:id="@+id/group_header_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:alpha="0"
+            android:gravity="center"
+            android:orientation="vertical"
+            tools:alpha="1">
+
+            <TextView
+                android:id="@+id/header_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="16sp"
+                tools:text="36,335.44 $"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/header_change_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorGreen"
+                    android:textSize="12sp"
+                    tools:text="+ 1,265.95$ (4.72%)"/>
+
+                <TextView
+                    android:id="@+id/header_change_period"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="12sp"
+                    tools:text="for a day"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </RelativeLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:visibility="gone"
+        android:layout_below="@+id/header"
+        android:visibility="invisible"
         tools:visibility="visible">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -69,76 +115,25 @@
                         android:textSize="30sp"
                         tools:text="$1 861 150.46"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/change"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/total"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="-2dp"
+                        android:textColor="?attr/colorGreen"
+                        android:textSize="14sp"
+                        tools:text="+150.46 $"/>
+
+                    <vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitView
+                        android:id="@+id/view_timeframe_profit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/change"
                         android:layout_marginStart="@dimen/dashboard_padding"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginEnd="@dimen/dashboard_padding"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/profit_day_value"
-                                style="@style/dashboard_top_profits_value"
-                                tools:text="-0.24%"
-                                tools:textColor="?attr/colorRed"/>
-
-                            <TextView
-                                android:id="@+id/profit_day_label"
-                                style="@style/dashboard_top_profits_label"
-                                android:text="@string/day"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/profit_week_value"
-                                style="@style/dashboard_top_profits_value"
-                                tools:text="0.64%"
-                                tools:textColor="?attr/colorGreen"/>
-
-                            <TextView
-                                android:id="@+id/profit_week_label"
-                                style="@style/dashboard_top_profits_label"
-                                android:text="@string/week"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/profit_month_value"
-                                style="@style/dashboard_top_profits_value"
-                                tools:text="1.53%"
-                                tools:textColor="?attr/colorGreen"/>
-
-                            <TextView
-                                android:id="@+id/profit_month_label"
-                                style="@style/dashboard_top_profits_label"
-                                android:text="@string/month"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="@dimen/dashboard_padding"/>
 
                 </RelativeLayout>
 
@@ -149,7 +144,9 @@
                     android:layout_marginTop="20dp"
                     android:background="?attr/colorCard"
                     android:orientation="vertical"
-                    android:paddingBottom="10dp">
+                    android:paddingBottom="10dp"
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -417,7 +414,7 @@
 
             </LinearLayout>
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -426,7 +423,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/header"
         android:indeterminate="true"
         android:scaleY="4"
         android:visibility="invisible"/>

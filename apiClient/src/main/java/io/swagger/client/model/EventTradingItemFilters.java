@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * EventTradingItemFilters
  */
@@ -42,35 +41,35 @@ public class EventTradingItemFilters implements Parcelable
 	};
 
 	@SerializedName("signalProgramDetails")
-	private List<FilterModel> signalProgramDetails = null;
+	private List<FilterItemInfo> signalProgramDetails = null;
 
 	@SerializedName("allAssets")
-	private List<FilterModel> allAssets = null;
+	private List<FilterItemInfo> allAssets = null;
 
 	@SerializedName("programDetails")
-	private List<FilterModel> programDetails = null;
+	private List<FilterItemInfo> programDetails = null;
 
 	@SerializedName("fundDetails")
-	private List<FilterModel> fundDetails = null;
+	private List<FilterItemInfo> fundDetails = null;
 
 	public EventTradingItemFilters() {
 	}
 
 	EventTradingItemFilters(Parcel in) {
-		signalProgramDetails = (List<FilterModel>) in.readValue(FilterModel.class.getClassLoader());
-		allAssets = (List<FilterModel>) in.readValue(FilterModel.class.getClassLoader());
-		programDetails = (List<FilterModel>) in.readValue(FilterModel.class.getClassLoader());
-		fundDetails = (List<FilterModel>) in.readValue(FilterModel.class.getClassLoader());
+		signalProgramDetails = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
+		allAssets = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
+		programDetails = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
+		fundDetails = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
 	}
 
-	public EventTradingItemFilters signalProgramDetails(List<FilterModel> signalProgramDetails) {
+	public EventTradingItemFilters signalProgramDetails(List<FilterItemInfo> signalProgramDetails) {
 		this.signalProgramDetails = signalProgramDetails;
 		return this;
 	}
 
-	public EventTradingItemFilters addSignalProgramDetailsItem(FilterModel signalProgramDetailsItem) {
+	public EventTradingItemFilters addSignalProgramDetailsItem(FilterItemInfo signalProgramDetailsItem) {
 		if (this.signalProgramDetails == null) {
-			this.signalProgramDetails = new ArrayList<FilterModel>();
+			this.signalProgramDetails = new ArrayList<FilterItemInfo>();
 		}
 		this.signalProgramDetails.add(signalProgramDetailsItem);
 		return this;
@@ -82,22 +81,22 @@ public class EventTradingItemFilters implements Parcelable
 	 * @return signalProgramDetails
 	 **/
 	@Schema(description = "")
-	public List<FilterModel> getSignalProgramDetails() {
+	public List<FilterItemInfo> getSignalProgramDetails() {
 		return signalProgramDetails;
 	}
 
-	public void setSignalProgramDetails(List<FilterModel> signalProgramDetails) {
+	public void setSignalProgramDetails(List<FilterItemInfo> signalProgramDetails) {
 		this.signalProgramDetails = signalProgramDetails;
 	}
 
-	public EventTradingItemFilters allAssets(List<FilterModel> allAssets) {
+	public EventTradingItemFilters allAssets(List<FilterItemInfo> allAssets) {
 		this.allAssets = allAssets;
 		return this;
 	}
 
-	public EventTradingItemFilters addAllAssetsItem(FilterModel allAssetsItem) {
+	public EventTradingItemFilters addAllAssetsItem(FilterItemInfo allAssetsItem) {
 		if (this.allAssets == null) {
-			this.allAssets = new ArrayList<FilterModel>();
+			this.allAssets = new ArrayList<FilterItemInfo>();
 		}
 		this.allAssets.add(allAssetsItem);
 		return this;
@@ -109,22 +108,22 @@ public class EventTradingItemFilters implements Parcelable
 	 * @return allAssets
 	 **/
 	@Schema(description = "")
-	public List<FilterModel> getAllAssets() {
+	public List<FilterItemInfo> getAllAssets() {
 		return allAssets;
 	}
 
-	public void setAllAssets(List<FilterModel> allAssets) {
+	public void setAllAssets(List<FilterItemInfo> allAssets) {
 		this.allAssets = allAssets;
 	}
 
-	public EventTradingItemFilters programDetails(List<FilterModel> programDetails) {
+	public EventTradingItemFilters programDetails(List<FilterItemInfo> programDetails) {
 		this.programDetails = programDetails;
 		return this;
 	}
 
-	public EventTradingItemFilters addProgramDetailsItem(FilterModel programDetailsItem) {
+	public EventTradingItemFilters addProgramDetailsItem(FilterItemInfo programDetailsItem) {
 		if (this.programDetails == null) {
-			this.programDetails = new ArrayList<FilterModel>();
+			this.programDetails = new ArrayList<FilterItemInfo>();
 		}
 		this.programDetails.add(programDetailsItem);
 		return this;
@@ -136,22 +135,22 @@ public class EventTradingItemFilters implements Parcelable
 	 * @return programDetails
 	 **/
 	@Schema(description = "")
-	public List<FilterModel> getProgramDetails() {
+	public List<FilterItemInfo> getProgramDetails() {
 		return programDetails;
 	}
 
-	public void setProgramDetails(List<FilterModel> programDetails) {
+	public void setProgramDetails(List<FilterItemInfo> programDetails) {
 		this.programDetails = programDetails;
 	}
 
-	public EventTradingItemFilters fundDetails(List<FilterModel> fundDetails) {
+	public EventTradingItemFilters fundDetails(List<FilterItemInfo> fundDetails) {
 		this.fundDetails = fundDetails;
 		return this;
 	}
 
-	public EventTradingItemFilters addFundDetailsItem(FilterModel fundDetailsItem) {
+	public EventTradingItemFilters addFundDetailsItem(FilterItemInfo fundDetailsItem) {
 		if (this.fundDetails == null) {
-			this.fundDetails = new ArrayList<FilterModel>();
+			this.fundDetails = new ArrayList<FilterItemInfo>();
 		}
 		this.fundDetails.add(fundDetailsItem);
 		return this;
@@ -163,11 +162,11 @@ public class EventTradingItemFilters implements Parcelable
 	 * @return fundDetails
 	 **/
 	@Schema(description = "")
-	public List<FilterModel> getFundDetails() {
+	public List<FilterItemInfo> getFundDetails() {
 		return fundDetails;
 	}
 
-	public void setFundDetails(List<FilterModel> fundDetails) {
+	public void setFundDetails(List<FilterItemInfo> fundDetails) {
 		this.fundDetails = fundDetails;
 	}
 

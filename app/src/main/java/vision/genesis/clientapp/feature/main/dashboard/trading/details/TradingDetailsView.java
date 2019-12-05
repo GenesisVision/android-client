@@ -10,6 +10,7 @@ import java.util.List;
 import io.swagger.client.model.DashboardTradingAsset;
 import io.swagger.client.model.DashboardTradingDetails;
 import io.swagger.client.model.InvestmentEventViewModel;
+import io.swagger.client.model.Timeframe;
 import vision.genesis.clientapp.model.CurrencyEnum;
 
 /**
@@ -22,6 +23,8 @@ interface TradingDetailsView extends MvpView
 	void setCreateOptions(ArrayList<String> createPrivateOptions, ArrayList<String> createPublicOptions);
 
 	void setBaseCurrency(CurrencyEnum baseCurrency);
+
+	void setTimeframe(Timeframe timeframe);
 
 	void setTrading(DashboardTradingDetails details);
 

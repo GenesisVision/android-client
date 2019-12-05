@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **periodStarts** | [**DateTime**](DateTime.md) |  |  [optional]
 **periodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
 **owner** | [**ProfilePublicShort**](ProfilePublicShort.md) |  |  [optional]
+**brokerDetails** | [**BrokerDetails**](BrokerDetails.md) |  |  [optional]
 **personalDetails** | [**PersonalInvestingProgramDetailsList**](PersonalInvestingProgramDetailsList.md) |  |  [optional]
 **tags** | [**List&lt;Tag&gt;**](Tag.md) |  |  [optional]
 **statistic** | [**ProfitChart**](ProfitChart.md) |  |  [optional]

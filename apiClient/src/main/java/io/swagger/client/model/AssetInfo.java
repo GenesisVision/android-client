@@ -59,6 +59,9 @@ public class AssetInfo implements Parcelable
 	@SerializedName("tags")
 	private List<Tag> tags = null;
 
+	@SerializedName("socialLinks")
+	private List<SocialLinkViewModel> socialLinks = null;
+
 	public AssetInfo() {
 	}
 
@@ -69,6 +72,7 @@ public class AssetInfo implements Parcelable
 		description = (String) in.readValue(null);
 		chartSymbol = (String) in.readValue(null);
 		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
+		socialLinks = (List<SocialLinkViewModel>) in.readValue(SocialLinkViewModel.class.getClassLoader());
 	}
 
 	public AssetInfo name(String name) {
@@ -193,6 +197,33 @@ public class AssetInfo implements Parcelable
 		this.tags = tags;
 	}
 
+	public AssetInfo socialLinks(List<SocialLinkViewModel> socialLinks) {
+		this.socialLinks = socialLinks;
+		return this;
+	}
+
+	public AssetInfo addSocialLinksItem(SocialLinkViewModel socialLinksItem) {
+		if (this.socialLinks == null) {
+			this.socialLinks = new ArrayList<SocialLinkViewModel>();
+		}
+		this.socialLinks.add(socialLinksItem);
+		return this;
+	}
+
+	/**
+	 * Get socialLinks
+	 *
+	 * @return socialLinks
+	 **/
+	@Schema(description = "")
+	public List<SocialLinkViewModel> getSocialLinks() {
+		return socialLinks;
+	}
+
+	public void setSocialLinks(List<SocialLinkViewModel> socialLinks) {
+		this.socialLinks = socialLinks;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -207,12 +238,13 @@ public class AssetInfo implements Parcelable
 				Objects.equals(this.logo, assetInfo.logo) &&
 				Objects.equals(this.description, assetInfo.description) &&
 				Objects.equals(this.chartSymbol, assetInfo.chartSymbol) &&
-				Objects.equals(this.tags, assetInfo.tags);
+				Objects.equals(this.tags, assetInfo.tags) &&
+				Objects.equals(this.socialLinks, assetInfo.socialLinks);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, symbol, logo, description, chartSymbol, tags);
+		return Objects.hash(name, symbol, logo, description, chartSymbol, tags, socialLinks);
 	}
 
 	@Override
@@ -226,6 +258,7 @@ public class AssetInfo implements Parcelable
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    chartSymbol: ").append(toIndentedString(chartSymbol)).append("\n");
 		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+		sb.append("    socialLinks: ").append(toIndentedString(socialLinks)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -248,6 +281,7 @@ public class AssetInfo implements Parcelable
 		out.writeValue(description);
 		out.writeValue(chartSymbol);
 		out.writeValue(tags);
+		out.writeValue(socialLinks);
 	}
 
 	public int describeContents() {

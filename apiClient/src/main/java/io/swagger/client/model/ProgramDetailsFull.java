@@ -25,7 +25,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
  * ProgramDetailsFull
  */
@@ -46,6 +45,9 @@ public class ProgramDetailsFull implements Parcelable
 
 	@SerializedName("id")
 	private UUID id = null;
+
+	@SerializedName("tradingAccountId")
+	private UUID tradingAccountId = null;
 
 	@SerializedName("logo")
 	private String logo = null;
@@ -157,6 +159,7 @@ public class ProgramDetailsFull implements Parcelable
 
 	ProgramDetailsFull(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
 		logo = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 		color = (String) in.readValue(null);
@@ -211,6 +214,25 @@ public class ProgramDetailsFull implements Parcelable
 
 	public void setId(UUID id) {
 		this.id = id;
+	}
+
+	public ProgramDetailsFull tradingAccountId(UUID tradingAccountId) {
+		this.tradingAccountId = tradingAccountId;
+		return this;
+	}
+
+	/**
+	 * Get tradingAccountId
+	 *
+	 * @return tradingAccountId
+	 **/
+	@Schema(description = "")
+	public UUID getTradingAccountId() {
+		return tradingAccountId;
+	}
+
+	public void setTradingAccountId(UUID tradingAccountId) {
+		this.tradingAccountId = tradingAccountId;
 	}
 
 	public ProgramDetailsFull logo(String logo) {
@@ -896,6 +918,7 @@ public class ProgramDetailsFull implements Parcelable
 		}
 		ProgramDetailsFull programDetailsFull = (ProgramDetailsFull) o;
 		return Objects.equals(this.id, programDetailsFull.id) &&
+				Objects.equals(this.tradingAccountId, programDetailsFull.tradingAccountId) &&
 				Objects.equals(this.logo, programDetailsFull.logo) &&
 				Objects.equals(this.url, programDetailsFull.url) &&
 				Objects.equals(this.color, programDetailsFull.color) &&
@@ -935,7 +958,7 @@ public class ProgramDetailsFull implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, url, color, title, description, creationDate, currency, level, levelProgress, periodDuration, periodStarts, periodEnds, tradesDelay, status, login, ageDays, leverageMin, leverageMax, genesisRatio, investmentScale, volumeScale, entryFeeSelected, entryFeeCurrent, successFeeSelected, successFeeCurrent, stopOutLevelSelected, stopOutLevelCurrent, availableInvestmentBase, availableInvestmentLimit, totalAvailableInvestment, owner, brokerDetails, signalSettings, personalDetails, tags);
+		return Objects.hash(id, tradingAccountId, logo, url, color, title, description, creationDate, currency, level, levelProgress, periodDuration, periodStarts, periodEnds, tradesDelay, status, login, ageDays, leverageMin, leverageMax, genesisRatio, investmentScale, volumeScale, entryFeeSelected, entryFeeCurrent, successFeeSelected, successFeeCurrent, stopOutLevelSelected, stopOutLevelCurrent, availableInvestmentBase, availableInvestmentLimit, totalAvailableInvestment, owner, brokerDetails, signalSettings, personalDetails, tags);
 	}
 
 	@Override
@@ -944,6 +967,7 @@ public class ProgramDetailsFull implements Parcelable
 		sb.append("class ProgramDetailsFull {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    tradingAccountId: ").append(toIndentedString(tradingAccountId)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
@@ -996,6 +1020,7 @@ public class ProgramDetailsFull implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
+		out.writeValue(tradingAccountId);
 		out.writeValue(logo);
 		out.writeValue(url);
 		out.writeValue(color);

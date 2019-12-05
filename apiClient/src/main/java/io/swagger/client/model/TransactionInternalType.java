@@ -28,15 +28,13 @@ public enum TransactionInternalType
 	ALL("All"),
 	INVESTMENT("Investment"),
 	WITHDRAWAL("Withdrawal"),
-	DEPOSIT("Deposit"),
 	CONVERSION("Conversion"),
 	COMMISSION("Commission"),
 	PROGRAM("Program"),
 	FUND("Fund"),
 	FOLLOW("Follow"),
 	TRADINGACCOUNTS("TradingAccounts"),
-	AGENTREWARD("AgentReward"),
-	PLATFORM("Platform");
+	AGENTREWARD("AgentReward");
 
 	public static TransactionInternalType fromValue(String text) {
 		for (TransactionInternalType b : TransactionInternalType.values()) {

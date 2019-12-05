@@ -30,9 +30,11 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.DashboardSummary;
 import io.swagger.client.model.DashboardTimeframeProfit;
+import io.swagger.client.model.Timeframe;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitView;
 import vision.genesis.clientapp.feature.main.dashboard.investments.DashboardInvestmentsView;
 import vision.genesis.clientapp.feature.main.dashboard.investments.details.InvestmentsDetailsActivity;
 import vision.genesis.clientapp.feature.main.dashboard.trading.DashboardTradingView;
@@ -57,12 +59,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	@BindView(R.id.scrollview)
 	public NestedScrollView scrollview;
 
-	@BindView(R.id.root)
-	public ViewGroup root;
-
-	@BindView(R.id.header)
-	public ViewGroup header;
-
 
 	@BindView(R.id.group_header_balance)
 	public ViewGroup headerBalanceGroup;
@@ -80,23 +76,11 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	@BindView(R.id.total)
 	public TextView total;
 
-	@BindView(R.id.profit_day_value)
-	public TextView profitDayValue;
+	@BindView(R.id.change)
+	public TextView change;
 
-	@BindView(R.id.profit_day_label)
-	public TextView profitDayLabel;
-
-	@BindView(R.id.profit_week_value)
-	public TextView profitWeekValue;
-
-	@BindView(R.id.profit_week_label)
-	public TextView profitWeekLabel;
-
-	@BindView(R.id.profit_month_value)
-	public TextView profitMonthValue;
-
-	@BindView(R.id.profit_month_label)
-	public TextView profitMonthLabel;
+	@BindView(R.id.view_timeframe_profit)
+	public TimeframeProfitView timeframeProfit;
 
 
 	@BindView(R.id.investments_view)
@@ -121,7 +105,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	public int toolbarHeight;
 
 	@InjectPresenter
-	DashboardPresenter dashboardPresenter;
+	DashboardPresenter presenter;
 
 	private Unbinder unbinder;
 
@@ -134,6 +118,8 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	private boolean showAnimInProcess = false;
 
 	private boolean hideAnimInProcess = false;
+
+	private DashboardSummary summary;
 
 	@OnClick(R.id.investments_view)
 	public void onInvestmentsClicked() {
@@ -189,6 +175,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 
 		initRefreshLayout();
 		setScrollListener();
+		timeframeProfit.setListener(presenter);
 
 		new Handler().postDelayed(this::hideBalanceInHeader, 100);
 	}
@@ -196,7 +183,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	@Override
 	public void onResume() {
 		super.onResume();
-		dashboardPresenter.onResume();
+		presenter.onResume();
 	}
 
 	@Override
@@ -212,14 +199,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	private void setFonts() {
 		total.setTypeface(TypefaceUtil.semibold());
 		headerTotal.setTypeface(TypefaceUtil.semibold());
-
-		profitDayValue.setTypeface(TypefaceUtil.semibold());
-		profitWeekValue.setTypeface(TypefaceUtil.semibold());
-		profitMonthValue.setTypeface(TypefaceUtil.semibold());
-
-		profitDayLabel.setText(getString(R.string.day).toLowerCase());
-		profitWeekLabel.setText(getString(R.string.week).toLowerCase());
-		profitMonthLabel.setText(getString(R.string.month).toLowerCase());
 	}
 
 	private void initRefreshLayout() {
@@ -228,7 +207,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 				ThemeUtil.getColorByAttrId(getContext(), R.attr.colorAccent),
 				ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextPrimary),
 				ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary));
-		refreshLayout.setOnRefreshListener(() -> dashboardPresenter.onSwipeRefresh());
+		refreshLayout.setOnRefreshListener(() -> presenter.onSwipeRefresh());
 	}
 
 
@@ -319,49 +298,43 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 
 	@Override
 	public void setSummary(DashboardSummary summary) {
+		this.summary = summary;
+
 		if (baseCurrency != null) {
 			total.setText(StringFormatUtil.getValueString(summary.getTotal(), baseCurrency.getValue()));
 			headerTotal.setText(StringFormatUtil.getValueString(summary.getTotal(), baseCurrency.getValue()));
 
-			setHeaderChange(summary.getProfits().getMonth(), getString(R.string.month));
-
-			setChangePercent(profitDayValue, summary.getProfits().getDay());
-			setChangePercent(profitWeekValue, summary.getProfits().getWeek());
-			setChangePercent(profitMonthValue, summary.getProfits().getMonth());
+			timeframeProfit.setData(summary.getProfits());
 
 			investmentsView.setShare((int) (summary.getInvested() / summary.getTotal() * 100));
-			tradingView.setShare((int) (summary.getPending() / summary.getTotal() * 100));
+			tradingView.setShare((int) (summary.getTrading() / summary.getTotal() * 100));
 			walletView.setShare((int) (summary.getAvailable() / summary.getTotal() * 100));
 		}
 	}
 
-	private void setHeaderChange(DashboardTimeframeProfit model, String periodName) {
+	private void setChange(DashboardTimeframeProfit model, String periodName) {
 		String sign = model.getProfit() > 0 ? "+" : "";
-		headerChangeValue.setText(String.format(Locale.getDefault(), "%s%s (%s%%)",
-				sign,
-				StringFormatUtil.getValueString(model.getProfit(), baseCurrency.getValue()),
-				StringFormatUtil.formatAmount(model.getProfitPercent(), 0, 2)));
-		headerChangeValue.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
-				model.getProfitPercent() > 0
+		int changeColor = ThemeUtil.getColorByAttrId(getContext(),
+				model.getProfit() > 0
 						? R.attr.colorGreen
-						: model.getProfitPercent() < 0
+						: model.getProfit() < 0
 						? R.attr.colorRed
-						: R.attr.colorTextPrimary));
+						: R.attr.colorTextPrimary);
+		String changeValueText = String.format(Locale.getDefault(), "%s%s",
+				sign,
+				StringFormatUtil.getValueString(model.getProfit(), baseCurrency.getValue()));
+
+		headerChangeValue.setText(String.format(Locale.getDefault(), "%s (%s%%)",
+				changeValueText,
+				StringFormatUtil.formatAmount(model.getProfitPercent(), 0, 2)));
+		headerChangeValue.setTextColor(changeColor);
+
+		change.setText(changeValueText);
+		change.setTextColor(changeColor);
 
 		headerChangePeriod.setText(String.format(Locale.getDefault(),
 				getString(R.string.template_dashboard_header_change_period),
 				periodName.toLowerCase()));
-	}
-
-	private void setChangePercent(TextView view, DashboardTimeframeProfit model) {
-		view.setText(String.format(Locale.getDefault(), "%s%%",
-				StringFormatUtil.formatAmount(model.getProfitPercent(), 0, 2)));
-		view.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
-				model.getProfitPercent() > 0
-						? R.attr.colorGreen
-						: model.getProfitPercent() < 0
-						? R.attr.colorRed
-						: R.attr.colorTextPrimary));
 	}
 
 	@Override
@@ -373,12 +346,32 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 
 	@Override
 	public void showSnackbarMessage(String message) {
-		showSnackbar(message, root);
+		showSnackbar(message, scrollview);
 	}
 
 	@Override
 	public void setHaveNewNotifications(boolean have) {
 		notificationsDot.setVisibility(have ? View.VISIBLE : View.INVISIBLE);
+	}
+
+	@Override
+	public void setTimeframe(Timeframe timeframe) {
+		if (summary != null) {
+			switch (timeframe) {
+				case WEEK:
+					setChange(summary.getProfits().getWeek(), getString(R.string.week));
+					break;
+				case MONTH:
+					setChange(summary.getProfits().getMonth(), getString(R.string.month));
+					break;
+				default:
+				case DAY:
+					setChange(summary.getProfits().getDay(), getString(R.string.day));
+					break;
+			}
+			investmentsView.setTimeframe(timeframe);
+			tradingView.setTimeframe(timeframe);
+		}
 	}
 
 	@Override
@@ -404,6 +397,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 
 	@Override
 	public void onShow() {
-		dashboardPresenter.onResume();
+		presenter.onResume();
 	}
 }
