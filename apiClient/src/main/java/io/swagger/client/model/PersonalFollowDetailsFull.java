@@ -17,8 +17,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -50,9 +48,6 @@ public class PersonalFollowDetailsFull implements Parcelable
 	@SerializedName("isProgram")
 	private Boolean isProgram = null;
 
-	@SerializedName("signalSubscriptions")
-	private List<SignalSubscription> signalSubscriptions = null;
-
 	@SerializedName("ownerActions")
 	private FollowOwnerActions ownerActions = null;
 
@@ -75,7 +70,6 @@ public class PersonalFollowDetailsFull implements Parcelable
 		isOwnAsset = (Boolean) in.readValue(null);
 		isFavorite = (Boolean) in.readValue(null);
 		isProgram = (Boolean) in.readValue(null);
-		signalSubscriptions = (List<SignalSubscription>) in.readValue(SignalSubscription.class.getClassLoader());
 		ownerActions = (FollowOwnerActions) in.readValue(FollowOwnerActions.class.getClassLoader());
 		guestActions = (AssetGuestActions) in.readValue(AssetGuestActions.class.getClassLoader());
 		hasNotifications = (Boolean) in.readValue(null);
@@ -138,33 +132,6 @@ public class PersonalFollowDetailsFull implements Parcelable
 
 	public void setIsProgram(Boolean isProgram) {
 		this.isProgram = isProgram;
-	}
-
-	public PersonalFollowDetailsFull signalSubscriptions(List<SignalSubscription> signalSubscriptions) {
-		this.signalSubscriptions = signalSubscriptions;
-		return this;
-	}
-
-	public PersonalFollowDetailsFull addSignalSubscriptionsItem(SignalSubscription signalSubscriptionsItem) {
-		if (this.signalSubscriptions == null) {
-			this.signalSubscriptions = new ArrayList<SignalSubscription>();
-		}
-		this.signalSubscriptions.add(signalSubscriptionsItem);
-		return this;
-	}
-
-	/**
-	 * Get signalSubscriptions
-	 *
-	 * @return signalSubscriptions
-	 **/
-	@Schema(description = "")
-	public List<SignalSubscription> getSignalSubscriptions() {
-		return signalSubscriptions;
-	}
-
-	public void setSignalSubscriptions(List<SignalSubscription> signalSubscriptions) {
-		this.signalSubscriptions = signalSubscriptions;
 	}
 
 	public PersonalFollowDetailsFull ownerActions(FollowOwnerActions ownerActions) {
@@ -274,7 +241,6 @@ public class PersonalFollowDetailsFull implements Parcelable
 		return Objects.equals(this.isOwnAsset, personalFollowDetailsFull.isOwnAsset) &&
 				Objects.equals(this.isFavorite, personalFollowDetailsFull.isFavorite) &&
 				Objects.equals(this.isProgram, personalFollowDetailsFull.isProgram) &&
-				Objects.equals(this.signalSubscriptions, personalFollowDetailsFull.signalSubscriptions) &&
 				Objects.equals(this.ownerActions, personalFollowDetailsFull.ownerActions) &&
 				Objects.equals(this.guestActions, personalFollowDetailsFull.guestActions) &&
 				Objects.equals(this.hasNotifications, personalFollowDetailsFull.hasNotifications) &&
@@ -284,7 +250,7 @@ public class PersonalFollowDetailsFull implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isOwnAsset, isFavorite, isProgram, signalSubscriptions, ownerActions, guestActions, hasNotifications, balance, leverage);
+		return Objects.hash(isOwnAsset, isFavorite, isProgram, ownerActions, guestActions, hasNotifications, balance, leverage);
 	}
 
 	@Override
@@ -295,7 +261,6 @@ public class PersonalFollowDetailsFull implements Parcelable
 		sb.append("    isOwnAsset: ").append(toIndentedString(isOwnAsset)).append("\n");
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isProgram: ").append(toIndentedString(isProgram)).append("\n");
-		sb.append("    signalSubscriptions: ").append(toIndentedString(signalSubscriptions)).append("\n");
 		sb.append("    ownerActions: ").append(toIndentedString(ownerActions)).append("\n");
 		sb.append("    guestActions: ").append(toIndentedString(guestActions)).append("\n");
 		sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
@@ -320,7 +285,6 @@ public class PersonalFollowDetailsFull implements Parcelable
 		out.writeValue(isOwnAsset);
 		out.writeValue(isFavorite);
 		out.writeValue(isProgram);
-		out.writeValue(signalSubscriptions);
 		out.writeValue(ownerActions);
 		out.writeValue(guestActions);
 		out.writeValue(hasNotifications);

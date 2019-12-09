@@ -23,7 +23,6 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 import java.util.Objects;
-import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -45,11 +44,11 @@ public class SignalSubscription implements Parcelable
 		}
 	};
 
-	@SerializedName("followAssetId")
-	private UUID followAssetId = null;
-
 	@SerializedName("subscriberInfo")
 	private SignalSubscriberInfo subscriberInfo = null;
+
+	@SerializedName("asset")
+	private AssetDetails asset = null;
 
 	@SerializedName("hasSignalAccount")
 	private Boolean hasSignalAccount = null;
@@ -82,8 +81,8 @@ public class SignalSubscription implements Parcelable
 	}
 
 	SignalSubscription(Parcel in) {
-		followAssetId = (UUID) in.readValue(UUID.class.getClassLoader());
 		subscriberInfo = (SignalSubscriberInfo) in.readValue(SignalSubscriberInfo.class.getClassLoader());
+		asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
 		hasSignalAccount = (Boolean) in.readValue(null);
 		hasActiveSubscription = (Boolean) in.readValue(null);
 		mode = (SubscriptionMode) in.readValue(SubscriptionMode.class.getClassLoader());
@@ -93,25 +92,6 @@ public class SignalSubscription implements Parcelable
 		fixedCurrency = (FixedCurrencyEnum) in.readValue(null);
 		totalProfit = (Double) in.readValue(null);
 		totalVolume = (Double) in.readValue(null);
-	}
-
-	public SignalSubscription followAssetId(UUID followAssetId) {
-		this.followAssetId = followAssetId;
-		return this;
-	}
-
-	/**
-	 * Get followAssetId
-	 *
-	 * @return followAssetId
-	 **/
-	@Schema(description = "")
-	public UUID getFollowAssetId() {
-		return followAssetId;
-	}
-
-	public void setFollowAssetId(UUID followAssetId) {
-		this.followAssetId = followAssetId;
 	}
 
 	public SignalSubscription subscriberInfo(SignalSubscriberInfo subscriberInfo) {
@@ -131,6 +111,25 @@ public class SignalSubscription implements Parcelable
 
 	public void setSubscriberInfo(SignalSubscriberInfo subscriberInfo) {
 		this.subscriberInfo = subscriberInfo;
+	}
+
+	public SignalSubscription asset(AssetDetails asset) {
+		this.asset = asset;
+		return this;
+	}
+
+	/**
+	 * Get asset
+	 *
+	 * @return asset
+	 **/
+	@Schema(description = "")
+	public AssetDetails getAsset() {
+		return asset;
+	}
+
+	public void setAsset(AssetDetails asset) {
+		this.asset = asset;
 	}
 
 	public SignalSubscription hasSignalAccount(Boolean hasSignalAccount) {
@@ -313,8 +312,8 @@ public class SignalSubscription implements Parcelable
 			return false;
 		}
 		SignalSubscription signalSubscription = (SignalSubscription) o;
-		return Objects.equals(this.followAssetId, signalSubscription.followAssetId) &&
-				Objects.equals(this.subscriberInfo, signalSubscription.subscriberInfo) &&
+		return Objects.equals(this.subscriberInfo, signalSubscription.subscriberInfo) &&
+				Objects.equals(this.asset, signalSubscription.asset) &&
 				Objects.equals(this.hasSignalAccount, signalSubscription.hasSignalAccount) &&
 				Objects.equals(this.hasActiveSubscription, signalSubscription.hasActiveSubscription) &&
 				Objects.equals(this.mode, signalSubscription.mode) &&
@@ -328,7 +327,7 @@ public class SignalSubscription implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(followAssetId, subscriberInfo, hasSignalAccount, hasActiveSubscription, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency, totalProfit, totalVolume);
+		return Objects.hash(subscriberInfo, asset, hasSignalAccount, hasActiveSubscription, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency, totalProfit, totalVolume);
 	}
 
 	@Override
@@ -336,8 +335,8 @@ public class SignalSubscription implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class SignalSubscription {\n");
 
-		sb.append("    followAssetId: ").append(toIndentedString(followAssetId)).append("\n");
 		sb.append("    subscriberInfo: ").append(toIndentedString(subscriberInfo)).append("\n");
+		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
 		sb.append("    hasSignalAccount: ").append(toIndentedString(hasSignalAccount)).append("\n");
 		sb.append("    hasActiveSubscription: ").append(toIndentedString(hasActiveSubscription)).append("\n");
 		sb.append("    mode: ").append(toIndentedString(mode)).append("\n");
@@ -363,8 +362,8 @@ public class SignalSubscription implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(followAssetId);
 		out.writeValue(subscriberInfo);
+		out.writeValue(asset);
 		out.writeValue(hasSignalAccount);
 		out.writeValue(hasActiveSubscription);
 		out.writeValue(mode);

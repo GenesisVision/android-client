@@ -41,6 +41,9 @@ public class AbsoluteProfitChart implements Parcelable
 		}
 	};
 
+	@SerializedName("profit")
+	private Double profit = null;
+
 	@SerializedName("chart")
 	private List<SimpleChartPoint> chart = null;
 
@@ -48,7 +51,27 @@ public class AbsoluteProfitChart implements Parcelable
 	}
 
 	AbsoluteProfitChart(Parcel in) {
+		profit = (Double) in.readValue(null);
 		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
+	}
+
+	public AbsoluteProfitChart profit(Double profit) {
+		this.profit = profit;
+		return this;
+	}
+
+	/**
+	 * Get profit
+	 *
+	 * @return profit
+	 **/
+	@Schema(description = "")
+	public Double getProfit() {
+		return profit;
+	}
+
+	public void setProfit(Double profit) {
+		this.profit = profit;
 	}
 
 	public AbsoluteProfitChart chart(List<SimpleChartPoint> chart) {
@@ -87,12 +110,13 @@ public class AbsoluteProfitChart implements Parcelable
 			return false;
 		}
 		AbsoluteProfitChart absoluteProfitChart = (AbsoluteProfitChart) o;
-		return Objects.equals(this.chart, absoluteProfitChart.chart);
+		return Objects.equals(this.profit, absoluteProfitChart.profit) &&
+				Objects.equals(this.chart, absoluteProfitChart.chart);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(chart);
+		return Objects.hash(profit, chart);
 	}
 
 	@Override
@@ -100,6 +124,7 @@ public class AbsoluteProfitChart implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class AbsoluteProfitChart {\n");
 
+		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -117,6 +142,7 @@ public class AbsoluteProfitChart implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(profit);
 		out.writeValue(chart);
 	}
 

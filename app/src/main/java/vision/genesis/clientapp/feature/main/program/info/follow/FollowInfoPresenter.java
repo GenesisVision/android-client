@@ -9,7 +9,6 @@ import javax.inject.Inject;
 
 import io.swagger.client.model.AttachToSignalProviderInfo;
 import io.swagger.client.model.FollowDetailsFull;
-import io.swagger.client.model.SignalSubscription;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -93,30 +92,30 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 		if (followDetails != null) {
 			SubscriptionSettingsModel model = new SubscriptionSettingsModel();
 
-			SignalSubscription signalSubscription = followDetails.getPersonalDetails().getSignalSubscriptions().get(0);
-			try {
-				if (signalSubscription.isHasActiveSubscription()) {
-					if (signalSubscription.getMode() != null) {
-						model.setMode(signalSubscription.getMode().getValue());
-					}
-					if (signalSubscription.getPercent() != null) {
-						model.setPercent(signalSubscription.getPercent());
-					}
-					if (signalSubscription.getOpenTolerancePercent() != null) {
-						model.setOpenTolerancePercent(signalSubscription.getOpenTolerancePercent());
-					}
-					if (signalSubscription.getFixedVolume() != null) {
-						model.setFixedVolume(signalSubscription.getFixedVolume());
-					}
-					if (signalSubscription.getFixedCurrency() != null) {
-						model.setFixedCurrency(signalSubscription.getFixedCurrency().getValue());
-					}
-				}
-			} catch (NullPointerException e) {
-				e.printStackTrace();
-			}
-			model.setProgramName(followDetails.getTitle());
-			model.setProgramId(followDetails.getId());
+//			SignalSubscription signalSubscription = followDetails.getPersonalDetails().getSignalSubscriptions().get(0);
+//			try {
+//				if (signalSubscription.isHasActiveSubscription()) {
+//					if (signalSubscription.getMode() != null) {
+//						model.setMode(signalSubscription.getMode().getValue());
+//					}
+//					if (signalSubscription.getPercent() != null) {
+//						model.setPercent(signalSubscription.getPercent());
+//					}
+//					if (signalSubscription.getOpenTolerancePercent() != null) {
+//						model.setOpenTolerancePercent(signalSubscription.getOpenTolerancePercent());
+//					}
+//					if (signalSubscription.getFixedVolume() != null) {
+//						model.setFixedVolume(signalSubscription.getFixedVolume());
+//					}
+//					if (signalSubscription.getFixedCurrency() != null) {
+//						model.setFixedCurrency(signalSubscription.getFixedCurrency().getValue());
+//					}
+//				}
+//			} catch (NullPointerException e) {
+//				e.printStackTrace();
+//			}
+//			model.setProgramName(followDetails.getTitle());
+//			model.setProgramId(followDetails.getId());
 
 			//TODO:
 //			if (!signalsInfo.isHasSignalAccount()) {

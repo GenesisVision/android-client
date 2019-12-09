@@ -42,9 +42,6 @@ public class FollowChartStatistic implements Parcelable
 	@SerializedName("subscribers")
 	private Integer subscribers = null;
 
-	@SerializedName("profit")
-	private Double profit = null;
-
 	@SerializedName("tradingVolume")
 	private Double tradingVolume = null;
 
@@ -59,6 +56,9 @@ public class FollowChartStatistic implements Parcelable
 
 	@SerializedName("balance")
 	private Double balance = null;
+
+	@SerializedName("profitPercent")
+	private Double profitPercent = null;
 
 	@SerializedName("sharpeRatio")
 	private Double sharpeRatio = null;
@@ -77,12 +77,12 @@ public class FollowChartStatistic implements Parcelable
 
 	FollowChartStatistic(Parcel in) {
 		subscribers = (Integer) in.readValue(null);
-		profit = (Double) in.readValue(null);
 		tradingVolume = (Double) in.readValue(null);
 		trades = (Integer) in.readValue(null);
 		successTradesPercent = (Double) in.readValue(null);
 		profitFactor = (Double) in.readValue(null);
 		balance = (Double) in.readValue(null);
+		profitPercent = (Double) in.readValue(null);
 		sharpeRatio = (Double) in.readValue(null);
 		sortinoRatio = (Double) in.readValue(null);
 		calmarRatio = (Double) in.readValue(null);
@@ -106,25 +106,6 @@ public class FollowChartStatistic implements Parcelable
 
 	public void setSubscribers(Integer subscribers) {
 		this.subscribers = subscribers;
-	}
-
-	public FollowChartStatistic profit(Double profit) {
-		this.profit = profit;
-		return this;
-	}
-
-	/**
-	 * Get profit
-	 *
-	 * @return profit
-	 **/
-	@Schema(description = "")
-	public Double getProfit() {
-		return profit;
-	}
-
-	public void setProfit(Double profit) {
-		this.profit = profit;
 	}
 
 	public FollowChartStatistic tradingVolume(Double tradingVolume) {
@@ -222,6 +203,25 @@ public class FollowChartStatistic implements Parcelable
 		this.balance = balance;
 	}
 
+	public FollowChartStatistic profitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
+		return this;
+	}
+
+	/**
+	 * Get profitPercent
+	 *
+	 * @return profitPercent
+	 **/
+	@Schema(description = "")
+	public Double getProfitPercent() {
+		return profitPercent;
+	}
+
+	public void setProfitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
+	}
+
 	public FollowChartStatistic sharpeRatio(Double sharpeRatio) {
 		this.sharpeRatio = sharpeRatio;
 		return this;
@@ -308,12 +308,12 @@ public class FollowChartStatistic implements Parcelable
 		}
 		FollowChartStatistic followChartStatistic = (FollowChartStatistic) o;
 		return Objects.equals(this.subscribers, followChartStatistic.subscribers) &&
-				Objects.equals(this.profit, followChartStatistic.profit) &&
 				Objects.equals(this.tradingVolume, followChartStatistic.tradingVolume) &&
 				Objects.equals(this.trades, followChartStatistic.trades) &&
 				Objects.equals(this.successTradesPercent, followChartStatistic.successTradesPercent) &&
 				Objects.equals(this.profitFactor, followChartStatistic.profitFactor) &&
 				Objects.equals(this.balance, followChartStatistic.balance) &&
+				Objects.equals(this.profitPercent, followChartStatistic.profitPercent) &&
 				Objects.equals(this.sharpeRatio, followChartStatistic.sharpeRatio) &&
 				Objects.equals(this.sortinoRatio, followChartStatistic.sortinoRatio) &&
 				Objects.equals(this.calmarRatio, followChartStatistic.calmarRatio) &&
@@ -322,7 +322,7 @@ public class FollowChartStatistic implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(subscribers, profit, tradingVolume, trades, successTradesPercent, profitFactor, balance, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown);
+		return Objects.hash(subscribers, tradingVolume, trades, successTradesPercent, profitFactor, balance, profitPercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown);
 	}
 
 	@Override
@@ -331,12 +331,12 @@ public class FollowChartStatistic implements Parcelable
 		sb.append("class FollowChartStatistic {\n");
 
 		sb.append("    subscribers: ").append(toIndentedString(subscribers)).append("\n");
-		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
 		sb.append("    tradingVolume: ").append(toIndentedString(tradingVolume)).append("\n");
 		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
 		sb.append("    successTradesPercent: ").append(toIndentedString(successTradesPercent)).append("\n");
 		sb.append("    profitFactor: ").append(toIndentedString(profitFactor)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
 		sb.append("    sharpeRatio: ").append(toIndentedString(sharpeRatio)).append("\n");
 		sb.append("    sortinoRatio: ").append(toIndentedString(sortinoRatio)).append("\n");
 		sb.append("    calmarRatio: ").append(toIndentedString(calmarRatio)).append("\n");
@@ -358,12 +358,12 @@ public class FollowChartStatistic implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(subscribers);
-		out.writeValue(profit);
 		out.writeValue(tradingVolume);
 		out.writeValue(trades);
 		out.writeValue(successTradesPercent);
 		out.writeValue(profitFactor);
 		out.writeValue(balance);
+		out.writeValue(profitPercent);
 		out.writeValue(sharpeRatio);
 		out.writeValue(sortinoRatio);
 		out.writeValue(calmarRatio);

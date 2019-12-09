@@ -23,7 +23,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.WalletData;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
@@ -113,10 +112,6 @@ public class CreateProgramDepositFragment extends BaseFragment implements Create
 	private List<WalletData> wallets;
 
 	private Unbinder unbinder;
-
-	private NewFundRequest request;
-
-	private Double minDepositAmount;
 
 	@OnClick(R.id.group_wallet)
 	public void onWalletClicked() {

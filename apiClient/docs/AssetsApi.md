@@ -20,8 +20,9 @@ Method | HTTP request | Description
 [**makeAccountSignalProvider**](AssetsApi.md#makeAccountSignalProvider) | **POST** v2.0/assets/signal/create | Make account signal provider
 [**makeExternalAccountSignalProvider**](AssetsApi.md#makeExternalAccountSignalProvider) | **POST** v2.0/assets/tradingaccounts/external/fromaccount/create | Make external trading account signal provider
 [**makeSignalProviderProgram**](AssetsApi.md#makeSignalProviderProgram) | **POST** v2.0/assets/programs/fromsignalprovider/create | Create an investment program
-[**updateAsset**](AssetsApi.md#updateAsset) | **POST** v2.0/assets/funds/{id}/update | Update investment program/fund details
-[**updateAsset_0**](AssetsApi.md#updateAsset_0) | **POST** v2.0/assets/programs/{id}/update | Update investment program/fund details
+[**updateAsset**](AssetsApi.md#updateAsset) | **POST** v2.0/assets/follow/{id}/update | Update investment program/fund details
+[**updateAsset_0**](AssetsApi.md#updateAsset_0) | **POST** v2.0/assets/funds/{id}/update | Update investment program/fund details
+[**updateAsset_1**](AssetsApi.md#updateAsset_1) | **POST** v2.0/assets/programs/{id}/update | Update investment program/fund details
 [**updateFundAssets**](AssetsApi.md#updateFundAssets) | **POST** v2.0/assets/funds/{id}/assets/update | Update fund assets parts
 [**updateSignalProviderSettings**](AssetsApi.md#updateSignalProviderSettings) | **POST** v2.0/assets/signal/edit | Edit account signal settings
 
@@ -824,6 +825,53 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#updateAsset_0");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **id** | [**UUID**](.md)|  |
+ **body** | [**ProgramUpdate**](ProgramUpdate.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="updateAsset_1"></a>
+# **updateAsset_1**
+> Void updateAsset_1(authorization, id, body)
+
+Update investment program/fund details
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.AssetsApi;
+
+
+AssetsApi apiInstance = new AssetsApi();
+String authorization = "authorization_example"; // String | JWT access token
+UUID id = new UUID(); // UUID | 
+ProgramUpdate body = new ProgramUpdate(); // ProgramUpdate | 
+try {
+    Void result = apiInstance.updateAsset_1(authorization, id, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AssetsApi#updateAsset_1");
     e.printStackTrace();
 }
 ```

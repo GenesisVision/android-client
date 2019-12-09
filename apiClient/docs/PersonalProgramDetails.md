@@ -21,4 +21,3 @@ Name | Type | Description | Notes
 **status** | [**AssetInvestmentStatus**](AssetInvestmentStatus.md) |  |  [optional]
 **successFeePersonal** | **Double** |  |  [optional]
 **migration** | [**MigrationRequest**](MigrationRequest.md) |  |  [optional]
-**signalSubscriptions** | [**List&lt;SignalSubscription&gt;**](SignalSubscription.md) |  |  [optional]

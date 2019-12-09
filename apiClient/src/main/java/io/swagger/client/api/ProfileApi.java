@@ -68,6 +68,19 @@ public interface ProfileApi
 	);
 
 	/**
+	 * @param authorization JWT access token (required)
+	 * @param body          (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/profile/push/token/remove")
+	Observable<Void> removeFcmToken(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body FcmTokenViewModel body
+	);
+
+	/**
 	 * Disable public investor profile
 	 *
 	 * @param authorization JWT access token (required)

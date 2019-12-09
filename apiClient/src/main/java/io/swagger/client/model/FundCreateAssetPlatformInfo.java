@@ -45,12 +45,16 @@ public class FundCreateAssetPlatformInfo implements Parcelable
 	@SerializedName("maxExitFee")
 	private Double maxExitFee = null;
 
+	@SerializedName("minDeposit")
+	private Double minDeposit = null;
+
 	public FundCreateAssetPlatformInfo() {
 	}
 
 	FundCreateAssetPlatformInfo(Parcel in) {
 		maxEntryFee = (Double) in.readValue(null);
 		maxExitFee = (Double) in.readValue(null);
+		minDeposit = (Double) in.readValue(null);
 	}
 
 	public FundCreateAssetPlatformInfo maxEntryFee(Double maxEntryFee) {
@@ -91,6 +95,25 @@ public class FundCreateAssetPlatformInfo implements Parcelable
 		this.maxExitFee = maxExitFee;
 	}
 
+	public FundCreateAssetPlatformInfo minDeposit(Double minDeposit) {
+		this.minDeposit = minDeposit;
+		return this;
+	}
+
+	/**
+	 * Get minDeposit
+	 *
+	 * @return minDeposit
+	 **/
+	@Schema(description = "")
+	public Double getMinDeposit() {
+		return minDeposit;
+	}
+
+	public void setMinDeposit(Double minDeposit) {
+		this.minDeposit = minDeposit;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -101,12 +124,13 @@ public class FundCreateAssetPlatformInfo implements Parcelable
 		}
 		FundCreateAssetPlatformInfo fundCreateAssetPlatformInfo = (FundCreateAssetPlatformInfo) o;
 		return Objects.equals(this.maxEntryFee, fundCreateAssetPlatformInfo.maxEntryFee) &&
-				Objects.equals(this.maxExitFee, fundCreateAssetPlatformInfo.maxExitFee);
+				Objects.equals(this.maxExitFee, fundCreateAssetPlatformInfo.maxExitFee) &&
+				Objects.equals(this.minDeposit, fundCreateAssetPlatformInfo.minDeposit);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(maxEntryFee, maxExitFee);
+		return Objects.hash(maxEntryFee, maxExitFee, minDeposit);
 	}
 
 	@Override
@@ -116,6 +140,7 @@ public class FundCreateAssetPlatformInfo implements Parcelable
 
 		sb.append("    maxEntryFee: ").append(toIndentedString(maxEntryFee)).append("\n");
 		sb.append("    maxExitFee: ").append(toIndentedString(maxExitFee)).append("\n");
+		sb.append("    minDeposit: ").append(toIndentedString(minDeposit)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -134,6 +159,7 @@ public class FundCreateAssetPlatformInfo implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(maxEntryFee);
 		out.writeValue(maxExitFee);
+		out.writeValue(minDeposit);
 	}
 
 	public int describeContents() {

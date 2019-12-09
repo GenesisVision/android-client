@@ -12,8 +12,6 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.AmountWithCurrency;
-import io.swagger.client.model.Currency;
 import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.PlatformInfo;
 import rx.Subscription;
@@ -88,14 +86,7 @@ public class CreateFundPresenter extends MvpPresenter<CreateFundView>
 
 	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
 		platformInfoSubscription.unsubscribe();
-		Double minDeposit = 0.0;
-		for (AmountWithCurrency info : platformInfo.getAssetInfo().getFundInfo().getMinInvestAmountIntoFund()) {
-			if (info.getCurrency().equals(Currency.GVT)) {
-				minDeposit = info.getAmount();
-				break;
-			}
-		}
-		getViewState().setMinDepositAmount(minDeposit);
+		getViewState().setMinDepositAmount(platformInfo.getAssetInfo().getFundInfo().getCreateFundInfo().getMinDeposit());
 	}
 
 	private void handleGetPlatformInfoError(Throwable throwable) {

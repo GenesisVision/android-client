@@ -43,6 +43,24 @@ public class WalletData implements Parcelable
 	@SerializedName("pending")
 	private Double pending = null;
 
+	@SerializedName("total")
+	private Double total = null;
+
+	@SerializedName("availableCcy")
+	private Double availableCcy = null;
+
+	@SerializedName("investedCcy")
+	private Double investedCcy = null;
+
+	@SerializedName("tradingCcy")
+	private Double tradingCcy = null;
+
+	@SerializedName("pendingCcy")
+	private Double pendingCcy = null;
+
+	@SerializedName("totalCcy")
+	private Double totalCcy = null;
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -64,9 +82,6 @@ public class WalletData implements Parcelable
 	@SerializedName("depositAddress")
 	private String depositAddress = null;
 
-	@SerializedName("total")
-	private Double total = null;
-
 	@SerializedName("currency")
 	private Currency currency = null;
 
@@ -84,6 +99,12 @@ public class WalletData implements Parcelable
 
 	WalletData(Parcel in) {
 		pending = (Double) in.readValue(null);
+		total = (Double) in.readValue(null);
+		availableCcy = (Double) in.readValue(null);
+		investedCcy = (Double) in.readValue(null);
+		tradingCcy = (Double) in.readValue(null);
+		pendingCcy = (Double) in.readValue(null);
+		totalCcy = (Double) in.readValue(null);
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		title = (String) in.readValue(null);
 		logo = (String) in.readValue(null);
@@ -91,7 +112,6 @@ public class WalletData implements Parcelable
 		isWithdrawalEnabled = (Boolean) in.readValue(null);
 		withdrawalCommission = (Double) in.readValue(null);
 		depositAddress = (String) in.readValue(null);
-		total = (Double) in.readValue(null);
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		available = (Double) in.readValue(null);
 		invested = (Double) in.readValue(null);
@@ -115,6 +135,102 @@ public class WalletData implements Parcelable
 
 	public void setPending(Double pending) {
 		this.pending = pending;
+	}
+
+	/**
+	 * Get total
+	 *
+	 * @return total
+	 **/
+	@Schema(description = "")
+	public Double getTotal() {
+		return total;
+	}
+
+	public WalletData availableCcy(Double availableCcy) {
+		this.availableCcy = availableCcy;
+		return this;
+	}
+
+	/**
+	 * Get availableCcy
+	 *
+	 * @return availableCcy
+	 **/
+	@Schema(description = "")
+	public Double getAvailableCcy() {
+		return availableCcy;
+	}
+
+	public void setAvailableCcy(Double availableCcy) {
+		this.availableCcy = availableCcy;
+	}
+
+	public WalletData investedCcy(Double investedCcy) {
+		this.investedCcy = investedCcy;
+		return this;
+	}
+
+	/**
+	 * Get investedCcy
+	 *
+	 * @return investedCcy
+	 **/
+	@Schema(description = "")
+	public Double getInvestedCcy() {
+		return investedCcy;
+	}
+
+	public void setInvestedCcy(Double investedCcy) {
+		this.investedCcy = investedCcy;
+	}
+
+	public WalletData tradingCcy(Double tradingCcy) {
+		this.tradingCcy = tradingCcy;
+		return this;
+	}
+
+	/**
+	 * Get tradingCcy
+	 *
+	 * @return tradingCcy
+	 **/
+	@Schema(description = "")
+	public Double getTradingCcy() {
+		return tradingCcy;
+	}
+
+	public void setTradingCcy(Double tradingCcy) {
+		this.tradingCcy = tradingCcy;
+	}
+
+	public WalletData pendingCcy(Double pendingCcy) {
+		this.pendingCcy = pendingCcy;
+		return this;
+	}
+
+	/**
+	 * Get pendingCcy
+	 *
+	 * @return pendingCcy
+	 **/
+	@Schema(description = "")
+	public Double getPendingCcy() {
+		return pendingCcy;
+	}
+
+	public void setPendingCcy(Double pendingCcy) {
+		this.pendingCcy = pendingCcy;
+	}
+
+	/**
+	 * Get totalCcy
+	 *
+	 * @return totalCcy
+	 **/
+	@Schema(description = "")
+	public Double getTotalCcy() {
+		return totalCcy;
 	}
 
 	public WalletData id(UUID id) {
@@ -250,16 +366,6 @@ public class WalletData implements Parcelable
 		this.depositAddress = depositAddress;
 	}
 
-	/**
-	 * Get total
-	 *
-	 * @return total
-	 **/
-	@Schema(description = "")
-	public Double getTotal() {
-		return total;
-	}
-
 	public WalletData currency(Currency currency) {
 		this.currency = currency;
 		return this;
@@ -346,6 +452,12 @@ public class WalletData implements Parcelable
 		}
 		WalletData walletData = (WalletData) o;
 		return Objects.equals(this.pending, walletData.pending) &&
+				Objects.equals(this.total, walletData.total) &&
+				Objects.equals(this.availableCcy, walletData.availableCcy) &&
+				Objects.equals(this.investedCcy, walletData.investedCcy) &&
+				Objects.equals(this.tradingCcy, walletData.tradingCcy) &&
+				Objects.equals(this.pendingCcy, walletData.pendingCcy) &&
+				Objects.equals(this.totalCcy, walletData.totalCcy) &&
 				Objects.equals(this.id, walletData.id) &&
 				Objects.equals(this.title, walletData.title) &&
 				Objects.equals(this.logo, walletData.logo) &&
@@ -353,7 +465,6 @@ public class WalletData implements Parcelable
 				Objects.equals(this.isWithdrawalEnabled, walletData.isWithdrawalEnabled) &&
 				Objects.equals(this.withdrawalCommission, walletData.withdrawalCommission) &&
 				Objects.equals(this.depositAddress, walletData.depositAddress) &&
-				Objects.equals(this.total, walletData.total) &&
 				Objects.equals(this.currency, walletData.currency) &&
 				Objects.equals(this.available, walletData.available) &&
 				Objects.equals(this.invested, walletData.invested) &&
@@ -362,7 +473,7 @@ public class WalletData implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(pending, id, title, logo, isDepositEnabled, isWithdrawalEnabled, withdrawalCommission, depositAddress, total, currency, available, invested, trading);
+		return Objects.hash(pending, total, availableCcy, investedCcy, tradingCcy, pendingCcy, totalCcy, id, title, logo, isDepositEnabled, isWithdrawalEnabled, withdrawalCommission, depositAddress, currency, available, invested, trading);
 	}
 
 	@Override
@@ -371,6 +482,12 @@ public class WalletData implements Parcelable
 		sb.append("class WalletData {\n");
 
 		sb.append("    pending: ").append(toIndentedString(pending)).append("\n");
+		sb.append("    total: ").append(toIndentedString(total)).append("\n");
+		sb.append("    availableCcy: ").append(toIndentedString(availableCcy)).append("\n");
+		sb.append("    investedCcy: ").append(toIndentedString(investedCcy)).append("\n");
+		sb.append("    tradingCcy: ").append(toIndentedString(tradingCcy)).append("\n");
+		sb.append("    pendingCcy: ").append(toIndentedString(pendingCcy)).append("\n");
+		sb.append("    totalCcy: ").append(toIndentedString(totalCcy)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
@@ -378,7 +495,6 @@ public class WalletData implements Parcelable
 		sb.append("    isWithdrawalEnabled: ").append(toIndentedString(isWithdrawalEnabled)).append("\n");
 		sb.append("    withdrawalCommission: ").append(toIndentedString(withdrawalCommission)).append("\n");
 		sb.append("    depositAddress: ").append(toIndentedString(depositAddress)).append("\n");
-		sb.append("    total: ").append(toIndentedString(total)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    available: ").append(toIndentedString(available)).append("\n");
 		sb.append("    invested: ").append(toIndentedString(invested)).append("\n");
@@ -400,6 +516,12 @@ public class WalletData implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(pending);
+		out.writeValue(total);
+		out.writeValue(availableCcy);
+		out.writeValue(investedCcy);
+		out.writeValue(tradingCcy);
+		out.writeValue(pendingCcy);
+		out.writeValue(totalCcy);
 		out.writeValue(id);
 		out.writeValue(title);
 		out.writeValue(logo);
@@ -407,7 +529,6 @@ public class WalletData implements Parcelable
 		out.writeValue(isWithdrawalEnabled);
 		out.writeValue(withdrawalCommission);
 		out.writeValue(depositAddress);
-		out.writeValue(total);
 		out.writeValue(currency);
 		out.writeValue(available);
 		out.writeValue(invested);

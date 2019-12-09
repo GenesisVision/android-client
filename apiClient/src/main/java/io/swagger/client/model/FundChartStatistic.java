@@ -44,14 +44,14 @@ public class FundChartStatistic implements Parcelable
 	@SerializedName("investors")
 	private Integer investors = null;
 
-	@SerializedName("profitPercent")
-	private Double profitPercent = null;
-
 	@SerializedName("creationDate")
 	private DateTime creationDate = null;
 
 	@SerializedName("balance")
 	private Double balance = null;
+
+	@SerializedName("profitPercent")
+	private Double profitPercent = null;
 
 	@SerializedName("sharpeRatio")
 	private Double sharpeRatio = null;
@@ -70,9 +70,9 @@ public class FundChartStatistic implements Parcelable
 
 	FundChartStatistic(Parcel in) {
 		investors = (Integer) in.readValue(null);
-		profitPercent = (Double) in.readValue(null);
 		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		balance = (Double) in.readValue(null);
+		profitPercent = (Double) in.readValue(null);
 		sharpeRatio = (Double) in.readValue(null);
 		sortinoRatio = (Double) in.readValue(null);
 		calmarRatio = (Double) in.readValue(null);
@@ -96,25 +96,6 @@ public class FundChartStatistic implements Parcelable
 
 	public void setInvestors(Integer investors) {
 		this.investors = investors;
-	}
-
-	public FundChartStatistic profitPercent(Double profitPercent) {
-		this.profitPercent = profitPercent;
-		return this;
-	}
-
-	/**
-	 * Get profitPercent
-	 *
-	 * @return profitPercent
-	 **/
-	@Schema(description = "")
-	public Double getProfitPercent() {
-		return profitPercent;
-	}
-
-	public void setProfitPercent(Double profitPercent) {
-		this.profitPercent = profitPercent;
 	}
 
 	public FundChartStatistic creationDate(DateTime creationDate) {
@@ -153,6 +134,25 @@ public class FundChartStatistic implements Parcelable
 
 	public void setBalance(Double balance) {
 		this.balance = balance;
+	}
+
+	public FundChartStatistic profitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
+		return this;
+	}
+
+	/**
+	 * Get profitPercent
+	 *
+	 * @return profitPercent
+	 **/
+	@Schema(description = "")
+	public Double getProfitPercent() {
+		return profitPercent;
+	}
+
+	public void setProfitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
 	}
 
 	public FundChartStatistic sharpeRatio(Double sharpeRatio) {
@@ -241,9 +241,9 @@ public class FundChartStatistic implements Parcelable
 		}
 		FundChartStatistic fundChartStatistic = (FundChartStatistic) o;
 		return Objects.equals(this.investors, fundChartStatistic.investors) &&
-				Objects.equals(this.profitPercent, fundChartStatistic.profitPercent) &&
 				Objects.equals(this.creationDate, fundChartStatistic.creationDate) &&
 				Objects.equals(this.balance, fundChartStatistic.balance) &&
+				Objects.equals(this.profitPercent, fundChartStatistic.profitPercent) &&
 				Objects.equals(this.sharpeRatio, fundChartStatistic.sharpeRatio) &&
 				Objects.equals(this.sortinoRatio, fundChartStatistic.sortinoRatio) &&
 				Objects.equals(this.calmarRatio, fundChartStatistic.calmarRatio) &&
@@ -252,7 +252,7 @@ public class FundChartStatistic implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(investors, profitPercent, creationDate, balance, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown);
+		return Objects.hash(investors, creationDate, balance, profitPercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown);
 	}
 
 	@Override
@@ -261,9 +261,9 @@ public class FundChartStatistic implements Parcelable
 		sb.append("class FundChartStatistic {\n");
 
 		sb.append("    investors: ").append(toIndentedString(investors)).append("\n");
-		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
 		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
 		sb.append("    sharpeRatio: ").append(toIndentedString(sharpeRatio)).append("\n");
 		sb.append("    sortinoRatio: ").append(toIndentedString(sortinoRatio)).append("\n");
 		sb.append("    calmarRatio: ").append(toIndentedString(calmarRatio)).append("\n");
@@ -285,9 +285,9 @@ public class FundChartStatistic implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(investors);
-		out.writeValue(profitPercent);
 		out.writeValue(creationDate);
 		out.writeValue(balance);
+		out.writeValue(profitPercent);
 		out.writeValue(sharpeRatio);
 		out.writeValue(sortinoRatio);
 		out.writeValue(calmarRatio);

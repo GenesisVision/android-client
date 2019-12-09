@@ -125,6 +125,15 @@
 
             </RelativeLayout>
 
+            <ProgressBar
+                android:id="@+id/rate_progress_bar"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="20dp"
+                android:indeterminate="true"
+                android:visibility="gone"/>
+
             <LinearLayout
                 android:id="@+id/group_amount"
                 android:layout_width="match_parent"

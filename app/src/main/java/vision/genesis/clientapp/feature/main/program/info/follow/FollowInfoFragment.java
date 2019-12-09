@@ -266,15 +266,15 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 			subscriptionVolumeFee.setText(String.format(Locale.getDefault(), "%s%%",
 					StringFormatUtil.formatAmount(followDetails.getSignalSettings().getSignalVolumeFee(), 0, 4)));
 
-			boolean hasSubscription = followDetails.getPersonalDetails() != null
-					&& followDetails.getPersonalDetails().getSignalSubscriptions() != null
-					&& !followDetails.getPersonalDetails().getSignalSubscriptions().isEmpty()
-					&& followDetails.getPersonalDetails().getSignalSubscriptions().get(0) != null
-					&& followDetails.getPersonalDetails().getSignalSubscriptions().get(0).isHasActiveSubscription();
+//			boolean hasSubscription = followDetails.getPersonalDetails() != null
+//					&& followDetails.getPersonalDetails().getSignalSubscriptions() != null
+//					&& !followDetails.getPersonalDetails().getSignalSubscriptions().isEmpty()
+//					&& followDetails.getPersonalDetails().getSignalSubscriptions().get(0) != null
+//					&& followDetails.getPersonalDetails().getSignalSubscriptions().get(0).isHasActiveSubscription();
 
-			followTradesButton.setVisibility(!hasSubscription ? View.VISIBLE : View.GONE);
-			editSubscriptionButton.setVisibility(hasSubscription ? View.VISIBLE : View.GONE);
-			unfollowTradesButton.setVisibility(hasSubscription ? View.VISIBLE : View.GONE);
+//			followTradesButton.setVisibility(!hasSubscription ? View.VISIBLE : View.GONE);
+//			editSubscriptionButton.setVisibility(hasSubscription ? View.VISIBLE : View.GONE);
+//			unfollowTradesButton.setVisibility(hasSubscription ? View.VISIBLE : View.GONE);
 		}
 		else {
 			subscriptionGroup.setVisibility(View.GONE);

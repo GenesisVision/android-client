@@ -665,7 +665,7 @@ No authorization required
 
 <a name="getPrograms"></a>
 # **getPrograms**
-> ItemsViewModelProgramDetailsList getPrograms(authorization, sorting, showIn, tags, programCurrency, levelMin, levelMax, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
+> ItemsViewModelProgramDetailsList getPrograms(authorization, sorting, showIn, tags, programCurrency, levelMin, levelMax, levelsSet, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
 
 Programs list
 
@@ -684,6 +684,7 @@ List<String> tags = Arrays.asList("tags_example"); // List<String> |
 String programCurrency = "programCurrency_example"; // String | 
 Integer levelMin = 56; // Integer | 
 Integer levelMax = 56; // Integer | 
+List<Integer> levelsSet = Arrays.asList(56); // List<Integer> | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
@@ -694,7 +695,7 @@ Boolean showFavorites = true; // Boolean |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelProgramDetailsList result = apiInstance.getPrograms(authorization, sorting, showIn, tags, programCurrency, levelMin, levelMax, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
+    ItemsViewModelProgramDetailsList result = apiInstance.getPrograms(authorization, sorting, showIn, tags, programCurrency, levelMin, levelMax, levelsSet, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#getPrograms");
@@ -713,6 +714,7 @@ Name | Type | Description  | Notes
  **programCurrency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **levelMin** | **Integer**|  | [optional]
  **levelMax** | **Integer**|  | [optional]
+ **levelsSet** | [**List&lt;Integer&gt;**](Integer.md)|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]

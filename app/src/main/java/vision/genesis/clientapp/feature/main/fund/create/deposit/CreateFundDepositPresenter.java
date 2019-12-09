@@ -10,6 +10,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.WalletData;
 import io.swagger.client.model.WalletSummary;
@@ -18,6 +19,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.select_wallet.SelectWalletBottomSheetFragment;
+import vision.genesis.clientapp.managers.RateManager;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.events.OnCreateFundCreateButtonClickedEvent;
@@ -36,6 +38,9 @@ public class CreateFundDepositPresenter extends MvpPresenter<CreateFundDepositVi
 	@Inject
 	public WalletManager walletManager;
 
+	@Inject
+	public RateManager rateManager;
+
 	private Subscription walletsSubscription;
 
 	private NewFundRequest request;
@@ -48,9 +53,11 @@ public class CreateFundDepositPresenter extends MvpPresenter<CreateFundDepositVi
 
 	private double amountBase = 0;
 
-	private double minDepositGvtAmount = 50;
+	private Double rate = 1.0;
 
-	private double minDepositSelectedCurrencyAmount = 50;
+	private Double minDepositSelectedCurrencyAmount;
+
+	private Double minDepositGvtAmount;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -85,16 +92,16 @@ public class CreateFundDepositPresenter extends MvpPresenter<CreateFundDepositVi
 			amount = 0.0;
 		}
 
-		if (selectedWallet != null) {
+		if (selectedWallet != null && minDepositSelectedCurrencyAmount != null) {
 			if (amount > availableInWallet) {
 				getViewState().setAmount(StringFormatUtil.formatAmountWithoutGrouping(availableInWallet));
 				return;
 			}
 
-//			amountBase = amount / selectedWallet.getRateToGVT();
+			amountBase = amount * rate;
 
 			getViewState().setAmountBase(getAmountBaseString());
-			getViewState().setCreateButtonEnabled(amount >= minDepositSelectedCurrencyAmount && amount <= availableInWallet);
+			getViewState().setConfirmButtonEnabled(amount >= minDepositSelectedCurrencyAmount && amount <= availableInWallet);
 		}
 	}
 
@@ -152,13 +159,37 @@ public class CreateFundDepositPresenter extends MvpPresenter<CreateFundDepositVi
 				message -> getViewState().showSnackbarMessage(message));
 	}
 
+	private void updateRate() {
+		if (selectedWallet != null && rateManager != null) {
+			getViewState().showRateProgress(true);
+			rateManager.getRate(selectedWallet.getCurrency().getValue(), Currency.GVT.getValue())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetRateSuccess,
+							this::handleGetRateError);
+		}
+	}
+
+	private void handleGetRateSuccess(Double rate) {
+		getViewState().showRateProgress(false);
+		this.rate = rate;
+
+		minDepositSelectedCurrencyAmount = minDepositGvtAmount / rate;
+		getViewState().setMinDepositWalletCurrencyAmount(minDepositSelectedCurrencyAmount, selectedWallet.getCurrency().getValue());
+	}
+
+	private void handleGetRateError(Throwable throwable) {
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
+	}
+
 	@Override
 	public void onWalletSelected(WalletData wallet) {
 		this.selectedWallet = wallet;
 		availableInWallet = selectedWallet.getAvailable();
-//		minDepositSelectedCurrencyAmount = minDepositGvtAmount * selectedWallet.getRateToGVT();
 		getViewState().setWallet(selectedWallet);
-		getViewState().setMinDepositWalletCurrencyAmount(minDepositSelectedCurrencyAmount);
 		getViewState().setAmount("");
+
+		updateRate();
 	}
 }

@@ -39,9 +39,6 @@ public class AccountChartStatistic implements Parcelable
 		}
 	};
 
-	@SerializedName("profit")
-	private Double profit = null;
-
 	@SerializedName("tradingVolume")
 	private Double tradingVolume = null;
 
@@ -56,6 +53,9 @@ public class AccountChartStatistic implements Parcelable
 
 	@SerializedName("balance")
 	private Double balance = null;
+
+	@SerializedName("profitPercent")
+	private Double profitPercent = null;
 
 	@SerializedName("sharpeRatio")
 	private Double sharpeRatio = null;
@@ -73,35 +73,16 @@ public class AccountChartStatistic implements Parcelable
 	}
 
 	AccountChartStatistic(Parcel in) {
-		profit = (Double) in.readValue(null);
 		tradingVolume = (Double) in.readValue(null);
 		trades = (Integer) in.readValue(null);
 		successTradesPercent = (Double) in.readValue(null);
 		profitFactor = (Double) in.readValue(null);
 		balance = (Double) in.readValue(null);
+		profitPercent = (Double) in.readValue(null);
 		sharpeRatio = (Double) in.readValue(null);
 		sortinoRatio = (Double) in.readValue(null);
 		calmarRatio = (Double) in.readValue(null);
 		maxDrawdown = (Double) in.readValue(null);
-	}
-
-	public AccountChartStatistic profit(Double profit) {
-		this.profit = profit;
-		return this;
-	}
-
-	/**
-	 * Get profit
-	 *
-	 * @return profit
-	 **/
-	@Schema(description = "")
-	public Double getProfit() {
-		return profit;
-	}
-
-	public void setProfit(Double profit) {
-		this.profit = profit;
 	}
 
 	public AccountChartStatistic tradingVolume(Double tradingVolume) {
@@ -199,6 +180,25 @@ public class AccountChartStatistic implements Parcelable
 		this.balance = balance;
 	}
 
+	public AccountChartStatistic profitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
+		return this;
+	}
+
+	/**
+	 * Get profitPercent
+	 *
+	 * @return profitPercent
+	 **/
+	@Schema(description = "")
+	public Double getProfitPercent() {
+		return profitPercent;
+	}
+
+	public void setProfitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
+	}
+
 	public AccountChartStatistic sharpeRatio(Double sharpeRatio) {
 		this.sharpeRatio = sharpeRatio;
 		return this;
@@ -284,12 +284,12 @@ public class AccountChartStatistic implements Parcelable
 			return false;
 		}
 		AccountChartStatistic accountChartStatistic = (AccountChartStatistic) o;
-		return Objects.equals(this.profit, accountChartStatistic.profit) &&
-				Objects.equals(this.tradingVolume, accountChartStatistic.tradingVolume) &&
+		return Objects.equals(this.tradingVolume, accountChartStatistic.tradingVolume) &&
 				Objects.equals(this.trades, accountChartStatistic.trades) &&
 				Objects.equals(this.successTradesPercent, accountChartStatistic.successTradesPercent) &&
 				Objects.equals(this.profitFactor, accountChartStatistic.profitFactor) &&
 				Objects.equals(this.balance, accountChartStatistic.balance) &&
+				Objects.equals(this.profitPercent, accountChartStatistic.profitPercent) &&
 				Objects.equals(this.sharpeRatio, accountChartStatistic.sharpeRatio) &&
 				Objects.equals(this.sortinoRatio, accountChartStatistic.sortinoRatio) &&
 				Objects.equals(this.calmarRatio, accountChartStatistic.calmarRatio) &&
@@ -298,7 +298,7 @@ public class AccountChartStatistic implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(profit, tradingVolume, trades, successTradesPercent, profitFactor, balance, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown);
+		return Objects.hash(tradingVolume, trades, successTradesPercent, profitFactor, balance, profitPercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown);
 	}
 
 	@Override
@@ -306,12 +306,12 @@ public class AccountChartStatistic implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class AccountChartStatistic {\n");
 
-		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
 		sb.append("    tradingVolume: ").append(toIndentedString(tradingVolume)).append("\n");
 		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
 		sb.append("    successTradesPercent: ").append(toIndentedString(successTradesPercent)).append("\n");
 		sb.append("    profitFactor: ").append(toIndentedString(profitFactor)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
 		sb.append("    sharpeRatio: ").append(toIndentedString(sharpeRatio)).append("\n");
 		sb.append("    sortinoRatio: ").append(toIndentedString(sortinoRatio)).append("\n");
 		sb.append("    calmarRatio: ").append(toIndentedString(calmarRatio)).append("\n");
@@ -332,12 +332,12 @@ public class AccountChartStatistic implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(profit);
 		out.writeValue(tradingVolume);
 		out.writeValue(trades);
 		out.writeValue(successTradesPercent);
 		out.writeValue(profitFactor);
 		out.writeValue(balance);
+		out.writeValue(profitPercent);
 		out.writeValue(sharpeRatio);
 		out.writeValue(sortinoRatio);
 		out.writeValue(calmarRatio);

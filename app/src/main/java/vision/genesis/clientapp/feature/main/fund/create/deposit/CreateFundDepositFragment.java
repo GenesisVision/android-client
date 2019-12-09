@@ -83,6 +83,9 @@ public class CreateFundDepositFragment extends BaseFragment implements CreateFun
 	@BindView(R.id.button_create_fund)
 	public PrimaryButton createFundButton;
 
+	@BindView(R.id.rate_progress_bar)
+	public ProgressBar rateProgressBar;
+
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
@@ -184,7 +187,13 @@ public class CreateFundDepositFragment extends BaseFragment implements CreateFun
 	}
 
 	@Override
-	public void setMinDepositWalletCurrencyAmount(Double minDepositAmount) {
+	public void showRateProgress(boolean show) {
+		rateProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+		amountGroup.setVisibility(!show ? View.VISIBLE : View.GONE);
+	}
+
+	@Override
+	public void setMinDepositWalletCurrencyAmount(double minDepositAmount, String currency) {
 		amountToDepositLabel.setText(String.format(Locale.getDefault(), "%s (min %s)",
 				getString(R.string.amount_to_deposit),
 				StringFormatUtil.formatAmount(minDepositAmount, 0, 8)));
@@ -221,7 +230,7 @@ public class CreateFundDepositFragment extends BaseFragment implements CreateFun
 	}
 
 	@Override
-	public void setCreateButtonEnabled(boolean enabled) {
+	public void setConfirmButtonEnabled(boolean enabled) {
 		this.createFundButton.setEnabled(enabled);
 	}
 

@@ -48,7 +48,7 @@ public class FilterInfo implements Parcelable
 	private List<FilterItemInfo> walletExternalTransactions = null;
 
 	@SerializedName("events")
-	private List<FilterItemInfo> events = null;
+	private EventFilters events = null;
 
 	public FilterInfo() {
 	}
@@ -56,7 +56,7 @@ public class FilterInfo implements Parcelable
 	FilterInfo(Parcel in) {
 		walletTransactions = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
 		walletExternalTransactions = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
-		events = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
+		events = (EventFilters) in.readValue(EventFilters.class.getClassLoader());
 	}
 
 	public FilterInfo walletTransactions(List<FilterItemInfo> walletTransactions) {
@@ -113,16 +113,8 @@ public class FilterInfo implements Parcelable
 		this.walletExternalTransactions = walletExternalTransactions;
 	}
 
-	public FilterInfo events(List<FilterItemInfo> events) {
+	public FilterInfo events(EventFilters events) {
 		this.events = events;
-		return this;
-	}
-
-	public FilterInfo addEventsItem(FilterItemInfo eventsItem) {
-		if (this.events == null) {
-			this.events = new ArrayList<FilterItemInfo>();
-		}
-		this.events.add(eventsItem);
 		return this;
 	}
 
@@ -132,11 +124,11 @@ public class FilterInfo implements Parcelable
 	 * @return events
 	 **/
 	@Schema(description = "")
-	public List<FilterItemInfo> getEvents() {
+	public EventFilters getEvents() {
 		return events;
 	}
 
-	public void setEvents(List<FilterItemInfo> events) {
+	public void setEvents(EventFilters events) {
 		this.events = events;
 	}
 

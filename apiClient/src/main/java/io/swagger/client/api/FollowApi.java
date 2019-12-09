@@ -10,6 +10,7 @@ import io.swagger.client.model.AccountBalanceChart;
 import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.FollowProfitPercentCharts;
 import io.swagger.client.model.ItemsViewModelFollowDetailsList;
+import io.swagger.client.model.ItemsViewModelSignalSubscription;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import rx.Observable;
@@ -91,6 +92,30 @@ public interface FollowApi
 	@GET("v2.0/follow")
 	Observable<ItemsViewModelFollowDetailsList> getFollowAssets(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("ShowIn") String showIn, @retrofit2.http.Query("Tags") List<String> tags, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("OwnerId") UUID ownerId, @retrofit2.http.Query("ShowFavorites") Boolean showFavorites, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Get subscriptions to current asset
+	 *
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;ItemsViewModelSignalSubscription&gt;
+	 */
+	@POST("v2.0/follow/{id}/subscriptions")
+	Observable<ItemsViewModelSignalSubscription> getFollowSubscriptionsForAsset(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Get subscriptions for my trading account
+	 *
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;ItemsViewModelSignalSubscription&gt;
+	 */
+	@POST("v2.0/follow/account/own/{id}/subscriptions")
+	Observable<ItemsViewModelSignalSubscription> getFollowSubscriptionsForOwnAccount(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 	/**

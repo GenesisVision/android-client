@@ -13,7 +13,6 @@ Name | Type | Description | Notes
 **balance** | **Double** |  |  [optional]
 **type** | [**PrivateTradingAccountType**](PrivateTradingAccountType.md) |  |  [optional]
 **status** | [**DashboardTradingAssetStatus**](DashboardTradingAssetStatus.md) |  |  [optional]
-**signalSubscriptions** | [**List&lt;SignalSubscription&gt;**](SignalSubscription.md) |  |  [optional]
 **brokerDetails** | [**BrokerDetails**](BrokerDetails.md) |  |  [optional]
 **ownerActions** | [**PrivateTradingAccountOwnerActions**](PrivateTradingAccountOwnerActions.md) |  |  [optional]
 

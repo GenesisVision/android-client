@@ -15,7 +15,7 @@ import io.swagger.client.model.WalletData;
 
 interface CreateFundDepositView extends MvpView
 {
-	void setMinDepositWalletCurrencyAmount(Double minDepositAmount);
+	void setMinDepositWalletCurrencyAmount(double minDepositAmount, String currency);
 
 	void setWallets(List<WalletData> wallets);
 
@@ -25,10 +25,12 @@ interface CreateFundDepositView extends MvpView
 
 	void setAmountBase(String amountBaseString);
 
-	void setCreateButtonEnabled(boolean enabled);
-
-	void showSnackbarMessage(String message);
+	void setConfirmButtonEnabled(boolean enabled);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);
+
+	void showRateProgress(boolean show);
+
+	void showSnackbarMessage(String message);
 }

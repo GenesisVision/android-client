@@ -17,8 +17,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -95,9 +93,6 @@ public class PersonalProgramDetails implements Parcelable
 	@SerializedName("migration")
 	private MigrationRequest migration = null;
 
-	@SerializedName("signalSubscriptions")
-	private List<SignalSubscription> signalSubscriptions = null;
-
 	public PersonalProgramDetails() {
 	}
 
@@ -120,7 +115,6 @@ public class PersonalProgramDetails implements Parcelable
 		status = (AssetInvestmentStatus) in.readValue(AssetInvestmentStatus.class.getClassLoader());
 		successFeePersonal = (Double) in.readValue(null);
 		migration = (MigrationRequest) in.readValue(MigrationRequest.class.getClassLoader());
-		signalSubscriptions = (List<SignalSubscription>) in.readValue(SignalSubscription.class.getClassLoader());
 	}
 
 	public PersonalProgramDetails isOwnAsset(Boolean isOwnAsset) {
@@ -465,33 +459,6 @@ public class PersonalProgramDetails implements Parcelable
 		this.migration = migration;
 	}
 
-	public PersonalProgramDetails signalSubscriptions(List<SignalSubscription> signalSubscriptions) {
-		this.signalSubscriptions = signalSubscriptions;
-		return this;
-	}
-
-	public PersonalProgramDetails addSignalSubscriptionsItem(SignalSubscription signalSubscriptionsItem) {
-		if (this.signalSubscriptions == null) {
-			this.signalSubscriptions = new ArrayList<SignalSubscription>();
-		}
-		this.signalSubscriptions.add(signalSubscriptionsItem);
-		return this;
-	}
-
-	/**
-	 * Get signalSubscriptions
-	 *
-	 * @return signalSubscriptions
-	 **/
-	@Schema(description = "")
-	public List<SignalSubscription> getSignalSubscriptions() {
-		return signalSubscriptions;
-	}
-
-	public void setSignalSubscriptions(List<SignalSubscription> signalSubscriptions) {
-		this.signalSubscriptions = signalSubscriptions;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -518,13 +485,12 @@ public class PersonalProgramDetails implements Parcelable
 				Objects.equals(this.pendingOutputIsWithdrawAll, personalProgramDetails.pendingOutputIsWithdrawAll) &&
 				Objects.equals(this.status, personalProgramDetails.status) &&
 				Objects.equals(this.successFeePersonal, personalProgramDetails.successFeePersonal) &&
-				Objects.equals(this.migration, personalProgramDetails.migration) &&
-				Objects.equals(this.signalSubscriptions, personalProgramDetails.signalSubscriptions);
+				Objects.equals(this.migration, personalProgramDetails.migration);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isOwnAsset, isFavorite, isReinvest, isInvested, canInvest, canWithdraw, ownerActions, hasNotifications, showTwoFactorButton, value, profit, invested, pendingInput, pendingOutput, pendingOutputIsWithdrawAll, status, successFeePersonal, migration, signalSubscriptions);
+		return Objects.hash(isOwnAsset, isFavorite, isReinvest, isInvested, canInvest, canWithdraw, ownerActions, hasNotifications, showTwoFactorButton, value, profit, invested, pendingInput, pendingOutput, pendingOutputIsWithdrawAll, status, successFeePersonal, migration);
 	}
 
 	@Override
@@ -550,7 +516,6 @@ public class PersonalProgramDetails implements Parcelable
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    successFeePersonal: ").append(toIndentedString(successFeePersonal)).append("\n");
 		sb.append("    migration: ").append(toIndentedString(migration)).append("\n");
-		sb.append("    signalSubscriptions: ").append(toIndentedString(signalSubscriptions)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -585,7 +550,6 @@ public class PersonalProgramDetails implements Parcelable
 		out.writeValue(status);
 		out.writeValue(successFeePersonal);
 		out.writeValue(migration);
-		out.writeValue(signalSubscriptions);
 	}
 
 	public int describeContents() {

@@ -269,7 +269,7 @@ public interface AssetsApi
 	@Headers({
 			"Content-Type:application/json"
 	})
-	@POST("v2.0/assets/funds/{id}/update")
+	@POST("v2.0/assets/follow/{id}/update")
 	Observable<Void> updateAsset(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body ProgramUpdate body
 	);
@@ -285,8 +285,24 @@ public interface AssetsApi
 	@Headers({
 			"Content-Type:application/json"
 	})
-	@POST("v2.0/assets/programs/{id}/update")
+	@POST("v2.0/assets/funds/{id}/update")
 	Observable<Void> updateAsset_0(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body ProgramUpdate body
+	);
+
+	/**
+	 * Update investment program/fund details
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param id            (required)
+	 * @param body          (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/assets/programs/{id}/update")
+	Observable<Void> updateAsset_1(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body ProgramUpdate body
 	);
 

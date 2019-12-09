@@ -9,6 +9,8 @@ Method | HTTP request | Description
 [**getBalanceChart**](FollowApi.md#getBalanceChart) | **GET** v2.0/follow/{id}/charts/balance | Follow balance chart
 [**getFollowAssetDetails**](FollowApi.md#getFollowAssetDetails) | **GET** v2.0/follow/{id} | Follow asset details
 [**getFollowAssets**](FollowApi.md#getFollowAssets) | **GET** v2.0/follow | Follow assets
+[**getFollowSubscriptionsForAsset**](FollowApi.md#getFollowSubscriptionsForAsset) | **POST** v2.0/follow/{id}/subscriptions | Get subscriptions to current asset
+[**getFollowSubscriptionsForOwnAccount**](FollowApi.md#getFollowSubscriptionsForOwnAccount) | **POST** v2.0/follow/account/own/{id}/subscriptions | Get subscriptions for my trading account
 [**getProfitPercentCharts**](FollowApi.md#getProfitPercentCharts) | **GET** v2.0/follow/{id}/charts/profit/percent | Follow profit percent charts
 [**removeFromFavorites**](FollowApi.md#removeFromFavorites) | **POST** v2.0/follow/{id}/favorite/remove | Remove from favorites
 
@@ -261,6 +263,96 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ItemsViewModelFollowDetailsList**](ItemsViewModelFollowDetailsList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getFollowSubscriptionsForAsset"></a>
+# **getFollowSubscriptionsForAsset**
+> ItemsViewModelSignalSubscription getFollowSubscriptionsForAsset(id, authorization)
+
+Get subscriptions to current asset
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.FollowApi;
+
+
+FollowApi apiInstance = new FollowApi();
+UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    ItemsViewModelSignalSubscription result = apiInstance.getFollowSubscriptionsForAsset(id, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FollowApi#getFollowSubscriptionsForAsset");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**ItemsViewModelSignalSubscription**](ItemsViewModelSignalSubscription.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getFollowSubscriptionsForOwnAccount"></a>
+# **getFollowSubscriptionsForOwnAccount**
+> ItemsViewModelSignalSubscription getFollowSubscriptionsForOwnAccount(id, authorization)
+
+Get subscriptions for my trading account
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.FollowApi;
+
+
+FollowApi apiInstance = new FollowApi();
+UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    ItemsViewModelSignalSubscription result = apiInstance.getFollowSubscriptionsForOwnAccount(id, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FollowApi#getFollowSubscriptionsForOwnAccount");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**ItemsViewModelSignalSubscription**](ItemsViewModelSignalSubscription.md)
 
 ### Authorization
 

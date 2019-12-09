@@ -4,6 +4,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **pending** | **Double** |  |  [optional]
+**total** | **Double** |  |  [optional]
+**availableCcy** | **Double** |  |  [optional]
+**investedCcy** | **Double** |  |  [optional]
+**tradingCcy** | **Double** |  |  [optional]
+**pendingCcy** | **Double** |  |  [optional]
+**totalCcy** | **Double** |  |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **title** | **String** |  |  [optional]
 **logo** | **String** |  |  [optional]
@@ -11,7 +17,6 @@ Name | Type | Description | Notes
 **isWithdrawalEnabled** | **Boolean** |  |  [optional]
 **withdrawalCommission** | **Double** |  |  [optional]
 **depositAddress** | **String** |  |  [optional]
-**total** | **Double** |  |  [optional]
 **currency** | [**Currency**](Currency.md) |  |  [optional]
 **available** | **Double** |  |  [optional]
 **invested** | **Double** |  |  [optional]
