@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.viewpager.widget.ViewPager;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.material.appbar.AppBarLayout;
@@ -15,18 +18,18 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.Locale;
 
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.InternalTransferRequestType;
 import io.swagger.client.model.WalletData;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
-import vision.genesis.clientapp.feature.main.wallet.transfer_wallet.TransferWalletActivity;
+import vision.genesis.clientapp.feature.main.wallet.transfer_funds.TransferFundsActivity;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
+import vision.genesis.clientapp.model.TransferFundsModel;
 import vision.genesis.clientapp.model.WalletModel;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -150,7 +153,10 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 
 	@OnClick(R.id.transfer)
 	public void onTransferButtonClicked() {
-		TransferWalletActivity.startWith(this, model);
+		TransferFundsModel transferFundsModel = TransferFundsModel.createFrom(this.model);
+		transferFundsModel.setAssetType(InternalTransferRequestType.WALLET);
+		transferFundsModel.setTransferDirection(TransferFundsModel.TransferDirection.WITHDRAW);
+		TransferFundsActivity.startWith(this, transferFundsModel);
 	}
 
 	@OnClick(R.id.withdraw)
@@ -214,17 +220,21 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 	@Override
 	public void onDestroy() {
 
-		if (pagerAdapter != null)
+		if (pagerAdapter != null) {
 			pagerAdapter.destroy();
+		}
 
-		if (tabSelectedListener != null)
+		if (tabSelectedListener != null) {
 			tabLayout.removeOnTabSelectedListener(tabSelectedListener);
+		}
 
-		if (tabLayoutOnPageChangeListener != null)
+		if (tabLayoutOnPageChangeListener != null) {
 			viewPager.removeOnPageChangeListener(tabLayoutOnPageChangeListener);
+		}
 
-		if (viewPager != null)
+		if (viewPager != null) {
 			viewPager.clearOnPageChangeListeners();
+		}
 
 
 		super.onDestroy();
@@ -256,8 +266,9 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextSecondary));
 		refreshLayout.setOnRefreshListener(() -> {
 			specificWalletPresenter.onSwipeRefresh();
-			if (pagerAdapter != null)
+			if (pagerAdapter != null) {
 				pagerAdapter.sendSwipeRefresh();
+			}
 		});
 	}
 
@@ -317,13 +328,15 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 	}
 
 	private void addPage(TabLayout.Tab tab, boolean selected) {
-		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION)
+		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION) {
 			return;
+		}
 
 		tabLayout.addTab(tab, selected);
 		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 10);
-		if (pagerAdapter != null)
+		if (pagerAdapter != null) {
 			pagerAdapter.notifyDataSetChanged();
+		}
 	}
 
 	private void initViewPager(String walletCurrency) {

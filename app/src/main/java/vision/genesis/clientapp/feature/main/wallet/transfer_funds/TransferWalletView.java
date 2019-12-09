@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.wallet.transfer_wallet;
+package vision.genesis.clientapp.feature.main.wallet.transfer_funds;
 
 import com.arellomobile.mvp.MvpView;
 
@@ -13,11 +13,9 @@ import io.swagger.client.model.WalletData;
 
 interface TransferWalletView extends MvpView
 {
-	void setWalletInfo(WalletData selectedWallet);
+	void setWallets(List<WalletData> wallets);
 
-	void setWalletsTo(List<WalletData> walletsTo);
-
-	void setWalletTo(WalletData walletTo);
+	void setWallet(WalletData wallet);
 
 	void setAmount(String amountString);
 

@@ -6,6 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import io.swagger.client.model.PrivateTradingAccountFull;
 import vision.genesis.clientapp.model.CreateProgramModel;
+import vision.genesis.clientapp.model.TransferFundsModel;
 
 /**
  * GenesisVisionAndroid
@@ -27,4 +28,6 @@ interface TradingAccountInfoView extends MvpView
 	void showSnackbarMessage(String message);
 
 	void showLoginActivity();
+
+	void showTransferFundsActivity(TransferFundsModel model);
 }

@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.wallet.transfer_wallet;
+package vision.genesis.clientapp.feature.main.wallet.transfer_funds;
 
 import android.content.Context;
 
@@ -22,7 +22,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.select_wallet.SelectWalletBottomSheetFragment;
 import vision.genesis.clientapp.managers.RateManager;
 import vision.genesis.clientapp.managers.WalletManager;
-import vision.genesis.clientapp.model.WalletModel;
+import vision.genesis.clientapp.model.TransferFundsModel;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -32,7 +32,7 @@ import vision.genesis.clientapp.utils.StringFormatUtil;
  */
 
 @InjectViewState
-public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> implements SelectWalletBottomSheetFragment.OnWalletSelectedListener
+public class TransferFundsPresenter extends MvpPresenter<TransferWalletView> implements SelectWalletBottomSheetFragment.OnWalletSelectedListener
 {
 	@Inject
 	public Context context;
@@ -45,23 +45,25 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 
 	private Subscription walletsSubscription;
 
-	private WalletData walletInfo;
-
-	private Double availableInWallet;
+	private Double available;
 
 	private Double amount = 0.0;
 
 	private Double finalAmount = 0.0;
 
-	private WalletModel model;
+	private TransferFundsModel model;
 
 	private List<WalletData> wallets;
 
-	private WalletData selectedWalletTo;
+	private WalletData selectedWallet;
 
 	private Double rate;
 
 	private Subscription transferSubscription;
+
+	private String firstRateCurrency;
+
+	private String secondRateCurrency;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -83,14 +85,17 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 		super.onDestroy();
 	}
 
-	public void setModel(WalletModel model) {
+	public void setModel(TransferFundsModel model) {
 		this.model = model;
+		if (model.getTransferDirection().equals(TransferFundsModel.TransferDirection.WITHDRAW)) {
+			available = model.getAvailable();
+		}
 		subscribeToWallets();
 	}
 
 	void onMaxClicked() {
-		if (availableInWallet != null) {
-			getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableInWallet, walletInfo.getCurrency().getValue()));
+		if (available != null) {
+			getViewState().setAmount(StringFormatUtil.formatAmountWithoutGrouping(available));
 		}
 	}
 
@@ -105,21 +110,20 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 			amount = 0.0;
 		}
 
-		if (availableInWallet != null && walletInfo != null) {
-			if (amount > availableInWallet) {
-				getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableInWallet, walletInfo.getCurrency().getValue()));
+		if (available != null && model != null) {
+			if (amount > available) {
+				getViewState().setAmount(StringFormatUtil.formatAmountWithoutGrouping(available));
 				return;
 			}
 
-//			updateRate();
 			updateFinalAmount();
 
-			getViewState().setConfirmButtonEnabled(finalAmount > 0 && amount <= availableInWallet);
+			getViewState().setConfirmButtonEnabled(finalAmount > 0 && amount <= available);
 		}
 	}
 
 	private void updateFinalAmount() {
-		if (walletInfo != null && rate != null) {
+		if (rate != null) {
 			finalAmount = amount * rate;
 
 			getViewState().setFinalAmount(getFinalAmountString());
@@ -128,8 +132,8 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 
 	private String getFinalAmountString() {
 		return String.format(Locale.getDefault(), "%s%s",
-				StringFormatUtil.getApproxSymbolIfNeeded(finalAmount),
-				StringFormatUtil.getValueString(finalAmount, selectedWalletTo.getCurrency().getValue()));
+				model.getCurrency().equals(selectedWallet.getCurrency().getValue()) ? "" : StringFormatUtil.getApproxSymbolIfNeeded(finalAmount),
+				StringFormatUtil.getValueString(finalAmount, secondRateCurrency));
 	}
 
 	private String getRateString(Double rate, String wallet1Currency, String wallet2Currency) {
@@ -154,15 +158,15 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 
 		wallets = response.getWallets();
 
-		for (WalletData info : response.getWallets()) {
-			if (info.getCurrency().getValue().equals(model.getCurrency())) {
-				availableInWallet = info.getAvailable();
-				this.walletInfo = info;
-				getViewState().setWalletInfo(info);
-				break;
-			}
-		}
-		setWalletsTo();
+//		for (WalletData info : response.getWallets()) {
+//			if (info.getCurrency().getValue().equals(model.getCurrency())) {
+//				available = info.getAvailable();
+//				this.walletInfo = info;
+//				getViewState().setWalletInfo(info);
+//				break;
+//			}
+//		}
+		setWallets();
 	}
 
 	private void handleWalletUpdateError(Throwable throwable) {
@@ -170,23 +174,26 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 				message -> getViewState().showSnackbarMessage(message));
 	}
 
-	private void setWalletsTo() {
-		List<WalletData> walletsTo = new ArrayList<>();
+	private void setWallets() {
+		List<WalletData> walletsToSecond = new ArrayList<>();
 
 		for (WalletData wallet : wallets) {
-			if (wallet.getCurrency().getValue().equals(model.getCurrency())) {
+			if (model.getAssetType().equals(InternalTransferRequestType.WALLET)
+					&& wallet.getCurrency().getValue().equals(model.getCurrency())) {
 				continue;
 			}
-			walletsTo.add(wallet);
+			walletsToSecond.add(wallet);
 		}
-		getViewState().setWalletsTo(walletsTo);
-		onWalletSelected(walletsTo.get(0));
+		getViewState().setWallets(walletsToSecond);
+		onWalletSelected(walletsToSecond.get(0));
 	}
 
 	private void updateRate() {
-		if (walletInfo != null && selectedWalletTo != null && rateManager != null) {
+		if (model != null && selectedWallet != null && rateManager != null) {
 			getViewState().showRateProgress(true);
-			rateManager.getRate(walletInfo.getCurrency().getValue(), selectedWalletTo.getCurrency().getValue())
+
+			updateRateCurrencies();
+			rateManager.getRate(firstRateCurrency, secondRateCurrency)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetRateSuccess,
@@ -194,10 +201,21 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 		}
 	}
 
+	private void updateRateCurrencies() {
+		if (model.getTransferDirection().equals(TransferFundsModel.TransferDirection.WITHDRAW)) {
+			firstRateCurrency = model.getCurrency();
+			secondRateCurrency = selectedWallet.getCurrency().getValue();
+		}
+		else {
+			firstRateCurrency = selectedWallet.getCurrency().getValue();
+			secondRateCurrency = model.getCurrency();
+		}
+	}
+
 	private void handleGetRateSuccess(Double rate) {
 		getViewState().showRateProgress(false);
 		this.rate = rate;
-		getViewState().setRate(getRateString(rate, walletInfo.getCurrency().getValue(), selectedWalletTo.getCurrency().getValue()));
+		getViewState().setRate(getRateString(rate, firstRateCurrency, secondRateCurrency));
 		updateFinalAmount();
 	}
 
@@ -209,11 +227,20 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 	private void sendTransferRequest() {
 		InternalTransferRequest request = new InternalTransferRequest();
 		request.setAmount(amount);
-		request.setSourceId(walletInfo.getId());
-		request.setDestinationId(selectedWalletTo.getId());
-		request.setSourceType(InternalTransferRequestType.WALLET);
-		request.setDestinationType(InternalTransferRequestType.WALLET);
 		request.setTransferAll(false);
+
+		if (model.getTransferDirection().equals(TransferFundsModel.TransferDirection.WITHDRAW)) {
+			request.setSourceId(model.getId());
+			request.setDestinationId(selectedWallet.getId());
+			request.setSourceType(model.getAssetType());
+			request.setDestinationType(InternalTransferRequestType.WALLET);
+		}
+		else {
+			request.setSourceId(selectedWallet.getId());
+			request.setDestinationId(model.getId());
+			request.setSourceType(InternalTransferRequestType.WALLET);
+			request.setDestinationType(model.getAssetType());
+		}
 
 		getViewState().showButtonProgress(true);
 
@@ -240,8 +267,12 @@ public class TransferWalletPresenter extends MvpPresenter<TransferWalletView> im
 
 	@Override
 	public void onWalletSelected(WalletData wallet) {
-		this.selectedWalletTo = wallet;
-		getViewState().setWalletTo(selectedWalletTo);
+		this.selectedWallet = wallet;
+		if (model.getTransferDirection().equals(TransferFundsModel.TransferDirection.DEPOSIT)) {
+			available = selectedWallet.getAvailable();
+			getViewState().setAmount("");
+		}
+		getViewState().setWallet(selectedWallet);
 		updateRate();
 	}
 }

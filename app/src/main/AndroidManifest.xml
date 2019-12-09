@@ -244,7 +244,7 @@
             android:windowSoftInputMode="adjustPan"/>
 
         <activity
-            android:name=".feature.main.wallet.transfer_wallet.TransferWalletActivity"
+            android:name=".feature.main.wallet.transfer_funds.TransferFundsActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>

@@ -16,7 +16,6 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import org.joda.time.DateTime;
 
 import java.util.Locale;
-import java.util.UUID;
 
 import butterknife.BindDimen;
 import butterknife.BindView;
@@ -31,7 +30,9 @@ import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.main.follow.create.CreateFollowActivity;
 import vision.genesis.clientapp.feature.main.program.create.CreateProgramActivity;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountPagerAdapter;
+import vision.genesis.clientapp.feature.main.wallet.transfer_funds.TransferFundsActivity;
 import vision.genesis.clientapp.model.CreateProgramModel;
+import vision.genesis.clientapp.model.TransferFundsModel;
 import vision.genesis.clientapp.ui.AccountAgeView;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -99,8 +100,11 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 	@BindView(R.id.value)
 	public TextView value;
 
-	@BindView(R.id.button_transfer)
-	public PrimaryButton transferButton;
+	@BindView(R.id.button_withdraw)
+	public PrimaryButton withdrawButton;
+
+	@BindView(R.id.button_add_funds)
+	public PrimaryButton addFundsButton;
 
 
 	@BindView(R.id.label_program)
@@ -123,8 +127,6 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 	@BindDimen(R.dimen.program_info_strategy_max_height)
 	public int strategyMaxHeight;
 
-	private UUID programId;
-
 	private PrivateTradingAccountFull accountDetails;
 
 	private Unbinder unbinder;
@@ -134,9 +136,14 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 		presenter.onManageAccountClicked();
 	}
 
-	@OnClick(R.id.button_transfer)
-	public void onTransferClicked() {
-		presenter.onTransferClicked();
+	@OnClick(R.id.button_withdraw)
+	public void onWithdrawClicked() {
+		presenter.onWithdrawClicked();
+	}
+
+	@OnClick(R.id.button_add_funds)
+	public void onAddFundsClicked() {
+		presenter.onAddFundsClicked();
 	}
 
 	@OnClick(R.id.button_create_program)
@@ -222,7 +229,8 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 					this.accountDetails.getCurrency().getValue()));
 
 			if (accountDetails.getOwnerActions() != null) {
-				transferButton.setEnabled(accountDetails.getOwnerActions().isCanTransferMoney());
+				withdrawButton.setEnabled(accountDetails.getOwnerActions().isCanTransferMoney());
+				addFundsButton.setEnabled(accountDetails.getOwnerActions().isCanTransferMoney());
 				createProgramButton.setEnabled(accountDetails.getOwnerActions().isCanMakeProgramFromPrivateTradingAccount());
 				createFollowButton.setEnabled(accountDetails.getOwnerActions().isCanMakeSignalProviderFromPrivateTradingAccount());
 			}
@@ -275,6 +283,13 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 	public void showLoginActivity() {
 		if (getActivity() != null) {
 			LoginActivity.startFrom(getActivity());
+		}
+	}
+
+	@Override
+	public void showTransferFundsActivity(TransferFundsModel model) {
+		if (getActivity() != null) {
+			TransferFundsActivity.startWith(getActivity(), model);
 		}
 	}
 }

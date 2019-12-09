@@ -198,16 +198,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:paddingLeft="@dimen/program_details_padding"
                     android:paddingRight="@dimen/program_details_padding">
 
                     <vision.genesis.clientapp.ui.PrimaryButton
-                        android:id="@+id/button_transfer"
-                        android:layout_width="match_parent"
+                        android:id="@+id/button_withdraw"
+                        android:layout_width="0dp"
                         android:layout_height="@dimen/button_height"
-                        android:layout_marginBottom="20dp"
-                        android:text="@string/transfer"/>
+                        android:layout_weight="1"
+                        android:text="@string/withdraw"/>
+
+                    <vision.genesis.clientapp.ui.PrimaryButton
+                        android:id="@+id/button_add_funds"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/button_height"
+                        android:layout_marginStart="20dp"
+                        android:layout_weight="1"
+                        android:text="@string/add_funds"/>
 
                 </LinearLayout>
 

@@ -8,6 +8,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AssetType;
+import io.swagger.client.model.InternalTransferRequestType;
 import io.swagger.client.model.PrivateTradingAccountFull;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -16,6 +17,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.TradingAccountManager;
 import vision.genesis.clientapp.model.CreateProgramModel;
+import vision.genesis.clientapp.model.TransferFundsModel;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -71,8 +73,18 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 
 	}
 
-	void onTransferClicked() {
+	void onWithdrawClicked() {
+		TransferFundsModel model = TransferFundsModel.createFrom(accountDetails);
+		model.setAssetType(InternalTransferRequestType.PRIVATETRADINGACCOUNT);
+		model.setTransferDirection(TransferFundsModel.TransferDirection.WITHDRAW);
+		getViewState().showTransferFundsActivity(model);
+	}
 
+	void onAddFundsClicked() {
+		TransferFundsModel model = TransferFundsModel.createFrom(accountDetails);
+		model.setAssetType(InternalTransferRequestType.PRIVATETRADINGACCOUNT);
+		model.setTransferDirection(TransferFundsModel.TransferDirection.DEPOSIT);
+		getViewState().showTransferFundsActivity(model);
 	}
 
 	void onCreateProgramClicked() {
