@@ -10,7 +10,7 @@ import io.swagger.client.model.CreateWithdrawalRequestModel;
 import io.swagger.client.model.Currency;
 import io.swagger.client.model.InternalTransferRequest;
 import io.swagger.client.model.ItemsViewModelTransactionViewModel;
-import io.swagger.client.model.WalletMultiSummary;
+import io.swagger.client.model.WalletSummary;
 import io.swagger.client.model.WithdrawalSummary;
 import rx.Observable;
 import rx.Subscription;
@@ -31,7 +31,7 @@ public class WalletManager
 
 	private BehaviorSubject<Double> balanceBehaviorSubject = BehaviorSubject.create();
 
-	private BehaviorSubject<WalletMultiSummary> walletsSubject = BehaviorSubject.create();
+	private BehaviorSubject<WalletSummary> walletsSubject = BehaviorSubject.create();
 
 	private Subscription getWalletsSubscription;
 
@@ -87,7 +87,7 @@ public class WalletManager
 		return walletApi.createWithdrawalRequest(AuthManager.token.getValue(), requestModel);
 	}
 
-	public BehaviorSubject<WalletMultiSummary> getWallets(String currency, Boolean forceUpdate) {
+	public BehaviorSubject<WalletSummary> getWallets(String currency, Boolean forceUpdate) {
 		if (forceUpdate) {
 			walletsSubject = BehaviorSubject.create();
 		}
@@ -100,7 +100,7 @@ public class WalletManager
 		return walletsSubject;
 	}
 
-	private void handleGetWalletsSuccess(WalletMultiSummary response) {
+	private void handleGetWalletsSuccess(WalletSummary response) {
 		getWalletsSubscription.unsubscribe();
 		walletsSubject.onNext(response);
 	}
@@ -114,6 +114,7 @@ public class WalletManager
 				filter.getType() == null ? null : filter.getType().getValue(),
 				filter.getDateRange() == null ? null : filter.getDateRange().getFrom(),
 				filter.getDateRange() == null ? null : filter.getDateRange().getTo(),
+				filter.getWalletCurrency(),
 				filter.getSkip(), filter.getTake());
 	}
 
@@ -122,6 +123,7 @@ public class WalletManager
 				filter.getType() == null ? null : filter.getType().getValue(),
 				filter.getDateRange() == null ? null : filter.getDateRange().getFrom(),
 				filter.getDateRange() == null ? null : filter.getDateRange().getTo(),
+				filter.getWalletCurrency(),
 				filter.getSkip(), filter.getTake());
 	}
 

@@ -5,3 +5,4 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **isOwnAsset** | **Boolean** |  |  [optional]
 **isFavorite** | **Boolean** |  |  [optional]
+**isReinvest** | **Boolean** |  |  [optional]

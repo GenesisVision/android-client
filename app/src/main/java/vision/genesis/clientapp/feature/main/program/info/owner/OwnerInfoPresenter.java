@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import io.swagger.client.model.AssetInvestmentStatus;
 import io.swagger.client.model.AssetType;
+import io.swagger.client.model.CreateSignalProvider;
 import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramUpdate;
@@ -112,6 +113,21 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 
 	}
 
+	void onManageProgramClicked() {
+
+	}
+
+	void onManageFollowClicked() {
+		if (followDetails != null) {
+			CreateSignalProvider model = new CreateSignalProvider();
+			model.setAssetId(assetId);
+			model.setVolumeFee(followDetails.getSignalSettings().getSignalVolumeFee());
+			model.setSuccessFee(followDetails.getSignalSettings().getSignalSuccessFee());
+			getViewState().showEditFollowSettingsActivity(model);
+		}
+	}
+
+
 	void onStatusClicked() {
 		if (programDetails != null && programDetails.getPersonalDetails() != null) {
 			if (programDetails.getPersonalDetails().getStatus().equals(AssetInvestmentStatus.INVESTING) ||
@@ -170,14 +186,6 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 		request.setManagerName(programDetails.getOwner().getUsername());
 
 		getViewState().showWithdrawProgramActivity(request);
-	}
-
-	void onManageProgramClicked() {
-
-	}
-
-	void onManageFollowClicked() {
-
 	}
 
 	void onCreateProgramClicked() {

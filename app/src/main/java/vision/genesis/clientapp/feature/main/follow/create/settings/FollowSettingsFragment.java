@@ -137,6 +137,7 @@ public class FollowSettingsFragment extends BaseFragment implements FollowSettin
 
 		successFeeLabel.setText(StringFormatUtil.capitalize(successFeeLabel.getText().toString()));
 
+		confirmButton.setText(model.getButtonText());
 		confirmButton.setEnabled(false);
 	}
 

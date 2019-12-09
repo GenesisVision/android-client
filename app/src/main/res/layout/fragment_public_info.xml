@@ -43,7 +43,8 @@
             android:id="@+id/group_warning_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp">
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="24dp">
 
             <TextView
                 android:id="@+id/warning_info"
@@ -70,7 +71,6 @@
                 android:id="@+id/text_input_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:gravity="bottom"
                 android:textColor="?attr/colorTextPrimary"
                 android:textColorHint="?attr/colorTextSecondary"

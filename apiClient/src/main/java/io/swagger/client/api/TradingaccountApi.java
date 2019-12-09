@@ -46,22 +46,6 @@ public interface TradingaccountApi
 	);
 
 	/**
-	 * Trading account profit percent charts
-	 *
-	 * @param id            (required)
-	 * @param dateFrom      (optional)
-	 * @param dateTo        (optional)
-	 * @param maxPointCount (optional)
-	 * @param currency      (optional)
-	 * @param currencies    (optional)
-	 * @return Call&lt;AccountProfitPercentCharts&gt;
-	 */
-	@GET("v2.0/tradingaccount/{id}/charts/profit/percent")
-	Observable<AccountProfitPercentCharts> getProfitPercentCharts(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("currencies") List<Object> currencies
-	);
-
-	/**
 	 * Trading account open positions
 	 *
 	 * @param id              (required)
@@ -75,20 +59,24 @@ public interface TradingaccountApi
 	 * @return Call&lt;TradesViewModel&gt;
 	 */
 	@GET("v2.0/tradingaccount/{id}/trades/open")
-	Observable<TradesViewModel> getProgramOpenTrades(
+	Observable<TradesViewModel> getOpenTrades(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
-	 * Trading account details
+	 * Trading account profit percent charts
 	 *
 	 * @param id            (required)
-	 * @param authorization JWT access token (required)
-	 * @return Call&lt;PrivateTradingAccountFull&gt;
+	 * @param dateFrom      (optional)
+	 * @param dateTo        (optional)
+	 * @param maxPointCount (optional)
+	 * @param currency      (optional)
+	 * @param currencies    (optional)
+	 * @return Call&lt;AccountProfitPercentCharts&gt;
 	 */
-	@GET("v2.0/tradingaccount/{id}")
-	Observable<PrivateTradingAccountFull> getTradingAccountDetails(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
+	@GET("v2.0/tradingaccount/{id}/charts/profit/percent")
+	Observable<AccountProfitPercentCharts> getProfitPercentCharts(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("currencies") List<Object> currencies
 	);
 
 	/**
@@ -107,8 +95,20 @@ public interface TradingaccountApi
 	 * @return Call&lt;TradesViewModel&gt;
 	 */
 	@GET("v2.0/tradingaccount/{id}/trades")
-	Observable<TradesViewModel> getTradingAccountTrades(
+	Observable<TradesViewModel> getTrades(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Trading account details
+	 *
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;PrivateTradingAccountFull&gt;
+	 */
+	@GET("v2.0/tradingaccount/{id}")
+	Observable<PrivateTradingAccountFull> getTradingAccountDetails(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 }

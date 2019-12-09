@@ -25,6 +25,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * ProgramDetailsFull
  */
@@ -145,11 +146,14 @@ public class ProgramDetailsFull implements Parcelable
 	@SerializedName("brokerDetails")
 	private BrokerDetails brokerDetails = null;
 
+	@SerializedName("personalDetails")
+	private PersonalProgramDetails personalDetails = null;
+
 	@SerializedName("signalSettings")
 	private AssetSignalSettings signalSettings = null;
 
-	@SerializedName("personalDetails")
-	private PersonalProgramDetails personalDetails = null;
+	@SerializedName("subscribersCount")
+	private Integer subscribersCount = null;
 
 	@SerializedName("tags")
 	private List<Tag> tags = null;
@@ -192,8 +196,9 @@ public class ProgramDetailsFull implements Parcelable
 		totalAvailableInvestment = (Double) in.readValue(null);
 		owner = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
 		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
-		signalSettings = (AssetSignalSettings) in.readValue(AssetSignalSettings.class.getClassLoader());
 		personalDetails = (PersonalProgramDetails) in.readValue(PersonalProgramDetails.class.getClassLoader());
+		signalSettings = (AssetSignalSettings) in.readValue(AssetSignalSettings.class.getClassLoader());
+		subscribersCount = (Integer) in.readValue(null);
 		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 	}
 
@@ -843,6 +848,25 @@ public class ProgramDetailsFull implements Parcelable
 		this.brokerDetails = brokerDetails;
 	}
 
+	public ProgramDetailsFull personalDetails(PersonalProgramDetails personalDetails) {
+		this.personalDetails = personalDetails;
+		return this;
+	}
+
+	/**
+	 * Get personalDetails
+	 *
+	 * @return personalDetails
+	 **/
+	@Schema(description = "")
+	public PersonalProgramDetails getPersonalDetails() {
+		return personalDetails;
+	}
+
+	public void setPersonalDetails(PersonalProgramDetails personalDetails) {
+		this.personalDetails = personalDetails;
+	}
+
 	public ProgramDetailsFull signalSettings(AssetSignalSettings signalSettings) {
 		this.signalSettings = signalSettings;
 		return this;
@@ -862,23 +886,23 @@ public class ProgramDetailsFull implements Parcelable
 		this.signalSettings = signalSettings;
 	}
 
-	public ProgramDetailsFull personalDetails(PersonalProgramDetails personalDetails) {
-		this.personalDetails = personalDetails;
+	public ProgramDetailsFull subscribersCount(Integer subscribersCount) {
+		this.subscribersCount = subscribersCount;
 		return this;
 	}
 
 	/**
-	 * Get personalDetails
+	 * Get subscribersCount
 	 *
-	 * @return personalDetails
+	 * @return subscribersCount
 	 **/
 	@Schema(description = "")
-	public PersonalProgramDetails getPersonalDetails() {
-		return personalDetails;
+	public Integer getSubscribersCount() {
+		return subscribersCount;
 	}
 
-	public void setPersonalDetails(PersonalProgramDetails personalDetails) {
-		this.personalDetails = personalDetails;
+	public void setSubscribersCount(Integer subscribersCount) {
+		this.subscribersCount = subscribersCount;
 	}
 
 	public ProgramDetailsFull tags(List<Tag> tags) {
@@ -951,14 +975,15 @@ public class ProgramDetailsFull implements Parcelable
 				Objects.equals(this.totalAvailableInvestment, programDetailsFull.totalAvailableInvestment) &&
 				Objects.equals(this.owner, programDetailsFull.owner) &&
 				Objects.equals(this.brokerDetails, programDetailsFull.brokerDetails) &&
-				Objects.equals(this.signalSettings, programDetailsFull.signalSettings) &&
 				Objects.equals(this.personalDetails, programDetailsFull.personalDetails) &&
+				Objects.equals(this.signalSettings, programDetailsFull.signalSettings) &&
+				Objects.equals(this.subscribersCount, programDetailsFull.subscribersCount) &&
 				Objects.equals(this.tags, programDetailsFull.tags);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, tradingAccountId, logo, url, color, title, description, creationDate, currency, level, levelProgress, periodDuration, periodStarts, periodEnds, tradesDelay, status, login, ageDays, leverageMin, leverageMax, genesisRatio, investmentScale, volumeScale, entryFeeSelected, entryFeeCurrent, successFeeSelected, successFeeCurrent, stopOutLevelSelected, stopOutLevelCurrent, availableInvestmentBase, availableInvestmentLimit, totalAvailableInvestment, owner, brokerDetails, signalSettings, personalDetails, tags);
+		return Objects.hash(id, tradingAccountId, logo, url, color, title, description, creationDate, currency, level, levelProgress, periodDuration, periodStarts, periodEnds, tradesDelay, status, login, ageDays, leverageMin, leverageMax, genesisRatio, investmentScale, volumeScale, entryFeeSelected, entryFeeCurrent, successFeeSelected, successFeeCurrent, stopOutLevelSelected, stopOutLevelCurrent, availableInvestmentBase, availableInvestmentLimit, totalAvailableInvestment, owner, brokerDetails, personalDetails, signalSettings, subscribersCount, tags);
 	}
 
 	@Override
@@ -1000,8 +1025,9 @@ public class ProgramDetailsFull implements Parcelable
 		sb.append("    totalAvailableInvestment: ").append(toIndentedString(totalAvailableInvestment)).append("\n");
 		sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
 		sb.append("    brokerDetails: ").append(toIndentedString(brokerDetails)).append("\n");
-		sb.append("    signalSettings: ").append(toIndentedString(signalSettings)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
+		sb.append("    signalSettings: ").append(toIndentedString(signalSettings)).append("\n");
+		sb.append("    subscribersCount: ").append(toIndentedString(subscribersCount)).append("\n");
 		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -1053,8 +1079,9 @@ public class ProgramDetailsFull implements Parcelable
 		out.writeValue(totalAvailableInvestment);
 		out.writeValue(owner);
 		out.writeValue(brokerDetails);
-		out.writeValue(signalSettings);
 		out.writeValue(personalDetails);
+		out.writeValue(signalSettings);
+		out.writeValue(subscribersCount);
 		out.writeValue(tags);
 	}
 

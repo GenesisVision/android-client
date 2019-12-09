@@ -4,7 +4,7 @@ import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
-import io.swagger.client.model.WalletMultiSummary;
+import io.swagger.client.model.WalletSummary;
 import vision.genesis.clientapp.model.CurrencyEnum;
 
 /**
@@ -17,7 +17,7 @@ interface WalletView extends MvpView
 	void setBaseCurrency(CurrencyEnum baseCurrency);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
-	void setBalance(WalletMultiSummary data);
+	void setBalance(WalletSummary data);
 
 	void showProgress(boolean show);
 

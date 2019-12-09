@@ -12,7 +12,7 @@ import javax.inject.Inject;
 
 import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.WalletData;
-import io.swagger.client.model.WalletMultiSummary;
+import io.swagger.client.model.WalletSummary;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -91,7 +91,7 @@ public class CreateFundDepositPresenter extends MvpPresenter<CreateFundDepositVi
 				return;
 			}
 
-			amountBase = amount / selectedWallet.getRateToGVT();
+//			amountBase = amount / selectedWallet.getRateToGVT();
 
 			getViewState().setAmountBase(getAmountBaseString());
 			getViewState().setCreateButtonEnabled(amount >= minDepositSelectedCurrencyAmount && amount <= availableInWallet);
@@ -139,7 +139,7 @@ public class CreateFundDepositPresenter extends MvpPresenter<CreateFundDepositVi
 		}
 	}
 
-	private void handleWalletUpdateSuccess(WalletMultiSummary response) {
+	private void handleWalletUpdateSuccess(WalletSummary response) {
 		getViewState().showProgress(false);
 		List<WalletData> wallets = response.getWallets();
 
@@ -156,7 +156,7 @@ public class CreateFundDepositPresenter extends MvpPresenter<CreateFundDepositVi
 	public void onWalletSelected(WalletData wallet) {
 		this.selectedWallet = wallet;
 		availableInWallet = selectedWallet.getAvailable();
-		minDepositSelectedCurrencyAmount = minDepositGvtAmount * selectedWallet.getRateToGVT();
+//		minDepositSelectedCurrencyAmount = minDepositGvtAmount * selectedWallet.getRateToGVT();
 		getViewState().setWallet(selectedWallet);
 		getViewState().setMinDepositWalletCurrencyAmount(minDepositSelectedCurrencyAmount);
 		getViewState().setAmount("");

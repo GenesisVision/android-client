@@ -66,12 +66,6 @@ public class FollowSettingsPresenter extends MvpPresenter<FollowSettingsView>
 	void setModel(FollowSettingsModel model) {
 		this.model = model;
 
-		if (model.getVolumeFee() != null) {
-			getViewState().setVolumeFee(model.getVolumeFee());
-		}
-		if (model.getSuccessFee() != null) {
-			getViewState().setSuccessFee(model.getSuccessFee());
-		}
 		getPlatformInfo();
 	}
 
@@ -121,7 +115,7 @@ public class FollowSettingsPresenter extends MvpPresenter<FollowSettingsView>
 	}
 
 	private void getPlatformInfo() {
-		if (settingsManager != null) {
+		if (settingsManager != null && model != null) {
 			platformInfoSubscription = settingsManager.getPlatformInfo()
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.newThread())
@@ -139,6 +133,13 @@ public class FollowSettingsPresenter extends MvpPresenter<FollowSettingsView>
 		maxSuccessFee = info.getMaxSuccessFee();
 		getViewState().updateVolumeFeeDescription(minVolumeFee, maxVolumeFee);
 		getViewState().updateSuccessFeeDescription(minSuccessFee, maxSuccessFee);
+
+		if (model.getVolumeFee() != null) {
+			getViewState().setVolumeFee(model.getVolumeFee());
+		}
+		if (model.getSuccessFee() != null) {
+			getViewState().setSuccessFee(model.getSuccessFee());
+		}
 	}
 
 	private void handleGetPlatformInfoError(Throwable throwable) {

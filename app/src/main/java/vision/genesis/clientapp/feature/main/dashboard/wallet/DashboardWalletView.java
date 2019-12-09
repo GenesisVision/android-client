@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.swagger.client.model.WalletData;
-import io.swagger.client.model.WalletMultiSummary;
+import io.swagger.client.model.WalletSummary;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -79,7 +79,7 @@ public class DashboardWalletView extends RelativeLayout
 
 	private CurrencyEnum baseCurrency;
 
-	private WalletMultiSummary details;
+	private WalletSummary details;
 
 	public DashboardWalletView(Context context) {
 		super(context);
@@ -153,12 +153,12 @@ public class DashboardWalletView extends RelativeLayout
 		}
 	}
 
-	private void updateView(WalletMultiSummary details) {
+	private void updateView(WalletSummary details) {
 		getDataSubscription.unsubscribe();
 
 		this.details = details;
 
-		equity.setText(StringFormatUtil.getValueString(details.getGrandTotal().getAvailableCcy(), baseCurrency.getValue()));
+		equity.setText(StringFormatUtil.getValueString(details.getGrandTotal().getAvailable(), details.getGrandTotal().getCurrency().getValue()));
 //		updateChangeText();
 		setWallets(details.getWallets());
 

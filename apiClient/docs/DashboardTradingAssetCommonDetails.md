@@ -3,12 +3,14 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**title** | **String** |  |  [optional]
 **status** | [**DashboardTradingAssetStatus**](DashboardTradingAssetStatus.md) |  |  [optional]
 **creationDate** | [**DateTime**](DateTime.md) |  |  [optional]
 **balance** | **Double** |  |  [optional]
 **login** | **String** |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **leverage** | **Integer** |  |  [optional]
+**type** | [**PrivateTradingAccountType**](PrivateTradingAccountType.md) |  |  [optional]
 
 <a name="CurrencyEnum"></a>
 ## Enum: CurrencyEnum

@@ -110,6 +110,19 @@ public interface DashboardApi
 	);
 
 	/**
+	 * @param authorization    JWT access token (required)
+	 * @param dateFrom         (optional)
+	 * @param dateTo           (optional)
+	 * @param chartPointsCount (optional)
+	 * @param showIn           (optional)
+	 * @return Call&lt;ItemsViewModelDashboardTradingAsset&gt;
+	 */
+	@GET("v2.0/dashboard/trading/mostprofitable")
+	Observable<ItemsViewModelDashboardTradingAsset> getMostProfitableAssets(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("ShowIn") String showIn
+	);
+
+	/**
 	 * Money distribution in percents. Empty list if no money at all
 	 *
 	 * @param authorization JWT access token (required)

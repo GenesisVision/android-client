@@ -37,6 +37,7 @@ Name | Type | Description | Notes
 **totalAvailableInvestment** | **Double** |  |  [optional]
 **owner** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 **brokerDetails** | [**BrokerDetails**](BrokerDetails.md) |  |  [optional]
-**signalSettings** | [**AssetSignalSettings**](AssetSignalSettings.md) |  |  [optional]
 **personalDetails** | [**PersonalProgramDetails**](PersonalProgramDetails.md) |  |  [optional]
+**signalSettings** | [**AssetSignalSettings**](AssetSignalSettings.md) |  |  [optional]
+**subscribersCount** | **Integer** |  |  [optional]
 **tags** | [**List&lt;Tag&gt;**](Tag.md) |  |  [optional]

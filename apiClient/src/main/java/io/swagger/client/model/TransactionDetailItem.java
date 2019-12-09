@@ -20,6 +20,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * TransactionDetailItem
  */
@@ -41,6 +42,9 @@ public class TransactionDetailItem implements Parcelable
 	@SerializedName("details")
 	private String details = null;
 
+	@SerializedName("url")
+	private String url = null;
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -49,6 +53,7 @@ public class TransactionDetailItem implements Parcelable
 
 	TransactionDetailItem(Parcel in) {
 		details = (String) in.readValue(null);
+		url = (String) in.readValue(null);
 		title = (String) in.readValue(null);
 	}
 
@@ -69,6 +74,25 @@ public class TransactionDetailItem implements Parcelable
 
 	public void setDetails(String details) {
 		this.details = details;
+	}
+
+	public TransactionDetailItem url(String url) {
+		this.url = url;
+		return this;
+	}
+
+	/**
+	 * Get url
+	 *
+	 * @return url
+	 **/
+	@Schema(description = "")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public TransactionDetailItem title(String title) {
@@ -100,12 +124,13 @@ public class TransactionDetailItem implements Parcelable
 		}
 		TransactionDetailItem transactionDetailItem = (TransactionDetailItem) o;
 		return Objects.equals(this.details, transactionDetailItem.details) &&
+				Objects.equals(this.url, transactionDetailItem.url) &&
 				Objects.equals(this.title, transactionDetailItem.title);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(details, title);
+		return Objects.hash(details, url, title);
 	}
 
 	@Override
@@ -114,6 +139,7 @@ public class TransactionDetailItem implements Parcelable
 		sb.append("class TransactionDetailItem {\n");
 
 		sb.append("    details: ").append(toIndentedString(details)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -132,6 +158,7 @@ public class TransactionDetailItem implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(details);
+		out.writeValue(url);
 		out.writeValue(title);
 	}
 

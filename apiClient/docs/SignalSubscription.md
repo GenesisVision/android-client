@@ -3,6 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**followAssetId** | [**UUID**](UUID.md) |  |  [optional]
+**subscriberInfo** | [**SignalSubscriberInfo**](SignalSubscriberInfo.md) |  |  [optional]
 **hasSignalAccount** | **Boolean** |  |  [optional]
 **hasActiveSubscription** | **Boolean** |  |  [optional]
 **mode** | [**SubscriptionMode**](SubscriptionMode.md) |  |  [optional]

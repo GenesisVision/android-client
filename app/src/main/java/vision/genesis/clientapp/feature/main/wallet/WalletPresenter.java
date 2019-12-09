@@ -10,7 +10,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.WalletMultiSummary;
+import io.swagger.client.model.WalletSummary;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -107,7 +107,7 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements SelectC
 		}
 	}
 
-	private void handleBalanceUpdateResponse(WalletMultiSummary response) {
+	private void handleBalanceUpdateResponse(WalletSummary response) {
 		balanceSubscription.unsubscribe();
 
 		getViewState().showProgress(false);

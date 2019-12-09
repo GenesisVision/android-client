@@ -30,6 +30,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * PrivateTradingAccountFull
  */
@@ -50,6 +51,9 @@ public class PrivateTradingAccountFull implements Parcelable
 
 	@SerializedName("id")
 	private UUID id = null;
+
+	@SerializedName("title")
+	private String title = null;
 
 	@SerializedName("creationDate")
 	private DateTime creationDate = null;
@@ -89,6 +93,7 @@ public class PrivateTradingAccountFull implements Parcelable
 
 	PrivateTradingAccountFull(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		title = (String) in.readValue(null);
 		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		currency = (CurrencyEnum) in.readValue(null);
 		leverage = (Integer) in.readValue(null);
@@ -119,6 +124,25 @@ public class PrivateTradingAccountFull implements Parcelable
 
 	public void setId(UUID id) {
 		this.id = id;
+	}
+
+	public PrivateTradingAccountFull title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@Schema(description = "")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public PrivateTradingAccountFull creationDate(DateTime creationDate) {
@@ -348,6 +372,7 @@ public class PrivateTradingAccountFull implements Parcelable
 		}
 		PrivateTradingAccountFull privateTradingAccountFull = (PrivateTradingAccountFull) o;
 		return Objects.equals(this.id, privateTradingAccountFull.id) &&
+				Objects.equals(this.title, privateTradingAccountFull.title) &&
 				Objects.equals(this.creationDate, privateTradingAccountFull.creationDate) &&
 				Objects.equals(this.currency, privateTradingAccountFull.currency) &&
 				Objects.equals(this.leverage, privateTradingAccountFull.leverage) &&
@@ -363,7 +388,7 @@ public class PrivateTradingAccountFull implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, creationDate, currency, leverage, apiKey, login, balance, type, status, signalSubscriptions, brokerDetails, ownerActions);
+		return Objects.hash(id, title, creationDate, currency, leverage, apiKey, login, balance, type, status, signalSubscriptions, brokerDetails, ownerActions);
 	}
 
 	@Override
@@ -372,6 +397,7 @@ public class PrivateTradingAccountFull implements Parcelable
 		sb.append("class PrivateTradingAccountFull {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
@@ -400,6 +426,7 @@ public class PrivateTradingAccountFull implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
+		out.writeValue(title);
 		out.writeValue(creationDate);
 		out.writeValue(currency);
 		out.writeValue(leverage);

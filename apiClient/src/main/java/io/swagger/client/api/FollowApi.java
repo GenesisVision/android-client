@@ -11,10 +11,23 @@ import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.FollowProfitPercentCharts;
 import io.swagger.client.model.ItemsViewModelFollowDetailsList;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import rx.Observable;
 
 public interface FollowApi
 {
+	/**
+	 * Add to favorites
+	 *
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v2.0/follow/{id}/favorite/add")
+	Observable<Void> addToFavorites(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
+	);
+
 	/**
 	 * Follow absolute profit chart
 	 *
@@ -94,6 +107,18 @@ public interface FollowApi
 	@GET("v2.0/follow/{id}/charts/profit/percent")
 	Observable<FollowProfitPercentCharts> getProfitPercentCharts(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("currencies") List<Object> currencies
+	);
+
+	/**
+	 * Remove from favorites
+	 *
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v2.0/follow/{id}/favorite/remove")
+	Observable<Void> removeFromFavorites(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
 	);
 
 }

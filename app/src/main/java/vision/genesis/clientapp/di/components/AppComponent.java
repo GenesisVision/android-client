@@ -44,6 +44,7 @@ import vision.genesis.clientapp.feature.main.dashboard.wallet.DashboardWalletVie
 import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
 import vision.genesis.clientapp.feature.main.follow.create.CreateFollowPresenter;
 import vision.genesis.clientapp.feature.main.follow.create.settings.FollowSettingsPresenter;
+import vision.genesis.clientapp.feature.main.follow.edit.EditFollowSettingsPresenter;
 import vision.genesis.clientapp.feature.main.follows_list.FollowsListPresenter;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsPresenter;
 import vision.genesis.clientapp.feature.main.fund.add_asset.AddAssetPresenter;
@@ -362,4 +363,6 @@ public interface AppComponent
 	void inject(FollowSettingsPresenter followSettingsPresenter);
 
 	void inject(EditPublicInfoPresenter editPublicInfoPresenter);
+
+	void inject(EditFollowSettingsPresenter editFollowSettingsPresenter);
 }

@@ -30,6 +30,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * FollowDetailsFull
  */
@@ -69,9 +70,6 @@ public class FollowDetailsFull implements Parcelable
 	@SerializedName("currency")
 	private CurrencyEnum currency = null;
 
-	@SerializedName("subscribersCount")
-	private Integer subscribersCount = null;
-
 	@SerializedName("tradesCount")
 	private Integer tradesCount = null;
 
@@ -89,6 +87,9 @@ public class FollowDetailsFull implements Parcelable
 
 	@SerializedName("signalSettings")
 	private AssetSignalSettings signalSettings = null;
+
+	@SerializedName("subscribersCount")
+	private Integer subscribersCount = null;
 
 	@SerializedName("brokerDetails")
 	private BrokerDetails brokerDetails = null;
@@ -113,13 +114,13 @@ public class FollowDetailsFull implements Parcelable
 		logo = (String) in.readValue(null);
 		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		currency = (CurrencyEnum) in.readValue(null);
-		subscribersCount = (Integer) in.readValue(null);
 		tradesCount = (Integer) in.readValue(null);
 		status = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 		color = (String) in.readValue(null);
 		leverage = (Integer) in.readValue(null);
 		signalSettings = (AssetSignalSettings) in.readValue(AssetSignalSettings.class.getClassLoader());
+		subscribersCount = (Integer) in.readValue(null);
 		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
 		owner = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
 		personalDetails = (PersonalFollowDetailsFull) in.readValue(PersonalFollowDetailsFull.class.getClassLoader());
@@ -259,25 +260,6 @@ public class FollowDetailsFull implements Parcelable
 		this.currency = currency;
 	}
 
-	public FollowDetailsFull subscribersCount(Integer subscribersCount) {
-		this.subscribersCount = subscribersCount;
-		return this;
-	}
-
-	/**
-	 * Get subscribersCount
-	 *
-	 * @return subscribersCount
-	 **/
-	@Schema(description = "")
-	public Integer getSubscribersCount() {
-		return subscribersCount;
-	}
-
-	public void setSubscribersCount(Integer subscribersCount) {
-		this.subscribersCount = subscribersCount;
-	}
-
 	public FollowDetailsFull tradesCount(Integer tradesCount) {
 		this.tradesCount = tradesCount;
 		return this;
@@ -392,6 +374,25 @@ public class FollowDetailsFull implements Parcelable
 		this.signalSettings = signalSettings;
 	}
 
+	public FollowDetailsFull subscribersCount(Integer subscribersCount) {
+		this.subscribersCount = subscribersCount;
+		return this;
+	}
+
+	/**
+	 * Get subscribersCount
+	 *
+	 * @return subscribersCount
+	 **/
+	@Schema(description = "")
+	public Integer getSubscribersCount() {
+		return subscribersCount;
+	}
+
+	public void setSubscribersCount(Integer subscribersCount) {
+		this.subscribersCount = subscribersCount;
+	}
+
 	public FollowDetailsFull brokerDetails(BrokerDetails brokerDetails) {
 		this.brokerDetails = brokerDetails;
 		return this;
@@ -492,13 +493,13 @@ public class FollowDetailsFull implements Parcelable
 				Objects.equals(this.logo, followDetailsFull.logo) &&
 				Objects.equals(this.creationDate, followDetailsFull.creationDate) &&
 				Objects.equals(this.currency, followDetailsFull.currency) &&
-				Objects.equals(this.subscribersCount, followDetailsFull.subscribersCount) &&
 				Objects.equals(this.tradesCount, followDetailsFull.tradesCount) &&
 				Objects.equals(this.status, followDetailsFull.status) &&
 				Objects.equals(this.url, followDetailsFull.url) &&
 				Objects.equals(this.color, followDetailsFull.color) &&
 				Objects.equals(this.leverage, followDetailsFull.leverage) &&
 				Objects.equals(this.signalSettings, followDetailsFull.signalSettings) &&
+				Objects.equals(this.subscribersCount, followDetailsFull.subscribersCount) &&
 				Objects.equals(this.brokerDetails, followDetailsFull.brokerDetails) &&
 				Objects.equals(this.owner, followDetailsFull.owner) &&
 				Objects.equals(this.personalDetails, followDetailsFull.personalDetails) &&
@@ -507,7 +508,7 @@ public class FollowDetailsFull implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, tradingAccountId, title, description, logo, creationDate, currency, subscribersCount, tradesCount, status, url, color, leverage, signalSettings, brokerDetails, owner, personalDetails, tags);
+		return Objects.hash(id, tradingAccountId, title, description, logo, creationDate, currency, tradesCount, status, url, color, leverage, signalSettings, subscribersCount, brokerDetails, owner, personalDetails, tags);
 	}
 
 	@Override
@@ -522,13 +523,13 @@ public class FollowDetailsFull implements Parcelable
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-		sb.append("    subscribersCount: ").append(toIndentedString(subscribersCount)).append("\n");
 		sb.append("    tradesCount: ").append(toIndentedString(tradesCount)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
 		sb.append("    signalSettings: ").append(toIndentedString(signalSettings)).append("\n");
+		sb.append("    subscribersCount: ").append(toIndentedString(subscribersCount)).append("\n");
 		sb.append("    brokerDetails: ").append(toIndentedString(brokerDetails)).append("\n");
 		sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
@@ -556,13 +557,13 @@ public class FollowDetailsFull implements Parcelable
 		out.writeValue(logo);
 		out.writeValue(creationDate);
 		out.writeValue(currency);
-		out.writeValue(subscribersCount);
 		out.writeValue(tradesCount);
 		out.writeValue(status);
 		out.writeValue(url);
 		out.writeValue(color);
 		out.writeValue(leverage);
 		out.writeValue(signalSettings);
+		out.writeValue(subscribersCount);
 		out.writeValue(brokerDetails);
 		out.writeValue(owner);
 		out.writeValue(personalDetails);

@@ -14,7 +14,7 @@ import io.swagger.client.model.AmountWithCurrency;
 import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.ProgramMinInvestAmount;
 import io.swagger.client.model.WalletData;
-import io.swagger.client.model.WalletMultiSummary;
+import io.swagger.client.model.WalletSummary;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -219,7 +219,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 		}
 	}
 
-	private void handleWalletUpdateSuccess(WalletMultiSummary response) {
+	private void handleWalletUpdateSuccess(WalletSummary response) {
 		List<WalletData> wallets = response.getWallets();
 
 		getViewState().setWalletsFrom(wallets);

@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import io.swagger.client.model.InternalTransferRequest;
 import io.swagger.client.model.InternalTransferRequestType;
 import io.swagger.client.model.WalletData;
-import io.swagger.client.model.WalletMultiSummary;
+import io.swagger.client.model.WalletSummary;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -161,7 +161,7 @@ public class TransferCopytradingAccountPresenter extends MvpPresenter<TransferCo
 		}
 	}
 
-	private void handleWalletUpdateSuccess(WalletMultiSummary response) {
+	private void handleWalletUpdateSuccess(WalletSummary response) {
 		getViewState().showProgress(false);
 
 		wallets = response.getWallets();

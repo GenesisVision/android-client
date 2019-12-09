@@ -4,7 +4,7 @@ import com.arellomobile.mvp.MvpView;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 03/11/2019.
+ * Created by Vitaly on 03/12/2019.
  */
 
 public interface EditPublicInfoView extends MvpView

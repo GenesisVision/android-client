@@ -83,6 +83,7 @@ public class FundsManager
 				dateRange.getFrom(), dateRange.getTo(),
 				null, null,
 				null, null,
+				null,
 				skip, take);
 	}
 

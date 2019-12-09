@@ -397,7 +397,7 @@ No authorization required
 
 <a name="getWalletSummary"></a>
 # **getWalletSummary**
-> WalletMultiSummary getWalletSummary(currency, authorization)
+> WalletSummary getWalletSummary(currency, authorization)
 
 Wallet summary
 
@@ -412,7 +412,7 @@ WalletApi apiInstance = new WalletApi();
 String currency = "currency_example"; // String | 
 String authorization = "authorization_example"; // String | JWT access token
 try {
-    WalletMultiSummary result = apiInstance.getWalletSummary(currency, authorization);
+    WalletSummary result = apiInstance.getWalletSummary(currency, authorization);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling WalletApi#getWalletSummary");
@@ -429,7 +429,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WalletMultiSummary**](WalletMultiSummary.md)
+[**WalletSummary**](WalletSummary.md)
 
 ### Authorization
 

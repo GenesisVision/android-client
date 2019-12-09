@@ -21,6 +21,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * DashboardTradingAsset
  */
@@ -45,6 +46,9 @@ public class DashboardTradingAsset implements Parcelable
 	@SerializedName("assetType")
 	private AssetType assetType = null;
 
+	@SerializedName("assetTypeExt")
+	private AssetTypeExt assetTypeExt = null;
+
 	@SerializedName("statistic")
 	private ProfitChart statistic = null;
 
@@ -53,6 +57,9 @@ public class DashboardTradingAsset implements Parcelable
 
 	@SerializedName("accountInfo")
 	private DashboardTradingAssetCommonDetails accountInfo = null;
+
+	@SerializedName("signalInfo")
+	private DashboardTradingAssetSignalDetails signalInfo = null;
 
 	@SerializedName("broker")
 	private DashboardTradingAssetBrokerDetails broker = null;
@@ -66,9 +73,11 @@ public class DashboardTradingAsset implements Parcelable
 	DashboardTradingAsset(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
+		assetTypeExt = (AssetTypeExt) in.readValue(AssetTypeExt.class.getClassLoader());
 		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
 		publicInfo = (DashboardTradingAssetPublicDetails) in.readValue(DashboardTradingAssetPublicDetails.class.getClassLoader());
 		accountInfo = (DashboardTradingAssetCommonDetails) in.readValue(DashboardTradingAssetCommonDetails.class.getClassLoader());
+		signalInfo = (DashboardTradingAssetSignalDetails) in.readValue(DashboardTradingAssetSignalDetails.class.getClassLoader());
 		broker = (DashboardTradingAssetBrokerDetails) in.readValue(DashboardTradingAssetBrokerDetails.class.getClassLoader());
 		actions = (DashboardTradingAssetActions) in.readValue(DashboardTradingAssetActions.class.getClassLoader());
 	}
@@ -109,6 +118,25 @@ public class DashboardTradingAsset implements Parcelable
 
 	public void setAssetType(AssetType assetType) {
 		this.assetType = assetType;
+	}
+
+	public DashboardTradingAsset assetTypeExt(AssetTypeExt assetTypeExt) {
+		this.assetTypeExt = assetTypeExt;
+		return this;
+	}
+
+	/**
+	 * Get assetTypeExt
+	 *
+	 * @return assetTypeExt
+	 **/
+	@Schema(description = "")
+	public AssetTypeExt getAssetTypeExt() {
+		return assetTypeExt;
+	}
+
+	public void setAssetTypeExt(AssetTypeExt assetTypeExt) {
+		this.assetTypeExt = assetTypeExt;
 	}
 
 	public DashboardTradingAsset statistic(ProfitChart statistic) {
@@ -168,6 +196,25 @@ public class DashboardTradingAsset implements Parcelable
 		this.accountInfo = accountInfo;
 	}
 
+	public DashboardTradingAsset signalInfo(DashboardTradingAssetSignalDetails signalInfo) {
+		this.signalInfo = signalInfo;
+		return this;
+	}
+
+	/**
+	 * Get signalInfo
+	 *
+	 * @return signalInfo
+	 **/
+	@Schema(description = "")
+	public DashboardTradingAssetSignalDetails getSignalInfo() {
+		return signalInfo;
+	}
+
+	public void setSignalInfo(DashboardTradingAssetSignalDetails signalInfo) {
+		this.signalInfo = signalInfo;
+	}
+
 	public DashboardTradingAsset broker(DashboardTradingAssetBrokerDetails broker) {
 		this.broker = broker;
 		return this;
@@ -217,16 +264,18 @@ public class DashboardTradingAsset implements Parcelable
 		DashboardTradingAsset dashboardTradingAsset = (DashboardTradingAsset) o;
 		return Objects.equals(this.id, dashboardTradingAsset.id) &&
 				Objects.equals(this.assetType, dashboardTradingAsset.assetType) &&
+				Objects.equals(this.assetTypeExt, dashboardTradingAsset.assetTypeExt) &&
 				Objects.equals(this.statistic, dashboardTradingAsset.statistic) &&
 				Objects.equals(this.publicInfo, dashboardTradingAsset.publicInfo) &&
 				Objects.equals(this.accountInfo, dashboardTradingAsset.accountInfo) &&
+				Objects.equals(this.signalInfo, dashboardTradingAsset.signalInfo) &&
 				Objects.equals(this.broker, dashboardTradingAsset.broker) &&
 				Objects.equals(this.actions, dashboardTradingAsset.actions);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, assetType, statistic, publicInfo, accountInfo, broker, actions);
+		return Objects.hash(id, assetType, assetTypeExt, statistic, publicInfo, accountInfo, signalInfo, broker, actions);
 	}
 
 	@Override
@@ -236,9 +285,11 @@ public class DashboardTradingAsset implements Parcelable
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    assetType: ").append(toIndentedString(assetType)).append("\n");
+		sb.append("    assetTypeExt: ").append(toIndentedString(assetTypeExt)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    publicInfo: ").append(toIndentedString(publicInfo)).append("\n");
 		sb.append("    accountInfo: ").append(toIndentedString(accountInfo)).append("\n");
+		sb.append("    signalInfo: ").append(toIndentedString(signalInfo)).append("\n");
 		sb.append("    broker: ").append(toIndentedString(broker)).append("\n");
 		sb.append("    actions: ").append(toIndentedString(actions)).append("\n");
 		sb.append("}");
@@ -259,9 +310,11 @@ public class DashboardTradingAsset implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(assetType);
+		out.writeValue(assetTypeExt);
 		out.writeValue(statistic);
 		out.writeValue(publicInfo);
 		out.writeValue(accountInfo);
+		out.writeValue(signalInfo);
 		out.writeValue(broker);
 		out.writeValue(actions);
 	}

@@ -11,7 +11,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.WalletData;
-import io.swagger.client.model.WalletMultiSummary;
+import io.swagger.client.model.WalletSummary;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -111,7 +111,7 @@ public class SpecificWalletPresenter extends MvpPresenter<SpecificWalletView>
 		}
 	}
 
-	private void handleWalletUpdateSuccess(WalletMultiSummary response, UUID walletId) {
+	private void handleWalletUpdateSuccess(WalletSummary response, UUID walletId) {
 		walletSubscription.unsubscribe();
 
 		for (WalletData walletData : response.getWallets()) {

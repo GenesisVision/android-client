@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * ItemsViewModelUserDetailsList
  */

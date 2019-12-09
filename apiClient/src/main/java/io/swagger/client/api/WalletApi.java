@@ -10,7 +10,7 @@ import io.swagger.client.model.ItemsViewModelTransactionViewModel;
 import io.swagger.client.model.UserCommissionData;
 import io.swagger.client.model.WalletDepositSummary;
 import io.swagger.client.model.WalletMultiAvailable;
-import io.swagger.client.model.WalletMultiSummary;
+import io.swagger.client.model.WalletSummary;
 import io.swagger.client.model.WithdrawalSummary;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -70,13 +70,14 @@ public interface WalletApi
 	 * @param transactionType (optional)
 	 * @param dateFrom        (optional)
 	 * @param dateTo          (optional)
+	 * @param currency        (optional)
 	 * @param skip            (optional)
 	 * @param take            (optional)
 	 * @return Call&lt;ItemsViewModelTransactionViewModel&gt;
 	 */
 	@GET("v2.0/wallet/transactions/external")
 	Observable<ItemsViewModelTransactionViewModel> getTransactionsExternal(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("TransactionType") String transactionType, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("TransactionType") String transactionType, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -86,13 +87,14 @@ public interface WalletApi
 	 * @param transactionType (optional)
 	 * @param dateFrom        (optional)
 	 * @param dateTo          (optional)
+	 * @param currency        (optional)
 	 * @param skip            (optional)
 	 * @param take            (optional)
 	 * @return Call&lt;ItemsViewModelTransactionViewModel&gt;
 	 */
 	@GET("v2.0/wallet/transactions/internal")
 	Observable<ItemsViewModelTransactionViewModel> getTransactionsInternal(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("TransactionType") String transactionType, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("TransactionType") String transactionType, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -121,10 +123,10 @@ public interface WalletApi
 	 *
 	 * @param currency      (required)
 	 * @param authorization JWT access token (required)
-	 * @return Call&lt;WalletMultiSummary&gt;
+	 * @return Call&lt;WalletSummary&gt;
 	 */
 	@GET("v2.0/wallet/{currency}")
-	Observable<WalletMultiSummary> getWalletSummary(
+	Observable<WalletSummary> getWalletSummary(
 			@retrofit2.http.Path("currency") String currency, @retrofit2.http.Header("Authorization") String authorization
 	);
 

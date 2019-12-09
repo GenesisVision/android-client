@@ -1,15 +1,8 @@
-
 # WalletSummary
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**totalBalanceGVT** | **Double** |  |  [optional]
-**totalBalanceCurrency** | **Double** |  |  [optional]
-**investedGVT** | **Double** |  |  [optional]
-**investedCurrency** | **Double** |  |  [optional]
-**availableGVT** | **Double** |  |  [optional]
-**availableCurrency** | **Double** |  |  [optional]
-
-
-
+**grandTotal** | [**WalletsGrandTotal**](WalletsGrandTotal.md) |  |  [optional]
+**wallets** | [**List&lt;WalletData&gt;**](WalletData.md) |  |  [optional]
+**payFeesWithGvt** | **Boolean** |  |  [optional]

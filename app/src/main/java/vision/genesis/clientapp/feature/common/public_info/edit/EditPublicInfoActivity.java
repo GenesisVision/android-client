@@ -27,7 +27,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 03/11/2019.
+ * Created by Vitaly on 03/12/2019.
  */
 
 public class EditPublicInfoActivity extends BaseSwipeBackActivity implements EditPublicInfoView

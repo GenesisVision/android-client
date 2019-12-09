@@ -28,7 +28,7 @@ public class TradingAccountManager
 	}
 
 	public Observable<TradesViewModel> getAccountOpenPositions(UUID accountId) {
-		return tradingAccountApi.getProgramOpenTrades(accountId, AuthManager.token.getValue(), "ByDateDesc",
+		return tradingAccountApi.getOpenTrades(accountId, AuthManager.token.getValue(), "ByDateDesc",
 				null, null, null,
 				0, 1000);
 	}
@@ -42,7 +42,7 @@ public class TradingAccountManager
 	}
 
 	public Observable<TradesViewModel> getProgramTrades(UUID accountId, DateRange dateRange, Integer skip, Integer take) {
-		return tradingAccountApi.getTradingAccountTrades(accountId, AuthManager.token.getValue(),
+		return tradingAccountApi.getTrades(accountId, AuthManager.token.getValue(),
 				dateRange.getFrom(), dateRange.getTo(),
 				null, null, null, null,
 				skip, take);

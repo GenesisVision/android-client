@@ -6,10 +6,10 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getAbsoluteProfitChart**](TradingaccountApi.md#getAbsoluteProfitChart) | **GET** v2.0/tradingaccount/{id}/charts/profit/absolute | Trading account absolute profit chart
 [**getBalanceChart**](TradingaccountApi.md#getBalanceChart) | **GET** v2.0/tradingaccount/{id}/charts/balance | Trading account balance chart
+[**getOpenTrades**](TradingaccountApi.md#getOpenTrades) | **GET** v2.0/tradingaccount/{id}/trades/open | Trading account open positions
 [**getProfitPercentCharts**](TradingaccountApi.md#getProfitPercentCharts) | **GET** v2.0/tradingaccount/{id}/charts/profit/percent | Trading account profit percent charts
-[**getProgramOpenTrades**](TradingaccountApi.md#getProgramOpenTrades) | **GET** v2.0/tradingaccount/{id}/trades/open | Trading account open positions
+[**getTrades**](TradingaccountApi.md#getTrades) | **GET** v2.0/tradingaccount/{id}/trades | Trading account trades
 [**getTradingAccountDetails**](TradingaccountApi.md#getTradingAccountDetails) | **GET** v2.0/tradingaccount/{id} | Trading account details
-[**getTradingAccountTrades**](TradingaccountApi.md#getTradingAccountTrades) | **GET** v2.0/tradingaccount/{id}/trades | Trading account trades
 
 <a name="getAbsoluteProfitChart"></a>
 # **getAbsoluteProfitChart**
@@ -113,6 +113,63 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="getOpenTrades"></a>
+# **getOpenTrades**
+> TradesViewModel getOpenTrades(id, authorization, sorting, symbol, accountId, accountCurrency, skip, take)
+
+Trading account open positions
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.TradingaccountApi;
+
+
+TradingaccountApi apiInstance = new TradingaccountApi();
+UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+String sorting = "sorting_example"; // String | 
+String symbol = "symbol_example"; // String | 
+UUID accountId = new UUID(); // UUID | 
+String accountCurrency = "accountCurrency_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    TradesViewModel result = apiInstance.getOpenTrades(id, authorization, sorting, symbol, accountId, accountCurrency, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling TradingaccountApi#getOpenTrades");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+ **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
+ **symbol** | **String**|  | [optional]
+ **accountId** | [**UUID**](.md)|  | [optional]
+ **accountCurrency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**TradesViewModel**](TradesViewModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="getProfitPercentCharts"></a>
 # **getProfitPercentCharts**
 > AccountProfitPercentCharts getProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies)
@@ -166,11 +223,11 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="getProgramOpenTrades"></a>
-# **getProgramOpenTrades**
-> TradesViewModel getProgramOpenTrades(id, authorization, sorting, symbol, accountId, accountCurrency, skip, take)
+<a name="getTrades"></a>
+# **getTrades**
+> TradesViewModel getTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take)
 
-Trading account open positions
+Trading account trades
 
 ### Example
 ```java
@@ -182,17 +239,19 @@ Trading account open positions
 TradingaccountApi apiInstance = new TradingaccountApi();
 UUID id = new UUID(); // UUID | 
 String authorization = "authorization_example"; // String | JWT access token
-String sorting = "sorting_example"; // String | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
 String symbol = "symbol_example"; // String | 
+String sorting = "sorting_example"; // String | 
 UUID accountId = new UUID(); // UUID | 
 String accountCurrency = "accountCurrency_example"; // String | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    TradesViewModel result = apiInstance.getProgramOpenTrades(id, authorization, sorting, symbol, accountId, accountCurrency, skip, take);
+    TradesViewModel result = apiInstance.getTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling TradingaccountApi#getProgramOpenTrades");
+    System.err.println("Exception when calling TradingaccountApi#getTrades");
     e.printStackTrace();
 }
 ```
@@ -203,8 +262,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
  **authorization** | **String**| JWT access token |
- **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
  **symbol** | **String**|  | [optional]
+ **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
  **accountId** | [**UUID**](.md)|  | [optional]
  **accountCurrency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **skip** | **Integer**|  | [optional]
@@ -258,67 +319,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PrivateTradingAccountFull**](PrivateTradingAccountFull.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="getTradingAccountTrades"></a>
-# **getTradingAccountTrades**
-> TradesViewModel getTradingAccountTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take)
-
-Trading account trades
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.TradingaccountApi;
-
-
-TradingaccountApi apiInstance = new TradingaccountApi();
-UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
-DateTime dateFrom = new DateTime(); // DateTime | 
-DateTime dateTo = new DateTime(); // DateTime | 
-String symbol = "symbol_example"; // String | 
-String sorting = "sorting_example"; // String | 
-UUID accountId = new UUID(); // UUID | 
-String accountCurrency = "accountCurrency_example"; // String | 
-Integer skip = 56; // Integer | 
-Integer take = 56; // Integer | 
-try {
-    TradesViewModel result = apiInstance.getTradingAccountTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling TradingaccountApi#getTradingAccountTrades");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
- **dateFrom** | **DateTime**|  | [optional]
- **dateTo** | **DateTime**|  | [optional]
- **symbol** | **String**|  | [optional]
- **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
- **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
- **skip** | **Integer**|  | [optional]
- **take** | **Integer**|  | [optional]
-
-### Return type
-
-[**TradesViewModel**](TradesViewModel.md)
 
 ### Authorization
 

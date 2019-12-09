@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**getInvestingDetails**](DashboardApi.md#getInvestingDetails) | **GET** v2.0/dashboard/investing | 
 [**getInvestingFunds**](DashboardApi.md#getInvestingFunds) | **GET** v2.0/dashboard/investing/funds | 
 [**getInvestingPrograms**](DashboardApi.md#getInvestingPrograms) | **GET** v2.0/dashboard/investing/programs | 
+[**getMostProfitableAssets**](DashboardApi.md#getMostProfitableAssets) | **GET** v2.0/dashboard/trading/mostprofitable | 
 [**getPortfolio**](DashboardApi.md#getPortfolio) | **GET** v2.0/dashboard/portfolio | Money distribution in percents. Empty list if no money at all
 [**getPrivateTradingAssets**](DashboardApi.md#getPrivateTradingAssets) | **GET** v2.0/dashboard/trading/private | 
 [**getPublicTradingAssets**](DashboardApi.md#getPublicTradingAssets) | **GET** v2.0/dashboard/trading/public | 
@@ -329,6 +330,57 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ItemsViewModelProgramInvestingDetailsList**](ItemsViewModelProgramInvestingDetailsList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getMostProfitableAssets"></a>
+# **getMostProfitableAssets**
+> ItemsViewModelDashboardTradingAsset getMostProfitableAssets(authorization, dateFrom, dateTo, chartPointsCount, showIn)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.DashboardApi;
+
+
+DashboardApi apiInstance = new DashboardApi();
+String authorization = "authorization_example"; // String | JWT access token
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer chartPointsCount = 56; // Integer | 
+String showIn = "showIn_example"; // String | 
+try {
+    ItemsViewModelDashboardTradingAsset result = apiInstance.getMostProfitableAssets(authorization, dateFrom, dateTo, chartPointsCount, showIn);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DashboardApi#getMostProfitableAssets");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **chartPointsCount** | **Integer**|  | [optional]
+ **showIn** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+
+### Return type
+
+[**ItemsViewModelDashboardTradingAsset**](ItemsViewModelDashboardTradingAsset.md)
 
 ### Authorization
 

@@ -5,6 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -13,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.WalletData;
@@ -96,8 +97,8 @@ public class MyWalletsListAdapter extends RecyclerView.Adapter<MyWalletsListAdap
 			currency.setText(wallet.getTitle());
 			value.setText(String.format(Locale.getDefault(), "%s",
 					StringFormatUtil.getValueString(wallet.getTotal(), wallet.getCurrency().getValue())));
-			valueCcy.setText(String.format(Locale.getDefault(), "%s",
-					StringFormatUtil.getValueString(wallet.getTotalCcy(), wallet.getCurrencyCcy().getValue())));
+//			valueCcy.setText(String.format(Locale.getDefault(), "%s",
+//					StringFormatUtil.getValueString(wallet.getTotalCcy(), wallet.getCurrencyCcy().getValue())));
 		}
 	}
 }

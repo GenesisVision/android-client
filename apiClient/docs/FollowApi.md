@@ -4,11 +4,58 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**addToFavorites**](FollowApi.md#addToFavorites) | **POST** v2.0/follow/{id}/favorite/add | Add to favorites
 [**getAbsoluteProfitChart**](FollowApi.md#getAbsoluteProfitChart) | **GET** v2.0/follow/{id}/charts/profit/absolute | Follow absolute profit chart
 [**getBalanceChart**](FollowApi.md#getBalanceChart) | **GET** v2.0/follow/{id}/charts/balance | Follow balance chart
 [**getFollowAssetDetails**](FollowApi.md#getFollowAssetDetails) | **GET** v2.0/follow/{id} | Follow asset details
 [**getFollowAssets**](FollowApi.md#getFollowAssets) | **GET** v2.0/follow | Follow assets
 [**getProfitPercentCharts**](FollowApi.md#getProfitPercentCharts) | **GET** v2.0/follow/{id}/charts/profit/percent | Follow profit percent charts
+[**removeFromFavorites**](FollowApi.md#removeFromFavorites) | **POST** v2.0/follow/{id}/favorite/remove | Remove from favorites
+
+<a name="addToFavorites"></a>
+# **addToFavorites**
+> Void addToFavorites(id, authorization)
+
+Add to favorites
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.FollowApi;
+
+
+FollowApi apiInstance = new FollowApi();
+UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.addToFavorites(id, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FollowApi#addToFavorites");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 <a name="getAbsoluteProfitChart"></a>
 # **getAbsoluteProfitChart**
@@ -267,6 +314,51 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**FollowProfitPercentCharts**](FollowProfitPercentCharts.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="removeFromFavorites"></a>
+# **removeFromFavorites**
+> Void removeFromFavorites(id, authorization)
+
+Remove from favorites
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.FollowApi;
+
+
+FollowApi apiInstance = new FollowApi();
+UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.removeFromFavorites(id, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FollowApi#removeFromFavorites");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
 
 ### Authorization
 

@@ -21,6 +21,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * ProfileHeaderViewModel
  */
@@ -47,6 +48,9 @@ public class ProfileHeaderViewModel implements Parcelable
 
 	@SerializedName("email")
 	private String email = null;
+
+	@SerializedName("url")
+	private String url = null;
 
 	@SerializedName("avatar")
 	private String avatar = null;
@@ -79,6 +83,7 @@ public class ProfileHeaderViewModel implements Parcelable
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		name = (String) in.readValue(null);
 		email = (String) in.readValue(null);
+		url = (String) in.readValue(null);
 		avatar = (String) in.readValue(null);
 		countryCode = (String) in.readValue(null);
 		notificationsCount = (Integer) in.readValue(null);
@@ -144,6 +149,25 @@ public class ProfileHeaderViewModel implements Parcelable
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public ProfileHeaderViewModel url(String url) {
+		this.url = url;
+		return this;
+	}
+
+	/**
+	 * Get url
+	 *
+	 * @return url
+	 **/
+	@Schema(description = "")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public ProfileHeaderViewModel avatar(String avatar) {
@@ -310,6 +334,7 @@ public class ProfileHeaderViewModel implements Parcelable
 		return Objects.equals(this.id, profileHeaderViewModel.id) &&
 				Objects.equals(this.name, profileHeaderViewModel.name) &&
 				Objects.equals(this.email, profileHeaderViewModel.email) &&
+				Objects.equals(this.url, profileHeaderViewModel.url) &&
 				Objects.equals(this.avatar, profileHeaderViewModel.avatar) &&
 				Objects.equals(this.countryCode, profileHeaderViewModel.countryCode) &&
 				Objects.equals(this.notificationsCount, profileHeaderViewModel.notificationsCount) &&
@@ -322,7 +347,7 @@ public class ProfileHeaderViewModel implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, email, avatar, countryCode, notificationsCount, isKycConfirmed, isForexAllowed, isTwoFactorEnabled, isNewUser, isPublicInvestor);
+		return Objects.hash(id, name, email, url, avatar, countryCode, notificationsCount, isKycConfirmed, isForexAllowed, isTwoFactorEnabled, isNewUser, isPublicInvestor);
 	}
 
 	@Override
@@ -333,6 +358,7 @@ public class ProfileHeaderViewModel implements Parcelable
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    email: ").append(toIndentedString(email)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
 		sb.append("    countryCode: ").append(toIndentedString(countryCode)).append("\n");
 		sb.append("    notificationsCount: ").append(toIndentedString(notificationsCount)).append("\n");
@@ -360,6 +386,7 @@ public class ProfileHeaderViewModel implements Parcelable
 		out.writeValue(id);
 		out.writeValue(name);
 		out.writeValue(email);
+		out.writeValue(url);
 		out.writeValue(avatar);
 		out.writeValue(countryCode);
 		out.writeValue(notificationsCount);

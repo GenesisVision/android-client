@@ -27,6 +27,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.AssetInvestmentStatus;
+import io.swagger.client.model.CreateSignalProvider;
 import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.PersonalFollowDetailsFull;
 import io.swagger.client.model.PersonalProgramDetails;
@@ -39,6 +40,7 @@ import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.common.public_info.edit.EditPublicInfoActivity;
 import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.follow.create.CreateFollowActivity;
+import vision.genesis.clientapp.feature.main.follow.edit.EditFollowSettingsActivity;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.program.create.CreateProgramActivity;
@@ -464,9 +466,9 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 			createFollowGroup.setVisibility(View.GONE);
 
 			subscriptionSuccessFee.setText(String.format(Locale.getDefault(), "%s%%",
-					StringFormatUtil.formatAmount(followDetails.getSignalSettings().getSignalSuccessFee(), 0, 2)));
+					StringFormatUtil.formatAmount(followDetails.getSignalSettings().getSignalSuccessFee(), 0, 4)));
 			subscriptionVolumeFee.setText(String.format(Locale.getDefault(), "%s%%",
-					StringFormatUtil.formatAmount(followDetails.getSignalSettings().getSignalVolumeFee(), 0, 2)));
+					StringFormatUtil.formatAmount(followDetails.getSignalSettings().getSignalVolumeFee(), 0, 4)));
 		}
 		else {
 			followInfoGroup.setVisibility(View.GONE);
@@ -485,10 +487,10 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	}
 
 	private void updateCurrentSelectedField(TextView textView, Double current, Double selected) {
-		textView.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(current, 0, 2)));
+		textView.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(current, 0, 4)));
 		if (!selected.equals(current)) {
 			textView.setText(textView.getText().toString().concat(
-					String.format(Locale.getDefault(), " (%s%%)", StringFormatUtil.formatAmount(selected, 0, 2))));
+					String.format(Locale.getDefault(), " (%s%%)", StringFormatUtil.formatAmount(selected, 0, 4))));
 		}
 	}
 
@@ -608,6 +610,13 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	public void showEditPublicInfoActivity(UUID assetId, ProgramUpdate model) {
 		if (getActivity() != null) {
 			EditPublicInfoActivity.startFrom(getActivity(), assetId, model);
+		}
+	}
+
+	@Override
+	public void showEditFollowSettingsActivity(CreateSignalProvider model) {
+		if (getActivity() != null) {
+			EditFollowSettingsActivity.startFrom(getActivity(), model);
 		}
 	}
 

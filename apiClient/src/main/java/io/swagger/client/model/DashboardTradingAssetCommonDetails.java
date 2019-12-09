@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * DashboardTradingAssetCommonDetails
  */
@@ -44,6 +45,9 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 			return new DashboardTradingAssetCommonDetails[size];
 		}
 	};
+
+	@SerializedName("title")
+	private String title = null;
 
 	@SerializedName("status")
 	private DashboardTradingAssetStatus status = null;
@@ -63,16 +67,40 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 	@SerializedName("leverage")
 	private Integer leverage = null;
 
+	@SerializedName("type")
+	private PrivateTradingAccountType type = null;
+
 	public DashboardTradingAssetCommonDetails() {
 	}
 
 	DashboardTradingAssetCommonDetails(Parcel in) {
+		title = (String) in.readValue(null);
 		status = (DashboardTradingAssetStatus) in.readValue(DashboardTradingAssetStatus.class.getClassLoader());
 		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		balance = (Double) in.readValue(null);
 		login = (String) in.readValue(null);
 		currency = (CurrencyEnum) in.readValue(null);
 		leverage = (Integer) in.readValue(null);
+		type = (PrivateTradingAccountType) in.readValue(PrivateTradingAccountType.class.getClassLoader());
+	}
+
+	public DashboardTradingAssetCommonDetails title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@Schema(description = "")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public DashboardTradingAssetCommonDetails status(DashboardTradingAssetStatus status) {
@@ -189,6 +217,25 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 		this.leverage = leverage;
 	}
 
+	public DashboardTradingAssetCommonDetails type(PrivateTradingAccountType type) {
+		this.type = type;
+		return this;
+	}
+
+	/**
+	 * Get type
+	 *
+	 * @return type
+	 **/
+	@Schema(description = "")
+	public PrivateTradingAccountType getType() {
+		return type;
+	}
+
+	public void setType(PrivateTradingAccountType type) {
+		this.type = type;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -198,17 +245,19 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 			return false;
 		}
 		DashboardTradingAssetCommonDetails dashboardTradingAssetCommonDetails = (DashboardTradingAssetCommonDetails) o;
-		return Objects.equals(this.status, dashboardTradingAssetCommonDetails.status) &&
+		return Objects.equals(this.title, dashboardTradingAssetCommonDetails.title) &&
+				Objects.equals(this.status, dashboardTradingAssetCommonDetails.status) &&
 				Objects.equals(this.creationDate, dashboardTradingAssetCommonDetails.creationDate) &&
 				Objects.equals(this.balance, dashboardTradingAssetCommonDetails.balance) &&
 				Objects.equals(this.login, dashboardTradingAssetCommonDetails.login) &&
 				Objects.equals(this.currency, dashboardTradingAssetCommonDetails.currency) &&
-				Objects.equals(this.leverage, dashboardTradingAssetCommonDetails.leverage);
+				Objects.equals(this.leverage, dashboardTradingAssetCommonDetails.leverage) &&
+				Objects.equals(this.type, dashboardTradingAssetCommonDetails.type);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(status, creationDate, balance, login, currency, leverage);
+		return Objects.hash(title, status, creationDate, balance, login, currency, leverage, type);
 	}
 
 	@Override
@@ -216,12 +265,14 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class DashboardTradingAssetCommonDetails {\n");
 
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("    login: ").append(toIndentedString(login)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -238,12 +289,14 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(title);
 		out.writeValue(status);
 		out.writeValue(creationDate);
 		out.writeValue(balance);
 		out.writeValue(login);
 		out.writeValue(currency);
 		out.writeValue(leverage);
+		out.writeValue(type);
 	}
 
 	public int describeContents() {

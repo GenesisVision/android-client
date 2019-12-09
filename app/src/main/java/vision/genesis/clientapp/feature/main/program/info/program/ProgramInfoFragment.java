@@ -346,10 +346,10 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	}
 
 	private void updateCurrentSelectedField(TextView textView, Double current, Double selected) {
-		textView.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(current, 0, 2)));
+		textView.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(current, 0, 4)));
 		if (!selected.equals(current)) {
 			textView.setText(textView.getText().toString().concat(
-					String.format(Locale.getDefault(), " (%s%%)", StringFormatUtil.formatAmount(selected, 0, 2))));
+					String.format(Locale.getDefault(), " (%s%%)", StringFormatUtil.formatAmount(selected, 0, 4))));
 		}
 	}
 

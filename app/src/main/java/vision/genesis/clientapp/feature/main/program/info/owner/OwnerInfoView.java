@@ -7,6 +7,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.UUID;
 
+import io.swagger.client.model.CreateSignalProvider;
 import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramUpdate;
@@ -49,4 +50,6 @@ interface OwnerInfoView extends MvpView
 	void showCreateFollow(CreateProgramModel createProgramModel);
 
 	void showEditPublicInfoActivity(UUID assetId, ProgramUpdate model);
+
+	void showEditFollowSettingsActivity(CreateSignalProvider model);
 }

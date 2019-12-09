@@ -86,6 +86,7 @@ public class ProgramsManager
 				dateRange.getFrom(), dateRange.getTo(),
 				null, null,
 				null, null,
+				null,
 				skip, take);
 	}
 

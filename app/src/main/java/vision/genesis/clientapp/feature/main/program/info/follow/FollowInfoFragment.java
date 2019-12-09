@@ -262,9 +262,9 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 			subscriptionGroup.setVisibility(View.VISIBLE);
 
 			subscriptionSuccessFee.setText(String.format(Locale.getDefault(), "%s%%",
-					StringFormatUtil.formatAmount(followDetails.getSignalSettings().getSignalSuccessFee(), 0, 2)));
+					StringFormatUtil.formatAmount(followDetails.getSignalSettings().getSignalSuccessFee(), 0, 4)));
 			subscriptionVolumeFee.setText(String.format(Locale.getDefault(), "%s%%",
-					StringFormatUtil.formatAmount(followDetails.getSignalSettings().getSignalVolumeFee(), 0, 2)));
+					StringFormatUtil.formatAmount(followDetails.getSignalSettings().getSignalVolumeFee(), 0, 4)));
 
 			boolean hasSubscription = followDetails.getPersonalDetails() != null
 					&& followDetails.getPersonalDetails().getSignalSubscriptions() != null

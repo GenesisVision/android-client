@@ -39,17 +39,17 @@ public class DashboardSummary implements Parcelable
 		}
 	};
 
-	@SerializedName("total")
-	private Double total = null;
-
 	@SerializedName("invested")
 	private Double invested = null;
 
 	@SerializedName("trading")
 	private Double trading = null;
 
-	@SerializedName("available")
-	private Double available = null;
+	@SerializedName("wallets")
+	private Double wallets = null;
+
+	@SerializedName("total")
+	private Double total = null;
 
 	@SerializedName("profits")
 	private DashboardProfits profits = null;
@@ -58,30 +58,11 @@ public class DashboardSummary implements Parcelable
 	}
 
 	DashboardSummary(Parcel in) {
-		total = (Double) in.readValue(null);
 		invested = (Double) in.readValue(null);
 		trading = (Double) in.readValue(null);
-		available = (Double) in.readValue(null);
+		wallets = (Double) in.readValue(null);
+		total = (Double) in.readValue(null);
 		profits = (DashboardProfits) in.readValue(DashboardProfits.class.getClassLoader());
-	}
-
-	public DashboardSummary total(Double total) {
-		this.total = total;
-		return this;
-	}
-
-	/**
-	 * Get total
-	 *
-	 * @return total
-	 **/
-	@Schema(description = "")
-	public Double getTotal() {
-		return total;
-	}
-
-	public void setTotal(Double total) {
-		this.total = total;
 	}
 
 	public DashboardSummary invested(Double invested) {
@@ -122,23 +103,42 @@ public class DashboardSummary implements Parcelable
 		this.trading = trading;
 	}
 
-	public DashboardSummary available(Double available) {
-		this.available = available;
+	public DashboardSummary wallets(Double wallets) {
+		this.wallets = wallets;
 		return this;
 	}
 
 	/**
-	 * Get available
+	 * Get wallets
 	 *
-	 * @return available
+	 * @return wallets
 	 **/
 	@Schema(description = "")
-	public Double getAvailable() {
-		return available;
+	public Double getWallets() {
+		return wallets;
 	}
 
-	public void setAvailable(Double available) {
-		this.available = available;
+	public void setWallets(Double wallets) {
+		this.wallets = wallets;
+	}
+
+	public DashboardSummary total(Double total) {
+		this.total = total;
+		return this;
+	}
+
+	/**
+	 * Get total
+	 *
+	 * @return total
+	 **/
+	@Schema(description = "")
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
 	}
 
 	public DashboardSummary profits(DashboardProfits profits) {
@@ -169,16 +169,16 @@ public class DashboardSummary implements Parcelable
 			return false;
 		}
 		DashboardSummary dashboardSummary = (DashboardSummary) o;
-		return Objects.equals(this.total, dashboardSummary.total) &&
-				Objects.equals(this.invested, dashboardSummary.invested) &&
+		return Objects.equals(this.invested, dashboardSummary.invested) &&
 				Objects.equals(this.trading, dashboardSummary.trading) &&
-				Objects.equals(this.available, dashboardSummary.available) &&
+				Objects.equals(this.wallets, dashboardSummary.wallets) &&
+				Objects.equals(this.total, dashboardSummary.total) &&
 				Objects.equals(this.profits, dashboardSummary.profits);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(total, invested, trading, available, profits);
+		return Objects.hash(invested, trading, wallets, total, profits);
 	}
 
 	@Override
@@ -186,10 +186,10 @@ public class DashboardSummary implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class DashboardSummary {\n");
 
-		sb.append("    total: ").append(toIndentedString(total)).append("\n");
 		sb.append("    invested: ").append(toIndentedString(invested)).append("\n");
 		sb.append("    trading: ").append(toIndentedString(trading)).append("\n");
-		sb.append("    available: ").append(toIndentedString(available)).append("\n");
+		sb.append("    wallets: ").append(toIndentedString(wallets)).append("\n");
+		sb.append("    total: ").append(toIndentedString(total)).append("\n");
 		sb.append("    profits: ").append(toIndentedString(profits)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -207,10 +207,10 @@ public class DashboardSummary implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(total);
 		out.writeValue(invested);
 		out.writeValue(trading);
-		out.writeValue(available);
+		out.writeValue(wallets);
+		out.writeValue(total);
 		out.writeValue(profits);
 	}
 

@@ -4,6 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**UUID**](UUID.md) |  |  [optional]
+**title** | **String** |  |  [optional]
 **creationDate** | [**DateTime**](DateTime.md) |  |  [optional]
 **currency** | [**CurrencyEnum**](#CurrencyEnum) |  |  [optional]
 **leverage** | **Integer** |  |  [optional]
