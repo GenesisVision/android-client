@@ -22,6 +22,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import butterknife.BindDimen;
 import butterknife.BindView;
@@ -31,6 +32,7 @@ import butterknife.Unbinder;
 import io.swagger.client.model.Broker;
 import io.swagger.client.model.BrokerAccountType;
 import io.swagger.client.model.Tag;
+import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -45,8 +47,21 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 20/11/2019.
  */
 
-public class CreateAccountBrokerFragment extends BaseFragment implements CreateAccountBrokerView
+public class SelectBrokerFragment extends BaseFragment implements SelectBrokerView
 {
+	private static String EXTRA_ASSET_ID = "extra_asset_id";
+
+	public static SelectBrokerFragment with(UUID assetId) {
+		SelectBrokerFragment fragment = new SelectBrokerFragment();
+		Bundle arguments = new Bundle(1);
+		arguments.putSerializable(EXTRA_ASSET_ID, assetId);
+		fragment.setArguments(arguments);
+		return fragment;
+	}
+
+	@BindView(R.id.broker_change_info)
+	public TextView brokerChangeInfo;
+
 	@BindView(R.id.step_number)
 	public TextView stepNumber;
 
@@ -93,7 +108,7 @@ public class CreateAccountBrokerFragment extends BaseFragment implements CreateA
 	public int brokerViewWidth;
 
 	@InjectPresenter
-	public CreateAccountBrokerPresenter presenter;
+	public SelectBrokerPresenter presenter;
 
 	private Unbinder unbinder;
 
@@ -121,7 +136,7 @@ public class CreateAccountBrokerFragment extends BaseFragment implements CreateA
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_create_account_broker, container, false);
+		return inflater.inflate(R.layout.fragment_select_broker, container, false);
 	}
 
 	@Override
@@ -131,8 +146,18 @@ public class CreateAccountBrokerFragment extends BaseFragment implements CreateA
 		unbinder = ButterKnife.bind(this, view);
 
 		setFonts();
-		nextButton.setText(String.format(Locale.getDefault(), "%s (1/3)", getString(R.string.next)));
 		nextButton.setEnabled(false);
+
+		if (getArguments() != null) {
+			UUID assetId = (UUID) getArguments().getSerializable(EXTRA_ASSET_ID);
+			presenter.setAssetId(assetId);
+			nextButton.setText(String.format(Locale.getDefault(), "%s (1/%d)", getString(R.string.next), assetId != null ? 2 : 3));
+			brokerChangeInfo.setVisibility(assetId != null ? View.VISIBLE : View.GONE);
+			return;
+		}
+
+		Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
+		onBackPressed();
 	}
 
 	@Override

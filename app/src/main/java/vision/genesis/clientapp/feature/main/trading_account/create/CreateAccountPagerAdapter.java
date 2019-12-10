@@ -6,9 +6,9 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import io.swagger.client.model.Broker;
 import io.swagger.client.model.NewTradingAccountRequest;
-import vision.genesis.clientapp.feature.main.trading_account.create.broker.CreateAccountBrokerFragment;
+import vision.genesis.clientapp.feature.main.trading_account.create.broker.SelectBrokerFragment;
 import vision.genesis.clientapp.feature.main.trading_account.create.deposit.CreateAccountDepositFragment;
-import vision.genesis.clientapp.feature.main.trading_account.create.settings.CreateAccountSettingsFragment;
+import vision.genesis.clientapp.feature.main.trading_account.create.settings.BrokerSettingsFragment;
 
 /**
  * GenesisVisionAndroid
@@ -24,9 +24,9 @@ public class CreateAccountPagerAdapter extends FragmentStatePagerAdapter
 		void pagerHide();
 	}
 
-	private CreateAccountBrokerFragment brokerFragment;
+	private SelectBrokerFragment brokerFragment;
 
-	private CreateAccountSettingsFragment settingsFragment;
+	private BrokerSettingsFragment settingsFragment;
 
 	private CreateAccountDepositFragment depositFragment;
 
@@ -37,8 +37,8 @@ public class CreateAccountPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	private void createFragments() {
-		brokerFragment = new CreateAccountBrokerFragment();
-		settingsFragment = new CreateAccountSettingsFragment();
+		brokerFragment = SelectBrokerFragment.with(null);
+		settingsFragment = BrokerSettingsFragment.with(null);
 		depositFragment = new CreateAccountDepositFragment();
 	}
 
@@ -61,7 +61,6 @@ public class CreateAccountPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	void setRequest(NewTradingAccountRequest request) {
-		settingsFragment.setRequest(request);
 		depositFragment.setRequest(request);
 	}
 

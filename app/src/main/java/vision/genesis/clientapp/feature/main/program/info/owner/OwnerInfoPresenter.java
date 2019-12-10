@@ -22,6 +22,7 @@ import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -110,7 +111,17 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 	}
 
 	void onManageAccountClicked() {
-
+		TradingAccountDetailsModel model = new TradingAccountDetailsModel(
+				assetId,
+				programDetails.getTitle(),
+				programDetails.getBrokerDetails().getName(),
+				programDetails.getBrokerDetails().getLogo(),
+				programDetails.getCreationDate(),
+				programDetails.getLeverageMax(),
+				programDetails.getCurrency().getValue(),
+				programDetails.getPersonalDetails().getMigration()
+		);
+		getViewState().showManageAccountActivity(model);
 	}
 
 	void onManageProgramClicked() {

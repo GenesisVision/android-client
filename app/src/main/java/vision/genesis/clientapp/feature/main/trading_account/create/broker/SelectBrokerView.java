@@ -11,7 +11,7 @@ import io.swagger.client.model.Broker;
  * Created by Vitaly on 20/11/2019.
  */
 
-interface CreateAccountBrokerView extends MvpView
+interface SelectBrokerView extends MvpView
 {
 	void setBrokers(List<Broker> brokers);
 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by Vitaly on 20/11/2019.
  */
 
-interface CreateAccountSettingsView extends MvpView
+interface BrokerSettingsView extends MvpView
 {
 	void setAccountTypeOptions(ArrayList<String> accountTypeOptions);
 

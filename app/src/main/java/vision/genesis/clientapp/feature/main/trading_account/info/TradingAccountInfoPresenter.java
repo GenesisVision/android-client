@@ -70,7 +70,17 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 
 
 	void onManageAccountClicked() {
-
+//		TradingAccountDetailsModel model = new TradingAccountDetailsModel(
+//				accountId,
+//				accountDetails.getTitle(),
+//				accountDetails.getBrokerDetails().getLogo(),
+//				accountDetails.getCreationDate(),
+//				accountDetails.getLeverage(),
+//				accountDetails.getCurrency(),
+//				accountDetails.getP
+//
+//		);
+//		getViewState().showManageAccountActivity(model);
 	}
 
 	void onWithdrawClicked() {

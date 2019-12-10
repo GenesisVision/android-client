@@ -21,7 +21,7 @@ public class BrokersManager
 		this.brokersApi = brokersApi;
 	}
 
-	public Observable<BrokersInfo> getBrokers() {
+	public Observable<BrokersInfo> getAllBrokers() {
 		return brokersApi.getBrokers();
 	}
 

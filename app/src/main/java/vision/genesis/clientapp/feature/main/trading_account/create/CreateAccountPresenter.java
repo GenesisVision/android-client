@@ -91,6 +91,10 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 
 	@Subscribe
 	public void onEventMainThread(OnAccountBrokerSettingsSelectedEvent event) {
+		request.setBrokerAccountTypeId(event.getBrokerAccountTypeId());
+		request.setCurrency(event.getCurrency());
+		request.setLeverage(event.getLeverage());
+
 		Double minDepositAmount = 0.0;
 		for (BrokerAccountType accountType : selectedBroker.getAccountTypes()) {
 			if (accountType.getId().equals(request.getBrokerAccountTypeId())) {

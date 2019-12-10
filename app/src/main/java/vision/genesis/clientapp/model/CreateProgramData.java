@@ -25,7 +25,7 @@ public class CreateProgramData
 
 	private List<Integer> availablePeriods = Arrays.asList(1, 2, 3, 5, 7, 10, 14);
 
-//	public List<BrokerTradeServer> getBrokers() {
+//	public List<BrokerTradeServer> getAllBrokers() {
 //		return brokers;
 //	}
 

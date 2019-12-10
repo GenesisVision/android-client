@@ -748,6 +748,12 @@
     <string name="template_create_follow_volume_fee_description">A fee charged upon the total trade volume made by your subscribers. It should be set in a range of %s-%s%%</string>
     <string name="template_create_follow_success_fee_description">A fee charged upon the total profit made by your subscribers. It should be set in a range of %s-%s%%</string>
     <string name="update_public_info">Update public info</string>
+    <string name="manage_trading_account">Manage trading account</string>
+    <string name="creation_date">Creation date</string>
+    <string name="template_trading_account_migration_started">Migration started %s.\nYour broker will be changed from %s to %s within 24 hours after the end of the reporting period. You will receive a message confirming the successful change of the broker and you will receive a new login and password from the trading account. The invested funds in the program will be transferred to the new broker. All trading history and statistics will be saved on the program page.</string>
+    <string name="cancel_migration">Cancel migration</string>
+    <string name="change_broker">Change broker</string>
+    <string name="broker_change_info">A broker change in the program will occur automatically within 24 hours after the end of the reporting period. You will receive a message confirming the successful change of the broker and you will receive a new login and password from the trading account. The invested funds in the program will be transferred to the new broker. All trading history and statistics will be saved on the program page.</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

@@ -13,6 +13,7 @@ import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramUpdate;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 
 /**
  * GenesisVisionAndroid
@@ -50,6 +51,8 @@ interface OwnerInfoView extends MvpView
 	void showCreateFollow(CreateProgramModel createProgramModel);
 
 	void showEditPublicInfoActivity(UUID assetId, ProgramUpdate model);
+
+	void showManageAccountActivity(TradingAccountDetailsModel model);
 
 	void showEditFollowSettingsActivity(CreateSignalProvider model);
 }

@@ -8,11 +8,13 @@ import com.arellomobile.mvp.MvpPresenter;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
 import io.swagger.client.model.Broker;
 import io.swagger.client.model.BrokersInfo;
+import io.swagger.client.model.BrokersProgramInfo;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -27,7 +29,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class CreateAccountBrokerPresenter extends MvpPresenter<CreateAccountBrokerView>
+public class SelectBrokerPresenter extends MvpPresenter<SelectBrokerView>
 {
 	@Inject
 	public Context context;
@@ -40,6 +42,10 @@ public class CreateAccountBrokerPresenter extends MvpPresenter<CreateAccountBrok
 	private List<Broker> brokers;
 
 	private Broker selectedBroker;
+
+	private UUID assetId;
+
+	private boolean isAssetIdSet = false;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -57,6 +63,11 @@ public class CreateAccountBrokerPresenter extends MvpPresenter<CreateAccountBrok
 		}
 
 		super.onDestroy();
+	}
+
+	void setAssetId(UUID assetId) {
+		this.assetId = assetId;
+		isAssetIdSet = true;
 	}
 
 	void onBrokerSelected(Broker selectedBroker) {
@@ -81,12 +92,20 @@ public class CreateAccountBrokerPresenter extends MvpPresenter<CreateAccountBrok
 	}
 
 	private void getBrokers() {
-		if (brokersManager != null) {
+		if (assetId != null) {
+			getProgramBrokers();
+		}
+		else {
+			getAllBrokers();
+		}
+	}
+
+	private void getAllBrokers() {
+		if (brokersManager != null && isAssetIdSet) {
 			if (getBrokersSubscription != null) {
 				getBrokersSubscription.unsubscribe();
 			}
-
-			getBrokersSubscription = brokersManager.getBrokers()
+			getBrokersSubscription = brokersManager.getAllBrokers()
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.newThread())
 					.subscribe(this::handleGetBrokers,
@@ -95,6 +114,30 @@ public class CreateAccountBrokerPresenter extends MvpPresenter<CreateAccountBrok
 	}
 
 	private void handleGetBrokers(BrokersInfo response) {
+		getBrokersSubscription.unsubscribe();
+		if (!response.getBrokers().isEmpty()) {
+			getViewState().showProgress(false);
+
+			this.brokers = response.getBrokers();
+			getViewState().setBrokers(brokers);
+			onBrokerSelected(response.getBrokers().get(0));
+		}
+	}
+
+	private void getProgramBrokers() {
+		if (brokersManager != null && isAssetIdSet) {
+			if (getBrokersSubscription != null) {
+				getBrokersSubscription.unsubscribe();
+			}
+			getBrokersSubscription = brokersManager.getBrokersForProgram(assetId)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetProgramBrokersBrokers,
+							this::handleGetBrokersError);
+		}
+	}
+
+	private void handleGetProgramBrokersBrokers(BrokersProgramInfo response) {
 		getBrokersSubscription.unsubscribe();
 		if (!response.getBrokers().isEmpty()) {
 			getViewState().showProgress(false);

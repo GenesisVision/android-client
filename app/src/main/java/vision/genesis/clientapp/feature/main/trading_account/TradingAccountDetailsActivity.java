@@ -78,7 +78,7 @@ public class TradingAccountDetailsActivity extends BaseSwipeBackActivity impleme
 	public View tryAgainButton;
 
 	@InjectPresenter
-	TradingAccountPresenter tradingAccountPresenter;
+	TradingAccountPresenter presenter;
 
 	private PrivateTradingAccountFull accountDetails;
 
@@ -109,7 +109,7 @@ public class TradingAccountDetailsActivity extends BaseSwipeBackActivity impleme
 
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
-		tradingAccountPresenter.onTryAgainClicked();
+		presenter.onTryAgainClicked();
 	}
 
 	@Override
@@ -130,7 +130,7 @@ public class TradingAccountDetailsActivity extends BaseSwipeBackActivity impleme
 			initTabs();
 			updateHeader();
 
-			tradingAccountPresenter.setData(model);
+			presenter.setData(model);
 		}
 		else {
 			Timber.e("Passed empty data to %s", getClass().getSimpleName());
@@ -141,16 +141,16 @@ public class TradingAccountDetailsActivity extends BaseSwipeBackActivity impleme
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (tradingAccountPresenter != null) {
-			tradingAccountPresenter.onResume();
+		if (presenter != null) {
+			presenter.onResume();
 		}
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (tradingAccountPresenter != null) {
-			tradingAccountPresenter.onPause();
+		if (presenter != null) {
+			presenter.onPause();
 		}
 	}
 
@@ -160,7 +160,7 @@ public class TradingAccountDetailsActivity extends BaseSwipeBackActivity impleme
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary),
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextSecondary));
 		refreshLayout.setOnRefreshListener(() -> {
-			tradingAccountPresenter.onSwipeRefresh();
+			presenter.onSwipeRefresh();
 			if (pagerAdapter != null) {
 				pagerAdapter.sendSwipeRefresh();
 			}

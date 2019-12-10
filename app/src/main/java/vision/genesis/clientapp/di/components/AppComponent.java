@@ -97,11 +97,14 @@ import vision.genesis.clientapp.feature.main.settings.security.SecurityPresenter
 import vision.genesis.clientapp.feature.main.settings.security.change_password.ChangePasswordPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.balance.TradingAccountBalancePresenter;
+import vision.genesis.clientapp.feature.main.trading_account.change_broker.ChangeBrokerPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.change_password.ChangeTradingAccountPasswordPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.create.CreateAccountPresenter;
-import vision.genesis.clientapp.feature.main.trading_account.create.broker.CreateAccountBrokerPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.create.broker.SelectBrokerPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.create.deposit.CreateAccountDepositPresenter;
-import vision.genesis.clientapp.feature.main.trading_account.create.settings.CreateAccountSettingsPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.create.settings.BrokerSettingsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.info.TradingAccountInfoPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.manage.ManageTradingAccountPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.open_positions.TradingAccountOpenPositionsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.profit.TradingAccountProfitPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.trades.TradingAccountTradesPresenter;
@@ -328,9 +331,9 @@ public interface AppComponent
 
 	void inject(CreateAccountPresenter createAccountPresenter);
 
-	void inject(CreateAccountBrokerPresenter createAccountBrokerPresenter);
+	void inject(SelectBrokerPresenter selectBrokerPresenter);
 
-	void inject(CreateAccountSettingsPresenter createAccountSettingsPresenter);
+	void inject(BrokerSettingsPresenter brokerSettingsPresenter);
 
 	void inject(CreateAccountDepositPresenter createAccountDepositPresenter);
 
@@ -365,4 +368,10 @@ public interface AppComponent
 	void inject(EditPublicInfoPresenter editPublicInfoPresenter);
 
 	void inject(EditFollowSettingsPresenter editFollowSettingsPresenter);
+
+	void inject(ManageTradingAccountPresenter manageTradingAccountPresenter);
+
+	void inject(ChangeBrokerPresenter changeBrokerPresenter);
+
+	void inject(ChangeTradingAccountPasswordPresenter changeTradingAccountPasswordPresenter);
 }

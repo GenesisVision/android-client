@@ -11,21 +11,19 @@ import androidx.annotation.Nullable;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.Broker;
-import io.swagger.client.model.NewTradingAccountRequest;
+import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
-import vision.genesis.clientapp.model.events.OnAccountBrokerSettingsSelectedEvent;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -35,8 +33,18 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 20/11/2019.
  */
 
-public class CreateAccountSettingsFragment extends BaseFragment implements CreateAccountSettingsView
+public class BrokerSettingsFragment extends BaseFragment implements BrokerSettingsView
 {
+	private static String EXTRA_ASSET_ID = "extra_asset_id";
+
+	public static BrokerSettingsFragment with(UUID assetId) {
+		BrokerSettingsFragment fragment = new BrokerSettingsFragment();
+		Bundle arguments = new Bundle(1);
+		arguments.putSerializable(EXTRA_ASSET_ID, assetId);
+		fragment.setArguments(arguments);
+		return fragment;
+	}
+
 	@BindView(R.id.step_number)
 	public TextView stepNumber;
 
@@ -68,11 +76,9 @@ public class CreateAccountSettingsFragment extends BaseFragment implements Creat
 	public PrimaryButton nextButton;
 
 	@InjectPresenter
-	public CreateAccountSettingsPresenter presenter;
+	public BrokerSettingsPresenter presenter;
 
 	private Unbinder unbinder;
-
-	private NewTradingAccountRequest request;
 
 	private ArrayList<String> accountTypeOptions;
 
@@ -118,13 +124,13 @@ public class CreateAccountSettingsFragment extends BaseFragment implements Creat
 
 	@OnClick(R.id.button_next)
 	public void onNextClicked() {
-		EventBus.getDefault().post(new OnAccountBrokerSettingsSelectedEvent());
+		presenter.onConfirmClicked();
 	}
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_create_account_settings, container, false);
+		return inflater.inflate(R.layout.fragment_broker_settings, container, false);
 	}
 
 	@Override
@@ -135,11 +141,22 @@ public class CreateAccountSettingsFragment extends BaseFragment implements Creat
 
 		setFonts();
 
-		nextButton.setText(String.format(Locale.getDefault(), "%s (2/3)", getString(R.string.next)));
+		nextButton.setEnabled(false);
 
-		if (request != null) {
-			presenter.setRequest(request);
+		if (getArguments() != null) {
+			UUID assetId = (UUID) getArguments().getSerializable(EXTRA_ASSET_ID);
+			if (assetId != null) {
+				presenter.setAssetId(assetId);
+
+				nextButton.setText(getString(R.string.update));
+			}
+			return;
 		}
+		else {
+			nextButton.setText(String.format(Locale.getDefault(), "%s (2/3)", getString(R.string.next)));
+		}
+		Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
+		onBackPressed();
 	}
 
 	@Override
@@ -155,13 +172,6 @@ public class CreateAccountSettingsFragment extends BaseFragment implements Creat
 	private void setFonts() {
 		stepNumber.setTypeface(TypefaceUtil.semibold());
 		stepTitle.setTypeface(TypefaceUtil.semibold());
-	}
-
-	public void setRequest(NewTradingAccountRequest request) {
-		this.request = request;
-		if (presenter != null) {
-			presenter.setRequest(request);
-		}
 	}
 
 	@Override

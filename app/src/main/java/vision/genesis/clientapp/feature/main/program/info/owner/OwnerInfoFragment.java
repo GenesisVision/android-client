@@ -46,8 +46,10 @@ import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.program.create.CreateProgramActivity;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
+import vision.genesis.clientapp.feature.main.trading_account.manage.ManageTradingAccountActivity;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.ui.AccountAgeView;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PeriodLeftDetailsView;
@@ -610,6 +612,13 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	public void showEditPublicInfoActivity(UUID assetId, ProgramUpdate model) {
 		if (getActivity() != null) {
 			EditPublicInfoActivity.startFrom(getActivity(), assetId, model);
+		}
+	}
+
+	@Override
+	public void showManageAccountActivity(TradingAccountDetailsModel model) {
+		if (getActivity() != null) {
+			ManageTradingAccountActivity.startFrom(getActivity(), model);
 		}
 	}
 
