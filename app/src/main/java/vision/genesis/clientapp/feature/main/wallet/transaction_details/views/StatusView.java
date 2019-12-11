@@ -6,8 +6,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.content.res.AppCompatResources;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.swagger.client.model.MultiWalletTransactionStatus;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 
 /**
@@ -43,27 +47,28 @@ public class StatusView extends RelativeLayout
 		ButterKnife.bind(this);
 	}
 
-//	public void setData(TransactionDetails.StatusEnum status, boolean needEmailConfirmation) {
-//		switch (status) {
-//			case DONE:
-//				this.status.setText(getContext().getString(R.string.status_done));
-//				this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
-//						R.drawable.icon_status_done));
-//				break;
-//			case PENDING:
-//				this.status.setText(getContext().getString(needEmailConfirmation
-//						? R.string.need_email_confirmation
-//						: R.string.status_pending));
-//				this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
-//						R.drawable.icon_status_pending));
-//				break;
-//			case CANCELED:
-//				this.status.setText(getContext().getString(R.string.status_canceled));
-//				this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
-//						R.drawable.icon_status_canceled));
-//				break;
-//			case ERROR:
-//				break;
-//		}
-//	}
+	public void setData(MultiWalletTransactionStatus status) {
+		switch (status) {
+			case DONE:
+				this.status.setText(getContext().getString(R.string.status_done));
+				this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
+						R.drawable.icon_status_done));
+				break;
+			case PENDING:
+				this.status.setText(getContext().getString(R.string.status_pending));
+				this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
+						R.drawable.icon_status_pending));
+				break;
+			case CANCELED:
+				this.status.setText(getContext().getString(R.string.status_canceled));
+				this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
+						R.drawable.icon_status_canceled));
+				break;
+			case ERROR:
+				this.status.setText(getContext().getString(R.string.status_error));
+				this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
+						R.drawable.icon_status_canceled));
+				break;
+		}
+	}
 }

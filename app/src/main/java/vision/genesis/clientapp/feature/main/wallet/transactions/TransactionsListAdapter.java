@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -18,9 +19,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.swagger.client.model.AmountItem;
+import io.swagger.client.model.MultiWalletTransactionStatus;
 import io.swagger.client.model.TransactionViewModel;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowTransactionDetailsEvent;
+import vision.genesis.clientapp.utils.ImageUtils;
+import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -64,17 +71,32 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 
 	static class TransactionViewHolder extends RecyclerView.ViewHolder
 	{
-		@BindView(R.id.logo)
-		public SimpleDraweeView logo;
+		@BindView(R.id.logo_first)
+		public SimpleDraweeView logoFirst;
+
+		@BindView(R.id.logo_first_small)
+		public SimpleDraweeView logoFirstSmall;
+
+		@BindView(R.id.logo_second_small)
+		public SimpleDraweeView logoSecondSmall;
+
+		@BindView(R.id.group_logo_second)
+		public ViewGroup groupLogoSecond;
 
 		@BindView(R.id.description)
 		public TextView description;
 
-		@BindView(R.id.value)
-		public TextView value;
+		@BindView(R.id.value_first)
+		public TextView valueFirst;
 
-		@BindView(R.id.status)
-		public TextView status;
+		@BindView(R.id.value_second)
+		public TextView valueSecond;
+
+		@BindView(R.id.group_value_second)
+		public ViewGroup groupValueSecond;
+
+//		@BindView(R.id.status)
+//		public TextView status;
 
 		@BindView(R.id.icon_status)
 		public ImageView statusIcon;
@@ -96,8 +118,9 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 		}
 
 		private void setFonts() {
-			value.setTypeface(TypefaceUtil.semibold());
-			status.setTypeface(TypefaceUtil.semibold());
+			valueFirst.setTypeface(TypefaceUtil.semibold());
+			valueSecond.setTypeface(TypefaceUtil.semibold());
+//			status.setTypeface(TypefaceUtil.semibold());
 		}
 
 		void setTransaction(TransactionViewModel transaction) {
@@ -106,55 +129,68 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 		}
 
 		private void updateData() {
-			setType();
+			AmountItem first = transaction.getAmount().getFirst();
+			AmountItem second = transaction.getAmount().getSecond();
+
+			description.setText(transaction.getDescription());
+
+			logoFirst.setImageURI(ImageUtils.getImageUri(first.getLogo()));
+			logoFirstSmall.setImageURI(ImageUtils.getImageUri(first.getLogo()));
+			valueFirst.setText(StringFormatUtil.getValueString(first.getAmount(), first.getCurrency().getValue()));
+
+			if (second == null) {
+				logoFirst.setVisibility(View.VISIBLE);
+				groupLogoSecond.setVisibility(View.GONE);
+				groupValueSecond.setVisibility(View.GONE);
+
+				valueFirst.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
+						first.getAmount() >= 0
+								? R.attr.colorGreen
+								: R.attr.colorRed));
+			}
+			else {
+				logoFirst.setVisibility(View.GONE);
+				groupLogoSecond.setVisibility(View.VISIBLE);
+				groupValueSecond.setVisibility(View.VISIBLE);
+
+				valueFirst.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorTextPrimary));
+				valueSecond.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorTextPrimary));
+
+				logoSecondSmall.setImageURI(ImageUtils.getImageUri(second.getLogo()));
+				valueSecond.setText(StringFormatUtil.getValueString(second.getAmount(), second.getCurrency().getValue()));
+			}
+
+
+			setStatus(transaction.getStatus());
 		}
 
-		private void setType() {
-//			String logo = transaction.getLogoFrom();
-//			String currency = transaction.getCurrencyFrom().getValue();
-//
-//			this.logo.setImageURI(ImageUtils.getImageUri(logo));
-//			description.setText(transaction.getDescription());
-//
-//			if (transaction.getType().equals(MultiWalletTransaction.TypeEnum.CONVERTING)) {
-//				value.setText(String.format(Locale.getDefault(), "- %s %s",
-//						StringFormatUtil.formatCurrencyAmount(Math.abs(transaction.getAmount()), currency), currency));
-//				value.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorRed));
-//			}
-//			else {
-//				value.setText(String.format(Locale.getDefault(), "%s %s %s",
-//						transaction.getAmount() < 0 ? "-" : "+",
-//						StringFormatUtil.formatCurrencyAmount(Math.abs(transaction.getAmount()), currency), currency));
-//				value.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
-//						transaction.getAmount() >= 0
-//								? R.attr.colorGreen
-//								: R.attr.colorRed));
-//			}
-//
-//
-//			setStatus(transaction.getStatus());
-		}
-
-//		private void setStatus(MultiWalletTransaction.StatusEnum status) {
-//			switch (status) {
-//				case DONE:
+		private void setStatus(MultiWalletTransactionStatus status) {
+			switch (status) {
+				case DONE:
 //					this.status.setText(itemView.getContext().getString(R.string.status_done));
-//					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
-//							R.drawable.icon_status_done));
-//					break;
-//				case PENDING:
+					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
+							R.drawable.icon_status_done));
+					this.statusIcon.setVisibility(View.GONE);
+					break;
+				case PENDING:
 //					this.status.setText(itemView.getContext().getString(R.string.status_pending));
-//					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
-//							R.drawable.icon_status_pending));
-//					break;
-//				case CANCELED:
+					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
+							R.drawable.icon_status_pending));
+					this.statusIcon.setVisibility(View.VISIBLE);
+					break;
+				case CANCELED:
 //					this.status.setText(itemView.getContext().getString(R.string.status_canceled));
-//					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
-//							R.drawable.icon_status_canceled));
-//					break;
-//				case ERROR:
-//					break;
-//			}
-//		}
+					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
+							R.drawable.icon_status_canceled));
+					this.statusIcon.setVisibility(View.VISIBLE);
+					break;
+				case ERROR:
+//					this.status.setText(itemView.getContext().getString(R.string.status_error));
+					this.statusIcon.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE,
+							R.drawable.icon_status_canceled));
+					this.statusIcon.setVisibility(View.VISIBLE);
+					break;
+			}
+		}
 	}
 }

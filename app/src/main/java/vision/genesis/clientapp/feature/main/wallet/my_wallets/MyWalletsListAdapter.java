@@ -35,6 +35,8 @@ public class MyWalletsListAdapter extends RecyclerView.Adapter<MyWalletsListAdap
 {
 	private List<WalletData> wallets = new ArrayList<>();
 
+	private String baseCurrency;
+
 	@NonNull
 	@Override
 	public MyWalletViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,7 +46,7 @@ public class MyWalletsListAdapter extends RecyclerView.Adapter<MyWalletsListAdap
 
 	@Override
 	public void onBindViewHolder(@NonNull MyWalletViewHolder holder, int position) {
-		holder.setWallet(wallets.get(position));
+		holder.setData(wallets.get(position), baseCurrency);
 	}
 
 	@Override
@@ -52,9 +54,10 @@ public class MyWalletsListAdapter extends RecyclerView.Adapter<MyWalletsListAdap
 		return wallets.size();
 	}
 
-	void setWallets(List<WalletData> wallets) {
+	void setWallets(List<WalletData> wallets, String baseCurrency) {
 		this.wallets.clear();
 		this.wallets.addAll(wallets);
+		this.baseCurrency = baseCurrency;
 		notifyDataSetChanged();
 	}
 
@@ -82,8 +85,9 @@ public class MyWalletsListAdapter extends RecyclerView.Adapter<MyWalletsListAdap
 			setFonts();
 
 			itemView.setOnClickListener(v -> {
-				if (wallet != null)
+				if (wallet != null) {
 					EventBus.getDefault().post(new ShowSpecificWalletEvent(WalletModel.createFrom(wallet)));
+				}
 			});
 		}
 
@@ -91,14 +95,14 @@ public class MyWalletsListAdapter extends RecyclerView.Adapter<MyWalletsListAdap
 			value.setTypeface(TypefaceUtil.semibold());
 		}
 
-		void setWallet(WalletData wallet) {
+		void setData(WalletData wallet, String baseCurrency) {
 			this.wallet = wallet;
 			icon.setImageURI(ImageUtils.getImageUri(wallet.getLogo()));
 			currency.setText(wallet.getTitle());
 			value.setText(String.format(Locale.getDefault(), "%s",
-					StringFormatUtil.getValueString(wallet.getTotal(), wallet.getCurrency().getValue())));
-//			valueCcy.setText(String.format(Locale.getDefault(), "%s",
-//					StringFormatUtil.getValueString(wallet.getTotalCcy(), wallet.getCurrencyCcy().getValue())));
+					StringFormatUtil.getValueString(wallet.getAvailable(), wallet.getCurrency().getValue())));
+			valueCcy.setText(String.format(Locale.getDefault(), "%s",
+					StringFormatUtil.getValueString(wallet.getAvailableCcy(), baseCurrency)));
 		}
 	}
 }

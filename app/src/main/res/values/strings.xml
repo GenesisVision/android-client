@@ -553,6 +553,7 @@
     <string name="status_done">Done</string>
     <string name="status_pending">Pending</string>
     <string name="status_canceled">Canceled</string>
+    <string name="status_error">Error</string>
     <string name="no_deposits_or_withdrawals">There are currently no deposits or withdrawals</string>
     <string name="external_address">External address</string>
     <string name="deposit_to_this_address">Use this address to deposit %s to your %s wallet</string>

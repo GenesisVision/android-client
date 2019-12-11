@@ -6,13 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -90,13 +91,13 @@ public class MyWalletsFragment extends BaseFragment implements MyWalletsView, Pr
 
 
 	@Override
-	public void setWallets(List<WalletData> wallets) {
+	public void setWallets(List<WalletData> wallets, String baseCurrency) {
 		if (wallets.isEmpty()) {
 			recyclerView.setVisibility(View.GONE);
 			return;
 		}
 
-		myWalletsListAdapter.setWallets(wallets);
+		myWalletsListAdapter.setWallets(wallets, baseCurrency);
 		recyclerView.setVisibility(View.VISIBLE);
 	}
 
@@ -107,8 +108,9 @@ public class MyWalletsFragment extends BaseFragment implements MyWalletsView, Pr
 
 	@Override
 	public void pagerShow() {
-		if (myWalletsPresenter != null)
+		if (myWalletsPresenter != null) {
 			myWalletsPresenter.onShow();
+		}
 	}
 
 	@Override
@@ -116,7 +118,8 @@ public class MyWalletsFragment extends BaseFragment implements MyWalletsView, Pr
 	}
 
 	public void onSwipeRefresh() {
-		if (myWalletsPresenter != null)
+		if (myWalletsPresenter != null) {
 			myWalletsPresenter.onSwipeRefresh();
+		}
 	}
 }

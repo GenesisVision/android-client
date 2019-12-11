@@ -18,7 +18,7 @@ interface MyWalletsView extends MvpView
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);
 
-	void setWallets(List<WalletData> wallets);
+	void setWallets(List<WalletData> wallets, String baseCurrency);
 
 	void showSnackbarMessage(String message);
 }

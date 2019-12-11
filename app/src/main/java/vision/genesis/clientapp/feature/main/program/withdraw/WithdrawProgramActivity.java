@@ -81,7 +81,7 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	public ProgressBar progressBar;
 
 	@InjectPresenter
-	WithdrawProgramPresenter withdrawProgramPresenter;
+	WithdrawProgramPresenter presenter;
 
 	@OnClick(R.id.button_close)
 	public void onCloseClicked() {
@@ -97,13 +97,13 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 
 	@OnClick(R.id.available_to_withdraw)
 	public void onAvailableClicked() {
-		withdrawProgramPresenter.onAvailableToWithdrawClicked();
+		presenter.onAvailableToWithdrawClicked();
 	}
 
 
 	@OnClick(R.id.button_continue)
 	public void onContinueClicked() {
-		withdrawProgramPresenter.onContinueClicked();
+		presenter.onContinueClicked();
 	}
 
 	@Override
@@ -115,25 +115,27 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 
 		ButterKnife.bind(this);
 
+		setFonts();
+
 		if (getIntent().getExtras() != null) {
-			withdrawProgramPresenter.setProgramRequest(getIntent().getExtras().getParcelable(EXTRA_PROGRAM_REQUEST));
-
-			setFonts();
-
-			setListeners();
+			ProgramRequest request = getIntent().getExtras().getParcelable(EXTRA_PROGRAM_REQUEST);
+			if (request != null) {
+				presenter.setProgramRequest(request);
+				setListeners();
+				withdrawAllSwitch.setVisibility(request.isOwner() ? View.GONE : View.VISIBLE);
+				return;
+			}
 		}
-		else {
-			Timber.e("Passed empty request to %s", getClass().getSimpleName());
-			onBackPressed();
-		}
+		Timber.e("Passed empty request to %s", getClass().getSimpleName());
+		onBackPressed();
 	}
 
 	private void setListeners() {
 		RxTextView.textChanges(amount)
-				.subscribe(charSequence -> withdrawProgramPresenter.onAmountChanged(charSequence.toString()));
+				.subscribe(charSequence -> presenter.onAmountChanged(charSequence.toString()));
 
 		withdrawAllSwitch.setOnCheckedChangeListener((view, checked) -> {
-			withdrawProgramPresenter.onWithdrawAllCheckedChanged(checked);
+			presenter.onWithdrawAllCheckedChanged(checked);
 		});
 	}
 
@@ -206,7 +208,7 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 		ConfirmProgramWithdrawBottomSheetFragment bottomSheetDialog = new ConfirmProgramWithdrawBottomSheetFragment();
 		bottomSheetDialog.show(getSupportFragmentManager(), bottomSheetDialog.getTag());
 		bottomSheetDialog.setData(programRequest);
-		bottomSheetDialog.setListener(withdrawProgramPresenter);
+		bottomSheetDialog.setListener(presenter);
 	}
 
 	@Override

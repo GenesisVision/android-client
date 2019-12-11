@@ -57,7 +57,7 @@
 
         </LinearLayout>
 
-        <vision.genesis.clientapp.feature.main.wallet.transaction_details.views.ProgramView
+        <vision.genesis.clientapp.feature.main.wallet.transaction_details.views.AssetView
             android:id="@+id/view_program"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -9,11 +9,7 @@ import com.arellomobile.mvp.MvpView;
 
 interface TransactionDetailsView extends MvpView
 {
-	//	void setDetails(TransactionViewModel transactionDetails);
-//
-//	void setEmailResent();
-//
-	void showProgress(boolean show);
+	void setEmailResent();
 
 	void showSnackbarMessage(String message);
 

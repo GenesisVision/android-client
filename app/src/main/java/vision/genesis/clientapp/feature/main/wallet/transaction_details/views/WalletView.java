@@ -18,9 +18,6 @@ import vision.genesis.clientapp.utils.ImageUtils;
  */
 public class WalletView extends RelativeLayout
 {
-	@BindView(R.id.label)
-	public TextView label;
-
 	@BindView(R.id.icon)
 	public SimpleDraweeView icon;
 
@@ -51,8 +48,7 @@ public class WalletView extends RelativeLayout
 		ButterKnife.bind(this);
 	}
 
-	public void setData(String label, String logo, String walletName) {
-		this.label.setText(label);
+	public void setData(String logo, String walletName) {
 		this.icon.setImageURI(ImageUtils.getImageUri(logo));
 		this.walletName.setText(walletName);
 //		this.walletAvailable.setText(String.format(Locale.getDefault(), "%s %s",

@@ -58,32 +58,20 @@
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
-            tools:visibility="visible">
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/type"
+                android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:alpha="0.3"
+                android:layout_margin="@dimen/padding"
                 android:textColor="?attr/colorTextPrimary"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 tools:text="Converting"/>
 
         </LinearLayout>
 
     </ScrollView>
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@+id/toolbar"
-        android:indeterminate="true"
-        android:scaleY="4"
-        android:visibility="visible"/>
 
 </RelativeLayout>

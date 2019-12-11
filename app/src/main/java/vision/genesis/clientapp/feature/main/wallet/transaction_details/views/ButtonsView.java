@@ -11,6 +11,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.TransactionDetailsActions;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.ui.PrimaryButton;
 
@@ -63,16 +64,18 @@ public class ButtonsView extends RelativeLayout
 	public void onResendEmailClicked() {
 		showProgress(true);
 
-		if (listener != null)
+		if (listener != null) {
 			listener.onResendEmailClicked();
+		}
 	}
 
 	@OnClick(R.id.cancel)
 	public void onCancelClicked() {
 		showProgress(true);
 
-		if (listener != null)
+		if (listener != null) {
 			listener.onCancelClicked();
+		}
 	}
 
 	private void initView() {
@@ -83,15 +86,18 @@ public class ButtonsView extends RelativeLayout
 		cancel.setEmpty();
 	}
 
+	public void setData(TransactionDetailsActions actions, ButtonsActionListener listener) {
+		cancel.setVisibility(actions.isCanCancel() ? View.VISIBLE : View.GONE);
+		emailGroup.setVisibility(actions.isCanResend() ? View.VISIBLE : View.GONE);
+
+		this.listener = listener;
+	}
+
 	public void onEmailResent() {
 		emailSentText.setVisibility(View.VISIBLE);
 		resendEmail.setVisibility(View.GONE);
 
 		showProgress(false);
-	}
-
-	public void setListener(ButtonsActionListener listener) {
-		this.listener = listener;
 	}
 
 	private void showProgress(boolean show) {

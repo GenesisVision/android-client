@@ -3,6 +3,8 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:background="?attr/selectableItemBackground">
 
     <TextView
@@ -20,9 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/label"
         android:layout_marginTop="12dp"
-        android:background="?attr/selectableItemBackground"
-        android:paddingEnd="20dp"
-        android:paddingStart="20dp">
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
 
         <vision.genesis.clientapp.ui.ProgramLogoView
             android:id="@+id/program_logo"
@@ -39,21 +40,21 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/program_name"
+                android:id="@+id/asset_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="16sp"
-                tools:text="Genesis Vision Token"/>
+                tools:text="Super program"/>
 
             <TextView
-                android:id="@+id/manager_name"
+                android:id="@+id/owner_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.4"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="12sp"
-                tools:text="436.3938 GVT"/>
+                tools:text="Warren Buffett"/>
 
         </LinearLayout>
 

@@ -109,7 +109,7 @@ public class MyWalletsPresenter extends MvpPresenter<MyWalletsView>
 		wallets.clear();
 		wallets.addAll(model.getWallets());
 
-		getViewState().setWallets(wallets);
+		getViewState().setWallets(wallets, baseCurrency.getValue());
 	}
 
 	private void handleGetWalletsError(Throwable error) {

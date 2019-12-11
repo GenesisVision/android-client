@@ -86,6 +86,9 @@ public class ProgramRequest implements Parcelable
 	@SerializedName("entry_fee")
 	private Double entryFee;
 
+	@SerializedName("is_owner")
+	private Boolean isOwner = false;
+
 	public ProgramRequest() {
 
 	}
@@ -130,6 +133,7 @@ public class ProgramRequest implements Parcelable
 		else {
 			entryFee = in.readDouble();
 		}
+		isOwner = in.readByte() != 0;
 	}
 
 	@Override
@@ -182,6 +186,7 @@ public class ProgramRequest implements Parcelable
 			dest.writeByte((byte) 1);
 			dest.writeDouble(entryFee);
 		}
+		dest.writeByte((byte) (isOwner ? 1 : 0));
 	}
 
 	public UUID getProgramId() {
@@ -334,5 +339,13 @@ public class ProgramRequest implements Parcelable
 
 	public void setEntryFee(Double entryFee) {
 		this.entryFee = entryFee;
+	}
+
+	public Boolean isOwner() {
+		return isOwner;
+	}
+
+	public void setIsOwner(Boolean isOwner) {
+		this.isOwner = isOwner;
 	}
 }

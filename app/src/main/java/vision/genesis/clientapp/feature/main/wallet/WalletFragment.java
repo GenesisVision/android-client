@@ -107,8 +107,6 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 
 	private TabLayout.Tab myWalletsTab;
 
-	private TabLayout.Tab copytradingAccountsTab;
-
 	private TabLayout.Tab transactionsTab;
 
 	private TabLayout.Tab depositsWithdrawalsTab;
@@ -153,8 +151,9 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 		super.onResume();
 
 		walletPresenter.onResume();
-		if (pagerAdapter != null)
+		if (pagerAdapter != null) {
 			pagerAdapter.sendUpdate();
+		}
 	}
 
 	@Override
@@ -164,17 +163,21 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 			unbinder = null;
 		}
 
-		if (pagerAdapter != null)
+		if (pagerAdapter != null) {
 			pagerAdapter.destroy();
+		}
 
-		if (tabSelectedListener != null && tabLayout != null)
+		if (tabSelectedListener != null && tabLayout != null) {
 			tabLayout.removeOnTabSelectedListener(tabSelectedListener);
+		}
 
-		if (tabLayoutOnPageChangeListener != null && viewPager != null)
+		if (tabLayoutOnPageChangeListener != null && viewPager != null) {
 			viewPager.removeOnPageChangeListener(tabLayoutOnPageChangeListener);
+		}
 
-		if (viewPager != null)
+		if (viewPager != null) {
 			viewPager.clearOnPageChangeListeners();
+		}
 
 
 		super.onDestroyView();
@@ -202,8 +205,9 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 				ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary));
 		refreshLayout.setOnRefreshListener(() -> {
 			walletPresenter.onSwipeRefresh();
-			if (pagerAdapter != null)
+			if (pagerAdapter != null) {
 				pagerAdapter.sendSwipeRefresh();
+			}
 		});
 	}
 
@@ -221,7 +225,6 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 
 	private void initTabs() {
 		myWalletsTab = tabLayout.newTab().setCustomView(getTabView(R.string.my_wallets)).setTag("my_wallets");
-		copytradingAccountsTab = tabLayout.newTab().setCustomView(getTabView(R.string.copytrading_accounts)).setTag("copytrading_accounts");
 		transactionsTab = tabLayout.newTab().setCustomView(getTabView(R.string.transactions)).setTag("transactions");
 		depositsWithdrawalsTab = tabLayout.newTab().setCustomView(getTabView(R.string.deposits_withdrawals)).setTag("deposits_withdrawals");
 
@@ -255,7 +258,6 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 		tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
 		addPage(myWalletsTab, true);
-		addPage(copytradingAccountsTab, false);
 		addPage(transactionsTab, false);
 		addPage(depositsWithdrawalsTab, false);
 	}
@@ -267,13 +269,15 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 	}
 
 	private void addPage(TabLayout.Tab tab, boolean selected) {
-		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION)
+		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION) {
 			return;
+		}
 
 		tabLayout.addTab(tab, selected);
 		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 10);
-		if (pagerAdapter != null)
+		if (pagerAdapter != null) {
 			pagerAdapter.notifyDataSetChanged();
+		}
 	}
 
 	private void initViewPager() {

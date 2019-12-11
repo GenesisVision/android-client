@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -16,13 +15,23 @@ import org.joda.time.DateTime;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.AmountItem;
+import io.swagger.client.model.MultiWalletTransactionStatus;
+import io.swagger.client.model.TransactionAssetDetails;
+import io.swagger.client.model.TransactionDetailItem;
+import io.swagger.client.model.TransactionDetailsActions;
 import io.swagger.client.model.TransactionViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.wallet.transaction_details.views.AssetView;
 import vision.genesis.clientapp.feature.main.wallet.transaction_details.views.ButtonsView;
+import vision.genesis.clientapp.feature.main.wallet.transaction_details.views.StatusView;
+import vision.genesis.clientapp.feature.main.wallet.transaction_details.views.ValueView;
+import vision.genesis.clientapp.feature.main.wallet.transaction_details.views.WalletView;
 import vision.genesis.clientapp.utils.DateTimeUtil;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -45,8 +54,8 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 	@BindView(R.id.title)
 	public TextView title;
 
-	@BindView(R.id.type)
-	public TextView type;
+	@BindView(R.id.description)
+	public TextView description;
 
 	@BindView(R.id.date)
 	public TextView date;
@@ -54,13 +63,8 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 	@BindView(R.id.content)
 	public LinearLayout content;
 
-	@BindView(R.id.progress_bar)
-	public ProgressBar progressBar;
-
 	@InjectPresenter
-	TransactionDetailsPresenter transactionDetailsPresenter;
-
-	private TransactionViewModel details;
+	TransactionDetailsPresenter presenter;
 
 	private ButtonsView buttonsView;
 
@@ -78,358 +82,97 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 
 		ButterKnife.bind(this);
 
-		if (getIntent().getExtras() != null) {
-			transactionDetailsPresenter.setTransaction(getIntent().getExtras().getParcelable(EXTRA_TRANSACTION));
-//			setTransactionType(Objects.requireNonNull(getIntent().getExtras().getString(EXTRA_TRANSACTION_TYPE)));
-//			setDate((DateTime) getIntent().getExtras().getSerializable(EXTRA_TRANSACTION_DATE));
+		setFonts();
 
-			setFonts();
+		if (getIntent().getExtras() != null) {
+			TransactionViewModel transaction = getIntent().getExtras().getParcelable(EXTRA_TRANSACTION);
+			if (transaction != null) {
+				presenter.setTransaction(transaction);
+				setDetails(transaction);
+
+				return;
+			}
 		}
-		else {
-			Timber.e("Passed empty params to %s", getClass().getSimpleName());
-			onBackPressed();
-		}
+		Timber.e("Passed empty params to %s", getClass().getSimpleName());
+		onBackPressed();
 	}
 
 	private void setDate(DateTime date) {
 		this.date.setText(DateTimeUtil.formatEventDateTime(date));
 	}
 
-	//	private void setTransactionType(String type) {
-//		if (type.equals(TransactionDetails.TypeEnum.SUBSCRIBESIGNAL.getValue()))
-//			this.type.setText(getString(R.string.signal_fee_payment));
-//		else if (type.equals(TransactionDetails.TypeEnum.PLATFORM.getValue()))
-//			this.type.setText(getString(R.string.platform_fee));
-//		else if (type.equals(TransactionDetails.TypeEnum.DEPOSITSIGNAL.getValue()))
-//			this.type.setText(getString(R.string.deposit_to_signal_account));
-//		else if (type.equals(TransactionDetails.TypeEnum.WITHDRAWALSIGNAL.getValue()))
-//			this.type.setText(getString(R.string.withdrawal_from_signal_account));
-//		else
-//			this.type.setText(type);
-//	}
-//
 	private void setFonts() {
 		title.setTypeface(TypefaceUtil.semibold());
 	}
-//
-//	@Override
-//	public void setDetails(TransactionViewModel details) {
-//		this.details = details;
-//		switch (details.getType()) {
-//			case INVESTING:
-//				if (details.getProgramDetails().getProgramType().equals(ProgramTransactionDetails.ProgramTypeEnum.PROGRAM))
-//					createProgramInvestingDetails();
-//				else if (details.getProgramDetails().getProgramType().equals(ProgramTransactionDetails.ProgramTypeEnum.FUND))
-//					createFundInvestingDetails();
-//				break;
-//			case WITHDRAWAL:
-//				if (details.getProgramDetails().getProgramType().equals(ProgramTransactionDetails.ProgramTypeEnum.PROGRAM))
-//					createProgramWithdrawalDetails();
-//				else if (details.getProgramDetails().getProgramType().equals(ProgramTransactionDetails.ProgramTypeEnum.FUND))
-//					createFundWithdrawalDetails();
-//				break;
-//			case EXTERNALWITHDRAWAL:
-//				createExternalWithdrawalDetails();
-//				break;
-//			case EXTERNALDEPOSIT:
-//				createExternalDepositDetails();
-//				break;
-//			case CONVERTING:
-//				createConvertingDetails();
-//				break;
-//			case CLOSE:
-//				createProgramCloseDetails();
-//				break;
-//			case PROFIT:
-//				createProgramProfitDetails();
-//				break;
-//			case SUBSCRIBESIGNAL:
-//				createSubscribeSignalProviderDetails();
-//				break;
-//			case DEPOSITSIGNAL:
-//				createDepositSignalDetails();
-//				break;
-//			case WITHDRAWALSIGNAL:
-//				createWithdrawalSignalDetails();
-//				break;
-//			case PLATFORM:
-//				createPlatformDetails();
-//				break;
-//			case PLATFORMFEE:
-//				createPlatformFeeDetails();
-//				break;
-//			case OPEN:
-//			case RECEIVESIGNAL:
-//			default:
-//				createUnsupportedTransactionType();
-//				break;
-//		}
-//		addEmptyView();
-//	}
-//
-//	@Override
-//	public void setEmailResent() {
-//		if (buttonsView != null)
-//			buttonsView.onEmailResent();
-//	}
-//
-//	private void createProgramInvestingDetails() {
-//		addWallet(getString(R.string.from), details.getCurrencyLogo(), details.getCurrencyName());
-//		addWrittenOffWallet();
-//		addProgramView(getString(R.string.to_the_program));
-//		addEntryFee();
-//		addGvCommission();
-//		addStatus();
-//		addInvestmentAmount();
-//	}
-//
-//	private void createFundInvestingDetails() {
-//		addWallet(getString(R.string.from), details.getCurrencyLogo(), details.getCurrencyName());
-//		addWrittenOffWallet();
-//		addProgramView(getString(R.string.to_the_fund));
-//		addEntryFee();
-//		addGvCommission();
-//		addStatus();
-//		addInvestmentAmount();
-//	}
-//
-//	private void createProgramWithdrawalDetails() {
-//		addProgramView(getString(R.string.from_the_program));
-//		addStatus();
-//		addWithdrawalAmount();
-//	}
-//
-//	private void createFundWithdrawalDetails() {
-//		addProgramView(getString(R.string.from_the_fund));
-//		addExitFee();
-//		addStatus();
-//		addWithdrawalAmount();
-//	}
-//
-//	private void createProgramCloseDetails() {
-//		addProgramView(getString(R.string.program));
-//		addAmount();
-//		addStatus();
-//	}
-//
-//	private void createProgramProfitDetails() {
-//		addProgramView(getString(R.string.program));
-//		addSuccessFee();
-//		addGvCommission();
-//		addStatus();
-//		addAmount();
-//	}
-//
-//	private void createSubscribeSignalProviderDetails() {
-//		addProgramView(getString(R.string.to_the_signal_provider));
-//		addSignalFees();
-//		addStatus();
-//		addAmount();
-//	}
-//
-//	private void createDepositSignalDetails() {
-//		addWallet(getString(R.string.to), details.getCurrencyLogo(), details.getCurrencyName());
-//		addStatus();
-//		addAmount();
-//	}
-//
-//	private void createWithdrawalSignalDetails() {
-//		addWallet(getString(R.string.from), details.getCurrencyLogo(), details.getCurrencyName());
-//		addStatus();
-//		addAmount();
-//	}
-//
-//	private void createPlatformDetails() {
-//		addWallet(getString(R.string.from), details.getCurrencyLogo(), details.getCurrencyName());
-//		addStatus();
-//		addAmount();
-//	}
-//
-//	private void createPlatformFeeDetails() {
-//		addWallet(getString(R.string.from), details.getCurrencyLogo(), details.getCurrencyName());
-//		addStatus();
-//		addAmount();
-//	}
-//
-//	private void createConvertingDetails() {
-//		addWallet(getString(R.string.from), details.getCurrencyLogo(), details.getCurrencyName());
-//		addWrittenOffWallet();
-//		addWallet(getString(R.string.to), details.getConvertingDetails().getCurrencyToLogo(), details.getConvertingDetails().getCurrencyToName());
-//		addCreditedToWallet();
-//		addRate();
-//		addStatus();
-//	}
-//
-//	private void createExternalWithdrawalDetails() {
-//		addWallet(getString(R.string.from), details.getCurrencyLogo(), details.getCurrencyName());
-//		addAmount();
-//		addExternalAddress(getString(R.string.to_external_address), details.getExternalTransactionDetails().getFromAddress());
-//		addStatus();
-//		if (details.getExternalTransactionDetails().isIsEnableActions())
-//			addButtons();
-//	}
-//
-//	private void createExternalDepositDetails() {
-//		addExternalAddress(getString(R.string.from_external_address), details.getExternalTransactionDetails().getFromAddress());
-//		addAmount();
-//		addWallet(getString(R.string.to), details.getCurrencyLogo(), details.getCurrencyName());
-//		addStatus();
-//	}
-//
-//	private void createUnsupportedTransactionType() {
-//		LabelView view = new LabelView(this);
-//		view.setData(getString(R.string.text_unsupported_transaction_type));
-//		addView(view);
-//	}
-//
-//	private void addWallet(String label, String logo, String name) {
-//		WalletView view = new WalletView(this);
-//		view.setData(label, logo, name);
-//		addView(view);
-//	}
-//
-//	private void addExternalAddress(String label, String address) {
-//		ExternalAddressView view = new ExternalAddressView(this);
-//		view.setData(label, address);
-//		addView(view);
-//	}
-//
-//	private void addProgramView(String label) {
-//		ProgramView view = new ProgramView(this);
-//		view.setData(label,
-//				details.getAsset().getLogo(),
-//				details.getAsset().getColor(),
-//				details.getAsset().getProgramDetails().getLevel(),
-//				details.getAsset().getProgramDetails().getLevelProgress(),
-//				details.getAsset().getTitle(),
-//				details.getAsset().getManagerName());
-//		addView(view);
-//	}
-//
-//	private void addEntryFee() {
-//		ValueView view = new ValueView(this);
-//		String value = String.format(Locale.getDefault(), "%s%% (%s)",
-//				StringFormatUtil.formatAmount(details.getProgramDetails().getEntryFeePercent(), 0, 2),
-//				StringFormatUtil.getValueString(details.getProgramDetails().getEntryFee(),
-//						details.getCurrency() != null ? details.getCurrency().getValue() : ""));
-//		view.setData(getString(R.string.entry_fee), value);
-//		addView(view);
-//	}
-//
-//	private void addExitFee() {
-//		ValueView view = new ValueView(this);
-//		String value = String.format(Locale.getDefault(), "%s%% (%s)",
-//				StringFormatUtil.formatAmount(details.getProgramDetails().getExitFeePercent(), 0, 2),
-//				StringFormatUtil.getValueString(details.getProgramDetails().getExitFee(),
-//						details.getCurrency() != null ? details.getCurrency().getValue() : ""));
-//		view.setData(getString(R.string.exit_fee), value);
-//		addView(view);
-//	}
-//
-//	private void addSuccessFee() {
-//		ValueView view = new ValueView(this);
-//		String value = String.format(Locale.getDefault(), "%s%% (%s)",
-//				StringFormatUtil.formatAmount(details.getProgramDetails().getSuccessFeePercent(), 0, 2),
-//				StringFormatUtil.getValueString(details.getProgramDetails().getSuccessFee(),
-//						details.getProgramDetails().getSuccessFeeCurrency() != null ? details.getProgramDetails().getSuccessFeeCurrency().getValue() : ""));
-//		view.setData(StringFormatUtil.capitalize(getString(R.string.success_fee)), value);
-//		addView(view);
-//	}
-//
-//	private void addGvCommission() {
-//		ValueView view = new ValueView(this);
-//		String value = String.format(Locale.getDefault(), "%s%% (%s)",
-//				StringFormatUtil.formatAmount(details.getGvCommissionPercent(), 0, 2),
-//				StringFormatUtil.getValueString(details.getGvCommission(), details.getGvCommissionCurrency() != null ? details.getGvCommissionCurrency().getValue() : ""));
-//		view.setData(getString(R.string.gv_commission), value);
-//		addView(view);
-//	}
-//
-//	private void addSignalFees() {
-//		for (SignalFee fee : details.getSignalFees()) {
-//			addSignalFee(fee);
-//		}
-//	}
-//
-//	private void addSignalFee(SignalFee fee) {
-//		int titleResId = 0;
-//		String value = String.format(Locale.getDefault(), "%s%s",
-//				StringFormatUtil.formatCurrencyAmount(fee.getValue(),
-//						fee.getCurrency() != null ? fee.getCurrency().getValue() : ""),
-//				fee.getCurrency().getValue());
-//		if (fee.getType().equals(SignalFee.TypeEnum.MANAGERSIGNALMASTERVOLUMEFEE)) {
-//			titleResId = R.string.manager_volume_fee;
-//		}
-//		else if (fee.getType().equals(SignalFee.TypeEnum.MANAGERSIGNALMASTERSUCCESSFEE)) {
-//			titleResId = R.string.manager_success_fee;
-//		}
-//		else if (fee.getType().equals(SignalFee.TypeEnum.GVSIGNALSUCCESSFEE)) {
-//			titleResId = R.string.platform_success_fee;
-//		}
-//		ValueView view = new ValueView(this);
-//		view.setData(getString(titleResId), value);
-//		addView(view);
-//	}
-//
-//	private void addInvestmentAmount() {
-//		ValueView view = new ValueView(this);
-//		Double amount = Math.abs(details.getAmount() - details.getAmount() *
-//				(details.getProgramDetails().getEntryFeePercent() + details.getGvCommissionPercent()) / 100);
-//		String value = StringFormatUtil.getValueString(amount, details.getCurrency().getValue());
-//		view.setData(getString(R.string.investment_amount), value);
-//		view.setValueParams(true, 20);
-//		addView(view);
-//	}
-//
-//	private void addWithdrawalAmount() {
-//		ValueView view = new ValueView(this);
-//		String value = StringFormatUtil.getValueString(details.getAmount(), details.getCurrency().getValue());
-//		view.setData(getString(R.string.withdrawal_amount), value);
-//		view.setValueParams(true, 20);
-//		addView(view);
-//	}
-//
-//	private void addAmount() {
-//		ValueView view = new ValueView(this);
-//		String value = StringFormatUtil.getValueString(details.getAmount(), details.getCurrency().getValue());
-//		view.setData(getString(R.string.amount), value);
-//		view.setValueParams(true, 20);
-//		addView(view);
-//	}
-//
-//	private void addWrittenOffWallet() {
-//		ValueView view = new ValueView(this);
-//		String value = StringFormatUtil.getValueString(details.getAmount(), details.getCurrency().getValue());
-//		view.setData(getString(R.string.written_off_wallet), value);
-//		addView(view);
-//	}
-//
-//	private void addCreditedToWallet() {
-//		ValueView view = new ValueView(this);
-//		String value = StringFormatUtil.getValueString(details.getConvertingDetails().getAmountTo(),
-//				details.getConvertingDetails().getCurrencyTo().getValue());
-//		view.setData(getString(R.string.credited_to_wallet), value);
-//		addView(view);
-//	}
-//
-//	private void addRate() {
-//		RateView view = new RateView(this);
-//		view.setData(details);
-//		addView(view);
-//	}
-//
-//	private void addStatus() {
-//		StatusView view = new StatusView(this);
-//		boolean needEmailConfirmation = false;
-//		if (details.getExternalTransactionDetails() != null)
-//			needEmailConfirmation = details.getExternalTransactionDetails().isIsEnableActions();
-//		view.setData(details.getStatus(), needEmailConfirmation);
-//		addView(view);
-//	}
 
-	private void addButtons() {
+	public void setDetails(TransactionViewModel details) {
+		setDate(details.getDate());
+		setDescription(details.getDescription());
+
+		if (details.getAsset() != null) {
+			addAssetView(details.getAsset());
+		}
+
+		AmountItem first = details.getAmount().getFirst();
+		AmountItem second = details.getAmount().getSecond();
+
+		if (first != null) {
+			addWallet(first.getLogo(), first.getCurrency().getValue());
+			addValue(details.getAmount().getTitle(), StringFormatUtil.getValueString(first.getAmount(), first.getCurrency().getValue()));
+		}
+		if (second != null) {
+			addWallet(second.getLogo(), second.getCurrency().getValue());
+			addValue(details.getAmount().getTitle(), StringFormatUtil.getValueString(second.getAmount(), second.getCurrency().getValue()));
+		}
+
+		if (details.getDetails() != null && !details.getDetails().isEmpty()) {
+			for (TransactionDetailItem detail : details.getDetails()) {
+				addValue(detail.getTitle(), detail.getDetails());
+			}
+		}
+
+		if (details.getStatus() != null) {
+			addStatus(details.getStatus());
+		}
+
+		if (details.getActions() != null) {
+			addButtons(details.getActions());
+		}
+
+		addEmptyView();
+	}
+
+	private void setDescription(String description) {
+		this.description.setText(description);
+	}
+
+	private void addAssetView(TransactionAssetDetails asset) {
+		AssetView view = new AssetView(this);
+		view.setData(asset);
+		addView(view);
+	}
+
+	private void addWallet(String logo, String name) {
+		WalletView view = new WalletView(this);
+		view.setData(logo, name);
+		addView(view);
+	}
+
+	private void addValue(String title, String value) {
+		ValueView view = new ValueView(this);
+		view.setData(title, value);
+		addView(view);
+	}
+
+	private void addStatus(MultiWalletTransactionStatus status) {
+		StatusView view = new StatusView(this);
+		view.setData(status);
+		addView(view);
+	}
+
+	private void addButtons(TransactionDetailsActions actions) {
 		buttonsView = new ButtonsView(this);
-		buttonsView.setListener(transactionDetailsPresenter);
+		buttonsView.setData(actions, presenter);
 		addView(buttonsView);
 	}
 
@@ -451,10 +194,9 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 	}
 
 	@Override
-	public void showProgress(boolean show) {
-		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-		if (!show) {
-			content.setVisibility(View.VISIBLE);
+	public void setEmailResent() {
+		if (buttonsView != null) {
+			buttonsView.onEmailResent();
 		}
 	}
 

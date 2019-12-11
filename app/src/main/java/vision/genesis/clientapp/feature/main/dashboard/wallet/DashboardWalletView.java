@@ -188,7 +188,7 @@ public class DashboardWalletView extends RelativeLayout
 		walletsGroup.removeAllViews();
 		for (WalletData wallet : wallets) {
 			WalletDashboardShortView walletView = new WalletDashboardShortView(getContext());
-			walletView.setData(wallet);
+			walletView.setData(wallet, baseCurrency.getValue());
 			walletsGroup.addView(walletView);
 		}
 	}

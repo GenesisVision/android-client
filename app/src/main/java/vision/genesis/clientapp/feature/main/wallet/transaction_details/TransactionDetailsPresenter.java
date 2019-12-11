@@ -5,8 +5,6 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.UUID;
-
 import javax.inject.Inject;
 
 import io.swagger.client.model.TransactionViewModel;
@@ -30,10 +28,6 @@ public class TransactionDetailsPresenter extends MvpPresenter<TransactionDetails
 	@Inject
 	public WalletManager walletManager;
 
-	private UUID transactionId;
-
-	private Subscription detailsSubscription;
-
 	private Subscription cancelSubscription;
 
 	private Subscription resendEmailSubscription;
@@ -45,14 +39,10 @@ public class TransactionDetailsPresenter extends MvpPresenter<TransactionDetails
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
-
 	}
 
 	@Override
 	public void onDestroy() {
-		if (detailsSubscription != null) {
-			detailsSubscription.unsubscribe();
-		}
 		if (cancelSubscription != null) {
 			cancelSubscription.unsubscribe();
 		}
@@ -68,11 +58,11 @@ public class TransactionDetailsPresenter extends MvpPresenter<TransactionDetails
 	}
 
 	private void cancelWithdrawRequest() {
-		if (walletManager != null && transactionId != null) {
+		if (walletManager != null && transaction != null) {
 			if (cancelSubscription != null) {
 				cancelSubscription.unsubscribe();
 			}
-			cancelSubscription = walletManager.cancelWithdrawRequest(transactionId)
+			cancelSubscription = walletManager.cancelWithdrawRequest(transaction.getId())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleCancelSuccess,
@@ -82,7 +72,7 @@ public class TransactionDetailsPresenter extends MvpPresenter<TransactionDetails
 
 	private void handleCancelSuccess(Void response) {
 		cancelSubscription.unsubscribe();
-		EventBus.getDefault().post(new OnTransactionCanceledEvent(transactionId));
+		EventBus.getDefault().post(new OnTransactionCanceledEvent(transaction.getId()));
 		getViewState().finishActivity();
 	}
 
@@ -92,11 +82,11 @@ public class TransactionDetailsPresenter extends MvpPresenter<TransactionDetails
 	}
 
 	private void resendEmail() {
-		if (walletManager != null && transactionId != null) {
+		if (walletManager != null && transaction != null) {
 			if (resendEmailSubscription != null) {
 				resendEmailSubscription.unsubscribe();
 			}
-			resendEmailSubscription = walletManager.resendConfirmationEmail(transactionId)
+			resendEmailSubscription = walletManager.resendConfirmationEmail(transaction.getId())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleResendEmailSuccess,
@@ -107,7 +97,7 @@ public class TransactionDetailsPresenter extends MvpPresenter<TransactionDetails
 	private void handleResendEmailSuccess(Void response) {
 		resendEmailSubscription.unsubscribe();
 
-//		getViewState().setEmailResent();
+		getViewState().setEmailResent();
 	}
 
 	private void handleResendEmailError(Throwable throwable) {

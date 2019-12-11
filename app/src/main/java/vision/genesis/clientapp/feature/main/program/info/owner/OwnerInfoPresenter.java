@@ -195,6 +195,7 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 		request.setLevelProgress(programDetails.getLevelProgress());
 		request.setProgramName(programDetails.getTitle());
 		request.setManagerName(programDetails.getOwner().getUsername());
+		request.setIsOwner(programDetails.getPersonalDetails().isIsOwnAsset());
 
 		getViewState().showWithdrawProgramActivity(request);
 	}

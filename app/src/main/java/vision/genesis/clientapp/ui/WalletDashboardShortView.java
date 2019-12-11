@@ -86,13 +86,13 @@ public class WalletDashboardShortView extends RelativeLayout
 		value.setTypeface(TypefaceUtil.semibold());
 	}
 
-	public void setData(WalletData wallet) {
+	public void setData(WalletData wallet, String baseCurrency) {
 		this.wallet = wallet;
 		icon.setImageURI(ImageUtils.getImageUri(wallet.getLogo()));
 		currency.setText(wallet.getTitle());
-		value.setText(String.format(Locale.getDefault(), "%s",
+		this.value.setText(String.format(Locale.getDefault(), "%s",
 				StringFormatUtil.getValueString(wallet.getAvailable(), wallet.getCurrency().getValue())));
-//		valueCcy.setText(String.format(Locale.getDefault(), "%s",
-//				StringFormatUtil.getValueString(wallet.getAvailableCcy(), wallet.getCurrencyCcy().getValue())));
+		valueCcy.setText(String.format(Locale.getDefault(), "%s",
+				StringFormatUtil.getValueString(wallet.getAvailableCcy(), baseCurrency)));
 	}
 }
