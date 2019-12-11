@@ -28,8 +28,6 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.UUID;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -130,6 +128,8 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 
 	private TabLayout.Tab infoTab;
 
+	private TabLayout.Tab ownerInfoTab;
+
 	private TabLayout.Tab structureTab;
 
 	private TabLayout.Tab reallocateHistoryTab;
@@ -185,26 +185,27 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 
 		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
 			model = getIntent().getExtras().getParcelable(EXTRA_MODEL);
+			if (model != null) {
+				initRefreshLayout();
+				initTabs();
+				updateHeader();
 
-			initRefreshLayout();
-			initTabs();
-			initViewPager(model.getFundId());
-			updateHeader();
+				fundDetailsPresenter.setData(model);
 
-			fundDetailsPresenter.setFundId(model.getFundId());
-
-			setAnimations();
+				setAnimations();
+				return;
+			}
 		}
-		else {
-			Timber.e("Passed empty model to FundDetailsActivity");
-			onBackPressed();
-		}
+		Timber.e("Passed empty data to %s", getClass().getSimpleName());
+		onBackPressed();
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		fundDetailsPresenter.onResume();
+		if (fundDetailsPresenter != null) {
+			fundDetailsPresenter.onResume();
+		}
 	}
 
 	@Override
@@ -216,7 +217,6 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 	}
 
 	private void initRefreshLayout() {
-//		refreshLayout.setBackgroundColor(ThemeUtil.getColorByAttrId(this, R.attr.colorAccent));
 		refreshLayout.setColorSchemeColors(
 				ThemeUtil.getColorByAttrId(this, R.attr.colorAccent),
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary),
@@ -245,7 +245,9 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 
 			updateRefreshLayoutEnabled();
 
-			pagerAdapter.onOffsetChanged(appBarLayout.getHeight() + verticalOffset - tabLayout.getHeight() - toolbar.getHeight());
+			if (pagerAdapter != null) {
+				pagerAdapter.onOffsetChanged(appBarLayout.getHeight() + verticalOffset - tabLayout.getHeight() - toolbar.getHeight());
+			}
 		});
 	}
 
@@ -304,6 +306,7 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 
 	private void initTabs() {
 		infoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("info");
+		ownerInfoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("owner_info");
 		structureTab = tabLayout.newTab().setCustomView(getTabView(R.string.structure)).setTag("structure");
 		reallocateHistoryTab = tabLayout.newTab().setCustomView(getTabView(R.string.reallocate_history)).setTag("reallocate_history");
 		profitTab = tabLayout.newTab().setCustomView(getTabView(R.string.profit)).setTag("profit");
@@ -339,11 +342,8 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 
 		tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
-		addPage(infoTab, true);
-		addPage(structureTab, false);
-		addPage(reallocateHistoryTab, false);
-		addPage(profitTab, false);
-		addPage(balanceTab, false);
+//		addPage(infoTab, true);
+//
 	}
 
 	private View getTabView(int textResId) {
@@ -364,8 +364,8 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 		}
 	}
 
-	private void initViewPager(UUID fundId) {
-		pagerAdapter = new FundDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, fundId);
+	private void initViewPager(FundDetailsFull fundDetails) {
+		pagerAdapter = new FundDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, fundDetails);
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOffscreenPageLimit(5);
 
@@ -380,15 +380,43 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 	}
 
 	@Override
-	public void setFund(FundDetailsFull fundDetails) {
+	public void showGuest(FundDetailsFull fundDetails) {
 		this.fundDetails = fundDetails;
+
+		addPage(infoTab, true);
+
+		finishInit();
+	}
+
+	@Override
+	public void showOwner(FundDetailsFull fundDetails) {
+		this.fundDetails = fundDetails;
+
+		addPage(ownerInfoTab, true);
+
+		finishInit();
+	}
+
+	private void finishInit() {
+		addPage(structureTab, false);
+		addPage(reallocateHistoryTab, false);
+		addPage(profitTab, false);
+		addPage(balanceTab, false);
 
 		if (fundDetails.getPersonalDetails() != null && fundDetails.getPersonalDetails().isIsInvested()) {
 			addPage(eventsTab, false);
 		}
+
+		if (pagerAdapter == null) {
+			initViewPager(fundDetails);
+		}
+		else {
+			pagerAdapter.updateOwnerInfo(fundDetails);
+		}
 		pagerAdapter.setAssets(fundDetails.getAssetsStructure());
 
 		model.update(fundDetails);
+
 		updateHeader();
 
 		tabsGroup.setVisibility(View.VISIBLE);

@@ -38,7 +38,7 @@ public class DashboardFundsAdapter extends RecyclerView.Adapter<DashboardFundsAd
 	@Override
 	public void onBindViewHolder(FundViewHolder holder, int position) {
 //		if (funds.get(position) != null)
-//			holder.setFund(funds.get(position));
+//			holder.showGuest(funds.get(position));
 	}
 
 	@Override
@@ -199,7 +199,7 @@ public class DashboardFundsAdapter extends RecyclerView.Adapter<DashboardFundsAd
 			assetsLeft.setTypeface(TypefaceUtil.semibold());
 		}
 
-//		void setFund(FundDetails fund) {
+//		void showGuest(FundDetails fund) {
 //			this.fund = fund;
 //			updateData();
 //		}

@@ -17,7 +17,7 @@ import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 17/04/2018.
+ * Created by Vitaly on 27/11/2019.
  */
 
 interface OwnerInfoView extends MvpView

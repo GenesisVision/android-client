@@ -10,8 +10,10 @@ import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.model.FundAssetInfo;
+import io.swagger.client.model.FundDetailsFull;
 import vision.genesis.clientapp.feature.main.fund.balance.FundBalanceFragment;
 import vision.genesis.clientapp.feature.main.fund.info.FundInfoFragment;
+import vision.genesis.clientapp.feature.main.fund.info.owner.FundOwnerInfoFragment;
 import vision.genesis.clientapp.feature.main.fund.profit.FundProfitFragment;
 import vision.genesis.clientapp.feature.main.fund.reallocate_history.ReallocateHistoryFragment;
 import vision.genesis.clientapp.feature.main.fund.structure.FundStructureFragment;
@@ -33,6 +35,8 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private FundInfoFragment fundInfoFragment;
 
+	private FundOwnerInfoFragment fundOwnerInfoFragment;
+
 	private FundStructureFragment fundStructureFragment;
 
 	private ReallocateHistoryFragment reallocateHistoryFragment;
@@ -45,10 +49,18 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private TabLayout tabLayout;
 
-	FundDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, UUID fundId) {
+	FundDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, FundDetailsFull fundDetails) {
 		super(fm);
 		this.tabLayout = tabLayout;
-		fundInfoFragment = FundInfoFragment.with(fundId);
+
+		UUID fundId = fundDetails.getId();
+
+		if (fundDetails.getPersonalDetails() != null && fundDetails.getPersonalDetails().isIsOwnAsset()) {
+			fundOwnerInfoFragment = FundOwnerInfoFragment.with(fundDetails);
+		}
+		else {
+			fundInfoFragment = FundInfoFragment.with(fundId);
+		}
 		fundStructureFragment = FundStructureFragment.with();
 		reallocateHistoryFragment = ReallocateHistoryFragment.with(fundId);
 		fundProfitFragment = FundProfitFragment.with(fundId);
@@ -61,6 +73,8 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 		switch (tabLayout.getTabAt(position).getTag().toString()) {
 			case "info":
 				return fundInfoFragment;
+			case "owner_info":
+				return fundOwnerInfoFragment;
 			case "structure":
 				return fundStructureFragment;
 			case "reallocate_history":
@@ -85,26 +99,56 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	public void setAssets(List<FundAssetInfo> assets) {
-		fundStructureFragment.setAssets(assets);
+		if (fundStructureFragment != null) {
+			fundStructureFragment.setAssets(assets);
+		}
 	}
 
 	public void sendUpdate() {
-		fundInfoFragment.pagerShow();
-		reallocateHistoryFragment.pagerShow();
-		fundProfitFragment.pagerShow();
-		fundBalanceFragment.pagerShow();
-		fundEventsFragment.pagerShow();
+		if (fundInfoFragment != null) {
+			fundInfoFragment.pagerShow();
+		}
+		if (reallocateHistoryFragment != null) {
+			reallocateHistoryFragment.pagerShow();
+		}
+		if (fundProfitFragment != null) {
+			fundProfitFragment.pagerShow();
+		}
+		if (fundBalanceFragment != null) {
+			fundBalanceFragment.pagerShow();
+		}
+		if (fundEventsFragment != null) {
+			fundEventsFragment.pagerShow();
+		}
 	}
 
 	public void sendSwipeRefresh() {
-		reallocateHistoryFragment.onSwipeRefresh();
-		fundEventsFragment.onSwipeRefresh();
+		if (reallocateHistoryFragment != null) {
+			reallocateHistoryFragment.onSwipeRefresh();
+		}
+		if (fundEventsFragment != null) {
+			fundEventsFragment.onSwipeRefresh();
+		}
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
-		reallocateHistoryFragment.onOffsetChanged(verticalOffset);
-		fundProfitFragment.onOffsetChanged(verticalOffset);
-		fundBalanceFragment.onOffsetChanged(verticalOffset);
-		fundEventsFragment.onOffsetChanged(verticalOffset);
+		if (reallocateHistoryFragment != null) {
+			reallocateHistoryFragment.onOffsetChanged(verticalOffset);
+		}
+		if (fundProfitFragment != null) {
+			fundProfitFragment.onOffsetChanged(verticalOffset);
+		}
+		if (fundBalanceFragment != null) {
+			fundBalanceFragment.onOffsetChanged(verticalOffset);
+		}
+		if (fundEventsFragment != null) {
+			fundEventsFragment.onOffsetChanged(verticalOffset);
+		}
+	}
+
+	void updateOwnerInfo(FundDetailsFull fundDetails) {
+		if (fundOwnerInfoFragment != null) {
+			fundOwnerInfoFragment.updateInfo(fundDetails);
+		}
 	}
 }

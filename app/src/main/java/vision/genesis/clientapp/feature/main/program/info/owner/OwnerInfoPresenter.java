@@ -28,7 +28,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 17/04/2018.
+ * Created by Vitaly on 27/11/2019.
  */
 
 @InjectViewState

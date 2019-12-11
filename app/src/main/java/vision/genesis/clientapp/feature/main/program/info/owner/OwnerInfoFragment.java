@@ -63,7 +63,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 27/11/2018.
+ * Created by Vitaly on 27/11/2019.
  */
 
 public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
@@ -320,7 +320,7 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_owner_info, container, false);
+		return inflater.inflate(R.layout.fragment_program_owner_info, container, false);
 	}
 
 	@Override

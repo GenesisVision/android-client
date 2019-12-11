@@ -191,7 +191,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		}
 	}
 
-	public void updateOwnerInfo(ProgramDetailsFull programDetails, FollowDetailsFull followDetails) {
+	void updateOwnerInfo(ProgramDetailsFull programDetails, FollowDetailsFull followDetails) {
 		if (ownerInfoFragment != null) {
 			ownerInfoFragment.updateInfo(programDetails, followDetails);
 		}

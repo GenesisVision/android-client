@@ -112,9 +112,6 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@BindView(R.id.group_tags)
 	public LinearLayout tagsGroup;
 
-//	@BindView(R.id.program_currency)
-//	public CurrencyView programCurrency;
-
 	@BindView(R.id.app_bar_layout)
 	public AppBarLayout appBarLayout;
 
@@ -228,19 +225,19 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
 			model = getIntent().getExtras().getParcelable(EXTRA_MODEL);
+			if (model != null) {
+				initRefreshLayout();
+				initTabs();
+				updateHeader();
 
-			initRefreshLayout();
-			initTabs();
-			updateHeader();
+				programDetailsPresenter.setData(model);
 
-			programDetailsPresenter.setData(model);
-
-			setAnimations();
+				setAnimations();
+				return;
+			}
 		}
-		else {
-			Timber.e("Passed empty program to ProgramDetailsActivity");
-			onBackPressed();
-		}
+		Timber.e("Passed empty data to %s", getClass().getSimpleName());
+		onBackPressed();
 	}
 
 	@Override
@@ -501,7 +498,6 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		this.programDetails = programDetails;
 		this.followDetails = followDetails;
 
-//		if (pagerAdapter == null) {
 		addPage(ownerInfoTab, true);
 		addPage(profitTab, false);
 		addPage(equityTab, false);
@@ -510,7 +506,6 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		if (programDetails != null) {
 			addPage(periodHistoryTab, false);
 		}
-//		}
 
 		finishInit();
 	}

@@ -21,6 +21,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 import vision.genesis.clientapp.model.events.OnFundFavoriteChangedEvent;
@@ -52,11 +53,11 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 
 	private Subscription setFundFavoriteSubscription;
 
-	private UUID fundId;
-
 	private FundDetailsFull fundDetails;
 
 	private boolean isActive = false;
+
+	private FundDetailsModel model;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -87,8 +88,8 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 		super.onDestroy();
 	}
 
-	void setFundId(UUID fundId) {
-		this.fundId = fundId;
+	void setData(FundDetailsModel model) {
+		this.model = model;
 	}
 
 	void onFavoriteButtonClicked(boolean isFavorite) {
@@ -115,8 +116,8 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 	}
 
 	private void getFundDetails() {
-		if (fundId != null && fundsManager != null) {
-			fundDetailsSubscription = fundsManager.getFundDetails(fundId, CurrencyEnum.GVT)
+		if (model != null && fundsManager != null) {
+			fundDetailsSubscription = fundsManager.getFundDetails(model.getFundId(), CurrencyEnum.GVT)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleFundDetailsSuccess,
@@ -132,7 +133,12 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 		getViewState().setRefreshing(false);
 
 		this.fundDetails = fundDetails;
-		getViewState().setFund(fundDetails);
+		if (fundDetails.getPersonalDetails() != null && fundDetails.getPersonalDetails().isIsOwnAsset()) {
+			getViewState().showOwner(fundDetails);
+		}
+		else {
+			getViewState().showGuest(fundDetails);
+		}
 	}
 
 	private void handleFundDetailsError(Throwable throwable) {
@@ -152,11 +158,13 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 	}
 
 	private void setFundFavorite(boolean isFavorite) {
-		setFundFavoriteSubscription = fundsManager.setFundFavorite(fundId, isFavorite)
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
-				.subscribe(response -> handleSetFundFavoriteSuccess(response, fundId, isFavorite),
-						this::handleSetFundFavoriteError);
+		if (fundDetails != null && fundsManager != null) {
+			setFundFavoriteSubscription = fundsManager.setFundFavorite(fundDetails.getId(), isFavorite)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(response -> handleSetFundFavoriteSuccess(response, fundDetails.getId(), isFavorite),
+							this::handleSetFundFavoriteError);
+		}
 	}
 
 	private void handleSetFundFavoriteSuccess(Void response, UUID fundId, boolean isFavorite) {
@@ -168,9 +176,6 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 	private void handleSetFundFavoriteError(Throwable throwable) {
 		setFundFavoriteSubscription.unsubscribe();
 
-		if (fundDetails == null) {
-			getViewState().setFund(fundDetails);
-		}
 		getViewState().showToast(context.getString(R.string.error_occurred_performing_operation));
 	}
 
@@ -211,6 +216,7 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 	public void onEventMainThread(SetFundDetailsReallocatesCountEvent event) {
 		getViewState().setReallocatesCount(event.getCount());
 	}
+
 	@Subscribe
 	public void onEventMainThread(SetFundDetailsEventsCountEvent event) {
 		getViewState().setEventsCount(event.getEventsCount());

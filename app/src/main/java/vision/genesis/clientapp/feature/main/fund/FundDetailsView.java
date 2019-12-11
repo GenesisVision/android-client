@@ -16,7 +16,10 @@ import io.swagger.client.model.InvestmentEventViewModel;
 interface FundDetailsView extends MvpView
 {
 	@StateStrategyType(AddToEndSingleStrategy.class)
-	void setFund(FundDetailsFull fundDetails);
+	void showGuest(FundDetailsFull fundDetails);
+
+	@StateStrategyType(AddToEndSingleStrategy.class)
+	void showOwner(FundDetailsFull fundDetails);
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void finishActivity();

@@ -54,6 +54,7 @@ import vision.genesis.clientapp.feature.main.fund.create.assets.CreateFundAssets
 import vision.genesis.clientapp.feature.main.fund.create.deposit.CreateFundDepositPresenter;
 import vision.genesis.clientapp.feature.main.fund.create.fees.CreateFundFeesPresenter;
 import vision.genesis.clientapp.feature.main.fund.info.FundInfoPresenter;
+import vision.genesis.clientapp.feature.main.fund.info.owner.FundOwnerInfoPresenter;
 import vision.genesis.clientapp.feature.main.fund.invest.InvestFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.invest.confirm.ConfirmFundInvestBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.fund.profit.FundProfitPresenter;
@@ -380,4 +381,6 @@ public interface AppComponent
 	void inject(ManageProgramPresenter manageProgramPresenter);
 
 	void inject(ChangeProgramSettingsPresenter changeProgramSettingsPresenter);
+
+	void inject(FundOwnerInfoPresenter fundOwnerInfoPresenter);
 }
